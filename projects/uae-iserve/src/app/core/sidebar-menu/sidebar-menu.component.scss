@@ -1,0 +1,68 @@
+.menu {
+  position: relative;
+  display: block;
+  height: 100%;
+  margin-top: 60px;
+  transition: width 1s cubic-bezier(0.68, -0.14, 0.07, 0.94);
+}
+
+.margin-transition {
+  transition: margin 1s cubic-bezier(0.68, -0.14, 0.07, 0.94);
+}
+
+.menu-wrapper {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    flex: 1 65%;
+
+    .menuItem {
+      padding: 8px;
+      cursor: pointer;
+
+      span {
+        .menu-item-icon {
+          margin: 5px;
+        }
+
+        .menu-item-name {
+          margin: 5px;
+        }
+      }
+    }
+  }
+
+  app-user-mini-component {
+    flex: 2 35%;
+    cursor: pointer;
+  }
+}
+
+.closed-menu-wrapper {
+  width: 75px;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    font-size: 1.5rem;
+    .menuItem {
+      padding: 15px;
+
+      span {
+        .menu-item-icon {
+          margin: 5px;
+        }
+
+        .menu-item-name {
+          margin: 5px;
+        }
+      }
+    }
+  }
+}

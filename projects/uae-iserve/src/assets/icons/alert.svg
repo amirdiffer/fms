@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="21.094" viewBox="0 0 24 21.094">
+  <g id="siren" transform="translate(0 -31)">
+    <circle id="Ellipse_286" data-name="Ellipse 286" cx="0.703" cy="0.703" r="0.703" transform="translate(11.297 39.437)" fill="#fff"/>
+    <path id="Path_74142" data-name="Path 74142" d="M121,125.922a6.328,6.328,0,0,0,12.656,0V121h-5.625v2.942a2.109,2.109,0,1,1-1.406,0V121H121Z" transform="translate(-115.328 -85.781)" fill="#fff"/>
+    <path id="Path_74143" data-name="Path 74143" d="M241,391h1.406v4.219H241Z" transform="translate(-229.703 -343.125)" fill="#fff"/>
+    <path id="Path_74144" data-name="Path 74144" d="M0,0H4.219V1.406H0Z" transform="matrix(0.866, -0.5, 0.5, 0.866, 1.298, 45.507)" fill="#fff"/>
+    <path id="Path_74145" data-name="Path 74145" d="M0,0H4.219V1.406H0Z" transform="matrix(0.5, -0.866, 0.866, 0.5, 5.414, 50.141)" fill="#fff"/>
+    <path id="Path_74146" data-name="Path 74146" d="M0,0H1.406V4.219H0Z" transform="matrix(0.5, -0.866, 0.866, 0.5, 18.347, 44.619)" fill="#fff"/>
+    <path id="Path_74147" data-name="Path 74147" d="M0,0H1.406V4.219H0Z" transform="matrix(0.866, -0.5, 0.5, 0.866, 15.258, 47.19)" fill="#fff"/>
+    <path id="Path_74148" data-name="Path 74148" d="M0,211H4.266v1.406H0Z" transform="translate(0 -171.562)" fill="#fff"/>
+    <path id="Path_74149" data-name="Path 74149" d="M421,211h4.266v1.406H421Z" transform="translate(-401.266 -171.562)" fill="#fff"/>
+    <path id="Path_74150" data-name="Path 74150" d="M0,32.406H4.266v1.406H19.734V32.406H24V31H0Z" transform="translate(0 0)" fill="#fff"/>
+  </g>
+</svg>

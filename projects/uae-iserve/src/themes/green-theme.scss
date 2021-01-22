@@ -1,0 +1,44 @@
+@import '~@angular/material/theming';
+
+$app-green: (
+  50: #00ffa2,
+  100: #00df8d,
+  200: #02b976,
+  300: #009e64,
+  400: #008755,
+  500: #008755,
+  600: #006b44,
+  700: #005838,
+  800: #004b2f,
+  900: #004129,
+  A100: #18db94,
+  A200: #14a771,
+  A400: #0b6d49,
+  A700: #07412c,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: $black-87-opacity,
+    A700: white
+  )
+);
+
+$anms-green-primary: mat-palette($app-green, 500);
+$anms-green-accent: mat-palette($app-green, 200);
+$anms-green-warn: mat-palette($app-green, 900);
+
+$anms-green-theme: mat-light-theme(
+  $anms-green-primary,
+  $anms-green-accent,
+  $anms-green-warn
+);

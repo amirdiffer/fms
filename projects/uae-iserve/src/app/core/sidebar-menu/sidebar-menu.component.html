@@ -1,0 +1,13 @@
+<div style="display: none;" (window:resize)="onResize($event)"></div>
+<div *ngIf="(show$|async)==true">
+    <div [class]="(opened$|async)?'menu menu-wrapper':'menu closed-menu-wrapper'">
+        <span class="container" *ngIf="(type$|async)==1||(type$|async)==2">
+            <span class="menuItem margin-transition" *ngFor="let item of usingMenu">
+                <span [routerLink]="item.route">
+                    <fa-icon class="menu-item-icon" *ngIf="item.icon" [icon]="item.icon"></fa-icon>
+                    <span class="menu-item-name" *ngIf="item.name && (showLabel$|async)">{{item.name}}</span>
+                </span>
+            </span>
+        </span>
+    </div>
+</div>

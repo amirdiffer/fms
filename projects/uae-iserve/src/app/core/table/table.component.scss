@@ -1,0 +1,23 @@
+::ng-deep .ng-star-inserted {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.thumb {
+  max-width: 45px;
+  max-height: 45px;
+}
+
+.tableRow{
+  img{
+    float: left;
+  }
+
+  p{
+    float: right;
+  }
+}
+
+.clickable{
+  cursor: pointer;
+}

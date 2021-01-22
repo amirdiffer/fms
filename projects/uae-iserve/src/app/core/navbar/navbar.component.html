@@ -1,0 +1,26 @@
+<div class="toolbar" [style.position]="(stickyHeader$ | async) ? 'fixed' : 'inherit'"
+    [class.mat-elevation-z4]="(stickyHeader$ | async)">
+    <mat-toolbar color="primary">
+        <span class="menus d-none d-sm-none d-md-flex">
+            <button mat-icon-button (click)="changeSidebarMenuState()">
+                <fa-icon icon="bars"></fa-icon>
+            </button>
+            <button mat-icon-button>
+                <img src="../../../assets/icons/apps.svg">
+            </button>
+        </span>
+
+        <span class="police-brand">
+            <button mat-icon-button>
+                <fa-icon icon="history"></fa-icon>
+            </button>
+            <button mat-icon-button>
+                <fa-icon [icon]="['far','bell']"></fa-icon>
+            </button>
+            <button mat-icon-button>
+                <fa-icon icon="globe-americas"></fa-icon>
+            </button>
+            <img [src]="policeLogo" [alt]="policeLogo" />
+        </span>
+    </mat-toolbar>
+</div>

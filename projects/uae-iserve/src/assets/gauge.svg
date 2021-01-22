@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="274.158" height="226.827" viewBox="0 0 274.158 226.827">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Mask" width="269.158" height="203.823" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_40822" data-name="Group 40822" transform="translate(-22.921 -73.896)">
+    <g id="Widgets_1x2_Speed" data-name="Widgets/1x2/Speed" transform="translate(27.921 78.897)">
+      <g id="Dots" transform="translate(0 0.195)">
+        <rect id="Mask-2" data-name="Mask" width="269.158" height="203.823" fill="none"/>
+        <g id="Dots-2" data-name="Dots" clip-path="url(#clip-path)">
+          <path id="Scale" d="M116.216,220.38c64.073.057,115.969-49.209,115.912-110.038S180.084.156,116.011.1A119.775,119.775,0,0,0,52.6,17.945C20.954,37.583.063,71.531.1,110.137.156,170.966,52.143,220.323,116.216,220.38Z" transform="matrix(1, -0.017, 0.017, 1, 16.559, 19.564)" fill="none" stroke="#c2c7cc" stroke-miterlimit="10" stroke-width="2" stroke-dasharray="2 10"/>
+        </g>
+      </g>
+      <g id="Path">
+        <path id="Speed" d="M221.287,214.759A127.514,127.514,0,0,0,127.971,0,127.423,127.423,0,0,0,25.562,203.978a129.232,129.232,0,0,0,8.726,10.389" transform="translate(0 0)" fill="none" stroke="rgba(0,135,85,0.18)" stroke-linecap="round" stroke-miterlimit="10" stroke-width="10"/>
+        <path id="Speed-2" data-name="Speed" d="M58.009,22.267A127.242,127.242,0,0,0,25.562,205.522a129.232,129.232,0,0,0,8.726,10.389" transform="translate(0 -1.543)" fill="none" stroke="#008755" stroke-linecap="round" stroke-miterlimit="10" stroke-width="10"/>
+      </g>
+      <g id="Legend" transform="translate(29.396 24.833)">
+        <text id="_0" data-name="0" transform="translate(30.386 182.902)" fill="#818487" font-size="7" font-family="SegoeUI, Segoe UI" letter-spacing="0.04em"><tspan x="-1.887" y="0">0</tspan></text>
+        <text id="_40" data-name="40" transform="translate(29.129 40.436)" fill="#818487" font-size="6" font-family="SegoeUI, Segoe UI" letter-spacing="0.04em"><tspan x="-3.354" y="0">40</tspan></text>
+        <text id="_20" data-name="20" transform="translate(4 106.585)" fill="#818487" font-size="7" font-family="SegoeUI, Segoe UI" letter-spacing="0.04em"><tspan x="-3.913" y="0">20</tspan></text>
+        <text id="_60" data-name="60" transform="translate(101.258 6)" fill="#818487" font-size="6" font-family="SegoeUI, Segoe UI" letter-spacing="0.04em"><tspan x="-3.354" y="0">60</tspan></text>
+        <text id="_80" data-name="80" transform="translate(171.991 40.436)" fill="#818487" font-size="6" font-family="SegoeUI, Segoe UI" letter-spacing="0.04em"><tspan x="-3.354" y="0">80</tspan></text>
+        <text id="_100" data-name="100" transform="translate(195.397 107.515)" fill="#818487" font-size="7" font-family="SegoeUI, Segoe UI" letter-spacing="0.04em"><tspan x="-5.94" y="0">100</tspan></text>
+        <text id="_120" data-name="120" transform="translate(167.941 181.971)" fill="#818487" font-size="7" font-family="SegoeUI, Segoe UI" letter-spacing="0.04em"><tspan x="-5.94" y="0">120</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

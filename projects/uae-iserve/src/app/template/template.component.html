@@ -1,0 +1,21 @@
+<div [class]="'theme-wrapper ' + (theme$ | async)">
+  <mat-sidenav-container>
+    <div class="wrapper">
+      <app-navbar [selectIsAuthenticated]="selectIsAuthenticated"
+        [selectSettingsStickyHeader]="selectSettingsStickyHeader" [selectSettingsLanguage]="selectSettingsLanguage"
+        [selectEffectiveTheme]="selectEffectiveTheme">
+      </app-navbar>
+      <app-sidebar-manu></app-sidebar-manu>
+
+      <div class="content"
+        [@routeAnimations]="o.isActivated && o.activatedRoute.routeConfig.data && o.activatedRoute.routeConfig.data.title">
+        <span class="path">
+          <span *ngFor="let i=index;let part of path">{{part+(path.length>i+1?' > ':'')}}</span>
+        </span>
+        <span class="body">
+          <router-outlet #o="outlet"></router-outlet>
+        </span>
+      </div>
+    </div>
+  </mat-sidenav-container>
+</div>
