@@ -13,6 +13,13 @@ const routes: Routes = [
       import('./feature/workshop/workshop.module').then((m) => m.WorkshopModule)
   },
   {
+    path: 'configuration',
+    loadChildren: () =>
+      import('./feature/configuration/configuration.module').then(
+        (m) => m.ConfigurationModule
+      )
+  },
+  {
     path: 'part-store',
     loadChildren: () =>
       import('./feature/part-store/part-store.module').then(
