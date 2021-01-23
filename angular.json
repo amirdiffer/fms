@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "uae-iserve": {
+    "uae-fms": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -11,27 +11,27 @@
           "style": "scss"
         }
       },
-      "root": "projects/uae-iserve",
-      "sourceRoot": "projects/uae-iserve/src",
+      "root": "projects/uae-fms",
+      "sourceRoot": "projects/uae-fms/src",
       "prefix": "anms",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/uae-iserve",
-            "index": "projects/uae-iserve/src/index.html",
-            "main": "projects/uae-iserve/src/main.ts",
-            "polyfills": "projects/uae-iserve/src/polyfills.ts",
-            "tsConfig": "projects/uae-iserve/tsconfig.app.json",
+            "outputPath": "dist/uae-fms",
+            "index": "projects/uae-fms/src/index.html",
+            "main": "projects/uae-fms/src/main.ts",
+            "polyfills": "projects/uae-fms/src/polyfills.ts",
+            "tsConfig": "projects/uae-fms/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/uae-iserve/src/favicon.ico",
-              "projects/uae-iserve/src/assets"
+              "projects/uae-fms/src/favicon.ico",
+              "projects/uae-fms/src/assets"
             ],
             "styles": [
-              "projects/uae-iserve/src/style.scss",
-              "projects/uae-iserve/src/styles-app-loading.scss",
-              "projects/uae-iserve/src/styles.scss"
+              "projects/uae-fms/src/style.scss",
+              "projects/uae-fms/src/styles-app-loading.scss",
+              "projects/uae-fms/src/styles.scss"
             ],
             "scripts": []
           },
@@ -39,8 +39,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/uae-iserve/src/environments/environment.ts",
-                  "with": "projects/uae-iserve/src/environments/environment.prod.ts"
+                  "replace": "projects/uae-fms/src/environments/environment.ts",
+                  "with": "projects/uae-fms/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -84,34 +84,34 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "uae-iserve:build"
+            "browserTarget": "uae-fms:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "uae-iserve:build:production"
+              "browserTarget": "uae-fms:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "uae-iserve:build"
+            "browserTarget": "uae-fms:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/uae-iserve/src/test.ts",
-            "polyfills": "projects/uae-iserve/src/polyfills.ts",
-            "tsConfig": "projects/uae-iserve/tsconfig.spec.json",
-            "karmaConfig": "projects/uae-iserve/karma.conf.js",
+            "main": "projects/uae-fms/src/test.ts",
+            "polyfills": "projects/uae-fms/src/polyfills.ts",
+            "tsConfig": "projects/uae-fms/tsconfig.spec.json",
+            "karmaConfig": "projects/uae-fms/karma.conf.js",
             "assets": [
-              "projects/uae-iserve/src/favicon.ico",
-              "projects/uae-iserve/src/assets"
+              "projects/uae-fms/src/favicon.ico",
+              "projects/uae-fms/src/assets"
             ],
             "styles": [
-              "projects/uae-iserve/src/styles-app-loading.scss",
-              "projects/uae-iserve/src/styles.scss"
+              "projects/uae-fms/src/styles-app-loading.scss",
+              "projects/uae-fms/src/styles.scss"
             ],
             "scripts": []
           },
@@ -119,8 +119,8 @@
             "test": {
               "fileReplacements": [
                 {
-                  "replace": "projects/uae-iserve/src/environments/environment.ts",
-                  "with": "projects/uae-iserve/src/environments/environment.test.ts"
+                  "replace": "projects/uae-fms/src/environments/environment.ts",
+                  "with": "projects/uae-fms/src/environments/environment.test.ts"
                 }
               ]
             }
@@ -130,9 +130,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/uae-iserve/tsconfig.app.json",
-              "projects/uae-iserve/tsconfig.spec.json",
-              "projects/uae-iserve/e2e/tsconfig.json"
+              "projects/uae-fms/tsconfig.app.json",
+              "projects/uae-fms/tsconfig.spec.json",
+              "projects/uae-fms/e2e/tsconfig.json"
             ],
             "exclude": ["**/node_modules/**"]
           }
@@ -140,19 +140,19 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/uae-iserve/e2e/protractor.conf.js",
-            "devServerTarget": "uae-iserve:serve"
+            "protractorConfig": "projects/uae-fms/e2e/protractor.conf.js",
+            "devServerTarget": "uae-fms:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "uae-iserve:serve:production"
+              "devServerTarget": "uae-fms:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "uae-iserve",
+  "defaultProject": "uae-fms",
   "cli": {
     "analytics": false
   }
