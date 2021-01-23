@@ -54,7 +54,7 @@ export class TemplateComponent implements OnInit {
     private routerFacade: RouterFacade,
     private storageService: LocalStorageService,
     private sidebarMenuFacade: SidebarMenuFacade
-  ) { }
+  ) {}
 
   private static isIEorEdgeOrSafari() {
     return ['ie', 'edge', 'safari'].includes(browser().name);
@@ -100,16 +100,13 @@ export class TemplateComponent implements OnInit {
       this.path = url.split('/');
     }
     for (var i = 0; i < this.path.length; i++) {
-      if (this.path[i].split("-").length > 1) {
-        let name = "";
-        this.path[i].split("-").forEach((x, j) => {
-          name += this.wordToUppercase(x);
-          name += j < this.path.length - 1 ? ' ' : '';
+      if (this.path[i].split('-').length > 1) {
+        let name = '';
+        this.path[i].split('-').forEach((x, j) => {
+          name += this.wordToUppercase(x) + ' ';
         });
         this.path[i] = name;
-      }
-      else
-        this.path[i] = this.wordToUppercase(this.path[i]);
+      } else this.path[i] = this.wordToUppercase(this.path[i]);
     }
   }
 
