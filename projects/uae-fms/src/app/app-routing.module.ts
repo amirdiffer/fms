@@ -11,6 +11,13 @@ const routes: Routes = [
     path: 'workshop',
     loadChildren: () =>
       import('./feature/workshop/workshop.module').then((m) => m.WorkshopModule)
+  },
+  {
+    path: 'part-store',
+    loadChildren: () =>
+      import('./feature/part-store/part-store.module').then(
+        (m) => m.PartStoreModule
+      )
   }
 ];
 
