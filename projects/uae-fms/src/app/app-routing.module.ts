@@ -18,6 +18,13 @@ const routes: Routes = [
       import('./feature/configuration/configuration.module').then(
         (m) => m.ConfigurationModule
       )
+  },
+  {
+    path: 'part-store',
+    loadChildren: () =>
+      import('./feature/part-store/part-store.module').then(
+        (m) => m.PartStoreModule
+      )
   }
 ];
 
