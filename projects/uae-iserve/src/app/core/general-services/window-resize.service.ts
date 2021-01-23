@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class WindowResizeService {
     private onResize = new Subject();
-    public resize$ = this.onResize.asObservable();
+    // public resize$ = this.onResize.asObservable();
 
     constructor() { }
 
