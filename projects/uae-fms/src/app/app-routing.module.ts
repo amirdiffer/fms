@@ -6,6 +6,11 @@ const routes: Routes = [
     path: 'fleet',
     loadChildren: () =>
       import('./feature/fleet/fleet.module').then((m) => m.FleetModule)
+  },
+  {
+    path: 'workshop',
+    loadChildren: () =>
+      import('./feature/workshop/workshop.module').then((m) => m.WorkshopModule)
   }
 ];
 
