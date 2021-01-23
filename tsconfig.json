@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "projects/uae-fms/src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -14,9 +14,9 @@
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2018", "dom"],
     "paths": {
-      "@core/*": ["src/app/core/*"],
-      "@feature/*": ["src/app/feature/*"],
-      "@environments/*": ["src/environments/*"]
+      "@core/*": ["./app/core/*"],
+      "@feature/*": ["./app/feature/*"],
+      "@environments/*": ["./environments/*"]
     }
   },
   "angularCompilerOptions": {
