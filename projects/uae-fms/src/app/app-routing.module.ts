@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'fleet',
+    loadChildren: () =>
+      import('./feature/fleet/fleet.module').then((m) => m.FleetModule)
+  }
+];
 
 @NgModule({
   // useHash supports github.io demo page, remove in your app
