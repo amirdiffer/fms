@@ -1,0 +1,17 @@
+<div class="d-inline-flex">
+  <div class="col-md-7 card parent overflow-hidden shadow-sm p-0"
+       *ngFor="let card of cardSetting; let index = index"
+       (click)="onClick(index); card.setting.onActive(index)" [style.border-color]="card.setting.filterTagColor">
+    <div class="d-inline-flex h-100" [style.background]="card.filterBackgroundColor">
+      <div class="d-inline-flex card-body p-0">
+        <div class="left_tag" [style.background]="card.setting.filterTagColor"></div>
+        <div class="d-inline-flex justify-content-between w-100 mb-auto mt-auto pr-3 pl-3">
+          <div *ngIf="!card.isActive" [style.color]="card.setting.filterTagColor">{{card.setting.filterTitle}}</div>
+          <div *ngIf="!card.isActive" [style.color]="card.setting.filterTagColor">{{card.setting.filterCount}}</div>
+          <div class="title" *ngIf="card.isActive">{{card.setting.filterTitle}}</div>
+          <div class="count" *ngIf="card.isActive">{{card.setting.filterCount}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
