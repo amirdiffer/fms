@@ -46,7 +46,7 @@ export class SidebarMenuComponent implements OnInit {
     {
       name: 'Fleets',
       icon: 'fleets',
-      route: 'main/vehicle',
+      route: 'fleet',
       items: [
         { name: 'Assets', icon: 'car-solid', route: 'main' },
         { name: 'Sub Assets', icon: 'sub-assets', route: 'main' },
@@ -62,7 +62,7 @@ export class SidebarMenuComponent implements OnInit {
     {
       name: 'Workshop',
       icon: 'workshop',
-      route: 'main/vehicle',
+      route: 'workshop',
       items: [
         { name: 'Body Shop', icon: 'body-shop', route: 'main' },
         { name: 'Service Shop', icon: 'service-shop', route: 'main' },
@@ -81,16 +81,16 @@ export class SidebarMenuComponent implements OnInit {
     {
       name: 'Part Store',
       icon: 'part-store',
-      route: 'main/vehicle',
+      route: 'part-store',
       items: [
         { name: 'Parts List', icon: 'part-list', route: 'main' },
         { name: 'Order List', icon: 'order-list', route: 'main' },
         { name: 'Part Master', icon: 'part-master', route: 'main' }
       ]
     },
-    { name: 'Reports', icon: 'report', route: 'main/reports' },
-    { name: 'Configuration', icon: 'configuration', route: 'main/reports' },
-    { name: 'Integrations', icon: 'integrations', route: 'main/reports' }
+    { name: 'Reports', icon: 'report', route: 'report' },
+    { name: 'Configuration', icon: 'configuration', route: 'configuration' },
+    { name: 'Integrations', icon: 'integrations', route: 'integration' }
   ];
 
   opened$ = this.facade.opened$;
