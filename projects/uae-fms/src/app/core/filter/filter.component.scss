@@ -1,0 +1,25 @@
+.parent {
+  margin: 10px;
+  width: 280px;
+  height: 48px;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.parent:hover {
+  border: solid 0.9px;
+}
+
+.left_tag {
+  width: 11px;
+}
+
+.title {
+  color: white;
+}
+
+.count {
+  color: white;
+}
