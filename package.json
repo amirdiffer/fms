@@ -61,6 +61,7 @@
     "@ngrx/store-devtools": "~10.0.1",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
+    "angular-svg-icon": "^11.0.0",
     "apexcharts": "^3.23.1",
     "bootstrap": "^4.5.3",
     "browser-detect": "^0.2.28",

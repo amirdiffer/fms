@@ -4,6 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 const packageJson = require('../../../../package.json');
+export const assetsPath = '../assets/';
 
 export const environment = {
   appName: 'IServe',

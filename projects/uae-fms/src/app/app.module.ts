@@ -2,12 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
-import { NavbarModule } from "./core/navbar";
+import { NavbarModule } from './core/navbar';
 import { SidebarMenuModule } from './core/sidebar-menu/sidebar-menu.module';
 
-import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { AppRoutingModule } from './app-routing.module';
 import { TemplateComponent } from './template/template.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
   imports: [
@@ -22,9 +23,12 @@ import { TemplateComponent } from './template/template.component';
 
     // app
     NavbarModule,
-    AppRoutingModule
+    AppRoutingModule,
+
+    // library
+    AngularSvgIconModule.forRoot()
   ],
   declarations: [TemplateComponent],
   bootstrap: [TemplateComponent]
 })
-export class AppModule { }
+export class AppModule {}
