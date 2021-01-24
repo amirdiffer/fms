@@ -31,7 +31,8 @@
             "styles": [
               "projects/uae-fms/src/style.scss",
               "projects/uae-fms/src/styles-app-loading.scss",
-              "projects/uae-fms/src/styles.scss"
+              "projects/uae-fms/src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           },
