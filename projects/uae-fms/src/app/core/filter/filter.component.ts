@@ -1,44 +1,37 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent implements OnInit {
-
+export class FilterComponent implements OnInit, OnChanges {
   @Input() setting: FilterCardSetting[];
 
-  constructor() {
-  }
+  cardSetting: FilterCard[];
 
-  ngOnInit(): void {
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  ngOnChanges(): void {
+    this.cardSetting = this.setting.map((filterCardSetting) => {
+      return { setting: filterCardSetting };
+    });
   }
 
   onClick(index: number): void {
-
-    const isCardActive = this.setting[index].isActive;
-
-    if (isCardActive) {
-      this.onDeActivate(index);
-      return;
-    }
-
-    this.setting.forEach((card) => {
+    this.cardSetting.forEach((card) => {
       if (card.isActive) {
         card.isActive = false;
         card.filterBackgroundColor = '#fff';
       }
     });
 
-    this.setting[index].filterBackgroundColor = this.setting[index].filterTagColor;
-    this.setting[index].isActive = true;
-  }
-
-  onDeActivate(index: number): void {
-    const card = this.setting[index];
-    card.isActive = false;
-    card.filterBackgroundColor = '#fff';
+    this.cardSetting[index].filterBackgroundColor = this.cardSetting[
+      index
+    ].setting.filterTagColor;
+    this.cardSetting[index].isActive = true;
   }
 }
 
@@ -46,8 +39,12 @@ export interface FilterCardSetting {
   filterTitle: string;
   filterCount: string;
   filterTagColor: string;
+
+  onActive(index: number): void;
+}
+
+interface FilterCard {
+  setting: FilterCardSetting;
   filterBackgroundColor?: string;
   isActive?: boolean;
-
-  onActive?(index: number): void;
 }
