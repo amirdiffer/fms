@@ -1,0 +1,38 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+
+  .tab-titles {
+    height: 55px;
+    width: 100%;
+    // background: #fff;
+    display: flex;
+    flex-direction: row;
+    font-weight: 800;
+    font-size: 1.2rem;
+
+    .tab {
+      background: #e9ecef;
+      border-radius: 5px;
+      width: fit-content;
+      padding: 10px 5%;
+      color: #475f7b;
+      margin: 5px;
+    }
+
+    .active-tab {
+      background: #f4f4f4;
+      color: #0da06e;
+      margin-bottom: 0px;
+      border-radius: 5px 5px 0px 0px;
+    }
+  }
+
+  .tab-body {
+    background-color: #f4f4f4;
+    min-height: 50px;
+    margin: 5px;
+    margin-top: 0px;
+    padding: 16px;
+  }
+}
