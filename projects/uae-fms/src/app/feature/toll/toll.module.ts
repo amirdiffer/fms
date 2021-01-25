@@ -4,13 +4,15 @@ import { TollComponent } from './toll.component';
 import {TollRoutingModule} from'./toll-routing.module';
 import { TableModule } from '@core/table/table.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {FilterModule} from '@core/filter/filter.module'
 @NgModule({
   declarations: [TollComponent],
   imports: [
     CommonModule,
     TollRoutingModule,
     TableModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FilterModule
   ]
 })
 export class TollModule { }

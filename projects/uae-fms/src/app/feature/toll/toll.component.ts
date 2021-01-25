@@ -10,6 +10,7 @@ export class TollComponent implements OnInit {
 
   tableSetting;
   tableData:ITableData[];
+  filterSetting =[];
   faSearch = faSearch;
 
   constructor() { }
@@ -59,6 +60,24 @@ export class TollComponent implements OnInit {
       ],
       data: this.tableData,
     }
+
+    this.filterSetting = [
+      {
+        filterTitle: 'Total',
+        filterCount: '2456',
+        filterTagColor: '#CBA786',
+      },
+      {
+        filterTitle: 'Available',
+        filterCount: '356',
+        filterTagColor: '#00AFB9',
+      },
+      {
+        filterTitle: 'Assigned',
+        filterCount: '124',
+        filterTagColor: '#EF959D',
+      }
+    ]
     
   }
   
