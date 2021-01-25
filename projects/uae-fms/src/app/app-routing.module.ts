@@ -25,6 +25,13 @@ const routes: Routes = [
       import('./feature/part-store/part-store.module').then(
         (m) => m.PartStoreModule
       )
+  },
+  {
+    path: 'traffic-fine',
+    loadChildren: () =>
+      import('./feature/traffic-fine/traffic-fine.module').then(
+        (m) => m.TrafficFineModule
+      )
   }
 ];
 
