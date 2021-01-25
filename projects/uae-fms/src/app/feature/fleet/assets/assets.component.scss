@@ -1,0 +1,23 @@
+:host ::ng-deep{
+    td .thumb{
+        width: 30px;
+    }
+    .p-datatable .p-datatable-thead > tr > th {
+        background: none;
+    }
+    .tabs .tab-body{
+        padding: 0 !important;
+    }
+    .tab.ng-star-inserted {
+        font-weight: normal;
+    }
+    .tab.ng-star-inserted.active-tab{
+        font-weight: bold;
+    }
+}
+
+.card-table{
+    background:#ffff;
+    box-shadow: 0px 0px 2px #0000003D;
+    border-radius: 4px;
+}

@@ -1,0 +1,25 @@
+
+<div class="filter-container">
+    <app-filter [setting] = "filterSetting"></app-filter>
+</div>
+
+<div class="table-container">
+    <div class="card-table pt-5">
+        <div class="card-table-header">
+            
+            <app-tab-view>
+                <div title="Asset Master">
+                    <app-table [setting]="assetMasterTableSetting"></app-table>
+                </div>
+                <div title="Pending Registration">
+                    <app-table [setting]="pendingRegistrationTableSetting"></app-table>
+                </div>
+                <div title="Pending Customization">
+                    <app-table [setting]="pendingCustomizationTableSetting"></app-table>
+                </div>
+            </app-tab-view>
+            
+        </div>
+        
+    </div>
+</div>

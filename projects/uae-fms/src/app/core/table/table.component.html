@@ -14,6 +14,9 @@
                 <div *ngIf="col.renderer=='vehicleRenderer'">
                     <table-vehicle-renderer [vehicle]="data[col.field]"></table-vehicle-renderer>
                 </div>
+                <div *ngIf="col.renderer=='assetsRenderer'">
+                    <table-assets-renderer [data]="data[col.field]"></table-assets-renderer>
+                </div>
             </td>
         </tr>
     </ng-template>
