@@ -186,7 +186,7 @@ export class TrafficFineComponent implements OnInit {
     data: [
       {
         Asset: 'Asset Name',
-        thumbField: 'assets/vehicle.png',
+        thumbField: 'thumb1.png',
         Plate_Number: '12345678999',
         Type: 'Type Is Here',
         Operator: 'Sam Smith 354684616',
@@ -197,7 +197,7 @@ export class TrafficFineComponent implements OnInit {
       },
       {
         Asset: 'Asset Name',
-        thumbField: 'assets/vehicle.png',
+        thumbField: 'thumb1.png',
         Plate_Number: '12345678999',
         Type: 'Type Is Here',
         Operator: 'Sam Smith 354684616',
@@ -208,7 +208,7 @@ export class TrafficFineComponent implements OnInit {
       },
       {
         Asset: 'Asset Name',
-        thumbField: 'assets/vehicle.png',
+        thumbField: 'thumb1.png',
         Plate_Number: '12345678999',
         Type: 'Type Is Here',
         Operator: 'Sam Smith 354684616',
@@ -219,7 +219,7 @@ export class TrafficFineComponent implements OnInit {
       },
       {
         Asset: 'Asset Name',
-        thumbField: 'assets/vehicle.png',
+        thumbField: 'thumb1.png',
         Plate_Number: '12345678999',
         Type: 'Type Is Here',
         Operator: 'Sam Smith 354684616',
@@ -230,7 +230,7 @@ export class TrafficFineComponent implements OnInit {
       },
       {
         Asset: 'Asset Name',
-        thumbField: 'assets/vehicle.png',
+        thumbField: 'thumb1.png',
         Plate_Number: '12345678999',
         Type: 'Type Is Here',
         Operator: 'Sam Smith 354684616',
@@ -241,7 +241,7 @@ export class TrafficFineComponent implements OnInit {
       },
       {
         Asset: 'Asset Name',
-        thumbField: 'assets/vehicle.png',
+        thumbField: 'thumb1.png',
         Plate_Number: '12345678999',
         Type: 'Type Is Here',
         Operator: 'Sam Smith 354684616',
@@ -252,7 +252,7 @@ export class TrafficFineComponent implements OnInit {
       },
       {
         Asset: 'Asset Name',
-        thumbField: 'assets/vehicle.png',
+        thumbField: 'thumb1.png',
         Plate_Number: '12345678999',
         Type: 'Type Is Here',
         Operator: 'Sam Smith 354684616',
