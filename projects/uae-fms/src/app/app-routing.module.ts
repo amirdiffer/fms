@@ -26,7 +26,20 @@ const routes: Routes = [
         (m) => m.PartStoreModule
       )
   },
-  { path: 'integration', loadChildren: () => import('./feature/integration/integration.module').then(m => m.IntegrationModule) }
+  {
+    path: 'toll',
+    loadChildren: () =>
+      import('./feature/toll/toll.module').then(
+        (m) => m.TollModule
+      )
+  },
+  {
+    path: 'integration',
+    loadChildren: () =>
+      import('./feature/integration/integration.module').then(
+        m => m.IntegrationModule
+      )
+  }
 ];
 
 @NgModule({
@@ -40,4 +53,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

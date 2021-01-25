@@ -7,13 +7,16 @@
     </ng-template>
     <ng-template pTemplate="body" let-data>
       <tr [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')">
-        <td *ngFor="let col of setting.columns"  (click)="click(col,data)">
+        <td *ngFor="let col of setting.columns" (click)="click(col,data)">
           <div *ngIf="!col.renderer" [innerHtml]="getCol(col,data)"></div>
           <div *ngIf="col.renderer=='userRenderer'">
             <table-user-renderer [user]="data[col.field]"></table-user-renderer>
           </div>
           <div *ngIf="col.renderer=='vehicleRenderer'">
             <table-vehicle-renderer [vehicle]="data[col.field]"></table-vehicle-renderer>
+          </div>
+          <div *ngIf="col.renderer == 'subtextRenderer'">
+            <table-subText-renderer [data]="data[col.field]"></table-subText-renderer>
           </div>
         </td>
       </tr>

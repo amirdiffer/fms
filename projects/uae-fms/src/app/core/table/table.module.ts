@@ -4,6 +4,7 @@ import { TableComponent } from './table.component';
 import { TableUserRendererComponent } from './renderers/user';
 import { TableModule as PrimengTableModule } from 'primeng/table';
 import { TableVehicleRendererComponent } from './renderers/vehicle';
+import { SubtextRendererComponent } from './renderers/subText';
 
 @NgModule({
   imports: [PrimengTableModule, CommonModule],
@@ -11,7 +12,8 @@ import { TableVehicleRendererComponent } from './renderers/vehicle';
   declarations: [
     TableComponent,
     TableUserRendererComponent,
-    TableVehicleRendererComponent
+    TableVehicleRendererComponent,
+    SubtextRendererComponent
   ],
   providers: []
 })
