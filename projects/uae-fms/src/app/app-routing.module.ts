@@ -32,6 +32,13 @@ const routes: Routes = [
       import('./feature/toll/toll.module').then(
         (m) => m.TollModule
       )
+  },
+  {
+    path: 'integration',
+    loadChildren: () =>
+      import('./feature/integration/integration.module').then(
+        m => m.IntegrationModule
+      )
   }
 ];
 
@@ -46,4 +53,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
