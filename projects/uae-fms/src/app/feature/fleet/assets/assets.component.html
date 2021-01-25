@@ -6,9 +6,17 @@
 <div class="table-container">
     <div class="card-table pt-5">
         <div class="card-table-header">
-            
             <app-tab-view>
+                <span class="search-container">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search in Columns">
+                        <button><fa-icon [icon]="faSearch" class="icon"></fa-icon></button>
+                    </div>
+                    <button class="btn-download"><a></a></button>
+                    <button class="btn-primary-green"><i>+</i><a>Add</a></button> 
+                </span>
                 <div title="Asset Master">
+                    
                     <app-table [setting]="assetMasterTableSetting"></app-table>
                 </div>
                 <div title="Pending Registration">
@@ -17,9 +25,8 @@
                 <div title="Pending Customization">
                     <app-table [setting]="pendingCustomizationTableSetting"></app-table>
                 </div>
+                
             </app-tab-view>
-            
         </div>
-        
     </div>
 </div>

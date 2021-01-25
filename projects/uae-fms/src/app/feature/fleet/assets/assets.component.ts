@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { IAssets } from './assets.model'
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { AssetsService } from './assets.service';
 @Component({
   selector: 'anms-assets',
@@ -12,6 +12,7 @@ export class AssetsComponent implements OnInit {
   pendingRegistrationTableSetting;
   pendingCustomizationTableSetting;
   filterSetting;
+  faSearch = faSearch;
   constructor(private _assetsService : AssetsService) { }
 
   ngOnInit(): void {

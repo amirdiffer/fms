@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { FleetRoutingModule } from './fleet-routing.module';
 import { FleetComponent } from './fleet.component';
@@ -16,6 +16,7 @@ import { TabViewModule } from '@core/tab-view';
     FleetRoutingModule , 
     FilterModule, 
     TableModule , 
-    TabViewModule]
+    TabViewModule,
+    FontAwesomeModule]
 })
 export class FleetModule {}
