@@ -1,0 +1,40 @@
+.actionButtons {
+  display: flex;
+  position: absolute;
+  right: 20px;
+  top: 45px;
+  .item {
+    margin: 0 5px;
+    color: #ffffff;
+  }
+  .export {
+    border: 2px solid #a2a2a2;
+  }
+  .add {
+    background-color: #0da06e;
+    border: 2px solid #0da06e;
+    width: 150px;
+    height: 45px;
+  }
+  .search-btn {
+    background-color: #a2a2a2;
+    border: 2px solid #a2a2a2;
+  }
+  .search-input {
+    border: 2px solid #a2a2a2;
+    height: 100%;
+  }
+}
+.info {
+  background-color: #ffffff;
+  box-shadow: 0 0 2px #00000029;
+  border-radius: 2px;
+  padding-top: 80px;
+}
+
+@media all and (max-width: 600px) {
+  .actionButtons {
+    right: 20px;
+    left: 20px;
+  }
+}
