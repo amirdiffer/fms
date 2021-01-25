@@ -25,7 +25,8 @@ const routes: Routes = [
       import('./feature/part-store/part-store.module').then(
         (m) => m.PartStoreModule
       )
-  }
+  },
+  { path: 'integration', loadChildren: () => import('./feature/integration/integration.module').then(m => m.IntegrationModule) }
 ];
 
 @NgModule({
