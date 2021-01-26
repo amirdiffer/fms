@@ -128,9 +128,12 @@ export class AssetsService {
         },
       ],
       data: this.assetMaster(),
-      rowSettings: () =>{
-        
+      rowSettings: {
+        onClick: (col, data)=>{
+          console.log(col, data)
+        }
       }
+
     }
   }
   public pedingRegistrationTableSetting = () =>{

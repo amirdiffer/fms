@@ -9,6 +9,7 @@ import { FilterModule } from '@core/filter/filter.module';
 import { TableModule } from '@core/table/table.module';
 import { TabViewModule } from '@core/tab-view';
 
+
 @NgModule({
   declarations: [FleetComponent, AssetsComponent],
   imports: [
