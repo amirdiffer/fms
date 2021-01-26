@@ -1,16 +1,27 @@
 @import '../../../themes/green-theme.scss';
 $primary: map-get($anms-green-primary, 300);
 
+:host ::ng-deep {
+  thead th {
+    font-weight: bold !important;
+    font-size: 1.2rem;
+  }
+  .card.parent {
+    height: 45px;
+    margin: 20px 20px 20px 0px;
+  }
+}
+.table-container {
+  padding: 15px 15px 15px 0;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px #0000003d;
+}
 .card-table-header {
   // direction: rtl;
   display: flex;
   justify-content: flex-end;
   margin-bottom: 15px;
-  position: absolute;
-  right: 20px;
-}
-.component_wrapper {
-  position: relative;
 }
 .btn-primary-green {
   background-color: $primary;
@@ -60,6 +71,8 @@ $primary: map-get($anms-green-primary, 300);
     box-shadow: 0px 0px 2px #00000029;
     border: 2px solid #a2a2a2;
     border-radius: 4px;
+    padding: 15px;
+    max-height: 45px;
     &::placeholder {
       padding-left: 15px;
     }
@@ -72,30 +85,9 @@ $primary: map-get($anms-green-primary, 300);
     background: #a09999;
     border-radius: 0 4px 4px 0;
     border: none;
-
-    img {
-      width: 23px;
-    }
   }
   .icon {
     color: #fff;
     font-size: 20px;
-  }
-}
-
-@media all and (max-width: 1024px) {
-  .component_wrapper {
-    .card-table-header {
-      margin-top: -45px;
-    }
-    padding-top: 55px;
-  }
-}
-
-@media all and (max-width: 600px) {
-  .component_wrapper {
-    .card-table-header {
-      left: 20px;
-    }
   }
 }

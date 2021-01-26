@@ -18,9 +18,11 @@ export class TableComponent implements OnInit {
           return data[col.field];
         case 2:
           return data[col.thumbField]
-            ? `<div class="d-inline-flex"><img class="thumb" src="${
+            ? `<div class="d-inline-flex cell-with-image"><img class="thumb" src="${
                 environment.baseFileServer + data[col.thumbField]
-              }"> <p>${data[col.field]}</p></div>`
+              }"> <p class="text-of-cell-with-image">${
+                data[col.field]
+              }</p></div>`
             : data[col.field];
         case 3:
           return data[col.thumbField]
