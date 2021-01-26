@@ -83,3 +83,10 @@ $primary: map-get($anms-green-primary, 300);
   border-radius: 2px;
   padding-top: 80px;
 }
+
+@media all and (max-width: 600px) {
+  .actionButtons {
+    right: 20px;
+    left: 20px;
+  }
+}

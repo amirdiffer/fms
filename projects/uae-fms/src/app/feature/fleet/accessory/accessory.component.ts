@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
-import { assetsPath } from '@environments/environment';
 import { TableSetting } from '@core/table';
 
 @Component({
@@ -10,8 +9,6 @@ import { TableSetting } from '@core/table';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccessoryComponent implements OnInit {
-  assets = assetsPath;
-
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'Total',
@@ -39,13 +36,13 @@ export class AccessoryComponent implements OnInit {
     }
   ];
 
-  assetTraffic_Table: TableSetting = {
+  accessory_Table: TableSetting = {
     columns: [
       { lable: 'Item', type: 1, field: 'Item' },
       { lable: 'Type', type: 1, field: 'Type' },
       { lable: 'Asset/Sub Asset', type: 1, field: 'Asset_SubAsset' },
       { lable: 'Assigned To', type: 1, field: 'Assigned_To' },
-      { lable: 'Quantity', type: 1, field: 'Quantity' }
+      { lable: 'Quantity', type: 1, field: 'Quantity', width: 100 }
     ],
     data: [
       {

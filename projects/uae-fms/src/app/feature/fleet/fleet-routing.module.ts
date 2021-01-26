@@ -3,9 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { FleetComponent } from './fleet.component';
 import { AccessoryComponent } from '@feature/fleet/accessory/accessory.component';
+import { OperatorComponent } from '@feature/fleet/operator/operator.component';
 
 const routes: Routes = [
   { path: '', component: FleetComponent },
+  { path: 'operator', component: OperatorComponent },
   { path: 'accessory', component: AccessoryComponent }
 ];
 

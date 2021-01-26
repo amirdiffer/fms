@@ -1,21 +1,32 @@
-<p-table [value]="setting.data">
+<div class="app-table-wrapper">
+  <p-table [value]="setting.data">
     <ng-template pTemplate="header">
-        <tr>
-            <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''">{{col.lable}}</th>
-        </tr>
+      <tr>
+        <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''">{{col.lable}}</th>
+      </tr>
     </ng-template>
     <ng-template pTemplate="body" let-data>
         <tr [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')">
             <td *ngFor="let col of setting.columns"  (click)="click(col,data)">
                 <div *ngIf="!col.renderer" [innerHtml]="getCol(col,data)"></div>
                 <div *ngIf="col.renderer=='userRenderer'">
-                    <table-user-renderer [user]="data[col.field]"></table-user-renderer>
+                    <table-user-renderer [user]="data"></table-user-renderer>
                 </div>
                 <div *ngIf="col.renderer=='vehicleRenderer'">
                     <table-vehicle-renderer [vehicle]="data[col.field]"></table-vehicle-renderer>
+                </div>
+                <div *ngIf="col.renderer=='assetRenderer'">
+                  <table-asset-renderer [asset]="data"></table-asset-renderer>
+                </div>
+                <div *ngIf="col.renderer=='doubleLineRenderer'">
+                  <table-double-line-renderer [user]="data" [column]="col"></table-double-line-renderer>
+                </div>
+                <div *ngIf="col.renderer == 'subtextRenderer'">
+                  <table-subText-renderer [data]="data[col.field]"></table-subText-renderer>
                 </div>
             </td>
         </tr>
     </ng-template>
 
 </p-table>
+</div>
