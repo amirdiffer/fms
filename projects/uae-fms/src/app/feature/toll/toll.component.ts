@@ -7,29 +7,53 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TollComponent implements OnInit {
-
   tableSetting;
-  tableData:ITableData[];
-  filterSetting =[];
+  tableData: ITableData[];
+  filterSetting = [];
   faSearch = faSearch;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.tableData = [
-      {tag:'123456789' , status:'Assigned' ,  assets:{assetName:'Asset Name' , subAsset:'Sub Asset'}, purshateDate: '02/02/2020'},
-      {tag:'123456789' , status:'Assigned' ,  assets:{assetName:'Asset Name' , subAsset:'Sub Asset'}, purshateDate: '02/02/2020'},
-      {tag:'123456789' , status:'Assigned' ,  assets:{assetName:'Asset Name' , subAsset:'Sub Asset'}, purshateDate: '02/02/2020'},
-      {tag:'123456789' , status:'Assigned' ,  assets:{assetName:'Asset Name' , subAsset:'Sub Asset'}, purshateDate: '02/02/2020'},
-      {tag:'123456789' , status:'Assigned' ,  assets:{assetName:'Asset Name' , subAsset:'Sub Asset'}, purshateDate: '02/02/2020'},
-    ]
+      {
+        tag: '123456789',
+        status: 'Assigned',
+        assets: { assetName: 'Asset Name', subAsset: 'Sub Asset' },
+        purshateDate: '02/02/2020'
+      },
+      {
+        tag: '123456789',
+        status: 'Assigned',
+        assets: { assetName: 'Asset Name', subAsset: 'Sub Asset' },
+        purshateDate: '02/02/2020'
+      },
+      {
+        tag: '123456789',
+        status: 'Assigned',
+        assets: { assetName: 'Asset Name', subAsset: 'Sub Asset' },
+        purshateDate: '02/02/2020'
+      },
+      {
+        tag: '123456789',
+        status: 'Assigned',
+        assets: { assetName: 'Asset Name', subAsset: 'Sub Asset' },
+        purshateDate: '02/02/2020'
+      },
+      {
+        tag: '123456789',
+        status: 'Assigned',
+        assets: { assetName: 'Asset Name', subAsset: 'Sub Asset' },
+        purshateDate: '02/02/2020'
+      }
+    ];
     this.tableSetting = {
-      columns:[
+      columns: [
         {
           lable: 'Toll Tag',
           field: 'tag',
           width: 100,
-          type:1,
+          type: 1,
           thumbField: '',
           renderer: ''
         },
@@ -37,7 +61,7 @@ export class TollComponent implements OnInit {
           lable: 'Status',
           field: 'status',
           width: 100,
-          type:1,
+          type: 1,
           thumbField: '',
           renderer: ''
         },
@@ -45,7 +69,7 @@ export class TollComponent implements OnInit {
           lable: 'Assets',
           field: 'assets',
           width: 300,
-          type:2,
+          type: 2,
           thumbField: '',
           renderer: 'subtextRenderer'
         },
@@ -53,42 +77,40 @@ export class TollComponent implements OnInit {
           lable: 'Purshate Date',
           field: 'purshateDate',
           width: 100,
-          type:1,
+          type: 1,
           thumbField: '',
           renderer: ''
         }
       ],
-      data: this.tableData,
-    }
+      data: this.tableData
+    };
 
     this.filterSetting = [
       {
         filterTitle: 'Total',
         filterCount: '2456',
-        filterTagColor: '#CBA786',
+        filterTagColor: '#CBA786'
       },
       {
         filterTitle: 'Available',
         filterCount: '356',
-        filterTagColor: '#00AFB9',
+        filterTagColor: '#00AFB9'
       },
       {
         filterTitle: 'Assigned',
         filterCount: '124',
-        filterTagColor: '#EF959D',
+        filterTagColor: '#EF959D'
       }
-    ]
-    
+    ];
   }
-  
 }
 
-export interface ITableData{
-  tag:string;
-  status:string;
-  assets:{
-    assetName:string;
-    subAsset:string;
-  }
+export interface ITableData {
+  tag: string;
+  status: string;
+  assets: {
+    assetName: string;
+    subAsset: string;
+  };
   purshateDate: string;
 }

@@ -20,7 +20,13 @@ export class TableComponent implements OnInit {
           return data[col.thumbField]
             ? `<div class="d-inline-flex"><img class="thumb" src="${
                 environment.baseFileServer + data[col.thumbField]
+<<<<<<< HEAD
               }"> <p>${data[col.field]}</p></div>`
+=======
+              }"> <p class="text-of-cell-with-image">${
+                data[col.field]
+              }</p></div>`
+>>>>>>> afe28c2c16b89bb238712bae5d9adaa74f5a6d3d
             : data[col.field];
         case 3:
           return data[col.thumbField]
