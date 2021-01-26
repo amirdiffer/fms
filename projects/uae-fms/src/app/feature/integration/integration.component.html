@@ -1,6 +1,3 @@
-<div class="statistic-card">
-  <app-filter [setting]='filterCard'></app-filter>
-</div>
 <div class="component_wrapper">
   <div class="card-table-header">
     <div class="search-box">
@@ -13,6 +10,6 @@
     <button class="btn-primary-green"><i>+</i><a>Add</a></button>
   </div>
   <div class="table-wreapper">
-    <app-table [setting]='assetTraffic_Table'></app-table>
+    <app-table [setting]="tableSettings"></app-table>
   </div>
 </div>

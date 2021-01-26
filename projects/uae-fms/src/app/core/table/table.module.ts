@@ -5,6 +5,9 @@ import { TableUserRendererComponent } from './renderers/user';
 import { TableModule as PrimengTableModule } from 'primeng/table';
 import { TableVehicleRendererComponent } from './renderers/vehicle';
 import { TableCompanyRendererComponent } from '@core/table/renderers/company';
+import { TableAssetRendererComponent } from '@core/table/renderers/asset';
+import { TableDoubleLineRendererComponent } from '@core/table/renderers/double-line';
+import { SubtextRendererComponent } from './renderers/subText';
 
 @NgModule({
   imports: [PrimengTableModule, CommonModule],
@@ -13,7 +16,10 @@ import { TableCompanyRendererComponent } from '@core/table/renderers/company';
     TableComponent,
     TableUserRendererComponent,
     TableVehicleRendererComponent,
-    TableCompanyRendererComponent
+    TableCompanyRendererComponent,
+    TableAssetRendererComponent,
+    TableDoubleLineRendererComponent,
+    SubtextRendererComponent
   ],
   providers: []
 })

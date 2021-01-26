@@ -7,15 +7,16 @@ import { SubAssetComponent } from './sub-asset/sub-asset.component';
 import { TableModule } from '@core/table';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { FilterModule } from '@core/filter/filter.module';
+import { OperatorComponent } from '@feature/fleet/operator/operator.component';
 
 @NgModule({
-  declarations: [FleetComponent, SubAssetComponent],
+  declarations: [FleetComponent, OperatorComponent, SubAssetComponent],
   imports: [
     CommonModule,
     FleetRoutingModule,
-    TableModule,
+    FilterModule,
     AngularSvgIconModule,
-    FilterModule
+    TableModule
   ]
 })
 export class FleetModule {}

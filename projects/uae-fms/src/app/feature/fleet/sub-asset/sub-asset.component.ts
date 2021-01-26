@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
-import { assetsPath } from '@environments/environment';
 import { TableSetting } from '@core/table';
 
 @Component({
@@ -10,8 +9,6 @@ import { TableSetting } from '@core/table';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SubAssetComponent implements OnInit {
-  assets = assetsPath;
-
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'Total',
@@ -59,7 +56,12 @@ export class SubAssetComponent implements OnInit {
       { lable: 'Policy', type: 1, field: 'Policy' },
       { lable: 'Serial Number', type: 2, field: 'Serial_Number' },
       { lable: 'Type', type: 1, field: 'Asset' },
-      { lable: 'Warranty Expire Date', type: 1, field: 'Warranty_Expire_Date' }
+      {
+        lable: 'Warranty Expire Date',
+        type: 1,
+        field: 'Warranty_Expire_Date',
+        width: 200
+      }
     ],
     data: [
       {
