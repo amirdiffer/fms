@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { environment } from '@environments/environment';
+import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-table',
@@ -7,6 +8,8 @@ import { environment } from '@environments/environment';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
+  faSortDown = faSortDown;
+
   constructor() {}
   @Input() setting: TableSetting;
   ngOnInit() {}
@@ -50,6 +53,8 @@ export interface TableSetting {
 
 export interface ColumnDifinition {
   lable: string;
+  isIconLable?: boolean;
+  sortable?: boolean;
   field?: string;
   width?: number;
   type?: ColumnType;

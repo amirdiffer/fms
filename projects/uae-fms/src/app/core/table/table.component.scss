@@ -8,16 +8,28 @@
   max-height: 45px;
 }
 
-.tableRow{
-  img{
+.tableRow {
+  img {
     float: left;
   }
 
-  p{
+  p {
     float: right;
   }
 }
 
-.clickable{
+.clickable {
   cursor: pointer;
+}
+
+.iconLable {
+  width: 24px;
+  height: 24px;
+}
+.sort-icon {
+  margin-right: 10px;
+}
+.icon24px {
+  width: 24px;
+  height: 24px;
 }

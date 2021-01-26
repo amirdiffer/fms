@@ -2,7 +2,19 @@
   <p-table [value]="setting.data">
     <ng-template pTemplate="header">
       <tr>
-        <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''">{{col.lable}}</th>
+        <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''">
+          <div class="d-flex">
+            <ng-template [ngIf]="col.sortable">
+              <fa-icon class="sort-icon" [icon]="faSortDown"></fa-icon>
+            </ng-template>
+            <ng-template [ngIf]="!col.isIconLable" [ngIfElse]="iconType">
+              {{col.lable}}
+            </ng-template>
+            <ng-template #iconType>
+              <div class="iconLable" [innerHTML]="col.lable"></div>
+            </ng-template>
+          </div>
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-data>
@@ -23,6 +35,12 @@
                 </div>
                 <div *ngIf="col.renderer == 'subtextRenderer'">
                   <table-subText-renderer [data]="data[col.field]"></table-subText-renderer>
+                </div>
+                <div *ngIf="col.renderer == 'addButtonRenderer'">
+                  <table-add-button-renderer></table-add-button-renderer>
+                </div>
+                <div *ngIf="col.renderer == 'actionButtonRenderer'">
+                  <table-action-button-renderer></table-action-button-renderer>
                 </div>
             </td>
         </tr>

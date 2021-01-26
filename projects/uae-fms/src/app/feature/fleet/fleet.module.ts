@@ -7,9 +7,10 @@ import { OperatorComponent } from './operator/operator.component';
 import { FilterModule } from '@core/filter/filter.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { TableModule } from '@core/table';
+import { OrganizationComponent } from './organization/organization.component';
 
 @NgModule({
-  declarations: [FleetComponent, OperatorComponent],
+  declarations: [FleetComponent, OperatorComponent, OrganizationComponent],
   imports: [
     CommonModule,
     FleetRoutingModule,
