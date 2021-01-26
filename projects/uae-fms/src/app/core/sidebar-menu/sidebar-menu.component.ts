@@ -42,40 +42,59 @@ export class SidebarMenuComponent implements OnInit {
 
   usingMenu = [];
   mainMenu = [
-    { name: 'Dashboard', icon: 'dashboard', route: 'main' },
+    { name: 'Dashboard', icon: 'dashboard', route: 'dashboard' },
     {
       name: 'Fleets',
       icon: 'fleets',
       route: 'fleet',
       items: [
-        { name: 'Assets', icon: 'car-solid', route: 'main' },
-        { name: 'Sub Assets', icon: 'sub-assets', route: 'main' },
-        { name: 'Accessory', icon: 'accessory', route: 'main' },
-        { name: 'Operator', icon: 'operator', route: 'main' },
-        { name: 'Organization', icon: 'organization', route: 'main' },
-        { name: 'Movement', icon: 'movement', route: 'main' }
+        { name: 'Assets', icon: 'car-solid', route: 'fleet/assets' },
+        { name: 'Sub Assets', icon: 'sub-assets', route: 'fleet/sub-assets' },
+        { name: 'Accessory', icon: 'accessory', route: 'fleet/accessory' },
+        { name: 'Operator', icon: 'operator', route: 'fleet/operator' },
+        {
+          name: 'Organization',
+          icon: 'organization',
+          route: 'fleet/organization'
+        },
+        { name: 'Movement', icon: 'movement', route: 'fleet/movment' }
       ]
     },
-    { name: 'Fuel Management', icon: 'fuel', route: 'main/booking-list' },
-    { name: 'Traffic Fines', icon: 'traffic', route: 'main/reports' },
-    { name: 'Toll', icon: 'toll', route: 'main/reports' },
+    { name: 'Fuel Management', icon: 'fuel', route: 'fuel-management' },
+    { name: 'Traffic Fines', icon: 'traffic', route: 'taffic-fines' },
+    { name: 'Toll', icon: 'toll', route: 'toll' },
     {
       name: 'Workshop',
       icon: 'workshop',
       route: 'workshop',
       items: [
-        { name: 'Body Shop', icon: 'body-shop', route: 'main' },
-        { name: 'Service Shop', icon: 'service-shop', route: 'main' },
+        { name: 'Body Shop', icon: 'body-shop', route: 'workshop/body-shop' },
+        {
+          name: 'Service Shop',
+          icon: 'service-shop',
+          route: 'workshop/service-shop'
+        },
         {
           name: 'Inspections',
           icon: 'inspection',
-          route: 'main',
+          route: 'workshop/inspections',
           items: [
-            { name: 'Technical Inspection', route: 'main' },
-            { name: 'Action List', icon: 'file', route: 'main' }
+            {
+              name: 'Technical Inspection',
+              route: 'workshop/inspections/technical-inspection'
+            },
+            {
+              name: 'Action List',
+              icon: 'file',
+              route: 'workshop/inspections/action-list'
+            }
           ]
         },
-        { name: 'Task Master', icon: 'action-list', route: 'main' }
+        {
+          name: 'Task Master',
+          icon: 'action-list',
+          route: 'workshop/task-master'
+        }
       ]
     },
     {
@@ -83,9 +102,21 @@ export class SidebarMenuComponent implements OnInit {
       icon: 'part-store',
       route: 'part-store',
       items: [
-        { name: 'Parts List', icon: 'part-list', route: 'main' },
-        { name: 'Order List', icon: 'order-list', route: 'main' },
-        { name: 'Part Master', icon: 'part-master', route: 'main' }
+        {
+          name: 'Parts List',
+          icon: 'part-list',
+          route: 'part-store/part-list'
+        },
+        {
+          name: 'Order List',
+          icon: 'order-list',
+          route: 'part-store/order-list'
+        },
+        {
+          name: 'Part Master',
+          icon: 'part-master',
+          route: 'part-store/part-master'
+        }
       ]
     },
     { name: 'Reports', icon: 'report', route: 'report' },
