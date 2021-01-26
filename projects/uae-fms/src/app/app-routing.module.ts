@@ -25,6 +25,18 @@ const routes: Routes = [
       import('./feature/part-store/part-store.module').then(
         (m) => m.PartStoreModule
       )
+  },
+  {
+    path: 'toll',
+    loadChildren: () =>
+      import('./feature/toll/toll.module').then((m) => m.TollModule)
+  },
+  {
+    path: 'integration',
+    loadChildren: () =>
+      import('./feature/integration/integration.module').then(
+        (m) => m.IntegrationModule
+      )
   }
 ];
 
