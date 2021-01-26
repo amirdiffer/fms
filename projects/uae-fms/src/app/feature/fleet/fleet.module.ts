@@ -8,10 +8,11 @@ import { AssetsComponent } from './assets/assets.component';
 import { FilterModule } from '@core/filter/filter.module';
 import { TableModule } from '@core/table/table.module';
 import { TabViewModule } from '@core/tab-view';
+import { MovementComponent } from './movement/movement.component';
 
 
 @NgModule({
-  declarations: [FleetComponent, AssetsComponent],
+  declarations: [FleetComponent, AssetsComponent, MovementComponent],
   imports: [
     CommonModule,
     FleetRoutingModule , 

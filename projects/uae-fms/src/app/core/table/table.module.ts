@@ -6,6 +6,8 @@ import { TableModule as PrimengTableModule } from 'primeng/table';
 import { TableVehicleRendererComponent } from './renderers/vehicle';
 import { AssetsRendererComponent } from './renderers/assets';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { SubtextRendererComponent } from './renderers/subText';
+import { HTMLRendererComponent } from './renderers/opration';
 
 @NgModule({
   imports: [PrimengTableModule, CommonModule , MatProgressBarModule,],
@@ -14,7 +16,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     TableComponent,
     TableUserRendererComponent,
     TableVehicleRendererComponent,
-    AssetsRendererComponent
+    AssetsRendererComponent,
+    SubtextRendererComponent,
+    HTMLRendererComponent
   ],
   providers: []
 })

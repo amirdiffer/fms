@@ -14,8 +14,14 @@
                 <div *ngIf="col.renderer=='vehicleRenderer'">
                     <table-vehicle-renderer [vehicle]="data[col.field]"></table-vehicle-renderer>
                 </div>
+                <div *ngIf="col.renderer == 'subtextRenderer'">
+                    <table-subText-renderer [data]="data[col.field]" ></table-subText-renderer>
+                </div>
                 <div *ngIf="col.renderer=='assetsRenderer'">
                     <table-assets-renderer [data]="data[col.field]"></table-assets-renderer>
+                </div>
+                <div *ngIf="col.renderer=='operation'">
+                    <table-operation-renderer></table-operation-renderer>
                 </div>
             </td>
         </tr>
