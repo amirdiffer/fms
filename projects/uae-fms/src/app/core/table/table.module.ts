@@ -7,6 +7,7 @@ import { TableVehicleRendererComponent } from './renderers/vehicle';
 import { TableAssetRendererComponent } from '@core/table/renderers/asset';
 import { TableDoubleLineRendererComponent } from '@core/table/renderers/double-line';
 import { SubtextRendererComponent } from './renderers/subText';
+import { TableInformationRendererComponent } from './renderers/information';
 
 @NgModule({
   imports: [PrimengTableModule, CommonModule],
@@ -17,8 +18,9 @@ import { SubtextRendererComponent } from './renderers/subText';
     TableVehicleRendererComponent,
     TableAssetRendererComponent,
     TableDoubleLineRendererComponent,
-    SubtextRendererComponent
+    SubtextRendererComponent,
+    TableInformationRendererComponent
   ],
   providers: []
 })
-export class TableModule {}
+export class TableModule { }

@@ -8,16 +8,25 @@
   max-height: 45px;
 }
 
-.tableRow{
-  img{
+.tableRow {
+  img {
     float: left;
   }
 
-  p{
+  p {
     float: right;
   }
 }
 
-.clickable{
+.clickable {
   cursor: pointer;
+}
+
+.statusColor {
+  width: 6px;
+  height: 60px;
+  position: absolute;
+  left: 0px;
+  border-radius: 0px 5px 5px 0px;
+  margin-top: 20px;
 }
