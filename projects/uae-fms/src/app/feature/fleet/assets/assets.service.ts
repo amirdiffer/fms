@@ -28,6 +28,29 @@ export class AssetsService {
     }
   return data
   }
+  private pedingRegistration = () : IPending [] =>{
+    const data = [];
+    for (let index = 0; index < 9; index++) {
+      const el = {
+            asset:{
+              img:'thumb1.png',
+              assetName:'Asset Name',
+              assetSubName: 'DPD 0000001',
+              progress: Math.floor(Math.random() * 6) + 1   ,
+            },
+            serialNumber: '123s125583456',
+            brand: 'bmw.png',
+            type: 'Car',
+            businessCategory: 'VIP',
+            createDate:'00/00/00',
+            registrantionDate: '00/00/00',
+            creator: 'Sam Smith',
+            
+          };
+      data.push(el)
+    }
+    return data
+  }
   public assetMastertableSetting = () =>{
     return  {
       columns:[
@@ -105,35 +128,11 @@ export class AssetsService {
         },
       ],
       data: this.assetMaster(),
+      rowSettings: () =>{
+        
+      }
     }
   }
-
-
-
-  private pedingRegistration = () : IPending [] =>{
-    const data = [];
-    for (let index = 0; index < 9; index++) {
-      const el = {
-            asset:{
-              img:'thumb1.png',
-              assetName:'Asset Name',
-              assetSubName: 'DPD 0000001',
-              progress: Math.floor(Math.random() * 6) + 1   ,
-            },
-            serialNumber: '123s125583456',
-            brand: 'bmw.png',
-            type: 'Car',
-            businessCategory: 'VIP',
-            createDate:'00/00/00',
-            registrantionDate: '00/00/00',
-            creator: 'Sam Smith',
-            
-          };
-      data.push(el)
-    }
-    return data
-  }
-
   public pedingRegistrationTableSetting = () =>{
     return  {
       columns:[
@@ -182,7 +181,6 @@ export class AssetsService {
       data: this.pedingRegistration(),
     }
   }
-
   public pedingCustomizationTableSetting = () =>{
     return  {
       columns:[
@@ -230,6 +228,9 @@ export class AssetsService {
       ],
       data: this.pedingRegistration(),
     }
+  }
+  private onClick(){
+    console.log('hi')
   }
   constructor() { }
 }
