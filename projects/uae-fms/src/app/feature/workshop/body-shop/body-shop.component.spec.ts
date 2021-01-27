@@ -1,19 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TollComponent } from './toll.component';
+import { BodyShopComponent } from './body-shop.component';
 
-describe('TollComponent', () => {
-  let component: TollComponent;
-  let fixture: ComponentFixture<TollComponent>;
+describe('BodyShopComponent', () => {
+  let component: BodyShopComponent;
+  let fixture: ComponentFixture<BodyShopComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TollComponent]
-    }).compileComponents();
+      declarations: [ BodyShopComponent ]
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TollComponent);
+    fixture = TestBed.createComponent(BodyShopComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

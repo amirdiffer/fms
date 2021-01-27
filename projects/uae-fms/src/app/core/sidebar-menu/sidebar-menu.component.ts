@@ -84,9 +84,9 @@ export class SidebarMenuComponent implements OnInit {
               route: 'workshop/inspections/technical-inspection'
             },
             {
-              name: 'Action List',
+              name: 'Auction List',
               icon: 'file',
-              route: 'workshop/inspections/action-list'
+              route: 'workshop/inspections/auction-list'
             }
           ]
         },
