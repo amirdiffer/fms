@@ -46,7 +46,7 @@ export class AssetsService {
             createDate:'00/00/00',
             registrantionDate: '00/00/00',
             creator: 'Sam Smith',
-            
+
           };
       data.push(el)
     }
@@ -58,7 +58,6 @@ export class AssetsService {
         {
           lable: 'Asset',
           field: 'asset',
-          width: 140,
           type:1,
           thumbField: '',
           renderer: 'assetsRenderer'
@@ -74,7 +73,6 @@ export class AssetsService {
         {
           lable: 'Business Category',
           field: 'businessCategory',
-          width: 100,
           type:1,
           thumbField: '',
           renderer: ''
@@ -82,7 +80,7 @@ export class AssetsService {
         {
           lable: 'Allocated',
           field: 'allocated',
-          width: 100,
+          width: 140,
           type:1,
           thumbField: '',
           renderer: ''
@@ -90,7 +88,7 @@ export class AssetsService {
         {
           lable: 'Operator',
           field: 'operator',
-          width: 100,
+          width: 140,
           type:1,
           thumbField: '',
           renderer: ''
@@ -98,7 +96,7 @@ export class AssetsService {
         {
           lable: 'Status',
           field: 'status',
-          width: 100,
+          width: 140,
           type:1,
           thumbField: '',
           renderer: ''
@@ -106,7 +104,7 @@ export class AssetsService {
         {
           lable: 'Submitted On',
           field: 'submitOn',
-          width: 100,
+          width: 140,
           type:1,
           thumbField: '',
           renderer: ''
