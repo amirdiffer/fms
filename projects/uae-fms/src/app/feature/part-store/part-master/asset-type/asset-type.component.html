@@ -1,0 +1,36 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title class="mat-card-title">Asset type</mat-card-title>
+    </mat-card-header>
+    <span class="border"></span>
+    <mat-card-conent>
+        <mat-form-field appearance="fill">
+            <mat-label>Asset Type</mat-label>
+            <mat-select [value]="defaultSelecAssetType">
+              <mat-option value="car">Car</mat-option>
+              <mat-option value="motorcycle">MotorCycle</mat-option>
+              <mat-option value="truck">Truck</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Make</mat-label>
+            <mat-select [value]="defaultSelectMake">
+              <mat-option value="bmw">BMW</mat-option>
+              <mat-option value="audi">Audi</mat-option>
+              <mat-option value="lamborghini">Lamborghini</mat-option>
+              <mat-option value="bugatti">Lamborghini</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Model</mat-label>
+            <mat-select [value]="defaultSelectModel">
+              <mat-option value="m6">M6</mat-option>
+              <mat-option value="x6">X6</mat-option>
+              <mat-option value="z4">Z4</mat-option>
+              <mat-option value="M5">M5</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </mat-card-conent>
+</mat-card>
