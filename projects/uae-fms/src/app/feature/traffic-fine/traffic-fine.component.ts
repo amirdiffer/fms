@@ -11,6 +11,7 @@ import { assetsPath } from '@environments/environment';
 })
 export class TrafficFineComponent implements OnInit {
   assets = assetsPath;
+  activeTab = 'Traffic Fine';
 
   filterCard: FilterCardSetting[] = [
     {
@@ -66,6 +67,7 @@ export class TrafficFineComponent implements OnInit {
     ],
     data: [
       {
+        statusColor: '#6D59D9',
         TC_Code: '1234567890',
         Type: 'Description',
         Department: 'Department`s Name',
@@ -79,6 +81,7 @@ export class TrafficFineComponent implements OnInit {
         Amount: '12345 AED'
       },
       {
+        statusColor: '#6D59D9',
         TC_Code: '1234567890',
         Type: 'Description',
         Department: 'Department`s Name',
@@ -92,6 +95,7 @@ export class TrafficFineComponent implements OnInit {
         Amount: '12345 AED'
       },
       {
+        statusColor: '#6D59D9',
         TC_Code: '1234567890',
         Type: 'Description',
         Department: 'Department`s Name',
@@ -105,6 +109,7 @@ export class TrafficFineComponent implements OnInit {
         Amount: '12345 AED'
       },
       {
+        statusColor: '#6D59D9',
         TC_Code: '1234567890',
         Type: 'Description',
         Department: 'Department`s Name',
@@ -118,6 +123,7 @@ export class TrafficFineComponent implements OnInit {
         Amount: '12345 AED'
       },
       {
+        statusColor: '#6D59D9',
         TC_Code: '1234567890',
         Type: 'Description',
         Department: 'Department`s Name',
@@ -131,6 +137,7 @@ export class TrafficFineComponent implements OnInit {
         Amount: '12345 AED'
       },
       {
+        statusColor: '#6D59D9',
         TC_Code: '1234567890',
         Type: 'Description',
         Department: 'Department`s Name',
@@ -144,6 +151,7 @@ export class TrafficFineComponent implements OnInit {
         Amount: '12345 AED'
       },
       {
+        statusColor: '#6D59D9',
         TC_Code: '1234567890',
         Type: 'Description',
         Department: 'Department`s Name',
@@ -157,6 +165,7 @@ export class TrafficFineComponent implements OnInit {
         Amount: '12345 AED'
       },
       {
+        statusColor: '#6D59D9',
         TC_Code: '1234567890',
         Type: 'Description',
         Department: 'Department`s Name',
@@ -170,6 +179,7 @@ export class TrafficFineComponent implements OnInit {
         Amount: '12345 AED'
       },
       {
+        statusColor: '#6D59D9',
         TC_Code: '1234567890',
         Type: 'Description',
         Department: 'Department`s Name',
