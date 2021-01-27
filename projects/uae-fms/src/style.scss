@@ -66,6 +66,9 @@ html {
   border-radius: 5px;
   margin: 10px;
   padding: 16px;
+  .card-table-header {
+    min-height: 45px;
+  }
 }
 
 .app-table-wrapper {
