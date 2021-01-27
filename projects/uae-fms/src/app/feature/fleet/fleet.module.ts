@@ -10,17 +10,17 @@ import { TableModule } from '@core/table/table.module';
 import { TabViewModule } from '@core/tab-view';
 import { OperatorComponent } from './operator/operator.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-
+import { SubAssetComponent } from './sub-asset/sub-asset.component';
 
 @NgModule({
-  declarations: [FleetComponent, AssetsComponent, OperatorComponent],
-  imports: [
-    CommonModule,
-    FleetRoutingModule , 
-    FilterModule, 
-    TableModule ,
-    AngularSvgIconModule,
-    TabViewModule,
-    FontAwesomeModule]
-})
-export class FleetModule {}
+    declarations: [FleetComponent, OperatorComponent, SubAssetComponent, AssetsComponent],
+    imports: [
+      CommonModule,
+      FleetRoutingModule,
+      FilterModule,
+      TableModule,
+      AngularSvgIconModule,
+      TabViewModule,
+      FontAwesomeModule]
+  })
+export class FleetModule { }
