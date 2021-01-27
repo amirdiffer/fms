@@ -1,9 +1,9 @@
 <table border='1' frame='void' rules='rows' class='w-100'>
   <tr>
-    <th class='text-left' *ngFor='let col of setting.columns; let index = index'>
+    <th class='text-left pb-3' *ngFor='let col of setting.columns; let index = index'>
       {{col.title}}
       <button *ngIf='index === setting.columns.length - 1' class='border-0 float-right bg-transparent ml-2'>
-        <fa-icon *ngIf='index === setting.columns.length - 1' [icon]='faEllipsisV'></fa-icon>
+        <fa-icon [icon]='faEllipsisV'></fa-icon>
       </button>
     </th>
   </tr>
