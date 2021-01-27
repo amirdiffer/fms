@@ -1,0 +1,92 @@
+
+:host ::ng-deep {
+    .progress-bar{
+        box-shadow: 0px 1px 4px #39DA8A99 !important;
+    }
+}
+.tab-container{
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    height: 90px;
+}
+.suppliers-tabs{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    position: absolute;
+    .tab{
+        margin:0 15px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        width: 190px;
+        background-color:#F4F4F4;
+        p{
+            font-size:19px;
+            margin-left:8px;
+            color:#D3D3D3;
+            
+        }
+        
+    }
+    .active-tab{
+        border: 1px solid #008755;
+        border-radius:4px;
+        padding : 23px 50px;
+        p{
+            color:#008755;
+        }
+    }
+}
+.chart-row{
+    display: flex;
+    margin: 15px 22px;
+    align-items: center;
+    position: relative;
+    overflow: visible;
+    .logo{
+        height: 40px;
+        width: 40px;
+        flex: 0 0 10%;
+        img{
+            width: 40px;
+            height: auto;
+        }
+    }
+    .title{
+        flex: 0 0 30%;
+        margin-left:15px;
+       
+        p{
+            font-size:18px;
+            color:#727E8C;
+        }
+    }
+    small{
+        font-size:13px;
+        color:#828D99;
+    }
+}
+
+anms-progress-bar{
+    width: 100%;
+}
+
+
+// Responsive
+@media only screen and (max-width: 1366px){
+    .chart-row {
+        .logo img{
+        width: 30px;
+        }
+        .title {
+            margin-left:5px;
+            p{font-size:15px;}
+            small{font-size:11px;}
+        }
+    }
+} 
+
+
+

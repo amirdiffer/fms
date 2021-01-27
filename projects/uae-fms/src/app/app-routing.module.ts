@@ -3,6 +3,13 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./feature/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      )
+  },
+  {
     path: 'fleet',
     loadChildren: () =>
       import('./feature/fleet/fleet.module').then((m) => m.FleetModule)
