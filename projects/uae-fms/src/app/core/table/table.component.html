@@ -1,13 +1,13 @@
 <div class="app-table-wrapper">
-  <p-table [value]="setting.data">
+  <p-table [value]="setting.data" (mouseleave)='rowIndexTable = -1'>
     <ng-template pTemplate="header">
       <tr>
         <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''">{{col.lable}}</th>
         <th *ngIf="setting.data[0].statusColor" style="width:0px;"></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-data>
-      <tr [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')">
+    <ng-template pTemplate="body" let-data let-i="rowIndex">
+      <tr (mouseover)='rowIsHover(i)' [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')">
         <td *ngFor="let col of setting.columns" (click)="click(col,data)"
           [attr.style]="col.textColor?'color:'+col.textColor+';':''">
           <div *ngIf="!col.renderer" [innerHtml]="getCol(col,data)"></div>
@@ -28,6 +28,12 @@
           </div>
           <div *ngIf="col.renderer == 'informationRenderer'">
             <table-information-renderer [data]="data[col.field]"></table-information-renderer>
+          </div>
+          <div *ngIf="col.renderer == 'statusRenderer'">
+            <table-status-renderer [status]="data"></table-status-renderer>
+          </div>
+          <div *ngIf="col.renderer == 'buttonRenderer' && i == rowIndexTable">
+            <table-button-renderer [button]="data" [col]="col"></table-button-renderer>
           </div>
         </td>
         <div class="statusColor" *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>

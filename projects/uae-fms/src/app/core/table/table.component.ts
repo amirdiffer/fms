@@ -7,9 +7,10 @@ import { environment } from '@environments/environment';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-  constructor() { }
+  rowIndexTable = -1;
+  constructor() {}
   @Input() setting: TableSetting;
-  ngOnInit() { }
+  ngOnInit() {}
 
   getCol(col, data) {
     if (col.type) {
@@ -18,14 +19,17 @@ export class TableComponent implements OnInit {
           return data[col.field];
         case 2:
           return data[col.thumbField]
-            ? `<div class="d-inline-flex cell-with-image"><img class="thumb" src="${environment.baseFileServer + data[col.thumbField]
-            }"> <p class="text-of-cell-with-image">${data[col.field]
-            }</p></div>`
+            ? `<div class="d-inline-flex cell-with-image"><img class="thumb" src="${
+                environment.baseFileServer + data[col.thumbField]
+              }"> <p class="text-of-cell-with-image">${
+                data[col.field]
+              }</p></div>`
             : data[col.field];
         case 3:
           return data[col.thumbField]
-            ? `<img class="thumb" src="${environment.baseFileServer + data[col.thumbField]
-            }">`
+            ? `<img class="thumb" src="${
+                environment.baseFileServer + data[col.thumbField]
+              }">`
             : '';
       }
     } else {
@@ -36,6 +40,9 @@ export class TableComponent implements OnInit {
   click(col: ColumnDifinition, data: any) {
     if (this.setting.rowSettings?.onClick instanceof Function)
       this.setting.rowSettings.onClick(col, data);
+  }
+  rowIsHover(Index: number) {
+    this.rowIndexTable = Index;
   }
 }
 
