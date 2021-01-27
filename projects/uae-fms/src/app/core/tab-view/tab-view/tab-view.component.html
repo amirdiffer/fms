@@ -4,6 +4,7 @@
       (click)="selectTab(tab.index)">
       {{tab.title}}
     </div>
+    <ng-content select=".search-container"></ng-content>
   </div>
   <div class="tab-body" #content>
     <ng-content select="div"></ng-content>

@@ -4,21 +4,47 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'table-vehicle-renderer',
   template: `
-    <div>
+    <div class="cell">
+      <div class="status-color" *ngIf="vehicle.statusColor" [style]="'background :'+vehicle.statusColor+';'"></div>
+      <img class="flag" *ngIf="vehicle.flag" src="../../../../assets/icons/flag.svg"/>
       <img class="vehicle-image" [src]="fileServerBase + vehicle.thumb" />
-      <span class="vehicle-name">{{ vehicle.vehicle }}</span>
+      <span class="lables">
+        <span class="vehicle-name">{{ vehicle.title }}</span>
+        <span class="dpd" *ngIf="vehicle.dpd">{{vehicle.dpd}}</span>
+      </span>
     </div>
   `,
   styles: [
     `
-      div .vehicle-image {
-        max-width: 40px;
-        max-height: 40px;
-        border-radius: 4px;
+      .cell .flag{
+        width: 23px;
+        height: fit-content;
+        align-self:center;
       }
 
-      div .vehicle-name {
+      .cell{
+        display: flex;
+        flex-direction: row;
+      }
+
+      .cell .vehicle-image {
+        max-width: 50px;
+        max-height: 50px;
+        border-radius: 4px;
+        margin:10px;
+      }
+
+      .cell .vehicle-name {
+      }
+
+      .lables{
         margin: 5px;
+        display:flex;
+        flex-direction:column;
+      }
+
+      .dpd{
+        font-size: 0.8rem;
       }
     `
   ]
@@ -27,7 +53,7 @@ export class TableVehicleRendererComponent implements OnInit {
   @Input() vehicle;
   fileServerBase = environment.baseFileServer;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }
