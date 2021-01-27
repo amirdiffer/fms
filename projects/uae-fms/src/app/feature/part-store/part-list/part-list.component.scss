@@ -1,0 +1,117 @@
+@import '../../../../themes/green-theme.scss';
+$primary: map-get($anms-green-primary, 300);
+
+.card-table-header {
+  // direction: rtl;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  .year-filter {
+    display: flex;
+    flex-basis: 100px;
+    flex-grow: 1;
+  }
+  .make-filter {
+    display: flex;
+    flex-basis: 200px;
+    flex-grow: 2;
+  }
+  .model-filter {
+    display: flex;
+    flex-basis: 150px;
+    flex-grow: 2;
+  }
+  .search-box {
+    display: flex;
+    flex-basis: 300px;
+    flex-grow: 3;
+    min-height: 40px;
+  }
+  .download-add-Button {
+    display: flex;
+  }
+}
+.btn-primary-green {
+  background-color: $primary;
+  border: 2px solid #0da06e;
+  border-radius: 4px;
+  width: 155px;
+  height: 45px;
+  position: relative;
+  a {
+    color: #ffff;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  i {
+    color: #ffff;
+    font-size: 1.7rem;
+    font-weight: bold;
+    position: absolute;
+    top: -3px;
+    left: 20%;
+  }
+}
+.btn-download {
+  width: 45px;
+  border: 2px solid #a2a2a2;
+  margin: 0 5px;
+  border-radius: 4px;
+  position: relative;
+  background: #ffff;
+  a {
+    background: url('../../../../assets/icons/download-solid.svg');
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    top: 5px;
+    left: 6px;
+  }
+}
+.search-box {
+  width: 320px;
+  position: relative;
+  input {
+    height: 100%;
+    width: 100%;
+    box-shadow: 0px 0px 2px #00000029;
+    border: 1px solid #0000005e;
+    &::placeholder {
+      padding-left: 15px;
+    }
+  }
+  button {
+    height: 100%;
+    width: 57px;
+    position: absolute;
+    right: 0;
+    box-shadow: 0px 2px 4px #5a8dee66;
+    color: #ffffff;
+    border: none;
+    background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
+      0% no-repeat padding-box;
+    img {
+      width: 23px;
+    }
+  }
+  .icon {
+    color: #fff;
+    font-size: 20px;
+  }
+}
+.input-group input {
+  height: 100%;
+}
+.dropdown-toggle {
+  border: 1px solid #0000005e;
+  border-left: none;
+  border-right: none;
+  border-radius: 0px;
+}
+.form-control {
+  border: 1px solid #0000005e;
+  border-right: none;
+  border-radius: 0px;
+}

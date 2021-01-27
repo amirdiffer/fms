@@ -1,0 +1,51 @@
+<div class="statistic-card">
+  <app-filter [setting]='filterCard'></app-filter>
+</div>
+<div class="component_wrapper">
+  <div class="card-table-header">
+    <div class="year-filter mb-2">
+      <div class="input-group">
+        <input type="text" class="form-control shadow-none" placeholder="Year">
+        <div class="input-group-append">
+          <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="make-filter mb-2">
+      <div class="input-group ">
+        <input type="text" class="form-control shadow-none" placeholder="Make">
+        <div class="input-group-append">
+          <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="model-filter mb-2">
+      <div class="input-group ">
+        <input type="text" class="form-control shadow-none" placeholder="Model">
+        <div class="input-group-append">
+          <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="search-box mb-2">
+      <input type="text" placeholder="Search...">
+      <button>Go</button>
+    </div>
+    <div class="download-add-Button mb-2">
+      <button class="btn-download"><a></a></button>
+      <button class="btn-primary-green"><i>+</i><a>Add</a></button>
+    </div>
+  </div>
+  <div class="table-wreapper">
+    <app-table [setting]='partList_Table'></app-table>
+  </div>
+</div>
