@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ConfigurationComponent } from './configuration.component';
+import { AssetPolicyComponent } from '@feature/configuration/asset-policy/asset-policy.component';
 import { PeriodicServiceComponent } from './periodic-service/periodic-service.component';
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
         (m) => m.UserManagementModule
       )
   },
-  { path: 'periodic-service', component: PeriodicServiceComponent }
+  { path: 'periodic-service', component: PeriodicServiceComponent },
+  { path: 'asset-policy', component: AssetPolicyComponent }
 ];
 
 @NgModule({
