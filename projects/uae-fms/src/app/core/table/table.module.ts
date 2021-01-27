@@ -11,6 +11,7 @@ import { TableAssetRendererComponent } from '@core/table/renderers/asset';
 import { TableDoubleLineRendererComponent } from '@core/table/renderers/double-line';
 import { SubtextRendererComponent } from './renderers/subText';
 import { TableInformationRendererComponent } from './renderers/information';
+import { TableThumbTextRendererComponent } from '@core/table/renderers/thumb-text';
 import { TableBooleanRendererComponent } from './renderers/boolean';
 import { TableExternalLinkRendererComponent } from '@core/table/renderers/external_link';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -33,6 +34,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     TableDoubleLineRendererComponent,
     SubtextRendererComponent,
     TableInformationRendererComponent,
+    TableThumbTextRendererComponent,
     TableBooleanRendererComponent,
     TableExternalLinkRendererComponent
   ],
