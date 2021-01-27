@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { PartMasterService } from './part-master.service';
 
 @Component({
   selector: 'anms-part-master',
@@ -7,8 +8,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PartMasterComponent implements OnInit {
+  searchIcon= 'assets/icons/search.svg'
   filterSetting = [];
-  constructor() { }
+  partMasterTableSetting;
+  constructor(private _partMasterService: PartMasterService) { }
 
   ngOnInit(): void {
     this.filterSetting = [
@@ -28,6 +31,7 @@ export class PartMasterComponent implements OnInit {
         filterTagColor: '#BA7967'
       }
     ];
+    this.partMasterTableSetting = this._partMasterService.partMastertableSetting();
   }
 }
 

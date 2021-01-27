@@ -7,7 +7,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryComponent implements OnInit {
-
+  folderFillSvg='assets/icons/folder-fill.svg';
+  folderRegularSvg='assets/icons/folder-regular.svg';
   constructor() { }
 
   ngOnInit(): void {
