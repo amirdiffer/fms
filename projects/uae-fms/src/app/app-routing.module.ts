@@ -3,6 +3,13 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./feature/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      )
+  },
+  {
     path: 'fleet',
     loadChildren: () =>
       import('./feature/fleet/fleet.module').then((m) => m.FleetModule)
@@ -24,6 +31,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./feature/part-store/part-store.module').then(
         (m) => m.PartStoreModule
+      )
+  },
+  {
+    path: 'traffic-fine',
+    loadChildren: () =>
+      import('./feature/traffic-fine/traffic-fine.module').then(
+        (m) => m.TrafficFineModule
       )
   },
   {

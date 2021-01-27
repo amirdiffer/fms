@@ -3,7 +3,7 @@
     <ng-template pTemplate="header">
       <tr>
         <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''">{{col.lable}}</th>
-        <th *ngIf="setting.data[0].statusColor" style="width:0px;"></th>
+        <th *ngIf="foundStatusColor(setting.data)" style="width:0px;"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-data>
@@ -12,7 +12,7 @@
           [attr.style]="col.textColor?'color:'+col.textColor+';':''">
           <div *ngIf="!col.renderer" [innerHtml]="getCol(col,data)"></div>
           <div *ngIf="col.renderer=='userRenderer'">
-            <table-user-renderer [user]="data[col.field]"></table-user-renderer>
+            <table-user-renderer [user]="data"></table-user-renderer>
           </div>
           <div *ngIf="col.renderer=='vehicleRenderer'">
             <table-vehicle-renderer [vehicle]="data[col.field]"></table-vehicle-renderer>
@@ -32,8 +32,21 @@
           <div *ngIf="col.renderer == 'thumbTextRenderer'">
             <table-thumb-text-renderer [data]="data"></table-thumb-text-renderer>
           </div>
+          <div *ngIf="col.renderer == 'booleanRenderer'">
+            <table-boolean-renderer [data]="data[col.field]"></table-boolean-renderer>
+          </div>
+          <div *ngIf="col.renderer == 'externalLinkRenderer'">
+            <table-external-link-renderer [link]="data[col.field]"></table-external-link-renderer>
+          </div>
+          <div *ngIf="col.renderer=='assetsRenderer'">
+            <table-assets-renderer [data]="data[col.field]"></table-assets-renderer>
+          </div>
+          <div *ngIf="col.renderer=='companyRenderer'">
+            <table-company-renderer [company]="data"></table-company-renderer>
+          </div>
         </td>
-        <div class="statusColor" *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
+        <div [class]="'statusColor'+ (hasRendere(setting.columns)?' with-renderer-table':' simple-table')"
+          *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
       </tr>
     </ng-template>
 
