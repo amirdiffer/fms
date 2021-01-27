@@ -24,9 +24,17 @@
 
 .statusColor {
   width: 6px;
-  height: 60px;
   position: absolute;
   left: 0px;
   border-radius: 0px 5px 5px 0px;
+}
+
+.simple-table {
+  height: 45px;
+  margin-top: 5px;
+}
+
+.with-renderer-table {
+  height: 60px;
   margin-top: 20px;
 }

@@ -39,7 +39,7 @@
             <table-company-renderer [company]="data"></table-company-renderer>
           </div>
         </td>
-        <div class="statusColor" *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
+        <div [class]="'statusColor'+ (hasRendere(setting.columns)?' with-renderer-table':' simple-table')" *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
       </tr>
     </ng-template>
 
