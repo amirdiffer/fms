@@ -19,6 +19,7 @@ export class TableComponent implements OnInit {
         case 2:
           return data[col.thumbField]
 <<<<<<< HEAD
+<<<<<<< HEAD
             ? `<div class="d-inline-flex"><img class="thumb" src="
             ${environment.baseFileServer + data[col.thumbField]}"> <p class="text-of-cell-with-image">${data[col.field]}</p></div>`
             : data[col.field];
@@ -26,6 +27,8 @@ export class TableComponent implements OnInit {
           return data[col.thumbField]
             ? `<img class="thumb" src="${environment.baseFileServer + data[col.thumbField]}">`
 =======
+=======
+>>>>>>> 2c665e41a3c4e4004c514d642d1915f3c1030943
             ? `<div class="d-inline-flex cell-with-image"><img class="thumb" src="${environment.baseFileServer + data[col.thumbField]
             }"> <p class="text-of-cell-with-image">${data[col.field]
             }</p></div>`
@@ -45,6 +48,14 @@ export class TableComponent implements OnInit {
   click(col: ColumnDifinition, data: any) {
     if (this.setting.rowSettings?.onClick instanceof Function)
       this.setting.rowSettings.onClick(col, data);
+  }
+
+  foundStatusColor(data) {
+    for (let element of data) {
+      if (element.statusColor)
+        return true;
+    };
+    return false;
   }
 }
 
