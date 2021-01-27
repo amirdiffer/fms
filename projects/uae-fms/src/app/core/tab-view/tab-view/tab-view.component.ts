@@ -6,7 +6,9 @@ import {
   ElementRef,
   ViewContainerRef,
   ContentChild,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -17,6 +19,9 @@ import { Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TabViewComponent implements OnInit {
+  @Output('selectedIndex') selectedIndex: EventEmitter<
+    string
+  > = new EventEmitter<string>();
   @ViewChild('content', { static: false }) element: ElementRef;
   tabs: { index: number; title: string }[] = [];
   initialized: boolean = false;
@@ -55,8 +60,9 @@ export class TabViewComponent implements OnInit {
     }
   }
 
-  selectTab(index: number) {
+  selectTab(index: number, title: string) {
     this.selectedTab = index;
+    this.selectedIndex.emit(title);
     this.selectedTabChanged();
   }
 }
