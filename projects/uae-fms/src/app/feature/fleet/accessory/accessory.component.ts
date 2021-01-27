@@ -46,6 +46,7 @@ export class AccessoryComponent implements OnInit {
     ],
     data: [
       {
+        statusColor: '#00AFB9',
         Item: 'Sticker',
         Type: 'Name is here',
         Asset_SubAsset: 'Item 122334',
@@ -53,6 +54,7 @@ export class AccessoryComponent implements OnInit {
         Quantity: '2'
       },
       {
+        statusColor: '#00AFB9',
         Item: 'Sticker',
         Type: 'Name is here',
         Asset_SubAsset: 'Item 122334',
@@ -60,6 +62,7 @@ export class AccessoryComponent implements OnInit {
         Quantity: '2'
       },
       {
+        statusColor: '#00AFB9',
         Item: 'Sticker',
         Type: 'Name is here',
         Asset_SubAsset: 'Item 122334',
@@ -67,6 +70,7 @@ export class AccessoryComponent implements OnInit {
         Quantity: '2'
       },
       {
+        statusColor: '#00AFB9',
         Item: 'Sticker',
         Type: 'Name is here',
         Asset_SubAsset: 'Item 122334',
@@ -74,6 +78,7 @@ export class AccessoryComponent implements OnInit {
         Quantity: '2'
       },
       {
+        statusColor: '#00AFB9',
         Item: 'Sticker',
         Type: 'Name is here',
         Asset_SubAsset: 'Item 122334',
@@ -81,6 +86,7 @@ export class AccessoryComponent implements OnInit {
         Quantity: '2'
       },
       {
+        statusColor: '#00AFB9',
         Item: 'Sticker',
         Type: 'Name is here',
         Asset_SubAsset: 'Item 122334',
