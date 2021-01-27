@@ -8,15 +8,18 @@ import { AssetsComponent } from './assets/assets.component';
 import { FilterModule } from '@core/filter/filter.module';
 import { TableModule } from '@core/table/table.module';
 import { TabViewModule } from '@core/tab-view';
+import { OperatorComponent } from './operator/operator.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 
 @NgModule({
-  declarations: [FleetComponent, AssetsComponent],
+  declarations: [FleetComponent, AssetsComponent, OperatorComponent],
   imports: [
     CommonModule,
     FleetRoutingModule , 
     FilterModule, 
-    TableModule , 
+    TableModule ,
+    AngularSvgIconModule,
     TabViewModule,
     FontAwesomeModule]
 })
