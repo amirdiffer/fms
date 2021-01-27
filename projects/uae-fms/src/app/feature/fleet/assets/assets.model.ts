@@ -13,6 +13,7 @@ export interface IAssets {
     submitOn: string;
     brand: string;
     killometer: number;
+    statusColor:string;
 }
 
 export interface IPending {

@@ -32,6 +32,9 @@
           <div *ngIf="col.renderer == 'booleanRenderer'">
             <table-boolean-renderer [data]="data[col.field]"></table-boolean-renderer>
           </div>
+          <div *ngIf="col.renderer=='assetsRenderer'">
+            <table-assets-renderer [data]="data[col.field]"></table-assets-renderer>
+          </div>
         </td>
         <div class="statusColor" *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
       </tr>

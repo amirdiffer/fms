@@ -23,6 +23,7 @@ export class AssetsService {
             submitOn: '2 day ago',
             brand: 'bmw.png',
             killometer: 25000,
+            statusColor:'#009EFF'
           };
       data.push(el)
     }
