@@ -3,30 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { PartStoreRoutingModule } from './part-store-routing.module';
 import { PartStoreComponent } from './part-store.component';
-import { PartMasterComponent } from './part-master/part-master.component';
-import { FilterModule } from '@core/filter';
-import { AssetTypeComponent } from './part-master/asset-type/asset-type.component';
-import { CategoryComponent } from './part-master/category/category.component';
-import { MatCardModule } from '@angular/material/card';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { AngularSvgIconModule } from 'angular-svg-icon';
-import { TableModule } from '@core/table';
 
 @NgModule({
-  declarations: [PartStoreComponent, 
-    PartMasterComponent, 
-    AssetTypeComponent, 
-    CategoryComponent
-  ],
-  imports: [CommonModule, 
-    PartStoreRoutingModule,
-    FilterModule,
-    MatCardModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    AngularSvgIconModule,
-    TableModule
+  declarations: [PartStoreComponent],
+  imports: [CommonModule, PartStoreRoutingModule,
+
   ]
 })
 export class PartStoreModule {}
