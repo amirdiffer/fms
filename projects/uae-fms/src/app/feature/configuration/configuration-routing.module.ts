@@ -5,10 +5,13 @@ import { ConfigurationComponent } from './configuration.component';
 import { PeriodicServiceComponent } from './periodic-service/periodic-service.component';
 
 const routes: Routes = [
+  { path: '', component: ConfigurationComponent },
   {
-    path: '',
-    redirectTo: 'periodic-service',
-    component: ConfigurationComponent
+    path: 'user-management',
+    loadChildren: () =>
+      import('../configuration/user-management/user-management.module').then(
+        (m) => m.UserManagementModule
+      )
   },
   { path: 'periodic-service', component: PeriodicServiceComponent }
 ];
@@ -17,4 +20,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ConfigurationRoutingModule {}
+export class ConfigurationRoutingModule { }

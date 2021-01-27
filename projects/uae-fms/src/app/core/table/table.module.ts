@@ -11,10 +11,17 @@ import { TableAssetRendererComponent } from '@core/table/renderers/asset';
 import { TableDoubleLineRendererComponent } from '@core/table/renderers/double-line';
 import { SubtextRendererComponent } from './renderers/subText';
 import { TableInformationRendererComponent } from './renderers/information';
-import { TableBooleanRendererComponent } from "./renderers/boolean";
+import { TableBooleanRendererComponent } from './renderers/boolean';
+import { TableExternalLinkRendererComponent } from '@core/table/renderers/external_link';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-  imports: [PrimengTableModule, CommonModule , MatProgressBarModule,],
+  imports: [
+    PrimengTableModule,
+    CommonModule,
+    MatProgressBarModule,
+    FontAwesomeModule
+  ],
   exports: [TableComponent],
   declarations: [
     TableComponent,
@@ -26,7 +33,8 @@ import { TableBooleanRendererComponent } from "./renderers/boolean";
     TableDoubleLineRendererComponent,
     SubtextRendererComponent,
     TableInformationRendererComponent,
-    TableBooleanRendererComponent
+    TableBooleanRendererComponent,
+    TableExternalLinkRendererComponent
   ],
   providers: []
 })
