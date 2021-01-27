@@ -11,4 +11,4 @@ import { TableModule } from '@core/table';
   declarations: [PartStoreComponent, PartListComponent],
   imports: [CommonModule, PartStoreRoutingModule, FilterModule, TableModule]
 })
-export class PartStoreModule {}
+export class PartStoreModule { }
