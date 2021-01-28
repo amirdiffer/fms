@@ -42,55 +42,144 @@ export class SidebarMenuComponent implements OnInit {
 
   usingMenu = [];
   mainMenu = [
-    { name: 'Dashboard', icon: 'dashboard', route: 'main' },
+    { name: 'Dashboard', icon: 'dashboard', route: 'dashboard' },
     {
       name: 'Fleets',
       icon: 'fleets',
-      route: 'main/vehicle',
+      route: 'fleet',
       items: [
-        { name: 'Assets', icon: 'car-solid', route: 'main' },
-        { name: 'Sub Assets', icon: 'sub-assets', route: 'main' },
-        { name: 'Accessory', icon: 'accessory', route: 'main' },
-        { name: 'Operator', icon: 'operator', route: 'main' },
-        { name: 'Organization', icon: 'organization', route: 'main' },
-        { name: 'Movement', icon: 'movement', route: 'main' }
+        { name: 'Assets', icon: 'car-solid', route: 'fleet/assets' },
+        { name: 'Sub Assets', icon: 'sub-assets', route: 'fleet/sub-assets' },
+        { name: 'Accessory', icon: 'accessory', route: 'fleet/accessory' },
+        { name: 'Operator', icon: 'operator', route: 'fleet/operator' },
+        {
+          name: 'Organization',
+          icon: 'organization',
+          route: 'fleet/organization'
+        },
+        { name: 'Movement', icon: 'movement', route: 'fleet/movement' }
       ]
     },
-    { name: 'Fuel Management', icon: 'fuel', route: 'main/booking-list' },
-    { name: 'Traffic Fines', icon: 'traffic', route: 'main/reports' },
-    { name: 'Toll', icon: 'toll', route: 'main/reports' },
+    { name: 'Fuel Management', icon: 'fuel', route: '#' },
+    { name: 'Traffic Fines', icon: 'traffic', route: 'traffic-fine' },
+    { name: 'Toll', icon: 'toll', route: 'toll' },
     {
       name: 'Workshop',
       icon: 'workshop',
-      route: 'main/vehicle',
+      route: 'workshop',
       items: [
-        { name: 'Body Shop', icon: 'body-shop', route: 'main' },
-        { name: 'Service Shop', icon: 'service-shop', route: 'main' },
+        { name: 'Body Shop', icon: 'body-shop', route: 'workshop/body-shop' },
+        {
+          name: 'Service Shop',
+          icon: 'service-shop',
+          route: 'workshop/service-shop'
+        },
         {
           name: 'Inspections',
           icon: 'inspection',
-          route: 'main',
+          route: 'workshop/inspection',
           items: [
-            { name: 'Technical Inspection', route: 'main' },
-            { name: 'Action List', icon: 'file', route: 'main' }
+            {
+              name: 'Technical Inspection',
+              route: 'workshop/inspection/technical-inspection'
+            },
+            {
+              name: 'Action List',
+              icon: 'file',
+              route: 'workshop/inspection/action-list'
+            }
           ]
         },
-        { name: 'Task Master', icon: 'action-list', route: 'main' }
+        {
+          name: 'Task Master',
+          icon: 'action-list',
+          route: 'workshop/task-master'
+        }
       ]
     },
     {
       name: 'Part Store',
       icon: 'part-store',
-      route: 'main/vehicle',
+      route: 'part-store',
       items: [
-        { name: 'Parts List', icon: 'part-list', route: 'main' },
-        { name: 'Order List', icon: 'order-list', route: 'main' },
-        { name: 'Part Master', icon: 'part-master', route: 'main' }
+        {
+          name: 'Parts List',
+          icon: 'part-list',
+          route: 'part-store/parts-list'
+        },
+        {
+          name: 'Order List',
+          icon: 'order-list',
+          route: 'part-store/order-list'
+        },
+        {
+          name: 'Part Master',
+          icon: 'part-master',
+          route: 'part-store/part-master'
+        }
       ]
     },
-    { name: 'Reports', icon: 'report', route: 'main/reports' },
-    { name: 'Configuration', icon: 'configuration', route: 'main/reports' },
-    { name: 'Integrations', icon: 'integrations', route: 'main/reports' }
+    { name: 'Reports', icon: 'report', route: '#' },
+    {
+      name: 'Configuration',
+      icon: 'configuration',
+      route: 'configuration',
+      items: [
+        {
+          name: 'User Management',
+          icon: 'organization',
+          route: 'configuration/user-management',
+          items: [
+            {
+              name: 'Role and Permission',
+              icon: 'organization',
+              route: 'configuration/user-management/role-permission'
+            },
+            {
+              name: 'Users',
+              icon: 'organization',
+              route: 'configuration/user-management/users'
+            },
+            {
+              name: 'Company Profile',
+              icon: 'organization',
+              route: 'configuration/user-management/company-setting'
+            }
+          ]
+        },
+        {
+          name: 'Asset Policy',
+          icon: 'asset-policy',
+          route: 'configuration/asset-policy'
+        },
+        {
+          name: 'Asset Configuration',
+          icon: 'cog',
+          route: 'configuration/asset-configuration'
+        },
+        {
+          name: 'Business Category',
+          icon: 'business',
+          route: 'configuration/business-category'
+        },
+        {
+          name: 'Ownership',
+          icon: 'copyright-solid',
+          route: 'configuration/ownership'
+        },
+        {
+          name: 'Fleet Status',
+          icon: 'flag-solid',
+          route: 'configuration/fleet-status'
+        },
+        {
+          name: 'Periodic Service',
+          icon: 'cogs-solid',
+          route: 'configuration/periodic-service'
+        }
+      ]
+    },
+    { name: 'Integrations', icon: 'integrations', route: 'integration' }
   ];
 
   opened$ = this.facade.opened$;

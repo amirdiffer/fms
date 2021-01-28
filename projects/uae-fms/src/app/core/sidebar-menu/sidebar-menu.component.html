@@ -15,8 +15,8 @@
                   <span class="menu-item-name" *ngIf="subItem.name && (showLabel$|async)">{{subItem.name}}</span>
                   <ul class='sub-menuItem-child' *ngIf='subItem.items'>
 
-                    <ng-container  *ngFor="let subItemChild of item.items">
-                      <li class="menuItem margin-transition" [routerLink]="item.route">
+                    <ng-container  *ngFor="let subItemChild of subItem.items">
+                      <li class="menuItem margin-transition" [routerLink]="subItemChild.route">
                         <span class="menu-item-name" *ngIf="subItemChild.name && (showLabel$|async)">{{subItemChild.name}}</span>
                       </li>
                     </ng-container>

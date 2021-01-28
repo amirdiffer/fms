@@ -1,0 +1,20 @@
+    { name: 'Configuration', icon: 'configuration', route: 'configuration',
+      items: [
+        { name: 'User Management', icon: 'organization', route: 'configuration/user-management',
+          items: [
+            { name: 'Role and Permission', icon: '', route: 'configuration/user-management/role-permission' },
+            { name: 'Users', icon: '', route: 'configuration/user-management/users' },
+            { name: 'Company Profile', icon: '', route: 'configuration/user-management/company-setting' },
+          ]
+        },
+        { name: 'Asset Policy', icon: 'asset-policy', route: 'configuration/asset-policy' },
+        { name: 'Asset Configuration', icon: 'cog', route: 'configuration/asset-configuration' },
+        { name: 'Business Category', icon: 'business', route: 'configuration/business-category' },
+        { name: 'Ownership', icon: 'copyright-solid', route: 'configuration/ownership' },
+        { name: 'Fleet Status', icon: 'flag-solid', route: 'configuration/fleet-status' },
+        { name: 'Periodic Service', icon: 'cogs-solid', route: 'configuration/periodic-service' },
+      ]
+    },
+
+  overflow-y: auto;
+  max-height: calc(100vh - 3rem);
