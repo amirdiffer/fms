@@ -1,0 +1,13 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title class="mat-card-title">Asset Category</mat-card-title>
+    </mat-card-header>
+    <span class="border"></span>
+    <mat-card-content>
+        <mat-radio-group class="radio-group">
+            <mat-radio-button class="radio-button" *ngFor="let category of categories" [value]="category">
+                {{category}}
+            </mat-radio-button>
+        </mat-radio-group>
+    </mat-card-content>
+</mat-card>

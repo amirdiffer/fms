@@ -45,6 +45,14 @@ export class TableComponent implements OnInit {
     };
     return false;
   }
+
+  hasRendere(columns: ColumnDifinition[]): boolean {
+    for (let col of columns) {
+      if (col.renderer)
+        return true;
+    }
+    return false;
+  }
 }
 
 export interface TableSetting {
