@@ -7,28 +7,6 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-data>
-<<<<<<< HEAD
-        <tr [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')">
-            <td *ngFor="let col of setting.columns"  (click)="click(col,data)">
-                <div *ngIf="!col.renderer" [innerHtml]="getCol(col,data)"></div>
-                <div *ngIf="col.renderer=='userRenderer'">
-                    <table-user-renderer [user]="data[col.field]"></table-user-renderer>
-                </div>
-                <div *ngIf="col.renderer=='vehicleRenderer'">
-                    <table-vehicle-renderer [vehicle]="data[col.field]"></table-vehicle-renderer>
-                </div>
-                <div *ngIf="col.renderer == 'subtextRenderer'">
-                    <table-subText-renderer [data]="data[col.field]" ></table-subText-renderer>
-                </div>
-                <div *ngIf="col.renderer=='assetsRenderer'">
-                    <table-assets-renderer [data]="data[col.field]"></table-assets-renderer>
-                </div>
-                <div *ngIf="col.renderer=='operation'">
-                    <table-operation-renderer></table-operation-renderer>
-                </div>
-            </td>
-        </tr>
-=======
       <tr [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')">
         <td *ngFor="let col of setting.columns" (click)="click(col,data)"
           [attr.style]="col.textColor?'color:'+col.textColor+';':''">
@@ -70,7 +48,6 @@
         <div [class]="'statusColor'+ (hasRendere(setting.columns)?' with-renderer-table':' simple-table')"
           *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
       </tr>
->>>>>>> 2e4f34b50d27330c58f53d1c6abf4f94d2e2643b
     </ng-template>
 
   </p-table>
