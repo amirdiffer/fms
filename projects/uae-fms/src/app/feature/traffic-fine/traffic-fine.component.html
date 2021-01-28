@@ -1,0 +1,26 @@
+<div class="statistic-card">
+  <app-filter [setting]='filterCard'></app-filter>
+</div>
+<div class="component_wrapper">
+  <div class="card-table-header">
+    <div class="search-box">
+      <input type="text" placeholder="Search in Columns">
+      <button>
+        <img src="../../../assets/icons/search-solid.svg" alt="">
+      </button>
+    </div>
+    <button class="btn-download"><a></a></button>
+    <button *ngIf="activeTab == 'Asset Traffic Fine'" class="btn-primary-green"><i>+</i><a>Add</a></button>
+  </div>
+  <div class="table-wreapper">
+    <app-tab-view (selectedIndex)="activeTab = $event">
+      <div title='Traffic Fine'>
+        <app-table [setting]='trafficFine_Table'></app-table>
+      </div>
+      <div title='Asset Traffic Fine'>
+        <app-table [setting]='assetTraffic_Table'></app-table>
+      </div>
+    </app-tab-view>
+  </div>
+</div>
+

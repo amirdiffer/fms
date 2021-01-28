@@ -1,34 +1,50 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserModel } from '../../../features/user';
-import { environment } from "../../../../environments/environment";
+import { environment } from '../../../../environments/environment';
 
 @Component({
-    selector: 'table-user-renderer',
-    template: `
-    <div>
-        <img class="user-image" [src]="fileServerBase+user.profilePicture">
-        <span class="user-name">{{user.firstName+' '+user.lastName}}</span>
+  selector: 'table-user-renderer',
+  template: `
+    <div class="d-flex">
+      <div>
+        <img class="user-image" [src]="fileServerBase + user.picture" />
+      </div>
+      <div class="d-flex flex-column">
+        <span class="user-name">{{
+          user.firstName + ' ' + user.lastName
+        }}</span>
+        <span class="user-info">{{ user.id }}</span>
+      </div>
     </div>
-    `,
-    styles: [`
-        div .user-image{
-            max-width: 40px;
-            max-height: 40px;
-            border-radius: 4px;
-        }
+  `,
+  styles: [
+    `
+      div .user-image {
+        max-width: 60px;
+        max-height: 50px;
+        border-radius: 4px;
+      }
 
-        div .user-name{
-            margin:5px;
-        }
-        
-    `]
+      div .user-name {
+        margin-left: 10px;
+        text-align: left;
+        font-size: 17px;
+        color: #000000de;
+      }
+
+      div .user-info {
+        margin-left: 10px;
+        text-align: left;
+        font-size: 17px;
+        color: #000000de;
+      }
+    `
+  ]
 })
-
 export class TableUserRendererComponent implements OnInit {
-    @Input() user: UserModel;
-    fileServerBase = environment.baseFileServer;
+  @Input() user;
+  fileServerBase = environment.baseFileServer;
 
-    constructor() { }
+  constructor() {}
 
-    ngOnInit() { }
+  ngOnInit() {}
 }

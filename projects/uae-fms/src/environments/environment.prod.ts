@@ -2,7 +2,7 @@ const packageJson = require('../../../../package.json');
 export const assetsPath = '../assets/';
 
 export const environment = {
-  appName: 'IServe',
+  appName: 'Fleet Management Service',
   envName: 'PROD',
   production: true,
   test: false,

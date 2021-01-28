@@ -123,8 +123,11 @@
 }
 
 .closed-menu-wrapper {
-  width: 75px;
+  width: 85px;
   transition: width 400ms ease-in-out;
+  .container {
+    padding: 25px 15px;
+  }
   .has-child {
     &::after {
       transition: 1s ease-in-out;
