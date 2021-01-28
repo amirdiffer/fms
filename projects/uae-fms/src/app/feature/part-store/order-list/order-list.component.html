@@ -1,5 +1,8 @@
-<div class="statistic-card">
-  <app-filter [setting]='filterCard'></app-filter>
+<div class="statistic-card" *ngIf="activeTab == 'Request List'">
+  <app-filter [setting]='filterCard1'></app-filter>
+</div>
+<div class="statistic-card" *ngIf="activeTab == 'My Order'">
+  <app-filter [setting]='filterCard2'></app-filter>
 </div>
 <div class="component_wrapper">
   <div class="card-table-header">
@@ -13,7 +16,7 @@
     <button class="btn-primary-green"><i>+</i><a>Add</a></button>
   </div>
   <div class="table-wreapper">
-    <app-tab-view>
+    <app-tab-view (selectedIndex)="activeTab = $event">
       <div title='Request List'>
         <app-table [setting]='requestList_Table'></app-table>
       </div>

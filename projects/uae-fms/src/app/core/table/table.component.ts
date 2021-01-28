@@ -41,8 +41,23 @@ export class TableComponent implements OnInit {
     if (this.setting.rowSettings?.onClick instanceof Function)
       this.setting.rowSettings.onClick(col, data);
   }
+
   rowIsHover(Index: number) {
     this.rowIndexTable = Index;
+  }
+
+  foundStatusColor(data) {
+    for (let element of data) {
+      if (element.statusColor) return true;
+    }
+    return false;
+  }
+
+  hasRendere(columns: ColumnDifinition[]): boolean {
+    for (let col of columns) {
+      if (col.renderer) return true;
+    }
+    return false;
   }
 }
 

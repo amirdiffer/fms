@@ -9,7 +9,9 @@ import { FilterCardSetting } from '@core/filter';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderListComponent implements OnInit {
-  filterCard: FilterCardSetting[] = [
+  activeTab = 'Request List';
+
+  filterCard1: FilterCardSetting[] = [
     {
       filterTitle: 'This Month',
       filterCount: '',
@@ -35,6 +37,39 @@ export class OrderListComponent implements OnInit {
       onActive(index: number) {}
     }
   ];
+  filterCard2: FilterCardSetting[] = [
+    {
+      filterTitle: 'This Month',
+      filterCount: '',
+      filterTagColor: '#ffffff',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'Total',
+      filterCount: '13',
+      filterTagColor: '#6EBFB5',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'Approved',
+      filterCount: '08',
+      filterTagColor: '#6870B4',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'Waiting',
+      filterCount: '02',
+      filterTagColor: '#BA7967',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'Rejected',
+      filterCount: '09',
+      filterTagColor: '#DD5648',
+      onActive(index: number) {}
+    }
+  ];
+
   requestList_Table: TableSetting = {
     columns: [
       { lable: 'Item', type: 1, field: 'Item' },
