@@ -6,13 +6,13 @@ import { environment } from '../../../../environments/environment';
   template: `
     <div class="d-flex">
       <div>
-        <img class="user-image" [src]="fileServerBase + user.profilePicture" />
+        <img class="user-image" [src]="fileServerBase + user.picture" />
       </div>
       <div class="d-flex flex-column">
         <span class="user-name">{{
           user.firstName + ' ' + user.lastName
         }}</span>
-        <span class="user-info">{{ user.userInfo }}</span>
+        <span class="user-info">{{ user.id }}</span>
       </div>
     </div>
   `,

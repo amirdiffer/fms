@@ -1,0 +1,19 @@
+<h6 class="card-header">
+    Active Assets
+</h6>
+
+<div class="active-assets-chart">
+    <div class="chart-row" *ngFor="let data of chartData; let i=index;">
+        <div class="icon">
+            <span>
+                <fa-icon [icon]="data.icon" [ngStyle]="{'color' : data.color}"></fa-icon>
+            </span>
+        </div>
+        <div class="title">
+            <p>{{data.title}}</p>
+        </div>
+        <anms-progress-bar  [color]="data.bgColor"
+                            [maxValue]="data.total"
+                            [value]="data.count"></anms-progress-bar>
+    </div>
+</div>
