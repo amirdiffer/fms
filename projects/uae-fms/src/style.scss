@@ -66,4 +66,22 @@ html {
   border-radius: 5px;
   margin: 10px;
   padding: 16px;
+  .card-table-header {
+    min-height: 45px;
+  }
+}
+
+.app-table-wrapper {
+  .cell-with-image {
+    align-items: center;
+  }
+
+  .thumb {
+    padding: 0px 10px;
+  }
+
+  .text-of-cell-with-image {
+    margin: 0px;
+    padding: 0px;
+  }
 }
