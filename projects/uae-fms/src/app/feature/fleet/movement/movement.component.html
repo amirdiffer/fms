@@ -1,7 +1,10 @@
 
-<div class="filter-container">
-    <app-filter [setting] = "filterSetting"></app-filter>
-</div>
+<ng-container *ngIf="(requestFilterHide$ | async )">
+    <div class="filter-container">
+        <app-filter [setting] = "filterSetting"></app-filter>
+    </div>
+</ng-container>
+
 
 <div class="table-container">
     <div class="card-table pt-5">
@@ -18,7 +21,7 @@
                 <div title="Movement Over View">
                     <app-table [setting]="movementOverViewTableSetting"></app-table>
                 </div>
-                <div title="Request">
+                <div title="Request" #requestTab>
                     <app-table [setting]="requestTableSetting"></app-table>
                 </div>
             </app-tab-view>

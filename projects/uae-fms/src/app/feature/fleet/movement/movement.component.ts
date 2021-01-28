@@ -1,17 +1,22 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ElementRef, ViewChild,  AfterViewChecked } from '@angular/core';
 import { MovementService } from './movement.service';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Observable, of } from 'rxjs';
 @Component({
   selector: 'anms-movement',
   templateUrl: './movement.component.html',
   styleUrls: ['./movement.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovementComponent implements OnInit {
+export class MovementComponent implements OnInit, AfterViewChecked {
   faSearch = faSearch;
   filterSetting;
   movementOverViewTableSetting;
   requestTableSetting;
+  requestFilter: boolean = false;
+  requestFilterHide$: Observable<boolean> = of(this.requestFilter);
+  
+  @ViewChild('requestTab' , {static: true}) requestTab: ElementRef
   constructor(private _movementService: MovementService) { }
 
   ngOnInit(): void {
@@ -40,7 +45,13 @@ export class MovementComponent implements OnInit {
       }
     ]
   }
+  ngAfterViewChecked(){
+  if(!this.requestTab.nativeElement.classList.contains('hidden-item')){
+    this.requestFilterHide$ = of(false)
+  }else{
+    this.requestFilterHide$ = of(true)
+  }
+}
 
- 
 
 }
