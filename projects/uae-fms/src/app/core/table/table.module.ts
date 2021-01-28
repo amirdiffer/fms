@@ -14,14 +14,15 @@ import { TableInformationRendererComponent } from './renderers/information';
 import { TableThumbTextRendererComponent } from '@core/table/renderers/thumb-text';
 import { TableBooleanRendererComponent } from './renderers/boolean';
 import { TableExternalLinkRendererComponent } from '@core/table/renderers/external_link';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
   imports: [
     PrimengTableModule,
     CommonModule,
     MatProgressBarModule,
-    FontAwesomeModule
+    AngularSvgIconModule
+
   ],
   exports: [TableComponent],
   declarations: [

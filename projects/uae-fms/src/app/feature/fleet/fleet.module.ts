@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { FleetRoutingModule } from './fleet-routing.module';
 import { FleetComponent } from './fleet.component';
@@ -21,7 +20,7 @@ import { SubAssetComponent } from './sub-asset/sub-asset.component';
     FilterModule,
     TableModule,
     AngularSvgIconModule,
-    TabViewModule,
-    FontAwesomeModule]
+    TabViewModule
+    ]
 })
 export class FleetModule { }

@@ -4,7 +4,6 @@ import {
   Input,
   OnInit
 } from '@angular/core';
-import { faEllipsisV, faCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'anms-fleet-status-asset-table',
@@ -15,8 +14,8 @@ import { faEllipsisV, faCircle } from '@fortawesome/free-solid-svg-icons';
 export class FleetStatusAssetTableComponent implements OnInit {
   @Input() setting: FleetStatusTableSetting;
 
-  faEllipsisV = faEllipsisV;
-  faCircle = faCircle;
+  faEllipsisV = 'assets/icons/ellipsis-v.svg';
+  faCircle = 'assets/icons/circle.svg';
 
   constructor() {}
 
