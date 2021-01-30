@@ -3,8 +3,14 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'table-add-button-renderer',
-  template: ` <fa-icon class="icon24px" [icon]="faPlus"></fa-icon> `,
-  styles: [``]
+  template: ` <span class="plus-icon">+</span> `,
+  styles: [`
+    .plus-icon{
+      font-weight: 800;
+      font-size: 1.7rem;
+      height: fit-content;
+    }
+  `]
 })
 export class TableAddButtonRendererComponent implements OnInit {
   faPlus = faPlus;

@@ -5,7 +5,7 @@
         <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''">
           <div class="d-flex">
             <ng-template [ngIf]="col.sortable">
-              <fa-icon class="sort-icon" [icon]="faSortDown"></fa-icon>
+              <img class="icon-dorp" src="../../../assets/icons/sort-down-solid.svg" alt="">
             </ng-template>
             <ng-template [ngIf]="!col.isIconLable" [ngIfElse]="iconType">
               {{col.lable}}
