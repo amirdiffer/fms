@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-asset-usage-table',
@@ -9,8 +8,6 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 })
 export class AssetUsageTableComponent implements OnInit {
   @Input() settings: AssetUsageTableSettings;
-
-  faEllipsisV = faEllipsisV;
 
   constructor(private http: HttpClient) {}
 

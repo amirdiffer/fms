@@ -4,7 +4,6 @@ import { FuelManagementComponent } from '@feature/fuel-management/fuel-managemen
 import { FilterModule } from '@core/filter';
 import { TabViewModule } from '@core/tab-view';
 import { FuelRoutingModule } from '@feature/fuel-management/fuel-routing.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FuelCardTableComponent } from '@feature/fuel-management/fuel-card-table/fuel-card-table.component';
 import { AssetUsageTableComponent } from '@feature/fuel-management/asset-usage-table/asset-usage-table.component';
 
@@ -14,13 +13,7 @@ import { AssetUsageTableComponent } from '@feature/fuel-management/asset-usage-t
     FuelCardTableComponent,
     AssetUsageTableComponent
   ],
-  imports: [
-    CommonModule,
-    FuelRoutingModule,
-    FilterModule,
-    TabViewModule,
-    FontAwesomeModule
-  ],
+  imports: [CommonModule, FuelRoutingModule, FilterModule, TabViewModule],
   exports: [FuelManagementComponent]
 })
 export class FuelManagementModule {}

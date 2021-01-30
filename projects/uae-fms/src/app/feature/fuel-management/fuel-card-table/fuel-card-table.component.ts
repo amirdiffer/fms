@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-fuel-card-table',
@@ -11,9 +10,6 @@ export class FuelCardTableComponent implements OnInit, OnChanges {
   @Input() settings: FuelTableSettings;
 
   plusIcon = 'assets/media/plus_square.svg';
-
-  faEllipsisV = faEllipsisV;
-
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {}
