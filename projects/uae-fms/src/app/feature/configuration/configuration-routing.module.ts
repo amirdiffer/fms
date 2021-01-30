@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ConfigurationComponent } from './configuration.component';
+import { OwnershipComponent } from '@feature/configuration/ownership/ownership.component';
 import { FleetStatusComponent } from '@feature/configuration/fleet-status/fleet-status.component';
 import { AssetConfigurationComponent } from './asset-configuration/asset-configuration.component';
 import { BusinessCategoryComponent } from '@feature/configuration/business-category/business-category.component';
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'asset-policy', component: AssetPolicyComponent },
   { path: 'business-category', component: BusinessCategoryComponent },
   { path: 'asset-configuration', component: AssetConfigurationComponent },
-  { path: 'fleet-status', component: FleetStatusComponent }
+  { path: 'fleet-status', component: FleetStatusComponent },
+  { path: 'ownership', component: OwnershipComponent }
 ];
 
 @NgModule({
