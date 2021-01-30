@@ -34,6 +34,13 @@ const routes: Routes = [
       )
   },
   {
+    path: 'traffic-fine',
+    loadChildren: () =>
+      import('./feature/traffic-fine/traffic-fine.module').then(
+        (m) => m.TrafficFineModule
+      )
+  },
+  {
     path: 'toll',
     loadChildren: () =>
       import('./feature/toll/toll.module').then((m) => m.TollModule)

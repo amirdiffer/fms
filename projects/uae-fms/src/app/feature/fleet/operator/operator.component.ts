@@ -4,7 +4,7 @@ import { assetsPath } from '@environments/environment';
 import { TableSetting } from '@core/table';
 
 @Component({
-  selector: 'anms-operator',
+  selector: 'app-operator',
   templateUrl: './operator.component.html',
   styleUrls: ['./operator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
