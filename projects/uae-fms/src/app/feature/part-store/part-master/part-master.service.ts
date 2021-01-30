@@ -5,29 +5,29 @@ import { IPartMaster } from './part-master.model';
   providedIn: 'root'
 })
 export class PartMasterService {
-  private  partMasterData = () :IPartMaster [] =>{
+  private partMasterData = (): IPartMaster[] => {
     const data = [];
     for (let index = 0; index < 7; index++) {
       const el = {
-          img:'TILE2._CB1564607297_.png',
-          itemName:'Item No 123456',
-          model:'BMW',
-          quantity:122,
-          status:'Available',
-          statusColor:'#838BCE'
-          };
-      data.push(el)
+        img: 'TILE2._CB1564607297_.png',
+        itemName: 'Item No 123456',
+        model: 'BMW',
+        quantity: 122,
+        status: 'Available',
+        statusColor: '#838BCE'
+      };
+      data.push(el);
     }
-  return data
-  }
-  public partMastertableSetting = () =>{
-    return  {
-      columns:[
+    return data;
+  };
+  public partMastertableSetting = () => {
+    return {
+      columns: [
         {
           lable: 'Item',
           field: 'itemName',
           width: 140,
-          type:2,
+          type: 2,
           thumbField: 'img',
           renderer: ''
         },
@@ -35,7 +35,7 @@ export class PartMasterService {
           lable: 'Model',
           field: 'model',
           width: 100,
-          type:1,
+          type: 1,
           thumbField: '',
           renderer: ''
         },
@@ -43,7 +43,7 @@ export class PartMasterService {
           lable: 'Quantity',
           field: 'quantity',
           width: 100,
-          type:1,
+          type: 1,
           thumbField: '',
           renderer: ''
         },
@@ -51,22 +51,20 @@ export class PartMasterService {
           lable: 'Status',
           field: 'status',
           width: 100,
-          type:1,
+          type: 1,
           thumbField: '',
           renderer: '',
-          textColor:'#8088CC'
-        },
+          textColor: '#8088CC'
+        }
       ],
       data: this.partMasterData(),
       rowSettings: {
-        onClick: (col, data)=>{
-          console.log(col, data)
+        onClick: (col, data) => {
+          console.log(col, data);
         }
       }
-    }
-  }
+    };
+  };
 
-  
   constructor() {}
-
 }

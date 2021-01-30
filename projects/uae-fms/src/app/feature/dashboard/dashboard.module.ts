@@ -18,7 +18,6 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { TableModule } from '@core/table/table.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
-
 @NgModule({
   declarations: [
     DashboardComponent,

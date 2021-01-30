@@ -8,6 +8,7 @@ import { environment } from '@environments/environment';
 })
 export class TableComponent implements OnInit {
   rowIndexTable = -1;
+
   constructor() {}
   @Input() setting: TableSetting;
   ngOnInit() {}
@@ -69,6 +70,8 @@ export interface TableSetting {
 
 export interface ColumnDifinition {
   lable: string;
+  isIconLable?: boolean;
+  sortable?: boolean;
   field?: string;
   width?: number;
   type?: ColumnType;

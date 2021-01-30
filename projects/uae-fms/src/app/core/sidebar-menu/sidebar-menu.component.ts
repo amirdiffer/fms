@@ -1,7 +1,7 @@
-import { Component, Injectable, Input, OnInit } from '@angular/core';
+import { Component, Injectable, Input, OnDestroy, OnInit } from '@angular/core';
 import { RouterReducerState } from '@ngrx/router-store';
 
-import { interval } from 'rxjs';
+import { interval, Observable, Subscribable, Subscription } from 'rxjs';
 import { delayWhen } from 'rxjs/operators';
 import { AppState } from '../core.state';
 import { RouterStateUrl } from '../router/router.state';
@@ -14,13 +14,14 @@ import {
 } from '@ngrx/store';
 import { WindowResizeService } from '../general-services';
 import { assetsPath } from '@environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar-manu',
   templateUrl: './sidebar-menu.component.html',
   styleUrls: ['./sidebar-menu.component.scss']
 })
-export class SidebarMenuComponent implements OnInit {
+export class SidebarMenuComponent implements OnInit, OnDestroy {
   selectRouterState = createFeatureSelector<
     AppState,
     RouterReducerState<RouterStateUrl>
@@ -31,12 +32,9 @@ export class SidebarMenuComponent implements OnInit {
   );
 
   public activeGroup: string = 'root';
-  toggleGroup(group: string): void {
+  toggleGroup(item: { name: string; items: object[]; route: string }): void {
+    let group = item.name;
     this.activeGroup = this.activeGroup == group ? 'root' : group;
-    let checkMenuState = this.opened$.subscribe((x) => {
-      !x ? (this.activeGroup = 'root') : null;
-      checkMenuState.unsubscribe();
-    });
     this.facade.openSidebarMenu();
   }
 
@@ -49,7 +47,7 @@ export class SidebarMenuComponent implements OnInit {
       route: 'fleet',
       items: [
         { name: 'Assets', icon: 'car-solid', route: 'fleet/assets' },
-        { name: 'Sub Assets', icon: 'sub-assets', route: 'fleet/sub-assets' },
+        { name: 'Sub Assets', icon: 'sub-assets', route: 'fleet/sub-asset' },
         { name: 'Accessory', icon: 'accessory', route: 'fleet/accessory' },
         { name: 'Operator', icon: 'operator', route: 'fleet/operator' },
         {
@@ -57,11 +55,11 @@ export class SidebarMenuComponent implements OnInit {
           icon: 'organization',
           route: 'fleet/organization'
         },
-        { name: 'Movement', icon: 'movement', route: 'fleet/movment' }
+        { name: 'Movement', icon: 'movement', route: 'fleet/movement' }
       ]
     },
-    { name: 'Fuel Management', icon: 'fuel', route: 'fuel-management' },
-    { name: 'Traffic Fines', icon: 'traffic', route: 'taffic-fines' },
+    { name: 'Fuel Management', icon: 'fuel', route: '#' },
+    { name: 'Traffic Fines', icon: 'traffic', route: 'traffic-fine' },
     { name: 'Toll', icon: 'toll', route: 'toll' },
     {
       name: 'Workshop',
@@ -77,16 +75,16 @@ export class SidebarMenuComponent implements OnInit {
         {
           name: 'Inspections',
           icon: 'inspection',
-          route: 'workshop/inspections',
+          route: 'workshop/inspection',
           items: [
             {
               name: 'Technical Inspection',
-              route: 'workshop/inspections/technical-inspection'
+              route: 'workshop/inspection/technical-inspection'
             },
             {
-              name: 'Auction List',
+              name: 'Action List',
               icon: 'file',
-              route: 'workshop/inspections/auction-list'
+              route: 'workshop/inspection/action-list'
             }
           ]
         },
@@ -119,11 +117,70 @@ export class SidebarMenuComponent implements OnInit {
         }
       ]
     },
-    { name: 'Reports', icon: 'report', route: 'report' },
-    { name: 'Configuration', icon: 'configuration', route: 'configuration' },
+    { name: 'Reports', icon: 'report', route: '#' },
+    {
+      name: 'Configuration',
+      icon: 'configuration',
+      route: 'configuration',
+      items: [
+        {
+          name: 'User Management',
+          icon: 'organization',
+          route: 'configuration/user-management',
+          items: [
+            {
+              name: 'Role and Permission',
+              icon: 'organization',
+              route: 'configuration/user-management/role-permission'
+            },
+            {
+              name: 'Users',
+              icon: 'organization',
+              route: 'configuration/user-management/users'
+            },
+            {
+              name: 'Company Profile',
+              icon: 'organization',
+              route: 'configuration/user-management/company-setting'
+            }
+          ]
+        },
+        {
+          name: 'Asset Policy',
+          icon: 'asset-policy',
+          route: 'configuration/asset-policy'
+        },
+        {
+          name: 'Asset Configuration',
+          icon: 'cog',
+          route: 'configuration/asset-configuration'
+        },
+        {
+          name: 'Business Category',
+          icon: 'business',
+          route: 'configuration/business-category'
+        },
+        {
+          name: 'Ownership',
+          icon: 'copyright-solid',
+          route: 'configuration/ownership'
+        },
+        {
+          name: 'Fleet Status',
+          icon: 'flag-solid',
+          route: 'configuration/fleet-status'
+        },
+        {
+          name: 'Periodic Service',
+          icon: 'cogs-solid',
+          route: 'configuration/periodic-service'
+        }
+      ]
+    },
     { name: 'Integrations', icon: 'integrations', route: 'integration' }
   ];
 
+  checkMenuState: Subscription;
   opened$ = this.facade.opened$;
   show$ = this.facade.show$;
   type$ = this.facade.type$;
@@ -134,7 +191,11 @@ export class SidebarMenuComponent implements OnInit {
   insideProfile = false;
   assets = assetsPath;
 
-  constructor(private store: Store, private facade: SidebarMenuFacade) {}
+  constructor(
+    private store: Store,
+    private facade: SidebarMenuFacade,
+    private _router: Router
+  ) {}
 
   ngOnInit() {
     this.usingMenu = this.mainMenu;
@@ -145,6 +206,10 @@ export class SidebarMenuComponent implements OnInit {
     });
 
     this.checkScreenWidth();
+
+    this.checkMenuState = this.opened$.subscribe((x) => {
+      !x ? (this.activeGroup = 'root') : null;
+    });
   }
 
   onResize(event) {
@@ -163,5 +228,9 @@ export class SidebarMenuComponent implements OnInit {
 
     if (screen.availWidth > 720) this.facade.showSidebarMenu();
     else this.facade.hideSidebarMenu();
+  }
+
+  ngOnDestroy(): void {
+    this.checkMenuState.unsubscribe();
   }
 }

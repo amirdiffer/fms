@@ -2,7 +2,19 @@
   <p-table [value]="setting.data" (mouseleave)='rowIndexTable = -1'>
     <ng-template pTemplate="header">
       <tr>
-        <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''">{{col.lable}}</th>
+        <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''">
+          <div class="d-flex">
+            <ng-template [ngIf]="col.sortable">
+              <img class="icon-dorp" src="../../../assets/icons/sort-down-solid.svg" alt="">
+            </ng-template>
+            <ng-template [ngIf]="!col.isIconLable" [ngIfElse]="iconType">
+              {{col.lable}}
+            </ng-template>
+            <ng-template #iconType>
+              <div class="iconLable" [innerHTML]="col.lable"></div>
+            </ng-template>
+          </div>
+        </th>
         <th *ngIf="foundStatusColor(setting.data)" style="width:0px;"></th>
       </tr>
     </ng-template>
@@ -22,6 +34,12 @@
           </div>
           <div *ngIf="col.renderer=='doubleLineRenderer'">
             <table-double-line-renderer [user]="data" [column]="col"></table-double-line-renderer>
+          </div>
+          <div *ngIf="col.renderer == 'addButtonRenderer'">
+            <table-add-button-renderer></table-add-button-renderer>
+          </div>
+          <div *ngIf="col.renderer == 'actionButtonRenderer'">
+            <table-action-button-renderer></table-action-button-renderer>
           </div>
           <div *ngIf="col.renderer == 'subtextRenderer'">
             <table-subText-renderer [data]="data[col.field]"></table-subText-renderer>
