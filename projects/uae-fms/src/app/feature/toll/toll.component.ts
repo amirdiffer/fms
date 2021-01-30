@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'anms-toll',
   templateUrl: './toll.component.html',
@@ -10,7 +9,7 @@ export class TollComponent implements OnInit {
   tableSetting;
   tableData: ITableData[];
   filterSetting = [];
-  faSearch = faSearch;
+  searchIcon = 'assets/icons/search.svg';
 
   constructor() {}
 

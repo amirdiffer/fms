@@ -1,13 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'table-external-link-renderer',
   template: `
     <div>
-      <a [href]="link" target="_blank"
-        ><fa-icon class="icon24px" [icon]="faExternalLinkAlt"></fa-icon
-      ></a>
+      <a [href]="link" target="_blank">
+        <svg-icon [src]="externalLink" class="icon24px"></svg-icon>
+      </a>
     </div>
   `,
   styles: [
@@ -22,8 +21,7 @@ import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 })
 export class TableExternalLinkRendererComponent implements OnInit {
   @Input() link;
-  faExternalLinkAlt = faExternalLinkAlt;
-
+  externalLink = 'assets/icons/external-link.svg';
   constructor() {}
 
   ngOnInit() {}

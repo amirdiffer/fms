@@ -7,6 +7,8 @@ import { environment } from '@environments/environment';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
+  rowIndexTable = -1;
+
   constructor() {}
   @Input() setting: TableSetting;
   ngOnInit() {}
@@ -39,6 +41,10 @@ export class TableComponent implements OnInit {
   click(col: ColumnDifinition, data: any) {
     if (this.setting.rowSettings?.onClick instanceof Function)
       this.setting.rowSettings.onClick(col, data);
+  }
+
+  rowIsHover(Index: number) {
+    this.rowIndexTable = Index;
   }
 
   foundStatusColor(data) {

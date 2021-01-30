@@ -21,32 +21,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {
-  FontAwesomeModule,
-  FaIconLibrary
-} from '@fortawesome/angular-fontawesome';
-import { faMediumM, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
-
-import {
-  faPlus,
-  faEdit,
-  faTrash,
-  faTimes,
-  faCaretUp,
-  faCaretDown,
-  faExclamationTriangle,
-  faFilter,
-  faTasks,
-  faCheck,
-  faSquare,
-  faLanguage,
-  faPaintBrush,
-  faLightbulb,
-  faWindowMaximize,
-  faStream,
-  faBook
-} from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   imports: [
@@ -67,9 +42,7 @@ import {
     MatTooltipModule,
     MatSnackBarModule,
     MatSlideToggleModule,
-    MatDividerModule,
-
-    FontAwesomeModule
+    MatDividerModule
   ],
   declarations: [RtlSupportDirective],
   exports: [
@@ -95,32 +68,9 @@ import {
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    FontAwesomeModule,
     RtlSupportDirective
   ]
 })
 export class SharedModule {
-  constructor(faIconLibrary: FaIconLibrary) {
-    faIconLibrary.addIcons(
-      faGithub,
-      faMediumM,
-      faPlus,
-      faEdit,
-      faTrash,
-      faTimes,
-      faCaretUp,
-      faCaretDown,
-      faExclamationTriangle,
-      faFilter,
-      faTasks,
-      faCheck,
-      faSquare,
-      faLanguage,
-      faPaintBrush,
-      faLightbulb,
-      faWindowMaximize,
-      faStream,
-      faBook
-    );
-  }
+  constructor() {}
 }
