@@ -1,0 +1,35 @@
+<div>
+
+  <app-filter class='ml-2' [setting]='filterSetting'></app-filter>
+
+  <div class='d-flex'>
+
+    <div class='w-100 bg-white'>
+      <app-tab-view>
+
+        <div title='Fuel Cards'>
+          <app-fuel-card-table [settings]='fuelCardsTableSetting'></app-fuel-card-table>
+        </div>
+
+        <div title='Asset Usage'>
+          <app-asset-usage-table [settings]='assetUsageTableSetting'></app-asset-usage-table>
+        </div>
+
+      </app-tab-view>
+
+    </div>
+
+    <div class='d-inline-flex h-100 minus_margin mt-1'>
+      <div class='search-box'>
+        <input type='text' placeholder='Search in Columns'>
+        <button>
+          <img class="search-icon" src="../../../assets/icons/search-solid.svg" alt="">
+        </button>
+      </div>
+      <button class='btn-download'><a></a></button>
+      <div>
+        <button class='btn-primary-green'><i>+</i><a>Add</a></button>
+      </div>
+    </div>
+  </div>
+</div>
