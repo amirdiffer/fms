@@ -9,6 +9,7 @@ import { FilterCardSetting } from "@core/filter";
 })
 export class TechnicalInspectionComponent implements OnInit {
   filterSetting: FilterCardSetting[] = [
+    { filterCount: "", filterTagColor: "", filterTitle: "This Month", isCalendar:true , onActive: () => { } },
     { filterCount: "13", filterTagColor: "#6EBFB5", filterTitle: "Total", onActive: () => { } },
     { filterCount: "08", filterTagColor: "#6870B4", filterTitle: "Repair", onActive: () => { } },
     { filterCount: "02", filterTagColor: "#BA7967", filterTitle: "?", onActive: () => { } },

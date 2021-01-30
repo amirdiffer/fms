@@ -16,6 +16,12 @@ export class PartMasterComponent implements OnInit {
   ngOnInit(): void {
     this.filterSetting = [
       {
+        filterTitle: '',
+        filterCount: '',
+        filterTagColor: '',
+        isCalendar:true
+      },
+      {
         filterTitle: 'Total',
         filterCount: '13',
         filterTagColor: '#6EBFB5'

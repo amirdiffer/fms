@@ -8,6 +8,7 @@ import { TableSetting, ColumnType } from "@core/table";
 })
 export class BodyShopComponent implements OnInit {
   filterSetting: FilterCardSetting[] = [
+    { filterCount: "", filterTagColor: "", filterTitle: "Calender", isCalendar: true , onActive: () => { } },
     { filterCount: "13", filterTagColor: "#6EBFB5", filterTitle: "Total", onActive: () => { } },
     { filterCount: "8", filterTagColor: "#6870B4", filterTitle: "Approved", onActive: () => { } },
     { filterCount: "13", filterTagColor: "#BA7967", filterTitle: "Waiting For Approval", onActive: () => { } },
