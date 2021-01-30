@@ -1,18 +1,17 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FilterCardSetting } from '@core/filter';
 import {
   FuelCardTableColumnDefinition,
   FuelCardTableData,
   FuelDataType,
   FuelTableSettings
-} from '@feature/fuel-management/fuel-card-table/fuel-card-table.component';
+} from './fuel-card-table/fuel-card-table.component';
 import {
   AssetUsageDataType,
   AssetUsageTableColumnDefinition,
   AssetUsageTableData,
   AssetUsageTableSettings
-} from '@feature/fuel-management/asset-usage-table/asset-usage-table.component';
+} from './asset-usage-table/asset-usage-table.component';
 
 @Component({
   selector: 'anms-fuel-management',
@@ -21,7 +20,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FuelManagementComponent implements OnInit {
-  faSearch = faSearch;
 
   filterSetting: FilterCardSetting[] = [
     {
