@@ -11,12 +11,14 @@ import { TableModule } from '@core/table/table.module';
 import { TabViewModule } from '@core/tab-view';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { SubAssetComponent } from './sub-asset/sub-asset.component';
+import { OrganizationComponent } from './organization/organization.component';
 import { MovementComponent } from './movement/movement.component';
 
 @NgModule({
   declarations: [
     FleetComponent,
     OperatorComponent,
+    OrganizationComponent,
     SubAssetComponent,
     AssetsComponent,
     AccessoryComponent,
@@ -28,7 +30,8 @@ import { MovementComponent } from './movement/movement.component';
     FilterModule,
     TableModule,
     AngularSvgIconModule,
+    TabViewModule,
     TabViewModule
   ]
 })
-export class FleetModule { }
+export class FleetModule {}

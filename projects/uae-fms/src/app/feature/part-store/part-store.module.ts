@@ -36,4 +36,4 @@ import { FilterModule } from '@core/filter';
     AngularSvgIconModule,
   ]
 })
-export class PartStoreModule { }
+export class PartStoreModule {}

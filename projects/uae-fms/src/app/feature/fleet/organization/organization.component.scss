@@ -77,10 +77,3 @@ $primary: map-get($anms-green-primary, 300);
     font-size: 20px;
   }
 }
-
-@media screen and (min-width: 1905px) {
-  app-tab-view {
-    margin-top: -65px;
-    display: block;
-  }
-}

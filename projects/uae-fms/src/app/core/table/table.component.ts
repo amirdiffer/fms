@@ -69,6 +69,8 @@ export interface TableSetting {
 
 export interface ColumnDifinition {
   lable: string;
+  isIconLable?: boolean;
+  sortable?: boolean;
   field?: string;
   width?: number;
   type?: ColumnType;
