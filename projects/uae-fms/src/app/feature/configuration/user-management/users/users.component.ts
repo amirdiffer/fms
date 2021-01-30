@@ -11,9 +11,10 @@ import { FilterCardSetting } from '@core/filter';
 export class UsersComponent implements OnInit {
   filterCard: FilterCardSetting[] = [
     {
-      filterTitle: 'This Month',
-      filterCount: '2456',
-      filterTagColor: '#CBA786',
+      filterTitle: '',
+      filterCount: '',
+      filterTagColor: '',
+      isCalendar:true,
       onActive(index: number) { }
     },
     {
