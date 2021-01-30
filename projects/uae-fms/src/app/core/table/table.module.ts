@@ -6,18 +6,21 @@ import { TableModule as PrimengTableModule } from 'primeng/table';
 import { TableVehicleRendererComponent } from './renderers/vehicle';
 import { AssetsRendererComponent } from './renderers/assets';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { SubtextRendererComponent } from './renderers/subText';
+import { HTMLRendererComponent } from './renderers/opration';
 import { TableCompanyRendererComponent } from '@core/table/renderers/company';
 import { TableAssetRendererComponent } from '@core/table/renderers/asset';
 import { TableDoubleLineRendererComponent } from '@core/table/renderers/double-line';
-import { SubtextRendererComponent } from './renderers/subText';
 import { TableInformationRendererComponent } from './renderers/information';
+import { TableStatusRendererComponent } from '@core/table/renderers/status';
+import { TableButtonRendererComponent } from '@core/table/renderers/button';
 import { TableThumbTextRendererComponent } from '@core/table/renderers/thumb-text';
 import { TableBooleanRendererComponent } from './renderers/boolean';
 import { TableExternalLinkRendererComponent } from '@core/table/renderers/external_link';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '../../shared/shared.module';
 import { TableActionButtonRendererComponent } from '@core/table/renderers/actionButton';
 import { TableAddButtonRendererComponent } from '@core/table/renderers/addButton';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
   imports: [
@@ -25,13 +28,17 @@ import { TableAddButtonRendererComponent } from '@core/table/renderers/addButton
     CommonModule,
     SharedModule,
     MatProgressBarModule,
-    FontAwesomeModule
+    AngularSvgIconModule
+
   ],
   exports: [TableComponent],
   declarations: [
     TableComponent,
     TableUserRendererComponent,
     TableVehicleRendererComponent,
+    AssetsRendererComponent,
+    SubtextRendererComponent,
+    HTMLRendererComponent,
     TableCompanyRendererComponent,
     TableAssetRendererComponent,
     AssetsRendererComponent,
@@ -40,6 +47,8 @@ import { TableAddButtonRendererComponent } from '@core/table/renderers/addButton
     TableAddButtonRendererComponent,
     TableActionButtonRendererComponent,
     TableInformationRendererComponent,
+    TableStatusRendererComponent,
+    TableButtonRendererComponent,
     TableThumbTextRendererComponent,
     TableBooleanRendererComponent,
     TableExternalLinkRendererComponent

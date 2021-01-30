@@ -5,8 +5,8 @@ import { environment } from '../../../../environments/environment';
   selector: 'table-subText-renderer',
   template: `
     <div>
-      <div class="">{{ dataName }}</div>
-      <small> {{ subData }} </small>
+      <div class=""> {{dataName}}</div>
+      <small> {{subData}} </small>
     </div>
   `,
   styles: []

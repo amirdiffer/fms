@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { FleetRoutingModule } from './fleet-routing.module';
 import { FleetComponent } from './fleet.component';
@@ -13,6 +12,7 @@ import { TabViewModule } from '@core/tab-view';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { SubAssetComponent } from './sub-asset/sub-asset.component';
 import { OrganizationComponent } from './organization/organization.component';
+import { MovementComponent } from './movement/movement.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,8 @@ import { OrganizationComponent } from './organization/organization.component';
     OrganizationComponent,
     SubAssetComponent,
     AssetsComponent,
-    AccessoryComponent
+    AccessoryComponent,
+    MovementComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +31,7 @@ import { OrganizationComponent } from './organization/organization.component';
     TableModule,
     AngularSvgIconModule,
     TabViewModule,
-    FontAwesomeModule
+    TabViewModule
   ]
 })
 export class FleetModule {}

@@ -10,8 +10,8 @@ import { environment } from '../../../../environments/environment';
         [src]="fileServerBase + data.img"
       />
       <span class="title col-7">
-        <p class="m-0">{{ data.assetName }}</p>
-        <small> {{ data.assetSubName }} </small>
+        <p class="m-0"> {{data.assetName}} {{data.userName}}</p>
+        <small> {{data.assetSubName}} {{data.subName}}</small>
         <ng-container *ngIf="data.ownership">
           <div class="ownership-badge">{{ data.ownership }}</div>
         </ng-container>
@@ -29,16 +29,16 @@ import { environment } from '../../../../environments/environment';
   `,
   styles: [
     `
-      .asset-image {
+    .asset-image{
         height: 70px;
         max-width: 70px;
-        border-radius: 4px;
-      }
-      small {
-        color: #000000de;
-      }
-      .ownership-badge {
-        background: #fcb614 0% 0% no-repeat padding-box;
+        border-radius: 7px;
+    }
+    small{
+        color:#000000DE;
+    }
+    .ownership-badge{
+        background: #FCB614 0% 0% no-repeat padding-box;
         max-width: 70px;
         border: radius;
         border-radius: 4px;
@@ -67,7 +67,6 @@ export class AssetsRendererComponent implements OnInit {
   @Input() data;
   progressBar;
   fileServerBase = environment.baseFileServer;
-
   constructor() {}
 
   ngOnInit() {

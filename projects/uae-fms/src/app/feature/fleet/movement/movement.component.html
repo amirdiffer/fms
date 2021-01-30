@@ -1,0 +1,30 @@
+
+<ng-container *ngIf="(requestFilterHide$ | async )">
+    <div class="filter-container">
+        <app-filter [setting] = "filterSetting"></app-filter>
+    </div>
+</ng-container>
+
+
+<div class="table-container">
+    <div class="card-table pt-5">
+        <div class="card-table-header">
+            <app-tab-view>
+                <span class="search-container">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search in Columns">
+                        <button><img src="../../../../assets/icons/search-solid.svg" alt=""></button>
+                    </div>
+                    <button class="btn-download"><a></a></button>
+                    <button class="btn-primary-green"><i>+</i><a>Add</a></button>
+                </span>
+                <div title="Movement Over View">
+                    <app-table [setting]="movementOverViewTableSetting"></app-table>
+                </div>
+                <div title="Request" #requestTab>
+                    <app-table [setting]="requestTableSetting"></app-table>
+                </div>
+            </app-tab-view>
+        </div>
+    </div>
+</div>
