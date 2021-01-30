@@ -8,7 +8,6 @@ import { Observable, of } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovementComponent implements OnInit, AfterViewChecked {
-  searchIcon= 'assets/icons/search.svg'
   filterSetting;
   movementOverViewTableSetting;
   requestTableSetting;
