@@ -11,9 +11,10 @@ import { TableModule } from '@core/table/table.module';
 import { TabViewModule } from '@core/tab-view';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { SubAssetComponent } from './sub-asset/sub-asset.component';
+import { MovementComponent } from './movement/movement.component';
 
 @NgModule({
-  declarations: [FleetComponent, OperatorComponent, SubAssetComponent, AssetsComponent, AccessoryComponent],
+  declarations: [FleetComponent, OperatorComponent, SubAssetComponent, AssetsComponent, AccessoryComponent,MovementComponent],
   imports: [
     CommonModule,
     FleetRoutingModule,

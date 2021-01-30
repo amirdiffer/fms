@@ -6,10 +6,11 @@ import { TableModule as PrimengTableModule } from 'primeng/table';
 import { TableVehicleRendererComponent } from './renderers/vehicle';
 import { AssetsRendererComponent } from './renderers/assets';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { SubtextRendererComponent } from './renderers/subText';
+import { HTMLRendererComponent } from './renderers/opration';
 import { TableCompanyRendererComponent } from '@core/table/renderers/company';
 import { TableAssetRendererComponent } from '@core/table/renderers/asset';
 import { TableDoubleLineRendererComponent } from '@core/table/renderers/double-line';
-import { SubtextRendererComponent } from './renderers/subText';
 import { TableInformationRendererComponent } from './renderers/information';
 import { TableThumbTextRendererComponent } from '@core/table/renderers/thumb-text';
 import { TableBooleanRendererComponent } from './renderers/boolean';
@@ -29,6 +30,9 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     TableComponent,
     TableUserRendererComponent,
     TableVehicleRendererComponent,
+    AssetsRendererComponent,
+    SubtextRendererComponent,
+    HTMLRendererComponent,
     TableCompanyRendererComponent,
     TableAssetRendererComponent,
     AssetsRendererComponent,
