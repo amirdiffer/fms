@@ -7,12 +7,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetTypeComponent implements OnInit {
-  defaultSelecAssetType ="car";
-  defaultSelectMake= "bmw";
-  defaultSelectModel = "m6"
-  constructor() { }
+  defaultSelecAssetType = 'car';
+  defaultSelectMake = 'bmw';
+  defaultSelectModel = 'm6';
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

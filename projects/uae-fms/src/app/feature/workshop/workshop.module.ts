@@ -13,6 +13,7 @@ import { BodyShopComponent } from './body-shop/body-shop.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+
 @NgModule({
   declarations: [
     WorkshopComponent,

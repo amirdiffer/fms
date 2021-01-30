@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'anms-active-assets',
   templateUrl: './active-assets.component.html',
@@ -7,9 +8,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ActiveAssetsComponent implements OnInit {
   faChartBar = 'assets/icons/chart-bar.svg';
-  faDollarSign= 'assets/icons/dollar.svg';
-  faChartLine='assets/icons/chart-line-down.svg';
-  faCheck= 'assets/icons/check2.svg';
+  faDollarSign = 'assets/icons/dollar.svg';
+  faChartLine = 'assets/icons/chart-line-down.svg';
+  faCheck = 'assets/icons/check2.svg';
 
   chartData = [];
   constructor() {}

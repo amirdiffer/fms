@@ -8,8 +8,8 @@ import { OrderListComponent } from './order-list/order-list.component';
 import { TabViewModule } from '@core/tab-view';
 import { TableModule } from '@core/table';
 import { PartMasterComponent } from './part-master/part-master.component';
-import { AssetTypeComponent } from './part-master/asset-type/asset-type.component'
-import { CategoryComponent } from './part-master/category/category.component'
+import { AssetTypeComponent } from './part-master/asset-type/asset-type.component';
+import { CategoryComponent } from './part-master/category/category.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,7 +22,7 @@ import { FilterModule } from '@core/filter';
     PartMasterComponent,
     AssetTypeComponent,
     CategoryComponent,
-    OrderListComponent,
+    OrderListComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +33,7 @@ import { FilterModule } from '@core/filter';
     MatCardModule,
     MatSelectModule,
     MatFormFieldModule,
-    AngularSvgIconModule,
+    AngularSvgIconModule
   ]
 })
 export class PartStoreModule {}

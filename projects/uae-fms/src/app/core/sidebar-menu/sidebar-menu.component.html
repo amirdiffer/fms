@@ -4,19 +4,19 @@
       <ul class="container" *ngIf="(type$|async)==1||(type$|async)==2">
 
         <ng-container *ngFor="let item of usingMenu">
-          <li class="menuItem margin-transition" [routerLink]="item.route" [ngClass]="{'active': activeGroup == item.name, 'has-child': item.items}" (click)="toggleGroup(item.name);">
+          <li class="menuItem margin-transition" [ngClass]="{'active': activeGroup == item.name, 'has-child': item.items}" [routerLink]="item.route" (click)="toggleGroup(item);">
             <svg-icon [src]="assets + 'icons/' + item.icon + '.svg'" [svgStyle]="{ 'fill': activeGroup == item.name ? '#0DA06E' : '#1F1F1F', 'width.px': !(opened$|async)  ? '28' : '24', 'height.px': !(opened$|async)  ? '28' : '24' }"></svg-icon>
             <span class="menu-item-name" *ngIf="item.name && (showLabel$|async)">{{item.name}}</span>
             <ul class='sub-menuItem' *ngIf='item.items'>
 
               <ng-container *ngFor="let subItem of item.items">
-                <li class="menuItem margin-transition" [routerLink]="subItem.route">
+                <li class="menuItem margin-transition" [routerLink]="subItem.route" (click)="$event.stopPropagation()">
                   <svg-icon [src]="assets + 'icons/' + subItem.icon + '.svg'" [svgStyle]="{ 'fill': 'rgb(126 126 126)', 'width.px':'20', 'height.px':'20' }"></svg-icon>
                   <span class="menu-item-name" *ngIf="subItem.name && (showLabel$|async)">{{subItem.name}}</span>
                   <ul class='sub-menuItem-child' *ngIf='subItem.items'>
 
-                    <ng-container  *ngFor="let subItemChild of item.items">
-                      <li class="menuItem margin-transition" [routerLink]="item.route">
+                    <ng-container  *ngFor="let subItemChild of subItem.items">
+                      <li class="menuItem margin-transition" [routerLink]="subItemChild.route">
                         <span class="menu-item-name" *ngIf="subItemChild.name && (showLabel$|async)">{{subItemChild.name}}</span>
                       </li>
                     </ng-container>

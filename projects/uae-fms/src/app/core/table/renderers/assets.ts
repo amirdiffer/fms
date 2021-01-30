@@ -10,8 +10,13 @@ import { environment } from '../../../../environments/environment';
         [src]="fileServerBase + data.img"
       />
       <span class="title col-7">
-        <p class="m-0"> {{data.assetName}} {{data.userName}}</p>
-        <small> {{data.assetSubName}} {{data.subName}}</small>
+        <<<<<<< HEAD
+        <p class="m-0">{{ data.assetName }}</p>
+        <small> {{ data.assetSubName }} </small>
+        =======
+        <p class="m-0">{{ data.assetName }} {{ data.userName }}</p>
+        <small> {{ data.assetSubName }} {{ data.subName }}</small>
+        >>>>>>> 5b1c9c69e7de507349d9450b0873aac1236ab2b6
         <ng-container *ngIf="data.ownership">
           <div class="ownership-badge">{{ data.ownership }}</div>
         </ng-container>
@@ -29,6 +34,18 @@ import { environment } from '../../../../environments/environment';
   `,
   styles: [
     `
+<<<<<<< HEAD
+      .asset-image {
+        height: 70px;
+        max-width: 70px;
+        border-radius: 4px;
+      }
+      small {
+        color: #000000de;
+      }
+      .ownership-badge {
+        background: #fcb614 0% 0% no-repeat padding-box;
+=======
     .asset-image{
         height: 70px;
         max-width: 70px;
@@ -39,6 +56,7 @@ import { environment } from '../../../../environments/environment';
     }
     .ownership-badge{
         background: #FCB614 0% 0% no-repeat padding-box;
+>>>>>>> 5b1c9c69e7de507349d9450b0873aac1236ab2b6
         max-width: 70px;
         border: radius;
         border-radius: 4px;

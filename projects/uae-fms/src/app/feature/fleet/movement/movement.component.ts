@@ -1,4 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, ElementRef, ViewChild,  AfterViewChecked } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ElementRef,
+  ViewChild,
+  AfterViewChecked
+} from '@angular/core';
 import { MovementService } from './movement.service';
 import { Observable, of } from 'rxjs';
 @Component({
@@ -14,8 +21,8 @@ export class MovementComponent implements OnInit, AfterViewChecked {
   requestFilter: boolean = false;
   requestFilterHide$: Observable<boolean> = of(this.requestFilter);
 
-  @ViewChild('requestTab' , {static: true}) requestTab: ElementRef
-  constructor(private _movementService: MovementService) { }
+  @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
+  constructor(private _movementService: MovementService) {}
 
   ngOnInit(): void {
     this.movementOverViewTableSetting = this._movementService.movmentOverViewTableSetting();
@@ -24,32 +31,30 @@ export class MovementComponent implements OnInit, AfterViewChecked {
       {
         filterTitle: 'Total',
         filterCount: '36',
-        filterTagColor: '#B892FF',
+        filterTagColor: '#B892FF'
       },
       {
         filterTitle: 'Waiting For Approval',
         filterCount: '07',
-        filterTagColor: '#648DE5',
+        filterTagColor: '#648DE5'
       },
       {
         filterTitle: 'Approved',
         filterCount: '05',
-        filterTagColor: '#709775',
+        filterTagColor: '#709775'
       },
       {
         filterTitle: 'Rejected',
         filterCount: '12',
-        filterTagColor: '#EF7A85',
+        filterTagColor: '#EF7A85'
       }
-    ]
+    ];
   }
-  ngAfterViewChecked(){
-  if(!this.requestTab.nativeElement.classList.contains('hidden-item')){
-    this.requestFilterHide$ = of(false)
-  }else{
-    this.requestFilterHide$ = of(true)
+  ngAfterViewChecked() {
+    if (!this.requestTab.nativeElement.classList.contains('hidden-item')) {
+      this.requestFilterHide$ = of(false);
+    } else {
+      this.requestFilterHide$ = of(true);
+    }
   }
-}
-
-
 }

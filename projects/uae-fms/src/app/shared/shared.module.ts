@@ -23,7 +23,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -43,7 +42,7 @@ import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
     MatTooltipModule,
     MatSnackBarModule,
     MatSlideToggleModule,
-    MatDividerModule,
+    MatDividerModule
   ],
   declarations: [RtlSupportDirective],
   exports: [
@@ -73,6 +72,5 @@ import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
   ]
 })
 export class SharedModule {
-  constructor(){}
-  
+  constructor() {}
 }
