@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { TaskMasterService } from './task-master.service';
 
 @Component({
@@ -9,7 +8,7 @@ import { TaskMasterService } from './task-master.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskMasterComponent implements OnInit {
-  faSearch = faSearch;
+  searchIcon = 'assets/icons/search.svg';
   tableSetting;
   constructor(private _taskMasterService: TaskMasterService) {}
 

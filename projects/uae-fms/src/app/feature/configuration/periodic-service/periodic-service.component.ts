@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
 
 @Component({
@@ -9,7 +8,6 @@ import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PeriodicServiceComponent implements OnInit {
-  faSearch = faSearch;
 
   tableColumns: ColumnDifinition[] = [
     {

@@ -9,10 +9,10 @@ import { WorkshopRoutingModule } from './workshop-routing.module';
 
 import { WorkshopComponent } from './workshop.component';
 import { TaskMasterComponent } from './task-master/task-master.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BodyShopComponent } from './body-shop/body-shop.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 @NgModule({
   declarations: [
     WorkshopComponent,
@@ -27,7 +27,7 @@ import { TechnicalInspectionComponent } from './inspections/technical-inspection
     FilterModule,
     TabViewModule,
     WorkshopRoutingModule,
-    FontAwesomeModule
+    AngularSvgIconModule
   ]
 })
 export class WorkshopModule {}

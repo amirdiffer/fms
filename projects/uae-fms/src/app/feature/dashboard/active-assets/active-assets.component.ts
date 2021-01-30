@@ -1,10 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import {
-  faChartBar,
-  faDollarSign,
-  faChartLine,
-  faCheck
-} from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'anms-active-assets',
   templateUrl: './active-assets.component.html',
@@ -12,10 +6,10 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActiveAssetsComponent implements OnInit {
-  faChartBar = faChartBar;
-  faDollarSign = faDollarSign;
-  faChartLine = faChartLine;
-  faCheck = faCheck;
+  faChartBar = 'assets/icons/chart-bar.svg';
+  faDollarSign= 'assets/icons/dollar.svg';
+  faChartLine='assets/icons/chart-line-down.svg';
+  faCheck= 'assets/icons/check2.svg';
 
   chartData = [];
   constructor() {}

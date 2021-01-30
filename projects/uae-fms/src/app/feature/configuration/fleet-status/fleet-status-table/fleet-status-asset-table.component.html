@@ -3,7 +3,7 @@
     <th class='text-left pb-3' *ngFor='let col of setting.columns; let index = index'>
       {{col.title}}
       <button *ngIf='index === setting.columns.length - 1' class='border-0 float-right bg-transparent ml-2'>
-        <fa-icon [icon]='faEllipsisV'></fa-icon>
+        <svg-icon [src]="faEllipsisV" [svgStyle]="{'fill': '#000' , 'height.px': '25'}"></svg-icon>
       </button>
     </th>
   </tr>
@@ -15,8 +15,8 @@
 
         <div class='d-flex' *ngIf='index === 0'>
           <div [style.background]='row.statusCategory.leftTagColor' class='left_tag mr-1'>&nbsp;</div>
-          <fa-icon class='ml-2 pb-1' [icon]='faCircle' size='xs'
-                   [style.color]='row.statusCategory.leftTagColor'></fa-icon>
+          <svg-icon [src]="faCircle" [svgStyle]="{ 'width.px':12 , 'fill': row.statusCategory.leftTagColor , 'height': '100%'}"></svg-icon>
+
           <div class='ml-2'>{{row.statusCategory.statusCategoryName}}</div>
         </div>
 

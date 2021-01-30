@@ -16,7 +16,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { TableModule } from '@core/table/table.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+
 
 @NgModule({
   declarations: [
@@ -30,12 +31,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule,
     DashboardRoutingModule,
     MatProgressBarModule,
     MatTableModule,
     NgApexchartsModule,
-    TableModule
+    TableModule,
+    AngularSvgIconModule
   ]
 })
 export class DashboardModule {}
