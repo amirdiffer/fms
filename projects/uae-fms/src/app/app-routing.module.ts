@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { UserProfileComponent } from '@feature/user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,10 @@ const routes: Routes = [
       import('./feature/fuel-management/fuel-management.module').then(
         (m) => m.FuelManagementModule
       )
+  },
+  {
+    path: 'user-profile',
+    component: UserProfileComponent
   }
 ];
 
