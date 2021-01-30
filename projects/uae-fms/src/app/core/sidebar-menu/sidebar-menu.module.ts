@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 
-import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 
 import { sidebarMenuReducer } from './state/sidebar-menu.reducer';
 import { SidebarMenuComponent } from './sidebar-menu.component';

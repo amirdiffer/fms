@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import {
   FleetStatusDataType,
   FleetStatusTableColumnDefinition,
@@ -14,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FleetStatusComponent implements OnInit {
-  faSearch = faSearch;
+  searchIcon='assets/icons/search.svg';
 
   tableColumns: FleetStatusTableColumnDefinition[] = [
     {

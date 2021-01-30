@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ConfigurationComponent } from './configuration.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TableModule } from '@core/table';
 import { FleetStatusComponent } from './fleet-status/fleet-status.component';
 import { TabViewModule } from '@core/tab-view';
@@ -34,7 +33,6 @@ import { PeriodicServiceComponent } from '@feature/configuration/periodic-servic
   imports: [
     CommonModule,
     ConfigurationRoutingModule,
-    FontAwesomeModule,
     TableModule,
     TabViewModule,
     TableModule,
