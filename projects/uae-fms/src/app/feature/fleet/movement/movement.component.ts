@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ElementRef, ViewChild,  AfterViewChecked } from '@angular/core';
 import { MovementService } from './movement.service';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Observable, of } from 'rxjs';
 @Component({
   selector: 'anms-movement',
@@ -9,13 +8,12 @@ import { Observable, of } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovementComponent implements OnInit, AfterViewChecked {
-  faSearch = faSearch;
   filterSetting;
   movementOverViewTableSetting;
   requestTableSetting;
   requestFilter: boolean = false;
   requestFilterHide$: Observable<boolean> = of(this.requestFilter);
-  
+
   @ViewChild('requestTab' , {static: true}) requestTab: ElementRef
   constructor(private _movementService: MovementService) { }
 
