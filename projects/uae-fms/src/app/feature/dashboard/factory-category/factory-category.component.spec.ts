@@ -8,9 +8,8 @@ describe('FactoryCategoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FactoryCategoryComponent ]
-    })
-    .compileComponents();
+      declarations: [FactoryCategoryComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

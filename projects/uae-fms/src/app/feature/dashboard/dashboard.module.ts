@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Angular Material
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatTableModule} from '@angular/material/table';
-
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTableModule } from '@angular/material/table';
 
 // Component
 import { DashboardComponent } from './dashboard.component';
@@ -20,14 +19,13 @@ import { TableModule } from '@core/table/table.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 
-
 @NgModule({
   declarations: [
-    DashboardComponent, 
-    AssetsStatusComponent, 
-    ActiveAssetsComponent, 
-    SuppliersComponent, 
-    BusinessCategoryComponent, 
+    DashboardComponent,
+    AssetsStatusComponent,
+    ActiveAssetsComponent,
+    SuppliersComponent,
+    BusinessCategoryComponent,
     FactoryCategoryComponent,
     ProgressBarComponent
   ],
@@ -39,7 +37,6 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     NgApexchartsModule,
     TableModule,
     AngularSvgIconModule
-
   ]
 })
-export class DashboardModule { }
+export class DashboardModule {}

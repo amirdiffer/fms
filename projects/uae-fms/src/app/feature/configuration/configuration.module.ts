@@ -45,4 +45,4 @@ import { PeriodicServiceComponent } from '@feature/configuration/periodic-servic
     MatRadioModule
   ]
 })
-export class ConfigurationModule { }
+export class ConfigurationModule {}

@@ -14,7 +14,14 @@ import { SubAssetComponent } from './sub-asset/sub-asset.component';
 import { MovementComponent } from './movement/movement.component';
 
 @NgModule({
-  declarations: [FleetComponent, OperatorComponent, SubAssetComponent, AssetsComponent, AccessoryComponent,MovementComponent],
+  declarations: [
+    FleetComponent,
+    OperatorComponent,
+    SubAssetComponent,
+    AssetsComponent,
+    AccessoryComponent,
+    MovementComponent
+  ],
   imports: [
     CommonModule,
     FleetRoutingModule,
@@ -22,6 +29,6 @@ import { MovementComponent } from './movement/movement.component';
     TableModule,
     AngularSvgIconModule,
     TabViewModule
-    ]
+  ]
 })
 export class FleetModule { }
