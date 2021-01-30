@@ -51,6 +51,13 @@ const routes: Routes = [
       import('./feature/integration/integration.module').then(
         (m) => m.IntegrationModule
       )
+  },
+  {
+    path: 'fuel-management',
+    loadChildren: () =>
+      import('./feature/fuel-management/fuel-management.module').then(
+        (m) => m.FuelManagementModule
+      )
   }
 ];
 
