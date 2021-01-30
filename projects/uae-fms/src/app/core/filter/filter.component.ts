@@ -37,6 +37,7 @@ export class FilterComponent implements OnInit, OnChanges {
 
 export interface FilterCardSetting {
   filterTitle: string;
+  filterSupTitle?: string;
   filterCount: string;
   filterTagColor: string;
 
