@@ -8,9 +8,8 @@ describe('ActiveAssetsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActiveAssetsComponent ]
-    })
-    .compileComponents();
+      declarations: [ActiveAssetsComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

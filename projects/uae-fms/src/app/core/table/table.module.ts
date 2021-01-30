@@ -12,15 +12,21 @@ import { TableCompanyRendererComponent } from '@core/table/renderers/company';
 import { TableAssetRendererComponent } from '@core/table/renderers/asset';
 import { TableDoubleLineRendererComponent } from '@core/table/renderers/double-line';
 import { TableInformationRendererComponent } from './renderers/information';
+import { TableStatusRendererComponent } from '@core/table/renderers/status';
+import { TableButtonRendererComponent } from '@core/table/renderers/button';
 import { TableThumbTextRendererComponent } from '@core/table/renderers/thumb-text';
 import { TableBooleanRendererComponent } from './renderers/boolean';
 import { TableExternalLinkRendererComponent } from '@core/table/renderers/external_link';
+import { SharedModule } from '../../shared/shared.module';
+import { TableActionButtonRendererComponent } from '@core/table/renderers/actionButton';
+import { TableAddButtonRendererComponent } from '@core/table/renderers/addButton';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
   imports: [
     PrimengTableModule,
     CommonModule,
+    SharedModule,
     MatProgressBarModule,
     AngularSvgIconModule
 
@@ -38,11 +44,15 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     AssetsRendererComponent,
     TableDoubleLineRendererComponent,
     SubtextRendererComponent,
+    TableAddButtonRendererComponent,
+    TableActionButtonRendererComponent,
     TableInformationRendererComponent,
+    TableStatusRendererComponent,
+    TableButtonRendererComponent,
     TableThumbTextRendererComponent,
     TableBooleanRendererComponent,
     TableExternalLinkRendererComponent
   ],
   providers: []
 })
-export class TableModule { }
+export class TableModule {}

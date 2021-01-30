@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { AssetConfigurationService } from './asset-configuration.service'
+import { AssetConfigurationService } from './asset-configuration.service';
 @Component({
   selector: 'anms-asset-configuration',
   templateUrl: './asset-configuration.component.html',
@@ -7,12 +7,11 @@ import { AssetConfigurationService } from './asset-configuration.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetConfigurationComponent implements OnInit {
-  searchIcon= 'assets/icons/search.svg';
+  searchIcon = 'assets/icons/search.svg';
   assetConfigurationableSetting;
-  constructor(private _assetConfigurationService: AssetConfigurationService) { }
+  constructor(private _assetConfigurationService: AssetConfigurationService) {}
 
   ngOnInit(): void {
-    this.assetConfigurationableSetting = this._assetConfigurationService.assetConfigurationableSetting()
+    this.assetConfigurationableSetting = this._assetConfigurationService.assetConfigurationableSetting();
   }
-
 }

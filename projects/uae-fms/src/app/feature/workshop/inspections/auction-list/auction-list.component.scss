@@ -1,4 +1,4 @@
-@import "../../../../../themes/green-theme.scss";
+@import '../../../../../themes/green-theme.scss';
 $primary: map-get($anms-green-primary, 300);
 
 .card-table-header {
@@ -37,7 +37,7 @@ $primary: map-get($anms-green-primary, 300);
   position: relative;
   background: #ffff;
   a {
-    background: url("../../../../../assets/icons/download-solid.svg");
+    background: url('../../../../../assets/icons/download-solid.svg');
     position: absolute;
     height: 100%;
     width: 100%;
@@ -78,8 +78,6 @@ $primary: map-get($anms-green-primary, 300);
     font-size: 20px;
   }
 }
-
-
 
 @media screen and (min-width: 800px) {
   app-tab-view {

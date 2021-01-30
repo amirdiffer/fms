@@ -13,14 +13,14 @@
             <div class="count" *ngIf="card.isActive">{{card.setting.filterCount}}</div>
           </div>
         </ng-container>
+        <ng-template #calendar>
+          <div class="calendar-container d-inline-flex justify-content-between w-100 mb-auto mt-auto pr-3 pl-3">
+            <span>{{card.setting.filterTitle}}</span>
+            <a><img src="../../../assets/icons/calendar-alt.svg" alt=""></a>
+          </div>
+          </ng-template>
       </div>
     </div>
   </div>
 </div>
 
-<ng-template #calendar>
-<div class="calendar-container d-inline-flex justify-content-between w-100 mb-auto mt-auto pr-3 pl-3">
-  <span>Calendar</span>
-  <a><img src="../../../assets/icons/calendar-alt.svg" alt=""></a>
-</div>
-</ng-template>

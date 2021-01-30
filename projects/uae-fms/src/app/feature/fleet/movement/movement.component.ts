@@ -14,7 +14,7 @@ export class MovementComponent implements OnInit, AfterViewChecked {
   requestTableSetting;
   requestFilter: boolean = false;
   requestFilterHide$: Observable<boolean> = of(this.requestFilter);
-  
+
   @ViewChild('requestTab' , {static: true}) requestTab: ElementRef
   constructor(private _movementService: MovementService) { }
 

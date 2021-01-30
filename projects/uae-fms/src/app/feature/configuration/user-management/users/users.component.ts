@@ -11,7 +11,7 @@ import { FilterCardSetting } from '@core/filter';
 export class UsersComponent implements OnInit {
   filterCard: FilterCardSetting[] = [
     {
-      filterTitle: '',
+      filterTitle: 'This Month',
       filterCount: '',
       filterTagColor: '',
       isCalendar:true,
@@ -21,19 +21,19 @@ export class UsersComponent implements OnInit {
       filterTitle: 'Total',
       filterCount: '356',
       filterTagColor: '#6EBFB5',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'Active',
       filterCount: '124',
       filterTagColor: '#6870B4',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'Inactive',
       filterCount: '12',
       filterTagColor: '#BA7967',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
 
@@ -62,17 +62,87 @@ export class UsersComponent implements OnInit {
       { lable: 'Role', type: 1, field: 'Role' }
     ],
     data: [
-      { statusColor: '#7F87CA', firstName: 'Sam', lastName: 'Smith', id: '1234567899', picture: 'user-image.png', Department: { line1: 'Department name', line2: 'Section Name' }, Information: { line1: 'sample@gmail.com', line2: '+97150563793' }, Status: 'Active', Role: 'Fleet Manager' },
-      { statusColor: '#7F87CA', firstName: 'Sam', lastName: 'Smith', id: '1234567899', picture: 'user-image.png', Department: { line1: 'Department name', line2: 'Section Name' }, Information: { line1: 'sample@gmail.com', line2: '+97150563793' }, Status: 'Active', Role: 'Fleet Manager' },
-      { statusColor: '#7F87CA', firstName: 'Sam', lastName: 'Smith', id: '1234567899', picture: 'user-image.png', Department: { line1: 'Department name', line2: 'Section Name' }, Information: { line1: 'sample@gmail.com', line2: '+97150563793' }, Status: 'Active', Role: 'Fleet Manager' },
-      { statusColor: '#7F87CA', firstName: 'Sam', lastName: 'Smith', id: '1234567899', picture: 'user-image.png', Department: { line1: 'Department name', line2: 'Section Name' }, Information: { line1: 'sample@gmail.com', line2: '+97150563793' }, Status: 'Active', Role: 'Fleet Manager' },
-      { statusColor: '#7F87CA', firstName: 'Sam', lastName: 'Smith', id: '1234567899', picture: 'user-image.png', Department: { line1: 'Department name', line2: 'Section Name' }, Information: { line1: 'sample@gmail.com', line2: '+97150563793' }, Status: 'Active', Role: 'Fleet Manager' },
-      { statusColor: '#7F87CA', firstName: 'Sam', lastName: 'Smith', id: '1234567899', picture: 'user-image.png', Department: { line1: 'Department name', line2: 'Section Name' }, Information: { line1: 'sample@gmail.com', line2: '+97150563793' }, Status: 'Active', Role: 'Fleet Manager' },
-      { statusColor: '#7F87CA', firstName: 'Sam', lastName: 'Smith', id: '1234567899', picture: 'user-image.png', Department: { line1: 'Department name', line2: 'Section Name' }, Information: { line1: 'sample@gmail.com', line2: '+97150563793' }, Status: 'Active', Role: 'Fleet Manager' },
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      },
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      },
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      },
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      },
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      },
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      },
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      }
     ]
   };
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

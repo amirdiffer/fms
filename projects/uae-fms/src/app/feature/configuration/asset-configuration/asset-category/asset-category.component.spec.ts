@@ -8,9 +8,8 @@ describe('AssetCategoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AssetCategoryComponent ]
-    })
-    .compileComponents();
+      declarations: [AssetCategoryComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -5,7 +5,7 @@ import { environment } from '../../../../environments/environment';
   selector: 'table-boolean-renderer',
   template: `
     <div class="d-flex" *ngIf="data">
-        <img class="asset-image" src="../../../assets/icons/check.svg" />
+      <img class="asset-image" src="../../../assets/icons/check.svg" />
     </div>
   `,
   styles: [
@@ -41,7 +41,7 @@ import { environment } from '../../../../environments/environment';
   ]
 })
 export class TableBooleanRendererComponent implements OnInit {
-  @Input() data:boolean;
+  @Input() data: boolean;
   fileServerBase = environment.baseFileServer;
 
   constructor() {}

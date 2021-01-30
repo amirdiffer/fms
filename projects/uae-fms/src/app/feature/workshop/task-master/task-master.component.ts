@@ -10,10 +10,9 @@ import { TaskMasterService } from './task-master.service';
 export class TaskMasterComponent implements OnInit {
   searchIcon = 'assets/icons/search.svg';
   tableSetting;
-  constructor(private _taskMasterService: TaskMasterService) { }
+  constructor(private _taskMasterService: TaskMasterService) {}
 
   ngOnInit(): void {
-    this.tableSetting = this._taskMasterService.tableSetting
+    this.tableSetting = this._taskMasterService.tableSetting;
   }
-
 }
