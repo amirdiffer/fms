@@ -13,13 +13,15 @@ import { BodyShopComponent } from './body-shop/body-shop.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { MakeDecisionComponent } from './inspections/technical-inspection/make-decision/make-decision.component';
 @NgModule({
   declarations: [
     WorkshopComponent,
     BodyShopComponent,
     AuctionListComponent,
     TechnicalInspectionComponent,
-    TaskMasterComponent
+    TaskMasterComponent,
+    MakeDecisionComponent
   ],
   imports: [
     TableModule,
