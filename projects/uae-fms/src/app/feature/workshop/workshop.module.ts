@@ -13,6 +13,10 @@ import { BodyShopComponent } from './body-shop/body-shop.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { AddRequestComponent } from './body-shop/add-request/add-request.component';
+import { AddTechnicianComponent } from './body-shop/add-technician/add-technician.component';
+import { AddLocationComponent } from './body-shop/add-location/add-location.component';
+import { DashboardModule } from '@feature/dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,10 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     BodyShopComponent,
     AuctionListComponent,
     TechnicalInspectionComponent,
-    TaskMasterComponent
+    TaskMasterComponent,
+    AddRequestComponent,
+    AddTechnicianComponent,
+    AddLocationComponent
   ],
   imports: [
     TableModule,
@@ -28,7 +35,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     FilterModule,
     TabViewModule,
     WorkshopRoutingModule,
-    AngularSvgIconModule
+    AngularSvgIconModule,
+    DashboardModule
   ]
 })
 export class WorkshopModule {}
