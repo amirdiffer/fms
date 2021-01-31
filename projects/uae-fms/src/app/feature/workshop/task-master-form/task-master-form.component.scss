@@ -9,9 +9,6 @@
   box-shadow: 0px 0px 2px #0000003d;
   border-radius: 5px;
 
-  &__row {
-  }
-
   &__title {
     color: #333;
     font-size: 15px;
@@ -27,8 +24,8 @@
 
     .addon-primary {
       background-color: #fff;
-      color: $fms-primary-color1;
-      border-color: #009c62;
+      color: $fms-form-addon;
+      border-color: $fms-form-addon-border;
 
       i {
         font-size: 22px;
@@ -43,24 +40,24 @@
       font-size: 15px;
       left: 0.8rem;
       width: auto;
-      padding: 5px;
+      padding: 0 5px;
     }
 
     input {
-      border-color: #d3d3d3;
-      color: #abafb3;
+      border-color: $fms-form-input-border;
+      color: $fms-form-input;
       font-size: 15px;
 
+      & ~ label {
+        color: $fms-form-label;
+      }
+
       &.ng-touched.ng-invalid {
-        border-color: red;
+        border-color: $fms-form-input-error;
       }
 
-      &:hover {
-        border-color: #0da06e;
-      }
-
-      &::placeholder {
-        color: #939393;
+      &:not([disabled]):hover {
+        border-color: $fms-form-input-hover;
       }
 
       &:focus {
@@ -69,10 +66,9 @@
 
       &[disabled] {
         background-color: #fff;
-        border-color: #d3d3d3;
 
         & ~ label {
-          color: #bcbcbc;
+          color: $fms-form-label-disabled;
         }
       }
     }
@@ -85,7 +81,7 @@
 
     ::ng-deep {
       .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-        background: #707070;
+        background-color: $fms-form-input-switch;
       }
 
       .p-inputswitch.p-focus .p-inputswitch-slider {
