@@ -1,0 +1,97 @@
+@import '../../../../themes/green-theme';
+@import '../task-master/task-master.component';
+
+.form-section {
+  padding: 15px;
+  background-color: #fff;
+  font-size: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0px 0px 2px #0000003d;
+  border-radius: 5px;
+
+  &__row {
+  }
+
+  &__title {
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 25px;
+  }
+
+  &__field {
+    margin-bottom: 20px;
+
+    .toggle-select {
+      height: 40px;
+    }
+
+    .addon-primary {
+      background-color: #fff;
+      color: $fms-primary-color1;
+      border-color: #009c62;
+
+      i {
+        font-size: 22px;
+        font-weight: bold;
+      }
+    }
+
+    .p-float-label input:focus ~ label,
+    .p-float-label input.p-filled ~ label {
+      top: -0.15rem;
+      background: #fff;
+      font-size: 15px;
+      left: 0.8rem;
+      width: auto;
+      padding: 5px;
+    }
+
+    input {
+      border-color: #d3d3d3;
+      color: #abafb3;
+      font-size: 15px;
+
+      &.ng-touched.ng-invalid {
+        border-color: red;
+      }
+
+      &:hover {
+        border-color: #0da06e;
+      }
+
+      &::placeholder {
+        color: #939393;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      &[disabled] {
+        background-color: #fff;
+        border-color: #d3d3d3;
+
+        & ~ label {
+          color: #bcbcbc;
+        }
+      }
+    }
+  }
+
+  .toggle-select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    ::ng-deep {
+      .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+        background: #707070;
+      }
+
+      .p-inputswitch.p-focus .p-inputswitch-slider {
+        box-shadow: none;
+        border: none;
+      }
+    }
+  }
+}
