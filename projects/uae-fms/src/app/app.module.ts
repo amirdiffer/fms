@@ -7,8 +7,8 @@ import { SidebarMenuModule } from './core/sidebar-menu/sidebar-menu.module';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AppRoutingModule } from './app-routing.module';
-import { TemplateComponent } from './template/template.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { TemplateComponent } from './template/template.component';
 
 @NgModule({
   imports: [
