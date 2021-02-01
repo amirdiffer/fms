@@ -1,9 +1,11 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ConfigurationComponent } from './configuration.component';
 import { OwnershipComponent } from './ownership/ownership.component';
+import { OwnershipFormComponent } from './ownership-form/ownership-form.component';
 import { TableModule } from '@core/table';
 import { FleetStatusComponent } from './fleet-status/fleet-status.component';
 import { TabViewModule } from '@core/tab-view';
@@ -30,7 +32,8 @@ import { PeriodicServiceComponent } from '@feature/configuration/periodic-servic
     PeriodicServiceComponent,
     AssetPolicyComponent,
     BusinessCategoryComponent,
-    OwnershipComponent
+    OwnershipComponent,
+    OwnershipFormComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +45,8 @@ import { PeriodicServiceComponent } from '@feature/configuration/periodic-servic
     FilterModule,
     MatCardModule,
     AngularSvgIconModule,
-    MatRadioModule
+    MatRadioModule,
+    SharedModule
   ]
 })
 export class ConfigurationModule {}

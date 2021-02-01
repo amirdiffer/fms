@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -14,6 +15,7 @@ import { AuctionListComponent } from './inspections/auction-list/auction-list.co
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { WorkshopStateModule } from "./+state";
+import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { WorkshopStateModule } from "./+state";
     BodyShopComponent,
     AuctionListComponent,
     TechnicalInspectionComponent,
-    TaskMasterComponent
+    TaskMasterComponent,
+    TaskMasterFormComponent
   ],
   imports: [
     TableModule,
@@ -30,7 +33,8 @@ import { WorkshopStateModule } from "./+state";
     TabViewModule,
     WorkshopRoutingModule,
     AngularSvgIconModule,
-    WorkshopStateModule
+    WorkshopStateModule,
+    SharedModule
   ]
 })
 export class WorkshopModule { }

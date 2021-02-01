@@ -1,0 +1,76 @@
+
+
+<!-- form-section -->
+<div class="form-section">
+    <h3 class="form-section__title">Task Info</h3>
+
+    <div class="row form-section__row">
+        <div class="col-12 col-md-4 p-field form-section__field">
+            <span class="p-float-label">
+                <input pInputText placeholder="Task Name *" required type="text">
+                <label>Task Name *</label>
+            </span>
+        </div>
+        <div class="col-12 col-md-4 p-field form-section__field">
+            <span class="p-float-label">
+                <input pInputText placeholder="Instruction *" disabled type="text">
+                <label>Instruction *</label>
+            </span>
+        </div>
+        <div class="col-12 col-md-4 p-field form-section__field">
+            <span class="p-float-label">
+                <input pInputText placeholder="Rate per Hour" required type="text">
+                <label>Rate per Hour</label>
+            </span>
+        </div>
+    </div>
+
+    <div class="row form-section__row">
+        <div class="col-12 col-md-4 p-field form-section__field">
+            <span class="p-float-label">
+                <input pInputText placeholder="Time Estimate (hours) *" type="text">
+                <label>Time Estimate (hours) *</label>
+            </span>
+        </div>
+        <div class="col-12 col-md-8 form-section__field">
+            <div class="p-inputgroup">
+                <span class="p-float-label">
+                    <input type="text" id="inputgroup" pInputText placeholder="Skills"> 
+                    <label>Skills</label>
+                </span>
+                <span class="p-inputgroup-addon addon-primary">
+                    <i class="pi pi-plus"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-section__row">
+        <div class="col-12 col-md-3 form-section__field toggle-select">
+            <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+            <span>This Task Needs Part</span>
+        </div>
+        <div class="col-12 col-md-3 p-field form-section__field">
+            <span class="p-float-label">
+                <div class="p-inputgroup">
+                    <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Add Part"> 
+                        <label>Add Part</label>
+                    </span>
+                    <span class="p-inputgroup-addon addon-primary">
+                        <i class="pi pi-plus"></i>
+                    </span>
+                </div>
+            </span>
+
+        </div>
+    </div>
+
+</div>
+<!-- end form-section -->
+
+<div class="table-container">
+    <div class="card-table">
+        <app-table [setting]="tableSetting"></app-table>
+    </div>
+</div>
