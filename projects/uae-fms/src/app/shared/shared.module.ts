@@ -22,6 +22,11 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   imports: [
@@ -42,7 +47,12 @@ import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
     MatTooltipModule,
     MatSnackBarModule,
     MatSlideToggleModule,
-    MatDividerModule
+    MatDividerModule,
+    InputSwitchModule,
+    InputMaskModule,
+    InputNumberModule,
+    InputTextareaModule,
+    InputTextModule
   ],
   declarations: [RtlSupportDirective],
   exports: [
@@ -68,7 +78,12 @@ import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    RtlSupportDirective
+    RtlSupportDirective,
+    InputSwitchModule,
+    InputMaskModule,
+    InputNumberModule,
+    InputTextareaModule,
+    InputTextModule
   ]
 })
 export class SharedModule {
