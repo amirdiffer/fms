@@ -1,38 +1,38 @@
 :host ::ng-deep {
-    .card.parent {
-      height: 45px;
-      margin: 20px 20px 20px 0px;
+  .card.parent {
+    height: 45px;
+    margin: 20px 20px 20px 0px;
+  }
+  mat-card {
+    box-shadow: 0px 0px 2px #0000003d !important;
+    mat-card-title {
+      font-weight: bold;
     }
-    mat-card{
-      box-shadow: 0px 0px 2px #0000003D !important;
-      mat-card-title{
-          font-weight: bold;
-      }
-      span.border{
-          position: absolute;
-          width: 100%;
-          left: 0;
-          border:none !important;
-          background:#e9ecef;
-          height: 1px;
-      }
+    span.border {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      border: none !important;
+      background: #e9ecef;
+      height: 1px;
+    }
   }
 }
-.card-table-header{
+.card-table-header {
   font-weight: bold;
   font-size: 20px;
 }
-.card-table{
-  background:#ffff;
-  box-shadow: 0px 0px 2px #0000003D;
+.card-table {
+  background: #ffff;
+  box-shadow: 0px 0px 2px #0000003d;
   border-radius: 4px;
 }
-.card-table-header{
+.card-table-header {
   position: relative;
   display: flex;
   padding-left: 25px;
 }
-.search-container{
+.search-container {
   display: flex;
   justify-content: flex-end;
   flex: auto;
@@ -40,71 +40,71 @@
   height: 45px;
   align-self: center;
   .btn-primary-green {
-      background-color: #0DA06E;
-      border: 2px solid #0DA06E;
-      border-radius:4px;
-      width: 155px;
-      height: 45px;
-      position: relative;
-      a {
-          color:#ffff;
-          font-size:1.2rem;
-          font-weight: bold;
-      }
-      i{
-          color: #ffff;
-          font-size: 1.7rem;
-          font-weight: bold;
-          position: absolute;
-          top: -3px;
-          left: 20%;  
-      }
+    background-color: #0da06e;
+    border: 2px solid #0da06e;
+    border-radius: 4px;
+    width: 155px;
+    height: 45px;
+    position: relative;
+    a {
+      color: #ffff;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    i {
+      color: #ffff;
+      font-size: 1.7rem;
+      font-weight: bold;
+      position: absolute;
+      top: -3px;
+      left: 20%;
+    }
   }
   .btn-download {
-      width: 45px;
-      border: 2px solid #A2A2A2;
-      margin: 0 5px;
-      border-radius: 4px;
-      position: relative;
-      background:#ffff;
-      a {
-          background: url('../../../../assets/icons/download-solid.svg');
-          position: absolute;
-          height: 100%;
-          width: 100%;
-          background-repeat: no-repeat;
-          top: 5px;
-          left: 6px;
-      }
+    width: 45px;
+    border: 2px solid #a2a2a2;
+    margin: 0 5px;
+    border-radius: 4px;
+    position: relative;
+    background: #ffff;
+    a {
+      background: url('../../../../assets/icons/download-solid.svg');
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background-repeat: no-repeat;
+      top: 5px;
+      left: 6px;
+    }
   }
-  
-  .search-box{
-      width: 320px;
-      position: relative;
-      input{
-          height: 100%;
-          width: 100%;
-          box-shadow: 0px 0px 2px #00000029;
-          border: 2px solid #A2A2A2;
-          border-radius: 4px;
-          padding: 15px;
-          max-height: 45px;
-          &::placeholder {
-              padding-left: 15px;
-          }
+
+  .search-box {
+    width: 320px;
+    position: relative;
+    input {
+      height: 100%;
+      width: 100%;
+      box-shadow: 0px 0px 2px #00000029;
+      border: 2px solid #a2a2a2;
+      border-radius: 4px;
+      padding: 15px;
+      max-height: 45px;
+      &::placeholder {
+        padding-left: 15px;
       }
-      button{
-          height: 100%;
-          width: 45px;
-          position: absolute;
-          right: 0;
-          background: #A09999;
-          border-radius: 0 4px 4px 0;
-          border: none;
-      }
-      .icon{
-          color:#fff;
-          font-size:20px
-      }     
+    }
+    button {
+      height: 100%;
+      width: 45px;
+      position: absolute;
+      right: 0;
+      background: #a09999;
+      border-radius: 0 4px 4px 0;
+      border: none;
+    }
+    .icon {
+      color: #fff;
+      font-size: 20px;
+    }
   }
 }

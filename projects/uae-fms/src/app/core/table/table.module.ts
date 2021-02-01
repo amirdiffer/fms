@@ -30,7 +30,6 @@ import { MakeDecisionRendererComponent } from './renderers/makeDecision';
     SharedModule,
     MatProgressBarModule,
     AngularSvgIconModule
-
   ],
   exports: [TableComponent],
   declarations: [

@@ -1,0 +1,70 @@
+@import '../../../../themes/green-theme';
+$primary: map-get($anms-green-primary, 300);
+
+.vertical_line {
+  border-left: 2px solid #475f7b;
+  margin-left: 12px;
+  content: ' ';
+}
+
+.sub_info_p {
+  width: fit-content;
+  text-align: left;
+  border-bottom: 2px #475f7b;
+  border-bottom-style: solid;
+  line-height: 0.1em;
+  line-snap: none;
+  margin: 0 0 20px;
+  padding: 25px 0 0 0;
+}
+
+.sub_info_p .sub_info_span {
+  background: #fff;
+  //padding:0 10px;
+  //padding: 0 0 0 10px;
+  margin: 0 0 0 10px;
+}
+
+.detail_color {
+  color: #000000de;
+  opacity: 64%;
+}
+
+.btn-download {
+  width: 45px;
+  border: 2px solid #a2a2a2;
+  margin: 0 5px;
+  border-radius: 4px;
+  position: relative;
+  background: #ffff;
+  a {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: url('../../../../assets/icons/download-solid.svg') no-repeat;
+    top: 5px;
+    left: 6px;
+  }
+}
+
+.btn-primary-green {
+  background-color: $primary;
+  border: 2px solid #0da06e;
+  border-radius: 4px;
+  width: 155px;
+  height: 45px;
+  position: relative;
+  a {
+    color: #ffff;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  i {
+    color: #ffff;
+    font-size: 1.7rem;
+    font-weight: bold;
+    position: absolute;
+    top: -3px;
+    left: 20%;
+  }
+}

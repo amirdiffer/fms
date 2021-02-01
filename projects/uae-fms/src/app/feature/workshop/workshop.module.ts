@@ -30,6 +30,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { DetailDecisionComponent } from './inspections/technical-inspection/make-decision/detail-decision/detail-decision.component';
+
 @NgModule({
   declarations: [
     WorkshopComponent,

@@ -11,8 +11,9 @@ export class AssetsComponent implements OnInit {
   pendingRegistrationTableSetting;
   pendingCustomizationTableSetting;
   filterSetting;
+
   searchIcon = 'assets/icons/search.svg';
-  constructor(private _assetsService : AssetsService) { }
+  constructor(private _assetsService: AssetsService) {}
 
   ngOnInit(): void {
     this.assetMasterTableSetting = this._assetsService.assetMastertableSetting();
