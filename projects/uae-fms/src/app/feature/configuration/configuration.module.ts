@@ -18,6 +18,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { BusinessCategoryComponent } from './business-category/business-category.component';
 import { AssetPolicyComponent } from './asset-policy/asset-policy.component';
 import { PeriodicServiceComponent } from '@feature/configuration/periodic-service/periodic-service.component';
+import { AddTypeComponent } from './asset-configuration/add-type/add-type.component';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { PeriodicServiceComponent } from '@feature/configuration/periodic-servic
     PeriodicServiceComponent,
     AssetPolicyComponent,
     BusinessCategoryComponent,
-    OwnershipComponent
+    OwnershipComponent,
+    AddTypeComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +45,8 @@ import { PeriodicServiceComponent } from '@feature/configuration/periodic-servic
     FilterModule,
     MatCardModule,
     AngularSvgIconModule,
-    MatRadioModule
+    MatRadioModule,
+    MatInputModule
   ]
 })
 export class ConfigurationModule {}

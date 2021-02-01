@@ -1,0 +1,32 @@
+<div class="row mr-0">
+    <div class="col-12">
+        <div class="card ">
+            <div class="card-body">
+              <form>
+                  <div class="form-group row">
+                    <div class="col-lg-6 col-md-6 align-self-center d-flex category">
+                        <label class="title">Type Category</label>
+                        <mat-radio-group aria-label="Select an option" class="d-flex align-self-center">
+                            <mat-radio-button value="asset">Asset</mat-radio-button>
+                            <mat-radio-button value="subAsset">Sub Asset</mat-radio-button>
+                            <mat-radio-button value="accesory">Accessory</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="col-md-4 col-lg-4 align-self-center">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Type Name *" value="">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2 col-md-2 align-self-center d-flex"> 
+                        <div class="checkbox-button">
+                            <input type="checkbox" value="None" id="checkbox" formControlName="setReminder">
+                            <label for="checkbox"></label>
+                        </div>
+                        <span class="align-self-center ml-2">Active type</span>
+                    </div>
+                  </div>
+              </form>
+            </div>
+          </div>
+    </div>
+</div>
