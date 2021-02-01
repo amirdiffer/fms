@@ -1,8 +1,9 @@
 .form-section {
-  padding: 15px;
+  padding: 20px 20px 0 20px;
+  margin: 10px;
+
   background-color: #fff;
   font-size: 15px;
-  margin-bottom: 15px;
   box-shadow: 0px 0px 2px #0000003d;
   border-radius: 5px;
 
@@ -12,8 +13,18 @@
     margin-bottom: 25px;
   }
 
+  &__row:last-of-type {
+    .form-section__field {
+      // margin-bottom: 0;
+    }
+  }
+
   &__field {
     margin-bottom: 20px;
+
+    & > * {
+      height: 40px;
+    }
 
     .toggle-select {
       height: 40px;
@@ -76,6 +87,30 @@
     }
   }
 
+  // Radio Groups
+  .radio-select {
+    p-radioButton {
+      margin-right: 30px;
+    }
+
+    ::ng-deep {
+      .p-radiobutton .p-radiobutton-box.p-highlight {
+        border-color: $fms-form-input-switch;
+        background: $fms-form-input-switch;
+      }
+
+      .p-radiobutton .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
+        border-color: $fms-form-input-switch;
+      }
+
+      .p-radiobutton .p-radiobutton-box:not(.p-disabled).p-focus {
+        box-shadow: none;
+        border: none;
+      }
+    }
+  }
+
+  // Switch
   .toggle-select {
     display: flex;
     justify-content: space-between;
@@ -90,6 +125,18 @@
         box-shadow: none;
         border: none;
       }
+    }
+  }
+
+  /* Inline forms */
+  &--inline {
+    .form-section__field {
+      // margin-bottom: 0;
+    }
+
+    .form-section__title {
+      margin-bottom: 0;
+      line-height: 40px;
     }
   }
 }
