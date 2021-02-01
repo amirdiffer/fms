@@ -27,6 +27,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import { InputTextModule } from 'primeng/inputtext';
     InputMaskModule,
     InputNumberModule,
     InputTextareaModule,
-    InputTextModule
+    InputTextModule,
+    RadioButtonModule
   ],
   declarations: [RtlSupportDirective],
   exports: [
@@ -83,7 +85,8 @@ import { InputTextModule } from 'primeng/inputtext';
     InputMaskModule,
     InputNumberModule,
     InputTextareaModule,
-    InputTextModule
+    InputTextModule,
+    RadioButtonModule
   ]
 })
 export class SharedModule {
