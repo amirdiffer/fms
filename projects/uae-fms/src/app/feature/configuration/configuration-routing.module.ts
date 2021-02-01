@@ -8,6 +8,7 @@ import { AssetConfigurationComponent } from './asset-configuration/asset-configu
 import { BusinessCategoryComponent } from '@feature/configuration/business-category/business-category.component';
 import { AssetPolicyComponent } from '@feature/configuration/asset-policy/asset-policy.component';
 import { PeriodicServiceComponent } from './periodic-service/periodic-service.component';
+import { AddPeriodicServiceComponent } from '@feature/configuration/periodic-service/add-periodic-service/add-periodic-service.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,11 @@ const routes: Routes = [
       )
   },
   { path: 'periodic-service', component: PeriodicServiceComponent },
+  {
+    path: 'periodic-service/add-periodic-service',
+    component: AddPeriodicServiceComponent,
+    data: { name: 'Add Periodic Service' }
+  },
   { path: 'asset-policy', component: AssetPolicyComponent },
   { path: 'business-category', component: BusinessCategoryComponent },
   { path: 'asset-configuration', component: AssetConfigurationComponent },
