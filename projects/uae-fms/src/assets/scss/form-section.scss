@@ -44,9 +44,14 @@
       border-color: $fms-form-input-border;
       color: $fms-form-input;
       font-size: 15px;
+      width: 100%;
+      height: 40px;
 
       & ~ label {
         color: $fms-form-label;
+        background-color: #fff;
+        height: 50%;
+        width: 95%;
       }
 
       &.ng-touched.ng-invalid {
