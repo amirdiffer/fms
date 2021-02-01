@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'table-add-button-renderer',
@@ -13,8 +12,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
   `]
 })
 export class TableAddButtonRendererComponent implements OnInit {
-  faPlus = faPlus;
-
+  
   constructor() {}
 
   ngOnInit() {}

@@ -1,13 +1,17 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
+import { MakeDecisionService } from './make-decision/make-decision.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   templateUrl: './technical-inspection.component.html',
   styleUrls: ['./technical-inspection.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TechnicalInspectionComponent implements OnInit {
+export class TechnicalInspectionComponent implements OnInit , OnDestroy {
+  makeDecision:boolean;
+  makeDecision$ :Subscription;
   filterSetting: FilterCardSetting[] = [
     {
       filterCount: '13',
@@ -37,14 +41,14 @@ export class TechnicalInspectionComponent implements OnInit {
 
   setting: TableSetting = {
     columns: [
-      { lable: 'Item', field: 'item', renderer: 'vehicleRenderer' },
+      { lable: 'Item', field: 'item', renderer: 'vehicleRenderer',width: 150 },
       { lable: 'Status', field: 'status', width: 100 },
       { lable: 'Source', field: 'source', width: 100 },
-      { lable: 'Reported by', field: 'reportedby' },
-      { lable: 'Cost', field: 'cost' },
-      { lable: 'Insurance Value', field: 'insuranceValue' },
-      { lable: 'Insurance', field: 'insurance', width: 120 },
-      { lable: 'Action', field: 'action', width: 100 }
+      { lable: 'Reported by', field: 'reportedby',width: 100 },
+      { lable: 'Cost', field: 'cost',width: 100 },
+      { lable: 'Insurance Value', field: 'insuranceValue',width: 100 },
+      { lable: 'Insurance', field: 'insurance', width: 100 },
+      { lable: '', field: '', width: 120 , renderer: 'makeDecision'}
     ],
     data: [
       {
@@ -148,7 +152,18 @@ export class TechnicalInspectionComponent implements OnInit {
       }
     ]
   };
-  constructor() {}
+  constructor(private _makeDecisionService: MakeDecisionService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.makeDecision$ = this._makeDecisionService.getMakeDecision().subscribe(
+      (open)=>{
+        this.makeDecision = open;
+        console.log(open)
+      }
+    )
+  }
+
+  ngOnDestroy(){
+    this.makeDecision$.unsubscribe();
+  }
 }
