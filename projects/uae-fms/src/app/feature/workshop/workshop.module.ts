@@ -13,6 +13,7 @@ import { BodyShopComponent } from './body-shop/body-shop.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { WorkshopStateModule } from "./+state";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     FilterModule,
     TabViewModule,
     WorkshopRoutingModule,
-    AngularSvgIconModule
+    AngularSvgIconModule,
+    WorkshopStateModule
   ]
 })
-export class WorkshopModule {}
+export class WorkshopModule { }
