@@ -8,6 +8,7 @@ import { AssetConfigurationComponent } from './asset-configuration/asset-configu
 import { BusinessCategoryComponent } from '@feature/configuration/business-category/business-category.component';
 import { AssetPolicyComponent } from '@feature/configuration/asset-policy/asset-policy.component';
 import { PeriodicServiceComponent } from './periodic-service/periodic-service.component';
+import { AddFleetStatusComponent } from '@feature/configuration/fleet-status/add-fleet-status/add-fleet-status.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
   { path: 'business-category', component: BusinessCategoryComponent },
   { path: 'asset-configuration', component: AssetConfigurationComponent },
   { path: 'fleet-status', component: FleetStatusComponent },
+  {
+    path: 'fleet-status/add-fleet-status',
+    component: AddFleetStatusComponent,
+    data: { name: 'Add Fleet Status' }
+  },
   { path: 'ownership', component: OwnershipComponent }
 ];
 
