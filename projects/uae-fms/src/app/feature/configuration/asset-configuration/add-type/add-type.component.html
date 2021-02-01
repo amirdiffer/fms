@@ -1,32 +1,88 @@
 <div class="row mr-0">
     <div class="col-12">
-        <div class="card ">
-            <div class="card-body">
-              <form>
-                  <div class="form-group row">
-                    <div class="col-lg-6 col-md-6 align-self-center d-flex category">
-                        <label class="title">Type Category</label>
-                        <mat-radio-group aria-label="Select an option" class="d-flex align-self-center">
-                            <mat-radio-button value="asset">Asset</mat-radio-button>
-                            <mat-radio-button value="subAsset">Sub Asset</mat-radio-button>
-                            <mat-radio-button value="accesory">Accessory</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                    <div class="col-md-4 col-lg-4 align-self-center">
-                        <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Type Name *" value="">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-lg-2 col-md-2 align-self-center d-flex"> 
-                        <div class="checkbox-button">
-                            <input type="checkbox" value="None" id="checkbox" formControlName="setReminder">
-                            <label for="checkbox"></label>
-                        </div>
-                        <span class="align-self-center ml-2">Active type</span>
-                    </div>
-                  </div>
-              </form>
+        <form [formGroup] = "inputForm">
+            <div class="button-container">
+                <button class="cancel" (click)="cancel()">Cancel</button>
+                <button class="add">Add</button>
             </div>
-          </div>
+            <div class="card ">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-lg-6 col-md-6 align-self-center d-flex category">
+                            <label class="title">Type Category</label>
+                            <mat-radio-group aria-label="Select an option" class="d-flex align-self-center" formControlName="typeCategory">
+                                <mat-radio-button value="asset">Asset</mat-radio-button>
+                                <mat-radio-button value="subAsset">Sub Asset</mat-radio-button>
+                                <mat-radio-button value="accesory">Accessory</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                        <div class="col-md-4 col-lg-4 align-self-center">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Type Name *" value="" formControlName="typeName">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2 col-md-2 align-self-center d-flex"> 
+                            <div class="checkbox-button">
+                                <input type="checkbox" value="None" id="checkbox" formControlName="activetype">
+                                <label for="checkbox"></label>
+                            </div>
+                            <span class="align-self-center ml-2">Active type</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12 col-lg-12 align-self-center">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Description" value="" formControlName="description">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="card mt-2 mb-2">
+                <div class="card-body">
+                    <label class="title">Make And Model Info</label>
+                    <div class="form-group row mt-5">
+                        <div class="col-lg-4 col-md-4 d-flex ">
+                            <mat-radio-group aria-label="Select an option" class=" d-flex make-model" formControlName="type">
+                                <mat-radio-button value="mModel">Multiple Model</mat-radio-button>
+                                <mat-radio-button value="sModel">Single Model</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Select Model" value="">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-4 col-md-4 d-flex">
+                            <ng-container *ngIf="inputForm.get('type').value == 'mModel'; else singleModel">
+                                <div class="progress-bar-container">
+                                    <div class="progress">
+                                    <div class="progress-bar" #progressBar></div>
+                                    </div>
+                                    <p>{{fileName}}</p>
+                                    <small #small>{{ value }} MB</small>
+                                </div>
+                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" class="w-100">
+                                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                    <small calss="drag-and-drop">Drag and drop a CSV file or<a type="button"(click)="openFileSelector()" style="color:#007bff; margin-left: 4px;">Click here</a></small>
+                                    </ng-template>
+                                </ngx-file-drop>
+                            </ng-container>
+                            <ng-template #singleModel>
+                                <div formArrayName="models" class="d-flex w-100 flex-wrap">
+                                    <div *ngFor="let model of inputForm.get('models')['controls']; let i=index" class="w-100 flex-85">
+                                        <mat-form-field class="mb-3">
+                                            <input matInput placeholder="Model" value="" [formControlName]="i">
+                                        </mat-form-field>
+                                        <br>
+                                    </div>
+                                    <button class="add-model" (click)="addModel()"><a>+</a></button>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>

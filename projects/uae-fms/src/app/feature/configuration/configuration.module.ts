@@ -20,6 +20,9 @@ import { AssetPolicyComponent } from './asset-policy/asset-policy.component';
 import { PeriodicServiceComponent } from '@feature/configuration/periodic-service/periodic-service.component';
 import { AddTypeComponent } from './asset-configuration/add-type/add-type.component';
 import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxFileDropModule } from 'ngx-file-drop';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,11 @@ import { MatInputModule } from '@angular/material/input';
     MatCardModule,
     AngularSvgIconModule,
     MatRadioModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxFileDropModule,
+    MatProgressBarModule
   ]
 })
 export class ConfigurationModule {}
