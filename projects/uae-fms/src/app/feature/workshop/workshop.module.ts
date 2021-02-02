@@ -41,6 +41,7 @@ import { RouterModule } from "@angular/router";
     TabViewModule,
     WorkshopRoutingModule,
     AngularSvgIconModule,
+    SharedModule,
     DashboardModule,
     WorkshopStateModule,
     SharedModule,
