@@ -13,9 +13,7 @@ import { AuctionListFacade, AuctionListService } from './auction-list';
 @NgModule({
   imports: [
     StoreModule.forFeature(WORKSHOP_FEATURE_KEY, reducers),
-    EffectsModule.forFeature([BodyShopEffect]),
-    EffectsModule.forFeature([TechnicalInspectionEffect]),
-    EffectsModule.forFeature([AuctionListEffect]),
+    EffectsModule.forFeature([BodyShopEffect, TechnicalInspectionEffect, AuctionListEffect])
   ],
   exports: [],
   declarations: [],
