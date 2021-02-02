@@ -1,0 +1,176 @@
+<div>
+  <form (ngSubmit)='submit()' [formGroup]='form'>
+    <div class='text-right action_buttons'>
+      <button class='action_button cancel_button font-weight-bold' (click)='submit()'>Cancel</button>
+      <button class='action_button add_button'>Add</button>
+    </div>
+    <div class='mt-5 card'>
+      <div class='card-body'>
+        <div>
+          <label class='font-weight-bold'>Role Info
+            <input type='text' class='ml-3 role_name_input' size='75' placeholder='Role Name'>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class='card'>
+      <div class='card-body bg-white font-weight-bold rounded'>
+        <div>
+          Permissions
+        </div>
+      </div>
+      <div class='card-body pl-1 body_div p-0'>
+
+        <!--      Top Fleet Row-->
+        <div class='d-flex' formGroupName='fleet'>
+
+          <div class='w-25 mt-3'>
+            <label class='container m-0 font-weight-bold'>Fleet
+              <input type='checkbox' name='vehicle_comments' formControlName='fleetCheckbox'>
+              <span class='checkmark'></span>
+            </label>
+          </div>
+
+          <div class='w-75 d-flex ml-5 mt-3'>
+            <div *ngFor='let aSwitch of fleet.value.switches; let index = index'>
+              <mat-slide-toggle [class.ml-5]='index !== 0' [class.d-flex]='index === 0' labelPosition='before'
+                                [checked]='aSwitch.value'>{{aSwitch.label}}</mat-slide-toggle>
+            </div>
+          </div>
+
+          <div class='curved_right_tag text-center mt-1'>
+            <div class='h-100'>
+              <img class='top_icon mr-2 ml-3 h-100' src='assets/icons/up.svg' alt='down' width='13'>
+            </div>
+          </div>
+
+        </div>
+
+        <div class='card-body pl-1 bg-white ml-3 mr-4 mt-3 mb-3 border rounded'>
+
+          <!--        Asset Master Table-->
+          <div class='d-flex' formGroupName='assetMaster'>
+
+            <div class='w-25'>
+              <label class='container font-weight-bold'>Asset Master
+                <input type='checkbox' name='vehicle_comments' formControlName='assetMasterCheckBox'>
+                <span class='checkmark'></span>
+                <img class='ml-2' src='assets/icons/up.svg' alt='up' width='14'>
+              </label>
+            </div>
+
+            <div class='w-75 d-flex ml-4'>
+              <div *ngFor='let aSwitch of assetMaster.value.switches; let index = index'>
+                <mat-slide-toggle [class.ml-5]='index !== 0' [class.d-flex]='index === 0' labelPosition='before'
+                                  [checked]='aSwitch.value'>{{aSwitch.label}}</mat-slide-toggle>
+              </div>
+            </div>
+
+          </div>
+
+          <div class='d-flex' formGroupName='assetConfiguration'>
+
+            <div class='w-25 ml-1'>
+              <mat-select formControlName='assetConfigurationSelectList' class='mt-3 border rounded p-2'
+                          placeholder='Asset Configuration'>
+                <mat-option *ngFor='let title of middleCheckboxLabelArray' [value]='title'>{{title}}</mat-option>
+              </mat-select>
+            </div>
+
+            <div class='w-75 d-flex pt-2 mt-auto mb-auto ml-4'>
+              <div *ngFor='let aSwitch of assetConfiguration.value.switches; let index = index'>
+                <mat-slide-toggle [class.ml-5]='index !== 0' [class.d-flex]='index === 0' labelPosition='before'
+                                  [checked]='aSwitch.value'>{{aSwitch.label}}</mat-slide-toggle>
+              </div>
+            </div>
+
+          </div>
+
+          <div class='d-flex' formGroupName='businessCategory'>
+
+            <div class='w-25 ml-1'>
+              <mat-select formControlName='businessCategorySelectList' class='mt-3 border rounded p-2'
+                          placeholder='Business Category'>
+                <mat-option *ngFor='let title of middleCheckboxLabelArray' [value]='title'>{{title}}</mat-option>
+              </mat-select>
+            </div>
+
+            <div class='w-75 d-flex pt-2 mt-auto mb-auto ml-4'>
+              <div *ngFor='let aSwitch of businessCategory.value.switches; let index = index'>
+                <mat-slide-toggle [class.ml-5]='index !== 0' [class.d-flex]='index === 0' labelPosition='before'
+                                  [checked]='aSwitch.value'>{{aSwitch.label}}</mat-slide-toggle>
+              </div>
+            </div>
+
+          </div>
+
+          <!--          MiddleArray-->
+          <div formArrayName='middleArray'>
+
+            <div class='card-body pl-0 bg-white ml-1 mt-3 border pr-0 p-0 rounded'
+                 *ngFor='let row of middleArray.controls; let index = index' [formGroupName]='index'>
+
+              <div class='d-flex'>
+
+                <div class='ml-1 w-25 mb-3 mt-3'>
+                  <label class='container m-0 font-weight-bold'>{{row.value.checkboxLabel}}
+                    <input type='checkbox' name='vehicle_comments' formControlName='checkboxValue'>
+                    <span class='checkmark'></span>
+                  </label>
+                </div>
+
+                <div class='w-75 d-flex ml-4 mb-3 mt-3'>
+                  <div *ngFor='let aSwitch of row.value.switches; let index = index'>
+                    <mat-slide-toggle [class.invisible]='!aSwitch.visible' [class.ml-5]='index !== 0'
+                                      [class.d-flex]='index === 0' labelPosition='before'
+                                      [checked]='aSwitch.value'>{{aSwitch.label}}</mat-slide-toggle>
+                  </div>
+                </div>
+                <div class='right_tag text-center' *ngIf='index !== 0 && index !== 1'>
+                  <div class='h-100'>
+                    <img class='down_icon mr-1 ml-1 h-100' src='assets/icons/up.svg' alt='down' width='10'>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--          Bottom 2 length array-->
+      <div class='card border-0' formArrayName='bottomArray'>
+
+        <div class='card-body body_div mt-3 pl-1'
+             *ngFor='let row of bottomArray.controls; let index = index' [formGroupName]='index'>
+
+          <div class='d-flex'>
+
+            <div class='w-25'>
+              <label class='container m-0 font-weight-bold'>{{row.value.checkboxLabel}}
+                <input type='checkbox' name='vehicle_comments' formControlName='checkboxValue'>
+                <span class='checkmark'></span>
+              </label>
+            </div>
+
+            <div class='w-75 d-flex ml-5'>
+              <div *ngFor='let aSwitch of row.value.switches; let index = index'>
+                <mat-slide-toggle [class.ml-5]='index !== 0' labelPosition='before'
+                                  [checked]='aSwitch.value'>{{aSwitch.label}}</mat-slide-toggle>
+              </div>
+            </div>
+
+            <div class='curved_right_tag text-center mt-1'>
+              <div class='h-100'>
+                <img class='bottom_icon mr-2 ml-3 h-100' src='assets/icons/up.svg' alt='down' width='13'>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class='mt-1 mb-1'></div>
+      </div>
+    </div>
+
+  </form>
+</div>
