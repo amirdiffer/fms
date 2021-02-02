@@ -1,9 +1,11 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ConfigurationComponent } from './configuration.component';
 import { OwnershipComponent } from './ownership/ownership.component';
+import { OwnershipFormComponent } from './ownership-form/ownership-form.component';
 import { TableModule } from '@core/table';
 import { FleetStatusComponent } from './fleet-status/fleet-status.component';
 import { TabViewModule } from '@core/tab-view';
@@ -18,6 +20,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { BusinessCategoryComponent } from './business-category/business-category.component';
 import { AssetPolicyComponent } from './asset-policy/asset-policy.component';
 import { PeriodicServiceComponent } from '@feature/configuration/periodic-service/periodic-service.component';
+import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-asset-policy.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { PeriodicServiceComponent } from '@feature/configuration/periodic-servic
     PeriodicServiceComponent,
     AssetPolicyComponent,
     BusinessCategoryComponent,
-    OwnershipComponent
+    OwnershipComponent,
+    OwnershipFormComponent,
+    AddAssetPolicyComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +47,8 @@ import { PeriodicServiceComponent } from '@feature/configuration/periodic-servic
     FilterModule,
     MatCardModule,
     AngularSvgIconModule,
-    MatRadioModule
+    MatRadioModule,
+    SharedModule
   ]
 })
 export class ConfigurationModule {}

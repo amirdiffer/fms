@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting } from '@core/table';
+import { AuctionListFacade } from '@feature/workshop/+state/auction-list';
 
 @Component({
   templateUrl: './auction-list.component.html',
@@ -224,7 +225,9 @@ export class AuctionListComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private _facade : AuctionListFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._facade.loadAll()
+  }
 }

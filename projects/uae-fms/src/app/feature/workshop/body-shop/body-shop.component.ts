@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting, ColumnType } from '@core/table';
+import { BodyShopFacade } from "../+state/body-shop";
 @Component({
   templateUrl: './body-shop.component.html',
   styleUrls: ['./body-shop.component.scss'],
@@ -8,12 +9,31 @@ import { TableSetting, ColumnType } from '@core/table';
 })
 export class BodyShopComponent implements OnInit {
   filterSetting: FilterCardSetting[] = [
-    { filterCount: "", filterTagColor: "", filterTitle: "Calendar", isCalendar: true , onActive: () => { } },
-    { filterCount: "13", filterTagColor: "#6EBFB5", filterTitle: "Total", onActive: () => { } },
-    { filterCount: "8", filterTagColor: "#6870B4", filterTitle: "Approved", onActive: () => { } },
-    { filterCount: "13", filterTagColor: "#BA7967", filterTitle: "Waiting For Approval", onActive: () => { } },
-    { filterCount: "13", filterTagColor: "#DD5648", filterTitle: "Rejected", onActive: () => { } },
-  ]
+    {
+      filterCount: '13',
+      filterTagColor: '#6EBFB5',
+      filterTitle: 'Total',
+      onActive: () => { }
+    },
+    {
+      filterCount: '8',
+      filterTagColor: '#6870B4',
+      filterTitle: 'Approved',
+      onActive: () => { }
+    },
+    {
+      filterCount: '13',
+      filterTagColor: '#BA7967',
+      filterTitle: 'Waiting For Approval',
+      onActive: () => { }
+    },
+    {
+      filterCount: '13',
+      filterTagColor: '#DD5648',
+      filterTitle: 'Rejected',
+      onActive: () => { }
+    }
+  ];
 
   table1Setting: TableSetting = {
     columns: [
@@ -511,7 +531,9 @@ export class BodyShopComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private facade: BodyShopFacade) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll()
+  }
 }

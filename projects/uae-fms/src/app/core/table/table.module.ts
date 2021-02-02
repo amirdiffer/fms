@@ -29,7 +29,6 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     SharedModule,
     MatProgressBarModule,
     AngularSvgIconModule
-
   ],
   exports: [TableComponent],
   declarations: [

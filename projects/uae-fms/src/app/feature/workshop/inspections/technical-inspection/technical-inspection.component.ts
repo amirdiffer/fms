@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
+import { TechnicalInspectionFacade } from '@feature/workshop/+state/technical-inspections';
 
 @Component({
   templateUrl: './technical-inspection.component.html',
@@ -129,7 +130,9 @@ export class TechnicalInspectionComponent implements OnInit {
       }
     ]
   };
-  constructor() {}
+  constructor(private _facade: TechnicalInspectionFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._facade.loadAll();
+  }
 }

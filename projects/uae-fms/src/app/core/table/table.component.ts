@@ -8,6 +8,7 @@ import { environment } from '@environments/environment';
 })
 export class TableComponent implements OnInit {
   rowIndexTable = -1;
+
   constructor() {}
   @Input() setting: TableSetting;
   ngOnInit() {}

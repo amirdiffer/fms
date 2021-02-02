@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import {FilterComponent} from './filter.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
-
-
 @NgModule({
   declarations: [FilterComponent],
   imports: [
@@ -12,4 +10,4 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     AngularSvgIconModule
   ], exports: [FilterComponent]
 })
-export class FilterModule { }
+export class FilterModule {}

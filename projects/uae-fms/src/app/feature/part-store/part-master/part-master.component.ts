@@ -8,10 +8,10 @@ import { PartMasterService } from './part-master.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PartMasterComponent implements OnInit {
-  searchIcon= 'assets/icons/search.svg'
+  searchIcon = 'assets/icons/search.svg';
   filterSetting = [];
   partMasterTableSetting;
-  constructor(private _partMasterService: PartMasterService) { }
+  constructor(private _partMasterService: PartMasterService) {}
 
   ngOnInit(): void {
     this.filterSetting = [
@@ -40,4 +40,3 @@ export class PartMasterComponent implements OnInit {
     this.partMasterTableSetting = this._partMasterService.partMastertableSetting();
   }
 }
-

@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   template: `
     <div>
       <a [href]="link" target="_blank">
-      <svg-icon [src]="externalLink" class="icon24px"></svg-icon>
+        <svg-icon [src]="externalLink" class="icon24px"></svg-icon>
       </a>
     </div>
   `,
@@ -21,7 +21,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TableExternalLinkRendererComponent implements OnInit {
   @Input() link;
-  externalLink='assets/icons/external-link.svg'
+  externalLink = 'assets/icons/external-link.svg';
   constructor() {}
 
   ngOnInit() {}
