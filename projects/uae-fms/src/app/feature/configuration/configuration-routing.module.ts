@@ -9,6 +9,7 @@ import { AssetConfigurationComponent } from './asset-configuration/asset-configu
 import { BusinessCategoryComponent } from '@feature/configuration/business-category/business-category.component';
 import { AssetPolicyComponent } from '@feature/configuration/asset-policy/asset-policy.component';
 import { PeriodicServiceComponent } from './periodic-service/periodic-service.component';
+import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-asset-policy.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'asset-configuration', component: AssetConfigurationComponent },
   { path: 'fleet-status', component: FleetStatusComponent },
   { path: 'ownership', component: OwnershipComponent },
+  { path: 'add-asset-policy', component: AddAssetPolicyComponent }
   { path: 'ownership/add', component: OwnershipFormComponent }
 ];
 
@@ -31,4 +33,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ConfigurationRoutingModule {}
+export class ConfigurationRoutingModule { }

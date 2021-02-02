@@ -20,6 +20,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { BusinessCategoryComponent } from './business-category/business-category.component';
 import { AssetPolicyComponent } from './asset-policy/asset-policy.component';
 import { PeriodicServiceComponent } from '@feature/configuration/periodic-service/periodic-service.component';
+import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-asset-policy.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { PeriodicServiceComponent } from '@feature/configuration/periodic-servic
     BusinessCategoryComponent,
     OwnershipComponent,
     OwnershipFormComponent
+    AddAssetPolicyComponent
   ],
   imports: [
     CommonModule,
