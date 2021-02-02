@@ -20,6 +20,7 @@ import { AddLocationComponent } from './body-shop/add-location/add-location.comp
 import { DashboardModule } from '@feature/dashboard/dashboard.module';
 import { WorkshopStateModule } from "./+state";
 import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { TaskMasterFormComponent } from './task-master-form/task-master-form.com
     AngularSvgIconModule,
     DashboardModule,
     WorkshopStateModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ]
 })
 export class WorkshopModule { }
