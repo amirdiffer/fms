@@ -6,10 +6,15 @@ import { WorkshopComponent } from './workshop.component';
 import { BodyShopComponent } from './body-shop/body-shop.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
+import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'body-shop' },
-  { path: 'body-shop', component: BodyShopComponent },
+  {
+    path: 'body-shop',
+    loadChildren: () =>
+      import('./body-shop/body-shop.module').then((m) => m.BodyShopModule)
+  },
   {
     path: 'inspections',
     redirectTo: 'inspections/technical-inspection'
@@ -25,6 +30,10 @@ const routes: Routes = [
   {
     path: 'task-master',
     component: TaskMasterComponent
+  },
+  {
+    path: 'task-master/add',
+    component: TaskMasterFormComponent
   }
 ];
 

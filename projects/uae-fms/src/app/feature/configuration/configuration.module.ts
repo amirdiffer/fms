@@ -1,9 +1,11 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ConfigurationComponent } from './configuration.component';
 import { OwnershipComponent } from './ownership/ownership.component';
+import { OwnershipFormComponent } from './ownership-form/ownership-form.component';
 import { TableModule } from '@core/table';
 import { FleetStatusComponent } from './fleet-status/fleet-status.component';
 import { TabViewModule } from '@core/tab-view';
@@ -19,6 +21,12 @@ import { BusinessCategoryComponent } from './business-category/business-category
 import { AssetPolicyComponent } from './asset-policy/asset-policy.component';
 import { PeriodicServiceComponent } from '@feature/configuration/periodic-service/periodic-service.component';
 import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-service/add-periodic-service.component';
+import { AddTypeComponent } from './asset-configuration/add-type/add-type.component';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxFileDropModule } from 'ngx-file-drop';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-asset-policy.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +40,10 @@ import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-ser
     AssetPolicyComponent,
     BusinessCategoryComponent,
     OwnershipComponent,
-    AddPeriodicServiceComponent
+    AddPeriodicServiceComponent,
+    AddTypeComponent,
+    OwnershipFormComponent,
+    AddAssetPolicyComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +55,13 @@ import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-ser
     FilterModule,
     MatCardModule,
     AngularSvgIconModule,
-    MatRadioModule
+    MatRadioModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxFileDropModule,
+    MatProgressBarModule,
+    SharedModule
   ]
 })
 export class ConfigurationModule {}

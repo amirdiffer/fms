@@ -13,9 +13,10 @@ export class OrderListComponent implements OnInit {
 
   filterCard1: FilterCardSetting[] = [
     {
-      filterTitle: 'This Month',
+      filterTitle: '',
       filterCount: '',
-      filterTagColor: '#ffffff',
+      filterTagColor: '',
+      isCalendar: true,
       onActive(index: number) {}
     },
     {
@@ -41,7 +42,8 @@ export class OrderListComponent implements OnInit {
     {
       filterTitle: 'This Month',
       filterCount: '',
-      filterTagColor: '#ffffff',
+      filterTagColor: '',
+      isCalendar: true,
       onActive(index: number) {}
     },
     {

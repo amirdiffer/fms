@@ -28,6 +28,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     FactoryCategoryComponent,
     ProgressBarComponent
   ],
+  exports: [ProgressBarComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
