@@ -20,6 +20,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { BusinessCategoryComponent } from './business-category/business-category.component';
 import { AssetPolicyComponent } from './asset-policy/asset-policy.component';
 import { PeriodicServiceComponent } from '@feature/configuration/periodic-service/periodic-service.component';
+import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-service/add-periodic-service.component';
 import { AddTypeComponent } from './asset-configuration/add-type/add-type.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,6 +40,7 @@ import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-ass
     AssetPolicyComponent,
     BusinessCategoryComponent,
     OwnershipComponent,
+    AddPeriodicServiceComponent,
     AddTypeComponent,
     OwnershipFormComponent,
     AddAssetPolicyComponent
