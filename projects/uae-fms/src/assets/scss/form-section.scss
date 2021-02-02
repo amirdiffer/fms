@@ -13,12 +13,6 @@
     margin-bottom: 25px;
   }
 
-  &__row:last-of-type {
-    .form-section__field {
-      // margin-bottom: 0;
-    }
-  }
-
   &__field {
     margin-bottom: 20px;
 
@@ -32,8 +26,6 @@
 
     .addon-primary {
       background-color: #fff;
-      color: $fms-form-addon;
-      border-color: $fms-form-addon-border;
 
       i {
         font-size: 22px;
@@ -52,25 +44,14 @@
     }
 
     input {
-      border-color: $fms-form-input-border;
-      color: $fms-form-input;
       font-size: 15px;
       width: 100%;
       height: 40px;
 
       & ~ label {
-        color: $fms-form-label;
         background-color: #fff;
         height: 50%;
         width: 95%;
-      }
-
-      &.ng-touched.ng-invalid {
-        border-color: $fms-form-input-error;
-      }
-
-      &:not([disabled]):hover {
-        border-color: $fms-form-input-hover;
       }
 
       &:focus {
@@ -79,10 +60,6 @@
 
       &[disabled] {
         background-color: #fff;
-
-        & ~ label {
-          color: $fms-form-label-disabled;
-        }
       }
     }
   }
@@ -94,15 +71,6 @@
     }
 
     ::ng-deep {
-      .p-radiobutton .p-radiobutton-box.p-highlight {
-        border-color: $fms-form-input-switch;
-        background: $fms-form-input-switch;
-      }
-
-      .p-radiobutton .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
-        border-color: $fms-form-input-switch;
-      }
-
       .p-radiobutton .p-radiobutton-box:not(.p-disabled).p-focus {
         box-shadow: none;
         border: none;
@@ -117,10 +85,6 @@
     align-items: center;
 
     ::ng-deep {
-      .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-        background-color: $fms-form-input-switch;
-      }
-
       .p-inputswitch.p-focus .p-inputswitch-slider {
         box-shadow: none;
         border: none;
@@ -130,10 +94,6 @@
 
   /* Inline forms */
   &--inline {
-    .form-section__field {
-      // margin-bottom: 0;
-    }
-
     .form-section__title {
       margin-bottom: 0;
       line-height: 40px;

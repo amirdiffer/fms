@@ -1,0 +1,72 @@
+@mixin form-section(
+  $inactive-input-label,
+  $inactive-input-border,
+  $focused-input-label,
+  $focused-input-placeholder,
+  $focused-input-border,
+  $hovered-input-label,
+  $hovered-input-border,
+  $disabled-input-label,
+  $disabled-input-border,
+  $disabled-placeholder,
+  $invalid-input-label,
+  $invalid-input-border,
+  $form-addon,
+  $form-addon-border,
+  $form-input-toggle
+) {
+  .form-section {
+    background: orange;
+    &__field {
+      .addon-primary {
+        color: $form-addon;
+        border-color: $form-addon-border;
+      }
+
+      input {
+        border-color: $inactive-input-border;
+        color: $inactive-input-label;
+
+        & ~ label {
+          color: $inactive-input-label;
+        }
+
+        &.ng-touched.ng-invalid {
+          border-color: $invalid-input-label;
+        }
+
+        &:not([disabled]):hover {
+          border-color: $hovered-input-border;
+        }
+
+        &:not([disabled]):focus {
+          border-color: $focused-input-border;
+        }
+
+        &[disabled] {
+          & ~ label {
+            color: $disabled-input-label;
+          }
+        }
+      }
+    }
+
+    .radio-select {
+      .p-radiobutton .p-radiobutton-box.p-highlight {
+        border-color: $form-input-toggle;
+        background: $form-input-toggle !important;
+      }
+
+      .p-radiobutton
+        .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
+        border-color: $form-input-toggle !important;
+      }
+    }
+
+    .toggle-select {
+      .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+        background-color: $form-input-toggle !important;
+      }
+    }
+  }
+}
