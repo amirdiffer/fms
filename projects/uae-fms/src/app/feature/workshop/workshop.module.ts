@@ -14,6 +14,7 @@ import { BodyShopComponent } from './body-shop/body-shop.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { WorkshopStateModule } from "./+state";
 import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 
 @NgModule({
@@ -32,7 +33,8 @@ import { TaskMasterFormComponent } from './task-master-form/task-master-form.com
     TabViewModule,
     WorkshopRoutingModule,
     AngularSvgIconModule,
+    WorkshopStateModule,
     SharedModule
   ]
 })
-export class WorkshopModule {}
+export class WorkshopModule { }

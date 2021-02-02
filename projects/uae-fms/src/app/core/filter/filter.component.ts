@@ -9,7 +9,6 @@ export class FilterComponent implements OnInit, OnChanges {
   @Input() setting: FilterCardSetting[];
 
   cardSetting: FilterCard[];
-
   constructor() {}
 
   ngOnInit(): void {}
@@ -39,7 +38,7 @@ export interface FilterCardSetting {
   filterTitle: string;
   filterCount: string;
   filterTagColor: string;
-
+  isCalendar?: boolean;
   onActive(index: number): void;
 }
 
@@ -47,4 +46,5 @@ interface FilterCard {
   setting: FilterCardSetting;
   filterBackgroundColor?: string;
   isActive?: boolean;
+  
 }

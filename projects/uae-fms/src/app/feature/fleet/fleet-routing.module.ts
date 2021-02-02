@@ -9,11 +9,16 @@ import { OperatorComponent } from '@feature/fleet/operator/operator.component';
 import { OrganizationComponent } from '@feature/fleet/organization/organization.component';
 import { MovementComponent } from './movement/movement.component';
 import { AddSubAssetComponent } from '@feature/fleet/sub-asset/add-sub-asset/add-sub-asset.component';
+import { AddOrganizationComponent } from '@feature/fleet/organization/add-organization/add-organization.component';
 
 const routes: Routes = [
   { path: '', component: FleetComponent },
   { path: 'operator', component: OperatorComponent },
   { path: 'organization', component: OrganizationComponent },
+  {
+    path: 'organization/add-organization',
+    component: AddOrganizationComponent
+  },
   { path: 'assets', component: AssetsComponent },
   { path: 'operator', component: OperatorComponent },
   { path: 'sub-asset', component: SubAssetComponent },

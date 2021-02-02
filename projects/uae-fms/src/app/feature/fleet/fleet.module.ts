@@ -14,6 +14,7 @@ import { SubAssetComponent } from './sub-asset/sub-asset.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { MovementComponent } from './movement/movement.component';
 import { AddSubAssetComponent } from '@feature/fleet/sub-asset/add-sub-asset/add-sub-asset.component';
+import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AddSubAssetComponent } from '@feature/fleet/sub-asset/add-sub-asset/add
     AssetsComponent,
     AccessoryComponent,
     MovementComponent,
-    AddSubAssetComponent
+    AddSubAssetComponent,
+    AddOrganizationComponent
   ],
   imports: [
     CommonModule,
