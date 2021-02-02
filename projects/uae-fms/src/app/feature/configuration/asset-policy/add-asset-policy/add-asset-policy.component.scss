@@ -1,0 +1,15 @@
+@import '../asset-policy.component.scss';
+@import '../../../../../themes/green-theme.scss';
+@import '../../../../../assets/scss/form-section.scss';
+
+.form-section__field {
+  .year {
+    position: relative;
+    left: 85%;
+    bottom: 33px;
+  }
+}
+
+.table-container {
+  padding: 20px 11px 0 11px;
+}

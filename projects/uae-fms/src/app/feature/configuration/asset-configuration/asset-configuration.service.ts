@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { IAssetConfiguration } from './asset-configuration.model';
 
 @Injectable({
@@ -73,5 +74,14 @@ export class AssetConfigurationService {
       }
     };
   };
+
+  private _addtype$=new Subject<boolean>();
+
+  public loadAddForm (open:boolean){
+    this._addtype$.next(open)
+  }
+  public getAddForm():Observable<boolean>{
+    return this._addtype$.asObservable();
+  }
   constructor() {}
 }
