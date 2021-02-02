@@ -1,0 +1,71 @@
+<div class="form-buttons">
+  <button class="cancel">Cancel</button>
+  <button class="add">Add</button>
+</div>
+
+<div class="row">
+
+  <div class="col-12">
+    <div class="component_wrapper">
+      <label class="caption">Location Info</label>
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="form-control border-right-0 border" placeholder="Location ID *">
+              <div class="input-group-append">
+                <div class="input-group-text bg-transparent">
+                  <svg-icon src="../../../../../assets/icons/search.svg" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Address *">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="component_wrapper">
+      <div class="row">
+        <div class="col-lg-2">
+          <span class="add-section">
+            <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+          </span>
+          Section
+        </div>
+        <div class="col-lg-4">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Section ID *">
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="form-control border-right-0 border" placeholder="Service">
+              <div class="input-group-append m-0">
+                <div class="input-group-text bg-transparent border-input-append">
+                  <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="component_wrapper">
+      <div class="table-wreapper">
+        <app-table [setting]='addLocation_Table'></app-table>
+      </div>
+    </div>
+  </div>
+
+</div>
