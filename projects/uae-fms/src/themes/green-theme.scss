@@ -43,6 +43,23 @@ $anms-green-theme: mat-light-theme(
   $anms-green-warn
 );
 
+$edit-box-colors: (
+  'primary': #828acd,
+  'title': #475f7b,
+  'list-title': #000,
+  'list-value': #525252,
+  'list-value-danger': #f75a4a,
+  'list-border': #d8d8d8,
+  'list-hover': #f2f4f4
+);
+
+$edit-box-primary: map-get($edit-box-colors, 'primary');
+$edit-box-title: map-get($edit-box-colors, 'title');
+$edit-box-list-title: map-get($edit-box-colors, 'list-title');
+$edit-box-list-value: map-get($edit-box-colors, 'list-value');
+$edit-box-list-value-danger: map-get($edit-box-colors, 'list-value-danger');
+$edit-box-list-border: map-get($edit-box-colors, 'list-border');
+$edit-box-list-hover: map-get($edit-box-colors, 'list-hover');
 /* Design System */
 
 /* Typography */
