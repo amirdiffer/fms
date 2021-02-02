@@ -6,6 +6,7 @@ import { WorkshopComponent } from './workshop.component';
 import { BodyShopComponent } from './body-shop/body-shop.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
+import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'body-shop' },
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'task-master',
     component: TaskMasterComponent
+  },
+  {
+    path: 'task-master/add',
+    component: TaskMasterFormComponent
   }
 ];
 

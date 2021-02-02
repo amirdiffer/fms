@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -17,6 +18,8 @@ import { AddRequestComponent } from './body-shop/add-request/add-request.compone
 import { AddTechnicianComponent } from './body-shop/add-technician/add-technician.component';
 import { AddLocationComponent } from './body-shop/add-location/add-location.component';
 import { DashboardModule } from '@feature/dashboard/dashboard.module';
+import { WorkshopStateModule } from "./+state";
+import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { DashboardModule } from '@feature/dashboard/dashboard.module';
     TaskMasterComponent,
     AddRequestComponent,
     AddTechnicianComponent,
-    AddLocationComponent
+    AddLocationComponent,
+    TaskMasterFormComponent
   ],
   imports: [
     TableModule,
@@ -36,7 +40,9 @@ import { DashboardModule } from '@feature/dashboard/dashboard.module';
     TabViewModule,
     WorkshopRoutingModule,
     AngularSvgIconModule,
-    DashboardModule
+    DashboardModule,
+    WorkshopStateModule,
+    SharedModule
   ]
 })
-export class WorkshopModule {}
+export class WorkshopModule { }

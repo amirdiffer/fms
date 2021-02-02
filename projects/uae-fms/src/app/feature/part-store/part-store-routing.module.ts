@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', component: PartStoreComponent },
   { path: 'part-list', component: PartListComponent },
   { path: 'part-master', component: PartMasterComponent },
-  { path: 'part-list', component: PartListComponent }
+  { path: 'order-list', component: OrderListComponent }
 ];
 
 @NgModule({

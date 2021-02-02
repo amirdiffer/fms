@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
+import { TechnicalInspectionFacade } from '@feature/workshop/+state/technical-inspections';
 
 @Component({
   templateUrl: './technical-inspection.component.html',
@@ -9,31 +10,12 @@ import { FilterCardSetting } from '@core/filter';
 })
 export class TechnicalInspectionComponent implements OnInit {
   filterSetting: FilterCardSetting[] = [
-    {
-      filterCount: '13',
-      filterTagColor: '#6EBFB5',
-      filterTitle: 'Total',
-      onActive: () => {}
-    },
-    {
-      filterCount: '08',
-      filterTagColor: '#6870B4',
-      filterTitle: 'Repair',
-      onActive: () => {}
-    },
-    {
-      filterCount: '02',
-      filterTagColor: '#BA7967',
-      filterTitle: '?',
-      onActive: () => {}
-    },
-    {
-      filterCount: '09',
-      filterTagColor: '#DD5648',
-      filterTitle: 'Accident',
-      onActive: () => {}
-    }
-  ];
+    { filterCount: "", filterTagColor: "", filterTitle: "This Month", isCalendar:true , onActive: () => { } },
+    { filterCount: "13", filterTagColor: "#6EBFB5", filterTitle: "Total", onActive: () => { } },
+    { filterCount: "08", filterTagColor: "#6870B4", filterTitle: "Repair", onActive: () => { } },
+    { filterCount: "02", filterTagColor: "#BA7967", filterTitle: "?", onActive: () => { } },
+    { filterCount: "09", filterTagColor: "#DD5648", filterTitle: "Accident", onActive: () => { } },
+  ]
 
   setting: TableSetting = {
     columns: [
@@ -148,7 +130,9 @@ export class TechnicalInspectionComponent implements OnInit {
       }
     ]
   };
-  constructor() {}
+  constructor(private _facade: TechnicalInspectionFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._facade.loadAll();
+  }
 }
