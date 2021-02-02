@@ -4,7 +4,7 @@ import { WorkshopSelectors } from "../workshop.selectors";
 
 export class BodyShopSelectors {
   static selectAll = createSelector(
-    WorkshopSelectors.featureSelector,
+    WorkshopSelectors.bodyshopSelector,
     bodyShopAdapter.setAll
   );
 }
