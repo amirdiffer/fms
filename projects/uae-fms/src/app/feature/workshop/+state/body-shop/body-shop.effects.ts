@@ -6,7 +6,7 @@ import { BodyShopActions } from "./body-shop.actions";
 import { BodyShopService } from "./body-shop.service";
 
 @Injectable()
-export class ServiceNameService {
+export class BodyShopEffect {
   constructor(private action$: Actions, private service: BodyShopService) { }
 
   loadAll$ = createEffect(() =>
