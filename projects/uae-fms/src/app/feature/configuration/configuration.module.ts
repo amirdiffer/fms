@@ -34,7 +34,7 @@ import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-ass
     AssetPolicyComponent,
     BusinessCategoryComponent,
     OwnershipComponent,
-    OwnershipFormComponent
+    OwnershipFormComponent,
     AddAssetPolicyComponent
   ],
   imports: [

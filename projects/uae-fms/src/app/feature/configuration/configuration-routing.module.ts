@@ -21,11 +21,11 @@ const routes: Routes = [
   },
   { path: 'periodic-service', component: PeriodicServiceComponent },
   { path: 'asset-policy', component: AssetPolicyComponent },
+  { path: 'asset-policy/add', component: AddAssetPolicyComponent },
   { path: 'business-category', component: BusinessCategoryComponent },
   { path: 'asset-configuration', component: AssetConfigurationComponent },
   { path: 'fleet-status', component: FleetStatusComponent },
   { path: 'ownership', component: OwnershipComponent },
-  { path: 'add-asset-policy', component: AddAssetPolicyComponent }
   { path: 'ownership/add', component: OwnershipFormComponent }
 ];
 
@@ -33,4 +33,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ConfigurationRoutingModule { }
+export class ConfigurationRoutingModule {}
