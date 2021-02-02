@@ -7,4 +7,14 @@ export class BodyShopSelectors {
     WorkshopSelectors.bodyshopSelector,
     bodyShopAdapter.setAll
   );
+
+  static message = createSelector(
+    WorkshopSelectors.bodyshopSelector,
+    state => state.message
+  );
+
+  static error = createSelector(
+    WorkshopSelectors.bodyshopSelector,
+    state => state.error
+  );
 }
