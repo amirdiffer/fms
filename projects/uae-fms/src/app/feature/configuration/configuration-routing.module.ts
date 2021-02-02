@@ -9,6 +9,7 @@ import { AssetConfigurationComponent } from './asset-configuration/asset-configu
 import { BusinessCategoryComponent } from '@feature/configuration/business-category/business-category.component';
 import { AssetPolicyComponent } from '@feature/configuration/asset-policy/asset-policy.component';
 import { PeriodicServiceComponent } from './periodic-service/periodic-service.component';
+import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-asset-policy.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
   },
   { path: 'periodic-service', component: PeriodicServiceComponent },
   { path: 'asset-policy', component: AssetPolicyComponent },
+  { path: 'asset-policy/add', component: AddAssetPolicyComponent },
   { path: 'business-category', component: BusinessCategoryComponent },
   { path: 'asset-configuration', component: AssetConfigurationComponent },
   { path: 'fleet-status', component: FleetStatusComponent },
