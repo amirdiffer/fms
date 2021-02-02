@@ -36,12 +36,3 @@ export const initialState: BodyShopState = bodyShopAdapter.getInitialState({
   message: null,
   error: null
 } as BodyShopState);
-
-
-const bodyShopReducer = createReducer(
-  initialState
-)
-
-export function reducer(state: BodyShopState, action: Action): BodyShopState {
-  return bodyShopReducer(state, action);
-}
