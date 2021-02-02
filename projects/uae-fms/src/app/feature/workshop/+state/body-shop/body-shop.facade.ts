@@ -11,6 +11,14 @@ export class BodyShopFacade {
     select(BodyShopSelectors.selectAll)
   );
 
+  message$ = this.store.pipe(
+    select(BodyShopSelectors.message)
+  );
+
+  error$ = this.store.pipe(
+    select(BodyShopSelectors.error)
+  );
+
   constructor(private store: Store<BodyshopPartialState>) { }
 
   loadAll() {
