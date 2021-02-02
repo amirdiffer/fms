@@ -7,3 +7,159 @@ $anms-black-theme: mat-dark-theme(
   $anms-black-accent,
   $anms-black-warn
 );
+
+/* Design System */
+
+/* Typography */
+
+// h1
+$fms-black-h1-font: '29LT Bukra';
+$fms-black-h1-font-weight: bold;
+$fms-black-h1-color: #0da06e;
+$fms-black-h1-font-size: 20px;
+$fms-black-h1-letter-line-spaceing: 27px;
+// h2
+$fms-black-h2-font: '29LT Bukra';
+$fms-black-h2-font-weight: bold;
+$fms-black-h2-color: #000;
+$fms-black-h2-font-size: 18px;
+$fms-black-h2-letter-line-spaceing: 25px;
+// h3
+$fms-black-h2-font: '29LT Bukra';
+$fms-black-h2-font-weight: bold;
+$fms-black-h2-color: #000;
+$fms-black-h2-font-size: 17px;
+$fms-black-h2-letter-line-spaceing: 24px;
+// subtitle 1
+$fms-black-subtitle1-font: '29LT Bukra';
+$fms-black-subtitle1-font-weight: bold;
+$fms-black-subtitle1-color: #000;
+$fms-black-subtitle1-font-size: 15px;
+$fms-black-subtitle1-letter-line-spaceing: 21px;
+// subtitle 2
+$fms-black-subtitle1-font: '29LT Bukra';
+$fms-black-subtitle1-font-weight: bold;
+$fms-black-subtitle1-color: #000;
+$fms-black-subtitle1-font-size: 12px;
+$fms-black-subtitle1-letter-line-spaceing: 18px;
+// page tab
+$fms-black-page-tab-font: 'IBM Plex Sans';
+$fms-black-page-tab-font-weight: medium;
+$fms-black-page-tab-color: #475f7b;
+$fms-black-page-tab-font-size: 17px;
+$fms-black-page-tab-letter-line-spaceing: 29px;
+// label
+$fms-black-subtitle1-font: '29LT Bukra';
+$fms-black-subtitle1-font-weight: regular;
+$fms-black-subtitle1-font-size: 21px;
+$fms-black-subtitle1-letter-line-spaceing: 25px;
+// label text number
+$fms-black-label-text-number-font: '29LT Bukra';
+$fms-black-label-text-number-font-weight: regular;
+$fms-black-label-text-number-font-size: 20px;
+$fms-black-label-text-number-letter-line-spaceing: 25px;
+// body 1
+$fms-black-body1-font: '29LT Bukra';
+$fms-black-body1-font-weight: regular;
+$fms-black-body1-color: #000;
+$fms-black-body1-font-size: 15px;
+$fms-black-body1-letter-line-spaceing: 18px;
+// body 2
+$fms-black-body2-font: '29LT Bukra';
+$fms-black-body2-font-weight: regular;
+$fms-black-body2-color: #000;
+$fms-black-body2-font-size: 12px;
+$fms-black-body2-letter-line-spaceing: 17px;
+// button large
+$fms-black-button-large-font: '29LT Bukra';
+$fms-black-button-large-font-weight: bold;
+$fms-black-button-large-color: #fff;
+$fms-black-button-large-font-size: 19px;
+$fms-black-button-large-letter-line-spaceing: 27px;
+// button medium
+$fms-black-button-medium-font: '29LT Bukra';
+$fms-black-button-medium-font-weight: bold;
+$fms-black-button-medium-color: #fff;
+$fms-black-button-medium-font-size: 17px;
+$fms-black-button-medium-letter-line-spaceing: 24px;
+// button small
+$fms-black-button-medium-font: '29LT Bukra';
+$fms-black-button-medium-font-weight: bold;
+$fms-black-button-medium-color: #fff;
+$fms-black-button-medium-font-size: 15px;
+$fms-black-button-medium-letter-line-spaceing: 21px;
+
+/* Colors */
+
+$fms-black-body-color: #acacac;
+$fms-black-body1-bg: #121212;
+$fms-black-body2-bg: #1b1d20;
+
+$fms-black-header-bg: #005844;
+$fms-black-sidenav-active: #0da06e;
+$fms-black-sidenav-active-bar: #0da06e;
+$fms-black-sidenav-active-icon: #009c62;
+$fms-black-sidenav-link: #b7b7b7;
+$fms-black-sidenav-collapsable: #707070;
+$fms-black-sidenav-icon: #d6d6d6;
+
+$fms-black-breadcrumb-link: #8b8b8b;
+$fms-black-breadcrumb-title: #008755;
+
+//  primary colors
+$fms-black-primary-color1: #005844;
+$fms-black-primary-color2: #008755;
+
+// seconday colors
+$fms-black-secondary-color1: #f8a842;
+$fms-black-secondary-color2: #74ebd5;
+$fms-black-secondary-color3: #8958ff;
+$fms-black-secondary-color4: #85ffbc;
+$fms-black-secondary-color5: #0da06e;
+
+// gradient colors
+$fms-black-gradadient-color-start1: #fcd179;
+$fms-black-gradadient-color-end1: #f8a842;
+$fms-black-gradadient-color-start2: #74ebd5;
+$fms-black-gradadient-color-end2: #9face6;
+$fms-black-gradadient-color-start3: #7570fe;
+$fms-black-gradadient-color-end3: #9945ff;
+$fms-black-gradadient-color-start4: #fffb7d;
+$fms-black-gradadient-color-end4: #a1feae;
+$fms-black-gradadient-color-start5: #05a581;
+$fms-black-gradadient-color-end5: #0a7651;
+
+/* forms */
+
+//  inactive input
+$fms-black-inactive-input-label: #939393;
+$fms-black-inactive-input-border: #d0d0d0;
+
+// foused input
+$fms-black-focused-input-label: #0da06e;
+$fms-black-focused-input-placeholder: #abafb3;
+$fms-black-focused-input-border: #05a581;
+
+// hovered input
+$fms-black-hovered-input-label: #939393;
+$fms-black-hovered-input-border: #05a581;
+
+// disabled input
+$fms-black-disabled-input-label: #bcbcbc;
+$fms-black-disabled-input-border: #d3d3d3;
+
+// active input
+$fms-black-disabled-input-label: #939393;
+$fms-black-disabled-input-border: #d3d3d3;
+$fms-black-disabled-placeholder: #abafb3;
+
+// invalid input
+$fms-black-invalid-input-label: #f84f42;
+$fms-black-invalid-input-border: #f84f42;
+
+// addon
+$fms-black-form-addon: $fms-black-primary-color1;
+$fms-black-form-addon-border: $fms-black-primary-color2;
+
+// toggle inputs
+$fms-black-form-input-toggle: $fms-black-primary-color1;

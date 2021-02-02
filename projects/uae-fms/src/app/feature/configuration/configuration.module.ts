@@ -1,9 +1,11 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ConfigurationComponent } from './configuration.component';
 import { OwnershipComponent } from './ownership/ownership.component';
+import { OwnershipFormComponent } from './ownership-form/ownership-form.component';
 import { TableModule } from '@core/table';
 import { FleetStatusComponent } from './fleet-status/fleet-status.component';
 import { TabViewModule } from '@core/tab-view';
@@ -23,6 +25,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-asset-policy.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     AssetPolicyComponent,
     BusinessCategoryComponent,
     OwnershipComponent,
-    AddTypeComponent
+    AddTypeComponent,
+    OwnershipFormComponent,
+    AddAssetPolicyComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +58,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     FormsModule,
     ReactiveFormsModule,
     NgxFileDropModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    SharedModule
   ]
 })
 export class ConfigurationModule {}
