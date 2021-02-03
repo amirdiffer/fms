@@ -46,5 +46,4 @@ interface FilterCard {
   setting: FilterCardSetting;
   filterBackgroundColor?: string;
   isActive?: boolean;
-  
 }

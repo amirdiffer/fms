@@ -8,7 +8,6 @@ import { TabViewModule } from '@core/tab-view';
 
 import { WorkshopRoutingModule } from './workshop-routing.module';
 
-import { WorkshopComponent } from './workshop.component';
 import { TaskMasterComponent } from './task-master/task-master.component';
 import { BodyShopComponent } from './body-shop/body-shop.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
@@ -18,13 +17,12 @@ import { AddRequestComponent } from './body-shop/add-request/add-request.compone
 import { AddTechnicianComponent } from './body-shop/add-technician/add-technician.component';
 import { AddLocationComponent } from './body-shop/add-location/add-location.component';
 import { DashboardModule } from '@feature/dashboard/dashboard.module';
-import { WorkshopStateModule } from "./+state";
+import { WorkshopStateModule } from './+state';
 import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
-import { RouterModule } from "@angular/router";
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    WorkshopComponent,
     BodyShopComponent,
     AuctionListComponent,
     TechnicalInspectionComponent,
@@ -48,4 +46,4 @@ import { RouterModule } from "@angular/router";
     RouterModule
   ]
 })
-export class WorkshopModule { }
+export class WorkshopModule {}
