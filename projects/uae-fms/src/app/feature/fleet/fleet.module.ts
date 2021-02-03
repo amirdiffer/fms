@@ -13,6 +13,9 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { SubAssetComponent } from './sub-asset/sub-asset.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { MovementComponent } from './movement/movement.component';
+import { CheckAccessDirective } from '@core/directive/check-access.directive';
+import { AddSubAssetComponent } from '@feature/fleet/sub-asset/add-sub-asset/add-sub-asset.component';
+import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { MovementComponent } from './movement/movement.component';
     SubAssetComponent,
     AssetsComponent,
     AccessoryComponent,
-    MovementComponent
+    MovementComponent,
+    CheckAccessDirective,
+    AddSubAssetComponent,
+    AddOrganizationComponent
   ],
   imports: [
     CommonModule,

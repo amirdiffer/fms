@@ -12,8 +12,9 @@ export class UsersComponent implements OnInit {
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'This Month',
-      filterCount: '2456',
-      filterTagColor: '#CBA786',
+      filterCount: '',
+      filterTagColor: '',
+      isCalendar: true,
       onActive(index: number) {}
     },
     {

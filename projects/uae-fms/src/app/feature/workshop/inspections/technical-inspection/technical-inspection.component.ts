@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
+import { TechnicalInspectionFacade } from '@feature/workshop/+state/technical-inspections';
 
 @Component({
   templateUrl: './technical-inspection.component.html',
@@ -9,6 +10,13 @@ import { FilterCardSetting } from '@core/filter';
 })
 export class TechnicalInspectionComponent implements OnInit {
   filterSetting: FilterCardSetting[] = [
+    {
+      filterCount: '',
+      filterTagColor: '',
+      filterTitle: 'This Month',
+      isCalendar: true,
+      onActive: () => {}
+    },
     {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
@@ -148,7 +156,9 @@ export class TechnicalInspectionComponent implements OnInit {
       }
     ]
   };
-  constructor() {}
+  constructor(private _facade: TechnicalInspectionFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._facade.loadAll();
+  }
 }

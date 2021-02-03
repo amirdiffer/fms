@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting, ColumnType } from '@core/table';
+import { BodyShopFacade } from '../+state/body-shop';
+import { Router } from '@angular/router';
 @Component({
   templateUrl: './body-shop.component.html',
   styleUrls: ['./body-shop.component.scss'],
@@ -530,7 +532,26 @@ export class BodyShopComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  selectedTab;
+  constructor(private facade: BodyShopFacade, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
+
+  addClicked() {
+    switch (this.selectedTab) {
+      case 'Job Card':
+        break;
+      case 'Technician':
+        this.router.navigate(['workshop/body-shop/add-technician']);
+        break;
+      case 'Location':
+        this.router.navigate(['workshop/body-shop/add-location']);
+        break;
+      default:
+        this.router.navigate(['workshop/body-shop/add-request']);
+        break;
+    }
+  }
 }

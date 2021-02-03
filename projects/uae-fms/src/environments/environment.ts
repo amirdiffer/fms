@@ -20,11 +20,11 @@ export const environment = {
     bootstrap: packageJson.dependencies.bootstrap,
     rxjs: packageJson.dependencies.rxjs,
     ngxtranslate: packageJson.dependencies['@ngx-translate/core'],
-    fontAwesome: packageJson.dependencies['@fortawesome/fontawesome-free'],
     angularCli: packageJson.devDependencies['@angular/cli'],
     typescript: packageJson.devDependencies['typescript'],
     cypress: packageJson.devDependencies['cypress'],
     eslint: packageJson.devDependencies['eslint']
   },
-  baseFileServer: 'http://127.0.0.1:8080/'
+  baseFileServer: 'http://127.0.0.1:8080/',
+  baseApiUrl: 'http://dev.jointscope.ai:8080/fms-api/v1/'
 };
