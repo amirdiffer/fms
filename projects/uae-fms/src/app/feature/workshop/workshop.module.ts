@@ -8,7 +8,6 @@ import { TabViewModule } from '@core/tab-view';
 
 import { WorkshopRoutingModule } from './workshop-routing.module';
 
-import { WorkshopComponent } from './workshop.component';
 import { TaskMasterComponent } from './task-master/task-master.component';
 import { BodyShopComponent } from './body-shop/body-shop.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
@@ -24,7 +23,6 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    WorkshopComponent,
     BodyShopComponent,
     AuctionListComponent,
     TechnicalInspectionComponent,
