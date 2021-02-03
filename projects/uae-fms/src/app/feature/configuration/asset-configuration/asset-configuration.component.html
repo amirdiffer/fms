@@ -1,3 +1,6 @@
+<ng-container *ngIf="addOpen">
+    <congifuration-add-type></congifuration-add-type>
+</ng-container>
 <div class="row m-0">
     <div class="col-3 pl-0">
         <configuration-asset-category></configuration-asset-category>
@@ -14,7 +17,7 @@
                             <button><svg-icon [src]="searchIcon" [svgStyle]="{ 'width.px':25 , 'fill': '#fff' , 'height': '100%'}"></svg-icon></button>
                         </div>
                         <button class="btn-download"><a></a></button>
-                        <button class="btn-primary-green"><i>+</i><a>Add</a></button> 
+                        <button class="btn-primary-green" (click)="openAdd()"><i>+</i><a>Add</a></button> 
                     </span>
                 </div>
                 <div class="card-table-content">

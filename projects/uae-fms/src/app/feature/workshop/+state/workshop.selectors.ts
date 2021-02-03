@@ -7,4 +7,13 @@ export class WorkshopSelectors {
     WorkshopSelectors.featureSelector,
     state => state["bodyShop"]
   );
+  static technicalInspectionSelector = createSelector(
+    WorkshopSelectors.featureSelector,
+    state => state ["technicalInspection"]
+  );
+  static auctionListSelector = createSelector(
+    WorkshopSelectors.featureSelector,
+    state => state ["auctionList"]
+  )
+
 }

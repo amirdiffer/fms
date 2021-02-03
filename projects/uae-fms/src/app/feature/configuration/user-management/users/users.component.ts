@@ -12,9 +12,10 @@ export class UsersComponent implements OnInit {
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'This Month',
-      filterCount: '2456',
-      filterTagColor: '#CBA786',
-      onActive(index: number) {}
+      filterCount: '',
+      filterTagColor: '',
+      isCalendar:true,
+      onActive(index: number) { }
     },
     {
       filterTitle: 'Total',
