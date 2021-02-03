@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PartStoreRoutingModule } from './part-store-routing.module';
 import { PartStoreComponent } from './part-store.component';
 import { PartListComponent } from './part-list/part-list.component';
+import { PartOverviewComponent } from './part-overview/part-overview.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { TabViewModule } from '@core/tab-view';
 import { TableModule } from '@core/table';
@@ -22,7 +23,8 @@ import { FilterModule } from '@core/filter';
     PartMasterComponent,
     AssetTypeComponent,
     CategoryComponent,
-    OrderListComponent
+    OrderListComponent,
+    PartOverviewComponent
   ],
   imports: [
     CommonModule,

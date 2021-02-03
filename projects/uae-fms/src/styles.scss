@@ -28,16 +28,6 @@
   @include anms-app-component-theme($theme);
 }
 
-.default-theme {
-  @include angular-material-theme($anms-green-theme);
-  @include custom-components-theme($anms-green-theme);
-}
-
-.light-theme {
-  @include angular-material-theme($anms-light-theme);
-  @include custom-components-theme($anms-light-theme);
-}
-
 .black-theme {
   @include angular-material-theme($anms-black-theme);
   @include custom-components-theme($anms-black-theme);
@@ -93,11 +83,6 @@
       color: $fms-black-body-color;
     }
   }
-}
-
-.nature-theme {
-  @include angular-material-theme($anms-nature-theme);
-  @include custom-components-theme($anms-nature-theme);
 }
 
 .green-theme {
