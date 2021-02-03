@@ -14,8 +14,13 @@ import { BodyShopComponent } from './body-shop/body-shop.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { WorkshopStateModule } from "./+state";
+import { AddRequestComponent } from './body-shop/add-request/add-request.component';
+import { AddTechnicianComponent } from './body-shop/add-technician/add-technician.component';
+import { AddLocationComponent } from './body-shop/add-location/add-location.component';
+import { DashboardModule } from '@feature/dashboard/dashboard.module';
+import { WorkshopStateModule } from './+state';
 import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -24,6 +29,9 @@ import { TaskMasterFormComponent } from './task-master-form/task-master-form.com
     AuctionListComponent,
     TechnicalInspectionComponent,
     TaskMasterComponent,
+    AddRequestComponent,
+    AddTechnicianComponent,
+    AddLocationComponent,
     TaskMasterFormComponent
   ],
   imports: [
@@ -33,8 +41,11 @@ import { TaskMasterFormComponent } from './task-master-form/task-master-form.com
     TabViewModule,
     WorkshopRoutingModule,
     AngularSvgIconModule,
+    SharedModule,
+    DashboardModule,
     WorkshopStateModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ]
 })
-export class WorkshopModule { }
+export class WorkshopModule {}

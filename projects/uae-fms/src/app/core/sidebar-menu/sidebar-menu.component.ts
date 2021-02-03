@@ -75,16 +75,15 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'Inspections',
           icon: 'inspection',
-          route: 'workshop/inspection',
+          route: 'workshop/inspections',
           items: [
             {
               name: 'Technical Inspection',
-              route: 'workshop/inspection/technical-inspection'
+              route: 'workshop/inspections/technical-inspection'
             },
             {
-              name: 'Action List',
-              icon: 'file',
-              route: 'workshop/inspection/action-list'
+              name: 'Auction List',
+              route: 'workshop/inspections/auction-list'
             }
           ]
         },

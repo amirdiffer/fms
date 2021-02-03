@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35.635" height="35.871" viewBox="0 0 35.635 35.871">
+  <defs>
+    <clipPath id="clip-path">
+      <ellipse id="Accent_Color" data-name="Accent Color" cx="5.039" cy="5.106" rx="5.039" ry="5.106" fill="#f75a4a"/>
+    </clipPath>
+    <filter id="Combined_Shape" x="0" y="0" width="35.635" height="35.871" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Dot" transform="translate(9 6)">
+    <ellipse id="Combined_Shape-2" data-name="Combined Shape" cx="8.818" cy="8.936" rx="8.818" ry="8.936" fill="#fff"/>
+    <g id="Group_41421" data-name="Group 41421" transform="translate(3.779 3.83)">
+      <ellipse id="Accent_Color-2" data-name="Accent Color" cx="5.039" cy="5.106" rx="5.039" ry="5.106" fill="#f75a4a"/>
+    </g>
+    <g id="Shadow" transform="translate(0 0)">
+      <g transform="matrix(1, 0, 0, 1, -9, -6)" filter="url(#Combined_Shape)">
+        <path id="Combined_Shape-3" data-name="Combined Shape" d="M8.817,17.871A8.887,8.887,0,0,1,0,8.936,8.887,8.887,0,0,1,8.817,0a8.887,8.887,0,0,1,8.817,8.936A8.887,8.887,0,0,1,8.817,17.871Zm0-14.042a5.107,5.107,0,1,0,5.039,5.106A5.079,5.079,0,0,0,8.817,3.829Z" transform="translate(9 6)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

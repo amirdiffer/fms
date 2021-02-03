@@ -10,7 +10,11 @@ import { TaskMasterFormComponent } from './task-master-form/task-master-form.com
 
 const routes: Routes = [
   { path: '', redirectTo: 'body-shop' },
-  { path: 'body-shop', component: BodyShopComponent },
+  {
+    path: 'body-shop',
+    loadChildren: () =>
+      import('./body-shop/body-shop.module').then((m) => m.BodyShopModule)
+  },
   {
     path: 'inspections',
     redirectTo: 'inspections/technical-inspection'
