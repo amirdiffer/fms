@@ -8,27 +8,25 @@ import { SidebarMenuModule } from './core/sidebar-menu/sidebar-menu.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { TemplateComponent } from './template/template.component';
+import { AppComponent } from "./app.component";
+import { MainTemplateComponent } from './template/main-template/main-template.component';
+import { LoginTemplateComponent } from './template/login-template/login-template.component';
 
 @NgModule({
   imports: [
-    // angular
     BrowserAnimationsModule,
     BrowserModule,
     MatSidenavModule,
-
-    // core
-    // CoreModule,
     SidebarMenuModule,
-
-    // app
     NavbarModule,
     AppRoutingModule,
-
-    // library
     AngularSvgIconModule.forRoot()
   ],
-  declarations: [TemplateComponent],
-  bootstrap: [TemplateComponent]
+  declarations: [
+    AppComponent,
+    MainTemplateComponent,
+    LoginTemplateComponent
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

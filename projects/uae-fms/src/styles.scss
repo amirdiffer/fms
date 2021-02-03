@@ -19,7 +19,7 @@
 @import './themes/green-theme';
 
 @import 'styles-reset.scss-theme';
-@import './app/template/template.component.scss-theme';
+@import './app/template/main-template/main-template.component.scss-theme';
 
 @mixin custom-components-theme($theme) {
   @include anms-styles-reset-theme($theme);

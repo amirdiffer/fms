@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    // this.spinner.show();
     this.loginService
       .login({
         username: this.credentialsFG.value.username,
@@ -55,10 +54,10 @@ export class LoginComponent implements OnInit {
       })
       .subscribe(
         (data) => {
+          console.log(data)
           this.router.navigate(['/workshop/body-shop']);
         },
         (error) => {
-          // this.spinner.hide();
           if (error.error.toLowerCase().indexOf('password') > -1) {
             this.credentialsFG.controls.password.setErrors({ incorrect: true });
             this.credentialsFG.controls.password.markAllAsTouched();

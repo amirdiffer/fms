@@ -11,12 +11,12 @@ import {
   selectIsAuthenticated,
   selectSettingsLanguage,
   selectSettingsStickyHeader
-} from '../core/core.module';
-import { SharedModule } from '../shared/shared.module';
+} from '@core/core.module';
+import { SharedModule } from '@shared/shared.module';
 
-import { TemplateComponent } from './template.component';
+import { MainTemplateComponent } from './main-template.component';
 
-describe('TemplateComponent', () => {
+describe('MainTemplateComponent', () => {
   let store: MockStore;
 
   beforeEach(async(() => {
@@ -30,7 +30,7 @@ describe('TemplateComponent', () => {
         TranslateModule.forRoot()
       ],
       providers: [provideMockStore()],
-      declarations: [TemplateComponent]
+      declarations: [MainTemplateComponent]
     }).compileComponents();
 
     store = TestBed.inject(MockStore);
@@ -41,7 +41,7 @@ describe('TemplateComponent', () => {
   }));
 
   it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(TemplateComponent);
+    const fixture = TestBed.createComponent(MainTemplateComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));

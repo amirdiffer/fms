@@ -2,33 +2,19 @@ import browser from 'browser-detect';
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { environment as env } from '../../environments/environment';
-import { RouterFacade } from '../core/router';
-import { SidebarMenuFacade } from '../core/sidebar-menu';
-
-import {
-  authLogin,
-  authLogout,
-  routeAnimations,
-  LocalStorageService,
-  selectIsAuthenticated,
-  selectSettingsStickyHeader,
-  selectSettingsLanguage,
-  selectEffectiveTheme
-} from '../core/core.module';
-
-import {
-  actionSettingsChangeAnimationsPageDisabled,
-  actionSettingsChangeLanguage
-} from '../core/settings/settings.actions';
+import { environment as env } from '@environments/environment';
+import { RouterFacade } from '@core/router';
+import { SidebarMenuFacade } from '@core/sidebar-menu';
+import { authLogin, authLogout, routeAnimations, LocalStorageService, selectIsAuthenticated, selectSettingsStickyHeader, selectSettingsLanguage, selectEffectiveTheme } from '@core/core.module';
+import { actionSettingsChangeAnimationsPageDisabled, actionSettingsChangeLanguage } from '@core/settings/settings.actions';
 
 @Component({
-  selector: 'anms-root',
-  templateUrl: './template.component.html',
-  styleUrls: ['./template.component.scss'],
+  selector: 'main-template',
+  templateUrl: './main-template.component.html',
+  styleUrls: ['./main-template.component.scss'],
   animations: [routeAnimations]
 })
-export class TemplateComponent implements OnInit {
+export class MainTemplateComponent implements OnInit {
   isProd = env.production;
   envName = env.envName;
   version = env.versions.app;
@@ -56,7 +42,7 @@ export class TemplateComponent implements OnInit {
     private routerFacade: RouterFacade,
     private storageService: LocalStorageService,
     private sidebarMenuFacade: SidebarMenuFacade
-  ) {}
+  ) { }
 
   private static isIEorEdgeOrSafari() {
     return ['ie', 'edge', 'safari'].includes(browser().name);
@@ -64,7 +50,7 @@ export class TemplateComponent implements OnInit {
 
   ngOnInit(): void {
     this.storageService.testLocalStorage();
-    if (TemplateComponent.isIEorEdgeOrSafari()) {
+    if (MainTemplateComponent.isIEorEdgeOrSafari()) {
       this.store.dispatch(
         actionSettingsChangeAnimationsPageDisabled({
           pageAnimationsDisabled: true
