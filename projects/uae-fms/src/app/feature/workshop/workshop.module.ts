@@ -18,9 +18,9 @@ import { AddRequestComponent } from './body-shop/add-request/add-request.compone
 import { AddTechnicianComponent } from './body-shop/add-technician/add-technician.component';
 import { AddLocationComponent } from './body-shop/add-location/add-location.component';
 import { DashboardModule } from '@feature/dashboard/dashboard.module';
-import { WorkshopStateModule } from "./+state";
+import { WorkshopStateModule } from './+state';
 import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
-import { RouterModule } from "@angular/router";
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -48,4 +48,4 @@ import { RouterModule } from "@angular/router";
     RouterModule
   ]
 })
-export class WorkshopModule { }
+export class WorkshopModule {}

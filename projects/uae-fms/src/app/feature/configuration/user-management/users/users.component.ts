@@ -14,8 +14,8 @@ export class UsersComponent implements OnInit {
       filterTitle: 'This Month',
       filterCount: '',
       filterTagColor: '',
-      isCalendar:true,
-      onActive(index: number) { }
+      isCalendar: true,
+      onActive(index: number) {}
     },
     {
       filterTitle: 'Total',
