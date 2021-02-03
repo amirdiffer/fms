@@ -28,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-asset-policy.component';
+import { ConfigurationStateModule } from './+state';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-ass
     ReactiveFormsModule,
     NgxFileDropModule,
     MatProgressBarModule,
-    SharedModule
+    SharedModule,
+    ConfigurationStateModule
   ]
 })
 export class ConfigurationModule {}
