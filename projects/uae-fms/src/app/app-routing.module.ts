@@ -1,75 +1,94 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthGuardService } from '@core/auth/auth-guard.service';
+import { MainTemplateComponent } from "./template/main-template/main-template.component";
+import { LoginTemplateComponent } from "./template/login-template/login-template.component";
 
 const routes: Routes = [
   {
+    path: 'login',
+    loadChildren: () =>
+      import('../app/feature/login/login.module').then((m) => m.LoginModule),
+    component: LoginTemplateComponent
+  },
+  {
     path: 'dashboard',
+    canLoad: [AuthGuardService],
     loadChildren: () =>
       import('./feature/dashboard/dashboard.module').then(
         (m) => m.DashboardModule
       ),
-    canActivate: [AuthGuardService]
+    component: MainTemplateComponent
   },
   {
     path: 'fleet',
+    canLoad: [AuthGuardService],
     loadChildren: () =>
       import('./feature/fleet/fleet.module').then((m) => m.FleetModule),
-    canActivate: [AuthGuardService]
+    component: MainTemplateComponent
   },
   {
     path: 'workshop',
+    canLoad: [AuthGuardService],
     loadChildren: () =>
-      import('./feature/workshop/workshop.module').then(
-        (m) => m.WorkshopModule
-      ),
-    canActivate: [AuthGuardService]
+      import('./feature/workshop/workshop.module').then((m) => m.WorkshopModule),
+    component: MainTemplateComponent
   },
   {
     path: 'configuration',
+    canLoad: [AuthGuardService],
     loadChildren: () =>
       import('./feature/configuration/configuration.module').then(
         (m) => m.ConfigurationModule
       ),
-    canActivate: [AuthGuardService]
+    component: MainTemplateComponent
   },
   {
     path: 'part-store',
+    canLoad: [AuthGuardService],
     loadChildren: () =>
       import('./feature/part-store/part-store.module').then(
         (m) => m.PartStoreModule
       ),
-    canActivate: [AuthGuardService]
+    component: MainTemplateComponent
   },
   {
     path: 'traffic-fine',
+    canLoad: [AuthGuardService],
     loadChildren: () =>
       import('./feature/traffic-fine/traffic-fine.module').then(
         (m) => m.TrafficFineModule
       ),
-    canActivate: [AuthGuardService]
+    component: MainTemplateComponent
   },
   {
     path: 'toll',
+    canLoad: [AuthGuardService],
     loadChildren: () =>
       import('./feature/toll/toll.module').then((m) => m.TollModule),
-    canActivate: [AuthGuardService]
+    component: MainTemplateComponent
   },
   {
     path: 'integration',
+    canLoad: [AuthGuardService],
     loadChildren: () =>
       import('./feature/integration/integration.module').then(
         (m) => m.IntegrationModule
       ),
-    canActivate: [AuthGuardService]
+    component: MainTemplateComponent
   },
   {
     path: 'fuel-management',
+    canLoad: [AuthGuardService],
     loadChildren: () =>
       import('./feature/fuel-management/fuel-management.module').then(
         (m) => m.FuelManagementModule
       ),
-    canActivate: [AuthGuardService]
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'login'
   }
 ];
 
@@ -84,4 +103,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
