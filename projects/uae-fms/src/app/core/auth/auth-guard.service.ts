@@ -7,7 +7,7 @@ import {
   UrlSegment
 } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { selectIsAuthenticated } from './auth.selectors';
 import { AppState } from '../core.state';
@@ -16,7 +16,7 @@ import { AppState } from '../core.state';
   providedIn: 'root'
 })
 export class AuthGuardService implements CanLoad {
-  constructor(private store: Store<AppState>, private router: Router) {}
+  constructor(private store: Store<AppState>, private router: Router) { }
 
   // canActivate(): Observable<boolean> {
   //   return this.store.pipe(select(selectIsAuthenticated));
@@ -28,5 +28,10 @@ export class AuthGuardService implements CanLoad {
 
     this.router.navigate(['/login']);
     return false;
+  }
+
+  canActivate(): Observable<boolean> {
+    return of(true);
+    // return this.store.pipe(select(selectIsAuthenticated));
   }
 }

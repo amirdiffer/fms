@@ -1,4 +1,4 @@
-@import "../../../../../themes/green-theme.scss";
+@import '../../../../../themes/green-theme.scss';
 $primary: map-get($anms-green-primary, 300);
 
 .card-table-header {
@@ -37,7 +37,7 @@ $primary: map-get($anms-green-primary, 300);
   position: relative;
   background: #ffff;
   a {
-    background: url("../../../../../assets/icons/download-solid.svg");
+    background: url('../../../../../assets/icons/download-solid.svg');
     position: absolute;
     height: 100%;
     width: 100%;
@@ -79,11 +79,84 @@ $primary: map-get($anms-green-primary, 300);
   }
 }
 
-
-
 @media screen and (min-width: 800px) {
   app-tab-view {
     margin-top: -65px;
     display: block;
+  }
+}
+
+.edit-box {
+  background-color: #fff;
+  margin: 10px;
+  border-radius: 5px;
+  display: flex;
+
+  &__box {
+    border: 3px solid $edit-box-primary;
+    padding: 0;
+
+    h3 {
+      padding: 16px;
+      font-size: 1rem;
+      margin: 0;
+      border-bottom: 1px solid $edit-box-list-border;
+      color: $edit-box-title;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        padding: 8px 16px;
+        border-bottom: 1px solid $edit-box-list-border;
+        display: flex;
+        width: 100%;
+        height: 40px;
+        justify-content: space-between;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: $edit-box-list-hover;
+        }
+
+        .user-image {
+          border-radius: 50%;
+          margin-right: 5px;
+          vertical-align: top;
+          height: 25px;
+        }
+
+        strong {
+          font-weight: normal;
+          color: $edit-box-list-title;
+        }
+        span {
+          font-weight: bold;
+          color: $edit-box-list-value;
+        }
+
+        span.danger {
+          color: $edit-box-list-value-danger;
+        }
+      }
+    }
+
+    &--first {
+      border-radius: 5px 0 0 5px;
+      border-right: 0;
+    }
+
+    &--last {
+      border-radius: 0 5px 5px 0;
+    }
+  }
+
+  ::ng-deep .mat-ripple {
+    display: none;
   }
 }

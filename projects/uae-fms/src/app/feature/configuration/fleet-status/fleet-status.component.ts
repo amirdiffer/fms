@@ -13,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FleetStatusComponent implements OnInit {
-  searchIcon='assets/icons/search.svg';
+  searchIcon = 'assets/icons/search.svg';
 
   tableColumns: FleetStatusTableColumnDefinition[] = [
     {

@@ -11,8 +11,9 @@ export class AssetsComponent implements OnInit {
   pendingRegistrationTableSetting;
   pendingCustomizationTableSetting;
   filterSetting;
+
   searchIcon = 'assets/icons/search.svg';
-  constructor(private _assetsService : AssetsService) { }
+  constructor(private _assetsService: AssetsService) {}
 
   ngOnInit(): void {
     this.assetMasterTableSetting = this._assetsService.assetMastertableSetting();
@@ -23,25 +24,23 @@ export class AssetsComponent implements OnInit {
       {
         filterTitle: 'Total',
         filterCount: '2456',
-        filterTagColor: '#028D5D',
+        filterTagColor: '#028D5D'
       },
       {
         filterTitle: 'Active',
         filterCount: '2456',
-        filterTagColor: '#009EFF',
+        filterTagColor: '#009EFF'
       },
       {
         filterTitle: 'Inactive',
         filterCount: '2456',
-        filterTagColor: '#FCB614',
+        filterTagColor: '#FCB614'
       },
       {
         filterTitle: 'XFleet',
         filterCount: '2456',
-        filterTagColor: '#F75A4A',
+        filterTagColor: '#F75A4A'
       }
-    ]
-  };
-
-
+    ];
+  }
 }

@@ -21,6 +21,8 @@
 @import 'styles-reset.scss-theme';
 @import './app/template/main-template/main-template.component.scss-theme';
 
+@import './assets/scss/mixins/form-section';
+
 @mixin custom-components-theme($theme) {
   @include anms-styles-reset-theme($theme);
   @include anms-app-component-theme($theme);
@@ -39,6 +41,58 @@
 .black-theme {
   @include angular-material-theme($anms-black-theme);
   @include custom-components-theme($anms-black-theme);
+
+  .menu-wrapper .container {
+    background-color: $fms-black-body1-bg !important;
+
+    .menuItem {
+      svg {
+        fill: $fms-black-body-color !important;
+      }
+
+      .menu-item-name {
+        color: $fms-black-body-color !important;
+      }
+    }
+  }
+
+  .wrapper {
+    background-color: $fms-black-body1-bg !important;
+  }
+
+  @include form-section(
+    $fms-black-body2-bg,
+    $fms-black-inactive-input-label,
+    $fms-black-inactive-input-border,
+    $fms-black-focused-input-label,
+    $fms-black-focused-input-placeholder,
+    $fms-black-focused-input-border,
+    $fms-black-hovered-input-label,
+    $fms-black-hovered-input-border,
+    $fms-black-disabled-input-label,
+    $fms-black-disabled-input-border,
+    $fms-black-disabled-placeholder,
+    $fms-black-invalid-input-label,
+    $fms-black-invalid-input-border,
+    $fms-black-form-addon,
+    $fms-black-form-addon-border,
+    $fms-black-form-input-toggle
+  );
+
+  .table-container {
+    background-color: $fms-black-body2-bg;
+    margin: 10px 10px 20px 10px;
+
+    .p-datatable .p-datatable-thead > tr > th {
+      background-color: $fms-black-body1-bg;
+      color: $fms-black-body-color;
+    }
+
+    .p-datatable .p-datatable-tbody > tr > td {
+      background-color: $fms-black-body2-bg;
+      color: $fms-black-body-color;
+    }
+  }
 }
 
 .nature-theme {
@@ -49,4 +103,27 @@
 .green-theme {
   @include angular-material-theme($anms-green-theme);
   @include custom-components-theme($anms-green-theme);
+
+  .wrapper {
+    background-color: $fms-green-body1-bg !important;
+  }
+
+  @include form-section(
+    $fms-green-body2-bg,
+    $fms-green-inactive-input-label,
+    $fms-green-inactive-input-border,
+    $fms-green-focused-input-label,
+    $fms-green-focused-input-placeholder,
+    $fms-green-focused-input-border,
+    $fms-green-hovered-input-label,
+    $fms-green-hovered-input-border,
+    $fms-green-disabled-input-label,
+    $fms-green-disabled-input-border,
+    $fms-green-disabled-placeholder,
+    $fms-green-invalid-input-label,
+    $fms-green-invalid-input-border,
+    $fms-green-form-addon,
+    $fms-green-form-addon-border,
+    $fms-green-form-input-toggle
+  );
 }

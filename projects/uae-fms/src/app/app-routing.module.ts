@@ -78,9 +78,17 @@ const routes: Routes = [
     component: MainTemplateComponent
   },
   {
-    path:'',
-    pathMatch:'full',
-    redirectTo:'login'
+    path: 'fuel-management',
+    canLoad: [AuthGuardService],
+    loadChildren: () =>
+      import('./feature/fuel-management/fuel-management.module').then(
+        (m) => m.FuelManagementModule
+      ),
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'login'
   }
 ];
 

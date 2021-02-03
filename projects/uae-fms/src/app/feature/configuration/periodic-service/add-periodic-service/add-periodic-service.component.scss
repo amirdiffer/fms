@@ -1,0 +1,72 @@
+.form-buttons {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+
+  button {
+    width: 180px;
+    height: 50px;
+    font-size: 17px;
+    margin: 0 2px;
+  }
+
+  .add {
+    background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
+      0% no-repeat padding-box;
+    box-shadow: 0px 0px 1px #000000;
+    border-radius: 4px;
+    opacity: 1;
+    color: #ffffff;
+    border: 0;
+  }
+
+  .cancel {
+    box-shadow: 0px 0px 1px #00000066;
+    border: 2px solid #0da06e;
+    border-radius: 4px;
+    opacity: 1;
+    color: #0da06e;
+  }
+}
+
+.component_wrapper {
+  .caption {
+    font-weight: bold;
+    vertical-align: -webkit-baseline-middle;
+    .plus-icon {
+      border: 1px solid #009c62;
+      width: 32px;
+      display: inline-block;
+      text-align: center;
+      height: 32px;
+      margin: 0 5px;
+    }
+  }
+
+  div [class^='col-'] {
+    .form-control {
+      //margin: 6px;
+    }
+  }
+
+  .border-input-append {
+    border: 1px solid #009c62;
+  }
+  .border-input-prepend {
+    border: 1px solid #dee2e6;
+    border-radius: 5px 0 0 5px;
+    select {
+      width: 100px;
+      color: #313131;
+      padding-right: 30px;
+      padding-left: 10px;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url('../../../../../assets/icons/arrow-down.svg');
+      background-repeat: no-repeat, repeat;
+      background-position: right 0.7em top 50%, 0 0;
+      background-size: 15px;
+    }
+  }
+}

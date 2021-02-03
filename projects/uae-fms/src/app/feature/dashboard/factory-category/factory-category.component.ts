@@ -7,10 +7,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FactoryCategoryComponent implements OnInit {
-
   tableData = [];
   tabbleSetting;
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     for (let index = 0; index < 5; index++) {
@@ -18,18 +17,18 @@ export class FactoryCategoryComponent implements OnInit {
         name: 'Patrol Police',
         totalSubAsset: 123456,
         totalAccesory: 1231546,
-        total:123123
+        total: 123123
       };
-        this.tableData.push(el)
-    };
+      this.tableData.push(el);
+    }
 
     this.tabbleSetting = {
-      columns:[
+      columns: [
         {
           lable: 'Name',
           field: 'name',
           width: 100,
-          type:1,
+          type: 1,
           thumbField: '',
           renderer: ''
         },
@@ -37,7 +36,7 @@ export class FactoryCategoryComponent implements OnInit {
           lable: 'Total Sub Asset',
           field: 'totalSubAsset',
           width: 100,
-          type:1,
+          type: 1,
           thumbField: '',
           renderer: ''
         },
@@ -45,7 +44,7 @@ export class FactoryCategoryComponent implements OnInit {
           lable: 'Total Accesory',
           field: 'totalAccesory',
           width: 100,
-          type:1,
+          type: 1,
           thumbField: '',
           renderer: ''
         },
@@ -53,13 +52,12 @@ export class FactoryCategoryComponent implements OnInit {
           lable: 'Total',
           field: 'total',
           width: 100,
-          type:1,
+          type: 1,
           thumbField: '',
           renderer: ''
         }
       ],
-      data: this.tableData,
-      }
+      data: this.tableData
+    };
   }
-
 }

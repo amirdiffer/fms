@@ -22,7 +22,12 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
-
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   imports: [
@@ -44,6 +49,12 @@ import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
     MatSnackBarModule,
     MatSlideToggleModule,
     MatDividerModule,
+    InputSwitchModule,
+    InputMaskModule,
+    InputNumberModule,
+    InputTextareaModule,
+    InputTextModule,
+    RadioButtonModule
   ],
   declarations: [RtlSupportDirective],
   exports: [
@@ -69,10 +80,15 @@ import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    RtlSupportDirective
+    RtlSupportDirective,
+    InputSwitchModule,
+    InputMaskModule,
+    InputNumberModule,
+    InputTextareaModule,
+    InputTextModule,
+    RadioButtonModule
   ]
 })
 export class SharedModule {
-  constructor(){}
-  
+  constructor() {}
 }

@@ -8,7 +8,6 @@ import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PeriodicServiceComponent implements OnInit {
-
   tableColumns: ColumnDifinition[] = [
     {
       lable: 'Periodic Service Name',

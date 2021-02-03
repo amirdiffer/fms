@@ -28,6 +28,7 @@ mat-sidenav-container {
       flex-direction: column;
       width: (100%/3);
       overflow-y: scroll;
+      position: relative;
 
       .path {
         padding: 15px 16px;
