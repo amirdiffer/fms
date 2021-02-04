@@ -59,8 +59,22 @@
       }
 
       .p-float-label input:focus ~ label,
-      .p-float-label input.p-filled ~ label {
+      .p-float-label input.p-filled ~ label,
+      .p-float-label .p-inputwrapper-filled ~ label,
+      .p-float-label .p-inputwrapper-focus ~ label {
         background: $body2-bg !important;
+      }
+    }
+
+    .options-select {
+      .p-dropdown {
+        &:hover {
+          border-color: $hovered-input-border;
+        }
+
+        &:not(.p-disabled).p-focus {
+          border-color: $form-input-toggle !important;
+        }
       }
     }
 

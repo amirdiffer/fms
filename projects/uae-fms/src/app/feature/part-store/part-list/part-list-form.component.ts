@@ -20,6 +20,8 @@ export class PartListFormComponent implements OnInit {
     { name: 'Saloon', code: 'saloon' }
   ];
 
+  languagePrefix = 'fms.parts.';
+
   partForm: FormGroup;
 
   filterSetting = [];
@@ -35,6 +37,10 @@ export class PartListFormComponent implements OnInit {
       shelf: [''],
       box: ['']
     });
+  }
+
+  getLabelName(field) {
+    return this.languagePrefix + field;
   }
 
   ngOnInit(): void {}
