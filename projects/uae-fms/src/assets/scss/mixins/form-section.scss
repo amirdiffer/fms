@@ -25,6 +25,10 @@
         border-color: $form-addon-border;
       }
 
+      .p-error {
+        color: $invalid-input-label;
+      }
+
       input {
         border-color: $inactive-input-border;
         color: $inactive-input-label;
@@ -35,7 +39,7 @@
           color: $inactive-input-label;
         }
 
-        &.ng-touched.ng-invalid {
+        &.ng-dirty.ng-invalid {
           border-color: $invalid-input-label;
         }
 

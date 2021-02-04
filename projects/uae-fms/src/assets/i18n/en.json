@@ -62,5 +62,7 @@
   "anms.settings.themes.title": "Themes",
   "anms.settings.title": "Settings",
   "anms.title.long": "I-Serve",
-  "anms.title.short": "I-Serve"
+  "anms.title.short": "I-Serve",
+  "fms.parts.quantity": "Quantity",
+  "fms.errors.required": "This field is required"
 }

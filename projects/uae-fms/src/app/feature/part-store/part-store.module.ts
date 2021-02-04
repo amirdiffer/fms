@@ -1,3 +1,4 @@
+import { SharedModule } from '@shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -14,12 +15,14 @@ import { PartListComponent } from './part-list/part-list.component';
 import { PartStoreRoutingModule } from './part-store-routing.module';
 import { OrderListComponent } from './order-list/order-list.component';
 import { PartMasterComponent } from './part-master/part-master.component';
-import { CategoryComponent } from './part-master/category/category.component';
-import { AssetTypeComponent } from './part-master/asset-type/asset-type.component';
+import { CategoryComponent } from './category/category.component';
+import { AssetTypeComponent } from './asset-type/asset-type.component';
+import { PartListFormComponent } from './part-list/part-list-form.component';
 
 @NgModule({
   declarations: [
     PartListComponent,
+    PartListFormComponent,
     CategoryComponent,
     AssetTypeComponent,
     OrderListComponent,
@@ -34,7 +37,8 @@ import { AssetTypeComponent } from './part-master/asset-type/asset-type.componen
     MatSelectModule,
     MatFormFieldModule,
     AngularSvgIconModule,
-    PartStoreRoutingModule
+    PartStoreRoutingModule,
+    SharedModule
   ]
 })
 export class PartStoreModule {}
