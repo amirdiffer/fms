@@ -15,6 +15,8 @@ import { OrganizationComponent } from './organization/organization.component';
 import { MovementComponent } from './movement/movement.component';
 import { AddSubAssetComponent } from '@feature/fleet/sub-asset/add-sub-asset/add-sub-asset.component';
 import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
+import { SharedModule } from 'app/shared/shared.module';
+import { MovementConfirmComponent } from './movement/movement-confirm/movement-confirm.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { AddOrganizationComponent } from './organization/add-organization/add-or
     AccessoryComponent,
     MovementComponent,
     AddSubAssetComponent,
-    AddOrganizationComponent
+    AddOrganizationComponent,
+    MovementConfirmComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +38,8 @@ import { AddOrganizationComponent } from './organization/add-organization/add-or
     TableModule,
     AngularSvgIconModule,
     TabViewModule,
-    TabViewModule
+    TabViewModule,
+    SharedModule
   ]
 })
 export class FleetModule {}
