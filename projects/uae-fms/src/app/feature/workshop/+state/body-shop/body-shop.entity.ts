@@ -1,7 +1,7 @@
-import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
-import { Action, createReducer } from "@ngrx/store";
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { Action, createReducer } from '@ngrx/store';
 
-export const WORKSHOP_BODYSHOP_FEATURE_KEY = "bodyShop";
+export const WORKSHOP_BODYSHOP_FEATURE_KEY = 'bodyShop';
 
 export interface BodyshopStateModel {
   item: {
@@ -26,10 +26,12 @@ export interface BodyShopState extends EntityState<BodyshopStateModel> {
 }
 
 export interface BodyshopPartialState {
-  [WORKSHOP_BODYSHOP_FEATURE_KEY]: BodyShopState
+  [WORKSHOP_BODYSHOP_FEATURE_KEY]: BodyShopState;
 }
 
-export const bodyShopAdapter: EntityAdapter<BodyshopStateModel> = createEntityAdapter<BodyshopStateModel>();
+export const bodyShopAdapter: EntityAdapter<BodyshopStateModel> = createEntityAdapter<
+  BodyshopStateModel
+>();
 
 export const initialState: BodyShopState = bodyShopAdapter.getInitialState({
   loaded: null,

@@ -5,8 +5,20 @@ import { Observable } from 'rxjs';
 import { environment as env } from '@environments/environment';
 import { RouterFacade } from '@core/router';
 import { SidebarMenuFacade } from '@core/sidebar-menu';
-import { authLogin, authLogout, routeAnimations, LocalStorageService, selectIsAuthenticated, selectSettingsStickyHeader, selectSettingsLanguage, selectEffectiveTheme } from '@core/core.module';
-import { actionSettingsChangeAnimationsPageDisabled, actionSettingsChangeLanguage } from '@core/settings/settings.actions';
+import {
+  authLogin,
+  authLogout,
+  routeAnimations,
+  LocalStorageService,
+  selectIsAuthenticated,
+  selectSettingsStickyHeader,
+  selectSettingsLanguage,
+  selectEffectiveTheme
+} from '@core/core.module';
+import {
+  actionSettingsChangeAnimationsPageDisabled,
+  actionSettingsChangeLanguage
+} from '@core/settings/settings.actions';
 
 @Component({
   selector: 'main-template',
@@ -42,7 +54,7 @@ export class MainTemplateComponent implements OnInit {
     private routerFacade: RouterFacade,
     private storageService: LocalStorageService,
     private sidebarMenuFacade: SidebarMenuFacade
-  ) { }
+  ) {}
 
   private static isIEorEdgeOrSafari() {
     return ['ie', 'edge', 'safari'].includes(browser().name);
