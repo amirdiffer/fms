@@ -26,5 +26,5 @@ export const environment = {
     eslint: packageJson.devDependencies['eslint']
   },
   baseFileServer: 'http://127.0.0.1:8080/',
-  baseApiUrl: 'http://dev.jointscope.ai:8080/fms-api/v1/'
+  baseApiUrl: 'http://localhost:4200/fms-api/v1/'
 };

@@ -1,6 +1,6 @@
 .parent {
   margin: 10px;
-  min-height: 40px;
+  min-height: 70px;
   border: 0;
   border-radius: 5px;
   cursor: pointer;
@@ -15,12 +15,25 @@
   width: 6px;
 }
 
-.title {
-  color: white;
-}
-
-.count {
-  color: white;
+.filter {
+  &-supTitle {
+    font-size: 12px;
+    &__active {
+      color: #ffffff !important;
+    }
+  }
+  &-title {
+    font-size: 21px;
+    &__active {
+      color: #ffffff !important;
+    }
+  }
+  &-count {
+    font-size: 36px;
+    &__active {
+      color: #ffffff !important;
+    }
+  }
 }
 
 .calendar-container {

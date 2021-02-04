@@ -16,9 +16,8 @@ export class LoginComponent implements OnInit {
   public language = 'en';
   constructor(
     private loginService: LoginService,
-    private router: Router
-  ) // private spinner: NgxSpinnerService,
-  {
+    private router: Router // private spinner: NgxSpinnerService,
+  ) {
     this.credentialsFG = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
@@ -54,7 +53,7 @@ export class LoginComponent implements OnInit {
       })
       .subscribe(
         (data) => {
-          console.log(data)
+          console.log(data);
           this.router.navigate(['/workshop/body-shop']);
         },
         (error) => {
