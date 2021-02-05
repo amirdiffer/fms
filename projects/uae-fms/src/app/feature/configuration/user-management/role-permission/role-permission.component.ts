@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
-import { RolePermissionFacade } from '@feature/configuration/+state/role-permission';
+import { RolePermissionFacade } from '../../+state/role-permission';
 
 @Component({
   selector: 'anms-role-permission',

@@ -8,4 +8,9 @@ export class ConfigurationSelectors {
     ConfigurationSelectors.featureSelector,
     (state) => state['rolePermission']
   );
+
+  static usersSelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['users']
+  );
 }
