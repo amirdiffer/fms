@@ -6,13 +6,20 @@ import { EffectsModule } from '@ngrx/effects';
 import { RolePermissionEffect } from './role-permission/role-permission.effect';
 import { RolePermissionFacade } from './role-permission/role-permission.facade';
 import { RolePermissionService } from './role-permission/role-permission.service';
+import { UsersEffect } from './users/users.effect';
+import { UsersFacade, UsersService } from './users';
 
 @NgModule({
   declarations: [],
   imports: [
     StoreModule.forFeature(CONFIGURATION_FEATURE_KEY, reducers),
-    EffectsModule.forFeature([RolePermissionEffect])
+    EffectsModule.forFeature([RolePermissionEffect, UsersEffect])
   ],
-  providers: [RolePermissionFacade, RolePermissionService]
+  providers: [
+    RolePermissionFacade,
+    RolePermissionService,
+    UsersFacade,
+    UsersService
+  ]
 })
 export class ConfigurationStateModule {}
