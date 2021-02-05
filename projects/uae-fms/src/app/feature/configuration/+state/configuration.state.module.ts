@@ -8,18 +8,22 @@ import { RolePermissionFacade } from './role-permission/role-permission.facade';
 import { RolePermissionService } from './role-permission/role-permission.service';
 import { AssetPolicyEffect } from './asset-policy/asset-policy.effect';
 import { AssetPolicyFacade, AssetPolicyService } from './asset-policy';
+import { UsersFacade, UsersService } from './users';
+import { UsersEffect } from './users/users.effect';
 
 @NgModule({
   declarations: [],
   imports: [
     StoreModule.forFeature(CONFIGURATION_FEATURE_KEY, reducers),
-    EffectsModule.forFeature([RolePermissionEffect, AssetPolicyEffect])
+    EffectsModule.forFeature([RolePermissionEffect, AssetPolicyEffect, UsersEffect])
   ],
   providers: [
     RolePermissionFacade,
     RolePermissionService,
     AssetPolicyFacade,
-    AssetPolicyService
+    AssetPolicyService,
+    UsersFacade,
+    UsersService,
   ]
 })
-export class ConfigurationStateModule {}
+export class ConfigurationStateModule { }

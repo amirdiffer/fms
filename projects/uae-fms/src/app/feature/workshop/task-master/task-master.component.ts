@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { TaskMasterFacade } from '../+state/task-master';
 import { TaskMasterService } from './task-master.service';
 
 @Component({
@@ -10,9 +11,11 @@ import { TaskMasterService } from './task-master.service';
 export class TaskMasterComponent implements OnInit {
   searchIcon = 'assets/icons/search.svg';
   tableSetting;
-  constructor(private _taskMasterService: TaskMasterService) {}
+  constructor(private _taskMasterService: TaskMasterService,
+                private _facade: TaskMasterFacade) {}
 
   ngOnInit(): void {
     this.tableSetting = this._taskMasterService.tableSetting;
+    this._facade.loadAll();
   }
 }

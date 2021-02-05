@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-lg-9 col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <ng-container *ngIf="isStart">
+                    <technical-make-decision-main></technical-make-decision-main>
+                </ng-container>
+
+                <ng-container *ngIf="!isStart" >
+                    <h2 class="stepper-title">Technical Inspection</h2>
+                    <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom">
+                        <mat-step [editable]="isEditable" [stepControl]="controlStep" state="">
+                            <form [formGroup]="controlStep">
+                                <ng-template matStepLabel>Technical Inspection</ng-template>
+                                <step1-technical-inspection></step1-technical-inspection>
+                            </form>
+                        </mat-step>
+                        <mat-step [editable]="isEditable" [stepControl]="controlStep">
+                            <form [formGroup]="controlStep">
+                                <ng-template matStepLabel>Asset Detail</ng-template>
+                                <step2-asset-detail></step2-asset-detail>
+                            </form>
+
+                        </mat-step>
+                        <mat-step [editable]="isEditable" [stepControl]="controlStep">
+                            <form [formGroup]="controlStep">
+                                <ng-template matStepLabel>Maintenance</ng-template>
+                                <step3-maintenance></step3-maintenance>
+                                
+                            </form>
+                        </mat-step>
+                        <mat-step [editable]="isEditable" [stepControl]="controlStep">
+                            <form [formGroup]="controlStep">
+                                <ng-template matStepLabel>Customization</ng-template>
+                                <step4-customization></step4-customization>
+                            </form>
+                        </mat-step>
+                        <mat-step [editable]="isEditable" [stepControl]="controlStep">
+                            <ng-template matStepLabel>Generate</ng-template>
+                        </mat-step>
+    
+    
+                    </mat-horizontal-stepper>
+                </ng-container>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="stepper-button">
+                    <ng-container *ngIf="isStart; else stepperButton">
+                        <button class="next" (click)="isStart = false;">Next</button>
+                        <button class="back" >Car Card</button>
+                    </ng-container>
+                    <ng-template #stepperButton>
+                        <button class="next" (click)="next()" #nextButton>Next</button>
+                        <button class="back" (click)="previous()">Back</button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
