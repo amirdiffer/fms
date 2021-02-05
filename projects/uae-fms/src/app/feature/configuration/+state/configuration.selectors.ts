@@ -9,6 +9,11 @@ export class ConfigurationSelectors {
     (state) => state['rolePermission']
   );
 
+  static assetPolicySelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['assetPolicy']
+  );
+
   static usersSelector = createSelector(
     ConfigurationSelectors.featureSelector,
     (state) => state['users']
