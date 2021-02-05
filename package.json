@@ -63,7 +63,7 @@
     "chartjs-plugin-annotation": "^0.5.7",
     "ng-apexcharts": "^1.5.6",
     "ng2-charts": "^2.4.2",
-    "ngx-file-drop": "^10.1.1",
+    "ngx-file-drop": "^11.0.0",
     "primeicons": "^4.1.0",
     "primeng": "^11.1.0-rc.1",
     "rxjs": "~6.6.3",
