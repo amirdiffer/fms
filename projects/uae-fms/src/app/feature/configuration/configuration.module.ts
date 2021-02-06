@@ -24,6 +24,7 @@ import { BusinessCategoryComponent } from './business-category/business-category
 import { AddCategoryComponent } from './business-category/add-category/add-category.component';
 import { AssetConfigurationComponent } from './asset-configuration/asset-configuration.component';
 import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-asset-policy.component';
+import { ConfigurationStateModule } from './+state';
 import { AssetCategoryComponent } from './asset-configuration/asset-category/asset-category.component';
 import { PeriodicServiceComponent } from '@feature/configuration/periodic-service/periodic-service.component';
 import { FleetStatusAssetTableComponent } from './fleet-status/fleet-status-table/fleet-status-asset-table.component';
@@ -62,6 +63,8 @@ import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-ser
     ReactiveFormsModule,
     AngularSvgIconModule,
     MatProgressBarModule,
+    SharedModule,
+    ConfigurationStateModule,
     ConfigurationRoutingModule
   ]
 })
