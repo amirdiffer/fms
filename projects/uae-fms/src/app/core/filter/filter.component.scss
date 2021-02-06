@@ -1,6 +1,6 @@
 .parent {
   margin: 10px;
-  min-height: 40px;
+  min-height: 70px;
   border: 0;
   border-radius: 5px;
   cursor: pointer;
@@ -15,10 +15,36 @@
   width: 6px;
 }
 
-.title {
-  color: white;
+.filter {
+  &-supTitle {
+    font-size: 12px;
+    &__active {
+      color: #ffffff !important;
+    }
+  }
+  &-title {
+    font-size: 21px;
+    &__active {
+      color: #ffffff !important;
+    }
+  }
+  &-count {
+    font-size: 36px;
+    &__active {
+      color: #ffffff !important;
+    }
+  }
 }
 
-.count {
-  color: white;
+.calendar-container {
+  color: #707070;
+  a {
+    height: 20px;
+    width: 20px;
+    img {
+      height: 100%;
+      width: 100%;
+      opacity: 0.4;
+    }
+  }
 }

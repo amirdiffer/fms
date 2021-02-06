@@ -28,6 +28,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { ErrorModule } from './error/error.module';
 
 @NgModule({
   imports: [
@@ -54,7 +57,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     InputNumberModule,
     InputTextareaModule,
     InputTextModule,
-    RadioButtonModule
+    RadioButtonModule,
+    CalendarModule,
+    DropdownModule,
+    ErrorModule
   ],
   declarations: [RtlSupportDirective],
   exports: [
@@ -86,7 +92,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     InputNumberModule,
     InputTextareaModule,
     InputTextModule,
-    RadioButtonModule
+    RadioButtonModule,
+    CalendarModule,
+    DropdownModule,
+    ErrorModule
   ]
 })
 export class SharedModule {

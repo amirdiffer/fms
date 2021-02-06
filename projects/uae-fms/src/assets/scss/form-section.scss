@@ -1,8 +1,7 @@
 .form-section {
   padding: 20px 20px 0 20px;
-  margin: 10px;
+  margin: 0 10px 10px;
 
-  background-color: #fff;
   font-size: 15px;
   box-shadow: 0px 0px 2px #0000003d;
   border-radius: 5px;
@@ -13,14 +12,14 @@
     margin-bottom: 25px;
   }
 
-  &__row:last-of-type {
-    .form-section__field {
-      // margin-bottom: 0;
-    }
-  }
-
   &__field {
     margin-bottom: 20px;
+
+    ::ng-deep {
+      .p-error {
+        font-size: 10px;
+      }
+    }
 
     & > * {
       height: 40px;
@@ -31,46 +30,37 @@
     }
 
     .addon-primary {
-      background-color: #fff;
-      color: $fms-form-addon;
-      border-color: $fms-form-addon-border;
-
       i {
         font-size: 22px;
         font-weight: bold;
       }
     }
 
-    .p-float-label input:focus ~ label,
-    .p-float-label input.p-filled ~ label {
-      top: -0.15rem;
-      background: #fff;
-      font-size: 15px;
-      left: 0.8rem;
-      width: auto;
-      padding: 0 5px;
+    ::ng-deep {
+      .p-float-label input:focus ~ label,
+      .p-float-label input.p-filled ~ label,
+      .p-float-label .p-inputwrapper-filled ~ label,
+      .p-float-label .p-inputwrapper-focus ~ label {
+        top: -0.15rem;
+        font-size: 15px;
+        left: 0.8rem;
+        width: auto;
+        padding: 0 5px;
+      }
+
+      .p-inputtext:enabled:focus {
+        box-shadow: none;
+      }
     }
 
     input {
-      border-color: $fms-form-input-border;
-      color: $fms-form-input;
       font-size: 15px;
       width: 100%;
       height: 40px;
 
       & ~ label {
-        color: $fms-form-label;
-        background-color: #fff;
         height: 50%;
-        width: 95%;
-      }
-
-      &.ng-touched.ng-invalid {
-        border-color: $fms-form-input-error;
-      }
-
-      &:not([disabled]):hover {
-        border-color: $fms-form-input-hover;
+        width: auto;
       }
 
       &:focus {
@@ -79,10 +69,14 @@
 
       &[disabled] {
         background-color: #fff;
+      }
+    }
+  }
 
-        & ~ label {
-          color: $fms-form-label-disabled;
-        }
+  .options-select {
+    ::ng-deep {
+      .p-dropdown:not(.p-disabled).p-focus {
+        box-shadow: none;
       }
     }
   }
@@ -94,18 +88,25 @@
     }
 
     ::ng-deep {
-      .p-radiobutton .p-radiobutton-box.p-highlight {
-        border-color: $fms-form-input-switch;
-        background: $fms-form-input-switch;
-      }
-
-      .p-radiobutton .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
-        border-color: $fms-form-input-switch;
-      }
-
       .p-radiobutton .p-radiobutton-box:not(.p-disabled).p-focus {
         box-shadow: none;
         border: none;
+      }
+    }
+  }
+
+  .options-select {
+    ::ng-deep {
+      .p-dropdown {
+        display: flex !important;
+      }
+    }
+  }
+
+  .calendar-select {
+    ::ng-deep {
+      .p-calendar {
+        display: flex !important;
       }
     }
   }
@@ -117,10 +118,6 @@
     align-items: center;
 
     ::ng-deep {
-      .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-        background-color: $fms-form-input-switch;
-      }
-
       .p-inputswitch.p-focus .p-inputswitch-slider {
         box-shadow: none;
         border: none;
@@ -130,10 +127,6 @@
 
   /* Inline forms */
   &--inline {
-    .form-section__field {
-      // margin-bottom: 0;
-    }
-
     .form-section__title {
       margin-bottom: 0;
       line-height: 40px;

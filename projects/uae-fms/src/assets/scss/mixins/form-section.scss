@@ -1,0 +1,99 @@
+@mixin form-section(
+  $body2-bg,
+  $inactive-input-label,
+  $inactive-input-border,
+  $focused-input-label,
+  $focused-input-placeholder,
+  $focused-input-border,
+  $hovered-input-label,
+  $hovered-input-border,
+  $disabled-input-label,
+  $disabled-input-border,
+  $disabled-placeholder,
+  $invalid-input-label,
+  $invalid-input-border,
+  $form-addon,
+  $form-addon-border,
+  $form-input-toggle
+) {
+  .form-section {
+    background-color: $body2-bg !important;
+    &__field {
+      .addon-primary {
+        background-color: $body2-bg;
+        color: $form-addon;
+        border-color: $form-addon-border;
+      }
+
+      .p-error {
+        color: $invalid-input-label;
+      }
+
+      input {
+        border-color: $inactive-input-border;
+        color: $inactive-input-label;
+        background-color: $body2-bg !important;
+
+        & ~ label {
+          background-color: $body2-bg;
+          color: $inactive-input-label;
+        }
+
+        &.ng-dirty.ng-invalid {
+          border-color: $invalid-input-label;
+        }
+
+        &:not([disabled]):hover {
+          border-color: $hovered-input-border;
+        }
+
+        &:not([disabled]):focus {
+          border-color: $focused-input-border;
+        }
+
+        &[disabled] {
+          & ~ label {
+            color: $disabled-input-label;
+          }
+        }
+      }
+
+      .p-float-label input:focus ~ label,
+      .p-float-label input.p-filled ~ label,
+      .p-float-label .p-inputwrapper-filled ~ label,
+      .p-float-label .p-inputwrapper-focus ~ label {
+        background: $body2-bg !important;
+      }
+    }
+
+    .options-select {
+      .p-dropdown {
+        &:hover {
+          border-color: $hovered-input-border;
+        }
+
+        &:not(.p-disabled).p-focus {
+          border-color: $form-input-toggle !important;
+        }
+      }
+    }
+
+    .radio-select {
+      .p-radiobutton .p-radiobutton-box.p-highlight {
+        border-color: $form-input-toggle;
+        background: $form-input-toggle !important;
+      }
+
+      .p-radiobutton
+        .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
+        border-color: $form-input-toggle !important;
+      }
+    }
+
+    .toggle-select {
+      .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+        background-color: $form-input-toggle !important;
+      }
+    }
+  }
+}

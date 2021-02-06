@@ -1,17 +1,31 @@
-<div class="d-inline-flex">
-  <div class="col-md-7 card parent overflow-hidden shadow-sm p-0"
+<div class="d-inline-flex w-100">
+  <div class="col card parent overflow-hidden shadow-sm p-0"
        *ngFor="let card of cardSetting; let index = index"
        (click)="onClick(index); card.setting.onActive(index)" [style.border-color]="card.setting.filterTagColor">
     <div class="d-inline-flex h-100" [style.background]="card.filterBackgroundColor">
       <div class="d-inline-flex card-body p-0">
-        <div class="left_tag" [style.background]="card.setting.filterTagColor"></div>
-        <div class="d-inline-flex justify-content-between w-100 mb-auto mt-auto pr-3 pl-3">
-          <div *ngIf="!card.isActive" [style.color]="card.setting.filterTagColor">{{card.setting.filterTitle}}</div>
-          <div *ngIf="!card.isActive" [style.color]="card.setting.filterTagColor">{{card.setting.filterCount}}</div>
-          <div class="title" *ngIf="card.isActive">{{card.setting.filterTitle}}</div>
-          <div class="count" *ngIf="card.isActive">{{card.setting.filterCount}}</div>
-        </div>
+        <ng-container *ngIf="!card.setting.isCalendar || card.setting.isCalendar == 'undefined'; else calendar">
+          <div class="left_tag" [style.background]="card.setting.filterTagColor"></div>
+          <div class="d-inline-flex align-items-center justify-content-between w-100 mb-auto mt-auto pr-3 pl-3">
+            <div class="d-flex flex-column filter">
+              <div *ngIf="card.setting.filterSupTitle" [class.filter-supTitle__active]="card.isActive" class="filter-supTitle">{{ card.setting.filterSupTitle }}</div>
+              <div class="filter-title">
+                <div [class.filter-title__active]="card.isActive" [style.color]="card.setting.filterTagColor">{{card.setting.filterTitle}}</div>
+              </div>
+            </div>
+            <div class="filter-count">
+              <div [class.filter-count__active]="card.isActive" [style.color]="card.setting.filterTagColor">{{card.setting.filterCount}}</div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #calendar>
+          <div class="calendar-container d-inline-flex justify-content-between w-100 mb-auto mt-auto pr-3 pl-3 filter">
+            <span class="filter-title">{{card.setting.filterTitle}}</span>
+            <a><img src="../../../assets/icons/calendar-alt.svg" alt=""></a>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
 </div>
+
