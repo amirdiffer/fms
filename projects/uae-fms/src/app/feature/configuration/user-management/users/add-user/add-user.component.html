@@ -1,7 +1,7 @@
 <div>
   <form (ngSubmit)='submit()' [formGroup]='form'>
     <div class='text-right action_buttons'>
-      <button class='action_button cancel_button font-weight-bold'>Cancel</button>
+      <button class='action_button cancel_button font-weight-bold' routerLink='/configuration/user-management/users'>Cancel</button>
       <button class='action_button add_button'>Add</button>
     </div>
     <div class='card' formGroupName='portalInformation'>

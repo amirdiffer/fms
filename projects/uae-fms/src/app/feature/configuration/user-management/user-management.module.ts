@@ -8,18 +8,26 @@ import { UsersComponent } from './users/users.component';
 import { UserManagementRoutingModule } from './user-management-routing.module';
 import { RolePermissionComponent } from './role-permission/role-permission.component';
 import { CompanySettingComponent } from './company-setting/company-setting.component';
+import { AddRoleAndPermissionComponent } from './role-permission/add-role-and-permission/add-role-and-permission.component';
+import { AddUserComponent } from './users/add-user/add-user.component';
+import { SharedModule } from '@shared/shared.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
     UsersComponent,
     RolePermissionComponent,
-    CompanySettingComponent
+    CompanySettingComponent,
+    AddRoleAndPermissionComponent,
+    AddUserComponent
   ],
   imports: [
     TableModule,
     CommonModule,
     FilterModule,
-    UserManagementRoutingModule
+    UserManagementRoutingModule,
+    SharedModule,
+    MatProgressBarModule
   ]
 })
 export class UserManagementModule {}
