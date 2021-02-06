@@ -1,3 +1,4 @@
+import { EffectsModule } from '@ngrx/effects';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -14,6 +15,12 @@ import { AssetsStatusComponent } from './assets-status/assets-status.component';
 import { ActiveAssetsComponent } from './active-assets/active-assets.component';
 import { FactoryCategoryComponent } from './factory-category/factory-category.component';
 import { BusinessCategoryComponent } from './business-category/business-category.component';
+import { DashboardService } from './+state/dashboard.service';
+import { DashboardFacade } from './+state/dashboard.facade';
+import { Store, StoreModule } from '@ngrx/store';
+import { Dashboard_FEATURE_KEY } from './+state/dashboard.entity';
+import { reducer } from './+state/dashboard.reducer';
+import { DashboardEffect } from './+state/dashboard.effects';
 
 @NgModule({
   declarations: [
@@ -27,6 +34,8 @@ import { BusinessCategoryComponent } from './business-category/business-category
   ],
   exports: [ProgressBarComponent],
   imports: [
+    StoreModule.forFeature(Dashboard_FEATURE_KEY, reducer),
+    EffectsModule.forFeature([DashboardEffect]),
     TableModule,
     CommonModule,
     MatTableModule,
@@ -34,6 +43,7 @@ import { BusinessCategoryComponent } from './business-category/business-category
     AngularSvgIconModule,
     MatProgressBarModule,
     DashboardRoutingModule
-  ]
+  ],
+  providers: [DashboardFacade, DashboardService]
 })
 export class DashboardModule {}
