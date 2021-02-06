@@ -12,6 +12,8 @@ import {
 import { TechnicalInspectionEffect } from './technical-inspections/technical-inspections.effect';
 import { AuctionListEffect } from './auction-list/auction-list.effects';
 import { AuctionListFacade, AuctionListService } from './auction-list';
+import { TaskMasterEffect } from './task-master/task-master.effects';
+import { TaskMasterService , TaskMasterFacade } from './task-master';
 
 @NgModule({
   imports: [
@@ -19,7 +21,8 @@ import { AuctionListFacade, AuctionListService } from './auction-list';
     EffectsModule.forFeature([
       BodyShopEffect,
       TechnicalInspectionEffect,
-      AuctionListEffect
+      AuctionListEffect,
+      TaskMasterEffect
     ])
   ],
   exports: [],
@@ -30,7 +33,9 @@ import { AuctionListFacade, AuctionListService } from './auction-list';
     TechnicalInspectionFacade,
     TechnicalInspectionService,
     AuctionListFacade,
-    AuctionListService
+    AuctionListService,
+    TaskMasterFacade,
+    TaskMasterService
   ]
 })
 export class WorkshopStateModule {}
