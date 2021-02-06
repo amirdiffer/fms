@@ -1,156 +1,213 @@
-<div class="form-buttons">
-  <button class="cancel">Cancel</button>
-  <button class="add">Add</button>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <div class="component_wrapper">
-            <label class="caption">Asset Info</label>
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control border-right-0 border" placeholder="Asset *">
-                            <div class="input-group-append">
-                                <div class="input-group-text bg-transparent">
-                                    <svg-icon src="../../../../../assets/icons/search.svg" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
+<form [formGroup]="inputForm" (ngSubmit)="addRequest()">
+    <div class="form-buttons">
+        <button class="cancel" type="button">Cancel</button>
+        <button class="add" type="submit">Add</button>
+      </div>
+      
+    <div class="row">
+        <ng-container *ngIf=" inputForm.get('reason').value == false ">
+            <div class="col-12">
+                <div class="component_wrapper">
+                    <label class="caption">Asset Info</label>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <div class="form-group p-field form-section__field">
+                                <div class="input-group">
+                                    <span class="p-float-label flex-75">
+                                        <input type="text" class="form-control border-right-0 border" placeholder="Asset" formControlName="assetSearch">
+                                        <label>Asset *</label>
+                                    </span>
+                                    <div class="input-group-append">
+                                        <div class="input-group-text bg-transparent">
+                                            <svg-icon src="../../../../../assets/icons/search.svg" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="component_wrapper">
-            <div class="row">
-                <label class="col-lg-3 caption">Reason</label>
-                <div class="col-lg-9">
-                    <div class="row form-group">
-                        <div class="custom-control custom-switch col-lg-3">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                            <label class="custom-control-label" for="customSwitch1"></label>
-                            <label class="custum-text" for="customSwitch1">Accident</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="component_wrapper">
-            <div class="row">
-                <label class="col-lg-3 caption">Job Type</label>
-                <div class="col-lg-9">
-                    <div class="row form-group">
-                        <div class="form-check col-lg-3">
-                            <input class="form-check-input" type="radio" name="job_type" id="Estimate">
-                            <label class="form-check-label" for="Estimate">
-                              Estimate
-                            </label>
-                        </div>
-                        <div class="form-check col-lg-3">
-                            <input class="form-check-input" type="radio" name="job_type" id="Repair">
-                            <label class="form-check-label" for="Repair">
-                              Repair
-                            </label>
-                        </div>
-                        <div class="form-check col-lg-3">
-                            <input class="form-check-input" type="radio" name="job_type" id="Technical_Report">
-                            <label class="form-check-label" for="Technical_Report">
-                              Technical Report
-                            </label>
-                        </div>
-                        <div class="form-check col-lg-3">
-                            <input class="form-check-input" type="radio" name="job_type" id="Installation">
-                            <label class="form-check-label" for="Installation">
-                              Installation
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="component_wrapper">
-            <div class="caption">Issue Info</div>
-            <div class="row">
-                <div class="form-group col-lg-8">
-                    <input type="text" class="form-control" placeholder="Issue *">
-                </div>
-                <div class="form-group col-lg-4">
-                    <input type="text" class="form-control" placeholder="Reported By *">
-                </div>
-                <div class="form-group col-lg-12">
-                    <input type="text" class="form-control" placeholder="Description">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="component_wrapper">
-            <div class="row">
-                <div class="caption col-lg-3">Priority</div>
-                <div class="col-lg-9">
-                    <div class="row form-group select-level">
-                        <div class="col-lg-2">
-                            <input class="form-check-input" type="radio" name="priority" id="urgent">
-                            <label class="form-check-label flag" for="urgent" (click)="changePriority('urgent')">
-                                <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#F75A4A' , 'height': '100%', 'opacity': activePriority == 'urgent' ? 1 : 0.5}"></svg-icon>
-                                <span>Urgent</span>
-                            </label>
-                        </div>
-                        <div class="col-lg-2">
-                            <input class="form-check-input" type="radio" name="priority" id="high">
-                            <label class="form-check-label flag" for="high" (click)="changePriority('high')">
-                                <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#FCB614' , 'height': '100%', 'opacity': activePriority == 'high' ? 1 : 0.5}"></svg-icon>
-                                <span>High</span>
-                            </label>
-                        </div>
-                        <div class="col-lg-2">
-                            <input class="form-check-input" type="radio" name="priority" id="normal">
-                            <label class="form-check-label flag" for="normal" (click)="changePriority('normal')">
-                                <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#00CBB2' , 'height': '100%', 'opacity': activePriority == 'normal' ? 1 : 0.5}"></svg-icon>
-                                <span>Normal</span>
-                            </label>
-                        </div>
-                        <div class="col-lg-2">
-                            <input class="form-check-input" type="radio" name="priority" id="low">
-                            <label class="form-check-label flag" for="low" (click)="changePriority('low')">
-                                <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%', 'opacity': activePriority == 'low' ? 1 : 0.5}"></svg-icon>
-                                <span>Low</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="component_wrapper">
-          <div class="caption">Attach Picture</div>
-          <div class="upload-box">
-            <div class="row">
-              <div class="col-12 d-flex justify-content-between file-name-size">
-                <span>Nte1234567_Report.pdf</span>
-                <span>00 MG</span>
-              </div>
-              <div class="col-lg-12">
-                <anms-progress-bar  color="#0000005E" maxValue="100" value="25"></anms-progress-bar>
-              </div>
-              <div class="col-lg-12">
-                <label class="space-drop" for="attach_picture">
-                  <svg-icon src="../../../../../assets/icons/cloud-computing.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                  <div>Drag and Drop a file or click here</div>
-                </label>
-                <input type="file" hidden id="attach_picture">
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
+        </ng-container>
 
-</div>
+        <ng-container *ngIf=" inputForm.get('reason').value == true ">
+            <div class="col-12">
+                <div class="component_wrapper">
+                    <label class="caption">Asset Info</label>
+                    <div class="row mt-3">
+                        <div class="col-12 col-md-5">
+                            <div class="form-group p-field form-section__field">
+                                <div class="input-group">
+                                    <span class="p-float-label w-100">
+                                        <input type="text" class="form-control border-right-0 border" formControlName="assetSearch">
+                                        <label>Asset</label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="form-group p-field form-section__field">
+                                <div class="input-group">
+                                    <span class="p-float-label w-100">
+                                        <input type="text" class="form-control border-right-0 border" formControlName="assetSearch">
+                                        <label>GPS Meter Source</label>
+                                    </span>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8 d-flex pr-0">
+                <div class="component_wrapper">
+                    <app-table [setting]="tableSettingServie"></app-table>
+                </div>
+            </div>
+            <div class="col-4 col-md-4 d-flex pl-0">
+                <div class="component_wrapper">
+                    <app-table [setting]="tableSettingWarranty"></app-table>
+                </div>
+            </div>
+        </ng-container>
+        
+        <div class="col-12">
+            <div class="component_wrapper">
+                <div class="row mt-3">
+                    <label class="col-lg-3 caption">Reason</label>
+                    <div class="col-lg-9">
+                        <div class="row form-group">
+                            <div class="custom-control custom-switch col-lg-3">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName="reason">
+                                <label class="custom-control-label" for="customSwitch1"></label>
+                                <label class="custum-text" for="customSwitch1">Accident</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="component_wrapper">
+                <div class="row mt-3">
+                    <label class="col-lg-3 caption">Job Type</label>
+                    <div class="col-lg-9">
+                        <div class="row form-group">
+                            <div class="form-check col-lg-3">
+                                <input class="form-check-input" type="radio"  id="Estimate" value ="estimate" formControlName="jobType">
+                                <label class="form-check-label" for="Estimate">
+                                Estimate
+                                </label>
+                            </div>
+                            <div class="form-check col-lg-3">
+                                <input class="form-check-input" type="radio"  id="Repair" value ="repair" formControlName="jobType">
+                                <label class="form-check-label" for="Repair">
+                                Repair
+                                </label>
+                            </div>
+                            <div class="form-check col-lg-3">
+                                <input class="form-check-input" type="radio"  id="Technical_Report" value="technical_report" formControlName="jobType">
+                                <label class="form-check-label" for="Technical_Report">
+                                Technical Report
+                                </label>
+                            </div>
+                            <div class="form-check col-lg-3">
+                                <input class="form-check-input" type="radio"id="Installation" value="installation" formControlName="jobType">
+                                <label class="form-check-label" for="Installation">
+                                Installation
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" [formGroupName]="'issueInfo'">
+            <div class="component_wrapper">
+                <div class="caption">Issue Info</div>
+                <div class="row mt-3">
+                    <div class="form-group col-lg-8 p-field form-section__field">
+                        <span class="p-float-label">
+                            <input type="text" class="form-control" placeholder="Issue" formControlName="issue">
+                            <label>Issue *</label>
+                        </span>
+                    </div>
+                    <div class="form-group col-lg-4 p-field form-section__field">
+                        <span class="p-float-label">
+                            <input type="text" class="form-control" placeholder="Reported By" formControlName="repertedBy">
+                            <label>Reported By *</label>
+                        </span>
+                    </div>
+                    <div class="form-group col-lg-12 p-field form-section__field">
+                        <span class="p-float-label">
+                            <input type="text" class="form-control" placeholder="Description " formControlName="description">
+                            <label>Description *</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="component_wrapper">
+                <div class="row mt-3">
+                    <div class="caption col-lg-3">Priority</div>
+                    <div class="col-lg-9">
+                        <div class="row form-group select-level">
+                            <div class="col-lg-2">
+                                <input class="form-check-input" type="radio" name="priority" id="urgent" value="urgent" formControlName="priority">
+                                <label class="form-check-label flag" for="urgent" (click)="changePriority('urgent')">
+                                    <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#F75A4A' , 'height': '100%', 'opacity': activePriority == 'urgent' ? 1 : 0.2}"></svg-icon>
+                                    <span>Urgent</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-2">
+                                <input class="form-check-input" type="radio" name="priority" id="high" value="high" formControlName="priority">
+                                <label class="form-check-label flag" for="high" (click)="changePriority('high')">
+                                    <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#FCB614' , 'height': '100%', 'opacity': activePriority == 'high' ? 1 : 0.2}"></svg-icon>
+                                    <span>High</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-2">
+                                <input class="form-check-input" type="radio" name="priority" id="normal" value="normal" formControlName="priority">
+                                <label class="form-check-label flag" for="normal" (click)="changePriority('normal')">
+                                    <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#00CBB2' , 'height': '100%', 'opacity': activePriority == 'normal' ? 1 : 0.2}"></svg-icon>
+                                    <span>Normal</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-2">
+                                <input class="form-check-input" type="radio" name="priority" id="low" value="low" formControlName="priority">
+                                <label class="form-check-label flag" for="low" (click)="changePriority('low')">
+                                    <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%', 'opacity': activePriority == 'low' ? 1 : 0.2}"></svg-icon>
+                                    <span>Low</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="component_wrapper">
+            <div class="caption">Attach Picture</div>
+            <div class="upload-box">
+                <div class="row">
+                <div class="col-12 d-flex justify-content-between file-name-size">
+                    <span>Nte1234567_Report.pdf</span>
+                    <span>00 MG</span>
+                </div>
+                <div class="col-lg-12">
+                    <anms-progress-bar  color="#0000005E" maxValue="100" value="25"></anms-progress-bar>
+                </div>
+                <div class="col-lg-12">
+                    <label class="space-drop" for="attach_picture">
+                    <svg-icon src="../../../../../assets/icons/cloud-computing.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                    <div>Drag and Drop a file or click here</div>
+                    </label>
+                    <input type="file" hidden id="attach_picture">
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>  
+</form>

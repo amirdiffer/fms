@@ -28,6 +28,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     InputNumberModule,
     InputTextareaModule,
     InputTextModule,
-    RadioButtonModule
+    RadioButtonModule,
+    AngularSvgIconModule
   ],
   declarations: [RtlSupportDirective],
   exports: [
@@ -86,7 +88,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     InputNumberModule,
     InputTextareaModule,
     InputTextModule,
-    RadioButtonModule
+    RadioButtonModule,
+    AngularSvgIconModule
   ]
 })
 export class SharedModule {
