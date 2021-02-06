@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { stringify } from 'querystring';
 import { AddRequestFakeService } from './_fake.service';
 
 @Component({
@@ -13,30 +14,93 @@ export class AddRequestComponent implements OnInit {
   activePriority: string = 'high';
   tableSettingServie;
   tableSettingWarranty;
+  oldAssetSuggests: any[];
+  filteredAsset : any[];
+  assets : any[] = [
+    {name: 'Item No 234567890', gps: '456783234658'},
+    {name: 'Item No 234567891', gps: '666663345435'},
+    {name: 'Item No 234567892', gps: '567434234244'},
+    {name: 'Item No 234567893', gps: '541565456465'},
+    {name: 'Item No 234567894', gps: '489456141856'}
+  ];
   inputForm : FormGroup;
 
-  constructor(private _fb : FormBuilder, private _fakeService: AddRequestFakeService) {}
+  constructor(private _fb : FormBuilder, private _fakeService: AddRequestFakeService , private _roter: Router) {}
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      assetSearch:[''],
+      assetSearch:['',[Validators.required ,this.autocompleteValidation]],
+      assetInfo: this._fb.group({
+        asset:[''],
+        gpsMeterSource:[''],
+      }),
       reason:[false],
-      jobType:[''],
+      accidentOption:['miner'],
+      jobType:['estimate'],
       issueInfo : this._fb.group({
-        issue:[''],
-        repertedBy: [''],
-        description:[''],
+        issue:['', Validators.required],
+        repertedBy: ['', Validators.required],
+        description:['', Validators.required],
       }),
       priority:[''],
       file:['']
     });
+
     this.tableSettingServie = this._fakeService.tableSettingService;
-    this.tableSettingWarranty = this._fakeService.tableSettingWarranty
+    this.tableSettingWarranty = this._fakeService.tableSettingWarranty;
   }
 
+  searchAsset(event){
+    let filtered : any[] = [];
+    let query = event.query;
+    for(let i = 0; i < this.assets.length; i++) {
+        let asset = this.assets[i];
+        if (asset.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            filtered.push(asset);
+        }
+    }
+    this.filteredAsset = filtered;
+  }
 
+  selectedAsset(value){
+    this.inputForm.patchValue({
+      assetInfo:{
+        asset:value.name,
+        gpsMeterSource:value.gps,
+      }
+    })
+  }
+  autocompleteValidation (input: FormControl){
+    const inputValid = input.value.name;
+    if(inputValid){
+      return null
+    } else {
+      return { needsExclamation: true }
+    }
+  }
   addRequest(){
-    console.log(this.inputForm.value)
+    if(this.inputForm.valid){
+      console.log(this.inputForm.value);
+      this._roter.navigate(['/workshop/body-shop'])
+    }
+    else{
+      console.log('have an Error');
+      const controls = this.inputForm.controls;
+      for (const name in controls){
+        if(controls[name].invalid){
+          controls[name].markAsTouched();
+        }
+      }
+
+    }
+  }
+
+  cancelForm(){
+    if(this.inputForm.dirty){
+      confirm('Are You sure that you want to cancel?') ? this._roter.navigate(['/workshop/body-shop']) : null;
+    }else{
+      this._roter.navigate(['/workshop/body-shop']);
+    }
   }
   changePriority(statusPriority): void {
     this.activePriority = statusPriority;

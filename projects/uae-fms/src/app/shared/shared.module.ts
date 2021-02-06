@@ -29,7 +29,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-
+import {AutoCompleteModule} from 'primeng/autocomplete';
 @NgModule({
   imports: [
     CommonModule,
@@ -56,7 +56,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     InputTextareaModule,
     InputTextModule,
     RadioButtonModule,
-    AngularSvgIconModule
+    AngularSvgIconModule,
+    AutoCompleteModule
   ],
   declarations: [RtlSupportDirective],
   exports: [
@@ -89,7 +90,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     InputTextareaModule,
     InputTextModule,
     RadioButtonModule,
-    AngularSvgIconModule
+    AngularSvgIconModule,
+    AutoCompleteModule
   ]
 })
 export class SharedModule {

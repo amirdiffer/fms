@@ -1,157 +1,203 @@
-<div class="form-buttons">
-  <button class="cancel">Cancel</button>
-  <button class="add">Add</button>
-</div>
-<div class="row">
-
-  <div class="col-12">
-    <div class="component_wrapper">
-      <label class="caption">Personal Info</label>
-      <div class="row">
-        <div class="col-lg-5">
-          <div class="form-group">
-            <div class="input-group">
-              <input type="text" class="form-control border-right-0 border" placeholder="Employe Number *">
-              <div class="input-group-append">
-                <div class="input-group-text bg-transparent">
-                  <svg-icon src="../../../../../assets/icons/search.svg" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
+<form [formGroup]="inputForm">
+  <div class="form-buttons">
+    <button class="cancel">Cancel</button>
+    <button class="add">Add</button>
+  </div>
+  <div class="row">
+    <div class="col-12" [formGroupName]="'portalInfo'">
+      <div class="component_wrapper">
+        <label class="caption">Portal Info</label>
+        <div class="row">
+          <div class="col-lg-5">
+            <div class="form-group p-field form-section__field">
+              <div class="input-group">
+                  <div class="autocomplete-select flex-with-button">
+                      <span class="p-float-label ">
+                          <p-autoComplete [suggestions]="filteredEmployeNumb" formControlName="emplyeeNumber" (completeMethod)="searchEmploye($event)" field="employeNumber" (onSelect)="selectedEmploye($event)">
+                            <ng-template let-employes pTemplate="item">
+                              <div class="employe-item">
+                                <div>{{employes.employeNumber}}</div>
+                                <div>{{employes.fName}}</div>
+                                <div>{{employes.lName}}</div>
+                              </div>
+                            </ng-template>
+                          </p-autoComplete>
+                          <i class="pi pi-search"></i>
+                          <label [class.red-font]=" inputForm.get('portalInfo.emplyeeNumber').invalid && inputForm.get('portalInfo.emplyeeNumber').touched">Employe Number *</label>
+                      </span>
+                  </div>
+                  <small class="error-input" [class.d-none]=" inputForm.get('portalInfo.emplyeeNumber').valid || inputForm.get('portalInfo.emplyeeNumber').untouched">Please search and choose an item from list</small>
+              </div>
+          </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group p-field form-section__field">
+              <div class="input-group">
+                  <span class="p-float-label w-100">
+                    <input type="text" class="form-control" placeholder="Pay per Hours *" formControlName="payPerHours">
+                    <label>Pay pet Hours *</label>
+                  </span>
+              </div>
+          </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="row form-group">
+              <div class="custom-control custom-switch col-lg-12">
+                <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName="active">
+                <label class="custom-control-label" for="customSwitch1"></label>
+                <label class="custum-text" for="customSwitch1">Employee Status is Active</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12" [formGroupName]="'professional'">
+      <div class="component_wrapper">
+        <label class="caption">Professional Info</label>
+        <div class="row">
+          <div class="col-lg-5 form-group p-field form-section__field">
+            <div class="input-group" formArrayName="skills">
+              <span class="p-float-label flex-with-button" *ngFor="let skill of inputForm.get('professional.skills')['controls']; let i=index">
+                <input type="text" class="form-control border-right-0 border" placeholder="Skill *" [formControlName]="i">
+                <label>Skill *</label>
+              </span>
+              <div class="input-group-append m-0">
+                <div class="input-group-text bg-transparent border-input-append">
+                  <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 form-group p-field form-section__field">
+            <div class="input-group" formArrayName="location">
+              <div class="autocomplete-select flex-with-button" *ngFor="let location of inputForm.get('professional.location')['controls']; let i=index">
+                <span class="p-float-label ">
+                    <p-autoComplete [suggestions]="filteredLocation" [formControlName]="i" (completeMethod)="searchLocation($event)" field="name" >
+                      <ng-template let-locations pTemplate="item">
+                        <div class="locations-item">
+                          <div>{{locations.name}}</div>
+                          <div>{{locations.city}}</div>
+                          <div>{{locations.address}}</div>
+                        </div>
+                      </ng-template>
+                    </p-autoComplete>
+                    <i class="pi pi-search"></i>
+                    <label >Location *</label>
+                </span>
+              </div>
+              <div class="input-group-append m-0">
+                <div class="input-group-text bg-transparent border-input-append">
+                  <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-4">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Pay per Hours *">
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="row form-group">
-            <div class="custom-control custom-switch col-lg-12">
-              <input type="checkbox" class="custom-control-input" id="customSwitch1">
-              <label class="custom-control-label" for="customSwitch1"></label>
-              <label class="custum-text" for="customSwitch1">Employee Status is Active</label>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="component_wrapper">
+        <label class="caption">Upload Profile Picture</label>
+        <div class="upload-box">
+          <div class="row">
+            <div class="col-12 d-flex justify-content-between file-name-size">
+              <span>Nte1234567_Report.pdf</span>
+              <span>00 MG</span>
+            </div>
+            <div class="col-lg-12">
+              <anms-progress-bar  color="#0000005E" maxValue="100" value="25"></anms-progress-bar>
+            </div>
+            <div class="col-lg-12">
+              <label class="space-drop" for="attach_picture">
+                <svg-icon src="../../../../../assets/icons/camera-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                <div>Drag and Drop Picture here</div>
+              </label>
+              <input type="file" hidden id="attach_picture">
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-12">
-    <div class="component_wrapper">
-      <label class="caption">Professional Info</label>
-      <div class="row">
-        <div class="col-lg-5 form-group">
-          <div class="input-group">
-            <input type="text" class="form-control border-right-0 border" placeholder="Skill *">
-            <div class="input-group-append m-0">
-              <div class="input-group-text bg-transparent border-input-append">
-                <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-5 form-group">
-          <div class="input-group">
-            <input type="text" class="form-control border-right-0 border" placeholder="Skill *">
-            <div class="input-group-append">
-              <div class="input-group-text bg-transparent">
-                <svg-icon src="../../../../../assets/icons/search.svg" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
-              </div>
-            </div>
-            <div class="input-group-append m-0">
-              <div class="input-group-text bg-transparent border-input-append">
-                <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4">
-    <div class="component_wrapper">
-      <label class="caption">Upload Profile Picture</label>
-      <div class="upload-box">
+    <div class="col-lg-8"  [formGroupName]="'pesonalInfo'">
+      <div class="component_wrapper">
+        <label class="caption">Personal Information</label>
         <div class="row">
-          <div class="col-12 d-flex justify-content-between file-name-size">
-            <span>Nte1234567_Report.pdf</span>
-            <span>00 MG</span>
+          <div class="col-lg-5">
+            <div class="form-group form-group p-field form-section__field">
+              <div class="input-group">
+                <span class="p-float-label w-100">
+                    <input type="text" class="form-control " formControlName="firstName" placeholder="First Name *">
+                    <label>First Name *</label>
+                </span>
+              </div>
+            </div>
           </div>
-          <div class="col-lg-12">
-            <anms-progress-bar  color="#0000005E" maxValue="100" value="25"></anms-progress-bar>
+          <div class="col-lg-7">
+            <div class="form-group form-group p-field form-section__field">
+              <div class="input-group">
+                <span class="p-float-label w-100">
+                    <input type="text" class="form-control " formControlName="lastName" placeholder="Last Name *">
+                    <label>Last Name *</label>
+                </span>
+              </div>
+            </div>
           </div>
-          <div class="col-lg-12">
-            <label class="space-drop" for="attach_picture">
-              <svg-icon src="../../../../../assets/icons/camera-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-              <div>Drag and Drop Picture here</div>
-            </label>
-            <input type="file" hidden id="attach_picture">
+        </div>
+        <div class="row">
+          <div class="col-lg-7 form-group p-field form-section__field">
+            <div class="input-group" formArrayName="email">
+              <span class="p-float-label flex-with-button" *ngFor="let email of inputForm.get('pesonalInfo.email')['controls']; let i=index">
+                <input type="text" class="form-control border-right-0 border" placeholder="Email *" [formControlName]="i">
+                <label>Email *</label>
+              </span>
+              <div class="input-group-append m-0">
+                <div class="input-group-text bg-transparent border-input-append">
+                  <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 form-group p-field form-section__field">
+            <div class="input-group" formArrayName="phoneNumber">
+              <span class="p-float-label flex-with-button" *ngFor="let number of inputForm.get('pesonalInfo.phoneNumber')['controls']; let i=index">
+                <input type="text" class="form-control border-right-0 border" placeholder="Phone Number *" [formControlName]="i">
+                <label>Phone Number *</label>
+              </span>
+              <div class="input-group-append m-0">
+                <div class="input-group-text bg-transparent border-input-append">
+                  <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row"  [formGroupName]="'notification'">
+          <div class="col-lg-3">
+            <div class="caption">Send Notification By</div>
+          </div>
+          <div class="col-lg-2 form-group">
+            <input id="check-Call" type="checkbox" class="custom-checkbox" formControlName="call">
+            <label for="check-Call">Call</label>
+          </div>
+          <div class="col-lg-2 form-group">
+            <input id="check-SMS" type="checkbox" class="custom-checkbox" formControlName="sms">
+            <label for="check-SMS">SMS</label>
+          </div>
+          <div class="col-lg-2 form-group">
+            <input id="check-Email" type="checkbox" class="custom-checkbox" formControlName="email">
+            <label for="check-Email">Email</label>
+          </div>
+          <div class="col-lg-2 form-group">
+            <input id="check-Whatsapp" type="checkbox" class="custom-checkbox" formControlName="whatsapp">
+            <label for="check-Whatsapp">Whatsapp</label>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-lg-8">
-    <div class="component_wrapper">
-      <label class="caption">Personal Information</label>
-      <div class="row">
-        <div class="col-lg-5">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="First Name *">
-          </div>
-        </div>
-        <div class="col-lg-7">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Last Name *">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-7 form-group">
-          <div class="input-group">
-            <input type="text" class="form-control border-right-0 border" placeholder="Email *">
-            <div class="input-group-append m-0">
-              <div class="input-group-text bg-transparent border-input-append">
-                <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-5 form-group">
-          <div class="input-group">
-            <input type="text" class="form-control border-right-0 border" placeholder="Phone Number *">
-            <div class="input-group-append m-0">
-              <div class="input-group-text bg-transparent border-input-append">
-                <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-3">
-          <div class="caption">Send Notification By</div>
-        </div>
-        <div class="col-lg-2 form-group">
-          <input id="check-Call" type="checkbox" class="custom-checkbox" checked>
-          <label for="check-Call">Call</label>
-        </div>
-        <div class="col-lg-2 form-group">
-          <input id="check-SMS" type="checkbox" class="custom-checkbox" checked>
-          <label for="check-SMS">SMS</label>
-        </div>
-        <div class="col-lg-2 form-group">
-          <input id="check-Email" type="checkbox" class="custom-checkbox" checked>
-          <label for="check-Email">Email</label>
-        </div>
-        <div class="col-lg-2 form-group">
-          <input id="check-Whatsapp" type="checkbox" class="custom-checkbox" checked>
-          <label for="check-Whatsapp">Whatsapp</label>
-        </div>
-      </div>
-    </div>
-  </div>
+</form>
+<div class="row">
   <div class="col-12">
     <div class="component_wrapper">
       <div class="table-wreapper">
@@ -159,5 +205,4 @@
       </div>
     </div>
   </div>
-
 </div>

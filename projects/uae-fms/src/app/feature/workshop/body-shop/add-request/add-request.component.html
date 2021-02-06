@@ -1,27 +1,26 @@
 <form [formGroup]="inputForm" (ngSubmit)="addRequest()">
     <div class="form-buttons">
-        <button class="cancel" type="button">Cancel</button>
-        <button class="add" type="submit">Add</button>
+        <button class="cancel" type="button" (click)="cancelForm()">Cancel</button>
+        <button class="add" type="submit" >Add</button>
       </div>
       
     <div class="row">
-        <ng-container *ngIf=" inputForm.get('reason').value == false ">
-            <div class="col-12">
+        <ng-container *ngIf=" !inputForm.get('assetSearch').value.name">
+            <div class="col-12 overflow-visible">
                 <div class="component_wrapper">
                     <label class="caption">Asset Info</label>
                     <div class="row mt-3">
                         <div class="col-6">
                             <div class="form-group p-field form-section__field">
                                 <div class="input-group">
-                                    <span class="p-float-label flex-75">
-                                        <input type="text" class="form-control border-right-0 border" placeholder="Asset" formControlName="assetSearch">
-                                        <label>Asset *</label>
-                                    </span>
-                                    <div class="input-group-append">
-                                        <div class="input-group-text bg-transparent">
-                                            <svg-icon src="../../../../../assets/icons/search.svg" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
-                                        </div>
+                                    <div class="autocomplete-select flex-75">
+                                        <span class="p-float-label ">
+                                            <p-autoComplete [suggestions]="filteredAsset" formControlName="assetSearch" (completeMethod)="searchAsset($event)" field="name" (onSelect)="selectedAsset($event)" ></p-autoComplete>
+                                            <i class="pi pi-search"></i>
+                                            <label [class.red-font]=" inputForm.get('assetSearch').invalid && inputForm.get('assetSearch').touched">Asset *</label>
+                                        </span>
                                     </div>
+                                    <small class="error-input" [class.d-none]=" inputForm.get('assetSearch').valid || inputForm.get('assetSearch').untouched">Please search and choose an item from list</small>
                                 </div>
                             </div>
                         </div>
@@ -30,8 +29,8 @@
             </div>
         </ng-container>
 
-        <ng-container *ngIf=" inputForm.get('reason').value == true ">
-            <div class="col-12">
+        <ng-container *ngIf=" inputForm.get('assetSearch').value.name">
+            <div class="col-12 " [formGroupName]="'assetInfo'">
                 <div class="component_wrapper">
                     <label class="caption">Asset Info</label>
                     <div class="row mt-3">
@@ -39,22 +38,32 @@
                             <div class="form-group p-field form-section__field">
                                 <div class="input-group">
                                     <span class="p-float-label w-100">
-                                        <input type="text" class="form-control border-right-0 border" formControlName="assetSearch">
+                                        <input type="text" class="form-control border-right-0 border" formControlName="asset" readonly>
                                         <label>Asset</label>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-4">
-                            <div class="form-group p-field form-section__field">
-                                <div class="input-group">
-                                    <span class="p-float-label w-100">
-                                        <input type="text" class="form-control border-right-0 border" formControlName="assetSearch">
-                                        <label>GPS Meter Source</label>
-                                    </span>
-                                </div> 
+                        <div class="col-12 col-md-7">
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="form-group p-field form-section__field">
+                                        <div class="input-group">
+                                            <span class="p-float-label w-100">
+                                                <input type="text" class="form-control border-right-0 border" formControlName="gpsMeterSource" readonly>
+                                                <label>GPS Meter Source</label>
+                                            </span>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="input-group">
+                                        <a>Manual Update</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -74,14 +83,28 @@
         <div class="col-12">
             <div class="component_wrapper">
                 <div class="row mt-3">
-                    <label class="col-lg-3 caption">Reason</label>
-                    <div class="col-lg-9">
-                        <div class="row form-group">
-                            <div class="custom-control custom-switch col-lg-3">
+                    <label class="col-2 caption">Reason</label>
+                    <div class="col-10">
+                        <div class="row form-group align-items-center">
+                            <div class="custom-control custom-switch col-3">
                                 <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName="reason">
                                 <label class="custom-control-label" for="customSwitch1"></label>
                                 <label class="custum-text" for="customSwitch1">Accident</label>
                             </div>
+                            <ng-container  *ngIf=" inputForm.get('reason').value == true ">
+                                <div class="form-check col-3">
+                                    <input class="form-check-input" type="radio"  id="Miner" value ="miner" formControlName="accidentOption">
+                                    <label class="form-check-label" for="Miner">
+                                        Miner
+                                    </label>
+                                </div>
+                                <div class="form-check col-3">
+                                    <input class="form-check-input" type="radio"  id="Major" value ="major" formControlName="accidentOption">
+                                    <label class="form-check-label" for="Major">
+                                        Major
+                                    </label>
+                                </div>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
@@ -111,12 +134,14 @@
                                 Technical Report
                                 </label>
                             </div>
-                            <div class="form-check col-lg-3">
-                                <input class="form-check-input" type="radio"id="Installation" value="installation" formControlName="jobType">
-                                <label class="form-check-label" for="Installation">
-                                Installation
-                                </label>
-                            </div>
+                            <ng-container *ngIf=" inputForm.get('reason').value == false ">
+                                <div class="form-check col-lg-3">
+                                    <input class="form-check-input" type="radio"id="Installation" value="installation" formControlName="jobType">
+                                    <label class="form-check-label" for="Installation">
+                                    Installation
+                                    </label>
+                                </div>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
@@ -129,20 +154,24 @@
                     <div class="form-group col-lg-8 p-field form-section__field">
                         <span class="p-float-label">
                             <input type="text" class="form-control" placeholder="Issue" formControlName="issue">
-                            <label>Issue *</label>
+                            <label [class.red-font]=" inputForm.get('issueInfo.issue').invalid && inputForm.get('issueInfo.issue').touched">Issue *</label>
                         </span>
+                        <small class="error-input" [class.d-none]=" inputForm.get('issueInfo.issue').valid || inputForm.get('issueInfo.issue').untouched">Please fill Issue</small>
+
                     </div>
                     <div class="form-group col-lg-4 p-field form-section__field">
                         <span class="p-float-label">
                             <input type="text" class="form-control" placeholder="Reported By" formControlName="repertedBy">
-                            <label>Reported By *</label>
+                            <label [class.red-font]=" inputForm.get('issueInfo.repertedBy').invalid && inputForm.get('issueInfo.repertedBy').touched">Reported By *</label>
                         </span>
+                        <small class="error-input" [class.d-none]=" inputForm.get('issueInfo.repertedBy').valid || inputForm.get('issueInfo.repertedBy').untouched">Please fill ReportedBy</small>
                     </div>
-                    <div class="form-group col-lg-12 p-field form-section__field">
+                    <div class="form-group col-lg-12 p-field form-section__field mt-3">
                         <span class="p-float-label">
                             <input type="text" class="form-control" placeholder="Description " formControlName="description">
-                            <label>Description *</label>
+                            <label [class.red-font]=" inputForm.get('issueInfo.description').invalid && inputForm.get('issueInfo.description').touched">Description *</label>
                         </span>
+                        <small class="error-input" [class.d-none]=" inputForm.get('issueInfo.description').valid || inputForm.get('issueInfo.description').untouched">Please fill Description</small>
                     </div>
                 </div>
             </div>

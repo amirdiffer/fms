@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ColumnType, TableSetting } from '@core/table';
 
 @Component({
@@ -8,6 +9,72 @@ import { ColumnType, TableSetting } from '@core/table';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddTechnicianComponent implements OnInit {
+  inputForm:FormGroup;
+  filteredEmployeNumb;
+  filteredLocation;
+  employes : any[] =[
+    {
+      id:'1',
+      fName:'Hamid',
+      lName:'Mottaghian',
+      email:'admin@jointscopes.com',
+      number:'+989351730011',
+      employeNumber:'1234568'
+    },
+    {
+      id:'2',
+      fName:'Alireza',
+      lName:'Hamidi',
+      email:'admin@jointscopes.com',
+      number:'+989351730011',
+      employeNumber:'1234568'
+    },
+    {
+      id:'3',
+      fName:'Amir Hossein',
+      lName:'Hosseini',
+      email:'admin@jointscopes.com',
+      number:'+989351730011',
+      employeNumber:'1234568'
+    },
+    {
+      id:'4',
+      fName:'Mahdi',
+      lName:'MaddahPour',
+      email:'admin@jointscopes.com',
+      number:'+989351730011',
+      employeNumber:'1234568'
+    }
+    
+  ];
+  locations: any[] =[
+    {
+      name: 'Hamid',
+      city: 'Dubai',
+      address:'street 1',
+    },
+    {
+      name: 'Nirvana',
+      city: 'Dubai',
+      address:'street 2',
+    },
+    {
+      name: 'Mellisa',
+      city: 'Dubai',
+      address:'street 3',
+    },
+    {
+      name: 'Farid',
+      city: 'Dubai',
+      address:'street 4',
+    },
+    {
+      name: 'Eden',
+      city: 'Dubai',
+      address:'street 5',
+    }
+  ]
+
   addTechnician_Table: TableSetting = {
     columns: [
       {
@@ -123,7 +190,75 @@ export class AddTechnicianComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private _fb: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.inputForm = this._fb.group({
+      portalInfo : this._fb.group({
+        emplyeeNumber:[''],
+        payPerHours:[''],
+        active:[false]
+      }),
+      professional: this._fb.group({
+        skills: this._fb.array([
+          this._fb.control([''])
+        ]),
+        location: this._fb.array([
+          this._fb.control([''])
+        ])
+      }),
+      file:[''],
+      pesonalInfo: this._fb.group({
+        firstName: [''],
+        lastName:[''],
+        email: this._fb.array([
+          this._fb.control([''])
+        ]),
+        phoneNumber: this._fb.array([
+          this._fb.control([''])
+        ]),
+        notification: this._fb.group({
+          call:[true],
+          sms:[true],
+          email:[true],
+          whatsapp:[false],
+        })
+      })
+    })
+  };
+
+  searchEmploye(event){
+    let filtered : any[] = [];
+    let query = event.query;
+    for(let i = 0; i < this.employes.length; i++) {
+        let employe = this.employes[i];
+        if (employe.fName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            filtered.push(employe);
+        }
+    }
+    this.filteredEmployeNumb = filtered;
+  }
+
+  selectedEmploye(value){
+    this.inputForm.patchValue({
+      pesonalInfo:{
+        firstName: value.fName,
+        lastName: value.lName,
+        email: value.email,
+        phoneNumber: value.number,
+      }
+    })
+  }
+
+  searchLocation(event){
+    let filtered : any[] = [];
+    let query = event.query;
+    for(let i = 0; i < this.locations.length; i++) {
+        let location = this.locations[i];
+        if (location.city.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            filtered.push(location);
+        }
+    }
+    this.filteredLocation = filtered;
+  }
 }
