@@ -27,6 +27,7 @@ import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-ass
 import { ConfigurationStateModule } from './+state';
 import { AssetCategoryComponent } from './asset-configuration/asset-category/asset-category.component';
 import { PeriodicServiceComponent } from '@feature/configuration/periodic-service/periodic-service.component';
+import { AddFleetStatusComponent } from './fleet-status/add-fleet-status/add-fleet-status.component';
 import { FleetStatusAssetTableComponent } from './fleet-status/fleet-status-table/fleet-status-asset-table.component';
 import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-service/add-periodic-service.component';
 
@@ -42,6 +43,7 @@ import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-ser
     BusinessCategoryComponent,
     PeriodicServiceComponent,
     AssetPolicyComponent,
+    AddFleetStatusComponent,
     OwnershipComponent,
     AddCategoryComponent,
     OwnershipFormComponent,
