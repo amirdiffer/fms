@@ -18,6 +18,8 @@ import { PartMasterComponent } from './part-master/part-master.component';
 import { CategoryComponent } from './category/category.component';
 import { AssetTypeComponent } from './asset-type/asset-type.component';
 import { PartListFormComponent } from './part-list/part-list-form.component';
+import { AddPartMasterComponent } from './part-master/add-part-master/add-part-master.component';
+import { DashboardModule } from '@feature/dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { PartListFormComponent } from './part-list/part-list-form.component';
     CategoryComponent,
     AssetTypeComponent,
     OrderListComponent,
-    PartMasterComponent
+    PartMasterComponent,
+    AddPartMasterComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +41,8 @@ import { PartListFormComponent } from './part-list/part-list-form.component';
     MatFormFieldModule,
     AngularSvgIconModule,
     PartStoreRoutingModule,
-    SharedModule
+    SharedModule,
+    DashboardModule
   ]
 })
 export class PartStoreModule {}
