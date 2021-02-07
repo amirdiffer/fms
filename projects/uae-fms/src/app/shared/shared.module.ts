@@ -31,6 +31,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { ErrorModule } from './error/error.module';
+import { CheckAccessDirective } from '@core/directive/check-access.directive';
 
 @NgModule({
   imports: [
@@ -62,7 +63,7 @@ import { ErrorModule } from './error/error.module';
     DropdownModule,
     ErrorModule
   ],
-  declarations: [RtlSupportDirective],
+  declarations: [RtlSupportDirective, CheckAccessDirective],
   exports: [
     CommonModule,
     FormsModule,
@@ -95,7 +96,8 @@ import { ErrorModule } from './error/error.module';
     RadioButtonModule,
     CalendarModule,
     DropdownModule,
-    ErrorModule
+    ErrorModule,
+    CheckAccessDirective
   ]
 })
 export class SharedModule {

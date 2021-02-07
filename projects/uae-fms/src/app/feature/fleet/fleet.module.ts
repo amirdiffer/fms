@@ -25,7 +25,6 @@ import { TabViewModule } from '@core/tab-view';
     SubAssetComponent,
     MovementComponent,
     AccessoryComponent,
-    CheckAccessDirective,
     AddSubAssetComponent,
     OrganizationComponent,
     AddOrganizationComponent

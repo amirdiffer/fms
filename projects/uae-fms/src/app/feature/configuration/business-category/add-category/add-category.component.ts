@@ -1,5 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Injector
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
+import { Utility } from '@shared/utility/utility';
 
 @Component({
   selector: 'anms-add-category',
@@ -7,7 +14,7 @@ import { TableSetting } from '@core/table';
   styleUrls: ['./add-category.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddCategoryComponent implements OnInit {
+export class AddCategoryComponent extends Utility implements OnInit {
   addCategory_Table: TableSetting = {
     columns: [
       { lable: 'Category Name', type: 1, field: 'Category_Name' },
@@ -77,7 +84,30 @@ export class AddCategoryComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  addCategoryForm: FormGroup;
+  submited = false;
 
-  ngOnInit(): void {}
+  constructor(private _fb: FormBuilder, injector: Injector) {
+    super(injector);
+  }
+
+  ngOnInit(): void {
+    this.addCategoryForm = this._fb.group({
+      name: ['', [Validators.required]],
+      assetType: ['', [Validators.required]],
+      activeCategory: [''],
+      description: [''],
+      subAsset: ['', [Validators.required]],
+      assetQuantity: [''],
+      accessory: ['', [Validators.required]],
+      accessoryQuantity: ['']
+    });
+  }
+  submit() {
+    this.submited = true;
+    if (this.addCategoryForm.invalid) {
+      return;
+    }
+    this.goToList();
+  }
 }

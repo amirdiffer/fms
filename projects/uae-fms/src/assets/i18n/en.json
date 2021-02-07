@@ -64,6 +64,7 @@
   "anms.title.long": "I-Serve",
   "anms.title.short": "I-Serve",
   "fms.errors.required": "This field is required",
+  "fms.errors.email": "Please enter valid email ",
   "fms.parts.quantity": "Quantity",
   "fms.parts.price": "Price",
   "fms.parts.room": "Room",

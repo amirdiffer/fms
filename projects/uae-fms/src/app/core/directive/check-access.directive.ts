@@ -26,6 +26,10 @@ export class CheckAccessDirective implements OnInit {
           {
             name: 'sub-asset',
             actions: ['create', 'read', 'update', 'delete']
+          },
+          {
+            name: 'asset-policy',
+            actions: ['create', 'read', 'update', 'delete']
           }
         ],
         role: 'Admin'
