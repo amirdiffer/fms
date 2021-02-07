@@ -10,10 +10,9 @@ import { MakeDecisionService } from '../make-decision.service';
 export class DetailDecisionComponent implements OnInit {
   tableSetting;
   radioButtonSelect: string;
-  constructor(private _makeDecisionService: MakeDecisionService) { }
+  constructor(private _makeDecisionService: MakeDecisionService) {}
 
   ngOnInit(): void {
     this.tableSetting = this._makeDecisionService.tableSetting;
   }
-
 }

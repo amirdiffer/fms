@@ -1,10 +1,18 @@
+.filter-wrapper {
+  height: 78px;
+}
+
 .parent {
-  margin: 10px;
-  min-height: 70px;
+  height: 78px !important;
+  margin: 0 20px 20px 0px !important;
   border: 0;
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
+
+  &:last-child {
+    margin-right: 0 !important;
+  }
 }
 
 .parent:hover {
@@ -12,7 +20,7 @@
 }
 
 .left_tag {
-  width: 6px;
+  width: 11px;
 }
 
 .filter {
@@ -23,13 +31,13 @@
     }
   }
   &-title {
-    font-size: 21px;
+    font-size: 24px;
     &__active {
       color: #ffffff !important;
     }
   }
   &-count {
-    font-size: 36px;
+    font-size: 24px;
     &__active {
       color: #ffffff !important;
     }

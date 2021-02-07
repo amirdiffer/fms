@@ -1,0 +1,121 @@
+<div>
+  <form (ngSubmit)='submit()' [formGroup]='form'>
+    <div class='text-right action_buttons'>
+      <button class='action_button cancel_button font-weight-bold' routerLink='/configuration/user-management/users'>Cancel</button>
+      <button class='action_button add_button'>Add</button>
+    </div>
+    <div class='card' formGroupName='portalInformation'>
+      <div class='card-body'>
+        <p class='font-weight-bold'>Portal Information</p>
+        <div class='d-flex'>
+          <div class='w-25 mr-4'>
+            <label class='w-100'>
+              <input class='w-100 employee_number_input' placeholder='Employee Number *'
+                     formControlName='employeeNumber'>
+            </label>
+          </div>
+          <div class='w-25 mr-4'>
+            <label class='w-100'>
+              <input class='w-100 employee_number_input' placeholder='Department'
+                     formControlName='department'>
+            </label>
+          </div>
+          <div class='w-25 ml-4'>
+            <mat-select class='border rounded p-1' placeholder='Role' formControlName='role'>
+              <mat-option>title</mat-option>
+            </mat-select>
+          </div>
+          <div class='w-25 mr-2 text-right'>
+            <mat-slide-toggle labelPosition='before' class='font-weight-bold' formControlName='activeEmployee'>Active
+              Employee
+            </mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='d-flex'>
+      <div class='card w-50' formGroupName='fileUpload'>
+        <div class='card-body'>
+          <div>
+            <p class='font-weight-bold'>Upload Profile Picture</p>
+          </div>
+          <div>
+            <div class='d-flex justify-content-between'>
+              <label class='progress_bar_label'>file.pdf</label>
+              <label class='progress_bar_label'>00 MB</label>
+            </div>
+            <mat-progress-bar mode='determinate' value='40'></mat-progress-bar>
+          </div>
+          <div class='d-flex p-5 mt-2 drop_file_box' (click)='fileUpload.click()'>
+            <input [hidden]='true' type='file' #fileUpload id='fileUpload' name='fileUpload' />
+            <img src='../../../../../../assets/icons/camera.svg' alt='camera' width='25'>
+            <p class='m-0 ml-2 progress_bar_label'>Drag and Drop Picture here</p>
+          </div>
+        </div>
+      </div>
+      <div class='card w-100'>
+        <div class='card-body' formGroupName='personalInformation'>
+          <div>
+            <p class='font-weight-bold'>Personal Information</p>
+          </div>
+          <div class='d-flex w-100'>
+            <div class='w-75'>
+              <label class='w-100'>
+                <input class='w-100 employee_number_input p-2' placeholder='First Name *' formControlName='firstName'>
+              </label>
+            </div>
+            <div class='w-100'>
+              <label class='w-100'>
+                <input class='w-100 employee_number_input p-2 ml-2' placeholder='Last Name *'
+                       formControlName='lastName'>
+              </label>
+            </div>
+          </div>
+          <div class='d-flex'>
+            <div class='w-100'>
+              <label class='w-100'>
+                <input class='w-100 employee_number_input p-2' placeholder='Email *' formControlName='email'>
+              </label>
+            </div>
+            <div class='w-100'>
+              <label class='w-100'>
+                <input class='w-100 employee_number_input p-2 ml-2' placeholder='Phone Number *'
+                       formControlName='phoneNumber'>
+              </label>
+            </div>
+          </div>
+          <div class='d-flex mt-4'>
+            <div>
+              <p class='font-weight-bold'>Send Notification By</p>
+            </div>
+            <div>
+              <label class='container font-weight-bold ml-4'>Call
+                <input type='checkbox' name='vehicle_comments' formControlName='callCheckbox'>
+                <span class='checkmark'></span>
+              </label>
+            </div>
+            <div>
+              <label class='container font-weight-bold ml-3'>SMS
+                <input type='checkbox' name='vehicle_comments' formControlName='smsCheckbox'>
+                <span class='checkmark'></span>
+              </label>
+            </div>
+            <div>
+              <label class='container font-weight-bold ml-3'>Email
+                <input type='checkbox' name='vehicle_comments' formControlName='emailCheckbox'>
+                <span class='checkmark'></span>
+              </label>
+            </div>
+            <div>
+              <label class='container font-weight-bold ml-3'>Whatsapp
+                <input type='checkbox' name='vehicle_comments' formControlName='whatsappCheckbox'>
+                <span class='checkmark'></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

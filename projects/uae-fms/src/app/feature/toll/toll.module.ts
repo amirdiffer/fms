@@ -7,15 +7,18 @@ import { FilterModule } from '@core/filter/filter.module';
 import { TollComponent } from './toll.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { TollRoutingModule } from './toll-routing.module';
+import { AddTollComponent } from './add-toll/add-toll.component';
+import { DashboardModule } from '@feature/dashboard/dashboard.module';
 
 @NgModule({
-  declarations: [TollComponent],
+  declarations: [TollComponent, AddTollComponent],
   imports: [
     TableModule,
     FilterModule,
     CommonModule,
     TollRoutingModule,
-    AngularSvgIconModule
+    AngularSvgIconModule,
+    DashboardModule
   ]
 })
 export class TollModule {}

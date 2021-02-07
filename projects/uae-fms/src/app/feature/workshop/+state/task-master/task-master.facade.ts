@@ -1,9 +1,8 @@
-import { Injectable } from "@angular/core";
-import { select, Store } from "@ngrx/store";
-import { TaskMasterActions } from "./task-master.actions";
-import { ITaskMasterPartialState } from "./task-master.entity";
-import { TaskMasterSelectors } from "./task-master.selectors";
-
+import { Injectable } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { TaskMasterActions } from './task-master.actions';
+import { ITaskMasterPartialState } from './task-master.entity';
+import { TaskMasterSelectors } from './task-master.selectors';
 
 @Injectable()
 export class TaskMasterFacade {

@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from '@angular/core';
 
 import { Subscription } from 'rxjs';
 import { TableSetting } from '@core/table';
@@ -20,31 +25,31 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
       filterTagColor: '',
       filterTitle: 'This Month',
       isCalendar: true,
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterTitle: 'Total',
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterTitle: 'Repair',
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterTitle: '?',
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '09',
       filterTagColor: '#DD5648',
       filterTitle: 'Accident',
-      onActive: () => { }
+      onActive: () => {}
     }
   ];
 
@@ -161,15 +166,18 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
       }
     ]
   };
-  constructor(private _makeDecisionService: MakeDecisionService, private _facade: TechnicalInspectionFacade) { }
+  constructor(
+    private _makeDecisionService: MakeDecisionService,
+    private _facade: TechnicalInspectionFacade
+  ) {}
 
   ngOnInit(): void {
-    this.makeDecision$ = this._makeDecisionService.getMakeDecision().subscribe(
-      (open) => {
+    this.makeDecision$ = this._makeDecisionService
+      .getMakeDecision()
+      .subscribe((open) => {
         this.makeDecision = open;
-        console.log(open)
-      }
-    )
+        console.log(open);
+      });
     this._facade.loadAll();
   }
 

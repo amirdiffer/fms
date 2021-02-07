@@ -22,6 +22,118 @@
 @import './app/template/main-template/main-template.component.scss-theme';
 
 @import './assets/scss/mixins/form-section';
+@import './assets/scss/fonts.scss';
+
+@mixin elementTypography(
+  $selector,
+  $font,
+  $font-weight,
+  $font-size,
+  $color: false
+) {
+  #{$selector} {
+    font-size: $font-size;
+    font-family: $font;
+    font-weight: $font-weight;
+    @if ($color) {
+      color: $color;
+    }
+  }
+}
+
+.wrapper {
+  font-family: '29LT Bukra';
+  font-size: 16px;
+
+  @include elementTypography(
+    'h1',
+    $fms-green-h1-font,
+    $fms-green-h1-font-weight,
+    $fms-green-h1-font-size $fms-green-h1-color
+  );
+
+  @include elementTypography(
+    'h2',
+    $fms-green-h2-font,
+    $fms-green-h2-font-weight,
+    $fms-green-h2-font-size $fms-green-h2-color
+  );
+
+  @include elementTypography(
+    'h3',
+    $fms-green-h3-font,
+    $fms-green-h3-font-weight,
+    $fms-green-h3-font-size $fms-green-h3-color
+  );
+
+  @include elementTypography(
+    '.tab-titles .tab',
+    $fms-green-page-tab-font,
+    $fms-green-page-tab-font-weight,
+    $fms-green-page-tab-font-size $fms-green-page-tab-color
+  );
+
+  @include elementTypography(
+    '.tab-titles .active-tab',
+    $fms-green-page-tab-active-font,
+    $fms-green-page-tab-active-font-weight,
+    $fms-green-page-tab-active-font-size $fms-green-page-tab-active-color
+  );
+
+  @include elementTypography(
+    '.filter-title',
+    $fms-green-label-text-font,
+    $fms-green-label-text-font-weight,
+    $fms-green-label-text-font-size
+  );
+
+  @include elementTypography(
+    '.filter-content',
+    $fms-green-label-text-number-font,
+    $fms-green-label-text-number-font-weight,
+    $fms-green-label-text-number-font-size
+  );
+
+  .search-container {
+    height: 48px !important;
+    margin-bottom: 4px;
+
+    .search-box input {
+      max-height: 48px !important;
+    }
+
+    .search-box button {
+      height: 48px !important;
+    }
+
+    .btn-download {
+      width: 48px !important;
+    }
+
+    .btn-primary-green {
+      height: 48px !important;
+    }
+  }
+
+  .card-table-header {
+    padding-right: 24px;
+  }
+
+  .table-container {
+    background-color: $fms-green-body2-bg;
+    margin: 16px 0 20px 0;
+
+    .p-datatable .p-datatable-thead > tr > th {
+      background-color: $fms-green-body1-bg;
+      color: $fms-green-body-color;
+    }
+
+    .p-datatable .p-datatable-tbody > tr > td {
+      background-color: $fms-green-body2-bg;
+      color: $fms-green-body-color;
+    }
+  }
+}
 
 @mixin custom-components-theme($theme) {
   @include anms-styles-reset-theme($theme);
@@ -38,62 +150,62 @@
   @include custom-components-theme($anms-light-theme);
 }
 
-.black-theme {
-  @include angular-material-theme($anms-black-theme);
-  @include custom-components-theme($anms-black-theme);
+// .black-theme {
+//   @include angular-material-theme($anms-black-theme);
+//   @include custom-components-theme($anms-black-theme);
 
-  .menu-wrapper .container {
-    background-color: $fms-black-body1-bg !important;
+//   .menu-wrapper .container {
+//     background-color: $fms-black-body1-bg !important;
 
-    .menuItem {
-      svg {
-        fill: $fms-black-body-color !important;
-      }
+//     .menuItem {
+//       svg {
+//         fill: $fms-black-body-color !important;
+//       }
 
-      .menu-item-name {
-        color: $fms-black-body-color !important;
-      }
-    }
-  }
+//       .menu-item-name {
+//         color: $fms-black-body-color !important;
+//       }
+//     }
+//   }
 
-  .wrapper {
-    background-color: $fms-black-body1-bg !important;
-  }
+//   .wrapper {
+//     background-color: $fms-black-body1-bg !important;
+//   }
 
-  @include form-section(
-    $fms-black-body2-bg,
-    $fms-black-inactive-input-label,
-    $fms-black-inactive-input-border,
-    $fms-black-focused-input-label,
-    $fms-black-focused-input-placeholder,
-    $fms-black-focused-input-border,
-    $fms-black-hovered-input-label,
-    $fms-black-hovered-input-border,
-    $fms-black-disabled-input-label,
-    $fms-black-disabled-input-border,
-    $fms-black-disabled-placeholder,
-    $fms-black-invalid-input-label,
-    $fms-black-invalid-input-border,
-    $fms-black-form-addon,
-    $fms-black-form-addon-border,
-    $fms-black-form-input-toggle
-  );
+//   @include form-section(
+//     $fms-black-body2-bg,
+//     $fms-black-inactive-input-label,
+//     $fms-black-inactive-input-border,
+//     $fms-black-focused-input-label,
+//     $fms-black-focused-input-placeholder,
+//     $fms-black-focused-input-border,
+//     $fms-black-hovered-input-label,
+//     $fms-black-hovered-input-border,
+//     $fms-black-disabled-input-label,
+//     $fms-black-disabled-input-border,
+//     $fms-black-disabled-placeholder,
+//     $fms-black-invalid-input-label,
+//     $fms-black-invalid-input-border,
+//     $fms-black-form-addon,
+//     $fms-black-form-addon-border,
+//     $fms-black-form-input-toggle
+//   );
 
-  .table-container {
-    background-color: $fms-black-body2-bg;
-    margin: 10px 10px 20px 10px;
+//   .table-container {
+//     background-color: $fms-black-body2-bg;
+//     margin: 10px 10px 20px 10px;
 
-    .p-datatable .p-datatable-thead > tr > th {
-      background-color: $fms-black-body1-bg;
-      color: $fms-black-body-color;
-    }
+//     .p-datatable .p-datatable-thead > tr > th {
+//       background-color: $fms-black-body1-bg;
+//       color: $fms-black-body-color;
+//     }
 
-    .p-datatable .p-datatable-tbody > tr > td {
-      background-color: $fms-black-body2-bg;
-      color: $fms-black-body-color;
-    }
-  }
-}
+//     .p-datatable .p-datatable-tbody > tr > td {
+//       background-color: $fms-black-body2-bg;
+//       color: $fms-black-body-color;
+//     }
+//   }
+// }
 
 .nature-theme {
   @include angular-material-theme($anms-nature-theme);

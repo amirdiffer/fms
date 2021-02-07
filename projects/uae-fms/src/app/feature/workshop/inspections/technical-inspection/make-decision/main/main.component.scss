@@ -1,16 +1,16 @@
-.status-container{
-    display: flex;
-    width: 100%;
-    .item{
-        flex: 1 0 10%;
-        p{
-            font-size:15px;
-            color: #000000DE;
-            margin: 5px 0;
-        }
-        .item-title{
-            font-size: 11px;
-            color: #71D875;
-        }
+.status-container {
+  display: flex;
+  width: 100%;
+  .item {
+    flex: 1 0 10%;
+    p {
+      font-size: 15px;
+      color: #000000de;
+      margin: 5px 0;
     }
+    .item-title {
+      font-size: 11px;
+      color: #71d875;
+    }
+  }
 }

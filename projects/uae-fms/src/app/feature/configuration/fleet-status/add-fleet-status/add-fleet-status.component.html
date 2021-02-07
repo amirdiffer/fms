@@ -1,0 +1,54 @@
+<div class="form-buttons">
+  <button class="cancel">Cancel</button>
+  <button class="add">Add</button>
+</div>
+
+<div class="row">
+
+  <div class="col-12">
+    <div class="component_wrapper">
+      <div class="row">
+        <div class="col-lg-2">
+          <label class="caption">Type Category</label>
+        </div>
+        <div class="col-lg-4">
+          <div class="row form-group">
+            <div class="form-check col-lg-6">
+              <input class="form-check-input" type="radio" name="type_category" id="Asset">
+              <label class="form-check-label" for="Asset">
+                Asset
+              </label>
+            </div>
+            <div class="form-check col-lg-6">
+              <input class="form-check-input" type="radio" name="type_category" id="Sub_Asset">
+              <label class="form-check-label" for="Sub_Asset">
+                Sub Asset
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group">
+            <select class="form-control">
+              <option>Item 1</option>
+              <option>Item 2</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Status Name">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="component_wrapper">
+      <div class="table-wreapper">
+        <app-table [setting]='tableSetting'></app-table>
+      </div>
+    </div>
+  </div>
+
+</div>

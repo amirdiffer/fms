@@ -42,7 +42,6 @@ import { AddLocationComponent } from './body-shop/add-location/add-location.comp
 import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 import { WorkshopStateModule } from './+state';
 
-
 @NgModule({
   declarations: [
     MainComponent,
@@ -82,7 +81,7 @@ import { WorkshopStateModule } from './+state';
     MatDatepickerModule,
     MatCheckboxModule,
     MatStepperModule,
-    MatRadioModule,
+    MatRadioModule
   ]
 })
-export class WorkshopModule { }
+export class WorkshopModule {}

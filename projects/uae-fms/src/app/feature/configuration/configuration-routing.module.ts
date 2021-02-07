@@ -6,6 +6,7 @@ import { FleetStatusComponent } from './fleet-status/fleet-status.component';
 import { AssetPolicyComponent } from './asset-policy/asset-policy.component';
 import { OwnershipFormComponent } from './ownership-form/ownership-form.component';
 import { PeriodicServiceComponent } from './periodic-service/periodic-service.component';
+import { AddFleetStatusComponent } from '@feature/configuration/fleet-status/add-fleet-status/add-fleet-status.component';
 import { BusinessCategoryComponent } from './business-category/business-category.component';
 import { AddCategoryComponent } from './business-category/add-category/add-category.component';
 import { AssetConfigurationComponent } from './asset-configuration/asset-configuration.component';
@@ -38,6 +39,17 @@ const routes: Routes = [
         (m) => m.UserManagementModule
       )
   },
+  { path: 'periodic-service', component: PeriodicServiceComponent },
+  { path: 'asset-policy', component: AssetPolicyComponent },
+  { path: 'business-category', component: BusinessCategoryComponent },
+  { path: 'asset-configuration', component: AssetConfigurationComponent },
+  { path: 'fleet-status', component: FleetStatusComponent },
+  {
+    path: 'fleet-status/add-fleet-status',
+    component: AddFleetStatusComponent,
+    data: { name: 'Add Fleet Status' }
+  },
+  { path: 'ownership', component: OwnershipComponent },
   {
     path: '',
     pathMatch: 'full',
@@ -49,4 +61,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ConfigurationRoutingModule {}
+export class ConfigurationRoutingModule { }
