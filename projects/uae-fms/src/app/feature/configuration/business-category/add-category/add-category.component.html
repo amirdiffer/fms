@@ -1,0 +1,150 @@
+<form [formGroup] = "addCategoryForm">
+  <div class='form-buttons'>
+    <button class='cancel' (click)="goToList()">Cancel</button>
+    <button class='add' (click)="submit()">Add</button>
+  </div>
+  
+  <div class='row'>
+    <div class='col-12'>
+      <div class='component_wrapper'>
+        <label class='caption'>Business Category Info</label>
+        <div class='row'>
+          <div class='col-lg-4'>
+            <div class='form-group'>
+              <input type='text' class='form-control' formControlName="name" placeholder='Business Category Name *'>
+              <anms-error
+              [showError]="hasError('name',addCategoryForm,submited)"
+              error ="fms.errors.required">
+              </anms-error>
+            </div>
+          </div>
+          <div class='col-lg-4'>
+            <div class='form-group'>
+              <div class='input-group'>
+                <input formControlName="assetType" type='text' class='form-control border-right-0 border' placeholder='Asset Type *'>
+                <div class='input-group-append'>
+                  <div class='input-group-text bg-transparent'>
+                    <svg-icon src='../../../../../assets/icons/search.svg'
+                              [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
+                  </div>
+                </div>
+              </div>
+              <anms-error
+              [showError]="hasError('assetType',addCategoryForm,submited)"
+              error = "fms.errors.required">
+              </anms-error>
+            </div>
+          </div>
+          <div class='col-lg-4'>
+            <div class='form-group'>
+              <div class='custom-control custom-switch'>
+                <input formControlName="activeCategory" type='checkbox' class='custom-control-input' id='customSwitch1'>
+                <label class='custom-control-label' for='customSwitch1'></label>
+                <label class='custum-text' for='customSwitch1'>Active Category</label>
+              </div>
+            </div>
+          </div>
+          <div class='col-lg-12'>
+            <div class='form-group'>
+              <input type='text' formControlName="description" class='form-control' placeholder='Description'>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='col-12'>
+      <div class='component_wrapper'>
+        <div class='caption'>
+          <span class='plus-icon'>
+              <svg-icon src='../../../../../assets/icons/add.svg'
+                        [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+          </span>
+          Assign To Asset
+        </div>
+        <div class='row'>
+          <div class='col-lg-6'>
+            <div class='form-group'>
+              <div class='input-group'>
+                <input type='text' formControlName="subAsset" class='form-control border-right-0 border' placeholder='Sub Asset *'>
+                <div class='input-group-append'>
+                  <div class='input-group-text bg-transparent'>
+                    <svg-icon src='../../../../../assets/icons/search.svg'
+                              [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
+                  </div>
+                </div>
+              </div>
+              <anms-error
+              [showError]="hasError('subAsset',addCategoryForm,submited)"
+              error ="fms.errors.required">
+              </anms-error>
+            </div>
+          </div>
+          <div class='col-lg-3'>
+            <div class='upload-box'>
+              <label class='space-drop' for='attach_picture_sub-asset'>
+                <div>Drag and Drop a file here Upload Specification</div>
+              </label>
+              <input type='file' hidden id='attach_picture_sub-asset'>
+            </div>
+          </div>
+          <div class='col-lg-3'>
+            <div class='form-group'>
+              <input type='text' class='form-control' placeholder='Quantity'>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='col-12'>
+      <div class='component_wrapper'>
+        <div class='caption'>
+          <span class='plus-icon'>
+              <svg-icon src='../../../../../assets/icons/add.svg'
+                        [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+          </span>
+          Assign To Accessory
+        </div>
+        <div class='row'>
+          <div class='col-lg-6'>
+            <div class='form-group'>
+              <div class='input-group'>
+                <input type='text' formControlName="accessory" class='form-control border-right-0 border' placeholder='Accessory *'>
+                <div class='input-group-append'>
+                  <div class='input-group-text bg-transparent'>
+                    <svg-icon src='../../../../../assets/icons/search.svg'
+                              [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
+                  </div>
+                </div>
+              </div>
+              <anms-error
+              [showError]="hasError('accessory',addCategoryForm,submited)"
+              error ="fms.errors.required"></anms-error>
+            </div>
+          </div>
+          <div class='col-lg-3'>
+            <div class='upload-box'>
+              <label class='space-drop' for='attach_picture_accessory'>
+                <div>Drag and Drop a file here Upload Specification</div>
+              </label>
+              <input type='file' hidden id='attach_picture_accessory'>
+            </div>
+          </div>
+          <div class='col-lg-3'>
+            <div class='form-group'>
+              <input type='text' class='form-control' placeholder='Quantity'>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class='col-12'>
+    <div class='component_wrapper'>
+      <div class='table-wreapper'>
+        <app-table [setting]='addCategory_Table'></app-table>
+      </div>
+    </div>
+  </div>
+</div>

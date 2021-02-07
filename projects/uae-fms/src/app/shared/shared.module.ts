@@ -22,6 +22,16 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { ErrorModule } from './error/error.module';
+import { CheckAccessDirective } from '@core/directive/check-access.directive';
 
 @NgModule({
   imports: [
@@ -42,9 +52,18 @@ import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
     MatTooltipModule,
     MatSnackBarModule,
     MatSlideToggleModule,
-    MatDividerModule
+    MatDividerModule,
+    InputSwitchModule,
+    InputMaskModule,
+    InputNumberModule,
+    InputTextareaModule,
+    InputTextModule,
+    RadioButtonModule,
+    CalendarModule,
+    DropdownModule,
+    ErrorModule
   ],
-  declarations: [RtlSupportDirective],
+  declarations: [RtlSupportDirective, CheckAccessDirective],
   exports: [
     CommonModule,
     FormsModule,
@@ -68,7 +87,17 @@ import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    RtlSupportDirective
+    RtlSupportDirective,
+    InputSwitchModule,
+    InputMaskModule,
+    InputNumberModule,
+    InputTextareaModule,
+    InputTextModule,
+    RadioButtonModule,
+    CalendarModule,
+    DropdownModule,
+    ErrorModule,
+    CheckAccessDirective
   ]
 })
 export class SharedModule {

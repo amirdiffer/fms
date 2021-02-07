@@ -25,5 +25,6 @@ export const environment = {
     cypress: packageJson.devDependencies['cypress'],
     eslint: packageJson.devDependencies['eslint']
   },
-  baseFileServer: 'http://127.0.0.1:8080/'
+  baseFileServer: 'http://127.0.0.1:8080/',
+  baseApiUrl: 'http://localhost:4200/fms-api/v1/'
 };

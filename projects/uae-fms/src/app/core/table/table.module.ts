@@ -21,6 +21,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { TableActionButtonRendererComponent } from '@core/table/renderers/actionButton';
 import { TableAddButtonRendererComponent } from '@core/table/renderers/addButton';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { MakeDecisionRendererComponent } from './renderers/makeDecision';
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     TableButtonRendererComponent,
     TableThumbTextRendererComponent,
     TableBooleanRendererComponent,
-    TableExternalLinkRendererComponent
+    TableExternalLinkRendererComponent,
+    MakeDecisionRendererComponent
   ],
   providers: []
 })
