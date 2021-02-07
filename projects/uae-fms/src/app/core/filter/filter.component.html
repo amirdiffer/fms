@@ -1,4 +1,4 @@
-<div class="d-inline-flex w-100">
+<div class="d-flex w-100 filter-wrapper">
   <div class="col card parent overflow-hidden shadow-sm p-0"
        *ngFor="let card of cardSetting; let index = index"
        (click)="onClick(index); card.setting.onActive(index)" [style.border-color]="card.setting.filterTagColor">
@@ -6,7 +6,7 @@
       <div class="d-inline-flex card-body p-0">
         <ng-container *ngIf="!card.setting.isCalendar || card.setting.isCalendar == 'undefined'; else calendar">
           <div class="left_tag" [style.background]="card.setting.filterTagColor"></div>
-          <div class="d-inline-flex align-items-center justify-content-between w-100 mb-auto mt-auto pr-3 pl-3">
+          <div style="padding:23px 30px 23px 13px" class="d-inline-flex align-items-center justify-content-between w-100">
             <div class="d-flex flex-column filter">
               <div *ngIf="card.setting.filterSupTitle" [class.filter-supTitle__active]="card.isActive" class="filter-supTitle">{{ card.setting.filterSupTitle }}</div>
               <div class="filter-title">
