@@ -12,6 +12,11 @@ import { UsersFacade, UsersService } from './users';
 import { UsersEffect } from './users/users.effect';
 import { OwnershipFacade, OwnershipService } from './ownership';
 import { OwnershipEffect } from './ownership/ownership.effect';
+import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-service.effect';
+import {
+  PeriodicServiceFacade,
+  PeriodicServiceService
+} from '../+state/periodic-service';
 
 @NgModule({
   declarations: [],
@@ -21,7 +26,8 @@ import { OwnershipEffect } from './ownership/ownership.effect';
       RolePermissionEffect,
       AssetPolicyEffect,
       UsersEffect,
-      OwnershipEffect
+      OwnershipEffect,
+      PeriodicServiceEffect
     ])
   ],
   providers: [
@@ -32,7 +38,9 @@ import { OwnershipEffect } from './ownership/ownership.effect';
     UsersFacade,
     UsersService,
     OwnershipFacade,
-    OwnershipService
+    OwnershipService,
+    PeriodicServiceFacade,
+    PeriodicServiceService
   ]
 })
 export class ConfigurationStateModule {}
