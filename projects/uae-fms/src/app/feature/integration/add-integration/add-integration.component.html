@@ -1,0 +1,29 @@
+<div class="form-section">
+    <div class="row">
+      <div class="col-12 col-md-2 p-field form-section__field">
+        <span class="p-float-label">
+          <p-dropdown [options]="typeOptions" optionLabel="name" optionValue="value" placeholder="Type"></p-dropdown>
+          <label>Type</label>
+        </span>
+      </div>
+      <div class="col-12 col-md-2 p-field form-section__field">
+        <span class="p-float-label">
+          <input pInputText placeholder="Company Name" type="text" >
+          <label>Company Name</label>
+        </span>
+      </div>
+      <div class="col-12 col-md-2 p-field form-section__field">
+        <span class="p-float-label">
+          <input pInputText placeholder="GRP" type="text" >
+          <label>GRP</label>
+        </span>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="button-container">
+          <button class="add mb-1">Save</button>
+          <button class="cancel mb-1">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <app-table [setting]="tableSettings"></app-table>
+</div>
