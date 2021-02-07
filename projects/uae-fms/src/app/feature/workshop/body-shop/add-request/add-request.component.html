@@ -15,12 +15,17 @@
                                 <div class="input-group">
                                     <div class="autocomplete-select flex-75">
                                         <span class="p-float-label ">
-                                            <p-autoComplete [suggestions]="filteredAsset" formControlName="assetSearch" (completeMethod)="searchAsset($event)" field="name" (onSelect)="selectedAsset($event)" ></p-autoComplete>
+                                            <p-autoComplete [suggestions]="filteredAsset" 
+                                                            formControlName="assetSearch" 
+                                                            (completeMethod)="searchAsset($event)" 
+                                                            field="name" 
+                                                            (onSelect)="selectedAsset($event)" 
+                                                            [class.invalid]="!inputForm.get('assetSearch').valid && submited"></p-autoComplete>
                                             <i class="pi pi-search"></i>
-                                            <label [class.red-font]=" inputForm.get('assetSearch').invalid && inputForm.get('assetSearch').touched">Asset *</label>
+                                            <label [class.red-font]=" inputForm.get('assetSearch').invalid && submited">Asset *</label>
                                         </span>
                                     </div>
-                                    <small class="error-input" [class.d-none]=" inputForm.get('assetSearch').valid || inputForm.get('assetSearch').untouched">Please search and choose an item from list</small>
+                                    <small class="error-input" [class.d-none]=" inputForm.get('assetSearch').valid || !submited">Please search and choose an item from list</small>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +92,10 @@
                     <div class="col-10">
                         <div class="row form-group align-items-center">
                             <div class="custom-control custom-switch col-3">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName="reason">
+                                <input type="checkbox" 
+                                        class="custom-control-input" id="customSwitch1" 
+                                        formControlName="reason"
+                                        >
                                 <label class="custom-control-label" for="customSwitch1"></label>
                                 <label class="custum-text" for="customSwitch1">Accident</label>
                             </div>
@@ -153,25 +161,30 @@
                 <div class="row mt-3">
                     <div class="form-group col-lg-8 p-field form-section__field">
                         <span class="p-float-label">
-                            <input type="text" class="form-control" placeholder="Issue" formControlName="issue">
-                            <label [class.red-font]=" inputForm.get('issueInfo.issue').invalid && inputForm.get('issueInfo.issue').touched">Issue *</label>
+                            <input type="text" class="form-control" placeholder="Issue" 
+                                    formControlName="issue"
+                                    [class.invalid]="!inputForm.get('issueInfo.issue').valid && submited">
+                            <label [class.red-font]=" inputForm.get('issueInfo.issue').invalid && submited">Issue *</label>
                         </span>
-                        <small class="error-input" [class.d-none]=" inputForm.get('issueInfo.issue').valid || inputForm.get('issueInfo.issue').untouched">Please fill Issue</small>
+                        <small class="error-input" [class.d-none]=" inputForm.get('issueInfo.issue').valid || !submited">Please fill Issue</small>
 
                     </div>
                     <div class="form-group col-lg-4 p-field form-section__field">
                         <span class="p-float-label">
-                            <input type="text" class="form-control" placeholder="Reported By" formControlName="repertedBy">
-                            <label [class.red-font]=" inputForm.get('issueInfo.repertedBy').invalid && inputForm.get('issueInfo.repertedBy').touched">Reported By *</label>
+                            <input type="text" class="form-control" placeholder="Reported By" 
+                                    formControlName="repertedBy"
+                                    [class.invalid]="!inputForm.get('issueInfo.repertedBy').valid && submited">
+                            <label [class.red-font]=" inputForm.get('issueInfo.repertedBy').invalid && submited">Reported By *</label>
                         </span>
-                        <small class="error-input" [class.d-none]=" inputForm.get('issueInfo.repertedBy').valid || inputForm.get('issueInfo.repertedBy').untouched">Please fill ReportedBy</small>
+                        <small class="error-input" [class.d-none]=" inputForm.get('issueInfo.repertedBy').valid || !submited">Please fill ReportedBy</small>
                     </div>
                     <div class="form-group col-lg-12 p-field form-section__field mt-3">
                         <span class="p-float-label">
-                            <input type="text" class="form-control" placeholder="Description " formControlName="description">
-                            <label [class.red-font]=" inputForm.get('issueInfo.description').invalid && inputForm.get('issueInfo.description').touched">Description *</label>
+                            <input type="text" class="form-control" placeholder="Description " formControlName="description"
+                                    [class.invalid]="!inputForm.get('issueInfo.description').valid && submited">
+                            <label [class.red-font]=" inputForm.get('issueInfo.description').invalid && submited">Description *</label>
                         </span>
-                        <small class="error-input" [class.d-none]=" inputForm.get('issueInfo.description').valid || inputForm.get('issueInfo.description').untouched">Please fill Description</small>
+                        <small class="error-input" [class.d-none]=" inputForm.get('issueInfo.description').valid || !submited">Please fill Description</small>
                     </div>
                 </div>
             </div>

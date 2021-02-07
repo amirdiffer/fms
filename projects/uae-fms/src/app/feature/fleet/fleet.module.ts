@@ -13,7 +13,6 @@ import { OrganizationComponent } from './organization/organization.component';
 import { AddSubAssetComponent } from './sub-asset/add-sub-asset/add-sub-asset.component';
 import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
 
-import { CheckAccessDirective } from '@core/directive/check-access.directive';
 import { FilterModule } from '@core/filter/filter.module';
 import { TableModule } from '@core/table/table.module';
 import { TabViewModule } from '@core/tab-view';
@@ -25,7 +24,6 @@ import { TabViewModule } from '@core/tab-view';
     SubAssetComponent,
     MovementComponent,
     AccessoryComponent,
-    CheckAccessDirective,
     AddSubAssetComponent,
     OrganizationComponent,
     AddOrganizationComponent

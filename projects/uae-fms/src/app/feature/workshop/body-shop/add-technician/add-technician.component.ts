@@ -1,17 +1,19 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy ,Injector } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ColumnType, TableSetting } from '@core/table';
-
+import { Utility } from '@shared/utility/utility';
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
   styleUrls: ['./add-technician.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddTechnicianComponent implements OnInit {
+export class AddTechnicianComponent extends Utility implements OnInit {
   inputForm:FormGroup;
   filteredEmployeNumb;
   filteredLocation;
+  submited= false;
   employes : any[] =[
     {
       id:'1',
@@ -190,32 +192,32 @@ export class AddTechnicianComponent implements OnInit {
     ]
   };
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(private _fb: FormBuilder , injector: Injector , private _roter:Router) { super(injector);}
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
       portalInfo : this._fb.group({
-        emplyeeNumber:[''],
-        payPerHours:[''],
+        emplyeeNumber:['', [Validators.required , this.autocompleteValidationEmployeNumber]],
+        payPerHours:['',[Validators.required]],
         active:[false]
       }),
       professional: this._fb.group({
         skills: this._fb.array([
-          this._fb.control([''])
+          this._fb.control('' , [Validators.required])
         ]),
         location: this._fb.array([
-          this._fb.control([''])
+          this._fb.control('' , [Validators.required , this.autocompleteValidationLocation])
         ])
       }),
       file:[''],
       pesonalInfo: this._fb.group({
-        firstName: [''],
-        lastName:[''],
+        firstName: ['' , [Validators.required]],
+        lastName:['' , [Validators.required]],
         email: this._fb.array([
-          this._fb.control([''])
+          this._fb.control('', [Validators.required])
         ]),
         phoneNumber: this._fb.array([
-          this._fb.control([''])
+          this._fb.control('' , [Validators.required])
         ]),
         notification: this._fb.group({
           call:[true],
@@ -244,12 +246,15 @@ export class AddTechnicianComponent implements OnInit {
       pesonalInfo:{
         firstName: value.fName,
         lastName: value.lName,
-        email: value.email,
-        phoneNumber: value.number,
+        email: [value.email],
+        phoneNumber: [value.number],
       }
     })
+    this.inputForm.get('pesonalInfo.firstName').markAsDirty();
+    this.inputForm.get('pesonalInfo.lastName').markAsDirty();
+    this.inputForm.get('pesonalInfo.email')['controls'][0].markAsDirty();
+    this.inputForm.get('pesonalInfo.phoneNumber')['controls'][0].markAsDirty();
   }
-
   searchLocation(event){
     let filtered : any[] = [];
     let query = event.query;
@@ -260,5 +265,57 @@ export class AddTechnicianComponent implements OnInit {
         }
     }
     this.filteredLocation = filtered;
+  }
+
+  /* AutoComplete Validation  */
+  autocompleteValidationEmployeNumber (input: FormControl){
+    const inputValid = input.value.employeNumber;
+    if(inputValid){
+      return null
+    } else {
+      return { needsExclamation: true }
+    }
+  }
+  autocompleteValidationLocation (input: FormControl){
+    const inputValid = input.value.city;
+    if(inputValid){
+      return null
+    } else {
+      return { needsExclamation: true }
+    }
+  }
+
+  /* Add Forrm Array */
+  addSkill(){
+    const skill = new FormControl(null , [Validators.required]);
+    (<FormArray>this.inputForm.get('professional.skills')).push(skill);
+  }
+  addLocation(){
+    const location = new FormControl(null , [Validators.required]);
+    (<FormArray>this.inputForm.get('professional.location')).push(location);
+  }
+  addEmail(){
+    const email = new FormControl(null ,[Validators.required , this.autocompleteValidationLocation]);
+    (<FormArray>this.inputForm.get('pesonalInfo.email')).push(email);
+  }
+  addPhoneNumber(){
+    const phoneNumber = new FormControl(null , [Validators.required]);
+    (<FormArray>this.inputForm.get('pesonalInfo.phoneNumber')).push(phoneNumber)
+  }
+  addRequest(){
+    console.log(this.inputForm.value);
+    this.submited = true;
+    if (this.inputForm.invalid) {
+      return;
+    }
+    this.goToList();
+  }
+
+  cancelForm(){
+    if(this.inputForm.dirty){
+      confirm('Are You sure that you want to cancel?') ? this._roter.navigate(['/workshop/body-shop']) : null;
+    }else{
+      this._roter.navigate(['/workshop/body-shop']);
+    }
   }
 }

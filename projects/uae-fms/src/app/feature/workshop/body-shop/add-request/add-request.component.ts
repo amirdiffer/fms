@@ -16,6 +16,7 @@ export class AddRequestComponent implements OnInit {
   tableSettingWarranty;
   oldAssetSuggests: any[];
   filteredAsset : any[];
+  submited = false;
   assets : any[] = [
     {name: 'Item No 234567890', gps: '456783234658'},
     {name: 'Item No 234567891', gps: '666663345435'},
@@ -79,6 +80,7 @@ export class AddRequestComponent implements OnInit {
     }
   }
   addRequest(){
+    this.submited = true
     if(this.inputForm.valid){
       console.log(this.inputForm.value);
       this._roter.navigate(['/workshop/body-shop'])

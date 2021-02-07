@@ -1,3 +1,11 @@
+@import '../../../../../assets/scss/form-section.scss';
+:host ::ng-deep{
+  .pi.pi-search{
+    top: 13px;
+    opacity: .6;
+  }
+  
+}
 .form-buttons {
   position: absolute;
   top: 20px;
@@ -27,6 +35,9 @@
 }
 
 .component_wrapper {
+  box-shadow: 0px 0px 2px #0000003D;
+  border-radius: 4px;
+  overflow: visible;
   .caption {
     font-weight: bold;
   }
@@ -66,59 +77,6 @@
     }
   }
 
-  .form-check {
-    input[type='radio'] {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      display: inline-block;
-      width: 15px;
-      height: 15px;
-      padding: 3px;
-      background-clip: content-box;
-      border: 1px solid #707070;
-      background-color: #ffffff;
-      border-radius: 50%;
-      transform: scale(1.5);
-      cursor: pointer;
-    }
-    input[type='radio']:checked {
-      background-color: #0da06e;
-      border: 1px solid #0da06e;
-      transform: scale(1.5);
-    }
-    label {
-      margin: 0 5px;
-      cursor: pointer;
-    }
-  }
-
-  .custom-switch {
-    cursor: pointer;
-    padding-left: 0;
-    min-height: 36px;
-    .custom-control-input:checked ~ .custom-control-label::before {
-      border-color: #098a5e;
-      background-color: #0da06e;
-    }
-    .custom-control-label {
-      transform: scale(1.5);
-      font-size: 11px;
-      line-height: 22px;
-      &:after {
-        background-color: #ffffff;
-        left: 2px;
-      }
-      &:before {
-        left: 0;
-        background-color: #0000005e;
-      }
-    }
-    .custum-text {
-      margin: 0 50px;
-      line-height: 36px;
-    }
-  }
 
   .add-section {
     border: 1px solid #009c62;
@@ -131,4 +89,19 @@
   .border-input-append {
     border: 1px solid #009c62;
   }
+  .flex-with-button{
+    flex:1 0 85%;
+    overflow: visible;
+  }
 }
+.overflow-visible{
+  overflow: visible;
+}
+.location-item{
+  display: flex;
+  > div{
+    margin: 0 5px;
+  }
+}
+
+

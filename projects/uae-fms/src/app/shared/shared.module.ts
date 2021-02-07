@@ -30,6 +30,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import { ErrorModule } from './error/error.module';
+import { CheckAccessDirective } from '@core/directive/check-access.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -57,9 +59,10 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     InputTextModule,
     RadioButtonModule,
     AngularSvgIconModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    ErrorModule,
   ],
-  declarations: [RtlSupportDirective],
+  declarations: [RtlSupportDirective , CheckAccessDirective],
   exports: [
     CommonModule,
     FormsModule,
@@ -91,7 +94,9 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     InputTextModule,
     RadioButtonModule,
     AngularSvgIconModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    ErrorModule,
+    CheckAccessDirective
   ]
 })
 export class SharedModule {

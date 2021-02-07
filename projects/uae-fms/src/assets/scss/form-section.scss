@@ -124,3 +124,21 @@
     }
   }
 }
+
+/* Validation */
+.red-font{
+  color:#dd5648 !important;
+}
+.error-input{
+  color:#dd5648 !important;
+  margin: 4px 0;
+  font-size: 15px;
+}
+.invalid{
+  border-color: #dd5648 !important;
+  ::ng-deep{
+    .p-autocomplete-input{
+      border-color: #dd5648 !important;
+    }
+  }
+}

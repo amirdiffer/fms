@@ -2,13 +2,14 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting, ColumnType } from '@core/table';
 import { BodyShopFacade } from '../+state/body-shop';
-import { Router } from '@angular/router';
+import { Event, Router } from '@angular/router';
 @Component({
   templateUrl: './body-shop.component.html',
   styleUrls: ['./body-shop.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodyShopComponent implements OnInit {
+  
   filterSetting: FilterCardSetting[] = [
     {
       filterCount: '13',
@@ -539,7 +540,7 @@ export class BodyShopComponent implements OnInit {
     this.facade.loadAll();
   }
 
-  addClicked() {
+  addClicked(e:Event) {
     switch (this.selectedTab) {
       case 'Job Card':
         break;
