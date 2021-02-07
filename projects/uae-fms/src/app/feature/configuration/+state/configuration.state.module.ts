@@ -10,12 +10,22 @@ import { AssetPolicyEffect } from './asset-policy/asset-policy.effect';
 import { AssetPolicyFacade, AssetPolicyService } from './asset-policy';
 import { UsersFacade, UsersService } from './users';
 import { UsersEffect } from './users/users.effect';
+import {
+  BusinessCategoryFacade,
+  BusinessCategoryService
+} from './business-category';
+import { BusinessCategoryEffect } from './business-category/business-category.effect';
 
 @NgModule({
   declarations: [],
   imports: [
     StoreModule.forFeature(CONFIGURATION_FEATURE_KEY, reducers),
-    EffectsModule.forFeature([RolePermissionEffect, AssetPolicyEffect, UsersEffect])
+    EffectsModule.forFeature([
+      RolePermissionEffect,
+      AssetPolicyEffect,
+      UsersEffect,
+      BusinessCategoryEffect
+    ])
   ],
   providers: [
     RolePermissionFacade,
@@ -24,6 +34,8 @@ import { UsersEffect } from './users/users.effect';
     AssetPolicyService,
     UsersFacade,
     UsersService,
+    BusinessCategoryService,
+    BusinessCategoryFacade
   ]
 })
-export class ConfigurationStateModule { }
+export class ConfigurationStateModule {}

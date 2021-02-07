@@ -18,4 +18,9 @@ export class ConfigurationSelectors {
     ConfigurationSelectors.featureSelector,
     (state) => state['users']
   );
+
+  static businessCategorySelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['businessCategory']
+  );
 }
