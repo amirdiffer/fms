@@ -10,6 +10,8 @@ import { AssetPolicyEffect } from './asset-policy/asset-policy.effect';
 import { AssetPolicyFacade, AssetPolicyService } from './asset-policy';
 import { UsersFacade, UsersService } from './users';
 import { UsersEffect } from './users/users.effect';
+import { OwnershipFacade, OwnershipService } from './ownership';
+import { OwnershipEffect } from './ownership/ownership.effect';
 
 @NgModule({
   declarations: [],
@@ -18,7 +20,8 @@ import { UsersEffect } from './users/users.effect';
     EffectsModule.forFeature([
       RolePermissionEffect,
       AssetPolicyEffect,
-      UsersEffect
+      UsersEffect,
+      OwnershipEffect
     ])
   ],
   providers: [
@@ -27,7 +30,9 @@ import { UsersEffect } from './users/users.effect';
     AssetPolicyFacade,
     AssetPolicyService,
     UsersFacade,
-    UsersService
+    UsersService,
+    OwnershipFacade,
+    OwnershipService
   ]
 })
 export class ConfigurationStateModule {}
