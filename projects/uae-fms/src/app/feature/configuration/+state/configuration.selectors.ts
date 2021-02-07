@@ -19,8 +19,8 @@ export class ConfigurationSelectors {
     (state) => state['users']
   );
 
-  static ownershipSelector = createSelector(
+  static fleetStatusSelector = createSelector(
     ConfigurationSelectors.featureSelector,
-    (state) => state['ownership']
+    (state) => state['fleetStatus']
   );
 }

@@ -4,12 +4,12 @@ import { CONFIGURATION_ROLE_PERMISSION_FEATURE_KEY } from './role-permission/rol
 import { CONFIGURATION_ASSET_POLICY_FEATURE_KEY } from './asset-policy/asset-policy.entity';
 import { CONFIGURATION_USERS_FEATURE_KEY } from './users/users.entity';
 import * as usersReducer from './users/users.reducer';
-import { CONFIGURATION_OWNERSHIP_FEATURE_KEY } from './ownership/ownership.entity';
-import * as ownershipReducer from './ownership/ownership.reducer';
+import * as fleetStatusReducer from './fleet-status/fleet-status.reducer';
+import { CONFIGURATION_FLEET_STATUS_FEATURE_KEY } from './fleet-status/fleet-status.entity';
 
 export const reducers = {
   [CONFIGURATION_ROLE_PERMISSION_FEATURE_KEY]: rolePermissionReducer.reducer,
   [CONFIGURATION_ASSET_POLICY_FEATURE_KEY]: assetPolicyReducer.reducer,
   [CONFIGURATION_USERS_FEATURE_KEY]: usersReducer.reducer,
-  [CONFIGURATION_OWNERSHIP_FEATURE_KEY]: ownershipReducer.reducer
+  [CONFIGURATION_FLEET_STATUS_FEATURE_KEY]: fleetStatusReducer.reducer
 };
