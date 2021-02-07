@@ -15,7 +15,11 @@ import { UsersEffect } from './users/users.effect';
   declarations: [],
   imports: [
     StoreModule.forFeature(CONFIGURATION_FEATURE_KEY, reducers),
-    EffectsModule.forFeature([RolePermissionEffect, AssetPolicyEffect, UsersEffect])
+    EffectsModule.forFeature([
+      RolePermissionEffect,
+      AssetPolicyEffect,
+      UsersEffect
+    ])
   ],
   providers: [
     RolePermissionFacade,
@@ -23,7 +27,7 @@ import { UsersEffect } from './users/users.effect';
     AssetPolicyFacade,
     AssetPolicyService,
     UsersFacade,
-    UsersService,
+    UsersService
   ]
 })
-export class ConfigurationStateModule { }
+export class ConfigurationStateModule {}

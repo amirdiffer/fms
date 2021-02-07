@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssetDetailComponent } from './asset-detail.component';
+import { AddUserComponent } from './add-user.component';
 
-describe('AssetDetailComponent', () => {
-  let component: AssetDetailComponent;
-  let fixture: ComponentFixture<AssetDetailComponent>;
+describe('AddUserComponent', () => {
+  let component: AddUserComponent;
+  let fixture: ComponentFixture<AddUserComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AssetDetailComponent]
+      declarations: [AddUserComponent]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AssetDetailComponent);
+    fixture = TestBed.createComponent(AddUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

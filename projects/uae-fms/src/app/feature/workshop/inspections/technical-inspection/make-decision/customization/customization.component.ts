@@ -9,10 +9,9 @@ import { MakeDecisionService } from '../make-decision.service';
 })
 export class CustomizationComponent implements OnInit {
   tableSetting;
-  constructor(private _makeDecisionService: MakeDecisionService) { }
+  constructor(private _makeDecisionService: MakeDecisionService) {}
 
   ngOnInit(): void {
     this.tableSetting = this._makeDecisionService.tableSettingCustomization;
   }
-
 }

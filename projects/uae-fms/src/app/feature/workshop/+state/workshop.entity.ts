@@ -6,8 +6,10 @@ import {
   WORKSHOP_BODYSHOP_FEATURE_KEY,
   BodyShopState
 } from './body-shop/body-shop.entity';
-import { ITaskMasterState ,
-  WORKSHOP_TASK_MASTER_FEATURE_KEY} from './task-master/task-master.entity';
+import {
+  ITaskMasterState,
+  WORKSHOP_TASK_MASTER_FEATURE_KEY
+} from './task-master/task-master.entity';
 import {
   WORKSHOP_TECHNICAL_INSPECTION_FEATURE_KEY,
   ITechnicalInspectionState

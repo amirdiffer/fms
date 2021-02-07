@@ -8,10 +8,7 @@ import { MakeDecisionService } from '../make-decision.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent implements OnInit {
+  constructor(private _makeDecisionService: MakeDecisionService) {}
 
-  constructor(private _makeDecisionService : MakeDecisionService) { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
