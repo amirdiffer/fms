@@ -291,11 +291,11 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     (<FormArray>this.inputForm.get('professional.skills')).push(skill);
   }
   addLocation(){
-    const location = new FormControl(null , [Validators.required]);
+    const location = new FormControl(null , [Validators.required ,  this.autocompleteValidationLocation]);
     (<FormArray>this.inputForm.get('professional.location')).push(location);
   }
   addEmail(){
-    const email = new FormControl(null ,[Validators.required , this.autocompleteValidationLocation]);
+    const email = new FormControl(null ,[Validators.required]);
     (<FormArray>this.inputForm.get('pesonalInfo.email')).push(email);
   }
   addPhoneNumber(){
