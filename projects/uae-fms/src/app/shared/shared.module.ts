@@ -28,6 +28,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { ErrorModule } from './error/error.module';
@@ -59,11 +61,11 @@ import { CheckAccessDirective } from '@core/directive/check-access.directive';
     InputTextareaModule,
     InputTextModule,
     RadioButtonModule,
-    CalendarModule,
-    DropdownModule,
-    ErrorModule
+    AngularSvgIconModule,
+    AutoCompleteModule,
+    ErrorModule,
   ],
-  declarations: [RtlSupportDirective, CheckAccessDirective],
+  declarations: [RtlSupportDirective , CheckAccessDirective],
   exports: [
     CommonModule,
     FormsModule,
@@ -94,6 +96,8 @@ import { CheckAccessDirective } from '@core/directive/check-access.directive';
     InputTextareaModule,
     InputTextModule,
     RadioButtonModule,
+    AngularSvgIconModule,
+    AutoCompleteModule,
     CalendarModule,
     DropdownModule,
     ErrorModule,

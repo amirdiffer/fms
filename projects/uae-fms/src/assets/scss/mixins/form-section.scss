@@ -39,8 +39,8 @@
           color: $inactive-input-label;
         }
 
-        &.ng-dirty.ng-invalid {
-          border-color: $invalid-input-label;
+        &.ng-touched.ng-invalid {
+          border-color: $invalid-input-label !important;
         }
 
         &:not([disabled]):hover {
