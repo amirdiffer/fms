@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Injector } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 
@@ -122,7 +123,7 @@ export class AddLocationComponent extends Utility implements OnInit {
     ]
   };
 
-  constructor(private _fb : FormBuilder, injector: Injector ) {  super(injector)}
+  constructor(private _fb : FormBuilder, injector: Injector , private _roter : Router) {  super(injector)}
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
@@ -161,7 +162,19 @@ export class AddLocationComponent extends Utility implements OnInit {
     this.submited = true;
     if (this.inputForm.invalid) {
       return;
+    }else{
+      console.log(this.inputForm.value);
+      this._roter.navigate(['/workshop/body-shop'])
     }
+    
     this.goToList();
+  }
+
+  cancelForm(){
+    if(this.inputForm.dirty){
+      confirm('Are You sure that you want to cancel?') ? this._roter.navigate(['/workshop/body-shop']) : null;
+    }else{
+      this._roter.navigate(['/workshop/body-shop']);
+    }
   }
 }

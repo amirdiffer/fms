@@ -1,6 +1,6 @@
 <form  [formGroup]="inputForm" (ngSubmit)="addRequest()">
   <div class="form-buttons">
-    <button class="cancel" type="button">Cancel</button>
+    <button class="cancel" type="button" (click)="cancelForm()">Cancel</button>
     <button class="add" type="submit">Add</button>
   </div>
   
@@ -9,7 +9,7 @@
     <div class="col-12">
       <div class="component_wrapper">
         <label class="caption">Location Info</label>
-        <div class="row">
+        <div class="row mt-3">
           <div class="col-lg-4">
             <div class="form-group p-field form-section__field">
               <div class="input-group">
