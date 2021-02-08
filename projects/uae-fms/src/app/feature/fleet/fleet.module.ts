@@ -1,3 +1,4 @@
+import { DashboardModule } from './../dashboard/dashboard.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -17,6 +18,11 @@ import { CheckAccessDirective } from '@core/directive/check-access.directive';
 import { FilterModule } from '@core/filter/filter.module';
 import { TableModule } from '@core/table/table.module';
 import { TabViewModule } from '@core/tab-view';
+import { SharedModule } from './../../shared/shared.module';
+import { AddAssetComponent } from './assets/add-asset/add-asset.component';
+
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -27,7 +33,8 @@ import { TabViewModule } from '@core/tab-view';
     AccessoryComponent,
     AddSubAssetComponent,
     OrganizationComponent,
-    AddOrganizationComponent
+    AddOrganizationComponent,
+    AddAssetComponent
   ],
   imports: [
     AngularSvgIconModule,
@@ -36,7 +43,11 @@ import { TabViewModule } from '@core/tab-view';
     CommonModule,
     FilterModule,
     TableModule,
-    TabViewModule
+    TabViewModule,
+    DashboardModule,
+    MatStepperModule,
+    CdkStepperModule,
+    SharedModule
   ]
 })
 export class FleetModule {}

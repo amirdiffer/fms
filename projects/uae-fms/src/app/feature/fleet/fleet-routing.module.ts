@@ -9,6 +9,7 @@ import { SubAssetComponent } from './sub-asset/sub-asset.component';
 import { OperatorComponent } from './operator/operator.component';
 import { MovementComponent } from './movement/movement.component';
 import { AssetsComponent } from './assets/assets.component';
+import { AddAssetComponent } from './assets/add-asset/add-asset.component';
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'movement', component: MovementComponent },
   { path: 'operator', component: OperatorComponent },
   { path: 'assets', component: AssetsComponent },
+  { path: 'assets/add', component: AddAssetComponent },
   {
     path: 'organization/add-organization',
     component: AddOrganizationComponent
