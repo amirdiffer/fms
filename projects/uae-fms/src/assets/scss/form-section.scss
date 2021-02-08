@@ -32,15 +32,15 @@
 
     .p-float-label input:focus ~ label,
     .p-float-label input.p-filled ~ label,
-    .p-float-label .p-inputwrapper-focus ~ label, 
+    .p-float-label .p-inputwrapper-focus ~ label,
     .p-float-label .p-inputwrapper-filled ~ label,
-    .p-float-label input.ng-dirty ~ label{
+    .p-float-label input.ng-dirty ~ label {
       top: -0.15rem;
       font-size: 15px;
       left: 0.8rem;
       width: auto;
       padding: 0 5px;
-      color:#0DA06E;
+      color: #0da06e;
     }
 
     input {
@@ -113,7 +113,7 @@
       .p-autocomplete-input {
         width: 100%;
       }
-      .p-autocomplete-loader{
+      .p-autocomplete-loader {
         display: none;
       }
     }
@@ -126,20 +126,19 @@
 }
 
 /* Validation */
-.red-font{
-  color:#dd5648 !important;
+.red-font {
+  color: #dd5648 !important;
 }
-.error-input{
-  color:#dd5648 !important;
+.error-input {
+  color: #dd5648 !important;
   margin: 4px 0;
   font-size: 15px;
 }
-.invalid{
+.invalid {
   border-color: #dd5648 !important;
-  ::ng-deep{
-    .p-autocomplete-input{
+  ::ng-deep {
+    .p-autocomplete-input {
       border-color: #dd5648 !important;
     }
   }
 }
-
