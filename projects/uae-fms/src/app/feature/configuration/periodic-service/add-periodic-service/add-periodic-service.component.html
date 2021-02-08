@@ -3,10 +3,10 @@
     <button class='cancel' (click)="goToList()">Cancel</button>
     <button class='add' (click)="submit()">Add</button>
   </div>
-  <div class='row'>
+  <div class='row mt-3'>
     <div class='col-12'>
       <div class='component_wrapper'>
-        <div class='row'>
+        <div class='row pl-4 pr-4'>
           <div class='col-lg-2'>
             <label class='caption'>Periodic Service Info</label>
           </div>
@@ -26,7 +26,7 @@
     </div>
     <div class='col-12'>
       <div class='component_wrapper'>
-        <div class='row'>
+        <div class='row pl-4 pr-4'>
           <div class='col-lg-2'>
             <label class='caption'>
               <span class='plus-icon'>
@@ -67,8 +67,8 @@
           </div>
           <div class="col-lg-4">
             <div class="form-group">
-              <div class="input-group">
-                <label class="font-weight-bold mr-3">Tasks</label>
+              <div class="input-group pl-5">
+                <label class="font-weight-bold">Tasks</label>
                 <input type="text" formControlName="task" class="form-control
                   border-right-0 border" required
                   placeholder="Task *">
@@ -97,7 +97,7 @@
 <div class="row">
   <div class='col-12'>
     <div class='component_wrapper'>
-      <div class='row'>
+      <div class='d-flex'>
         <app-table [setting]="tableSetting"></app-table>
       </div>
     </div>

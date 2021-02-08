@@ -1,10 +1,11 @@
 <div>
   <form (ngSubmit)='submit()' [formGroup]='form'>
-    <div class='text-right action_buttons'>
+    <div class='text-right action_buttons mb-2'>
       <button class='action_button cancel_button font-weight-bold' routerLink='/configuration/user-management/users'>Cancel</button>
       <button class='action_button add_button'>Add</button>
     </div>
-    <div class='card' formGroupName='portalInformation'>
+    <app-filter [setting]='filter'></app-filter>
+    <div class='card mt-2' formGroupName='portalInformation'>
       <div class='card-body'>
         <p class='font-weight-bold'>Portal Information</p>
         <div class='d-flex'>
