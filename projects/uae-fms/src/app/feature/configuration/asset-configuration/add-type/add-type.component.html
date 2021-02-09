@@ -1,91 +1,149 @@
 <div class="row mr-0">
     <div class="col-12">
-        <form [formGroup] = "inputForm">
-            <div class="button-container mt-3">
+        <form [formGroup]="inputForm">
+            <div class="button-container">
                 <button class="cancel" (click)="cancel()">Cancel</button>
                 <button class="add" (click)="submit()">Add</button>
             </div>
-            <div class="card mt-3">
-                <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-lg-6 col-md-6 align-self-center d-flex category">
-                            <label class="title">Type Category</label>
-                            <mat-radio-group aria-label="Select an option" class="d-flex align-self-center" formControlName="typeCategory">
-                                <mat-radio-button value="asset">Asset</mat-radio-button>
-                                <mat-radio-button value="subAsset">Sub Asset</mat-radio-button>
-                                <mat-radio-button value="accesory">Accessory</mat-radio-button>
-                            </mat-radio-group>
-                        </div>
-                        <div class="col-md-4 col-lg-4 align-self-center">
-                            <mat-form-field class="example-full-width">
-                                <input matInput placeholder="Type Name *" value="" formControlName="typeName" required>
-                            </mat-form-field>
-                            <anms-error
-                            [showError]="hasError('typeName',inputForm,submited)"
-                            error="fms.errors.required"></anms-error>
-                        </div>
-                        <div class="col-lg-2 col-md-2 align-self-center d-flex">
-                            <div class="checkbox-button">
-                                <input type="checkbox" value="None" id="checkbox" formControlName="activetype">
-                                <label for="checkbox"></label>
+            <div class="form-section form-section--inline">
+                <div class="row">
+                    <div class="col-12 col-md-2">
+                        <h3 class="form-section__title">
+                            Type Category
+                        </h3>
+                    </div>
+                    <div class="col-12 col-md-5">
+                        <div class="row">
+                            <div class="col-12 col-md-12 p-field
+                                form-section__field radio-select">
+                                <p-radioButton name="typeCategory"
+                                    formControlName="typeCategory"
+                                    value="asset" label="Asset"></p-radioButton>
+                                <p-radioButton name="typeCategory"
+                                    formControlName="typeCategory"
+                                    value="subAsset" label="Sub Asset"></p-radioButton>
+                                <p-radioButton name="typeCategory"
+                                    formControlName="typeCategory"
+                                    value="accessory" label="Accessory"></p-radioButton>
                             </div>
-                            <span class="align-self-center ml-2">Active type</span>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-12 col-lg-12 align-self-center">
-                            <mat-form-field class="example-full-width">
-                                <input matInput placeholder="Description" value="" formControlName="description">
-                            </mat-form-field>
-                        </div>
+                    <div class="col-12 col-md-3 p-field form-section__field">
+                        <span class="p-float-label">
+                            <input formControlName="typeName" pInputText
+                                placeholder="Type Name *" required type="text">
+                            <label>Type Name *</label>
+                            <anms-error
+                                [showError]="hasError('typeName',inputForm,submited)"
+                                error="fms.errors.required">
+                            </anms-error>
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-1 form-section__field
+                        toggle-select">
+                        <p-inputSwitch formControlName="activetype"></p-inputSwitch>
+                        <span>Active Type</span>
                     </div>
                 </div>
+                <div class="pb-3 p-field form-section__field">
+                    <span class="p-float-label">
+                        <input formControlName="description" pInputText
+                            placeholder="Description" type="text">
+                        <label>Description</label>
+                        
+                    </span>
+                </div>
             </div>
-            <div class="card mt-2 mb-2">
-                <div class="card-body">
-                    <label class="title">Make And Model Info</label>
-                    <div class="form-group row mt-5">
-                        <div class="col-lg-4 col-md-4 d-flex ">
-                            <mat-radio-group aria-label="Select an option" class=" d-flex make-model" formControlName="type">
-                                <mat-radio-button value="mModel">Multiple Model</mat-radio-button>
-                                <mat-radio-button value="sModel">Single Model</mat-radio-button>
-                            </mat-radio-group>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <mat-form-field class="example-full-width">
-                                <input matInput placeholder="Select Model" value="">
-                            </mat-form-field>
-                        </div>
-                        <div class="col-lg-4 col-md-4 d-flex">
-                            <ng-container *ngIf="inputForm.get('type').value == 'mModel'; else singleModel">
+
+            <!-- form-section -->
+            <div class="form-section">
+                <h3 class="form-section__title">Make And Model Info</h3>
+
+
+                <div class="row form-section__row">
+                    <div class="col-12 col-md-5 p-field
+                        form-section__field radio-select">
+                        <p-radioButton name="type"
+                            formControlName="type"
+                            value="mModel" label="Multiple Model"></p-radioButton>
+                        <p-radioButton name="type"
+                            formControlName="type"
+                            value="sModel" label="Single Model"></p-radioButton>
+                    </div>
+                    <div class="col-12 col-md-3 p-field form-section__field">
+                        <span class="p-float-label">
+                            <input formControlName="selectModel" pInputText
+                                placeholder="Select Model" type="text">
+                            <label>Select Model</label>
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-4 p-field form-section__field">
+                        <ng-container *ngIf="inputForm.get('type').value ==
+                                'mModel'; else singleModel">
                                 <div class="progress-bar-container">
                                     <div class="progress">
-                                    <div class="progress-bar" #progressBar></div>
+                                        <div class="progress-bar" #progressBar></div>
                                     </div>
                                     <p>{{fileName}}</p>
                                     <small #small>{{ value }} MB</small>
                                 </div>
-                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" class="w-100">
-                                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                                    <small calss="drag-and-drop">Drag and drop a CSV file or<a type="button"(click)="openFileSelector()" style="color:#007bff; margin-left: 4px;">Click here</a></small>
+                                <ngx-file-drop dropZoneLabel="Drop files here"
+                                    (onFileDrop)="dropped($event)"
+                                    (onFileOver)="fileOver($event)"
+                                    (onFileLeave)="fileLeave($event)"
+                                    class="w-100">
+                                    <ng-template ngx-file-drop-content-tmp
+                                        let-openFileSelector="openFileSelector">
+                                        <small calss="drag-and-drop">Drag and
+                                            drop a CSV file or<a type="button"
+                                                (click)="openFileSelector()"
+                                                style="color:#007bff;
+                                                margin-left: 4px;">Click here</a></small>
                                     </ng-template>
                                 </ngx-file-drop>
                             </ng-container>
-                            <ng-template #singleModel>
-                                <div formArrayName="models" class="d-flex w-100 flex-wrap">
-                                    <div *ngFor="let model of inputForm.get('models')['controls']; let i=index" class="w-100 flex-85">
-                                        <mat-form-field class="mb-3">
-                                            <input matInput placeholder="Model" value="" [formControlName]="i">
-                                        </mat-form-field>
-                                        <br>
-                                    </div>
-                                    <button class="add-model" (click)="addModel()"><a>+</a></button>
-                                </div>
-                            </ng-template>
-                        </div>
+                           
                     </div>
+                    <ng-template #singleModel>
+                        <!-- <div formArrayName="models" class="d-flex w-100
+                            flex-wrap">
+                            <div *ngFor="let model of
+                                inputForm.get('models')['controls']; let
+                                i=index" class="w-100 flex-85">
+                                <mat-form-field class="mb-3">
+                                    <input matInput placeholder="Model"
+                                        value="" [formControlName]="i">
+                                </mat-form-field>
+                                <br>
+                            </div>
+                            <button class="add-model"
+                                (click)="addModel()"><a>+</a></button>
+                        </div> -->
+        
+                        
+                            <span class="p-float-label">
+                                <div class="p-inputgroup">
+                                    <span class="p-float-label">
+                                        <input type="text" formControlName="models" pInputText placeholder="Model"> 
+                                        <label>Model</label>
+                                    </span>
+                                    <span class="p-inputgroup-addon addon-primary">
+                                        <i class="pi pi-plus"></i>
+                                    </span>
+                                </div>
+                            </span>
+                
+                        
+        
+                    </ng-template>
+
                 </div>
+
+
+
             </div>
+           
+            <!-- end form-section -->
         </form>
     </div>
 </div>
