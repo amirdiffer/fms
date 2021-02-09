@@ -8,6 +8,7 @@ import { FilterModule } from '@core/filter/filter.module';
 import { TrafficFineComponent } from '@feature/traffic-fine/traffic-fine.component';
 
 import { TrafficFineRoutingModule } from './traffic-fine-routing.module';
+import { TrafficFinesStateModule } from '../traffic-fine/+state';
 
 @NgModule({
   declarations: [TrafficFineComponent],
@@ -17,7 +18,8 @@ import { TrafficFineRoutingModule } from './traffic-fine-routing.module';
     CommonModule,
     TabViewModule,
     AngularSvgIconModule,
-    TrafficFineRoutingModule
+    TrafficFineRoutingModule,
+    TrafficFinesStateModule
   ]
 })
 export class TrafficFineModule {}
