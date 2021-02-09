@@ -7,6 +7,12 @@ import { IntegrationComponent } from './integration.component';
 import { TableModule } from '@core/table';
 import { AddIntegrationComponent } from './add-integration/add-integration.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { StoreModule } from '@ngrx/store';
+import { INTEGRATION_FEATURE_KEY } from './+state/integration.entity';
+import { reducer } from './+state/integration.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { IntegrationEffect } from './+state/integration.effect';
+import { IntegrationFacade, IntegrationService } from './+state';
 
 @NgModule({
   declarations: [IntegrationComponent, AddIntegrationComponent],
@@ -15,7 +21,10 @@ import { DropdownModule } from 'primeng/dropdown';
     CommonModule,
     IntegrationRoutingModule,
     SharedModule,
-    DropdownModule
-  ]
+    DropdownModule,
+    StoreModule.forFeature(INTEGRATION_FEATURE_KEY, reducer),
+    EffectsModule.forFeature([IntegrationEffect])
+  ],
+  providers: [IntegrationFacade, IntegrationService]
 })
 export class IntegrationModule {}
