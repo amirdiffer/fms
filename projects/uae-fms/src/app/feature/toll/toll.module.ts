@@ -9,6 +9,12 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { TollRoutingModule } from './toll-routing.module';
 import { AddTollComponent } from './add-toll/add-toll.component';
 import { DashboardModule } from '@feature/dashboard/dashboard.module';
+import { StoreModule } from '@ngrx/store';
+import { TOLL_FEATURE_KEY } from './+state/toll.entity';
+import { reducer } from './+state/toll.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { TollEffect } from './+state/toll.effect';
+import { TollFacade, TollService } from './+state/index';
 
 @NgModule({
   declarations: [TollComponent, AddTollComponent],
@@ -18,7 +24,10 @@ import { DashboardModule } from '@feature/dashboard/dashboard.module';
     CommonModule,
     TollRoutingModule,
     AngularSvgIconModule,
-    DashboardModule
-  ]
+    DashboardModule,
+    StoreModule.forFeature(TOLL_FEATURE_KEY, reducer),
+    EffectsModule.forFeature([TollEffect])
+  ],
+  providers: [TollService, TollFacade]
 })
 export class TollModule {}
