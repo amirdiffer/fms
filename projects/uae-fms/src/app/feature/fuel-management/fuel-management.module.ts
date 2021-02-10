@@ -12,6 +12,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
+import { FuelManagementStateModule } from '@feature/fuel-management/+state';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CalendarModule } from 'primeng/calendar';
     AutoCompleteModule,
     DropdownModule,
     InputTextModule,
-    CalendarModule
+    CalendarModule,
+    FuelManagementStateModule
   ],
   exports: [FuelManagementComponent]
 })

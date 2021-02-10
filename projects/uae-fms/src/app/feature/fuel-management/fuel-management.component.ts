@@ -12,6 +12,7 @@ import {
   AssetUsageTableData,
   AssetUsageTableSettings
 } from './asset-usage-table/asset-usage-table.component';
+import { FuelCardsFacade } from '../fuel-management/+state/fuel-cards';
 
 @Component({
   selector: 'anms-fuel-management',
@@ -20,7 +21,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FuelManagementComponent implements OnInit {
-
   filterSetting: FilterCardSetting[] = [
     {
       filterTitle: 'Total',
@@ -260,7 +260,9 @@ export class FuelManagementComponent implements OnInit {
     data: this.assetUsageTableData
   };
 
-  constructor() {}
+  constructor(private facade: FuelCardsFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
 }
