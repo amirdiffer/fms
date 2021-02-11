@@ -4,6 +4,8 @@ import { CONFIGURATION_ROLE_PERMISSION_FEATURE_KEY } from './role-permission/rol
 import { CONFIGURATION_ASSET_POLICY_FEATURE_KEY } from './asset-policy/asset-policy.entity';
 import { CONFIGURATION_USERS_FEATURE_KEY } from './users/users.entity';
 import * as usersReducer from './users/users.reducer';
+import * as fleetStatusReducer from './fleet-status/fleet-status.reducer';
+import { CONFIGURATION_FLEET_STATUS_FEATURE_KEY } from './fleet-status/fleet-status.entity';
 import { CONFIGURATION_OWNERSHIP_FEATURE_KEY } from './ownership/ownership.entity';
 import * as ownershipReducer from './ownership/ownership.reducer';
 import { CONFIGURATION_PERIODIC_SERVICE_FEATURE_KEY } from './periodic-service/periodic-service.entity';
@@ -13,6 +15,7 @@ export const reducers = {
   [CONFIGURATION_ROLE_PERMISSION_FEATURE_KEY]: rolePermissionReducer.reducer,
   [CONFIGURATION_ASSET_POLICY_FEATURE_KEY]: assetPolicyReducer.reducer,
   [CONFIGURATION_USERS_FEATURE_KEY]: usersReducer.reducer,
+  [CONFIGURATION_FLEET_STATUS_FEATURE_KEY]: fleetStatusReducer.reducer,
   [CONFIGURATION_OWNERSHIP_FEATURE_KEY]: ownershipReducer.reducer,
   [CONFIGURATION_PERIODIC_SERVICE_FEATURE_KEY]: periodicServiceReducer.reducer
 };

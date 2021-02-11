@@ -10,6 +10,8 @@ import { AssetPolicyEffect } from './asset-policy/asset-policy.effect';
 import { AssetPolicyFacade, AssetPolicyService } from './asset-policy';
 import { UsersFacade, UsersService } from './users';
 import { UsersEffect } from './users/users.effect';
+import { FleetStatusEffect } from './fleet-status/fleet-status.effect';
+import { FleetStatusFacade, FleetStatusService } from './fleet-status';
 import { OwnershipFacade, OwnershipService } from './ownership';
 import { OwnershipEffect } from './ownership/ownership.effect';
 import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-service.effect';
@@ -26,6 +28,7 @@ import {
       RolePermissionEffect,
       AssetPolicyEffect,
       UsersEffect,
+      FleetStatusEffect,
       OwnershipEffect,
       PeriodicServiceEffect
     ])
@@ -37,6 +40,8 @@ import {
     AssetPolicyService,
     UsersFacade,
     UsersService,
+    FleetStatusFacade,
+    FleetStatusService,
     OwnershipFacade,
     OwnershipService,
     PeriodicServiceFacade,

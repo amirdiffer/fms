@@ -11,6 +11,10 @@ import {
   UsersState
 } from './users/users.entity';
 import {
+  CONFIGURATION_FLEET_STATUS_FEATURE_KEY,
+  FleetStatusState
+} from './fleet-status/fleet-status.entity';
+import {
   CONFIGURATION_OWNERSHIP_FEATURE_KEY,
   OwnershipState
 } from './ownership/ownership.entity';
@@ -24,6 +28,7 @@ export interface State {
   readonly [CONFIGURATION_ROLE_PERMISSION_FEATURE_KEY]: RolePermissionState;
   readonly [CONFIGURATION_ASSET_POLICY_FEATURE_KEY]: AssetPolicyState;
   readonly [CONFIGURATION_USERS_FEATURE_KEY]: UsersState;
+  readonly [CONFIGURATION_FLEET_STATUS_FEATURE_KEY]: FleetStatusState;
   readonly [CONFIGURATION_OWNERSHIP_FEATURE_KEY]: OwnershipState;
   readonly [CONFIGURATION_PERIODIC_SERVICE_FEATURE_KEY]: PeriodicServiceState;
 }
