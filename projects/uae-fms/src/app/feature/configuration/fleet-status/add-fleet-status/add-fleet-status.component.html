@@ -1,48 +1,56 @@
-<div class="form-buttons">
-  <button class="cancel" routerLink='/configuration/fleet-status'>Cancel</button>
-  <button class="add">Add</button>
-</div>
+<form [formGroup]="fleetStatusForm">
+  <div class="form-buttons">
+    <button class="cancel" routerLink='/configuration/fleet-status'>Cancel</button>
+    <button class="add" (click)="submit()">Add</button>
+  </div>
+  <div class="form-section form-section--inline mt-3">
+    <div class="row">
+      <div class="col-12 col-md-2">
+        <h3 class="form-section__title">Type Category</h3>
+      </div>
 
-<div class="row mt-3">
-
-  <div class="col-12">
-    <div class="component_wrapper">
-      <div class="row pl-4 pr-4">
-        <div class="col-lg-2">
-          <label class="caption">Type Category</label>
-        </div>
-        <div class="col-lg-4">
-          <div class="row form-group">
-            <div class="form-check col-lg-6">
-              <input class="form-check-input" type="radio" name="type_category" id="Asset">
-              <label class="form-check-label" for="Asset">
-                Asset
-              </label>
-            </div>
-            <div class="form-check col-lg-6">
-              <input class="form-check-input" type="radio" name="type_category" id="Sub_Asset">
-              <label class="form-check-label" for="Sub_Asset">
-                Sub Asset
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="form-group">
-            <select class="form-control">
-              <option>Item 1</option>
-              <option>Item 2</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Status Name">
+      <div class="col-12 col-md-4">
+        <div class="row">
+          <div class="col-12 col-md-12 p-field form-section__field
+            radio-select">
+            <p-radioButton name="typeCategory" formControlName="typeCategory"
+              value="asset" label="Asset"></p-radioButton>
+            <p-radioButton name="typeCategory" formControlName="typeCategory"
+              value="subAsset" label="Sub Asset"></p-radioButton>
           </div>
         </div>
       </div>
+      <div class="col-12 col-md-3 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="statusCategory" [autoDisplayFirst]="false"
+            [options]="statusCategories"
+            formControlName="statusCategory" optionLabel="name"></p-dropdown>
+          <label for="statusCategory">{{ getLabelName('statusCategory') |
+            translate }}</label>
+          <anms-error
+            [showError]="hasError('statusCategory',fleetStatusForm,submited)"
+            error="fms.errors.required">
+          </anms-error>
+        </span>
+      </div>
+
+      <div class="col-12 col-md-3 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="statusName" pInputText
+            placeholder="Status Name *" required type="text">
+          <label>Status Name *</label>
+          <anms-error
+            [showError]="hasError('statusName',fleetStatusForm,submited)"
+            error="fms.errors.required">
+          </anms-error>
+        </span>
+      </div>
+
     </div>
   </div>
+</form>
+
+<div class="row">
   <div class="col-12">
     <div class="component_wrapper">
       <div class="table-wreapper">
@@ -50,5 +58,4 @@
       </div>
     </div>
   </div>
-
 </div>
