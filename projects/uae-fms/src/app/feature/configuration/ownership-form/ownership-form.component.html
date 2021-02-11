@@ -1,85 +1,128 @@
-<!-- form-section form-section--inline-->
-<div class="form-section form-section--inline">
-    <div class="row">
-        <div class="col-12 col-md-2">
-            <h3 class="form-section__title">Ownership Type</h3>
-        </div>
 
-        <div class="col-12 col-md-10">
-            <div class="row">
-                <div class="col-12 col-md-12 p-field form-section__field radio-select">
-                    <p-radioButton name="ownership_type" value="external" label="External"></p-radioButton>
-                    <p-radioButton name="ownership_type" value="owned" label="Owned"></p-radioButton>
-                    <p-radioButton name="ownership_type" value="rent" label="Rent"></p-radioButton>
-                    <p-radioButton name="ownership_type" value="Demo" label="Demo"></p-radioButton>
+<form [formGroup]="ownerShipForm">
+    <div class="form-buttons">
+        <button class="cancel" (click)="goToList()">Cancel</button>
+        <button class="add" (click)="submit()">Add</button>
+    </div>
+    <!-- form-section form-section--inline-->
+    <div class="form-section form-section--inline mt-3">
+        <div class="row">
+            <div class="col-12 col-md-2">
+                <h3 class="form-section__title">Ownership Type</h3>
+            </div>
+
+            <div class="col-12 col-md-10">
+                <div class="row">
+                    <div class="col-12 col-md-12 p-field form-section__field
+                        radio-select">
+                        <p-radioButton name="ownershipType"
+                            formControlName="ownershipType" value="external"
+                            label="External"></p-radioButton>
+                        <p-radioButton name="ownershipType"
+                            formControlName="ownershipType" value="owned"
+                            label="Owned"></p-radioButton>
+                        <p-radioButton name="ownershipType"
+                            formControlName="ownershipType" value="rent"
+                            label="Rent"></p-radioButton>
+                        <p-radioButton name="ownershipType"
+                            formControlName="ownershipType" value="Demo"
+                            label="Demo"></p-radioButton>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- end form-section form-section--inline-->
+    <!-- end form-section form-section--inline-->
 
 
-<!-- form-section -->
-<div class="form-section">
-    <h3 class="form-section__title">Owner Info</h3>
+    <!-- form-section -->
+    <div class="form-section">
+        <h3 class="form-section__title">Owner Info</h3>
 
-    <div class="row form-section__row">
-        <div class="col-12 col-md-4 p-field form-section__field">
-            <span class="p-float-label">
-                <input pInputText placeholder="Owner *" required type="text">
-                <label>Owner *</label>
-            </span>
-        </div>
-        <div class="col-12 col-md-4 p-field form-section__field">
-            <span class="p-float-label">
-                <input pInputText placeholder="Owner Email Address *" required type="text">
-                <label>Owner Email Address *</label>
-            </span>
-        </div>
-        <div class="col-12 col-md-4 p-field form-section__field">
-            <span class="p-float-label">
-                <input pInputText placeholder="Owner Phone Number" type="text">
-                <label>Owner Phone Number</label>
-            </span>
+        <div class="row form-section__row">
+            <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText formControlName = "owner" placeholder="Owner *" required
+                        type="text">
+                    <label>Owner *</label>
+                    <anms-error
+                    [showError]="hasError('owner',ownerShipForm,submited)"
+                    error="fms.errors.required"
+                    >
+                    </anms-error>
+                </span>
+            </div>
+            <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText email formControlName="ownerEmail" placeholder="Owner Email Address *"
+                        required type="text">
+                    <label>Owner Email Address *</label>
+                    <anms-error
+                    [showError]="hasError('ownerEmail',ownerShipForm,submited)"
+                    error="fms.errors.required"
+                    ></anms-error>
+                    <anms-error
+                    [showError]="hasError('ownerEmail',ownerShipForm,submited,'email')"
+                    error="fms.errors.email"
+                    ></anms-error>
+                </span>
+            </div>
+            <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText formControlName="ownerPhone" placeholder="Owner Phone Number"
+                        type="text">
+                    <label>Owner Phone Number</label>
+                </span>
+            </div>
         </div>
     </div>
-</div>
-<!-- end form-section -->
+    <!-- end form-section -->
 
 
-<!-- form-section form-section--inline-->
-<div class="form-section form-section--inline">
-    <div class="row">
-        <div class="col-12 col-md-2">
-            <h3 class="form-section__title">Ownership Info</h3>
-        </div>
+    <!-- form-section form-section--inline-->
+    <div class="form-section form-section--inline">
+        <div class="row">
+            <div class="col-12 col-md-2">
+                <h3 class="form-section__title">Ownership Info</h3>
+            </div>
 
-        <div class="col-12 col-md-10">
-            <div class="row">
-                <div class="col-12 col-md-4 p-field form-section__field">
-                    <span class="p-float-label">
-                        <input pInputText placeholder="Purpose" type="text">
-                        <label>Purpose</label>
-                    </span>
-                </div>
-                <div class="col-12 col-md-4 p-field form-section__field">
-                    <span class="p-float-label">
-                        <input pInputText placeholder="Fleet IT Code *" required type="text">
-                        <label>Fleet IT Code *</label>
-                    </span>
-                </div>
-                <div class="col-12 col-md-4 p-field form-section__field">
-                    <span class="p-float-label">
-                        <input pInputText placeholder="Duration" type="text">
-                        <label>Duration</label>
-                    </span>
+            <div class="col-12 col-md-10">
+                <div class="row">
+                    <div class="col-12 col-md-4 p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="Purpose" type="text">
+                            <label>Purpose</label>
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-4 p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText formControlName="fleetITCode" placeholder="Fleet IT Code *"
+                                required type="text">
+                            <label>Fleet IT Code *</label>
+                            <anms-error
+                            [showError]="hasError('fleetITCode',ownerShipForm,submited)"
+                            error="fms.errors.required"
+                            >
+                            </anms-error>
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-4 p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="Duration *" formControlName="duration"
+                                type="text" required>
+                            <label>Duration *</label>
+                            <anms-error
+                            [showError]="hasError('duration',ownerShipForm,submited)"
+                            error ="fms.errors.required">
+                            </anms-error>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- end form-section form-section--inline-->
+    <!-- end form-section form-section--inline-->
+</form>
 
 
 <div class="component_wrapper">

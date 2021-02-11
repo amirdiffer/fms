@@ -75,12 +75,12 @@ export class AssetConfigurationService {
     };
   };
 
-  private _addtype$=new Subject<boolean>();
+  private _addtype$ = new Subject<boolean>();
 
-  public loadAddForm (open:boolean){
-    this._addtype$.next(open)
+  public loadAddForm(open: boolean) {
+    this._addtype$.next(open);
   }
-  public getAddForm():Observable<boolean>{
+  public getAddForm(): Observable<boolean> {
     return this._addtype$.asObservable();
   }
   constructor() {}

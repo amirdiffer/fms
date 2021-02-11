@@ -1,67 +1,91 @@
-<!-- form-section form-section--inline-->
-<div class="form-section form-section--inline">
-    <div class="row">
-        <div class="col-12 col-md-2">
-            <h3 class="form-section__title">This Policy Is For</h3>
-        </div>
+<form [formGroup]="assetPolicyForm">
+    <div class="form-buttons">
+        <button class="cancel" (click)="goToList()">Cancel</button>
+        <button class="add" (click)="submit()">Add</button>
+    </div>
+    <!-- form-section form-section--inline-->
+    <div class="form-section form-section--inline mt-3">
+        <div class="row">
+            <div class="col-12 col-md-2">
+                <h3 class="form-section__title">This Policy Is For</h3>
+            </div>
 
-        <div class="col-12 col-md-4">
-            <div class="row">
-                <div class="col-12 col-md-12 p-field form-section__field radio-select">
-                    <p-radioButton name="policy_type" value="asset" label="Asset"></p-radioButton>
-                    <p-radioButton name="policy_type" value="subAsset" label="Sub Asset"></p-radioButton>
+            <div class="col-12 col-md-4">
+                <div class="row">
+                    <div class="col-12 col-md-12 p-field form-section__field
+                        radio-select">
+                        <p-radioButton name="policyType" formControlName="policyType"
+                            value="asset" label="Asset"></p-radioButton>
+                        <p-radioButton name="policyType" formControlName="policyType"
+                            value="subAsset" label="Sub Asset"></p-radioButton>
+                    </div>
                 </div>
+            </div>
+
+            <div class="col-12 col-md-6 p-field form-section__field">
+                <span class="p-float-label">
+                    <input formControlName="policyName" pInputText
+                        placeholder="Policy Name *" required type="text">
+                    <label>Policy Name *</label>
+                    <anms-error
+                        [showError]="hasError('policyName',assetPolicyForm,submited)"
+                        error="fms.errors.required">
+                    </anms-error>
+                </span>
+            </div>
+
+        </div>
+    </div>
+    <!-- end form-section form-section--inline-->
+    <!-- form-section -->
+    <div class="form-section">
+        <h3 class="form-section__title">Maximum Usage</h3>
+
+        <div class="row form-section__row">
+            <div class="col-12 col-md-3 p-field form-section__field">
+                <span class="p-float-label">
+                    <input formControlName="killometerUsage" pInputText
+                        placeholder="killometer/Hour *" required type="text">
+                    <label>killometer/Hour *</label>
+                    <anms-error
+                        [showError]="hasError('killometerUsage',assetPolicyForm,submited)"
+                        error="fms.errors.required"></anms-error>
+                </span>
+            </div>
+            <div class="col-12 col-md-1 p-field form-section__field
+                text-center">
+                Or
+            </div>
+            <div class="col-12 col-md-3 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText placeholder="Year" type="text">
+                    <label>Year</label>
+                </span>
+            </div>
+        </div>
+        <div class="row form-section__row">
+            <div class="col-12 col-md-5 p-field form-section__field">
+                <span class="p-float-label">
+                    <input formControlName="depreciationValue" pInputText
+                        placeholder="% depreciation value *" required
+                        type="text">
+                    <label>% depreciation value *</label>
+                    <span class="year">Yearly</span>
+                    <anms-error
+                        [showError]="hasError('depreciationValue',assetPolicyForm,submited)"
+                        error="fms.errors.required"></anms-error>
+                </span>
+            </div>
+
+            <div class="col-12 col-md-3 form-section__field toggle-select">
+                <p-inputSwitch formControlName="reminder"></p-inputSwitch>
+                <span>Set Reminder Before</span>
             </div>
         </div>
 
-        <div class="col-12 col-md-6 p-field form-section__field">
-            <span class="p-float-label">
-                <input pInputText placeholder="Policy Name *" required type="text">
-                <label>Policy Name *</label>
-            </span>
-        </div>
-
     </div>
-</div>
-<!-- end form-section form-section--inline-->
-<!-- form-section -->
-<div class="form-section">
-    <h3 class="form-section__title">Maximum Usage</h3>
-
-    <div class="row form-section__row">
-        <div class="col-12 col-md-3 p-field form-section__field">
-            <span class="p-float-label">
-                <input pInputText placeholder="killometer/Hour *" required type="text">
-                <label>killometer/Hour *</label>
-            </span>
-        </div>
-        <div class="col-12 col-md-1 p-field form-section__field text-center">
-            Or
-        </div>
-        <div class="col-12 col-md-3 p-field form-section__field">
-            <span class="p-float-label">
-                <input pInputText placeholder="Year" required type="text">
-                <label>Year</label>
-            </span>
-        </div>
-    </div>
-    <div class="row form-section__row">
-        <div class="col-12 col-md-5 p-field form-section__field">
-            <span class="p-float-label">
-                <input pInputText placeholder="% depreciation value  *" required type="text">
-                <label>% depreciation value  *</label>
-                <span class="year">Yearly</span>
-            </span>
-        </div>
-
-        <div class="col-12 col-md-3 form-section__field toggle-select">
-            <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
-            <span>Set Reminder Before</span>
-        </div>
-    </div>
-
-</div>
-<!-- end form-section -->
+    <!-- end form-section -->
+</form>
 
 <div class="table-container">
     <div class="card-table">

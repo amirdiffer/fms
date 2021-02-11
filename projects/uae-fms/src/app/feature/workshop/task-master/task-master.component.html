@@ -6,7 +6,7 @@
                 <button><svg-icon [src]="searchIcon" [svgStyle]="{ 'width.px':25 , 'fill': '#fff' , 'height': '100%'}"></svg-icon></button>
             </div>
             <button class="btn-download"><a></a></button>
-            <button class="btn-primary-green" [routerLink]="['add']"><i>+</i><a>Add</a></button>
+            <button class="btn-primary-green" [routerLink]="['add']" CheckAccess="task-master:create"><i>+</i><a>Add</a></button>
             
         </div>
         <app-table [setting]="tableSetting"></app-table>

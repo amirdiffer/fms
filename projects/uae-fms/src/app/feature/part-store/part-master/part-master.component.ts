@@ -19,7 +19,7 @@ export class PartMasterComponent implements OnInit {
         filterTitle: '',
         filterCount: '',
         filterTagColor: '',
-        isCalendar:true
+        isCalendar: true
       },
       {
         filterTitle: 'Total',

@@ -31,12 +31,16 @@
     }
 
     .p-float-label input:focus ~ label,
-    .p-float-label input.p-filled ~ label {
+    .p-float-label input.p-filled ~ label,
+    .p-float-label .p-inputwrapper-focus ~ label,
+    .p-float-label .p-inputwrapper-filled ~ label,
+    .p-float-label input.ng-dirty ~ label {
       top: -0.15rem;
       font-size: 15px;
       left: 0.8rem;
       width: auto;
       padding: 0 5px;
+      color: #0da06e;
     }
 
     input {
@@ -73,10 +77,24 @@
     }
   }
 
+  // Checkbox Groups
+  .checkbox-select {
+    p-checkbox {
+      margin-right: 18px;
+    }
+    ::ng-deep {
+      .p-checkbox .p-checkbox-box:not(.p-disabled).p-focus {
+        box-shadow: none;
+        // border-color: #ced4da
+      }
+    }
+  }
+
   // Switch
   .toggle-select {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 
     ::ng-deep {
@@ -132,6 +150,78 @@
     .form-section__title {
       margin-bottom: 0;
       line-height: 40px;
+    }
+  }
+}
+
+/* AutoComplete */
+.autocomplete-select {
+  position: relative;
+  ::ng-deep {
+    .p-inputwrapper-focus {
+      box-shadow: none;
+      border: none;
+    }
+    .p-autocomplete {
+      width: 100%;
+      .p-autocomplete-input {
+        width: 100%;
+      }
+      .p-autocomplete-loader {
+        display: none;
+      }
+    }
+    .pi-search {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+    .p-inputtext:enabled:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.dropdown-select-input {
+  display: flex;
+  ::ng-deep {
+    .p-dropdown {
+      border-color: #d3d3d3;
+    }
+    .p-dropdown:not(.p-disabled).p-focus {
+      box-shadow: none;
+    }
+    .p-dropdown:not(.p-disabled):hover {
+      border-color: #0da06e;
+    }
+  }
+}
+
+/* Validation */
+.red-font {
+  color: #dd5648 !important;
+}
+.error-input {
+  color: #dd5648 !important;
+  margin: 4px 0;
+  font-size: 15px;
+}
+.invalid {
+  border-color: #dd5648 !important;
+  ::ng-deep {
+    .p-autocomplete-input {
+      border-color: #dd5648 !important;
+    }
+  }
+}
+
+.options-select {
+  ::ng-deep {
+    .p-dropdown:not(.p-disabled).p-focus {
+      box-shadow: none;
+    }
+    .p-dropdown {
+      display: flex !important;
     }
   }
 }

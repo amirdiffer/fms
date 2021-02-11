@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AssetConfigurationService } from './asset-configuration.service';
 @Component({
@@ -7,25 +12,25 @@ import { AssetConfigurationService } from './asset-configuration.service';
   styleUrls: ['./asset-configuration.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AssetConfigurationComponent implements OnInit , OnDestroy{
+export class AssetConfigurationComponent implements OnInit, OnDestroy {
   searchIcon = 'assets/icons/search.svg';
   assetConfigurationableSetting;
   addOpen;
-  addOpen$:Subscription;
+  addOpen$: Subscription;
   constructor(private _assetConfigurationService: AssetConfigurationService) {}
 
   ngOnInit(): void {
     this.assetConfigurationableSetting = this._assetConfigurationService.assetConfigurationableSetting();
-    this.addOpen$ = this._assetConfigurationService.getAddForm().subscribe(
-      (open) => {
+    this.addOpen$ = this._assetConfigurationService
+      .getAddForm()
+      .subscribe((open) => {
         this.addOpen = open;
-      }
-    )
+      });
   }
-  openAdd(){
+  openAdd() {
     this._assetConfigurationService.loadAddForm(true);
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.addOpen$.unsubscribe();
   }
 }

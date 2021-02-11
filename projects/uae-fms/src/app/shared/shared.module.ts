@@ -32,6 +32,13 @@ import { DropdownModule } from 'primeng/dropdown';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DialogModule } from 'primeng/dialog';
 import { CalendarModule } from 'primeng/calendar';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ErrorModule } from './error/error.module';
+import { CheckAccessDirective } from '@core/directive/check-access.directive';
 
 @NgModule({
   imports: [
@@ -63,9 +70,12 @@ import { CalendarModule } from 'primeng/calendar';
     DropdownModule,
     AutoCompleteModule,
     DialogModule,
-    CalendarModule
+    CalendarModule,
+    AngularSvgIconModule,
+    ErrorModule,
+    CheckboxModule
   ],
-  declarations: [RtlSupportDirective],
+  declarations: [RtlSupportDirective, CheckAccessDirective],
   exports: [
     CommonModule,
     FormsModule,
@@ -100,7 +110,12 @@ import { CalendarModule } from 'primeng/calendar';
     DropdownModule,
     AutoCompleteModule,
     DialogModule,
-    CalendarModule
+    CalendarModule,
+    AngularSvgIconModule,
+    CalendarModule,
+    ErrorModule,
+    CheckAccessDirective,
+    CheckboxModule
   ]
 })
 export class SharedModule {

@@ -1,21 +1,51 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting } from '@core/table';
 import { AuctionListFacade } from '@feature/workshop/+state/auction-list';
+import { Subscription } from 'rxjs';
+import { FakeServiceAuctionList } from './_fake-service.service';
 
 @Component({
   templateUrl: './auction-list.component.html',
   styleUrls: ['./auction-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuctionListComponent implements OnInit {
+export class AuctionListComponent implements OnInit , OnDestroy{
+  editOpen: boolean = false;
+  editOpen$: Subscription;
   filterSetting: FilterCardSetting[] = [
-    { filterCount: "", filterTagColor: "", filterTitle: "This Month", isCalendar:true , onActive: () => { } },
-    { filterCount: "13", filterTagColor: "#6EBFB5", filterTitle: "Total", onActive: () => { } },
-    { filterCount: "08", filterTagColor: "#6870B4", filterTitle: "Out of Policy", onActive: () => { } },
-    { filterCount: "02", filterTagColor: "#BA7967", filterTitle: "Total lost", onActive: () => { } },
-    { filterCount: "09", filterTagColor: "#DD5648", filterTitle: "Accident", onActive: () => { } },
-  ]
+    {
+      filterCount: '',
+      filterTagColor: '',
+      filterTitle: 'This Month',
+      isCalendar: true,
+      onActive: () => {}
+    },
+    {
+      filterCount: '13',
+      filterTagColor: '#6EBFB5',
+      filterTitle: 'Total',
+      onActive: () => {}
+    },
+    {
+      filterCount: '08',
+      filterTagColor: '#6870B4',
+      filterTitle: 'Out of Policy',
+      onActive: () => {}
+    },
+    {
+      filterCount: '02',
+      filterTagColor: '#BA7967',
+      filterTitle: 'Total lost',
+      onActive: () => {}
+    },
+    {
+      filterCount: '09',
+      filterTagColor: '#DD5648',
+      filterTitle: 'Accident',
+      onActive: () => {}
+    }
+  ];
 
   settingTable1: TableSetting = {
     columns: [
@@ -225,9 +255,17 @@ export class AuctionListComponent implements OnInit {
     ]
   };
 
-  constructor(private _facade : AuctionListFacade) {}
+  constructor(private _facade: AuctionListFacade , private _fake_serviceservice : FakeServiceAuctionList) {}
 
   ngOnInit(): void {
-    this._facade.loadAll()
+    this.editOpen$ = this._fake_serviceservice
+      .getEdit()
+      .subscribe((open) => {
+        this.editOpen = open;
+      });
+    this._facade.loadAll();
+  }
+  ngOnDestroy(){
+    this.editOpen$.unsubscribe();
   }
 }

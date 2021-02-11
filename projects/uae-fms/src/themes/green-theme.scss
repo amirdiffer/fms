@@ -65,85 +65,79 @@ $edit-box-list-hover: map-get($edit-box-colors, 'list-hover');
 /* Typography */
 
 // h1
-$fms-green-h1-font: '29LT Bukra';
+$fms-green-h1-font: '29LT Bukra - Bold';
 $fms-green-h1-font-weight: bold;
-$fms-green-h1-color: #0da06e;
-$fms-green-h1-font-size: 20px;
-$fms-green-h1-letter-line-spaceing: 27px;
+$fms-green-h1-color: #111;
+$fms-green-h1-font-size: 24px;
+$fms-green-h1-letter-line-spaceing: 36px;
 // h2
-$fms-green-h2-font: '29LT Bukra';
+$fms-green-h2-font: '29LT Bukra - Bold';
 $fms-green-h2-font-weight: bold;
-$fms-green-h2-color: #000;
-$fms-green-h2-font-size: 18px;
-$fms-green-h2-letter-line-spaceing: 25px;
+$fms-green-h2-color: #111;
+$fms-green-h2-font-size: 22px;
+$fms-green-h2-letter-line-spaceing: 33px;
 // h3
-$fms-green-h2-font: '29LT Bukra';
-$fms-green-h2-font-weight: bold;
-$fms-green-h2-color: #000;
-$fms-green-h2-font-size: 16px;
-$fms-green-h2-letter-line-spaceing: 24px;
+$fms-green-h3-font: '29LT Bukra - Bold';
+$fms-green-h3-font-weight: bold;
+$fms-green-h3-color: #000;
+$fms-green-h3-font-size: 20px;
+$fms-green-h3-letter-line-spaceing: 30px;
 // subtitle 1
-$fms-green-subtitle1-font: '29LT Bukra';
+$fms-green-subtitle1-font: '29LT Bukra - Bold';
 $fms-green-subtitle1-font-weight: bold;
-$fms-green-subtitle1-color: #000;
-$fms-green-subtitle1-font-size: 15px;
-$fms-green-subtitle1-letter-line-spaceing: 21px;
+$fms-green-subtitle1-color: #585858;
+$fms-green-subtitle1-font-size: 18px;
+$fms-green-subtitle1-letter-line-spaceing: 27px;
 // subtitle 2
-$fms-green-subtitle1-font: '29LT Bukra';
+$fms-green-subtitle1-font: '29LT Bukra - Bold';
 $fms-green-subtitle1-font-weight: bold;
-$fms-green-subtitle1-color: #000;
-$fms-green-subtitle1-font-size: 12px;
-$fms-green-subtitle1-letter-line-spaceing: 18px;
+$fms-green-subtitle1-color: #585858;
+$fms-green-subtitle1-font-size: 16px;
+$fms-green-subtitle1-letter-line-spaceing: 24px;
 // page tab
 $fms-green-page-tab-font: 'IBM Plex Sans';
-$fms-green-page-tab-font-weight: medium;
+$fms-green-page-tab-font-weight: normal;
 $fms-green-page-tab-color: #475f7b;
 $fms-green-page-tab-font-size: 16px;
-$fms-green-page-tab-letter-line-spaceing: 29px;
-// label
-$fms-green-subtitle1-font: '29LT Bukra';
-$fms-green-subtitle1-font-weight: regular;
-$fms-green-subtitle1-font-size: 20px;
-$fms-green-subtitle1-letter-line-spaceing: 25px;
+$fms-green-page-tab-letter-line-spaceing: 24px;
+// page tab active
+$fms-green-page-tab-active-font: 'IBM Plex Sans - Bold';
+$fms-green-page-tab-active-font-weight: bold;
+$fms-green-page-tab-active-color: #475f7b;
+$fms-green-page-tab-active-font-size: 16px;
+$fms-green-page-tab-active-letter-line-spaceing: 24px;
+// label text - status bar
+$fms-green-label-text-font: '29LT Bukra - Bold';
+$fms-green-label-text-font-weight: bold;
+$fms-green-label-text-font-size: 24px;
+$fms-green-label-text-letter-line-spaceing: 36px;
 // label text number
 $fms-green-label-text-number-font: '29LT Bukra';
-$fms-green-label-text-number-font-weight: regular;
-$fms-green-label-text-number-font-size: 20px;
-$fms-green-label-text-number-letter-line-spaceing: 25px;
+$fms-green-label-text-number-font-weight: normal;
+$fms-green-label-text-number-font-size: 24px;
+$fms-green-label-text-number-letter-line-spaceing: 36px;
 // body 1
 $fms-green-body1-font: '29LT Bukra';
-$fms-green-body1-font-weight: regular;
-$fms-green-body1-color: #000;
-$fms-green-body1-font-size: 15px;
-$fms-green-body1-letter-line-spaceing: 18px;
+$fms-green-body1-font-weight: normal;
+$fms-green-body1-color: #535353;
+$fms-green-body1-font-size: 16px;
+$fms-green-body1-letter-line-spaceing: 24px;
 // body 2
 $fms-green-body2-font: '29LT Bukra';
-$fms-green-body2-font-weight: regular;
-$fms-green-body2-color: #000;
-$fms-green-body2-font-size: 12px;
-$fms-green-body2-letter-line-spaceing: 17px;
-// button large
-$fms-green-button-large-font: '29LT Bukra';
-$fms-green-button-large-font-weight: bold;
-$fms-green-button-large-color: #fff;
-$fms-green-button-large-font-size: 18px;
-$fms-green-button-large-letter-line-spaceing: 27px;
-// button medium
-$fms-green-button-medium-font: '29LT Bukra';
-$fms-green-button-medium-font-weight: bold;
-$fms-green-button-medium-color: #fff;
-$fms-green-button-medium-font-size: 16px;
-$fms-green-button-medium-letter-line-spaceing: 24px;
-// button small
-$fms-green-button-medium-font: '29LT Bukra';
-$fms-green-button-medium-font-weight: bold;
-$fms-green-button-medium-color: #fff;
-$fms-green-button-medium-font-size: 14px;
-$fms-green-button-medium-letter-line-spaceing: 21px;
+$fms-green-body2-font-weight: normal;
+$fms-green-body2-color: #535353;
+$fms-green-body2-font-size: 14px;
+$fms-green-body2-letter-line-spaceing: 21px;
+// button
+$fms-green-button-font: '29LT Bukra';
+$fms-green-button-font-weight: bold;
+$fms-green-button-color: #fff;
+$fms-green-button-font-size: 14px;
+$fms-green-button-letter-line-spaceing: 24px;
 
 /* Colors */
 
-$fms-green-body-color: #121212;
+$fms-green-body-color: $fms-green-body1-color;
 $fms-green-body1-bg: #f3f3f3;
 $fms-green-body2-bg: #fafafa;
 
@@ -164,19 +158,19 @@ $fms-green-primary-color2: #008755;
 
 // seconday colors
 $fms-green-secondary-color1: #f2b06e;
-$fms-green-secondary-color2: #60dfd0;
+$fms-green-secondary-color2: #42d0d9;
 $fms-green-secondary-color3: #9967d9;
-$fms-green-secondary-color4: #d0e86c;
+$fms-green-secondary-color4: #20e19d;
 
 // gradient colors
-$fms-green-gradadient-color-start1: #fab75d;
-$fms-green-gradadient-color-end1: #fab75d;
-$fms-green-gradadient-color-start2: #9967d9;
-$fms-green-gradadient-color-end2: #6fd5e4;
+$fms-green-gradadient-color-start1: #fcaa59;
+$fms-green-gradadient-color-end1: #f2b06e;
+$fms-green-gradadient-color-start2: #60dfd0;
+$fms-green-gradadient-color-end2: #42d0d9;
 $fms-green-gradadient-color-start3: #9967d9;
 $fms-green-gradadient-color-end3: #7968dc;
-$fms-green-gradadient-color-start4: #a8e878;
-$fms-green-gradadient-color-end4: #d0e86c;
+$fms-green-gradadient-color-start4: #20e19d;
+$fms-green-gradadient-color-end4: #81e582;
 
 /* forms */
 
@@ -212,3 +206,60 @@ $fms-green-form-addon-border: $fms-green-primary-color2;
 
 // toggle inputs
 $fms-green-form-input-toggle: $fms-green-primary-color1;
+
+// radios
+
+// unchecked
+$fms-green-unchecked-radio-border: #707070;
+
+// checked
+$fms-green-checked-radio-fill: #0da06e;
+$fms-green-checked-radio-border: #0da06e;
+
+// disabled
+$fms-green-disabled-radio-fill: #eaeaea;
+$fms-green-disabled-radio-border: #dbdbdb;
+
+// disabled-checked
+$fms-green-disabled-checked-radio-fill: #0da06e;
+$fms-green-disabled-checked-radio-border: #0da06e;
+
+// checkboxs
+
+// unchecked
+$fms-green-unchecked-checkbox-border: #707070;
+
+// checked
+$fms-green-checked-checkbox-fill: #008755;
+
+// disabled
+$fms-green-disabled-checkbox-fill: #eaeaea;
+$fms-green-disabled-checkbox-border: #dbdbdb;
+
+// disabled-checked
+$fms-green-disabled-checked-checkbox-fill: #0da06e;
+
+// switch
+
+// unchecked
+$fms-green-unchecked-switch-fill: #a0a0a0;
+
+// checked
+$fms-green-checked-switch-fill: #0da06e;
+
+// disabled
+$fms-green-disabled-switch-fill: #eaeaea;
+$fms-green-disabled-switch-border: #dbdbdb;
+
+// disabled-checked
+$fms-green-disabled-checked-switch-fill: #0da06e;
+
+// stepper
+
+$fms-green-stepper-label-active: #0da06e;
+$fms-green-stepper-label-inactive: #58585b;
+$fms-green-stepper-step-inactive-fill: #959595;
+$fms-green-stepper-step-active-fill: #0da06e;
+$fms-green-stepper-step-current-outline: #008755;
+$fms-green-stepper-bar-: #008755;
+$fms-green-stepper-bar-inactive-: #e6e6e6;
