@@ -240,6 +240,10 @@
   );
 }
 
+.p-inputtext:enabled:focus {
+  box-shadow: none !important;
+}
+
 button {
   i {
     font-size: 1.2rem !important;

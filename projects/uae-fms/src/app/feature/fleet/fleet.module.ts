@@ -13,11 +13,12 @@ import { AccessoryComponent } from './accessory/accessory.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { AddSubAssetComponent } from './sub-asset/add-sub-asset/add-sub-asset.component';
 import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
+import { SharedModule } from 'app/shared/shared.module';
+import { MovementConfirmComponent } from './movement/movement-confirm/movement-confirm.component';
 
 import { FilterModule } from '@core/filter/filter.module';
 import { TableModule } from '@core/table/table.module';
 import { TabViewModule } from '@core/tab-view';
-import { SharedModule } from './../../shared/shared.module';
 import { AddAssetComponent } from './assets/add-asset/add-asset.component';
 
 import { CdkStepperModule } from '@angular/cdk/stepper';
@@ -31,8 +32,9 @@ import { MatStepperModule } from '@angular/material/stepper';
     MovementComponent,
     AccessoryComponent,
     AddSubAssetComponent,
-    OrganizationComponent,
     AddOrganizationComponent,
+    MovementConfirmComponent,
+    OrganizationComponent,
     AddAssetComponent
   ],
   imports: [
@@ -42,7 +44,6 @@ import { MatStepperModule } from '@angular/material/stepper';
     CommonModule,
     FilterModule,
     TableModule,
-    TabViewModule,
     DashboardModule,
     MatStepperModule,
     CdkStepperModule,
