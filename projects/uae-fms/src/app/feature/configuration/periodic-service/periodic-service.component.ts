@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
+import { PeriodicServiceFacade } from '../+state/periodic-service';
 
 @Component({
   selector: 'anms-periodic-service',
@@ -47,7 +48,9 @@ export class PeriodicServiceComponent implements OnInit {
     data: this.tableData
   };
 
-  constructor() {}
+  constructor(private facade: PeriodicServiceFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
 }

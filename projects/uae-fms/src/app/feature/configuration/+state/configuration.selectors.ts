@@ -23,4 +23,9 @@ export class ConfigurationSelectors {
     ConfigurationSelectors.featureSelector,
     (state) => state['ownership']
   );
+
+  static periodicServiceSelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['periodicService']
+  );
 }
