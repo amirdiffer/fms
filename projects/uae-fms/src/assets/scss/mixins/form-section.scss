@@ -90,6 +90,17 @@
       }
     }
 
+    .checkbox-select {
+      .p-checkbox .p-checkbox-box.p-highlight {
+        border-color: $form-input-toggle;
+        background: $form-input-toggle !important;
+      }
+
+      .p-checkbox .p-checkbox-box:not(.p-disabled):not(.p-highlight):hover {
+        border-color: $form-input-toggle !important;
+      }
+    }
+
     .toggle-select {
       .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
         background-color: $form-input-toggle !important;

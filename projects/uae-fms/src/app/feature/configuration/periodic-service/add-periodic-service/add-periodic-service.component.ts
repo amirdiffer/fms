@@ -47,6 +47,12 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
     }
   ];
 
+  units = [
+    { id: 1, name: 'Km/h' },
+    { id: 2, name: 'Km/m' },
+    { id: 3, name: 'Km/s' }
+  ];
+
   tableSetting: TableSetting = {
     columns: this.tableColumns,
     data: this.tableData
