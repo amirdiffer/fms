@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { assetsPath } from '@environments/environment';
+import { TrafficFineTableFacade } from '../traffic-fine/+state/traffic-fine';
 
 @Component({
   selector: 'anms-traffic-fine',
@@ -305,7 +306,9 @@ export class TrafficFineComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private facade: TrafficFineTableFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
 }

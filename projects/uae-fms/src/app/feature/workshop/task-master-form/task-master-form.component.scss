@@ -1,3 +1,35 @@
 @import '../../../../themes/green-theme';
 @import '../../../../assets/scss/form-section.scss';
 @import '../task-master/task-master.component';
+.form-buttons {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    button {
+        width: 180px;
+        height: 50px;
+        font-size: 17px;
+        margin: 0 2px;
+    }
+    .add {
+        background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
+        0% no-repeat padding-box;
+        box-shadow: 0px 0px 1px #000000;
+        border-radius: 4px;
+        opacity: 1;
+        color: #ffffff;
+        border: 0;
+    }
+    .cancel {
+        box-shadow: 0px 0px 1px #00000066;
+        border: 2px solid #0da06e;
+        border-radius: 4px;
+        opacity: 1;
+        color: #0da06e;
+    }
+}
+
+.flex-with-button{
+    flex:1 0 85%;
+    overflow: visible;
+}

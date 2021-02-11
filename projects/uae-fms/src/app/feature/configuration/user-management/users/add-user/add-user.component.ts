@@ -1,5 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { InjectableCompiler } from '@angular/compiler/src/injectable_compiler';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  OnInit
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FilterCardSetting } from '@core/filter';
+import { Utility } from '@shared/utility/utility';
 
 @Component({
   selector: 'anms-add-user',
@@ -7,10 +15,66 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./add-user.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddUserComponent implements OnInit {
+export class AddUserComponent extends Utility implements OnInit {
   form: FormGroup;
+  submited = false;
+  employees = [
+    { name: 'Employee 1', id: 1 },
+    { name: 'Employee 2', id: 2 },
+    { name: 'Employee 3', id: 3 },
+    { name: 'Employee 4', id: 4 },
+    { name: 'Employee 5', id: 5 },
+    { name: 'Employee 6', id: 6 }
+  ];
+  departments = [
+    { name: 'Department 1', id: 1 },
+    { name: 'Department 2', id: 2 },
+    { name: 'Department 3', id: 3 },
+    { name: 'Department 4', id: 4 },
+    { name: 'Department 5', id: 5 },
+    { name: 'Department 6', id: 6 }
+  ];
+  roles = [
+    { name: 'Admin', id: 1 },
+    { name: 'Manager', id: 2 },
+    { name: 'Police', id: 3 },
+    { name: 'User', id: 4 }
+  ];
 
-  constructor(private formBuilder: FormBuilder) {}
+  filter: FilterCardSetting[] = [
+    {
+      isCalendar: true,
+      filterTitle: 'This Month',
+      filterCount: '0',
+      filterTagColor: '#fff',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'Total',
+      filterCount: '13',
+      filterTagColor: '#6EBFB5',
+      filterSupTitle: 'User',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'Active',
+      filterCount: '08',
+      filterTagColor: '#6870B4',
+      filterSupTitle: 'User',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'Inactive',
+      filterCount: '02',
+      filterTagColor: '#BA7967',
+      filterSupTitle: 'User',
+      onActive(index: number) {}
+    }
+  ];
+
+  constructor(injector: Injector, private formBuilder: FormBuilder) {
+    super(injector);
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -19,7 +83,7 @@ export class AddUserComponent implements OnInit {
   buildForm(): void {
     this.form = this.formBuilder.group({
       portalInformation: this.formBuilder.group({
-        employeeNumber: [''],
+        employeeNumber: ['', [Validators.required]],
         department: [''],
         role: [''],
         activeEmployee: false
@@ -29,10 +93,10 @@ export class AddUserComponent implements OnInit {
         fileSize: ['']
       }),
       personalInformation: this.formBuilder.group({
-        firstName: [''],
-        lastName: [''],
-        email: [''],
-        phoneNumber: [''],
+        firstName: ['', [Validators.required]],
+        lastName: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        phoneNumber: ['', [Validators.required]],
         callCheckbox: false,
         smsCheckbox: false,
         emailCheckbox: false,
@@ -41,5 +105,29 @@ export class AddUserComponent implements OnInit {
     });
   }
 
-  submit(): void {}
+  submit(): void {
+    this.submited = true;
+  }
+  filterEmployees(event) {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    this.employees = [
+      { name: 'Employee 1', id: 1 },
+      { name: 'Employee 2', id: 2 },
+      { name: 'Employee 3', id: 3 },
+      { name: 'Employee 4', id: 4 },
+      { name: 'Employee 5', id: 5 },
+      { name: 'Employee 6', id: 6 }
+    ];
+  }
+  filterDepartments(event) {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    this.departments = [
+      { name: 'Dapartment 1', id: 1 },
+      { name: 'Dapartment 2', id: 2 },
+      { name: 'Dapartment 3', id: 3 },
+      { name: 'Dapartment 4', id: 4 },
+      { name: 'Dapartment 5', id: 5 },
+      { name: 'Dapartment 6', id: 6 }
+    ];
+  }
 }

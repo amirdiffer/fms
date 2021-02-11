@@ -12,6 +12,13 @@ import { UsersFacade, UsersService } from './users';
 import { UsersEffect } from './users/users.effect';
 import { FleetStatusEffect } from './fleet-status/fleet-status.effect';
 import { FleetStatusFacade, FleetStatusService } from './fleet-status';
+import { OwnershipFacade, OwnershipService } from './ownership';
+import { OwnershipEffect } from './ownership/ownership.effect';
+import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-service.effect';
+import {
+  PeriodicServiceFacade,
+  PeriodicServiceService
+} from '../+state/periodic-service';
 
 @NgModule({
   declarations: [],
@@ -21,7 +28,9 @@ import { FleetStatusFacade, FleetStatusService } from './fleet-status';
       RolePermissionEffect,
       AssetPolicyEffect,
       UsersEffect,
-      FleetStatusEffect
+      FleetStatusEffect,
+      OwnershipEffect,
+      PeriodicServiceEffect
     ])
   ],
   providers: [
@@ -32,7 +41,11 @@ import { FleetStatusFacade, FleetStatusService } from './fleet-status';
     UsersFacade,
     UsersService,
     FleetStatusFacade,
-    FleetStatusService
+    FleetStatusService,
+    OwnershipFacade,
+    OwnershipService,
+    PeriodicServiceFacade,
+    PeriodicServiceService
   ]
 })
 export class ConfigurationStateModule {}

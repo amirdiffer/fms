@@ -3,101 +3,94 @@
     <button class='cancel' (click)="goToList()">Cancel</button>
     <button class='add' (click)="submit()">Add</button>
   </div>
-  <div class='row'>
-    <div class='col-12'>
-      <div class='component_wrapper'>
-        <div class='row'>
-          <div class='col-lg-2'>
-            <label class='caption'>Periodic Service Info</label>
-          </div>
-          <div class='col-lg-6'>
-            <div class='form-group'>
-              <input type='text' class='form-control' formControlName="name"
-                required placeholder='Periodic Service Name *'>
-              <anms-error
-                [showError]="hasError('name',addPeriodicServiceForm,submited)"
-                error="fms.errors.required">
-              </anms-error>
-            </div>
-          </div>
-
-        </div>
+  <div class="form-section form-section--inline mt-3">
+    <div class="row">
+      <div class="col-12 col-md-3">
+        <h3 class="form-section__title">Periodic Service Info</h3>
       </div>
-    </div>
-    <div class='col-12'>
-      <div class='component_wrapper'>
-        <div class='row'>
-          <div class='col-lg-2'>
-            <label class='caption'>
-              <span class='plus-icon'>
-                <svg-icon src='../../../../../assets/icons/add.svg'
-                  [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
-                  '100%'}"></svg-icon>
-              </span>
-              Package
-            </label>
-          </div>
-          <div class="col-lg-4">
-            <div class="form-group">
-              <input type="text" class="form-control" required
-                formControlName="packageName"
-                placeholder="Package Name *">
-              <anms-error
-                [showError]="hasError('packageName',addPeriodicServiceForm,submited)"
-                error="fms.errors.required">
-              </anms-error>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="form-group">
-              <div class="input-group">
-                <div class="input-group-prepend border-input-prepend">
-                  <select class="bg-transparent border border-0">
-                    <option>Km/H</option>
-                  </select>
-                </div>
-                <input type="text" class="form-control border border-left-0"
-                  formControlName="intervals" required placeholder="Intervals">
-              </div>
-              <anms-error
-                [showError]="hasError('intervals',addPeriodicServiceForm,submited)"
-                error="fms.errors.required">
-              </anms-error>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="form-group">
-              <div class="input-group">
-                <label class="font-weight-bold mr-3">Tasks</label>
-                <input type="text" formControlName="task" class="form-control
-                  border-right-0 border" required
-                  placeholder="Task *">
-
-                <div class="input-group-append m-0">
-                  <div class="input-group-text bg-transparent
-                    border-input-append">
-                    <svg-icon src="../../../../../assets/icons/add.svg"
-                      [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' ,
-                      'height':
-                      '100%'}"></svg-icon>
-                  </div>
-                </div>
-              </div>
-              <anms-error
-                [showError]="hasError('task',addPeriodicServiceForm,submited)"
-                error="fms.errors.required">
-              </anms-error>
-            </div>
-          </div>
-        </div>
+      <div class="col-12 col-md-6 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="name" pInputText
+            placeholder="Periodic Service Name *" required type="text">
+          <label>Periodic Service Name *</label>
+          <anms-error
+            [showError]="hasError('name',addPeriodicServiceForm,submited)"
+            error="fms.errors.required">
+          </anms-error>
+        </span>
       </div>
+
     </div>
   </div>
+  <div class="form-section form-section--inline mt-3">
+    <div class="row">
+      <div class="col-12 col-md-1">
+        <!-- <span class='plus-icon'>
+          <svg-icon src='../../../../../assets/icons/add.svg'
+            [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
+            '100%'}"></svg-icon>
+        </span> -->
+        <h3 class="form-section__title">Package</h3>
+      </div>
+      <div class="col-12 col-md-5 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="packageName" pInputText
+            placeholder="Package Name *" required type="text">
+          <label>PackageName *</label>
+          <anms-error
+            [showError]="hasError('packageName',addPeriodicServiceForm,submited)"
+            error="fms.errors.required">
+          </anms-error>
+        </span>
+      </div>
+      <div class="col-12 col-md-5 p-field form-section__field
+        dropdown-select-input">
+        <p-dropdown inputId="unit" [options]="units"
+          optionLabel="name"></p-dropdown>
+          <span class="p-float-label">
+            <input formControlName="intervals" pInputText
+              placeholder="Intervals"  type="text">
+            <label>Intervals</label>
+          </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-1">
+        <!-- <span class='plus-icon'>
+        <svg-icon src='../../../../../assets/icons/add.svg'
+          [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
+          '100%'}"></svg-icon>
+      </span> -->
+        <h3 class="form-section__title">Task</h3>
+      </div>
+      <div class="col-12 col-md-5 p-field form-section__field">
+
+        <span class="p-float-label">
+          <div class="p-inputgroup">
+            <span class="p-float-label">
+              <input type="text" required formControlName="task" pInputText
+                placeholder="Task">
+              <label>Task *</label>
+            </span>
+            <span class="p-inputgroup-addon addon-primary">
+              <i class="pi pi-plus"></i>
+            </span>
+          </div>
+        </span>
+        <anms-error
+            [showError]="hasError('task',addPeriodicServiceForm,submited)"
+            error="fms.errors.required">
+          </anms-error>
+      </div>
+    </div>
+
+  </div>
+  
 </form>
 <div class="row">
   <div class='col-12'>
     <div class='component_wrapper'>
-      <div class='row'>
+      <div class='d-flex'>
         <app-table [setting]="tableSetting"></app-table>
       </div>
     </div>
