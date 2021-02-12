@@ -1,4 +1,3 @@
-import { PartStoreStateModule } from './+state/part-store.state.module';
 import { SharedModule } from '@shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -20,6 +19,7 @@ import { CategoryComponent } from './category/category.component';
 import { AssetTypeComponent } from './asset-type/asset-type.component';
 import { PartListFormComponent } from './part-list/part-list-form.component';
 import { AddPartMasterComponent } from './part-master/add-part-master/add-part-master.component';
+import { PartStoreStateModule } from './+state/part-store.state.module';
 import { DashboardModule } from '@feature/dashboard/dashboard.module';
 
 @NgModule({
