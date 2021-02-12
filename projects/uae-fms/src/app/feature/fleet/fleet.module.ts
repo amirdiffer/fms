@@ -1,6 +1,6 @@
-import { DashboardModule } from './../dashboard/dashboard.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { FleetRoutingModule } from './fleet-routing.module';
@@ -13,13 +13,19 @@ import { AccessoryComponent } from './accessory/accessory.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { AddSubAssetComponent } from './sub-asset/add-sub-asset/add-sub-asset.component';
 import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
-import { SharedModule } from 'app/shared/shared.module';
 import { MovementConfirmComponent } from './movement/movement-confirm/movement-confirm.component';
+import { DashboardModule } from '../dashboard/dashboard.module';
+import { SharedModule } from 'app/shared/shared.module';
 
 import { FilterModule } from '@core/filter/filter.module';
 import { TableModule } from '@core/table/table.module';
 import { TabViewModule } from '@core/tab-view';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddAssetComponent } from './assets/add-asset/add-asset.component';
+import { AddAccessoryComponent } from './accessory/add-accessory/add-accessory.component';
 
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -31,6 +37,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     SubAssetComponent,
     MovementComponent,
     AccessoryComponent,
+    AddAccessoryComponent,
     AddSubAssetComponent,
     AddOrganizationComponent,
     MovementConfirmComponent,
@@ -44,6 +51,11 @@ import { MatStepperModule } from '@angular/material/stepper';
     CommonModule,
     FilterModule,
     TableModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
     DashboardModule,
     MatStepperModule,
     CdkStepperModule,
