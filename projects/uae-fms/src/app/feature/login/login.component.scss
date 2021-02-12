@@ -1,0 +1,372 @@
+// Ipad Pro's view width
+$ipad-pro-width: 1024px;
+
+@mixin maximum-input-element-width {
+  // 2/3 Ipad Pro's view width
+  max-width: calc(#{$ipad-pro-width} * 2 / 3) !important;
+}
+
+.form-field {
+  border-radius: 40px;
+  box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.05);
+  -webkit-box-align: center !important;
+  align-items: center !important;
+  padding: 10px;
+  background: #ebeaea !important;
+  max-width: calc(1024px * 2 / 3) !important;
+  cursor: pointer;
+
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 1.125;
+  font-family: Bukra;
+
+  &:focus-within {
+    box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.1);
+    background: #d3d3d3 !important;
+  }
+
+  .field-group {
+    display: flex;
+  }
+
+  .field-icon {
+    white-space: nowrap;
+    flex: none;
+    position: relative;
+  }
+
+  .field-input {
+    flex-grow: 2;
+
+    input {
+      border: 0;
+      border-radius: 0;
+      background-color: inherit;
+      outline: 0;
+      height: 100%;
+    }
+  }
+}
+
+.login-component {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  background: url('/assets/login/login-background-mobile.png') #eeeeee no-repeat
+    center bottom;
+  background-size: cover;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.login {
+  min-width: 320px;
+  width: 46vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-radius: 0 !important;
+  margin-left: 0;
+  box-shadow: none !important;
+
+  &-loading {
+    height: 50vw;
+    width: 50vw;
+    background-image: url('/assets/login/DP-Loading.svg');
+    background-size: cover;
+    &-container {
+      height: 50vw;
+      width: 50vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255, 255, 255, 0);
+      border-radius: 50%;
+      position: absolute;
+      z-index: 2;
+      top: -20vw;
+      &-right {
+        left: -20vw;
+      }
+      &-left {
+        right: -20vw;
+      }
+    }
+  }
+  &-content {
+    width: 65%;
+    margin: auto;
+  }
+  &_prefix {
+    opacity: 0.5;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  &_remember {
+    font-size: 10px;
+    color: #008755;
+  }
+  &_forgot-pass {
+    font-size: 10px;
+    color: #a0a0a0;
+  }
+}
+
+.input_component {
+  border-radius: 20px !important;
+}
+
+.logo {
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 100% !important;
+  max-width: 417px !important;
+  &-container {
+    width: fit-content;
+    margin: 0 auto 30px;
+  }
+  &-text {
+    font-size: xx-large;
+    color: #018755;
+    font-weight: 700;
+    margin-left: 10%;
+  }
+}
+
+.img_login-logo {
+  width: 30%;
+  &-left {
+    margin: 15% 10% 0 0;
+  }
+  &-right {
+    margin: 15% 0 0 10%;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+}
+input:-internal-autofill-selected {
+  background-color: rgba(255, 255, 255, 0) !important;
+  background-image: none !important;
+  color: -internal-light-dark-color(black, white) !important;
+}
+.background-mobile {
+  max-height: 0;
+}
+
+.button-login {
+  outline: 0 !important;
+  border: 0;
+  border-radius: 20px !important;
+  background: #008755 !important;
+  color: white !important;
+  //max-width: 682.67px!important;
+  height: 44px;
+  @include maximum-input-element-width;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:focus,
+  &::active {
+    border: 0;
+    outline: 0;
+  }
+}
+
+.form-control-feedback {
+  font-size: 100%;
+  text-align: left;
+  display: block;
+  padding-left: 20px;
+  padding-top: 2px;
+  font-weight: 600;
+  color: red;
+}
+
+.login ul.navbar-nav.flex-row-reverse {
+  width: 25px;
+  height: 25px;
+  display: block;
+}
+
+.login ul.navbar-nav.flex-row-reverse img {
+  background: #008755;
+  padding: 10px;
+  border-radius: 23px;
+}
+
+.login .dropdown-menu.dropdown-menu-lg.dropdown-menu-left.lang-container.show {
+  left: -100px !important;
+}
+
+@media (max-width: 1024px) {
+  .login-component {
+    background: #eff4f8;
+  }
+
+  .login ul.navbar-nav.flex-row-reverse {
+    height: 0px !important;
+    z-index: 2;
+  }
+
+  .img_login-logo {
+    margin: 0 !important;
+    width: 40%;
+  }
+  .background-mobile {
+    min-height: 47vw;
+    height: 33.33vh;
+    min-width: 100vw;
+    position: relative;
+    z-index: 1;
+    background-image: url('/assets/login/login-background-mobile.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    top: 0;
+    left: 0;
+  }
+  .login {
+    min-width: 320px;
+    padding: 0 !important;
+    width: 100vw;
+    height: 100vh;
+    background: transparent !important;
+    border-radius: 0 !important;
+    margin-left: 0;
+    &-loading {
+      height: 63vw;
+      width: 63vw;
+      background-image: url('/assets/login/DP-Loading.svg');
+      background-size: cover;
+      &-container {
+        height: 66vw;
+        width: 66vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 50%;
+        position: absolute;
+        z-index: 2;
+        top: -20vw;
+        right: -20vw;
+      }
+    }
+    & > div > .m-card-content {
+      width: 64vw;
+      & > form > .input_component > div {
+        display: flex !important;
+        justify-content: center !important;
+      }
+    }
+    &-content {
+      width: 100%;
+      margin: auto;
+      display: flex;
+      justify-content: flex-start;
+      position: relative;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      & > .m-card-actions {
+        width: 64%;
+      }
+    }
+  }
+  .logo {
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 80% !important;
+    max-width: 417px !important;
+    &-container {
+      width: calc(64vw - 32px);
+      margin: 2.5vw auto;
+    }
+    &-text {
+      font-size: 5vw;
+      color: #018755;
+      font-weight: 700;
+      margin-left: 1vw;
+    }
+  }
+}
+@media (max-width: 414px) {
+  .background-mobile {
+    min-height: 33.33vh;
+    min-width: 100vw;
+    position: relative;
+    z-index: 1;
+    background-image: url('/assets/login/login-background-mobile.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    top: 0;
+    left: 0;
+  }
+  .login {
+    min-width: 320px;
+    padding: 0 !important;
+    width: 100vw;
+    height: 100vh;
+    background: transparent !important;
+    border-radius: 0 !important;
+    margin-left: 0;
+    &-loading {
+      height: 40.33vh;
+      width: 40.33vh;
+      background-image: url('/assets/login/DP-Loading.svg');
+      background-size: cover;
+      &-container {
+        height: 41.33vh;
+        width: 41.33vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        position: absolute;
+        z-index: 2;
+        top: -26vw;
+        right: -26vw;
+      }
+    }
+    & > div > .m-card-content {
+      width: 82.5vw;
+    }
+    &-content {
+      width: 100%;
+      margin: auto;
+      display: flex;
+      justify-content: flex-start;
+      position: relative;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      & > .m-card-actions {
+        width: 82.5%;
+      }
+    }
+  }
+  .logo {
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 70% !important;
+    max-width: 417px !important;
+    &-container {
+      width: calc(82.5vw);
+      margin: 2.5vw auto;
+    }
+    &-text {
+      font-size: 6vw;
+      color: #018755;
+      font-weight: 700;
+      margin-left: 0.25vw;
+    }
+  }
+}

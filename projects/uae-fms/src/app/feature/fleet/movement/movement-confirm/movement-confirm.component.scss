@@ -1,0 +1,26 @@
+@import '../../../../../themes/green-theme.scss';
+@import '../../../../../assets/scss/form-section.scss';
+h4.main-title {
+  color: #0da06e;
+  margin-left: 10px;
+}
+
+.justify {
+  margin-top: 10px;
+}
+
+.btn-container {
+  .btn-primary-green {
+    background-color: #009e64;
+    border: 2px solid #0da06e;
+    border-radius: 4px;
+    width: 155px;
+    height: 45px;
+  }
+  .btn-cancel {
+    color: #009e64;
+    border: none;
+    background: transparent;
+    margin-right: 16px;
+  }
+}

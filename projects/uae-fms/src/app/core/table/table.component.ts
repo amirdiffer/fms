@@ -78,6 +78,7 @@ export interface ColumnDifinition {
   thumbField?: string;
   renderer?: string;
   textColor?: string;
+  onClick?: Function;
 }
 
 export enum ColumnType {

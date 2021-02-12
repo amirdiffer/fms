@@ -1,24 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { TableModule } from '@core/table';
+import { FilterModule } from '@core/filter';
+
+import { UsersComponent } from './users/users.component';
 import { UserManagementRoutingModule } from './user-management-routing.module';
 import { RolePermissionComponent } from './role-permission/role-permission.component';
-import { TableModule } from '@core/table';
-import { UsersComponent } from './users/users.component';
-import { FilterModule } from '@core/filter';
 import { CompanySettingComponent } from './company-setting/company-setting.component';
+import { AddRoleAndPermissionComponent } from './role-permission/add-role-and-permission/add-role-and-permission.component';
+import { AddUserComponent } from './users/add-user/add-user.component';
+import { SharedModule } from '@shared/shared.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
-    RolePermissionComponent,
     UsersComponent,
-    CompanySettingComponent
+    RolePermissionComponent,
+    CompanySettingComponent,
+    AddRoleAndPermissionComponent,
+    AddUserComponent
   ],
   imports: [
-    CommonModule,
-    UserManagementRoutingModule,
     TableModule,
-    FilterModule
+    CommonModule,
+    FilterModule,
+    UserManagementRoutingModule,
+    SharedModule,
+    MatProgressBarModule
   ]
 })
 export class UserManagementModule {}

@@ -43,37 +43,223 @@ $anms-green-theme: mat-light-theme(
   $anms-green-warn
 );
 
+$edit-box-colors: (
+  'primary': #828acd,
+  'title': #475f7b,
+  'list-title': #000,
+  'list-value': #525252,
+  'list-value-danger': #f75a4a,
+  'list-border': #d8d8d8,
+  'list-hover': #f2f4f4
+);
+
+$edit-box-primary: map-get($edit-box-colors, 'primary');
+$edit-box-title: map-get($edit-box-colors, 'title');
+$edit-box-list-title: map-get($edit-box-colors, 'list-title');
+$edit-box-list-value: map-get($edit-box-colors, 'list-value');
+$edit-box-list-value-danger: map-get($edit-box-colors, 'list-value-danger');
+$edit-box-list-border: map-get($edit-box-colors, 'list-border');
+$edit-box-list-hover: map-get($edit-box-colors, 'list-hover');
 /* Design System */
+
+/* Typography */
+
+// h1
+$fms-green-h1-font: '29LT Bukra - Bold';
+$fms-green-h1-font-weight: bold;
+$fms-green-h1-color: #111;
+$fms-green-h1-font-size: 24px;
+$fms-green-h1-letter-line-spaceing: 36px;
+// h2
+$fms-green-h2-font: '29LT Bukra - Bold';
+$fms-green-h2-font-weight: bold;
+$fms-green-h2-color: #111;
+$fms-green-h2-font-size: 22px;
+$fms-green-h2-letter-line-spaceing: 33px;
+// h3
+$fms-green-h3-font: '29LT Bukra - Bold';
+$fms-green-h3-font-weight: bold;
+$fms-green-h3-color: #000;
+$fms-green-h3-font-size: 20px;
+$fms-green-h3-letter-line-spaceing: 30px;
+// subtitle 1
+$fms-green-subtitle1-font: '29LT Bukra - Bold';
+$fms-green-subtitle1-font-weight: bold;
+$fms-green-subtitle1-color: #585858;
+$fms-green-subtitle1-font-size: 18px;
+$fms-green-subtitle1-letter-line-spaceing: 27px;
+// subtitle 2
+$fms-green-subtitle1-font: '29LT Bukra - Bold';
+$fms-green-subtitle1-font-weight: bold;
+$fms-green-subtitle1-color: #585858;
+$fms-green-subtitle1-font-size: 16px;
+$fms-green-subtitle1-letter-line-spaceing: 24px;
+// page tab
+$fms-green-page-tab-font: 'IBM Plex Sans';
+$fms-green-page-tab-font-weight: normal;
+$fms-green-page-tab-color: #475f7b;
+$fms-green-page-tab-font-size: 16px;
+$fms-green-page-tab-letter-line-spaceing: 24px;
+// page tab active
+$fms-green-page-tab-active-font: 'IBM Plex Sans - Bold';
+$fms-green-page-tab-active-font-weight: bold;
+$fms-green-page-tab-active-color: #475f7b;
+$fms-green-page-tab-active-font-size: 16px;
+$fms-green-page-tab-active-letter-line-spaceing: 24px;
+// label text - status bar
+$fms-green-label-text-font: '29LT Bukra - Bold';
+$fms-green-label-text-font-weight: bold;
+$fms-green-label-text-font-size: 24px;
+$fms-green-label-text-letter-line-spaceing: 36px;
+// label text number
+$fms-green-label-text-number-font: '29LT Bukra';
+$fms-green-label-text-number-font-weight: normal;
+$fms-green-label-text-number-font-size: 24px;
+$fms-green-label-text-number-letter-line-spaceing: 36px;
+// body 1
+$fms-green-body1-font: '29LT Bukra';
+$fms-green-body1-font-weight: normal;
+$fms-green-body1-color: #535353;
+$fms-green-body1-font-size: 16px;
+$fms-green-body1-letter-line-spaceing: 24px;
+// body 2
+$fms-green-body2-font: '29LT Bukra';
+$fms-green-body2-font-weight: normal;
+$fms-green-body2-color: #535353;
+$fms-green-body2-font-size: 14px;
+$fms-green-body2-letter-line-spaceing: 21px;
+// button
+$fms-green-button-font: '29LT Bukra';
+$fms-green-button-font-weight: bold;
+$fms-green-button-color: #fff;
+$fms-green-button-font-size: 14px;
+$fms-green-button-letter-line-spaceing: 24px;
 
 /* Colors */
 
+$fms-green-body-color: $fms-green-body1-color;
+$fms-green-body1-bg: #f3f3f3;
+$fms-green-body2-bg: #fafafa;
+
+$fms-green-header-bg: #005844;
+$fms-green-sidenav-active: #0da06e;
+$fms-green-sidenav-active-bar: #0da06e;
+$fms-green-sidenav-active-icon: #009c62;
+$fms-green-sidenav-link: #b7b7b7;
+$fms-green-sidenav-collapsable: #707070;
+$fms-green-sidenav-icon: #d6d6d6;
+
+$fms-green-breadcrumb-link: #8b8b8b;
+$fms-green-breadcrumb-title: #008755;
+
 //  primary colors
-$fms-primary-color1: #005844;
-$fms-primary-color2: #008755;
+$fms-green-primary-color1: #005844;
+$fms-green-primary-color2: #008755;
 
 // seconday colors
-$fms-secondary-color1: #f2b06e;
-$fms-secondary-color2: #60dfd0;
-$fms-secondary-color3: #9967d9;
-$fms-secondary-color4: #d0e86c;
+$fms-green-secondary-color1: #f2b06e;
+$fms-green-secondary-color2: #42d0d9;
+$fms-green-secondary-color3: #9967d9;
+$fms-green-secondary-color4: #20e19d;
 
 // gradient colors
-$fms-gradadient-color-start1: #fab75d;
-$fms-gradadient-color-end1: #fab75d;
-$fms-gradadient-color-start2: #9967d9;
-$fms-gradadient-color-end2: #6fd5e4;
-$fms-gradadient-color-start3: #9967d9;
-$fms-gradadient-color-end3: #7968dc;
-$fms-gradadient-color-start4: #a8e878;
-$fms-gradadient-color-end4: #d0e86c;
+$fms-green-gradadient-color-start1: #fcaa59;
+$fms-green-gradadient-color-end1: #f2b06e;
+$fms-green-gradadient-color-start2: #60dfd0;
+$fms-green-gradadient-color-end2: #42d0d9;
+$fms-green-gradadient-color-start3: #9967d9;
+$fms-green-gradadient-color-end3: #7968dc;
+$fms-green-gradadient-color-start4: #20e19d;
+$fms-green-gradadient-color-end4: #81e582;
 
-// forms
-$fms-form-label: #939393;
-$fms-form-label-disabled: #bcbcbc;
-$fms-form-input: #abafb3;
-$fms-form-input-hover: #0da06e;
-$fms-form-input-switch: #707070;
-$fms-form-input-border: #d3d3d3;
-$fms-form-input-error: #665958;
-$fms-form-addon: #0da06e;
-$fms-form-addon-border: #009c62;
+/* forms */
+
+//  inactive input
+$fms-green-inactive-input-label: #939393;
+$fms-green-inactive-input-border: #d3d3d3;
+
+// foused input
+$fms-green-focused-input-label: #0da06e;
+$fms-green-focused-input-placeholder: #abafb3;
+$fms-green-focused-input-border: #0da06e;
+
+// hovered input
+$fms-green-hovered-input-label: #939393;
+$fms-green-hovered-input-border: #0da06e;
+
+// disabled input
+$fms-green-disabled-input-label: #bcbcbc;
+$fms-green-disabled-input-border: #d3d3d3;
+
+// active input
+$fms-green-disabled-input-label: #939393;
+$fms-green-disabled-input-border: #d3d3d3;
+$fms-green-disabled-placeholder: #abafb3;
+
+// invalid input
+$fms-green-invalid-input-label: #dd5648;
+$fms-green-invalid-input-border: #dd5648;
+
+// addon
+$fms-green-form-addon: $fms-green-primary-color1;
+$fms-green-form-addon-border: $fms-green-primary-color2;
+
+// toggle inputs
+$fms-green-form-input-toggle: $fms-green-primary-color1;
+
+// radios
+
+// unchecked
+$fms-green-unchecked-radio-border: #707070;
+
+// checked
+$fms-green-checked-radio-fill: #0da06e;
+$fms-green-checked-radio-border: #0da06e;
+
+// disabled
+$fms-green-disabled-radio-fill: #eaeaea;
+$fms-green-disabled-radio-border: #dbdbdb;
+
+// disabled-checked
+$fms-green-disabled-checked-radio-fill: #0da06e;
+$fms-green-disabled-checked-radio-border: #0da06e;
+
+// checkboxs
+
+// unchecked
+$fms-green-unchecked-checkbox-border: #707070;
+
+// checked
+$fms-green-checked-checkbox-fill: #008755;
+
+// disabled
+$fms-green-disabled-checkbox-fill: #eaeaea;
+$fms-green-disabled-checkbox-border: #dbdbdb;
+
+// disabled-checked
+$fms-green-disabled-checked-checkbox-fill: #0da06e;
+
+// switch
+
+// unchecked
+$fms-green-unchecked-switch-fill: #a0a0a0;
+
+// checked
+$fms-green-checked-switch-fill: #0da06e;
+
+// disabled
+$fms-green-disabled-switch-fill: #eaeaea;
+$fms-green-disabled-switch-border: #dbdbdb;
+
+// disabled-checked
+$fms-green-disabled-checked-switch-fill: #0da06e;
+
+// stepper
+
+$fms-green-stepper-label-active: #0da06e;
+$fms-green-stepper-label-inactive: #58585b;
+$fms-green-stepper-step-inactive-fill: #959595;
+$fms-green-stepper-step-active-fill: #0da06e;
+$fms-green-stepper-step-current-outline: #008755;
+$fms-green-stepper-bar-: #008755;
+$fms-green-stepper-bar-inactive-: #e6e6e6;

@@ -1,36 +1,38 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TaskMasterComponent } from './task-master/task-master.component';
 
-import { WorkshopComponent } from './workshop.component';
-import { BodyShopComponent } from './body-shop/body-shop.component';
+import { TaskMasterComponent } from './task-master/task-master.component';
+import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
-import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'body-shop' },
-  { path: 'body-shop', component: BodyShopComponent },
   {
-    path: 'inspections',
-    redirectTo: 'inspections/technical-inspection'
-  },
-  {
-    path: 'inspections/technical-inspection',
-    component: TechnicalInspectionComponent
+    path: 'task-master',
+    component: TaskMasterComponent
   },
   {
     path: 'inspections/auction-list',
     component: AuctionListComponent
   },
   {
-    path: 'task-master',
-    component: TaskMasterComponent
-  },
-  {
     path: 'task-master/add',
     component: TaskMasterFormComponent
-  }
+  },
+  {
+    path: 'inspections/technical-inspection',
+    component: TechnicalInspectionComponent
+  },
+  {
+    path: 'body-shop',
+    loadChildren: () =>
+      import('./body-shop/body-shop.module').then((m) => m.BodyShopModule)
+  },
+  {
+    path: 'inspections',
+    redirectTo: 'inspections/technical-inspection'
+  },
+  { path: '', redirectTo: 'body-shop' }
 ];
 
 @NgModule({

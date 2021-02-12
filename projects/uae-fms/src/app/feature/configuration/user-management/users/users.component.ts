@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
+import { UsersFacade } from '../../+state/users';
 
 @Component({
   selector: 'anms-users',
@@ -12,8 +13,9 @@ export class UsersComponent implements OnInit {
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'This Month',
-      filterCount: '2456',
-      filterTagColor: '#CBA786',
+      filterCount: '',
+      filterTagColor: '',
+      isCalendar: true,
       onActive(index: number) {}
     },
     {
@@ -141,7 +143,9 @@ export class UsersComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private facade: UsersFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
 }

@@ -5,6 +5,7 @@ import {
   FleetStatusTableData,
   FleetStatusTableSetting
 } from '@feature/configuration/fleet-status/fleet-status-table/fleet-status-asset-table.component';
+import { FleetStatusFacade } from '../+state/fleet-status';
 
 @Component({
   selector: 'anms-fleet-status',
@@ -72,7 +73,9 @@ export class FleetStatusComponent implements OnInit {
     data: this.tableData
   };
 
-  constructor() {}
+  constructor(private facade: FleetStatusFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
 }

@@ -1,14 +1,26 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting } from '@core/table';
+import { AuctionListFacade } from '@feature/workshop/+state/auction-list';
+import { Subscription } from 'rxjs';
+import { FakeServiceAuctionList } from './_fake-service.service';
 
 @Component({
   templateUrl: './auction-list.component.html',
   styleUrls: ['./auction-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuctionListComponent implements OnInit {
+export class AuctionListComponent implements OnInit , OnDestroy{
+  editOpen: boolean = false;
+  editOpen$: Subscription;
   filterSetting: FilterCardSetting[] = [
+    {
+      filterCount: '',
+      filterTagColor: '',
+      filterTitle: 'This Month',
+      isCalendar: true,
+      onActive: () => {}
+    },
     {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
@@ -243,7 +255,17 @@ export class AuctionListComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private _facade: AuctionListFacade , private _fake_serviceservice : FakeServiceAuctionList) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.editOpen$ = this._fake_serviceservice
+      .getEdit()
+      .subscribe((open) => {
+        this.editOpen = open;
+      });
+    this._facade.loadAll();
+  }
+  ngOnDestroy(){
+    this.editOpen$.unsubscribe();
+  }
 }

@@ -1,0 +1,52 @@
+:host ::ng-deep {
+  .ngx-file-drop__drop-zone {
+    border: 2px dashed #0000005e !important;
+    border-radius: 4px !important;
+    height: 70px !important;
+  }
+  .ngx-file-drop__content {
+    color: #0000005e !important;
+    font-size: 17px;
+  }
+  textarea {
+    height: 100%;
+    margin: 0px 13px !important;
+  }
+}
+.text-area-container {
+  font-size: 17px;
+  color: #0000005e;
+  mat-form-field {
+    height: 100%;
+  }
+  h6 {
+    position: absolute;
+    top: -22px;
+  }
+}
+.check-box {
+  display: flex;
+  align-items: center;
+  h6 {
+    font-weight: bold;
+    flex: 0 0 10%;
+  }
+  mat-checkbox {
+    flex: 0 0 25%;
+  }
+}
+
+.service-title {
+  color: #71d875;
+  font-size: 11px;
+  margin: 0 5px;
+}
+.service-content {
+  font-size: 15px;
+  margin: 0 5px;
+}
+
+small.drag-and-drop a {
+  color: #007bff !important;
+  margin-left: 2px !important;
+}
