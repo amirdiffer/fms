@@ -19,6 +19,11 @@ export class ConfigurationSelectors {
     (state) => state['users']
   );
 
+  static businessCategorySelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['businessCategory']
+  )
+
   static fleetStatusSelector = createSelector(
     ConfigurationSelectors.featureSelector,
     (state) => state['fleetStatus']
