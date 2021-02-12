@@ -1,15 +1,16 @@
-mat-radio-button{
-    border-radius: 4px;
-    padding: 12px 22px;
-    border: 1px solid #0DA06E;
-    box-shadow: 0px 2px 4px #5a8dee66;
-    color:#0DA06E;
-    margin: 0 20px 0 0;
+mat-radio-button {
+  border-radius: 4px;
+  padding: 12px 22px;
+  border: 1px solid #0da06e;
+  box-shadow: 0px 2px 4px #5a8dee66;
+  color: #0da06e;
+  margin: 0 20px 0 0;
 }
-mat-radio-button.mat-radio-checked{
-    background: transparent linear-gradient(180deg,#07C880 0%, #0DA06E 100%) 0% 0% no-repeat padding-box;
-    border-radius: 4px;
-    padding: 12px 22px;
-    box-shadow: 0px 2px 4px #5a8dee66;
-    color:#fff;
+mat-radio-button.mat-radio-checked {
+  background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
+    0% no-repeat padding-box;
+  border-radius: 4px;
+  padding: 12px 22px;
+  box-shadow: 0px 2px 4px #5a8dee66;
+  color: #fff;
 }

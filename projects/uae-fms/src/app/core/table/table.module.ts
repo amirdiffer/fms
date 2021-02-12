@@ -22,6 +22,7 @@ import { TableActionButtonRendererComponent } from '@core/table/renderers/action
 import { TableAddButtonRendererComponent } from '@core/table/renderers/addButton';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MakeDecisionRendererComponent } from './renderers/makeDecision';
+import { JobCardRendererComponent } from './renderers/jobCard';
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import { MakeDecisionRendererComponent } from './renderers/makeDecision';
     TableThumbTextRendererComponent,
     TableBooleanRendererComponent,
     TableExternalLinkRendererComponent,
-    MakeDecisionRendererComponent
+    MakeDecisionRendererComponent,
+    JobCardRendererComponent
   ],
   providers: []
 })

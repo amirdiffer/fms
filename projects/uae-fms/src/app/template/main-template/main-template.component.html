@@ -9,12 +9,14 @@
       </app-navbar>
       <app-sidebar-manu></app-sidebar-manu>
 
-      <div class="content"
-        [@routeAnimations]="o.isActivated && o.activatedRoute.routeConfig.data
-        && o.activatedRoute.routeConfig.data.title">
+      <div class="content">
         <span class="path">
-          <span *ngFor="let i=index;let part of path">{{part+(path.length>i+1?'
-            > ':'')}}</span>
+          <span *ngFor="let i=index;let part of path">
+            <span class="title">{{part}}</span>
+            <i class="separator">
+              {{ (path.length>i+1?'> ':'') }}
+            </i>
+          </span>
         </span>
         <span class="body">
           <router-outlet #o="outlet"></router-outlet>
@@ -26,9 +28,7 @@
 <!-- end main template -->
 <!-- start login template -->
 <div *ngIf="isLoginPath">
-  <div class="content"
-    [@routeAnimations]="o.isActivated && o.activatedRoute.routeConfig.data &&
-    o.activatedRoute.routeConfig.data.title">
+  <div class="content">
     <span class="body">
       <router-outlet #o="outlet"></router-outlet>
     </span>

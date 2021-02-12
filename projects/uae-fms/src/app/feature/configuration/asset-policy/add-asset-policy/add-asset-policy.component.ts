@@ -1,5 +1,17 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Injector
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { TableSetting } from '@core/table';
+import { Utility } from '@shared/utility/utility';
 
 @Component({
   selector: 'anms-add-asset-policy',
@@ -7,8 +19,7 @@ import { TableSetting } from '@core/table';
   styleUrls: ['./add-asset-policy.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddAssetPolicyComponent implements OnInit {
-  checked = true;
+export class AddAssetPolicyComponent extends Utility implements OnInit {
   assetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'Policy Name', type: 1, field: 'Policy_Name' },
@@ -61,7 +72,28 @@ export class AddAssetPolicyComponent implements OnInit {
       }
     ]
   };
-  constructor() {}
+  assetPolicyForm: FormGroup;
+  submited = false;
+  constructor(private _fb: FormBuilder, private injector: Injector) {
+    super(injector);
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.assetPolicyForm = this._fb.group({
+      policyType: ['asset', [Validators.required]],
+      policyName: ['', [Validators.required]],
+      killometerUsage: ['', [Validators.required]],
+      yearUsage: [''],
+      depreciationValue: ['', [Validators.required]],
+      reminder: [false]
+    });
+  }
+
+  submit() {
+    this.submited = true;
+    if (this.assetPolicyForm.invalid) {
+      return;
+    }
+    this.goToList();
+  }
 }

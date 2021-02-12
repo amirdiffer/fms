@@ -64,6 +64,7 @@
   "anms.title.long": "I-Serve",
   "anms.title.short": "I-Serve",
   "fms.errors.required": "This field is required",
+  "fms.errors.email": "Please enter valid email ",
   "fms.parts.quantity": "Quantity",
   "fms.parts.price": "Price",
   "fms.parts.room": "Room",
@@ -75,5 +76,6 @@
   "fms.parts.storageLocation": "Storage Location",
   "fms.parts.itemInfo": "Item Info",
   "fms.global.add": "Add",
-  "fms.global.cancel": "Cancel"
+  "fms.global.cancel": "Cancel",
+  "fms.configuration.fleetStatus.statusCategory": "Status Category"
 }

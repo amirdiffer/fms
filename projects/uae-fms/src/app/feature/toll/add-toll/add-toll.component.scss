@@ -1,0 +1,22 @@
+@import '../../../../themes/green-theme.scss';
+@import '../../../../assets/scss/form-section.scss';
+
+.upload-box {
+  .file-name-size {
+    color: #0000005e;
+    font-size: 12px;
+  }
+  .space-drop {
+    display: block;
+    margin: 8px 0;
+    border: 2px dashed #0000005e;
+    text-align: center;
+    padding: 30px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    div {
+      color: #0000005e;
+      font-size: 12px;
+    }
+  }
+}

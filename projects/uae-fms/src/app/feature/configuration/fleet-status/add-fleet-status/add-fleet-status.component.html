@@ -1,0 +1,61 @@
+<form [formGroup]="fleetStatusForm">
+  <div class="form-buttons">
+    <button class="cancel" routerLink='/configuration/fleet-status'>Cancel</button>
+    <button class="add" (click)="submit()">Add</button>
+  </div>
+  <div class="form-section form-section--inline mt-3">
+    <div class="row">
+      <div class="col-12 col-md-2">
+        <h3 class="form-section__title">Type Category</h3>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="row">
+          <div class="col-12 col-md-12 p-field form-section__field
+            radio-select">
+            <p-radioButton name="typeCategory" formControlName="typeCategory"
+              value="asset" label="Asset"></p-radioButton>
+            <p-radioButton name="typeCategory" formControlName="typeCategory"
+              value="subAsset" label="Sub Asset"></p-radioButton>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="statusCategory" [autoDisplayFirst]="false"
+            [options]="statusCategories"
+            formControlName="statusCategory" optionLabel="name"></p-dropdown>
+          <label for="statusCategory">{{ getLabelName('statusCategory') |
+            translate }}</label>
+          <anms-error
+            [showError]="hasError('statusCategory',fleetStatusForm,submited)"
+            error="fms.errors.required">
+          </anms-error>
+        </span>
+      </div>
+
+      <div class="col-12 col-md-3 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="statusName" pInputText
+            placeholder="Status Name *" required type="text">
+          <label>Status Name *</label>
+          <anms-error
+            [showError]="hasError('statusName',fleetStatusForm,submited)"
+            error="fms.errors.required">
+          </anms-error>
+        </span>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col-12">
+    <div class="component_wrapper">
+      <div class="table-wreapper">
+        <app-table [setting]='tableSetting'></app-table>
+      </div>
+    </div>
+  </div>
+</div>

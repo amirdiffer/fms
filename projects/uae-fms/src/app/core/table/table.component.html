@@ -51,7 +51,7 @@
             <table-status-renderer [status]="data"></table-status-renderer>
           </div>
           <div *ngIf="col.renderer == 'buttonRenderer' && i == rowIndexTable">
-            <table-button-renderer [button]="data" [col]="col"></table-button-renderer>
+            <table-button-renderer [row]="data[i]"   [button]="data" [col]="col"></table-button-renderer>
           </div>
           <div *ngIf="col.renderer == 'thumbTextRenderer'">
             <table-thumb-text-renderer [data]="data"></table-thumb-text-renderer>
@@ -70,6 +70,9 @@
           </div>
           <div *ngIf="col.renderer=='makeDecision'">
             <make-decision-renderer></make-decision-renderer>
+          </div>
+          <div *ngIf="col.renderer=='jobCard'">
+            <job-card-renderer></job-card-renderer>
           </div>
 
         </td>

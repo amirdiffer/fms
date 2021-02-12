@@ -22,5 +22,20 @@ export class ConfigurationSelectors {
   static businessCategorySelector = createSelector(
     ConfigurationSelectors.featureSelector,
     (state) => state['businessCategory']
+  )
+
+  static fleetStatusSelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['fleetStatus']
+  );
+
+  static ownershipSelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['ownershipSelector']
+  );
+
+  static periodicServiceSelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['periodicService']
   );
 }

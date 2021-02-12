@@ -8,21 +8,16 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetDetailComponent implements OnInit {
-
   public inputForm: FormGroup;
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder) {}
   ngOnInit(): void {
-    this.inputForm = this._fb.group(
-      {
-        businessCategory:[''],
-        receiver:[''],
-        policyType:[''],
-        serviceDate:[''],
-        serviceOdometer:[''],
-        setReminder:[false]
-
-      }
-    )
+    this.inputForm = this._fb.group({
+      businessCategory: [''],
+      receiver: [''],
+      policyType: [''],
+      serviceDate: [''],
+      serviceOdometer: [''],
+      setReminder: [false]
+    });
   }
-
 }

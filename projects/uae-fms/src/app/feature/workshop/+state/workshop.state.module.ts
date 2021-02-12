@@ -13,7 +13,7 @@ import { TechnicalInspectionEffect } from './technical-inspections/technical-ins
 import { AuctionListEffect } from './auction-list/auction-list.effects';
 import { AuctionListFacade, AuctionListService } from './auction-list';
 import { TaskMasterEffect } from './task-master/task-master.effects';
-import { TaskMasterService , TaskMasterFacade } from './task-master';
+import { TaskMasterService, TaskMasterFacade } from './task-master';
 
 @NgModule({
   imports: [

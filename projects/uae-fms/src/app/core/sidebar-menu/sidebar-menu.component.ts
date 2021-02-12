@@ -31,6 +31,8 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     select(createSelector(this.selectRouterState, (state) => state))
   );
 
+  urlGroup = [];
+
   public activeGroup: string = 'root';
   toggleGroup(item: { name: string; items: object[]; route: string }): void {
     let group = item.name;
@@ -200,8 +202,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     this.usingMenu = this.mainMenu;
 
     this.route$.subscribe((x) => {
-      if (x?.state?.url.indexOf('profile') >= 0) this.insideProfile = true;
-      else this.insideProfile = false;
+      if (x?.state?.url) this.urlGroup = x.state.url.split('/');
     });
 
     this.checkScreenWidth();
@@ -231,5 +232,22 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.checkMenuState.unsubscribe();
+  }
+
+  activeMenuCheck(route: string) {
+    let r = '';
+    if (route[0] == '/') {
+      r = route.substring(1, route.length);
+    }
+    return this.urlGroup.indexOf(r) >= 0;
+  }
+
+  activeSubMenuCheck(route: string) {
+    let r;
+    if (route[0] == '/') {
+      r = route.split('/');
+      r = r[r.length - 1];
+    }
+    return this.urlGroup.indexOf(r) >= 0;
   }
 }

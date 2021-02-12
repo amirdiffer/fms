@@ -1,65 +1,119 @@
-<div class="form-buttons">
-  <button class="cancel">Cancel</button>
-  <button class="add">Add</button>
-</div>
+<form  [formGroup]="inputForm" (ngSubmit)="addRequest()">
+  <div class="form-buttons">
+    <button class="cancel" type="button" (click)="cancelForm()">Cancel</button>
+    <button class="add" type="submit">Add</button>
+  </div>
+  
+  <div class="row">
+  
+    <div class="col-12">
+      <div class="component_wrapper">
+        <label class="caption">Location Info</label>
+        <div class="row mt-3">
+          <div class="col-lg-4">
+            <div class="form-group p-field form-section__field">
+              <div class="input-group">
+                  <div class="autocomplete-select flex-with-button">
+                      <span class="p-float-label ">
+                          <p-autoComplete 
+                                    [suggestions]="filteredLocation" 
+                                    formControlName="locationID" 
+                                    (completeMethod)="searchLocation($event)" 
+                                    field="id" 
+                                    [class.invalid]="!inputForm.get('locationID').valid && submited">
+                            <ng-template let-location pTemplate="item">
+                              <div class="location-item">
+                                <div>{{location.name}}</div>
+                              </div>
+                            </ng-template>
+                          </p-autoComplete>
+                          <i class="pi pi-search"></i>
+                          <label [class.red-font]=" inputForm.get('locationID').invalid && submited">Location ID *</label>
+                      </span>
+                  </div>
+                  <anms-error
+                            [showError]="hasError('locationID',inputForm,submited ,'needsExclamation')"
+                            error="Please search and choose an item from list"></anms-error>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="form-group p-field form-section__field">
+              <div class="input-group">
+                  <span class="p-float-label w-100">
+                    <input type="text" class="form-control" placeholder="Address*" 
+                          formControlName="address"
+                          [class.invalid]="inputForm.get('address').invalid && submited">
+                    <label [class.red-font]="inputForm.get('address').invalid && submited">Address*</label>
+                  </span>
+              </div>              
+                <anms-error
+                        [showError]="hasError('address',inputForm,submited)"
+                        error="Please fill Address"></anms-error>
+            </div>
 
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-12" formArrayName="section">
+      <div class="component_wrapper">
+        <div class="row">
+          <div class="col-lg-2">
+            <span class="add-section" (click)="addSection()">
+              <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+            </span>
+            Section
+          </div>
+          <div class="col-10">
+            <ng-container  *ngFor="let skill of inputForm.get('section')['controls']; let i=index">
+              <div class="row overflow-visible" >
+                <div class="col-lg-5 ">
+                  <div class="form-group form-group p-field form-section__field">
+                    <div class="input-group">
+                      <span class="p-float-label w-100">
+                          <input type="text" class="form-control " 
+                                  [formControlName]="i" 
+                                  placeholder="Section ID *"
+                                  [class.invalid]="!inputForm.get('section')['controls'][i].valid && submited">
+                          <label [class.red-font]="!inputForm.get('section')['controls'][i].valid.valid && submited">Section ID *</label>
+                      </span>
+                    </div>
+                    <small class="error-input" [class.d-none]=" inputForm.get('section')['controls'][i].valid.valid || !submited">Please fill Location</small>
+    
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="form-group">
+                    <div class="input-group d-flex w-100  flex-wrap">
+                     <div class="p-field form-section__field  flex-with-button w-100 flex-85">
+                      <span class="p-float-label">
+                        <input type="text" class="form-control border" placeholder="Service" 
+                                [formControlName]="i" 
+                                [class.invalid]="!inputForm.get('section').valid && submited">
+                        <label [class.red-font]="!inputForm.get('section')['controls'][i].valid && submited">Service*</label>
+                      </span>
+                      <small class="error-input" [class.d-none]="inputForm.get('section')['controls'][i].valid || !submited">Please fill service</small>
+                     </div>
+                      <div class="input-group-append m-0" [ngStyle]="{'cursor': 'pointer' , 'height':'40px'}">
+                        <div class="input-group-text bg-transparent border-input-append">
+                          <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 <div class="row">
-
-  <div class="col-12">
-    <div class="component_wrapper">
-      <label class="caption">Location Info</label>
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="form-group">
-            <div class="input-group">
-              <input type="text" class="form-control border-right-0 border" placeholder="Location ID *">
-              <div class="input-group-append">
-                <div class="input-group-text bg-transparent">
-                  <svg-icon src="../../../../../assets/icons/search.svg" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-8">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Address *">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-12">
-    <div class="component_wrapper">
-      <div class="row">
-        <div class="col-lg-2">
-          <span class="add-section">
-            <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-          </span>
-          Section
-        </div>
-        <div class="col-lg-4">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Section ID *">
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="form-group">
-            <div class="input-group">
-              <input type="text" class="form-control border-right-0 border" placeholder="Service">
-              <div class="input-group-append m-0">
-                <div class="input-group-text bg-transparent border-input-append">
-                  <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="col-12">
     <div class="component_wrapper">
       <div class="table-wreapper">
@@ -67,5 +121,4 @@
       </div>
     </div>
   </div>
-
 </div>
