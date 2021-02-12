@@ -76,5 +76,6 @@
   "fms.parts.storageLocation": "Storage Location",
   "fms.parts.itemInfo": "Item Info",
   "fms.global.add": "Add",
-  "fms.global.cancel": "Cancel"
+  "fms.global.cancel": "Cancel",
+  "fms.configuration.fleetStatus.statusCategory": "Status Category"
 }

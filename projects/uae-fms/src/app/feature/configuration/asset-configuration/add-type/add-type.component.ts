@@ -52,7 +52,8 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
       description: [''],
       type: ['mModel'],
       selectModel: [''],
-      models: this._fb.array([this._fb.control([])])
+      // models: this._fb.array([this._fb.control([])])
+      models: ['']
     });
   }
   ngAfterViewInit() {

@@ -1,0 +1,35 @@
+@import '../../../../themes/green-theme';
+@import '../../../../assets/scss/form-section.scss';
+@import '../../../../assets/scss/mixins/form-section.scss';
+@import '../integration.component.scss';
+
+.p-dropdown {
+  width: 100% !important;
+}
+.button-container {
+  // position: absolute;
+  // top: -60px;
+  // right: 0;
+  display: inline-block;
+  button {
+    width: 180px;
+    height: 40px;
+    font-size: 17px;
+    margin: 0 2px;
+  }
+  .add {
+    background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
+      0% no-repeat padding-box;
+    box-shadow: 0px 0px 1px #000000;
+    border-radius: 4px;
+    opacity: 1;
+    color: #ffffff;
+    border: 0;
+  }
+  .cancel {
+    background-color: #cbcbcb;
+    border-radius: 4px;
+    opacity: 1;
+    color: #ffffff;
+  }
+}

@@ -39,8 +39,8 @@
           color: $inactive-input-label;
         }
 
-        &.ng-dirty.ng-invalid {
-          border-color: $invalid-input-label;
+        &.ng-touched.ng-invalid {
+          border-color: $invalid-input-label !important;
         }
 
         &:not([disabled]):hover {
@@ -86,6 +86,17 @@
 
       .p-radiobutton
         .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
+        border-color: $form-input-toggle !important;
+      }
+    }
+
+    .checkbox-select {
+      .p-checkbox .p-checkbox-box.p-highlight {
+        border-color: $form-input-toggle;
+        background: $form-input-toggle !important;
+      }
+
+      .p-checkbox .p-checkbox-box:not(.p-disabled):not(.p-highlight):hover {
         border-color: $form-input-toggle !important;
       }
     }

@@ -28,9 +28,14 @@ export class CheckAccessDirective implements OnInit {
             actions: ['create', 'read', 'update', 'delete']
           },
           {
+            name: 'task-master',
+            actions: ['create', 'read', 'update', 'delete']
+          },
+          {
             name: 'asset-policy',
             actions: ['create', 'read', 'update', 'delete']
           }
+
         ],
         role: 'Admin'
       }

@@ -1,42 +1,63 @@
 <div>
-  <form (ngSubmit)='submit()' [formGroup]='form'>
-    <div class='text-right action_buttons'>
-      <button class='action_button cancel_button font-weight-bold' routerLink='/configuration/user-management/users'>Cancel</button>
-      <button class='action_button add_button'>Add</button>
+  <form [formGroup]='form'>
+    <div class='text-right action_buttons mb-2'>
+      <button class='action_button cancel_button font-weight-bold'
+        routerLink='/configuration/user-management/users'>Cancel</button>
+      <button class='action_button add_button' (click)='submit()'>Add</button>
     </div>
-    <div class='card' formGroupName='portalInformation'>
-      <div class='card-body'>
-        <p class='font-weight-bold'>Portal Information</p>
-        <div class='d-flex'>
-          <div class='w-25 mr-4'>
-            <label class='w-100'>
-              <input class='w-100 employee_number_input' placeholder='Employee Number *'
-                     formControlName='employeeNumber'>
-            </label>
+    <app-filter [setting]='filter'></app-filter>
+    <div class="form-section mt-5" formGroupName="portalInformation">
+      <h3 class="form-section__title">Portal Information</h3>
+      <div class="row form-section__row">
+        <div class="col-12 col-md-3 p-field form-section__field">
+          <div class="autocomplete-select">
+            <span class="p-float-label">
+              <p-autoComplete formControlName="employeeNumber"
+                (completeMethod)="filterEmployees($event)"
+                [suggestions]="employees" field="name"
+                [minLength]="1"></p-autoComplete>
+              <i class="pi pi-search"></i>
+              <label>Employee Number *</label>
+            </span>
+            <anms-error
+              [showError]="hasError('employeeNumber',form.get('portalInformation'),submited)"
+              error="fms.errors.required">
+            </anms-error>
           </div>
-          <div class='w-25 mr-4'>
-            <label class='w-100'>
-              <input class='w-100 employee_number_input' placeholder='Department'
-                     formControlName='department'>
-            </label>
+        </div>
+        <div class="col-12 col-md-3 p-field form-section__field">
+          <div class="autocomplete-select">
+            <span class="p-float-label">
+              <p-autoComplete formControlName="department"
+                (completeMethod)="filterDepartments($event)"
+                [suggestions]="departments" field="name"
+                [minLength]="1"></p-autoComplete>
+              <i class="pi pi-search"></i>
+              <label>Department</label>
+            </span>
           </div>
-          <div class='w-25 ml-4'>
-            <mat-select class='border rounded p-1' placeholder='Role' formControlName='role'>
-              <mat-option>title</mat-option>
-            </mat-select>
-          </div>
-          <div class='w-25 mr-2 text-right'>
-            <mat-slide-toggle labelPosition='before' class='font-weight-bold' formControlName='activeEmployee'>Active
-              Employee
-            </mat-slide-toggle>
-          </div>
+        </div>
+        <div class="col-12 col-md-3 p-field form-section__field options-select">
+          <span class="p-float-label">
+            <p-dropdown inputId="role" [autoDisplayFirst]="false"
+              [options]="roles"
+              formControlName="role" optionLabel="name"></p-dropdown>
+            <label for="role">Role</label>
+            <anms-error
+              [showError]="hasError('role',form.get('portalInformation'),submited)"
+              error="fms.errors.required">
+            </anms-error>
+          </span>
+        </div>
+        <div class="col-12 col-md-3 form-section__field toggle-select">
+          <p-inputSwitch formControlName="activeEmployee"></p-inputSwitch>
+          <span>Active Employee</span>
         </div>
       </div>
     </div>
-
-    <div class='d-flex'>
-      <div class='card w-50' formGroupName='fileUpload'>
-        <div class='card-body'>
+    <div class='row'>
+      <div class='col-4 form-section ml-4' formGroupName='fileUpload'>
+        <div>
           <div>
             <p class='font-weight-bold'>Upload Profile Picture</p>
           </div>
@@ -47,75 +68,114 @@
             </div>
             <mat-progress-bar mode='determinate' value='40'></mat-progress-bar>
           </div>
-          <div class='d-flex p-5 mt-2 drop_file_box' (click)='fileUpload.click()'>
-            <input [hidden]='true' type='file' #fileUpload id='fileUpload' name='fileUpload' />
-            <img src='../../../../../../assets/icons/camera.svg' alt='camera' width='25'>
+          <div class='d-flex p-5 mt-2 drop_file_box mb-3'
+            (click)='fileUpload.click()'>
+            <input [hidden]='true' type='file' #fileUpload id='fileUpload'
+              name='fileUpload' />
+            <img src='../../../../../../assets/icons/camera.svg' alt='camera'
+              width='25'>
             <p class='m-0 ml-2 progress_bar_label'>Drag and Drop Picture here</p>
           </div>
         </div>
       </div>
-      <div class='card w-100'>
-        <div class='card-body' formGroupName='personalInformation'>
-          <div>
-            <p class='font-weight-bold'>Personal Information</p>
+
+      <div class="form-section ml-4 col-7" formGroupName="personalInformation">
+        <h3 class="form-section__title">Personal Information</h3>
+
+        <div class="row form-section__row">
+          <div class="col-12 col-md-5 p-field form-section__field">
+            <span class="p-float-label">
+              <input formControlName="firstName" pInputText
+                placeholder="FirstName *" type="text">
+              <label>FirstName *</label>
+              <anms-error
+                [showError]="hasError('firstName',form.get('personalInformation'),submited)"
+                error="fms.errors.required"></anms-error>
+            </span>
           </div>
-          <div class='d-flex w-100'>
-            <div class='w-75'>
-              <label class='w-100'>
-                <input class='w-100 employee_number_input p-2' placeholder='First Name *' formControlName='firstName'>
-              </label>
-            </div>
-            <div class='w-100'>
-              <label class='w-100'>
-                <input class='w-100 employee_number_input p-2 ml-2' placeholder='Last Name *'
-                       formControlName='lastName'>
-              </label>
-            </div>
+          <div class="col-12 col-md-7 p-field form-section__field">
+            <span class="p-float-label">
+              <input formControlName="lastName" pInputText
+                placeholder="LastName *" type="text">
+              <label>LastName *</label>
+              <anms-error
+                [showError]="hasError('lastName',form.get('personalInformation'),submited)"
+                error="fms.errors.required"></anms-error>
+            </span>
           </div>
-          <div class='d-flex'>
-            <div class='w-100'>
-              <label class='w-100'>
-                <input class='w-100 employee_number_input p-2' placeholder='Email *' formControlName='email'>
-              </label>
-            </div>
-            <div class='w-100'>
-              <label class='w-100'>
-                <input class='w-100 employee_number_input p-2 ml-2' placeholder='Phone Number *'
-                       formControlName='phoneNumber'>
-              </label>
-            </div>
+        </div>
+        <div class="row form-section__row">
+          <div class="col-12 col-md-6 p-field form-section__field">
+            <span class="p-float-label">
+              <div class="p-inputgroup">
+                <span class="p-float-label">
+                  <input type="text" formControlName="email" pInputText
+                    placeholder="Email *">
+                  <label>Email *</label>
+                </span>
+                <span class="p-inputgroup-addon addon-primary">
+                  <i class="pi pi-plus"></i>
+                </span>
+              </div>
+            </span>
+            <anms-error
+              [showError]="hasError('email',form.get('personalInformation'),submited)"
+              error="fms.errors.required">
+            </anms-error>
+            <anms-error
+              [showError]="hasError('email',form.get('personalInformation'),submited,'email')"
+              error="fms.errors.email">
+            </anms-error>
           </div>
-          <div class='d-flex mt-4'>
-            <div>
-              <p class='font-weight-bold'>Send Notification By</p>
+          <div class="col-12 col-md-6 p-field form-section__field">
+            <span class="p-float-label">
+              <div class="p-inputgroup">
+                <span class="p-float-label">
+                  <input type="text" formControlName="phoneNumber" pInputText
+                    placeholder="Phone Number *">
+                  <label>Phone Number *</label>
+                </span>
+                <span class="p-inputgroup-addon addon-primary">
+                  <i class="pi pi-plus"></i>
+                </span>
+              </div>
+            </span>
+            <anms-error
+              [showError]="hasError('phoneNumber',form.get('personalInformation'),submited)"
+              error="fms.errors.required">
+            </anms-error>
+
+          </div>
+        </div>
+
+        <div class="row form-section__row">
+        <div class="col-12 col-md-4">
+                <h3 class="form-section__title mt-2">Send Notification By</h3>
             </div>
-            <div>
-              <label class='container font-weight-bold ml-4'>Call
-                <input type='checkbox' name='vehicle_comments' formControlName='callCheckbox'>
-                <span class='checkmark'></span>
-              </label>
-            </div>
-            <div>
-              <label class='container font-weight-bold ml-3'>SMS
-                <input type='checkbox' name='vehicle_comments' formControlName='smsCheckbox'>
-                <span class='checkmark'></span>
-              </label>
-            </div>
-            <div>
-              <label class='container font-weight-bold ml-3'>Email
-                <input type='checkbox' name='vehicle_comments' formControlName='emailCheckbox'>
-                <span class='checkmark'></span>
-              </label>
-            </div>
-            <div>
-              <label class='container font-weight-bold ml-3'>Whatsapp
-                <input type='checkbox' name='vehicle_comments' formControlName='whatsappCheckbox'>
-                <span class='checkmark'></span>
-              </label>
+          <div class="col-12 col-md-8">
+            <div class="row">
+              <div class="col-12 col-md-12 p-field form-section__field
+                checkbox-select">
+                <p-checkbox name="sendNotification"
+                  formControlName="callCheckbox"
+                  value="call" label="Call"></p-checkbox>
+                <p-checkbox name="sendNotification"
+                  formControlName="smsCheckbox"
+                  value="sms" label="SMS"></p-checkbox>
+                <p-checkbox name="sendNotification"
+                  formControlName="emailCheckbox"
+                  value="email" label="Email"></p-checkbox>
+                <p-checkbox name="sendNotification"
+                  formControlName="whatsappCheckbox"
+                  value="whatsapp" label="Whatsapp"></p-checkbox>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
+
+
     </div>
   </form>
 </div>

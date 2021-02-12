@@ -239,3 +239,17 @@
     $fms-green-form-input-toggle
   );
 }
+
+.p-inputtext:enabled:focus {
+  box-shadow: none !important;
+}
+
+button {
+  i {
+    font-size: 1.2rem !important;
+    font-style: normal;
+    position: relative;
+    top: auto;
+    padding: 9px;
+  }
+}

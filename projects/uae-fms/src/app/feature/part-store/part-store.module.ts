@@ -1,3 +1,4 @@
+import { PartStoreStateModule } from './+state/part-store.state.module';
 import { SharedModule } from '@shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -42,7 +43,8 @@ import { DashboardModule } from '@feature/dashboard/dashboard.module';
     AngularSvgIconModule,
     PartStoreRoutingModule,
     SharedModule,
-    DashboardModule
+    DashboardModule,
+    PartStoreStateModule
   ]
 })
 export class PartStoreModule {}
