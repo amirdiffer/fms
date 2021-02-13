@@ -10,6 +10,7 @@ import { TaskMasterService } from './task-master.service';
 })
 export class TaskMasterComponent implements OnInit {
   searchIcon = 'assets/icons/search.svg';
+  downloadBtn= 'assets/icons/download-solid.svg';
   tableSetting;
   constructor(
     private _taskMasterService: TaskMasterService,

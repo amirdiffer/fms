@@ -18,8 +18,10 @@
           <img src="../../../assets/icons/search-solid.svg" alt="">
         </button>
       </div>
-      <button class="btn-download"><a></a></button>
-      <button class="btn-primary-green" (click)="addAccessory()"><i>+</i><a>Add</a></button>
+      <button class="btn-download" disabled>
+        <svg-icon [src]="downloadBtn"></svg-icon>
+      </button>
+      <button class="btn-primary-small" (click)="addAccessory()"><i>+</i><a>Add</a></button>
     </ng-container>
   </div>
   <div class="table-wreapper">

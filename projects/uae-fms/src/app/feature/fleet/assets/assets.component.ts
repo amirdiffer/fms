@@ -11,7 +11,7 @@ export class AssetsComponent implements OnInit {
   pendingRegistrationTableSetting;
   pendingCustomizationTableSetting;
   filterSetting;
-
+  downloadBtn= 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search.svg';
   constructor(private _assetsService: AssetsService) {}
 

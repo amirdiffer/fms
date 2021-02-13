@@ -9,6 +9,7 @@ import { OwnershipFacade } from '../+state/ownership';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OwnershipComponent implements OnInit {
+  downloadBtn= 'assets/icons/download-solid.svg';
   ownerShip_Table: TableSetting = {
     columns: [
       { lable: 'Ownership', type: 1, field: 'Ownership' },

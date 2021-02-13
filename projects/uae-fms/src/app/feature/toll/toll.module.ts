@@ -15,15 +15,16 @@ import { reducer } from './+state/toll.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { TollEffect } from './+state/toll.effect';
 import { TollFacade, TollService } from './+state/index';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [TollComponent, AddTollComponent],
   imports: [
     TableModule,
     FilterModule,
+    SharedModule,
     CommonModule,
     TollRoutingModule,
-    AngularSvgIconModule,
     DashboardModule,
     StoreModule.forFeature(TOLL_FEATURE_KEY, reducer),
     EffectsModule.forFeature([TollEffect])

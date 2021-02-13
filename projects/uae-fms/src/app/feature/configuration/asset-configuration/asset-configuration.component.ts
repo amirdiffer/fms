@@ -14,6 +14,7 @@ import { AssetConfigurationService } from './asset-configuration.service';
 })
 export class AssetConfigurationComponent implements OnInit, OnDestroy {
   searchIcon = 'assets/icons/search.svg';
+  downloadBtn= 'assets/icons/download-solid.svg';
   assetConfigurationableSetting;
   addOpen;
   addOpen$: Subscription;

@@ -12,6 +12,7 @@ import { FakeServiceAuctionList } from './_fake-service.service';
 })
 export class AuctionListComponent implements OnInit , OnDestroy{
   editOpen: boolean = false;
+  downloadBtn= 'assets/icons/download-solid.svg';
   editOpen$: Subscription;
   filterSetting: FilterCardSetting[] = [
     {

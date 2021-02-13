@@ -9,7 +9,7 @@ import { Event, Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodyShopComponent implements OnInit {
-  
+  downloadBtn= 'assets/icons/download-solid.svg';
   filterSetting: FilterCardSetting[] = [
     {
       filterCount: '13',

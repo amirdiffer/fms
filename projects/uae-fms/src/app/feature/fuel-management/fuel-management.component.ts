@@ -21,6 +21,8 @@ import { FuelCardsFacade } from '../fuel-management/+state/fuel-cards';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FuelManagementComponent implements OnInit {
+  downloadBtn= 'assets/icons/download-solid.svg';
+  searchIcon = 'assets/icons/search.svg';
   filterSetting: FilterCardSetting[] = [
     {
       filterTitle: 'Total',

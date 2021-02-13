@@ -15,7 +15,7 @@ import { FleetStatusFacade } from '../+state/fleet-status';
 })
 export class FleetStatusComponent implements OnInit {
   searchIcon = 'assets/icons/search.svg';
-
+  downloadBtn= 'assets/icons/download-solid.svg';
   tableColumns: FleetStatusTableColumnDefinition[] = [
     {
       title: 'Status Category',

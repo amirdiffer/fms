@@ -44,7 +44,7 @@ import { environment } from '../../../../environments/environment';
         border-radius: 4px;
         color: #fff;
         text-align: center;
-        font-size: 12px;
+        font-size: 75%;
       }
       .progress-container {
         position: relative;

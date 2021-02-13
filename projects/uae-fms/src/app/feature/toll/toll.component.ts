@@ -12,7 +12,7 @@ export class TollComponent implements OnInit {
   tableData: ITableData[];
   filterSetting = [];
   searchIcon = 'assets/icons/search.svg';
-
+  downloadBtn= 'assets/icons/download-solid.svg';
   constructor(private facade: TollFacade) {}
 
   ngOnInit(): void {

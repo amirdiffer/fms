@@ -10,7 +10,7 @@ import { IntegrationFacade } from '../integration/+state';
 })
 export class IntegrationComponent implements OnInit {
   tableSettings: TableSetting;
-
+  downloadBtn= 'assets/icons/download-solid.svg';
   constructor(private facade: IntegrationFacade) {}
 
   ngOnInit(): void {

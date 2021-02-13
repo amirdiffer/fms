@@ -12,7 +12,6 @@
 }
 
 .menu-wrapper {
-  width: 300px;
   display: flex;
   flex-direction: column;
   transition: 400ms ease-in-out;
@@ -21,7 +20,6 @@
   .container {
     display: flex;
     flex-direction: column;
-    padding: 25px;
     flex: 1 65%;
     li {
       position: relative;
@@ -54,7 +52,7 @@
       }
     }
     .menuItem {
-      padding: 8px;
+      padding: .5em;
       cursor: pointer;
       list-style: none;
       .menu-item-icon {
@@ -63,9 +61,8 @@
         font-size: 15px;
       }
       .menu-item-name {
-        margin: 18px;
+        margin: 1.13em;
         color: #000000de;
-        font-size: 15px;
       }
       .sub-menuItem {
         overflow: hidden;
@@ -84,7 +81,6 @@
         }
         .menu-item-name {
           margin: 15px;
-          font-size: 12px;
         }
         .sub-menuItem-child {
           margin-top: 8px;
@@ -94,7 +90,6 @@
           border-left: 4px solid #0da06e;
           .menu-item-name {
             margin: 5px;
-            font-size: 10px;
           }
         }
       }

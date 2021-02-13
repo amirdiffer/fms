@@ -11,6 +11,7 @@ import { AccessoryService } from './accessory.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccessoryComponent implements OnInit , OnDestroy{
+  downloadBtn= 'assets/icons/download-solid.svg';
   openAdd;
   openAdd$:Subscription;
   filterCard: FilterCardSetting[] = [

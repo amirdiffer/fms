@@ -9,6 +9,7 @@ import { PartMasterService } from './part-master.service';
 })
 export class PartMasterComponent implements OnInit {
   searchIcon = 'assets/icons/search.svg';
+  downloadBtn= 'assets/icons/download-solid.svg';
   filterSetting = [];
   partMasterTableSetting;
   constructor(private _partMasterService: PartMasterService) {}
