@@ -9,6 +9,7 @@ import { UserProfileFacade, UserProfileService } from './state';
 import { StoreModule } from '@ngrx/store';
 import { USER_PROFILE_FEATURE_KEY } from './state/user.entity';
 import { reducer } from './state/user.reducer';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [ProfileComponent, UserWidgetComponent],
@@ -17,7 +18,8 @@ import { reducer } from './state/user.reducer';
     StoreModule.forFeature(USER_PROFILE_FEATURE_KEY, reducer),
     EffectsModule.forFeature([UserProfileEffect]),
     CommonModule,
-    UserProfileRoutingModule
+    UserProfileRoutingModule,
+    SharedModule
   ],
   providers: [UserProfileService, UserProfileFacade]
 })

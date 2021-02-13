@@ -89,6 +89,13 @@ const routes: Routes = [
     component: MainTemplateComponent
   },
   {
+    path: 'user-profile',
+    canLoad: [AuthGuardService],
+    loadChildren: () =>
+      import('./feature/user/user.module').then((m) => m.UserProfileModule),
+    component: MainTemplateComponent
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'login'
