@@ -8,17 +8,29 @@ import { UsersFacade, UsersService } from './users';
 import { OwnershipFacade, OwnershipService } from './ownership';
 import { OwnershipEffect } from './ownership/ownership.effect';
 import { CONFIGURATION_FEATURE_KEY } from './configuration.entity';
-import { AssetPolicyEffect } from './asset-policy/asset-policy.effect';
-import { AssetPolicyFacade, AssetPolicyService } from './asset-policy';
+import { AssetPolicyEffect } from './asset-policy/asset/asset-policy.effect';
+import { SubAssetPolicyEffect } from './asset-policy/sub-asset/sub-asset-policy.effect';
+import {
+  AssetPolicyFacade,
+  AssetPolicyService,
+  SubAssetPolicyFacade,
+  SubAssetPolicyService
+} from './asset-policy';
 import { FleetStatusFacade, FleetStatusService } from './fleet-status';
 import { FleetStatusEffect } from './fleet-status/fleet-status.effect';
 import { RolePermissionEffect } from './role-permission/role-permission.effect';
 import { RolePermissionFacade } from './role-permission/role-permission.facade';
 import { RolePermissionService } from './role-permission/role-permission.service';
 import { BusinessCategoryEffect } from './business-category/business-category.effect';
-import { BusinessCategoryFacade, BusinessCategoryService } from './business-category';
+import {
+  BusinessCategoryFacade,
+  BusinessCategoryService
+} from './business-category';
 
-import { PeriodicServiceFacade, PeriodicServiceService } from '../+state/periodic-service';
+import {
+  PeriodicServiceFacade,
+  PeriodicServiceService
+} from '../+state/periodic-service';
 import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-service.effect';
 
 @NgModule({
@@ -28,6 +40,7 @@ import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-servi
     EffectsModule.forFeature([
       RolePermissionEffect,
       AssetPolicyEffect,
+      SubAssetPolicyEffect,
       UsersEffect,
       BusinessCategoryEffect,
       FleetStatusEffect,
@@ -39,7 +52,9 @@ import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-servi
     RolePermissionFacade,
     RolePermissionService,
     AssetPolicyFacade,
+    SubAssetPolicyFacade,
     AssetPolicyService,
+    SubAssetPolicyService,
     UsersFacade,
     UsersService,
     BusinessCategoryService,
@@ -52,4 +67,4 @@ import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-servi
     PeriodicServiceService
   ]
 })
-export class ConfigurationStateModule { }
+export class ConfigurationStateModule {}

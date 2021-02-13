@@ -13,6 +13,10 @@ export class ConfigurationSelectors {
     ConfigurationSelectors.featureSelector,
     (state) => state['assetPolicy']
   );
+  static subAssetPolicySelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['subAssetPolicy']
+  );
 
   static usersSelector = createSelector(
     ConfigurationSelectors.featureSelector,
@@ -22,7 +26,7 @@ export class ConfigurationSelectors {
   static businessCategorySelector = createSelector(
     ConfigurationSelectors.featureSelector,
     (state) => state['businessCategory']
-  )
+  );
 
   static fleetStatusSelector = createSelector(
     ConfigurationSelectors.featureSelector,

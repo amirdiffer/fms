@@ -7,7 +7,7 @@ import { AssetPolicyService } from './asset-policy.service';
 
 @Injectable()
 export class AssetPolicyEffect {
-  loadAll$ = createEffect(() =>
+  loadAllAssets$ = createEffect(() =>
     this.action$.pipe(
       ofType(AssetPolicyActions.loadAll),
       mergeMap((action) =>
