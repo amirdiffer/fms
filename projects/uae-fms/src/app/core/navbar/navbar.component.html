@@ -1,13 +1,16 @@
 <div class="toolbar" [style.position]="(stickyHeader$ | async) ? 'fixed' : 'inherit'"
     [class.mat-elevation-z4]="(stickyHeader$ | async)">
     <mat-toolbar color="primary">
-        <span class="menus d-none d-sm-none d-md-flex">
+        <span class="menus d-none d-sm-none d-md-flex align-items-center">
             <button mat-icon-button (click)="changeSidebarMenuState()">
                 <svg-icon src="../../../assets/icons/bars.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
             </button>
             <button mat-icon-button>
                 <img src="../../../assets/icons/apps.svg">
             </button>
+            <span>
+                <user-widget></user-widget>
+            </span>
         </span>
 
         <span class="police-brand">

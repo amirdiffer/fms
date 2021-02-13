@@ -1,0 +1,65 @@
+<form>
+  <div class="form-section">
+    <h3 class="form-section__title">Request Type</h3>
+
+    <div class="row form-section__row">
+            <!-- start asset -->
+            <div class="col-12 col-md-2 p-field form-section__field">
+                <div class="autocomplete-select">
+                    <span class="p-float-label">
+                        <p-autoComplete formControlName="asset"
+                            (completeMethod)="filterAssets($event)"
+                            [suggestions]="assetSuggests" field="name"
+                            [minLength]="1"></p-autoComplete>
+                        <i class="pi pi-search"></i>
+                        <label>Asset *</label>
+                    </span>
+                </div>
+            </div>
+            <!-- end asset -->
+            <div class="col-12 col-md-2 p-field form-section__field
+            dropdown-select">
+              <span class="p-float-label">
+                <p-dropdown inputId="cardType" [options]="assetTypes" optionLabel="name"></p-dropdown>
+                <label for="room">Card Type</label>
+              </span>
+            </div>
+            <div class="col-12 col-md-2 p-field form-section__field">
+              <span class="p-float-label">
+                  <p-calendar inputId="basic"></p-calendar>
+                  <label>Expire Date </label>
+              </span>
+            </div>
+            <div class="col-12 col-md-2 p-field form-section__field">
+              <span class="p-float-label">
+                  <input pInputText placeholder="Usage Limit" type="text">
+                  <label>Usage Limit</label>
+              </span>
+            </div>
+    </div>
+  </div>
+  <div class="form-section form-section--inline">
+    <h3 class="form-section__title">Assign To</h3>
+    <div class="row form-section__row">
+          <!-- start asset -->
+          <div class="col-12 col-md-6 p-field form-section__field">
+              <div class="autocomplete-select">
+                  <span class="p-float-label">
+                      <p-autoComplete formControlName="asset"
+                          (completeMethod)="filterAssets($event)"
+                          [suggestions]="assetSuggests" field="name"
+                          [minLength]="1"></p-autoComplete>
+                      <i class="pi pi-search"></i>
+                      <label>Asset *</label>
+                  </span>
+              </div>
+          </div>
+          <!-- end asset -->
+
+    </div>
+</div>
+</form>
+
+<div class="table-wreapper">
+  <app-table [setting]='fuelCardsTableSetting'></app-table>
+</div>

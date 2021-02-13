@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { ColumnType, TableSetting } from '@core/table';
 import { Subscription } from 'rxjs';
 import { IntegrationService } from './integration.service';
+import { IntegrationFacade } from '../integration/+state';
+
 @Component({
   selector: 'anms-integration',
   templateUrl: './integration.component.html',
@@ -12,9 +14,10 @@ export class IntegrationComponent implements OnInit , OnDestroy{
   tableSettings: TableSetting;
   addtype;
   addtype$: Subscription;
-  constructor(private _integrationService:IntegrationService) {}
+  constructor(private _integrationService:IntegrationService, private facade: IntegrationFacade) {}
 
   ngOnInit(): void {
+    this.facade.loadAll();
     this.tableSettings = {
       columns: [
         {

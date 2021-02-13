@@ -1,0 +1,107 @@
+@import '../../../../../assets/scss/form-section.scss';
+:host ::ng-deep{
+  .pi.pi-search{
+    top: 13px;
+    opacity: .6;
+  }
+  
+}
+.form-buttons {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  button {
+    width: 180px;
+    height: 50px;
+    font-size: 17px;
+    margin: 0 2px;
+  }
+  .add {
+    background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
+      0% no-repeat padding-box;
+    box-shadow: 0px 0px 1px #000000;
+    border-radius: 4px;
+    opacity: 1;
+    color: #ffffff;
+    border: 0;
+  }
+  .cancel {
+    box-shadow: 0px 0px 1px #00000066;
+    border: 2px solid #0da06e;
+    border-radius: 4px;
+    opacity: 1;
+    color: #0da06e;
+  }
+}
+
+.component_wrapper {
+  box-shadow: 0px 0px 2px #0000003D;
+  border-radius: 4px;
+  overflow: visible;
+  .caption {
+    font-weight: bold;
+  }
+  div [class^='col-'] {
+    .form-control {
+      //margin: 6px;
+    }
+  }
+  .select-level {
+    input[type='radio'] {
+      display: none;
+    }
+    .flag {
+      cursor: pointer;
+      span {
+        margin-left: 8px;
+      }
+    }
+  }
+  .upload-box {
+    .file-name-size {
+      color: #0000005e;
+      font-size: 12px;
+    }
+    .space-drop {
+      display: block;
+      margin: 8px 0;
+      border: 2px dashed #0000005e;
+      text-align: center;
+      padding: 30px 0;
+      border-radius: 4px;
+      cursor: pointer;
+      div {
+        color: #0000005e;
+        font-size: 12px;
+      }
+    }
+  }
+
+
+  .add-section {
+    border: 1px solid #009c62;
+    width: 32px;
+    display: inline-block;
+    text-align: center;
+    height: 32px;
+    margin: 0 5px;
+  }
+  .border-input-append {
+    border: 1px solid #009c62;
+  }
+  .flex-with-button{
+    flex:1 0 85%;
+    overflow: visible;
+  }
+}
+.overflow-visible{
+  overflow: visible;
+}
+.location-item{
+  display: flex;
+  > div{
+    margin: 0 5px;
+  }
+}
+
+

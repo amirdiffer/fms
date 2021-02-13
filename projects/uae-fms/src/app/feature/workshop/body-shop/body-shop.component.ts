@@ -1,12 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting, ColumnType } from '@core/table';
+import { BodyShopFacade } from '../+state/body-shop';
+import { Event, Router } from '@angular/router';
 @Component({
   templateUrl: './body-shop.component.html',
   styleUrls: ['./body-shop.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodyShopComponent implements OnInit {
+  
   filterSetting: FilterCardSetting[] = [
     {
       filterCount: '13',
@@ -36,24 +39,24 @@ export class BodyShopComponent implements OnInit {
 
   table1Setting: TableSetting = {
     columns: [
-      { lable: 'Item', field: 'item', renderer: 'vehicleRenderer' },
+      { lable: 'Item', field: 'item',width: 190, renderer: 'vehicleRenderer' },
       { lable: 'Issue', field: 'issue', type: ColumnType.lable, width: 70 },
       { lable: 'Source', field: 'source', type: ColumnType.lable, width: 120 },
-      { lable: 'Reference No', field: 'refrenceNo', type: ColumnType.lable },
+      { lable: 'Reference No', field: 'refrenceNo',width: 100, type: ColumnType.lable },
       {
         lable: 'Job Type',
         field: 'jobType',
         type: ColumnType.lable,
         width: 100
       },
-      { lable: 'Date', field: 'date', type: ColumnType.lable },
+      { lable: 'Date', field: 'date',width: 100, type: ColumnType.lable },
       {
         lable: 'Accident',
         field: 'accident',
         type: ColumnType.lable,
         width: 100
       },
-      { lable: 'Action', field: 'action', type: ColumnType.lable, width: 90 }
+      { lable: 'Action', field: '', type: ColumnType.lable, width: 120 , renderer: 'jobCard'}
     ],
     data: [
       {
@@ -530,7 +533,26 @@ export class BodyShopComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  selectedTab;
+  constructor(private facade: BodyShopFacade, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
+
+  addClicked(e:Event) {
+    switch (this.selectedTab) {
+      case 'Job Card':
+        break;
+      case 'Technician':
+        this.router.navigate(['workshop/body-shop/add-technician']);
+        break;
+      case 'Location':
+        this.router.navigate(['workshop/body-shop/add-location']);
+        break;
+      default:
+        this.router.navigate(['workshop/body-shop/add-request']);
+        break;
+    }
+  }
 }

@@ -8,9 +8,9 @@
       </button>
     </div>
     <button class="btn-download"><a></a></button>
-    <button class="btn-primary-green"><i>+</i><a>Add</a></button>
+    <button *ngIf="selectedTab!='Job Card'" class="btn-primary-green" (click)="addClicked($event)" ><i>+</i><a>Add</a></button>
   </div>
-  <app-tab-view>
+  <app-tab-view (selectedIndex)="selectedTab=$event">
     <div title="Requests">
       <app-table [setting]="table1Setting"></app-table>
     </div>

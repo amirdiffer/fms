@@ -9,7 +9,7 @@
   </tr>
 
   <tr class='bg-white' *ngFor='let row of setting.data; let rowIndex = index'>
-    <td *ngFor='let item of setting.columns; let index = index'>
+    <td class='mb-2 mt-2' *ngFor='let item of setting.columns; let index = index'>
       <div class='pt-1 pb-1'>
         <div *ngIf='index !== 0'>{{row[item.dataFieldKey]}}</div>
 

@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { TollFacade } from '../toll/+state';
+
 @Component({
   selector: 'anms-toll',
   templateUrl: './toll.component.html',
@@ -11,9 +13,10 @@ export class TollComponent implements OnInit {
   filterSetting = [];
   searchIcon = 'assets/icons/search.svg';
 
-  constructor() {}
+  constructor(private facade: TollFacade) {}
 
   ngOnInit(): void {
+    this.facade.loadAll();
     this.tableData = [
       {
         tag: '123456789',

@@ -186,10 +186,26 @@ export class MovementService {
           type: 1,
           thumbField: '',
           renderer: 'operation'
+        },
+        // {
+        //   lable: '',
+        //   width: 70,
+        //   type: 3,
+        //   field: 'ButtonReject',
+        //   renderer: 'buttonRenderer'
+        // },
+        {
+          lable: '',
+          width: 70,
+          type: 3,
+          field: 'ButtonConfirm',
+          renderer: 'buttonRenderer'
         }
       ],
       data: this.requestData()
     };
   };
   constructor() {}
+
+  openConfirmModal() {}
 }

@@ -1,0 +1,60 @@
+
+<div class="card mb-3">
+    <div class="card-body">
+        <form [formGroup] = "inputForm">
+            <div class="button-container">
+                <button class="cancel" (click)="cancel()">Cancel</button>
+                <button class="add">Add</button>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 align-self-center">
+                    <mat-form-field class="">
+                        <mat-label>Item Name *</mat-label>
+                        <input matInput placeholder="" value="" formControlName="itemName">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4 align-items-center d-flex radio-button-container">
+                    <label class="title">Assign to a</label>
+                    <mat-radio-group aria-label="Select an option"  formControlName="assignTo">
+                        <mat-radio-button value="asset">Asset</mat-radio-button>
+                        <mat-radio-button value="subAsset">Sub Asset</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="col-lg-4 col-md-4 align-self-center">
+                    <mat-form-field class="">
+                        <mat-label>Asset</mat-label>
+                        <input matInput placeholder="" value="" formControlName="search"> 
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-lg-4 col-md-4 align-self-center">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Accessory Type *</mat-label>
+                        <mat-select  formControlName="accessoryType">
+                          <mat-option value="1">Accessory Type 1</mat-option>
+                          <mat-option value="2">Accessory Type 2</mat-option>
+                          <mat-option value="3">Accessory Type 3</mat-option>
+                        </mat-select>    
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-3 align-self-center">
+                    <mat-form-field class="">
+                        <mat-label>Quantity *</mat-label>
+                        <input matInput placeholder="" value="" formControlName="quantity">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4 align-self-center">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Assigned To</mat-label>
+                        <mat-select formControlName="assignedTo">
+                          <mat-option value="1">Assigned To 1</mat-option>
+                          <mat-option value="2">Assigned To 2</mat-option>
+                          <mat-option value="3">Assigned To 3</mat-option>
+                        </mat-select>    
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
