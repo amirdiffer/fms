@@ -1,5 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ColumnType, TableSetting } from '@core/table';
+import { IntegrationFacade } from '../integration/+state';
+
 @Component({
   selector: 'anms-integration',
   templateUrl: './integration.component.html',
@@ -9,9 +11,10 @@ import { ColumnType, TableSetting } from '@core/table';
 export class IntegrationComponent implements OnInit {
   tableSettings: TableSetting;
 
-  constructor() {}
+  constructor(private facade: IntegrationFacade) {}
 
   ngOnInit(): void {
+    this.facade.loadAll();
     this.tableSettings = {
       columns: [
         {

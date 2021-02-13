@@ -7,37 +7,22 @@ import { SidebarMenuModule } from './core/sidebar-menu/sidebar-menu.module';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AppRoutingModule } from './app-routing.module';
-import { TemplateComponent } from './template/template.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { UserProfileComponent } from './feature/user-profile/user-profile.component';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { TableModule } from 'primeng/table';
-import { MatButtonModule } from '@angular/material/button';
+import { AppComponent } from './app.component';
+import { MainTemplateComponent } from './template/main-template/main-template.component';
+import { LoginTemplateComponent } from './template/login-template/login-template.component';
 
 @NgModule({
   imports: [
-    // angular
     BrowserAnimationsModule,
     BrowserModule,
     MatSidenavModule,
-
-    // core
-    // CoreModule,
     SidebarMenuModule,
-
-    // app
     NavbarModule,
     AppRoutingModule,
-
-    // library
-    AngularSvgIconModule.forRoot(),
-    MatSlideToggleModule,
-    MatCheckboxModule,
-    TableModule,
-    MatButtonModule
+    AngularSvgIconModule.forRoot()
   ],
-  declarations: [TemplateComponent, UserProfileComponent],
-  bootstrap: [TemplateComponent]
+  declarations: [AppComponent, MainTemplateComponent, LoginTemplateComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

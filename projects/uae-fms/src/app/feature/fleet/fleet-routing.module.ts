@@ -1,27 +1,35 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AssetsComponent } from './assets/assets.component';
 
-import { FleetComponent } from './fleet.component';
-import { AccessoryComponent } from '@feature/fleet/accessory/accessory.component';
-import { SubAssetComponent } from '@feature/fleet/sub-asset/sub-asset.component';
-import { OperatorComponent } from '@feature/fleet/operator/operator.component';
-import { OrganizationComponent } from '@feature/fleet/organization/organization.component';
+import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
+import { AddSubAssetComponent } from './sub-asset/add-sub-asset/add-sub-asset.component';
+import { OrganizationComponent } from './organization/organization.component';
+import { AccessoryComponent } from './accessory/accessory.component';
+import { SubAssetComponent } from './sub-asset/sub-asset.component';
+import { OperatorComponent } from './operator/operator.component';
 import { MovementComponent } from './movement/movement.component';
+import { AssetsComponent } from './assets/assets.component';
+import { AddAssetComponent } from './assets/add-asset/add-asset.component';
 
 const routes: Routes = [
-  { path: '', component: FleetComponent },
-  { path: 'operator', component: OperatorComponent },
+  { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
   { path: 'organization', component: OrganizationComponent },
-  { path: 'assets', component: AssetsComponent },
-  { path: 'operator', component: OperatorComponent },
-  { path: 'sub-asset', component: SubAssetComponent },
   { path: 'accessory', component: AccessoryComponent },
-  { path: 'movement', component: MovementComponent }
+  { path: 'sub-asset', component: SubAssetComponent },
+  { path: 'operator', component: OperatorComponent },
+  { path: 'movement', component: MovementComponent },
+  { path: 'operator', component: OperatorComponent },
+  { path: 'assets', component: AssetsComponent },
+  { path: 'assets/add', component: AddAssetComponent },
+  {
+    path: 'organization/add-organization',
+    component: AddOrganizationComponent
+  },
+  { path: '', redirectTo: 'assets' }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class FleetRoutingModule { }
+export class FleetRoutingModule {}

@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
+import { OwnershipFacade } from '../+state/ownership';
 
 @Component({
   selector: 'anms-ownership',
@@ -76,7 +77,9 @@ export class OwnershipComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private facade: OwnershipFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
 }

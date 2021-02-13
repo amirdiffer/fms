@@ -10,7 +10,7 @@
       </button>
     </div>
     <button class="btn-download"><a></a></button>
-    <button class="btn-primary-green"><i>+</i><a>Add</a></button>
+    <button CheckAccess='sub-asset:create' class="btn-primary-green" [routerLink]="'./add-new-sub-asset'"><i>+</i><a>Add</a></button>
   </div>
   <div class="table-wreapper">
     <app-table [setting]='assetTraffic_Table'></app-table>

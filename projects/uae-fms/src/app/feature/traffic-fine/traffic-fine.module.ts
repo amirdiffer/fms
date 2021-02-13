@@ -1,22 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
-import { TrafficFineRoutingModule } from './traffic-fine-routing.module';
-import { TrafficFineComponent } from '@feature/traffic-fine/traffic-fine.component';
 import { TableModule } from '@core/table';
 import { TabViewModule } from '@core/tab-view';
 import { FilterModule } from '@core/filter/filter.module';
-import { AngularSvgIconModule } from 'angular-svg-icon';
+import { TrafficFineComponent } from '@feature/traffic-fine/traffic-fine.component';
+
+import { TrafficFineRoutingModule } from './traffic-fine-routing.module';
+import { TrafficFinesStateModule } from '../traffic-fine/+state';
 
 @NgModule({
   declarations: [TrafficFineComponent],
   imports: [
-    CommonModule,
-    TrafficFineRoutingModule,
     TableModule,
-    TabViewModule,
     FilterModule,
-    AngularSvgIconModule
+    CommonModule,
+    TabViewModule,
+    AngularSvgIconModule,
+    TrafficFineRoutingModule,
+    TrafficFinesStateModule
   ]
 })
 export class TrafficFineModule {}

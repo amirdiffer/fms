@@ -5,7 +5,7 @@ import { environment } from '../../../../environments/environment';
   selector: 'table-button-renderer',
   template: `
     <div>
-      <button>{{ getLable(col.field) }}</button>
+      <button (click)="col.onClick(row)">{{ getLable(col.field) }}</button>
     </div>
   `,
   styles: [
@@ -24,6 +24,7 @@ import { environment } from '../../../../environments/environment';
 export class TableButtonRendererComponent implements OnInit {
   @Input() button;
   @Input() col;
+  @Input() row;
 
   constructor() {}
 
@@ -39,6 +40,9 @@ export class TableButtonRendererComponent implements OnInit {
       }
       case 'ButtonRecived': {
         return 'Recived';
+      }
+      case 'ButtonConfirm': {
+        return 'Confirm';
       }
       default: {
         return '';

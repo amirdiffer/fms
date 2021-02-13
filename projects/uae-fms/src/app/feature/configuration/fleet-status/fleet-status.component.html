@@ -2,7 +2,7 @@
 
   <div class='d-flex'>
 
-    <div class='w-100 bg-white'>
+    <div class='w-100 bg-white pt-4'>
       <app-tab-view>
 
         <div title='Asset'>
@@ -15,7 +15,7 @@
 
     </div>
 
-    <div class='d-inline-flex h-100 minus_margin mt-1'>
+    <div class='d-inline-flex h-100 minus_margin mt-4'>
       <div class='search-box'>
         <input type='text' placeholder='Search in Columns'>
         <button>
@@ -24,7 +24,7 @@
       </div>
       <button class='btn-download'><a></a></button>
       <div>
-        <button class='btn-primary-green'><i>+</i><a>Add</a></button>
+        <button class='btn-primary-green' [routerLink]="'add-fleet-status'"><i>+</i><a>Add</a></button>
       </div>
     </div>
   </div>
