@@ -1,3 +1,4 @@
+import { AddOperatorComponent } from './operator/add-operator/add-operator.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -16,9 +17,9 @@ const routes: Routes = [
   { path: 'organization', component: OrganizationComponent },
   { path: 'accessory', component: AccessoryComponent },
   { path: 'sub-asset', component: SubAssetComponent },
-  { path: 'operator', component: OperatorComponent },
   { path: 'movement', component: MovementComponent },
   { path: 'operator', component: OperatorComponent },
+  { path: 'operator/add', component: AddOperatorComponent },
   { path: 'assets', component: AssetsComponent },
   { path: 'assets/add', component: AddAssetComponent },
   {
