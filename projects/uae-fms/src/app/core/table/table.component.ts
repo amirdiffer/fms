@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { environment } from '@environments/environment';
+import { SortEvent } from 'primeng/api';
 
 @Component({
   selector: 'app-table',
@@ -20,17 +21,17 @@ export class TableComponent implements OnInit {
           return data[col.field];
         case 2:
           return data[col.thumbField]
-            ? `<div class="d-inline-flex cell-with-image"><img class="thumb" src="${
+            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
                 environment.baseFileServer + data[col.thumbField]
-              }"> <p class="text-of-cell-with-image">${
+              }'> <p class='text-of-cell-with-image'>${
                 data[col.field]
               }</p></div>`
             : data[col.field];
         case 3:
           return data[col.thumbField]
-            ? `<img class="thumb" src="${
+            ? `<img class='thumb' src='${
                 environment.baseFileServer + data[col.thumbField]
-              }">`
+              }'>`
             : '';
       }
     } else {
@@ -60,6 +61,29 @@ export class TableComponent implements OnInit {
     }
     return false;
   }
+
+  handleSort(event: SortEvent, tableSetting: TableSetting) {
+    event.data.sort((data1, data2) => {
+      const value1 = data1[event.field];
+      const value2 = data2[event.field];
+      let result: number;
+
+      if (value1 == null && value2 != null) result = -1;
+      else if (value1 != null && value2 == null) result = 1;
+      else if (value1 == null && value2 == null) result = 0;
+      else if (typeof value1 === 'string' && typeof value2 === 'string') {
+        result = value1.localeCompare(value2);
+      } else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
+
+      tableSetting.columns.map((col) => {
+        if (col.field === event.field) {
+          col.isAsc = event.order === 1;
+        }
+      });
+
+      return event.order * result;
+    });
+  }
 }
 
 export interface TableSetting {
@@ -72,6 +96,7 @@ export interface ColumnDifinition {
   lable: string;
   isIconLable?: boolean;
   sortable?: boolean;
+  isAsc?: boolean;
   field?: string;
   width?: number;
   type?: ColumnType;

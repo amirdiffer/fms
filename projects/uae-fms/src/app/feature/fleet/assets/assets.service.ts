@@ -22,7 +22,7 @@ export class AssetsService {
         status: 'Work Shop',
         submitOn: '2 day ago',
         brand: 'bmw.png',
-        killometer: 25000,
+        killometer: 25000 + index,
         statusColor: '#009EFF'
       };
       data.push(el);
@@ -106,7 +106,8 @@ export class AssetsService {
           width: 140,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          sortable: true
         },
         {
           lable: 'Make',
@@ -122,7 +123,8 @@ export class AssetsService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          sortable: true
         }
       ],
       data: this.assetMaster(),
