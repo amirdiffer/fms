@@ -22,7 +22,7 @@ export class ConfigurationSelectors {
   static businessCategorySelector = createSelector(
     ConfigurationSelectors.featureSelector,
     (state) => state['businessCategory']
-  )
+  );
 
   static fleetStatusSelector = createSelector(
     ConfigurationSelectors.featureSelector,

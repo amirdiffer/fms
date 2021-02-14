@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UserProfileFacade } from '../state';
 
 @Component({
   selector: 'anms-profile',
@@ -7,10 +8,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileComponent implements OnInit {
-
-  constructor() { }
+  constructor(private facade: UserProfileFacade) {}
 
   ngOnInit(): void {
+    this.facade.loadAll();
   }
-
 }

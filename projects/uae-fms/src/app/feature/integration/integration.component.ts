@@ -1,5 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ColumnType, TableSetting } from '@core/table';
+import { Subscription } from 'rxjs';
+import { IntegrationService } from './integration.service';
 import { IntegrationFacade } from '../integration/+state';
 
 @Component({
@@ -8,10 +10,12 @@ import { IntegrationFacade } from '../integration/+state';
   styleUrls: ['./integration.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IntegrationComponent implements OnInit {
+export class IntegrationComponent implements OnInit , OnDestroy{
   tableSettings: TableSetting;
   downloadBtn= 'assets/icons/download-solid.svg';
-  constructor(private facade: IntegrationFacade) {}
+  addtype ;
+  addtype$: Subscription;
+  constructor(private _integrationService:IntegrationService, private facade: IntegrationFacade) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -130,5 +134,18 @@ export class IntegrationComponent implements OnInit {
         }
       ]
     };
+
+    this.addtype$ = this._integrationService.getIntegrationForm().subscribe(
+      (open) =>{
+        this.addtype = open
+      }
+    )
+  }
+  public add(){
+    this._integrationService.loadInegrationForm(true);
+    console.log('Click')
+  }
+  ngOnDestroy(){
+    this.addtype$.unsubscribe()
   }
 }

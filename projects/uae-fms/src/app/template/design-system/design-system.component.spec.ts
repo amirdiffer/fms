@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddIntegrationComponent } from './add-integration.component';
+import { DesignSystemComponent } from './design-system.component';
 
-describe('AddIntegrationComponent', () => {
-  let component: AddIntegrationComponent;
-  let fixture: ComponentFixture<AddIntegrationComponent>;
+describe('DesignSystemComponent', () => {
+  let component: DesignSystemComponent;
+  let fixture: ComponentFixture<DesignSystemComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddIntegrationComponent ]
+      declarations: [ DesignSystemComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddIntegrationComponent);
+    fixture = TestBed.createComponent(DesignSystemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

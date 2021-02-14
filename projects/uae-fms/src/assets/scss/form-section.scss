@@ -41,8 +41,27 @@
       width: auto;
       padding: 0 5px;
       color: #0da06e;
-    }
 
+    }
+    .p-float-label input:hover{
+      border-color:#0da06e;
+    }
+    .p-float-label {
+      ::ng-deep{
+        input:hover{
+          border-color:#0da06e;
+        }
+      }
+    }
+    .p-float-label input:focus:not(.invalid){
+      border-color:#0da06e !important;
+    }
+    p-dropdown ~ label ,
+    p-autocomplete ~ label {
+      height: 50%;
+      width: max-content;
+      background:#fff;
+    }
     input {
       font-size: 1em;
       width: 100%;
@@ -51,6 +70,7 @@
       & ~ label {
         height: 50%;
         width: 95%;
+        background:#fff;
       }
 
       &:focus {
@@ -109,6 +129,13 @@
     ::ng-deep {
       .p-dropdown {
         width: 100%;
+        height: 40px;
+        font-size:1em;
+        .p-inputtext{
+          font-family: '29LT Bukra';
+          font-size:1em;
+          margin-top: 5px;
+        }
       }
       .p-dropdown:not(.p-disabled):hover {
         border-color: #0da06e;
@@ -118,7 +145,35 @@
       }
     }
   }
-
+  p-autocomplete{
+    ::ng-deep{
+      
+      .autocomplete-select {
+        position: relative;
+        .p-inputwrapper-focus {
+          box-shadow: none;
+          border: none;
+        }
+    
+        .p-autocomplete {
+          width: 100%;
+          height: 40px;
+          .p-autocomplete-input {
+            width: 100%;
+            height: 40px;
+          }
+          .p-autocomplete-loader {
+            display: none;
+          }
+        }
+        .pi-search {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+        }
+      }
+    }
+  }
   .autocomplete-select {
     position: relative;
     ::ng-deep {
@@ -126,9 +181,9 @@
         box-shadow: none;
         border: none;
       }
-
       .p-autocomplete {
         width: 100%;
+        height: 40px;
         .p-autocomplete-input {
           width: 100%;
           height: 40px;
@@ -166,6 +221,7 @@
       width: 100%;
       .p-autocomplete-input {
         width: 100%;
+        height: 40px;
       }
       .p-autocomplete-loader {
         display: none;
@@ -200,6 +256,8 @@
 /* Validation */
 .red-font {
   color: #dd5648 !important;
+  margin-top: .7em;
+  margin-left: 1em;
 }
 .error-input {
   color: #dd5648 !important;
@@ -214,6 +272,17 @@
     }
   }
 }
+
+:host ::ng-deep{
+  input.invalid,
+  input.invalid:focus {
+    border-color: #dd5648 !important;
+  & ~ label {
+    color:#dd5648 !important;
+  }
+  }
+}
+
 
 .options-select {
   ::ng-deep {

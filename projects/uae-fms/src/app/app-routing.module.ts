@@ -3,6 +3,7 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthGuardService } from '@core/auth/auth-guard.service';
 import { MainTemplateComponent } from './template/main-template/main-template.component';
 import { LoginTemplateComponent } from './template/login-template/login-template.component';
+import { DesignSystemComponent } from './template/design-system/design-system.component';
 
 const routes: Routes = [
   {
@@ -87,6 +88,17 @@ const routes: Routes = [
         (m) => m.FuelManagementModule
       ),
     component: MainTemplateComponent
+  },
+  {
+    path: 'user-profile',
+    canLoad: [AuthGuardService],
+    loadChildren: () =>
+      import('./feature/user/user.module').then((m) => m.UserProfileModule),
+    component: MainTemplateComponent
+  },
+  {
+    path:'design-system',
+    component: DesignSystemComponent
   },
   {
     path: '',

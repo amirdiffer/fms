@@ -5,13 +5,13 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class AccessoryService {
-  private _addAccessory$=new Subject<boolean>();
+  private _addAccessory$ = new Subject<boolean>();
 
-  public loadAddForm (open:boolean){
-    this._addAccessory$.next(open)
+  public loadAddForm(open: boolean) {
+    this._addAccessory$.next(open);
   }
-  public getAddForm():Observable<boolean>{
+  public getAddForm(): Observable<boolean> {
     return this._addAccessory$.asObservable();
   }
-  constructor() { }
+  constructor() {}
 }

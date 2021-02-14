@@ -1,9 +1,9 @@
 @import '../../../../../assets/scss/form-section.scss';
 
-:host ::ng-deep{
-  .pi.pi-search{
+:host ::ng-deep {
+  .pi.pi-search {
     top: 13px;
-    opacity: .6;
+    opacity: 0.6;
   }
 }
 
@@ -12,7 +12,7 @@
 }
 
 .component_wrapper {
-  box-shadow: 0px 0px 2px #0000003D;
+  box-shadow: 0px 0px 2px #0000003d;
   border-radius: 4px;
   overflow: visible;
   .caption {
@@ -33,7 +33,6 @@
         margin-left: 8px;
       }
     }
-    
   }
 
   .upload-box {
@@ -61,18 +60,18 @@
   .border-input-append {
     border: 1px solid #009c62;
   }
-  .input-group-append{
+  .input-group-append {
     z-index: 2;
   }
-  .flex-75{
+  .flex-75 {
     flex: 0 0 75%;
   }
 }
 
-.form-section__field{
+.form-section__field {
   .p-float-label input:read-only {
     font-weight: bold;
-    ~ label{
+    ~ label {
       top: -0.15rem;
       left: 0.8rem;
       width: auto;

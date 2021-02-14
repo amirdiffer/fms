@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting } from '@core/table';
 import { AuctionListFacade } from '@feature/workshop/+state/auction-list';
@@ -10,7 +15,7 @@ import { FakeServiceAuctionList } from './_fake-service.service';
   styleUrls: ['./auction-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuctionListComponent implements OnInit , OnDestroy{
+export class AuctionListComponent implements OnInit, OnDestroy {
   editOpen: boolean = false;
   downloadBtn= 'assets/icons/download-solid.svg';
   editOpen$: Subscription;
@@ -256,17 +261,18 @@ export class AuctionListComponent implements OnInit , OnDestroy{
     ]
   };
 
-  constructor(private _facade: AuctionListFacade , private _fake_serviceservice : FakeServiceAuctionList) {}
+  constructor(
+    private _facade: AuctionListFacade,
+    private _fake_serviceservice: FakeServiceAuctionList
+  ) {}
 
   ngOnInit(): void {
-    this.editOpen$ = this._fake_serviceservice
-      .getEdit()
-      .subscribe((open) => {
-        this.editOpen = open;
-      });
+    this.editOpen$ = this._fake_serviceservice.getEdit().subscribe((open) => {
+      this.editOpen = open;
+    });
     this._facade.loadAll();
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.editOpen$.unsubscribe();
   }
 }
