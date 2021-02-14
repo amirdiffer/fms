@@ -10,19 +10,22 @@ import { AccessoryService } from '../accessory.service';
 })
 export class AddAccessoryComponent implements OnInit {
   public inputForm: FormGroup;
-  constructor(private _fb:FormBuilder , private _accessoryService : AccessoryService) { }
+  constructor(
+    private _fb: FormBuilder,
+    private _accessoryService: AccessoryService
+  ) {}
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      itemName:[''],
-      assignTo:[''],
-      search:[''],
-      accessoryType:[''],
-      quantity:[''],
-      assignedTo:[''],
-    })
+      itemName: [''],
+      assignTo: [''],
+      search: [''],
+      accessoryType: [''],
+      quantity: [''],
+      assignedTo: ['']
+    });
   }
-  cancel(){
+  cancel() {
     this._accessoryService.loadAddForm(false);
   }
 }

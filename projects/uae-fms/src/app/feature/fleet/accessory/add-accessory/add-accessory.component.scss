@@ -1,101 +1,100 @@
-:host ::ng-deep{
-    mat-form-field{
-        height: 52px;
-        width: 100%;
+:host ::ng-deep {
+  mat-form-field {
+    height: 52px;
+    width: 100%;
+  }
+  .mat-form-field-flex {
+    background-color: #fff !important;
+    border: 1px solid #e2e2e2;
+    border-radius: 5px !important;
+    height: 100%;
+    padding: 0.5em 0.75em 0.5em 0.75em;
+  }
+  .mat-form-field-underline {
+    display: none;
+  }
+  .mat-form-field-infix {
+    border-top: 0;
+    height: 100%;
+    input {
+      padding: 0 13px;
     }
-    .mat-form-field-flex{
-        background-color:#fff !important;
-        border: 1px solid #E2E2E2;
-        border-radius: 5px !important;
-        height: 100%;
-        padding: .5em .75em .5em .75em;
+    .mat-form-field-label {
+      top: 1.5em;
     }
-    .mat-form-field-underline{
-        display: none;
+    .mat-form-field-label-wrapper {
+      overflow: visible;
     }
-    .mat-form-field-infix{
-        border-top: 0;
-        height:100%;
-        input{
-            padding: 0 13px;
-        }
-        .mat-form-field-label{
-            top: 1.5em;
-        }
-        .mat-form-field-label-wrapper{
-            overflow: visible;
-        }
+  }
+  .mat-form-field-label {
+    background: #fff;
+    width: max-content !important;
+  }
+  .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-1.6em) scale(0.75);
+  }
+  .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+    transform: translateY(0%);
+  }
+  .mat-select-arrow {
+    width: 0;
+    height: 0;
+    border: 0 !important;
+    &:after {
+      font: 24px 'Consolas';
+      content: '>';
+      position: absolute;
+      top: -7px;
+      left: -7px;
+      transform: rotate(90deg);
     }
-    .mat-form-field-label{
-        background: #fff;
-        width: max-content !important;  
-    }
-    .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
-        transform: translateY(-1.6em) scale(0.75);
-    }
-    .mat-form-field-appearance-fill .mat-select-arrow-wrapper{
-        transform: translateY(0%);
-    }
-    .mat-select-arrow {
-        width: 0;
-        height: 0;
-        border:0 !important;
-        &:after{
-            font: 24px "Consolas";
-            content: ">";
-            position: absolute;
-            top: -7px;
-            left: -7px;
-            transform: rotate(90deg);
-        }
-    }
+  }
 }
 
-.button-container{
-    position: absolute;
-    top: -60px;
-    right: 0;
-    button {
-        width: 180px;
-        height: 50px;
-        font-size: 17px;
-        margin: 0 2px;
-    }
-    .add {
-        background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
-          0% no-repeat padding-box;
-        box-shadow: 0px 0px 1px #000000;
-        border-radius: 4px;
-        opacity: 1;
-        color: #ffffff;
-        border: 0;
-      }
-      .cancel {
-        box-shadow: 0px 0px 1px #00000066;
-        border: 2px solid #0da06e;
-        border-radius: 4px;
-        opacity: 1;
-        color: #0da06e;
-      }
-
+.button-container {
+  position: absolute;
+  top: -60px;
+  right: 0;
+  button {
+    width: 180px;
+    height: 50px;
+    font-size: 17px;
+    margin: 0 2px;
+  }
+  .add {
+    background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
+      0% no-repeat padding-box;
+    box-shadow: 0px 0px 1px #000000;
+    border-radius: 4px;
+    opacity: 1;
+    color: #ffffff;
+    border: 0;
+  }
+  .cancel {
+    box-shadow: 0px 0px 1px #00000066;
+    border: 2px solid #0da06e;
+    border-radius: 4px;
+    opacity: 1;
+    color: #0da06e;
+  }
 }
-.card{
-    border-radius:4px;
-    box-shadow: 0px 0px 2px #0000003d;
-    margin: 0 10px;
+.card {
+  border-radius: 4px;
+  box-shadow: 0px 0px 2px #0000003d;
+  margin: 0 10px;
 }
 .radio-button-container {
-    label{
-        flex: 0 0 25%;
-        font-size:16px;
-        font-weight: bold;
-    }
-    .mat-radio-group{
-        flex: 0 0 75%;
-        margin-top: 5px;
-    }
-    mat-radio-button{
-        flex: 0 0 auto;
-        margin: 0 9%;
-    }
+  label {
+    flex: 0 0 25%;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .mat-radio-group {
+    flex: 0 0 75%;
+    margin-top: 5px;
+  }
+  mat-radio-button {
+    flex: 0 0 auto;
+    margin: 0 9%;
+  }
 }

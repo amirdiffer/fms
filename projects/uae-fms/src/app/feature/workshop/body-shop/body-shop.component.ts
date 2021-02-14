@@ -9,7 +9,6 @@ import { Event, Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodyShopComponent implements OnInit {
-  
   filterSetting: FilterCardSetting[] = [
     {
       filterCount: '13',
@@ -39,24 +38,35 @@ export class BodyShopComponent implements OnInit {
 
   table1Setting: TableSetting = {
     columns: [
-      { lable: 'Item', field: 'item',width: 190, renderer: 'vehicleRenderer' },
+      { lable: 'Item', field: 'item', width: 190, renderer: 'vehicleRenderer' },
       { lable: 'Issue', field: 'issue', type: ColumnType.lable, width: 70 },
       { lable: 'Source', field: 'source', type: ColumnType.lable, width: 120 },
-      { lable: 'Reference No', field: 'refrenceNo',width: 100, type: ColumnType.lable },
+      {
+        lable: 'Reference No',
+        field: 'refrenceNo',
+        width: 100,
+        type: ColumnType.lable
+      },
       {
         lable: 'Job Type',
         field: 'jobType',
         type: ColumnType.lable,
         width: 100
       },
-      { lable: 'Date', field: 'date',width: 100, type: ColumnType.lable },
+      { lable: 'Date', field: 'date', width: 100, type: ColumnType.lable },
       {
         lable: 'Accident',
         field: 'accident',
         type: ColumnType.lable,
         width: 100
       },
-      { lable: 'Action', field: '', type: ColumnType.lable, width: 120 , renderer: 'jobCard'}
+      {
+        lable: 'Action',
+        field: '',
+        type: ColumnType.lable,
+        width: 120,
+        renderer: 'jobCard'
+      }
     ],
     data: [
       {
@@ -540,7 +550,7 @@ export class BodyShopComponent implements OnInit {
     this.facade.loadAll();
   }
 
-  addClicked(e:Event) {
+  addClicked(e: Event) {
     switch (this.selectedTab) {
       case 'Job Card':
         break;

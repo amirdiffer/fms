@@ -15,7 +15,7 @@ import {
   CONFIGURATION_BUSINESS_CATEGORY_FEATURE_KEY
 } from './business-category/business-category.entity';
 
-import{
+import {
   CONFIGURATION_FLEET_STATUS_FEATURE_KEY,
   FleetStatusState
 } from './fleet-status/fleet-status.entity';

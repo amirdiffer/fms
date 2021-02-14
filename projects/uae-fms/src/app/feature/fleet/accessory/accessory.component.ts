@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { TableSetting } from '@core/table';
 import { Subscription } from 'rxjs';
@@ -10,9 +15,9 @@ import { AccessoryService } from './accessory.service';
   styleUrls: ['./accessory.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccessoryComponent implements OnInit , OnDestroy{
+export class AccessoryComponent implements OnInit, OnDestroy {
   openAdd;
-  openAdd$:Subscription;
+  openAdd$: Subscription;
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'Total',
@@ -100,22 +105,20 @@ export class AccessoryComponent implements OnInit , OnDestroy{
     ]
   };
 
-  constructor(private _accessoryService:AccessoryService) {}
+  constructor(private _accessoryService: AccessoryService) {}
 
   ngOnInit(): void {
-    this.openAdd$ = this._accessoryService.getAddForm().subscribe(
-      (open) => {
-        this.openAdd =  open
-      }
-    )
+    this.openAdd$ = this._accessoryService.getAddForm().subscribe((open) => {
+      this.openAdd = open;
+    });
   }
 
-  addAccessory(){
+  addAccessory() {
     this._accessoryService.loadAddForm(true);
-    console.log('OK')
+    console.log('OK');
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.openAdd$.unsubscribe();
   }
 }

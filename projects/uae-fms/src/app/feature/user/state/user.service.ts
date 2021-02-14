@@ -6,15 +6,14 @@ import { IUserProfileModel } from './user.entity';
   providedIn: 'root'
 })
 export class UserProfileService {
-
-  constructor() { }
+  constructor() {}
 
   private _userData$ = new Subject<IUserProfileModel[]>();
 
-  public loadUserData(data){
-    this._userData$.next(data)
+  public loadUserData(data) {
+    this._userData$.next(data);
   }
-  public getUserData (): Observable<IUserProfileModel[]>{
+  public getUserData(): Observable<IUserProfileModel[]> {
     return this._userData$.asObservable();
   }
 }
