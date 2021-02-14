@@ -11,7 +11,7 @@ export class TollComponent implements OnInit {
   tableSetting;
   tableData: ITableData[];
   filterSetting = [];
-  searchIcon = 'assets/icons/search.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn= 'assets/icons/download-solid.svg';
   constructor(private facade: TollFacade) {}
 

@@ -14,14 +14,12 @@ import { environment } from '../../../../environments/environment';
       div .line-1 {
         margin-left: 10px;
         text-align: left;
-        font-size: 17px;
         color: #000000de;
       }
 
       div .line-2 {
         margin-left: 10px;
         text-align: left;
-        font-size: 17px;
         color: #000000de;
       }
     `

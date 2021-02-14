@@ -61,7 +61,7 @@
         font-size: 15px;
       }
       .menu-item-name {
-        margin: 1.13em;
+        margin: 1em;
         color: #000000de;
       }
       .sub-menuItem {
@@ -70,7 +70,7 @@
         padding-left: 18px;
         margin-left: 12px;
         margin-top: 8px;
-        border-left: 4px solid #0da06e;
+        border-left: .25em solid #0da06e;
         transition: max-height 400ms;
         transition-timing-function: ease-in-out;
         list-style: none;
@@ -80,14 +80,14 @@
           font-size: 12px;
         }
         .menu-item-name {
-          margin: 15px;
+          margin: 1em;
         }
         .sub-menuItem-child {
           margin-top: 8px;
           margin-left: 8px;
           padding-left: 16px;
           list-style: none;
-          border-left: 4px solid #0da06e;
+          border-left: .25em solid #0da06e;
           .menu-item-name {
             margin: 5px;
           }

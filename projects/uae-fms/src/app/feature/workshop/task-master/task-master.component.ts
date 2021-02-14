@@ -9,7 +9,7 @@ import { TaskMasterService } from './task-master.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskMasterComponent implements OnInit {
-  searchIcon = 'assets/icons/search.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn= 'assets/icons/download-solid.svg';
   tableSetting;
   constructor(

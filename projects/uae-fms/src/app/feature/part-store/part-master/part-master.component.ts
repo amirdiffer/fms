@@ -8,7 +8,7 @@ import { PartMasterService } from './part-master.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PartMasterComponent implements OnInit {
-  searchIcon = 'assets/icons/search.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn= 'assets/icons/download-solid.svg';
   filterSetting = [];
   partMasterTableSetting;

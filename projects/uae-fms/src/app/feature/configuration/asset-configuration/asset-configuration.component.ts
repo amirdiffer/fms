@@ -13,7 +13,7 @@ import { AssetConfigurationService } from './asset-configuration.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetConfigurationComponent implements OnInit, OnDestroy {
-  searchIcon = 'assets/icons/search.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn= 'assets/icons/download-solid.svg';
   assetConfigurationableSetting;
   addOpen;

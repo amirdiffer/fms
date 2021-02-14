@@ -15,7 +15,7 @@
     <button class="btn-download" disabled>
       <svg-icon [src]="downloadBtn"></svg-icon>
     </button>
-    <button class="btn-primary-small"><i>+</i><a>Add</a></button>
+    <button class="btn-primary-small" *ngIf="activeTab == 'My Order'"routerLink="add-order-list"><i>+</i><a>Order</a></button>
   </div>
   <div class="table-wreapper">
     <app-tab-view (selectedIndex)="activeTab = $event">

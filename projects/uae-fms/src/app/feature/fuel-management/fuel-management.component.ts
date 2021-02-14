@@ -13,6 +13,7 @@ import {
   AssetUsageTableSettings
 } from './asset-usage-table/asset-usage-table.component';
 import { FuelCardsFacade } from '../fuel-management/+state/fuel-cards';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-fuel-management',
@@ -22,7 +23,7 @@ import { FuelCardsFacade } from '../fuel-management/+state/fuel-cards';
 })
 export class FuelManagementComponent implements OnInit {
   downloadBtn= 'assets/icons/download-solid.svg';
-  searchIcon = 'assets/icons/search.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   filterSetting: FilterCardSetting[] = [
     {
       filterTitle: 'Total',
@@ -262,9 +263,24 @@ export class FuelManagementComponent implements OnInit {
     data: this.assetUsageTableData
   };
 
-  constructor(private facade: FuelCardsFacade) {}
-
+  constructor(private facade: FuelCardsFacade , private _router : Router) {}
+  selectedTab;
   ngOnInit(): void {
     this.facade.loadAll();
+  }
+  addClicked(e:Event){
+    console.log(this._router.navigate(['add-fuel-card']))
+    
+    switch (this.selectedTab) {
+      case 'Fuel Cards':
+        this._router.navigate(['fuel-management/add-fuel-card']);
+        break;
+      case 'Asset Usage':
+        this._router.navigate(['fuel-management/add-asset-usage']);
+        break;
+      default:
+        this._router.navigate(['fuel-management/add-fuel-card']);
+        break;
+    }
   }
 }

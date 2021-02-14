@@ -4,11 +4,6 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="openAdd">
-  <add-accessory></add-accessory>
-</ng-container>
-
-
 <div class="component_wrapper">
   <div class="card-table-header">
     <ng-container *ngIf="!openAdd;">
@@ -21,7 +16,7 @@
       <button class="btn-download" disabled>
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
-      <button class="btn-primary-small" (click)="addAccessory()"><i>+</i><a>Add</a></button>
+      <button class="btn-primary-small" routerLink="add"><i>+</i><a>Add</a></button>
     </ng-container>
   </div>
   <div class="table-wreapper">

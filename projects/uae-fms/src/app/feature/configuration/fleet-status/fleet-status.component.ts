@@ -14,7 +14,7 @@ import { FleetStatusFacade } from '../+state/fleet-status';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FleetStatusComponent implements OnInit {
-  searchIcon = 'assets/icons/search.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn= 'assets/icons/download-solid.svg';
   tableColumns: FleetStatusTableColumnDefinition[] = [
     {

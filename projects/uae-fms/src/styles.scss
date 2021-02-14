@@ -135,7 +135,7 @@
     font-size: 13px;
   }
 }
-@media only screen and ( max-width : 1355px){
+@media only screen and ( max-width : 1366px){
   .wrapper{
     font-size: 11px;
   }
@@ -258,23 +258,23 @@
   }
   .filter{
     .filter-title{
-      font-size: 1em;
+      font-size: .9em;
     }
   }
   .filter-count{
-    font-size:1.7em;
+    font-size:1.6em;
   }
   
 }
 /* Responsive */
 @media only screen and ( max-width : 1600px){
   .filter-wrapper-container{
-    font-size: filterFontSize(.75);
+    font-size: filterFontSize(.7);
   } 
 }
-@media only screen and ( max-width : 1355px){
+@media only screen and ( max-width : 1366px){
   .filter-wrapper-container{
-    font-size: filterFontSize(.65);
+    font-size: filterFontSize(.6);
   } 
 }
 /* End Filter*/
@@ -288,8 +288,8 @@
   color:#fff;
   border: 2px solid $fms-green-button-border;
   background-color: $fms-green-button-bg;
-  border-radius: 4px;
-  padding: 1px 50px;
+  border-radius: .25em;
+  padding: 1px 3.2em;
   z-index: 2;
   &:hover{
     background: transparent linear-gradient(0deg, #10a770 0%, $fms-green-button-bg 100%) 0% 0% no-repeat padding-box;  
@@ -304,17 +304,20 @@
   }
 }
 .btn-primary-large {
-  @include buttons(19px , 54px);
+  @include buttons(1.2em , 3.3em);
 }
 .btn-primary-medium {
-  @include buttons(17px , 48px);
+  @include buttons(1.1em , 3em);
 }
 .btn-primary-small {
-  @include buttons(15px , 45px);
+  @include buttons(.9em , 2.8em);
 }
 .btn-scondary-green{
   background-color: #fff;
   color:$fms-green-button-bg;
+  &:hover{
+    background:transparentize($color: $fms-green-button-bg, $amount: .9)
+  }
 }
 
 
@@ -322,7 +325,7 @@
   width: 45px;
   border: 2px solid $fms-green-button-bg;
   margin: 0 5px;
-  border-radius: 4px;
+  border-radius: .25em;
   position: relative;
   background: #ffff;
   svg{
@@ -346,6 +349,22 @@
     }
   }
 }
+
+
+
+.button-container{
+  position: absolute;
+  top: -3.12em;
+  right: 2em;
+  button{
+    margin: 0 2px;
+    width: 11em;
+  }
+  .add{
+    background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0% 0% no-repeat padding-box;
+    border:none;
+  }
+}
 /* End Button */
 
 
@@ -358,9 +377,11 @@
       font-size:  1em;
       font-weight: bold;
     }
+    tbody{
+      font-size:  .9em;
+    }
   }
   .card-table-header {
-    font-size: 15px;
     height:3em;
     display: flex;
     justify-content: flex-end;
@@ -385,7 +406,7 @@
         width: 100%;
         box-shadow: 0px 0px 2px #00000029;
         border: 2px solid #a2a2a2;
-        border-radius: 4px;
+        border-radius: .25em;
         &::placeholder {
           padding-left: 5px;
         }
@@ -396,7 +417,7 @@
         position: absolute;
         right: 0;
         background: #a09999;
-        border-radius: 0 4px 4px 0;
+        border-radius: 0 .25em .25em 0;
         border: none;
     
         img {
@@ -415,27 +436,37 @@
   .wrapper {
     .card-table-header,
     .p-datatable{
-      font-size: 13px;
+      font-size: 12px;
     }
     .btn-download{
       svg{
         margin-left:-2px;
       }
     }
+    .card-table-header{
+      .search-box input,
+      button{
+        border-width: 1px;
+      }
+    }
+    
   } 
 }
 
-@media only screen and ( max-width : 1355px){
+@media only screen and ( max-width : 1366px){
   .wrapper {
     .card-table-header,
     .p-datatable{
-      font-size: 11px;
+      font-size: 10px;
     }
   }  
 }
 /*End Table Search Header*/
 
 /* Radio Button */
+form{
+  position: relative;
+}
 .form-check{
   overflow: visible;
   input[type=radio]{
@@ -463,6 +494,10 @@
         border: 1px solid #707070;
       }
     }
+    & ~ label{
+      line-height: 2;
+      margin-left: .8em
+    }
   }
   input[type=checkbox] {
     transform: scale(1.5);
@@ -481,26 +516,59 @@
     }
     
   }
-  @media only screen and ( max-width : 1355px){
+  @media only screen and ( max-width : 1366px){
     input[type=radio],
     input[type=checkbox] {
       transform: scale(1);
     }
   }
 }
-
+.custom-switch {
+  cursor: pointer;
+  padding-left: 0;
+  min-height: 2.25em;
+  .custom-control-input:checked ~ .custom-control-label::before {
+    border-color: #098a5e;
+    background-color: #0da06e;
+  }
+  .custom-control-label {
+    transform: scale(1.5);
+    &:after {
+      background-color: #ffffff !important;
+      left: 2px;
+    }
+    &:before {
+      left: 0;
+      background-color: #0000005e;
+    }
+  }
+  .custum-text {
+    margin: 0 1em;
+    line-height: 2.3;
+  }
+  @media only screen and ( max-width : 1600px){
+    .custom-control-label {
+      transform: scale(1.4);
+    }
+  }
+  @media only screen and ( max-width : 1366px){
+    .custom-control-label {
+      transform: scale(1.2);
+    }
+  }
+}
 
 /* SideBar Menu */
 .wrapper{
   app-sidebar-manu{
     font-size:16px;
     .menu-wrapper{
-      width:19em;
+      width:20em;
       .container{
-        padding: 1.56em;
+        padding: 1.1em;
         .sub-menuItem {
           .menu-item-name{
-            font-size: .75em;
+            font-size: .8em;
           }
         }
         .sub-menuItem-child{
@@ -514,7 +582,7 @@
   }
   @media only screen and ( max-width : 1600px){
     app-sidebar-manu{
-      font-size:14px;
+      font-size:13px;
       .menu-wrapper .has-child{
         &::after{
           transform:scale(.8);
@@ -523,11 +591,14 @@
           transform:rotate(90deg) scale(.8) !important;
         }  
       }
+      svg{
+        transform: scale(.8);
+      }
     }
   }
-  @media only screen and ( max-width : 1355px){
+  @media only screen and ( max-width : 1366px){
     app-sidebar-manu{
-      font-size:12px;
+      font-size:11px;
       .menu-wrapper .has-child{
         &::after{
           transform:scale(.6);
@@ -535,6 +606,9 @@
         &.active::after {
           transform: rotate(90deg) scale(.6) !important;
         }  
+      }
+      svg{
+        transform: scale(.6);
       }
     }
   }

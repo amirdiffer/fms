@@ -8,7 +8,7 @@
       </button>
     </div>
     <button class="btn-download" disabled>
-      <svg-icon [src]="downloadBtn" [svgStyle]="{ 'width.px':30, 'height': '100%'}"></svg-icon>
+      <svg-icon [src]="downloadBtn"></svg-icon>
     </button>
     <button *ngIf="selectedTab!='Job Card'" class="btn-primary-small" (click)="addClicked($event)" ><i>+</i><a>Add</a></button>
   </div>

@@ -12,7 +12,7 @@ export class AssetsComponent implements OnInit {
   pendingCustomizationTableSetting;
   filterSetting;
   downloadBtn= 'assets/icons/download-solid.svg';
-  searchIcon = 'assets/icons/search.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   constructor(private _assetsService: AssetsService) {}
 
   ngOnInit(): void {
