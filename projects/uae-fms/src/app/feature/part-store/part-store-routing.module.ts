@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
-import { PartListComponent } from './part-list/part-list.component';
-import { OrderListComponent } from './order-list/order-list.component';
-import { PartStoreComponent } from './part-store.component';
-import { OrderListComponent } from '@feature/part-store/order-list/order-list.component';
-import { PartListComponent } from '@feature/part-store/part-list/part-list.component';
+import { RouterModule, Routes } from '@angular/router';
 import { PartOverviewComponent } from '@feature/part-store/part-overview/part-overview.component';
-import { PartMasterComponent } from './part-master/part-master.component';
+import { OrderListComponent } from './order-list/order-list.component';
 import { PartListFormComponent } from './part-list/part-list-form.component';
+import { PartListComponent } from './part-list/part-list.component';
 import { AddPartMasterComponent } from './part-master/add-part-master/add-part-master.component';
+import { PartMasterComponent } from './part-master/part-master.component';
 
 const routes: Routes = [
   { path: 'part-list/add', component: PartListFormComponent },

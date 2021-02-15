@@ -1,37 +1,24 @@
-import { SharedModule } from '@shared/shared.module';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { PartStoreRoutingModule } from './part-store-routing.module';
-import { PartStoreComponent } from './part-store.component';
-import { PartListComponent } from './part-list/part-list.component';
-import { PartOverviewComponent } from './part-overview/part-overview.component';
-import { OrderListComponent } from './order-list/order-list.component';
-import { TabViewModule } from '@core/tab-view';
-import { TableModule } from '@core/table';
-import { PartMasterComponent } from './part-master/part-master.component';
-import { AssetTypeComponent } from './part-master/asset-type/asset-type.component';
-import { CategoryComponent } from './part-master/category/category.component';
+import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
-import { AngularSvgIconModule } from 'angular-svg-icon';
-
-import { TabViewModule } from '@core/tab-view';
+import { MatSelectModule } from '@angular/material/select';
 import { FilterModule } from '@core/filter';
+import { TabViewModule } from '@core/tab-view';
 import { TableModule } from '@core/table';
-
-import { PartListComponent } from './part-list/part-list.component';
-import { PartStoreRoutingModule } from './part-store-routing.module';
-import { OrderListComponent } from './order-list/order-list.component';
-import { PartMasterComponent } from './part-master/part-master.component';
-import { CategoryComponent } from './category/category.component';
-import { AssetTypeComponent } from './asset-type/asset-type.component';
-import { PartListFormComponent } from './part-list/part-list-form.component';
-import { AddPartMasterComponent } from './part-master/add-part-master/add-part-master.component';
-import { PartStoreStateModule } from './+state/part-store.state.module';
 import { DashboardModule } from '@feature/dashboard/dashboard.module';
+import { SharedModule } from '@shared/shared.module';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { PartStoreStateModule } from './+state/part-store.state.module';
+import { OrderListComponent } from './order-list/order-list.component';
+import { PartListFormComponent } from './part-list/part-list-form.component';
+import { PartListComponent } from './part-list/part-list.component';
+import { AddPartMasterComponent } from './part-master/add-part-master/add-part-master.component';
+import { AssetTypeComponent } from './asset-type/asset-type.component';
+import { CategoryComponent } from './category/category.component';
+import { PartMasterComponent } from './part-master/part-master.component';
+import { PartOverviewComponent } from './part-overview/part-overview.component';
+import { PartStoreRoutingModule } from './part-store-routing.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +28,7 @@ import { DashboardModule } from '@feature/dashboard/dashboard.module';
     AssetTypeComponent,
     OrderListComponent,
     PartMasterComponent,
-    AddPartMasterComponent
+    AddPartMasterComponent,
     OrderListComponent,
     PartOverviewComponent
   ],
