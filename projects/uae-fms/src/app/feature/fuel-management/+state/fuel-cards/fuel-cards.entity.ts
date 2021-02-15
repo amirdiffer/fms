@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-export const FUEL_MANAGEMENT_FUEL_CARDS_FEATURE_KEY = 'fuel-cards';
+export const FUEL_MANAGEMENT_FUEL_CARDS_FEATURE_KEY = 'fuelCards';
 
 export interface FuelCardsStateModel {
   tagNoItem: {
