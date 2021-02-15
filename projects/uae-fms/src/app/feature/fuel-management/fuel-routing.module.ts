@@ -5,7 +5,8 @@ import { FuelManagementComponent } from '@feature/fuel-management/fuel-managemen
 
 const routes: Routes = [
   { path: '', component: FuelManagementComponent },
-  { path: 'add-fuel-card', component: AddFuelCardComponent }
+  { path: 'add-fuel-card', component: AddFuelCardComponent },
+  { path : 'add-asset-usage'}
 ];
 
 @NgModule({

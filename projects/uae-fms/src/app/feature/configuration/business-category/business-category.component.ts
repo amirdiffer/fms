@@ -9,6 +9,7 @@ import { BusinessCategoryFacade } from '../+state/business-category';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BusinessCategoryComponent implements OnInit {
+  downloadBtn= 'assets/icons/download-solid.svg';
   businessCategory_Table: TableSetting = {
     columns: [
       { lable: 'Category Name', type: 1, field: 'Category_Name' },

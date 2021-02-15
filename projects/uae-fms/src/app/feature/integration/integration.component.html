@@ -1,5 +1,6 @@
 <div class="component_wrapper">
   <div class="card-table-header">
+
     <ng-container *ngIf="!addtype; else addIntegration">
       <div class="search-box">
         <input type="text" placeholder="Search in Columns">
@@ -7,8 +8,10 @@
           <img src="../../../assets/icons/search-solid.svg" alt="">
         </button>
       </div>
-      <button class="btn-download"><a></a></button>
-      <button class="btn-primary-green"  (click)="add()"><i>+</i><a>Add</a></button>
+      <button class="btn-download" disabled>
+        <svg-icon [src]="downloadBtn"></svg-icon>
+      </button>
+      <button class="btn-primary-small"  (click)="add()"><i>+</i><a>Add</a></button>
     </ng-container>
     <ng-template #addIntegration>
       <add-integration class="w-100"></add-integration>

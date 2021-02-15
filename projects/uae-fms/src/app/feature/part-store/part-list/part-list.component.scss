@@ -11,65 +11,34 @@ $primary: map-get($anms-green-primary, 300);
     display: flex;
     flex-basis: 100px;
     flex-grow: 1;
+    height: 100%;
   }
   .make-filter {
     display: flex;
     flex-basis: 200px;
     flex-grow: 2;
+    height: 100%;
   }
   .model-filter {
     display: flex;
     flex-basis: 150px;
     flex-grow: 2;
+    height: 100%;
   }
   .search-box {
     display: flex;
     flex-basis: 300px;
     flex-grow: 3;
-    min-height: 40px;
+    height: 100%;
   }
   .download-add-Button {
     display: flex;
   }
-}
-.btn-primary-green {
-  background-color: $primary;
-  border: 2px solid #0da06e;
-  border-radius: 4px;
-  width: 155px;
-  height: 45px;
-  position: relative;
-  a {
-    color: #ffff;
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-  i {
-    color: #ffff;
-    font-size: 1.7rem;
-    font-weight: bold;
-    position: absolute;
-    top: -3px;
-    left: 20%;
-  }
-}
-.btn-download {
-  width: 45px;
-  border: 2px solid #a2a2a2;
-  margin: 0 5px;
-  border-radius: 4px;
-  position: relative;
-  background: #ffff;
-  a {
-    background: url('../../../../assets/icons/download-solid.svg');
-    position: absolute;
+  .input-group-append{
     height: 100%;
-    width: 100%;
-    background-repeat: no-repeat;
-    top: 5px;
-    left: 6px;
   }
 }
+
 .search-box {
   width: 320px;
   position: relative;
@@ -78,6 +47,7 @@ $primary: map-get($anms-green-primary, 300);
     width: 100%;
     box-shadow: 0px 0px 2px #00000029;
     border: 1px solid #0000005e;
+    border-radius:0;
     &::placeholder {
       padding-left: 15px;
     }
@@ -114,4 +84,5 @@ $primary: map-get($anms-green-primary, 300);
   border: 1px solid #0000005e;
   border-right: none;
   border-radius: 0px;
+  font-size: 1em;
 }

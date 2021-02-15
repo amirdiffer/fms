@@ -18,6 +18,7 @@ import { TechnicalInspectionFacade } from '@feature/workshop/+state/technical-in
 })
 export class TechnicalInspectionComponent implements OnInit, OnDestroy {
   makeDecision: boolean;
+  downloadBtn= 'assets/icons/download-solid.svg';
   makeDecision$: Subscription;
   filterSetting: FilterCardSetting[] = [
     {
