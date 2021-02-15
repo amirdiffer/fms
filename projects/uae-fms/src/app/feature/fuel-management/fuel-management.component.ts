@@ -13,6 +13,7 @@ import {
   AssetUsageTableSettings
 } from './asset-usage-table/asset-usage-table.component';
 import { FuelCardsFacade } from '../fuel-management/+state/fuel-cards';
+import { AssetUsageFacade } from './+state/asset-usage';
 
 @Component({
   selector: 'anms-fuel-management',
@@ -260,9 +261,10 @@ export class FuelManagementComponent implements OnInit {
     data: this.assetUsageTableData
   };
 
-  constructor(private facade: FuelCardsFacade) {}
+  constructor(private _facadeFuelCard: FuelCardsFacade , private _facadeAssetUsage: AssetUsageFacade) {}
 
   ngOnInit(): void {
-    this.facade.loadAll();
+    this._facadeFuelCard.loadAll();
+    this._facadeAssetUsage.loadAll();
   }
 }
