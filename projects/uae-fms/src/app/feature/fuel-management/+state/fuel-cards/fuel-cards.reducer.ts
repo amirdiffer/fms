@@ -8,16 +8,16 @@ import {
 
 const fuelCardsReducer = createReducer(
   initialState,
-  on(FuelCardsActions.loadAll, (state) => ({
+  on(FuelCardsActions.loadFuelCard, (state) => ({
     ...state,
     loaded: false,
     error: null,
     message: null
   })),
-  on(FuelCardsActions.allDataLoaded, (state, { data }) =>
+  on(FuelCardsActions.fuelCardLoaded, (state, { data }) =>
     fuelCardsAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
-  on(FuelCardsActions.error, (state, { reason }) => ({
+  on(FuelCardsActions.fuelCardError, (state, { reason }) => ({
     ...state,
     error: reason,
     loaded: true
