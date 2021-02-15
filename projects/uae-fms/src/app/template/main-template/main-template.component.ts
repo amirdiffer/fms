@@ -32,8 +32,6 @@ export class MainTemplateComponent implements OnInit {
   version = env.versions.app;
   languages = ['en', 'ar'];
 
-  isLoginPath = false; //this is used to switch between main and login template
-
   selectIsAuthenticated = selectIsAuthenticated;
   selectSettingsStickyHeader = selectSettingsStickyHeader;
   selectSettingsLanguage = selectSettingsLanguage;
@@ -95,9 +93,6 @@ export class MainTemplateComponent implements OnInit {
   }
 
   getPath(url: string) {
-    if (url && url.includes('login')) {
-      this.isLoginPath = true;
-    } else this.isLoginPath = false;
     if (url && url[0] == '/') {
       url = url.substring(1, url.length);
       this.path = url.split('/');
