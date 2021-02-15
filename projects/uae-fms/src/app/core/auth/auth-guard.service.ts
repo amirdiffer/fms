@@ -16,7 +16,7 @@ import { AppState } from '../core.state';
   providedIn: 'root'
 })
 export class AuthGuardService implements CanLoad {
-  constructor(private store: Store<AppState>, private router: Router) { }
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   // canActivate(): Observable<boolean> {
   //   return this.store.pipe(select(selectIsAuthenticated));

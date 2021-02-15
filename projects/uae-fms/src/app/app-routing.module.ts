@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthGuardService } from '@core/auth/auth-guard.service';
-import { MainTemplateComponent } from "./template/main-template/main-template.component";
-import { LoginTemplateComponent } from "./template/login-template/login-template.component";
+import { MainTemplateComponent } from './template/main-template/main-template.component';
+import { LoginTemplateComponent } from './template/login-template/login-template.component';
 
 const routes: Routes = [
   {
@@ -31,7 +31,9 @@ const routes: Routes = [
     path: 'workshop',
     canLoad: [AuthGuardService],
     loadChildren: () =>
-      import('./feature/workshop/workshop.module').then((m) => m.WorkshopModule),
+      import('./feature/workshop/workshop.module').then(
+        (m) => m.WorkshopModule
+      ),
     component: MainTemplateComponent
   },
   {
@@ -84,6 +86,14 @@ const routes: Routes = [
       import('./feature/fuel-management/fuel-management.module').then(
         (m) => m.FuelManagementModule
       ),
+    component: MainTemplateComponent
+  },
+  {
+    path: 'user-profile',
+    canLoad: [AuthGuardService],
+    loadChildren: () =>
+      import('./feature/user/user.module').then((m) => m.UserProfileModule),
+    component: MainTemplateComponent
   },
   {
     path: '',
@@ -103,4 +113,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

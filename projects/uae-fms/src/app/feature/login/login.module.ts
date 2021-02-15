@@ -14,4 +14,4 @@ import { SharedModule } from 'app/shared/shared.module';
     // NgxSpinnerModule,
   ]
 })
-export class LoginModule { }
+export class LoginModule {}

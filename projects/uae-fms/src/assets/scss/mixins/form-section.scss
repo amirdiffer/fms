@@ -25,6 +25,10 @@
         border-color: $form-addon-border;
       }
 
+      .p-error {
+        color: $invalid-input-label;
+      }
+
       input {
         border-color: $inactive-input-border;
         color: $inactive-input-label;
@@ -36,7 +40,7 @@
         }
 
         &.ng-touched.ng-invalid {
-          border-color: $invalid-input-label;
+          border-color: $invalid-input-label !important;
         }
 
         &:not([disabled]):hover {
@@ -55,8 +59,22 @@
       }
 
       .p-float-label input:focus ~ label,
-      .p-float-label input.p-filled ~ label {
+      .p-float-label input.p-filled ~ label,
+      .p-float-label .p-inputwrapper-filled ~ label,
+      .p-float-label .p-inputwrapper-focus ~ label {
         background: $body2-bg !important;
+      }
+    }
+
+    .options-select {
+      .p-dropdown {
+        &:hover {
+          border-color: $hovered-input-border;
+        }
+
+        &:not(.p-disabled).p-focus {
+          border-color: $form-input-toggle !important;
+        }
       }
     }
 
@@ -68,6 +86,17 @@
 
       .p-radiobutton
         .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
+        border-color: $form-input-toggle !important;
+      }
+    }
+
+    .checkbox-select {
+      .p-checkbox .p-checkbox-box.p-highlight {
+        border-color: $form-input-toggle;
+        background: $form-input-toggle !important;
+      }
+
+      .p-checkbox .p-checkbox-box:not(.p-disabled):not(.p-highlight):hover {
         border-color: $form-input-toggle !important;
       }
     }

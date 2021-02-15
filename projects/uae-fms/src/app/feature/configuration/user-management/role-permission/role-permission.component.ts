@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
+import { RolePermissionFacade } from '../../+state/role-permission';
 
 @Component({
   selector: 'anms-role-permission',
@@ -68,7 +69,9 @@ export class RolePermissionComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private facade: RolePermissionFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
 }

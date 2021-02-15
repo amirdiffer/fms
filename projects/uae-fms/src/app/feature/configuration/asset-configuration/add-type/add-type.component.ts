@@ -5,9 +5,11 @@ import {
   ElementRef,
   ViewChild,
   Renderer2,
-  AfterViewInit
+  AfterViewInit,
+  Injector
 } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Utility } from '@shared/utility/utility';
 import {
   FileSystemDirectoryEntry,
   FileSystemFileEntry,
@@ -21,7 +23,7 @@ import { AssetConfigurationService } from '../asset-configuration.service';
   styleUrls: ['./add-type.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddTypeComponent implements OnInit, AfterViewInit {
+export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   radioButtonSelect: 'mModel';
   public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
@@ -32,11 +34,15 @@ export class AddTypeComponent implements OnInit, AfterViewInit {
   value = 80;
   percent = 80;
   fileName = 'CSV File only';
+  submited = false;
   constructor(
     private _fb: FormBuilder,
     private _renderer: Renderer2,
-    private _assetConfigurationService: AssetConfigurationService
-  ) {}
+    private _assetConfigurationService: AssetConfigurationService,
+    injector: Injector
+  ) {
+    super(injector);
+  }
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
@@ -46,7 +52,8 @@ export class AddTypeComponent implements OnInit, AfterViewInit {
       description: [''],
       type: ['mModel'],
       selectModel: [''],
-      models: this._fb.array([this._fb.control([])])
+      // models: this._fb.array([this._fb.control([])])
+      models: ['']
     });
   }
   ngAfterViewInit() {
@@ -92,6 +99,14 @@ export class AddTypeComponent implements OnInit, AfterViewInit {
   }
 
   public cancel() {
+    this._assetConfigurationService.loadAddForm(false);
+  }
+
+  submit() {
+    this.submited = true;
+    if (this.inputForm.invalid) {
+      return;
+    }
     this._assetConfigurationService.loadAddForm(false);
   }
 }

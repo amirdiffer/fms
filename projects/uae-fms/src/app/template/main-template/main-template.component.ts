@@ -5,8 +5,20 @@ import { Observable } from 'rxjs';
 import { environment as env } from '@environments/environment';
 import { RouterFacade } from '@core/router';
 import { SidebarMenuFacade } from '@core/sidebar-menu';
-import { authLogin, authLogout, routeAnimations, LocalStorageService, selectIsAuthenticated, selectSettingsStickyHeader, selectSettingsLanguage, selectEffectiveTheme } from '@core/core.module';
-import { actionSettingsChangeAnimationsPageDisabled, actionSettingsChangeLanguage } from '@core/settings/settings.actions';
+import {
+  authLogin,
+  authLogout,
+  routeAnimations,
+  LocalStorageService,
+  selectIsAuthenticated,
+  selectSettingsStickyHeader,
+  selectSettingsLanguage,
+  selectEffectiveTheme
+} from '@core/core.module';
+import {
+  actionSettingsChangeAnimationsPageDisabled,
+  actionSettingsChangeLanguage
+} from '@core/settings/settings.actions';
 
 @Component({
   selector: 'main-template',
@@ -19,8 +31,6 @@ export class MainTemplateComponent implements OnInit {
   envName = env.envName;
   version = env.versions.app;
   languages = ['en', 'ar'];
-
-  isLoginPath = false; //this is used to switch between main and login template
 
   selectIsAuthenticated = selectIsAuthenticated;
   selectSettingsStickyHeader = selectSettingsStickyHeader;
@@ -42,7 +52,7 @@ export class MainTemplateComponent implements OnInit {
     private routerFacade: RouterFacade,
     private storageService: LocalStorageService,
     private sidebarMenuFacade: SidebarMenuFacade
-  ) { }
+  ) {}
 
   private static isIEorEdgeOrSafari() {
     return ['ie', 'edge', 'safari'].includes(browser().name);
@@ -83,9 +93,6 @@ export class MainTemplateComponent implements OnInit {
   }
 
   getPath(url: string) {
-    if (url && url.includes('login')) {
-      this.isLoginPath = true;
-    } else this.isLoginPath = false;
     if (url && url[0] == '/') {
       url = url.substring(1, url.length);
       this.path = url.split('/');

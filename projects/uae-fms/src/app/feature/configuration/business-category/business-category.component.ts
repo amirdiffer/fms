@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
+import { BusinessCategoryFacade } from '../+state/business-category';
 
 @Component({
   selector: 'anms-business-category',
@@ -77,7 +78,9 @@ export class BusinessCategoryComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private facade: BusinessCategoryFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
 }

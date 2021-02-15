@@ -9,7 +9,7 @@ import { LoginRequest, LoginResponse } from './login.model';
   providedIn: 'root'
 })
 export class LoginService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private loginApiUrl = environment.baseApiUrl + 'users/login';
   login(loginRequest: LoginRequest): Observable<any> {

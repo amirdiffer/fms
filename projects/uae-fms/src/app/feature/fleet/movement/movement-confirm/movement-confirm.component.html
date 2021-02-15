@@ -1,0 +1,156 @@
+<h4 class="main-title">Assign 123456</h4>
+<!-- start form -->
+<form [formGroup]="confirmForm">
+    <div class="form-section">
+        <h3 class="form-section__title">Asset Information</h3>
+        <div class="row form-section__row">
+            <!-- start asset -->
+            <div class="col-12 p-field form-section__field">
+                <div class="autocomplete-select">
+                    <span class="p-float-label">
+                        <p-autoComplete formControlName="asset"
+                            (completeMethod)="filterAssets($event)"
+                            [suggestions]="assetSuggests" field="name"
+                            [minLength]="1"></p-autoComplete>
+                        <i class="pi pi-search"></i>
+                        <label>Asset *</label>
+                    </span>
+                </div>
+            </div>
+            <!-- end asset -->
+        </div>
+    </div>
+    <div class="form-section">
+        <h3 class="form-section__title">User Information</h3>
+        <div class="row form-section__row">
+            <!-- start department -->
+            <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText placeholder="Department *"
+                        formControlName="department" required type="text">
+                    <label>Department *</label>
+                </span>
+            </div>
+            <!-- end department -->
+            <!-- start operator -->
+            <div class="col-12 col-md-3 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText placeholder="Operator *"
+                        formControlName="operator" required type="text">
+                    <label>Operator *</label>
+                </span>
+            </div>
+            <!-- end operator -->
+            <!-- start comment -->
+            <div class="col-12 col-md-5 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText placeholder="Comment"
+                        formControlName="comment" type="text">
+                    <label>Comment</label>
+                </span>
+            </div>
+            <!-- end comment -->
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h3 class="form-section__title">Movement Information</h3>
+        <!-- start movementType -->
+        <div class="row form-section__row">
+            <div class="col-12 col-md-12 p-field form-section__field
+                radio-select">
+                <p-radioButton name="movementType" value="temporary"
+                    label="Temporary" formControlName="movementType"></p-radioButton>
+                <p-radioButton name="movementType" value="permanent"
+                    label="Permanent" formControlName="movementType"></p-radioButton>
+            </div>
+        </div>
+        <!-- end movementType -->
+        <div class="row form-section__row">
+            <!-- start startDate -->
+            <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                    <p-calendar inputId="basic" formControlName="startDate"></p-calendar>
+                    <label>Start Date * </label>
+                </span>
+            </div>
+            <!-- end startDate -->
+            <!-- start startTime -->
+            <div class="col-12 col-md-3 p-field form-section__field">
+                <span class="p-float-label">
+                    <p-calendar formControlName="startTime" [timeOnly]="true"
+                        inputId="timeonly"></p-calendar>
+                    <label> Time * </label>
+                </span>
+            </div>
+            <!-- end startTime -->
+            <!-- start gps -->
+            <div class="col-12 col-md-5 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText placeholder="GPS Master Source"
+                        formControlName="gps" type="number">
+                    <label>GPS Master Source</label>
+                </span>
+            </div>
+            <!-- end gps -->
+        </div>
+
+        <div class="row form-section__row">
+            <!-- start endDate -->
+            <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                    <p-calendar inputId="basic" formControlName="endDate"></p-calendar>
+                    <label>End Date * </label>
+                </span>
+            </div>
+            <!-- end endDate -->
+            <!-- start endTime -->
+            <div class="col-12 col-md-3 p-field form-section__field">
+                <span class="p-float-label">
+                    <p-calendar formControlName="endTime" [timeOnly]="true"
+                        inputId="timeonly"></p-calendar>
+                    <label> Time * </label>
+                </span>
+            </div>
+            <!-- end endTime -->
+            <!-- start sendNotification -->
+            <div class="col-12 col-md-4 form-section__field toggle-select">
+                <p-inputSwitch formControlName="sendNotification"></p-inputSwitch>
+                <span>Send notification</span>
+            </div>
+            <!-- end sendNotification -->
+        </div>
+
+        <div class="row form-section__row">
+            <div class="col-12 col-md-2 p-field form-section__field
+                radio-select">
+                <h3 class="form-section__title justify">Fuel Cart</h3>
+            </div>
+            <!-- start fuelCart -->
+            <div class="col-12 col-md-4 p-field form-section__field
+                radio-select">
+                <p-radioButton name="fuelCart" value="true"
+                    label="Yes" formControlName="fuelCart"></p-radioButton>
+                <p-radioButton name="fuelCart" value="false"
+                    label="No" formControlName="fuelCart"></p-radioButton>
+            </div>
+            <!-- end fuelCart -->
+            <!-- start serialNumber -->
+            <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText placeholder="S/N"
+                        formControlName="serialNumber" type="number">
+                    <label>S/N</label>
+                </span>
+            </div>
+            <!-- end serialNumber -->
+        </div>
+        <div class="d-flex justify-content-end btn-container">
+            <button class="btn-cancel">CANCEL</button>
+            <button class="btn-primary-green">Save Assignment</button>
+        </div>
+    </div>
+
+
+</form>
+<!-- end form -->

@@ -1,13 +1,21 @@
 <div class="toolbar" [style.position]="(stickyHeader$ | async) ? 'fixed' : 'inherit'"
     [class.mat-elevation-z4]="(stickyHeader$ | async)">
     <mat-toolbar color="primary">
-        <span class="menus d-none d-sm-none d-md-flex">
+        <span class="menus d-none d-sm-none d-md-flex align-items-center">
             <button mat-icon-button (click)="changeSidebarMenuState()">
                 <svg-icon src="../../../assets/icons/bars.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
             </button>
             <button mat-icon-button>
                 <img src="../../../assets/icons/apps.svg">
             </button>
+           <button routerLink='/user-profile/profile' mat-icon-button>
+            <img src='assets/user-image.png' class='rounded-circle' id='gwd-image-effect_1'>
+            <span id='label_1' class='label name_surname_label font-weight-lighter ml-2'>Name Surname</span>
+            <span id='label_2' class='label role_label ml-2'>Admin</span>
+          </button>
+          <!--            <span>-->
+<!--                <user-widget></user-widget>-->
+<!--            </span>-->
         </span>
 
         <span class="police-brand">

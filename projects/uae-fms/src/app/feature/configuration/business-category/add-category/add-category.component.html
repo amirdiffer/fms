@@ -1,126 +1,142 @@
-<div class='form-buttons'>
-  <button class='cancel'>Cancel</button>
-  <button class='add'>Add</button>
-</div>
+<form [formGroup]="addCategoryForm">
+  <div class='form-buttons'>
+    <button class='cancel' (click)="goToList()">Cancel</button>
+    <button class='add' (click)="submit()">Add</button>
+  </div>
+  <div class="form-section">
+    <h3 class="form-section__title">Business Category Info</h3>
 
-<div class='row'>
-  <div class='col-12'>
-    <div class='component_wrapper'>
-      <label class='caption'>Business Category Info</label>
-      <div class='row'>
-        <div class='col-lg-4'>
-          <div class='form-group'>
-            <input type='text' class='form-control' placeholder='Business Category Name *'>
-          </div>
-        </div>
-        <div class='col-lg-4'>
-          <div class='form-group'>
-            <div class='input-group'>
-              <input type='text' class='form-control border-right-0 border' placeholder='Asset Type *'>
-              <div class='input-group-append'>
-                <div class='input-group-text bg-transparent'>
-                  <svg-icon src='../../../../../assets/icons/search.svg'
-                            [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class='col-lg-4'>
-          <div class='form-group'>
-            <div class='custom-control custom-switch'>
-              <input type='checkbox' class='custom-control-input' id='customSwitch1'>
-              <label class='custom-control-label' for='customSwitch1'></label>
-              <label class='custum-text' for='customSwitch1'>Active Category</label>
-            </div>
-          </div>
-        </div>
-        <div class='col-lg-12'>
-          <div class='form-group'>
-            <input type='text' class='form-control' placeholder='Description'>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class='col-12'>
-    <div class='component_wrapper'>
-      <div class='caption'>
-        <span class='plus-icon'>
-            <svg-icon src='../../../../../assets/icons/add.svg'
-                      [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+    <div class="row form-section__row">
+      <div class="col-12 col-md-4 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="name" pInputText
+            placeholder="Business Category Name*" required type="text">
+          <label>Business Category Name*</label>
+          <anms-error
+            [showError]="hasError('name',addCategoryForm,submited)"
+            error="fms.errors.required"></anms-error>
         </span>
-        Assign To Asset
       </div>
-      <div class='row'>
-        <div class='col-lg-6'>
-          <div class='form-group'>
-            <div class='input-group'>
-              <input type='text' class='form-control border-right-0 border' placeholder='Sub Asset *'>
-              <div class='input-group-append'>
-                <div class='input-group-text bg-transparent'>
-                  <svg-icon src='../../../../../assets/icons/search.svg'
-                            [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="col-12 col-md-4 p-field form-section__field">
+        <div class="autocomplete-select">
+          <span class="p-float-label">
+            <p-autoComplete formControlName="assetType"
+              (completeMethod)="filterAssets($event)"
+              [suggestions]="assetTypes" field="name"
+              [minLength]="1"></p-autoComplete>
+            <i class="pi pi-search"></i>
+            <label>Asset Type *</label>
+          </span>
+          <anms-error
+            [showError]="hasError('assetType',addCategoryForm,submited)"
+            error="fms.errors.required">
+          </anms-error>
         </div>
-        <div class='col-lg-3'>
-          <div class='upload-box'>
-            <label class='space-drop' for='attach_picture_sub-asset'>
-              <div>Drag and Drop a file here Upload Specification</div>
-            </label>
-            <input type='file' hidden id='attach_picture_sub-asset'>
-          </div>
-        </div>
-        <div class='col-lg-3'>
-          <div class='form-group'>
-            <input type='text' class='form-control' placeholder='Quantity'>
-          </div>
-        </div>
+      </div>
+      <div class="col-12 col-md-3 form-section__field toggle-select">
+        <p-inputSwitch formControlName="activeCategory"></p-inputSwitch>
+        <span>Active Category</span>
       </div>
     </div>
-  </div>
-  <div class='col-12'>
-    <div class='component_wrapper'>
-      <div class='caption'>
-        <span class='plus-icon'>
-            <svg-icon src='../../../../../assets/icons/add.svg'
-                      [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+    <div class="row form-section__row">
+      <div class="col-12 col-md-12 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="description" pInputText
+            placeholder="Description" type="text">
+          <label>Description</label>
         </span>
-        Assign To Accessory
       </div>
-      <div class='row'>
-        <div class='col-lg-6'>
-          <div class='form-group'>
-            <div class='input-group'>
-              <input type='text' class='form-control border-right-0 border' placeholder='Accessory *'>
-              <div class='input-group-append'>
-                <div class='input-group-text bg-transparent'>
-                  <svg-icon src='../../../../../assets/icons/search.svg'
-                            [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
-                </div>
-              </div>
-            </div>
-          </div>
+    </div>
+
+
+  </div>
+  <div class="form-section">
+    <h3 class="form-section__title">
+      <span class='plus-icon'>
+        <svg-icon src='../../../../../assets/icons/add.svg'
+          [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+      </span>
+      Assign Sub Assets
+    </h3>
+
+    <div class="row form-section__row">
+      <div class="col-12 col-md-6 p-field form-section__field">
+        <div class="autocomplete-select">
+          <span class="p-float-label">
+            <p-autoComplete formControlName="subAsset"
+              (completeMethod)="filterSubAssets($event)"
+              [suggestions]="subAssets" field="name"
+              [minLength]="1"></p-autoComplete>
+            <i class="pi pi-search"></i>
+            <label>Sub Asset *</label>
+          </span>
+          <anms-error
+            [showError]="hasError('subAsset',addCategoryForm,submited)"
+            error="fms.errors.required">
+          </anms-error>
         </div>
-        <div class='col-lg-3'>
-          <div class='upload-box'>
-            <label class='space-drop' for='attach_picture_accessory'>
-              <div>Drag and Drop a file here Upload Specification</div>
-            </label>
-            <input type='file' hidden id='attach_picture_accessory'>
-          </div>
+      </div>
+      <div class='col-lg-3'>
+        <div class='upload-box'>
+          <label class='space-drop' for='attach_picture_sub-asset'>
+            <div>Drag and Drop a file here Upload Specification</div>
+          </label>
+          <input type='file' hidden id='attach_picture_sub-asset'>
         </div>
-        <div class='col-lg-3'>
-          <div class='form-group'>
-            <input type='text' class='form-control' placeholder='Quantity'>
-          </div>
-        </div>
+      </div>
+      <div class="col-12 col-md-3 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="assetQuantity" pInputText
+            placeholder="Quantity" type="text">
+          <label>Quantity</label>
+        </span>
       </div>
     </div>
   </div>
+  <div class="form-section">
+    <h3 class="form-section__title"><span class='plus-icon'>
+        <svg-icon src='../../../../../assets/icons/add.svg'
+          [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+      </span>
+      Assign Accessory
+    </h3>
+
+    <div class="row form-section__row">
+      <div class="col-12 col-md-6 p-field form-section__field">
+        <div class="autocomplete-select">
+          <span class="p-float-label">
+            <p-autoComplete formControlName="accessory"
+              (completeMethod)="filterAccessories($event)"
+              [suggestions]="accessories" field="name"
+              [minLength]="1"></p-autoComplete>
+            <i class="pi pi-search"></i>
+            <label>Accessory *</label>
+          </span>
+          <anms-error
+            [showError]="hasError('accessory',addCategoryForm,submited)"
+            error="fms.errors.required">
+          </anms-error>
+        </div>
+      </div>
+      <div class='col-lg-3'>
+        <div class='upload-box'>
+          <label class='space-drop' for='attach_picture_sub-asset'>
+            <div>Drag and Drop a file here Upload Specification</div>
+          </label>
+          <input type='file' hidden id='attach_picture_sub-asset'>
+        </div>
+      </div>
+      <div class="col-12 col-md-3 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="accessoryQuantity" pInputText
+            placeholder="Quantity" type="text">
+          <label>Quantity</label>
+        </span>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row">
   <div class='col-12'>
     <div class='component_wrapper'>
       <div class='table-wreapper'>

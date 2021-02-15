@@ -5,7 +5,6 @@
 
 <div class="table-container">
     <div class="card-table pt-5">
-        <div class="card-table-header">
             <app-tab-view>
                 <span class="search-container">
                     <div class="search-box">
@@ -13,10 +12,10 @@
                         <button><svg-icon [src]="searchIcon" [svgStyle]="{ 'width.px':25 , 'fill': '#fff' , 'height': '100%'}"></svg-icon></button>
                     </div>
                     <button class="btn-download"><a></a></button>
-                    <button class="btn-primary-green"><i>+</i><a>Add</a></button> 
+                    <button class="btn-primary-green" routerLink="add"><i>+</i><a>Add</a></button>
                 </span>
                 <div title="Asset Master">
-                    
+
                     <app-table [setting]="assetMasterTableSetting"></app-table>
                 </div>
                 <div title="Pending Registration">
@@ -25,8 +24,7 @@
                 <div title="Pending Customization">
                     <app-table [setting]="pendingCustomizationTableSetting"></app-table>
                 </div>
-                
+
             </app-tab-view>
-        </div>
     </div>
 </div>

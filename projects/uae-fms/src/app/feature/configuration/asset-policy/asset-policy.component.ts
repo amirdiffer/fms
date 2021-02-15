@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
+import { AssetPolicyFacade } from '../+state/asset-policy';
 
 @Component({
   selector: 'anms-asset-policy',
@@ -61,7 +62,9 @@ export class AssetPolicyComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private facade: AssetPolicyFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
 }

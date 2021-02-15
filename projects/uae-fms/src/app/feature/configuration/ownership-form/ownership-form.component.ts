@@ -1,5 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Injector
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
+import { Utility } from '@shared/utility/utility';
 
 @Component({
   selector: 'anms-ownership-form',
@@ -7,7 +14,7 @@ import { TableSetting } from '@core/table';
   styleUrls: ['./ownership-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OwnershipFormComponent implements OnInit {
+export class OwnershipFormComponent extends Utility implements OnInit {
   ownerShip_Table: TableSetting = {
     columns: [
       { lable: 'Ownership', type: 1, field: 'Ownership' },
@@ -75,8 +82,28 @@ export class OwnershipFormComponent implements OnInit {
       }
     ]
   };
+  ownerShipForm: FormGroup;
+  submited = false;
 
-  constructor() {}
+  constructor(injector: Injector, private _fb: FormBuilder) {
+    super(injector);
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.ownerShipForm = this._fb.group({
+      ownershipType: ['external'],
+      owner: ['', [Validators.required]],
+      ownerEmail: ['', [Validators.required, Validators.email]],
+      ownerPhone: [''],
+      purpose: [''],
+      fleetITCode: ['', [Validators.required]],
+      duration: ['', [Validators.required]]
+    });
+  }
+  submit() {
+    this.submited = true;
+    if (this.ownerShipForm.invalid) {
+      return;
+    } else this.goToList();
+  }
 }

@@ -1,10 +1,18 @@
+.filter-wrapper {
+  height: 68px;
+}
+
 .parent {
-  margin: 10px;
-  min-height: 40px;
+  height: 78px !important;
+  margin: 0 20px 20px 0px !important;
   border: 0;
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
+
+  &:last-child {
+    margin-right: 0 !important;
+  }
 }
 
 .parent:hover {
@@ -12,15 +20,28 @@
 }
 
 .left_tag {
-  width: 6px;
+  width: 11px;
 }
 
-.title {
-  color: white;
-}
-
-.count {
-  color: white;
+.filter {
+  &-supTitle {
+    font-size: 12px;
+    &__active {
+      color: #ffffff !important;
+    }
+  }
+  &-title {
+    font-size: 20px;
+    &__active {
+      color: #ffffff !important;
+    }
+  }
+  &-count {
+    font-size: 20px;
+    &__active {
+      color: #ffffff !important;
+    }
+  }
 }
 
 .calendar-container {

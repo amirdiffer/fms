@@ -1,6 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from '@angular/core';
+
+import { Subscription } from 'rxjs';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
+import { MakeDecisionService } from './make-decision/make-decision.service';
 import { TechnicalInspectionFacade } from '@feature/workshop/+state/technical-inspections';
 
 @Component({
@@ -8,7 +16,9 @@ import { TechnicalInspectionFacade } from '@feature/workshop/+state/technical-in
   styleUrls: ['./technical-inspection.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TechnicalInspectionComponent implements OnInit {
+export class TechnicalInspectionComponent implements OnInit, OnDestroy {
+  makeDecision: boolean;
+  makeDecision$: Subscription;
   filterSetting: FilterCardSetting[] = [
     {
       filterCount: '',
@@ -45,14 +55,14 @@ export class TechnicalInspectionComponent implements OnInit {
 
   setting: TableSetting = {
     columns: [
-      { lable: 'Item', field: 'item', renderer: 'vehicleRenderer' },
+      { lable: 'Item', field: 'item', renderer: 'vehicleRenderer', width: 150 },
       { lable: 'Status', field: 'status', width: 100 },
       { lable: 'Source', field: 'source', width: 100 },
-      { lable: 'Reported by', field: 'reportedby' },
-      { lable: 'Cost', field: 'cost' },
-      { lable: 'Insurance Value', field: 'insuranceValue' },
-      { lable: 'Insurance', field: 'insurance', width: 120 },
-      { lable: 'Action', field: 'action', width: 100 }
+      { lable: 'Reported by', field: 'reportedby', width: 100 },
+      { lable: 'Cost', field: 'cost', width: 100 },
+      { lable: 'Insurance Value', field: 'insuranceValue', width: 100 },
+      { lable: 'Insurance', field: 'insurance', width: 100 },
+      { lable: '', field: '', width: 120, renderer: 'makeDecision' }
     ],
     data: [
       {
@@ -156,9 +166,22 @@ export class TechnicalInspectionComponent implements OnInit {
       }
     ]
   };
-  constructor(private _facade: TechnicalInspectionFacade) {}
+  constructor(
+    private _makeDecisionService: MakeDecisionService,
+    private _facade: TechnicalInspectionFacade
+  ) {}
 
   ngOnInit(): void {
+    this.makeDecision$ = this._makeDecisionService
+      .getMakeDecision()
+      .subscribe((open) => {
+        this.makeDecision = open;
+        console.log(open);
+      });
     this._facade.loadAll();
+  }
+
+  ngOnDestroy() {
+    this.makeDecision$.unsubscribe();
   }
 }

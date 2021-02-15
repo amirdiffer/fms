@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
@@ -21,6 +20,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
 import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -28,6 +28,14 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { DropdownModule } from 'primeng/dropdown';
+import { DialogModule } from 'primeng/dialog';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ErrorModule } from './error/error.module';
+import { CheckAccessDirective } from '@core/directive/check-access.directive';
 
 @NgModule({
   imports: [
@@ -49,14 +57,22 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     MatSnackBarModule,
     MatSlideToggleModule,
     MatDividerModule,
+    MatDialogModule,
     InputSwitchModule,
     InputMaskModule,
     InputNumberModule,
     InputTextareaModule,
     InputTextModule,
-    RadioButtonModule
+    RadioButtonModule,
+    DropdownModule,
+    AutoCompleteModule,
+    DialogModule,
+    CalendarModule,
+    AngularSvgIconModule,
+    ErrorModule,
+    CheckboxModule
   ],
-  declarations: [RtlSupportDirective],
+  declarations: [RtlSupportDirective, CheckAccessDirective],
   exports: [
     CommonModule,
     FormsModule,
@@ -80,13 +96,23 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
     RtlSupportDirective,
     InputSwitchModule,
     InputMaskModule,
     InputNumberModule,
     InputTextareaModule,
     InputTextModule,
-    RadioButtonModule
+    RadioButtonModule,
+    DropdownModule,
+    AutoCompleteModule,
+    DialogModule,
+    CalendarModule,
+    AngularSvgIconModule,
+    CalendarModule,
+    ErrorModule,
+    CheckAccessDirective,
+    CheckboxModule
   ]
 })
 export class SharedModule {
