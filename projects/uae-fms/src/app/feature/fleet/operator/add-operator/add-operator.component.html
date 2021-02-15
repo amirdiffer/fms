@@ -1,0 +1,203 @@
+<form>
+  <div class="form-buttons">
+    <button class="cancel" type="button">Cancel</button>
+    <button class="add" type="submit">Add</button>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="component_wrapper">
+        <label class="caption">Portal Info</label>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="form-group p-field form-section__field">
+              <div class="input-group">
+                <div class="autocomplete-select flex-with-button">
+                  <span class="p-float-label ">
+                    <span class="p-float-label">
+                      <p-autoComplete [suggestions]="assetTypes"></p-autoComplete>
+                      <i class="pi pi-search"></i>
+                      <label>Employe Number *</label>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group p-field form-section__field">
+              <div class="input-group">
+                <div class="autocomplete-select flex-with-button">
+                  <span class="p-float-label ">
+                    <span class="p-float-label">
+                      <p-autoComplete [suggestions]="assetTypes"></p-autoComplete>
+                      <i class="pi pi-search"></i>
+                      <label>Organization</label>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group p-field form-section__field">
+              <div class="input-group">
+                <div class="autocomplete-select flex-with-button">
+                  <span class="p-float-label ">
+                    <span class="p-float-label">
+                      <p-autoComplete [suggestions]="assetTypes"></p-autoComplete>
+                      <i class="pi pi-search"></i>
+                      <label>Section</label>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group p-field form-section__field">
+              <div class="input-group">
+                <div class="autocomplete-select flex-with-button">
+                  <span class="p-float-label ">
+                    <span class="p-float-label">
+                      <p-autoComplete [suggestions]="assetTypes"></p-autoComplete>
+                      <i class="pi pi-search"></i>
+                      <label>Authorized</label>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group p-field form-section__field">
+              <div class="input-group">
+                <span class="p-float-label w-100">
+                  <p-calendar inputId="basic"></p-calendar>
+                  <label>Expiry License </label>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="row form-group">
+              <div class="custom-control custom-switch col-lg-12">
+                <label class="custum-text" for="customSwitch1">Employee Status is Active</label>
+                <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                <label class="custom-control-label" for="customSwitch1"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="component_wrapper">
+        <label class="caption">Upload Profile Picture</label>
+        <div class="upload-box">
+          <div class="row">
+            <div class="col-12 d-flex justify-content-between file-name-size">
+              <span>Nte1234567_Report.pdf</span>
+              <span>00 MG</span>
+            </div>
+            <div class="col-lg-12">
+              <anms-progress-bar color="#0000005E" maxValue="100" value="25"></anms-progress-bar>
+            </div>
+            <div class="col-lg-12">
+              <label class="space-drop" for="attach_picture">
+                <svg-icon src="../../../../../assets/icons/camera-solid.svg"
+                  [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                <div>Drag and Drop Picture here</div>
+              </label>
+              <input type="file" hidden id="attach_picture">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="component_wrapper">
+        <label class="caption">Personal Information</label>
+        <div class="row">
+          <div class="col-lg-5">
+            <div class="form-group form-group p-field form-section__field">
+              <div class="input-group">
+                <span class="p-float-label w-100">
+                  <input type="text" class="form-control ">
+                  <label>First Name *</label>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="form-group form-group p-field form-section__field">
+              <div class="input-group">
+                <span class="p-float-label w-100">
+                  <input type="text" class="form-control ">
+                  <label>Last Name *</label>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-7 form-group ">
+            <div class="input-group d-flex w-100 flex-wrap">
+              <div class="p-field form-section__field flex-with-button w-100 flex-85">
+                <span class="p-float-label">
+                  <input type="text" class="form-control border" placeholder="Email *">
+                  <label>Email *</label>
+                </span>
+              </div>
+              <div class="input-group-append m-0">
+                <div class="input-group-text bg-transparent border-input-append"
+                     style="cursor: pointer;height: 40px">
+                  <svg-icon src="../../../../../assets/icons/add.svg"
+                    [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 form-group ">
+            <div class="input-group d-flex w-100  flex-wrap">
+              <div class="p-field form-section__field flex-with-button w-100 flex-85">
+                <span class="p-float-label">
+                  <input type="text" class="form-control border" placeholder="Phone Number *">
+                  <label>Phone Number *</label>
+                </span>
+
+              </div>
+              <div class="input-group-append m-0">
+                <div class="input-group-text bg-transparent border-input-append"
+                  style="cursor: pointer;height: 40px">
+                  <svg-icon src="../../../../../assets/icons/add.svg"
+                    [svgStyle]="{ 'width.px':'20' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="caption">Send Notification By</div>
+          </div>
+          <div class="col-lg-2 form-group">
+            <input id="check-Call" type="checkbox" class="custom-checkbox">
+            <label for="check-Call">Call</label>
+          </div>
+          <div class="col-lg-2 form-group">
+            <input id="check-SMS" type="checkbox" class="custom-checkbox">
+            <label for="check-SMS">SMS</label>
+          </div>
+          <div class="col-lg-2 form-group">
+            <input id="check-Email" type="checkbox" class="custom-checkbox">
+            <label for="check-Email">Email</label>
+          </div>
+          <div class="col-lg-2 form-group">
+            <input id="check-Whatsapp" type="checkbox" class="custom-checkbox">
+            <label for="check-Whatsapp">Whatsapp</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
