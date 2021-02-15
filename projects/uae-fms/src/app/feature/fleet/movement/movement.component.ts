@@ -11,6 +11,10 @@ import { Observable, of } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MovementConfirmComponent } from './movement-confirm/movement-confirm.component';
+import {
+  MovementOverviewFacade,
+  MovementRequestsFacade
+} from '../+state/movement';
 @Component({
   selector: 'anms-movement',
   templateUrl: './movement.component.html',
@@ -47,10 +51,15 @@ export class MovementComponent implements OnInit, AfterViewChecked {
   constructor(
     private _movementService: MovementService,
     private _fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private _movementOverviewFacade: MovementOverviewFacade,
+    private _movementRequestsFacade: MovementRequestsFacade
   ) {}
 
   ngOnInit(): void {
+    this._movementOverviewFacade.loadAll();
+    this._movementRequestsFacade.loadAll();
+
     this.requestForm = this._fb.group({
       requestType: ['new'],
       assetType: [''],

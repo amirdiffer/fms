@@ -29,6 +29,7 @@ import { AddAccessoryComponent } from './accessory/add-accessory/add-accessory.c
 
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { MatStepperModule } from '@angular/material/stepper';
+import { FleetStateModule } from './+state';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     DashboardModule,
     MatStepperModule,
     CdkStepperModule,
-    SharedModule
+    SharedModule,
+    FleetStateModule
   ]
 })
 export class FleetModule {}
