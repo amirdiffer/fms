@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-export const CONFIGURATION_ASSET_POLICY_FEATURE_KEY = 'asset-policy';
+export const CONFIGURATION_ASSET_POLICY_FEATURE_KEY = 'assetPolicy';
 
 export interface AssetPolicyStateModel {
   policyName: string;

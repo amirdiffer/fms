@@ -1,5 +1,5 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-export const CONFIGURATION_SUB_ASSET_POLICY_FEATURE_KEY = 'sub-asset-policy';
+export const CONFIGURATION_SUB_ASSET_POLICY_FEATURE_KEY = 'subAssetPolicy';
 export interface SubAssetPolicyStateModel {
   policyName: string;
   distance: string;
