@@ -5,7 +5,10 @@ import {
   FleetStatusTableData,
   FleetStatusTableSetting
 } from '@feature/configuration/fleet-status/fleet-status-table/fleet-status-asset-table.component';
-import { FleetStatusFacade } from '../+state/fleet-status';
+import {
+  FleetStatusAssetFacade,
+  FleetStatusSubAssetFacade
+} from '../+state/fleet-status';
 
 @Component({
   selector: 'anms-fleet-status',
@@ -73,9 +76,13 @@ export class FleetStatusComponent implements OnInit {
     data: this.tableData
   };
 
-  constructor(private facade: FleetStatusFacade) {}
+  constructor(
+    private fleetStatusAssetFacade: FleetStatusAssetFacade,
+    private fleetStatusSubAssetFacade: FleetStatusSubAssetFacade
+  ) {}
 
   ngOnInit(): void {
-    this.facade.loadAll();
+    this.fleetStatusAssetFacade.loadAll();
+    this.fleetStatusSubAssetFacade.loadAll();
   }
 }

@@ -10,8 +10,13 @@ import { OwnershipEffect } from './ownership/ownership.effect';
 import { CONFIGURATION_FEATURE_KEY } from './configuration.entity';
 import { AssetPolicyEffect } from './asset-policy/asset-policy.effect';
 import { AssetPolicyFacade, AssetPolicyService } from './asset-policy';
-import { FleetStatusFacade, FleetStatusService } from './fleet-status';
-import { FleetStatusEffect } from './fleet-status/fleet-status.effect';
+import {
+  FleetStatusAssetFacade,
+  FleetStatusAssetService,
+  FleetStatusSubAssetFacade,
+  FleetStatusSubAssetService
+} from './fleet-status';
+import { FleetStatusAssetEffect } from './fleet-status/asset/fleet-status-asset.effect';
 import { RolePermissionEffect } from './role-permission/role-permission.effect';
 import { RolePermissionFacade } from './role-permission/role-permission.facade';
 import { RolePermissionService } from './role-permission/role-permission.service';
@@ -26,6 +31,7 @@ import {
   PeriodicServiceService
 } from '../+state/periodic-service';
 import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-service.effect';
+import { FleetStatusSubAssetEffect } from './fleet-status/sub-asset/fleet-status-sub-asset.effect';
 
 @NgModule({
   declarations: [],
@@ -36,7 +42,8 @@ import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-servi
       AssetPolicyEffect,
       UsersEffect,
       BusinessCategoryEffect,
-      FleetStatusEffect,
+      FleetStatusAssetEffect,
+      FleetStatusSubAssetEffect,
       OwnershipEffect,
       PeriodicServiceEffect
     ])
@@ -50,8 +57,10 @@ import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-servi
     UsersService,
     BusinessCategoryService,
     BusinessCategoryFacade,
-    FleetStatusFacade,
-    FleetStatusService,
+    FleetStatusAssetFacade,
+    FleetStatusAssetService,
+    FleetStatusSubAssetFacade,
+    FleetStatusSubAssetService,
     OwnershipFacade,
     OwnershipService,
     PeriodicServiceFacade,
