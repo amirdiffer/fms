@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AssetConfigurationService } from './asset-configuration.service';
+import { AssetConfigurationFacade } from '../+state/asset-configuration';
 @Component({
   selector: 'anms-asset-configuration',
   templateUrl: './asset-configuration.component.html',
@@ -18,9 +19,13 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
   assetConfigurationableSetting;
   addOpen;
   addOpen$: Subscription;
-  constructor(private _assetConfigurationService: AssetConfigurationService) {}
+  constructor(
+    private facade: AssetConfigurationFacade,
+    private _assetConfigurationService: AssetConfigurationService
+  ) {}
 
   ngOnInit(): void {
+    this.facade.loadAll();
     this.assetConfigurationableSetting = this._assetConfigurationService.assetConfigurationableSetting();
     this.addOpen$ = this._assetConfigurationService
       .getAddForm()
