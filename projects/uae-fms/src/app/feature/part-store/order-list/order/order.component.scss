@@ -1,0 +1,18 @@
+@import '../../../../../themes/green-theme';
+@import '../../../../../assets/scss/form-section.scss';
+@import '../../../../../assets/scss/mixins/form-section.scss';
+@import '../order-list.component.scss';
+
+
+:host ::ng-deep{
+    .p-dropdown.p-component{
+        width: 100% !important;
+    }
+    .form-section{
+        overflow: visible;
+    }
+}
+.button-container{
+    top: -3.6em;
+}
+

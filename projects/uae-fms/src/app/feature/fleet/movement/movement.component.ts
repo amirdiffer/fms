@@ -18,6 +18,7 @@ import { MovementConfirmComponent } from './movement-confirm/movement-confirm.co
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovementComponent implements OnInit, AfterViewChecked {
+  downloadBtn= 'assets/icons/download-solid.svg';
   filterSetting;
   movementOverViewTableSetting;
   requestTableSetting;

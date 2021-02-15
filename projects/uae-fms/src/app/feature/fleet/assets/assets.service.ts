@@ -22,7 +22,7 @@ export class AssetsService {
         status: 'Work Shop',
         submitOn: '2 day ago',
         brand: 'bmw.png',
-        killometer: 25000,
+        killometer: 25000 + index,
         statusColor: '#009EFF'
       };
       data.push(el);
@@ -57,6 +57,7 @@ export class AssetsService {
         {
           lable: 'Asset',
           field: 'asset',
+          width: 180,
           type: 1,
           thumbField: '',
           renderer: 'assetsRenderer'
@@ -72,6 +73,7 @@ export class AssetsService {
         {
           lable: 'Business Category',
           field: 'businessCategory',
+          width: 130,
           type: 1,
           thumbField: '',
           renderer: ''
@@ -79,7 +81,7 @@ export class AssetsService {
         {
           lable: 'Allocated',
           field: 'allocated',
-          width: 140,
+          width: 100,
           type: 1,
           thumbField: '',
           renderer: ''
@@ -87,7 +89,7 @@ export class AssetsService {
         {
           lable: 'Operator',
           field: 'operator',
-          width: 140,
+          width: 100,
           type: 1,
           thumbField: '',
           renderer: ''
@@ -95,7 +97,7 @@ export class AssetsService {
         {
           lable: 'Status',
           field: 'status',
-          width: 140,
+          width: 100,
           type: 1,
           thumbField: '',
           renderer: ''
@@ -103,10 +105,11 @@ export class AssetsService {
         {
           lable: 'Submitted On',
           field: 'submitOn',
-          width: 140,
+          width: 100,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          sortable: true
         },
         {
           lable: 'Make',
@@ -122,7 +125,8 @@ export class AssetsService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          sortable: true
         }
       ],
       data: this.assetMaster(),

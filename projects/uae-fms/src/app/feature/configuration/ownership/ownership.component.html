@@ -6,8 +6,10 @@
         <img src="../../../assets/icons/search-solid.svg" alt="">
       </button>
     </div>
-    <button class="btn-download"><a></a></button>
-    <button class="btn-primary-green" [routerLink]="['add']"><i>+</i><a>Add</a></button>
+    <button class="btn-download" disabled>
+      <svg-icon [src]="downloadBtn"></svg-icon>
+    </button>
+    <button class="btn-primary-small" [routerLink]="['add']"><i>+</i><a>Add</a></button>
   </div>
   <div class="table-wreapper">
     <app-table [setting]='ownerShip_Table'></app-table>

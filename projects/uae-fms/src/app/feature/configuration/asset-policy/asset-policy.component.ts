@@ -9,6 +9,8 @@ import { AssetPolicyFacade } from '../+state/asset-policy';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetPolicyComponent implements OnInit {
+  downloadBtn= 'assets/icons/download-solid.svg';
+
   assetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'Policy Name', type: 1, field: 'Policy_Name' },

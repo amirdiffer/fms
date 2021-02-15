@@ -1,5 +1,5 @@
 <!-- start main template -->
-<div *ngIf="!isLoginPath" [class]="'theme-wrapper ' + (theme$ | async)">
+<div [class]="'theme-wrapper ' + (theme$ | async)">
   <mat-sidenav-container>
     <div class="wrapper">
       <app-navbar [selectIsAuthenticated]="selectIsAuthenticated"
@@ -26,12 +26,3 @@
   </mat-sidenav-container>
 </div>
 <!-- end main template -->
-<!-- start login template -->
-<div *ngIf="isLoginPath">
-  <div class="content">
-    <span class="body">
-      <router-outlet #o="outlet"></router-outlet>
-    </span>
-  </div>
-</div>
-<!-- end login template -->

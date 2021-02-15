@@ -6,6 +6,7 @@ import { OrderListComponent } from './order-list/order-list.component';
 import { PartMasterComponent } from './part-master/part-master.component';
 import { PartListFormComponent } from './part-list/part-list-form.component';
 import { AddPartMasterComponent } from './part-master/add-part-master/add-part-master.component';
+import { OrderFormComponent } from './order-list/order/order.component';
 
 const routes: Routes = [
   { path: 'part-list/add', component: PartListFormComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'part-master', component: PartMasterComponent },
   { path: 'part-master/add', component: AddPartMasterComponent },
   { path: 'order-list', component: OrderListComponent },
+  { path: 'order-list/add-order-list', component: OrderFormComponent },
   {
     path: '',
     pathMatch: 'full',

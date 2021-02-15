@@ -9,6 +9,7 @@ import { TableSetting } from '@core/table';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PartListComponent implements OnInit {
+  downloadBtn= 'assets/icons/download-solid.svg';
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'Total',
