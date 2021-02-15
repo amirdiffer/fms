@@ -230,5 +230,50 @@
                 </div>
             </div>
         </div>
+        <br><br>
+        <div class="row">
+            <div class="col-3">
+                Stepper
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom" >
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep"  state="phone" >
+                        <form [formGroup]="controlStep">
+                            <ng-template matStepLabel>Label 1</ng-template>
+                            <button mat-button matStepperNext>Next</button>
+                        </form>
+                    </mat-step>
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep" >
+                        <form [formGroup]="controlStep">
+                            <ng-template matStepLabel>Label 2</ng-template>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>                    
+                        </form>
+                    </mat-step>
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep">
+                        <form [formGroup]="controlStep">
+                            <ng-template matStepLabel>Label 3</ng-template>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                    
+                        </form>
+                    </mat-step>
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep">
+                        <form [formGroup]="controlStep">
+                            <ng-template matStepLabel>Label 4</ng-template>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                    
+                        </form>
+                    </mat-step>
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep">
+                        <ng-template matStepLabel>Label 5</ng-template>
+                        <button mat-button matStepperPrevious>Back</button>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
     </div>
 </div>
