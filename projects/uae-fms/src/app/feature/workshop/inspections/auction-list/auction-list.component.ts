@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting } from '@core/table';
-import { AuctionListFacade } from '@feature/workshop/+state/auction-list';
+import { AuctionListFacade } from '@feature/workshop/+state/auction-list/auction/auction-list.facade';
 import { Subscription } from 'rxjs';
 import { FakeServiceAuctionList } from './_fake-service.service';
 
