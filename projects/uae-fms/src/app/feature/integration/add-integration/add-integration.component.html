@@ -1,29 +1,32 @@
-<div class="form-section">
+<form [formGroup] = "inputForm">
     <div class="row">
-      <div class="col-12 col-md-2 p-field form-section__field">
-        <span class="p-float-label">
-          <p-dropdown [options]="typeOptions" optionLabel="name" optionValue="value" placeholder="Type"></p-dropdown>
-          <label>Type</label>
-        </span>
-      </div>
-      <div class="col-12 col-md-2 p-field form-section__field">
-        <span class="p-float-label">
-          <input pInputText placeholder="Company Name" type="text" >
-          <label>Company Name</label>
-        </span>
-      </div>
-      <div class="col-12 col-md-2 p-field form-section__field">
-        <span class="p-float-label">
-          <input pInputText placeholder="GRP" type="text" >
-          <label>GRP</label>
-        </span>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="button-container">
-          <button class="add mb-1">Save</button>
-          <button class="cancel mb-1">Cancel</button>
+        <div class="col-md-2">
+            <mat-form-field appearance="fill">
+                <mat-label>Type</mat-label>
+                <mat-select  formControlName="type">
+                  <mat-option value="1">Type 1</mat-option>
+                  <mat-option value="2">Type 2</mat-option>
+                  <mat-option value="3">Type 3</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-      </div>
+        <div class="col-md-2">
+            <mat-form-field class="">
+                <mat-label>Company Name</mat-label>
+                <input matInput placeholder="" value="" formControlName="companyName">
+            </mat-form-field>
+        </div>
+        <div class="col-md-2">
+            <mat-form-field class="">
+                <mat-label>GRP</mat-label>
+                <input matInput placeholder="" value="" formControlName="grp">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <div class="button-container-flex">
+                <button class="btn-primary-small add">Save</button>
+                <button class="btn-primary-small btn-scondary-green" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
     </div>
-    <app-table [setting]="tableSettings"></app-table>
-</div>
+</form>

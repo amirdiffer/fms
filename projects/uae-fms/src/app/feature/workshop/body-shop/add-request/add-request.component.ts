@@ -1,5 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { stringify } from 'querystring';
 import { AddRequestFakeService } from './_fake.service';
@@ -15,92 +20,96 @@ export class AddRequestComponent implements OnInit {
   tableSettingServie;
   tableSettingWarranty;
   oldAssetSuggests: any[];
-  filteredAsset : any[];
+  filteredAsset: any[];
   submited = false;
-  assets : any[] = [
-    {name: 'Item No 234567890', gps: '456783234658'},
-    {name: 'Item No 234567891', gps: '666663345435'},
-    {name: 'Item No 234567892', gps: '567434234244'},
-    {name: 'Item No 234567893', gps: '541565456465'},
-    {name: 'Item No 234567894', gps: '489456141856'}
+  assets: any[] = [
+    { name: 'Item No 234567890', gps: '456783234658' },
+    { name: 'Item No 234567891', gps: '666663345435' },
+    { name: 'Item No 234567892', gps: '567434234244' },
+    { name: 'Item No 234567893', gps: '541565456465' },
+    { name: 'Item No 234567894', gps: '489456141856' }
   ];
-  inputForm : FormGroup;
+  inputForm: FormGroup;
 
-  constructor(private _fb : FormBuilder, private _fakeService: AddRequestFakeService , private _roter: Router) {}
+  constructor(
+    private _fb: FormBuilder,
+    private _fakeService: AddRequestFakeService,
+    private _roter: Router
+  ) {}
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      assetSearch:['',[Validators.required ,this.autocompleteValidation]],
+      assetSearch: ['', [Validators.required, this.autocompleteValidation]],
       assetInfo: this._fb.group({
-        asset:[''],
-        gpsMeterSource:[''],
+        asset: [''],
+        gpsMeterSource: ['']
       }),
-      reason:[false],
-      accidentOption:['miner'],
-      jobType:['estimate'],
-      issueInfo : this._fb.group({
-        issue:['', Validators.required],
+      reason: [false],
+      accidentOption: ['miner'],
+      jobType: ['estimate'],
+      issueInfo: this._fb.group({
+        issue: ['', Validators.required],
         repertedBy: ['', Validators.required],
-        description:['', Validators.required],
+        description: ['', Validators.required]
       }),
-      priority:[''],
-      file:['']
+      priority: [''],
+      file: ['']
     });
 
     this.tableSettingServie = this._fakeService.tableSettingService;
     this.tableSettingWarranty = this._fakeService.tableSettingWarranty;
   }
 
-  searchAsset(event){
-    let filtered : any[] = [];
+  searchAsset(event) {
+    let filtered: any[] = [];
     let query = event.query;
-    for(let i = 0; i < this.assets.length; i++) {
-        let asset = this.assets[i];
-        if (asset.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-            filtered.push(asset);
-        }
+    for (let i = 0; i < this.assets.length; i++) {
+      let asset = this.assets[i];
+      if (asset.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(asset);
+      }
     }
     this.filteredAsset = filtered;
   }
 
-  selectedAsset(value){
+  selectedAsset(value) {
     this.inputForm.patchValue({
-      assetInfo:{
-        asset:value.name,
-        gpsMeterSource:value.gps,
+      assetInfo: {
+        asset: value.name,
+        gpsMeterSource: value.gps
       }
-    })
+    });
   }
-  autocompleteValidation (input: FormControl){
+  autocompleteValidation(input: FormControl) {
     const inputValid = input.value.name;
-    if(inputValid){
-      return null
+    if (inputValid) {
+      return null;
     } else {
-      return { needsExclamation: true }
+      return { needsExclamation: true };
     }
   }
-  addRequest(){
-    this.submited = true
-    if(this.inputForm.valid){
+  addRequest() {
+    this.submited = true;
+    if (this.inputForm.valid) {
       console.log(this.inputForm.value);
-      this._roter.navigate(['/workshop/body-shop'])
-    }
-    else{
+      this._roter.navigate(['/workshop/body-shop']);
+    } else {
       console.log('have an Error');
       const controls = this.inputForm.controls;
-      for (const name in controls){
-        if(controls[name].invalid){
+      for (const name in controls) {
+        if (controls[name].invalid) {
           controls[name].markAsTouched();
         }
       }
-
     }
   }
 
-  cancelForm(){
-    if(this.inputForm.dirty){
-      confirm('Are You sure that you want to cancel?') ? this._roter.navigate(['/workshop/body-shop']) : null;
-    }else{
+  cancelForm() {
+    if (this.inputForm.dirty) {
+      confirm('Are You sure that you want to cancel?')
+        ? this._roter.navigate(['/workshop/body-shop'])
+        : null;
+    } else {
       this._roter.navigate(['/workshop/body-shop']);
     }
   }

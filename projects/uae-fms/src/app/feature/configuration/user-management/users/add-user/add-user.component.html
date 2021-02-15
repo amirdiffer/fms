@@ -1,12 +1,11 @@
 <div>
   <form [formGroup]='form'>
-    <div class='text-right action_buttons mb-2'>
-      <button class='action_button cancel_button font-weight-bold'
-        routerLink='/configuration/user-management/users'>Cancel</button>
-      <button class='action_button add_button' (click)='submit()'>Add</button>
+    <div class="button-container">
+      <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">Cancel</button>
+      <button class="btn-primary-medium add">Add</button>
     </div>
-    <app-filter [setting]='filter'></app-filter>
-    <div class="form-section mt-5" formGroupName="portalInformation">
+    <app-filter [setting]='filter' class="mt-2"></app-filter>
+    <div class="form-section mt-3" formGroupName="portalInformation">
       <h3 class="form-section__title">Portal Information</h3>
       <div class="row form-section__row">
         <div class="col-12 col-md-3 p-field form-section__field">

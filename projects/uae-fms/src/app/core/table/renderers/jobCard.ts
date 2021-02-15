@@ -13,9 +13,9 @@ import { Component, OnInit } from '@angular/core';
         height: 66px;
         border: none;
         padding: 0 20px;
-        position:relative;
-        margin-left:10px;
-        width:100%;
+        position: relative;
+        margin-left: 10px;
+        width: 100%;
         max-width: 167px;
         padding-left: 35px;
       }
@@ -23,7 +23,7 @@ import { Component, OnInit } from '@angular/core';
         font-weight: 800;
         font-size: 1.7rem;
         height: fit-content;
-        position:absolute;
+        position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-55px, -55%);
@@ -35,5 +35,4 @@ export class JobCardRendererComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
-
 }

@@ -15,7 +15,7 @@ import {
   CONFIGURATION_BUSINESS_CATEGORY_FEATURE_KEY
 } from './business-category/business-category.entity';
 
-import{
+import {
   CONFIGURATION_FLEET_STATUS_FEATURE_KEY,
   FleetStatusState
 } from './fleet-status/fleet-status.entity';
@@ -27,6 +27,10 @@ import {
   CONFIGURATION_PERIODIC_SERVICE_FEATURE_KEY,
   PeriodicServiceState
 } from './periodic-service/periodic-service.entity';
+import {
+  AssetConfigurationState,
+  CONFIGURATION_ASSET_CONFIGURATION_FEATURE_KEY
+} from './asset-configuration/asset-configuration.entity';
 export const CONFIGURATION_FEATURE_KEY = 'configuration';
 
 export interface State {
@@ -37,6 +41,7 @@ export interface State {
   readonly [CONFIGURATION_FLEET_STATUS_FEATURE_KEY]: FleetStatusState;
   readonly [CONFIGURATION_OWNERSHIP_FEATURE_KEY]: OwnershipState;
   readonly [CONFIGURATION_PERIODIC_SERVICE_FEATURE_KEY]: PeriodicServiceState;
+  readonly [CONFIGURATION_ASSET_CONFIGURATION_FEATURE_KEY]: AssetConfigurationState;
 }
 
 export interface ConfigurationPartialState {

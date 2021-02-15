@@ -13,7 +13,7 @@ import { TrafficFineTableFacade } from '../traffic-fine/+state/traffic-fine';
 export class TrafficFineComponent implements OnInit {
   assets = assetsPath;
   activeTab = 'Traffic Fine';
-
+  downloadBtn= 'assets/icons/download-solid.svg';
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'Total',

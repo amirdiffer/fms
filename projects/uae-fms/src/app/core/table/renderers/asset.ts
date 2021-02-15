@@ -30,20 +30,17 @@ import { environment } from '../../../../environments/environment';
       div .asset-name {
         margin-left: 10px;
         text-align: left;
-        font-size: 15px;
         color: #000000de;
       }
 
       div .asset-info {
         margin-left: 10px;
         text-align: left;
-        font-size: 12px;
         color: #000000de;
       }
       div .asset-badge {
         margin-left: 10px;
         text-align: left;
-        font-size: 12px;
         color: #ffffff;
         width: max-content;
         padding: 2px 8px;

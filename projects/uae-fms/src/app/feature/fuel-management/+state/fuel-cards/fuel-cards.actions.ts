@@ -2,14 +2,14 @@ import { createAction, props } from '@ngrx/store';
 import { FuelCardsStateModel } from './fuel-cards.entity';
 
 export class FuelCardsActions {
-  static loadAll = createAction('[FuelCards] load all data');
+  static loadFuelCard = createAction('[FuelCards] load all data');
 
-  static allDataLoaded = createAction(
+  static fuelCardLoaded = createAction(
     '[FuelCards] all datas are loaded',
     props<{ data: FuelCardsStateModel[] }>()
   );
 
-  static error = createAction(
+  static fuelCardError = createAction(
     '[FuelCards] error occurred',
     props<{ reason: any }>()
   );

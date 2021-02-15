@@ -13,6 +13,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { FuelManagementStateModule } from '@feature/fuel-management/+state';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { FuelManagementStateModule } from '@feature/fuel-management/+state';
   imports: [
     CommonModule,
     FuelRoutingModule,
+    SharedModule,
     FilterModule,
     TabViewModule,
     TableModule,

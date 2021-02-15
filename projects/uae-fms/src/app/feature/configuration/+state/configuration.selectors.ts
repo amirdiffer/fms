@@ -22,7 +22,7 @@ export class ConfigurationSelectors {
   static businessCategorySelector = createSelector(
     ConfigurationSelectors.featureSelector,
     (state) => state['businessCategory']
-  )
+  );
 
   static fleetStatusSelector = createSelector(
     ConfigurationSelectors.featureSelector,
@@ -37,5 +37,10 @@ export class ConfigurationSelectors {
   static periodicServiceSelector = createSelector(
     ConfigurationSelectors.featureSelector,
     (state) => state['periodicService']
+  );
+
+  static assetConfigurationSelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['assetConfiguration']
   );
 }

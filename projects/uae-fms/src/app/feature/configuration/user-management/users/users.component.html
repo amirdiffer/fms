@@ -9,8 +9,10 @@
         <img src="../../../assets/icons/search-solid.svg" alt="">
       </button>
     </div>
-    <button class="btn-download"><a></a></button>
-    <button class="btn-primary-green" routerLink='/configuration/user-management/add-user'><i>+</i><a>Add</a></button>
+    <button class="btn-download" disabled>
+      <svg-icon [src]="downloadBtn"></svg-icon>
+    </button>
+    <button class="btn-primary-small" routerLink='/configuration/user-management/add-user'><i>+</i><a>Add</a></button>
   </div>
   <div class="table-wreapper">
     <app-table [setting]='users_Table'></app-table>

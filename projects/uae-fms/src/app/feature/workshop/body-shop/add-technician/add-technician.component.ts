@@ -1,5 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy ,Injector } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Injector
+} from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ColumnType, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
@@ -10,72 +21,71 @@ import { Utility } from '@shared/utility/utility';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddTechnicianComponent extends Utility implements OnInit {
-  inputForm:FormGroup;
+  inputForm: FormGroup;
   filteredEmployeNumb;
   filteredLocation;
-  submited= false;
-  employes : any[] =[
+  submited = false;
+  employes: any[] = [
     {
-      id:'1',
-      fName:'Hamid',
-      lName:'Mottaghian',
-      email:'admin@jointscopes.com',
-      number:'+989351730011',
-      employeNumber:'1234568'
+      id: '1',
+      fName: 'Hamid',
+      lName: 'Mottaghian',
+      email: 'admin@jointscopes.com',
+      number: '+989351730011',
+      employeNumber: '1234568'
     },
     {
-      id:'2',
-      fName:'Alireza',
-      lName:'Hamidi',
-      email:'admin@jointscopes.com',
-      number:'+989351730011',
-      employeNumber:'1234568'
+      id: '2',
+      fName: 'Alireza',
+      lName: 'Hamidi',
+      email: 'admin@jointscopes.com',
+      number: '+989351730011',
+      employeNumber: '1234568'
     },
     {
-      id:'3',
-      fName:'Amir Hossein',
-      lName:'Hosseini',
-      email:'admin@jointscopes.com',
-      number:'+989351730011',
-      employeNumber:'1234568'
+      id: '3',
+      fName: 'Amir Hossein',
+      lName: 'Hosseini',
+      email: 'admin@jointscopes.com',
+      number: '+989351730011',
+      employeNumber: '1234568'
     },
     {
-      id:'4',
-      fName:'Mahdi',
-      lName:'MaddahPour',
-      email:'admin@jointscopes.com',
-      number:'+989351730011',
-      employeNumber:'1234568'
+      id: '4',
+      fName: 'Mahdi',
+      lName: 'MaddahPour',
+      email: 'admin@jointscopes.com',
+      number: '+989351730011',
+      employeNumber: '1234568'
     }
-    
   ];
-  locations: any[] =[
+  locations: any[] = [
     {
       name: 'Hamid',
       city: 'Dubai',
-      address:'street 1',
+      address: 'street 1'
     },
     {
       name: 'Nirvana',
       city: 'Dubai',
-      address:'street 2',
+      address: 'street 2'
     },
     {
       name: 'Mellisa',
       city: 'Dubai',
-      address:'street 3',
+      address: 'street 3'
     },
     {
       name: 'Farid',
       city: 'Dubai',
-      address:'street 4',
+      address: 'street 4'
     },
     {
       name: 'Eden',
       city: 'Dubai',
-      address:'street 5',
+      address: 'street 5'
     }
-  ]
+  ];
 
   addTechnician_Table: TableSetting = {
     columns: [
@@ -192,117 +202,130 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     ]
   };
 
-  constructor(private _fb: FormBuilder , injector: Injector , private _roter:Router) { super(injector);}
+  constructor(
+    private _fb: FormBuilder,
+    injector: Injector,
+    private _roter: Router
+  ) {
+    super(injector);
+  }
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      portalInfo : this._fb.group({
-        emplyeeNumber:['', [Validators.required , this.autocompleteValidationEmployeNumber]],
-        payPerHours:['',[Validators.required]],
-        active:[false]
+      portalInfo: this._fb.group({
+        emplyeeNumber: [
+          '',
+          [Validators.required, this.autocompleteValidationEmployeNumber]
+        ],
+        payPerHours: ['', [Validators.required]],
+        active: [false]
       }),
       professional: this._fb.group({
-        skills: this._fb.array([
-          this._fb.control('' , [Validators.required])
-        ]),
+        skills: this._fb.array([this._fb.control('', [Validators.required])]),
         location: this._fb.array([
-          this._fb.control('' , [Validators.required , this.autocompleteValidationLocation])
+          this._fb.control('', [
+            Validators.required,
+            this.autocompleteValidationLocation
+          ])
         ])
       }),
-      file:[''],
+      file: [''],
       pesonalInfo: this._fb.group({
-        firstName: ['' , [Validators.required]],
-        lastName:['' , [Validators.required]],
-        email: this._fb.array([
+        firstName: ['', [Validators.required]],
+        lastName: ['', [Validators.required]],
+        email: this._fb.array([this._fb.control('', [Validators.required])]),
+        phoneNumber: this._fb.array([
           this._fb.control('', [Validators.required])
         ]),
-        phoneNumber: this._fb.array([
-          this._fb.control('' , [Validators.required])
-        ]),
         notification: this._fb.group({
-          call:[true],
-          sms:[true],
-          email:[true],
-          whatsapp:[false],
+          call: [true],
+          sms: [true],
+          email: [true],
+          whatsapp: [false]
         })
       })
-    })
-  };
+    });
+  }
 
-  searchEmploye(event){
-    let filtered : any[] = [];
+  searchEmploye(event) {
+    let filtered: any[] = [];
     let query = event.query;
-    for(let i = 0; i < this.employes.length; i++) {
-        let employe = this.employes[i];
-        if (employe.fName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-            filtered.push(employe);
-        }
+    for (let i = 0; i < this.employes.length; i++) {
+      let employe = this.employes[i];
+      if (employe.fName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(employe);
+      }
     }
     this.filteredEmployeNumb = filtered;
   }
 
-  selectedEmploye(value){
+  selectedEmploye(value) {
     this.inputForm.patchValue({
-      pesonalInfo:{
+      pesonalInfo: {
         firstName: value.fName,
         lastName: value.lName,
         email: [value.email],
-        phoneNumber: [value.number],
+        phoneNumber: [value.number]
       }
-    })
+    });
     this.inputForm.get('pesonalInfo.firstName').markAsDirty();
     this.inputForm.get('pesonalInfo.lastName').markAsDirty();
     this.inputForm.get('pesonalInfo.email')['controls'][0].markAsDirty();
     this.inputForm.get('pesonalInfo.phoneNumber')['controls'][0].markAsDirty();
   }
-  searchLocation(event){
-    let filtered : any[] = [];
+  searchLocation(event) {
+    let filtered: any[] = [];
     let query = event.query;
-    for(let i = 0; i < this.locations.length; i++) {
-        let location = this.locations[i];
-        if (location.city.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-            filtered.push(location);
-        }
+    for (let i = 0; i < this.locations.length; i++) {
+      let location = this.locations[i];
+      if (location.city.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(location);
+      }
     }
     this.filteredLocation = filtered;
   }
 
   /* AutoComplete Validation  */
-  autocompleteValidationEmployeNumber (input: FormControl){
+  autocompleteValidationEmployeNumber(input: FormControl) {
     const inputValid = input.value.employeNumber;
-    if(inputValid){
-      return null
+    if (inputValid) {
+      return null;
     } else {
-      return { needsExclamation: true }
+      return { needsExclamation: true };
     }
   }
-  autocompleteValidationLocation (input: FormControl){
+  autocompleteValidationLocation(input: FormControl) {
     const inputValid = input.value.city;
-    if(inputValid){
-      return null
+    if (inputValid) {
+      return null;
     } else {
-      return { needsExclamation: true }
+      return { needsExclamation: true };
     }
   }
 
   /* Add Forrm Array */
-  addSkill(){
-    const skill = new FormControl(null , [Validators.required]);
+  addSkill() {
+    const skill = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('professional.skills')).push(skill);
   }
-  addLocation(){
-    const location = new FormControl(null , [Validators.required ,  this.autocompleteValidationLocation]);
+  addLocation() {
+    const location = new FormControl(null, [
+      Validators.required,
+      this.autocompleteValidationLocation
+    ]);
     (<FormArray>this.inputForm.get('professional.location')).push(location);
   }
-  addEmail(){
-    const email = new FormControl(null ,[Validators.required]);
+  addEmail() {
+    const email = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('pesonalInfo.email')).push(email);
   }
-  addPhoneNumber(){
-    const phoneNumber = new FormControl(null , [Validators.required]);
-    (<FormArray>this.inputForm.get('pesonalInfo.phoneNumber')).push(phoneNumber)
+  addPhoneNumber() {
+    const phoneNumber = new FormControl(null, [Validators.required]);
+    (<FormArray>this.inputForm.get('pesonalInfo.phoneNumber')).push(
+      phoneNumber
+    );
   }
-  addRequest(){
+  addRequest() {
     console.log(this.inputForm.value);
     this.submited = true;
     if (this.inputForm.invalid) {
@@ -311,10 +334,12 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     this.goToList();
   }
 
-  cancelForm(){
-    if(this.inputForm.dirty){
-      confirm('Are You sure that you want to cancel?') ? this._roter.navigate(['/workshop/body-shop']) : null;
-    }else{
+  cancelForm() {
+    if (this.inputForm.dirty) {
+      confirm('Are You sure that you want to cancel?')
+        ? this._roter.navigate(['/workshop/body-shop'])
+        : null;
+    } else {
       this._roter.navigate(['/workshop/body-shop']);
     }
   }

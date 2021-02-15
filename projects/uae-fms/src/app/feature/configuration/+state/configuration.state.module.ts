@@ -16,10 +16,21 @@ import { RolePermissionEffect } from './role-permission/role-permission.effect';
 import { RolePermissionFacade } from './role-permission/role-permission.facade';
 import { RolePermissionService } from './role-permission/role-permission.service';
 import { BusinessCategoryEffect } from './business-category/business-category.effect';
-import { BusinessCategoryFacade, BusinessCategoryService } from './business-category';
+import {
+  BusinessCategoryFacade,
+  BusinessCategoryService
+} from './business-category';
 
-import { PeriodicServiceFacade, PeriodicServiceService } from '../+state/periodic-service';
+import {
+  PeriodicServiceFacade,
+  PeriodicServiceService
+} from '../+state/periodic-service';
 import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-service.effect';
+import {
+  AssetConfigurationFacade,
+  AssetConfigurationService
+} from '../+state/asset-configuration';
+import { AssetConfigurationEffect } from '../+state/asset-configuration/asset-configuration.effect';
 
 @NgModule({
   declarations: [],
@@ -32,7 +43,8 @@ import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-servi
       BusinessCategoryEffect,
       FleetStatusEffect,
       OwnershipEffect,
-      PeriodicServiceEffect
+      PeriodicServiceEffect,
+      AssetConfigurationEffect
     ])
   ],
   providers: [
@@ -49,7 +61,9 @@ import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-servi
     OwnershipFacade,
     OwnershipService,
     PeriodicServiceFacade,
-    PeriodicServiceService
+    PeriodicServiceService,
+    AssetConfigurationFacade,
+    AssetConfigurationService
   ]
 })
-export class ConfigurationStateModule { }
+export class ConfigurationStateModule {}
