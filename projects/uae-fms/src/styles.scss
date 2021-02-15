@@ -291,7 +291,7 @@
   border-radius: .25em;
   padding: 1px 3.2em;
   z-index: 2;
-  &:hover{
+  &:hover:not([disabled]){
     background: transparent linear-gradient(0deg, #10a770 0%, $fms-green-button-bg 100%) 0% 0% no-repeat padding-box;  
     box-shadow:  0px 2px 4px #5a8dee66;
   }
@@ -319,7 +319,7 @@
 .btn-scondary-green{
   background-color: #fff;
   color:$fms-green-button-bg;
-  &:hover{
+  &:hover:not([disabled]){
     background:transparentize($color: $fms-green-button-bg, $amount: .9)
   }
   &:disabled{
@@ -385,6 +385,9 @@
   p-inputswitch{
     .p-component{
       font-size: 1em;
+    }
+    &:disabled{
+      opacity: .3;
     }
     .p-inputswitch.p-focus .p-inputswitch-slider {
       box-shadow: none;
