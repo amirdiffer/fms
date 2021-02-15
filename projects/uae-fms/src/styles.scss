@@ -260,6 +260,9 @@
     .filter-title{
       font-size: .9em;
     }
+    .filter-supTitle{
+      font-size:.6em;
+    }
   }
   .filter-count{
     font-size:1.6em;
@@ -699,7 +702,7 @@ mat-horizontal-stepper{
   .mat-horizontal-stepper-header:not(:first-child)::before {
     border-top-width: 5px !important;
     border-top-color: rgba(0, 0, 0, 0.12);
-    display: none;
+
   }
   .mat-step-icon-selected {
     .mat-step-icon-content {
