@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting, ColumnType } from '@core/table';
-import { BodyShopFacade } from '../+state/body-shop';
+import { BodyShopJobCardFacade, BodyShopLocationFacade, BodyShopRequestFacade, BodyShopTechnicianFacade } from '../+state/body-shop';
 import { Event, Router } from '@angular/router';
 @Component({
   templateUrl: './body-shop.component.html',
@@ -545,10 +545,17 @@ export class BodyShopComponent implements OnInit {
   };
 
   selectedTab;
-  constructor(private facade: BodyShopFacade, private router: Router) {}
+  constructor(private _facadeRequest: BodyShopRequestFacade, 
+              private _facadeJobCard: BodyShopJobCardFacade, 
+              private _facadeTechnician: BodyShopTechnicianFacade,
+              private _facadeLocation: BodyShopLocationFacade,
+              private router: Router) {}
 
   ngOnInit(): void {
-    this.facade.loadAll();
+    this._facadeRequest.loadAll();
+    this._facadeJobCard.loadAll();
+    this._facadeTechnician.loadAll();
+    this._facadeLocation.loadAll();
   }
 
   addClicked(e: Event) {
