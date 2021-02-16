@@ -10,6 +10,7 @@ import { UsersFacade } from '../../+state/users';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersComponent implements OnInit {
+  downloadBtn = 'assets/icons/download-solid.svg';
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'This Month',

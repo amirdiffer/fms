@@ -9,6 +9,8 @@ import { PeriodicServiceFacade } from '../+state/periodic-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PeriodicServiceComponent implements OnInit {
+  downloadBtn = 'assets/icons/download-solid.svg';
+
   tableColumns: ColumnDifinition[] = [
     {
       lable: 'Periodic Service Name',

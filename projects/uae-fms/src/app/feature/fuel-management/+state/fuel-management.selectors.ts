@@ -8,4 +8,8 @@ export class FuelManagementSelectors {
     FuelManagementSelectors.featureSelector,
     (state) => state['fuelCards']
   );
+  static assetUsageSelector = createSelector(
+    FuelManagementSelectors.featureSelector,
+    (state) => state['assetUsage']
+  )
 }

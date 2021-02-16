@@ -1,11 +1,13 @@
 <div class="app-table-wrapper">
-  <p-table [value]="setting.data" (mouseleave)='rowIndexTable = -1'>
+  <p-table [value]="setting.data" (mouseleave)='rowIndexTable = -1'
+           (sortFunction)="handleSort($event, setting)" [customSort]='true'>
     <ng-template pTemplate="header">
       <tr>
-        <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''">
+        <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''"
+            [pSortableColumn]='col.field' [pSortableColumnDisabled]='!col.sortable'>
           <div class="d-flex">
             <ng-template [ngIf]="col.sortable">
-              <img class="icon-dorp" src="../../../assets/icons/sort-down-solid.svg" alt="">
+              <img [class.sort]='col.isAsc === false' class="icon-dorp" src="../../../assets/icons/sort-down-solid.svg" alt="">
             </ng-template>
             <ng-template [ngIf]="!col.isIconLable" [ngIfElse]="iconType">
               {{col.lable}}

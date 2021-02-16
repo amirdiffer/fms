@@ -1,3 +1,4 @@
+import { AddOperatorComponent } from './operator/add-operator/add-operator.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -10,15 +11,19 @@ import { OperatorComponent } from './operator/operator.component';
 import { MovementComponent } from './movement/movement.component';
 import { AssetsComponent } from './assets/assets.component';
 import { AddAssetComponent } from './assets/add-asset/add-asset.component';
+import { AddAccessoryComponent } from './accessory/add-accessory/add-accessory.component';
+import { AddRequestComponent } from './movement/add-request/add-request.component';
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
   { path: 'organization', component: OrganizationComponent },
-  { path: 'accessory', component: AccessoryComponent },
+  { path: 'accessory', component: AccessoryComponent},
+  { path: 'accessory/add' , component: AddAccessoryComponent},
   { path: 'sub-asset', component: SubAssetComponent },
-  { path: 'operator', component: OperatorComponent },
   { path: 'movement', component: MovementComponent },
+  { path: 'movement/add-request', component: AddRequestComponent },
   { path: 'operator', component: OperatorComponent },
+  { path: 'operator/add', component: AddOperatorComponent },
   { path: 'assets', component: AssetsComponent },
   { path: 'assets/add', component: AddAssetComponent },
   {
