@@ -1,5 +1,4 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { FLEET_FEATURE_KEY } from '@feature/fleet/+state/fleet.entity';
 import { FLEET_FEATURE_KEY } from './fleet.entity';
 
 export class FleetSelectors {

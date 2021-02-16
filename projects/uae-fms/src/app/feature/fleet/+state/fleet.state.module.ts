@@ -11,7 +11,16 @@ import { CustomizationEffects } from '@feature/fleet/+state/assets/customization
 import { CustomizationFacade } from '@feature/fleet/+state/assets/customization/customization.facade';
 import { CustomizationService } from '@feature/fleet/+state/assets/customization/customization.service';
 import { RegistrationEffects } from '@feature/fleet/+state/assets/registration/registration.effects';
-import { RegistrationFacade, RegistrationService } from '@feature/fleet/+state/assets/registration';
+import {
+  RegistrationFacade,
+  RegistrationService
+} from '@feature/fleet/+state/assets/registration';
+import {
+  MovementOverviewFacade,
+  MovementOverviewService,
+  MovementRequestsFacade,
+  MovementRequestsService
+} from './movement';
 
 @NgModule({
   imports: [
@@ -20,7 +29,8 @@ import { RegistrationFacade, RegistrationService } from '@feature/fleet/+state/a
       AssetMasterEffects,
       CustomizationEffects,
       RegistrationEffects
-    ])
+    ]),
+    EffectsModule.forFeature([MovementOverviewFacade, MovementRequestsFacade])
   ],
   exports: [],
   declarations: [],
@@ -30,25 +40,7 @@ import { RegistrationFacade, RegistrationService } from '@feature/fleet/+state/a
     CustomizationFacade,
     CustomizationService,
     RegistrationFacade,
-    RegistrationService
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { FLEET_FEATURE_KEY } from './fleet.entity';
-import { reducers } from './fleet.reducer';
-import {
-  MovementOverviewFacade,
-  MovementOverviewService,
-  MovementRequestsFacade,
-  MovementRequestsService
-} from './movement';
-
-@NgModule({
-  declarations: [],
-  imports: [
-    StoreModule.forFeature(FLEET_FEATURE_KEY, reducers),
-    EffectsModule.forFeature([MovementOverviewFacade, MovementRequestsFacade])
-  ],
-  providers: [
+    RegistrationService,
     MovementOverviewFacade,
     MovementOverviewService,
     MovementRequestsFacade,
