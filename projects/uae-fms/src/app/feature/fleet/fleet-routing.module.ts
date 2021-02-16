@@ -17,8 +17,8 @@ import { AddRequestComponent } from './movement/add-request/add-request.componen
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
   { path: 'organization', component: OrganizationComponent },
-  { path: 'accessory', component: AccessoryComponent},
-  { path: 'accessory/add' , component: AddAccessoryComponent},
+  { path: 'accessory', component: AccessoryComponent },
+  { path: 'accessory/add', component: AddAccessoryComponent },
   { path: 'sub-asset', component: SubAssetComponent },
   { path: 'movement', component: MovementComponent },
   { path: 'movement/add-request', component: AddRequestComponent },

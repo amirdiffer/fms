@@ -8,5 +8,5 @@ import { FLEET_REGISTRATION_FEATURE_KEY } from '@feature/fleet/+state/assets/reg
 export const reducers = {
   [FLEET_ASSET_MASTER_FEATURE_KEY]: assetMasterReducer.reducer,
   [FLEET_CUSTOMIZATION_FEATURE_KEY]: customizationReducer.reducer,
-  [FLEET_REGISTRATION_FEATURE_KEY]: registrationReducer.reducer,
+  [FLEET_REGISTRATION_FEATURE_KEY]: registrationReducer.reducer
 };

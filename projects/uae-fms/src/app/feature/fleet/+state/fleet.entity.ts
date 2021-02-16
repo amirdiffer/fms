@@ -1,4 +1,3 @@
-
 import {
   FLEET_ASSET_MASTER_FEATURE_KEY,
   IAssetMasterState

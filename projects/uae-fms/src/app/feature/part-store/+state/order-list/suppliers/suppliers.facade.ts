@@ -7,7 +7,6 @@ import { SuppliersActions } from '@feature/part-store/+state/order-list/supplier
 
 @Injectable()
 export class SuppliersFacade {
-
   suppliers$ = this.store.pipe(select(SuppliersSelectors.selectAll));
 
   constructor(private store: Store<ISuppliersPartialState>) {}

@@ -12,7 +12,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetPolicyComponent implements OnInit {
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
 
   assetPolicy_Table: TableSetting = {
     columns: [

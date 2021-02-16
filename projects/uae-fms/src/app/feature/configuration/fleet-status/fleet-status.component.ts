@@ -13,7 +13,7 @@ import { TableSetting } from '@core/table';
 })
 export class FleetStatusComponent implements OnInit {
   searchIcon = 'assets/icons/search-solid.svg';
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
   tableSetting: TableSetting = {
     columns: [
       {

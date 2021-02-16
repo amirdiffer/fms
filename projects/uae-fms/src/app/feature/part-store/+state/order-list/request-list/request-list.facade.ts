@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { RequestListSelectors } from '@feature/part-store/+state/order-list/request-list/request-list.selectors';
-import {
-  IRequestListPartialState,
-} from '@feature/part-store/+state/order-list/request-list/request-list.entity';
+import { IRequestListPartialState } from '@feature/part-store/+state/order-list/request-list/request-list.entity';
 import { RequestListActions } from '@feature/part-store/+state/order-list/request-list/request-list.actions';
 
 @Injectable()

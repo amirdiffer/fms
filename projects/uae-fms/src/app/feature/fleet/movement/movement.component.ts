@@ -18,7 +18,7 @@ import { MovementConfirmComponent } from './movement-confirm/movement-confirm.co
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovementComponent implements OnInit, AfterViewChecked {
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
   filterSetting;
   movementOverViewTableSetting;
   requestTableSetting;
@@ -27,9 +27,7 @@ export class MovementComponent implements OnInit, AfterViewChecked {
   requestFilterHide$: Observable<boolean> = of(this.requestFilter);
   showTable = true;
 
-
   @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
- 
 
   constructor(
     private _movementService: MovementService,
@@ -38,7 +36,6 @@ export class MovementComponent implements OnInit, AfterViewChecked {
   ) {}
 
   ngOnInit(): void {
-    
     this.movementOverViewTableSetting = this._movementService.movmentOverViewTableSetting();
     this.requestTableSetting = this._movementService.requestTableSetting();
     // Handle confirm button click
@@ -80,8 +77,6 @@ export class MovementComponent implements OnInit, AfterViewChecked {
       this.requestFilterHide$ = of(true);
     }
   }
-
-  
 
   openConfirmModal() {
     this.dialog.open(MovementConfirmComponent, {

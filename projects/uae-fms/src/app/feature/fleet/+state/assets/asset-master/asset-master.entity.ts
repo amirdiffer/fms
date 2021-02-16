@@ -2,20 +2,20 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export interface IAssetMasterModel {
   asset: {
-    img: string,
-    assetName: string,
-    assetSubName: string,
-    ownership: string
-  },
-  type: string,
-  businessCategory: string,
-  allocated: string,
-  operator: string,
-  status: string,
-  submitOn: string,
-  brand: string,
-  killometer: number,
-  statusColor: string
+    img: string;
+    assetName: string;
+    assetSubName: string;
+    ownership: string;
+  };
+  type: string;
+  businessCategory: string;
+  allocated: string;
+  operator: string;
+  status: string;
+  submitOn: string;
+  brand: string;
+  killometer: number;
+  statusColor: string;
 }
 
 export interface IAssetMasterState extends EntityState<IAssetMasterModel> {

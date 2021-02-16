@@ -32,7 +32,7 @@ import { environment } from '../../../../environments/environment';
       .asset-image {
         height: 4.3em;
         max-width: 4.3em;
-        border-radius: .5em;
+        border-radius: 0.5em;
       }
       small {
         color: #000000de;
@@ -53,7 +53,7 @@ import { environment } from '../../../../environments/environment';
       }
       .progress-value {
         color: #000000de;
-        font-size: .8em;
+        font-size: 0.8em;
         margin-left: 6px;
       }
     `

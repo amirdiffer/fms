@@ -8,7 +8,10 @@ import { CustomizationService } from '@feature/fleet/+state/assets/customization
 
 @Injectable()
 export class CustomizationEffects {
-  constructor(private action$: Actions, private service: CustomizationService) {}
+  constructor(
+    private action$: Actions,
+    private service: CustomizationService
+  ) {}
 
   loadAll$ = createEffect(() =>
     this.action$.pipe(
@@ -18,7 +21,9 @@ export class CustomizationEffects {
           map((data) => {
             return CustomizationActions.allDataLoaded({ data });
           }),
-          catchError((error) => of(CustomizationActions.error({ reason: error })))
+          catchError((error) =>
+            of(CustomizationActions.error({ reason: error }))
+          )
         )
       )
     )

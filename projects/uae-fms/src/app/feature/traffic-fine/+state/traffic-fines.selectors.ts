@@ -12,5 +12,5 @@ export class TrafficFinesSelectors {
   static assetTrafficFineSelector = createSelector(
     TrafficFinesSelectors.featureSelector,
     (state) => state['assetTrafficFine']
-  )
+  );
 }

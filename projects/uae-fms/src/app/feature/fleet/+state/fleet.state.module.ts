@@ -11,7 +11,10 @@ import { CustomizationEffects } from '@feature/fleet/+state/assets/customization
 import { CustomizationFacade } from '@feature/fleet/+state/assets/customization/customization.facade';
 import { CustomizationService } from '@feature/fleet/+state/assets/customization/customization.service';
 import { RegistrationEffects } from '@feature/fleet/+state/assets/registration/registration.effects';
-import { RegistrationFacade, RegistrationService } from '@feature/fleet/+state/assets/registration';
+import {
+  RegistrationFacade,
+  RegistrationService
+} from '@feature/fleet/+state/assets/registration';
 
 @NgModule({
   imports: [

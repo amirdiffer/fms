@@ -1,12 +1,12 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export interface ISuppliersListModel {
-  Company: string,
-  Name: string,
-  Email: string,
-  Phone: string,
-  Address: string,
-  Quotation: string
+  Company: string;
+  Name: string;
+  Email: string;
+  Phone: string;
+  Address: string;
+  Quotation: string;
 }
 
 export interface SuppliersListState extends EntityState<ISuppliersListModel> {

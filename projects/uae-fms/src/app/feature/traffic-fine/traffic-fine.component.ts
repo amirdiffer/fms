@@ -14,7 +14,7 @@ import { AssetTrafficFineFacade } from './+state/asset-traffic-fine';
 export class TrafficFineComponent implements OnInit {
   assets = assetsPath;
   activeTab = 'Traffic Fine';
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'Total',
@@ -307,7 +307,10 @@ export class TrafficFineComponent implements OnInit {
     ]
   };
 
-  constructor(private _trafficFineFacade: TrafficFineTableFacade , private _assetTrafficFineFacade: AssetTrafficFineFacade) {}
+  constructor(
+    private _trafficFineFacade: TrafficFineTableFacade,
+    private _assetTrafficFineFacade: AssetTrafficFineFacade
+  ) {}
 
   ngOnInit(): void {
     this._trafficFineFacade.loadAll();

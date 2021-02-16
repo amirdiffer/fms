@@ -18,5 +18,4 @@ export class FleetSelectors {
     FleetSelectors.featureSelector,
     (state) => state['registration']
   );
-
 }

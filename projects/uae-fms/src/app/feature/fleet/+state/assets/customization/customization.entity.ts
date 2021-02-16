@@ -2,18 +2,18 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export interface ICustomizationModel {
   asset: {
-    img: string,
-    assetName: string,
-    assetSubName: string,
-    progress: number
-  },
-  serialNumber: string,
-  brand: string,
-  type: string,
-  businessCategory: string,
-  createDate: string,
-  registrantionDate: string,
-  creator: string
+    img: string;
+    assetName: string;
+    assetSubName: string;
+    progress: number;
+  };
+  serialNumber: string;
+  brand: string;
+  type: string;
+  businessCategory: string;
+  createDate: string;
+  registrantionDate: string;
+  creator: string;
 }
 
 export interface ICustomizationState extends EntityState<ICustomizationModel> {

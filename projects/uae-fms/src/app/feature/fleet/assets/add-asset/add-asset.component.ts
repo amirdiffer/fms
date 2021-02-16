@@ -15,7 +15,7 @@ export class AddAssetComponent implements OnInit {
   isEditable: boolean = true;
   isLinear: boolean = true;
   isStart: boolean = true;
-  progressBarValue=80;
+  progressBarValue = 80;
   public filesUpdloaded: NgxFileDropEntry[] = [];
 
   itemTypes = [
@@ -30,7 +30,7 @@ export class AddAssetComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-  
+
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
     for (const droppedFile of files) {

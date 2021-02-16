@@ -17,7 +17,9 @@ export class RegistrationEffects {
           map((data) => {
             return RegistrationActions.allDataLoaded({ data });
           }),
-          catchError((error) => of(RegistrationActions.error({ reason: error })))
+          catchError((error) =>
+            of(RegistrationActions.error({ reason: error }))
+          )
         )
       )
     )
