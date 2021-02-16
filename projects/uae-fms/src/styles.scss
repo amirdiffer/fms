@@ -750,6 +750,9 @@ p-table{
   .card-table-header {
     padding-right: 24px;
   }
+  .p-datatable .p-datatable-thead{
+    background-color: #f4f4f4 !important;
+  }
 
   .table-container {
     background-color: $fms-green-body2-bg;

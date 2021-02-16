@@ -6,18 +6,16 @@
   <div class="row">
     <div class="col-12">
       <div class="component_wrapper">
-        <label class="caption">Portal Info</label>
+        <h3 class="form-section__title">Portal Info</h3>
         <div class="row">
           <div class="col-lg-4">
             <div class="form-group p-field form-section__field">
               <div class="input-group">
-                <div class="autocomplete-select flex-with-button">
-                  <span class="p-float-label ">
-                    <span class="p-float-label">
-                      <p-autoComplete [suggestions]="assetTypes"></p-autoComplete>
-                      <i class="pi pi-search"></i>
-                      <label>Employe Number *</label>
-                    </span>
+                <div class="autocomplete-select w-100">
+                  <span class="p-float-label">
+                    <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
+                    <i class="pi pi-search"></i>
+                    <label>Employe Number *</label>
                   </span>
                 </div>
               </div>
@@ -26,13 +24,11 @@
           <div class="col-lg-4">
             <div class="form-group p-field form-section__field">
               <div class="input-group">
-                <div class="autocomplete-select flex-with-button">
-                  <span class="p-float-label ">
-                    <span class="p-float-label">
-                      <p-autoComplete [suggestions]="assetTypes"></p-autoComplete>
-                      <i class="pi pi-search"></i>
-                      <label>Organization</label>
-                    </span>
+                <div class="autocomplete-select w-100">
+                  <span class="p-float-label">
+                    <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
+                    <i class="pi pi-search"></i>
+                    <label>Organization</label>
                   </span>
                 </div>
               </div>
@@ -41,13 +37,11 @@
           <div class="col-lg-4">
             <div class="form-group p-field form-section__field">
               <div class="input-group">
-                <div class="autocomplete-select flex-with-button">
-                  <span class="p-float-label ">
-                    <span class="p-float-label">
-                      <p-autoComplete [suggestions]="assetTypes"></p-autoComplete>
-                      <i class="pi pi-search"></i>
-                      <label>Section</label>
-                    </span>
+                <div class="autocomplete-select w-100">
+                  <span class="p-float-label">
+                    <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
+                    <i class="pi pi-search"></i>
+                    <label>Section</label>
                   </span>
                 </div>
               </div>
@@ -56,13 +50,11 @@
           <div class="col-lg-4">
             <div class="form-group p-field form-section__field">
               <div class="input-group">
-                <div class="autocomplete-select flex-with-button">
+                <div class="autocomplete-select w-100">
                   <span class="p-float-label ">
-                    <span class="p-float-label">
-                      <p-autoComplete [suggestions]="assetTypes"></p-autoComplete>
-                      <i class="pi pi-search"></i>
-                      <label>Authorized</label>
-                    </span>
+                    <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
+                    <i class="pi pi-search"></i>
+                    <label>Authorized</label>
                   </span>
                 </div>
               </div>
@@ -79,11 +71,12 @@
             </div>
           </div>
           <div class="col-lg-3">
-            <div class="row form-group">
-              <div class="custom-control custom-switch col-lg-12">
-                <label class="custum-text" for="customSwitch1">Employee Status is Active</label>
-                <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                <label class="custom-control-label" for="customSwitch1"></label>
+            <div class="row">
+              <div class="col-12">
+                <div class="toggle-select">
+                  <p-inputSwitch></p-inputSwitch>
+                  <label>Employee Status is Active</label>
+                </div>
               </div>
             </div>
           </div>
