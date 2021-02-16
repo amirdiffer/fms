@@ -7,7 +7,10 @@ import { BodyShopRequestService } from './body-shop-request.service';
 
 @Injectable()
 export class BodyShopRequestEffect {
-  constructor(private action$: Actions, private service: BodyShopRequestService) {}
+  constructor(
+    private action$: Actions,
+    private service: BodyShopRequestService
+  ) {}
 
   loadAll$ = createEffect(() =>
     this.action$.pipe(
@@ -17,7 +20,9 @@ export class BodyShopRequestEffect {
           map((data) => {
             return BodyShopRequestActions.allDataLoaded({ data });
           }),
-          catchError((error) => of(BodyShopRequestActions.error({ reason: error })))
+          catchError((error) =>
+            of(BodyShopRequestActions.error({ reason: error }))
+          )
         )
       )
     )

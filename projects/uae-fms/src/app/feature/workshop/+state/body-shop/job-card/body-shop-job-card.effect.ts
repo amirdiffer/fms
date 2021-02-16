@@ -7,7 +7,10 @@ import { BodyShopJobCardService } from './body-shop-job-card.service';
 
 @Injectable()
 export class BodyShopJobCardEffect {
-  constructor(private action$: Actions, private service: BodyShopJobCardService) {}
+  constructor(
+    private action$: Actions,
+    private service: BodyShopJobCardService
+  ) {}
 
   loadAll$ = createEffect(() =>
     this.action$.pipe(
@@ -17,7 +20,9 @@ export class BodyShopJobCardEffect {
           map((data) => {
             return BodyShopJobCardActions.allDataLoaded({ data });
           }),
-          catchError((error) => of(BodyShopJobCardActions.error({ reason: error })))
+          catchError((error) =>
+            of(BodyShopJobCardActions.error({ reason: error }))
+          )
         )
       )
     )

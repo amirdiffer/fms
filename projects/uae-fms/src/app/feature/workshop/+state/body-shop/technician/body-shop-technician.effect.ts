@@ -5,10 +5,12 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { BodyShopTechnicianActions } from './body-shop-technician.actions';
 import { BodyShopTechnicianService } from './body-shop-technician.service';
 
-
 @Injectable()
 export class BodyShopTechnicianEffect {
-  constructor(private action$: Actions, private service: BodyShopTechnicianService) {}
+  constructor(
+    private action$: Actions,
+    private service: BodyShopTechnicianService
+  ) {}
 
   loadAll$ = createEffect(() =>
     this.action$.pipe(
@@ -18,7 +20,9 @@ export class BodyShopTechnicianEffect {
           map((data) => {
             return BodyShopTechnicianActions.allDataLoaded({ data });
           }),
-          catchError((error) => of(BodyShopTechnicianActions.error({ reason: error })))
+          catchError((error) =>
+            of(BodyShopTechnicianActions.error({ reason: error }))
+          )
         )
       )
     )

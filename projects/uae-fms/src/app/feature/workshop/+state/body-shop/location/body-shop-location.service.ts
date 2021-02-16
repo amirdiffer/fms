@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IBodyShopLocationStateModel } from './body-shop-location.entity';
 
-
 @Injectable()
 export class BodyShopLocationService {
   constructor(private http: HttpClient) {}

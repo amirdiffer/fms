@@ -1,17 +1,17 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export interface IMyOrderListModel {
-  statusColor: string,
-  Item: string,
-  Part_ID: string,
-  Quantity: string,
-  Date: string,
-  Description: string,
-  Expected_Receive_date: string,
-  Cost: string,
-  Total: string,
-  Status: string,
-  ButtonRecived: string
+  statusColor: string;
+  Item: string;
+  Part_ID: string;
+  Quantity: string;
+  Date: string;
+  Description: string;
+  Expected_Receive_date: string;
+  Cost: string;
+  Total: string;
+  Status: string;
+  ButtonRecived: string;
 }
 
 export interface MyOrderListState extends EntityState<IMyOrderListModel> {

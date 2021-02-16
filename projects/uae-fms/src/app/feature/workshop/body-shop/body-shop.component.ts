@@ -1,7 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting, ColumnType } from '@core/table';
-import { BodyShopJobCardFacade, BodyShopLocationFacade, BodyShopRequestFacade, BodyShopTechnicianFacade } from '../+state/body-shop';
+import {
+  BodyShopJobCardFacade,
+  BodyShopLocationFacade,
+  BodyShopRequestFacade,
+  BodyShopTechnicianFacade
+} from '../+state/body-shop';
 import { Event, Router } from '@angular/router';
 @Component({
   templateUrl: './body-shop.component.html',
@@ -9,7 +14,7 @@ import { Event, Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodyShopComponent implements OnInit {
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
   filterSetting: FilterCardSetting[] = [
     {
       filterCount: '13',
@@ -545,11 +550,13 @@ export class BodyShopComponent implements OnInit {
   };
 
   selectedTab;
-  constructor(private _facadeRequest: BodyShopRequestFacade, 
-              private _facadeJobCard: BodyShopJobCardFacade, 
-              private _facadeTechnician: BodyShopTechnicianFacade,
-              private _facadeLocation: BodyShopLocationFacade,
-              private router: Router) {}
+  constructor(
+    private _facadeRequest: BodyShopRequestFacade,
+    private _facadeJobCard: BodyShopJobCardFacade,
+    private _facadeTechnician: BodyShopTechnicianFacade,
+    private _facadeLocation: BodyShopLocationFacade,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this._facadeRequest.loadAll();

@@ -1,18 +1,18 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export interface ISoldListModel {
-  statusColor: string,
+  statusColor: string;
   item: {
-    title: string,
-    dpd: string,
-    thumb: string
-  },
-  buyer: string,
-  assignedTo: string,
-  actualMarketValue: string,
-  date: string,
-  description: string,
-  cost: string
+    title: string;
+    dpd: string;
+    thumb: string;
+  };
+  buyer: string;
+  assignedTo: string;
+  actualMarketValue: string;
+  date: string;
+  description: string;
+  cost: string;
 }
 
 export interface ISoldListState extends EntityState<ISoldListModel> {
@@ -31,10 +31,8 @@ export const soldListAdapter: EntityAdapter<ISoldListModel> = createEntityAdapte
   ISoldListModel
 >();
 
-export const initialState: ISoldListState = soldListAdapter.getInitialState(
-  {
-    loaded: null,
-    message: null,
-    error: null
-  } as ISoldListState
-);
+export const initialState: ISoldListState = soldListAdapter.getInitialState({
+  loaded: null,
+  message: null,
+  error: null
+} as ISoldListState);
