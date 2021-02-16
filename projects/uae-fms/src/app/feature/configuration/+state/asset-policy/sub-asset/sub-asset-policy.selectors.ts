@@ -1,11 +1,11 @@
 import { createSelector } from '@ngrx/store';
-import { ConfigurationSelectors } from './../configuration.selectors';
-import { assetPolicyAdapter } from './asset-policy.entity';
+import { ConfigurationSelectors } from '../../configuration.selectors';
+import { subAssetPolicyAdapter } from './sub-asset-policy.entity';
 
-export class AssetPolicySelectors {
+export class SubAssetPolicySelectors {
   static selectAll = createSelector(
     ConfigurationSelectors.assetPolicySelector,
-    assetPolicyAdapter.setAll
+    subAssetPolicyAdapter.setAll
   );
 
   static message = createSelector(

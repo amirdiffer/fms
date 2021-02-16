@@ -8,8 +8,14 @@ import { UsersFacade, UsersService } from './users';
 import { OwnershipFacade, OwnershipService } from './ownership';
 import { OwnershipEffect } from './ownership/ownership.effect';
 import { CONFIGURATION_FEATURE_KEY } from './configuration.entity';
-import { AssetPolicyEffect } from './asset-policy/asset-policy.effect';
-import { AssetPolicyFacade, AssetPolicyService } from './asset-policy';
+import { AssetPolicyEffect } from './asset-policy/asset/asset-policy.effect';
+import { SubAssetPolicyEffect } from './asset-policy/sub-asset/sub-asset-policy.effect';
+import {
+  AssetPolicyFacade,
+  AssetPolicyService,
+  SubAssetPolicyFacade,
+  SubAssetPolicyService
+} from './asset-policy';
 import { FleetStatusFacade, FleetStatusService } from './fleet-status';
 import { FleetStatusEffect } from './fleet-status/fleet-status.effect';
 import { RolePermissionEffect } from './role-permission/role-permission.effect';
@@ -39,6 +45,7 @@ import { AssetConfigurationEffect } from '../+state/asset-configuration/asset-co
     EffectsModule.forFeature([
       RolePermissionEffect,
       AssetPolicyEffect,
+      SubAssetPolicyEffect,
       UsersEffect,
       BusinessCategoryEffect,
       FleetStatusEffect,
@@ -51,7 +58,9 @@ import { AssetConfigurationEffect } from '../+state/asset-configuration/asset-co
     RolePermissionFacade,
     RolePermissionService,
     AssetPolicyFacade,
+    SubAssetPolicyFacade,
     AssetPolicyService,
+    SubAssetPolicyService,
     UsersFacade,
     UsersService,
     BusinessCategoryService,

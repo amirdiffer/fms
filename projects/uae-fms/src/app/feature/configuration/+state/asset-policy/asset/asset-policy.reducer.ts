@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { Action, createReducer, on } from '@ngrx/store';
 import { AssetPolicyActions } from './asset-policy.actions';
 import {
@@ -14,9 +15,11 @@ const assetPolicyReducer = createReducer(
     error: null,
     message: null
   })),
+
   on(AssetPolicyActions.allDataLoaded, (state, { data }) =>
     assetPolicyAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+
   on(AssetPolicyActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

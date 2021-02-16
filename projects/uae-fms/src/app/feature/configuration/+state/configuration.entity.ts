@@ -5,7 +5,7 @@ import {
 import {
   AssetPolicyState,
   CONFIGURATION_ASSET_POLICY_FEATURE_KEY
-} from './asset-policy/asset-policy.entity';
+} from './asset-policy/asset/asset-policy.entity';
 import {
   CONFIGURATION_USERS_FEATURE_KEY,
   UsersState
@@ -28,6 +28,10 @@ import {
   PeriodicServiceState
 } from './periodic-service/periodic-service.entity';
 import {
+  CONFIGURATION_SUB_ASSET_POLICY_FEATURE_KEY,
+  SubAssetPolicyState
+} from './asset-policy/sub-asset/sub-asset-policy.entity';
+import {
   AssetConfigurationState,
   CONFIGURATION_ASSET_CONFIGURATION_FEATURE_KEY
 } from './asset-configuration/asset-configuration.entity';
@@ -36,6 +40,7 @@ export const CONFIGURATION_FEATURE_KEY = 'configuration';
 export interface State {
   readonly [CONFIGURATION_ROLE_PERMISSION_FEATURE_KEY]: RolePermissionState;
   readonly [CONFIGURATION_ASSET_POLICY_FEATURE_KEY]: AssetPolicyState;
+  readonly [CONFIGURATION_SUB_ASSET_POLICY_FEATURE_KEY]: SubAssetPolicyState;
   readonly [CONFIGURATION_USERS_FEATURE_KEY]: UsersState;
   readonly [CONFIGURATION_BUSINESS_CATEGORY_FEATURE_KEY]: BusinessCategoryState;
   readonly [CONFIGURATION_FLEET_STATUS_FEATURE_KEY]: FleetStatusState;
