@@ -19,6 +19,9 @@ import { CategoryComponent } from './category/category.component';
 import { PartMasterComponent } from './part-master/part-master.component';
 import { PartOverviewComponent } from './part-overview/part-overview.component';
 import { PartStoreRoutingModule } from './part-store-routing.module';
+import { OrderFormComponent} from './order-list/order/order.component'
+import { PartStoreStateModule } from './+state/part-store.state.module';
+import { DashboardModule } from '@feature/dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { PartStoreRoutingModule } from './part-store-routing.module';
     OrderListComponent,
     PartMasterComponent,
     AddPartMasterComponent,
+    OrderFormComponent,
     OrderListComponent,
     PartOverviewComponent
   ],

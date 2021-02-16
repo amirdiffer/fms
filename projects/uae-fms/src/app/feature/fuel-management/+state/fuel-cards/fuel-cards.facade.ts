@@ -15,6 +15,6 @@ export class FuelCardsFacade {
   constructor(private store: Store<FuelCardsPartialState>) {}
 
   loadAll() {
-    this.store.dispatch(FuelCardsActions.loadAll());
+    this.store.dispatch(FuelCardsActions.loadFuelCard());
   }
 }

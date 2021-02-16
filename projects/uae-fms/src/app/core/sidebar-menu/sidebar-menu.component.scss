@@ -12,7 +12,6 @@
 }
 
 .menu-wrapper {
-  width: 300px;
   display: flex;
   flex-direction: column;
   transition: 400ms ease-in-out;
@@ -21,7 +20,6 @@
   .container {
     display: flex;
     flex-direction: column;
-    padding: 25px;
     flex: 1 65%;
     li {
       position: relative;
@@ -54,7 +52,7 @@
       }
     }
     .menuItem {
-      padding: 8px;
+      padding: 0.5em;
       cursor: pointer;
       list-style: none;
       .menu-item-icon {
@@ -63,9 +61,8 @@
         font-size: 15px;
       }
       .menu-item-name {
-        margin: 18px;
+        margin: 1em;
         color: #000000de;
-        font-size: 15px;
       }
       .sub-menuItem {
         overflow: hidden;
@@ -73,7 +70,7 @@
         padding-left: 18px;
         margin-left: 12px;
         margin-top: 8px;
-        border-left: 4px solid #0da06e;
+        border-left: 0.25em solid #0da06e;
         transition: max-height 400ms;
         transition-timing-function: ease-in-out;
         list-style: none;
@@ -83,18 +80,16 @@
           font-size: 12px;
         }
         .menu-item-name {
-          margin: 15px;
-          font-size: 12px;
+          margin: 1em;
         }
         .sub-menuItem-child {
           margin-top: 8px;
           margin-left: 8px;
           padding-left: 16px;
           list-style: none;
-          border-left: 4px solid #0da06e;
+          border-left: 0.25em solid #0da06e;
           .menu-item-name {
             margin: 5px;
-            font-size: 10px;
           }
         }
       }

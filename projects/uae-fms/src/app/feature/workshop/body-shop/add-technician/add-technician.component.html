@@ -1,7 +1,7 @@
 <form [formGroup]="inputForm" (ngSubmit)="addRequest()">
-  <div class="form-buttons">
-    <button class="cancel" type="button" (click)="cancelForm()">Cancel</button>
-    <button class="add" type="submit">Add</button>
+  <div class="button-container">
+    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">Cancel</button>
+    <button class="btn-primary-medium add" type="submit">Add</button>
   </div>
   <div class="row">
     <div class="col-12" [formGroupName]="'portalInfo'">
@@ -226,19 +226,19 @@
           <div class="col-lg-3">
             <div class="caption">Send Notification By</div>
           </div>
-          <div class="col-lg-2 form-group">
+          <div class="col-lg-2 form-group form-check">
             <input id="check-Call" type="checkbox" class="custom-checkbox" formControlName="call">
             <label for="check-Call">Call</label>
           </div>
-          <div class="col-lg-2 form-group">
+          <div class="col-lg-2 form-group form-check">
             <input id="check-SMS" type="checkbox" class="custom-checkbox" formControlName="sms">
             <label for="check-SMS">SMS</label>
           </div>
-          <div class="col-lg-2 form-group">
+          <div class="col-lg-2 form-group form-check">
             <input id="check-Email" type="checkbox" class="custom-checkbox" formControlName="email">
             <label for="check-Email">Email</label>
           </div>
-          <div class="col-lg-2 form-group">
+          <div class="col-lg-2 form-group form-check">
             <input id="check-Whatsapp" type="checkbox" class="custom-checkbox" formControlName="whatsapp">
             <label for="check-Whatsapp">Whatsapp</label>
           </div>

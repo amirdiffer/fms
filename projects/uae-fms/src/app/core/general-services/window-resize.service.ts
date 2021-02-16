@@ -1,11 +1,11 @@
 import { HostListener, Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject, fromEvent, Observable, Subject } from 'rxjs';
+import { fromEvent, Observable, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class WindowResizeService {
   private resize$ = fromEvent(window, 'resize');
 
-  private resize = new BehaviorSubject({ innerHeight: 0, innerWidth: 0 });
+  private resize = new Subject<ResizeEvent>();
   resized$: Observable<ResizeEvent> = this.resize.asObservable();
 
   constructor() {

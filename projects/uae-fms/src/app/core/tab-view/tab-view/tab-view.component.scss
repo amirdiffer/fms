@@ -3,23 +3,23 @@
   flex-direction: column;
 
   .tab-titles {
-    height: 52px;
     width: 100%;
     // background: #fff;
     display: flex;
     flex-direction: row;
     font-weight: 800;
     font-size: 16px;
-
+    height: 3.25em;
     .tab {
       background: #e9ecef;
       border-radius: 5px;
       width: fit-content;
-      padding: 14px 16px;
+      padding: 0 16px;
       color: #475f7b;
       margin: 0 2px 4px;
       cursor: pointer;
-
+      display: flex;
+      align-items: center;
       &:first-child {
         margin-left: 7px;
       }
@@ -32,7 +32,16 @@
       border-radius: 5px 5px 0px 0px;
     }
   }
-
+  @media only screen and (max-width: 1600px) {
+    .tab-titles {
+      font-size: 13px;
+    }
+    @media only screen and (max-width: 1366px) {
+      .tab-titles {
+        font-size: 11px;
+      }
+    }
+  }
   .tab-body {
     background-color: #f4f4f4;
     min-height: 50px;

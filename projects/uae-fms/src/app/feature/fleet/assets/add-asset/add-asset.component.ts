@@ -1,4 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  FileSystemDirectoryEntry,
+  FileSystemFileEntry,
+  NgxFileDropEntry
+} from 'ngx-file-drop';
 
 @Component({
   selector: 'anms-add-asset',
@@ -10,6 +15,8 @@ export class AddAssetComponent implements OnInit {
   isEditable: boolean = true;
   isLinear: boolean = true;
   isStart: boolean = true;
+  progressBarValue = 80;
+  public filesUpdloaded: NgxFileDropEntry[] = [];
 
   itemTypes = [
     { name: 'Item type 1', id: 1 },
@@ -23,4 +30,27 @@ export class AddAssetComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  public dropped(files: NgxFileDropEntry[]) {
+    this.filesUpdloaded = files;
+    for (const droppedFile of files) {
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+          console.log(droppedFile.relativePath, file);
+        });
+      } else {
+        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+        console.log(droppedFile.relativePath, fileEntry);
+      }
+    }
+  }
+
+  public fileOver(event) {
+    console.log(event);
+  }
+
+  public fileLeave(event) {
+    console.log(event);
+  }
 }

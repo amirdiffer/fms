@@ -17,7 +17,8 @@ import { IntegrationFacade } from '../integration/+state';
 })
 export class IntegrationComponent implements OnInit, OnDestroy {
   tableSettings: TableSetting;
-  addtype;
+  downloadBtn= 'assets/icons/download-solid.svg';
+  addtype ;
   addtype$: Subscription;
   constructor(
     private _integrationService: IntegrationService,
@@ -150,6 +151,7 @@ export class IntegrationComponent implements OnInit, OnDestroy {
   }
   public add() {
     this._integrationService.loadInegrationForm(true);
+    console.log('Click')
   }
   ngOnDestroy() {
     this.addtype$.unsubscribe();

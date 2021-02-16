@@ -47,6 +47,13 @@
   }
 }
 
+.button-container-flex{
+    position: relative;
+    margin-left: 5px;
+    button {
+        margin: 0 2px;
+    }
+
 .button-container {
   position: relative;
   button {

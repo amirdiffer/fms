@@ -30,34 +30,30 @@ import { environment } from '../../../../environments/environment';
   styles: [
     `
       .asset-image {
-        height: 70px;
-        max-width: 70px;
-        border-radius: 7px;
+        height: 4.3em;
+        max-width: 4.3em;
+        border-radius: 0.5em;
       }
       small {
         color: #000000de;
       }
       .ownership-badge {
         background: #fcb614 0% 0% no-repeat padding-box;
-        max-width: 70px;
+        max-width: 4.3em;
         border: radius;
         border-radius: 4px;
         color: #fff;
         text-align: center;
-        font-size: 12px;
+        font-size: 75%;
       }
       .progress-container {
         position: relative;
         display: flex;
         align-items: center;
       }
-      .mat-progress-bar {
-        height: 10px;
-        border-radius: 8px;
-      }
       .progress-value {
         color: #000000de;
-        font-size: 12px;
+        font-size: 0.8em;
         margin-left: 6px;
       }
     `

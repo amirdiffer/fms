@@ -41,8 +41,10 @@
       <button>Go</button>
     </div>
     <div class="download-add-Button mb-2">
-      <button class="btn-download"><a></a></button>
-      <button [routerLink]="['add']" class="btn-primary-green"><i>+</i><a>Add</a></button>
+      <button class="btn-download" disabled>
+        <svg-icon [src]="downloadBtn"></svg-icon>
+      </button>
+      <button [routerLink]="['add']" class="btn-primary-small"><i>+</i><a>Add</a></button>
     </div>
   </div>
   <div class="table-wreapper">

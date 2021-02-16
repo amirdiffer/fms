@@ -11,8 +11,9 @@ export class AssetsComponent implements OnInit {
   pendingRegistrationTableSetting;
   pendingCustomizationTableSetting;
   filterSetting;
-
-  searchIcon = 'assets/icons/search.svg';
+  selectedTab = 'root';
+  downloadBtn = 'assets/icons/download-solid.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   constructor(private _assetsService: AssetsService) {}
 
   ngOnInit(): void {

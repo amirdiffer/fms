@@ -8,9 +8,17 @@ export class PartStoreSelectors {
     PartStoreSelectors.featureSelector,
     (state) => state['part-list']
   );
-  static orderListSelector = createSelector(
+  static requestListSelector = createSelector(
     PartStoreSelectors.featureSelector,
-    (state) => state['order-list']
+    (state) => state['request-list']
+  );
+  static myOrderListSelector = createSelector(
+    PartStoreSelectors.featureSelector,
+    (state) => state['my-order']
+  );
+  static suppliersListSelector = createSelector(
+    PartStoreSelectors.featureSelector,
+    (state) => state['suppliers']
   );
   static partMasterSelector = createSelector(
     PartStoreSelectors.featureSelector,

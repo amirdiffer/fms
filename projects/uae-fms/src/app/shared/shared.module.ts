@@ -36,7 +36,9 @@ import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ErrorModule } from './error/error.module';
 import { CheckAccessDirective } from '@core/directive/check-access.directive';
-
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { NgxFileDropModule } from 'ngx-file-drop';
 @NgModule({
   imports: [
     CommonModule,
@@ -70,7 +72,10 @@ import { CheckAccessDirective } from '@core/directive/check-access.directive';
     CalendarModule,
     AngularSvgIconModule,
     ErrorModule,
-    CheckboxModule
+    CheckboxModule,
+    MatStepperModule,
+    MatProgressBarModule,
+    NgxFileDropModule
   ],
   declarations: [RtlSupportDirective, CheckAccessDirective],
   exports: [
@@ -112,7 +117,10 @@ import { CheckAccessDirective } from '@core/directive/check-access.directive';
     CalendarModule,
     ErrorModule,
     CheckAccessDirective,
-    CheckboxModule
+    CheckboxModule,
+    MatStepperModule,
+    MatProgressBarModule,
+    NgxFileDropModule
   ]
 })
 export class SharedModule {
