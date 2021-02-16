@@ -18,32 +18,16 @@ import { MovementConfirmComponent } from './movement-confirm/movement-confirm.co
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovementComponent implements OnInit, AfterViewChecked {
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
   filterSetting;
   movementOverViewTableSetting;
   requestTableSetting;
   requestFilter: boolean = false;
+  selectedTab;
   requestFilterHide$: Observable<boolean> = of(this.requestFilter);
   showTable = true;
-  requestForm: FormGroup;
 
   @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
-  assetTypes = [
-    { name: 'Asset type 1', id: 1 },
-    { name: 'Asset type 2', id: 2 },
-    { name: 'Asset type 3', id: 3 },
-    { name: 'Asset type 4', id: 4 },
-    { name: 'Asset type 5', id: 5 },
-    { name: 'Asset type 6', id: 6 }
-  ];
-  oldAssetSuggests = [
-    { name: 'Old asset type 1', id: 1 },
-    { name: 'Old asset type 2', id: 2 },
-    { name: 'Old asset type 3', id: 3 },
-    { name: 'Old asset type 4', id: 4 },
-    { name: 'Old asset type 5', id: 5 },
-    { name: 'Old asset type 6', id: 6 }
-  ];
 
   constructor(
     private _movementService: MovementService,
@@ -52,13 +36,6 @@ export class MovementComponent implements OnInit, AfterViewChecked {
   ) {}
 
   ngOnInit(): void {
-    this.requestForm = this._fb.group({
-      requestType: ['new'],
-      assetType: [''],
-      resone: [''],
-      quality: [''],
-      oldAssetType: ['']
-    });
     this.movementOverViewTableSetting = this._movementService.movmentOverViewTableSetting();
     this.requestTableSetting = this._movementService.requestTableSetting();
     // Handle confirm button click
@@ -99,18 +76,6 @@ export class MovementComponent implements OnInit, AfterViewChecked {
     } else {
       this.requestFilterHide$ = of(true);
     }
-  }
-
-  filterAssets(event) {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.oldAssetSuggests = [
-      { name: 'Old asset type 1', id: 1 },
-      { name: 'Old asset type 2', id: 2 },
-      { name: 'Old asset type 3', id: 3 },
-      { name: 'Old asset type 4', id: 4 },
-      { name: 'Old asset type 5', id: 5 },
-      { name: 'Old asset type 6', id: 6 }
-    ];
   }
 
   openConfirmModal() {

@@ -5,7 +5,7 @@ import {
 import {
   AssetPolicyState,
   CONFIGURATION_ASSET_POLICY_FEATURE_KEY
-} from './asset-policy/asset-policy.entity';
+} from './asset-policy/asset/asset-policy.entity';
 import {
   CONFIGURATION_USERS_FEATURE_KEY,
   UsersState
@@ -16,9 +16,9 @@ import {
 } from './business-category/business-category.entity';
 
 import {
-  CONFIGURATION_FLEET_STATUS_FEATURE_KEY,
-  FleetStatusState
-} from './fleet-status/fleet-status.entity';
+  CONFIGURATION_FLEET_STATUS_ASSET_FEATURE_KEY,
+  FleetStatusAssetState
+} from './fleet-status/asset/fleet-status-asset.entity';
 import {
   CONFIGURATION_OWNERSHIP_FEATURE_KEY,
   OwnershipState
@@ -28,6 +28,14 @@ import {
   PeriodicServiceState
 } from './periodic-service/periodic-service.entity';
 import {
+  CONFIGURATION_FLEET_STATUS_SUB_ASSET_FEATURE_KEY,
+  FleetStatusSubAssetState
+} from './fleet-status/sub-asset/fleet-status-sub-asset.entity';
+import {
+  CONFIGURATION_SUB_ASSET_POLICY_FEATURE_KEY,
+  SubAssetPolicyState
+} from './asset-policy/sub-asset/sub-asset-policy.entity';
+import {
   AssetConfigurationState,
   CONFIGURATION_ASSET_CONFIGURATION_FEATURE_KEY
 } from './asset-configuration/asset-configuration.entity';
@@ -36,9 +44,11 @@ export const CONFIGURATION_FEATURE_KEY = 'configuration';
 export interface State {
   readonly [CONFIGURATION_ROLE_PERMISSION_FEATURE_KEY]: RolePermissionState;
   readonly [CONFIGURATION_ASSET_POLICY_FEATURE_KEY]: AssetPolicyState;
+  readonly [CONFIGURATION_SUB_ASSET_POLICY_FEATURE_KEY]: SubAssetPolicyState;
   readonly [CONFIGURATION_USERS_FEATURE_KEY]: UsersState;
   readonly [CONFIGURATION_BUSINESS_CATEGORY_FEATURE_KEY]: BusinessCategoryState;
-  readonly [CONFIGURATION_FLEET_STATUS_FEATURE_KEY]: FleetStatusState;
+  readonly [CONFIGURATION_FLEET_STATUS_ASSET_FEATURE_KEY]: FleetStatusAssetState;
+  readonly [CONFIGURATION_FLEET_STATUS_SUB_ASSET_FEATURE_KEY]: FleetStatusSubAssetState;
   readonly [CONFIGURATION_OWNERSHIP_FEATURE_KEY]: OwnershipState;
   readonly [CONFIGURATION_PERIODIC_SERVICE_FEATURE_KEY]: PeriodicServiceState;
   readonly [CONFIGURATION_ASSET_CONFIGURATION_FEATURE_KEY]: AssetConfigurationState;
