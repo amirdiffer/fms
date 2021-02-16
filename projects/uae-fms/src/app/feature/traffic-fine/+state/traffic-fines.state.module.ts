@@ -8,13 +8,23 @@ import {
   TrafficFineTableFacade,
   TrafficFineTableService
 } from './traffic-fine';
+import { AssetTrafficFineEffect } from './asset-traffic-fine/asset-traffic-fine.effect';
+import {
+  AssetTrafficFineService,
+  AssetTrafficFineFacade
+} from './asset-traffic-fine/index';
 
 @NgModule({
   declarations: [],
   imports: [
     StoreModule.forFeature(TRAFFIC_FINES_FEATURE_KEY, reducers),
-    EffectsModule.forFeature([TrafficFineTableEffect])
+    EffectsModule.forFeature([TrafficFineTableEffect, AssetTrafficFineEffect])
   ],
-  providers: [TrafficFineTableService, TrafficFineTableFacade]
+  providers: [
+    TrafficFineTableService,
+    TrafficFineTableFacade,
+    AssetTrafficFineService,
+    AssetTrafficFineFacade
+  ]
 })
 export class TrafficFinesStateModule {}

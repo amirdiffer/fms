@@ -8,4 +8,9 @@ export class TrafficFinesSelectors {
     TrafficFinesSelectors.featureSelector,
     (state) => state['trafficFineTable']
   );
+
+  static assetTrafficFineSelector = createSelector(
+    TrafficFinesSelectors.featureSelector,
+    (state) => state['assetTrafficFine']
+  );
 }

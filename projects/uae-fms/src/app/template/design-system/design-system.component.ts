@@ -1,5 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild
+} from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
+import {
+  FileSystemDirectoryEntry,
+  FileSystemFileEntry,
+  NgxFileDropEntry
+} from 'ngx-file-drop';
 @Component({
   selector: 'anms-design-system',
   templateUrl: './design-system.component.html',
@@ -7,7 +18,14 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignSystemComponent implements OnInit {
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
+  isEditable: boolean = true;
+  isLinear: boolean = true;
+  progressBarValue = 50;
+  bufferValue = 70;
+  public filesUpdloaded: NgxFileDropEntry[] = [];
+  @ViewChild('stepper') stepper: MatStepper;
+  controlStep: FormGroup;
   itemTypes = [
     { name: 'Item type 1', id: 1 },
     { name: 'Item type 2', id: 2 },
@@ -24,9 +42,24 @@ export class DesignSystemComponent implements OnInit {
     { name: 'Item No 234567894', gps: '489456141856' }
   ];
   filteredAsset: any[];
-  constructor() { }
+  constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.controlStep = this._fb.group({});
+  }
+  public dropped(files: NgxFileDropEntry[]) {
+    this.filesUpdloaded = files;
+    for (const droppedFile of files) {
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+          console.log(droppedFile.relativePath, file);
+        });
+      } else {
+        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+        console.log(droppedFile.relativePath, fileEntry);
+      }
+    }
   }
 
   searchAsset(event) {
@@ -40,5 +73,11 @@ export class DesignSystemComponent implements OnInit {
     }
     this.filteredAsset = filtered;
   }
+  public fileOver(event) {
+    console.log(event);
+  }
 
+  public fileLeave(event) {
+    console.log(event);
+  }
 }

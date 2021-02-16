@@ -3,9 +3,21 @@ import { WORKSHOP_FEATURE_KEY } from './workshop.entity';
 export class WorkshopSelectors {
   static featureSelector = createFeatureSelector(WORKSHOP_FEATURE_KEY);
 
-  static bodyshopSelector = createSelector(
+  static bodyshopRequestSelector = createSelector(
     WorkshopSelectors.featureSelector,
-    (state) => state['bodyShop']
+    (state) => state['bodyShopRequest']
+  );
+  static bodyshopJobCardSelector = createSelector(
+    WorkshopSelectors.featureSelector,
+    (state) => state['bodyShopJobCard']
+  );
+  static bodyshopTechnicianSelector = createSelector(
+    WorkshopSelectors.featureSelector,
+    (state) => state['bodyShopTechnician']
+  );
+  static bodyshopLocationSelector = createSelector(
+    WorkshopSelectors.featureSelector,
+    (state) => state['bodyShopLocation']
   );
   static technicalInspectionSelector = createSelector(
     WorkshopSelectors.featureSelector,
@@ -14,6 +26,10 @@ export class WorkshopSelectors {
   static auctionListSelector = createSelector(
     WorkshopSelectors.featureSelector,
     (state) => state['auctionList']
+  );
+  static soldListSelector = createSelector(
+    WorkshopSelectors.featureSelector,
+    (state) => state['soldList']
   );
   static taskMasterSelector = createSelector(
     WorkshopSelectors.featureSelector,

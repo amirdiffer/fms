@@ -1,7 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-export const TRAFFIC_FINES_TRAFFIC_FINE_TABLE_FEATURE_KEY =
-  'traffic-fine-table';
+export const TRAFFIC_FINES_TRAFFIC_FINE_TABLE_FEATURE_KEY = 'trafficFineTable';
 
 export interface TrafficFineTableStateModel {
   tcCode: string;

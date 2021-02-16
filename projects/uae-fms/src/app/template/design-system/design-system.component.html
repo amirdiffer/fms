@@ -135,8 +135,8 @@
                 </div>
             </div>
             <div class="col-3">
-                <div class="toggle-select disabled">
-                    <p-inputSwitch></p-inputSwitch>
+                <div class="toggle-select">
+                    <p-inputSwitch [disabled]="true"></p-inputSwitch>
                     <label>Switch Button</label>
                 </div>
             </div>
@@ -146,7 +146,7 @@
             <div class="col-3">
                 Inputs
             </div>
-            <div class="col-3 form-section">
+            <div class="col-4 form-section">
                 <div class=" p-field form-section__field">
                     <span class="p-float-label">
                         <input pInputText placeholder="Task Name *" type="text">
@@ -154,7 +154,7 @@
                     </span>
                 </div>
             </div>
-            <div class="col-3 form-section ml-2">
+            <div class="col-4 form-section ml-2">
                 <div class=" p-field form-section__field">
                     <span class="p-float-label">
                         <input pInputText placeholder="Task Name *" type="text" class="invalid">
@@ -166,7 +166,7 @@
         </div>
         <div class="row">
             <div class="col-3"></div>
-            <div class="col-3 form-section">
+            <div class="col-4 form-section">
                 <div class=" p-field form-section__field">
                     <span class="p-float-label">
                         <p-dropdown inputId="businessCategory" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
@@ -174,7 +174,19 @@
                     </span>
                 </div>
             </div>
-            <div class="col-3 p-0 ml-2">
+            <div class="col-4 ml-2 p-0 form-section">
+                <div class=" p-field form-section__field">
+                    <span class="p-float-label">
+                        <p-dropdown inputId="businessCategory" [options]="itemTypes" optionLabel="name" class="dropdown-select invalid"></p-dropdown>
+                        <label for="businessCategory">Business Category</label>
+                    </span>
+                    <small class="red-font">Error Message</small>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-4 p-0">
                 <div class="form-group p-field form-section__field">
                     <div class="input-group">
                         <div class="autocomplete-select w-100">
@@ -189,7 +201,105 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="col-4 p-0 ml-2">
+                <div class="form-group p-field form-section__field">
+                    <div class="input-group">
+                        <div class="autocomplete-select w-100">
+                            <span class="p-float-label ">
+                                <p-autoComplete [suggestions]="filteredAsset" 
+                                                (completeMethod)="searchAsset($event)" 
+                                                field="name" class="invalid"></p-autoComplete>
+                                <i class="pi pi-search"></i>
+                                <label>Asset *</label>
+                            </span>
+                            <small class="red-font">Error Message</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-4 form-section">
+                <div class=" p-field form-section__field">
+                    <span class="p-inputgroup p-float-label d-flex">
+                        <input type="text" pInputText placeholder="Username">
+                        <label>User Name</label>
+                        <span class="p-inputgroup-addon"><i class="pi pi-plus"></i></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-3">
+                Stepper
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom" >
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep"  state="phone" >
+                        <form [formGroup]="controlStep">
+                            <ng-template matStepLabel>Label 1</ng-template>
+                            <button mat-button matStepperNext>Next</button>
+                        </form>
+                    </mat-step>
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep" >
+                        <form [formGroup]="controlStep">
+                            <ng-template matStepLabel>Label 2</ng-template>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>                    
+                        </form>
+                    </mat-step>
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep">
+                        <form [formGroup]="controlStep">
+                            <ng-template matStepLabel>Label 3</ng-template>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                    
+                        </form>
+                    </mat-step>
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep">
+                        <form [formGroup]="controlStep">
+                            <ng-template matStepLabel>Label 4</ng-template>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                    
+                        </form>
+                    </mat-step>
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep">
+                        <ng-template matStepLabel>Label 5</ng-template>
+                        <button mat-button matStepperPrevious>Back</button>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-3">
+                Progress bar
+            </div>
+            <div class="col-3 w-100 p-0">
+                <mat-progress-bar [value]="progressBarValue" [bufferValue]="bufferValue" mode="determinate"></mat-progress-bar>
+            </div>
+        </div>
+        <br><br><br>
+        <div class="row">
+            <div class="col-3">
+                Drag and Drop
+            </div>
+            <div class="col-8">
+                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <label (click)="openFileSelector()" style="cursor: pointer;">
+                        <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
+                          [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                          <small calss="drag-and-drop">Drag and drop a file or Click here</small>
+                      </label>
+                    </ng-template>
+                  </ngx-file-drop>
+            </div>
         </div>
     </div>
 </div>

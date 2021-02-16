@@ -30,6 +30,7 @@ import { AddOperatorComponent } from '@feature/fleet/operator/add-operator/add-o
 
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { MatStepperModule } from '@angular/material/stepper';
+import { AddRequestComponent } from './movement/add-request/add-request.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     MovementConfirmComponent,
     OrganizationComponent,
     AddAssetComponent,
-    AddOperatorComponent
+    AddOperatorComponent,
+    AddRequestComponent
   ],
   imports: [
     AngularSvgIconModule,
