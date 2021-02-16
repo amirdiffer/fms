@@ -19,9 +19,7 @@ export class Utility {
     submited = false,
     errorType = 'required'
   ): boolean {
-    const control: FormControl = (formGroup as FormGroup).get(
-      controlName
-    ) as FormControl;
+    const control: FormControl = formGroup.get(controlName) as FormControl;
     if (
       ((control.dirty && control.invalid) || (control.invalid && submited)) &&
       control.hasError(errorType)
