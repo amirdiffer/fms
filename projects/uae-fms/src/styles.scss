@@ -107,25 +107,6 @@
   //     height: 48px !important;
   //   }
   // }
-
-  .card-table-header {
-    padding-right: 24px;
-  }
-
-  .table-container {
-    background-color: $fms-green-body2-bg;
-    margin: 16px 0 20px 0;
-
-    .p-datatable .p-datatable-thead > tr > th {
-      background-color: $fms-green-body1-bg;
-      color: $fms-green-body-color;
-    }
-
-    .p-datatable .p-datatable-tbody > tr > td {
-      background-color: $fms-green-body2-bg;
-      color: $fms-green-body-color;
-    }
-  }
 }
 /* Wrapper Font-size*/
 @media only screen and (max-width: 1600px) {
@@ -731,6 +712,90 @@ mat-horizontal-stepper {
     display: none;
   }
 }
+
+/* Progress Bar */
+mat-progress-bar {
+  height: 0.625em !important;
+  border-radius: 8px;
+  .mat-progress-bar-buffer {
+    background-color: #dbe1e6 !important;
+  }
+  .mat-progress-bar-fill::after {
+    background-color: $fms-green-primary-color2;
+    box-shadow: 0px 1px 4px #0da06e76;
+  }
+  &.upload-progress {
+    .mat-progress-bar-fill::after {
+      background-color: #0000005e;
+      box-shadow: none;
+    }
+  }
+}
+
+/* Tables */
+p-table {
+  .card-table-header {
+    padding-right: 24px;
+  }
+
+  .table-container {
+    background-color: $fms-green-body2-bg;
+    margin: 16px 0 20px 0;
+
+    .p-datatable .p-datatable-thead > tr > th {
+      background-color: $fms-green-body1-bg;
+      color: $fms-green-body-color;
+    }
+
+    .p-datatable .p-datatable-tbody > tr > td {
+      background-color: $fms-green-body2-bg;
+      color: $fms-green-body-color;
+    }
+  }
+  .p-datatable .p-datatable-thead > tr > th {
+    background: none;
+  }
+  .tabs .tab-body {
+    padding: 0 !important;
+  }
+  .tab.ng-star-inserted {
+    font-weight: normal;
+  }
+  .tab.ng-star-inserted.active-tab {
+    font-weight: bold;
+  }
+  .card.parent {
+    height: 45px;
+    margin: 20px 20px 20px 0px;
+  }
+  .ownership-badge {
+    border-radius: 4px;
+    color: #fff;
+    text-align: center;
+    font-size: 80%;
+    background: #fcb614 0% 0% no-repeat padding-box;
+    max-width: 4.3em;
+  }
+}
+
+/* drag and drop file*/
+ngx-file-drop {
+  .ngx-file-drop__drop-zone {
+    border: 2px dashed #0000005e !important;
+    border-radius: 4px !important;
+    height: 70px !important;
+  }
+  .ngx-file-drop__content {
+    color: #0000005e !important;
+    font-size: 17px;
+    height: 100% !important;
+  }
+  .drop-icon {
+    display: block;
+    text-align: center;
+  }
+}
+
 .p-component {
   font-size: 1em;
 }

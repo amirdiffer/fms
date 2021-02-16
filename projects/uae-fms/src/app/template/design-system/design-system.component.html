@@ -275,5 +275,31 @@
                 </mat-horizontal-stepper>
             </div>
         </div>
+        <br><br>
+        <div class="row">
+            <div class="col-3">
+                Progress bar
+            </div>
+            <div class="col-3 w-100 p-0">
+                <mat-progress-bar [value]="progressBarValue" [bufferValue]="bufferValue" mode="determinate"></mat-progress-bar>
+            </div>
+        </div>
+        <br><br><br>
+        <div class="row">
+            <div class="col-3">
+                Drag and Drop
+            </div>
+            <div class="col-8">
+                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <label (click)="openFileSelector()" style="cursor: pointer;">
+                        <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
+                          [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                          <small calss="drag-and-drop">Drag and drop a file or Click here</small>
+                      </label>
+                    </ng-template>
+                  </ngx-file-drop>
+            </div>
+        </div>
     </div>
 </div>
