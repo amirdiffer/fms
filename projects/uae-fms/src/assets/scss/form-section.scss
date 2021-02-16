@@ -41,26 +41,25 @@
       width: auto;
       padding: 0 5px;
       color: #0da06e;
-
     }
-    .p-float-label input:hover{
-      border-color:#0da06e;
+    .p-float-label input:hover {
+      border-color: #0da06e;
     }
     .p-float-label {
-      ::ng-deep{
-        input:hover{
-          border-color:#0da06e;
+      ::ng-deep {
+        input:hover {
+          border-color: #0da06e;
         }
       }
     }
-    .p-float-label input:focus:not(.invalid){
-      border-color:#0da06e !important;
+    .p-float-label input:focus:not(.invalid) {
+      border-color: #0da06e !important;
     }
-    p-dropdown ~ label ,
+    p-dropdown ~ label,
     p-autocomplete ~ label {
       height: 50%;
       width: max-content;
-      background:#fff;
+      background: #fff;
     }
     input {
       font-size: 1em;
@@ -69,8 +68,8 @@
 
       & ~ label {
         height: 50%;
-        width: 95%;
-        background:#fff;
+        width: 94%;
+        background: #fff;
       }
 
       &:focus {
@@ -130,10 +129,10 @@
       .p-dropdown {
         width: 100%;
         height: 40px;
-        font-size:1em;
-        .p-inputtext{
+        font-size: 1em;
+        .p-inputtext {
           font-family: '29LT Bukra';
-          font-size:1em;
+          font-size: 1em;
           margin-top: 5px;
         }
       }
@@ -145,16 +144,15 @@
       }
     }
   }
-  p-autocomplete{
-    ::ng-deep{
-      
+  p-autocomplete {
+    ::ng-deep {
       .autocomplete-select {
         position: relative;
         .p-inputwrapper-focus {
           box-shadow: none;
           border: none;
         }
-    
+
         .p-autocomplete {
           width: 100%;
           height: 40px;
@@ -243,6 +241,7 @@
   ::ng-deep {
     .p-dropdown {
       border-color: #d3d3d3;
+      height: 40px;
     }
     .p-dropdown:not(.p-disabled).p-focus {
       box-shadow: none;
@@ -256,7 +255,7 @@
 /* Validation */
 .red-font {
   color: #dd5648 !important;
-  margin-top: .7em;
+  margin-top: 0.7em;
   margin-left: 1em;
 }
 .error-input {
@@ -273,16 +272,15 @@
   }
 }
 
-:host ::ng-deep{
+:host ::ng-deep {
   input.invalid,
   input.invalid:focus {
     border-color: #dd5648 !important;
-  & ~ label {
-    color:#dd5648 !important;
-  }
+    & ~ label {
+      color: #dd5648 !important;
+    }
   }
 }
-
 
 .options-select {
   ::ng-deep {
@@ -291,6 +289,20 @@
     }
     .p-dropdown {
       display: flex !important;
+      height: 40px;
+    }
+  }
+}
+.date-input {
+  ::ng-deep {
+    .p-calendar {
+      height: 40px;
+      width: 100% !important;
+    }
+    .date-icon {
+      position: absolute;
+      right: 4%;
+      top: 17%;
     }
   }
 }
