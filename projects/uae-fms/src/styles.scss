@@ -44,13 +44,13 @@
 .wrapper {
   font-family: '29LT Bukra';
   font-size: 16px;
-  .component_wrapper{
+  .component_wrapper {
     box-shadow: 0px 0px 2px #0000003d;
     border-radius: 4px;
     overflow: visible;
-    padding:1em;
+    padding: 1em;
     margin: 1em 0 1em;
-    background-color:#fff;
+    background-color: #fff;
   }
   @include elementTypography(
     'h1',
@@ -86,8 +86,6 @@
     $fms-green-page-tab-active-font-weight,
     $fms-green-page-tab-active-font-size $fms-green-page-tab-active-color
   );
-
-
 
   // .search-container {
   //   height: 48px !important;
@@ -129,14 +127,14 @@
     }
   }
 }
-/* Wrapper Font-size*/ 
-@media only screen and ( max-width : 1600px){
-  .wrapper{
+/* Wrapper Font-size*/
+@media only screen and (max-width: 1600px) {
+  .wrapper {
     font-size: 13px;
   }
 }
-@media only screen and ( max-width : 1366px){
-  .wrapper{
+@media only screen and (max-width: 1366px) {
+  .wrapper {
     font-size: 11px;
   }
 }
@@ -246,201 +244,203 @@
   );
 }
 
-
 /* Filter*/
-@function filterFontSize($fontRelation){
+@function filterFontSize($fontRelation) {
   @return $fms-green-label-text-font-size * $fontRelation;
 }
-.filter-wrapper-container{
-  font-size: $fms-green-label-text-font-size; // 21px 
+.filter-wrapper-container {
+  font-size: $fms-green-label-text-font-size; // 21px
   .filter-wrapper {
     height: 3.2em;
   }
-  .filter{
-    .filter-title{
-      font-size: .9em;
+  .filter {
+    .filter-title {
+      font-size: 0.9em;
+    }
+    .filter-supTitle {
+      font-size: 0.6em;
     }
   }
-  .filter-count{
-    font-size:1.6em;
+  .filter-count {
+    font-size: 1.6em;
   }
-  
 }
 /* Responsive */
-@media only screen and ( max-width : 1600px){
-  .filter-wrapper-container{
-    font-size: filterFontSize(.7);
-  } 
+@media only screen and (max-width: 1600px) {
+  .filter-wrapper-container {
+    font-size: filterFontSize(0.7);
+  }
 }
-@media only screen and ( max-width : 1366px){
-  .filter-wrapper-container{
-    font-size: filterFontSize(.6);
-  } 
+@media only screen and (max-width: 1366px) {
+  .filter-wrapper-container {
+    font-size: filterFontSize(0.6);
+  }
 }
 /* End Filter*/
 
-
 /* buttons*/
-@mixin buttons ($font-size , $height){
+@mixin buttons($font-size, $height) {
   font-size: $font-size;
-  height:$height ;
+  height: $height;
   font-weight: bold;
-  color:#fff;
+  color: #fff;
   border: 2px solid $fms-green-button-border;
   background-color: $fms-green-button-bg;
-  border-radius: .25em;
+  border-radius: 0.25em;
   padding: 1px 3.2em;
   z-index: 2;
-  &:hover{
-    background: transparent linear-gradient(0deg, #10a770 0%, $fms-green-button-bg 100%) 0% 0% no-repeat padding-box;  
-    box-shadow:  0px 2px 4px #5a8dee66;
+  &:hover:not([disabled]) {
+    background: transparent
+      linear-gradient(0deg, #10a770 0%, $fms-green-button-bg 100%) 0% 0%
+      no-repeat padding-box;
+    box-shadow: 0px 2px 4px #5a8dee66;
   }
-  i{
+  i {
     font-size: 1.3em !important;
     font-style: normal;
     position: relative;
     top: auto;
     padding-right: 9px;
   }
-  &:disabled{
-    background:#cecece;
-    border-color:#cecece
+  &:disabled {
+    background: #cecece;
+    border-color: #cecece;
   }
 }
 .btn-primary-large {
-  @include buttons(1.2em , 3.3em);
+  @include buttons(1.2em, 3.3em);
 }
 .btn-primary-medium {
-  @include buttons(1.1em , 3em);
+  @include buttons(1.1em, 3em);
 }
 .btn-primary-small {
-  @include buttons(.9em , 2.8em);
+  @include buttons(0.9em, 2.8em);
 }
-.btn-scondary-green{
+.btn-scondary-green {
   background-color: #fff;
-  color:$fms-green-button-bg;
-  &:hover{
-    background:transparentize($color: $fms-green-button-bg, $amount: .9)
+  color: $fms-green-button-bg;
+  &:hover:not([disabled]) {
+    background: transparentize($color: $fms-green-button-bg, $amount: 0.9);
   }
-  &:disabled{
-    background:#ffff;
-    color:#cecece ;
+  &:disabled {
+    background: #ffff;
+    color: #cecece;
   }
 }
-
 
 .btn-download {
   width: 45px;
   border: 2px solid $fms-green-button-bg;
   margin: 0 5px;
-  border-radius: .25em;
+  border-radius: 0.25em;
   position: relative;
   background: #ffff;
-  svg{
+  svg {
     width: 30px;
     height: 100%;
-    .a{
-      fill:$fms-green-button-bg;
+    .a {
+      fill: $fms-green-button-bg;
       opacity: 1;
     }
   }
-  &:hover:not([disabled]){
-    background:$fms-green-button-bg;
-    svg .a{
-      fill:#fff;
+  &:hover:not([disabled]) {
+    background: $fms-green-button-bg;
+    svg .a {
+      fill: #fff;
     }
   }
-  &:disabled{
+  &:disabled {
     border-color: #a2a2a2;
-    svg .a{
+    svg .a {
       fill: #a2a2a2;
     }
   }
 }
 
-
-
-.button-container{
+.button-container {
   position: absolute;
   top: -3.12em;
   right: 2em;
-  button{
+  button {
     margin: 0 2px;
     width: 11em;
   }
-  .add{
-    background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0% 0% no-repeat padding-box;
-    border:none;
+  .add {
+    background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
+      0% no-repeat padding-box;
+    border: none;
   }
 }
 
 /* Switch Button*/
 .toggle-select {
   display: flex;
-  &.disabled{
-    .p-inputswitch{
-      opacity: .3;
+  &.disabled {
+    .p-inputswitch {
+      opacity: 0.3;
     }
   }
-  p-inputswitch{
-    .p-component{
+  p-inputswitch {
+    .p-component {
       font-size: 1em;
+    }
+    &:disabled {
+      opacity: 0.3;
     }
     .p-inputswitch.p-focus .p-inputswitch-slider {
       box-shadow: none;
       border: none;
     }
-    .p-inputswitch{
+    .p-inputswitch {
       width: 3.5em;
       height: 1.75em;
     }
-    .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider{
+    .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
       background-color: $fms-green-checked-switch-fill !important;
-      &:before{
+      &:before {
         transform: translateX(1.7em);
       }
     }
-    .p-inputswitch .p-inputswitch-slider:before{
+    .p-inputswitch .p-inputswitch-slider:before {
       width: 1.25em;
       height: 1.25em;
       left: 0.25em;
       margin-top: -0.625em;
     }
   }
-  label{
-    margin-left: .8em;
+  label {
+    margin-left: 0.8em;
   }
 }
 /* End Button */
 
-
 /*Table And Search Header*/
 .wrapper {
-  .p-datatable{
+  .p-datatable {
     font-family: $fms-green-body1-font;
-    font-size:$fms-green-body1-font-size;
-    th{
-      font-size:  1em;
+    font-size: $fms-green-body1-font-size;
+    th {
+      font-size: 1em;
       font-weight: bold;
     }
-    tbody{
-      font-size:  .9em;
+    tbody {
+      font-size: 0.9em;
     }
   }
   .card-table-header {
-    height:3em;
+    height: 3em;
     display: flex;
     justify-content: flex-end;
     margin-bottom: 1em;
     flex: 1 0 auto;
-    button.btn-primary-small{
-      font-size:1em;
+    button.btn-primary-small {
+      font-size: 1em;
       height: 3em;
       padding: 1px 3.33em;
     }
-    .btn-download{
+    .btn-download {
       width: 3em;
-      svg{
+      svg {
         width: 2em;
       }
     }
@@ -452,7 +452,7 @@
         width: 100%;
         box-shadow: 0px 0px 2px #00000029;
         border: 2px solid #a2a2a2;
-        border-radius: .25em;
+        border-radius: 0.25em;
         &::placeholder {
           padding-left: 5px;
         }
@@ -463,9 +463,9 @@
         position: absolute;
         right: 0;
         background: #a09999;
-        border-radius: 0 .25em .25em 0;
+        border-radius: 0 0.25em 0.25em 0;
         border: none;
-    
+
         img {
           width: 1.5em;
         }
@@ -478,44 +478,43 @@
   }
 }
 /* Responsive */
-@media only screen and ( max-width : 1600px){
+@media only screen and (max-width: 1600px) {
   .wrapper {
     .card-table-header,
-    .p-datatable{
+    .p-datatable {
       font-size: 12px;
     }
-    .btn-download{
-      svg{
-        margin-left:-2px;
+    .btn-download {
+      svg {
+        margin-left: -2px;
       }
     }
-    .card-table-header{
+    .card-table-header {
       .search-box input,
-      button{
+      button {
         border-width: 1px;
       }
     }
-    
-  } 
+  }
 }
 
-@media only screen and ( max-width : 1366px){
+@media only screen and (max-width: 1366px) {
   .wrapper {
     .card-table-header,
-    .p-datatable{
+    .p-datatable {
       font-size: 10px;
     }
-  }  
+  }
 }
 /*End Table Search Header*/
 
 /* Radio Button */
-form{
+form {
   position: relative;
 }
-.form-check{
+.form-check {
   overflow: visible;
-  input[type=radio]{
+  input[type='radio'] {
     width: 15px;
     height: 15px;
     padding: 2px;
@@ -528,70 +527,66 @@ form{
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    &:checked{
+    &:checked {
       background-color: $fms-green-checked-radio-fill;
       border: 1px solid $fms-green-checked-radio-border;
     }
-    &:disabled{
-      opacity: .5;
-      &:not([checked]){
-        padding:0;
-        background:#b6b6b6;
+    &:disabled {
+      opacity: 0.5;
+      &:not([checked]) {
+        padding: 0;
+        background: #b6b6b6;
         border: 1px solid #707070;
-        opacity: .3;
+        opacity: 0.3;
       }
     }
-    & ~ label{
+    & ~ label {
       line-height: 2;
-      margin-left: .8em
+      margin-left: 0.8em;
     }
   }
-  &.form-group{
+  &.form-group {
     padding-left: 0;
   }
-  input[type=checkbox] {
+  input[type='checkbox'] {
     transform: scale(1.8);
     margin: 0.8em 0.8em 0.8em 0;
     cursor: pointer;
     filter: hue-rotate(300deg);
-    &:disabled{
-      opacity: .5;
-      &::after{
+    &:disabled {
+      opacity: 0.5;
+      &::after {
         content: '';
         position: absolute;
         width: 100%;
         height: 100%;
         background: #b6b6b6;
-        border-radius: .25em;
-        opacity: .3;
+        border-radius: 0.25em;
+        opacity: 0.3;
       }
     }
-    & ~ label{
-      margin-left:0.8em;
+    & ~ label {
+      margin-left: 0.8em;
     }
   }
-  
 
-  @media only screen and ( max-width : 1600px){
-    input[type=radio]{
+  @media only screen and (max-width: 1600px) {
+    input[type='radio'] {
       transform: scale(1.3);
     }
-    input[type=checkbox] {
+    input[type='checkbox'] {
       transform: scale(1.5);
     }
-    
   }
-  @media only screen and ( max-width : 1366px){
-    input[type=radio]{
+  @media only screen and (max-width: 1366px) {
+    input[type='radio'] {
       transform: scale(1.1);
     }
-    input[type=checkbox] {
+    input[type='checkbox'] {
       transform: scale(1.3);
     }
   }
 }
-
-
 
 .custom-switch {
   cursor: pointer;
@@ -616,12 +611,12 @@ form{
     margin: 0 1em;
     line-height: 2.3;
   }
-  @media only screen and ( max-width : 1600px){
+  @media only screen and (max-width: 1600px) {
     .custom-control-label {
       transform: scale(1.4);
     }
   }
-  @media only screen and ( max-width : 1366px){
+  @media only screen and (max-width: 1366px) {
     .custom-control-label {
       transform: scale(1.2);
     }
@@ -629,66 +624,119 @@ form{
 }
 
 /* SideBar Menu */
-.wrapper{
-  app-sidebar-manu{
-    font-size:16px;
-    .menu-wrapper{
-      width:20em;
-      .container{
+.wrapper {
+  app-sidebar-manu {
+    font-size: 16px;
+    .menu-wrapper {
+      width: 20em;
+      .container {
         padding: 1.1em;
         .sub-menuItem {
-          .menu-item-name{
-            font-size: .8em;
+          .menu-item-name {
+            font-size: 0.8em;
           }
         }
-        .sub-menuItem-child{
-          .menu-item-name{
-            font-size: .62em;
+        .sub-menuItem-child {
+          .menu-item-name {
+            font-size: 0.62em;
           }
         }
-       
-      }
-    } 
-  }
-  @media only screen and ( max-width : 1600px){
-    app-sidebar-manu{
-      font-size:13px;
-      .menu-wrapper .has-child{
-        &::after{
-          transform:scale(.8);
-        }
-        &.active::after {
-          transform:rotate(90deg) scale(.8) !important;
-        }  
-      }
-      svg{
-        transform: scale(.8);
       }
     }
   }
-  @media only screen and ( max-width : 1366px){
-    app-sidebar-manu{
-      font-size:11px;
-      .menu-wrapper .has-child{
-        &::after{
-          transform:scale(.6);
+  @media only screen and (max-width: 1600px) {
+    app-sidebar-manu {
+      font-size: 13px;
+      .menu-wrapper .has-child {
+        &::after {
+          transform: scale(0.8);
         }
         &.active::after {
-          transform: rotate(90deg) scale(.6) !important;
-        }  
+          transform: rotate(90deg) scale(0.8) !important;
+        }
       }
-      svg{
-        transform: scale(.6);
+      svg {
+        transform: scale(0.8);
+      }
+    }
+  }
+  @media only screen and (max-width: 1366px) {
+    app-sidebar-manu {
+      font-size: 11px;
+      .menu-wrapper .has-child {
+        &::after {
+          transform: scale(0.6);
+        }
+        &.active::after {
+          transform: rotate(90deg) scale(0.6) !important;
+        }
+      }
+      svg {
+        transform: scale(0.6);
       }
     }
   }
 }
-.p-component{
+
+/* Stepper */
+
+mat-horizontal-stepper {
+  .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+  }
+  .mat-step-icon .mat-icon {
+    display: none;
+  }
+  .mat-horizontal-stepper-header:not(:last-child)::after,
+  .mat-stepper-horizontal-line,
+  .mat-horizontal-stepper-header:not(:first-child)::before {
+    border-top-width: 5px !important;
+    border-top-color: rgba(0, 0, 0, 0.12);
+  }
+  .mat-step-icon-selected {
+    .mat-step-icon-content {
+      &:before {
+        content: '';
+        height: 40px;
+        width: 40px;
+        background: #008755;
+        border-radius: 50%;
+        opacity: 0.3;
+        display: block;
+      }
+      &:after {
+        content: '';
+        height: 22px;
+        width: 22px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        box-shadow: 0px 2px 4px #0000004d;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        background: #008755;
+      }
+    }
+  }
+  .mat-step-icon {
+    border: 3px solid #fff;
+    box-shadow: 0px 2px 4px #0000004d;
+    background: #a2a2a2;
+    &.mat-step-icon-state-edit {
+      background: #008755;
+    }
+  }
+  .mat-step-icon-content span {
+    display: none;
+  }
+}
+.p-component {
   font-size: 1em;
 }
-.p-inputtext{
+.p-inputtext {
   font-family: '29LT Bukra' !important;
-  font-size:1em !important;
+  font-size: 1em !important;
 }
 .p-inputtext:enabled:focus {
   box-shadow: none !important;

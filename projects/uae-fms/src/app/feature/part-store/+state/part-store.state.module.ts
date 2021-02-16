@@ -7,14 +7,25 @@ import { PartMasterEffect } from './part-master/part-master.effects';
 import { PARTSTORE_FEATURE_KEY } from './part-store.entity';
 import { reducers } from './part-store.reducer';
 
-import { OrderListFacade } from './order-list/order-list.facade';
-import { OrderListEffect } from './order-list/order-list.effects';
 import { PartListFacade } from './part-list/part-list.facade';
 import { PartListEffect } from './part-list/part-list.effects';
-
-import { PartMasterService } from './part-master/part-master.service';
-import { OrderListService } from './order-list/order-list.service';
 import { PartListService } from './part-list/part-list.service';
+import { PartMasterService } from './part-master/part-master.service';
+import {
+  MyOrderFacade,
+  MyOrderService
+} from '@feature/part-store/+state/order-list/my-order';
+import { MyOrderEffects } from '@feature/part-store/+state/order-list/my-order/my-order.effects';
+import {
+  RequestListFacade,
+  RequestListService
+} from '@feature/part-store/+state/order-list/request-list';
+import { RequestListEffect } from '@feature/part-store/+state/order-list/request-list/request-list.effects';
+import {
+  SuppliersFacade,
+  SuppliersService
+} from '@feature/part-store/+state/order-list/suppliers';
+import { SuppliersEffects } from '@feature/part-store/+state/order-list/suppliers/suppliers.effects';
 
 @NgModule({
   imports: [
@@ -22,7 +33,9 @@ import { PartListService } from './part-list/part-list.service';
     EffectsModule.forFeature([
       PartListEffect,
       PartMasterEffect,
-      OrderListEffect
+      RequestListEffect,
+      MyOrderEffects,
+      SuppliersEffects
     ])
   ],
   exports: [],
@@ -31,9 +44,13 @@ import { PartListService } from './part-list/part-list.service';
     PartMasterService,
     PartListService,
     PartListFacade,
-    OrderListFacade,
     PartMasterFacade,
-    OrderListService
+    MyOrderService,
+    RequestListService,
+    MyOrderFacade,
+    RequestListFacade,
+    SuppliersFacade,
+    SuppliersService
   ]
 })
 export class PartStoreStateModule {}
