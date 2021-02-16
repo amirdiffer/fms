@@ -1,11 +1,17 @@
 :host ::ng-deep {
   h6.card-header {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #475f7b;
-    padding: 15px 30px;
+    padding: 16px;
     border: none;
   }
+
+  .category {
+    h6.card-header {
+      line-height: 1.1rem;
+      height: 1.1rem;
+      padding: 1.1rem 0 0 0;
+    }
+  }
+
   p {
     margin: 0;
     padding: 0;
@@ -20,22 +26,23 @@
     .right-button {
       align-self: flex-end;
       align-self: center;
-      text-align: right;
       button {
-        color: #fff;
-        background: #26d07c;
-        margin-right: 15px;
         border: none;
-        box-shadow: 0px 2px 4px #5a8dee66;
         border-radius: 4px;
         padding: 11px 15px;
       }
     }
   }
   .dashboard-table {
-    margin: 0 15px;
     table {
       width: 100%;
+    }
+
+    .p-datatable .p-datatable-tbody > tr > td {
+      border: none;
+    }
+    .p-datatable .p-datatable-thead > tr > th {
+      border-top-width: 1px !important;
     }
   }
 }
@@ -60,8 +67,6 @@
     flex: 0 0 24%;
   }
   .dashboard-card {
-    box-shadow: -8px 12px 18px #0000001f;
-    background: #ffff;
     border-radius: 6px;
     height: 100%;
     max-width: 100%;
