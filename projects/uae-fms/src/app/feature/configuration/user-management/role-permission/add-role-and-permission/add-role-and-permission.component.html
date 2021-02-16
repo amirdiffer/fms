@@ -1,10 +1,10 @@
 <div>
   <form (ngSubmit)='submit()' [formGroup]='form'>
-    <div class='text-right action_buttons'>
-      <button class='action_button cancel_button font-weight-bold' routerLink='/configuration/user-management/role-permission'>Cancel</button>
-      <button class='action_button add_button' (click)='submit()'>Add</button>
+    <div class='button-container'>
+      <button class='btn-primary-medium btn-scondary-green' routerLink='/configuration/user-management/role-permission'>Cancel</button>
+      <button class='btn-primary-medium add' (click)='submit()'>Add</button>
     </div>
-    <div class='mt-5 card'>
+    <div class='mt-1 card'>
       <div class='card-body'>
         <div>
           <label class='font-weight-bold'>Role Info

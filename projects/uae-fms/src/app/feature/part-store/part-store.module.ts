@@ -19,6 +19,7 @@ import { CategoryComponent } from './category/category.component';
 import { AssetTypeComponent } from './asset-type/asset-type.component';
 import { PartListFormComponent } from './part-list/part-list-form.component';
 import { AddPartMasterComponent } from './part-master/add-part-master/add-part-master.component';
+import { OrderFormComponent} from './order-list/order/order.component'
 import { PartStoreStateModule } from './+state/part-store.state.module';
 import { DashboardModule } from '@feature/dashboard/dashboard.module';
 
@@ -30,7 +31,8 @@ import { DashboardModule } from '@feature/dashboard/dashboard.module';
     AssetTypeComponent,
     OrderListComponent,
     PartMasterComponent,
-    AddPartMasterComponent
+    AddPartMasterComponent,
+    OrderFormComponent
   ],
   imports: [
     CommonModule,

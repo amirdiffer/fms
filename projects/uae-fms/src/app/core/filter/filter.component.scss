@@ -1,9 +1,6 @@
-.filter-wrapper {
-  height: 68px;
-}
 
 .parent {
-  height: 78px !important;
+  height: 100% !important;
   margin: 0 20px 20px 0px !important;
   border: 0;
   border-radius: 5px;
@@ -25,19 +22,16 @@
 
 .filter {
   &-supTitle {
-    font-size: 12px;
     &__active {
       color: #ffffff !important;
     }
   }
   &-title {
-    font-size: 20px;
     &__active {
       color: #ffffff !important;
     }
   }
   &-count {
-    font-size: 20px;
     &__active {
       color: #ffffff !important;
     }

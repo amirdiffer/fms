@@ -1,0 +1,136 @@
+<form [formGroup] = "inputForm">
+    <div class="button-container">
+        <button class="btn-primary-medium btn-scondary-green" routerLink=".." >Cancel</button>
+        <button class="btn-primary-medium add">Add</button>
+    </div>
+    <div class="form-section form-section--inline">
+        <div class="row">
+            <div class="col-12 col-md-2">
+                <h3 class="form-section__title">Create Quotation</h3>
+            </div>
+            <div class="col-12 col-md-10">
+                <div class="row">
+                    <div class="col-12 col-md-12 p-field form-section__field radio-select">
+                        <p-radioButton name="createQuotation" value="repeat" label="Repeat Quotation" formControlName="createQuotation"></p-radioButton>
+                        <p-radioButton name="createQuotation" value="create" label="Create Quotation" formControlName="createQuotation"></p-radioButton>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-section form-section--inline" formGroupName="assetType">
+        <div class="row form-section__row">
+            <div class="col-12 col-md-2">
+                <h3 class="form-section__title">Asset Type</h3>
+            </div>
+            <div class="col-12 col-md-3 p-field form-section__field">
+                <span class="p-float-label">
+                    <p-dropdown [options]="assetTypeOptions" formControlName="type" optionLabel="name" optionValue="value" placeholder="Asset Type"></p-dropdown>
+                    <label>Asset Type</label>
+                </span>
+            </div>
+            <div class="col-12 col-md-3 p-field form-section__field">
+                <span class="p-float-label">
+                    <p-dropdown [options]="assetTypeOptions" formControlName="make" optionLabel="name" placeholder="Make" optionValue="value"></p-dropdown>
+                    <label>Make</label>
+                </span>
+            </div>
+            <div class="col-12 col-md-3 p-field form-section__field">
+                <span class="p-float-label">
+                    <p-dropdown [options]="assetTypeOptions" formControlName="model" optionLabel="name" placeholder="Model" optionValue="value"></p-dropdown>
+                    <label>Model</label>
+                </span>
+            </div>
+        </div>
+    </div>
+    
+
+    <ng-container *ngIf="inputForm.get('createQuotation').value == 'repeat'">
+        <div class="form-section form-section--inline" formGroupName="repeatQuotation">
+            <h3 class="form-section__title">Repeat Quotation</h3>
+        
+            <div class="row form-section__row mt-5">
+                <div class="col-12 col-md-4 p-field form-section__field">
+                    <div class="autocomplete-select">
+                        <span class="p-float-label">
+                            <p-dropdown [options]="assetTypeOptions" formControlName="current" optionLabel="name" optionValue="value" placeholder="Current Quotation"></p-dropdown>
+                            <label>Current Quotation</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2 p-field form-section__field">
+                    <span class="p-float-label">
+                        <input pInputText placeholder="Quantity" formControlName="quantity" type="text" >
+                        <label>Quantity</label>
+                    </span>
+                </div>
+            </div>
+            <div class="row form-section__row">
+                <div class="col-12 p-field form-section__field">
+                    <span class="p-float-label">
+                        <input pInputText placeholder="Description" formControlName="description" type="text">
+                        <label>Description</label>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    
+    <ng-container *ngIf="inputForm.get('createQuotation').value == 'create'">
+        <div class="form-section form-section--inline" formGroupName="newOrder">
+            <h3 class="form-section__title">New Order</h3>
+        
+            <div class="row form-section__row mt-5">
+                <div class="col-12 col-md-4 p-field form-section__field">
+                    <span class="p-float-label">
+                        <p-dropdown [options]="assetTypeOptions" formControlName="categoryItem" optionLabel="name" optionValue="value" placeholder="Select Item Category"></p-dropdown>
+                        <label>Select Item Category</label>
+                    </span>
+                </div>
+                <div class="col-12 col-md-4 p-field form-section__field">
+                    <span class="p-float-label">
+                        <p-dropdown [options]="assetTypeOptions" formControlName="item" optionLabel="name" optionValue="value" placeholder="Select Item"></p-dropdown>
+                        <label>Select Item </label>
+                    </span>
+                </div>
+                <div class="col-12 col-md-2 p-field form-section__field">
+                    <span class="p-float-label">
+                        <input pInputText placeholder="Quantity" formControlName="quantity" type="text">
+                        <label>Quantity</label>
+                    </span>
+                </div>
+            </div>
+            <div class="row form-section__row">
+                <div class="col-12 col-md-4 p-field form-section__field">
+                    <span class="p-float-label">
+                        <input pInputText placeholder="Description" formControlName="supplier" type="text">
+                        <label>Supplier</label>
+                    </span>
+                </div>
+                <div class="col-12 col-md-4 d-flex">
+                    <span class="mr-3">Set Reminder</span>
+                    <p-inputSwitch formControlName="warranty"></p-inputSwitch>
+                </div>
+            </div>
+            <div class="row form-section__row">
+                <div class="col-12 p-field form-section__field">
+                    <span class="p-float-label">
+                        <input pInputText placeholder="Description" formControlName="description" type="text">
+                        <label>Description</label>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    
+    <div class="form-section form-section--inline d-flex pb-2">
+        <span class="mr-3">Set Reminder</span>
+        <p-inputSwitch formControlName="setReminder"></p-inputSwitch>
+    </div>
+    
+    <div class="component_wrapper p-0">
+        <div class="card-table">
+            <app-table [setting]="tableSetting"></app-table>
+        </div>
+    </div>
+</form>

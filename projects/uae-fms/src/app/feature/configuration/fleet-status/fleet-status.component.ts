@@ -1,14 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
-  FleetStatusDataType,
-  FleetStatusTableColumnDefinition,
-  FleetStatusTableData,
-  FleetStatusTableSetting
-} from '@feature/configuration/fleet-status/fleet-status-table/fleet-status-asset-table.component';
-import {
   FleetStatusAssetFacade,
   FleetStatusSubAssetFacade
 } from '../+state/fleet-status';
+import { TableSetting } from '@core/table';
 
 @Component({
   selector: 'anms-fleet-status',
@@ -17,63 +12,54 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FleetStatusComponent implements OnInit {
-  searchIcon = 'assets/icons/search.svg';
-
-  tableColumns: FleetStatusTableColumnDefinition[] = [
-    {
-      title: 'Status Category',
-      dataFieldKey: FleetStatusDataType.statusCategory
-    },
-    {
-      title: 'Status',
-      dataFieldKey: FleetStatusDataType.status
-    },
-    {
-      title: 'Tag',
-      dataFieldKey: FleetStatusDataType.tag
-    },
-    {
-      title: 'Usage',
-      dataFieldKey: FleetStatusDataType.usage
-    }
-  ];
-
-  tableData: FleetStatusTableData[] = [
-    {
-      statusCategory: {
-        leftTagColor: '#009EFF',
-        dotColor: '#009EFF',
-        statusCategoryName: 'Inactive'
+  searchIcon = 'assets/icons/search-solid.svg';
+  downloadBtn= 'assets/icons/download-solid.svg';
+  tableSetting: TableSetting = {
+    columns: [
+      {
+        lable: 'Status Category',
+        field: 'Status_Category',
+        type: 1
       },
-      status: 'Storage, Registration, Workshop',
-      tag: 'Wait Permission',
-      usage: '23345'
-    },
-    {
-      statusCategory: {
-        leftTagColor: '#FCB614',
-        dotColor: '#FCB614',
-        statusCategoryName: 'Active'
+      {
+        lable: 'status',
+        field: 'status',
+        type: 1
       },
-      status: 'Available, Reuse',
-      tag: 'Assigned',
-      usage: '23345'
-    },
-    {
-      statusCategory: {
-        leftTagColor: '#FE5F4F',
-        dotColor: '#FE5F4F',
-        statusCategoryName: 'X Fleet'
+      {
+        lable: 'tag',
+        field: 'tag',
+        type: 1
       },
-      status: 'End Contract, Total Loss, Auction',
-      tag: 'Sell',
-      usage: '23345'
-    }
-  ];
-
-  tableSetting: FleetStatusTableSetting = {
-    columns: this.tableColumns,
-    data: this.tableData
+      {
+        lable: 'usage',
+        field: 'usage',
+        type: 1
+      }
+    ],
+    data: [
+      {
+        statusColor: '#009EFF',
+        Status_Category: 'Inactive',
+        status: 'Storage, Registration, Workshop',
+        tag: 'Wait Permission',
+        usage: '23345'
+      },
+      {
+        statusColor: '#FCB614',
+        Status_Category: 'Active',
+        status: 'Available, Reuse',
+        tag: 'Assigned',
+        usage: '23345'
+      },
+      {
+        statusColor: '#FE5F4F',
+        Status_Category: 'X Fleet',
+        status: 'End Contract, Total Loss, Auction',
+        tag: 'Sell',
+        usage: '23345'
+      }
+    ]
   };
 
   constructor(

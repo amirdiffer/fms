@@ -9,12 +9,14 @@ import { TrafficFineComponent } from '@feature/traffic-fine/traffic-fine.compone
 
 import { TrafficFineRoutingModule } from './traffic-fine-routing.module';
 import { TrafficFinesStateModule } from '../traffic-fine/+state';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [TrafficFineComponent],
   imports: [
     TableModule,
     FilterModule,
+    SharedModule,
     CommonModule,
     TabViewModule,
     AngularSvgIconModule,

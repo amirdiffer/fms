@@ -8,8 +8,6 @@ import { UsersFacade, UsersService } from './users';
 import { OwnershipFacade, OwnershipService } from './ownership';
 import { OwnershipEffect } from './ownership/ownership.effect';
 import { CONFIGURATION_FEATURE_KEY } from './configuration.entity';
-import { AssetPolicyEffect } from './asset-policy/asset-policy.effect';
-import { AssetPolicyFacade, AssetPolicyService } from './asset-policy';
 import {
   FleetStatusAssetFacade,
   FleetStatusAssetService,
@@ -17,6 +15,15 @@ import {
   FleetStatusSubAssetService
 } from './fleet-status';
 import { FleetStatusAssetEffect } from './fleet-status/asset/fleet-status-asset.effect';
+import { AssetPolicyEffect } from './asset-policy/asset/asset-policy.effect';
+import { SubAssetPolicyEffect } from './asset-policy/sub-asset/sub-asset-policy.effect';
+import {
+  AssetPolicyFacade,
+  AssetPolicyService,
+  SubAssetPolicyFacade,
+  SubAssetPolicyService
+} from './asset-policy';
+
 import { RolePermissionEffect } from './role-permission/role-permission.effect';
 import { RolePermissionFacade } from './role-permission/role-permission.facade';
 import { RolePermissionService } from './role-permission/role-permission.service';
@@ -32,6 +39,11 @@ import {
 } from '../+state/periodic-service';
 import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-service.effect';
 import { FleetStatusSubAssetEffect } from './fleet-status/sub-asset/fleet-status-sub-asset.effect';
+import {
+  AssetConfigurationFacade,
+  AssetConfigurationService
+} from '../+state/asset-configuration';
+import { AssetConfigurationEffect } from '../+state/asset-configuration/asset-configuration.effect';
 
 @NgModule({
   declarations: [],
@@ -40,19 +52,23 @@ import { FleetStatusSubAssetEffect } from './fleet-status/sub-asset/fleet-status
     EffectsModule.forFeature([
       RolePermissionEffect,
       AssetPolicyEffect,
+      SubAssetPolicyEffect,
       UsersEffect,
       BusinessCategoryEffect,
       FleetStatusAssetEffect,
       FleetStatusSubAssetEffect,
       OwnershipEffect,
-      PeriodicServiceEffect
+      PeriodicServiceEffect,
+      AssetConfigurationEffect
     ])
   ],
   providers: [
     RolePermissionFacade,
     RolePermissionService,
     AssetPolicyFacade,
+    SubAssetPolicyFacade,
     AssetPolicyService,
+    SubAssetPolicyService,
     UsersFacade,
     UsersService,
     BusinessCategoryService,
@@ -64,7 +80,9 @@ import { FleetStatusSubAssetEffect } from './fleet-status/sub-asset/fleet-status
     OwnershipFacade,
     OwnershipService,
     PeriodicServiceFacade,
-    PeriodicServiceService
+    PeriodicServiceService,
+    AssetConfigurationFacade,
+    AssetConfigurationService
   ]
 })
 export class ConfigurationStateModule {}
