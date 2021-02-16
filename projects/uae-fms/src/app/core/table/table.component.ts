@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-table',
@@ -83,6 +85,36 @@ export class TableComponent implements OnInit {
 
       return event.order * result;
     });
+  }
+
+  exportTable(): void {
+    const exportColumns = this.setting.columns.map((col) => {
+      if (col.thumbField?.length) {
+        return;
+      }
+      return { title: col.lable, dataKey: col.field };
+    });
+
+    const exportRows: any[] = this.setting.data.map((data) => ({ ...data }));
+
+    this.setting.columns.map((col) => {
+      if (col.renderer === 'assetsRenderer') {
+        exportRows.map((data) => {
+          data[col.field] = `${data[col.field].assetName}\n${
+            data[col.field].assetSubName
+          }\n${data[col.field].ownership}`;
+        });
+      }
+    });
+
+    const pdf = new jsPDF('p', 'pt', 'a4');
+    autoTable(pdf, {
+      columns: exportColumns,
+      body: exportRows,
+      columnStyles: { 0: { cellWidth: 100 } }
+    });
+
+    pdf.save('angular-demo.pdf');
   }
 }
 
