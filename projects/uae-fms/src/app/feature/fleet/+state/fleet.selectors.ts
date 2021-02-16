@@ -10,6 +10,6 @@ export class FleetSelectors {
   );
   static movementRequestsSelector = createSelector(
     FleetSelectors.featureSelector,
-    (state) => state['movementOverview']
+    (state) => state['movementRequests']
   );
 }
