@@ -51,10 +51,6 @@ import { environment } from '../../../../environments/environment';
         display: flex;
         align-items: center;
       }
-      .mat-progress-bar {
-        height: .625em;
-        border-radius: 8px;
-      }
       .progress-value {
         color: #000000de;
         font-size: .8em;
