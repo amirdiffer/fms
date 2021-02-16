@@ -1,23 +1,21 @@
+@import'../../themes/green-theme.scss';
 .form-section {
   padding: 20px 20px 0 20px;
   margin: 10px;
 
-  font-size: 1em;
+  font-size: .9em;
   box-shadow: 0px 0px 2px #0000003d;
   border-radius: 5px;
-
   &__title {
     color: #333;
-    font-size: 1em;
+    font-size: .9em;
     margin-bottom: 25px;
   }
 
   &__field {
     margin-bottom: 20px;
 
-    & > * {
-      height: 40px;
-    }
+    
 
     .toggle-select {
       height: 40px;
@@ -69,7 +67,7 @@
 
       & ~ label {
         height: 50%;
-        width: 95%;
+        width: 75%;
         background:#fff;
       }
 
@@ -207,6 +205,15 @@
       line-height: 40px;
     }
   }
+  .p-inputgroup-addon{
+    background:none;
+    color:#009C62;
+    border-color:#009C62;
+    .pi-plus{
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
 }
 
 /* AutoComplete */
@@ -266,20 +273,38 @@
 }
 .invalid {
   border-color: #dd5648 !important;
+  
+}
+
+
+/* invalid class */
+:host ::ng-deep{
+  input.invalid,
+  input.invalid:focus {
+    border-color: #dd5648 !important;
+    & ~ label {
+      color:#dd5648 !important;
+    }
+  }
+}
+p-dropdown.invalid {
+  ::ng-deep {
+    .p-component{
+      border-color: #dd5648 !important;
+    }
+  }
+  & ~ label {
+    color:#dd5648 !important;
+  }
+}
+p-autocomplete.invalid{
   ::ng-deep {
     .p-autocomplete-input {
       border-color: #dd5648 !important;
     }
   }
-}
-
-:host ::ng-deep{
-  input.invalid,
-  input.invalid:focus {
-    border-color: #dd5648 !important;
   & ~ label {
     color:#dd5648 !important;
-  }
   }
 }
 

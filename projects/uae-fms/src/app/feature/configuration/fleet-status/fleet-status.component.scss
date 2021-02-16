@@ -1,7 +1,44 @@
 @import '../../../../themes/green-theme.scss';
 $primary: map-get($anms-green-primary, 300);
 
-
+:host ::ng-deep{
+  tbody tr{
+    td:first-child > div{
+      display: flex;
+      align-items: center;
+      &:before{
+        content:'';
+        width:1em;
+        height: 1em;
+        display: inline-block;
+        border-radius: 50%;
+        margin-right: 12px;
+      }
+    }
+    &:first-child{
+      td:first-child{
+        & > div:before{
+          background:#009EFF;
+        }
+      }
+    }
+    &:nth-child(2){
+      td:first-child{
+        & > div:before{
+          background:#FCB614;
+        }
+      }
+    }
+    &:nth-child(3){
+      td:first-child{
+        & > div:before{
+          background:#FE5F4F;
+        }
+      }
+    }
+    
+  }
+}
 
 
 

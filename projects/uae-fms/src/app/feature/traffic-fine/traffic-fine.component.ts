@@ -3,6 +3,7 @@ import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { assetsPath } from '@environments/environment';
 import { TrafficFineTableFacade } from '../traffic-fine/+state/traffic-fine';
+import { AssetTrafficFineFacade } from './+state/asset-traffic-fine';
 
 @Component({
   selector: 'anms-traffic-fine',
@@ -306,9 +307,10 @@ export class TrafficFineComponent implements OnInit {
     ]
   };
 
-  constructor(private facade: TrafficFineTableFacade) {}
+  constructor(private _trafficFineFacade: TrafficFineTableFacade , private _assetTrafficFineFacade: AssetTrafficFineFacade) {}
 
   ngOnInit(): void {
-    this.facade.loadAll();
+    this._trafficFineFacade.loadAll();
+    this._assetTrafficFineFacade.loadAll();
   }
 }

@@ -18,13 +18,14 @@ import {
   TechnicalInspectionService
 } from './technical-inspections';
 import { TechnicalInspectionEffect } from './technical-inspections/technical-inspections.effect';
-import { AuctionListEffect } from './auction-list/auction-list.effects';
-import { AuctionListFacade, AuctionListService } from './auction-list';
 import { TaskMasterEffect } from './task-master/task-master.effects';
 import { TaskMasterService, TaskMasterFacade } from './task-master';
 import { BodyShopJobCardEffect } from './body-shop/job-card/body-shop-job-card.effect';
 import { BodyShopTechnicianEffect } from './body-shop/technician/body-shop-technician.effect';
 import { BodyShopLocationEffect } from './body-shop/location/body-shop-location.effect';
+import { AuctionListFacade, AuctionListService, SoldListFacade, SoldListService } from '@feature/workshop/+state/auction-list';
+import { AuctionListEffect } from '@feature/workshop/+state/auction-list/auction/auction-list.effects';
+import { SoldListEffects } from '@feature/workshop/+state/auction-list/sold/sold-list.effects';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { BodyShopLocationEffect } from './body-shop/location/body-shop-location.
       BodyShopLocationEffect,
       TechnicalInspectionEffect,
       AuctionListEffect,
+      SoldListEffects,
       TaskMasterEffect
     ])
   ],
@@ -54,6 +56,8 @@ import { BodyShopLocationEffect } from './body-shop/location/body-shop-location.
     TechnicalInspectionService,
     AuctionListFacade,
     AuctionListService,
+    SoldListFacade,
+    SoldListService,
     TaskMasterFacade,
     TaskMasterService
   ]
