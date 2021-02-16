@@ -1,0 +1,279 @@
+<div class="wrapper pt-5 pb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-3">
+                Buttons Medium
+            </div>
+            <div class="col-3">
+                <button class="btn-primary-small">Button</button>
+            </div>
+            <div class="col-3">
+                <button class="btn-primary-small btn-scondary-green">Button</button>
+            </div>
+            <div class="col-3">
+                <button class="btn-primary-small"><i>+</i><a>Button</a></button>
+            </div>
+        </div>
+        <br><br>
+        <div class="row align-items-center">
+            <div class="col-3">
+                Buttons Medium
+            </div>
+            <div class="col-3">
+                <button class="btn-primary-medium">Button</button>
+            </div>
+            <div class="col-3">
+                <button class="btn-primary-medium btn-scondary-green">Button</button>
+            </div>
+            <div class="col-3">
+                <button class="btn-primary-medium"><i>+</i><a>Button</a></button>
+            </div>
+        </div>
+        <br><br>
+        <div class="row align-items-center">
+            <div class="col-3">
+                Buttons Large
+            </div>
+            <div class="col-3">
+                <button class="btn-primary-large">Button</button>
+            </div>
+            <div class="col-3">
+                <button class="btn-primary-large btn-scondary-green">Button</button>
+            </div>
+            <div class="col-3">
+                <button class="btn-primary-large"><i>+</i><a>Button</a></button>
+            </div>
+        </div>
+        <br><br>
+        <div class="row align-items-center">
+            <div class="col-3">
+                Disabled Button
+            </div>
+            <div class="col-3">
+                <button class="btn-primary-large" disabled>Button</button>
+            </div>
+            <div class="col-3">
+                <button class="btn-primary-large btn-scondary-green" disabled>Button</button>
+            </div>
+            <div class="col-3">
+                <button class="btn-primary-large" disabled><i>+</i><a>Button</a></button>
+            </div>
+        </div>
+        <br><br>
+        <div class="row align-items-center">
+            <div class="col-3">
+                Download Button
+            </div>
+            <div class="col-3 card-table-header">
+                <button class="btn-download" disabled>
+                    <svg-icon [src]="downloadBtn"></svg-icon>
+                </button>
+            </div>
+            <div class="col-3 card-table-header">
+                <button class="btn-download">
+                    <svg-icon [src]="downloadBtn"></svg-icon>
+                </button>
+            </div>
+        </div>
+        <br><br>
+        <div class="row align-items-center">
+            <div class="col-3">
+                Radio Button
+            </div>
+            <div class="col-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radioButton" id="radioButton1" value ="estimate" Checked>
+                    <label class="form-check-label" for="radioButton1">Radio Button</label>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radioButton" id="radioButton2" value ="estimate">
+                    <label class="form-check-label" for="radioButton2">Radio Button</label>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radioButton" id="radioButton2" value ="estimate" disabled>
+                    <label class="form-check-label" for="radioButton2">Radio Button</label>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row align-items-center">
+            <div class="col-3">
+                CheckBox
+            </div>
+            <div class="col-3">
+                <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox" class="custom-checkbox" name="checkbox1" checked>
+                    <label for="checkbox1">CheckBox</label>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group form-check">
+                    <input id="checkbox2" type="checkbox" class="custom-checkbox" name="checkbox2" >
+                    <label for="checkbox2">CheckBox</label>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group form-check">
+                    <input id="checkbox3" type="checkbox" class="custom-checkbox" name="checkbox3" disabled>
+                    <label for="checkbox3">CheckBox</label>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row align-items-center">
+            <div class="col-3">
+                Switch Button
+            </div>
+            <div class="col-3">
+                <div class="toggle-select">
+                    <p-inputSwitch></p-inputSwitch>
+                    <label>Switch Button</label>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="toggle-select">
+                    <p-inputSwitch [disabled]="true"></p-inputSwitch>
+                    <label>Switch Button</label>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row ">
+            <div class="col-3">
+                Inputs
+            </div>
+            <div class="col-4 form-section">
+                <div class=" p-field form-section__field">
+                    <span class="p-float-label">
+                        <input pInputText placeholder="Task Name *" type="text">
+                        <label>Task Name *</label>
+                    </span>
+                </div>
+            </div>
+            <div class="col-4 form-section ml-2">
+                <div class=" p-field form-section__field">
+                    <span class="p-float-label">
+                        <input pInputText placeholder="Task Name *" type="text" class="invalid">
+                        <label>Task Name *</label>
+                    </span>
+                    <small class="red-font">Error Message</small>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-4 form-section">
+                <div class=" p-field form-section__field">
+                    <span class="p-float-label">
+                        <p-dropdown inputId="businessCategory" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+                        <label for="businessCategory">Business Category</label>
+                    </span>
+                </div>
+            </div>
+            <div class="col-4 ml-2 p-0 form-section">
+                <div class=" p-field form-section__field">
+                    <span class="p-float-label">
+                        <p-dropdown inputId="businessCategory" [options]="itemTypes" optionLabel="name" class="dropdown-select invalid"></p-dropdown>
+                        <label for="businessCategory">Business Category</label>
+                    </span>
+                    <small class="red-font">Error Message</small>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-4 p-0">
+                <div class="form-group p-field form-section__field">
+                    <div class="input-group">
+                        <div class="autocomplete-select w-100">
+                            <span class="p-float-label ">
+                                <p-autoComplete [suggestions]="filteredAsset" 
+                                                (completeMethod)="searchAsset($event)" 
+                                                field="name"></p-autoComplete>
+                                <i class="pi pi-search"></i>
+                                <label>Asset *</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 p-0 ml-2">
+                <div class="form-group p-field form-section__field">
+                    <div class="input-group">
+                        <div class="autocomplete-select w-100">
+                            <span class="p-float-label ">
+                                <p-autoComplete [suggestions]="filteredAsset" 
+                                                (completeMethod)="searchAsset($event)" 
+                                                field="name" class="invalid"></p-autoComplete>
+                                <i class="pi pi-search"></i>
+                                <label>Asset *</label>
+                            </span>
+                            <small class="red-font">Error Message</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-4 form-section">
+                <div class=" p-field form-section__field">
+                    <span class="p-inputgroup p-float-label d-flex">
+                        <input type="text" pInputText placeholder="Username">
+                        <label>User Name</label>
+                        <span class="p-inputgroup-addon"><i class="pi pi-plus"></i></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-3">
+                Stepper
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom" >
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep"  state="phone" >
+                        <form [formGroup]="controlStep">
+                            <ng-template matStepLabel>Label 1</ng-template>
+                            <button mat-button matStepperNext>Next</button>
+                        </form>
+                    </mat-step>
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep" >
+                        <form [formGroup]="controlStep">
+                            <ng-template matStepLabel>Label 2</ng-template>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>                    
+                        </form>
+                    </mat-step>
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep">
+                        <form [formGroup]="controlStep">
+                            <ng-template matStepLabel>Label 3</ng-template>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                    
+                        </form>
+                    </mat-step>
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep">
+                        <form [formGroup]="controlStep">
+                            <ng-template matStepLabel>Label 4</ng-template>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                    
+                        </form>
+                    </mat-step>
+                    <mat-step [editable]="isEditable" [stepControl]="controlStep">
+                        <ng-template matStepLabel>Label 5</ng-template>
+                        <button mat-button matStepperPrevious>Back</button>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
+    </div>
+</div>

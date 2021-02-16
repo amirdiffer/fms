@@ -1,41 +1,14 @@
 @import '../../../../../assets/scss/form-section.scss';
 
-:host ::ng-deep{
-  .pi.pi-search{
+:host ::ng-deep {
+  .pi.pi-search {
     top: 13px;
-    opacity: .6;
-  }
-  
-}
-.form-buttons {
-  position: absolute;
-  top: 10px;
-  right: 30px;
-  button {
-    width: 180px;
-    height: 50px;
-    font-size: 17px;
-    margin: 0 2px;
-  }
-  .add {
-    background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
-      0% no-repeat padding-box;
-    box-shadow: 0px 0px 1px #000000;
-    border-radius: 4px;
-    opacity: 1;
-    color: #ffffff;
-    border: 0;
-  }
-  .cancel {
-    box-shadow: 0px 0px 1px #00000066;
-    border: 2px solid #0da06e;
-    border-radius: 4px;
-    opacity: 1;
-    color: #0da06e;
+    opacity: 0.6;
   }
 }
+
 .component_wrapper {
-  box-shadow: 0px 0px 2px #0000003D;
+  box-shadow: 0px 0px 2px #0000003d;
   border-radius: 4px;
   overflow: visible;
   .caption {
@@ -136,13 +109,6 @@
     }
   }
 
-  .custom-checkbox {
-    transform: scale(1.5);
-    margin: 10px;
-    cursor: pointer;
-    filter: hue-rotate(240deg);
-  }
-
   .add-section {
     border: 1px solid #009c62;
     width: 32px;
@@ -154,15 +120,16 @@
   .border-input-append {
     border: 1px solid #009c62;
   }
-  .flex-with-button{
-    flex:1 0 85%;
+  .flex-with-button {
+    flex: 1 0 85%;
     overflow: visible;
   }
 }
 
-.employe-item , .locations-item{
+.employe-item,
+.locations-item {
   display: flex;
-  > div{
+  > div {
     margin: 0 5px;
   }
 }

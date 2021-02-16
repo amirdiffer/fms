@@ -13,6 +13,8 @@ import {
   AssetUsageTableSettings
 } from './asset-usage-table/asset-usage-table.component';
 import { FuelCardsFacade } from '../fuel-management/+state/fuel-cards';
+import { AssetUsageFacade } from './+state/asset-usage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-fuel-management',
@@ -21,24 +23,26 @@ import { FuelCardsFacade } from '../fuel-management/+state/fuel-cards';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FuelManagementComponent implements OnInit {
+  downloadBtn = 'assets/icons/download-solid.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   filterSetting: FilterCardSetting[] = [
     {
       filterTitle: 'Total',
       filterTagColor: '#B892FF',
       filterCount: '2456',
-      onActive(index: number): void {}
+      onActive(index: number): void { }
     },
     {
       filterTitle: 'Available',
       filterTagColor: '#EF7A85',
       filterCount: '356',
-      onActive(index: number): void {}
+      onActive(index: number): void { }
     },
     {
       filterTitle: 'Assigned',
       filterTagColor: '#709775',
       filterCount: '124',
-      onActive(index: number): void {}
+      onActive(index: number): void { }
     }
   ];
 
@@ -260,9 +264,26 @@ export class FuelManagementComponent implements OnInit {
     data: this.assetUsageTableData
   };
 
-  constructor(private facade: FuelCardsFacade) {}
+  constructor(private _facadeFuelCard: FuelCardsFacade, private _facadeAssetUsage: AssetUsageFacade, private _router: Router) { }
 
+  selectedTab;
   ngOnInit(): void {
-    this.facade.loadAll();
+    this._facadeFuelCard.loadAll();
+    this._facadeAssetUsage.loadAll();
+  }
+  addClicked(e: Event) {
+    console.log(this._router.navigate(['add-fuel-card']))
+
+    switch (this.selectedTab) {
+      case 'Fuel Cards':
+        this._router.navigate(['fuel-management/add-fuel-card']);
+        break;
+      case 'Asset Usage':
+        this._router.navigate(['fuel-management/add-asset-usage']);
+        break;
+      default:
+        this._router.navigate(['fuel-management/add-fuel-card']);
+        break;
+    }
   }
 }

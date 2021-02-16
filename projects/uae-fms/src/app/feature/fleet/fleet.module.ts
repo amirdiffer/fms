@@ -26,9 +26,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddAssetComponent } from './assets/add-asset/add-asset.component';
 import { AddAccessoryComponent } from './accessory/add-accessory/add-accessory.component';
+import { AddOperatorComponent } from '@feature/fleet/operator/add-operator/add-operator.component';
 
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { MatStepperModule } from '@angular/material/stepper';
+import { AddRequestComponent } from './movement/add-request/add-request.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { MatStepperModule } from '@angular/material/stepper';
     AddOrganizationComponent,
     MovementConfirmComponent,
     OrganizationComponent,
-    AddAssetComponent
+    AddAssetComponent,
+    AddOperatorComponent,
+    AddRequestComponent
   ],
   imports: [
     AngularSvgIconModule,

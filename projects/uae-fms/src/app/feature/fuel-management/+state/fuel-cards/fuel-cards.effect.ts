@@ -9,11 +9,11 @@ import { FuelCardsService } from './fuel-cards.service';
 export class FuelCardsEffect {
   loadAll$ = createEffect(() =>
     this.action$.pipe(
-      ofType(FuelCardsActions.loadAll),
+      ofType(FuelCardsActions.loadFuelCard),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => FuelCardsActions.allDataLoaded({ data })),
-          catchError((error) => of(FuelCardsActions.error({ reason: error })))
+          map((data) => FuelCardsActions.fuelCardLoaded({ data })),
+          catchError((error) => of(FuelCardsActions.fuelCardError({ reason: error })))
         )
       )
     )

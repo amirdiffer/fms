@@ -50,10 +50,6 @@ import { environment } from '../../../../environments/environment';
         display: flex;
         flex-direction: column;
       }
-
-      .dpd {
-        font-size: 0.8rem;
-      }
     `
   ]
 })

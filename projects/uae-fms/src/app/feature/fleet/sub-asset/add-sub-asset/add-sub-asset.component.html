@@ -1,143 +1,146 @@
-<div class='form-buttons'>
-  <button class='cancel'>Cancel</button>
-  <button class='add'>Add</button>
-</div>
-
-<div class='row'>
-  <div class='col-12'>
-    <div class='component_wrapper'>
-      <label class='caption'>Sub Asset Specification</label>
-      <div class='row'>
-        <div class='col-lg-4'>
-          <div class='form-group'>
-            <select class='form-control'>
-              <option value="" disabled selected hidden>Sub Asset Type *</option>
-              <option>Item 1</option>
-              <option>Item 2</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='col-lg-2'>
-          <div class='form-group'>
-            <select class='form-control'>
-              <option value="" disabled selected hidden>Make *</option>
-              <option>Item 1</option>
-              <option>Item 2</option>
-            </select>
-          </div>
-        </div>
-        <div class='col-lg-3'>
-          <div class='form-group'>
-            <select class='form-control'>
-              <option value="" disabled selected hidden>Model *</option>
-              <option>Item 1</option>
-              <option>Item 2</option>
-            </select>
-          </div>
-        </div>
-        <div class='col-lg-2'>
-          <div class='form-group'>
-            <select class='form-control'>
-              <option value="" disabled selected hidden>Year *</option>
-              <option>Item 1</option>
-              <option>Item 2</option>
-            </select>
-          </div>
-        </div>
-        <div class='col-lg-2'>
-          <div class='form-group'>
-            <select class='form-control'>
-              <option value="" disabled selected hidden>Origin *</option>
-              <option>Item 1</option>
-              <option>Item 2</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
+<form >
+  <div class="button-container">
+    <button class="btn-primary-medium btn-scondary-green" routerLink="..">Cancel</button>
+    <button class="btn-primary-medium add" type="submit" >Add</button>
   </div>
-  <div class='col-12'>
-    <div class='component_wrapper'>
-      <label class='caption'>Financial</label>
-      <div class='row'>
-        <div class='col-lg-5'>
-          <div class='form-group'>
-            <select class='form-control'>
-              <option value="" disabled selected hidden>Policy Type *</option>
-              <option>Item 1</option>
-              <option>Item 2</option>
-            </select>
-          </div>
-        </div>
-        <div class='col-lg-5'>
-          <div class='form-group'>
-            <input type='text' class='form-control' placeholder='Purchase Value *'>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class='col-12'>
-    <div class='component_wrapper'>
-      <label class='caption'>
-              <span class='plus-icon'>
-                <svg-icon src='../../../../../assets/icons/add.svg'
-                          [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-              </span>
-        Warranty items
-      </label>
-      <div class='row'>
-        <div class='col-lg-3'>
-          <div class='form-group'>
-            <input type='text' class='form-control' placeholder='Item'>
-          </div>
-        </div>
-        <div class='col-lg-3'>
-          <div class='form-group'>
-            <div class='input-group'>
-              <div class='input-group-prepend'>
-                <select class='form-control'>
-                  <option value="" disabled selected hidden>Year</option>
-                  <option>Item 1</option>
-                  <option>Item 2</option>
-                </select>
-              </div>
-              <input type='text' class='form-control' placeholder='Duration'>
+  
+  <div class='row'>
+    <div class='col-12'>
+      <div class='component_wrapper'>
+        <label class='caption'>Sub Asset Specification</label>
+        <div class='row'>
+          <div class='col-lg-4'>
+            <div class='form-group'>
+              <select class='form-control'>
+                <option value="" disabled selected hidden>Sub Asset Type *</option>
+                <option>Item 1</option>
+                <option>Item 2</option>
+              </select>
             </div>
           </div>
         </div>
-        <div class='col-lg-3'>
-          <div class='form-group'>
-            <div class='input-group'>
-              <input type='text' class='form-control border-right-0 border' placeholder='Warranty Start Date *'>
-              <div class='input-group-append'>
-                <div class='input-group-text bg-transparent'>
-                  <svg-icon src='../../../../../assets/icons/calendar-alt-regular.svg'
-                            [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
+        <div class='row'>
+          <div class='col-lg-2'>
+            <div class='form-group'>
+              <select class='form-control'>
+                <option value="" disabled selected hidden>Make *</option>
+                <option>Item 1</option>
+                <option>Item 2</option>
+              </select>
+            </div>
+          </div>
+          <div class='col-lg-3'>
+            <div class='form-group'>
+              <select class='form-control'>
+                <option value="" disabled selected hidden>Model *</option>
+                <option>Item 1</option>
+                <option>Item 2</option>
+              </select>
+            </div>
+          </div>
+          <div class='col-lg-2'>
+            <div class='form-group'>
+              <select class='form-control'>
+                <option value="" disabled selected hidden>Year *</option>
+                <option>Item 1</option>
+                <option>Item 2</option>
+              </select>
+            </div>
+          </div>
+          <div class='col-lg-2'>
+            <div class='form-group'>
+              <select class='form-control'>
+                <option value="" disabled selected hidden>Origin *</option>
+                <option>Item 1</option>
+                <option>Item 2</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='col-12'>
+      <div class='component_wrapper'>
+        <label class='caption'>Financial</label>
+        <div class='row'>
+          <div class='col-lg-5'>
+            <div class='form-group'>
+              <select class='form-control'>
+                <option value="" disabled selected hidden>Policy Type *</option>
+                <option>Item 1</option>
+                <option>Item 2</option>
+              </select>
+            </div>
+          </div>
+          <div class='col-lg-5'>
+            <div class='form-group'>
+              <input type='text' class='form-control' placeholder='Purchase Value *'>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='col-12'>
+      <div class='component_wrapper'>
+        <label class='caption'>
+                <span class='plus-icon'>
+                  <svg-icon src='../../../../../assets/icons/add.svg'
+                            [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                </span>
+          Warranty items
+        </label>
+        <div class='row'>
+          <div class='col-lg-3'>
+            <div class='form-group'>
+              <input type='text' class='form-control' placeholder='Item'>
+            </div>
+          </div>
+          <div class='col-lg-3'>
+            <div class='form-group'>
+              <div class='input-group'>
+                <div class='input-group-prepend'>
+                  <select class='form-control'>
+                    <option value="" disabled selected hidden>Year</option>
+                    <option>Item 1</option>
+                    <option>Item 2</option>
+                  </select>
+                </div>
+                <input type='text' class='form-control' placeholder='Duration'>
+              </div>
+            </div>
+          </div>
+          <div class='col-lg-3'>
+            <div class='form-group'>
+              <div class='input-group'>
+                <input type='text' class='form-control border-right-0 border' placeholder='Warranty Start Date *'>
+                <div class='input-group-append'>
+                  <div class='input-group-text bg-transparent'>
+                    <svg-icon src='../../../../../assets/icons/calendar-alt-regular.svg'
+                              [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class='col-lg-3'>
-          <div class='upload-box'>
-            <label class='space-drop' for='attach_picture_sub-asset'>
-              <div>Drag and Drop A Warranty Doc Or Click Here</div>
-            </label>
-            <input type='file' hidden id='attach_picture_sub-asset'>
+          <div class='col-lg-3'>
+            <div class='upload-box'>
+              <label class='space-drop' for='attach_picture_sub-asset'>
+                <div>Drag and Drop A Warranty Doc Or Click Here</div>
+              </label>
+              <input type='file' hidden id='attach_picture_sub-asset'>
+            </div>
+  
           </div>
-
+        </div>
+      </div>
+    </div>
+    <div class='col-12'>
+      <div class='component_wrapper'>
+        <div class='form-group'>
+          <textarea class='form-control' placeholder='Description'></textarea>
         </div>
       </div>
     </div>
   </div>
-  <div class='col-12'>
-    <div class='component_wrapper'>
-      <div class='form-group'>
-        <textarea class='form-control' placeholder='Description'></textarea>
-      </div>
-    </div>
-  </div>
-</div>
+  
+</form>

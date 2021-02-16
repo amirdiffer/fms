@@ -42,4 +42,9 @@ export class ConfigurationSelectors {
     ConfigurationSelectors.featureSelector,
     (state) => state['periodicService']
   );
+
+  static assetConfigurationSelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['assetConfiguration']
+  );
 }

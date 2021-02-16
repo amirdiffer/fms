@@ -21,7 +21,8 @@
     "server": "node ./projects/server/server.js",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate && node .all-contributors-html.js",
-    "contributors:check": "all-contributors check"
+    "contributors:check": "all-contributors check",
+    "compodoc": "compodoc -p ./tsconfig.json"
   },
   "husky": {
     "hooks": {
@@ -79,6 +80,7 @@
     "@angular/language-service": "~10.2.3",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@compodoc/compodoc": "^1.1.11",
     "@types/jasmine": "~3.6.1",
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "^14.14.7",

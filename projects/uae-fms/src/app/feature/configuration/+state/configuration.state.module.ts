@@ -32,6 +32,11 @@ import {
   PeriodicServiceService
 } from '../+state/periodic-service';
 import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-service.effect';
+import {
+  AssetConfigurationFacade,
+  AssetConfigurationService
+} from '../+state/asset-configuration';
+import { AssetConfigurationEffect } from '../+state/asset-configuration/asset-configuration.effect';
 
 @NgModule({
   declarations: [],
@@ -45,7 +50,8 @@ import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-servi
       BusinessCategoryEffect,
       FleetStatusEffect,
       OwnershipEffect,
-      PeriodicServiceEffect
+      PeriodicServiceEffect,
+      AssetConfigurationEffect
     ])
   ],
   providers: [
@@ -64,7 +70,9 @@ import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-servi
     OwnershipFacade,
     OwnershipService,
     PeriodicServiceFacade,
-    PeriodicServiceService
+    PeriodicServiceService,
+    AssetConfigurationFacade,
+    AssetConfigurationService
   ]
 })
 export class ConfigurationStateModule {}
