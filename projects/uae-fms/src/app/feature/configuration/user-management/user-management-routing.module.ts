@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'company-setting', component: CompanySettingComponent },
   { path: 'role-permission', component: RolePermissionComponent },
   { path: 'add-role-permission', component: AddRoleAndPermissionComponent },
-  { path: 'add-user', component: AddUserComponent },
+  { path: 'users/add-user', component: AddUserComponent },
   {
     path: '',
     pathMatch: 'full',

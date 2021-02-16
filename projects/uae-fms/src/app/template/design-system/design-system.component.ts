@@ -1,5 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild
+} from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
 @Component({
   selector: 'anms-design-system',
   templateUrl: './design-system.component.html',
@@ -7,7 +13,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignSystemComponent implements OnInit {
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
+  isEditable: boolean = true;
+  isLinear: boolean = true;
+  @ViewChild('stepper') stepper: MatStepper;
+  controlStep: FormGroup;
   itemTypes = [
     { name: 'Item type 1', id: 1 },
     { name: 'Item type 2', id: 2 },
@@ -24,9 +34,10 @@ export class DesignSystemComponent implements OnInit {
     { name: 'Item No 234567894', gps: '489456141856' }
   ];
   filteredAsset: any[];
-  constructor() { }
+  constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.controlStep = this._fb.group({});
   }
 
   searchAsset(event) {
@@ -40,5 +51,4 @@ export class DesignSystemComponent implements OnInit {
     }
     this.filteredAsset = filtered;
   }
-
 }

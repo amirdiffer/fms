@@ -15,6 +15,10 @@ export class WorkshopSelectors {
     WorkshopSelectors.featureSelector,
     (state) => state['auctionList']
   );
+  static soldListSelector = createSelector(
+    WorkshopSelectors.featureSelector,
+    (state) => state['soldList']
+  );
   static taskMasterSelector = createSelector(
     WorkshopSelectors.featureSelector,
     (state) => state['taskMaster']
