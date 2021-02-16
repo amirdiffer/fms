@@ -3,8 +3,16 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './workshop.reducer';
 import { WORKSHOP_FEATURE_KEY } from './workshop.entity';
-import { BodyShopFacade, BodyShopService } from './body-shop';
-import { BodyShopEffect } from './body-shop/body-shop.effects';
+import { BodyShopRequestFacade, 
+        BodyShopRequestService,
+        BodyShopJobCardFacade,
+        BodyShopJobCardService,  
+        BodyShopTechnicianFacade,
+        BodyShopTechnicianService,
+        BodyShopLocationFacade,
+        BodyShopLocationService
+      } from './body-shop/index';
+import { BodyShopRequestEffect } from './body-shop/request/body-shop-request.effects';
 import {
   TechnicalInspectionFacade,
   TechnicalInspectionService
@@ -12,6 +20,9 @@ import {
 import { TechnicalInspectionEffect } from './technical-inspections/technical-inspections.effect';
 import { TaskMasterEffect } from './task-master/task-master.effects';
 import { TaskMasterService, TaskMasterFacade } from './task-master';
+import { BodyShopJobCardEffect } from './body-shop/job-card/body-shop-job-card.effect';
+import { BodyShopTechnicianEffect } from './body-shop/technician/body-shop-technician.effect';
+import { BodyShopLocationEffect } from './body-shop/location/body-shop-location.effect';
 import { AuctionListFacade, AuctionListService, SoldListFacade, SoldListService } from '@feature/workshop/+state/auction-list';
 import { AuctionListEffect } from '@feature/workshop/+state/auction-list/auction/auction-list.effects';
 import { SoldListEffects } from '@feature/workshop/+state/auction-list/sold/sold-list.effects';
@@ -20,7 +31,10 @@ import { SoldListEffects } from '@feature/workshop/+state/auction-list/sold/sold
   imports: [
     StoreModule.forFeature(WORKSHOP_FEATURE_KEY, reducers),
     EffectsModule.forFeature([
-      BodyShopEffect,
+      BodyShopRequestEffect,
+      BodyShopJobCardEffect,
+      BodyShopTechnicianEffect,
+      BodyShopLocationEffect,
       TechnicalInspectionEffect,
       AuctionListEffect,
       SoldListEffects,
@@ -30,8 +44,14 @@ import { SoldListEffects } from '@feature/workshop/+state/auction-list/sold/sold
   exports: [],
   declarations: [],
   providers: [
-    BodyShopFacade,
-    BodyShopService,
+    BodyShopRequestFacade,
+    BodyShopRequestService,
+    BodyShopJobCardFacade,
+    BodyShopJobCardService,
+    BodyShopTechnicianFacade,
+    BodyShopTechnicianService,
+    BodyShopLocationFacade,
+    BodyShopLocationService,
     TechnicalInspectionFacade,
     TechnicalInspectionService,
     AuctionListFacade,
