@@ -10,18 +10,16 @@ import { DashboardModule } from '@feature/dashboard/dashboard.module';
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PartStoreStateModule } from './+state/part-store.state.module';
+import { AssetTypeComponent } from './asset-type/asset-type.component';
+import { CategoryComponent } from './category/category.component';
 import { OrderListComponent } from './order-list/order-list.component';
+import { OrderFormComponent } from './order-list/order/order.component';
 import { PartListFormComponent } from './part-list/part-list-form.component';
 import { PartListComponent } from './part-list/part-list.component';
 import { AddPartMasterComponent } from './part-master/add-part-master/add-part-master.component';
-import { AssetTypeComponent } from './asset-type/asset-type.component';
-import { CategoryComponent } from './category/category.component';
 import { PartMasterComponent } from './part-master/part-master.component';
 import { PartOverviewComponent } from './part-overview/part-overview.component';
 import { PartStoreRoutingModule } from './part-store-routing.module';
-import { OrderFormComponent} from './order-list/order/order.component'
-import { PartStoreStateModule } from './+state/part-store.state.module';
-import { DashboardModule } from '@feature/dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
