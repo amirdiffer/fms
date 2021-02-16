@@ -66,6 +66,17 @@
       }
     }
 
+    &.no-bg {
+      background-color: white !important;
+      .form-section__field input {
+        background-color: white !important;
+      }
+    }
+
+    &.no-shadow {
+      box-shadow: none !important;
+    }
+
     .options-select {
       .p-dropdown {
         &:hover {

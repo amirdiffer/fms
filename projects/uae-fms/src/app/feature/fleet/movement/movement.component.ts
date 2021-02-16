@@ -19,6 +19,7 @@ import { MovementConfirmComponent } from './movement-confirm/movement-confirm.co
 })
 export class MovementComponent implements OnInit, AfterViewChecked {
   downloadBtn = 'assets/icons/download-solid.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   filterSetting;
   movementOverViewTableSetting;
   requestTableSetting;
