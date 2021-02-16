@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  FleetStatusAssetFacade,
+  FleetStatusSubAssetFacade
+} from '../+state/fleet-status';
 import { TableSetting } from '@core/table';
-import { FleetStatusFacade } from '../+state/fleet-status';
 
 @Component({
   selector: 'anms-fleet-status',
@@ -59,10 +62,13 @@ export class FleetStatusComponent implements OnInit {
     ]
   };
 
-
-  constructor(private facade: FleetStatusFacade) {}
+  constructor(
+    private fleetStatusAssetFacade: FleetStatusAssetFacade,
+    private fleetStatusSubAssetFacade: FleetStatusSubAssetFacade
+  ) {}
 
   ngOnInit(): void {
-    this.facade.loadAll();
+    this.fleetStatusAssetFacade.loadAll();
+    this.fleetStatusSubAssetFacade.loadAll();
   }
 }

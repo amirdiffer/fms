@@ -8,6 +8,13 @@ import { UsersFacade, UsersService } from './users';
 import { OwnershipFacade, OwnershipService } from './ownership';
 import { OwnershipEffect } from './ownership/ownership.effect';
 import { CONFIGURATION_FEATURE_KEY } from './configuration.entity';
+import {
+  FleetStatusAssetFacade,
+  FleetStatusAssetService,
+  FleetStatusSubAssetFacade,
+  FleetStatusSubAssetService
+} from './fleet-status';
+import { FleetStatusAssetEffect } from './fleet-status/asset/fleet-status-asset.effect';
 import { AssetPolicyEffect } from './asset-policy/asset/asset-policy.effect';
 import { SubAssetPolicyEffect } from './asset-policy/sub-asset/sub-asset-policy.effect';
 import {
@@ -16,8 +23,7 @@ import {
   SubAssetPolicyFacade,
   SubAssetPolicyService
 } from './asset-policy';
-import { FleetStatusFacade, FleetStatusService } from './fleet-status';
-import { FleetStatusEffect } from './fleet-status/fleet-status.effect';
+
 import { RolePermissionEffect } from './role-permission/role-permission.effect';
 import { RolePermissionFacade } from './role-permission/role-permission.facade';
 import { RolePermissionService } from './role-permission/role-permission.service';
@@ -32,6 +38,7 @@ import {
   PeriodicServiceService
 } from '../+state/periodic-service';
 import { PeriodicServiceEffect } from '../+state/periodic-service/periodic-service.effect';
+import { FleetStatusSubAssetEffect } from './fleet-status/sub-asset/fleet-status-sub-asset.effect';
 import {
   AssetConfigurationFacade,
   AssetConfigurationService
@@ -48,7 +55,8 @@ import { AssetConfigurationEffect } from '../+state/asset-configuration/asset-co
       SubAssetPolicyEffect,
       UsersEffect,
       BusinessCategoryEffect,
-      FleetStatusEffect,
+      FleetStatusAssetEffect,
+      FleetStatusSubAssetEffect,
       OwnershipEffect,
       PeriodicServiceEffect,
       AssetConfigurationEffect
@@ -65,8 +73,10 @@ import { AssetConfigurationEffect } from '../+state/asset-configuration/asset-co
     UsersService,
     BusinessCategoryService,
     BusinessCategoryFacade,
-    FleetStatusFacade,
-    FleetStatusService,
+    FleetStatusAssetFacade,
+    FleetStatusAssetService,
+    FleetStatusSubAssetFacade,
+    FleetStatusSubAssetService,
     OwnershipFacade,
     OwnershipService,
     PeriodicServiceFacade,
