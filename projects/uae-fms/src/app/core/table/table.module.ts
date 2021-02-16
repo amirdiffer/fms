@@ -23,6 +23,8 @@ import { TableAddButtonRendererComponent } from '@core/table/renderers/addButton
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MakeDecisionRendererComponent } from './renderers/makeDecision';
 import { JobCardRendererComponent } from './renderers/jobCard';
+import { TableRouteLinkRendererComponent } from './renderers/routeLink';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -30,7 +32,8 @@ import { JobCardRendererComponent } from './renderers/jobCard';
     CommonModule,
     SharedModule,
     MatProgressBarModule,
-    AngularSvgIconModule
+    AngularSvgIconModule,
+    RouterModule
   ],
   exports: [TableComponent],
   declarations: [
@@ -53,6 +56,7 @@ import { JobCardRendererComponent } from './renderers/jobCard';
     TableThumbTextRendererComponent,
     TableBooleanRendererComponent,
     TableExternalLinkRendererComponent,
+    TableRouteLinkRendererComponent,
     MakeDecisionRendererComponent,
     JobCardRendererComponent
   ],
