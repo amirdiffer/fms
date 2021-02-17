@@ -117,7 +117,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       items: [
         {
           name: 'User Management',
-          icon: 'organization',
+          icon: 'userManagement',
           route: '/configuration/user-management',
           items: [
             {
@@ -164,7 +164,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         },
         {
           name: 'Periodic Service',
-          icon: 'cogs-solid',
+          icon: 'periodic-service',
           route: '/configuration/periodic-service'
         }
       ]
