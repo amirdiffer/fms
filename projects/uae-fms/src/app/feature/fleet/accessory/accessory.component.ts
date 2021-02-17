@@ -17,6 +17,7 @@ import { AccessoryService } from './accessory.service';
 })
 export class AccessoryComponent implements OnInit , OnDestroy{
   downloadBtn= 'assets/icons/download-solid.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   openAdd;
   openAdd$: Subscription;
   filterCard: FilterCardSetting[] = [

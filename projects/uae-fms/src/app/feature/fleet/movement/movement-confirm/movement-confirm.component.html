@@ -1,7 +1,7 @@
 <h4 class="main-title">Assign 123456</h4>
 <!-- start form -->
 <form [formGroup]="confirmForm">
-    <div class="form-section">
+    <div class="form-section no-bg no-shadow">
         <h3 class="form-section__title">Asset Information</h3>
         <div class="row form-section__row">
             <!-- start asset -->
@@ -20,7 +20,8 @@
             <!-- end asset -->
         </div>
     </div>
-    <div class="form-section">
+  <hr>
+    <div class="form-section no-bg no-shadow">
         <h3 class="form-section__title">User Information</h3>
         <div class="row form-section__row">
             <!-- start department -->
@@ -52,18 +53,27 @@
             <!-- end comment -->
         </div>
     </div>
-
-    <div class="form-section">
+  <hr>
+    <div class="form-section no-bg no-shadow">
         <h3 class="form-section__title">Movement Information</h3>
         <!-- start movementType -->
         <div class="row form-section__row">
-            <div class="col-12 col-md-12 p-field form-section__field
-                radio-select">
-                <p-radioButton name="movementType" value="temporary"
-                    label="Temporary" formControlName="movementType"></p-radioButton>
-                <p-radioButton name="movementType" value="permanent"
-                    label="Permanent" formControlName="movementType"></p-radioButton>
+          <div class="col-12 col-md-12 mb-2 align-self-center">
+            <div class="row ml-1">
+              <div class="col-12 col-md-12">
+                <div class="row">
+                  <div class="form-check col-3">
+                    <input class="form-check-input" formControlName="movementType" type="radio" name="movementType" id="Temporary" value ="temporary">
+                    <label class="form-check-label" for="Temporary">Temporary</label>
+                  </div>
+                  <div class="form-check col-3">
+                    <input class="form-check-input" formControlName="movementType" type="radio" name="movementType" id="Permanent" value ="permanent">
+                    <label class="form-check-label" for="Permanent">Permanent</label>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
         <!-- end movementType -->
         <div class="row form-section__row">
@@ -122,19 +132,25 @@
         </div>
 
         <div class="row form-section__row">
-            <div class="col-12 col-md-2 p-field form-section__field
-                radio-select">
-                <h3 class="form-section__title justify">Fuel Cart</h3>
+          <div class="col-12 col-md-6 mb-2 align-self-center">
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <h3 class="form-section__title m-0">Fuel Cart</h3>
+              </div>
+              <div class="col-12 col-md-8">
+                <div class="row">
+                  <div class="form-check col-6">
+                    <input class="form-check-input" formControlName="fuelCart" type="radio" name="fuelCart" id="Yes" value ="true">
+                    <label class="form-check-label" for="Yes">Yes</label>
+                  </div>
+                  <div class="form-check col-6">
+                    <input class="form-check-input" formControlName="fuelCart" type="radio" name="fuelCart" id="No" value ="false">
+                    <label class="form-check-label" for="No">No</label>
+                  </div>
+                </div>
+              </div>
             </div>
-            <!-- start fuelCart -->
-            <div class="col-12 col-md-4 p-field form-section__field
-                radio-select">
-                <p-radioButton name="fuelCart" value="true"
-                    label="Yes" formControlName="fuelCart"></p-radioButton>
-                <p-radioButton name="fuelCart" value="false"
-                    label="No" formControlName="fuelCart"></p-radioButton>
-            </div>
-            <!-- end fuelCart -->
+          </div>
             <!-- start serialNumber -->
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
@@ -145,9 +161,9 @@
             </div>
             <!-- end serialNumber -->
         </div>
-        <div class="d-flex justify-content-end btn-container">
-            <button class="btn-cancel">CANCEL</button>
-            <button class="btn-primary-green">Save Assignment</button>
+        <div class="d-flex justify-content-end button-container">
+            <button class="btn-primary-medium btn-scondary-green">CANCEL</button>
+            <button class="btn-primary-medium add">Save Assignment</button>
         </div>
     </div>
 
