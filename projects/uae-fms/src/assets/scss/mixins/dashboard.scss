@@ -10,9 +10,9 @@
   $tableHeaderColor: #a0a0a0,
   $tableHeaderBorderColor: #c7cfd6,
   $tableHeaderBackground: #fff,
-  $tableHeaderFontSize: 0.8rem,
-  $tableCellFontSize: 0.8rem,
-  $headPadding: 16px
+  $tableHeaderFontSize: 1em,
+  $tableCellFontSize: 1em,
+  $headPadding: 1em
 ) {
   .dashboard-container {
     h6.card-header {
