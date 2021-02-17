@@ -15,6 +15,7 @@ export class TrafficFineComponent implements OnInit {
   assets = assetsPath;
   activeTab = 'Traffic Fine';
   downloadBtn = 'assets/icons/download-solid.svg';
+  searchIcon= 'assets/icons/search-solid.svg';
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'Total',
@@ -43,29 +44,29 @@ export class TrafficFineComponent implements OnInit {
   ];
   trafficFine_Table: TableSetting = {
     columns: [
-      { lable: 'TC Code', type: 1, field: 'TC_Code', width: 150 },
+      { lable: 'TC Code', type: 1, field: 'TC_Code', width: 100 },
       { lable: 'Type', type: 1, field: 'Type', width: 100 },
-      { lable: 'Department', type: 1, field: 'Department', width: 200 },
+      { lable: 'Department', type: 1, field: 'Department', width: 100 },
       {
         lable: 'Operator',
         type: 1,
         field: 'Operator',
         renderer: 'doubleLineRenderer',
-        width: 150
+        width: 100
       },
       { lable: 'Plate No', type: 1, field: 'Plate_No', width: 100 },
-      { lable: 'Mission Status', type: 1, field: 'Mission_Status' },
+      { lable: 'Mission Status', type: 1, field: 'Mission_Status',width: 100  },
       {
         lable: 'Time/Date',
         type: 1,
         field: 'Time_Date',
         renderer: 'doubleLineRenderer',
-        width: 150
+        width: 100
       },
-      { lable: 'Duration', type: 1, field: 'Duration' },
-      { lable: 'Status', type: 1, field: 'Status' },
-      { lable: 'User', type: 1, field: 'User' },
-      { lable: 'Amount', type: 1, field: 'Amount' }
+      { lable: 'Duration', type: 1, field: 'Duration' ,width: 100 },
+      { lable: 'Status', type: 1, field: 'Status',width: 100  },
+      { lable: 'User', type: 1, field: 'User',width: 100  },
+      { lable: 'Amount', type: 1, field: 'Amount',width: 100  }
     ],
     data: [
       {
@@ -201,30 +202,33 @@ export class TrafficFineComponent implements OnInit {
       {
         lable: 'Asset',
         type: 1,
-        field: 'Asset',
-        renderer: 'assetRenderer',
-        thumbField: 'assetPicture',
+        field: 'asset',
+        renderer: 'assetsRenderer',
+        thumbField: '',
         width: 200
       },
-      { lable: 'Plate Number', type: 1, field: 'Plate_Number' },
-      { lable: 'Type', type: 1, field: 'Type' },
+      { lable: 'Plate Number', type: 1, field: 'Plate_Number', width:100 },
+      { lable: 'Type', type: 1, field: 'Type', width:100 },
       {
         lable: 'Operator',
         type: 1,
         field: 'Operator',
-        renderer: 'doubleLineRenderer'
+        renderer: 'doubleLineRenderer',
+        width:100
       },
-      { lable: 'Status', type: 1, field: 'Status' },
-      { lable: 'Business Category', type: 1, field: 'Business_Category' },
-      { lable: 'Total Fines', type: 1, field: 'Total_Fines' },
-      { lable: 'Amount', type: 1, field: 'Amount' }
+      { lable: 'Status', type: 1, field: 'Status', width:100 },
+      { lable: 'Business Category', type: 1, field: 'Business_Category', width:100 },
+      { lable: 'Total Fines', type: 1, field: 'Total_Fines', width:100 },
+      { lable: 'Amount', type: 1, field: 'Amount', width:100 }
     ],
     data: [
       {
-        assetPicture: 'thumb1.png',
-        assetName: 'Asset Name',
-        assetInfo: 'DPD 0000001',
-        assetStatus: 'owned',
+        asset: {
+          img: 'thumb1.png',
+          assetName: 'Asset Name',
+          assetSubName: 'DPD 0000001',
+          ownership: 'Owned'
+        },
         thumbField: 'thumb1.png',
         Plate_Number: '12345678999',
         Type: 'Type Is Here',
@@ -235,10 +239,12 @@ export class TrafficFineComponent implements OnInit {
         Amount: '12345 AED'
       },
       {
-        assetPicture: 'thumb1.png',
-        assetName: 'Asset Name',
-        assetInfo: 'DPD 0000001',
-        assetStatus: 'owned',
+        asset: {
+          img: 'thumb1.png',
+          assetName: 'Asset Name',
+          assetSubName: 'DPD 0000001',
+          ownership: 'Owned'
+        },
         thumbField: 'thumb1.png',
         Plate_Number: '12345678999',
         Type: 'Type Is Here',
@@ -249,10 +255,12 @@ export class TrafficFineComponent implements OnInit {
         Amount: '12345 AED'
       },
       {
-        assetPicture: 'thumb1.png',
-        assetName: 'Asset Name',
-        assetInfo: 'DPD 0000001',
-        assetStatus: 'owned',
+        asset: {
+          img: 'thumb1.png',
+          assetName: 'Asset Name',
+          assetSubName: 'DPD 0000001',
+          ownership: 'Owned'
+        },
         thumbField: 'thumb1.png',
         Plate_Number: '12345678999',
         Type: 'Type Is Here',
@@ -263,10 +271,12 @@ export class TrafficFineComponent implements OnInit {
         Amount: '12345 AED'
       },
       {
-        assetPicture: 'thumb1.png',
-        assetName: 'Asset Name',
-        assetInfo: 'DPD 0000001',
-        assetStatus: 'owned',
+        asset: {
+          img: 'thumb1.png',
+          assetName: 'Asset Name',
+          assetSubName: 'DPD 0000001',
+          ownership: 'Owned'
+        },
         thumbField: 'thumb1.png',
         Plate_Number: '12345678999',
         Type: 'Type Is Here',
@@ -277,10 +287,12 @@ export class TrafficFineComponent implements OnInit {
         Amount: '12345 AED'
       },
       {
-        assetPicture: 'thumb1.png',
-        assetName: 'Asset Name',
-        assetInfo: 'DPD 0000001',
-        assetStatus: 'owned',
+        asset: {
+          img: 'thumb1.png',
+          assetName: 'Asset Name',
+          assetSubName: 'DPD 0000001',
+          ownership: 'Owned'
+        },
         thumbField: 'thumb1.png',
         Plate_Number: '12345678999',
         Type: 'Type Is Here',
@@ -291,10 +303,12 @@ export class TrafficFineComponent implements OnInit {
         Amount: '12345 AED'
       },
       {
-        assetPicture: 'thumb1.png',
-        assetName: 'Asset Name',
-        assetInfo: 'DPD 0000001',
-        assetStatus: 'owned',
+        asset: {
+          img: 'thumb1.png',
+          assetName: 'Asset Name',
+          assetSubName: 'DPD 0000001',
+          ownership: 'Owned'
+        },
         thumbField: 'thumb1.png',
         Plate_Number: '12345678999',
         Type: 'Type Is Here',
