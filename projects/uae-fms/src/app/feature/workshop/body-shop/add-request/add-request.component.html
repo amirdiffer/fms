@@ -8,12 +8,12 @@
         <ng-container *ngIf=" !inputForm.get('assetSearch').value.name">
             <div class="col-12 overflow-visible">
                 <div class="component_wrapper">
-                    <label class="caption">Asset Info</label>
+                    <h3 class="form-section__title">Asset Info</h3>
                     <div class="row mt-3">
                         <div class="col-6">
                             <div class="form-group p-field form-section__field">
                                 <div class="input-group">
-                                    <div class="autocomplete-select flex-75">
+                                    <div class="autocomplete-select w-100">
                                         <span class="p-float-label ">
                                             <p-autoComplete [suggestions]="filteredAsset" 
                                                             formControlName="assetSearch" 
@@ -22,10 +22,10 @@
                                                             (onSelect)="selectedAsset($event)" 
                                                             [class.invalid]="!inputForm.get('assetSearch').valid && submited"></p-autoComplete>
                                             <i class="pi pi-search"></i>
-                                            <label [class.red-font]=" inputForm.get('assetSearch').invalid && submited">Asset *</label>
+                                            <label>Asset *</label>
                                         </span>
                                     </div>
-                                    <small class="error-input" [class.d-none]=" inputForm.get('assetSearch').valid || !submited">Please search and choose an item from list</small>
+                                    <small class="red-font" [class.d-none]=" inputForm.get('assetSearch').valid || !submited">Please search and choose an item from list</small>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
         <ng-container *ngIf=" inputForm.get('assetSearch').value.name">
             <div class="col-12 " [formGroupName]="'assetInfo'">
                 <div class="component_wrapper">
-                    <label class="caption">Asset Info</label>
+                    <h3 class="form-section__title">Asset Info</h3>
                     <div class="row mt-3">
                         <div class="col-12 col-md-5">
                             <div class="form-group p-field form-section__field">
@@ -88,16 +88,14 @@
         <div class="col-12">
             <div class="component_wrapper">
                 <div class="row mt-3">
-                    <label class="col-2 caption">Reason</label>
+                    <h3 class="col-2 form-section__title">Reason</h3>
                     <div class="col-10">
                         <div class="row form-group align-items-center">
                             <div class="custom-control custom-switch col-3">
-                                <input type="checkbox" 
-                                        class="custom-control-input" id="customSwitch1" 
-                                        formControlName="reason"
-                                        >
-                                <label class="custom-control-label" for="customSwitch1"></label>
-                                <label class="custum-text" for="customSwitch1">Accident</label>
+                                <div class="toggle-select">
+                                    <p-inputSwitch formControlName="reason"></p-inputSwitch>
+                                    <label>Accident</label>
+                                </div>
                             </div>
                             <ng-container  *ngIf=" inputForm.get('reason').value == true ">
                                 <div class="form-check col-3">
@@ -121,7 +119,7 @@
         <div class="col-12">
             <div class="component_wrapper">
                 <div class="row mt-3">
-                    <label class="col-lg-3 caption">Job Type</label>
+                    <h3 class="col-3 form-section__title">Job Type</h3>
                     <div class="col-lg-9">
                         <div class="row form-group">
                             <div class="form-check col-lg-3">
@@ -157,34 +155,34 @@
         </div>
         <div class="col-12" [formGroupName]="'issueInfo'">
             <div class="component_wrapper">
-                <div class="caption">Issue Info</div>
+                <h3 class="form-section__title">Issue Info</h3>
                 <div class="row mt-3">
                     <div class="form-group col-lg-8 p-field form-section__field">
                         <span class="p-float-label">
-                            <input type="text" class="form-control" placeholder="Issue" 
+                            <input pInputText  type="text" class="form-control" placeholder="Issue" 
                                     formControlName="issue"
                                     [class.invalid]="!inputForm.get('issueInfo.issue').valid && submited">
-                            <label [class.red-font]=" inputForm.get('issueInfo.issue').invalid && submited">Issue *</label>
+                            <label>Issue *</label>
                         </span>
-                        <small class="error-input" [class.d-none]=" inputForm.get('issueInfo.issue').valid || !submited">Please fill Issue</small>
+                        <small class="red-font" [class.d-none]=" inputForm.get('issueInfo.issue').valid || !submited">Please fill Issue</small>
 
                     </div>
                     <div class="form-group col-lg-4 p-field form-section__field">
                         <span class="p-float-label">
-                            <input type="text" class="form-control" placeholder="Reported By" 
+                            <input pInputText type="text" class="form-control" placeholder="Reported By" 
                                     formControlName="repertedBy"
                                     [class.invalid]="!inputForm.get('issueInfo.repertedBy').valid && submited">
-                            <label [class.red-font]=" inputForm.get('issueInfo.repertedBy').invalid && submited">Reported By *</label>
+                            <label>Reported By *</label>
                         </span>
-                        <small class="error-input" [class.d-none]=" inputForm.get('issueInfo.repertedBy').valid || !submited">Please fill ReportedBy</small>
+                        <small class="red-font" [class.d-none]=" inputForm.get('issueInfo.repertedBy').valid || !submited">Please fill ReportedBy</small>
                     </div>
                     <div class="form-group col-lg-12 p-field form-section__field mt-3">
                         <span class="p-float-label">
-                            <input type="text" class="form-control" placeholder="Description " formControlName="description"
+                            <input pInputText type="text" class="form-control" placeholder="Description " formControlName="description"
                                     [class.invalid]="!inputForm.get('issueInfo.description').valid && submited">
-                            <label [class.red-font]=" inputForm.get('issueInfo.description').invalid && submited">Description *</label>
+                            <label>Description *</label>
                         </span>
-                        <small class="error-input" [class.d-none]=" inputForm.get('issueInfo.description').valid || !submited">Please fill Description</small>
+                        <small class="red-font" [class.d-none]=" inputForm.get('issueInfo.description').valid || !submited">Please fill Description</small>
                     </div>
                 </div>
             </div>
@@ -192,7 +190,7 @@
         <div class="col-12">
             <div class="component_wrapper">
                 <div class="row mt-3">
-                    <div class="caption col-lg-3">Priority</div>
+                    <h3 class="col-3 form-section__title">Priority</h3>
                     <div class="col-lg-9">
                         <div class="row form-group select-level">
                             <div class="col-lg-2">
@@ -230,25 +228,28 @@
         </div>
         <div class="col-12">
             <div class="component_wrapper">
-            <div class="caption">Attach Picture</div>
-            <div class="upload-box">
-                <div class="row">
-                <div class="col-12 d-flex justify-content-between file-name-size">
-                    <span>Nte1234567_Report.pdf</span>
-                    <span>00 MG</span>
+                <h3 class="form-section__title">Attach Picture</h3>
+                <div class="upload-box">
+                    <div class="row">
+                    <div class="col-12 d-flex justify-content-between file-name-size">
+                        <span>Nte1234567_Report.pdf</span>
+                        <span>00 MG</span>
+                    </div>
+                    <div class="col-lg-12 ">
+                        <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>                </div>
+                    <div class="col-lg-12 mt-2">
+                        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                <label (click)="openFileSelector()" style="cursor: pointer;">
+                                <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
+                                    [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                                    <small calss="drag-and-drop">Drag and drop a file or Click here</small>
+                                </label>
+                            </ng-template>
+                        </ngx-file-drop>
+                    </div>
+                    </div>
                 </div>
-                <div class="col-lg-12">
-                    <anms-progress-bar  color="#0000005E" maxValue="100" value="25"></anms-progress-bar>
-                </div>
-                <div class="col-lg-12">
-                    <label class="space-drop" for="attach_picture">
-                    <svg-icon src="../../../../../assets/icons/cloud-computing.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                    <div>Drag and Drop a file or click here</div>
-                    </label>
-                    <input type="file" hidden id="attach_picture">
-                </div>
-                </div>
-            </div>
             </div>
         </div>
     </div>  

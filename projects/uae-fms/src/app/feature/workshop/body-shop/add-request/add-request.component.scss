@@ -1,28 +1,11 @@
 @import '../../../../../assets/scss/form-section.scss';
 
-:host ::ng-deep {
-  .pi.pi-search {
-    top: 13px;
-    opacity: 0.6;
-  }
-}
 
 .overflow-visible{
   overflow: visible;
 }
 
 .component_wrapper {
-  box-shadow: 0px 0px 2px #0000003d;
-  border-radius: 4px;
-  overflow: visible;
-  .caption {
-    font-weight: bold;
-  }
-  div [class^='col-'] {
-    .form-control {
-      //margin: 6px;
-    }
-  }
   .select-level {
     input[type='radio'] {
       display: none;
@@ -32,50 +15,6 @@
       span {
         margin-left: 8px;
       }
-    }
-  }
-
-  .upload-box {
-    .file-name-size {
-      color: #0000005e;
-      font-size: 12px;
-    }
-    .space-drop {
-      display: block;
-      margin: 8px 0;
-      border: 2px dashed #0000005e;
-      text-align: center;
-      padding: 30px 0;
-      border-radius: 4px;
-      cursor: pointer;
-      div {
-        color: #0000005e;
-        font-size: 12px;
-      }
-    }
-  }
-
-
-
-  .border-input-append {
-    border: 1px solid #009c62;
-  }
-  .input-group-append {
-    z-index: 2;
-  }
-  .flex-75 {
-    flex: 0 0 75%;
-  }
-}
-
-.form-section__field {
-  .p-float-label input:read-only {
-    font-weight: bold;
-    ~ label {
-      top: -0.15rem;
-      left: 0.8rem;
-      width: auto;
-      padding: 0 5px;
     }
   }
 }

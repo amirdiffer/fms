@@ -5,13 +5,13 @@
   </div>
   <div class="row">
     <div class="col-12" [formGroupName]="'portalInfo'">
-      <div class="component_wrapper">
-        <label class="caption">Portal Info</label>
-        <div class="row">
+      <div class="component_wrapper form-section">
+        <h3 class="form-section__title">Portal Info</h3>
+        <div class="row pb-4">
           <div class="col-lg-5">
-            <div class="form-group p-field form-section__field">
+            <div class="m-0 p-field form-section__field">
               <div class="input-group">
-                  <div class="autocomplete-select flex-with-button">
+                  <div class="autocomplete-select w-100 ">
                       <span class="p-float-label ">
                           <p-autoComplete 
                                     [suggestions]="filteredEmployeNumb" 
@@ -29,7 +29,7 @@
                             </ng-template>
                           </p-autoComplete>
                           <i class="pi pi-search"></i>
-                          <label [class.red-font]=" inputForm.get('portalInfo.emplyeeNumber').invalid && submited">Employe Number *</label>
+                          <label >Employe Number *</label>
                       </span>
                   </div>
                   <anms-error
@@ -39,13 +39,13 @@
             </div>
           </div>
           <div class="col-lg-4">
-            <div class="form-group p-field form-section__field">
+            <div class="m-0 p-field form-section__field">
               <div class="input-group">
                   <span class="p-float-label w-100">
                     <input type="text" class="form-control" placeholder="Pay per Hours *" 
                           formControlName="payPerHours"
                           [class.invalid]="!inputForm.get('portalInfo.payPerHours').valid && submited">
-                    <label [class.red-font]=" inputForm.get('portalInfo.payPerHours').invalid && submited">Pay per Hours *</label>
+                    <label>Pay per Hours *</label>
                   </span>
               </div>              
               <anms-error
@@ -53,12 +53,13 @@
                       error="Please fill Pay per Hours"></anms-error>
           </div>
           </div>
-          <div class="col-lg-3">
-            <div class="row form-group">
-              <div class="custom-control custom-switch col-lg-12">
-                <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName="active">
-                <label class="custom-control-label" for="customSwitch1"></label>
-                <label class="custum-text" for="customSwitch1">Employee Status is Active</label>
+          <div class="col-lg-3 align-self-center">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="toggle-select">
+                  <p-inputSwitch formControlName="active"></p-inputSwitch>
+                  <label>Employee Status is Active</label>
+                </div>
               </div>
             </div>
           </div>
@@ -66,27 +67,22 @@
       </div>
     </div>
     <div class="col-12" [formGroupName]="'professional'">
-      <div class="component_wrapper">
-        <label class="caption">Professional Info</label>
+      <div class="component_wrapper form-section">
+        <h3 class="form-section__title">Professional Info</h3>
         <div class="row">
           <div class="col-lg-5 form-group">
             <div class="input-group d-flex w-100  flex-wrap" formArrayName="skills">
               <div class="p-field form-section__field  flex-with-button w-100 flex-85" *ngFor="let skill of inputForm.get('professional.skills')['controls']; let i=index">
-                <span class="p-float-label">
-                  <input type="text" class="form-control border" 
+                <span class="p-inputgroup p-float-label d-flex">
+                  <input type="text" pInputText class="form-control border" 
                           placeholder="Skill *" 
                           [formControlName]="i" 
                           [class.invalid]="!inputForm.get('professional.skills').valid && submited">
-                  <label [class.red-font]="!inputForm.get('professional.skills')['controls'][i].valid && submited">Skill *</label>
+                  <label>Skill *</label>
                 </span>
-                <small class="error-input" [class.d-none]=" inputForm.get('professional.skills')['controls'][i].valid || !submited">Please fill skill</small>
-
+                <small class="red-font" [class.d-none]=" inputForm.get('professional.skills')['controls'][i].valid || !submited">Please fill skill</small>
               </div>
-              <div class="input-group-append m-0"  (click)="addSkill()" [ngStyle]="{'cursor': 'pointer' , 'height':'40px'}">
-                <div class="input-group-text bg-transparent border-input-append">
-                  <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-                </div>
-              </div>
+              <span class="p-inputgroup-addon" (click)="addSkill()" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i class="pi pi-plus"></i></span>
             </div>
           </div>
           <div class="col-lg-5 form-group">
@@ -108,24 +104,20 @@
                         </ng-template>
                       </p-autoComplete>
                       <i class="pi pi-search"></i>
-                      <label [class.red-font]="!inputForm.get('professional.location')['controls'][i].valid && submited" >Location *</label>
+                      <label >Location *</label>
                   </span>
-                  <small class="error-input" [class.d-none]=" inputForm.get('professional.location')['controls'][i].valid || !submited">Please fill Location</small>
+                  <small class="red-font" [class.d-none]=" inputForm.get('professional.location')['controls'][i].valid || !submited">Please fill Location</small>
                 </div>
               </div>
-              <div class="input-group-append m-0" (click)="addLocation()">
-                <div class="input-group-text bg-transparent border-input-append" [ngStyle]="{'cursor': 'pointer' , 'height':'40px'}">
-                  <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-                </div>
-              </div>
+              <span class="p-inputgroup-addon" (click)="addLocation()" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i class="pi pi-plus"></i></span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-4">
-      <div class="component_wrapper">
-        <label class="caption">Upload Profile Picture</label>
+    <div class="col-lg-4 d-flex">
+      <div class="component_wrapper form-section">
+        <h3 class="form-section__title">Upload Profile Picture</h3>
         <div class="upload-box">
           <div class="row">
             <div class="col-12 d-flex justify-content-between file-name-size">
@@ -133,22 +125,26 @@
               <span>00 MG</span>
             </div>
             <div class="col-lg-12">
-              <anms-progress-bar  color="#0000005E" maxValue="100" value="25"></anms-progress-bar>
+              <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
             </div>
-            <div class="col-lg-12">
-              <label class="space-drop" for="attach_picture">
-                <svg-icon src="../../../../../assets/icons/camera-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                <div>Drag and Drop Picture here</div>
-              </label>
-              <input type="file" hidden id="attach_picture">
+            <div class="col-lg-12 mt-2">
+              <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                  <label (click)="openFileSelector()" style="cursor: pointer;">
+                    <svg-icon   class="camera-icon" src="../../../../../assets/icons/camera-solid.svg"
+                      [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                      <small calss="drag-and-drop">Drag and drop a file or Click here</small>
+                  </label>
+                </ng-template>
+              </ngx-file-drop>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-lg-8"  [formGroupName]="'pesonalInfo'">
-      <div class="component_wrapper">
-        <label class="caption">Personal Information</label>
+      <div class="component_wrapper form-section">
+        <h3 class="form-section__title">Personal Information</h3>
         <div class="row">
           <div class="col-lg-5">
             <div class="form-group form-group p-field form-section__field">
@@ -158,7 +154,7 @@
                             formControlName="firstName" 
                             placeholder="First Name *"
                             [class.invalid]="!inputForm.get('pesonalInfo.firstName').valid && submited">
-                    <label [class.red-font]="!inputForm.get('pesonalInfo.firstName').valid && submited">First Name *</label>
+                    <label>First Name *</label>
                 </span>
               </div>
               <anms-error
@@ -174,7 +170,7 @@
                           formControlName="lastName" 
                           placeholder="Last Name *"
                           [class.invalid]="!inputForm.get('pesonalInfo.lastName').valid && submited">
-                    <label [class.red-font]="!inputForm.get('pesonalInfo.lastName').valid && submited">Last Name *</label>
+                    <label >Last Name *</label>
                 </span>
               </div>
               <anms-error
@@ -191,15 +187,11 @@
                   <input type="text" class="form-control border" placeholder="Email *" 
                           [formControlName]="i"
                           [class.invalid]="!inputForm.get('pesonalInfo.email')['controls'][i].valid && submited">
-                  <label [class.red-font]="!inputForm.get('pesonalInfo.email')['controls'][i].valid && submited" >Email *</label>
+                  <label>Email *</label>
                 </span>
                 <small class="error-input" [class.d-none]=" inputForm.get('pesonalInfo.email')['controls'][i].valid || !submited">Please fill email</small>
               </div>
-              <div class="input-group-append m-0" (click)="addEmail()">
-                <div class="input-group-text bg-transparent border-input-append" [ngStyle]="{'cursor': 'pointer' , 'height':'40px'}">
-                  <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-                </div>
-              </div>
+              <span class="p-inputgroup-addon" (click)="addEmail()" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i class="pi pi-plus"></i></span>
             </div>
           </div>
           <div class="col-lg-5 form-group ">
@@ -209,22 +201,18 @@
                   <input type="text" class="form-control border" placeholder="Phone Number *" 
                         [formControlName]="i"
                         [class.invalid]="!inputForm.get('pesonalInfo.phoneNumber')['controls'][i].valid && submited">
-                  <label [class.red-font]="!inputForm.get('pesonalInfo.phoneNumber')['controls'][i].valid && submited">Phone Number *</label>
+                  <label >Phone Number *</label>
                 </span>
                 <small class="error-input" [class.d-none]=" inputForm.get('pesonalInfo.phoneNumber')['controls'][i].valid || !submited">Please fill phone number</small>
 
               </div>
-              <div class="input-group-append m-0" (click)="addPhoneNumber()">
-                <div class="input-group-text bg-transparent border-input-append"  [ngStyle]="{'cursor': 'pointer' , 'height':'40px'}">
-                  <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-                </div>
-              </div>
+              <span class="p-inputgroup-addon" (click)="addPhoneNumber()" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i class="pi pi-plus"></i></span>
             </div>
           </div>
         </div>
         <div class="row"  [formGroupName]="'notification'">
-          <div class="col-lg-3">
-            <div class="caption">Send Notification By</div>
+          <div class="col-lg-3 align-self-center">
+            <h3 class="form-section__title">Send Notification By</h3>
           </div>
           <div class="col-lg-2 form-group form-check">
             <input id="check-Call" type="checkbox" class="custom-checkbox" formControlName="call">
