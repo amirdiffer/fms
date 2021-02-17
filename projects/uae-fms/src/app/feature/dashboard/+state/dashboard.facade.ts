@@ -12,7 +12,13 @@ export class DashboardFacade {
 
   error$ = this.store.pipe(select(DashboardSelectors.error));
 
-  constructor(private store: Store<DashboardPartialState>) {}
+  suppliers$ = this.store.pipe(select(DashboardSelectors.suppliers));
+  assetStatus$ = this.store.pipe(select(DashboardSelectors.assetStatus));
+  activeAssets$ = this.store.pipe(select(DashboardSelectors.activeAssets));
+  factoryCategory$ = this.store.pipe(select(DashboardSelectors.factoryCategory));
+  businessCategory$ = this.store.pipe(select(DashboardSelectors.businessCategory));
+
+  constructor(private store: Store<DashboardPartialState>) { }
 
   loadAll() {
     this.store.dispatch(DashboardActions.loadAll());
