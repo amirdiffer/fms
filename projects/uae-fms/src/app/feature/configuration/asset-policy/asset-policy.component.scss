@@ -1,31 +1,6 @@
 @import '../../../../themes/green-theme.scss';
-$primary: map-get($anms-green-primary, 300);
 
-.card-table-header {
-  // direction: rtl;
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 15px;
-  position: absolute;
-  right: 20px;
-}
 .component_wrapper {
   position: relative;
-}
-
-@media all and (max-width: 1024px) {
-  .component_wrapper {
-    .card-table-header {
-      margin-top: -45px;
-    }
-    padding-top: 55px;
-  }
-}
-
-@media all and (max-width: 600px) {
-  .component_wrapper {
-    .card-table-header {
-      left: 20px;
-    }
-  }
+  //padding: 0;
 }
