@@ -745,6 +745,7 @@ mat-progress-bar {
 /* Tables */
 
 @include table(
+  $fms-green-body2-bg,
   $fms-green-body-color,
   $fms-green-body1-bg,
   $fms-green-body-color,

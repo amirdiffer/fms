@@ -1,14 +1,33 @@
-@mixin table($tableHeadColor, $tableHeadBg, $tableCellColor, $tableCellBg) {
+@mixin table(
+  $tableBg,
+  $tableHeadColor,
+  $tableHeadBg,
+  $tableCellColor,
+  $tableCellBg
+) {
   .table-container {
-    background-color: $fms-green-body2-bg;
+    position: relative;
+    background-color: $tableBg;
     padding: 15px 0 0 0 !important;
     margin: 16px 0 20px 0;
+
+    .tabs {
+      padding-top: 15px;
+    }
 
     .card-table-header {
       padding-right: 15px;
       display: flex;
       justify-content: flex-end;
       margin-bottom: 15px;
+
+      &--fluid {
+        position: absolute;
+        right: 15px;
+        top: 17px;
+        padding-right: 0;
+        padding-bottom: 0;
+      }
     }
 
     p-table {
