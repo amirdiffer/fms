@@ -70,10 +70,14 @@ export class AssetsStatusComponent implements OnInit {
         fontSize: "16px",
         position: "bottom",
         labels: {
-          useSeriesColors: true
+          useSeriesColors: true,
+        },
+        markers: {
+          width: 8,
+          height: 8,
+
         },
         itemMargin: {
-          // horizontal: 3
           horizontal: 10
         }
       },
