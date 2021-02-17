@@ -14,5 +14,6 @@ export const reducers = {
   [FLEET_CUSTOMIZATION_FEATURE_KEY]: customizationReducer.reducer,
   [FLEET_REGISTRATION_FEATURE_KEY]: registrationReducer.reducer,
   [FLEET_MOVEMENT_OVERVIEW_FEATURE_KEY]: movementOverviewReducer.reducer,
-  [FLEET_MOVEMENT_REQUESTS_FEATURE_KEY]: movementRequestsReducer.reducer
+  [FLEET_MOVEMENT_REQUESTS_FEATURE_KEY]: movementRequestsReducer.reducer,
+  [FLEET_REGISTRATION_FEATURE_KEY]: registrationReducer.reducer
 };

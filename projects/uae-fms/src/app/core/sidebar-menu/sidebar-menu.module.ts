@@ -22,5 +22,5 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
   providers: [SidebarMenuFacade]
 })
 export class SidebarMenuModule {
-  constructor() {}
+  constructor() { }
 }

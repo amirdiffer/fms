@@ -25,8 +25,8 @@ export class AddRequestComponent implements OnInit {
     { name: 'Old asset type 5', id: 5 },
     { name: 'Old asset type 6', id: 6 }
   ];
-  constructor(private _fb: FormBuilder) { }
- 
+  constructor(private _fb: FormBuilder) {}
+
   ngOnInit(): void {
     this.requestForm = this._fb.group({
       requestType: ['new'],
@@ -47,5 +47,4 @@ export class AddRequestComponent implements OnInit {
       { name: 'Old asset type 6', id: 6 }
     ];
   }
-
 }

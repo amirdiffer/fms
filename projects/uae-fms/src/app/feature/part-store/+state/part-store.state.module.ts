@@ -11,11 +11,20 @@ import { PartListFacade } from './part-list/part-list.facade';
 import { PartListEffect } from './part-list/part-list.effects';
 import { PartListService } from './part-list/part-list.service';
 import { PartMasterService } from './part-master/part-master.service';
-import { MyOrderFacade, MyOrderService } from '@feature/part-store/+state/order-list/my-order';
+import {
+  MyOrderFacade,
+  MyOrderService
+} from '@feature/part-store/+state/order-list/my-order';
 import { MyOrderEffects } from '@feature/part-store/+state/order-list/my-order/my-order.effects';
-import { RequestListFacade, RequestListService } from '@feature/part-store/+state/order-list/request-list';
+import {
+  RequestListFacade,
+  RequestListService
+} from '@feature/part-store/+state/order-list/request-list';
 import { RequestListEffect } from '@feature/part-store/+state/order-list/request-list/request-list.effects';
-import { SuppliersFacade, SuppliersService } from '@feature/part-store/+state/order-list/suppliers';
+import {
+  SuppliersFacade,
+  SuppliersService
+} from '@feature/part-store/+state/order-list/suppliers';
 import { SuppliersEffects } from '@feature/part-store/+state/order-list/suppliers/suppliers.effects';
 
 @NgModule({

@@ -4,7 +4,6 @@ import { BodyShopLocationActions } from './body-shop-location.actions';
 import { IBodyShopLocationPartialState } from './body-shop-location.entity';
 import { BodyShopLocationSelectors } from './body-shop-location.selectors';
 
-
 @Injectable()
 export class BodyShopLocationFacade {
   bodyShop$ = this.store.pipe(select(BodyShopLocationSelectors.selectAll));

@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IBodyShopTechnicianStateModel } from './body-shop-technician.entity';
 
-
 export class BodyShopTechnicianActions {
   static loadAll = createAction('[bodyShopTechnician] load all data');
 

@@ -18,7 +18,8 @@ export interface BodyshopRequestStateModel {
   action: string;
 }
 
-export interface BodyShopRequestState extends EntityState<BodyshopRequestStateModel> {
+export interface BodyShopRequestState
+  extends EntityState<BodyshopRequestStateModel> {
   error?: any;
   loaded: boolean;
   message: string;
@@ -29,11 +30,13 @@ export interface BodyshopRequestPartialState {
 }
 
 export const bodyShopRequestAdapter: EntityAdapter<BodyshopRequestStateModel> = createEntityAdapter<
-BodyshopRequestStateModel
+  BodyshopRequestStateModel
 >();
 
-export const initialState: BodyShopRequestState = bodyShopRequestAdapter.getInitialState({
-  loaded: null,
-  message: null,
-  error: null
-} as BodyShopRequestState);
+export const initialState: BodyShopRequestState = bodyShopRequestAdapter.getInitialState(
+  {
+    loaded: null,
+    message: null,
+    error: null
+  } as BodyShopRequestState
+);
