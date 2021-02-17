@@ -32,3 +32,22 @@
     margin-top: 25px !important;
   }
 }
+
+.card.parent {
+  height: 45px;
+  margin: 20px 20px 20px 0px;
+}
+mat-card {
+  box-shadow: 0px 0px 2px #0000003d !important;
+  mat-card-title {
+    font-weight: bold;
+  }
+  span.border {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    border: none !important;
+    background: #e9ecef;
+    height: 1px;
+  }
+}
