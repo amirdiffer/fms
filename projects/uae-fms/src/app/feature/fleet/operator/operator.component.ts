@@ -11,7 +11,7 @@ import { TableSetting } from '@core/table';
 })
 export class OperatorComponent implements OnInit {
   assets = assetsPath;
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'Total',

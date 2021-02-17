@@ -1,9 +1,9 @@
 @import '../../../../../assets/scss/form-section.scss';
 
-:host ::ng-deep{
-  .pi.pi-search{
+:host ::ng-deep {
+  .pi.pi-search {
     top: 13px;
-    opacity: .6;
+    opacity: 0.6;
   }
   .p-calendar {
     width: 100%;
@@ -37,7 +37,7 @@
   }
 }
 .component_wrapper {
-  box-shadow: 0px 0px 2px #0000003D;
+  box-shadow: 0px 0px 2px #0000003d;
   border-radius: 4px;
   overflow: visible;
   .caption {
@@ -156,15 +156,16 @@
   .border-input-append {
     border: 1px solid #009c62;
   }
-  .flex-with-button{
-    flex:1 0 85%;
+  .flex-with-button {
+    flex: 1 0 85%;
     overflow: visible;
   }
 }
 
-.employe-item , .locations-item{
+.employe-item,
+.locations-item {
   display: flex;
-  > div{
+  > div {
     margin: 0 5px;
   }
 }

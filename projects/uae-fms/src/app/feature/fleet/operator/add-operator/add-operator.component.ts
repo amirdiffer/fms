@@ -7,7 +7,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddOperatorComponent implements OnInit {
-
   assetTypes = [
     { name: 'Employee 1', id: 1 },
     { name: 'Employee 2', id: 2 },

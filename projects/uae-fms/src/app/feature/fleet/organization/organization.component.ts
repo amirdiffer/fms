@@ -8,7 +8,7 @@ import { TableSetting } from '@core/table';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrganizationComponent implements OnInit {
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
   organization_Table: TableSetting = {
     columns: [
       {
