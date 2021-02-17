@@ -39,12 +39,6 @@ import { environment } from '../../../../environments/environment';
       }
       .ownership-badge {
         background: #fcb614 0% 0% no-repeat padding-box;
-        max-width: 4.3em;
-        border: radius;
-        border-radius: 4px;
-        color: #fff;
-        text-align: center;
-        font-size: 75%;
       }
       .progress-container {
         position: relative;

@@ -1,18 +1,16 @@
-<div class="table-container">
-    <div class="card-table">
-        <div class="card-table-header">
-            <div class="search-box">
-                <input type="text" placeholder="Search in Columns">
-                <button>
-                    <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
-                </button>
-            </div>
-            <button class="btn-download" disabled>
-                <svg-icon [src]="downloadBtn"></svg-icon>
-            </button>
-            <button class="btn-primary-small" [routerLink]="['add']" CheckAccess="task-master:create"><i>+</i><a>Add</a></button>
-        </div>
-        <app-table [setting]="tableSetting"></app-table>
+<div class="table-container component_wrapper">
+  <div class="search-container card-table-header">
+    <div class="search-box">
+      <input type="text" placeholder="Search in Columns">
+      <button>
+        <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
+      </button>
     </div>
+    <button class="btn-download" disabled>
+      <svg-icon [src]="downloadBtn"></svg-icon>
+    </button>
+    <button class="btn-primary-small" [routerLink]="['add']" CheckAccess="task-master:create"><i>+</i><a>Add</a></button>
+  </div>
+  <app-table [setting]="tableSetting"></app-table>
 </div>
 
