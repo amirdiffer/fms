@@ -6,12 +6,12 @@ import { Observable, Subject } from 'rxjs';
 })
 export class IntegrationService {
   private _addIntegration$ = new Subject<boolean>();
-  constructor() { }
+  constructor() {}
 
-  public loadInegrationForm(open:boolean){
-    this._addIntegration$.next(open)
+  public loadInegrationForm(open: boolean) {
+    this._addIntegration$.next(open);
   }
-  public getIntegrationForm():Observable<boolean>{
+  public getIntegrationForm(): Observable<boolean> {
     return this._addIntegration$.asObservable();
   }
 }

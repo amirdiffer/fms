@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { FLEET_FEATURE_KEY } from '@feature/fleet/+state/fleet.entity';
+import { FLEET_FEATURE_KEY } from './fleet.entity';
 
 export class FleetSelectors {
   static featureSelector = createFeatureSelector(FLEET_FEATURE_KEY);
@@ -17,5 +17,14 @@ export class FleetSelectors {
   static registrationSelector = createSelector(
     FleetSelectors.featureSelector,
     (state) => state['registration']
+  );
+
+  static movementOverviewSelector = createSelector(
+    FleetSelectors.featureSelector,
+    (state) => state['movementOverview']
+  );
+  static movementRequestsSelector = createSelector(
+    FleetSelectors.featureSelector,
+    (state) => state['movementRequests']
   );
 }

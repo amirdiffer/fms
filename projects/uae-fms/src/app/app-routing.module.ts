@@ -97,7 +97,7 @@ const routes: Routes = [
     component: MainTemplateComponent
   },
   {
-    path:'design-system',
+    path: 'design-system',
     component: DesignSystemComponent
   },
   {

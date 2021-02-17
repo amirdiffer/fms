@@ -9,18 +9,17 @@ h4.main-title {
   margin-top: 10px;
 }
 
-.btn-container {
-  .btn-primary-green {
-    background-color: #009e64;
-    border: 2px solid #0da06e;
-    border-radius: 4px;
-    width: 155px;
-    height: 45px;
+.button-container {
+  position: initial;
+  .add {
+    width: fit-content !important;
   }
-  .btn-cancel {
-    color: #009e64;
-    border: none;
-    background: transparent;
-    margin-right: 16px;
+  .cancel {
+    border: none !important;
   }
+}
+
+.form-section hr {
+  height: 1px;
+  background-color: #707070;
 }

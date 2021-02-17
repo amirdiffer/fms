@@ -13,7 +13,9 @@ export class FuelCardsEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => FuelCardsActions.fuelCardLoaded({ data })),
-          catchError((error) => of(FuelCardsActions.fuelCardError({ reason: error })))
+          catchError((error) =>
+            of(FuelCardsActions.fuelCardError({ reason: error }))
+          )
         )
       )
     )
