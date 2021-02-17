@@ -10,6 +10,10 @@ import {
   FLEET_REGISTRATION_FEATURE_KEY,
   IRegistrationState
 } from '@feature/fleet/+state/assets/registration/registration.entity';
+import {
+  FLEET_MOVEMENT_OVERVIEW_FEATURE_KEY,
+  MovementOverviewState
+} from './movement/overview/movement-overview.entity';
 
 export const FLEET_FEATURE_KEY = 'fleet';
 
@@ -20,5 +24,9 @@ export interface State {
 }
 
 export interface WorkshopPartialState {
+  readonly [FLEET_MOVEMENT_OVERVIEW_FEATURE_KEY]: MovementOverviewState;
+}
+
+export interface MovementOverviewPartialState {
   readonly [FLEET_FEATURE_KEY]: State;
 }
