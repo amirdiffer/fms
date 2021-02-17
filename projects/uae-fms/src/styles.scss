@@ -757,6 +757,40 @@ p-table {
   .table-container {
     background-color: $fms-green-body2-bg;
     margin: 16px 0 20px 0;
+
+    .p-datatable .p-datatable-thead > tr > th {
+      background-color: $fms-green-body1-bg;
+      color: $fms-green-body-color;
+    }
+
+    .p-datatable .p-datatable-tbody > tr > td {
+      background-color: $fms-green-body2-bg;
+      color: $fms-green-body-color;
+    }
+  }
+  .p-datatable .p-datatable-thead > tr > th {
+    background: none;
+  }
+  .tabs .tab-body {
+    padding: 0 !important;
+  }
+  .tab.ng-star-inserted {
+    font-weight: normal;
+  }
+  .tab.ng-star-inserted.active-tab {
+    font-weight: bold;
+  }
+  .card.parent {
+    height: 45px;
+    margin: 20px 20px 20px 0px;
+  }
+  .ownership-badge {
+    max-width: 7em;
+    border-radius: 4px;
+    color: #fff;
+    text-align: center;
+    font-size: 80%;
+    padding:1px 5px;
   }
 }
 
