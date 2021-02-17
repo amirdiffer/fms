@@ -769,12 +769,12 @@ p-table {
     margin: 20px 20px 20px 0px;
   }
   .ownership-badge {
+    max-width: 7em;
     border-radius: 4px;
     color: #fff;
     text-align: center;
     font-size: 80%;
-    background: #fcb614 0% 0% no-repeat padding-box;
-    max-width: 4.3em;
+    padding:1px 5px;
   }
 }
 
