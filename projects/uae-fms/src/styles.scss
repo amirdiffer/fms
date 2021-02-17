@@ -22,6 +22,7 @@
 @import './app/template/main-template/main-template.component.scss-theme';
 
 @import './assets/scss/mixins/form-section';
+@import './assets/scss/mixins/dashboard';
 @import './assets/scss/mixins/table';
 @import './assets/scss/fonts.scss';
 
@@ -87,6 +88,8 @@
     $fms-green-page-tab-active-font-weight,
     $fms-green-page-tab-active-font-size $fms-green-page-tab-active-color
   );
+
+  @include dashboard();
 
   // .search-container {
   //   height: 48px !important;

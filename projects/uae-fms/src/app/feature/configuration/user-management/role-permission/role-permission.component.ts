@@ -9,7 +9,7 @@ import { RolePermissionFacade } from '../../+state/role-permission';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RolePermissionComponent implements OnInit {
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
 
   accessory_Table: TableSetting = {
     columns: [

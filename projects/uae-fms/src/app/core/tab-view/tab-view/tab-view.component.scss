@@ -31,17 +31,16 @@
       margin-bottom: 0px;
       border-radius: 5px 5px 0px 0px;
     }
-    
   }
-  @media only screen and ( max-width : 1600px){
+  @media only screen and (max-width: 1600px) {
     .tab-titles {
       font-size: 13px;
     }
-  @media only screen and ( max-width : 1366px){
-    .tab-titles {
-      font-size: 11px;
+    @media only screen and (max-width: 1366px) {
+      .tab-titles {
+        font-size: 11px;
+      }
     }
-  }
   }
   .tab-body {
     background-color: #f4f4f4;
@@ -49,6 +48,4 @@
     margin-top: 0px;
     padding: 0px;
   }
-
-
 }

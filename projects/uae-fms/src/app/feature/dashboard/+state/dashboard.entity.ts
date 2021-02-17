@@ -1,13 +1,12 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Action, createReducer } from '@ngrx/store';
+import { Dashboard } from "@models/dashboard";
 
 export const Dashboard_FEATURE_KEY = 'dashboard';
 
-export interface DashboardState {
+export interface DashboardState extends Dashboard {
   error?: any;
   loaded: boolean;
   message: string;
-  dashboard: object;
 }
 
 export interface DashboardPartialState {
@@ -21,6 +20,5 @@ export const dashboardAdapter: EntityAdapter<DashboardState> = createEntityAdapt
 export const initialState: DashboardState = dashboardAdapter.getInitialState({
   loaded: null,
   message: null,
-  error: null,
-  dashboard: null
+  error: null
 } as DashboardState);
