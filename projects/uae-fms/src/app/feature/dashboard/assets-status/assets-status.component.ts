@@ -8,7 +8,7 @@ import {
   ApexNonAxisChartSeries,
   ApexPlotOptions,
   ApexChart,
-  ChartComponent
+  ChartComponent, ApexLegend
 } from 'ng-apexcharts';
 
 export type ChartOptions = {
@@ -17,6 +17,7 @@ export type ChartOptions = {
   labels: string[];
   colors: string[];
   plotOptions: ApexPlotOptions;
+  legend: ApexLegend;
 };
 
 @Component({
@@ -61,6 +62,19 @@ export class AssetsStatusComponent implements OnInit {
               }
             }
           }
+        }
+      },
+      legend: {
+        show: true,
+        floating: false,
+        fontSize: "16px",
+        position: "bottom",
+        labels: {
+          useSeriesColors: true
+        },
+        itemMargin: {
+          // horizontal: 3
+          horizontal: 10
         }
       },
       labels: ['Active', 'Defleet', 'Reused', 'Total Lost'],
