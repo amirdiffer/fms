@@ -1,9 +1,0 @@
-@import '../../../../themes/green-theme.scss';
-$primary: map-get($anms-green-primary, 300);
-
-.card-table-header {
-  // direction: rtl;
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 15px;
-}
