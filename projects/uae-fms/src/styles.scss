@@ -801,7 +801,14 @@ p-table {
   $fms-green-body-color,
   $fms-green-body2-bg
 );
-
+.ownership-badge {
+  border-radius: 4px;
+  color: #fff;
+  text-align: center;
+  font-size: 80%;
+  background: #fcb614 0% 0% no-repeat padding-box;
+  max-width: 4.3em;
+}
 /* drag and drop file*/
 ngx-file-drop {
   .ngx-file-drop__drop-zone {
