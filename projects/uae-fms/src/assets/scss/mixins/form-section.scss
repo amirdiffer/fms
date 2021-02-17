@@ -17,6 +17,7 @@
   $form-input-toggle
 ) {
   .form-section {
+    margin: 10px 0 !important;
     background-color: $body2-bg !important;
     &__field {
       .addon-primary {

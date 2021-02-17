@@ -14,7 +14,7 @@ export class DashboardSelectors {
 
   static selectAll = createSelector(
     DashboardSelectors.featureSelector,
-    (state) => state.dashboard
+    (state) => state
   );
 
   static message = createSelector(
@@ -25,5 +25,30 @@ export class DashboardSelectors {
   static error = createSelector(
     DashboardSelectors.featureSelector,
     (state) => state.error
+  );
+
+  static activeAssets = createSelector(
+    DashboardSelectors.featureSelector,
+    (state) => state.activeAssets
+  );
+
+  static assetStatus = createSelector(
+    DashboardSelectors.featureSelector,
+    (state) => state.assetStatus
+  );
+
+  static businessCategory = createSelector(
+    DashboardSelectors.featureSelector,
+    (state) => state.businessCategory
+  );
+
+  static factoryCategory = createSelector(
+    DashboardSelectors.featureSelector,
+    (state) => state.factoryCategory
+  );
+
+  static suppliers = createSelector(
+    DashboardSelectors.featureSelector,
+    (state) => state.suppliers
   );
 }

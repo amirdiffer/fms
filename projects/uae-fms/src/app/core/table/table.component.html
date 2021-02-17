@@ -24,7 +24,14 @@
       <tr (mouseover)='rowIsHover(i)' [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')">
         <td *ngFor="let col of setting.columns" (click)="click(col,data)"
           [attr.style]="col.textColor?'color:'+col.textColor+';':''">
-          <div *ngIf="!col.renderer" [innerHtml]="getCol(col,data)"></div>
+          <div *ngIf="!col.renderer">
+            <div class="d-flex">
+              <span class="p-column-title">{{col.lable}}</span>
+              <span class="column-data">
+                {{ this.getCol(col,data) }}
+              </span>
+            </div>
+          </div>
           <div *ngIf="col.renderer=='userRenderer'">
             <table-user-renderer [user]="data"></table-user-renderer>
           </div>

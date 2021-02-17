@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DashboardState } from './dashboard.entity';
+import { Dashboard } from '@models/dashboard';
 
 @Injectable()
 export class DashboardService {
   constructor(private http: HttpClient) {}
 
-  loadAll(): Observable<DashboardState> {
-    return this.http.get<DashboardState>('');
+  loadAll(): Observable<Dashboard> {
+    return this.http.get<Dashboard>('');
   }
 }
