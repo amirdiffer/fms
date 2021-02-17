@@ -1,13 +1,12 @@
 <h6 class="card-header">
     {{ 'dashboard.asset_status' | translate }}
 </h6>
-<div class="w-100"  #chartContainer>
-    <div class="status-chart" id="chart">
-        <apx-chart
-        [series]="chartOptions.series"
-        [chart]="chartOptions.chart"
-        [plotOptions]="chartOptions.plotOptions"
-        [colors]="chartOptions.colors"
-        [labels]="chartOptions.labels"></apx-chart>
-    </div>
+<div class="status-chart" id="chart">
+    <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [plotOptions]="chartOptions.plotOptions"
+    [colors]="chartOptions.colors"
+    [legend]="chartOptions.legend"
+    [labels]="chartOptions.labels"></apx-chart>
 </div>
