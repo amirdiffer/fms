@@ -1,52 +1,57 @@
 <div class="statistic-card">
   <app-filter [setting]='filterCard'></app-filter>
 </div>
-<div class="component_wrapper">
-  <div class="card-table-header">
-    <div class="year-filter mb-2">
-      <div class="input-group">
-        <input type="text" class="form-control shadow-none" placeholder="Year">
-        <div class="input-group-append">
-          <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-          </div>
+<div class="form-section">
+  <div class="row form-section__row">
+    <div class="p-field form-section__field options-select year-filter">
+      <span>
+        <p-dropdown inputId="year" [autoDisplayFirst]="true"
+          [options]="years"
+          optionLabel="name"></p-dropdown>
+      </span>
+    </div>
+    <div class="p-field form-section__field options-select make-filter">
+      <span >
+        <p-dropdown inputId="make" [autoDisplayFirst]="true"
+          [options]="makes"
+          optionLabel="name"></p-dropdown>
+      </span>
+    </div>
+    <div class="p-field form-section__field options-select model-filter">
+      <span >
+        <p-dropdown inputId="model" [autoDisplayFirst]="true"
+          [options]="models"
+          optionLabel="name"></p-dropdown>
+      </span>
+    </div>
+    <div class="p-field form-section__field search-filter">
+      <span class="p-float-label">
+        <div class="p-inputgroup">
+          <span class="p-float-label">
+            <input type="text" pInputText
+              placeholder="Search">
+            <label>Search</label>
+          </span>
+          <span class="p-inputgroup-addon search-btn addon-primary">
+            Go
+          </span>
         </div>
-      </div>
+      </span>
+
     </div>
-    <div class="make-filter mb-2">
-      <div class="input-group ">
-        <input type="text" class="form-control shadow-none" placeholder="Make">
-        <div class="input-group-append">
-          <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-          </div>
-        </div>
-      </div>
+    <div class="p-field form-section__field">
+      <div class="card-table-header">
+        <span class="search-container">
+            <button class="btn-download" disabled>
+                <svg-icon [src]="downloadBtn"></svg-icon>
+            </button>
+            <button class="btn-primary-small" [routerLink]="'./add'"><i>+</i><a>Add</a></button>
+        </span>
     </div>
-    <div class="model-filter mb-2">
-      <div class="input-group ">
-        <input type="text" class="form-control shadow-none" placeholder="Model">
-        <div class="input-group-append">
-          <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="search-box mb-2">
-      <input type="text" placeholder="Search...">
-      <button>Go</button>
-    </div>
-    <div class="download-add-Button mb-2">
-      <button class="btn-download" disabled>
-        <svg-icon [src]="downloadBtn"></svg-icon>
-      </button>
-      <button [routerLink]="['add']" class="btn-primary-small"><i>+</i><a>Add</a></button>
     </div>
   </div>
+</div>
+<div>
   <div class="table-wreapper">
     <app-table [setting]='partList_Table'></app-table>
   </div>
