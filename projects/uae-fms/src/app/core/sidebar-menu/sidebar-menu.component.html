@@ -1,34 +1,40 @@
-<div style="display: none;" (window:resize)="onResize($event)"></div>
 <div *ngIf="(show$|async)==true">
-    <div class='menu menu-wrapper' [class.closed-menu-wrapper]="!(opened$|async)">
-      <ul class="container" *ngIf="(type$|async)==1||(type$|async)==2">
+  <div class='menu menu-wrapper' [class.closed-menu-wrapper]="!(opened$|async)">
+    <ul class="container">
 
-        <ng-container *ngFor="let item of usingMenu">
-          <li class="menuItem margin-transition" [ngClass]="{'active': activeMenuCheck(item?.route), 'has-child': item.items}" [routerLink]="item.route" (click)="toggleGroup(item);">
-            <svg-icon [src]="assets + 'icons/' + item.icon + '.svg'" [svgStyle]="{ 'fill': activeGroup == item.name ? '#0DA06E' : '#1F1F1F', 'width.px': !(opened$|async)  ? '28' : '24', 'height.px': !(opened$|async)  ? '28' : '24' }"></svg-icon>
-            <span class="menu-item-name" *ngIf="item.name && (showLabel$|async)">{{item.name}}</span>
-            <ul class='sub-menuItem' *ngIf='item.items'>
+      <ng-container *ngFor="let item of usingMenu">
+        <li class="menuItem margin-transition"
+          [class]="(item?.items?'has-child ':'') + (activeMenuCheck(item?.route)?'active-menu':'')"
+          (click)="toggleGroup(item)" [routerLink]="item.route">
+          <svg-icon [src]="assets + 'icons/' + item.icon + '.svg'"
+            [svgStyle]="{ 'fill': activeMenuCheck(item?.route) ? '#0DA06E' : '#1F1F1F', 'width.px': '24', 'height.px': !(opened$|async)  ? '28' : '24' }">
+          </svg-icon>
+          <span [class]="'menu-item-name'">{{item.name}}</span>
+          <ul [class]="'sub-menuItem '+(activeSubMenuCheck(item.route)?'':'hidden')">
+            <ng-container *ngFor="let subItem of item.items">
+              <li class="menuItem margin-transition {{activeSubMenuCheck(subItem.route)?'active_submenu':'not-active'}}"
+                [routerLink]="subItem.route" (click)="$event.stopPropagation()" [routerLink]="subItem.route">
+                <svg-icon [src]="assets + 'icons/' + subItem.icon + '.svg'"
+                  [svgStyle]="{ 'fill': activeSubMenuCheck(subItem.route)?'#0DA06E':'rgb(126 126 126)', 'width.px':'20', 'height.px':'20' }"></svg-icon>
+                <span class="menu-item-name">{{subItem.name}}</span>
+                <ul [class]="'sub-menuItem-child '+(activeSubMenuCheck(subItem.route)?'':'hidden')">
 
-              <ng-container *ngFor="let subItem of item.items">
-                <li class="menuItem margin-transition {{activeSubMenuCheck(subItem.route)?'active':''}}" [routerLink]="subItem.route" (click)="$event.stopPropagation()">
-                  <svg-icon [src]="assets + 'icons/' + subItem.icon + '.svg'" [svgStyle]="{ 'fill': 'rgb(126 126 126)', 'width.px':'20', 'height.px':'20' }"></svg-icon>
-                  <span class="menu-item-name" *ngIf="subItem.name && (showLabel$|async)">{{subItem.name}}</span>
-                  <ul class='sub-menuItem-child' *ngIf='subItem.items'>
+                  <ng-container *ngFor="let subItemChild of subItem.items">
+                    <li
+                      class="menuItem margin-transition {{activeSubMenuCheck(subItemChild.route)?'active-child':'not-active'}}"
+                      (click)="$event.stopPropagation()" [routerLink]="subItemChild.route">
+                      <span class="menu-item-name">{{subItemChild.name}}</span>
+                    </li>
+                  </ng-container>
 
-                    <ng-container  *ngFor="let subItemChild of subItem.items">
-                      <li class="menuItem margin-transition {{activeSubMenuCheck(subItemChild.route)?'active':''}}" (click)="$event.stopPropagation()" [routerLink]="subItemChild.route">
-                        <span class="menu-item-name" *ngIf="subItemChild.name && (showLabel$|async)">{{subItemChild.name}}</span>
-                      </li>
-                    </ng-container>
+                </ul>
+              </li>
+            </ng-container>
 
-                  </ul>
-                </li>
-              </ng-container>
+          </ul>
+        </li>
+      </ng-container>
 
-            </ul>
-          </li>
-        </ng-container>
-
-      </ul>
-    </div>
+    </ul>
+  </div>
 </div>

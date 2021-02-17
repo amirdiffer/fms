@@ -608,9 +608,18 @@ form {
 /* SideBar Menu */
 .wrapper {
   app-sidebar-manu {
-    font-size: 16px;
+    font-size: 0.8em;
+    font-weight: 600;
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
     .menu-wrapper {
-      width: 20em;
+      max-height: 90vh;
+      overflow: hidden;
+      overflow-y: scroll;
+      width: 300px;
+
       .container {
         padding: 1.1em;
         .sub-menuItem {
