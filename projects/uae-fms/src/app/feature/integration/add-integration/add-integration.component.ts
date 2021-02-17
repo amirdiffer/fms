@@ -10,18 +10,20 @@ import { IntegrationService } from '../integration.service';
 })
 export class AddIntegrationComponent implements OnInit {
   public inputForm: FormGroup;
-  constructor(private _fb: FormBuilder, private _integrationservice: IntegrationService) { }
+  constructor(
+    private _fb: FormBuilder,
+    private _integrationservice: IntegrationService
+  ) {}
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      type:[''],
-      companyName:[''],
-      grp:['']
-    })
+      type: [''],
+      companyName: [''],
+      grp: ['']
+    });
   }
 
-  cancel(){
-    this._integrationservice.loadInegrationForm(false)
+  cancel() {
+    this._integrationservice.loadInegrationForm(false);
   }
-
 }

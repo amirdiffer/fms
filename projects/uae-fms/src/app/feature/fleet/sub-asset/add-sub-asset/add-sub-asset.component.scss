@@ -1,6 +1,16 @@
 @import '../../../../../themes/green-theme.scss';
 @import '../../../../../assets/scss/form-section.scss';
 
+input[type='radio']:checked {
+  background-color: #0da06e;
+  border: 1px solid #0da06e;
+  transform: scale(1.5);
+}
+
+label {
+  margin: 0 5px;
+  cursor: pointer;
+}
 .upload-box {
   .file-name-size {
     color: #0000005e;

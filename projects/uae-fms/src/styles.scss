@@ -22,6 +22,8 @@
 @import './app/template/main-template/main-template.component.scss-theme';
 
 @import './assets/scss/mixins/form-section';
+@import './assets/scss/mixins/dashboard';
+@import './assets/scss/mixins/table';
 @import './assets/scss/fonts.scss';
 
 @mixin elementTypography(
@@ -48,7 +50,7 @@
     box-shadow: 0px 0px 2px #0000003d;
     border-radius: 4px;
     overflow: visible;
-    padding: 1em;
+    padding:1em 0;
     margin: 1em 0 1em;
     background-color: #fff;
   }
@@ -86,6 +88,8 @@
     $fms-green-page-tab-active-font-weight,
     $fms-green-page-tab-active-font-size $fms-green-page-tab-active-color
   );
+
+  @include dashboard();
 
   // .search-container {
   //   height: 48px !important;
@@ -607,9 +611,18 @@ form {
 /* SideBar Menu */
 .wrapper {
   app-sidebar-manu {
-    font-size: 16px;
+    font-size: 0.8em;
+    font-weight: 600;
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
     .menu-wrapper {
-      width: 20em;
+      max-height: 90vh;
+      overflow: hidden;
+      overflow-y: scroll;
+      width: 300px;
+
       .container {
         padding: 1.1em;
         .sub-menuItem {
@@ -737,6 +750,9 @@ p-table {
   .card-table-header {
     padding-right: 24px;
   }
+  .p-datatable .p-datatable-thead{
+    background-color: #f4f4f4 !important;
+  }
 
   .table-container {
     background-color: $fms-green-body2-bg;
@@ -778,21 +794,33 @@ p-table {
   }
 }
 
+@include table(
+  $fms-green-body2-bg,
+  $fms-green-body-color,
+  $fms-green-body1-bg,
+  $fms-green-body-color,
+  $fms-green-body2-bg
+);
+
 /* drag and drop file*/
 ngx-file-drop {
   .ngx-file-drop__drop-zone {
-    border: 2px dashed #0000005e !important;
+    border: .12em dashed #0000005e !important;
     border-radius: 4px !important;
-    height: 70px !important;
+    height: 70px;
   }
   .ngx-file-drop__content {
     color: #0000005e !important;
-    font-size: 17px;
+    font-size: 1.2em;
     height: 100% !important;
   }
   .drop-icon {
     display: block;
     text-align: center;
+  }
+  .camera-icon{
+    display: inline-block;
+    margin-right: 8px;
   }
 }
 

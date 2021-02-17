@@ -19,7 +19,7 @@ const dashboardReducer = createReducer(
     ...state,
     loaded: true,
     error: null,
-    dashboard: data.dashboard
+    ...data
   })),
   on(DashboardActions.error, (state, { reason }) => ({
     ...state,

@@ -31,6 +31,7 @@ import { AddOperatorComponent } from '@feature/fleet/operator/add-operator/add-o
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { MatStepperModule } from '@angular/material/stepper';
 import { AddRequestComponent } from './movement/add-request/add-request.component';
+import { FleetStateModule } from './+state';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AddRequestComponent } from './movement/add-request/add-request.componen
     DashboardModule,
     MatStepperModule,
     CdkStepperModule,
-    SharedModule
+    SharedModule,
+    FleetStateModule
   ]
 })
 export class FleetModule {}
