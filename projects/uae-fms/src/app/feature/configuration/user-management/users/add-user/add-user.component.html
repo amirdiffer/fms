@@ -1,4 +1,4 @@
-<div>
+
   <form [formGroup]='form'>
     <div class="button-container">
       <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">Cancel</button>
@@ -67,15 +67,18 @@
               <label class='progress_bar_label'>file.pdf</label>
               <label class='progress_bar_label'>00 MB</label>
             </div>
-            <mat-progress-bar mode='determinate' value='40'></mat-progress-bar>
+            <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
           </div>
-          <div class='d-flex p-5 mt-2 drop_file_box mb-3'
-            (click)='fileUpload.click()'>
-            <input [hidden]='true' type='file' #fileUpload id='fileUpload'
-              name='fileUpload' />
-            <img src='../../../../../../assets/icons/camera.svg' alt='camera'
-              width='25'>
-            <p class='m-0 ml-2 progress_bar_label'>Drag and Drop Picture here</p>
+          <div class="mt-3">
+            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+              <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                <label (click)="openFileSelector()" style="cursor: pointer;">
+                  <svg-icon   class="camera-icon" src='../../../../../../assets/icons/camera.svg'
+                    [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                    <small calss="drag-and-drop">Drag and drop a file or Click here</small>
+                </label>
+              </ng-template>
+            </ngx-file-drop>
           </div>
         </div>
       </div>
@@ -155,20 +158,23 @@
             </div>
           <div class="col-12 col-md-8">
             <div class="row">
-              <div class="col-12 col-md-12 p-field form-section__field
-                checkbox-select">
-                <p-checkbox name="sendNotification"
-                  formControlName="callCheckbox"
-                  value="call" label="Call"></p-checkbox>
-                <p-checkbox name="sendNotification"
-                  formControlName="smsCheckbox"
-                  value="sms" label="SMS"></p-checkbox>
-                <p-checkbox name="sendNotification"
-                  formControlName="emailCheckbox"
-                  value="email" label="Email"></p-checkbox>
-                <p-checkbox name="sendNotification"
-                  formControlName="whatsappCheckbox"
-                  value="whatsapp" label="Whatsapp"></p-checkbox>
+              <div class="col-12 col-md-12 row">
+                <div class="form-group form-check col-3">
+                  <input id="callCheckbox" type="checkbox" value="call" class="custom-checkbox" name="sendNotification" formControlName="callCheckbox">
+                  <label for="callCheckbox">Call</label>
+                </div>
+                <div class="form-group form-check col-3">
+                  <input id="smsCheckbox" type="checkbox" value="sms" class="custom-checkbox" name="sendNotification" formControlName="smsCheckbox">
+                  <label for="smsCheckbox">SMS</label>
+                </div>
+                <div class="form-group form-check col-3">
+                  <input id="emailCheckbox" type="checkbox" value="email" class="custom-checkbox" name="sendNotification" formControlName="emailCheckbox">
+                  <label for="emailCheckbox">Email</label>
+                </div>
+                <div class="form-group form-check col-3">
+                  <input id="whatsappCheckbox" type="checkbox" value="whatsapp" class="custom-checkbox" name="sendNotification" formControlName="whatsappCheckbox">
+                  <label for="whatsappCheckbox">Whatsapp</label>
+                </div>
               </div>
             </div>
           </div>
@@ -179,4 +185,4 @@
 
     </div>
   </form>
-</div>
+

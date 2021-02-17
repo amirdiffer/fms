@@ -741,19 +741,15 @@ p-table {
   .table-container {
     background-color: $fms-green-body2-bg;
     margin: 16px 0 20px 0;
-
-    .p-datatable .p-datatable-thead > tr > th {
-      background-color: $fms-green-body1-bg;
-      color: $fms-green-body-color;
-    }
-
-    .p-datatable .p-datatable-tbody > tr > td {
-      background-color: $fms-green-body2-bg;
-      color: $fms-green-body-color;
-    }
   }
   .p-datatable .p-datatable-thead > tr > th {
-    background: none;
+    background-color: $fms-green-body1-bg;
+    color: $fms-green-body-color;
+  }
+
+  .p-datatable .p-datatable-tbody > tr > td {
+    background-color: $fms-green-body2-bg;
+    color: $fms-green-body-color;
   }
   .tabs .tab-body {
     padding: 0 !important;

@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   template: `
     <div>
       <a [href]="link" target="_blank">
-        <svg-icon [src]="externalLink" class="icon24px"></svg-icon>
+        <svg-icon [src]="externalLink" class="icon24px" [svgStyle]="{ 'fill': '#0da06e' }"></svg-icon>
       </a>
     </div>
   `,
@@ -14,7 +14,6 @@ import { Component, Input, OnInit } from '@angular/core';
       .icon24px {
         width: 24px;
         height: 24px;
-        color: #0da06e;
       }
     `
   ]
