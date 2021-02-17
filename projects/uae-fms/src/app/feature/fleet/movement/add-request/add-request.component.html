@@ -4,30 +4,31 @@
         <button class="btn-primary-medium add" type="submit" >Add</button>
     </div>
     <div class="form-section form-section--inline">
-        <div class="row">
-            <div class="col-12 col-md-2">
-                <h3 class="form-section__title">Request Type</h3>
-            </div>
-            <div class="col-12 col-md-4">
-                <div class="row">
-                    <!-- start requestType -->
-                    <div class="col-12 col-md-12 p-field form-section__field
-                        radio-select">
-                        <p-radioButton name="requestType" value="new"
-                            label="New" formControlName="requestType"></p-radioButton>
-                        <p-radioButton name="requestType"
-                            value="replacement"
-                            label="Replacement"
-                            formControlName="requestType"></p-radioButton>
-                    </div>
-                    <!-- end requestType -->
+        <div class="row form-section__row">
+            <div class="col-12 col-md-6 mb-2 align-self-center">
+              <div class="row">
+                <div class="col-12 col-md-4">
+                  <h3 class="form-section__title m-0">Request Type</h3>
                 </div>
+                <div class="col-12 col-md-8 row">
+                  <div class="form-check col-6">
+                    <input class="form-check-input" formControlName="requestType" type="radio" name="requestType" id="New" value ="new">
+                    <label class="form-check-label" for="New">New</label>
+                  </div>
+                  <div class="form-check col-6">
+                    <input class="form-check-input" formControlName="requestType" type="radio" name="requestType" id="Replacement" value ="replacement">
+                    <label class="form-check-label" for="Replacement">Replacement</label>
+                  </div>
+                </div>
+              </div>
             </div>
             <!-- start assetType -->
-            <div class="col-12 col-md-6 p-field form-section__field
-                dropdown-select">
+            <div class="col-12 col-md-6 p-field form-section__field options-select">
+              <span class="p-float-label">
                 <p-dropdown formControlName="assetType"
-                    [options]="assetTypes" optionLabel="name"></p-dropdown>
+                            [options]="assetTypes" optionLabel="name"></p-dropdown>
+                <label>Asset Type * </label>
+              </span>
             </div>
             <!-- end assetType -->
         </div>

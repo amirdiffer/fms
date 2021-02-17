@@ -60,3 +60,34 @@
 .sort {
   transform: rotate(180deg);
 }
+
+//  handling responsive
+:host ::ng-deep {
+  .p-datatable-tbody > tr > td .p-column-title {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 40rem) {
+  :host ::ng-deep {
+    .p-datatable {
+      .p-datatable-thead > tr > th,
+      .p-datatable-tfoot > tr > td {
+        display: none !important;
+      }
+
+      .p-datatable-tbody > tr > td {
+        display: block;
+
+        .p-column-title {
+          flex: 1;
+          display: inline-flex;
+        }
+
+        &:last-child {
+          border-bottom: 1px solid var(--surface-d);
+        }
+      }
+    }
+  }
+}

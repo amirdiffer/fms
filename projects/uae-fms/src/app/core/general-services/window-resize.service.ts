@@ -3,16 +3,15 @@ import { fromEvent, Observable, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class WindowResizeService {
-
   private resize$ = fromEvent(window, 'resize');
 
   private resize = new Subject<ResizeEvent>();
   resized$: Observable<ResizeEvent> = this.resize.asObservable();
 
   constructor() {
-    this.resize$.subscribe(x => {
-      this.resized(x.target["innerWidth"], x.target["innerHeight"]);
-    })
+    this.resize$.subscribe((x) => {
+      this.resized(x.target['innerWidth'], x.target['innerHeight']);
+    });
   }
 
   private resized(innerWidth: number, innerHeight: number) {
@@ -20,7 +19,7 @@ export class WindowResizeService {
   }
 
   public getCurrent(): ResizeEvent {
-    return { innerWidth: window.innerWidth, innerHeight: window.innerHeight }
+    return { innerWidth: window.innerWidth, innerHeight: window.innerHeight };
   }
 }
 

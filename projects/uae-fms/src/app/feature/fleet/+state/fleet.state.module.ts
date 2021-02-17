@@ -15,6 +15,12 @@ import {
   RegistrationFacade,
   RegistrationService
 } from '@feature/fleet/+state/assets/registration';
+import {
+  MovementOverviewFacade,
+  MovementOverviewService,
+  MovementRequestsFacade,
+  MovementRequestsService
+} from './movement';
 
 @NgModule({
   imports: [
@@ -23,7 +29,8 @@ import {
       AssetMasterEffects,
       CustomizationEffects,
       RegistrationEffects
-    ])
+    ]),
+    EffectsModule.forFeature([MovementOverviewFacade, MovementRequestsFacade])
   ],
   exports: [],
   declarations: [],
@@ -33,7 +40,11 @@ import {
     CustomizationFacade,
     CustomizationService,
     RegistrationFacade,
-    RegistrationService
+    RegistrationService,
+    MovementOverviewFacade,
+    MovementOverviewService,
+    MovementRequestsFacade,
+    MovementRequestsService
   ]
 })
 export class FleetStateModule {}

@@ -13,7 +13,9 @@ export class AssetUsageEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => AssetUsageActions.assetUsageLoaded({ data })),
-          catchError((error) => of(AssetUsageActions.assetUsageError({ reason: error })))
+          catchError((error) =>
+            of(AssetUsageActions.assetUsageError({ reason: error }))
+          )
         )
       )
     )

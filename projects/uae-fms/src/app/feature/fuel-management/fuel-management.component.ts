@@ -30,19 +30,19 @@ export class FuelManagementComponent implements OnInit {
       filterTitle: 'Total',
       filterTagColor: '#B892FF',
       filterCount: '2456',
-      onActive(index: number): void { }
+      onActive(index: number): void {}
     },
     {
       filterTitle: 'Available',
       filterTagColor: '#EF7A85',
       filterCount: '356',
-      onActive(index: number): void { }
+      onActive(index: number): void {}
     },
     {
       filterTitle: 'Assigned',
       filterTagColor: '#709775',
       filterCount: '124',
-      onActive(index: number): void { }
+      onActive(index: number): void {}
     }
   ];
 
@@ -264,7 +264,11 @@ export class FuelManagementComponent implements OnInit {
     data: this.assetUsageTableData
   };
 
-  constructor(private _facadeFuelCard: FuelCardsFacade, private _facadeAssetUsage: AssetUsageFacade, private _router: Router) { }
+  constructor(
+    private _facadeFuelCard: FuelCardsFacade,
+    private _facadeAssetUsage: AssetUsageFacade,
+    private _router: Router
+  ) {}
 
   selectedTab;
   ngOnInit(): void {
@@ -272,7 +276,7 @@ export class FuelManagementComponent implements OnInit {
     this._facadeAssetUsage.loadAll();
   }
   addClicked(e: Event) {
-    console.log(this._router.navigate(['add-fuel-card']))
+    console.log(this._router.navigate(['add-fuel-card']));
 
     switch (this.selectedTab) {
       case 'Fuel Cards':
