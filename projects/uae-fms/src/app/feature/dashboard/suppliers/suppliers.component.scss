@@ -7,7 +7,12 @@
   overflow: hidden;
   width: 100%;
   position: relative;
-  height: 90px;
+  height: 5.5em;
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  // overflow-x: scroll;
+  // overflow-y: hidden;
 }
 .suppliers-tabs {
   display: grid;
@@ -19,18 +24,21 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    width: 190px;
+    width: 11em;
     background-color: #f4f4f4;
     p {
-      font-size: 19px;
+      font-size: 1.2em;
       margin-left: 8px;
       color: #d3d3d3;
+    }
+    img{
+      width: 3.5em;
     }
   }
   .active-tab {
     border: 1px solid #008755;
     border-radius: 4px;
-    padding: 23px 50px;
+    padding: 1.4em 3.2em;
     p {
       color: #008755;
     }
@@ -43,11 +51,11 @@
   position: relative;
   overflow: visible;
   .logo {
-    height: 40px;
-    width: 40px;
+    height: 2.5em;
+    width: 2.5em;
     flex: 0 0 10%;
     img {
-      width: 40px;
+      width: 100%;
       height: auto;
     }
   }
@@ -56,12 +64,12 @@
     margin-left: 15px;
 
     p {
-      font-size: 18px;
+      font-size: 1.2em;
       color: #727e8c;
     }
   }
   small {
-    font-size: 13px;
+    font-size: .8em;
     color: #828d99;
   }
 }
@@ -71,19 +79,19 @@ anms-progress-bar {
 }
 
 // Responsive
-@media only screen and (max-width: 1366px) {
-  .chart-row {
-    .logo img {
-      width: 30px;
-    }
-    .title {
-      margin-left: 5px;
-      p {
-        font-size: 15px;
-      }
-      small {
-        font-size: 11px;
-      }
-    }
-  }
-}
+// @media only screen and (max-width: 1366px) {
+//   .chart-row {
+//     .logo img {
+//       width: 30px;
+//     }
+//     .title {
+//       margin-left: 5px;
+//       p {
+//         font-size: 15px;
+//       }
+//       small {
+//         font-size: 11px;
+//       }
+//     }
+//   }
+// }

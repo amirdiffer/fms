@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  ViewChild
+  ViewChild,
+  ElementRef
 } from '@angular/core';
 import {
   ApexNonAxisChartSeries,
@@ -27,16 +28,26 @@ export type ChartOptions = {
 })
 export class AssetsStatusComponent implements OnInit {
   @ViewChild('chart') chart: ChartComponent;
+  @ViewChild('chartContainer') chartContainer: ElementRef;
   public chartOptions: Partial<ChartOptions>;
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.chart);
+    console.log(this.chartContainer);
     this.chartOptions = {
       series: [44, 55, 67, 83],
       chart: {
-        height: 390,
-        type: 'radialBar'
+        height: 303,
+        type: 'radialBar',
+        width:'100%',
+        toolbar:{
+          tools:{
+            zoom:true,
+            reset:true,
+            zoomin: true,
+            zoomout: true,
+          }
+        }
       },
       plotOptions: {
         radialBar: {

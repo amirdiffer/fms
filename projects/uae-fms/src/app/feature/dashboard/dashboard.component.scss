@@ -2,6 +2,7 @@
   h6.card-header {
     padding: 16px;
     border: none;
+    font-size:1.2em !important;
   }
 
   .category {
@@ -55,7 +56,6 @@
   margin-top: 2rem;
 }
 .dashboard-container {
-  margin-right: 50px;
   padding-bottom: 50px;
 }
 
@@ -63,13 +63,13 @@
   display: flex !important;
   justify-content: space-between;
   .assets-status {
-    flex: 0 0 29%;
+    flex: 0 0 30%;
   }
   .active-assets {
-    flex: 0 0 44%;
+    flex: 0 0 40%;
   }
   .suppliers {
-    flex: 0 0 24%;
+    flex: 0 0 28%;
   }
   .dashboard-card {
     border-radius: 6px;
