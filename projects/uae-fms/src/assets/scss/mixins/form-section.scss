@@ -17,6 +17,7 @@
   $form-input-toggle
 ) {
   .form-section {
+    margin: 10px 0 !important;
     background-color: $body2-bg !important;
     &__field {
       .addon-primary {
@@ -64,6 +65,17 @@
       .p-float-label .p-inputwrapper-focus ~ label {
         background: $body2-bg !important;
       }
+    }
+
+    &.no-bg {
+      background-color: white !important;
+      .form-section__field input {
+        background-color: white !important;
+      }
+    }
+
+    &.no-shadow {
+      box-shadow: none !important;
     }
 
     .options-select {

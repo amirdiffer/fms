@@ -26,9 +26,9 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
 
   urlGroup = [];
 
-  public activeGroup: string = 'root';
+  public activeGroup: string = '';
   toggleGroup(item: MenuItem): void {
-    // if (item.)
+   this.activeGroup == item.name || this.activeGroup == '' ? this.activeGroup = 'root' : this.activeGroup = item.name;
   }
 
   usingMenu = [];
@@ -230,7 +230,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     if (route[0] == '/') {
       r = route.substring(1, route.length);
     }
-    return this.urlGroup.indexOf(r) >= 0;
+    return this.urlGroup.indexOf(r) >= 0 && this.activeGroup != 'root';
   }
 
   activeSubMenuCheck(route: string) {
@@ -239,7 +239,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       r = route.split('/');
       r = r[r.length - 1];
     }
-    return this.urlGroup.indexOf(r) >= 0;
+    return this.urlGroup.indexOf(r) >= 0 && this.activeGroup != 'root';
   }
 }
 

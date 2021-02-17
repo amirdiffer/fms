@@ -1,18 +1,6 @@
 @import '../../../../themes/green-theme.scss';
-$primary: map-get($anms-green-primary, 300);
+@import '../../../../assets/scss/form-section.scss';
 
-.card-table-header {
-  // direction: rtl;
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 15px;
-}
-.info {
-  background-color: #ffffff;
-  box-shadow: 0 0 2px #00000029;
-  border-radius: 2px;
-  padding-top: 80px;
-}
 
 @media all and (max-width: 600px) {
   .actionButtons {
