@@ -8,7 +8,7 @@
   border-radius: 5px;
   &__title {
     color: #333;
-    font-size: 0.9em;
+    font-size: 1em;
     margin-bottom: 25px;
   }
 
@@ -52,7 +52,8 @@
       border-color: #0da06e !important;
     }
     p-dropdown ~ label,
-    p-autocomplete ~ label {
+    p-autocomplete ~ label,
+    p-calendar ~ label {
       height: 50%;
       width: max-content;
       background: #fff;
@@ -64,7 +65,7 @@
 
       & ~ label {
         height: 50%;
-        width: 94%;
+        width: 75%;
         background: #fff;
       }
 
@@ -234,6 +235,7 @@
       position: absolute;
       top: 10px;
       right: 10px;
+      opacity: .5;
     }
     .p-inputtext:enabled:focus {
       box-shadow: none;
@@ -295,6 +297,16 @@ p-dropdown.invalid {
 p-autocomplete.invalid {
   ::ng-deep {
     .p-autocomplete-input {
+      border-color: #dd5648 !important;
+    }
+  }
+  & ~ label {
+    color: #dd5648 !important;
+  }
+}
+p-calendar.invalid {
+  ::ng-deep {
+    .p-calendar input {
       border-color: #dd5648 !important;
     }
   }

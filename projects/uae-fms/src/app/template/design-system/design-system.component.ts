@@ -23,6 +23,7 @@ export class DesignSystemComponent implements OnInit {
   isLinear: boolean = true;
   progressBarValue = 50;
   bufferValue = 70;
+  calenderIcon = 'assets/icons/calendar-alt-regular.svg'
   public filesUpdloaded: NgxFileDropEntry[] = [];
   @ViewChild('stepper') stepper: MatStepper;
   controlStep: FormGroup;
