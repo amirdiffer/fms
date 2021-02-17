@@ -6,21 +6,26 @@
     <!-- form-section form-section--inline-->
     <div class="form-section form-section--inline mt-3">
         <div class="row">
-            <div class="col-12 col-md-2">
-                <h3 class="form-section__title">This Policy Is For</h3>
-            </div>
 
-            <div class="col-12 col-md-4">
+          <div class="col-12 col-md-6 mb-2 align-self-center">
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <h3 class="form-section__title m-0">This Policy Is For</h3>
+              </div>
+              <div class="col-12 col-md-8">
                 <div class="row">
-                    <div class="col-12 col-md-12 p-field form-section__field
-                        radio-select">
-                        <p-radioButton name="policyType" formControlName="policyType"
-                            value="asset" label="Asset"></p-radioButton>
-                        <p-radioButton name="policyType" formControlName="policyType"
-                            value="subAsset" label="Sub Asset"></p-radioButton>
-                    </div>
+                  <div class="form-check col-6">
+                    <input class="form-check-input" formControlName="policyType" type="radio" name="policyType" id="asset" value ="asset">
+                    <label class="form-check-label" for="asset">Asset</label>
+                  </div>
+                  <div class="form-check col-6">
+                    <input class="form-check-input" formControlName="policyType" type="radio" name="policyType" id="subAsset" value ="subAsset">
+                    <label class="form-check-label" for="subAsset">Sub Asset</label>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
 
             <div class="col-12 col-md-6 p-field form-section__field">
                 <span class="p-float-label">
@@ -65,16 +70,18 @@
         </div>
         <div class="row form-section__row">
             <div class="col-12 col-md-5 p-field form-section__field">
+              <div class="p-inputgroup">
                 <span class="p-float-label">
                     <input formControlName="depreciationValue" pInputText
-                        placeholder="% depreciation value *" required
-                        type="text">
+                           placeholder="% depreciation value *" required
+                           type="text">
                     <label>% depreciation value *</label>
-                    <span class="year">Yearly</span>
                     <anms-error
-                        [showError]="hasError('depreciationValue',assetPolicyForm,submited)"
-                        error="fms.errors.required"></anms-error>
+                      [showError]="hasError('depreciationValue',assetPolicyForm,submited)"
+                      error="fms.errors.required"></anms-error>
                 </span>
+                <span class="p-inputgroup-addon">Yearly</span>
+              </div>
             </div>
 
             <div class="col-12 col-md-3 form-section__field toggle-select">
