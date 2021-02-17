@@ -23,6 +23,7 @@
 
 @import './assets/scss/mixins/form-section';
 @import './assets/scss/mixins/dashboard';
+@import './assets/scss/mixins/table';
 @import './assets/scss/fonts.scss';
 
 @mixin elementTypography(
@@ -110,25 +111,6 @@
   //     height: 48px !important;
   //   }
   // }
-
-  .card-table-header {
-    padding-right: 24px;
-  }
-
-  .table-container {
-    background-color: $fms-green-body2-bg;
-    margin: 16px 0 20px 0;
-
-    .p-datatable .p-datatable-thead > tr > th {
-      background-color: $fms-green-body1-bg;
-      color: $fms-green-body-color;
-    }
-
-    .p-datatable .p-datatable-tbody > tr > td {
-      background-color: $fms-green-body2-bg;
-      color: $fms-green-body-color;
-    }
-  }
 }
 /* Wrapper Font-size*/
 @media only screen and (max-width: 1600px) {
@@ -629,9 +611,18 @@ form {
 /* SideBar Menu */
 .wrapper {
   app-sidebar-manu {
-    font-size: 16px;
+    font-size: 0.8em;
+    font-weight: 600;
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
     .menu-wrapper {
-      width: 20em;
+      max-height: 90vh;
+      overflow: hidden;
+      overflow-y: scroll;
+      width: 300px;
+
       .container {
         padding: 1.1em;
         .sub-menuItem {
@@ -734,6 +725,54 @@ mat-horizontal-stepper {
     display: none;
   }
 }
+
+/* Progress Bar */
+mat-progress-bar {
+  height: 0.625em !important;
+  border-radius: 8px;
+  .mat-progress-bar-buffer {
+    background-color: #dbe1e6 !important;
+  }
+  .mat-progress-bar-fill::after {
+    background-color: $fms-green-primary-color2;
+    box-shadow: 0px 1px 4px #0da06e76;
+  }
+  &.upload-progress {
+    .mat-progress-bar-fill::after {
+      background-color: #0000005e;
+      box-shadow: none;
+    }
+  }
+}
+
+/* Tables */
+
+@include table(
+  $fms-green-body2-bg,
+  $fms-green-body-color,
+  $fms-green-body1-bg,
+  $fms-green-body-color,
+  $fms-green-body2-bg
+);
+
+/* drag and drop file*/
+ngx-file-drop {
+  .ngx-file-drop__drop-zone {
+    border: 2px dashed #0000005e !important;
+    border-radius: 4px !important;
+    height: 70px !important;
+  }
+  .ngx-file-drop__content {
+    color: #0000005e !important;
+    font-size: 17px;
+    height: 100% !important;
+  }
+  .drop-icon {
+    display: block;
+    text-align: center;
+  }
+}
+
 .p-component {
   font-size: 1em;
 }

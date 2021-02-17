@@ -1,146 +1,166 @@
-<form >
+<form [formGroup]="subAssetForm">
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" routerLink="..">Cancel</button>
-    <button class="btn-primary-medium add" type="submit" >Add</button>
+    <button class="btn-primary-medium add" type="submit" (click)="submit()">Add</button>
   </div>
-  
-  <div class='row'>
-    <div class='col-12'>
-      <div class='component_wrapper'>
-        <label class='caption'>Sub Asset Specification</label>
-        <div class='row'>
-          <div class='col-lg-4'>
-            <div class='form-group'>
-              <select class='form-control'>
-                <option value="" disabled selected hidden>Sub Asset Type *</option>
-                <option>Item 1</option>
-                <option>Item 2</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class='row'>
-          <div class='col-lg-2'>
-            <div class='form-group'>
-              <select class='form-control'>
-                <option value="" disabled selected hidden>Make *</option>
-                <option>Item 1</option>
-                <option>Item 2</option>
-              </select>
-            </div>
-          </div>
-          <div class='col-lg-3'>
-            <div class='form-group'>
-              <select class='form-control'>
-                <option value="" disabled selected hidden>Model *</option>
-                <option>Item 1</option>
-                <option>Item 2</option>
-              </select>
-            </div>
-          </div>
-          <div class='col-lg-2'>
-            <div class='form-group'>
-              <select class='form-control'>
-                <option value="" disabled selected hidden>Year *</option>
-                <option>Item 1</option>
-                <option>Item 2</option>
-              </select>
-            </div>
-          </div>
-          <div class='col-lg-2'>
-            <div class='form-group'>
-              <select class='form-control'>
-                <option value="" disabled selected hidden>Origin *</option>
-                <option>Item 1</option>
-                <option>Item 2</option>
-              </select>
-            </div>
-          </div>
-        </div>
+
+  <div class="form-section">
+    <h3 class="form-section__title">Sub Asset Specification</h3>
+
+    <div class="row form-section__row">
+      <div class="col-12 col-md-4 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="subAssetType" [autoDisplayFirst]="false"
+            [options]="subAssetTypes"
+            formControlName="subAssetType" optionLabel="name"></p-dropdown>
+          <label for="subAssetType">Sub Asset Type * </label>
+          <anms-error
+            [showError]="hasError('subAssetType',subAssetForm,submited)"
+            error="forms.feedback.required"></anms-error>
+        </span>
       </div>
     </div>
-    <div class='col-12'>
-      <div class='component_wrapper'>
-        <label class='caption'>Financial</label>
-        <div class='row'>
-          <div class='col-lg-5'>
-            <div class='form-group'>
-              <select class='form-control'>
-                <option value="" disabled selected hidden>Policy Type *</option>
-                <option>Item 1</option>
-                <option>Item 2</option>
-              </select>
-            </div>
-          </div>
-          <div class='col-lg-5'>
-            <div class='form-group'>
-              <input type='text' class='form-control' placeholder='Purchase Value *'>
-            </div>
-          </div>
-        </div>
+    <div class="row form-section__row">
+      <div class="col-12 col-md-3 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="make" [autoDisplayFirst]="false"
+            [options]="makes"
+            formControlName="make" optionLabel="name"></p-dropdown>
+          <label for="make">Make * </label>
+          <anms-error
+            [showError]="hasError('make',subAssetForm,submited)"
+            error="forms.feedback.required"></anms-error>
+        </span>
+      </div>
+      <div class="col-12 col-md-3 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="model" [autoDisplayFirst]="false"
+            [options]="models"
+            formControlName="model" optionLabel="name"></p-dropdown>
+          <label for="model">Model * </label>
+          <anms-error
+            [showError]="hasError('model',subAssetForm,submited)"
+            error="forms.feedback.required"></anms-error>
+        </span>
+      </div>
+      <div class="col-12 col-md-3 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="year" [autoDisplayFirst]="false"
+            [options]="years"
+            formControlName="year" optionLabel="name"></p-dropdown>
+          <label for="year">Year * </label>
+          <anms-error
+            [showError]="hasError('year',subAssetForm,submited)"
+            error="forms.feedback.required"></anms-error>
+        </span>
+      </div>
+      <div class="col-12 col-md-3 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="origin" [autoDisplayFirst]="false"
+            [options]="origins"
+            formControlName="origin" optionLabel="name"></p-dropdown>
+          <label for="origin">Origin * </label>
+          <anms-error
+            [showError]="hasError('origin',subAssetForm,submited)"
+            error="forms.feedback.required"></anms-error>
+        </span>
       </div>
     </div>
-    <div class='col-12'>
-      <div class='component_wrapper'>
-        <label class='caption'>
-                <span class='plus-icon'>
-                  <svg-icon src='../../../../../assets/icons/add.svg'
-                            [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-                </span>
-          Warranty items
+
+
+  </div>
+  <div class="form-section">
+    <h3 class="form-section__title">Financial</h3>
+    <div class="row form-section__row">
+      <div class="col-12 col-md-5 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="policyType" [autoDisplayFirst]="false"
+            [options]="policyTypes"
+            formControlName="policyType" optionLabel="name"></p-dropdown>
+          <label for="policyType">Policy Type * </label>
+          <anms-error
+            [showError]="hasError('policyType',subAssetForm,submited)"
+            error="forms.feedback.required"></anms-error>
+        </span>
+      </div>
+
+      <div class="col-12 col-md-5 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="purchaseValue" pInputText
+            placeholder="Purchase Value*"  type="text">
+          <label>Purchase Value*</label>
+          <anms-error
+            [showError]="hasError('purchaseValue',subAssetForm,submited)"
+            error="forms.feedback.required">
+          </anms-error>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="form-section" formArrayName = "warranties">
+    <h3 class="form-section__title"><span class='plus-icon' (click)="addWarranty()">
+      <svg-icon src='../../../../../assets/icons/add.svg'
+        [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
+        '100%'}"></svg-icon>
+    </span>Warranty Items</h3>
+    <div class="row form-section__row" [formGroupName]="i" *ngFor="let item of subAssetForm.get('warranties')['controls']; let i = index;">
+      <div class="col-12 col-md-3 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="item" pInputText
+            placeholder="Item"  type="text">
+          <label>Item</label>
+        </span>
+      </div>
+      <div class="col-12 col-md-3 p-field form-section__field
+        dropdown-select-input">
+        <p-dropdown inputId="unit" [options]="units" formControlName="year"
+          optionLabel="name"></p-dropdown>
+          <span class="p-float-label">
+            <input formControlName="duration" pInputText
+              placeholder="Duration"  type="text">
+            <label>Duration</label>
+          </span>
+      </div>
+      <div class="col-12 col-md-3 p-field form-section__field date-input">
+        <span class="p-float-label">
+            <p-calendar inputId="basic" formControlName="startDate"></p-calendar>
+            <svg-icon class="date-icon"
+            src='../../../../../assets/icons/calendar-alt-regular.svg'
+            [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,
+            'height': '100%'}"></svg-icon>
+            <label>Start Date * </label>
+            <!-- <anms-error
+            [showError]="hasError('startDate',subAssetForm.get('warranties')[i],submited)"
+            error="forms.feedback.required">
+          </anms-error> -->
+        </span>
+    </div>
+    <div class="col-12 col-md-3 p-field form-section__field">
+      <div class='upload-box'>
+        <label class='space-drop' for='attach_picture_sub-asset'>
+          <div>Drag and Drop A Warranty Doc Or Click Here</div>
         </label>
-        <div class='row'>
-          <div class='col-lg-3'>
-            <div class='form-group'>
-              <input type='text' class='form-control' placeholder='Item'>
-            </div>
-          </div>
-          <div class='col-lg-3'>
-            <div class='form-group'>
-              <div class='input-group'>
-                <div class='input-group-prepend'>
-                  <select class='form-control'>
-                    <option value="" disabled selected hidden>Year</option>
-                    <option>Item 1</option>
-                    <option>Item 2</option>
-                  </select>
-                </div>
-                <input type='text' class='form-control' placeholder='Duration'>
-              </div>
-            </div>
-          </div>
-          <div class='col-lg-3'>
-            <div class='form-group'>
-              <div class='input-group'>
-                <input type='text' class='form-control border-right-0 border' placeholder='Warranty Start Date *'>
-                <div class='input-group-append'>
-                  <div class='input-group-text bg-transparent'>
-                    <svg-icon src='../../../../../assets/icons/calendar-alt-regular.svg'
-                              [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class='col-lg-3'>
-            <div class='upload-box'>
-              <label class='space-drop' for='attach_picture_sub-asset'>
-                <div>Drag and Drop A Warranty Doc Or Click Here</div>
-              </label>
-              <input type='file' hidden id='attach_picture_sub-asset'>
-            </div>
-  
-          </div>
-        </div>
+        <input type='file' hidden id='attach_picture_sub-asset'>
       </div>
     </div>
-    <div class='col-12'>
-      <div class='component_wrapper'>
-        <div class='form-group'>
-          <textarea class='form-control' placeholder='Description'></textarea>
-        </div>
-      </div>
     </div>
   </div>
+
+  <div class="form-section">
+    <div class="row form-section__row">
+      <div class="col-12 col-md-12 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="description" pInputText
+            placeholder="Description"  type="text">
+          <label>Description</label>
+        </span>
+      </div>
+    </div>
+
+
+
+  </div>
+
   
+
 </form>

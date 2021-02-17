@@ -37,7 +37,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ErrorModule } from './error/error.module';
 import { CheckAccessDirective } from '@core/directive/check-access.directive';
 import { MatStepperModule } from '@angular/material/stepper';
-
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { NgxFileDropModule } from 'ngx-file-drop';
 @NgModule({
   imports: [
     CommonModule,
@@ -72,7 +73,9 @@ import { MatStepperModule } from '@angular/material/stepper';
     AngularSvgIconModule,
     ErrorModule,
     CheckboxModule,
-    MatStepperModule
+    MatStepperModule,
+    MatProgressBarModule,
+    NgxFileDropModule
   ],
   declarations: [RtlSupportDirective, CheckAccessDirective],
   exports: [
@@ -115,7 +118,9 @@ import { MatStepperModule } from '@angular/material/stepper';
     ErrorModule,
     CheckAccessDirective,
     CheckboxModule,
-    MatStepperModule
+    MatStepperModule,
+    MatProgressBarModule,
+    NgxFileDropModule
   ]
 })
 export class SharedModule {

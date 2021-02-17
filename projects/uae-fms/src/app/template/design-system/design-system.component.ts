@@ -6,6 +6,11 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
+import {
+  FileSystemDirectoryEntry,
+  FileSystemFileEntry,
+  NgxFileDropEntry
+} from 'ngx-file-drop';
 @Component({
   selector: 'anms-design-system',
   templateUrl: './design-system.component.html',
@@ -16,6 +21,9 @@ export class DesignSystemComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   isEditable: boolean = true;
   isLinear: boolean = true;
+  progressBarValue = 50;
+  bufferValue = 70;
+  public filesUpdloaded: NgxFileDropEntry[] = [];
   @ViewChild('stepper') stepper: MatStepper;
   controlStep: FormGroup;
   itemTypes = [
@@ -39,6 +47,20 @@ export class DesignSystemComponent implements OnInit {
   ngOnInit(): void {
     this.controlStep = this._fb.group({});
   }
+  public dropped(files: NgxFileDropEntry[]) {
+    this.filesUpdloaded = files;
+    for (const droppedFile of files) {
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+          console.log(droppedFile.relativePath, file);
+        });
+      } else {
+        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+        console.log(droppedFile.relativePath, fileEntry);
+      }
+    }
+  }
 
   searchAsset(event) {
     let filtered: any[] = [];
@@ -50,5 +72,13 @@ export class DesignSystemComponent implements OnInit {
       }
     }
     this.filteredAsset = filtered;
+  }
+
+  public fileOver(event) {
+    console.log(event);
+  }
+
+  public fileLeave(event) {
+    console.log(event);
   }
 }
