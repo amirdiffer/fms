@@ -150,7 +150,7 @@ export class MovementService {
         {
           lable: 'Asset Type',
           field: 'assetType',
-          width: 100,
+          width: 70,
           type: 1,
           thumbField: '',
           renderer: ''
@@ -181,23 +181,16 @@ export class MovementService {
         },
         {
           lable: '',
-          field: '',
-          width: 150,
+          field: 'ButtonReject',
+          width: 80,
           type: 1,
           thumbField: '',
-          renderer: 'operation'
+          renderer: 'buttonRenderer'
         },
-        // {
-        //   lable: '',
-        //   width: 70,
-        //   type: 3,
-        //   field: 'ButtonReject',
-        //   renderer: 'buttonRenderer'
-        // },
         {
           lable: '',
-          width: 70,
-          type: 3,
+          width: 100,
+          type: 1,
           field: 'ButtonConfirm',
           renderer: 'buttonRenderer'
         }
