@@ -32,21 +32,22 @@ export class AssetsStatusComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.chart);
     this.chartOptions = {
       series: [44, 55, 67, 83],
       chart: {
-        height: 300,
-        width:'100%',
-        type: 'radialBar'
+        height: 'auto',
+        type: 'radialBar',
       },
       plotOptions: {
         radialBar: {
           hollow: {
             margin: 5,
-            size: '70%',
+            size: '67%',
             background: 'transparent',
             image: undefined
+          },
+          track: {
+            show: false,
           },
           dataLabels: {
             name: {
@@ -82,7 +83,8 @@ export class AssetsStatusComponent implements OnInit {
         }
       },
       labels: ['Active', 'Defleet', 'Reused', 'Total Lost'],
-      colors: ['#26D07C', '#F1EB9C', '#26D07C', '#E4002B']
+      colors: ['#26D07C', '#F1EB9C', '#26D07C', '#E4002B'],
+      
     };
   }
 }

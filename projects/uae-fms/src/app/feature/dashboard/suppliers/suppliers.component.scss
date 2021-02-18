@@ -19,12 +19,13 @@
   grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
   position: absolute;
+  
   .tab {
     margin: 0 15px;
     align-items: center;
     display: flex;
     justify-content: center;
-    width: 11em;
+    width: 12em;
     background-color: #f4f4f4;
     p {
       font-size: 1.2em;
@@ -32,7 +33,7 @@
       color: #d3d3d3;
     }
     img{
-      width: 3.5em;
+      width: 3.2em;
     }
   }
   .active-tab {
@@ -51,11 +52,11 @@
   position: relative;
   overflow: visible;
   .logo {
-    height: 2.5em;
-    width: 2.5em;
+    height: 2.3em;
+    width: 2.3em;
     flex: 0 0 10%;
     img {
-      width: 100%;
+      width: 2em;
       height: auto;
     }
   }
