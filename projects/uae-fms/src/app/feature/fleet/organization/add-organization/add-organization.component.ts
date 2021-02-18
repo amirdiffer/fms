@@ -1,5 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Injector
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
+import { Utility } from '@shared/utility/utility';
 
 @Component({
   selector: 'anms-add-organization',
@@ -7,7 +14,7 @@ import { TableSetting } from '@core/table';
   styleUrls: ['./add-organization.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddOrganizationComponent implements OnInit {
+export class AddOrganizationComponent extends Utility implements OnInit {
   organization_Table: TableSetting = {
     columns: [
       {
@@ -106,8 +113,49 @@ export class AddOrganizationComponent implements OnInit {
       }
     ]
   };
+  departments = [
+    { name: 'Department 1', id: 1 },
+    { name: 'Department 2', id: 2 },
+    { name: 'Department 3', id: 3 },
+    { name: 'Department 4', id: 4 },
+    { name: 'Department 5', id: 5 },
+    { name: 'Department 6', id: 6 }
+  ];
 
-  constructor() {}
+  organizationForm: FormGroup;
+  submited: boolean;
 
-  ngOnInit(): void {}
+  constructor(injector: Injector, private _fb: FormBuilder) {
+    super(injector);
+  }
+
+  ngOnInit(): void {
+    this.organizationForm = this._fb.group({
+      departmentId: ['', [Validators.required]],
+      departmentName: ['', [Validators.required]],
+      tag: [''],
+      sectionName: ['', [Validators.required]],
+      location: ['', [Validators.required]]
+    });
+  }
+
+  filterDepartments(event) {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    this.departments = [
+      { name: 'Department 1', id: 1 },
+      { name: 'Department 2', id: 2 },
+      { name: 'Department 3', id: 3 },
+      { name: 'Department 4', id: 4 },
+      { name: 'Department 5', id: 5 },
+      { name: 'Department 6', id: 6 }
+    ];
+  }
+
+  submit() {
+    this.submited = true;
+    if (this.organizationForm.invalid) {
+      return;
+    }
+    this.goToList();
+  }
 }

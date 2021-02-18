@@ -3,20 +3,28 @@
     <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">Cancel</button>
     <button class="btn-primary-medium add" (click)="submit()">Add</button>
   </div>
-  <div class="form-section form-section--inline mt-3">
+  <div class="form-section form-section--inline mx-0">
     <div class="row">
-      <div class="col-12 col-md-2">
-        <h3 class="form-section__title">Type Category</h3>
-      </div>
-
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-6">
         <div class="row">
-          <div class="col-12 col-md-12 p-field form-section__field
-            radio-select">
-            <p-radioButton name="typeCategory" formControlName="typeCategory"
-              value="asset" label="Asset"></p-radioButton>
-            <p-radioButton name="typeCategory" formControlName="typeCategory"
-              value="subAsset" label="Sub Asset"></p-radioButton>
+          <div class="col-12 col-md-4">
+            <h3 class="form-section__title">Type Category</h3>
+          </div>
+          <div class="col-12 col-md-8 mb-2 p-field align-self-center">
+            <div class="row">
+              <div class="col-12 col-md-8">
+                <div class="row">
+                  <div class="form-check col-6">
+                    <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="asset" value ="asset">
+                    <label class="form-check-label" for="asset">Asset</label>
+                  </div>
+                  <div class="form-check col-6">
+                    <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="subAsset" value ="subAsset">
+                    <label class="form-check-label" for="subAsset">Sub Asset</label>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -25,8 +33,7 @@
           <p-dropdown inputId="statusCategory" [autoDisplayFirst]="false"
             [options]="statusCategories"
             formControlName="statusCategory" optionLabel="name"></p-dropdown>
-          <label for="statusCategory">{{ getLabelName('statusCategory') |
-            translate }}</label>
+          <label for="statusCategory">Status Category *</label>
           <anms-error
             [showError]="hasError('statusCategory',fleetStatusForm,submited)"
             error="fms.errors.required">
@@ -49,13 +56,6 @@
     </div>
   </div>
 </form>
-
-<div class="row">
-  <div class="col-12">
-    <div class="component_wrapper">
-      <div class="table-wreapper">
-        <app-table [setting]='tableSetting'></app-table>
-      </div>
-    </div>
-  </div>
+<div class="component_wrapper table-container">
+  <app-table [setting]='tableSetting'></app-table>
 </div>
