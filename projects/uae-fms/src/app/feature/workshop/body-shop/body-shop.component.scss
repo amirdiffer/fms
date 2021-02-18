@@ -1,9 +1,2 @@
 @import '../../../../themes/green-theme.scss';
-$primary: map-get($anms-green-primary, 300);
 
-@media screen and (min-width: 1905px) {
-  app-tab-view {
-    margin-top: -65px;
-    display: block;
-  }
-}

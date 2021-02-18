@@ -4,13 +4,13 @@
   </div>
 </ng-container>
 
-<div class="component_wrapper">
-  <div class="card-table-header">
+<div class="table-container component_wrapper">
+  <div class="search-container card-table-header">
     <ng-container *ngIf="!openAdd;">
       <div class="search-box">
         <input type="text" placeholder="Search in Columns">
         <button>
-          <img src="../../../assets/icons/search-solid.svg" alt="">
+          <img [src]="searchIcon" alt="">
         </button>
       </div>
       <button class="btn-download" disabled>
@@ -19,7 +19,5 @@
       <button class="btn-primary-small" routerLink="add"><i>+</i><a>Add</a></button>
     </ng-container>
   </div>
-  <div class="table-wreapper">
-    <app-table [setting]='accessory_Table'></app-table>
-  </div>
+  <app-table [setting]='accessory_Table'></app-table>
 </div>

@@ -316,8 +316,8 @@ export class BodyShopComponent implements OnInit {
 
   table3Setting: TableSetting = {
     columns: [
-      { lable: 'Technician', field: 'technician', renderer: 'userRenderer' },
-      { lable: 'Skill', field: 'skill', type: ColumnType.lable },
+      { lable: 'Technician', field: 'technician', width: 180 ,renderer: 'userRenderer' },
+      { lable: 'Skill', field: 'skill',width: 180, type: ColumnType.lable },
       {
         lable: 'Status',
         field: 'status',
@@ -325,12 +325,12 @@ export class BodyShopComponent implements OnInit {
         width: 120,
         textColor: '#6870B4'
       },
-      { lable: 'Tasks', field: 'tasks', type: ColumnType.lable, width: 120 },
+      { lable: 'Tasks', field: 'tasks', type: ColumnType.lable, width: 80 },
       {
         lable: 'Information',
         field: 'information',
         type: ColumnType.lable,
-        width: 100,
+        width: 120,
         renderer: 'informationRenderer'
       },
       {

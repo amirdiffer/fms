@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { NavbarModule } from './core/navbar';
 import { SidebarMenuModule } from './core/sidebar-menu/sidebar-menu.module';
-import { SharedModule} from '@shared/shared.module'
+import { SharedModule } from '@shared/shared.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -24,7 +24,12 @@ import { DesignSystemComponent } from './template/design-system/design-system.co
     SharedModule,
     AngularSvgIconModule.forRoot()
   ],
-  declarations: [AppComponent, MainTemplateComponent, LoginTemplateComponent, DesignSystemComponent],
+  declarations: [
+    AppComponent,
+    MainTemplateComponent,
+    LoginTemplateComponent,
+    DesignSystemComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

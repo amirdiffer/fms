@@ -39,17 +39,15 @@ import { environment } from '../../../../environments/environment';
       }
       .ownership-badge {
         background: #fcb614 0% 0% no-repeat padding-box;
-        max-width: 4.3em;
-        border: radius;
-        border-radius: 4px;
-        color: #fff;
-        text-align: center;
-        font-size: 75%;
       }
       .progress-container {
         position: relative;
         display: flex;
         align-items: center;
+      }
+      .mat-progress-bar {
+        height: 0.625em;
+        border-radius: 8px;
       }
       .progress-value {
         color: #000000de;
