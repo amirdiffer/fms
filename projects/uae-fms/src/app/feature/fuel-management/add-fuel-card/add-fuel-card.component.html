@@ -7,7 +7,7 @@
     <h3 class="form-section__title">Request Type</h3>
     <div class="row form-section__row">
             <!-- start asset -->
-            <div class="col-12 col-md-2 p-field form-section__field">
+            <div class="col-12 col-md-3 p-field form-section__field">
                 <div class="autocomplete-select">
                     <span class="p-float-label">
                         <p-autoComplete formControlName="asset"
@@ -20,20 +20,24 @@
                 </div>
             </div>
             <!-- end asset -->
-            <div class="col-12 col-md-2 p-field form-section__field
+            <div class="col-12 col-md-3 p-field form-section__field
             dropdown-select">
               <span class="p-float-label">
                 <p-dropdown inputId="cardType" [options]="assetTypes" optionLabel="name"></p-dropdown>
                 <label for="room">Card Type</label>
               </span>
             </div>
-            <div class="col-12 col-md-2 p-field form-section__field">
+            <div class="col-12 col-md-3 p-field form-section__field date-input">
               <span class="p-float-label">
                   <p-calendar inputId="basic"></p-calendar>
+                <svg-icon class="date-icon"
+                          src='../../../../assets/icons/calendar-alt-regular.svg'
+                          [svgStyle]="{ 'width.px':'20' , 'fill': 'rgb(161 161 161)' ,
+            'height': '100%'}"></svg-icon>
                   <label>Expire Date </label>
               </span>
             </div>
-            <div class="col-12 col-md-2 p-field form-section__field">
+            <div class="col-12 col-md-3 p-field form-section__field">
               <span class="p-float-label">
                   <input pInputText placeholder="Usage Limit" type="text">
                   <label>Usage Limit</label>
@@ -62,7 +66,9 @@
     </div>
 </div>
 </form>
-
-<div class="table-wreapper">
-  <app-table [setting]='fuelCardsTableSetting'></app-table>
+<div class="component_wrapper">
+  <div class="table-container">
+    <app-table [setting]='fuelCardsTableSetting'></app-table>
+  </div>
 </div>
+
