@@ -1,17 +1,14 @@
 <ng-container *ngIf="addOpen">
     <congifuration-add-type></congifuration-add-type>
 </ng-container>
-<div class="row m-0">
-    <div class="col-3 pl-0">
+<div class="row">
+    <div *ngIf="!addOpen" class="col-3 pl-0">
         <configuration-asset-category></configuration-asset-category>
         <configuration-asset-type></configuration-asset-type>
     </div>
-    <div class="col-9">
-        <div class="component_wrapper">
-            <div class="card-table pt-3">
-                <div class="card-table-header">
-                    <p></p>
-                    <span class="search-container">
+    <div [ngClass]="!addOpen ? 'col-9' : 'col-12'" class="col-9">
+        <div class="table-container component_wrapper my-0 h-100">
+          <span *ngIf="!addOpen" class="card-table-header search-container">
                         <div class="search-box">
                             <input type="text" placeholder="Search in Columns">
                             <button>
@@ -21,13 +18,9 @@
                         <button class="btn-download" disabled>
                             <svg-icon [src]="downloadBtn"></svg-icon>
                         </button>
-                        <button class="btn-primary-small" (click)="openAdd()"><i>+</i><a>Add</a></button> 
+                        <button class="btn-primary-small" (click)="openAdd()"><i>+</i><a>Add</a></button>
                     </span>
-                </div>
-                <div class="card-table-content">
-                    <app-table [setting]="assetConfigurationableSetting"></app-table>
-                </div>
-            </div>
+          <app-table [setting]="assetConfigurationableSetting"></app-table>
         </div>
     </div>
 </div>

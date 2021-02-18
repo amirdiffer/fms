@@ -5,28 +5,30 @@
                 <button class="btn-primary-medium btn-scondary-green" (click)="cancel()">Cancel</button>
                 <button class="btn-primary-medium add" (click)="submit()">Add</button>
             </div>
-            <div class="form-section form-section--inline">
+            <div class="form-section mx-0 form-section--inline">
                 <div class="row">
-                    <div class="col-12 col-md-2">
-                        <h3 class="form-section__title">
-                            Type Category
-                        </h3>
-                    </div>
-                    <div class="col-12 col-md-5">
-                        <div class="row">
-                            <div class="col-12 col-md-12 p-field
-                                form-section__field radio-select">
-                                <p-radioButton name="typeCategory"
-                                    formControlName="typeCategory"
-                                    value="asset" label="Asset"></p-radioButton>
-                                <p-radioButton name="typeCategory"
-                                    formControlName="typeCategory"
-                                    value="subAsset" label="Sub Asset"></p-radioButton>
-                                <p-radioButton name="typeCategory"
-                                    formControlName="typeCategory"
-                                    value="accessory" label="Accessory"></p-radioButton>
-                            </div>
+                    <div class="col-12 col-md-7 mb-2 align-self-center">
+                      <div class="row">
+                        <div class="col-12 col-md-3">
+                          <h3 class="form-section__title m-0">Type Category</h3>
                         </div>
+                        <div class="col-12 col-md-9">
+                          <div class="row">
+                            <div class="form-check col-3">
+                              <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="asset" value ="asset">
+                              <label class="form-check-label" for="asset">Asset</label>
+                            </div>
+                            <div class="form-check col-3">
+                              <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="subAsset" value ="subAsset">
+                              <label class="form-check-label" for="subAsset">Sub Asset</label>
+                            </div>
+                            <div class="form-check col-3">
+                              <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="accessory" value ="accessory">
+                              <label class="form-check-label" for="accessory">Accessory</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div class="col-12 col-md-3 p-field form-section__field">
                         <span class="p-float-label">
@@ -39,7 +41,7 @@
                             </anms-error>
                         </span>
                     </div>
-                    <div class="col-12 col-md-1 form-section__field
+                    <div class="col-12 col-md-2 form-section__field
                         toggle-select">
                         <p-inputSwitch formControlName="activetype"></p-inputSwitch>
                         <span>Active Type</span>
@@ -50,26 +52,33 @@
                         <input formControlName="description" pInputText
                             placeholder="Description" type="text">
                         <label>Description</label>
-                        
+
                     </span>
                 </div>
             </div>
 
             <!-- form-section -->
-            <div class="form-section">
+            <div class="form-section mx-0">
                 <h3 class="form-section__title">Make And Model Info</h3>
 
 
                 <div class="row form-section__row">
-                    <div class="col-12 col-md-5 p-field
-                        form-section__field radio-select">
-                        <p-radioButton name="type"
-                            formControlName="type"
-                            value="mModel" label="Multiple Model"></p-radioButton>
-                        <p-radioButton name="type"
-                            formControlName="type"
-                            value="sModel" label="Single Model"></p-radioButton>
+                    <div class="col-12 col-md-4 mb-2 align-self-center ml-2">
+                    <div class="row">
+                      <div class="col-12 col-md-12">
+                        <div class="row">
+                          <div class="form-check col-6">
+                            <input class="form-check-input" formControlName="type" type="radio" name="type" id="mModel" value ="mModel">
+                            <label class="form-check-label" for="mModel">Multiple Model</label>
+                          </div>
+                          <div class="form-check col-6">
+                            <input class="form-check-input" formControlName="type" type="radio" name="type" id="sModel" value ="sModel">
+                            <label class="form-check-label" for="sModel">Single Model</label>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
                     <div class="col-12 col-md-3 p-field form-section__field">
                         <span class="p-float-label">
                             <input formControlName="selectModel" pInputText
@@ -102,7 +111,7 @@
                                     </ng-template>
                                 </ngx-file-drop>
                             </ng-container>
-                           
+
                     </div>
                     <ng-template #singleModel>
                         <!-- <div formArrayName="models" class="d-flex w-100
@@ -119,12 +128,12 @@
                             <button class="add-model"
                                 (click)="addModel()"><a>+</a></button>
                         </div> -->
-        
-                        
+
+
                             <span class="p-float-label">
                                 <div class="p-inputgroup">
                                     <span class="p-float-label">
-                                        <input type="text" formControlName="models" pInputText placeholder="Model"> 
+                                        <input type="text" formControlName="models" pInputText placeholder="Model">
                                         <label>Model</label>
                                     </span>
                                     <span class="p-inputgroup-addon addon-primary">
@@ -132,9 +141,9 @@
                                     </span>
                                 </div>
                             </span>
-                
-                        
-        
+
+
+
                     </ng-template>
 
                 </div>
@@ -142,7 +151,7 @@
 
 
             </div>
-           
+
             <!-- end form-section -->
         </form>
     </div>
