@@ -6,9 +6,9 @@
   align-self: center;
   .progress {
     width: 100% !important;
-    height: 7px;
+    height: .6em;
     line-height: 0;
-    font-size: 0.75rem;
+    font-size: 0.75em;
     background-color: #ebedf3;
     border-radius: 8px;
   }
@@ -27,7 +27,7 @@
     position: absolute;
     top: -6px;
     right: 0;
-    font-size: 0.8rem;
+    font-size: 0.8em;
     color: #828d99;
   }
 }
