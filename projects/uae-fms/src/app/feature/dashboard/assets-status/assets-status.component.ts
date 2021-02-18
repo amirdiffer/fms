@@ -35,8 +35,9 @@ export class AssetsStatusComponent implements OnInit {
     this.chartOptions = {
       series: [44, 55, 67, 83],
       chart: {
-        height: 'auto',
+        height: '360px',
         type: 'radialBar',
+        width:'100%',
       },
       plotOptions: {
         radialBar: {
