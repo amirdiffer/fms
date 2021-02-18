@@ -1,93 +1,93 @@
-<form>
+<form [formGroup]="organizationForm">
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" routerLink="..">Cancel</button>
-    <button class="btn-primary-medium add" type="submit" >Add</button>
+    <button class="btn-primary-medium add" type="submit" (click)="submit()">Add</button>
   </div>
-  <div class='row'>
-    <div class='col-12'>
-      <div class='component_wrapper'>
-        <label class='caption'>Department Info</label>
-        <div class='row'>
-  
-          <div class='col-lg-6'>
-            <div class='form-group'>
-              <div class='input-group'>
-                <input type='text' class='form-control border-right-0 border' placeholder='Department Id *'>
-                <div class='input-group-append'>
-                  <div class='input-group-text bg-transparent'>
-                    <svg-icon src='../../../../../assets/icons/search.svg'
-                              [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class='col-lg-6'>
-            <div class='form-group'>
-              <input type='text' class='form-control border-right-0 border' placeholder='Department Name *'>
-            </div>
-          </div>
-  
-        </div>
-      </div>
-    </div>
-    <div class='col-12'>
-      <div class='component_wrapper'>
-        <label class='caption'>Tag</label>
-        <div class='row'>
-  
-          <div class='col-lg-4 form-group'>
-            <div class='input-group'>
-              <input type='text' class='form-control border-right-0 border' placeholder='Tag'>
-              <div class='input-group-append m-0'>
-                <div class='input-group-text bg-transparent border-input-append'>
-                  <svg-icon src='../../../../../assets/icons/add.svg'
-                            [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-                </div>
-              </div>
-            </div>
-          </div>
-  
-        </div>
-      </div>
-    </div>
-    <div class='col-12'>
-      <div class='component_wrapper'>
-        <label class='caption'>
-          <span class='plus-icon'>
-                  <svg-icon src='../../../../../assets/icons/add.svg'
-                            [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+  <div class="form-section">
+    <h3 class="form-section__title">Department Info</h3>
+    <div class="row form-section__row">
+      <div class="col-12 col-md-6 p-field form-section__field">
+        <div class="autocomplete-select">
+          <span class="p-float-label">
+            <p-autoComplete formControlName="departmentId"
+              (completeMethod)="filterDepartments($event)"
+              [suggestions]="departments" field="name"
+              [minLength]="1"></p-autoComplete>
+            <i class="pi pi-search"></i>
+            <label>Department Id *</label>
           </span>
-          Section / Department
-        </label>
-        <div class='row'>
-  
-          <div class='col-lg-3'>
-            <div class='form-group'>
-              <input type='text' class='form-control' placeholder='Section Name *'>
-            </div>
-          </div>
-          <div class='col-lg-4 form-group'>
-            <div class='input-group'>
-              <input type='text' class='form-control border-right-0 border' placeholder='Location *'>
-              <div class='input-group-append m-0'>
-                <div class='input-group-text bg-transparent border-input-append'>
-                  <svg-icon src='../../../../../assets/icons/add.svg'
-                            [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class='col-auto tags'>
-            <span class='tag'>
-              No 1, Street 2, Dubai
-              <button type='button' class='border-0'>
-                <span aria-hidden='true'>&times;</span>
-              </button>
+          <anms-error
+            [showError]="hasError('departmentId',organizationForm,submited)"
+            error="forms.feedback.required"></anms-error>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="departmentName" pInputText
+            placeholder="Department Name *" required type="text">
+          <label>Department Name *</label>
+          <anms-error
+            [showError]="hasError('departmentName',organizationForm,submited)"
+            error="forms.feedback.required"></anms-error>
+        </span>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="form-section">
+    <h3 class="form-section__title"><span class='plus-icon'>
+      <svg-icon src='../../../../../assets/icons/add.svg'
+        [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
+        '100%'}"></svg-icon>
+    </span>Tag</h3>
+    <div class="row form-section__row">
+      <div class="col-12 col-md-5 p-field form-section__field">
+
+        <span class="p-float-label">
+          <div class="p-inputgroup">
+            <span class="p-float-label">
+              <input type="text"  formControlName="tag" pInputText
+                placeholder="Tag">
+              <label>Tag</label>
+            </span>
+            <span class="p-inputgroup-addon addon-primary">
+              <i class="pi pi-plus"></i>
             </span>
           </div>
-  
-        </div>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="form-section">
+    <h3 class="form-section__title">Section/ Department</h3>
+    <div class="row form-section__row">
+      <div class="col-12 col-md-4 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="sectionName" pInputText
+            placeholder="Section Name *" required type="text">
+          <label>Section Name *</label>
+          <anms-error
+            [showError]="hasError('sectionName',organizationForm,submited)"
+            error="forms.feedback.required"></anms-error>
+        </span>
+      </div>
+      <div class="col-12 col-md-4 p-field form-section__field">
+        <span class="p-float-label">
+          <div class="p-inputgroup">
+            <span class="p-float-label">
+              <input type="text"  formControlName="location" pInputText
+                placeholder="Location *">
+              <label>Location *</label>
+            </span>
+            <span class="p-inputgroup-addon addon-primary">
+              <i class="pi pi-plus"></i>
+            </span>
+          </div>
+        </span>
+        <anms-error
+        [showError]="hasError('location',organizationForm,submited)"
+        error="forms.feedback.required"></anms-error>
       </div>
     </div>
   </div>
