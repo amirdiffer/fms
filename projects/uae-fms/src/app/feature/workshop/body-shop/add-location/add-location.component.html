@@ -7,7 +7,7 @@
   <div class="row">
   
     <div class="col-12">
-      <div class="component_wrapper">
+      <div class="component_wrapper form-section">
         <label class="caption">Location Info</label>
         <div class="row mt-3">
           <div class="col-lg-4">
@@ -28,7 +28,7 @@
                             </ng-template>
                           </p-autoComplete>
                           <i class="pi pi-search"></i>
-                          <label [class.red-font]=" inputForm.get('locationID').invalid && submited">Location ID *</label>
+                          <label>Location ID *</label>
                       </span>
                   </div>
                   <anms-error
@@ -44,7 +44,7 @@
                     <input type="text" class="form-control" placeholder="Address*" 
                           formControlName="address"
                           [class.invalid]="inputForm.get('address').invalid && submited">
-                    <label [class.red-font]="inputForm.get('address').invalid && submited">Address*</label>
+                    <label>Address*</label>
                   </span>
               </div>              
                 <anms-error
@@ -58,12 +58,10 @@
     </div>
   
     <div class="col-12" formArrayName="section">
-      <div class="component_wrapper">
-        <div class="row">
+      <div class="component_wrapper form-section">
+        <div class="row mt-3">
           <div class="col-lg-2">
-            <span class="add-section" (click)="addSection()">
-              <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-            </span>
+            <span class="p-inputgroup-addon add-section" (click)="addSection()" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i class="pi pi-plus"></i></span>
             Section
           </div>
           <div class="col-10">
@@ -77,10 +75,10 @@
                                   [formControlName]="i" 
                                   placeholder="Section ID *"
                                   [class.invalid]="!inputForm.get('section')['controls'][i].valid && submited">
-                          <label [class.red-font]="!inputForm.get('section')['controls'][i].valid.valid && submited">Section ID *</label>
+                          <label>Section ID *</label>
                       </span>
                     </div>
-                    <small class="error-input" [class.d-none]=" inputForm.get('section')['controls'][i].valid.valid || !submited">Please fill Location</small>
+                    <small class="red-font" [class.d-none]=" inputForm.get('section')['controls'][i].valid.valid || !submited">Please fill Location</small>
     
                   </div>
                 </div>
@@ -92,15 +90,11 @@
                         <input type="text" class="form-control border" placeholder="Service" 
                                 [formControlName]="i" 
                                 [class.invalid]="!inputForm.get('section').valid && submited">
-                        <label [class.red-font]="!inputForm.get('section')['controls'][i].valid && submited">Service*</label>
+                        <label>Service*</label>
                       </span>
-                      <small class="error-input" [class.d-none]="inputForm.get('section')['controls'][i].valid || !submited">Please fill service</small>
+                      <small class="red-font" [class.d-none]="inputForm.get('section')['controls'][i].valid || !submited">Please fill service</small>
                      </div>
-                      <div class="input-group-append m-0" [ngStyle]="{'cursor': 'pointer' , 'height':'40px'}">
-                        <div class="input-group-text bg-transparent border-input-append">
-                          <svg-icon src="../../../../../assets/icons/add.svg" [svgStyle]="{ 'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-                        </div>
-                      </div>
+                     <span class="p-inputgroup-addon" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i class="pi pi-plus"></i></span>
                     </div>
                   </div>
                 </div>
@@ -115,7 +109,7 @@
 </form>
 <div class="row">
   <div class="col-12">
-    <div class="component_wrapper">
+    <div class="component_wrapper form-section">
       <div class="table-wreapper">
         <app-table [setting]='addLocation_Table'></app-table>
       </div>

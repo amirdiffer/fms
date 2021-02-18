@@ -16,13 +16,13 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
   form: FormGroup;
 
   middleCheckboxLabelArray = [
-    'Registration',
-    'Customization',
-    'Sub Asset',
-    'Accessory',
-    'Operator',
-    'Organization',
-    'Movement'
+    {name:'Registration'},
+    {name:'Customization'},
+    {name:'Sub Asset'},
+    {name:'Accessory'},
+    {name:'Operator'},
+    {name:'Organization'},
+    {name:'Movement'}
   ];
 
   bottomCheckboxLabelArray = ['Fuel Management', 'Traffic Fine'];
@@ -39,6 +39,7 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.buildForm();
+    this.updateMiddleArray();
   }
 
   ngAfterViewInit(): void {
@@ -125,7 +126,7 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
     for (const middleCheckboxLabelArrayElement of this
       .middleCheckboxLabelArray) {
       const group = this.formBuilder.group({
-        checkboxLabel: middleCheckboxLabelArrayElement,
+        checkboxLabel: middleCheckboxLabelArrayElement.name,
         checkboxValue: false,
         switches: this.addSwitch()
       });

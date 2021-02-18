@@ -8,7 +8,11 @@ import {
 import { Router } from '@angular/router';
 import { stringify } from 'querystring';
 import { AddRequestFakeService } from './_fake.service';
-
+import {
+  FileSystemDirectoryEntry,
+  FileSystemFileEntry,
+  NgxFileDropEntry
+} from 'ngx-file-drop';
 @Component({
   selector: 'anms-add-request',
   templateUrl: './add-request.component.html',
@@ -17,6 +21,8 @@ import { AddRequestFakeService } from './_fake.service';
 })
 export class AddRequestComponent implements OnInit {
   activePriority: string = 'high';
+  progressBarValue = 50;
+  bufferValue = 70;
   tableSettingServie;
   tableSettingWarranty;
   oldAssetSuggests: any[];
@@ -30,7 +36,7 @@ export class AddRequestComponent implements OnInit {
     { name: 'Item No 234567894', gps: '489456141856' }
   ];
   inputForm: FormGroup;
-
+  public filesUpdloaded: NgxFileDropEntry[] = [];
   constructor(
     private _fb: FormBuilder,
     private _fakeService: AddRequestFakeService,
@@ -115,5 +121,28 @@ export class AddRequestComponent implements OnInit {
   }
   changePriority(statusPriority): void {
     this.activePriority = statusPriority;
+  }
+
+  public dropped(files: NgxFileDropEntry[]) {
+    this.filesUpdloaded = files;
+    for (const droppedFile of files) {
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+          console.log(droppedFile.relativePath, file);
+        });
+      } else {
+        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+        console.log(droppedFile.relativePath, fileEntry);
+      }
+    }
+  }
+
+  public fileOver(event) {
+    console.log(event);
+  }
+
+  public fileLeave(event) {
+    console.log(event);
   }
 }
