@@ -3,11 +3,12 @@
 $primary: map-get($anms-green-primary, 300);
 
 .form-section {
-  margin: 26px 0 0 0 !important;
-  padding: 19px 20px 0 33px !important;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
   ::ng-deep {
     .p-dropdown {
-      height: 30px !important;
       border-radius: 0 !important;
     }
     input.p-inputtext.p-component {
@@ -15,6 +16,11 @@ $primary: map-get($anms-green-primary, 300);
       border-radius: 0 !important;
     }
   }
+
+  .form-section__row {
+    padding: 16px 16px 0;
+  }
+
   .form-section__field {
     padding: 0px;
     .search-btn {
@@ -29,10 +35,9 @@ $primary: map-get($anms-green-primary, 300);
         0% 0% no-repeat padding-box !important;
       z-index: 2;
     }
-    .btn-download {
-      height: 30px !important;
-      position: relative;
-      bottom: 2px;
+
+    input {
+      height: 40px !important;
     }
   }
   .year-filter {
@@ -51,10 +56,26 @@ $primary: map-get($anms-green-primary, 300);
   .search-filter {
     flex-grow: 0.4;
   }
+
   .card-table-header {
     font-weight: bold;
     position: relative;
     display: flex;
     padding-left: 0px;
+
+    .search-container {
+      height: 40px;
+
+      .btn-download {
+        height: 40px !important;
+        width: 40px !important;
+        position: relative;
+        bottom: 1px;
+      }
+    }
+
+    button.btn-primary-small {
+      height: 40px;
+    }
   }
 }

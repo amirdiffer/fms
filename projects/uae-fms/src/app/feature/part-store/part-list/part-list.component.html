@@ -1,58 +1,59 @@
 <div class="statistic-card">
   <app-filter [setting]='filterCard'></app-filter>
 </div>
-<div class="form-section">
-  <div class="row form-section__row">
-    <div class="p-field form-section__field options-select year-filter">
-      <span>
-        <p-dropdown inputId="year" [autoDisplayFirst]="true"
-          [options]="years"
-          optionLabel="name"></p-dropdown>
-      </span>
-    </div>
-    <div class="p-field form-section__field options-select make-filter">
-      <span >
-        <p-dropdown inputId="make" [autoDisplayFirst]="true"
-          [options]="makes"
-          optionLabel="name"></p-dropdown>
-      </span>
-    </div>
-    <div class="p-field form-section__field options-select model-filter">
-      <span >
-        <p-dropdown inputId="model" [autoDisplayFirst]="true"
-          [options]="models"
-          optionLabel="name"></p-dropdown>
-      </span>
-    </div>
-    <div class="p-field form-section__field search-filter">
-      <span class="p-float-label">
-        <div class="p-inputgroup">
-          <span class="p-float-label">
-            <input type="text" pInputText
-              placeholder="Search">
-            <label>Search</label>
-          </span>
-          <span class="p-inputgroup-addon search-btn addon-primary">
-            Go
+
+<div>
+  <div class="table-container p-0">
+    <div class="form-section m-0">
+      <div class="row form-section__row m-0">
+        <div class="p-field form-section__field options-select year-filter m-0">
+          <span>
+            <p-dropdown inputId="year" [autoDisplayFirst]="true"
+              [options]="years"
+              optionLabel="name"></p-dropdown>
           </span>
         </div>
-      </span>
-
+        <div class="p-field form-section__field options-select make-filter m-0">
+          <span >
+            <p-dropdown inputId="make" [autoDisplayFirst]="true"
+              [options]="makes"
+              optionLabel="name"></p-dropdown>
+          </span>
+        </div>
+        <div class="p-field form-section__field options-select model-filter m-0">
+          <span >
+            <p-dropdown inputId="model" [autoDisplayFirst]="true"
+              [options]="models"
+              optionLabel="name"></p-dropdown>
+          </span>
+        </div>
+        <div class="p-field form-section__field search-filter m-0">
+          <span class="p-float-label">
+            <div class="p-inputgroup">
+              <span class="p-float-label">
+                <input type="text" pInputText
+                  placeholder="Search">
+                <label>Search</label>
+              </span>
+              <span class="p-inputgroup-addon search-btn addon-primary">
+                Go
+              </span>
+            </div>
+          </span>
+    
+        </div>
+        <div class="form-section__field m-0">
+          <div class="card-table-header card-table-header p-0 m-0">
+            <span class="search-container">
+                <button class="btn-download" disabled>
+                    <svg-icon [src]="downloadBtn"></svg-icon>
+                </button>
+                <button class="btn-primary-small" [routerLink]="'./add'"><i>+</i><a>Add</a></button>
+            </span>
+        </div>
+        </div>
+      </div>
     </div>
-    <div class="p-field form-section__field">
-      <div class="card-table-header">
-        <span class="search-container">
-            <button class="btn-download" disabled>
-                <svg-icon [src]="downloadBtn"></svg-icon>
-            </button>
-            <button class="btn-primary-small" [routerLink]="'./add'"><i>+</i><a>Add</a></button>
-        </span>
-    </div>
-    </div>
-  </div>
-</div>
-<div>
-  <div class="table-wreapper">
     <app-table [setting]='partList_Table'></app-table>
   </div>
 </div>
