@@ -110,6 +110,39 @@ export class PartListComponent implements OnInit {
       }
     ]
   };
+  years = [
+    { name: 'Year', value: 'null' },
+    { name: '1999', value: '1999' },
+    { name: '2000', value: '2000' },
+    { name: '2001', value: '2001' },
+    { name: '2002', value: '2002' },
+    { name: '2003', value: '2003' },
+    { name: '2004', value: '2004' },
+    { name: '2005', value: '2005' },
+    { name: '2006', value: '2006' }
+  ];
+  models = [
+    { name: 'Model', value: 'null' },
+    { name: '1999', value: '1999' },
+    { name: '2000', value: '2000' },
+    { name: '2001', value: '2001' },
+    { name: '2002', value: '2002' },
+    { name: '2003', value: '2003' },
+    { name: '2004', value: '2004' },
+    { name: '2005', value: '2005' },
+    { name: '2006', value: '2006' }
+  ];
+  makes = [
+    { name: 'Make', value: 'null' },
+    { name: '1999', value: '1999' },
+    { name: '2000', value: '2000' },
+    { name: '2001', value: '2001' },
+    { name: '2002', value: '2002' },
+    { name: '2003', value: '2003' },
+    { name: '2004', value: '2004' },
+    { name: '2005', value: '2005' },
+    { name: '2006', value: '2006' }
+  ];
 
   constructor() {}
 
