@@ -38,12 +38,15 @@ export class TabViewComponent implements OnInit {
 
     if (this.elements.length > 0) {
       for (let i = 0; i < this.elements.length; i++) {
+        let titleTranslate = this.elements[i].attributes.getNamedItem('translate')
         tabs.push({
           index: i,
-          title: this.elements[i].attributes.getNamedItem('title').nodeValue
+          title: this.elements[i].attributes.getNamedItem('title').nodeValue,
+          translate: titleTranslate ? titleTranslate.nodeValue: false
         });
       }
     }
+
     this.tabs = tabs;
     this.initialized = true;
     this.selectedTabChanged();
