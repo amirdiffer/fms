@@ -52,11 +52,11 @@ export class MovementComponent implements OnInit, AfterViewChecked {
     let confirmCol = this.requestTableSetting.columns.find(
       (c) => c.field === 'ButtonConfirm'
     );
-    let rejectCol =this.requestTableSetting.columns.find(
+    let rejectCol = this.requestTableSetting.columns.find(
       (c) => c.field === 'ButtonReject'
-    )
+    );
     confirmCol.onClick = this.openConfirmModal.bind(this);
-    rejectCol.onClick = this.rejectRow()
+    rejectCol.onClick = this.rejectRow();
     this.filterSetting = [
       {
         filterTitle: 'Total',
@@ -97,7 +97,7 @@ export class MovementComponent implements OnInit, AfterViewChecked {
       width: '800px'
     });
   }
-  rejectRow(){
-    console.log('reject')
+  rejectRow() {
+    console.log('reject');
   }
 }

@@ -16,13 +16,13 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
   form: FormGroup;
 
   middleCheckboxLabelArray = [
-    {name:'Registration'},
-    {name:'Customization'},
-    {name:'Sub Asset'},
-    {name:'Accessory'},
-    {name:'Operator'},
-    {name:'Organization'},
-    {name:'Movement'}
+    { name: 'Registration' },
+    { name: 'Customization' },
+    { name: 'Sub Asset' },
+    { name: 'Accessory' },
+    { name: 'Operator' },
+    { name: 'Organization' },
+    { name: 'Movement' }
   ];
 
   bottomCheckboxLabelArray = ['Fuel Management', 'Traffic Fine'];
