@@ -10,7 +10,7 @@
               <img [class.sort]='col.isAsc === false' class="icon-dorp" src="../../../assets/icons/sort-down-solid.svg" alt="">
             </ng-template>
             <ng-template [ngIf]="!col.isIconLable" [ngIfElse]="iconType">
-              {{col.lable}}
+              {{col.lable|translate}}
             </ng-template>
             <ng-template #iconType>
               <div class="iconLable" [innerHTML]="col.lable"></div>
