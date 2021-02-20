@@ -9,19 +9,13 @@ import { PartMasterService } from './part-master.service';
 })
 export class PartMasterComponent implements OnInit {
   searchIcon = 'assets/icons/search-solid.svg';
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
   filterSetting = [];
   partMasterTableSetting;
   constructor(private _partMasterService: PartMasterService) {}
 
   ngOnInit(): void {
     this.filterSetting = [
-      {
-        filterTitle: '',
-        filterCount: '',
-        filterTagColor: '',
-        isCalendar: true
-      },
       {
         filterTitle: 'Total',
         filterCount: '13',

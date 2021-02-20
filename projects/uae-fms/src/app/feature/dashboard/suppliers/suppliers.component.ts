@@ -8,7 +8,7 @@ import { environment } from '../../../../environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SuppliersComponent implements OnInit {
-  tabsImg = ['assets/icons/surface1.svg'];
+  tabsImg = [`assets/icons/surface1.svg`];
   supplierCharts = [];
   fileServerBase = environment.baseFileServer;
   constructor() {}

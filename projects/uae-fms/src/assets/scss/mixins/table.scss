@@ -6,6 +6,8 @@
   $tableCellBg
 ) {
   .table-container {
+    box-shadow: 0px 0px 2px #0000003d !important;
+    border-radius: 4px;
     position: relative;
     background-color: $tableBg;
     padding: 15px 0 0 0 !important;

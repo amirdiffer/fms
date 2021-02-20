@@ -114,7 +114,7 @@ $fms-green-label-text-letter-line-spaceing: 25px;
 // label text number
 $fms-green-label-text-number-font: '29LT Bukra';
 $fms-green-label-text-number-font-weight: normal;
-$fms-green-label-text-number-font-size:36px;
+$fms-green-label-text-number-font-size: 36px;
 $fms-green-label-text-number-letter-line-spaceing: 50px;
 // body 1
 $fms-green-body1-font: '29LT Bukra';
@@ -133,16 +133,15 @@ $fms-green-body2-letter-line-spaceing: 21px;
 $fms-green-button-font: '29LT Bukra';
 $fms-green-button-font-weight: bold;
 $fms-green-button-color: #fff;
-$fms-green-button-bg:#0DA06E;
-$fms-green-button-border: #0DA06E;
+$fms-green-button-bg: #0da06e;
+$fms-green-button-border: #0da06e;
 $fms-green-button-font-size: 14px;
 $fms-green-button-letter-line-spaceing: 24px;
-
 
 /* Colors */
 $fms-green-body-color: $fms-green-body1-color;
 $fms-green-body1-bg: #f3f3f3;
-$fms-green-body2-bg: #fafafa;
+$fms-green-body2-bg: #fff;
 
 $fms-green-header-bg: #005844;
 $fms-green-sidenav-active: #0da06e;
@@ -208,7 +207,7 @@ $fms-green-form-addon: $fms-green-primary-color1;
 $fms-green-form-addon-border: $fms-green-primary-color2;
 
 // toggle inputs
-$fms-green-form-input-toggle: $fms-green-primary-color1;
+$fms-green-form-input-toggle: #0da06e;
 
 // radios
 // unchecked
@@ -225,7 +224,6 @@ $fms-green-disabled-radio-border: #dbdbdb;
 // disabled-checked
 $fms-green-disabled-checked-radio-fill: #0da06e;
 $fms-green-disabled-checked-radio-border: #0da06e;
-
 
 // checkboxs
 

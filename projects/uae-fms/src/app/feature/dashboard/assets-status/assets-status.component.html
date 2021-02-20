@@ -1,5 +1,5 @@
 <h6 class="card-header">
-    Assets Status
+    {{ 'dashboard.asset_status' | translate }}
 </h6>
 <div class="status-chart" id="chart">
     <apx-chart
@@ -7,5 +7,6 @@
     [chart]="chartOptions.chart"
     [plotOptions]="chartOptions.plotOptions"
     [colors]="chartOptions.colors"
-    [labels]="chartOptions.labels"></apx-chart>
+    [labels]="chartOptions.labels"
+    [legend]="chartOptions.legend"></apx-chart>
 </div>

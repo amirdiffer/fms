@@ -1,59 +1,69 @@
 <form [formGroup] = "inputForm">
-    <div class="card mb-3">
-        <div class="card-body">
-                <div class="button-container">
-                    <button class="btn-primary-medium btn-scondary-green" routerLink="..">Cancel</button>
-                    <button class="btn-primary-medium add">Add</button>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 align-self-center">
-                        <mat-form-field class="">
-                            <mat-label>Item Name *</mat-label>
-                            <input matInput placeholder="" value="" formControlName="itemName">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-lg-4 col-md-4 align-items-center d-flex radio-button-container">
-                        <label class="title">Assign to a</label>
-                        <mat-radio-group aria-label="Select an option"  formControlName="assignTo">
-                            <mat-radio-button value="asset">Asset</mat-radio-button>
-                            <mat-radio-button value="subAsset">Sub Asset</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                    <div class="col-lg-4 col-md-4 align-self-center">
-                        <mat-form-field class="">
-                            <mat-label>Asset</mat-label>
-                            <input matInput placeholder="" value="" formControlName="search"> 
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-lg-4 col-md-4 align-self-center">
-                        <mat-form-field appearance="fill">
-                            <mat-label>Accessory Type *</mat-label>
-                            <mat-select  formControlName="accessoryType">
-                            <mat-option value="1">Accessory Type 1</mat-option>
-                            <mat-option value="2">Accessory Type 2</mat-option>
-                            <mat-option value="3">Accessory Type 3</mat-option>
-                            </mat-select>    
-                        </mat-form-field>
-                    </div>
-                    <div class="col-lg-4 col-md-3 align-self-center">
-                        <mat-form-field class="">
-                            <mat-label>Quantity *</mat-label>
-                            <input matInput placeholder="" value="" formControlName="quantity">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-lg-4 col-md-4 align-self-center">
-                        <mat-form-field appearance="fill">
-                            <mat-label>Assigned To</mat-label>
-                            <mat-select formControlName="assignedTo">
-                            <mat-option value="1">Assigned To 1</mat-option>
-                            <mat-option value="2">Assigned To 2</mat-option>
-                            <mat-option value="3">Assigned To 3</mat-option>
-                            </mat-select>    
-                        </mat-form-field>
-                    </div>
-                </div>
+  <div class="button-container">
+    <button class="btn-primary-medium btn-scondary-green" routerLink="..">Cancel</button>
+    <button class="btn-primary-medium add">Add</button>
+  </div>
+  <div class="form-section">
+    <div class="row form-section__row">
+      <div class="col-12 col-md-4 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="itemName" pInputText
+                 placeholder="Item Name *"  type="text">
+          <label>Item Name *</label>
+        </span>
+      </div>
+      <div class="col-12 col-md-4 mb-2 align-self-center">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <h3 class="form-section__title m-0">Assign to a</h3>
+          </div>
+          <div class="col-12 col-md-8 row">
+            <div class="form-check col-6">
+              <input class="form-check-input" formControlName="assignTo" type="radio" name="assignTo" id="asset" value ="asset">
+              <label class="form-check-label" for="asset">Asset</label>
+            </div>
+            <div class="form-check col-6">
+              <input class="form-check-input" formControlName="assignTo" type="radio" name="assignTo" id="subAsset" value ="subAsset">
+              <label class="form-check-label" for="subAsset">Sub Asset</label>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="col-12 col-md-4 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="search" pInputText
+                 placeholder="Asset"  type="text">
+          <label>Asset</label>
+        </span>
+      </div>
     </div>
+    <div class="row form-section__row">
+      <div class="col-12 col-md-3 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="accessoryType" [autoDisplayFirst]="false"
+                      [options]="accessory"
+                      formControlName="accessoryType" optionLabel="name"></p-dropdown>
+          <label for="accessoryType">Accessory Type *</label>
+        </span>
+      </div>
+      <div class="col-12 col-md-4 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="quantity" pInputText
+                 placeholder="Quantity *"  type="text">
+          <label>Quantity *</label>
+        </span>
+      </div>
+      <div class="col-12 col-md-3 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="assignedTo" [autoDisplayFirst]="false"
+                      [options]="assignedTo"
+                      formControlName="assignedTo" optionLabel="name"></p-dropdown>
+          <label for="assignedTo">Assigned To</label>
+        </span>
+      </div>
+    </div>
+  </div>
 </form>
+<div class="table-container component_wrapper">
+  <app-table [setting]='accessory_Table'></app-table>
+</div>

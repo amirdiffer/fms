@@ -14,7 +14,7 @@ import {
 })
 export class PartListFormComponent implements OnInit {
   searchIcon = 'assets/icons/search.svg';
-  
+
   locations = [
     { name: 'Room', code: 'room' },
     { name: 'Saloon', code: 'saloon' }

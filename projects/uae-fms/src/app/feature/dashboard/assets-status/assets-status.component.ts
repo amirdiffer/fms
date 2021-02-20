@@ -8,7 +8,8 @@ import {
   ApexNonAxisChartSeries,
   ApexPlotOptions,
   ApexChart,
-  ChartComponent
+  ChartComponent,
+  ApexLegend
 } from 'ng-apexcharts';
 
 export type ChartOptions = {
@@ -17,6 +18,7 @@ export type ChartOptions = {
   labels: string[];
   colors: string[];
   plotOptions: ApexPlotOptions;
+  legend: ApexLegend;
 };
 
 @Component({
@@ -31,20 +33,23 @@ export class AssetsStatusComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.chart);
     this.chartOptions = {
       series: [44, 55, 67, 83],
       chart: {
-        height: 390,
-        type: 'radialBar'
+        height: '360px',
+        type: 'radialBar',
+        width: '100%'
       },
       plotOptions: {
         radialBar: {
           hollow: {
             margin: 5,
-            size: '70%',
+            size: '67%',
             background: 'transparent',
             image: undefined
+          },
+          track: {
+            show: false
           },
           dataLabels: {
             name: {
@@ -61,6 +66,21 @@ export class AssetsStatusComponent implements OnInit {
               }
             }
           }
+        }
+      },
+      legend: {
+        show: true,
+        floating: false,
+        position: 'bottom',
+        labels: {
+          useSeriesColors: true
+        },
+        markers: {
+          width: 8,
+          height: 8
+        },
+        itemMargin: {
+          horizontal: 10
         }
       },
       labels: ['Active', 'Defleet', 'Reused', 'Total Lost'],

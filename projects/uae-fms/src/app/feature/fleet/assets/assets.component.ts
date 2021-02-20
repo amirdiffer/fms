@@ -1,5 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild
+} from '@angular/core';
 import { AssetsService } from './assets.service';
+import { TableComponent } from '@core/table';
 @Component({
   selector: 'anms-assets',
   templateUrl: './assets.component.html',
@@ -7,6 +13,8 @@ import { AssetsService } from './assets.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetsComponent implements OnInit {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
+
   assetMasterTableSetting;
   pendingRegistrationTableSetting;
   pendingCustomizationTableSetting;
@@ -43,5 +51,9 @@ export class AssetsComponent implements OnInit {
         filterTagColor: '#F75A4A'
       }
     ];
+  }
+
+  exportTable() {
+    this.table.exportTable();
   }
 }

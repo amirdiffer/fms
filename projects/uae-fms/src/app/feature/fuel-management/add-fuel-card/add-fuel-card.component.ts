@@ -1,4 +1,4 @@
-import { TableSetting } from './../../../core/table/table.component';
+import { TableSetting } from '@core/table';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {
   FuelCardTableColumnDefinition,

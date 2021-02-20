@@ -11,5 +11,5 @@ export class FuelManagementSelectors {
   static assetUsageSelector = createSelector(
     FuelManagementSelectors.featureSelector,
     (state) => state['assetUsage']
-  )
+  );
 }

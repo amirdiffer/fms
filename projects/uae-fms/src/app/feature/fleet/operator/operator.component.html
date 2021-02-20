@@ -1,7 +1,7 @@
 <div class="statistic-card">
   <app-filter [setting]='filterCard'></app-filter>
 </div>
-<div class="component_wrapper">
+<div class="component_wrapper table-container ">
   <div class="card-table-header">
     <div class="search-box">
       <input type="text" placeholder="Search in Columns">
@@ -14,7 +14,7 @@
     </button>
     <button class="btn-primary-small" [routerLink]="'add'"><i>+</i><a>Add</a></button>
   </div>
-  <div class="table-wreapper">
+  <div class="">
     <app-table [setting]='operator_Table'></app-table>
   </div>
 </div>

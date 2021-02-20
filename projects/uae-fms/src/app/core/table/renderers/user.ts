@@ -19,9 +19,9 @@ import { environment } from '../../../../environments/environment';
   styles: [
     `
       div .user-image {
-        max-width: 60px;
-        max-height: 50px;
-        border-radius: 4px;
+        height: 4.3em;
+        max-width: 4.3em;
+        border-radius: 0.5em;
       }
 
       div .user-name {

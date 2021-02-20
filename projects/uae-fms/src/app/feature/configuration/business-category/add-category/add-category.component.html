@@ -3,7 +3,7 @@
     <button class="btn-primary-medium btn-scondary-green" type="button" (click)="goToList()">Cancel</button>
     <button class="btn-primary-medium add" (click)="submit()">Add</button>
   </div>
-  <div class="form-section">
+  <div class="form-section mx-0">
     <h3 class="form-section__title">Business Category Info</h3>
 
     <div class="row form-section__row">
@@ -50,7 +50,7 @@
 
 
   </div>
-  <div class="form-section">
+  <div class="form-section mx-0">
     <h3 class="form-section__title">
       <span class='plus-icon'>
         <svg-icon src='../../../../../assets/icons/add.svg'
@@ -93,7 +93,7 @@
       </div>
     </div>
   </div>
-  <div class="form-section">
+  <div class="form-section mx-0">
     <h3 class="form-section__title"><span class='plus-icon'>
         <svg-icon src='../../../../../assets/icons/add.svg'
           [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
@@ -136,12 +136,6 @@
     </div>
   </div>
 </form>
-<div class="row">
-  <div class='col-12'>
-    <div class='component_wrapper'>
-      <div class='table-wreapper'>
-        <app-table [setting]='addCategory_Table'></app-table>
-      </div>
-    </div>
-  </div>
+<div class='table-container component_wrapper'>
+  <app-table [setting]='addCategory_Table'></app-table>
 </div>

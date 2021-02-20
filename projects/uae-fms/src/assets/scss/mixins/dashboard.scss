@@ -1,0 +1,54 @@
+@mixin dashboard(
+  $headerColor: #475f7b,
+  $headerBackground: #fff,
+  $headerFontSize: 1.1rem,
+  $buttonColor: #ffff,
+  $buttonBackgroundColor: #26d07c,
+  $dashboardCardBackground: #fff,
+  $buttonBoxShadowColor: #5a8dee66,
+  $dashboardCardBoxShadowColor: #0000001f,
+  $tableHeaderColor: #a0a0a0,
+  $tableHeaderBorderColor: #c7cfd6,
+  $tableHeaderBackground: #fff,
+  $tableHeaderFontSize: 1em,
+  $tableCellFontSize: 1em,
+  $headPadding: 1em
+) {
+  .dashboard-container {
+    h6.card-header {
+      color: $headerColor;
+      background: $headerBackground;
+      font-size: $headerFontSize;
+      font-weight: bold;
+    }
+
+    .head {
+      padding: $headPadding;
+      .right-button {
+        text-align: right;
+        button {
+          color: $buttonColor;
+          background: $buttonBackgroundColor;
+          box-shadow: 0px 2px 4px $buttonBoxShadowColor;
+        }
+      }
+    }
+
+    .dashboard-card {
+      box-shadow: -8px 12px 18px $dashboardCardBoxShadowColor;
+      background: $dashboardCardBackground;
+    }
+  }
+
+  .dashboard-table {
+    .p-datatable .p-datatable-thead > tr > th {
+      background: $tableHeaderBackground;
+      color: $tableHeaderColor;
+      border-color: $tableHeaderBorderColor;
+      font-size: $tableHeaderFontSize;
+    }
+    .p-datatable .p-datatable-tbody > tr > td {
+      font-size: $tableCellFontSize;
+    }
+  }
+}

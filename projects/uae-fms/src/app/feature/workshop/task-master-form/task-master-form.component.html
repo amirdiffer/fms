@@ -6,7 +6,7 @@
         <button  class="btn-primary-medium btn-scondary-green" routerLink=".." type="button">Cancel</button>
         <button class="btn-primary-medium add" type="submit">Add</button>
     </div>
-    <div class="form-section">
+    <div class="form-section mx-0">
         <h3 class="form-section__title">Task Info</h3>
         <div class="row form-section__row">
             <div class="col-12 col-md-4 p-field form-section__field">
@@ -29,7 +29,7 @@
             </div>
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="Rate per Hour" type="text " formControlName="ratePerHour" [class.invalid]="!inputForm.get('ratePerHour').valid && submited">
+                    <input pInputText placeholder="Rate per Hour" type="text" formControlName="ratePerHour" [class.invalid]="!inputForm.get('ratePerHour').valid && submited">
                     <label [class.red-font]=" inputForm.get('ratePerHour').invalid && submited">Rate per Hour</label>
                 </span>
                 <anms-error
@@ -52,7 +52,7 @@
                     <div class="p-field form-section__field flex-with-button w-100">
                         <ng-container *ngFor="let skill of inputForm.get('skill')['controls']; let i=index">
                             <span class="p-float-label flex-with-button w-100">
-                                <input type="text" id="inputgroup" pInputText placeholder="Skills" [formControlName]="i" [class.invalid]="!inputForm.get('skill')['controls'][i].valid && submited"> 
+                                <input type="text" id="inputgroup" pInputText placeholder="Skills" [formControlName]="i" [class.invalid]="!inputForm.get('skill')['controls'][i].valid && submited">
                                 <label [class.red-font]=" inputForm.get('skill')['controls'][i].invalid && submited">Skills</label>
                             </span>
                             <small class="error-input" [class.d-none]=" inputForm.get('skill')['controls'][i].valid || !submited">Please fill skill</small>
@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="row form-section__row">
             <div class="col-12 col-md-3 form-section__field toggle-select">
                 <p-inputSwitch formControlName="needPart"></p-inputSwitch>
@@ -77,7 +77,7 @@
                     <div class="p-field form-section__field flex-with-button w-100">
                         <ng-container  *ngFor="let skill of inputForm.get('part')['controls']; let i=index">
                             <span class="p-float-label flex-with-button w-100 ">
-                                <input type="text" id="inputgroup" pInputText placeholder="Add Part" [formControlName]="i" [class.invalid]="!inputForm.get('part')['controls'][i].valid && submited"> 
+                                <input type="text" id="inputgroup" pInputText placeholder="Add Part" [formControlName]="i" [class.invalid]="!inputForm.get('part')['controls'][i].valid && submited">
                                 <label [class.red-font]=" inputForm.get('part')['controls'][i].invalid && submited">Add Part</label>
                             </span>
                             <small class="error-input" [class.d-none]=" inputForm.get('part')['controls'][i].valid || !submited">Please fill part</small>
@@ -96,8 +96,6 @@
 </form>
 <!-- end form-section -->
 
-<div class="table-container p-0">
-    <div class="card-table">
-        <app-table [setting]="tableSetting"></app-table>
-    </div>
+<div class="component_wrapper table-container">
+  <app-table [setting]="tableSetting"></app-table>
 </div>

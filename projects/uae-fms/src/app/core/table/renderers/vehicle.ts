@@ -25,7 +25,7 @@ import { environment } from '../../../../environments/environment';
   styles: [
     `
       .cell .flag {
-        width: 23px;
+        width: 1.5em;
         height: fit-content;
         align-self: center;
       }
