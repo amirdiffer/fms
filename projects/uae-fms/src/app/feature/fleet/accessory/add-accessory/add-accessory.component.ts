@@ -19,13 +19,13 @@ export class AddAccessoryComponent implements OnInit {
   accessory = [
     { name: 'Accessory Type 1', id: 1 },
     { name: 'Accessory Type 2', id: 2 },
-    { name: 'Accessory Type 3', id: 3 },
+    { name: 'Accessory Type 3', id: 3 }
   ];
 
   assignedTo = [
     { name: 'assignedTo Type 1', id: 1 },
     { name: 'assignedTo Type 2', id: 2 },
-    { name: 'assignedTo Type 3', id: 3 },
+    { name: 'assignedTo Type 3', id: 3 }
   ];
 
   accessory_Table: TableSetting = {

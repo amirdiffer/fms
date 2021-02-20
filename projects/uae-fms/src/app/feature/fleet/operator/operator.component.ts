@@ -63,8 +63,8 @@ export class OperatorComponent implements OnInit {
         width: 150,
         renderer: 'doubleLineRenderer'
       },
-      { lable: 'Type', type: 1, field: 'Type',width: 100 },
-      { lable: 'Status', type: 1, field: 'Status',width: 100 },
+      { lable: 'Type', type: 1, field: 'Type', width: 100 },
+      { lable: 'Status', type: 1, field: 'Status', width: 100 },
       {
         lable: 'Asset',
         type: 1,
@@ -73,8 +73,8 @@ export class OperatorComponent implements OnInit {
         renderer: 'assetsRenderer',
         thumbField: ''
       },
-      { lable: 'TF PAid', type: 1, field: 'TF_PAid',width: 100  },
-      { lable: 'TF Unpaid', type: 1, field: 'TF_Unpaid' ,width: 100 }
+      { lable: 'TF PAid', type: 1, field: 'TF_PAid', width: 100 },
+      { lable: 'TF Unpaid', type: 1, field: 'TF_Unpaid', width: 100 }
     ],
     data: [
       {

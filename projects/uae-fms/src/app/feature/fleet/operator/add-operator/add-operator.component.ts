@@ -13,8 +13,8 @@ import {
 export class AddOperatorComponent implements OnInit {
   calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   public filesUpdloaded: NgxFileDropEntry[] = [];
-  progressBarValue=70;
-  employeNumber= [
+  progressBarValue = 70;
+  employeNumber = [
     { name: 'Employee 1', id: 1 },
     { name: 'Employee 2', id: 2 },
     { name: 'Employee 3', id: 3 },
@@ -51,7 +51,7 @@ export class AddOperatorComponent implements OnInit {
         console.log(droppedFile.relativePath, fileEntry);
       }
     }
-  };
+  }
   public fileOver(event) {
     console.log(event);
   }

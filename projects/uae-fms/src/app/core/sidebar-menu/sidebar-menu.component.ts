@@ -2,7 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { assetsPath } from '@environments/environment';
 
 import { RouterReducerState } from '@ngrx/router-store';
-import { createFeatureSelector, createSelector, select, Store } from '@ngrx/store';
+import {
+  createFeatureSelector,
+  createSelector,
+  select,
+  Store
+} from '@ngrx/store';
 
 import { interval, Subscription } from 'rxjs';
 import { delayWhen } from 'rxjs/operators';
@@ -18,7 +23,10 @@ import { WindowResizeService, ResizeEvent } from '../general-services';
   styleUrls: ['./sidebar-menu.component.scss']
 })
 export class SidebarMenuComponent implements OnInit, OnDestroy {
-  selectRouterState = createFeatureSelector<AppState, RouterReducerState<RouterStateUrl>>('router');
+  selectRouterState = createFeatureSelector<
+    AppState,
+    RouterReducerState<RouterStateUrl>
+  >('router');
 
   public route$ = this.store.pipe(
     select(createSelector(this.selectRouterState, (state) => state))
@@ -28,7 +36,9 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
 
   public activeGroup: string = '';
   toggleGroup(item: MenuItem): void {
-   this.activeGroup == item.name || this.activeGroup == '' ? this.activeGroup = 'root' : this.activeGroup = item.name;
+    this.activeGroup == item.name || this.activeGroup == ''
+      ? (this.activeGroup = 'root')
+      : (this.activeGroup = item.name);
   }
 
   usingMenu = [];
@@ -176,7 +186,9 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
   opened$ = this.facade.opened$;
   show$ = this.facade.show$;
   type$ = this.facade.type$;
-  showLabel$ = this.facade.opened$.pipe(delayWhen((x) => interval(x ? 1000 : 1)));
+  showLabel$ = this.facade.opened$.pipe(
+    delayWhen((x) => interval(x ? 1000 : 1))
+  );
 
   insideProfile = false;
   assets = assetsPath;
@@ -187,7 +199,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     private store: Store,
     private facade: SidebarMenuFacade,
     private resizeService: WindowResizeService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.usingMenu = this.mainMenu;
@@ -201,21 +213,19 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     });
 
     let $this = this;
-    this.resizeService.resized$.subscribe(x => {
-      this.onResize(x, $this)
-    })
+    this.resizeService.resized$.subscribe((x) => {
+      this.onResize(x, $this);
+    });
     this.onResize(this.resizeService.getCurrent(), this);
   }
 
   onResize(event: ResizeEvent, context) {
     if (event && event.innerWidth && event.innerWidth != 0)
       if (event.innerWidth != context.innerWidth) {
-        if (event.innerWidth > 1200)
-          context.facade.openSidebarMenu();
+        if (event.innerWidth > 1200) context.facade.openSidebarMenu();
         else context.facade.closeSidebarMenu();
 
-        if (event.innerWidth > 720)
-          context.facade.showSidebarMenu();
+        if (event.innerWidth > 720) context.facade.showSidebarMenu();
         else context.facade.hideSidebarMenu();
         context.innerWidth = event.innerWidth;
       }
