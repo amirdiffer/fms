@@ -14,16 +14,16 @@
       </button>
       <button *ngIf="selectedTab!='Job Card'" class="btn-primary-small" (click)="addClicked($event)" ><i>+</i><a>Add</a></button>
     </span>
-    <div title="Requests">
+    <div title="tabs.requests">
       <app-table [setting]="table1Setting"></app-table>
     </div>
-    <div title="Job Card">
+    <div title="tabs.job_card">
       <app-table [setting]="table2Setting"></app-table>
     </div>
-    <div title="Technician">
+    <div title="tabs.technician">
       <app-table [setting]="table3Setting"></app-table>
     </div>
-    <div title="Location">
+    <div title="tabs.location">
       <app-table [setting]="table4Setting"></app-table>
     </div>
   </app-tab-view>
