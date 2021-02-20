@@ -98,7 +98,7 @@
   },
   "tables": {
     "column": {
-      "name": "Nmae",
+      "name": "Name",
       "total_sub_asset": "Total Sub Asset",
       "total_accessory": "Total Accessory",
       "total": "Total",
