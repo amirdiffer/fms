@@ -12,25 +12,25 @@ export class SubAssetComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   filterCard: FilterCardSetting[] = [
     {
-      filterTitle: 'Total',
+      filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#C543FF',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'Active',
+      filterTitle: 'statistic.active',
       filterCount: '356',
       filterTagColor: '#4462A2',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'Inactive',
+      filterTitle: 'statistic.inactive',
       filterCount: '124',
       filterTagColor: '#40D3C2',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'X Sub Asset',
+      filterTitle: 'statistic.x_sub_asset',
       filterCount: '12',
       filterTagColor: '#F75A4A',
       onActive(index: number) {}
@@ -40,25 +40,25 @@ export class SubAssetComponent implements OnInit {
   assetTraffic_Table: TableSetting = {
     columns: [
       {
-        lable: 'Sub Asset Name',
+        lable: 'tables.column.sub_asset_type',
         type: 2,
         field: 'Sub_Asset_Name',
         thumbField: 'thumbField'
       },
-      { lable: 'Date', type: 1, field: 'Date' },
+      { lable: 'tables.column.date', type: 1, field: 'Date' },
       {
-        lable: 'Make',
+        lable: 'tables.column.make',
         type: 1,
         field: 'Make',
         thumbField: 'thumbField_Make',
         renderer: 'companyRenderer'
       },
-      { lable: 'Model', type: 1, field: 'Model' },
-      { lable: 'Policy', type: 1, field: 'Policy' },
-      { lable: 'Serial Number', type: 2, field: 'Serial_Number' },
-      { lable: 'Type', type: 1, field: 'Asset' },
+      { lable: 'tables.column.model', type: 1, field: 'Model' },
+      { lable: 'tables.column.policy', type: 1, field: 'Policy' },
+      { lable: 'tables.column.serial_number', type: 2, field: 'Serial_Number' },
+      { lable: 'tables.column.asset_type', type: 1, field: 'Asset' },
       {
-        lable: 'Warranty Expire Date',
+        lable: 'tables.column.warranty_expire_date',
         type: 1,
         field: 'Warranty_Expire_Date',
         width: 200
