@@ -1,14 +1,14 @@
 
   <form [formGroup]='form'>
     <div class="button-container">
-      <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">Cancel</button>
-      <button class="btn-primary-medium add">Add</button>
+      <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{ 'forms.cancel' | translate }}</button>
+      <button class="btn-primary-medium add">{{ 'forms.add' | translate }}</button>
     </div>
     <div class="mt-2">
       <app-filter [setting]='filter'></app-filter>
     </div>
     <div class="form-section mt-3" formGroupName="portalInformation">
-      <h3 class="form-section__title">Portal Information</h3>
+      <h3 class="form-section__title">{{ 'configuration.users.portal_information' | translate }}</h3>
       <div class="row form-section__row">
         <div class="col-12 col-md-3 p-field form-section__field">
           <div class="autocomplete-select">
@@ -18,7 +18,7 @@
                 [suggestions]="employees" field="name"
                 [minLength]="1"></p-autoComplete>
               <i class="pi pi-search"></i>
-              <label>Employee Number *</label>
+              <label>{{ 'configuration.users.employee_number' | translate }} *</label>
             </span>
             <anms-error
               [showError]="hasError('employeeNumber',form.get('portalInformation'),submited)"
@@ -34,7 +34,7 @@
                 [suggestions]="departments" field="name"
                 [minLength]="1"></p-autoComplete>
               <i class="pi pi-search"></i>
-              <label>Department</label>
+              <label>{{ 'configuration.users.department' | translate }}</label>
             </span>
           </div>
         </div>
@@ -43,7 +43,7 @@
             <p-dropdown inputId="role" [autoDisplayFirst]="false"
               [options]="roles"
               formControlName="role" optionLabel="name"></p-dropdown>
-            <label for="role">Role</label>
+            <label for="role">{{ 'configuration.users.role' | translate }}</label>
             <anms-error
               [showError]="hasError('role',form.get('portalInformation'),submited)"
               error="fms.errors.required">
@@ -52,7 +52,7 @@
         </div>
         <div class="col-12 col-md-3 form-section__field toggle-select">
           <p-inputSwitch formControlName="activeEmployee"></p-inputSwitch>
-          <span>Active Employee</span>
+          <span>{{ 'configuration.users.active_employee' | translate }}</span>
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@
       <div class='col-4 d-flex' formGroupName='fileUpload'>
         <div class=" form-section w-100">
           <div>
-            <p class='font-weight-bold'>Upload Profile Picture</p>
+            <p class='font-weight-bold'>{{ 'configuration.users.upload_form.title' | translate }}</p>
           </div>
           <div>
             <div class='d-flex justify-content-between'>
@@ -75,7 +75,7 @@
                 <label (click)="openFileSelector()" style="cursor: pointer;">
                   <svg-icon   class="camera-icon" src='../../../../../../assets/icons/camera.svg'
                     [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                    <small calss="drag-and-drop">Drag and drop a file or Click here</small>
+                    <small calss="drag-and-drop">{{ 'configuration.users.upload_form.content' | translate }}</small>
                 </label>
               </ng-template>
             </ngx-file-drop>
@@ -85,13 +85,13 @@
 
       <div class="col-8" formGroupName="personalInformation">
         <div class="form-section">
-          <h3 class="form-section__title">Personal Information</h3>
+          <h3 class="form-section__title">{{ 'configuration.users.personal_information' | translate }}</h3>
           <div class="row form-section__row">
             <div class="col-12 col-md-5 p-field form-section__field">
               <span class="p-float-label">
                 <input formControlName="firstName" pInputText
                   placeholder="FirstName *" type="text">
-                <label>FirstName *</label>
+                <label>{{ 'configuration.users.first_name' | translate }} *</label>
                 <anms-error
                   [showError]="hasError('firstName',form.get('personalInformation'),submited)"
                   error="fms.errors.required"></anms-error>
@@ -101,7 +101,7 @@
               <span class="p-float-label">
                 <input formControlName="lastName" pInputText
                   placeholder="LastName *" type="text">
-                <label>LastName *</label>
+                <label>{{ 'configuration.users.last_name' | translate }} *</label>
                 <anms-error
                   [showError]="hasError('lastName',form.get('personalInformation'),submited)"
                   error="fms.errors.required"></anms-error>
@@ -115,7 +115,7 @@
                   <span class="p-float-label">
                     <input type="text" formControlName="email" pInputText
                       placeholder="Email *">
-                    <label>Email *</label>
+                    <label>{{ 'configuration.users.email' | translate }} *</label>
                   </span>
                   <span class="p-inputgroup-addon addon-primary">
                     <i class="pi pi-plus"></i>
@@ -137,7 +137,7 @@
                   <span class="p-float-label">
                     <input type="text" formControlName="phoneNumber" pInputText
                       placeholder="Phone Number *">
-                    <label>Phone Number *</label>
+                    <label>{{ 'configuration.users.phone_number' | translate }} *</label>
                   </span>
                   <span class="p-inputgroup-addon addon-primary">
                     <i class="pi pi-plus"></i>
@@ -154,26 +154,26 @@
 
           <div class="row form-section__row">
             <div class="col-12 col-md-4">
-                    <h3 class="form-section__title mt-2">Send Notification By</h3>
+                    <h3 class="form-section__title mt-2">{{ 'configuration.users.send_notification_by' | translate }}</h3>
             </div>
             <div class="col-12 col-md-8">
               <div class="row">
                 <div class="col-12 col-md-12 row">
                   <div class="form-group form-check col-3">
                     <input id="callCheckbox" type="checkbox" value="call" class="custom-checkbox" name="sendNotification" formControlName="callCheckbox">
-                    <label for="callCheckbox">Call</label>
+                    <label for="callCheckbox">{{ 'configuration.users.call' | translate }}</label>
                   </div>
                   <div class="form-group form-check col-3">
                     <input id="smsCheckbox" type="checkbox" value="sms" class="custom-checkbox" name="sendNotification" formControlName="smsCheckbox">
-                    <label for="smsCheckbox">SMS</label>
+                    <label for="smsCheckbox">{{ 'configuration.users.sms' | translate }}</label>
                   </div>
                   <div class="form-group form-check col-3">
                     <input id="emailCheckbox" type="checkbox" value="email" class="custom-checkbox" name="sendNotification" formControlName="emailCheckbox">
-                    <label for="emailCheckbox">Email</label>
+                    <label for="emailCheckbox">{{ 'configuration.users.email' | translate }}</label>
                   </div>
                   <div class="form-group form-check col-3">
                     <input id="whatsappCheckbox" type="checkbox" value="whatsapp" class="custom-checkbox" name="sendNotification" formControlName="whatsappCheckbox">
-                    <label for="whatsappCheckbox">Whatsapp</label>
+                    <label for="whatsappCheckbox">{{ 'configuration.users.whatsapp' | translate }}</label>
                   </div>
                 </div>
               </div>
