@@ -1,6 +1,6 @@
 <mat-card class=" component_wrapper part-store-category">
     <mat-card-header>
-        <mat-card-title class="mat-card-title">Category</mat-card-title>
+        <mat-card-title class="mat-card-title">{{ 'part_store.parts_list.category' | translate }}</mat-card-title>
     </mat-card-header>
     <span class="border"></span>
     <mat-card-content>
@@ -20,7 +20,7 @@
         </div>
         <div class="category-addItem">
             <button><a>+</a></button>
-            <span class="item">Add Category</span>
+            <span class="item">{{ 'part_store.parts_list.add_category' | translate }}</span>
         </div>
         <div class="category-item">
             <svg-icon [src]="folderRegularSvg" [svgStyle]="{ 'width.px':25 , 'fill': '#505050'}"></svg-icon>
