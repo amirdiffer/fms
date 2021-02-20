@@ -333,7 +333,7 @@
     "department_id": "Department Id",
     "department_name": "Department Name",
     "section_name": "Section Name",
-    "location": "Location"
+    "location": "location"
   },
   "movement": {
     "movement": {
