@@ -31,22 +31,22 @@ export class AssetsComponent implements OnInit {
 
     this.filterSetting = [
       {
-        filterTitle: 'Total',
+        filterTitle: 'statistic.total',
         filterCount: '2456',
         filterTagColor: '#028D5D'
       },
       {
-        filterTitle: 'Active',
+        filterTitle: 'statistic.active',
         filterCount: '2456',
         filterTagColor: '#009EFF'
       },
       {
-        filterTitle: 'Inactive',
+        filterTitle: 'statistic.inactive',
         filterCount: '2456',
         filterTagColor: '#FCB614'
       },
       {
-        filterTitle: 'XFleet',
+        filterTitle: 'statistic.xfleet',
         filterCount: '2456',
         filterTagColor: '#F75A4A'
       }
