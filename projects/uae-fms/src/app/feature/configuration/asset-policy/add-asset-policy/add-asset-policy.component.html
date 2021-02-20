@@ -1,7 +1,7 @@
 <form [formGroup]="assetPolicyForm">
     <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="goToList()">Cancel</button>
-        <button  class="btn-primary-medium add" (click)="submit()">Add</button>
+        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="goToList()">{{ 'forms.cancel' | translate }}</button>
+        <button  class="btn-primary-medium add" (click)="submit()">{{ 'forms.add' | translate }}</button>
     </div>
     <!-- form-section form-section--inline-->
     <div class="form-section form-section--inline mt-3">
@@ -10,17 +10,17 @@
           <div class="col-12 col-md-6 mb-2 align-self-center">
             <div class="row">
               <div class="col-12 col-md-4">
-                <h3 class="form-section__title m-0">This Policy Is For</h3>
+                <h3 class="form-section__title m-0">{{ 'workshop.part_store.configuration.asset_policy.asset.this_policy_is_for' | translate }}</h3>
               </div>
               <div class="col-12 col-md-8">
                 <div class="row">
                   <div class="form-check col-6">
                     <input class="form-check-input" formControlName="policyType" type="radio" name="policyType" id="asset" value ="asset">
-                    <label class="form-check-label" for="asset">Asset</label>
+                    <label class="form-check-label" for="asset">{{ 'workshop.part_store.configuration.asset_policy.asset.asset' | translate }}</label>
                   </div>
                   <div class="form-check col-6">
                     <input class="form-check-input" formControlName="policyType" type="radio" name="policyType" id="subAsset" value ="subAsset">
-                    <label class="form-check-label" for="subAsset">Sub Asset</label>
+                    <label class="form-check-label" for="subAsset">{{ 'workshop.part_store.configuration.asset_policy.asset.sub_asset' | translate }}</label>
                   </div>
                 </div>
               </div>
@@ -30,11 +30,11 @@
             <div class="col-12 col-md-6 p-field form-section__field">
                 <span class="p-float-label">
                     <input formControlName="policyName" pInputText
-                        placeholder="Policy Name *" required type="text">
-                    <label>Policy Name *</label>
+                        placeholder="{{ 'workshop.part_store.configuration.asset_policy.asset.policy_name' | translate }} *" required type="text">
+                    <label>{{ 'workshop.part_store.configuration.asset_policy.asset.policy_name' | translate }} *</label>
                     <anms-error
                         [showError]="hasError('policyName',assetPolicyForm,submited)"
-                        error="fms.errors.required">
+                        error="forms.feedback.required">
                     </anms-error>
                 </span>
             </div>
@@ -44,27 +44,27 @@
     <!-- end form-section form-section--inline-->
     <!-- form-section -->
     <div class="form-section">
-        <h3 class="form-section__title">Maximum Usage</h3>
+        <h3 class="form-section__title">{{ 'workshop.part_store.configuration.asset_policy.asset.maximum_usage' | translate }}</h3>
 
         <div class="row form-section__row">
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
                     <input formControlName="killometerUsage" pInputText
-                        placeholder="killometer/Hour *" required type="text">
-                    <label>killometer/Hour *</label>
+                        placeholder="{{ 'workshop.part_store.configuration.asset_policy.asset.kilometer_hour' | translate }} *" required type="text">
+                    <label>{{ 'workshop.part_store.configuration.asset_policy.asset.kilometer_hour' | translate }} *</label>
                     <anms-error
                         [showError]="hasError('killometerUsage',assetPolicyForm,submited)"
-                        error="fms.errors.required"></anms-error>
+                        error="forms.feedback.required"></anms-error>
                 </span>
             </div>
             <div class="col-12 col-md-1 p-field form-section__field
                 text-center">
-                Or
+                {{ 'workshop.part_store.configuration.asset_policy.or' | translate }}
             </div>
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="Year" type="text">
-                    <label>Year</label>
+                    <input pInputText placeholder="{{ 'workshop.part_store.configuration.asset_policy.asset.year' | translate }}" type="text">
+                    <label>{{ 'workshop.part_store.configuration.asset_policy.asset.year' | translate }}</label>
                 </span>
             </div>
         </div>
@@ -73,20 +73,20 @@
               <div class="p-inputgroup">
                 <span class="p-float-label">
                     <input formControlName="depreciationValue" pInputText
-                           placeholder="% depreciation value *" required
+                           placeholder="% {{ 'tables.column.depreciation_value' | translate }} *" required
                            type="text">
-                    <label>% depreciation value *</label>
-                    <anms-error
-                      [showError]="hasError('depreciationValue',assetPolicyForm,submited)"
-                      error="fms.errors.required"></anms-error>
-                </span>
-                <span class="p-inputgroup-addon">Yearly</span>
-              </div>
+                           <label>% {{ 'tables.column.depreciation_value' | translate }} *</label>
+                          </span>
+                          <span class="p-inputgroup-addon">{{ 'workshop.part_store.configuration.asset_policy.asset.yearly' | translate }}</span>
+                        </div>
+                        <anms-error
+                          [showError]="hasError('depreciationValue',assetPolicyForm,submited)"
+                          error="forms.feedback.required"></anms-error>
             </div>
 
             <div class="col-12 col-md-3 form-section__field toggle-select">
                 <p-inputSwitch formControlName="reminder"></p-inputSwitch>
-                <span>Set Reminder Before</span>
+                <span>{{ 'workshop.part_store.configuration.asset_policy.asset.set_reminder_before' | translate }}</span>
             </div>
         </div>
 
