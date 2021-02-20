@@ -59,22 +59,22 @@ export class MovementComponent implements OnInit, AfterViewChecked {
     rejectCol.onClick = this.rejectRow()
     this.filterSetting = [
       {
-        filterTitle: 'Total',
+        filterTitle: 'statistic.Total',
         filterCount: '36',
         filterTagColor: '#B892FF'
       },
       {
-        filterTitle: 'Waiting For Approval',
+        filterTitle: 'statistic.waiting_for_approval',
         filterCount: '07',
         filterTagColor: '#648DE5'
       },
       {
-        filterTitle: 'Approved',
+        filterTitle: 'statistic.approved',
         filterCount: '05',
         filterTagColor: '#709775'
       },
       {
-        filterTitle: 'Rejected',
+        filterTitle: 'statistic.rejected',
         filterCount: '12',
         filterTagColor: '#EF7A85'
       }

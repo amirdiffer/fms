@@ -94,7 +94,8 @@
     "search": "Search",
     "year": "Year",
     "make": "Make",
-    "model": "Model"
+    "model": "Model",
+    "request": "Request"
   },
   "tables": {
     "column": {
@@ -336,7 +337,10 @@
       "request_type": "Request Type",
       "new": "New",
       "replacement": "Replacement",
-      "reason": "Reason"
+      "reason": "Reason",
+      "asset_type": "Asset Type",
+      "quantity": "Quantity",
+      "old_asset": "Old Asset"
     },
     "request": {
       "request_type": "Request Type",
