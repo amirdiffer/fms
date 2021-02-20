@@ -98,7 +98,7 @@
   },
   "tables": {
     "column": {
-      "name": "Nmae",
+      "name": "Name",
       "total_sub_asset": "Total Sub Asset",
       "total_accessory": "Total Accessory",
       "total": "Total",
@@ -241,7 +241,11 @@
     "iserve": "I-Serve",
     "shared_poll": "Shared Poll",
     "temporary": "Temporary",
-    "workshop": "Workshop"
+    "workshop": "Workshop",
+    "active": "Active",
+    "defleet": "Defleet",
+    "reused": "Reused",
+    "total_lost": "Total Lost"
   },
   "assets": {
     "business_info": "Business Info",

@@ -241,7 +241,11 @@
     "iserve": "I-Serve",
     "shared_poll": "استطلاع مشترك",
     "temporary": "مؤقت",
-    "workshop": "الورشة"
+    "workshop": "الورشة",
+    "active": "نشيط",
+    "defleet": "Defleet",
+    "reused": "معاد استخدامها",
+    "total_lost": "مجموع المفقودين"
   },
   "assets": {
     "business_info": "معلومات العمل",
