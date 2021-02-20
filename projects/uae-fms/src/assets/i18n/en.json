@@ -222,7 +222,8 @@
       "email": "Email",
       "phone_number": "Phone Number",
       "company_name": "Company Name",
-      "support_operator": "Support Operator"
+      "support_operator": "Support Operator",
+      "instruction": "Instrunction"
     },
     "button": {
       "view_report": "View Report",
@@ -465,7 +466,9 @@
       "time_estimate": "Time Estimate (hours)",
       "skills": "Skills",
       "this_task_needs_part": "This Task Needs Part",
-      "add_part": "Add Part"
+      "add_part": "Add Part",
+      "please_fill_skill": "Please fill skill",
+      "please_fill_part": "Please fill part"
     },
     "part_store": {
       "parts_list": {
