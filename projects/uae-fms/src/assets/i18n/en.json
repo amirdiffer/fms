@@ -577,7 +577,22 @@
         "set_reminder_before": "Set Reminder Before"
       }
     },
-    "asset_configuration": {},
+    "asset_configuration": {
+      "make_and_model_info": "Make And Model Info",
+      "multiple_model": "Multiple Model",
+      "single_model": "Single Model",
+      "select_model": "Select Model",
+      "model": "Model",
+      "drag_and_drop_a_csv_file_or": "Drag and drop a CSV file or",
+      "click_here": "Click here",
+      "description": "Description",
+      "active_type": "Active Type",
+      "type_name": "Type Name",
+      "accessory": "Accessory",
+      "sub_asset": "Sub Asset",
+      "asset": "Asset",
+      "type_category": "Type Category"
+    },
     "business_category": {
       "business_category_info": "Business Category Info",
       "assign_sub_asset": "Assign Sub Asset",
@@ -643,5 +658,17 @@
     "feedback": {
       "required": "This is Field Required"
     }
+  },
+  "filter": {
+    "asset_category": "Asset Category",
+    "asset": "Asset",
+    "sub_asset": "Sub Asset",
+    "accessory": "Accessory",
+    "asset_type": "Asset Type",
+    "car": "Car",
+    "bus": "Bus",
+    "bicycle": "Bicycle",
+    "boat": "Boat",
+    "add_type": "Add Type"
   }
 }
