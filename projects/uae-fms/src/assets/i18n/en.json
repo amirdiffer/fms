@@ -366,6 +366,51 @@
       "content": "Drag and Drop a File here"
     }
   },
+  "part_store": {
+    "parts_list": {
+      "asset_type": "Asset Type",
+      "category": "Category",
+      "item_info": "Item Info",
+      "storage_location": "Storage Location",
+      "add_category": "Add Category",
+      "make": "Make",
+      "model": "Model",
+      "quantity": "Quantity",
+      "price": "Price",
+      "warranty_expire_date": "Warranty Expire Date",
+      "description": "Description"
+    },
+    "order_list": {
+      "request": {},
+      "order": {},
+      "suppliers": {}
+    },
+    "part_master": {
+      "asset_type": "Asset Type",
+      "category": "Category",
+      "add_category": "Add Category",
+      "make": "Make",
+      "model": "Model",
+      "folder_info": "Folder Info",
+      "category_info": "Category Info",
+      "item_info": "Item Info",
+      "folder_name": "Folder Name",
+      "short_code": "Short Code",
+      "category_name": "Category Name",
+      "item_name": "Item Name",
+      "upload_form": {
+        "title": "",
+        "progressbar_title": ".pdf",
+        "content": "Drag and Drop a Item picture or click here"
+      }
+    },
+    "reports": {},
+    "integration": {
+      "type": "Type",
+      "company_name": "Company Name",
+      "grp": "GRP"
+    }
+  },
   "workshop": {
     "body_shop": {
       "requests": {
@@ -466,167 +511,122 @@
       "skills": "Skills",
       "this_task_needs_part": "This Task Needs Part",
       "add_part": "Add Part"
+    }
+  },
+  "configuration": {
+    "role_permission": {
+      "role_info": "Role Info",
+      "permissions": "Permissions",
+      "fleet": "Fleet",
+      "fuel_management": "Fuel Management",
+      "traffic_fine": "Traffic Fine",
+      "asset_master": "Asset Master",
+      "registration": "Registration",
+      "customization": "Customization",
+      "sub_asset": "Sub Asset",
+      "accessory": "Accessory",
+      "operator": "Operator",
+      "organization": "Organization",
+      "movement": "Movement"
     },
-    "part_store": {
-      "parts_list": {
-        "asset_type": "Asset Type",
-        "category": "Category",
-        "item_info": "Item Info",
-        "storage_location": "Storage Location",
-        "add_category": "Add Category",
-        "make": "Make",
-        "model": "Model",
-        "quantity": "Quantity",
-        "price": "Price",
-        "warranty_expire_date": "Warranty Expire Date",
-        "description": "Description"
-      },
-      "order_list": {
-        "request": {},
-        "order": {},
-        "suppliers": {}
-      },
-      "part_master": {
-        "asset_type": "Asset Type",
-        "category": "Category",
-        "add_category": "Add Category",
-        "make": "Make",
-        "model": "Model",
-        "folder_info": "Folder Info",
-        "category_info": "Category Info",
-        "item_info": "Item Info",
-        "folder_name": "Folder Name",
-        "short_code": "Short Code",
-        "category_name": "Category Name",
-        "item_name": "Item Name",
-        "upload_form": {
-          "title": "",
-          "progressbar_title": ".pdf",
-          "content": "Drag and Drop a Item picture or click here"
-        }
-      },
-      "reports": {},
-      "configuration": {
-        "role_permission": {
-          "role_info": "Role Info",
-          "permissions": "Permissions",
-          "fleet": "Fleet",
-          "fuel_management": "Fuel Management",
-          "traffic_fine": "Traffic Fine",
-          "asset_master": "Asset Master",
-          "registration": "Registration",
-          "customization": "Customization",
-          "sub_asset": "Sub Asset",
-          "accessory": "Accessory",
-          "operator": "Operator",
-          "organization": "Organization",
-          "movement": "Movement"
-        },
-        "users": {
-          "portal_information": "Portal Information",
-          "personal_information": "Personal Information",
-          "send_notification_by": "Send Notification By",
-          "employee_number": "Employee Number",
-          "department": "Department",
-          "role": "Role",
-          "active_employee": "Active Employee",
-          "first_name": "First Name",
-          "last_name": "Last Name",
-          "email": "Email",
-          "phone_number": "Phone Number",
-          "call": "Call",
-          "sms": "SMS",
-          "whatsapp": "Whatsapp",
-          "upload_form": {
-            "title": "Upload Profile Picture",
-            "progressbar_title": ".pdf",
-            "content": "Drag and Drop Picture Here"
-          }
-        },
-        "company_profile": {},
-        "asset_policy": {
-          "asset": {
-            "this_policy_is_for": "This Policy Is For",
-            "asset": "Asset",
-            "sub_asset": "Sub Asset",
-            "policy_name": "Policy Name",
-            "maximum_usage": "Maximum Usage",
-            "kilometer_hour": "Kilometer/Hour",
-            "year": "Year",
-            "deprecation_value": "% Deprecation Value",
-            "yearly": "Yearly",
-            "set_reminder_before": "Set Reminder Before"
-          },
-          "sub_asset": {
-            "this_policy_is_for": "This Policy Is For",
-            "asset": "Asset",
-            "sub_asset": "Sub Asset",
-            "policy_name": "Policy Name",
-            "maximum_usage": "Maximum Usage",
-            "kilometer_hour": "Kilometer/Hour",
-            "year": "Year",
-            "deprecation_value": "% Deprecation Value",
-            "yearly": "Yearly",
-            "set_reminder_before": "Set Reminder Before"
-          }
-        },
-        "asset_configuration": {},
-        "business_category": {
-          "business_category_info": "Business Category Info",
-          "assign_sub_asset": "Assign Sub Asset",
-          "assign_accessory": "Assign Accessory",
-          "business_category_name": "Business Category Name",
-          "asset_type": "Asset Type",
-          "active_category": "Active Category",
-          "description": "Description",
-          "sub_asset": "Sub Asset",
-          "quantity": "Quantity",
-          "accessory": "Accessory",
-          "upload_form": {
-            "title": "",
-            "progressbar_title": "",
-            "content": "Drag and Drop a file Upload Specification"
-          }
-        },
-        "ownership": {
-          "ownership_type": "Ownership Type",
-          "owner_info": "Owner Info",
-          "ownership_info": "Ownership Info",
-          "external": "External",
-          "owned": "Owned",
-          "rent": "Rent",
-          "demo": "Demo",
-          "owner": "Owner",
-          "owner_email_address": "Owner Email Address",
-          "owner_phone_number": "Owner Phone Number",
-          "purpose": "Purpose",
-          "fleet_it_code": "Fleet IT Code",
-          "duration": "Duration"
-        },
-        "fleet_status": {
-          "asset": {
-            "type_category": "Type Category",
-            "asset": "Asset",
-            "sub_asset": "Sub Asset",
-            "status_category": "Status Category",
-            "status_name": "Status Name"
-          }
-        },
-        "periodic_service": {
-          "periodic_service_info": "Periodic Service Info",
-          "package": "Package",
-          "task": "Task",
-          "periodic_service_name": "Periodic Service Name",
-          "package_name": "Package Name",
-          "intervals": "Intervals",
-          "km_h": "Km/h"
-        }
-      },
-      "integration": {
-        "type": "Type",
-        "company_name": "Company Name",
-        "grp": "GRP"
+    "users": {
+      "portal_information": "Portal Information",
+      "personal_information": "Personal Information",
+      "send_notification_by": "Send Notification By",
+      "employee_number": "Employee Number",
+      "department": "Department",
+      "role": "Role",
+      "active_employee": "Active Employee",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "phone_number": "Phone Number",
+      "call": "Call",
+      "sms": "SMS",
+      "whatsapp": "Whatsapp",
+      "upload_form": {
+        "title": "Upload Profile Picture",
+        "progressbar_title": ".pdf",
+        "content": "Drag and Drop Picture Here"
       }
+    },
+    "company_profile": {},
+    "asset_policy": {
+      "asset": {
+        "this_policy_is_for": "This Policy Is For",
+        "asset": "Asset",
+        "sub_asset": "Sub Asset",
+        "policy_name": "Policy Name",
+        "maximum_usage": "Maximum Usage",
+        "kilometer_hour": "Kilometer/Hour",
+        "year": "Year",
+        "deprecation_value": "% Deprecation Value",
+        "yearly": "Yearly",
+        "set_reminder_before": "Set Reminder Before"
+      },
+      "sub_asset": {
+        "this_policy_is_for": "This Policy Is For",
+        "asset": "Asset",
+        "sub_asset": "Sub Asset",
+        "policy_name": "Policy Name",
+        "maximum_usage": "Maximum Usage",
+        "kilometer_hour": "Kilometer/Hour",
+        "year": "Year",
+        "deprecation_value": "% Deprecation Value",
+        "yearly": "Yearly",
+        "set_reminder_before": "Set Reminder Before"
+      }
+    },
+    "asset_configuration": {},
+    "business_category": {
+      "business_category_info": "Business Category Info",
+      "assign_sub_asset": "Assign Sub Asset",
+      "assign_accessory": "Assign Accessory",
+      "business_category_name": "Business Category Name",
+      "asset_type": "Asset Type",
+      "active_category": "Active Category",
+      "description": "Description",
+      "sub_asset": "Sub Asset",
+      "quantity": "Quantity",
+      "accessory": "Accessory",
+      "upload_form": {
+        "title": "",
+        "progressbar_title": "",
+        "content": "Drag and Drop a file Upload Specification"
+      }
+    },
+    "ownership": {
+      "ownership_type": "Ownership Type",
+      "owner_info": "Owner Info",
+      "ownership_info": "Ownership Info",
+      "external": "External",
+      "owned": "Owned",
+      "rent": "Rent",
+      "demo": "Demo",
+      "owner": "Owner",
+      "owner_email_address": "Owner Email Address",
+      "owner_phone_number": "Owner Phone Number",
+      "purpose": "Purpose",
+      "fleet_it_code": "Fleet IT Code",
+      "duration": "Duration"
+    },
+    "fleet_status": {
+      "asset": {
+        "type_category": "Type Category",
+        "asset": "Asset",
+        "sub_asset": "Sub Asset",
+        "status_category": "Status Category",
+        "status_name": "Status Name"
+      }
+    },
+    "periodic_service": {
+      "periodic_service_info": "Periodic Service Info",
+      "package": "Package",
+      "task": "Task",
+      "periodic_service_name": "Periodic Service Name",
+      "package_name": "Package Name",
+      "intervals": "Intervals",
+      "km_h": "Km/h"
     }
   },
   "forms": {
