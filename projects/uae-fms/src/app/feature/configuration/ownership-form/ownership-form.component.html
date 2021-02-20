@@ -1,14 +1,14 @@
 
 <form [formGroup]="ownerShipForm">
     <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="goToList()">Cancel</button>
-        <button class="btn-primary-medium add" (click)="submit()">Add</button>
+        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="goToList()">{{ 'forms.cancel' | translate }}</button>
+        <button class="btn-primary-medium add" (click)="submit()">{{ 'forms.add' | translate }}</button>
       </div>
     <!-- form-section form-section--inline-->
     <div class="form-section form-section--inline mt-3">
         <div class="row">
             <div class="col-12 col-md-2">
-                <h3 class="form-section__title">Ownership Type</h3>
+                <h3 class="form-section__title">{{ 'workshop.part_store.configuration.ownership.ownership_type' | translate }}</h3>
             </div>
 
             <div class="col-12 col-md-10">
@@ -17,16 +17,16 @@
                         radio-select">
                         <p-radioButton name="ownershipType"
                             formControlName="ownershipType" value="external"
-                            label="External"></p-radioButton>
+                            label="{{ 'workshop.part_store.configuration.ownership.external' | translate }}"></p-radioButton>
                         <p-radioButton name="ownershipType"
                             formControlName="ownershipType" value="owned"
-                            label="Owned"></p-radioButton>
+                            label="{{ 'workshop.part_store.configuration.ownership.owned' | translate }}"></p-radioButton>
                         <p-radioButton name="ownershipType"
                             formControlName="ownershipType" value="rent"
-                            label="Rent"></p-radioButton>
+                            label="{{ 'workshop.part_store.configuration.ownership.rent' | translate }}"></p-radioButton>
                         <p-radioButton name="ownershipType"
                             formControlName="ownershipType" value="Demo"
-                            label="Demo"></p-radioButton>
+                            label="{{ 'workshop.part_store.configuration.ownership.demo' | translate }}"></p-radioButton>
                     </div>
                 </div>
             </div>
@@ -37,41 +37,41 @@
 
     <!-- form-section -->
     <div class="form-section">
-        <h3 class="form-section__title">Owner Info</h3>
+        <h3 class="form-section__title">{{ 'workshop.part_store.configuration.ownership.owner_info' | translate }}</h3>
 
         <div class="row form-section__row">
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText formControlName = "owner" placeholder="Owner *" required
+                    <input pInputText formControlName = "owner" placeholder="{{ 'workshop.part_store.configuration.ownership.owner' | translate }} *" required
                         type="text">
-                    <label>Owner *</label>
+                    <label>{{ 'workshop.part_store.configuration.ownership.owner' | translate }} *</label>
                     <anms-error
                     [showError]="hasError('owner',ownerShipForm,submited)"
-                    error="fms.errors.required"
+                    error="forms.feedback.required"
                     >
                     </anms-error>
                 </span>
             </div>
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText email formControlName="ownerEmail" placeholder="Owner Email Address *"
+                    <input pInputText email formControlName="ownerEmail" placeholder="{{ 'workshop.part_store.configuration.ownership.owner_email_address' | translate }} *"
                         required type="text">
-                    <label>Owner Email Address *</label>
+                    <label>{{ 'workshop.part_store.configuration.ownership.owner_email_address' | translate }} *</label>
                     <anms-error
                     [showError]="hasError('ownerEmail',ownerShipForm,submited)"
-                    error="fms.errors.required"
+                    error="forms.feedback.required"
                     ></anms-error>
                     <anms-error
                     [showError]="hasError('ownerEmail',ownerShipForm,submited,'email')"
-                    error="fms.errors.email"
+                    error="forms.feedback.required"
                     ></anms-error>
                 </span>
             </div>
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText formControlName="ownerPhone" placeholder="Owner Phone Number"
+                    <input pInputText formControlName="ownerPhone" placeholder="{{ 'workshop.part_store.configuration.ownership.owner_phone_number' | translate }}"
                         type="text">
-                    <label>Owner Phone Number</label>
+                    <label>{{ 'workshop.part_store.configuration.ownership.owner_phone_number' | translate }}</label>
                 </span>
             </div>
         </div>
@@ -83,37 +83,37 @@
     <div class="form-section form-section--inline">
         <div class="row">
             <div class="col-12 col-md-2">
-                <h3 class="form-section__title">Ownership Info</h3>
+                <h3 class="form-section__title">{{ 'workshop.part_store.configuration.ownership.ownership_info' | translate }}</h3>
             </div>
 
             <div class="col-12 col-md-10">
                 <div class="row">
                     <div class="col-12 col-md-4 p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText placeholder="Purpose" type="text">
-                            <label>Purpose</label>
+                            <input pInputText placeholder="{{ 'workshop.part_store.configuration.ownership.purpose' | translate }}" type="text">
+                            <label>{{ 'workshop.part_store.configuration.ownership.purpose' | translate }}</label>
                         </span>
                     </div>
                     <div class="col-12 col-md-4 p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText formControlName="fleetITCode" placeholder="Fleet IT Code *"
+                            <input pInputText formControlName="fleetITCode" placeholder="{{ 'workshop.part_store.configuration.ownership.fleet_it_code' | translate }} *"
                                 required type="text">
-                            <label>Fleet IT Code *</label>
+                            <label>{{ 'workshop.part_store.configuration.ownership.fleet_it_code' | translate }} *</label>
                             <anms-error
                             [showError]="hasError('fleetITCode',ownerShipForm,submited)"
-                            error="fms.errors.required"
+                            error="forms.feedback.required"
                             >
                             </anms-error>
                         </span>
                     </div>
                     <div class="col-12 col-md-4 p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText placeholder="Duration *" formControlName="duration"
+                            <input pInputText placeholder="{{ 'workshop.part_store.configuration.ownership.duration' | translate }} *" formControlName="duration"
                                 type="text" required>
-                            <label>Duration *</label>
+                            <label>{{ 'workshop.part_store.configuration.ownership.duration' | translate }} *</label>
                             <anms-error
                             [showError]="hasError('duration',ownerShipForm,submited)"
-                            error ="fms.errors.required">
+                            error ="forms.feedback.required">
                             </anms-error>
                         </span>
                     </div>
