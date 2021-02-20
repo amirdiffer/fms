@@ -370,6 +370,51 @@
       "content": "قم بسحب وإسقاط ملف هنا"
     }
   },
+  "part_store": {
+    "parts_list": {
+      "asset_type": "نوع الأصول",
+      "category": "الفئة",
+      "item_info": "معلومات العنصر",
+      "storage_location": "مكان التخزين",
+      "add_category": "إضافة فئة",
+      "make": "الماركة",
+      "model": "الموديل",
+      "quantity": "العدد",
+      "price": "السعر",
+      "warranty_expire_date": "تاريخ انتهاء الضمان",
+      "description": "الوصف"
+    },
+    "order_list": {
+      "request": {},
+      "order": {},
+      "suppliers": {}
+    },
+    "part_master": {
+      "asset_type": "نوع الأصول",
+      "category": "الفئة",
+      "add_category": "إضافة فئة",
+      "make": "الماركة",
+      "model": "الموديل",
+      "folder_info": "معلومات المجلد",
+      "category_info": "معلومات الفئة",
+      "item_info": "معلومات العنصر",
+      "folder_name": "إسم الملف",
+      "short_code": "رمز قصير",
+      "category_name": "اسم التصنيف",
+      "item_name": "اسم العنصر",
+      "upload_form": {
+        "title": "",
+        "progressbar_title": ".pdf",
+        "content": "قم بسحب وإسقاط صورة عنصر أو انقر هنا"
+      }
+    },
+    "reports": {},
+    "integration": {
+      "type": "النوع",
+      "company_name": "اسم الشركة",
+      "grp": "GRP"
+    }
+  },
   "workshop": {
     "body_shop": {
       "requests": {
@@ -470,167 +515,122 @@
       "skills": "مهارات",
       "this_task_needs_part": "هذه المهمة تحتاج إلى جزء",
       "add_part": "أضف الجزء"
+    }
+  },
+  "configuration": {
+    "role_permission": {
+      "role_info": "معلومات الدور",
+      "permissions": "أذونات",
+      "fleet": "الأسطول",
+      "fuel_management": "إدارة الوقود",
+      "traffic_fine": "المخالفات المرورية",
+      "asset_master": "ماجستير الأصول",
+      "registration": "التسجيل",
+      "customization": "التخصيص",
+      "sub_asset": "أصل فرعي",
+      "accessory": "الملحقات",
+      "operator": "المشغل",
+      "organization": "المنظمة",
+      "movement": "الحركة"
     },
-    "part_store": {
-      "parts_list": {
-        "asset_type": "نوع الأصول",
-        "category": "الفئة",
-        "item_info": "معلومات العنصر",
-        "storage_location": "مكان التخزين",
-        "add_category": "إضافة فئة",
-        "make": "الماركة",
-        "model": "الموديل",
-        "quantity": "العدد",
-        "price": "السعر",
-        "warranty_expire_date": "تاريخ انتهاء الضمان",
-        "description": "الوصف"
-      },
-      "order_list": {
-        "request": {},
-        "order": {},
-        "suppliers": {}
-      },
-      "part_master": {
-        "asset_type": "نوع الأصول",
-        "category": "الفئة",
-        "add_category": "إضافة فئة",
-        "make": "الماركة",
-        "model": "الموديل",
-        "folder_info": "معلومات المجلد",
-        "category_info": "معلومات الفئة",
-        "item_info": "معلومات العنصر",
-        "folder_name": "إسم الملف",
-        "short_code": "رمز قصير",
-        "category_name": "اسم التصنيف",
-        "item_name": "اسم العنصر",
-        "upload_form": {
-          "title": "",
-          "progressbar_title": ".pdf",
-          "content": "قم بسحب وإسقاط صورة عنصر أو انقر هنا"
-        }
-      },
-      "reports": {},
-      "configuration": {
-        "role_permission": {
-          "role_info": "معلومات الدور",
-          "permissions": "أذونات",
-          "fleet": "الأسطول",
-          "fuel_management": "إدارة الوقود",
-          "traffic_fine": "المخالفات المرورية",
-          "asset_master": "ماجستير الأصول",
-          "registration": "التسجيل",
-          "customization": "التخصيص",
-          "sub_asset": "أصل فرعي",
-          "accessory": "الملحقات",
-          "operator": "المشغل",
-          "organization": "المنظمة",
-          "movement": "الحركة"
-        },
-        "users": {
-          "portal_information": "معلومات البوابة",
-          "personal_information": "معلومات شخصية",
-          "send_notification_by": "إرسال الإخطار عن طريق",
-          "employee_number": "رقم الموظف",
-          "department": "الإدارة",
-          "role": "دور",
-          "active_employee": "موظف نشط",
-          "first_name": "الاسم الاول",
-          "last_name": "الكنية",
-          "email": "البريد الالكتروني",
-          "phone_number": "رقم التليفون",
-          "call": "مكالمة",
-          "sms": "رسالة قصيرة",
-          "whatsapp": "Whatsapp",
-          "upload_form": {
-            "title": "تحميل صورة الملف الشخصي",
-            "progressbar_title": ".pdf",
-            "content": "قم بسحب وإفلات الصورة هنا"
-          }
-        },
-        "company_profile": {},
-        "asset_policy": {
-          "asset": {
-            "this_policy_is_for": "هذه السياسة",
-            "asset": "الأصل",
-            "sub_asset": "أصل فرعي",
-            "policy_name": "اسم الوثيقة ",
-            "maximum_usage": "أقصى استخدام",
-            "kilometer_hour": "كيلومتر /بالساعة",
-            "year": "السنة",
-            "deprecation_value": "% قيمة الإهلاك",
-            "yearly": "سنوي",
-            "set_reminder_before": "تحديد تذكير قبل"
-          },
-          "sub_asset": {
-            "this_policy_is_for": "هذه السياسة",
-            "asset": "الأصل",
-            "sub_asset": "أصل فرعي",
-            "policy_name": "اسم الوثيقة ",
-            "maximum_usage": "أقصى استخدام",
-            "kilometer_hour": "كيلومتر /بالساعة",
-            "year": "السنة",
-            "deprecation_value": "% قيمة الإهلاك",
-            "yearly": "سنوي",
-            "set_reminder_before": "تحديد تذكير قبل"
-          }
-        },
-        "asset_configuration": {},
-        "business_category": {
-          "business_category_info": "معلومات فئة العمل",
-          "assign_sub_asset": "تعيين الأصول الفرعية",
-          "assign_accessory": "تعيين ملحق",
-          "business_category_name": "اسم فئة العمل",
-          "asset_type": "نوع الأصول",
-          "active_category": "فئة نشطة",
-          "description": "Description",
-          "sub_asset": "أصل فرعي",
-          "quantity": "العدد",
-          "accessory": "الملحقات",
-          "upload_form": {
-            "title": "",
-            "progressbar_title": "",
-            "content": "سحب وإسقاط ملف تحميل المواصفات"
-          }
-        },
-        "ownership": {
-          "ownership_type": "نوع الملكية",
-          "owner_info": "معلومات المالك",
-          "ownership_info": "معلومات الملكية",
-          "external": "خارجي",
-          "owned": "مملوكة",
-          "rent": "إيجار",
-          "demo": "تجريبي",
-          "owner": "مالك",
-          "owner_email_address": "عنوان البريد الإلكتروني للمالك",
-          "owner_phone_number": "رقم هاتف المالك",
-          "purpose": "غرض",
-          "fleet_it_code": "رمز IT للأسطول",
-          "duration": "المدة"
-        },
-        "fleet_status": {
-          "asset": {
-            "type_category": "اكتب الفئة",
-            "asset": "الأصل",
-            "sub_asset": "أصل فرعي",
-            "status_category": "فئة الحالة",
-            "status_name": "اسم الحالة"
-          }
-        },
-        "periodic_service": {
-          "periodic_service_info": "معلومات الخدمة الدورية",
-          "package": "الباقة",
-          "task": "المهمة",
-          "periodic_service_name": "اسم الخدمة الدورية",
-          "package_name": "اسم الباقة",
-          "intervals": "فترات",
-          "km_h": "Km/h"
-        }
-      },
-      "integration": {
-        "type": "النوع",
-        "company_name": "اسم الشركة",
-        "grp": "GRP"
+    "users": {
+      "portal_information": "معلومات البوابة",
+      "personal_information": "معلومات شخصية",
+      "send_notification_by": "إرسال الإخطار عن طريق",
+      "employee_number": "رقم الموظف",
+      "department": "الإدارة",
+      "role": "دور",
+      "active_employee": "موظف نشط",
+      "first_name": "الاسم الاول",
+      "last_name": "الكنية",
+      "email": "البريد الالكتروني",
+      "phone_number": "رقم التليفون",
+      "call": "مكالمة",
+      "sms": "رسالة قصيرة",
+      "whatsapp": "Whatsapp",
+      "upload_form": {
+        "title": "تحميل صورة الملف الشخصي",
+        "progressbar_title": ".pdf",
+        "content": "قم بسحب وإفلات الصورة هنا"
       }
+    },
+    "company_profile": {},
+    "asset_policy": {
+      "asset": {
+        "this_policy_is_for": "هذه السياسة",
+        "asset": "الأصل",
+        "sub_asset": "أصل فرعي",
+        "policy_name": "اسم الوثيقة ",
+        "maximum_usage": "أقصى استخدام",
+        "kilometer_hour": "كيلومتر /بالساعة",
+        "year": "السنة",
+        "deprecation_value": "% قيمة الإهلاك",
+        "yearly": "سنوي",
+        "set_reminder_before": "تحديد تذكير قبل"
+      },
+      "sub_asset": {
+        "this_policy_is_for": "هذه السياسة",
+        "asset": "الأصل",
+        "sub_asset": "أصل فرعي",
+        "policy_name": "اسم الوثيقة ",
+        "maximum_usage": "أقصى استخدام",
+        "kilometer_hour": "كيلومتر /بالساعة",
+        "year": "السنة",
+        "deprecation_value": "% قيمة الإهلاك",
+        "yearly": "سنوي",
+        "set_reminder_before": "تحديد تذكير قبل"
+      }
+    },
+    "asset_configuration": {},
+    "business_category": {
+      "business_category_info": "معلومات فئة العمل",
+      "assign_sub_asset": "تعيين الأصول الفرعية",
+      "assign_accessory": "تعيين ملحق",
+      "business_category_name": "اسم فئة العمل",
+      "asset_type": "نوع الأصول",
+      "active_category": "فئة نشطة",
+      "description": "Description",
+      "sub_asset": "أصل فرعي",
+      "quantity": "العدد",
+      "accessory": "الملحقات",
+      "upload_form": {
+        "title": "",
+        "progressbar_title": "",
+        "content": "سحب وإسقاط ملف تحميل المواصفات"
+      }
+    },
+    "ownership": {
+      "ownership_type": "نوع الملكية",
+      "owner_info": "معلومات المالك",
+      "ownership_info": "معلومات الملكية",
+      "external": "خارجي",
+      "owned": "مملوكة",
+      "rent": "إيجار",
+      "demo": "تجريبي",
+      "owner": "مالك",
+      "owner_email_address": "عنوان البريد الإلكتروني للمالك",
+      "owner_phone_number": "رقم هاتف المالك",
+      "purpose": "غرض",
+      "fleet_it_code": "رمز IT للأسطول",
+      "duration": "المدة"
+    },
+    "fleet_status": {
+      "asset": {
+        "type_category": "اكتب الفئة",
+        "asset": "الأصل",
+        "sub_asset": "أصل فرعي",
+        "status_category": "فئة الحالة",
+        "status_name": "اسم الحالة"
+      }
+    },
+    "periodic_service": {
+      "periodic_service_info": "معلومات الخدمة الدورية",
+      "package": "الباقة",
+      "task": "المهمة",
+      "periodic_service_name": "اسم الخدمة الدورية",
+      "package_name": "اسم الباقة",
+      "intervals": "فترات",
+      "km_h": "Km/h"
     }
   },
   "forms": {

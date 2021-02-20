@@ -19,25 +19,25 @@ export class BodyShopComponent implements OnInit {
     {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
-      filterTitle: 'Total',
+      filterTitle: 'statistic.total',
       onActive: () => {}
     },
     {
       filterCount: '8',
       filterTagColor: '#6870B4',
-      filterTitle: 'Approved',
+      filterTitle: 'statistic.approved',
       onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#BA7967',
-      filterTitle: 'Waiting For Approval',
+      filterTitle: 'statistic.waiting_for_approval',
       onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#DD5648',
-      filterTitle: 'Rejected',
+      filterTitle: 'statistic.rejected',
       onActive: () => {}
     }
   ];

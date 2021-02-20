@@ -21,7 +21,7 @@ import { environment } from '../../../../environments/environment';
       div .user-image {
         height: 4.3em;
         max-width: 4.3em;
-        border-radius: .5em;
+        border-radius: 0.5em;
       }
 
       div .user-name {

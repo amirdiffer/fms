@@ -1,10 +1,12 @@
 @import '../../../themes/green-theme.scss';
+@import '../../../assets/scss/form-section.scss';
 $primary: map-get($anms-green-primary, 300);
 
 .card-table-header {
-  // direction: rtl;
   display: flex;
   justify-content: flex-end;
   margin-bottom: 15px;
 }
-
+.component-wrapper {
+  margin: 40px 0 0 0;
+}
