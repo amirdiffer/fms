@@ -2,7 +2,7 @@
   <div class="tab-titles" *ngIf="initialized">
     <div [class]="'tab'+(tab.index==selectedTab?' active-tab':'')" *ngFor="let tab of tabs"
       (click)="selectTab(tab.index, tab.title)">
-      {{tab.translate ?  tab.translate : tab.title}}
+      {{!tab.translationTitle ? tab.title : (tab.translationTitle) | translate}}
     </div>
     <ng-content select=".search-container"></ng-content>
   </div>
@@ -10,3 +10,4 @@
     <ng-content select="div"></ng-content>
   </div>
 </div>
+<!-- tabs.translationTitle ?  tabs.translationTitle :  -->

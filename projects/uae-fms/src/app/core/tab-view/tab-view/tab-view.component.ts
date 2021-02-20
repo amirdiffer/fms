@@ -8,7 +8,8 @@ import {
   ContentChild,
   ChangeDetectorRef,
   Output,
-  EventEmitter
+  EventEmitter,
+  Input
 } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -23,11 +24,10 @@ export class TabViewComponent implements OnInit {
     string
   > = new EventEmitter<string>();
   @ViewChild('content', { static: false }) element: ElementRef;
-  tabs: { index: number; title: string }[] = [];
+  tabs: { index: number; title: string ; translationTitle? : string;}[] = [];
   initialized: boolean = false;
   elements: HTMLElement[];
   selectedTab: number = 0;
-
   constructor(public cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
@@ -35,18 +35,18 @@ export class TabViewComponent implements OnInit {
   ngAfterViewInit() {
     this.elements = this.element.nativeElement.children;
     let tabs = [];
-
+    
     if (this.elements.length > 0) {
       for (let i = 0; i < this.elements.length; i++) {
-        let titleTranslate = this.elements[i].attributes.getNamedItem('translate')
+        let titleTranslate =this.elements[i].attributes.getNamedItem('translation');
         tabs.push({
           index: i,
           title: this.elements[i].attributes.getNamedItem('title').nodeValue,
-          translate: titleTranslate ? titleTranslate.nodeValue: false
+          translationTitle : titleTranslate ? titleTranslate.nodeValue: false
         });
       }
     }
-
+    console.log(tabs)
     this.tabs = tabs;
     this.initialized = true;
     this.selectedTabChanged();
