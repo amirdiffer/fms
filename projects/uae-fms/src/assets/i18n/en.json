@@ -241,7 +241,11 @@
     "iserve": "I-Serve",
     "shared_poll": "Shared Poll",
     "temporary": "Temporary",
-    "workshop": "Workshop"
+    "workshop": "Workshop",
+    "active": "Active",
+    "defleet": "Defleet",
+    "reused": "Reused",
+    "total_lost": "Total Lost"
   },
   "assets": {
     "business_info": "Business Info",
