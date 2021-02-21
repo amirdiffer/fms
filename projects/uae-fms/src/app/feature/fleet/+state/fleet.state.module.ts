@@ -21,6 +21,8 @@ import {
   MovementRequestsFacade,
   MovementRequestsService
 } from './movement';
+import { SubAssetEffect } from './sub-asset/sub-asset.effect';
+import { SubAssetFacade, SubAssetService } from './sub-asset';
 import {
   OrganizationFacade,
   OrganizationService
@@ -34,7 +36,8 @@ import { OrganizationEffects } from '../+state/organization/organization-effects
       AssetMasterEffects,
       CustomizationEffects,
       RegistrationEffects,
-      OrganizationEffects
+      OrganizationEffects,
+      SubAssetEffect,
     ]),
     EffectsModule.forFeature([MovementOverviewFacade, MovementRequestsFacade])
   ],
@@ -51,8 +54,10 @@ import { OrganizationEffects } from '../+state/organization/organization-effects
     MovementOverviewService,
     MovementRequestsFacade,
     MovementRequestsService,
+    OrganizationService,
     OrganizationFacade,
-    OrganizationService
+    SubAssetFacade,
+    SubAssetService,
   ]
 })
 export class FleetStateModule {}
