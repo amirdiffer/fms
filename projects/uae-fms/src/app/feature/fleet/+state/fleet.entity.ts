@@ -14,6 +14,7 @@ import {
   FLEET_MOVEMENT_OVERVIEW_FEATURE_KEY,
   MovementOverviewState
 } from './movement/overview/movement-overview.entity';
+import { FLEET_OPERATOR_FEATURE_KEY, IOperatorState } from './operator/operator.entity';
 
 export const FLEET_FEATURE_KEY = 'fleet';
 
@@ -21,6 +22,7 @@ export interface State {
   readonly [FLEET_ASSET_MASTER_FEATURE_KEY]: IAssetMasterState;
   readonly [FLEET_CUSTOMIZATION_FEATURE_KEY]: ICustomizationState;
   readonly [FLEET_REGISTRATION_FEATURE_KEY]: IRegistrationState;
+  readonly [FLEET_OPERATOR_FEATURE_KEY] : IOperatorState
 }
 
 export interface WorkshopPartialState {

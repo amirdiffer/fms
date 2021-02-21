@@ -27,4 +27,9 @@ export class FleetSelectors {
     FleetSelectors.featureSelector,
     (state) => state['movementRequests']
   );
+
+  static operatorSelector = createSelector(
+    FleetSelectors.featureSelector,
+    (state) => state['operator']
+  );
 }

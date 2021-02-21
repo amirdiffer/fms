@@ -21,7 +21,7 @@ import {
   MovementRequestsFacade,
   MovementRequestsService
 } from './movement';
-
+import {OperatorFacade, OperatorService} from './operator/index'
 @NgModule({
   imports: [
     StoreModule.forFeature(FLEET_FEATURE_KEY, reducers),
@@ -44,7 +44,9 @@ import {
     MovementOverviewFacade,
     MovementOverviewService,
     MovementRequestsFacade,
-    MovementRequestsService
+    MovementRequestsService,
+    OperatorFacade, 
+    OperatorService
   ]
 })
 export class FleetStateModule {}
