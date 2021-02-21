@@ -647,5 +647,15 @@
     "feedback": {
       "required": "هذا الحقل مطلوب"
     }
+  },
+  "login": {
+    "incorrect_password": "كلمة سر خاطئة",
+    "fleet": "سريع",
+    "incorrect_username": "اسم المستخدم غير صحيح",
+    "login": "تسجيل الدخول",
+    "management": "إدارة",
+    "password": "كلمة المرور",
+    "service": "خدمة",
+    "user_name": "اسم االمستخدم"
   }
 }

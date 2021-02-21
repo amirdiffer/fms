@@ -647,5 +647,15 @@
     "feedback": {
       "required": "This is Field Required"
     }
+  },
+  "login": {
+    "fleet": "Fleet",
+    "management": "Management",
+    "service": "Service",
+    "incorrect_username": "Incorrect Username",
+    "user_name": "User Name",
+    "password": "Password",
+    "incorrect_password": "Incorrect Password",
+    "login": "Login"
   }
 }
