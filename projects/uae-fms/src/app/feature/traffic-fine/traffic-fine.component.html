@@ -1,7 +1,7 @@
 <div class="statistic-card">
   <app-filter [setting]='filterCard'></app-filter>
 </div>
-<div class="component_wrapper">
+<div class="table-container component_wrapper">
   <div class="table-wreapper">
     <app-tab-view (selectedIndex)="activeTab = $event">
       <span class="search-container card-table-header">
@@ -14,7 +14,7 @@
         <button class="btn-download" disabled>
             <svg-icon [src]="downloadBtn"></svg-icon>
         </button>
-        <button *ngIf="activeTab == 'Asset Traffic Fine'" class="btn-primary-small"><i>+</i><a>Add</a></button>
+        <button *ngIf="activeTab == 'Asset Traffic Fine'" routerLink="/fuel-management/add-fuel-card" class="btn-primary-small"><i>+</i><a>Add</a></button>
       </span>
       <div title='Traffic Fine'>
         <app-table [setting]='trafficFine_Table'></app-table>
