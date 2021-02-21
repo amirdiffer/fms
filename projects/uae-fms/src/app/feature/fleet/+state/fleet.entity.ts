@@ -15,6 +15,7 @@ import {
   FLEET_MOVEMENT_OVERVIEW_FEATURE_KEY,
   MovementOverviewState
 } from './movement/overview/movement-overview.entity';
+import { FLEET_OPERATOR_FEATURE_KEY, IOperatorState } from './operator/operator.entity';
 import {
   FLEET_SUB_ASSET_FEATURE_KEY,
   SubAssetState
@@ -30,6 +31,7 @@ export interface State {
   readonly [FLEET_ASSET_MASTER_FEATURE_KEY]: IAssetMasterState;
   readonly [FLEET_CUSTOMIZATION_FEATURE_KEY]: ICustomizationState;
   readonly [FLEET_REGISTRATION_FEATURE_KEY]: IRegistrationState;
+  readonly [FLEET_OPERATOR_FEATURE_KEY] : IOperatorState;
   readonly [FLEET_ACCESSORY_FEATURE_KEY] : IAccessoryState;
   readonly [FLEET_SUB_ASSET_FEATURE_KEY]: SubAssetState;
   readonly [FLEET_ORGANIZATION_FEATURE_KEY]: OrganizationState;

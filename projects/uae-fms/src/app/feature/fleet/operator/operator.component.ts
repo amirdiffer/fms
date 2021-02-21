@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { assetsPath } from '@environments/environment';
 import { TableSetting } from '@core/table';
+import { OperatorFacade } from '../+state/operator';
 
 @Component({
   selector: 'app-operator',
@@ -205,7 +206,9 @@ export class OperatorComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private _operatorFacade : OperatorFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._operatorFacade.loadAll();
+  }
 }
