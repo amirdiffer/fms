@@ -21,6 +21,8 @@ import {
   MovementRequestsFacade,
   MovementRequestsService
 } from './movement';
+import { SubAssetEffect } from './sub-asset/sub-asset.effect';
+import { SubAssetFacade, SubAssetService } from './sub-asset';
 
 @NgModule({
   imports: [
@@ -28,7 +30,8 @@ import {
     EffectsModule.forFeature([
       AssetMasterEffects,
       CustomizationEffects,
-      RegistrationEffects
+      RegistrationEffects,
+      SubAssetEffect
     ]),
     EffectsModule.forFeature([MovementOverviewFacade, MovementRequestsFacade])
   ],
@@ -44,7 +47,9 @@ import {
     MovementOverviewFacade,
     MovementOverviewService,
     MovementRequestsFacade,
-    MovementRequestsService
+    MovementRequestsService,
+    SubAssetFacade,
+    SubAssetService
   ]
 })
 export class FleetStateModule {}
