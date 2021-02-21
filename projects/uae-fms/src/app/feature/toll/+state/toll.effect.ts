@@ -12,7 +12,7 @@ export class TollEffect {
       ofType(TollActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => TollActions.allDataLoaded({ data })),
+          map((data) => TollActions.allDataLoaded({ data: data.message })),
           catchError((error) => of(TollActions.error({ reason: error })))
         )
       )
