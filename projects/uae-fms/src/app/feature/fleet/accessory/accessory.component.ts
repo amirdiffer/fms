@@ -7,6 +7,7 @@ import {
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { TableSetting } from '@core/table';
 import { Subscription } from 'rxjs';
+import { AccessoryFacade } from '../+state/accessory';
 import { AccessoryService } from './accessory.service';
 
 @Component({
@@ -107,12 +108,13 @@ export class AccessoryComponent implements OnInit, OnDestroy {
     ]
   };
 
-  constructor(private _accessoryService: AccessoryService) {}
+  constructor(private _accessoryService: AccessoryService , private _accessoryFacade: AccessoryFacade) {}
 
   ngOnInit(): void {
     this.openAdd$ = this._accessoryService.getAddForm().subscribe((open) => {
       this.openAdd = open;
     });
+    this._accessoryFacade.loadAll();
   }
 
   addAccessory() {

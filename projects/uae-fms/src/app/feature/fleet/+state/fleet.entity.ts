@@ -10,6 +10,7 @@ import {
   FLEET_REGISTRATION_FEATURE_KEY,
   IRegistrationState
 } from '@feature/fleet/+state/assets/registration/registration.entity';
+import { FLEET_ACCESSORY_FEATURE_KEY, IAccessoryState } from './accessory/accessory.entity';
 import {
   FLEET_MOVEMENT_OVERVIEW_FEATURE_KEY,
   MovementOverviewState
@@ -21,6 +22,7 @@ export interface State {
   readonly [FLEET_ASSET_MASTER_FEATURE_KEY]: IAssetMasterState;
   readonly [FLEET_CUSTOMIZATION_FEATURE_KEY]: ICustomizationState;
   readonly [FLEET_REGISTRATION_FEATURE_KEY]: IRegistrationState;
+  readonly [FLEET_ACCESSORY_FEATURE_KEY] : IAccessoryState;
 }
 
 export interface WorkshopPartialState {
