@@ -410,7 +410,8 @@
     "upload_form": {
       "title": "Upload CSV File of Toll",
       "progressbar_title": "CSV File Only",
-      "content": "Drag and Drop a File here"
+      "content": "Drag and Drop a File here",
+      "upload": "Upload"
     }
   },
   "part_store": {
