@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
+import { OrganizationFacade } from '../+state/organization';
 
 @Component({
   selector: 'anms-organization',
@@ -129,7 +130,9 @@ export class OrganizationComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private facade: OrganizationFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
 }
