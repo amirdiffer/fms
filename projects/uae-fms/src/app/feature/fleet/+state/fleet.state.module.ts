@@ -21,6 +21,11 @@ import {
   MovementRequestsFacade,
   MovementRequestsService
 } from './movement';
+import {
+  OrganizationFacade,
+  OrganizationService
+} from '../+state/organization';
+import { OrganizationEffects } from '../+state/organization/organization-effects.service';
 
 @NgModule({
   imports: [
@@ -28,7 +33,8 @@ import {
     EffectsModule.forFeature([
       AssetMasterEffects,
       CustomizationEffects,
-      RegistrationEffects
+      RegistrationEffects,
+      OrganizationEffects
     ]),
     EffectsModule.forFeature([MovementOverviewFacade, MovementRequestsFacade])
   ],
@@ -44,7 +50,9 @@ import {
     MovementOverviewFacade,
     MovementOverviewService,
     MovementRequestsFacade,
-    MovementRequestsService
+    MovementRequestsService,
+    OrganizationFacade,
+    OrganizationService
   ]
 })
 export class FleetStateModule {}
