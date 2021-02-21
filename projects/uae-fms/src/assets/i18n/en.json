@@ -11,7 +11,7 @@
       "movement": "Movement"
     },
     "fuel_management": "Fuel Management",
-    "traffic_file": "Traffic Fine",
+    "traffic_fine": "Traffic Fine",
     "toll": "Toll",
     "workshop": {
       "~": "Workshop",

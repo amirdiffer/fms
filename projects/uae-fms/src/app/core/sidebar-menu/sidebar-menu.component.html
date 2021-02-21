@@ -9,7 +9,7 @@
           <svg-icon [src]="assets + 'icons/' + item.icon + '.svg'"
             [svgStyle]="{ 'fill': activeMenuCheck(item?.route) ? '#0DA06E' : '#1F1F1F', 'width.px': '24', 'height.px': !(opened$|async)  ? '28' : '24' }">
           </svg-icon>
-          <span [class]="'menu-item-name'">{{item.name}}</span>
+          <span [class]="'menu-item-name'">{{item.name | translate}}</span>
           <div class="menuItems">
             <div class="active_menu_line" *ngIf="item.items && activeSubMenuCheck(item.route)"></div>
             <ul [class]="'sub-menuItem '+(activeSubMenuCheck(item.route)?'':'hidden')">
@@ -20,7 +20,7 @@
                   <svg-icon [src]="assets + 'icons/' + subItem.icon + '.svg'"
                     [svgStyle]="{ 'fill': activeSubMenuCheck(subItem.route)?'#0DA06E':'#707070', 'width.px':'22', 'height.px':'22' }">
                   </svg-icon>
-                  <span class="menu-item-name">{{subItem.name}}</span>
+                  <span class="menu-item-name">{{subItem.name | translate }}</span>
 
                   <div class="menuItems">
                     <div class="active_menu_line" *ngIf="item.items && activeSubMenuCheck(subItem.route)"></div>
@@ -29,7 +29,7 @@
                         <li
                           class="menuItem margin-transition {{activeSubMenuCheck(subItemChild.route)?'active-child':'not-active'}}"
                           (click)="$event.stopPropagation()" [routerLink]="subItemChild.route">
-                          <span class="menu-item-name">{{subItemChild.name}}</span>
+                          <span class="menu-item-name">{{subItemChild.name|translate }}</span>
                         </li>
                       </ng-container>
 
