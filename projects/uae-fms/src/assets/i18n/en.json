@@ -575,6 +575,7 @@
   "configuration": {
     "role_permission": {
       "role_info": "Role Info",
+      "role_name": "Role Name",
       "permissions": "Permissions",
       "fleet": "Fleet",
       "fuel_management": "Fuel Management",
@@ -586,7 +587,8 @@
       "accessory": "Accessory",
       "operator": "Operator",
       "organization": "Organization",
-      "movement": "Movement"
+      "movement": "Movement",
+      "asset_configuration": "Asset Configuration"
     },
     "users": {
       "portal_information": "Portal Information",
