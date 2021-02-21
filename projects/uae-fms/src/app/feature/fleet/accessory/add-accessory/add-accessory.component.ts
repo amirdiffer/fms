@@ -30,10 +30,10 @@ export class AddAccessoryComponent implements OnInit {
 
   accessory_Table: TableSetting = {
     columns: [
-      { lable: 'Item', type: 1, field: 'Item' },
-      { lable: 'Asset/Sub Asset', type: 1, field: 'Asset_SubAsset' },
-      { lable: 'Assigned To', type: 1, field: 'Assigned_To' },
-      { lable: 'Quantity', type: 1, field: 'Quantity', width: 100 }
+      { lable: 'tables.column.item', type: 1, field: 'Item' },
+      { lable: 'tables.column.asset_sub_asset', type: 1, field: 'Asset_SubAsset' },
+      { lable: 'tables.column.assigned_to', type: 1, field: 'Assigned_To' },
+      { lable: 'tables.column.quantity', type: 1, field: 'Quantity', width: 100 }
     ],
     data: [
       {
