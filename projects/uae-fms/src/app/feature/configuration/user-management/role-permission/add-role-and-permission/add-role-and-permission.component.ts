@@ -28,11 +28,11 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
   bottomCheckboxLabelArray = ['Fuel Management', 'Traffic Fine'];
 
   switchesList = [
-    { label: 'View', value: false, visible: true },
-    { label: 'Edit', value: false, visible: true },
-    { label: 'Create', value: false, visible: true },
-    { label: 'Archive', value: false, visible: true },
-    { label: 'Approval', value: false, visible: true }
+    { label: 'view', value: false, visible: true },
+    { label: 'edit', value: false, visible: true },
+    { label: 'create', value: false, visible: true },
+    { label: 'archive', value: false, visible: true },
+    { label: 'approval', value: false, visible: true }
   ];
 
   constructor(private formBuilder: FormBuilder) {}
