@@ -63,4 +63,7 @@ export class NavbarComponent implements OnInit {
       ? this.sidebarMenuFacade.closeSidebarMenu()
       : this.sidebarMenuFacade.openSidebarMenu();
   }
+  changeTheme(){
+    // this.settingsFacade.changeTheme('Light')
+  }
 }
