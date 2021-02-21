@@ -31,4 +31,12 @@ export class FleetSelectors {
     FleetSelectors.featureSelector,
     (state) => state['accessory']
   );
+  static subAssetSelector = createSelector(
+    FleetSelectors.featureSelector,
+    (state) => state['subAsset']
+  );
+  static organizationSelector = createSelector(
+    FleetSelectors.featureSelector,
+    (state) => state['organization']
+  );
 }

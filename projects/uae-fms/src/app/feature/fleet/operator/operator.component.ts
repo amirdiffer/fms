@@ -14,25 +14,25 @@ export class OperatorComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   filterCard: FilterCardSetting[] = [
     {
-      filterTitle: 'Total',
+      filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#6C7198',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'Active',
+      filterTitle: 'statistic.active',
       filterCount: '356',
       filterTagColor: '#5B8972',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'Vacation',
+      filterTitle: 'statistic.vacation',
       filterCount: '124',
       filterTagColor: '#DDB16C',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'Inactive',
+      filterTitle: 'statistic.inactive',
       filterCount: '12',
       filterTagColor: '#E07A5F',
       onActive(index: number) {}
@@ -42,7 +42,7 @@ export class OperatorComponent implements OnInit {
   operator_Table: TableSetting = {
     columns: [
       {
-        lable: 'Operator',
+        lable: 'tables.column.operator',
         type: 1,
         field: 'Operator',
         width: 150,
@@ -50,31 +50,36 @@ export class OperatorComponent implements OnInit {
         thumbField: 'profilePicture'
       },
       {
-        lable: 'Organization',
+        lable: 'tables.column.organization',
         type: 1,
         field: 'Organization',
         width: 150,
         renderer: 'doubleLineRenderer'
       },
       {
-        lable: 'Information',
+        lable: 'tables.column.information',
         type: 1,
         field: 'Information',
         width: 150,
         renderer: 'doubleLineRenderer'
       },
-      { lable: 'Type', type: 1, field: 'Type', width: 100 },
-      { lable: 'Status', type: 1, field: 'Status', width: 100 },
+      { lable: 'tables.column.type', type: 1, field: 'Type', width: 100 },
+      { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
       {
-        lable: 'Asset',
+        lable: 'tables.column.asset',
         type: 1,
         field: 'asset',
         width: 180,
         renderer: 'assetsRenderer',
         thumbField: ''
       },
-      { lable: 'TF PAid', type: 1, field: 'TF_PAid', width: 100 },
-      { lable: 'TF Unpaid', type: 1, field: 'TF_Unpaid', width: 100 }
+      { lable: 'tables.column.tf_paid', type: 1, field: 'TF_PAid', width: 100 },
+      {
+        lable: 'tables.column.tf_unpaid',
+        type: 1,
+        field: 'TF_Unpaid',
+        width: 100
+      }
     ],
     data: [
       {
