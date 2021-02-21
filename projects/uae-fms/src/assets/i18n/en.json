@@ -102,7 +102,10 @@
     "repair": "Repair",
     "accident": "Accident",
     "out_of_policy": "Out Of Policy",
-    "total_lost": "Total Lost"
+    "total_lost": "Total Lost",
+    "paid": "Paid",
+    "unpainted": "UnPainted",
+    "deducte": "Deducte"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -187,7 +190,7 @@
       "mileage": "Mileage",
       "total_usage": "Total Usage",
       "cost": "Cost",
-      "ts_code": "Ts Code",
+      "tc_code": "Tc Code",
       "plate_no": "Plate No",
       "mission_status": "Mission Status",
       "time_date": "Time/Date",
