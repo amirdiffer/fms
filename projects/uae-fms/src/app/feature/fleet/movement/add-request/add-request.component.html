@@ -1,23 +1,23 @@
 <form [formGroup]="requestForm">
     <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">Cancel</button>
-        <button class="btn-primary-medium add" type="submit" >Add</button>
+        <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{ 'forms.cancel' | translate }}</button>
+        <button class="btn-primary-medium add" type="submit" >{{ 'forms.add' | translate }}</button>
     </div>
     <div class="form-section form-section--inline">
         <div class="row form-section__row">
             <div class="col-12 col-md-6 mb-2 align-self-center">
               <div class="row">
                 <div class="col-12 col-md-4">
-                  <h3 class="form-section__title m-0">Request Type</h3>
+                  <h3 class="form-section__title m-0">{{ 'movement.movement.request_type' | translate }}</h3>
                 </div>
                 <div class="col-12 col-md-8 row">
                   <div class="form-check col-6">
                     <input class="form-check-input" formControlName="requestType" type="radio" name="requestType" id="New" value ="new">
-                    <label class="form-check-label" for="New">New</label>
+                    <label class="form-check-label" for="New">{{ 'movement.movement.new' | translate }}</label>
                   </div>
                   <div class="form-check col-6">
                     <input class="form-check-input" formControlName="requestType" type="radio" name="requestType" id="Replacement" value ="replacement">
-                    <label class="form-check-label" for="Replacement">Replacement</label>
+                    <label class="form-check-label" for="Replacement">{{ 'movement.movement.replacement' | translate }}</label>
                   </div>
                 </div>
               </div>
@@ -27,7 +27,7 @@
               <span class="p-float-label">
                 <p-dropdown formControlName="assetType"
                             [options]="assetTypes" optionLabel="name"></p-dropdown>
-                <label>Asset Type * </label>
+                <label>{{ 'movement.movement.asset_type' | translate }} * </label>
               </span>
             </div>
             <!-- end assetType -->
@@ -42,7 +42,7 @@
                     <input pInputText placeholder="Resone *"
                         formControlName="resone" required
                         type="text">
-                    <label>Resone *</label>
+                    <label>{{ 'movement.movement.reason' | translate }} *</label>
                 </span>
             </div>
         </div>
@@ -55,7 +55,7 @@
                     <input pInputText placeholder="Quantity *"
                         formControlName="quality" required
                         type="text">
-                    <label>Quantity *</label>
+                    <label>{{ 'movement.movement.quantity' | translate }} *</label>
                 </span>
             </div>
         </div>
@@ -73,7 +73,7 @@
                             [suggestions]="oldAssetSuggests" field="name"
                             [minLength]="1"></p-autoComplete>
                         <i class="pi pi-search"></i>
-                        <label>Old Asset *</label>
+                        <label>{{ 'movement.movement.old_asset' | translate }} *</label>
                     </span>
                 </div>
             </div>
