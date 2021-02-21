@@ -626,7 +626,9 @@ form {
 .wrapper {
   app-sidebar-manu {
     font-size: 0.8em;
-    font-weight: 600;
+    font-weight: 500;
+    color: #707070;
+
     ::-webkit-scrollbar {
       width: 10px;
     }
