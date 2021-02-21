@@ -21,6 +21,7 @@ import {
   MovementRequestsFacade,
   MovementRequestsService
 } from './movement';
+import { AccessoryFacade , AccessoryService} from './accessory/index'
 import { SubAssetEffect } from './sub-asset/sub-asset.effect';
 import { SubAssetFacade, SubAssetService } from './sub-asset';
 import {
@@ -54,6 +55,8 @@ import { OrganizationEffects } from '../+state/organization/organization-effects
     MovementOverviewService,
     MovementRequestsFacade,
     MovementRequestsService,
+    AccessoryFacade,
+    AccessoryService,
     OrganizationService,
     OrganizationFacade,
     SubAssetFacade,
