@@ -51,7 +51,7 @@
 
         </div>
 
-        <div class='card-body pl-1 bg-white ml-3 mr-4 mt-3 mb-3 border rounded'>
+        <div class='card-body pl-1 ml-3 mr-4 mt-3 mb-3 border rounded'>
 
           <!--        Asset Master Table-->
           <div class='d-flex pb-2' formGroupName='assetMaster'>
@@ -123,7 +123,7 @@
 
         <!--          MiddleArray-->
         <div formArrayName='middleArray'>
-          <div class='card-body pl-0 bg-white ml-3 mr-4 mt-3 border pr-0 p-0 rounded'
+          <div class='card-body pl-0 ml-3 mr-4 mt-3 border pr-0 p-0 rounded'
                *ngFor='let row of middleArray.controls; let index = index' [formGroupName]='index'>
             <div class='d-flex'>
 

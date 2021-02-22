@@ -7,7 +7,7 @@
     <div class="row">
         <ng-container *ngIf=" !inputForm.get('assetSearch').value.name">
             <div class="col-12 overflow-visible">
-                <div class="component_wrapper">
+                <div class="component_wrapper form-section">
                     <h3 class="form-section__title">Asset Info</h3>
                     <div class="row mt-3">
                         <div class="col-6">
@@ -36,7 +36,7 @@
 
         <ng-container *ngIf=" inputForm.get('assetSearch').value.name">
             <div class="col-12 " [formGroupName]="'assetInfo'">
-                <div class="component_wrapper">
+                <div class="component_wrapper form-section">
                     <h3 class="form-section__title">Asset Info</h3>
                     <div class="row mt-3">
                         <div class="col-12 col-md-5">
@@ -74,19 +74,19 @@
             </div>
 
             <div class="col-12 col-md-8 d-flex pr-0">
-                <div class="component_wrapper">
+                <div class="component_wrapper table-container mr-2">
                     <app-table [setting]="tableSettingServie"></app-table>
                 </div>
             </div>
             <div class="col-4 col-md-4 d-flex pl-0">
-                <div class="component_wrapper">
+                <div class="component_wrapper table-container ml-2">
                     <app-table [setting]="tableSettingWarranty"></app-table>
                 </div>
             </div>
         </ng-container>
         
         <div class="col-12">
-            <div class="component_wrapper">
+            <div class="component_wrapper form-section">
                 <div class="row mt-3">
                     <h3 class="col-2 form-section__title">Reason</h3>
                     <div class="col-10">
@@ -117,7 +117,7 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="component_wrapper">
+            <div class="component_wrapper form-section">
                 <div class="row mt-3">
                     <h3 class="col-3 form-section__title">Job Type</h3>
                     <div class="col-lg-9">
@@ -154,7 +154,7 @@
             </div>
         </div>
         <div class="col-12" [formGroupName]="'issueInfo'">
-            <div class="component_wrapper">
+            <div class="component_wrapper form-section">
                 <h3 class="form-section__title">Issue Info</h3>
                 <div class="row mt-3">
                     <div class="form-group col-lg-8 p-field form-section__field">
@@ -188,7 +188,7 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="component_wrapper">
+            <div class="component_wrapper form-section">
                 <div class="row mt-3">
                     <h3 class="col-3 form-section__title">Priority</h3>
                     <div class="col-lg-9">
@@ -227,7 +227,7 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="component_wrapper">
+            <div class="component_wrapper form-section">
                 <h3 class="form-section__title">Attach Picture</h3>
                 <div class="upload-box">
                     <div class="row">

@@ -10,8 +10,8 @@ export class SettingsFacade {
   changeLanguage(language: Language): void {
     this.store.dispatch(actionSettingsChangeLanguage({language: language}))
   }
-  // changeTheme(theme : string): void{
-  //   this.store.dispatch(actionSettingsChangeTheme({ theme }));
-  // }
+  changeTheme(theme : string): void{
+    this.store.dispatch(actionSettingsChangeTheme({ theme }));
+  }
 
 }
