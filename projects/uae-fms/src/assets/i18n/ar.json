@@ -421,9 +421,9 @@
       "description": "الوصف"
     },
     "order_list": {
-      "request": {},
-      "order": {},
-      "suppliers": {}
+      "request_list": "قائمة الطلبات",
+      "my_order": "طلبي",
+      "suppliers": "الموردين"
     },
     "part_master": {
       "asset_type": "نوع الأصول",
@@ -682,6 +682,7 @@
     "approval": "موافقة",
     "feedback": {
       "required": "هذا الحقل مطلوب"
-    }
+    },
+    "order": "ترتيب"
   }
 }
