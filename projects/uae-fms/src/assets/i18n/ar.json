@@ -134,6 +134,7 @@
   },
   "tables": {
     "column": {
+      "suppliers": "الموردين",
       "name": "الاسم",
       "total_sub_asset": "إجمالي الأصول الفرعية",
       "total_accessory": "إجمالي الملحق",
@@ -450,6 +451,19 @@
       "type": "النوع",
       "company_name": "اسم الشركة",
       "grp": "GRP"
+    },
+    "order": {
+      "create_quotation": "إنشاء الاقتباس",
+      "repeat_quotation": "كرر الاقتباس",
+      "current_quotation": "الاقتباس الحالي",
+      "asset_type": "نوع الأصول",
+      "make": "يجعلون",
+      "model": "نموذج",
+      "quantity": "كمية",
+      "description": "وصف",
+      "set_reminder": "تعيين تذكير",
+      "select_item": "حدد البند",
+      "select_item_category": "حدد فئة العنصر"
     }
   },
   "workshop": {
