@@ -4,16 +4,20 @@
         <button class="btn-primary-medium add">Add</button>
     </div>
     <div class="form-section form-section--inline">
-        <div class="row">
-            <div class="col-12 col-md-2">
-                <h3 class="form-section__title">Create Quotation</h3>
-            </div>
-            <div class="col-12 col-md-10">
+        <div class="row form-section__row">
+            <div class="col-12">
                 <div class="row">
-                    <div class="col-12 col-md-12 p-field form-section__field radio-select">
-                        <p-radioButton name="createQuotation" value="repeat" label="Repeat Quotation" formControlName="createQuotation"></p-radioButton>
-                        <p-radioButton name="createQuotation" value="create" label="Create Quotation" formControlName="createQuotation"></p-radioButton>
-                    </div>
+                  <div class="col-12 col-md-2">
+                    <h3 class="form-section__title">Create Quotation</h3>
+                  </div>
+                  <div class="form-check col-md-2">
+                    <input formControlName="createQuotation" class="form-check-input" type="radio" name="createQuotation" id="repeat" value ="repeat">
+                    <label class="form-check-label" for="repeat">Repeat Quotation</label>
+                  </div>
+                  <div class="form-check col-md-2">
+                    <input formControlName="createQuotation" class="form-check-input" type="radio" name="createQuotation" id="create" value ="create">
+                    <label class="form-check-label" for="create">Create Quotation</label>
+                  </div>
                 </div>
             </div>
         </div>
@@ -43,12 +47,12 @@
             </div>
         </div>
     </div>
-    
+
 
     <ng-container *ngIf="inputForm.get('createQuotation').value == 'repeat'">
         <div class="form-section form-section--inline" formGroupName="repeatQuotation">
             <h3 class="form-section__title">Repeat Quotation</h3>
-        
+
             <div class="row form-section__row mt-5">
                 <div class="col-12 col-md-4 p-field form-section__field">
                     <div class="autocomplete-select">
@@ -75,11 +79,11 @@
             </div>
         </div>
     </ng-container>
-    
+
     <ng-container *ngIf="inputForm.get('createQuotation').value == 'create'">
         <div class="form-section form-section--inline" formGroupName="newOrder">
             <h3 class="form-section__title">New Order</h3>
-        
+
             <div class="row form-section__row mt-5">
                 <div class="col-12 col-md-4 p-field form-section__field">
                     <span class="p-float-label">
@@ -122,12 +126,12 @@
             </div>
         </div>
     </ng-container>
-    
+
     <div class="form-section form-section--inline d-flex pb-2">
-        <span class="mr-3">Set Reminder</span>
+        <h3 class="form-section__title mr-3">Set Reminder</h3>
         <p-inputSwitch formControlName="setReminder"></p-inputSwitch>
     </div>
-    
+
     <div class="component_wrapper p-0">
         <div class="card-table">
             <app-table [setting]="tableSetting"></app-table>

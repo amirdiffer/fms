@@ -4,7 +4,7 @@
 <div class="component_wrapper table-container ">
   <div class="card-table-header">
     <div class="search-box">
-      <input type="text" placeholder="Search in Columns">
+      <input placeholder="{{'search.search_in_columns' | translate}}" type="text">
       <button>
         <img src="../../../assets/icons/search-solid.svg" alt="">
       </button>
@@ -12,7 +12,7 @@
     <button class="btn-download" disabled>
       <svg-icon [src]="downloadBtn"></svg-icon>
     </button>
-    <button class="btn-primary-small" [routerLink]="'add'"><i>+</i><a>Add</a></button>
+    <button class="btn-primary-small" [routerLink]="'add'"><i>+</i><a>{{'search.add' | translate}}</a></button>
   </div>
   <div class="">
     <app-table [setting]='operator_Table'></app-table>

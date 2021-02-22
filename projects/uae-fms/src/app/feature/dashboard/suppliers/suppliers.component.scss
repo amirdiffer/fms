@@ -19,7 +19,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
   position: absolute;
-  
+
   .tab {
     margin: 0 15px;
     align-items: center;
@@ -32,7 +32,7 @@
       margin-left: 8px;
       color: #d3d3d3;
     }
-    img{
+    img {
       width: 3.2em;
     }
   }
@@ -47,7 +47,7 @@
 }
 .chart-row {
   display: flex;
-  margin: .3em 1.2em;
+  margin: 0.3em 1.2em;
   align-items: center;
   position: relative;
   overflow: visible;
@@ -70,7 +70,7 @@
     }
   }
   small {
-    font-size: .8em;
+    font-size: 0.8em;
     color: #828d99;
   }
 }

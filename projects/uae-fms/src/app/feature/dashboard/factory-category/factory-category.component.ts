@@ -25,7 +25,7 @@ export class FactoryCategoryComponent implements OnInit {
     this.tabbleSetting = {
       columns: [
         {
-          lable: 'Name',
+          lable: 'tables.column.name',
           field: 'name',
           width: 100,
           type: 1,
@@ -33,7 +33,7 @@ export class FactoryCategoryComponent implements OnInit {
           renderer: ''
         },
         {
-          lable: 'Total Sub Asset',
+          lable: 'tables.column.total_sub_asset',
           field: 'totalSubAsset',
           width: 100,
           type: 1,
@@ -41,7 +41,7 @@ export class FactoryCategoryComponent implements OnInit {
           renderer: ''
         },
         {
-          lable: 'Total Accesory',
+          lable: 'tables.column.total_accessory',
           field: 'totalAccesory',
           width: 100,
           type: 1,
@@ -49,7 +49,7 @@ export class FactoryCategoryComponent implements OnInit {
           renderer: ''
         },
         {
-          lable: 'Total',
+          lable: 'tables.column.total',
           field: 'total',
           width: 100,
           type: 1,

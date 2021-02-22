@@ -1,5 +1,6 @@
 <form>
-    <div class="button-container">
+    <div class="row">
+        <div class="button-container">
         <button [routerLink]="['..']" class="btn-primary-medium btn-scondary-green">
             {{ 'forms.cancel' | translate }}
         </button>
@@ -12,13 +13,14 @@
         <app-filter [setting]="filterSetting"></app-filter>
     </div>
     <div class="row m-0">
-        <div class="col-12 col-md-3 pl-0">
+        <div class="col-12 col-md-3" style="margin-top: 0 !important;">
             <part-store-asset-type></part-store-asset-type>
             <part-store-category></part-store-category>
         </div>
-        <div class="col-12 col-md-9 pl-md-0">
+        <div class="col-12 col-md-9">
             <!-- form-section -->
             <div class="form-section" [formGroup]="partForm">
+
                 <h3 class="form-section__title">{{ 'part_store.part_list.item_info' | translate }}</h3>
 
                 <div class="row form-section__row">
@@ -105,5 +107,6 @@
             </div>
             <!-- end form-section form-section--inline-->
         </div>
+    </div>
     </div>
 </form>
