@@ -700,7 +700,7 @@ mat-horizontal-stepper {
   .mat-horizontal-stepper-header:not(:last-child)::after,
   .mat-stepper-horizontal-line,
   .mat-horizontal-stepper-header:not(:first-child)::before {
-    border-top-width: 5px !important;
+    border-top-width: .3em !important;
     border-top-color: rgba(0, 0, 0, 0.12);
   }
   .mat-step-icon-selected {
@@ -730,15 +730,24 @@ mat-horizontal-stepper {
     }
   }
   .mat-step-icon {
-    border: 3px solid #fff;
+    border: .2em solid #fff;
     box-shadow: 0px 2px 4px #0000004d;
     background: #a2a2a2;
+    height: 1.5em;
+    width: 1.5em;
     &.mat-step-icon-state-edit {
       background: #008755;
     }
   }
   .mat-step-icon-content span {
     display: none;
+  }
+}
+@media only screen and (max-width: 1366px)  {
+  mat-horizontal-stepper {
+    mat-step-header {
+      padding: 2.5em .8em;
+    }
   }
 }
 
@@ -847,8 +856,8 @@ ngx-file-drop {
   }
 }
 
-.p-component {
-  font-size: 1em;
+.p-component , mat-card-content{
+  font-size: 1em !important;
 }
 .p-inputtext {
   font-family: '29LT Bukra' !important;

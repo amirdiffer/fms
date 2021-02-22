@@ -14,6 +14,13 @@
   // overflow-x: scroll;
   // overflow-y: hidden;
 }
+.suppliers-chart{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 63%;
+}
+
 .suppliers-tabs {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
