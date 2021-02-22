@@ -24,7 +24,7 @@ export class TabViewComponent implements OnInit {
     string
   > = new EventEmitter<string>();
   @ViewChild('content', { static: false }) element: ElementRef;
-  tabs: { index: number; title: string ; translationTitle? : string;}[] = [];
+  tabs: { index: number; title: string ; id? : string;}[] = [];
   initialized: boolean = false;
   elements: HTMLElement[];
   selectedTab: number = 0;
@@ -38,10 +38,11 @@ export class TabViewComponent implements OnInit {
 
     if (this.elements.length > 0) {
       for (let i = 0; i < this.elements.length; i++) {
-        let titleTranslate =this.elements[i].attributes.getNamedItem('translation');
+        let tabID =this.elements[i].attributes.getNamedItem('id');
         tabs.push({
           index: i,
           title: this.elements[i].attributes.getNamedItem('title').nodeValue,
+          id:tabID ? tabID.nodeValue : null
         });
       }
     }
