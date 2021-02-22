@@ -236,7 +236,7 @@
       "distance": "المسافة",
       "year": "السنة",
       "depreciation_value": "قيمة الاستهلاك",
-      "model": "Model",
+      "model": "الموديل",
       "type_status": "اكتب الحالة",
       "icon": "أيقونة",
       "category_name": "اسم التصنيف",
@@ -439,6 +439,7 @@
       "short_code": "رمز قصير",
       "category_name": "اسم التصنيف",
       "item_name": "اسم العنصر",
+      "filter_and_fuel_pump": "مرشح ، مضخة الوقود",
       "upload_form": {
         "title": "",
         "progressbar_title": ".pdf",
