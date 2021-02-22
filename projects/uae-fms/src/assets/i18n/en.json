@@ -458,13 +458,13 @@
         "progressbar_title": ".pdf",
         "content": "Drag and Drop a Item picture or click here"
       }
-    },
-    "reports": {},
-    "integration": {
-      "type": "Type",
-      "company_name": "Company Name",
-      "grp": "GRP"
     }
+  },
+  "reports": {},
+  "integration": {
+    "type": "Type",
+    "company_name": "Company Name",
+    "grp": "GRP"
   },
   "workshop": {
     "body_shop": {

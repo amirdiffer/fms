@@ -444,13 +444,13 @@
         "progressbar_title": ".pdf",
         "content": "قم بسحب وإسقاط صورة عنصر أو انقر هنا"
       }
-    },
-    "reports": {},
-    "integration": {
-      "type": "النوع",
-      "company_name": "اسم الشركة",
-      "grp": "GRP"
     }
+  },
+  "reports": {},
+  "integration": {
+    "type": "النوع",
+    "company_name": "اسم الشركة",
+    "grp": "GRP"
   },
   "workshop": {
     "body_shop": {
