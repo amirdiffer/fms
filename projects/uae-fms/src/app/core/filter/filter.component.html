@@ -11,7 +11,7 @@
               <div class="d-flex flex-column filter">
                 <div *ngIf="card.setting.filterSupTitle" [class.filter-supTitle__active]="card.isActive" class="filter-supTitle">{{ card.setting.filterSupTitle }}</div>
                 <div class="filter-title">
-                  <div [class.filter-title__active]="card.isActive" [style.color]="card.setting.filterTagColor">{{card.setting.filterTitle}}</div>
+                  <div [class.filter-title__active]="card.isActive" [style.color]="card.setting.filterTagColor">{{card.setting.filterTitle|translate}}</div>
                 </div>
               </div>
               <div class="filter-count">
@@ -28,5 +28,5 @@
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </div>

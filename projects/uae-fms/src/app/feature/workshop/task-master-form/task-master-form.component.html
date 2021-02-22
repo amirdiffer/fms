@@ -51,17 +51,15 @@
                 <div class="p-inputgroup flex-wrap d-flex w-100 flex-wrap">
                     <div class="p-field form-section__field flex-with-button w-100">
                         <ng-container *ngFor="let skill of inputForm.get('skill')['controls']; let i=index">
-                            <span class="p-float-label flex-with-button w-100">
-                                <input type="text" id="inputgroup" pInputText placeholder="{{ 'workshop.task_master.skills' | translate }}" [formControlName]="i" [class.invalid]="!inputForm.get('skill')['controls'][i].valid && submited">
-                                <label [class.red-font]=" inputForm.get('skill')['controls'][i].invalid && submited">{{ 'workshop.task_master.skills' | translate }}</label>
+                            <span class="p-float-label flex-with-button w-100 mb-1">
+                                <input type="text" id="inputgroup" pInputText placeholder="Skills" [formControlName]="i" [class.invalid]="!inputForm.get('skill')['controls'][i].valid && submited">
+                                <label [class.red-font]=" inputForm.get('skill')['controls'][i].invalid && submited">Skills</label>
+                              <span *ngIf="i == 0" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}" (click)="addSkill()">
+                                  <i class="pi pi-plus"></i>
+                              </span>
                             </span>
                             <small class="error-input" [class.d-none]=" inputForm.get('skill')['controls'][i].valid || !submited">{{ 'workshop.task_master.please_fill_skill' | translate }}</small>
                         </ng-container>
-                    </div>
-                    <div class="form-section__field">
-                        <span class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}" (click)="addSkill()">
-                            <i class="pi pi-plus"></i>
-                        </span>
                     </div>
                 </div>
             </div>
@@ -76,18 +74,16 @@
                 <div class="p-inputgroup flex-wrap d-flex w-100 flex-wrap">
                     <div class="p-field form-section__field flex-with-button w-100">
                         <ng-container  *ngFor="let skill of inputForm.get('part')['controls']; let i=index">
-                            <span class="p-float-label flex-with-button w-100 ">
-                                <input type="text" id="inputgroup" pInputText placeholder="{{ 'workshop.task_master.add_part' | translate }}" [formControlName]="i" [class.invalid]="!inputForm.get('part')['controls'][i].valid && submited">
-                                <label [class.red-font]=" inputForm.get('part')['controls'][i].invalid && submited">{{ 'workshop.task_master.add_part' | translate }}</label>
+                            <span class="p-float-label flex-with-button w-100 mb-1">
+                                <input type="text" id="inputgroup" pInputText placeholder="Add Part" [formControlName]="i" [class.invalid]="!inputForm.get('part')['controls'][i].valid && submited">
+                                <label [class.red-font]=" inputForm.get('part')['controls'][i].invalid && submited">Add Part</label>
+                              <span *ngIf="i == 0" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}" (click)="addPart()">
+                                <i class="pi pi-plus"></i>
+                              </span>
                             </span>
                             <small class="error-input" [class.d-none]=" inputForm.get('part')['controls'][i].valid || !submited">{{ 'workshop.task_master.please_fill_part' | translate }}</small>
 
                         </ng-container>
-                    </div>
-                    <div class="form-section__field">
-                        <span class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}" (click)="addPart()">
-                            <i class="pi pi-plus"></i>
-                        </span>
                     </div>
                 </div>
             </div>

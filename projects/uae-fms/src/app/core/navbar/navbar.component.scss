@@ -1,3 +1,5 @@
+@import 'projects/uae-fms/src/themes/green-theme';
+
 .toolbar {
   position: fixed;
   width: 100%;
@@ -97,6 +99,33 @@
   //       padding: 0 10px;
   //     }
   //   }
+}
+
+::ng-deep {
+  .overlay-panels {
+    .p-overlaypanel-content {
+      padding: 0;
+    }
+    .language-panel {
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li {
+          list-style-type: none;
+          display: flex;
+          padding: 0.5em 1.5em;
+          cursor: pointer;
+          &:hover {
+            background-color: $fms-green-body1-bg;
+          }
+          p {
+            margin: 0 0 0 1em;
+          }
+        }
+      }
+    }
+  }
 }
 
 // @media (max-width: $toolbar-breakpoint) {
