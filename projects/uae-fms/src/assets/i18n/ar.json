@@ -403,7 +403,8 @@
     "upload_form": {
       "title": "تحميل ملف CSV",
       "progressbar_title": "ملف CSV فقط",
-      "content": "قم بسحب وإسقاط ملف هنا"
+      "content": "قم بسحب وإسقاط ملف هنا",
+      "upload": "تحميل"
     }
   },
   "part_store": {
