@@ -47,3 +47,12 @@ $primary: map-get($anms-green-primary, 300);
   border-radius: 5px;
   box-shadow: 0px 0px 2px #0000003d;
 }
+
+app-fuel-card-table , app-asset-usage-table{
+  font-family: '29LT Bukra';
+  ::ng-deep{
+    .font-weight-custom {
+      font-weight: 600;
+    }
+  }
+}

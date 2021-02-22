@@ -1,32 +1,21 @@
 @import '../../../../../themes/green-theme.scss';
 @import '../../../../../assets/scss/form-section.scss';
 
+
+:host ::ng-deep{
+  .dropdown-select-input .p-dropdown {
+    width: 100%;
+  }
+  .ngx-file-drop__drop-zone{
+    height: 40px !important;
+  }
+}
 input[type='radio']:checked {
   background-color: #0da06e;
   border: 1px solid #0da06e;
   transform: scale(1.5);
 }
 
-.upload-box {
-  .file-name-size {
-    color: #0000005e;
-    font-size: 12px;
-  }
-
-  .space-drop {
-    display: block;
-    border: 2px dashed #0000005e;
-    text-align: center;
-    padding: 8px 0;
-    border-radius: 4px;
-    cursor: pointer;
-
-    div {
-      color: #0000005e;
-      font-size: 12px;
-    }
-  }
-}
 
 .plus-icon {
   border: 1px solid #009c62;

@@ -4,7 +4,7 @@
     <button class="btn-primary-medium add" type="submit" (click)="submit()">Add</button>
   </div>
 
-  <div class="form-section">
+  <div class="form-section component_wrapper">
     <h3 class="form-section__title">Sub Asset Specification</h3>
 
     <div class="row form-section__row">
@@ -14,10 +14,10 @@
             [options]="subAssetTypes"
             formControlName="subAssetType" optionLabel="name"></p-dropdown>
           <label for="subAssetType">Sub Asset Type * </label>
-          <anms-error
+        </span>
+        <anms-error
             [showError]="hasError('subAssetType',subAssetForm,submited)"
             error="forms.feedback.required"></anms-error>
-        </span>
       </div>
     </div>
     <div class="row form-section__row">
@@ -27,10 +27,10 @@
             [options]="makes"
             formControlName="make" optionLabel="name"></p-dropdown>
           <label for="make">Make * </label>
-          <anms-error
+        </span>
+        <anms-error
             [showError]="hasError('make',subAssetForm,submited)"
             error="forms.feedback.required"></anms-error>
-        </span>
       </div>
       <div class="col-12 col-md-3 p-field form-section__field options-select">
         <span class="p-float-label">
@@ -38,10 +38,10 @@
             [options]="models"
             formControlName="model" optionLabel="name"></p-dropdown>
           <label for="model">Model * </label>
-          <anms-error
+        </span>
+        <anms-error
             [showError]="hasError('model',subAssetForm,submited)"
             error="forms.feedback.required"></anms-error>
-        </span>
       </div>
       <div class="col-12 col-md-3 p-field form-section__field options-select">
         <span class="p-float-label">
@@ -49,10 +49,10 @@
             [options]="years"
             formControlName="year" optionLabel="name"></p-dropdown>
           <label for="year">Year * </label>
-          <anms-error
+        </span>
+        <anms-error
             [showError]="hasError('year',subAssetForm,submited)"
             error="forms.feedback.required"></anms-error>
-        </span>
       </div>
       <div class="col-12 col-md-3 p-field form-section__field options-select">
         <span class="p-float-label">
@@ -60,16 +60,16 @@
             [options]="origins"
             formControlName="origin" optionLabel="name"></p-dropdown>
           <label for="origin">Origin * </label>
-          <anms-error
+        </span>
+        <anms-error
             [showError]="hasError('origin',subAssetForm,submited)"
             error="forms.feedback.required"></anms-error>
-        </span>
       </div>
     </div>
 
 
   </div>
-  <div class="form-section">
+  <div class="form-section component_wrapper">
     <h3 class="form-section__title">Financial</h3>
     <div class="row form-section__row">
       <div class="col-12 col-md-5 p-field form-section__field dropdown-select">
@@ -78,10 +78,10 @@
             [options]="policyTypes"
             formControlName="policyType" optionLabel="name"></p-dropdown>
           <label for="policyType">Policy Type * </label>
-          <anms-error
+        </span>
+        <anms-error
             [showError]="hasError('policyType',subAssetForm,submited)"
             error="forms.feedback.required"></anms-error>
-        </span>
       </div>
 
       <div class="col-12 col-md-5 p-field form-section__field">
@@ -89,15 +89,15 @@
           <input formControlName="purchaseValue" pInputText
             placeholder="Purchase Value*"  type="text">
           <label>Purchase Value*</label>
-          <anms-error
-            [showError]="hasError('purchaseValue',subAssetForm,submited)"
-            error="forms.feedback.required">
-          </anms-error>
         </span>
+        <anms-error
+        [showError]="hasError('purchaseValue',subAssetForm,submited)"
+        error="forms.feedback.required">
+      </anms-error>
       </div>
     </div>
   </div>
-  <div class="form-section" formArrayName = "warranties">
+  <div class="form-section component_wrapper" formArrayName = "warranties">
     <h3 class="form-section__title"><span class='plus-icon' (click)="addWarranty()">
       <svg-icon src='../../../../../assets/icons/add.svg'
         [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
@@ -113,13 +113,19 @@
       </div>
       <div class="col-12 col-md-3 p-field form-section__field
         dropdown-select-input">
-        <p-dropdown inputId="unit" [options]="units" formControlName="year"
-          optionLabel="name"></p-dropdown>
-          <span class="p-float-label">
-            <input formControlName="duration" pInputText
-              placeholder="Duration"  type="text">
-            <label>Duration</label>
-          </span>
+         <div class="row">
+           <div class="col-5 pr-0">
+            <p-dropdown inputId="unit" [options]="units" formControlName="year"
+            optionLabel="name"></p-dropdown>
+           </div>
+           <div class="col-7 pl-0">
+            <span class="p-float-label">
+              <input formControlName="duration" pInputText
+                placeholder="Duration"  type="text">
+              <label>Duration</label>
+            </span>
+           </div>
+         </div>
       </div>
       <div class="col-12 col-md-3 p-field form-section__field date-input">
         <span class="p-float-label">
@@ -137,16 +143,19 @@
     </div>
     <div class="col-12 col-md-3 p-field form-section__field">
       <div class='upload-box'>
-        <label class='space-drop' for='attach_picture_sub-asset'>
-          <div>Drag and Drop A Warranty Doc Or Click Here</div>
-        </label>
-        <input type='file' hidden id='attach_picture_sub-asset'>
+        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+          <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+            <label (click)="openFileSelector()" style="cursor: pointer;">
+                <small calss="drag-and-drop">Drag and Drop A Warranty Doc Or Click Here</small>
+            </label>
+          </ng-template>
+        </ngx-file-drop>
       </div>
     </div>
     </div>
   </div>
 
-  <div class="form-section">
+  <div class="form-section component_wrapper">
     <div class="row form-section__row">
       <div class="col-12 col-md-12 p-field form-section__field">
         <span class="p-float-label">
