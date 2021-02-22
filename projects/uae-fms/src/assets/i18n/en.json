@@ -437,9 +437,9 @@
       "description": "Description"
     },
     "order_list": {
-      "request": {},
-      "order": {},
-      "suppliers": {}
+      "request_list": "Request List",
+      "my_order": "My Order",
+      "suppliers": "Suppliers"
     },
     "part_master": {
       "asset_type": "Asset Type",
@@ -695,6 +695,7 @@
   },
   "forms": {
     "add": "Add",
+    "order": "Order",
     "save": "Save",
     "cancel": "Cancel",
     "next": "Next",
