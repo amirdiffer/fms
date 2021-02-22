@@ -1,11 +1,11 @@
 <mat-card>
     <mat-card-header>
-        <mat-card-title class="mat-card-title">Asset type</mat-card-title>
+        <mat-card-title class="mat-card-title">{{ 'part_store.part_master.asset_type' | translate }}</mat-card-title>
     </mat-card-header>
     <span class="border"></span>
     <mat-card-content>
         <mat-form-field appearance="fill">
-            <mat-label>Asset Type</mat-label>
+            <mat-label>{{ 'part_store.part_master.asset_type' | translate }}</mat-label>
             <mat-select [value]="defaultSelecAssetType">
               <mat-option value="car">Car</mat-option>
               <mat-option value="motorcycle">MotorCycle</mat-option>
@@ -14,7 +14,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Make</mat-label>
+            <mat-label>{{ 'part_store.part_master.make' | translate }}</mat-label>
             <mat-select [value]="defaultSelectMake">
               <mat-option value="bmw">BMW</mat-option>
               <mat-option value="audi">Audi</mat-option>
@@ -24,7 +24,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Model</mat-label>
+            <mat-label>{{ 'part_store.part_master.model' | translate }}</mat-label>
             <mat-select [value]="defaultSelectModel">
               <mat-option value="m6">M6</mat-option>
               <mat-option value="x6">X6</mat-option>

@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { SidebarMenuFacade } from '../sidebar-menu';
 import { SettingsFacade } from '@core/settings/settings.facade';
 import { Language } from '@core/settings/settings.model';
 import { OverlayPanel } from 'primeng/overlaypanel';
-
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -31,7 +31,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private store: Store,
     private sidebarMenuFacade: SidebarMenuFacade,
-    private settingsFacade: SettingsFacade
+    private settingsFacade: SettingsFacade,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit() {
@@ -45,11 +46,16 @@ export class NavbarComponent implements OnInit {
     this.sidebarMenuFacade.opened$.subscribe((x) => {
       this.sidebarMenuOpened = x;
     });
+    this.language$.subscribe(data=>{this.changeRTLStyle(data)})
   }
 
   changeLanguage(language: Language): void {
     this.settingsFacade.changeLanguage(language);
     this.languageBox.hide();
+  }
+  changeRTLStyle(language){
+    let htmlTag = this.document.getElementsByTagName('html')[0] as HTMLHtmlElement
+    htmlTag.dir = language === 'ar' ? 'rtl' : 'ltr';
   }
 
   changeSidebarMenuState() {

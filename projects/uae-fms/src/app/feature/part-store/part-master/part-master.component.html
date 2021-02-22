@@ -10,10 +10,10 @@
         <div class="table-container">
             <div class="pt-1">
                 <div class="card-table-header">
-                    <p>Filter, Fuel pupm</p>
+                    <p>part_store.part_master.filter_and_fuel</p>
                     <span class="search-container">
                         <div class="search-box">
-                            <input type="text" placeholder="Search in Columns">
+                            <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
                             <button>
                                 <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
                             </button>
@@ -21,7 +21,7 @@
                         <button class="btn-download" disabled>
                             <svg-icon [src]="downloadBtn"></svg-icon>
                         </button>
-                        <button class="btn-primary-small" [routerLink]="'./add'"><i>+</i><a>Add</a></button>
+                        <button class="btn-primary-small" [routerLink]="'./add'"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
                     </span>
                 </div>
                 <div class="card-table-content">

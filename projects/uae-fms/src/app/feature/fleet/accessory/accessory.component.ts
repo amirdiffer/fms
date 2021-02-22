@@ -7,6 +7,7 @@ import {
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { TableSetting } from '@core/table';
 import { Subscription } from 'rxjs';
+import { AccessoryFacade } from '../+state/accessory';
 import { AccessoryService } from './accessory.service';
 
 @Component({
@@ -22,25 +23,25 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   openAdd$: Subscription;
   filterCard: FilterCardSetting[] = [
     {
-      filterTitle: 'Total',
+      filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#CBA786',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'Available',
+      filterTitle: 'statistic.available',
       filterCount: '356',
       filterTagColor: '#07858D',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'Assigned',
+      filterTitle: 'statistic.assigned',
       filterCount: '124',
       filterTagColor: '#EF959D',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'X Accessory',
+      filterTitle: 'statistic.x_accessory',
       filterCount: '12',
       filterTagColor: '#DD5648',
       onActive(index: number) {}
@@ -49,11 +50,11 @@ export class AccessoryComponent implements OnInit, OnDestroy {
 
   accessory_Table: TableSetting = {
     columns: [
-      { lable: 'Item', type: 1, field: 'Item' },
-      { lable: 'Type', type: 1, field: 'Type' },
-      { lable: 'Asset/Sub Asset', type: 1, field: 'Asset_SubAsset' },
-      { lable: 'Assigned To', type: 1, field: 'Assigned_To' },
-      { lable: 'Quantity', type: 1, field: 'Quantity', width: 100 }
+      { lable: 'tables.column.item', type: 1, field: 'Item' },
+      { lable: 'tables.column.type', type: 1, field: 'Type' },
+      { lable: 'tables.column.asset_sub_asset', type: 1, field: 'Asset_SubAsset' },
+      { lable: 'tables.column.assigned_to', type: 1, field: 'Assigned_To' },
+      { lable: 'tables.column.quantity', type: 1, field: 'Quantity', width: 100 }
     ],
     data: [
       {
@@ -107,12 +108,13 @@ export class AccessoryComponent implements OnInit, OnDestroy {
     ]
   };
 
-  constructor(private _accessoryService: AccessoryService) {}
+  constructor(private _accessoryService: AccessoryService , private _accessoryFacade: AccessoryFacade) {}
 
   ngOnInit(): void {
     this.openAdd$ = this._accessoryService.getAddForm().subscribe((open) => {
       this.openAdd = open;
     });
+    this._accessoryFacade.loadAll();
   }
 
   addAccessory() {

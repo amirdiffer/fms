@@ -5,7 +5,7 @@
     <div class="card-table">
         <div class="card-table-header">
             <div class="search-box">
-                <input type="text" placeholder="Search in Columns">
+                <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
                 <button>
                     <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
                 </button>
@@ -13,7 +13,7 @@
             <button class="btn-download" disabled>
                 <svg-icon [src]="downloadBtn"></svg-icon>
             </button>
-            <button class="btn-primary-small" routerLink="add-toll"><i>+</i><a>Add</a></button>
+            <button class="btn-primary-small" routerLink="add-toll"><i>+</i><a>{{'forms.add' | translate}}</a></button>
             
         </div>
         <app-table [setting]="tableSetting"></app-table>
