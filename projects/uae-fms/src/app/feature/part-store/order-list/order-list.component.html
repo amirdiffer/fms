@@ -17,7 +17,7 @@
       <button class="btn-download" disabled>
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
-      <button class="btn-primary-small" *ngIf="activeTab == 'My Order'"routerLink="add-order-list"><i>+</i><a>{{ 'forms.order' | translate }}</a></button>
+      <button class="btn-primary-small" *ngIf="activeTab == 'part_store.order_list.my_order'"routerLink="add-order-list"><i>+</i><a>{{ 'forms.order' | translate }}</a></button>
     </div>
     <app-tab-view (selectedIndex)="activeTab = $event">
       <div title='part_store.order_list.request_list'>
