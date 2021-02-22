@@ -5,6 +5,7 @@ import {
   OnInit
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'anms-add-role-and-permission',
@@ -16,16 +17,38 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
   form: FormGroup;
 
   middleCheckboxLabelArray = [
-    { name: 'Registration' },
-    { name: 'Customization' },
-    { name: 'Sub Asset' },
-    { name: 'Accessory' },
-    { name: 'Operator' },
-    { name: 'Organization' },
-    { name: 'Movement' }
+    { name: 'registration' },
+    { name: 'customization' },
+    { name: 'sub_asset' },
+    { name: 'accessory' },
+    { name: 'operator' },
+    { name: 'organization' },
+    { name: 'movement' }
   ];
 
-  bottomCheckboxLabelArray = ['Fuel Management', 'Traffic Fine'];
+  translations = {
+    'configuration.role_permission.registration': '',
+    'configuration.role_permission.customization': '',
+    'configuration.role_permission.sub_asset': '',
+    'configuration.role_permission.accessory': '',
+    'configuration.role_permission.operator': '',
+    'configuration.role_permission.organization': '',
+    'configuration.role_permission.movement': ''
+  };
+
+  getTranslations() {
+    const translationLabels = Object.keys(this.translations);
+    this.translationService.get(translationLabels).subscribe((translation) => {
+      this.translations = translation;
+      this.middleCheckboxLabelArray = [];
+      console.log(translation)
+      Object.keys(translation).forEach((key) => {
+        this.middleCheckboxLabelArray.push({name: translation[key]})
+      })
+    });
+  }
+
+  bottomCheckboxLabelArray = ['fuel_management', 'traffic_fine'];
 
   switchesList = [
     { label: 'view', value: false, visible: true },
@@ -35,7 +58,9 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
     { label: 'approval', value: false, visible: true }
   ];
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private translationService: TranslateService) {
+    this.getTranslations();
+  }
 
   ngOnInit(): void {
     this.buildForm();

@@ -102,7 +102,11 @@
     "repair": "تصليح",
     "accident": "حادثة",
     "out_of_policy": "خارج الوثيقة",
-    "total_lost": "مجموع المفقود"
+    "total_lost": "مجموع المفقود",
+    "paid": "مدفوع",
+    "unpainted": "غير مصبوغ",
+    "deducte": "خصم",
+    "user": "المستخدم"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -557,6 +561,7 @@
   "configuration": {
     "role_permission": {
       "role_info": "معلومات الدور",
+      "role_name": "اسم الدور",
       "permissions": "أذونات",
       "fleet": "الأسطول",
       "fuel_management": "إدارة الوقود",

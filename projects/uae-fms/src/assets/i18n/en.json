@@ -105,7 +105,8 @@
     "total_lost": "Total Lost",
     "paid": "Paid",
     "unpainted": "UnPainted",
-    "deducte": "Deducte"
+    "deducte": "Deducte",
+    "user": "User"
   },
   "tabs": {
     "asset_master": "Asset Master",
