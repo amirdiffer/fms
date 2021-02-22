@@ -1,5 +1,5 @@
 export interface IAccessory {
-  id: string;
+  id: number;
   itemName: string;
   assignedToType: string;
   assignedToEntity: number;
