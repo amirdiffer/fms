@@ -17,17 +17,17 @@ export class PartMasterComponent implements OnInit {
   ngOnInit(): void {
     this.filterSetting = [
       {
-        filterTitle: 'Total',
+        filterTitle: 'statistic.total',
         filterCount: '13',
         filterTagColor: '#6EBFB5'
       },
       {
-        filterTitle: 'Available',
+        filterTitle: 'statistic.available',
         filterCount: '08',
         filterTagColor: '#848CCF'
       },
       {
-        filterTitle: 'Unavailable',
+        filterTitle: 'statistic.unavailable',
         filterCount: '02',
         filterTagColor: '#BA7967'
       }

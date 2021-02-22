@@ -35,7 +35,7 @@ export class MovementService {
     return {
       columns: [
         {
-          lable: 'Asset',
+          lable: 'tables.column.asset',
           field: 'asset',
           width: 140,
           type: 1,
@@ -43,7 +43,7 @@ export class MovementService {
           renderer: 'assetsRenderer'
         },
         {
-          lable: 'Duration',
+          lable: 'tables.column.duration',
           field: 'duration',
           width: 100,
           type: 1,
@@ -51,7 +51,7 @@ export class MovementService {
           renderer: ''
         },
         {
-          lable: 'Start Date',
+          lable: 'tables.column.start_date',
           field: 'startDate',
           width: 100,
           type: 1,
@@ -59,7 +59,7 @@ export class MovementService {
           renderer: ''
         },
         {
-          lable: 'Department',
+          lable: 'tables.column.department',
           field: 'department',
           width: 100,
           type: 1,
@@ -67,7 +67,7 @@ export class MovementService {
           renderer: ''
         },
         {
-          lable: 'Operator',
+          lable: 'tables.column.operator',
           field: 'operator',
           width: 100,
           type: 1,
@@ -75,7 +75,7 @@ export class MovementService {
           renderer: 'subtextRenderer'
         },
         {
-          lable: 'Fine',
+          lable: 'tables.column.fine',
           field: 'fine',
           width: 100,
           type: 1,
@@ -83,7 +83,7 @@ export class MovementService {
           renderer: ''
         },
         {
-          lable: 'Reason',
+          lable: 'tables.column.reason',
           field: 'reason',
           width: 100,
           type: 1,
@@ -124,7 +124,7 @@ export class MovementService {
     return {
       columns: [
         {
-          lable: 'User',
+          lable: 'tables.column.user',
           field: 'user',
           width: 140,
           type: 1,
@@ -132,7 +132,7 @@ export class MovementService {
           renderer: 'assetsRenderer'
         },
         {
-          lable: 'Movement Type',
+          lable: 'tables.column.movement_type',
           field: 'movementType',
           width: 100,
           type: 1,
@@ -140,7 +140,7 @@ export class MovementService {
           renderer: ''
         },
         {
-          lable: 'Request Type',
+          lable: 'tables.column.request_type',
           field: 'requestType',
           width: 100,
           type: 1,
@@ -148,7 +148,7 @@ export class MovementService {
           renderer: ''
         },
         {
-          lable: 'Asset Type',
+          lable: 'tables.column.asset_type',
           field: 'assetType',
           width: 70,
           type: 1,
@@ -156,7 +156,7 @@ export class MovementService {
           renderer: ''
         },
         {
-          lable: 'Reason',
+          lable: 'tables.column.reason',
           field: 'reason',
           width: 100,
           type: 1,
@@ -164,7 +164,7 @@ export class MovementService {
           renderer: ''
         },
         {
-          lable: 'Date',
+          lable: 'tables.column.date',
           field: 'date',
           width: 100,
           type: 1,
@@ -172,7 +172,7 @@ export class MovementService {
           renderer: ''
         },
         {
-          lable: 'Request Status',
+          lable: 'tables.column.request_status',
           field: 'requestStatus',
           width: 100,
           type: 1,

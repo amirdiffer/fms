@@ -1,4 +1,40 @@
 {
+  "profile": {
+    "notification_types": "Notification Types",
+    "email": "Email",
+    "push_notification": "Push Notification",
+    "watched_vehicle_email_notifications": "Watched Vehicle Email Notifications",
+    "vehicle_comments": "Vehicle Comments",
+    "when_vehicle_comments_are_added_by_other_users": "When vehicle comments are added by other users",
+    "service_entry_comment": "Service Entry Comment",
+    "when_service_entry_comments_are_added_by_others_users": "When service entry comments are added by others users",
+    "fuel_entry_comment": "Fuel Entry Comment",
+    "when_fuel_entry_comments_are_added_by_others_users": "When fuel entry comments are added by others users",
+    "vehicle_status_changes": "Vehicle Status Changes",
+    "when_vehicle_statuses_are_changed_by_other_users": "When vehicle statuses are changed by other users",
+    "voided_fuel_entries": "Voided Fuel Entries",
+    "when_fuel_entries_are_automatically_voided_on_any_vehicles_you_are_watching": "When fuel entries are automatically voided on any vehicles you're watching",
+    "due_soon_inspections": "Due Soon Inspections",
+    "due_soon_inspections_description": "At 7:00 am the day an inspection is due",
+    "overdue_inspections": "Overdue Inspections",
+    "overdue_inspections_description": "At 7:00 am daily for any overdue inspections",
+    "new_faults": "New Faults",
+    "new_faults_description": "When a Fault or Diagnostic Trouble Code (DTC) alert is received via API or an integrated telematics/GPS tracking device",
+    "new_recalls": "New Recalls",
+    "new_recalls_description": "When a new recall is discovered for vehicles you're watching",
+    "when_an_issue_is_created_by_other_users": "When an issue is created by other users",
+    "issue_assigned_to_me": "Issue Assigned to Me",
+    "issue_assigned_to_me_description": "When an issue is assigned to me by other users",
+    "issue_receives_a_comment": "Issue Receives a Comment",
+    "issue_receives_a_comment_description": "When an issue comments are added by other users",
+    "issue_resolved": "Issue Resolved",
+    "issue_resolved_description": "When an issue is resolved by other users",
+    "issue_closed": "Issue Closed",
+    "issue_closed_description": "When an issue is closed by other user",
+    "logout": "Logout",
+    "organization": "Organization",
+    "phone_number": "Phone Number"
+  },
   "sidebar": {
     "dashboard": "Dashboard",
     "fleets": {
@@ -66,7 +102,10 @@
     "repair": "Repair",
     "accident": "Accident",
     "out_of_policy": "Out Of Policy",
-    "total_lost": "Total Lost"
+    "total_lost": "Total Lost",
+    "paid": "Paid",
+    "unpainted": "UnPainted",
+    "deducte": "Deducte"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -94,7 +133,8 @@
     "search": "Search",
     "year": "Year",
     "make": "Make",
-    "model": "Model"
+    "model": "Model",
+    "request": "Request"
   },
   "tables": {
     "column": {
@@ -151,7 +191,7 @@
       "mileage": "Mileage",
       "total_usage": "Total Usage",
       "cost": "Cost",
-      "ts_code": "Ts Code",
+      "tc_code": "Tc Code",
       "plate_no": "Plate No",
       "mission_status": "Mission Status",
       "time_date": "Time/Date",
@@ -177,7 +217,7 @@
       "reported_by": "Reported By",
       "insurance_value": "Insurance Value",
       "insurance": "Insurance",
-      "created_by": "Create By",
+      "created_by": "Created By",
       "assignment": "Assignment",
       "estimate_market": "Estimate Market",
       "remove_item": "Remove Item",
@@ -222,7 +262,14 @@
       "email": "Email",
       "phone_number": "Phone Number",
       "company_name": "Company Name",
-      "support_operator": "Support Operator"
+      "support_operator": "Support Operator",
+      "out_of_policy": "Out of Policy",
+      "established_market_value": "Established Market Value",
+      "remove": "Remove",
+      "gps": "GPS",
+      "removal_items": "Removal Items",
+      "by": "By",
+      "vehicle": "Vehicle"
     },
     "button": {
       "view_report": "View Report",
@@ -333,14 +380,17 @@
     "department_id": "Department Id",
     "department_name": "Department Name",
     "section_name": "Section Name",
-    "location": "location"
+    "location": "Location"
   },
   "movement": {
     "movement": {
       "request_type": "Request Type",
       "new": "New",
       "replacement": "Replacement",
-      "reason": "Reason"
+      "reason": "Reason",
+      "asset_type": "Asset Type",
+      "quantity": "Quantity",
+      "old_asset": "Old Asset"
     },
     "request": {
       "request_type": "Request Type",
@@ -367,7 +417,8 @@
     "upload_form": {
       "title": "Upload CSV File of Toll",
       "progressbar_title": "CSV File Only",
-      "content": "Drag and Drop a File here"
+      "content": "Drag and Drop a File here",
+      "upload": "Upload"
     }
   },
   "part_store": {
@@ -385,9 +436,9 @@
       "description": "Description"
     },
     "order_list": {
-      "request": {},
-      "order": {},
-      "suppliers": {}
+      "request_list": "Request List",
+      "my_order": "My Order",
+      "suppliers": "Suppliers"
     },
     "part_master": {
       "asset_type": "Asset Type",
@@ -479,6 +530,7 @@
       "asset_detail": "Asset Details",
       "maintenance": "Maintenance",
       "customization": "Customization",
+      "generate": "Generate",
       "reuse": "Reuse",
       "fix": "Fix",
       "auction": "Auction",
@@ -497,9 +549,12 @@
       "integration": "Integration",
       "periodic_service": "Periodic Service",
       "warranty": "Warranty",
+      "warranty_package": "Warranty Package",
       "package": "Package",
       "choose_date": "Choose Date",
       "description": "Description",
+      "car_card": "Car Card",
+      "asset_policy": "Asset Policy",
       "upload_form": {
         "title": "Attach Docs",
         "progressbar_title": "",
@@ -520,6 +575,7 @@
   "configuration": {
     "role_permission": {
       "role_info": "Role Info",
+      "role_name": "Role Name",
       "permissions": "Permissions",
       "fleet": "Fleet",
       "fuel_management": "Fuel Management",
@@ -531,7 +587,8 @@
       "accessory": "Accessory",
       "operator": "Operator",
       "organization": "Organization",
-      "movement": "Movement"
+      "movement": "Movement",
+      "asset_configuration": "Asset Configuration"
     },
     "users": {
       "portal_information": "Portal Information",
@@ -635,6 +692,7 @@
   },
   "forms": {
     "add": "Add",
+    "order": "Order",
     "save": "Save",
     "cancel": "Cancel",
     "next": "Next",

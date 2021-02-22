@@ -6,31 +6,27 @@
       </div>
     <!-- form-section form-section--inline-->
     <div class="form-section form-section--inline mt-3">
-        <div class="row">
-            <div class="col-12 col-md-2">
-                <h3 class="form-section__title">Ownership Type</h3>
-            </div>
-
-            <div class="col-12 col-md-10">
-                <div class="row">
-                    <div class="col-12 col-md-12 p-field form-section__field
-                        radio-select">
-                        <p-radioButton name="ownershipType"
-                            formControlName="ownershipType" value="external"
-                            label="External"></p-radioButton>
-                        <p-radioButton name="ownershipType"
-                            formControlName="ownershipType" value="owned"
-                            label="Owned"></p-radioButton>
-                        <p-radioButton name="ownershipType"
-                            formControlName="ownershipType" value="rent"
-                            label="Rent"></p-radioButton>
-                        <p-radioButton name="ownershipType"
-                            formControlName="ownershipType" value="Demo"
-                            label="Demo"></p-radioButton>
-                    </div>
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-12 col-md-2">
+          <h3 class="form-section__title">Ownership Type</h3>
         </div>
+        <div class="form-check col-md-2">
+          <input formControlName="ownershipType" class="form-check-input" type="radio" name="createQuotation" id="external" value ="external">
+          <label class="form-check-label" for="external">External</label>
+        </div>
+        <div class="form-check col-md-2">
+          <input formControlName="ownershipType" class="form-check-input" type="radio" name="createQuotation" id="owned" value ="owned">
+          <label class="form-check-label" for="owned">Owned</label>
+        </div>
+        <div class="form-check col-md-2">
+          <input formControlName="ownershipType" class="form-check-input" type="radio" name="createQuotation" id="rent" value ="rent">
+          <label class="form-check-label" for="rent">Rent</label>
+        </div>
+        <div class="form-check col-md-2">
+          <input formControlName="ownershipType" class="form-check-input" type="radio" name="createQuotation" id="Demo" value ="Demo">
+          <label class="form-check-label" for="Demo">Demo</label>
+        </div>
+      </div>
     </div>
     <!-- end form-section form-section--inline-->
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TollFacade } from '../toll/+state';
 
 @Component({
@@ -12,7 +12,14 @@ export class TollComponent implements OnInit {
   tableData: ITableData[];
   filterSetting = [];
   searchIcon = 'assets/icons/search-solid.svg';
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
+
+  translations = {
+    'statistic.total': '',
+    'statistic.available': '',
+    'statistic.assigned': ''
+  };
+
   constructor(private facade: TollFacade) {}
 
   ngOnInit(): void {
@@ -52,7 +59,7 @@ export class TollComponent implements OnInit {
     this.tableSetting = {
       columns: [
         {
-          lable: 'Toll Tag',
+          lable: 'tables.column.toll_tag',
           field: 'tag',
           width: 100,
           type: 1,
@@ -60,7 +67,7 @@ export class TollComponent implements OnInit {
           renderer: ''
         },
         {
-          lable: 'Status',
+          lable: 'tables.column.status',
           field: 'status',
           width: 100,
           type: 1,
@@ -68,7 +75,7 @@ export class TollComponent implements OnInit {
           renderer: ''
         },
         {
-          lable: 'Assets',
+          lable: 'sidebar.fleets.assets',
           field: 'assets',
           width: 300,
           type: 2,
@@ -76,7 +83,7 @@ export class TollComponent implements OnInit {
           renderer: 'subtextRenderer'
         },
         {
-          lable: 'Purshate Date',
+          lable: 'tables.column.purshate_date',
           field: 'purshateDate',
           width: 100,
           type: 1,
@@ -89,17 +96,17 @@ export class TollComponent implements OnInit {
 
     this.filterSetting = [
       {
-        filterTitle: 'Total',
+        filterTitle: 'statistic.total',
         filterCount: '2456',
         filterTagColor: '#CBA786'
       },
       {
-        filterTitle: 'Available',
+        filterTitle: 'statistic.available',
         filterCount: '356',
         filterTagColor: '#00AFB9'
       },
       {
-        filterTitle: 'Assigned',
+        filterTitle: 'statistic.assigned',
         filterCount: '124',
         filterTagColor: '#EF959D'
       }

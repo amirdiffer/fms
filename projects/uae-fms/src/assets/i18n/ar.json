@@ -1,4 +1,40 @@
 {
+  "profile": {
+    "notification_types": "أنواع الإخطار",
+    "email": "بريد الالكتروني",
+    "push_notification": "دفع الإخطار",
+    "watched_vehicle_email_notifications": "إشعارات البريد الإلكتروني للمركبة التي تمت مراقبتها",
+    "vehicle_comments": "تعليقات السيارة",
+    "when_vehicle_comments_are_added_by_other_users": "عندما يتم إضافة تعليقات السيارة من قبل مستخدمين آخرين",
+    "service_entry_comment": "تعليق إدخال الخدمة",
+    "when_service_entry_comments_are_added_by_others_users": "عندما يتم إضافة تعليقات إدخال الخدمة من قبل مستخدمين آخرين",
+    "fuel_entry_comment": "تعليق دخول الوقود",
+    "when_fuel_entry_comments_are_added_by_others_users": "عندما يتم إضافة تعليقات إدخال الوقود من قبل مستخدمين آخرين",
+    "vehicle_status_changes": "تغييرات حالة السيارة",
+    "when_vehicle_statuses_are_changed_by_other_users": "عندما يتم تغيير حالة السيارة من قبل مستخدمين آخرين",
+    "voided_fuel_entries": "مدخلات الوقود المفرغة",
+    "when_fuel_entries_are_automatically_voided_on_any_vehicles_you_are_watching": "عندما يتم إبطال مداخل الوقود تلقائيًا في أي مركبة تشاهدها",
+    "due_soon_inspections": "عمليات التفتيش المستحقة قريبا",
+    "due_soon_inspections_description": "الساعة 7:00 صباحًا من يوم موعد الفحص",
+    "overdue_inspections": "عمليات التفتيش المتأخرة",
+    "overdue_inspections_description": "الساعة 7:00 صباحًا يوميًا لأي عمليات تفتيش متأخرة",
+    "new_faults": "أخطاء جديدة",
+    "new_faults_description": "عند تلقي تنبيه خطأ أو رمز مشكلة التشخيص (DTC) عبر واجهة برمجة التطبيقات أو جهاز تتبع عن بُعد / نظام GPS متكامل",
+    "new_recalls": "عمليات سحب جديدة",
+    "new_recalls_description": "عندما يتم اكتشاف استدعاء جديد للمركبات التي تشاهدها",
+    "when_an_issue_is_created_by_other_users": "عندما يتم إنشاء مشكلة بواسطة مستخدمين آخرين",
+    "issue_assigned_to_me": "المسألة المعينة لي",
+    "issue_assigned_to_me_description": "عندما يتم تعيين مشكلة لي من قبل مستخدمين آخرين",
+    "issue_receives_a_comment": "إصدار يتلقى تعليقا",
+    "issue_receives_a_comment_description": "عندما يتم إضافة تعليقات قضية بواسطة مستخدمين آخرين",
+    "issue_resolved": "تم حل المشكلة",
+    "issue_resolved_description": "عندما يتم حل مشكلة من قبل مستخدمين آخرين",
+    "issue_closed": "تم إغلاق المشكلة",
+    "issue_closed_description": "عندما يغلق مستخدم آخر مشكلة",
+    "logout": "تسجيل خروج",
+    "organization": "منظمة",
+    "phone_number": "رقم التليفون"
+  },
   "sidebar": {
     "dashboard": "لوحة القيادة",
     "fleets": {
@@ -367,7 +403,8 @@
     "upload_form": {
       "title": "تحميل ملف CSV",
       "progressbar_title": "ملف CSV فقط",
-      "content": "قم بسحب وإسقاط ملف هنا"
+      "content": "قم بسحب وإسقاط ملف هنا",
+      "upload": "تحميل"
     }
   },
   "part_store": {
@@ -385,9 +422,9 @@
       "description": "الوصف"
     },
     "order_list": {
-      "request": {},
-      "order": {},
-      "suppliers": {}
+      "request_list": "قائمة الطلبات",
+      "my_order": "طلبي",
+      "suppliers": "الموردين"
     },
     "part_master": {
       "asset_type": "نوع الأصول",
@@ -646,6 +683,7 @@
     "approval": "موافقة",
     "feedback": {
       "required": "هذا الحقل مطلوب"
-    }
+    },
+    "order": "ترتيب"
   }
 }

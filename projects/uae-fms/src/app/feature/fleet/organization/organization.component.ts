@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
+import { OrganizationFacade } from '../+state/organization';
 
 @Component({
   selector: 'anms-organization',
@@ -12,30 +13,30 @@ export class OrganizationComponent implements OnInit {
   organization_Table: TableSetting = {
     columns: [
       {
-        lable: 'Organization',
+        lable: 'tables.column.organization',
         type: 1,
         field: 'Organization'
       },
       {
-        lable: 'Section',
+        lable: 'tables.column.section',
         sortable: true,
         type: 1,
         field: 'Section'
       },
       {
-        lable: 'Location',
+        lable: 'tables.column.location',
         sortable: true,
         type: 1,
         field: 'Location'
       },
       {
-        lable: 'TF Payed',
+        lable: 'tables.column.tf_payed',
         sortable: true,
         type: 1,
         field: 'TF_Payed'
       },
       {
-        lable: 'TF Unpaid',
+        lable: 'tables.column.tf_unpaid',
         sortable: true,
         type: 1,
         field: 'TF_Unpaid'
@@ -129,7 +130,9 @@ export class OrganizationComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private facade: OrganizationFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
 }

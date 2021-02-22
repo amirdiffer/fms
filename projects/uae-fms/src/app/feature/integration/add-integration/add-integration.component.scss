@@ -1,23 +1,2 @@
 @import '../../../../themes/green-theme.scss';
 @import '../../../../assets/scss/form-section.scss';
-.form-section {
-  margin: -30px 0 0 0 !important;
-  .form-section__field {
-    padding-right: 5px !important;
-    padding-left: 5px !important;
-  }
-  .btn-primary-small {
-    height: 34px;
-    width: 111px;
-  }
-
-  ::ng-deep {
-    .p-dropdown,
-    .p-inputtext {
-      height: 34px !important;
-    }
-  }
-}
-label {
-  width: 72% !important;
-}
