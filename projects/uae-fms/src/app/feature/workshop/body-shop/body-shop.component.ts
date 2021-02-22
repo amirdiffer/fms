@@ -19,55 +19,55 @@ export class BodyShopComponent implements OnInit {
     {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
-      filterTitle: 'Total',
+      filterTitle: 'statistic.total',
       onActive: () => {}
     },
     {
       filterCount: '8',
       filterTagColor: '#6870B4',
-      filterTitle: 'Approved',
+      filterTitle: 'statistic.approved',
       onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#BA7967',
-      filterTitle: 'Waiting For Approval',
+      filterTitle: 'statistic.waiting_for_approval',
       onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#DD5648',
-      filterTitle: 'Rejected',
+      filterTitle: 'statistic.rejected',
       onActive: () => {}
     }
   ];
 
   table1Setting: TableSetting = {
     columns: [
-      { lable: 'Item', field: 'item', width: 190, renderer: 'vehicleRenderer' },
-      { lable: 'Issue', field: 'issue', type: ColumnType.lable, width: 70 },
-      { lable: 'Source', field: 'source', type: ColumnType.lable, width: 120 },
+      { lable: 'tables.column.item', field: 'item', width: 190, renderer: 'vehicleRenderer' },
+      { lable: 'tables.column.issue', field: 'issue', type: ColumnType.lable, width: 70 },
+      { lable: 'tables.column.source', field: 'source', type: ColumnType.lable, width: 120 },
       {
-        lable: 'Reference No',
+        lable: 'tables.column.reference_no',
         field: 'refrenceNo',
         width: 100,
         type: ColumnType.lable
       },
       {
-        lable: 'Job Type',
+        lable: 'tables.column.job_type',
         field: 'jobType',
         type: ColumnType.lable,
         width: 100
       },
-      { lable: 'Date', field: 'date', width: 100, type: ColumnType.lable },
+      { lable: 'tables.column.date', field: 'date', width: 100, type: ColumnType.lable },
       {
-        lable: 'Accident',
+        lable: 'tables.column.accident',
         field: 'accident',
         type: ColumnType.lable,
         width: 100
       },
       {
-        lable: 'Action',
+        lable: 'tables.column.action',
         field: '',
         type: ColumnType.lable,
         width: 120,
@@ -567,12 +567,12 @@ export class BodyShopComponent implements OnInit {
 
   addClicked(e: Event) {
     switch (this.selectedTab) {
-      case 'Job Card':
+      case 'jobcardTab':
         break;
-      case 'Technician':
+      case 'technicianTab':
         this.router.navigate(['workshop/body-shop/add-technician']);
         break;
-      case 'Location':
+      case 'locationTab':
         this.router.navigate(['workshop/body-shop/add-location']);
         break;
       default:

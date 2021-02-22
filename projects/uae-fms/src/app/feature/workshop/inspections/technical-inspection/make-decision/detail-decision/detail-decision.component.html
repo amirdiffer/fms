@@ -1,10 +1,10 @@
 <div class="radio-button-container mt-5">
     <mat-radio-group aria-label="Select an option" [(ngModel)]="radioButtonSelect">
-        <mat-radio-button value="reuse">Reuse</mat-radio-button>
-        <mat-radio-button value="fix">Fix</mat-radio-button>
-        <mat-radio-button value="auction">Auction</mat-radio-button>
-        <mat-radio-button value="insurance">Send to Insurance</mat-radio-button>
-    </mat-radio-group> 
+        <mat-radio-button value="reuse">{{ 'workshop.technical_inspection.reuse' | translate }}</mat-radio-button>
+        <mat-radio-button value="fix">{{ 'workshop.technical_inspection.fix' | translate }}</mat-radio-button>
+        <mat-radio-button value="auction">{{ 'workshop.technical_inspection.auction' | translate }}</mat-radio-button>
+        <mat-radio-button value="insurance">{{ 'workshop.technical_inspection.send_to_insurance' | translate }}</mat-radio-button>
+    </mat-radio-group>
 </div>
 
 <div class="table-container mt-5">
@@ -20,5 +20,5 @@
     <ng-container *ngIf="radioButtonSelect == 'insurance'">
         insurance
     </ng-container>
-    
+
 </div>

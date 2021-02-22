@@ -2,20 +2,20 @@
     <div class="row mt-5">
         <div class="col-lg-7 col-md-7">
             <mat-form-field appearance="fill">
-                <mat-label>Business Category</mat-label>
+                <mat-label>{{ 'workshop.technical_inspection.business_category' | translate }}</mat-label>
                 <mat-select value="" formControlName="businessCategory">
                   <mat-option value="">Vehicle's group</mat-option>
                   <mat-option value="car">Car</mat-option>
                   <mat-option value="motorcycle">MotorCycle</mat-option>
                   <mat-option value="truck">Truck</mat-option>
-                </mat-select>    
+                </mat-select>
             </mat-form-field>
-            <small class="help-text">Business Category</small>
-            
+            <small class="help-text">{{ 'workshop.technical_inspection.business_category' | translate }}</small>
+
         </div>
         <div class="col-lg-5 col-md-5">
             <mat-form-field appearance="fill">
-                <mat-label>Receiver *</mat-label>
+                <mat-label>{{ 'workshop.technical_inspection.receiver' | translate }} *</mat-label>
                 <mat-select value="" formControlName="receiver">
                   <mat-option value=""></mat-option>
                   <mat-option value="receiver1">Receiver 1</mat-option>
@@ -28,7 +28,7 @@
     <div class="row mt-3">
         <div class="col-lg-4 col-md-4">
             <mat-form-field appearance="fill">
-                <mat-label>Policy Type</mat-label>
+                <mat-label>{{ 'workshop.technical_inspection.policy_type' | translate }}</mat-label>
                 <mat-select value="" formControlName="policyType">
                   <mat-option value=""></mat-option>
                   <mat-option value="policyType1">Policy Type 1 </mat-option>
@@ -36,39 +36,39 @@
                   <mat-option value="policyType3">Policy Type 3</mat-option>
                 </mat-select>
             </mat-form-field>
-            <small class="help-text">Asset Policy</small>
+            <small class="help-text">{{ 'workshop.technical_inspection.asset_policy' | translate }}</small>
         </div>
-    
+
     </div>
-    
-    
-    <h6 class="mt-5">Service Schedule</h6>
+
+
+    <h6 class="mt-5">{{ 'workshop.technical_inspection.service_schedule' | translate }}</h6>
     <div class="row mt-3">
         <div class="col-lg-4 col-md-4">
             <mat-form-field appearance="fill">
-                <mat-label>Choose a date</mat-label>
+                <mat-label>{{ 'workshop.technical_inspection.choose_a_date' | translate }}</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="serviceDate">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </div>
         <div class="col-lg-8 col-md-8 align-self-center">
-            <span class="service-title">Out-of-Service Date</span>
+            <span class="service-title">{{ 'workshop.technical_inspection.service_date' | translate }}</span>
             <span class="service-content"> 16 August 2020 </span>
         </div>
     </div>
-    
+
     <div class="row mt-3">
         <div class="col-lg-4 col-md-4">
             <mat-form-field class="example-full-width">
-                <mat-label>In-Service Odometer</mat-label>
+                <mat-label>{{ 'workshop.technical_inspection.in-service_Odometer' | translate }}</mat-label>
                 <input matInput placeholder="" value="" formControlName="serviceOdometer">
             </mat-form-field>
-            
-            
+
+
         </div>
         <div class="col-lg-4 col-md-4 align-self-center">
-            <span class="service-title">Out-of-Service Odometer</span>
+            <span class="service-title">{{ 'workshop.technical_inspection.service_odometer' | translate }}</span>
             <span class="service-content"> 11111111 Kilometers </span>
         </div>
         <div class="col-lg-4 col-md-4 align-self-center d-flex">
@@ -76,7 +76,7 @@
                 <input type="checkbox" value="None" id="checkbox" formControlName="setReminder">
                 <label for="checkbox"></label>
             </div>
-            <span class="align-self-center ml-2">Set Reminder</span>
+            <span class="align-self-center ml-2">{{ 'workshop.technical_inspection.set_reminder' | translate }}</span>
         </div>
-    </div> 
+    </div>
 </form>
