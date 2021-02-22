@@ -1,26 +1,22 @@
 <form>
-    <div class="button-container">
+    <div class="row">
+        <div class="button-container">
         <button [routerLink]="['..']" class="btn-primary-medium btn-scondary-green">
-            {{ 'fms.global.cancel' | translate }}
+          {{ 'fms.global.cancel' | translate }}
         </button>
         <button class="btn-primary-medium add">
-            {{ 'fms.global.add' | translate }}
+          {{ 'fms.global.add' | translate }}
         </button>
       </div>
-    
-    <div class="filter-container">
-        <app-filter [setting]="filterSetting"></app-filter>
-    </div>
-    <div class="row m-0">
-        <div class="col-12 col-md-3 pl-0">
+        <div class="col-12 col-md-3" style="margin-top: 0 !important;">
             <part-store-asset-type></part-store-asset-type>
             <part-store-category></part-store-category>
         </div>
-        <div class="col-12 col-md-9 pl-md-0">
+        <div class="col-12 col-md-9">
             <!-- form-section -->
             <div class="form-section" [formGroup]="partForm">
                 <h3 class="form-section__title">{{ getLabelName('itemInfo') | translate }}</h3>
-    
+
                 <div class="row form-section__row">
                     <div class="col-12 col-md-3 p-field form-section__field">
                         <span class="p-float-label">
@@ -49,7 +45,7 @@
                         </span>
                     </div>
                 </div>
-    
+
                 <div class="row form-section__row">
                     <div class="col-12 col-md-12 p-field form-section__field">
                         <span class="p-float-label">
@@ -60,16 +56,16 @@
                 </div>
             </div>
             <!-- end form-section -->
-    
+
             <!-- form-section form-section--inline-->
             <div class="form-section form-section--inline" [formGroup]="partForm">
                 <div class="row">
                     <div class="col-12 col-md-2">
                         <h3 class="form-section__title">{{ getLabelName('storageLocation') | translate }}</h3>
                     </div>
-    
+
                     <div class="col-12 col-md-10">
-    
+
                         <div class="row">
                             <div class="col-12 col-md-3 p-field form-section__field options-select">
                                 <span class="p-float-label">

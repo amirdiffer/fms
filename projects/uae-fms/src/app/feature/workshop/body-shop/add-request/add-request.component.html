@@ -3,11 +3,11 @@
         <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">Cancel</button>
         <button class="btn-primary-medium add" type="submit" >Add</button>
       </div>
-      
+
     <div class="row">
         <ng-container *ngIf=" !inputForm.get('assetSearch').value.name">
             <div class="col-12 overflow-visible">
-                <div class="component_wrapper">
+                <div class="form-section">
                     <h3 class="form-section__title">Asset Info</h3>
                     <div class="row mt-3">
                         <div class="col-6">
@@ -15,11 +15,11 @@
                                 <div class="input-group">
                                     <div class="autocomplete-select w-100">
                                         <span class="p-float-label ">
-                                            <p-autoComplete [suggestions]="filteredAsset" 
-                                                            formControlName="assetSearch" 
-                                                            (completeMethod)="searchAsset($event)" 
-                                                            field="name" 
-                                                            (onSelect)="selectedAsset($event)" 
+                                            <p-autoComplete [suggestions]="filteredAsset"
+                                                            formControlName="assetSearch"
+                                                            (completeMethod)="searchAsset($event)"
+                                                            field="name"
+                                                            (onSelect)="selectedAsset($event)"
                                                             [class.invalid]="!inputForm.get('assetSearch').valid && submited"></p-autoComplete>
                                             <i class="pi pi-search"></i>
                                             <label>Asset *</label>
@@ -36,7 +36,7 @@
 
         <ng-container *ngIf=" inputForm.get('assetSearch').value.name">
             <div class="col-12 " [formGroupName]="'assetInfo'">
-                <div class="component_wrapper">
+                <div class="form-section">
                     <h3 class="form-section__title">Asset Info</h3>
                     <div class="row mt-3">
                         <div class="col-12 col-md-5">
@@ -58,7 +58,7 @@
                                                 <input type="text" class="form-control border" formControlName="gpsMeterSource" readonly>
                                                 <label>GPS Meter Source</label>
                                             </span>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-5">
@@ -84,10 +84,10 @@
                 </div>
             </div>
         </ng-container>
-        
+
         <div class="col-12">
-            <div class="component_wrapper">
-                <div class="row mt-3">
+            <div class="form-section form-section--inline">
+                <div class="row">
                     <h3 class="col-2 form-section__title">Reason</h3>
                     <div class="col-10">
                         <div class="row form-group align-items-center">
@@ -117,8 +117,8 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="component_wrapper">
-                <div class="row mt-3">
+            <div class="form-section form-section--inline">
+                <div class="row">
                     <h3 class="col-3 form-section__title">Job Type</h3>
                     <div class="col-lg-9">
                         <div class="row form-group">
@@ -154,12 +154,12 @@
             </div>
         </div>
         <div class="col-12" [formGroupName]="'issueInfo'">
-            <div class="component_wrapper">
+            <div class="form-section">
                 <h3 class="form-section__title">Issue Info</h3>
                 <div class="row mt-3">
                     <div class="form-group col-lg-8 p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText  type="text" class="form-control" placeholder="Issue" 
+                            <input pInputText  type="text" class="form-control" placeholder="Issue"
                                     formControlName="issue"
                                     [class.invalid]="!inputForm.get('issueInfo.issue').valid && submited">
                             <label>Issue *</label>
@@ -169,7 +169,7 @@
                     </div>
                     <div class="form-group col-lg-4 p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText type="text" class="form-control" placeholder="Reported By" 
+                            <input pInputText type="text" class="form-control" placeholder="Reported By"
                                     formControlName="repertedBy"
                                     [class.invalid]="!inputForm.get('issueInfo.repertedBy').valid && submited">
                             <label>Reported By *</label>
@@ -188,8 +188,8 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="component_wrapper">
-                <div class="row mt-3">
+            <div class="form-section form-section--inline">
+                <div class="row">
                     <h3 class="col-3 form-section__title">Priority</h3>
                     <div class="col-lg-9">
                         <div class="row form-group select-level">
@@ -227,7 +227,7 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="component_wrapper">
+            <div class="form-section">
                 <h3 class="form-section__title">Attach Picture</h3>
                 <div class="upload-box">
                     <div class="row">
@@ -237,7 +237,7 @@
                     </div>
                     <div class="col-lg-12 ">
                         <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>                </div>
-                    <div class="col-lg-12 mt-2">
+                    <div class="col-lg-12 my-2">
                         <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
                             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                                 <label (click)="openFileSelector()" style="cursor: pointer;">
@@ -252,5 +252,5 @@
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 </form>
