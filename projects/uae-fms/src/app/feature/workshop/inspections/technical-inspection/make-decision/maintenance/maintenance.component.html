@@ -1,71 +1,71 @@
 <form [formGroup] = "inputForm">
     <div class="check-box mt-5" formGroupName="service">
         <h6>Service</h6>
-        <mat-checkbox formControlName="purchase">Purchase Service Package</mat-checkbox>
-        <mat-checkbox formControlName="integration">Integration</mat-checkbox>
+        <mat-checkbox formControlName="purchase">{{ 'workshop.technical_inspection.purchase_service_package' | translate }}</mat-checkbox>
+        <mat-checkbox formControlName="integration">{{ 'workshop.technical_inspection.integration' | translate }}</mat-checkbox>
     </div>
-    
+
     <div class="row mt-3">
         <div class="col">
             <mat-form-field appearance="fill">
-                <mat-label>Periodic Service</mat-label>
+                <mat-label>{{ 'workshop.technical_inspection.periodic_service' | translate }}</mat-label>
                 <mat-select value="" formControlName="priodicService">
                   <mat-option value=""></mat-option>
                   <mat-option value="car">Car</mat-option>
                   <mat-option value="motorcycle">MotorCycle</mat-option>
                   <mat-option value="truck">Truck</mat-option>
-                </mat-select>    
+                </mat-select>
             </mat-form-field>
-            <small class="help-text">Periodic Service</small>
+            <small class="help-text">{{ 'workshop.technical_inspection.periodic_service' | translate }}</small>
         </div>
     </div>
     <h6 class="mt-5">Warranty</h6>
-    
+
     <div class="row mt-3">
         <div class="col">
             <mat-form-field appearance="fill">
-                <mat-label>Package</mat-label>
+                <mat-label>{{ 'workshop.technical_inspection.package' | translate }}</mat-label>
                 <mat-select value="" formControlName="warrantyPackage">
                   <mat-option value="">Select Your Warranty package</mat-option>
                   <mat-option value="car">Car</mat-option>
                   <mat-option value="motorcycle">MotorCycle</mat-option>
                   <mat-option value="truck">Truck</mat-option>
-                </mat-select>    
+                </mat-select>
             </mat-form-field>
-            <small class="help-text">Warranty Package</small>
+            <small class="help-text">{{ 'workshop.technical_inspection.warranty_package' | translate }}</small>
         </div>
     </div>
-    
+
     <div class="row mt-3">
         <div class="col-lg-4 col-md-4">
             <mat-form-field appearance="fill">
-                <mat-label>Choose a date</mat-label>
+                <mat-label>{{ 'workshop.technical_inspection.choose_a_date' | translate }}</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="warrantyDat">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </div>
         <div class="col-lg-8 col-md-8 align-self-center">
-            <span class="service-title">Out-of-Service Date</span>
+            <span class="service-title">{{ 'workshop.technical_inspection.service_date' | translate }}</span>
             <span class="service-content"> 16 August 2020 </span>
         </div>
     </div>
-    
+
     <div class="row mt-5 text-area-container">
         <div class="col-lg-8 col-md-8  ">
             <mat-form-field class="">
-                <mat-label>Description</mat-label>
+                <mat-label>{{ 'workshop.technical_inspection.description' | translate }}</mat-label>
                 <textarea matInput formControlName="description"></textarea>
             </mat-form-field>
         </div>
         <div class="col-md-4 col-lg-4">
-            <h6>Attach Docs</h6>
+            <h6>{{ 'workshop.technical_inspection.upload_form.title' | translate }}</h6>
             <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
                 <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                <small calss="drag-and-drop">Drag and drop a file or<a type="button"(click)="openFileSelector()" style="color:#007bff; margin-left: 4px;">Click here</a></small>
+                <small calss="drag-and-drop" (click)="openFileSelector()">{{ 'workshop.technical_inspection.upload_form.content' | translate }}</small>
                 </ng-template>
             </ngx-file-drop>
-    
+
         </div>
     </div>
 </form>

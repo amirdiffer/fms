@@ -1,12 +1,12 @@
 <div class="statistic-card">
   <app-filter [setting]='filterCard'></app-filter>
 </div>
-<div class="component_wrapper table-container">
+<div class="table-container component_wrapper">
   <div class="table-wreapper">
     <app-tab-view (selectedIndex)="activeTab = $event">
       <span class="search-container card-table-header">
         <div class="search-box">
-            <input type="text" placeholder="Search in Columns">
+            <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
             <button>
                 <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
             </button>
@@ -14,12 +14,12 @@
         <button class="btn-download" disabled>
             <svg-icon [src]="downloadBtn"></svg-icon>
         </button>
-        <button *ngIf="activeTab == 'Asset Traffic Fine'" class="btn-primary-small"><i>+</i><a>Add</a></button>
+        <button *ngIf="activeTab == 'Asset Traffic Fine'" routerLink="/fuel-management/add-fuel-card" class="btn-primary-small"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
       </span>
-      <div title='Traffic Fine'>
+      <div title="{{ 'tabs.asset' | translate }}">
         <app-table [setting]='trafficFine_Table'></app-table>
       </div>
-      <div title='Asset Traffic Fine'>
+      <div title="{{ 'tabs.asset_traffic_fine' | translate }}">
         <app-table [setting]='assetTraffic_Table'></app-table>
       </div>
     </app-tab-view>

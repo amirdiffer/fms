@@ -128,7 +128,7 @@
         .p-inputtext {
           font-family: '29LT Bukra';
           font-size: 1em;
-          margin-top: 5px;
+          //margin-top: 5px;
         }
       }
       .p-dropdown:not(.p-disabled):hover {
@@ -337,4 +337,8 @@ p-calendar.invalid {
       top: 17%;
     }
   }
+}
+
+.margin-top {
+  margin-top: 15px;
 }

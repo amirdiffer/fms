@@ -10,73 +10,73 @@
       <h3>Specifications</h3>
       <ul>
         <li>
-          <strong>Created By</strong>
+          <strong>{{ 'tables.column.created_by' | translate }}</strong>
           <span>Automatic</span>
         </li>
         <li>
           <strong>Reason</strong>
           <span class="danger">
             <svg-icon src="../../../../../assets/icons/out-of-policy.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
-            Out of Policy
+            {{ 'tables.column.out_of_policy' | translate }}
           </span>
         </li>
         <li>
-          <strong>Assignment</strong>
+          <strong>{{ 'tables.column.assignment' | translate }}</strong>
           <span>
             <img class="user-image" src="../../../../../assets/mock-user.jpg"  />
             Sam Smith &nbsp;&nbsp; 1234567890
           </span>
         </li>
         <li>
-          <strong>Established Market Value</strong>
+          <strong>{{ 'tables.column.established_market_value' | translate }}</strong>
           <span>12000 AED</span>
         </li>
         <li>
-          <strong>Date</strong>
+          <strong>{{ 'tables.column.date' | translate }}</strong>
           <span>02/02/2020</span>
         </li>
         <li>
-          <strong>Location</strong>
+          <strong>{{ 'tables.column.location' | translate }}</strong>
           <span>Text text text text text text text</span>
         </li>
         <li>
-          <strong>Description</strong>
+          <strong>{{ 'tables.column.description' | translate }}</strong>
           <span>Text text text text text text text</span>
         </li>
       </ul>
     </div>
     <div class="edit-box__box edit-box__box--last col-4">
-      <h3>Removal Items</h3>
+      <h3>{{ 'tables.column.removal_items' | translate }}</h3>
       <ul>
         <li>
-          <strong>GPS</strong>
+          <strong>{{ 'tables.column.gps' | translate }}</strong>
           <span>
             <section class="selection">
-              <mat-checkbox>Remove</mat-checkbox>
+              <mat-checkbox>{{ 'tables.column.remove' | translate }}</mat-checkbox>
             </section>
           </span>
         </li>
         <li>
-          <strong>GPS</strong>
+          <strong>{{ 'tables.column.gps' | translate }}</strong>
           <span>
             <section class="selection">
-              <mat-checkbox>Remove</mat-checkbox>
+              <mat-checkbox>{{ 'tables.column.remove' | translate }}</mat-checkbox>
             </section>
           </span>
         </li>
         <li>
-          <strong>GPS</strong>
+          <strong>{{ 'tables.column.gps' | translate }}</strong>
           <span>
             <section class="selection">
-              <mat-checkbox>Remove</mat-checkbox>
+              <mat-checkbox>{{ 'tables.column.remove' | translate }}</mat-checkbox>
             </section>
           </span>
         </li>
         <li>
-          <strong>GPS</strong>
+          <strong>{{ 'tables.column.gps' | translate }}</strong>
           <span>
             <section class="selection">
-              <mat-checkbox>Remove</mat-checkbox>
+              <mat-checkbox>{{ 'tables.column.remove' | translate }}</mat-checkbox>
             </section>
           </span>
         </li>
@@ -86,12 +86,12 @@
 </ng-container>
 
 
-<div class="component_wrapper table-container">
+<div class="table-container component_wrapper">
   <div class="pt-1">
     <app-tab-view>
       <span class="search-container card-table-header">
         <div class="search-box">
-          <input type="text" placeholder="Search in Columns">
+          <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
           <button>
             <img src="../../../../../assets/icons/search-solid.svg" alt="">
           </button>
@@ -100,10 +100,10 @@
           <svg-icon [src]="downloadBtn"></svg-icon>
         </button>
       </span>
-      <div title="Auction">
+      <div title="{{ 'tabs.auction' | translate }}">
         <app-table [setting]="settingTable1"></app-table>
       </div>
-      <div title="Sold">
+      <div title="{{ 'tabs.sold' | translate }}">
         <app-table [setting]="settingTable2"></app-table>
       </div>
     </app-tab-view>
