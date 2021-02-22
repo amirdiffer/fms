@@ -67,5 +67,6 @@ export class TabViewComponent implements OnInit {
     this.selectedTab = index;
     this.selectedIndex.emit(title);
     this.selectedTabChanged();
+    console.log(index , title)
   }
 }
