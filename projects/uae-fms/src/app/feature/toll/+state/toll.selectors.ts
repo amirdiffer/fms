@@ -5,7 +5,7 @@ const { selectAll } = tollAdapter.getSelectors();
 export class TollSelectors {
   static tollSelector = createFeatureSelector<TollState>(TOLL_FEATURE_KEY);
 
-  static selectAll = createSelector(createFeatureSelector('toll'), selectAll);
+  static selectAll = createSelector(TollSelectors.tollSelector, selectAll);
 
   static message = createSelector(
     TollSelectors.tollSelector,
