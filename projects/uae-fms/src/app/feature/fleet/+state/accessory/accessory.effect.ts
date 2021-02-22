@@ -13,7 +13,7 @@ export class AccessoryEffect {
         ofType(AccessoryActions.loadAll),
         mergeMap((action) =>
             this.service.loadAll().pipe(
-                map((data) => AccessoryActions.allDataLoaded({ data })),
+                map((data) => AccessoryActions.allDataLoaded({ data: data.message })),
                 catchError((error) =>
                     of(AccessoryActions.error({ reason: error }))
                  )

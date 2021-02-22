@@ -115,6 +115,9 @@ export class AccessoryComponent implements OnInit, OnDestroy {
       this.openAdd = open;
     });
     this._accessoryFacade.loadAll();
+    this._accessoryFacade.accessory$.subscribe((x) => {
+      console.log(x)
+    })
   }
 
   addAccessory() {
