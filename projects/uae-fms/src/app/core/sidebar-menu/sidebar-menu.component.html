@@ -7,7 +7,7 @@
           [class]="(item?.items?'has-child ':'') + (activeMenuCheck(item?.route)?'active-menu':'')"
           (click)="toggleGroup(item)" [routerLink]="item.route">
           <svg-icon [src]="assets + 'icons/' + item.icon + '.svg'"
-            [svgStyle]="{ 'fill': activeMenuCheck(item?.route) ? '#0DA06E' : '#1F1F1F', 'width.px': '24', 'height.px': !(opened$|async)  ? '28' : '24' }">
+            [svgStyle]="{ 'fill': activeMenuCheck(item?.route) ? '#0DA06E' : '#1F1F1F', 'width.px': '24', 'height.px': !(opened$|async)  ? '28' : '24','opacity':'75%' }">
           </svg-icon>
           <span [class]="'menu-item-name'">{{item.name}}</span>
           <div class="menuItems">
