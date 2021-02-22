@@ -551,7 +551,9 @@
       "time_estimate": "الوقت المتوقع  (الساعات)",
       "skills": "مهارات",
       "this_task_needs_part": "هذه المهمة تحتاج إلى جزء",
-      "add_part": "أضف الجزء"
+      "add_part": "أضف الجزء",
+      "please_fill_part": "يرجى ملء الجزء",
+      "please_fill_skill": "الرجاء تعبئة المهارة"
     }
   },
   "configuration": {
