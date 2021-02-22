@@ -2,26 +2,26 @@
     <div class="row">
         <div class="button-container">
         <button [routerLink]="['..']" class="btn-primary-medium btn-scondary-green">
-          {{ 'fms.global.cancel' | translate }}
+          {{ 'forms.cancel' | translate }}
         </button>
         <button class="btn-primary-medium add">
-          {{ 'fms.global.add' | translate }}
+          {{ 'forms.add' | translate }}
         </button>
       </div>
-        <div class="col-12 col-md-3" style="margin-top: 0 !important;">
+        <div class="col-12 col-md-3 pr-0" style="margin-top: 0 !important;">
             <part-store-asset-type></part-store-asset-type>
             <part-store-category></part-store-category>
         </div>
-        <div class="col-12 col-md-9">
+        <div class="col-12 col-md-9 pl-0">
             <!-- form-section -->
-            <div class="form-section" [formGroup]="partForm">
-                <h3 class="form-section__title">{{ getLabelName('itemInfo') | translate }}</h3>
+            <div class="form-section component_wrapper" [formGroup]="partForm" style="margin: 10px 0px 0px 10px !important;">
+                <h3 class="form-section__title">{{ 'part_store.parts_list.item_info' | translate }}</h3>
 
                 <div class="row form-section__row">
                     <div class="col-12 col-md-3 p-field form-section__field">
                         <span class="p-float-label">
                             <input pInputText [placeholder]="getLabelName('quantity') | translate" required type="text" formControlName="quantity">
-                            <label>{{ getLabelName('quantity') | translate }}</label>
+                            <label>{{ 'part_store.parts_list.quantity' | translate }}</label>
                             <anms-error
                             [showError]="hasError('quantity')"
                             error="fms.errors.required"
@@ -31,7 +31,7 @@
                     <div class="col-12 col-md-4 p-field form-section__field">
                         <span class="p-float-label">
                             <input pInputText [placeholder]="getLabelName('price') | translate" required type="text" formControlName="price">
-                            <label>{{ getLabelName('price') | translate }}</label>
+                            <label>{{ 'part_store.parts_list.price' | translate }}</label>
                             <anms-error
                             [showError]="hasError('price')"
                             error="fms.errors.required"
@@ -41,7 +41,7 @@
                     <div class="col-12 col-md-5 p-field form-section__field calendar-select">
                         <span class="p-float-label">
                             <p-calendar formControlName="warrantyExpiryDate"></p-calendar>
-                            <label for="icon">{{  getLabelName('warrantyExpiryDate') | translate }}</label>
+                            <label for="icon">{{  'part_store.parts_list.warranty_expire_date' | translate }}</label>
                         </span>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                     <div class="col-12 col-md-12 p-field form-section__field">
                         <span class="p-float-label">
                             <input class="ng-touched ng-invalid" pInputText placeholder="Description" required type="text">
-                            <label>{{  getLabelName('description') | translate }}</label>
+                            <label>{{  'part_store.parts_list.description' | translate }}</label>
                         </span>
                     </div>
                 </div>
@@ -58,10 +58,10 @@
             <!-- end form-section -->
 
             <!-- form-section form-section--inline-->
-            <div class="form-section form-section--inline" [formGroup]="partForm">
+            <div class="form-section component_wrapper form-section--inline" [formGroup]="partForm" style="margin: 10px 0px 0px 10px !important;">
                 <div class="row">
                     <div class="col-12 col-md-2">
-                        <h3 class="form-section__title">{{ getLabelName('storageLocation') | translate }}</h3>
+                        <h3 class="form-section__title">{{  'part_store.parts_list.storage_location' | translate }}</h3>
                     </div>
 
                     <div class="col-12 col-md-10">
@@ -71,28 +71,28 @@
                                 <span class="p-float-label">
                                     <p-dropdown inputId="room" [autoDisplayFirst]="false" [options]="locations"
                                         formControlName="room" optionLabel="name"></p-dropdown>
-                                    <label for="room">{{  getLabelName('room') | translate }}</label>
+                                    <label for="room">Room</label>
                                 </span>
                             </div>
                             <div class="col-12 col-md-3 p-field form-section__field options-select">
                                 <span class="p-float-label">
                                     <p-dropdown inputId="aisle" [autoDisplayFirst]="false" [options]="locations"
                                         formControlName="aisle" optionLabel="name"></p-dropdown>
-                                    <label for="aisle">{{  getLabelName('aisle') | translate }}</label>
+                                    <label for="aisle">Aisle</label>
                                 </span>
                             </div>
                             <div class="col-12 col-md-3 p-field form-section__field options-select">
                                 <span class="p-float-label">
                                     <p-dropdown inputId="shelf" [autoDisplayFirst]="false" [options]="locations"
                                         formControlName="shelf" optionLabel="name"></p-dropdown>
-                                    <label for="shelf">{{  getLabelName('shelf') | translate }}</label>
+                                    <label for="shelf">Shelf</label>
                                 </span>
                             </div>
                             <div class="col-12 col-md-3 p-field form-section__field options-select">
                                 <span class="p-float-label">
                                     <p-dropdown inputId="box" [autoDisplayFirst]="false" [options]="locations"
                                         formControlName="box" optionLabel="name"></p-dropdown>
-                                    <label for="box">{{  getLabelName('box') | translate }}</label>
+                                    <label for="box">Box</label>
                                 </span>
                             </div>
                         </div>

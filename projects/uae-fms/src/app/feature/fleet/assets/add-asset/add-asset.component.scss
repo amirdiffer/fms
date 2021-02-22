@@ -1,7 +1,6 @@
 @import '../../../../../themes/green-theme.scss';
 @import '../../../../../assets/scss/form-section.scss';
 
-
 .upload-box {
   .file-name-size {
     color: #0000005e;
@@ -21,4 +20,9 @@
       font-size: 12px;
     }
   }
+}
+
+ngx-file-drop {
+  display: block;
+  margin-bottom: 10px;
 }
