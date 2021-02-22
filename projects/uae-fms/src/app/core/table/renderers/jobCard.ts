@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'job-card-renderer',
   template: ` <button class="btn-primary-large">
-    <i>+</i><a>Job Card</a>
+    <i>+</i><a>{{ 'tables.column.job_card' | translate }}</a>
   </button>`,
   styles: [
     `

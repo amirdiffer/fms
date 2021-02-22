@@ -1,25 +1,25 @@
 <form  [formGroup]="inputForm" (ngSubmit)="addRequest()">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">Cancel</button>
-    <button class="btn-primary-medium add" type="submit">Add</button>
+    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{'forms.cancel' | translate}}</button>
+    <button class="btn-primary-medium add" type="submit">{{'forms.add' | translate}}</button>
   </div>
-  
+
   <div class="row">
-  
+
     <div class="col-12">
       <div class="component_wrapper form-section">
-        <label class="caption">Location Info</label>
+        <label class="caption">{{'workshop.body_shop.location.location_info' | translate}}</label>
         <div class="row mt-3">
           <div class="col-lg-4">
             <div class="form-group p-field form-section__field">
               <div class="input-group">
                   <div class="autocomplete-select flex-with-button">
                       <span class="p-float-label ">
-                          <p-autoComplete 
-                                    [suggestions]="filteredLocation" 
-                                    formControlName="locationID" 
-                                    (completeMethod)="searchLocation($event)" 
-                                    field="id" 
+                          <p-autoComplete placeholder="{{'workshop.body_shop.location.location_id' | translate}}"
+                                    [suggestions]="filteredLocation"
+                                    formControlName="locationID"
+                                    (completeMethod)="searchLocation($event)"
+                                    field="id"
                                     [class.invalid]="!inputForm.get('locationID').valid && submited">
                             <ng-template let-location pTemplate="item">
                               <div class="location-item">
@@ -28,12 +28,12 @@
                             </ng-template>
                           </p-autoComplete>
                           <i class="pi pi-search"></i>
-                          <label>Location ID *</label>
+                          <label>{{'workshop.body_shop.location.location_id' | translate}}</label>
                       </span>
                   </div>
                   <anms-error
                             [showError]="hasError('locationID',inputForm,submited ,'needsExclamation')"
-                            error="Please search and choose an item from list"></anms-error>
+                            error="{{'workshop.body_shop.location.location_id_validation_error' | translate}}"></anms-error>
               </div>
             </div>
           </div>
@@ -41,28 +41,28 @@
             <div class="form-group p-field form-section__field">
               <div class="input-group">
                   <span class="p-float-label w-100">
-                    <input type="text" class="form-control" placeholder="Address*" 
+                    <input type="text" class="form-control" placeholder="{{'workshop.body_shop.location.address' | translate}}"
                           formControlName="address"
                           [class.invalid]="inputForm.get('address').invalid && submited">
-                    <label>Address*</label>
+                    <label>{{'workshop.body_shop.location.address' | translate}}</label>
                   </span>
-              </div>              
+              </div>
                 <anms-error
                         [showError]="hasError('address',inputForm,submited)"
-                        error="Please fill Address"></anms-error>
+                        error="{{'workshop.body_shop.location.address_validation_error' | translate}}"></anms-error>
             </div>
 
           </div>
         </div>
       </div>
     </div>
-  
+
     <div class="col-12" formArrayName="section">
       <div class="component_wrapper form-section">
         <div class="row mt-3">
           <div class="col-lg-2">
             <span class="p-inputgroup-addon add-section" (click)="addSection()" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i class="pi pi-plus"></i></span>
-            Section
+            {{'workshop.body_shop.location.section' | translate}}
           </div>
           <div class="col-10">
             <ng-container  *ngFor="let skill of inputForm.get('section')['controls']; let i=index">
@@ -71,15 +71,15 @@
                   <div class="form-group form-group p-field form-section__field">
                     <div class="input-group">
                       <span class="p-float-label w-100">
-                          <input type="text" class="form-control " 
-                                  [formControlName]="i" 
-                                  placeholder="Section ID *"
+                          <input type="text" class="form-control "
+                                  [formControlName]="i"
+                                  placeholder="{{'workshop.body_shop.location.section_id' | translate}}"
                                   [class.invalid]="!inputForm.get('section')['controls'][i].valid && submited">
-                          <label>Section ID *</label>
+                          <label>{{'workshop.body_shop.location.section_id' | translate}}</label>
                       </span>
                     </div>
-                    <small class="red-font" [class.d-none]=" inputForm.get('section')['controls'][i].valid.valid || !submited">Please fill Location</small>
-    
+                    <small class="red-font" [class.d-none]=" inputForm.get('section')['controls'][i].valid.valid || !submited">{{'workshop.body_shop.location.section_id_validation_error' | translate}}</small>
+
                   </div>
                 </div>
                 <div class="col-lg-5">
@@ -87,12 +87,12 @@
                     <div class="input-group d-flex w-100  flex-wrap">
                      <div class="p-field form-section__field  flex-with-button w-100 flex-85">
                       <span class="p-float-label">
-                        <input type="text" class="form-control border" placeholder="Service" 
-                                [formControlName]="i" 
+                        <input type="text" class="form-control border" placeholder="{{'workshop.body_shop.location.service' | translate}}"
+                                [formControlName]="i"
                                 [class.invalid]="!inputForm.get('section').valid && submited">
-                        <label>Service*</label>
+                        <label>{{'workshop.body_shop.location.service' | translate}}</label>
                       </span>
-                      <small class="red-font" [class.d-none]="inputForm.get('section')['controls'][i].valid || !submited">Please fill service</small>
+                      <small class="red-font" [class.d-none]="inputForm.get('section')['controls'][i].valid || !submited">{{'workshop.body_shop.location.service_validation_error' | translate}}</small>
                      </div>
                      <span class="p-inputgroup-addon" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i class="pi pi-plus"></i></span>
                     </div>
@@ -101,7 +101,7 @@
               </div>
             </ng-container>
           </div>
-          
+
         </div>
       </div>
     </div>
