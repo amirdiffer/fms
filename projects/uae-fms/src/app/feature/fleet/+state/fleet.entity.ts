@@ -24,6 +24,7 @@ import{
   FLEET_ORGANIZATION_FEATURE_KEY,
   OrganizationState
 } from './organization/organization.entity';
+import { FLEET_MOVEMENT_REQUESTS_FEATURE_KEY, MovementRequestsState } from './movement/requests/movement-requests.entity';
 
 export const FLEET_FEATURE_KEY = 'fleet';
 
@@ -35,12 +36,10 @@ export interface State {
   readonly [FLEET_ACCESSORY_FEATURE_KEY] : IAccessoryState;
   readonly [FLEET_SUB_ASSET_FEATURE_KEY]: SubAssetState;
   readonly [FLEET_ORGANIZATION_FEATURE_KEY]: OrganizationState;
+  readonly [FLEET_MOVEMENT_REQUESTS_FEATURE_KEY]: MovementRequestsState;
+  readonly [ FLEET_MOVEMENT_OVERVIEW_FEATURE_KEY]: MovementOverviewState
 }
 
-export interface WorkshopPartialState {
-  readonly [FLEET_MOVEMENT_OVERVIEW_FEATURE_KEY]: MovementOverviewState;
-}
-
-export interface MovementOverviewPartialState {
+export interface FleetPartialState {
   readonly [FLEET_FEATURE_KEY]: State;
 }

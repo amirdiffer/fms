@@ -7,15 +7,14 @@ import { MovementRequestsService } from './movement-requests.service';
 
 @Injectable()
 export class MovementRequestsEffect {
-  LoadAllMovementRequestss$ = createEffect(() =>
+
+  loadAll$ = createEffect(() =>
     this.action$.pipe(
       ofType(MovementRequestsActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => MovementRequestsActions.allDataLoaded({ data })),
-          catchError((error) =>
-            of(MovementRequestsActions.error({ reason: error }))
-          )
+          map((data) => MovementRequestsActions.allDataLoaded({ data: data.message })),
+          catchError((error) => of(MovementRequestsActions.error({ reason: error })))
         )
       )
     )
