@@ -138,6 +138,7 @@
   },
   "tables": {
     "column": {
+      "suppliers": "Suppliers",
       "name": "Name",
       "total_sub_asset": "Total Sub Asset",
       "total_accessory": "Total Accessory",
@@ -464,6 +465,21 @@
       "type": "Type",
       "company_name": "Company Name",
       "grp": "GRP"
+    },
+    "order": {
+      "create_quotation": "Create Quotation",
+      "repeat_quotation": "Repeat Quotation",
+      "current_quotation": "Current Quotation",
+      "asset_type": "Asset Type",
+      "make": "Make",
+      "model": "Model",
+      "quantity": "Quantity",
+      "description": "Description",
+      "set_reminder": "Set Reminder",
+      "new_order": "New Order",
+      "select_item_category": "Select Item Category",
+      "select_item": "Select Item",
+      "supplier": "Supplier"
     }
   },
   "workshop": {
