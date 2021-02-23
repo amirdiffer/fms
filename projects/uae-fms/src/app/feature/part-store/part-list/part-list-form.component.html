@@ -20,7 +20,7 @@
                 <div class="row form-section__row">
                     <div class="col-12 col-md-3 p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText [placeholder]="getLabelName('quantity') | translate" required type="text" formControlName="quantity">
+                            <input pInputText [placeholder]="'part_store.parts_list.quantity' | translate " required type="text" formControlName="quantity">
                             <label>{{ 'part_store.parts_list.quantity' | translate }}</label>
                             <anms-error
                             [showError]="hasError('quantity')"
@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-12 col-md-4 p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText [placeholder]="getLabelName('price') | translate" required type="text" formControlName="price">
+                            <input pInputText [placeholder]=" 'part_store.parts_list.price' | translate " required type="text" formControlName="price">
                             <label>{{ 'part_store.parts_list.price' | translate }}</label>
                             <anms-error
                             [showError]="hasError('price')"
@@ -49,7 +49,7 @@
                 <div class="row form-section__row">
                     <div class="col-12 col-md-12 p-field form-section__field">
                         <span class="p-float-label">
-                            <input class="ng-touched ng-invalid" pInputText placeholder="Description" required type="text">
+                            <input class="ng-touched ng-invalid" pInputText [placeholder]=" 'part_store.parts_list.description' | translate " required type="text">
                             <label>{{  'part_store.parts_list.description' | translate }}</label>
                         </span>
                     </div>

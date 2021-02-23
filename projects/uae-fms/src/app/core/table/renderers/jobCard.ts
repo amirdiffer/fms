@@ -8,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styles: [
     `
       button {
-        padding: 1em 1.3em;
+        padding: 1em 1em;
         height: auto;
-        width: 9em;
+        width: 11em;
+        font-size: 1em;
       }
     `
   ]
