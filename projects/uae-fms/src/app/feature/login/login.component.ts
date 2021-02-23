@@ -46,8 +46,17 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
+    window.localStorage.setItem(
+      'user_info',
+      JSON.stringify({
+        username: 'admin',
+        firstName: 'Super',
+        lastName: 'admin',
+        fleetManager: true
+      })
+    );
     this.router.navigate(['/dashboard']);
-    this.loginService
+    /* this.loginService
       .login({
         username: this.credentialsFG.value.username,
         password: this.credentialsFG.value.password
@@ -65,6 +74,6 @@ export class LoginComponent implements OnInit {
             this.credentialsFG.controls.username.markAllAsTouched();
           }
         }
-      );
+      ); */
   }
 }
