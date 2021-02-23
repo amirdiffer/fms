@@ -89,10 +89,14 @@ html {
     direction: rtl;
     text-align: right;
   }
-  .wrapper .card-table-header .search-box button{
+  .wrapper .card-table-header {
+    padding-right:auto;
+    padding-left:15px;
+    .search-box button{
       left: 0;
       right: auto;
       border-radius: 0.25em 0 0 0.25em;
+    }
   }
 
   /* dashboard */
@@ -173,6 +177,10 @@ html {
         border-radius: 0;
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
+      }
+      .form-section__field  .search-btn.addon-primary{
+        left:0;
+        right: auto !important;
       }
   }
 
