@@ -18,7 +18,7 @@ export interface IUser {
 }
 
 export interface IRole {
+  id: number;
+  roleId: string;
   roleName: string;
-  serviceName: string;
-  permissionValue: string;
 }

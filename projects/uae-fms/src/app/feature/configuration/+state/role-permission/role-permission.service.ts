@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RolePermissionStateModel } from './role-permission.entity';
+import { IRole } from '@models/configuration';
+import { ResponseBody } from '@models/responseBody';
+import { environment } from '@environments/environment';
 
 @Injectable()
 export class RolePermissionService {
   constructor(private http: HttpClient) {}
 
-  loadAll(): Observable<RolePermissionStateModel[]> {
-    return this.http.get<RolePermissionStateModel[]>('');
+  loadAll(): Observable<ResponseBody<IRole[]>> {
+    return this.http.get<ResponseBody<IRole[]>>(
+      environment.baseApiUrl + 'configuration/role'
+    );
   }
 }
