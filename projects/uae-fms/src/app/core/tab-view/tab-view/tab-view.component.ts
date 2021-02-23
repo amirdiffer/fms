@@ -43,7 +43,7 @@ export class TabViewComponent implements OnInit {
           index: i,
           title: this.elements[i].attributes.getNamedItem('title').nodeValue,
           id:tabID ? tabID.nodeValue : null,
-          count: Math.floor(Math.random() * 500) + 1
+          count: this.elements[i].attributes.getNamedItem('count') != null ? this.elements[i].attributes.getNamedItem('count').nodeValue : Math.floor(Math.random() * 500) + 1
         });
       }
     }
