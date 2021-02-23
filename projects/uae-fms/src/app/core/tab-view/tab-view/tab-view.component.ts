@@ -24,7 +24,7 @@ export class TabViewComponent implements OnInit {
     string
   > = new EventEmitter<string>();
   @ViewChild('content', { static: false }) element: ElementRef;
-  tabs: { index: number; title: string ; id? : string;}[] = [];
+  tabs: { index: number; title: string ; id? : string; count?: number}[] = [];
   initialized: boolean = false;
   elements: HTMLElement[];
   selectedTab: number = 0;
@@ -42,7 +42,8 @@ export class TabViewComponent implements OnInit {
         tabs.push({
           index: i,
           title: this.elements[i].attributes.getNamedItem('title').nodeValue,
-          id:tabID ? tabID.nodeValue : null
+          id:tabID ? tabID.nodeValue : null,
+          count: Math.floor(Math.random() * 500) + 1
         });
       }
     }

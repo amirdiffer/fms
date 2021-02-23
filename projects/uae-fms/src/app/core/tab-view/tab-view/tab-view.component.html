@@ -3,6 +3,7 @@
     <div [class]="'tab'+(tab.index==selectedTab?' active-tab':'')" *ngFor="let tab of tabs"
       (click)="selectTab(tab.index, tab.id != null ?  tab.id : tab.title)">
       {{tab.title | translate}}
+      <span class="count">{{tab.count}}</span>
     </div>
     <ng-content select=".search-container"></ng-content>
   </div>
