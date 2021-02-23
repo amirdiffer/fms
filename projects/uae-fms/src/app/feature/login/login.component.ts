@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
+    this.router.navigate(['/dashboard']);
     this.loginService
       .login({
         username: this.credentialsFG.value.username,
@@ -54,7 +55,6 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (data) => {
           console.log(data);
-          this.router.navigate(['/dashboard']);
         },
         (error) => {
           if (error.error.toLowerCase().indexOf('password') > -1) {
