@@ -699,5 +699,11 @@
       "required": "هذا الحقل مطلوب"
     },
     "order": "ترتيب"
+  },
+  "buttons":{
+    "reject":"يرفض",
+    "approve":"اعتماد",
+    "recived":"الواردة",
+    "confirm":"يتأكد"
   }
 }

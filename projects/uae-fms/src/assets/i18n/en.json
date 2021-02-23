@@ -721,5 +721,11 @@
     "feedback": {
       "required": "This is Field Required"
     }
+  },
+  "buttons":{
+    "reject":"Reject",
+    "approve":"Approve",
+    "recived":"Recived",
+    "confirm":"Confirm"
   }
 }
