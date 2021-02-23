@@ -1,23 +1,23 @@
 <form [formGroup]="inputForm" (ngSubmit)="addRequest()">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">Cancel</button>
-    <button class="btn-primary-medium add" type="submit">Add</button>
+    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{'forms.cancel' | translate}}</button>
+    <button class="btn-primary-medium add" type="submit">{{'forms.add' | translate}}</button>
   </div>
   <div class="row">
     <div class="col-12" [formGroupName]="'portalInfo'">
       <div class="component_wrapper form-section">
-        <h3 class="form-section__title">Portal Info</h3>
+        <h3 class="form-section__title">{{'workshop.body_shop.technician.portal_info' | translate}}</h3>
         <div class="row pb-4">
           <div class="col-lg-5">
             <div class="m-0 p-field form-section__field">
               <div class="input-group">
                   <div class="autocomplete-select w-100 ">
                       <span class="p-float-label ">
-                          <p-autoComplete 
-                                    [suggestions]="filteredEmployeNumb" 
-                                    formControlName="emplyeeNumber" 
-                                    (completeMethod)="searchEmploye($event)" 
-                                    field="employeNumber" 
+                          <p-autoComplete
+                                    [suggestions]="filteredEmployeNumb"
+                                    formControlName="emplyeeNumber"
+                                    (completeMethod)="searchEmploye($event)"
+                                    field="employeNumber"
                                     (onSelect)="selectedEmploye($event)"
                                     [class.invalid]="!inputForm.get('portalInfo.emplyeeNumber').valid && submited">
                             <ng-template let-employes pTemplate="item">
@@ -29,12 +29,12 @@
                             </ng-template>
                           </p-autoComplete>
                           <i class="pi pi-search"></i>
-                          <label >Employe Number *</label>
+                          <label >{{'workshop.body_shop.technician.employee_number' | translate}}</label>
                       </span>
                   </div>
                   <anms-error
                             [showError]="hasError('portalInfo.emplyeeNumber',inputForm,submited ,'needsExclamation')"
-                            error="Please search and choose an item from list"></anms-error>
+                            error="{{'workshop.body_shop.technician.employee_number_validation_error' | translate}}"></anms-error>
               </div>
             </div>
           </div>
@@ -42,15 +42,15 @@
             <div class="m-0 p-field form-section__field">
               <div class="input-group">
                   <span class="p-float-label w-100">
-                    <input type="text" class="form-control" placeholder="Pay per Hours *" 
+                    <input type="text" class="form-control" placeholder="{{'workshop.body_shop.technician.pay_per_hours' | translate}}"
                           formControlName="payPerHours"
                           [class.invalid]="!inputForm.get('portalInfo.payPerHours').valid && submited">
-                    <label>Pay per Hours *</label>
+                    <label>{{'workshop.body_shop.technician.pay_per_hours' | translate}}</label>
                   </span>
-              </div>              
+              </div>
               <anms-error
                       [showError]="hasError('portalInfo.payPerHours',inputForm,submited)"
-                      error="Please fill Pay per Hours"></anms-error>
+                      error="{{'workshop.body_shop.technician.pay_per_hours_validation_error' | translate}}"></anms-error>
           </div>
           </div>
           <div class="col-lg-3 align-self-center">
@@ -58,7 +58,7 @@
               <div class="col-lg-12">
                 <div class="toggle-select">
                   <p-inputSwitch formControlName="active"></p-inputSwitch>
-                  <label>Employee Status is Active</label>
+                  <label>{{'workshop.body_shop.technician.employee_status' | translate}}</label>
                 </div>
               </div>
             </div>
@@ -68,19 +68,19 @@
     </div>
     <div class="col-12" [formGroupName]="'professional'">
       <div class="component_wrapper form-section">
-        <h3 class="form-section__title">Professional Info</h3>
+        <h3 class="form-section__title">{{'workshop.body_shop.technician.professional_info' | translate}}</h3>
         <div class="row">
           <div class="col-lg-5 form-group">
             <div class="input-group d-flex w-100  flex-wrap" formArrayName="skills">
               <div class="p-field form-section__field  flex-with-button w-100 flex-85" *ngFor="let skill of inputForm.get('professional.skills')['controls']; let i=index">
                 <span class="p-inputgroup p-float-label d-flex">
-                  <input type="text" pInputText class="form-control border" 
-                          placeholder="Skill *" 
-                          [formControlName]="i" 
+                  <input type="text" pInputText class="form-control border"
+                          placeholder="{{'workshop.body_shop.technician.skill' | translate}}"
+                          [formControlName]="i"
                           [class.invalid]="!inputForm.get('professional.skills').valid && submited">
-                  <label>Skill *</label>
+                  <label>{{'workshop.body_shop.technician.skill' | translate}}</label>
                 </span>
-                <small class="red-font" [class.d-none]=" inputForm.get('professional.skills')['controls'][i].valid || !submited">Please fill skill</small>
+                <small class="red-font" [class.d-none]=" inputForm.get('professional.skills')['controls'][i].valid || !submited">{{'workshop.body_shop.technician.skill_validation_error' | translate}}</small>
               </div>
               <span class="p-inputgroup-addon" (click)="addSkill()" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i class="pi pi-plus"></i></span>
             </div>
@@ -90,10 +90,10 @@
               <div class="p-field form-section__field  flex-with-button w-100 flex-85" *ngFor="let location of inputForm.get('professional.location')['controls']; let i=index" >
                 <div class="autocomplete-select" >
                   <span class="p-float-label ">
-                      <p-autoComplete [suggestions]="filteredLocation" 
-                                      [formControlName]="i" 
-                                      (completeMethod)="searchLocation($event)" 
-                                      field="name" 
+                      <p-autoComplete [suggestions]="filteredLocation"
+                                      [formControlName]="i"
+                                      (completeMethod)="searchLocation($event)"
+                                      field="name"
                                       [class.invalid]="!inputForm.get('professional.location')['controls'][i].valid && submited">
                         <ng-template let-locations pTemplate="item">
                           <div class="locations-item">
@@ -104,9 +104,9 @@
                         </ng-template>
                       </p-autoComplete>
                       <i class="pi pi-search"></i>
-                      <label >Location *</label>
+                      <label >{{'workshop.body_shop.technician.location' | translate}}</label>
                   </span>
-                  <small class="red-font" [class.d-none]=" inputForm.get('professional.location')['controls'][i].valid || !submited">Please fill Location</small>
+                  <small class="red-font" [class.d-none]=" inputForm.get('professional.location')['controls'][i].valid || !submited">{{'workshop.body_shop.technician.location_validation_error' | translate}}</small>
                 </div>
               </div>
               <span class="p-inputgroup-addon" (click)="addLocation()" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i class="pi pi-plus"></i></span>
@@ -117,11 +117,11 @@
     </div>
     <div class="col-lg-4 d-flex">
       <div class="component_wrapper form-section">
-        <h3 class="form-section__title">Upload Profile Picture</h3>
+        <h3 class="form-section__title">{{'workshop.body_shop.technician.upload_form.title' | translate}}</h3>
         <div class="upload-box">
           <div class="row">
             <div class="col-12 d-flex justify-content-between file-name-size">
-              <span>Nte1234567_Report.pdf</span>
+              <span>{{'workshop.body_shop.technician.upload_form.progressbar_title' | translate}}</span>
               <span>00 MG</span>
             </div>
             <div class="col-lg-12">
@@ -133,7 +133,7 @@
                   <label (click)="openFileSelector()" style="cursor: pointer;">
                     <svg-icon   class="camera-icon" src="../../../../../assets/icons/camera-solid.svg"
                       [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                      <small calss="drag-and-drop">Drag and drop a file or Click here</small>
+                      <small calss="drag-and-drop">{{'workshop.body_shop.technician.upload_form.content' | translate}}</small>
                   </label>
                 </ng-template>
               </ngx-file-drop>
@@ -144,38 +144,38 @@
     </div>
     <div class="col-lg-8"  [formGroupName]="'pesonalInfo'">
       <div class="component_wrapper form-section">
-        <h3 class="form-section__title">Personal Information</h3>
+        <h3 class="form-section__title">{{'workshop.body_shop.technician.personal_information' | translate}}</h3>
         <div class="row">
           <div class="col-lg-5">
             <div class="form-group form-group p-field form-section__field">
               <div class="input-group">
                 <span class="p-float-label w-100">
-                    <input type="text" class="form-control " 
-                            formControlName="firstName" 
-                            placeholder="First Name *"
+                    <input type="text" class="form-control "
+                            formControlName="firstName"
+                            placeholder="{{'workshop.body_shop.technician.first_name' | translate}}"
                             [class.invalid]="!inputForm.get('pesonalInfo.firstName').valid && submited">
-                    <label>First Name *</label>
+                    <label>{{'workshop.body_shop.technician.first_name' | translate}}</label>
                 </span>
               </div>
               <anms-error
                       [showError]="hasError('pesonalInfo.firstName',inputForm,submited)"
-                      error="Please fill first name"></anms-error>
+                      error="{{'workshop.body_shop.technician.first_name_validation_error' | translate}}"></anms-error>
             </div>
           </div>
           <div class="col-lg-7">
             <div class="form-group form-group p-field form-section__field">
               <div class="input-group">
                 <span class="p-float-label w-100">
-                    <input type="text" class="form-control " 
-                          formControlName="lastName" 
-                          placeholder="Last Name *"
+                    <input type="text" class="form-control "
+                          formControlName="lastName"
+                          placeholder="{{'workshop.body_shop.technician.last_name' | translate}}"
                           [class.invalid]="!inputForm.get('pesonalInfo.lastName').valid && submited">
-                    <label >Last Name *</label>
+                    <label >{{'workshop.body_shop.technician.last_name' | translate}}</label>
                 </span>
               </div>
               <anms-error
                       [showError]="hasError('pesonalInfo.lastName',inputForm,submited)"
-                      error="Please fill last name"></anms-error>
+                      error="{{'workshop.body_shop.technician.last_name_validation_error' | translate}}"></anms-error>
             </div>
           </div>
         </div>
@@ -184,12 +184,12 @@
             <div class="input-group d-flex w-100 flex-wrap" formArrayName="email">
               <div class="p-field form-section__field flex-with-button w-100 flex-85" *ngFor="let email of inputForm.get('pesonalInfo.email')['controls']; let i=index">
                 <span class="p-float-label" >
-                  <input type="text" class="form-control border" placeholder="Email *" 
+                  <input type="text" class="form-control border" placeholder="{{'workshop.body_shop.technician.email' | translate}}"
                           [formControlName]="i"
                           [class.invalid]="!inputForm.get('pesonalInfo.email')['controls'][i].valid && submited">
-                  <label>Email *</label>
+                  <label>{{'workshop.body_shop.technician.email' | translate}}</label>
                 </span>
-                <small class="error-input" [class.d-none]=" inputForm.get('pesonalInfo.email')['controls'][i].valid || !submited">Please fill email</small>
+                <small class="error-input" [class.d-none]=" inputForm.get('pesonalInfo.email')['controls'][i].valid || !submited">{{'workshop.body_shop.technician.email_validation_error' | translate}}</small>
               </div>
               <span class="p-inputgroup-addon" (click)="addEmail()" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i class="pi pi-plus"></i></span>
             </div>
@@ -198,12 +198,12 @@
             <div class="input-group d-flex w-100  flex-wrap" formArrayName="phoneNumber">
               <div class="p-field form-section__field flex-with-button w-100 flex-85" *ngFor="let number of inputForm.get('pesonalInfo.phoneNumber')['controls']; let i=index">
                 <span class="p-float-label" >
-                  <input type="text" class="form-control border" placeholder="Phone Number *" 
+                  <input type="text" class="form-control border" placeholder="{{'workshop.body_shop.technician.phone_number' | translate}}"
                         [formControlName]="i"
                         [class.invalid]="!inputForm.get('pesonalInfo.phoneNumber')['controls'][i].valid && submited">
-                  <label >Phone Number *</label>
+                  <label >{{'workshop.body_shop.technician.phone_number' | translate}}</label>
                 </span>
-                <small class="error-input" [class.d-none]=" inputForm.get('pesonalInfo.phoneNumber')['controls'][i].valid || !submited">Please fill phone number</small>
+                <small class="error-input" [class.d-none]=" inputForm.get('pesonalInfo.phoneNumber')['controls'][i].valid || !submited">{{'workshop.body_shop.technician.phone_number_validation_error' | translate}}</small>
 
               </div>
               <span class="p-inputgroup-addon" (click)="addPhoneNumber()" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i class="pi pi-plus"></i></span>
@@ -212,23 +212,23 @@
         </div>
         <div class="row"  [formGroupName]="'notification'">
           <div class="col-lg-3 align-self-center">
-            <h3 class="form-section__title">Send Notification By</h3>
+            <h3 class="form-section__title">{{'workshop.body_shop.technician.send_notification_by' | translate}}</h3>
           </div>
           <div class="col-lg-2 form-group form-check">
             <input id="check-Call" type="checkbox" class="custom-checkbox" formControlName="call">
-            <label for="check-Call">Call</label>
+            <label for="check-Call">{{'workshop.body_shop.technician.call' | translate}}</label>
           </div>
           <div class="col-lg-2 form-group form-check">
             <input id="check-SMS" type="checkbox" class="custom-checkbox" formControlName="sms">
-            <label for="check-SMS">SMS</label>
+            <label for="check-SMS">{{'workshop.body_shop.technician.sms' | translate}}</label>
           </div>
           <div class="col-lg-2 form-group form-check">
             <input id="check-Email" type="checkbox" class="custom-checkbox" formControlName="email">
-            <label for="check-Email">Email</label>
+            <label for="check-Email">{{'workshop.body_shop.technician.email' | translate}}</label>
           </div>
           <div class="col-lg-2 form-group form-check">
             <input id="check-Whatsapp" type="checkbox" class="custom-checkbox" formControlName="whatsapp">
-            <label for="check-Whatsapp">Whatsapp</label>
+            <label for="check-Whatsapp">{{'workshop.body_shop.technician.whatsapp' | translate}}</label>
           </div>
         </div>
       </div>

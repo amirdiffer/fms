@@ -1,14 +1,14 @@
 <form [formGroup]="inputForm" (ngSubmit)="addRequest()">
     <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">Cancel</button>
-        <button class="btn-primary-medium add" type="submit" >Add</button>
+        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{'forms.cancel' | translate}}</button>
+        <button class="btn-primary-medium add" type="submit" >{{'forms.add' | translate}}</button>
       </div>
 
     <div class="row">
         <ng-container *ngIf=" !inputForm.get('assetSearch').value.name">
             <div class="col-12 overflow-visible">
-                <div class="form-section">
-                    <h3 class="form-section__title">Asset Info</h3>
+                <div class="component_wrapper">
+                    <h3 class="form-section__title">{{'workshop.body_shop.requests.asset_info' | translate}}</h3>
                     <div class="row mt-3">
                         <div class="col-6">
                             <div class="form-group p-field form-section__field">
@@ -22,10 +22,10 @@
                                                             (onSelect)="selectedAsset($event)"
                                                             [class.invalid]="!inputForm.get('assetSearch').valid && submited"></p-autoComplete>
                                             <i class="pi pi-search"></i>
-                                            <label>Asset *</label>
+                                            <label>{{'workshop.body_shop.requests.asset' | translate}}</label>
                                         </span>
                                     </div>
-                                    <small class="red-font" [class.d-none]=" inputForm.get('assetSearch').valid || !submited">Please search and choose an item from list</small>
+                                    <small class="red-font" [class.d-none]=" inputForm.get('assetSearch').valid || !submited">{{'workshop.body_shop.requests.asset_validation_error' | translate}}</small>
                                 </div>
                             </div>
                         </div>
@@ -36,15 +36,15 @@
 
         <ng-container *ngIf=" inputForm.get('assetSearch').value.name">
             <div class="col-12 " [formGroupName]="'assetInfo'">
-                <div class="form-section">
-                    <h3 class="form-section__title">Asset Info</h3>
+                <div class="component_wrapper">
+                    <h3 class="form-section__title">{{'workshop.body_shop.requests.asset_info' | translate}}</h3>
                     <div class="row mt-3">
                         <div class="col-12 col-md-5">
                             <div class="form-group p-field form-section__field">
                                 <div class="input-group">
                                     <span class="p-float-label w-100">
                                         <input type="text" class="form-control  border" formControlName="asset" readonly>
-                                        <label>Asset</label>
+                                        <label>{{'workshop.body_shop.requests.asset' | translate}}</label>
                                     </span>
                                 </div>
                             </div>
@@ -56,14 +56,14 @@
                                         <div class="input-group">
                                             <span class="p-float-label w-100">
                                                 <input type="text" class="form-control border" formControlName="gpsMeterSource" readonly>
-                                                <label>GPS Meter Source</label>
+                                                <label>{{'workshop.body_shop.requests.gps_meter_source' | translate}}</label>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-5">
                                     <div class="input-group">
-                                        <a>Manual Update</a>
+                                        <a>{{'workshop.body_shop.requests.manual_update' | translate}}</a>
                                     </div>
                                 </div>
                             </div>
@@ -86,28 +86,28 @@
         </ng-container>
 
         <div class="col-12">
-            <div class="form-section form-section--inline">
-                <div class="row">
-                    <h3 class="col-2 form-section__title">Reason</h3>
+            <div class="component_wrapper">
+                <div class="row mt-3">
+                    <h3 class="col-2 form-section__title">{{'workshop.body_shop.requests.reason' | translate}}</h3>
                     <div class="col-10">
                         <div class="row form-group align-items-center">
                             <div class="custom-control custom-switch col-3">
                                 <div class="toggle-select">
                                     <p-inputSwitch formControlName="reason"></p-inputSwitch>
-                                    <label>Accident</label>
+                                    <label>{{'workshop.body_shop.requests.accident' | translate}}</label>
                                 </div>
                             </div>
                             <ng-container  *ngIf=" inputForm.get('reason').value == true ">
                                 <div class="form-check col-3">
                                     <input class="form-check-input" type="radio"  id="Miner" value ="miner" formControlName="accidentOption">
                                     <label class="form-check-label" for="Miner">
-                                        Miner
+                                      {{'workshop.body_shop.requests.miner' | translate}}
                                     </label>
                                 </div>
                                 <div class="form-check col-3">
                                     <input class="form-check-input" type="radio"  id="Major" value ="major" formControlName="accidentOption">
                                     <label class="form-check-label" for="Major">
-                                        Major
+                                      {{'workshop.body_shop.requests.major' | translate}}
                                     </label>
                                 </div>
                             </ng-container>
@@ -117,34 +117,34 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="form-section form-section--inline">
-                <div class="row">
-                    <h3 class="col-3 form-section__title">Job Type</h3>
+            <div class="component_wrapper">
+                <div class="row mt-3">
+                    <h3 class="col-3 form-section__title">{{'workshop.body_shop.requests.job_type' | translate}}</h3>
                     <div class="col-lg-9">
                         <div class="row form-group">
                             <div class="form-check col-lg-3">
                                 <input class="form-check-input" type="radio"  id="Estimate" value ="estimate" formControlName="jobType">
                                 <label class="form-check-label" for="Estimate">
-                                Estimate
+                                  {{'workshop.body_shop.requests.estimate' | translate}}
                                 </label>
                             </div>
                             <div class="form-check col-lg-3">
                                 <input class="form-check-input" type="radio"  id="Repair" value ="repair" formControlName="jobType">
                                 <label class="form-check-label" for="Repair">
-                                Repair
+                                  {{'workshop.body_shop.requests.repair' | translate}}
                                 </label>
                             </div>
                             <div class="form-check col-lg-3">
                                 <input class="form-check-input" type="radio"  id="Technical_Report" value="technical_report" formControlName="jobType">
                                 <label class="form-check-label" for="Technical_Report">
-                                Technical Report
+                                  {{'workshop.body_shop.requests.technical_report' | translate}}
                                 </label>
                             </div>
                             <ng-container *ngIf=" inputForm.get('reason').value == false ">
                                 <div class="form-check col-lg-3">
                                     <input class="form-check-input" type="radio"id="Installation" value="installation" formControlName="jobType">
                                     <label class="form-check-label" for="Installation">
-                                    Installation
+                                    {{'workshop.body_shop.requests.installation' | translate}}
                                     </label>
                                 </div>
                             </ng-container>
@@ -154,71 +154,71 @@
             </div>
         </div>
         <div class="col-12" [formGroupName]="'issueInfo'">
-            <div class="form-section">
-                <h3 class="form-section__title">Issue Info</h3>
+            <div class="component_wrapper">
+                <h3 class="form-section__title">{{'workshop.body_shop.requests.issue_info' | translate}}</h3>
                 <div class="row mt-3">
                     <div class="form-group col-lg-8 p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText  type="text" class="form-control" placeholder="Issue"
+                            <input pInputText  type="text" class="form-control" placeholder="{{'workshop.body_shop.requests.issue' | translate}}"
                                     formControlName="issue"
                                     [class.invalid]="!inputForm.get('issueInfo.issue').valid && submited">
-                            <label>Issue *</label>
+                            <label>{{'workshop.body_shop.requests.issue' | translate}}</label>
                         </span>
-                        <small class="red-font" [class.d-none]=" inputForm.get('issueInfo.issue').valid || !submited">Please fill Issue</small>
+                        <small class="red-font" [class.d-none]=" inputForm.get('issueInfo.issue').valid || !submited">{{'workshop.body_shop.requests.issue_validation_error' | translate}}</small>
 
                     </div>
                     <div class="form-group col-lg-4 p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText type="text" class="form-control" placeholder="Reported By"
+                            <input pInputText type="text" class="form-control" placeholder="{{'workshop.body_shop.requests.reported_by' | translate}}"
                                     formControlName="repertedBy"
                                     [class.invalid]="!inputForm.get('issueInfo.repertedBy').valid && submited">
-                            <label>Reported By *</label>
+                            <label>{{'workshop.body_shop.requests.reported_by' | translate}}</label>
                         </span>
-                        <small class="red-font" [class.d-none]=" inputForm.get('issueInfo.repertedBy').valid || !submited">Please fill ReportedBy</small>
+                        <small class="red-font" [class.d-none]=" inputForm.get('issueInfo.repertedBy').valid || !submited">{{'workshop.body_shop.requests.reported_by_validation_error' | translate}}</small>
                     </div>
                     <div class="form-group col-lg-12 p-field form-section__field mt-3">
                         <span class="p-float-label">
-                            <input pInputText type="text" class="form-control" placeholder="Description " formControlName="description"
+                            <input pInputText type="text" class="form-control" placeholder="{{'workshop.body_shop.requests.description' | translate}}" formControlName="description"
                                     [class.invalid]="!inputForm.get('issueInfo.description').valid && submited">
-                            <label>Description *</label>
+                            <label>{{'workshop.body_shop.requests.description' | translate}}</label>
                         </span>
-                        <small class="red-font" [class.d-none]=" inputForm.get('issueInfo.description').valid || !submited">Please fill Description</small>
+                        <small class="red-font" [class.d-none]=" inputForm.get('issueInfo.description').valid || !submited">{{'workshop.body_shop.requests.description_validation_error' | translate}}</small>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-12">
-            <div class="form-section form-section--inline">
-                <div class="row">
-                    <h3 class="col-3 form-section__title">Priority</h3>
+            <div class="component_wrapper">
+                <div class="row mt-3">
+                    <h3 class="col-3 form-section__title">{{'workshop.body_shop.requests.priority' | translate}}</h3>
                     <div class="col-lg-9">
                         <div class="row form-group select-level">
                             <div class="col-lg-2">
                                 <input class="form-check-input" type="radio" name="priority" id="urgent" value="urgent" formControlName="priority">
                                 <label class="form-check-label flag" for="urgent" (click)="changePriority('urgent')">
                                     <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#F75A4A' , 'height': '100%', 'opacity': activePriority == 'urgent' ? 1 : 0.2}"></svg-icon>
-                                    <span>Urgent</span>
+                                    <span>{{'workshop.body_shop.requests.urgent' | translate}}</span>
                                 </label>
                             </div>
                             <div class="col-lg-2">
                                 <input class="form-check-input" type="radio" name="priority" id="high" value="high" formControlName="priority">
                                 <label class="form-check-label flag" for="high" (click)="changePriority('high')">
                                     <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#FCB614' , 'height': '100%', 'opacity': activePriority == 'high' ? 1 : 0.2}"></svg-icon>
-                                    <span>High</span>
+                                    <span>{{'workshop.body_shop.requests.high' | translate}}</span>
                                 </label>
                             </div>
                             <div class="col-lg-2">
                                 <input class="form-check-input" type="radio" name="priority" id="normal" value="normal" formControlName="priority">
                                 <label class="form-check-label flag" for="normal" (click)="changePriority('normal')">
                                     <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#00CBB2' , 'height': '100%', 'opacity': activePriority == 'normal' ? 1 : 0.2}"></svg-icon>
-                                    <span>Normal</span>
+                                    <span>{{'workshop.body_shop.requests.normal' | translate}}</span>
                                 </label>
                             </div>
                             <div class="col-lg-2">
                                 <input class="form-check-input" type="radio" name="priority" id="low" value="low" formControlName="priority">
                                 <label class="form-check-label flag" for="low" (click)="changePriority('low')">
                                     <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%', 'opacity': activePriority == 'low' ? 1 : 0.2}"></svg-icon>
-                                    <span>Low</span>
+                                    <span>{{'workshop.body_shop.requests.low' | translate}}</span>
                                 </label>
                             </div>
                         </div>
@@ -227,23 +227,23 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="form-section">
-                <h3 class="form-section__title">Attach Picture</h3>
+            <div class="component_wrapper">
+                <h3 class="form-section__title">{{'workshop.body_shop.requests.upload_form.title' | translate}}</h3>
                 <div class="upload-box">
                     <div class="row">
                     <div class="col-12 d-flex justify-content-between file-name-size">
-                        <span>Nte1234567_Report.pdf</span>
+                        <span>{{'workshop.body_shop.requests.upload_form.title' | translate}}</span>
                         <span>00 MG</span>
                     </div>
                     <div class="col-lg-12 ">
                         <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>                </div>
-                    <div class="col-lg-12 my-2">
+                    <div class="col-lg-12 mt-2">
                         <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
                             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                                 <label (click)="openFileSelector()" style="cursor: pointer;">
                                 <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
                                     [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                                    <small calss="drag-and-drop">Drag and drop a file or Click here</small>
+                                    <small calss="drag-and-drop">{{'workshop.body_shop.requests.upload_form.content' | translate}}</small>
                                 </label>
                             </ng-template>
                         </ngx-file-drop>
