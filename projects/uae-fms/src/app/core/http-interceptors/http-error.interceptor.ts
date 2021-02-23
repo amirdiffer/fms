@@ -4,7 +4,8 @@ import {
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -18,7 +19,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    return next.handle(request).pipe(
+    const headers = new HttpHeaders({
+      user_id: '1',
+      permission_level: '123456',
+      'x-mock-response-code': '200'
+    });
+    const cloneReq = request.clone({ headers });
+    return next.handle(cloneReq).pipe(
       tap({
         error: (err: any) => {
           if (err instanceof HttpErrorResponse) {

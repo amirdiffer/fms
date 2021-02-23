@@ -22,4 +22,16 @@ export class AssetMasterEffects {
       )
     )
   );
+
+  loadStatistics$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetMasterActions.loadStatistics),
+      mergeMap((action) =>
+        this.service.loadStatistics().pipe(
+          map((data) => AssetMasterActions.statisticsLoaded({ data })),
+          catchError((error) => of(AssetMasterActions.error({ reason: error })))
+        )
+      )
+    )
+  );
 }
