@@ -20,6 +20,6 @@ export const environment = {
     cypress: packageJson.devDependencies['cypress'],
     eslint: packageJson.devDependencies['eslint']
   },
-  baseFileServer: '/assets/files',
+  baseFileServer: 'assets/files/',
   baseApiUrl: 'http://dev.jointscope.ai:8080/'
 };
