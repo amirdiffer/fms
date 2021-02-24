@@ -3,8 +3,7 @@ import { MovementRequestsActions } from './movement-requests.actions';
 import {
   initialState,
   movementRequestsAdapter,
-  MovementRequestsState,
-  movementRequestStatisticAdapter,
+  MovementRequestsState
 } from './movement-requests.entity';
 
 const movementRequestsReducer = createReducer(
@@ -12,7 +11,6 @@ const movementRequestsReducer = createReducer(
   on(MovementRequestsActions.loadAll, (state) => ({
     ...state,
     loaded: false,
-    statisticLoaded:null,
     error: null,
     message: null
   })),
@@ -21,7 +19,6 @@ const movementRequestsReducer = createReducer(
     movementRequestsAdapter.setAll(data, {
       ...state,
       loaded: true,
-      statisticLoaded:null,
       error: null
     })
   ),
@@ -29,24 +26,8 @@ const movementRequestsReducer = createReducer(
   on(MovementRequestsActions.error, (state, { reason }) => ({
     ...state,
     error: reason,
-    statisticLoaded:null,
     loaded: true
-  })),
-  on(MovementRequestsActions.statisticloadAll ,  (state) => ({
-    ...state,
-    loaded: null,
-    statisticLoaded:false,
-    error: null,
-    message: null
-  })),
-  on(MovementRequestsActions.allStatisticloaded, (state, { data }) =>
-    movementRequestStatisticAdapter.setAll(data, {
-    ...state,
-    loaded: null,
-    statisticLoaded:true,
-    error: null
-  })
-),
+  }))
 );
 
 export function reducer(state: MovementRequestsState, action: Action) {

@@ -39,17 +39,13 @@ export class MovementComponent implements OnInit, AfterViewChecked {
     private _fb: FormBuilder,
     private dialog: MatDialog,
     private _movementOverviewFacade: MovementOverviewFacade,
-    private _movementRequestsFacade: MovementRequestsFacade,
+    private _movementRequestsFacade: MovementRequestsFacade
   ) {}
 
   ngOnInit(): void {
     this._movementOverviewFacade.loadAll();
     this._movementRequestsFacade.loadAll();
-    this._movementRequestsFacade.MovementRequests$.subscribe(
-      (data) => {
-        console.log(data)
-      }
-    )
+
     this.movementOverViewTableSetting = this._movementService.movmentOverViewTableSetting();
     this.requestTableSetting = this._movementService.requestTableSetting();
     // Handle confirm button click

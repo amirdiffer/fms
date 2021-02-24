@@ -24,9 +24,6 @@ export class TollComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
-    this.facade.toll$.subscribe((x) => {
-      console.log(x);
-    });
     this.tableData = [
       {
         tag: '123456789',

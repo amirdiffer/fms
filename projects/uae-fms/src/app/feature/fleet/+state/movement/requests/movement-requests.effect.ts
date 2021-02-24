@@ -20,17 +20,6 @@ export class MovementRequestsEffect {
     )
   );
 
-  loadAllStatistic$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(MovementRequestsActions.statisticloadAll),
-      mergeMap((action) =>
-        this.service.loadStatistic().pipe(
-          map((data) => MovementRequestsActions.allStatisticloaded({ data:data.message}))
-        )
-      )
-    )
-  );
-
   constructor(
     private action$: Actions,
     private service: MovementRequestsService

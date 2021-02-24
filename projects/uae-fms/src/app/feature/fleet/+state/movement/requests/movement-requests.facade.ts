@@ -9,7 +9,7 @@ export class MovementRequestsFacade {
   MovementRequests$ = this.store.pipe(
     select(MovementRequestsSelectors.selectAll)
   );
-  
+
   message$ = this.store.pipe(select(MovementRequestsSelectors.message));
 
   error$ = this.store.pipe(select(MovementRequestsSelectors.error));
@@ -18,6 +18,5 @@ export class MovementRequestsFacade {
 
   loadAll() {
     this.store.dispatch(MovementRequestsActions.loadAll());
-    this.store.dispatch(MovementRequestsActions.statisticloadAll())
   }
 }
