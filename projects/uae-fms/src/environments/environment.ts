@@ -26,5 +26,6 @@ export const environment = {
     eslint: packageJson.devDependencies['eslint']
   },
   baseFileServer: 'http://127.0.0.1:8080/',
-  baseApiUrl: 'https://fe9575ad-e8d2-4a0a-9c78-b14b2bdf138e.mock.pstmn.io/'
+  baseLoginApiUrl: 'http://localhost:4200/fms-api/v1/',
+  baseApiUrl: 'https://f16163c3-2e00-4643-8c49-d916cca5cd8b.mock.pstmn.io/'
 };
