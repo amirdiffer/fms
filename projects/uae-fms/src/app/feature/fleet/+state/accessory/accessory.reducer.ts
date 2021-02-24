@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { Action, createReducer, on } from '@ngrx/store';
 import { AccessoryActions } from './accessory.actions';
 import {
@@ -27,13 +28,11 @@ const accessoryReducer = createReducer(
     loaded: false
   })),
 
-  on(AccessoryActions.statisticsLoaded, (state, { data }) =>
-    accessoryAdapter.setOne(data, {
-      ...state,
-      statistics: data,
-      loaded: true
-    })
-  ),
+  on(AccessoryActions.statisticsLoaded, (state, { data }) => ({
+    ...state,
+    statistics: data,
+    loaded: true
+  })),
 
   on(AccessoryActions.error, (state, { reason }) => ({
     ...state,

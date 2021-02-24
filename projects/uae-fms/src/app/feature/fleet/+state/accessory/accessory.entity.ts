@@ -19,9 +19,9 @@ export interface IAccessoryState extends EntityState<IAccessoryStateModel> {
 export interface IAccessoryPartialState {
   [FLEET_ACCESSORY_FEATURE_KEY]: IAccessoryState;
 }
-export const accessoryAdapter: EntityAdapter<
-  IAccessoryStateModel | IAccessoryStatistics
-> = createEntityAdapter<IAccessoryStateModel | IAccessoryStatistics>();
+export const accessoryAdapter: EntityAdapter<IAccessoryStateModel> = createEntityAdapter<
+  IAccessoryStateModel
+>();
 
 export const initialState: IAccessoryState = accessoryAdapter.getInitialState({
   error: null,

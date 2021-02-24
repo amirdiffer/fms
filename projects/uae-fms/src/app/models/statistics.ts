@@ -7,11 +7,10 @@ export interface ITollStatistics extends IGeneralResponse {
   assigned: number;
 }
 
-export interface IAccessoryStatistics extends IGeneralResponse {
-  result_number: number;
+export interface IAccessoryStatistics {
   total: number;
-  active: number;
-  inactive: number;
+  available: number;
+  assigned: number;
   xAccessory: number;
 }
 
