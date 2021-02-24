@@ -30,7 +30,7 @@ import {
 } from '@ngrx/router-store';
 
 import { environment } from '../../environments/environment';
-import { HttpErrorInterceptor } from './http-interceptors/http-error.interceptor';
+import { HttpInterceptor } from './http-interceptors/http.interceptor';
 
 import {
   AppState,
@@ -118,8 +118,8 @@ export function httpLoaderFactory(http: HttpClient) {
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({
-        name: 'Angular NgRx Material Starter'
-      }),
+          name: 'Angular NgRx Material Starter'
+        }),
 
     // 3rd party
     TranslateModule.forRoot({
@@ -128,13 +128,13 @@ export function httpLoaderFactory(http: HttpClient) {
         useFactory: httpLoaderFactory,
         deps: [HttpClient]
       }
-    }),
+    })
 
     //Other
   ],
   declarations: [],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
     { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: RouterStateSerializer, useClass: CustomSerializer },
     RouterFacade
@@ -155,8 +155,7 @@ export function httpLoaderFactory(http: HttpClient) {
     MatButtonModule,
 
     // 3rd party
-    TranslateModule,
+    TranslateModule
   ]
 })
-export class CoreModule {
-}
+export class CoreModule {}
