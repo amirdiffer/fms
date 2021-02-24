@@ -403,7 +403,8 @@
     "upload_form": {
       "title": "تحميل ملف CSV",
       "progressbar_title": "ملف CSV فقط",
-      "content": "قم بسحب وإسقاط ملف هنا"
+      "content": "قم بسحب وإسقاط ملف هنا",
+      "upload": "تحميل"
     }
   },
   "part_store": {
@@ -421,9 +422,9 @@
       "description": "الوصف"
     },
     "order_list": {
-      "request": {},
-      "order": {},
-      "suppliers": {}
+      "request_list": "قائمة الطلبات",
+      "my_order": "طلبي",
+      "suppliers": "الموردين"
     },
     "part_master": {
       "asset_type": "نوع الأصول",
@@ -682,6 +683,7 @@
     "approval": "موافقة",
     "feedback": {
       "required": "هذا الحقل مطلوب"
-    }
+    },
+    "order": "ترتيب"
   }
 }

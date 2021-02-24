@@ -567,12 +567,12 @@ export class BodyShopComponent implements OnInit {
 
   addClicked(e: Event) {
     switch (this.selectedTab) {
-      case 'Job Card':
+      case 'jobcardTab':
         break;
-      case 'Technician':
+      case 'technicianTab':
         this.router.navigate(['workshop/body-shop/add-technician']);
         break;
-      case 'Location':
+      case 'locationTab':
         this.router.navigate(['workshop/body-shop/add-location']);
         break;
       default:

@@ -1,7 +1,7 @@
 <form>
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" routerLink="..">Cancel</button>
-    <button class="btn-primary-medium add">Add</button>
+    <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{ 'forms.cancel' | translate }}</button>
+    <button class="btn-primary-medium add">{{ 'forms.add' | translate }}</button>
   </div>
   <div class="filter-container my-2">
     <app-filter [setting]="filterSetting"></app-filter>
@@ -16,7 +16,7 @@
         <form class="col-12">
           <!-- form-section -->
           <div class="form-section">
-            <h3 class="form-section__title">Folder Info</h3>
+            <h3 class="form-section__title">{{ 'part_store.part_master.folder_info' | translate }}</h3>
 
             <div class="row form-section__row">
               <div class="col-12 col-md-6 p-field form-section__field">
@@ -44,7 +44,7 @@
                     <svg-icon src='../../../../../assets/icons/add.svg'
                               [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
                     </span>
-                  Category Info
+                  {{ 'part_store.part_master.category_info' | translate }}
                 </h3>
               </div>
               <div class="col-12 col-md-6 p-field form-section__field">
@@ -89,7 +89,7 @@
                           </div>
                           <div class="col-lg-12">
                             <label class="space-drop" for="attach_picture">
-                              <div>Drag and Drop a item picture or click here</div>
+                              <div>{{ 'part_store.part_master.upload_form.content' | translate }}</div>
                             </label>
                             <input type="file" hidden id="attach_picture">
                           </div>

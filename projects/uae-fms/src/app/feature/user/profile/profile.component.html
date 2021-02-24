@@ -8,10 +8,20 @@
         <div class='d-flex card-body'>
           <div>{{'profile.notification_types' | translate}}</div>
           <div class='ml-5'>
-            <mat-slide-toggle>{{'profile.email' | translate}}</mat-slide-toggle>
+            <div class="col-3">
+              <div class="toggle-select">
+                <p-inputSwitch></p-inputSwitch>
+                <label>{{'profile.email' | translate}}</label>
+              </div>
+            </div>
           </div>
           <div class='ml-5 mr-5'>
-            <mat-slide-toggle>{{'profile.push_notification' | translate}}</mat-slide-toggle>
+            <div class="col-3">
+              <div class="toggle-select">
+                <p-inputSwitch></p-inputSwitch>
+                <label>{{'profile.push_notification' | translate}}</label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -23,87 +33,139 @@
           <div class='d-inline-flex'>
 
             <div class='mt-3' style='width: 30%'>
-              <div class='d-flex'>
-                <label class='container m-0'>{{'profile.vehicle_comments' | translate}}
-                  <input type='checkbox' id='vehicle_comments' name='vehicle_comments'>
-                  <span class='checkmark'></span>
+              <div class='row'>
+                <div class="col-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <label for="checkbox1">{{'profile.vehicle_comments' | translate}}</label>
                   <p class='sub_title m-0'>{{'profile.when_vehicle_comments_are_added_by_other_users' | translate}}</p>
-                </label>
+                </div>
               </div>
-              <div class='d-flex mt-3'>
-                <label class='container m-0'>{{'profile.service_entry_comment' | translate}}
-                  <input type='checkbox' id='service_entry_comment' name='vehicle_comments'>
-                  <span class='checkmark'></span>
+              <div class='row mt-3'>
+                <div class="col-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <label for="checkbox1">{{'profile.service_entry_comment' | translate}}</label>
                   <p class='sub_title m-0'>{{'profile.when_service_entry_comments_are_added_by_others_users' | translate}}</p>
-                </label>
+                </div>
               </div>
-              <div class='d-flex mt-3'>
-                <label class='container m-0'>{{'profile.fuel_entry_comment' | translate}}
-                  <input type='checkbox' id='fuel_entry_comment' name='vehicle_comments'>
-                  <span class='checkmark'></span>
+              <div class='row mt-3'>
+                <div class="col-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <label for="checkbox1">{{'profile.fuel_entry_comment' | translate}}</label>
                   <p class='sub_title m-0'>{{'profile.when_fuel_entry_comments_are_added_by_others_users' | translate}}</p>
-                </label>
+                </div>
               </div>
-              <div class='d-flex mt-3'>
-                <label class='container m-0'>{{'profile.vehicle_status_changes' | translate}}
-                  <input type='checkbox' id='vehicle_status_changes' name='vehicle_status_changes'>
-                  <span class='checkmark'></span>
+              <div class='row mt-3'>
+                <div class="col-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <label for="checkbox1">{{'profile.vehicle_status_changes' | translate}}</label>
                   <p class='sub_title m-0'>{{'profile.when_vehicle_statuses_are_changed_by_other_users' | translate}}</p>
-                </label>
+                </div>
               </div>
-              <div class='d-flex mt-3'>
-                <label class='container m-0'>{{'profile.voided_fuel_entries' | translate}}
-                  <input type='checkbox' id='voided_fuel_entries' name='voided_fuel_entries'>
-                  <span class='checkmark'></span>
-                  <p class='sub_title m-0'>{{'profile.when_fuel_entries_are_automatically_voided_on_any_vehicles_you_are_watching' | translate}}
-                    watching</p>
-                </label>
+              <div class='row mt-3'>
+                <div class="col-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <label for="checkbox1">{{'profile.voided_fuel_entries' | translate}}</label>
+                  <p class='sub_title m-0'>{{'profile.when_fuel_entries_are_automatically_voided_on_any_vehicles_you_are_watching' | translate}}</p>
+                </div>
               </div>
-              <div class='d-flex mt-3'>
-                <label class='container m-0'>{{'profile.due_soon_inspections' | translate}}
-                  <input type='checkbox' id='due_soon_inspections' name='due_soon_inspections'>
-                  <span class='checkmark'></span>
+              <div class='row mt-3'>
+                <div class="col-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <label for="checkbox1">{{'profile.due_soon_inspections' | translate}}</label>
                   <p class='sub_title m-0'>{{'profile.due_soon_inspections_description' | translate}}</p>
-                </label>
+                </div>
               </div>
             </div>
 
             <div class='mt-3' style='width: 48%'>
-              <div class='d-flex'>
-                <label class='container m-0'>{{'profile.overdue_inspections' | translate}}
-                  <input type='checkbox' id='overdue_inspections' name='overdue_inspections'>
-                  <span class='checkmark'></span>
+              <div class='row'>
+                <div class="col-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <label for="checkbox1">{{'profile.overdue_inspections' | translate}}</label>
                   <p class='sub_title m-0'>{{'profile.overdue_inspections_description' | translate}}</p>
-                </label>
+                </div>
               </div>
-              <div class='d-flex mt-3'>
-                <label class='container m-0'>{{'profile.new_faults' | translate}}
-                  <input type='checkbox' id='new_faults' name='new_faults'>
-                  <span class='checkmark'></span>
+              <div class='row mt-3'>
+                <div class="col-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <label for="checkbox1">{{'profile.new_faults' | translate}}</label>
                   <p class='sub_title m-0'>{{'profile.new_faults_description' | translate}}</p>
-                </label>
+                </div>
               </div>
-              <div class='d-flex mt-3'>
-                <label class='container m-0'>{{'profile.new_recalls' | translate}}
-                  <input type='checkbox' id='new_recalls' name='new_recalls'>
-                  <span class='checkmark'></span>
+              <div class='row mt-3'>
+                <div class="col-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <label for="checkbox1">{{'profile.new_recalls' | translate}}</label>
                   <p class='sub_title m-0'>{{'profile.new_recalls_description' | translate}}</p>
-                </label>
+                </div>
               </div>
 
               <div class='mt-2'>
                 <span class='sub_title m-0'>{{'profile.when_an_issue_is_created_by_other_users' | translate}}</span>
               </div>
 
-              <div class='d-flex mt-1'>
-                <label class='container w-25 m-0 pt-1'>{{'profile.email' | translate}}
-                  <input type='checkbox' id='email' name='email'>
-                  <span class='checkmark'></span>
-                </label>
-                <label class='container w-50 m-0 pt-1'>{{'profile.push_notification' | translate}}
-                  <input type='checkbox' id='push_notification' name='push_notification'>
-                  <span class='checkmark'></span>
-                </label>
+              <div class='row mt-3'>
+                <div class="col-4">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                      <label for="checkbox1">{{'profile.email' | translate}}</label>
+
+                  </div>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                      <label for="checkbox1">{{'profile.push_notification' | translate}}</label>
+
+                  </div>
+                </div>
               </div>
 
               <div class='mt-4'>
@@ -111,15 +173,23 @@
                 <p class='sub_title m-0'>{{'profile.issue_assigned_to_me_description' | translate}}</p>
               </div>
 
-              <div class='d-flex mt-2'>
-                <label class='container w-25 m-0 pt-1'>{{'profile.email' | translate}}
-                  <input type='checkbox' id='is_assigned_email' name='email'>
-                  <span class='checkmark'></span>
-                </label>
-                <label class='container w-50 m-0 pt-1'>{{'profile.push_notification' | translate}}
-                  <input type='checkbox' id='is_assigned_push_notification' name='push_notification'>
-                  <span class='checkmark'></span>
-                </label>
+              <div class='row mt-3'>
+                <div class="col-4">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                      <label for="checkbox1">{{'profile.email' | translate}}</label>
+
+                  </div>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                      <label for="checkbox1">{{'profile.push_notification' | translate}}</label>
+
+                  </div>
+                </div>
               </div>
 
             </div>
@@ -132,14 +202,22 @@
               </div>
 
               <div class='d-flex mt-2'>
-                <label class='container w-50 m-0 pt-1'>{{'profile.email' | translate}}
-                  <input type='checkbox' id='issue_resolved' name='email'>
-                  <span class='checkmark'></span>
-                </label>
-                <label class='container w-100 m-0 pt-1'>{{'profile.push_notification' | translate}}
-                  <input type='checkbox' id='issue_resolved_notification' name='push_notification'>
-                  <span class='checkmark'></span>
-                </label>
+                <div class="flex-grow-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                      <label for="checkbox1">{{'profile.email' | translate}}</label>
+
+                  </div>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                      <label for="checkbox1">{{'profile.push_notification' | translate}}</label>
+
+                  </div>
+                </div>
               </div>
 
               <div class='mt-3'>
@@ -148,14 +226,22 @@
               </div>
 
               <div class='d-flex mt-2'>
-                <label class='container w-50 m-0 pt-1'>{{'profile.email' | translate}}
-                  <input type='checkbox' id='issue_comment_email' name='email'>
-                  <span class='checkmark'></span>
-                </label>
-                <label class='container w-100 m-0 pt-1'>{{'profile.push_notification' | translate}}
-                  <input type='checkbox' id='issue_comment_push_notification' name='push_notification'>
-                  <span class='checkmark'></span>
-                </label>
+                <div class="flex-grow-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                      <label for="checkbox1">{{'profile.email' | translate}}</label>
+
+                  </div>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                      <label for="checkbox1">{{'profile.push_notification' | translate}}</label>
+
+                  </div>
+                </div>
               </div>
 
               <div class='mt-3'>
@@ -164,14 +250,22 @@
               </div>
 
               <div class='d-flex mt-2'>
-                <label class='container w-50 m-0 pt-1'>{{'profile.email' | translate}}
-                  <input type='checkbox' id='issue_closed_email' name='email'>
-                  <span class='checkmark'></span>
-                </label>
-                <label class='container w-100 m-0 pt-1'>{{'profile.push_notification' | translate}}
-                  <input type='checkbox' id='issue_closed_push_notification' name='push_notification'>
-                  <span class='checkmark'></span>
-                </label>
+                <div class="flex-grow-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                      <label for="checkbox1">{{'profile.email' | translate}}</label>
+
+                  </div>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox"
+                      class="custom-checkbox" name="checkbox1" checked>
+                      <label for="checkbox1">{{'profile.push_notification' | translate}}</label>
+
+                  </div>
+                </div>
               </div>
 
             </div>
@@ -193,17 +287,22 @@
             </div>
             <div class='d-flex'>
               <button mat-icon-button>
-                <svg-icon class='user_profile_edit_button' src='assets/icons/user_profile_edit.svg'
-                          [svgStyle]="{'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                <svg-icon class='user_profile_edit_button'
+                  src='assets/icons/user_profile_edit.svg'
+                  [svgStyle]="{'width.px':20 , 'fill': '#0DA06E' , 'height':
+                  '100%'}"></svg-icon>
               </button>
               <button mat-icon-button>
-                <svg-icon class='user_profile_edit_button' src='assets/icons/user_profile_settings.svg'
-                          [svgStyle]="{'width.px':20 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                <svg-icon class='user_profile_edit_button'
+                  src='assets/icons/user_profile_settings.svg'
+                  [svgStyle]="{'width.px':20 , 'fill': '#0DA06E' , 'height':
+                  '100%'}"></svg-icon>
               </button>
             </div>
           </div>
           <div class='mt-2 text-center'>
-            <img class='rounded-circle' src='assets/user-image.png' alt='user-image'>
+            <img class='rounded-circle' src='assets/user-image.png'
+              alt='user-image'>
             <p class='m-0 mt-1 font-weight-bold blue_color'>Mohammad Saadon</p>
             <p class='m-0 blue_color'>Fleet Management</p>
             <p class='phone_number m-0'>0027567356</p>
@@ -216,25 +315,28 @@
           <div>
             <button mat-icon-button class='rounded people_button'>
               <svg-icon src='assets/icons/people.svg'
-                        [svgStyle]="{'width.px':20, 'height': '100%'}"></svg-icon>
+                [svgStyle]="{'width.px':20, 'height': '100%'}"></svg-icon>
               <span class='label name_surname_label ml-4 blue_color'>{{'profile.organization' | translate}}</span>
-              <span class='label role_label ml-4 font-italic blue_color sub_info'>Sample Department</span>
+              <span class='label role_label ml-4 font-italic blue_color
+                sub_info'>Sample Department</span>
             </button>
           </div>
           <div class='mt-4'>
             <button mat-icon-button class='rounded email_button'>
               <svg-icon src='assets/icons/email.svg'
-                        [svgStyle]="{'width.px':20, 'height': '100%'}"></svg-icon>
+                [svgStyle]="{'width.px':20, 'height': '100%'}"></svg-icon>
               <span class='label name_surname_label ml-4 blue_color'>{{'profile.email' | translate}}</span>
-              <span class='label role_label ml-4 font-italic blue_color sub_info'>Mohammad@sample.com</span>
+              <span class='label role_label ml-4 font-italic blue_color
+                sub_info'>Sample Department</span>
             </button>
           </div>
           <div class='mt-4'>
             <button mat-icon-button class='rounded phone_button'>
               <svg-icon src='assets/icons/user_phone.svg'
-                        [svgStyle]="{'width.px':20, 'height': '100%'}"></svg-icon>
+                [svgStyle]="{'width.px':20, 'height': '100%'}"></svg-icon>
               <span class='label name_surname_label ml-4 blue_color'>{{'profile.phone_number' | translate}}</span>
-              <span class='label role_label ml-4 font-italic blue_color sub_info'>+971 50 565 3793</span>
+              <span class='label role_label ml-4 font-italic blue_color
+                sub_info'>Sample Department</span>
             </button>
           </div>
         </div>

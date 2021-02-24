@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
      */
     let jwt = window.localStorage.getItem('jwt');
     if (jwt) {
-      this.router.navigate(['/workshop/body-shop']);
+      this.router.navigate(['/dashboard']);
     }
   }
 
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (data) => {
           console.log(data);
-          this.router.navigate(['/workshop/body-shop']);
+          this.router.navigate(['/dashboard']);
         },
         (error) => {
           if (error.error.toLowerCase().indexOf('password') > -1) {
