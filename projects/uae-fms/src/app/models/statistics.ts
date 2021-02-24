@@ -9,6 +9,10 @@ export interface ITollStatistics extends IGeneralResponse {
 
 export interface IAccessoryStatistics extends IGeneralResponse {
   result_number: number;
+  total: number;
+  active: number;
+  inactive: number;
+  xAccessory: number;
 }
 
 export interface IAssetStatistics extends IGeneralResponse {

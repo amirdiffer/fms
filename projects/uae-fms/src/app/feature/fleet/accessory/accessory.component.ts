@@ -52,9 +52,18 @@ export class AccessoryComponent implements OnInit, OnDestroy {
     columns: [
       { lable: 'tables.column.item', type: 1, field: 'Item' },
       { lable: 'tables.column.type', type: 1, field: 'Type' },
-      { lable: 'tables.column.asset_sub_asset', type: 1, field: 'Asset_SubAsset' },
+      {
+        lable: 'tables.column.asset_sub_asset',
+        type: 1,
+        field: 'Asset_SubAsset'
+      },
       { lable: 'tables.column.assigned_to', type: 1, field: 'Assigned_To' },
-      { lable: 'tables.column.quantity', type: 1, field: 'Quantity', width: 100 }
+      {
+        lable: 'tables.column.quantity',
+        type: 1,
+        field: 'Quantity',
+        width: 100
+      }
     ],
     data: [
       {
@@ -108,13 +117,20 @@ export class AccessoryComponent implements OnInit, OnDestroy {
     ]
   };
 
-  constructor(private _accessoryService: AccessoryService , private _accessoryFacade: AccessoryFacade) {}
+  constructor(
+    private _accessoryService: AccessoryService,
+    private _accessoryFacade: AccessoryFacade
+  ) {}
 
   ngOnInit(): void {
     this.openAdd$ = this._accessoryService.getAddForm().subscribe((open) => {
       this.openAdd = open;
     });
     this._accessoryFacade.loadAll();
+    this._accessoryFacade.loadStatistics();
+    this._accessoryFacade.statistics$.subscribe((data) =>
+      console.log(data, 'accessory statistics')
+    );
   }
 
   addAccessory() {
