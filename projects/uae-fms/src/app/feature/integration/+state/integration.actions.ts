@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IIntegration } from '@models/integration';
+import { ResponseBody } from '@models/response-body';
 
 export class IntegrationActions {
   static loadAll = createAction('[Integration] load all data');
