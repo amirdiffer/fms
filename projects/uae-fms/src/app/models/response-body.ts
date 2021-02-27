@@ -1,5 +1,5 @@
-export interface ResponseBody {
+export interface ResponseBody<T> {
   error: boolean;
   result_number: number;
-  message: string;
+  message: T;
 }
