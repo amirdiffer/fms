@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AssetTypeFacade } from '../../+state/asset-configuration';
 
 @Component({
   selector: 'configuration-asset-type',
@@ -7,7 +8,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetTypeComponent implements OnInit {
-  constructor() {}
+  constructor(private facade: AssetTypeFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
 }
