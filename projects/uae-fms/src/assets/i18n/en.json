@@ -267,6 +267,7 @@
       "phone_number": "Phone Number",
       "company_name": "Company Name",
       "support_operator": "Support Operator",
+      "instruction": "Instrunction",
       "out_of_policy": "Out of Policy",
       "established_market_value": "Established Market Value",
       "remove": "Remove",
@@ -610,7 +611,9 @@
       "time_estimate": "Time Estimate (hours)",
       "skills": "Skills",
       "this_task_needs_part": "This Task Needs Part",
-      "add_part": "Add Part"
+      "add_part": "Add Part",
+      "please_fill_skill": "Please fill skill",
+      "please_fill_part": "Please fill part"
     }
   },
   "configuration": {

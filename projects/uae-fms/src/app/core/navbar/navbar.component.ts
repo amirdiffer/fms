@@ -58,8 +58,10 @@ export class NavbarComponent implements OnInit {
     this.settingsFacade.changeLanguage(language);
     this.languageBox.hide();
   }
-  changeRTLStyle(language){
-    let htmlTag = this.document.getElementsByTagName('html')[0] as HTMLHtmlElement
+  changeRTLStyle(language) {
+    let htmlTag = this.document.getElementsByTagName(
+      'html'
+    )[0] as HTMLHtmlElement;
     htmlTag.dir = language === 'ar' ? 'rtl' : 'ltr';
   }
 

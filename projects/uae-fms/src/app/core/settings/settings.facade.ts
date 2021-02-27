@@ -8,7 +8,7 @@ export class SettingsFacade {
   constructor(private store: Store<State>) {}
 
   changeLanguage(language: Language): void {
-    this.store.dispatch(actionSettingsChangeLanguage({language: language}))
+    this.store.dispatch(actionSettingsChangeLanguage({ language: language }));
   }
   changeTheme(theme : string): void{
     this.store.dispatch(actionSettingsChangeTheme({ theme }));

@@ -262,7 +262,8 @@
       "email": "البريد الإلكتروني",
       "phone_number": "رقم التليفون",
       "company_name": "اسم الشركة",
-      "support_operator": "مشغل الدعم"
+      "support_operator": "مشغل الدعم",
+      "instruction": "المشغل أو العامل"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -590,7 +591,9 @@
       "time_estimate": "الوقت المتوقع  (الساعات)",
       "skills": "مهارات",
       "this_task_needs_part": "هذه المهمة تحتاج إلى جزء",
-      "add_part": "أضف الجزء"
+      "add_part": "أضف الجزء",
+      "please_fill_part": "يرجى ملء الجزء",
+      "please_fill_skill": "الرجاء تعبئة المهارة"
     }
   },
   "configuration": {
