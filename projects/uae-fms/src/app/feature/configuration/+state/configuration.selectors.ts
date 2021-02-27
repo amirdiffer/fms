@@ -52,4 +52,9 @@ export class ConfigurationSelectors {
     ConfigurationSelectors.featureSelector,
     (state) => state['assetConfiguration']
   );
+
+  static assetTypeSelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['assetType']
+  );
 }
