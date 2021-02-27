@@ -11,7 +11,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DashboardEffect } from './+state/dashboard.effects';
 import { Dashboard_FEATURE_KEY } from './+state/dashboard.entity';
-import { DashboardService , DashboardFacade} from './+state/index';
+import { DashboardService, DashboardFacade } from './+state/index';
 import { ActiveAssetsComponent } from './active-assets/active-assets.component';
 import { AssetsStatusComponent } from './assets-status/assets-status.component';
 import { BusinessCategoryComponent } from './business-category/business-category.component';

@@ -24,7 +24,7 @@ export class PartMasterService {
     return {
       columns: [
         {
-          lable: 'Item',
+          lable: 'tables.column.item',
           field: 'itemName',
           width: 140,
           type: 2,
@@ -32,7 +32,7 @@ export class PartMasterService {
           renderer: ''
         },
         {
-          lable: 'Model',
+          lable: 'tables.column.model',
           field: 'model',
           width: 100,
           type: 1,
@@ -40,7 +40,7 @@ export class PartMasterService {
           renderer: ''
         },
         {
-          lable: 'Quantity',
+          lable: 'tables.column.quantity',
           field: 'quantity',
           width: 100,
           type: 1,
@@ -48,7 +48,7 @@ export class PartMasterService {
           renderer: ''
         },
         {
-          lable: 'Status',
+          lable: 'tables.column.status',
           field: 'status',
           width: 100,
           type: 1,

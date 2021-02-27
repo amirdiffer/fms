@@ -7,7 +7,6 @@
   box-shadow: 0px 0px 2px #0000003d;
   border-radius: 5px;
   &__title {
-    color: #333;
     font-size: 1em;
     margin-bottom: 25px;
   }
@@ -56,7 +55,7 @@
     p-calendar ~ label {
       height: 50%;
       width: max-content;
-      background: #fff;
+
     }
     input[type='text'] {
       font-size: 1em;
@@ -66,7 +65,6 @@
       & ~ label {
         height: 50%;
         width: 75%;
-        background: #fff;
       }
 
       &:focus {
@@ -130,7 +128,7 @@
         .p-inputtext {
           font-family: '29LT Bukra';
           font-size: 1em;
-          margin-top: 5px;
+          //margin-top: 5px;
         }
       }
       .p-dropdown:not(.p-disabled):hover {
@@ -339,4 +337,8 @@ p-calendar.invalid {
       top: 17%;
     }
   }
+}
+
+.margin-top {
+  margin-top: 15px;
 }

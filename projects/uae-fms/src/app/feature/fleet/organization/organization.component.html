@@ -1,7 +1,7 @@
-<div class="component_wrapper">
-  <div class="card-table-header">
+<div class="table-container component_wrapper">
+  <div class="search-container card-table-header">
     <div class="search-box">
-      <input type="text" placeholder="Search in Columns">
+      <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
       <button>
         <img src="../../../assets/icons/search-solid.svg" alt="">
       </button>
@@ -9,7 +9,7 @@
     <button class="btn-download" disabled>
       <svg-icon [src]="downloadBtn"></svg-icon>
     </button>
-    <button  class="btn-primary-small" [routerLink]="'./add-organization'"><i>+</i><a>Add</a></button>
+    <button  class="btn-primary-small" [routerLink]="'./add-organization'"><i>+</i><a>{{'forms.add' | translate}}</a></button>
   </div>
   <div class="table-wreapper">
     <app-table [setting]='organization_Table'></app-table>

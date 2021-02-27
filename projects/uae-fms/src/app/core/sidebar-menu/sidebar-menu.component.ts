@@ -2,7 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { assetsPath } from '@environments/environment';
 
 import { RouterReducerState } from '@ngrx/router-store';
-import { createFeatureSelector, createSelector, select, Store } from '@ngrx/store';
+import {
+  createFeatureSelector,
+  createSelector,
+  select,
+  Store
+} from '@ngrx/store';
 
 import { interval, Subscription } from 'rxjs';
 import { delayWhen } from 'rxjs/operators';
@@ -18,7 +23,10 @@ import { WindowResizeService, ResizeEvent } from '../general-services';
   styleUrls: ['./sidebar-menu.component.scss']
 })
 export class SidebarMenuComponent implements OnInit, OnDestroy {
-  selectRouterState = createFeatureSelector<AppState, RouterReducerState<RouterStateUrl>>('router');
+  selectRouterState = createFeatureSelector<
+    AppState,
+    RouterReducerState<RouterStateUrl>
+  >('router');
 
   public route$ = this.store.pipe(
     select(createSelector(this.selectRouterState, (state) => state))
@@ -28,155 +36,191 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
 
   public activeGroup: string = '';
   toggleGroup(item: MenuItem): void {
-   this.activeGroup == item.name || this.activeGroup == '' ? this.activeGroup = 'root' : this.activeGroup = item.name;
+    this.activeGroup == item.name || this.activeGroup == ''
+      ? (this.activeGroup = 'root')
+      : (this.activeGroup = item.name);
   }
 
   usingMenu = [];
   mainMenu = [
-    { name: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
+    { name: 'sidebar.dashboard', icon: 'dashboard', route: '/dashboard' },
     {
-      name: 'Fleets',
+      name: 'sidebar.fleets.~',
       icon: 'fleets',
       route: '/fleet',
       items: [
-        { name: 'Assets', icon: 'car-solid', route: '/fleet/assets' },
-        { name: 'Sub Assets', icon: 'sub-assets', route: '/fleet/sub-asset' },
-        { name: 'Accessory', icon: 'accessory', route: '/fleet/accessory' },
-        { name: 'Operator', icon: 'operator', route: '/fleet/operator' },
         {
-          name: 'Organization',
+          name: 'sidebar.fleets.assets',
+          icon: 'car-solid',
+          route: '/fleet/assets'
+        },
+        {
+          name: 'sidebar.fleets.sub_assets',
+          icon: 'sub-assets',
+          route: '/fleet/sub-asset'
+        },
+        {
+          name: 'sidebar.fleets.accessory',
+          icon: 'accessory',
+          route: '/fleet/accessory'
+        },
+        {
+          name: 'sidebar.fleets.operator',
+          icon: 'operator',
+          route: '/fleet/operator'
+        },
+        {
+          name: 'sidebar.fleets.organization',
           icon: 'organization',
           route: '/fleet/organization'
         },
-        { name: 'Movement', icon: 'movement', route: '/fleet/movement' }
+        {
+          name: 'sidebar.fleets.movement',
+          icon: 'movement',
+          route: '/fleet/movement'
+        }
       ]
     },
-    { name: 'Fuel Management', icon: 'fuel', route: '/fuel-management' },
-    { name: 'Traffic Fines', icon: 'traffic', route: '/traffic-fine' },
-    { name: 'Toll', icon: 'toll', route: '/toll' },
     {
-      name: 'Workshop',
+      name: 'sidebar.fuel_management',
+      icon: 'fuel',
+      route: '/fuel-management'
+    },
+    { name: 'sidebar.traffic_fine', icon: 'traffic', route: '/traffic-fine' },
+    { name: 'sidebar.toll', icon: 'toll', route: '/toll' },
+    {
+      name: 'sidebar.workshop.~',
       icon: 'workshop',
       route: '/workshop',
       items: [
-        { name: 'Body Shop', icon: 'body-shop', route: '/workshop/body-shop' },
+        {
+          name: 'sidebar.workshop.body_shop',
+          icon: 'body-shop',
+          route: '/workshop/body-shop'
+        },
         {
           name: 'Service Shop',
           icon: 'service-shop',
           route: '/workshop/service-shop'
         },
         {
-          name: 'Inspections',
+          name: 'sidebar.workshop.inspection.~',
           icon: 'inspection',
           route: '/workshop/inspections',
           items: [
             {
-              name: 'Technical Inspection',
+              name: 'sidebar.workshop.inspection.technical_inspection',
               route: '/workshop/inspections/technical-inspection'
             },
             {
-              name: 'Auction List',
+              name: 'sidebar.workshop.inspection.auction_list',
               route: '/workshop/inspections/auction-list'
             }
           ]
         },
         {
-          name: 'Task Master',
+          name: 'sidebar.workshop.task_master',
           icon: 'task-master',
           route: '/workshop/task-master'
         }
       ]
     },
     {
-      name: 'Part Store',
+      name: 'sidebar.part_store.~',
       icon: 'part-store',
       route: '/part-store',
       items: [
         {
-          name: 'Parts List',
+          name: 'sidebar.part_store.part_list',
           icon: 'part-list',
           route: '/part-store/part-list'
         },
         {
-          name: 'Order List',
+          name: 'sidebar.part_store.order_list',
           icon: 'order-list',
           route: '/part-store/order-list'
         },
         {
-          name: 'Part Master',
+          name: 'sidebar.part_store.part_master',
           icon: 'part-master',
           route: '/part-store/part-master'
         }
       ]
     },
-    { name: 'Reports', icon: 'report', route: '/report' },
+    { name: 'sidebar.report', icon: 'report', route: '/report' },
     {
-      name: 'Configuration',
+      name: 'sidebar.configuration.~',
       icon: 'configuration',
       route: '/configuration',
       items: [
         {
-          name: 'User Management',
+          name: 'sidebar.configuration.user_management.~',
           icon: 'userManagement',
           route: '/configuration/user-management',
           items: [
             {
-              name: 'Role and Permission',
+              name: 'sidebar.configuration.user_management.role_permission',
               icon: 'organization',
               route: '/configuration/user-management/role-permission'
             },
             {
-              name: 'Users',
+              name: 'sidebar.configuration.user_management.users',
               icon: 'organization',
               route: '/configuration/user-management/users'
             },
             {
-              name: 'Company Profile',
+              name: 'sidebar.configuration.user_management.company_profile',
               icon: 'organization',
               route: '/configuration/user-management/company-setting'
             }
           ]
         },
         {
-          name: 'Asset Policy',
+          name: 'sidebar.configuration.asset_policy',
           icon: 'asset-policy',
           route: '/configuration/asset-policy'
         },
         {
-          name: 'Asset Configuration',
+          name: 'sidebar.configuration.asset_configuration',
           icon: 'cog',
           route: '/configuration/asset-configuration'
         },
         {
-          name: 'Business Category',
+          name: 'sidebar.configuration.business_category',
           icon: 'business',
           route: '/configuration/business-category'
         },
         {
-          name: 'Ownership',
+          name: 'sidebar.configuration.ownership',
           icon: 'copyright-solid',
           route: '/configuration/ownership'
         },
         {
-          name: 'Fleet Status',
+          name: 'sidebar.configuration.fleet_status',
           icon: 'flag-solid',
           route: '/configuration/fleet-status'
         },
         {
-          name: 'Periodic Service',
+          name: 'sidebar.configuration.periodic_service',
           icon: 'periodic-service',
           route: '/configuration/periodic-service'
         }
       ]
     },
-    { name: 'Integrations', icon: 'integrations', route: '/integration' }
+    {
+      name: 'sidebar.integrations',
+      icon: 'integrations',
+      route: '/integration'
+    }
   ];
 
   checkMenuState: Subscription;
   opened$ = this.facade.opened$;
   show$ = this.facade.show$;
   type$ = this.facade.type$;
-  showLabel$ = this.facade.opened$.pipe(delayWhen((x) => interval(x ? 1000 : 1)));
+  showLabel$ = this.facade.opened$.pipe(
+    delayWhen((x) => interval(x ? 1000 : 1))
+  );
 
   insideProfile = false;
   assets = assetsPath;
@@ -187,7 +231,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     private store: Store,
     private facade: SidebarMenuFacade,
     private resizeService: WindowResizeService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.usingMenu = this.mainMenu;
@@ -201,21 +245,19 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     });
 
     let $this = this;
-    this.resizeService.resized$.subscribe(x => {
-      this.onResize(x, $this)
-    })
+    this.resizeService.resized$.subscribe((x) => {
+      this.onResize(x, $this);
+    });
     this.onResize(this.resizeService.getCurrent(), this);
   }
 
   onResize(event: ResizeEvent, context) {
     if (event && event.innerWidth && event.innerWidth != 0)
       if (event.innerWidth != context.innerWidth) {
-        if (event.innerWidth > 1200)
-          context.facade.openSidebarMenu();
+        if (event.innerWidth > 1200) context.facade.openSidebarMenu();
         else context.facade.closeSidebarMenu();
 
-        if (event.innerWidth > 720)
-          context.facade.showSidebarMenu();
+        if (event.innerWidth > 720) context.facade.showSidebarMenu();
         else context.facade.hideSidebarMenu();
         context.innerWidth = event.innerWidth;
       }
