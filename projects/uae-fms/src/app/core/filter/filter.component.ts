@@ -23,7 +23,7 @@ export class FilterComponent implements OnInit, OnChanges {
     this.cardSetting.forEach((card) => {
       if (card.isActive) {
         card.isActive = false;
-        card.filterBackgroundColor = '#fff';
+        card.filterBackgroundColor = 'transparent';
       }
     });
 
