@@ -328,6 +328,12 @@ export class TrafficFineComponent implements OnInit {
 
   ngOnInit(): void {
     this._trafficFineFacade.loadAll();
+    this._trafficFineFacade.trafficFine$.subscribe((x) => {
+      console.log(x);
+    });
     this._assetTrafficFineFacade.loadAll();
+    this._assetTrafficFineFacade.trafficFine$.subscribe((x) => {
+      console.log(x);
+    });
   }
 }
