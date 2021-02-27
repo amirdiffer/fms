@@ -51,12 +51,6 @@
     .not-active{
       color: #535353;
     }
-
-    .sub-menuItem-child{
-      .menuItem{
-        border-left: 5px solid;
-      }
-    }
   }
 
   .has-child {
@@ -79,4 +73,22 @@
       }
     }
   }
+}
+
+.menuItems{
+  display: flex;
+  flex-direction: row;
+  padding-left: 15px;
+  ul{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+.active_menu_line{
+  width: 5px;
+  border-radius: 3px;
+  left: 32px;
+  background: #0DA06E;
+  height: auto;
 }
