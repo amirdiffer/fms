@@ -745,7 +745,8 @@
     "archive": "Archive",
     "approval": "Approval",
     "feedback": {
-      "required": "This is Field Required"
+      "required": "This is Field Required",
+      "invalid-email": "Email address is invalid"
     }
   },
   "login": {
