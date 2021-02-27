@@ -27,5 +27,5 @@ export const environment = {
   },
   baseFileServer: 'http://127.0.0.1:8080/',
   baseLoginApiUrl: 'http://localhost:4200/fms-api/v1/',
-  baseApiUrl: 'https://b72fc95c-3a83-4508-8168-a55b0bb08410.mock.pstmn.io'
+  baseApiUrl: 'https://b72fc95c-3a83-4508-8168-a55b0bb08410.mock.pstmn.io/'
 };

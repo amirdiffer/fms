@@ -70,5 +70,13 @@ export class FleetStatusComponent implements OnInit {
   ngOnInit(): void {
     this.fleetStatusAssetFacade.loadAll();
     this.fleetStatusSubAssetFacade.loadAll();
+
+    this.fleetStatusAssetFacade.fleetStatus$.subscribe((response) => {
+      console.log(response);
+    });
+
+    this.fleetStatusSubAssetFacade.fleetStatus$.subscribe((response) => {
+      console.log(response);
+    });
   }
 }
