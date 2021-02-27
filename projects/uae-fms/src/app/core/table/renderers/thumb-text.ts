@@ -25,7 +25,6 @@ import { environment } from '../../../../environments/environment';
         align-items: center;
         margin-left: 10px;
         text-align: left;
-        color: #000000de;
       }
     `
   ]

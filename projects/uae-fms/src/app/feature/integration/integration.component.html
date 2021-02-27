@@ -1,4 +1,4 @@
-<div class="component_wrapper">
+<div class="table-container component-wrapper">
   <div class="card-table-header">
 
     <ng-container *ngIf="!addtype; else addIntegration">
@@ -16,9 +16,9 @@
     <ng-template #addIntegration>
       <add-integration class="w-100"></add-integration>
     </ng-template>
-    
+
   </div>
-  <div class="table-wreapper">
+  <div class="table_wrapper">
     <app-table [setting]="tableSettings"></app-table>
   </div>
 </div>

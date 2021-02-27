@@ -25,10 +25,36 @@
             <button mat-icon-button>
                 <svg-icon src="../../../assets/icons/bell.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
             </button>
-            <button mat-icon-button>
+            <button mat-icon-button
+              (click)="languageBox.toggle($event)">
                 <svg-icon src="../../../assets/icons/globe-americas.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
+            </button>
+            <button mat-icon-button (click)="changeTheme()">
+                <svg-icon src="../../../assets/icons/eye.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
             </button>
             <img [src]="policeLogo" [alt]="policeLogo" />
         </span>
     </mat-toolbar>
+</div>
+
+<!-- overlay panel -->
+<div class="overlay-panels">
+  <p-overlayPanel #languageBox styleClass="overlay-panels">
+    <div class="language-panel">
+      <ul>
+        <li (click)="changeLanguage('en');">
+        <span class="flag">
+          <svg-icon src="../../../assets/icons/united-kingdom.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
+        </span>
+          <p>English</p>
+        </li>
+        <li (click)="changeLanguage('ar');">
+        <span class="flag">
+          <svg-icon src="../../../assets/icons/united-arab-emirates.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
+        </span>
+          <p>Arabic</p>
+        </li>
+      </ul>
+    </div>
+  </p-overlayPanel>
 </div>

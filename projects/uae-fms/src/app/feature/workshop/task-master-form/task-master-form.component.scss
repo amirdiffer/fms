@@ -1,9 +1,12 @@
 @import '../../../../themes/green-theme';
 @import '../../../../assets/scss/form-section.scss';
-.button-container{
-    top: -3.7em;
+
+.flex-with-button {
+  flex: 1 0 85%;
+  overflow: visible;
 }
-.flex-with-button{
-    flex:1 0 85%;
-    overflow: visible;
+
+.fix {
+  width: 100%;
+  margin: 5px 15px !important;
 }
