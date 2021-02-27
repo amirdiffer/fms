@@ -8,7 +8,7 @@
       <div class="col-12 col-md-6">
         <div class="row">
           <div class="col-12 col-md-4">
-            <h3 class="form-section__title">{{ 'workshop.part_store.configuration.fleet_status.asset.type_category' | translate }}</h3>
+            <h3 class="form-section__title">{{ 'configuration.fleet_status.asset.type_category' | translate }}</h3>
           </div>
           <div class="col-12 col-md-8 mb-2 p-field align-self-center">
             <div class="row">
@@ -16,11 +16,11 @@
                 <div class="row">
                   <div class="form-check col-6">
                     <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="asset" value ="asset">
-                    <label class="form-check-label" for="asset">{{ 'workshop.part_store.configuration.fleet_status.asset.asset' | translate }}</label>
+                    <label class="form-check-label" for="asset">{{ 'configuration.fleet_status.asset.asset' | translate }}</label>
                   </div>
                   <div class="form-check col-6">
                     <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="subAsset" value ="subAsset">
-                    <label class="form-check-label" for="subAsset">{{ 'workshop.part_store.configuration.fleet_status.asset.sub_asset' | translate }}</label>
+                    <label class="form-check-label" for="subAsset">{{ 'configuration.fleet_status.asset.sub_asset' | translate }}</label>
                   </div>
                 </div>
               </div>
@@ -33,7 +33,7 @@
           <p-dropdown inputId="statusCategory" [autoDisplayFirst]="false"
             [options]="statusCategories"
             formControlName="statusCategory" optionLabel="name"></p-dropdown>
-          <label for="statusCategory">{{ 'workshop.part_store.configuration.fleet_status.asset.status_category' | translate }} *</label>
+          <label for="statusCategory">{{ 'configuration.fleet_status.asset.status_category' | translate }} *</label>
           <anms-error
             [showError]="hasError('statusCategory',fleetStatusForm,submited)"
             error="forms.feedback.required">
@@ -44,8 +44,8 @@
       <div class="col-12 col-md-3 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="statusName" pInputText
-            placeholder="{{ 'workshop.part_store.configuration.fleet_status.asset.status_name' | translate }} *" required type="text">
-          <label>{{ 'workshop.part_store.configuration.fleet_status.asset.status_name' | translate }} *</label>
+            placeholder="{{ 'configuration.fleet_status.asset.status_name' | translate }} *" required type="text">
+          <label>{{ 'configuration.fleet_status.asset.status_name' | translate }} *</label>
           <anms-error
             [showError]="hasError('statusName',fleetStatusForm,submited)"
             error="forms.feedback.required">
