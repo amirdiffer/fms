@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IOwnerShip } from '@models/configuration';
 import { environment } from '@environments/environment';
+import { ResponseBody } from '@models/response-body';
 
 @Injectable()
 export class OwnershipService {
   constructor(private http: HttpClient) {}
 
-  loadAll(): Observable<IOwnerShip[]> {
-    return this.http.get<IOwnerShip[]>(
+  loadAll(): Observable<ResponseBody<IOwnerShip[]>> {
+    return this.http.get<ResponseBody<IOwnerShip[]>>(
       environment.baseApiUrl + 'configuration/ownership'
     );
   }

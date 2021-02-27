@@ -24,5 +24,6 @@ export interface IRole {
 }
 
 export interface IOwnerShip {
-
+  id: number,
+  name: string
 }
