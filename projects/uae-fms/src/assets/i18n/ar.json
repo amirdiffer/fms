@@ -1,4 +1,40 @@
 {
+  "profile": {
+    "notification_types": "أنواع الإخطار",
+    "email": "بريد الالكتروني",
+    "push_notification": "دفع الإخطار",
+    "watched_vehicle_email_notifications": "إشعارات البريد الإلكتروني للمركبة التي تمت مراقبتها",
+    "vehicle_comments": "تعليقات السيارة",
+    "when_vehicle_comments_are_added_by_other_users": "عندما يتم إضافة تعليقات السيارة من قبل مستخدمين آخرين",
+    "service_entry_comment": "تعليق إدخال الخدمة",
+    "when_service_entry_comments_are_added_by_others_users": "عندما يتم إضافة تعليقات إدخال الخدمة من قبل مستخدمين آخرين",
+    "fuel_entry_comment": "تعليق دخول الوقود",
+    "when_fuel_entry_comments_are_added_by_others_users": "عندما يتم إضافة تعليقات إدخال الوقود من قبل مستخدمين آخرين",
+    "vehicle_status_changes": "تغييرات حالة السيارة",
+    "when_vehicle_statuses_are_changed_by_other_users": "عندما يتم تغيير حالة السيارة من قبل مستخدمين آخرين",
+    "voided_fuel_entries": "مدخلات الوقود المفرغة",
+    "when_fuel_entries_are_automatically_voided_on_any_vehicles_you_are_watching": "عندما يتم إبطال مداخل الوقود تلقائيًا في أي مركبة تشاهدها",
+    "due_soon_inspections": "عمليات التفتيش المستحقة قريبا",
+    "due_soon_inspections_description": "الساعة 7:00 صباحًا من يوم موعد الفحص",
+    "overdue_inspections": "عمليات التفتيش المتأخرة",
+    "overdue_inspections_description": "الساعة 7:00 صباحًا يوميًا لأي عمليات تفتيش متأخرة",
+    "new_faults": "أخطاء جديدة",
+    "new_faults_description": "عند تلقي تنبيه خطأ أو رمز مشكلة التشخيص (DTC) عبر واجهة برمجة التطبيقات أو جهاز تتبع عن بُعد / نظام GPS متكامل",
+    "new_recalls": "عمليات سحب جديدة",
+    "new_recalls_description": "عندما يتم اكتشاف استدعاء جديد للمركبات التي تشاهدها",
+    "when_an_issue_is_created_by_other_users": "عندما يتم إنشاء مشكلة بواسطة مستخدمين آخرين",
+    "issue_assigned_to_me": "المسألة المعينة لي",
+    "issue_assigned_to_me_description": "عندما يتم تعيين مشكلة لي من قبل مستخدمين آخرين",
+    "issue_receives_a_comment": "إصدار يتلقى تعليقا",
+    "issue_receives_a_comment_description": "عندما يتم إضافة تعليقات قضية بواسطة مستخدمين آخرين",
+    "issue_resolved": "تم حل المشكلة",
+    "issue_resolved_description": "عندما يتم حل مشكلة من قبل مستخدمين آخرين",
+    "issue_closed": "تم إغلاق المشكلة",
+    "issue_closed_description": "عندما يغلق مستخدم آخر مشكلة",
+    "logout": "تسجيل خروج",
+    "organization": "منظمة",
+    "phone_number": "رقم التليفون"
+  },
   "sidebar": {
     "dashboard": "لوحة القيادة",
     "fleets": {
@@ -98,11 +134,13 @@
   },
   "tables": {
     "column": {
+      "suppliers": "الموردين",
       "name": "الاسم",
       "total_sub_asset": "إجمالي الأصول الفرعية",
       "total_accessory": "إجمالي الملحق",
       "total": "الإجمالي",
       "asset": "الأصل",
+      "assets": "الأصول",
       "type": "النوع",
       "business_category": "فئة العمل",
       "allocated": "المخصص",
@@ -165,6 +203,7 @@
       "accident": "حادثة",
       "action": "التنفيذ",
       "task": "المهمة",
+      "tasks": "المهام",
       "end_date": "تاريخ النهاية",
       "workshop_manager_approval": "موافقة مدير الورشة",
       "technician": "الفني",
@@ -172,6 +211,7 @@
       "rate_per_hour": "الأجر بالساعة",
       "location_id": "رقم الموقع",
       "service": "الخدمة",
+      "services": "الخدمات",
       "address": "العنوان",
       "job_card": "بطاقة عمل",
       "reported_by": "تم عمل تقرير بواسطة",
@@ -219,7 +259,7 @@
       "car_icon": "أيقونة السيارة",
       "integration_name": "اسم الدمج",
       "gpr": "GPR",
-      "email": "Email",
+      "email": "البريد الإلكتروني",
       "phone_number": "رقم التليفون",
       "company_name": "اسم الشركة",
       "support_operator": "مشغل الدعم"
@@ -241,7 +281,11 @@
     "iserve": "I-Serve",
     "shared_poll": "استطلاع مشترك",
     "temporary": "مؤقت",
-    "workshop": "الورشة"
+    "workshop": "الورشة",
+    "active": "نشيط",
+    "defleet": "Defleet",
+    "reused": "معاد استخدامها",
+    "total_lost": "مجموع المفقودين"
   },
   "assets": {
     "business_info": "معلومات العمل",
@@ -363,14 +407,80 @@
     "upload_form": {
       "title": "تحميل ملف CSV",
       "progressbar_title": "ملف CSV فقط",
-      "content": "قم بسحب وإسقاط ملف هنا"
+      "content": "قم بسحب وإسقاط ملف هنا",
+      "upload": "تحميل"
+    }
+  },
+  "part_store": {
+    "parts_list": {
+      "asset_type": "نوع الأصول",
+      "category": "الفئة",
+      "item_info": "معلومات العنصر",
+      "storage_location": "مكان التخزين",
+      "add_category": "إضافة فئة",
+      "make": "الماركة",
+      "model": "الموديل",
+      "quantity": "العدد",
+      "price": "السعر",
+      "warranty_expire_date": "تاريخ انتهاء الضمان",
+      "description": "الوصف"
+    },
+    "order_list": {
+      "request_list": "قائمة الطلبات",
+      "my_order": "طلبي",
+      "suppliers": "الموردين"
+    },
+    "part_master": {
+      "asset_type": "نوع الأصول",
+      "category": "الفئة",
+      "add_category": "إضافة فئة",
+      "make": "الماركة",
+      "model": "الموديل",
+      "folder_info": "معلومات المجلد",
+      "category_info": "معلومات الفئة",
+      "item_info": "معلومات العنصر",
+      "folder_name": "إسم الملف",
+      "short_code": "رمز قصير",
+      "category_name": "اسم التصنيف",
+      "item_name": "اسم العنصر",
+      "upload_form": {
+        "title": "",
+        "progressbar_title": ".pdf",
+        "content": "قم بسحب وإسقاط صورة عنصر أو انقر هنا"
+      }
+    },
+    "reports": {},
+    "integration": {
+      "type": "النوع",
+      "company_name": "اسم الشركة",
+      "grp": "GRP"
+    },
+    "order": {
+      "create_quotation": "إنشاء الاقتباس",
+      "repeat_quotation": "كرر الاقتباس",
+      "current_quotation": "الاقتباس الحالي",
+      "asset_type": "نوع الأصول",
+      "make": "يجعلون",
+      "model": "نموذج",
+      "quantity": "كمية",
+      "description": "وصف",
+      "set_reminder": "تعيين تذكير",
+      "select_item": "حدد البند",
+      "select_item_category": "حدد فئة العنصر"
     }
   },
   "workshop": {
     "body_shop": {
       "requests": {
         "asset_info": "معلومات الأصول",
+        "asset": "الأصل",
+        "asset_validation_error": "",
+        "gps_meter_source": "مصدر عداد GPS",
+        "manual_update": "تحديث يدوي",
+        "accident": "حادثة",
         "reason": "السبب",
+        "miner": "عامل منجم",
+        "major": "منصب - الرتبة",
         "job_type": "نوع الوظيفة",
         "issue_info": "معلومات الإصدار",
         "priority": "أفضلية",
@@ -379,8 +489,11 @@
         "technical_report": "تقرير تقني",
         "installation": "تثبيت",
         "issue": "القضية",
+        "issue_validation_error": "",
         "reported_by": "تم عمل تقرير بواسطة",
+        "reported_by_validation_error": "",
         "description": "الوصف",
+        "description_validation_error": "",
         "urgent": "العاجلة",
         "high": "متوسط",
         "normal": "طبيعي",
@@ -398,14 +511,22 @@
         "personal_information": "معلومات شخصية",
         "send_notification_by": "إرسال الإخطار عن طريق",
         "employee_number": "رقم الموظف",
+        "employee_number_validation_error": "",
         "pay_per_hours": "الدفع بالساعة",
+        "pay_per_hours_validation_error": "",
         "employee_status": "حالة الموظف نشطة",
         "skill": "المهارة",
+        "skill_validation_error": "",
         "location": "الموقع",
+        "location_validation_error": "",
         "first_name": "الاسم الاول",
+        "first_name_validation_error": "",
         "last_name": "الكنية",
+        "last_name_validation_error": "",
         "email": "البريد الالكتروني",
+        "email_validation_error": "",
         "phone_number": "رقم التليفون",
+        "phone_number_validation_error": "",
         "call": "مكالمة",
         "sms": "رسالة قصيرة",
         "whatsapp": "Whatsapp",
@@ -419,9 +540,13 @@
         "location_info": "معلومات الموقع",
         "section": "القسم",
         "location_id": "رقم الموقع",
+        "location_id_validation_error": "",
         "address": "تبوك",
+        "address_validation_error": "",
         "section_id": "رقم القسم",
-        "service": "الخدمة"
+        "section_id_validation_error": "",
+        "service": "الخدمة",
+        "service_validation_error": ""
       }
     },
     "service_shop": {},
@@ -466,167 +591,123 @@
       "skills": "مهارات",
       "this_task_needs_part": "هذه المهمة تحتاج إلى جزء",
       "add_part": "أضف الجزء"
+    }
+  },
+  "configuration": {
+    "role_permission": {
+      "role_info": "معلومات الدور",
+      "permissions": "أذونات",
+      "fleet": "الأسطول",
+      "fuel_management": "إدارة الوقود",
+      "traffic_fine": "المخالفات المرورية",
+      "asset_master": "ماجستير الأصول",
+      "registration": "التسجيل",
+      "customization": "التخصيص",
+      "sub_asset": "أصل فرعي",
+      "accessory": "الملحقات",
+      "operator": "المشغل",
+      "organization": "المنظمة",
+      "movement": "الحركة"
     },
-    "part_store": {
-      "parts_list": {
-        "asset_type": "نوع الأصول",
-        "category": "الفئة",
-        "item_info": "معلومات العنصر",
-        "storage_location": "مكان التخزين",
-        "add_category": "إضافة فئة",
-        "make": "الماركة",
-        "model": "الموديل",
-        "quantity": "العدد",
-        "price": "السعر",
-        "warranty_expire_date": "تاريخ انتهاء الضمان",
-        "description": "الوصف"
-      },
-      "order_list": {
-        "request": {},
-        "order": {},
-        "suppliers": {}
-      },
-      "part_master": {
-        "asset_type": "نوع الأصول",
-        "category": "الفئة",
-        "add_category": "إضافة فئة",
-        "make": "الماركة",
-        "model": "الموديل",
-        "folder_info": "معلومات المجلد",
-        "category_info": "معلومات الفئة",
-        "item_info": "معلومات العنصر",
-        "folder_name": "إسم الملف",
-        "short_code": "رمز قصير",
-        "category_name": "اسم التصنيف",
-        "item_name": "اسم العنصر",
-        "upload_form": {
-          "title": "",
-          "progressbar_title": ".pdf",
-          "content": "قم بسحب وإسقاط صورة عنصر أو انقر هنا"
-        }
-      },
-      "reports": {},
-      "configuration": {
-        "role_permission": {
-          "role_info": "معلومات الدور",
-          "permissions": "أذونات",
-          "fleet": "الأسطول",
-          "fuel_management": "إدارة الوقود",
-          "traffic_fine": "المخالفات المرورية",
-          "asset_master": "ماجستير الأصول",
-          "registration": "التسجيل",
-          "customization": "التخصيص",
-          "sub_asset": "أصل فرعي",
-          "accessory": "الملحقات",
-          "operator": "المشغل",
-          "organization": "المنظمة",
-          "movement": "الحركة"
-        },
-        "users": {
-          "portal_information": "معلومات البوابة",
-          "personal_information": "معلومات شخصية",
-          "send_notification_by": "إرسال الإخطار عن طريق",
-          "employee_number": "رقم الموظف",
-          "department": "الإدارة",
-          "role": "دور",
-          "active_employee": "موظف نشط",
-          "first_name": "الاسم الاول",
-          "last_name": "الكنية",
-          "email": "البريد الالكتروني",
-          "phone_number": "رقم التليفون",
-          "call": "مكالمة",
-          "sms": "رسالة قصيرة",
-          "whatsapp": "Whatsapp",
-          "upload_form": {
-            "title": "تحميل صورة الملف الشخصي",
-            "progressbar_title": ".pdf",
-            "content": "قم بسحب وإفلات الصورة هنا"
-          }
-        },
-        "company_profile": {},
-        "asset_policy": {
-          "asset": {
-            "this_policy_is_for": "هذه السياسة",
-            "asset": "الأصل",
-            "sub_asset": "أصل فرعي",
-            "policy_name": "اسم الوثيقة ",
-            "maximum_usage": "أقصى استخدام",
-            "kilometer_hour": "كيلومتر /بالساعة",
-            "year": "السنة",
-            "deprecation_value": "% قيمة الإهلاك",
-            "yearly": "سنوي",
-            "set_reminder_before": "تحديد تذكير قبل"
-          },
-          "sub_asset": {
-            "this_policy_is_for": "هذه السياسة",
-            "asset": "الأصل",
-            "sub_asset": "أصل فرعي",
-            "policy_name": "اسم الوثيقة ",
-            "maximum_usage": "أقصى استخدام",
-            "kilometer_hour": "كيلومتر /بالساعة",
-            "year": "السنة",
-            "deprecation_value": "% قيمة الإهلاك",
-            "yearly": "سنوي",
-            "set_reminder_before": "تحديد تذكير قبل"
-          }
-        },
-        "asset_configuration": {},
-        "business_category": {
-          "business_category_info": "معلومات فئة العمل",
-          "assign_sub_asset": "تعيين الأصول الفرعية",
-          "assign_accessory": "تعيين ملحق",
-          "business_category_name": "اسم فئة العمل",
-          "asset_type": "نوع الأصول",
-          "active_category": "فئة نشطة",
-          "description": "Description",
-          "sub_asset": "أصل فرعي",
-          "quantity": "العدد",
-          "accessory": "الملحقات",
-          "upload_form": {
-            "title": "",
-            "progressbar_title": "",
-            "content": "سحب وإسقاط ملف تحميل المواصفات"
-          }
-        },
-        "ownership": {
-          "ownership_type": "نوع الملكية",
-          "owner_info": "معلومات المالك",
-          "ownership_info": "معلومات الملكية",
-          "external": "خارجي",
-          "owned": "مملوكة",
-          "rent": "إيجار",
-          "demo": "تجريبي",
-          "owner": "مالك",
-          "owner_email_address": "عنوان البريد الإلكتروني للمالك",
-          "owner_phone_number": "رقم هاتف المالك",
-          "purpose": "غرض",
-          "fleet_it_code": "رمز IT للأسطول",
-          "duration": "المدة"
-        },
-        "fleet_status": {
-          "asset": {
-            "type_category": "اكتب الفئة",
-            "asset": "الأصل",
-            "sub_asset": "أصل فرعي",
-            "status_category": "فئة الحالة",
-            "status_name": "اسم الحالة"
-          }
-        },
-        "periodic_service": {
-          "periodic_service_info": "معلومات الخدمة الدورية",
-          "package": "الباقة",
-          "task": "المهمة",
-          "periodic_service_name": "اسم الخدمة الدورية",
-          "package_name": "اسم الباقة",
-          "intervals": "فترات",
-          "km_h": "Km/h"
-        }
-      },
-      "integration": {
-        "type": "النوع",
-        "company_name": "اسم الشركة",
-        "grp": "GRP"
+    "users": {
+      "portal_information": "معلومات البوابة",
+      "personal_information": "معلومات شخصية",
+      "send_notification_by": "إرسال الإخطار عن طريق",
+      "employee_number": "رقم الموظف",
+      "department": "الإدارة",
+      "role": "دور",
+      "active_employee": "موظف نشط",
+      "first_name": "الاسم الاول",
+      "last_name": "الكنية",
+      "email": "البريد الالكتروني",
+      "phone_number": "رقم التليفون",
+      "call": "مكالمة",
+      "sms": "رسالة قصيرة",
+      "whatsapp": "Whatsapp",
+      "upload_form": {
+        "title": "تحميل صورة الملف الشخصي",
+        "progressbar_title": ".pdf",
+        "content": "قم بسحب وإفلات الصورة هنا"
       }
+    },
+    "company_profile": {},
+    "asset_policy": {
+      "asset": {
+        "this_policy_is_for": "هذه السياسة",
+        "asset": "الأصل",
+        "sub_asset": "أصل فرعي",
+        "policy_name": "اسم الوثيقة ",
+        "maximum_usage": "أقصى استخدام",
+        "kilometer_hour": "كيلومتر /بالساعة",
+        "year": "السنة",
+        "deprecation_value": "% قيمة الإهلاك",
+        "yearly": "سنوي",
+        "set_reminder_before": "تحديد تذكير قبل",
+        "or": "أو"
+      },
+      "sub_asset": {
+        "this_policy_is_for": "هذه السياسة",
+        "asset": "الأصل",
+        "sub_asset": "أصل فرعي",
+        "policy_name": "اسم الوثيقة ",
+        "maximum_usage": "أقصى استخدام",
+        "kilometer_hour": "كيلومتر /بالساعة",
+        "year": "السنة",
+        "deprecation_value": "% قيمة الإهلاك",
+        "yearly": "سنوي",
+        "set_reminder_before": "تحديد تذكير قبل"
+      }
+    },
+    "asset_configuration": {},
+    "business_category": {
+      "business_category_info": "معلومات فئة العمل",
+      "assign_sub_asset": "تعيين الأصول الفرعية",
+      "assign_accessory": "تعيين ملحق",
+      "business_category_name": "اسم فئة العمل",
+      "asset_type": "نوع الأصول",
+      "active_category": "فئة نشطة",
+      "description": "Description",
+      "sub_asset": "أصل فرعي",
+      "quantity": "العدد",
+      "accessory": "الملحقات",
+      "upload_form": {
+        "title": "",
+        "progressbar_title": "",
+        "content": "سحب وإسقاط ملف تحميل المواصفات"
+      }
+    },
+    "ownership": {
+      "ownership_type": "نوع الملكية",
+      "owner_info": "معلومات المالك",
+      "ownership_info": "معلومات الملكية",
+      "external": "خارجي",
+      "owned": "مملوكة",
+      "rent": "إيجار",
+      "demo": "تجريبي",
+      "owner": "مالك",
+      "owner_email_address": "عنوان البريد الإلكتروني للمالك",
+      "owner_phone_number": "رقم هاتف المالك",
+      "purpose": "غرض",
+      "fleet_it_code": "رمز IT للأسطول",
+      "duration": "المدة"
+    },
+    "fleet_status": {
+      "asset": {
+        "type_category": "اكتب الفئة",
+        "asset": "الأصل",
+        "sub_asset": "أصل فرعي",
+        "status_category": "فئة الحالة",
+        "status_name": "اسم الحالة"
+      }
+    },
+    "periodic_service": {
+      "periodic_service_info": "معلومات الخدمة الدورية",
+      "package": "الباقة",
+      "task": "المهمة",
+      "periodic_service_name": "اسم الخدمة الدورية",
+      "package_name": "اسم الباقة",
+      "intervals": "فترات",
+      "km_h": "Km/h"
     }
   },
   "forms": {
@@ -642,6 +723,23 @@
     "approval": "موافقة",
     "feedback": {
       "required": "هذا الحقل مطلوب"
-    }
+    },
+    "order": "ترتيب"
+  },
+  "login": {
+    "incorrect_password": "كلمة سر خاطئة",
+    "fleet": "سريع",
+    "incorrect_username": "اسم المستخدم غير صحيح",
+    "login": "تسجيل الدخول",
+    "management": "إدارة",
+    "password": "كلمة المرور",
+    "service": "خدمة",
+    "user_name": "اسم االمستخدم"
+  },
+  "buttons": {
+    "reject": "يرفض",
+    "approve": "اعتماد",
+    "recived": "الواردة",
+    "confirm": "يتأكد"
   }
 }

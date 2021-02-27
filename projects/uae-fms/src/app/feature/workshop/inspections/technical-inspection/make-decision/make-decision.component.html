@@ -7,39 +7,39 @@
                 </ng-container>
 
                 <ng-container *ngIf="!isStart" >
-                    <h2 class="stepper-title">Technical Inspection</h2>
+                    <h4 class="stepper-title">{{ 'workshop.technical_inspection.technical_inspection' | translate }}</h4>
                     <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom">
                         <mat-step [editable]="isEditable" [stepControl]="controlStep" state="">
                             <form [formGroup]="controlStep">
-                                <ng-template matStepLabel>Technical Inspection</ng-template>
+                                <ng-template matStepLabel>{{ 'workshop.technical_inspection.technical_inspection' | translate }}</ng-template>
                                 <step1-technical-inspection></step1-technical-inspection>
                             </form>
                         </mat-step>
                         <mat-step [editable]="isEditable" [stepControl]="controlStep">
                             <form [formGroup]="controlStep">
-                                <ng-template matStepLabel>Asset Detail</ng-template>
+                                <ng-template matStepLabel>{{ 'workshop.technical_inspection.asset_detail' | translate }}</ng-template>
                                 <step2-asset-detail></step2-asset-detail>
                             </form>
 
                         </mat-step>
                         <mat-step [editable]="isEditable" [stepControl]="controlStep">
                             <form [formGroup]="controlStep">
-                                <ng-template matStepLabel>Maintenance</ng-template>
+                                <ng-template matStepLabel>{{ 'workshop.technical_inspection.maintenance' | translate }}</ng-template>
                                 <step3-maintenance></step3-maintenance>
-                                
+
                             </form>
                         </mat-step>
                         <mat-step [editable]="isEditable" [stepControl]="controlStep">
                             <form [formGroup]="controlStep">
-                                <ng-template matStepLabel>Customization</ng-template>
+                                <ng-template matStepLabel>{{ 'workshop.technical_inspection.customization' | translate }}</ng-template>
                                 <step4-customization></step4-customization>
                             </form>
                         </mat-step>
                         <mat-step [editable]="isEditable" [stepControl]="controlStep">
-                            <ng-template matStepLabel>Generate</ng-template>
+                            <ng-template matStepLabel>{{ 'workshop.technical_inspection.generate' | translate }}</ng-template>
                         </mat-step>
-    
-    
+
+
                     </mat-horizontal-stepper>
                 </ng-container>
 
@@ -51,12 +51,12 @@
             <div class="card-body">
                 <div class="stepper-button">
                     <ng-container *ngIf="isStart; else stepperButton">
-                        <button class="next" (click)="isStart = false;">Next</button>
-                        <button class="back" >Car Card</button>
+                        <button class="btn-primary-medium add" (click)="isStart = false;">{{ 'forms.next' | translate }}</button>
+                        <button class="btn-primary-medium btn-scondary-green" >{{ 'workshop.technical_inspection.car_card' | translate }}</button>
                     </ng-container>
                     <ng-template #stepperButton>
-                        <button class="next" (click)="next()" #nextButton>Next</button>
-                        <button class="back" (click)="previous()">Back</button>
+                        <button class="btn-primary-medium add" (click)="next()" #nextButton>{{ 'forms.next' | translate }}</button>
+                        <button class="btn-primary-medium btn-scondary-green" (click)="previous()">{{ 'forms.back' | translate }}</button>
                     </ng-template>
                 </div>
             </div>

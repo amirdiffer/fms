@@ -9,8 +9,9 @@
   margin: 0 5px;
 }
 
-.button-container {
-  position: absolute;
-  top: -4.42em;
-  right: 2em;
+.row {
+  margin-top: 10px !important;
+  .form-section:first-child {
+    margin-top: 0 !important;
+  }
 }

@@ -22,10 +22,14 @@ import { Utility } from '@shared/utility/utility';
 export class AddAssetPolicyComponent extends Utility implements OnInit {
   assetPolicy_Table: TableSetting = {
     columns: [
-      { lable: 'Policy Name', type: 1, field: 'Policy_Name' },
-      { lable: 'Distance', type: 1, field: 'Distance' },
-      { lable: 'Year', type: 1, field: 'Year' },
-      { lable: 'Depreciation Value', type: 1, field: 'Depreciation_Value' }
+      { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
+      { lable: 'tables.column.distance', type: 1, field: 'Distance' },
+      { lable: 'tables.column.year', type: 1, field: 'Year' },
+      {
+        lable: 'tables.column.depreciation_value',
+        type: 1,
+        field: 'Depreciation_Value'
+      }
     ],
     data: [
       {

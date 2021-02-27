@@ -17,7 +17,7 @@ import { Utility } from '@shared/utility/utility';
 export class AddPeriodicServiceComponent extends Utility implements OnInit {
   tableColumns: ColumnDifinition[] = [
     {
-      lable: 'Periodic Service Name',
+      lable: 'tables.column.periodic_service_name',
       field: 'periodicServiceName',
       type: ColumnType.lable
     },

@@ -96,7 +96,7 @@ export class MakeDecisionService {
   public tableSettingCustomization = {
     columns: [
       {
-        lable: 'Vehicle',
+        lable: 'tables.column.vehicle',
         field: 'vehicleName',
         width: 100,
         type: 2,
@@ -104,7 +104,7 @@ export class MakeDecisionService {
         renderer: ''
       },
       {
-        lable: 'Business Category',
+        lable: 'tables.column.business_category',
         field: 'businessCatrgory',
         width: 100,
         type: 1,
@@ -112,7 +112,7 @@ export class MakeDecisionService {
         renderer: ''
       },
       {
-        lable: 'Item 1',
+        lable: 'tables.column.item',
         field: 'item1',
         width: 100,
         type: 1,
@@ -120,7 +120,7 @@ export class MakeDecisionService {
         renderer: ''
       },
       {
-        lable: 'Item 2',
+        lable: 'tables.column.item',
         field: 'item2',
         width: 100,
         type: 1,
@@ -128,7 +128,7 @@ export class MakeDecisionService {
         renderer: ''
       },
       {
-        lable: 'Item 3',
+        lable: 'tables.column.item',
         field: 'item3',
         width: 100,
         type: 1,

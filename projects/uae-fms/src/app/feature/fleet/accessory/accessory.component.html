@@ -8,7 +8,7 @@
   <div class="search-container card-table-header">
     <ng-container *ngIf="!openAdd;">
       <div class="search-box">
-        <input type="text" placeholder="Search in Columns">
+        <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
         <button>
           <img [src]="searchIcon" alt="">
         </button>
@@ -16,7 +16,7 @@
       <button class="btn-download" disabled>
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
-      <button class="btn-primary-small" routerLink="add"><i>+</i><a>Add</a></button>
+      <button class="btn-primary-small" routerLink="add"><i>+</i><a>{{'search.add' | translate}}</a></button>
     </ng-container>
   </div>
   <app-table [setting]='accessory_Table'></app-table>

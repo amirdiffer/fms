@@ -6,7 +6,7 @@ export const environment = {
   envName: 'PROD',
   production: true,
   test: false,
-  i18nPrefix: '/angular-ngrx-material-starter',
+  i18nPrefix: '',
   versions: {
     app: packageJson.version,
     angular: packageJson.dependencies['@angular/core'],
@@ -19,5 +19,7 @@ export const environment = {
     typescript: packageJson.devDependencies['typescript'],
     cypress: packageJson.devDependencies['cypress'],
     eslint: packageJson.devDependencies['eslint']
-  }
+  },
+  baseFileServer: 'assets/files/',
+  baseApiUrl: 'http://dev.jointscope.ai:8080/'
 };

@@ -1,9 +1,9 @@
 <div class="head">
-    <h6 class="card-header">Factory Category</h6>
+    <h6 class="card-header">{{ 'dashboard.factory_category' | translate }}</h6>
     <div class="right-button">
-        <button>View Report</button>
+        <button>{{ 'tables.button.view_report' | translate }}</button>
     </div>
 </div>
-<div class="dashboard-table">
+<div class="dashboard-table table-container">
     <app-table [setting]="tabbleSetting"></app-table>
 </div>

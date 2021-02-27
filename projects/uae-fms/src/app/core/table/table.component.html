@@ -10,7 +10,7 @@
               <img [class.sort]='col.isAsc === false' class="icon-dorp" src="../../../assets/icons/sort-down-solid.svg" alt="">
             </ng-template>
             <ng-template [ngIf]="!col.isIconLable" [ngIfElse]="iconType">
-              {{col.lable}}
+              {{col.lable|translate}}
             </ng-template>
             <ng-template #iconType>
               <div class="iconLable" [innerHTML]="col.lable"></div>
@@ -27,8 +27,8 @@
           <div *ngIf="!col.renderer">
             <div class="d-flex">
               <span class="p-column-title">{{col.lable}}</span>
-              <span class="column-data">
-                {{ this.getCol(col,data) }}
+              <span [innerHTML]="this.getCol(col,data)" class="column-data">
+                <!-- {{ this.getCol(col,data) }} -->
               </span>
             </div>
           </div>
