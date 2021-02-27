@@ -273,6 +273,11 @@ export class FuelManagementComponent implements OnInit {
   selectedTab;
   ngOnInit(): void {
     this._facadeFuelCard.loadAll();
+    this._facadeFuelCard.fuelCards$.subscribe(
+      (data) => {
+         console.log(data)
+      }
+    )
     this._facadeAssetUsage.loadAll();
   }
   addClicked(e: Event) {

@@ -12,7 +12,7 @@ export class FuelCardsEffect {
       ofType(FuelCardsActions.loadFuelCard),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => FuelCardsActions.fuelCardLoaded({ data })),
+          map((data) => FuelCardsActions.fuelCardLoaded({ data: data.message })),
           catchError((error) =>
             of(FuelCardsActions.fuelCardError({ reason: error }))
           )
