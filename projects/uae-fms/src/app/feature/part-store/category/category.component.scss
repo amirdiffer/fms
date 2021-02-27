@@ -1,38 +1,38 @@
-mat-card {
-  margin-top: 15px;
-}
+
+@import '../../../../assets/scss/form-section.scss';
+
 
 .category-item {
   display: flex;
   align-items: center;
-  margin: 10px 0;
+  margin: .6em 0;
   svg-icon {
     flex: 0 0 10%;
   }
   span.item {
     flex: 0 0 80%;
-    font-size: 18px;
+    font-size: 1.1em;
     color: #000000de;
   }
   button {
-    flex: 0 0 10%;
+    flex: 0 0 20%;
     box-shadow: 0px 0px 2px #00000029;
     border: 1px solid #707070;
-    height: 34px;
-    width: 34px;
-    border-radius: 5px;
+    height: 2em;
+    width: 2em;
+    border-radius: .3em;
     background-color: #fff;
     position: relative;
     opacity: 0.57;
-    max-height: 34px;
-    max-width: 34px;
+    max-height: 2em;
+    max-width: 2em;
     a {
       position: absolute;
       color: #707070;
       margin: 0;
-      font-size: 35px;
-      top: -9px;
-      left: 6px;
+      font-size: 2em;
+      top: -0.2em;
+      left: 0.2em;
     }
   }
 }
@@ -42,16 +42,16 @@ mat-card {
   align-items: center;
   span.item {
     flex: 0 0 80%;
-    font-size: 18px;
+    font-size: 1.1em;
     color: #000000de;
     margin-left: 10%;
   }
   button {
     flex: 0 0 10%;
-    height: 34px;
-    width: 34px;
+    height: 2em;
+    width: 2em;
     border: none;
-    border-radius: 5px;
+    border-radius: .3em;
     background-color: #fff;
     position: relative;
     opacity: 0.57;
@@ -60,7 +60,7 @@ mat-card {
       color: #707070;
 
       margin: 0;
-      font-size: 35px;
+      font-size: 2em;
       top: -9px;
       left: 7px;
     }
@@ -73,15 +73,15 @@ mat-card {
   margin: 15px 0;
   span.item {
     flex: 0 0 80%;
-    font-size: 18px;
+    font-size: 1.1em;
     color: #707070;
   }
   button {
-    flex: 0 0 10%;
-    height: 34px;
-    width: 34px;
+    flex: 0 0 20%;
+    height: 2em;
+    width: 2em;
     border: none;
-    border-radius: 5px;
+    border-radius: .3em;
     background-color: #fff;
     position: relative;
     opacity: 0.57;
@@ -89,7 +89,7 @@ mat-card {
       position: absolute;
       color: #707070;
       margin: 0;
-      font-size: 35px;
+      font-size: 2em;
       top: -9px;
       left: 7px;
     }
@@ -102,6 +102,7 @@ mat-card {
 }
 mat-card {
   box-shadow: 0px 0px 2px #0000003d !important;
+  margin-top: 15px !important;
   mat-card-title {
     font-weight: bold;
   }

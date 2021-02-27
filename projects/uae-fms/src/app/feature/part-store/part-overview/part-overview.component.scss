@@ -97,17 +97,11 @@
   }
 }
 
+.overview-container {
+  padding: 10px;
+}
+
 .button-container {
-  position: absolute;
-  top: -4.12em;
-  right: 0;
-  button {
-    margin: 0 2px;
-    width: 11em;
-  }
-  .add {
-    background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
-      0% no-repeat padding-box;
-    border: none;
-  }
+  top: -3.6em !important;
+  font-size: 0.85em;
 }
