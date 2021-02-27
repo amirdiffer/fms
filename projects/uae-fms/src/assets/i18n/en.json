@@ -243,7 +243,7 @@
       "policy_name": "Policy Name",
       "distance": "Distance",
       "year": "Year",
-      "depreciation_value": "Depreciation value",
+      "depreciation_value": "Depreciation Value",
       "model": "Model",
       "type_status": "Type Status",
       "icon": "Icon",
@@ -664,7 +664,8 @@
         "year": "Year",
         "deprecation_value": "% Deprecation Value",
         "yearly": "Yearly",
-        "set_reminder_before": "Set Reminder Before"
+        "set_reminder_before": "Set Reminder Before",
+        "or" : "Or"
       },
       "sub_asset": {
         "this_policy_is_for": "This Policy Is For",
