@@ -7,7 +7,6 @@
     font-weight: 900;
   }
 
-
   .menuItem {
     display: block;
     position: relative;
@@ -16,13 +15,13 @@
     padding: 5px;
     cursor: pointer;
 
-    .sub-menuItem{
+    .sub-menuItem {
       max-height: 100rem;
       overflow: hidden;
       transition: max-height 1s;
     }
 
-    .menu-item-name{
+    .menu-item-name {
       padding: 5px;
     }
 
@@ -48,7 +47,7 @@
       font-weight: 900;
     }
 
-    .not-active{
+    .not-active {
       color: #535353;
     }
   }
@@ -75,20 +74,20 @@
   }
 }
 
-.menuItems{
+.menuItems {
   display: flex;
   flex-direction: row;
   padding-left: 15px;
-  ul{
+  ul {
     padding-left: 0px;
     padding-right: 0px;
   }
 }
 
-.active_menu_line{
+.active_menu_line {
   width: 5px;
   border-radius: 3px;
   left: 32px;
-  background: #0DA06E;
+  background: #0da06e;
   height: auto;
 }
