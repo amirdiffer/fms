@@ -642,7 +642,8 @@
         "year": "السنة",
         "deprecation_value": "% قيمة الإهلاك",
         "yearly": "سنوي",
-        "set_reminder_before": "تحديد تذكير قبل"
+        "set_reminder_before": "تحديد تذكير قبل",
+        "or": "أو"
       },
       "sub_asset": {
         "this_policy_is_for": "هذه السياسة",
@@ -735,10 +736,10 @@
     "service": "خدمة",
     "user_name": "اسم االمستخدم"
   },
-  "buttons":{
-    "reject":"يرفض",
-    "approve":"اعتماد",
-    "recived":"الواردة",
-    "confirm":"يتأكد"
+  "buttons": {
+    "reject": "يرفض",
+    "approve": "اعتماد",
+    "recived": "الواردة",
+    "confirm": "يتأكد"
   }
 }
