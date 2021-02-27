@@ -45,7 +45,7 @@ export class ConfigurationSelectors {
 
   static periodicServiceSelector = createSelector(
     ConfigurationSelectors.featureSelector,
-    (state) => state['periodicService']
+    (state) => state['periodic-service']
   );
 
   static assetConfigurationSelector = createSelector(

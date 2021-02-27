@@ -54,5 +54,8 @@ export class PeriodicServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.periodicService$.subscribe((x) => {
+      console.log(x);
+    })
   }
 }
