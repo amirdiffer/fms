@@ -82,5 +82,8 @@ export class OwnershipComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.ownership$.subscribe((x) => {
+      console.log(x);
+    })
   }
 }

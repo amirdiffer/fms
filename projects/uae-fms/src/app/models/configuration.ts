@@ -22,3 +22,7 @@ export interface IRole {
   serviceName: string;
   permissionValue: string;
 }
+
+export interface IOwnerShip {
+
+}

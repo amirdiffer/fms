@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { OwnershipStateModel } from './ownership.entity';
+import { IOwnerShip } from '@models/configuration';
+import { environment } from '@environments/environment';
 
 @Injectable()
 export class OwnershipService {
   constructor(private http: HttpClient) {}
 
-  loadAll(): Observable<OwnershipStateModel[]> {
-    return this.http.get<OwnershipStateModel[]>('');
+  loadAll(): Observable<IOwnerShip[]> {
+    return this.http.get<IOwnerShip[]>(
+      environment.baseApiUrl + 'configuration/ownership'
+    );
   }
 }

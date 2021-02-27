@@ -40,7 +40,7 @@ export class ConfigurationSelectors {
 
   static ownershipSelector = createSelector(
     ConfigurationSelectors.featureSelector,
-    (state) => state['ownershipSelector']
+    (state) => state['ownership']
   );
 
   static periodicServiceSelector = createSelector(
