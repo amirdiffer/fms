@@ -12,7 +12,7 @@ export class TrafficFineTableEffect {
       ofType(TrafficFineTableActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => TrafficFineTableActions.allDataLoaded({ data })),
+          map((data) => TrafficFineTableActions.allDataLoaded({ data: data.message })),
           catchError((error) =>
             of(TrafficFineTableActions.error({ reason: error }))
           )
