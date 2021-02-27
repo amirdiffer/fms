@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
   policeLogo = require('../../../assets/police-logo.svg').default;
 
   sidebarMenuOpened: boolean = false;
-
+  theme: string;
   constructor(
     private store: Store,
     private sidebarMenuFacade: SidebarMenuFacade,
@@ -46,9 +46,12 @@ export class NavbarComponent implements OnInit {
     this.sidebarMenuFacade.opened$.subscribe((x) => {
       this.sidebarMenuOpened = x;
     });
-    this.language$.subscribe((data) => {
-      this.changeRTLStyle(data);
-    });
+    this.language$.subscribe(data=>{this.changeRTLStyle(data)});
+    this.theme$.subscribe(
+      (theme) => {
+        this.theme = theme
+      }
+    )
   }
 
   changeLanguage(language: Language): void {
@@ -66,5 +69,9 @@ export class NavbarComponent implements OnInit {
     this.sidebarMenuOpened
       ? this.sidebarMenuFacade.closeSidebarMenu()
       : this.sidebarMenuFacade.openSidebarMenu();
+  }
+  changeTheme(){
+    this.theme == 'green-theme' ? this.settingsFacade.changeTheme('BLACK-THEME') : this.settingsFacade.changeTheme('GREEN-THEME')
+
   }
 }

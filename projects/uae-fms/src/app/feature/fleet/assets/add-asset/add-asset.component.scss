@@ -3,7 +3,6 @@
 
 .upload-box {
   .file-name-size {
-    color: #0000005e;
     font-size: 12px;
   }
 
@@ -16,8 +15,13 @@
     cursor: pointer;
 
     div {
-      color: #0000005e;
+
       font-size: 12px;
     }
   }
+}
+
+ngx-file-drop {
+  display: block;
+  margin-bottom: 10px;
 }

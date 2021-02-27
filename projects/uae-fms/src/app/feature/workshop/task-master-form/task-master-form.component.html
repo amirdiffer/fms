@@ -1,94 +1,101 @@
-
-
 <!-- form-section -->
 <form [formGroup]="inputForm" (ngSubmit)="addRequest()">
-    <div class="button-container">
-        <button  class="btn-primary-medium btn-scondary-green" routerLink=".." type="button">{{ 'forms.cancel' | translate }}</button>
-        <button class="btn-primary-medium add" type="submit">{{ 'forms.add' | translate }}</button>
-    </div>
-    <div class="form-section mx-0">
-        <h3 class="form-section__title">Task Info</h3>
-        <div class="row form-section__row">
-            <div class="col-12 col-md-4 p-field form-section__field">
-                <span class="p-float-label">
-                    <input pInputText placeholder="{{ 'workshop.task_master.task_name' | translate }}" type="text" formControlName="taskName" [class.invalid]="!inputForm.get('taskName').valid && submited">
-                    <label [class.red-font]=" inputForm.get('taskName').invalid && submited">{{ 'workshop.task_master.task_name' | translate }} *</label>
-                </span>
-                <anms-error
-                [showError]="hasError('taskName',inputForm,submited)"
-                error="Please fill task name"></anms-error>
-            </div>
-            <div class="col-12 col-md-4 p-field form-section__field">
-                <span class="p-float-label">
-                    <input pInputText placeholder="{{ 'workshop.task_master.instruction' | translate }}" type="text" formControlName="instruction"  [class.invalid]="!inputForm.get('instruction').valid && submited">
-                    <label [class.red-font]=" inputForm.get('instruction').invalid && submited">{{ 'workshop.task_master.instruction' | translate }} *</label>
-                </span>
-                <anms-error
-                [showError]="hasError('instruction',inputForm,submited)"
-                error="Please fill instruction"></anms-error>
-            </div>
-            <div class="col-12 col-md-4 p-field form-section__field">
-                <span class="p-float-label">
-                    <input pInputText placeholder="{{ 'workshop.task_master.rate_per_hour' | translate }}" type="text" formControlName="ratePerHour" [class.invalid]="!inputForm.get('ratePerHour').valid && submited">
-                    <label [class.red-font]=" inputForm.get('ratePerHour').invalid && submited">{{ 'tables.column.rate_per_hour' | translate }}</label>
-                </span>
-                <anms-error
-                [showError]="hasError('ratePerHour',inputForm,submited)"
-                error="Please fill Rate per hour"></anms-error>
-            </div>
+  <div class="button-container">
+    <button class="btn-primary-medium btn-scondary-green" routerLink=".." type="button">Cancel</button>
+    <button class="btn-primary-medium add" type="submit">Add</button>
+  </div>
+  <div class="row">
+    <div class="form-section mx-0 fix">
+      <h3 class="form-section__title">Task Info</h3>
+      <div class="row form-section__row">
+        <div class="col-12 col-md-4 p-field form-section__field">
+          <span class="p-float-label">
+            <input pInputText placeholder="Task Name *" type="text" formControlName="taskName"
+              [class.invalid]="!inputForm.get('taskName').valid && submited">
+            <label [class.red-font]=" inputForm.get('taskName').invalid && submited">Task Name *</label>
+          </span>
+          <anms-error [showError]="hasError('taskName',inputForm,submited)" error="Please fill task name">
+          </anms-error>
         </div>
-        <div class="row form-section__row">
-            <div class="col-12 col-md-4 p-field form-section__field">
-                <span class="p-float-label">
-                    <input pInputText placeholder="{{ 'workshop.task_master.time_estimate' | translate }}" type="text" formControlName="timeEstimate" [class.invalid]="!inputForm.get('timeEstimate').valid && submited">
-                    <label [class.red-font]=" inputForm.get('timeEstimate').invalid && submited">{{ 'workshop.task_master.time_estimate' | translate }} *</label>
-                </span>
-                <anms-error
-                [showError]="hasError('timeEstimate',inputForm,submited)"
-                error="Please fill time estimate"></anms-error>
-            </div>
-            <div class="col-12 col-md-8 " formArrayName="skill">
-                <div class="p-inputgroup flex-wrap d-flex w-100 flex-wrap">
-                    <div class="p-field form-section__field flex-with-button w-100">
-                        <ng-container *ngFor="let skill of inputForm.get('skill')['controls']; let i=index">
-                            <span class="p-float-label flex-with-button w-100 mb-1">
-                                <input type="text" id="inputgroup" pInputText placeholder="Skills" [formControlName]="i" [class.invalid]="!inputForm.get('skill')['controls'][i].valid && submited">
-                                <label [class.red-font]=" inputForm.get('skill')['controls'][i].invalid && submited">{{ 'workshop.task_master.skills' | translate }}</label>
-                              <span *ngIf="i == 0" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}" (click)="addSkill()">
-                                  <i class="pi pi-plus"></i>
-                              </span>
-                            </span>
-                            <small class="error-input" [class.d-none]=" inputForm.get('skill')['controls'][i].valid || !submited">{{ 'workshop.task_master.please_fill_skill' | translate }}</small>
-                        </ng-container>
-                    </div>
-                </div>
-            </div>
+        <div class="col-12 col-md-4 p-field form-section__field">
+          <span class="p-float-label">
+            <input pInputText placeholder="Instruction *" type="text" formControlName="instruction"
+              [class.invalid]="!inputForm.get('instruction').valid && submited">
+            <label [class.red-font]=" inputForm.get('instruction').invalid && submited">Instruction *</label>
+          </span>
+          <anms-error [showError]="hasError('instruction',inputForm,submited)" error="Please fill instruction">
+          </anms-error>
         </div>
+        <div class="col-12 col-md-4 p-field form-section__field">
+          <span class="p-float-label">
+            <input pInputText placeholder="Rate per Hour" type="text" formControlName="ratePerHour"
+              [class.invalid]="!inputForm.get('ratePerHour').valid && submited">
+            <label [class.red-font]=" inputForm.get('ratePerHour').invalid && submited">Rate per Hour</label>
+          </span>
+          <anms-error [showError]="hasError('ratePerHour',inputForm,submited)" error="Please fill Rate per hour">
+          </anms-error>
+        </div>
+      </div>
+      <div class="row form-section__row">
+        <div class="col-12 col-md-4 p-field form-section__field">
+          <span class="p-float-label">
+            <input pInputText placeholder="Time Estimate (hours) *" type="text" formControlName="timeEstimate"
+              [class.invalid]="!inputForm.get('timeEstimate').valid && submited">
+            <label [class.red-font]=" inputForm.get('timeEstimate').invalid && submited">Time Estimate (hours)
+              *</label>
+          </span>
+          <anms-error [showError]="hasError('timeEstimate',inputForm,submited)" error="Please fill time estimate">
+          </anms-error>
+        </div>
+        <div class="col-12 col-md-8 " formArrayName="skill">
+          <div class="p-inputgroup flex-wrap d-flex w-100 flex-wrap">
+            <div class="p-field form-section__field flex-with-button w-100">
+              <ng-container *ngFor="let skill of inputForm.get('skill')['controls']; let i=index">
+                <span class="p-float-label flex-with-button w-100 mb-1">
+                  <input type="text" id="inputgroup" pInputText placeholder="Skills" [formControlName]="i"
+                    [class.invalid]="!inputForm.get('skill')['controls'][i].valid && submited">
+                  <label [class.red-font]=" inputForm.get('skill')['controls'][i].invalid && submited">Skills</label>
+                  <span *ngIf="i == 0" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}"
+                    (click)="addSkill()">
+                    <i class="pi pi-plus"></i>
+                  </span>
+                </span>
+                <small class="error-input"
+                  [class.d-none]=" inputForm.get('skill')['controls'][i].valid || !submited">Please fill skill</small>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <div class="row form-section__row">
-            <div class="col-12 col-md-3 form-section__field toggle-select">
-                <p-inputSwitch formControlName="needPart"></p-inputSwitch>
-                <span>{{ 'workshop.task_master.this_task_needs_part' | translate }}</span>
-            </div>
-            <div class="col-12 col-md-3" formArrayName="part">
-                <div class="p-inputgroup flex-wrap d-flex w-100 flex-wrap">
-                    <div class="p-field form-section__field flex-with-button w-100">
-                        <ng-container  *ngFor="let skill of inputForm.get('part')['controls']; let i=index">
-                            <span class="p-float-label flex-with-button w-100 mb-1">
-                                <input type="text" id="inputgroup" pInputText placeholder="Add Part" [formControlName]="i" [class.invalid]="!inputForm.get('part')['controls'][i].valid && submited">
-                                <label [class.red-font]=" inputForm.get('part')['controls'][i].invalid && submited">{{ 'workshop.task_master.add_part' | translate }}</label>
-                              <span *ngIf="i == 0" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}" (click)="addPart()">
-                                <i class="pi pi-plus"></i>
-                              </span>
-                            </span>
-                            <small class="error-input" [class.d-none]=" inputForm.get('part')['controls'][i].valid || !submited">{{ 'workshop.task_master.please_fill_part' | translate }}</small>
-
-                        </ng-container>
-                    </div>
-                </div>
-            </div>
+      <div class="row form-section__row">
+        <div class="col-12 col-md-3 form-section__field toggle-select">
+          <p-inputSwitch formControlName="needPart"></p-inputSwitch>
+          <span>This Task Needs Part</span>
         </div>
+        <div class="col-12 col-md-3" formArrayName="part">
+          <div class="p-inputgroup flex-wrap d-flex w-100 flex-wrap">
+            <div class="p-field form-section__field flex-with-button w-100">
+              <ng-container *ngFor="let skill of inputForm.get('part')['controls']; let i=index">
+                <span class="p-float-label flex-with-button w-100 mb-1">
+                  <input type="text" id="inputgroup" pInputText placeholder="Add Part" [formControlName]="i"
+                    [class.invalid]="!inputForm.get('part')['controls'][i].valid && submited">
+                  <label [class.red-font]=" inputForm.get('part')['controls'][i].invalid && submited">Add Part</label>
+                  <span *ngIf="i == 0" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}"
+                    (click)="addPart()">
+                    <i class="pi pi-plus"></i>
+                  </span>
+                </span>
+                <small class="error-input"
+                  [class.d-none]=" inputForm.get('part')['controls'][i].valid || !submited">Please fill part</small>
+
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </form>
 <!-- end form-section -->
 
