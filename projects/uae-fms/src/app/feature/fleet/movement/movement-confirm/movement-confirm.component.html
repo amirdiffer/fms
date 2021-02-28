@@ -27,7 +27,7 @@
             <!-- start department -->
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="Department *"
+                    <input pInputText placeholder="{{ 'movement.request.department' | translate }} *"
                         formControlName="department" required type="text">
                     <label>{{ 'movement.request.department' | translate }} *</label>
                 </span>
@@ -36,7 +36,7 @@
             <!-- start operator -->
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="Operator *"
+                    <input pInputText placeholder="{{ 'movement.request.operator' | translate }} *"
                         formControlName="operator" required type="text">
                     <label>{{ 'movement.request.operator' | translate }} *</label>
                 </span>
@@ -45,7 +45,7 @@
             <!-- start comment -->
             <div class="col-12 col-md-5 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="Comment"
+                    <input pInputText placeholder="{{ 'movement.request.comment' | translate }}"
                         formControlName="comment" type="text">
                     <label>{{ 'movement.request.comment' | translate }}</label>
                 </span>
@@ -97,7 +97,7 @@
             <!-- start gps -->
             <div class="col-12 col-md-5 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="GPS Master Source"
+                    <input pInputText placeholder="{{ 'movement.request.gps_master_source' | translate }}"
                         formControlName="gps" type="number">
                     <label>{{ 'movement.request.gps_master_source' | translate }}</label>
                 </span>
@@ -154,7 +154,7 @@
             <!-- start serialNumber -->
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="S/N"
+                    <input pInputText placeholder="{{ 'movement.request.s_n' | translate }}"
                         formControlName="serialNumber" type="number">
                     <label>{{ 'movement.request.s_n' | translate }}</label>
                 </span>
