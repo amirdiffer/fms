@@ -222,19 +222,24 @@ export class OrderListComponent implements OnInit {
   };
   myOrder_Table: TableSetting = {
     columns: [
-      { lable: 'Item', type: 1, field: 'Item' },
-      { lable: 'Part ID', type: 1, field: 'Part_ID' },
-      { lable: 'Quantity', type: 1, field: 'Quantity' },
-      { lable: 'Date', type: 1, field: 'Date' },
-      { lable: 'Description', type: 1, field: 'Description' },
+      { lable: 'tables.column.item', type: 1, field: 'Item' },
+      { lable: 'tables.column.part_id', type: 1, field: 'Part_ID' },
+      { lable: 'tables.column.quantity', type: 1, field: 'Quantity' },
+      { lable: 'tables.column.date', type: 1, field: 'Date' },
+      { lable: 'tables.column.description', type: 1, field: 'Description' },
       {
-        lable: 'Expected Receive date',
+        lable: 'tables.column.expected_receive_date',
         type: 1,
         field: 'Expected_Receive_date'
       },
-      { lable: 'Cost', type: 1, field: 'Cost' },
-      { lable: 'Total', type: 1, field: 'Total' },
-      { lable: 'Status', type: 1, field: 'Status', renderer: 'statusRenderer' },
+      { lable: 'tables.column.cost', type: 1, field: 'Cost' },
+      { lable: 'tables.column.total', type: 1, field: 'Total' },
+      {
+        lable: 'tables.column.status',
+        type: 1,
+        field: 'Status',
+        renderer: 'statusRenderer'
+      },
       { lable: '', type: 1, field: 'ButtonRecived', renderer: 'buttonRenderer' }
     ],
     data: [
@@ -359,12 +364,12 @@ export class OrderListComponent implements OnInit {
   };
   suppliers_Table: TableSetting = {
     columns: [
-      { lable: 'Company', type: 1, field: 'Company' },
-      { lable: 'Name', type: 1, field: 'Name' },
-      { lable: 'Email', type: 1, field: 'Email' },
-      { lable: 'Phone', type: 1, field: 'Phone' },
-      { lable: 'Address', type: 1, field: 'Address' },
-      { lable: 'Quotation', type: 1, field: 'Quotation' }
+      { lable: 'tables.column.company', type: 1, field: 'Company' },
+      { lable: 'tables.column.name', type: 1, field: 'Name' },
+      { lable: 'tables.column.email', type: 1, field: 'Email' },
+      { lable: 'tables.column.phone', type: 1, field: 'Phone' },
+      { lable: 'tables.column.address', type: 1, field: 'Address' },
+      { lable: 'tables.column.quotation', type: 1, field: 'Quotation' }
     ],
     data: [
       {
