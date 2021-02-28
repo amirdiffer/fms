@@ -7,7 +7,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetCategoryComponent implements OnInit {
-  categories = ['filter.asset', 'filter.sub_asset', 'filter.accessory'];
   constructor() {}
 
   ngOnInit(): void {}
