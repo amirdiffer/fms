@@ -1,20 +1,15 @@
 export interface IUser {
   id: number;
   employeeNumber: number;
-  organizationId: number;
-  departmentId: number;
-  roleId: number;
-  isActive: boolean;
-  profileDocId: number;
   firstName: string;
   lastName: string;
+  profileDocId: number;
+  organizationId: number;
+  departmentId: number;
   emails: string[];
   phoneNumbers: string[];
-  notifyByEmail: boolean;
-  notifyByPush: boolean;
-  notifyByCall: boolean;
-  notifyBySMS: boolean;
-  notifyByWhatsApp: boolean;
+  isActive: boolean;
+  roleId: number;
 }
 
 export interface IRole {
