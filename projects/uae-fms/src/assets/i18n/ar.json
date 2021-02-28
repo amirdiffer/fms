@@ -471,6 +471,12 @@
       "select_item_category": "حدد فئة العنصر"
     }
   },
+  "reports": {},
+  "integration": {
+    "type": "النوع",
+    "company_name": "اسم الشركة",
+    "grp": "GRP"
+  },
   "workshop": {
     "body_shop": {
       "requests": {

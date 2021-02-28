@@ -487,6 +487,12 @@
       "supplier": "Supplier"
     }
   },
+  "reports": {},
+  "integration": {
+    "type": "Type",
+    "company_name": "Company Name",
+    "grp": "GRP"
+  },
   "workshop": {
     "body_shop": {
       "requests": {
