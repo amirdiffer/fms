@@ -23,7 +23,7 @@ export class TaskMasterService {
   public tableSetting = {
     columns: [
       {
-        lable: 'Task Name',
+        lable: 'tables.column.task_name',
         field: 'taskName',
         width: 100,
         type: 1,
@@ -31,7 +31,7 @@ export class TaskMasterService {
         renderer: ''
       },
       {
-        lable: 'Time Estimate',
+        lable: 'tables.column.time_estimate',
         field: 'timeEstimate',
         width: 100,
         type: 1,
@@ -39,7 +39,7 @@ export class TaskMasterService {
         renderer: ''
       },
       {
-        lable: 'Instrunction',
+        lable: 'tables.column.instruction',
         field: 'instrunction',
         width: 200,
         type: 2,
@@ -47,7 +47,7 @@ export class TaskMasterService {
         renderer: ''
       },
       {
-        lable: 'Rate Per Hour',
+        lable: 'tables.column.rate_per_hour',
         field: 'ratePerHour',
         width: 100,
         type: 1,
@@ -55,7 +55,7 @@ export class TaskMasterService {
         renderer: ''
       },
       {
-        lable: 'Skill',
+        lable: 'tables.column.skill',
         field: 'skill',
         width: 100,
         type: 1,
@@ -63,7 +63,7 @@ export class TaskMasterService {
         renderer: ''
       },
       {
-        lable: 'Part',
+        lable: 'tables.column.part',
         field: 'part',
         width: 100,
         type: 1,
