@@ -36,10 +36,10 @@ import { environment } from '../../../../environments/environment';
       }
 
       .cell .vehicle-image {
-        max-width: 50px;
-        max-height: 50px;
+        max-width: 3.5em;
+        max-height: 3.5em;
         border-radius: 4px;
-        margin: 10px;
+        margin: .6em;
       }
 
       .cell .vehicle-name {
@@ -49,6 +49,7 @@ import { environment } from '../../../../environments/environment';
         margin: 5px;
         display: flex;
         flex-direction: column;
+        align-self: center;
       }
     `
   ]
