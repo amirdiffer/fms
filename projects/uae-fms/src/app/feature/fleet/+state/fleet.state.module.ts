@@ -21,8 +21,8 @@ import {
   MovementRequestsFacade,
   MovementRequestsService
 } from './movement';
-import {OperatorFacade, OperatorService} from './operator/index'
-import { AccessoryFacade , AccessoryService} from './accessory/index'
+import { OperatorFacade, OperatorService } from './operator/index';
+import { AccessoryFacade, AccessoryService } from './accessory/index';
 import { SubAssetEffect } from './sub-asset/sub-asset.effect';
 import { SubAssetFacade, SubAssetService } from './sub-asset';
 import {
@@ -39,7 +39,7 @@ import { OrganizationEffects } from '../+state/organization/organization-effects
       CustomizationEffects,
       RegistrationEffects,
       OrganizationEffects,
-      SubAssetEffect,
+      SubAssetEffect
     ]),
     EffectsModule.forFeature([MovementOverviewFacade, MovementRequestsFacade])
   ],
@@ -63,7 +63,7 @@ import { OrganizationEffects } from '../+state/organization/organization-effects
     OrganizationService,
     OrganizationFacade,
     SubAssetFacade,
-    SubAssetService,
+    SubAssetService
   ]
 })
 export class FleetStateModule {}
