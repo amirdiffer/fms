@@ -16,6 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
         width: 24px;
         height: 24px;
         color: #0da06e;
+        cursor: pointer;
       }
     `
   ]

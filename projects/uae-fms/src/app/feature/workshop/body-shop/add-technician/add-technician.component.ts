@@ -98,29 +98,29 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   addTechnician_Table: TableSetting = {
     columns: [
       {
-        lable: 'Technician',
+        lable: 'tables.column.technician',
         field: 'technician',
         renderer: 'userRenderer',
         thumbField: 'picture'
       },
-      { lable: 'Skill', field: 'skill', type: ColumnType.lable },
+      { lable: 'tables.column.skill', field: 'skill', type: ColumnType.lable },
       {
-        lable: 'Status',
+        lable: 'tables.column.status',
         field: 'status',
         type: ColumnType.lable,
         width: 120,
         textColor: '#6870B4'
       },
-      { lable: 'Tasks', field: 'tasks', type: ColumnType.lable, width: 120 },
+      { lable: 'tables.column.tasks', field: 'tasks', type: ColumnType.lable, width: 120 },
       {
-        lable: 'Information',
+        lable: 'tables.column.information',
         field: 'information',
         type: ColumnType.lable,
         width: 100,
         renderer: 'informationRenderer'
       },
       {
-        lable: 'Rate Per Hour',
+        lable: 'tables.column.rate_per_hour',
         field: 'ratePerHour',
         type: ColumnType.lable,
         width: 100
