@@ -15,7 +15,7 @@ import { delayWhen } from 'rxjs/operators';
 import { AppState } from '../core.state';
 import { RouterStateUrl } from '../router/router.state';
 import { SidebarMenuFacade } from './state/sidebar-menu.facade';
-import { WindowResizeService, ResizeEvent } from '../general-services';
+import { WindowResizeService, ResizeEvent, RouterService } from '../general-services';
 
 @Component({
   selector: 'app-sidebar-manu',
@@ -33,13 +33,9 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
   );
 
   urlGroup = [];
+  collapsedMenu = "";
 
   public activeGroup: string = '';
-  toggleGroup(item: MenuItem): void {
-    this.activeGroup == item.name || this.activeGroup == ''
-      ? (this.activeGroup = 'root')
-      : (this.activeGroup = item.name);
-  }
 
   usingMenu = [];
   mainMenu = [
@@ -101,7 +97,8 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'Service Shop',
           icon: 'service-shop',
-          route: '/workshop/service-shop'
+          route: '/workshop/service-shop',
+          disabled: true
         },
         {
           name: 'sidebar.workshop.inspection.~',
@@ -147,7 +144,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         }
       ]
     },
-    { name: 'sidebar.report', icon: 'report', route: '/report' },
+    { name: 'sidebar.report', icon: 'report', route: '/report', disabled: true },
     {
       name: 'sidebar.configuration.~',
       icon: 'configuration',
@@ -171,7 +168,8 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             {
               name: 'sidebar.configuration.user_management.company_profile',
               icon: 'organization',
-              route: '/configuration/user-management/company-setting'
+              route: '/configuration/user-management/company-setting',
+              disabled: true
             }
           ]
         },
@@ -230,14 +228,16 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private facade: SidebarMenuFacade,
-    private resizeService: WindowResizeService
-  ) {}
+    private resizeService: WindowResizeService,
+    private routerService: RouterService
+  ) { }
 
   ngOnInit() {
     this.usingMenu = this.mainMenu;
 
     this.route$.subscribe((x) => {
       if (x?.state?.url) this.urlGroup = x.state.url.split('/');
+      this.collapsedMenu = "/"+x.state.url.split('/')[1]
     });
 
     this.checkMenuState = this.opened$.subscribe((x) => {
@@ -283,10 +283,25 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     }
     return this.urlGroup.indexOf(r) >= 0 && this.activeGroup != 'root';
   }
+
+  toggleGroup(item: MenuItem): void {
+    if (item.items) {
+      /* this.activeGroup == item.name || this.activeGroup == ''
+        ? (this.activeGroup = 'root')
+        : (this.activeGroup = item.name); */
+      if (this.collapsedMenu == item.route)
+        this.collapsedMenu = 'root';
+      else
+        this.collapsedMenu = item.route;
+    } else {
+      if (!item.disabled) this.routerService.navigate(item.route);
+    }
+  }
 }
 
 export abstract class MenuItem {
   name: string;
   items: object[];
   route: string;
+  disabled?: boolean;
 }
