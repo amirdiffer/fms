@@ -21,7 +21,7 @@ export class AppErrorHandler extends ErrorHandler {
       displayMessage += ' See console for details.';
     }
 
-    this.notificationsService.error(displayMessage);
+    // this.notificationsService.error(displayMessage);
 
     super.handleError(error);
   }

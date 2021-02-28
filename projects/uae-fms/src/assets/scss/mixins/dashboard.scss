@@ -17,7 +17,6 @@
   .dashboard-container {
     h6.card-header {
       color: $headerColor;
-      background: $headerBackground;
       font-size: $headerFontSize;
       font-weight: bold;
     }
@@ -36,7 +35,7 @@
 
     .dashboard-card {
       box-shadow: -8px 12px 18px $dashboardCardBoxShadowColor;
-      background: $dashboardCardBackground;
+
     }
   }
 
