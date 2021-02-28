@@ -20,21 +20,11 @@ import { AddPartMasterComponent } from './part-master/add-part-master/add-part-m
 import { PartMasterComponent } from './part-master/part-master.component';
 import { PartOverviewComponent } from './part-overview/part-overview.component';
 import { PartStoreRoutingModule } from './part-store-routing.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [
-    PartListComponent,
-    PartListFormComponent,
-    CategoryComponent,
-    AssetTypeComponent,
-    OrderListComponent,
-    PartMasterComponent,
-    AddPartMasterComponent,
-    OrderFormComponent,
-    OrderListComponent,
-    PartOverviewComponent
-  ],
   imports: [
+    TranslateModule,
     CommonModule,
     FilterModule,
     TabViewModule,
@@ -47,6 +37,18 @@ import { PartStoreRoutingModule } from './part-store-routing.module';
     SharedModule,
     DashboardModule,
     PartStoreStateModule
+  ],
+  declarations: [
+    PartListComponent,
+    PartListFormComponent,
+    CategoryComponent,
+    AssetTypeComponent,
+    OrderListComponent,
+    PartMasterComponent,
+    AddPartMasterComponent,
+    OrderFormComponent,
+    OrderListComponent,
+    PartOverviewComponent
   ]
 })
 export class PartStoreModule {}

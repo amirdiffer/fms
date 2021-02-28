@@ -14,7 +14,6 @@
         <button class="btn-download" disabled>
             <svg-icon [src]="downloadBtn"></svg-icon>
         </button>
-        <button *ngIf="activeTab == 'Asset Traffic Fine'" routerLink="/fuel-management/add-fuel-card" class="btn-primary-small"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
       </span>
       <div title="{{ 'tabs.asset' | translate }}">
         <app-table [setting]='trafficFine_Table'></app-table>
