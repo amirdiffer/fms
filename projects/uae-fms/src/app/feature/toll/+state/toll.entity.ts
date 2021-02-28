@@ -16,6 +16,7 @@ export interface TollState extends EntityState<TollStateModel> {
   error?: any;
   loaded?: boolean;
   message?: string;
+  assignNow?: object;
 }
 
 export interface TollPartialState {
@@ -29,5 +30,6 @@ export const tollAdapter: EntityAdapter<TollStateModel> = createEntityAdapter<
 export const initialState: TollState = tollAdapter.getInitialState({
   error: null,
   loaded: null,
-  message: null
+  message: null,
+  assignNow: null,
 } as TollState);
