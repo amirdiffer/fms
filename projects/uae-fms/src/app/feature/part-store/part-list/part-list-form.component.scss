@@ -1,37 +1,8 @@
+@import '../../../../themes/green-theme.scss';
 @import '../../../../assets/scss/form-section.scss';
-
-:host ::ng-deep {
-  .card.parent {
-    height: 45px;
-    margin: 20px 20px 20px 0px;
-  }
-  mat-card {
-    box-shadow: 0px 0px 2px #0000003d !important;
-    mat-card-title {
-      font-weight: bold;
-    }
-    span.border {
-      position: absolute;
-      width: 100%;
-      left: 0;
-      border: none !important;
-      background: #e9ecef;
-      height: 1px;
-    }
+.row {
+  margin-top: 10px !important;
+  .form-section:first-child {
+    margin-top: 0 !important;
   }
 }
-.card-table-header {
-  font-weight: bold;
-  font-size: 20px;
-}
-.card-table {
-  background: #ffff;
-  box-shadow: 0px 0px 2px #0000003d;
-  border-radius: 4px;
-}
-.card-table-header {
-  position: relative;
-  display: flex;
-  padding-left: 25px;
-}
-

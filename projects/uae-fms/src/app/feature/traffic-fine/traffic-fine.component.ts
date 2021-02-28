@@ -15,28 +15,28 @@ export class TrafficFineComponent implements OnInit {
   assets = assetsPath;
   activeTab = 'Traffic Fine';
   downloadBtn = 'assets/icons/download-solid.svg';
-  searchIcon= 'assets/icons/search-solid.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   filterCard: FilterCardSetting[] = [
     {
-      filterTitle: 'Total',
+      filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#6F89A7',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'Paid',
+      filterTitle: 'statistic.paid',
       filterCount: '356',
       filterTagColor: '#4F4198',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'Unpainted',
+      filterTitle: 'statistic.unpainted',
       filterCount: '124',
       filterTagColor: '#EB941D',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'Deducte',
+      filterTitle: 'statistic.deducte',
       filterCount: '12',
       filterTagColor: '#F75A4A',
       onActive(index: number) {}
@@ -44,29 +44,49 @@ export class TrafficFineComponent implements OnInit {
   ];
   trafficFine_Table: TableSetting = {
     columns: [
-      { lable: 'TC Code', type: 1, field: 'TC_Code', width: 100 },
-      { lable: 'Type', type: 1, field: 'Type', width: 100 },
-      { lable: 'Department', type: 1, field: 'Department', width: 100 },
+      { lable: 'tables.column.tc_code', type: 1, field: 'TC_Code', width: 100 },
+      { lable: 'tables.column.type', type: 1, field: 'Type', width: 100 },
       {
-        lable: 'Operator',
+        lable: 'tables.column.department',
+        type: 1,
+        field: 'Department',
+        width: 100
+      },
+      {
+        lable: 'tables.column.operator',
         type: 1,
         field: 'Operator',
         renderer: 'doubleLineRenderer',
         width: 100
       },
-      { lable: 'Plate No', type: 1, field: 'Plate_No', width: 100 },
-      { lable: 'Mission Status', type: 1, field: 'Mission_Status',width: 100  },
       {
-        lable: 'Time/Date',
+        lable: 'tables.column.plate_no',
+        type: 1,
+        field: 'Plate_No',
+        width: 100
+      },
+      {
+        lable: 'tables.column.mission_status',
+        type: 1,
+        field: 'Mission_Status',
+        width: 100
+      },
+      {
+        lable: 'tables.column.time_date',
         type: 1,
         field: 'Time_Date',
         renderer: 'doubleLineRenderer',
         width: 100
       },
-      { lable: 'Duration', type: 1, field: 'Duration' ,width: 100 },
-      { lable: 'Status', type: 1, field: 'Status',width: 100  },
-      { lable: 'User', type: 1, field: 'User',width: 100  },
-      { lable: 'Amount', type: 1, field: 'Amount',width: 100  }
+      {
+        lable: 'tables.column.duration',
+        type: 1,
+        field: 'Duration',
+        width: 100
+      },
+      { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
+      { lable: 'tables.column.user', type: 1, field: 'User', width: 100 },
+      { lable: 'tables.column.amount', type: 1, field: 'Amount', width: 100 }
     ],
     data: [
       {
@@ -200,26 +220,41 @@ export class TrafficFineComponent implements OnInit {
   assetTraffic_Table: TableSetting = {
     columns: [
       {
-        lable: 'Asset',
+        lable: 'tables.column.asset',
         type: 1,
         field: 'asset',
         renderer: 'assetsRenderer',
         thumbField: '',
         width: 200
       },
-      { lable: 'Plate Number', type: 1, field: 'Plate_Number', width:100 },
-      { lable: 'Type', type: 1, field: 'Type', width:100 },
       {
-        lable: 'Operator',
+        lable: 'tables.column.plate_number',
+        type: 1,
+        field: 'Plate_Number',
+        width: 100
+      },
+      { lable: 'Type', type: 1, field: 'Type', width: 100 },
+      {
+        lable: 'tables.column.operator',
         type: 1,
         field: 'Operator',
         renderer: 'doubleLineRenderer',
-        width:100
+        width: 100
       },
-      { lable: 'Status', type: 1, field: 'Status', width:100 },
-      { lable: 'Business Category', type: 1, field: 'Business_Category', width:100 },
-      { lable: 'Total Fines', type: 1, field: 'Total_Fines', width:100 },
-      { lable: 'Amount', type: 1, field: 'Amount', width:100 }
+      { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
+      {
+        lable: 'tables.column.business_category',
+        type: 1,
+        field: 'Business_Category',
+        width: 100
+      },
+      {
+        lable: 'tables.column.total_fines',
+        type: 1,
+        field: 'Total_Fines',
+        width: 100
+      },
+      { lable: 'tables.column.amount', type: 1, field: 'Amount', width: 100 }
     ],
     data: [
       {

@@ -39,6 +39,7 @@ import { CheckAccessDirective } from '@core/directive/check-access.directive';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 @NgModule({
   imports: [
     CommonModule,
@@ -120,7 +121,8 @@ import { NgxFileDropModule } from 'ngx-file-drop';
     CheckboxModule,
     MatStepperModule,
     MatProgressBarModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    OverlayPanelModule
   ]
 })
 export class SharedModule {

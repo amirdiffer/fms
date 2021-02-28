@@ -1,6 +1,12 @@
-::ng-deep .ng-star-inserted {
-  text-overflow: ellipsis;
-  // overflow: hidden;
+:host ::ng-deep {
+  thead {
+    tr th > div > p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+  }
 }
 
 .thumb {

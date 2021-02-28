@@ -1,5 +1,31 @@
-.mat-card-header {
+@import '../../../../../assets/scss/form-section.scss';
+
+.header-with-button {
   display: flex;
+  align-items: baseline;
+
+  h3 {
+    flex: 0 0 85%;
+  }
+  button.add-asset {
+    flex: 0 0 15%;
+    height: 2.2em;
+    width: 2.2em;
+    max-height: 2.2em;
+    max-width: 2.2em;
+    border: 1px solid #009c62;
+    border-radius: 0.3em;
+    background-color: #fff;
+    position: relative;
+    a {
+      position: absolute;
+      color: #0da06e;
+      margin: 0;
+      font-size: 2.2em;
+      top: -0.2em;
+      left: 0.2em;
+    }
+  }
 }
 :host ::ng-deep {
   .mat-card-header-text {
@@ -11,30 +37,11 @@
 mat-card {
   margin-top: 15px;
 }
-button.add-asset {
-  flex: 0 0 15%;
-  height: 34px;
-  width: 34px;
-  max-height: 34px;
-  max-width: 34px;
-  border: 1px solid #009c62;
-  border-radius: 5px;
-  background-color: #fff;
-  position: relative;
-  a {
-    position: absolute;
-    color: #0da06e;
-    margin: 0;
-    font-size: 35px;
-    top: -9px;
-    left: 6px;
-  }
-}
 
 .category-subItem {
-  font-size: 15px;
-  height: 45px;
-  max-height: 45px;
+  font-size: 1em;
+  height: 2.8em;
+  max-height: 2.8em;
   display: flex;
   align-items: center;
   margin: 0 5px;
@@ -43,19 +50,19 @@ button.add-asset {
 .category-item {
   display: flex;
   align-items: center;
-  height: 45px;
-  max-height: 45px;
+  height: 2.8em;
+  max-height: 2.8em;
   margin: 0 5px;
   span.item {
     flex: 0 0 85%;
-    font-size: 18px;
+    font-size: 1.1em;
     color: #707070;
   }
   a {
     position: relative;
     color: #707070;
     margin: 0;
-    font-size: 35px;
+    font-size: 2.2em;
     opacity: 0.57;
     flex: 0 0 15%;
     text-align: center;
@@ -68,7 +75,7 @@ button.add-asset {
   margin: 15px 5px;
 
   span.item {
-    font-size: 18px;
+    font-size: 1.1em;
     color: #707070;
     margin-left: 12px;
   }
@@ -76,7 +83,7 @@ button.add-asset {
     position: relative;
     color: #707070;
     margin: 0;
-    font-size: 35px;
+    font-size: 2.2em;
     opacity: 0.57;
   }
 }

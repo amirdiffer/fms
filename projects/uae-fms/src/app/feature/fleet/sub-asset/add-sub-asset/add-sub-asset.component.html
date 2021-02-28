@@ -17,7 +17,6 @@
           <anms-error
             [showError]="hasError('subAssetType',subAssetForm,submited)"
             error="forms.feedback.required"></anms-error>
-        </span>
       </div>
     </div>
     <div class="row form-section__row">
@@ -30,7 +29,6 @@
           <anms-error
             [showError]="hasError('make',subAssetForm,submited)"
             error="forms.feedback.required"></anms-error>
-        </span>
       </div>
       <div class="col-12 col-md-3 p-field form-section__field options-select">
         <span class="p-float-label">
@@ -41,7 +39,6 @@
           <anms-error
             [showError]="hasError('model',subAssetForm,submited)"
             error="forms.feedback.required"></anms-error>
-        </span>
       </div>
       <div class="col-12 col-md-3 p-field form-section__field options-select">
         <span class="p-float-label">
@@ -52,7 +49,6 @@
           <anms-error
             [showError]="hasError('year',subAssetForm,submited)"
             error="forms.feedback.required"></anms-error>
-        </span>
       </div>
       <div class="col-12 col-md-3 p-field form-section__field options-select">
         <span class="p-float-label">
@@ -63,7 +59,6 @@
           <anms-error
             [showError]="hasError('origin',subAssetForm,submited)"
             error="forms.feedback.required"></anms-error>
-        </span>
       </div>
     </div>
 
@@ -72,7 +67,7 @@
   <div class="form-section">
     <h3 class="form-section__title">{{'sub_asset.financial' | translate}}</h3>
     <div class="row form-section__row">
-      <div class="col-12 col-md-5 p-field form-section__field options-select">
+      <div class="col-12 col-md-5 p-field form-section__field dropdown-select">
         <span class="p-float-label">
           <p-dropdown inputId="policyType" [autoDisplayFirst]="false"
             [options]="policyTypes"
@@ -81,7 +76,6 @@
           <anms-error
             [showError]="hasError('policyType',subAssetForm,submited)"
             error="forms.feedback.required"></anms-error>
-        </span>
       </div>
 
       <div class="col-12 col-md-5 p-field form-section__field">
@@ -94,10 +88,14 @@
             error="forms.feedback.required">
           </anms-error>
         </span>
+        <anms-error
+        [showError]="hasError('purchaseValue',subAssetForm,submited)"
+        error="forms.feedback.required">
+      </anms-error>
       </div>
     </div>
   </div>
-  <div class="form-section" formArrayName = "warranties">
+  <div class="form-section component_wrapper" formArrayName = "warranties">
     <h3 class="form-section__title"><span class='plus-icon' (click)="addWarranty()">
       <svg-icon src='../../../../../assets/icons/add.svg'
         [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
@@ -146,7 +144,7 @@
     </div>
   </div>
 
-  <div class="form-section">
+  <div class="form-section component_wrapper">
     <div class="row form-section__row">
       <div class="col-12 col-md-12 p-field form-section__field">
         <span class="p-float-label">
@@ -161,6 +159,6 @@
 
   </div>
 
-  
+
 
 </form>

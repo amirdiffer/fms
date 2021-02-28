@@ -23,47 +23,51 @@ export class AuctionListComponent implements OnInit, OnDestroy {
     {
       filterCount: '',
       filterTagColor: '',
-      filterTitle: 'This Month',
+      filterTitle: 'statistic.this_month',
       isCalendar: true,
       onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
-      filterTitle: 'Total',
+      filterTitle: 'statistic.total',
       onActive: () => {}
     },
     {
       filterCount: '08',
       filterTagColor: '#6870B4',
-      filterTitle: 'Out of Policy',
+      filterTitle: 'statistic.out_of_policy',
       onActive: () => {}
     },
     {
       filterCount: '02',
       filterTagColor: '#BA7967',
-      filterTitle: 'Total lost',
+      filterTitle: 'statistic.total_lost',
       onActive: () => {}
     },
     {
       filterCount: '09',
       filterTagColor: '#DD5648',
-      filterTitle: 'Accident',
+      filterTitle: 'statistic.accident',
       onActive: () => {}
     }
   ];
 
   settingTable1: TableSetting = {
     columns: [
-      { lable: 'Item', field: 'item', renderer: 'vehicleRenderer' },
-      { lable: 'Created by', field: 'createdBy' },
-      { lable: 'Reason', field: 'reason', width: 100 },
-      { lable: 'Assignment', field: 'assignment' },
-      { lable: 'Estimated Market Va..', field: 'estimatedMarket' },
-      { lable: 'Date', field: 'date' },
-      { lable: 'Location', field: 'location', width: 120 },
       {
-        lable: 'Remove Item',
+        lable: 'tables.column.item',
+        field: 'item',
+        renderer: 'vehicleRenderer'
+      },
+      { lable: 'tables.column.created_by', field: 'createdBy' },
+      { lable: 'tables.column.reason', field: 'reason', width: 100 },
+      { lable: 'tables.column.assignment', field: 'assignment' },
+      { lable: 'tables.column.estimate_market', field: 'estimatedMarket' },
+      { lable: 'tables.column.date', field: 'date' },
+      { lable: 'tables.column.location', field: 'location', width: 120 },
+      {
+        lable: 'tables.column.remove_item',
         field: 'removeItem',
         width: 100,
         renderer: 'booleanRenderer'
@@ -165,13 +169,20 @@ export class AuctionListComponent implements OnInit, OnDestroy {
 
   settingTable2: TableSetting = {
     columns: [
-      { lable: 'Item', field: 'item', renderer: 'vehicleRenderer' },
-      { lable: 'Buyer', field: 'buyer' },
-      { lable: 'Assigned to', field: 'assignedTo' },
-      { lable: 'Actual Market Value', field: 'actualMarketValue' },
-      { lable: 'Date', field: 'date' },
-      { lable: 'Description', field: 'description' },
-      { lable: 'Cost', field: 'cost', width: 90 }
+      {
+        lable: 'tables.column.item',
+        field: 'item',
+        renderer: 'vehicleRenderer'
+      },
+      { lable: 'tables.column.buyer', field: 'buyer' },
+      { lable: 'tables.column.assigned_to', field: 'assignedTo' },
+      {
+        lable: 'tables.column.actual_market_value',
+        field: 'actualMarketValue'
+      },
+      { lable: 'tables.column.date', field: 'date' },
+      { lable: 'tables.column.description', field: 'description' },
+      { lable: 'tables.column.cost', field: 'cost', width: 90 }
     ],
     data: [
       {

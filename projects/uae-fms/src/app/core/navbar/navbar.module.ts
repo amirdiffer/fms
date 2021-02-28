@@ -13,6 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CoreModule } from '../core.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { UserProfileModule } from '@feature/user/user.module';
+import { SharedModule } from '@shared/shared.module';
+import { SettingsFacade } from '@core/settings/settings.facade';
 
 @NgModule({
   imports: [
@@ -25,11 +27,12 @@ import { UserProfileModule } from '@feature/user/user.module';
     MatIconModule,
     CoreModule,
     AngularSvgIconModule,
-    UserProfileModule
+    UserProfileModule,
+    SharedModule
   ],
   exports: [NavbarComponent],
   declarations: [NavbarComponent],
-  providers: []
+  providers: [SettingsFacade]
 })
 export class NavbarModule {
   constructor(

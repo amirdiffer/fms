@@ -8,7 +8,8 @@ import {
   ContentChild,
   ChangeDetectorRef,
   Output,
-  EventEmitter
+  EventEmitter,
+  Input
 } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -23,11 +24,10 @@ export class TabViewComponent implements OnInit {
     string
   > = new EventEmitter<string>();
   @ViewChild('content', { static: false }) element: ElementRef;
-  tabs: { index: number; title: string }[] = [];
+  tabs: { index: number; title: string; id?: string }[] = [];
   initialized: boolean = false;
   elements: HTMLElement[];
   selectedTab: number = 0;
-
   constructor(public cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
@@ -38,12 +38,15 @@ export class TabViewComponent implements OnInit {
 
     if (this.elements.length > 0) {
       for (let i = 0; i < this.elements.length; i++) {
+        let tabID = this.elements[i].attributes.getNamedItem('id');
         tabs.push({
           index: i,
-          title: this.elements[i].attributes.getNamedItem('title').nodeValue
+          title: this.elements[i].attributes.getNamedItem('title').nodeValue,
+          id: tabID ? tabID.nodeValue : null
         });
       }
     }
+    console.log(tabs);
     this.tabs = tabs;
     this.initialized = true;
     this.selectedTabChanged();
@@ -64,5 +67,6 @@ export class TabViewComponent implements OnInit {
     this.selectedTab = index;
     this.selectedIndex.emit(title);
     this.selectedTabChanged();
+    console.log(index, title);
   }
 }

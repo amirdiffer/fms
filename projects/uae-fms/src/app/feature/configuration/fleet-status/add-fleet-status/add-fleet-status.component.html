@@ -1,14 +1,14 @@
 <form [formGroup]="fleetStatusForm">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">Cancel</button>
-    <button class="btn-primary-medium add" (click)="submit()">Add</button>
+    <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{ 'forms.cancel' | translate }}</button>
+    <button class="btn-primary-medium add" (click)="submit()">{{ 'forms.add' | translate }}</button>
   </div>
   <div class="form-section form-section--inline mx-0">
     <div class="row">
       <div class="col-12 col-md-6">
         <div class="row">
           <div class="col-12 col-md-4">
-            <h3 class="form-section__title">Type Category</h3>
+            <h3 class="form-section__title">{{ 'configuration.fleet_status.asset.type_category' | translate }}</h3>
           </div>
           <div class="col-12 col-md-8 mb-2 p-field align-self-center">
             <div class="row">
@@ -16,11 +16,11 @@
                 <div class="row">
                   <div class="form-check col-6">
                     <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="asset" value ="asset">
-                    <label class="form-check-label" for="asset">Asset</label>
+                    <label class="form-check-label" for="asset">{{ 'configuration.fleet_status.asset.asset' | translate }}</label>
                   </div>
                   <div class="form-check col-6">
                     <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="subAsset" value ="subAsset">
-                    <label class="form-check-label" for="subAsset">Sub Asset</label>
+                    <label class="form-check-label" for="subAsset">{{ 'configuration.fleet_status.asset.sub_asset' | translate }}</label>
                   </div>
                 </div>
               </div>
@@ -33,10 +33,10 @@
           <p-dropdown inputId="statusCategory" [autoDisplayFirst]="false"
             [options]="statusCategories"
             formControlName="statusCategory" optionLabel="name"></p-dropdown>
-          <label for="statusCategory">Status Category *</label>
+          <label for="statusCategory">{{ 'configuration.fleet_status.asset.status_category' | translate }} *</label>
           <anms-error
             [showError]="hasError('statusCategory',fleetStatusForm,submited)"
-            error="fms.errors.required">
+            error="forms.feedback.required">
           </anms-error>
         </span>
       </div>
@@ -44,11 +44,11 @@
       <div class="col-12 col-md-3 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="statusName" pInputText
-            placeholder="Status Name *" required type="text">
-          <label>Status Name *</label>
+            placeholder="{{ 'configuration.fleet_status.asset.status_name' | translate }} *" required type="text">
+          <label>{{ 'configuration.fleet_status.asset.status_name' | translate }} *</label>
           <anms-error
             [showError]="hasError('statusName',fleetStatusForm,submited)"
-            error="fms.errors.required">
+            error="forms.feedback.required">
           </anms-error>
         </span>
       </div>

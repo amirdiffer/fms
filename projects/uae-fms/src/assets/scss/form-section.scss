@@ -7,7 +7,6 @@
   box-shadow: 0px 0px 2px #0000003d;
   border-radius: 5px;
   &__title {
-    color: #333;
     font-size: 1em;
     margin-bottom: 25px;
   }
@@ -56,7 +55,6 @@
     p-calendar ~ label {
       height: 50%;
       width: max-content;
-      background: #fff;
     }
     input[type='text'] {
       font-size: 1em;
@@ -66,7 +64,6 @@
       & ~ label {
         height: 50%;
         width: 75%;
-        background: #fff;
       }
 
       &:focus {
@@ -130,7 +127,7 @@
         .p-inputtext {
           font-family: '29LT Bukra';
           font-size: 1em;
-          margin-top: 5px;
+          //margin-top: 5px;
         }
       }
       .p-dropdown:not(.p-disabled):hover {
@@ -235,7 +232,7 @@
       position: absolute;
       top: 10px;
       right: 10px;
-      opacity: .5;
+      opacity: 0.5;
     }
     .p-inputtext:enabled:focus {
       box-shadow: none;
@@ -284,6 +281,28 @@
       color: #dd5648 !important;
     }
   }
+  p-dropdown,
+  p-autocomplete {
+    .p-dropdown-panel,
+    .p-autocomplete-panel {
+      border-radius: 4px;
+      border: 1px solid transparent;
+      border-color: #0da06e;
+    }
+    ::-webkit-scrollbar {
+      width: 0.6em;
+    }
+
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+      border-radius: 0.25em;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 0.25em;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+    }
+  }
 }
 p-dropdown.invalid {
   ::ng-deep {
@@ -315,7 +334,7 @@ p-calendar.invalid {
     color: #dd5648 !important;
   }
 }
-
+/* Drop Down list */
 .options-select {
   ::ng-deep {
     .p-dropdown:not(.p-disabled).p-focus {
@@ -339,4 +358,8 @@ p-calendar.invalid {
       top: 17%;
     }
   }
+}
+
+.margin-top {
+  margin-top: 15px;
 }

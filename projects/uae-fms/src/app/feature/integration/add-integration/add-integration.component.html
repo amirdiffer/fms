@@ -1,5 +1,38 @@
 <form [formGroup] = "inputForm">
-    <div class="row">
+    <div class="mx-2">
+        <div class="row form-section__row">
+            <div class="col-12 col-md-2 p-field form-section__field options-select">
+                <span class="p-float-label">
+                  <p-dropdown inputId="statusCategory" [autoDisplayFirst]="false"
+                    [options]="types"
+                    formControlName="type" optionLabel="name"></p-dropdown>
+                  <label for="statusCategory">{{ 'integration.type' | translate }}</label>
+                </span>
+              </div>
+            <div class="col-12 col-md-2 p-field form-section__field">
+                <span class="p-float-label">
+                    <input formControlName="companyName" pInputText
+                        placeholder="Company Name"  type="text">
+                    <label>{{ 'integration.company_name' | translate }}</label>
+                </span>
+            </div>
+            <div class="col-12 col-md-2 p-field form-section__field">
+                <span class="p-float-label">
+                    <input formControlName="grp" pInputText
+                        placeholder="GRP" type="text">
+                    <label>{{ 'integration.grp' | translate }}</label>
+                </span>
+            </div>
+            <div class="col-12 col-md-3 p-field form-section__field">
+                <div class="d-flex h-100 position-relative ">
+                    <button class="btn-primary-small add h-100">{{ 'forms.save' | translate }}</button>&nbsp;&nbsp;&nbsp;
+                    <button class="btn-primary-small btn-scondary-green h-100" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- <div class="row">
         <div class="col-md-2">
             <mat-form-field appearance="fill">
                 <mat-label>Type</mat-label>
@@ -28,5 +61,5 @@
                 <button class="btn-primary-small btn-scondary-green" (click)="cancel()">Cancel</button>
             </div>
         </div>
-    </div>
+    </div> -->
 </form>

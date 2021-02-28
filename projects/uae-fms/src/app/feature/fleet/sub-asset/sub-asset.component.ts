@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { TableSetting } from '@core/table';
+import { SubAssetFacade } from '../+state/sub-asset';
 
 @Component({
   selector: 'anms-sub-asset',
@@ -178,7 +179,9 @@ export class SubAssetComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  constructor(private facade: SubAssetFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.facade.loadAll();
+  }
 }
