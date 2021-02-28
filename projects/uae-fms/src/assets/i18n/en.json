@@ -104,8 +104,8 @@
     "out_of_policy": "Out Of Policy",
     "total_lost": "Total Lost",
     "paid": "Paid",
-    "unpainted": "UnPainted",
-    "deducte": "Deducte"
+    "unpainted": "Un Painted",
+    "deducte": "Deducted"
   },
   "tabs": {
     "asset_master": "Asset Master",
