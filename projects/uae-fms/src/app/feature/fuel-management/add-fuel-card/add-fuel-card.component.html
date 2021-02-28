@@ -23,8 +23,9 @@
             <div class="col-12 col-md-3 p-field form-section__field
             dropdown-select">
               <span class="p-float-label">
-                <p-dropdown inputId="cardType" [options]="assetTypes" optionLabel="name"></p-dropdown>
-                <label for="room">{{ 'fuel_management.fuel_cards.card_type' | translate }}</label>
+                <p-dropdown inputId="cardType" [autoDisplayFirst]="false"
+                      [options]="assetTypes" optionLabel="name"></p-dropdown>
+                <label for="cardType">{{ 'fuel_management.fuel_cards.card_type' | translate }}</label>
               </span>
             </div>
             <div class="col-12 col-md-3 p-field form-section__field date-input">
