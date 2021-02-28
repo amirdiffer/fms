@@ -20,12 +20,12 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   downloadBtn = 'assets/icons/download-solid.svg';
   businessCategory_Table: TableSetting = {
     columns: [
-      { lable: 'Category Name', type: 1, field: 'Category_Name' },
-      { lable: 'Status', type: 1, field: 'Status' },
-      { lable: 'Description', type: 1, field: 'Description' },
-      { lable: 'Asset Type', type: 1, field: 'Asset_Type' },
-      { lable: 'Sub Asset', type: 1, field: 'Sub_Asset' },
-      { lable: 'Accessory', type: 1, field: 'Accessory' }
+      { lable: 'tables.column.category_name', type: 1, field: 'Category_Name' },
+      { lable: 'tables.column.status', type: 1, field: 'Status' },
+      { lable: 'tables.column.description', type: 1, field: 'Description' },
+      { lable: 'tables.column.asset_type', type: 1, field: 'Asset_Type' },
+      { lable: 'tables.column.sub_asset', type: 1, field: 'Sub_Asset' },
+      { lable: 'tables.column.accessory', type: 1, field: 'Accessory' }
     ],
     data: [
       {
