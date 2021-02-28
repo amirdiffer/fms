@@ -1,11 +1,16 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { TOLL_FEATURE_KEY, tollAdapter, TollState } from './toll.entity';
-const { selectAll } = tollAdapter.getSelectors();
+import { TOLL_FEATURE_KEY, tollAdapter } from './toll.entity';
 
 export class TollSelectors {
-  static tollSelector = createFeatureSelector<TollState>(TOLL_FEATURE_KEY);
+  static tollSelector = createSelector(
+    createFeatureSelector(TOLL_FEATURE_KEY),
+    (state) => state['toll']
+  );
 
-  static selectAll = createSelector(TollSelectors.tollSelector, selectAll);
+  static selectAll = createSelector(
+    TollSelectors.tollSelector,
+    tollAdapter.setAll
+  );
 
   static message = createSelector(
     TollSelectors.tollSelector,

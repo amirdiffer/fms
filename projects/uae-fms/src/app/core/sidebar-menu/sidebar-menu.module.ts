@@ -8,6 +8,7 @@ import { SidebarMenuComponent } from './sidebar-menu.component';
 import { SidebarMenuFacade } from './state/sidebar-menu.facade';
 import { GeneralServicesModule } from '../general-services';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,12 +16,13 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     RouterModule,
     StoreModule.forFeature('sidebarMenu', sidebarMenuReducer),
     GeneralServicesModule,
-    AngularSvgIconModule
+    AngularSvgIconModule,
+    SharedModule
   ],
   exports: [SidebarMenuComponent],
   declarations: [SidebarMenuComponent],
   providers: [SidebarMenuFacade]
 })
 export class SidebarMenuModule {
-  constructor() { }
+  constructor() {}
 }

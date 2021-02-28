@@ -1,21 +1,21 @@
 <form [formGroup]="addPeriodicServiceForm">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="goToList()">Cancel</button>
-    <button class="btn-primary-medium add" (click)="submit()">Add</button>
+    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="goToList()">{{ 'forms.cancel' | translate }}</button>
+    <button class="btn-primary-medium add" (click)="submit()">{{ 'search.add' | translate }}</button>
   </div>
   <div class="form-section form-section--inline mt-3">
     <div class="row">
       <div class="col-12 col-md-3">
-        <h3 class="form-section__title">Periodic Service Info</h3>
+        <h3 class="form-section__title">{{ 'configuration.periodic_service.periodic_service_info' | translate }}</h3>
       </div>
       <div class="col-12 col-md-6 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="name" pInputText
-            placeholder="Periodic Service Name *" required type="text">
-          <label>Periodic Service Name *</label>
+            placeholder="{{ 'configuration.periodic_service.periodic_service_name' | translate }} *" required type="text">
+          <label>{{ 'configuration.periodic_service.periodic_service_name' | translate }} *</label>
           <anms-error
             [showError]="hasError('name',addPeriodicServiceForm,submited)"
-            error="fms.errors.required">
+            error="forms.feedback.required">
           </anms-error>
         </span>
       </div>
@@ -30,16 +30,16 @@
             [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
             '100%'}"></svg-icon>
         </span> -->
-        <h3 class="form-section__title">Package</h3>
+        <h3 class="form-section__title">{{ 'configuration.periodic_service.package' | translate }}</h3>
       </div>
       <div class="col-12 col-md-5 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="packageName" pInputText
-            placeholder="Package Name *" required type="text">
-          <label>PackageName *</label>
+            placeholder="{{ 'configuration.periodic_service.package_name' | translate }} *" required type="text">
+          <label>{{ 'configuration.periodic_service.package_name' | translate }} *</label>
           <anms-error
             [showError]="hasError('packageName',addPeriodicServiceForm,submited)"
-            error="fms.errors.required">
+            error="forms.feedback.required">
           </anms-error>
         </span>
       </div>
@@ -49,8 +49,8 @@
           optionLabel="name"></p-dropdown>
           <span class="p-float-label">
             <input formControlName="intervals" pInputText
-              placeholder="Intervals"  type="text">
-            <label>Intervals</label>
+              placeholder="{{ 'configuration.periodic_service.intervals' | translate }}"  type="text">
+            <label>{{ 'configuration.periodic_service.intervals' | translate }}</label>
           </span>
       </div>
     </div>
@@ -61,7 +61,7 @@
           [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
           '100%'}"></svg-icon>
       </span> -->
-        <h3 class="form-section__title">Task</h3>
+        <h3 class="form-section__title">{{ 'configuration.periodic_service.task' | translate }}</h3>
       </div>
       <div class="col-12 col-md-5 p-field form-section__field">
 
@@ -69,8 +69,8 @@
           <div class="p-inputgroup">
             <span class="p-float-label">
               <input type="text" required formControlName="task" pInputText
-                placeholder="Task">
-              <label>Task *</label>
+                placeholder="{{ 'configuration.periodic_service.task' | translate }}">
+              <label>{{ 'configuration.periodic_service.task' | translate }} *</label>
             </span>
             <span class="p-inputgroup-addon addon-primary">
               <i class="pi pi-plus"></i>
@@ -79,7 +79,7 @@
         </span>
         <anms-error
             [showError]="hasError('task',addPeriodicServiceForm,submited)"
-            error="fms.errors.required">
+            error="forms.feedback.required">
           </anms-error>
       </div>
     </div>
