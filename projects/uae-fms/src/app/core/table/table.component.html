@@ -86,6 +86,9 @@
           <div *ngIf="col.renderer=='jobCard'">
             <job-card-renderer></job-card-renderer>
           </div>
+          <div *ngIf="col.renderer=='assignNow'">
+            <table-assign-now-renderer [data]="data"></table-assign-now-renderer>
+          </div>
 
         </td>
         <div [class]="'statusColor'+ (hasRendere(setting.columns)?' with-renderer-table':' simple-table')"

@@ -25,6 +25,7 @@ import { MakeDecisionRendererComponent } from './renderers/makeDecision';
 import { JobCardRendererComponent } from './renderers/jobCard';
 import { TableRouteLinkRendererComponent } from './renderers/routeLink';
 import { RouterModule } from '@angular/router';
+import { AssignNow } from '@core/table/renderers/assign-now';
 
 @NgModule({
   imports: [
@@ -58,7 +59,8 @@ import { RouterModule } from '@angular/router';
     TableExternalLinkRendererComponent,
     TableRouteLinkRendererComponent,
     MakeDecisionRendererComponent,
-    JobCardRendererComponent
+    JobCardRendererComponent,
+    AssignNow
   ],
   providers: []
 })
