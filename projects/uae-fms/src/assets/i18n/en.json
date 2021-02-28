@@ -458,6 +458,7 @@
       "short_code": "Short Code",
       "category_name": "Category Name",
       "item_name": "Item Name",
+      "filter_and_fuel_pump": "Filter, fuel pump",
       "upload_form": {
         "title": "",
         "progressbar_title": ".pdf",
