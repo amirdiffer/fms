@@ -1,64 +1,63 @@
 <div class="part-overview">
 
- 
-  
   <div class="row">
-    <div class="col-12 col-md-4">
+    <div class="col-12 col-md-4 mt-3">
       <div class="part-overview__images">
         <div class="selected-image">
           <img #selectedImage src="https://via.placeholder.com/500x500?text=A" alt="Selected Image">
         </div>
         <ul>
-          <li ><img (click)="changeImage($event)" src="https://via.placeholder.com/500x500?text=A" alt=""></li>
-          <li ><img (click)="changeImage($event)" src="https://via.placeholder.com/500x500?text=B" alt=""></li>
-          <li ><img (click)="changeImage($event)" src="https://via.placeholder.com/500x500?text=C" alt=""></li>
+          <li><img (click)="changeImage($event)" src="https://via.placeholder.com/500x500?text=A" alt=""></li>
+          <li><img (click)="changeImage($event)" src="https://via.placeholder.com/500x500?text=B" alt=""></li>
+          <li><img (click)="changeImage($event)" src="https://via.placeholder.com/500x500?text=C" alt=""></li>
         </ul>
       </div>
     </div>
 
-    <div class="col-12 col-md-8 pl-md-0 d-flex">
-      <div class="component_wrapper m-0">
-
+    <div class="col-12 col-md-8">
+      <div class="component_wrapper">
         <div class="button-container">
           <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">Cancel</button>
           <button class="btn-primary-medium add">Order</button>
         </div>
 
-        <h3 class="part-overview__title">Item No 123456</h3>
+        <div class="overview-container">
+          <h3 class="part-overview__title">Item No 123456</h3>
 
           <button class="btn-download"><a></a></button>
-        <table class="part-overview__info">
+          <table class="part-overview__info">
 
-          <tr>
-            <th>Category</th>
-            <td>Name is here</td>
-          </tr>
-          <tr>
-            <th>Model</th>
-            <td>BMW</td>
-          </tr>
-          <tr>
-            <th>Quantity</th>
-            <td>123</td>
-          </tr>
-          <tr>
-            <th>Warranty Expire</th>
-            <td>00/00/0000</td>
-          </tr>
-          <tr>
-            <th>Total Cost</th>
-            <td>0000 AED</td>
-          </tr>
-          <tr>
-            <th>Storage Location</th>
-            <td>Room 1 | Aisle 4 | Shelf 1 | Box 9</td>
-          </tr>
-          <tr>
-            <th>Description</th>
-            <td>Description</td>
-          </tr>
-          
-        </table>
+            <tr>
+              <th>Category</th>
+              <td>Name is here</td>
+            </tr>
+            <tr>
+              <th>Model</th>
+              <td>BMW</td>
+            </tr>
+            <tr>
+              <th>Quantity</th>
+              <td>123</td>
+            </tr>
+            <tr>
+              <th>Warranty Expire</th>
+              <td>00/00/0000</td>
+            </tr>
+            <tr>
+              <th>Total Cost</th>
+              <td>0000 AED</td>
+            </tr>
+            <tr>
+              <th>Storage Location</th>
+              <td>Room 1 | Aisle 4 | Shelf 1 | Box 9</td>
+            </tr>
+            <tr>
+              <th>Description</th>
+              <td>Description</td>
+            </tr>
+
+          </table>
+        </div>
       </div>
     </div>
 

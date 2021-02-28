@@ -46,7 +46,7 @@ export class TabViewComponent implements OnInit {
         });
       }
     }
-    console.log(tabs)
+    console.log(tabs);
     this.tabs = tabs;
     this.initialized = true;
     this.selectedTabChanged();
