@@ -130,7 +130,8 @@
     "search": "بحث",
     "year": "سنة",
     "make": "الماركة",
-    "model": "الموديل"
+    "model": "الموديل",
+    "request": "طلب"
   },
   "tables": {
     "column": {
@@ -381,13 +382,37 @@
       "request_type": "نوع الطلب",
       "new": "جديد",
       "replacement": "إستبدال",
-      "reason": "سبب"
+      "reason": "سبب",
+      "asset_type": "نوع الأصول",
+      "quantity": "العدد",
+      "old_asset": "الأصل القديم"
     },
     "request": {
       "request_type": "نوع الطلب",
       "new": "جديد",
       "replacement": "إستبدال",
-      "reason": "سبب"
+      "reason": "سبب",
+      "asset_information": "معلومات الأصول",
+      "user_information": "معلومات المستخدم",
+      "movement_information": "معلومات الحركة",
+      "fuel_card": "بطاقة الوقود",
+      "asset": "الأصل",
+      "department": "الإدارة",
+      "operator": "المشغل",
+      "comment": "تعليق",
+      "temporary": "مؤقت",
+      "permanent": "دائم",
+      "start_date": "تاريخ البداية",
+      "end_date": "تاريخ النهاية",
+      "time": "الوقت",
+      "gps_master_source": "مصدر GPS الرئيسي",
+      "manual_update": "تحديث يدوي",
+      "send_notification": "إرسال إشعار",
+      "yes": "نعم",
+      "no": "لا",
+      "s_n": "S/N",
+      "save_assignment": "احفظ الواجب",
+      "cancel": "إلغاء"
     }
   },
   "fuel_management": {
@@ -731,6 +756,10 @@
     "create": "خلق",
     "archive": "أرشيف",
     "approval": "موافقة",
+    "confirm": "يتأكد",
+    "reject": "يرفض",
+    "approve": "اعتماد",
+    "recived": "الواردة",
     "feedback": {
       "required": "هذا الحقل مطلوب",
       "invalid-email":"عنوان البريد الإلكتروني غير صالح"

@@ -401,7 +401,28 @@
       "request_type": "Request Type",
       "new": "New",
       "replacement": "Replacement",
-      "reason": "Reason"
+      "reason": "Reason",
+      "asset_information": "Asset Information",
+      "user_information": "User Information",
+      "movement_information": "Movement Information",
+      "fuel_card": "Fuel Card",
+      "asset": "Asset",
+      "department": "Department",
+      "operator": "Operator",
+      "comment": "Comment",
+      "temporary": "Temporary",
+      "permanent": "Permanent",
+      "start_date": "Start Date",
+      "end_date": "End Date",
+      "time": "Time",
+      "gps_master_source": "GPS Master Source",
+      "manual_update": "Manual Update",
+      "send_notification": "Send Notification",
+      "yes": "Yes",
+      "no": "No",
+      "s_n": "S/N",
+      "save_assignment": "Save Assignment",
+      "cancel": "Cancel"
     }
   },
   "fuel_management": {
@@ -754,6 +775,10 @@
     "create": "Create",
     "archive": "Archive",
     "approval": "Approval",
+    "confirm": "Confirm",
+    "reject": "Reject",
+    "approve": "Approve",
+    "recived": "Recived",
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"
