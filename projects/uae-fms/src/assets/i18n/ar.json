@@ -470,6 +470,7 @@
   "fuel_management": {
     "fuel_cards": {
       "request_type": "نوع الطلب",
+      "tag_number": "رقم العلامة",
       "assign_to": "يسند إلى",
       "asset": "أصل",
       "card_type": "نوع البطاقة",
@@ -482,6 +483,10 @@
     "asset_traffic_file": {}
   },
   "toll": {
+    "toll_info": "معلومات الاتصال",
+    "toll_tag": "علامة حصيلة",
+    "purchase_date": "تاريخ الشراء",
+    "assign_to": "يسند إلى",
     "upload_form": {
       "title": "تحميل ملف CSV",
       "progressbar_title": "ملف CSV فقط",
@@ -812,6 +817,7 @@
     "reject": "يرفض",
     "approve": "اعتماد",
     "recived": "الواردة",
+    "assign": "تعيين",
     "feedback": {
       "required": "هذا الحقل مطلوب",
       "invalid-email":"عنوان البريد الإلكتروني غير صالح"
