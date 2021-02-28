@@ -24,7 +24,7 @@
       <div>
           <h3 class="form-section__title">{{ 'configuration.role_permission.permissions' | translate }}</h3>
        </div>
-      <div class='card-body pl-1 body_div p-0 pb-3'>
+      <div class='card-body body_div mt-3'>
 
         <!--      Top Fleet Row-->
         <div class='d-flex' formGroupName='fleet'>
@@ -43,9 +43,9 @@
             </div>
           </div>
 
-          <div class='curved_right_tag text-center mt-1'>
-            <div class='h-100'>
-              <img class='top_icon mr-2 ml-3 h-100' src='assets/icons/up.svg' alt='down' width='13'>
+          <div class='d-flex align-items-center'>
+            <div class='curved_right_tag text-center'>
+              <svg-icon src="assets/icons/up.svg" [svgStyle]="{ 'width.px':'16' , 'fill': '#fff' , 'height': '16', 'stroke-width': '40px','stroke': 'white'}"></svg-icon>
             </div>
           </div>
 
@@ -143,8 +143,8 @@
                 </div>
               </div>
               <div class='right_tag text-center' *ngIf='index !== 0 && index !== 1'>
-                <div class='h-100'>
-                  <img class='down_icon mr-1 ml-1 h-100' src='assets/icons/up.svg' alt='down' width='10'>
+                <div class=''>
+                  <svg-icon src="assets/icons/up.svg" [svgStyle]="{ 'width.px':'16' , 'fill': '#fff' , 'height': '16', 'stroke-width': '40px','stroke': 'white', 'transform': 'rotate(180deg)'}"></svg-icon>
                 </div>
               </div>
             </div>
@@ -155,8 +155,7 @@
 
       <!--          Bottom 2 length array-->
       <div class='card border-0' formArrayName='bottomArray'>
-
-        <div class='card-body body_div mt-3 pl-1'
+        <div style="background-color: #F7F9FA" class='card-body body_div mt-3'
              *ngFor='let row of bottomArray.controls; let index = index' [formGroupName]='index'>
 
           <div class='d-flex'>
@@ -177,9 +176,9 @@
               </div>
             </div>
 
-            <div class='curved_right_tag text-center mt-1'>
-              <div class='h-100'>
-                <img class='bottom_icon mr-2 ml-3 h-100' src='assets/icons/up.svg' alt='down' width='13'>
+            <div class='d-flex align-items-center'>
+              <div class='curved_right_tag text-center'>
+                <svg-icon src="assets/icons/up.svg" [svgStyle]="{ 'width.px':'16' , 'fill': '#fff' , 'height': '16', 'stroke-width': '40px','stroke': 'white', 'transform': 'rotate(180deg)'}"></svg-icon>
               </div>
             </div>
 
