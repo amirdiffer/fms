@@ -27,19 +27,19 @@ export class FuelManagementComponent implements OnInit {
   searchIcon = 'assets/icons/search-solid.svg';
   filterSetting: FilterCardSetting[] = [
     {
-      filterTitle: 'Total',
+      filterTitle: 'statistic.total',
       filterTagColor: '#B892FF',
       filterCount: '2456',
       onActive(index: number): void {}
     },
     {
-      filterTitle: 'Available',
+      filterTitle: 'statistic.available',
       filterTagColor: '#EF7A85',
       filterCount: '356',
       onActive(index: number): void {}
     },
     {
-      filterTitle: 'Assigned',
+      filterTitle: 'statistic.assigned',
       filterTagColor: '#709775',
       filterCount: '124',
       onActive(index: number): void {}

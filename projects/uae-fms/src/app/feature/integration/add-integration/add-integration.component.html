@@ -6,27 +6,27 @@
                   <p-dropdown inputId="statusCategory" [autoDisplayFirst]="false"
                     [options]="types"
                     formControlName="type" optionLabel="name"></p-dropdown>
-                  <label for="statusCategory">Type</label>
+                  <label for="statusCategory">{{ 'integration.type' | translate }}</label>
                 </span>
               </div>
             <div class="col-12 col-md-2 p-field form-section__field">
                 <span class="p-float-label">
                     <input formControlName="companyName" pInputText
                         placeholder="Company Name"  type="text">
-                    <label>Company Name</label>
+                    <label>{{ 'integration.company_name' | translate }}</label>
                 </span>
             </div>
             <div class="col-12 col-md-2 p-field form-section__field">
                 <span class="p-float-label">
                     <input formControlName="grp" pInputText
                         placeholder="GRP" type="text">
-                    <label>GRP</label>
+                    <label>{{ 'integration.grp' | translate }}</label>
                 </span>
             </div>
             <div class="col-12 col-md-3 p-field form-section__field">
-                <div class="button-container-flex">
-                    <button class="btn-primary-small add">Save</button>&nbsp;&nbsp;&nbsp;
-                    <button class="btn-primary-small btn-scondary-green" (click)="cancel()">Cancel</button>
+                <div class="d-flex h-100 position-relative ">
+                    <button class="btn-primary-small add h-100">{{ 'forms.save' | translate }}</button>&nbsp;&nbsp;&nbsp;
+                    <button class="btn-primary-small btn-scondary-green h-100" (click)="cancel()">Cancel</button>
                 </div>
             </div>
         </div>

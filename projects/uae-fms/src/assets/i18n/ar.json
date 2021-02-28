@@ -102,7 +102,10 @@
     "repair": "تصليح",
     "accident": "حادثة",
     "out_of_policy": "خارج الوثيقة",
-    "total_lost": "مجموع المفقود"
+    "total_lost": "مجموع المفقود",
+    "paid": "دفع",
+    "unpainted": "غير مرسومة",
+    "deducte": "حسم"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -130,15 +133,18 @@
     "search": "بحث",
     "year": "سنة",
     "make": "الماركة",
-    "model": "الموديل"
+    "model": "الموديل",
+    "request": "طلب"
   },
   "tables": {
     "column": {
+      "suppliers": "الموردين",
       "name": "الاسم",
       "total_sub_asset": "إجمالي الأصول الفرعية",
       "total_accessory": "إجمالي الملحق",
       "total": "الإجمالي",
       "asset": "الأصل",
+      "assets": "الأصول",
       "type": "النوع",
       "business_category": "فئة العمل",
       "allocated": "المخصص",
@@ -187,7 +193,7 @@
       "mileage": "الأميال",
       "total_usage": "إجمالي الاستخدام",
       "cost": "التكلفة",
-      "ts_code": "رمز الملف المروري",
+      "tc_code": "رمز الملف المروري",
       "plate_no": "رقم اللوحة",
       "mission_status": "حالة المهمة",
       "time_date": "الوقت / التاريخ",
@@ -201,6 +207,7 @@
       "accident": "حادثة",
       "action": "التنفيذ",
       "task": "المهمة",
+      "tasks": "المهام",
       "end_date": "تاريخ النهاية",
       "workshop_manager_approval": "موافقة مدير الورشة",
       "technician": "الفني",
@@ -208,6 +215,7 @@
       "rate_per_hour": "الأجر بالساعة",
       "location_id": "رقم الموقع",
       "service": "الخدمة",
+      "services": "الخدمات",
       "address": "العنوان",
       "job_card": "بطاقة عمل",
       "reported_by": "تم عمل تقرير بواسطة",
@@ -236,7 +244,7 @@
       "distance": "المسافة",
       "year": "السنة",
       "depreciation_value": "قيمة الاستهلاك",
-      "model": "Model",
+      "model": "الموديل",
       "type_status": "اكتب الحالة",
       "icon": "أيقونة",
       "category_name": "اسم التصنيف",
@@ -255,10 +263,11 @@
       "car_icon": "أيقونة السيارة",
       "integration_name": "اسم الدمج",
       "gpr": "GPR",
-      "email": "Email",
+      "email": "البريد الإلكتروني",
       "phone_number": "رقم التليفون",
       "company_name": "اسم الشركة",
-      "support_operator": "مشغل الدعم"
+      "support_operator": "مشغل الدعم",
+      "instruction": "المشغل أو العامل"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -376,13 +385,37 @@
       "request_type": "نوع الطلب",
       "new": "جديد",
       "replacement": "إستبدال",
-      "reason": "سبب"
+      "reason": "سبب",
+      "asset_type": "نوع الأصول",
+      "quantity": "العدد",
+      "old_asset": "الأصل القديم"
     },
     "request": {
       "request_type": "نوع الطلب",
       "new": "جديد",
       "replacement": "إستبدال",
-      "reason": "سبب"
+      "reason": "سبب",
+      "asset_information": "معلومات الأصول",
+      "user_information": "معلومات المستخدم",
+      "movement_information": "معلومات الحركة",
+      "fuel_card": "بطاقة الوقود",
+      "asset": "الأصل",
+      "department": "الإدارة",
+      "operator": "المشغل",
+      "comment": "تعليق",
+      "temporary": "مؤقت",
+      "permanent": "دائم",
+      "start_date": "تاريخ البداية",
+      "end_date": "تاريخ النهاية",
+      "time": "الوقت",
+      "gps_master_source": "مصدر GPS الرئيسي",
+      "manual_update": "تحديث يدوي",
+      "send_notification": "إرسال إشعار",
+      "yes": "نعم",
+      "no": "لا",
+      "s_n": "S/N",
+      "save_assignment": "احفظ الواجب",
+      "cancel": "إلغاء"
     }
   },
   "fuel_management": {
@@ -439,6 +472,7 @@
       "short_code": "رمز قصير",
       "category_name": "اسم التصنيف",
       "item_name": "اسم العنصر",
+      "filter_and_fuel_pump": "مرشح ، مضخة الوقود",
       "upload_form": {
         "title": "",
         "progressbar_title": ".pdf",
@@ -450,13 +484,39 @@
       "type": "النوع",
       "company_name": "اسم الشركة",
       "grp": "GRP"
+    },
+    "order": {
+      "create_quotation": "إنشاء الاقتباس",
+      "repeat_quotation": "كرر الاقتباس",
+      "current_quotation": "الاقتباس الحالي",
+      "asset_type": "نوع الأصول",
+      "make": "يجعلون",
+      "model": "نموذج",
+      "quantity": "كمية",
+      "description": "وصف",
+      "set_reminder": "تعيين تذكير",
+      "select_item": "حدد البند",
+      "select_item_category": "حدد فئة العنصر"
     }
+  },
+  "reports": {},
+  "integration": {
+    "type": "النوع",
+    "company_name": "اسم الشركة",
+    "grp": "GRP"
   },
   "workshop": {
     "body_shop": {
       "requests": {
         "asset_info": "معلومات الأصول",
+        "asset": "الأصل",
+        "asset_validation_error": "",
+        "gps_meter_source": "مصدر عداد GPS",
+        "manual_update": "تحديث يدوي",
+        "accident": "حادثة",
         "reason": "السبب",
+        "miner": "عامل منجم",
+        "major": "منصب - الرتبة",
         "job_type": "نوع الوظيفة",
         "issue_info": "معلومات الإصدار",
         "priority": "أفضلية",
@@ -465,8 +525,11 @@
         "technical_report": "تقرير تقني",
         "installation": "تثبيت",
         "issue": "القضية",
+        "issue_validation_error": "",
         "reported_by": "تم عمل تقرير بواسطة",
+        "reported_by_validation_error": "",
         "description": "الوصف",
+        "description_validation_error": "",
         "urgent": "العاجلة",
         "high": "متوسط",
         "normal": "طبيعي",
@@ -484,14 +547,22 @@
         "personal_information": "معلومات شخصية",
         "send_notification_by": "إرسال الإخطار عن طريق",
         "employee_number": "رقم الموظف",
+        "employee_number_validation_error": "",
         "pay_per_hours": "الدفع بالساعة",
+        "pay_per_hours_validation_error": "",
         "employee_status": "حالة الموظف نشطة",
         "skill": "المهارة",
+        "skill_validation_error": "",
         "location": "الموقع",
+        "location_validation_error": "",
         "first_name": "الاسم الاول",
+        "first_name_validation_error": "",
         "last_name": "الكنية",
+        "last_name_validation_error": "",
         "email": "البريد الالكتروني",
+        "email_validation_error": "",
         "phone_number": "رقم التليفون",
+        "phone_number_validation_error": "",
         "call": "مكالمة",
         "sms": "رسالة قصيرة",
         "whatsapp": "Whatsapp",
@@ -505,9 +576,13 @@
         "location_info": "معلومات الموقع",
         "section": "القسم",
         "location_id": "رقم الموقع",
+        "location_id_validation_error": "",
         "address": "تبوك",
+        "address_validation_error": "",
         "section_id": "رقم القسم",
-        "service": "الخدمة"
+        "section_id_validation_error": "",
+        "service": "الخدمة",
+        "service_validation_error": ""
       }
     },
     "service_shop": {},
@@ -551,7 +626,9 @@
       "time_estimate": "الوقت المتوقع  (الساعات)",
       "skills": "مهارات",
       "this_task_needs_part": "هذه المهمة تحتاج إلى جزء",
-      "add_part": "أضف الجزء"
+      "add_part": "أضف الجزء",
+      "please_fill_part": "يرجى ملء الجزء",
+      "please_fill_skill": "الرجاء تعبئة المهارة"
     }
   },
   "configuration": {
@@ -603,7 +680,8 @@
         "year": "السنة",
         "deprecation_value": "% قيمة الإهلاك",
         "yearly": "سنوي",
-        "set_reminder_before": "تحديد تذكير قبل"
+        "set_reminder_before": "تحديد تذكير قبل",
+        "or": "أو"
       },
       "sub_asset": {
         "this_policy_is_for": "هذه السياسة",
@@ -681,9 +759,30 @@
     "create": "خلق",
     "archive": "أرشيف",
     "approval": "موافقة",
+    "confirm": "يتأكد",
+    "reject": "يرفض",
+    "approve": "اعتماد",
+    "recived": "الواردة",
     "feedback": {
-      "required": "هذا الحقل مطلوب"
+      "required": "هذا الحقل مطلوب",
+      "invalid-email":"عنوان البريد الإلكتروني غير صالح"
     },
     "order": "ترتيب"
+  },
+  "login": {
+    "incorrect_password": "كلمة سر خاطئة",
+    "fleet": "سريع",
+    "incorrect_username": "اسم المستخدم غير صحيح",
+    "login": "تسجيل الدخول",
+    "management": "إدارة",
+    "password": "كلمة المرور",
+    "service": "خدمة",
+    "user_name": "اسم االمستخدم"
+  },
+  "buttons": {
+    "reject": "يرفض",
+    "approve": "اعتماد",
+    "recived": "الواردة",
+    "confirm": "يتأكد"
   }
 }
