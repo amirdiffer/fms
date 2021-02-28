@@ -477,6 +477,7 @@
   "fuel_management": {
     "fuel_cards": {
       "request_type": "Request Type",
+      "tag_number": "Tag Number",
       "assign_to": "Assign To",
       "asset": "Asset",
       "card_type": "Card Type",

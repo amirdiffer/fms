@@ -10,12 +10,12 @@
             <div class="col-12 col-md-3 p-field form-section__field">
                 <div class="autocomplete-select">
                     <span class="p-float-label">
-                        <p-autoComplete formControlName="asset"
+                        <p-autoComplete
                             (completeMethod)="filterAssets($event)"
                             [suggestions]="assetSuggests" field="name"
                             [minLength]="1"></p-autoComplete>
                         <i class="pi pi-search"></i>
-                        <label>{{ 'fuel_management.fuel_cards.asset' | translate }} *</label>
+                        <label>{{ 'fuel_management.fuel_cards.tag_number' | translate }} *</label>
                     </span>
                 </div>
             </div>
@@ -52,7 +52,7 @@
           <div class="col-12 col-md-6 p-field form-section__field">
               <div class="autocomplete-select">
                   <span class="p-float-label">
-                      <p-autoComplete formControlName="asset"
+                      <p-autoComplete
                           (completeMethod)="filterAssets($event)"
                           [suggestions]="assetSuggests" field="name"
                           [minLength]="1"></p-autoComplete>
