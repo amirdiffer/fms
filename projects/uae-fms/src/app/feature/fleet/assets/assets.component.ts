@@ -19,7 +19,7 @@ export class AssetsComponent implements OnInit {
   pendingRegistrationTableSetting;
   pendingCustomizationTableSetting;
   filterSetting;
-  selectedTab = 'root';
+  selectedTab = 'Asset Master';
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   constructor(private _assetsService: AssetsService) {}
@@ -54,6 +54,23 @@ export class AssetsComponent implements OnInit {
   }
 
   exportTable() {
-    this.table.exportTable();
+    console.log(this.selectedTab);
+    switch (this.selectedTab) {
+      case 'Asset Master':
+        this.table.exportTable(this.assetMasterTableSetting, this.selectedTab);
+        break;
+      case 'Pending Registration':
+        this.table.exportTable(
+          this.pendingRegistrationTableSetting,
+          this.selectedTab
+        );
+        break;
+      case 'Pending Customization':
+        this.table.exportTable(
+          this.pendingCustomizationTableSetting,
+          this.selectedTab
+        );
+        break;
+    }
   }
 }
