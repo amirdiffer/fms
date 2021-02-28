@@ -206,6 +206,7 @@
     }
     .mat-stepper-horizontal{
       background-color:transparent !important;
+      
       .mat-stepper-horizontal-line{
         border-top-color: rgba(255, 255, 255, 0.8)
       }
@@ -253,7 +254,7 @@
       }
     }
     mat-card.mat-card,
-    .card{
+    .card , anms-add-asset mat-horizontal-stepper .mat-horizontal-stepper-header-container{
       background-color: $fms-black-body2-bg;
     }
     .mat-toolbar.mat-primary {
@@ -289,6 +290,9 @@
       &.active-tab{
         background: #f4f4f4;
       }
+    }
+    anms-add-asset mat-horizontal-stepper .mat-horizontal-stepper-header-container{
+      background: #fff;
     }
   }
   mat-sidenav-container{
@@ -802,6 +806,7 @@ form {
 /* Stepper */
 
 mat-horizontal-stepper {
+  font-family: $fms-green-body1-font !important;
   .mat-horizontal-stepper-header {
     pointer-events: none !important;
   }
