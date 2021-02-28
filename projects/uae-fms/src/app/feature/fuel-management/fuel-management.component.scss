@@ -67,7 +67,7 @@ app-asset-usage-table {
             td{
               border:none;
               &:not(:first-child){
-                
+                vertical-align:top;
               }
             }
           }
