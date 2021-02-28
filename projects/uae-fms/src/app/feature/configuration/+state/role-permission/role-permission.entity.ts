@@ -1,16 +1,10 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { IRole } from '@models/configuration';
 
 export const CONFIGURATION_ROLE_PERMISSION_FEATURE_KEY = 'role-permission';
 
-export interface RolePermissionStateModel {
-  name: string;
-  view: string;
-  edit: string;
-  create: string;
-}
-
 export interface RolePermissionState
-  extends EntityState<RolePermissionStateModel> {
+  extends EntityState<IRole> {
   error?: any;
   loaded?: boolean;
   message?: string;
@@ -20,8 +14,8 @@ export interface RolePermissionPartialState {
   [CONFIGURATION_ROLE_PERMISSION_FEATURE_KEY]: RolePermissionState;
 }
 
-export const rolePermissionAdapter: EntityAdapter<RolePermissionStateModel> = createEntityAdapter<
-  RolePermissionStateModel
+export const rolePermissionAdapter: EntityAdapter<IRole> = createEntityAdapter<
+  IRole
 >();
 
 export const initialState: RolePermissionState = rolePermissionAdapter.getInitialState(

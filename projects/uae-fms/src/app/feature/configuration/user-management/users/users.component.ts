@@ -148,5 +148,8 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.users$.subscribe((data) => {
+      console.log(data, 'users');
+    });
   }
 }

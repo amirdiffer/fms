@@ -1,6 +1,6 @@
-<div class='d-inline-flex w-100'>
-  <div class='mb-2 d-flex w-100 justify-content-between'>
-    <div class='font-weight-bold ml-sm-5'
+<div class='d-inline-flex w-100 py-2'>
+  <div class='align-items-center d-flex w-100 justify-content-between font-weight-custom'>
+    <div class='ml-sm-5'
          *ngFor='let col of settings.columns; let index = index'>
       <div *ngIf='index !== 0' class='pl-2'>
         {{col.title}}
@@ -20,7 +20,7 @@
 <hr class='m-0'>
 
 <!--row-->
-<div class='bg-white' *ngFor='let row of settings.data; let rowIndex = index'>
+<div  *ngFor='let row of settings.data; let rowIndex = index'>
 
   <div class='pb-1 pr-1 pt-1'>
 

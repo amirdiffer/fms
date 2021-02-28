@@ -11,7 +11,7 @@ import { environment } from '../../../../environments/environment';
     <div class="d-flex" *ngIf="!data && !isOpen">
       <svg-icon
         [src]="externalLink"
-        class="icon24px"
+        class="icon24px pointer"
         (click)="editOpen()"
         [svgStyle]="{ fill: '#0da06e' }"
       ></svg-icon>
@@ -19,7 +19,7 @@ import { environment } from '../../../../environments/environment';
     <div class="d-flex" *ngIf="isOpen">
       <svg-icon
         [src]="delete"
-        class="icon24px"
+        class="icon24px pointer"
         (click)="editClose()"
         [svgStyle]="{ 'width.px': 20, fill: 'red' }"
       ></svg-icon>
@@ -58,6 +58,9 @@ import { environment } from '../../../../environments/environment';
         width: 24px;
         height: 24px;
         color: #0da06e;
+      }
+      .pointer {
+        cursor: pointer;
       }
     `
   ]

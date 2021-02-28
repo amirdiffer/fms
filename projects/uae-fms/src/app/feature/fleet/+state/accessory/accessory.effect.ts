@@ -5,7 +5,6 @@ import { of } from 'rxjs';
 import { AccessoryActions } from './accessory.actions';
 import { AccessoryService } from './accessory.service';
 
-
 @Injectable()
 export class AccessoryEffect {
   mockData = [
@@ -39,11 +38,8 @@ export class AccessoryEffect {
                  )
             )
         )
-    )
+      )
   );
 
-  constructor(
-    private action$: Actions,
-    private service: AccessoryService
-  ) {}
+  constructor(private action$: Actions, private service: AccessoryService) {}
 }

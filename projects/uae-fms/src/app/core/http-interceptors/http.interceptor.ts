@@ -1,3 +1,4 @@
+import { Injectable, Injector, ErrorHandler } from '@angular/core';
 import {
   HttpEvent,
   HttpInterceptor as HttpInterceptorBase,
@@ -6,7 +7,6 @@ import {
   HttpErrorResponse,
   HttpHeaders
 } from '@angular/common/http';
-import { Injectable, Injector, ErrorHandler } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -14,22 +14,19 @@ import { tap } from 'rxjs/operators';
 @Injectable()
 export class HttpInterceptor implements HttpInterceptorBase {
   constructor(private injector: Injector) {}
-  headers = new HttpHeaders({
-    user_id: '1',
-    permission_level: '12345',
+  httpHeaders = new HttpHeaders({
+    'x-mock-response-code': '200',
     'Content-Type': 'application/json',
-    'x-mock-response-code': '200'
+    permission_level: '123456',
+    user_id: '1'
   });
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const authReq = request.clone({
-      headers: this.headers
-    });
-
-    return next.handle(authReq).pipe(
+    const req = request.clone({ headers: this.httpHeaders });
+    return next.handle(req).pipe(
       tap({
         error: (err: any) => {
           if (err instanceof HttpErrorResponse) {
