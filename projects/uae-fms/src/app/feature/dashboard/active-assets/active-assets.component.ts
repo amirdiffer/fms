@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'anms-active-assets',
@@ -7,9 +8,24 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActiveAssetsComponent implements OnInit {
-
   chartData = [];
-  constructor() {}
+  translations = {
+    'dashboard.permanent': '',
+    'dashboard.iserve': '',
+    'dashboard.shared_poll': '',
+    'dashboard.temporary': '',
+    'dashboard.workshop': ''
+  };
+  constructor(private translationService: TranslateService) {
+    this.getTranslations();
+  }
+
+  getTranslations() {
+    const translationLabels = Object.keys(this.translations);
+    this.translationService.get(translationLabels).subscribe((translation) => {
+      this.translations = translation;
+    });
+  }
 
   ngOnInit(): void {
     this.chartData = [
@@ -17,7 +33,7 @@ export class ActiveAssetsComponent implements OnInit {
         bgColor: '#B1E4E3',
         color: '#2fb9b7',
         icon: 'assets/icons/chart-bar.svg',
-        title: 'Permanent',
+        title: this.translations['dashboard.permanent'],
         count: '118000',
         total: '120000'
       },
@@ -25,7 +41,7 @@ export class ActiveAssetsComponent implements OnInit {
         bgColor: '#39DA8A',
         color: '#1fb068',
         icon: 'assets/icons/dollar.svg',
-        title: 'I-Serve',
+        title: this.translations['dashboard.iserve'],
         count: '80000',
         total: '90000'
       },
@@ -33,7 +49,7 @@ export class ActiveAssetsComponent implements OnInit {
         bgColor: '#F1EB9C',
         color: '#cfc322',
         icon: 'assets/icons/shared-pool.svg',
-        title: 'Shared Pool',
+        title: this.translations['dashboard.shared_poll'],
         count: '650000',
         total: '1000000'
       },
@@ -41,7 +57,7 @@ export class ActiveAssetsComponent implements OnInit {
         bgColor: '#FF5B5C',
         color: '#FF5B5C',
         icon: 'assets/icons/check2.svg',
-        title: 'Temporary',
+        title: this.translations['dashboard.temporary'],
         count: '3800000',
         total: '4500000'
       },
@@ -49,7 +65,7 @@ export class ActiveAssetsComponent implements OnInit {
         bgColor: '#009EFF',
         color: '#009EFF',
         icon: 'assets/icons/check2.svg',
-        title: 'Workshop',
+        title: this.translations['dashboard.workshop'],
         count: '250000',
         total: '350000'
       }

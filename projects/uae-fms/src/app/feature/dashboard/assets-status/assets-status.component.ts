@@ -4,11 +4,13 @@ import {
   ChangeDetectionStrategy,
   ViewChild
 } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import {
   ApexNonAxisChartSeries,
   ApexPlotOptions,
   ApexChart,
-  ChartComponent, ApexLegend
+  ChartComponent,
+  ApexLegend
 } from 'ng-apexcharts';
 
 export type ChartOptions = {
@@ -29,7 +31,25 @@ export type ChartOptions = {
 export class AssetsStatusComponent implements OnInit {
   @ViewChild('chart') chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
-  constructor() {}
+
+  translations = {
+    'dashboard.active': '',
+    'dashboard.reused': '',
+    'dashboard.defleet': '',
+    'dashboard.total_lost': '',
+    'dashboard.total': ''
+  };
+
+  constructor(private translationService: TranslateService) {
+    this.getTranslations();
+  }
+
+  getTranslations() {
+    const translationLabels = Object.keys(this.translations);
+    this.translationService.get(translationLabels).subscribe((translation) => {
+      this.translations = translation;
+    });
+  }
 
   ngOnInit(): void {
     this.chartOptions = {
@@ -37,7 +57,7 @@ export class AssetsStatusComponent implements OnInit {
       chart: {
         height: '360px',
         type: 'radialBar',
-        width:'100%',
+        width: '100%'
       },
       plotOptions: {
         radialBar: {
@@ -48,7 +68,7 @@ export class AssetsStatusComponent implements OnInit {
             image: undefined
           },
           track: {
-            show: false,
+            show: false
           },
           dataLabels: {
             name: {
@@ -59,7 +79,7 @@ export class AssetsStatusComponent implements OnInit {
             },
             total: {
               show: true,
-              label: 'Total',
+              label: this.translations['dashboard.total'],
               formatter: function (w) {
                 return '1235266';
               }
@@ -70,22 +90,25 @@ export class AssetsStatusComponent implements OnInit {
       legend: {
         show: true,
         floating: false,
-        position: "bottom",
+        position: 'bottom',
         labels: {
-          useSeriesColors: true,
+          useSeriesColors: true
         },
         markers: {
           width: 8,
-          height: 8,
-
+          height: 8
         },
         itemMargin: {
           horizontal: 10
         }
       },
-      labels: ['Active', 'Defleet', 'Reused', 'Total Lost'],
-      colors: ['#26D07C', '#F1EB9C', '#26D07C', '#E4002B'],
-      
+      labels: [
+        this.translations['dashboard.active'],
+        this.translations['dashboard.defleet'],
+        this.translations['dashboard.reused'],
+        this.translations['dashboard.total_lost']
+      ],
+      colors: ['#26D07C', '#F1EB9C', '#26D07C', '#E4002B']
     };
   }
 }

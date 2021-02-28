@@ -116,6 +116,9 @@ export class TableComponent implements OnInit {
 
     pdf.save('angular-demo.pdf');
   }
+  isNumber(val): boolean {
+    return typeof val === 'number';
+  }
 }
 
 export interface TableSetting {
@@ -130,7 +133,7 @@ export interface ColumnDifinition {
   sortable?: boolean;
   isAsc?: boolean;
   field?: string;
-  width?: number;
+  width?: number | string;
   type?: ColumnType;
   thumbField?: string;
   renderer?: string;

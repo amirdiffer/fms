@@ -11,12 +11,12 @@ import { RolePermissionFacade } from '../../+state/role-permission';
 export class RolePermissionComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
 
-  accessory_Table: TableSetting = {
+  rolePermission_Table: TableSetting = {
     columns: [
-      { lable: 'Name', type: 1, field: 'Item' },
-      { lable: 'View', type: 1, field: 'View' },
-      { lable: 'Edit', type: 1, field: 'Edit' },
-      { lable: 'Create', type: 1, field: 'Create' },
+      { lable: 'tables.column.name', type: 1, field: 'Item' },
+      { lable: 'tables.column.view', type: 1, field: 'View' },
+      { lable: 'tables.column.edit', type: 1, field: 'Edit' },
+      { lable: 'tables.column.create', type: 1, field: 'Create' },
       {
         lable: '',
         type: 1,

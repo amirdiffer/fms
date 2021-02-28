@@ -8,23 +8,32 @@
       <div class="row form-section__row m-0">
         <div class="p-field form-section__field options-select year-filter m-0">
           <span>
-            <p-dropdown inputId="year" [autoDisplayFirst]="true"
+            <span class="p-float-label">
+            <p-dropdown inputId="year" [autoDisplayFirst]="false"
               [options]="years"
               optionLabel="name"></p-dropdown>
+              <label for="room">Year</label>
+          </span>
           </span>
         </div>
         <div class="p-field form-section__field options-select make-filter m-0">
           <span >
-            <p-dropdown inputId="make" [autoDisplayFirst]="true"
+            <span class="p-float-label">
+            <p-dropdown inputId="make" [autoDisplayFirst]="false"
               [options]="makes"
               optionLabel="name"></p-dropdown>
+              <label for="room">Make</label>
+          </span>
           </span>
         </div>
         <div class="p-field form-section__field options-select model-filter m-0">
           <span >
-            <p-dropdown inputId="model" [autoDisplayFirst]="true"
+            <span class="p-float-label">
+            <p-dropdown inputId="model" [autoDisplayFirst]="false"
               [options]="models"
               optionLabel="name"></p-dropdown>
+              <label for="room">Model</label>
+          </span>
           </span>
         </div>
         <div class="p-field form-section__field search-filter m-0">
@@ -40,7 +49,7 @@
               </span>
             </div>
           </span>
-    
+
         </div>
         <div class="form-section__field m-0">
           <div class="card-table-header card-table-header p-0 m-0">

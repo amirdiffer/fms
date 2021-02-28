@@ -11,7 +11,7 @@
               <div class="d-flex flex-column filter">
                 <div *ngIf="card.setting.filterSupTitle" [class.filter-supTitle__active]="card.isActive" class="filter-supTitle">{{ card.setting.filterSupTitle }}</div>
                 <div class="filter-title">
-                  <div [class.filter-title__active]="card.isActive" [style.color]="card.setting.filterTagColor">{{card.setting.filterTitle}}</div>
+                  <div [class.filter-title__active]="card.isActive" [style.color]="card.setting.filterTagColor">{{card.setting.filterTitle|translate}}</div>
                 </div>
               </div>
               <div class="filter-count">
@@ -21,12 +21,12 @@
           </ng-container>
           <ng-template #calendar>
             <div class="calendar-container d-inline-flex justify-content-between w-100 mb-auto mt-auto pr-3 pl-3 filter">
-              <span class="filter-title">{{card.setting.filterTitle}}</span>
+              <span class="filter-title">{{card.setting.filterTitle|translate}}</span>
               <a><img src="../../../assets/icons/calendar-alt.svg" alt=""></a>
             </div>
           </ng-template>
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </div>

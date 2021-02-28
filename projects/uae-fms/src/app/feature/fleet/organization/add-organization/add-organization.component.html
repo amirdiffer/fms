@@ -1,10 +1,10 @@
 <form [formGroup]="organizationForm">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" routerLink="..">Cancel</button>
-    <button class="btn-primary-medium add" type="submit" (click)="submit()">Add</button>
+    <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{ 'forms.cancel' | translate}}</button>
+    <button class="btn-primary-medium add" type="submit" (click)="submit()">{{ 'forms.add' | translate}}</button>
   </div>
   <div class="form-section">
-    <h3 class="form-section__title">Department Info</h3>
+    <h3 class="form-section__title">{{ 'organization.department_info' | translate}}</h3>
     <div class="row form-section__row">
       <div class="col-12 col-md-6 p-field form-section__field">
         <div class="autocomplete-select">
@@ -14,7 +14,7 @@
               [suggestions]="departments" field="name"
               [minLength]="1"></p-autoComplete>
             <i class="pi pi-search"></i>
-            <label>Department Id *</label>
+            <label>{{ 'organization.department_id' | translate}} *</label>
           </span>
           <anms-error
             [showError]="hasError('departmentId',organizationForm,submited)"
@@ -24,8 +24,8 @@
       <div class="col-12 col-md-6 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="departmentName" pInputText
-            placeholder="Department Name *" required type="text">
-          <label>Department Name *</label>
+            placeholder="{{ 'organization.department_name' | translate}}" required type="text">
+          <label>{{ 'organization.department_name' | translate}} *</label>
           <anms-error
             [showError]="hasError('departmentName',organizationForm,submited)"
             error="forms.feedback.required"></anms-error>
@@ -40,7 +40,7 @@
       <svg-icon src='../../../../../assets/icons/add.svg'
         [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
         '100%'}"></svg-icon>
-    </span>Tag</h3>
+    </span>{{ 'organization.tag' | translate }}</h3>
     <div class="row form-section__row">
       <div class="col-12 col-md-5 p-field form-section__field">
 
@@ -48,8 +48,8 @@
           <div class="p-inputgroup">
             <span class="p-float-label">
               <input type="text"  formControlName="tag" pInputText
-                placeholder="Tag">
-              <label>Tag</label>
+                placeholder="{{'organization.tag' | translate}}">
+              <label>{{ 'organization.tag' | translate}} *</label>
             </span>
             <span class="p-inputgroup-addon addon-primary">
               <i class="pi pi-plus"></i>
@@ -60,13 +60,13 @@
     </div>
   </div>
   <div class="form-section">
-    <h3 class="form-section__title">Section/ Department</h3>
+    <h3 class="form-section__title">{{ 'organization.section_department' | translate}}</h3>
     <div class="row form-section__row">
       <div class="col-12 col-md-4 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="sectionName" pInputText
-            placeholder="Section Name *" required type="text">
-          <label>Section Name *</label>
+            placeholder="{{ 'organization.section_name' | translate}}" required type="text">
+          <label>{{ 'organization.section_name' | translate}} *</label>
           <anms-error
             [showError]="hasError('sectionName',organizationForm,submited)"
             error="forms.feedback.required"></anms-error>
@@ -77,8 +77,8 @@
           <div class="p-inputgroup">
             <span class="p-float-label">
               <input type="text"  formControlName="location" pInputText
-                placeholder="Location *">
-              <label>Location *</label>
+                placeholder="{{ 'organization.location' | translate}}">
+              <label>{{ 'organization.location' | translate}} *</label>
             </span>
             <span class="p-inputgroup-addon addon-primary">
               <i class="pi pi-plus"></i>

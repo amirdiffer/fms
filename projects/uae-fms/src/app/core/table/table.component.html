@@ -3,14 +3,14 @@
            (sortFunction)="handleSort($event, setting)" [customSort]='true'>
     <ng-template pTemplate="header">
       <tr>
-        <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''"
+        <th *ngFor="let col of setting.columns" [style]="col.width && isNumber(col.width) ? 'width:'+col.width+'px' :'width:'+col.width"
             [pSortableColumn]='col.field' [pSortableColumnDisabled]='!col.sortable'>
           <div class="d-flex">
             <ng-template [ngIf]="col.sortable">
               <img [class.sort]='col.isAsc === false' class="icon-dorp" src="../../../assets/icons/sort-down-solid.svg" alt="">
             </ng-template>
             <ng-template [ngIf]="!col.isIconLable" [ngIfElse]="iconType">
-              {{col.lable|translate}}
+              <p class="m-0 p-0">{{col.lable|translate}}</p>
             </ng-template>
             <ng-template #iconType>
               <div class="iconLable" [innerHTML]="col.lable"></div>
@@ -27,8 +27,8 @@
           <div *ngIf="!col.renderer">
             <div class="d-flex">
               <span class="p-column-title">{{col.lable}}</span>
-              <span class="column-data">
-                {{ this.getCol(col,data) }}
+              <span [innerHTML]="this.getCol(col,data)" class="column-data">
+                <!-- {{ this.getCol(col,data) }} -->
               </span>
             </div>
           </div>

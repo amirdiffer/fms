@@ -56,27 +56,27 @@ export class AddFuelCardComponent implements OnInit {
   fuelCardsTableSetting: TableSetting = {
     columns: [
       {
-        lable: 'Tag No',
+        lable: 'tables.column.tag_no',
         field: 'tagNo'
       },
       {
-        lable: 'Used',
+        lable: 'tables.column.used',
         field: 'used'
       },
       {
-        lable: 'Usage Limit',
+        lable: 'tables.column.usage_limit',
         field: 'usageLimit'
       },
       {
-        lable: 'Asset',
+        lable: 'tables.column.asset',
         field: 'asset'
       },
       {
-        lable: 'Card Type',
+        lable: 'tables.column.card_type',
         field: 'cardType'
       },
       {
-        lable: 'Expire Date',
+        lable: 'tables.column.expire_date',
         field: 'expireDate'
       }
     ],

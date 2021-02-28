@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ColumnType } from '@core/table';
 import { IAssets, IPending } from './assets.model';
 
 @Injectable({
@@ -55,64 +56,64 @@ export class AssetsService {
     return {
       columns: [
         {
-          lable: 'Asset',
+          lable: 'tables.column.asset',
           field: 'asset',
-          width: 180,
-          type: 1,
+          width: '18em',
+          type: ColumnType.lable,
           thumbField: '',
           renderer: 'assetsRenderer'
         },
         {
-          lable: 'Type',
+          lable: 'tables.column.type',
           field: 'type',
           width: 100,
-          type: 1,
+          type: ColumnType.lable,
           thumbField: '',
           renderer: ''
         },
         {
-          lable: 'Business Category',
+          lable: 'tables.column.business_category',
           field: 'businessCategory',
           width: 130,
-          type: 1,
+          type: ColumnType.lable,
           thumbField: '',
           renderer: ''
         },
         {
-          lable: 'Allocated',
+          lable: 'tables.column.allocated',
           field: 'allocated',
           width: 100,
-          type: 1,
+          type: ColumnType.lable,
           thumbField: '',
           renderer: ''
         },
         {
-          lable: 'Operator',
+          lable: 'tables.column.operator',
           field: 'operator',
           width: 100,
-          type: 1,
+          type: ColumnType.lable,
           thumbField: '',
           renderer: ''
         },
         {
-          lable: 'Status',
+          lable: 'tables.column.status',
           field: 'status',
           width: 100,
-          type: 1,
+          type: ColumnType.lable,
           thumbField: '',
           renderer: ''
         },
         {
-          lable: 'Submitted On',
+          lable: 'tables.column.submitted_on',
           field: 'submitOn',
           width: 100,
-          type: 1,
+          type: ColumnType.lable,
           thumbField: '',
           renderer: '',
           sortable: true
         },
         {
-          lable: 'Make',
+          lable: 'tables.column.make',
           field: '',
           width: 100,
           type: 3,
@@ -120,10 +121,10 @@ export class AssetsService {
           renderer: ''
         },
         {
-          lable: 'Current meter',
+          lable: 'tables.column.current_meter',
           field: 'killometer',
           width: 100,
-          type: 1,
+          type: ColumnType.lable,
           thumbField: '',
           renderer: '',
           sortable: true
@@ -141,7 +142,7 @@ export class AssetsService {
     return {
       columns: [
         {
-          lable: 'Asset',
+          lable: 'tables.column.asset',
           field: 'asset',
           width: 130,
           type: 1,
@@ -149,7 +150,7 @@ export class AssetsService {
           renderer: 'assetsRenderer'
         },
         {
-          lable: 'S/N',
+          lable: 'tables.column.s_n',
           field: 'serialNumber',
           width: 100,
           type: 1,
@@ -157,7 +158,7 @@ export class AssetsService {
           renderer: ''
         },
         {
-          lable: 'Make',
+          lable: 'tables.column.make',
           field: '',
           width: 100,
           type: 3,
@@ -165,7 +166,7 @@ export class AssetsService {
           renderer: ''
         },
         {
-          lable: 'Type',
+          lable: 'tables.column.type',
           field: 'type',
           width: 100,
           type: 1,
@@ -173,7 +174,7 @@ export class AssetsService {
           renderer: ''
         },
         {
-          lable: 'Business Category',
+          lable: 'tables.column.business_category',
           field: 'businessCategory',
           width: 100,
           type: 1,
@@ -188,7 +189,7 @@ export class AssetsService {
     return {
       columns: [
         {
-          lable: 'Asset',
+          lable: 'tables.column.asset',
           field: 'asset',
           width: 150,
           type: 1,
@@ -196,7 +197,7 @@ export class AssetsService {
           renderer: 'assetsRenderer'
         },
         {
-          lable: 'Bussiness Category',
+          lable: 'tables.column.business_category',
           field: 'businessCategory',
           width: 100,
           type: 1,
@@ -204,7 +205,7 @@ export class AssetsService {
           renderer: ''
         },
         {
-          lable: 'Create Date',
+          lable: 'tables.column.create_date',
           field: 'createDate',
           width: 100,
           type: 1,
@@ -212,7 +213,7 @@ export class AssetsService {
           renderer: ''
         },
         {
-          lable: 'Registrantion Date',
+          lable: 'tables.column.registration_date',
           field: 'registrantionDate',
           width: 100,
           type: 1,
@@ -220,7 +221,7 @@ export class AssetsService {
           renderer: ''
         },
         {
-          lable: 'Creator',
+          lable: 'tables.column.creator',
           field: 'creator',
           width: 100,
           type: 1,
