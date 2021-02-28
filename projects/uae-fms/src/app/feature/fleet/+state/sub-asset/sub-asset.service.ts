@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ISubasset } from '@models/sub-asset';
-import { ResponseBody } from '@models/responseBody';
+import { ResponseBody } from '@models/response-body';
 import { environment } from '@environments/environment';
 
 @Injectable()
