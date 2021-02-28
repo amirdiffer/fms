@@ -470,6 +470,7 @@
   "fuel_management": {
     "fuel_cards": {
       "request_type": "نوع الطلب",
+      "tag_number": "رقم العلامة",
       "assign_to": "يسند إلى",
       "asset": "أصل",
       "card_type": "نوع البطاقة",
