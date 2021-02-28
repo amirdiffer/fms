@@ -172,22 +172,22 @@
   }
 }
 .card {
-  .card-title {
-    color: #0da06e;
+  ::ng-deep{
+    .card-title,
+    .stepper-title {
+      color: #0da06e;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
   }
 }
-h2.stepper-title {
-  color: #0da06e;
-  font-size: 20px;
-}
+
 .stepper-button {
   button {
     border-radius: 4px;
-    display: block;
     width: 100%;
-    font-size: 17px;
-    height: 48px;
-    margin: 20px 0;
+    height: 3em;
+    margin: 1em 0;
     &.next {
       background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%)
         0% 0% no-repeat padding-box;

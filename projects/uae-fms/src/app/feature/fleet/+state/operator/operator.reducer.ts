@@ -17,9 +17,9 @@ const operatorReducer = createReducer(
 
   on(OperatorActions.allDataLoaded, (state, { data }) =>
     operatorAdapter.setAll(data, {
-    ...state,
-    loaded: true,
-    error: null
+      ...state,
+      loaded: true,
+      error: null
     })
   ),
 
