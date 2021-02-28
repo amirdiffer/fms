@@ -61,7 +61,6 @@ export class TollComponent implements OnInit {
         {
           lable: 'tables.column.toll_tag',
           field: 'tag',
-          width: 100,
           type: 1,
           thumbField: '',
           renderer: ''
@@ -69,7 +68,6 @@ export class TollComponent implements OnInit {
         {
           lable: 'tables.column.status',
           field: 'status',
-          width: 100,
           type: 1,
           thumbField: '',
           renderer: ''
@@ -77,7 +75,6 @@ export class TollComponent implements OnInit {
         {
           lable: 'sidebar.fleets.assets',
           field: 'assets',
-          width: 300,
           type: 2,
           thumbField: '',
           renderer: 'subtextRenderer'
@@ -85,7 +82,6 @@ export class TollComponent implements OnInit {
         {
           lable: 'tables.column.purshate_date',
           field: 'purshateDate',
-          width: 100,
           type: 1,
           thumbField: '',
           renderer: ''

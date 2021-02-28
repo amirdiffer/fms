@@ -3,7 +3,7 @@
            (sortFunction)="handleSort($event, setting)" [customSort]='true'>
     <ng-template pTemplate="header">
       <tr>
-        <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''"
+        <th *ngFor="let col of setting.columns" [style]="col.width && isNumber(col.width) ? 'width:'+col.width+'px' :'width:'+col.width"
             [pSortableColumn]='col.field' [pSortableColumnDisabled]='!col.sortable'>
           <div class="d-flex">
             <ng-template [ngIf]="col.sortable">
