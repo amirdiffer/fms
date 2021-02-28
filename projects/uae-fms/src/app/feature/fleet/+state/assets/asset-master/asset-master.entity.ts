@@ -1,4 +1,5 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { IAssetStatistics } from '@models/statistics';
 
 export interface IAssetMasterModel {
   asset: {
@@ -21,6 +22,7 @@ export interface IAssetMasterModel {
 export interface IAssetMasterState extends EntityState<IAssetMasterModel> {
   error?: any;
   loaded: boolean;
+  statistics: IAssetStatistics;
   message: string;
 }
 
@@ -38,6 +40,7 @@ export const initialState: IAssetMasterState = assetMasterAdapter.getInitialStat
   {
     loaded: null,
     message: null,
+    statistics: null,
     error: null
   } as IAssetMasterState
 );
