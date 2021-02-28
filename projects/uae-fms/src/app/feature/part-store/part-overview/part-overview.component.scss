@@ -55,7 +55,8 @@
 
   &__info {
     th {
-      max-width: 80px;
+      width: 15em;
+      color: #707070;
     }
 
     td {
@@ -64,6 +65,7 @@
     td,
     th {
       padding: 10px;
+      font-size: 15px;
     }
   }
 
