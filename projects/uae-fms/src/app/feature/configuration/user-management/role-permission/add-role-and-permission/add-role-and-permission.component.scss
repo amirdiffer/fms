@@ -58,6 +58,13 @@
   background-color: #F7F9FA;
   border: 1px solid #77767726;
   padding: 2em 0 2em 1em;
+  &__inactive {
+    max-height: 0;
+    overflow: hidden;
+  }
+  &__active {
+    max-height: none !important;
+  }
   .card-body {
     background-color: #ffffff;
   }
