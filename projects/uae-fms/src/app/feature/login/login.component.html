@@ -31,9 +31,9 @@
           <img src="assets/login/JSP-002-IMS-Login-Icone-54.svg" alt="Dubai Police Logo" class="logo w-50" />
           <div class="d-flex flex-column align-items-start justify-content-center
             logo-text">
-            <span>Fleet</span>
-            <span>Management</span>
-            <span>Service</span>
+            <span>{{ 'login.fleet' | translate }}</span>
+            <span>{{ 'login.management' | translate }}</span>
+            <span>{{ 'login.service' | translate }}</span>
           </div>
         </div>
         <div class="m-card-content">
@@ -44,12 +44,12 @@
                   <div class="field-icon">
                   </div>
                   <div class="field-input">
-                    <input type="text" class="w-100" placeholder="User Name" formControlName="username" />
+                    <input type="text" class="w-100" placeholder="{{ 'login.user_name' | translate }}" formControlName="username" />
                   </div>
                 </div>
               </div>
               <span class="form-control-feedback" *ngIf="credentialsFG.controls.username.hasError('incorrect')">
-                Incorrect Username
+                {{ 'login.incorrect_username' | translate }}
               </span>
             </div>
 
@@ -59,19 +59,18 @@
                   <div class="field-icon">
                   </div>
                   <div class="field-input">
-                    <input (keyup.enter)="login()" type="password" class="w-100 input_component" placeholder="Password"
+                    <input (keyup.enter)="login()" type="password" class="w-100 input_component" placeholder="{{ 'login.password' | translate }}"
                       formControlName="password" />
                   </div>
                 </div>
               </div>
               <span class="form-control-feedback" *ngIf="credentialsFG.controls.password.hasError('incorrect')">
-                Incorrect
-                Password
+                {{ 'login.incorrect_password' | translate }}
               </span>
             </div>
             <div class="m-card-options">
               <button type="submit" class="w-100 fw-400 font-weight-bold button-login">
-                Login
+                {{ 'login.login' | translate }}
               </button>
             </div>
           </form>

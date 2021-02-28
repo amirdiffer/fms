@@ -1,12 +1,12 @@
 import { createAction, props } from '@ngrx/store';
-import { IToll } from '@models/toll';
+import { TollStateModel } from './toll.entity';
 
 export class TollActions {
   static loadAll = createAction('[Toll] load all data');
 
   static allDataLoaded = createAction(
     '[Toll] all datas are loaded',
-    props<{ data: IToll[] }>()
+    props<{ data: TollStateModel[] }>()
   );
 
   static error = createAction(

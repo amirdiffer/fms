@@ -11,7 +11,7 @@ import { LoginRequest, LoginResponse } from './login.model';
 export class LoginService {
   constructor(private http: HttpClient) {}
 
-  private loginApiUrl = environment.baseLoginApiUrl + 'users/login';
+  private loginApiUrl = environment.baseApiUrl + 'users/login';
   login(loginRequest: LoginRequest): Observable<any> {
     return this.http.post(this.loginApiUrl, loginRequest).pipe(
       tap((response: LoginResponse) => {
