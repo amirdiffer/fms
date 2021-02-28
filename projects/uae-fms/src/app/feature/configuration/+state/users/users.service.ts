@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ResponseBody } from '@models/responseBody';
+import { ResponseBody } from '@models/response-body';
 import { IUser } from '@models/configuration';
 import { environment } from '@environments/environment';
 
