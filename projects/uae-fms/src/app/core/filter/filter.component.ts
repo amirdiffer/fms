@@ -9,9 +9,9 @@ export class FilterComponent implements OnInit, OnChanges {
   @Input() setting: FilterCardSetting[];
 
   cardSetting: FilterCard[];
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnChanges(): void {
     this.cardSetting = this.setting.map((filterCardSetting) => {
@@ -23,7 +23,7 @@ export class FilterComponent implements OnInit, OnChanges {
     this.cardSetting.forEach((card) => {
       if (card.isActive) {
         card.isActive = false;
-        card.filterBackgroundColor = '#fff';
+        card.filterBackgroundColor = 'transparent';
       }
     });
 

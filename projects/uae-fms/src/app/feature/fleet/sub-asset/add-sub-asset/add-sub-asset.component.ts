@@ -6,7 +6,11 @@ import {
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
-
+import {
+  FileSystemDirectoryEntry,
+  FileSystemFileEntry,
+  NgxFileDropEntry
+} from 'ngx-file-drop';
 @Component({
   selector: 'anms-add-sub-asset',
   templateUrl: './add-sub-asset.component.html',
@@ -17,6 +21,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   subAssetForm: FormGroup;
   warranties: FormArray;
   submited = false;
+  public filesUpdloaded: NgxFileDropEntry[] = [];
   constructor(injector: Injector, private _fb: FormBuilder) {
     super(injector);
   }
@@ -115,5 +120,27 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       return;
     }
     this.goToList();
+  }
+
+  public dropped(files: NgxFileDropEntry[]) {
+    this.filesUpdloaded = files;
+    for (const droppedFile of files) {
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+          console.log(droppedFile.relativePath, file);
+        });
+      } else {
+        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+        console.log(droppedFile.relativePath, fileEntry);
+      }
+    }
+  }
+  public fileOver(event) {
+    console.log(event);
+  }
+
+  public fileLeave(event) {
+    console.log(event);
   }
 }

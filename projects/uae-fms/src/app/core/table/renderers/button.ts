@@ -7,16 +7,16 @@ import { environment } from '../../../../environments/environment';
     <div class="button-table-container">
       <button
         class="btn-primary-large"
-        *ngIf="getLable(col.field) != 'Reject'"
+        *ngIf="getLable(col.field) != 'buttons.reject'"
         (click)="col.onClick(row)"
       >
-        {{  'forms.' + getLable(col.field) | translate }}
+        {{ getLable(col.field)|translate }}
       </button>
       <button
         class="btn-primary-large reject"
-        *ngIf="getLable(col.field) == 'Reject'"
+        *ngIf="getLable(col.field) == 'buttons.reject'"
       >
-        {{ 'forms.' + getLable(col.field) | translate }}
+        {{ getLable(col.field)|translate }}
       </button>
     </div>
   `,
@@ -56,16 +56,16 @@ export class TableButtonRendererComponent implements OnInit {
   getLable(field: string): string {
     switch (field) {
       case 'ButtonReject': {
-        return 'reject';
+        return 'buttons.reject';
       }
       case 'ButtonApprove': {
-        return 'approve';
+        return 'buttons.approve';
       }
       case 'ButtonRecived': {
-        return 'recived';
+        return 'buttons.recived';
       }
       case 'ButtonConfirm': {
-        return 'confirm';
+        return 'buttons.confirm';
       }
       default: {
         return '';
