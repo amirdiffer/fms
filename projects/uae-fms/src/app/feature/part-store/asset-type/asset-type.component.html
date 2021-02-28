@@ -1,36 +1,20 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title class="mat-card-title">{{ 'part_store.part_list.asset_type' | translate }}</mat-card-title>
-    </mat-card-header>
+<mat-card class="form-section m-0 pb-2">
+  <div >
+    <h3 class="form-section__title">{{ 'part_store.part_list.asset_type' | translate }}</h3>
     <span class="border"></span>
-    <mat-card-content>
-        <mat-form-field appearance="fill">
-            <mat-label>{{ 'part_store.part_list.asset_type' | translate }}</mat-label>
-            <mat-select [value]="defaultSelecAssetType">
-              <mat-option value="car">Car</mat-option>
-              <mat-option value="motorcycle">MotorCycle</mat-option>
-              <mat-option value="truck">Truck</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field appearance="fill">
-            <mat-label>{{ 'part_store.part_list.make' | translate }}</mat-label>
-            <mat-select [value]="defaultSelectMake">
-              <mat-option value="bmw">BMW</mat-option>
-              <mat-option value="audi">Audi</mat-option>
-              <mat-option value="lamborghini">Lamborghini</mat-option>
-              <mat-option value="bugatti">Lamborghini</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field appearance="fill">
-            <mat-label>{{ 'part_store.part_list.model' | translate }}</mat-label>
-            <mat-select [value]="defaultSelectModel">
-              <mat-option value="m6">M6</mat-option>
-              <mat-option value="x6">X6</mat-option>
-              <mat-option value="z4">Z4</mat-option>
-              <mat-option value="M5">M5</mat-option>
-            </mat-select>
-          </mat-form-field>
-    </mat-card-content>
+    <div class=" p-field form-section__field mt-5">
+      <span class="p-float-label ">
+          <p-dropdown inputId="assetType" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+          <label for="assetType">{{ 'part_store.part_list.asset_type' | translate }}</label>
+      </span>
+      <span class="p-float-label mt-4">
+        <p-dropdown inputId="assetType" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+        <label for="assetType">{{ 'part_store.part_list.make' | translate }}</label>
+      </span>
+      <span class="p-float-label mt-4">
+        <p-dropdown inputId="assetType" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+        <label for="assetType">{{ 'part_store.part_list.model' | translate }}</label>
+      </span>
+    </div>
+  </div>
 </mat-card>
