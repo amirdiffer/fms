@@ -56,3 +56,24 @@ app-asset-usage-table {
     }
   }
 }
+
+:host ::ng-deep{
+  .fuel-card {
+    app-table{
+      p-table{
+        tbody{
+          tr{
+            border: 1px solid #e9ecef;
+            td{
+              border:none;
+              &:not(:first-child){
+                
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

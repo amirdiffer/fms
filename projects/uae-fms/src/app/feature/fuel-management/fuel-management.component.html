@@ -17,12 +17,11 @@
           </button>
           <button class="btn-primary-small" (click)="addClicked($event)"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
         </span>
-        <div title="{{ 'tabs.fuel_cards' | translate }}">
+        <div title="{{ 'tabs.fuel_cards' | translate }}" class="fuel-card">
           <app-table [setting]="fuelCardsTableSetting"></app-table>
-          <app-fuel-card-table [settings]='fuelCardsTableSettingOld'></app-fuel-card-table>
         </div>
         <div title="{{ 'tabs.asset_usages' | translate }}">
-          <!-- <app-asset-usage-table [settings]='assetUsageTableSetting'></app-asset-usage-table> -->
+          <app-table [setting]="assetUsageTableSetting"></app-table>
         </div>
       </app-tab-view>
     </div>

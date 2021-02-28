@@ -1,11 +1,5 @@
 import { TableSetting } from '@core/table';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import {
-  FuelCardTableColumnDefinition,
-  FuelCardTableData,
-  FuelDataType,
-  FuelTableSettings
-} from '../fuel-card-table/fuel-card-table.component';
 
 @Component({
   selector: 'anms-add-fuel-card',
