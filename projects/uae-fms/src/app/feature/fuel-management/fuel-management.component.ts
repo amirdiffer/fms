@@ -15,6 +15,7 @@ import {
 import { FuelCardsFacade } from '../fuel-management/+state/fuel-cards';
 import { AssetUsageFacade } from './+state/asset-usage';
 import { Router } from '@angular/router';
+import { ColumnType } from '@core/table';
 
 @Component({
   selector: 'anms-fuel-management',
@@ -254,7 +255,7 @@ export class FuelManagementComponent implements OnInit {
     }
   ];
 
-  fuelCardsTableSetting: FuelTableSettings = {
+  fuelCardsTableSettingOld: FuelTableSettings = {
     columns: this.fuelCardsColumns,
     data: this.fuelCardsTableData
   };
@@ -263,6 +264,154 @@ export class FuelManagementComponent implements OnInit {
     columns: this.assetUsageColumns,
     data: this.assetUsageTableData
   };
+  fuelCardTableData =[
+    {
+      tagNo:{
+        tagNo:'0550550505050',
+        data:[
+          {
+            litters:'50',
+            km:'10',
+            day:'Saturday',
+            date:'02/02/2020',
+            time:'2:00 PM'
+          },
+          {
+            litters:'50',
+            km:'10',
+            day:'Saturday',
+            date:'02/02/2020',
+            time:'2:00 PM'
+          },
+          {
+            litters:'50',
+            km:'10',
+            day:'Saturday',
+            date:'02/02/2020',
+            time:'2:00 PM'
+          }
+        ]
+      },
+      used:'100 Litters',
+      usageLimit:'400 Litters',
+      asset:'Item no 123456',
+      cardType:'RFID-ENOC',
+      expire:'02/02/2020'
+    },
+    {
+      tagNo:{
+        tagNo:'0550550505050',
+        data:[
+          {
+            litters:'50',
+            km:'10',
+            day:'Saturday',
+            date:'02/02/2020',
+            time:'2:00 PM'
+          },
+          {
+            litters:'50',
+            km:'10',
+            day:'Saturday',
+            date:'02/02/2020',
+            time:'2:00 PM'
+          },
+          {
+            litters:'50',
+            km:'10',
+            day:'Saturday',
+            date:'02/02/2020',
+            time:'2:00 PM'
+          }
+        ]
+      },
+      used:'100 Litters',
+      usageLimit:'400 Litters',
+      asset:'Item no 123456',
+      cardType:'RFID-ENOC',
+      expire:'02/02/2020'
+    },
+    {
+      tagNo:{
+        tagNo:'0550550505050',
+        data:[
+          {
+            litters:'50',
+            km:'10',
+            day:'Saturday',
+            date:'02/02/2020',
+            time:'2:00 PM'
+          },
+          {
+            litters:'50',
+            km:'10',
+            day:'Saturday',
+            date:'02/02/2020',
+            time:'2:00 PM'
+          },
+          {
+            litters:'50',
+            km:'10',
+            day:'Saturday',
+            date:'02/02/2020',
+            time:'2:00 PM'
+          }
+        ]
+      },
+      used:'100 Litters',
+      usageLimit:'400 Litters',
+      asset:'Item no 123456',
+      cardType:'RFID-ENOC',
+      expire:'02/02/2020'
+    }
+  ]
+  fuelCardsTableSetting = {
+    columns: [
+      {
+        lable: 'Tag No',
+        field: 'tagNo',
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'fuelCardRenderer'
+      },
+      {
+        lable: 'Used',
+        field: 'used',
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'Usage Limit',
+        field: 'usageLimit',
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'Asset',
+        field: 'asset',
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'Card Type',
+        field: 'cardType',
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'Card Type',
+        field: 'expire',
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: ''
+      },
+    ],
+    data: this.fuelCardTableData
+  }
 
   constructor(
     private _facadeFuelCard: FuelCardsFacade,
