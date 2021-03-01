@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TollFacade } from '../toll/+state';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'anms-toll',
@@ -13,6 +14,7 @@ export class TollComponent implements OnInit {
   filterSetting = [];
   searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn = 'assets/icons/download-solid.svg';
+  assignForm: object|null = null;
 
   translations = {
     'statistic.total': '',
@@ -20,14 +22,29 @@ export class TollComponent implements OnInit {
     'statistic.assigned': ''
   };
 
-  constructor(private facade: TollFacade) {}
+  form: FormGroup;
+  migrateForm(): void {
+    this.form = this._fb.group({
+      tag: "",
+      status: "",
+      purshateDate: ""
+    })
+  }
+
+  constructor(private facade: TollFacade, private _fb: FormBuilder) {
+    this.migrateForm();
+  }
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.assignNow$.subscribe((x) => {
+      this.assignForm = x;
+      x!=null ? this.form.patchValue(this.assignForm): null;
+    });
     this.tableData = [
       {
         tag: '123456789',
-        status: 'Assigned',
+        status: 'Unassigned',
         assets: { assetName: 'Asset Name', subAsset: 'Sub Asset' },
         purshateDate: '02/02/2020'
       },
@@ -61,7 +78,6 @@ export class TollComponent implements OnInit {
         {
           lable: 'tables.column.toll_tag',
           field: 'tag',
-          width: 100,
           type: 1,
           thumbField: '',
           renderer: ''
@@ -69,7 +85,6 @@ export class TollComponent implements OnInit {
         {
           lable: 'tables.column.status',
           field: 'status',
-          width: 100,
           type: 1,
           thumbField: '',
           renderer: ''
@@ -77,15 +92,13 @@ export class TollComponent implements OnInit {
         {
           lable: 'sidebar.fleets.assets',
           field: 'assets',
-          width: 300,
           type: 2,
           thumbField: '',
-          renderer: 'subtextRenderer'
+          renderer: 'assignNow'
         },
         {
           lable: 'tables.column.purshate_date',
           field: 'purshateDate',
-          width: 100,
           type: 1,
           thumbField: '',
           renderer: ''
@@ -112,6 +125,19 @@ export class TollComponent implements OnInit {
       }
     ];
   }
+
+  closeForm(): void {
+    this.form.reset();
+    this.facade.loadAssignNow(null);
+  }
+
+  lengthObjectAssign(): boolean {
+    if (this.assignForm == null)
+      return false
+    else
+      return Object.keys(this.assignForm).length > 1;
+  }
+
 }
 
 export interface ITableData {

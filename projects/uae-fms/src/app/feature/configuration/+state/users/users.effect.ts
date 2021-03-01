@@ -12,7 +12,7 @@ export class UsersEffect {
       ofType(UsersActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => UsersActions.allDataLoaded({ data })),
+          map((data) => UsersActions.allDataLoaded({ data: data.message })),
           catchError((error) => of(UsersActions.error({ reason: error })))
         )
       )

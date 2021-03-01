@@ -134,85 +134,181 @@
   @include anms-app-component-theme($theme);
 }
 
-.default-theme {
-  @include angular-material-theme($anms-green-theme);
-  @include custom-components-theme($anms-green-theme);
+/* Dark Mode*/
+.black-theme {
+  @include angular-material-theme($anms-black-theme);
+  @include custom-components-theme($anms-black-theme);
+  @include form-section(
+    $fms-black-body2-bg,
+    $fms-black-inactive-input-label,
+    $fms-black-inactive-input-border,
+    $fms-black-focused-input-label,
+    $fms-black-focused-input-placeholder,
+    $fms-black-focused-input-border,
+    $fms-black-hovered-input-label,
+    $fms-black-hovered-input-border,
+    $fms-black-disabled-input-label,
+    $fms-black-disabled-input-border,
+    $fms-black-disabled-placeholder,
+    $fms-black-invalid-input-label,
+    $fms-black-invalid-input-border,
+    $fms-black-form-addon,
+    $fms-black-form-addon-border,
+    $fms-black-form-input-toggle
+  );
+  .wrapper {
+    background-color: $fms-black-body1-bg !important;
+    .menu-wrapper .container {
+      background-color: $fms-black-body1-bg !important;
+
+      .menuItem {
+        svg {
+          fill: $fms-black-body-color !important;
+        }
+
+        .menu-item-name {
+          color: $fms-black-body-color !important;
+        }
+      }
+    }
+    .dashboard-container .dashboard-card {
+      background-color: $fms-black-body2-bg;
+      .suppliers-tabs .tab {
+        background-color: #242629;
+      }
+    }
+    .card-table-header {
+      .btn-download {
+        background: $fms-black-body2-bg;
+        &:hover:not([disabled]) {
+          background: $fms-black-primary-color2;
+        }
+      }
+      .search-box button {
+        background: transparent;
+        border-left: 1px solid #a2a2a2;
+      }
+    }
+    .tabs .tab-titles .tab {
+      background: $fms-black-body1-bg;
+      color: #a2a2a2;
+      &.active-tab {
+        background: $fms-black-body1-bg;
+      }
+
+    }
+    app-filter {
+      .filter-wrapper-container {
+        .card {
+          background-color: transparent !important;
+        }
+      }
+    }
+    .mat-stepper-horizontal{
+      background-color:transparent !important;
+      
+      .mat-stepper-horizontal-line{
+        border-top-color: rgba(255, 255, 255, 0.8)
+      }
+      .mat-horizontal-stepper-header:not(:last-child)::after ,
+      .mat-horizontal-stepper-header:not(:first-child)::before{
+        border-top-color: rgba(255, 255, 255, 0.8);
+      }
+    }
+    ngx-file-drop {
+      .ngx-file-drop__drop-zone {
+        border: .12em dashed rgba(255, 255, 255, 0.6) !important;
+
+      }
+      .ngx-file-drop__content {
+        color: rgba(255, 255, 255, 0.6) !important;
+
+      }
+    }
+    button.btn-scondary-green {
+      background: #121212;
+    }
+    input,
+    .p-inputtext {
+      color: $fms-black-body-color;
+    }
+    .table-container {
+      background-color: $fms-black-body2-bg;
+      // margin: 10px 10px 20px 10px;
+
+      .p-datatable .p-datatable-thead > tr > th {
+        background-color: $fms-black-body1-bg;
+        color: $fms-black-body-color;
+      }
+
+      .p-datatable .p-datatable-tbody > tr > td {
+        background-color: $fms-black-body2-bg;
+        color: $fms-black-body-color;
+      }
+    }
+    mat-progress-bar .mat-progress-bar-fill::after {
+      background-color: $fms-black-primary-color2;
+    }
+    mat-sidenav-container {
+      .content .path > span:not(:last-child) {
+        color: $fms-black-body-color;
+      }
+    }
+    mat-card.mat-card,
+    .card , anms-add-asset mat-horizontal-stepper .mat-horizontal-stepper-header-container{
+      background-color: $fms-black-body2-bg;
+    }
+    .mat-toolbar.mat-primary {
+      background: $fms-black-primary-color1;
+    }
+    .p-dropdown-panel,
+    .p-autocomplete-panel {
+      background-color: $fms-black-body2-bg;
+      :is(ul, p-dropdownitem) > li > span,
+      .p-autocomplete-item {
+        color: $fms-black-body-color;
+      }
+
+    }
+  }
 }
-
-.light-theme {
-  @include angular-material-theme($anms-light-theme);
-  @include custom-components-theme($anms-light-theme);
-}
-
-// .black-theme {
-//   @include angular-material-theme($anms-black-theme);
-//   @include custom-components-theme($anms-black-theme);
-
-//   .menu-wrapper .container {
-//     background-color: $fms-black-body1-bg !important;
-
-//     .menuItem {
-//       svg {
-//         fill: $fms-black-body-color !important;
-//       }
-
-//       .menu-item-name {
-//         color: $fms-black-body-color !important;
-//       }
-//     }
-//   }
-
-//   .wrapper {
-//     background-color: $fms-black-body1-bg !important;
-//   }
-
-//   @include form-section(
-//     $fms-black-body2-bg,
-//     $fms-black-inactive-input-label,
-//     $fms-black-inactive-input-border,
-//     $fms-black-focused-input-label,
-//     $fms-black-focused-input-placeholder,
-//     $fms-black-focused-input-border,
-//     $fms-black-hovered-input-label,
-//     $fms-black-hovered-input-border,
-//     $fms-black-disabled-input-label,
-//     $fms-black-disabled-input-border,
-//     $fms-black-disabled-placeholder,
-//     $fms-black-invalid-input-label,
-//     $fms-black-invalid-input-border,
-//     $fms-black-form-addon,
-//     $fms-black-form-addon-border,
-//     $fms-black-form-input-toggle
-//   );
-
-//   .table-container {
-//     background-color: $fms-black-body2-bg;
-//     margin: 10px 10px 20px 10px;
-
-//     .p-datatable .p-datatable-thead > tr > th {
-//       background-color: $fms-black-body1-bg;
-//       color: $fms-black-body-color;
-//     }
-
-//     .p-datatable .p-datatable-tbody > tr > td {
-//       background-color: $fms-black-body2-bg;
-//       color: $fms-black-body-color;
-//     }
-//   }
-// }
-
-.nature-theme {
-  @include angular-material-theme($anms-nature-theme);
-  @include custom-components-theme($anms-nature-theme);
-}
-
+/* Light Mode */
 .green-theme {
   @include angular-material-theme($anms-green-theme);
   @include custom-components-theme($anms-green-theme);
 
   .wrapper {
     background-color: $fms-green-body1-bg !important;
+    .dashboard-container .dashboard-card {
+      background-color: #fff;
+      .suppliers-tabs .tab {
+        background-color: #f4f4f4;
+      }
+    }
+    .tabs .tab-titles .tab {
+      background: #e9ecef;
+      color: #475f7b;
+      &.active-tab {
+        background: #f4f4f4;
+      }
+    }
+    anms-add-asset mat-horizontal-stepper .mat-horizontal-stepper-header-container{
+      background: #fff;
+    }
   }
+  mat-sidenav-container {
+    .content .path > span:not(:last-child) {
+      color: #00000061;
+    }
+  }
+  app-filter {
+    .filter-wrapper-container {
+      .card {
+        border: none;
+      }
+    }
+  }
+
 
   @include form-section(
     $fms-green-body2-bg,
@@ -232,6 +328,22 @@
     $fms-green-form-addon-border,
     $fms-green-form-input-toggle
   );
+}
+
+.default-theme {
+  @include angular-material-theme($anms-green-theme);
+  @include custom-components-theme($anms-green-theme);
+
+}
+
+.light-theme {
+  @include angular-material-theme($anms-light-theme);
+  @include custom-components-theme($anms-light-theme);
+}
+
+.nature-theme {
+  @include angular-material-theme($anms-nature-theme);
+  @include custom-components-theme($anms-nature-theme);
 }
 
 /* Filter*/
@@ -324,7 +436,6 @@
   margin: 0 5px;
   border-radius: 0.25em;
   position: relative;
-  background: #ffff;
   svg {
     width: 30px;
     height: 100%;
@@ -349,7 +460,7 @@
 
 .button-container {
   position: absolute;
-  top: -3.6em;
+  top: -4.6em;
   right: 0;
   font-size: 0.85em;
   button {
@@ -445,6 +556,7 @@
         box-shadow: 0px 0px 2px #00000029;
         border: 2px solid #a2a2a2;
         border-radius: 0.25em;
+        background-color: transparent;
         &::placeholder {
           padding-left: 5px;
         }
@@ -691,6 +803,7 @@ form {
 /* Stepper */
 
 mat-horizontal-stepper {
+  font-family: $fms-green-body1-font !important;
   .mat-horizontal-stepper-header {
     pointer-events: none !important;
   }
@@ -764,7 +877,7 @@ mat-progress-bar {
   }
   &.upload-progress {
     .mat-progress-bar-fill::after {
-      background-color: #0000005e;
+      background-color: #0000005e !important;
       box-shadow: none;
     }
   }
@@ -855,10 +968,16 @@ ngx-file-drop {
     margin-right: 8px;
   }
 }
+.upload-box {
+  opacity: 0.5;
+}
 
 .p-component,
 mat-card-content {
   font-size: 1em !important;
+}
+small {
+  color: none;
 }
 .p-inputtext {
   font-family: '29LT Bukra' !important;
@@ -866,4 +985,7 @@ mat-card-content {
 }
 .p-inputtext:enabled:focus {
   box-shadow: none !important;
+}
+.p-dropdown {
+  background: transparent;
 }

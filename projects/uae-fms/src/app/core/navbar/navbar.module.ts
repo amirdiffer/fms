@@ -32,9 +32,7 @@ import { SettingsFacade } from '@core/settings/settings.facade';
   ],
   exports: [NavbarComponent],
   declarations: [NavbarComponent],
-  providers: [
-    SettingsFacade
-  ]
+  providers: [SettingsFacade]
 })
 export class NavbarModule {
   constructor(

@@ -1,0 +1,49 @@
+<form #form='ngForm' (submit)='onSubmit(form)' class='p-4'>
+  <div class='button-container'>
+    <button class='btn-primary-medium btn-scondary-green'
+            (click)='cancel.emit()'>{{ 'forms.cancel' | translate }}</button>
+    <!--    TODO: for now add button acts as cancel for UI concerns but later has to change-->
+    <button class='btn-primary-medium add' (click)='cancel.emit()'>{{ 'forms.add' | translate }}</button>
+  </div>
+  <div>
+    <p class='font-weight-bold'>Add Supplier</p>
+  </div>
+  <div class='row form-section__row'>
+    <div class='col-4 p-field form-section__field'>
+                    <span class='p-float-label'>
+                        <input pInputText placeholder='Company' name='company' type='text'>
+                        <label>Company</label>
+                    </span>
+    </div>
+    <div class='col-4 p-field form-section__field'>
+                    <span class='p-float-label'>
+                        <input pInputText placeholder='Name' name='name' type='text'>
+                        <label>Name</label>
+                    </span>
+    </div>
+    <div class='col-4 p-field form-section__field'>
+                    <span class='p-float-label'>
+                        <input pInputText placeholder='Phone' name='phone' type='text'>
+                        <label>Phone</label>
+                    </span>
+    </div>
+  </div>
+
+  <div class='row form-section__row'>
+    <div class='col-4 p-field form-section__field'>
+                    <span class='p-float-label'>
+                        <input pInputText placeholder='Email' name='email' type='text'>
+                        <label>Email</label>
+                    </span>
+    </div>
+  </div>
+
+  <div class='row form-section__row'>
+    <div class='col-8 p-field form-section__field'>
+                    <span class='p-float-label'>
+                        <input pInputText placeholder='Address' name='address' type='text'>
+                        <label>Address</label>
+                    </span>
+    </div>
+  </div>
+</form>
