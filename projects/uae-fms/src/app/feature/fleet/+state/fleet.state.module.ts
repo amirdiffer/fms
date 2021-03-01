@@ -42,7 +42,7 @@ import { MovementRequestsEffect } from './movement/requests/movement-requests.ef
       RegistrationEffects,
       OrganizationEffects,
       SubAssetEffect,
-      AccessoryEffect
+      AccessoryEffect,
       MovementRequestsEffect
     ]),
   ],
