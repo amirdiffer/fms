@@ -1,6 +1,13 @@
-::ng-deep .ng-star-inserted {
-  text-overflow: ellipsis;
-  // overflow: hidden;
+
+:host ::ng-deep{
+  thead{
+    tr th > div > p{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display:block;
+    }
+  }
 }
 
 .thumb {
@@ -35,7 +42,7 @@
 }
 
 .statusColor {
-  width: 6px;
+  width: .4em;
   position: absolute;
   left: 0px;
   border-radius: 0px 5px 5px 0px;
@@ -47,13 +54,13 @@
 }
 
 .with-renderer-table {
-  height: 60px;
-  margin-top: 20px;
+  height: 5em;
+  margin-top: 1em;
 }
 
 .icon-dorp {
-  width: 23px;
-  height: 23px;
+  width: 1.5em;
+  height: 1.5em;
   margin: 0px 5px;
 }
 
