@@ -20,6 +20,7 @@ import { Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TabViewComponent implements OnInit {
+  @Input('returnId') returnId: string = 'title';
   @Output('selectedIndex') selectedIndex: EventEmitter<
     string
   > = new EventEmitter<string>();
@@ -66,7 +67,7 @@ export class TabViewComponent implements OnInit {
 
   selectTab(index: number, title: string) {
     this.selectedTab = index;
-    this.selectedIndex.emit(title);
+    this.selectedIndex.emit(this.returnId == 'title' ? title : index.toString());
     this.selectedTabChanged();
     console.log(index, title);
   }

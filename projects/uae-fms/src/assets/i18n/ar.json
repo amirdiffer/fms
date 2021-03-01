@@ -824,6 +824,7 @@
     "approve": "اعتماد",
     "recived": "الواردة",
     "assign": "تعيين",
+    "upload": "تحميل",
     "feedback": {
       "required": "هذا الحقل مطلوب",
       "invalid-email": "عنوان البريد الإلكتروني غير صالح"
