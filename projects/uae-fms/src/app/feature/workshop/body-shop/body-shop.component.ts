@@ -613,8 +613,17 @@ export class BodyShopComponent implements OnInit {
 
   ngOnInit(): void {
     this._facadeRequest.loadAll();
+    this._facadeRequest.bodyShop$.subscribe((x) => {
+      console.log(x);
+    });
     this._facadeJobCard.loadAll();
+    this._facadeJobCard.bodyShop$.subscribe((x) => {
+      console.log(x);
+    });
     this._facadeTechnician.loadAll();
+    this._facadeTechnician.bodyShop$.subscribe((x) => {
+      console.log(x);
+    });
     this._facadeLocation.loadAll();
   }
 
