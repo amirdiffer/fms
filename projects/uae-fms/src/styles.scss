@@ -195,6 +195,7 @@
       &.active-tab {
         background: $fms-black-body1-bg;
       }
+
     }
     app-filter {
       .filter-wrapper-container {
@@ -203,22 +204,25 @@
         }
       }
     }
-    .mat-stepper-horizontal {
-      background-color: transparent !important;
-      .mat-stepper-horizontal-line {
-        border-top-color: rgba(255, 255, 255, 0.8);
+    .mat-stepper-horizontal{
+      background-color:transparent !important;
+      
+      .mat-stepper-horizontal-line{
+        border-top-color: rgba(255, 255, 255, 0.8)
       }
-      .mat-horizontal-stepper-header:not(:last-child)::after,
-      .mat-horizontal-stepper-header:not(:first-child)::before {
+      .mat-horizontal-stepper-header:not(:last-child)::after ,
+      .mat-horizontal-stepper-header:not(:first-child)::before{
         border-top-color: rgba(255, 255, 255, 0.8);
       }
     }
     ngx-file-drop {
       .ngx-file-drop__drop-zone {
-        border: 0.12em dashed rgba(255, 255, 255, 0.6) !important;
+        border: .12em dashed rgba(255, 255, 255, 0.6) !important;
+
       }
       .ngx-file-drop__content {
         color: rgba(255, 255, 255, 0.6) !important;
+
       }
     }
     button.btn-scondary-green {
@@ -251,7 +255,7 @@
       }
     }
     mat-card.mat-card,
-    .card {
+    .card , anms-add-asset mat-horizontal-stepper .mat-horizontal-stepper-header-container{
       background-color: $fms-black-body2-bg;
     }
     .mat-toolbar.mat-primary {
@@ -264,6 +268,7 @@
       .p-autocomplete-item {
         color: $fms-black-body-color;
       }
+
     }
   }
 }
@@ -287,6 +292,9 @@
         background: #f4f4f4;
       }
     }
+    anms-add-asset mat-horizontal-stepper .mat-horizontal-stepper-header-container{
+      background: #fff;
+    }
   }
   mat-sidenav-container {
     .content .path > span:not(:last-child) {
@@ -300,6 +308,7 @@
       }
     }
   }
+
 
   @include form-section(
     $fms-green-body2-bg,
@@ -324,6 +333,7 @@
 .default-theme {
   @include angular-material-theme($anms-green-theme);
   @include custom-components-theme($anms-green-theme);
+
 }
 
 .light-theme {
@@ -450,7 +460,7 @@
 
 .button-container {
   position: absolute;
-  top: -3.6em;
+  top: -4.6em;
   right: 0;
   font-size: 0.85em;
   button {
@@ -793,6 +803,7 @@ form {
 /* Stepper */
 
 mat-horizontal-stepper {
+  font-family: $fms-green-body1-font !important;
   .mat-horizontal-stepper-header {
     pointer-events: none !important;
   }
