@@ -6,14 +6,14 @@ import { environment } from '../../../../environments/environment';
   template: `
     <div class="button-table-container">
       <button
-        class="btn-primary-large"
+        class="btn-primary-medium"
         *ngIf="getLable(col.field) != 'buttons.reject'"
         (click)="col.onClick(row)"
       >
         {{ getLable(col.field)|translate }}
       </button>
       <button
-        class="btn-primary-large reject"
+        class="btn-primary-medium reject"
         *ngIf="getLable(col.field) == 'buttons.reject'"
       >
         {{ getLable(col.field)|translate }}
@@ -21,11 +21,18 @@ import { environment } from '../../../../environments/environment';
     </div>
   `,
   styles: [
-    `
+    ` .button-table-container{
+        position: relative;
+      }
       div button {
-        padding: 1em 1.3em;
-        height: auto;
+        padding: .6em 1.3em;
         width: 7em;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        height: auto;
+        max-height: 3em;
       }
       button.reject {
         background: #a09999;
