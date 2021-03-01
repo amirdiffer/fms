@@ -495,7 +495,7 @@
     }
   },
   "part_store": {
-    "parts_list": {
+    "part_list": {
       "asset_type": "نوع الأصول",
       "category": "الفئة",
       "item_info": "معلومات العنصر",
