@@ -316,7 +316,14 @@
       "phone_number": "رقم التليفون",
       "company_name": "اسم الشركة",
       "support_operator": "مشغل الدعم",
-      "instruction": "المشغل أو العامل"
+      "instruction": "المشغل أو العامل",
+      "out_of_policy": "خارج الوثيقة",
+      "established_market_value": "القيمة السوقية الثابتة",
+      "remove": "إزالة",
+      "gps": "GPS",
+      "removal_items": "عناصر الإزالة",
+      "by": "بواسطة",
+      "vehicle": "مركبة"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -506,7 +513,9 @@
       "quantity": "العدد",
       "price": "السعر",
       "warranty_expire_date": "تاريخ انتهاء الضمان",
-      "description": "الوصف"
+      "warranty_expire":" انتهاء الضمان",
+      "description": "الوصف",
+      "total_cost":"التكلفة الإجمالية"
     },
     "order_list": {
       "request_list": "قائمة الطلبات",

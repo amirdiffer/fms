@@ -230,6 +230,34 @@ html {
       border-top-width: 5px !important;
     }
   }
+  /* Other Detail */
+  .wrapper{
+    .edit-box{
+      margin: 10px 20px 10px 0;
+      &__box--first{
+        border-right: 3px solid #828acd;
+        border-left:0;
+        border-radius: 0 5px 5px 0
+      }
+      &__box--last{
+        border-radius: 5px 0 0 5px;
+      }
+    }
+    anms-part-list{
+      .p-inputgroup {
+        .p-inputgroup-addon.search-btn{
+          left: 0;
+          right: auto !important;
+        }
+      }
+    }
+    .part-overview{
+      .component_wrapper .btn-download{
+        left: 16px;
+        right: auto !important;
+      }
+    }
+  }
 }
 
 /* END RTL Arabic */

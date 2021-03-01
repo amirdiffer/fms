@@ -513,7 +513,9 @@
       "quantity": "Quantity",
       "price": "Price",
       "warranty_expire_date": "Warranty Expire Date",
-      "description": "Description"
+      "warranty_expire":"Warranty Expire",
+      "description": "Description",
+      "total_cost":"Total Cost"
     },
     "order_list": {
       "request_list": "Request List",
