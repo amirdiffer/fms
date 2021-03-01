@@ -22,3 +22,6 @@ export interface IOwnerShip {
   id: number,
   name: string
 }
+
+
+export interface IPeriodicService {}
