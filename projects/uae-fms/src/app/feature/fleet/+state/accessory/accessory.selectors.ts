@@ -7,6 +7,10 @@ export class AccessorySelectors {
     FleetSelectors.accessorySelector,
     accessoryAdapter.setAll
   );
+  static selectStatistics = createSelector(
+    FleetSelectors.accessorySelector,
+    (state) => state.statistics
+  );
 
   static message = createSelector(
     FleetSelectors.accessorySelector,

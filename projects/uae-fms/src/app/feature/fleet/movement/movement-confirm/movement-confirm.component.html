@@ -2,7 +2,7 @@
 <!-- start form -->
 <form [formGroup]="confirmForm">
     <div class="form-section no-bg no-shadow">
-        <h3 class="form-section__title">Asset Information</h3>
+        <h3 class="form-section__title">{{ 'movement.request.asset_information' | translate }}</h3>
         <div class="row form-section__row">
             <!-- start asset -->
             <div class="col-12 p-field form-section__field">
@@ -13,7 +13,7 @@
                             [suggestions]="assetSuggests" field="name"
                             [minLength]="1"></p-autoComplete>
                         <i class="pi pi-search"></i>
-                        <label>Asset *</label>
+                        <label>{{ 'movement.request.asset' | translate }} *</label>
                     </span>
                 </div>
             </div>
@@ -22,32 +22,32 @@
     </div>
   <hr>
     <div class="form-section no-bg no-shadow">
-        <h3 class="form-section__title">User Information</h3>
+        <h3 class="form-section__title">{{ 'movement.request.user_information' | translate }}</h3>
         <div class="row form-section__row">
             <!-- start department -->
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="Department *"
+                    <input pInputText placeholder="{{ 'movement.request.department' | translate }} *"
                         formControlName="department" required type="text">
-                    <label>Department *</label>
+                    <label>{{ 'movement.request.department' | translate }} *</label>
                 </span>
             </div>
             <!-- end department -->
             <!-- start operator -->
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="Operator *"
+                    <input pInputText placeholder="{{ 'movement.request.operator' | translate }} *"
                         formControlName="operator" required type="text">
-                    <label>Operator *</label>
+                    <label>{{ 'movement.request.operator' | translate }} *</label>
                 </span>
             </div>
             <!-- end operator -->
             <!-- start comment -->
             <div class="col-12 col-md-5 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="Comment"
+                    <input pInputText placeholder="{{ 'movement.request.comment' | translate }}"
                         formControlName="comment" type="text">
-                    <label>Comment</label>
+                    <label>{{ 'movement.request.comment' | translate }}</label>
                 </span>
             </div>
             <!-- end comment -->
@@ -55,7 +55,7 @@
     </div>
   <hr>
     <div class="form-section no-bg no-shadow">
-        <h3 class="form-section__title">Movement Information</h3>
+        <h3 class="form-section__title">{{ 'movement.request.movement_information' | translate }}</h3>
         <!-- start movementType -->
         <div class="row form-section__row">
           <div class="col-12 col-md-12 mb-2 align-self-center">
@@ -64,11 +64,11 @@
                 <div class="row">
                   <div class="form-check col-3">
                     <input class="form-check-input" formControlName="movementType" type="radio" name="movementType" id="Temporary" value ="temporary">
-                    <label class="form-check-label" for="Temporary">Temporary</label>
+                    <label class="form-check-label" for="Temporary">{{ 'movement.request.temporary' | translate }}</label>
                   </div>
                   <div class="form-check col-3">
                     <input class="form-check-input" formControlName="movementType" type="radio" name="movementType" id="Permanent" value ="permanent">
-                    <label class="form-check-label" for="Permanent">Permanent</label>
+                    <label class="form-check-label" for="Permanent">{{ 'movement.request.permanent' | translate }}</label>
                   </div>
                 </div>
               </div>
@@ -81,7 +81,7 @@
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
                     <p-calendar inputId="basic" formControlName="startDate"></p-calendar>
-                    <label>Start Date * </label>
+                    <label>{{ 'movement.request.start_date' | translate }} * </label>
                 </span>
             </div>
             <!-- end startDate -->
@@ -90,16 +90,16 @@
                 <span class="p-float-label">
                     <p-calendar formControlName="startTime" [timeOnly]="true"
                         inputId="timeonly"></p-calendar>
-                    <label> Time * </label>
+                    <label> {{ 'movement.request.time' | translate }} * </label>
                 </span>
             </div>
             <!-- end startTime -->
             <!-- start gps -->
             <div class="col-12 col-md-5 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="GPS Master Source"
+                    <input pInputText placeholder="{{ 'movement.request.gps_master_source' | translate }}"
                         formControlName="gps" type="number">
-                    <label>GPS Master Source</label>
+                    <label>{{ 'movement.request.gps_master_source' | translate }}</label>
                 </span>
             </div>
             <!-- end gps -->
@@ -110,7 +110,7 @@
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
                     <p-calendar inputId="basic" formControlName="endDate"></p-calendar>
-                    <label>End Date * </label>
+                    <label>{{ 'movement.request.end_date' | translate }} * </label>
                 </span>
             </div>
             <!-- end endDate -->
@@ -119,14 +119,14 @@
                 <span class="p-float-label">
                     <p-calendar formControlName="endTime" [timeOnly]="true"
                         inputId="timeonly"></p-calendar>
-                    <label> Time * </label>
+                    <label> {{ 'movement.request.time' | translate }} * </label>
                 </span>
             </div>
             <!-- end endTime -->
             <!-- start sendNotification -->
             <div class="col-12 col-md-4 form-section__field toggle-select">
                 <p-inputSwitch formControlName="sendNotification"></p-inputSwitch>
-                <span>Send notification</span>
+                <span>{{ 'movement.request.send_notification' | translate }}</span>
             </div>
             <!-- end sendNotification -->
         </div>
@@ -135,17 +135,17 @@
           <div class="col-12 col-md-6 mb-2 align-self-center">
             <div class="row">
               <div class="col-12 col-md-4">
-                <h3 class="form-section__title m-0">Fuel Cart</h3>
+                <h3 class="form-section__title m-0">{{ 'movement.request.fuel_card' | translate }}</h3>
               </div>
               <div class="col-12 col-md-8">
                 <div class="row">
                   <div class="form-check col-6">
                     <input class="form-check-input" formControlName="fuelCart" type="radio" name="fuelCart" id="Yes" value ="true">
-                    <label class="form-check-label" for="Yes">Yes</label>
+                    <label class="form-check-label" for="Yes">{{ 'movement.request.yes' | translate }}</label>
                   </div>
                   <div class="form-check col-6">
                     <input class="form-check-input" formControlName="fuelCart" type="radio" name="fuelCart" id="No" value ="false">
-                    <label class="form-check-label" for="No">No</label>
+                    <label class="form-check-label" for="No">{{ 'movement.request.no' | translate }}</label>
                   </div>
                 </div>
               </div>
@@ -154,16 +154,16 @@
             <!-- start serialNumber -->
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="S/N"
+                    <input pInputText placeholder="{{ 'movement.request.s_n' | translate }}"
                         formControlName="serialNumber" type="number">
-                    <label>S/N</label>
+                    <label>{{ 'movement.request.s_n' | translate }}</label>
                 </span>
             </div>
             <!-- end serialNumber -->
         </div>
         <div class="d-flex justify-content-end button-container">
-            <button mat-dialog-close class="btn-primary-small btn-scondary-green">CANCEL</button>
-            <button class="btn-primary-small add">Save Assignment</button>
+            <button mat-dialog-close class="btn-primary-small btn-scondary-green">{{ 'movement.request.cancel' | translate }}</button>
+            <button class="btn-primary-small add">{{ 'movement.request.save_assignment' | translate }}</button>
         </div>
     </div>
 

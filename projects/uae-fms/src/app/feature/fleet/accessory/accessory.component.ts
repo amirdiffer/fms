@@ -62,7 +62,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
         lable: 'tables.column.quantity',
         type: 1,
         field: 'Quantity',
-        width: 100
+        width: 150
       }
     ],
     data: [
@@ -127,6 +127,10 @@ export class AccessoryComponent implements OnInit, OnDestroy {
       this.openAdd = open;
     });
     this._accessoryFacade.loadAll();
+    this._accessoryFacade.loadStatistics();
+    this._accessoryFacade.statistics$.subscribe((data) =>
+      console.log(data, 'accessory statistics')
+    );
   }
 
   addAccessory() {

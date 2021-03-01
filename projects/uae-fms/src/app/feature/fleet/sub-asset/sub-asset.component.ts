@@ -184,7 +184,7 @@ export class SubAssetComponent implements OnInit {
   ngOnInit(): void {
     this.facade.loadAll();
     this.facade.subAsset$.subscribe((x) => {
-      console.log(x)
+      console.log(x);
     });
   }
 }
