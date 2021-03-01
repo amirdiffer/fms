@@ -35,6 +35,55 @@
     "organization": "Organization",
     "phone_number": "Phone Number"
   },
+  "breadcrumb": {
+    "dashboard": "Dashboard",
+    "fleet": "Fleet",
+    "assets": "Assets",
+    "sub_asset": "Sub Assets",
+    "accessory": "Accessory",
+    "operator": "Operator",
+    "organization": "Organization",
+    "movement": "Movement",
+    "fuel_management": "Fuel Management",
+    "traffic_file": "Traffic Fine",
+    "toll": "Toll",
+    "workshop": "Workshop",
+    "body_shop": "Body Shop",
+    "service_shop": "Service Shop",
+    "inspection": "Inspections",
+    "technical_inspection": "Technical Inspection",
+    "auction_list": "Auction List",
+    "task_master": "Task Master",
+    "part_store": "Part Store",
+    "part_list": "Part List",
+    "order_list": "Order List",
+    "part_master": "Part Master",
+    "report": "Reports",
+    "configuration": "Configuration",
+    "user_management": "User Management",
+    "role_permission": "Role and Permission",
+    "users": "Users",
+    "company_profile": "Company Profile",
+    "asset_policy": "Asset Policy",
+    "asset_configuration": "Asset Configuration",
+    "business_category": "Business Category",
+    "ownership": "Ownership",
+    "fleet_status": "Fleet Status",
+    "periodic_service": "Periodic Service",
+    "integrations": "Integrations",
+    "add_new_sub_asset": "Add New Sub Asset",
+    "add_request": "Add Request",
+    "add_organization": "Add Organization",
+    "add_periodic_service": "Add periodic Service",
+    "add_category": "Add Category",
+    "add_fleet_status": "Add Fleet Status",
+    "add_order_list": "Add Order List",
+    "add_fuel_card": "Add Fuel Card",
+    "add_asset_usage": "Add Asset Usage",
+    "add_toll": "Add Toll",
+    "profile": "Profile",
+    "add": "Add"
+  },
   "sidebar": {
     "dashboard": "Dashboard",
     "fleets": {
@@ -47,7 +96,7 @@
       "movement": "Movement"
     },
     "fuel_management": "Fuel Management",
-    "traffic_file": "Traffic Fine",
+    "traffic_fine": "Traffic Fine",
     "toll": "Toll",
     "workshop": {
       "~": "Workshop",
@@ -104,9 +153,9 @@
     "out_of_policy": "Out Of Policy",
     "total_lost": "Total Lost",
     "paid": "Paid",
-    "unpainted": "UnPainted",
-    "deducte": "Deducte",
-    "user": "User"
+    "user": "User",
+    "unpainted": "Un Painted",
+    "deducte": "Deducted"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -139,11 +188,13 @@
   },
   "tables": {
     "column": {
+      "suppliers": "Suppliers",
       "name": "Name",
       "total_sub_asset": "Total Sub Asset",
       "total_accessory": "Total Accessory",
       "total": "Total",
       "asset": "Asset",
+      "assets": "Assets",
       "type": "Type",
       "business_category": "Business Category",
       "allocated": "Allocated",
@@ -206,6 +257,7 @@
       "accident": "Accident",
       "action": "Action",
       "task": "Task",
+      "tasks": "Tasks",
       "end_date": "End Date",
       "workshop_manager_approval": "Workshop Manager Approval",
       "technician": "Technician",
@@ -213,6 +265,7 @@
       "rate_per_hour": "Rate Per Hour",
       "location_id": "Location ID",
       "service": "Service",
+      "services": "Services",
       "address": "Address",
       "job_card": "Job Card",
       "reported_by": "Reported By",
@@ -240,7 +293,7 @@
       "policy_name": "Policy Name",
       "distance": "Distance",
       "year": "Year",
-      "depreciation_value": "Depreciation value",
+      "depreciation_value": "Depreciation Value",
       "model": "Model",
       "type_status": "Type Status",
       "icon": "Icon",
@@ -264,6 +317,11 @@
       "phone_number": "Phone Number",
       "company_name": "Company Name",
       "support_operator": "Support Operator",
+      "category": "Category",
+      "warranty_expire": "Warranty Expire",
+      "total_cost": "Total Cost",
+      "storage_location": "Storage Location",
+      "instruction": "Instrunction",
       "out_of_policy": "Out of Policy",
       "established_market_value": "Established Market Value",
       "remove": "Remove",
@@ -361,6 +419,7 @@
     "section": "Section",
     "authorized": "Authorized",
     "expiry_license": "Expiry License",
+    "personal_information": "Personal Information",
     "first_name": "First Name",
     "last_name": "Last Name",
     "email": "Email",
@@ -397,12 +456,34 @@
       "request_type": "Request Type",
       "new": "New",
       "replacement": "Replacement",
-      "reason": "Reason"
+      "reason": "Reason",
+      "asset_information": "Asset Information",
+      "user_information": "User Information",
+      "movement_information": "Movement Information",
+      "fuel_card": "Fuel Card",
+      "asset": "Asset",
+      "department": "Department",
+      "operator": "Operator",
+      "comment": "Comment",
+      "temporary": "Temporary",
+      "permanent": "Permanent",
+      "start_date": "Start Date",
+      "end_date": "End Date",
+      "time": "Time",
+      "gps_master_source": "GPS Master Source",
+      "manual_update": "Manual Update",
+      "send_notification": "Send Notification",
+      "yes": "Yes",
+      "no": "No",
+      "s_n": "S/N",
+      "save_assignment": "Save Assignment",
+      "cancel": "Cancel"
     }
   },
   "fuel_management": {
     "fuel_cards": {
       "request_type": "Request Type",
+      "tag_number": "Tag Number",
       "assign_to": "Assign To",
       "asset": "Asset",
       "card_type": "Card Type",
@@ -415,6 +496,10 @@
     "asset_traffic_file": {}
   },
   "toll": {
+    "toll_info": "Toll Info",
+    "toll_tag": "Toll Tag",
+    "purchase_date": "Purchase Date",
+    "assign_to": "Assign To",
     "upload_form": {
       "title": "Upload CSV File of Toll",
       "progressbar_title": "CSV File Only",
@@ -423,7 +508,7 @@
     }
   },
   "part_store": {
-    "parts_list": {
+    "part_list": {
       "asset_type": "Asset Type",
       "category": "Category",
       "item_info": "Item Info",
@@ -434,7 +519,11 @@
       "quantity": "Quantity",
       "price": "Price",
       "warranty_expire_date": "Warranty Expire Date",
-      "description": "Description"
+      "description": "Description",
+      "room": "Room",
+      "aisle": "Aisle",
+      "shelf": "Shelf",
+      "box": "Box"
     },
     "order_list": {
       "request_list": "Request List",
@@ -454,6 +543,7 @@
       "short_code": "Short Code",
       "category_name": "Category Name",
       "item_name": "Item Name",
+      "filter_and_fuel_pump": "Filter, fuel pump",
       "upload_form": {
         "title": "",
         "progressbar_title": ".pdf",
@@ -465,13 +555,41 @@
       "type": "Type",
       "company_name": "Company Name",
       "grp": "GRP"
+    },
+    "order": {
+      "create_quotation": "Create Quotation",
+      "repeat_quotation": "Repeat Quotation",
+      "current_quotation": "Current Quotation",
+      "asset_type": "Asset Type",
+      "make": "Make",
+      "model": "Model",
+      "quantity": "Quantity",
+      "description": "Description",
+      "set_reminder": "Set Reminder",
+      "new_order": "New Order",
+      "select_item_category": "Select Item Category",
+      "select_item": "Select Item",
+      "supplier": "Supplier"
     }
+  },
+  "reports": {},
+  "integration": {
+    "type": "Type",
+    "company_name": "Company Name",
+    "grp": "GRP"
   },
   "workshop": {
     "body_shop": {
       "requests": {
         "asset_info": "Asset Info",
+        "asset": "Asset",
+        "asset_validation_error": "Please search and choose an item from list",
+        "gps_meter_source": "GPS Meter Source",
+        "manual_update": "Manual Update",
+        "accident": "Accident",
         "reason": "Reason",
+        "miner": "Miner",
+        "major": "Major",
         "job_type": "Job Type",
         "issue_info": "Issue Info",
         "priority": "Priority",
@@ -480,8 +598,11 @@
         "technical_report": "Technical Report",
         "installation": "Installation",
         "issue": "Issue",
+        "issue_validation_error": "Please fill Issue",
         "reported_by": "Reported By",
+        "reported_by_validation_error": "Please fill ReportedBy",
         "description": "Description",
+        "description_validation_error": "Please fill Description",
         "urgent": "Urgent",
         "high": "High",
         "normal": "Normal",
@@ -499,14 +620,22 @@
         "personal_information": "Personal Information",
         "send_notification_by": "Send Notification By",
         "employee_number": "Employee Number",
+        "employee_number_validation_error": "Please search and choose an item from list",
         "pay_per_hours": "Pay Per Hours",
+        "pay_per_hours_validation_error": "Please fill Pay per Hours",
         "employee_status": "Employee Status Is Active",
         "skill": "Skill",
+        "skill_validation_error": "Please fill skill",
         "location": "Location",
+        "location_validation_error": "Please fill Location",
         "first_name": "First Name",
+        "first_name_validation_error": "Please fill first name",
         "last_name": "Last Name",
+        "last_name_validation_error": "Please fill last name",
         "email": "Email",
+        "email_validation_error": "Please fill email",
         "phone_number": "Phone Number",
+        "phone_number_validation_error": "Please fill phone number",
         "call": "Call",
         "sms": "SMS",
         "whatsapp": "Whatsapp",
@@ -520,9 +649,13 @@
         "location_info": "Location Info",
         "section": "Section",
         "location_id": "Location ID",
+        "location_id_validation_error": "Please search and choose an item from list",
         "address": "Address",
+        "address_validation_error": "Please fill Address",
         "section_id": "Section ID",
-        "service": "Service"
+        "section_id_validation_error": "Please fill Location",
+        "service": "Service",
+        "service_validation_error": "Please fill service"
       }
     },
     "service_shop": {},
@@ -570,7 +703,9 @@
       "time_estimate": "Time Estimate (hours)",
       "skills": "Skills",
       "this_task_needs_part": "This Task Needs Part",
-      "add_part": "Add Part"
+      "add_part": "Add Part",
+      "please_fill_skill": "Please fill skill",
+      "please_fill_part": "Please fill part"
     }
   },
   "configuration": {
@@ -624,7 +759,8 @@
         "year": "Year",
         "deprecation_value": "% Deprecation Value",
         "yearly": "Yearly",
-        "set_reminder_before": "Set Reminder Before"
+        "set_reminder_before": "Set Reminder Before",
+        "or": "Or"
       },
       "sub_asset": {
         "this_policy_is_for": "This Policy Is For",
@@ -639,7 +775,22 @@
         "set_reminder_before": "Set Reminder Before"
       }
     },
-    "asset_configuration": {},
+    "asset_configuration": {
+      "make_and_model_info": "Make And Model Info",
+      "multiple_model": "Multiple Model",
+      "single_model": "Single Model",
+      "select_model": "Select Model",
+      "model": "Model",
+      "drag_and_drop_a_csv_file_or": "Drag and drop a CSV file or",
+      "click_here": "Click here",
+      "description": "Description",
+      "active_type": "Active Type",
+      "type_name": "Type Name",
+      "accessory": "Accessory",
+      "sub_asset": "Sub Asset",
+      "asset": "Asset",
+      "type_category": "Type Category"
+    },
     "business_category": {
       "business_category_info": "Business Category Info",
       "assign_sub_asset": "Assign Sub Asset",
@@ -703,8 +854,43 @@
     "create": "Create",
     "archive": "Archive",
     "approval": "Approval",
+    "order": "Order",
+    "confirm": "Confirm",
+    "reject": "Reject",
+    "approve": "Approve",
+    "recived": "Recived",
+    "assign": "Assign",
     "feedback": {
-      "required": "This is Field Required"
+      "required": "This is Field Required",
+      "invalid-email": "Email address is invalid"
     }
+  },
+  "login": {
+    "fleet": "Fleet",
+    "management": "Management",
+    "service": "Service",
+    "incorrect_username": "Incorrect Username",
+    "user_name": "User Name",
+    "password": "Password",
+    "incorrect_password": "Incorrect Password",
+    "login": "Login"
+  },
+  "buttons": {
+    "reject": "Reject",
+    "approve": "Approve",
+    "recived": "Recived",
+    "confirm": "Confirm"
+  },
+  "filter": {
+    "asset_category": "Asset Category",
+    "asset": "Asset",
+    "sub_asset": "Sub Asset",
+    "accessory": "Accessory",
+    "asset_type": "Asset Type",
+    "car": "Car",
+    "bus": "Bus",
+    "bicycle": "Bicycle",
+    "boat": "Boat",
+    "add_type": "Add Type"
   }
 }

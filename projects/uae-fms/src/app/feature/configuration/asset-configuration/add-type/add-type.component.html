@@ -2,29 +2,29 @@
     <div class="col-12">
         <form [formGroup]="inputForm">
             <div class="button-container">
-                <button class="btn-primary-medium btn-scondary-green" (click)="cancel()">Cancel</button>
-                <button class="btn-primary-medium add" (click)="submit()">Add</button>
+                <button class="btn-primary-medium btn-scondary-green" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
+                <button class="btn-primary-medium add" (click)="submit()">{{ 'search.add' | translate }}</button>
             </div>
             <div class="form-section mx-0 form-section--inline">
-                <div class="row">
-                    <div class="col-12 col-md-7 mb-2 align-self-center">
+                <div class="row form-section__row">
+                    <div class="col-12 col-md-5 mb-2 align-self-center">
                       <div class="row">
                         <div class="col-12 col-md-3">
-                          <h3 class="form-section__title m-0">Type Category</h3>
+                          <h3 class="form-section__title m-0">{{ 'configuration.asset_configuration.type_category' | translate }}</h3>
                         </div>
                         <div class="col-12 col-md-9">
-                          <div class="row">
+                          <div class="row mt-2 ml-3">
                             <div class="form-check col-3">
                               <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="asset" value ="asset">
-                              <label class="form-check-label" for="asset">Asset</label>
+                              <label class="form-check-label" for="asset">{{ 'configuration.asset_configuration.asset' | translate }}</label>
                             </div>
-                            <div class="form-check col-3">
+                            <div class="form-check col-4">
                               <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="subAsset" value ="subAsset">
-                              <label class="form-check-label" for="subAsset">Sub Asset</label>
+                              <label class="form-check-label" for="subAsset">{{ 'configuration.asset_configuration.sub_asset' | translate }}</label>
                             </div>
                             <div class="form-check col-3">
                               <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="accessory" value ="accessory">
-                              <label class="form-check-label" for="accessory">Accessory</label>
+                              <label class="form-check-label" for="accessory">{{ 'configuration.asset_configuration.accessory' | translate }}</label>
                             </div>
                           </div>
                         </div>
@@ -33,25 +33,24 @@
                     <div class="col-12 col-md-3 p-field form-section__field">
                         <span class="p-float-label">
                             <input formControlName="typeName" pInputText
-                                placeholder="Type Name *" required type="text">
-                            <label>Type Name *</label>
+                                placeholder="{{ 'configuration.asset_configuration.type_name' | translate }} *" required type="text">
+                            <label>{{ 'configuration.asset_configuration.type_name' | translate }} *</label>
                             <anms-error
                                 [showError]="hasError('typeName',inputForm,submited)"
-                                error="fms.errors.required">
+                                error="forms.feedback.required">
                             </anms-error>
                         </span>
                     </div>
-                    <div class="col-12 col-md-2 form-section__field
-                        toggle-select">
+                    <div class="col-sm-auto form-section__field toggle-select">
                         <p-inputSwitch formControlName="activetype"></p-inputSwitch>
-                        <span>Active Type</span>
+                        <span>{{ 'configuration.asset_configuration.active_type' | translate }}</span>
                     </div>
                 </div>
                 <div class="pb-3 p-field form-section__field">
                     <span class="p-float-label">
                         <input formControlName="description" pInputText
-                            placeholder="Description" type="text">
-                        <label>Description</label>
+                            placeholder="{{'configuration.asset_configuration.description' | translate}}" type="text">
+                        <label>{{ 'configuration.asset_configuration.description' | translate }}</label>
 
                     </span>
                 </div>
@@ -59,58 +58,54 @@
 
             <!-- form-section -->
             <div class="form-section mx-0">
-                <h3 class="form-section__title">Make And Model Info</h3>
+                <h3 class="form-section__title">{{ 'configuration.asset_configuration.make_and_model_info' | translate }}</h3>
 
 
-                <div class="row form-section__row">
-                    <div class="col-12 col-md-4 mb-2 align-self-center ml-2">
+                <div class="row">
+                    <div class="col-12 col-md-3 mb-2 align-self-center pl-5">
                     <div class="row">
                       <div class="col-12 col-md-12">
                         <div class="row">
                           <div class="form-check col-6">
                             <input class="form-check-input" formControlName="type" type="radio" name="type" id="mModel" value ="mModel">
-                            <label class="form-check-label" for="mModel">Multiple Model</label>
+                            <label class="form-check-label" for="mModel">{{ 'configuration.asset_configuration.multiple_model' | translate }}</label>
                           </div>
                           <div class="form-check col-6">
                             <input class="form-check-input" formControlName="type" type="radio" name="type" id="sModel" value ="sModel">
-                            <label class="form-check-label" for="sModel">Single Model</label>
+                            <label class="form-check-label" for="sModel">{{ 'configuration.asset_configuration.single_model' | translate }}</label>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                    <div class="col-12 col-md-3 p-field form-section__field">
-                        <span class="p-float-label">
+                    <div class="col-12 col-md-4 p-field form-section__field">
+                        <span class="p-float-label mt-3">
                             <input formControlName="selectModel" pInputText
-                                placeholder="Select Model" type="text">
-                            <label>Select Model</label>
+                                placeholder="{{ 'configuration.asset_configuration.select_model' | translate }}" type="text">
+                            <label>{{ 'configuration.asset_configuration.select_model' | translate }}</label>
                         </span>
                     </div>
-                    <div class="col-12 col-md-4 p-field form-section__field">
+                    <div class="col-12 col-md-5 mt-3 p-field form-section__field">
                         <ng-container *ngIf="inputForm.get('type').value ==
                                 'mModel'; else singleModel">
                                 <div class="progress-bar-container">
                                     <div class="progress">
                                         <div class="progress-bar" #progressBar></div>
                                     </div>
-                                    <p>{{fileName}}</p>
-                                    <small #small>{{ value }} MB</small>
+                                    <p class='progress-title'>{{fileName}}</p>
+                                    <small #small class='value-title'>{{ value }} MB</small>
                                 </div>
-                                <ngx-file-drop dropZoneLabel="Drop files here"
-                                    (onFileDrop)="dropped($event)"
-                                    (onFileOver)="fileOver($event)"
-                                    (onFileLeave)="fileLeave($event)"
-                                    class="w-100">
-                                    <ng-template ngx-file-drop-content-tmp
-                                        let-openFileSelector="openFileSelector">
-                                        <small calss="drag-and-drop">Drag and
-                                            drop a CSV file or<a type="button"
-                                                (click)="openFileSelector()"
-                                                style="color:#007bff;
-                                                margin-left: 4px;">Click here</a></small>
-                                    </ng-template>
-                                </ngx-file-drop>
-                            </ng-container>
+                          <div>
+                            <div class='upload-box'>
+                              <label class='space-drop' for='attach_picture_sub-asset'>
+                                Drag and drop a CSV file or<a type="button"
+                                                              style="color:#007bff;
+                                                              margin-left: 4px;">Click here</a>
+                              </label>
+                              <input type='file' hidden id='attach_picture_sub-asset'>
+                            </div>
+                          </div>
+                         </ng-container>
 
                     </div>
                     <ng-template #singleModel>
@@ -133,8 +128,8 @@
                             <span class="p-float-label">
                                 <div class="p-inputgroup">
                                     <span class="p-float-label">
-                                        <input type="text" formControlName="models" pInputText placeholder="Model">
-                                        <label>Model</label>
+                                        <input type="text" formControlName="models" pInputText placeholder="{{ 'configuration.asset_configuration.model' | translate }}">
+                                        <label>{{ 'configuration.asset_configuration.model' | translate }}</label>
                                     </span>
                                     <span class="p-inputgroup-addon addon-primary">
                                         <i class="pi pi-plus"></i>

@@ -18,7 +18,7 @@ import { TechnicalInspectionFacade } from '@feature/workshop/+state/technical-in
 })
 export class TechnicalInspectionComponent implements OnInit, OnDestroy {
   makeDecision: boolean;
-  downloadBtn= 'assets/icons/download-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
   makeDecision$: Subscription;
   filterSetting: FilterCardSetting[] = [
     {
@@ -56,14 +56,23 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
 
   setting: TableSetting = {
     columns: [
-      { lable: 'tables.column.item', field: 'item', renderer: 'vehicleRenderer', width: 150 },
+      {
+        lable: 'tables.column.item',
+        field: 'item',
+        renderer: 'vehicleRenderer',
+        width: 150
+      },
       { lable: 'tables.column.status', field: 'status', width: 100 },
       { lable: 'tables.column.source', field: 'source', width: 100 },
       { lable: 'tables.column.reported_by', field: 'reportedby', width: 100 },
       { lable: 'tables.column.cost', field: 'cost', width: 100 },
-      { lable: 'tables.column.insurance_value', field: 'insuranceValue', width: 100 },
-      { lable: 'tables.column.insurance', field: 'insurance', width: 100 },
-      { lable: '', field: '', width: 120, renderer: 'makeDecision' }
+      {
+        lable: 'tables.column.insurance_value',
+        field: 'insuranceValue',
+        width: 100
+      },
+      { lable: 'tables.column.insurance', field: 'insurance', width: 80 },
+      { lable: '', field: '', width: 130, renderer: 'makeDecision' }
     ],
     data: [
       {

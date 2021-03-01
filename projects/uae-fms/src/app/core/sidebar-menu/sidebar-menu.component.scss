@@ -2,11 +2,14 @@
   margin-top: 76px;
   padding: 10px;
 
+  .showing-menu {
+    display: block;
+  }
+
   .active-menu {
     color: #0da06e;
     font-weight: 900;
   }
-
 
   .menuItem {
     display: block;
@@ -16,13 +19,13 @@
     padding: 5px;
     cursor: pointer;
 
-    .sub-menuItem{
+    .sub-menuItem {
       max-height: 100rem;
       overflow: hidden;
       transition: max-height 1s;
     }
 
-    .menu-item-name{
+    .menu-item-name {
       padding: 5px;
     }
 
@@ -48,7 +51,7 @@
       font-weight: 900;
     }
 
-    .not-active{
+    .not-active {
       color: #535353;
     }
   }
@@ -65,7 +68,7 @@
       transition: 400ms;
       transition-timing-function: ease-in-out;
     }
-    &.active-menu {
+    &.showing-menu {
       &::after {
         content: url('../../../assets/icons/arrow-down-active.svg');
         transform: rotate(180deg);
@@ -75,20 +78,24 @@
   }
 }
 
-.menuItems{
+.menuItems {
   display: flex;
   flex-direction: row;
-  padding-left: 40px;
-  ul{
+  padding-left: 15px;
+  ul {
     padding-left: 0px;
     padding-right: 0px;
   }
 }
 
-.active_menu_line{
+.active_menu_line {
   width: 5px;
   border-radius: 3px;
   left: 32px;
-  background: #0DA06E;
+  background: #0da06e;
   height: auto;
+}
+
+.disabled {
+  opacity: 60%;
 }

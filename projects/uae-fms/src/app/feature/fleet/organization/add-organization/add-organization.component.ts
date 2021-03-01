@@ -18,23 +18,23 @@ export class AddOrganizationComponent extends Utility implements OnInit {
   organization_Table: TableSetting = {
     columns: [
       {
-        lable: 'Section',
+        lable: 'tables.column.section',
         type: 1,
         field: 'Section'
       },
       {
-        lable: 'Location',
+        lable: 'tables.column.location',
         type: 1,
         field: 'Location'
       },
       {
-        lable: 'TF Payed',
+        lable: 'tables.column.tf_payed',
         sortable: true,
         type: 1,
         field: 'TF_Payed'
       },
       {
-        lable: 'TF Unpaid',
+        lable: 'tables.column.tf_unpaid',
         sortable: true,
         type: 1,
         field: 'TF_Unpaid'

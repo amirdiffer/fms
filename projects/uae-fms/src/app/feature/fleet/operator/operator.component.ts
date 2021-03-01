@@ -206,7 +206,7 @@ export class OperatorComponent implements OnInit {
     ]
   };
 
-  constructor(private _operatorFacade : OperatorFacade) {}
+  constructor(private _operatorFacade: OperatorFacade) {}
 
   ngOnInit(): void {
     this._operatorFacade.loadAll();

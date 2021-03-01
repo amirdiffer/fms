@@ -4,32 +4,33 @@
 
       <ng-container *ngFor="let item of usingMenu">
         <li class="menuItem margin-transition"
-          [class]="(item?.items?'has-child ':'') + (activeMenuCheck(item?.route)?'active-menu':'')"
-          (click)="toggleGroup(item)" [routerLink]="item.route">
+          [class]="(item?.items?'has-child ':'') + (activeMenuCheck(item?.route)?'active-menu':'')+(item?.disabled?' disabled':'')+(collapsedMenu==item.route?' showing-menu':'')"
+          (click)="toggleGroup(item)">
           <svg-icon [src]="assets + 'icons/' + item.icon + '.svg'"
-            [svgStyle]="{ 'fill': activeMenuCheck(item?.route) ? '#0DA06E' : '#1F1F1F', 'width.px': '24', 'height.px': !(opened$|async)  ? '28' : '24' }">
+            [svgStyle]="{ 'fill': activeMenuCheck(item?.route) ? '#0DA06E' : '#1F1F1F', 'width.px': '24', 'height.px': !(opened$|async)  ? '28' : '24','opacity':'75%' }">
           </svg-icon>
-          <span [class]="'menu-item-name'">{{item.name}}</span>
+          <span [class]="'menu-item-name'">{{item.name | translate}}</span>
           <div class="menuItems">
-            <div class="active_menu_line" *ngIf="item.items && activeSubMenuCheck(item.route)"></div>
-            <ul [class]="'sub-menuItem '+(activeSubMenuCheck(item.route)?'':'hidden')">
+            <div class="active_menu_line" *ngIf="item.items && collapsedMenu==item.route"></div>
+            <ul [class]="'sub-menuItem '+(collapsedMenu==item.route?'':'hidden')">
               <ng-container *ngFor="let subItem of item.items">
                 <li
-                  class="menuItem margin-transition {{activeSubMenuCheck(subItem.route)?'active_submenu':'not-active'}}"
+                  class="menuItem margin-transition {{(activeSubMenuCheck(subItem.route)?'active_submenu':'not-active')+(subItem?.disabled?' disabled':'')}}"
                   [routerLink]="subItem.route" (click)="$event.stopPropagation()" [routerLink]="subItem.route">
                   <svg-icon [src]="assets + 'icons/' + subItem.icon + '.svg'"
                     [svgStyle]="{ 'fill': activeSubMenuCheck(subItem.route)?'#0DA06E':'#707070', 'width.px':'22', 'height.px':'22' }">
                   </svg-icon>
-                  <span class="menu-item-name">{{subItem.name}}</span>
+                  <span class="menu-item-name">{{subItem.name | translate }}</span>
 
                   <div class="menuItems">
                     <div class="active_menu_line" *ngIf="item.items && activeSubMenuCheck(subItem.route)"></div>
                     <ul [class]="'sub-menuItem-child '+(activeSubMenuCheck(subItem.route)?'':'hidden')">
                       <ng-container *ngFor="let subItemChild of subItem.items">
                         <li
-                          class="menuItem margin-transition {{activeSubMenuCheck(subItemChild.route)?'active-child':'not-active'}}"
-                          (click)="$event.stopPropagation()" [routerLink]="subItemChild.route">
-                          <span class="menu-item-name">{{subItemChild.name}}</span>
+                          class="menuItem margin-transition {{(activeSubMenuCheck(subItemChild.route)?'active-child':'not-active')+(subItemChild?.disabled?' disabled':'')}}"
+                          (click)="$event.stopPropagation()"
+                          [routerLink]="((!subItemChild?.disabled)?subItemChild.route:subItem.route)">
+                          <span class="menu-item-name">{{subItemChild.name|translate }}</span>
                         </li>
                       </ng-container>
 

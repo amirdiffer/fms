@@ -11,7 +11,7 @@
 
       <div class="content">
         <span class="path">
-          <span *ngFor="let i=index;let part of path">
+          <span *ngFor="let i=index;let part of breadcrumb">
             <span class="title">{{part}}</span>
             <i class="separator">
               {{ (path.length>i+1?'> ':'') }}

@@ -186,5 +186,22 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
     }
   }
 
+  activeGroup = 'fleet';
+  toggleGroup(group: string): void {
+    this.activeGroup == group ? this.activeGroup = 'root' : this.activeGroup = group;
+  }
+
+  selectParent(control: string, e: Event): void {
+    let checkBox = e.target['checked'];
+    if (checkBox) {
+      switch (control) {
+        case 'fleet': {
+          this.form.get('fleet.fleetCheckbox').patchValue(true);
+          break;
+        }
+      }
+    }
+  }
+
   submit() {}
 }
