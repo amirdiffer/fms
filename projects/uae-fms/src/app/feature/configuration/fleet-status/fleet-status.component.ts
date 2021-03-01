@@ -17,22 +17,22 @@ export class FleetStatusComponent implements OnInit {
   tableSetting: TableSetting = {
     columns: [
       {
-        lable: 'Status Category',
+        lable: 'tables.column.status_category',
         field: 'Status_Category',
         type: 1
       },
       {
-        lable: 'status',
+        lable: 'tables.column.status',
         field: 'status',
         type: 1
       },
       {
-        lable: 'tag',
+        lable: 'tables.column.tag',
         field: 'tag',
         type: 1
       },
       {
-        lable: 'usage',
+        lable: 'tables.column.usage',
         field: 'usage',
         type: 1
       }

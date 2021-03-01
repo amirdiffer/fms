@@ -6,9 +6,7 @@ import { AccessoryActions } from './accessory.actions';
 
 @Injectable()
 export class AccessoryFacade {
-  accessory$ = this.store.pipe(
-    select(AccessorySelectors.selectAll)
-  );
+  accessory$ = this.store.pipe(select(AccessorySelectors.selectAll));
 
   message$ = this.store.pipe(select(AccessorySelectors.message));
 

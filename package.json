@@ -1,13 +1,13 @@
 {
   "name": "uae-fms",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
     "start:prod": "npm run build:prod && npm run server",
     "build": "ng build",
-    "build:prod": "ng build --prod",
+    "build:prod": "ng build --prod --output-path ./dist",
     "lint": "eslint --color -c .eslintrc --ext .ts .",
     "test": "npm run lint && ng test --configuration=test",
     "watch": "ng test --configuration=test --browsers ChromeHeadless --watch --reporters dots",

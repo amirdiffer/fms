@@ -4,8 +4,8 @@
   display: flex;
   align-items: baseline;
 
-  h3{
-    flex:  0 0 85%;
+  h3 {
+    flex: 0 0 85%;
   }
   button.add-asset {
     flex: 0 0 15%;
@@ -14,7 +14,7 @@
     max-height: 2.2em;
     max-width: 2.2em;
     border: 1px solid #009c62;
-    border-radius: .3em;
+    border-radius: 0.3em;
     background-color: #fff;
     position: relative;
     a {
@@ -37,7 +37,6 @@
 mat-card {
   margin-top: 15px;
 }
-
 
 .category-subItem {
   font-size: 1em;

@@ -19,6 +19,7 @@ import {
   actionSettingsChangeAnimationsPageDisabled,
   actionSettingsChangeLanguage
 } from '@core/settings/settings.actions';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'main-template',
@@ -45,13 +46,17 @@ export class MainTemplateComponent implements OnInit {
   route$ = this.routerFacade.route$;
   showSideMenu$ = this.sidebarMenuFacade.show$;
 
+  translations = {};
+  breadcrumb = [];
+
   path: string[] = [];
 
   constructor(
     private store: Store,
     private routerFacade: RouterFacade,
     private storageService: LocalStorageService,
-    private sidebarMenuFacade: SidebarMenuFacade
+    private sidebarMenuFacade: SidebarMenuFacade,
+    private translationService: TranslateService
   ) {}
 
   private static isIEorEdgeOrSafari() {
@@ -77,6 +82,22 @@ export class MainTemplateComponent implements OnInit {
 
     this.route$.subscribe((x) => {
       this.getPath(x?.url);
+      this.translations = {};
+      this.translations = Object.assign.apply(
+        null,
+        this.path.map((x) => ({
+          ['breadcrumb.' + x.toLowerCase().split(' ').join('_')]: ''
+        }))
+      );
+      this.getTranslations();
+    });
+  }
+
+  getTranslations() {
+    const translationLabels = Object.keys(this.translations);
+    this.translationService.get(translationLabels).subscribe((translation) => {
+      this.translations = translation;
+      this.breadcrumb = Object.values(this.translations);
     });
   }
 
@@ -90,6 +111,7 @@ export class MainTemplateComponent implements OnInit {
 
   onLanguageSelect({ value: language }) {
     this.store.dispatch(actionSettingsChangeLanguage({ language }));
+    this.getTranslations();
   }
 
   getPath(url: string) {
@@ -101,7 +123,8 @@ export class MainTemplateComponent implements OnInit {
       if (this.path[i].split('-').length > 1) {
         let name = '';
         this.path[i].split('-').forEach((x, j) => {
-          name += this.wordToUppercase(x) + ' ';
+          let separator = this.path[i].split('-').length > j + 1 ? ' ' : '';
+          name += this.wordToUppercase(x) + separator;
         });
         this.path[i] = name;
       } else this.path[i] = this.wordToUppercase(this.path[i]);

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { Observable, observable, of, pipe } from 'rxjs';
 import { TollActions } from './toll.actions';
 import { TollService } from './toll.service';
 
@@ -15,6 +15,14 @@ export class TollEffect {
           map((data) => TollActions.allDataLoaded({ data })),
           catchError((error) => of(TollActions.error({ reason: error })))
         )
+      )
+    )
+  );
+
+  assignNow$ = createEffect(() =>
+    this.action$.pipe(
+        ofType(TollActions.loadAssignNow),
+        map((data) => TollActions.assignNowLoaded({ data })
       )
     )
   );
