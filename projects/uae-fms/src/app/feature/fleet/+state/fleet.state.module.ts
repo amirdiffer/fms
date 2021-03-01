@@ -21,8 +21,8 @@ import {
   MovementRequestsFacade,
   MovementRequestsService
 } from './movement';
-import {OperatorFacade, OperatorService} from './operator/index'
-import { AccessoryFacade , AccessoryService} from './accessory/index'
+import { OperatorFacade, OperatorService } from './operator/index';
+import { AccessoryFacade, AccessoryService } from './accessory/index';
 import { SubAssetEffect } from './sub-asset/sub-asset.effect';
 import { SubAssetFacade, SubAssetService } from './sub-asset';
 import {
@@ -30,6 +30,7 @@ import {
   OrganizationService
 } from '../+state/organization';
 import { OrganizationEffects } from '../+state/organization/organization-effects.service';
+import { AccessoryEffect } from './accessory/accessory.effect';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { OrganizationEffects } from '../+state/organization/organization-effects
       RegistrationEffects,
       OrganizationEffects,
       SubAssetEffect,
+      AccessoryEffect
     ]),
     EffectsModule.forFeature([MovementOverviewFacade, MovementRequestsFacade])
   ],
@@ -63,7 +65,7 @@ import { OrganizationEffects } from '../+state/organization/organization-effects
     OrganizationService,
     OrganizationFacade,
     SubAssetFacade,
-    SubAssetService,
+    SubAssetService
   ]
 })
 export class FleetStateModule {}

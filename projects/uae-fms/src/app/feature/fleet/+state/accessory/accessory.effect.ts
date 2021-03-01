@@ -5,25 +5,31 @@ import { of } from 'rxjs';
 import { AccessoryActions } from './accessory.actions';
 import { AccessoryService } from './accessory.service';
 
-
 @Injectable()
 export class AccessoryEffect {
   LoadAll$ = createEffect(() =>
     this.action$.pipe(
-        ofType(AccessoryActions.loadAll),
-        mergeMap((action) =>
-            this.service.loadAll().pipe(
-                map((data) => AccessoryActions.allDataLoaded({ data })),
-                catchError((error) =>
-                    of(AccessoryActions.error({ reason: error }))
-                 )
-            )
+      ofType(AccessoryActions.loadAll),
+      mergeMap((action) =>
+        this.service.loadAll().pipe(
+          map((data) => AccessoryActions.allDataLoaded({ data })),
+          catchError((error) => of(AccessoryActions.error({ reason: error })))
         )
+      )
     )
   );
 
-  constructor(
-    private action$: Actions,
-    private service: AccessoryService
-  ) {}
+  loadStatistics$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AccessoryActions.loadStatistics),
+      mergeMap((action) =>
+        this.service.loadStatistics().pipe(
+          map((data) => AccessoryActions.statisticsLoaded({ data })),
+          catchError((error) => of(AccessoryActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  constructor(private action$: Actions, private service: AccessoryService) {}
 }
