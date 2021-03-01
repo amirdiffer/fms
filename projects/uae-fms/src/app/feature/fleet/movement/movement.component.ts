@@ -45,6 +45,11 @@ export class MovementComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {
     this._movementOverviewFacade.loadAll();
     this._movementRequestsFacade.loadAll();
+    this._movementRequestsFacade.MovementRequests$.subscribe(
+      (data) => {
+        console.log(data)
+      }
+    )
 
     this.movementOverViewTableSetting = this._movementService.movmentOverViewTableSetting();
     this.requestTableSetting = this._movementService.requestTableSetting();

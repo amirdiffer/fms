@@ -1,12 +1,12 @@
 import { createAction, props } from '@ngrx/store';
-import { TrafficFineTableStateModel } from './traffic-fine-table.entity';
+import { ITrafficFine } from '@models/traffic-fine';
 
 export class TrafficFineTableActions {
   static loadAll = createAction('[TrafficFineTable] load all data');
 
   static allDataLoaded = createAction(
     '[TrafficFineTable] all datas are loaded',
-    props<{ data: TrafficFineTableStateModel[] }>()
+    props<{ data: ITrafficFine[] }>()
   );
 
   static error = createAction(

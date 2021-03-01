@@ -31,6 +31,7 @@ import {
 } from '../+state/organization';
 import { OrganizationEffects } from '../+state/organization/organization-effects.service';
 import { AccessoryEffect } from './accessory/accessory.effect';
+import { MovementRequestsEffect } from './movement/requests/movement-requests.effect';
 
 @NgModule({
   imports: [
@@ -41,9 +42,9 @@ import { AccessoryEffect } from './accessory/accessory.effect';
       RegistrationEffects,
       OrganizationEffects,
       SubAssetEffect,
-      AccessoryEffect
+      AccessoryEffect,
+      MovementRequestsEffect
     ]),
-    EffectsModule.forFeature([MovementOverviewFacade, MovementRequestsFacade])
   ],
   exports: [],
   declarations: [],
