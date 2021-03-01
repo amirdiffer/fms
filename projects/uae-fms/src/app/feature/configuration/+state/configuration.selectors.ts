@@ -6,7 +6,7 @@ export class ConfigurationSelectors {
 
   static rolePermissionSelector = createSelector(
     ConfigurationSelectors.featureSelector,
-    (state) => state['rolePermission']
+    (state) => state['role-permission']
   );
 
   static assetPolicySelector = createSelector(
@@ -40,12 +40,12 @@ export class ConfigurationSelectors {
 
   static ownershipSelector = createSelector(
     ConfigurationSelectors.featureSelector,
-    (state) => state['ownershipSelector']
+    (state) => state['ownership']
   );
 
   static periodicServiceSelector = createSelector(
     ConfigurationSelectors.featureSelector,
-    (state) => state['periodicService']
+    (state) => state['periodic-service']
   );
 
   static assetConfigurationSelector = createSelector(

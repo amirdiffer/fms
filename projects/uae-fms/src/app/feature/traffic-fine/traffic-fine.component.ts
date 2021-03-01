@@ -15,7 +15,7 @@ export class TrafficFineComponent implements OnInit {
   assets = assetsPath;
   activeTab = 'Traffic Fine';
   downloadBtn = 'assets/icons/download-solid.svg';
-  searchIcon= 'assets/icons/search-solid.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
@@ -46,7 +46,12 @@ export class TrafficFineComponent implements OnInit {
     columns: [
       { lable: 'tables.column.tc_code', type: 1, field: 'TC_Code', width: 100 },
       { lable: 'tables.column.type', type: 1, field: 'Type', width: 100 },
-      { lable: 'tables.column.department', type: 1, field: 'Department', width: 100 },
+      {
+        lable: 'tables.column.department',
+        type: 1,
+        field: 'Department',
+        width: 100
+      },
       {
         lable: 'tables.column.operator',
         type: 1,
@@ -54,8 +59,18 @@ export class TrafficFineComponent implements OnInit {
         renderer: 'doubleLineRenderer',
         width: 100
       },
-      { lable: 'tables.column.plate_no', type: 1, field: 'Plate_No', width: 100 },
-      { lable: 'tables.column.mission_status', type: 1, field: 'Mission_Status',width: 100  },
+      {
+        lable: 'tables.column.plate_no',
+        type: 1,
+        field: 'Plate_No',
+        width: 100
+      },
+      {
+        lable: 'tables.column.mission_status',
+        type: 1,
+        field: 'Mission_Status',
+        width: 100
+      },
       {
         lable: 'tables.column.time_date',
         type: 1,
@@ -63,10 +78,15 @@ export class TrafficFineComponent implements OnInit {
         renderer: 'doubleLineRenderer',
         width: 100
       },
-      { lable: 'tables.column.duration', type: 1, field: 'Duration' ,width: 100 },
-      { lable: 'tables.column.status', type: 1, field: 'Status',width: 100  },
-      { lable: 'tables.column.user', type: 1, field: 'User',width: 100  },
-      { lable: 'tables.column.amount', type: 1, field: 'Amount',width: 100  }
+      {
+        lable: 'tables.column.duration',
+        type: 1,
+        field: 'Duration',
+        width: 100
+      },
+      { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
+      { lable: 'tables.column.user', type: 1, field: 'User', width: 100 },
+      { lable: 'tables.column.amount', type: 1, field: 'Amount', width: 100 }
     ],
     data: [
       {
@@ -207,19 +227,34 @@ export class TrafficFineComponent implements OnInit {
         thumbField: '',
         width: 200
       },
-      { lable: 'tables.column.plate_number', type: 1, field: 'Plate_Number', width:100 },
-      { lable: 'Type', type: 1, field: 'Type', width:100 },
+      {
+        lable: 'tables.column.plate_number',
+        type: 1,
+        field: 'Plate_Number',
+        width: 100
+      },
+      { lable: 'Type', type: 1, field: 'Type', width: 100 },
       {
         lable: 'tables.column.operator',
         type: 1,
         field: 'Operator',
         renderer: 'doubleLineRenderer',
-        width:100
+        width: 100
       },
-      { lable: 'tables.column.status', type: 1, field: 'Status', width:100 },
-      { lable: 'tables.column.business_category', type: 1, field: 'Business_Category', width:100 },
-      { lable: 'tables.column.total_fines', type: 1, field: 'Total_Fines', width:100 },
-      { lable: 'tables.column.amount', type: 1, field: 'Amount', width:100 }
+      { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
+      {
+        lable: 'tables.column.business_category',
+        type: 1,
+        field: 'Business_Category',
+        width: 100
+      },
+      {
+        lable: 'tables.column.total_fines',
+        type: 1,
+        field: 'Total_Fines',
+        width: 100
+      },
+      { lable: 'tables.column.amount', type: 1, field: 'Amount', width: 100 }
     ],
     data: [
       {

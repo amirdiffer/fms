@@ -1,11 +1,11 @@
 import { createSelector } from '@ngrx/store';
 import { fuelCardsAdapter } from './fuel-cards.entity';
 import { FuelManagementSelectors } from '../fuel-management.selectors';
-
+const { selectAll } = fuelCardsAdapter.getSelectors();
 export class FuelCardsSelectors {
   static selectAll = createSelector(
     FuelManagementSelectors.fuelCardsSelector,
-    fuelCardsAdapter.setAll
+    selectAll
   );
 
   static message = createSelector(

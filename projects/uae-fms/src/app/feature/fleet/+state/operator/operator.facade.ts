@@ -6,9 +6,7 @@ import { OperatorActions } from './operator.actions';
 
 @Injectable()
 export class OperatorFacade {
-  operator$ = this.store.pipe(
-    select(OperatorSelectors.selectAll)
-  );
+  operator$ = this.store.pipe(select(OperatorSelectors.selectAll));
 
   message$ = this.store.pipe(select(OperatorSelectors.message));
 

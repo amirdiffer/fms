@@ -1,11 +1,12 @@
 import { createSelector } from '@ngrx/store';
 import { rolePermissionAdapter } from './role-permission.entity';
 import { ConfigurationSelectors } from './../configuration.selectors';
+const { selectAll } = rolePermissionAdapter.getSelectors();
 
 export class RolePermissionSelectors {
   static selectAll = createSelector(
     ConfigurationSelectors.rolePermissionSelector,
-    rolePermissionAdapter.setAll
+    selectAll
   );
 
   static message = createSelector(

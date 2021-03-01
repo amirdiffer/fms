@@ -134,5 +134,8 @@ export class OrganizationComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.organization$.subscribe((data) => {
+      console.log(data, 'organizations');
+    });
   }
 }
