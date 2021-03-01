@@ -1,12 +1,13 @@
 import { createAction, props } from '@ngrx/store';
-import { IntegrationStateModel } from './integration.entity';
+import { IIntegration } from '@models/integration';
+import { ResponseBody } from '@models/response-body';
 
 export class IntegrationActions {
   static loadAll = createAction('[Integration] load all data');
 
   static allDataLoaded = createAction(
     '[Integration] all datas are loaded',
-    props<{ data: IntegrationStateModel[] }>()
+    props<{ data: IIntegration[] }>()
   );
 
   static error = createAction(

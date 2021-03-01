@@ -139,7 +139,7 @@ button.add-model {
 }
 
 .progress-bar-container {
-  width: 93%;
+  width: 95%;
   margin: 0;
   position: absolute;
   top: -16px;
@@ -178,5 +178,40 @@ button.add-model {
     position: absolute;
     top: -26px;
     left: 0;
+  }
+  .progress-title {
+    font-size: 11px;
+    color: #000000;
+  }
+  .value-title {
+    font-size: 11px;
+  }
+}
+
+.drag-and-drop-title {
+  font-size: 11px;
+}
+
+.upload-box {
+  .file-name-size {
+    color: #0000005e;
+    font-size: 12px;
+  }
+
+  .space-drop {
+    display: block;
+    border: 2px dashed #000000;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    color: #000000;
+    opacity: 57%;
+
+    div {
+      color: #0000005e;
+      font-size: 12px;
+    }
   }
 }

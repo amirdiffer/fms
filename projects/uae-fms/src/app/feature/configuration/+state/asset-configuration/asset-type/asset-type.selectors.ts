@@ -1,11 +1,12 @@
 import { createSelector } from '@ngrx/store';
 import { assetTypeAdapter } from './asset-type.entity';
 import { ConfigurationSelectors } from '../../configuration.selectors';
+const { selectAll } = assetTypeAdapter.getSelectors();
 
 export class AssetTypeSelectors {
   static selectAll = createSelector(
     ConfigurationSelectors.assetTypeSelector,
-    assetTypeAdapter.setAll
+    selectAll
   );
 
   static message = createSelector(

@@ -12,13 +12,17 @@ export class OwnershipComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   ownerShip_Table: TableSetting = {
     columns: [
-      { lable: 'Ownership', type: 1, field: 'Ownership' },
-      { lable: 'Owner', type: 1, field: 'Owner' },
-      { lable: 'Fleet IT Code', type: 1, field: 'Fleet_IT_Code' },
-      { lable: 'Duration', type: 1, field: 'Duration' },
-      { lable: 'Purpose', type: 1, field: 'Purpose' },
-      { lable: 'Owner Email', type: 1, field: 'Owner_Email' },
-      { lable: 'Owner Phone No', type: 1, field: 'Owner_Phone_No' }
+      { lable: 'tables.column.ownership', type: 1, field: 'Ownership' },
+      { lable: 'tables.column.Owner', type: 1, field: 'Owner' },
+      { lable: 'tables.column.fleet_it_code', type: 1, field: 'Fleet_IT_Code' },
+      { lable: 'tables.column.duration', type: 1, field: 'Duration' },
+      { lable: 'tables.column.purpose', type: 1, field: 'Purpose' },
+      { lable: 'tables.column.owner_email', type: 1, field: 'Owner_Email' },
+      {
+        lable: 'tables.column.owner_phone_no',
+        type: 1,
+        field: 'Owner_Phone_No'
+      }
     ],
     data: [
       {
@@ -82,5 +86,8 @@ export class OwnershipComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.ownership$.subscribe((x) => {
+      console.log(x);
+    })
   }
 }

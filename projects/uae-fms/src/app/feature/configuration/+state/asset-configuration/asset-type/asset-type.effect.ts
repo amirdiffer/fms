@@ -12,7 +12,7 @@ export class AssetTypeEffect {
       ofType(AssetTypeActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => AssetTypeActions.allDataLoaded({ data })),
+          map((data) => AssetTypeActions.allDataLoaded({ data: data.message })),
           catchError((error) => of(AssetTypeActions.error({ reason: error })))
         )
       )

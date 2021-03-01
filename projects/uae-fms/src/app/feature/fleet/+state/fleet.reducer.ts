@@ -3,8 +3,8 @@ import * as customizationReducer from '@feature/fleet/+state/assets/customizatio
 import * as registrationReducer from '@feature/fleet/+state/assets/registration/registration.reducer';
 import * as movementOverviewReducer from './movement/overview/movement-overview.reducer';
 import * as movementRequestsReducer from './movement/requests/movement-requests.reducer';
-import * as operatorReducer from './operator/operator.reducer'
-import * as accessoryReducer from './accessory/accessory.reducer'
+import * as operatorReducer from './operator/operator.reducer';
+import * as accessoryReducer from './accessory/accessory.reducer';
 import * as subAssetReducer from './sub-asset/sub-asset.reducer';
 import * as organizationReducer from './organization/organization.reducer';
 import { FLEET_ASSET_MASTER_FEATURE_KEY } from '@feature/fleet/+state/assets/asset-master/asset-master.entity';
