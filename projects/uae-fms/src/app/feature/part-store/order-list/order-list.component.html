@@ -12,20 +12,20 @@
 <div class="component_wrapper p-0">
 
   <div class="table-container">
-    <div class="card-table-header card-table-header--fluid">
-      <div class="search-box">
-        <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
-        <button>
-          <img src="../../../assets/icons/search-solid.svg" alt="">
-        </button>
-      </div>
-      <button class="btn-download" disabled>
-        <svg-icon [src]="downloadBtn"></svg-icon>
-      </button>
-      <button class="btn-primary-small" *ngIf="activeTab == 'my_order'"routerLink="add-order-list"><i>+</i><a>{{ 'forms.order' | translate }}</a></button>
-      <button class="btn-primary-small" *ngIf="activeTab == 'suppliers'" (click)='isSuppliersAddFormHidden = false'><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
-    </div>
     <app-tab-view (selectedIndex)="activeTab = $event">
+      <span class="card-table-header search-container">
+        <div class="search-box">
+          <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
+          <button>
+            <img src="../../../assets/icons/search-solid.svg" alt="">
+          </button>
+        </div>
+        <button class="btn-download" disabled>
+          <svg-icon [src]="downloadBtn"></svg-icon>
+        </button>
+        <button class="btn-primary-small" *ngIf="activeTab == 'my_order'"routerLink="add-order-list"><i>+</i><a>{{ 'forms.order' | translate }}</a></button>
+        <button class="btn-primary-small" *ngIf="activeTab == 'suppliers'" (click)='isSuppliersAddFormHidden = false'><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
+      </span>
       <div title='part_store.order_list.request_list' id="request_list">
         <app-table [setting]='requestList_Table'></app-table>
       </div>
