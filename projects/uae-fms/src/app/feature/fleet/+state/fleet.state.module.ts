@@ -30,6 +30,7 @@ import {
   OrganizationService
 } from '../+state/organization';
 import { OrganizationEffects } from '../+state/organization/organization-effects.service';
+import { AccessoryEffect } from './accessory/accessory.effect';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { OrganizationEffects } from '../+state/organization/organization-effects
       CustomizationEffects,
       RegistrationEffects,
       OrganizationEffects,
-      SubAssetEffect
+      SubAssetEffect,
+      AccessoryEffect
     ]),
     EffectsModule.forFeature([MovementOverviewFacade, MovementRequestsFacade])
   ],

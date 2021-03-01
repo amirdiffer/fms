@@ -127,6 +127,10 @@ export class AccessoryComponent implements OnInit, OnDestroy {
       this.openAdd = open;
     });
     this._accessoryFacade.loadAll();
+    this._accessoryFacade.loadStatistics();
+    this._accessoryFacade.statistics$.subscribe((data) =>
+      console.log(data, 'accessory statistics')
+    );
   }
 
   addAccessory() {

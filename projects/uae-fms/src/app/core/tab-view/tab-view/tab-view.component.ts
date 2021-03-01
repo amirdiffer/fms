@@ -38,7 +38,7 @@ export class TabViewComponent implements OnInit {
 
     if (this.elements.length > 0) {
       for (let i = 0; i < this.elements.length; i++) {
-        let tabID =this.elements[i].attributes.getNamedItem('id');
+        let tabID = this.elements[i].attributes.getNamedItem('id');
         tabs.push({
           index: i,
           title: this.elements[i].attributes.getNamedItem('title').nodeValue,
@@ -68,6 +68,6 @@ export class TabViewComponent implements OnInit {
     this.selectedTab = index;
     this.selectedIndex.emit(title);
     this.selectedTabChanged();
-    console.log(index , title)
+    console.log(index, title);
   }
 }

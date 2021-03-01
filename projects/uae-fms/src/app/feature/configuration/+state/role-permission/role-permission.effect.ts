@@ -12,7 +12,9 @@ export class RolePermissionEffect {
       ofType(RolePermissionActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => RolePermissionActions.allDataLoaded({ data: data.message })),
+          map((data) =>
+            RolePermissionActions.allDataLoaded({ data: data.message })
+          ),
           catchError((error) =>
             of(RolePermissionActions.error({ reason: error }))
           )
