@@ -27,6 +27,9 @@ export class IntegrationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.integration$.subscribe((x) => {
+      console.log(x);
+    });
     this.tableSettings = {
       columns: [
         {
