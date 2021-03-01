@@ -316,6 +316,10 @@
       "phone_number": "Phone Number",
       "company_name": "Company Name",
       "support_operator": "Support Operator",
+      "category": "Category",
+      "warranty_expire": "Warranty Expire",
+      "total_cost": "Total Cost",
+      "storage_location": "Storage Location",
       "instruction": "Instrunction",
       "out_of_policy": "Out of Policy",
       "established_market_value": "Established Market Value",
@@ -502,7 +506,7 @@
     }
   },
   "part_store": {
-    "parts_list": {
+    "part_list": {
       "asset_type": "Asset Type",
       "category": "Category",
       "item_info": "Item Info",
@@ -513,7 +517,11 @@
       "quantity": "Quantity",
       "price": "Price",
       "warranty_expire_date": "Warranty Expire Date",
-      "description": "Description"
+      "description": "Description",
+      "room": "Room",
+      "aisle": "Aisle",
+      "shelf": "Shelf",
+      "box": "Box"
     },
     "order_list": {
       "request_list": "Request List",
@@ -829,6 +837,7 @@
     "create": "Create",
     "archive": "Archive",
     "approval": "Approval",
+    "order": "Order",
     "confirm": "Confirm",
     "reject": "Reject",
     "approve": "Approve",
