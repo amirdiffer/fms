@@ -12,10 +12,10 @@
           <input formControlName="name" pInputText
             placeholder="{{ 'configuration.business_category.business_category_name' | translate }}*" required type="text">
           <label>{{ 'configuration.business_category.business_category_name' | translate }}*</label>
-          <anms-error
-            [showError]="hasError('name',addCategoryForm,submited)"
-            error="forms.feedback.required"></anms-error>
         </span>
+        <anms-error
+          [showError]="hasError('name',addCategoryForm,submited)"
+          error="forms.feedback.required"></anms-error>
       </div>
       <div class="col-12 col-md-4 p-field form-section__field">
         <div class="autocomplete-select">
@@ -33,9 +33,9 @@
           </anms-error>
         </div>
       </div>
-      <div class="col-12 col-md-3 form-section__field toggle-select">
+      <div class="col-2 form-section__field toggle-select">
         <p-inputSwitch formControlName="activeCategory"></p-inputSwitch>
-        <span>{{ 'configuration.business_category.active_category' | translate }}</span>
+        <span class='mb-1'>{{ 'configuration.business_category.active_category' | translate }}</span>
       </div>
     </div>
     <div class="row form-section__row">
@@ -54,7 +54,7 @@
     <h3 class="form-section__title">
       <span class='plus-icon'>
         <svg-icon src='../../../../../assets/icons/add.svg'
-          [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+          [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
       </span>
       {{ 'configuration.business_category.assign_sub_asset' | translate }}
     </h3>
@@ -79,7 +79,7 @@
       <div class='col-lg-3'>
         <div class='upload-box'>
           <label class='space-drop' for='attach_picture_sub-asset'>
-            <div>{{ 'configuration.business_category.upload_form.content' | translate }}</div>
+            {{ 'configuration.business_category.upload_form.content' | translate }}
           </label>
           <input type='file' hidden id='attach_picture_sub-asset'>
         </div>
@@ -96,7 +96,7 @@
   <div class="form-section mx-0">
     <h3 class="form-section__title"><span class='plus-icon'>
         <svg-icon src='../../../../../assets/icons/add.svg'
-          [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+          [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
       </span>
       {{ 'configuration.business_category.assign_accessory' | translate }}
     </h3>
@@ -121,7 +121,7 @@
       <div class='col-lg-3'>
         <div class='upload-box'>
           <label class='space-drop' for='attach_picture_sub-asset'>
-            <div>{{ 'configuration.business_category.upload_form.content' | translate }}</div>
+            {{ 'configuration.business_category.upload_form.content' | translate }}
           </label>
           <input type='file' hidden id='attach_picture_sub-asset'>
         </div>

@@ -9,6 +9,8 @@ import { FilterCardSetting } from '@core/filter';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderListComponent implements OnInit {
+  isSuppliersAddFormHidden = true;
+
   activeTab = 'request_list';
   downloadBtn = 'assets/icons/download-solid.svg';
   filterCard1: FilterCardSetting[] = [
