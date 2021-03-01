@@ -1,4 +1,5 @@
 {
+  "projectName": "خدمة إدارة الأسطول",
   "profile": {
     "notification_types": "أنواع الإخطار",
     "email": "بريد الالكتروني",
@@ -832,7 +833,9 @@
     "management": "إدارة",
     "password": "كلمة المرور",
     "service": "خدمة",
-    "user_name": "اسم االمستخدم"
+    "system": "نظام",
+    "user_name": "اسم االمستخدم",
+    "title": "نظام إدارة الأسطول"
   },
   "buttons": {
     "reject": "يرفض",
