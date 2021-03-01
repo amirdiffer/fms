@@ -506,7 +506,12 @@
       "quantity": "العدد",
       "price": "السعر",
       "warranty_expire_date": "تاريخ انتهاء الضمان",
-      "description": "الوصف"
+      "description": "الوصف",
+      "room": "غرفة",
+      "aisle": "جناح",
+      "shelf": "رفوف",
+      "box": "صندوق"
+
     },
     "order_list": {
       "request_list": "قائمة الطلبات",
@@ -820,7 +825,7 @@
     "assign": "تعيين",
     "feedback": {
       "required": "هذا الحقل مطلوب",
-      "invalid-email":"عنوان البريد الإلكتروني غير صالح"
+      "invalid-email": "عنوان البريد الإلكتروني غير صالح"
     },
     "order": "ترتيب"
   },
