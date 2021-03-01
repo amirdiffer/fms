@@ -1,12 +1,11 @@
 @import '../../../../../themes/green-theme.scss';
 @import '../../../../../assets/scss/form-section.scss';
 
-
-:host ::ng-deep{
+:host ::ng-deep {
   .dropdown-select-input .p-dropdown {
     width: 100%;
   }
-  .ngx-file-drop__drop-zone{
+  .ngx-file-drop__drop-zone {
     height: 40px !important;
   }
 }
@@ -16,7 +15,6 @@ input[type='radio']:checked {
   transform: scale(1.5);
 }
 
-
 .plus-icon {
   border: 1px solid #009c62;
   width: 32px;
@@ -25,4 +23,3 @@ input[type='radio']:checked {
   height: 32px;
   margin: 0 5px;
 }
-

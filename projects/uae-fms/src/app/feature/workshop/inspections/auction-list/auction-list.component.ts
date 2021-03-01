@@ -55,13 +55,18 @@ export class AuctionListComponent implements OnInit, OnDestroy {
 
   settingTable1: TableSetting = {
     columns: [
-      { lable: 'tables.column.item', field: 'item', renderer: 'vehicleRenderer' },
+      {
+        lable: 'tables.column.item',
+        field: 'item',
+        width:'17em',
+        renderer: 'vehicleRenderer'
+      },
       { lable: 'tables.column.created_by', field: 'createdBy' },
-      { lable: 'tables.column.reason', field: 'reason', width: 100 },
+      { lable: 'tables.column.reason', field: 'reason' },
       { lable: 'tables.column.assignment', field: 'assignment' },
       { lable: 'tables.column.estimate_market', field: 'estimatedMarket' },
       { lable: 'tables.column.date', field: 'date' },
-      { lable: 'tables.column.location', field: 'location', width: 120 },
+      { lable: 'tables.column.location', field: 'location'},
       {
         lable: 'tables.column.remove_item',
         field: 'removeItem',
@@ -165,13 +170,21 @@ export class AuctionListComponent implements OnInit, OnDestroy {
 
   settingTable2: TableSetting = {
     columns: [
-      { lable: 'tables.column.item', field: 'item', renderer: 'vehicleRenderer' },
+      {
+        lable: 'tables.column.item',
+        field: 'item',
+        width:'17em',
+        renderer: 'vehicleRenderer'
+      },
       { lable: 'tables.column.buyer', field: 'buyer' },
       { lable: 'tables.column.assigned_to', field: 'assignedTo' },
-      { lable: 'tables.column.actual_market_value', field: 'actualMarketValue' },
+      {
+        lable: 'tables.column.actual_market_value',
+        field: 'actualMarketValue'
+      },
       { lable: 'tables.column.date', field: 'date' },
       { lable: 'tables.column.description', field: 'description' },
-      { lable: 'tables.column.cost', field: 'cost', width: 90 }
+      { lable: 'tables.column.cost', field: 'cost', width: 120 }
     ],
     data: [
       {

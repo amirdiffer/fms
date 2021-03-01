@@ -3,8 +3,8 @@ import {
   assetMasterAdapter,
   IAssetMasterState,
   initialState
-} from '@feature/fleet/+state/assets/asset-master/asset-master.entity';
-import { AssetMasterActions } from '@feature/fleet/+state/assets/asset-master/asset-master.actions';
+} from './asset-master.entity';
+import { AssetMasterActions } from './asset-master.actions';
 
 const assetMasterReducer = createReducer(
   initialState,
@@ -17,6 +17,10 @@ const assetMasterReducer = createReducer(
   on(AssetMasterActions.allDataLoaded, (state, { data }) =>
     assetMasterAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+  on(AssetMasterActions.statisticsLoaded, (state, data) => ({
+    ...state,
+    statistics: data.data
+  })),
   on(AssetMasterActions.error, (state, { reason }) => ({
     ...state,
     error: reason,
