@@ -14,8 +14,10 @@ export class AccessoryActions {
         props<{ reason: any }>()
     );
 
+    static loadStatistics = createAction('[accessory] load all statistics');
+
     static statisticsLoaded = createAction(
-      '[accessory] all statistics are loaded',
-      props<{ data: IAccessoryStatistics }>()
-    );
+        '[accessory] all statistics are loaded',
+        props<{ data: IAccessoryStatistics }>()
+      );
 }
