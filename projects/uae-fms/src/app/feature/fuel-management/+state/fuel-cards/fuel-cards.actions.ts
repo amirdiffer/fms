@@ -1,12 +1,12 @@
+import { IFuelManagementFuelCard } from '@models/fuel-management';
 import { createAction, props } from '@ngrx/store';
-import { FuelCardsStateModel } from './fuel-cards.entity';
 
 export class FuelCardsActions {
   static loadFuelCard = createAction('[FuelCards] load all data');
 
   static fuelCardLoaded = createAction(
     '[FuelCards] all datas are loaded',
-    props<{ data: FuelCardsStateModel[] }>()
+    props<{ data: IFuelManagementFuelCard[] }>()
   );
 
   static fuelCardError = createAction(

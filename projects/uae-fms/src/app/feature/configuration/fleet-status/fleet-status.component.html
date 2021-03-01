@@ -3,7 +3,7 @@
     <app-tab-view>
       <span class="search-container card-table-header">
         <div class="search-box">
-            <input type="text" placeholder="Search in Columns">
+            <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
             <button>
               <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
             </button>
@@ -11,12 +11,12 @@
         <button class="btn-download" disabled>
             <svg-icon [src]="downloadBtn"></svg-icon>
         </button>
-        <button class="btn-primary-small" [routerLink]="'add-fleet-status'"><i>+</i><a>Add</a></button>
+        <button class="btn-primary-small" [routerLink]="'add-fleet-status'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
       </span>
-      <div title='Asset'>
+      <div title="{{ 'tabs.asset' | translate }}">
         <app-table [setting]='tableSetting'></app-table>
       </div>
-      <div title='Sub Asset'></div>
+      <div title="{{ 'tabs.sub_asset' | translate }}"></div>
     </app-tab-view>
   </div>
 </div>

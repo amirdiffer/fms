@@ -1,12 +1,12 @@
 import { createAction, props } from '@ngrx/store';
-import { RolePermissionStateModel } from './role-permission.entity';
+import { IRole } from '@models/configuration';
 
 export class RolePermissionActions {
   static loadAll = createAction('[RolePermission] load all data');
 
   static allDataLoaded = createAction(
     '[RolePermission] all datas are loaded',
-    props<{ data: RolePermissionStateModel[] }>()
+    props<{ data: IRole[] }>()
   );
 
   static error = createAction(

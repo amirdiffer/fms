@@ -11,6 +11,11 @@
   background: #bac4ce 0 0 no-repeat padding-box;
   border-radius: 0 4px 4px 0;
   opacity: 0.77;
+  cursor: pointer;
+  width: 1.7em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .curved_right_tag {
@@ -18,6 +23,8 @@
   background: #475f7b58 0 0 no-repeat padding-box;
   border-radius: 100px 0 0 100px;
   opacity: 1;
+  padding: 1em 1em;
+  cursor: pointer;
 }
 
 .down_icon {
@@ -41,4 +48,24 @@
   bottom: 0;
   filter: invert(1);
   transform: rotate(180deg);
+}
+
+.card{
+  background:transparent;
+}
+
+.body_div {
+  background-color: #F7F9FA;
+  border: 1px solid #77767726;
+  padding: 2em 0 2em 1em;
+  &__inactive {
+    max-height: 0;
+    overflow: hidden;
+  }
+  &__active {
+    max-height: none !important;
+  }
+  .card-body {
+    background-color: #ffffff;
+  }
 }

@@ -65,6 +65,11 @@
       .p-float-label .p-inputwrapper-focus ~ label {
         background: $body2-bg !important;
       }
+      p-dropdown ~ label,
+      p-autocomplete ~ label,
+      p-calendar ~ label {
+        background: $body2-bg;
+      }
     }
 
     &.no-bg {

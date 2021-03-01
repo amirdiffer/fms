@@ -75,5 +75,8 @@ export class RolePermissionComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.rolePermission$.subscribe((x) => {
+      console.log(x);
+    });
   }
 }
