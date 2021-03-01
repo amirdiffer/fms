@@ -2,6 +2,10 @@
   margin-top: 76px;
   padding: 10px;
 
+  .showing-menu{
+    display: block;
+  }
+
   .active-menu {
     color: #0da06e;
     font-weight: 900;
@@ -64,7 +68,7 @@
       transition: 400ms;
       transition-timing-function: ease-in-out;
     }
-    &.active-menu {
+    &.showing-menu {
       &::after {
         content: url('../../../assets/icons/arrow-down-active.svg');
         transform: rotate(180deg);
@@ -90,4 +94,8 @@
   left: 32px;
   background: #0da06e;
   height: auto;
+}
+
+.disabled{
+  opacity: 60%;
 }

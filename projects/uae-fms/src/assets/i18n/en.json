@@ -481,6 +481,7 @@
   "fuel_management": {
     "fuel_cards": {
       "request_type": "Request Type",
+      "tag_number": "Tag Number",
       "assign_to": "Assign To",
       "asset": "Asset",
       "card_type": "Card Type",
@@ -493,6 +494,10 @@
     "asset_traffic_file": {}
   },
   "toll": {
+    "toll_info": "Toll Info",
+    "toll_tag": "Toll Tag",
+    "purchase_date": "Purchase Date",
+    "assign_to": "Assign To",
     "upload_form": {
       "title": "Upload CSV File of Toll",
       "progressbar_title": "CSV File Only",
@@ -837,6 +842,7 @@
     "reject": "Reject",
     "approve": "Approve",
     "recived": "Recived",
+    "assign": "Assign",
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"
