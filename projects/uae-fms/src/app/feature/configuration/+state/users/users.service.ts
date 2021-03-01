@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UsersStateModel } from './users.entity';
+import { ResponseBody } from '@models/response-body';
+import { IUser } from '@models/configuration';
+import { environment } from '@environments/environment';
 
 @Injectable()
 export class UsersService {
   constructor(private http: HttpClient) {}
 
-  loadAll(): Observable<UsersStateModel[]> {
-    return this.http.get<UsersStateModel[]>('');
+  loadAll(): Observable<ResponseBody<IUser[]>> {
+    return this.http.get<ResponseBody<IUser[]>>(
+      environment.baseApiUrl + 'configuration/user'
+    );
   }
 }

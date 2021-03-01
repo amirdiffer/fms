@@ -17,6 +17,14 @@ const tollReducer = createReducer(
     ...state,
     error: reason,
     loaded: true
+  })),
+  on(TollActions.loadAssignNow, (state, { data }) => ({
+    ...state,
+    assignNow: null
+  })),
+  on(TollActions.assignNowLoaded, (state, { data }) => ({
+    ...state,
+    assignNow: data
   }))
 );
 

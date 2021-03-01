@@ -12,7 +12,9 @@ export class AssetPolicyEffect {
       ofType(AssetPolicyActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => AssetPolicyActions.allDataLoaded({ data })),
+          map((data) =>
+            AssetPolicyActions.allDataLoaded({ data: data.message })
+          ),
           catchError((error) => of(AssetPolicyActions.error({ reason: error })))
         )
       )

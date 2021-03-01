@@ -13,4 +13,15 @@ export class TollActions {
     '[Toll] error occurred',
     props<{ reason: any }>()
   );
+
+  static loadAssignNow = createAction(
+    '[Toll] load assign data',
+    props<{ data }>()
+  )
+
+  static assignNowLoaded = createAction(
+    '[Toll] assign data loaded',
+    props<{ data }>()
+  )
+
 }
