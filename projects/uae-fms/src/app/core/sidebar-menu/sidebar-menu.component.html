@@ -18,7 +18,7 @@
                   class="menuItem margin-transition {{(activeSubMenuCheck(subItem.route)?'active_submenu':'not-active')+(subItem?.disabled?' __sidemenu__disabled':'')}}"
                   [routerLink]="subItem.route" (click)="$event.stopPropagation()" [routerLink]="subItem.route">
                   <svg-icon [src]="assets + 'icons/' + subItem.icon + '.svg'"
-                    [svgStyle]="{ 'fill': activeSubMenuCheck(subItem.route)?'#0DA06E': ((item?.disabled)?'#b1b1b1':'#707070'), 'width.px':'22', 'height.px':'22' }">
+                    [svgStyle]="{ 'fill': activeSubMenuCheck(subItem.route)?'#0DA06E': ((subItem?.disabled)?'#b1b1b1':'#707070'), 'width.px':'22', 'height.px':'22' }">
                   </svg-icon>
                   <span class="menu-item-name">{{subItem.name | translate }}</span>
 
