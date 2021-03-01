@@ -21,11 +21,12 @@ import { environment } from '../../../../environments/environment';
     </div>
   `,
   styles: [
-    ` .button-table-container{
+    `
+      .button-table-container {
         position: relative;
       }
       div button {
-        padding: .6em 1.3em;
+        padding: 0.6em 1.3em;
         width: 7em;
         position: absolute;
         transform: translate(-50%, -50%);
