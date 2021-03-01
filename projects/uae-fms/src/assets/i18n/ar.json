@@ -138,7 +138,7 @@
     "active": "نشيط",
     "inactive": "غير نشط",
     "xfleet": "XFleet",
-    "x_sub_asset": "X Sub Asset",
+    "x_sub_asset": "x الأصول الفرعية",
     "available": "متوفر",
     "unavailable": "غير متوفره",
     "assigned": "مكلف",
@@ -470,6 +470,7 @@
   "fuel_management": {
     "fuel_cards": {
       "request_type": "نوع الطلب",
+      "tag_number": "رقم العلامة",
       "assign_to": "يسند إلى",
       "asset": "أصل",
       "card_type": "نوع البطاقة",
@@ -482,6 +483,10 @@
     "asset_traffic_file": {}
   },
   "toll": {
+    "toll_info": "معلومات الاتصال",
+    "toll_tag": "علامة حصيلة",
+    "purchase_date": "تاريخ الشراء",
+    "assign_to": "يسند إلى",
     "upload_form": {
       "title": "تحميل ملف CSV",
       "progressbar_title": "ملف CSV فقط",
@@ -490,7 +495,7 @@
     }
   },
   "part_store": {
-    "parts_list": {
+    "part_list": {
       "asset_type": "نوع الأصول",
       "category": "الفئة",
       "item_info": "معلومات العنصر",
@@ -501,7 +506,12 @@
       "quantity": "العدد",
       "price": "السعر",
       "warranty_expire_date": "تاريخ انتهاء الضمان",
-      "description": "الوصف"
+      "description": "الوصف",
+      "room": "غرفة",
+      "aisle": "جناح",
+      "shelf": "رفوف",
+      "box": "صندوق"
+
     },
     "order_list": {
       "request_list": "قائمة الطلبات",
@@ -812,6 +822,7 @@
     "reject": "يرفض",
     "approve": "اعتماد",
     "recived": "الواردة",
+    "assign": "تعيين",
     "feedback": {
       "required": "هذا الحقل مطلوب",
       "invalid-email": "عنوان البريد الإلكتروني غير صالح"

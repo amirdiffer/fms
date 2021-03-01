@@ -316,6 +316,10 @@
       "phone_number": "Phone Number",
       "company_name": "Company Name",
       "support_operator": "Support Operator",
+      "category": "Category",
+      "warranty_expire": "Warranty Expire",
+      "total_cost": "Total Cost",
+      "storage_location": "Storage Location",
       "instruction": "Instrunction",
       "out_of_policy": "Out of Policy",
       "established_market_value": "Established Market Value",
@@ -477,6 +481,7 @@
   "fuel_management": {
     "fuel_cards": {
       "request_type": "Request Type",
+      "tag_number": "Tag Number",
       "assign_to": "Assign To",
       "asset": "Asset",
       "card_type": "Card Type",
@@ -489,6 +494,10 @@
     "asset_traffic_file": {}
   },
   "toll": {
+    "toll_info": "Toll Info",
+    "toll_tag": "Toll Tag",
+    "purchase_date": "Purchase Date",
+    "assign_to": "Assign To",
     "upload_form": {
       "title": "Upload CSV File of Toll",
       "progressbar_title": "CSV File Only",
@@ -497,7 +506,7 @@
     }
   },
   "part_store": {
-    "parts_list": {
+    "part_list": {
       "asset_type": "Asset Type",
       "category": "Category",
       "item_info": "Item Info",
@@ -508,7 +517,11 @@
       "quantity": "Quantity",
       "price": "Price",
       "warranty_expire_date": "Warranty Expire Date",
-      "description": "Description"
+      "description": "Description",
+      "room": "Room",
+      "aisle": "Aisle",
+      "shelf": "Shelf",
+      "box": "Box"
     },
     "order_list": {
       "request_list": "Request List",
@@ -839,10 +852,12 @@
     "create": "Create",
     "archive": "Archive",
     "approval": "Approval",
+    "order": "Order",
     "confirm": "Confirm",
     "reject": "Reject",
     "approve": "Approve",
     "recived": "Recived",
+    "assign": "Assign",
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"
