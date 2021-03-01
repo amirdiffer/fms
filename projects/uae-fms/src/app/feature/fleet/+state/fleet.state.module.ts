@@ -30,7 +30,9 @@ import {
   OrganizationService
 } from '../+state/organization';
 import { OrganizationEffects } from '../+state/organization/organization-effects.service';
-import { AccessoryEffect } from '@feature/fleet/+state/accessory/accessory.effect';
+import { AccessoryEffect } from './accessory/accessory.effect';
+import { MovementRequestsEffect } from './movement/requests/movement-requests.effect';
+
 
 @NgModule({
   imports: [
@@ -42,9 +44,8 @@ import { AccessoryEffect } from '@feature/fleet/+state/accessory/accessory.effec
       OrganizationEffects,
       SubAssetEffect,
       AccessoryEffect,
-      MovementOverviewFacade,
-      MovementRequestsFacade
-    ])
+      MovementRequestsEffect
+    ]),
   ],
   exports: [],
   declarations: [],

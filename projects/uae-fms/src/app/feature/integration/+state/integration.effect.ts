@@ -12,7 +12,7 @@ export class IntegrationEffect {
       ofType(IntegrationActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => IntegrationActions.allDataLoaded({ data })),
+          map((data) => IntegrationActions.allDataLoaded({ data: data.message  })),
           catchError((error) => of(IntegrationActions.error({ reason: error })))
         )
       )

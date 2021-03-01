@@ -4,10 +4,7 @@ import { subAssetAdapter } from './sub-asset.entity';
 const { selectAll } = subAssetAdapter.getSelectors();
 
 export class SubAssetSelectors {
-  static selectAll = createSelector(
-    FleetSelectors.subAssetSelector,
-    selectAll
-  );
+  static selectAll = createSelector(FleetSelectors.subAssetSelector, selectAll);
 
   static message = createSelector(
     FleetSelectors.subAssetSelector,

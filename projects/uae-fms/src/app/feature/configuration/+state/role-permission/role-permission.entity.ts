@@ -3,8 +3,7 @@ import { IRole } from '@models/configuration';
 
 export const CONFIGURATION_ROLE_PERMISSION_FEATURE_KEY = 'role-permission';
 
-export interface RolePermissionState
-  extends EntityState<IRole> {
+export interface RolePermissionState extends EntityState<IRole> {
   error?: any;
   loaded?: boolean;
   message?: string;

@@ -39,7 +39,7 @@
         <div class="row form-section__row">
             <div class="col-12 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="Resone *"
+                    <input pInputText placeholder="{{ 'movement.movement.reason' | translate }} *"
                         formControlName="resone" required
                         type="text">
                     <label>{{ 'movement.movement.reason' | translate }} *</label>
@@ -52,7 +52,7 @@
             <div class="col-12 p-field form-section__field"
                 *ngIf="requestForm.controls['requestType'].value === 'new'">
                 <span class="p-float-label">
-                    <input pInputText placeholder="Quantity *"
+                    <input pInputText placeholder="{{ 'movement.movement.quantity' | translate }} *"
                         formControlName="quality" required
                         type="text">
                     <label>{{ 'movement.movement.quantity' | translate }} *</label>

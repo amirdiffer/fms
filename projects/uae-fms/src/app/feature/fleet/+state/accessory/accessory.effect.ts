@@ -41,5 +41,17 @@ export class AccessoryEffect {
       )
   );
 
+  loadStatistics$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AccessoryActions.loadStatistics),
+      mergeMap((action) =>
+        this.service.loadStatistics().pipe(
+          map((data) => AccessoryActions.statisticsLoaded({ data })),
+          catchError((error) => of(AccessoryActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   constructor(private action$: Actions, private service: AccessoryService) {}
 }

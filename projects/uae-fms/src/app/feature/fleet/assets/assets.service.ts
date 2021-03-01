@@ -58,7 +58,7 @@ export class AssetsService {
         {
           lable: 'tables.column.asset',
           field: 'asset',
-          width: 180,
+          width: '18em',
           type: ColumnType.lable,
           thumbField: '',
           renderer: 'assetsRenderer'

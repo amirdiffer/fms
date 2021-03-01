@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ResponseBody } from '@models/responseBody';
 import { environment } from '@environments/environment';
 import { IAccessory } from '@models/accessory';
+import { IAccessoryStatistics } from '@models/statistics';
 
 @Injectable()
 export class AccessoryService {
@@ -12,6 +13,12 @@ export class AccessoryService {
   loadAll(): Observable<ResponseBody<IAccessory[]>> {
     return this.http.get<ResponseBody<IAccessory[]>>(
       environment.baseApiUrl + 'accessory'
+    );
+  }
+
+  loadStatistics(): Observable<IAccessoryStatistics> {
+    return this.http.get<IAccessoryStatistics>(
+      environment.baseApiUrl + 'accessory/stats'
     );
   }
 }

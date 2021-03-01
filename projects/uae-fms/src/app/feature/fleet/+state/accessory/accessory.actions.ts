@@ -1,3 +1,4 @@
+import { IAccessoryStatistics } from '@models/statistics';
 import { createAction, props } from '@ngrx/store';
 import { IAccessory } from '@models/accessory';
 
@@ -12,5 +13,9 @@ export class AccessoryActions {
         '[accessory] error occurred',
         props<{ reason: any }>()
     );
-    
+
+    static statisticsLoaded = createAction(
+      '[accessory] all statistics are loaded',
+      props<{ data: IAccessoryStatistics }>()
+    );
 }
