@@ -17,3 +17,8 @@ export interface IRole {
   roleId: string;
   roleName: string;
 }
+
+export interface IOwnerShip {
+  id: number,
+  name: string
+}
