@@ -7,9 +7,15 @@ import { IAssetMasterPartialState } from '@feature/fleet/+state/assets/asset-mas
 export class AssetMasterFacade {
   assetMaster$ = this.store.pipe(select(AssetMasterSelectors.selectAll));
 
+  statistics$ = this.store.pipe(select(AssetMasterSelectors.selectStatistics));
+
   constructor(private store: Store<IAssetMasterPartialState>) {}
 
   loadAll() {
     this.store.dispatch(AssetMasterActions.loadAll());
+  }
+
+  loadStatistics() {
+    this.store.dispatch(AssetMasterActions.loadStatistics());
   }
 }

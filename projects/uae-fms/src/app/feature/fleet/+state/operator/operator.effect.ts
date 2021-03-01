@@ -13,16 +13,11 @@ export class OperatorEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => OperatorActions.allDataLoaded({ data })),
-          catchError((error) =>
-            of(OperatorActions.error({ reason: error }))
-          )
+          catchError((error) => of(OperatorActions.error({ reason: error })))
         )
       )
     )
   );
 
-  constructor(
-    private action$: Actions,
-    private service: OperatorService
-  ) {}
+  constructor(private action$: Actions, private service: OperatorService) {}
 }

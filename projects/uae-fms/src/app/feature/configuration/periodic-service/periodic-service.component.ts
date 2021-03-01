@@ -13,7 +13,7 @@ export class PeriodicServiceComponent implements OnInit {
 
   tableColumns: ColumnDifinition[] = [
     {
-      lable: 'Periodic Service Name',
+      lable: 'tables.column.periodic_service_name',
       field: 'periodicServiceName',
       width: 300,
       type: ColumnType.lable,
@@ -21,7 +21,7 @@ export class PeriodicServiceComponent implements OnInit {
       renderer: ''
     },
     {
-      lable: 'car_icon',
+      lable: 'tables.column.car_icon',
       field: 'number',
       width: 100,
       type: ColumnType.lable,
@@ -54,5 +54,8 @@ export class PeriodicServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.periodicService$.subscribe((x) => {
+      console.log(x);
+    })
   }
 }
