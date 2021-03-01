@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { IAssetTrafficFineStateModel } from './asset-traffic-fine.entity';
 import { IAssetTrafficFine } from '@models/traffic-fine';
 
 export class AssetTrafficFineActions {
