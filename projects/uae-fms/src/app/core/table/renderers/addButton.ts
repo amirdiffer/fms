@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
     `
       .plus-icon {
         font-weight: 800;
-        font-size: 1.7rem;
+        font-size: 1.7em;
         height: fit-content;
       }
     `

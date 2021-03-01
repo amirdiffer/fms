@@ -1,21 +1,21 @@
 <form [formGroup]="addCategoryForm">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="goToList()">Cancel</button>
-    <button class="btn-primary-medium add" (click)="submit()">Add</button>
+    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="goToList()">{{ 'forms.cancel' | translate }}</button>
+    <button class="btn-primary-medium add" (click)="submit()">{{ 'search.add' | translate }}</button>
   </div>
   <div class="form-section mx-0">
-    <h3 class="form-section__title">Business Category Info</h3>
+    <h3 class="form-section__title">{{ 'configuration.business_category.business_category_info' | translate }}</h3>
 
     <div class="row form-section__row">
       <div class="col-12 col-md-4 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="name" pInputText
-            placeholder="Business Category Name*" required type="text">
-          <label>Business Category Name*</label>
-          <anms-error
-            [showError]="hasError('name',addCategoryForm,submited)"
-            error="fms.errors.required"></anms-error>
+            placeholder="{{ 'configuration.business_category.business_category_name' | translate }}*" required type="text">
+          <label>{{ 'configuration.business_category.business_category_name' | translate }}*</label>
         </span>
+        <anms-error
+          [showError]="hasError('name',addCategoryForm,submited)"
+          error="forms.feedback.required"></anms-error>
       </div>
       <div class="col-12 col-md-4 p-field form-section__field">
         <div class="autocomplete-select">
@@ -25,25 +25,25 @@
               [suggestions]="assetTypes" field="name"
               [minLength]="1"></p-autoComplete>
             <i class="pi pi-search"></i>
-            <label>Asset Type *</label>
+            <label>{{ 'configuration.business_category.asset_type' | translate }} *</label>
           </span>
           <anms-error
             [showError]="hasError('assetType',addCategoryForm,submited)"
-            error="fms.errors.required">
+            error="forms.feedback.required">
           </anms-error>
         </div>
       </div>
-      <div class="col-12 col-md-3 form-section__field toggle-select">
+      <div class="col-2 form-section__field toggle-select">
         <p-inputSwitch formControlName="activeCategory"></p-inputSwitch>
-        <span>Active Category</span>
+        <span class='mb-1'>{{ 'configuration.business_category.active_category' | translate }}</span>
       </div>
     </div>
     <div class="row form-section__row">
       <div class="col-12 col-md-12 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="description" pInputText
-            placeholder="Description" type="text">
-          <label>Description</label>
+            placeholder="{{ 'configuration.business_category.description' | translate }}" type="text">
+          <label>{{ 'configuration.business_category.description' | translate }}</label>
         </span>
       </div>
     </div>
@@ -54,9 +54,9 @@
     <h3 class="form-section__title">
       <span class='plus-icon'>
         <svg-icon src='../../../../../assets/icons/add.svg'
-          [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+          [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
       </span>
-      Assign Sub Assets
+      {{ 'configuration.business_category.assign_sub_asset' | translate }}
     </h3>
 
     <div class="row form-section__row">
@@ -68,18 +68,18 @@
               [suggestions]="subAssets" field="name"
               [minLength]="1"></p-autoComplete>
             <i class="pi pi-search"></i>
-            <label>Sub Asset *</label>
+            <label>{{ 'configuration.business_category.sub_asset' | translate }} *</label>
           </span>
           <anms-error
             [showError]="hasError('subAsset',addCategoryForm,submited)"
-            error="fms.errors.required">
+            error="forms.feedback.required">
           </anms-error>
         </div>
       </div>
       <div class='col-lg-3'>
         <div class='upload-box'>
           <label class='space-drop' for='attach_picture_sub-asset'>
-            <div>Drag and Drop a file here Upload Specification</div>
+            {{ 'configuration.business_category.upload_form.content' | translate }}
           </label>
           <input type='file' hidden id='attach_picture_sub-asset'>
         </div>
@@ -87,8 +87,8 @@
       <div class="col-12 col-md-3 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="assetQuantity" pInputText
-            placeholder="Quantity" type="text">
-          <label>Quantity</label>
+            placeholder="{{ 'configuration.business_category.quantity' | translate }}" type="text">
+          <label>{{ 'configuration.business_category.quantity' | translate }}</label>
         </span>
       </div>
     </div>
@@ -96,9 +96,9 @@
   <div class="form-section mx-0">
     <h3 class="form-section__title"><span class='plus-icon'>
         <svg-icon src='../../../../../assets/icons/add.svg'
-          [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+          [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
       </span>
-      Assign Accessory
+      {{ 'configuration.business_category.assign_accessory' | translate }}
     </h3>
 
     <div class="row form-section__row">
@@ -110,18 +110,18 @@
               [suggestions]="accessories" field="name"
               [minLength]="1"></p-autoComplete>
             <i class="pi pi-search"></i>
-            <label>Accessory *</label>
+            <label>{{ 'configuration.business_category.accessory' | translate }} *</label>
           </span>
           <anms-error
             [showError]="hasError('accessory',addCategoryForm,submited)"
-            error="fms.errors.required">
+            error="forms.feedback.required">
           </anms-error>
         </div>
       </div>
       <div class='col-lg-3'>
         <div class='upload-box'>
           <label class='space-drop' for='attach_picture_sub-asset'>
-            <div>Drag and Drop a file here Upload Specification</div>
+            {{ 'configuration.business_category.upload_form.content' | translate }}
           </label>
           <input type='file' hidden id='attach_picture_sub-asset'>
         </div>
@@ -129,8 +129,8 @@
       <div class="col-12 col-md-3 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="accessoryQuantity" pInputText
-            placeholder="Quantity" type="text">
-          <label>Quantity</label>
+            placeholder="{{ 'configuration.business_category.quantity' | translate }}" type="text">
+          <label>{{ 'configuration.business_category.quantity' | translate }}</label>
         </span>
       </div>
     </div>

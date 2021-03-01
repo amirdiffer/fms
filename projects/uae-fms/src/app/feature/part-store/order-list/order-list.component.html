@@ -4,6 +4,11 @@
 <div class="statistic-card" *ngIf="activeTab == 'my_order'">
   <app-filter [setting]='filterCard2'></app-filter>
 </div>
+
+<div class='component_wrapper p-0' *ngIf="!isSuppliersAddFormHidden && activeTab === 'suppliers'">
+  <anms-suppliers-add-form (cancel)='isSuppliersAddFormHidden = true'></anms-suppliers-add-form>
+</div>
+
 <div class="component_wrapper p-0">
 
   <div class="table-container">

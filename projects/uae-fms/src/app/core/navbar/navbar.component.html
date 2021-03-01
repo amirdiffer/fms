@@ -28,6 +28,9 @@
             <button mat-icon-button (click)="languageBox.toggle($event)">
                 <svg-icon src="../../../assets/icons/globe-americas.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
             </button>
+            <button mat-icon-button (click)="changeTheme()">
+                <svg-icon src="../../../assets/icons/eye.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
+            </button>
             <img [src]="policeLogo" [alt]="policeLogo" />
         </span>
     </mat-toolbar>

@@ -66,7 +66,6 @@ html {
   display: none;
 }
 
-
 .app-table-wrapper {
   .cell-with-image {
     align-items: center;
@@ -82,10 +81,9 @@ html {
   }
 }
 
-
 /* RTL Arabic */
-[dir="rtl"]{
-  body{
+[dir='rtl'] {
+  body {
     direction: rtl;
     text-align: right;
   }
@@ -100,72 +98,66 @@ html {
   }
 
   /* dashboard */
-  .dashboard-card{
-      .card-header{
-          text-align: right;
+  .dashboard-card {
+    .card-header {
+      text-align: right;
+    }
+    .progress-bar-container {
+      small {
+        left: 0;
+        right: auto !important;
       }
-      .progress-bar-container{
-          small{
-              left:0;
-              right:auto !important;
-          }
-      }
-      .head .right-button{
-          text-align: left !important;
-      }
-      
+    }
+    .head .right-button {
+      text-align: left !important;
+    }
   }
 
   /* Navbar */
-  .toolbar{
-      .police-brand{
-          margin-right: auto;
-          margin-left: 0 !important;
+  .toolbar {
+    .police-brand {
+      margin-right: auto;
+      margin-left: 0 !important;
+    }
+    .mat-button-wrapper {
+      .label {
+        margin-right: 0.5rem;
       }
-      .mat-button-wrapper{
-          .label{
-              margin-right: .5rem;
-          }
-      }
+    }
   }
-  .overlay-panels .language-panel ul li p{
-    margin:0 1em 0 0;
+  .overlay-panels .language-panel ul li p {
+    margin: 0 1em 0 0;
   }
 
   /* forms */
-  .button-container{
-      left: 0 ;
-      right: auto !important;
+  .button-container {
+    left: 0;
+    right: auto !important;
   }
-  .form-section{
-      &__field{
-          .p-float-label{
-              input ~ label,
-              .p-inputwrapper-filled ~ label,
-              p-dropdown ~ label,
-              p-autocomplete ~ label,
-              p-calendar ~ label{
-                  left: auto !important;
-                  right: 0.5rem;
-              }
-          }
-      }
-      .form-check input[type=radio] ~ label {
-          margin-right: 2em;
-          margin-left: 0;
-      }
-      .form-check input[type=checkbox] ~ label{
-          margin-right: 1em;
-          margin-left: 0;
-      }
-      .autocomplete-select{
-        .pi-search{
-          left: 10px;
-          right: auto !important;
+  .form-section {
+    &__field {
+      .p-float-label {
+        input ~ label,
+        .p-inputwrapper-filled ~ label,
+        p-dropdown ~ label,
+        p-autocomplete ~ label,
+        p-calendar ~ label {
+          left: auto !important;
+          right: 0.5rem;
         }
       }
-      p-calendar ~ .date-icon{
-        left: 4%;
+    }
+    .form-check input[type='radio'] ~ label {
+      margin-right: 2em;
+      margin-left: 0;
+    }
+    .form-check input[type='checkbox'] ~ label {
+      margin-right: 1em;
+      margin-left: 0;
+    }
+    .autocomplete-select {
+      .pi-search {
+        left: 10px;
         right: auto !important;
       }
       .p-inputgroup-addon:last-child{
@@ -182,49 +174,61 @@ html {
         left:0;
         right: auto !important;
       }
+    }
+    p-calendar ~ .date-icon {
+      left: 4%;
+      right: auto !important;
+    }
+    .p-inputgroup-addon:last-child {
+      border-radius: 0;
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+    .p-inputgroup input:first-child {
+      border-radius: 0;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
   }
 
-
   /* Tables */
-  p-table{
-    .p-datatable .p-datatable-tbody > tr > td{
-        text-align: right;
+  p-table {
+    .p-datatable .p-datatable-tbody > tr > td {
+      text-align: right;
     }
-    .statusColor{
-      left:auto !important;
+    .statusColor {
+      left: auto !important;
       right: 0;
       border-radius: 5px 0px 0px 5px !important;
     }
-
   }
-  app-fuel-card-table{
-    .vertical_line{
+  app-fuel-card-table {
+    .vertical_line {
       border-right: 2px solid #475f7b;
       margin-right: 12px;
       border-left: none !important;
       margin-left: 0 !important;
     }
-    .sub_info_span{
-      margin:0 !important;
-      padding:0 !important;
+    .sub_info_span {
+      margin: 0 !important;
+      padding: 0 !important;
       margin-right: 15px !important;
-      span{
-        margin:0 !important;
-        padding-right: 5px !important;  
-        &:nth-child(1){
-          margin:1rem !important;
+      span {
+        margin: 0 !important;
+        padding-right: 5px !important;
+        &:nth-child(1) {
+          margin: 1rem !important;
         }
       }
     }
   }
 
   /* Stepper */
-  .mat-stepper-label-position-bottom .mat-horizontal-stepper-header{
+  .mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
     &:not(:last-child)::before,
-    &:not(:first-child)::after{
+    &:not(:first-child)::after {
       border-top-width: 5px !important;
     }
-    
   }
 }
 
