@@ -44,9 +44,24 @@ export class BodyShopComponent implements OnInit {
 
   table1Setting: TableSetting = {
     columns: [
-      { lable: 'tables.column.item', field: 'item', width: 190, renderer: 'vehicleRenderer' },
-      { lable: 'tables.column.issue', field: 'issue', type: ColumnType.lable, width: 70 },
-      { lable: 'tables.column.source', field: 'source', type: ColumnType.lable, width: 120 },
+      {
+        lable: 'tables.column.item',
+        field: 'item',
+        width: 190,
+        renderer: 'vehicleRenderer'
+      },
+      {
+        lable: 'tables.column.issue',
+        field: 'issue',
+        type: ColumnType.lable,
+        width: 70
+      },
+      {
+        lable: 'tables.column.source',
+        field: 'source',
+        type: ColumnType.lable,
+        width: 120
+      },
       {
         lable: 'tables.column.reference_no',
         field: 'refrenceNo',
@@ -59,7 +74,12 @@ export class BodyShopComponent implements OnInit {
         type: ColumnType.lable,
         width: 100
       },
-      { lable: 'tables.column.date', field: 'date', width: 100, type: ColumnType.lable },
+      {
+        lable: 'tables.column.date',
+        field: 'date',
+        width: 100,
+        type: ColumnType.lable
+      },
       {
         lable: 'tables.column.accident',
         field: 'accident',
@@ -185,29 +205,38 @@ export class BodyShopComponent implements OnInit {
 
   table2Setting: TableSetting = {
     columns: [
-      { lable: 'Item', field: 'item', renderer: 'vehicleRenderer' },
-      { lable: 'Task', field: 'task', type: ColumnType.lable },
       {
-        lable: 'Start Date',
+        lable: 'tables.column.item',
+        field: 'item',
+        renderer: 'vehicleRenderer'
+      },
+      { lable: 'tables.column.task', field: 'task', type: ColumnType.lable },
+      {
+        lable: 'tables.column.start_date',
         field: 'startDate',
         type: ColumnType.lable,
         width: 120
       },
       {
-        lable: 'End Date',
+        lable: 'tables.column.end_date',
         field: 'endDate',
         type: ColumnType.lable,
         width: 120
       },
       {
-        lable: 'Location',
+        lable: 'tables.column.location',
         field: 'location',
         type: ColumnType.lable,
         width: 100
       },
-      { lable: 'Cost', field: 'cost', type: ColumnType.lable, width: 100 },
       {
-        lable: 'Workshop Manager Approval',
+        lable: 'tables.column.cost',
+        field: 'cost',
+        type: ColumnType.lable,
+        width: 100
+      },
+      {
+        lable: 'tables.column.workshop_manager_approval',
         field: 'workshopManagerApproval',
         type: ColumnType.lable
       }
@@ -316,25 +345,40 @@ export class BodyShopComponent implements OnInit {
 
   table3Setting: TableSetting = {
     columns: [
-      { lable: 'Technician', field: 'technician', width: 180 ,renderer: 'userRenderer' },
-      { lable: 'Skill', field: 'skill',width: 180, type: ColumnType.lable },
       {
-        lable: 'Status',
+        lable: 'tables.column.technician',
+        field: 'technician',
+        width: 180,
+        renderer: 'userRenderer'
+      },
+      {
+        lable: 'tables.column.skill',
+        field: 'skill',
+        width: 180,
+        type: ColumnType.lable
+      },
+      {
+        lable: 'tables.column.status',
         field: 'status',
         type: ColumnType.lable,
         width: 120,
         textColor: '#6870B4'
       },
-      { lable: 'Tasks', field: 'tasks', type: ColumnType.lable, width: 80 },
       {
-        lable: 'Information',
+        lable: 'tables.column.task',
+        field: 'tasks',
+        type: ColumnType.lable,
+        width: 80
+      },
+      {
+        lable: 'tables.column.information',
         field: 'information',
         type: ColumnType.lable,
         width: 120,
         renderer: 'informationRenderer'
       },
       {
-        lable: 'Rate Per Hour',
+        lable: 'tables.column.rate_per_hour',
         field: 'ratePerHour',
         type: ColumnType.lable,
         width: 100
@@ -454,33 +498,42 @@ export class BodyShopComponent implements OnInit {
 
   table4Setting: TableSetting = {
     columns: [
-      { lable: 'Location Id', field: 'locationId' },
-      { lable: 'Service', field: 'service', type: ColumnType.lable },
+      { lable: 'tables.column.location_id', field: 'locationId' },
       {
-        lable: 'Address',
+        lable: 'tables.column.service',
+        field: 'service',
+        type: ColumnType.lable
+      },
+      {
+        lable: 'tables.column.address',
         field: 'address',
         type: ColumnType.lable,
         width: 120
       },
       {
-        lable: 'Section',
+        lable: 'tables.column.section',
         field: 'section',
         type: ColumnType.lable,
         width: 120
       },
       {
-        lable: 'Job Card',
+        lable: 'tables.column.job_card',
         field: 'jobCard',
         type: ColumnType.lable,
         width: 100
       },
       {
-        lable: 'Technician',
+        lable: 'tables.column.technician',
         field: 'technician',
         type: ColumnType.lable,
         width: 100
       },
-      { lable: 'Assets', field: 'assets', type: ColumnType.lable, width: 100 }
+      {
+        lable: 'tables.column.asset',
+        field: 'assets',
+        type: ColumnType.lable,
+        width: 100
+      }
     ],
     data: [
       {

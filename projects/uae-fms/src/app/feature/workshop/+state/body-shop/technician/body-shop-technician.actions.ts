@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { IBodyShopTechnicianStateModel } from './body-shop-technician.entity';
 import { ITechnician } from '@models/body-shop';
 
 export class BodyShopTechnicianActions {

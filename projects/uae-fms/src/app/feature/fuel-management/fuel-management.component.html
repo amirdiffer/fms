@@ -7,7 +7,7 @@
       <app-tab-view (selectedIndex)="selectedTab=$event">
         <span class="search-container card-table-header">
           <div class="search-box">
-              <input type="text" placeholder="Search in Columns">
+              <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
               <button>
                 <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
               </button>
@@ -15,13 +15,13 @@
           <button class="btn-download">
               <svg-icon [src]="downloadBtn"></svg-icon>
           </button>
-          <button class="btn-primary-small" (click)="addClicked($event)"><i>+</i><a>Add</a></button>
+          <button class="btn-primary-small" (click)="addClicked($event)"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
         </span>
-        <div title='Fuel Cards'>
-          <app-fuel-card-table [settings]='fuelCardsTableSetting'></app-fuel-card-table>
+        <div title="{{ 'tabs.fuel_cards' | translate }}" class="fuel-card">
+          <app-table [setting]="fuelCardsTableSetting"></app-table>
         </div>
-        <div title='Asset Usage'>
-          <app-asset-usage-table [settings]='assetUsageTableSetting'></app-asset-usage-table>
+        <div title="{{ 'tabs.asset_usages' | translate }}">
+          <app-table [setting]="assetUsageTableSetting"></app-table>
         </div>
       </app-tab-view>
     </div>
