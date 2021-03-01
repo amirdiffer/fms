@@ -316,6 +316,10 @@
       "phone_number": "Phone Number",
       "company_name": "Company Name",
       "support_operator": "Support Operator",
+      "category": "Category",
+      "warranty_expire": "Warranty Expire",
+      "total_cost": "Total Cost",
+      "storage_location": "Storage Location",
       "instruction": "Instrunction",
       "out_of_policy": "Out of Policy",
       "established_market_value": "Established Market Value",
@@ -414,6 +418,7 @@
     "section": "Section",
     "authorized": "Authorized",
     "expiry_license": "Expiry License",
+    "personal_information": "Personal Information",
     "first_name": "First Name",
     "last_name": "Last Name",
     "email": "Email",
@@ -502,7 +507,7 @@
     }
   },
   "part_store": {
-    "parts_list": {
+    "part_list": {
       "asset_type": "Asset Type",
       "category": "Category",
       "item_info": "Item Info",
@@ -515,7 +520,11 @@
       "warranty_expire_date": "Warranty Expire Date",
       "warranty_expire":"Warranty Expire",
       "description": "Description",
-      "total_cost":"Total Cost"
+      "total_cost":"Total Cost",
+      "room": "Room",
+      "aisle": "Aisle",
+      "shelf": "Shelf",
+      "box": "Box"
     },
     "order_list": {
       "request_list": "Request List",
@@ -752,7 +761,7 @@
         "deprecation_value": "% Deprecation Value",
         "yearly": "Yearly",
         "set_reminder_before": "Set Reminder Before",
-        "or" : "Or"
+        "or": "Or"
       },
       "sub_asset": {
         "this_policy_is_for": "This Policy Is For",
@@ -767,7 +776,22 @@
         "set_reminder_before": "Set Reminder Before"
       }
     },
-    "asset_configuration": {},
+    "asset_configuration": {
+      "make_and_model_info": "Make And Model Info",
+      "multiple_model": "Multiple Model",
+      "single_model": "Single Model",
+      "select_model": "Select Model",
+      "model": "Model",
+      "drag_and_drop_a_csv_file_or": "Drag and drop a CSV file or",
+      "click_here": "Click here",
+      "description": "Description",
+      "active_type": "Active Type",
+      "type_name": "Type Name",
+      "accessory": "Accessory",
+      "sub_asset": "Sub Asset",
+      "asset": "Asset",
+      "type_category": "Type Category"
+    },
     "business_category": {
       "business_category_info": "Business Category Info",
       "assign_sub_asset": "Assign Sub Asset",
@@ -831,6 +855,7 @@
     "create": "Create",
     "archive": "Archive",
     "approval": "Approval",
+    "order": "Order",
     "confirm": "Confirm",
     "reject": "Reject",
     "approve": "Approve",
@@ -851,10 +876,22 @@
     "incorrect_password": "Incorrect Password",
     "login": "Login"
   },
-  "buttons":{
-    "reject":"Reject",
-    "approve":"Approve",
-    "recived":"Recived",
-    "confirm":"Confirm"
+  "buttons": {
+    "reject": "Reject",
+    "approve": "Approve",
+    "recived": "Recived",
+    "confirm": "Confirm"
+  },
+  "filter": {
+    "asset_category": "Asset Category",
+    "asset": "Asset",
+    "sub_asset": "Sub Asset",
+    "accessory": "Accessory",
+    "asset_type": "Asset Type",
+    "car": "Car",
+    "bus": "Bus",
+    "bicycle": "Bicycle",
+    "boat": "Boat",
+    "add_type": "Add Type"
   }
 }

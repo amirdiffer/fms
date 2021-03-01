@@ -136,7 +136,7 @@ export class TableComponent implements OnInit {
 
     pdf.save(`${title}.pdf`);
   }
-  isNumber(val):boolean {
+  isNumber(val): boolean {
     return typeof val === 'number';
   }
 }
