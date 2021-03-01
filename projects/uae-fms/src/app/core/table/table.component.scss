@@ -1,11 +1,10 @@
-
-:host ::ng-deep{
-  thead{
-    tr th > div > p{
+:host ::ng-deep {
+  thead {
+    tr th > div > p {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      display:block;
+      display: block;
     }
   }
 }

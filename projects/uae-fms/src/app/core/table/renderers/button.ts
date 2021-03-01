@@ -10,13 +10,13 @@ import { environment } from '../../../../environments/environment';
         *ngIf="getLable(col.field) != 'buttons.reject'"
         (click)="col.onClick(row)"
       >
-        {{ getLable(col.field)|translate }}
+        {{ getLable(col.field) | translate }}
       </button>
       <button
         class="btn-primary-medium reject"
         *ngIf="getLable(col.field) == 'buttons.reject'"
       >
-        {{ getLable(col.field)|translate }}
+        {{ getLable(col.field) | translate }}
       </button>
     </div>
   `,

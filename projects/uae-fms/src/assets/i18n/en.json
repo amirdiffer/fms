@@ -758,7 +758,7 @@
         "deprecation_value": "% Deprecation Value",
         "yearly": "Yearly",
         "set_reminder_before": "Set Reminder Before",
-        "or" : "Or"
+        "or": "Or"
       },
       "sub_asset": {
         "this_policy_is_for": "This Policy Is For",
@@ -858,10 +858,10 @@
     "incorrect_password": "Incorrect Password",
     "login": "Login"
   },
-  "buttons":{
-    "reject":"Reject",
-    "approve":"Approve",
-    "recived":"Recived",
-    "confirm":"Confirm"
+  "buttons": {
+    "reject": "Reject",
+    "approve": "Approve",
+    "recived": "Recived",
+    "confirm": "Confirm"
   }
 }
