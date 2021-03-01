@@ -6,19 +6,19 @@
                 <button class="btn-primary-medium add" (click)="submit()">Add</button>
             </div>
             <div class="form-section mx-0 form-section--inline">
-                <div class="row">
-                    <div class="col-12 col-md-7 mb-2 align-self-center">
+                <div class="row form-section__row">
+                    <div class="col-12 col-md-5 mb-2 align-self-center">
                       <div class="row">
                         <div class="col-12 col-md-3">
                           <h3 class="form-section__title m-0">Type Category</h3>
                         </div>
                         <div class="col-12 col-md-9">
-                          <div class="row">
+                          <div class="row mt-2 ml-3">
                             <div class="form-check col-3">
                               <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="asset" value ="asset">
                               <label class="form-check-label" for="asset">Asset</label>
                             </div>
-                            <div class="form-check col-3">
+                            <div class="form-check col-4">
                               <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="subAsset" value ="subAsset">
                               <label class="form-check-label" for="subAsset">Sub Asset</label>
                             </div>
@@ -30,21 +30,20 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 col-md-3 p-field form-section__field">
-                        <span class="p-float-label">
-                            <input formControlName="typeName" pInputText
+                    <div class="col-12 col-md-4 mt-2 p-field form-section__field">
+                      <span class="p-float-label">
+                        <input formControlName="typeName" pInputText
                                 placeholder="Type Name *" required type="text">
-                            <label>Type Name *</label>
-                            <anms-error
-                                [showError]="hasError('typeName',inputForm,submited)"
-                                error="fms.errors.required">
-                            </anms-error>
-                        </span>
+                        <label>Type Name *</label>
+                      </span>
+                      <anms-error
+                        [showError]="hasError('typeName',inputForm,submited)"
+                        error="fms.errors.required">
+                      </anms-error>
                     </div>
-                    <div class="col-12 col-md-2 form-section__field
-                        toggle-select">
+                    <div class="col-sm-auto form-section__field toggle-select">
                         <p-inputSwitch formControlName="activetype"></p-inputSwitch>
-                        <span>Active Type</span>
+                        <span class='ml-3 mb-1'>Active Type</span>
                     </div>
                 </div>
                 <div class="pb-3 p-field form-section__field">
@@ -62,8 +61,8 @@
                 <h3 class="form-section__title">Make And Model Info</h3>
 
 
-                <div class="row form-section__row">
-                    <div class="col-12 col-md-4 mb-2 align-self-center ml-2">
+                <div class="row">
+                    <div class="col-12 col-md-3 mb-2 align-self-center pl-5">
                     <div class="row">
                       <div class="col-12 col-md-12">
                         <div class="row">
@@ -79,38 +78,34 @@
                       </div>
                     </div>
                   </div>
-                    <div class="col-12 col-md-3 p-field form-section__field">
-                        <span class="p-float-label">
+                    <div class="col-12 col-md-4 p-field form-section__field">
+                        <span class="p-float-label mt-3">
                             <input formControlName="selectModel" pInputText
                                 placeholder="Select Model" type="text">
                             <label>Select Model</label>
                         </span>
                     </div>
-                    <div class="col-12 col-md-4 p-field form-section__field">
+                    <div class="col-12 col-md-5 mt-3 p-field form-section__field">
                         <ng-container *ngIf="inputForm.get('type').value ==
                                 'mModel'; else singleModel">
                                 <div class="progress-bar-container">
                                     <div class="progress">
                                         <div class="progress-bar" #progressBar></div>
                                     </div>
-                                    <p>{{fileName}}</p>
-                                    <small #small>{{ value }} MB</small>
+                                    <p class='progress-title'>{{fileName}}</p>
+                                    <small #small class='value-title'>{{ value }} MB</small>
                                 </div>
-                                <ngx-file-drop dropZoneLabel="Drop files here"
-                                    (onFileDrop)="dropped($event)"
-                                    (onFileOver)="fileOver($event)"
-                                    (onFileLeave)="fileLeave($event)"
-                                    class="w-100">
-                                    <ng-template ngx-file-drop-content-tmp
-                                        let-openFileSelector="openFileSelector">
-                                        <small calss="drag-and-drop">Drag and
-                                            drop a CSV file or<a type="button"
-                                                (click)="openFileSelector()"
-                                                style="color:#007bff;
-                                                margin-left: 4px;">Click here</a></small>
-                                    </ng-template>
-                                </ngx-file-drop>
-                            </ng-container>
+                          <div>
+                            <div class='upload-box'>
+                              <label class='space-drop' for='attach_picture_sub-asset'>
+                                Drag and drop a CSV file or<a type="button"
+                                                              style="color:#007bff;
+                                                              margin-left: 4px;">Click here</a>
+                              </label>
+                              <input type='file' hidden id='attach_picture_sub-asset'>
+                            </div>
+                          </div>
+                         </ng-container>
 
                     </div>
                     <ng-template #singleModel>

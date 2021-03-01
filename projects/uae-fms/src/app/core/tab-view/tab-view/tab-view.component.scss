@@ -11,11 +11,10 @@
     font-size: 16px;
     height: 3.25em;
     .tab {
-      background: #e9ecef;
+
       border-radius: 5px;
       width: fit-content;
       padding: 0 16px;
-      color: #475f7b;
       margin: 0 2px 4px;
       cursor: pointer;
       display: flex;
@@ -35,7 +34,6 @@
     }
 
     .active-tab {
-      background: #f4f4f4;
       color: #0da06e;
       margin-bottom: 0px;
       border-radius: 5px 5px 0px 0px;
@@ -57,7 +55,6 @@
     }
   }
   .tab-body {
-    background-color: #f4f4f4;
     min-height: 50px;
     margin-top: 0px;
     padding: 0px;

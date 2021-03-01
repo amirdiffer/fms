@@ -4,6 +4,11 @@
 <div class="statistic-card" *ngIf="activeTab == 'my_order'">
   <app-filter [setting]='filterCard2'></app-filter>
 </div>
+
+<div class='component_wrapper p-0' *ngIf="!isSuppliersAddFormHidden && activeTab === 'suppliers'">
+  <anms-suppliers-add-form (cancel)='isSuppliersAddFormHidden = true'></anms-suppliers-add-form>
+</div>
+
 <div class="component_wrapper p-0">
 
   <div class="table-container">
@@ -18,6 +23,7 @@
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
       <button class="btn-primary-small" *ngIf="activeTab == 'my_order'"routerLink="add-order-list"><i>+</i><a>{{ 'forms.order' | translate }}</a></button>
+      <button class="btn-primary-small" *ngIf="activeTab == 'suppliers'" (click)='isSuppliersAddFormHidden = false'><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
     </div>
     <app-tab-view (selectedIndex)="activeTab = $event">
       <div title='part_store.order_list.request_list' id="request_list">
