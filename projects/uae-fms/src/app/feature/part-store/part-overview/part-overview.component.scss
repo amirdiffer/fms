@@ -55,7 +55,8 @@
 
   &__info {
     th {
-      max-width: 80px;
+      width: 15em;
+      color: #707070;
     }
 
     td {
@@ -64,6 +65,7 @@
     td,
     th {
       padding: 10px;
+      font-size: 15px;
     }
   }
 
@@ -99,9 +101,4 @@
 
 .overview-container {
   padding: 10px;
-}
-
-.button-container {
-  top: -3.6em !important;
-  font-size: 0.85em;
 }

@@ -1,12 +1,12 @@
 import { createAction, props } from '@ngrx/store';
-import { AssetPolicyStateModel } from './asset-policy.entity';
+import { IAssetPolicy } from '@models/asset-policy.model';
 
 export class AssetPolicyActions {
   static loadAll = createAction('[AssetPolicy] load all assets');
 
   static allDataLoaded = createAction(
     '[AssetPolicy] all datas are loaded',
-    props<{ data: AssetPolicyStateModel[] }>()
+    props<{ data: IAssetPolicy[] }>()
   );
 
   static error = createAction(

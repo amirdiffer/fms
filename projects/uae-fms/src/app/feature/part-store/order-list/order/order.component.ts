@@ -1,6 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Event } from '@angular/router';
 
 @Component({
   selector: 'order-form',
@@ -11,45 +10,43 @@ import { Event } from '@angular/router';
 export class OrderFormComponent implements OnInit {
   checked = false;
   assetTypeOptions = [
-    {name: 'Type 1' , value:'Type1'},
-    {name: 'Type 2' , value:'Type2'},
-    {name: 'Type 3' , value:'Type3'},
-    {name: 'Type 4' , value:'Type4'},
-    {name: 'Type 5' , value:'Type5'},
+    { name: 'Type 1', value: 'Type1' },
+    { name: 'Type 2', value: 'Type2' },
+    { name: 'Type 3', value: 'Type3' },
+    { name: 'Type 4', value: 'Type4' },
+    { name: 'Type 5', value: 'Type5' }
   ];
-  selectedOption:'';
+  selectedOption: '';
   tableSetting;
   tableData;
   public inputForm: FormGroup;
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {
-
     this.inputForm = this._fb.group({
-      createQuotation :['repeat'],
+      createQuotation: ['repeat'],
       assetType: this._fb.group({
-        type:['Type1'],
-        make:['Type1'],
-        model:['Type1']
+        type: ['Type1'],
+        make: ['Type1'],
+        model: ['Type1']
       }),
       repeatQuotation: this._fb.group({
-        current:['Type1'],
-        quantity:[''],
-        description:['']
+        current: ['Type1'],
+        quantity: [''],
+        description: ['']
       }),
       newOrder: this._fb.group({
-        categoryItem:[''],
-        item:[''],
-        quantity:[''],
-        supplier:[''],
-        warranty:[false],
-        description:['']
+        categoryItem: [''],
+        item: [''],
+        quantity: [''],
+        supplier: [''],
+        warranty: [false],
+        description: ['']
       }),
-      setReminder:[false]
+      setReminder: [false]
+    });
 
-    })
-
-    this.tableData =[
+    this.tableData = [
       {
         itemName: 'item Name',
         date: '02/02/2020',
@@ -78,10 +75,10 @@ export class OrderFormComponent implements OnInit {
         status: 'Recived'
       }
     ];
-    this.tableSetting={
+    this.tableSetting = {
       columns: [
         {
-          lable: 'Item',
+          lable: 'tables.column.item',
           field: 'itemName',
           width: 100,
           type: 1,
@@ -89,7 +86,7 @@ export class OrderFormComponent implements OnInit {
           renderer: ''
         },
         {
-          lable: 'Date',
+          lable: 'tables.column.date',
           field: 'date',
           width: 100,
           type: 1,
@@ -97,7 +94,7 @@ export class OrderFormComponent implements OnInit {
           renderer: ''
         },
         {
-          lable: 'Suppliers',
+          lable: 'tables.column.suppliers',
           field: 'suppliers',
           width: 100,
           type: 1,
@@ -105,7 +102,7 @@ export class OrderFormComponent implements OnInit {
           renderer: ''
         },
         {
-          lable: 'Quantity',
+          lable: 'tables.column.quantity',
           field: 'quantity',
           width: 100,
           type: 1,
@@ -113,7 +110,7 @@ export class OrderFormComponent implements OnInit {
           renderer: ''
         },
         {
-          lable: 'Cost',
+          lable: 'tables.column.cost',
           field: 'cost',
           width: 100,
           type: 1,
@@ -121,7 +118,7 @@ export class OrderFormComponent implements OnInit {
           renderer: ''
         },
         {
-          lable: 'Total',
+          lable: 'tables.column.total',
           field: 'total',
           width: 100,
           type: 1,
@@ -129,16 +126,15 @@ export class OrderFormComponent implements OnInit {
           renderer: ''
         },
         {
-          lable: 'Status',
+          lable: 'tables.column.status',
           field: 'status',
           width: 100,
           type: 1,
           thumbField: '',
           renderer: ''
-        },
+        }
       ],
       data: this.tableData
     };
-  };
-
+  }
 }

@@ -5,7 +5,7 @@ import { BodyShopRoutingModule } from './body-shop-routing.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { DashboardModule } from '../../dashboard/dashboard.module';
-import { FilterModule } from "@core/filter";
+import { FilterModule } from '@core/filter';
 
 @NgModule({
   declarations: [],
@@ -17,4 +17,4 @@ import { FilterModule } from "@core/filter";
     DashboardModule
   ]
 })
-export class BodyShopModule { }
+export class BodyShopModule {}
