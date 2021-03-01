@@ -1,7 +1,6 @@
 import { IGeneralResponse } from './general-response';
 
 export interface ITollStatistics extends IGeneralResponse {
-  result_number: number;
   total: number;
   available: number;
   assigned: number;
