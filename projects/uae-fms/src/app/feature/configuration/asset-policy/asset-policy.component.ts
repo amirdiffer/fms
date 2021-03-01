@@ -1,9 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from '@angular/core';
 import { TableSetting } from '@core/table';
 import {
   AssetPolicyFacade,
   SubAssetPolicyFacade
 } from '../+state/asset-policy';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'anms-asset-policy',
@@ -11,7 +17,9 @@ import {
   styleUrls: ['./asset-policy.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AssetPolicyComponent implements OnInit {
+export class AssetPolicyComponent implements OnInit, OnDestroy {
+  getAssetPolicySubscription!: Subscription;
+
   downloadBtn = 'assets/icons/download-solid.svg';
 
   assetPolicy_Table: TableSetting = {
@@ -136,5 +144,15 @@ export class AssetPolicyComponent implements OnInit {
   ngOnInit(): void {
     this.assetPolicyFacade.loadAll();
     this.subAssetPolicyFacade.loadAll();
+
+    this.getAssetPolicySubscription = this.assetPolicyFacade.assetPolicy$.subscribe(
+      (response) => {
+        console.log(response);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.getAssetPolicySubscription?.unsubscribe();
   }
 }
