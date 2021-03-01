@@ -12,7 +12,7 @@ export class SubAssetEffect {
       ofType(SubAssetActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => SubAssetActions.allDataLoaded({ data })),
+          map((data) => SubAssetActions.allDataLoaded({ data: data.message })),
           catchError((error) => of(SubAssetActions.error({ reason: error })))
         )
       )

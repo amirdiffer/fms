@@ -6,6 +6,6 @@ import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [TabViewComponent],
   exports: [TabViewComponent],
-  imports: [CommonModule , TranslateModule]
+  imports: [CommonModule, TranslateModule]
 })
 export class TabViewModule {}

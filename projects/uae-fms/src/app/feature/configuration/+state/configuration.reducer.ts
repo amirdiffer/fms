@@ -18,6 +18,8 @@ import { CONFIGURATION_FLEET_STATUS_SUB_ASSET_FEATURE_KEY } from './fleet-status
 import { CONFIGURATION_SUB_ASSET_POLICY_FEATURE_KEY } from './asset-policy/sub-asset/sub-asset-policy.entity';
 import { CONFIGURATION_ASSET_CONFIGURATION_FEATURE_KEY } from './asset-configuration/asset-configuration.entity';
 import * as assetConfigurationReducer from './asset-configuration/asset-configuration.reducer';
+import { CONFIGURATION_ASSET_TYPE_FEATURE_KEY } from './asset-configuration/asset-type/asset-type.entity';
+import * as assetTypeReducer from './asset-configuration/asset-type/asset-type.reducer';
 
 export const reducers = {
   [CONFIGURATION_ROLE_PERMISSION_FEATURE_KEY]: rolePermissionReducer.reducer,
@@ -33,5 +35,6 @@ export const reducers = {
   [CONFIGURATION_OWNERSHIP_FEATURE_KEY]: ownershipReducer.reducer,
   [CONFIGURATION_PERIODIC_SERVICE_FEATURE_KEY]: periodicServiceReducer.reducer,
   [CONFIGURATION_ASSET_CONFIGURATION_FEATURE_KEY]:
-    assetConfigurationReducer.reducer
+    assetConfigurationReducer.reducer,
+  [CONFIGURATION_ASSET_TYPE_FEATURE_KEY]: assetTypeReducer.reducer
 };

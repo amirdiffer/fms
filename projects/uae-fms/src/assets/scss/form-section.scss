@@ -7,7 +7,6 @@
   box-shadow: 0px 0px 2px #0000003d;
   border-radius: 5px;
   &__title {
-    color: #333;
     font-size: 1em;
     margin-bottom: 25px;
   }
@@ -56,7 +55,6 @@
     p-calendar ~ label {
       height: 50%;
       width: max-content;
-      background: #fff;
     }
     input[type='text'] {
       font-size: 1em;
@@ -66,7 +64,6 @@
       & ~ label {
         height: 50%;
         width: 75%;
-        background: #fff;
       }
 
       &:focus {
@@ -235,7 +232,7 @@
       position: absolute;
       top: 10px;
       right: 10px;
-      opacity: .5;
+      opacity: 0.5;
     }
     .p-inputtext:enabled:focus {
       box-shadow: none;

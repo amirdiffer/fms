@@ -34,9 +34,6 @@ import { environment } from '../../../../environments/environment';
         max-width: 4.3em;
         border-radius: 0.5em;
       }
-      small {
-        color: #000000de;
-      }
       .ownership-badge {
         background: #fcb614 0% 0% no-repeat padding-box;
       }
@@ -50,7 +47,6 @@ import { environment } from '../../../../environments/environment';
         border-radius: 8px;
       }
       .progress-value {
-        color: #000000de;
         font-size: 0.8em;
         margin-left: 6px;
       }
