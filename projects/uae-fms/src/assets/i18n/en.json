@@ -51,7 +51,7 @@
     "workshop": "Workshop",
     "body_shop": "Body Shop",
     "service_shop": "Service Shop",
-    "inspection": "Inspections",
+    "inspections": "Inspections",
     "technical_inspection": "Technical Inspection",
     "auction_list": "Auction List",
     "task_master": "Task Master",
@@ -83,7 +83,9 @@
     "add_asset_usage": "Add Asset Usage",
     "add_toll": "Add Toll",
     "profile": "Profile",
-    "add": "Add"
+    "add": "Add",
+    "add_technician": "Add Technician",
+    "add_location": "Add Location"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -549,7 +551,9 @@
         "title": "",
         "progressbar_title": ".pdf",
         "content": "Drag and Drop a Item picture or click here"
-      }
+      },
+      "engine": "Engine",
+      "filters": "Filters"
     },
     "reports": {},
     "integration": {
@@ -571,6 +575,9 @@
       "select_item_category": "Select Item Category",
       "select_item": "Select Item",
       "supplier": "Supplier"
+    },
+    "part_overview": {
+      "item_no": "Item No"
     }
   },
   "reports": {},
@@ -864,7 +871,8 @@
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"
-    }
+    },
+    "upload": "Upload"
   },
   "login": {
     "fleet": "Fleet",

@@ -51,10 +51,10 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
     this.translationService.get(translationLabels).subscribe((translation) => {
       this.translations = translation;
       this.middleCheckboxLabelArray = [];
-      console.log(translation)
+      console.log(translation);
       Object.keys(translation).forEach((key) => {
-        this.middleCheckboxLabelArray.push({name: translation[key]})
-      })
+        this.middleCheckboxLabelArray.push({ name: translation[key] });
+      });
     });
   }
 
@@ -68,7 +68,10 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
     { label: 'approval', value: false, visible: true }
   ];
 
-  constructor(private formBuilder: FormBuilder, private translationService: TranslateService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private translationService: TranslateService
+  ) {
     this.getTranslations();
   }
 
@@ -198,7 +201,9 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
 
   activeGroup = 'fleet';
   toggleGroup(group: string): void {
-    this.activeGroup == group ? this.activeGroup = 'root' : this.activeGroup = group;
+    this.activeGroup == group
+      ? (this.activeGroup = 'root')
+      : (this.activeGroup = group);
   }
 
   selectParent(control: string, e: Event): void {

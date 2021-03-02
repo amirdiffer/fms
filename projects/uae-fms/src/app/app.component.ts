@@ -14,25 +14,26 @@ export class AppComponent implements OnInit {
     private router: Router,
     private titleService: Title,
     private translateService: TranslateService
-    ) {}
+  ) {}
 
   ngOnInit() {
-    const appTitle =this.translateService.instant('projectName');
-    this.router
-      .events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      map(() => {
-        let child = this.activatedRoute.firstChild;
-        while (child.firstChild) {
-          child = child.firstChild;
-        }
-        if (child.snapshot.data['title']) {
-          return child.snapshot.data['title'];
-        }
-        return appTitle;
-      })
-    ).subscribe((ttl: string) => {
-      this.titleService.setTitle(this.translateService.instant(ttl));
-    });
+    const appTitle = this.translateService.instant('projectName');
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => {
+          let child = this.activatedRoute.firstChild;
+          while (child.firstChild) {
+            child = child.firstChild;
+          }
+          if (child.snapshot.data['title']) {
+            return child.snapshot.data['title'];
+          }
+          return appTitle;
+        })
+      )
+      .subscribe((ttl: string) => {
+        this.titleService.setTitle(this.translateService.instant(ttl));
+      });
   }
 }
