@@ -860,6 +860,7 @@
     "approve": "Approve",
     "recived": "Recived",
     "assign": "Assign",
+    "upload": "Upload",
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"
