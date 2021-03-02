@@ -853,7 +853,6 @@
     "create": "Create",
     "archive": "Archive",
     "approval": "Approval",
-    "order": "Order",
     "confirm": "Confirm",
     "reject": "Reject",
     "approve": "Approve",
@@ -877,8 +876,9 @@
   "buttons": {
     "reject": "Reject",
     "approve": "Approve",
-    "recived": "Recived",
-    "confirm": "Confirm"
+    "receive": "Receive",
+    "confirm": "Confirm",
+    "make_decision": "Make Decision"
   },
   "filter": {
     "asset_category": "Asset Category",

@@ -512,7 +512,6 @@
       "aisle": "جناح",
       "shelf": "رفوف",
       "box": "صندوق"
-
     },
     "order_list": {
       "request_list": "قائمة الطلبات",
@@ -843,7 +842,8 @@
   "buttons": {
     "reject": "يرفض",
     "approve": "اعتماد",
-    "recived": "الواردة",
-    "confirm": "يتأكد"
+    "receive": "الواردة",
+    "confirm": "يتأكد",
+    "make_decision": "إتخذ قرار"
   }
 }

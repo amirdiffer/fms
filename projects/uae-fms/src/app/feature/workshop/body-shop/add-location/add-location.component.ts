@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TableSetting } from '@core/table';
+import { ButtonType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 
 @Component({
@@ -82,7 +83,8 @@ export class AddLocationComponent extends Utility implements OnInit {
         width: 70,
         isIconLable: true,
         field: 'addButton',
-        renderer: 'addButtonRenderer'
+        renderer: 'button',
+        buttonType: ButtonType.add
       }
     ],
     data: [
