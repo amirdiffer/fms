@@ -82,6 +82,7 @@
     "add_asset_usage": "Add Asset Usage",
     "add_toll": "Add Toll",
     "profile": "Profile",
+    "add_technician": "Add Technician",
     "add": "Add"
   },
   "sidebar": {
@@ -689,6 +690,7 @@
       "description": "Description",
       "car_card": "Car Card",
       "asset_policy": "Asset Policy",
+      "make_decision": "Make Decision",
       "upload_form": {
         "title": "Attach Docs",
         "progressbar_title": "",

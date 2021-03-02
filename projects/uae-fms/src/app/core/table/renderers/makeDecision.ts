@@ -5,7 +5,7 @@ import { MakeDecisionService } from '@feature/workshop/inspections/technical-ins
   selector: 'make-decision-renderer',
   template: `
     <button class="btn-primary-large" (click)="openMakeDecision()">
-      Make Decision
+      {{ 'workshop.technical_inspection.make_decision' | translate }}
     </button>
   `,
   styles: [

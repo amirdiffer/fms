@@ -39,7 +39,7 @@
     "dashboard": "لوحة القيادة",
     "fleet": "الأسطول",
     "assets": "الأصول",
-    "sub_assets": "أصل فرعي",
+    "sub_asset": "أصل فرعي",
     "accessory": "الملحقات",
     "operator": "المشغل",
     "organization": "المنظمة",
@@ -82,6 +82,7 @@
     "add_asset_usage": "إضافة استخدام الأصول",
     "add_toll": "إضافة رسوم",
     "profile": "حساب تعريفي",
+    "add_technician": "إضافة فني",
     "add": "إضافة"
   },
   "sidebar": {
@@ -673,6 +674,9 @@
       "package": "الباقة",
       "choose_date": "اختر موعدا",
       "description": "الوصف",
+      "car_card": "بطاقة السيارة",
+      "asset_policy": "وثيقة الأصل",
+      "make_decision": "إتخذ قرار",
       "upload_form": {
         "title": "إضافة مرفقات",
         "progressbar_title": "",
