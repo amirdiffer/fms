@@ -3,6 +3,7 @@ import { TOLL_FEATURE_KEY, tollAdapter, TollState } from './toll.entity';
 const { selectAll } = tollAdapter.getSelectors();
 
 export class TollSelectors {
+
   static tollSelector = createSelector(
     createFeatureSelector(TOLL_FEATURE_KEY),
     (state: TollState) => state
@@ -15,12 +16,17 @@ export class TollSelectors {
 
   static message = createSelector(
     TollSelectors.tollSelector,
-    (state) => state.message
+    (state : TollState) => state.message
   );
 
   static error = createSelector(
     TollSelectors.tollSelector,
-    (state) => state.error
+    (state : TollState) => state.error
+  );
+  static tollStatistic = createSelector(
+    TollSelectors.tollSelector,
+    (state : TollState) => state.statistic
+
   );
 
   static assignNow = createSelector(
