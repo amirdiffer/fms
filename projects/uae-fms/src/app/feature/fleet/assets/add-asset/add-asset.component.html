@@ -1,6 +1,5 @@
 <div class="row">
   <div class="col-12">
-    <form>
       <div class="button-container">
         <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">Cancel</button>
         <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">Back</button>
@@ -21,7 +20,7 @@
                       <div class="row form-section__row">
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="businessCategory" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <p-dropdown inputId="businessCategory" [options]="itemTypes" optionLabel="name" optionValue="id"></p-dropdown>
                             <label for="businessCategory">{{ 'assets.business_category' | translate }}</label>
                           </span>
                         </div>
@@ -343,6 +342,5 @@
           </div>
         </div>
       </div>
-    </form>
   </div>
 </div>

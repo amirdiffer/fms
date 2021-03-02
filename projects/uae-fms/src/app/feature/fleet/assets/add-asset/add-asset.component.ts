@@ -4,6 +4,7 @@ import {
   ViewChild,
   ChangeDetectionStrategy
 } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import {
   FileSystemDirectoryEntry,
@@ -24,6 +25,14 @@ export class AddAssetComponent implements OnInit {
   progressBarValue = 80;
   calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   public filesUpdloaded: NgxFileDropEntry[] = [];
+
+  /* Forms */
+  formGroupAssetDetail: FormGroup;
+  formGroupFinancial:FormGroup;
+  formGroupMaintenance:FormGroup;
+  formGroupGenerate:FormGroup;
+
+
   @ViewChild('stepper') stepper: MatStepper;
   itemTypes = [
     { name: 'Item type 1', id: 1 },
@@ -34,9 +43,30 @@ export class AddAssetComponent implements OnInit {
     { name: 'Item type 6', id: 6 }
   ];
 
-  constructor() {}
+  constructor(private _fb: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.formGroupAssetDetail = this._fb.group({
+      businessInfo: this._fb.group({
+        businessCategory:[''],
+        ownership:['']
+      }),
+      assetDetails: this._fb.group({
+        year:[''],
+        make:[''],
+        model:[''],
+        color:[''],
+        trim:[''],
+        origin:[''],
+        meterType:['']
+      }),
+      purchasedFor: this._fb.group({
+        department:[''],
+        operator:['']
+      }),
+      uploadFile:['']
+    })
+  }
 
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
