@@ -131,7 +131,7 @@
                 <div class='pl-2 pt-1 pb-1 ml-1 w-25 mt-3'>
                   <div class="form-group form-check">
                     <input id="checkbox-{{row.value.checkboxLabel}}" type="checkbox" class="custom-checkbox" name='vehicle_comments' formControlName='checkboxValue' (change)="selectParent('fleet', $event)">
-                    <label for="checkbox-{{row.value.checkboxLabel}}">{{row.value.checkboxLabel}}</label>
+                    <label for="checkbox-{{row.value.checkboxLabel}}">{{'configuration.role_permission.'+row.value.checkboxLabel|translate}}</label>
                   </div>
                 </div>
 
@@ -165,7 +165,7 @@
             <div class='w-25 ml-1'>
               <div class="form-group form-check">
                 <input id="checkbox-{{row.value.checkboxLabel}}" type="checkbox" class="custom-checkbox" name='vehicle_comments' formControlName='checkboxValue'>
-                <label for="checkbox-{{row.value.checkboxLabel}}">{{row.value.checkboxLabel}}</label>
+                <label for="checkbox-{{row.value.checkboxLabel}}">{{'configuration.role_permission.'+row.value.checkboxLabel|translate}}</label>
               </div>
             </div>
 
