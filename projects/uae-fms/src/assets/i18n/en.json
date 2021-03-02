@@ -83,7 +83,8 @@
     "add_asset_usage": "Add Asset Usage",
     "add_toll": "Add Toll",
     "profile": "Profile",
-    "add": "Add"
+    "add": "Add",
+    "add_supplier":"Add Supplier"
   },
   "sidebar": {
     "dashboard": "Dashboard",

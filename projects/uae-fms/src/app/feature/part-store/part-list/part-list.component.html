@@ -1,4 +1,4 @@
-<div class="statistic-card">
+<div class="statistic-card" [class.filterMode3]="partList">
   <app-filter [setting]='filterCard'></app-filter>
 </div>
 
@@ -63,6 +63,9 @@
         </div>
       </div>
     </div>
-    <app-table [setting]='partList_Table'></app-table>
+    <ng-container *ngIf="partList;">
+      <app-table [setting]='partList_Table'></app-table>
+    </ng-container>
+    <router-outlet></router-outlet>
   </div>
 </div>
