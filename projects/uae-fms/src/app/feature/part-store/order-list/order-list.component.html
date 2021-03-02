@@ -12,8 +12,9 @@
 <div class="component_wrapper p-0">
 
   <div class="table-container">
+    
     <app-tab-view (selectedIndex)="activeTab = $event">
-      <span class="card-table-header search-container">
+      <span class="search-container card-table-header">
         <div class="search-box">
           <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
           <button>

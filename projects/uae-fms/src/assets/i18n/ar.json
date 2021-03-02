@@ -323,11 +323,17 @@
       "company_name": "اسم الشركة",
       "support_operator": "مشغل الدعم",
       "instruction": "المشغل أو العامل",
-      "vehicle": "مركبة",
       "category": "فئة",
       "warranty_expire": "انتهاء الضمان",
       "total_cost": "التكلفة إجمالي",
-      "storage_location": "مكان التخزين"
+      "storage_location": "مكان التخزين",
+      "out_of_policy": "خارج الوثيقة",
+      "established_market_value": "القيمة السوقية الثابتة",
+      "remove": "إزالة",
+      "gps": "GPS",
+      "removal_items": "عناصر الإزالة",
+      "by": "بواسطة",
+      "vehicle": "مركبة"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -518,7 +524,9 @@
       "quantity": "العدد",
       "price": "السعر",
       "warranty_expire_date": "تاريخ انتهاء الضمان",
+      "warranty_expire":" انتهاء الضمان",
       "description": "الوصف",
+      "total_cost":"التكلفة الإجمالية",
       "room": "غرفة",
       "aisle": "جناح",
       "shelf": "رفوف",
@@ -840,7 +848,6 @@
     "approve": "اعتماد",
     "recived": "الواردة",
     "assign": "تعيين",
-    "upload": "تحميل",
     "feedback": {
       "required": "هذا الحقل إلزامي",
       "invalid-email": "عنوان البريد الإلكتروني غير صالح"

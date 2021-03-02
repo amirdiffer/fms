@@ -87,10 +87,14 @@ html {
     direction: rtl;
     text-align: right;
   }
-  .wrapper .card-table-header .search-box button {
-    left: 0;
-    right: auto;
-    border-radius: 0.25em 0 0 0.25em;
+  .wrapper .card-table-header {
+    padding-right:auto;
+    padding-left:15px;
+    .search-box button{
+      left: 0;
+      right: auto;
+      border-radius: 0.25em 0 0 0.25em;
+    }
   }
 
   /* dashboard */
@@ -156,6 +160,20 @@ html {
         left: 10px;
         right: auto !important;
       }
+      .p-inputgroup-addon:last-child{
+        border-radius: 0;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+      .p-inputgroup input:first-child{
+        border-radius: 0;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+      .form-section__field  .search-btn.addon-primary{
+        left:0;
+        right: auto !important;
+      }
     }
     p-calendar ~ .date-icon {
       left: 4%;
@@ -210,6 +228,33 @@ html {
     &:not(:last-child)::before,
     &:not(:first-child)::after {
       border-top-width: 5px !important;
+    }
+  }
+  /* Other Detail */
+  .wrapper{
+    .edit-box{
+      &__box--first{
+        border-right: 3px solid #828acd;
+        border-left:0;
+        border-radius: 0 5px 5px 0
+      }
+      &__box--last{
+        border-radius: 5px 0 0 5px;
+      }
+    }
+    anms-part-list{
+      .p-inputgroup {
+        .p-inputgroup-addon.search-btn{
+          left: 0;
+          right: auto !important;
+        }
+      }
+    }
+    .part-overview{
+      .component_wrapper .btn-download{
+        left: 16px;
+        right: auto !important;
+      }
     }
   }
 
