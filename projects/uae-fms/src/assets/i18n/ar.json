@@ -152,6 +152,7 @@
     "accident": "حادثة",
     "out_of_policy": "خارج الوثيقة",
     "total_lost": "مجموع المفقود",
+    "user": "المستخدم",
     "paid": "دفع",
     "unpainted": "غير مرسومة",
     "deducte": "حسم"
@@ -694,6 +695,7 @@
   "configuration": {
     "role_permission": {
       "role_info": "معلومات الدور",
+      "role_name": "اسم الدور",
       "permissions": "أذونات",
       "fleet": "الأسطول",
       "fuel_management": "إدارة الوقود",
