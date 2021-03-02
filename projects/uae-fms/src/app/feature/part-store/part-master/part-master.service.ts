@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IPartMaster } from './part-master.model';
+import { ColumnType } from '@core/table';
 
 @Injectable({
   providedIn: 'root'
@@ -55,13 +56,26 @@ export class PartMasterService {
           thumbField: '',
           renderer: '',
           textColor: '#8088CC'
+        },
+        {
+          lable: '',
+          field: 'floatButton',
+          width: 0,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: 'floatButton'
         }
       ],
       data: this.partMasterData(),
       rowSettings: {
         onClick: (col, data) => {
           console.log(col, data);
-        }
+        },
+        floatButton: [
+          {
+            button: 'external',
+          }
+        ]
       }
     };
   };

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
-import { TableSetting } from '@core/table';
+import { ColumnType, TableSetting } from '@core/table';
 import { SubAssetFacade } from '../+state/sub-asset';
 
 @Component({
@@ -41,7 +41,7 @@ export class SubAssetComponent implements OnInit {
   assetTraffic_Table: TableSetting = {
     columns: [
       {
-        lable: 'tables.column.sub_asset_type',
+        lable: 'tables.column.sub_asset_name',
         type: 2,
         field: 'Sub_Asset_Name',
         thumbField: 'thumbField'
@@ -63,6 +63,14 @@ export class SubAssetComponent implements OnInit {
         type: 1,
         field: 'Warranty_Expire_Date',
         width: 200
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
     data: [
@@ -176,7 +184,28 @@ export class SubAssetComponent implements OnInit {
         Asset: 'Gear',
         Warranty_Expire_Date: '00/00/0000'
       }
-    ]
+    ],
+    rowSettings: {
+      onClick: (col, data, button?) => {
+        console.log(col, data, button);
+      },
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F'
+        },
+        {
+          button: 'external',
+        },
+        {
+          button: 'cancel',
+          color: '#F75A4A'
+        },
+        {
+          button: 'checked'
+        }
+      ]
+    }
   };
 
   constructor(private facade: SubAssetFacade) {}
@@ -184,4 +213,5 @@ export class SubAssetComponent implements OnInit {
   ngOnInit(): void {
     this.facade.loadAll();
   }
+
 }

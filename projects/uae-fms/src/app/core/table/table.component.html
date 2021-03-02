@@ -85,10 +85,12 @@
           <div *ngIf="col.renderer=='assignNow'">
             <table-assign-now-renderer [data]="data"></table-assign-now-renderer>
           </div>
+          <div *ngIf="col.renderer=='floatButton' && i == rowIndexTable">
+            <float-button-renderer [col]="col" [setting]="setting.rowSettings" [data]="data"></float-button-renderer>
+          </div>
 
         </td>
-        <div [class]="'statusColor'+ (hasRendere(setting.columns)?'
-          with-renderer-table':' simple-table')"
+        <div [class]="'statusColor'+ (hasRendere(setting.columns)?'with-renderer-table':' simple-table')"
           *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
       </tr>
     </ng-template>

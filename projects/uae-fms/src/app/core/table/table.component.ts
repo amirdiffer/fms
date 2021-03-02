@@ -177,6 +177,7 @@ export enum ColumnType {
 
 export interface RowSettings {
   onClick: Function;
+  floatButton?: FloatButtonType[]
 }
 
 export enum ButtonType {
@@ -188,4 +189,9 @@ export enum ButtonType {
   approve,
   confirm,
   receive
+}
+
+export interface FloatButtonType {
+  button: string,
+  color?: string
 }
