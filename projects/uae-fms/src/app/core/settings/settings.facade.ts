@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Language, State } from '@core/settings/settings.model';
-import { actionSettingsChangeLanguage, actionSettingsChangeTheme } from '@core/settings/settings.actions';
+import {
+  actionSettingsChangeLanguage,
+  actionSettingsChangeTheme
+} from '@core/settings/settings.actions';
 import { selectSettingsLanguage } from '@core/settings/settings.selectors';
-
 
 @Injectable()
 export class SettingsFacade {
@@ -16,6 +18,5 @@ export class SettingsFacade {
     this.store.dispatch(actionSettingsChangeTheme({ theme }));
   }
 
-  language = this.store.pipe(select(selectSettingsLanguage))
-
+  language = this.store.pipe(select(selectSettingsLanguage));
 }

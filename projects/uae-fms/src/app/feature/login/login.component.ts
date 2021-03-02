@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     if (jwt) {
       this.router.navigate(['/dashboard']);
     }
-    this.settingFacade.language.subscribe((lang) => this.activeLang = lang);
+    this.settingFacade.language.subscribe((lang) => (this.activeLang = lang));
   }
 
   login(): void {
