@@ -42,7 +42,7 @@ export class PartListComponent implements OnInit {
       },
       { lable: 'tables.column.quantity', type: 1, field: 'Quantity' },
       { lable: 'tables.column.status', type: 1, field: 'Status' },
-      { lable: 'tables.column.total', type: 1, field: 'Total' },
+      { lable: 'tables.column.total', type: 1, width: 100,field: 'Total' },
       {
         lable: '',
         type: 1,
