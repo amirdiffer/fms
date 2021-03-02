@@ -26,6 +26,16 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
     { name: 'movement' }
   ];
 
+  middleDropDownLabelArray = [
+    { name: 'registration' },
+    { name: 'customization' },
+    { name: 'sub_asset' },
+    { name: 'accessory' },
+    { name: 'operator' },
+    { name: 'organization' },
+    { name: 'movement' }
+  ];
+
   translations = {
     'configuration.role_permission.registration': '',
     'configuration.role_permission.customization': '',
@@ -148,10 +158,10 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
 
   addMiddleArrayCheckBox() {
     this.middleArray.clear();
-    for (const middleCheckboxLabelArrayElement of this
-      .middleCheckboxLabelArray) {
+    for (const middleDropDownLabelArrayElement of this
+      .middleDropDownLabelArray) {
       const group = this.formBuilder.group({
-        checkboxLabel: middleCheckboxLabelArrayElement.name,
+        checkboxLabel: middleDropDownLabelArrayElement.name,
         checkboxValue: false,
         switches: this.addSwitch()
       });
