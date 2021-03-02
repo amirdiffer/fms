@@ -80,6 +80,10 @@ export class MainTemplateComponent implements OnInit {
     this.language$ = this.store.pipe(select(this.selectSettingsLanguage));
     this.theme$ = this.store.pipe(select(this.selectEffectiveTheme));
 
+    this.language$.subscribe((x) => {
+      if (Object.keys(this.translations).length > 0) this.getTranslations();
+    });
+
     this.route$.subscribe((x) => {
       this.getPath(x?.url);
       this.translations = {};

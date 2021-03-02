@@ -233,7 +233,6 @@ html {
   /* Other Detail */
   .wrapper{
     .edit-box{
-      margin: 10px 20px 10px 0;
       &__box--first{
         border-right: 3px solid #828acd;
         border-left:0;
@@ -258,6 +257,37 @@ html {
       }
     }
   }
+
+  /* Sidebar */
+  .menu .has-child {
+    &::after {
+      right: unset !important;
+      left: 10px;
+    }
+  }
+
+  /* Statistics */
+  .filter-wrapper-container {
+    .parent {
+      &:last-child {
+        margin-right: unset !important;
+        margin-left: 0 !important;
+      }
+      &:first-child {
+        margin-left: unset !important;
+        margin-right: 0 !important;
+      }
+    }
+  }
+
+  /* role and permission */
+  .body_div {
+    padding: 2em 1em 2em 0 !important;
+  }
+  .curved_right_tag {
+    border-radius: 0 100px 100px 0 !important;
+  }
+
 }
 
 /* END RTL Arabic */

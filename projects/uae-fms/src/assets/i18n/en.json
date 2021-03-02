@@ -1,4 +1,5 @@
 {
+  "projectName": "Fleet Management Service",
   "profile": {
     "notification_types": "Notification Types",
     "email": "Email",
@@ -153,6 +154,7 @@
     "out_of_policy": "Out Of Policy",
     "total_lost": "Total Lost",
     "paid": "Paid",
+    "user": "User",
     "unpainted": "Un Painted",
     "deducte": "Deducted"
   },
@@ -855,12 +857,12 @@
     "create": "Create",
     "archive": "Archive",
     "approval": "Approval",
-    "order": "Order",
     "confirm": "Confirm",
     "reject": "Reject",
     "approve": "Approve",
     "recived": "Recived",
     "assign": "Assign",
+    "upload": "Upload",
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"
@@ -870,11 +872,13 @@
     "fleet": "Fleet",
     "management": "Management",
     "service": "Service",
+    "system": "System",
     "incorrect_username": "Incorrect Username",
     "user_name": "User Name",
     "password": "Password",
     "incorrect_password": "Incorrect Password",
-    "login": "Login"
+    "login": "Login",
+    "title": "Fleet Management System"
   },
   "buttons": {
     "reject": "Reject",
