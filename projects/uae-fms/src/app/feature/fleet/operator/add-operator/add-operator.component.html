@@ -1,13 +1,13 @@
 <form>
   <div class="row">
     <div class="button-container">
-      <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">Cancel</button>
-      <button class="btn-primary-medium add" type="submit" >Add</button>
+      <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{'forms.cancel' | translate}}</button>
+      <button class="btn-primary-medium add" type="submit" >{{'forms.add' | translate}}</button>
     </div>
 
     <div class="col-12">
       <div class="form-section">
-        <h3 class="form-section__title">Portal Info</h3>
+        <h3 class="form-section__title">{{'operator.portal_information' | translate}}</h3>
         <div class="row">
           <div class="col-lg-4">
             <div class="form-group p-field form-section__field">
@@ -16,7 +16,7 @@
                   <span class="p-float-label">
                     <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
                     <i class="pi pi-search"></i>
-                    <label>Employe Number *</label>
+                    <label>{{'operator.employee_number' | translate}}</label>
                   </span>
                 </div>
               </div>
@@ -29,7 +29,7 @@
                   <span class="p-float-label">
                     <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
                     <i class="pi pi-search"></i>
-                    <label>Organization</label>
+                    <label>{{'operator.organization' | translate}}</label>
                   </span>
                 </div>
               </div>
@@ -42,7 +42,7 @@
                   <span class="p-float-label">
                     <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
                     <i class="pi pi-search"></i>
-                    <label>Section</label>
+                    <label>{{'operator.section' | translate}}</label>
                   </span>
                 </div>
               </div>
@@ -55,7 +55,7 @@
                   <span class="p-float-label ">
                     <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
                     <i class="pi pi-search"></i>
-                    <label>Authorized</label>
+                    <label>{{'operator.authorized' | translate}}</label>
                   </span>
                 </div>
               </div>
@@ -65,7 +65,7 @@
             <span class="p-float-label">
                 <p-calendar inputId="basic"></p-calendar>
                 <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
-                <label>Expiry License </label>
+                <label>{{'operator.expiry_license' | translate}}</label>
             </span>
           </div>
           <div class="col-lg-3  p-field form-section__field">
@@ -73,7 +73,7 @@
               <div class="col-12">
                 <div class="toggle-select align-items-center">
                   <p-inputSwitch></p-inputSwitch>
-                  <label>Employee Status is Active</label>
+                  <label>{{'operator.employee_status' | translate}}</label>
                 </div>
               </div>
             </div>
@@ -83,11 +83,11 @@
     </div>
     <div class="col-lg-4 d-flex">
       <div class="component_wrapper form-section">
-        <h3 class="form-section__title">Upload Profile Picture</h3>
+        <h3 class="form-section__title">{{'operator.upload_form.title' | translate}}</h3>
         <div class="upload-box">
           <div class="row">
             <div class="col-12 d-flex justify-content-between file-name-size">
-              <span>Nte1234567_Report.pdf</span>
+              <span>{{'operator.upload_form.progressbar_title' | translate}}</span>
               <span>00 MG</span>
             </div>
             <div class="col-12 w-100 ">
@@ -99,7 +99,7 @@
                   <label (click)="openFileSelector()" style="cursor: pointer;">
                     <svg-icon  class="camera-icon" src="../../../../../assets/icons/camera-solid.svg"
                       [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                      <small calss="drag-and-drop">Drag and drop a file or Click here</small>
+                      <small calss="drag-and-drop">{{'operator.upload_form.content' | translate}}</small>
                   </label>
                 </ng-template>
               </ngx-file-drop>
@@ -110,21 +110,21 @@
     </div>
     <div class="col-lg-8">
       <div class="component_wrapper form-section">
-        <h3 class="form-section__title">Personal Information</h3>
+        <h3 class="form-section__title">{{'operator.personal_information' | translate}}</h3>
         <div class="row">
           <div class="col-5">
             <div class=" p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="First Name *" type="text">
-                    <label>First Name *</label>
+                    <input pInputText placeholder="{{'operator.first_name' | translate}}" type="text">
+                    <label>{{'operator.first_name' | translate}}</label>
                 </span>
             </div>
         </div>
           <div class="col-lg-7">
              <div class=" p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="Last Name *" type="text">
-                    <label>Last Name *</label>
+                    <input pInputText placeholder="{{'operator.last_name' | translate}}" type="text">
+                    <label>{{'operator.last_name' | translate}}</label>
                 </span>
             </div>
           </div>
@@ -133,8 +133,8 @@
           <div class="col-lg-7">
             <div class=" p-field form-section__field">
               <span class="p-inputgroup p-float-label d-flex">
-                  <input type="text" pInputText placeholder="Email *">
-                  <label>"Email *</label>
+                  <input type="text" pInputText placeholder="{{'operator.email' | translate}}">
+                  <label>{{'operator.email' | translate}}</label>
                   <span class="p-inputgroup-addon"><i class="pi pi-plus"></i></span>
               </span>
             </div>
@@ -142,8 +142,8 @@
           <div class="col-lg-5 ">
             <div class=" p-field form-section__field">
               <span class="p-inputgroup p-float-label d-flex">
-                  <input type="text" pInputText placeholder="Phone Number *">
-                  <label>Phone Number *</label>
+                  <input type="text" pInputText placeholder="{{'operator.phone_number' | translate}}">
+                  <label>{{'operator.phone_number' | translate}}</label>
                   <span class="p-inputgroup-addon"><i class="pi pi-plus"></i></span>
               </span>
             </div>
@@ -151,30 +151,30 @@
         </div>
         <div class="row">
           <div class="col-lg-3 align-self-center">
-            <h3 class="form-section__title">Send Notification By</h3>
+            <h3 class="form-section__title">{{'operator.send_notification_by' | translate}}</h3>
           </div>
           <div class="col-lg-2">
             <div class="form-group form-check">
               <input id="check-Call" type="checkbox" class="custom-checkbox" name="check-Call" checked>
-              <label for="check-Call">Call</label>
+              <label for="check-Call">{{'operator.call' | translate}}</label>
             </div>
           </div>
           <div class="col-lg-2">
             <div class="form-group form-check">
               <input id="check-SMS" type="checkbox" class="custom-checkbox" name="check-SMS" checked>
-              <label for="check-SMS">SMS</label>
+              <label for="check-SMS">{{'operator.sms' | translate}}</label>
             </div>
           </div>
           <div class="col-lg-2">
             <div class="form-group form-check">
               <input id="check-Email" type="checkbox" class="custom-checkbox" name="check-Email" checked>
-              <label for="check-Email">Email</label>
+              <label for="check-Email">{{'operator.email' | translate}}</label>
             </div>
           </div>
           <div class="col-lg-2">
             <div class="form-group form-check">
               <input id="check-Whatsapp" type="checkbox" class="custom-checkbox" name="check-Whatsapp" >
-              <label for="check-Whatsapp">Whatsapp</label>
+              <label for="check-Whatsapp">{{'operator.whatsapp' | translate}}</label>
             </div>
           </div>
         </div>
