@@ -39,7 +39,7 @@
     "dashboard": "لوحة البيانات",
     "fleet": "الأسطول",
     "assets": "الأصول",
-    "sub_assets": "الأصول الفرعية",
+    "sub_asset": "الأصول الفرعية",
     "accessory": "الملحقات",
     "operator": "المشغل",
     "organization": "المنظمة",
@@ -82,7 +82,10 @@
     "add_asset_usage": "إضافة استخدام الأصول",
     "add_toll": "إضافة رسوم",
     "profile": "حساب تعريفي",
-    "add": "إضافة"
+    "add": "إضافة",
+    "add_technician": "إضافة فني",
+    "add_location": "اضافة الموقع",
+    "inspections": "التفتيش"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -137,7 +140,7 @@
     "total": "إجمالي",
     "active": "مفعل",
     "inactive": "غير مفعل",
-    "xfleet": "XFleet",
+    "xfleet": "الأسطول السابق",
     "x_sub_asset": "أصول فرعيه سابقة",
     "available": "متاحة",
     "unavailable": "غير متاحة",
@@ -231,6 +234,7 @@
       "movement_type": "نوع الحركة",
       "request_type": "نوع الطلب",
       "asset_type": "نوع الأصول",
+      "sub_asset_type": "نوع الأصل الفرعي",
       "request_status": "حالة الطلب",
       "tag_no": "علامة لا",
       "used": "مستخدم",
@@ -316,7 +320,12 @@
       "phone_number": "رقم التليفون",
       "company_name": "اسم الشركة",
       "support_operator": "مشغل الدعم",
-      "instruction": "المشغل أو العامل"
+      "instruction": "المشغل أو العامل",
+      "vehicle": "مركبة",
+      "category": "فئة",
+      "warranty_expire": "انتهاء الضمان",
+      "total_cost": "التكلفة إجمالي",
+      "storage_location": "مكان التخزين"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -400,6 +409,7 @@
   },
   "operator": {
     "portal_information": "معلومات البوابة",
+    "personal_information": "معلومات شخصية",
     "employee_status": "حالة الموظف مفعل",
     "send_notification_by": "إرسال الإخطار عن طريق",
     "employee_number": "رقم الموظف",
@@ -535,7 +545,9 @@
         "title": "",
         "progressbar_title": ".pdf",
         "content": "قم بسحب وإسقاط صورة عنصر أو انقر هنا"
-      }
+      },
+      "engine": "محرك",
+      "filters": "المرشحات"
     },
     "reports": {},
     "integration": {
@@ -555,6 +567,9 @@
       "set_reminder": "تعيين تذكير",
       "select_item": "حدد البند",
       "select_item_category": "حدد فئة العنصر"
+    },
+    "part_overview": {
+      "item_no": "رقم صنف"
     }
   },
   "reports": {},
@@ -826,7 +841,8 @@
       "required": "هذا الحقل إلزامي",
       "invalid-email": "عنوان البريد الإلكتروني غير صالح"
     },
-    "order": "ترتيب"
+    "order": "ترتيب",
+    "upload": "رفع"
   },
   "login": {
     "incorrect_password": "كلمة سر خاطئة",

@@ -18,13 +18,13 @@
                     </button>
                     <button class="btn-primary-small" routerLink="add" *ngIf="selectedTab == 'Asset Master' || selectedTab == 'root'"><i>+</i><a>{{'search.add' | translate}}</a></button>
                 </span>
-                <div title="Asset Master" translation="tabs.asset_master">
+                <div title="{{ 'tabs.asset_master' | translate }}" translation="tabs.asset_master">
                     <app-table [setting]="assetMasterTableSetting"></app-table>
                 </div>
-                <div title="Pending Registration" translation="tabs.pending_registration">
+                <div title="{{ 'tabs.pending_registration' | translate }}" translation="tabs.pending_registration">
                     <app-table [setting]="pendingRegistrationTableSetting"></app-table>
                 </div>
-                <div title="Pending Customization" translation="tabs.pending_customization">
+                <div title="{{ 'tabs.pending_customization' | translate }}" translation="tabs.pending_customization">
                     <app-table [setting]="pendingCustomizationTableSetting"></app-table>
                 </div>
             </app-tab-view>
