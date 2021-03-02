@@ -1,50 +1,57 @@
-.parent {
-  height: 100% !important;
-  margin: 0 20px 20px 0px !important;
-  border-radius: 5px;
-  cursor: pointer;
-  user-select: none;
+.filter-wrapper-container {
 
-  &:last-child {
-    margin-right: 0 !important;
-  }
-}
+  .parent {
+    height: 100% !important;
+    margin: 0 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
 
-.parent:hover {
-  border: 0.5px solid;
-}
-
-.left_tag {
-  width: 11px;
-}
-
-.filter {
-  &-supTitle {
-    &__active {
-      color: #ffffff !important;
+    &:last-child {
+      margin-right: 0;
+    }
+    &:first-child {
+      margin-left: 0;
     }
   }
-  &-title {
-    &__active {
-      color: #ffffff !important;
-    }
-  }
-  &-count {
-    &__active {
-      color: #ffffff !important;
-    }
-  }
-}
 
-.calendar-container {
-  color: #707070;
-  a {
-    height: 20px;
-    width: 20px;
-    img {
-      height: 100%;
-      width: 100%;
-      opacity: 0.4;
+  .parent:hover {
+    border: 0.5px solid;
+  }
+
+  .left_tag {
+    width: 11px;
+  }
+
+  .filter {
+    &-supTitle {
+      &__active {
+        color: #ffffff !important;
+      }
+    }
+    &-title {
+      &__active {
+        color: #ffffff !important;
+      }
+    }
+    &-count {
+      &__active {
+        color: #ffffff !important;
+      }
     }
   }
+
+  .calendar-container {
+    color: #707070;
+    a {
+      height: 20px;
+      width: 20px;
+      img {
+        height: 100%;
+        width: 100%;
+        opacity: 0.4;
+      }
+    }
+  }
+
 }
