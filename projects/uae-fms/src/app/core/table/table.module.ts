@@ -13,20 +13,16 @@ import { TableAssetRendererComponent } from '@core/table/renderers/asset';
 import { TableDoubleLineRendererComponent } from '@core/table/renderers/double-line';
 import { TableInformationRendererComponent } from './renderers/information';
 import { TableStatusRendererComponent } from '@core/table/renderers/status';
-import { TableButtonRendererComponent } from '@core/table/renderers/button';
 import { TableThumbTextRendererComponent } from '@core/table/renderers/thumb-text';
 import { TableBooleanRendererComponent } from './renderers/boolean';
 import { TableExternalLinkRendererComponent } from '@core/table/renderers/external_link';
 import { SharedModule } from '../../shared/shared.module';
-import { TableActionButtonRendererComponent } from '@core/table/renderers/actionButton';
-import { TableAddButtonRendererComponent } from '@core/table/renderers/addButton';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { MakeDecisionRendererComponent } from './renderers/makeDecision';
-import { JobCardRendererComponent } from './renderers/jobCard';
 import { TableRouteLinkRendererComponent } from './renderers/routeLink';
 import { RouterModule } from '@angular/router';
 import { FuelCardRendererComponent } from './renderers/fuel-card';
 import { AssignNow } from '@core/table/renderers/assign-now';
+import { TableGeneralButtonRendererComponent } from './renderers/general-button';
 
 @NgModule({
   imports: [
@@ -50,17 +46,13 @@ import { AssignNow } from '@core/table/renderers/assign-now';
     AssetsRendererComponent,
     TableDoubleLineRendererComponent,
     SubtextRendererComponent,
-    TableAddButtonRendererComponent,
-    TableActionButtonRendererComponent,
+    TableGeneralButtonRendererComponent,
     TableInformationRendererComponent,
     TableStatusRendererComponent,
-    TableButtonRendererComponent,
     TableThumbTextRendererComponent,
     TableBooleanRendererComponent,
     TableExternalLinkRendererComponent,
     TableRouteLinkRendererComponent,
-    MakeDecisionRendererComponent,
-    JobCardRendererComponent,
     FuelCardRendererComponent,
     AssignNow
   ],

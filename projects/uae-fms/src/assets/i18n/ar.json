@@ -526,9 +526,9 @@
       "quantity": "العدد",
       "price": "السعر",
       "warranty_expire_date": "تاريخ انتهاء الضمان",
-      "warranty_expire":" انتهاء الضمان",
+      "warranty_expire": " انتهاء الضمان",
       "description": "الوصف",
-      "total_cost":"التكلفة الإجمالية",
+      "total_cost": "التكلفة الإجمالية",
       "room": "غرفة",
       "aisle": "جناح",
       "shelf": "رفوف",
@@ -890,19 +890,21 @@
   "buttons": {
     "reject": "يرفض",
     "approve": "اعتماد",
+    "receive": "الواردة",
+    "make_decision": "إتخذ قرار",
     "recived": "الواردة",
     "confirm": "يتأكد"
   },
   "filter": {
     "asset_category": "فئة الأصول",
     "asset": "الأصول",
-    "sub_asset":"أصل فرعي",
-    "accessory":"الملحقات",
-    "asset_type":"نوع الأصول",
-    "car":"جمل",
+    "sub_asset": "أصل فرعي",
+    "accessory": "الملحقات",
+    "asset_type": "نوع الأصول",
+    "car": "جمل",
     "bus": "أوتوبيس",
     "bicycle": "دراجة",
     "boat": "قارب",
-    "add_type":"إضافة نوع"
+    "add_type": "إضافة نوع"
   }
 }
