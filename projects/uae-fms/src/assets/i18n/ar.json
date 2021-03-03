@@ -780,7 +780,22 @@
         "set_reminder_before": "تحديد تذكير قبل"
       }
     },
-    "asset_configuration": {},
+    "asset_configuration": {
+      "make_and_model_info": "صنع ونموذج المعلومات",
+      "multiple_model": "نموذج متعدد",
+      "single_model": "نموذج واحد",
+      "select_model": "اختر النموذج",
+      "model":"نموذج",
+      "drag_and_drop_a_csv_file_or": "قم بسحب وإسقاط ملف csv أو",
+      "click_here": "انقر هنا",
+      "description":"الوصف",
+      "active_type": "النوع النشط",
+      "type_name":  "النوع الاسم",
+      "accessory":"الملحقات",
+      "sub_asset":"أصل فرعي",
+      "asset":"أصل",
+      "type_category":"اكتب الفئة"
+    },
     "business_category": {
       "business_category_info": "معلومات فئة العمل",
       "assign_sub_asset": "تعيين الأصول الفرعية",
@@ -872,5 +887,17 @@
     "approve": "اعتماد",
     "recived": "الواردة",
     "confirm": "يتأكد"
+  },
+  "filter": {
+    "asset_category": "فئة الأصول",
+    "asset": "الأصول",
+    "sub_asset":"أصل فرعي",
+    "accessory":"الملحقات",
+    "asset_type":"نوع الأصول",
+    "car":"جمل",
+    "bus": "أوتوبيس",
+    "bicycle": "دراجة",
+    "boat": "قارب",
+    "add_type":"إضافة نوع"
   }
 }
