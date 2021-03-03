@@ -1,4 +1,5 @@
 {
+  "projectName": "Fleet Management Service",
   "profile": {
     "notification_types": "Notification Types",
     "email": "Email",
@@ -50,7 +51,7 @@
     "workshop": "Workshop",
     "body_shop": "Body Shop",
     "service_shop": "Service Shop",
-    "inspection": "Inspections",
+    "inspections": "Inspections",
     "technical_inspection": "Technical Inspection",
     "auction_list": "Auction List",
     "task_master": "Task Master",
@@ -82,7 +83,9 @@
     "add_asset_usage": "Add Asset Usage",
     "add_toll": "Add Toll",
     "profile": "Profile",
-    "add": "Add"
+    "add": "Add",
+    "add_technician": "Add Technician",
+    "add_location": "Add Location"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -153,6 +156,7 @@
     "out_of_policy": "Out Of Policy",
     "total_lost": "Total Lost",
     "paid": "Paid",
+    "user": "User",
     "unpainted": "Un Painted",
     "deducte": "Deducted"
   },
@@ -518,7 +522,9 @@
       "quantity": "Quantity",
       "price": "Price",
       "warranty_expire_date": "Warranty Expire Date",
+      "warranty_expire":"Warranty Expire",
       "description": "Description",
+      "total_cost":"Total Cost",
       "room": "Room",
       "aisle": "Aisle",
       "shelf": "Shelf",
@@ -547,7 +553,9 @@
         "title": "",
         "progressbar_title": ".pdf",
         "content": "Drag and Drop a Item picture or click here"
-      }
+      },
+      "engine": "Engine",
+      "filters": "Filters"
     },
     "reports": {},
     "integration": {
@@ -569,6 +577,9 @@
       "select_item_category": "Select Item Category",
       "select_item": "Select Item",
       "supplier": "Supplier"
+    },
+    "part_overview": {
+      "item_no": "Item No"
     }
   },
   "reports": {},
@@ -853,26 +864,29 @@
     "create": "Create",
     "archive": "Archive",
     "approval": "Approval",
-    "order": "Order",
     "confirm": "Confirm",
     "reject": "Reject",
     "approve": "Approve",
     "recived": "Recived",
     "assign": "Assign",
+    "upload": "Upload",
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"
-    }
+    },
+    "upload": "Upload"
   },
   "login": {
     "fleet": "Fleet",
     "management": "Management",
     "service": "Service",
+    "system": "System",
     "incorrect_username": "Incorrect Username",
     "user_name": "User Name",
     "password": "Password",
     "incorrect_password": "Incorrect Password",
-    "login": "Login"
+    "login": "Login",
+    "title": "Fleet Management System"
   },
   "buttons": {
     "reject": "Reject",

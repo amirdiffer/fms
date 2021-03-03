@@ -2,10 +2,10 @@
   <div class="col-12">
     <form>
       <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">Cancel</button>
-        <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">Back</button>
-        <button class="btn-primary-medium add" *ngIf="stepper.selectedIndex != 3"  (click)="next()">Next</button>
-        <button *ngIf="stepper.selectedIndex == 3" class="btn-primary-medium add">Upload</button>
+        <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{ 'forms.cancel' | translate }}</button>
+        <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate }}</button>
+        <button class="btn-primary-medium add" *ngIf="stepper.selectedIndex != 3"  (click)="next()">{{ 'forms.next' | translate }}</button>
+        <button *ngIf="stepper.selectedIndex == 3" class="btn-primary-medium add">{{ 'forms.upload' | translate }}</button>
       </div>
       <div>
         <div class="row form-section__row">
@@ -64,13 +64,13 @@
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field">
                           <span class="p-float-label">
-                            <input pInputText placeholder="Trim *" required type="text">
+                            <input pInputText placeholder="{{ 'assets.trim' | translate }} *" required type="text">
                             <label>{{ 'assets.trim' | translate }} *</label>
                           </span>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field">
                           <span class="p-float-label">
-                            <input pInputText placeholder="Origin *" required type="text">
+                            <input pInputText placeholder="{{ 'assets.origin' | translate }} *" required type="text">
                             <label>{{ 'assets.origin' | translate }} *</label>
                           </span>
                         </div>
