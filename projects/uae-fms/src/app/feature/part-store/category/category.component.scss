@@ -1,11 +1,9 @@
-
 @import '../../../../assets/scss/form-section.scss';
-
 
 .category-item {
   display: flex;
   align-items: center;
-  margin: .6em 0;
+  margin: 0.6em 0;
   svg-icon {
     flex: 0 0 10%;
   }
@@ -20,7 +18,7 @@
     border: 1px solid #707070;
     height: 2em;
     width: 2em;
-    border-radius: .3em;
+    border-radius: 0.3em;
     background-color: #fff;
     position: relative;
     opacity: 0.57;
@@ -51,7 +49,7 @@
     height: 2em;
     width: 2em;
     border: none;
-    border-radius: .3em;
+    border-radius: 0.3em;
     background-color: #fff;
     position: relative;
     opacity: 0.57;
@@ -81,7 +79,7 @@
     height: 2em;
     width: 2em;
     border: none;
-    border-radius: .3em;
+    border-radius: 0.3em;
     background-color: #fff;
     position: relative;
     opacity: 0.57;
