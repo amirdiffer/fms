@@ -136,14 +136,8 @@ export class TableComponent implements OnInit {
 
     pdf.save(`${title}.pdf`);
   }
-  isNumber(val): boolean {
+  isNumber(val):boolean {
     return typeof val === 'number';
-  }
-
-  showButton(col, i): boolean {
-    if (col.showOnHover)
-      return col.renderer == 'button' && i == this.rowIndexTable;
-    else return col.renderer == 'button';
   }
 }
 
@@ -159,12 +153,10 @@ export interface ColumnDifinition {
   sortable?: boolean;
   isAsc?: boolean;
   field?: string;
-  width?: any;
+  width?: number | string;
   type?: ColumnType;
   thumbField?: string;
   renderer?: string;
-  buttonType?: ButtonType;
-  showOnHover?: boolean;
   textColor?: string;
   onClick?: Function;
 }
@@ -177,15 +169,4 @@ export enum ColumnType {
 
 export interface RowSettings {
   onClick: Function;
-}
-
-export enum ButtonType {
-  add,
-  action,
-  makeDecision,
-  jobCard,
-  reject,
-  approve,
-  confirm,
-  receive
 }

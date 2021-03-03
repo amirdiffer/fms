@@ -12,7 +12,7 @@
             <p-dropdown inputId="year" [autoDisplayFirst]="false"
               [options]="years"
               optionLabel="name"></p-dropdown>
-              <label for="room">{{ 'search.year' | translate }}</label>
+              <label for="room">Year</label>
           </span>
           </span>
         </div>
@@ -22,7 +22,7 @@
             <p-dropdown inputId="make" [autoDisplayFirst]="false"
               [options]="makes"
               optionLabel="name"></p-dropdown>
-              <label for="room">{{ 'search.make' | translate }}</label>
+              <label for="room">Make</label>
           </span>
           </span>
         </div>
@@ -32,7 +32,7 @@
             <p-dropdown inputId="model" [autoDisplayFirst]="false"
               [options]="models"
               optionLabel="name"></p-dropdown>
-              <label for="room">{{ 'search.model' | translate }}</label>
+              <label for="room">Model</label>
           </span>
           </span>
         </div>
@@ -41,11 +41,11 @@
             <div class="p-inputgroup">
               <span class="p-float-label">
                 <input type="text" pInputText
-                  [placeholder]="'search.search' | translate" >
-                <label>{{ 'search.search' | translate }}</label>
+                  placeholder="Search">
+                <label>Search</label>
               </span>
               <span class="p-inputgroup-addon search-btn addon-primary">
-                {{ 'search.go' | translate }}
+                Go
               </span>
             </div>
           </span>
@@ -57,7 +57,7 @@
                 <button class="btn-download" disabled>
                     <svg-icon [src]="downloadBtn"></svg-icon>
                 </button>
-                <button class="btn-primary-small" [routerLink]="'./add'"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
+                <button class="btn-primary-small" [routerLink]="'./add'"><i>+</i><a>Add</a></button>
             </span>
         </div>
         </div>

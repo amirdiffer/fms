@@ -20,8 +20,8 @@ import {
 export class AddSubAssetComponent extends Utility implements OnInit {
   subAssetForm: FormGroup;
   warranties: FormArray;
-  submitted = false;
-  public filesUploaded: NgxFileDropEntry[] = [];
+  submited = false;
+  public filesUpdloaded: NgxFileDropEntry[] = [];
   constructor(injector: Injector, private _fb: FormBuilder) {
     super(injector);
   }
@@ -96,16 +96,16 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       policyType: ['', [Validators.required]],
       purchaseValue: ['', [Validators.required]],
       description: [''],
-      warranties: this._fb.array([this.createWarrantyForm()])
+      warranties: this._fb.array([this.createWarantyForm()])
     });
   }
 
   addWarranty(): void {
     this.warranties = this.subAssetForm.get('warranties') as FormArray;
-    this.warranties.push(this.createWarrantyForm());
+    this.warranties.push(this.createWarantyForm());
   }
 
-  createWarrantyForm(): FormGroup {
+  createWarantyForm(): FormGroup {
     return this._fb.group({
       item: [''],
       year: [''],
@@ -115,7 +115,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     });
   }
   submit() {
-    this.submitted = true;
+    this.submited = true;
     if (this.subAssetForm.invalid) {
       return;
     }
@@ -123,7 +123,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
 
   public dropped(files: NgxFileDropEntry[]) {
-    this.filesUploaded = files;
+    this.filesUpdloaded = files;
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;

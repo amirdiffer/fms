@@ -13,7 +13,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TableSetting } from '@core/table';
-import { ButtonType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 
 @Component({
@@ -58,24 +57,9 @@ export class AddLocationComponent extends Utility implements OnInit {
       { lable: 'tables.column.services', type: 1, field: 'Services' },
       { lable: 'tables.column.location', type: 1, field: 'Location' },
       { lable: 'tables.column.section', type: 1, field: 'Section' },
-      {
-        lable: 'tables.column.job_card',
-        type: 1,
-        field: 'Job_Card',
-        sortable: true
-      },
-      {
-        lable: 'tables.column.technician',
-        type: 1,
-        field: 'Technician',
-        sortable: true
-      },
-      {
-        lable: 'tables.column.assets',
-        type: 1,
-        field: 'Assets',
-        sortable: true
-      },
+      { lable: 'tables.column.job_card', type: 1, field: 'Job_Card', sortable: true },
+      { lable: 'tables.column.technician', type: 1, field: 'Technician', sortable: true },
+      { lable: 'tables.column.assets', type: 1, field: 'Assets', sortable: true },
       {
         lable:
           '<img src="../../../../../assets/icons/ellipsis-v.svg" class="icon24px">',
@@ -83,8 +67,7 @@ export class AddLocationComponent extends Utility implements OnInit {
         width: 70,
         isIconLable: true,
         field: 'addButton',
-        renderer: 'button',
-        buttonType: ButtonType.add
+        renderer: 'addButtonRenderer'
       }
     ],
     data: [

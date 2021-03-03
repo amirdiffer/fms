@@ -80,19 +80,10 @@ export class MainTemplateComponent implements OnInit {
     this.language$ = this.store.pipe(select(this.selectSettingsLanguage));
     this.theme$ = this.store.pipe(select(this.selectEffectiveTheme));
 
-    this.language$.subscribe((x) => {
-      if (Object.keys(this.translations).length > 0) this.getTranslations();
-    });
-
     this.route$.subscribe((x) => {
       this.getPath(x?.url);
       this.translations = {};
-      this.translations = Object.assign.apply(
-        null,
-        this.path.map((x) => ({
-          ['breadcrumb.' + x.toLowerCase().split(' ').join('_')]: ''
-        }))
-      );
+      this.translations = Object.assign.apply(null,  this.path.map(x =>({['breadcrumb.' + x.toLowerCase().split(' ').join('_')]:''})));
       this.getTranslations();
     });
   }
@@ -127,7 +118,7 @@ export class MainTemplateComponent implements OnInit {
       if (this.path[i].split('-').length > 1) {
         let name = '';
         this.path[i].split('-').forEach((x, j) => {
-          let separator = this.path[i].split('-').length > j + 1 ? ' ' : '';
+          let separator = this.path[i].split('-').length >  j + 1  ? ' ' : '';
           name += this.wordToUppercase(x) + separator;
         });
         this.path[i] = name;

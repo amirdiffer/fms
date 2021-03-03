@@ -5,7 +5,6 @@ import {
   OnInit
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'anms-add-role-and-permission',
@@ -17,48 +16,16 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
   form: FormGroup;
 
   middleCheckboxLabelArray = [
-    { name: 'registration' },
-    { name: 'customization' },
-    { name: 'sub_asset' },
-    { name: 'accessory' },
-    { name: 'operator' },
-    { name: 'organization' },
-    { name: 'movement' }
+    { name: 'Registration' },
+    { name: 'Customization' },
+    { name: 'Sub Asset' },
+    { name: 'Accessory' },
+    { name: 'Operator' },
+    { name: 'Organization' },
+    { name: 'Movement' }
   ];
 
-  middleDropDownLabelArray = [
-    { name: 'registration' },
-    { name: 'customization' },
-    { name: 'sub_asset' },
-    { name: 'accessory' },
-    { name: 'operator' },
-    { name: 'organization' },
-    { name: 'movement' }
-  ];
-
-  translations = {
-    'configuration.role_permission.registration': '',
-    'configuration.role_permission.customization': '',
-    'configuration.role_permission.sub_asset': '',
-    'configuration.role_permission.accessory': '',
-    'configuration.role_permission.operator': '',
-    'configuration.role_permission.organization': '',
-    'configuration.role_permission.movement': ''
-  };
-
-  getTranslations() {
-    const translationLabels = Object.keys(this.translations);
-    this.translationService.get(translationLabels).subscribe((translation) => {
-      this.translations = translation;
-      this.middleCheckboxLabelArray = [];
-      console.log(translation);
-      Object.keys(translation).forEach((key) => {
-        this.middleCheckboxLabelArray.push({ name: translation[key] });
-      });
-    });
-  }
-
-  bottomCheckboxLabelArray = ['fuel_management', 'traffic_fine'];
+  bottomCheckboxLabelArray = ['Fuel Management', 'Traffic Fine'];
 
   switchesList = [
     { label: 'view', value: false, visible: true },
@@ -68,12 +35,7 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
     { label: 'approval', value: false, visible: true }
   ];
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private translationService: TranslateService
-  ) {
-    this.getTranslations();
-  }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.buildForm();
@@ -161,10 +123,10 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
 
   addMiddleArrayCheckBox() {
     this.middleArray.clear();
-    for (const middleDropDownLabelArrayElement of this
-      .middleDropDownLabelArray) {
+    for (const middleCheckboxLabelArrayElement of this
+      .middleCheckboxLabelArray) {
       const group = this.formBuilder.group({
-        checkboxLabel: middleDropDownLabelArrayElement.name,
+        checkboxLabel: middleCheckboxLabelArrayElement.name,
         checkboxValue: false,
         switches: this.addSwitch()
       });
@@ -201,9 +163,7 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
 
   activeGroup = 'fleet';
   toggleGroup(group: string): void {
-    this.activeGroup == group
-      ? (this.activeGroup = 'root')
-      : (this.activeGroup = group);
+    this.activeGroup == group ? this.activeGroup = 'root' : this.activeGroup = group;
   }
 
   selectParent(control: string, e: Event): void {

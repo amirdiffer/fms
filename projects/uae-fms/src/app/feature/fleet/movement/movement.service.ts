@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ButtonType } from '@core/table/table.component';
 import { IMovementOverView, IRequests } from './movement.model';
 
 @Injectable({
@@ -186,18 +185,14 @@ export class MovementService {
           width: 80,
           type: 1,
           thumbField: '',
-          renderer: 'button',
-          buttonType: ButtonType.reject,
-          showOnHover: true
+          renderer: 'buttonRenderer'
         },
         {
           lable: '',
           width: 100,
           type: 1,
           field: 'ButtonConfirm',
-          renderer: 'button',
-          buttonType: ButtonType.confirm,
-          showOnHover: true
+          renderer: 'buttonRenderer'
         }
       ],
       data: this.requestData()

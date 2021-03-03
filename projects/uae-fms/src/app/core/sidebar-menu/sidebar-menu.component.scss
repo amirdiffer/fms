@@ -81,7 +81,7 @@
 .menuItems {
   display: flex;
   flex-direction: row;
-  padding: 0 15px;
+  padding-left: 15px;
   ul {
     padding-left: 0px;
     padding-right: 0px;
@@ -94,10 +94,6 @@
   left: 32px;
   background: #0da06e;
   height: auto;
-}
-
-.disabled {
-  opacity: 60%;
 }
 
 .__sidemenu__disabled {

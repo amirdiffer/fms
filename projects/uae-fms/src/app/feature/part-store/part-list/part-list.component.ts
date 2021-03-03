@@ -12,19 +12,19 @@ export class PartListComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   filterCard: FilterCardSetting[] = [
     {
-      filterTitle: 'statistic.total',
+      filterTitle: 'Total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'statistic.available',
+      filterTitle: 'Available',
       filterCount: '08',
       filterTagColor: '#6870B4',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'statistic.unavailable',
+      filterTitle: 'Unavailable',
       filterCount: '02',
       filterTagColor: '#BA7967',
       onActive(index: number) {}
@@ -34,15 +34,15 @@ export class PartListComponent implements OnInit {
   partList_Table: TableSetting = {
     columns: [
       {
-        lable: 'tables.column.item',
+        lable: 'Item',
         type: 1,
         field: 'Item',
         renderer: 'thumbTextRenderer',
         thumbField: 'thumbImage'
       },
-      { lable: 'tables.column.quantity', type: 1, field: 'Quantity' },
-      { lable: 'tables.column.status', type: 1, field: 'Status' },
-      { lable: 'tables.column.total', type: 1, field: 'Total' },
+      { lable: 'Quantity', type: 1, field: 'Quantity' },
+      { lable: 'Status', type: 1, field: 'Status' },
+      { lable: 'Total', type: 1, field: 'Total' },
       {
         lable: '',
         type: 1,

@@ -39,7 +39,7 @@ import { environment } from '../../../../environments/environment';
         max-width: 3.5em;
         max-height: 3.5em;
         border-radius: 4px;
-        margin: 0.6em;
+        margin: .6em;
       }
 
       .cell .vehicle-name {

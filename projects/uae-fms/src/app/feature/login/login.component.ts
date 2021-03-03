@@ -1,10 +1,7 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoginService } from './login.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SettingsFacade } from '@core/settings/settings.facade';
-import { Language } from '@core/settings/settings.model';
-import { DOCUMENT } from '@angular/common';
 // import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
@@ -16,11 +13,10 @@ import { DOCUMENT } from '@angular/common';
 export class LoginComponent implements OnInit {
   //In this componet some icons not exist now.Fix this later. Username and password and login icons is commented now
   public credentialsFG: FormGroup;
+  public language = 'en';
   constructor(
     private loginService: LoginService,
-    private router: Router, // private spinner: NgxSpinnerService,
-    private settingFacade: SettingsFacade,
-    @Inject(DOCUMENT) private document: Document
+    private router: Router // private spinner: NgxSpinnerService,
   ) {
     this.credentialsFG = new FormGroup({
       username: new FormControl('', [Validators.required]),
@@ -28,17 +24,15 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  activeLang: string;
-  changeLanguage(lang: Language) {
-    this.settingFacade.changeLanguage(lang);
-    this.changeRTLStyle(lang);
-  }
-
-  changeRTLStyle(language) {
-    let htmlTag = this.document.getElementsByTagName(
-      'html'
-    )[0] as HTMLHtmlElement;
-    htmlTag.dir = language === 'ar' ? 'rtl' : 'ltr';
+  changeLanguage(lang: string) {
+    if (lang === 'en') {
+      localStorage.setItem('lang', 'en');
+    } else if (lang === 'ar') {
+      localStorage.setItem('lang', 'ar');
+    } else {
+      localStorage.setItem('lang', 'en');
+    }
+    window.top.location.reload();
   }
 
   ngOnInit() {
@@ -49,7 +43,6 @@ export class LoginComponent implements OnInit {
     if (jwt) {
       this.router.navigate(['/dashboard']);
     }
-    this.settingFacade.language.subscribe((lang) => (this.activeLang = lang));
   }
 
   login(): void {

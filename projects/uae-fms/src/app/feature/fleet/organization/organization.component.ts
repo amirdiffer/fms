@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
-import { ButtonType } from '@core/table/table.component';
 import { OrganizationFacade } from '../+state/organization';
 
 @Component({
@@ -62,16 +61,14 @@ export class OrganizationComponent implements OnInit {
         type: 3,
         width: 70,
         field: 'addButton',
-        renderer: 'button',
-        buttonType: ButtonType.add
+        renderer: 'addButtonRenderer'
       },
       {
         lable: '',
         width: 70,
         type: 3,
         field: 'actionButton',
-        renderer: 'button',
-        buttonType: ButtonType.action
+        renderer: 'actionButtonRenderer'
       }
     ],
     data: [

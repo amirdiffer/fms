@@ -1,9 +1,9 @@
 <div class="login-component">
-  <div [class]="activeLang === 'en'
+  <div [class]="language === 'en'
     ? 'login-loading-container login-loading-container' + '-left'
     : 'login-loading-container login-loading-container' + '-right'">
     <div class="login-loading d-flex justify-content-center align-items-center">
-      <img src="assets/login/DubaiPoliceVLogo.svg" [class]="activeLang === 'en'
+      <img src="assets/login/DubaiPoliceVLogo.svg" [class]="language === 'en'
         ? 'img_login-logo img_login-logo' + '-left'
         : ' img_login-logo img_login-logo' + '-right'" />
     </div>
@@ -11,6 +11,19 @@
   <div class="login-card-wrapper">
     <div class="card login text-center align-items-center d-flex
       justify-content-center flex-column">
+      <ul class="navbar-nav flex-row-reverse">
+        <li class="nav-item dropdown">
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left
+            lang-container">
+            <div *ngIf="language == 'en'" style="cursor: pointer;" (click)="changeLanguage('ar')" dir="rtl"
+              class="text-right">العربية</div>
+            <div *ngIf="language == 'ar'" (click)="changeLanguage('en')" style="cursor: pointer;" dir="ltr"
+              class="text-left p-1">
+              English
+            </div>
+          </div>
+        </li>
+      </ul>
       <div class="login-content">
         <div class="background-mobile"></div>
         <div class="d-flex justify-content-start align-items-center
@@ -20,7 +33,7 @@
             logo-text">
             <span>{{ 'login.fleet' | translate }}</span>
             <span>{{ 'login.management' | translate }}</span>
-            <span>{{ 'login.system' | translate }}</span>
+            <span>{{ 'login.service' | translate }}</span>
           </div>
         </div>
         <div class="m-card-content">
@@ -56,14 +69,8 @@
               </span>
             </div>
             <div class="m-card-options">
-              <button type="submit" class="w-75 fw-400 font-weight-bold button-login">
+              <button type="submit" class="w-100 fw-400 font-weight-bold button-login">
                 {{ 'login.login' | translate }}
-              </button>
-              <button type="button" (click)="changeLanguage(activeLang == 'en' ? 'ar' : 'en')"  class="fw-400 font-weight-bold button-language">
-                <ng-template [ngIf]="activeLang == 'en'" [ngIfElse]="english">
-                  العربية
-                </ng-template>
-                <ng-template #english>English</ng-template>
               </button>
             </div>
           </form>

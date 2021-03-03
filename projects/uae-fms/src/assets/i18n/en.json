@@ -1,5 +1,4 @@
 {
-  "projectName": "Fleet Management Service",
   "profile": {
     "notification_types": "Notification Types",
     "email": "Email",
@@ -51,7 +50,7 @@
     "workshop": "Workshop",
     "body_shop": "Body Shop",
     "service_shop": "Service Shop",
-    "inspections": "Inspections",
+    "inspection": "Inspections",
     "technical_inspection": "Technical Inspection",
     "auction_list": "Auction List",
     "task_master": "Task Master",
@@ -82,12 +81,8 @@
     "add_fuel_card": "Add Fuel Card",
     "add_asset_usage": "Add Asset Usage",
     "add_toll": "Add Toll",
-    "add_user": "Add User",
     "profile": "Profile",
-    "integration": "Integration",
-    "add": "Add",
-    "add_technician": "Add Technician",
-    "add_location": "Add Location"
+    "add": "Add"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -158,7 +153,6 @@
     "out_of_policy": "Out Of Policy",
     "total_lost": "Total Lost",
     "paid": "Paid",
-    "user": "User",
     "unpainted": "Un Painted",
     "deducte": "Deducted"
   },
@@ -322,10 +316,6 @@
       "phone_number": "Phone Number",
       "company_name": "Company Name",
       "support_operator": "Support Operator",
-      "category": "Category",
-      "warranty_expire": "Warranty Expire",
-      "total_cost": "Total Cost",
-      "storage_location": "Storage Location",
       "instruction": "Instrunction",
       "out_of_policy": "Out of Policy",
       "established_market_value": "Established Market Value",
@@ -424,7 +414,6 @@
     "section": "Section",
     "authorized": "Authorized",
     "expiry_license": "Expiry License",
-    "personal_information": "Personal Information",
     "first_name": "First Name",
     "last_name": "Last Name",
     "email": "Email",
@@ -513,7 +502,7 @@
     }
   },
   "part_store": {
-    "part_list": {
+    "parts_list": {
       "asset_type": "Asset Type",
       "category": "Category",
       "item_info": "Item Info",
@@ -524,13 +513,7 @@
       "quantity": "Quantity",
       "price": "Price",
       "warranty_expire_date": "Warranty Expire Date",
-      "warranty_expire": "Warranty Expire",
-      "description": "Description",
-      "total_cost": "Total Cost",
-      "room": "Room",
-      "aisle": "Aisle",
-      "shelf": "Shelf",
-      "box": "Box"
+      "description": "Description"
     },
     "order_list": {
       "request_list": "Request List",
@@ -555,9 +538,7 @@
         "title": "",
         "progressbar_title": ".pdf",
         "content": "Drag and Drop a Item picture or click here"
-      },
-      "engine": "Engine",
-      "filters": "Filters"
+      }
     },
     "reports": {},
     "integration": {
@@ -579,9 +560,6 @@
       "select_item_category": "Select Item Category",
       "select_item": "Select Item",
       "supplier": "Supplier"
-    },
-    "part_overview": {
-      "item_no": "Item No"
     }
   },
   "reports": {},
@@ -701,7 +679,6 @@
       "description": "Description",
       "car_card": "Car Card",
       "asset_policy": "Asset Policy",
-      "make_decision": "Make Decision",
       "upload_form": {
         "title": "Attach Docs",
         "progressbar_title": "",
@@ -773,7 +750,7 @@
         "deprecation_value": "% Deprecation Value",
         "yearly": "Yearly",
         "set_reminder_before": "Set Reminder Before",
-        "or": "Or"
+        "or" : "Or"
       },
       "sub_asset": {
         "this_policy_is_for": "This Policy Is For",
@@ -788,22 +765,7 @@
         "set_reminder_before": "Set Reminder Before"
       }
     },
-    "asset_configuration": {
-      "make_and_model_info": "Make And Model Info",
-      "multiple_model": "Multiple Model",
-      "single_model": "Single Model",
-      "select_model": "Select Model",
-      "model": "Model",
-      "drag_and_drop_a_csv_file_or": "Drag and drop a CSV file or",
-      "click_here": "Click here",
-      "description": "Description",
-      "active_type": "Active Type",
-      "type_name": "Type Name",
-      "accessory": "Accessory",
-      "sub_asset": "Sub Asset",
-      "asset": "Asset",
-      "type_category": "Type Category"
-    },
+    "asset_configuration": {},
     "business_category": {
       "business_category_info": "Business Category Info",
       "assign_sub_asset": "Assign Sub Asset",
@@ -881,31 +843,16 @@
     "fleet": "Fleet",
     "management": "Management",
     "service": "Service",
-    "system": "System",
     "incorrect_username": "Incorrect Username",
     "user_name": "User Name",
     "password": "Password",
     "incorrect_password": "Incorrect Password",
-    "login": "Login",
-    "title": "Fleet Management System"
+    "login": "Login"
   },
-  "buttons": {
-    "reject": "Reject",
-    "approve": "Approve",
-    "receive": "Receive",
-    "confirm": "Confirm",
-    "make_decision": "Make Decision"
-  },
-  "filter": {
-    "asset_category": "Asset Category",
-    "asset": "Asset",
-    "sub_asset": "Sub Asset",
-    "accessory": "Accessory",
-    "asset_type": "Asset Type",
-    "car": "Car",
-    "bus": "Bus",
-    "bicycle": "Bicycle",
-    "boat": "Boat",
-    "add_type": "Add Type"
+  "buttons":{
+    "reject":"Reject",
+    "approve":"Approve",
+    "recived":"Recived",
+    "confirm":"Confirm"
   }
 }

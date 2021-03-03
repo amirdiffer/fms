@@ -111,12 +111,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         width: 120,
         textColor: '#6870B4'
       },
-      {
-        lable: 'tables.column.tasks',
-        field: 'tasks',
-        type: ColumnType.lable,
-        width: 120
-      },
+      { lable: 'tables.column.tasks', field: 'tasks', type: ColumnType.lable, width: 120 },
       {
         lable: 'tables.column.information',
         field: 'information',

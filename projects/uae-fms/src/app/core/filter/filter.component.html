@@ -9,7 +9,7 @@
             <div class="left_tag" [style.background]="card.setting.filterTagColor"></div>
             <div style="padding:23px 30px 23px 13px" class="d-inline-flex align-items-center justify-content-between w-100">
               <div class="d-flex flex-column filter">
-                <div *ngIf="card.setting.filterSupTitle" [class.filter-supTitle__active]="card.isActive" class="filter-supTitle">{{ card.setting.filterSupTitle|translate }}</div>
+                <div *ngIf="card.setting.filterSupTitle" [class.filter-supTitle__active]="card.isActive" class="filter-supTitle">{{ card.setting.filterSupTitle }}</div>
                 <div class="filter-title">
                   <div [class.filter-title__active]="card.isActive" [style.color]="card.setting.filterTagColor">{{card.setting.filterTitle|translate}}</div>
                 </div>

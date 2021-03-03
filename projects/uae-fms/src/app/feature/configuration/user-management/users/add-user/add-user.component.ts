@@ -51,30 +51,30 @@ export class AddUserComponent extends Utility implements OnInit {
   filter: FilterCardSetting[] = [
     {
       isCalendar: true,
-      filterTitle: 'statistic.this_month',
+      filterTitle: 'This Month',
       filterCount: '0',
       filterTagColor: '#fff',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'statistic.total',
+      filterTitle: 'Total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
-      filterSupTitle: 'statistic.user',
+      filterSupTitle: 'User',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'statistic.active',
+      filterTitle: 'Active',
       filterCount: '08',
       filterTagColor: '#6870B4',
-      filterSupTitle: 'statistic.user',
+      filterSupTitle: 'User',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'statistic.inactive',
+      filterTitle: 'Inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
-      filterSupTitle: 'statistic.user',
+      filterSupTitle: 'User',
       onActive(index: number) {}
     }
   ];
