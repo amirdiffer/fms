@@ -10,6 +10,7 @@ import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { MakeDecisionService } from './make-decision/make-decision.service';
 import { TechnicalInspectionFacade } from '@feature/workshop/+state/technical-inspections';
+import { ButtonType } from '@core/table/table.component';
 
 @Component({
   templateUrl: './technical-inspection.component.html',
@@ -66,9 +67,19 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
       { lable: 'tables.column.source', field: 'source', width: 100 },
       { lable: 'tables.column.reported_by', field: 'reportedby', width: 100 },
       { lable: 'tables.column.cost', field: 'cost', width: 100 },
-      { lable: 'tables.column.insurance_value', field: 'insuranceValue', width: 100 },
+      {
+        lable: 'tables.column.insurance_value',
+        field: 'insuranceValue',
+        width: 100
+      },
       { lable: 'tables.column.insurance', field: 'insurance', width: 80 },
-      { lable: '', field: '', width: 130, renderer: 'makeDecision' }
+      {
+        lable: '',
+        field: '',
+        width: 130,
+        renderer: 'button',
+        buttonType: ButtonType.makeDecision
+      }
     ],
     data: [
       {

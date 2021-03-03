@@ -58,7 +58,7 @@ export class AuctionListComponent implements OnInit, OnDestroy {
       {
         lable: 'tables.column.item',
         field: 'item',
-        width:'17em',
+        width: '17em',
         renderer: 'vehicleRenderer'
       },
       { lable: 'tables.column.created_by', field: 'createdBy' },
@@ -66,7 +66,7 @@ export class AuctionListComponent implements OnInit, OnDestroy {
       { lable: 'tables.column.assignment', field: 'assignment' },
       { lable: 'tables.column.estimate_market', field: 'estimatedMarket' },
       { lable: 'tables.column.date', field: 'date' },
-      { lable: 'tables.column.location', field: 'location'},
+      { lable: 'tables.column.location', field: 'location' },
       {
         lable: 'tables.column.remove_item',
         field: 'removeItem',
@@ -173,7 +173,7 @@ export class AuctionListComponent implements OnInit, OnDestroy {
       {
         lable: 'tables.column.item',
         field: 'item',
-        width:'17em',
+        width: '17em',
         renderer: 'vehicleRenderer'
       },
       { lable: 'tables.column.buyer', field: 'buyer' },

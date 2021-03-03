@@ -8,6 +8,7 @@ import {
   BodyShopTechnicianFacade
 } from '../+state/body-shop';
 import { Event, Router } from '@angular/router';
+import { ButtonType } from '@core/table/table.component';
 @Component({
   templateUrl: './body-shop.component.html',
   styleUrls: ['./body-shop.component.scss'],
@@ -91,7 +92,8 @@ export class BodyShopComponent implements OnInit {
         field: '',
         type: ColumnType.lable,
         width: 120,
-        renderer: 'jobCard'
+        renderer: 'button',
+        buttonType: ButtonType.jobCard
       }
     ],
     data: [
