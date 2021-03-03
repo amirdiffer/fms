@@ -25,7 +25,7 @@ export class AssetConfigurationService {
     return {
       columns: [
         {
-          lable: 'Model',
+          lable: 'tables.column.model',
           field: 'model',
           width: 100,
           type: 1,
@@ -33,7 +33,7 @@ export class AssetConfigurationService {
           renderer: ''
         },
         {
-          lable: 'Make',
+          lable: 'tables.column.make',
           field: 'make',
           width: 100,
           type: 1,
@@ -41,7 +41,7 @@ export class AssetConfigurationService {
           renderer: ''
         },
         {
-          lable: 'Type Status',
+          lable: 'tables.column.type_status',
           field: 'status',
           width: 100,
           type: 1,
@@ -50,7 +50,7 @@ export class AssetConfigurationService {
           textColor: '#0DA06E'
         },
         {
-          lable: 'Description',
+          lable: 'tables.column.description',
           field: 'description',
           width: 200,
           type: 1,
@@ -58,7 +58,7 @@ export class AssetConfigurationService {
           renderer: ''
         },
         {
-          lable: 'Icon',
+          lable: 'tables.column.icon',
           field: 'quant',
           width: 50,
           type: 1,
