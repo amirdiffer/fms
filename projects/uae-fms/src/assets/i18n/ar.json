@@ -82,6 +82,7 @@
     "add_fuel_card": "إضافة بطاقة الوقود",
     "add_asset_usage": "إضافة استخدام الأصول",
     "add_toll": "إضافة رسوم",
+    "add_user": "إضافة رسوم",
     "profile": "حساب تعريفي",
     "integration": "الدمج",
     "add": "إضافة",
@@ -696,6 +697,9 @@
       "package": "الباقة",
       "choose_date": "اختر موعدا",
       "description": "الوصف",
+      "car_card": "بطاقة السيارة",
+      "asset_policy": "وثيقة الأصل",
+      "make_decision": "إتخذ قرار",
       "upload_form": {
         "title": "إضافة مرفقات",
         "progressbar_title": "",
