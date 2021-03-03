@@ -159,7 +159,7 @@ export interface ColumnDifinition {
   sortable?: boolean;
   isAsc?: boolean;
   field?: string;
-  width?: number | string;
+  width?: any;
   type?: ColumnType;
   thumbField?: string;
   renderer?: string;
