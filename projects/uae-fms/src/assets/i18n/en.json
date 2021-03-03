@@ -83,6 +83,7 @@
     "add_asset_usage": "Add Asset Usage",
     "add_toll": "Add Toll",
     "profile": "Profile",
+    "integration": "Integration",
     "add": "Add",
     "add_technician": "Add Technician",
     "add_location": "Add Location"
@@ -873,8 +874,7 @@
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"
-    },
-    "upload": "Upload"
+    }
   },
   "login": {
     "fleet": "Fleet",
