@@ -82,6 +82,7 @@
     "add_fuel_card": "Add Fuel Card",
     "add_asset_usage": "Add Asset Usage",
     "add_toll": "Add Toll",
+    "add_user": "Add User",
     "profile": "Profile",
     "add": "Add",
     "add_technician": "Add Technician",
@@ -870,7 +871,6 @@
     "approve": "Approve",
     "recived": "Recived",
     "assign": "Assign",
-    "upload": "Upload",
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"
