@@ -1,4 +1,5 @@
 {
+  "projectName": "Fleet Management Service",
   "profile": {
     "notification_types": "Notification Types",
     "email": "Email",
@@ -50,7 +51,7 @@
     "workshop": "Workshop",
     "body_shop": "Body Shop",
     "service_shop": "Service Shop",
-    "inspection": "Inspections",
+    "inspections": "Inspections",
     "technical_inspection": "Technical Inspection",
     "auction_list": "Auction List",
     "task_master": "Task Master",
@@ -81,8 +82,12 @@
     "add_fuel_card": "Add Fuel Card",
     "add_asset_usage": "Add Asset Usage",
     "add_toll": "Add Toll",
+    "add_user": "Add User",
     "profile": "Profile",
-    "add": "Add"
+    "integration": "Integration",
+    "add": "Add",
+    "add_technician": "Add Technician",
+    "add_location": "Add Location"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -153,6 +158,7 @@
     "out_of_policy": "Out Of Policy",
     "total_lost": "Total Lost",
     "paid": "Paid",
+    "user": "User",
     "unpainted": "Un Painted",
     "deducte": "Deducted"
   },
@@ -518,7 +524,9 @@
       "quantity": "Quantity",
       "price": "Price",
       "warranty_expire_date": "Warranty Expire Date",
+      "warranty_expire": "Warranty Expire",
       "description": "Description",
+      "total_cost": "Total Cost",
       "room": "Room",
       "aisle": "Aisle",
       "shelf": "Shelf",
@@ -547,7 +555,9 @@
         "title": "",
         "progressbar_title": ".pdf",
         "content": "Drag and Drop a Item picture or click here"
-      }
+      },
+      "engine": "Engine",
+      "filters": "Filters"
     },
     "reports": {},
     "integration": {
@@ -569,6 +579,9 @@
       "select_item_category": "Select Item Category",
       "select_item": "Select Item",
       "supplier": "Supplier"
+    },
+    "part_overview": {
+      "item_no": "Item No"
     }
   },
   "reports": {},
@@ -688,6 +701,7 @@
       "description": "Description",
       "car_card": "Car Card",
       "asset_policy": "Asset Policy",
+      "make_decision": "Make Decision",
       "upload_form": {
         "title": "Attach Docs",
         "progressbar_title": "",
@@ -853,7 +867,6 @@
     "create": "Create",
     "archive": "Archive",
     "approval": "Approval",
-    "order": "Order",
     "confirm": "Confirm",
     "reject": "Reject",
     "approve": "Approve",
@@ -868,17 +881,20 @@
     "fleet": "Fleet",
     "management": "Management",
     "service": "Service",
+    "system": "System",
     "incorrect_username": "Incorrect Username",
     "user_name": "User Name",
     "password": "Password",
     "incorrect_password": "Incorrect Password",
-    "login": "Login"
+    "login": "Login",
+    "title": "Fleet Management System"
   },
   "buttons": {
     "reject": "Reject",
     "approve": "Approve",
-    "recived": "Recived",
-    "confirm": "Confirm"
+    "receive": "Receive",
+    "confirm": "Confirm",
+    "make_decision": "Make Decision"
   },
   "filter": {
     "asset_category": "Asset Category",

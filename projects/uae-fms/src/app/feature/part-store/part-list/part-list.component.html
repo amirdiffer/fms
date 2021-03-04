@@ -41,7 +41,7 @@
             <div class="p-inputgroup">
               <span class="p-float-label">
                 <input type="text" pInputText
-                  placeholder="{{ 'search.search' | translate }}">
+                  [placeholder]="'search.search' | translate" >
                 <label>{{ 'search.search' | translate }}</label>
               </span>
               <span class="p-inputgroup-addon search-btn addon-primary">
@@ -57,7 +57,7 @@
                 <button class="btn-download" disabled>
                     <svg-icon [src]="downloadBtn"></svg-icon>
                 </button>
-                <button class="btn-primary-small" [routerLink]="'./add'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
+                <button class="btn-primary-small" [routerLink]="'./add'"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
             </span>
         </div>
         </div>
