@@ -88,7 +88,8 @@
     "add": "إضافة",
     "add_technician": "إضافة فني",
     "add_location": "اضافة الموقع",
-    "inspections": "التفتيش"
+    "inspections": "التفتيش",
+    "iserve": "IServe"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -99,7 +100,12 @@
       "accessory": "الملحقات",
       "operator": "المشغل",
       "organization": "المنظمة",
-      "movement": "الحركة"
+      "movement": {
+        "~": "الحركة",
+        "permanent": "دائم",
+        "temporary": "مؤقت",
+        "iserve": "I-Serve"
+      }
     },
     "fuel_management": "إدارة الوقود",
     "traffic_fine": "المخالفات المرورية",
@@ -161,7 +167,10 @@
     "user": "المستخدم",
     "paid": "دفع",
     "unpainted": "غير مرسومة",
-    "deducte": "حسم"
+    "deducte": "حسم",
+    "pending": "قيد الانتظار",
+    "complete": "اكتمال",
+    "cancel": "يلغي"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -180,7 +189,10 @@
     "auction": "مزاد",
     "sold": "مباع",
     "asset": "أصل",
-    "sub_asset": "أصل فرعي"
+    "sub_asset": "أصل فرعي",
+    "map_view": "عرض الخريطة",
+    "assets": "أصل",
+    "iserve_operator": "Iserv العاملين"
   },
   "search": {
     "add": "إضافة",
@@ -335,7 +347,11 @@
       "gps": "GPS",
       "removal_items": "عناصر الإزالة",
       "by": "بواسطة",
-      "vehicle": "مركبة"
+      "vehicle": "مركبة",
+      "from": "من",
+      "to": "إلى",
+      "damage": "تلف",
+      "traffic_fine": "المخالفات المرورية"
     },
     "button": {
       "view_report": "عرض التقرير",
