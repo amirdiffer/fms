@@ -173,18 +173,18 @@
     }
     .dashboard-container .dashboard-card {
       background-color: $fms-black-body2-bg;
-      .suppliers-tabs .tab{
-        background-color:#242629
+      .suppliers-tabs .tab {
+        background-color: #242629;
       }
     }
-    .card-table-header{
-      .btn-download{
-        background:$fms-black-body2-bg;
+    .card-table-header {
+      .btn-download {
+        background: $fms-black-body2-bg;
         &:hover:not([disabled]) {
           background: $fms-black-primary-color2;
         }
       }
-      .search-box button{
+      .search-box button {
         background: transparent;
         border-left: 1px solid #a2a2a2;
       }
@@ -192,44 +192,42 @@
     .tabs .tab-titles .tab {
       background: $fms-black-body1-bg;
       color: #a2a2a2;
-      &.active-tab{
+      &.active-tab {
         background: $fms-black-body1-bg;
       }
-
     }
     app-filter {
-      .filter-wrapper-container{
+      .filter-wrapper-container {
         .card {
           background-color: transparent !important;
         }
       }
     }
-    .mat-stepper-horizontal{
-      background-color:transparent !important;
-      
-      .mat-stepper-horizontal-line{
-        border-top-color: rgba(255, 255, 255, 0.8)
+    .mat-stepper-horizontal {
+      background-color: transparent !important;
+
+      .mat-stepper-horizontal-line {
+        border-top-color: rgba(255, 255, 255, 0.8);
       }
-      .mat-horizontal-stepper-header:not(:last-child)::after ,
-      .mat-horizontal-stepper-header:not(:first-child)::before{
+      .mat-horizontal-stepper-header:not(:last-child)::after,
+      .mat-horizontal-stepper-header:not(:first-child)::before {
         border-top-color: rgba(255, 255, 255, 0.8);
       }
     }
     ngx-file-drop {
       .ngx-file-drop__drop-zone {
-        border: .12em dashed rgba(255, 255, 255, 0.6) !important;
-
+        border: 0.12em dashed rgba(255, 255, 255, 0.6) !important;
       }
       .ngx-file-drop__content {
         color: rgba(255, 255, 255, 0.6) !important;
-
       }
     }
-    button.btn-scondary-green{
-      background: #121212 ;
+    button.btn-scondary-green {
+      background: #121212;
     }
-    input , .p-inputtext{
-      color:$fms-black-body-color;
+    input,
+    .p-inputtext {
+      color: $fms-black-body-color;
     }
     .table-container {
       background-color: $fms-black-body2-bg;
@@ -245,29 +243,31 @@
         color: $fms-black-body-color;
       }
     }
-    mat-progress-bar .mat-progress-bar-fill::after{
+    mat-progress-bar .mat-progress-bar-fill::after {
       background-color: $fms-black-primary-color2;
     }
-    mat-sidenav-container{
-      .content .path > span:not(:last-child){
+    mat-sidenav-container {
+      .content .path > span:not(:last-child) {
         color: $fms-black-body-color;
       }
     }
     mat-card.mat-card,
-    .card , anms-add-asset mat-horizontal-stepper .mat-horizontal-stepper-header-container{
+    .card,
+    anms-add-asset
+      mat-horizontal-stepper
+      .mat-horizontal-stepper-header-container {
       background-color: $fms-black-body2-bg;
     }
     .mat-toolbar.mat-primary {
-      background:$fms-black-primary-color1;
+      background: $fms-black-primary-color1;
     }
     .p-dropdown-panel,
-    .p-autocomplete-panel{
-      background-color:$fms-black-body2-bg;
-      :is(ul , p-dropdownitem) > li > span ,
-      .p-autocomplete-item{
-        color:$fms-black-body-color;
+    .p-autocomplete-panel {
+      background-color: $fms-black-body2-bg;
+      :is(ul, p-dropdownitem) > li > span,
+      .p-autocomplete-item {
+        color: $fms-black-body-color;
       }
-
     }
   }
 }
@@ -280,34 +280,35 @@
     background-color: $fms-green-body1-bg !important;
     .dashboard-container .dashboard-card {
       background-color: #fff;
-      .suppliers-tabs .tab{
-        background-color:#f4f4f4
+      .suppliers-tabs .tab {
+        background-color: #f4f4f4;
       }
     }
     .tabs .tab-titles .tab {
       background: #e9ecef;
       color: #475f7b;
-      &.active-tab{
+      &.active-tab {
         background: #f4f4f4;
       }
     }
-    anms-add-asset mat-horizontal-stepper .mat-horizontal-stepper-header-container{
+    anms-add-asset
+      mat-horizontal-stepper
+      .mat-horizontal-stepper-header-container {
       background: #fff;
     }
   }
-  mat-sidenav-container{
-    .content .path > span:not(:last-child){
+  mat-sidenav-container {
+    .content .path > span:not(:last-child) {
       color: #00000061;
     }
   }
   app-filter {
-    .filter-wrapper-container{
+    .filter-wrapper-container {
       .card {
         border: none;
       }
     }
   }
-
 
   @include form-section(
     $fms-green-body2-bg,
@@ -332,7 +333,6 @@
 .default-theme {
   @include angular-material-theme($anms-green-theme);
   @include custom-components-theme($anms-green-theme);
-
 }
 
 .light-theme {
@@ -340,14 +340,10 @@
   @include custom-components-theme($anms-light-theme);
 }
 
-
-
 .nature-theme {
   @include angular-material-theme($anms-nature-theme);
   @include custom-components-theme($anms-nature-theme);
 }
-
-
 
 /* Filter*/
 @function filterFontSize($fontRelation) {
@@ -562,6 +558,7 @@
         background-color: transparent;
         &::placeholder {
           padding-left: 5px;
+          padding-right: 5px;
         }
       }
       button {
@@ -971,17 +968,16 @@ ngx-file-drop {
     margin-right: 8px;
   }
 }
-.upload-box{
-  opacity: .5;
+.upload-box {
+  opacity: 0.5;
 }
-
 
 .p-component,
 mat-card-content {
   font-size: 1em !important;
 }
-small{
-  color:none;
+small {
+  color: none;
 }
 .p-inputtext {
   font-family: '29LT Bukra' !important;
@@ -990,6 +986,6 @@ small{
 .p-inputtext:enabled:focus {
   box-shadow: none !important;
 }
-.p-dropdown{
+.p-dropdown {
   background: transparent;
 }

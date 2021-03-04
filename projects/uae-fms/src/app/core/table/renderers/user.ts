@@ -27,13 +27,11 @@ import { environment } from '../../../../environments/environment';
       div .user-name {
         margin-left: 10px;
         text-align: left;
-
       }
 
       div .user-info {
         margin-left: 10px;
         text-align: left;
-
       }
     `
   ]

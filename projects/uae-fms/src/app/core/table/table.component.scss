@@ -1,11 +1,10 @@
-
-:host ::ng-deep{
-  thead{
-    tr th > div > p{
+:host ::ng-deep {
+  thead {
+    tr th > div > p {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      display:block;
+      display: block;
     }
   }
 }
@@ -42,7 +41,7 @@
 }
 
 .statusColor {
-  width: .4em;
+  width: 0.4em;
   position: absolute;
   left: 0px;
   border-radius: 0px 5px 5px 0px;

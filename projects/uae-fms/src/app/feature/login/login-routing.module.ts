@@ -5,7 +5,10 @@ import { LoginComponent } from './login.component';
 const routes: Routes = [
   {
     path: '',
-    component: LoginComponent
+    component: LoginComponent,
+    data: {
+      title: 'login.title'
+    }
   }
 ];
 

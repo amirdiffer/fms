@@ -8,7 +8,8 @@ $primary: map-get($anms-green-primary, 300);
   border: 0;
   box-shadow: none;
   ::ng-deep {
-    .p-dropdown , .p-dropdown-panel{
+    .p-dropdown,
+    .p-dropdown-panel {
       border-radius: 0 !important;
     }
     input.p-inputtext.p-component {
@@ -49,6 +50,7 @@ $primary: map-get($anms-green-primary, 300);
       }
     }
   }
+  
   .make-filter,
   .model-filter {
     flex-grow: 0.25;
