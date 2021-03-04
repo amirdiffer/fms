@@ -32,6 +32,7 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
 import { MatStepperModule } from '@angular/material/stepper';
 import { AddRequestComponent } from './movement/add-request/add-request.component';
 import { FleetStateModule } from './+state';
+import { OverViewOperatorComponent } from './operator/over-view-operator/over-view-operator.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { FleetStateModule } from './+state';
     OrganizationComponent,
     AddAssetComponent,
     AddOperatorComponent,
-    AddRequestComponent
+    AddRequestComponent,
+    OverViewOperatorComponent
   ],
   imports: [
     AngularSvgIconModule,

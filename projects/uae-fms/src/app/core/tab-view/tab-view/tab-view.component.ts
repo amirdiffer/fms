@@ -20,6 +20,7 @@ import { Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TabViewComponent implements OnInit {
+  @Input('selectedTab') selectedTab: number = 0;
   @Input('returnId') returnId: string = 'title';
   @Output('selectedIndex') selectedIndex: EventEmitter<
     string
@@ -28,7 +29,6 @@ export class TabViewComponent implements OnInit {
   tabs: { index: number; title: string; id?: string; count?: number }[] = [];
   initialized: boolean = false;
   elements: HTMLElement[];
-  selectedTab: number = 0;
   constructor(public cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {}

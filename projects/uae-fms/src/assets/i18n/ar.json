@@ -180,7 +180,10 @@
     "auction": "مزاد",
     "sold": "مباع",
     "asset": "أصل",
-    "sub_asset": "أصل فرعي"
+    "sub_asset": "أصل فرعي",
+    "movement_history": "تاريخ الحركة",
+    "overview": "نظرة عامة",
+    "activity": "فعالية"
   },
   "search": {
     "add": "إضافة",
@@ -434,6 +437,18 @@
     "call": "مكالمة",
     "sms": "رسالة قصيرة",
     "whatsapp": "واتساب",
+    "overview": {
+      "first_name": "الاسم الاول",
+      "last_name": "الكنية",
+      "age": "عمر",
+      "email": "بريد الالكتروني",
+      "phone_number": "رقم التليفون",
+      "employee_number": "رقم الموظف",
+      "organization": "منظمة",
+      "section": "الجزء",
+      "authorized": "مخول",
+      "expiry_license": "رخصة انتهاء الصلاحية"
+    },
     "upload_form": {
       "title": "تحميل صورة الملف الشخصي",
       "progressbar_title": "*.pdf",
