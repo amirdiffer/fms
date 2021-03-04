@@ -6,25 +6,25 @@
   </div>
   <div class="form-section">
     <div>
-      <p class='font-weight-bold'>Add Supplier</p>
+      <p class='font-weight-bold'>{{ 'part_store.order_list.add_supplier' | translate }}</p>
     </div>
     <div class='row form-section__row'>
       <div class='col-4 p-field form-section__field'>
                       <span class='p-float-label'>
-                          <input pInputText placeholder='Company' name='company' type='text'>
-                          <label>Company</label>
+                          <input pInputText [placeholder]="'part_store.order_list.company' | translate" name='company' type='text'>
+                          <label>{{ 'part_store.order_list.company' | translate }}</label>
                       </span>
       </div>
       <div class='col-4 p-field form-section__field'>
                       <span class='p-float-label'>
-                          <input pInputText placeholder='Name' name='name' type='text'>
-                          <label>Name</label>
+                          <input pInputText [placeholder]="'part_store.order_list.name' | translate" name='name' type='text'>
+                          <label>{{ 'part_store.order_list.name' | translate }}</label>
                       </span>
       </div>
       <div class='col-4 p-field form-section__field'>
                       <span class='p-float-label'>
-                          <input pInputText placeholder='Phone' name='phone' type='text'>
-                          <label>Phone</label>
+                          <input pInputText [placeholder]="'part_store.order_list.phone' | translate" name='phone' type='text'>
+                          <label>{{ 'part_store.order_list.phone' | translate }}</label>
                       </span>
       </div>
     </div>
@@ -32,8 +32,8 @@
     <div class='row form-section__row'>
       <div class='col-4 p-field form-section__field'>
                       <span class='p-float-label'>
-                          <input pInputText placeholder='Email' name='email' type='text'>
-                          <label>Email</label>
+                          <input pInputText [placeholder]=" 'part_store.order_list.email' | translate " name='email' type='text'>
+                          <label>{{ 'part_store.order_list.email' | translate }}</label>
                       </span>
       </div>
     </div>
@@ -41,8 +41,8 @@
     <div class='row form-section__row'>
       <div class='col-8 p-field form-section__field'>
                       <span class='p-float-label'>
-                          <input pInputText placeholder='Address' name='address' type='text'>
-                          <label>Address</label>
+                          <input pInputText [placeholder]=" 'part_store.order_list.address' | translate " name='address' type='text'>
+                          <label>{{ 'part_store.order_list.address' | translate }}</label>
                       </span>
       </div>
     </div>

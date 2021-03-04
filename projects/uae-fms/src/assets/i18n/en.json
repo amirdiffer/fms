@@ -539,7 +539,13 @@
     "order_list": {
       "request_list": "Request List",
       "my_order": "My Order",
-      "suppliers": "Suppliers"
+      "suppliers": "Suppliers",
+      "add_supplier":"Add Supplier",
+      "company":"Company",
+      "name":"Name",
+      "phone":"Phone",
+      "email":"Email",
+      "address":"Address"
     },
     "part_master": {
       "asset_type": "Asset Type",

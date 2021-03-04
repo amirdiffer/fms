@@ -540,7 +540,13 @@
     "order_list": {
       "request_list": "قائمة الطلبات",
       "my_order": "طلبي",
-      "suppliers": "الموردين"
+      "suppliers": "الموردين",
+      "add_supplier":"إضافة مورد",
+      "company":"الشركة",
+      "name":"الاسم",
+      "phone":"الهاتف",
+      "email":"البريد الإلكتروني",
+      "address":"تبوك"
     },
     "part_master": {
       "asset_type": "نوع الأصول",
