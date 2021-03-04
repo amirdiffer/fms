@@ -159,7 +159,8 @@ input:-internal-autofill-selected {
   max-height: 0;
 }
 
-.button-login {
+.button-login,
+.button-language {
   outline: 0 !important;
   border: 0;
   border-radius: 20px !important;
@@ -180,6 +181,10 @@ input:-internal-autofill-selected {
   }
 }
 
+.button-language {
+  padding: 0 1em;
+}
+
 .form-control-feedback {
   font-size: 100%;
   text-align: left;
@@ -190,10 +195,24 @@ input:-internal-autofill-selected {
   color: red;
 }
 
-.login ul.navbar-nav.flex-row-reverse {
-  width: 25px;
-  height: 25px;
-  display: block;
+.login ul {
+  li {
+    background-color: #0c5322;
+    color: white;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    &.active {
+      background-color: #0b6d49;
+    }
+  }
+  navbar-nav {
+    display: block;
+  }
+}
+
+.m-card-options {
+  display: flex;
+  justify-content: space-between;
 }
 
 .login ul.navbar-nav.flex-row-reverse img {
@@ -369,4 +388,9 @@ input:-internal-autofill-selected {
       margin-left: 0.25vw;
     }
   }
+}
+
+.m-0{
+  margin-left: 0px;
+  margin-right: 0px;
 }

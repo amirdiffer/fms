@@ -19,10 +19,10 @@
     }
   }
 }
-mat-horizontal-stepper{
-  background:transparent !important;
-  ::ng-deep{
-    .mat-horizontal-stepper-header-container{
+mat-horizontal-stepper {
+  background: transparent !important;
+  ::ng-deep {
+    .mat-horizontal-stepper-header-container {
       padding: 20px 20px 0 20px;
       margin: 23px;
       font-size: 0.9em;
@@ -30,7 +30,7 @@ mat-horizontal-stepper{
       border-radius: 5px;
       padding: 24px 24px 24px 24px;
     }
-    .mat-horizontal-content-container{
+    .mat-horizontal-content-container {
       overflow: visible;
     }
   }
@@ -40,10 +40,10 @@ ngx-file-drop {
   display: block;
   margin-bottom: 10px;
 }
-.drag-and-drop-form{
+.drag-and-drop-form {
   ngx-file-drop {
-    ::ng-deep{
-      .ngx-file-drop__drop-zone{
+    ::ng-deep {
+      .ngx-file-drop__drop-zone {
         height: 40px;
       }
     }

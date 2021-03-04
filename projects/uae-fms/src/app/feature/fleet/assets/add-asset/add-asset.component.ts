@@ -1,4 +1,9 @@
-import { Component, OnInit,ViewChild,ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import {
   FileSystemDirectoryEntry,
@@ -17,7 +22,7 @@ export class AddAssetComponent implements OnInit {
   isLinear: boolean = true;
   isStart: boolean = true;
   progressBarValue = 80;
-  calenderIcon = 'assets/icons/calendar-alt-regular.svg'
+  calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   public filesUpdloaded: NgxFileDropEntry[] = [];
   @ViewChild('stepper') stepper: MatStepper;
   itemTypes = [
