@@ -1,6 +1,6 @@
 <form [formGroup] = "inputForm">
     <div class="check-box mt-5" formGroupName="service">
-        <h6>Service</h6>
+        <h6>{{ 'workshop.technical_inspection.service' | translate }}</h6>
         <mat-checkbox formControlName="purchase">{{ 'workshop.technical_inspection.purchase_service_package' | translate }}</mat-checkbox>
         <mat-checkbox formControlName="integration">{{ 'workshop.technical_inspection.integration' | translate }}</mat-checkbox>
     </div>
@@ -19,7 +19,7 @@
             <small class="help-text">{{ 'workshop.technical_inspection.periodic_service' | translate }}</small>
         </div>
     </div>
-    <h6 class="mt-5">Warranty</h6>
+    <h6 class="mt-5">{{ 'workshop.technical_inspection.warranty' | translate }}</h6>
 
     <div class="row mt-3">
         <div class="col">

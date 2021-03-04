@@ -335,7 +335,9 @@
       "gps": "GPS",
       "removal_items": "عناصر الإزالة",
       "by": "بواسطة",
-      "vehicle": "مركبة"
+      "vehicle": "مركبة",
+      "cost_of_part": "تكلفة الجزء",
+      "system": "نظام"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -674,7 +676,7 @@
     "technical_inspection": {
       "technical_inspection": "الفحص الفني",
       "asset_detail": "تفاصيل الأصول",
-      "maintenance": "Maintenance",
+      "maintenance": "أعمال صيانة",
       "customization": "الصيانة",
       "reuse": "اعادة الإستخدام",
       "fix": "تصليح",
@@ -693,6 +695,7 @@
       "purchase_service_package": "باقة خدمة الشراء",
       "integration": "الدمج",
       "periodic_service": "الصيانة الدورية",
+      "warranty_package": "حزمة الضمان",
       "warranty": "الضمان",
       "package": "الباقة",
       "choose_date": "اختر موعدا",
@@ -700,6 +703,7 @@
       "car_card": "بطاقة السيارة",
       "asset_policy": "وثيقة الأصل",
       "make_decision": "إتخذ قرار",
+      "generate": "إنشاء",
       "upload_form": {
         "title": "إضافة مرفقات",
         "progressbar_title": "",

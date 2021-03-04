@@ -334,7 +334,9 @@
       "gps": "GPS",
       "removal_items": "Removal Items",
       "by": "By",
-      "vehicle": "Vehicle"
+      "vehicle": "Vehicle",
+      "cost_of_part": "Cost of Part",
+      "system": "System"
     },
     "button": {
       "view_report": "View Report",
