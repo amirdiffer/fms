@@ -196,6 +196,7 @@
   },
   "tables": {
     "column": {
+      "sub_asset_type": "Sub Asset Type",
       "suppliers": "Suppliers",
       "name": "Name",
       "total_sub_asset": "Total Sub Asset",
