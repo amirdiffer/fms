@@ -48,7 +48,7 @@ export class MakeDecisionService {
   public tableSetting = {
     columns: [
       {
-        lable: 'System',
+        lable: 'tables.column.system',
         field: 'system',
         width: 100,
         type: 1,
@@ -56,7 +56,7 @@ export class MakeDecisionService {
         renderer: ''
       },
       {
-        lable: 'Status',
+        lable: 'tables.column.status',
         field: 'status',
         width: 100,
         type: 1,
@@ -64,7 +64,7 @@ export class MakeDecisionService {
         renderer: ''
       },
       {
-        lable: 'Cost of Part',
+        lable: 'tables.column.cost_of_part',
         field: 'cost',
         width: 100,
         type: 1,
@@ -72,7 +72,7 @@ export class MakeDecisionService {
         renderer: ''
       },
       {
-        lable: 'Rate Per Hour',
+        lable: 'tables.column.rate_per_hour',
         field: 'ratePerHour',
         width: 100,
         type: 1,

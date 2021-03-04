@@ -55,11 +55,11 @@
                 {{ 'login.incorrect_password' | translate }}
               </span>
             </div>
-            <div class="m-card-options">
-              <button type="submit" class="w-75 fw-400 font-weight-bold button-login">
+            <div class="m-card-options row m-0">
+              <button type="submit" class="w-75 fw-400 font-weight-bold button-login col-10">
                 {{ 'login.login' | translate }}
               </button>
-              <button type="button" (click)="changeLanguage(activeLang == 'en' ? 'ar' : 'en')"  class="fw-400 font-weight-bold button-language">
+              <button type="button" (click)="changeLanguage(activeLang == 'en' ? 'ar' : 'en')"  class="fw-400 font-weight-bold button-language col-1">
                 <ng-template [ngIf]="activeLang == 'en'" [ngIfElse]="english">
                   العربية
                 </ng-template>

@@ -82,7 +82,9 @@
     "add_fuel_card": "Add Fuel Card",
     "add_asset_usage": "Add Asset Usage",
     "add_toll": "Add Toll",
+    "add_user": "Add User",
     "profile": "Profile",
+    "integration": "Integration",
     "add": "Add",
     "add_supplier":"Add Supplier",
     "add_technician": "Add Technician",
@@ -192,6 +194,7 @@
   },
   "tables": {
     "column": {
+      "sub_asset_type": "Sub Asset Type",
       "suppliers": "Suppliers",
       "name": "Name",
       "total_sub_asset": "Total Sub Asset",
@@ -332,7 +335,9 @@
       "gps": "GPS",
       "removal_items": "Removal Items",
       "by": "By",
-      "vehicle": "Vehicle"
+      "vehicle": "Vehicle",
+      "cost_of_part": "Cost of Part",
+      "system": "System"
     },
     "button": {
       "view_report": "View Report",
@@ -523,9 +528,9 @@
       "quantity": "Quantity",
       "price": "Price",
       "warranty_expire_date": "Warranty Expire Date",
-      "warranty_expire":"Warranty Expire",
+      "warranty_expire": "Warranty Expire",
       "description": "Description",
-      "total_cost":"Total Cost",
+      "total_cost": "Total Cost",
       "room": "Room",
       "aisle": "Aisle",
       "shelf": "Shelf",
@@ -700,6 +705,7 @@
       "description": "Description",
       "car_card": "Car Card",
       "asset_policy": "Asset Policy",
+      "make_decision": "Make Decision",
       "upload_form": {
         "title": "Attach Docs",
         "progressbar_title": "",
@@ -870,7 +876,6 @@
     "approve": "Approve",
     "recived": "Recived",
     "assign": "Assign",
-    "upload": "Upload",
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"
@@ -891,8 +896,9 @@
   "buttons": {
     "reject": "Reject",
     "approve": "Approve",
-    "recived": "Recived",
-    "confirm": "Confirm"
+    "receive": "Receive",
+    "confirm": "Confirm",
+    "make_decision": "Make Decision"
   },
   "filter": {
     "asset_category": "Asset Category",

@@ -82,7 +82,9 @@
     "add_fuel_card": "إضافة بطاقة الوقود",
     "add_asset_usage": "إضافة استخدام الأصول",
     "add_toll": "إضافة رسوم",
+    "add_user": "إضافة رسوم",
     "profile": "حساب تعريفي",
+    "integration": "الدمج",
     "add": "إضافة",
     "add_supplier":"إضافة مورد",
     "add_technician": "إضافة فني",
@@ -334,7 +336,9 @@
       "gps": "GPS",
       "removal_items": "عناصر الإزالة",
       "by": "بواسطة",
-      "vehicle": "مركبة"
+      "vehicle": "مركبة",
+      "cost_of_part": "تكلفة الجزء",
+      "system": "نظام"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -525,9 +529,9 @@
       "quantity": "العدد",
       "price": "السعر",
       "warranty_expire_date": "تاريخ انتهاء الضمان",
-      "warranty_expire":" انتهاء الضمان",
+      "warranty_expire": " انتهاء الضمان",
       "description": "الوصف",
-      "total_cost":"التكلفة الإجمالية",
+      "total_cost": "التكلفة الإجمالية",
       "room": "غرفة",
       "aisle": "جناح",
       "shelf": "رفوف",
@@ -673,7 +677,7 @@
     "technical_inspection": {
       "technical_inspection": "الفحص الفني",
       "asset_detail": "تفاصيل الأصول",
-      "maintenance": "Maintenance",
+      "maintenance": "أعمال صيانة",
       "customization": "الصيانة",
       "reuse": "اعادة الإستخدام",
       "fix": "تصليح",
@@ -692,10 +696,15 @@
       "purchase_service_package": "باقة خدمة الشراء",
       "integration": "الدمج",
       "periodic_service": "الصيانة الدورية",
+      "warranty_package": "حزمة الضمان",
       "warranty": "الضمان",
       "package": "الباقة",
       "choose_date": "اختر موعدا",
       "description": "الوصف",
+      "car_card": "بطاقة السيارة",
+      "asset_policy": "وثيقة الأصل",
+      "make_decision": "إتخذ قرار",
+      "generate": "إنشاء",
       "upload_form": {
         "title": "إضافة مرفقات",
         "progressbar_title": "",
@@ -781,7 +790,22 @@
         "set_reminder_before": "تحديد تذكير قبل"
       }
     },
-    "asset_configuration": {},
+    "asset_configuration": {
+      "make_and_model_info": "صنع ونموذج المعلومات",
+      "multiple_model": "نموذج متعدد",
+      "single_model": "نموذج واحد",
+      "select_model": "اختر النموذج",
+      "model":"نموذج",
+      "drag_and_drop_a_csv_file_or": "قم بسحب وإسقاط ملف csv أو",
+      "click_here": "انقر هنا",
+      "description":"الوصف",
+      "active_type": "النوع النشط",
+      "type_name":  "النوع الاسم",
+      "accessory":"الملحقات",
+      "sub_asset":"أصل فرعي",
+      "asset":"أصل",
+      "type_category":"اكتب الفئة"
+    },
     "business_category": {
       "business_category_info": "معلومات فئة العمل",
       "assign_sub_asset": "تعيين الأصول الفرعية",
@@ -871,7 +895,21 @@
   "buttons": {
     "reject": "يرفض",
     "approve": "اعتماد",
+    "receive": "الواردة",
+    "make_decision": "إتخذ قرار",
     "recived": "الواردة",
     "confirm": "يتأكد"
+  },
+  "filter": {
+    "asset_category": "فئة الأصول",
+    "asset": "الأصول",
+    "sub_asset": "أصل فرعي",
+    "accessory": "الملحقات",
+    "asset_type": "نوع الأصول",
+    "car": "جمل",
+    "bus": "أوتوبيس",
+    "bicycle": "دراجة",
+    "boat": "قارب",
+    "add_type": "إضافة نوع"
   }
 }

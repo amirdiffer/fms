@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
+import { ButtonType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 
 @Component({
@@ -62,7 +63,8 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         width: 70,
         type: 3,
         field: 'actionButton',
-        renderer: 'actionButtonRenderer'
+        renderer: 'button',
+        buttonType: ButtonType.action
       }
     ],
     data: [
