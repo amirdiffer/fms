@@ -3,7 +3,7 @@
 
     <ng-container *ngIf="!addtype; else addIntegration">
       <div class="search-box">
-        <input type="text" placeholder="Search in Columns">
+        <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
         <button>
           <img src="../../../assets/icons/search-solid.svg" alt="">
         </button>
@@ -11,7 +11,7 @@
       <button class="btn-download" disabled>
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
-      <button class="btn-primary-small"  (click)="add()"><i>+</i><a>Add</a></button>
+      <button class="btn-primary-small"  (click)="add()"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
     </ng-container>
     <ng-template #addIntegration>
       <add-integration class="w-100"></add-integration>

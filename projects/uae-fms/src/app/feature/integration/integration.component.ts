@@ -17,8 +17,8 @@ import { IntegrationFacade } from '../integration/+state';
 })
 export class IntegrationComponent implements OnInit, OnDestroy {
   tableSettings: TableSetting;
-  downloadBtn= 'assets/icons/download-solid.svg';
-  addtype ;
+  downloadBtn = 'assets/icons/download-solid.svg';
+  addtype;
   addtype$: Subscription;
   constructor(
     private _integrationService: IntegrationService,
@@ -30,18 +30,18 @@ export class IntegrationComponent implements OnInit, OnDestroy {
     this.tableSettings = {
       columns: [
         {
-          lable: 'Integration Name',
+          lable: 'tables.column.integration_name',
           field: 'integrationName',
           type: ColumnType.labelWithThumb,
           thumbField: 'thumb'
         },
-        { lable: 'Type', field: 'type', width: 70 },
-        { lable: 'GPR', field: 'gpr' },
-        { lable: 'Status', field: 'status', width: 110 },
-        { lable: 'Email', field: 'email' },
-        { lable: 'Phone Number', field: 'phoneNumber' },
-        { lable: 'Company Name', field: 'companyName' },
-        { lable: 'Support Operator', field: 'supportOpperator' }
+        { lable: 'tables.column.type', field: 'type', width: 70 },
+        { lable: 'tables.column.gpr', field: 'gpr' },
+        { lable: 'tables.column.status', field: 'status', width: 110 },
+        { lable: 'tables.column.email', field: 'email' },
+        { lable: 'tables.column.phone_number', field: 'phoneNumber' },
+        { lable: 'tables.column.company_name', field: 'companyName' },
+        { lable: 'tables.column.support_operator', field: 'supportOpperator' }
       ],
       data: [
         {
@@ -151,7 +151,7 @@ export class IntegrationComponent implements OnInit, OnDestroy {
   }
   public add() {
     this._integrationService.loadInegrationForm(true);
-    console.log('Click')
+    console.log('Click');
   }
   ngOnDestroy() {
     this.addtype$.unsubscribe();

@@ -81,7 +81,7 @@
 .menuItems {
   display: flex;
   flex-direction: row;
-  padding-left: 15px;
+  padding: 0 15px;
   ul {
     padding-left: 0px;
     padding-right: 0px;
@@ -98,4 +98,8 @@
 
 .disabled {
   opacity: 60%;
+}
+
+.__sidemenu__disabled {
+  color: #b1b1b1 !important;
 }
