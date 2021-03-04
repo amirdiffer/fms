@@ -130,6 +130,22 @@ html {
     left: 0;
     right: auto !important;
   }
+  
+  .calculate-button{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: .25em !important;
+    border-bottom-left-radius: .25em !important;
+  }
+  .input-money-pipe{
+    left: 10px;
+    right: auto !important;
+  }
+  .btn-primary-small.calculate-button{
+    & ~ .input-money-pipe {
+      left: 25%;
+    }
+  }
   .form-section {
     &__field {
       .p-float-label {
@@ -212,6 +228,15 @@ html {
       border-top-width: 5px !important;
     }
   }
+
+  /* Drag and Drop  */
+  .upload-file-name{
+    &>span{
+      right: auto;
+      left: 10px;
+    }
+  }
+
 }
 
 /* END RTL Arabic */

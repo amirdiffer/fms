@@ -54,7 +54,7 @@
     p-autocomplete ~ label,
     p-calendar ~ label {
       height: 50%;
-      width: max-content;
+      width: calc(100% - 55px);
     }
     input[type='text'] {
       font-size: 1em;
@@ -127,7 +127,7 @@
         .p-inputtext {
           font-family: '29LT Bukra';
           font-size: 1em;
-          //margin-top: 5px;
+          margin-top: .2em !important;
         }
       }
       .p-dropdown:not(.p-disabled):hover {

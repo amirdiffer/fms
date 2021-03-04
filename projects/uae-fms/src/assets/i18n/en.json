@@ -327,7 +327,11 @@
       "gps": "GPS",
       "removal_items": "Removal Items",
       "by": "By",
-      "vehicle": "Vehicle"
+      "vehicle": "Vehicle",
+      "book_value":"‌Book Value",
+      "intervals":"Intervals",
+      "service_task":"Service Tasks",
+      "warranty_for":"Warranty For"
     },
     "button": {
       "view_report": "View Report",
@@ -377,7 +381,29 @@
       "title": "Upload Vehicle Document",
       "progressbar_title": "CSV File Only",
       "content": "Drag and Drop file or click here"
-    }
+    },
+    "asset_financial_plan":"Asset Financial Plan",
+    "policy_type":"Policy Type",
+    "purchase_value":"Purchase Value",
+    "life_cycle":"Life Cycle",
+    "in_service_date":"In-Service Date",
+    "in_service_odometer":"In-Service Odometer",
+    "upload_purchase_order":"Upload Purchase Order",
+    "maintenance_service":"Maintenance Service",
+    "periodic_service":"Periodic Service",
+    "warranty_items":"Warranty Items",
+    "item":"Item",
+    "duration":"Duration",
+    "warranty_start_date":"Warranty Start Date",
+    "description":"Description",
+    "multiple_assets":"Multiple Assets",
+    "single_asset":"Single Asset",
+    "review_your_plan":"Review Your Plan",
+    "calculate": "Calculate",
+    "estimate_market_value": "Established Market Value",
+    "set_reminder":"Set Reminder",
+    "week":"Week",
+    "reminder_before":"Reminder Before"
   },
   "sub_asset": {
     "sub_asset_specification": "Sub Asset Specification",
@@ -853,7 +879,6 @@
     "create": "Create",
     "archive": "Archive",
     "approval": "Approval",
-    "order": "Order",
     "confirm": "Confirm",
     "reject": "Reject",
     "approve": "Approve",
@@ -862,7 +887,9 @@
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"
-    }
+    },
+    "upload":"Upload",
+    "generate":"Generate"
   },
   "login": {
     "fleet": "Fleet",

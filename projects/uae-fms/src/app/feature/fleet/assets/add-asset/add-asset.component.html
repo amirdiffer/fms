@@ -1,10 +1,11 @@
 <div class="row">
   <div class="col-12">
       <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">Cancel</button>
-        <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">Back</button>
-        <button class="btn-primary-medium add" *ngIf="stepper.selectedIndex != 3"  (click)="next()">Next</button>
-        <button *ngIf="stepper.selectedIndex == 3" class="btn-primary-medium add">Upload</button>
+        <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{ 'forms.cancel' | translate }}</button>
+        <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate }}</button>
+        <button class="btn-primary-medium add" *ngIf="stepper.selectedIndex != 3"  (click)="next()">{{ 'forms.next' | translate }}</button>
+        <button *ngIf="stepper.selectedIndex == 3 && !uploadReview" class="btn-primary-medium add" (click)="uploadReview = true">{{ 'forms.upload' | translate }}</button>
+        <button *ngIf="uploadReview" class="btn-primary-medium add" (click)="generateForm()" routerLink="..">{{ 'forms.generate' | translate }}</button>
       </div>
       <div>
         <div class="row form-section__row">
@@ -12,21 +13,21 @@
             <ng-container>
               <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom">
                 <mat-step [editable]="isEditable" state="">
-                  <form>
+                  <form [formGroup]="formGroupAssetDetail">
                     <ng-template matStepLabel>{{ 'assets.asset_details' | translate }}</ng-template>
                     <!-- form-section -->
-                    <div class="form-section component_wrapper">
+                    <div class="form-section component_wrapper" [formGroupName]="'businessInfo'">
                       <h3 class="form-section__title">{{ 'assets.business_info' | translate }}</h3>
                       <div class="row form-section__row">
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="businessCategory" [options]="itemTypes" optionLabel="name" optionValue="id"></p-dropdown>
+                            <p-dropdown inputId="businessCategory" [placeholder]="'assets.business_category' | translate"  [options]="itemTypes" optionLabel="name" optionValue="id" formControlName="businessCategory"></p-dropdown>
                             <label for="businessCategory">{{ 'assets.business_category' | translate }}</label>
                           </span>
                         </div>
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="ownerShip" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <p-dropdown inputId="ownerShip" [placeholder]="'assets.ownership' | translate" [options]="itemTypes" optionLabel="name" optionValue="id" formControlName="ownership"></p-dropdown>
                             <label for="ownerShip">{{ 'assets.ownership' | translate }}</label>
                           </span>
                         </div>
@@ -34,42 +35,42 @@
                     </div>
                     <!-- end form-section -->
                     <!-- form-section -->
-                    <div class="form-section component_wrapper">
+                    <div class="form-section component_wrapper" [formGroupName]="'assetDetails'">
                       <h3 class="form-section__title">{{ 'assets.asset_details' | translate }}</h3>
                       <div class="row form-section__row">
                         <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="year" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <p-dropdown inputId="year" [placeholder]="'assets.year' | translate" [options]="itemTypes" optionLabel="name"  formControlName="year"></p-dropdown>
                             <label for="year">{{ 'assets.year' | translate }} *</label>
                           </span>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="make" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <p-dropdown inputId="make"  [placeholder]="'assets.make' | translate " [options]="itemTypes" optionLabel="name"  formControlName="make"></p-dropdown>
                             <label for="make">{{ 'assets.make' | translate }} *</label>
                           </span>
                         </div>
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="model" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <p-dropdown inputId="model" [placeholder]="'assets.model' | translate"  [options]="itemTypes" optionLabel="name" formControlName="model"></p-dropdown>
                             <label for="model">{{ 'assets.model' | translate }} *</label>
                           </span>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="color" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="itemTypes" optionLabel="name" formControlName="color"></p-dropdown>
                             <label for="color">{{ 'assets.color' | translate }}</label>
                           </span>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field">
                           <span class="p-float-label">
-                            <input pInputText placeholder="Trim *" required type="text">
+                            <input pInputText [placeholder]="'assets.trim' | translate"  type="text" formControlName="trim">
                             <label>{{ 'assets.trim' | translate }} *</label>
                           </span>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field">
                           <span class="p-float-label">
-                            <input pInputText placeholder="Origin *" required type="text">
+                            <input pInputText [placeholder]="'assets.origin' | translate"  type="text" formControlName="origin">
                             <label>{{ 'assets.origin' | translate }} *</label>
                           </span>
                         </div>
@@ -80,11 +81,11 @@
                             </div>
                             <div class="col-12 col-md-8 row">
                               <div class="form-check col-6">
-                                <input class="form-check-input" type="radio" name="meter_type" id="Kilometers" value ="kilometers">
+                                <input class="form-check-input" type="radio" id="Kilometers"  formControlName="meterType" value ="kilometers">
                                 <label class="form-check-label" for="Kilometers">{{ 'assets.kilometers' | translate }}</label>
                               </div>
                               <div class="form-check col-6">
-                                <input class="form-check-input" type="radio" name="meter_type" id="By_Hours" value ="By_Hours">
+                                <input class="form-check-input" type="radio"  id="By_Hours" formControlName="meterType" value ="By_Hours">
                                 <label class="form-check-label" for="By_Hours">{{ 'assets.by_hour' | translate }}</label>
                               </div>
                             </div>
@@ -94,18 +95,18 @@
                     </div>
                     <!-- end form-section -->
                     <!-- form-section -->
-                    <div class="form-section component_wrapper">
+                    <div class="form-section component_wrapper" [formGroupName]="'purchasedFor'">
                       <h3 class="form-section__title">{{ 'assets.purchased_for' | translate }}</h3>
                       <div class="row form-section__row">
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="department" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <p-dropdown inputId="department" [placeholder]="'assets.department' | translate"  [options]="itemTypes" optionLabel="name" formControlName="department"></p-dropdown>
                             <label for="department">{{ 'assets.department' | translate }} *</label>
                           </span>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="operator" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <p-dropdown inputId="operator"  [placeholder]="'assets.operator' | translate" [options]="itemTypes" optionLabel="name" formControlName="operator"></p-dropdown>
                             <label for="operator">{{ 'assets.operator' | translate }} *</label>
                           </span>
                         </div>
@@ -116,7 +117,7 @@
                     <div class="form-section component_wrapper">
                       <h3 class="form-section__title">{{ 'assets.upload_form.title' | translate }}</h3>
                       <div class="row form-section__row">
-                        <div class="col-12">
+                        <div class="col">
                           <div class="upload-box">
                             <div class="row">
                               <div class="col-12 d-flex justify-content-between file-name-size">
@@ -129,7 +130,7 @@
                                 </div>
                               </div>
                               <div class="col-lg-12 mt-2">
-                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'vehicle')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" multiple="true">
                                   <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                                     <label (click)="openFileSelector()" style="cursor: pointer;">
                                       <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
@@ -142,78 +143,174 @@
                             </div>
                           </div>
                         </div>
-
+                        <ng-container *ngIf="allFileUpload.uploadVehicleDoc.length > 0">
+                          <div class="col-4 d-flex flex-md-column-reverse">
+                            <div *ngFor="let file of allFileUpload.uploadVehicleDoc;trackBy: trackUploadItem; let index=i;" class=" w-100 mb-2  align-self-end">
+                              <span class="upload-file-name">
+                                <p>{{file.relativePath}}</p>
+                                <span>
+                                  <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':12 , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </ng-container>
                       </div>
                     </div>
                     <!-- end form-section -->
                   </form>
                 </mat-step>
                 <mat-step [editable]="isEditable">
-                  <form>
+                  <form [formGroup]="formGroupFinancial">
                     <ng-template matStepLabel>{{ 'assets.financial' | translate }}</ng-template>
-                    <div class="form-section component_wrapper">
-                      <h3 class="form-section__title">Asset Financial Plan</h3>
-                      <div class="row">
-                        <div class="col-12 col-md-5 p-field form-section__field dropdown-select">
-                          <span class="p-float-label">
-                            <p-dropdown inputId="policyType" [options]="itemTypes" optionLabel="name"></p-dropdown>
-                            <label for="policyType">Policy Type *</label>
-                          </span>
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-section component_wrapper" [formGroupName]="'assetFinancialPlan'">
+                          <h3 class="form-section__title">{{ 'assets.asset_financial_plan' | translate }}</h3>
+                          <div class="row">
+                            <div class="col-12 col-md-5 p-field form-section__field dropdown-select"
+                                  [class.col-md-12]="policyType.value != ''" >
+                              <span class="p-float-label">
+                                <p-dropdown inputId="policyType" formControlName="policyType" [placeholder]="'assets.policy_type' | translate " [options]="itemTypes" optionLabel="name"></p-dropdown>
+                                <label for="policyType">{{ 'assets.policy_type' | translate }} *</label>
+                              </span>
+                            </div>
+                            <div class="col-12 col-md-3  p-field form-section__field" [class.col-md-9]="policyType.value != ''" >
+                              <span class="p-inputgroup p-float-label d-flex">
+                                <input pInputText formControlName="purchaseValue" [placeholder]=" 'assets.purchase_value' | translate"  type="text">
+                                <label>{{ 'assets.purchase_value' | translate }} *</label>
+                                <button *ngIf="policyType.value != '' && calculate != true " class="btn-primary-small calculate-button" (click)="calculate = true">{{ 'assets.calculate' | translate }}</button>
+                                <span *ngIf="policyType.value != ''" class="input-money-pipe">AED</span>
+                              </span>
+                            </div>
+                          </div>
                         </div>
-                        <div class="col-12 col-md-3  p-field form-section__field">
-                          <span class="p-float-label">
-                            <input pInputText placeholder="Purchase Value *" required type="text">
-                            <label>Purchase Value *</label>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-section component_wrapper">
-                      <h3 class="form-section__title">Life Cycle</h3>
-                      <div class="row">
-                        <div class="col-12 col-md-3 p-field form-section__field date-input">
-                          <span class="p-float-label">
-                            <p-calendar inputId="basic"></p-calendar>
-                            <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
-                            <label>Start Date * </label>
-                          </span>
-                        </div>
-                        <div class="col-12 col-md-3 p-field form-section__field">
-                          <span class="p-float-label">
-                            <input pInputText placeholder="In-Service Odometer" required type="text">
-                            <label>In-Service Odometer</label>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-section component_wrapper">
-                      <h3 class="form-section__title">Upload Purchase Order</h3>
-                      <div class="row form-section__row">
-                        <div class="col-12">
-                          <div class="upload-box">
-                            <div class="row">
-                              <div class="col-12 d-flex justify-content-between file-name-size">
-                                <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
-                                <span>00 MG</span>
+                        <div class="form-section component_wrapper" [formGroupName]="'lifeCycle'">
+                          <h3 class="form-section__title">{{ 'assets.life_cycle' | translate }}</h3>
+                          <div class="row">
+                            <div class="col-12 col-md-3 p-field form-section__field date-input" [class.col-md-6]="policyType.value != ''" [class.col-md-12]="lifeCylceDate.value == '' && lifeCylceOdometer.value != '' && policyType.value != ''">
+                              <span class="p-float-label">
+                                <p-calendar inputId="basic" formControlName="inServiceDate"></p-calendar>
+                                <svg-icon class="date-icon"  [src]="calenderIcon" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
+                                <label>{{ 'assets.in_service_date' | translate }} * </label>
+                              </span>
+                            </div>
+                            <div *ngIf="lifeCylceDate.value != '' " class="col-md-3 form-section__field" [class.col-md-6]="policyType.value != ''" >
+                              <div class="toggle-select">
+                                <p-inputSwitch formControlName="inServiceDateReminder"></p-inputSwitch>
+                                <label>{{ 'assets.set_reminder' | translate }} </label>
                               </div>
-                              <div class="col-lg-12">
-                                <div class="w-100 p-0">
-                                  <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
+                            </div>
+                            <div *ngIf="inServiceDateReminder.value == true " class="col-12 col-md-4" [class.col-md-12]="policyType.value != ''">
+                              <div class="row">
+                                <div class="col-5 pr-0 p-field form-section__field dropdown-select">
+                                  <span class="p-float-label ">
+                                    <p-dropdown inputId="lifeCycleDateReminder" [placeholder]="'assets.week' | translate " [options]="itemTypes" optionLabel="name"></p-dropdown>
+                                    <label for="lifeCycleDateReminder">{{ 'assets.week' | translate }} </label>
+                                  </span>
+                                </div>
+                                <div class="col-7 pl-0 p-field form-section__field">
+                                  <span class="p-float-label">
+                                    <input pInputText  [placeholder]="'assets.reminder_before' | translate " type="text">
+                                    <label>{{ 'assets.reminder_before' | translate }}</label>
+                                  </span>
                                 </div>
                               </div>
-                              <div class="col-lg-12 mt-2">
-                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                                    <label (click)="openFileSelector()" style="cursor: pointer;">
-                                      <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
-                                        [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                                        <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-                                    </label>
-                                  </ng-template>
-                                </ngx-file-drop>
+                            </div>
+                            <div class="col-12 col-md-3 p-field form-section__field" [class.col-md-6]="policyType.value != ''" >
+                              <span class="p-float-label">
+                                <input pInputText  formControlName="inServiceOdometer"  [placeholder]="'assets.in_service_odometer' | translate" type="text">
+                                <label>{{ 'assets.in_service_odometer' | translate }}</label>
+                              </span>
+                            </div>
+                            <div *ngIf="lifeCylceOdometer.value != '' " class="col-md-3 form-section__field" [class.col-md-6]="policyType.value != ''">
+                              <div class="toggle-select">
+                                <p-inputSwitch formControlName="inServiceOdometerReminder"></p-inputSwitch>
+                                <label>{{ 'assets.set_reminder' | translate }} </label>
+                              </div>
+                            </div>
+                            <div *ngIf="inServiceOdometerReminder.value == true " class="col-12 col-md-4" [class.col-md-12]="policyType.value != ''">
+                              <div class="row">
+                                <div class="col-5 pr-0 p-field form-section__field dropdown-select">
+                                  <span class="p-float-label ">
+                                    <p-dropdown inputId="lifeCycleDateReminder" [placeholder]="'assets.week' | translate " [options]="itemTypes" optionLabel="name"></p-dropdown>
+                                    <label for="lifeCycleDateReminder">{{ 'assets.week' | translate }} </label>
+                                  </span>
+                                </div>
+                                <div class="col-7 pl-0 p-field form-section__field">
+                                  <span class="p-float-label">
+                                    <input pInputText  [placeholder]="'assets.reminder_before' | translate " type="text">
+                                    <label>{{ 'assets.reminder_before' | translate }}</label>
+                                  </span>
+                                </div>
                               </div>
                             </div>
                           </div>
+                        </div>
+                        <div class="form-section component_wrapper">
+                          <h3 class="form-section__title">{{ 'assets.upload_purchase_order' | translate }}</h3>
+                          <div class="row form-section__row">
+                            <div class="col">
+                              <div class="upload-box">
+                                <div class="row">
+                                  <div class="col-12 d-flex justify-content-between file-name-size">
+                                    <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
+                                    <span>00 MG</span>
+                                  </div>
+                                  <div class="col-lg-12">
+                                    <div class="w-100 p-0">
+                                      <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-12 mt-2">
+                                    <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'purchaseOrder')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                                      <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                        <label (click)="openFileSelector()" style="cursor: pointer;">
+                                          <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
+                                            [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                                            <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
+                                        </label>
+                                      </ng-template>
+                                    </ngx-file-drop>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <ng-container *ngIf="allFileUpload.uploadPurchaseOrder.length > 0">
+                              <div class="col-4 d-flex flex-md-column-reverse">
+                                <div *ngFor="let file of allFileUpload.uploadPurchaseOrder; let index=i;" class=" w-100 mb-2  align-self-end">
+                                  <span class="upload-file-name">
+                                    <p>{{file.relativePath}}</p>
+                                    <span>
+                                      <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':12 , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="policyType.value != '' " class="col-12 col-md-7">
+                        <div class="form-section component_wrapper pb-3">
+                          <h3 class="form-section__title">{{ 'assets.review_your_plan' | translate }}</h3>
+                          <div class="table-container p-0 review-table">
+                            <app-table [setting]="reviewPlaneSettingTable"></app-table>
+                          </div>
+                          <ng-container *ngIf="calculate">
+                            <div  class="table-container p-0 review-table">
+                              <app-table [setting]="reviewPlaneSettingTable2"></app-table>
+                            </div>
+                            <div class="row">
+                              <div class="col-12 col-md-8  p-field form-section__field" [class.col-md-9]="policyType.value != ''" >
+                                <span class="p-float-label d-flex">
+                                  <input pInputText [placeholder]=" 'assets.estimate_market_value' | translate"  type="text">
+                                  <label>{{ 'assets.estimate_market_value' | translate }} *</label>
+                                  <span class="input-money-pipe">AED</span>
+                                </span>
+                              </div>
+                            </div>
+                          </ng-container>
                         </div>
                       </div>
                     </div>
@@ -221,66 +318,111 @@
 
                 </mat-step>
                 <mat-step [editable]="isEditable">
-                  <form>
+                  <form [formGroup]="formGroupMaintenance">
                     <ng-template matStepLabel>{{ 'assets.maintenance' | translate }}</ng-template>
-                    <div class="form-section component_wrapper">
-                      <h3 class="form-section__title">Maintenance Service</h3>
-                      <div class="row">
-                        <div class="col-12 col-md-8 p-field form-section__field dropdown-select">
-                          <span class="p-float-label">
-                            <p-dropdown inputId="periodicService" [options]="itemTypes" optionLabel="name"></p-dropdown>
-                            <label for="periodicService">Periodic Service *</label>
-                          </span>
+                    <div class="row">
+                      <div class="col d-flex">
+                        <div class="row m-0 w-100">
+                          <div class="col p-0 d-flex">
+                            <div class="form-section component_wrapper w-100">
+                              <h3 class="form-section__title">{{ 'assets.maintenance_service' | translate }}</h3>
+                              <div class="row">
+                                <div class="col-12 p-field form-section__field dropdown-select" [class.col-md-8]="periodicService.value == '' ">
+                                  <span class="p-float-label">
+                                    <p-dropdown inputId="periodicService" formControlName="periodicService" [placeholder]=" 'assets.periodic_service' | translate" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                                    <label for="periodicService">{{ 'assets.periodic_service' | translate }} *</label>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                            <div class="col-12 p-0 d-flex">
+                              <div class="form-section component_wrapper w-100" >
+                                <span class="d-flex mb-4">
+                                  <span class="p-inputgroup-addon mr-2 add-warranty-button" (click)="addWarrantyItem()"><i class="pi pi-plus"></i></span>
+                                  <h3 class="form-section__title align-self-center m-0">{{ 'assets.warranty_items' | translate }}</h3>
+                                </span>
+                                <div  formArrayName="warrantyItems" *ngFor="let warranty of formGroupMaintenance.get('warrantyItems')['controls']; let i=index">
+                                  <div class="row" [formGroupName]="i">
+                                    <div class="col-12 col-md-6" [class.col-md-12]="periodicService.value != '' ">
+                                      <div class="row">
+                                        <div class="col-12 col-md-6 p-field form-section__field dropdown-select">
+                                          <span class="p-float-label">
+                                            <input pInputText formControlName="item" [placeholder]="'assets.item' | translate"  type="text">
+                                            <label>{{ 'assets.item' | translate }}</label>
+                                          </span>
+                                        </div>
+                                        <div class="col-12 col-md-2 pr-0 p-field form-section__field dropdown-select">
+                                          <span class="p-float-label">
+                                            <p-dropdown inputId="periodicService" formControlName="year" [placeholder]="'assets.year' | translate" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                                            <label for="periodicService">{{ 'assets.year' | translate }}</label>
+                                          </span>
+                                        </div>
+                                        <div class="col-12 col-md-4 pl-0 p-field form-section__field dropdown-select">
+                                          <span class="p-float-label">
+                                            <input pInputText [placeholder]="'assets.duration' | translate" formControlName="duration"  type="text">
+                                            <label>{{ 'assets.duration' | translate }}</label>
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-12 col-md-3" [class.col-md-12]="periodicService.value != '' " [class.col-md-6]="periodicService.value == '' && getWarrantyStartDat(i) != ''">
+                                      <div class="row">
+                                        <div class="col" [class.col-6]="periodicService.value != ''">
+                                          <div class="p-field form-section__field date-input">
+                                            <span class="p-float-label">
+                                              <p-calendar inputId="basic" formControlName="warrantyStartDate"></p-calendar>
+                                              <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
+                                              <label>{{ 'assets.warranty_start_date' | translate }}</label>
+                                            </span>
+                                          </div>
+                                        </div>
+                                        <div class="col-12 col-md-6 p-field form-section__field" *ngIf="getWarrantyStartDat(i) != ''">
+                                          <div class="toggle-select">
+                                            <p-inputSwitch></p-inputSwitch>
+                                            <label>{{ 'assets.set_reminder' | translate }} </label>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-6 col-md-3" [class.col-md-6]="periodicService.value != '' ">
+                                      <div class=" drag-and-drop-form">
+                                        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'warranty')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                                          <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                            <label (click)="openFileSelector()" style="cursor: pointer;">
+                                                <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
+                                            </label>
+                                          </ng-template>
+                                        </ngx-file-drop>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="form-section component_wrapper">
-                      <span class="d-flex">
-                        <h3 class="form-section__title">Warranty Items</h3>
-                      </span>
-                      <div class="row">
-                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
-                          <span class="p-float-label">
-                            <input pInputText placeholder="Item" required type="text">
-                            <label>Item</label>
-                          </span>
-                        </div>
-                        <div class="col-12 col-md-1 pr-0 p-field form-section__field dropdown-select">
-                          <span class="p-float-label">
-                            <p-dropdown inputId="periodicService" [options]="itemTypes" optionLabel="name"></p-dropdown>
-                            <label for="periodicService">Year</label>
-                          </span>
-                        </div>
-                        <div class="col-12 col-md-2 pl-0 p-field form-section__field dropdown-select">
-                          <span class="p-float-label">
-                            <input pInputText placeholder="Duration" required type="text">
-                            <label>Duration</label>
-                          </span>
-                        </div>
-                        <div class="col-12 col-md-3 p-field form-section__field date-input">
-                          <span class="p-float-label">
-                            <p-calendar inputId="basic"></p-calendar>
-                            <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
-                            <label>Warranty Start Date</label>
-                          </span>
-                        </div>
-                        <div class="col-12 col-md-3 drag-and-drop-form">
-                          <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                              <label (click)="openFileSelector()" style="cursor: pointer;">
-                                  <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-                              </label>
-                            </ng-template>
-                          </ngx-file-drop>
+                      <div class="col-12 col-md-6 d-flex" *ngIf="periodicService.value != '' ">
+                        <div class="form-section">
+                          <div class="table-container p-0 review-table">
+                            <app-table [setting]="periodicServiceSettingTable"></app-table>
+                          </div>
+                          <p class="green-color" *ngIf="getWarrantyStartDat(0) != ''">
+                            Job Cards For Maintenance Services Automatically Will Create After This Step
+                          </p>
+                          <div class="table-container p-0 mt-2 review-table" *ngIf="getWarrantyStartDat(0) != ''">
+                            <app-table [setting]="warrantySettingTable"></app-table>
+                          </div>
                         </div>
                       </div>
+                      
                     </div>
                     <div class="form-section component_wrapper">
                       <div class="row">
                         <div class="col-12 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <input  pInputTextarea   placeholder="Description" required type="text">
-                            <label>Description</label>
+                            <input  pInputTextarea   [placeholder]="'assets.description' | translate"  type="text">
+                            <label>{{ 'assets.description' | translate }}</label>
                           </span>
                         </div>
                       </div>
@@ -288,23 +430,23 @@
                   </form>
                 </mat-step>
                 <mat-step [editable]="isEditable">
-                  <form>
+                  <form *ngIf="!uploadReview">
                     <ng-template matStepLabel>{{ 'assets.generate' | translate }}</ng-template>
                     <div class="form-section component_wrapper">
                       <div class="row">
                         <div class="col-2">
-                          <h3 class="form-section__title">Maintenance Service</h3>
+                          <h3 class="form-section__title">{{ 'assets.maintenance_service' | translate }}</h3>
                         </div>
                         <div class="col-2">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="assetQuantity" id="multipleAsset" value ="estimate" Checked>
-                            <label class="form-check-label" for="multipleAsset">Multiple Assets</label>
+                            <input class="form-check-input" type="radio" name="assetQuantity" id="multipleAsset" value ="multipleAsset" Checked>
+                            <label class="form-check-label" for="multipleAsset">{{ 'assets.multiple_assets' | translate }}</label>
                           </div>
                         </div>
                         <div class="col-2">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="assetQuantity" id="singleAsset" value ="estimate" Checked>
-                            <label class="form-check-label" for="singleAsset">Single Asset</label>
+                            <input class="form-check-input" type="radio" name="assetQuantity" id="singleAsset" value ="singleAsset" Checked>
+                            <label class="form-check-label" for="singleAsset">{{ 'assets.single_asset' | translate }}</label>
                           </div>
                         </div>
                       </div>
@@ -322,7 +464,7 @@
                                 </div>
                               </div>
                               <div class="col-lg-12 mt-2">
-                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'maintenanceService')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
                                   <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                                     <label (click)="openFileSelector()" style="cursor: pointer;">
                                         <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
@@ -336,6 +478,12 @@
                       </div>
                     </div>
                   </form>
+                  <div *ngIf="uploadReview">
+                    <div class="table-container p-0 mt-2 review-table">
+                      <h3 class="form-section__title px-4 pt-4">5 Asset Found Please Review</h3>
+                      <app-table [setting]="formReviewSettingTable"></app-table>
+                    </div>
+                  </div>
                 </mat-step>
               </mat-horizontal-stepper>
             </ng-container>
