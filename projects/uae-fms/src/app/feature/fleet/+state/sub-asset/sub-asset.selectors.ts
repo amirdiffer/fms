@@ -1,10 +1,15 @@
 import { createSelector } from '@ngrx/store';
 import { FleetSelectors } from '../fleet.selectors';
-import { subAssetAdapter } from './sub-asset.entity';
+import { subAssetAdapter, SubAssetState } from './sub-asset.entity';
 const { selectAll } = subAssetAdapter.getSelectors();
 
 export class SubAssetSelectors {
   static selectAll = createSelector(FleetSelectors.subAssetSelector, selectAll);
+
+  static selectStatistics = createSelector(
+    FleetSelectors.subAssetSelector,
+    (state: SubAssetState) => state.statistics
+  );
 
   static message = createSelector(
     FleetSelectors.subAssetSelector,
