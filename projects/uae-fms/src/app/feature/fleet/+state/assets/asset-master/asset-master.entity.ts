@@ -1,5 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { IAssetStatistics } from '@models/statistics';
+import { IAssetMaster } from '@models/asset-master.model';
 
 export interface IAssetMasterModel {
   asset: {
@@ -19,7 +20,7 @@ export interface IAssetMasterModel {
   statusColor: string;
 }
 
-export interface IAssetMasterState extends EntityState<IAssetMasterModel> {
+export interface IAssetMasterState extends EntityState<IAssetMaster> {
   error?: any;
   loaded: boolean;
   statistics: IAssetStatistics;
@@ -32,8 +33,8 @@ export interface IAssetMasterPartialState {
   [FLEET_ASSET_MASTER_FEATURE_KEY]: IAssetMasterState;
 }
 
-export const assetMasterAdapter: EntityAdapter<IAssetMasterModel> = createEntityAdapter<
-  IAssetMasterModel
+export const assetMasterAdapter: EntityAdapter<IAssetMaster> = createEntityAdapter<
+  IAssetMaster
 >();
 
 export const initialState: IAssetMasterState = assetMasterAdapter.getInitialState(
