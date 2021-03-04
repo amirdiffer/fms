@@ -86,7 +86,7 @@
             <table-assign-now-renderer [data]="data"></table-assign-now-renderer>
           </div>
           <div *ngIf="col.renderer=='floatButton' && i == rowIndexTable">
-            <float-button-renderer [col]="col" [setting]="setting.rowSettings" [data]="data"></float-button-renderer>
+            <float-button-renderer [lang]="activeLang"  [col]="col" [setting]="setting.rowSettings" [data]="data"></float-button-renderer>
           </div>
 
         </td>

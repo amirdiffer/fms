@@ -3,6 +3,7 @@ import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { SettingsFacade } from '@core/settings/settings.facade';
 
 @Component({
   selector: 'app-table',
@@ -11,10 +12,17 @@ import autoTable from 'jspdf-autotable';
 })
 export class TableComponent implements OnInit {
   rowIndexTable = -1;
+  activeLang: string;
 
-  constructor() {}
+  constructor(
+    private settingFacade: SettingsFacade
+  ) {}
   @Input() setting: TableSetting;
-  ngOnInit() {}
+  ngOnInit() {
+    this.settingFacade.language.subscribe((lang) => {
+      this.activeLang = lang;
+    })
+  }
 
   getCol(col, data) {
     if (col.type) {

@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RowSettings } from '@core/table/table.component';
+import { SettingsFacade } from '@core/settings/settings.facade';
 
 @Component({
   selector: 'float-button-renderer',
   template: `
-    <div class="float-button">
+    <div class="float-button" [ngStyle]="{'right': lang == 'en' ? '20px' : null, 'left': lang == 'ar' ? '20px' : null}">
       <ng-container *ngFor="let item of setting?.floatButton;">
         <span (click)="setting?.onClick(col, data, item.button)">
           <svg-icon [src]="getIcon(item.button)" class="svg-icon" [applyClass]="true" [svgStyle]="{'fill': item.color||null }"></svg-icon>
@@ -18,7 +19,6 @@ import { RowSettings } from '@core/table/table.component';
         display: flex;
         flex-direction: row;
         position: absolute;
-        right: 20px;
         transform: translateY(-50%) translateX(0);
         background-color: #ffffff;
         padding: 1em;
@@ -50,11 +50,11 @@ export class FloatButton implements OnInit {
   @Input() data;
   @Input() col;
   @Input() setting;
+  @Input() lang;
 
   assetPath = '../../../../assets/icons/';
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {
   }
