@@ -1,4 +1,5 @@
 import { IUser } from '@models/configuration';
+import { IUserStatistics } from '@models/statistics';
 import { createAction, props } from '@ngrx/store';
 
 export class UsersActions {
@@ -12,5 +13,10 @@ export class UsersActions {
   static error = createAction(
     '[Users] error occurred',
     props<{ reason: any }>()
+  );
+  static loadStatistics = createAction('[Users] load all statistics');
+  static statisticsLoaded = createAction(
+    '[Users] all statistics are loaded',
+    props<{ data : IUserStatistics}>()
   );
 }

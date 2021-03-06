@@ -18,6 +18,19 @@ export class UsersEffect {
       )
     )
   );
+  loadStatistics$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(UsersActions.loadStatistics),
+      mergeMap((action) =>
+        this.service.loadAllStatistics().pipe(
+          map((data) =>  UsersActions.statisticsLoaded({ data: data.message })),
+          catchError((error) => of(UsersActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+
 
   constructor(private action$: Actions, private service: UsersService) {}
 }
