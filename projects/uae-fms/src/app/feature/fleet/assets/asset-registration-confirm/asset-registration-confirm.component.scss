@@ -1,0 +1,36 @@
+::ng-deep {
+  mat-dialog-container {
+    padding: 0 !important;
+  }
+}
+.wrapper {
+  header {
+    padding: 10px;
+    background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
+      0% no-repeat padding-box;
+    border: none;
+    height: 28%;
+    display: flex;
+    align-items: center;
+    h5 {
+      font-weight: 500;
+      color: white;
+    }
+  }
+  section {
+    padding: 10px;
+    p {
+      margin: 20px !important;
+    }
+    .btn-container {
+      display: flex;
+      justify-content: flex-end;
+      padding: 28px;
+      button {
+        margin: 0 2px;
+        height: 2.6em;
+        width: auto;
+      }
+    }
+  }
+}

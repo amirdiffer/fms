@@ -1,0 +1,152 @@
+<div class="row wrapper">
+    <div class="button-container">
+        <button class="btn-primary-medium btn-scondary-green" type="button"
+            routerLink="..">{{'forms.cancel' | translate}}</button>
+        <button class="btn-primary-medium add" (click)="submit()"
+            type="submit">{{'forms.save' |
+            translate}}</button>
+    </div>
+    <div class="col-3 pl-0">
+        <anms-asset-detail></anms-asset-detail>
+    </div>
+    <div class="col-9">
+        <form [formGroup]="inputForm">
+            <div class="row mt-4">
+                <div class="col-10">
+                    <div class="p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="Plate Number *"
+                                formControlName="plateNumber"
+                                type="text">
+                            <label>Plate Number *</label>
+                        </span>
+                        <anms-error
+                            [showError]="hasError('plateNumber',inputForm,submitted)"
+                            error="forms.feedback.required"></anms-error>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10">
+                    <div class="p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="Insurance Number *"
+                                type="text" formControlName="insuranceNumber">
+                            <label>Insurance Number *</label>
+                        </span>
+                        <anms-error
+                            [showError]="hasError('insuranceNumber',inputForm,submitted)"
+                            error="forms.feedback.required"></anms-error>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10">
+                    <div class="form-group p-field form-section__field">
+                        <div class="input-group">
+                            <div class="autocomplete-select w-100">
+                                <span class="p-float-label">
+                                    <p-autoComplete
+                                        formControlName="salikTag"
+                                        [suggestions]="filteredSalikTag"
+                                        (completeMethod)="searchSalikTag($event)"
+                                        field="name"></p-autoComplete>
+                                    <i class="pi pi-search"></i>
+                                    <label>SalikTag *</label>
+                                </span>
+                                <anms-error
+                                    [showError]="hasError('salikTag',inputForm,submitted)"
+                                    error="forms.feedback.required"></anms-error>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10">
+                    <div class="form-group p-field form-section__field">
+                        <div class="input-group">
+                            <div class="autocomplete-select w-100">
+                                <span class="p-float-label">
+                                    <p-autoComplete formControlName="fuelTag"
+                                        [suggestions]="filteredFuelTag"
+                                        (completeMethod)="searchFuelTag($event)"
+                                        field="name"></p-autoComplete>
+                                    <i class="pi pi-search"></i>
+                                    <label>FuelTag *</label>
+                                </span>
+                                <anms-error
+                                    [showError]="hasError('fuelTag',inputForm,submitted)"
+                                    error="forms.feedback.required"></anms-error>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="Operator"
+                                formControlName="operator"
+                                type="text">
+                            <label>Operator</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="Department"
+                                formControlName="department"
+                                type="text">
+                            <label>Department</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="Employee Number"
+                                formControlName="employeeNumber"
+                                type="text">
+                            <label>Employee Number</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 title">
+                    Current Meter
+                </div>
+                <div class="col-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                            name="radioButton" id="radioButton2"
+                            value="estimate">
+                        <label class="form-check-label" for="radioButton2">Current
+                            Live</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                            name="radioButton" id="radioButton2"
+                            value="estimate">
+                        <label class="form-check-label" for="radioButton2">Gps<br><small>(CR
+                                136546)</small></label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="Current Live Reading"
+                                type="text" formControlName ="">
+                            <label>Current Live Reading</label>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>

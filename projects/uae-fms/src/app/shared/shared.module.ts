@@ -40,6 +40,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { AccordionModule } from 'primeng/accordion';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -76,7 +78,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     CheckboxModule,
     MatStepperModule,
     MatProgressBarModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    AccordionModule
   ],
   declarations: [RtlSupportDirective, CheckAccessDirective],
   exports: [
@@ -122,7 +125,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     MatStepperModule,
     MatProgressBarModule,
     NgxFileDropModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    AccordionModule
   ]
 })
 export class SharedModule {

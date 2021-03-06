@@ -333,7 +333,8 @@
       "gps": "GPS",
       "removal_items": "Removal Items",
       "by": "By",
-      "vehicle": "Vehicle"
+      "vehicle": "Vehicle",
+      "attachment": "Attachment"
     },
     "button": {
       "view_report": "View Report",
@@ -524,9 +525,9 @@
       "quantity": "Quantity",
       "price": "Price",
       "warranty_expire_date": "Warranty Expire Date",
-      "warranty_expire":"Warranty Expire",
+      "warranty_expire": "Warranty Expire",
       "description": "Description",
-      "total_cost":"Total Cost",
+      "total_cost": "Total Cost",
       "room": "Room",
       "aisle": "Aisle",
       "shelf": "Shelf",

@@ -13,6 +13,8 @@ import { AssetsComponent } from './assets/assets.component';
 import { AddAssetComponent } from './assets/add-asset/add-asset.component';
 import { AddAccessoryComponent } from './accessory/add-accessory/add-accessory.component';
 import { AddRequestComponent } from './movement/add-request/add-request.component';
+import { PendingRegistrationOverviewComponent } from './assets/pending-registration-overview/pending-registration-overview.component';
+import { PendingCustomizationOverviewComponent } from './assets/pending-customization-overview/pending-customization-overview.component';
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
@@ -25,6 +27,14 @@ const routes: Routes = [
   { path: 'operator', component: OperatorComponent },
   { path: 'operator/add', component: AddOperatorComponent },
   { path: 'assets', component: AssetsComponent },
+  {
+    path: 'assets/registration',
+    component: PendingRegistrationOverviewComponent
+  },
+  {
+    path: 'assets/customization',
+    component: PendingCustomizationOverviewComponent
+  },
   { path: 'assets/add', component: AddAssetComponent },
   {
     path: 'organization/add-organization',
