@@ -89,7 +89,8 @@
     "add_supplier":"إضافة مورد",
     "add_technician": "إضافة فني",
     "add_location": "اضافة الموقع",
-    "inspections": "التفتيش"
+    "inspections": "التفتيش",
+    "iserve": "IServe"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -100,7 +101,12 @@
       "accessory": "الملحقات",
       "operator": "المشغل",
       "organization": "المنظمة",
-      "movement": "الحركة"
+      "movement": {
+        "~": "الحركة",
+        "permanent": "دائم",
+        "temporary": "مؤقت",
+        "iserve": "I-Serve"
+      }
     },
     "fuel_management": "إدارة الوقود",
     "traffic_fine": "المخالفات المرورية",
@@ -162,7 +168,10 @@
     "user": "المستخدم",
     "paid": "دفع",
     "unpainted": "غير مرسومة",
-    "deducte": "حسم"
+    "deducte": "حسم",
+    "pending": "قيد الانتظار",
+    "complete": "اكتمال",
+    "cancel": "يلغي"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -184,7 +193,10 @@
     "sub_asset": "أصل فرعي",
     "movement_history": "تاريخ الحركة",
     "overview": "نظرة عامة",
-    "activity": "فعالية"
+    "activity": "فعالية",
+    "map_view": "عرض الخريطة",
+    "assets": "أصل",
+    "iserve_operator": "Iserv العاملين"
   },
   "search": {
     "add": "إضافة",
@@ -344,6 +356,10 @@
       "removal_items": "عناصر الإزالة",
       "by": "بواسطة",
       "vehicle": "مركبة",
+      "from": "من",
+      "to": "إلى",
+      "damage": "تلف",
+      "traffic_fine": "المخالفات المرورية",
       "cost_of_part": "تكلفة الجزء",
       "system": "نظام"
     },
@@ -434,6 +450,9 @@
     "duration": "المدة الزمنية",
     "warranty_start_date": "تاريخ بدء الضمان",
     "description": "الوصف",
+    "serial_number": "رقم سري",
+    "multiple_assets": "أصول متعددة",
+    "single_asset": "أصل واحد",
     "upload_form": {
       "title": "",
       "progressbar_title": "",
@@ -920,6 +939,8 @@
     "approve": "اعتماد",
     "recived": "الواردة",
     "assign": "تعيين",
+    "upload": "تحميل",
+    "generate": "يولد",
     "feedback": {
       "required": "هذا الحقل إلزامي",
       "invalid-email": "عنوان البريد الإلكتروني غير صالح"
