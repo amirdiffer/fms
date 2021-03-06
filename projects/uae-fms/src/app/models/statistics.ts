@@ -40,3 +40,10 @@ export interface ISubAssetStatistics extends IGeneralResponse {
 export interface IUserStatistics extends IGeneralResponse {
   result_number: number;
 }
+
+export interface IBodyShopRequestStatistics {
+  total: number;
+  approved: number;
+  waitingForApproval: number;
+  rejected: number;
+}
