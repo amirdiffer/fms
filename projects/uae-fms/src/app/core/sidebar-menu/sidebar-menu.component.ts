@@ -75,9 +75,23 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           route: '/fleet/organization'
         },
         {
-          name: 'sidebar.fleets.movement',
+          name: 'sidebar.fleets.movement.~',
           icon: 'movement',
-          route: '/fleet/movement'
+          route: '/fleet/movement',
+          items: [
+            {
+              name: 'sidebar.fleets.movement.permanent',
+              route: '/fleet/movement'
+            },
+            {
+              name: 'sidebar.fleets.movement.temporary',
+              route: '#'
+            },
+            {
+              name: 'sidebar.fleets.movement.iserve',
+              route: '/fleet/movement/iserve'
+            }
+          ]
         }
       ]
     },

@@ -88,7 +88,8 @@
     "add": "Add",
     "add_supplier":"Add Supplier",
     "add_technician": "Add Technician",
-    "add_location": "Add Location"
+    "add_location": "Add Location",
+    "iserve": "IServe"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -99,7 +100,12 @@
       "accessory": "Accessory",
       "operator": "Operator",
       "organization": "Organization",
-      "movement": "Movement"
+      "movement": {
+        "~": "Movement",
+        "permanent": "Permanent",
+        "temporary": "Temporary",
+        "iserve": "I-Serve"
+      }
     },
     "fuel_management": "Fuel Management",
     "traffic_fine": "Traffic Fine",
@@ -161,7 +167,10 @@
     "paid": "Paid",
     "user": "User",
     "unpainted": "Un Painted",
-    "deducte": "Deducted"
+    "deducte": "Deducted",
+    "pending": "Pending",
+    "complete": "Complete",
+    "cancel": "Cancel"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -180,7 +189,10 @@
     "auction": "Auction",
     "sold": "Sold",
     "asset": "Asset",
-    "sub_asset": "Sub Asset"
+    "sub_asset": "Sub Asset",
+    "map_view": "Map View",
+    "assets": "Assets",
+    "iserve_operator": "Iserv Operators"
   },
   "search": {
     "add": "Add",
@@ -340,6 +352,10 @@
       "intervals":"Intervals",
       "service_task":"Service Tasks",
       "warranty_for":"Warranty For",
+      "from": "From",
+      "to": "To",
+      "damage": "Damage",
+      "traffic_fine": "Traffic Fine",
       "cost_of_part": "Cost of Part",
       "system": "System"
     },
