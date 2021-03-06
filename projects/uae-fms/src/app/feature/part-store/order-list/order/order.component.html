@@ -112,8 +112,10 @@
                     </span>
                 </div>
                 <div class="col-12 col-md-4 d-flex">
-                    <span class="mr-3">{{ 'part_store.order.set_reminder' | translate }}</span>
-                    <p-inputSwitch formControlName="warranty"></p-inputSwitch>
+                    <div class="toggle-select">
+                        <span class="mr-3">{{ 'part_store.order.set_reminder' | translate }}</span>
+                        <p-inputSwitch formControlName="warranty"></p-inputSwitch>
+                    </div>
                 </div>
             </div>
             <div class="row form-section__row">
@@ -128,8 +130,10 @@
     </ng-container>
 
     <div class="form-section form-section--inline d-flex pb-2">
-        <h3 class="form-section__title mr-3">{{ 'part_store.order.set_reminder' | translate }}</h3>
-        <p-inputSwitch formControlName="setReminder"></p-inputSwitch>
+        <div class="toggle-select">
+            <h3 class="form-section__title mr-3">{{ 'part_store.order.set_reminder' | translate }}</h3>
+            <p-inputSwitch formControlName="setReminder"></p-inputSwitch>
+        </div>
     </div>
     
     <div class="component_wrapper p-0 table-container">

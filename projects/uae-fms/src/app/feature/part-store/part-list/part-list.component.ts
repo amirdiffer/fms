@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FilterCardSetting } from '@core/filter';
-import { TableSetting } from '@core/table';
+import { ColumnType, TableSetting } from '@core/table';
 
 @Component({
   selector: 'anms-part-list',
@@ -10,7 +11,9 @@ import { TableSetting } from '@core/table';
 })
 export class PartListComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
+  partList:boolean= true;
   filterCard: FilterCardSetting[] = [
+    
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
@@ -40,15 +43,16 @@ export class PartListComponent implements OnInit {
         renderer: 'thumbTextRenderer',
         thumbField: 'thumbImage'
       },
-      { lable: 'tables.column.quantity', type: 1, field: 'Quantity' },
+      { lable: 'tables.column.quantity', type: 1, field: 'Quantity',sortable: true },
       { lable: 'tables.column.status', type: 1, field: 'Status' },
-      { lable: 'tables.column.total', type: 1, field: 'Total' },
+      { lable: 'tables.column.total', type: 1, width: 120,field: 'Total',sortable: true },
       {
         lable: '',
-        type: 1,
-        field: 'routeLink',
-        width: 50,
-        renderer: 'routeLinkRenderer'
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
     data: [
@@ -58,7 +62,8 @@ export class PartListComponent implements OnInit {
         thumbText: 'Item No 123456',
         Quantity: '1234',
         Status: 'Available',
-        Total: '122234 AED'
+        Total: '122234 AED',
+        statusColor: '#838BCE'
       },
       {
         id: 2,
@@ -66,7 +71,8 @@ export class PartListComponent implements OnInit {
         thumbText: 'Item No 123456',
         Quantity: '1234',
         Status: 'Available',
-        Total: '122234 AED'
+        Total: '122234 AED',
+        statusColor: '#838BCE'
       },
       {
         id: 3,
@@ -74,7 +80,8 @@ export class PartListComponent implements OnInit {
         thumbText: 'Item No 123456',
         Quantity: '1234',
         Status: 'Available',
-        Total: '122234 AED'
+        Total: '122234 AED',
+        statusColor: '#838BCE'
       },
       {
         id: 4,
@@ -82,7 +89,8 @@ export class PartListComponent implements OnInit {
         thumbText: 'Item No 123456',
         Quantity: '1234',
         Status: 'Available',
-        Total: '122234 AED'
+        Total: '122234 AED',
+        statusColor: '#838BCE'
       },
       {
         id: 5,
@@ -90,7 +98,8 @@ export class PartListComponent implements OnInit {
         thumbText: 'Item No 123456',
         Quantity: '1234',
         Status: 'Available',
-        Total: '122234 AED'
+        Total: '122234 AED',
+        statusColor: '#838BCE'
       },
       {
         id: 6,
@@ -98,7 +107,8 @@ export class PartListComponent implements OnInit {
         thumbText: 'Item No 123456',
         Quantity: '1234',
         Status: 'Available',
-        Total: '122234 AED'
+        Total: '122234 AED',
+        statusColor: '#838BCE'
       },
       {
         id: 7,
@@ -106,9 +116,20 @@ export class PartListComponent implements OnInit {
         thumbText: 'Item No 123456',
         Quantity: '1234',
         Status: 'Available',
-        Total: '122234 AED'
+        Total: '122234 AED',
+        statusColor: '#838BCE'
       }
-    ]
+    ],
+    rowSettings: {
+      onClick: (col, data, button?) => {
+        console.log(col, data, button);
+      },
+      floatButton: [
+        {
+          button: 'external',
+        }
+      ]
+    }
   };
   years = [
     { name: 'Year', value: 'null' },
@@ -144,7 +165,18 @@ export class PartListComponent implements OnInit {
     { name: '2006', value: '2006' }
   ];
 
-  constructor() {}
+  constructor(private _activatedRoute:ActivatedRoute , private _router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(typeof this._activatedRoute.snapshot.params.id != 'undefined'){
+      this.partList = false;
+      this.filterCard.unshift({
+        filterTitle: 'statistic.this_month',
+        filterCount: '',
+        filterTagColor: '',
+        isCalendar: true,
+        onActive(index: number) {}
+      })
+    }
+  }
 }

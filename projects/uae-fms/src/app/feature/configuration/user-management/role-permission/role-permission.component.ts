@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { TableSetting } from '@core/table';
+import { ColumnType, TableSetting } from '@core/table';
 import { RolePermissionFacade } from '../../+state/role-permission';
 
 @Component({
@@ -19,10 +19,11 @@ export class RolePermissionComponent implements OnInit {
       { lable: 'tables.column.create', type: 1, field: 'Create' },
       {
         lable: '',
-        type: 1,
-        field: 'external_link',
-        width: 50,
-        renderer: 'externalLinkRenderer'
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
     data: [
@@ -30,45 +31,49 @@ export class RolePermissionComponent implements OnInit {
         Item: 'Name is here',
         View: 'Task Master, Service Shop',
         Edit: 'Body Shop',
-        Create: 'Tire Shop',
-        external_link: 'http://'
+        Create: 'Tire Shop'
       },
       {
         Item: 'Name is here',
         View: 'Task Master, Service Shop',
         Edit: 'Body Shop',
-        Create: 'Tire Shop',
-        external_link: 'http://'
+        Create: 'Tire Shop'
       },
       {
         Item: 'Name is here',
         View: 'Task Master, Service Shop',
         Edit: 'Body Shop',
-        Create: 'Tire Shop',
-        external_link: 'http://'
+        Create: 'Tire Shop'
       },
       {
         Item: 'Name is here',
         View: 'Task Master, Service Shop',
         Edit: 'Body Shop',
-        Create: 'Tire Shop',
-        external_link: 'http://'
+        Create: 'Tire Shop'
       },
       {
         Item: 'Name is here',
         View: 'Task Master, Service Shop',
         Edit: 'Body Shop',
-        Create: 'Tire Shop',
-        external_link: 'http://'
+        Create: 'Tire Shop'
       },
       {
         Item: 'Name is here',
         View: 'Task Master, Service Shop',
         Edit: 'Body Shop',
-        Create: 'Tire Shop',
-        external_link: 'http://'
+        Create: 'Tire Shop'
       }
-    ]
+    ],
+    rowSettings: {
+      onClick: (col, data, button?) => {
+        console.log(col, data, button);
+      },
+      floatButton: [
+        {
+          button: 'external',
+        }
+      ]
+    }
   };
 
   constructor(private facade: RolePermissionFacade) {}
