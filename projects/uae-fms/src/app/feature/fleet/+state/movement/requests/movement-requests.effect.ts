@@ -20,6 +20,20 @@ export class MovementRequestsEffect {
     )
   );
 
+  MovementRequestsStatistics$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(MovementRequestsActions.loadStatistic),
+      mergeMap((action) =>
+        this.service.loadRequestStatistic().pipe(
+          map((data) => MovementRequestsActions.statisticRequestLoaded({ data })),
+          catchError((error) =>
+            of(MovementRequestsActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
   constructor(
     private action$: Actions,
     private service: MovementRequestsService

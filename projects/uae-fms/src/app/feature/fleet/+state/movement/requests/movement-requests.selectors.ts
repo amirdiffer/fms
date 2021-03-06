@@ -9,6 +9,11 @@ export class MovementRequestsSelectors {
     selectAll
   );
 
+  static requestStatistic = createSelector(
+    FleetSelectors.movementRequestsSelector,
+    (state) => state.statistic
+  );
+
   static message = createSelector(
     FleetSelectors.movementRequestsSelector,
     (state) => state.message

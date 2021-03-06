@@ -9,6 +9,8 @@ import { AssetsService } from './assets.service';
 import { TableComponent } from '@core/table';
 import { AssetMasterFacade } from '../+state/assets/asset-master';
 import { Subscription } from 'rxjs';
+import { RegistrationFacade } from '@feature/fleet/+state/assets/registration';
+import { CustomizationFacade } from '@feature/fleet/+state/assets/customization';
 @Component({
   selector: 'anms-assets',
   templateUrl: './assets.component.html',
@@ -19,6 +21,9 @@ export class AssetsComponent implements OnInit, OnDestroy {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
   statisticsSubscription!: Subscription;
+  assetMasterSubscription!: Subscription;
+  registrationSubscription!: Subscription;
+  customizationSubscription!: Subscription;
 
   assetMasterTableSetting;
   pendingRegistrationTableSetting;
@@ -29,13 +34,36 @@ export class AssetsComponent implements OnInit, OnDestroy {
   searchIcon = 'assets/icons/search-solid.svg';
   constructor(
     private _assetsService: AssetsService,
-    private facade: AssetMasterFacade
+    private assetMasterFacade: AssetMasterFacade,
+    private registrationFacade: RegistrationFacade,
+    private customizationFacade: CustomizationFacade
   ) {}
 
   ngOnInit(): void {
-    this.facade.loadStatistics();
+    this.assetMasterFacade.loadAll();
+    this.registrationFacade.loadAll();
+    this.customizationFacade.loadAll();
+    this.assetMasterFacade.loadStatistics();
 
-    this.statisticsSubscription = this.facade.statistics$.subscribe(
+    this.assetMasterSubscription = this.assetMasterFacade.assetMaster$.subscribe(
+      (response) => {
+        console.log(response);
+      }
+    );
+
+    this.registrationSubscription = this.registrationFacade.registration$.subscribe(
+      (response) => {
+        console.log(response);
+      }
+    );
+
+    this.customizationSubscription = this.customizationFacade.customization$.subscribe(
+      (response) => {
+        console.log(response);
+      }
+    );
+
+    this.statisticsSubscription = this.assetMasterFacade.statistics$.subscribe(
       (response) => {
         console.log(response);
       }
@@ -91,6 +119,9 @@ export class AssetsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.assetMasterSubscription?.unsubscribe();
+    this.registrationSubscription?.unsubscribe();
+    this.customizationSubscription?.unsubscribe();
     this.statisticsSubscription?.unsubscribe();
   }
 }
