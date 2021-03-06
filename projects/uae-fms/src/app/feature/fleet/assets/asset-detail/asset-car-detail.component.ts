@@ -2,11 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'anms-asset-detail',
-  templateUrl: './asset-detail.component.html',
-  styleUrls: ['./asset-detail.component.scss'],
+  templateUrl: './asset-car-detail.component.html',
+  styleUrls: ['./asset-car-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AssetDetailComponent implements OnInit {
+export class AssetCarDetailComponent implements OnInit {
   assetDetail = {
     VIN: 'fjhkhfhfhiuwr',
     licensePlate: 123456,

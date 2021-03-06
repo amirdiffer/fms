@@ -33,7 +33,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { AddRequestComponent } from './movement/add-request/add-request.component';
 import { FleetStateModule } from './+state';
 import { PendingRegistrationOverviewComponent } from './assets/pending-registration-overview/pending-registration-overview.component';
-import { AssetDetailComponent } from './assets/asset-detail/asset-detail.component';
+import { AssetCarDetailComponent } from './assets/asset-detail/asset-car-detail.component';
 import { PendingCustomizationOverviewComponent } from './assets/pending-customization-overview/pending-customization-overview.component';
 import { AssetRegistrationConfirmComponent } from './assets/asset-registration-confirm/asset-registration-confirm.component';
 
@@ -53,7 +53,7 @@ import { AssetRegistrationConfirmComponent } from './assets/asset-registration-c
     AddOperatorComponent,
     AddRequestComponent,
     PendingRegistrationOverviewComponent,
-    AssetDetailComponent,
+    AssetCarDetailComponent,
     PendingCustomizationOverviewComponent,
     AssetRegistrationConfirmComponent
   ],
