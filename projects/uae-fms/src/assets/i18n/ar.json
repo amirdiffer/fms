@@ -326,11 +326,15 @@
       "company_name": "اسم الشركة",
       "support_operator": "مشغل الدعم",
       "instruction": "المشغل أو العامل",
+      "book_value":"قيمة الكتاب",
+      "intervals":"فترات",
+      "service_task":"مهمة الخدمة",
+      "warranty_for":"الضمان ل",
+      "out_of_policy": "خارج الوثيقة",
       "category": "فئة",
       "warranty_expire": "انتهاء الضمان",
       "total_cost": "التكلفة إجمالي",
       "storage_location": "مكان التخزين",
-      "out_of_policy": "خارج الوثيقة",
       "established_market_value": "القيمة السوقية الثابتة",
       "remove": "إزالة",
       "gps": "GPS",
@@ -388,7 +392,29 @@
       "title": "تحميل مستند المركبة",
       "progressbar_title": "ملف CSV فقط",
       "content": "سحب وإفلات الملف أو انقر هنا"
-    }
+    },
+    "asset_financial_plan":"الخطة المالية للأصول",
+    "policy_type":"نوع السياسة",
+    "purchase_value":"قيمة الشراء",
+    "life_cycle":"دورة الحياة",
+    "in_service_date":"في تاريخ الخدمة",
+    "in_service_odometer":"عداد المسافات أثناء الخدمة",
+    "upload_purchase_order":"تحميل أمر الشراء",
+    "maintenance_service":"خدمة الصيانة",
+    "periodic_service":"الصيانة الدورية",
+    "warranty_items":"عناصر الضمان",
+    "item":"الصنف",
+    "duration":"المدة",
+    "warranty_start_date":"تاريخ بدء الضمان",
+    "description":"الوصف",
+    "multiple_assets":"أصول متعددة",
+    "single_asset":"أصل واحد",
+    "review_your_plan":"راجع خطتك",
+    "calculate": "احسب",
+    "estimate_market_value":"تقدير القيمة السوقية",
+    "set_reminder":"تعيين تذكير",
+    "week":"أسبوع",
+    "reminder_before":"تذكير من قبل"
   },
   "sub_asset": {
     "sub_asset_specification": "مواصفات الأصل الفرعي",
@@ -884,7 +910,8 @@
       "invalid-email": "عنوان البريد الإلكتروني غير صالح"
     },
     "order": "ترتيب",
-    "upload": "رفع"
+    "upload":"تحميل",
+    "generate":"إنشاء"
   },
   "login": {
     "incorrect_password": "كلمة سر خاطئة",
