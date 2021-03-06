@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
+import { ButtonType } from '@core/table/table.component';
 
 @Component({
   selector: 'anms-order-list',
@@ -84,14 +85,29 @@ export class OrderListComponent implements OnInit {
         field: 'Status',
         renderer: 'statusRenderer'
       },
-      { lable: 'tables.column.cost', type: 1, field: 'Cost' },
-      { lable: 'tables.column.quantity', type: 1, field: 'Quantity' },
+      { lable: 'tables.column.cost', type: 1, field: 'Cost',sortable: true },
+      { lable: 'tables.column.quantity', type: 1, field: 'Quantity',sortable: true },
       { lable: 'tables.column.department', type: 1, field: 'Department' },
       { lable: 'tables.column.description', type: 1, field: 'Description' },
       { lable: 'tables.column.date', type: 1, field: 'Date' },
       { lable: 'tables.column.total', type: 1, field: 'Total' },
-      { lable: '', type: 1, field: 'ButtonReject', renderer: 'buttonRenderer' },
-      { lable: '', type: 1, field: 'ButtonApprove', renderer: 'buttonRenderer' }
+      {
+        lable: '',
+        type: 1,
+        field: 'ButtonReject',
+        renderer: 'button',
+        buttonType: ButtonType.reject,
+        showOnHover: true,
+        sortable: true
+      },
+      {
+        lable: '',
+        type: 1,
+        field: 'ButtonApprove',
+        renderer: 'button',
+        buttonType: ButtonType.approve,
+        showOnHover: true
+      }
     ],
     data: [
       {
@@ -226,7 +242,7 @@ export class OrderListComponent implements OnInit {
     columns: [
       { lable: 'tables.column.item', type: 1, field: 'Item' },
       { lable: 'tables.column.part_id', type: 1, field: 'Part_ID' },
-      { lable: 'tables.column.quantity', type: 1, field: 'Quantity' },
+      { lable: 'tables.column.quantity', type: 1, field: 'Quantity' ,sortable: true},
       { lable: 'tables.column.date', type: 1, field: 'Date' },
       { lable: 'tables.column.description', type: 1, field: 'Description' },
       {
@@ -234,15 +250,22 @@ export class OrderListComponent implements OnInit {
         type: 1,
         field: 'Expected_Receive_date'
       },
-      { lable: 'tables.column.cost', type: 1, field: 'Cost' },
-      { lable: 'tables.column.total', type: 1, field: 'Total' },
+      { lable: 'tables.column.cost', type: 1, field: 'Cost' ,sortable: true},
+      { lable: 'tables.column.total', type: 1, field: 'Total',sortable: true },
       {
         lable: 'tables.column.status',
         type: 1,
         field: 'Status',
         renderer: 'statusRenderer'
       },
-      { lable: '', type: 1, field: 'ButtonRecived', renderer: 'buttonRenderer' }
+      {
+        lable: '',
+        type: 1,
+        field: 'ButtonRecived',
+        renderer: 'button',
+        buttonType: ButtonType.receive,
+        showOnHover: true
+      }
     ],
     data: [
       {
@@ -371,7 +394,7 @@ export class OrderListComponent implements OnInit {
       { lable: 'tables.column.email', type: 1, field: 'Email' },
       { lable: 'tables.column.phone', type: 1, field: 'Phone' },
       { lable: 'tables.column.address', type: 1, field: 'Address' },
-      { lable: 'tables.column.quotation', type: 1, field: 'Quotation' }
+      { lable: 'tables.column.quotation', type: 1, field: 'Quotation',sortable: true }
     ],
     data: [
       {

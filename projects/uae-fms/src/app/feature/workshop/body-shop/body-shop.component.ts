@@ -8,6 +8,7 @@ import {
   BodyShopTechnicianFacade
 } from '../+state/body-shop';
 import { Event, Router } from '@angular/router';
+import { ButtonType } from '@core/table/table.component';
 @Component({
   templateUrl: './body-shop.component.html',
   styleUrls: ['./body-shop.component.scss'],
@@ -91,7 +92,8 @@ export class BodyShopComponent implements OnInit {
         field: '',
         type: ColumnType.lable,
         width: 120,
-        renderer: 'jobCard'
+        renderer: 'button',
+        buttonType: ButtonType.jobCard
       }
     ],
     data: [
@@ -239,6 +241,14 @@ export class BodyShopComponent implements OnInit {
         lable: 'tables.column.workshop_manager_approval',
         field: 'workshopManagerApproval',
         type: ColumnType.lable
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
     data: [
@@ -340,7 +350,17 @@ export class BodyShopComponent implements OnInit {
         cost: '30.000 AED',
         workshopManagerApproval: 'Approved'
       }
-    ]
+    ],
+    rowSettings: {
+      onClick: (col, data) => {
+        console.log(col, data);
+      },
+      floatButton: [
+        {
+          button: 'external',
+        }
+      ]
+    }
   };
 
   table3Setting: TableSetting = {

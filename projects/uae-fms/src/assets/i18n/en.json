@@ -82,10 +82,14 @@
     "add_fuel_card": "Add Fuel Card",
     "add_asset_usage": "Add Asset Usage",
     "add_toll": "Add Toll",
+    "add_user": "Add User",
     "profile": "Profile",
+    "integration": "Integration",
     "add": "Add",
+    "add_supplier":"Add Supplier",
     "add_technician": "Add Technician",
-    "add_location": "Add Location"
+    "add_location": "Add Location",
+    "iserve": "IServe"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -96,7 +100,12 @@
       "accessory": "Accessory",
       "operator": "Operator",
       "organization": "Organization",
-      "movement": "Movement"
+      "movement": {
+        "~": "Movement",
+        "permanent": "Permanent",
+        "temporary": "Temporary",
+        "iserve": "I-Serve"
+      }
     },
     "fuel_management": "Fuel Management",
     "traffic_fine": "Traffic Fine",
@@ -158,7 +167,10 @@
     "paid": "Paid",
     "user": "User",
     "unpainted": "Un Painted",
-    "deducte": "Deducted"
+    "deducte": "Deducted",
+    "pending": "Pending",
+    "complete": "Complete",
+    "cancel": "Cancel"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -177,7 +189,10 @@
     "auction": "Auction",
     "sold": "Sold",
     "asset": "Asset",
-    "sub_asset": "Sub Asset"
+    "sub_asset": "Sub Asset",
+    "map_view": "Map View",
+    "assets": "Assets",
+    "iserve_operator": "Iserv Operators"
   },
   "search": {
     "add": "Add",
@@ -191,6 +206,7 @@
   },
   "tables": {
     "column": {
+      "sub_asset_type": "Sub Asset Type",
       "suppliers": "Suppliers",
       "name": "Name",
       "total_sub_asset": "Total Sub Asset",
@@ -331,7 +347,17 @@
       "gps": "GPS",
       "removal_items": "Removal Items",
       "by": "By",
-      "vehicle": "Vehicle"
+      "vehicle": "Vehicle",
+      "book_value":"‌Book Value",
+      "intervals":"Intervals",
+      "service_task":"Service Tasks",
+      "warranty_for":"Warranty For",
+      "from": "From",
+      "to": "To",
+      "damage": "Damage",
+      "traffic_fine": "Traffic Fine",
+      "cost_of_part": "Cost of Part",
+      "system": "System"
     },
     "button": {
       "view_report": "View Report",
@@ -381,7 +407,29 @@
       "title": "Upload Vehicle Document",
       "progressbar_title": "CSV File Only",
       "content": "Drag and Drop file or click here"
-    }
+    },
+    "asset_financial_plan":"Asset Financial Plan",
+    "policy_type":"Policy Type",
+    "purchase_value":"Purchase Value",
+    "life_cycle":"Life Cycle",
+    "in_service_date":"In-Service Date",
+    "in_service_odometer":"In-Service Odometer",
+    "upload_purchase_order":"Upload Purchase Order",
+    "maintenance_service":"Maintenance Service",
+    "periodic_service":"Periodic Service",
+    "warranty_items":"Warranty Items",
+    "item":"Item",
+    "duration":"Duration",
+    "warranty_start_date":"Warranty Start Date",
+    "description":"Description",
+    "multiple_assets":"Multiple Assets",
+    "single_asset":"Single Asset",
+    "review_your_plan":"Review Your Plan",
+    "calculate": "Calculate",
+    "estimate_market_value": "Established Market Value",
+    "set_reminder":"Set Reminder",
+    "week":"Week",
+    "reminder_before":"Reminder Before"
   },
   "sub_asset": {
     "sub_asset_specification": "Sub Asset Specification",
@@ -536,7 +584,13 @@
     "order_list": {
       "request_list": "Request List",
       "my_order": "My Order",
-      "suppliers": "Suppliers"
+      "suppliers": "Suppliers",
+      "add_supplier":"Add Supplier",
+      "company":"Company",
+      "name":"Name",
+      "phone":"Phone",
+      "email":"Email",
+      "address":"Address"
     },
     "part_master": {
       "asset_type": "Asset Type",
@@ -702,6 +756,7 @@
       "description": "Description",
       "car_card": "Car Card",
       "asset_policy": "Asset Policy",
+      "make_decision": "Make Decision",
       "upload_form": {
         "title": "Attach Docs",
         "progressbar_title": "",
@@ -878,7 +933,8 @@
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"
     },
-    "upload": "Upload"
+    "upload":"Upload",
+    "generate":"Generate"
   },
   "login": {
     "fleet": "Fleet",
@@ -895,8 +951,9 @@
   "buttons": {
     "reject": "Reject",
     "approve": "Approve",
-    "recived": "Recived",
-    "confirm": "Confirm"
+    "receive": "Receive",
+    "confirm": "Confirm",
+    "make_decision": "Make Decision"
   },
   "filter": {
     "asset_category": "Asset Category",
