@@ -7,15 +7,20 @@ import { PartListComponent } from './part-list/part-list.component';
 import { AddPartMasterComponent } from './part-master/add-part-master/add-part-master.component';
 import { OrderFormComponent } from './order-list/order/order.component';
 import { PartMasterComponent } from './part-master/part-master.component';
+import { PartDetailListComponent } from './part-list/part-detail-list/part-detail-list.component';
+import { SuppliersAddFormComponent } from './order-list/suppliers-add-form/suppliers-add-form.component';
 
 const routes: Routes = [
   { path: 'part-list/add', component: PartListFormComponent },
-  { path: 'part-list', component: PartListComponent },
-  { path: 'part-list/:id', component: PartOverviewComponent },
+  { path: 'part-list', component: PartListComponent},
+  { path: 'part-list/:id', component: PartListComponent , children:[
+    {path:'' , component: PartDetailListComponent}]},
+  { path: 'part-list/:id/:id', component: PartOverviewComponent },
   { path: 'part-master', component: PartMasterComponent },
   { path: 'part-master/add', component: AddPartMasterComponent },
   { path: 'order-list', component: OrderListComponent },
   { path: 'order-list/add-order-list', component: OrderFormComponent },
+  { path :'order-list/add-supplier' , component:SuppliersAddFormComponent},
   {
     path: '',
     pathMatch: 'full',
