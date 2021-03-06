@@ -14,10 +14,13 @@ export class TollFacade {
 
   assignNow$ = this.store.pipe(select(TollSelectors.assignNow));
 
+  statistic$ = this.store.pipe(select(TollSelectors.tollStatistic))
+
   constructor(private store: Store<TollPartialState>) {}
 
   loadAll() {
     this.store.dispatch(TollActions.loadAll());
+    this.store.dispatch(TollActions.loadStatistic())
   }
 
   loadAssignNow(data) {

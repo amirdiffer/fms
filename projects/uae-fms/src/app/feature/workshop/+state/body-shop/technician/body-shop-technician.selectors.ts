@@ -1,11 +1,12 @@
 import { createSelector } from '@ngrx/store';
 import { WorkshopSelectors } from '../../workshop.selectors';
 import { bodyShopTechnicianAdapter } from './body-shop-technician.entity';
+const { selectAll } = bodyShopTechnicianAdapter.getSelectors();
 
 export class BodyShopTechnicianSelectors {
   static selectAll = createSelector(
     WorkshopSelectors.bodyshopTechnicianSelector,
-    bodyShopTechnicianAdapter.setAll
+    selectAll
   );
 
   static message = createSelector(

@@ -1,26 +1,10 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { ITrafficFine } from '@models/traffic-fine';
 
 export const TRAFFIC_FINES_TRAFFIC_FINE_TABLE_FEATURE_KEY = 'trafficFineTable';
 
-export interface TrafficFineTableStateModel {
-  tcCode: string;
-  type: string;
-  department: string;
-  operatorItem: {
-    name: string;
-    number: string;
-  };
-  plateNo: string;
-  missionStatus: string;
-  timeDate: string;
-  duration: string;
-  status: string;
-  user: string;
-  amount: string;
-}
-
 export interface TrafficFineTableState
-  extends EntityState<TrafficFineTableStateModel> {
+  extends EntityState<ITrafficFine> {
   error?: any;
   loaded?: boolean;
   message?: string;
@@ -30,8 +14,8 @@ export interface TrafficFineTablePartialState {
   [TRAFFIC_FINES_TRAFFIC_FINE_TABLE_FEATURE_KEY]: TrafficFineTableState;
 }
 
-export const trafficFineTableAdapter: EntityAdapter<TrafficFineTableStateModel> = createEntityAdapter<
-  TrafficFineTableStateModel
+export const trafficFineTableAdapter: EntityAdapter<ITrafficFine> = createEntityAdapter<
+  ITrafficFine
 >();
 
 export const initialState: TrafficFineTableState = trafficFineTableAdapter.getInitialState(

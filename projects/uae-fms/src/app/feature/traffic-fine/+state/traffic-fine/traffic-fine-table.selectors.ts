@@ -1,11 +1,12 @@
 import { createSelector } from '@ngrx/store';
 import { TrafficFinesSelectors } from '../traffic-fines.selectors';
 import { trafficFineTableAdapter } from './traffic-fine-table.entity';
+const { selectAll } = trafficFineTableAdapter.getSelectors();
 
 export class TrafficFineTableSelectors {
   static selectAll = createSelector(
     TrafficFinesSelectors.trafficFineTableSelector,
-    trafficFineTableAdapter.setAll
+    selectAll
   );
 
   static message = createSelector(

@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AssetTypeStateModel } from './asset-type.entity';
+import { environment } from '@environments/environment';
+import { ResponseBody } from '@models/response-body';
+import { IAssetType } from '@models/asset-type.model';
 
 @Injectable()
 export class AssetTypeService {
   constructor(private http: HttpClient) {}
 
-  loadAll(): Observable<AssetTypeStateModel[]> {
-    return this.http.get<AssetTypeStateModel[]>('');
+  loadAll(): Observable<ResponseBody<IAssetType[]>> {
+    return this.http.get<ResponseBody<IAssetType[]>>(
+      environment.baseApiUrl + '/configuration/asset-type'
+    );
   }
 }

@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { TollFacade } from '../toll/+state';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'anms-toll',
@@ -8,10 +9,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./toll.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TollComponent implements OnInit {
+export class TollComponent implements OnInit , OnDestroy{
   tableSetting;
   tableData: ITableData[];
   filterSetting = [];
+  statistic$ : Subscription;
   searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn = 'assets/icons/download-solid.svg';
   assignForm: object|null = null;
@@ -41,6 +43,9 @@ export class TollComponent implements OnInit {
       this.assignForm = x;
       x!=null ? this.form.patchValue(this.assignForm): null;
     });
+    this.facade.statistic$.subscribe((data) => {
+      console.log(data);
+    })
     this.tableData = [
       {
         tag: '123456789',
@@ -136,6 +141,9 @@ export class TollComponent implements OnInit {
       return false
     else
       return Object.keys(this.assignForm).length > 1;
+  }
+  ngOnDestroy ():void{
+    this.statistic$.unsubscribe()
   }
 
 }
