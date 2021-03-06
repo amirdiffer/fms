@@ -35,7 +35,7 @@ export class FuelManagementComponent implements OnInit {
     }
   ];
 
-  assetUsageTableData= [
+  assetUsageTableData = [
     {
       asset: {
         img: 'thumb1.png',
@@ -134,222 +134,222 @@ export class FuelManagementComponent implements OnInit {
     }
   ];
   assetUsageTableSetting = {
-    columns:[
+    columns: [
       {
-        lable: 'Asset',
+        lable: 'tables.column.asset',
         field: 'asset',
-        width:'17em',
+        width: '17em',
         type: ColumnType.lable,
         thumbField: '',
         renderer: 'assetsRenderer'
       },
       {
-        lable: 'Plate Number',
+        lable: 'tables.column.plate_number',
         field: 'plateNumber',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Tag No',
+        lable: 'tables.column.tag_no',
         field: 'tagNo',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Date',
+        lable: 'tables.column.date',
         field: 'date',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Amount',
+        lable: 'tables.column.amount',
         field: 'amount',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Mileage',
+        lable: 'tables.column.mileage',
         field: 'mileage',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Total Usage',
+        lable: 'tables.column.total_usage',
         field: 'totalUsage',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Cost',
+        lable: 'tables.column.cost',
         field: 'cost',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Card Type',
+        lable: 'tables.column.card_type',
         field: 'cardType',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
-      },
+      }
     ],
-    data:this.assetUsageTableData
-  }
-  fuelCardTableData =[
+    data: this.assetUsageTableData
+  };
+  fuelCardTableData = [
     {
-      tagNo:{
-        tagNo:'0550550505050',
-        data:[
+      tagNo: {
+        tagNo: '0550550505050',
+        data: [
           {
-            litters:'50',
-            km:'10',
-            day:'Saturday',
-            date:'02/02/2020',
-            time:'2:00 PM'
+            litters: '50',
+            km: '10',
+            day: 'Saturday',
+            date: '02/02/2020',
+            time: '2:00 PM'
           },
           {
-            litters:'50',
-            km:'10',
-            day:'Saturday',
-            date:'02/02/2020',
-            time:'2:00 PM'
+            litters: '50',
+            km: '10',
+            day: 'Saturday',
+            date: '02/02/2020',
+            time: '2:00 PM'
           },
           {
-            litters:'50',
-            km:'10',
-            day:'Saturday',
-            date:'02/02/2020',
-            time:'2:00 PM'
+            litters: '50',
+            km: '10',
+            day: 'Saturday',
+            date: '02/02/2020',
+            time: '2:00 PM'
           }
         ]
       },
-      used:'100 Litters',
-      usageLimit:'400 Litters',
-      asset:'Item no 123456',
-      cardType:'RFID-ENOC',
-      expire:'02/02/2020'
+      used: '100 Litters',
+      usageLimit: '400 Litters',
+      asset: 'Item no 123456',
+      cardType: 'RFID-ENOC',
+      expire: '02/02/2020'
     },
     {
-      tagNo:{
-        tagNo:'0550550505050',
-        data:[
+      tagNo: {
+        tagNo: '0550550505050',
+        data: [
           {
-            litters:'50',
-            km:'10',
-            day:'Saturday',
-            date:'02/02/2020',
-            time:'2:00 PM'
+            litters: '50',
+            km: '10',
+            day: 'Saturday',
+            date: '02/02/2020',
+            time: '2:00 PM'
           },
           {
-            litters:'50',
-            km:'10',
-            day:'Saturday',
-            date:'02/02/2020',
-            time:'2:00 PM'
+            litters: '50',
+            km: '10',
+            day: 'Saturday',
+            date: '02/02/2020',
+            time: '2:00 PM'
           },
           {
-            litters:'50',
-            km:'10',
-            day:'Saturday',
-            date:'02/02/2020',
-            time:'2:00 PM'
+            litters: '50',
+            km: '10',
+            day: 'Saturday',
+            date: '02/02/2020',
+            time: '2:00 PM'
           }
         ]
       },
-      used:'100 Litters',
-      usageLimit:'400 Litters',
-      asset:'Item no 123456',
-      cardType:'RFID-ENOC',
-      expire:'02/02/2020'
+      used: '100 Litters',
+      usageLimit: '400 Litters',
+      asset: 'Item no 123456',
+      cardType: 'RFID-ENOC',
+      expire: '02/02/2020'
     },
     {
-      tagNo:{
-        tagNo:'0550550505050',
-        data:[
+      tagNo: {
+        tagNo: '0550550505050',
+        data: [
           {
-            litters:'50',
-            km:'10',
-            day:'Saturday',
-            date:'02/02/2020',
-            time:'2:00 PM'
+            litters: '50',
+            km: '10',
+            day: 'Saturday',
+            date: '02/02/2020',
+            time: '2:00 PM'
           },
           {
-            litters:'50',
-            km:'10',
-            day:'Saturday',
-            date:'02/02/2020',
-            time:'2:00 PM'
+            litters: '50',
+            km: '10',
+            day: 'Saturday',
+            date: '02/02/2020',
+            time: '2:00 PM'
           },
           {
-            litters:'50',
-            km:'10',
-            day:'Saturday',
-            date:'02/02/2020',
-            time:'2:00 PM'
+            litters: '50',
+            km: '10',
+            day: 'Saturday',
+            date: '02/02/2020',
+            time: '2:00 PM'
           }
         ]
       },
-      used:'100 Litters',
-      usageLimit:'400 Litters',
-      asset:'Item no 123456',
-      cardType:'RFID-ENOC',
-      expire:'02/02/2020'
+      used: '100 Litters',
+      usageLimit: '400 Litters',
+      asset: 'Item no 123456',
+      cardType: 'RFID-ENOC',
+      expire: '02/02/2020'
     }
-  ]
+  ];
   fuelCardsTableSetting = {
     columns: [
       {
-        lable: 'Tag No',
+        lable: 'tables.column.tag_no',
         field: 'tagNo',
         type: ColumnType.lable,
         thumbField: '',
         renderer: 'fuelCardRenderer'
       },
       {
-        lable: 'Used',
+        lable: 'tables.column.used',
         field: 'used',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Usage Limit',
+        lable: 'tables.column.usage_limit',
         field: 'usageLimit',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Asset',
+        lable: 'tables.column.asset',
         field: 'asset',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Card Type',
+        lable: 'tables.column.card_type',
         field: 'cardType',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Card Type',
+        lable: 'tables.column.expire_date',
         field: 'expire',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
-      },
+      }
     ],
     data: this.fuelCardTableData
-  }
+  };
 
   constructor(
     private _facadeFuelCard: FuelCardsFacade,
