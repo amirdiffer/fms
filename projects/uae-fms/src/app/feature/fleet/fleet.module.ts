@@ -67,7 +67,7 @@ import { IservComponent } from './movement/iserv/iserv.component';
     MatStepperModule,
     CdkStepperModule,
     SharedModule,
-    FleetStateModule
+    FleetStateModule,
   ]
 })
 export class FleetModule {}
