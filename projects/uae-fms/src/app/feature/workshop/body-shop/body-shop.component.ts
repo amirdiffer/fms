@@ -241,6 +241,14 @@ export class BodyShopComponent implements OnInit {
         lable: 'tables.column.workshop_manager_approval',
         field: 'workshopManagerApproval',
         type: ColumnType.lable
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
     data: [
@@ -342,7 +350,17 @@ export class BodyShopComponent implements OnInit {
         cost: '30.000 AED',
         workshopManagerApproval: 'Approved'
       }
-    ]
+    ],
+    rowSettings: {
+      onClick: (col, data) => {
+        console.log(col, data);
+      },
+      floatButton: [
+        {
+          button: 'external',
+        }
+      ]
+    }
   };
 
   table3Setting: TableSetting = {

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterCardSetting } from '@core/filter';
-import { TableSetting } from '@core/table';
+import { ColumnType, TableSetting } from '@core/table';
 
 @Component({
   selector: 'anms-part-list',
@@ -48,10 +48,11 @@ export class PartListComponent implements OnInit {
       { lable: 'tables.column.total', type: 1, width: 120,field: 'Total',sortable: true },
       {
         lable: '',
-        type: 1,
-        field: 'routeLink',
-        width: 50,
-        renderer: 'routeLinkRenderer'
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
     data: [
@@ -120,9 +121,14 @@ export class PartListComponent implements OnInit {
       }
     ],
     rowSettings: {
-      onClick: (col, data) => {
-        this._router.navigate([data.id] , {relativeTo: this._activatedRoute})
-      }
+      onClick: (col, data, button?) => {
+        console.log(col, data, button);
+      },
+      floatButton: [
+        {
+          button: 'external',
+        }
+      ]
     }
   };
   years = [
