@@ -67,7 +67,7 @@ import { OverViewOperatorComponent } from './operator/over-view-operator/over-vi
     MatStepperModule,
     CdkStepperModule,
     SharedModule,
-    FleetStateModule
+    FleetStateModule,
   ]
 })
 export class FleetModule {}

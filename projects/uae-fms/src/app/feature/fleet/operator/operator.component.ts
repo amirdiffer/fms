@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { assetsPath } from '@environments/environment';
-import { TableSetting } from '@core/table';
+import { ColumnType, TableSetting } from '@core/table';
 import { OperatorFacade } from '../+state/operator';
 
 @Component({
@@ -107,6 +107,14 @@ export class OperatorComponent implements OnInit {
         type: 1,
         field: 'TF_Unpaid',
         width: 100
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
     data: [
@@ -229,8 +237,38 @@ export class OperatorComponent implements OnInit {
         TF_PAid: '14',
         TF_Unpaid: '0',
         statusColor: '#81B29A'
+      },
+      {
+        picture: 'user-image.png',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        asset: {
+          img: 'thumb1.png',
+          assetName: 'Asset Name',
+          assetSubName: 'DPD 0000001',
+          ownership: 'Owned'
+        },
+        Organization: { line1: 'Department Name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
+        Type: 'Iserve',
+        Status: 'Active',
+        Asset: '',
+        TF_PAid: '14',
+        TF_Unpaid: '0',
+        statusColor: '#81B29A'
       }
-    ]
+    ],
+    rowSettings: {
+      onClick: (col, data, button?) => {
+        console.log(col, data, button);
+      },
+      floatButton: [
+        {
+          button: 'external',
+        }
+      ]
+    }
   };
 
   constructor(private _operatorFacade: OperatorFacade) {}
