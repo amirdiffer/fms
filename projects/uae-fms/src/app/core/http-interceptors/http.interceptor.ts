@@ -4,8 +4,7 @@ import {
   HttpInterceptor as HttpInterceptorBase,
   HttpHandler,
   HttpRequest,
-  HttpErrorResponse,
-  HttpHeaders
+  HttpErrorResponse, HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';

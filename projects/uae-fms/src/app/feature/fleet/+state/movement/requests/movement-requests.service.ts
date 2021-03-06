@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IMovementRequest } from '@models/movement'
-import { environment } from '@environments/environment';
 import { ResponseBody } from '@models/responseBody';
+import { IMovementStatistics } from '@models/statistics';
+import { environment } from '@environments/environment';
 
 @Injectable()
 export class MovementRequestsService {
@@ -14,4 +15,11 @@ export class MovementRequestsService {
       environment.baseApiUrl + 'movement/request'
     );
   }
+
+  loadRequestStatistic(): Observable<IMovementStatistics> {
+    return this.http.get<IMovementStatistics>(
+      environment.baseApiUrl + 'movement/stats'
+    );
+  }
+
 }
