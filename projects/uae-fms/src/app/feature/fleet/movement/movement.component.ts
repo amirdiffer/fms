@@ -59,7 +59,7 @@ export class MovementComponent implements OnInit, AfterViewChecked {
     rejectCol.onClick = this.rejectRow();
     this.filterSetting = [
       {
-        filterTitle: 'statistic.Total',
+        filterTitle: 'statistic.total',
         filterCount: '36',
         filterTagColor: '#B892FF'
       },
