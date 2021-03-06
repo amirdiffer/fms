@@ -1,4 +1,5 @@
 {
+  "projectName": "Fleet Management Service",
   "profile": {
     "notification_types": "Notification Types",
     "email": "Email",
@@ -34,6 +35,59 @@
     "logout": "Logout",
     "organization": "Organization",
     "phone_number": "Phone Number"
+  },
+  "breadcrumb": {
+    "dashboard": "Dashboard",
+    "fleet": "Fleet",
+    "assets": "Assets",
+    "sub_asset": "Sub Assets",
+    "accessory": "Accessory",
+    "operator": "Operator",
+    "organization": "Organization",
+    "movement": "Movement",
+    "fuel_management": "Fuel Management",
+    "traffic_file": "Traffic Fine",
+    "toll": "Toll",
+    "workshop": "Workshop",
+    "body_shop": "Body Shop",
+    "service_shop": "Service Shop",
+    "inspections": "Inspections",
+    "technical_inspection": "Technical Inspection",
+    "auction_list": "Auction List",
+    "task_master": "Task Master",
+    "part_store": "Part Store",
+    "part_list": "Part List",
+    "order_list": "Order List",
+    "part_master": "Part Master",
+    "report": "Reports",
+    "configuration": "Configuration",
+    "user_management": "User Management",
+    "role_permission": "Role and Permission",
+    "users": "Users",
+    "company_profile": "Company Profile",
+    "asset_policy": "Asset Policy",
+    "asset_configuration": "Asset Configuration",
+    "business_category": "Business Category",
+    "ownership": "Ownership",
+    "fleet_status": "Fleet Status",
+    "periodic_service": "Periodic Service",
+    "integrations": "Integrations",
+    "add_new_sub_asset": "Add New Sub Asset",
+    "add_request": "Add Request",
+    "add_organization": "Add Organization",
+    "add_periodic_service": "Add periodic Service",
+    "add_category": "Add Category",
+    "add_fleet_status": "Add Fleet Status",
+    "add_order_list": "Add Order List",
+    "add_fuel_card": "Add Fuel Card",
+    "add_asset_usage": "Add Asset Usage",
+    "add_toll": "Add Toll",
+    "add_user": "Add User",
+    "profile": "Profile",
+    "integration": "Integration",
+    "add": "Add",
+    "add_technician": "Add Technician",
+    "add_location": "Add Location"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -104,8 +158,9 @@
     "out_of_policy": "Out Of Policy",
     "total_lost": "Total Lost",
     "paid": "Paid",
-    "unpainted": "UnPainted",
-    "deducte": "Deducte"
+    "user": "User",
+    "unpainted": "Un Painted",
+    "deducte": "Deducted"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -138,6 +193,7 @@
   },
   "tables": {
     "column": {
+      "sub_asset_type": "Sub Asset Type",
       "suppliers": "Suppliers",
       "name": "Name",
       "total_sub_asset": "Total Sub Asset",
@@ -267,6 +323,10 @@
       "phone_number": "Phone Number",
       "company_name": "Company Name",
       "support_operator": "Support Operator",
+      "category": "Category",
+      "warranty_expire": "Warranty Expire",
+      "total_cost": "Total Cost",
+      "storage_location": "Storage Location",
       "instruction": "Instrunction",
       "out_of_policy": "Out of Policy",
       "established_market_value": "Established Market Value",
@@ -365,6 +425,7 @@
     "section": "Section",
     "authorized": "Authorized",
     "expiry_license": "Expiry License",
+    "personal_information": "Personal Information",
     "first_name": "First Name",
     "last_name": "Last Name",
     "email": "Email",
@@ -401,12 +462,34 @@
       "request_type": "Request Type",
       "new": "New",
       "replacement": "Replacement",
-      "reason": "Reason"
+      "reason": "Reason",
+      "asset_information": "Asset Information",
+      "user_information": "User Information",
+      "movement_information": "Movement Information",
+      "fuel_card": "Fuel Card",
+      "asset": "Asset",
+      "department": "Department",
+      "operator": "Operator",
+      "comment": "Comment",
+      "temporary": "Temporary",
+      "permanent": "Permanent",
+      "start_date": "Start Date",
+      "end_date": "End Date",
+      "time": "Time",
+      "gps_master_source": "GPS Master Source",
+      "manual_update": "Manual Update",
+      "send_notification": "Send Notification",
+      "yes": "Yes",
+      "no": "No",
+      "s_n": "S/N",
+      "save_assignment": "Save Assignment",
+      "cancel": "Cancel"
     }
   },
   "fuel_management": {
     "fuel_cards": {
       "request_type": "Request Type",
+      "tag_number": "Tag Number",
       "assign_to": "Assign To",
       "asset": "Asset",
       "card_type": "Card Type",
@@ -419,6 +502,10 @@
     "asset_traffic_file": {}
   },
   "toll": {
+    "toll_info": "Toll Info",
+    "toll_tag": "Toll Tag",
+    "purchase_date": "Purchase Date",
+    "assign_to": "Assign To",
     "upload_form": {
       "title": "Upload CSV File of Toll",
       "progressbar_title": "CSV File Only",
@@ -427,7 +514,7 @@
     }
   },
   "part_store": {
-    "parts_list": {
+    "part_list": {
       "asset_type": "Asset Type",
       "category": "Category",
       "item_info": "Item Info",
@@ -438,7 +525,13 @@
       "quantity": "Quantity",
       "price": "Price",
       "warranty_expire_date": "Warranty Expire Date",
-      "description": "Description"
+      "warranty_expire": "Warranty Expire",
+      "description": "Description",
+      "total_cost": "Total Cost",
+      "room": "Room",
+      "aisle": "Aisle",
+      "shelf": "Shelf",
+      "box": "Box"
     },
     "order_list": {
       "request_list": "Request List",
@@ -458,11 +551,14 @@
       "short_code": "Short Code",
       "category_name": "Category Name",
       "item_name": "Item Name",
+      "filter_and_fuel_pump": "Filter, fuel pump",
       "upload_form": {
         "title": "",
         "progressbar_title": ".pdf",
         "content": "Drag and Drop a Item picture or click here"
-      }
+      },
+      "engine": "Engine",
+      "filters": "Filters"
     },
     "reports": {},
     "integration": {
@@ -484,7 +580,16 @@
       "select_item_category": "Select Item Category",
       "select_item": "Select Item",
       "supplier": "Supplier"
+    },
+    "part_overview": {
+      "item_no": "Item No"
     }
+  },
+  "reports": {},
+  "integration": {
+    "type": "Type",
+    "company_name": "Company Name",
+    "grp": "GRP"
   },
   "workshop": {
     "body_shop": {
@@ -597,6 +702,7 @@
       "description": "Description",
       "car_card": "Car Card",
       "asset_policy": "Asset Policy",
+      "make_decision": "Make Decision",
       "upload_form": {
         "title": "Attach Docs",
         "progressbar_title": "",
@@ -668,7 +774,7 @@
         "deprecation_value": "% Deprecation Value",
         "yearly": "Yearly",
         "set_reminder_before": "Set Reminder Before",
-        "or" : "Or"
+        "or": "Or"
       },
       "sub_asset": {
         "this_policy_is_for": "This Policy Is For",
@@ -683,7 +789,22 @@
         "set_reminder_before": "Set Reminder Before"
       }
     },
-    "asset_configuration": {},
+    "asset_configuration": {
+      "make_and_model_info": "Make And Model Info",
+      "multiple_model": "Multiple Model",
+      "single_model": "Single Model",
+      "select_model": "Select Model",
+      "model": "Model",
+      "drag_and_drop_a_csv_file_or": "Drag and drop a CSV file or",
+      "click_here": "Click here",
+      "description": "Description",
+      "active_type": "Active Type",
+      "type_name": "Type Name",
+      "accessory": "Accessory",
+      "sub_asset": "Sub Asset",
+      "asset": "Asset",
+      "type_category": "Type Category"
+    },
     "business_category": {
       "business_category_info": "Business Category Info",
       "assign_sub_asset": "Assign Sub Asset",
@@ -747,6 +868,11 @@
     "create": "Create",
     "archive": "Archive",
     "approval": "Approval",
+    "confirm": "Confirm",
+    "reject": "Reject",
+    "approve": "Approve",
+    "recived": "Recived",
+    "assign": "Assign",
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"
@@ -756,16 +882,31 @@
     "fleet": "Fleet",
     "management": "Management",
     "service": "Service",
+    "system": "System",
     "incorrect_username": "Incorrect Username",
     "user_name": "User Name",
     "password": "Password",
     "incorrect_password": "Incorrect Password",
-    "login": "Login"
+    "login": "Login",
+    "title": "Fleet Management System"
   },
-  "buttons":{
-    "reject":"Reject",
-    "approve":"Approve",
-    "recived":"Recived",
-    "confirm":"Confirm"
+  "buttons": {
+    "reject": "Reject",
+    "approve": "Approve",
+    "receive": "Receive",
+    "confirm": "Confirm",
+    "make_decision": "Make Decision"
+  },
+  "filter": {
+    "asset_category": "Asset Category",
+    "asset": "Asset",
+    "sub_asset": "Sub Asset",
+    "accessory": "Accessory",
+    "asset_type": "Asset Type",
+    "car": "Car",
+    "bus": "Bus",
+    "bicycle": "Bicycle",
+    "boat": "Boat",
+    "add_type": "Add Type"
   }
 }

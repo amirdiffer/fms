@@ -2,10 +2,12 @@
   <div class="col-12">
     <form>
       <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">Cancel</button>
-        <button class="btn-primary-medium add">Add</button>
+        <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{ 'forms.cancel' | translate }}</button>
+        <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate }}</button>
+        <button class="btn-primary-medium add" *ngIf="stepper.selectedIndex != 3"  (click)="next()">{{ 'forms.next' | translate }}</button>
+        <button *ngIf="stepper.selectedIndex == 3" class="btn-primary-medium add">{{ 'forms.upload' | translate }}</button>
       </div>
-      <div class="form-section component_wrapper">
+      <div>
         <div class="row form-section__row">
           <div class="col-12">
             <ng-container>
@@ -13,22 +15,327 @@
                 <mat-step [editable]="isEditable" state="">
                   <form>
                     <ng-template matStepLabel>{{ 'assets.asset_details' | translate }}</ng-template>
+                    <!-- form-section -->
+                    <div class="form-section component_wrapper">
+                      <h3 class="form-section__title">{{ 'assets.business_info' | translate }}</h3>
+                      <div class="row form-section__row">
+                        <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <p-dropdown inputId="businessCategory" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <label for="businessCategory">{{ 'assets.business_category' | translate }}</label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <p-dropdown inputId="ownerShip" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <label for="ownerShip">{{ 'assets.ownership' | translate }}</label>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end form-section -->
+                    <!-- form-section -->
+                    <div class="form-section component_wrapper">
+                      <h3 class="form-section__title">{{ 'assets.asset_details' | translate }}</h3>
+                      <div class="row form-section__row">
+                        <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <p-dropdown inputId="year" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <label for="year">{{ 'assets.year' | translate }} *</label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <p-dropdown inputId="make" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <label for="make">{{ 'assets.make' | translate }} *</label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <p-dropdown inputId="model" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <label for="model">{{ 'assets.model' | translate }} *</label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <p-dropdown inputId="color" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <label for="color">{{ 'assets.color' | translate }}</label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-3 p-field form-section__field">
+                          <span class="p-float-label">
+                            <input pInputText placeholder="{{ 'assets.trim' | translate }} *" required type="text">
+                            <label>{{ 'assets.trim' | translate }} *</label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-3 p-field form-section__field">
+                          <span class="p-float-label">
+                            <input pInputText placeholder="{{ 'assets.origin' | translate }} *" required type="text">
+                            <label>{{ 'assets.origin' | translate }} *</label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 align-selft-center ">
+                          <div class="row">
+                            <div class="col-12 col-md-4">
+                              <h3 class="form-section__title m-0">{{ 'assets.meterType' | translate }}</h3>
+                            </div>
+                            <div class="col-12 col-md-8 row">
+                              <div class="form-check col-6">
+                                <input class="form-check-input" type="radio" name="meter_type" id="Kilometers" value ="kilometers">
+                                <label class="form-check-label" for="Kilometers">{{ 'assets.kilometers' | translate }}</label>
+                              </div>
+                              <div class="form-check col-6">
+                                <input class="form-check-input" type="radio" name="meter_type" id="By_Hours" value ="By_Hours">
+                                <label class="form-check-label" for="By_Hours">{{ 'assets.by_hour' | translate }}</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end form-section -->
+                    <!-- form-section -->
+                    <div class="form-section component_wrapper">
+                      <h3 class="form-section__title">{{ 'assets.purchased_for' | translate }}</h3>
+                      <div class="row form-section__row">
+                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <p-dropdown inputId="department" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <label for="department">{{ 'assets.department' | translate }} *</label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <p-dropdown inputId="operator" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <label for="operator">{{ 'assets.operator' | translate }} *</label>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end form-section -->
+                    <!-- form-section -->
+                    <div class="form-section component_wrapper">
+                      <h3 class="form-section__title">{{ 'assets.upload_form.title' | translate }}</h3>
+                      <div class="row form-section__row">
+                        <div class="col-12">
+                          <div class="upload-box">
+                            <div class="row">
+                              <div class="col-12 d-flex justify-content-between file-name-size">
+                                <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
+                                <span>00 MG</span>
+                              </div>
+                              <div class="col-lg-12">
+                                <div class="w-100 p-0">
+                                  <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
+                                </div>
+                              </div>
+                              <div class="col-lg-12 mt-2">
+                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                    <label (click)="openFileSelector()" style="cursor: pointer;">
+                                      <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
+                                        [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                                        <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
+                                    </label>
+                                  </ng-template>
+                                </ngx-file-drop>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <!-- end form-section -->
                   </form>
                 </mat-step>
                 <mat-step [editable]="isEditable">
                   <form>
                     <ng-template matStepLabel>{{ 'assets.financial' | translate }}</ng-template>
+                    <div class="form-section component_wrapper">
+                      <h3 class="form-section__title">Asset Financial Plan</h3>
+                      <div class="row">
+                        <div class="col-12 col-md-5 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <p-dropdown inputId="policyType" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <label for="policyType">Policy Type *</label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-3  p-field form-section__field">
+                          <span class="p-float-label">
+                            <input pInputText placeholder="Purchase Value *" required type="text">
+                            <label>Purchase Value *</label>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-section component_wrapper">
+                      <h3 class="form-section__title">Life Cycle</h3>
+                      <div class="row">
+                        <div class="col-12 col-md-3 p-field form-section__field date-input">
+                          <span class="p-float-label">
+                            <p-calendar inputId="basic"></p-calendar>
+                            <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
+                            <label>Start Date * </label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-3 p-field form-section__field">
+                          <span class="p-float-label">
+                            <input pInputText placeholder="In-Service Odometer" required type="text">
+                            <label>In-Service Odometer</label>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-section component_wrapper">
+                      <h3 class="form-section__title">Upload Purchase Order</h3>
+                      <div class="row form-section__row">
+                        <div class="col-12">
+                          <div class="upload-box">
+                            <div class="row">
+                              <div class="col-12 d-flex justify-content-between file-name-size">
+                                <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
+                                <span>00 MG</span>
+                              </div>
+                              <div class="col-lg-12">
+                                <div class="w-100 p-0">
+                                  <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
+                                </div>
+                              </div>
+                              <div class="col-lg-12 mt-2">
+                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                    <label (click)="openFileSelector()" style="cursor: pointer;">
+                                      <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
+                                        [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                                        <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
+                                    </label>
+                                  </ng-template>
+                                </ngx-file-drop>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </form>
 
                 </mat-step>
                 <mat-step [editable]="isEditable">
                   <form>
                     <ng-template matStepLabel>{{ 'assets.maintenance' | translate }}</ng-template>
+                    <div class="form-section component_wrapper">
+                      <h3 class="form-section__title">Maintenance Service</h3>
+                      <div class="row">
+                        <div class="col-12 col-md-8 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <p-dropdown inputId="periodicService" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <label for="periodicService">Periodic Service *</label>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-section component_wrapper">
+                      <span class="d-flex">
+                        <h3 class="form-section__title">Warranty Items</h3>
+                      </span>
+                      <div class="row">
+                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <input pInputText placeholder="Item" required type="text">
+                            <label>Item</label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-1 pr-0 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <p-dropdown inputId="periodicService" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                            <label for="periodicService">Year</label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-2 pl-0 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <input pInputText placeholder="Duration" required type="text">
+                            <label>Duration</label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-3 p-field form-section__field date-input">
+                          <span class="p-float-label">
+                            <p-calendar inputId="basic"></p-calendar>
+                            <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
+                            <label>Warranty Start Date</label>
+                          </span>
+                        </div>
+                        <div class="col-12 col-md-3 drag-and-drop-form">
+                          <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                              <label (click)="openFileSelector()" style="cursor: pointer;">
+                                  <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
+                              </label>
+                            </ng-template>
+                          </ngx-file-drop>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-section component_wrapper">
+                      <div class="row">
+                        <div class="col-12 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <input  pInputTextarea   placeholder="Description" required type="text">
+                            <label>Description</label>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </form>
                 </mat-step>
                 <mat-step [editable]="isEditable">
                   <form>
                     <ng-template matStepLabel>{{ 'assets.generate' | translate }}</ng-template>
+                    <div class="form-section component_wrapper">
+                      <div class="row">
+                        <div class="col-2">
+                          <h3 class="form-section__title">Maintenance Service</h3>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="assetQuantity" id="multipleAsset" value ="estimate" Checked>
+                            <label class="form-check-label" for="multipleAsset">Multiple Assets</label>
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="assetQuantity" id="singleAsset" value ="estimate" Checked>
+                            <label class="form-check-label" for="singleAsset">Single Asset</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="upload-box">
+                            <div class="row">
+                              <div class="col-12 d-flex justify-content-between file-name-size">
+                                <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
+                                <span>00 MG</span>
+                              </div>
+                              <div class="col-lg-12">
+                                <div class="w-100 p-0">
+                                  <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
+                                </div>
+                              </div>
+                              <div class="col-lg-12 mt-2">
+                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                    <label (click)="openFileSelector()" style="cursor: pointer;">
+                                        <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
+                                    </label>
+                                  </ng-template>
+                                </ngx-file-drop>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </form>
                 </mat-step>
               </mat-horizontal-stepper>
@@ -36,138 +343,6 @@
           </div>
         </div>
       </div>
-      <!-- form-section -->
-      <div class="form-section component_wrapper">
-        <h3 class="form-section__title">{{ 'assets.business_info' | translate }}</h3>
-        <div class="row form-section__row">
-          <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
-            <span class="p-float-label">
-              <p-dropdown inputId="businessCategory" [options]="itemTypes" optionLabel="name"></p-dropdown>
-              <label for="businessCategory">{{ 'assets.business_category' | translate }}</label>
-            </span>
-          </div>
-          <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
-            <span class="p-float-label">
-              <p-dropdown inputId="ownerShip" [options]="itemTypes" optionLabel="name"></p-dropdown>
-              <label for="ownerShip">{{ 'assets.ownership' | translate }}</label>
-            </span>
-          </div>
-        </div>
-      </div>
-      <!-- end form-section -->
-      <!-- form-section -->
-      <div class="form-section component_wrapper">
-        <h3 class="form-section__title">{{ 'assets.asset_details' | translate }}</h3>
-        <div class="row form-section__row">
-          <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
-            <span class="p-float-label">
-              <p-dropdown inputId="year" [options]="itemTypes" optionLabel="name"></p-dropdown>
-              <label for="year">{{ 'assets.year' | translate }} *</label>
-            </span>
-          </div>
-          <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
-            <span class="p-float-label">
-              <p-dropdown inputId="make" [options]="itemTypes" optionLabel="name"></p-dropdown>
-              <label for="make">{{ 'assets.make' | translate }} *</label>
-            </span>
-          </div>
-          <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
-            <span class="p-float-label">
-              <p-dropdown inputId="model" [options]="itemTypes" optionLabel="name"></p-dropdown>
-              <label for="model">{{ 'assets.model' | translate }} *</label>
-            </span>
-          </div>
-          <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
-            <span class="p-float-label">
-              <p-dropdown inputId="color" [options]="itemTypes" optionLabel="name"></p-dropdown>
-              <label for="color">{{ 'assets.color' | translate }}</label>
-            </span>
-          </div>
-          <div class="col-12 col-md-3 p-field form-section__field">
-            <span class="p-float-label">
-              <input pInputText placeholder="Trim *" required type="text">
-              <label>{{ 'assets.trim' | translate }} *</label>
-            </span>
-          </div>
-          <div class="col-12 col-md-3 p-field form-section__field">
-            <span class="p-float-label">
-              <input pInputText placeholder="Origin *" required type="text">
-              <label>{{ 'assets.origin' | translate }} *</label>
-            </span>
-          </div>
-          <div class="col-12 col-md-6 mb-2 align-selft-center ">
-            <div class="row">
-              <div class="col-12 col-md-4">
-                <h3 class="form-section__title m-0">{{ 'assets.meterType' | translate }}</h3>
-              </div>
-              <div class="col-12 col-md-8 row">
-                <div class="form-check col-6">
-                  <input class="form-check-input" type="radio" name="meter_type" id="Kilometers" value ="kilometers">
-                  <label class="form-check-label" for="Kilometers">{{ 'assets.kilometers' | translate }}</label>
-                </div>
-                <div class="form-check col-6">
-                  <input class="form-check-input" type="radio" name="meter_type" id="By_Hours" value ="By_Hours">
-                  <label class="form-check-label" for="By_Hours">{{ 'assets.by_hour' | translate }}</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- end form-section -->
-      <!-- form-section -->
-      <div class="form-section component_wrapper">
-        <h3 class="form-section__title">{{ 'assets.purchased_for' | translate }}</h3>
-        <div class="row form-section__row">
-          <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
-            <span class="p-float-label">
-              <p-dropdown inputId="department" [options]="itemTypes" optionLabel="name"></p-dropdown>
-              <label for="department">{{ 'assets.department' | translate }} *</label>
-            </span>
-          </div>
-          <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
-            <span class="p-float-label">
-              <p-dropdown inputId="operator" [options]="itemTypes" optionLabel="name"></p-dropdown>
-              <label for="operator">{{ 'assets.operator' | translate }} *</label>
-            </span>
-          </div>
-        </div>
-      </div>
-      <!-- end form-section -->
-      <!-- form-section -->
-      <div class="form-section component_wrapper">
-        <h3 class="form-section__title">{{ 'assets.upload_form.title' | translate }}</h3>
-        <div class="row form-section__row">
-          <div class="col-12">
-            <div class="upload-box">
-              <div class="row">
-                <div class="col-12 d-flex justify-content-between file-name-size">
-                  <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
-                  <span>00 MG</span>
-                </div>
-                <div class="col-lg-12">
-                  <div class="w-100 p-0">
-                    <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
-                  </div>
-                </div>
-                <div class="col-lg-12 mt-2">
-                  <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                      <label (click)="openFileSelector()" style="cursor: pointer;">
-                        <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
-                          [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                          <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-                      </label>
-                    </ng-template>
-                  </ngx-file-drop>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <!-- end form-section -->
     </form>
   </div>
 </div>

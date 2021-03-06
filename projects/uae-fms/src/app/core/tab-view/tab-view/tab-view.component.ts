@@ -20,11 +20,12 @@ import { Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TabViewComponent implements OnInit {
+  @Input('returnId') returnId: string = 'title';
   @Output('selectedIndex') selectedIndex: EventEmitter<
     string
   > = new EventEmitter<string>();
   @ViewChild('content', { static: false }) element: ElementRef;
-  tabs: { index: number; title: string ; id? : string;}[] = [];
+  tabs: { index: number; title: string; id?: string; count?: number }[] = [];
   initialized: boolean = false;
   elements: HTMLElement[];
   selectedTab: number = 0;
@@ -38,11 +39,15 @@ export class TabViewComponent implements OnInit {
 
     if (this.elements.length > 0) {
       for (let i = 0; i < this.elements.length; i++) {
-        let tabID =this.elements[i].attributes.getNamedItem('id');
+        let tabID = this.elements[i].attributes.getNamedItem('id');
         tabs.push({
           index: i,
           title: this.elements[i].attributes.getNamedItem('title').nodeValue,
-          id:tabID ? tabID.nodeValue : null
+          id: tabID ? tabID.nodeValue : null,
+          count:
+            this.elements[i].attributes.getNamedItem('count') != null
+              ? this.elements[i].attributes.getNamedItem('count').nodeValue
+              : Math.floor(Math.random() * 500) + 1
         });
       }
     }
@@ -65,8 +70,10 @@ export class TabViewComponent implements OnInit {
 
   selectTab(index: number, title: string) {
     this.selectedTab = index;
-    this.selectedIndex.emit(title);
+    this.selectedIndex.emit(
+      this.returnId == 'title' ? title : index.toString()
+    );
     this.selectedTabChanged();
-    console.log(index , title)
+    console.log(index, title);
   }
 }

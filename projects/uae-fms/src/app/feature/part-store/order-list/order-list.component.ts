@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
+import { ButtonType } from '@core/table/table.component';
 
 @Component({
   selector: 'anms-order-list',
@@ -9,6 +10,8 @@ import { FilterCardSetting } from '@core/filter';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderListComponent implements OnInit {
+  isSuppliersAddFormHidden = true;
+
   activeTab = 'request_list';
   downloadBtn = 'assets/icons/download-solid.svg';
   filterCard1: FilterCardSetting[] = [
@@ -88,8 +91,22 @@ export class OrderListComponent implements OnInit {
       { lable: 'tables.column.description', type: 1, field: 'Description' },
       { lable: 'tables.column.date', type: 1, field: 'Date' },
       { lable: 'tables.column.total', type: 1, field: 'Total' },
-      { lable: '', type: 1, field: 'ButtonReject', renderer: 'buttonRenderer' },
-      { lable: '', type: 1, field: 'ButtonApprove', renderer: 'buttonRenderer' }
+      {
+        lable: '',
+        type: 1,
+        field: 'ButtonReject',
+        renderer: 'button',
+        buttonType: ButtonType.reject,
+        showOnHover: true
+      },
+      {
+        lable: '',
+        type: 1,
+        field: 'ButtonApprove',
+        renderer: 'button',
+        buttonType: ButtonType.approve,
+        showOnHover: true
+      }
     ],
     data: [
       {
@@ -240,7 +257,14 @@ export class OrderListComponent implements OnInit {
         field: 'Status',
         renderer: 'statusRenderer'
       },
-      { lable: '', type: 1, field: 'ButtonRecived', renderer: 'buttonRenderer' }
+      {
+        lable: '',
+        type: 1,
+        field: 'ButtonRecived',
+        renderer: 'button',
+        buttonType: ButtonType.receive,
+        showOnHover: true
+      }
     ],
     data: [
       {

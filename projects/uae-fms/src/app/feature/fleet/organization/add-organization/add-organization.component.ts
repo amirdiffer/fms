@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
+import { ButtonType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 
 @Component({
@@ -18,23 +19,23 @@ export class AddOrganizationComponent extends Utility implements OnInit {
   organization_Table: TableSetting = {
     columns: [
       {
-        lable: 'Section',
+        lable: 'tables.column.section',
         type: 1,
         field: 'Section'
       },
       {
-        lable: 'Location',
+        lable: 'tables.column.location',
         type: 1,
         field: 'Location'
       },
       {
-        lable: 'TF Payed',
+        lable: 'tables.column.tf_payed',
         sortable: true,
         type: 1,
         field: 'TF_Payed'
       },
       {
-        lable: 'TF Unpaid',
+        lable: 'tables.column.tf_unpaid',
         sortable: true,
         type: 1,
         field: 'TF_Unpaid'
@@ -62,7 +63,8 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         width: 70,
         type: 3,
         field: 'actionButton',
-        renderer: 'actionButtonRenderer'
+        renderer: 'button',
+        buttonType: ButtonType.action
       }
     ],
     data: [

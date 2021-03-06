@@ -24,7 +24,7 @@
       <div>
           <h3 class="form-section__title">{{ 'configuration.role_permission.permissions' | translate }}</h3>
        </div>
-      <div class='card-body pl-1 body_div p-0 pb-3'>
+      <div class='card-body body_div mt-3'>
 
         <!--      Top Fleet Row-->
         <div class='d-flex' formGroupName='fleet'>
@@ -43,108 +43,110 @@
             </div>
           </div>
 
-          <div class='curved_right_tag text-center mt-1'>
-            <div class='h-100'>
-              <img class='top_icon mr-2 ml-3 h-100' src='assets/icons/up.svg' alt='down' width='13'>
+          <div class='d-flex align-items-center' (click)="toggleGroup('fleet')">
+            <div class='curved_right_tag text-center'>
+              <svg-icon src="assets/icons/up.svg" [svgStyle]="{ 'width.px':'16' , 'fill': '#fff' , 'height': '16', 'stroke-width': '40px','stroke': 'white', 'transform': activeGroup == 'fleet' ? 'rotate(0deg)' : 'rotate(180deg)'}"></svg-icon>
             </div>
           </div>
 
         </div>
 
-        <div class='card-body pl-1 ml-3 mr-4 mt-3 mb-3 border rounded'>
+        <div class="body_div__inactive" [class.body_div__active]="activeGroup == 'fleet'">
+          <div class='card-body pl-1 ml-3 mr-4 mt-3 mb-3 border rounded'>
 
-          <!--        Asset Master Table-->
-          <div class='d-flex pb-2' formGroupName='assetMaster'>
+            <!--        Asset Master Table-->
+            <div class='d-flex pb-2' formGroupName='assetMaster'>
 
-            <div class='w-25 pl-1 ml-1'>
+              <div class='w-25 pl-1 ml-1'>
 
-              <div class="form-group form-check">
-                <input id="checkbox-assetMaster" type="checkbox" class="custom-checkbox"  name='vehicle_comments' formControlName='assetMasterCheckBox'>
-                <label for="checkbox-assetMaster">{{ 'configuration.role_permission.asset_master' | translate }}</label>
-                <img class='ml-2' src='assets/icons/up.svg' alt='up' width='14'>
-              </div>
-            </div>
-
-            <div class='w-75 d-flex '>
-              <div *ngFor='let aSwitch of assetMaster.value.switches; let index = index'>
-                <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.d-flex]='index === 0'>
-                  <label>{{ 'forms.' + aSwitch.label | translate }}</label>
-                  <p-inputSwitch></p-inputSwitch>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class='d-flex' formGroupName='assetConfiguration'>
-
-            <div class='w-25 col-md-3 ml-0'>
-              <div class=" p-field form-section__field">
-                <span class="p-float-label">
-                    <p-dropdown inputId="assetConfigurationSelectList" [options]="middleCheckboxLabelArray" optionLabel="name" formControlName='assetConfigurationSelectList' class="dropdown-select"></p-dropdown>
-                    <label for="assetConfigurationSelectList">Asset Configuration</label>
-                </span>
-              </div>
-            </div>
-
-            <div class='w-75 d-flex pt-2'>
-              <div *ngFor='let aSwitch of assetConfiguration.value.switches; let index = index'>
-                <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.d-flex]='index === 0'>
-                  <label>{{ 'forms.' + aSwitch.label | translate }}</label>
-                  <p-inputSwitch></p-inputSwitch>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class='d-flex' formGroupName='businessCategory'>
-            <div class='w-25 col-md-3 ml-0'>
-              <div class=" p-field form-section__field">
-                <span class="p-float-label">
-                    <p-dropdown inputId="businessCategorySelectList" [options]="middleCheckboxLabelArray" optionLabel="name" formControlName='businessCategorySelectList' class="dropdown-select"></p-dropdown>
-                    <label for="businessCategorySelectList">Business Category</label>
-                </span>
-              </div>
-            </div>
-
-            <div class='w-75 d-flex pt-2 '>
-              <div *ngFor='let aSwitch of businessCategory.value.switches; let index = index'>
-                <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.d-flex]='index === 0'>
-                  <label>{{ 'forms.' + aSwitch.label | translate }}</label>
-                  <p-inputSwitch></p-inputSwitch>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        <!--          MiddleArray-->
-        <div formArrayName='middleArray'>
-          <div class='card-body pl-0 ml-3 mr-4 mt-3 border pr-0 p-0 rounded'
-               *ngFor='let row of middleArray.controls; let index = index' [formGroupName]='index'>
-            <div class='d-flex'>
-
-              <div class='pl-2 pt-1 pb-1 ml-1 w-25 mt-3'>
                 <div class="form-group form-check">
-                  <input id="checkbox-{{row.value.checkboxLabel}}" type="checkbox" class="custom-checkbox" name='vehicle_comments' formControlName='checkboxValue'>
-                  <label for="checkbox-{{row.value.checkboxLabel}}">{{row.value.checkboxLabel}}</label>
+                  <input id="checkbox-assetMaster" type="checkbox" class="custom-checkbox"  name='vehicle_comments' formControlName='assetMasterCheckBox' (change)="selectParent('fleet', $event)">
+                  <label for="checkbox-assetMaster">{{ 'configuration.role_permission.asset_master' | translate }}</label>
+                  <img class='ml-2' src='assets/icons/up.svg' alt='up' width='14'>
                 </div>
               </div>
 
-              <div class='w-75 d-flex mb-3 mt-3 align-items-center'>
-                <div *ngFor='let aSwitch of row.value.switches; let index = index'>
-                  <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.invisible]='!aSwitch.visible' [class.d-flex]='index === 0'>
+              <div class='w-75 d-flex '>
+                <div *ngFor='let aSwitch of assetMaster.value.switches; let index = index'>
+                  <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.d-flex]='index === 0'>
                     <label>{{ 'forms.' + aSwitch.label | translate }}</label>
                     <p-inputSwitch></p-inputSwitch>
                   </div>
                 </div>
               </div>
-              <div class='right_tag text-center' *ngIf='index !== 0 && index !== 1'>
-                <div class='h-100'>
-                  <img class='down_icon mr-1 ml-1 h-100' src='assets/icons/up.svg' alt='down' width='10'>
+
+            </div>
+
+            <div class='d-flex' formGroupName='assetConfiguration'>
+
+              <div class='w-25 col-md-3 ml-0'>
+                <div class=" p-field form-section__field">
+                <span class="p-float-label">
+                    <p-dropdown inputId="assetConfigurationSelectList" [options]="middleCheckboxLabelArray" optionLabel="name" formControlName='assetConfigurationSelectList' class="dropdown-select"></p-dropdown>
+                    <label for="assetConfigurationSelectList">Asset Configuration</label>
+                </span>
+                </div>
+              </div>
+
+              <div class='w-75 d-flex pt-2'>
+                <div *ngFor='let aSwitch of assetConfiguration.value.switches; let index = index'>
+                  <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.d-flex]='index === 0'>
+                    <label>{{ 'forms.' + aSwitch.label | translate }}</label>
+                    <p-inputSwitch></p-inputSwitch>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class='d-flex' formGroupName='businessCategory'>
+              <div class='w-25 col-md-3 ml-0'>
+                <div class=" p-field form-section__field">
+                <span class="p-float-label">
+                    <p-dropdown inputId="businessCategorySelectList" [options]="middleCheckboxLabelArray" optionLabel="name" formControlName='businessCategorySelectList' class="dropdown-select"></p-dropdown>
+                    <label for="businessCategorySelectList">Business Category</label>
+                </span>
+                </div>
+              </div>
+
+              <div class='w-75 d-flex pt-2 '>
+                <div *ngFor='let aSwitch of businessCategory.value.switches; let index = index'>
+                  <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.d-flex]='index === 0'>
+                    <label>{{ 'forms.' + aSwitch.label | translate }}</label>
+                    <p-inputSwitch></p-inputSwitch>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!--          MiddleArray-->
+          <div formArrayName='middleArray'>
+            <div class='card-body pl-0 ml-3 mr-4 mt-3 border pr-0 p-0 rounded'
+                 *ngFor='let row of middleArray.controls; let index = index' [formGroupName]='index'>
+              <div class='d-flex'>
+
+                <div class='pl-2 pt-1 pb-1 ml-1 w-25 mt-3'>
+                  <div class="form-group form-check">
+                    <input id="checkbox-{{row.value.checkboxLabel}}" type="checkbox" class="custom-checkbox" name='vehicle_comments' formControlName='checkboxValue' (change)="selectParent('fleet', $event)">
+                    <label for="checkbox-{{row.value.checkboxLabel}}">{{'configuration.role_permission.'+row.value.checkboxLabel|translate}}</label>
+                  </div>
+                </div>
+
+                <div class='w-75 d-flex mb-3 mt-3 align-items-center'>
+                  <div *ngFor='let aSwitch of row.value.switches; let index = index'>
+                    <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.invisible]='!aSwitch.visible' [class.d-flex]='index === 0'>
+                      <label>{{ 'forms.' + aSwitch.label | translate }}</label>
+                      <p-inputSwitch></p-inputSwitch>
+                    </div>
+                  </div>
+                </div>
+                <div class='right_tag text-center' *ngIf='index !== 0 && index !== 1'>
+                  <div class=''>
+                    <svg-icon src="assets/icons/up.svg" [svgStyle]="{ 'width.px':'16' , 'fill': '#fff' , 'height': '16', 'stroke-width': '40px','stroke': 'white', 'transform': 'rotate(180deg)'}"></svg-icon>
+                  </div>
                 </div>
               </div>
             </div>
@@ -155,8 +157,7 @@
 
       <!--          Bottom 2 length array-->
       <div class='card border-0' formArrayName='bottomArray'>
-
-        <div class='card-body body_div mt-3 pl-1'
+        <div style="background-color: #F7F9FA" class='card-body body_div mt-3'
              *ngFor='let row of bottomArray.controls; let index = index' [formGroupName]='index'>
 
           <div class='d-flex'>
@@ -164,7 +165,7 @@
             <div class='w-25 ml-1'>
               <div class="form-group form-check">
                 <input id="checkbox-{{row.value.checkboxLabel}}" type="checkbox" class="custom-checkbox" name='vehicle_comments' formControlName='checkboxValue'>
-                <label for="checkbox-{{row.value.checkboxLabel}}">{{row.value.checkboxLabel}}</label>
+                <label for="checkbox-{{row.value.checkboxLabel}}">{{'configuration.role_permission.'+row.value.checkboxLabel|translate}}</label>
               </div>
             </div>
 
@@ -177,9 +178,9 @@
               </div>
             </div>
 
-            <div class='curved_right_tag text-center mt-1'>
-              <div class='h-100'>
-                <img class='bottom_icon mr-2 ml-3 h-100' src='assets/icons/up.svg' alt='down' width='13'>
+            <div class='d-flex align-items-center' (click)="toggleGroup(row.value.checkboxLabel)">
+              <div class='curved_right_tag text-center'>
+                <svg-icon src="assets/icons/up.svg" [svgStyle]="{ 'width.px':'16' , 'fill': '#fff' , 'height': '16', 'stroke-width': '40px','stroke': 'white', 'transform': activeGroup == row.value.checkboxLabel ? 'rotate(0deg)' : 'rotate(180deg)'}"></svg-icon>
               </div>
             </div>
 

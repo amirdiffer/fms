@@ -87,23 +87,43 @@ export class TableComponent implements OnInit {
     });
   }
 
-  exportTable(): void {
-    const exportColumns = this.setting.columns.map((col) => {
+  exportTable(tableSetting: TableSetting, title: string): void {
+    const exportColumns = tableSetting.columns.map((col) => {
       if (col.thumbField?.length) {
         return;
       }
       return { title: col.lable, dataKey: col.field };
     });
 
-    const exportRows: any[] = this.setting.data.map((data) => ({ ...data }));
+    const exportRows: any[] = tableSetting.data.map((data) => ({ ...data }));
 
-    this.setting.columns.map((col) => {
-      if (col.renderer === 'assetsRenderer') {
-        exportRows.map((data) => {
-          data[col.field] = `${data[col.field].assetName}\n${
-            data[col.field].assetSubName
-          }\n${data[col.field].ownership}`;
-        });
+    tableSetting.columns.map((col) => {
+      if (title === 'Asset Master') {
+        if (col.renderer === 'assetsRenderer') {
+          exportRows.map((data) => {
+            data[col.field] = `${data[col.field].assetName}\n${
+              data[col.field].assetSubName
+            }\n${data[col.field].ownership}`;
+          });
+        }
+      }
+      if (title === 'Pending Registration') {
+        if (col.renderer === 'assetsRenderer') {
+          exportRows.map((data) => {
+            data[col.field] = `${data[col.field].assetName}\n${
+              data[col.field].assetSubName
+            }\nprogress: ${data[col.field].progress}/6`;
+          });
+        }
+      }
+      if (title === 'Pending Customization') {
+        if (col.renderer === 'assetsRenderer') {
+          exportRows.map((data) => {
+            data[col.field] = `${data[col.field].assetName}\n${
+              data[col.field].assetSubName
+            }\nprogress: ${data[col.field].progress}/6`;
+          });
+        }
       }
     });
 
@@ -114,7 +134,16 @@ export class TableComponent implements OnInit {
       columnStyles: { 0: { cellWidth: 100 } }
     });
 
-    pdf.save('angular-demo.pdf');
+    pdf.save(`${title}.pdf`);
+  }
+  isNumber(val): boolean {
+    return typeof val === 'number';
+  }
+
+  showButton(col, i): boolean {
+    if (col.showOnHover)
+      return col.renderer == 'button' && i == this.rowIndexTable;
+    else return col.renderer == 'button';
   }
 }
 
@@ -130,10 +159,12 @@ export interface ColumnDifinition {
   sortable?: boolean;
   isAsc?: boolean;
   field?: string;
-  width?: number;
+  width?: any;
   type?: ColumnType;
   thumbField?: string;
   renderer?: string;
+  buttonType?: ButtonType;
+  showOnHover?: boolean;
   textColor?: string;
   onClick?: Function;
 }
@@ -146,4 +177,15 @@ export enum ColumnType {
 
 export interface RowSettings {
   onClick: Function;
+}
+
+export enum ButtonType {
+  add,
+  action,
+  makeDecision,
+  jobCard,
+  reject,
+  approve,
+  confirm,
+  receive
 }

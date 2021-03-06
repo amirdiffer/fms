@@ -1,16 +1,19 @@
 <div class="app-table-wrapper">
-  <p-table [value]="setting.data" (mouseleave)='rowIndexTable = -1'
-           (sortFunction)="handleSort($event, setting)" [customSort]='true'>
+  <p-table [value]="setting.data" (mouseleave)='rowIndexTable= -1'
+    (sortFunction)="handleSort($event, setting)" [customSort]='true'>
     <ng-template pTemplate="header">
       <tr>
-        <th *ngFor="let col of setting.columns" [style]="col.width?'width:'+col.width+'px':''"
-            [pSortableColumn]='col.field' [pSortableColumnDisabled]='!col.sortable'>
+        <th *ngFor="let col of setting.columns" [style]="col.width &&
+          isNumber(col.width) ? 'width:'+col.width+'px' :'width:'+col.width"
+          [pSortableColumn]='col.field'
+          [pSortableColumnDisabled]='!col.sortable'>
           <div class="d-flex">
             <ng-template [ngIf]="col.sortable">
-              <img [class.sort]='col.isAsc === false' class="icon-dorp" src="../../../assets/icons/sort-down-solid.svg" alt="">
+              <img [class.sort]='col.isAsc === false' class="icon-dorp"
+                src="../../../assets/icons/sort-down-solid.svg" alt="">
             </ng-template>
             <ng-template [ngIf]="!col.isIconLable" [ngIfElse]="iconType">
-              {{col.lable|translate}}
+              <p class="m-0 p-0">{{col.lable|translate}}</p>
             </ng-template>
             <ng-template #iconType>
               <div class="iconLable" [innerHTML]="col.lable"></div>
@@ -21,7 +24,8 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-data let-i="rowIndex">
-      <tr (mouseover)='rowIsHover(i)' [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')">
+      <tr (mouseover)='rowIsHover(i)'
+        [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')">
         <td *ngFor="let col of setting.columns" (click)="click(col,data)"
           [attr.style]="col.textColor?'color:'+col.textColor+';':''">
           <div *ngIf="!col.renderer">
@@ -44,11 +48,9 @@
           <div *ngIf="col.renderer=='doubleLineRenderer'">
             <table-double-line-renderer [user]="data" [column]="col"></table-double-line-renderer>
           </div>
-          <div *ngIf="col.renderer == 'addButtonRenderer'">
-            <table-add-button-renderer></table-add-button-renderer>
-          </div>
-          <div *ngIf="col.renderer == 'actionButtonRenderer'">
-            <table-action-button-renderer></table-action-button-renderer>
+          <div *ngIf="showButton(col,i)">
+            <table-general-button-renderer [row]="data[i]" [button]="data"
+              [col]="col"></table-general-button-renderer>
           </div>
           <div *ngIf="col.renderer == 'subtextRenderer'">
             <table-subText-renderer [data]="data[col.field]"></table-subText-renderer>
@@ -58,9 +60,6 @@
           </div>
           <div *ngIf="col.renderer == 'statusRenderer'">
             <table-status-renderer [status]="data"></table-status-renderer>
-          </div>
-          <div *ngIf="col.renderer == 'buttonRenderer' && i == rowIndexTable">
-            <table-button-renderer [row]="data[i]"   [button]="data" [col]="col"></table-button-renderer>
           </div>
           <div *ngIf="col.renderer == 'thumbTextRenderer'">
             <table-thumb-text-renderer [data]="data"></table-thumb-text-renderer>
@@ -77,18 +76,19 @@
           <div *ngIf="col.renderer=='assetsRenderer'">
             <table-assets-renderer [data]="data[col.field]"></table-assets-renderer>
           </div>
+          <div *ngIf="col.renderer=='fuelCardRenderer'">
+            <fuel-card-renderer [data]="data[col.field]"></fuel-card-renderer>
+          </div>
           <div *ngIf="col.renderer=='companyRenderer'">
             <table-company-renderer [company]="data"></table-company-renderer>
           </div>
-          <div *ngIf="col.renderer=='makeDecision'">
-            <make-decision-renderer></make-decision-renderer>
-          </div>
-          <div *ngIf="col.renderer=='jobCard'">
-            <job-card-renderer></job-card-renderer>
+          <div *ngIf="col.renderer=='assignNow'">
+            <table-assign-now-renderer [data]="data"></table-assign-now-renderer>
           </div>
 
         </td>
-        <div [class]="'statusColor'+ (hasRendere(setting.columns)?' with-renderer-table':' simple-table')"
+        <div [class]="'statusColor'+ (hasRendere(setting.columns)?'
+          with-renderer-table':' simple-table')"
           *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
       </tr>
     </ng-template>

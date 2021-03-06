@@ -1,21 +1,21 @@
 <form>
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" routerLink="..">Cancel</button>
-    <button class="btn-primary-medium add" type="submit" >Add</button>
+    <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{ 'forms.cancel' | translate }}</button>
+    <button class="btn-primary-medium add" type="submit" >{{ 'forms.add' | translate }}</button>
   </div>
   <div class="form-section">
-    <h3 class="form-section__title">Request Type</h3>
+    <h3 class="form-section__title">{{ 'fuel_management.fuel_cards.request_type' | translate }}</h3>
     <div class="row form-section__row">
             <!-- start asset -->
             <div class="col-12 col-md-3 p-field form-section__field">
                 <div class="autocomplete-select">
                     <span class="p-float-label">
-                        <p-autoComplete formControlName="asset"
+                        <p-autoComplete
                             (completeMethod)="filterAssets($event)"
                             [suggestions]="assetSuggests" field="name"
                             [minLength]="1"></p-autoComplete>
                         <i class="pi pi-search"></i>
-                        <label>Asset *</label>
+                        <label>{{ 'fuel_management.fuel_cards.tag_number' | translate }} *</label>
                     </span>
                 </div>
             </div>
@@ -23,8 +23,9 @@
             <div class="col-12 col-md-3 p-field form-section__field
             dropdown-select">
               <span class="p-float-label">
-                <p-dropdown inputId="cardType" [options]="assetTypes" optionLabel="name"></p-dropdown>
-                <label for="room">Card Type</label>
+                <p-dropdown inputId="cardType" [autoDisplayFirst]="false"
+                      [options]="assetTypes" optionLabel="name"></p-dropdown>
+                <label for="cardType">{{ 'fuel_management.fuel_cards.card_type' | translate }}</label>
               </span>
             </div>
             <div class="col-12 col-md-3 p-field form-section__field date-input">
@@ -34,30 +35,30 @@
                           src='../../../../assets/icons/calendar-alt-regular.svg'
                           [svgStyle]="{ 'width.px':'20' , 'fill': 'rgb(161 161 161)' ,
             'height': '100%'}"></svg-icon>
-                  <label>Expire Date </label>
+                  <label>{{ 'fuel_management.fuel_cards.expire_date' | translate }} </label>
               </span>
             </div>
             <div class="col-12 col-md-3 p-field form-section__field">
               <span class="p-float-label">
-                  <input pInputText placeholder="Usage Limit" type="text">
-                  <label>Usage Limit</label>
+                  <input pInputText placeholder="{{ 'fuel_management.fuel_cards.usage_limit' | translate }}" type="text">
+                  <label>{{ 'fuel_management.fuel_cards.usage_limit' | translate }}</label>
               </span>
             </div>
     </div>
   </div>
   <div class="form-section form-section--inline">
-    <h3 class="form-section__title">Assign To</h3>
+    <h3 class="form-section__title">{{ 'fuel_management.fuel_cards.assign_to' | translate }}</h3>
     <div class="row form-section__row">
           <!-- start asset -->
           <div class="col-12 col-md-6 p-field form-section__field">
               <div class="autocomplete-select">
                   <span class="p-float-label">
-                      <p-autoComplete formControlName="asset"
+                      <p-autoComplete
                           (completeMethod)="filterAssets($event)"
                           [suggestions]="assetSuggests" field="name"
                           [minLength]="1"></p-autoComplete>
                       <i class="pi pi-search"></i>
-                      <label>Asset *</label>
+                      <label>{{ 'fuel_management.fuel_cards.asset' | translate }} *</label>
                   </span>
               </div>
           </div>
