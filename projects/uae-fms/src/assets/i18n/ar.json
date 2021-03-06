@@ -447,6 +447,9 @@
     "duration": "المدة الزمنية",
     "warranty_start_date": "تاريخ بدء الضمان",
     "description": "الوصف",
+    "serial_number": "رقم سري",
+    "multiple_assets": "أصول متعددة",
+    "single_asset": "أصل واحد",
     "upload_form": {
       "title": "",
       "progressbar_title": "",
@@ -921,6 +924,8 @@
     "approve": "اعتماد",
     "recived": "الواردة",
     "assign": "تعيين",
+    "upload": "تحميل",
+    "generate": "يولد",
     "feedback": {
       "required": "هذا الحقل إلزامي",
       "invalid-email": "عنوان البريد الإلكتروني غير صالح"

@@ -446,6 +446,9 @@
     "duration": "Duration",
     "warranty_start_date": "Warranty Start Date",
     "description": "Description",
+    "serial_number": "Serial Number",
+    "multiple_assets": "Multiple Assets",
+    "single_asset": "Single Asset",
     "upload_form": {
       "title": "",
       "progressbar_title": "",
@@ -924,6 +927,8 @@
     "approve": "Approve",
     "recived": "Recived",
     "assign": "Assign",
+    "generate": "Generate",
+    "upload": "Upload",
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"

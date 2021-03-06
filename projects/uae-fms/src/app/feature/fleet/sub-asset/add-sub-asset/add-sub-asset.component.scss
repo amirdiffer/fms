@@ -17,9 +17,53 @@ input[type='radio']:checked {
 
 .plus-icon {
   border: 1px solid #009c62;
+  border-radius: 4px;
   width: 32px;
   display: inline-block;
   text-align: center;
   height: 32px;
   margin: 0 5px;
+}
+
+.upload-box {
+  .file-name-size {
+    color: #0000005e;
+    font-size: 12px;
+  }
+
+  .space-drop {
+    display: block;
+    border: 2px dashed #000000;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    color: #000000;
+    opacity: 57%;
+
+    div {
+      color: #0000005e;
+      font-size: 12px;
+    }
+  }
+}
+
+.second-step-upload-box {
+  .file-name-size {
+    font-size: 12px;
+  }
+
+  .space-drop {
+    display: block;
+    border: 2px dashed #0000005e;
+    text-align: center;
+    padding: 8px 0;
+    border-radius: 4px;
+    cursor: pointer;
+
+    div {
+      font-size: 12px;
+    }
+  }
 }

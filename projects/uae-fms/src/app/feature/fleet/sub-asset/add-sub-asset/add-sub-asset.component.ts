@@ -11,6 +11,7 @@ import {
   FileSystemFileEntry,
   NgxFileDropEntry
 } from 'ngx-file-drop';
+import { ColumnDifinition, TableSetting } from '@core/table';
 @Component({
   selector: 'anms-add-sub-asset',
   templateUrl: './add-sub-asset.component.html',
@@ -18,10 +19,141 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddSubAssetComponent extends Utility implements OnInit {
+  formCurrentStep = 0;
+
+  progressBarValue = 20;
+
   subAssetForm: FormGroup;
   warranties: FormArray;
   submitted = false;
   public filesUploaded: NgxFileDropEntry[] = [];
+
+  thirdStepTableColumns: ColumnDifinition[] = [
+    {
+      lable: 'tables.column.sub_asset_name',
+      field: 'subAssetName',
+      type: 1,
+      thumbField: 'img',
+      renderer: 'assetsRenderer'
+    },
+    {
+      lable: 'tables.column.model',
+      thumbField: 'model',
+      type: 3
+    },
+    {
+      lable: 'tables.column.make',
+      field: 'make',
+      type: 1
+    },
+    {
+      lable: 'tables.column.serial_number',
+      field: 'serialNumber',
+      type: 1
+    },
+    {
+      lable: 'tables.column.type',
+      field: 'type',
+      type: 1
+    }
+  ];
+
+  thirdStepTableData = [
+    {
+      subAssetName: {
+        img: 'steering.png',
+        assetName: 'Sub Asset Name',
+        assetSubName: 'DPD 0000001'
+      },
+      model: 'bmw.png',
+      make: 'Text text',
+      serialNumber: '234567890',
+      type: 'Gear'
+    },
+    {
+      subAssetName: {
+        img: 'steering.png',
+        assetName: 'Sub Asset Name',
+        assetSubName: 'DPD 0000001'
+      },
+      model: 'bmw.png',
+      make: 'Text text',
+      serialNumber: '234567890',
+      type: 'Gear'
+    },
+    {
+      subAssetName: {
+        img: 'steering.png',
+        assetName: 'Sub Asset Name',
+        assetSubName: 'DPD 0000001'
+      },
+      model: 'bmw.png',
+      make: 'Text text',
+      serialNumber: '234567890',
+      type: 'Gear'
+    },
+    {
+      subAssetName: {
+        img: 'steering.png',
+        assetName: 'Sub Asset Name',
+        assetSubName: 'DPD 0000001'
+      },
+      model: 'bmw.png',
+      make: 'Text text',
+      serialNumber: '234567890',
+      type: 'Gear'
+    },
+    {
+      subAssetName: {
+        img: 'steering.png',
+        assetName: 'Sub Asset Name',
+        assetSubName: 'DPD 0000001'
+      },
+      model: 'bmw.png',
+      make: 'Text text',
+      serialNumber: '234567890',
+      type: 'Gear'
+    },
+    {
+      subAssetName: {
+        img: 'steering.png',
+        assetName: 'Sub Asset Name',
+        assetSubName: 'DPD 0000001'
+      },
+      model: 'bmw.png',
+      make: 'Text text',
+      serialNumber: '234567890',
+      type: 'Gear'
+    },
+    {
+      subAssetName: {
+        img: 'steering.png',
+        assetName: 'Sub Asset Name',
+        assetSubName: 'DPD 0000001'
+      },
+      model: 'bmw.png',
+      make: 'Text text',
+      serialNumber: '234567890',
+      type: 'Gear'
+    },
+    {
+      subAssetName: {
+        img: 'steering.png',
+        assetName: 'Sub Asset Name',
+        assetSubName: 'DPD 0000001'
+      },
+      model: 'bmw.png',
+      make: 'Text text',
+      serialNumber: '234567890',
+      type: 'Gear'
+    }
+  ];
+
+  thirdStepTable: TableSetting = {
+    columns: this.thirdStepTableColumns,
+    data: this.thirdStepTableData
+  };
+
   constructor(injector: Injector, private _fb: FormBuilder) {
     super(injector);
   }
@@ -98,6 +230,14 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       description: [''],
       warranties: this._fb.array([this.createWarrantyForm()])
     });
+  }
+
+  next(): void {
+    this.formCurrentStep += 1;
+  }
+
+  previous(): void {
+    this.formCurrentStep -= 1;
   }
 
   addWarranty(): void {
