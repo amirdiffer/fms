@@ -86,6 +86,7 @@
     "profile": "حساب تعريفي",
     "integration": "الدمج",
     "add": "إضافة",
+    "add_supplier":"إضافة مورد",
     "add_technician": "إضافة فني",
     "add_location": "اضافة الموقع",
     "inspections": "التفتيش"
@@ -539,7 +540,13 @@
     "order_list": {
       "request_list": "قائمة الطلبات",
       "my_order": "طلبي",
-      "suppliers": "الموردين"
+      "suppliers": "الموردين",
+      "add_supplier":"إضافة مورد",
+      "company":"الشركة",
+      "name":"الاسم",
+      "phone":"الهاتف",
+      "email":"البريد الإلكتروني",
+      "address":"تبوك"
     },
     "part_master": {
       "asset_type": "نوع الأصول",
