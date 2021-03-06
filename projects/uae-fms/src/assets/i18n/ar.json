@@ -335,7 +335,9 @@
       "gps": "GPS",
       "removal_items": "عناصر الإزالة",
       "by": "بواسطة",
-      "vehicle": "مركبة"
+      "vehicle": "مركبة",
+      "cost_of_part": "تكلفة الجزء",
+      "system": "نظام"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -526,9 +528,9 @@
       "quantity": "العدد",
       "price": "السعر",
       "warranty_expire_date": "تاريخ انتهاء الضمان",
-      "warranty_expire":" انتهاء الضمان",
+      "warranty_expire": " انتهاء الضمان",
       "description": "الوصف",
-      "total_cost":"التكلفة الإجمالية",
+      "total_cost": "التكلفة الإجمالية",
       "room": "غرفة",
       "aisle": "جناح",
       "shelf": "رفوف",
@@ -674,7 +676,7 @@
     "technical_inspection": {
       "technical_inspection": "الفحص الفني",
       "asset_detail": "تفاصيل الأصول",
-      "maintenance": "Maintenance",
+      "maintenance": "أعمال صيانة",
       "customization": "الصيانة",
       "reuse": "اعادة الإستخدام",
       "fix": "تصليح",
@@ -693,6 +695,7 @@
       "purchase_service_package": "باقة خدمة الشراء",
       "integration": "الدمج",
       "periodic_service": "الصيانة الدورية",
+      "warranty_package": "حزمة الضمان",
       "warranty": "الضمان",
       "package": "الباقة",
       "choose_date": "اختر موعدا",
@@ -700,6 +703,7 @@
       "car_card": "بطاقة السيارة",
       "asset_policy": "وثيقة الأصل",
       "make_decision": "إتخذ قرار",
+      "generate": "إنشاء",
       "upload_form": {
         "title": "إضافة مرفقات",
         "progressbar_title": "",
@@ -790,16 +794,16 @@
       "multiple_model": "نموذج متعدد",
       "single_model": "نموذج واحد",
       "select_model": "اختر النموذج",
-      "model":"نموذج",
+      "model": "نموذج",
       "drag_and_drop_a_csv_file_or": "قم بسحب وإسقاط ملف csv أو",
       "click_here": "انقر هنا",
-      "description":"الوصف",
+      "description": "الوصف",
       "active_type": "النوع النشط",
-      "type_name":  "النوع الاسم",
-      "accessory":"الملحقات",
-      "sub_asset":"أصل فرعي",
-      "asset":"أصل",
-      "type_category":"اكتب الفئة"
+      "type_name": "النوع الاسم",
+      "accessory": "الملحقات",
+      "sub_asset": "أصل فرعي",
+      "asset": "أصل",
+      "type_category": "اكتب الفئة"
     },
     "business_category": {
       "business_category_info": "معلومات فئة العمل",
@@ -890,19 +894,21 @@
   "buttons": {
     "reject": "يرفض",
     "approve": "اعتماد",
+    "receive": "الواردة",
+    "make_decision": "إتخذ قرار",
     "recived": "الواردة",
     "confirm": "يتأكد"
   },
   "filter": {
     "asset_category": "فئة الأصول",
     "asset": "الأصول",
-    "sub_asset":"أصل فرعي",
-    "accessory":"الملحقات",
-    "asset_type":"نوع الأصول",
-    "car":"جمل",
+    "sub_asset": "أصل فرعي",
+    "accessory": "الملحقات",
+    "asset_type": "نوع الأصول",
+    "car": "جمل",
     "bus": "أوتوبيس",
     "bicycle": "دراجة",
     "boat": "قارب",
-    "add_type":"إضافة نوع"
+    "add_type": "إضافة نوع"
   }
 }

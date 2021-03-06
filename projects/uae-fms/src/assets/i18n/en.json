@@ -193,6 +193,7 @@
   },
   "tables": {
     "column": {
+      "sub_asset_type": "Sub Asset Type",
       "suppliers": "Suppliers",
       "name": "Name",
       "total_sub_asset": "Total Sub Asset",
@@ -334,6 +335,8 @@
       "removal_items": "Removal Items",
       "by": "By",
       "vehicle": "Vehicle",
+      "cost_of_part": "Cost of Part",
+      "system": "System",
       "attachment": "Attachment"
     },
     "button": {
@@ -893,8 +896,9 @@
   "buttons": {
     "reject": "Reject",
     "approve": "Approve",
-    "recived": "Recived",
-    "confirm": "Confirm"
+    "receive": "Receive",
+    "confirm": "Confirm",
+    "make_decision": "Make Decision"
   },
   "filter": {
     "asset_category": "Asset Category",
