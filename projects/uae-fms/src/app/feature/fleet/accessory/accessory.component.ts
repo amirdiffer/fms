@@ -24,26 +24,30 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
-      filterCount: '2456',
+      filterCount: '',
       filterTagColor: '#CBA786',
+      field: 'total',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.available',
-      filterCount: '356',
+      filterCount: '',
       filterTagColor: '#07858D',
+      field: 'available',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.assigned',
-      filterCount: '124',
+      filterCount: '',
       filterTagColor: '#EF959D',
+      field: 'assigned',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.x_accessory',
-      filterCount: '12',
+      filterCount: '',
       filterTagColor: '#DD5648',
+      field: 'xAccesssory',
       onActive(index: number) {}
     }
   ];
@@ -117,11 +121,6 @@ export class AccessoryComponent implements OnInit, OnDestroy {
     ]
   };
 
-  constructor(
-    private _accessoryService: AccessoryService,
-    private _accessoryFacade: AccessoryFacade
-  ) {}
-
   ngOnInit(): void {
     this.openAdd$ = this._accessoryService.getAddForm().subscribe((open) => {
       this.openAdd = open;
@@ -133,11 +132,21 @@ export class AccessoryComponent implements OnInit, OnDestroy {
     })
 
     this._accessoryFacade.loadStatistics();
-    this._accessoryFacade.statistics$.subscribe((data) =>
-      console.log(data, 'accessory statistics')
-    );
+    this._accessoryFacade.statistics$.subscribe((data) => {
+      console.log(data, 'accessory statistics');
+      if (data) {
+        this.filterCard.forEach((card, index) => {
+          this.filterCard[index].filterCount = data[this.filterCard[index].field]
+        })
+      }
+    });
 
   }
+
+  constructor(
+    private _accessoryService: AccessoryService,
+    private _accessoryFacade: AccessoryFacade
+  ) {}
 
   addAccessory() {
     this._accessoryService.loadAddForm(true);

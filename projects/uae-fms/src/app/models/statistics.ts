@@ -6,7 +6,7 @@ export interface ITollStatistics extends IGeneralResponse {
   assigned: number;
 }
 
-export interface IAccessoryStatistics {
+export interface IAccessoryStatistics extends IGeneralResponse {
   total: number;
   available: number;
   assigned: number;
