@@ -9,8 +9,8 @@ export class PartMasterService {
     const data = [];
     for (let index = 0; index < 7; index++) {
       const el = {
-        img: 'TILE2._CB1564607297_.png',
-        itemName: 'Item No 123456',
+        thumbImage: 'TILE2._CB1564607297_.png',
+        thumbText: 'Item No 123456',
         model: 'BMW',
         quantity: 122,
         status: 'Available',
@@ -25,16 +25,14 @@ export class PartMasterService {
       columns: [
         {
           lable: 'tables.column.item',
-          field: 'itemName',
-          width: 140,
-          type: 2,
-          thumbField: 'img',
-          renderer: ''
+          type: 1,
+          field: 'thumbText',
+          renderer: 'thumbTextRenderer',
+          thumbField: 'thumbImage'
         },
         {
           lable: 'tables.column.model',
           field: 'model',
-          width: 100,
           type: 1,
           thumbField: '',
           renderer: ''
@@ -42,7 +40,6 @@ export class PartMasterService {
         {
           lable: 'tables.column.quantity',
           field: 'quantity',
-          width: 100,
           type: 1,
           thumbField: '',
           renderer: ''
@@ -50,11 +47,18 @@ export class PartMasterService {
         {
           lable: 'tables.column.status',
           field: 'status',
-          width: 100,
+          width: 120,
           type: 1,
           thumbField: '',
           renderer: '',
           textColor: '#8088CC'
+        },
+        {
+          lable: '',
+          type: 1,
+          field: 'routeLink',
+          width: 50,
+          renderer: 'routeLinkRenderer'
         }
       ],
       data: this.partMasterData(),

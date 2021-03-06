@@ -65,7 +65,7 @@ import { FleetStateModule } from './+state';
     MatStepperModule,
     CdkStepperModule,
     SharedModule,
-    FleetStateModule
+    FleetStateModule,
   ]
 })
 export class FleetModule {}

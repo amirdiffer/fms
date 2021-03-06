@@ -53,8 +53,9 @@
 }
 
 .with-renderer-table {
-  height: 5em;
-  margin-top: 1em;
+  height: 80%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .icon-dorp {
