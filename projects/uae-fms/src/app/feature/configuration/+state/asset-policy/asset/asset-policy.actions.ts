@@ -13,4 +13,12 @@ export class AssetPolicyActions {
     '[AssetPolicy] error occurred',
     props<{ reason: any }>()
   );
+  static addAssetPolicy = createAction (
+    '[AssetPolicy] add asset policy',
+    props<{data:IAssetPolicy}>()
+  );
+  static addAssetPolicySuccessfully = createAction(
+    '[AssetPolicy] asset policy added successfully',
+    props<{data:IAssetPolicy}>()
+  )
 }
