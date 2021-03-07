@@ -9,6 +9,11 @@ export class TrafficFineTableSelectors {
     selectAll
   );
 
+  static selectStatistics = createSelector(
+    TrafficFinesSelectors.trafficFineTableSelector,
+    (state) => state.statistics
+  );
+
   static message = createSelector(
     TrafficFinesSelectors.trafficFineTableSelector,
     (state) => state.message

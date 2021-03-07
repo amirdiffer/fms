@@ -44,3 +44,11 @@ export interface ISubAssetStatistics extends IGeneralResponse {
 export interface IUserStatistics extends IGeneralResponse {
   result_number: number;
 }
+
+export interface ITrafficFineStatistics extends IGeneralResponse {
+  result_number: number;
+  total: number;
+  paid: number;
+  unpaid: number;
+  deducted: number;
+}
