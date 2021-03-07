@@ -35,6 +35,10 @@ export interface IOperatorStatistics extends IGeneralResponse {
 
 export interface ISubAssetStatistics extends IGeneralResponse {
   result_number: number;
+  total: number;
+  active: number;
+  inactive: number;
+  xSubAsset: number;
 }
 
 export interface IUserStatistics extends IGeneralResponse {

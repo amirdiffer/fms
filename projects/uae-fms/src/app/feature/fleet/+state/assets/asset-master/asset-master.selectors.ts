@@ -1,11 +1,12 @@
 import { createSelector } from '@ngrx/store';
 import { FleetSelectors } from '@feature/fleet/+state/fleet.selectors';
 import { assetMasterAdapter, IAssetMasterState } from './asset-master.entity';
+const { selectAll } = assetMasterAdapter.getSelectors();
 
 export class AssetMasterSelectors {
   static selectAll = createSelector(
     FleetSelectors.assetMasterSelector,
-    assetMasterAdapter.setAll
+    selectAll
   );
 
   static selectStatistics = createSelector(

@@ -15,7 +15,7 @@ export class AssetMasterEffects {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            return AssetMasterActions.allDataLoaded({ data });
+            return AssetMasterActions.allDataLoaded({ data: data.message });
           }),
           catchError((error) => of(AssetMasterActions.error({ reason: error })))
         )

@@ -1,13 +1,13 @@
 import { createAction, props } from '@ngrx/store';
-import { IAssetMasterModel } from '@feature/fleet/+state/assets/asset-master/asset-master.entity';
 import { IAssetStatistics } from '@models/statistics';
+import { IAssetMaster } from '@models/asset-master.model';
 
 export class AssetMasterActions {
   static loadAll = createAction('[AssetMaster] load all data');
 
   static allDataLoaded = createAction(
     '[AssetMaster] all datas are loaded',
-    props<{ data: IAssetMasterModel[] }>()
+    props<{ data: IAssetMaster[] }>()
   );
 
   static loadStatistics = createAction('[AssetMaster] load all statistics');

@@ -50,6 +50,11 @@ export class MovementComponent implements OnInit, AfterViewChecked {
         console.log(data)
       }
     )
+    this._movementRequestsFacade.loadRequestStatistic();
+    this._movementRequestsFacade.MovementRequestStatistic.subscribe((x) => {
+      console.log(x);
+    })
+
 
     this.movementOverViewTableSetting = this._movementService.movmentOverViewTableSetting();
     this.requestTableSetting = this._movementService.requestTableSetting();
@@ -64,7 +69,7 @@ export class MovementComponent implements OnInit, AfterViewChecked {
     rejectCol.onClick = this.rejectRow();
     this.filterSetting = [
       {
-        filterTitle: 'statistic.Total',
+        filterTitle: 'statistic.total',
         filterCount: '36',
         filterTagColor: '#B892FF'
       },
