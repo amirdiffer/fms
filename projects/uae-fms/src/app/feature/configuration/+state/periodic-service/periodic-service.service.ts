@@ -14,4 +14,11 @@ export class PeriodicServiceService {
       environment.baseApiUrl + 'configuration/periodic-service'
     );
   }
+
+  post(data): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'configuration/periodic-service',
+      data
+    );
+  }
 }

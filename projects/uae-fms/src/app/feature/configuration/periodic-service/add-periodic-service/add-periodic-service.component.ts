@@ -7,6 +7,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { PeriodicServiceFacade } from '../../+state/periodic-service';
 
 @Component({
   selector: 'anms-add-periodic-service',
@@ -61,7 +62,11 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   addPeriodicServiceForm: FormGroup;
   submited: boolean = false;
 
-  constructor(private _fb: FormBuilder, injector: Injector) {
+  constructor(
+    private _fb: FormBuilder,
+    injector: Injector,
+    private facade: PeriodicServiceFacade
+  ) {
     super(injector);
   }
 
@@ -79,6 +84,18 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
     if (this.addPeriodicServiceForm.invalid) {
       return;
     }
+
+    const formValues = this.addPeriodicServiceForm.value;
+
+    const objectToPost = {
+      name: formValues.name,
+      intervalType: 'km/h',
+      intervalValue: formValues.intervals,
+      tasks: [formValues.task]
+    };
+
+    this.facade.addPeriodicService(objectToPost);
+
     this.goToList();
   }
 }

@@ -19,9 +19,11 @@ export interface IRole {
 }
 
 export interface IOwnerShip {
-  id: number,
-  name: string
+  id: number;
+  name: string;
 }
 
-
-export interface IPeriodicService {}
+export interface IPeriodicService {
+  id: number;
+  name: string;
+}
