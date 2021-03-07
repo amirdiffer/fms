@@ -86,8 +86,22 @@ export class OwnershipComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
-    this.facade.ownership$.subscribe((x) => {
-      console.log(x);
+    this.facade.ownership$.subscribe((data) => {
+      if(data){
+        this.ownerShip_Table.data = data.map(
+          (item) => {
+            return {
+              Ownership: item.type,
+              Owner: item.name,
+              Fleet_IT_Code: item.fleetITCode,
+              Duration: item.duration,
+              Purpose:  item.purpose,
+              Owner_Email:  item.email,
+              Owner_Phone_No: item.phoneNumber,
+            }
+          }
+        )
+      }
     })
   }
 }
