@@ -875,6 +875,7 @@
     "assign": "Assign",
     "feedback": {
       "required": "This is Field Required",
+      "file_ext": "File extension is incorrect",
       "invalid-email": "Email address is invalid"
     }
   },

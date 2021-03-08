@@ -38,5 +38,29 @@ export class TollEffect {
     )
   );
 
+  assigningToll$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(TollActions.assigningToll),
+      mergeMap((action) =>
+        this.service.assigningToll(action).pipe(
+          map((data) => TollActions.assignedToll({ data: data.message })),
+          catchError((error) => of(TollActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  addToll$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(TollActions.addToll),
+      mergeMap((action) =>
+        this.service.addToll(action.data).pipe(
+          map((data) => TollActions.addTollSuccessfully({ data : data.message })),
+          catchError((error) => of(TollActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   constructor(private action$: Actions, private service: TollService) {}
 }

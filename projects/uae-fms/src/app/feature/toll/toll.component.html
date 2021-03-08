@@ -1,11 +1,11 @@
 <div class="filter-container">
-  <div class="button-container" *ngIf="lengthObjectAssign()">
+  <div class="button-container" *ngIf="lengthObjectAssign() && loaded">
     <button class="btn-primary-medium btn-scondary-green" type="button" (click)="closeForm()">{{ 'forms.cancel' | translate }}</button>
-    <button class="btn-primary-medium add" (click)="closeForm()">{{ 'forms.assign' | translate }}</button>
+    <button class="btn-primary-medium add" (click)="assignToll();">{{ 'forms.assign' | translate }}</button>
   </div>
     <app-filter [setting]="filterSetting"></app-filter>
 </div>
-<div class="row" *ngIf="lengthObjectAssign()">
+<div class="row" *ngIf="lengthObjectAssign() && loaded">
   <form class="col-12" [formGroup]="form">
     <div class="form-section">
       <h3 class="form-section__title">{{ 'toll.toll_info' | translate }}</h3>
@@ -14,18 +14,27 @@
 
         <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <input formControlName="tag" pInputText placeholder="{{ 'toll.toll_tag' | translate }}"
+                    <input formControlName="tollTag" pInputText placeholder="{{ 'toll.toll_tag' | translate }}"
                            type="text">
                     <label>{{ 'toll.toll_tag' | translate }}</label>
                 </span>
+          <anms-error
+            [showError]="hasError('tollTag')"
+            error="forms.feedback.required"></anms-error>
         </div>
 
-        <div class="col-12 col-md-4 p-field form-section__field">
-                <span class="p-float-label">
-                    <input formControlName="purshateDate" pInputText placeholder="{{ 'toll.purchase_date' | translate }}"
-                           type="text">
-                    <label>{{ 'toll.purchase_date' | translate }}</label>
-                </span>
+        <div class="col-12 col-md-4 p-field form-section__field date-input">
+              <span class="p-float-label">
+                  <p-calendar formControlName="purchaseDate" inputId="basic" placeholder="{{ 'toll.purchase_date' | translate }}"></p-calendar>
+                <svg-icon class="date-icon"
+                          src='../../../../assets/icons/calendar-alt-regular.svg'
+                          [svgStyle]="{ 'width.px':'20' , 'fill': 'rgb(161 161 161)' ,
+            'height': '100%'}"></svg-icon>
+                  <label>{{ 'toll.purchase_date' | translate }} </label>
+              </span>
+          <anms-error
+            [showError]="hasError('purchaseDate')"
+            error="forms.feedback.required"></anms-error>
         </div>
 
         <div class="col-12 col-md-4 p-field form-section__field">
@@ -35,6 +44,9 @@
             <i class="pi pi-search"></i>
             <label>{{ 'toll.assign_to' | translate }} *</label>
           </span>
+            <anms-error
+              [showError]="hasError('assetId')"
+              error="forms.feedback.required"></anms-error>
           </div>
         </div>
 
