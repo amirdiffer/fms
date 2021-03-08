@@ -1,4 +1,5 @@
 import {
+  AfterContentChecked,
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
@@ -13,7 +14,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./add-role-and-permission.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
+export class AddRoleAndPermissionComponent
+  implements OnInit, AfterViewInit, AfterContentChecked {
   form: FormGroup;
 
   middleCheckboxLabelArray = [
@@ -71,9 +73,7 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
   constructor(
     private formBuilder: FormBuilder,
     private translationService: TranslateService
-  ) {
-    this.getTranslations();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.buildForm();
@@ -82,6 +82,10 @@ export class AddRoleAndPermissionComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.updateMiddleArray();
+  }
+
+  ngAfterContentChecked() {
+    this.getTranslations();
   }
 
   middleRowSwitches(index: number) {
