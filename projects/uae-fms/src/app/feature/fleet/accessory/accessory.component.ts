@@ -135,8 +135,9 @@ export class AccessoryComponent implements OnInit, OnDestroy {
     this._accessoryFacade.statistics$.subscribe((data) => {
       console.log(data, 'accessory statistics');
       if (data) {
+        let statistic = data.message;
         this.filterCard.forEach((card, index) => {
-          this.filterCard[index].filterCount = data[this.filterCard[index].field]
+          this.filterCard[index].filterCount = statistic[this.filterCard[index].field]
         })
       }
     });
