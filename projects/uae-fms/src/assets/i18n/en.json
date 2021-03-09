@@ -190,6 +190,9 @@
     "sold": "Sold",
     "asset": "Asset",
     "sub_asset": "Sub Asset",
+    "movement_history": "Movement History",
+    "overview": "OverView",
+    "activity": "Activity",
     "map_view": "Map View",
     "assets": "Assets",
     "iserve_operator": "Iserv Operators"
@@ -481,6 +484,18 @@
     "call": "Call",
     "sms": "SMS",
     "whatsapp": "Whatsapp",
+    "overview": {
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "age": "Age",
+      "email": "Email",
+      "phone_number": "Phone Number",
+      "employee_number": "Employee Number",
+      "organization": "Organization",
+      "section": "Section",
+      "authorized": "Authorized",
+      "expiry_license": "Expiry License"
+    },
     "upload_form": {
       "title": "Upload Profile Picture",
       "progressbar_title": "*.pdf",
@@ -792,7 +807,8 @@
       "operator": "Operator",
       "organization": "Organization",
       "movement": "Movement",
-      "asset_configuration": "Asset Configuration"
+      "asset_configuration": "Asset Configuration",
+      "business_category": "Business Category"
     },
     "users": {
       "portal_information": "Portal Information",

@@ -191,6 +191,9 @@
     "sold": "مباع",
     "asset": "أصل",
     "sub_asset": "أصل فرعي",
+    "movement_history": "تاريخ الحركة",
+    "overview": "نظرة عامة",
+    "activity": "فعالية",
     "map_view": "عرض الخريطة",
     "assets": "أصل",
     "iserve_operator": "Iserv العاملين"
@@ -482,6 +485,18 @@
     "call": "مكالمة",
     "sms": "رسالة قصيرة",
     "whatsapp": "واتساب",
+    "overview": {
+      "first_name": "الاسم الاول",
+      "last_name": "الكنية",
+      "age": "عمر",
+      "email": "بريد الالكتروني",
+      "phone_number": "رقم التليفون",
+      "employee_number": "رقم الموظف",
+      "organization": "منظمة",
+      "section": "الجزء",
+      "authorized": "مخول",
+      "expiry_license": "رخصة انتهاء الصلاحية"
+    },
     "upload_form": {
       "title": "تحميل صورة الملف الشخصي",
       "progressbar_title": "*.pdf",
@@ -790,7 +805,9 @@
       "accessory": "الملحقات",
       "operator": "المشغل",
       "organization": "المنظمة",
-      "movement": "الحركة"
+      "movement": "الحركة",
+      "asset_configuration": "تكوين الأصول",
+      "business_category": "نوع العمل"
     },
     "users": {
       "portal_information": "معلومات البوابة",

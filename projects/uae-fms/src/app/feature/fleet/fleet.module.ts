@@ -18,7 +18,6 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { FleetRoutingModule } from './fleet-routing.module';
 
 import { DashboardModule } from '../dashboard/dashboard.module';
-import { IservComponent } from './movement/iserv/iserv.component';
 import { OperatorComponent } from './operator/operator.component';
 import { MovementComponent } from './movement/movement.component';
 import { SubAssetComponent } from './sub-asset/sub-asset.component';
@@ -48,6 +47,8 @@ import { ChartsModule } from '@core/charts';
 
 import { FleetStateModule } from './+state';
 import { MapModule } from '@core/map-view';
+import { OverViewOperatorComponent } from './operator/over-view-operator/over-view-operator.component';
+import { IserveComponent } from './movement/iserv/iserv.component';
 
 @NgModule({
   declarations: [
@@ -64,12 +65,13 @@ import { MapModule } from '@core/map-view';
     AddAssetComponent,
     AddOperatorComponent,
     AddRequestComponent,
-    IservComponent,
+    IserveComponent,
     OverViewAssetComponent,
     VehicleOverviewComponent,
     BusinessCategoryComponent,
     JobCardComponent,
-    RequestComponent
+    RequestComponent,
+    OverViewOperatorComponent
   ],
   imports: [
     AngularSvgIconModule,

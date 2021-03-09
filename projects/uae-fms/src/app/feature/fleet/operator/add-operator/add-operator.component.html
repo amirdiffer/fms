@@ -81,8 +81,8 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-4 d-flex">
-      <div class="component_wrapper form-section">
+    <div class="col-lg-4">
+      <div class="component_wrapper fit-height form-section">
         <h3 class="form-section__title">{{'operator.upload_form.title' | translate}}</h3>
         <div class="upload-box">
           <div class="row">
@@ -93,13 +93,13 @@
             <div class="col-12 w-100 ">
               <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
             </div>
-            <div class="col-lg-12 mt-2">
+            <div class="col-lg-12 my-2">
               <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
                 <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                   <label (click)="openFileSelector()" style="cursor: pointer;">
                     <svg-icon  class="camera-icon" src="../../../../../assets/icons/camera-solid.svg"
-                      [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                      <small calss="drag-and-drop">{{'operator.upload_form.content' | translate}}</small>
+                               [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                    <small calss="drag-and-drop">{{'operator.upload_form.content' | translate}}</small>
                   </label>
                 </ng-template>
               </ngx-file-drop>
@@ -119,9 +119,9 @@
                     <label>{{'operator.first_name' | translate}}</label>
                 </span>
             </div>
-        </div>
+          </div>
           <div class="col-lg-7">
-             <div class=" p-field form-section__field">
+            <div class=" p-field form-section__field">
                 <span class="p-float-label">
                     <input pInputText placeholder="{{'operator.last_name' | translate}}" type="text">
                     <label>{{'operator.last_name' | translate}}</label>

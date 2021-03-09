@@ -13,6 +13,7 @@ import { OperatorFacade } from '../+state/operator';
 export class OperatorComponent implements OnInit {
   assets = assetsPath;
   downloadBtn = 'assets/icons/download-solid.svg';
+  showOverView = false;
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
@@ -34,6 +35,32 @@ export class OperatorComponent implements OnInit {
     },
     {
       filterTitle: 'statistic.inactive',
+      filterCount: '12',
+      filterTagColor: '#E07A5F',
+      onActive(index: number) {}
+    }
+  ];
+  filterCardOverView: FilterCardSetting[] = [
+    {
+      filterTitle: 'statistic.total',
+      filterCount: '2456',
+      filterTagColor: '#6C7198',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'statistic.paid',
+      filterCount: '356',
+      filterTagColor: '#5B8972',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'statistic.unpainted',
+      filterCount: '124',
+      filterTagColor: '#DDB16C',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'statistic.deducte',
       filterCount: '12',
       filterTagColor: '#E07A5F',
       onActive(index: number) {}
@@ -235,10 +262,13 @@ export class OperatorComponent implements OnInit {
     rowSettings: {
       onClick: (col, data, button?) => {
         console.log(col, data, button);
+        if ('external') {
+          this.showOverView = true;
+        }
       },
       floatButton: [
         {
-          button: 'external',
+          button: 'external'
         }
       ]
     }
