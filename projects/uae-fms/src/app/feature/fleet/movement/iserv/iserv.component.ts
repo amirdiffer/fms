@@ -9,8 +9,7 @@ import * as L from 'leaflet';
   styleUrls: ['./iserv.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IservComponent implements OnInit {
-
+export class IserveComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   selectedTab = '1';
@@ -20,36 +19,31 @@ export class IservComponent implements OnInit {
       filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#7C67A5',
-      onActive(index: number) {
-      }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '07',
       filterTagColor: '#00CBB2',
-      onActive(index: number) {
-      }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.pending',
       filterCount: '05',
       filterTagColor: '#709775',
-      onActive(index: number) {
-      }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.complete',
       filterCount: '12',
       filterTagColor: '#648DE5',
-      onActive(index: number) {
-      }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.cancel',
       filterCount: '12',
       filterTagColor: '#F75A4A',
-      onActive(index: number) {
-      }
+      onActive(index: number) {}
     }
   ];
   filterSetting2: FilterCardSetting[] = [
@@ -57,22 +51,19 @@ export class IservComponent implements OnInit {
       filterTitle: 'statistic.total',
       filterCount: '36',
       filterTagColor: '#7C67A5',
-      onActive(index: number) {
-      }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.available',
       filterCount: '07',
       filterTagColor: '#00CBB2',
-      onActive(index: number) {
-      }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.unavailable',
       filterCount: '05',
       filterTagColor: '#709775',
-      onActive(index: number) {
-      }
+      onActive(index: number) {}
     }
   ];
 
@@ -346,7 +337,7 @@ export class IservComponent implements OnInit {
         fine: 3
       }
     ]
-  }
+  };
   assets_Table: TableSetting = {
     columns: [
       {
@@ -441,7 +432,7 @@ export class IservComponent implements OnInit {
         firstName: 'Sam',
         lastName: 'Smith',
         Status: 'Available',
-        location: "Al Ghandi Ato Serivce A Khor"
+        location: 'Al Ghandi Ato Serivce A Khor'
       }
     ],
     rowSettings: {
@@ -449,14 +440,13 @@ export class IservComponent implements OnInit {
         console.log(col, data);
       }
     }
-  }
+  };
 
   map_view;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   initMap = false;
   initialTable(): void {
@@ -467,10 +457,10 @@ export class IservComponent implements OnInit {
           zoom: 13
         });
         this.map_view.setView([23.424, 53.847], 6);
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        }).addTo(this.map_view);
-      }, 1000)
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(
+          this.map_view
+        );
+      }, 1000);
     }
   }
-
 }
