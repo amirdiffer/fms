@@ -32,6 +32,7 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
 import { MatStepperModule } from '@angular/material/stepper';
 import { AddRequestComponent } from './movement/add-request/add-request.component';
 import { FleetStateModule } from './+state';
+import { OverViewOperatorComponent } from './operator/over-view-operator/over-view-operator.component';
 import { IservComponent } from './movement/iserv/iserv.component';
 
 @NgModule({
@@ -49,6 +50,7 @@ import { IservComponent } from './movement/iserv/iserv.component';
     AddAssetComponent,
     AddOperatorComponent,
     AddRequestComponent,
+    OverViewOperatorComponent,
     IservComponent
   ],
   imports: [
