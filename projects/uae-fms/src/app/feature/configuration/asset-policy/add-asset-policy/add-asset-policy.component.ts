@@ -108,7 +108,8 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
       depreciationValue: this.assetPolicyForm.value.depreciationValue,
       setReminderBefore:this.assetPolicyForm.value.reminder,
     }
-    this._assetPolicyFacade.addAssetPolicy(formValue)
+    // this._assetPolicyFacade.addAssetPolicy(formValue)
+    console.log(formValue)
     this.goToList();
   }
 }
