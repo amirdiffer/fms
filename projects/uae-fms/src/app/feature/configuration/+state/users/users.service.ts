@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ResponseBody } from '@models/response-body';
 import { IUser } from '@models/configuration';
 import { environment } from '@environments/environment';
+import { IUserStatistics } from '@models/statistics';
 
 @Injectable()
 export class UsersService {
@@ -12,6 +13,11 @@ export class UsersService {
   loadAll(): Observable<ResponseBody<IUser[]>> {
     return this.http.get<ResponseBody<IUser[]>>(
       environment.baseApiUrl + 'configuration/user'
+    );
+  }
+  loadAllStatistics(): Observable<ResponseBody<IUserStatistics>> {
+    return this.http.get<ResponseBody<IUserStatistics>>(
+      environment.baseApiUrl + 'configuration/user/stats'
     );
   }
 

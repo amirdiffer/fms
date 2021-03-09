@@ -1,12 +1,8 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { UsersFacade } from '../../+state/users';
+import { IUserStatistics } from '@models/statistics';
 import { IUser } from '@models/configuration';
 import { Subscription } from 'rxjs';
 
@@ -16,37 +12,16 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./users.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UsersComponent implements OnInit, OnDestroy {
+export class UsersComponent implements OnInit , OnDestroy {
   downloadBtn = 'assets/icons/download-solid.svg';
+  userStatistics$:Subscription;
   getUsersSubscription: Subscription;
-  filterCard: FilterCardSetting[] = [
-    {
-      filterTitle: 'statistic.this_month',
-      filterCount: '',
-      filterTagColor: '',
-      isCalendar: true,
-      onActive(index: number) {}
-    },
-    {
-      filterTitle: 'statistic.total',
-      filterCount: '356',
-      filterTagColor: '#6EBFB5',
-      onActive(index: number) {}
-    },
-    {
-      filterTitle: 'statistic.active',
-      filterCount: '124',
-      filterTagColor: '#6870B4',
-      onActive(index: number) {}
-    },
-    {
-      filterTitle: 'statistic.inactive',
-      filterCount: '12',
-      filterTagColor: '#BA7967',
-      onActive(index: number) {}
-    }
-  ];
-
+  userStatisticsInitial : IUserStatistics ={
+    totalUserNumber:0,
+    activeUsersNumber: 0,
+    inActiveUsersNumber:0,
+  }
+  filterCard: FilterCardSetting[];
   users_Table: TableSetting = {
     columns: [
       {
@@ -74,12 +49,11 @@ export class UsersComponent implements OnInit, OnDestroy {
     data: []
   };
 
-  constructor(private facade: UsersFacade) {}
-  ngOnDestroy(): void {
-    this.getUsersSubscription.unsubscribe();
-  }
+  constructor(private facade: UsersFacade ) {}
 
   ngOnInit(): void {
+    this.statisticsFilter(this.userStatisticsInitial);
+
     this.facade.loadAll();
     this.getUsersSubscription = this.facade.users$.subscribe(
       (users: IUser[]) => {
@@ -101,5 +75,51 @@ export class UsersComponent implements OnInit, OnDestroy {
         }
       }
     );
+    this.facade.users$.subscribe((data) => {
+      console.log(data, 'users');
+    });
+    this.userStatistics$ =this.facade.statistics$.subscribe(data => {
+      if(data){
+        const updated : IUserStatistics = {
+          totalUserNumber:0,
+          activeUsersNumber:data.activeUsersNumber,
+          inActiveUsersNumber:data.inActiveUsersNumber
+        }
+        this.statisticsFilter(updated)
+        }
+    })
   }
+  statisticsFilter(statisticsCount:IUserStatistics){
+    console.log('detected')
+    this.filterCard=[
+      {
+        filterTitle: 'statistic.this_month',
+        filterCount: '',
+        filterTagColor: '',
+        isCalendar: true,
+        onActive(index: number) {}
+      },
+      {
+        filterTitle: 'statistic.total',
+        filterCount: statisticsCount.totalUserNumber.toString(),
+        filterTagColor: '#6EBFB5',
+        onActive(index: number) {}
+      },
+      {
+        filterTitle: 'statistic.active',
+        filterCount: statisticsCount.activeUsersNumber.toString(),
+        filterTagColor: '#6870B4',
+        onActive(index: number) {}
+      },
+      {
+        filterTitle: 'statistic.inactive',
+        filterCount: statisticsCount.inActiveUsersNumber.toString(),
+        filterTagColor: '#BA7967',
+        onActive(index: number) {}
+      }
+    ];
+  }
+ ngOnDestroy(){
+    this.userStatistics$.unsubscribe();
+    this.getUsersSubscription.unsubscribe();
 }

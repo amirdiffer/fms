@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { TableSetting } from '@core/table';
 import { OwnershipFacade } from '../+state/ownership';
 
@@ -82,12 +87,28 @@ export class OwnershipComponent implements OnInit {
     ]
   };
 
-  constructor(private facade: OwnershipFacade) {}
+  constructor(
+    private facade: OwnershipFacade,
+    private _cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
-    this.facade.ownership$.subscribe((x) => {
-      console.log(x);
-    })
+    this.facade.ownership$.subscribe((data) => {
+      if (data) {
+        this.ownerShip_Table.data = data.map((item) => {
+          return {
+            Ownership: item.type,
+            Owner: item.name,
+            Fleet_IT_Code: item.fleetITCode,
+            Duration: item.duration,
+            Purpose: item.purpose,
+            Owner_Email: item.email,
+            Owner_Phone_No: item.phoneNumber
+          };
+        });
+        this._cd.markForCheck();
+      }
+    });
   }
 }

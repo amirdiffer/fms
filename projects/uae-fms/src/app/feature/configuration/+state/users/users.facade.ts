@@ -13,10 +13,13 @@ export class UsersFacade {
 
   error$ = this.store.pipe(select(UsersSelectors.error));
 
+  statistics$ = this.store.pipe(select(UsersSelectors.selectStatistics));
+
   constructor(private store: Store<UsersPartialState>) {}
 
   loadAll() {
     this.store.dispatch(UsersActions.loadAll());
+    this.store.dispatch(UsersActions.loadStatistics());
   }
 
   addUser(data: IUser) {
