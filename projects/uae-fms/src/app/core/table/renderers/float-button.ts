@@ -5,10 +5,21 @@ import { SettingsFacade } from '@core/settings/settings.facade';
 @Component({
   selector: 'float-button-renderer',
   template: `
-    <div class="float-button" [ngStyle]="{'right': lang == 'en' ? '20px' : null, 'left': lang == 'ar' ? '20px' : null}">
-      <ng-container *ngFor="let item of setting?.floatButton;">
-        <span (click)="setting?.onClick(col, data, item.button)">
-          <svg-icon [src]="getIcon(item.button)" class="svg-icon" [applyClass]="true" [svgStyle]="{'fill': item.color||null }"></svg-icon>
+    <div
+      class="float-button"
+      [ngStyle]="{
+        right: lang == 'en' ? '20px' : null,
+        left: lang == 'ar' ? '20px' : null
+      }"
+    >
+      <ng-container *ngFor="let item of setting?.floatButton">
+        <span (click)="item?.onClick(col, data, item.button)">
+          <svg-icon
+            [src]="getIcon(item.button)"
+            class="svg-icon"
+            [applyClass]="true"
+            [svgStyle]="{ fill: item.color || null }"
+          ></svg-icon>
         </span>
       </ng-container>
     </div>
@@ -45,7 +56,6 @@ import { SettingsFacade } from '@core/settings/settings.facade';
     `
   ]
 })
-
 export class FloatButton implements OnInit {
   @Input() data;
   @Input() col;
@@ -56,8 +66,7 @@ export class FloatButton implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getIcon(key: string): string {
     switch (key) {
@@ -78,5 +87,4 @@ export class FloatButton implements OnInit {
       }
     }
   }
-
 }

@@ -1,0 +1,319 @@
+.toolbar {
+  display: flex;
+  flex-direction: row-reverse;
+
+  .search {
+    margin: 5px;
+  }
+
+  .btn-group {
+    margin-top: 10px;
+    border: 1px solid rgba(70, 70, 70, 0.068);
+    border-radius: 5px;
+    height: 35px;
+    background: #dedede;
+
+    button {
+      background: transparent;
+      border: none;
+      height: 100%;
+      max-height: 100%;
+      min-height: 100%;
+    }
+
+    button:nth-child(2) {
+      border-left: 1px solid rgba(75, 75, 75, 0.23);
+      border-right: 1px solid rgba(75, 75, 75, 0.23);
+    }
+  }
+}
+
+.info-box {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  flex-flow: row wrap;
+  border-radius: 5px;
+
+  .thumb-span {
+    width: 100%;
+    img {
+      display: block;
+      width: 100%;
+      margin: 5px;
+      border-radius: 5px;
+    }
+  }
+}
+
+.search input {
+  height: 26px;
+  border: 1px solid rgba(82, 82, 82, 0.301);
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.color-button {
+  padding: 5px;
+  background: #0da06e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+
+  img {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.color-button-invert {
+  padding: 5px;
+  background: transparent;
+  color: #0da06e;
+  border: 1px solid #0da06e;
+  border-radius: 5px;
+  margin: 5px;
+
+  img {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.overview {
+  .status-bar {
+    ._row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      .status-box {
+        display: flex;
+        flex-direction: row;
+        padding: 15px;
+        flex: 1 18%;
+
+        .text {
+          flex: 1 60%;
+
+          .amount {
+            font-size: 1.4rem;
+            font-weight: 700;
+          }
+
+          .unit {
+            font-size: 0.5rem;
+            font-weight: 600;
+          }
+        }
+
+        .icon {
+          flex: 2 40%;
+          display: flex;
+          align-items: center;
+
+          img {
+            width: 100%;
+            height: max-content;
+          }
+        }
+      }
+    }
+    .width-4 {
+      min-width: 24%;
+    }
+  }
+
+  .contain {
+    border: 1px solid rgb(77 77 77 / 27%);
+    margin: 20px 10px;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .speed-average {
+    flex: 1 26%;
+  }
+
+  .workout-statics {
+    flex: 2 60%;
+  }
+
+  .reminders {
+    .reminders-box {
+      .reminder {
+        border: 1px solid #64646480;
+        display: flex;
+        border-radius: 5px;
+        padding: 12px;
+        margin: 4px;
+        justify-content: space-between;
+        font-size: 0.6rem;
+
+        .text {
+          .date {
+            display: inline-flex;
+          }
+        }
+
+        .action {
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .legend {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        .border-override {
+          border: none;
+          padding: 5px 5px 0px 5px;
+
+          .bullet {
+            width: 10px !important;
+            height: 10px !important;
+            margin: 4px !important;
+          }
+        }
+
+        span {
+          display: flex;
+          flex-direction: row;
+        }
+      }
+
+      .bullet {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin: 4px;
+      }
+
+      .over {
+        border: 1px solid #ff0000;
+        .bullet {
+          margin: 1px 4px !important;
+          width: 15px !important;
+          height: 15px !important;
+          background: #ff0000;
+        }
+
+        .action {
+          color: #ff0000;
+        }
+      }
+
+      .normal {
+        border: 1px solid #26d07c;
+        .bullet {
+          background: #26d07c;
+        }
+
+        .action {
+          color: #26d07c;
+        }
+      }
+
+      .urgent {
+        border: 1px solid #f17105;
+        .bullet {
+          margin: 1px 4px !important;
+          width: 15px !important;
+          height: 15px !important;
+          background: #f17105;
+        }
+
+        .action {
+          color: #f17105;
+        }
+      }
+
+      .normal2 {
+        border: 1px solid #6665dd;
+        .bullet {
+          background: #6665dd;
+        }
+
+        .action {
+          color: #6665dd;
+        }
+      }
+    }
+  }
+
+  .vehicle-details {
+    display: flex;
+    flex-direction: column;
+
+    .flex-container {
+      display: flex;
+      flex-direction: row;
+
+      .infos {
+        flex: 1 30%;
+        display: flex;
+        flex-direction: column;
+
+        .info {
+          margin: 10px;
+        }
+      }
+      .details {
+        flex: 2 40%;
+        padding: 10px;
+        border: 1px solid #4644441f;
+        border-radius: 5px;
+        margin: 10px;
+
+        .detail {
+          .details-box {
+            .detail-box {
+              display: flex;
+              flex-direction: row;
+
+              .inner-details {
+                padding: 0px 15px 10px 12px;
+                border-radius: 5px;
+              }
+            }
+          }
+        }
+
+        .speed-box {
+          .speed-section {
+            margin: 22px 0px;
+          }
+        }
+      }
+      .car {
+        flex: 3 30%;
+      }
+    }
+  }
+}
+
+._row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1410px) {
+  ._row-custom-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 1410px) {
+  ._row-custom-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+}

@@ -21,6 +21,8 @@ import { Subject } from 'rxjs';
 })
 export class TabViewComponent implements OnInit {
   @Input('returnId') returnId: string = 'title';
+  @Input() index?: boolean = true;
+  @Input() container?: boolean = false;
   @Output('selectedIndex') selectedIndex: EventEmitter<
     string
   > = new EventEmitter<string>();
@@ -44,10 +46,11 @@ export class TabViewComponent implements OnInit {
           index: i,
           title: this.elements[i].attributes.getNamedItem('title').nodeValue,
           id: tabID ? tabID.nodeValue : null,
-          count:
-            this.elements[i].attributes.getNamedItem('count') != null
+          count: this.index
+            ? this.elements[i].attributes.getNamedItem('count') != null
               ? this.elements[i].attributes.getNamedItem('count').nodeValue
               : Math.floor(Math.random() * 500) + 1
+            : null
         });
       }
     }

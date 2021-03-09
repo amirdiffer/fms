@@ -1,0 +1,176 @@
+<div class="overview">
+    <div class="status-bar">
+        <div class="_row">
+            <span class="status-box color-button">
+                <span class="text">
+                    <section class="amount">{{data.totalKm}}km</section>
+                    <section class="unit">TOTAL KM</section>
+                </span>
+                <section class="icon"><img src="../../../../../../assets/icons/speed-meter.svg" alt=""></section>
+            </span>
+            <span class="status-box color-button">
+                <span class="text">
+                    <section class="amount">{{data.currentFuel}}L</section>
+                    <section class="unit">Current Fuel</section>
+                </span>
+                <section class="icon"><img src="../../../../../../assets/icons/refule.svg" alt=""></section>
+            </span>
+            <span class="status-box color-button">
+                <span class="text">
+                    <section class="amount">{{data.totalFuel}}L</section>
+                    <section class="unit">TOTAL FUEL</section>
+                </span>
+                <section class="icon"><img src="../../../../../../assets/icons/gas-pomp.svg" alt=""></section>
+            </span>
+            <span class="status-box color-button">
+                <span class="text">
+                    <section class="amount">{{data.battryUse}}%</section>
+                    <section class="unit">Battry LIFE</section>
+                </span>
+                <section class="icon"><img src="../../../../../../assets/icons/battry.svg" alt=""></section>
+            </span>
+            <span class="status-box color-button">
+                <span class="text">
+                    <section class="amount">{{data.slackCredit}} AED</section>
+                    <section class="unit">SLACK CREDIT</section>
+                </span>
+                <section class="icon"><img src="../../../../../../assets/icons/road.svg" alt=""></section>
+            </span>
+        </div>
+        <div class="_row">
+            <span class="status-box width-4 color-button-invert">
+                <span class="text">
+                    <section class="amount">{{data.totalOil}}</section>
+                    <section class="unit">TOTAL TEXT</section>
+                </span>
+                <section class="icon"><img src="../../../../../../assets/icons/engin-oil.svg" alt=""></section>
+            </span>
+            <span class="status-box width-4 color-button-invert">
+                <span class="text">
+                    <section class="amount">{{data.totalBrake}}</section>
+                    <section class="unit">TOTAL TEXT</section>
+                </span>
+                <section class="icon"><img src="../../../../../../assets/icons/brake.svg" alt=""></section>
+            </span>
+            <span class="status-box width-4 color-button-invert">
+                <span class="text">
+                    <section class="amount">{{data.totalTire}}</section>
+                    <section class="unit">TOTAL TEXT</section>
+                </span>
+                <section class="icon"><img src="../../../../../../assets/icons/tire.svg" alt=""></section>
+            </span>
+            <span class="status-box width-4 color-button-invert">
+                <span class="text">
+                    <section class="amount">{{data.totalEngin}}</section>
+                    <section class="unit">TOTAL TEXT</section>
+                </span>
+                <section class="icon"><img src="../../../../../../assets/icons/engine.svg" alt=""></section>
+            </span>
+        </div>
+    </div>
+
+    <div class="body-box">
+        <div class="_row-custom-wrap">
+
+            <div class="speed-average contain">
+                <h4>Speed Average</h4>
+                <app-speed-meter-chart></app-speed-meter-chart>
+            </div>
+
+            <div class="workout-statics contain">
+<!--                <app-linear-chart [data]="data.workoutStatic"></app-linear-chart>-->
+              <apx-chart id="chart"
+                         [series]="chartOptions.series"
+                         [chart]="chartOptions.chart"
+                         [xaxis]="chartOptions.xaxis"
+                         [stroke]="chartOptions.stroke"
+                         [colors]="chartOptions.colors"
+                         [dataLabels]="chartOptions.dataLabels"
+                         [legend]="chartOptions.legend"
+                         [markers]="chartOptions.markers"
+                         [grid]="chartOptions.grid"
+                         [yaxis]="chartOptions.yaxis"
+                         [title]="chartOptions.title"
+                         [responsive]="chartOptions.responsive"
+                         ></apx-chart>
+            </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="reminders contain">
+                <h4>Reminders</h4>
+                <span class="reminders-box">
+                    <span [class]="'reminder '+item.status" *ngFor="let item of data.reminders">
+                        <span class="text">
+                            <p>{{item.title}}</p>
+                            <span class="date">
+                                <section class="bullet"></section>
+                                <p>{{item.date|date:'dd MMM yyyy / hh:mm a'}}</p>
+                            </span>
+                        </span>
+                        <span class="action">
+                            <p>Action</p>
+                        </span>
+                    </span>
+                    <span class="legend">
+                        <span class="over border-override">
+                            <section class="bullet"></section>
+                            <p>Over</p>
+                        </span>
+                        <span class="urgent border-override">
+                            <section class="bullet"></section>
+                            <p>Urgent</p>
+                        </span>
+                        <span class="normal border-override">
+                            <section class="bullet"></section>
+                            <p>Normal</p>
+                        </span>
+                        <span class="normal2 border-override">
+                            <section class="bullet"></section>
+                            <p>Normal</p>
+                        </span>
+                    </span>
+                </span>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="vehicle-details contain">
+                <h4>Vehicle Sautes/Details</h4>
+                <div class="flex-container">
+                    <span class="infos">
+                        <section class="info" *ngFor="let item of data.vhicle.details">{{item}}</section>
+                    </span>
+                    <span class="details">
+                        <h6 class="title">{{data.vhicle.title}}</h6>
+                        <span class="detail">
+                            <span class="details-box">
+                                <section class="detail-section">{{data.vhicle.title}}</section>
+                                <section class="detail-box">
+                                    <section class="inner-details">
+                                        <section class="detail-item">{{data.vhicle.info}}</section>
+                                    </section>
+                                    <section class="image-section">
+                                        <img src="../../../../../../assets/def.svg" alt="">
+                                    </section>
+                                </section>
+                            </span>
+                            <span class="speed-box">
+                                <section class="speed-section" *ngFor="let item of data.vhicle.speed">
+                                    <h6 class="text">{{item.title}}</h6>
+                                    <p-progressBar class="progress" mode="determinate" [value]="item.precent"
+                                        [style]="{'height': '6px'}">
+                                    </p-progressBar>
+                                </section>
+                            </span>
+                        </span>
+                    </span>
+                    <span class="car">
+                        <img src="../../../../../../assets/car.svg" alt="">
+                    </span>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

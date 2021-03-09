@@ -1,0 +1,62 @@
+<div class="map-container{{miniMap?' miniMap':''}}">
+  <agm-map [latitude]="location.latitude" [longitude]="location.longitude">
+    <agm-marker-cluster [minimumClusterSize]="minClusterSize" *ngIf="cluster"
+      imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+
+      <agm-marker *ngFor="let iserve of iServeVehicles; let i=index" [latitude]="iserve.location.latitude"
+        [longitude]="iserve.location.longitude" [iconUrl]="iserve.icon" (markerClick)="infoWindow">
+        <agm-info-window #infoWindow>
+          <div class="infos">
+            <span class="info-line">{{"map.iserveId"|translate}} : {{iserve.iserveId}}</span>
+            <span class="info-line">{{"map.status"|translate}} : {{getStatus(iserve.status)|translate}}</span>
+            <span class="info-line">{{"map.address"|translate}} : {{iserve.address}}</span>
+            <span class="info-line">{{"map.make"|translate}} : {{iserve.make}}</span>
+            <span class="info-line">{{"map.model"|translate}} : {{iserve.model}}</span>
+            <span class="info-line">{{"map.plateNumber"|translate}} : {{iserve.plateNumber}}</span>
+            <span class="info-line">{{"map.batteryLevel"|translate}} : {{iserve.batteryLevelPercentage}}%</span>
+            <span class="info-line">{{"map.location"|translate}} : <a
+                href="https://www.google.com/maps/search/?api=1&query={{iserve.location.latitude}},{{iserve.location.longitude}}"
+                target="_blank">{{iserve.location.latitude}},{{iserve.location.longitude}}</a></span>
+          </div>
+        </agm-info-window>
+      </agm-marker>
+
+    </agm-marker-cluster>
+
+    <div *ngIf="!cluster">
+      <agm-marker *ngFor="let iserve of iServeVehicles; let i=index" [latitude]="iserve.location.latitude"
+        [longitude]="iserve.location.longitude" [iconUrl]="iserve.icon" (markerClick)="infoWindow">
+        <agm-info-window #infoWindow>
+          <div class="infos">
+            <span class="info-line">{{"map.iserveId"|translate}} : {{iserve.iserveId}}</span>
+            <span class="info-line">{{"map.status"|translate}} : {{getStatus(iserve.status)|translate}}</span>
+            <span class="info-line">{{"map.address"|translate}} : {{iserve.address}}</span>
+            <span class="info-line">{{"map.make"|translate}} : {{iserve.make}}</span>
+            <span class="info-line">{{"map.model"|translate}} : {{iserve.model}}</span>
+            <span class="info-line">{{"map.plateNumber"|translate}} : {{iserve.plateNumber}}</span>
+            <span class="info-line">{{"map.batteryLevel"|translate}} : {{iserve.batteryLevelPercentage}}%</span>
+            <span class="info-line">{{"map.location"|translate}} : <a
+                href="https://www.google.com/maps/search/?api=1&query={{iserve.location.latitude}},{{iserve.location.longitude}}"
+                target="_blank">{{iserve.location.latitude}},{{iserve.location.longitude}}</a></span>
+          </div>
+        </agm-info-window>
+      </agm-marker>
+    </div>
+  </agm-map>
+
+  <div class="legend" *ngIf="!miniMap">
+    <span class="legend-item">
+      <section class="item-color available"></section>{{"map.available"|translate}}
+    </span>
+    <span class="legend-item">
+      <section class="item-color unavailable"></section>{{"map.unavailable"|translate}}
+    </span>
+  </div>
+
+  <div class="options" *ngIf="!miniMap">
+    <span class="clustring">
+      <input type="checkbox" name="clustring" id="clustring" [(ngModel)]="cluster">
+      <label for="clustring">{{"map.cluster"|translate}}</label>
+    </span>
+  </div>
+</div>

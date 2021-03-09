@@ -143,4 +143,8 @@ export class MainTemplateComponent implements OnInit {
     }
     return a;
   }
+
+  type(param: any) {
+    return typeof param;
+  }
 }

@@ -1,0 +1,151 @@
+@media (max-height: 600px) {
+  @media (max-width: 767px) {
+    agm-map {
+      height: 40vh;
+    }
+  }
+
+  @media (max-width: 991px) and (min-width: 768px) {
+    agm-map {
+      height: 50vh;
+    }
+  }
+
+  @media (min-width: 992px) {
+    agm-map {
+      height: 65vh !important;
+    }
+  }
+}
+
+@media (max-height: 750px) and (min-height: 601px) {
+  @media (max-width: 767px) {
+    agm-map {
+      height: 45vh;
+    }
+  }
+
+  @media (max-width: 991px) and (min-width: 768px) {
+    agm-map {
+      height: 55vh;
+    }
+  }
+
+  @media (min-width: 992px) {
+    agm-map {
+      height: 70vh !important;
+    }
+  }
+}
+
+@media (max-height: 900px) and (min-height: 751px) {
+  @media (max-width: 767px) {
+    agm-map {
+      height: 52vh;
+    }
+  }
+
+  @media (max-width: 991px) and (min-width: 768px) {
+    agm-map {
+      height: 62vh;
+    }
+  }
+
+  @media (min-width: 992px) {
+    agm-map {
+      height: 74vh;
+    }
+  }
+}
+
+@media (min-height: 901px) {
+  @media (max-width: 767px) {
+    agm-map {
+      height: 55vh;
+    }
+  }
+
+  @media (max-width: 991px) and (min-width: 768px) {
+    agm-map {
+      height: 66vh;
+    }
+  }
+
+  @media (min-width: 992px) {
+    agm-map {
+      height: 76vh;
+    }
+  }
+}
+
+.miniMap {
+  agm-map {
+    height: 200px !important;
+  }
+}
+
+.infos {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 15px;
+}
+
+.map-container {
+  position: relative;
+
+  .legend {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    width: 130px;
+    padding: 10px 5px;
+    position: absolute;
+    bottom: 35px;
+    left: 8px;
+    border-radius: 5px;
+    box-shadow: 2px 3px 7px #757575;
+    font-size: 1rem;
+
+    .legend-item {
+      display: flex;
+      flex-direction: row;
+      margin-top: 10px;
+
+      .item-color {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin: 0px 5px 0px 5px;
+      }
+      .available {
+        background: #007fff;
+      }
+      .unavailable {
+        background: #4f4f4f;
+      }
+    }
+  }
+}
+
+.options {
+  padding: 15px;
+  background: #fff;
+  border-radius: 5px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+
+  .clustring {
+    display: flex;
+    flex-direction: row;
+
+    label {
+      margin: 0px 5px;
+    }
+
+    input {
+      margin: 3px;
+    }
+  }
+}
