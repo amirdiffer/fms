@@ -111,7 +111,6 @@ export class OwnershipFormComponent extends Utility implements OnInit {
       return;
     } else {
       console.log(this.ownerShipForm.value);
-      this._ownershipFacade.addOwnership(this.ownerShipForm.value)
       this.goToList();
     }
   }

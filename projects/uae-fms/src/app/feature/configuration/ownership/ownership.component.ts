@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { OwnershipFacade } from '../+state/ownership';
 
@@ -82,7 +82,7 @@ export class OwnershipComponent implements OnInit {
     ]
   };
 
-  constructor(private facade: OwnershipFacade) {}
+  constructor(private facade: OwnershipFacade , private _cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -100,7 +100,8 @@ export class OwnershipComponent implements OnInit {
               Owner_Phone_No: item.phoneNumber,
             }
           }
-        )
+          )
+          this._cd.markForCheck();
       }
     })
   }
