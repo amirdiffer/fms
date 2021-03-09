@@ -25,7 +25,9 @@ export class UsersEffect {
       mergeMap((action) =>
         this.service.post(action.data).pipe(
           map((data) =>
-            UsersActions.userAddedSuccessfully({ data: data.message })
+            UsersActions.userAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
           ),
           catchError((error) => of(UsersActions.error({ reason: error })))
         )
