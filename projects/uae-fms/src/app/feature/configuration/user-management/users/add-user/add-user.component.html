@@ -2,36 +2,36 @@
   <form [formGroup]='form'>
     <div class="button-container">
       <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{ 'forms.cancel' | translate }}</button>
-      <button class="btn-primary-medium add">{{ 'forms.add' | translate }}</button>
+      <button class="btn-primary-medium add" (click)="submit()">{{ 'forms.add' | translate }}</button>
     </div>
     <div class="mt-2">
       <app-filter [setting]='filter'></app-filter>
     </div>
-    <div class="form-section mt-3" formGroupName="portalInformation">
+    <div class="form-section mt-3">
       <h3 class="form-section__title">{{ 'configuration.users.portal_information' | translate }}</h3>
       <div class="row form-section__row">
         <div class="col-12 col-md-3 p-field form-section__field">
           <div class="autocomplete-select">
             <span class="p-float-label">
-              <p-autoComplete formControlName="employeeNumber"
+              <p-autoComplete formControlName="employeeNumber" 
                 (completeMethod)="filterEmployees($event)"
-                [suggestions]="employees" field="name"
+                [suggestions]="employees" field = "name"
                 [minLength]="1"></p-autoComplete>
               <i class="pi pi-search"></i>
               <label>{{ 'configuration.users.employee_number' | translate }} *</label>
             </span>
             <anms-error
-              [showError]="hasError('employeeNumber',form.get('portalInformation'),submited)"
-              error="fms.errors.required">
+              [showError]="hasError('employeeNumber',form,submitted)"
+              error="forms.feedback.required">
             </anms-error>
           </div>
         </div>
         <div class="col-12 col-md-3 p-field form-section__field">
           <div class="autocomplete-select">
             <span class="p-float-label">
-              <p-autoComplete formControlName="department"
+              <p-autoComplete formControlName="departmentId" 
                 (completeMethod)="filterDepartments($event)"
-                [suggestions]="departments" field="name"
+                [suggestions]="departments" field = "name"
                 [minLength]="1"></p-autoComplete>
               <i class="pi pi-search"></i>
               <label>{{ 'configuration.users.department' | translate }}</label>
@@ -42,22 +42,22 @@
           <span class="p-float-label">
             <p-dropdown inputId="role" [autoDisplayFirst]="false"
               [options]="roles"
-              formControlName="role" optionLabel="name"></p-dropdown>
+              formControlName="roleId" optionLabel="name" optionValue="id"></p-dropdown>
             <label for="role">{{ 'configuration.users.role' | translate }}</label>
             <anms-error
-              [showError]="hasError('role',form.get('portalInformation'),submited)"
-              error="fms.errors.required">
+              [showError]="hasError('roleId',form,submitted)"
+              error="forms.feedback.required">
             </anms-error>
           </span>
         </div>
         <div class="col-12 col-md-3 form-section__field toggle-select">
-          <p-inputSwitch formControlName="activeEmployee"></p-inputSwitch>
+          <p-inputSwitch formControlName="isActive"></p-inputSwitch>
           <span>{{ 'configuration.users.active_employee' | translate }}</span>
         </div>
       </div>
     </div>
     <div class='row'>
-      <div class='col-4 d-flex' formGroupName='fileUpload'>
+      <div class='col-4 d-flex'>
         <div class=" form-section w-100">
           <div>
             <p class='font-weight-bold'>{{ 'configuration.users.upload_form.title' | translate }}</p>
@@ -75,7 +75,7 @@
                 <label (click)="openFileSelector()" style="cursor: pointer;">
                   <svg-icon   class="camera-icon" src='../../../../../../assets/icons/camera.svg'
                     [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                    <small calss="drag-and-drop">{{ 'configuration.users.upload_form.content' | translate }}</small>
+                    <small class="drag-and-drop">{{ 'configuration.users.upload_form.content' | translate }}</small>
                 </label>
               </ng-template>
             </ngx-file-drop>
@@ -83,7 +83,7 @@
         </div>
       </div>
 
-      <div class="col-8" formGroupName="personalInformation">
+      <div class="col-8">
         <div class="form-section">
           <h3 class="form-section__title">{{ 'configuration.users.personal_information' | translate }}</h3>
           <div class="row form-section__row">
@@ -93,8 +93,8 @@
                   placeholder="FirstName *" type="text">
                 <label>{{ 'configuration.users.first_name' | translate }} *</label>
                 <anms-error
-                  [showError]="hasError('firstName',form.get('personalInformation'),submited)"
-                  error="fms.errors.required"></anms-error>
+                  [showError]="hasError('firstName',form,submitted)"
+                  error="forms.feedback.required"></anms-error>
               </span>
             </div>
             <div class="col-12 col-md-7 p-field form-section__field">
@@ -103,51 +103,60 @@
                   placeholder="LastName *" type="text">
                 <label>{{ 'configuration.users.last_name' | translate }} *</label>
                 <anms-error
-                  [showError]="hasError('lastName',form.get('personalInformation'),submited)"
-                  error="fms.errors.required"></anms-error>
+                  [showError]="hasError('lastName',form,submitted)"
+                  error="forms.feedback.required"></anms-error>
               </span>
             </div>
           </div>
           <div class="row form-section__row">
-            <div class="col-12 col-md-6 p-field form-section__field">
-              <span class="p-float-label">
-                <div class="p-inputgroup">
-                  <span class="p-float-label">
-                    <input type="text" formControlName="email" pInputText
-                      placeholder="Email *">
-                    <label>{{ 'configuration.users.email' | translate }} *</label>
-                  </span>
-                  <span class="p-inputgroup-addon addon-primary">
-                    <i class="pi pi-plus"></i>
-                  </span>
-                </div>
-              </span>
-              <anms-error
-                [showError]="hasError('email',form.get('personalInformation'),submited)"
-                error="fms.errors.required">
-              </anms-error>
-              <anms-error
-                [showError]="hasError('email',form.get('personalInformation'),submited,'email')"
-                error="fms.errors.email">
-              </anms-error>
+            <div class="col-12 col-md-6 p-field form-section__field" formArrayName="emails">
+              <div class="mt-2" [formGroupName]="i" *ngFor="let
+              item of form.get('emails')['controls']; let i=
+              index;">
+              
+                <span class="p-float-label">
+                  <div class="p-inputgroup">
+                    <span class="p-float-label">
+                      <input type="text" formControlName="name" pInputText
+                        placeholder="Email *">
+                      <label>{{ 'configuration.users.email' | translate }} *</label>
+                    </span>
+                    <span class="p-inputgroup-addon addon-primary">
+                      <i (click)="addEmail()" class="pi pi-plus"></i>
+                    </span>
+                  </div>
+                </span>
+                <!-- <anms-error
+                  [showError]="hasError('emails',form.get(i),submitted)"
+                  error="forms.feedback.required">
+                </anms-error>
+                <anms-error
+                  [showError]="hasError('emails',i,submitted,'email')"
+                  error="forms.feedback.invalid-email">
+                </anms-error> -->
+              </div>
             </div>
-            <div class="col-12 col-md-6 p-field form-section__field">
-              <span class="p-float-label">
-                <div class="p-inputgroup">
-                  <span class="p-float-label">
-                    <input type="text" formControlName="phoneNumber" pInputText
-                      placeholder="Phone Number *">
-                    <label>{{ 'configuration.users.phone_number' | translate }} *</label>
-                  </span>
-                  <span class="p-inputgroup-addon addon-primary">
-                    <i class="pi pi-plus"></i>
-                  </span>
-                </div>
-              </span>
-              <anms-error
-                [showError]="hasError('phoneNumber',form.get('personalInformation'),submited)"
-                error="fms.errors.required">
-              </anms-error>
+            <div class="col-12 col-md-6 p-field form-section__field" formArrayName="phoneNumbers">
+              <div class="mt-2"  [formGroupName]="i" *ngFor="let
+              item of form.get('phoneNumbers')['controls']; let i=
+              index;">
+                <span class="p-float-label">
+                  <div class="p-inputgroup">
+                    <span class="p-float-label">
+                      <input type="text" pInputText formControlName="name"
+                        placeholder="Phone Number *">
+                      <label>{{ 'configuration.users.phone_number' | translate }} *</label>
+                    </span>
+                    <span class="p-inputgroup-addon addon-primary">
+                      <i (click)="addPhoneNumber()" class="pi pi-plus"></i>
+                    </span>
+                  </div>
+                </span>
+                <!-- <anms-error
+                  [showError]="hasError('phoneNumbers',form.get(i),submitted)"
+                  error="forms.feedback.required">
+                </anms-error> -->
+              </div>
 
             </div>
           </div>
@@ -160,19 +169,19 @@
               <div class="row">
                 <div class="col-12 col-md-12 row">
                   <div class="form-group form-check col-3">
-                    <input id="callCheckbox" type="checkbox" value="call" class="custom-checkbox" name="sendNotification" formControlName="callCheckbox">
+                    <input id="callCheckbox" type="checkbox" value="call" class="custom-checkbox" name="sendNotification" formControlName="notifyByCall">
                     <label for="callCheckbox">{{ 'configuration.users.call' | translate }}</label>
                   </div>
                   <div class="form-group form-check col-3">
-                    <input id="smsCheckbox" type="checkbox" value="sms" class="custom-checkbox" name="sendNotification" formControlName="smsCheckbox">
+                    <input id="smsCheckbox" type="checkbox" value="sms" class="custom-checkbox" name="sendNotification" formControlName="notifyBySMS">
                     <label for="smsCheckbox">{{ 'configuration.users.sms' | translate }}</label>
                   </div>
                   <div class="form-group form-check col-3">
-                    <input id="emailCheckbox" type="checkbox" value="email" class="custom-checkbox" name="sendNotification" formControlName="emailCheckbox">
+                    <input id="emailCheckbox" type="checkbox" value="email" class="custom-checkbox" name="sendNotification" formControlName="notifyByEmail">
                     <label for="emailCheckbox">{{ 'configuration.users.email' | translate }}</label>
                   </div>
                   <div class="form-group form-check col-3">
-                    <input id="whatsappCheckbox" type="checkbox" value="whatsapp" class="custom-checkbox" name="sendNotification" formControlName="whatsappCheckbox">
+                    <input id="whatsappCheckbox" type="checkbox" value="whatsapp" class="custom-checkbox" name="sendNotification" formControlName="notifyByWhatsApp">
                     <label for="whatsappCheckbox">{{ 'configuration.users.whatsapp' | translate }}</label>
                   </div>
                 </div>

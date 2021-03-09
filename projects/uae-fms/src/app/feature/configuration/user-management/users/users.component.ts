@@ -1,7 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { UsersFacade } from '../../+state/users';
+import { IUser } from '@models/configuration';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'anms-users',
@@ -9,8 +16,9 @@ import { UsersFacade } from '../../+state/users';
   styleUrls: ['./users.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
   downloadBtn = 'assets/icons/download-solid.svg';
+  getUsersSubscription: Subscription;
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.this_month',
@@ -52,7 +60,7 @@ export class UsersComponent implements OnInit {
         lable: 'tables.column.department',
         type: 1,
         field: 'Department',
-        renderer: 'doubleLineRenderer'
+        renderer: ''
       },
       {
         lable: 'tables.column.information',
@@ -63,93 +71,35 @@ export class UsersComponent implements OnInit {
       { lable: 'tables.column.status', type: 1, field: 'Status' },
       { lable: 'tables.column.role', type: 1, field: 'Role' }
     ],
-    data: [
-      {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
-      },
-      {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
-      },
-      {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
-      },
-      {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
-      },
-      {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
-      },
-      {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
-      },
-      {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
-      }
-    ]
+    data: []
   };
 
   constructor(private facade: UsersFacade) {}
+  ngOnDestroy(): void {
+    this.getUsersSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.facade.loadAll();
-    this.facade.users$.subscribe((data) => {
-      console.log(data, 'users');
-    });
+    this.getUsersSubscription = this.facade.users$.subscribe(
+      (users: IUser[]) => {
+        if (users) {
+          this.users_Table.data = [];
+          users.forEach((u) => {
+            this.users_Table.data.push({
+              statusColor: '#7F87CA',
+              firstName: u.firstName,
+              lastName: u.lastName,
+              id: u.id,
+              picture: 'user-image.png',
+              Department: u.department.name,
+              Information: { line1: u.emails[0], line2: u.phoneNumbers[0] },
+              Status: 'Active',
+              Role: u.roleId
+            });
+          });
+        }
+      }
+    );
   }
 }
