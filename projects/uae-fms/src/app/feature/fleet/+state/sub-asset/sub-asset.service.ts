@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ISubasset } from '@models/sub-asset';
 import { ResponseBody } from '@models/response-body';
 import { environment } from '@environments/environment';
+import { ISubAssetStatistics } from '@models/statistics';
 
 @Injectable()
 export class SubAssetService {
@@ -12,6 +13,12 @@ export class SubAssetService {
   loadAll(): Observable<ResponseBody<ISubasset[]>> {
     return this.http.get<ResponseBody<ISubasset[]>>(
       environment.baseApiUrl + 'sub-asset'
+    );
+  }
+
+  loadStatistics(): Observable<ISubAssetStatistics> {
+    return this.http.get<ISubAssetStatistics>(
+      environment.baseApiUrl + 'sub-asset/stats'
     );
   }
 }

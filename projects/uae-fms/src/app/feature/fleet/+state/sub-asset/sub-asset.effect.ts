@@ -19,5 +19,17 @@ export class SubAssetEffect {
     )
   );
 
+  loadStatistics$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(SubAssetActions.loadStatistics),
+      mergeMap((action) =>
+        this.service.loadStatistics().pipe(
+          map((data) => SubAssetActions.statisticsLoaded({ data })),
+          catchError((error) => of(SubAssetActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   constructor(private action$: Actions, private service: SubAssetService) {}
 }

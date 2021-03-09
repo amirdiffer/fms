@@ -6,7 +6,7 @@ export interface ITollStatistics extends IGeneralResponse {
   assigned: number;
 }
 
-export interface IAccessoryStatistics {
+export interface IAccessoryStatistics extends IGeneralResponse {
   total: number;
   available: number;
   assigned: number;
@@ -35,6 +35,10 @@ export interface IOperatorStatistics extends IGeneralResponse {
 
 export interface ISubAssetStatistics extends IGeneralResponse {
   result_number: number;
+  total: number;
+  active: number;
+  inactive: number;
+  xSubAsset: number;
 }
 
 export interface IUserStatistics  extends IGeneralResponse{

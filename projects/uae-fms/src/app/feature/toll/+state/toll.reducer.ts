@@ -11,7 +11,7 @@ const tollReducer = createReducer(
     message: null
   })),
   on(TollActions.allDataLoaded, (state, { data }) =>
-    tollAdapter.setAll(data, { ...state, loaded: true, error: null })
+    tollAdapter.setAll(data, { ...state, loaded: true })
   ),
   on(TollActions.error, (state, { reason }) => ({
     ...state,
@@ -21,10 +21,12 @@ const tollReducer = createReducer(
   on(TollActions.loadStatistic, (state) => ({
     ...state,
     loaded:false,
+    error: null,
     statistic:null
   })),
   on(TollActions.statisticLoaded, (state, { data }) =>({
       ...state,
+      loaded: true,
       statistic:data
     })
   ),
@@ -35,7 +37,28 @@ const tollReducer = createReducer(
   on(TollActions.assignNowLoaded, (state, { data }) => ({
     ...state,
     assignNow: data
-  }))
+  })),
+  on(TollActions.assigningToll, (state) => ({
+    ...state,
+    error: null,
+    loaded: false
+  })),
+  on(TollActions.assignedToll, (state) => ({
+    ...state,
+    loaded: true
+  })),
+  on(TollActions.addToll,(state) =>({
+    ...state,
+    loaded:false,
+    error:null
+  })),
+  on(TollActions.addTollSuccessfully,(state , {data}) =>
+    tollAdapter.addOne(data, {
+      ...state,
+      loaded:true
+    })
+  )
+
 );
 
 export function reducer(state: TollState, action: Action) {
