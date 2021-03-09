@@ -14,17 +14,17 @@
                 <div class="row">
                     <div class="col-12 col-md-12 p-field form-section__field
                         radio-select">
-                        <p-radioButton name="ownershipType"
-                            formControlName="ownershipType" value="external"
+                        <p-radioButton name="type"
+                            formControlName="type" value="external"
                             label="{{ 'configuration.ownership.external' | translate }}"></p-radioButton>
-                        <p-radioButton name="ownershipType"
-                            formControlName="ownershipType" value="owned"
+                        <p-radioButton name="type"
+                            formControlName="type" value="owned"
                             label="{{ 'configuration.ownership.owned' | translate }}"></p-radioButton>
-                        <p-radioButton name="ownershipType"
-                            formControlName="ownershipType" value="rent"
+                        <p-radioButton name="type"
+                            formControlName="type" value="rent"
                             label="{{ 'configuration.ownership.rent' | translate }}"></p-radioButton>
-                        <p-radioButton name="ownershipType"
-                            formControlName="ownershipType" value="Demo"
+                        <p-radioButton name="type"
+                            formControlName="type" value="Demo"
                             label="{{ 'configuration.ownership.demo' | translate }}"></p-radioButton>
                     </div>
                 </div>
@@ -41,11 +41,11 @@
         <div class="row form-section__row">
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText formControlName = "owner" placeholder="{{ 'configuration.ownership.owner' | translate }}" required
+                    <input pInputText formControlName = "name" placeholder="{{ 'configuration.ownership.owner' | translate }}" required
                         type="text">
                     <label>{{ 'configuration.ownership.owner' | translate }} *</label>
                     <anms-error
-                    [showError]="hasError('owner',ownerShipForm,submited)"
+                    [showError]="hasError('name',ownerShipForm,submited)"
                     error="forms.feedback.required"
                     >
                     </anms-error>
@@ -53,22 +53,22 @@
             </div>
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText email formControlName="ownerEmail" placeholder="{{ 'configuration.ownership.owner_email_address' | translate }}"
+                    <input pInputText email formControlName="email" placeholder="{{ 'configuration.ownership.owner_email_address' | translate }}"
                         required type="text">
                     <label>{{ 'configuration.ownership.owner_email_address' | translate }} *</label>
                     <anms-error
-                    [showError]="hasError('ownerEmail',ownerShipForm,submited)"
+                    [showError]="hasError('email',ownerShipForm,submited)"
                     error="forms.feedback.required"
                     ></anms-error>
                     <anms-error
-                    [showError]="hasError('ownerEmail',ownerShipForm,submited,'email')"
+                    [showError]="hasError('email',ownerShipForm,submited,'email')"
                     error="forms.feedback.invalid-email"
                     ></anms-error>
                 </span>
             </div>
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText formControlName="ownerPhone" placeholder="{{ 'configuration.ownership.owner_phone_number' | translate }}"
+                    <input pInputText formControlName="phoneNumber" placeholder="{{ 'configuration.ownership.owner_phone_number' | translate }}"
                         type="text">
                     <label>{{ 'configuration.ownership.owner_phone_number' | translate }}</label>
                 </span>
@@ -89,7 +89,7 @@
                 <div class="row">
                     <div class="col-12 col-md-4 p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText placeholder="{{ 'configuration.ownership.purpose' | translate }}" type="text">
+                            <input pInputText placeholder="{{ 'configuration.ownership.purpose' | translate }}" type="text" formControlName="purpose" >
                             <label>{{ 'tables.column.purpose' | translate }}</label>
                         </span>
                     </div>

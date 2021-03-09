@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { OwnershipSelectors } from './ownership.selectors';
 import { OwnershipPartialState } from './ownership.entity';
 import { OwnershipActions } from './ownership.actions';
+import { IOwnerShip } from '@models/configuration';
 
 @Injectable()
 export class OwnershipFacade {
@@ -16,5 +17,8 @@ export class OwnershipFacade {
 
   loadAll() {
     this.store.dispatch(OwnershipActions.loadAll());
+  }
+  addOwnership (data: IOwnerShip){
+    this.store.dispatch(OwnershipActions.addOwnership({data}));
   }
 }

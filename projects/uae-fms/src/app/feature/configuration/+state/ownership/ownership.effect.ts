@@ -18,6 +18,17 @@ export class OwnershipEffect {
       )
     )
   );
+  addOwnership$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(OwnershipActions.addOwnership),
+      mergeMap((action) =>
+        this.service.addOwnership(action.data).pipe(
+          map((data) => OwnershipActions.ownershipAddedSuccessfully({ data: data.message })),
+          catchError((error) => of(OwnershipActions.error({ reason: error })))
+        )
+      )
+    )
+  );
 
   constructor(private action$: Actions, private service: OwnershipService) {}
 }
