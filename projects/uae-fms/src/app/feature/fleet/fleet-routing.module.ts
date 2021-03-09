@@ -14,7 +14,7 @@ import { OverViewAssetComponent } from './assets/overview-asset/overview-asset.c
 import { AddAssetComponent } from './assets/add-asset/add-asset.component';
 import { AddAccessoryComponent } from './accessory/add-accessory/add-accessory.component';
 import { AddRequestComponent } from './movement/add-request/add-request.component';
-import { IservComponent } from '@feature/fleet/movement/iserv/iserv.component';
+import { IserveComponent } from '@feature/fleet/movement/iserv/iserv.component';
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'accessory/add', component: AddAccessoryComponent },
   { path: 'sub-asset', component: SubAssetComponent },
   { path: 'movement', component: MovementComponent },
-  { path: 'movement/iserve', component: IservComponent },
+  { path: 'movement/iserve', component: IserveComponent },
   { path: 'movement/add-request', component: AddRequestComponent },
   { path: 'operator', component: OperatorComponent },
   { path: 'operator/add', component: AddOperatorComponent },
