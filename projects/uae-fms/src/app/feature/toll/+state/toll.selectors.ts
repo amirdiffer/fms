@@ -6,7 +6,7 @@ export class TollSelectors {
 
   static tollSelector = createSelector(
     createFeatureSelector(TOLL_FEATURE_KEY),
-    (state: TollState) => state
+    (state: TollState) => state['toll']
   );
 
   static selectAll = createSelector(
@@ -23,6 +23,12 @@ export class TollSelectors {
     TollSelectors.tollSelector,
     (state : TollState) => state.error
   );
+
+  static loaded = createSelector(
+    TollSelectors.tollSelector,
+    (state : TollState) => state.loaded
+  );
+
   static tollStatistic = createSelector(
     TollSelectors.tollSelector,
     (state : TollState) => state.statistic
@@ -32,5 +38,6 @@ export class TollSelectors {
   static assignNow = createSelector(
     TollSelectors.tollSelector,
     (state) => state.assignNow
-  )
+  );
+
 }
