@@ -2,7 +2,7 @@
   <app-filter *ngIf="false" [setting]='filterCard'></app-filter>
   <app-filter [setting]='filterCardOverView'></app-filter>
 </div>
-<div class="component_wrapper table-container " *ngIf="showOverView">
+<div class="component_wrapper table-container " *ngIf="!showOverView">
   <div class="card-table-header">
     <div class="search-box">
       <input placeholder="{{'search.search_in_columns' | translate}}" type="text">

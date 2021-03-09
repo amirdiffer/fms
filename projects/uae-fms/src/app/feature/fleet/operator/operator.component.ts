@@ -262,6 +262,9 @@ export class OperatorComponent implements OnInit {
     rowSettings: {
       onClick: (col, data, button?) => {
         console.log(col, data, button);
+        if ('external') {
+          this.showOverView = true;
+        }
       },
       floatButton: [
         {
