@@ -18,6 +18,17 @@ export class IntegrationEffect {
       )
     )
   );
+  postData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(IntegrationActions.addintegration),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) => IntegrationActions.integrationAddedSuccessfullt({ data: data.message  })),
+          catchError((error) => of(IntegrationActions.error({ reason: error })))
+        )
+      )
+    )
+  );
 
   constructor(private action$: Actions, private service: IntegrationService) {}
 }
