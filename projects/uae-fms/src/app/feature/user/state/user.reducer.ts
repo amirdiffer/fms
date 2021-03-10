@@ -12,10 +12,14 @@ const userProfileReducer = createReducer(
     ...state,
     loaded: false,
     error: null,
-    message: null
+    profile: null
   })),
-  on(UserPorfileAction.dataLoaded, (state, { data }) =>
-    userProfileAdapter.setAll(data, { ...state, loaded: true, error: null })
+  on(UserPorfileAction.dataLoaded, (state, { data }) => ({
+      ...state,
+      loaded: true,
+      error: null,
+      profile: data,
+    })
   ),
   on(UserPorfileAction.error, (state, { reason }) => ({
     ...state,
