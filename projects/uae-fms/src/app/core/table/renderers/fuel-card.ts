@@ -14,7 +14,7 @@ import { Component, Input, OnInit } from '@angular/core';
         <div *ngIf="OpenedItem" class="detail-box-container">
             <div *ngFor="let item of data.data;" class="d-flex detail-box">
                 <p class="d-inline-block">{{item.litters}} Litters</p>
-                <p class="d-inline-block">{{item.km}} KM</p>
+                <p class="d-inline-block mx-1">{{item.km}} KM</p>
                 <p class="d-inline-block">{{item.day}} {{item.date}} {{item.time}}</p>
             </div>
         </div>

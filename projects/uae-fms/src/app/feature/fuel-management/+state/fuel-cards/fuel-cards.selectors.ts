@@ -17,4 +17,9 @@ export class FuelCardsSelectors {
     FuelManagementSelectors.fuelCardsSelector,
     (state) => state.error
   );
+  static selectStatistics = createSelector(
+    FuelManagementSelectors.fuelCardsSelector,
+    (state) => state.statistics
+  );
+
 }

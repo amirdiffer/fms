@@ -21,7 +21,22 @@ const fuelCardsReducer = createReducer(
     ...state,
     error: reason,
     loaded: true
-  }))
+  })),
+  on(FuelCardsActions.loadStatistics, (state) => ({
+    ...state,
+    loaded: false,
+  })),
+  on(FuelCardsActions.statisticsLoaded, (state, {data}) => ({
+    ...state,
+    statistics: data
+  })),
+  on(FuelCardsActions.addFuelCard , (state , {data}) =>({
+    ...state,
+    loaded:false
+  })),
+  on(FuelCardsActions.addFuelCardSuccessfully , (state,{data}) => 
+    fuelCardsAdapter.addOne(data, state)
+  )
 );
 
 export function reducer(state: FuelCardsState, action: Action) {

@@ -20,6 +20,31 @@ export class FuelCardsEffect {
       )
     )
   );
+  loadStatistics$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(FuelCardsActions.loadStatistics),
+      mergeMap((action) =>
+        this.service.loadAllStatistics().pipe(
+          map((data) =>  FuelCardsActions.statisticsLoaded({ data: data.message })),
+          catchError((error) => of(FuelCardsActions.fuelCardError({ reason: error })))
+        )
+      )
+    )
+  );
+
+  addFuelCard$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(FuelCardsActions.addFuelCard),
+      mergeMap((action) =>
+        this.service.addFuelCard(action.data).pipe(
+          map((data) => FuelCardsActions.addFuelCardSuccessfully({ data: data.message })),
+          catchError((error) =>
+            of(FuelCardsActions.fuelCardError({ reason: error }))
+          )
+        )
+      )
+    )
+  );
 
   constructor(private action$: Actions, private service: FuelCardsService) {}
 }

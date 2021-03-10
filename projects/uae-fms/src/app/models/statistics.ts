@@ -53,3 +53,9 @@ export interface IBodyShopRequestStatistics {
   waitingForApproval: number;
   rejected: number;
 }
+
+export interface IFuelManagementStatistics extends IGeneralResponse{
+  total:number;
+  available:number;
+  assigned:number
+}
