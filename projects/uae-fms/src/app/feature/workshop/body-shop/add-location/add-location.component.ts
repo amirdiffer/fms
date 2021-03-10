@@ -208,10 +208,10 @@ export class AddLocationComponent extends Utility implements OnInit {
   cancelForm() {
     if (this.inputForm.dirty) {
       confirm('Are You sure that you want to cancel?')
-        ? this._roter.navigate(['/workshop/body-shop'])
+        ? this._roter.navigate(['/workshop/body-shop'] , {queryParams:{id:'locationTab'}})
         : null;
     } else {
-      this._roter.navigate(['/workshop/body-shop']);
+      this._roter.navigate(['/workshop/body-shop'] , {queryParams:{id:'locationTab'}});
     }
   }
 }

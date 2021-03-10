@@ -1,7 +1,7 @@
 <div class="tabs">
-  <div class="tab-titles" *ngIf="initialized">
+  <div class="tab-titles" *ngIf="initialized" #tabsHeader>
     <div [class]="'tab'+(tab.index==selectedTab?(container?' active-tab-w':' active-tab'):'')" *ngFor="let tab of tabs"
-      (click)="selectTab(tab.index, tab.id != null ?  tab.id : tab.title)">
+      (click)="selectTab(tab.index, tab.id != null ?  tab.id : tab.title , $event)">
       {{tab.title | translate}}
       <span *ngIf="tab.count != null" class="count">{{tab.count}}</span>
     </div>
@@ -11,4 +11,3 @@
     <ng-content select="div"></ng-content>
   </div>
 </div>
-<!-- tabs.translationTitle ?  tabs.translationTitle :  -->

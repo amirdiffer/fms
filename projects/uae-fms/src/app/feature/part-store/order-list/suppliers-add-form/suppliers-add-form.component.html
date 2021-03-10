@@ -1,6 +1,6 @@
 <form #form='ngForm' (submit)='onSubmit(form)'>
   <div class='button-container'>
-    <button class='btn-primary-medium btn-scondary-green' routerLink="..">{{ 'forms.cancel' | translate }}</button>
+    <button class='btn-primary-medium btn-scondary-green' routerLink=".." [queryParams]="{id:'suppliers'}">{{ 'forms.cancel' | translate }}</button>
     <!--    TODO: for now add button acts as cancel for UI concerns but later has to change-->
     <button class='btn-primary-medium add'>{{ 'forms.add' | translate }}</button>
   </div>

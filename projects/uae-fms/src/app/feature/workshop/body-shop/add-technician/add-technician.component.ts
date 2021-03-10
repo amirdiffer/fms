@@ -350,10 +350,10 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   cancelForm() {
     if (this.inputForm.dirty) {
       confirm('Are You sure that you want to cancel?')
-        ? this._roter.navigate(['/workshop/body-shop'])
+        ? this._roter.navigate(['/workshop/body-shop'] , {queryParams:{id:'technicianTab'}})
         : null;
     } else {
-      this._roter.navigate(['/workshop/body-shop']);
+      this._roter.navigate(['/workshop/body-shop'] , {queryParams:{id:'technicianTab'}});
     }
   }
   public dropped(files: NgxFileDropEntry[]) {
