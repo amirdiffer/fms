@@ -9,3 +9,24 @@ export interface IBusinessCategory extends IGeneralResponse {
   subAssetsCount: number;
   accessoriesCount: number;
 }
+
+export interface IBusinessCategoryPostModel {
+  name: string;
+  assetTypeId: number;
+  status: string;
+  description: string;
+  subAssets: [
+    {
+      subAssetId: number;
+      quantity: number;
+      specDocId: number;
+    }
+  ];
+  accessories: [
+    {
+      accessoryId: number;
+      quantity: number;
+      specDocId: number;
+    }
+  ];
+}
