@@ -15,10 +15,12 @@ export interface IAccessoryStatistics extends IGeneralResponse {
 
 export interface IAssetStatistics extends IGeneralResponse {
   result_number: number;
-  total: number;
-  active: number;
-  inactive: number;
-  xfleet: number;
+  message: {
+    total: number;
+    active: number;
+    inactive: number;
+    xfleet: number;
+  };
 }
 
 export interface IMovementStatistics extends IGeneralResponse {
