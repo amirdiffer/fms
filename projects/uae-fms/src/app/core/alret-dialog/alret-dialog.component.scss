@@ -26,7 +26,21 @@ p-dialog{
         }
     }
 }
-
+p-dialog.without-header{
+    ::ng-deep{
+        .p-dialog-header{
+            display: none;
+        }
+        .p-dialog-content{
+            border-top-right-radius: .5em;
+            border-top-left-radius: .5em;
+            padding-top: 5em;
+        }
+        .p-dialog-footer{
+            text-align:center
+        }
+    }
+}
 button.accept{
     background: transparent linear-gradient(180deg, #07C880 0%, #0DA06E 100%) 0% 0% no-repeat padding-box;
     border:none

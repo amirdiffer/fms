@@ -1,12 +1,14 @@
 <div class="wrapper">
     <p-dialog [(visible)]="displayModal" [modal]="true" [baseZIndex]="10000"
-        [draggable]="false" [resizable]="false">
+        [draggable]="false" [resizable]="false"
+        [class.without-header]="settings.hasHeader == false">
     <ng-template pTemplate="header">
         {{settings.header}}
     </ng-template>
-    <div class="d-flex">
+    <div class="d-flex" [class.justify-content-center]="settings.hasHeader == false">
         <span *ngIf="settings.hasError"><svg-icon [src]="timesCircle" [svgStyle]="{ 'width.em':2.2 , 'fill': '#dd5648'}"></svg-icon></span>
         <span *ngIf="!settings.hasError"><svg-icon [src]="checkCircle" [svgStyle]="{ 'width.em':2.2 , 'fill': '#07C880'}"></svg-icon></span>
+        <h3 [class.d-none]="settings.hasHeader != false">{{settings.header}}</h3>
         <p class="p-0 m-0 ml-4 align-self-center" [ngStyle]="{ 'font-size.em':1.2 }">{{settings.message}}</p>
     </div>
         <ng-template pTemplate="footer">

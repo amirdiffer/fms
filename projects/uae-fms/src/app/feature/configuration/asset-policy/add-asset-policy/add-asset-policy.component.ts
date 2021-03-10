@@ -10,6 +10,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 
@@ -78,6 +79,15 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
   };
   assetPolicyForm: FormGroup;
   submited = false;
+  dialogModal= true;
+  dialogSetting : IDialogAlert ={
+    header:'Header is Here',
+    hasError:true,
+    hasHeader:false,
+    message:'Message is Here',
+    confirmButton: 'Register Now',
+    cancelButton:'Cancel',
+  }
   constructor(private _fb: FormBuilder, private injector: Injector) {
     super(injector);
   }
@@ -99,5 +109,11 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
       return;
     }
     this.goToList();
+  }
+  cancel(){
+
+  }
+  dialogConfirm(value){
+    console.log(value)
   }
 }

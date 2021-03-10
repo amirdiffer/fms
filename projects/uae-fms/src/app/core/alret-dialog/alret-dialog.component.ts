@@ -29,6 +29,7 @@ export class AlretDialogComponent implements OnInit {
 
 export interface IDialogAlert{
   header:string;
+  hasHeader?:boolean;
   hasError?:boolean;
   message:string;
   confirmButton?: string;
