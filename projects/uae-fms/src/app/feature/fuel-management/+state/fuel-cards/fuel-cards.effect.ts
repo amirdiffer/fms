@@ -12,7 +12,40 @@ export class FuelCardsEffect {
       ofType(FuelCardsActions.loadFuelCard),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => FuelCardsActions.fuelCardLoaded({ data: data.message })),
+          map((data) =>
+            FuelCardsActions.fuelCardLoaded({ data: data.message })
+          ),
+          catchError((error) =>
+            of(FuelCardsActions.fuelCardError({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+  loadStatistics$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(FuelCardsActions.loadStatistics),
+      mergeMap((action) =>
+        this.service.loadAllStatistics().pipe(
+          map((data) =>
+            FuelCardsActions.statisticsLoaded({ data: data.message })
+          ),
+          catchError((error) =>
+            of(FuelCardsActions.fuelCardError({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  addFuelCard$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(FuelCardsActions.addFuelCard),
+      mergeMap((action) =>
+        this.service.addFuelCard(action.data).pipe(
+          map((data) =>
+            FuelCardsActions.addFuelCardSuccessfully({ data: data.message })
+          ),
           catchError((error) =>
             of(FuelCardsActions.fuelCardError({ reason: error }))
           )

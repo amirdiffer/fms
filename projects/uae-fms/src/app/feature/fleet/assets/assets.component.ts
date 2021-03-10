@@ -66,6 +66,26 @@ export class AssetsComponent implements OnInit, OnDestroy {
     this.statisticsSubscription = this.assetMasterFacade.statistics$.subscribe(
       (response) => {
         console.log(response);
+        if (response) {
+          this.filterSetting.map((filter) => {
+            switch (filter.filterTitle) {
+              case 'statistic.total':
+                filter.filterCount = response.message.total;
+                break;
+              case 'statistic.active':
+                filter.filterCount = response.message.active;
+                break;
+              case 'statistic.inactive':
+                filter.filterCount = response.message.inactive;
+                break;
+              case 'statistic.xfleet':
+                filter.filterCount = response.message.xfleet;
+                break;
+              default:
+                break;
+            }
+          });
+        }
       }
     );
 

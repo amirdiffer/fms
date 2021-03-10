@@ -7,16 +7,32 @@ import { PeriodicServiceService } from './periodic-service.service';
 
 @Injectable()
 export class PeriodicServiceEffect {
-  fakeData = [
-    {id: 1, name: 'morteza'},
-    {id: 2, name: 'ali'},
-  ];
   loadAll$ = createEffect(() =>
     this.action$.pipe(
       ofType(PeriodicServiceActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => PeriodicServiceActions.allDataLoaded({ data: this.fakeData })),
+          map((data) =>
+            PeriodicServiceActions.allDataLoaded({ data: data.message })
+          ),
+          catchError((error) =>
+            of(PeriodicServiceActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  addData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PeriodicServiceActions.addPeriodicService),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) =>
+            PeriodicServiceActions.periodicServiceAddedSuccessfully({
+              data: data.message
+            })
+          ),
           catchError((error) =>
             of(PeriodicServiceActions.error({ reason: error }))
           )

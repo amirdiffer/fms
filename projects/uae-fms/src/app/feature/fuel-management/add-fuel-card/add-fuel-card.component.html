@@ -1,7 +1,7 @@
-<form>
+<form [formGroup] = "fuelCardForm" (ngSubmit)="submitFuelCard()">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{ 'forms.cancel' | translate }}</button>
-    <button class="btn-primary-medium add" type="submit" >{{ 'forms.add' | translate }}</button>
+    <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{ 'forms.cancel' | translate }}</button>
+    <button class="btn-primary-medium add" type="submit">{{ 'forms.add' | translate }}</button>
   </div>
   <div class="form-section">
     <h3 class="form-section__title">{{ 'fuel_management.fuel_cards.request_type' | translate }}</h3>
@@ -13,7 +13,8 @@
                         <p-autoComplete
                             (completeMethod)="filterAssets($event)"
                             [suggestions]="assetSuggests" field="name"
-                            [minLength]="1"></p-autoComplete>
+                            [minLength]="1"
+                            formControlName="tageNumber"></p-autoComplete>
                         <i class="pi pi-search"></i>
                         <label>{{ 'fuel_management.fuel_cards.tag_number' | translate }} *</label>
                     </span>
@@ -24,13 +25,13 @@
             dropdown-select">
               <span class="p-float-label">
                 <p-dropdown inputId="cardType" [autoDisplayFirst]="false"
-                      [options]="assetTypes" optionLabel="name"></p-dropdown>
+                      [options]="assetTypes" optionLabel="name" formControlName="cardType"></p-dropdown>
                 <label for="cardType">{{ 'fuel_management.fuel_cards.card_type' | translate }}</label>
               </span>
             </div>
             <div class="col-12 col-md-3 p-field form-section__field date-input">
               <span class="p-float-label">
-                  <p-calendar inputId="basic"></p-calendar>
+                  <p-calendar inputId="basic" formControlName="expireDate"></p-calendar>
                 <svg-icon class="date-icon"
                           src='../../../../assets/icons/calendar-alt-regular.svg'
                           [svgStyle]="{ 'width.px':'20' , 'fill': 'rgb(161 161 161)' ,
@@ -40,7 +41,7 @@
             </div>
             <div class="col-12 col-md-3 p-field form-section__field">
               <span class="p-float-label">
-                  <input pInputText placeholder="{{ 'fuel_management.fuel_cards.usage_limit' | translate }}" type="text">
+                  <input pInputText placeholder="{{ 'fuel_management.fuel_cards.usage_limit' | translate }}" type="text" formControlName="usageLimit">
                   <label>{{ 'fuel_management.fuel_cards.usage_limit' | translate }}</label>
               </span>
             </div>
@@ -56,7 +57,7 @@
                       <p-autoComplete
                           (completeMethod)="filterAssets($event)"
                           [suggestions]="assetSuggests" field="name"
-                          [minLength]="1"></p-autoComplete>
+                          [minLength]="1" formControlName="asset"></p-autoComplete>
                       <i class="pi pi-search"></i>
                       <label>{{ 'fuel_management.fuel_cards.asset' | translate }} *</label>
                   </span>

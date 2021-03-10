@@ -7,6 +7,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { OwnershipFacade } from '../+state/ownership/index';
 
 @Component({
   selector: 'anms-ownership-form',
@@ -89,16 +90,20 @@ export class OwnershipFormComponent extends Utility implements OnInit {
   ownerShipForm: FormGroup;
   submited = false;
 
-  constructor(injector: Injector, private _fb: FormBuilder) {
+  constructor(
+    injector: Injector,
+    private _fb: FormBuilder,
+    private _ownershipFacade: OwnershipFacade
+  ) {
     super(injector);
   }
 
   ngOnInit(): void {
     this.ownerShipForm = this._fb.group({
-      ownershipType: ['external'],
-      owner: ['', [Validators.required]],
-      ownerEmail: ['', [Validators.required, Validators.email]],
-      ownerPhone: [''],
+      type: ['external'],
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: [''],
       purpose: [''],
       fleetITCode: ['', [Validators.required]],
       duration: ['', [Validators.required]]
@@ -108,6 +113,9 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     this.submited = true;
     if (this.ownerShipForm.invalid) {
       return;
-    } else this.goToList();
+    } else {
+      console.log(this.ownerShipForm.value);
+      this.goToList();
+    }
   }
 }

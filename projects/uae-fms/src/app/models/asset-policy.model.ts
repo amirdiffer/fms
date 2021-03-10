@@ -6,4 +6,5 @@ export interface IAssetPolicy extends IGeneralResponse {
   maxUsageKmPHour: number;
   maxUsageYear: number;
   depreciationValue: number;
+  setReminderBefore?: boolean;
 }

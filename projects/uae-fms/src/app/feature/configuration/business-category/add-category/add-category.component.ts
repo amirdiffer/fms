@@ -7,6 +7,8 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { BusinessCategoryFacade } from '../../+state/business-category';
+import { IBusinessCategoryPostModel } from '@models/business-category.model';
 
 @Component({
   selector: 'anms-add-category',
@@ -112,7 +114,11 @@ export class AddCategoryComponent extends Utility implements OnInit {
     { name: 'Accessory 6', id: 6 }
   ];
 
-  constructor(private _fb: FormBuilder, injector: Injector) {
+  constructor(
+    private _fb: FormBuilder,
+    private facade: BusinessCategoryFacade,
+    injector: Injector
+  ) {
     super(injector);
   }
 
@@ -133,7 +139,72 @@ export class AddCategoryComponent extends Utility implements OnInit {
     if (this.addCategoryForm.invalid) {
       return;
     }
+
+    const formValues = this.addCategoryForm.value;
+
+    const contentToPost: IBusinessCategoryPostModel = {
+      name: formValues.name,
+      assetTypeId: formValues.assetType.id,
+      status: formValues.activeCategory,
+      description: formValues.description,
+      subAssets: [
+        {
+          subAssetId: formValues.subAsset.id,
+          quantity: 0,
+          specDocId: 0
+        }
+      ],
+      accessories: [
+        {
+          accessoryId: formValues.accessory.id,
+          quantity: 0,
+          specDocId: 0
+        }
+      ]
+    };
+
+    this.facade.addCategory(contentToPost);
     this.goToList();
+
+    /*
+     * the object need by API
+     *
+     * "name": "<string>",
+     * "assetTypeId": "<integer>",
+     * "status": "<string>",
+     * "description": "<string>",
+     * "subAssets": [
+     *     {
+     *         "subAssetId": "<integer>",
+     *         "quantity": "<integer>",
+     *         "specDocId": "<integer>"
+     *     }
+     * ],
+     * "accessories": [
+     *     {
+     *         "accessoryId": "<integer>",
+     *         "quantity": "<integer>",
+     *         "specDocId": "<integer>"
+     *     }
+     * ]
+     *
+     *
+     * the object we provide
+     *
+     * accessory: {name: "Old asset type 1", id: 1}
+     * accessoryQuantity: "24"
+     * activeCategory: true
+     * assetQuantity: "123"
+     * assetType:
+     * id: 1
+     * name: "Old asset type 1"
+     * description: "desc"
+     * name: "name"
+     * subAsset:
+     * id: 1
+     * name: "Old asset type 1"
+     *
+     */
   }
 
   filterAssets(event) {

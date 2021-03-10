@@ -14,4 +14,11 @@ export class BusinessCategoryService {
       environment.baseApiUrl + 'configuration/business-category'
     );
   }
+
+  post(data): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'configuration/business-category',
+      data
+    );
+  }
 }

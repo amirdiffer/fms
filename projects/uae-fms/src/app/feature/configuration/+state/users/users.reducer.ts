@@ -17,6 +17,14 @@ const usersReducer = createReducer(
     ...state,
     error: reason,
     loaded: true
+  })),
+  on(UsersActions.loadStatistics, (state) => ({
+    ...state,
+    loaded: false
+  })),
+  on(UsersActions.statisticsLoaded, (state, { data }) => ({
+    ...state,
+    statistics: data
   }))
 );
 

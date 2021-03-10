@@ -1,7 +1,7 @@
-<form>
+<form [formGroup]="form">
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{ 'forms.back' | translate }}</button>
-    <button class="btn-primary-medium add" type="submit" >{{ 'toll.upload_form.upload' | translate }}</button>
+    <button class="btn-primary-medium add" (click)="addToll()" >{{ 'toll.upload_form.upload' | translate }}</button>
   </div>
   <div class="form-section">
       <h3 class="form-section__title">{{ 'toll.upload_form.title' | translate }}</h3>
@@ -21,10 +21,13 @@
                   <svg-icon src="../../../../../assets/icons/cloud-computing.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
                   <div>{{ 'toll.upload_form.content' | translate }}</div>
                 </label>
-                <input type="file" hidden id="attach_picture">
+                <input type="file" (change)="checkType($event)" hidden id="attach_picture">
               </div>
             </div>
           </div>
+          <anms-error
+            [showError]="!fileValid && formSubmitted"
+            error="forms.feedback.file_ext"></anms-error>
         </div>
       </div>
   </div>

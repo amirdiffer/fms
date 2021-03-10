@@ -14,4 +14,11 @@ export class FleetStatusAssetService {
       environment.baseApiUrl + 'configuration/fleet-status'
     );
   }
+
+  post(data): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'configuration/fleet-status',
+      data
+    );
+  }
 }

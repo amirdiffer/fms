@@ -7,19 +7,25 @@ import { OwnershipService } from './ownership.service';
 
 @Injectable()
 export class OwnershipEffect {
-  fakeData= [{
-    id: 1,
-    name: 'morteza'
-  },{
-    id: 2,
-    name: 'ali'
-  }];
   loadAll$ = createEffect(() =>
     this.action$.pipe(
       ofType(OwnershipActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => OwnershipActions.allDataLoaded({ data: this.fakeData })),
+          map((data) => OwnershipActions.allDataLoaded({ data: data.message })),
+          catchError((error) => of(OwnershipActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+  addOwnership$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(OwnershipActions.addOwnership),
+      mergeMap((action) =>
+        this.service.addOwnership(action.data).pipe(
+          map((data) =>
+            OwnershipActions.ownershipAddedSuccessfully({ data: data.message })
+          ),
           catchError((error) => of(OwnershipActions.error({ reason: error })))
         )
       )

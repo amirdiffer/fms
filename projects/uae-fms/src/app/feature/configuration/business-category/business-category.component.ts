@@ -95,6 +95,18 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
     this.getBusinessCategorySubscription = this.facade.businessCategory$.subscribe(
       (response) => {
         console.log(response);
+        this.businessCategory_Table.data = [];
+        response.map((responseObject) => {
+          const trafficFineTableData = {
+            Category_Name: responseObject.name,
+            Status: responseObject.status,
+            Description: responseObject.description,
+            Asset_Type: responseObject.assetTypeId,
+            Sub_Asset: responseObject.subAssetsCount,
+            Accessory: responseObject.accessoriesCount
+          };
+          this.businessCategory_Table.data.push(trafficFineTableData);
+        });
       }
     );
   }

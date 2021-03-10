@@ -147,7 +147,16 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
 
     this.getAssetPolicySubscription = this.assetPolicyFacade.assetPolicy$.subscribe(
       (response) => {
-        console.log(response);
+        if (response) {
+          this.assetPolicy_Table.data = response.map((item) => {
+            return {
+              Policy_Name: item.name,
+              Distance: item.maxUsageKmPHour,
+              Year: item.maxUsageYear,
+              Depreciation_Value: item.depreciationValue
+            };
+          });
+        }
       }
     );
   }

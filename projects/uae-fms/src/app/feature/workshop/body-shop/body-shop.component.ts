@@ -18,25 +18,25 @@ export class BodyShopComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   filterSetting: FilterCardSetting[] = [
     {
-      filterCount: '13',
+      filterCount: '15',
       filterTagColor: '#6EBFB5',
       filterTitle: 'statistic.total',
       onActive: () => {}
     },
     {
-      filterCount: '8',
+      filterCount: '15',
       filterTagColor: '#6870B4',
       filterTitle: 'statistic.approved',
       onActive: () => {}
     },
     {
-      filterCount: '13',
+      filterCount: '10',
       filterTagColor: '#BA7967',
       filterTitle: 'statistic.waiting_for_approval',
       onActive: () => {}
     },
     {
-      filterCount: '13',
+      filterCount: '30',
       filterTagColor: '#DD5648',
       filterTitle: 'statistic.rejected',
       onActive: () => {}
@@ -627,6 +627,30 @@ export class BodyShopComponent implements OnInit {
       console.log(x);
     });
     this._facadeLocation.loadAll();
+    this._facadeRequest.loadStatistics();
+    this._facadeRequest.statistics$.subscribe((x) => {
+      console.log(x);
+      if (x) {
+        this.filterSetting.map((filter) => {
+          switch (filter.filterTitle) {
+            case 'statistic.total':
+              filter.filterCount = x.total;
+              break;
+            case 'statistic.waiting_for_approval':
+              filter.filterCount = x.waitingForApproval;
+              break;
+            case 'statistic.approved':
+              filter.filterCount = x.approved;
+              break;
+            case 'statistic.rejected':
+              filter.filterCount = x.rejected;
+              break;
+            default:
+              break;
+          }
+        });
+      }
+    });
   }
 
   addClicked(e: Event) {

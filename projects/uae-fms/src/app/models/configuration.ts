@@ -19,9 +19,18 @@ export interface IRole {
 }
 
 export interface IOwnerShip {
-  id: number,
-  name: string
+  id?: number;
+  type: string;
+  name: string;
+  email: string;
+  phoneNumber: string;
+  purpose: string;
+  fleetITCode: string;
+  duration: number;
+  totalAssetCount?: string;
 }
 
-
-export interface IPeriodicService {}
+export interface IPeriodicService {
+  id: number;
+  name: string;
+}
