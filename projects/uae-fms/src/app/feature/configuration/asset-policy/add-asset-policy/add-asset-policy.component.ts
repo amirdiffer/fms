@@ -11,6 +11,8 @@ import {
   Validators
 } from '@angular/forms';
 import { TableSetting } from '@core/table';
+import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
+import { IAssetPolicy } from '@models/asset-policy.model';
 import { Utility } from '@shared/utility/utility';
 
 @Component({
@@ -78,7 +80,7 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
   };
   assetPolicyForm: FormGroup;
   submited = false;
-  constructor(private _fb: FormBuilder, private injector: Injector) {
+  constructor(private _fb: FormBuilder, private injector: Injector , private _assetPolicyFacade:AssetPolicyFacade) {
     super(injector);
   }
 
@@ -98,6 +100,16 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
     if (this.assetPolicyForm.invalid) {
       return;
     }
+    const formValue : IAssetPolicy= {
+      type: this.assetPolicyForm.value.policyType,
+      name: this.assetPolicyForm.value.policyName,
+      maxUsageKmPHour: this.assetPolicyForm.value.killometerUsage,
+      maxUsageYear: this.assetPolicyForm.value.yearUsage,
+      depreciationValue: this.assetPolicyForm.value.depreciationValue,
+      setReminderBefore:this.assetPolicyForm.value.reminder,
+    }
+    // this._assetPolicyFacade.addAssetPolicy(formValue)
+    console.log(formValue)
     this.goToList();
   }
 }

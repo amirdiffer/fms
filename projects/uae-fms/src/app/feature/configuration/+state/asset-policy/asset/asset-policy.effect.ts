@@ -20,6 +20,19 @@ export class AssetPolicyEffect {
       )
     )
   );
+  assAssetPolicy$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetPolicyActions.addAssetPolicy),
+      mergeMap((action) =>
+        this.service.postAssetPolicy(action.data).pipe(
+          map((data) =>
+            AssetPolicyActions.addAssetPolicySuccessfully({ data: data.message })
+          ),
+          catchError((error) => of(AssetPolicyActions.error({ reason: error })))
+        )
+      )
+    )
+  );
 
   constructor(private action$: Actions, private service: AssetPolicyService) {}
 }
