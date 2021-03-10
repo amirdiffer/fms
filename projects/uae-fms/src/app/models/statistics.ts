@@ -46,3 +46,10 @@ export interface IUserStatistics  extends IGeneralResponse{
   activeUsersNumber: number;
   inActiveUsersNumber:number;
 }
+
+export interface IBodyShopRequestStatistics {
+  total: number;
+  approved: number;
+  waitingForApproval: number;
+  rejected: number;
+}
