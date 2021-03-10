@@ -100,10 +100,10 @@
           <svg-icon [src]="downloadBtn"></svg-icon>
         </button>
       </span>
-      <div title="{{ 'tabs.auction' | translate }}">
+      <div title="tabs.auction" id="auctionTab">
         <app-table [setting]="settingTable1"></app-table>
       </div>
-      <div title="{{ 'tabs.sold' | translate }}">
+      <div title="tabs.sold" id="soldTab">
         <app-table [setting]="settingTable2"></app-table>
       </div>
     </app-tab-view>

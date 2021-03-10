@@ -4,15 +4,13 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   ElementRef,
-  ViewContainerRef,
-  ContentChild,
   ChangeDetectorRef,
   Output,
   EventEmitter,
-  Input
+  Input,
+  Renderer2
 } from '@angular/core';
-import { Subject } from 'rxjs';
-
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-tab-view',
   templateUrl: './tab-view.component.html',
@@ -28,17 +26,22 @@ export class TabViewComponent implements OnInit {
     string
   > = new EventEmitter<string>();
   @ViewChild('content', { static: false }) element: ElementRef;
+  @ViewChild('tabsHeader', { static: false }) tabsHeader: ElementRef;
   tabs: { index: number; title: string; id?: string; count?: number }[] = [];
   initialized: boolean = false;
   elements: HTMLElement[];
-  constructor(public cd: ChangeDetectorRef) {}
+  // selectedTab: number = 0;
+  selectedParams;
+  constructor(public cd: ChangeDetectorRef , 
+              private _router : Router , 
+              private _activateRoute : ActivatedRoute , 
+              private _renderer : Renderer2 ) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit() {
     this.elements = this.element.nativeElement.children;
     let tabs = [];
-
     if (this.elements.length > 0) {
       for (let i = 0; i < this.elements.length; i++) {
         let tabID = this.elements[i].attributes.getNamedItem('id');
@@ -54,29 +57,51 @@ export class TabViewComponent implements OnInit {
         });
       }
     }
-    console.log(tabs);
     this.tabs = tabs;
     this.initialized = true;
-    this.selectedTabChanged();
+    this.selectedParams=this._activateRoute.snapshot.queryParams['id'] ? this._activateRoute.snapshot.queryParams['id'] : this.tabs[0].id;
     this.cd.detectChanges();
+    this.selectByUrlParams();
+    this.selectedIndex.emit(
+      this.returnId == 'title' ? this.selectedParams : this.selectedTab
+    );
   }
 
   selectedTabChanged() {
     for (let i = 0; i < this.elements.length; i++) {
       this.elements[i].classList.remove('hidden-item');
-
       if (i != this.selectedTab) {
         this.elements[i].classList.add('hidden-item');
       }
     }
   }
 
-  selectTab(index: number, title: string) {
+  selectByUrlParams (){
+    for (let i = 0; i < this.elements.length; i++) {
+      this.elements[i].classList.add('hidden-item');
+      if (this.elements[i].getAttribute('id') == this.selectedParams){
+          this.elements[i].classList.remove('hidden-item');
+      }
+    }
+    for (let i=0; i < this.tabsHeader.nativeElement.children.length -1 ; i++){
+      this._renderer.setAttribute(this.tabsHeader.nativeElement.children[i] , 'for',this.tabs[i].id ?this.tabs[i].id:'')
+      this.tabsHeader.nativeElement.children[i].getAttribute('for') == this.selectedParams ? 
+        (this._renderer.addClass(this.tabsHeader.nativeElement.children[i],'active-tab'), this.selectedTab = i) : 
+        this._renderer.removeClass(this.tabsHeader.nativeElement.children[i],'active-tab');
+    }
+  }
+  selectTab(index: number, title: string , e:Event) {
     this.selectedTab = index;
+
+    for (let i=0; i < this.tabsHeader.nativeElement.children.length -1 ; i++){
+      this._renderer.removeClass(this.tabsHeader.nativeElement.children[i],'active-tab');
+    }
+    (e.target as HTMLElement).classList.add('active-tab');
     this.selectedIndex.emit(
       this.returnId == 'title' ? title : index.toString()
     );
+    this._router.navigate([], {queryParams:{id:title}})
     this.selectedTabChanged();
-    console.log(index, title);
+
   }
 }

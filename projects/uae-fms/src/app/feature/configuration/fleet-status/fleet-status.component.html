@@ -13,10 +13,10 @@
         </button>
         <button class="btn-primary-small" [routerLink]="'add-fleet-status'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
       </span>
-      <div title="{{ 'tabs.asset' | translate }}">
+      <div title="tabs.asset" id="fleetStatusAssetTab">
         <app-table [setting]='tableSetting'></app-table>
       </div>
-      <div title="{{ 'tabs.sub_asset' | translate }}"></div>
+      <div title="tabs.sub_asset" id="fleetStatusSubAssetTab"></div>
     </app-tab-view>
   </div>
 </div>

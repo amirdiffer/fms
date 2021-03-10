@@ -1,6 +1,6 @@
 <!-- start table -->
 <div>
-    <ng-container *ngIf="selectedTab =='Request'">
+    <ng-container *ngIf="selectedTab =='requestTab'">
         <div class="filter-container">
             <app-filter [setting]="filterSetting"></app-filter>
         </div>
@@ -19,12 +19,12 @@
                         <button class="btn-download" disabled>
                             <svg-icon [src]="downloadBtn"></svg-icon>
                         </button>
-                        <button *ngIf="selectedTab !='Request'" class="btn-primary-small" routerLink="add-request"><a>{{ 'search.request' | translate }}</a></button>
+                        <button *ngIf="selectedTab !='requestTab'" class="btn-primary-small" routerLink="add-request"><a>{{ 'search.request' | translate }}</a></button>
                     </span>
-                    <div title="{{ 'tabs.movement_over_view' | translate }}">
+                    <div title="tabs.movement_over_view" id="MovementOverViewTab">
                         <app-table [setting]="movementOverViewTableSetting"></app-table>
                     </div>
-                    <div title="{{ 'tabs.request' | translate }}" #requestTab>
+                    <div title="tabs.request" #requestTab id="requestTab">
                         <app-table [setting]="requestTableSetting"></app-table>
                     </div>
                 </app-tab-view>
