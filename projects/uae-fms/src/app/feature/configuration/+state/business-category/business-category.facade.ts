@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { BusinessCategorySelectors } from './business-category.selectors';
 import { BusinessCategoryPartialState } from './business-category.entity';
 import { BusinessCategoryActions } from './business-category.actions';
+import { IBusinessCategoryPostModel } from '@models/business-category.model';
 
 @Injectable()
 export class BusinessCategoryFacade {
@@ -18,5 +19,9 @@ export class BusinessCategoryFacade {
 
   loadAll() {
     this.store.dispatch(BusinessCategoryActions.loadAll());
+  }
+
+  addCategory(data: IBusinessCategoryPostModel) {
+    this.store.dispatch(BusinessCategoryActions.addCategory({ data }));
   }
 }
