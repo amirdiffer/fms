@@ -594,9 +594,11 @@
   "workshop": {
     "body_shop": {
       "requests": {
+        "periodic_service": "Periodic Service",
         "asset_info": "Asset Info",
         "asset": "Asset",
         "asset_validation_error": "Please search and choose an item from list",
+        "periodic_service_validation_error": "Please search and choose an item from periodic service",
         "gps_meter_source": "GPS Meter Source",
         "manual_update": "Manual Update",
         "accident": "Accident",
