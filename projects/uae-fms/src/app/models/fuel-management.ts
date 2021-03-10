@@ -1,7 +1,7 @@
 export interface IFuelManagementFuelCard {
-    id:string;
+    id?:string;
     tagNumber:string;
-    used:IFuelManagementFuelCardUsed[];
+    used?:IFuelManagementFuelCardUsed[];
     usageLimit:string;
     assignedTo:string;
     cardType:string;

@@ -1,6 +1,9 @@
 import { TableSetting } from '@core/table';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
+import { FuelCardsFacade } from '../+state/fuel-cards/index';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import {IFuelManagementFuelCard}from '@models/fuel-management'
+import { Router } from '@angular/router';
 @Component({
   selector: 'anms-add-fuel-card',
   templateUrl: './add-fuel-card.component.html',
@@ -8,9 +11,18 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddFuelCardComponent implements OnInit {
-  constructor() {}
+  fuelCardForm: FormGroup;
+  constructor(private _facad:FuelCardsFacade , private _fb:FormBuilder , private _router:Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fuelCardForm = this._fb.group({
+      tageNumber:[''],
+      cardType:[''],
+      expireDate:[''],
+      usageLimit:[''],
+      asset:['']
+    })
+  }
 
   fuelCardsTableData = [
     {
@@ -113,5 +125,11 @@ export class AddFuelCardComponent implements OnInit {
       { name: 'Old asset type 5', id: 5 },
       { name: 'Old asset type 6', id: 6 }
     ];
+  }
+  submitFuelCard(){
+    const formData : IFuelManagementFuelCard = this.fuelCardForm.value;
+    // this._facad.addFuelCard(formData);
+    console.log(formData);
+    this._router.navigate(['/fuel-management']);
   }
 }
