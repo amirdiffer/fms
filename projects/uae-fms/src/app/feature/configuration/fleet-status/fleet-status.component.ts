@@ -73,6 +73,26 @@ export class FleetStatusComponent implements OnInit {
 
     this.fleetStatusAssetFacade.fleetStatus$.subscribe((response) => {
       console.log(response);
+      if (response) {
+        this.tableSetting.data = [];
+        response.map((responseObject) => {
+          const asset = {
+            statusColor: '#FE5F4F',
+            Status_Category: responseObject.category,
+            status: responseObject.status,
+            tag: responseObject.tag,
+            usage: responseObject.totalCount
+          };
+          if (responseObject.category.toLowerCase() === 'active') {
+            asset.statusColor = '#FCB614';
+          } else if (responseObject.category.toLowerCase() === 'inactive') {
+            asset.statusColor = '#009EFF';
+          } else {
+            asset.statusColor = '#FE5F4F';
+          }
+          this.tableSetting.data.push(asset);
+        });
+      }
     });
 
     this.fleetStatusSubAssetFacade.fleetStatus$.subscribe((response) => {
