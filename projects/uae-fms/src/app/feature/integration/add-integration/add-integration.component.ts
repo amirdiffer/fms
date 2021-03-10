@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { IntegrationFacade } from '../+state/index';
 import { IntegrationService } from '../integration.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class AddIntegrationComponent implements OnInit {
   ];
   constructor(
     private _fb: FormBuilder,
-    private _integrationservice: IntegrationService
+    private _integrationservice: IntegrationService,
+    private _facade: IntegrationFacade
   ) {}
 
   ngOnInit(): void {
@@ -34,5 +36,10 @@ export class AddIntegrationComponent implements OnInit {
 
   cancel() {
     this._integrationservice.loadInegrationForm(false);
+  }
+  save(){
+    this._facade.addIntegration(this.inputForm.value)
+    this._integrationservice.loadInegrationForm(false);
+    console.log(this.inputForm.value)
   }
 }
