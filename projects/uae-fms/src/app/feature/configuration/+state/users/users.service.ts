@@ -15,7 +15,7 @@ export class UsersService {
       environment.baseApiUrl + 'configuration/user'
     );
   }
-  loadAllStatistics():Observable <ResponseBody<IUserStatistics>>{
+  loadAllStatistics(): Observable<ResponseBody<IUserStatistics>> {
     return this.http.get<ResponseBody<IUserStatistics>>(
       environment.baseApiUrl + 'configuration/user/stats'
     );

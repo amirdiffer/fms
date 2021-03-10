@@ -90,7 +90,11 @@ export class OwnershipFormComponent extends Utility implements OnInit {
   ownerShipForm: FormGroup;
   submited = false;
 
-  constructor(injector: Injector, private _fb: FormBuilder , private _ownershipFacade: OwnershipFacade) {
+  constructor(
+    injector: Injector,
+    private _fb: FormBuilder,
+    private _ownershipFacade: OwnershipFacade
+  ) {
     super(injector);
   }
 

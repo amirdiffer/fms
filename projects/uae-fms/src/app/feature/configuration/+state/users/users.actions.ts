@@ -17,6 +17,6 @@ export class UsersActions {
   static loadStatistics = createAction('[Users] load all statistics');
   static statisticsLoaded = createAction(
     '[Users] all statistics are loaded',
-    props<{ data : IUserStatistics}>()
+    props<{ data: IUserStatistics }>()
   );
 }

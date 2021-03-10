@@ -18,7 +18,7 @@ export class OwnershipFacade {
   loadAll() {
     this.store.dispatch(OwnershipActions.loadAll());
   }
-  addOwnership (data: IOwnerShip){
-    this.store.dispatch(OwnershipActions.addOwnership({data}));
+  addOwnership(data: IOwnerShip) {
+    this.store.dispatch(OwnershipActions.addOwnership({ data }));
   }
 }

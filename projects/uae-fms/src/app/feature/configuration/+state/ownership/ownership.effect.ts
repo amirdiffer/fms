@@ -23,7 +23,9 @@ export class OwnershipEffect {
       ofType(OwnershipActions.addOwnership),
       mergeMap((action) =>
         this.service.addOwnership(action.data).pipe(
-          map((data) => OwnershipActions.ownershipAddedSuccessfully({ data: data.message })),
+          map((data) =>
+            OwnershipActions.ownershipAddedSuccessfully({ data: data.message })
+          ),
           catchError((error) => of(OwnershipActions.error({ reason: error })))
         )
       )

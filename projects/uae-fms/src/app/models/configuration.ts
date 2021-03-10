@@ -30,5 +30,7 @@ export interface IOwnerShip {
   totalAssetCount?: string;
 }
 
-
-export interface IPeriodicService {}
+export interface IPeriodicService {
+  id: number;
+  name: string;
+}

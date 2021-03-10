@@ -1,5 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { TollFacade } from '@feature/toll/+state';
 
 @Component({
@@ -9,10 +14,7 @@ import { TollFacade } from '@feature/toll/+state';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddTollComponent implements OnInit {
-  constructor(
-      private _fb: FormBuilder,
-      private facade: TollFacade
-    ) {
+  constructor(private _fb: FormBuilder, private facade: TollFacade) {
     this._migrateForm();
   }
 
@@ -20,15 +22,15 @@ export class AddTollComponent implements OnInit {
 
   private _migrateForm(): void {
     this.form = this._fb.group({
-      file: ["", Validators.compose([Validators.required])]
-    })
+      file: ['', Validators.compose([Validators.required])]
+    });
   }
 
   ngOnInit(): void {}
 
   fileValid = null;
   checkType(event: Event) {
-    let filename = event.target['files'][0].name
+    let filename = event.target['files'][0].name;
     let parts = filename.split('.');
     let ext = parts[parts.length - 1];
     switch (ext.toLowerCase()) {
@@ -57,5 +59,4 @@ export class AddTollComponent implements OnInit {
     if (this.form.invalid) return;
     this.facade.addToll(this.form.getRawValue());
   }
-
 }

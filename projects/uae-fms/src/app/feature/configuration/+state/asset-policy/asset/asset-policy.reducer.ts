@@ -24,12 +24,12 @@ const assetPolicyReducer = createReducer(
     error: reason,
     loaded: true
   })),
-  on(AssetPolicyActions.addAssetPolicy,(state) =>({
+  on(AssetPolicyActions.addAssetPolicy, (state) => ({
     ...state,
-    loaded:false
+    loaded: false
   })),
-  on(AssetPolicyActions.addAssetPolicySuccessfully,(state , {data}) =>
-    assetPolicyAdapter.addOne(data,state)
+  on(AssetPolicyActions.addAssetPolicySuccessfully, (state, { data }) =>
+    assetPolicyAdapter.addOne(data, state)
   )
 );
 

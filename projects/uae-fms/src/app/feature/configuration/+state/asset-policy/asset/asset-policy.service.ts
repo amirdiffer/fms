@@ -18,6 +18,6 @@ export class AssetPolicyService {
     return this.http.post<ResponseBody<IAssetPolicy>>(
       environment.baseApiUrl + 'configuration/asset-policy',
       data
-    )
+    );
   }
 }

@@ -9,6 +9,16 @@ export class PeriodicServiceActions {
     props<{ data: IPeriodicService[] }>()
   );
 
+  static addPeriodicService = createAction(
+    '[PeriodicService] add periodic service',
+    props<{ data }>()
+  );
+
+  static periodicServiceAddedSuccessfully = createAction(
+    '[PeriodicService] periodic service added successfully',
+    props<{ data }>()
+  );
+
   static error = createAction(
     '[PeriodicService] error occurred',
     props<{ reason: any }>()

@@ -18,8 +18,8 @@ export class AssetPolicyFacade {
   loadAll() {
     this.store.dispatch(AssetPolicyActions.loadAll());
   }
-  addAssetPolicy(data:IAssetPolicy){
-    this.store.dispatch(AssetPolicyActions.addAssetPolicy({data}))
-    console.log(data)
+  addAssetPolicy(data: IAssetPolicy) {
+    this.store.dispatch(AssetPolicyActions.addAssetPolicy({ data }));
+    console.log(data);
   }
 }

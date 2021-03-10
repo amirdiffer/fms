@@ -41,10 +41,10 @@ export interface ISubAssetStatistics extends IGeneralResponse {
   xSubAsset: number;
 }
 
-export interface IUserStatistics  extends IGeneralResponse{
-  totalUserNumber?:number;
+export interface IUserStatistics extends IGeneralResponse {
+  totalUserNumber?: number;
   activeUsersNumber: number;
-  inActiveUsersNumber:number;
+  inActiveUsersNumber: number;
 }
 
 export interface IBodyShopRequestStatistics {

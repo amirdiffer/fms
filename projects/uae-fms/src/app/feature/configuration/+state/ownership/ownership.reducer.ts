@@ -22,12 +22,12 @@ const ownershipReducer = createReducer(
     error: reason,
     loaded: true
   })),
-  on(OwnershipActions.addOwnership, (state , {data}) =>({
+  on(OwnershipActions.addOwnership, (state, { data }) => ({
     ...state,
     loaded: false
   })),
-  on(OwnershipActions.ownershipAddedSuccessfully , (state,{data}) =>
-  ownershipAdapter.addOne(data, state)
+  on(OwnershipActions.ownershipAddedSuccessfully, (state, { data }) =>
+    ownershipAdapter.addOne(data, state)
   )
 );
 

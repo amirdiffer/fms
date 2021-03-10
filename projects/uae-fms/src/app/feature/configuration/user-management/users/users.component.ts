@@ -1,8 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { UsersFacade } from '../../+state/users';
-import {Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { IUserStatistics } from '@models/statistics';
 
 @Component({
@@ -11,14 +17,14 @@ import { IUserStatistics } from '@models/statistics';
   styleUrls: ['./users.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UsersComponent implements OnInit , OnDestroy {
+export class UsersComponent implements OnInit, OnDestroy {
   downloadBtn = 'assets/icons/download-solid.svg';
-  userStatistics$:Subscription;
-  userStatisticsInitial : IUserStatistics ={
-    totalUserNumber:0,
+  userStatistics$: Subscription;
+  userStatisticsInitial: IUserStatistics = {
+    totalUserNumber: 0,
     activeUsersNumber: 0,
-    inActiveUsersNumber:0,
-  }
+    inActiveUsersNumber: 0
+  };
   filterCard: FilterCardSetting[];
   users_Table: TableSetting = {
     columns: [
@@ -125,7 +131,7 @@ export class UsersComponent implements OnInit , OnDestroy {
     ]
   };
 
-  constructor(private facade: UsersFacade ) {}
+  constructor(private facade: UsersFacade) {}
 
   ngOnInit(): void {
     this.statisticsFilter(this.userStatisticsInitial);
@@ -134,20 +140,20 @@ export class UsersComponent implements OnInit , OnDestroy {
     this.facade.users$.subscribe((data) => {
       console.log(data, 'users');
     });
-    this.userStatistics$ =this.facade.statistics$.subscribe(data => {
-      if(data){
-        const updated : IUserStatistics = {
-          totalUserNumber:0,
-          activeUsersNumber:data.activeUsersNumber,
-          inActiveUsersNumber:data.inActiveUsersNumber
-        }
-        this.statisticsFilter(updated)
-        }
-    })
+    this.userStatistics$ = this.facade.statistics$.subscribe((data) => {
+      if (data) {
+        const updated: IUserStatistics = {
+          totalUserNumber: 0,
+          activeUsersNumber: data.activeUsersNumber,
+          inActiveUsersNumber: data.inActiveUsersNumber
+        };
+        this.statisticsFilter(updated);
+      }
+    });
   }
-  statisticsFilter(statisticsCount:IUserStatistics){
-    console.log('detected')
-    this.filterCard=[
+  statisticsFilter(statisticsCount: IUserStatistics) {
+    console.log('detected');
+    this.filterCard = [
       {
         filterTitle: 'statistic.this_month',
         filterCount: '',
@@ -175,7 +181,7 @@ export class UsersComponent implements OnInit , OnDestroy {
       }
     ];
   }
-  ngOnDestroy(){
-    this.userStatistics$.unsubscribe()
+  ngOnDestroy() {
+    this.userStatistics$.unsubscribe();
   }
 }

@@ -20,12 +20,12 @@ const usersReducer = createReducer(
   })),
   on(UsersActions.loadStatistics, (state) => ({
     ...state,
-    loaded: false,
+    loaded: false
   })),
-  on(UsersActions.statisticsLoaded, (state, {data}) => ({
+  on(UsersActions.statisticsLoaded, (state, { data }) => ({
     ...state,
     statistics: data
-  })),
+  }))
 );
 
 export function reducer(state: UsersState, action: Action) {

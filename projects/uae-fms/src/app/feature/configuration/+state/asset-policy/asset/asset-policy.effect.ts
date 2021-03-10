@@ -26,7 +26,9 @@ export class AssetPolicyEffect {
       mergeMap((action) =>
         this.service.postAssetPolicy(action.data).pipe(
           map((data) =>
-            AssetPolicyActions.addAssetPolicySuccessfully({ data: data.message })
+            AssetPolicyActions.addAssetPolicySuccessfully({
+              data: data.message
+            })
           ),
           catchError((error) => of(AssetPolicyActions.error({ reason: error })))
         )

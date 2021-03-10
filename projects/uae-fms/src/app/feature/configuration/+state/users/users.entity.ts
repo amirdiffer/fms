@@ -1,5 +1,5 @@
 import { IUser } from '@models/configuration';
-import {IUserStatistics} from '@models/statistics'
+import { IUserStatistics } from '@models/statistics';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export const CONFIGURATION_USERS_FEATURE_KEY = 'users';
@@ -21,5 +21,5 @@ export const initialState: UsersState = usersAdapter.getInitialState({
   loaded: null,
   message: null,
   error: null,
-  statistics:null
+  statistics: null
 } as UsersState);
