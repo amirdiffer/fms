@@ -72,7 +72,7 @@ import { IserveComponent } from './movement/iserv/iserv.component';
     PendingRegistrationOverviewComponent,
     AssetCarDetailComponent,
     PendingCustomizationOverviewComponent,
-    AssetRegistrationConfirmComponent
+    AssetRegistrationConfirmComponent,
     IserveComponent,
     OverViewAssetComponent,
     VehicleOverviewComponent,
