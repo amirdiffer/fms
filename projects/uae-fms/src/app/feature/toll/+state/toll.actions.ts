@@ -23,30 +23,23 @@ export class TollActions {
   static loadAssignNow = createAction(
     '[Toll] load assign data',
     props<{ data }>()
-  )
+  );
 
   static assignNowLoaded = createAction(
     '[Toll] assign data loaded',
     props<{ data }>()
-  )
+  );
 
   static assigningToll = createAction(
     '[Toll] Assigning Toll',
     props<{ data }>()
-  )
-
-  static assignedToll = createAction(
-    '[Toll] Assigned Toll',
-    props<{ data }>()
-  )
-
-  static addToll = createAction (
-    '[Toll] add toll',
-    props<{data}>()
   );
+
+  static assignedToll = createAction('[Toll] Assigned Toll', props<{ data }>());
+
+  static addToll = createAction('[Toll] add toll', props<{ data }>());
   static addTollSuccessfully = createAction(
     '[Toll] toll added successfully',
-    props<{data}>()
-  )
-
+    props<{ data }>()
+  );
 }

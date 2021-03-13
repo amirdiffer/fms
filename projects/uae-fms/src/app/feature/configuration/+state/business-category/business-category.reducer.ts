@@ -21,6 +21,13 @@ const businessCategoryReducer = createReducer(
       error: null
     })
   ),
+  on(BusinessCategoryActions.addCategory, (state, { data }) => ({
+    ...state,
+    loaded: false
+  })),
+  on(BusinessCategoryActions.categoryAddedSuccessfully, (state, { data }) =>
+    businessCategoryAdapter.addOne(data, state)
+  ),
   on(BusinessCategoryActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

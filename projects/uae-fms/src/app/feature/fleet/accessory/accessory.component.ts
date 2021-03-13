@@ -77,7 +77,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
         Asset_SubAsset: 'Item 122334',
         Assigned_To: 'Unassigned',
         Quantity: '2'
-      },
+      }
     ]
   };
 
@@ -89,20 +89,18 @@ export class AccessoryComponent implements OnInit, OnDestroy {
 
     this._accessoryFacade.accessory$.subscribe((data) => {
       if (data) {
-        this.accessory_Table.data = data.map(
-          item => {
-            return {
-              statusColor: '#00AFB9',
-              Item: item.itemName,
-              Type: item.assignedToType,
-              Asset_SubAsset: item.assignedToEntity,
-              Assigned_To: item.assignedToEmployeeId,
-              Quantity: item.quantity
-            }
-          }
-        )
+        this.accessory_Table.data = data.map((item) => {
+          return {
+            statusColor: '#00AFB9',
+            Item: item.itemName,
+            Type: item.assignedToType,
+            Asset_SubAsset: item.assignedToEntity,
+            Assigned_To: item.assignedToEmployeeId,
+            Quantity: item.quantity
+          };
+        });
       }
-    })
+    });
 
     this._accessoryFacade.loadStatistics();
     this._accessoryFacade.statistics$.subscribe((data) => {
@@ -110,11 +108,11 @@ export class AccessoryComponent implements OnInit, OnDestroy {
       if (data) {
         let statistic = data.message;
         this.filterCard.forEach((card, index) => {
-          this.filterCard[index].filterCount = statistic[this.filterCard[index].field]
-        })
+          this.filterCard[index].filterCount =
+            statistic[this.filterCard[index].field];
+        });
       }
     });
-
   }
 
   constructor(

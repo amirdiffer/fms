@@ -12,7 +12,24 @@ export class IntegrationEffect {
       ofType(IntegrationActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => IntegrationActions.allDataLoaded({ data: data.message  })),
+          map((data) =>
+            IntegrationActions.allDataLoaded({ data: data.message })
+          ),
+          catchError((error) => of(IntegrationActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+  postData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(IntegrationActions.addintegration),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) =>
+            IntegrationActions.integrationAddedSuccessfullt({
+              data: data.message
+            })
+          ),
           catchError((error) => of(IntegrationActions.error({ reason: error })))
         )
       )

@@ -23,6 +23,24 @@ export class FleetStatusAssetEffect {
     )
   );
 
+  addData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(FleetStatusAssetActions.addFleetStatus),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) =>
+            FleetStatusAssetActions.fleetStatusAddedSuccessfully({
+              data: data.message
+            })
+          ),
+          catchError((error) =>
+            of(FleetStatusAssetActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
   constructor(
     private action$: Actions,
     private service: FleetStatusAssetService

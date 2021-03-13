@@ -15,10 +15,12 @@ export interface IAccessoryStatistics extends IGeneralResponse {
 
 export interface IAssetStatistics extends IGeneralResponse {
   result_number: number;
-  total: number;
-  active: number;
-  inactive: number;
-  xfleet: number;
+  message: {
+    total: number;
+    active: number;
+    inactive: number;
+    xfleet: number;
+  };
 }
 
 export interface IMovementStatistics extends IGeneralResponse {
@@ -41,8 +43,21 @@ export interface ISubAssetStatistics extends IGeneralResponse {
   xSubAsset: number;
 }
 
-export interface IUserStatistics  extends IGeneralResponse{
-  totalUserNumber?:number;
+export interface IUserStatistics extends IGeneralResponse {
+  totalUserNumber?: number;
   activeUsersNumber: number;
-  inActiveUsersNumber:number;
+  inActiveUsersNumber: number;
+}
+
+export interface IBodyShopRequestStatistics {
+  total: number;
+  approved: number;
+  waitingForApproval: number;
+  rejected: number;
+}
+
+export interface IFuelManagementStatistics extends IGeneralResponse {
+  total: number;
+  available: number;
+  assigned: number;
 }

@@ -4,7 +4,7 @@ import { TollFacade } from '@feature/toll/+state';
 @Component({
   selector: 'table-assign-now-renderer',
   template: `
-    <div *ngIf="status == 'Assigned' else assignNow">
+    <div *ngIf="status == 'Assigned'; else assignNow">
       <div class="">{{ this.objectData[1] }}</div>
       <small> {{ this.objectData[0] }} </small>
     </div>
@@ -23,9 +23,7 @@ import { TollFacade } from '@feature/toll/+state';
     `
   ]
 })
-
 export class AssignNow implements OnInit {
-
   @Input('data') data;
   @Input('status') status;
   @Input('row') row;
@@ -35,11 +33,10 @@ export class AssignNow implements OnInit {
   objectData = {};
 
   ngOnInit(): void {
-    this.objectData = Object.values(this.data)
+    this.objectData = Object.values(this.data);
   }
 
   assign(data: object) {
     this._facade.loadAssignNow(data);
   }
-
 }

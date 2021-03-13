@@ -27,4 +27,19 @@ export class BodyShopRequestEffect {
       )
     )
   );
+  loadStatistics$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(BodyShopRequestActions.loadStatistics),
+      mergeMap((action) =>
+        this.service.loadStatistics().pipe(
+          map((data) => {
+            return BodyShopRequestActions.allStatisticsLoaded({ data });
+          }),
+          catchError((error) =>
+            of(BodyShopRequestActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
 }

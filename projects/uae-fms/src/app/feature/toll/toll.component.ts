@@ -1,6 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { TollFacade } from '../toll/+state';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { IToll } from '@models/toll';
 
@@ -10,13 +20,13 @@ import { IToll } from '@models/toll';
   styleUrls: ['./toll.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TollComponent implements OnInit , OnDestroy{
+export class TollComponent implements OnInit, OnDestroy {
   tableSetting;
   filterSetting = [];
-  statistic$ : Subscription;
+  statistic$: Subscription;
   searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn = 'assets/icons/download-solid.svg';
-  assignForm: object|null = null;
+  assignForm: object | null = null;
   loaded: boolean = false;
 
   submittedAssign = false;
@@ -30,12 +40,12 @@ export class TollComponent implements OnInit , OnDestroy{
   form: FormGroup;
   migrateForm(): void {
     this.form = this._fb.group({
-      id: ["", Validators.compose([Validators.required])],
-      tollTag: ["", Validators.compose([Validators.required])],
+      id: ['', Validators.compose([Validators.required])],
+      tollTag: ['', Validators.compose([Validators.required])],
       assetId: [null, Validators.compose([Validators.required])],
-      status: ["", Validators.compose([Validators.required])],
-      purchaseDate: ["", Validators.compose([Validators.required])]
-    })
+      status: ['', Validators.compose([Validators.required])],
+      purchaseDate: ['', Validators.compose([Validators.required])]
+    });
   }
 
   constructor(private facade: TollFacade, private _fb: FormBuilder) {
@@ -99,43 +109,42 @@ export class TollComponent implements OnInit , OnDestroy{
     this.facade.loadAll();
     this.facade.toll$.subscribe((data) => {
       if (data) {
-        this.tableSetting.data = data.map(
-          item => {
-            return {
-              id: item.id,
-              purchaseDate: item.purchaseDate,
-              // dpd: item.relatedAsset.dpd,
-              // dpdId: item.relatedAsset.id,
-              relatedAsset: {
-                dpd: item.relatedAsset.dpd,
-                id: item.relatedAsset.id,
-              },
-              status: item.status,
-              tollTag: item.tollTag,
-            }
-          }
-        );
+        this.tableSetting.data = data.map((item) => {
+          return {
+            id: item.id,
+            purchaseDate: item.purchaseDate,
+            // dpd: item.relatedAsset.dpd,
+            // dpdId: item.relatedAsset.id,
+            relatedAsset: {
+              dpd: item.relatedAsset.dpd,
+              id: item.relatedAsset.id
+            },
+            status: item.status,
+            tollTag: item.tollTag
+          };
+        });
       }
     });
     this.facade.assignNow$.subscribe((x) => {
       this.assignForm = x;
-      if (x!=null && x.id) {
+      if (x != null && x.id) {
         this.form.patchValue(this.assignForm);
         this.form.get('assetId').patchValue(x['relatedAsset']['id']);
-        console.log(this.form.getRawValue())
+        console.log(this.form.getRawValue());
       }
     });
     this.facade.statistic$.subscribe((data) => {
       if (data) {
         this.filterSetting.forEach((card, index) => {
-          this.filterSetting[index].filterCount = data[this.filterSetting[index].field]
-        })
+          this.filterSetting[index].filterCount =
+            data[this.filterSetting[index].field];
+        });
       }
-    })
-    this.facade.loaded$.subscribe(loaded => {
+    });
+    this.facade.loaded$.subscribe((loaded) => {
       this.facade.loadAssignNow(null);
       this.loaded = loaded;
-    })
+    });
   }
 
   closeForm(): void {
@@ -144,10 +153,8 @@ export class TollComponent implements OnInit , OnDestroy{
   }
 
   lengthObjectAssign(): boolean {
-    if (this.assignForm == null)
-      return false
-    else
-      return Object.keys(this.assignForm).length > 1;
+    if (this.assignForm == null) return false;
+    else return Object.keys(this.assignForm).length > 1;
   }
 
   hasError(controlName) {
@@ -166,8 +173,5 @@ export class TollComponent implements OnInit , OnDestroy{
     this.facade.assigningToll(this.form.getRawValue());
   }
 
-  ngOnDestroy ():void{
-  }
-
-
+  ngOnDestroy(): void {}
 }

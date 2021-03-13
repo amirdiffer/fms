@@ -9,6 +9,16 @@ export class FleetStatusAssetActions {
     props<{ data: IFleetStatus[] }>()
   );
 
+  static addFleetStatus = createAction(
+    '[FleetStatusAsset] add fleet status',
+    props<{ data }>()
+  );
+
+  static fleetStatusAddedSuccessfully = createAction(
+    '[FleetStatusAsset] fleet status added successfully',
+    props<{ data }>()
+  );
+
   static error = createAction(
     '[FleetStatus] error occurred',
     props<{ reason: any }>()

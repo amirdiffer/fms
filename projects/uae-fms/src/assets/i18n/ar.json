@@ -790,16 +790,16 @@
       "multiple_model": "نموذج متعدد",
       "single_model": "نموذج واحد",
       "select_model": "اختر النموذج",
-      "model":"نموذج",
+      "model": "نموذج",
       "drag_and_drop_a_csv_file_or": "قم بسحب وإسقاط ملف csv أو",
       "click_here": "انقر هنا",
-      "description":"الوصف",
+      "description": "الوصف",
       "active_type": "النوع النشط",
-      "type_name":  "النوع الاسم",
-      "accessory":"الملحقات",
-      "sub_asset":"أصل فرعي",
-      "asset":"أصل",
-      "type_category":"اكتب الفئة"
+      "type_name": "النوع الاسم",
+      "accessory": "الملحقات",
+      "sub_asset": "أصل فرعي",
+      "asset": "أصل",
+      "type_category": "اكتب الفئة"
     },
     "business_category": {
       "business_category_info": "معلومات فئة العمل",
