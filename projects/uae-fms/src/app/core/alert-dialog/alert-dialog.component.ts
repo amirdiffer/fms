@@ -39,7 +39,7 @@ export interface IDialogAlert {
   hasError?: boolean; // Error -  if is true Warning mode doesn't work
   isWarning?: boolean; // Warning
   message: string;
-  confirmButton: string;
+  confirmButton?: string;
   cancelButton?: string;
 }
 

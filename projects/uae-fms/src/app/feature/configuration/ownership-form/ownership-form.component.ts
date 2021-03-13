@@ -110,7 +110,8 @@ export class OwnershipFormComponent extends Utility implements OnInit {
   submitted = false;
   dialogCancelSetting: IDialogAlert = {
     header: 'Cancel',
-    hasError: true,
+    hasError: false,
+    isWarning: true,
     message: 'Are you sure you want to cancel?',
     confirmButton: 'Cancel',
     cancelButton: 'No'
@@ -118,11 +119,16 @@ export class OwnershipFormComponent extends Utility implements OnInit {
   dialogSuccessSetting: IDialogAlert = {
     header: 'Success',
     hasError: false,
-    message: 'New ownership Successfully Added',
-    cancelButton: ''
+    message: 'New ownership Successfully Added'
+  };
+  dialogErrorSetting: IDialogAlert = {
+    header: 'Error',
+    hasError: true,
+    message: 'Some Error Occurred'
   };
   displayCancelModal = false;
   displaySuccessModal = false;
+  displayErrorModal = false;
 
   constructor(injector: Injector, private _fb: FormBuilder) {
     super(injector);
@@ -144,9 +150,9 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     if (this.ownerShipForm.invalid) {
       return;
     } else {
-      this.displaySuccessModal = true;
+      this.displayErrorModal = true;
       setTimeout(() => {
-        this.displaySuccessModal = false;
+        this.displayErrorModal = false;
         this.goToList();
       }, 2000);
     }
@@ -154,13 +160,11 @@ export class OwnershipFormComponent extends Utility implements OnInit {
   showCancelAlert() {
     this.displayCancelModal = true;
   }
-  showSuccessAlert() {
-    this.displaySuccessModal = true;
-  }
+
   dialogConfirm(confirmed) {
     if (confirmed) {
-      this.displayCancelModal = false;
+      this.displaySuccessModal = false;
       this.goToList();
-    } else this.displayCancelModal = false;
+    } else this.displaySuccessModal = false;
   }
 }
