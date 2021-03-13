@@ -22,23 +22,81 @@ p-dialog{
             .p-dialog-footer{
                 border-bottom-right-radius: .5em;
                 border-bottom-left-radius: .5em;
+                
+                button{
+                    &.warning-alert-button{
+                        background: transparent linear-gradient(180deg, #fac13b 0%, #fcb614 100%) 0% 0% no-repeat padding-box;
+                    }
+                    &.btn-scondary-green.warning-alert-button {
+                        color:#fcb614;
+                        border-color:#fcb614;
+                        background:transparent;
+                        &:hover{
+                            background: transparentize($color: #fcb614, $amount: 0.9);
+                        }
+                    }
+                    &.accept.red-alert-button{
+                        background: transparent linear-gradient(180deg, #e94e3c 0%, #dd5648 100%) 0% 0% no-repeat padding-box;
+                    }
+                    &.btn-scondary-green.red-alert-button{
+                        color:#dd5648;
+                        border-color:#dd5648;
+                        &:hover{
+                            background: transparentize($color: #dd5648, $amount: 0.9);
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    &.warning-alert{
+        ::ng-deep{
+            .p-dialog-header{
+                background: transparent linear-gradient(180deg, #fac13b 0%, #fcb614 100%) 0% 0% no-repeat padding-box;
+            }
+        }
+    }
+    &.red-alert{
+        ::ng-deep{
+            .p-dialog-header{
+                background: transparent linear-gradient(180deg, #f75a49 0%, #dd5648 100%) 0% 0% no-repeat padding-box;
             }
         }
     }
 }
+
 p-dialog.without-header{
     ::ng-deep{
-        .p-dialog-header{
-            display: none;
+        .p-dialog{
+            width: 40vw;
+            .p-dialog-header{
+                display: none;
+            }
+            .p-dialog-content{
+                border-top-right-radius: .5em;
+                border-top-left-radius: .5em;
+                padding: 5em 5em 2em 5em;
+                p.content-alert{
+                    flex-wrap: wrap;
+                    width: 100%;
+                }
+                h3{
+                    font-size:1.6em;
+                    font-weight: bold;
+                }
+            }
+            .p-dialog-footer{
+                text-align:center;
+                padding: .5em 5em 2em 5em;
+                display: flex;
+                justify-content: flex-end;
+                button{
+                    flex:0 0 50%;
+                }
+            }
         }
-        .p-dialog-content{
-            border-top-right-radius: .5em;
-            border-top-left-radius: .5em;
-            padding-top: 5em;
-        }
-        .p-dialog-footer{
-            text-align:center
-        }
+        
     }
 }
 button.accept{

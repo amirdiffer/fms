@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 import { TableSetting } from '@core/table';
 import {
   AssetPolicyFacade,
@@ -23,54 +24,84 @@ export class AssetPolicyComponent implements OnInit {
         lable: 'tables.column.depreciation_value',
         type: 1,
         field: 'Depreciation_Value'
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: 1,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
     data: [
       {
+        id:1,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:2,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:3,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:4,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:5,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:6,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:7,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       }
-    ]
+      
+    ],
+    rowSettings:{
+      onClick: (col, data, button?) => {
+        console.log(col, data, button);
+      },
+      floatButton: [
+        {
+          onClick: (col, data) => {
+            console.log(col, data);
+            this._router.navigate(['/configuration/asset-policy/edit-asset-policy/' + data.id]);
+          },
+          
+          button: 'edit',
+        }
+      ]
+    }
   };
-
   subAssetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
@@ -80,55 +111,88 @@ export class AssetPolicyComponent implements OnInit {
         lable: 'tables.column.depreciation_value',
         type: 1,
         field: 'Depreciation_Value'
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: 1,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
     data: [
       {
+        id:1,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:2,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:3,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:4,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:5,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:6,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:7,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       }
-    ]
+      
+    ],
+    rowSettings:{
+      onClick: (col, data, button?) => {
+        console.log(col, data, button);
+      },
+      floatButton: [
+        {
+          onClick: (col, data) => {
+            console.log(col, data);
+            this._router.navigate(['/configuration/asset-policy/edit-asset-policy/' + data.id]);
+          },
+          
+          button: 'edit',
+        }
+      ]
+    }
   };
 
+
   constructor(
+    private _router : Router,
     private assetPolicyFacade: AssetPolicyFacade,
     private subAssetPolicyFacade: SubAssetPolicyFacade
   ) {}
