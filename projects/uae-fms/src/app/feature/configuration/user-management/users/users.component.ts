@@ -55,7 +55,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     data: []
   };
 
-  constructor(private facade: UsersFacade) {}
+  constructor(private facade: UsersFacade, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.statisticsFilter(this.userStatisticsInitial);
@@ -79,6 +79,7 @@ export class UsersComponent implements OnInit, OnDestroy {
             });
           });
         }
+        this.cd.markForCheck();
       }
     );
     this.facade.users$.subscribe((data) => {

@@ -5,16 +5,7 @@ import {
   Injector,
   OnInit
 } from '@angular/core';
-import {
-  FormArray,
-  FormArray,
-  FormArray,
-  FormArray,
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FilterCardSetting } from '@core/filter';
 import { UsersFacade } from '@feature/configuration/+state/users/users.facade';
 import { Utility } from '@shared/utility/utility';
