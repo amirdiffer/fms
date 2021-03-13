@@ -205,6 +205,10 @@ html {
       border-top-right-radius: 3px;
       border-bottom-right-radius: 3px;
     }
+    .yearly{
+      right:auto !important;
+      left:25px;
+    }
   }
 
   /* Tables */
@@ -310,6 +314,12 @@ html {
   }
   .curved_right_tag {
     border-radius: 0 100px 100px 0 !important;
+  }
+  /* Dialog */
+  p-dialog {
+    .p-dialog-footer{
+      text-align: left;
+    }
   }
 }
 
