@@ -23,6 +23,7 @@ import { RouterModule } from '@angular/router';
 import { FuelCardRendererComponent } from './renderers/fuel-card';
 import { AssignNow } from '@core/table/renderers/assign-now';
 import { TableGeneralButtonRendererComponent } from './renderers/general-button';
+import { FloatButton } from './renderers/float-button';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import { TableGeneralButtonRendererComponent } from './renderers/general-button'
     TableExternalLinkRendererComponent,
     TableRouteLinkRendererComponent,
     FuelCardRendererComponent,
-    AssignNow
+    AssignNow,
+    FloatButton
   ],
   providers: []
 })

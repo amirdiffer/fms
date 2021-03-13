@@ -22,6 +22,7 @@ import { PartOverviewComponent } from './part-overview/part-overview.component';
 import { PartStoreRoutingModule } from './part-store-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SuppliersAddFormComponent } from './order-list/suppliers-add-form/suppliers-add-form.component';
+import { PartDetailListComponent } from './part-list/part-detail-list/part-detail-list.component';
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import { SuppliersAddFormComponent } from './order-list/suppliers-add-form/suppl
     OrderFormComponent,
     OrderListComponent,
     PartOverviewComponent,
-    SuppliersAddFormComponent
+    SuppliersAddFormComponent,
+    PartDetailListComponent
   ]
 })
 export class PartStoreModule {}

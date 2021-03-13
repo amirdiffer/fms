@@ -85,7 +85,10 @@ export class MainTemplateComponent implements OnInit {
     });
 
     this.route$.subscribe((x) => {
+      x?.queryParams['id'] ?
+      this.getPath(x?.url.split('?').shift()) :
       this.getPath(x?.url);
+
       this.translations = {};
       this.translations = Object.assign.apply(
         null,
@@ -142,5 +145,9 @@ export class MainTemplateComponent implements OnInit {
       a = a + word[i];
     }
     return a;
+  }
+
+  type(param: any) {
+    return typeof param;
   }
 }

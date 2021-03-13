@@ -12,10 +12,10 @@
       </button>
       <button CheckAccess="asset-policy:create" class="btn-primary-small" [routerLink]="'./add'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
     </span>
-    <div title="{{ 'tabs.asset' | translate }}">
+    <div title="tabs.asset" id="assetPlictyAssetTab">
       <app-table [setting]='assetPolicy_Table'></app-table>
     </div>
-    <div title="{{ 'tabs.sub_asset' | translate }}">
+    <div title="tabs.sub_asset" id="assetPlictySubAssetTab">
       <app-table [setting]='subAssetPolicy_Table'></app-table>
     </div>
   </app-tab-view>

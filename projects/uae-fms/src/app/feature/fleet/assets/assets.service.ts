@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ColumnType } from '@core/table';
 import { IAssets, IPending } from './assets.model';
+import { FloatButtonType } from '@core/table/table.component';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssetsService {
+  constructor(private router: Router) {}
+
   private assetMaster = (): IAssets[] => {
     const data = [];
     for (let index = 0; index < 9; index++) {
       const el = {
+        id: index + 1,
         asset: {
           img: 'thumb1.png',
           assetName: 'Asset Name',
@@ -31,6 +36,28 @@ export class AssetsService {
     return data;
   };
   private pedingRegistration = (): IPending[] => {
+    const data = [];
+    for (let index = 0; index < 9; index++) {
+      const el = {
+        asset: {
+          img: 'thumb1.png',
+          assetName: 'Asset Name',
+          assetSubName: 'DPD 0000001',
+          progress: Math.floor(Math.random() * 6) + 1
+        },
+        serialNumber: '123s125583456',
+        brand: 'bmw.png',
+        type: 'Car',
+        businessCategory: 'VIP',
+        createDate: '00/00/00',
+        registrantionDate: '00/00/00',
+        creator: 'Sam Smith'
+      };
+      data.push(el);
+    }
+    return data;
+  };
+  private pedingCustomization = (): IPending[] => {
     const data = [];
     for (let index = 0; index < 9; index++) {
       const el = {
@@ -128,13 +155,32 @@ export class AssetsService {
           thumbField: '',
           renderer: '',
           sortable: true
+        },
+        {
+          lable: '',
+          field: 'floatButton',
+          width: 0,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: 'floatButton'
         }
       ],
       data: this.assetMaster(),
       rowSettings: {
-        onClick: (col, data) => {
-          console.log(col, data);
-        }
+        floatButton: [
+          {
+            button: 'edit'
+          },
+          {
+            button: 'download'
+          },
+          {
+            button: 'external',
+            onClick: (col, data) => {
+              this.router.navigate(['/fleet/assets/' + data.id]);
+            }
+          }
+        ]
       }
     };
   };
@@ -180,9 +226,41 @@ export class AssetsService {
           type: 1,
           thumbField: '',
           renderer: ''
+        },
+        {
+          lable: '',
+          field: 'floatButton',
+          width: 1,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: 'floatButton'
         }
       ],
-      data: this.pedingRegistration()
+      data: this.pedingRegistration(),
+      rowSettings: {
+        onClick: (col, data, button?) => {
+          console.log(col, data, button);
+        },
+        floatButton: [
+          {
+            button: 'edit',
+            color: '#3F3F3F'
+          },
+          {
+            button: 'download'
+          },
+          {
+            button: 'external'
+          },
+          {
+            button: 'cancel',
+            color: '#F75A4A'
+          },
+          {
+            button: 'checked'
+          }
+        ]
+      }
     };
   };
   public pedingCustomizationTableSetting = () => {
@@ -227,13 +305,31 @@ export class AssetsService {
           type: 1,
           thumbField: '',
           renderer: ''
+        },
+        {
+          lable: '',
+          field: 'floatButton',
+          width: 0,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: 'floatButton'
         }
       ],
-      data: this.pedingRegistration()
+      data: this.pedingCustomization(),
+      rowSettings: {
+        onClick: (col, data, button?) => {
+          console.log(col, data, button);
+        },
+        floatButton: [
+          {
+            button: 'external',
+            color: '#3F3F3F'
+          }
+        ]
+      }
     };
   };
   private onClick() {
     console.log('hi');
   }
-  constructor() {}
 }

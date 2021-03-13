@@ -19,13 +19,13 @@
       display: flex;
       align-items: center;
       .count {
-        color: #475F7B;
+        color: #475f7b;
         margin: 0 0.4em;
         padding: 0 0.3em;
         border-radius: 3px;
         background-color: #fff;
         font-size: 15px;
-        font-family: "IBM Plex Sans", "29LT Bukra";
+        font-family: 'IBM Plex Sans', '29LT Bukra';
       }
       &:first-child {
         margin-left: 7px;
@@ -37,8 +37,20 @@
       margin-bottom: 0px;
       border-radius: 5px 5px 0px 0px;
       .count {
-        border: 1px solid #0DA06E;
-        color: #0DA06E;
+        border: 1px solid #0da06e;
+        color: #0da06e;
+        background-color: transparent;
+      }
+    }
+
+    .active-tab-w {
+      color: #0da06e;
+      margin-bottom: 0px;
+      border-radius: 5px 5px 0px 0px;
+      background: #fff;
+      .count {
+        border: 1px solid #0da06e;
+        color: #0da06e;
         background-color: transparent;
       }
     }
@@ -54,6 +66,13 @@
     }
   }
   .tab-body {
+    min-height: 50px;
+    margin-top: 0px;
+    padding: 0px;
+  }
+
+  .tab-body-w {
+    background: #fff;
     min-height: 50px;
     margin-top: 0px;
     padding: 0px;
