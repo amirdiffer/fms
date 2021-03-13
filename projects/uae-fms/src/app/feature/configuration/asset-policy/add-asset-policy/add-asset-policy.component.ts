@@ -26,12 +26,13 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
   assetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
-      { lable: 'tables.column.distance', type: 1, field: 'Distance' },
-      { lable: 'tables.column.year', type: 1, field: 'Year' },
+      { lable: 'tables.column.distance', type: 1, field: 'Distance' , sortable: true },
+      { lable: 'tables.column.year', type: 1, field: 'Year' , sortable: true },
       {
         lable: 'tables.column.depreciation_value',
         type: 1,
-        field: 'Depreciation_Value'
+        field: 'Depreciation_Value',
+        sortable: true
       },
       {
         lable: '',
