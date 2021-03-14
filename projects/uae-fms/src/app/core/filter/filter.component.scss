@@ -2,9 +2,9 @@
   .statistic-button{
     position: absolute;
     right: 18px;
-    top: 4px;
-    height: 3em;
-    width: 3em;
+    top: 10px;
+    height: 2.6em;
+    width: 2.6em;
     border-radius: 7px;
     cursor: pointer;
     span{
@@ -12,9 +12,9 @@
       display: block;
       svg-icon{
         position: absolute;
-        top: 50%;
+        top: 35%;
         left: 50%;
-        transform: translate(-50%, 50%);
+        transform: translate(-50%, 35%);
         ::ng-deep{
           svg{
             fill:#0DA06E;
@@ -95,7 +95,7 @@
 @media only screen and (max-width: 1550px){
   .filter-wrapper-container{
     .statistic-button{
-      top: 22px;
+      top: 26px;
     }
   }
 }
