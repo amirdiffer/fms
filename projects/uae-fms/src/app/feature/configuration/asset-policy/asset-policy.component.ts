@@ -5,6 +5,7 @@ import {
   AssetPolicyFacade,
   SubAssetPolicyFacade
 } from '../+state/asset-policy';
+import { AssetPolicyEditFormService } from './asset-policy.service';
 
 @Component({
   selector: 'anms-asset-policy',
@@ -107,7 +108,9 @@ export class AssetPolicyComponent implements OnInit {
         {
           onClick: (col, data) => {
             console.log(col, data);
+            this._editService.load(data)
             this._router.navigate(['/configuration/asset-policy/edit-asset-policy/' + data.id]);
+            
           },
           
           button: 'edit',
@@ -195,6 +198,7 @@ export class AssetPolicyComponent implements OnInit {
           onClick: (col, data) => {
             console.log(col, data);
             this._router.navigate(['/configuration/asset-policy/edit-asset-policy/' + data.id]);
+            
           },
           
           button: 'edit',
@@ -207,7 +211,8 @@ export class AssetPolicyComponent implements OnInit {
   constructor(
     private _router : Router,
     private assetPolicyFacade: AssetPolicyFacade,
-    private subAssetPolicyFacade: SubAssetPolicyFacade
+    private subAssetPolicyFacade: SubAssetPolicyFacade,
+    private _editService : AssetPolicyEditFormService
   ) {}
 
   ngOnInit(): void {
