@@ -1,7 +1,7 @@
-<div class="filter-wrapper-container">
-  <div class="d-flex w-100 filter-wrapper">
+<div class="filter-wrapper-container" [class.button-show]="!showStatistics">
+  <div class="d-flex w-100 filter-wrapper" *ngIf="showStatistics" >
     <div class="col card parent overflow-hidden shadow-sm p-0"
-         *ngFor="let card of cardSetting; let index = index"
+         *ngFor="let card of cardSetting; let index = index; let last = last"
          (click)="onClick(index); card.setting.onActive(index)" [style.border-color]="card.setting.filterTagColor">
       <div class="d-inline-flex h-100" [style.background]="card.filterBackgroundColor">
         <div class="d-inline-flex card-body p-0">
@@ -28,5 +28,10 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="statistic-button" (click)="showStatistics ? showStatistics = false : showStatistics = true">
+    <span>
+      <svg-icon [src]="chartIcon" [svgStyle]="{ 'width.em':1.5}"></svg-icon>
+    </span>
   </div>
 </div>

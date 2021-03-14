@@ -1,4 +1,40 @@
 .filter-wrapper-container {
+  .statistic-button{
+    position: absolute;
+    right: 18px;
+    top: 4px;
+    height: 3em;
+    width: 3em;
+    border-radius: 7px;
+    cursor: pointer;
+    span{
+      position: relative;
+      display: block;
+      svg-icon{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        ::ng-deep{
+          svg{
+            fill:#0DA06E;
+          }
+        }
+      }
+    }
+  }
+  &.button-show{
+    .statistic-button{
+      background:#0DA06E;
+      svg-icon{
+        ::ng-deep{
+          svg{
+            fill:#fff !important;
+          }
+        }
+      }
+    }
+  }
   .parent {
     height: 100% !important;
     margin: 0 20px;
@@ -8,6 +44,7 @@
 
     &:last-child {
       margin-right: 0;
+      z-index: 2;
     }
     &:first-child {
       margin-left: 0;
@@ -50,6 +87,15 @@
         width: 100%;
         opacity: 0.4;
       }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 1550px){
+  .filter-wrapper-container{
+    .statistic-button{
+      top: 22px;
     }
   }
 }
