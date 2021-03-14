@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Injector
+  Injector,
+  OnDestroy
 } from '@angular/core';
 import {
   FormBuilder,
@@ -15,8 +16,8 @@ import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
 import { RouterFacade } from '@core/router';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { AssetPolicyEditFormService } from '../asset-policy.service';
 
 @Component({
   selector: 'anms-add-asset-policy',
@@ -24,9 +25,9 @@ import { AssetPolicyEditFormService } from '../asset-policy.service';
   styleUrls: ['./add-asset-policy.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddAssetPolicyComponent extends Utility implements OnInit {
+export class AddAssetPolicyComponent extends Utility implements OnInit , OnDestroy {
   submitButton = 'forms.add';
-  formData;
+  editForm:Subscription;
   assetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
@@ -138,8 +139,7 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
   constructor(private _fb: FormBuilder, 
     private _router:Router,
     private injector: Injector,
-    private _routerFacade: RouterFacade,
-    private _editService : AssetPolicyEditFormService) {
+    private _routerFacade: RouterFacade) {
     super(injector);
   }
 
@@ -152,32 +152,14 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
       depreciationValue: ['', [Validators.required]],
       reminder: [false]
     });
-    this._editService.get().subscribe(
+    this.editForm = this._routerFacade.route$.subscribe(
       (data) => {
-        console.log(data , 'hamid')
-        if (data){
+        const isEdit = data.url.split('/').find(edit => edit == 'edit-asset-policy');
+        if (isEdit){
           this.submitButton = 'forms.edit';
         }
       }
     )
-    // this._routerFacade.route$.subscribe(
-    //   (data) => {
-    //     const isEdit = data.url.split('/').find(edit => edit == 'edit-asset-policy');
-    //     if (isEdit){
-    //       this.submitButton = 'forms.edit';
-    //       this._editService.get().subscribe(
-    //         (formData) => {
-    //           console.log(formData)
-    //           this.assetPolicyForm.patchValue({
-    //             policyName:formData.Policy_Name,
-    //             killometerUsage: formData.Distance
-    //           })
-    //         }
-    //       )
-          
-    //     }
-    //   }
-    // )
   }
 
   submit() {
@@ -203,5 +185,8 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
       this._router.navigate(['configuration/asset-policy'])
     }
     this.dialogModalAdd = false;
+  }
+  ngOnDestroy():void{
+    this.editForm.unsubscribe()
   }
 }
