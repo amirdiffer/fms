@@ -4,9 +4,10 @@ import {
   ChangeDetectionStrategy,
   Injector
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
 
 @Component({
   selector: 'anms-add-category',
@@ -15,6 +16,16 @@ import { Utility } from '@shared/utility/utility';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddCategoryComponent extends Utility implements OnInit {
+  dialogModal = false;
+
+  dialogSetting: IDialogAlert = {
+    header: 'Add Business Category',
+    hasError: false,
+    message: 'Message is Here',
+    confirmButton: 'Register Now',
+    cancelButton: 'Cancel'
+  };
+
   addCategory_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.category_name', type: 1, field: 'Category_Name' },
@@ -122,17 +133,79 @@ export class AddCategoryComponent extends Utility implements OnInit {
       assetType: ['', [Validators.required]],
       activeCategory: [''],
       description: [''],
+      assignSubAsset: new FormArray([this.createAssignSubAsset()]),
+      assignAccessory: new FormArray([this.createAssignAccessory()])
+    });
+  }
+
+  get assignSubAsset(): FormArray {
+    return this.addCategoryForm.get('assignSubAsset') as FormArray;
+  }
+
+  get assignAccessory(): FormArray {
+    return this.addCategoryForm.get('assignAccessory') as FormArray;
+  }
+
+  createAssignSubAsset(): FormGroup {
+    return this._fb.group({
       subAsset: ['', [Validators.required]],
-      assetQuantity: [''],
+      assetQuantity: ['']
+    });
+  }
+
+  createAssignAccessory(): FormGroup {
+    return this._fb.group({
       accessory: ['', [Validators.required]],
       accessoryQuantity: ['']
     });
   }
+
+  addAssignSubAsset(): void {
+    const list = this.addCategoryForm.get('assignSubAsset') as FormArray;
+    list.push(this.createAssignSubAsset());
+  }
+
+  addAssignAccessory(): void {
+    const list = this.addCategoryForm.get('assignAccessory') as FormArray;
+    list.push(this.createAssignAccessory());
+  }
+
+  dialogConfirm(event): void {
+    console.log(event);
+
+    this.dialogModal = false;
+
+    if (event && !this.dialogSetting.hasError) {
+      this.router.navigate(['/configuration/business-category']).then();
+    }
+  }
+
+  cancel(): void {
+    this.dialogModal = true;
+    this.dialogSetting.confirmButton = 'Yes';
+    this.dialogSetting.cancelButton = 'No';
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.message =
+      'Are you sure to cancel adding new business category?';
+  }
+
   submit() {
+    this.dialogModal = true;
     this.submited = true;
     if (this.addCategoryForm.invalid) {
+      this.dialogSetting.hasError = true;
+      this.dialogSetting.confirmButton = 'OK';
+      this.dialogSetting.message = 'Some fields are empty, please fill them';
+      this.dialogSetting.cancelButton = undefined;
+
       return;
     }
+
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.message = 'New business category added successfully.';
+    this.dialogSetting.confirmButton = 'OK';
+    this.dialogSetting.cancelButton = undefined;
+
     this.goToList();
   }
 

@@ -1,5 +1,5 @@
 import { Injector } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 export class Utility {
@@ -27,5 +27,22 @@ export class Utility {
       return true;
     }
     return false;
+  }
+
+  formArrayHasError(
+    submited = false,
+    formArray?: FormArray,
+    index?: number,
+    controlName?: string,
+    errorType = 'required'
+  ): boolean {
+    const formControl: FormControl = formArray
+      .at(index)
+      .get(controlName) as FormControl;
+    return (
+      ((formControl.dirty && formControl.invalid) ||
+        (formControl.invalid && submited)) &&
+      formControl.hasError(errorType)
+    );
   }
 }
