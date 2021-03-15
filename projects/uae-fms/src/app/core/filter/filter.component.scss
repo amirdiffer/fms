@@ -1,8 +1,9 @@
 .filter-wrapper-container {
+  position: relative;
   .statistic-button{
     position: absolute;
-    right: 18px;
-    top: 10px;
+    right: 0;
+    top: -2.4em;
     height: 2.6em;
     width: 2.6em;
     border-radius: .3em;
@@ -22,12 +23,14 @@
         }
       }
     }
-  }
-  &.button-show{
-    .statistic-button{
+    &.button-show{
       background:#0DA06E;
+      top: -3em;
+      height: 2.2em;
+      width: 2.2em;
       svg-icon{
         ::ng-deep{
+          transform: translate(-50%, 15%) !important;
           svg{
             fill:#fff !important;
           }
@@ -35,20 +38,23 @@
       }
     }
   }
-  .parent {
-    height: 100% !important;
+  .statistics{
     margin: 0 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    user-select: none;
-
     &:last-child {
       margin-right: 0;
-      z-index: 2;
+      .card{
+        z-index: 2;
+      }
     }
     &:first-child {
       margin-left: 0;
     }
+  }
+  .parent {
+    height: 100% !important;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
   }
 
   .parent:hover {
@@ -87,15 +93,6 @@
         width: 100%;
         opacity: 0.4;
       }
-    }
-  }
-}
-
-
-@media only screen and (max-width: 1550px){
-  .filter-wrapper-container{
-    .statistic-button{
-      top: 26px;
     }
   }
 }

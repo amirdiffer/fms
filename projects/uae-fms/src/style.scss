@@ -306,6 +306,20 @@ html {
         margin-right: 0 !important;
       }
     }
+    .statistics{
+      &:last-child {
+        margin-right: auto !important;
+        margin-left: 0 !important;
+      }
+      &:first-child {
+        margin-right: auto !important;
+        margin-left: 0 !important;
+      }
+    }
+    .statistic-button {
+      right: auto !important;
+      left: 0;
+    }
   }
 
   /* role and permission */

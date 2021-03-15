@@ -55,6 +55,9 @@
     margin: 1em 0 1em;
     background-color: #fff;
   }
+  .card-wrapper{
+    margin: 1em 0 1em;
+  }
   @include elementTypography(
     'h1',
     $fms-green-h1-font,
