@@ -1,6 +1,6 @@
 <form [formGroup]="assetPolicyForm">
     <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="goToList()">{{ 'forms.cancel' | translate }}</button>
+        <button class="btn-primary-medium btn-scondary-green" type="button" [routerLink]="['..']" [queryParams]="{id: 'assetPlictySubAssetTab'}">{{ 'forms.cancel' | translate }}</button>
         <button  class="btn-primary-medium add" (click)="submit()">{{ 'forms.add' | translate }}</button>
     </div>
     <!-- form-section form-section--inline-->

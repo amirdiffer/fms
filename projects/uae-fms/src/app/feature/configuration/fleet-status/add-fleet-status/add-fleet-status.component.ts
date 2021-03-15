@@ -95,6 +95,9 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
     if (this.fleetStatusForm.invalid) {
       return;
     }
-    this.goToList();
+    this.router.navigate(['..'], {
+      relativeTo: this.route,
+      queryParams: { id: 'fleetStatusSubAssetTab' }
+    });
   }
 }
