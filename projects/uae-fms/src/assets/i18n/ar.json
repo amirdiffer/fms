@@ -90,7 +90,8 @@
     "add_technician": "إضافة فني",
     "add_location": "اضافة الموقع",
     "inspections": "التفتيش",
-    "iserve": "IServe"
+    "iserve": "IServe",
+    "add_role_permission":"إضافة إذن الدور"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",

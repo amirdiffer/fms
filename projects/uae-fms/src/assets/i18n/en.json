@@ -90,7 +90,8 @@
     "add_technician": "Add Technician",
     "add_location": "Add Location",
     "iserve": "IServe",
-    "traffic_fine": "Traffic Fine"
+    "traffic_fine": "Traffic Fine",
+    "add_role_permission":"Add Role Premission"
   },
   "sidebar": {
     "dashboard": "Dashboard",
