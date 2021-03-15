@@ -1,0 +1,45 @@
+<div>
+  <ng-container *ngIf="selectedTab == '0' || selectedTab == '1'">
+    <div class="filter-container">
+      <app-filter  [setting]="filterSetting1"></app-filter>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="selectedTab == '2' || selectedTab == '3'">
+    <div class="filter-container">
+      <app-filter  [setting]="filterSetting2"></app-filter>
+    </div>
+  </ng-container>
+  <div class="table-container component_wrapper">
+    <div class="pt-1">
+      <div>
+        <app-tab-view returnId="index" (selectedIndex)="selectedTab=$event;initialTable()">
+          <span class="search-container card-table-header">
+            <div class="search-box">
+              <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
+              <button>
+                <img [src]="searchIcon" alt="">
+              </button>
+            </div>
+            <button class="btn-download" disabled>
+              <svg-icon [src]="downloadBtn"></svg-icon>
+            </button>
+            <button *ngIf="selectedTab == '2'" class="btn-primary-small" routerLink="add-request"><a>{{ 'search.add' | translate }}</a></button>
+            <button *ngIf="selectedTab == '3'" class="btn-primary-small" routerLink="add-request"><a>{{ 'search.add' | translate }}</a></button>
+          </span>
+          <div title="tabs.movement_over_view" id="overViewTab">
+            <app-table [setting]="movementOverView_Table"></app-table>
+          </div>
+          <div title="tabs.map_view"  id="mapViewTab">
+            <div id="map"></div>
+          </div>
+          <div title="tabs.assets"  id="assetsTab">
+            <app-table [setting]="assets_Table"></app-table>
+          </div>
+          <div title="tabs.iserve_operator" id="IserveOperatorsTab">
+            <app-table [setting]="operator_Table"></app-table>
+          </div>
+        </app-tab-view>
+      </div>
+    </div>
+  </div>
+</div>

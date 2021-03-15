@@ -3,6 +3,7 @@
     (sortFunction)="handleSort($event, setting)" [customSort]='true'>
     <ng-template pTemplate="header">
       <tr>
+        <th style="height:100% ; width: 1px" class="p-0 m-0"></th>
         <th *ngFor="let col of setting.columns" [style]="col.width &&
           isNumber(col.width) ? 'width:'+col.width+'px' :'width:'+col.width"
           [pSortableColumn]='col.field'
@@ -26,6 +27,9 @@
     <ng-template pTemplate="body" let-data let-i="rowIndex">
       <tr (mouseover)='rowIsHover(i)'
         [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')">
+        <span style="height:100% ; width: 5px; position: relative;display: table-cell;">
+          <div class="statusColor with-renderer-table" *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
+        </span>
         <td *ngFor="let col of setting.columns" (click)="click(col,data)"
           [attr.style]="col.textColor?'color:'+col.textColor+';':''">
           <div *ngIf="!col.renderer">
@@ -70,7 +74,7 @@
           <div *ngIf="col.renderer == 'externalLinkRenderer'">
             <table-external-link-renderer [link]="data[col.field]"></table-external-link-renderer>
           </div>
-          <div *ngIf="col.renderer == 'routeLinkRenderer'">
+          <div *ngIf="col.renderer == 'routeLinkRenderer' && i == rowIndexTable">
             <table-route-link-renderer [link]="data['id']"></table-route-link-renderer>
           </div>
           <div *ngIf="col.renderer=='assetsRenderer'">
@@ -85,10 +89,12 @@
           <div *ngIf="col.renderer=='assignNow'">
             <table-assign-now-renderer [data]="data"></table-assign-now-renderer>
           </div>
+          <div *ngIf="col.renderer=='floatButton' && i == rowIndexTable">
+            <float-button-renderer [lang]="activeLang"  [col]="col" [setting]="setting.rowSettings" [data]="data"></float-button-renderer>
+          </div>
 
         </td>
-        <div [class]="'statusColor'+ (hasRendere(setting.columns)?'
-          with-renderer-table':' simple-table')"
+        <div [class]="'statusColor'+ (hasRendere(setting.columns)?'with-renderer-table':' simple-table')"
           *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
       </tr>
     </ng-template>

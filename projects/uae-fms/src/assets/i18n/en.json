@@ -86,9 +86,12 @@
     "profile": "Profile",
     "integration": "Integration",
     "add": "Add",
+    "add_supplier": "Add Supplier",
     "add_technician": "Add Technician",
     "add_location": "Add Location",
-    "traffic_fine": "Traffic Fine"
+    "iserve": "IServe",
+    "traffic_fine": "Traffic Fine",
+    "add_role_permission":"Add Role Premission"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -99,7 +102,12 @@
       "accessory": "Accessory",
       "operator": "Operator",
       "organization": "Organization",
-      "movement": "Movement"
+      "movement": {
+        "~": "Movement",
+        "permanent": "Permanent",
+        "temporary": "Temporary",
+        "iserve": "I-Serve"
+      }
     },
     "fuel_management": "Fuel Management",
     "traffic_fine": "Traffic Fine",
@@ -160,6 +168,9 @@
     "total_lost": "Total Lost",
     "paid": "Paid",
     "user": "User",
+    "pending": "Pending",
+    "complete": "Complete",
+    "cancel": "Cancel",
     "unpainted": "UnPainted",
     "deducte": "Deducted"
   },
@@ -180,7 +191,13 @@
     "auction": "Auction",
     "sold": "Sold",
     "asset": "Asset",
-    "sub_asset": "Sub Asset"
+    "sub_asset": "Sub Asset",
+    "movement_history": "Movement History",
+    "overview": "OverView",
+    "activity": "Activity",
+    "map_view": "Map View",
+    "assets": "Assets",
+    "iserve_operator": "Iserv Operators"
   },
   "search": {
     "add": "Add",
@@ -335,7 +352,17 @@
       "gps": "GPS",
       "removal_items": "Removal Items",
       "by": "By",
-      "vehicle": "Vehicle"
+      "vehicle": "Vehicle",
+      "book_value": "‌Book Value",
+      "intervals": "Intervals",
+      "service_task": "Service Tasks",
+      "warranty_for": "Warranty For",
+      "from": "From",
+      "to": "To",
+      "damage": "Damage",
+      "traffic_fine": "Traffic Fine",
+      "cost_of_part": "Cost of Part",
+      "system": "System"
     },
     "button": {
       "view_report": "View Report",
@@ -385,7 +412,29 @@
       "title": "Upload Vehicle Document",
       "progressbar_title": "CSV File Only",
       "content": "Drag and Drop file or click here"
-    }
+    },
+    "asset_financial_plan": "Asset Financial Plan",
+    "policy_type": "Policy Type",
+    "purchase_value": "Purchase Value",
+    "life_cycle": "Life Cycle",
+    "in_service_date": "In-Service Date",
+    "in_service_odometer": "In-Service Odometer",
+    "upload_purchase_order": "Upload Purchase Order",
+    "maintenance_service": "Maintenance Service",
+    "periodic_service": "Periodic Service",
+    "warranty_items": "Warranty Items",
+    "item": "Item",
+    "duration": "Duration",
+    "warranty_start_date": "Warranty Start Date",
+    "description": "Description",
+    "multiple_assets": "Multiple Assets",
+    "single_asset": "Single Asset",
+    "review_your_plan": "Review Your Plan",
+    "calculate": "Calculate",
+    "estimate_market_value": "Established Market Value",
+    "set_reminder": "Set Reminder",
+    "week": "Week",
+    "reminder_before": "Reminder Before"
   },
   "sub_asset": {
     "sub_asset_specification": "Sub Asset Specification",
@@ -402,6 +451,9 @@
     "duration": "Duration",
     "warranty_start_date": "Warranty Start Date",
     "description": "Description",
+    "serial_number": "Serial Number",
+    "multiple_assets": "Multiple Assets",
+    "single_asset": "Single Asset",
     "upload_form": {
       "title": "",
       "progressbar_title": "",
@@ -434,6 +486,18 @@
     "call": "Call",
     "sms": "SMS",
     "whatsapp": "Whatsapp",
+    "overview": {
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "age": "Age",
+      "email": "Email",
+      "phone_number": "Phone Number",
+      "employee_number": "Employee Number",
+      "organization": "Organization",
+      "section": "Section",
+      "authorized": "Authorized",
+      "expiry_license": "Expiry License"
+    },
     "upload_form": {
       "title": "Upload Profile Picture",
       "progressbar_title": "*.pdf",
@@ -537,7 +601,13 @@
     "order_list": {
       "request_list": "Request List",
       "my_order": "My Order",
-      "suppliers": "Suppliers"
+      "suppliers": "Suppliers",
+      "add_supplier": "Add Supplier",
+      "company": "Company",
+      "name": "Name",
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address"
     },
     "part_master": {
       "asset_type": "Asset Type",
@@ -741,7 +811,8 @@
       "operator": "Operator",
       "organization": "Organization",
       "movement": "Movement",
-      "asset_configuration": "Asset Configuration"
+      "asset_configuration": "Asset Configuration",
+      "business_category": "Business Category"
     },
     "users": {
       "portal_information": "Portal Information",
@@ -876,6 +947,8 @@
     "approve": "Approve",
     "recived": "Recived",
     "assign": "Assign",
+    "generate": "Generate",
+    "upload": "Upload",
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid"

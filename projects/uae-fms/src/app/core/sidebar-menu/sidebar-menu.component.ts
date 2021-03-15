@@ -75,9 +75,23 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           route: '/fleet/organization'
         },
         {
-          name: 'sidebar.fleets.movement',
+          name: 'sidebar.fleets.movement.~',
           icon: 'movement',
-          route: '/fleet/movement'
+          route: '/fleet/movement',
+          items: [
+            {
+              name: 'sidebar.fleets.movement.permanent',
+              route: '/fleet/movement'
+            },
+            {
+              name: 'sidebar.fleets.movement.temporary',
+              route: '#'
+            },
+            {
+              name: 'sidebar.fleets.movement.iserve',
+              route: '/fleet/movement/iserve'
+            }
+          ]
         }
       ]
     },
@@ -244,6 +258,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     this.usingMenu = this.mainMenu;
 
     this.route$.subscribe((x) => {
+      console.log(x);
       if (x?.state?.url) this.urlGroup = x.state.url.split('/');
       this.collapsedMenu = '/' + x.state.url.split('/')[1];
     });

@@ -1,0 +1,125 @@
+<div class="row">
+  <div class="col-lg-3">
+    <div class="component_wrapper fit-height">
+      <div class="row flex-lg-column person">
+        <div class="col-lg-12 text-center">
+          <img src="../../../../../assets/logo.png">
+        </div>
+        <hr>
+        <div class="col-lg-12">
+          <div class="person-detail">
+            <p class="person-detail__fullname">Danyal Acarka</p>
+            <ul>
+              <li>
+              <span class="person-detail__label">
+                {{ 'operator.overview.first_name' | translate }}
+              </span>
+                <span class="person-detail__value">
+                Danyal
+              </span>
+              </li>
+              <li>
+              <span class="person-detail__label">
+              {{ 'operator.overview.last_name' | translate }}
+            </span>
+                <span class="person-detail__value">
+              Acarka
+            </span>
+              </li>
+              <li>
+              <span class="person-detail__label">
+                {{ 'operator.overview.age' | translate }}
+              </span>
+                <span class="person-detail__value">
+              37
+            </span>
+              </li>
+              <li>
+              <span class="person-detail__label">
+                {{ 'operator.overview.email' | translate }}
+              </span>
+                <span class="person-detail__value">
+              Text text
+            </span>
+              </li>
+              <li>
+              <span class="person-detail__label">
+                {{ 'operator.overview.phone_number' | translate }}
+              </span>
+                <span class="person-detail__value">
+              Text text
+            </span>
+              </li>
+              <li>
+              <span class="person-detail__label">
+                {{ 'operator.overview.employee_number' | translate }}
+              </span>
+                <span class="person-detail__value">
+              Text text
+            </span>
+              </li>
+              <li>
+              <span class="person-detail__label">
+                {{ 'operator.overview.organization' | translate }}
+              </span>
+                <span class="person-detail__value">
+              Text text
+            </span>
+              </li>
+              <li>
+              <span class="person-detail__label">
+                {{ 'operator.overview.section' | translate }}
+              </span>
+                <span class="person-detail__value">
+              Danyal
+            </span>
+              </li>
+              <li>
+              <span class="person-detail__label">
+                {{ 'operator.overview.authorized' | translate }}
+              </span>
+                <span class="person-detail__value">
+              Text text
+            </span>
+              </li>
+              <li>
+              <span class="person-detail__label">
+                {{ 'operator.overview.expiry_license' | translate }}
+              </span>
+                <span class="person-detail__value">
+              Text text
+            </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="component_wrapper table-container">
+      <app-tab-view selectedTab="1" returnId="index" (selectedIndex)="selectedTab=$event">
+    <span class="card-table-header search-container">
+      <div class="search-box">
+        <input placeholder="{{'search.search_in_columns' | translate}}" type="text">
+        <button>
+          <img [src]="search" alt="">
+        </button>
+      </div>
+      <button class="btn-download" disabled>
+        <svg-icon [src]="downloadBtn"></svg-icon>
+      </button>
+    </span>
+        <div title="{{ 'tabs.overview' | translate }}">
+        </div>
+        <div count="3456" title="{{ 'tabs.traffic_file' | translate }}">
+          <app-table [setting]="trafficFine_Table"></app-table>
+        </div>
+        <div count="3456" title="{{ 'tabs.movement_history' | translate }}">
+        </div>
+        <div count="3456" title="{{ 'tabs.activity' | translate }}">
+        </div>
+      </app-tab-view>
+    </div>
+  </div>
+</div>

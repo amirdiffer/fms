@@ -2,9 +2,15 @@
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{'forms.cancel'
       | translate}}</button>
-    <button class="btn-primary-medium add" type="submit" (click)="submit()">{{'forms.add'
+    <button *ngIf="formCurrentStep > 0" class="btn-primary-medium btn-scondary-green" type="button"
+            (click)="previous()">{{ 'forms.back' | translate }}</button>
+    <button class="btn-primary-medium add" *ngIf="formCurrentStep === 0" type="submit" (click)="next()">{{'forms.next'
       | translate }}</button>
+    <button *ngIf="formCurrentStep === 1" class="btn-primary-medium add" (click)="next()">{{ 'forms.upload' | translate }}</button>
+    <button *ngIf="formCurrentStep === 2" class="btn-primary-medium add" routerLink="..">{{ 'forms.generate' | translate }}</button>
   </div>
+
+  <div id='first_step' *ngIf='formCurrentStep === 0'>
 
   <div class="form-section">
     <h3 class="form-section__title">{{'sub_asset.sub_asset_specification' |
@@ -25,7 +31,7 @@
       </div>
     </div>
     <div class="row form-section__row">
-      <div class="col-12 col-md-3 p-field form-section__field options-select">
+      <div class="col-12 col-md-2 p-field form-section__field options-select">
         <span class="p-float-label">
           <p-dropdown inputId="make" [autoDisplayFirst]="false"
             [options]="makes"
@@ -36,7 +42,7 @@
             error="forms.feedback.required"></anms-error>
         </span>
       </div>
-      <div class="col-12 col-md-3 p-field form-section__field options-select">
+      <div class="col-12 col-md-4 p-field form-section__field options-select">
         <span class="p-float-label">
           <p-dropdown inputId="model" [autoDisplayFirst]="false"
             [options]="models"
@@ -47,7 +53,7 @@
             error="forms.feedback.required"></anms-error>
         </span>
       </div>
-      <div class="col-12 col-md-3 p-field form-section__field
+      <div class="col-12 col-md-2 p-field form-section__field
         options-select">
         <span class="p-float-label">
           <p-dropdown inputId="year" [autoDisplayFirst]="false"
@@ -59,7 +65,7 @@
             error="forms.feedback.required"></anms-error>
         </span>
       </div>
-      <div class="col-12 col-md-3 p-field form-section__field
+      <div class="col-12 col-md-2 p-field form-section__field
         options-select">
         <span class="p-float-label">
           <p-dropdown inputId="origin" [autoDisplayFirst]="false"
@@ -80,7 +86,7 @@
     <h3 class="form-section__title">{{'sub_asset.financial' |
       translate}}</h3>
     <div class="row form-section__row">
-      <div class="col-12 col-md-5 p-field form-section__field
+      <div class="col-12 col-md-4 p-field form-section__field
         dropdown-select">
         <span class="p-float-label">
           <p-dropdown inputId="policyType" [autoDisplayFirst]="false"
@@ -94,7 +100,7 @@
         </span>
       </div>
 
-      <div class="col-12 col-md-5 p-field form-section__field">
+      <div class="col-12 col-md-4 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="purchaseValue" pInputText
             placeholder="{{'sub_asset.purchase_value' | translate}}*"
@@ -113,7 +119,7 @@
     <h3 class="form-section__title"><span class='plus-icon'
         (click)="addWarranty()">
         <svg-icon src='../../../../../assets/icons/add.svg'
-          [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
+          [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
           '100%'}"></svg-icon>
       </span>{{'sub_asset.warranty_items' | translate}}</h3>
     <div class="row form-section__row" [formGroupName]="i" *ngFor="let
@@ -128,11 +134,11 @@
       </div>
       <div class="col-12 col-md-3 p-field form-section__field
         dropdown-select-input">
-        <p-dropdown inputId="unit" [options]="units"
+        <p-dropdown class='w-50' inputId="unit" [options]="units"
           formControlName="year"
           optionLabel="name"></p-dropdown>
-        <span class="p-float-label">
-          <input formControlName="duration" pInputText
+        <span class="p-float-label form-section__field">
+          <input class='w-100' formControlName="duration" pInputText
             placeholder="{{'sub_asset.duration' | translate}}"
             type="text">
           <label>{{'sub_asset.duration' | translate}}</label>
@@ -154,10 +160,10 @@
           </anms-error> -->
         </span>
       </div>
-      <div class="col-12 col-md-3 p-field form-section__field">
+      <div class='col-12 col-md-3 p-field form-section__field'>
         <div class='upload-box'>
           <label class='space-drop' for='attach_picture_sub-asset'>
-            <div>{{'sub_asset.upload_form.content' | translate}}</div>
+            {{ 'sub_asset.upload_form.content' | translate }}
           </label>
           <input type='file' hidden id='attach_picture_sub-asset'>
         </div>
@@ -181,6 +187,57 @@
 
   </div>
 
+  </div>
 
+  <div class='form-section pb-4' *ngIf='formCurrentStep === 1'>
+
+    <div class="row">
+      <div class="col-sm-auto mt-1">
+        <h3 class="form-section__title">{{ 'sub_asset.serial_number' | translate }}</h3>
+      </div>
+      <div class="ml-5 col-sm-auto">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="assetQuantity" id="multipleAsset" value ="estimate" Checked>
+          <label class="form-check-label" for="multipleAsset">{{ 'sub_asset.multiple_assets' | translate }}</label>
+        </div>
+      </div>
+      <div class="col-sm-auto">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="assetQuantity" id="singleAsset" value ="estimate" Checked>
+          <label class="form-check-label" for="singleAsset">{{ 'sub_asset.single_asset' | translate }}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="second-step-upload-box">
+      <div class="row">
+        <div class="col-12 d-flex justify-content-between file-name-size">
+          <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
+          <span>00 MB</span>
+        </div>
+        <div class="col-lg-12">
+          <div class="w-100 p-0">
+            <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
+          </div>
+        </div>
+        <div class="col-lg-12 mt-2">
+          <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+              <label (click)="openFileSelector()" style="cursor: pointer;">
+                <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
+              </label>
+            </ng-template>
+          </ngx-file-drop>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='form-section' *ngIf='formCurrentStep === 2'>
+    <div class='font-weight-bold pt-1 pb-4'>9 Sub Asset Found Please Review</div>
+
+  </div>
+
+  <app-table *ngIf='formCurrentStep === 2' [setting]='thirdStepTable'></app-table>
 
 </form>

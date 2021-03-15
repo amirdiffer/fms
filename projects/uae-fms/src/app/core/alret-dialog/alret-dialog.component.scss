@@ -1,0 +1,33 @@
+
+p-dialog{
+    font-size:1em;
+    ::ng-deep{
+        .p-dialog{
+            width: 50vw;
+            .p-dialog-header{
+                background: transparent linear-gradient(180deg, #07C880 0%, #0DA06E 100%) 0% 0% no-repeat padding-box;
+                color: #ffff;
+                font-size:1.4em;
+                font-weight: bold;
+                border-top-right-radius: .5em;
+                border-top-left-radius: .5em;
+                padding: .6em 1.5em;
+                &-icons{
+                    display: none;
+                }
+            }
+            .p-dialog-content{
+                padding: 1em 1.5em 2em 1.5em;
+            }
+            .p-dialog-footer{
+                border-bottom-right-radius: .5em;
+                border-bottom-left-radius: .5em;
+            }
+        }
+    }
+}
+
+button.accept{
+    background: transparent linear-gradient(180deg, #07C880 0%, #0DA06E 100%) 0% 0% no-repeat padding-box;
+    border:none
+}

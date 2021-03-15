@@ -86,9 +86,12 @@
     "profile": "حساب تعريفي",
     "integration": "الدمج",
     "add": "إضافة",
+    "add_supplier": "إضافة مورد",
     "add_technician": "إضافة فني",
     "add_location": "اضافة الموقع",
-    "inspections": "التفتيش"
+    "inspections": "التفتيش",
+    "iserve": "IServe",
+    "add_role_permission":"إضافة إذن الدور"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -99,7 +102,12 @@
       "accessory": "الملحقات",
       "operator": "المشغل",
       "organization": "المنظمة",
-      "movement": "الحركة"
+      "movement": {
+        "~": "الحركة",
+        "permanent": "دائم",
+        "temporary": "مؤقت",
+        "iserve": "I-Serve"
+      }
     },
     "fuel_management": "إدارة الوقود",
     "traffic_fine": "المخالفات المرورية",
@@ -161,7 +169,10 @@
     "user": "المستخدم",
     "paid": "دفع",
     "unpainted": "غير مرسومة",
-    "deducte": "حسم"
+    "deducte": "حسم",
+    "pending": "قيد الانتظار",
+    "complete": "اكتمال",
+    "cancel": "يلغي"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -180,7 +191,13 @@
     "auction": "مزاد",
     "sold": "مباع",
     "asset": "أصل",
-    "sub_asset": "أصل فرعي"
+    "sub_asset": "أصل فرعي",
+    "movement_history": "تاريخ الحركة",
+    "overview": "نظرة عامة",
+    "activity": "فعالية",
+    "map_view": "عرض الخريطة",
+    "assets": "أصل",
+    "iserve_operator": "Iserv العاملين"
   },
   "search": {
     "add": "إضافة",
@@ -325,17 +342,27 @@
       "company_name": "اسم الشركة",
       "support_operator": "مشغل الدعم",
       "instruction": "المشغل أو العامل",
+      "book_value": "قيمة الكتاب",
+      "intervals": "فترات",
+      "service_task": "مهمة الخدمة",
+      "warranty_for": "الضمان ل",
+      "out_of_policy": "خارج الوثيقة",
       "category": "فئة",
       "warranty_expire": "انتهاء الضمان",
       "total_cost": "التكلفة إجمالي",
       "storage_location": "مكان التخزين",
-      "out_of_policy": "خارج الوثيقة",
       "established_market_value": "القيمة السوقية الثابتة",
       "remove": "إزالة",
       "gps": "GPS",
       "removal_items": "عناصر الإزالة",
       "by": "بواسطة",
-      "vehicle": "مركبة"
+      "vehicle": "مركبة",
+      "from": "من",
+      "to": "إلى",
+      "damage": "تلف",
+      "traffic_fine": "المخالفات المرورية",
+      "cost_of_part": "تكلفة الجزء",
+      "system": "نظام"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -385,7 +412,29 @@
       "title": "تحميل مستند المركبة",
       "progressbar_title": "ملف CSV فقط",
       "content": "سحب وإفلات الملف أو انقر هنا"
-    }
+    },
+    "asset_financial_plan": "الخطة المالية للأصول",
+    "policy_type": "نوع السياسة",
+    "purchase_value": "قيمة الشراء",
+    "life_cycle": "دورة الحياة",
+    "in_service_date": "في تاريخ الخدمة",
+    "in_service_odometer": "عداد المسافات أثناء الخدمة",
+    "upload_purchase_order": "تحميل أمر الشراء",
+    "maintenance_service": "خدمة الصيانة",
+    "periodic_service": "الصيانة الدورية",
+    "warranty_items": "عناصر الضمان",
+    "item": "الصنف",
+    "duration": "المدة",
+    "warranty_start_date": "تاريخ بدء الضمان",
+    "description": "الوصف",
+    "multiple_assets": "أصول متعددة",
+    "single_asset": "أصل واحد",
+    "review_your_plan": "راجع خطتك",
+    "calculate": "احسب",
+    "estimate_market_value": "تقدير القيمة السوقية",
+    "set_reminder": "تعيين تذكير",
+    "week": "أسبوع",
+    "reminder_before": "تذكير من قبل"
   },
   "sub_asset": {
     "sub_asset_specification": "مواصفات الأصل الفرعي",
@@ -402,6 +451,9 @@
     "duration": "المدة الزمنية",
     "warranty_start_date": "تاريخ بدء الضمان",
     "description": "الوصف",
+    "serial_number": "رقم سري",
+    "multiple_assets": "أصول متعددة",
+    "single_asset": "أصل واحد",
     "upload_form": {
       "title": "",
       "progressbar_title": "",
@@ -434,6 +486,18 @@
     "call": "مكالمة",
     "sms": "رسالة قصيرة",
     "whatsapp": "واتساب",
+    "overview": {
+      "first_name": "الاسم الاول",
+      "last_name": "الكنية",
+      "age": "عمر",
+      "email": "بريد الالكتروني",
+      "phone_number": "رقم التليفون",
+      "employee_number": "رقم الموظف",
+      "organization": "منظمة",
+      "section": "الجزء",
+      "authorized": "مخول",
+      "expiry_license": "رخصة انتهاء الصلاحية"
+    },
     "upload_form": {
       "title": "تحميل صورة الملف الشخصي",
       "progressbar_title": "*.pdf",
@@ -537,7 +601,13 @@
     "order_list": {
       "request_list": "قائمة الطلبات",
       "my_order": "طلبي",
-      "suppliers": "الموردين"
+      "suppliers": "الموردين",
+      "add_supplier": "إضافة مورد",
+      "company": "الشركة",
+      "name": "الاسم",
+      "phone": "الهاتف",
+      "email": "البريد الإلكتروني",
+      "address": "تبوك"
     },
     "part_master": {
       "asset_type": "نوع الأصول",
@@ -676,7 +746,7 @@
     "technical_inspection": {
       "technical_inspection": "الفحص الفني",
       "asset_detail": "تفاصيل الأصول",
-      "maintenance": "Maintenance",
+      "maintenance": "أعمال صيانة",
       "customization": "الصيانة",
       "reuse": "اعادة الإستخدام",
       "fix": "تصليح",
@@ -695,6 +765,7 @@
       "purchase_service_package": "باقة خدمة الشراء",
       "integration": "الدمج",
       "periodic_service": "الصيانة الدورية",
+      "warranty_package": "حزمة الضمان",
       "warranty": "الضمان",
       "package": "الباقة",
       "choose_date": "اختر موعدا",
@@ -702,6 +773,7 @@
       "car_card": "بطاقة السيارة",
       "asset_policy": "وثيقة الأصل",
       "make_decision": "إتخذ قرار",
+      "generate": "إنشاء",
       "upload_form": {
         "title": "إضافة مرفقات",
         "progressbar_title": "",
@@ -736,7 +808,9 @@
       "accessory": "الملحقات",
       "operator": "المشغل",
       "organization": "المنظمة",
-      "movement": "الحركة"
+      "movement": "الحركة",
+      "asset_configuration": "تكوين الأصول",
+      "business_category": "نوع العمل"
     },
     "users": {
       "portal_information": "معلومات البوابة",
@@ -870,12 +944,13 @@
     "approve": "اعتماد",
     "recived": "الواردة",
     "assign": "تعيين",
+    "upload": "تحميل",
+    "generate": "إنشاء",
     "feedback": {
       "required": "هذا الحقل إلزامي",
       "invalid-email": "عنوان البريد الإلكتروني غير صالح"
     },
-    "order": "ترتيب",
-    "upload": "رفع"
+    "order": "ترتيب"
   },
   "login": {
     "incorrect_password": "كلمة سر خاطئة",
