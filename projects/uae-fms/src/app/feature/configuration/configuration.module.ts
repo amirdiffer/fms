@@ -29,6 +29,7 @@ import { AssetCategoryComponent } from './asset-configuration/asset-category/ass
 import { PeriodicServiceComponent } from '@feature/configuration/periodic-service/periodic-service.component';
 import { AddFleetStatusComponent } from './fleet-status/add-fleet-status/add-fleet-status.component';
 import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-service/add-periodic-service.component';
+import { AlretDialogModule } from '@core/alret-dialog/alret-dialog.module';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-ser
     MatProgressBarModule,
     SharedModule,
     ConfigurationStateModule,
-    ConfigurationRoutingModule
+    ConfigurationRoutingModule,
+    AlretDialogModule
   ]
 })
 export class ConfigurationModule {}

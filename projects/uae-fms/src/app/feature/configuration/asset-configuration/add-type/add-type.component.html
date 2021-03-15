@@ -30,27 +30,27 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 col-md-3 p-field form-section__field">
+                    <div class="col-12 col-md-3 p-field form-section__field mt-2">
                         <span class="p-float-label">
                             <input formControlName="typeName" pInputText
                                 placeholder="{{ 'configuration.asset_configuration.type_name' | translate }} *" required type="text">
                             <label>{{ 'configuration.asset_configuration.type_name' | translate }} *</label>
-                            <anms-error
-                                [showError]="hasError('typeName',inputForm,submited)"
-                                error="forms.feedback.required">
-                            </anms-error>
                         </span>
+                      <anms-error
+                        [showError]="hasError('typeName',inputForm,submited)"
+                        error="forms.feedback.required">
+                      </anms-error>
                     </div>
-                    <div class="col-sm-auto form-section__field toggle-select">
+                    <div class="col-sm-auto form-section__field toggle-select mt-2">
                         <p-inputSwitch formControlName="activetype"></p-inputSwitch>
-                        <span>{{ 'configuration.asset_configuration.active_type' | translate }}</span>
+                        <span class="ml-3">{{ 'configuration.asset_configuration.active_type' | translate }}</span>
                     </div>
                 </div>
                 <div class="pb-3 p-field form-section__field">
                     <span class="p-float-label">
                         <input formControlName="description" pInputText
                             placeholder="{{'configuration.asset_configuration.description' | translate}}" type="text">
-                        <label>{{ 'configuration.asset_configuration.description' | translate }}</label>
+                        <label>{{ 'configuration.asset_configuration.type_description' | translate }}</label>
 
                     </span>
                 </div>
@@ -81,8 +81,8 @@
                     <div class="col-12 col-md-4 p-field form-section__field">
                         <span class="p-float-label mt-3">
                             <input formControlName="selectModel" pInputText
-                                placeholder="{{ 'configuration.asset_configuration.select_model' | translate }}" type="text">
-                            <label>{{ 'configuration.asset_configuration.select_model' | translate }}</label>
+                                placeholder="{{ 'configuration.asset_configuration.make' | translate }}" type="text">
+                            <label>{{ 'configuration.asset_configuration.make' | translate }}</label>
                         </span>
                     </div>
                     <div class="col-12 col-md-5 mt-3 p-field form-section__field">
@@ -124,19 +124,30 @@
                                 (click)="addModel()"><a>+</a></button>
                         </div> -->
 
-
+                      <div class="row form-section__row">
+                        <span class="p-float-label">
+                          <div class="p-inputgroup">
                             <span class="p-float-label">
-                                <div class="p-inputgroup">
-                                    <span class="p-float-label">
-                                        <input type="text" formControlName="models" pInputText placeholder="{{ 'configuration.asset_configuration.model' | translate }}">
-                                        <label>{{ 'configuration.asset_configuration.model' | translate }}</label>
-                                    </span>
-                                    <span class="p-inputgroup-addon addon-primary">
-                                        <i class="pi pi-plus"></i>
-                                    </span>
-                                </div>
+                              <input type="text" formControlName="models" pInputText placeholder="{{ 'configuration.asset_configuration.model' | translate }}">
+                              <label>{{ 'configuration.asset_configuration.model' | translate }}</label>
                             </span>
-
+                            <span class="p-inputgroup-addon addon-primary">
+                              <i class="pi pi-plus"></i>
+                            </span>
+                          </div>
+                        </span>
+                        <span class="p-float-label ml-2">
+                          <div class="p-inputgroup">
+                            <span class="p-float-label">
+                              <input type="text" formControlName="colors" pInputText placeholder="{{ 'configuration.asset_configuration.color' | translate }}">
+                              <label>{{ 'configuration.asset_configuration.color' | translate }}</label>
+                            </span>
+                            <span class="p-inputgroup-addon addon-primary">
+                              <i class="pi pi-plus"></i>
+                            </span>
+                          </div>
+                        </span>
+                      </div>
 
 
                     </ng-template>
@@ -149,5 +160,9 @@
 
             <!-- end form-section -->
         </form>
+      <div class="table-container">
+        <app-table [setting]="assetConfigurationTableSetting"></app-table>
+      </div>
     </div>
 </div>
+<alret-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alret-dialog>

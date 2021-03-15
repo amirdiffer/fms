@@ -16,6 +16,8 @@ import {
   NgxFileDropEntry
 } from 'ngx-file-drop';
 import { AssetConfigurationService } from '../asset-configuration.service';
+import { TableSetting } from '@core/table';
+import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
 
 @Component({
   selector: 'congifuration-add-type',
@@ -35,6 +37,19 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   percent = 80;
   fileName = 'CSV File only';
   submited = false;
+
+  assetConfigurationTableSetting!: TableSetting;
+
+  dialogModal = false;
+
+  dialogSetting: IDialogAlert = {
+    header: 'Add asset configuration',
+    hasError: false,
+    message: 'Message is Here',
+    confirmButton: 'Register Now',
+    cancelButton: 'Cancel'
+  };
+
   constructor(
     private _fb: FormBuilder,
     private _renderer: Renderer2,
@@ -42,6 +57,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     injector: Injector
   ) {
     super(injector);
+    this.assetConfigurationTableSetting = this._assetConfigurationService.assetConfigurationableSetting();
   }
 
   ngOnInit(): void {
@@ -53,7 +69,8 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
       type: ['mModel'],
       selectModel: [''],
       // models: this._fb.array([this._fb.control([])])
-      models: ['']
+      models: [''],
+      colors: ['']
     });
   }
   ngAfterViewInit() {
@@ -99,14 +116,38 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   public cancel() {
-    this._assetConfigurationService.loadAddForm(false);
+    this.dialogModal = true;
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.message = 'Are you sure to cancel adding new type?';
+    this.dialogSetting.confirmButton = 'Yes';
+    this.dialogSetting.cancelButton = 'No';
+    // this._assetConfigurationService.loadAddForm(false);
+  }
+
+  dialogConfirm($event): void {
+    console.log($event);
+    this.dialogModal = false;
+    if ($event && !this.dialogSetting.hasError) {
+      this.router.navigate(['/configuration/asset-configuration']).then();
+    }
   }
 
   submit() {
+    this.dialogModal = true;
     this.submited = true;
     if (this.inputForm.invalid) {
+      this.dialogSetting.hasError = true;
+      this.dialogSetting.message = 'Some fields are empty, please fill them';
+      this.dialogSetting.confirmButton = 'OK';
+      this.dialogSetting.cancelButton = undefined;
       return;
     }
-    this._assetConfigurationService.loadAddForm(false);
+
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.message = 'Type added successfully';
+    this.dialogSetting.confirmButton = 'OK';
+    this.dialogSetting.cancelButton = undefined;
+
+    // this._assetConfigurationService.loadAddForm(false);
   }
 }
