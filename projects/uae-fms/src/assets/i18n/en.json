@@ -89,12 +89,13 @@
     "add_supplier": "Add Supplier",
     "add_technician": "Add Technician",
     "add_location": "Add Location",
-    "iserve": "IServe"
+    "iserve": "IServe",
+    "traffic_fine": "Traffic Fine"
   },
   "sidebar": {
     "dashboard": "Dashboard",
     "fleets": {
-      "~": "Fleets",
+      "~": "Fleet",
       "assets": "Assets",
       "sub_assets": "Sub Assets",
       "accessory": "Accessory",
@@ -166,17 +167,17 @@
     "total_lost": "Total Lost",
     "paid": "Paid",
     "user": "User",
-    "unpainted": "Un Painted",
-    "deducte": "Deducted",
     "pending": "Pending",
     "complete": "Complete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "unpainted": "UnPainted",
+    "deducte": "Deducted"
   },
   "tabs": {
     "asset_master": "Asset Master",
     "pending_registration": "Pending Registration",
     "pending_customization": "Pending Customization",
-    "movement_over_view": "Movement Over View",
+    "movement_over_view": "Over View",
     "request": "Request",
     "requests": "Requests",
     "fuel_cards": "Fuel Cards",
@@ -663,9 +664,11 @@
   "workshop": {
     "body_shop": {
       "requests": {
+        "periodic_service": "Periodic Service",
         "asset_info": "Asset Info",
         "asset": "Asset",
         "asset_validation_error": "Please search and choose an item from list",
+        "periodic_service_validation_error": "Please search and choose an item from periodic service",
         "gps_meter_source": "GPS Meter Source",
         "manual_update": "Manual Update",
         "accident": "Accident",
