@@ -321,6 +321,22 @@ html {
       text-align: left;
     }
   }
+  /* Charts */
+  app-life-cycle-chart{
+    .active-lifecycle > .lifecycle-section::before{
+      transform: translate(16%, -16%) !important;
+    }
+    .lifecycle-section-container:last-child{
+      span::after{
+        left: auto !important;
+      }
+    }
+    .lifecycle-line {
+      .lifecycle-section-container:not(:first-child) > p{
+        transform: translateX(50%) !important;
+      }
+    }
+  }
 }
 
 /* END RTL Arabic */
