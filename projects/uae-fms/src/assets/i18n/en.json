@@ -172,7 +172,11 @@
     "deducte": "Deducted",
     "pending": "Pending",
     "complete": "Complete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "insurance_action": "Insurance Action",
+    "technical_inspection": "Technical Inspection",
+    "insurance_claim": "Insurance Claim",
+    "status": "Status"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -295,6 +299,7 @@
       "reported_by": "Reported By",
       "insurance_value": "Insurance Value",
       "insurance": "Insurance",
+      "insurance_action": "Insurance Action",
       "created_by": "Created By",
       "assignment": "Assignment",
       "estimate_market": "Estimate Market",
