@@ -12,5 +12,4 @@ export class UserProfileFacade {
   }
 
   loadData$ = this._store.select(UserProfileSelector.user);
-
 }

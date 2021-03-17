@@ -56,8 +56,8 @@ export interface IBodyShopRequestStatistics {
   rejected: number;
 }
 
-export interface IFuelManagementStatistics extends IGeneralResponse{
-  total:number;
-  available:number;
-  assigned:number
+export interface IFuelManagementStatistics extends IGeneralResponse {
+  total: number;
+  available: number;
+  assigned: number;
 }

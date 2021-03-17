@@ -24,17 +24,17 @@ const fuelCardsReducer = createReducer(
   })),
   on(FuelCardsActions.loadStatistics, (state) => ({
     ...state,
-    loaded: false,
+    loaded: false
   })),
-  on(FuelCardsActions.statisticsLoaded, (state, {data}) => ({
+  on(FuelCardsActions.statisticsLoaded, (state, { data }) => ({
     ...state,
     statistics: data
   })),
-  on(FuelCardsActions.addFuelCard , (state , {data}) =>({
+  on(FuelCardsActions.addFuelCard, (state, { data }) => ({
     ...state,
-    loaded:false
+    loaded: false
   })),
-  on(FuelCardsActions.addFuelCardSuccessfully , (state,{data}) => 
+  on(FuelCardsActions.addFuelCardSuccessfully, (state, { data }) =>
     fuelCardsAdapter.addOne(data, state)
   )
 );

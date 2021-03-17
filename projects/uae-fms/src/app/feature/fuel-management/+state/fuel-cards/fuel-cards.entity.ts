@@ -8,17 +8,19 @@ export interface FuelCardsState extends EntityState<IFuelManagementFuelCard> {
   error?: any;
   loaded?: boolean;
   message?: string;
-  statistics?:IFuelManagementStatistics;
+  statistics?: IFuelManagementStatistics;
 }
 
 export interface FuelCardsPartialState {
   [FUEL_MANAGEMENT_FUEL_CARDS_FEATURE_KEY]: FuelCardsState;
 }
 
-export const fuelCardsAdapter: EntityAdapter<IFuelManagementFuelCard> = createEntityAdapter<IFuelManagementFuelCard>();
+export const fuelCardsAdapter: EntityAdapter<IFuelManagementFuelCard> = createEntityAdapter<
+  IFuelManagementFuelCard
+>();
 export const initialState: FuelCardsState = fuelCardsAdapter.getInitialState({
   error: null,
   loaded: null,
   message: null,
-  statistics:null
+  statistics: null
 } as FuelCardsState);

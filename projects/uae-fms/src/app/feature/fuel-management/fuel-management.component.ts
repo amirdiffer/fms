@@ -16,14 +16,14 @@ import { IFuelManagementStatistics } from '@models/statistics';
 export class FuelManagementComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-  fuelCards$ : Subscription;
+  fuelCards$: Subscription;
   statistics$: Subscription;
-  statisticsCount:IFuelManagementStatistics ={
-    total:2456,
-    available:356,
-    assigned:124
-  }
-  filterSetting: FilterCardSetting[]
+  statisticsCount: IFuelManagementStatistics = {
+    total: 2456,
+    available: 356,
+    assigned: 124
+  };
+  filterSetting: FilterCardSetting[];
 
   assetUsageTableData = [
     {
@@ -350,46 +350,38 @@ export class FuelManagementComponent implements OnInit {
   selectedTab;
   ngOnInit(): void {
     this._facadeFuelCard.loadAll();
-    this.statisticsFilters(this.statisticsCount)
-    this.fuelCards$ = this._facadeFuelCard.fuelCards$.subscribe(
-      (data) => {
-        console.log(data)
-         if(data) {
-           this.fuelCardsTableSetting.data = data.map(
-             (item) => {
-               return {
-                tagNo: {
-                  tagNo: item.tagNumber,
-                  data: item.used.map(
-                    (used) => {
-                      return {
-                        litters: used.amount.toString(),
-                        km: used.mileage.toString(),
-                        day:'',
-                        date: '',
-                        time: ' '
-                      }
-                    }
-                  )
-                },
-                used: item.usageLimit,
-                usageLimit: item.usageLimit,
-                asset: item.assignedTo,
-                cardType: item.cardType,
-                expire: item.expireDate
-              }
-             }
-           )
-         }
+    this.statisticsFilters(this.statisticsCount);
+    this.fuelCards$ = this._facadeFuelCard.fuelCards$.subscribe((data) => {
+      console.log(data);
+      if (data) {
+        this.fuelCardsTableSetting.data = data.map((item) => {
+          return {
+            tagNo: {
+              tagNo: item.tagNumber,
+              data: item.used.map((used) => {
+                return {
+                  litters: used.amount.toString(),
+                  km: used.mileage.toString(),
+                  day: '',
+                  date: '',
+                  time: ' '
+                };
+              })
+            },
+            used: item.usageLimit,
+            usageLimit: item.usageLimit,
+            asset: item.assignedTo,
+            cardType: item.cardType,
+            expire: item.expireDate
+          };
+        });
       }
-    );
-    this.statistics$ = this._facadeFuelCard.statistics$.subscribe(
-      (data) => {
-        if(data) {
-          this.statisticsFilters(data)
-        }
+    });
+    this.statistics$ = this._facadeFuelCard.statistics$.subscribe((data) => {
+      if (data) {
+        this.statisticsFilters(data);
       }
-    )
+    });
     this._facadeAssetUsage.loadAll();
   }
   addClicked(e: Event) {
@@ -407,7 +399,7 @@ export class FuelManagementComponent implements OnInit {
         break;
     }
   }
-  statisticsFilters (statisticsCount:IFuelManagementStatistics){
+  statisticsFilters(statisticsCount: IFuelManagementStatistics) {
     this.filterSetting = [
       {
         filterTitle: 'statistic.total',

@@ -17,12 +17,12 @@ const integrationReducer = createReducer(
   on(IntegrationActions.allDataLoaded, (state, { data }) =>
     integrationAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
-  on(IntegrationActions.addintegration, (state ,{data})=>({
+  on(IntegrationActions.addintegration, (state, { data }) => ({
     ...state,
-    loaded:false
+    loaded: false
   })),
-  on(IntegrationActions.integrationAddedSuccessfullt, (state ,{data})=>
-  integrationAdapter.addOne(data,state)
+  on(IntegrationActions.integrationAddedSuccessfullt, (state, { data }) =>
+    integrationAdapter.addOne(data, state)
   ),
   on(IntegrationActions.error, (state, { reason }) => ({
     ...state,

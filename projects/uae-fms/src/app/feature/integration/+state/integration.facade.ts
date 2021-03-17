@@ -18,7 +18,7 @@ export class IntegrationFacade {
   loadAll() {
     this.store.dispatch(IntegrationActions.loadAll());
   }
-  addIntegration(data:IIntegration){
-    this.store.dispatch(IntegrationActions.addintegration({data}))
+  addIntegration(data: IIntegration) {
+    this.store.dispatch(IntegrationActions.addintegration({ data }));
   }
 }

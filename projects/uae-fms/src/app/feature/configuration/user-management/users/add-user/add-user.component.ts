@@ -5,8 +5,9 @@ import {
   Injector,
   OnInit
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FilterCardSetting } from '@core/filter';
+import { UsersFacade } from '@feature/configuration/+state/users/users.facade';
 import { Utility } from '@shared/utility/utility';
 import {
   FileSystemDirectoryEntry,
@@ -24,7 +25,7 @@ export class AddUserComponent extends Utility implements OnInit {
   bufferValue = 70;
   public filesUpdloaded: NgxFileDropEntry[] = [];
   form: FormGroup;
-  submited = false;
+  submitted = false;
   employees = [
     { name: 'Employee 1', id: 1 },
     { name: 'Employee 2', id: 2 },
@@ -78,8 +79,14 @@ export class AddUserComponent extends Utility implements OnInit {
       onActive(index: number) {}
     }
   ];
+  emails: FormArray;
+  phoneNumbers: FormArray;
 
-  constructor(injector: Injector, private formBuilder: FormBuilder) {
+  constructor(
+    injector: Injector,
+    private formBuilder: FormBuilder,
+    private facade: UsersFacade
+  ) {
     super(injector);
   }
 
@@ -89,31 +96,54 @@ export class AddUserComponent extends Utility implements OnInit {
 
   buildForm(): void {
     this.form = this.formBuilder.group({
-      portalInformation: this.formBuilder.group({
-        employeeNumber: ['', [Validators.required]],
-        department: [''],
-        role: [''],
-        activeEmployee: false
-      }),
-      fileUpload: this.formBuilder.group({
-        fileName: [''],
-        fileSize: ['']
-      }),
-      personalInformation: this.formBuilder.group({
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        phoneNumber: ['', [Validators.required]],
-        callCheckbox: false,
-        smsCheckbox: false,
-        emailCheckbox: false,
-        whatsappCheckbox: false
-      })
+      employeeNumber: ['', [Validators.required]],
+      departmentId: [''],
+      roleId: [''],
+      isActive: false,
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      emails: this.formBuilder.array([this.createEmailForm()]),
+      phoneNumbers: this.formBuilder.array([this.createPhoneNumberForm()]),
+      notifyByCall: false,
+      notifyBySMS: false,
+      notifyByEmail: false,
+      notifyByWhatsApp: false
     });
   }
 
   submit(): void {
-    this.submited = true;
+    this.submitted = true;
+    if (this.form.invalid) {
+      return;
+    }
+
+    const data = { ...this.form.value };
+    data.departmentId = this.form.get('departmentId').value['id'];
+    data.employeeNumber = this.form.get('employeeNumber').value['id'];
+    data.emails = this.form.get('emails').value.map((e) => e.name);
+    data.phoneNumbers = this.form.get('phoneNumbers').value.map((e) => e.name);
+    this.facade.addUser(data);
+  }
+
+  createEmailForm(): FormGroup {
+    return this.formBuilder.group({
+      name: ['', [Validators.required, Validators.email]]
+    });
+  }
+  createPhoneNumberForm(): FormGroup {
+    return this.formBuilder.group({
+      name: ['', [Validators.required]]
+    });
+  }
+
+  addEmail(): void {
+    this.emails = this.form.get('emails') as FormArray;
+    this.emails.push(this.createEmailForm());
+  }
+
+  addPhoneNumber(): void {
+    this.emails = this.form.get('phoneNumbers') as FormArray;
+    this.emails.push(this.createPhoneNumberForm());
   }
   filterEmployees(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
@@ -129,12 +159,12 @@ export class AddUserComponent extends Utility implements OnInit {
   filterDepartments(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     this.departments = [
-      { name: 'Dapartment 1', id: 1 },
-      { name: 'Dapartment 2', id: 2 },
-      { name: 'Dapartment 3', id: 3 },
-      { name: 'Dapartment 4', id: 4 },
-      { name: 'Dapartment 5', id: 5 },
-      { name: 'Dapartment 6', id: 6 }
+      { name: 'Department 1', id: 1 },
+      { name: 'Department 2', id: 2 },
+      { name: 'Department 3', id: 3 },
+      { name: 'Department 4', id: 4 },
+      { name: 'Department 5', id: 5 },
+      { name: 'Department 6', id: 6 }
     ];
   }
   public dropped(files: NgxFileDropEntry[]) {
@@ -158,4 +188,7 @@ export class AddUserComponent extends Utility implements OnInit {
   public fileLeave(event) {
     console.log(event);
   }
+  // mapAutoCompleteControl(event, formControlName) {
+  //   this.form.get(formControlName).setValue(event.id)
+  // }
 }

@@ -19,7 +19,7 @@ export class FuelCardsFacade {
     this.store.dispatch(FuelCardsActions.loadFuelCard());
     this.store.dispatch(FuelCardsActions.loadStatistics());
   }
-  addFuelCard (data:IFuelManagementFuelCard){
-    this.store.dispatch(FuelCardsActions.addFuelCard({data}));
+  addFuelCard(data: IFuelManagementFuelCard) {
+    this.store.dispatch(FuelCardsActions.addFuelCard({ data }));
   }
 }

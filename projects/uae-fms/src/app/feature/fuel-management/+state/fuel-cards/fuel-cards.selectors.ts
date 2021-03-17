@@ -21,5 +21,4 @@ export class FuelCardsSelectors {
     FuelManagementSelectors.fuelCardsSelector,
     (state) => state.statistics
   );
-
 }

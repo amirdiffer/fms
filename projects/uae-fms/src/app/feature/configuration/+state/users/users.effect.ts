@@ -30,5 +30,21 @@ export class UsersEffect {
     )
   );
 
+  addData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(UsersActions.addUser),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) =>
+            UsersActions.userAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
+          ),
+          catchError((error) => of(UsersActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   constructor(private action$: Actions, private service: UsersService) {}
 }

@@ -10,9 +10,9 @@ export interface IUserProfileState extends EntityState<IProfile> {
   profile: object;
 }
 
-export const userProfileAdapter: EntityAdapter<IProfile[]> = createEntityAdapter<
+export const userProfileAdapter: EntityAdapter<
   IProfile[]
->();
+> = createEntityAdapter<IProfile[]>();
 export const initialState: IUserProfileState = userProfileAdapter.getInitialState(
   {
     loaded: null,

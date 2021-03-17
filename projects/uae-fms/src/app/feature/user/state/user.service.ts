@@ -16,5 +16,4 @@ export class UserProfileService {
       environment.baseApiUrl + 'profile'
     );
   }
-
 }

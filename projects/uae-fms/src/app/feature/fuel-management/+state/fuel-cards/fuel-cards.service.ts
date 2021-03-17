@@ -14,14 +14,14 @@ export class FuelCardsService {
     return this.http.get<ResponseBody<IFuelManagementFuelCard[]>>(
       environment.baseApiUrl + 'fuel-management/card'
     );
-  };
-  loadAllStatistics():Observable <ResponseBody<IFuelManagementStatistics>>{
+  }
+  loadAllStatistics(): Observable<ResponseBody<IFuelManagementStatistics>> {
     return this.http.get<ResponseBody<IFuelManagementStatistics>>(
       environment.baseApiUrl + 'fuel-management/stats'
     );
   }
 
-  addFuelCard(data):Observable<ResponseBody<IFuelManagementFuelCard>> {
+  addFuelCard(data): Observable<ResponseBody<IFuelManagementFuelCard>> {
     return this.http.post<ResponseBody<IFuelManagementFuelCard>>(
       environment.baseApiUrl + 'fuel-management/card',
       data

@@ -9,7 +9,6 @@ import { Subscription } from 'rxjs';
 import { IntegrationService } from './integration.service';
 import { IntegrationFacade } from '../integration/+state';
 
-
 @Component({
   selector: 'anms-integration',
   templateUrl: './integration.component.html',
@@ -32,137 +31,140 @@ export class IntegrationComponent implements OnInit, OnDestroy {
     { lable: 'tables.column.email', field: 'email' },
     { lable: 'tables.column.phone_number', field: 'phoneNumber' },
     { lable: 'tables.column.company_name', field: 'companyName' },
-    { lable: 'tables.column.support_operator', field: 'supportOperator'}
+    { lable: 'tables.column.support_operator', field: 'supportOperator' }
   ];
   fakeTableData = [
-        {
-          id: 1,
-          integrationName: 'Wex',
-          thumb: 'wex-logo.png',
-          type: 'Fuel',
-          gpr: 'ABC-12345678',
-          status: 'Connect',
-          email: 'Sample@sample.com',
-          phoneNumber: '0505653793',
-          companyName: 'Wex',
-          supportOpperator: 'Sam Smith'
-        },
-        {
-          id: 2,
-          integrationName: 'Wex',
-          thumb: 'wex-logo.png',
-          type: 'Fuel',
-          gpr: 'ABC-12345678',
-          status: 'Connect',
-          email: 'Sample@sample.com',
-          phoneNumber: '0505653793',
-          companyName: 'Wex',
-          supportOpperator: 'Sam Smith'
-        },
-        {
-          id: 3,
-          integrationName: 'Wex',
-          thumb: 'wex-logo.png',
-          type: 'Fuel',
-          gpr: 'ABC-12345678',
-          status: 'Connect',
-          email: 'Sample@sample.com',
-          phoneNumber: '0505653793',
-          companyName: 'Wex',
-          supportOpperator: 'Sam Smith'
-        },
-        {
-          id: 4,
-          integrationName: 'Wex',
-          thumb: 'wex-logo.png',
-          type: 'Fuel',
-          gpr: 'ABC-12345678',
-          status: 'Connect',
-          email: 'Sample@sample.com',
-          phoneNumber: '0505653793',
-          companyName: 'Wex',
-          supportOpperator: 'Sam Smith'
-        },
-        {
-          id: 5,
-          integrationName: 'Wex',
-          thumb: 'wex-logo.png',
-          type: 'Fuel',
-          gpr: 'ABC-12345678',
-          status: 'Connect',
-          email: 'Sample@sample.com',
-          phoneNumber: '0505653793',
-          companyName: 'Wex',
-          supportOpperator: 'Sam Smith'
-        },
-        {
-          id: 6,
-          integrationName: 'Wex',
-          thumb: 'wex-logo.png',
-          type: 'Fuel',
-          gpr: 'ABC-12345678',
-          status: 'Connect',
-          email: 'Sample@sample.com',
-          phoneNumber: '0505653793',
-          companyName: 'Wex',
-          supportOpperator: 'Sam Smith'
-        },
-        {
-          id: 7,
-          integrationName: 'Wex',
-          thumb: 'wex-logo.png',
-          type: 'Fuel',
-          gpr: 'ABC-12345678',
-          status: 'Connect',
-          email: 'Sample@sample.com',
-          phoneNumber: '0505653793',
-          companyName: 'Wex',
-          supportOpperator: 'Sam Smith'
-        },
-        {
-          id: 8,
-          integrationName: 'Wex',
-          thumb: 'wex-logo.png',
-          type: 'Fuel',
-          gpr: 'ABC-12345678',
-          status: 'Connect',
-          email: 'Sample@sample.com',
-          phoneNumber: '0505653793',
-          companyName: 'Wex',
-          supportOpperator: 'Sam Smith'
-        }
-      ]
+    {
+      id: 1,
+      integrationName: 'Wex',
+      thumb: 'wex-logo.png',
+      type: 'Fuel',
+      gpr: 'ABC-12345678',
+      status: 'Connect',
+      email: 'Sample@sample.com',
+      phoneNumber: '0505653793',
+      companyName: 'Wex',
+      supportOpperator: 'Sam Smith'
+    },
+    {
+      id: 2,
+      integrationName: 'Wex',
+      thumb: 'wex-logo.png',
+      type: 'Fuel',
+      gpr: 'ABC-12345678',
+      status: 'Connect',
+      email: 'Sample@sample.com',
+      phoneNumber: '0505653793',
+      companyName: 'Wex',
+      supportOpperator: 'Sam Smith'
+    },
+    {
+      id: 3,
+      integrationName: 'Wex',
+      thumb: 'wex-logo.png',
+      type: 'Fuel',
+      gpr: 'ABC-12345678',
+      status: 'Connect',
+      email: 'Sample@sample.com',
+      phoneNumber: '0505653793',
+      companyName: 'Wex',
+      supportOpperator: 'Sam Smith'
+    },
+    {
+      id: 4,
+      integrationName: 'Wex',
+      thumb: 'wex-logo.png',
+      type: 'Fuel',
+      gpr: 'ABC-12345678',
+      status: 'Connect',
+      email: 'Sample@sample.com',
+      phoneNumber: '0505653793',
+      companyName: 'Wex',
+      supportOpperator: 'Sam Smith'
+    },
+    {
+      id: 5,
+      integrationName: 'Wex',
+      thumb: 'wex-logo.png',
+      type: 'Fuel',
+      gpr: 'ABC-12345678',
+      status: 'Connect',
+      email: 'Sample@sample.com',
+      phoneNumber: '0505653793',
+      companyName: 'Wex',
+      supportOpperator: 'Sam Smith'
+    },
+    {
+      id: 6,
+      integrationName: 'Wex',
+      thumb: 'wex-logo.png',
+      type: 'Fuel',
+      gpr: 'ABC-12345678',
+      status: 'Connect',
+      email: 'Sample@sample.com',
+      phoneNumber: '0505653793',
+      companyName: 'Wex',
+      supportOpperator: 'Sam Smith'
+    },
+    {
+      id: 7,
+      integrationName: 'Wex',
+      thumb: 'wex-logo.png',
+      type: 'Fuel',
+      gpr: 'ABC-12345678',
+      status: 'Connect',
+      email: 'Sample@sample.com',
+      phoneNumber: '0505653793',
+      companyName: 'Wex',
+      supportOpperator: 'Sam Smith'
+    },
+    {
+      id: 8,
+      integrationName: 'Wex',
+      thumb: 'wex-logo.png',
+      type: 'Fuel',
+      gpr: 'ABC-12345678',
+      status: 'Connect',
+      email: 'Sample@sample.com',
+      phoneNumber: '0505653793',
+      companyName: 'Wex',
+      supportOpperator: 'Sam Smith'
+    }
+  ];
   downloadBtn = 'assets/icons/download-solid.svg';
   addtype;
   addtype$: Subscription;
-  
+
   constructor(
     private _integrationService: IntegrationService,
     private facade: IntegrationFacade
   ) {}
 
   ngOnInit(): void {
-    console.log(this.tableSettings)
+    console.log(this.tableSettings);
     this.facade.loadAll();
     this.facade.integration$.subscribe((x) => {
       console.log(x);
-      this.tableData = x.map(item => {
-        console.log(item)
-        console.log(this.tableData )
-        return{
-            name:item.name,
-            type:item.type,
-            companyName:item.companyName,
-            grp:item.grp,
-            isConnected:item.isConnected,
-            email:item.email,
-            phoneNumber:item.phoneNumber,
-            supportOperator: item.supportOperator.firstName + item.supportOperator.lastName
-          }
-        })
-        this.tableSettings = this.tableRendering(this.tableColumn,this.tableData);
+      this.tableData = x.map((item) => {
+        console.log(item);
+        console.log(this.tableData);
+        return {
+          name: item.name,
+          type: item.type,
+          companyName: item.companyName,
+          grp: item.grp,
+          isConnected: item.isConnected,
+          email: item.email,
+          phoneNumber: item.phoneNumber,
+          supportOperator:
+            item.supportOperator.firstName + item.supportOperator.lastName
+        };
+      });
+      this.tableSettings = this.tableRendering(
+        this.tableColumn,
+        this.tableData
+      );
     });
-    
 
     this.addtype$ = this._integrationService
       .getIntegrationForm()
@@ -174,13 +176,13 @@ export class IntegrationComponent implements OnInit, OnDestroy {
     this._integrationService.loadInegrationForm(true);
     console.log('Click');
   }
-  public tableRendering(tableColumn , dataItem) :TableSetting{
+  public tableRendering(tableColumn, dataItem): TableSetting {
     const table = {
-      columns:tableColumn,
-      data:dataItem
-    }
-    console.log(table)
-    return table
+      columns: tableColumn,
+      data: dataItem
+    };
+    console.log(table);
+    return table;
   }
   ngOnDestroy() {
     this.addtype$.unsubscribe();
