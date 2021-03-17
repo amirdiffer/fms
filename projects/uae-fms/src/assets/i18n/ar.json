@@ -560,7 +560,11 @@
       "asset": "أصل",
       "card_type": "نوع البطاقة",
       "expire_date": "تاريخ انتهاء الصلاحية",
-      "usage_limit": "حد الاستخدام"
+      "usage_limit": "حد الاستخدام",
+      "tag_number_validation_error": "الرجاء تعبئة رقم البطاقة",
+      "expire_date_validation_error": "يرجى ملء تاريخ انتهاء الصلاحية",
+      "usage_limit_validation_error": "الرجاء تعبئة حد الاستخدام",
+      "assign_to_validation_error": "يرجى ملء الأصل"
     },
     "asset_usage": {}
   },
