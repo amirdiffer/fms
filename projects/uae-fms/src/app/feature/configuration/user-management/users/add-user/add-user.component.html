@@ -34,8 +34,11 @@
                 [suggestions]="departments" field="name"
                 [minLength]="1"></p-autoComplete>
               <i class="pi pi-search"></i>
-              <label>{{ 'configuration.users.department' | translate }}</label>
+              <label>{{ 'configuration.users.department' | translate }} *</label>
             </span>
+            <anms-error
+              [showError]="hasError('department',form.get('portalInformation'),submited)"
+              error="forms.feedback.required"></anms-error>
           </div>
         </div>
         <div class="col-12 col-md-3 p-field form-section__field options-select">
@@ -70,13 +73,17 @@
             <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
           </div>
           <div class="mt-3">
-            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+            <anms-error
+              [showError]="hasError('file',form.get('fileUpload'),submited)"
+              error="forms.feedback.required"></anms-error>
+            <ngx-file-drop accept='image/*' dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
               <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                <label (click)="openFileSelector()" style="cursor: pointer;">
+                <label *ngIf='!tempImage.length' (click)="openFileSelector()" style="cursor: pointer;">
                   <svg-icon   class="camera-icon" src='../../../../../../assets/icons/camera.svg'
                     [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
                     <small calss="drag-and-drop">{{ 'configuration.users.upload_form.content' | translate }}</small>
                 </label>
+                <img *ngIf='tempImage.length' [src]='tempImage' alt='profile' width='128'/>
               </ng-template>
             </ngx-file-drop>
           </div>
@@ -109,49 +116,49 @@
             </div>
           </div>
           <div class="row form-section__row">
-            <div class="col-12 col-md-6 p-field form-section__field">
-              <span class="p-float-label">
-                <div class="p-inputgroup">
+            <div class="col-12 col-md-6 p-field form-section__field" formArrayName='emails'>
+              <span class="p-float-label" *ngFor='let _ of emails.controls; let index = index' [formGroupName]='index'>
+                <div class="p-inputgroup" [class.mt-2]='emails.length > 1'>
                   <span class="p-float-label">
                     <input type="text" formControlName="email" pInputText
                       placeholder="Email *">
                     <label>{{ 'configuration.users.email' | translate }} *</label>
                   </span>
-                  <span class="p-inputgroup-addon addon-primary">
+                  <span class="p-inputgroup-addon addon-primary" (click)='addEmailField()'>
                     <i class="pi pi-plus"></i>
                   </span>
                 </div>
+                <anms-error
+                  [showError]="formArrayHasError(submited, emails, index, 'email')"
+                  error="forms.feedback.required">
+                </anms-error>
+                <anms-error
+                  [showError]="formArrayHasError(submited, emails, index, 'email', 'email')"
+                  error="forms.feedback.invalid-email">
+                </anms-error>
               </span>
-              <anms-error
-                [showError]="hasError('email',form.get('personalInformation'),submited)"
-                error="forms.feedback.required">
-              </anms-error>
-              <anms-error
-                [showError]="hasError('email',form.get('personalInformation'),submited,'email')"
-                error="forms.feedback.invalid-email">
-              </anms-error>
             </div>
-            <div class="col-12 col-md-6 p-field form-section__field">
-              <span class="p-float-label">
-                <div class="p-inputgroup">
+            <div class="col-12 col-md-6 p-field form-section__field" formArrayName='phoneNumbers'>
+              <span class="p-float-label" *ngFor='let _ of phoneNumbers.controls; let index = index' [formGroupName]='index'>
+                <div class="p-inputgroup" [class.mt-2]='phoneNumbers.length > 1'>
                   <span class="p-float-label">
                     <input type="text" formControlName="phoneNumber" pInputText
-                      placeholder="Phone Number *">
-                    <label>{{ 'configuration.users.phone_number' | translate }} *</label>
+                      placeholder="Phone Number">
+                    <label>{{ 'configuration.users.phone_number' | translate }}</label>
                   </span>
-                  <span class="p-inputgroup-addon addon-primary">
+                  <span class="p-inputgroup-addon addon-primary" (click)='addPhoneField()'>
                     <i class="pi pi-plus"></i>
                   </span>
                 </div>
+                <anms-error
+                  [showError]="formArrayHasError(submited, phoneNumbers, index, 'phoneNumber')"
+                  error="{{'forms.feedback.required' | translate}}">
+                </anms-error>
+                <anms-error
+                  [showError]="formArrayHasError(submited, phoneNumbers, index, 'phoneNumber','pattern')"
+                  error="forms.feedback.invalid-phone">
+                </anms-error>
               </span>
-              <anms-error
-                [showError]="hasError('phoneNumber',form.get('personalInformation'),submited)"
-                error="{{'forms.feedback.required' | translate}}">
-              </anms-error>
-              <anms-error
-                [showError]="hasError('phoneNumber',form.get('personalInformation'), submited,'pattern')"
-                error="forms.feedback.invalid-phone">
-              </anms-error>
 
             </div>
           </div>
