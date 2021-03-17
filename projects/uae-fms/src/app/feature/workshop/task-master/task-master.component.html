@@ -9,7 +9,7 @@
     <button class="btn-download" disabled>
       <svg-icon [src]="downloadBtn"></svg-icon>
     </button>
-    <button class="btn-primary-small" [routerLink]="['add']" CheckAccess="task-master:create"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
+    <button class="btn-primary-small" [routerLink]="['add-task-master']" CheckAccess="task-master:create"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
   </div>
   <app-table [setting]="tableSetting"></app-table>
 </div>
