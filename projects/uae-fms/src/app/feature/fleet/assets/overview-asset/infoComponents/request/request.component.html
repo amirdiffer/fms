@@ -1,1 +1,228 @@
-<p>request works!</p>
+<div class="table-container">
+  <div class="card-table">
+    <span class="search-container card-table-header">
+        <div class="search-box">
+        <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
+        <button>
+          <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
+        </button>
+      </div>
+        <button class="btn-download">
+          <svg-icon [src]="downloadBtn"></svg-icon>
+        </button>
+        <button *ngIf="section == 'list'" class="btn-primary-small" type="button" [routerLink]="[]" [queryParams]="{id:'Job Card'}"><i>+</i><a>{{'search.job_card' | translate}}</a></button>
+        <button *ngIf="section == 'list'" class="btn-primary-small mx-1" (click)="showSection('form')"><i>+</i><a>{{'search.request' | translate}}</a></button>
+        <button *ngIf="section == 'form'" class="btn-primary-small mx-1" type="button" (click)="showSection('list')"><a>{{'forms.save' | translate}}</a></button>
+        <button *ngIf="section == 'form'" class="btn-primary-small btn-scondary-green" type="button" (click)="showSection('list')"><a>{{'forms.cancel' | translate}}</a></button>
+      </span>
+    <app-table [setting]="jobCard_Table3"></app-table>
+  </div>
+</div>
+
+<div class="form-section component-wrapper damage-history">
+  <div class="row justify-content-between">
+    <div class="col-auto">
+      <div class="title">Damage History</div>
+    </div>
+    <div class="col-auto">
+      <div class="sort">
+        <span (click)="activeLayout = 'menu'" [ngStyle]="{'background-color': activeLayout == 'menu' ? '#0DA06E' : null}">
+        <svg-icon src='../../../../../../../assets/icons/layout-menu.svg'
+                  [svgStyle]="{ 'width.px':'24' , 'fill': activeLayout == 'menu' ? '#ffffff' : '#0DA06E' , 'height': '100%'}"></svg-icon>
+        </span>
+        <span (click)="activeLayout = 'grid'" [ngStyle]="{'background-color': activeLayout == 'grid' ? '#0DA06E' : null}">
+        <svg-icon src='../../../../../../../assets/icons/layout-grid.svg'
+                  [svgStyle]="{ 'width.px':'24' , 'fill': activeLayout == 'grid' ? '#ffffff' : '#0DA06E' , 'height': '100%'}"></svg-icon>
+        </span>
+        <span (click)="activeLayout = 'top'" [ngStyle]="{'background-color': activeLayout == 'top' ? '#0DA06E' : null}">
+        <svg-icon src='../../../../../../../assets/icons/layout-top.svg'
+                  [svgStyle]="{ 'width.px':'24' , 'fill': activeLayout == 'top' ? '#ffffff' : '#0DA06E' , 'height': '100%'}"></svg-icon>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="my-2 mx-1">
+      <div class="item-body">
+        <div class="item-body__title">Title is Here</div>
+        <div class="item-body__desc my-1">00/00/0000</div>
+        <img class="item-body__img" src="assets/thumb.png">
+        <div class="item-body__author my-1">Reported By Mohammad</div>
+      </div>
+    </div>
+    <div class="my-2 mx-1">
+      <div class="item-body">
+        <div class="item-body__title">Title is Here</div>
+        <div class="item-body__desc my-1">00/00/0000</div>
+        <img class="item-body__img" src="assets/thumb.png">
+        <div class="item-body__author my-1">Reported By Mohammad</div>
+      </div>
+    </div>
+    <div class="my-2 mx-1">
+      <div class="item-body">
+        <div class="item-body__title">Title is Here</div>
+        <div class="item-body__desc my-1">00/00/0000</div>
+        <img class="item-body__img" src="assets/thumb.png">
+        <div class="item-body__author my-1">Reported By Mohammad</div>
+      </div>
+    </div>
+    <div class="my-2 mx-1">
+      <div class="item-body">
+        <div class="item-body__title">Title is Here</div>
+        <div class="item-body__desc my-1">00/00/0000</div>
+        <img class="item-body__img" src="assets/thumb.png">
+        <div class="item-body__author my-1">Reported By Mohammad</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form *ngIf="section == 'form'">
+
+  <div class="form-section form-section--inline">
+    <div class="row form-section__row">
+      <h3 class="form-section__title col-md-2">{{'assets.overview.requests.issue_type' | translate}}</h3>
+      <div class="col-12 col-md-10">
+        <div class="row form-group">
+          <div class="form-check col-lg-3">
+            <input class="form-check-input" type="radio"  id="body_shop" name="issue_type" value ="body_shop">
+            <label class="form-check-label" for="body_shop">
+              {{'assets.overview.requests.body_shop' | translate}}
+            </label>
+          </div>
+          <div class="form-check col-lg-3">
+            <input class="form-check-input" type="radio"  id="service_shop" name="issue_type" value ="service_shop">
+            <label class="form-check-label" for="service_shop">
+              {{'assets.overview.requests.service_shop' | translate}}
+            </label>
+          </div>
+          <div class="form-check col-lg-3">
+            <input class="form-check-input" type="radio"  id="tire_shop" name="issue_type" value="tire_shop">
+            <label class="form-check-label" for="tire_shop">
+              {{'assets.overview.requests.tire_shop' | translate}}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section form-section--inline">
+    <div class="row form-section__row">
+      <h3 class="form-section__title col-md-2">{{'assets.overview.requests.reason' | translate}}</h3>
+      <div class="col-12 col-md-10">
+        <div class="row form-group align-items-center">
+          <div class="custom-control custom-switch col-3">
+            <div class="toggle-select">
+              <p-inputSwitch></p-inputSwitch>
+              <label>{{'assets.overview.requests.accident' | translate}}</label>
+            </div>
+          </div>
+          <ng-container *ngIf="false">
+            <div class="form-check col-3">
+              <input class="form-check-input" type="radio"  id="Miner"  name="accident" value ="miner">
+              <label class="form-check-label" for="Miner">
+                {{'assets.overview.requests.miner' | translate}}
+              </label>
+            </div>
+            <div class="form-check col-3">
+              <input class="form-check-input" type="radio"  id="Major" name="accident" value ="major">
+              <label class="form-check-label" for="Major">
+                {{'assets.overview.requests.major' | translate}}
+              </label>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section form-section--inline">
+    <div class="row form-section__row">
+      <h3 class="form-section__title col-md-2">{{'assets.overview.requests.job_type' | translate}}</h3>
+      <div class="col-12 col-md-10">
+        <div class="row form-group">
+          <div class="form-check col-lg-3">
+            <input class="form-check-input" type="radio"  id="Estimate" name="job_type" value ="estimate">
+            <label class="form-check-label" for="Estimate">
+              {{'assets.overview.requests.estimate' | translate}}
+            </label>
+          </div>
+          <div class="form-check col-lg-3">
+            <input class="form-check-input" type="radio"  id="Repair" name="job_type" value ="repair">
+            <label class="form-check-label" for="Repair">
+              {{'assets.overview.requests.repair' | translate}}
+            </label>
+          </div>
+          <div class="form-check col-lg-3">
+            <input class="form-check-input" type="radio"  id="Technical_Report" name="job_type" value="technical_report">
+            <label class="form-check-label" for="Technical_Report">
+              {{'assets.overview.requests.technical_report' | translate}}
+            </label>
+          </div>
+          <ng-container *ngIf="true">
+            <div class="form-check col-lg-3">
+              <input class="form-check-input" type="radio"id="Installation" name="job_type" value="installation">
+              <label class="form-check-label" for="Installation">
+                {{'assets.overview.requests.installation' | translate}}
+              </label>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3 class="form-section__title">{{'assets.overview.requests.issue_info' | translate}}</h3>
+    <div class="row form-section__row">
+      <div class="form-group col-md-8 p-field form-section__field">
+        <span class="p-float-label">
+          <input pInputText  type="text" class="form-control" placeholder="{{'assets.overview.requests.issue' | translate}}">
+          <label>{{'assets.overview.requests.issue' | translate}}</label>
+        </span>
+        <small class="red-font" *ngIf="false">{{'assets.overview.requests.issue_validation_error' | translate}}</small>
+      </div>
+      <div class="form-group col-md-4 p-field form-section__field">
+        <span class="p-float-label">
+          <input pInputText type="text" class="form-control" placeholder="{{'assets.overview.requests.created_by' | translate}}">
+          <label>{{'assets.overview.requests.created_by' | translate}}</label>
+        </span>
+        <small class="red-font" *ngIf="false">{{'assets.overview.requests.reported_by_validation_error' | translate}}</small>
+      </div>
+      <div class="form-group col-md-12 p-field form-section__field mt-3">
+        <span class="p-float-label">
+          <input pInputText type="text" class="form-control" placeholder="{{'assets.overview.requests.description' | translate}}" formControlName="description">
+          <label>{{'assets.overview.requests.description' | translate}}</label>
+        </span>
+        <small class="red-font" *ngIf="false">{{'assets.overview.requests.description_validation_error' | translate}}</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3 class="form-section__title">{{'assets.overview.requests.upload_form.title' | translate}}</h3>
+    <div class="upload-box">
+      <div class="row">
+        <div class="col-12 d-flex justify-content-between file-name-size">
+          <span>{{'assets.overview.requests.upload_form.title' | translate}}</span>
+          <span>00 MG</span>
+        </div>
+        <div class="col-lg-12 ">
+          <mat-progress-bar mode="determinate" class="upload-progress"></mat-progress-bar>                </div>
+        <div class="col-lg-12 mt-2">
+          <ngx-file-drop dropZoneLabel="Drop files here">
+            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+              <label (click)="openFileSelector()" style="cursor: pointer;">
+                <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
+                           [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                <small calss="drag-and-drop">{{'assets.overview.requests.upload_form.content' | translate}}</small>
+              </label>
+            </ng-template>
+          </ngx-file-drop>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
