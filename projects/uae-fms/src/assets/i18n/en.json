@@ -1095,5 +1095,13 @@
     "bicycle": "Bicycle",
     "boat": "Boat",
     "add_type": "Add Type"
+  },
+  "chart":{
+    "lifecycle":"Lifecycle",
+    "all":"All",
+    "month":"Month",
+    "week":"Week",
+    "this_month":"This Month",
+    "service":"Service"
   }
 }

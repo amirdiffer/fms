@@ -275,6 +275,9 @@
         color: $fms-black-body-color;
       }
     }
+    .component_sec_wrapper{
+      background-color: $fms-black-body2-bg;
+    }
   }
   .component_cus_wrapper {
     .side-panel {
@@ -315,6 +318,9 @@
       mat-horizontal-stepper
       .mat-horizontal-stepper-header-container {
       background: #fff;
+    }
+    .component_sec_wrapper{
+      background-color: $fms-green-body1-bg;
     }
   }
   mat-sidenav-container {
