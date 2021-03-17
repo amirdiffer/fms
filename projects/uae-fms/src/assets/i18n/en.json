@@ -861,7 +861,7 @@
         "set_reminder_before": "Set Reminder Before"
       }
     },
-    "asset_configuration": {
+    "add_asset_configuration": {
       "make_and_model_info": "Make And Model Info",
       "multiple_model": "Multiple Model",
       "single_model": "Single Model",

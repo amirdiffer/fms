@@ -860,7 +860,7 @@
         "set_reminder_before": "تحديد تذكير قبل"
       }
     },
-    "asset_configuration": {
+    "add_asset_configuration": {
       "make_and_model_info": "صنع ونموذج المعلومات",
       "multiple_model": "نموذج متعدد",
       "single_model": "نموذج واحد",
