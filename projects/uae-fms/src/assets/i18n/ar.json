@@ -375,7 +375,9 @@
       "actual_end_date": "تاريخ الانتهاء الفعلي",
       "delay": "تأخير",
       "attachment": "المرفق",
-      "issue_type": "نوع القضية"
+      "issue_type": "نوع القضية",
+      "employe_id":"معرف الموظف",
+      "user_status":"حالة المستخدم"
     },
     "button": {
       "view_report": "عرض التقرير",
