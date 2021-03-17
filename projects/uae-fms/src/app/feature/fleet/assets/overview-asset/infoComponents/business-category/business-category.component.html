@@ -1,1 +1,17 @@
-<p>business-category works!</p>
+<div class="table-container">
+  <div class="card-table">
+    <span class="search-container card-table-header col-auto">
+      <div class="search-box">
+        <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
+        <button>
+          <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
+        </button>
+      </div>
+      <button class="btn-download">
+        <svg-icon [src]="downloadBtn"></svg-icon>
+      </button>
+      <button class="btn-primary-small" type="button"><i>+</i><a>{{'search.change' | translate}}</a></button>
+    </span>
+    <app-table [setting]="business_category"></app-table>
+  </div>
+</div>

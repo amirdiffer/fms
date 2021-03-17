@@ -173,7 +173,20 @@
     "deducte": "حسم",
     "pending": "قيد الانتظار",
     "complete": "اكتمال",
-    "cancel": "يلغي"
+    "cancel": "يلغي",
+    "item": "الصنف",
+    "asset": "الأصل",
+    "sub_asset": "أصل فرعي",
+    "accessory": "الملحقات",
+    "calendar": "تقويم",
+    "issue_type": "نوع القضية",
+    "technical_report": "تقرير تقني",
+    "estimate": "المتوقع",
+    "installation": "تثبيت",
+    "tasks": "المهام",
+    "started": "بدأت",
+    "not_started": "لم يبدأ",
+    "closed": "مغلق"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -214,7 +227,8 @@
     "model": "الموديل",
     "request": "طلب",
     "task": "المهمة",
-    "job_card": "بطاقة عمل"
+    "job_card": "بطاقة عمل",
+    "change": "يتغيرون"
   },
   "tables": {
     "column": {
@@ -459,6 +473,7 @@
       "need_part": "تحتاج الجزء",
       "description": "الوصف",
       "select_issue": "حدد المشكلة من فضلك",
+      "latest_location":"آخر موقع ",
       "requests": {
         "asset_info": "معلومات الأصول",
         "asset": "الأصل",

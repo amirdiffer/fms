@@ -1,3 +1,4 @@
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ColumnType } from '@core/table';
 
@@ -415,13 +416,40 @@ export class JobCardComponent implements OnInit {
     }
   };
 
+
+  formGroup: FormGroup;
+
+  migrateForm(): void {
+    this.formGroup = this._fb.group({
+      task: this._fb.array([this.createTaskForm()])
+    });
+  }
+
+
+  createTaskForm(): FormGroup {
+    return this._fb.group({
+      task: [''],
+      priority: [''],
+      technician: [''],
+      location: [''],
+      need_part: [''],
+    });
+  }
+
+  addTask(): void {
+    let tasks = this.formGroup.get('task') as FormArray;
+    tasks.push(this.createTaskForm());
+  }
+
   section = 'list';
   showSection(section: string): void {
     this.section = section;
   }
 
 
-  constructor() {}
+  constructor(private _fb: FormBuilder) {
+    this.migrateForm();
+  }
 
   ngOnInit(): void {}
 }

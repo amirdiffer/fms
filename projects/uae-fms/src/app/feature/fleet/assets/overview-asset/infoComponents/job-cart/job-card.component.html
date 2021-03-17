@@ -126,7 +126,7 @@
     <app-table [setting]="jobCard_Table3"></app-table>
   </div>
 </div>
-<form *ngIf="section == 'form'">
+<form [formGroup]="formGroup" *ngIf="section == 'form'">
   <div class="form-section">
     <h3 class="form-section__title">{{ 'assets.overview.describe_job_card' | translate }}</h3>
     <div class="row form-section__row">
@@ -141,9 +141,18 @@
       </div>
     </div>
   </div>
-  <div class="form-section">
-    <h3 class="form-section__title">{{ 'assets.overview.task' | translate }}</h3>
-    <div class="row form-section__row">
+  <div class="form-section" formArrayName="task">
+    <h3 class="form-section__title">
+      <span class='plus-icon'
+        (click)="addTask()">
+        <svg-icon src='../../../../../assets/icons/add.svg'
+          [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
+          '100%'}"></svg-icon>
+      </span>{{ 'assets.overview.task' | translate }}
+    </h3>
+    <div class="row form-section__row" [formGroupName]="i" *ngFor="let
+    item of formGroup.get('task')['controls']; let i=
+    index;">
       <div class="col-12 col-md-4 p-field form-section__field">
         <div class="autocomplete-select">
             <span class="p-float-label">

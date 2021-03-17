@@ -172,7 +172,20 @@
     "deducte": "Deducted",
     "pending": "Pending",
     "complete": "Complete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "item": "Item",
+    "asset": "Asset",
+    "sub_asset": "Sub Asset",
+    "accessory": "Accessory",
+    "calendar": "Calendar",
+    "issue_type": "Issue Type",
+    "technical_report": "Technical Report",
+    "estimate": "Estimate",
+    "installation": "Installation",
+    "tasks": "Tasks",
+    "started": "Started",
+    "not_started": "Not Started",
+    "closed": "Closed"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -213,7 +226,8 @@
     "model": "Model",
     "request": "Request",
     "task": "Task",
-    "job_card": "Job Card"
+    "job_card": "Job Card",
+    "change": "Change"
   },
   "tables": {
     "column": {
