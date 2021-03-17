@@ -13,59 +13,59 @@
         <hr class="seprator">
         <div class="vehicle-info">
           <span>
-            <h5 class="title">VIN/SN</h5>
+            <h5 class="title">{{ 'assets.overview.overview.vin_sn' | translate }}</h5>
             <h5 class="info">{{vehicle.vin_sn}}</h5>
           </span>
           <span>
-            <h5 class="title">License Plate</h5>
+            <h5 class="title">{{ 'assets.overview.overview.license_plate' | translate }}</h5>
             <h5 class="info">{{vehicle.licensePlate}}</h5>
           </span>
           <span>
-            <h5 class="title">Status</h5>
+            <h5 class="title">{{ 'assets.overview.overview.status' | translate }}</h5>
             <h5 class="info">{{vehicle.status}}</h5>
           </span>
           <span>
-            <h5 class="title">Department</h5>
+            <h5 class="title">{{ 'assets.overview.overview.department' | translate }}</h5>
             <h5 class="info">{{vehicle.department}}</h5>
           </span>
           <span>
-            <h5 class="title">Operator</h5>
+            <h5 class="title">{{ 'assets.overview.overview.operator' | translate }}</h5>
             <h5 class="info">{{vehicle.operator}}</h5>
           </span>
           <span>
-            <h5 class="title">Group</h5>
+            <h5 class="title">{{ 'assets.overview.overview.group' | translate }}</h5>
             <h5 class="info">{{vehicle.group}}</h5>
           </span>
           <span>
-            <h5 class="title">Make</h5>
+            <h5 class="title">{{ 'assets.overview.overview.make' | translate }}</h5>
             <h5 class="info">{{vehicle.make}}</h5>
           </span>
           <span>
-            <h5 class="title">Model</h5>
+            <h5 class="title">{{ 'assets.overview.overview.model' | translate }}</h5>
             <h5 class="info">{{vehicle.model}}</h5>
           </span>
           <span>
-            <h5 class="title">Year</h5>
+            <h5 class="title">{{ 'assets.overview.overview.year' | translate }}</h5>
             <h5 class="info">{{vehicle.year}}</h5>
           </span>
           <span>
-            <h5 class="title">Trim</h5>
+            <h5 class="title">{{ 'assets.overview.overview.trim' | translate }}</h5>
             <h5 class="info">{{vehicle.trim}}</h5>
           </span>
           <span>
-            <h5 class="title">Color</h5>
+            <h5 class="title">{{ 'assets.overview.overview.color' | translate }}</h5>
             <h5 class="info">{{vehicle.color}}</h5>
           </span>
           <span>
-            <h5 class="title">Body Type</h5>
+            <h5 class="title">{{ 'assets.overview.overview.body_type' | translate }}</h5>
             <h5 class="info">{{vehicle.bodyType}}</h5>
           </span>
           <span>
-            <h5 class="title">Salik</h5>
+            <h5 class="title">{{ 'assets.overview.overview.salik' | translate }}</h5>
             <h5 class="info">{{vehicle.salik}}</h5>
           </span>
           <span>
-            <h5 class="title">Warranty</h5>
+            <h5 class="title">{{ 'assets.overview.overview.warranty' | translate }}</h5>
             <h5 class="info">{{vehicle.warranty}}</h5>
           </span>
         </div>
@@ -93,20 +93,20 @@
 
         <div class="col-12">
           <app-tab-view [index]="false" (selectedIndex)="selectedTab($event)" [container]="true">
-            <div title="Overview" class="p-2">
+            <div title="{{ 'tabs.overview' | translate }}" class="p-2">
               <app-vehicle-overview [vehicleId]="vehicleId"></app-vehicle-overview>
             </div>
-            <div title="Movement History" class="p-2"></div>
-            <div title="Business Category" class="p-2">
+            <div title="{{ 'tabs.movement_history' | translate }}" class="p-2"></div>
+            <div title="{{ 'tabs.business_category' | translate }}" class="p-2">
               <app-asset-overview-business-category></app-asset-overview-business-category>
             </div>
-            <div title="Reminder" class="p-2"></div>
-            <div title="Request" class="p-2">
+            <div title="{{ 'tabs.reminder' | translate }}" class="p-2"></div>
+            <div title="{{ 'tabs.request' | translate }}" class="p-2">
               <app-asset-overview-request></app-asset-overview-request>
             </div>
-            <div title="Job Card" class="p-2"><app-asset-overview-job-card></app-asset-overview-job-card></div>
-            <div title="Maintenance Service" class="p-2"></div>
-            <div title="Warranty" class="p-2"></div>
+            <div title="{{ 'tabs.job_card' | translate }}" class="p-0 bg-transparent"><app-asset-overview-job-card></app-asset-overview-job-card></div>
+            <div title="{{ 'tabs.maintenance_service' | translate }}" class="p-2"></div>
+            <div title="{{ 'tabs.warranty' | translate }}" class="p-2"></div>
           </app-tab-view>
         </div>
       </div>
