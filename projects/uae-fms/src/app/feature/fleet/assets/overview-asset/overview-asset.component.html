@@ -104,20 +104,20 @@
 
         <div class="col-12">
           <app-tab-view [index]="false" (selectedIndex)="selectedTab($event)" [container]="true">
-            <div id="Overview" title="{{ 'tabs.overview' | translate }}" class="p-2">
+            <div id="Overview" title="tabs.overview" class="p-2">
               <app-vehicle-overview [vehicleId]="vehicleId"></app-vehicle-overview>
             </div>
-            <div title="{{ 'tabs.movement_history' | translate }}" class="p-2"></div>
-            <div id="Business Category" title="{{ 'tabs.business_category' | translate }}" class="p-2">
+            <div title="tabs.movement_history" class="p-2"></div>
+            <div id="Business Category" title="tabs.business_category" class="p-2">
               <app-asset-overview-business-category></app-asset-overview-business-category>
             </div>
-            <div id="Reminder" title="{{ 'tabs.reminder' | translate }}" class="p-2"></div>
-            <div id="Request" title="{{ 'tabs.request' | translate }}" class="p-2">
+            <div id="Reminder" title="tabs.reminder" class="p-2"></div>
+            <div id="Request" title="tabs.request" class="p-2">
               <app-asset-overview-request></app-asset-overview-request>
             </div>
-            <div id="Job Card" title="{{ 'tabs.job_card' | translate }}" class="p-0 bg-transparent"><app-asset-overview-job-card></app-asset-overview-job-card></div>
-            <div id="Maintenance Service" title="{{ 'tabs.maintenance_service' | translate }}" class="p-2"></div>
-            <div id="warranty" title="{{ 'tabs.warranty' | translate }}" class="p-2"></div>
+            <div id="Job Card" title="tabs.job_card" class="p-0 bg-transparent"><app-asset-overview-job-card></app-asset-overview-job-card></div>
+            <div id="Maintenance Service" title="tabs.maintenance_service" class="p-2"></div>
+            <div id="warranty" title="tabs.warranty" class="p-2"></div>
           </app-tab-view>
         </div>
       </div>

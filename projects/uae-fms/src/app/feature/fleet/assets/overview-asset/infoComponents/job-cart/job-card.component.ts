@@ -1,6 +1,8 @@
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy, Injector } from '@angular/core';
 import { ColumnType } from '@core/table';
+import { Utility } from '@shared/utility/utility';
 
 @Component({
   selector: 'app-asset-overview-job-card',
@@ -8,10 +10,19 @@ import { ColumnType } from '@core/table';
   styleUrls: ['./job-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JobCardComponent implements OnInit {
+export class JobCardComponent extends Utility implements OnInit {
 
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
+
+  itemTypes = [
+    { name: 'Item type 1', id: 1 },
+    { name: 'Item type 2', id: 2 },
+    { name: 'Item type 3', id: 3 },
+    { name: 'Item type 4', id: 4 },
+    { name: 'Item type 5', id: 5 },
+    { name: 'Item type 6', id: 6 }
+  ];
 
   jobCard_Table1 = {
     columns: [
@@ -428,17 +439,31 @@ export class JobCardComponent implements OnInit {
 
   createTaskForm(): FormGroup {
     return this._fb.group({
-      task: [''],
-      priority: [''],
-      technician: [''],
-      location: [''],
-      need_part: [''],
+      task: ['', Validators.compose([Validators.required])],
+      priority: ['', Validators.compose([Validators.required])],
+      technician: ['', Validators.compose([Validators.required])],
+      location: ['', Validators.compose([Validators.required])],
+      need_part: [false, Validators.compose([Validators.required])],
     });
   }
 
+  submitted = false;
   addTask(): void {
+    this.submitted = true;
     let tasks = this.formGroup.get('task') as FormArray;
+    if(tasks.invalid) {
+      return
+    }
     tasks.push(this.createTaskForm());
+  }
+
+  checkValidFG(index) {
+    return this.formGroup.get('task')[index];
+  }
+
+  getValidity(formControl, i) {
+    let invalid = (<FormArray>this.formGroup.get('task')).controls[i]['controls'][formControl].invalid;
+    return invalid && this.submitted;
   }
 
   section = 'list';
@@ -447,9 +472,20 @@ export class JobCardComponent implements OnInit {
   }
 
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder, injector: Injector, private _router: Router) {
+    super(injector);
     this.migrateForm();
   }
 
   ngOnInit(): void {}
+
+  submit() {
+    let tasks = this.formGroup.get('task') as FormArray;
+    if(tasks.invalid) {
+      return
+    }
+    this.showSection('list');
+    this._router.navigate([], { queryParams: {id:'Request'}})
+  }
+
 }
