@@ -89,9 +89,12 @@
     "add_supplier": "Add Supplier",
     "add_technician": "Add Technician",
     "add_location": "Add Location",
-    "add_asset_policy":"Add Asset Policy",
-    "edit_asset_policy":"Edit Asset Policy",
-    "iserve": "IServe"
+    "add_asset_policy": "Add Asset Policy",
+    "edit_asset_policy": "Edit Asset Policy",
+    "iserve": "IServe",
+    "edit_part": "Edit Part",
+    "overview": "OverView",
+    "category": "Category"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -148,6 +151,7 @@
     "integrations": "Integrations"
   },
   "statistic": {
+    "part": "Part",
     "total": "Total",
     "active": "Active",
     "inactive": "Inactive",
@@ -1096,12 +1100,12 @@
     "boat": "Boat",
     "add_type": "Add Type"
   },
-  "chart":{
-    "lifecycle":"Lifecycle",
-    "all":"All",
-    "month":"Month",
-    "week":"Week",
-    "this_month":"This Month",
-    "service":"Service"
+  "chart": {
+    "lifecycle": "Lifecycle",
+    "all": "All",
+    "month": "Month",
+    "week": "Week",
+    "this_month": "This Month",
+    "service": "Service"
   }
 }

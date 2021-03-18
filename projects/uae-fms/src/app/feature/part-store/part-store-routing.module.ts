@@ -12,15 +12,16 @@ import { SuppliersAddFormComponent } from './order-list/suppliers-add-form/suppl
 
 const routes: Routes = [
   { path: 'part-list/add', component: PartListFormComponent },
-  { path: 'part-list', component: PartListComponent},
-  { path: 'part-list/:id', component: PartListComponent , children:[
-    {path:'' , component: PartDetailListComponent}]},
-  { path: 'part-list/:id/:id', component: PartOverviewComponent },
-  { path: 'part-master', component: PartMasterComponent },
+  { path: 'part-list/edit-part', component: PartListFormComponent },
+  { path: 'part-list/category', component: PartDetailListComponent },
+  { path: 'part-list/overview', component: PartOverviewComponent },
+  { path: 'part-list', component: PartListComponent },
   { path: 'part-master/add', component: AddPartMasterComponent },
-  { path: 'order-list', component: OrderListComponent },
+  { path: 'part-master', component: PartMasterComponent },
   { path: 'order-list/add-order-list', component: OrderFormComponent },
-  { path :'order-list/add-supplier' , component:SuppliersAddFormComponent},
+  { path: 'order-list/add-supplier', component: SuppliersAddFormComponent },
+  { path: 'order-list', component: OrderListComponent },
+
   {
     path: '',
     pathMatch: 'full',

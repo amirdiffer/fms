@@ -89,10 +89,13 @@
     "add_supplier": "إضافة مورد",
     "add_technician": "إضافة فني",
     "add_location": "اضافة الموقع",
-    "add_asset_policy":"إضافة سياسة الأصول",
-    "edit_asset_policy":"تحرير سياسة الأصول",
+    "add_asset_policy": "إضافة سياسة الأصول",
+    "edit_asset_policy": "تحرير سياسة الأصول",
     "inspections": "التفتيش",
-    "iserve": "IServe"
+    "iserve": "IServe",
+    "edit_part": "تحرير الجزء",
+    "overview": "نظرة عامة",
+    "category": "الفئة"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -149,6 +152,7 @@
     "integrations": "الدمج"
   },
   "statistic": {
+    "part": "جزء",
     "total": "إجمالي",
     "active": "مفعل",
     "inactive": "غير مفعل",
@@ -1096,12 +1100,12 @@
     "boat": "قارب",
     "add_type": "إضافة نوع"
   },
-  "chart":{
-    "lifecycle":"دورة الحياة",
-    "all":"الجميع",
-    "month":"شهر",
-    "week":"أسبوع",
-    "this_month":"الشهر الحالي",
-    "service":"الخدمة"
+  "chart": {
+    "lifecycle": "دورة الحياة",
+    "all": "الجميع",
+    "month": "شهر",
+    "week": "أسبوع",
+    "this_month": "الشهر الحالي",
+    "service": "الخدمة"
   }
 }
