@@ -201,5 +201,6 @@ export enum ButtonType {
 
 export interface FloatButtonType {
   button: string,
-  color?: string
+  color?: string,
+  onClick?: Function;
 }

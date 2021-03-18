@@ -12,6 +12,7 @@ export class AlretDialogComponent implements OnInit {
   @Output() confirm =  new EventEmitter<boolean>();
   timesCircle="assets/icons/times-circle.svg";
   checkCircle="assets/icons/check-circle.svg";
+  warningTriangle="assets/icons/exclamation-triangle.svg";
   constructor() { }
 
   ngOnInit(): void {
@@ -29,10 +30,12 @@ export class AlretDialogComponent implements OnInit {
 
 export interface IDialogAlert{
   header:string;
-  hasError?:boolean;
+  hasHeader?:boolean; // design system alert dialog
+  hasError?:boolean; // Error -  if is true Warning mode doesn't work
+  isWarning?:boolean; // Warning
   message:string;
-  confirmButton?: string;
-  cancelButton: string;
+  confirmButton: string;
+  cancelButton?: string;
 }
 
 /* example */

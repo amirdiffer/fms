@@ -10,7 +10,7 @@
       <button class="btn-download" disabled>
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
-      <button CheckAccess="asset-policy:create" class="btn-primary-small" (click)="addClicked($event)"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
+      <button *ngIf="selectedTab=='assetPolicyAssetTab'" CheckAccess="asset-policy:create" class="btn-primary-small" [routerLink]="'./add-asset-policy'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
     </span>
     <div title="tabs.asset" id="assetPolicyAssetTab">
       <app-table [setting]='assetPolicy_Table'></app-table>
