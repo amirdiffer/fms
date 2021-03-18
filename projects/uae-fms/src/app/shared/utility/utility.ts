@@ -1,5 +1,5 @@
 import { Injector } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 export class Utility {
@@ -20,6 +20,22 @@ export class Utility {
     errorType = 'required'
   ): boolean {
     const control: FormControl = formGroup.get(controlName) as FormControl;
+    if (
+      ((control.dirty && control.invalid) || (control.invalid && submited)) &&
+      control.hasError(errorType)
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  hasErrorFormArray(
+    controlName: string,
+    formArray: any,
+    submited = false,
+    errorType = 'required'
+  ): boolean {
+    const control: FormControl = formArray.get(controlName) as FormControl;
     if (
       ((control.dirty && control.invalid) || (control.invalid && submited)) &&
       control.hasError(errorType)
