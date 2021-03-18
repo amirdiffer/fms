@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting } from '@core/table';
 import { AuctionListFacade } from '@feature/workshop/+state/auction-list/auction/auction-list.facade';
@@ -284,7 +285,8 @@ export class AuctionListComponent implements OnInit, OnDestroy {
 
   constructor(
     private _facade: AuctionListFacade,
-    private _fake_serviceservice: FakeServiceAuctionList
+    private _fake_serviceservice: FakeServiceAuctionList,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -296,4 +298,9 @@ export class AuctionListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.editOpen$.unsubscribe();
   }
+
+  submitSold() {
+    this._router.navigate([], { queryParams: { id: 'soldTab' } });
+  }
+
 }
