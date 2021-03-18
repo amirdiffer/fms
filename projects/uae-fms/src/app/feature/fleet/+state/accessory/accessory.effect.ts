@@ -10,8 +10,8 @@ export class AccessoryEffect {
   mockData = [
     {
       id: 1,
-      itemName: "Item Name 1",
-      assignedToType: "123",
+      itemName: 'Item Name 1',
+      assignedToType: '123',
       assignedToEntity: 123,
       accessoryTypeId: 123,
       quantity: 123,
@@ -19,8 +19,8 @@ export class AccessoryEffect {
     },
     {
       id: 2,
-      itemName: "Item Name 2",
-      assignedToType: "123",
+      itemName: 'Item Name 2',
+      assignedToType: '123',
       assignedToEntity: 123,
       accessoryTypeId: 123,
       quantity: 123,
@@ -29,16 +29,14 @@ export class AccessoryEffect {
   ];
   LoadAll$ = createEffect(() =>
     this.action$.pipe(
-        ofType(AccessoryActions.loadAll),
-        mergeMap((action) =>
-            this.service.loadAll().pipe(
-                map((data) => AccessoryActions.allDataLoaded({ data: data.message })),
-                catchError((error) =>
-                    of(AccessoryActions.error({ reason: error }))
-                 )
-            )
+      ofType(AccessoryActions.loadAll),
+      mergeMap((action) =>
+        this.service.loadAll().pipe(
+          map((data) => AccessoryActions.allDataLoaded({ data: data.message })),
+          catchError((error) => of(AccessoryActions.error({ reason: error })))
         )
       )
+    )
   );
 
   loadStatistics$ = createEffect(() =>
