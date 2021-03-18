@@ -14,12 +14,13 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AlretDialogComponent implements OnInit {
-  @Input('settings') settings: IDialogAlert;
-  @Input('displayModal') displayModal: boolean;
-  @Output() confirm = new EventEmitter<boolean>();
-  timesCircle = 'assets/icons/times-circle.svg';
-  checkCircle = 'assets/icons/check-circle.svg';
-  constructor() {}
+  @Input ('settings') settings : IDialogAlert;
+  @Input('displayModal') displayModal : boolean;
+  @Output() confirm =  new EventEmitter<boolean>();
+  timesCircle="assets/icons/times-circle.svg";
+  checkCircle="assets/icons/check-circle.svg";
+  warningTriangle="assets/icons/exclamation-triangle.svg";
+  constructor() { }
 
   ngOnInit(): void {}
   confirmDialog() {
@@ -32,12 +33,14 @@ export class AlretDialogComponent implements OnInit {
   }
 }
 
-export interface IDialogAlert {
-  header: string;
-  hasError?: boolean;
-  message: string;
+export interface IDialogAlert{
+  header:string;
+  hasHeader?:boolean; // design system alert dialog
+  hasError?:boolean; // Error -  if is true Warning mode doesn't work
+  isWarning?:boolean; // Warning
+  message:string;
   confirmButton?: string;
-  cancelButton: string;
+  cancelButton?: string;
 }
 
 /* example */

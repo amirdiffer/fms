@@ -42,6 +42,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AccordionModule } from 'primeng/accordion';
 
+import { AlretDialogModule } from '@core/alret-dialog/alret-dialog.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -80,6 +81,7 @@ import { AccordionModule } from 'primeng/accordion';
     MatProgressBarModule,
     NgxFileDropModule,
     AccordionModule
+    AlretDialogModule
   ],
   declarations: [RtlSupportDirective, CheckAccessDirective],
   exports: [
@@ -127,6 +129,7 @@ import { AccordionModule } from 'primeng/accordion';
     NgxFileDropModule,
     OverlayPanelModule,
     AccordionModule
+    AlretDialogModule
   ]
 })
 export class SharedModule {

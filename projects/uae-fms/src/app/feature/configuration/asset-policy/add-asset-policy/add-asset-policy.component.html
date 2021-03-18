@@ -1,6 +1,6 @@
 <form [formGroup]="assetPolicyForm">
     <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="goToList()">{{ 'forms.cancel' | translate }}</button>
+        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
         <button  class="btn-primary-medium add" (click)="submit()">{{ 'forms.add' | translate }}</button>
     </div>
     <!-- form-section form-section--inline-->
@@ -32,11 +32,11 @@
                     <input formControlName="policyName" pInputText
                         placeholder="{{ 'configuration.asset_policy.asset.policy_name' | translate }} *" required type="text">
                     <label>{{ 'configuration.asset_policy.asset.policy_name' | translate }} *</label>
-                    <anms-error
-                        [showError]="hasError('policyName',assetPolicyForm,submited)"
-                        error="forms.feedback.required">
-                    </anms-error>
-                </span>
+                  </span>
+                  <anms-error
+                      [showError]="hasError('policyName',assetPolicyForm,submited)"
+                      error="forms.feedback.required">
+                  </anms-error>
             </div>
 
         </div>
@@ -52,13 +52,13 @@
                     <input formControlName="killometerUsage" pInputText
                         placeholder="{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *" required type="text">
                     <label>{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *</label>
-                    <anms-error
-                        [showError]="hasError('killometerUsage',assetPolicyForm,submited)"
-                        error="forms.feedback.required"></anms-error>
-                </span>
+                  </span>
+                  <anms-error
+                      [showError]="hasError('killometerUsage',assetPolicyForm,submited)"
+                      error="forms.feedback.required"></anms-error>
             </div>
             <div class="col-12 col-md-1 p-field form-section__field
-                text-center">
+                d-flex justify-content-center align-self-center">
                 {{ 'configuration.asset_policy.asset.or' | translate }}
             </div>
             <div class="col-12 col-md-3 p-field form-section__field">
@@ -77,7 +77,7 @@
                            type="text">
                            <label>% {{ 'tables.column.depreciation_value' | translate }} *</label>
                           </span>
-                          <span class="p-inputgroup-addon">{{ 'configuration.asset_policy.asset.yearly' | translate }}</span>
+                          <span class="yearly">{{ 'configuration.asset_policy.asset.yearly' | translate }}</span>
                         </div>
                         <anms-error
                           [showError]="hasError('depreciationValue',assetPolicyForm,submited)"
@@ -99,3 +99,7 @@
         <app-table [setting]="assetPolicy_Table"></app-table>
     </div>
 </div>
+
+
+<alret-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel" (confirm)="dialogCancelConfirm($event)"></alret-dialog>
+<alret-dialog [settings]="dialogSettingAdd" [displayModal]="dialogModalAdd" (confirm)="dialogAddConfirm($event)"></alret-dialog>
