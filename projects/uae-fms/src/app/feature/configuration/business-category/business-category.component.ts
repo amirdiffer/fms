@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ColumnType, TableSetting } from '@core/table';
 import { BusinessCategoryFacade } from '../+state/business-category';
+import { DataService } from './data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-business-category',
@@ -88,27 +90,26 @@ export class BusinessCategoryComponent implements OnInit {
     rowSettings: {
       onClick: (col, data, button?) => {
         console.log(col, data, button);
+        this.dataService.dataToEditFromTable = data;
+        this.dataService.isEditing = true;
+        this.router
+          .navigate(['/configuration/business-category/add-business-category'])
+          .then();
       },
       floatButton: [
         {
           button: 'edit',
           color: '#3F3F3F'
-        },
-        {
-          button: 'external'
-        },
-        {
-          button: 'cancel',
-          color: '#F75A4A'
-        },
-        {
-          button: 'checked'
         }
       ]
     }
   };
 
-  constructor(private facade: BusinessCategoryFacade) {}
+  constructor(
+    private facade: BusinessCategoryFacade,
+    private dataService: DataService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();

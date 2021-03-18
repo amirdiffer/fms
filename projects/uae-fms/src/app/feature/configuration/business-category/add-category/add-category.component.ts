@@ -2,12 +2,14 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Injector
+  Injector,
+  OnDestroy
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'anms-add-category',
@@ -15,7 +17,7 @@ import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
   styleUrls: ['./add-category.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddCategoryComponent extends Utility implements OnInit {
+export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   dialogModal = false;
 
   dialogSetting: IDialogAlert = {
@@ -123,7 +125,11 @@ export class AddCategoryComponent extends Utility implements OnInit {
     { name: 'Accessory 6', id: 6 }
   ];
 
-  constructor(private _fb: FormBuilder, injector: Injector) {
+  constructor(
+    private _fb: FormBuilder,
+    injector: Injector,
+    public dataService: DataService
+  ) {
     super(injector);
   }
 
@@ -136,6 +142,27 @@ export class AddCategoryComponent extends Utility implements OnInit {
       assignSubAsset: new FormArray([this.createAssignSubAsset()]),
       assignAccessory: new FormArray([this.createAssignAccessory()])
     });
+
+    if (this.dataService.isEditing) {
+      this.addCategoryForm.patchValue({
+        name: this.dataService.dataToEditFromTable.Category_Name,
+        assetType: {
+          name: this.dataService.dataToEditFromTable.Asset_Type,
+          id: 1
+        },
+        activeCategory:
+          this.dataService.dataToEditFromTable.Status === 'Active',
+        description: this.dataService.dataToEditFromTable.Description
+      });
+
+      this.assignSubAsset.controls[0].patchValue({
+        assetQuantity: this.dataService.dataToEditFromTable.Accessory
+      });
+
+      this.assignAccessory.controls[0].patchValue({
+        accessoryQuantity: this.dataService.dataToEditFromTable.Sub_Asset
+      });
+    }
   }
 
   get assignSubAsset(): FormArray {
@@ -161,13 +188,15 @@ export class AddCategoryComponent extends Utility implements OnInit {
   }
 
   addAssignSubAsset(): void {
-    const list = this.addCategoryForm.get('assignSubAsset') as FormArray;
-    list.push(this.createAssignSubAsset());
+    if (this.assignSubAsset.valid) {
+      this.assignSubAsset.push(this.createAssignSubAsset());
+    }
   }
 
   addAssignAccessory(): void {
-    const list = this.addCategoryForm.get('assignAccessory') as FormArray;
-    list.push(this.createAssignAccessory());
+    if (this.assignAccessory.valid) {
+      this.assignAccessory.push(this.createAssignAccessory());
+    }
   }
 
   dialogConfirm(event): void {
@@ -185,19 +214,24 @@ export class AddCategoryComponent extends Utility implements OnInit {
     this.dialogSetting.confirmButton = 'Yes';
     this.dialogSetting.cancelButton = 'No';
     this.dialogSetting.hasError = false;
+    this.dialogSetting.isWarning = true;
     this.dialogSetting.message =
       'Are you sure to cancel adding new business category?';
   }
 
   submit() {
-    this.dialogModal = true;
     this.submited = true;
     if (this.addCategoryForm.invalid) {
-      this.dialogSetting.hasError = true;
-      this.dialogSetting.confirmButton = 'OK';
-      this.dialogSetting.message = 'Some fields are empty, please fill them';
-      this.dialogSetting.cancelButton = undefined;
+      return;
+    }
 
+    this.dialogModal = true;
+
+    if (this.dataService.isEditing) {
+      this.dialogSetting.header = 'Edit Business Category';
+      this.dialogSetting.message = 'Business category edited successfully.';
+      this.dialogSetting.confirmButton = 'OK';
+      this.dialogSetting.cancelButton = undefined;
       return;
     }
 
@@ -241,5 +275,10 @@ export class AddCategoryComponent extends Utility implements OnInit {
       { name: 'Old asset type 5', id: 5 },
       { name: 'Old asset type 6', id: 6 }
     ];
+  }
+
+  ngOnDestroy(): void {
+    this.dataService.isEditing = false;
+    this.dataService.dataToEditFromTable = undefined;
   }
 }
