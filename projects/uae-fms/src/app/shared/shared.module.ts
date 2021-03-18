@@ -80,7 +80,7 @@ import { AlretDialogModule } from '@core/alret-dialog/alret-dialog.module';
     MatStepperModule,
     MatProgressBarModule,
     NgxFileDropModule,
-    AccordionModule
+    AccordionModule,
     AlretDialogModule
   ],
   declarations: [RtlSupportDirective, CheckAccessDirective],
@@ -128,7 +128,7 @@ import { AlretDialogModule } from '@core/alret-dialog/alret-dialog.module';
     MatProgressBarModule,
     NgxFileDropModule,
     OverlayPanelModule,
-    AccordionModule
+    AccordionModule,
     AlretDialogModule
   ]
 })

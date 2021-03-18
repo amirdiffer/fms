@@ -91,9 +91,8 @@
     "add_location": "Add Location",
     "iserve": "IServe",
     "customization": "Customization",
-    "add_asset_policy":"Add Asset Policy",
-    "edit_asset_policy":"Edit Asset Policy",
-
+    "add_asset_policy": "Add Asset Policy",
+    "edit_asset_policy": "Edit Asset Policy"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -1122,12 +1121,12 @@
     "boat": "Boat",
     "add_type": "Add Type"
   },
-  "chart":{
-    "lifecycle":"Lifecycle",
-    "all":"All",
-    "month":"Month",
-    "week":"Week",
-    "this_month":"This Month",
-    "service":"Service"
+  "chart": {
+    "lifecycle": "Lifecycle",
+    "all": "All",
+    "month": "Month",
+    "week": "Week",
+    "this_month": "This Month",
+    "service": "Service"
   }
 }
