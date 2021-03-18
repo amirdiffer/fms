@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 import { TableSetting } from '@core/table';
 import {
   AssetPolicyFacade,
@@ -127,14 +128,32 @@ export class AssetPolicyComponent implements OnInit {
       }
     ]
   };
+  selectedTab: any;
 
   constructor(
     private assetPolicyFacade: AssetPolicyFacade,
-    private subAssetPolicyFacade: SubAssetPolicyFacade
+    private subAssetPolicyFacade: SubAssetPolicyFacade,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
     this.assetPolicyFacade.loadAll();
     this.subAssetPolicyFacade.loadAll();
+  }
+
+  addClicked(e: Event) {
+    switch (this.selectedTab) {
+      case 'assetPolicyAssetTab':
+        this._router.navigate(['configuration/asset-policy/add']);
+        break;
+      case 'assetPolicySubAssetTab':
+        this._router.navigate(['configuration/asset-policy/add'], {
+          queryParams: { id: 'assetPolicySubAssetTab' }
+        });
+        break;
+      default:
+        this._router.navigate(['configuration/asset-policy']);
+        break;
+    }
   }
 }

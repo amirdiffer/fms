@@ -78,11 +78,15 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
   };
   assetPolicyForm: FormGroup;
   submited = false;
+  currentTab: string;
   constructor(private _fb: FormBuilder, private injector: Injector) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      (params) => (this.currentTab = params['id'])
+    );
     this.assetPolicyForm = this._fb.group({
       policyType: ['asset', [Validators.required]],
       policyName: ['', [Validators.required]],

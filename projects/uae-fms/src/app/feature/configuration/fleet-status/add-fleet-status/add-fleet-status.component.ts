@@ -73,12 +73,16 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
     { name: 'Category 4', id: 4 },
     { name: 'Category 5', id: 5 }
   ];
+  currentTab: string;
 
   constructor(injector: Injector, private _fb: FormBuilder) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      (params) => (this.currentTab = params['id'])
+    );
     this.fleetStatusForm = this._fb.group({
       typeCategory: ['asset'],
       statusCategory: ['', [Validators.required]],
