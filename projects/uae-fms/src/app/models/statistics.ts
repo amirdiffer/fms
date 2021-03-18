@@ -61,3 +61,12 @@ export interface IFuelManagementStatistics extends IGeneralResponse {
   available: number;
   assigned: number;
 }
+
+export interface ITrafficFineStatistics extends IGeneralResponse {
+  message: {
+    deducted: number;
+    paid: number;
+    total: number;
+    unpaid: number;
+  };
+}
