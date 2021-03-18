@@ -10,11 +10,11 @@ import {
 import { Event, Router } from '@angular/router';
 import { ButtonType } from '@core/table/table.component';
 @Component({
-  templateUrl: './body-shop.component.html',
-  styleUrls: ['./body-shop.component.scss'],
+  templateUrl: './service-shop.component.html',
+  styleUrls: ['./service-shop.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodyShopComponent implements OnInit {
+export class ServiceShopComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   filterSetting: FilterCardSetting[] = [
     {
@@ -241,14 +241,6 @@ export class BodyShopComponent implements OnInit {
         lable: 'tables.column.workshop_manager_approval',
         field: 'workshopManagerApproval',
         type: ColumnType.lable
-      },
-      {
-        lable: '',
-        field: 'floatButton',
-        width: 0,
-        type: ColumnType.lable,
-        thumbField: '',
-        renderer: 'floatButton'
       }
     ],
     data: [
@@ -350,17 +342,7 @@ export class BodyShopComponent implements OnInit {
         cost: '30.000 AED',
         workshopManagerApproval: 'Approved'
       }
-    ],
-    rowSettings: {
-      onClick: (col, data) => {
-        console.log(col, data);
-      },
-      floatButton: [
-        {
-          button: 'external'
-        }
-      ]
-    }
+    ]
   };
 
   table3Setting: TableSetting = {
@@ -643,17 +625,17 @@ export class BodyShopComponent implements OnInit {
       case 'jobcardTab':
         break;
       case 'technicianTab':
-        this.router.navigate(['workshop/body-shop/add-technician'], {
+        this.router.navigate(['workshop/service-shop/add-technician'], {
           queryParams: { id: 'technicianTab' }
         });
         break;
       case 'locationTab':
-        this.router.navigate(['workshop/body-shop/add-location'], {
+        this.router.navigate(['workshop/service-shop/add-location'], {
           queryParams: { id: 'locationTab' }
         });
         break;
       default:
-        this.router.navigate(['workshop/body-shop/add-request']);
+        this.router.navigate(['workshop/service-shop/add-request']);
         break;
     }
   }

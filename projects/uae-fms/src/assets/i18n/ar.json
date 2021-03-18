@@ -92,7 +92,8 @@
     "add_asset_policy":"إضافة سياسة الأصول",
     "edit_asset_policy":"تحرير سياسة الأصول",
     "inspections": "التفتيش",
-    "iserve": "IServe"
+    "iserve": "IServe",
+    "add_role_permission":"إضافة إذن الدور"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -777,9 +778,11 @@
   "workshop": {
     "body_shop": {
       "requests": {
+        "periodic_service": "الصيانة الدورية",
         "asset_info": "معلومات الأصول",
         "asset": "الأصل",
-        "asset_validation_error": "",
+        "asset_validation_error": "الرجاء البحث واختيار عنصر من القائمة",
+        "periodic_service_validation_error": "الرجاء البحث واختيار عنصر من الخدمة الدورية",
         "gps_meter_source": "مصدر عداد GPS",
         "manual_update": "تحديث يدوي",
         "accident": "حادثة",

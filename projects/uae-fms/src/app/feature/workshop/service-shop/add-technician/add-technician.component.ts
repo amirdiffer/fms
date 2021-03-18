@@ -25,7 +25,9 @@ import {
   styleUrls: ['./add-technician.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddTechnicianComponent extends Utility implements OnInit {
+export class ServiceShopAddTechnicianComponent
+  extends Utility
+  implements OnInit {
   inputForm: FormGroup;
   filteredEmployeNumb;
   filteredLocation;
@@ -214,7 +216,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       }
     ]
   };
-  currentTab: string;
 
   constructor(
     private _fb: FormBuilder,

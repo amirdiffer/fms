@@ -1,0 +1,31 @@
+@import '../../../../../themes/green-theme.scss';
+@import '../../../../../assets/scss/form-section.scss';
+
+.overflow-visible {
+  overflow: visible;
+}
+
+.form-section {
+  .select-level {
+    input[type='radio'] {
+      display: none;
+    }
+    .flag {
+      cursor: pointer;
+      span {
+        margin-left: 8px;
+      }
+    }
+  }
+}
+.row {
+  margin-top: 10px !important;
+  .form-section:first-child {
+    margin-top: 0 !important;
+  }
+}
+
+.component_wrapper {
+  padding: 14px !important;
+  margin: 4px 0px !important;
+}

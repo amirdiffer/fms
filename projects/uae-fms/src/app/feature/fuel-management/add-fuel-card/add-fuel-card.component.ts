@@ -1,5 +1,6 @@
 import { TableSetting } from '@core/table';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'anms-add-fuel-card',
@@ -8,9 +9,14 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddFuelCardComponent implements OnInit {
-  constructor() {}
+  currentTab: string;
+  constructor(private activatedRoute: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.currentTab = params['id'];
+    });
+  }
 
   fuelCardsTableData = [
     {
