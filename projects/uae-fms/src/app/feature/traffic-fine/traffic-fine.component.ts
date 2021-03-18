@@ -373,7 +373,6 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._trafficFineFacade.loadAll();
     this._trafficFineFacade.trafficFine$.subscribe((x) => {
-      console.log(x);
       this.trafficFine_Table.data = [];
       x.map((responseObject) => {
         const trafficFineTableData = {
@@ -401,7 +400,6 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
     });
     this._assetTrafficFineFacade.loadAll();
     this._assetTrafficFineFacade.trafficFine$.subscribe((x) => {
-      console.log(x);
       this.assetTraffic_Table.data = [];
       x.map((responseObject) => {
         const assetTrafficTableData = {
@@ -430,8 +428,6 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
     this._trafficFineFacade.loadStatistics();
     this.getStatisticsSubscription = this._trafficFineFacade.statistics$.subscribe(
       (response) => {
-        console.log(response);
-
         if (response) {
           const message = response.message;
           this.filterCard.map((filter) => {
