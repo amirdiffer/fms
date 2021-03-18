@@ -42,5 +42,7 @@ export class TableUserRendererComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.user);
+  }
 }

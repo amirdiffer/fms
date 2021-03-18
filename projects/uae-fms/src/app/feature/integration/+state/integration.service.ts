@@ -14,4 +14,10 @@ export class IntegrationService {
       environment.baseApiUrl + 'configuration/integrations'
     );
   }
+  post(data): Observable<ResponseBody<IIntegration>> {
+    return this.http.post<ResponseBody<IIntegration>>(
+      environment.baseApiUrl + 'configuration/integrations',
+      data
+    );
+  }
 }

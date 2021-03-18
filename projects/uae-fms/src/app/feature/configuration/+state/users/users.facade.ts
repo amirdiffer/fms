@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { UsersPartialState } from './users.entity';
 import { UsersSelectors } from './users.selectors';
 import { UsersActions } from './users.actions';
+import { IUser } from '@models/configuration';
 
 @Injectable()
 export class UsersFacade {
@@ -19,5 +20,9 @@ export class UsersFacade {
   loadAll() {
     this.store.dispatch(UsersActions.loadAll());
     this.store.dispatch(UsersActions.loadStatistics());
+  }
+
+  addUser(data: IUser) {
+    this.store.dispatch(UsersActions.addUser({ data }));
   }
 }

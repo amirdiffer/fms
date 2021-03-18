@@ -1,3 +1,5 @@
+import { Department } from './organization';
+
 export interface IUser {
   id: number;
   employeeNumber: number;
@@ -5,11 +7,16 @@ export interface IUser {
   lastName: string;
   profileDocId: number;
   organizationId: number;
-  departmentId: number;
+  department: IDepartment;
   emails: string[];
   phoneNumbers: string[];
   isActive: boolean;
   roleId: number;
+  notifyByEmail: boolean;
+  notifyByPush: boolean;
+  notifyByCall: boolean;
+  notifyBySMS: boolean;
+  notifyByWhatsApp: boolean;
 }
 
 export interface IRole {
@@ -33,4 +40,11 @@ export interface IOwnerShip {
 export interface IPeriodicService {
   id: number;
   name: string;
+}
+
+export interface IDepartment {
+  id: number;
+  name: string;
+  organizationId: number;
+  organizationName: string;
 }

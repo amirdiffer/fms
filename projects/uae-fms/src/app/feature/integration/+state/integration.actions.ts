@@ -10,6 +10,14 @@ export class IntegrationActions {
     props<{ data: IIntegration[] }>()
   );
 
+  static addintegration = createAction(
+    '[Integration] add integration',
+    props<{ data: IIntegration }>()
+  );
+  static integrationAddedSuccessfullt = createAction(
+    '[Integration] integration added successfully',
+    props<{ data: IIntegration }>()
+  );
   static error = createAction(
     '[Integration] error occurred',
     props<{ reason: any }>()
