@@ -688,7 +688,9 @@
       "title": "Upload CSV File of Toll",
       "progressbar_title": "CSV File Only",
       "content": "Drag and Drop a File here",
-      "upload": "Upload"
+      "upload": "Upload",
+      "save":"Save",
+      "please_upload_a_csv_file":"Please Uplaod a CSV file"
     }
   },
   "part_store": {
