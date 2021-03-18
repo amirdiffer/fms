@@ -369,8 +369,10 @@ export class FuelManagementComponent implements OnInit {
       case 'Fuel Cards':
         this._router.navigate(['fuel-management/add-fuel-card']);
         break;
-      case 'Asset Usage':
-        this._router.navigate(['fuel-management/add-asset-usage']);
+      case 'assetUsageTab':
+        this._router.navigate(['fuel-management/add-asset-usage'], {
+          queryParams: { id: 'assetUsageTab' }
+        });
         break;
       default:
         this._router.navigate(['fuel-management/add-fuel-card']);
