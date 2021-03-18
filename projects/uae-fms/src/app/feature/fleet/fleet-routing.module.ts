@@ -31,15 +31,15 @@ const routes: Routes = [
   { path: 'operator/add', component: AddOperatorComponent },
   { path: 'assets', component: AssetsComponent },
   { path: 'assets/add', component: AddAssetComponent },
+  { path: 'assets/:id', component: OverViewAssetComponent },
   {
-    path: 'assets/registration',
+    path: 'assets/:id/registration',
     component: PendingRegistrationOverviewComponent
   },
   {
-    path: 'assets/customization',
+    path: 'assets/:id/customization',
     component: PendingCustomizationOverviewComponent
   },
-  { path: 'assets/:id', component: OverViewAssetComponent },
   {
     path: 'organization/add-organization',
     component: AddOrganizationComponent

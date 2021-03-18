@@ -1,61 +1,61 @@
-<div class="container">
+<div class="container wrapper">
     <div class="top-container">
       <!-- <svg-icon src="../../../../../assets/icons/car.svg" [svgStyle]="{ 'width.px':100 , 'fill': '#fff' , 'height': '100%'}"></svg-icon> -->
       <img width = "100px" height="100%" src="../../../../../assets/vehicle.png" alt="">
     </div>
     <div class="bottom-container">
-      <h3>Fleet No. DPD 123</h3>
+      <h3>{{ 'assets.fleet_no' | translate }}. DPD 123</h3>
       <ul>
         <li class="row">
-          <span class="col-4">VIN/SN</span>
+          <span class="col-4">{{ 'assets.vin_sn' | translate }}</span>
           <strong class="col-8">{{assetDetail.VIN}}</strong>
         </li>
         <li class="row">
-          <span class="col-4">Licence Plate</span>
+          <span class="col-4">{{ 'assets.licence_plate' | translate }}</span>
           <strong class="col-8">{{assetDetail.licensePlate}}</strong>
         </li>
         <li class="row">
-          <span class="col-4">Status</span>
+          <span class="col-4">{{ 'tables.column.status' | translate }}</span>
           <strong class="col-8">{{assetDetail.status}}</strong>
         </li>
         <li class="row">
-          <span class="col-4">Department</span>
+          <span class="col-4">{{ 'assets.department' | translate }}</span>
           <strong class="col-8">{{assetDetail.department}}</strong>
         </li>
         <li class="row">
-          <span class="col-4">Operator</span>
+          <span class="col-4">{{ 'assets.operator' | translate }}</span>
           <strong class="col-8">{{assetDetail.operator}}</strong>
         </li>
         <li class="row">
-          <span class="col-4">Asset Type</span>
+          <span class="col-4">{{ 'tables.column.asset_type' | translate }}</span>
           <strong class="col-8">{{assetDetail.assetType}}{{assetDetail.VIN}}</strong>
         </li>
         <li class="row">
-          <span class="col-4">Make</span>
+          <span class="col-4">{{ 'assets.make' | translate }}</span>
           <strong class="col-8">{{assetDetail.make}}</strong>
         </li>
         <li class="row">
-          <span class="col-4">Model</span>
+          <span class="col-4">{{ 'assets.model' | translate }}</span>
           <strong class="col-8">{{assetDetail.model}}</strong>
         </li>
         <li class="row">
-          <span class="col-4">Year</span>
+          <span class="col-4">{{ 'assets.year' | translate }}</span>
           <strong class="col-8">{{assetDetail.year}}</strong>
         </li>
         <li class="row">
-          <span class="col-4">Trim</span>
+          <span class="col-4">{{ 'assets.trim' | translate }}</span>
           <strong class="col-8">{{assetDetail.trim}}</strong>
         </li>
         <li class="row">
-          <span class="col-4">Color</span>
+          <span class="col-4">{{ 'assets.color' | translate }}</span>
           <strong class="col-8">{{assetDetail.color}}</strong>
         </li>
         <li class="row">
-          <span class="col-4">Salik</span>
+          <span class="col-4">{{ 'assets.salik' | translate }}</span>
           <strong class="col-8">{{assetDetail.salik}}</strong>
         </li>
         <li class="row">
-          <span class="col-4">Warranty</span>
+          <span class="col-4">{{ 'workshop.technical_inspection.warranty' | translate }}</span>
           <strong class="col-8">{{assetDetail.warranty}}</strong>
         </li>
       </ul>

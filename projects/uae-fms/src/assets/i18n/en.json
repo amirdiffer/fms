@@ -89,7 +89,8 @@
     "add_supplier": "Add Supplier",
     "add_technician": "Add Technician",
     "add_location": "Add Location",
-    "iserve": "IServe"
+    "iserve": "IServe",
+    "customization": "Customization"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -433,7 +434,30 @@
     "estimate_market_value": "Established Market Value",
     "set_reminder": "Set Reminder",
     "week": "Week",
-    "reminder_before": "Reminder Before"
+    "reminder_before": "Reminder Before",
+    "insurance_number": "Insurance Number",
+    "salik_tag": "Salik Tag",
+    "fuel_tag": "Fuel Tag",
+    "current_live": "Current Live",
+    "gps": "Gps",
+    "current_live_reading": "Current Live Reading",
+    "vin": "VIN",
+    "vin_sn": "VIN/SN",
+    "licence_plate": "Licence Plate",
+    "salik": "Salik",
+    "fleet_no": "Fleet No",
+    "start_customization": "Start Customization",
+    "camera": "Camera",
+    "first_camera": "First Camera",
+    "installed": "Installed",
+    "second_camera": "Second Camera",
+    "third_camera": "Third Camera",
+    "content": "Content",
+    "saved": "Saved",
+    "customize_later": "Customize Later",
+    "customize_now": "Customize Now",
+    "asset_successfully_registered": "Asset Successfully Registered",
+    "sample_hint_is_here_to_explain_process": "Sample hint is here to explain process"
   },
   "sub_asset": {
     "sub_asset_specification": "Sub Asset Specification",

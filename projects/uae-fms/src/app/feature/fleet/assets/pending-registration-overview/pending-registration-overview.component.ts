@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
 import { Utility } from '@shared/utility/utility';
 import { AssetRegistrationConfirmComponent } from '../asset-registration-confirm/asset-registration-confirm.component';
 
@@ -36,6 +37,14 @@ export class PendingRegistrationOverviewComponent
   filteredFuelTag: any[];
   inputForm: FormGroup;
   submitted = false;
+  //   displayModal = false;
+  //   dialogSetting : IDialogAlert ={
+  //     header:'Asset Successfully Registered',
+  //     hasError:false,
+  //     message:'Sample hint is here to explain process',
+  //     confirmButton: 'Customize Now',
+  //     cancelButton:'Cancel',
+  // }
 
   constructor(
     private dialog: MatDialog,
@@ -85,6 +94,7 @@ export class PendingRegistrationOverviewComponent
       height: '225px',
       width: '750px'
     });
+    // this.displayModal = true;
   }
 
   submit() {
@@ -94,5 +104,9 @@ export class PendingRegistrationOverviewComponent
     } else {
       this.openConfirmModal();
     }
+  }
+
+  public get language(): string {
+    return localStorage.getItem('lang');
   }
 }

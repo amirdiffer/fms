@@ -250,7 +250,10 @@ export class AssetsService {
             button: 'download'
           },
           {
-            button: 'external'
+            button: 'external',
+            onClick: (col, data) => {
+              this.router.navigate([`/fleet/assets/1/registration`]);
+            }
           },
           {
             button: 'cancel',
@@ -323,7 +326,10 @@ export class AssetsService {
         floatButton: [
           {
             button: 'external',
-            color: '#3F3F3F'
+            color: '#3F3F3F',
+            onClick: (col, data) => {
+              this.router.navigate(['/fleet/assets/1/customization']);
+            }
           }
         ]
       }

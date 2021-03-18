@@ -90,7 +90,9 @@
     "add_technician": "إضافة فني",
     "add_location": "اضافة الموقع",
     "inspections": "التفتيش",
-    "iserve": "IServe"
+    "iserve": "IServe",
+    "customization": "التخصيص",
+    "registration": "التسجيل"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -361,7 +363,8 @@
       "damage": "تلف",
       "traffic_fine": "المخالفات المرورية",
       "cost_of_part": "تكلفة الجزء",
-      "system": "نظام"
+      "system": "نظام",
+      "attachment": "المرفق"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -433,7 +436,30 @@
     "estimate_market_value": "تقدير القيمة السوقية",
     "set_reminder": "تعيين تذكير",
     "week": "أسبوع",
-    "reminder_before": "تذكير من قبل"
+    "reminder_before": "تذكير من قبل",
+    "salik": "سالك",
+    "vin": "فين",
+    "vin_sn": "VIN / SN",
+    "licence_plate": "لوحة معدنية",
+    "fleet_no": "رقم الأسطول",
+    "current_live": "لايف الحالي",
+    "current_live_reading": "القراءة الحية الحالية",
+    "fuel_tag": "بطاقة الوقود",
+    "gps": "نظام تحديد المواقع",
+    "insurance_number": "رقم التأمين",
+    "salik_tag": "بطاقة سالك",
+    "camera": "آلة تصوير",
+    "content": "محتوى",
+    "first_camera": "أول كاميرا",
+    "installed": "المثبتة",
+    "second_camera": "كاميرا ثانية",
+    "start_customization": "ابدأ التخصيص",
+    "third_camera": "الكاميرا الثالثة",
+    "saved": "تم الحفظ",
+    "asset_successfully_registered": "تم تسجيل الأصل بنجاح",
+    "customize_later": "التخصيص لاحقًا",
+    "customize_now": "تخصيص الآن",
+    "sample_hint_is_here_to_explain_process": "نموذج تلميح هنا لشرح العملية"
   },
   "sub_asset": {
     "sub_asset_specification": "مواصفات الأصل الفرعي",
@@ -928,7 +954,7 @@
   "forms": {
     "add": "إضافة",
     "save": "حفظ",
-    "cancel": "إلغاء",
+    "cancel": "يلغي",
     "next": "التالي",
     "back": "الرجوع",
     "view": "رأي",

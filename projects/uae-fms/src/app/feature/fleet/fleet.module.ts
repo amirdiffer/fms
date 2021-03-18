@@ -53,6 +53,7 @@ import { AssetRegistrationConfirmComponent } from './assets/asset-registration-c
 import { MapModule } from '@core/map-view';
 import { OverViewOperatorComponent } from './operator/over-view-operator/over-view-operator.component';
 import { IserveComponent } from './movement/iserv/iserv.component';
+import { AlretDialogModule } from '@core/alret-dialog/alret-dialog.module';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { IserveComponent } from './movement/iserv/iserv.component';
     ProgressBarModule,
     NgApexchartsModule,
     ChartsModule,
-    MapModule
+    MapModule,
+    AlretDialogModule
   ]
 })
 export class FleetModule {}

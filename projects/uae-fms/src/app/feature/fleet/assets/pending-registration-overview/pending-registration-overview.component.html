@@ -1,7 +1,7 @@
 <div class="row wrapper">
     <div class="button-container">
         <button class="btn-primary-medium btn-scondary-green" type="button"
-            routerLink="..">{{'forms.cancel' | translate}}</button>
+            [routerLink]="['/fleet/assets']" [queryParams]="{id: 'pendingRegistrationTab'}">{{'forms.cancel' | translate}}</button>
         <button class="btn-primary-medium add" (click)="submit()"
             type="submit">{{'forms.save' |
             translate}}</button>
@@ -9,16 +9,17 @@
     <div class="col-3 pl-0">
         <anms-asset-detail></anms-asset-detail>
     </div>
+    <!-- <alret-dialog [settings]="dialogSetting" [displayModal]="displayModal"></alret-dialog> -->
     <div class="col-9">
         <form [formGroup]="inputForm">
             <div class="row mt-4">
                 <div class="col-10">
                     <div class="p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText placeholder="Plate Number *"
+                            <input pInputText placeholder="{{ 'tables.column.plate_number' | translate }} *"
                                 formControlName="plateNumber"
                                 type="text">
-                            <label>Plate Number *</label>
+                            <label>{{ 'tables.column.plate_number' | translate }} *</label>
                         </span>
                         <anms-error
                             [showError]="hasError('plateNumber',inputForm,submitted)"
@@ -30,9 +31,9 @@
                 <div class="col-10">
                     <div class="p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText placeholder="Insurance Number *"
+                            <input pInputText placeholder="{{ 'assets.insurance_number' | translate }} *"
                                 type="text" formControlName="insuranceNumber">
-                            <label>Insurance Number *</label>
+                            <label>{{ 'assets.insurance_number' | translate }} *</label>
                         </span>
                         <anms-error
                             [showError]="hasError('insuranceNumber',inputForm,submitted)"
@@ -52,7 +53,7 @@
                                         (completeMethod)="searchSalikTag($event)"
                                         field="name"></p-autoComplete>
                                     <i class="pi pi-search"></i>
-                                    <label>SalikTag *</label>
+                                    <label>{{ 'assets.salik_tag' | translate }} *</label>
                                 </span>
                                 <anms-error
                                     [showError]="hasError('salikTag',inputForm,submitted)"
@@ -73,7 +74,7 @@
                                         (completeMethod)="searchFuelTag($event)"
                                         field="name"></p-autoComplete>
                                     <i class="pi pi-search"></i>
-                                    <label>FuelTag *</label>
+                                    <label>{{ 'assets.fuel_tag' | translate }} *</label>
                                 </span>
                                 <anms-error
                                     [showError]="hasError('fuelTag',inputForm,submitted)"
@@ -87,60 +88,59 @@
                 <div class="col-6">
                     <div class="p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText placeholder="Operator"
+                            <input pInputText placeholder="{{ 'assets.operator' | translate }}"
                                 formControlName="operator"
                                 type="text">
-                            <label>Operator</label>
+                            <label>{{ 'assets.operator' | translate }}</label>
                         </span>
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText placeholder="Department"
+                            <input pInputText placeholder="{{ 'assets.department' | translate }}"
                                 formControlName="department"
                                 type="text">
-                            <label>Department</label>
+                            <label>{{ 'assets.department' | translate }}</label>
                         </span>
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText placeholder="Employee Number"
+                            <input pInputText placeholder="{{ 'operator.employee_number' | translate }}"
                                 formControlName="employeeNumber"
                                 type="text">
-                            <label>Employee Number</label>
+                            <label>{{ 'operator.employee_number' | translate }}</label>
                         </span>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-2 title">
-                    Current Meter
+                    {{ 'tables.column.current_meter' | translate }}
                 </div>
                 <div class="col-3">
                     <div class="form-check">
                         <input class="form-check-input" type="radio"
                             name="radioButton" id="radioButton2"
                             value="estimate">
-                        <label class="form-check-label" for="radioButton2">Current
-                            Live</label>
+                        <label  class="form-check-label" for="radioButton2">{{ 'assets.current_live' | translate }}</label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio"
                             name="radioButton" id="radioButton2"
                             value="estimate">
-                        <label class="form-check-label" for="radioButton2">Gps<br><small>(CR
+                        <label class="form-check-label" for="radioButton2">{{ 'assets.gps' | translate }}<br><small>(CR
                                 136546)</small></label>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText placeholder="Current Live Reading"
+                            <input pInputText placeholder="{{ 'assets.current_live_reading' | translate }}"
                                 type="text" formControlName ="">
-                            <label>Current Live Reading</label>
+                            <label>{{ 'assets.current_live_reading' | translate }}</label>
                         </span>
                     </div>
                 </div>
