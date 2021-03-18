@@ -172,7 +172,8 @@
     "deducte": "Deducted",
     "pending": "Pending",
     "complete": "Complete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "auction_list": "Auction List"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -887,6 +888,8 @@
       "car_card": "Car Card",
       "asset_policy": "Asset Policy",
       "make_decision": "Make Decision",
+      "actual_market_value": "Actual Market Value",
+      "sold": "Sold",
       "upload_form": {
         "title": "Attach Docs",
         "progressbar_title": "",

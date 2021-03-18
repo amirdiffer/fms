@@ -81,6 +81,15 @@
           </span>
         </li>
       </ul>
+      <div class="sold-box p-field form-section__field">
+        <div class="p-inputgroup">
+          <span class="p-float-label">
+            <input type="text" pInputText placeholder="E.x 20000">
+            <button type="button" class="btn-primary-small" [routerLink]="" [queryParams]="{id: 'soldTab'}">{{'workshop.technical_inspection.sold' | translate}}</button>
+            <label>{{'workshop.technical_inspection.actual_market_value' | translate}}</label>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </ng-container>

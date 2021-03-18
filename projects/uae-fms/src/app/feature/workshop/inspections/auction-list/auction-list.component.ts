@@ -24,30 +24,35 @@ export class AuctionListComponent implements OnInit, OnDestroy {
       filterCount: '',
       filterTagColor: '',
       filterTitle: 'statistic.this_month',
+      filterSupTitle: 'statistic.auction_list',
       isCalendar: true,
       onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
+      filterSupTitle: 'statistic.auction_list',
       filterTitle: 'statistic.total',
       onActive: () => {}
     },
     {
       filterCount: '08',
       filterTagColor: '#6870B4',
+      filterSupTitle: 'statistic.auction_list',
       filterTitle: 'statistic.out_of_policy',
       onActive: () => {}
     },
     {
       filterCount: '02',
       filterTagColor: '#BA7967',
+      filterSupTitle: 'statistic.auction_list',
       filterTitle: 'statistic.total_lost',
       onActive: () => {}
     },
     {
       filterCount: '09',
       filterTagColor: '#DD5648',
+      filterSupTitle: 'statistic.auction_list',
       filterTitle: 'statistic.accident',
       onActive: () => {}
     }
@@ -64,8 +69,8 @@ export class AuctionListComponent implements OnInit, OnDestroy {
       { lable: 'tables.column.created_by', field: 'createdBy' },
       { lable: 'tables.column.reason', field: 'reason' },
       { lable: 'tables.column.assignment', field: 'assignment' },
-      { lable: 'tables.column.estimate_market', field: 'estimatedMarket' },
-      { lable: 'tables.column.date', field: 'date' },
+      { lable: 'tables.column.estimate_market', field: 'estimatedMarket', sortable: true },
+      { lable: 'tables.column.date', field: 'date', sortable: true },
       { lable: 'tables.column.location', field: 'location' },
       {
         lable: 'tables.column.remove_item',
@@ -165,7 +170,10 @@ export class AuctionListComponent implements OnInit, OnDestroy {
         location: 'Bardubai, Dubai',
         removeItem: true
       }
-    ]
+    ],
+    rowSettings: {
+      onClick(){}
+    }
   };
 
   settingTable2: TableSetting = {
@@ -184,7 +192,7 @@ export class AuctionListComponent implements OnInit, OnDestroy {
       },
       { lable: 'tables.column.date', field: 'date' },
       { lable: 'tables.column.description', field: 'description' },
-      { lable: 'tables.column.cost', field: 'cost', width: 120 }
+      { lable: 'tables.column.cost', field: 'cost', width: 120, sortable: true }
     ],
     data: [
       {

@@ -173,7 +173,8 @@
     "deducte": "حسم",
     "pending": "قيد الانتظار",
     "complete": "اكتمال",
-    "cancel": "يلغي"
+    "cancel": "يلغي",
+    "auction_list": "قائمة المزاد"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -886,6 +887,8 @@
       "asset_policy": "وثيقة الأصل",
       "make_decision": "إتخذ قرار",
       "generate": "إنشاء",
+      "actual_market_value": "سعر السوق الفعلي",
+      "sold": "مباع",
       "upload_form": {
         "title": "إضافة مرفقات",
         "progressbar_title": "",
