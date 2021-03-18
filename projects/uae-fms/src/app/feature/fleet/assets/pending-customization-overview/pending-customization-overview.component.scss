@@ -1,7 +1,7 @@
 @import '../../../../../themes/green-theme.scss';
 @import '../../../../../assets/scss/form-section.scss';
 .wrapper {
-  background: white !important;
+  // background: white !important;
   h3 {
     margin: 0;
     font-family: $fms-green-h3-font-weight;
@@ -52,6 +52,9 @@
           padding: 0 5px;
           border: 1px solid #d3d3d3;
           border-radius: 6px;
+        }
+        .label {
+          margin: 0 10px;
         }
       }
       .camera-selected-row {

@@ -270,6 +270,17 @@
         color: $fms-black-body-color;
       }
     }
+
+    .p-accordion {
+      .p-accordion-header-link {
+        background-color: $fms-black-body2-bg !important;
+        color: $fms-black-body-color;
+      }
+      .p-accordion-content {
+        background-color: $fms-black-body2-bg;
+        color: $fms-black-body-color;
+      }
+    }
   }
 }
 /* Light Mode */

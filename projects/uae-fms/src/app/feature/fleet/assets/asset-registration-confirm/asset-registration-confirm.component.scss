@@ -4,7 +4,7 @@
   }
 }
 .wrapper {
-  header {
+  .header {
     padding: 10px;
     background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
       0% no-repeat padding-box;
@@ -33,4 +33,7 @@
       }
     }
   }
+}
+.rtl {
+  direction: rtl;
 }

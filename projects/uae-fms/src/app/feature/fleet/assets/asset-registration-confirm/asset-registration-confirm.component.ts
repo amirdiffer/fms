@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { SettingsFacade } from '@core/settings/settings.facade';
 
 @Component({
   selector: 'anms-asset-registration-confirm',
@@ -7,7 +8,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetRegistrationConfirmComponent implements OnInit {
-  constructor() {}
+  activeLang: string;
+  constructor(private settingFacade: SettingsFacade) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.settingFacade.language.subscribe((lang) => (this.activeLang = lang));
+  }
 }
