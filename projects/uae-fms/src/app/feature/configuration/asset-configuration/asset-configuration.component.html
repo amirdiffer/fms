@@ -1,6 +1,6 @@
-<ng-container *ngIf="addOpen">
-    <congifuration-add-type></congifuration-add-type>
-</ng-container>
+<!--<ng-container *ngIf="addOpen">-->
+<!--    <congifuration-add-type></congifuration-add-type>-->
+<!--</ng-container>-->
 <div class="row">
     <div *ngIf="!addOpen" class="col-3 pl-0">
         <configuration-asset-category></configuration-asset-category>
@@ -18,7 +18,7 @@
                         <button class="btn-download" disabled>
                             <svg-icon [src]="downloadBtn"></svg-icon>
                         </button>
-                        <button class="btn-primary-small" (click)="openAdd()"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
+                        <button class="btn-primary-small" routerLink="/configuration/add-asset-configuration"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
                     </span>
           <app-table [setting]="assetConfigurationableSetting"></app-table>
         </div>
