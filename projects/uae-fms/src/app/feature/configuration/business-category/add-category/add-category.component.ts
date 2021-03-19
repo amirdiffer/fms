@@ -8,7 +8,7 @@ import {
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
-import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { DataService } from '../data.service';
 
 @Component({

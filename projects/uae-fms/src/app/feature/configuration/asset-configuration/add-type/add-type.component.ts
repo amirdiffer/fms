@@ -17,7 +17,7 @@ import {
 } from 'ngx-file-drop';
 import { AssetConfigurationService } from '../asset-configuration.service';
 import { TableSetting } from '@core/table';
-import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'congifuration-add-type',
