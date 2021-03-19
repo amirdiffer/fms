@@ -696,7 +696,12 @@
       "asset": "Asset",
       "card_type": "Card Type",
       "expire_date": "Expire Date",
-      "usage_limit": "Usage Limit"
+      "usage_limit": "Usage Limit",
+      "tag_number_validation_error": "Please fill tag number",
+      "expire_date_validation_error": "Please fill expire date",
+      "usage_limit_validation_error": "Please fill usage limit",
+      "assign_to_validation_error": "Please fill asset"
+
     },
     "asset_usage": {}
   },
