@@ -7,6 +7,8 @@ import { ITechnicalInspection } from './technicalInspection.model';
   providedIn: 'root'
 })
 export class MakeDecisionService {
+  public isStartStepper$ = new Subject<boolean>();
+  public activeRadio = '';
   private tableData: ITechnicalInspection[] = [
     {
       system: 'Engine',
@@ -146,6 +148,9 @@ export class MakeDecisionService {
   }
   public getMakeDecision(): Observable<boolean> {
     return this._makeDecision$.asObservable();
+  }
+  public getIsStartStepper(): Observable<boolean> {
+    return this.isStartStepper$.asObservable();
   }
   constructor() {}
 }
