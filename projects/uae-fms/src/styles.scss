@@ -190,11 +190,16 @@
         border-left: 1px solid #a2a2a2;
       }
     }
-    .tabs .tab-titles .tab {
-      background: $fms-black-body1-bg;
-      color: #a2a2a2;
-      &.active-tab {
-        background: $fms-black-body1-bg;
+    .tabs {
+      .tab-titles .tab {
+        background: $fms-black-body1-bg !important;
+        color: #a2a2a2 !important;
+        &.active-tab, &.active-tab-w {
+          background: $fms-black-body2-bg !important;
+        }
+      }
+      .tab-body, .tab-body-w {
+        background: $fms-black-body2-bg !important;
       }
     }
     app-filter {
@@ -270,7 +275,24 @@
         color: $fms-black-body-color;
       }
     }
+    .component_sec_wrapper{
+      background-color: $fms-black-body2-bg;
+    }
   }
+  .component_cus_wrapper {
+    .side-panel {
+      padding: 0px;
+    }
+
+    .component_sec_wrapper {
+      box-shadow: 0px 0px 2px #0000003d;
+      border-radius: 4px;
+      overflow: visible;
+      padding: 1em 0;
+      background-color: $fms-black-body2-bg;
+    }
+  }
+
 }
 /* Light Mode */
 .green-theme {
@@ -297,6 +319,9 @@
       .mat-horizontal-stepper-header-container {
       background: #fff;
     }
+    .component_sec_wrapper{
+      background-color: $fms-green-body1-bg;
+    }
   }
   mat-sidenav-container {
     .content .path > span:not(:last-child) {
@@ -310,6 +335,20 @@
       }
     }
   }
+  .component_cus_wrapper {
+    .side-panel {
+      padding: 0px;
+    }
+
+    .component_sec_wrapper {
+      box-shadow: 0px 0px 2px #0000003d;
+      border-radius: 4px;
+      overflow: visible;
+      padding: 1em 0;
+      background-color: #fff;
+    }
+  }
+
 
   @include form-section(
     $fms-green-body2-bg,
@@ -1009,18 +1048,4 @@ small {
 }
 .p-dropdown {
   background: transparent;
-}
-
-.component_cus_wrapper {
-  .side-panel {
-    padding: 0px;
-  }
-
-  .component_sec_wrapper {
-    box-shadow: 0px 0px 2px #0000003d;
-    border-radius: 4px;
-    overflow: visible;
-    padding: 1em 0;
-    background-color: #fff;
-  }
 }

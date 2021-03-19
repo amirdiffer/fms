@@ -44,11 +44,11 @@
                   <label>{{ 'fuel_management.fuel_cards.expire_date' | translate }} </label>
               </span>
               <small class="red-font m-0" [class.d-none]=" inputForm.get('expireDate').valid || !submited">{{'fuel_management.fuel_cards.expire_date_validation_error' | translate}}</small>
-              
+
             </div>
             <div class="col-12 col-md-3 p-field form-section__field">
               <span class="p-float-label">
-                  <input pInputText placeholder="{{ 'fuel_management.fuel_cards.usage_limit' | translate }}" 
+                  <input pInputText placeholder="{{ 'fuel_management.fuel_cards.usage_limit' | translate }}"
                           formControlName="usageLimit" type="text"
                           [class.invalid]="!inputForm.get('usageLimit').valid && submited">
                   <label>{{ 'fuel_management.fuel_cards.usage_limit' | translate }}</label>

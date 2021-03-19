@@ -16,7 +16,7 @@ const routes: Routes = [
     component: AuctionListComponent
   },
   {
-    path: 'task-master/add',
+    path: 'task-master/add-task-master',
     component: TaskMasterFormComponent
   },
   {
@@ -27,6 +27,13 @@ const routes: Routes = [
     path: 'body-shop',
     loadChildren: () =>
       import('./body-shop/body-shop.module').then((m) => m.BodyShopModule)
+  },
+  {
+    path: 'service-shop',
+    loadChildren: () =>
+      import('./service-shop/service-shop.module').then(
+        (m) => m.ServiceShopModule
+      )
   },
   {
     path: 'inspections',

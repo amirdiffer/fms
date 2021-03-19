@@ -93,7 +93,7 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
         Year: '10',
         Depreciation_Value: '%20'
       }
-      
+
     ],
     rowSettings:{
       onClick: (col, data, button?) => {
@@ -105,7 +105,7 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
             console.log(col, data);
             this._router.navigate(['/configuration/asset-policy/edit-asset-policy/' + data.id]);
           },
-          
+
           button: 'edit',
         }
       ]
@@ -131,7 +131,8 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
     confirmButton: 'Yes',
     cancelButton:'No',
   }
-  constructor(private _fb: FormBuilder, 
+  currentTab: string;
+  constructor(private _fb: FormBuilder,
     private _router:Router,
     private injector: Injector,
     private _routerFacade: RouterFacade) {
@@ -139,6 +140,9 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      (params) => (this.currentTab = params['id'])
+    );
     this.assetPolicyForm = this._fb.group({
       policyType: ['asset', [Validators.required]],
       policyName: ['', [Validators.required]],
