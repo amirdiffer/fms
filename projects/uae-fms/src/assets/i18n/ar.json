@@ -717,7 +717,9 @@
       "title": "تحميل ملف CSV",
       "progressbar_title": "ملف CSV فقط",
       "content": "قم بسحب وإسقاط ملف هنا",
-      "upload": "تحميل"
+      "upload": "تحميل",
+      "save":"حفظ",
+      "please_upload_a_csv_file":"يرجى تحميل ملف CSV"
     }
   },
   "part_store": {
