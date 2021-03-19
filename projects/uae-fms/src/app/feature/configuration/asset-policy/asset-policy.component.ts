@@ -17,19 +17,19 @@ export class AssetPolicyComponent implements OnInit {
 
   assetPolicy_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.policy_name', 
-        type: 1, 
-        field: 'Policy_Name' 
+      { lable: 'tables.column.policy_name',
+        type: 1,
+        field: 'Policy_Name'
       },
-      { 
-        lable: 'tables.column.distance', 
-        type: 1, 
-        field: 'Distance' , 
+      {
+        lable: 'tables.column.distance',
+        type: 1,
+        field: 'Distance' ,
         sortable: true
       },
-      { 
-        lable: 'tables.column.year', 
-        type: 1, field: 'Year', 
+      {
+        lable: 'tables.column.year',
+        type: 1, field: 'Year',
         sortable: true
       },
       {
@@ -97,7 +97,7 @@ export class AssetPolicyComponent implements OnInit {
         Year: '10',
         Depreciation_Value: '%20'
       }
-      
+
     ],
     rowSettings:{
       onClick: (col, data, button?) => {
@@ -109,7 +109,7 @@ export class AssetPolicyComponent implements OnInit {
             console.log(col, data);
             this._router.navigate(['/configuration/asset-policy/edit-asset-policy/' + data.id]);
           },
-          
+
           button: 'edit',
         }
       ]
@@ -184,7 +184,7 @@ export class AssetPolicyComponent implements OnInit {
         Year: '10',
         Depreciation_Value: '%20'
       }
-      
+
     ],
     rowSettings:{
       onClick: (col, data, button?) => {
@@ -196,12 +196,13 @@ export class AssetPolicyComponent implements OnInit {
             console.log(col, data);
             this._router.navigate(['/configuration/asset-policy/edit-asset-policy/' + data.id]);
           },
-          
+
           button: 'edit',
         }
       ]
     }
   };
+  selectedTab: any;
 
 
   constructor(
@@ -213,5 +214,21 @@ export class AssetPolicyComponent implements OnInit {
   ngOnInit(): void {
     this.assetPolicyFacade.loadAll();
     this.subAssetPolicyFacade.loadAll();
+  }
+
+  addClicked(e: Event) {
+    switch (this.selectedTab) {
+      case 'assetPolicyAssetTab':
+        this._router.navigate(['configuration/asset-policy/add']);
+        break;
+      case 'assetPolicySubAssetTab':
+        this._router.navigate(['configuration/asset-policy/add'], {
+          queryParams: { id: 'assetPolicySubAssetTab' }
+        });
+        break;
+      default:
+        this._router.navigate(['configuration/asset-policy']);
+        break;
+    }
   }
 }

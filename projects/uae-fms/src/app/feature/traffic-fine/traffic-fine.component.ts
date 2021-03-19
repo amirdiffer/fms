@@ -66,9 +66,15 @@ export class TrafficFineComponent implements OnInit {
         width: 100
       },
       {
-        lable: 'tables.column.mission_status',
+        lable: 'tables.column.employe_id',
         type: 1,
-        field: 'Mission_Status',
+        field: 'employeID',
+        width: 100
+      },
+      {
+        lable: 'tables.column.business_category',
+        type: 1,
+        field: 'businessCategory',
         width: 100
       },
       {
@@ -85,8 +91,8 @@ export class TrafficFineComponent implements OnInit {
         width: 100
       },
       { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
-      { lable: 'tables.column.user', type: 1, field: 'User', width: 100 },
-      { lable: 'tables.column.amount', type: 1, field: 'Amount', width: 100 }
+      { lable: 'tables.column.user_status', type: 1, field: 'User', width: 100 },
+      { lable: 'tables.column.amount', type: 1, field: 'Amount', width: 100 , sortable: true}
     ],
     data: [
       {
@@ -97,6 +103,8 @@ export class TrafficFineComponent implements OnInit {
         Operator: { line1: 'Sam Smith', line2: '12345679' },
         Plate_No: '123456789',
         Mission_Status: 'Mission Status',
+        employeID:'123456',
+        businessCategory:'VIP',
         Time_Date: { line1: '02/02/2020', line2: '12:00' },
         Duration: '10 days',
         Status: 'Paid',
@@ -111,6 +119,8 @@ export class TrafficFineComponent implements OnInit {
         Operator: { line1: 'Sam Smith', line2: '12345679' },
         Plate_No: '123456789',
         Mission_Status: 'Mission Status',
+        employeID:'123456',
+        businessCategory:'VIP',
         Time_Date: { line1: '02/02/2020', line2: '12:00' },
         Duration: '10 days',
         Status: 'Paid',
@@ -125,6 +135,8 @@ export class TrafficFineComponent implements OnInit {
         Operator: { line1: 'Sam Smith', line2: '12345679' },
         Plate_No: '123456789',
         Mission_Status: 'Mission Status',
+        employeID:'123456',
+        businessCategory:'VIP',
         Time_Date: { line1: '02/02/2020', line2: '12:00' },
         Duration: '10 days',
         Status: 'Paid',
@@ -139,6 +151,8 @@ export class TrafficFineComponent implements OnInit {
         Operator: { line1: 'Sam Smith', line2: '12345679' },
         Plate_No: '123456789',
         Mission_Status: 'Mission Status',
+        employeID:'123456',
+        businessCategory:'VIP',
         Time_Date: { line1: '02/02/2020', line2: '12:00' },
         Duration: '10 days',
         Status: 'Paid',
@@ -153,6 +167,8 @@ export class TrafficFineComponent implements OnInit {
         Operator: { line1: 'Sam Smith', line2: '12345679' },
         Plate_No: '123456789',
         Mission_Status: 'Mission Status',
+        employeID:'123456',
+        businessCategory:'VIP',
         Time_Date: { line1: '02/02/2020', line2: '12:00' },
         Duration: '10 days',
         Status: 'Paid',
@@ -167,6 +183,8 @@ export class TrafficFineComponent implements OnInit {
         Operator: { line1: 'Sam Smith', line2: '12345679' },
         Plate_No: '123456789',
         Mission_Status: 'Mission Status',
+        employeID:'123456',
+        businessCategory:'VIP',
         Time_Date: { line1: '02/02/2020', line2: '12:00' },
         Duration: '10 days',
         Status: 'Paid',
@@ -181,6 +199,8 @@ export class TrafficFineComponent implements OnInit {
         Operator: { line1: 'Sam Smith', line2: '12345679' },
         Plate_No: '123456789',
         Mission_Status: 'Mission Status',
+        employeID:'123456',
+        businessCategory:'VIP',
         Time_Date: { line1: '02/02/2020', line2: '12:00' },
         Duration: '10 days',
         Status: 'Paid',
@@ -195,6 +215,8 @@ export class TrafficFineComponent implements OnInit {
         Operator: { line1: 'Sam Smith', line2: '12345679' },
         Plate_No: '123456789',
         Mission_Status: 'Mission Status',
+        employeID:'123456',
+        businessCategory:'VIP',
         Time_Date: { line1: '02/02/2020', line2: '12:00' },
         Duration: '10 days',
         Status: 'Paid',
@@ -209,6 +231,8 @@ export class TrafficFineComponent implements OnInit {
         Operator: { line1: 'Sam Smith', line2: '12345679' },
         Plate_No: '123456789',
         Mission_Status: 'Mission Status',
+        employeID:'123456',
+        businessCategory:'VIP',
         Time_Date: { line1: '02/02/2020', line2: '12:00' },
         Duration: '10 days',
         Status: 'Paid',
@@ -252,9 +276,10 @@ export class TrafficFineComponent implements OnInit {
         lable: 'tables.column.total_fines',
         type: 1,
         field: 'Total_Fines',
-        width: 100
+        width: 100 , 
+        sortable: true
       },
-      { lable: 'tables.column.amount', type: 1, field: 'Amount', width: 100 }
+      { lable: 'tables.column.amount', type: 1, field: 'Amount', width: 100 ,sortable: true }
     ],
     data: [
       {
