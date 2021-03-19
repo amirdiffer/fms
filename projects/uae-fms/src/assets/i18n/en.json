@@ -396,7 +396,9 @@
       "actual_end_date": "Actual End Date",
       "delay": "Delay",
       "attachment": "Attachment",
-      "issue_type": "Issue Type"
+      "issue_type": "Issue Type",
+      "employe_id":"Employe ID",
+      "user_status":"User Status"
     },
     "button": {
       "view_report": "View Report",
