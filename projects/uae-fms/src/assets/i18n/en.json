@@ -90,11 +90,11 @@
     "add_supplier": "Add Supplier",
     "add_technician": "Add Technician",
     "add_location": "Add Location",
+    "add_asset_policy": "Add Asset Policy",
+    "edit_asset_policy": "Edit Asset Policy",
     "iserve": "IServe",
     "traffic_fine": "Traffic Fine",
-    "add_role_permission":"Add Role Premission",
-    "add_asset_policy":"Add Asset Policy",
-    "edit_asset_policy":"Edit Asset Policy"
+    "add_role_permission":"Add Role Premission"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -1095,7 +1095,8 @@
     "upload": "Upload",
     "feedback": {
       "required": "This is Field Required",
-      "invalid-email": "Email address is invalid"
+      "invalid-email": "Email address is invalid",
+      "invalid-phone": "Phone number is invalid"
     }
   },
   "login": {

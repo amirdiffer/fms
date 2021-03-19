@@ -29,6 +29,23 @@ export class Utility {
     return false;
   }
 
+  formArrayHasError(
+    submited = false,
+    formArray?: FormArray,
+    index?: number,
+    controlName?: string,
+    errorType = 'required'
+  ): boolean {
+    const formControl: FormControl = formArray
+      .at(index)
+      .get(controlName) as FormControl;
+    return (
+      ((formControl.dirty && formControl.invalid) ||
+        (formControl.invalid && submited)) &&
+      formControl.hasError(errorType)
+    );
+  }
+
   hasErrorFormArray(
     controlName: string,
     formArray: any,
