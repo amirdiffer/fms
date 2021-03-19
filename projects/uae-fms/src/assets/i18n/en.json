@@ -90,6 +90,9 @@
     "add_supplier": "Add Supplier",
     "add_technician": "Add Technician",
     "add_location": "Add Location",
+    "edit_part": "Edit Part",
+    "overview": "OverView",
+    "category": "Category",
     "add_asset_policy":"Add Asset Policy",
     "edit_asset_policy":"Edit Asset Policy",
     "iserve": "IServe",
@@ -154,6 +157,7 @@
     "integrations": "Integrations"
   },
   "statistic": {
+    "part": "Part",
     "waiting": "Waiting",
     "requests": "Requests",
     "total": "Total",
