@@ -55,7 +55,7 @@
     "technical_inspection": "Technical Inspection",
     "auction_list": "Auction List",
     "task_master": "Task Master",
-    "add_task_master":"Add Task Master",
+    "add_task_master": "Add Task Master",
     "part_store": "Part Store",
     "part_list": "Part List",
     "order_list": "Order List",
@@ -94,7 +94,7 @@
     "edit_asset_policy": "Edit Asset Policy",
     "iserve": "IServe",
     "traffic_fine": "Traffic Fine",
-    "add_role_permission":"Add Role Premission"
+    "add_role_permission": "Add Role Premission"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -151,6 +151,8 @@
     "integrations": "Integrations"
   },
   "statistic": {
+    "waiting": "Waiting",
+    "requests": "Requests",
     "total": "Total",
     "active": "Active",
     "inactive": "Inactive",
@@ -238,6 +240,7 @@
   },
   "tables": {
     "column": {
+      "request_id": "Request ID",
       "sub_asset_type": "Sub Asset Type",
       "suppliers": "Suppliers",
       "name": "Name",
@@ -397,8 +400,8 @@
       "delay": "Delay",
       "attachment": "Attachment",
       "issue_type": "Issue Type",
-      "employe_id":"Employe ID",
-      "user_status":"User Status"
+      "employe_id": "Employe ID",
+      "user_status": "User Status"
     },
     "button": {
       "view_report": "View Report",
@@ -701,7 +704,6 @@
       "expire_date_validation_error": "Please fill expire date",
       "usage_limit_validation_error": "Please fill usage limit",
       "assign_to_validation_error": "Please fill asset"
-
     },
     "asset_usage": {}
   },
@@ -718,8 +720,8 @@
       "progressbar_title": "CSV File Only",
       "content": "Drag and Drop a File here",
       "upload": "Upload",
-      "save":"Save",
-      "please_upload_a_csv_file":"Please Uplaod a CSV file"
+      "save": "Save",
+      "please_upload_a_csv_file": "Please Uplaod a CSV file"
     }
   },
   "part_store": {
@@ -1130,12 +1132,12 @@
     "boat": "Boat",
     "add_type": "Add Type"
   },
-  "chart":{
-    "lifecycle":"Lifecycle",
-    "all":"All",
-    "month":"Month",
-    "week":"Week",
-    "this_month":"This Month",
-    "service":"Service"
+  "chart": {
+    "lifecycle": "Lifecycle",
+    "all": "All",
+    "month": "Month",
+    "week": "Week",
+    "this_month": "This Month",
+    "service": "Service"
   }
 }
