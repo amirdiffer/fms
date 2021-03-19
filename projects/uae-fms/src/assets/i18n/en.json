@@ -90,9 +90,12 @@
     "add_supplier": "Add Supplier",
     "add_technician": "Add Technician",
     "add_location": "Add Location",
-    "add_asset_policy": "Add Asset Policy",
-    "edit_asset_policy": "Edit Asset Policy",
+    "add_asset_policy":"Add Asset Policy",
+    "edit_asset_policy":"Edit Asset Policy",
     "iserve": "IServe",
+    "add_business_category":"Add Business Category",
+    "add_asset_configuration":"Add Asset Configuration",
+    "add_ownership": "Add Ownership",
     "traffic_fine": "Traffic Fine",
     "add_role_permission": "Add Role Premission"
   },
@@ -1009,15 +1012,18 @@
         "set_reminder_before": "Set Reminder Before"
       }
     },
-    "asset_configuration": {
+    "add_asset_configuration": {
       "make_and_model_info": "Make And Model Info",
       "multiple_model": "Multiple Model",
       "single_model": "Single Model",
       "select_model": "Select Model",
       "model": "Model",
+      "make": "Make",
+      "color": "Color",
       "drag_and_drop_a_csv_file_or": "Drag and drop a CSV file or",
       "click_here": "Click here",
       "description": "Description",
+      "type_description": "Type Description",
       "active_type": "Active Type",
       "type_name": "Type Name",
       "accessory": "Accessory",
