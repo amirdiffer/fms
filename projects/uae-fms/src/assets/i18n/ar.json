@@ -55,7 +55,7 @@
     "technical_inspection": "الفحص الفني",
     "auction_list": "قائمة المزاد",
     "task_master": "متابعة المهام",
-    "add_task_master":"إضافة المتابعة المهام",
+    "add_task_master": "إضافة المتابعة المهام",
     "part_store": "متجر الجزء",
     "part_list": "قائمة الأجزاء",
     "order_list": "لائحة الطلبات",
@@ -154,6 +154,8 @@
     "integrations": "الدمج"
   },
   "statistic": {
+    "waiting": "انتظار",
+    "requests": "طلبات",
     "total": "إجمالي",
     "active": "مفعل",
     "inactive": "غير مفعل",
@@ -241,6 +243,7 @@
   },
   "tables": {
     "column": {
+      "request_id": "طلب معرف",
       "suppliers": "الموردين",
       "name": "الاسم",
       "total_sub_asset": "إجمالي الأصول الفرعية",
@@ -400,8 +403,8 @@
       "delay": "تأخير",
       "attachment": "المرفق",
       "issue_type": "نوع القضية",
-      "employe_id":"معرف الموظف",
-      "user_status":"حالة المستخدم"
+      "employe_id": "معرف الموظف",
+      "user_status": "حالة المستخدم"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -485,7 +488,7 @@
       "need_part": "تحتاج الجزء",
       "description": "الوصف",
       "select_issue": "حدد المشكلة من فضلك",
-      "latest_location":"آخر موقع ",
+      "latest_location": "آخر موقع ",
       "requests": {
         "asset_info": "معلومات الأصول",
         "asset": "الأصل",
@@ -721,8 +724,8 @@
       "progressbar_title": "ملف CSV فقط",
       "content": "قم بسحب وإسقاط ملف هنا",
       "upload": "تحميل",
-      "save":"حفظ",
-      "please_upload_a_csv_file":"يرجى تحميل ملف CSV"
+      "save": "حفظ",
+      "please_upload_a_csv_file": "يرجى تحميل ملف CSV"
     }
   },
   "part_store": {
@@ -1134,12 +1137,12 @@
     "boat": "قارب",
     "add_type": "إضافة نوع"
   },
-  "chart":{
-    "lifecycle":"دورة الحياة",
-    "all":"الجميع",
-    "month":"شهر",
-    "week":"أسبوع",
-    "this_month":"الشهر الحالي",
-    "service":"الخدمة"
+  "chart": {
+    "lifecycle": "دورة الحياة",
+    "all": "الجميع",
+    "month": "شهر",
+    "week": "أسبوع",
+    "this_month": "الشهر الحالي",
+    "service": "الخدمة"
   }
 }

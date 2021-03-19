@@ -14,14 +14,12 @@ export class TableComponent implements OnInit {
   rowIndexTable = -1;
   activeLang: string;
 
-  constructor(
-    private settingFacade: SettingsFacade
-  ) {}
+  constructor(private settingFacade: SettingsFacade) {}
   @Input() setting: TableSetting;
   ngOnInit() {
     this.settingFacade.language.subscribe((lang) => {
       this.activeLang = lang;
-    })
+    });
   }
 
   getCol(col, data) {
@@ -185,7 +183,7 @@ export enum ColumnType {
 
 export interface RowSettings {
   onClick: Function;
-  floatButton?: FloatButtonType[]
+  floatButton?: FloatButtonType[];
 }
 
 export enum ButtonType {
@@ -194,13 +192,14 @@ export enum ButtonType {
   makeDecision,
   jobCard,
   reject,
+  orderListReject,
   approve,
   confirm,
   receive
 }
 
 export interface FloatButtonType {
-  button: string,
-  color?: string,
+  button: string;
+  color?: string;
   onClick?: Function;
 }
