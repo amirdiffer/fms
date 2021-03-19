@@ -15,7 +15,7 @@
         <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
                     <input formControlName="tag" pInputText placeholder="{{ 'toll.toll_tag' | translate }}"
-                           type="text">
+                           type="text" readonly>
                     <label>{{ 'toll.toll_tag' | translate }}</label>
                 </span>
         </div>
@@ -23,7 +23,7 @@
         <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
                     <input formControlName="purshateDate" pInputText placeholder="{{ 'toll.purchase_date' | translate }}"
-                           type="text">
+                           type="text" readonly>
                     <label>{{ 'toll.purchase_date' | translate }}</label>
                 </span>
         </div>
@@ -31,8 +31,8 @@
         <div class="col-12 col-md-4 p-field form-section__field">
           <div class="autocomplete-select">
           <span class="p-float-label">
-            <p-autoComplete></p-autoComplete>
-            <i class="pi pi-search"></i>
+            <p-autoComplete formControlName="assignTo"></p-autoComplete>
+            <i class="pi pi-search" ></i>
             <label>{{ 'toll.assign_to' | translate }} *</label>
           </span>
           </div>

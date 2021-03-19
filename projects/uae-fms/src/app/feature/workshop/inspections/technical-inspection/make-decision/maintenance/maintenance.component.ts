@@ -1,5 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Utility } from './../../../../../../shared/utility/utility';
+import { Output, Injector } from '@angular/core';
+import { Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   FileSystemDirectoryEntry,
   FileSystemFileEntry,
@@ -12,23 +15,30 @@ import {
   styleUrls: ['./maintenance.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MaintenanceComponent implements OnInit {
+export class MaintenanceComponent extends Utility implements OnInit {
+  @Output('formGroup') formGroup: EventEmitter<FormGroup> = new EventEmitter();
+  @Input('submit') submit = false;
   public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
-  constructor(private _fb: FormBuilder) {}
+  constructor(private _fb: FormBuilder, injector: Injector) {
+    super(injector);
+  }
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
       service: this._fb.group({
-        purchase: [true],
-        integration: [false]
+        purchase: [true, Validators.compose([Validators.required])],
+        integration: [false, Validators.compose([Validators.required])],
       }),
-      priodicService: [''],
-      warrantyPackage: [''],
-      warrantyDat: [''],
-      description: [''],
-      file: ['']
+      priodicService: ['', Validators.compose([Validators.required])],
+      warrantyPackage: ['', Validators.compose([Validators.required])],
+      warrantyDat: ['', Validators.compose([Validators.required])],
+      description: ['', Validators.compose([Validators.required])],
+      file: [''],
     });
+    this.inputForm.valueChanges.subscribe((form) => {
+      this.formGroup.emit(form);
+    })
   }
 
   public dropped(files: NgxFileDropEntry[]) {

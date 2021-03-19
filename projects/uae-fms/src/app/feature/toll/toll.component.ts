@@ -26,7 +26,7 @@ export class TollComponent implements OnInit {
   migrateForm(): void {
     this.form = this._fb.group({
       tag: "",
-      status: "",
+      assignTo: "",
       purshateDate: ""
     })
   }
