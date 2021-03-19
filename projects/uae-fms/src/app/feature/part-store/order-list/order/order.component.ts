@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
-import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'order-form',
