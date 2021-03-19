@@ -90,10 +90,11 @@
     "add_supplier": "إضافة مورد",
     "add_technician": "إضافة فني",
     "add_location": "اضافة الموقع",
-    "add_asset_policy":"إضافة سياسة الأصول",
-    "edit_asset_policy":"تحرير سياسة الأصول",
+    "add_asset_policy": "إضافة سياسة الأصول",
+    "edit_asset_policy": "تحرير سياسة الأصول",
     "inspections": "التفتيش",
     "iserve": "IServe",
+    "add_ownership": "أضف ملكية",
     "add_role_permission":"إضافة إذن الدور"
   },
   "sidebar": {

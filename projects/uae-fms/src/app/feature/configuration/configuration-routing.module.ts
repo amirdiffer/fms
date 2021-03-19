@@ -18,8 +18,12 @@ const routes: Routes = [
   { path: 'business-category', component: BusinessCategoryComponent },
   { path: 'periodic-service', component: PeriodicServiceComponent },
   { path: 'asset-policy/add-asset-policy', component: AddAssetPolicyComponent },
-  { path: 'asset-policy/edit-asset-policy/:id', component: AddAssetPolicyComponent },
-  { path: 'ownership/add', component: OwnershipFormComponent },
+  {
+    path: 'asset-policy/edit-asset-policy/:id',
+    component: AddAssetPolicyComponent
+  },
+  { path: 'asset-policy/add', component: AddAssetPolicyComponent },
+  { path: 'ownership/add-ownership', component: OwnershipFormComponent },
   { path: 'asset-policy', component: AssetPolicyComponent },
   { path: 'fleet-status', component: FleetStatusComponent },
   { path: 'ownership', component: OwnershipComponent },

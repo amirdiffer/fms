@@ -90,6 +90,7 @@
     "add_supplier": "Add Supplier",
     "add_technician": "Add Technician",
     "add_location": "Add Location",
+    "add_ownership": "Add Ownership",
     "add_asset_policy": "Add Asset Policy",
     "edit_asset_policy": "Edit Asset Policy",
     "iserve": "IServe",
