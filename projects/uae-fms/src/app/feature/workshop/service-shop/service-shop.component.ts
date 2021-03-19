@@ -625,10 +625,14 @@ export class ServiceShopComponent implements OnInit {
       case 'jobcardTab':
         break;
       case 'technicianTab':
-        this.router.navigate(['workshop/service-shop/add-technician']);
+        this.router.navigate(['workshop/service-shop/add-technician'], {
+          queryParams: { id: 'technicianTab' }
+        });
         break;
       case 'locationTab':
-        this.router.navigate(['workshop/service-shop/add-location']);
+        this.router.navigate(['workshop/service-shop/add-location'], {
+          queryParams: { id: 'locationTab' }
+        });
         break;
       default:
         this.router.navigate(['workshop/service-shop/add-request']);

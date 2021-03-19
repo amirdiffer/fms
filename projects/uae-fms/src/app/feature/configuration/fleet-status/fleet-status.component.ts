@@ -4,6 +4,7 @@ import {
   FleetStatusSubAssetFacade
 } from '../+state/fleet-status';
 import { TableSetting } from '@core/table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-fleet-status',
@@ -61,14 +62,31 @@ export class FleetStatusComponent implements OnInit {
       }
     ]
   };
+  selectedTab: string;
 
   constructor(
     private fleetStatusAssetFacade: FleetStatusAssetFacade,
-    private fleetStatusSubAssetFacade: FleetStatusSubAssetFacade
+    private fleetStatusSubAssetFacade: FleetStatusSubAssetFacade,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
     this.fleetStatusAssetFacade.loadAll();
     this.fleetStatusSubAssetFacade.loadAll();
+  }
+  addClicked(e: Event) {
+    switch (this.selectedTab) {
+      case 'fleetStatusAssetTab':
+        this._router.navigate(['configuration/fleet-status/add-fleet-status']);
+        break;
+      case 'fleetStatusSubAssetTab':
+        this._router.navigate(['configuration/fleet-status/add-fleet-status'], {
+          queryParams: { id: 'fleetStatusSubAssetTab' }
+        });
+        break;
+      default:
+        this._router.navigate(['configuration/fleet-status']);
+        break;
+    }
   }
 }

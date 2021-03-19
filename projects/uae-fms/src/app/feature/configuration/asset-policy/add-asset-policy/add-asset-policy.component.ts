@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Injector
+  Injector,
+  OnDestroy
 } from '@angular/core';
 import {
   FormBuilder,
@@ -10,8 +11,13 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
+import { RouterFacade } from '@core/router';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { Subscription } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-add-asset-policy',
@@ -19,70 +25,129 @@ import { Utility } from '@shared/utility/utility';
   styleUrls: ['./add-asset-policy.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddAssetPolicyComponent extends Utility implements OnInit {
+export class AddAssetPolicyComponent extends Utility implements OnInit , OnDestroy {
+  submitButton = 'forms.add';
+  editForm:Subscription;
   assetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
-      { lable: 'tables.column.distance', type: 1, field: 'Distance' },
-      { lable: 'tables.column.year', type: 1, field: 'Year' },
+      { lable: 'tables.column.distance', type: 1, field: 'Distance' , sortable: true },
+      { lable: 'tables.column.year', type: 1, field: 'Year' , sortable: true },
       {
         lable: 'tables.column.depreciation_value',
         type: 1,
-        field: 'Depreciation_Value'
+        field: 'Depreciation_Value',
+        sortable: true
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: 1,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
     data: [
       {
+        id:1,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:2,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:3,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:4,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:5,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:6,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       },
       {
+        id:7,
         Policy_Name: 'Policy Name is here',
         Distance: '111111 K',
         Year: '10',
         Depreciation_Value: '%20'
       }
-    ]
+
+    ],
+    rowSettings:{
+      onClick: (col, data, button?) => {
+        console.log(col, data, button);
+      },
+      floatButton: [
+        {
+          onClick: (col, data) => {
+            console.log(col, data);
+            this._router.navigate(['/configuration/asset-policy/edit-asset-policy/' + data.id]);
+          },
+
+          button: 'edit',
+        }
+      ]
+    }
   };
   assetPolicyForm: FormGroup;
   submited = false;
-  constructor(private _fb: FormBuilder, private injector: Injector) {
+  dialogModalAdd= false;
+  dialogModalCancel= false;
+  dialogSettingAdd : IDialogAlert ={
+    header:'Asset Policy',
+    hasError:false,
+    hasHeader:true,
+    message:'New Asset Policy Successfully Added',
+    confirmButton: 'OK',
+  }
+  dialogSettingCancel : IDialogAlert ={
+    header:'Asset Policy',
+    hasError:false,
+    isWarning:true,
+    hasHeader:true,
+    message:'Are you sure that you want to cancel the asset policy creation?',
+    confirmButton: 'Yes',
+    cancelButton:'No',
+  }
+  currentTab: string;
+  constructor(private _fb: FormBuilder,
+    private _router:Router,
+    private injector: Injector,
+    private _routerFacade: RouterFacade) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      (params) => (this.currentTab = params['id'])
+    );
     this.assetPolicyForm = this._fb.group({
       policyType: ['asset', [Validators.required]],
       policyName: ['', [Validators.required]],
@@ -91,13 +156,41 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
       depreciationValue: ['', [Validators.required]],
       reminder: [false]
     });
+    this.editForm = this._routerFacade.route$.subscribe(
+      (data) => {
+        const isEdit = data.url.split('/').find(edit => edit == 'edit-asset-policy');
+        if (isEdit){
+          this.submitButton = 'forms.edit';
+        }
+      }
+    )
   }
 
   submit() {
     this.submited = true;
     if (this.assetPolicyForm.invalid) {
       return;
+    } else{
+      this.dialogModalAdd = true
     }
-    this.goToList();
+    // this.goToList();
+  }
+  cancel(){
+    this.dialogModalCancel = true;
+  }
+  dialogCancelConfirm(value){
+    if(value === true){
+      this._router.navigate(['configuration/asset-policy'])
+    }
+    this.dialogModalCancel = false
+  }
+  dialogAddConfirm(value){
+    if(value === true){
+      this._router.navigate(['configuration/asset-policy'])
+    }
+    this.dialogModalAdd = false;
+  }
+  ngOnDestroy():void{
+    this.editForm.unsubscribe()
   }
 }

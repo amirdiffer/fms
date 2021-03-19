@@ -69,32 +69,32 @@ export class VehicleOverviewComponent implements OnInit {
     },
     reminders: [
       {
-        title: 'SALIK top up',
+        title: 'salik_top_up',
         date: new Date(),
         status: 'over'
       },
       {
-        title: 'Service appointment',
+        title: 'service_appointment',
         date: new Date(),
         status: 'normal'
       },
       {
-        title: 'GPS Alert system service',
+        title: 'gps_alert_system_service',
         date: new Date(),
         status: 'normal2'
       },
       {
-        title: 'Monthly check up',
+        title: 'monthly_check_up',
         date: new Date(),
         status: 'normal'
       },
       {
-        title: 'Upgrade tracking system',
+        title: 'upgrade_tracking_system',
         date: new Date(),
         status: 'normal2'
       },
       {
-        title: 'Sterilization',
+        title: 'sterilization',
         date: new Date(),
         status: 'urgent'
       }

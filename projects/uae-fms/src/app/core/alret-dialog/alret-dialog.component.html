@@ -1,17 +1,22 @@
 <div class="wrapper">
     <p-dialog [(visible)]="displayModal" [modal]="true" [baseZIndex]="10000"
-        [draggable]="false" [resizable]="false">
-    <ng-template pTemplate="header">
+        [draggable]="false" [resizable]="false"
+        [class.without-header]="settings.hasHeader == false"
+        [class.red-alert]="settings.hasError"
+        [class.warning-alert]="settings.isWarning">
+    <ng-template pTemplate="header"  >
         {{settings.header}}
     </ng-template>
-    <div class="d-flex">
+    <div class="d-flex flex-wrap">
+        <span *ngIf="!settings.hasError && settings.isWarning"><svg-icon [src]="warningTriangle" [svgStyle]="{ 'width.em':2.2 , 'fill': '#fcb614'}"></svg-icon></span>
         <span *ngIf="settings.hasError"><svg-icon [src]="timesCircle" [svgStyle]="{ 'width.em':2.2 , 'fill': '#dd5648'}"></svg-icon></span>
-        <span *ngIf="!settings.hasError"><svg-icon [src]="checkCircle" [svgStyle]="{ 'width.em':2.2 , 'fill': '#07C880'}"></svg-icon></span>
-        <p class="p-0 m-0 ml-4 align-self-center" [ngStyle]="{ 'font-size.em':1.2 }">{{settings.message}}</p>
+        <span *ngIf="!settings.hasError && !settings.isWarning"><svg-icon [src]="checkCircle" [svgStyle]="{ 'width.em':2.2 , 'fill': '#07C880'}"></svg-icon></span>
+        <h3 [class.d-none]="settings.hasHeader != false" class="pl-2" [ngStyle]="settings.hasError ? {'color':'#dd5648'} : (settings.isWarning ? {'color':'#fcb614'} : {'color':'#07C880'})">{{settings.header}}</h3>
+        <p class="p-0 m-0 ml-4 align-self-center content-alert" [class.pl-2]="settings.hasHeader == false" [ngStyle]="{ 'font-size.em':1.2 }">{{settings.message}}</p>
     </div>
         <ng-template pTemplate="footer">
-            <button *ngIf="settings.confirmButton" class="btn-primary-medium accept" (click)="confirmDialog()">{{settings.confirmButton}}</button>
-            <button class="btn-primary-medium btn-scondary-green" (click)="cancelDialog()">{{settings.cancelButton}}</button>
+            <button *ngIf="settings.confirmButton"  class="btn-primary-medium accept" [class.red-alert-button]="settings.hasError"  [class.warning-alert-button]="settings.isWarning" (click)="confirmDialog()">{{settings.confirmButton}}</button>
+            <button *ngIf="settings.cancelButton" class="btn-primary-medium btn-scondary-green" (click)="cancelDialog()" [class.red-alert-button]="settings.hasError" [class.warning-alert-button]="settings.isWarning">{{settings.cancelButton}}</button>
         </ng-template>
     </p-dialog>
 </div>

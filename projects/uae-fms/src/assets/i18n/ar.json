@@ -55,6 +55,7 @@
     "technical_inspection": "الفحص الفني",
     "auction_list": "قائمة المزاد",
     "task_master": "متابعة المهام",
+    "add_task_master":"إضافة المتابعة المهام",
     "part_store": "متجر الجزء",
     "part_list": "قائمة الأجزاء",
     "order_list": "لائحة الطلبات",
@@ -89,6 +90,8 @@
     "add_supplier": "إضافة مورد",
     "add_technician": "إضافة فني",
     "add_location": "اضافة الموقع",
+    "add_asset_policy":"إضافة سياسة الأصول",
+    "edit_asset_policy":"تحرير سياسة الأصول",
     "inspections": "التفتيش",
     "iserve": "IServe",
     "add_role_permission":"إضافة إذن الدور"
@@ -172,7 +175,24 @@
     "deducte": "حسم",
     "pending": "قيد الانتظار",
     "complete": "اكتمال",
-    "cancel": "يلغي"
+    "cancel": "يلغي",
+    "insurance_action": "إجراءات التأمين",
+    "technical_inspection": "الفحص التقني",
+    "insurance_claim": "تعويض من شركة التأمين",
+    "status": "الحالة",
+    "item": "الصنف",
+    "asset": "الأصل",
+    "sub_asset": "أصل فرعي",
+    "accessory": "الملحقات",
+    "calendar": "تقويم",
+    "issue_type": "نوع القضية",
+    "technical_report": "تقرير تقني",
+    "estimate": "المتوقع",
+    "installation": "تثبيت",
+    "tasks": "المهام",
+    "started": "بدأت",
+    "not_started": "لم يبدأ",
+    "closed": "مغلق"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -197,7 +217,11 @@
     "activity": "فعالية",
     "map_view": "عرض الخريطة",
     "assets": "أصل",
-    "iserve_operator": "Iserv العاملين"
+    "iserve_operator": "Iserv العاملين",
+    "business_category": "فئة العمل",
+    "reminder": "تذكير",
+    "maintenance_service": "خدمة الصيانة",
+    "warranty": "الضمان"
   },
   "search": {
     "add": "إضافة",
@@ -207,7 +231,10 @@
     "year": "سنة",
     "make": "الماركة",
     "model": "الموديل",
-    "request": "طلب"
+    "request": "طلب",
+    "task": "المهمة",
+    "job_card": "بطاقة عمل",
+    "change": "يتغيرون"
   },
   "tables": {
     "column": {
@@ -295,6 +322,7 @@
       "reported_by": "تم عمل تقرير بواسطة",
       "insurance_value": "القيمة التأمينية",
       "insurance": "التأمين",
+      "insurance_action": "إجراءات التأمين",
       "created_by": "تم اعداده بواسطة",
       "assignment": "تعيين",
       "estimate_market": "تقدير السوق",
@@ -362,7 +390,15 @@
       "damage": "تلف",
       "traffic_fine": "المخالفات المرورية",
       "cost_of_part": "تكلفة الجزء",
-      "system": "نظام"
+      "system": "نظام",
+      "priority": "أفضلية",
+      "part_cost": "التكلفة الجزئية",
+      "actual_end_date": "تاريخ الانتهاء الفعلي",
+      "delay": "تأخير",
+      "attachment": "المرفق",
+      "issue_type": "نوع القضية",
+      "employe_id":"معرف الموظف",
+      "user_status":"حالة المستخدم"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -434,7 +470,109 @@
     "estimate_market_value": "تقدير القيمة السوقية",
     "set_reminder": "تعيين تذكير",
     "week": "أسبوع",
-    "reminder_before": "تذكير من قبل"
+    "reminder_before": "تذكير من قبل",
+    "overview": {
+      "job_card_history": "تاريخ بطاقة العمل",
+      "active_job_card_task": "مهام بطاقات العمل النشطة",
+      "describe_job_card": "وصف بطاقة العمل",
+      "task": "مهمة",
+      "priority": "أفضلية",
+      "technician": "فني",
+      "location": "موقع",
+      "need_part": "تحتاج الجزء",
+      "description": "الوصف",
+      "select_issue": "حدد المشكلة من فضلك",
+      "latest_location":"آخر موقع ",
+      "requests": {
+        "asset_info": "معلومات الأصول",
+        "asset": "الأصل",
+        "asset_validation_error": "",
+        "gps_meter_source": "مصدر عداد GPS",
+        "manual_update": "تحديث يدوي",
+        "accident": "حادثة",
+        "reason": "السبب",
+        "miner": "عامل منجم",
+        "major": "منصب - الرتبة",
+        "job_type": "نوع الوظيفة",
+        "issue_info": "معلومات الإصدار",
+        "priority": "أولوية",
+        "estimate": "المتوقع",
+        "repair": "تصليح",
+        "technical_report": "تقرير تقني",
+        "installation": "تثبيت",
+        "issue": "القضية",
+        "issue_validation_error": "",
+        "created_by": "تم اعداده بواسطة",
+        "reported_by": "تم عمل تقرير بواسطة",
+        "reported_by_validation_error": "",
+        "description": "الوصف",
+        "description_validation_error": "",
+        "body_shop": "ورشة الصيانة",
+        "service_shop": "متجر الخدمة",
+        "tire_shop": "متجر الاطارات",
+        "issue_type": "نوع القضية",
+        "upload_form": {
+          "title": "إرفاق صورة",
+          "progressbar_title": "*.pdf",
+          "content": "قم بسحب وإسقاط ملف أو انقر هنا"
+        }
+      },
+      "job_card": {
+        "task_specification": "مواصفات المهمة",
+        "task_master_info": "معلومات المهمة الرئيسية",
+        "latest_activity": "النشاط الاخير"
+      },
+      "overview": {
+        "vin_sn": "VIN/SN",
+        "license_plate": "لوحة مركبات",
+        "status": "الحالة",
+        "department": "الإدارة",
+        "operator": "المشغل",
+        "group": "مجموعة",
+        "make": "الماركة",
+        "model": "الموديل",
+        "year": "السنة",
+        "trim": "الموديل الفرعي",
+        "color": "اللون",
+        "body_type": "نوع الجسم",
+        "salik": "سالك",
+        "warranty": "الضمان",
+        "speed_average": "متوسط السرعة",
+        "workout_statistic": "إحصائية تجريب",
+        "fleet_average": "متوسط الأسطول",
+        "hours_day": "ساعات/يوم",
+        "km_day": "كيلومتر/يوم",
+        "vehicle_sautes_details": "قفز السيارة/تفاصيل",
+        "latest_location": "آخر موقع ",
+        "lifecycle": {
+          "lifecycle": "دورة الحياة",
+          "all": "الكل",
+          "month": "شهر",
+          "week": "أسبوع",
+          "this_month": "الشهر الحالي"
+        },
+        "card": {
+          "total_km": "مجموع الكيلومتر",
+          "current_fuel": "الوقود الحالي",
+          "total_fuel": "إجمالي الوقود",
+          "battery_life": "عمر البطارية",
+          "slack_credit": "الركود الائتمان"
+        },
+        "reminder": {
+          "reminder": "تذكير",
+          "salik_top_up": "Salik top up",
+          "service_appointment": "موعد الخدمة",
+          "gps_alert_system_service": "خدمة نظام التنبيه GPS",
+          "monthly_check_up": "فحص شهري",
+          "upgrade_tracking_system": "ترقية نظام التتبع",
+          "sterilization": "تعقيم",
+          "action": "التنفيذ",
+          "over": "على",
+          "urgent": "العاجلة",
+          "normal": "طبيعي"
+        }
+      }
+    }
   },
   "sub_asset": {
     "sub_asset_specification": "مواصفات الأصل الفرعي",
@@ -559,7 +697,11 @@
       "asset": "أصل",
       "card_type": "نوع البطاقة",
       "expire_date": "تاريخ انتهاء الصلاحية",
-      "usage_limit": "حد الاستخدام"
+      "usage_limit": "حد الاستخدام",
+      "tag_number_validation_error": "الرجاء تعبئة رقم البطاقة",
+      "expire_date_validation_error": "يرجى ملء تاريخ انتهاء الصلاحية",
+      "usage_limit_validation_error": "الرجاء تعبئة حد الاستخدام",
+      "assign_to_validation_error": "يرجى ملء الأصل"
     },
     "asset_usage": {}
   },
@@ -575,7 +717,9 @@
       "title": "تحميل ملف CSV",
       "progressbar_title": "ملف CSV فقط",
       "content": "قم بسحب وإسقاط ملف هنا",
-      "upload": "تحميل"
+      "upload": "تحميل",
+      "save":"حفظ",
+      "please_upload_a_csv_file":"يرجى تحميل ملف CSV"
     }
   },
   "part_store": {
@@ -983,5 +1127,13 @@
     "bicycle": "دراجة",
     "boat": "قارب",
     "add_type": "إضافة نوع"
+  },
+  "chart":{
+    "lifecycle":"دورة الحياة",
+    "all":"الجميع",
+    "month":"شهر",
+    "week":"أسبوع",
+    "this_month":"الشهر الحالي",
+    "service":"الخدمة"
   }
 }
