@@ -29,7 +29,7 @@ import { AssetCategoryComponent } from './asset-configuration/asset-category/ass
 import { PeriodicServiceComponent } from '@feature/configuration/periodic-service/periodic-service.component';
 import { AddFleetStatusComponent } from './fleet-status/add-fleet-status/add-fleet-status.component';
 import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-service/add-periodic-service.component';
-import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
+import { AlretDialogModule } from '@core/alret-dialog/alret-dialog.module';
 
 @NgModule({
   declarations: [
@@ -67,7 +67,7 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
     SharedModule,
     ConfigurationStateModule,
     ConfigurationRoutingModule,
-    AlertDialogModule
+    AlretDialogModule
   ]
 })
 export class ConfigurationModule {}
