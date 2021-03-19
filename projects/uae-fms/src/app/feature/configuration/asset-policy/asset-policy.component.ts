@@ -108,6 +108,7 @@ export class AssetPolicyComponent implements OnInit {
           onClick: (col, data) => {
             console.log(col, data);
             this._router.navigate(['/configuration/asset-policy/edit-asset-policy/' + data.id]);
+            
           },
 
           button: 'edit',
@@ -195,6 +196,7 @@ export class AssetPolicyComponent implements OnInit {
           onClick: (col, data) => {
             console.log(col, data);
             this._router.navigate(['/configuration/asset-policy/edit-asset-policy/' + data.id]);
+            
           },
 
           button: 'edit',
@@ -208,7 +210,7 @@ export class AssetPolicyComponent implements OnInit {
   constructor(
     private _router : Router,
     private assetPolicyFacade: AssetPolicyFacade,
-    private subAssetPolicyFacade: SubAssetPolicyFacade
+    private subAssetPolicyFacade: SubAssetPolicyFacade,
   ) {}
 
   ngOnInit(): void {

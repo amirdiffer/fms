@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Injector
+  Injector,
+  OnDestroy
 } from '@angular/core';
 import {
   FormBuilder,
@@ -15,6 +16,8 @@ import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
 import { RouterFacade } from '@core/router';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { Subscription } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-add-asset-policy',
@@ -22,7 +25,9 @@ import { Utility } from '@shared/utility/utility';
   styleUrls: ['./add-asset-policy.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddAssetPolicyComponent extends Utility implements OnInit {
+export class AddAssetPolicyComponent extends Utility implements OnInit , OnDestroy {
+  submitButton = 'forms.add';
+  editForm:Subscription;
   assetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
@@ -151,6 +156,14 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
       depreciationValue: ['', [Validators.required]],
       reminder: [false]
     });
+    this.editForm = this._routerFacade.route$.subscribe(
+      (data) => {
+        const isEdit = data.url.split('/').find(edit => edit == 'edit-asset-policy');
+        if (isEdit){
+          this.submitButton = 'forms.edit';
+        }
+      }
+    )
   }
 
   submit() {
@@ -176,5 +189,8 @@ export class AddAssetPolicyComponent extends Utility implements OnInit {
       this._router.navigate(['configuration/asset-policy'])
     }
     this.dialogModalAdd = false;
+  }
+  ngOnDestroy():void{
+    this.editForm.unsubscribe()
   }
 }
