@@ -1,7 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { TableSetting } from '@core/table';
+import { ColumnType, TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { UsersFacade } from '../../+state/users';
+import { DataService } from './data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-users',
@@ -61,7 +63,15 @@ export class UsersComponent implements OnInit {
         renderer: 'doubleLineRenderer'
       },
       { lable: 'tables.column.status', type: 1, field: 'Status' },
-      { lable: 'tables.column.role', type: 1, field: 'Role' }
+      { lable: 'tables.column.role', type: 1, field: 'Role' },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
+      }
     ],
     data: [
       {
@@ -141,10 +151,30 @@ export class UsersComponent implements OnInit {
         Status: 'Active',
         Role: 'Fleet Manager'
       }
-    ]
+    ],
+    rowSettings: {
+      onClick: (col, data, button?) => {
+        console.log(col, data, button);
+        this.dataService.dataToEditFromTable = data;
+        this.dataService.isEditing = true;
+        this.router
+          .navigate(['/configuration/user-management/users/add-new-user'])
+          .then();
+      },
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F'
+        }
+      ]
+    }
   };
 
-  constructor(private facade: UsersFacade) {}
+  constructor(
+    private facade: UsersFacade,
+    private dataService: DataService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();

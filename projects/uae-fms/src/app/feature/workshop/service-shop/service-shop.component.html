@@ -1,0 +1,30 @@
+<app-filter [setting]="filterSetting"></app-filter>
+<div class="table-container component_wrapper">
+
+  <app-tab-view (selectedIndex)="selectedTab=$event">
+    <span class="search-container card-table-header">
+      <div class="search-box">
+        <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
+        <button>
+          <img src="../../../assets/icons/search-solid.svg" alt="">
+        </button>
+      </div>
+      <button class="btn-download" disabled>
+        <svg-icon [src]="downloadBtn"></svg-icon>
+      </button>
+      <button *ngIf="selectedTab!='jobcardTab'" class="btn-primary-small" (click)="addClicked($event)" ><i>+</i><a>{{'search.add' | translate}}</a></button>
+    </span>
+    <div title="tabs.requests" id="requestTab">
+      <app-table [setting]="table1Setting"></app-table>
+    </div>
+    <div title="tabs.job_card" id="jobcardTab">
+      <app-table [setting]="table2Setting"></app-table>
+    </div>
+    <div title="tabs.technician" id="technicianTab">
+      <app-table [setting]="table3Setting"></app-table>
+    </div>
+    <div title="tabs.location" id="locationTab">
+      <app-table [setting]="table4Setting"></app-table>
+    </div>
+  </app-tab-view>
+</div>

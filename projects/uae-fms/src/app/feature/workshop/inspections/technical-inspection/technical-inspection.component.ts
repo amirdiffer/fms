@@ -33,17 +33,20 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterTitle: 'statistic.total',
+      filterSupTitle: 'statistic.technical_inspection',
       onActive: () => {}
     },
     {
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterTitle: 'statistic.repair',
+      filterSupTitle: 'statistic.insurance_action',
       onActive: () => {}
     },
     {
       filterCount: '02',
       filterTagColor: '#BA7967',
+      filterSupTitle: 'statistic.insurance_claim',
       filterTitle: '?',
       onActive: () => {}
     },
@@ -51,6 +54,7 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
       filterCount: '09',
       filterTagColor: '#DD5648',
       filterTitle: 'statistic.accident',
+      filterSupTitle: 'statistic.status',
       onActive: () => {}
     }
   ];
@@ -66,13 +70,14 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
       { lable: 'tables.column.status', field: 'status', width: 100 },
       { lable: 'tables.column.source', field: 'source', width: 100 },
       { lable: 'tables.column.reported_by', field: 'reportedby', width: 100 },
-      { lable: 'tables.column.cost', field: 'cost', width: 100 },
+      { lable: 'tables.column.cost', field: 'cost', width: 100, sortable: true },
       {
         lable: 'tables.column.insurance_value',
         field: 'insuranceValue',
+        sortable: true,
         width: 100
       },
-      { lable: 'tables.column.insurance', field: 'insurance', width: 80 },
+      { lable: 'tables.column.insurance_action', field: 'insurance', width: 80 },
       {
         lable: '',
         field: '',
