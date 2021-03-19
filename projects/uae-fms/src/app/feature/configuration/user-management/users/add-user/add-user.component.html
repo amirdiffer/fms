@@ -16,7 +16,7 @@
               <p-autoComplete formControlName="employeeNumber"
                 (completeMethod)="filterEmployees($event)"
                 [suggestions]="employees" field="name"
-                [minLength]="1" required></p-autoComplete>
+                [minLength]="1" (ngModelChange)="employeeNumberChanged($event)" required></p-autoComplete>
               <i class="pi pi-search"></i>
               <label>{{ 'configuration.users.employee_number' | translate }} *</label>
             </span>

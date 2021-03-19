@@ -1,23 +1,13 @@
 import { InjectableCompiler } from '@angular/compiler/src/injectable_compiler';
-import {
-  AfterContentInit,
-  ChangeDetectionStrategy,
-  Component,
-  Injector,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FilterCardSetting } from '@core/filter';
 import { Utility } from '@shared/utility/utility';
-import {
-  FileSystemDirectoryEntry,
-  FileSystemFileEntry,
-  NgxFileDropEntry
-} from 'ngx-file-drop';
+import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { Subscription } from 'rxjs';
 import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
 import { DataService } from '../data.service';
+import { UsersFacade } from '../../../+state/users'
 @Component({
   selector: 'anms-add-user',
   templateUrl: './add-user.component.html',
@@ -73,32 +63,32 @@ export class AddUserComponent
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
 
-  tempImage: ArrayBuffer | string = '';
+  tempImage: any = "";
 
   get emails(): FormArray {
     return this.form.get('personalInformation').get('emails') as FormArray;
@@ -110,10 +100,13 @@ export class AddUserComponent
       .get('phoneNumbers') as FormArray;
   }
 
+  users$ = this.userFacade.users$;
+
   constructor(
     injector: Injector,
     private formBuilder: FormBuilder,
-    public dataService: DataService
+    public dataService: DataService,
+    private userFacade: UsersFacade
   ) {
     super(injector);
   }
@@ -328,6 +321,15 @@ export class AddUserComponent
       }
     }
   }
+
+  employeeNumberChanged($event) {
+    console.log($event)
+    // this.users$.subscribe(x=>{
+    //   console.log(x)
+    // })
+    // This Part Should Get Compeleted after Api Connected
+  }
+
   public fileOver(event) {
     console.log(event);
   }
