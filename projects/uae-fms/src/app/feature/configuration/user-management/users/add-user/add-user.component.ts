@@ -5,7 +5,7 @@ import { FilterCardSetting } from '@core/filter';
 import { Utility } from '@shared/utility/utility';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { Subscription } from 'rxjs';
-import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { DataService } from '../data.service';
 import { UsersFacade } from '../../../+state/users'
 @Component({

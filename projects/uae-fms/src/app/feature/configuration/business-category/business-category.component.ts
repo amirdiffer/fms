@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { TableSetting } from '@core/table';
+import { ColumnType, TableSetting } from '@core/table';
 import { BusinessCategoryFacade } from '../+state/business-category';
+import { DataService } from './data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-business-category',
@@ -17,7 +19,15 @@ export class BusinessCategoryComponent implements OnInit {
       { lable: 'tables.column.description', type: 1, field: 'Description' },
       { lable: 'tables.column.asset_type', type: 1, field: 'Asset_Type' },
       { lable: 'tables.column.sub_asset', type: 1, field: 'Sub_Asset' },
-      { lable: 'tables.column.accessory', type: 1, field: 'Accessory' }
+      { lable: 'tables.column.accessory', type: 1, field: 'Accessory' },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
+      }
     ],
     data: [
       {
@@ -76,10 +86,30 @@ export class BusinessCategoryComponent implements OnInit {
         Sub_Asset: '12',
         Accessory: '24'
       }
-    ]
+    ],
+    rowSettings: {
+      onClick: (col, data, button?) => {
+        console.log(col, data, button);
+        this.dataService.dataToEditFromTable = data;
+        this.dataService.isEditing = true;
+        this.router
+          .navigate(['/configuration/business-category/add-business-category'])
+          .then();
+      },
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F'
+        }
+      ]
+    }
   };
 
-  constructor(private facade: BusinessCategoryFacade) {}
+  constructor(
+    private facade: BusinessCategoryFacade,
+    private dataService: DataService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
