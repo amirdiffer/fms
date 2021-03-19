@@ -24,7 +24,8 @@ const routes: Routes = [
     path: 'asset-policy/edit-asset-policy/:id',
     component: AddAssetPolicyComponent
   },
-  { path: 'ownership/add', component: OwnershipFormComponent },
+  { path: 'asset-policy/add', component: AddAssetPolicyComponent },
+  { path: 'ownership/add-ownership', component: OwnershipFormComponent },
   { path: 'asset-policy', component: AssetPolicyComponent },
   { path: 'fleet-status', component: FleetStatusComponent },
   { path: 'ownership', component: OwnershipComponent },

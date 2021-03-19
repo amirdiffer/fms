@@ -55,6 +55,7 @@
     "technical_inspection": "Technical Inspection",
     "auction_list": "Auction List",
     "task_master": "Task Master",
+    "add_task_master":"Add Task Master",
     "part_store": "Part Store",
     "part_list": "Part List",
     "order_list": "Order List",
@@ -92,12 +93,15 @@
     "add_asset_policy": "Add Asset Policy",
     "edit_asset_policy": "Edit Asset Policy",
     "iserve": "IServe",
-    "add_asset_configuration":"Add Asset Configuration"
+    "add_asset_configuration":"Add Asset Configuration",
+    "add_ownership": "Add Ownership",
+    "traffic_fine": "Traffic Fine",
+    "add_role_permission":"Add Role Premission"
   },
   "sidebar": {
     "dashboard": "Dashboard",
     "fleets": {
-      "~": "Fleets",
+      "~": "Fleet",
       "assets": "Assets",
       "sub_assets": "Sub Assets",
       "accessory": "Accessory",
@@ -169,17 +173,34 @@
     "total_lost": "Total Lost",
     "paid": "Paid",
     "user": "User",
-    "unpainted": "Un Painted",
-    "deducte": "Deducted",
     "pending": "Pending",
     "complete": "Complete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "insurance_action": "Insurance Action",
+    "technical_inspection": "Technical Inspection",
+    "insurance_claim": "Insurance Claim",
+    "status": "Status",
+    "item": "Item",
+    "asset": "Asset",
+    "sub_asset": "Sub Asset",
+    "accessory": "Accessory",
+    "calendar": "Calendar",
+    "issue_type": "Issue Type",
+    "technical_report": "Technical Report",
+    "estimate": "Estimate",
+    "installation": "Installation",
+    "tasks": "Tasks",
+    "started": "Started",
+    "not_started": "Not Started",
+    "closed": "Closed",
+    "unpainted": "UnPainted",
+    "deducte": "Deducted"
   },
   "tabs": {
     "asset_master": "Asset Master",
     "pending_registration": "Pending Registration",
     "pending_customization": "Pending Customization",
-    "movement_over_view": "Movement Over View",
+    "movement_over_view": "Over View",
     "request": "Request",
     "requests": "Requests",
     "fuel_cards": "Fuel Cards",
@@ -198,7 +219,11 @@
     "activity": "Activity",
     "map_view": "Map View",
     "assets": "Assets",
-    "iserve_operator": "Iserv Operators"
+    "iserve_operator": "Iserv Operators",
+    "business_category": "Business Category",
+    "reminder": "Reminder",
+    "maintenance_service": "Maintenance Service",
+    "warranty": "Warranty"
   },
   "search": {
     "add": "Add",
@@ -208,7 +233,10 @@
     "year": "Year",
     "make": "Make",
     "model": "Model",
-    "request": "Request"
+    "request": "Request",
+    "task": "Task",
+    "job_card": "Job Card",
+    "change": "Change"
   },
   "tables": {
     "column": {
@@ -296,6 +324,7 @@
       "reported_by": "Reported By",
       "insurance_value": "Insurance Value",
       "insurance": "Insurance",
+      "insurance_action": "Insurance Action",
       "created_by": "Created By",
       "assignment": "Assignment",
       "estimate_market": "Estimate Market",
@@ -363,7 +392,15 @@
       "damage": "Damage",
       "traffic_fine": "Traffic Fine",
       "cost_of_part": "Cost of Part",
-      "system": "System"
+      "system": "System",
+      "priority": "Priority",
+      "part_cost": "Part Cost",
+      "actual_end_date": "Actual End Date",
+      "delay": "Delay",
+      "attachment": "Attachment",
+      "issue_type": "Issue Type",
+      "employe_id":"Employe ID",
+      "user_status":"User Status"
     },
     "button": {
       "view_report": "View Report",
@@ -435,7 +472,108 @@
     "estimate_market_value": "Established Market Value",
     "set_reminder": "Set Reminder",
     "week": "Week",
-    "reminder_before": "Reminder Before"
+    "reminder_before": "Reminder Before",
+    "overview": {
+      "job_card_history": "Job Card History",
+      "active_job_card_task": "Active Job Card's Tasks",
+      "describe_job_card": "Describe Job Card",
+      "task": "Task",
+      "priority": "Priority",
+      "technician": "Technician",
+      "location": "Location",
+      "need_part": "Need Part",
+      "description": "Description",
+      "select_issue": "Select The Issue Please",
+      "requests": {
+        "asset_info": "Asset Info",
+        "asset": "Asset",
+        "asset_validation_error": "Please search and choose an item from list",
+        "gps_meter_source": "GPS Meter Source",
+        "manual_update": "Manual Update",
+        "accident": "Accident",
+        "reason": "Reason",
+        "miner": "Miner",
+        "major": "Major",
+        "job_type": "Job Type",
+        "issue_info": "Issue Info",
+        "priority": "Priority",
+        "estimate": "Estimate",
+        "repair": "Repair",
+        "technical_report": "Technical Report",
+        "installation": "Installation",
+        "issue": "Issue",
+        "issue_validation_error": "Please fill Issue",
+        "created_by": "Created By",
+        "reported_by": "Reported By",
+        "reported_by_validation_error": "Please fill ReportedBy",
+        "description": "Description",
+        "description_validation_error": "Please fill Description",
+        "body_shop": "Body Shop",
+        "service_shop": "Service Shop",
+        "tire_shop": "Trie Shop",
+        "issue_type": "Issue Type",
+        "upload_form": {
+          "title": "Attach Picture",
+          "progressbar_title": "*.pdf",
+          "content": "Drag and Drop a File or click here"
+        }
+      },
+      "job_card": {
+        "task_specification": "Task Specification",
+        "task_master_info": "Task Master Info",
+        "latest_activity": "Latest Activity"
+      },
+      "overview": {
+        "vin_sn": "VIN/SN",
+        "status": "Status",
+        "license_plate": "License Plate",
+        "department": "Department",
+        "operator": "Operator",
+        "group": "Group",
+        "make": "Make",
+        "model": "Model",
+        "year": "Year",
+        "trim": "Trim",
+        "color": "Color",
+        "body_type": "Body Type",
+        "salik": "Salik",
+        "warranty": "Warranty",
+        "speed_average": "Speed Average",
+        "workout_statistic": "Workout Statistic",
+        "fleet_average": "Fleet Average",
+        "hours_day": "Hours/Day",
+        "km_day": "Km/Day",
+        "vehicle_sautes_details": "Vehicle Sautes/Details",
+        "latest_location": "Latest Location",
+        "lifecycle": {
+          "lifecycle": "Lifecycle",
+          "all": "All",
+          "month": "Month",
+          "week": "Week",
+          "this_month": "This month"
+        },
+        "card": {
+          "total_km": "TOTAL KM",
+          "current_fuel": "CURRENT FUEL",
+          "total_fuel": "TOTAL FUEL",
+          "battery_life": "BATTERY LIFE",
+          "slack_credit": "SLACK CREDIT"
+        },
+        "reminder": {
+          "reminder": "Reminder",
+          "salik_top_up": "Salik top up",
+          "service_appointment": "Service appointment",
+          "gps_alert_system_service": "GPS Alert sytem service",
+          "monthly_check_up": "Monthly check up",
+          "upgrade_tracking_system": "Upgrade tracking system",
+          "sterilization": "Sterilization",
+          "action": "Action",
+          "over": "OVER",
+          "urgent": "URGENT",
+          "normal": "Normal"
+        }
+      }
+    }
   },
   "sub_asset": {
     "sub_asset_specification": "Sub Asset Specification",
@@ -560,7 +698,12 @@
       "asset": "Asset",
       "card_type": "Card Type",
       "expire_date": "Expire Date",
-      "usage_limit": "Usage Limit"
+      "usage_limit": "Usage Limit",
+      "tag_number_validation_error": "Please fill tag number",
+      "expire_date_validation_error": "Please fill expire date",
+      "usage_limit_validation_error": "Please fill usage limit",
+      "assign_to_validation_error": "Please fill asset"
+
     },
     "asset_usage": {}
   },
@@ -576,7 +719,9 @@
       "title": "Upload CSV File of Toll",
       "progressbar_title": "CSV File Only",
       "content": "Drag and Drop a File here",
-      "upload": "Upload"
+      "upload": "Upload",
+      "save":"Save",
+      "please_upload_a_csv_file":"Please Uplaod a CSV file"
     }
   },
   "part_store": {
@@ -666,9 +811,11 @@
   "workshop": {
     "body_shop": {
       "requests": {
+        "periodic_service": "Periodic Service",
         "asset_info": "Asset Info",
         "asset": "Asset",
         "asset_validation_error": "Please search and choose an item from list",
+        "periodic_service_validation_error": "Please search and choose an item from periodic service",
         "gps_meter_source": "GPS Meter Source",
         "manual_update": "Manual Update",
         "accident": "Accident",
@@ -953,7 +1100,8 @@
     "upload": "Upload",
     "feedback": {
       "required": "This is Field Required",
-      "invalid-email": "Email address is invalid"
+      "invalid-email": "Email address is invalid",
+      "invalid-phone": "Phone number is invalid"
     }
   },
   "login": {
@@ -986,5 +1134,13 @@
     "bicycle": "Bicycle",
     "boat": "Boat",
     "add_type": "Add Type"
+  },
+  "chart":{
+    "lifecycle":"Lifecycle",
+    "all":"All",
+    "month":"Month",
+    "week":"Week",
+    "this_month":"This Month",
+    "service":"Service"
   }
 }

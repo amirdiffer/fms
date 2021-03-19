@@ -224,6 +224,105 @@ export class OverViewAssetComponent implements OnInit, OnDestroy {
     year: '2020'
   };
 
+  filterSetting_BusinessCategory = [
+    {
+      filterTitle: 'statistic.calendar',
+      isCalendar: true,
+      filterCount: '13',
+      filterTagColor: '#028D5D'
+    },
+    {
+      filterTitle: 'statistic.total',
+      filterSupTitle: 'statistic.item',
+      filterCount: '13',
+      filterTagColor: '#028D5D'
+    },
+    {
+      filterTitle: 'statistic.asset',
+      filterSupTitle: 'statistic.item',
+      filterCount: '08',
+      filterTagColor: '#009EFF'
+    },
+    {
+      filterTitle: 'statistic.sub_asset',
+      filterSupTitle: 'statistic.item',
+      filterCount: '02',
+      filterTagColor: '#FCB614'
+    },
+    {
+      filterTitle: 'statistic.accessory',
+      filterSupTitle: 'statistic.item',
+      filterCount: '09',
+      filterTagColor: '#F75A4A'
+    }
+  ];
+
+  filterSetting_Request = [
+    {
+      filterTitle: 'statistic.calendar',
+      isCalendar: true,
+      filterCount: '13',
+      filterTagColor: '#028D5D'
+    },
+    {
+      filterTitle: 'statistic.technical_report',
+      filterSupTitle: 'statistic.issue_type',
+      filterCount: '13',
+      filterTagColor: '#028D5D'
+    },
+    {
+      filterTitle: 'statistic.repair',
+      filterSupTitle: 'statistic.issue_type',
+      filterCount: '08',
+      filterTagColor: '#009EFF'
+    },
+    {
+      filterTitle: 'statistic.estimate',
+      filterSupTitle: 'statistic.issue_type',
+      filterCount: '02',
+      filterTagColor: '#FCB614'
+    },
+    {
+      filterTitle: 'statistic.installation',
+      filterSupTitle: 'statistic.issue_type',
+      filterCount: '09',
+      filterTagColor: '#F75A4A'
+    }
+  ];
+
+  filterSetting_Job_Card = [
+    {
+      filterTitle: 'statistic.calendar',
+      isCalendar: true,
+      filterCount: '13',
+      filterTagColor: '#028D5D'
+    },
+    {
+      filterTitle: 'statistic.total',
+      filterSupTitle: 'statistic.tasks',
+      filterCount: '13',
+      filterTagColor: '#028D5D'
+    },
+    {
+      filterTitle: 'statistic.not_started',
+      filterSupTitle: 'statistic.tasks',
+      filterCount: '08',
+      filterTagColor: '#009EFF'
+    },
+    {
+      filterTitle: 'statistic.started',
+      filterSupTitle: 'statistic.tasks',
+      filterCount: '02',
+      filterTagColor: '#FCB614'
+    },
+    {
+      filterTitle: 'statistic.closed',
+      filterSupTitle: 'statistic.tasks',
+      filterCount: '09',
+      filterTagColor: '#F75A4A'
+    }
+  ];
+
   vehicleId = null;
   activeButton = 1;
   fileServerBaseUrl = environment.baseFileServer;
@@ -241,7 +340,9 @@ export class OverViewAssetComponent implements OnInit, OnDestroy {
     this.onDestroy.complete();
   }
 
-  selectedTab($event) {
-    console.log($event);
+  activeTab = 'Overview';
+  selectedTab(event: string) {
+    console.log(event);
+    this.activeTab = event;
   }
 }

@@ -357,7 +357,7 @@ export class BodyShopComponent implements OnInit {
       },
       floatButton: [
         {
-          button: 'external',
+          button: 'external'
         }
       ]
     }
@@ -643,10 +643,14 @@ export class BodyShopComponent implements OnInit {
       case 'jobcardTab':
         break;
       case 'technicianTab':
-        this.router.navigate(['workshop/body-shop/add-technician']);
+        this.router.navigate(['workshop/body-shop/add-technician'], {
+          queryParams: { id: 'technicianTab' }
+        });
         break;
       case 'locationTab':
-        this.router.navigate(['workshop/body-shop/add-location']);
+        this.router.navigate(['workshop/body-shop/add-location'], {
+          queryParams: { id: 'locationTab' }
+        });
         break;
       default:
         this.router.navigate(['workshop/body-shop/add-request']);

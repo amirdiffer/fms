@@ -50,7 +50,8 @@ export class FuelManagementComponent implements OnInit {
       mileage: '100 Km',
       totalUsage: '654327 Litters',
       cost: '000 AED',
-      cardType: 'RFID-ENOC'
+      cardType: 'RFID-ENOC',
+      statusColor: '#B892FF'
     },
     {
       asset: {
@@ -66,7 +67,8 @@ export class FuelManagementComponent implements OnInit {
       mileage: '100 Km',
       totalUsage: '654327 Litters',
       cost: '000 AED',
-      cardType: 'RFID-ENOC'
+      cardType: 'RFID-ENOC',
+      statusColor: '#B892FF'
     },
     {
       asset: {
@@ -82,7 +84,8 @@ export class FuelManagementComponent implements OnInit {
       mileage: '100 Km',
       totalUsage: '654327 Litters',
       cost: '000 AED',
-      cardType: 'RFID-ENOC'
+      cardType: 'RFID-ENOC',
+      statusColor: '#B892FF'
     },
     {
       asset: {
@@ -98,7 +101,8 @@ export class FuelManagementComponent implements OnInit {
       mileage: '100 Km',
       totalUsage: '654327 Litters',
       cost: '000 AED',
-      cardType: 'RFID-ENOC'
+      cardType: 'RFID-ENOC',
+      statusColor: '#B892FF'
     },
     {
       asset: {
@@ -114,7 +118,8 @@ export class FuelManagementComponent implements OnInit {
       mileage: '100 Km',
       totalUsage: '654327 Litters',
       cost: '000 AED',
-      cardType: 'RFID-ENOC'
+      cardType: 'RFID-ENOC',
+      statusColor: '#B892FF'
     },
     {
       asset: {
@@ -130,7 +135,8 @@ export class FuelManagementComponent implements OnInit {
       mileage: '100 Km',
       totalUsage: '654327 Litters',
       cost: '000 AED',
-      cardType: 'RFID-ENOC'
+      cardType: 'RFID-ENOC',
+      statusColor: '#B892FF'
     }
   ];
   assetUsageTableSetting = {
@@ -162,35 +168,40 @@ export class FuelManagementComponent implements OnInit {
         field: 'date',
         type: ColumnType.lable,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        sortable:true
       },
       {
         lable: 'tables.column.amount',
         field: 'amount',
         type: ColumnType.lable,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        sortable:true
       },
       {
         lable: 'tables.column.mileage',
         field: 'mileage',
         type: ColumnType.lable,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        sortable:true
       },
       {
         lable: 'tables.column.total_usage',
         field: 'totalUsage',
         type: ColumnType.lable,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        sortable:true
       },
       {
         lable: 'tables.column.cost',
         field: 'cost',
         type: ColumnType.lable,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        sortable:true
       },
       {
         lable: 'tables.column.card_type',
@@ -234,7 +245,8 @@ export class FuelManagementComponent implements OnInit {
       usageLimit: '400 Litters',
       asset: 'Item no 123456',
       cardType: 'RFID-ENOC',
-      expire: '02/02/2020'
+      expire: '02/02/2020',
+      statusColor: '#B892FF'
     },
     {
       tagNo: {
@@ -267,7 +279,8 @@ export class FuelManagementComponent implements OnInit {
       usageLimit: '400 Litters',
       asset: 'Item no 123456',
       cardType: 'RFID-ENOC',
-      expire: '02/02/2020'
+      expire: '02/02/2020',
+      statusColor: '#B892FF'
     },
     {
       tagNo: {
@@ -300,7 +313,8 @@ export class FuelManagementComponent implements OnInit {
       usageLimit: '400 Litters',
       asset: 'Item no 123456',
       cardType: 'RFID-ENOC',
-      expire: '02/02/2020'
+      expire: '02/02/2020',
+      statusColor: '#B892FF'
     }
   ];
   fuelCardsTableSetting = {
@@ -311,13 +325,6 @@ export class FuelManagementComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: 'fuelCardRenderer'
-      },
-      {
-        lable: 'tables.column.used',
-        field: 'used',
-        type: ColumnType.lable,
-        thumbField: '',
-        renderer: ''
       },
       {
         lable: 'tables.column.usage_limit',
@@ -345,7 +352,8 @@ export class FuelManagementComponent implements OnInit {
         field: 'expire',
         type: ColumnType.lable,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        sortable:true
       }
     ],
     data: this.fuelCardTableData
@@ -369,8 +377,10 @@ export class FuelManagementComponent implements OnInit {
       case 'Fuel Cards':
         this._router.navigate(['fuel-management/add-fuel-card']);
         break;
-      case 'Asset Usage':
-        this._router.navigate(['fuel-management/add-asset-usage']);
+      case 'assetUsageTab':
+        this._router.navigate(['fuel-management/add-asset-usage'], {
+          queryParams: { id: 'assetUsageTab' }
+        });
         break;
       default:
         this._router.navigate(['fuel-management/add-fuel-card']);
