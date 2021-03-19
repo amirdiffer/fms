@@ -55,6 +55,7 @@
     "technical_inspection": "الفحص الفني",
     "auction_list": "قائمة المزاد",
     "task_master": "متابعة المهام",
+    "add_task_master": "إضافة المتابعة المهام",
     "part_store": "متجر الجزء",
     "part_list": "قائمة الأجزاء",
     "order_list": "لائحة الطلبات",
@@ -95,7 +96,11 @@
     "iserve": "IServe",
     "edit_part": "تحرير الجزء",
     "overview": "نظرة عامة",
-    "category": "الفئة"
+    "category": "الفئة",
+    "add_business_category":"إضافة فئة العمل",
+    "add_asset_configuration":"إضافة تكوين الأصول",
+    "add_ownership": "أضف ملكية",
+    "add_role_permission":"إضافة إذن الدور"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -153,6 +158,8 @@
   },
   "statistic": {
     "part": "جزء",
+    "waiting": "انتظار",
+    "requests": "طلبات",
     "total": "إجمالي",
     "active": "مفعل",
     "inactive": "غير مفعل",
@@ -177,7 +184,24 @@
     "deducte": "حسم",
     "pending": "قيد الانتظار",
     "complete": "اكتمال",
-    "cancel": "يلغي"
+    "cancel": "يلغي",
+    "insurance_action": "إجراءات التأمين",
+    "technical_inspection": "الفحص التقني",
+    "insurance_claim": "تعويض من شركة التأمين",
+    "status": "الحالة",
+    "item": "الصنف",
+    "asset": "الأصل",
+    "sub_asset": "أصل فرعي",
+    "accessory": "الملحقات",
+    "calendar": "تقويم",
+    "issue_type": "نوع القضية",
+    "technical_report": "تقرير تقني",
+    "estimate": "المتوقع",
+    "installation": "تثبيت",
+    "tasks": "المهام",
+    "started": "بدأت",
+    "not_started": "لم يبدأ",
+    "closed": "مغلق"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -218,10 +242,12 @@
     "model": "الموديل",
     "request": "طلب",
     "task": "المهمة",
-    "job_card": "بطاقة عمل"
+    "job_card": "بطاقة عمل",
+    "change": "يتغيرون"
   },
   "tables": {
     "column": {
+      "request_id": "طلب معرف",
       "suppliers": "الموردين",
       "name": "الاسم",
       "total_sub_asset": "إجمالي الأصول الفرعية",
@@ -306,6 +332,7 @@
       "reported_by": "تم عمل تقرير بواسطة",
       "insurance_value": "القيمة التأمينية",
       "insurance": "التأمين",
+      "insurance_action": "إجراءات التأمين",
       "created_by": "تم اعداده بواسطة",
       "assignment": "تعيين",
       "estimate_market": "تقدير السوق",
@@ -379,7 +406,9 @@
       "actual_end_date": "تاريخ الانتهاء الفعلي",
       "delay": "تأخير",
       "attachment": "المرفق",
-      "issue_type": "نوع القضية"
+      "issue_type": "نوع القضية",
+      "employe_id": "معرف الموظف",
+      "user_status": "حالة المستخدم"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -463,6 +492,7 @@
       "need_part": "تحتاج الجزء",
       "description": "الوصف",
       "select_issue": "حدد المشكلة من فضلك",
+      "latest_location": "آخر موقع ",
       "requests": {
         "asset_info": "معلومات الأصول",
         "asset": "الأصل",
@@ -677,7 +707,11 @@
       "asset": "أصل",
       "card_type": "نوع البطاقة",
       "expire_date": "تاريخ انتهاء الصلاحية",
-      "usage_limit": "حد الاستخدام"
+      "usage_limit": "حد الاستخدام",
+      "tag_number_validation_error": "الرجاء تعبئة رقم البطاقة",
+      "expire_date_validation_error": "يرجى ملء تاريخ انتهاء الصلاحية",
+      "usage_limit_validation_error": "الرجاء تعبئة حد الاستخدام",
+      "assign_to_validation_error": "يرجى ملء الأصل"
     },
     "asset_usage": {}
   },
@@ -693,7 +727,9 @@
       "title": "تحميل ملف CSV",
       "progressbar_title": "ملف CSV فقط",
       "content": "قم بسحب وإسقاط ملف هنا",
-      "upload": "تحميل"
+      "upload": "تحميل",
+      "save": "حفظ",
+      "please_upload_a_csv_file": "يرجى تحميل ملف CSV"
     }
   },
   "part_store": {
@@ -781,9 +817,11 @@
   "workshop": {
     "body_shop": {
       "requests": {
+        "periodic_service": "الصيانة الدورية",
         "asset_info": "معلومات الأصول",
         "asset": "الأصل",
-        "asset_validation_error": "",
+        "asset_validation_error": "الرجاء البحث واختيار عنصر من القائمة",
+        "periodic_service_validation_error": "الرجاء البحث واختيار عنصر من الخدمة الدورية",
         "gps_meter_source": "مصدر عداد GPS",
         "manual_update": "تحديث يدوي",
         "accident": "حادثة",
@@ -977,15 +1015,18 @@
         "set_reminder_before": "تحديد تذكير قبل"
       }
     },
-    "asset_configuration": {
+    "add_asset_configuration": {
       "make_and_model_info": "صنع ونموذج المعلومات",
       "multiple_model": "نموذج متعدد",
       "single_model": "نموذج واحد",
       "select_model": "اختر النموذج",
       "model": "نموذج",
+      "make": "صنع",
+      "color": "اللون",
       "drag_and_drop_a_csv_file_or": "قم بسحب وإسقاط ملف csv أو",
       "click_here": "انقر هنا",
       "description": "الوصف",
+      "type_description": "اكتب الوصف",
       "active_type": "النوع النشط",
       "type_name": "النوع الاسم",
       "accessory": "الملحقات",

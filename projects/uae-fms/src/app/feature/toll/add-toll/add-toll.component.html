@@ -1,31 +1,59 @@
-<form>
+<form [formGroup]="inputForm">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{ 'forms.back' | translate }}</button>
-    <button class="btn-primary-medium add" type="submit" >{{ 'toll.upload_form.upload' | translate }}</button>
+    <button class="btn-primary-medium btn-scondary-green" (click)="cancel()">{{ 'forms.back' | translate }}</button>
+    <button class="btn-primary-medium add" type="submit" (click)="submit()" *ngIf="!openReview">{{ 'toll.upload_form.upload' | translate }}</button>
+    <button class="btn-primary-medium add" type="button" (click)="save()" *ngIf="openReview">{{ 'toll.upload_form.save' | translate }}</button>
   </div>
-  <div class="form-section">
+  <div class="form-section" *ngIf="!openReview; else reviewComponent">
       <h3 class="form-section__title">{{ 'toll.upload_form.title' | translate }}</h3>
-      <div class="row form-section__row">
-        <div class="col-12">
+      <div class="row form-section__row pb-4">
+        <div class="col">
           <div class="upload-box">
             <div class="row">
               <div class="col-12 d-flex justify-content-between file-name-size">
-                <span>{{ 'toll.upload_form.progressbar_title' | translate }}</span>
+                <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
                 <span>00 MG</span>
               </div>
               <div class="col-lg-12">
-                <anms-progress-bar  color="#0000005E" maxValue="100" value="25"></anms-progress-bar>
+                <div class="w-100 p-0">
+                  <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
+                </div>
               </div>
-              <div class="col-lg-12">
-                <label class="space-drop" for="attach_picture">
-                  <svg-icon src="../../../../../assets/icons/cloud-computing.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                  <div>{{ 'toll.upload_form.content' | translate }}</div>
-                </label>
-                <input type="file" hidden id="attach_picture">
+              <div class="col-lg-12 mt-2">
+                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" multiple="true" >
+                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                    <label (click)="openFileSelector()" style="cursor: pointer;">
+                      <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
+                        [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                        <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
+                    </label>
+                  </ng-template>
+                </ngx-file-drop>
+                <small class="red-font m-0" [class.d-none]=" inputForm.get('upload').value !='' || !submited">{{'toll.upload_form.please_upload_a_csv_file' | translate}}</small>
               </div>
             </div>
           </div>
         </div>
+        <ng-container *ngIf="allFileUpload.length > 0">
+          <div class="col-4 d-flex flex-md-column-reverse">
+            <div *ngFor="let file of allFileUpload;let index=index;" class=" w-100 mb-2  align-self-end">
+              <span class="upload-file-name">
+                <p>{{file.relativePath}}</p>
+                <span>
+                  <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':12 , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}" (click)="deleteFile(index)"></svg-icon>
+                </span>
+              </span>
+            </div>
+          </div>
+        </ng-container>
       </div>
   </div>
+  <ng-template #reviewComponent>
+    <add-toll-review></add-toll-review>
+  </ng-template>
 </form>
+
+
+<alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogErrorConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel" (confirm)="dialogCancelConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogSettingAdd" [displayModal]="dialogModalAdd" (confirm)="dialogAddConfirm($event)"></alert-dialog>

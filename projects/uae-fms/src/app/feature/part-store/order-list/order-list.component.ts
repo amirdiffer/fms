@@ -24,18 +24,21 @@ export class OrderListComponent implements OnInit {
     },
     {
       filterTitle: 'statistic.total',
+      filterSupTitle: 'statistic.requests',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.available',
+      filterSupTitle: 'statistic.requests',
       filterCount: '08',
       filterTagColor: '#6870B4',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.unavailable',
+      filterSupTitle: 'statistic.requests',
       filterCount: '02',
       filterTagColor: '#BA7967',
       onActive(index: number) {}
@@ -51,24 +54,28 @@ export class OrderListComponent implements OnInit {
     },
     {
       filterTitle: 'statistic.total',
+      filterSupTitle: 'statistic.requests',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.approved',
+      filterSupTitle: 'statistic.requests',
       filterCount: '08',
       filterTagColor: '#6870B4',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.waiting',
+      filterSupTitle: 'statistic.requests',
       filterCount: '02',
       filterTagColor: '#BA7967',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.rejected',
+      filterSupTitle: 'statistic.requests',
       filterCount: '09',
       filterTagColor: '#DD5648',
       onActive(index: number) {}
@@ -85,8 +92,13 @@ export class OrderListComponent implements OnInit {
         field: 'Status',
         renderer: 'statusRenderer'
       },
-      { lable: 'tables.column.cost', type: 1, field: 'Cost',sortable: true },
-      { lable: 'tables.column.quantity', type: 1, field: 'Quantity',sortable: true },
+      { lable: 'tables.column.cost', type: 1, field: 'Cost', sortable: true },
+      {
+        lable: 'tables.column.quantity',
+        type: 1,
+        field: 'Quantity',
+        sortable: true
+      },
       { lable: 'tables.column.department', type: 1, field: 'Department' },
       { lable: 'tables.column.description', type: 1, field: 'Description' },
       { lable: 'tables.column.date', type: 1, field: 'Date' },
@@ -96,9 +108,8 @@ export class OrderListComponent implements OnInit {
         type: 1,
         field: 'ButtonReject',
         renderer: 'button',
-        buttonType: ButtonType.reject,
-        showOnHover: true,
-        sortable: true
+        buttonType: ButtonType.orderListReject,
+        showOnHover: true
       },
       {
         lable: '',
@@ -240,9 +251,14 @@ export class OrderListComponent implements OnInit {
   };
   myOrder_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.item', type: 1, field: 'Item' },
+      { lable: 'tables.column.request_id', type: 1, field: 'Item' },
       { lable: 'tables.column.part_id', type: 1, field: 'Part_ID' },
-      { lable: 'tables.column.quantity', type: 1, field: 'Quantity' ,sortable: true},
+      {
+        lable: 'tables.column.quantity',
+        type: 1,
+        field: 'Quantity',
+        sortable: true
+      },
       { lable: 'tables.column.date', type: 1, field: 'Date' },
       { lable: 'tables.column.description', type: 1, field: 'Description' },
       {
@@ -250,13 +266,12 @@ export class OrderListComponent implements OnInit {
         type: 1,
         field: 'Expected_Receive_date'
       },
-      { lable: 'tables.column.cost', type: 1, field: 'Cost' ,sortable: true},
-      { lable: 'tables.column.total', type: 1, field: 'Total',sortable: true },
+      { lable: 'tables.column.cost', type: 1, field: 'Cost', sortable: true },
+      { lable: 'tables.column.total', type: 1, field: 'Total', sortable: true },
       {
         lable: 'tables.column.status',
         type: 1,
-        field: 'Status',
-        renderer: 'statusRenderer'
+        field: 'Status'
       },
       {
         lable: '',
@@ -394,7 +409,12 @@ export class OrderListComponent implements OnInit {
       { lable: 'tables.column.email', type: 1, field: 'Email' },
       { lable: 'tables.column.phone', type: 1, field: 'Phone' },
       { lable: 'tables.column.address', type: 1, field: 'Address' },
-      { lable: 'tables.column.quotation', type: 1, field: 'Quotation',sortable: true }
+      {
+        lable: 'tables.column.quotation',
+        type: 1,
+        field: 'Quotation',
+        sortable: true
+      }
     ],
     data: [
       {

@@ -15,7 +15,7 @@
         <p class="p-0 m-0 ml-4 align-self-center content-alert" [class.pl-2]="settings.hasHeader == false" [ngStyle]="{ 'font-size.em':1.2 }">{{settings.message}}</p>
     </div>
         <ng-template pTemplate="footer">
-            <button  class="btn-primary-medium accept" [class.red-alert-button]="settings.hasError"  [class.warning-alert-button]="settings.isWarning" (click)="confirmDialog()">{{settings.confirmButton}}</button>
+            <button *ngIf="settings.confirmButton"  class="btn-primary-medium accept" [class.red-alert-button]="settings.hasError"  [class.warning-alert-button]="settings.isWarning" (click)="confirmDialog()">{{settings.confirmButton}}</button>
             <button *ngIf="settings.cancelButton" class="btn-primary-medium btn-scondary-green" (click)="cancelDialog()" [class.red-alert-button]="settings.hasError" [class.warning-alert-button]="settings.isWarning">{{settings.cancelButton}}</button>
         </ng-template>
     </p-dialog>
