@@ -91,7 +91,8 @@
     "add_location": "Add Location",
     "add_asset_policy":"Add Asset Policy",
     "edit_asset_policy":"Edit Asset Policy",
-    "iserve": "IServe"
+    "iserve": "IServe",
+    "add_business_category":"Add Business Category"
   },
   "sidebar": {
     "dashboard": "Dashboard",
