@@ -16,7 +16,7 @@ const routes: Routes = [
     component: AuctionListComponent
   },
   {
-    path: 'task-master/add',
+    path: 'task-master/add-task-master',
     component: TaskMasterFormComponent
   },
   {
