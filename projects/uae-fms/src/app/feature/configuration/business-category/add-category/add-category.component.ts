@@ -2,11 +2,14 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Injector
+  Injector,
+  OnDestroy
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'anms-add-category',
@@ -14,7 +17,17 @@ import { Utility } from '@shared/utility/utility';
   styleUrls: ['./add-category.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddCategoryComponent extends Utility implements OnInit {
+export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
+  dialogModal = false;
+
+  dialogSetting: IDialogAlert = {
+    header: 'Add Business Category',
+    hasError: false,
+    message: 'Message is Here',
+    confirmButton: 'Register Now',
+    cancelButton: 'Cancel'
+  };
+
   addCategory_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.category_name', type: 1, field: 'Category_Name' },
@@ -112,7 +125,11 @@ export class AddCategoryComponent extends Utility implements OnInit {
     { name: 'Accessory 6', id: 6 }
   ];
 
-  constructor(private _fb: FormBuilder, injector: Injector) {
+  constructor(
+    private _fb: FormBuilder,
+    injector: Injector,
+    public dataService: DataService
+  ) {
     super(injector);
   }
 
@@ -122,17 +139,107 @@ export class AddCategoryComponent extends Utility implements OnInit {
       assetType: ['', [Validators.required]],
       activeCategory: [''],
       description: [''],
+      assignSubAsset: new FormArray([this.createAssignSubAsset()]),
+      assignAccessory: new FormArray([this.createAssignAccessory()])
+    });
+
+    if (this.dataService.isEditing) {
+      this.addCategoryForm.patchValue({
+        name: this.dataService.dataToEditFromTable.Category_Name,
+        assetType: {
+          name: this.dataService.dataToEditFromTable.Asset_Type,
+          id: 1
+        },
+        activeCategory:
+          this.dataService.dataToEditFromTable.Status === 'Active',
+        description: this.dataService.dataToEditFromTable.Description
+      });
+
+      this.assignSubAsset.controls[0].patchValue({
+        assetQuantity: this.dataService.dataToEditFromTable.Accessory
+      });
+
+      this.assignAccessory.controls[0].patchValue({
+        accessoryQuantity: this.dataService.dataToEditFromTable.Sub_Asset
+      });
+    }
+  }
+
+  get assignSubAsset(): FormArray {
+    return this.addCategoryForm.get('assignSubAsset') as FormArray;
+  }
+
+  get assignAccessory(): FormArray {
+    return this.addCategoryForm.get('assignAccessory') as FormArray;
+  }
+
+  createAssignSubAsset(): FormGroup {
+    return this._fb.group({
       subAsset: ['', [Validators.required]],
-      assetQuantity: [''],
+      assetQuantity: ['']
+    });
+  }
+
+  createAssignAccessory(): FormGroup {
+    return this._fb.group({
       accessory: ['', [Validators.required]],
       accessoryQuantity: ['']
     });
   }
+
+  addAssignSubAsset(): void {
+    if (this.assignSubAsset.valid) {
+      this.assignSubAsset.push(this.createAssignSubAsset());
+    }
+  }
+
+  addAssignAccessory(): void {
+    if (this.assignAccessory.valid) {
+      this.assignAccessory.push(this.createAssignAccessory());
+    }
+  }
+
+  dialogConfirm(event): void {
+    console.log(event);
+
+    this.dialogModal = false;
+
+    if (event && !this.dialogSetting.hasError) {
+      this.router.navigate(['/configuration/business-category']).then();
+    }
+  }
+
+  cancel(): void {
+    this.dialogModal = true;
+    this.dialogSetting.confirmButton = 'Yes';
+    this.dialogSetting.cancelButton = 'No';
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.isWarning = true;
+    this.dialogSetting.message =
+      'Are you sure to cancel adding new business category?';
+  }
+
   submit() {
     this.submited = true;
     if (this.addCategoryForm.invalid) {
       return;
     }
+
+    this.dialogModal = true;
+
+    if (this.dataService.isEditing) {
+      this.dialogSetting.header = 'Edit Business Category';
+      this.dialogSetting.message = 'Business category edited successfully.';
+      this.dialogSetting.confirmButton = 'OK';
+      this.dialogSetting.cancelButton = undefined;
+      return;
+    }
+
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.message = 'New business category added successfully.';
+    this.dialogSetting.confirmButton = 'OK';
+    this.dialogSetting.cancelButton = undefined;
+
     this.goToList();
   }
 
@@ -168,5 +275,10 @@ export class AddCategoryComponent extends Utility implements OnInit {
       { name: 'Old asset type 5', id: 5 },
       { name: 'Old asset type 6', id: 6 }
     ];
+  }
+
+  ngOnDestroy(): void {
+    this.dataService.isEditing = false;
+    this.dataService.dataToEditFromTable = undefined;
   }
 }

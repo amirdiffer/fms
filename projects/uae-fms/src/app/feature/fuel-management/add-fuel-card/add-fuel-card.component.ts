@@ -2,7 +2,7 @@ import { TableSetting } from '@core/table';
 import { Component, OnInit, ChangeDetectionStrategy, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
-import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

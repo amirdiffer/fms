@@ -55,7 +55,7 @@
     "technical_inspection": "الفحص الفني",
     "auction_list": "قائمة المزاد",
     "task_master": "متابعة المهام",
-    "add_task_master":"إضافة المتابعة المهام",
+    "add_task_master": "إضافة المتابعة المهام",
     "part_store": "متجر الجزء",
     "part_list": "قائمة الأجزاء",
     "order_list": "لائحة الطلبات",
@@ -90,10 +90,16 @@
     "add_supplier": "إضافة مورد",
     "add_technician": "إضافة فني",
     "add_location": "اضافة الموقع",
-    "add_asset_policy":"إضافة سياسة الأصول",
-    "edit_asset_policy":"تحرير سياسة الأصول",
+    "add_asset_policy": "إضافة سياسة الأصول",
+    "edit_asset_policy": "تحرير سياسة الأصول",
     "inspections": "التفتيش",
     "iserve": "IServe",
+    "edit_part": "تحرير الجزء",
+    "overview": "نظرة عامة",
+    "category": "الفئة",
+    "add_business_category":"إضافة فئة العمل",
+    "add_asset_configuration":"إضافة تكوين الأصول",
+    "add_ownership": "أضف ملكية",
     "add_role_permission":"إضافة إذن الدور"
   },
   "sidebar": {
@@ -151,6 +157,9 @@
     "integrations": "الدمج"
   },
   "statistic": {
+    "part": "جزء",
+    "waiting": "انتظار",
+    "requests": "طلبات",
     "total": "إجمالي",
     "active": "مفعل",
     "inactive": "غير مفعل",
@@ -238,6 +247,7 @@
   },
   "tables": {
     "column": {
+      "request_id": "طلب معرف",
       "suppliers": "الموردين",
       "name": "الاسم",
       "total_sub_asset": "إجمالي الأصول الفرعية",
@@ -397,8 +407,8 @@
       "delay": "تأخير",
       "attachment": "المرفق",
       "issue_type": "نوع القضية",
-      "employe_id":"معرف الموظف",
-      "user_status":"حالة المستخدم"
+      "employe_id": "معرف الموظف",
+      "user_status": "حالة المستخدم"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -482,7 +492,7 @@
       "need_part": "تحتاج الجزء",
       "description": "الوصف",
       "select_issue": "حدد المشكلة من فضلك",
-      "latest_location":"آخر موقع ",
+      "latest_location": "آخر موقع ",
       "requests": {
         "asset_info": "معلومات الأصول",
         "asset": "الأصل",
@@ -718,8 +728,8 @@
       "progressbar_title": "ملف CSV فقط",
       "content": "قم بسحب وإسقاط ملف هنا",
       "upload": "تحميل",
-      "save":"حفظ",
-      "please_upload_a_csv_file":"يرجى تحميل ملف CSV"
+      "save": "حفظ",
+      "please_upload_a_csv_file": "يرجى تحميل ملف CSV"
     }
   },
   "part_store": {
@@ -1005,15 +1015,18 @@
         "set_reminder_before": "تحديد تذكير قبل"
       }
     },
-    "asset_configuration": {
+    "add_asset_configuration": {
       "make_and_model_info": "صنع ونموذج المعلومات",
       "multiple_model": "نموذج متعدد",
       "single_model": "نموذج واحد",
       "select_model": "اختر النموذج",
       "model": "نموذج",
+      "make": "صنع",
+      "color": "اللون",
       "drag_and_drop_a_csv_file_or": "قم بسحب وإسقاط ملف csv أو",
       "click_here": "انقر هنا",
       "description": "الوصف",
+      "type_description": "اكتب الوصف",
       "active_type": "النوع النشط",
       "type_name": "النوع الاسم",
       "accessory": "الملحقات",
@@ -1128,12 +1141,12 @@
     "boat": "قارب",
     "add_type": "إضافة نوع"
   },
-  "chart":{
-    "lifecycle":"دورة الحياة",
-    "all":"الجميع",
-    "month":"شهر",
-    "week":"أسبوع",
-    "this_month":"الشهر الحالي",
-    "service":"الخدمة"
+  "chart": {
+    "lifecycle": "دورة الحياة",
+    "all": "الجميع",
+    "month": "شهر",
+    "week": "أسبوع",
+    "this_month": "الشهر الحالي",
+    "service": "الخدمة"
   }
 }

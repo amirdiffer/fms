@@ -8,12 +8,12 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'alret-dialog',
-  templateUrl: './alret-dialog.component.html',
-  styleUrls: ['./alret-dialog.component.scss'],
+  selector: 'alert-dialog',
+  templateUrl: './alert-dialog.component.html',
+  styleUrls: ['./alert-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AlretDialogComponent implements OnInit {
+export class AlertDialogComponent implements OnInit {
   @Input('settings') settings: IDialogAlert;
   @Input('displayModal') displayModal: boolean;
   @Output() confirm = new EventEmitter<boolean>();
@@ -46,7 +46,7 @@ export interface IDialogAlert {
 /* example */
 /*
   .html
-      <alret-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alret-dialog>
+      <alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
   .ts
       dialogSetting : IDialogAlert ={
           header:'Header is Here',

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Injector } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
 import {
   FileSystemDirectoryEntry,
@@ -57,7 +57,7 @@ export class AddTollComponent extends Utility implements OnInit {
       upload: this._fb.array([])
     })
   }
-  
+
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
     let fileUpload = null;
@@ -78,7 +78,7 @@ export class AddTollComponent extends Utility implements OnInit {
         this.dialogModalError = true;
       }
       console.log('3', files);
-      
+
     }
   }
   public fileOver(event) {
@@ -127,7 +127,7 @@ export class AddTollComponent extends Utility implements OnInit {
       this.openReview = true;
       console.log('hamid')
     }
-    
+
   }
   cancel(){
     if(!this.openReview){
@@ -146,5 +146,5 @@ export class AddTollComponent extends Utility implements OnInit {
   deleteFile(index){
     this.allFileUpload.splice(index , 1 )
   }
-  
+
 }

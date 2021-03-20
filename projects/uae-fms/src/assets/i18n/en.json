@@ -55,7 +55,7 @@
     "technical_inspection": "Technical Inspection",
     "auction_list": "Auction List",
     "task_master": "Task Master",
-    "add_task_master":"Add Task Master",
+    "add_task_master": "Add Task Master",
     "part_store": "Part Store",
     "part_list": "Part List",
     "order_list": "Order List",
@@ -90,11 +90,17 @@
     "add_supplier": "Add Supplier",
     "add_technician": "Add Technician",
     "add_location": "Add Location",
-    "add_asset_policy": "Add Asset Policy",
-    "edit_asset_policy": "Edit Asset Policy",
+    "edit_part": "Edit Part",
+    "overview": "OverView",
+    "category": "Category",
+    "add_asset_policy":"Add Asset Policy",
+    "edit_asset_policy":"Edit Asset Policy",
     "iserve": "IServe",
+    "add_business_category":"Add Business Category",
+    "add_asset_configuration":"Add Asset Configuration",
+    "add_ownership": "Add Ownership",
     "traffic_fine": "Traffic Fine",
-    "add_role_permission":"Add Role Premission"
+    "add_role_permission": "Add Role Premission"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -151,6 +157,9 @@
     "integrations": "Integrations"
   },
   "statistic": {
+    "part": "Part",
+    "waiting": "Waiting",
+    "requests": "Requests",
     "total": "Total",
     "active": "Active",
     "inactive": "Inactive",
@@ -238,6 +247,7 @@
   },
   "tables": {
     "column": {
+      "request_id": "Request ID",
       "sub_asset_type": "Sub Asset Type",
       "suppliers": "Suppliers",
       "name": "Name",
@@ -397,8 +407,8 @@
       "delay": "Delay",
       "attachment": "Attachment",
       "issue_type": "Issue Type",
-      "employe_id":"Employe ID",
-      "user_status":"User Status"
+      "employe_id": "Employe ID",
+      "user_status": "User Status"
     },
     "button": {
       "view_report": "View Report",
@@ -701,7 +711,6 @@
       "expire_date_validation_error": "Please fill expire date",
       "usage_limit_validation_error": "Please fill usage limit",
       "assign_to_validation_error": "Please fill asset"
-
     },
     "asset_usage": {}
   },
@@ -718,8 +727,8 @@
       "progressbar_title": "CSV File Only",
       "content": "Drag and Drop a File here",
       "upload": "Upload",
-      "save":"Save",
-      "please_upload_a_csv_file":"Please Uplaod a CSV file"
+      "save": "Save",
+      "please_upload_a_csv_file": "Please Uplaod a CSV file"
     }
   },
   "part_store": {
@@ -1007,15 +1016,18 @@
         "set_reminder_before": "Set Reminder Before"
       }
     },
-    "asset_configuration": {
+    "add_asset_configuration": {
       "make_and_model_info": "Make And Model Info",
       "multiple_model": "Multiple Model",
       "single_model": "Single Model",
       "select_model": "Select Model",
       "model": "Model",
+      "make": "Make",
+      "color": "Color",
       "drag_and_drop_a_csv_file_or": "Drag and drop a CSV file or",
       "click_here": "Click here",
       "description": "Description",
+      "type_description": "Type Description",
       "active_type": "Active Type",
       "type_name": "Type Name",
       "accessory": "Accessory",
@@ -1130,12 +1142,12 @@
     "boat": "Boat",
     "add_type": "Add Type"
   },
-  "chart":{
-    "lifecycle":"Lifecycle",
-    "all":"All",
-    "month":"Month",
-    "week":"Week",
-    "this_month":"This Month",
-    "service":"Service"
+  "chart": {
+    "lifecycle": "Lifecycle",
+    "all": "All",
+    "month": "Month",
+    "week": "Week",
+    "this_month": "This Month",
+    "service": "Service"
   }
 }

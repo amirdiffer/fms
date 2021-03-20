@@ -84,6 +84,11 @@
     }
 
     .options-select {
+      .ng-invalid.ng-touched {
+        .p-dropdown {
+          border-color: $invalid-input-label !important;
+        }
+      }
       .p-dropdown {
         &:hover {
           border-color: $hovered-input-border;
