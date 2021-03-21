@@ -6,7 +6,7 @@ import {
   Validators
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'anms-part-list-form',

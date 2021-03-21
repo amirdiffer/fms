@@ -79,6 +79,7 @@
     "add_periodic_service": "إضافة الصيانة الدورية",
     "add_category": "إضافة التصنيف",
     "add_fleet_status": "إضافة حالة الأسطول",
+    "edit_fleet_status":"تحرير حالة الأسطول",
     "add_order_list": "إضافة قائمة الطلبات",
     "add_fuel_card": "إضافة بطاقة الوقود",
     "add_asset_usage": "إضافة استخدام الأصول",

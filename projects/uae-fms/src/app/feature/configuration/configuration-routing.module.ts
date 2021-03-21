@@ -56,6 +56,11 @@ const routes: Routes = [
     component: AddFleetStatusComponent,
     data: { name: 'Add Fleet Status' }
   },
+  {
+    path: 'fleet-status/edit-fleet-status/:id',
+    component: AddFleetStatusComponent,
+    data: { name: 'Edit Fleet Status' }
+  },
   { path: 'ownership', component: OwnershipComponent },
   {
     path: '',

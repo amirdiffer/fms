@@ -92,6 +92,9 @@
           <div *ngIf="col.renderer=='floatButton' && i == rowIndexTable">
             <float-button-renderer [lang]="activeLang"  [col]="col" [setting]="setting.rowSettings" [data]="data"></float-button-renderer>
           </div>
+          <div *ngIf="col.renderer=='colorize'">
+            <table-colorize-renderer [lang]="activeLang"  [data]="data[col.field]" [options]="col.rendererOptions"></table-colorize-renderer>
+          </div>
 
         </td>
         <div [class]="'statusColor'+ (hasRendere(setting.columns)?'with-renderer-table':' simple-table')"

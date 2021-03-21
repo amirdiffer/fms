@@ -1,9 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import {
-  FleetStatusAssetFacade,
-  FleetStatusSubAssetFacade
-} from '../+state/fleet-status';
-import { TableSetting } from '@core/table';
+import { FleetStatusAssetFacade, FleetStatusSubAssetFacade } from '../+state/fleet-status';
+import { ColumnType, TableSetting } from '@core/table';
 import { Router } from '@angular/router';
 
 @Component({
@@ -36,10 +33,19 @@ export class FleetStatusComponent implements OnInit {
         lable: 'tables.column.usage',
         field: 'usage',
         type: 1
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
     data: [
       {
+        id: 1,
         statusColor: '#009EFF',
         Status_Category: 'Inactive',
         status: 'Storage, Registration, Workshop',
@@ -47,6 +53,7 @@ export class FleetStatusComponent implements OnInit {
         usage: '23345'
       },
       {
+        id: 2,
         statusColor: '#FCB614',
         Status_Category: 'Active',
         status: 'Available, Reuse',
@@ -54,13 +61,25 @@ export class FleetStatusComponent implements OnInit {
         usage: '23345'
       },
       {
+        id: 3,
         statusColor: '#FE5F4F',
         Status_Category: 'X Fleet',
         status: 'End Contract, Total Loss, Auction',
         tag: 'Sell',
         usage: '23345'
       }
-    ]
+    ],
+    rowSettings: {
+      onClick: (event) => {
+        console.log(event)
+      },
+      floatButton: [{
+        button: 'edit',
+        onClick: (col, data) => {
+          this._router.navigate(['configuration/fleet-status/edit-fleet-status/' + data.id]);
+        }
+      }]
+    }
   };
   selectedTab: string;
 
@@ -68,7 +87,7 @@ export class FleetStatusComponent implements OnInit {
     private fleetStatusAssetFacade: FleetStatusAssetFacade,
     private fleetStatusSubAssetFacade: FleetStatusSubAssetFacade,
     private _router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fleetStatusAssetFacade.loadAll();
