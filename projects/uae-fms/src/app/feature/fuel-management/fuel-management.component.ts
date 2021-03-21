@@ -359,8 +359,7 @@ export class FuelManagementComponent implements OnInit {
   ngOnInit(): void {
     this._facadeFuelCard.loadAll();
     this.statisticsFilters(this.statisticsCount);
-    this.fuelCards$ = this._facadeFuelCard.fuelCards$.subscribe((data) => {
-      console.log(data);
+    this.fuelCards$ = this._facadeFuelCard.fuelCards$.subscribe((data:any) => {
       if (data) {
         this.fuelCardsTableSetting.data = data.map((item) => {
           return {

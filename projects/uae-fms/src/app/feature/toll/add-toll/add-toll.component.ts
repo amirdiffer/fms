@@ -14,42 +14,44 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddTollComponent extends Utility implements OnInit {
-  uploadReview: boolean= false;
+  fileValid = false;
+  formSubmitted = false;
+  uploadReview: boolean = false;
   progressBarValue = 80;
   closeIcon = 'assets/icons/times.svg';
   openReview = false;
   inputForm: FormGroup;
   public filesUpdloaded: NgxFileDropEntry[] = [];
-  allFileUpload= new Array();
-  submited=false;
-  dialogModalError= false;
+  allFileUpload = new Array();
+  submited = false;
+  dialogModalError = false;
   dialogModalCancel = false;
-  dialogModalAdd= false;
-  dialogSettingError : IDialogAlert ={
-    header:'Add Toll',
-    hasError:true,
-    hasHeader:true,
-    message:'file format incorrect (CSV only)',
+  dialogModalAdd = false;
+  dialogSettingError: IDialogAlert = {
+    header: 'Add Toll',
+    hasError: true,
+    hasHeader: true,
+    message: 'file format incorrect (CSV only)',
     confirmButton: 'OK',
   }
-  dialogSettingCancel : IDialogAlert ={
-    header:'Add Toll',
-    hasError:false,
-    hasHeader:true,
-    isWarning:true,
-    message:'Are you sure that you want to cancel the toll creation?',
+  dialogSettingCancel: IDialogAlert = {
+    header: 'Add Toll',
+    hasError: false,
+    hasHeader: true,
+    isWarning: true,
+    message: 'Are you sure that you want to cancel the toll creation?',
     confirmButton: 'Yes',
-    cancelButton:'No',
+    cancelButton: 'No',
   }
 
-  dialogSettingAdd : IDialogAlert ={
-    header:'Add Toll',
-    hasError:false,
-    hasHeader:true,
-    message:'New Toll Successfully Added',
+  dialogSettingAdd: IDialogAlert = {
+    header: 'Add Toll',
+    hasError: false,
+    hasHeader: true,
+    message: 'New Toll Successfully Added',
     confirmButton: 'OK',
   }
-  constructor(private _cd : ChangeDetectorRef , private _fb: FormBuilder , injector: Injector,) { super(injector);}
+  constructor(private _cd: ChangeDetectorRef, private _fb: FormBuilder, injector: Injector,) { super(injector); }
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
@@ -62,7 +64,7 @@ export class AddTollComponent extends Utility implements OnInit {
     this.filesUpdloaded = files;
     let fileUpload = null;
     for (const droppedFile of files) {
-      if (droppedFile.fileEntry.isFile  && this.dropAndDragValidation(droppedFile.fileEntry.name) ) {
+      if (droppedFile.fileEntry.isFile && this.dropAndDragValidation(droppedFile.fileEntry.name)) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
           this.allFileUpload.push(droppedFile)
@@ -89,12 +91,12 @@ export class AddTollComponent extends Utility implements OnInit {
     console.log(event);
   }
 
-  dropAndDragValidation(file:string){
+  dropAndDragValidation(file: string) {
     let isFileAllowed = false;
     const allowedFiles = ['.csv'];
     const regex = /(?:\.([^.]+))?$/;
     const extension = regex.exec(file);
-    if (undefined !== extension && null !== extension){
+    if (undefined !== extension && null !== extension) {
       for (const ext of allowedFiles) {
         if (ext === extension[0]) {
           isFileAllowed = true;
@@ -104,47 +106,47 @@ export class AddTollComponent extends Utility implements OnInit {
     return isFileAllowed;
   }
 
-  dialogErrorConfirm(value){
+  dialogErrorConfirm(value) {
     this.dialogModalError = false
   }
-  dialogCancelConfirm(value){
-    if(value === true){
+  dialogCancelConfirm(value) {
+    if (value === true) {
       this.goToList();
     }
     this.dialogModalCancel = false
   }
-  dialogAddConfirm(value){
-    if(value === true){
+  dialogAddConfirm(value) {
+    if (value === true) {
       this.goToList();
     }
     this.dialogModalAdd = false;
   }
-  submit(){
+  submit() {
     this.submited = true;
     if (this.allFileUpload.length < 1) {
       return;
-    }else{
+    } else {
       this.openReview = true;
       console.log('hamid')
     }
 
   }
-  cancel(){
-    if(!this.openReview){
-      if(this.allFileUpload.length > 0){
+  cancel() {
+    if (!this.openReview) {
+      if (this.allFileUpload.length > 0) {
         this.dialogModalCancel = true;
       } else {
         this.goToList();
       }
-    }else{
+    } else {
       this.openReview = false
     }
   }
-  save(){
+  save() {
     this.dialogModalAdd = true;
   }
-  deleteFile(index){
-    this.allFileUpload.splice(index , 1 )
+  deleteFile(index) {
+    this.allFileUpload.splice(index, 1)
   }
 
 }
