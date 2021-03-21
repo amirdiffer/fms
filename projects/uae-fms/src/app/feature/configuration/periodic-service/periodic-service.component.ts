@@ -66,7 +66,7 @@ export class PeriodicServiceComponent implements OnInit {
     }
   };
 
-  constructor(private facade: PeriodicServiceFacade) {}
+  constructor(private facade: PeriodicServiceFacade) { }
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -75,7 +75,10 @@ export class PeriodicServiceComponent implements OnInit {
       if (x) {
         this.tableSetting.data = [];
         x.map((responseObject) => {
-          const periodicService = {
+          const periodicService: {
+            periodicServiceName
+            number
+          } = {
             periodicServiceName: responseObject.name,
             number: responseObject.id
           };
