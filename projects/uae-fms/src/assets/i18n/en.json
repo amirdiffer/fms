@@ -79,6 +79,7 @@
     "add_periodic_service": "Add periodic Service",
     "add_category": "Add Category",
     "add_fleet_status": "Add Fleet Status",
+    "edit_fleet_status":"Edit Fleet Status",
     "add_order_list": "Add Order List",
     "add_fuel_card": "Add Fuel Card",
     "add_asset_usage": "Add Asset Usage",
