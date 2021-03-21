@@ -23,7 +23,7 @@ export class IntegrationComponent implements OnInit, OnDestroy {
   constructor(
     private _integrationService: IntegrationService,
     private facade: IntegrationFacade
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -37,7 +37,14 @@ export class IntegrationComponent implements OnInit, OnDestroy {
         },
         { lable: 'tables.column.type', field: 'type', width: 90 },
         { lable: 'tables.column.gpr', field: 'gpr' },
-        { lable: 'tables.column.status', field: 'status', width: 110 },
+        {
+          lable: 'tables.column.status', field: 'status', width: 110, renderer: "colorize", rendererOptions: {
+            color: "#0da06e", condition: (data: string) => {
+              if (data.toLowerCase() == "connect") return true;
+              else false;
+            }
+          }
+        },
         { lable: 'tables.column.email', field: 'email' },
         { lable: 'tables.column.phone_number', field: 'phoneNumber' },
         { lable: 'tables.column.company_name', field: 'companyName' },
