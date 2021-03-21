@@ -6,6 +6,7 @@ import {
   SubAssetPolicyFacade
 } from '../+state/asset-policy';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-asset-policy',
@@ -51,58 +52,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
         renderer: 'floatButton'
       }
     ],
-    data: [
-      {
-        id: 1,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 2,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 3,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 4,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 5,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 6,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 7,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      }
-
-    ],
+    data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
         console.log(col, data, button);
@@ -120,6 +70,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       ]
     }
   };
+
   subAssetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
@@ -210,6 +161,18 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
   };
   selectedTab: any;
 
+  assetPolicy$ = this.assetPolicyFacade.assetPolicy$.pipe(
+    map(x => x.map((item) => {
+      return {
+        Policy_Name: item.name,
+        Distance: item.maxUsageKPHour,
+        Year: item.maxUsageYear,
+        Depreciation_Value: item.depreciationValue
+      };
+    })
+    )
+  )
+
 
   constructor(
     private _router: Router,
@@ -220,21 +183,6 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.assetPolicyFacade.loadAll();
     this.subAssetPolicyFacade.loadAll();
-
-    this.getAssetPolicySubscription = this.assetPolicyFacade.assetPolicy$.subscribe(
-      (response) => {
-        if (response) {
-          this.assetPolicy_Table.data = response.map((item) => {
-            return {
-              Policy_Name: item.name,
-              Distance: item.maxUsageKmPHour,
-              Year: item.maxUsageYear,
-              Depreciation_Value: item.depreciationValue
-            };
-          });
-        }
-      }
-    );
   }
 
   ngOnDestroy(): void {
