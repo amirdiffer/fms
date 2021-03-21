@@ -35,7 +35,7 @@ export class IntegrationComponent implements OnInit, OnDestroy {
           type: ColumnType.labelWithThumb,
           thumbField: 'thumb'
         },
-        { lable: 'tables.column.type', field: 'type', width: 70 },
+        { lable: 'tables.column.type', field: 'type', width: 90 },
         { lable: 'tables.column.gpr', field: 'gpr' },
         { lable: 'tables.column.status', field: 'status', width: 110 },
         { lable: 'tables.column.email', field: 'email' },
