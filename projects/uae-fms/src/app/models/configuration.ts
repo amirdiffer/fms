@@ -12,6 +12,8 @@ export interface IUser {
   phoneNumbers: string[];
   isActive: boolean;
   roleId: number;
+  role: { roleId: number; roleName: string; }
+  roleName: string;
   notifyByEmail: boolean;
   notifyByPush: boolean;
   notifyByCall: boolean;

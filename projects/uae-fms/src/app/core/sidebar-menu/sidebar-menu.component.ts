@@ -258,7 +258,6 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     this.usingMenu = this.mainMenu;
 
     this.route$.subscribe((x) => {
-      console.log(x);
       if (x?.state?.url) this.urlGroup = x.state.url.split('/');
       this.collapsedMenu = '/' + x.state.url.split('/')[1];
     });
