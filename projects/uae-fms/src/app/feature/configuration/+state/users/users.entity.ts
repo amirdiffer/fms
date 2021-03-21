@@ -1,41 +1,25 @@
+import { IUser } from '@models/configuration';
+import { IUserStatistics } from '@models/statistics';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export const CONFIGURATION_USERS_FEATURE_KEY = 'users';
 
-export interface UsersStateModel {
-  userItem: {
-    name: string;
-    id: string;
-    thumb: string;
-  };
-  departmentItem: {
-    departmentName: string;
-    sectionName: string;
-  };
-  informationItem: {
-    email: string;
-    tel: string;
-  };
-  status: string;
-  role: string;
-}
-
-export interface UsersState extends EntityState<UsersStateModel> {
+export interface UsersState extends EntityState<IUser> {
   error?: any;
   loaded: boolean;
-  message: string;
+  message?: string;
+  statistics?: IUserStatistics;
 }
 
 export interface UsersPartialState {
   [CONFIGURATION_USERS_FEATURE_KEY]: UsersState;
 }
 
-export const usersAdapter: EntityAdapter<UsersStateModel> = createEntityAdapter<
-  UsersStateModel
->();
+export const usersAdapter: EntityAdapter<IUser> = createEntityAdapter<IUser>();
 
 export const initialState: UsersState = usersAdapter.getInitialState({
   loaded: null,
   message: null,
-  error: null
+  error: null,
+  statistics: null
 } as UsersState);

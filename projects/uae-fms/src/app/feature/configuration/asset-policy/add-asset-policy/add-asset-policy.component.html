@@ -79,10 +79,10 @@
                           </span>
                           <span class="yearly">{{ 'configuration.asset_policy.asset.yearly' | translate }}</span>
                         </div>
-                        <anms-error
-                          [showError]="hasError('depreciationValue',assetPolicyForm,submited)"
-                          error="forms.feedback.required"></anms-error>
-            </div>
+                      </div>
+                      <anms-error
+                        [showError]="hasError('depreciationValue',assetPolicyForm,submited)"
+                        error="forms.feedback.required"></anms-error>
 
             <div class="col-12 col-md-3 form-section__field toggle-select">
                 <p-inputSwitch formControlName="reminder"></p-inputSwitch>

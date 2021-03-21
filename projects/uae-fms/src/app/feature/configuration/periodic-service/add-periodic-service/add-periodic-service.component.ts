@@ -8,6 +8,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
 import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { PeriodicServiceFacade } from '../../+state/periodic-service';
 
 @Component({
   selector: 'anms-add-periodic-service',
@@ -101,7 +102,11 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   displaySuccessModal = false;
   displayErrorModal = false;
 
-  constructor(private _fb: FormBuilder, injector: Injector) {
+  constructor(
+    private _fb: FormBuilder,
+    injector: Injector,
+    private facade: PeriodicServiceFacade
+  ) {
     super(injector);
   }
 

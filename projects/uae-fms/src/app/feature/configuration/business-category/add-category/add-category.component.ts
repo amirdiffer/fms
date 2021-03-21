@@ -241,6 +241,46 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     this.dialogSetting.cancelButton = undefined;
 
     this.goToList();
+
+    /*
+     * the object need by API
+     *
+     * "name": "<string>",
+     * "assetTypeId": "<integer>",
+     * "status": "<string>",
+     * "description": "<string>",
+     * "subAssets": [
+     *     {
+     *         "subAssetId": "<integer>",
+     *         "quantity": "<integer>",
+     *         "specDocId": "<integer>"
+     *     }
+     * ],
+     * "accessories": [
+     *     {
+     *         "accessoryId": "<integer>",
+     *         "quantity": "<integer>",
+     *         "specDocId": "<integer>"
+     *     }
+     * ]
+     *
+     *
+     * the object we provide
+     *
+     * accessory: {name: "Old asset type 1", id: 1}
+     * accessoryQuantity: "24"
+     * activeCategory: true
+     * assetQuantity: "123"
+     * assetType:
+     * id: 1
+     * name: "Old asset type 1"
+     * description: "desc"
+     * name: "name"
+     * subAsset:
+     * id: 1
+     * name: "Old asset type 1"
+     *
+     */
   }
 
   filterAssets(event) {

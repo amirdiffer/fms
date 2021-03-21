@@ -1,16 +1,24 @@
 import { createAction, props } from '@ngrx/store';
-import { OwnershipStateModel } from './ownership.entity';
+import { IOwnerShip } from '@models/configuration';
 
 export class OwnershipActions {
   static loadAll = createAction('[Ownership] load all data');
 
   static allDataLoaded = createAction(
     '[Ownership] all datas are loaded',
-    props<{ data: OwnershipStateModel[] }>()
+    props<{ data: IOwnerShip[] }>()
   );
 
   static error = createAction(
     '[Ownership] error occurred',
     props<{ reason: any }>()
+  );
+  static addOwnership = createAction(
+    '[Ownership] add ownership',
+    props<{ data: IOwnerShip }>()
+  );
+  static ownershipAddedSuccessfully = createAction(
+    '[Ownership] ownership added succesfully',
+    props<{ data: IOwnerShip }>()
   );
 }

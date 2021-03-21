@@ -12,7 +12,27 @@ export class BusinessCategoryEffect {
       ofType(BusinessCategoryActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => BusinessCategoryActions.allDataLoaded({ data })),
+          map((data) =>
+            BusinessCategoryActions.allDataLoaded({ data: data.message })
+          ),
+          catchError((error) =>
+            of(BusinessCategoryActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  addData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(BusinessCategoryActions.addCategory),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) =>
+            BusinessCategoryActions.categoryAddedSuccessfully({
+              data: data.message
+            })
+          ),
           catchError((error) =>
             of(BusinessCategoryActions.error({ reason: error }))
           )

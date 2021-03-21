@@ -15,8 +15,20 @@ export class AssetMasterEffects {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            return AssetMasterActions.allDataLoaded({ data });
+            return AssetMasterActions.allDataLoaded({ data: data.message });
           }),
+          catchError((error) => of(AssetMasterActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  loadStatistics$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetMasterActions.loadStatistics),
+      mergeMap((action) =>
+        this.service.loadStatistics().pipe(
+          map((data) => AssetMasterActions.statisticsLoaded({ data })),
           catchError((error) => of(AssetMasterActions.error({ reason: error })))
         )
       )

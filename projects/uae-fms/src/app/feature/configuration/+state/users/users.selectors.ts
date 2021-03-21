@@ -1,11 +1,12 @@
 import { createSelector } from '@ngrx/store';
 import { ConfigurationSelectors } from '../configuration.selectors';
-import { usersAdapter } from './users.entity';
+import { usersAdapter, UsersState } from './users.entity';
+const { selectAll } = usersAdapter.getSelectors();
 
 export class UsersSelectors {
   static selectAll = createSelector(
     ConfigurationSelectors.usersSelector,
-    usersAdapter.setAll
+    selectAll
   );
 
   static message = createSelector(
@@ -16,5 +17,9 @@ export class UsersSelectors {
   static error = createSelector(
     ConfigurationSelectors.usersSelector,
     (state) => state.error
+  );
+  static selectStatistics = createSelector(
+    ConfigurationSelectors.usersSelector,
+    (state) => state.statistics
   );
 }

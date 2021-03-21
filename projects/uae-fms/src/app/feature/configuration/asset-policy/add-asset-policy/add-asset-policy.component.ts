@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { RouterFacade } from '@core/router';
 import { TableSetting } from '@core/table';
+import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
+import { IAssetPolicy } from '@models/asset-policy.model';
 import { Utility } from '@shared/utility/utility';
 import { Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';

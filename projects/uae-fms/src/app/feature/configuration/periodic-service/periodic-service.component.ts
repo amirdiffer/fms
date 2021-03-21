@@ -70,5 +70,18 @@ export class PeriodicServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.periodicService$.subscribe((x) => {
+      console.log(x);
+      if (x) {
+        this.tableSetting.data = [];
+        x.map((responseObject) => {
+          const periodicService = {
+            periodicServiceName: responseObject.name,
+            number: responseObject.id
+          };
+          this.tableSetting.data.push(periodicService);
+        });
+      }
+    });
   }
 }

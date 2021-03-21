@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy ,OnDestroy} from '@angular/core';
 import { ColumnType, TableSetting } from '@core/table';
 import { BusinessCategoryFacade } from '../+state/business-category';
 import { DataService } from './data.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'anms-business-category',
@@ -10,7 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./business-category.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BusinessCategoryComponent implements OnInit {
+export class BusinessCategoryComponent implements OnInit, OnDestroy {
+  getBusinessCategorySubscription!: Subscription;
+
   downloadBtn = 'assets/icons/download-solid.svg';
   businessCategory_Table: TableSetting = {
     columns: [
@@ -113,5 +116,27 @@ export class BusinessCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+
+    this.getBusinessCategorySubscription = this.facade.businessCategory$.subscribe(
+      (response) => {
+        console.log(response);
+        this.businessCategory_Table.data = [];
+        response.map((responseObject) => {
+          const trafficFineTableData = {
+            Category_Name: responseObject.name,
+            Status: responseObject.status,
+            Description: responseObject.description,
+            Asset_Type: responseObject.assetTypeId,
+            Sub_Asset: responseObject.subAssetsCount,
+            Accessory: responseObject.accessoriesCount
+          };
+          this.businessCategory_Table.data.push(trafficFineTableData);
+        });
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.getBusinessCategorySubscription?.unsubscribe();
   }
 }
