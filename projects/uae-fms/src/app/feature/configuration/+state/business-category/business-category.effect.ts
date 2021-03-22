@@ -23,6 +23,24 @@ export class BusinessCategoryEffect {
     )
   );
 
+  editCategory$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(BusinessCategoryActions.editCategory),
+      mergeMap((action) =>
+        this.service.editCategory(action.category).pipe(
+          map((data) =>
+            BusinessCategoryActions.categoryEditedSuccessfully({
+              category: action.category
+            })
+          ),
+          catchError((error) =>
+            of(BusinessCategoryActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
   addData$ = createEffect(() =>
     this.action$.pipe(
       ofType(BusinessCategoryActions.addCategory),
