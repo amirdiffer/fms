@@ -119,54 +119,57 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
       (params) => {
         this.isEdit = params.filter(x => x.path == "edit-user").length > 0 ? true : false;
 
-        this.userFacade.loadAll();
-        this.userFacade.getUserById(+(params[params.length - 1].path)).subscribe(x => {
-          if (x) {
-            this.form.controls['portalInformation'].patchValue({
-              employeeNumber: {
-                name: x.id,
-                id: x.employeeNumber
-              },
-              department: {
-                name: `${x.department.name}`
-              },
-              role: { name: x.role, id: 1 },
-              activeEmployee: x.isActive === 'Active'
-            });
+        if (this.isEdit) {
+          this.userFacade.loadAll();
+          this.userFacade.getUserById(+(params[params.length - 1].path)).subscribe(x => {
+            if (x) {
+              this.form.controls['portalInformation'].patchValue({
+                employeeNumber: {
+                  name: x.id,
+                  id: x.employeeNumber
+                },
+                department: {
+                  name: `${x.department.name}`
+                },
+                role: { name: x.role, id: 1 },
+                activeEmployee: x.isActive === 'Active'
+              });
 
-            this.form.controls['personalInformation'].patchValue({
-              firstName: x.firstName,
-              lastName: x.lastName
-            });
+              this.form.controls['personalInformation'].patchValue({
+                firstName: x.firstName,
+                lastName: x.lastName
+              });
 
-            this.emails.controls[0].patchValue({
-              email: x.emails
-            });
+              this.emails.controls[0].patchValue({
+                email: x.emails
+              });
 
-            this.phoneNumbers.controls[0].patchValue({
-              phoneNumber: x.phoneNumbers
-            });
+              this.phoneNumbers.controls[0].patchValue({
+                phoneNumber: x.phoneNumbers
+              });
 
-            this.form.controls['fileUpload'].patchValue({
-              fileName: x.profileDocId
-            });
+              this.form.controls['fileUpload'].patchValue({
+                fileName: x.profileDocId
+              });
 
-            this.formChangesSubscription = this.form.valueChanges.subscribe(
-              (formValues) => {
-                if (formValues.portalInformation.employeeNumber.name) {
-                  this.form.controls['personalInformation'].patchValue(
-                    {
-                      firstName: formValues.portalInformation.employeeNumber.name,
-                      lastName: formValues.portalInformation.employeeNumber.name
-                    },
-                    { emitEvent: false }
-                  );
-                }
-              }
-            );
+              if (!this.isEdit)
+                this.formChangesSubscription = this.form.valueChanges.subscribe(
+                  (formValues) => {
+                    if (formValues.portalInformation.employeeNumber.name) {
+                      this.form.controls['personalInformation'].patchValue(
+                        {
+                          firstName: formValues.portalInformation.employeeNumber.name,
+                          lastName: formValues.portalInformation.employeeNumber.name
+                        },
+                        { emitEvent: false }
+                      );
+                    }
+                  }
+                );
 
-          }
-        })
+            }
+          })
+        }
       }
     );
   }
@@ -266,11 +269,12 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
 
     this.dialogModal = true;
     if (this.isEdit) {
-      this.dialogSetting.header = 'Add new user';
-      this.dialogSetting.message = 'User edited successfully.';
-      this.dialogSetting.confirmButton = 'OK';
-      this.dialogSetting.cancelButton = undefined;
-      return;
+      console.log(this.form.value)
+      // this.dialogSetting.header = 'Edit user';
+      // this.dialogSetting.message = 'User edited successfully.';
+      // this.dialogSetting.confirmButton = 'OK';
+      // this.dialogSetting.cancelButton = undefined;
+      // return;
     }
 
     this.dialogSetting.header = 'Add new user';
