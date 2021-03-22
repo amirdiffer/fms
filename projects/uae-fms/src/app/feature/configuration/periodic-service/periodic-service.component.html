@@ -11,6 +11,6 @@
       <button class="btn-primary-small" [routerLink]="'./add-periodic-service'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
 
     </div>
-    <app-table [setting]="tableSetting"></app-table>
+    <app-table [setting]="tableSetting" [tableData]="periodicServices$"></app-table>
   </div>
 </div>
