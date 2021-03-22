@@ -6,8 +6,8 @@ export interface IBusinessCategory extends IGeneralResponse {
   status: string;
   description: string;
   assetTypeId: number;
-  subAssetsCount: number;
-  accessoriesCount: number;
+  numOfSubAssets: number;
+  numOfAccessories: number;
 }
 
 export interface IBusinessCategoryPostModel {

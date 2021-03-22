@@ -25,6 +25,7 @@ export class TableComponent implements OnInit {
     });
 
     this.tableData?.subscribe(x => {
+      console.log(x)
       this.setting.data = x;
       this.changeDetection.detectChanges();
     })

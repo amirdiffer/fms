@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy ,OnDestroy} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ColumnType, TableSetting } from '@core/table';
 import { BusinessCategoryFacade } from '../+state/business-category';
 import { DataService } from './data.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-business-category',
@@ -15,6 +16,17 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   getBusinessCategorySubscription!: Subscription;
 
   downloadBtn = 'assets/icons/download-solid.svg';
+  businessCategory$ = this.facade.businessCategory$.pipe(map(x => x.map((responseObject) => {
+    return {
+      Category_Name: responseObject.name,
+      Status: responseObject.status,
+      Description: responseObject.description,
+      Asset_Type: responseObject.assetTypeId,
+      Sub_Asset: responseObject.numOfSubAssets,
+      Accessory: responseObject.numOfAccessories
+    };
+  })));
+
   businessCategory_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.category_name', type: 1, field: 'Category_Name' },
@@ -32,64 +44,7 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
         renderer: 'floatButton'
       }
     ],
-    data: [
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      }
-    ],
+    data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
         console.log(col, data, button);
@@ -112,28 +67,10 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
     private facade: BusinessCategoryFacade,
     private dataService: DataService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.facade.loadAll();
-
-    this.getBusinessCategorySubscription = this.facade.businessCategory$.subscribe(
-      (response) => {
-        console.log(response);
-        this.businessCategory_Table.data = [];
-        response.map((responseObject) => {
-          const trafficFineTableData = {
-            Category_Name: responseObject.name,
-            Status: responseObject.status,
-            Description: responseObject.description,
-            Asset_Type: responseObject.assetTypeId,
-            Sub_Asset: responseObject.subAssetsCount,
-            Accessory: responseObject.accessoriesCount
-          };
-          this.businessCategory_Table.data.push(trafficFineTableData);
-        });
-      }
-    );
   }
 
   ngOnDestroy(): void {
