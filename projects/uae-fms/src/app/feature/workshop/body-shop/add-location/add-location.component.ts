@@ -77,8 +77,7 @@ export class AddLocationComponent extends Utility implements OnInit {
         sortable: true
       },
       {
-        lable:
-          '<img src="../../../../../assets/icons/ellipsis-v.svg" class="icon24px">',
+        lable: '<img src="assets/icons/ellipsis-v.svg" class="icon24px">',
         type: 3,
         width: 70,
         isIconLable: true,
@@ -208,10 +207,14 @@ export class AddLocationComponent extends Utility implements OnInit {
   cancelForm() {
     if (this.inputForm.dirty) {
       confirm('Are You sure that you want to cancel?')
-        ? this._roter.navigate(['/workshop/body-shop'] , {queryParams:{id:'locationTab'}})
+        ? this._roter.navigate(['/workshop/body-shop'], {
+            queryParams: { id: 'locationTab' }
+          })
         : null;
     } else {
-      this._roter.navigate(['/workshop/body-shop'] , {queryParams:{id:'locationTab'}});
+      this._roter.navigate(['/workshop/body-shop'], {
+        queryParams: { id: 'locationTab' }
+      });
     }
   }
 }

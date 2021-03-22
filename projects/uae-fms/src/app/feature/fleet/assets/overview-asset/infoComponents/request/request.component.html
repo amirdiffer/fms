@@ -27,15 +27,15 @@
     <div class="col-auto">
       <div class="sort">
         <span (click)="activeLayout = 'menu'" [ngStyle]="{'background-color': activeLayout == 'menu' ? '#0DA06E' : null}">
-        <svg-icon src='../../../../../../../assets/icons/layout-menu.svg'
+        <svg-icon src='assets/icons/layout-menu.svg'
                   [svgStyle]="{ 'width.px':'24' , 'fill': activeLayout == 'menu' ? '#ffffff' : '#0DA06E' , 'height': '100%'}"></svg-icon>
         </span>
         <span (click)="activeLayout = 'grid'" [ngStyle]="{'background-color': activeLayout == 'grid' ? '#0DA06E' : null}">
-        <svg-icon src='../../../../../../../assets/icons/layout-grid.svg'
+        <svg-icon src='assets/icons/layout-grid.svg'
                   [svgStyle]="{ 'width.px':'24' , 'fill': activeLayout == 'grid' ? '#ffffff' : '#0DA06E' , 'height': '100%'}"></svg-icon>
         </span>
         <span (click)="activeLayout = 'top'" [ngStyle]="{'background-color': activeLayout == 'top' ? '#0DA06E' : null}">
-        <svg-icon src='../../../../../../../assets/icons/layout-top.svg'
+        <svg-icon src='assets/icons/layout-top.svg'
                   [svgStyle]="{ 'width.px':'24' , 'fill': activeLayout == 'top' ? '#ffffff' : '#0DA06E' , 'height': '100%'}"></svg-icon>
         </span>
       </div>
@@ -214,7 +214,7 @@
           <ngx-file-drop dropZoneLabel="Drop files here">
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
               <label (click)="openFileSelector()" style="cursor: pointer;">
-                <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
+                <svg-icon  class="drop-icon" src="assets/icons/cloud-computing.svg"
                            [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
                 <small calss="drag-and-drop">{{'assets.overview.requests.upload_form.content' | translate}}</small>
               </label>

@@ -39,7 +39,7 @@ import { ButtonType } from '../table.component';
     <img
       *ngIf="col.buttonType == buttonType.action"
       class="action-button"
-      src="../../../assets/icons/three-dots.svg"
+      src="assets/icons/three-dots.svg"
     />
     <button
       *ngIf="col.buttonType == buttonType.jobCard"

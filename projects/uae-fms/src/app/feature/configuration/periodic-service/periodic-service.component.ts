@@ -21,8 +21,7 @@ export class PeriodicServiceComponent implements OnInit {
       renderer: ''
     },
     {
-      lable:
-        '<img src="../../../../../assets/icons/car-solid.svg" class="icon24px">',
+      lable: '<img src="assets/icons/car-solid.svg" class="icon24px">',
       field: 'number',
       isIconLable: true,
       sortable: true,

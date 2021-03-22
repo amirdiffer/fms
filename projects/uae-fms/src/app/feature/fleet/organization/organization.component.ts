@@ -43,7 +43,7 @@ export class OrganizationComponent implements OnInit {
         field: 'TF_Unpaid'
       },
       {
-        lable: '<img src="../../../../assets/icons/operator.svg">',
+        lable: '<img src="assets/icons/operator.svg">',
         type: 1,
         sortable: true,
         isIconLable: true,
@@ -51,7 +51,7 @@ export class OrganizationComponent implements OnInit {
         width: 100
       },
       {
-        lable: '<img src="../../../../assets/icons/car-solid.svg">',
+        lable: '<img src="assets/icons/car-solid.svg">',
         type: 1,
         isIconLable: true,
         field: 'car',

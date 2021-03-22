@@ -86,7 +86,7 @@ export {
 export function httpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(
     http,
-    `${environment.i18nPrefix}/assets/i18n/`,
+    `${environment.i18nPrefix}assets/i18n/`,
     '.json'
   );
 }
@@ -118,8 +118,8 @@ export function httpLoaderFactory(http: HttpClient) {
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({
-        name: 'Angular NgRx Material Starter'
-      }),
+          name: 'Angular NgRx Material Starter'
+        }),
 
     // 3rd party
     TranslateModule.forRoot({
@@ -128,7 +128,7 @@ export function httpLoaderFactory(http: HttpClient) {
         useFactory: httpLoaderFactory,
         deps: [HttpClient]
       }
-    }),
+    })
 
     //Other
   ],
@@ -155,8 +155,7 @@ export function httpLoaderFactory(http: HttpClient) {
     MatButtonModule,
 
     // 3rd party
-    TranslateModule,
+    TranslateModule
   ]
 })
-export class CoreModule {
-}
+export class CoreModule {}
