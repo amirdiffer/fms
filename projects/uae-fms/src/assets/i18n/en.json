@@ -79,7 +79,7 @@
     "add_periodic_service": "Add periodic Service",
     "add_category": "Add Category",
     "add_fleet_status": "Add Fleet Status",
-    "edit_fleet_status":"Edit Fleet Status",
+    "edit_fleet_status": "Edit Fleet Status",
     "add_order_list": "Add Order List",
     "add_fuel_card": "Add Fuel Card",
     "add_asset_usage": "Add Asset Usage",
@@ -94,14 +94,15 @@
     "edit_part": "Edit Part",
     "overview": "OverView",
     "category": "Category",
-    "add_asset_policy":"Add Asset Policy",
-    "edit_asset_policy":"Edit Asset Policy",
+    "add_asset_policy": "Add Asset Policy",
+    "edit_asset_policy": "Edit Asset Policy",
     "iserve": "IServe",
-    "add_business_category":"Add Business Category",
-    "add_asset_configuration":"Add Asset Configuration",
+    "add_business_category": "Add Business Category",
+    "add_asset_configuration": "Add Asset Configuration",
     "add_ownership": "Add Ownership",
     "traffic_fine": "Traffic Fine",
-    "add_role_permission": "Add Role Premission"
+    "add_role_permission": "Add Role Permission",
+    "add_new_accessory": "Add New Accessory"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -275,7 +276,7 @@
       "serial_number": "Serial Number",
       "warranty_expire_date": "warranty Expire Date",
       "item": "Item",
-      "asset_sub_asset": "Asset Sub Asset",
+      "asset_sub_asset": "Asset / Sub Asset",
       "assigned_to": "Assigned To",
       "quantity": "Quantity",
       "organization": "Organization",
@@ -609,6 +610,7 @@
     }
   },
   "accessory": {
+    "assets_sub_assets": "Assets / Sub Assets",
     "assigned_to_a": "Assigned to a",
     "item_name": "Item Name",
     "asset": "Asset",
