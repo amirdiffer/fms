@@ -53,9 +53,9 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
   ];
 
   roles = [
-    { name: 'Admin', id: 1 },
+    { name: 'Police', id: 1 },
     { name: 'Manager', id: 2 },
-    { name: 'Police', id: 3 },
+    { name: 'Admin', id: 3 },
     { name: 'User', id: 4 }
   ];
 
@@ -131,7 +131,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
                 department: {
                   name: `${x.department.name}`
                 },
-                role: { name: x.role, id: 1 },
+                roleId: x.role.roleId,
                 activeEmployee: x.isActive === 'Active'
               });
 
@@ -151,27 +151,41 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
               this.form.controls['fileUpload'].patchValue({
                 fileName: x.profileDocId
               });
-
-              if (!this.isEdit)
-                this.formChangesSubscription = this.form.valueChanges.subscribe(
-                  (formValues) => {
-                    if (formValues.portalInformation.employeeNumber.name) {
-                      this.form.controls['personalInformation'].patchValue(
-                        {
-                          firstName: formValues.portalInformation.employeeNumber.name,
-                          lastName: formValues.portalInformation.employeeNumber.name
-                        },
-                        { emitEvent: false }
-                      );
-                    }
-                  }
-                );
-
+              console.log(x)
+              console.log(this.form.value)
             }
           })
+
+        }
+        else {
+          this.formChangesSubscription = this.form.valueChanges.subscribe(
+            (formValues) => {
+              if (formValues.portalInformation.employeeNumber.name) {
+                this.form.controls['personalInformation'].patchValue(
+                  {
+                    firstName: formValues.portalInformation.employeeNumber.name,
+                    lastName: formValues.portalInformation.employeeNumber.name
+                  },
+                  { emitEvent: false }
+                );
+              }
+            }
+          );
         }
       }
     );
+
+    this.userFacade.submitted$.subscribe(x => {
+      if (x) {
+        this.dialogSetting.header = 'Edit user';
+        this.dialogSetting.message = 'Changes Saved Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'Yes';
+        this.dialogSetting.cancelButton = undefined;
+        this.router.navigate(['/configuration/user-management/users']).then();
+      }
+    })
   }
 
   ngAfterContentInit(): void {
@@ -183,7 +197,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
       portalInformation: this.formBuilder.group({
         employeeNumber: ['', [Validators.required]],
         department: ['', [Validators.required]],
-        role: [''],
+        roleId: [''],
         activeEmployee: false
       }),
       fileUpload: this.formBuilder.group({
@@ -234,8 +248,33 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
     console.log($event);
     this.dialogModal = false;
 
-    if ($event && !this.dialogSetting.hasError) {
-      this.router.navigate(['/configuration/user-management/users']).then();
+    if (this.isEdit) {
+      let f = this.form.value;
+      let userInfo = {
+        employeeNumber: "0629374291",
+        organizationId: 21,
+        departmentId: 21,
+        roleId: 2,
+        isActive: false,
+        profileDocId: 1,
+        firstName: "Mahdi",
+        lastName: "Zamani",
+        emails: [
+          "something@jointscope.com"
+        ],
+        phoneNumbers: f.personalInformation.phoneNumbers.map(x=>x.),
+        notifyByCall: f.personalInformation.callCheckbox,
+        notifyBySMS: f.personalInformation.smsCheckbox,
+        notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
+        notifyByEmail: f.personalInformation.emailCheckbox
+      }
+
+      this.userFacade.editUser(userInfo);
+    }
+    else {
+      if ($event && !this.dialogSetting.hasError) {
+        this.router.navigate(['/configuration/user-management/users']).then();
+      }
     }
   }
 
@@ -269,12 +308,12 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
 
     this.dialogModal = true;
     if (this.isEdit) {
-      console.log(this.form.value)
-      // this.dialogSetting.header = 'Edit user';
-      // this.dialogSetting.message = 'User edited successfully.';
-      // this.dialogSetting.confirmButton = 'OK';
-      // this.dialogSetting.cancelButton = undefined;
-      // return;
+      this.dialogSetting.header = 'Edit user';
+      this.dialogSetting.message = 'Are you sure you want to submit this changes?';
+      this.dialogSetting.isWarning = true;
+      this.dialogSetting.confirmButton = 'Yes';
+      this.dialogSetting.cancelButton = undefined;
+      return;
     }
 
     this.dialogSetting.header = 'Add new user';
