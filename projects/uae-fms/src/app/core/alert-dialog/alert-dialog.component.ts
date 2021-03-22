@@ -11,7 +11,7 @@ import {
   selector: 'alert-dialog',
   templateUrl: './alert-dialog.component.html',
   styleUrls: ['./alert-dialog.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class AlertDialogComponent implements OnInit {
   @Input('settings') settings: IDialogAlert;

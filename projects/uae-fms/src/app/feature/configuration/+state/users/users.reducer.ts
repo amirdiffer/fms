@@ -33,7 +33,19 @@ const usersReducer = createReducer(
   on(UsersActions.statisticsLoaded, (state, { data }) => ({
     ...state,
     statistics: data
-  }))
+  })),
+  on(UsersActions.editUser, (state, { user }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(UsersActions.userEditedSuccessfully, (state, { user }) => (usersAdapter.updateOne({ changes: user, id: user.id }, {
+    ...state,
+    error: null,
+    message: null,
+    submitted: true
+  })))
 );
 
 export function reducer(state: UsersState, action: Action) {

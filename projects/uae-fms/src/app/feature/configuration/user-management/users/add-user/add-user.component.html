@@ -39,10 +39,10 @@
       </div>
       <div class="col-12 col-md-3 p-field form-section__field options-select">
         <span class="p-float-label">
-          <p-dropdown inputId="role" [autoDisplayFirst]="false" [options]="roles" formControlName="role"
+          <p-dropdown inputId="role" [autoDisplayFirst]="false" [options]="roles" formControlName="roleId"
             optionLabel="name"></p-dropdown>
           <label for="role">{{ 'configuration.users.role' | translate }}</label>
-          <anms-error [showError]="hasError('role',form.get('portalInformation'),submited)"
+          <anms-error [showError]="hasError('roleId',form.get('portalInformation'),submited)"
             error="forms.feedback.required">
           </anms-error>
         </span>
@@ -185,3 +185,4 @@
 </form>
 
 <alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal" (confirm)="errorDialogModal=false"></alert-dialog>

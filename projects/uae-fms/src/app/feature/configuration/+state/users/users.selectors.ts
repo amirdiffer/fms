@@ -19,6 +19,11 @@ export class UsersSelectors {
     (state) => state.error
   );
 
+  static submitted = createSelector(
+    ConfigurationSelectors.usersSelector,
+    (state) => state.submitted
+  )
+
   static selectStatistics = createSelector(
     ConfigurationSelectors.usersSelector,
     (state) => state.statistics

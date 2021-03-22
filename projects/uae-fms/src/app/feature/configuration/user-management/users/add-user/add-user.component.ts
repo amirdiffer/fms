@@ -1,5 +1,5 @@
 import { InjectableCompiler } from '@angular/compiler/src/injectable_compiler';
-import { AfterContentInit, ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FilterCardSetting } from '@core/filter';
 import { Utility } from '@shared/utility/utility';
@@ -18,6 +18,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
   isEdit: boolean = false;
   formChangesSubscription!: Subscription;
 
+  id: number;
   dialogSetting: IDialogAlert = {
     header: 'Add new user alert',
     hasError: false,
@@ -26,7 +27,18 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
     cancelButton: 'Cancel'
   };
 
+  errorDialogSetting: IDialogAlert = {
+    header: '',
+    message: 'Error occurred in progress',
+    confirmButton: 'Ok',
+    isWarning: false,
+    hasError: true,
+    hasHeader: true,
+    cancelButton: undefined
+  };
+
   dialogModal = false;
+  errorDialogModal = false;
 
   progressBarValue = 50;
   bufferValue = 70;
@@ -107,7 +119,8 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
   constructor(
     injector: Injector,
     private formBuilder: FormBuilder,
-    private userFacade: UsersFacade
+    private userFacade: UsersFacade,
+    private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
@@ -120,6 +133,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
         this.isEdit = params.filter(x => x.path == "edit-user").length > 0 ? true : false;
 
         if (this.isEdit) {
+          this.id = +(params[params.length - 1].path);
           this.userFacade.loadAll();
           this.userFacade.getUserById(+(params[params.length - 1].path)).subscribe(x => {
             if (x) {
@@ -151,8 +165,8 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
               this.form.controls['fileUpload'].patchValue({
                 fileName: x.profileDocId
               });
-              console.log(x)
-              console.log(this.form.value)
+              // console.log(x)
+              // console.log(this.form.value)
             }
           })
 
@@ -177,15 +191,29 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
 
     this.userFacade.submitted$.subscribe(x => {
       if (x) {
-        this.dialogSetting.header = 'Edit user';
-        this.dialogSetting.message = 'Changes Saved Successfully';
+        this.dialogSetting.header = this.isEdit ? 'Edit user' : 'Add new user';
+        this.dialogSetting.message = this.isEdit ? 'Changes Saved Successfully' : 'User Added Successfully';
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
         this.router.navigate(['/configuration/user-management/users']).then();
       }
-    })
+    });
+
+    this.userFacade.error$.subscribe(x => {
+      if (x?.error) {
+        console.log(x?.error)
+        this.errorDialogModal = true;
+        this.errorDialogSetting.header = this.isEdit ? 'Edit user' : 'Add new user';
+        this.errorDialogSetting.hasError = true;
+        this.errorDialogSetting.cancelButton = undefined;
+        this.errorDialogSetting.confirmButton = "Ok";
+        this.changeDetector.detectChanges();
+      } else {
+        this.errorDialogModal = false;
+      }
+    });
   }
 
   ngAfterContentInit(): void {
@@ -203,7 +231,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
       fileUpload: this.formBuilder.group({
         fileName: 'file.pdf',
         fileSize: '00 MB',
-        file: [undefined, [Validators.required]]
+        file: [undefined]
       }),
       personalInformation: this.formBuilder.group({
         firstName: ['', [Validators.required]],
@@ -245,36 +273,52 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
   }
 
   dialogConfirm($event): void {
-    console.log($event);
     this.dialogModal = false;
+    if (!$event) return;
 
+    let f = this.form.value;
+    let userInfo = {
+      employeeNumber: f.portalInformation.employeeNumber,
+      organizationId: 21,
+      departmentId: f.portalInformation.department.id || 1,
+      roleId: 2,
+      isActive: f.portalInformation.activeEmployee,
+      profileDocId: 1,
+      firstName: f.personalInformation.firstName,
+      lastName: f.personalInformation.lastName,
+      emails: f.personalInformation.emails.map(x => {
+        if (x.email) {
+          if (typeof x.email == "string")
+            return x.email
+          else
+            return x.email[0]
+
+        }
+        else if (typeof x == "object")
+          return x[0]
+      }),
+      phoneNumbers: f.personalInformation.phoneNumbers.map(x => {
+        if (x.phoneNumber) {
+          if (typeof x.phoneNumber == "string")
+            return x.phoneNumber
+          else
+            return x.phoneNumber[0]
+
+        }
+        else if (typeof x == "object")
+          return x[0]
+      }),
+      notifyByCall: f.personalInformation.callCheckbox,
+      notifyBySMS: f.personalInformation.smsCheckbox,
+      notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
+      notifyByEmail: f.personalInformation.emailCheckbox
+    }
     if (this.isEdit) {
-      let f = this.form.value;
-      let userInfo = {
-        employeeNumber: "0629374291",
-        organizationId: 21,
-        departmentId: 21,
-        roleId: 2,
-        isActive: false,
-        profileDocId: 1,
-        firstName: "Mahdi",
-        lastName: "Zamani",
-        emails: [
-          "something@jointscope.com"
-        ],
-        phoneNumbers: f.personalInformation.phoneNumbers.map(x=>x.),
-        notifyByCall: f.personalInformation.callCheckbox,
-        notifyBySMS: f.personalInformation.smsCheckbox,
-        notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
-        notifyByEmail: f.personalInformation.emailCheckbox
-      }
-
+      userInfo['id'] = this.id;
       this.userFacade.editUser(userInfo);
     }
     else {
-      if ($event && !this.dialogSetting.hasError) {
-        this.router.navigate(['/configuration/user-management/users']).then();
-      }
+      this.userFacade.addUser(userInfo);
     }
   }
 
@@ -312,7 +356,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
       this.dialogSetting.message = 'Are you sure you want to submit this changes?';
       this.dialogSetting.isWarning = true;
       this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = undefined;
+      this.dialogSetting.cancelButton = "Cancel";
       return;
     }
 

@@ -30,6 +30,18 @@ export class UsersEffect {
     )
   );
 
+  editUser$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(UsersActions.editUser),
+      mergeMap((action) =>
+        this.service.editUser(action.user).pipe(
+          map((data) => UsersActions.userEditedSuccessfully({ user: action.user })),
+          catchError((error) => of(UsersActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   addData$ = createEffect(() =>
     this.action$.pipe(
       ofType(UsersActions.addUser),
@@ -46,5 +58,5 @@ export class UsersEffect {
     )
   );
 
-  constructor(private action$: Actions, private service: UsersService) {}
+  constructor(private action$: Actions, private service: UsersService) { }
 }

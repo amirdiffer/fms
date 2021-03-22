@@ -27,4 +27,11 @@ export class UsersService {
       data
     );
   }
+
+  editUser(data): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'configuration/user/'+data.id+"/update",
+      data
+    );
+  }
 }

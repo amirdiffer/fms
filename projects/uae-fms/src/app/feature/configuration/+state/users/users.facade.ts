@@ -17,6 +17,8 @@ export class UsersFacade {
 
   statistics$ = this.store.pipe(select(UsersSelectors.selectStatistics));
 
+  submitted$ = this.store.pipe(select(UsersSelectors.submitted));
+
   constructor(private store: Store<UsersPartialState>) { }
 
   loadAll() {
@@ -24,8 +26,12 @@ export class UsersFacade {
     this.store.dispatch(UsersActions.loadStatistics());
   }
 
-  addUser(data: IUser) {
+  addUser(data: any) {
     this.store.dispatch(UsersActions.addUser({ data }));
+  }
+
+  editUser(user: any) {
+    this.store.dispatch(UsersActions.editUser({ user }));
   }
 
   getUserById(id: number) {

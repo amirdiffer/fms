@@ -16,11 +16,24 @@ export class UsersActions {
     '[Users] user added successfully',
     props<{ data: IUser }>()
   );
+
+  static editUser = createAction(
+    '[User] Eiditing User',
+    props<{ user: any }>()
+  );
+
+  static userEditedSuccessfully = createAction(
+    '[User] User Edited Successfully',
+    props<{ user: any }>()
+  );
+
   static error = createAction(
     '[Users] error occurred',
     props<{ reason: any }>()
   );
+
   static loadStatistics = createAction('[Users] load all statistics');
+
   static statisticsLoaded = createAction(
     '[Users] all statistics are loaded',
     props<{ data: IUserStatistics }>()

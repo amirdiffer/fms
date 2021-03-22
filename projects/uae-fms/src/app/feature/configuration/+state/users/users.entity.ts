@@ -7,6 +7,7 @@ export const CONFIGURATION_USERS_FEATURE_KEY = 'users';
 export interface UsersState extends EntityState<IUser> {
   error?: any;
   loaded: boolean;
+  submitted: boolean;
   message?: string;
   statistics?: IUserStatistics;
 }
@@ -18,8 +19,9 @@ export interface UsersPartialState {
 export const usersAdapter: EntityAdapter<IUser> = createEntityAdapter<IUser>();
 
 export const initialState: UsersState = usersAdapter.getInitialState({
-  loaded: null,
+  loaded: false,
   message: null,
+  submitted: false,
   error: null,
   statistics: null
 } as UsersState);
