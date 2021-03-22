@@ -18,27 +18,107 @@ export class BodyShopComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   filterSetting: FilterCardSetting[] = [
     {
+      filterCount: '',
+      filterTagColor: '',
+      filterTitle: 'statistic.calendar',
+      isCalendar: true,
+      onActive: () => {}
+    },
+    {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterTitle: 'statistic.total',
+      filterSupTitle: 'statistic.insurance_claim',
       onActive: () => {}
     },
     {
       filterCount: '8',
       filterTagColor: '#6870B4',
       filterTitle: 'statistic.approved',
+      filterSupTitle: 'statistic.insurance_claim',
       onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#BA7967',
       filterTitle: 'statistic.waiting_for_approval',
+      filterSupTitle: 'statistic.insurance_claim',
       onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#DD5648',
       filterTitle: 'statistic.rejected',
+      filterSupTitle: 'statistic.insurance_claim',
+      onActive: () => {}
+    }
+  ];
+
+  jobCardTabFilterSetting: FilterCardSetting[] = [
+    {
+      filterCount: '',
+      filterTagColor: '',
+      filterTitle: 'statistic.this_month',
+      isCalendar: true,
+      onActive: () => {}
+    },
+    {
+      filterCount: '13',
+      filterTagColor: '#6EBFB5',
+      filterTitle: 'statistic.total',
+      filterSupTitle: 'statistic.job_card',
+      onActive: () => {}
+    },
+    {
+      filterCount: '8',
+      filterTagColor: '#6870B4',
+      filterTitle: 'statistic.approved',
+      filterSupTitle: 'statistic.workshop_manager',
+      onActive: () => {}
+    },
+    {
+      filterCount: '13',
+      filterTagColor: '#BA7967',
+      filterTitle: 'statistic.waiting_for_approval',
+      filterSupTitle: 'statistic.workshop_manager',
+      onActive: () => {}
+    },
+    {
+      filterCount: '13',
+      filterTagColor: '#DD5648',
+      filterTitle: 'statistic.rejected',
+      filterSupTitle: 'statistic.workshop_manager',
+      onActive: () => {}
+    }
+  ];
+
+  technicianTabFilterSetting: FilterCardSetting[] = [
+    {
+      filterCount: '',
+      filterTagColor: '',
+      filterTitle: 'statistic.this_month',
+      isCalendar: true,
+      onActive: () => {}
+    },
+    {
+      filterCount: '13',
+      filterTagColor: '#6EBFB5',
+      filterTitle: 'statistic.total',
+      filterSupTitle: 'statistic.technician',
+      onActive: () => {}
+    },
+    {
+      filterCount: '8',
+      filterTagColor: '#6870B4',
+      filterTitle: 'statistic.available',
+      filterSupTitle: 'statistic.technician',
+      onActive: () => {}
+    },
+    {
+      filterCount: '13',
+      filterTagColor: '#BA7967',
+      filterTitle: 'statistic.unavailable',
+      filterSupTitle: 'statistic.technician',
       onActive: () => {}
     }
   ];
@@ -79,7 +159,17 @@ export class BodyShopComponent implements OnInit {
         lable: 'tables.column.date',
         field: 'date',
         width: 100,
-        type: ColumnType.lable
+        type: ColumnType.lable,
+        sortable: true
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton',
+        hasJobCardButton: true
       },
       {
         lable: 'tables.column.accident',
@@ -98,6 +188,8 @@ export class BodyShopComponent implements OnInit {
     ],
     data: [
       {
+        id: 1,
+        statusColor: '#838BCE',
         item: {
           title: 'Request No 123456',
           dpd: 'DPD 0000001',
@@ -113,6 +205,8 @@ export class BodyShopComponent implements OnInit {
         action: ''
       },
       {
+        id: 2,
+        statusColor: '#838BCE',
         item: {
           title: 'Request No 123456',
           dpd: 'DPD 0000001',
@@ -128,6 +222,8 @@ export class BodyShopComponent implements OnInit {
         action: ''
       },
       {
+        id: 3,
+        statusColor: '#838BCE',
         item: {
           title: 'Request No 123456',
           dpd: 'DPD 0000001',
@@ -143,6 +239,8 @@ export class BodyShopComponent implements OnInit {
         action: ''
       },
       {
+        id: 4,
+        statusColor: '#838BCE',
         item: {
           title: 'Request No 123456',
           dpd: 'DPD 0000001',
@@ -158,6 +256,8 @@ export class BodyShopComponent implements OnInit {
         action: ''
       },
       {
+        id: 5,
+        statusColor: '#838BCE',
         item: {
           title: 'Request No 123456',
           dpd: 'DPD 0000001',
@@ -173,6 +273,8 @@ export class BodyShopComponent implements OnInit {
         action: ''
       },
       {
+        id: 6,
+        statusColor: '#838BCE',
         item: {
           title: 'Request No 123456',
           dpd: 'DPD 0000001',
@@ -188,6 +290,8 @@ export class BodyShopComponent implements OnInit {
         action: ''
       },
       {
+        id: 7,
+        statusColor: '#838BCE',
         item: {
           title: 'Request No 123456',
           dpd: 'DPD 0000001',
@@ -202,7 +306,21 @@ export class BodyShopComponent implements OnInit {
         accident: 'Miner',
         action: ''
       }
-    ]
+    ],
+    rowSettings: {
+      onClick: (col, data, button?) => {},
+      floatButton: [
+        {
+          button: 'external',
+          onClick: (col, data) => {
+            console.log(data);
+            this.router
+              .navigate(['/workshop/body-shop/request-overview/' + data.id])
+              .then();
+          }
+        }
+      ]
+    }
   };
 
   table2Setting: TableSetting = {
@@ -235,7 +353,8 @@ export class BodyShopComponent implements OnInit {
         lable: 'tables.column.cost',
         field: 'cost',
         type: ColumnType.lable,
-        width: 100
+        width: 100,
+        sortable: true
       },
       {
         lable: 'tables.column.workshop_manager_approval',
@@ -253,6 +372,7 @@ export class BodyShopComponent implements OnInit {
     ],
     data: [
       {
+        id: 1,
         statusColor: '#838BCE',
         item: {
           title: 'Request No 123456',
@@ -267,6 +387,7 @@ export class BodyShopComponent implements OnInit {
         workshopManagerApproval: 'Approved'
       },
       {
+        id: 1,
         statusColor: '#838BCE',
         item: {
           title: 'Request No 123456',
@@ -281,6 +402,7 @@ export class BodyShopComponent implements OnInit {
         workshopManagerApproval: 'Approved'
       },
       {
+        id: 1,
         statusColor: '#838BCE',
         item: {
           title: 'Request No 123456',
@@ -295,6 +417,7 @@ export class BodyShopComponent implements OnInit {
         workshopManagerApproval: 'Approved'
       },
       {
+        id: 1,
         statusColor: '#838BCE',
         item: {
           title: 'Request No 123456',
@@ -309,6 +432,7 @@ export class BodyShopComponent implements OnInit {
         workshopManagerApproval: 'Approved'
       },
       {
+        id: 1,
         statusColor: '#838BCE',
         item: {
           title: 'Request No 123456',
@@ -357,7 +481,10 @@ export class BodyShopComponent implements OnInit {
       },
       floatButton: [
         {
-          button: 'external'
+          button: 'external',
+          onClick: (col, data) => {
+            this.router.navigate(['/fleet/assets/' + data.id]).then();
+          }
         }
       ]
     }
@@ -401,7 +528,8 @@ export class BodyShopComponent implements OnInit {
         lable: 'tables.column.rate_per_hour',
         field: 'ratePerHour',
         type: ColumnType.lable,
-        width: 100
+        width: 100,
+        sortable: true
       }
     ],
     data: [
@@ -518,17 +646,18 @@ export class BodyShopComponent implements OnInit {
 
   table4Setting: TableSetting = {
     columns: [
-      { lable: 'tables.column.location_id', field: 'locationId' },
+      { lable: 'tables.column.location_id', field: 'locationId', width: 200 },
       {
         lable: 'tables.column.service',
         field: 'service',
-        type: ColumnType.lable
+        type: ColumnType.lable,
+        width: 200
       },
       {
         lable: 'tables.column.address',
         field: 'address',
         type: ColumnType.lable,
-        width: 120
+        width: 200
       },
       {
         lable: 'tables.column.section',
@@ -540,19 +669,22 @@ export class BodyShopComponent implements OnInit {
         lable: 'tables.column.job_card',
         field: 'jobCard',
         type: ColumnType.lable,
-        width: 100
+        width: 100,
+        sortable: true
       },
       {
         lable: 'tables.column.technician',
         field: 'technician',
         type: ColumnType.lable,
-        width: 100
+        width: 100,
+        sortable: true
       },
       {
         lable: 'tables.column.asset',
         field: 'assets',
         type: ColumnType.lable,
-        width: 100
+        width: 100,
+        sortable: true
       }
     ],
     data: [

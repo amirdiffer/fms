@@ -79,7 +79,7 @@
     "add_periodic_service": "إضافة الصيانة الدورية",
     "add_category": "إضافة التصنيف",
     "add_fleet_status": "إضافة حالة الأسطول",
-    "edit_fleet_status":"تحرير حالة الأسطول",
+    "edit_fleet_status": "تحرير حالة الأسطول",
     "add_order_list": "إضافة قائمة الطلبات",
     "add_fuel_card": "إضافة بطاقة الوقود",
     "add_asset_usage": "إضافة استخدام الأصول",
@@ -98,10 +98,10 @@
     "edit_part": "تحرير الجزء",
     "overview": "نظرة عامة",
     "category": "الفئة",
-    "add_business_category":"إضافة فئة العمل",
-    "add_asset_configuration":"إضافة تكوين الأصول",
+    "add_business_category": "إضافة فئة العمل",
+    "add_asset_configuration": "إضافة تكوين الأصول",
     "add_ownership": "أضف ملكية",
-    "add_role_permission":"إضافة إذن الدور"
+    "add_role_permission": "إضافة إذن الدور"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -202,7 +202,14 @@
     "tasks": "المهام",
     "started": "بدأت",
     "not_started": "لم يبدأ",
-    "closed": "مغلق"
+    "closed": "مغلق",
+    "job_card": "بطاقة عمل",
+    "workshop_manager": "مدير ورشة عمل",
+    "technician": "فنى",
+    "issue": "إصدار",
+    "todo": "لكى يفعل",
+    "doing": "عمل",
+    "done": "انتهى"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -850,7 +857,10 @@
           "title": "إرفاق صورة",
           "progressbar_title": "*.pdf",
           "content": "قم بسحب وإسقاط ملف أو انقر هنا"
-        }
+        },
+        "fleet_no": "أسطول لا",
+        "view_card": "بطاقة عرض",
+        "asset_type": "نوع الأصول"
       },
       "job_card": {},
       "technician": {
