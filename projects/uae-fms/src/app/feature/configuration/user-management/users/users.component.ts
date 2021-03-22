@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { ColumnType, TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { UsersFacade } from '../../+state/users';
-import { DataService } from './data.service';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -49,86 +48,6 @@ export class UsersComponent implements OnInit {
       });
     }));
 
-  /* of([
-    {
-      statusColor: '#7F87CA',
-      firstName: 'Sam',
-      lastName: 'Smith',
-      id: '1234567899',
-      picture: 'user-image.png',
-      Department: { line1: 'Department name', line2: 'Section Name' },
-      Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-      Status: 'Active',
-      Role: 'Fleet Manager'
-    },
-    {
-      statusColor: '#7F87CA',
-      firstName: 'Sam',
-      lastName: 'Smith',
-      id: '1234567899',
-      picture: 'user-image.png',
-      Department: { line1: 'Department name', line2: 'Section Name' },
-      Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-      Status: 'Active',
-      Role: 'Fleet Manager'
-    },
-    {
-      statusColor: '#7F87CA',
-      firstName: 'Sam',
-      lastName: 'Smith',
-      id: '1234567899',
-      picture: 'user-image.png',
-      Department: { line1: 'Department name', line2: 'Section Name' },
-      Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-      Status: 'Active',
-      Role: 'Fleet Manager'
-    },
-    {
-      statusColor: '#7F87CA',
-      firstName: 'Sam',
-      lastName: 'Smith',
-      id: '1234567899',
-      picture: 'user-image.png',
-      Department: { line1: 'Department name', line2: 'Section Name' },
-      Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-      Status: 'Active',
-      Role: 'Fleet Manager'
-    },
-    {
-      statusColor: '#7F87CA',
-      firstName: 'Sam',
-      lastName: 'Smith',
-      id: '1234567899',
-      picture: 'user-image.png',
-      Department: { line1: 'Department name', line2: 'Section Name' },
-      Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-      Status: 'Active',
-      Role: 'Fleet Manager'
-    },
-    {
-      statusColor: '#7F87CA',
-      firstName: 'Sam',
-      lastName: 'Smith',
-      id: '1234567899',
-      picture: 'user-image.png',
-      Department: { line1: 'Department name', line2: 'Section Name' },
-      Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-      Status: 'Active',
-      Role: 'Fleet Manager'
-    },
-    {
-      statusColor: '#7F87CA',
-      firstName: 'Sam',
-      lastName: 'Smith',
-      id: '1234567899',
-      picture: 'user-image.png',
-      Department: { line1: 'Department name', line2: 'Section Name' },
-      Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-      Status: 'Active',
-      Role: 'Fleet Manager'
-    }
-  ]) */
-
   users_Table: TableSetting = {
     columns: [
       {
@@ -173,10 +92,8 @@ export class UsersComponent implements OnInit {
     data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
-        this.dataService.dataToEditFromTable = data;
-        this.dataService.isEditing = true;
         this.router
-          .navigate(['/configuration/user-management/users/add-new-user'])
+          .navigate(['/configuration/user-management/users/edit-user/' + data.id])
           .then();
       },
       floatButton: [
@@ -190,14 +107,10 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private facade: UsersFacade,
-    private dataService: DataService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.facade.loadAll();
-    this.data$.subscribe(x => {
-      // console.log(x);
-    })
   }
 }

@@ -6,17 +6,16 @@ import { Utility } from '@shared/utility/utility';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { Subscription } from 'rxjs';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { DataService } from '../data.service';
-import { UsersFacade } from '../../../+state/users'
+import { UsersFacade } from '../../../+state/users';
+import { Router } from "@angular/router";
 @Component({
   selector: 'anms-add-user',
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddUserComponent
-  extends Utility
-  implements OnInit, AfterContentInit, OnDestroy {
+export class AddUserComponent extends Utility implements OnInit, AfterContentInit, OnDestroy {
+  isEdit: boolean = false;
   formChangesSubscription!: Subscription;
 
   dialogSetting: IDialogAlert = {
@@ -34,6 +33,7 @@ export class AddUserComponent
   public filesUpdloaded: NgxFileDropEntry[] = [];
   form: FormGroup;
   submited = false;
+
   employees = [
     { name: 'Employee 1', id: 1 },
     { name: 'Employee 2', id: 2 },
@@ -42,6 +42,7 @@ export class AddUserComponent
     { name: 'Employee 5', id: 5 },
     { name: 'Employee 6', id: 6 }
   ];
+
   departments = [
     { name: 'Department 1', id: 1 },
     { name: 'Department 2', id: 2 },
@@ -50,6 +51,7 @@ export class AddUserComponent
     { name: 'Department 5', id: 5 },
     { name: 'Department 6', id: 6 }
   ];
+
   roles = [
     { name: 'Admin', id: 1 },
     { name: 'Manager', id: 2 },
@@ -105,7 +107,6 @@ export class AddUserComponent
   constructor(
     injector: Injector,
     private formBuilder: FormBuilder,
-    public dataService: DataService,
     private userFacade: UsersFacade
   ) {
     super(injector);
@@ -114,55 +115,60 @@ export class AddUserComponent
   ngOnInit(): void {
     this.buildForm();
 
-    if (this.dataService.isEditing) {
-      this.roles.push({
-        name: this.dataService.dataToEditFromTable.Role,
-        id: 1
-      });
+    this.route.url.subscribe(
+      (params) => {
+        this.isEdit = params.filter(x => x.path == "edit-user").length > 0 ? true : false;
 
-      this.form.controls['portalInformation'].patchValue({
-        employeeNumber: {
-          name: this.dataService.dataToEditFromTable.id,
-          id: this.dataService.dataToEditFromTable.id
-        },
-        department: {
-          name: `${this.dataService.dataToEditFromTable.Department.line1} ${this.dataService.dataToEditFromTable.Department.line2}`
-        },
-        role: { name: this.dataService.dataToEditFromTable.Role, id: 1 },
-        activeEmployee: this.dataService.dataToEditFromTable.Status === 'Active'
-      });
-
-      this.form.controls['personalInformation'].patchValue({
-        firstName: this.dataService.dataToEditFromTable.firstName,
-        lastName: this.dataService.dataToEditFromTable.lastName
-      });
-
-      this.emails.controls[0].patchValue({
-        email: this.dataService.dataToEditFromTable.Information.line1
-      });
-
-      this.phoneNumbers.controls[0].patchValue({
-        phoneNumber: this.dataService.dataToEditFromTable.Information.line2
-      });
-
-      this.form.controls['fileUpload'].patchValue({
-        fileName: this.dataService.dataToEditFromTable.picture
-      });
-
-      this.formChangesSubscription = this.form.valueChanges.subscribe(
-        (formValues) => {
-          if (formValues.portalInformation.employeeNumber.name) {
-            this.form.controls['personalInformation'].patchValue(
-              {
-                firstName: formValues.portalInformation.employeeNumber.name,
-                lastName: formValues.portalInformation.employeeNumber.name
+        this.userFacade.loadAll();
+        this.userFacade.getUserById(+(params[params.length - 1].path)).subscribe(x => {
+          if (x) {
+            this.form.controls['portalInformation'].patchValue({
+              employeeNumber: {
+                name: x.id,
+                id: x.employeeNumber
               },
-              { emitEvent: false }
+              department: {
+                name: `${x.department.name}`
+              },
+              role: { name: x.role, id: 1 },
+              activeEmployee: x.isActive === 'Active'
+            });
+
+            this.form.controls['personalInformation'].patchValue({
+              firstName: x.firstName,
+              lastName: x.lastName
+            });
+
+            this.emails.controls[0].patchValue({
+              email: x.emails
+            });
+
+            this.phoneNumbers.controls[0].patchValue({
+              phoneNumber: x.phoneNumbers
+            });
+
+            this.form.controls['fileUpload'].patchValue({
+              fileName: x.profileDocId
+            });
+
+            this.formChangesSubscription = this.form.valueChanges.subscribe(
+              (formValues) => {
+                if (formValues.portalInformation.employeeNumber.name) {
+                  this.form.controls['personalInformation'].patchValue(
+                    {
+                      firstName: formValues.portalInformation.employeeNumber.name,
+                      lastName: formValues.portalInformation.employeeNumber.name
+                    },
+                    { emitEvent: false }
+                  );
+                }
+              }
             );
+
           }
-        }
-      );
-    }
+        })
+      }
+    );
   }
 
   ngAfterContentInit(): void {
@@ -232,7 +238,7 @@ export class AddUserComponent
 
   cancel(): void {
     this.dialogModal = true;
-    if (this.dataService.isEditing) {
+    if (this.isEdit) {
       this.dialogSetting.header = 'Edit user';
       this.dialogSetting.hasError = false;
       this.dialogSetting.isWarning = true;
@@ -259,7 +265,7 @@ export class AddUserComponent
     }
 
     this.dialogModal = true;
-    if (this.dataService.isEditing) {
+    if (this.isEdit) {
       this.dialogSetting.header = 'Add new user';
       this.dialogSetting.message = 'User edited successfully.';
       this.dialogSetting.confirmButton = 'OK';
@@ -274,6 +280,7 @@ export class AddUserComponent
     this.dialogSetting.confirmButton = 'OK';
     this.dialogSetting.cancelButton = undefined;
   }
+
   filterEmployees(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     this.employees = [
@@ -285,6 +292,7 @@ export class AddUserComponent
       { name: 'Employee 6', id: 6 }
     ];
   }
+
   filterDepartments(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     this.departments = [
@@ -296,6 +304,7 @@ export class AddUserComponent
       { name: 'Dapartment 6', id: 6 }
     ];
   }
+
   public dropped(files: NgxFileDropEntry[]) {
     console.log(this.form.value);
     this.filesUpdloaded = files;
@@ -339,8 +348,6 @@ export class AddUserComponent
   }
 
   ngOnDestroy(): void {
-    this.dataService.isEditing = false;
-    this.dataService.dataToEditFromTable = undefined;
     this.formChangesSubscription?.unsubscribe();
   }
 }

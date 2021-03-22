@@ -4,6 +4,8 @@ import { UsersPartialState } from './users.entity';
 import { UsersSelectors } from './users.selectors';
 import { UsersActions } from './users.actions';
 import { IUser } from '@models/configuration';
+import { filter, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UsersFacade {
@@ -15,7 +17,7 @@ export class UsersFacade {
 
   statistics$ = this.store.pipe(select(UsersSelectors.selectStatistics));
 
-  constructor(private store: Store<UsersPartialState>) {}
+  constructor(private store: Store<UsersPartialState>) { }
 
   loadAll() {
     this.store.dispatch(UsersActions.loadAll());
@@ -24,5 +26,9 @@ export class UsersFacade {
 
   addUser(data: IUser) {
     this.store.dispatch(UsersActions.addUser({ data }));
+  }
+
+  getUserById(id: number) {
+    return this.store.pipe(select(UsersSelectors.selectById, { id }));
   }
 }
