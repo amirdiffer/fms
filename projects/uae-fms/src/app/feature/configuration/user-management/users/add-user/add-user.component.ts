@@ -1,20 +1,33 @@
 import { InjectableCompiler } from '@angular/compiler/src/injectable_compiler';
-import { AfterContentInit, ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FilterCardSetting } from '@core/filter';
 import { Utility } from '@shared/utility/utility';
-import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
+import {
+  FileSystemDirectoryEntry,
+  FileSystemFileEntry,
+  NgxFileDropEntry
+} from 'ngx-file-drop';
 import { Subscription } from 'rxjs';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { UsersFacade } from '../../../+state/users';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 @Component({
   selector: 'anms-add-user',
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddUserComponent extends Utility implements OnInit, AfterContentInit, OnDestroy {
+export class AddUserComponent
+  extends Utility
+  implements OnInit, AfterContentInit, OnDestroy {
   isEdit: boolean = false;
   formChangesSubscription!: Subscription;
 
@@ -65,32 +78,32 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
 
-  tempImage: any = "";
+  tempImage: any = '';
 
   get emails(): FormArray {
     return this.form.get('personalInformation').get('emails') as FormArray;
@@ -115,13 +128,15 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
   ngOnInit(): void {
     this.buildForm();
 
-    this.route.url.subscribe(
-      (params) => {
-        this.isEdit = params.filter(x => x.path == "edit-user").length > 0 ? true : false;
+    this.route.url.subscribe((params) => {
+      this.isEdit =
+        params.filter((x) => x.path == 'edit-user').length > 0 ? true : false;
 
-        if (this.isEdit) {
-          this.userFacade.loadAll();
-          this.userFacade.getUserById(+(params[params.length - 1].path)).subscribe(x => {
+      if (this.isEdit) {
+        this.userFacade.loadAll();
+        this.userFacade
+          .getUserById(+params[params.length - 1].path)
+          .subscribe((x) => {
             if (x) {
               this.form.controls['portalInformation'].patchValue({
                 employeeNumber: {
@@ -151,31 +166,28 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
               this.form.controls['fileUpload'].patchValue({
                 fileName: x.profileDocId
               });
-              console.log(x)
-              console.log(this.form.value)
+              console.log(x);
+              console.log(this.form.value);
             }
-          })
-
-        }
-        else {
-          this.formChangesSubscription = this.form.valueChanges.subscribe(
-            (formValues) => {
-              if (formValues.portalInformation.employeeNumber.name) {
-                this.form.controls['personalInformation'].patchValue(
-                  {
-                    firstName: formValues.portalInformation.employeeNumber.name,
-                    lastName: formValues.portalInformation.employeeNumber.name
-                  },
-                  { emitEvent: false }
-                );
-              }
+          });
+      } else {
+        this.formChangesSubscription = this.form.valueChanges.subscribe(
+          (formValues) => {
+            if (formValues.portalInformation.employeeNumber.name) {
+              this.form.controls['personalInformation'].patchValue(
+                {
+                  firstName: formValues.portalInformation.employeeNumber.name,
+                  lastName: formValues.portalInformation.employeeNumber.name
+                },
+                { emitEvent: false }
+              );
             }
-          );
-        }
+          }
+        );
       }
-    );
+    });
 
-    this.userFacade.submitted$.subscribe(x => {
+    this.userFacade.submitted$.subscribe((x) => {
       if (x) {
         this.dialogSetting.header = 'Edit user';
         this.dialogSetting.message = 'Changes Saved Successfully';
@@ -185,7 +197,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
         this.dialogSetting.cancelButton = undefined;
         this.router.navigate(['/configuration/user-management/users']).then();
       }
-    })
+    });
   }
 
   ngAfterContentInit(): void {
@@ -251,27 +263,24 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
     if (this.isEdit) {
       let f = this.form.value;
       let userInfo = {
-        employeeNumber: "0629374291",
+        employeeNumber: '0629374291',
         organizationId: 21,
         departmentId: 21,
         roleId: 2,
         isActive: false,
         profileDocId: 1,
-        firstName: "Mahdi",
-        lastName: "Zamani",
-        emails: [
-          "something@jointscope.com"
-        ],
-        phoneNumbers: f.personalInformation.phoneNumbers.map(x=>x.),
+        firstName: 'Mahdi',
+        lastName: 'Zamani',
+        emails: ['something@jointscope.com'],
+        phoneNumbers: f.personalInformation.phoneNumbers.map(),
         notifyByCall: f.personalInformation.callCheckbox,
         notifyBySMS: f.personalInformation.smsCheckbox,
         notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
         notifyByEmail: f.personalInformation.emailCheckbox
-      }
+      };
 
       this.userFacade.editUser(userInfo);
-    }
-    else {
+    } else {
       if ($event && !this.dialogSetting.hasError) {
         this.router.navigate(['/configuration/user-management/users']).then();
       }
@@ -309,7 +318,8 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
     this.dialogModal = true;
     if (this.isEdit) {
       this.dialogSetting.header = 'Edit user';
-      this.dialogSetting.message = 'Are you sure you want to submit this changes?';
+      this.dialogSetting.message =
+        'Are you sure you want to submit this changes?';
       this.dialogSetting.isWarning = true;
       this.dialogSetting.confirmButton = 'Yes';
       this.dialogSetting.cancelButton = undefined;
@@ -375,7 +385,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
   }
 
   employeeNumberChanged($event) {
-    console.log($event)
+    console.log($event);
     // this.users$.subscribe(x=>{
     //   console.log(x)
     // })

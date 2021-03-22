@@ -27,10 +27,12 @@ import { mergeMap } from 'rxjs/operators';
   styleUrls: ['./add-asset-policy.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddAssetPolicyComponent extends Utility implements OnInit , OnDestroy {
-  currentTab=""
+export class AddAssetPolicyComponent
+  extends Utility
+  implements OnInit, OnDestroy {
+  currentTab = '';
   submitButton = 'forms.add';
-  editForm:Subscription;
+  editForm: Subscription;
   assetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
@@ -126,7 +128,7 @@ export class AddAssetPolicyComponent extends Utility implements OnInit , OnDestr
     }
   };
   assetPolicyForm: FormGroup;
-  submited = false;
+  submitted = false;
   dialogModalAdd = false;
   dialogModalCancel = false;
   dialogSettingAdd: IDialogAlert = {
@@ -149,7 +151,8 @@ export class AddAssetPolicyComponent extends Utility implements OnInit , OnDestr
     private _fb: FormBuilder,
     private _router: Router,
     private injector: Injector,
-    private _routerFacade: RouterFacade
+    private _routerFacade: RouterFacade,
+    private assetPolicyFacade: AssetPolicyFacade
   ) {
     super(injector);
   }
@@ -166,21 +169,25 @@ export class AddAssetPolicyComponent extends Utility implements OnInit , OnDestr
       depreciationValue: ['', [Validators.required]],
       reminder: [false]
     });
-    this.editForm = this._routerFacade.route$.subscribe(
-      (data) => {
-        const isEdit = data.url.split('/').find(edit => edit == 'edit-asset-policy');
-        if (isEdit){
-          this.submitButton = 'forms.edit';
-        }
+    this.editForm = this._routerFacade.route$.subscribe((data) => {
+      const isEdit = data.url
+        .split('/')
+        .find((edit) => edit == 'edit-asset-policy');
+      if (isEdit) {
+        this.submitButton = 'forms.edit';
       }
-    )
+    });
   }
 
+  addSubAsset(data) {
+    this.assetPolicyFacade.addAssetPolicy(data);
+  }
   submit() {
-    this.submited = true;
+    this.submitted = true;
     if (this.assetPolicyForm.invalid) {
       return;
     } else {
+      this.assetPolicyFacade.addAssetPolicy(this.assetPolicyForm.value);
       this.dialogModalAdd = true;
     }
     // this.goToList();
@@ -200,7 +207,7 @@ export class AddAssetPolicyComponent extends Utility implements OnInit , OnDestr
     }
     this.dialogModalAdd = false;
   }
-  ngOnDestroy():void{
-    this.editForm.unsubscribe()
+  ngOnDestroy(): void {
+    this.editForm.unsubscribe();
   }
 }

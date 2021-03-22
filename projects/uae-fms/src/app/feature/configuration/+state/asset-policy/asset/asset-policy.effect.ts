@@ -20,7 +20,7 @@ export class AssetPolicyEffect {
       )
     )
   );
-  assAssetPolicy$ = createEffect(() =>
+  addAssetPolicy$ = createEffect(() =>
     this.action$.pipe(
       ofType(AssetPolicyActions.addAssetPolicy),
       mergeMap((action) =>
