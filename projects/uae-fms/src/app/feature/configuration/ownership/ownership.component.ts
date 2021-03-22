@@ -54,7 +54,8 @@ export class OwnershipComponent implements OnInit {
       Duration: item.duration,
       Purpose: item.purpose,
       Owner_Email: item.email,
-      Owner_Phone_No: item.phoneNumber
+      Owner_Phone_No: item.phoneNumber,
+      car:item.numOfOwnedAssets||0
     };
   })));
 

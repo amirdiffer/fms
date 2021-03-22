@@ -36,7 +36,7 @@ export interface IOwnerShip {
   purpose: string;
   fleetITCode: string;
   duration: number;
-  totalAssetCount?: string;
+  numOfOwnedAssets?: number;
 }
 
 export interface IPeriodicService {
