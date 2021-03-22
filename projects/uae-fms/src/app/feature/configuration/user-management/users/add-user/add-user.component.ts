@@ -44,6 +44,7 @@ export class AddUserComponent
   };
 
   dialogModal = false;
+  dialogType = null;
   errorDialogModal = false;
 
   progressBarValue = 50;
@@ -83,28 +84,28 @@ export class AddUserComponent
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
 
@@ -138,43 +139,43 @@ export class AddUserComponent
       this.isEdit =
         params.filter((x) => x.path == 'edit-user').length > 0 ? true : false;
 
-        if (this.isEdit) {
-          this.id = +(params[params.length - 1].path);
-          this.userFacade.loadAll();
-          this.userFacade.getUserById(+(params[params.length - 1].path)).subscribe(x => {
-            if (x) {
-              this.form.controls['portalInformation'].patchValue({
-                employeeNumber: {
-                  name: x.id,
-                  id: x.employeeNumber
-                },
-                department: {
-                  name: `${x.department.name}`
-                },
-                roleId: x.role.roleId,
-                activeEmployee: x.isActive === 'Active'
-              });
+      if (this.isEdit) {
+        this.id = +(params[params.length - 1].path);
+        this.userFacade.loadAll();
+        this.userFacade.getUserById(+(params[params.length - 1].path)).subscribe(x => {
+          if (x) {
+            this.form.controls['portalInformation'].patchValue({
+              employeeNumber: {
+                name: x.id,
+                id: x.employeeNumber
+              },
+              department: {
+                name: `${x.department.name}`
+              },
+              roleId: x.role.roleId,
+              activeEmployee: x.isActive === 'Active'
+            });
 
-              this.form.controls['personalInformation'].patchValue({
-                firstName: x.firstName,
-                lastName: x.lastName
-              });
+            this.form.controls['personalInformation'].patchValue({
+              firstName: x.firstName,
+              lastName: x.lastName
+            });
 
-              this.emails.controls[0].patchValue({
-                email: x.emails
-              });
+            this.emails.controls[0].patchValue({
+              email: x.emails
+            });
 
-              this.phoneNumbers.controls[0].patchValue({
-                phoneNumber: x.phoneNumbers
-              });
+            this.phoneNumbers.controls[0].patchValue({
+              phoneNumber: x.phoneNumbers
+            });
 
-              this.form.controls['fileUpload'].patchValue({
-                fileName: x.profileDocId
-              });
-              // console.log(x)
-              // console.log(this.form.value)
-            }
-          });
+            this.form.controls['fileUpload'].patchValue({
+              fileName: x.profileDocId
+            });
+            // console.log(x)
+            // console.log(this.form.value)
+          }
+        });
       } else {
         this.formChangesSubscription = this.form.valueChanges.subscribe(
           (formValues) => {
@@ -276,57 +277,64 @@ export class AddUserComponent
   }
 
   dialogConfirm($event): void {
+    this.errorDialogModal = false;
     this.dialogModal = false;
     if (!$event) return;
 
-    let f = this.form.value;
-    let userInfo = {
-      employeeNumber: f.portalInformation.employeeNumber,
-      organizationId: 21,
-      departmentId: f.portalInformation.department.id || 1,
-      roleId: 2,
-      isActive: f.portalInformation.activeEmployee,
-      profileDocId: 1,
-      firstName: f.personalInformation.firstName,
-      lastName: f.personalInformation.lastName,
-      emails: f.personalInformation.emails.map(x => {
-        if (x.email) {
-          if (typeof x.email == "string")
-            return x.email
-          else
-            return x.email[0]
+    if (this.dialogType == "submit") {
+      let f = this.form.value;
+      let userInfo = {
+        employeeNumber: f.portalInformation.employeeNumber,
+        organizationId: 21,
+        departmentId: f.portalInformation.department.id || 1,
+        roleId: 2,
+        isActive: f.portalInformation.activeEmployee,
+        profileDocId: 1,
+        firstName: f.personalInformation.firstName,
+        lastName: f.personalInformation.lastName,
+        emails: f.personalInformation.emails.map(x => {
+          if (x.email) {
+            if (typeof x.email == "string")
+              return x.email
+            else
+              return x.email[0]
 
-        }
-        else if (typeof x == "object")
-          return x[0]
-      }),
-      phoneNumbers: f.personalInformation.phoneNumbers.map(x => {
-        if (x.phoneNumber) {
-          if (typeof x.phoneNumber == "string")
-            return x.phoneNumber
-          else
-            return x.phoneNumber[0]
+          }
+          else if (typeof x == "object")
+            return x[0]
+        }),
+        phoneNumbers: f.personalInformation.phoneNumbers.map(x => {
+          if (x.phoneNumber) {
+            if (typeof x.phoneNumber == "string")
+              return x.phoneNumber
+            else
+              return x.phoneNumber[0]
 
-        }
-        else if (typeof x == "object")
-          return x[0]
-      }),
-      notifyByCall: f.personalInformation.callCheckbox,
-      notifyBySMS: f.personalInformation.smsCheckbox,
-      notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
-      notifyByEmail: f.personalInformation.emailCheckbox
-    }
-    if (this.isEdit) {
-      userInfo['id'] = this.id;
-      this.userFacade.editUser(userInfo);
+          }
+          else if (typeof x == "object")
+            return x[0]
+        }),
+        notifyByCall: f.personalInformation.callCheckbox,
+        notifyBySMS: f.personalInformation.smsCheckbox,
+        notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
+        notifyByEmail: f.personalInformation.emailCheckbox
+      }
+      if (this.isEdit) {
+        userInfo['id'] = this.id;
+        this.userFacade.editUser(userInfo);
+      }
+      else {
+        this.userFacade.addUser(userInfo);
+      }
     }
     else {
-      this.userFacade.addUser(userInfo);
+      this.router.navigate(['/configuration/user-management/users']).then();
     }
   }
 
   cancel(): void {
     this.dialogModal = true;
+    this.dialogType = 'cancel';
     if (this.isEdit) {
       this.dialogSetting.header = 'Edit user';
       this.dialogSetting.hasError = false;
@@ -354,6 +362,7 @@ export class AddUserComponent
     }
 
     this.dialogModal = true;
+    this.dialogType = 'submit';
     if (this.isEdit) {
       this.dialogSetting.header = 'Edit user';
       this.dialogSetting.message =
@@ -363,13 +372,14 @@ export class AddUserComponent
       this.dialogSetting.cancelButton = "Cancel";
       return;
     }
-
-    this.dialogSetting.header = 'Add new user';
-    this.dialogSetting.isWarning = false;
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.message = 'New user added successfully.';
-    this.dialogSetting.confirmButton = 'OK';
-    this.dialogSetting.cancelButton = undefined;
+    else {
+      this.dialogSetting.header = 'Add new user';
+      this.dialogSetting.isWarning = false;
+      this.dialogSetting.hasError = false;
+      this.dialogSetting.message = 'Are you sure you want to add new user?';
+      this.dialogSetting.confirmButton = 'OK';
+      this.dialogSetting.cancelButton = "Cancel";
+    }
   }
 
   filterEmployees(event) {
