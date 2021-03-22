@@ -17,7 +17,7 @@ import { OwnershipComponent } from './ownership/ownership.component';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { AssetPolicyComponent } from './asset-policy/asset-policy.component';
 import { FleetStatusComponent } from './fleet-status/fleet-status.component';
-import { OwnershipFormComponent } from './ownership-form/ownership-form.component';
+import { OwnershipFormComponent } from './ownership/ownership-form/ownership-form.component';
 import { AddTypeComponent } from './asset-configuration/add-type/add-type.component';
 import { AssetTypeComponent } from './asset-configuration/asset-type/asset-type.component';
 import { BusinessCategoryComponent } from './business-category/business-category.component';

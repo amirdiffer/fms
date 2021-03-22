@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OwnershipComponent } from './ownership/ownership.component';
 import { FleetStatusComponent } from './fleet-status/fleet-status.component';
 import { AssetPolicyComponent } from './asset-policy/asset-policy.component';
-import { OwnershipFormComponent } from './ownership-form/ownership-form.component';
+import { OwnershipFormComponent } from './ownership/ownership-form/ownership-form.component';
 import { PeriodicServiceComponent } from './periodic-service/periodic-service.component';
 import { AddFleetStatusComponent } from '@feature/configuration/fleet-status/add-fleet-status/add-fleet-status.component';
 import { BusinessCategoryComponent } from './business-category/business-category.component';
