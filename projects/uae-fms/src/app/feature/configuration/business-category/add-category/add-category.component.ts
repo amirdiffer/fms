@@ -15,6 +15,7 @@ import {
   BusinessCategoryFacade,
   BusinessCategoryService
 } from '../../+state/business-category';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-add-category',
@@ -24,7 +25,7 @@ import {
 })
 export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   dialogModal = false;
-
+  dialogMode = null;
   dialogSetting: IDialogAlert = {
     header: 'Add Business Category',
     hasError: false,
@@ -42,64 +43,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       { lable: 'tables.column.sub_asset', type: 1, field: 'Sub_Asset' },
       { lable: 'tables.column.accessory', type: 1, field: 'Accessory' }
     ],
-    data: [
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      }
-    ]
+    data: [],
   };
 
   addCategoryForm: FormGroup;
@@ -129,6 +73,30 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     { name: 'Accessory 5', id: 5 },
     { name: 'Accessory 6', id: 6 }
   ];
+
+  get assignSubAsset(): FormArray {
+    return this.addCategoryForm.get('assignSubAsset') as FormArray;
+  }
+
+  get assignAccessory(): FormArray {
+    return this.addCategoryForm.get('assignAccessory') as FormArray;
+  }
+
+  businessCategory$ = this.facade.businessCategory$.pipe(
+    map((x) =>
+      x.map((responseObject) => {
+        return {
+          id: responseObject.id,
+          Category_Name: responseObject.name,
+          Status: responseObject.status,
+          Description: responseObject.description,
+          Asset_Type: responseObject.assetTypeId,
+          Sub_Asset: responseObject.numOfSubAssets,
+          Accessory: responseObject.numOfAccessories,
+          assetTypeName: responseObject.assetTypeName
+        };
+      })
+    ));
 
   constructor(
     private _fb: FormBuilder,
@@ -233,14 +201,6 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     });
   }
 
-  get assignSubAsset(): FormArray {
-    return this.addCategoryForm.get('assignSubAsset') as FormArray;
-  }
-
-  get assignAccessory(): FormArray {
-    return this.addCategoryForm.get('assignAccessory') as FormArray;
-  }
-
   createAssignSubAsset(): FormGroup {
     return this._fb.group({
       subAsset: ['', [Validators.required]],
@@ -268,7 +228,10 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   }
 
   dialogConfirm(event): void {
-    console.log(event);
+    if (this.dialogMode == "cancel") {
+      this.router.navigate(['/configuration/business-category']).then();
+      return;
+    }
 
     this.dialogModal = false;
 
@@ -307,6 +270,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   }
 
   cancel(): void {
+    this.dialogMode = "cancel";
     this.dialogModal = true;
     this.dialogSetting.confirmButton = 'Yes';
     this.dialogSetting.cancelButton = 'No';
@@ -321,6 +285,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     if (this.addCategoryForm.invalid) {
       return;
     }
+    this.dialogMode = "submit";
 
     this.dialogModal = true;
     if (this.dataService.isEditing) {
@@ -385,6 +350,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       { name: 'Old asset type 6', id: 6 }
     ];
   }
+
   filterSubAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     this.subAssets = [
@@ -396,6 +362,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       { name: 'Old asset type 6', id: 6 }
     ];
   }
+
   filterAccessories(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     this.accessories = [
