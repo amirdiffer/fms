@@ -6,7 +6,7 @@
           | translate }}</button>
   </div>
   <alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)"></alert-dialog>
-  <alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="displaySuccessModal=false"></alert-dialog>
+  <alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="displaySuccessModal=false;goToList()"></alert-dialog>
   <alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="displayErrorModal=false"></alert-dialog>
   <!-- form-section form-section--inline-->
   <div class="form-section mt-3">
@@ -155,6 +155,6 @@
 
 <div class="component_wrapper table-container">
   <div class="table-wreapper">
-      <app-table [setting]='ownerShip_Table' [tableData]="ownerShio$"></app-table>
+      <app-table [setting]='ownerShip_Table' [tableData]="ownerShip$"></app-table>
   </div>
 </div>

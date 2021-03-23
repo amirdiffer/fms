@@ -48,7 +48,7 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     data: []
   };
 
-  ownerShio$ = this.facade.ownership$.pipe(map(x => x.map((item) => {
+  ownerShip$ = this.facade.ownership$.pipe(map(x => x.map((item) => {
     return {
       Ownership: item.type,
       Owner: item.name,
@@ -107,6 +107,7 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     this.facade.submitted$.subscribe(x => {
       if (x) {
         this.displaySuccessModal = true;
+        this.dialogErrorSetting.hasError=false;
         this.changeDetector.detectChanges();
       }
     });
@@ -125,12 +126,6 @@ export class OwnershipFormComponent extends Utility implements OnInit {
       return;
     } else {
       this.facade.addOwnership(this.ownerShipForm.value)
-
-      /*       this.displayErrorModal = true;
-            setTimeout(() => {
-              this.displayErrorModal = false;
-              this.goToList();
-            }, 2000); */
     }
   }
   showCancelAlert() {
