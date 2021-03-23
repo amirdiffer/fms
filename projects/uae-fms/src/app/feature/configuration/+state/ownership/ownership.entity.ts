@@ -7,6 +7,7 @@ export interface OwnershipState extends EntityState<IOwnerShip> {
   error?: any;
   loaded?: boolean;
   message?: string;
+  submitted?: boolean;
 }
 
 export interface OwnershipPartialState {
@@ -19,6 +20,7 @@ export const ownershipAdapter: EntityAdapter<IOwnerShip> = createEntityAdapter<
 
 export const initialState: OwnershipState = ownershipAdapter.getInitialState({
   error: null,
-  loaded: null,
-  message: null
+  loaded: false,
+  message: null,
+  submitted: false
 } as OwnershipState);

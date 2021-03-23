@@ -6,8 +6,8 @@
           | translate }}</button>
   </div>
   <alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)"></alert-dialog>
-  <alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal"></alert-dialog>
-  <alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal"></alert-dialog>
+  <alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="displaySuccessModal=false"></alert-dialog>
+  <alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="displayErrorModal=false"></alert-dialog>
   <!-- form-section form-section--inline-->
   <div class="form-section mt-3">
       <div class="row">
@@ -20,26 +20,26 @@
               <div class="d-flex">
                   <div class="form-check">
                       <input class="form-check-input" type="radio"
-                          name="ownershipType" formControlName="ownershipType"  value="external">
+                          name="type" formControlName="type"  value="EXTERNAL">
                       <label class="form-check-label">{{
                           'configuration.ownership.external' |
                           translate }}</label>
                   </div>
                   <div class="form-check">
                       <input class="form-check-input" type="radio"
-                          name="ownershipType" formControlName ="ownershipType"  value="owned">
+                          name="type" formControlName ="type"  value="OWNED">
                       <label class="form-check-label">{{ 'configuration.ownership.owned' |
                           translate }}</label>
                   </div>
                   <div class="form-check">
                       <input class="form-check-input" type="radio"
-                          name="ownershipType" formControlName = "ownershipType"   value="rent">
+                          name="type" formControlName = "type"   value="RENT">
                       <label class="form-check-label">{{ 'configuration.ownership.rent' | translate
                       }}</label>
                   </div>
                   <div class="form-check">
                       <input class="form-check-input" type="radio"
-                          name="ownershipType" formControlName ="ownershipType" value="demo">
+                          name="type" formControlName ="type" value="DEMO">
                       <label class="form-check-label">{{ 'configuration.ownership.demo' | translate
                       }}</label>
                   </div>
@@ -58,19 +58,19 @@
       <div class="row form-section__row">
           <div class="col-12 col-md-4 p-field form-section__field">
               <span class="p-float-label">
-                  <input pInputText formControlName="owner" placeholder="{{
+                  <input pInputText formControlName="name" placeholder="{{
                       'configuration.ownership.owner' | translate }}"
                       type="text">
                   <label>{{ 'configuration.ownership.owner' | translate }} *</label>
               </span>
               <anms-error
-                  [showError]="hasError('owner',ownerShipForm,submitted)"
+                  [showError]="hasError('name',ownerShipForm,submitted)"
                   error="forms.feedback.required">
               </anms-error>
           </div>
           <div class="col-12 col-md-4 p-field form-section__field">
               <span class="p-float-label">
-                  <input pInputText email formControlName="ownerEmail"
+                  <input pInputText email formControlName="email"
                       placeholder="{{
                       'configuration.ownership.owner_email_address' |
                       translate }}"
@@ -79,15 +79,15 @@
                       translate }} *</label>
               </span>
               <anms-error
-                  [showError]="hasError('ownerEmail',ownerShipForm,submitted)"
+                  [showError]="hasError('email',ownerShipForm,submitted)"
                   error="forms.feedback.required"></anms-error>
               <anms-error
-                  [showError]="hasError('ownerEmail',ownerShipForm,submitted,'email')"
+                  [showError]="hasError('email',ownerShipForm,submitted,'email')"
                   error="forms.feedback.invalid-email"></anms-error>
           </div>
           <div class="col-12 col-md-4 p-field form-section__field">
               <span class="p-float-label">
-                  <input pInputText formControlName="ownerPhone"
+                  <input pInputText formControlName="phoneNumber"
                       placeholder="{{
                       'configuration.ownership.owner_phone_number' | translate
                       }}"
@@ -115,7 +115,7 @@
                       <span class="p-float-label">
                           <input pInputText placeholder="{{
                               'configuration.ownership.purpose' | translate
-                              }}" type="text">
+                              }}" type="text" formControlName="purpose">
                           <label>{{ 'tables.column.purpose' | translate }}</label>
                       </span>
                   </div>
@@ -139,7 +139,7 @@
                           <input pInputText placeholder="{{
                               'configuration.ownership.duration' | translate
                               }}" formControlName="duration"
-                              type="text">
+                              type="number">
                           <label>{{ 'configuration.ownership.duration' |
                               translate }}</label>
                       </span>
@@ -155,6 +155,6 @@
 
 <div class="component_wrapper table-container">
   <div class="table-wreapper">
-      <app-table [setting]='ownerShip_Table'></app-table>
+      <app-table [setting]='ownerShip_Table' [tableData]="ownerShio$"></app-table>
   </div>
 </div>

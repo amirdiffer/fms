@@ -2,18 +2,20 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Injector
+  Injector,
+  ChangeDetectorRef
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { map } from 'rxjs/operators';
+import { OwnershipFacade } from "../../+state/ownership";
 
 @Component({
   selector: 'anms-ownership-form',
   templateUrl: './ownership-form.component.html',
-  styleUrls: ['./ownership-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./ownership-form.component.scss']
 })
 export class OwnershipFormComponent extends Utility implements OnInit {
   ownerShip_Table: TableSetting = {
@@ -43,69 +45,22 @@ export class OwnershipFormComponent extends Utility implements OnInit {
         sortable: true
       }
     ],
-    data: [
-      {
-        Ownership: 'Rent',
-        Owner: 'Joint-scopes company',
-        Fleet_IT_Code: 'REC',
-        Duration: '4 Year',
-        Purpose: 'Rescue',
-        Owner_Email: 'Sample@sample.com',
-        Owner_Phone_No: '50 563 3793',
-        car: '466'
-      },
-      {
-        Ownership: 'Rent',
-        Owner: 'Joint-scopes company',
-        Fleet_IT_Code: 'REC',
-        Duration: '4 Year',
-        Purpose: 'Rescue',
-        Owner_Email: 'Sample@sample.com',
-        Owner_Phone_No: '50 563 3793',
-        car: '466'
-      },
-      {
-        Ownership: 'Rent',
-        Owner: 'Joint-scopes company',
-        Fleet_IT_Code: 'REC',
-        Duration: '4 Year',
-        Purpose: 'Rescue',
-        Owner_Email: 'Sample@sample.com',
-        Owner_Phone_No: '50 563 3793',
-        car: '346'
-      },
-      {
-        Ownership: 'Rent',
-        Owner: 'Joint-scopes company',
-        Fleet_IT_Code: 'REC',
-        Duration: '4 Year',
-        Purpose: 'Rescue',
-        Owner_Email: 'Sample@sample.com',
-        Owner_Phone_No: '50 563 3793',
-        car: '34'
-      },
-      {
-        Ownership: 'Rent',
-        Owner: 'Joint-scopes company',
-        Fleet_IT_Code: 'REC',
-        Duration: '4 Year',
-        Purpose: 'Rescue',
-        Owner_Email: 'Sample@sample.com',
-        Owner_Phone_No: '50 563 3793',
-        car: '474'
-      },
-      {
-        Ownership: 'Rent',
-        Owner: 'Joint-scopes company',
-        Fleet_IT_Code: 'REC',
-        Duration: '4 Year',
-        Purpose: 'Rescue',
-        Owner_Email: 'Sample@sample.com',
-        Owner_Phone_No: '50 563 3793',
-        car: '87'
-      }
-    ]
+    data: []
   };
+
+  ownerShio$ = this.facade.ownership$.pipe(map(x => x.map((item) => {
+    return {
+      Ownership: item.type,
+      Owner: item.name,
+      Fleet_IT_Code: item.fleetITCode,
+      Duration: item.duration,
+      Purpose: item.purpose,
+      Owner_Email: item.email,
+      Owner_Phone_No: item.phoneNumber,
+      car: item.numOfOwnedAssets || 0
+    };
+  })));
+
   ownerShipForm: FormGroup;
   submitted = false;
   dialogCancelSetting: IDialogAlert = {
@@ -119,42 +74,63 @@ export class OwnershipFormComponent extends Utility implements OnInit {
   dialogSuccessSetting: IDialogAlert = {
     header: 'Success',
     hasError: false,
-    message: 'New ownership Successfully Added'
+    message: 'New ownership Successfully Added',
+    confirmButton: 'Ok',
   };
   dialogErrorSetting: IDialogAlert = {
     header: 'Error',
     hasError: true,
-    message: 'Some Error Occurred'
+    message: 'Some Error Occurred',
+    confirmButton: 'Ok',
   };
   displayCancelModal = false;
   displaySuccessModal = false;
   displayErrorModal = false;
 
-  constructor(injector: Injector, private _fb: FormBuilder) {
+  constructor(injector: Injector, private _fb: FormBuilder, private facade: OwnershipFacade, private changeDetector: ChangeDetectorRef) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this.facade.loadAll();
+
     this.ownerShipForm = this._fb.group({
-      ownershipType: ['external'],
-      owner: ['', [Validators.required]],
-      ownerEmail: ['', [Validators.required, Validators.email]],
-      ownerPhone: [''],
+      type: ['EXTERNAL'],
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: [''],
       purpose: [''],
       fleetITCode: ['', [Validators.required]],
       duration: ['']
     });
+
+    this.facade.submitted$.subscribe(x => {
+      if (x) {
+        this.displaySuccessModal = true;
+        this.changeDetector.detectChanges();
+      }
+    });
+
+    this.facade.error$.subscribe(x => {
+      if (x?.error) {
+        this.displayErrorModal = true;
+        this.dialogErrorSetting.hasError=true;
+        this.changeDetector.detectChanges();
+      }
+    })
   }
   submit() {
     this.submitted = true;
     if (this.ownerShipForm.invalid) {
       return;
     } else {
-      this.displayErrorModal = true;
-      setTimeout(() => {
-        this.displayErrorModal = false;
-        this.goToList();
-      }, 2000);
+      this.facade.addOwnership(this.ownerShipForm.value)
+
+      /*       this.displayErrorModal = true;
+            setTimeout(() => {
+              this.displayErrorModal = false;
+              this.goToList();
+            }, 2000); */
     }
   }
   showCancelAlert() {

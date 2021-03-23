@@ -28,6 +28,13 @@ const ownershipReducer = createReducer(
   })),
   on(OwnershipActions.ownershipAddedSuccessfully, (state, { data }) =>
     ownershipAdapter.addOne(data, state)
+  ),
+  on(OwnershipActions.editOwnership, (state, { data }) => ({
+    ...state,
+    loaded: false
+  })),
+  on(OwnershipActions.ownershipEditedSuccessfully, (state, { data }) =>
+    ownershipAdapter.updateOne({ changes: data, id: data.id }, state)
   )
 );
 

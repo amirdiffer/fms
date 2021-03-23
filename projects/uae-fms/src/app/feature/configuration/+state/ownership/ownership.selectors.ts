@@ -18,4 +18,9 @@ export class OwnershipSelectors {
     ConfigurationSelectors.ownershipSelector,
     (state) => state.error
   );
+
+  static submitted = createSelector(
+    ConfigurationSelectors.ownershipSelector,
+    (state) => state.submitted
+  )
 }

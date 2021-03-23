@@ -14,7 +14,7 @@ import { tap } from 'rxjs/operators';
 export class HttpInterceptor implements HttpInterceptorBase {
   constructor(private injector: Injector) {}
   httpHeaders = new HttpHeaders({
-    'x-mock-response-code': '200',
+    // 'x-mock-response-code': '200',
     'Content-Type': 'application/json',
     permission_level: '123456',
     user_id: '1'

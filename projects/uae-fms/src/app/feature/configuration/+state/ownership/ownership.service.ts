@@ -20,4 +20,10 @@ export class OwnershipService {
       data
     );
   }
+  editOwnership(data): Observable<ResponseBody<IOwnerShip>> {
+    return this.http.post<ResponseBody<IOwnerShip>>(
+      environment.baseApiUrl + 'configuration/ownership',
+      data
+    );
+  }
 }

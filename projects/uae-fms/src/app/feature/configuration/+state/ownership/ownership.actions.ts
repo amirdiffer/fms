@@ -13,11 +13,23 @@ export class OwnershipActions {
     '[Ownership] error occurred',
     props<{ reason: any }>()
   );
+
   static addOwnership = createAction(
     '[Ownership] add ownership',
+    props<{ data: any }>()
+  );
+
+  static ownershipAddedSuccessfully = createAction(
+    '[Ownership] ownership added succesfully',
     props<{ data: IOwnerShip }>()
   );
-  static ownershipAddedSuccessfully = createAction(
+
+  static editOwnership = createAction(
+    '[Ownership] edit ownership',
+    props<{ data: any }>()
+  );
+
+  static ownershipEditedSuccessfully = createAction(
     '[Ownership] ownership added succesfully',
     props<{ data: IOwnerShip }>()
   );

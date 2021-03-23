@@ -13,12 +13,19 @@ export class OwnershipFacade {
 
   error$ = this.store.pipe(select(OwnershipSelectors.error));
 
-  constructor(private store: Store<OwnershipPartialState>) {}
+  submitted$ = this.store.pipe(select(OwnershipSelectors.submitted));
+
+  constructor(private store: Store<OwnershipPartialState>) { }
 
   loadAll() {
     this.store.dispatch(OwnershipActions.loadAll());
   }
+
   addOwnership(data: IOwnerShip) {
     this.store.dispatch(OwnershipActions.addOwnership({ data }));
+  }
+
+  editOwnership(data: any) {
+    this.store.dispatch(OwnershipActions.editOwnership({ data }));
   }
 }
