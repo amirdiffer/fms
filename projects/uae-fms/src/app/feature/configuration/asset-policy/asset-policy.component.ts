@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { TableSetting } from '@core/table';
 import {
@@ -34,7 +39,8 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       },
       {
         lable: 'tables.column.year',
-        type: 1, field: 'Year',
+        type: 1,
+        field: 'Year',
         sortable: true
       },
       {
@@ -61,11 +67,13 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
         {
           onClick: (col, data) => {
             console.log(col, data);
-            this._router.navigate(['/configuration/asset-policy/edit-asset-policy/' + data.id]);
-
+            this._router.navigate(
+              ['/configuration/asset-policy/edit-asset-policy/'],
+              { queryParams: { id: data.id } }
+            );
           },
 
-          button: 'edit',
+          button: 'edit'
         }
       ]
     }
@@ -74,12 +82,18 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
   subAssetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
-      { lable: 'tables.column.distance', type: 1, field: 'Distance', sortable: true },
+      {
+        lable: 'tables.column.distance',
+        type: 1,
+        field: 'Distance',
+        sortable: true
+      },
       { lable: 'tables.column.year', type: 1, field: 'Year', sortable: true },
       {
         lable: 'tables.column.depreciation_value',
         type: 1,
-        field: 'Depreciation_Value', sortable: true
+        field: 'Depreciation_Value',
+        sortable: true
       },
       {
         lable: '',
@@ -140,7 +154,6 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
         Year: '10',
         Depreciation_Value: '%20'
       }
-
     ],
     rowSettings: {
       onClick: (col, data, button?) => {
@@ -149,12 +162,13 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       floatButton: [
         {
           onClick: (col, data) => {
-            console.log(col, data);
-            this._router.navigate(['/configuration/asset-policy/edit-asset-policy/' + data.id]);
-
+            this._router.navigate(
+              ['/configuration/asset-policy/edit-asset-policy/'],
+              { queryParams: { id: data.id } }
+            );
           },
 
-          button: 'edit',
+          button: 'edit'
         }
       ]
     }
@@ -162,23 +176,24 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
   selectedTab: any;
 
   assetPolicy$ = this.assetPolicyFacade.assetPolicy$.pipe(
-    map(x => x.map((item) => {
-      return {
-        Policy_Name: item.name,
-        Distance: item.maxUsageKPHour,
-        Year: item.maxUsageYear,
-        Depreciation_Value: item.depreciationValue
-      };
-    })
+    map((x) =>
+      x.map((item) => {
+        return {
+          id: item.id,
+          Policy_Name: item.name,
+          Distance: item.maxUsageKPHour,
+          Year: item.maxUsageYear,
+          Depreciation_Value: item.depreciationValue
+        };
+      })
     )
-  )
-
+  );
 
   constructor(
     private _router: Router,
     private assetPolicyFacade: AssetPolicyFacade,
-    private subAssetPolicyFacade: SubAssetPolicyFacade,
-  ) { }
+    private subAssetPolicyFacade: SubAssetPolicyFacade
+  ) {}
 
   ngOnInit(): void {
     this.assetPolicyFacade.loadAll();

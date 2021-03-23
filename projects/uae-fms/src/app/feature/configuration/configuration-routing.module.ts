@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'periodic-service', component: PeriodicServiceComponent },
   { path: 'asset-policy/add-asset-policy', component: AddAssetPolicyComponent },
   {
-    path: 'asset-policy/edit-asset-policy/:id',
+    path: 'asset-policy/edit-asset-policy',
     component: AddAssetPolicyComponent
   },
   { path: 'asset-policy/add', component: AddAssetPolicyComponent },

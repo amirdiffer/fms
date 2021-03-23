@@ -13,6 +13,8 @@ export class AssetPolicyFacade {
 
   error$ = this.store.pipe(select(AssetPolicySelectors.error));
 
+  submitted$ = this.store.pipe(select(AssetPolicySelectors.submitted));
+
   constructor(private store: Store<AssetPolicyPartialState>) {}
 
   loadAll() {
@@ -21,5 +23,14 @@ export class AssetPolicyFacade {
   addAssetPolicy(data: IAssetPolicy) {
     this.store.dispatch(AssetPolicyActions.addAssetPolicy({ data }));
     console.log(data);
+  }
+
+  updateAssetPolicy(data: IAssetPolicy) {
+    this.store.dispatch(AssetPolicyActions.editAssetPolicy({ data }));
+    console.log(data);
+  }
+
+  getById(id: number) {
+    return this.store.pipe(select(AssetPolicySelectors.selectById, { id }));
   }
 }

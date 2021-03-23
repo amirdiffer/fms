@@ -20,4 +20,11 @@ export class AssetPolicyService {
       data
     );
   }
+
+  updateAssetPolicy(data): Observable<ResponseBody<IAssetPolicy>> {
+    return this.http.post<ResponseBody<IAssetPolicy>>(
+      environment.baseApiUrl + `configuration/asset-policy/${data.id}/update`,
+      data
+    );
+  }
 }

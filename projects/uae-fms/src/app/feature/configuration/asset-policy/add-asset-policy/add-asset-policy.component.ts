@@ -31,7 +31,6 @@ export class AddAssetPolicyComponent
   extends Utility
   implements OnInit, OnDestroy {
   currentTab = '';
-  submitButton = 'forms.add';
   editForm: Subscription;
   assetPolicy_Table: TableSetting = {
     columns: [
@@ -116,10 +115,10 @@ export class AddAssetPolicyComponent
       floatButton: [
         {
           onClick: (col, data) => {
-            console.log(col, data);
-            this._router.navigate([
-              '/configuration/asset-policy/edit-asset-policy/' + data.id
-            ]);
+            this._router.navigate(
+              ['/configuration/asset-policy/edit-asset-policy/'],
+              { queryParams: { id: data.id } }
+            );
           },
 
           button: 'edit'
@@ -129,9 +128,10 @@ export class AddAssetPolicyComponent
   };
   assetPolicyForm: FormGroup;
   submitted = false;
-  dialogModalAdd = false;
+  isEdit = false;
+  dialogModalAddOrUpdate = false;
   dialogModalCancel = false;
-  dialogSettingAdd: IDialogAlert = {
+  dialogSettingAddOrUpdate: IDialogAlert = {
     header: 'Asset Policy',
     hasError: false,
     hasHeader: true,
@@ -147,6 +147,7 @@ export class AddAssetPolicyComponent
     confirmButton: 'Yes',
     cancelButton: 'No'
   };
+  id: number;
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
@@ -157,38 +158,124 @@ export class AddAssetPolicyComponent
     super(injector);
   }
 
+  loadAssetPolicyForm(assetPolicy) {
+    const {
+      depreciationValue,
+      maxUsageKPHour,
+      maxUsageYear,
+      name,
+      type
+    } = assetPolicy;
+    this.assetPolicyForm.patchValue({
+      policyType: type,
+      policyName: name,
+      kilometerUsage: maxUsageKPHour,
+      yearUsage: maxUsageYear,
+      depreciationValue,
+      reminder: false
+    });
+  }
+
+  getAssetPolicyRequestPayload(assetPolicyFormValue, id = null) {
+    const {
+      policyType,
+      policyName,
+      kilometerUsage,
+      yearUsage,
+      depreciationValue
+    } = assetPolicyFormValue;
+    const payload = {
+      depreciationValue,
+      maxUsageKPHour: kilometerUsage,
+      maxUsageYear: yearUsage,
+      name: policyName,
+      type: policyType
+    };
+
+    if (id) {
+      payload['id'] = id;
+    }
+
+    return payload;
+  }
+
   ngOnInit(): void {
-    this.route.queryParams.subscribe(
-      (params) => (this.currentTab = params['id'])
-    );
     this.assetPolicyForm = this._fb.group({
       policyType: ['asset', [Validators.required]],
       policyName: ['', [Validators.required]],
-      killometerUsage: ['', [Validators.required]],
+      kilometerUsage: ['', [Validators.required]],
       yearUsage: [''],
       depreciationValue: ['', [Validators.required]],
       reminder: [false]
     });
-    this.editForm = this._routerFacade.route$.subscribe((data) => {
-      const isEdit = data.url
-        .split('/')
-        .find((edit) => edit == 'edit-asset-policy');
-      if (isEdit) {
-        this.submitButton = 'forms.edit';
+
+    this.route.queryParams.subscribe(
+      (params) => (this.currentTab = params['id'])
+    );
+
+    this.editForm = this._routerFacade.route$.subscribe((data: any) => {
+      console.log(data);
+      this.id = +data.queryParams['id'];
+
+      if (this.id) {
+        this.isEdit = true;
+
+        this.assetPolicyFacade.getById(this.id).subscribe((assetPolicy) => {
+          if (assetPolicy) {
+            this.loadAssetPolicyForm(assetPolicy);
+          }
+        });
       }
     });
+
+    this.assetPolicyFacade.submitted$.subscribe((x) => {
+      if (x) {
+        this.dialogSettingAddOrUpdate.header = this.isEdit
+          ? 'Edit user'
+          : 'Add new user';
+        this.dialogSettingAddOrUpdate.message = this.isEdit
+          ? 'Changes Saved Successfully'
+          : 'User Added Successfully';
+        this.dialogSettingAddOrUpdate.isWarning = false;
+        this.dialogSettingAddOrUpdate.hasError = false;
+        this.dialogSettingAddOrUpdate.confirmButton = 'Yes';
+        this.dialogSettingAddOrUpdate.cancelButton = undefined;
+        this.router.navigate(['/configuration/user-management/users']).then();
+      }
+    });
+
+    // this.assetPolicyFacade.error$.subscribe(x => {
+    //   if (x?.error) {
+    //     console.log(x?.error)
+    //     this.errorD = true;
+    //     this.errorDialogSetting.header = this.isEdit ? 'Edit user' : 'Add new user';
+    //     this.errorDialogSetting.hasError = true;
+    //     this.errorDialogSetting.cancelButton = undefined;
+    //     this.errorDialogSetting.confirmButton = "Ok";
+    //     this.changeDetector.detectChanges();
+    //   } else {
+    //     this.errorDialogModal = false;
+    //   }
+    // });
   }
 
-  addSubAsset(data) {
-    this.assetPolicyFacade.addAssetPolicy(data);
-  }
   submit() {
     this.submitted = true;
     if (this.assetPolicyForm.invalid) {
       return;
     } else {
-      this.assetPolicyFacade.addAssetPolicy(this.assetPolicyForm.value);
-      this.dialogModalAdd = true;
+      if (!this.isEdit) {
+        const data = this.getAssetPolicyRequestPayload(
+          this.assetPolicyForm.value
+        );
+        this.assetPolicyFacade.addAssetPolicy(data);
+      } else {
+        const data = this.getAssetPolicyRequestPayload(
+          this.assetPolicyForm.value,
+          this.id
+        );
+        this.assetPolicyFacade.updateAssetPolicy(data);
+      }
     }
     // this.goToList();
   }
@@ -201,11 +288,11 @@ export class AddAssetPolicyComponent
     }
     this.dialogModalCancel = false;
   }
-  dialogAddConfirm(value) {
+  dialogAddOrUpdateConfirm(value) {
     if (value === true) {
       this._router.navigate(['configuration/asset-policy']);
     }
-    this.dialogModalAdd = false;
+    this.dialogModalAddOrUpdate = false;
   }
   ngOnDestroy(): void {
     this.editForm.unsubscribe();

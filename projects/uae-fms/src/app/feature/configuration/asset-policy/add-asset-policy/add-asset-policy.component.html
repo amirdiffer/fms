@@ -1,7 +1,7 @@
-<form [formGroup]="assetPolicyForm">
+<form [formGroup]="assetPolicyForm" (ngSubmit)="submit()">
     <div class="button-container">
         <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
-        <button  class="btn-primary-medium add" (click)="submit()">{{ submitButton | translate }}</button>
+        <button class="btn-primary-medium add" type="submit">{{ (isEdit ? 'forms.edit' : 'forms.add') | translate }}</button>
     </div>
     <!-- form-section form-section--inline-->
     <div class="form-section form-section--inline mt-3">
@@ -15,11 +15,11 @@
               <div class="col-12 col-md-8">
                 <div class="row">
                   <div class="form-check col-6">
-                    <input class="form-check-input" formControlName="policyType" type="radio" name="policyType" id="asset" value ="asset">
+                    <input class="form-check-input" formControlName="policyType" type="radio" name="policyType" id="asset" value ="ASSET">
                     <label class="form-check-label" for="asset">{{ 'configuration.asset_policy.asset.asset' | translate }}</label>
                   </div>
                   <div class="form-check col-6">
-                    <input class="form-check-input" formControlName="policyType" type="radio" name="policyType" id="subAsset" value ="subAsset">
+                    <input class="form-check-input" formControlName="policyType" type="radio" name="policyType" id="subAsset" value ="SUB_ASSET">
                     <label class="form-check-label" for="subAsset">{{ 'configuration.asset_policy.asset.sub_asset' | translate }}</label>
                   </div>
                 </div>
@@ -49,12 +49,12 @@
         <div class="row form-section__row">
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
-                    <input formControlName="killometerUsage" pInputText
+                    <input formControlName="kilometerUsage" pInputText
                         placeholder="{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *" required type="text">
                     <label>{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *</label>
                   </span>
                   <anms-error
-                      [showError]="hasError('killometerUsage',assetPolicyForm,submitted)"
+                      [showError]="hasError('kilometerUsage',assetPolicyForm,submitted)"
                       error="forms.feedback.required"></anms-error>
             </div>
             <div class="col-12 col-md-1 p-field form-section__field
@@ -63,7 +63,7 @@
             </div>
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
-                    <input pInputText placeholder="{{ 'configuration.asset_policy.asset.year' | translate }}" type="text">
+                    <input formControlName="yearUsage" pInputText placeholder="{{ 'configuration.asset_policy.asset.year' | translate }}" type="text">
                     <label>{{ 'configuration.asset_policy.asset.year' | translate }}</label>
                 </span>
             </div>
@@ -102,4 +102,4 @@
 
 
 <alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel" (confirm)="dialogCancelConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="dialogSettingAdd" [displayModal]="dialogModalAdd" (confirm)="dialogAddConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogSettingAddOrUpdate" [displayModal]="dialogModalAddOrUpdate" (confirm)="dialogAddOrUpdateConfirm($event)"></alert-dialog>

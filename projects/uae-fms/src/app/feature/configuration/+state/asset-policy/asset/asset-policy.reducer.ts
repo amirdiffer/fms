@@ -26,10 +26,30 @@ const assetPolicyReducer = createReducer(
   })),
   on(AssetPolicyActions.addAssetPolicy, (state) => ({
     ...state,
-    loaded: false
+    loaded: false,
+    error: null,
+    message: null,
+    submitted: false
   })),
   on(AssetPolicyActions.addAssetPolicySuccessfully, (state, { data }) =>
     assetPolicyAdapter.addOne(data, state)
+  ),
+  on(AssetPolicyActions.editAssetPolicy, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(AssetPolicyActions.editAssetPolicySuccessfully, (state, { data }) =>
+    assetPolicyAdapter.updateOne(
+      { changes: data, id: data.id },
+      {
+        ...state,
+        error: null,
+        message: null,
+        submitted: true
+      }
+    )
   )
 );
 

@@ -18,4 +18,14 @@ export class AssetPolicySelectors {
     ConfigurationSelectors.assetPolicySelector,
     (state) => state.error
   );
+
+  static submitted = createSelector(
+    ConfigurationSelectors.assetPolicySelector,
+    (state) => state.submitted
+  );
+
+  static selectById = createSelector(
+    AssetPolicySelectors.selectAll,
+    (state, props: { id: number }) => state.find((x) => x.id === props.id)
+  );
 }

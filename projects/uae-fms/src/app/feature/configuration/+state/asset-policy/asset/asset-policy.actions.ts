@@ -14,11 +14,22 @@ export class AssetPolicyActions {
     props<{ reason: any }>()
   );
   static addAssetPolicy = createAction(
-    '[AssetPolicy] add asset policy',
+    '[AssetPolicy] added asset policy',
     props<{ data: IAssetPolicy }>()
   );
+
+  static editAssetPolicy = createAction(
+    '[AssetPolicy] updated asset policy',
+    props<{ data: IAssetPolicy }>()
+  );
+
   static addAssetPolicySuccessfully = createAction(
     '[AssetPolicy] asset policy added successfully',
+    props<{ data: IAssetPolicy }>()
+  );
+
+  static editAssetPolicySuccessfully = createAction(
+    '[AssetPolicy] asset policy updated successfully',
     props<{ data: IAssetPolicy }>()
   );
 }

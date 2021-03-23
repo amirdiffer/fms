@@ -11,6 +11,7 @@ export const CONFIGURATION_ASSET_POLICY_FEATURE_KEY = 'assetPolicy';
 // }
 
 export interface AssetPolicyState extends EntityState<IAssetPolicy> {
+  submitted?: boolean;
   error?: any;
   loaded?: boolean;
   message?: string;
@@ -28,6 +29,7 @@ export const assetPolicyAdapter: EntityAdapter<IAssetPolicy> = createEntityAdapt
 
 export const initialState: AssetPolicyState = assetPolicyAdapter.getInitialState(
   {
+    submitted: false,
     error: null,
     loaded: null,
     message: null
