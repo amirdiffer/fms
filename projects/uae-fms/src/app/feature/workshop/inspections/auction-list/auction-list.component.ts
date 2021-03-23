@@ -20,6 +20,7 @@ export class AuctionListComponent implements OnInit, OnDestroy {
   editOpen: boolean = false;
   downloadBtn = 'assets/icons/download-solid.svg';
   editOpen$: Subscription;
+  selectedRow = null;
   filterSetting: FilterCardSetting[] = [
     {
       filterCount: '',
@@ -80,100 +81,12 @@ export class AuctionListComponent implements OnInit, OnDestroy {
         renderer: 'booleanRenderer'
       }
     ],
-    data: [
-      {
-        statusColor: '#7F87CA',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        createdBy: 'Automatic',
-        reason: 'Out Of Policy',
-        assignment: 'Sam Smith, Sam Smith',
-        estimatedMarket: '1111111 AED',
-        date: '02/02/2020',
-        location: 'Bardubai, Dubai',
-        removeItem: true
-      },
-      {
-        statusColor: '#7F87CA',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        createdBy: 'Automatic',
-        reason: 'Out Of Policy',
-        assignment: 'Sam Smith, Sam Smith',
-        estimatedMarket: '1111111 AED',
-        date: '02/02/2020',
-        location: 'Bardubai, Dubai',
-        removeItem: false
-      },
-      {
-        statusColor: '#7F87CA',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        createdBy: 'Automatic',
-        reason: 'Out Of Policy',
-        assignment: 'Sam Smith, Sam Smith',
-        estimatedMarket: '1111111 AED',
-        date: '02/02/2020',
-        location: 'Bardubai, Dubai',
-        removeItem: false
-      },
-      {
-        statusColor: '#7F87CA',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        createdBy: 'Automatic',
-        reason: 'Out Of Policy',
-        assignment: 'Sam Smith, Sam Smith',
-        estimatedMarket: '1111111 AED',
-        date: '02/02/2020',
-        location: 'Bardubai, Dubai',
-        removeItem: true
-      },
-      {
-        statusColor: '#7F87CA',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        createdBy: 'Automatic',
-        reason: 'Out Of Policy',
-        assignment: 'Sam Smith, Sam Smith',
-        estimatedMarket: '1111111 AED',
-        date: '02/02/2020',
-        location: 'Bardubai, Dubai',
-        removeItem: true
-      },
-      {
-        statusColor: '#7F87CA',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        createdBy: 'Automatic',
-        reason: 'Out Of Policy',
-        assignment: 'Sam Smith, Sam Smith',
-        estimatedMarket: '1111111 AED',
-        date: '02/02/2020',
-        location: 'Bardubai, Dubai',
-        removeItem: true
-      }
-    ],
+    data: [],
     rowSettings: {
-      onClick(){}
+      onClick: (data) => {
+        if (data.id)
+          this.selectedRow = data;
+      }
     }
   };
 
@@ -294,12 +207,17 @@ export class AuctionListComponent implements OnInit, OnDestroy {
       this.editOpen = open;
     });
     this._facade.loadAll();
+    this._facade.message$.subscribe((x) => {
+      console.log(x)
+      this.settingTable1.data = x;
+    })
   }
   ngOnDestroy() {
     this.editOpen$.unsubscribe();
   }
 
   submitSold() {
+    this._facade.updateRow(this.selectedRow);
     this._router.navigate([], { queryParams: { id: 'soldTab' } });
   }
 

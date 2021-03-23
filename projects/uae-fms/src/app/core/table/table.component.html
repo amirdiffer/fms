@@ -69,7 +69,7 @@
             <table-thumb-text-renderer [data]="data"></table-thumb-text-renderer>
           </div>
           <div *ngIf="col.renderer == 'booleanRenderer'">
-            <table-boolean-renderer (selectTR)="selectTR($event)" [data]="data[col.field]" [indexTR]="i" [hover]="rowIndexTable"></table-boolean-renderer>
+            <table-boolean-renderer [setting]="setting.rowSettings" (selectTR)="selectTR($event)" [allData]="data" [data]="data[col.field]" [indexTR]="i" [hover]="rowIndexTable"></table-boolean-renderer>
           </div>
           <div *ngIf="col.renderer == 'externalLinkRenderer'">
             <table-external-link-renderer [link]="data[col.field]"></table-external-link-renderer>

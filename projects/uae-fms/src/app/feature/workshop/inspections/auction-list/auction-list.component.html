@@ -52,7 +52,7 @@
           <strong>{{ 'tables.column.gps' | translate }}</strong>
           <span>
             <section class="selection">
-              <mat-checkbox>{{ 'tables.column.remove' | translate }}</mat-checkbox>
+              <mat-checkbox #selection1>{{ 'tables.column.remove' | translate }}</mat-checkbox>
             </section>
           </span>
         </li>
@@ -60,7 +60,7 @@
           <strong>{{ 'tables.column.gps' | translate }}</strong>
           <span>
             <section class="selection">
-              <mat-checkbox>{{ 'tables.column.remove' | translate }}</mat-checkbox>
+              <mat-checkbox #selection2>{{ 'tables.column.remove' | translate }}</mat-checkbox>
             </section>
           </span>
         </li>
@@ -68,7 +68,7 @@
           <strong>{{ 'tables.column.gps' | translate }}</strong>
           <span>
             <section class="selection">
-              <mat-checkbox>{{ 'tables.column.remove' | translate }}</mat-checkbox>
+              <mat-checkbox #selection3>{{ 'tables.column.remove' | translate }}</mat-checkbox>
             </section>
           </span>
         </li>
@@ -76,12 +76,12 @@
           <strong>{{ 'tables.column.gps' | translate }}</strong>
           <span>
             <section class="selection">
-              <mat-checkbox>{{ 'tables.column.remove' | translate }}</mat-checkbox>
+              <mat-checkbox #selection4>{{ 'tables.column.remove' | translate }}</mat-checkbox>
             </section>
           </span>
         </li>
       </ul>
-      <div class="sold-box p-field form-section__field">
+      <div *ngIf="selection4.checked && selection3.checked && selection2.checked && selection1.checked" class="sold-box p-field form-section__field">
         <div class="p-inputgroup">
           <span class="p-float-label">
             <input type="text" pInputText placeholder="E.x 20000">

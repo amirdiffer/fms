@@ -8,14 +8,14 @@ import { environment } from '../../../../environments/environment';
   template: `
       <div class="d-flex justify-content-between">
         <div class="d-flex icon-box">
-        <img *ngIf="data" class="asset-image" src="../../../assets/icons/check.svg" />
+        <img *ngIf="data" (load)="selectField('close')" class="asset-image" src="../../../assets/icons/check.svg" />
         </div>
         <div class="d-flex icon-box">
           <svg-icon
             *ngIf="!data && !isOpen && hover == indexTR"
             [src]="externalLink"
             class="icon24px pointer"
-            (click)="editOpen();selectField('open')"
+            (click)="editOpen();selectField('open');setting?.onClick(allData)"
             [svgStyle]="{ fill: '#0da06e' }"
           ></svg-icon>
         <svg-icon
@@ -49,6 +49,8 @@ export class TableBooleanRendererComponent implements OnInit {
   @Input() data: boolean;
   @Input() indexTR: number;
   @Input() hover: number;
+  @Input() setting;
+  @Input() allData;
   @Output() selectTR: EventEmitter<Array<any>> = new EventEmitter();
   isOpen: boolean = false;
   fileServerBase = environment.baseFileServer;
