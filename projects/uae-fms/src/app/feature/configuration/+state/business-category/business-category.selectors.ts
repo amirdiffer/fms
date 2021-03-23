@@ -18,4 +18,9 @@ export class BusinessCategorySelectors {
     ConfigurationSelectors.businessCategorySelector,
     (state) => state.error
   );
+
+  static submitted = createSelector(
+    ConfigurationSelectors.businessCategorySelector,
+    (state) => state.submitted
+  );
 }

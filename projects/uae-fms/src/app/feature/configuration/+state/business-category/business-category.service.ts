@@ -15,9 +15,25 @@ export class BusinessCategoryService {
     );
   }
 
+  getOne(id: number): Observable<ResponseBody<IBusinessCategory>> {
+    return this.http.get<ResponseBody<IBusinessCategory>>(
+      environment.baseApiUrl + 'configuration/business-category/' + id
+    );
+  }
+
   post(data): Observable<ResponseBody<any>> {
     return this.http.post<ResponseBody<any>>(
       environment.baseApiUrl + 'configuration/business-category',
+      data
+    );
+  }
+
+  editCategory(data: any): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl +
+        'configuration/business-category/' +
+        data.id +
+        '/update',
       data
     );
   }

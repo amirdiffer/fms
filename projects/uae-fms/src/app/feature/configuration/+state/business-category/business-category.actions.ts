@@ -22,6 +22,16 @@ export class BusinessCategoryActions {
     props<{ data: IBusinessCategory }>()
   );
 
+  static editCategory = createAction(
+    '[BusinessCategory] Eiditing Category',
+    props<{ category: any }>()
+  );
+
+  static categoryEditedSuccessfully = createAction(
+    '[BusinessCategory] Category Edited Successfully',
+    props<{ category: any }>()
+  );
+
   static error = createAction(
     '[BusinessCategory] error occurred',
     props<{ reason: any }>()

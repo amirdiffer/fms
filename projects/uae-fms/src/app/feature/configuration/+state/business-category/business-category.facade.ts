@@ -3,7 +3,6 @@ import { select, Store } from '@ngrx/store';
 import { BusinessCategorySelectors } from './business-category.selectors';
 import { BusinessCategoryPartialState } from './business-category.entity';
 import { BusinessCategoryActions } from './business-category.actions';
-import { IBusinessCategoryPostModel } from '@models/business-category.model';
 
 @Injectable()
 export class BusinessCategoryFacade {
@@ -15,13 +14,19 @@ export class BusinessCategoryFacade {
 
   error$ = this.store.pipe(select(BusinessCategorySelectors.error));
 
+  submitted$ = this.store.pipe(select(BusinessCategorySelectors.submitted));
+
   constructor(private store: Store<BusinessCategoryPartialState>) {}
 
   loadAll() {
     this.store.dispatch(BusinessCategoryActions.loadAll());
   }
 
-  addCategory(data: IBusinessCategoryPostModel) {
+  addCategory(data: any) {
     this.store.dispatch(BusinessCategoryActions.addCategory({ data }));
+  }
+
+  editCategory(category: any) {
+    this.store.dispatch(BusinessCategoryActions.editCategory({ category }));
   }
 }
