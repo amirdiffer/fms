@@ -18,6 +18,7 @@ export const CONFIGURATION_BUSINESS_CATEGORY_FEATURE_KEY = 'businessCategory';
 export interface BusinessCategoryState extends EntityState<IBusinessCategory> {
   error?: any;
   loaded?: boolean;
+  submitted: boolean;
   message?: string;
 }
 
@@ -33,6 +34,7 @@ export const initialState: BusinessCategoryState = businessCategoryAdapter.getIn
   {
     error: null,
     loaded: null,
-    message: null
+    message: null,
+    submitted: false
   } as BusinessCategoryState
 );

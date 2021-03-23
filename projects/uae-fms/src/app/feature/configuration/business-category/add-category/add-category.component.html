@@ -139,6 +139,6 @@
   </div>
 </form>
 <div class='table-container component_wrapper'>
-  <app-table [setting]='addCategory_Table'></app-table>
+  <app-table [setting]='addCategory_Table' [tableData]="businessCategory$"></app-table>
 </div>
 <alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>

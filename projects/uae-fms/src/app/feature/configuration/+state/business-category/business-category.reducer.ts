@@ -32,7 +32,26 @@ const businessCategoryReducer = createReducer(
     ...state,
     error: reason,
     loaded: true
-  }))
+  })),
+  on(BusinessCategoryActions.editCategory, (state, { category }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(
+    BusinessCategoryActions.categoryEditedSuccessfully,
+    (state, { category }) =>
+      businessCategoryAdapter.updateOne(
+        { changes: category, id: category.id },
+        {
+          ...state,
+          error: null,
+          message: null,
+          submitted: true
+        }
+      )
+  )
 );
 
 export function reducer(state: BusinessCategoryState, action: Action) {

@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from '@angular/core';
 import { ColumnType, TableSetting } from '@core/table';
 import { BusinessCategoryFacade } from '../+state/business-category';
 import { DataService } from './data.service';
@@ -16,16 +21,22 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   getBusinessCategorySubscription!: Subscription;
 
   downloadBtn = 'assets/icons/download-solid.svg';
-  businessCategory$ = this.facade.businessCategory$.pipe(map(x => x.map((responseObject) => {
-    return {
-      Category_Name: responseObject.name,
-      Status: responseObject.status,
-      Description: responseObject.description,
-      Asset_Type: responseObject.assetTypeId,
-      Sub_Asset: responseObject.numOfSubAssets,
-      Accessory: responseObject.numOfAccessories
-    };
-  })));
+  businessCategory$ = this.facade.businessCategory$.pipe(
+    map((x) =>
+      x.map((responseObject) => {
+        return {
+          id: responseObject.id,
+          Category_Name: responseObject.name,
+          Status: responseObject.status,
+          Description: responseObject.description,
+          Asset_Type: responseObject.assetTypeId,
+          Sub_Asset: responseObject.numOfSubAssets,
+          Accessory: responseObject.numOfAccessories,
+          assetTypeName: responseObject.assetTypeName
+        };
+      })
+    )
+  );
 
   businessCategory_Table: TableSetting = {
     columns: [
@@ -67,7 +78,7 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
     private facade: BusinessCategoryFacade,
     private dataService: DataService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
