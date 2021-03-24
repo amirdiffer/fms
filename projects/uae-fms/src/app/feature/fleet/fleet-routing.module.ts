@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'assets/add', component: AddAssetComponent },
   { path: 'assets/:id', component: OverViewAssetComponent },
   {
-    path: 'organization/add-organization',
+    path: 'organization/add-department',
     component: AddOrganizationComponent
   },
   { path: '', redirectTo: 'assets' }
