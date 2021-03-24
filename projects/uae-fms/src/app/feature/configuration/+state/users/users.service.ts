@@ -8,7 +8,7 @@ import { IUserStatistics } from '@models/statistics';
 
 @Injectable()
 export class UsersService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   loadAll(): Observable<ResponseBody<IUser[]>> {
     return this.http.get<ResponseBody<IUser[]>>(
@@ -30,8 +30,20 @@ export class UsersService {
 
   editUser(data): Observable<ResponseBody<any>> {
     return this.http.post<ResponseBody<any>>(
-      environment.baseApiUrl + 'configuration/user/'+data.id+"/update",
+      environment.baseApiUrl + 'configuration/user/' + data.id + "/update",
       data
+    );
+  }
+
+  searchEmployee(id) {
+    return this.http.get<ResponseBody<IUserStatistics>>(
+      environment.baseApiUrl + 'configuration/user/employee/' + id
+    );
+  }
+
+  getUserById(id) {
+    return this.http.get<ResponseBody<IUser>>(
+      environment.baseApiUrl + 'configuration/user/' + id
     );
   }
 }

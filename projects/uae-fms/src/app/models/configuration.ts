@@ -19,11 +19,30 @@ export interface IUser {
   notifyByCall: boolean;
   notifyBySMS: boolean;
   notifyByWhatsApp: boolean;
+  vehicleComments
+  serviceEntryComment: boolean;
+  fuelEntryComments: boolean;
+  vehicleStatusChanges: boolean;
+  voidedFuelEntries: boolean;
+  dueSoonInspections: boolean;
+  overdueInspections: boolean;
+  newFaults: boolean;
+  newRecalls: boolean;
+  notifyByNewIssueEmail: boolean;
+  notifyByNewIssuePush: boolean;
+  notifyByIssueAssignedEmail: boolean;
+  notifyByIssueAssignedPush: boolean;
+  notifyByCommentOnIssueEmail: boolean;
+  notifyByCommentOnIssuePush: boolean;
+  notifyByIssueResolvedEmail: boolean;
+  notifyByIssueResolvedPush: boolean;
+  notifyByIssueCloseEmail: boolean;
+  notifyByIssueClosePush: boolean;
 }
 
 export interface IRole {
   id: number;
-  roleId: string;
+  roleId: number;
   roleName: string;
 }
 

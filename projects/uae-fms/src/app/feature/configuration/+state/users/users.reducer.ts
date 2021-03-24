@@ -16,10 +16,15 @@ const usersReducer = createReducer(
   ),
   on(UsersActions.addUser, (state, { data: IUser }) => ({
     ...state,
-    loaded: false
+    submitted: false
   })),
   on(UsersActions.userAddedSuccessfully, (state, { data }) =>
-    usersAdapter.addOne(data, state)
+  ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: true
+  })
   ),
   on(UsersActions.error, (state, { reason }) => ({
     ...state,
@@ -33,6 +38,12 @@ const usersReducer = createReducer(
   on(UsersActions.statisticsLoaded, (state, { data }) => ({
     ...state,
     statistics: data
+  })),
+  on(UsersActions.resetParams, (state) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
   })),
   on(UsersActions.editUser, (state, { user }) => ({
     ...state,

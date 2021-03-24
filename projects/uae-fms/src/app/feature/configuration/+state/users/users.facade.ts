@@ -37,4 +37,8 @@ export class UsersFacade {
   getUserById(id: number) {
     return this.store.pipe(select(UsersSelectors.selectById, { id }));
   }
+
+  resetParams() {
+    this.store.dispatch(UsersActions.resetParams());
+  }
 }

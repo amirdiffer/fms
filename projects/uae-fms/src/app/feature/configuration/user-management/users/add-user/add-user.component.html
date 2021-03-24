@@ -14,8 +14,8 @@
       <div class="col-12 col-md-3 p-field form-section__field">
         <div class="autocomplete-select">
           <span class="p-float-label">
-            <p-autoComplete formControlName="employeeNumber" (completeMethod)="filterEmployees($event)"
-              [suggestions]="employees" field="name" [minLength]="1" (ngModelChange)="employeeNumberChanged($event)"
+            <p-autoComplete formControlName="employeeNumber" (completeMethod)="getEmployee($event)"
+              [suggestions]="employees$|async" field="name" [minLength]="1" (ngModelChange)="employeeNumberChanged($event)"
               required [disabled]="isEdit"></p-autoComplete>
             <i class="pi pi-search"></i>
             <label>{{ 'configuration.users.employee_number' | translate }} *</label>
@@ -39,7 +39,7 @@
       </div>
       <div class="col-12 col-md-3 p-field form-section__field options-select">
         <span class="p-float-label">
-          <p-dropdown inputId="role" [autoDisplayFirst]="false" [options]="roles" formControlName="roleId"
+          <p-dropdown inputId="role" [autoDisplayFirst]="false" [options]="roles$|async" formControlName="roleId"
             optionLabel="name"></p-dropdown>
           <label for="role">{{ 'configuration.users.role' | translate }}</label>
           <anms-error [showError]="hasError('roleId',form.get('portalInformation'),submited)"

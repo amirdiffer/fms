@@ -38,4 +38,8 @@ export class UsersActions {
     '[Users] all statistics are loaded',
     props<{ data: IUserStatistics }>()
   );
+
+  static resetParams = createAction(
+    '[Users] Reset Parameters'
+  )
 }
