@@ -61,7 +61,6 @@ export class AddAssetPolicyComponent
     data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
-        console.log(col, data, button);
       },
       floatButton: [
         {
@@ -194,7 +193,6 @@ export class AddAssetPolicyComponent
     );
 
     this.editForm = this._routerFacade.route$.subscribe((data: any) => {
-      console.log(data);
       this.id = +data.queryParams['id'];
 
       if (this.id) {
@@ -227,7 +225,6 @@ export class AddAssetPolicyComponent
 
     this.assetPolicyFacade.error$.subscribe(x => {
       if (x) {
-        console.log(x?.error)
         this.dialogModalError = true;
         this.dialogSettingError.hasError = true;
         this.changeDetector.detectChanges();
