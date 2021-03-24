@@ -32,7 +32,7 @@ const assetPolicyReducer = createReducer(
     submitted: false
   })),
   on(AssetPolicyActions.addAssetPolicySuccessfully, (state, { data }) =>
-    assetPolicyAdapter.addOne(data, state)
+    assetPolicyAdapter.addOne(data, { ...state, submitted: true })
   ),
   on(AssetPolicyActions.editAssetPolicy, (state, { data }) => ({
     ...state,

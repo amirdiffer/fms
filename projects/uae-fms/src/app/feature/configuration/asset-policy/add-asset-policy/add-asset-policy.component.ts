@@ -210,6 +210,7 @@ export class AddAssetPolicyComponent
 
     this.assetPolicyFacade.submitted$.subscribe((x) => {
       if (x) {
+        this.dialogModalAddOrUpdate = true;
         this.dialogSettingAddOrUpdate.header = this.isEdit
           ? 'Edit user'
           : 'Add new user';
@@ -220,7 +221,7 @@ export class AddAssetPolicyComponent
         this.dialogSettingAddOrUpdate.hasError = false;
         this.dialogSettingAddOrUpdate.confirmButton = 'Yes';
         this.dialogSettingAddOrUpdate.cancelButton = undefined;
-        this.router.navigate(['/configuration/user-management/users']).then();
+        this.changeDetector.detectChanges();
       }
     });
 
