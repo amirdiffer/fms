@@ -72,6 +72,8 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   accessories = [];
   accessoriesB;
 
+  id;
+
   get assignSubAsset(): FormArray {
     return this.addCategoryForm.get('assignSubAsset') as FormArray;
   }
@@ -99,7 +101,6 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     this.subAssetFacade.loadAll();
     this.assetTypeFacade.loadAll();
 
-
     this.accessoryFacade.accessory$.subscribe(x => {
       this.accessoriesB = x.map(y => ({ id: y.id, name: y.itemName }));
     })
@@ -122,6 +123,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     });
 
     if (this.dataService.isEditing) {
+      this.id = this.dataService.dataToEditFromTable.id;
       this.networkService
         .getOne(this.dataService.dataToEditFromTable.id)
         .subscribe((response) => {
@@ -265,6 +267,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     }
 
     if (this.dataService.isEditing) {
+      itemToPost["id"] = this.id;
       this.facade.editCategory(itemToPost);
     } else {
       this.facade.addCategory(itemToPost);

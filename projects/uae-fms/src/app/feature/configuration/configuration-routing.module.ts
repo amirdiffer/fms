@@ -40,6 +40,10 @@ const routes: Routes = [
     data: { name: 'Category Name' }
   },
   {
+    path: 'business-category/edit-business-category/:id',
+    component: AddCategoryComponent
+  },
+  {
     path: 'user-management',
     loadChildren: () =>
       import('../configuration/user-management/user-management.module').then(
