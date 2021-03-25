@@ -19,10 +19,12 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
   assetConfigurationableSetting;
   addOpen;
   addOpen$: Subscription;
+
+  assetConfiguration$ = this.facade.assetConfiguration$;
   constructor(
     private facade: AssetConfigurationFacade,
     private _assetConfigurationService: AssetConfigurationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -32,6 +34,10 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       .subscribe((open) => {
         this.addOpen = open;
       });
+
+    this.assetConfiguration$.subscribe(x => {
+      console.log(x)
+    })
   }
   openAdd() {
     this._assetConfigurationService.loadAddForm(true);

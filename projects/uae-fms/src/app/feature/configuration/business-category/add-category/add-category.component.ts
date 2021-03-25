@@ -1,21 +1,15 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Injector,
-  OnDestroy,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Injector, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { DataService } from '../data.service';
-import {
-  BusinessCategoryFacade,
-  BusinessCategoryService
-} from '../../+state/business-category';
+import { BusinessCategoryFacade, BusinessCategoryService } from '../../+state/business-category';
 import { map } from 'rxjs/operators';
+
+import { AccessoryFacade } from "@feature/fleet/+state/accessory";
+import { SubAssetFacade } from "@feature/fleet/+state/sub-asset";
+import { AssetTypeFacade } from "../../+state/asset-configuration";
 
 @Component({
   selector: 'anms-add-category',
@@ -24,6 +18,8 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
+
+  //#region  Dialog
   dialogModal = false;
   dialogMode = null;
   dialogSetting: IDialogAlert = {
@@ -33,7 +29,9 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };
+  //#endregion
 
+  //#region Table
   addCategory_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.category_name', type: 1, field: 'Category_Name' },
@@ -45,42 +43,6 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     ],
     data: [],
   };
-
-  addCategoryForm: FormGroup;
-  submited = false;
-  assetTypes = [
-    { name: 'Asset type 1', id: 1 },
-    { name: 'Asset type 2', id: 2 },
-    { name: 'Asset type 3', id: 3 },
-    { name: 'Asset type 4', id: 4 },
-    { name: 'Asset type 5', id: 5 },
-    { name: 'Asset type 6', id: 6 }
-  ];
-  subAssets = [
-    { name: 'Asset type 1', id: 1 },
-    { name: 'Asset type 2', id: 2 },
-    { name: 'Asset type 3', id: 3 },
-    { name: 'Asset type 4', id: 4 },
-    { name: 'Asset type 5', id: 5 },
-    { name: 'Asset type 6', id: 6 }
-  ];
-
-  accessories = [
-    { name: 'Accessory 1', id: 1 },
-    { name: 'Accessory 2', id: 2 },
-    { name: 'Accessory 3', id: 3 },
-    { name: 'Accessory 4', id: 4 },
-    { name: 'Accessory 5', id: 5 },
-    { name: 'Accessory 6', id: 6 }
-  ];
-
-  get assignSubAsset(): FormArray {
-    return this.addCategoryForm.get('assignSubAsset') as FormArray;
-  }
-
-  get assignAccessory(): FormArray {
-    return this.addCategoryForm.get('assignAccessory') as FormArray;
-  }
 
   businessCategory$ = this.facade.businessCategory$.pipe(
     map((x) =>
@@ -98,18 +60,58 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       })
     ));
 
+  //#endregion
+
+  addCategoryForm: FormGroup;
+  submited = false;
+
+  assetTypes = [];
+  assetTypesB;
+  subAssets = [];
+  subAssetsB;
+  accessories = [];
+  accessoriesB;
+
+  get assignSubAsset(): FormArray {
+    return this.addCategoryForm.get('assignSubAsset') as FormArray;
+  }
+
+  get assignAccessory(): FormArray {
+    return this.addCategoryForm.get('assignAccessory') as FormArray;
+  }
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
     public dataService: DataService,
     private networkService: BusinessCategoryService,
     private facade: BusinessCategoryFacade,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private accessoryFacade: AccessoryFacade,
+    private subAssetFacade: SubAssetFacade,
+    private assetTypeFacade: AssetTypeFacade
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
+
+    this.accessoryFacade.loadAll();
+    this.subAssetFacade.loadAll();
+    this.assetTypeFacade.loadAll();
+
+
+    this.accessoryFacade.accessory$.subscribe(x => {
+      this.accessoriesB = x.map(y => ({ id: y.id, name: y.itemName }));
+    })
+
+    this.subAssetFacade.subAsset$.subscribe(x => {
+      this.subAssetsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
+    })
+
+    this.assetTypeFacade.assetType$.subscribe(x => {
+      this.assetTypesB = x.map(y => ({ id: y.id, name: y.name }));
+    })
+
     this.addCategoryForm = this._fb.group({
       name: ['', [Validators.required]],
       assetType: ['', [Validators.required]],
@@ -123,8 +125,6 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       this.networkService
         .getOne(this.dataService.dataToEditFromTable.id)
         .subscribe((response) => {
-          console.log(response.message);
-
           this.addCategoryForm.patchValue({
             name: response.message.name,
             assetType: {
@@ -168,6 +168,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
 
     this.facade.submitted$.subscribe((x) => {
       if (x) {
+        this.dialogMode = "cancel";
         this.dialogModal = true;
         this.dialogSetting.header = this.dataService.isEditing
           ? 'Edit category'
@@ -179,7 +180,8 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
-        this.router.navigate(['/configuration/business-category']).then();
+        this.changeDetectorRef.detectChanges();
+        // this.router.navigate(['/configuration/business-category']).then();
       }
     });
 
@@ -240,7 +242,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     const itemToPost = {
       name: this.addCategoryForm.value.name,
       assetTypeId: this.addCategoryForm.value.assetType.id,
-      status: this.addCategoryForm.value.activeCategory,
+      status: this.addCategoryForm.value.activeCategory ? "ACTIVE" : "DEACTIVE",
       description: this.addCategoryForm.value.description,
       subAssets: [],
       accessories: []
@@ -256,7 +258,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
 
     for (const accessory of this.addCategoryForm.value.assignAccessory) {
       itemToPost['accessories'].push({
-        subAssetId: accessory.id || 1,
+        accessoryId: accessory.id || 1,
         quantity: accessory.accessoryQuantity || 0,
         specDocId: 1
       });
@@ -297,82 +299,21 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       this.dialogSetting.cancelButton = 'Cancel';
       return;
     }
-
-    /*
-     * the object need by API
-     *
-     * "name": "<string>",
-     * "assetTypeId": "<integer>",
-     * "status": "<string>",
-     * "description": "<string>",
-     * "subAssets": [
-     *     {
-     *         "subAssetId": "<integer>",
-     *         "quantity": "<integer>",
-     *         "specDocId": "<integer>"
-     *     }
-     * ],
-     * "accessories": [
-     *     {
-     *         "accessoryId": "<integer>",
-     *         "quantity": "<integer>",
-     *         "specDocId": "<integer>"
-     *     }
-     * ]
-     *
-     *
-     * the object we provide
-     *
-     * accessory: {name: "Old asset type 1", id: 1}
-     * accessoryQuantity: "24"
-     * activeCategory: true
-     * assetQuantity: "123"
-     * assetType:
-     * id: 1
-     * name: "Old asset type 1"
-     * description: "desc"
-     * name: "name"
-     * subAsset:
-     * id: 1
-     * name: "Old asset type 1"
-     *
-     */
   }
 
   filterAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.assetTypes = [
-      { name: 'Old asset type 1', id: 1 },
-      { name: 'Old asset type 2', id: 2 },
-      { name: 'Old asset type 3', id: 3 },
-      { name: 'Old asset type 4', id: 4 },
-      { name: 'Old asset type 5', id: 5 },
-      { name: 'Old asset type 6', id: 6 }
-    ];
+    this.assetTypes = this.assetTypesB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
   }
 
   filterSubAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.subAssets = [
-      { name: 'Old asset type 1', id: 1 },
-      { name: 'Old asset type 2', id: 2 },
-      { name: 'Old asset type 3', id: 3 },
-      { name: 'Old asset type 4', id: 4 },
-      { name: 'Old asset type 5', id: 5 },
-      { name: 'Old asset type 6', id: 6 }
-    ];
+    this.subAssets = this.subAssetsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
   }
 
   filterAccessories(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.accessories = [
-      { name: 'Old asset type 1', id: 1 },
-      { name: 'Old asset type 2', id: 2 },
-      { name: 'Old asset type 3', id: 3 },
-      { name: 'Old asset type 4', id: 4 },
-      { name: 'Old asset type 5', id: 5 },
-      { name: 'Old asset type 6', id: 6 }
-    ];
+    this.accessories = this.accessoriesB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
   }
 
   ngOnDestroy(): void {

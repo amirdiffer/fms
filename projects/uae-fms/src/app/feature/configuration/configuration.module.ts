@@ -30,6 +30,7 @@ import { PeriodicServiceComponent } from '@feature/configuration/periodic-servic
 import { AddFleetStatusComponent } from './fleet-status/add-fleet-status/add-fleet-status.component';
 import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-service/add-periodic-service.component';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
+import { FleetStateModule } from "../fleet/+state/fleet.state.module";
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
     SharedModule,
     ConfigurationStateModule,
     ConfigurationRoutingModule,
-    AlertDialogModule
+    AlertDialogModule,
+    FleetStateModule
   ]
 })
-export class ConfigurationModule {}
+export class ConfigurationModule { }
