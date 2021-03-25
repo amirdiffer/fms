@@ -1,9 +1,9 @@
-
 <form [formGroup]="periodicServiceForm">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" type="button"
-      (click)="showCancelAlert()">{{ 'forms.cancel' | translate }}</button>
-    <button class="btn-primary-medium add" (click)="submit()">{{ (isEdit ? 'forms.edit' : 'forms.add') | translate }}</button>
+    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="showCancelAlert()">{{ 'forms.cancel' |
+      translate }}</button>
+    <button class="btn-primary-medium add" (click)="submit()">{{ (isEdit ? 'forms.edit' : 'forms.add') | translate
+      }}</button>
   </div>
 
 
@@ -15,16 +15,13 @@
       </div>
       <div class="col-12 col-md-6 p-field form-section__field">
         <span class="p-float-label">
-          <input formControlName="name" pInputText
-            placeholder="{{
+          <input formControlName="name" pInputText placeholder="{{
             'configuration.periodic_service.periodic_service_name' | translate
             }} *" required type="text">
           <label>{{ 'configuration.periodic_service.periodic_service_name' |
             translate }} *</label>
         </span>
-        <anms-error
-          [showError]="hasError('name',periodicServiceForm,submitted)"
-          error="forms.feedback.required">
+        <anms-error [showError]="hasError('name',periodicServiceForm,submitted)" error="forms.feedback.required">
         </anms-error>
       </div>
 
@@ -35,10 +32,8 @@
       <div class="row" [formGroupName]="i" *ngFor="let item of
         periodicServiceForm.get('packages')['controls'];let i= index">
         <div class="col-md-2 d-flex">
-          <span class='plus-icon'
-            (click)="addPackage()">
-            <svg-icon src='../../../../../assets/icons/add.svg'
-              [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
+          <span class='plus-icon' (click)="addPackage()">
+            <svg-icon src='../../../../../assets/icons/add.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
               '100%'}"></svg-icon>
           </span>
           <div class="title-wrapper">
@@ -48,8 +43,7 @@
         </div>
         <div class="col-12 col-md-5 p-field form-section__field">
           <span class="p-float-label">
-            <input formControlName="packageName" pInputText
-              placeholder="{{ 'configuration.periodic_service.package_name' |
+            <input formControlName="packageName" pInputText placeholder="{{ 'configuration.periodic_service.package_name' |
               translate }} *" required type="text">
             <label>{{ 'configuration.periodic_service.package_name' | translate
               }} *</label>
@@ -61,19 +55,16 @@
           <div *ngIf="((packages.controls[i].get('packageName').dirty &&
             packages.controls[i].get('packageName').invalid) ||
             (packages.controls[i].get('packageName').invalid && submitted)) &&
-            packages.controls[i].get('packageName').errors?.required"
-            class="p-error">
+            packages.controls[i].get('packageName').errors?.required" class="p-error">
             {{ 'forms.feedback.required' | translate }}
           </div>
         </div>
         <div class="col-12 col-md-5 p-field form-section__field
           dropdown-select-input">
-          <p-dropdown inputId="unit" [options]="units"
-            optionLabel="name"></p-dropdown>
+          <p-dropdown inputId="unit" formControlName="intervalType" [options]="units" optionLabel="name"></p-dropdown>
           <div class="form-section__field w-100">
             <span class="p-float-label">
-              <input formControlName="intervals" pInputText
-                placeholder="{{ 'configuration.periodic_service.intervals' |
+              <input formControlName="intervals" pInputText placeholder="{{ 'configuration.periodic_service.intervals' |
                 translate }}" type="text">
               <label>{{ 'configuration.periodic_service.intervals' | translate
                 }}</label>
@@ -81,43 +72,43 @@
 
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
 
-      <div class="col-12 col-md-2">
-        <h3 class="form-section__title text-center">{{
-          'configuration.periodic_service.task' | translate }}</h3>
-      </div>
-      <div class="col-12 col-md-5 p-field form-section__field" formArrayName="tasks">
-        <div class="mt-2" [formGroupName]="i" *ngFor="let item of
-          periodicServiceForm.get('tasks')['controls'];let i=index">
-          <span class="p-float-label">
-            <div class="p-inputgroup">
-              <span class="p-float-label">
-                <input type="text" required formControlName="name" pInputText
-                  placeholder="{{ 'configuration.periodic_service.task' |
-                  translate }}">
-                <label>{{ 'configuration.periodic_service.task' | translate }} *</label>
-              </span>
-              <span class="p-inputgroup-addon addon-primary">
-                <i class="pi pi-plus" (click)="addTask()"></i>
-              </span>
-            </div>
-            <div *ngIf="((tasks?.controls[i].get('name').dirty &&
-              tasks.controls[i].get('name').invalid) ||
-              (tasks.controls[i].get('name').invalid && submitted)) &&
-              tasks.controls[i].get('name').errors?.required" class="p-error">
-              {{ 'forms.feedback.required' | translate }}
-            </div>
-          </span>
-          <!-- <anms-error
-              [showError]="hasError('task',addPeriodicServiceForm,submitted)"
-              error="forms.feedback.required">
-            </anms-error> -->
+
+        <div class="col-12 col-md-2">
+          <h3 class="form-section__title text-center">{{
+            'configuration.periodic_service.task' | translate }}</h3>
         </div>
+
+        <div class="col-12 col-md-5 p-field form-section__field"  formArrayName="tasks">
+          <div class="mt-2" [formGroupName]="j" *ngFor="let item of
+          getPackageTasks(i).controls ;let j=index">
+
+            <span class="p-float-label">
+              <div class="p-inputgroup">
+                <span class="p-float-label">
+                  <input type="text" required formControlName="name" pInputText placeholder="{{ 'configuration.periodic_service.task' |
+                      translate }}">
+                  <label>{{ 'configuration.periodic_service.task' | translate }} *</label>
+                </span>
+                <span class="p-inputgroup-addon addon-primary">
+                  <i class="pi pi-plus" (click)="addTask('',i)"></i>
+                </span>
+              </div>
+             <div *ngIf="getTasksForm(i,j).get('name').invalid && submitted"
+                 class="p-error">
+                {{ 'forms.feedback.required' | translate }}
+              </div>
+            </span>
+            <!-- <anms-error
+                  [showError]="hasError('task',addPeriodicServiceForm,submitted)"
+                  error="forms.feedback.required">
+                </anms-error> -->
+          </div>
+        </div>
+
       </div>
     </div>
+
 
   </div>
 
@@ -133,6 +124,7 @@
 </div>
 
 
-<alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)">
+</alert-dialog>
 <alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal"></alert-dialog>
 <alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal"></alert-dialog>
