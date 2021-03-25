@@ -25,7 +25,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   dialogSetting: IDialogAlert = {
     header: 'Add Business Category',
     hasError: false,
-    message: 'Message is Here',
+    message: 'Are you sure you want to add new Business Category?',
     confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };

@@ -100,12 +100,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
   employeeId;
 
   departments = [
-    { name: 'Department 1', id: 1 },
-    { name: 'Department 2', id: 2 },
-    { name: 'Department 3', id: 3 },
-    { name: 'Department 4', id: 4 },
-    { name: 'Department 5', id: 5 },
-    { name: 'Department 6', id: 6 }
+    { name: 'Finance', id: 1 }
   ];
 
   roles = [
@@ -169,7 +164,11 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
 
             this.form.controls['personalInformation'].patchValue({
               firstName: x.firstName,
-              lastName: x.lastName
+              lastName: x.lastName,
+              callCheckbox: x.notifyByCall,
+              smsCheckbox: x.notifyBySMS,
+              whatsappCheckbox: x.notifyByWhatsApp,
+              emailCheckbox: x.notifyByEmail,
             });
 
             this.emails.controls[0].patchValue({
@@ -183,8 +182,6 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
             this.form.controls['fileUpload'].patchValue({
               fileName: x.profileDocId
             });
-            // console.log(x)
-            // console.log(this.form.value)
           }
         });
       } else {

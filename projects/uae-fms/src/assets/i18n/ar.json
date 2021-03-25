@@ -65,6 +65,8 @@
     "user_management": "إدارةالمستخدم",
     "role_permission": "الدور والإذن",
     "users": "المستخدمون",
+    "add_new_user":"إضافة المستخدمون",
+    "edit_user":"تحرير المستخدمون",
     "company_profile": "ملف الشركة",
     "asset_policy": "سياسة الأصول",
     "asset_configuration": "تكوين الأصول",
