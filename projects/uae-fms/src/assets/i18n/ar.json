@@ -79,7 +79,7 @@
     "add_periodic_service": "إضافة الصيانة الدورية",
     "add_category": "إضافة التصنيف",
     "add_fleet_status": "إضافة حالة الأسطول",
-    "edit_fleet_status":"تحرير حالة الأسطول",
+    "edit_fleet_status": "تحرير حالة الأسطول",
     "add_order_list": "إضافة قائمة الطلبات",
     "add_fuel_card": "إضافة بطاقة الوقود",
     "add_asset_usage": "إضافة استخدام الأصول",
@@ -98,10 +98,11 @@
     "edit_part": "تحرير الجزء",
     "overview": "نظرة عامة",
     "category": "الفئة",
-    "add_business_category":"إضافة فئة العمل",
-    "add_asset_configuration":"إضافة تكوين الأصول",
+    "add_business_category": "إضافة فئة العمل",
+    "add_asset_configuration": "إضافة تكوين الأصول",
     "add_ownership": "أضف ملكية",
-    "add_role_permission":"إضافة إذن الدور"
+    "add_role_permission": "إضافة إذن الدور",
+    "edit_periodic_serivce": "تحرير الخدمة الدورية"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",

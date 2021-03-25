@@ -35,6 +35,10 @@ const routes: Routes = [
     data: { name: 'Add Periodic Service' }
   },
   {
+    path: 'periodic-service/edit-periodic-service',
+    component: AddPeriodicServiceComponent
+  },
+  {
     path: 'business-category/add-business-category',
     component: AddCategoryComponent,
     data: { name: 'Category Name' }

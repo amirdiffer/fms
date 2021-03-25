@@ -1,14 +1,11 @@
 
-<form [formGroup]="addPeriodicServiceForm">
+<form [formGroup]="periodicServiceForm">
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" type="button"
       (click)="showCancelAlert()">{{ 'forms.cancel' | translate }}</button>
-    <button class="btn-primary-medium add" (click)="submit()">{{ 'search.add' |
-      translate }}</button>
+    <button class="btn-primary-medium add" (click)="submit()">{{ (isEdit ? 'forms.edit' : 'forms.add') | translate }}</button>
   </div>
-    <alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)"></alert-dialog>
-    <alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal"></alert-dialog>
-    <alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal"></alert-dialog>
+
 
   <div class="form-section form-section--inline mt-3">
     <div class="row">
@@ -26,7 +23,7 @@
             translate }} *</label>
         </span>
         <anms-error
-          [showError]="hasError('name',addPeriodicServiceForm,submitted)"
+          [showError]="hasError('name',periodicServiceForm,submitted)"
           error="forms.feedback.required">
         </anms-error>
       </div>
@@ -36,7 +33,7 @@
   <div class="form-section form-section--inline mt-3">
     <div formArrayName="packages">
       <div class="row" [formGroupName]="i" *ngFor="let item of
-        addPeriodicServiceForm.get('packages')['controls'];let i= index">
+        periodicServiceForm.get('packages')['controls'];let i= index">
         <div class="col-md-2 d-flex">
           <span class='plus-icon'
             (click)="addPackage()">
@@ -94,7 +91,7 @@
       </div>
       <div class="col-12 col-md-5 p-field form-section__field" formArrayName="tasks">
         <div class="mt-2" [formGroupName]="i" *ngFor="let item of
-          addPeriodicServiceForm.get('tasks')['controls'];let i=index">
+          periodicServiceForm.get('tasks')['controls'];let i=index">
           <span class="p-float-label">
             <div class="p-inputgroup">
               <span class="p-float-label">
@@ -134,3 +131,8 @@
     </div>
   </div>
 </div>
+
+
+<alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal"></alert-dialog>
+<alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal"></alert-dialog>

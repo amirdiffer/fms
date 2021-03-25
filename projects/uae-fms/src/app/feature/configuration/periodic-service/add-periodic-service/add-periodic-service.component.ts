@@ -1,11 +1,14 @@
+import { PeriodicServiceService } from './../../+state/periodic-service/periodic-service.service';
 import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Injector
+  Injector,
+  ChangeDetectorRef
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { RouterFacade } from '@core/router';
 import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { PeriodicServiceFacade } from '../../+state/periodic-service';
@@ -78,7 +81,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
     }
   };
 
-  addPeriodicServiceForm: FormGroup;
+  periodicServiceForm: FormGroup;
   submitted: boolean = false;
   dialogCancelSetting: IDialogAlert = {
     header: 'Cancel',
@@ -91,7 +94,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   dialogSuccessSetting: IDialogAlert = {
     header: 'Success',
     hasError: false,
-    message: 'New ownership Successfully Added'
+    message: 'New Periodic Service Successfully Added'
   };
   dialogErrorSetting: IDialogAlert = {
     header: 'Error',
@@ -101,26 +104,62 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   displayCancelModal = false;
   displaySuccessModal = false;
   displayErrorModal = false;
+  id: number;
+  isEdit: boolean;
 
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
-    private facade: PeriodicServiceFacade
+    private periodicServiceFacade: PeriodicServiceFacade,
+    private periodicService: PeriodicServiceService,
+    private _routerFacade: RouterFacade,
+    private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
-    this.addPeriodicServiceForm = this._fb.group({
+    this.periodicServiceForm = this._fb.group({
       name: ['', [Validators.required]],
       packages: this._fb.array([this.createPackageForm()]),
       tasks: this._fb.array([this.createTaskForm()])
     });
-    this.tasks = this.addPeriodicServiceForm.get('tasks') as FormArray;
+    this.tasks = this.periodicServiceForm.get('tasks') as FormArray;
     if (!this.tasks) this.tasks.push(this.createTaskForm());
 
-    this.packages = this.addPeriodicServiceForm.get('packages') as FormArray;
+    this.packages = this.periodicServiceForm.get('packages') as FormArray;
     if (!this.packages) this.packages.push(this.createPackageForm());
+
+    this._routerFacade.route$.subscribe((data: any) => {
+      console.log(data);
+      this.id = +data.queryParams['id'];
+
+      if (this.id) {
+        this.isEdit = true;
+
+        this.periodicService.getById(this.id).subscribe((result) => {
+          if (result) {
+            this.loadPeriodicServiceForm(result.message);
+          }
+        });
+      }
+    });
+  }
+  loadPeriodicServiceForm(periodicService: any) {
+    const { name, numOfUsage, packages } = periodicService;
+
+    this.periodicServiceForm.patchValue({
+      name
+    });
+
+    this.packages = this.periodicServiceForm.get('packages') as FormArray;
+    this.packages.removeAt(0);
+
+    packages.forEach((pack) => {
+      this.addPackage(pack.name, pack.intervalValue);
+    });
+
+    this.changeDetector.detectChanges();
   }
 
   createTaskForm(): FormGroup {
@@ -128,25 +167,25 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
       name: ['', [Validators.required]]
     });
   }
-  createPackageForm(): FormGroup {
+  createPackageForm(packageName = '', intervals = ''): FormGroup {
     return this._fb.group({
-      packageName: ['', [Validators.required]],
-      intervals: ['']
+      packageName: [packageName, [Validators.required]],
+      intervals: [intervals]
     });
   }
   addTask(): void {
-    this.tasks = this.addPeriodicServiceForm.get('tasks') as FormArray;
+    this.tasks = this.periodicServiceForm.get('tasks') as FormArray;
     this.tasks.push(this.createTaskForm());
   }
 
-  addPackage(): void {
-    this.packages = this.addPeriodicServiceForm.get('packages') as FormArray;
-    this.packages.push(this.createPackageForm());
+  addPackage(packageName = '', intervals = ''): void {
+    this.packages = this.periodicServiceForm.get('packages') as FormArray;
+    this.packages.push(this.createPackageForm(packageName, intervals));
   }
 
   submit() {
     this.submitted = true;
-    if (this.addPeriodicServiceForm.invalid) {
+    if (this.periodicServiceForm.invalid) {
       return;
     } else {
       this.displaySuccessModal = true;

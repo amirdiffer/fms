@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
 import { map } from 'rxjs/operators';
@@ -46,20 +47,31 @@ export class PeriodicServiceComponent implements OnInit {
     rowSettings: {
       floatButton: [
         {
-          button: 'edit'
+          button: 'edit',
+          onClick: (col, data, button?) => {
+            this.router
+              .navigate(
+                ['/configuration/periodic-service/edit-periodic-service'],
+                { queryParams: { id: data.id } }
+              )
+              .then();
+          }
         }
       ]
     }
   };
 
-  periodicServices$ = this.facade.periodicService$.pipe(map(x => x.map((responseObject) => {
-    return {
-      periodicServiceName: responseObject.name,
-      number: responseObject.id
-    };
-  })));
+  periodicServices$ = this.facade.periodicService$.pipe(
+    map((x) =>
+      x.map((responseObject) => ({
+        id: responseObject.id,
+        periodicServiceName: responseObject.name,
+        number: responseObject.id
+      }))
+    )
+  );
 
-  constructor(private facade: PeriodicServiceFacade) { }
+  constructor(private facade: PeriodicServiceFacade, private router: Router) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
