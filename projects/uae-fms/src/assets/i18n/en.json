@@ -65,6 +65,8 @@
     "user_management": "User Management",
     "role_permission": "Role and Permission",
     "users": "Users",
+    "add_new_user":"Add New User",
+    "edit_user":"Edit User",
     "company_profile": "Company Profile",
     "asset_policy": "Asset Policy",
     "asset_configuration": "Asset Configuration",
