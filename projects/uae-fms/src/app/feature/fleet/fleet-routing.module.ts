@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'operator', component: OperatorComponent },
   { path: 'operator/add', component: AddOperatorComponent },
   { path: 'assets', component: AssetsComponent },
-  { path: 'assets/add', component: AddAssetComponent },
+  { path: 'assets/add-new-asset', component: AddAssetComponent },
   { path: 'assets/:id', component: OverViewAssetComponent },
   {
     path: 'organization/add-organization',

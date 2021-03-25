@@ -101,7 +101,8 @@
     "add_asset_configuration":"Add Asset Configuration",
     "add_ownership": "Add Ownership",
     "traffic_fine": "Traffic Fine",
-    "add_role_permission": "Add Role Premission"
+    "add_role_permission": "Add Role Premission",
+    "add_new_asset": "Add New Asset"
   },
   "sidebar": {
     "dashboard": "Dashboard",

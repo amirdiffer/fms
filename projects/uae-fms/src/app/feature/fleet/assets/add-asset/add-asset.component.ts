@@ -3,9 +3,9 @@ import {
   OnInit,
   ViewChild,
   ChangeDetectionStrategy,
-  ElementRef
+  ElementRef, Injector
 } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { ColumnType, TableSetting } from '@core/table';
 import {
@@ -13,6 +13,9 @@ import {
   FileSystemFileEntry,
   NgxFileDropEntry
 } from 'ngx-file-drop';
+import { Utility } from '@shared/utility/utility';
+import { Router } from '@angular/router';
+import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 
 
 @Component({
@@ -21,7 +24,11 @@ import {
   styleUrls: ['./add-asset.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddAssetComponent implements OnInit {
+export class AddAssetComponent extends Utility implements OnInit {
+  submitted_AssetDetail = false;
+  submitted_Financial = false;
+  submitted_Maintenance = false;
+  submitted_Generate = false;
   isEditable: boolean = true;
   isLinear: boolean = true;
   isStart: boolean = true;
@@ -30,7 +37,7 @@ export class AddAssetComponent implements OnInit {
   progressBarValue = 80;
   calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   closeIcon = 'assets/icons/times.svg';
-  
+
   /* Forms */
   formGroupAssetDetail: FormGroup;
   formGroupFinancial:FormGroup;
@@ -43,6 +50,7 @@ export class AddAssetComponent implements OnInit {
   get inServiceOdometerReminder(){return this.formGroupFinancial.get('lifeCycle.inServiceOdometerReminder')};
   get periodicService(){return this.formGroupMaintenance.get('periodicService')};
   get warrantyStartDate() {return this.formGroupMaintenance.controls.warrantyItems as FormArray};
+  get warrantyItems() {return this.formGroupMaintenance.get('warrantyItems') as FormArray};
 
 /* Ngx File Drop */
 public filesUpdloaded: NgxFileDropEntry[] = [];
@@ -299,21 +307,24 @@ public allFileUpload : IAllFileUpload ={
       },
     ]
   }
-  constructor(private _fb: FormBuilder) {}
+  constructor(private _fb: FormBuilder, injector: Injector, private _router: Router,
+              private _facade: AssetMasterFacade) {
+    super(injector);
+  }
 
   ngOnInit(): void {
     this.formGroupAssetDetail = this._fb.group({
       businessInfo: this._fb.group({
-        businessCategory:[''],
-        ownership:['']
+        businessCategory:['', Validators.compose([Validators.required])],
+        ownership:['', Validators.compose([Validators.required])]
       }),
       assetDetails: this._fb.group({
-        year:[''],
-        make:[''],
-        model:[''],
-        color:[''],
-        trim:[''],
-        origin:[''],
+        year:['', Validators.compose([Validators.required])],
+        make:['', Validators.compose([Validators.required])],
+        model:['', Validators.compose([Validators.required])],
+        color:['', Validators.compose([Validators.required])],
+        trim:['', Validators.compose([Validators.required])],
+        origin:['', Validators.compose([Validators.required])],
         meterType:['']
       }),
       purchasedFor: this._fb.group({
@@ -324,35 +335,39 @@ public allFileUpload : IAllFileUpload ={
     });
     this.formGroupFinancial= this._fb.group({
       assetFinancialPlan: this._fb.group({
-        policyType:[''],
-        purchaseValue:[''],
+        policyType:['', Validators.compose([Validators.required])],
+        purchaseValue:['', Validators.compose([Validators.required])],
       }),
       lifeCycle: this._fb.group({
-        inServiceDate:[''],
+        inServiceDate:['', Validators.compose([Validators.required])],
         inServiceOdometer:[''],
         inServiceDateReminder:[false],
         inServiceOdometerReminder:[false]
       }),
-      uploadFile:['']
+      uploadFile:['', Validators.compose([Validators.required])]
     });
     this.formGroupMaintenance = this._fb.group({
-      periodicService:[''],
+      periodicService:['', Validators.compose([Validators.required])],
       warrantyItems: this._fb.array([this.formBuilderArrayControl()]),
-      description:['']
+      description:['', Validators.compose([Validators.required])]
     })
+    this.formGroupGenerate = this._fb.group({
+      quantity:['multipleAsset', Validators.compose([Validators.required])],
+      uploadFile:['', Validators.compose([Validators.required])]
+    });
     console.log(this.allFileUpload)
   }
   public formBuilderArrayControl ():FormGroup{
     return this._fb.group({
-      item:[''],
-      year:[''],
-      duration:[''],
-      warrantyStartDate:[''],
-      fileUpload:['']
+      item:['', Validators.compose([Validators.required])],
+      year:['', Validators.compose([Validators.required])],
+      duration:['', Validators.compose([Validators.required])],
+      warrantyStartDate:['', Validators.compose([Validators.required])],
+      fileUpload:['', Validators.compose([Validators.required])]
     })
   }
 
-  public dropped(files: NgxFileDropEntry[] , option:string) {
+  public dropped(files: NgxFileDropEntry[] , option:string, index?: number) {
     this.filesUpdloaded = files;
     let fileUpload = null;
     for (const droppedFile of files) {
@@ -374,17 +389,21 @@ public allFileUpload : IAllFileUpload ={
           this.allFileUpload.uploadVehicleDoc.push(droppedFile)
           break;
         case 'purchaseOrder':
+          this.formGroupFinancial.get('uploadFile').patchValue(droppedFile);
           this.allFileUpload.uploadPurchaseOrder.push(droppedFile)
           break;
         case 'maintenanceService':
+          this.formGroupGenerate.get('uploadFile').patchValue(droppedFile);
           this.allFileUpload.uploadMaintenanceService.push(droppedFile)
           break;
-          case 'warranty':
-            this.allFileUpload.warrantyItem.push(droppedFile)
-            break;
+        case 'warranty': {
+          this.formGroupMaintenance.get('warrantyItems')['controls'][index]['controls']['fileUpload'].patchValue(droppedFile);
+          this.allFileUpload.warrantyItem.push(droppedFile)
+          break;
+        }
       }
     }
-    
+
   }
   public trackItemFile(index:number , file){
     return file.name;
@@ -399,7 +418,30 @@ public allFileUpload : IAllFileUpload ={
   selectedPlicyType(value){
     console.log(value)
   }
+
   next() {
+    let activeStep = this.stepper.selectedIndex;
+    switch (activeStep) {
+      case 0: {
+        console.log(this.formGroupAssetDetail.getRawValue())
+        this.submitted_AssetDetail = true;
+        if (this.formGroupAssetDetail.invalid)
+          return
+        break;
+      }
+      case 1: {
+        this.submitted_Financial = true;
+        if (this.formGroupFinancial.invalid)
+          return
+        break;
+      }
+      case 2: {
+        this.submitted_Maintenance = true;
+        if (this.formGroupMaintenance.invalid)
+          return
+        break;
+      }
+    }
     this.stepper.next();
     this.isStart = false;
   }
@@ -410,11 +452,19 @@ public allFileUpload : IAllFileUpload ={
       this.stepper.previous();
     }
   }
+  buttonUpload(): void {
+    this.submitted_Generate = true;
+    if (this.formGroupGenerate.invalid)
+      return
+    this.uploadReview = true;
+  }
   trackUploadItem(){
     const uinque = this.allFileUpload
     return uinque
   }
   addWarrantyItem(){
+    if (this.formGroupMaintenance.invalid)
+      return;
     const item = this.formGroupMaintenance.get('warrantyItems') as FormArray;
     item.push(this.formBuilderArrayControl())
   }
@@ -423,7 +473,43 @@ public allFileUpload : IAllFileUpload ={
     return date.get('warrantyStartDate').value;
   }
   generateForm(){
+    let formVal_AssetDetail = this.formGroupAssetDetail.getRawValue();
+    let formVal_Financial = this.formGroupFinancial.getRawValue();
+    let formVal_Maintenance = this.formGroupMaintenance.getRawValue();
+    let formVal_Generate = this.formGroupGenerate.getRawValue();
+    if (this.formGroupGenerate.invalid)
+      return;
+    let formValue = {
+      "avatarId": 1,
+      "businessCategoryId": formVal_AssetDetail.businessInfo.businessCategory,
+      "ownershipId": formVal_AssetDetail.businessInfo.ownership,
+      "year": formVal_AssetDetail.assetDetails.year,
+      "assetTypeId": 1,
+      "makeId": formVal_AssetDetail.assetDetails.make,
+      "modelId": formVal_AssetDetail.assetDetails.model,
+      "colorId": formVal_AssetDetail.assetDetails.color,
+      "trimId": formVal_AssetDetail.assetDetails.trim,
+      "origin": formVal_AssetDetail.assetDetails.origin,
+      "meterType": formVal_AssetDetail.assetDetails.meterType,
+      "organizationId": 1,
+      "departmentId": formVal_AssetDetail.assetDetails.department,
+      "operatorId": formVal_AssetDetail.assetDetails.operator,
 
+      "policyTypeId": formVal_Financial.assetFinancialPlan.policyType,
+      "purchaseValue": formVal_Financial.assetFinancialPlan.purchaseValue,
+      "inServiceDate": formVal_Financial.lifeCycle.inServiceDate,
+      "inServiceOdometer": formVal_Financial.lifeCycle.inServiceOdometer,
+      "purchaseDocId": 3,
+      "periodicServiceId": formVal_Maintenance.periodicService,
+      "warrantyItems": formVal_Maintenance.warrantyItems,
+      "description": formVal_Maintenance.description,
+      "dpds": [
+      "DPD1234",
+      "DPD8951"
+      ]
+    }
+    this._facade.addAsset(formValue);
+    this._router.navigate(['/fleet/assets']);
   }
 }
 

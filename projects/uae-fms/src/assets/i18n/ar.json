@@ -101,7 +101,8 @@
     "add_business_category":"إضافة فئة العمل",
     "add_asset_configuration":"إضافة تكوين الأصول",
     "add_ownership": "أضف ملكية",
-    "add_role_permission":"إضافة إذن الدور"
+    "add_role_permission":"إضافة إذن الدور",
+    "add_new_asset": "إضافة أصل جديد"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
