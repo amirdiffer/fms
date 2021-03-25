@@ -18,4 +18,9 @@ export class PeriodicServiceSelectors {
     ConfigurationSelectors.periodicServiceSelector,
     (state) => state.error
   );
+
+  // static selectById = createSelector(
+  //   PeriodicServiceSelectors.selectAll,
+  //   (state, props: { id: number }) => state.find((x) => x.id === props.id)
+  // );
 }

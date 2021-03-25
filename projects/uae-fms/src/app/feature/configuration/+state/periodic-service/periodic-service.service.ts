@@ -15,6 +15,12 @@ export class PeriodicServiceService {
     );
   }
 
+  getById(id: number) {
+    return this.http.get<ResponseBody<IPeriodicService[]>>(
+      environment.baseApiUrl + `configuration/periodic-service/${id}`
+    );
+  }
+
   post(data): Observable<ResponseBody<any>> {
     return this.http.post<ResponseBody<any>>(
       environment.baseApiUrl + 'configuration/periodic-service',
