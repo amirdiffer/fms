@@ -187,12 +187,12 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
               icon: 'organization',
               route: '/configuration/user-management/users'
             },
-            {
+            /* {
               name: 'sidebar.configuration.user_management.company_profile',
               icon: 'organization',
               route: '/configuration/user-management/company-setting',
               disabled: true
-            }
+            } */
           ]
         },
         {
