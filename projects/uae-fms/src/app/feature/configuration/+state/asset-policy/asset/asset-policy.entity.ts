@@ -22,10 +22,7 @@ export interface AssetPolicyPartialState {
 }
 
 export const assetPolicyAdapter: EntityAdapter<IAssetPolicy> = createEntityAdapter<
-  IAssetPolicy
->({
-  selectId: (model) => model.depreciationValue
-});
+  IAssetPolicy>();
 
 export const initialState: AssetPolicyState = assetPolicyAdapter.getInitialState(
   {
