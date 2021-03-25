@@ -12,18 +12,21 @@ const periodicServiceReducer = createReducer(
     ...state,
     loaded: false,
     error: null,
-    message: null
+    message: null,
+    submitted: false
   })),
   on(PeriodicServiceActions.allDataLoaded, (state, { data }) =>
     periodicServiceAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
   on(PeriodicServiceActions.addPeriodicService, (state, { data }) => ({
     ...state,
-    loaded: false
+    loaded: false,
+    submitted: false
   })),
   on(
     PeriodicServiceActions.periodicServiceAddedSuccessfully,
-    (state, { data }) => periodicServiceAdapter.addOne(data, state)
+    (state, { data }) =>
+      periodicServiceAdapter.addOne(data, { ...state, submitted: true })
   ),
   on(PeriodicServiceActions.error, (state, { reason }) => ({
     ...state,

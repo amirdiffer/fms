@@ -144,6 +144,23 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
         });
       }
     });
+
+    this.periodicServiceFacade.submitted$.subscribe((x) => {
+      if (x) {
+        this.displaySuccessModal = true;
+        this.dialogSuccessSetting.header = this.isEdit
+          ? 'Edit Periodic Service'
+          : 'Add new Periodic Service';
+        this.dialogSuccessSetting.message = this.isEdit
+          ? 'Changes Saved Successfully'
+          : 'Periodic Service Added Successfully';
+        this.dialogSuccessSetting.isWarning = false;
+        this.dialogSuccessSetting.hasError = false;
+        this.dialogSuccessSetting.confirmButton = 'Yes';
+        this.dialogSuccessSetting.cancelButton = undefined;
+        this.changeDetector.detectChanges();
+      }
+    });
   }
   loadPeriodicServiceForm(periodicService: any) {
     const { name, numOfUsage, packages } = periodicService;
@@ -184,16 +201,25 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   }
 
   submit() {
-    this.submitted = true;
     if (this.periodicServiceForm.invalid) {
       return;
     } else {
-      this.displaySuccessModal = true;
-      setTimeout(() => {
-        this.displaySuccessModal = false;
-        this.goToList();
-      }, 2000);
+      if (!this.isEdit) {
+        const data = this.getPeriodicServicePayload(
+          this.periodicServiceForm.value
+        );
+        this.periodicServiceFacade.addPeriodicService(data);
+      } else {
+        this.displaySuccessModal = true;
+        setTimeout(() => {
+          this.displaySuccessModal = false;
+          this.goToList();
+        }, 2000);
+      }
     }
+  }
+  getPeriodicServicePayload(value: any) {
+    return value;
   }
 
   showCancelAlert() {

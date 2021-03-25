@@ -19,8 +19,8 @@ export class PeriodicServiceSelectors {
     (state) => state.error
   );
 
-  // static selectById = createSelector(
-  //   PeriodicServiceSelectors.selectAll,
-  //   (state, props: { id: number }) => state.find((x) => x.id === props.id)
-  // );
+  static submitted = createSelector(
+    ConfigurationSelectors.assetPolicySelector,
+    (state) => state.submitted
+  );
 }
