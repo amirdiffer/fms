@@ -102,57 +102,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
         renderer: 'floatButton'
       }
     ],
-    data: [
-      {
-        id: 1,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 2,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 3,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 4,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 5,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 6,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 7,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      }
-    ],
+    data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
       },
