@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
   { path: 'department', component: OrganizationComponent },
   { path: 'accessory', component: AccessoryComponent },
-  { path: 'accessory/add', component: AddAccessoryComponent },
+  { path: 'accessory/add-new-accessory', component: AddAccessoryComponent },
   { path: 'sub-asset', component: SubAssetComponent },
   { path: 'movement', component: MovementComponent },
   { path: 'movement/iserve', component: IserveComponent },

@@ -102,7 +102,8 @@
     "add_business_category": "إضافة فئة العمل",
     "add_asset_configuration": "إضافة تكوين الأصول",
     "add_ownership": "أضف ملكية",
-    "add_role_permission": "إضافة إذن الدور"
+    "add_role_permission": "إضافة إذن الدور",
+    "add_new_accessory": "إضافة ملحق جديد"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -276,7 +277,7 @@
       "serial_number": "رقم سري",
       "warranty_expire_date": "تاريخ انتهاء الضمان",
       "item": "الصنف",
-      "asset_sub_asset": "الأصول الفرعية الأصول",
+      "asset_sub_asset": "الأصول الفرعية / الأصول",
       "assigned_to": "تعيين إلى",
       "quantity": "العدد",
       "organization": "منظمة",
@@ -612,6 +613,7 @@
     }
   },
   "accessory": {
+    "assets_sub_assets": "الأصول / الأصول الفرعية",
     "assigned_to_a": "تعيين إلى",
     "item_name": " اسم الصنف",
     "asset": "الأصول",
