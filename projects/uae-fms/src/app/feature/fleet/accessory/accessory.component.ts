@@ -62,7 +62,8 @@ export class AccessoryComponent implements OnInit, OnDestroy {
         lable: 'tables.column.quantity',
         type: 1,
         field: 'Quantity',
-        width: 150
+        width: 150,
+        sortable: true
       }
     ],
     data: [
