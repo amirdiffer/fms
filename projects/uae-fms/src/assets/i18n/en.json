@@ -101,6 +101,7 @@
     "add_asset_configuration": "Add Asset Configuration",
     "add_ownership": "Add Ownership",
     "traffic_fine": "Traffic Fine",
+    "department": "Department",
     "add_role_permission": "Add Role Premission"
   },
   "sidebar": {
@@ -112,6 +113,7 @@
       "accessory": "Accessory",
       "operator": "Operator",
       "organization": "Department",
+      "department": "Department",
       "movement": {
         "~": "Movement",
         "permanent": "Permanent",

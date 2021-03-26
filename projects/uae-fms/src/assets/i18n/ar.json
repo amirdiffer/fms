@@ -44,6 +44,7 @@
     "accessory": "الملحقات",
     "operator": "المشغل",
     "organization": "المنظمة",
+    "department": "الإدارة",
     "movement": "الحركة",
     "fuel_management": "إدارة الوقود",
     "traffic_fine": "المخالفات المرورية",
@@ -112,6 +113,7 @@
       "accessory": "الملحقات",
       "operator": "المشغل",
       "organization": "الإدارة",
+      "department": "الإدارة",
       "movement": {
         "~": "الحركة",
         "permanent": "دائم",
