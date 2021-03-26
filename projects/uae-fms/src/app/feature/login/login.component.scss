@@ -53,8 +53,8 @@ $ipad-pro-width: 1024px;
   height: 100%;
   display: flex;
   justify-content: flex-start;
-  background: url('/assets/login/login-background-mobile.png') #eeeeee no-repeat
-    center bottom;
+  background: url('../../../assets/login/login-background-mobile.png') #eeeeee
+    no-repeat center bottom;
   background-size: cover;
   position: relative;
   overflow-x: hidden;
@@ -72,7 +72,7 @@ $ipad-pro-width: 1024px;
   &-loading {
     height: 50vw;
     width: 50vw;
-    background-image: url('/assets/login/DP-Loading.svg');
+    background-image: url('../../../assets/login/DP-Loading.svg');
     background-size: cover;
     &-container {
       height: 50vw;
@@ -245,7 +245,7 @@ input:-internal-autofill-selected {
     min-width: 100vw;
     position: relative;
     z-index: 1;
-    background-image: url('/assets/login/login-background-mobile.png');
+    background-image: url('../../../assets/login/login-background-mobile.png');
     background-repeat: no-repeat;
     background-size: 100%;
     top: 0;
@@ -262,7 +262,7 @@ input:-internal-autofill-selected {
     &-loading {
       height: 63vw;
       width: 63vw;
-      background-image: url('/assets/login/DP-Loading.svg');
+      background-image: url('../../../assets/login/DP-Loading.svg');
       background-size: cover;
       &-container {
         height: 66vw;
@@ -322,7 +322,7 @@ input:-internal-autofill-selected {
     min-width: 100vw;
     position: relative;
     z-index: 1;
-    background-image: url('/assets/login/login-background-mobile.png');
+    background-image: url('../../../assets/login/login-background-mobile.png');
     background-repeat: no-repeat;
     background-size: cover;
     top: 0;
@@ -339,7 +339,7 @@ input:-internal-autofill-selected {
     &-loading {
       height: 40.33vh;
       width: 40.33vh;
-      background-image: url('/assets/login/DP-Loading.svg');
+      background-image: url('../../../assets/login/DP-Loading.svg');
       background-size: cover;
       &-container {
         height: 41.33vh;
@@ -390,7 +390,7 @@ input:-internal-autofill-selected {
   }
 }
 
-.m-0{
+.m-0 {
   margin-left: 0px;
   margin-right: 0px;
 }
