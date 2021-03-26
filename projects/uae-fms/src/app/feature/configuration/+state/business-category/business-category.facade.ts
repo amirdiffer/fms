@@ -14,9 +14,19 @@ export class BusinessCategoryFacade {
 
   error$ = this.store.pipe(select(BusinessCategorySelectors.error));
 
+  submitted$ = this.store.pipe(select(BusinessCategorySelectors.submitted));
+
   constructor(private store: Store<BusinessCategoryPartialState>) {}
 
   loadAll() {
     this.store.dispatch(BusinessCategoryActions.loadAll());
+  }
+
+  addCategory(data: any) {
+    this.store.dispatch(BusinessCategoryActions.addCategory({ data }));
+  }
+
+  editCategory(category: any) {
+    this.store.dispatch(BusinessCategoryActions.editCategory({ category }));
   }
 }

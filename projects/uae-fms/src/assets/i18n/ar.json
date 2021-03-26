@@ -44,6 +44,7 @@
     "accessory": "الملحقات",
     "operator": "المشغل",
     "organization": "المنظمة",
+    "department": "الإدارة",
     "movement": "الحركة",
     "fuel_management": "إدارة الوقود",
     "traffic_fine": "المخالفات المرورية",
@@ -112,7 +113,8 @@
       "sub_assets": "الأصول الفرعية",
       "accessory": "الملحقات",
       "operator": "المشغل",
-      "organization": "المنظمة",
+      "organization": "الإدارة",
+      "department": "الإدارة",
       "movement": {
         "~": "الحركة",
         "permanent": "دائم",
@@ -1107,8 +1109,9 @@
     "upload": "تحميل",
     "generate": "إنشاء",
     "feedback": {
-      "required": "هذا الحقل إلزامي",
-      "invalid-email": "عنوان البريد الإلكتروني غير صالح"
+      "required": "هذا الحقل مطلوب",
+      "invalid-email": "عنوان البريد الإلكتروني غير صالح",
+      "file_ext": "امتداد الملف غير صحيح"
     },
     "order": "ترتيب"
   },

@@ -1,12 +1,12 @@
+import { IFleetStatus } from '@models/fleet-status.model';
 import { createAction, props } from '@ngrx/store';
-import { FleetStatusSubAssetStateModel } from './fleet-status-sub-asset.entity';
 
 export class FleetStatusSubAssetActions {
   static loadAll = createAction('[FleetStatusSubAsset] load all data');
 
   static allDataLoaded = createAction(
     '[FleetStatusSubAsset] all datas are loaded',
-    props<{ data: FleetStatusSubAssetStateModel[] }>()
+    props<{ data: IFleetStatus[] }>()
   );
 
   static error = createAction(

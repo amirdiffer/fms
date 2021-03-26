@@ -101,6 +101,7 @@
     "add_asset_configuration": "Add Asset Configuration",
     "add_ownership": "Add Ownership",
     "traffic_fine": "Traffic Fine",
+    "department": "Department",
     "add_role_permission": "Add Role Permission",
     "add_new_accessory": "Add New Accessory"
   },
@@ -112,7 +113,8 @@
       "sub_assets": "Sub Assets",
       "accessory": "Accessory",
       "operator": "Operator",
-      "organization": "Organization",
+      "organization": "Department",
+      "department": "Department",
       "movement": {
         "~": "Movement",
         "permanent": "Permanent",
@@ -1082,7 +1084,7 @@
     "periodic_service": {
       "periodic_service_info": "Periodic Service Info",
       "package": "Package",
-      "task": "Task",
+      "task": "Tasks",
       "periodic_service_name": "Periodic Service Name",
       "package_name": "Package Name",
       "intervals": "Intervals",
@@ -1111,7 +1113,8 @@
     "feedback": {
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid",
-      "invalid-phone": "Phone number is invalid"
+      "invalid-phone": "Phone number is invalid",
+      "file_ext": "File extension is incorrect"
     }
   },
   "login": {
@@ -1130,6 +1133,7 @@
     "reject": "Reject",
     "approve": "Approve",
     "receive": "Receive",
+    "recived": "Recived",
     "confirm": "Confirm",
     "make_decision": "Make Decision"
   },

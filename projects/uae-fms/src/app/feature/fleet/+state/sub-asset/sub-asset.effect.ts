@@ -12,7 +12,19 @@ export class SubAssetEffect {
       ofType(SubAssetActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => SubAssetActions.allDataLoaded({ data })),
+          map((data) => SubAssetActions.allDataLoaded({ data: data.message })),
+          catchError((error) => of(SubAssetActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  loadStatistics$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(SubAssetActions.loadStatistics),
+      mergeMap((action) =>
+        this.service.loadStatistics().pipe(
+          map((data) => SubAssetActions.statisticsLoaded({ data })),
           catchError((error) => of(SubAssetActions.error({ reason: error })))
         )
       )
