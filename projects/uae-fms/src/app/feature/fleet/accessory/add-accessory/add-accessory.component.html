@@ -22,23 +22,23 @@
 
         <div class="autocomplete-select">
           <span class="p-float-label">
-            <p-autoComplete formControlName="asset" (completeMethod)="filterAssets($event)" [suggestions]="assets"
+            <p-autoComplete formControlName="assignedToEntity" field="name" dataKey="id" (completeMethod)="filterAssets($event)" [suggestions]="assets"
               field="name" [minLength]="1" (ngModelChange)="assetChanged($event)" required></p-autoComplete>
             <i class="pi pi-search"></i>
             <label>{{ 'accessory.assets_sub_assets' | translate }} *</label>
           </span>
-          <anms-error [showError]="hasError('asset')" error="forms.feedback.required"></anms-error>
+          <anms-error [showError]="hasError('assignedToEntity')" error="forms.feedback.required"></anms-error>
         </div>
       </div>
 
       <div class="col-12 col-md-4 p-field form-section__field options-select">
         <span class="p-float-label">
           <p-dropdown inputId="accessoryType" [autoDisplayFirst]="false" [options]="accessory"
-            formControlName="accessoryType" optionLabel="name"></p-dropdown>
+            formControlName="accessoryTypeId" optionLabel="name" optionValue="id"></p-dropdown>
           <label for="accessoryType">{{'accessory.accessory_type' | translate}} *</label>
         </span>
 
-        <anms-error [showError]="hasError('accessoryType')" error="forms.feedback.required"></anms-error>
+        <anms-error [showError]="hasError('accessoryTypeId')" error="forms.feedback.required"></anms-error>
       </div>
 
 
@@ -57,7 +57,7 @@
       <div class="col-12 col-md-3 p-field form-section__field options-select">
         <span class="p-float-label">
           <p-dropdown inputId="assignedTo" [autoDisplayFirst]="false" [options]="assignedTo"
-            formControlName="assignedTo" optionLabel="name"></p-dropdown>
+            formControlName="assignedToEmployeeId" optionLabel="name" optionValue="id"></p-dropdown>
           <label for="assignedTo">{{'accessory.assigned_to_a' | translate}}</label>
         </span>
       </div>
@@ -65,7 +65,7 @@
   </div>
 </form>
 <div class="table-container component_wrapper">
-  <app-table [setting]='accessory_Table'></app-table>
+  <app-table [setting]='accessory_Table' [tableData]="accessory$"></app-table>
 </div>
 
 <alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel"

@@ -9,6 +9,7 @@ export interface IAccessoryState extends EntityState<IAccessory> {
     loaded?: boolean;
     message?: string;
     statistics?: IAccessoryStatistics;
+    submitted?: boolean;
 }
 export interface IAccessoryPartialState {
   [FLEET_ACCESSORY_FEATURE_KEY]: IAccessoryState;
@@ -20,5 +21,6 @@ export const initialState: IAccessoryState = accessoryAdapter.getInitialState({
   error: null,
   loaded: null,
   message: null,
-  statistics: null
+  statistics: null,
+  submitted: false
 } as IAccessoryState);

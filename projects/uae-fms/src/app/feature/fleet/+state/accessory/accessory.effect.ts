@@ -51,5 +51,33 @@ export class AccessoryEffect {
     )
   );
 
+  addAccessory$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AccessoryActions.addAccessory),
+      mergeMap((action) =>
+        this.service.addAccessory(action.data).pipe(
+          map((data) =>
+            AccessoryActions.accessoryAddedSuccessfully({ data: { ...action.data, ...data.message } })
+          ),
+          catchError((error) => of(AccessoryActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  editAccessory$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AccessoryActions.editAccessory),
+      mergeMap((action) =>
+        this.service.editAccessory(action.data).pipe(
+          map((data) =>
+            AccessoryActions.accessoryEditedSuccessfully({ data: data.message })
+          ),
+          catchError((error) => of(AccessoryActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   constructor(private action$: Actions, private service: AccessoryService) {}
 }
