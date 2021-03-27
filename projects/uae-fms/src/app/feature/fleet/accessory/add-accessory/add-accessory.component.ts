@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,6 +9,7 @@ import { AccessoryService } from '../accessory.service';
 import { TableSetting } from '@core/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { AccessoryFacade } from '@feature/fleet/+state/accessory';
 
 @Component({
   selector: 'add-accessory',
@@ -79,50 +80,7 @@ export class AddAccessoryComponent implements OnInit {
         sortable: true
       }
     ],
-    data: [
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      }
-    ]
+    data: []
   };
   assets: [
     { name: 'Asset 1'; id: 1 },
@@ -137,22 +95,57 @@ export class AddAccessoryComponent implements OnInit {
     private _fb: FormBuilder,
     private _accessoryService: AccessoryService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _facade: AccessoryFacade,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
       itemName: ['', Validators.required],
-      assignTo: [''],
-      asset: ['', Validators.required],
-      accessoryType: ['', Validators.required],
+      assignedToType: [''],
+      assignedToEntity: ['', Validators.required],
+      accessoryTypeId: ['', Validators.required],
       quantity: ['', Validators.required],
-      assignedTo: ['']
+      assignedToEmployeeId: ['']
+    });
+
+    this._facade.loadAll();
+
+    this._facade.accessory$.subscribe((data) => {
+      if (data) {
+        this.accessory_Table.data = data.map((item) => {
+          return {
+            statusColor: '#00AFB9',
+            Item: item.itemName,
+            Asset_SubAsset: item.assignedToEntity,
+            Assigned_To: item.assignedToEmployeeId,
+            Quantity: item.quantity
+          };
+        });
+      }
     });
 
     this.inputForm.valueChanges.subscribe(() => {
       this.formChanged = true;
     });
+
+    this._facade.submitted$.subscribe(x => {
+      if (x) {
+        this.dialogModalAdd = true;
+        this.dialogSettingError.hasError=false;
+        this.changeDetector.detectChanges();
+      }
+    });
+
+    this._facade.error$.subscribe(x => {
+      if (x?.error) {
+        this.dialogModalError = true;
+        this.dialogSettingError.hasError=true;
+        this.changeDetector.detectChanges();
+      }
+    })
+
   }
 
   filterAssets(event) {
@@ -184,10 +177,18 @@ export class AddAccessoryComponent implements OnInit {
     this.formSubmitted = true;
     if (this.inputForm.invalid) {
       this.inputForm.markAllAsTouched();
-      this.dialogModalError = true;
       return;
     } else {
-      this.dialogModalAdd = true;
+      const d =this.inputForm.getRawValue();
+      const _data={
+        "itemName": d.itemName,
+        "assignedToType": 'SUB_ASSET',
+        "assignedToEntity": d.assignedToEntity.id,
+        "accessoryTypeId": d.accessoryTypeId,
+        "quantity": d.quantity,
+        "assignedToEmployeeId": d.assignedToEmployeeId
+      }
+      this._facade.addAccessory(_data)
     }
   }
 

@@ -6,6 +6,7 @@ import {
   initialState,
   IAccessoryState
 } from './accessory.entity';
+
 const accessoryReducer = createReducer(
   initialState,
   on(AccessoryActions.loadAll, (state) => ({
@@ -38,7 +39,26 @@ const accessoryReducer = createReducer(
     ...state,
     error: reason,
     loaded: true
-  }))
+  })),
+
+  on(AccessoryActions.addAccessory, (state, { data }) => ({
+    ...state,
+    loaded: false
+  })),
+
+  on(AccessoryActions.accessoryAddedSuccessfully, (state, { data }) =>
+    accessoryAdapter.addOne(data, { ...state, submitted: true })
+  ),
+
+  on(AccessoryActions.editAccessory, (state, { data }) => ({
+    ...state,
+    loaded: false
+  })),
+
+  on(AccessoryActions.accessoryEditedSuccessfully, (state, { data }) =>
+    accessoryAdapter.updateOne({ changes: data, id: data.id }, state)
+  )
+
 );
 
 export function reducer(state: IAccessoryState, action: Action) {

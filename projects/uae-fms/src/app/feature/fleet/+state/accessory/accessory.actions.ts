@@ -20,4 +20,26 @@ export class AccessoryActions {
         '[accessory] all statistics are loaded',
         props<{ data: IAccessoryStatistics }>()
       );
+
+  static addAccessory = createAction(
+    '[accessory] add accessory',
+    props<{ data: any }>()
+  );
+
+  static accessoryAddedSuccessfully = createAction(
+    '[accessory] accessory added succesfully',
+    props<{ data: IAccessory }>()
+  );
+
+  static editAccessory = createAction(
+    '[accessory] edit accessory',
+    props<{ data: any }>()
+  );
+
+  static accessoryEditedSuccessfully = createAction(
+    '[accessory] accessory added succesfully',
+    props<{ data: IAccessory }>()
+  );
+
+
 }

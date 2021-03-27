@@ -70,16 +70,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
         sortable: true
       }
     ],
-    data: [
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Type: 'Name is here',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      }
-    ]
+    data: []
   };
 
   ngOnInit(): void {
