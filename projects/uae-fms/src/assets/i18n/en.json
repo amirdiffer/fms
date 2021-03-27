@@ -103,8 +103,10 @@
     "add_asset_configuration": "Add Asset Configuration",
     "add_ownership": "Add Ownership",
     "traffic_fine": "Traffic Fine",
-    "add_role_permission": "Add Role Premission",
-    "edit_periodic_service": "Edit Periodic Service"
+    "edit_periodic_service": "Edit Periodic Service",
+    "department": "Department",
+    "add_role_permission": "Add Role Permission",
+    "add_new_accessory": "Add New Accessory"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -114,7 +116,8 @@
       "sub_assets": "Sub Assets",
       "accessory": "Accessory",
       "operator": "Operator",
-      "organization": "Organization",
+      "organization": "Department",
+      "department": "Department",
       "movement": {
         "~": "Movement",
         "permanent": "Permanent",
@@ -278,7 +281,7 @@
       "serial_number": "Serial Number",
       "warranty_expire_date": "warranty Expire Date",
       "item": "Item",
-      "asset_sub_asset": "Asset Sub Asset",
+      "asset_sub_asset": "Asset / Sub Asset",
       "assigned_to": "Assigned To",
       "quantity": "Quantity",
       "organization": "Organization",
@@ -612,6 +615,7 @@
     }
   },
   "accessory": {
+    "assets_sub_assets": "Assets / Sub Assets",
     "assigned_to_a": "Assigned to a",
     "item_name": "Item Name",
     "asset": "Asset",

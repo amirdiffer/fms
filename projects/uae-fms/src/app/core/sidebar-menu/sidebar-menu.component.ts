@@ -70,9 +70,9 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           route: '/fleet/operator'
         },
         {
-          name: 'sidebar.fleets.organization',
+          name: 'sidebar.fleets.department',
           icon: 'organization',
-          route: '/fleet/organization'
+          route: '/fleet/department'
         },
         {
           name: 'sidebar.fleets.movement.~',
