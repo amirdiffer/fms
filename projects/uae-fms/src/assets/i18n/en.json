@@ -698,7 +698,9 @@
       "reason": "Reason",
       "asset_type": "Asset Type",
       "quantity": "Quantity",
-      "old_asset": "Old Asset"
+      "old_asset": "Old Asset",
+      "duration": "Duration",
+      "assign_to": "Assign To"
     },
     "request": {
       "request_type": "Request Type",
@@ -1117,6 +1119,7 @@
     }
   },
   "forms": {
+    "submit": "Submit",
     "add": "Add",
     "order": "Order",
     "save": "Save",

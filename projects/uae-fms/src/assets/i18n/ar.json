@@ -104,7 +104,7 @@
     "add_business_category": "إضافة فئة العمل",
     "add_asset_configuration": "إضافة تكوين الأصول",
     "add_ownership": "أضف ملكية",
-    "add_role_permission":"إضافة إذن الدور",
+    "add_role_permission": "إضافة إذن الدور",
     "add_new_asset": "إضافة أصل جديد",
     "add_new_accessory": "إضافة ملحق جديد"
   },
@@ -700,7 +700,9 @@
       "reason": "سبب",
       "asset_type": "نوع الأصول",
       "quantity": "العدد",
-      "old_asset": "الأصل القديم"
+      "old_asset": "الأصل القديم",
+      "duration": "مدة",
+      "assign_to": "يسند إلى"
     },
     "request": {
       "request_type": "نوع الطلب",
@@ -1117,6 +1119,7 @@
     }
   },
   "forms": {
+    "submit": "يقدم",
     "add": "إضافة",
     "save": "حفظ",
     "cancel": "يلغي",

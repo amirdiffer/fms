@@ -1,7 +1,7 @@
-<form [formGroup]="requestForm">
+<form [formGroup]="requestForm" (ngSubmit)='submit()'>
     <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{ 'forms.cancel' | translate }}</button>
-        <button class="btn-primary-medium add" type="submit" >{{ 'forms.add' | translate }}</button>
+        <button class="btn-primary-medium btn-scondary-green" type="button" (click)='cancel()'>{{ 'forms.cancel' | translate }}</button>
+        <button class="btn-primary-medium add" type="submit" >{{ 'forms.submit' | translate }}</button>
     </div>
     <div class="form-section form-section--inline">
         <div class="row form-section__row">
@@ -23,61 +23,78 @@
               </div>
             </div>
             <!-- start assetType -->
-            <div class="col-12 col-md-6 p-field form-section__field options-select">
+          <div class="col-12 col-md-4 p-field form-section__field">
+            <div class="autocomplete-select">
               <span class="p-float-label">
-                <p-dropdown formControlName="assetType"
-                            [options]="assetTypes" optionLabel="name"></p-dropdown>
-                <label>{{ 'movement.movement.asset_type' | translate }} * </label>
+                <p-autoComplete formControlName="assetType"
+                                (completeMethod)="filterAssets($event)"
+                                [suggestions]="assetTypes" field="name"
+                                [minLength]="1" required></p-autoComplete>
+                <i class="pi pi-search"></i>
+                <label>{{ 'configuration.business_category.asset_type' | translate }} *</label>
               </span>
+              <anms-error
+                [showError]="hasError('assetType', requestForm, submited)"
+                error="forms.feedback.required">
+              </anms-error>
             </div>
+          </div>
             <!-- end assetType -->
         </div>
     </div>
 
     <div class="form-section">
+      <div class='d-flex'>
         <!-- start resone -->
-        <div class="row form-section__row">
-            <div class="col-12 p-field form-section__field">
+            <div class="col-9 p-field form-section__field">
                 <span class="p-float-label">
                     <input pInputText placeholder="{{ 'movement.movement.reason' | translate }} *"
                         formControlName="resone" required
                         type="text">
                     <label>{{ 'movement.movement.reason' | translate }} *</label>
                 </span>
+              <anms-error
+                [showError]="hasError('resone', requestForm, submited)"
+                error="forms.feedback.required">
+              </anms-error>
             </div>
-        </div>
         <!-- end reasone -->
         <!-- start quantity -->
-        <div class="row form-section__row">
-            <div class="col-12 p-field form-section__field"
-                *ngIf="requestForm.controls['requestType'].value === 'new'">
+            <div class="col-3 p-field form-section__field"
+                [hidden]="requestForm.controls['requestType'].value !== 'new'">
                 <span class="p-float-label">
                     <input pInputText placeholder="{{ 'movement.movement.quantity' | translate }} *"
-                        formControlName="quality" required
+                        formControlName="quality" [required]="requestForm.controls['requestType'].value === 'new'"
                         type="text">
                     <label>{{ 'movement.movement.quantity' | translate }} *</label>
                 </span>
+              <anms-error
+                [showError]="hasError('quality', requestForm, submited)"
+                error="forms.feedback.required">
+              </anms-error>
             </div>
-        </div>
         <!-- end quantity -->
-        <div class="row form-section__row">
-            <!-- start oldAssetType -->
-            <div class="col-12 col-md-5 p-field form-section__field
-                justify-height"
-                *ngIf="requestForm.controls['requestType'].value ===
-                'replacement'">
+      </div>
+      <div class='d-flex'>
+        <!-- start oldAssetType -->
+        <div class="col-12 col-md-4 p-field form-section__field justify-height" [hidden]="requestForm.controls['requestType'].value === 'new'">
                 <div class="autocomplete-select">
                     <span class="p-float-label">
-                        <p-autoComplete formControlName="oldAssetType"
-                            (completeMethod)="filterAssets($event)"
-                            [suggestions]="oldAssetSuggests" field="name"
-                            [minLength]="1"></p-autoComplete>
-                        <i class="pi pi-search"></i>
-                        <label>{{ 'movement.movement.old_asset' | translate }} *</label>
+                      <p-autoComplete formControlName="oldAssetType"
+                                      (completeMethod)="filterAssets($event)"
+                                      [suggestions]="oldAssetSuggests" field="name"
+                                      [minLength]="1" [required]="requestForm.controls['requestType'].value !== 'new'"></p-autoComplete>
+                      <i class="pi pi-search"></i>
+                      <label>{{ 'movement.movement.old_asset' | translate }} *</label>
                     </span>
+                  <anms-error
+                    [showError]="hasError('oldAssetType', requestForm, submited)"
+                    error="forms.feedback.required">
+                  </anms-error>
                 </div>
-            </div>
-            <!-- end oldAssetType -->
         </div>
+        <!-- end oldAssetType -->
+      </div>
     </div>
 </form>
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>

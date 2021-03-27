@@ -85,7 +85,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             },
             {
               name: 'sidebar.fleets.movement.temporary',
-              route: '#'
+              route: '/fleet/movement/temporary'
             },
             {
               name: 'sidebar.fleets.movement.iserve',

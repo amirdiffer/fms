@@ -53,6 +53,8 @@ import { AssetRegistrationConfirmComponent } from './assets/asset-registration-c
 import { MapModule } from '@core/map-view';
 import { OverViewOperatorComponent } from './operator/over-view-operator/over-view-operator.component';
 import { IserveComponent } from './movement/iserv/iserv.component';
+import { TemporaryComponent } from '../fleet/movement/temporary/temporary.component';
+import { AddTemporaryRequestComponent } from '@feature/fleet/movement/add-temporary-request/add-temporary-request.component';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 
 @NgModule({
@@ -80,7 +82,9 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
     BusinessCategoryComponent,
     JobCardComponent,
     RequestComponent,
-    OverViewOperatorComponent
+    OverViewOperatorComponent,
+    TemporaryComponent,
+    AddTemporaryRequestComponent
   ],
   imports: [
     AngularSvgIconModule,
