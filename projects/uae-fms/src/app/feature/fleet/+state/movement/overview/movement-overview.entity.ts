@@ -18,6 +18,7 @@ export interface MovementOverviewState
   error?: any;
   loaded?: boolean;
   message?: string;
+  submitted?: boolean;
 }
 
 export interface MovementOverviewPartialState {
@@ -32,6 +33,7 @@ export const initialState: MovementOverviewState = movementOverviewAdapter.getIn
   {
     error: null,
     loaded: null,
-    message: null
+    message: null,
+    submitted: false
   } as MovementOverviewState
 );

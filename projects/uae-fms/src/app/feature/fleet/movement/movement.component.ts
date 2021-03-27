@@ -15,6 +15,7 @@ import {
   MovementOverviewFacade,
   MovementRequestsFacade
 } from '../+state/movement';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'anms-movement',
   templateUrl: './movement.component.html',
@@ -62,6 +63,13 @@ export class MovementComponent implements OnInit, AfterViewChecked {
     private _movementOverviewFacade: MovementOverviewFacade,
     private _movementRequestsFacade: MovementRequestsFacade
   ) {}
+
+  movementOverview$ = this._movementOverviewFacade.MovementOverview$.pipe(
+    map(x => {
+      return x.map(y => {
+        return {...y, }
+      });
+  }));
 
   ngOnInit(): void {
     this._movementOverviewFacade.loadAll();

@@ -1,11 +1,13 @@
 import { createSelector } from '@ngrx/store';
 import { FleetSelectors } from '../../fleet.selectors';
-import { movementOverviewAdapter } from './movement-overview.entity';
+import { movementOverviewAdapter } from '@feature/fleet/+state/movement/overview/movement-overview.entity';
+const { selectAll, selectIds, selectEntities } = movementOverviewAdapter.getSelectors();
+
 
 export class MovementOverviewSelectors {
   static selectAll = createSelector(
     FleetSelectors.movementOverviewSelector,
-    movementOverviewAdapter.setAll
+    selectAll
   );
 
   static message = createSelector(
@@ -17,4 +19,10 @@ export class MovementOverviewSelectors {
     FleetSelectors.movementOverviewSelector,
     (state) => state.error
   );
+
+  static submitted = createSelector(
+    FleetSelectors.movementOverviewSelector,
+    (state) => state.submitted
+  )
+
 }

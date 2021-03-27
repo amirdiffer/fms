@@ -92,7 +92,7 @@ export class MovementService {
           renderer: ''
         }
       ],
-      data: this.movmentOverViewData()
+      data: []
     };
   };
 
