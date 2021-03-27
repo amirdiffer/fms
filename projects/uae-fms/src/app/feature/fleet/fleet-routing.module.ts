@@ -14,13 +14,15 @@ import { OverViewAssetComponent } from './assets/overview-asset/overview-asset.c
 import { AddAssetComponent } from './assets/add-asset/add-asset.component';
 import { AddAccessoryComponent } from './accessory/add-accessory/add-accessory.component';
 import { AddRequestComponent } from './movement/add-request/add-request.component';
+import { PendingRegistrationOverviewComponent } from './assets/pending-registration-overview/pending-registration-overview.component';
+import { PendingCustomizationOverviewComponent } from './assets/pending-customization-overview/pending-customization-overview.component';
 import { IserveComponent } from '@feature/fleet/movement/iserv/iserv.component';
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
-  { path: 'organization', component: OrganizationComponent },
+  { path: 'department', component: OrganizationComponent },
   { path: 'accessory', component: AccessoryComponent },
-  { path: 'accessory/add', component: AddAccessoryComponent },
+  { path: 'accessory/add-new-accessory', component: AddAccessoryComponent },
   { path: 'sub-asset', component: SubAssetComponent },
   { path: 'movement', component: MovementComponent },
   { path: 'movement/iserve', component: IserveComponent },
@@ -31,7 +33,15 @@ const routes: Routes = [
   { path: 'assets/add-new-asset', component: AddAssetComponent },
   { path: 'assets/:id', component: OverViewAssetComponent },
   {
-    path: 'organization/add-organization',
+    path: 'assets/:id/registration',
+    component: PendingRegistrationOverviewComponent
+  },
+  {
+    path: 'assets/:id/customization',
+    component: PendingCustomizationOverviewComponent
+  },
+  {
+    path: 'department/add-department',
     component: AddOrganizationComponent
   },
   { path: '', redirectTo: 'assets' }

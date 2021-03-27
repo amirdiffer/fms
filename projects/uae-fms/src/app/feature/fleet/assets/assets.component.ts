@@ -31,7 +31,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
   pendingRegistrationTableSetting;
   pendingCustomizationTableSetting;
   filterSetting;
-  selectedTab = "assetMasterTab";
+  selectedTab = 'assetMasterTab';
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   constructor(

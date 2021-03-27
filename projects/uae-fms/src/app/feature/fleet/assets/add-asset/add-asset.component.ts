@@ -17,7 +17,6 @@ import { Utility } from '@shared/utility/utility';
 import { Router } from '@angular/router';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 
-
 @Component({
   selector: 'anms-add-asset',
   templateUrl: './add-asset.component.html',
@@ -33,7 +32,7 @@ export class AddAssetComponent extends Utility implements OnInit {
   isLinear: boolean = true;
   isStart: boolean = true;
   calculate: boolean = false;
-  uploadReview: boolean= false;
+  uploadReview: boolean = false;
   progressBarValue = 80;
   calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   closeIcon = 'assets/icons/times.svg';
@@ -52,14 +51,14 @@ export class AddAssetComponent extends Utility implements OnInit {
   get warrantyStartDate() {return this.formGroupMaintenance.controls.warrantyItems as FormArray};
   get warrantyItems() {return this.formGroupMaintenance.get('warrantyItems') as FormArray};
 
-/* Ngx File Drop */
-public filesUpdloaded: NgxFileDropEntry[] = [];
-public allFileUpload : IAllFileUpload ={
-  uploadVehicleDoc :[],
-  uploadPurchaseOrder:[],
-  uploadMaintenanceService:[],
-  warrantyItem:[]
-}
+  /* Ngx File Drop */
+  public filesUpdloaded: NgxFileDropEntry[] = [];
+  public allFileUpload: IAllFileUpload = {
+    uploadVehicleDoc: [],
+    uploadPurchaseOrder: [],
+    uploadMaintenanceService: [],
+    warrantyItem: []
+  };
 
   @ViewChild('stepper') stepper: MatStepper;
   itemTypes = [
@@ -70,108 +69,131 @@ public allFileUpload : IAllFileUpload ={
     { name: 'Item type 5', id: 5 },
     { name: 'Item type 6', id: 6 }
   ];
-  reviewPlaneSettingTable:TableSetting = {
+  reviewPlaneSettingTable: TableSetting = {
     columns: [
       {
         lable: 'tables.column.depreciation_value',
-        type:1,
+        type: 1,
         field: 'value',
         renderer: ''
       },
       {
         lable: 'tables.column.out_of_policy',
-        type:1,
+        type: 1,
         field: 'outOfPolicy1',
         renderer: ''
       },
       {
         lable: 'tables.column.out_of_policy',
-        type:1,
+        type: 1,
         field: 'outOfPolicy2',
         renderer: ''
       }
     ],
-    data:[
-      {value:'%20' , outOfPolicy1:'After 6 Years' ,outOfPolicy2:'After 545645464Km/HRS'},
+    data: [
+      {
+        value: '%20',
+        outOfPolicy1: 'After 6 Years',
+        outOfPolicy2: 'After 545645464Km/HRS'
+      }
     ]
-  }
-  reviewPlaneSettingTable2:TableSetting = {
+  };
+  reviewPlaneSettingTable2: TableSetting = {
     columns: [
       {
         lable: 'tables.column.year',
-        type:1,
-        width:100,
+        type: 1,
+        width: 100,
         field: 'year',
         renderer: ''
       },
       {
         lable: 'tables.column.book_value',
-        type:1,
+        type: 1,
         field: 'bookValue',
         renderer: ''
-      },
+      }
     ],
-    data:[
-      {year:'1' , bookValue:'43000 AED'},
-      {year:'2' , bookValue:'39000 AED'},
-      {year:'3' , bookValue:'36000 AED'},
-      {year:'4' , bookValue:'28000 AED'},
-      {year:'5' , bookValue:'2000 AED'},
-      {year:'6' , bookValue:'0 AED'},
+    data: [
+      { year: '1', bookValue: '43000 AED' },
+      { year: '2', bookValue: '39000 AED' },
+      { year: '3', bookValue: '36000 AED' },
+      { year: '4', bookValue: '28000 AED' },
+      { year: '5', bookValue: '2000 AED' },
+      { year: '6', bookValue: '0 AED' }
     ]
-  }
-  periodicServiceSettingTable: TableSetting ={
+  };
+  periodicServiceSettingTable: TableSetting = {
     columns: [
       {
         lable: 'tables.column.intervals',
-        type:1,
-        width:'30%',
+        type: 1,
+        width: '30%',
         field: 'intervals',
         renderer: ''
       },
       {
         lable: 'tables.column.service_task',
-        type:1,
+        type: 1,
         field: 'serviceTask',
         renderer: ''
       }
     ],
-    data:[
-      {intervals:'Every 150,000 miles' , serviceTask:'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'},
-      {intervals:'Every 150,000 miles' , serviceTask:'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'},
-      {intervals:'Every 150,000 miles' , serviceTask:'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'},
-      {intervals:'Every 150,000 miles' , serviceTask:'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'},
-      {intervals:'Every 150,000 miles' , serviceTask:'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'},
-      {intervals:'Every 150,000 miles' , serviceTask:'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'},
-      {intervals:'Every 150,000 miles' , serviceTask:'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'},
+    data: [
+      {
+        intervals: 'Every 150,000 miles',
+        serviceTask: 'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'
+      },
+      {
+        intervals: 'Every 150,000 miles',
+        serviceTask: 'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'
+      },
+      {
+        intervals: 'Every 150,000 miles',
+        serviceTask: 'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'
+      },
+      {
+        intervals: 'Every 150,000 miles',
+        serviceTask: 'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'
+      },
+      {
+        intervals: 'Every 150,000 miles',
+        serviceTask: 'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'
+      },
+      {
+        intervals: 'Every 150,000 miles',
+        serviceTask: 'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'
+      },
+      {
+        intervals: 'Every 150,000 miles',
+        serviceTask: 'Engine/Drive Belt(s) Replacement  ,  Transmission Filter'
+      }
     ]
-  }
-  warrantySettingTable:TableSetting ={
+  };
+  warrantySettingTable: TableSetting = {
     columns: [
       {
         lable: 'tables.column.warranty_for',
-        type:1,
+        type: 1,
         field: 'warrantyFor',
         renderer: ''
       },
       {
         lable: 'tables.column.start_date',
-        type:1,
+        type: 1,
         field: 'start',
         renderer: ''
       },
       {
         lable: 'tables.column.end_date',
-        type:1,
+        type: 1,
         field: 'end',
         renderer: ''
-      },
+      }
     ],
-    data:[
-      {warrantyFor:'Engine' , start:'02/02/2020' , end: '02/02/2021'}
-    ]
-  }
-  formReviewSettingTable:TableSetting = {
+    data: [{ warrantyFor: 'Engine', start: '02/02/2020', end: '02/02/2021' }]
+  };
+  formReviewSettingTable: TableSetting = {
     columns: [
       {
         lable: 'tables.column.asset',
@@ -196,24 +218,24 @@ public allFileUpload : IAllFileUpload ={
       },
       {
         lable: 'tables.column.allocated',
-        type:1,
+        type: 1,
         field: 'allocated',
         renderer: ''
       },
       {
         lable: 'tables.column.type',
-        type:1,
+        type: 1,
         field: 'type',
         renderer: ''
       },
       {
         lable: 'tables.column.business_category',
-        type:1,
+        type: 1,
         field: 'businessCategory',
         renderer: ''
-      },
+      }
     ],
-    data:[
+    data: [
       {
         asset: {
           img: 'thumb1.png',
@@ -221,11 +243,11 @@ public allFileUpload : IAllFileUpload ={
           assetSubName: 'DPD 0000001',
           ownership: 'Owned'
         },
-        s_n:'456456445656456464',
-        model:'bmw.png',
-        allocated:'Finance',
-        type:'car',
-        businessCategory:'VIP'
+        s_n: '456456445656456464',
+        model: 'bmw.png',
+        allocated: 'Finance',
+        type: 'car',
+        businessCategory: 'VIP'
       },
       {
         asset: {
@@ -234,11 +256,11 @@ public allFileUpload : IAllFileUpload ={
           assetSubName: 'DPD 0000001',
           ownership: 'Owned'
         },
-        s_n:'456456445656456464',
-        model:'bmw.png',
-        allocated:'Finance',
-        type:'car',
-        businessCategory:'VIP'
+        s_n: '456456445656456464',
+        model: 'bmw.png',
+        allocated: 'Finance',
+        type: 'car',
+        businessCategory: 'VIP'
       },
       {
         asset: {
@@ -247,11 +269,11 @@ public allFileUpload : IAllFileUpload ={
           assetSubName: 'DPD 0000001',
           ownership: 'Owned'
         },
-        s_n:'456456445656456464',
-        model:'bmw.png',
-        allocated:'Finance',
-        type:'car',
-        businessCategory:'VIP'
+        s_n: '456456445656456464',
+        model: 'bmw.png',
+        allocated: 'Finance',
+        type: 'car',
+        businessCategory: 'VIP'
       },
       {
         asset: {
@@ -260,11 +282,11 @@ public allFileUpload : IAllFileUpload ={
           assetSubName: 'DPD 0000001',
           ownership: 'Owned'
         },
-        s_n:'456456445656456464',
-        model:'bmw.png',
-        allocated:'Finance',
-        type:'car',
-        businessCategory:'VIP'
+        s_n: '456456445656456464',
+        model: 'bmw.png',
+        allocated: 'Finance',
+        type: 'car',
+        businessCategory: 'VIP'
       },
       {
         asset: {
@@ -273,11 +295,11 @@ public allFileUpload : IAllFileUpload ={
           assetSubName: 'DPD 0000001',
           ownership: 'Owned'
         },
-        s_n:'456456445656456464',
-        model:'bmw.png',
-        allocated:'Finance',
-        type:'car',
-        businessCategory:'VIP'
+        s_n: '456456445656456464',
+        model: 'bmw.png',
+        allocated: 'Finance',
+        type: 'car',
+        businessCategory: 'VIP'
       },
       {
         asset: {
@@ -286,11 +308,11 @@ public allFileUpload : IAllFileUpload ={
           assetSubName: 'DPD 0000001',
           ownership: 'Owned'
         },
-        s_n:'456456445656456464',
-        model:'bmw.png',
-        allocated:'Finance',
-        type:'car',
-        businessCategory:'VIP'
+        s_n: '456456445656456464',
+        model: 'bmw.png',
+        allocated: 'Finance',
+        type: 'car',
+        businessCategory: 'VIP'
       },
       {
         asset: {
@@ -299,12 +321,12 @@ public allFileUpload : IAllFileUpload ={
           assetSubName: 'DPD 0000001',
           ownership: 'Owned'
         },
-        s_n:'456456445656456464',
-        model:'bmw.png',
-        allocated:'Finance',
-        type:'car',
-        businessCategory:'VIP'
-      },
+        s_n: '456456445656456464',
+        model: 'bmw.png',
+        allocated: 'Finance',
+        type: 'car',
+        businessCategory: 'VIP'
+      }
     ]
   }
   constructor(private _fb: FormBuilder, injector: Injector, private _router: Router,
@@ -328,12 +350,12 @@ public allFileUpload : IAllFileUpload ={
         meterType:['']
       }),
       purchasedFor: this._fb.group({
-        department:[''],
-        operator:['']
+        department: [''],
+        operator: ['']
       }),
-      uploadFile:['']
+      uploadFile: ['']
     });
-    this.formGroupFinancial= this._fb.group({
+    this.formGroupFinancial = this._fb.group({
       assetFinancialPlan: this._fb.group({
         policyType:['', Validators.compose([Validators.required])],
         purchaseValue:['', Validators.compose([Validators.required])],
@@ -357,7 +379,7 @@ public allFileUpload : IAllFileUpload ={
     });
     console.log(this.allFileUpload)
   }
-  public formBuilderArrayControl ():FormGroup{
+  public formBuilderArrayControl(): FormGroup {
     return this._fb.group({
       item:['', Validators.compose([Validators.required])],
       year:['', Validators.compose([Validators.required])],
@@ -376,7 +398,6 @@ public allFileUpload : IAllFileUpload ={
         fileEntry.file((file: File) => {
           console.log('1', droppedFile.relativePath, file);
           console.log(droppedFile.fileEntry.name);
-
         });
         console.log('2', droppedFile.relativePath);
       } else {
@@ -384,9 +405,9 @@ public allFileUpload : IAllFileUpload ={
         console.log(droppedFile.relativePath, fileEntry);
       }
       console.log('3', files);
-      switch(option ){
+      switch (option) {
         case 'vehicle':
-          this.allFileUpload.uploadVehicleDoc.push(droppedFile)
+          this.allFileUpload.uploadVehicleDoc.push(droppedFile);
           break;
         case 'purchaseOrder':
           this.formGroupFinancial.get('uploadFile').patchValue(droppedFile);
@@ -405,7 +426,7 @@ public allFileUpload : IAllFileUpload ={
     }
 
   }
-  public trackItemFile(index:number , file){
+  public trackItemFile(index: number, file) {
     return file.name;
   }
   public fileOver(event) {
@@ -415,8 +436,8 @@ public allFileUpload : IAllFileUpload ={
   public fileLeave(event) {
     console.log(event);
   }
-  selectedPlicyType(value){
-    console.log(value)
+  selectedPlicyType(value) {
+    console.log(value);
   }
 
   next() {
@@ -446,9 +467,9 @@ public allFileUpload : IAllFileUpload ={
     this.isStart = false;
   }
   previous() {
-    if(this.uploadReview){
+    if (this.uploadReview) {
       this.uploadReview = false;
-    }else{
+    } else {
       this.stepper.previous();
     }
   }
@@ -466,9 +487,9 @@ public allFileUpload : IAllFileUpload ={
     if (this.formGroupMaintenance.invalid)
       return;
     const item = this.formGroupMaintenance.get('warrantyItems') as FormArray;
-    item.push(this.formBuilderArrayControl())
+    item.push(this.formBuilderArrayControl());
   }
-  getWarrantyStartDat(i:number){
+  getWarrantyStartDat(i: number) {
     const date = this.warrantyStartDate.controls[i] as FormGroup;
     return date.get('warrantyStartDate').value;
   }
@@ -512,7 +533,6 @@ public allFileUpload : IAllFileUpload ={
     this._router.navigate(['/fleet/assets']);
   }
 }
-
 
 export interface IAllFileUpload {
   uploadVehicleDoc :any[];

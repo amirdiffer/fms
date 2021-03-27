@@ -55,7 +55,8 @@ export class OrganizationComponent implements OnInit {
         type: 1,
         isIconLable: true,
         field: 'car',
-        width: 100
+        width: 100,
+        sortable: true
       },
       {
         lable: '',
