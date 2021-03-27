@@ -48,19 +48,19 @@ export class OperatorComponent implements OnInit {
       onActive(index: number) {}
     },
     {
-      filterTitle: 'statistic.paid',
+      filterTitle: 'statistic.active',
       filterCount: '356',
       filterTagColor: '#5B8972',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'statistic.unpainted',
+      filterTitle: 'statistic.vacation',
       filterCount: '124',
       filterTagColor: '#DDB16C',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'statistic.deducte',
+      filterTitle: 'statistic.inactive',
       filterCount: '12',
       filterTagColor: '#E07A5F',
       onActive(index: number) {}
@@ -101,12 +101,19 @@ export class OperatorComponent implements OnInit {
         renderer: 'assetsRenderer',
         thumbField: ''
       },
-      { lable: 'tables.column.tf_paid', type: 1, field: 'TF_PAid', width: 100 },
+      {
+        lable: 'tables.column.tf_paid',
+        type: 1,
+        field: 'TF_PAid',
+        width: 100,
+        sortable: true
+      },
       {
         lable: 'tables.column.tf_unpaid',
         type: 1,
         field: 'TF_Unpaid',
-        width: 100
+        width: 100,
+        sortable: true
       },
       {
         lable: '',

@@ -9,3 +9,11 @@
 .fit-height {
   height: calc(100% - 10px);
 }
+
+.toggle-select {
+  justify-content: space-between !important;
+
+  label {
+    margin-left: 0;
+  }
+}

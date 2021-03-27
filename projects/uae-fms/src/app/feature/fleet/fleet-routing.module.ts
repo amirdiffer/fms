@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'movement/iserve', component: IserveComponent },
   { path: 'movement/add-request', component: AddRequestComponent },
   { path: 'operator', component: OperatorComponent },
-  { path: 'operator/add', component: AddOperatorComponent },
+  { path: 'operator/add-operator', component: AddOperatorComponent },
   { path: 'assets', component: AssetsComponent },
   { path: 'assets/add', component: AddAssetComponent },
   { path: 'assets/:id', component: OverViewAssetComponent },

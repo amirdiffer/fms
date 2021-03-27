@@ -14,7 +14,7 @@
               <div class="input-group">
                 <div class="autocomplete-select w-100">
                   <span class="p-float-label">
-                    <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
+                    <p-autoComplete formControlName="employeeNumber" [suggestions]="employeeNumber" (completeMethod)="searchEmployee($event)"></p-autoComplete>
                     <i class="pi pi-search"></i>
                     <label>{{'operator.employee_number' | translate}}</label>
                   </span>
@@ -27,7 +27,7 @@
               <div class="input-group">
                 <div class="autocomplete-select w-100">
                   <span class="p-float-label">
-                    <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
+                    <p-autoComplete formControlName="organization" [suggestions]="employeeNumber" (completeMethod)="searchEmployee($event)"></p-autoComplete>
                     <i class="pi pi-search"></i>
                     <label>{{'operator.organization' | translate}}</label>
                   </span>
@@ -40,7 +40,7 @@
               <div class="input-group">
                 <div class="autocomplete-select w-100">
                   <span class="p-float-label">
-                    <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
+                    <p-autoComplete formControlName="section" [suggestions]="employeeNumber" (completeMethod)="searchEmployee($event)"></p-autoComplete>
                     <i class="pi pi-search"></i>
                     <label>{{'operator.section' | translate}}</label>
                   </span>
@@ -53,7 +53,7 @@
               <div class="input-group">
                 <div class="autocomplete-select w-100">
                   <span class="p-float-label ">
-                    <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
+                    <p-autoComplete formControlName="authorized" [suggestions]="employeeNumber" (completeMethod)="searchEmployee($event)"></p-autoComplete>
                     <i class="pi pi-search"></i>
                     <label>{{'operator.authorized' | translate}}</label>
                   </span>
@@ -72,8 +72,8 @@
             <div class="row">
               <div class="col-12">
                 <div class="toggle-select align-items-center">
-                  <p-inputSwitch></p-inputSwitch>
-                  <label>{{'operator.employee_status' | translate}}</label>
+                  <label for="employee-status">{{'operator.employee_status' | translate}}</label>
+                  <p-inputSwitch inputId="employee-status"></p-inputSwitch>
                 </div>
               </div>
             </div>
@@ -132,10 +132,25 @@
         <div class="row">
           <div class="col-lg-7">
             <div class=" p-field form-section__field">
-              <span class="p-inputgroup p-float-label d-flex">
-                  <input type="text" pInputText placeholder="{{'operator.email' | translate}}">
-                  <label>{{'operator.email' | translate}}</label>
-                  <span class="p-inputgroup-addon"><i class="pi pi-plus"></i></span>
+              <<span class="p-float-label" *ngFor='let _ of emails.controls; let index = index' [formGroupName]='index'>
+                <div class="p-inputgroup" [class.mt-2]='emails.length > 1'>
+                  <span class="p-float-label">
+                    <input type="text" formControlName="email" pInputText
+                      placeholder="Email *">
+                    <label>{{ 'configuration.users.email' | translate }} *</label>
+                  </span>
+                  <span class="p-inputgroup-addon addon-primary" (click)='addEmailField()'>
+                    <i class="pi pi-plus"></i>
+                  </span>
+                </div>
+                <anms-error
+                  [showError]="formArrayHasError(submited, emails, index, 'email')"
+                  error="forms.feedback.required">
+                </anms-error>
+                <anms-error
+                  [showError]="formArrayHasError(submited, emails, index, 'email', 'email')"
+                  error="forms.feedback.invalid-email">
+                </anms-error>
               </span>
             </div>
           </div>

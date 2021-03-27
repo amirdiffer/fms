@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   FileSystemDirectoryEntry,
   FileSystemFileEntry,
@@ -14,7 +15,7 @@ export class AddOperatorComponent implements OnInit {
   calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   public filesUpdloaded: NgxFileDropEntry[] = [];
   progressBarValue = 70;
-  employeNumber = [
+  employeeNumber = [
     { name: 'Employee 1', id: 1 },
     { name: 'Employee 2', id: 2 },
     { name: 'Employee 3', id: 3 },
@@ -22,16 +23,36 @@ export class AddOperatorComponent implements OnInit {
     { name: 'Employee 5', id: 5 },
     { name: 'Employee 6', id: 6 }
   ];
+
+  form: FormGroup;
+
   filteredEmploye: any[];
-  constructor() {}
+
+  get emails(): FormArray {
+    return this.form.get('personalInformation').get('emails') as FormArray;
+  }
+
+  get phoneNumbers(): FormArray {
+    return this.form
+      .get('personalInformation')
+      .get('phoneNumbers') as FormArray;
+  }
+
+  constructor(private formBuilder: FormBuilder) {
+    this.buildForm();
+  }
+
+  buildForm(): void {
+    this.form = this.formBuilder.group({});
+  }
 
   ngOnInit(): void {}
 
-  searchEmploye(event) {
-    let filtered: any[] = [];
-    let query = event.query;
-    for (let i = 0; i < this.employeNumber.length; i++) {
-      let asset = this.employeNumber[i];
+  searchEmployee(event) {
+    const filtered: any[] = [];
+    const query = event.query;
+    for (let i = 0; i < this.employeeNumber.length; i++) {
+      const asset = this.employeeNumber[i];
       if (asset.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         filtered.push(asset);
       }
