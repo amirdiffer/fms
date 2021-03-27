@@ -50,7 +50,7 @@
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
                     <input formControlName="kilometerUsage" pInputText
-                        placeholder="{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *" required type="text">
+                        placeholder="{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *" required type="number">
                     <label>{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *</label>
                   </span>
                   <anms-error
@@ -63,7 +63,7 @@
             </div>
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
-                    <input formControlName="yearUsage" pInputText placeholder="{{ 'configuration.asset_policy.asset.year' | translate }}" type="text">
+                    <input formControlName="yearUsage" pInputText placeholder="{{ 'configuration.asset_policy.asset.year' | translate }}" type="number">
                     <label>{{ 'configuration.asset_policy.asset.year' | translate }}</label>
                 </span>
             </div>
@@ -74,7 +74,7 @@
                 <span class="p-float-label">
                     <input formControlName="depreciationValue" pInputText
                            placeholder="% {{ 'tables.column.depreciation_value' | translate }} *" required
-                           type="text">
+                           type="number">
                            <label>% {{ 'tables.column.depreciation_value' | translate }} *</label>
                           </span>
                           <span class="yearly">{{ 'configuration.asset_policy.asset.yearly' | translate }}</span>
@@ -96,10 +96,11 @@
 
 <div class="table-container">
     <div class="card-table">
-        <app-table [setting]="assetPolicy_Table"></app-table>
+        <app-table [setting]="assetPolicy_Table" [tableData]="assetPolicy$"></app-table>
     </div>
 </div>
 
 
 <alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel" (confirm)="dialogCancelConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogModalError=false"></alert-dialog>
 <alert-dialog [settings]="dialogSettingAddOrUpdate" [displayModal]="dialogModalAddOrUpdate" (confirm)="dialogAddOrUpdateConfirm($event)"></alert-dialog>

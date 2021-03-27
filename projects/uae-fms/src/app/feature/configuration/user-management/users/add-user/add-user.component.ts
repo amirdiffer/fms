@@ -8,23 +8,26 @@ import {
   FileSystemFileEntry,
   NgxFileDropEntry
 } from 'ngx-file-drop';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { UsersFacade } from '../../../+state/users';
-import { Router } from '@angular/router';
+import { RolePermissionFacade } from "../../../+state/role-permission";
+import { debounceTime, map } from 'rxjs/operators';
+import { UsersService } from "../../../+state/users/users.service";
+import { ThrowStmt } from '@angular/compiler';
+import { timeStamp } from 'console';
 @Component({
   selector: 'anms-add-user',
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddUserComponent
-  extends Utility
-  implements OnInit, AfterContentInit, OnDestroy {
+export class AddUserComponent extends Utility implements OnInit, AfterContentInit, OnDestroy {
   isEdit: boolean = false;
-  formChangesSubscription!: Subscription;
-
   id: number;
+
+
+  //#region Dialog
   dialogSetting: IDialogAlert = {
     header: 'Add new user alert',
     hasError: false,
@@ -46,37 +49,9 @@ export class AddUserComponent
   dialogModal = false;
   dialogType = null;
   errorDialogModal = false;
+  //#endregion
 
-  progressBarValue = 50;
-  bufferValue = 70;
-  public filesUpdloaded: NgxFileDropEntry[] = [];
-  form: FormGroup;
-  submited = false;
-
-  employees = [
-    { name: 'Employee 1', id: 1 },
-    { name: 'Employee 2', id: 2 },
-    { name: 'Employee 3', id: 3 },
-    { name: 'Employee 4', id: 4 },
-    { name: 'Employee 5', id: 5 },
-    { name: 'Employee 6', id: 6 }
-  ];
-
-  departments = [
-    { name: 'Department 1', id: 1 },
-    { name: 'Department 2', id: 2 },
-    { name: 'Department 3', id: 3 },
-    { name: 'Department 4', id: 4 },
-    { name: 'Department 5', id: 5 },
-    { name: 'Department 6', id: 6 }
-  ];
-
-  roles = [
-    { name: 'Police', id: 1 },
-    { name: 'Manager', id: 2 },
-    { name: 'Admin', id: 3 },
-    { name: 'User', id: 4 }
-  ];
+  //#region Filter
 
   filter: FilterCardSetting[] = [
     {
@@ -109,6 +84,37 @@ export class AddUserComponent
     }
   ];
 
+  //#endregion
+
+  progressBarValue = 50;
+  bufferValue = 70;
+  public filesUpdloaded: NgxFileDropEntry[] = [];
+  formChangesSubscription!: Subscription;
+  form: FormGroup;
+  submited = false;
+
+  employees = new Subject();
+  employees$ = this.employees.asObservable();
+  getEmployeesList = new Subject();
+  employee_static;
+  employeeId;
+
+  departments = [
+    { name: 'Department 1', id: 1 },
+    { name: 'Department 2', id: 2 },
+    { name: 'Department 3', id: 3 },
+    { name: 'Department 4', id: 4 },
+    { name: 'Department 5', id: 5 },
+    { name: 'Department 6', id: 6 }
+  ];
+
+  roles = [
+    { name: 'Police', id: 1 },
+    { name: 'Manager', id: 2 },
+    { name: 'Admin', id: 3 },
+    { name: 'User', id: 4 }
+  ];
+
   tempImage: any = '';
 
   get emails(): FormArray {
@@ -121,18 +127,23 @@ export class AddUserComponent
       .get('phoneNumbers') as FormArray;
   }
 
+  private _user;
   users$ = this.userFacade.users$;
+  roles$ = this.roleFacade.rolePermission$.pipe(map(y => y.map(x => ({ id: x.roleId, name: x.roleName }))));
 
   constructor(
     injector: Injector,
     private formBuilder: FormBuilder,
     private userFacade: UsersFacade,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private roleFacade: RolePermissionFacade,
+    private userService: UsersService
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this.roleFacade.loadAll();
     this.buildForm();
 
     this.route.url.subscribe((params) => {
@@ -141,9 +152,9 @@ export class AddUserComponent
 
       if (this.isEdit) {
         this.id = +(params[params.length - 1].path);
-        this.userFacade.loadAll();
-        this.userFacade.getUserById(+(params[params.length - 1].path)).subscribe(x => {
+        this.userService.getUserById((params[params.length - 1].path)).pipe(map(x => x.message)).subscribe(x => {
           if (x) {
+            this._user = x;
             this.form.controls['portalInformation'].patchValue({
               employeeNumber: {
                 name: x.id,
@@ -153,7 +164,7 @@ export class AddUserComponent
                 name: `${x.department.name}`
               },
               roleId: x.role.roleId,
-              activeEmployee: x.isActive === 'Active'
+              activeEmployee: x.isActive
             });
 
             this.form.controls['personalInformation'].patchValue({
@@ -194,14 +205,17 @@ export class AddUserComponent
     });
 
     this.userFacade.submitted$.subscribe((x) => {
+      console.log("Submit : ", x)
       if (x) {
+        this.dialogModal = true;
+        this.dialogType = "success";
         this.dialogSetting.header = this.isEdit ? 'Edit user' : 'Add new user';
         this.dialogSetting.message = this.isEdit ? 'Changes Saved Successfully' : 'User Added Successfully';
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
-        this.router.navigate(['/configuration/user-management/users']).then();
+        this.changeDetector.detectChanges();
       }
     });
 
@@ -218,6 +232,16 @@ export class AddUserComponent
         this.errorDialogModal = false;
       }
     });
+
+    this.getEmployeesList.pipe(debounceTime(600)).subscribe(x => {
+      this.userService.searchEmployee(x["query"]).subscribe(y => {
+        if (y) {
+          this.employees.next([y.message])
+        } else {
+          this.employees.next(null)
+        }
+      })
+    })
   }
 
   ngAfterContentInit(): void {
@@ -283,11 +307,12 @@ export class AddUserComponent
 
     if (this.dialogType == "submit") {
       let f = this.form.value;
-      let userInfo = {
-        employeeNumber: f.portalInformation.employeeNumber,
-        organizationId: 21,
+      console.log(this._user)
+      let userInfo: any = {
+        employeeNumber: this.isEdit ? this._user?.employeeNumber : this.employeeId,
+        organizationId: 1,
         departmentId: f.portalInformation.department.id || 1,
-        roleId: 2,
+        roleId: 1,
         isActive: f.portalInformation.activeEmployee,
         profileDocId: 1,
         firstName: f.personalInformation.firstName,
@@ -303,32 +328,73 @@ export class AddUserComponent
           else if (typeof x == "object")
             return x[0]
         }),
-        phoneNumbers: f.personalInformation.phoneNumbers.map(x => {
-          if (x.phoneNumber) {
-            if (typeof x.phoneNumber == "string")
-              return x.phoneNumber
-            else
-              return x.phoneNumber[0]
-
-          }
-          else if (typeof x == "object")
-            return x[0]
-        }),
+        phoneNumbers: this.getPhone(f),
         notifyByCall: f.personalInformation.callCheckbox,
         notifyBySMS: f.personalInformation.smsCheckbox,
         notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
-        notifyByEmail: f.personalInformation.emailCheckbox
+        notifyByEmail: f.personalInformation.emailCheckbox,
       }
+
       if (this.isEdit) {
-        userInfo['id'] = this.id;
+        userInfo = {
+          ...userInfo,
+          id: this.id,
+          notifyByPush: this._user.notifyByPush || false,
+          vehicleComments: this._user.vehicleComments || false,
+          serviceEntryComment: this._user.serviceEntryComment || false,
+          fuelEntryComments: this._user.fuelEntryComments || false,
+          vehicleStatusChanges: this._user.vehicleStatusChanges || false,
+          voidedFuelEntries: this._user.voidedFuelEntries || false,
+          dueSoonInspections: this._user.dueSoonInspections || false,
+          overdueInspections: this._user.overdueInspections || false,
+          newFaults: this._user.newFaults || false,
+          newRecalls: this._user.newRecalls || false,
+          notifyByNewIssueEmail: this._user.notifyByNewIssueEmail || false,
+          notifyByNewIssuePush: this._user.notifyByNewIssuePush || false,
+          notifyByIssueAssignedEmail: this._user.notifyByIssueAssignedEmail || false,
+          notifyByIssueAssignedPush: this._user.notifyByIssueAssignedPush || false,
+          notifyByCommentOnIssueEmail: this._user.notifyByCommentOnIssueEmail || false,
+          notifyByCommentOnIssuePush: this._user.notifyByCommentOnIssuePush || false,
+          notifyByIssueResolvedEmail: this._user.notifyByIssueResolvedEmail || false,
+          notifyByIssueResolvedPush: this._user.notifyByIssueResolvedPush || false,
+          notifyByIssueCloseEmail: this._user.notifyByIssueCloseEmail || false,
+          notifyByIssueClosePush: this._user.notifyByIssueClosePush || false
+        }
+
+        console.log(userInfo);
         this.userFacade.editUser(userInfo);
       }
       else {
+        userInfo = {
+          ...userInfo,
+          notifyByPush: false,
+          vehicleComments: false,
+          serviceEntryComment: false,
+          fuelEntryComments: false,
+          vehicleStatusChanges: false,
+          voidedFuelEntries: false,
+          dueSoonInspections: false,
+          overdueInspections: false,
+          newFaults: false,
+          newRecalls: false,
+          notifyByNewIssueEmail: false,
+          notifyByNewIssuePush: false,
+          notifyByIssueAssignedEmail: false,
+          notifyByIssueAssignedPush: false,
+          notifyByCommentOnIssueEmail: false,
+          notifyByCommentOnIssuePush: false,
+          notifyByIssueResolvedEmail: false,
+          notifyByIssueResolvedPush: false,
+          notifyByIssueCloseEmail: false,
+          notifyByIssueClosePush: false
+        }
         this.userFacade.addUser(userInfo);
       }
     }
     else {
-      this.router.navigate(['/configuration/user-management/users']).then();
+      this.router.navigate(['/configuration/user-management/users']).then(_ => {
+        this.userFacade.resetParams();
+      });
     }
   }
 
@@ -374,24 +440,12 @@ export class AddUserComponent
     }
     else {
       this.dialogSetting.header = 'Add new user';
-      this.dialogSetting.isWarning = false;
+      this.dialogSetting.isWarning = true;
       this.dialogSetting.hasError = false;
       this.dialogSetting.message = 'Are you sure you want to add new user?';
       this.dialogSetting.confirmButton = 'OK';
       this.dialogSetting.cancelButton = "Cancel";
     }
-  }
-
-  filterEmployees(event) {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.employees = [
-      { name: 'Employee 1', id: 1 },
-      { name: 'Employee 2', id: 2 },
-      { name: 'Employee 3', id: 3 },
-      { name: 'Employee 4', id: 4 },
-      { name: 'Employee 5', id: 5 },
-      { name: 'Employee 6', id: 6 }
-    ];
   }
 
   filterDepartments(event) {
@@ -433,11 +487,20 @@ export class AddUserComponent
   }
 
   employeeNumberChanged($event) {
-    console.log($event);
-    // this.users$.subscribe(x=>{
-    //   console.log(x)
-    // })
-    // This Part Should Get Compeleted after Api Connected
+    this.employee_static = $event;
+    if (typeof $event != "object") return;
+    this.form.controls['portalInformation'].patchValue({
+      department: $event.organizationId
+    });
+    this.form.controls['fileUpload'].patchValue({
+      "file": $event.profileImage
+    });
+    this.form.controls['personalInformation'].patchValue({
+      phoneNumbers: [{ phoneNumber: $event.mobileNumber }],
+      emails: [{ email: $event.emailAddress }]
+    })
+
+    console.log(this.form.value)
   }
 
   public fileOver(event) {
@@ -450,5 +513,38 @@ export class AddUserComponent
 
   ngOnDestroy(): void {
     this.formChangesSubscription?.unsubscribe();
+  }
+
+  getPhone(f) {
+    if (f.personalInformation.phoneNumbers && f.personalInformation.phoneNumbers.length > 0) {
+      if (typeof f.personalInformation.phoneNumbers[0] == 'object') {
+        console.log(f.personalInformation.phoneNumbers[0].phoneNumber.length)
+        if (typeof f.personalInformation.phoneNumbers[0] == "object"
+          && typeof f.personalInformation.phoneNumbers[0].phoneNumber == "string"
+          && f.personalInformation.phoneNumbers[0].phoneNumber.length < 5) return [];
+      } else if (typeof f.personalInformation.phoneNumbers[0] == 'string') {
+        if (f.personalInformation.phoneNumbers[0].length < 5) return [];
+      }
+      return f.personalInformation.phoneNumbers.map(x => {
+        if (!x) return;
+        if (x.phoneNumber) {
+          if (typeof x.phoneNumber == "string")
+            return x.phoneNumber
+          else
+            return x.phoneNumber[0]
+
+        }
+        else if (typeof x == "object") {
+          if (x.phoneNumber) return x.phoneNumber;
+          else if (x[0]) return x[0]
+          else return ""
+        }
+      })
+    }
+  }
+
+  getEmployee(event) {
+    this.getEmployeesList.next(event)
+    this.employeeId = event.query;
   }
 }

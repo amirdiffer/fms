@@ -21,4 +21,17 @@ export class AssetMasterService {
       environment.baseApiUrl + 'asset/stats'
     );
   }
+
+  addAsset(data): Observable<ResponseBody<IAssetMaster>> {
+    return this._http.post<ResponseBody<IAssetMaster>>(
+      environment.baseApiUrl + 'asset',
+      data
+    );
+  }
+  editAsset(data): Observable<ResponseBody<IAssetMaster>> {
+    return this._http.post<ResponseBody<IAssetMaster>>(
+      environment.baseApiUrl + 'asset',
+      data
+    );
+  }
 }

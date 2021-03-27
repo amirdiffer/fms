@@ -13,6 +13,8 @@ import { map } from 'rxjs/operators';
 })
 export class UsersComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
+
+  //#region Filter
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.this_month',
@@ -40,11 +42,13 @@ export class UsersComponent implements OnInit {
       onActive(index: number) { }
     }
   ];
+  //#endregion
 
+  //#region Table
   data$ = this.facade.users$.pipe(
     map(x => {
       return x.map(y => {
-        return { ...y, information: { emails: y.emails, phoneNumbers: y.phoneNumbers }, roleName: y.role.roleName };
+        return { ...y, information: { emails: y.emails, phoneNumbers: y.phoneNumbers }, roleName: y?.role?.roleName };
       });
     }));
 
@@ -91,19 +95,20 @@ export class UsersComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {
-        this.router
-          .navigate(['/configuration/user-management/users/edit-user/' + data.id])
-          .then();
-      },
       floatButton: [
         {
           button: 'edit',
-          color: '#3F3F3F'
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            console.log(data)
+            this.router
+              .navigate(['/configuration/user-management/users/edit-user/' + data.id]);
+          }
         }
       ]
     }
   };
+  //#endregion
 
   constructor(
     private facade: UsersFacade,

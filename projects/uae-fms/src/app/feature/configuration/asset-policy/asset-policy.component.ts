@@ -61,12 +61,10 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
-        console.log(col, data, button);
       },
       floatButton: [
         {
           onClick: (col, data) => {
-            console.log(col, data);
             this._router.navigate(
               ['/configuration/asset-policy/edit-asset-policy/'],
               { queryParams: { id: data.id } }
@@ -157,7 +155,6 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     ],
     rowSettings: {
       onClick: (col, data, button?) => {
-        console.log(col, data, button);
       },
       floatButton: [
         {

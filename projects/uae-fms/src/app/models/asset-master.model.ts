@@ -13,6 +13,18 @@ export interface IAssetMaster {
   date?: string;
   meterType?: string;
   meterValue?: number;
+  status: string;
+  assetTypeName: string;
+  colorId: number;
+  colorName: string;
+  fuelCardId: number;
+  makeName: string;
+  modelName: string;
+  plateNumber: number;
+  tollId: number;
+  trimId: number;
+  trimName: string;
+  year: string;
 }
 
 export interface IOperator {

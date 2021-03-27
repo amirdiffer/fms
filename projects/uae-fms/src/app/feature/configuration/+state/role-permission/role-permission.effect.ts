@@ -13,7 +13,7 @@ export class RolePermissionEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) =>
-            RolePermissionActions.allDataLoaded({ data: data.message })
+            RolePermissionActions.allDataLoaded({ data: data.message.map(x => ({ ...x, id: x.roleId })) })
           ),
           catchError((error) =>
             of(RolePermissionActions.error({ reason: error }))
@@ -26,5 +26,5 @@ export class RolePermissionEffect {
   constructor(
     private action$: Actions,
     private service: RolePermissionService
-  ) {}
+  ) { }
 }

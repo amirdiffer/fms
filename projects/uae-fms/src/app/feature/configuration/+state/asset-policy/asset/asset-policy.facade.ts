@@ -15,12 +15,12 @@ export class AssetPolicyFacade {
 
   submitted$ = this.store.pipe(select(AssetPolicySelectors.submitted));
 
-  constructor(private store: Store<AssetPolicyPartialState>) {}
+  constructor(private store: Store<AssetPolicyPartialState>) { }
 
   loadAll() {
     this.store.dispatch(AssetPolicyActions.loadAll());
   }
-  addAssetPolicy(data: IAssetPolicy) {
+  addAssetPolicy(data: any) {
     this.store.dispatch(AssetPolicyActions.addAssetPolicy({ data }));
     console.log(data);
   }

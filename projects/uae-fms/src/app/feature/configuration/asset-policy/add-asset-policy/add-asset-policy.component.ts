@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Injector,
   OnDestroy
 } from '@angular/core';
@@ -19,7 +20,7 @@ import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
 import { IAssetPolicy } from '@models/asset-policy.model';
 import { Utility } from '@shared/utility/utility';
 import { Subscription } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-add-asset-policy',
@@ -57,60 +58,9 @@ export class AddAssetPolicyComponent
         renderer: 'floatButton'
       }
     ],
-    data: [
-      {
-        id: 1,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 2,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 3,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 4,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 5,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 6,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      },
-      {
-        id: 7,
-        Policy_Name: 'Policy Name is here',
-        Distance: '111111 K',
-        Year: '10',
-        Depreciation_Value: '%20'
-      }
-    ],
+    data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
-        console.log(col, data, button);
       },
       floatButton: [
         {
@@ -131,11 +81,19 @@ export class AddAssetPolicyComponent
   isEdit = false;
   dialogModalAddOrUpdate = false;
   dialogModalCancel = false;
+  dialogModalError = false;
   dialogSettingAddOrUpdate: IDialogAlert = {
     header: 'Asset Policy',
-    hasError: false,
+    hasError: true,
     hasHeader: true,
     message: 'New Asset Policy Successfully Added',
+    confirmButton: 'OK'
+  };
+  dialogSettingError: IDialogAlert = {
+    header: 'Asset Policy',
+    hasError: true,
+    hasHeader: true,
+    message: 'An Error Occured',
     confirmButton: 'OK'
   };
   dialogSettingCancel: IDialogAlert = {
@@ -148,12 +106,30 @@ export class AddAssetPolicyComponent
     cancelButton: 'No'
   };
   id: number;
+
+
+
+  assetPolicy$ = this.assetPolicyFacade.assetPolicy$.pipe(
+    map((x) =>
+      x.map((item) => {
+        return {
+          id: item.id,
+          Policy_Name: item.name,
+          Distance: item.maxUsageKPHour,
+          Year: item.maxUsageYear,
+          Depreciation_Value: item.depreciationValue
+        };
+      })
+    )
+  );
+
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
     private injector: Injector,
     private _routerFacade: RouterFacade,
-    private assetPolicyFacade: AssetPolicyFacade
+    private assetPolicyFacade: AssetPolicyFacade,
+    private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
@@ -182,14 +158,16 @@ export class AddAssetPolicyComponent
       policyName,
       kilometerUsage,
       yearUsage,
-      depreciationValue
+      depreciationValue,
+      reminder
     } = assetPolicyFormValue;
     const payload = {
       depreciationValue,
       maxUsageKPHour: kilometerUsage,
       maxUsageYear: yearUsage,
       name: policyName,
-      type: policyType
+      type: policyType,
+      reminder: reminder
     };
 
     if (id) {
@@ -200,6 +178,7 @@ export class AddAssetPolicyComponent
   }
 
   ngOnInit(): void {
+    this.assetPolicyFacade.loadAll();
     this.assetPolicyForm = this._fb.group({
       policyType: ['asset', [Validators.required]],
       policyName: ['', [Validators.required]],
@@ -214,7 +193,6 @@ export class AddAssetPolicyComponent
     );
 
     this.editForm = this._routerFacade.route$.subscribe((data: any) => {
-      console.log(data);
       this.id = +data.queryParams['id'];
 
       if (this.id) {
@@ -230,6 +208,7 @@ export class AddAssetPolicyComponent
 
     this.assetPolicyFacade.submitted$.subscribe((x) => {
       if (x) {
+        this.dialogModalAddOrUpdate = true;
         this.dialogSettingAddOrUpdate.header = this.isEdit
           ? 'Edit user'
           : 'Add new user';
@@ -240,23 +219,19 @@ export class AddAssetPolicyComponent
         this.dialogSettingAddOrUpdate.hasError = false;
         this.dialogSettingAddOrUpdate.confirmButton = 'Yes';
         this.dialogSettingAddOrUpdate.cancelButton = undefined;
-        this.router.navigate(['/configuration/user-management/users']).then();
+        this.changeDetector.detectChanges();
       }
     });
 
-    // this.assetPolicyFacade.error$.subscribe(x => {
-    //   if (x?.error) {
-    //     console.log(x?.error)
-    //     this.errorD = true;
-    //     this.errorDialogSetting.header = this.isEdit ? 'Edit user' : 'Add new user';
-    //     this.errorDialogSetting.hasError = true;
-    //     this.errorDialogSetting.cancelButton = undefined;
-    //     this.errorDialogSetting.confirmButton = "Ok";
-    //     this.changeDetector.detectChanges();
-    //   } else {
-    //     this.errorDialogModal = false;
-    //   }
-    // });
+    this.assetPolicyFacade.error$.subscribe(x => {
+      if (x) {
+        this.dialogModalError = true;
+        this.dialogSettingError.hasError = true;
+        this.changeDetector.detectChanges();
+      } else {
+        this.dialogModalError = false;
+      }
+    });
   }
 
   submit() {
@@ -268,12 +243,21 @@ export class AddAssetPolicyComponent
         const data = this.getAssetPolicyRequestPayload(
           this.assetPolicyForm.value
         );
-        this.assetPolicyFacade.addAssetPolicy(data);
+        const _data = {
+          type: data.type,
+          name: data.name,
+          maxUsageKmPHour: data.maxUsageKPHour,
+          maxUsageYear: data.maxUsageYear,
+          depreciationValue: data.depreciationValue,
+          setReminderBefore: data.reminder,
+        }
+        this.assetPolicyFacade.addAssetPolicy(_data);
       } else {
         const data = this.getAssetPolicyRequestPayload(
           this.assetPolicyForm.value,
           this.id
         );
+
         this.assetPolicyFacade.updateAssetPolicy(data);
       }
     }

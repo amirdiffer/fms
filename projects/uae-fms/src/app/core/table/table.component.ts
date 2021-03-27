@@ -186,7 +186,7 @@ export enum ColumnType {
 }
 
 export interface RowSettings {
-  onClick: Function;
+  onClick?: Function;
   floatButton?: FloatButtonType[];
 }
 

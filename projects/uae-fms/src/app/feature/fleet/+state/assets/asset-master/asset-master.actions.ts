@@ -21,4 +21,25 @@ export class AssetMasterActions {
     '[AssetMaster] error occurred',
     props<{ reason: any }>()
   );
+
+  static addAsset = createAction(
+    '[AssetMaster] add asset',
+    props<{ data: any }>()
+  );
+
+  static assetAddedSuccessfully = createAction(
+    '[AssetMaster] asset added successfully',
+    props<{ data: IAssetMaster }>()
+  );
+
+  static editAsset = createAction(
+    '[AssetMaster] edit asset',
+    props<{ data: any }>()
+  );
+
+  static assetEditedSuccessfully = createAction(
+    '[AssetMaster] asset added successfully',
+    props<{ data: IAssetMaster }>()
+  );
+
 }
