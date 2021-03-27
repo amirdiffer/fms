@@ -72,7 +72,7 @@ export class RolePermissionComponent implements OnInit {
       },
       floatButton: [
         {
-          button: 'external',
+          button: 'external'
         }
       ]
     }

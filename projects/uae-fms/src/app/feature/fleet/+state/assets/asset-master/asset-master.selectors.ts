@@ -13,4 +13,10 @@ export class AssetMasterSelectors {
     FleetSelectors.assetMasterSelector,
     (state: IAssetMasterState) => state.statistics
   );
+
+  static submitted = createSelector(
+    FleetSelectors.assetMasterSelector,
+    (state) => state.submitted
+  )
+
 }
