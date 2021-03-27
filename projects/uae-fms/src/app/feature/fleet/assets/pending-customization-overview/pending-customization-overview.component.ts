@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ITableData } from '@feature/toll/toll.component';
 import { AnyCnameRecord, AnySrvRecord } from 'dns';
 
 @Component({
