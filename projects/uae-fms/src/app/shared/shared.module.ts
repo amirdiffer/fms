@@ -41,8 +41,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AccordionModule } from 'primeng/accordion';
-
-import { AlretDialogModule } from '@core/alret-dialog/alret-dialog.module';
+import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -81,7 +80,7 @@ import { AlretDialogModule } from '@core/alret-dialog/alret-dialog.module';
     MatProgressBarModule,
     NgxFileDropModule,
     AccordionModule,
-    AlretDialogModule
+    AlertDialogModule
   ],
   declarations: [RtlSupportDirective, CheckAccessDirective],
   exports: [
@@ -129,7 +128,7 @@ import { AlretDialogModule } from '@core/alret-dialog/alret-dialog.module';
     NgxFileDropModule,
     OverlayPanelModule,
     AccordionModule,
-    AlretDialogModule
+    AlertDialogModule
   ]
 })
 export class SharedModule {

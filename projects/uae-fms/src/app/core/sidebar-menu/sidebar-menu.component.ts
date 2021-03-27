@@ -70,9 +70,9 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           route: '/fleet/operator'
         },
         {
-          name: 'sidebar.fleets.organization',
+          name: 'sidebar.fleets.department',
           icon: 'organization',
-          route: '/fleet/organization'
+          route: '/fleet/department'
         },
         {
           name: 'sidebar.fleets.movement.~',
@@ -115,8 +115,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.workshop.service_shop',
           icon: 'service-shop',
-          route: '/workshop/service-shop',
-          disabled: true
+          route: '/workshop/service-shop'
         },
         {
           name: 'sidebar.workshop.inspection.~',
@@ -259,7 +258,6 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     this.usingMenu = this.mainMenu;
 
     this.route$.subscribe((x) => {
-      console.log(x);
       if (x?.state?.url) this.urlGroup = x.state.url.split('/');
       this.collapsedMenu = '/' + x.state.url.split('/')[1];
     });

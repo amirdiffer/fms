@@ -1,25 +1,34 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { SettingsFacade } from '@core/settings/settings.facade';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent implements OnInit {
   rowIndexTable = -1;
   activeLang: string;
-
-  constructor(private settingFacade: SettingsFacade) {}
   @Input() setting: TableSetting;
+  @Input() tableData: Observable<any>;
+
+  constructor(private settingFacade: SettingsFacade, private changeDetection: ChangeDetectorRef) { }
   ngOnInit() {
     this.settingFacade.language.subscribe((lang) => {
       this.activeLang = lang;
     });
+
+    this.tableData?.subscribe(x => {
+      console.log(x)
+      this.setting.data = x;
+      this.changeDetection.detectChanges();
+    })
   }
 
   getCol(col, data) {
@@ -29,17 +38,14 @@ export class TableComponent implements OnInit {
           return data[col.field];
         case 2:
           return data[col.thumbField]
-            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
-                environment.baseFileServer + data[col.thumbField]
-              }'> <p class='text-of-cell-with-image'>${
-                data[col.field]
-              }</p></div>`
+            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${environment.baseFileServer + data[col.thumbField]
+            }'> <p class='text-of-cell-with-image'>${data[col.field]
+            }</p></div>`
             : data[col.field];
         case 3:
           return data[col.thumbField]
-            ? `<img class='thumb' src='${
-                environment.baseFileServer + data[col.thumbField]
-              }'>`
+            ? `<img class='thumb' src='${environment.baseFileServer + data[col.thumbField]
+            }'>`
             : '';
       }
     } else {
@@ -107,27 +113,24 @@ export class TableComponent implements OnInit {
       if (title === 'Asset Master') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\n${data[col.field].ownership}`;
+            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+              }\n${data[col.field].ownership}`;
           });
         }
       }
       if (title === 'Pending Registration') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+              }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
       if (title === 'Pending Customization') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+              }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
@@ -155,7 +158,7 @@ export class TableComponent implements OnInit {
 
 export interface TableSetting {
   columns: ColumnDifinition[];
-  data: any[];
+  data?: any[];
   rowSettings?: RowSettings;
 }
 
@@ -169,6 +172,7 @@ export interface ColumnDifinition {
   type?: ColumnType;
   thumbField?: string;
   renderer?: string;
+  rendererOptions?: RendererOptions;
   buttonType?: ButtonType;
   showOnHover?: boolean;
   textColor?: string;
@@ -186,19 +190,28 @@ export interface RowSettings {
   floatButton?: FloatButtonType[];
 }
 
+export interface RendererOptions {
+  condition?: Function;
+  color?: string;
+  line1?: string;
+  line2?: string;
+  type?: string;
+}
+
 export enum ButtonType {
   add,
   action,
   makeDecision,
   jobCard,
   reject,
+  orderListReject,
   approve,
   confirm,
   receive
 }
 
 export interface FloatButtonType {
-  button: string,
-  color?: string,
+  button: string;
+  color?: string;
   onClick?: Function;
 }

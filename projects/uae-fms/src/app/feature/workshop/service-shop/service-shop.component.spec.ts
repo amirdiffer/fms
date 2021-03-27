@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AlretDialogComponent } from './alret-dialog.component';
+import { ServiceShopComponent } from './service-shop.component';
 
-describe('AlretDialogComponent', () => {
-  let component: AlretDialogComponent;
-  let fixture: ComponentFixture<AlretDialogComponent>;
+describe('BodyShopComponent', () => {
+  let component: ServiceShopComponent;
+  let fixture: ComponentFixture<ServiceShopComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AlretDialogComponent]
+      declarations: [ServiceShopComponent]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AlretDialogComponent);
+    fixture = TestBed.createComponent(ServiceShopComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

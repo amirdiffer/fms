@@ -119,14 +119,14 @@
         <button class="btn-download">
           <svg-icon [src]="downloadBtn"></svg-icon>
         </button>
-        <button class="btn-primary-small mx-1" [routerLink]="[]" [queryParams]="{id:'Request'}"><a>{{'forms.save' | translate}}</a></button>
+        <button class="btn-primary-small mx-1" (click)="submit()"><a>{{'forms.save' | translate}}</a></button>
         <button class="btn-primary-small btn-scondary-green" type="button" (click)="showSection('list')"><a>{{'forms.cancel' | translate}}</a></button>
       </span>
     </div>
     <app-table [setting]="jobCard_Table3"></app-table>
   </div>
 </div>
-<form *ngIf="section == 'form'">
+<form [formGroup]="formGroup" *ngIf="section == 'form'">
   <div class="form-section">
     <h3 class="form-section__title">{{ 'assets.overview.describe_job_card' | translate }}</h3>
     <div class="row form-section__row">
@@ -141,53 +141,65 @@
       </div>
     </div>
   </div>
-  <div class="form-section">
-    <h3 class="form-section__title">{{ 'assets.overview.task' | translate }}</h3>
-    <div class="row form-section__row">
+  <div class="form-section" formArrayName="task">
+    <h3 class="form-section__title">
+      <span class='plus-icon'
+        (click)="addTask()">
+        <svg-icon src='../../../../../assets/icons/add.svg'
+          [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
+          '100%'}"></svg-icon>
+      </span>{{ 'assets.overview.task' | translate }}
+    </h3>
+    <div class="row form-section__row" [formGroupName]="i" *ngFor="let
+    item of formGroup.get('task')['controls']; let i=
+    index;">
       <div class="col-12 col-md-4 p-field form-section__field">
         <div class="autocomplete-select">
             <span class="p-float-label">
               <p-autoComplete
+              formControlName="task"
                 [minLength]="1"></p-autoComplete>
               <i class="pi pi-search"></i>
               <label>{{ 'assets.overview.task' | translate }}</label>
             </span>
         </div>
+        <anms-error  [showError]="getValidity('task',i)"
+        error="forms.feedback.required"></anms-error>
       </div>
       <div class="col-12 col-md-4 p-field form-section__field options-select">
           <span class="p-float-label">
-            <p-dropdown id="priority" inputId="priority" [autoDisplayFirst]="false"
-                        [options]="[]" optionLabel="name"></p-dropdown>
+            <p-dropdown id="priority" formControlName="priority" inputId="priority" [autoDisplayFirst]="false"
+                        [options]="itemTypes" optionLabel="name"></p-dropdown>
             <label for="priority">{{ 'assets.overview.priority' | translate }} *</label>
-            <anms-error
-              [showError]="false"
-              error="fms.errors.required">
-            </anms-error>
           </span>
+          <anms-error  [showError]="getValidity('priority',i)"
+        error="forms.feedback.required"></anms-error>
       </div>
       <div class="col-12 col-md-4 p-field form-section__field options-select">
           <span class="p-float-label">
-            <p-dropdown id="technician" inputId="technician" [autoDisplayFirst]="false"
-                        [options]="[]" optionLabel="name"></p-dropdown>
+            <p-dropdown id="technician" formControlName="technician" inputId="technician" [autoDisplayFirst]="false"
+                        [options]="itemTypes" optionLabel="name"></p-dropdown>
             <label for="technician">{{ 'assets.overview.technician' | translate }} *</label>
-            <anms-error
-              [showError]="false"
-              error="fms.errors.required">
-            </anms-error>
           </span>
+          <anms-error  [showError]="getValidity('technician',i)"
+        error="forms.feedback.required"></anms-error>
       </div>
       <div class="col-12 col-md-8 p-field form-section__field">
               <span class="p-float-label">
-                <input pInputText type="text">
+                <input pInputText formControlName="location" type="text">
                 <label>{{ 'assets.overview.location' | translate }}</label>
                 <anms-error
                   [showError]="false"
                   error="fms.errors.required"></anms-error>
               </span>
+              <anms-error  [showError]="getValidity('location',i)"
+        error="forms.feedback.required"></anms-error>
       </div>
       <div class="col-12 col-md-4 form-section__field toggle-select">
-        <p-inputSwitch></p-inputSwitch>
+        <p-inputSwitch formControlName="need_part"></p-inputSwitch>
         <span>{{ 'assets.overview.need_part' | translate }}</span>
+        <anms-error  [showError]="getValidity('need_part',i)"
+        error="forms.feedback.required"></anms-error>
       </div>
     </div>
   </div>

@@ -1,12 +1,12 @@
 import { createAction, props } from '@ngrx/store';
-import { IBodyShopTechnicianStateModel } from './body-shop-technician.entity';
+import { ITechnician } from '@models/body-shop';
 
 export class BodyShopTechnicianActions {
   static loadAll = createAction('[bodyShopTechnician] load all data');
 
   static allDataLoaded = createAction(
     '[bodyShopTechnician] all datas are loaded',
-    props<{ data: IBodyShopTechnicianStateModel[] }>()
+    props<{ data: ITechnician[] }>()
   );
 
   static error = createAction(

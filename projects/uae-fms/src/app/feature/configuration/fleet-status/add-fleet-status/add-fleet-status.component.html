@@ -1,7 +1,7 @@
 <form [formGroup]="fleetStatusForm">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{ 'forms.cancel' | translate }}</button>
-    <button class="btn-primary-medium add" (click)="submit()">{{ 'forms.add' | translate }}</button>
+    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
+    <button class="btn-primary-medium add" (click)="submit()">{{ (isEdit?'forms.edit':'forms.add') | translate }}</button>
   </div>
   <div class="form-section form-section--inline mx-0">
     <div class="row">
@@ -34,11 +34,11 @@
             [options]="statusCategories"
             formControlName="statusCategory" optionLabel="name"></p-dropdown>
           <label for="statusCategory">{{ 'configuration.fleet_status.asset.status_category' | translate }} *</label>
-          <anms-error
-            [showError]="hasError('statusCategory',fleetStatusForm,submited)"
-            error="forms.feedback.required">
-          </anms-error>
         </span>
+        <anms-error
+          [showError]="hasError('statusCategory',fleetStatusForm,submited)"
+          error="forms.feedback.required">
+        </anms-error>
       </div>
 
       <div class="col-12 col-md-3 p-field form-section__field">
@@ -46,11 +46,11 @@
           <input formControlName="statusName" pInputText
             placeholder="{{ 'configuration.fleet_status.asset.status_name' | translate }} *" required type="text">
           <label>{{ 'configuration.fleet_status.asset.status_name' | translate }} *</label>
-          <anms-error
-            [showError]="hasError('statusName',fleetStatusForm,submited)"
-            error="forms.feedback.required">
-          </anms-error>
         </span>
+        <anms-error
+          [showError]="hasError('statusName',fleetStatusForm,submited)"
+          error="forms.feedback.required">
+        </anms-error>
       </div>
 
     </div>
@@ -59,3 +59,7 @@
 <div class="component_wrapper table-container">
   <app-table [setting]='tableSetting'></app-table>
 </div>
+
+
+<alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel" (confirm)="dialogCancelConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogSettingAdd" [displayModal]="dialogModalAdd" (confirm)="dialogAddConfirm($event)"></alert-dialog>

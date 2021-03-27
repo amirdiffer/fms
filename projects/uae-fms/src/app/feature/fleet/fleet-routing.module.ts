@@ -20,9 +20,9 @@ import { IserveComponent } from '@feature/fleet/movement/iserv/iserv.component';
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
-  { path: 'organization', component: OrganizationComponent },
+  { path: 'department', component: OrganizationComponent },
   { path: 'accessory', component: AccessoryComponent },
-  { path: 'accessory/add', component: AddAccessoryComponent },
+  { path: 'accessory/add-new-accessory', component: AddAccessoryComponent },
   { path: 'sub-asset', component: SubAssetComponent },
   { path: 'movement', component: MovementComponent },
   { path: 'movement/iserve', component: IserveComponent },
@@ -41,7 +41,7 @@ const routes: Routes = [
     component: PendingCustomizationOverviewComponent
   },
   {
-    path: 'organization/add-organization',
+    path: 'department/add-department',
     component: AddOrganizationComponent
   },
   { path: '', redirectTo: 'assets' }

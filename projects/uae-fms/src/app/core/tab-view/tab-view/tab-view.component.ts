@@ -8,16 +8,18 @@ import {
   Output,
   EventEmitter,
   Input,
-  Renderer2
+  Renderer2,
+  OnDestroy
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-tab-view',
   templateUrl: './tab-view.component.html',
   styleUrls: ['./tab-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TabViewComponent implements OnInit {
+export class TabViewComponent implements OnInit, OnDestroy {
   @Input('selectedTab') selectedTab: number = 0;
   @Input('returnId') returnId: string = 'title';
   @Input() index?: boolean = true;
@@ -32,12 +34,11 @@ export class TabViewComponent implements OnInit {
   elements: HTMLElement[];
   // selectedTab: number = 0;
   selectedParams;
-  constructor(
-    public cd: ChangeDetectorRef,
-    private _router: Router,
-    private _activateRoute: ActivatedRoute,
-    private _renderer: Renderer2
-  ) {}
+  routeObsvr$: Subscription;
+  constructor(public cd: ChangeDetectorRef ,
+              private _router : Router ,
+              private _activateRoute : ActivatedRoute ,
+              private _renderer : Renderer2 ) {}
 
   ngOnInit(): void {}
 
@@ -61,14 +62,15 @@ export class TabViewComponent implements OnInit {
     }
     this.tabs = tabs;
     this.initialized = true;
-    this.selectedParams = this._activateRoute.snapshot.queryParams['id']
-      ? this._activateRoute.snapshot.queryParams['id']
-      : this.tabs[0].id;
-    this.cd.detectChanges();
-    this.selectByUrlParams();
-    this.selectedIndex.emit(
-      this.returnId == 'title' ? this.selectedParams : this.selectedTab
-    );
+    this.routeObsvr$ = this._activateRoute.queryParams.subscribe((id) => {
+      id['id'] ? this.selectedParams = id['id'] : this.selectedParams = this.tabs[0].id;
+      this.cd.detectChanges();
+      this.selectByUrlParams();
+      this.selectedIndex.emit(
+        this.returnId == 'title' ? this.selectedParams : this.selectedTab
+      );
+    });
+
   }
 
   selectedTabChanged() {
@@ -87,27 +89,11 @@ export class TabViewComponent implements OnInit {
         this.elements[i].classList.remove('hidden-item');
       }
     }
-    for (
-      let i = 0;
-      i < this.tabsHeader.nativeElement.children.length - 1;
-      i++
-    ) {
-      this._renderer.setAttribute(
-        this.tabsHeader.nativeElement.children[i],
-        'for',
-        this.tabs[i].id ? this.tabs[i].id : ''
-      );
-      this.tabsHeader.nativeElement.children[i].getAttribute('for') ==
-      this.selectedParams
-        ? (this._renderer.addClass(
-            this.tabsHeader.nativeElement.children[i],
-            'active-tab'
-          ),
-          (this.selectedTab = i))
-        : this._renderer.removeClass(
-            this.tabsHeader.nativeElement.children[i],
-            'active-tab'
-          );
+    for (let i=0; i < this.tabsHeader.nativeElement.children.length -1 ; i++){
+      this._renderer.setAttribute(this.tabsHeader.nativeElement.children[i] , 'for',this.tabs[i].id ?this.tabs[i].id:'')
+      this.tabsHeader.nativeElement.children[i].getAttribute('for') == this.selectedParams ?
+        (this._renderer.addClass(this.tabsHeader.nativeElement.children[i],'active-tab'), this.selectedTab = i) :
+        this._renderer.removeClass(this.tabsHeader.nativeElement.children[i],'active-tab');
     }
   }
   selectTab(index: number, title: string, e: Event) {
@@ -130,4 +116,9 @@ export class TabViewComponent implements OnInit {
     this._router.navigate([], { queryParams: { id: title } });
     this.selectedTabChanged();
   }
+
+  ngOnDestroy(): void {
+    this.routeObsvr$.unsubscribe();
+  }
+
 }

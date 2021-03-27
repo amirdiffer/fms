@@ -10,12 +10,14 @@ import { TollFacade, TollService } from './+state/index';
 import { TollEffect } from './+state/toll.effect';
 import { TOLL_FEATURE_KEY } from './+state/toll.entity';
 import { reducer } from './+state/toll.reducer';
+import { AddTollReviewComponent } from './add-toll/add-toll-review-component';
+import { reducers } from './+state/toll.reducer';
 import { AddTollComponent } from './add-toll/add-toll.component';
 import { TollRoutingModule } from './toll-routing.module';
 import { TollComponent } from './toll.component';
 
 @NgModule({
-  declarations: [TollComponent, AddTollComponent],
+  declarations: [TollComponent, AddTollComponent , AddTollReviewComponent],
   imports: [
     TableModule,
     FilterModule,
@@ -23,7 +25,7 @@ import { TollComponent } from './toll.component';
     CommonModule,
     TollRoutingModule,
     DashboardModule,
-    StoreModule.forFeature(TOLL_FEATURE_KEY, reducer),
+    StoreModule.forFeature(TOLL_FEATURE_KEY, reducers),
     EffectsModule.forFeature([TollEffect])
   ],
   providers: [TollService, TollFacade]

@@ -24,26 +24,30 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
-      filterCount: '2456',
+      filterCount: '',
       filterTagColor: '#CBA786',
+      field: 'total',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.available',
-      filterCount: '356',
+      filterCount: '',
       filterTagColor: '#07858D',
+      field: 'available',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.assigned',
-      filterCount: '124',
+      filterCount: '',
       filterTagColor: '#EF959D',
+      field: 'assigned',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.x_accessory',
-      filterCount: '12',
+      filterCount: '',
       filterTagColor: '#DD5648',
+      field: 'xAccesssory',
       onActive(index: number) {}
     }
   ];
@@ -62,50 +66,11 @@ export class AccessoryComponent implements OnInit, OnDestroy {
         lable: 'tables.column.quantity',
         type: 1,
         field: 'Quantity',
-        width: 150
+        width: 150,
+        sortable: true
       }
     ],
     data: [
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Type: 'Name is here',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Type: 'Name is here',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Type: 'Name is here',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Type: 'Name is here',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Type: 'Name is here',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
       {
         statusColor: '#00AFB9',
         Item: 'Sticker',
@@ -117,17 +82,44 @@ export class AccessoryComponent implements OnInit, OnDestroy {
     ]
   };
 
-  constructor(
-    private _accessoryService: AccessoryService,
-    private _accessoryFacade: AccessoryFacade
-  ) {}
-
   ngOnInit(): void {
     this.openAdd$ = this._accessoryService.getAddForm().subscribe((open) => {
       this.openAdd = open;
     });
     this._accessoryFacade.loadAll();
+
+    this._accessoryFacade.accessory$.subscribe((data) => {
+      if (data) {
+        this.accessory_Table.data = data.map((item) => {
+          return {
+            statusColor: '#00AFB9',
+            Item: item.itemName,
+            Type: item.assignedToType,
+            Asset_SubAsset: item.assignedToEntity,
+            Assigned_To: item.assignedToEmployeeId,
+            Quantity: item.quantity
+          };
+        });
+      }
+    });
+
+    this._accessoryFacade.loadStatistics();
+    this._accessoryFacade.statistics$.subscribe((data) => {
+      console.log(data, 'accessory statistics');
+      if (data) {
+        let statistic = data.message;
+        this.filterCard.forEach((card, index) => {
+          this.filterCard[index].filterCount =
+            statistic[this.filterCard[index].field];
+        });
+      }
+    });
   }
+
+  constructor(
+    private _accessoryService: AccessoryService,
+    private _accessoryFacade: AccessoryFacade
+  ) {}
 
   addAccessory() {
     this._accessoryService.loadAddForm(true);

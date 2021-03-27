@@ -1,15 +1,19 @@
+import { Department } from './organization';
+
 export interface IUser {
   id: number;
   employeeNumber: number;
-  organizationId: number;
-  departmentId: number;
-  roleId: number;
-  isActive: boolean;
-  profileDocId: number;
   firstName: string;
   lastName: string;
+  profileDocId: number;
+  organizationId: number;
+  department: IDepartment;
   emails: string[];
   phoneNumbers: string[];
+  isActive: boolean;
+  roleId: number;
+  role: { roleId: number; roleName: string; }
+  roleName: string;
   notifyByEmail: boolean;
   notifyByPush: boolean;
   notifyByCall: boolean;
@@ -18,7 +22,31 @@ export interface IUser {
 }
 
 export interface IRole {
+  id: number;
+  roleId: string;
   roleName: string;
-  serviceName: string;
-  permissionValue: string;
+}
+
+export interface IOwnerShip {
+  id?: number;
+  type: string;
+  name: string;
+  email: string;
+  phoneNumber: string;
+  purpose: string;
+  fleetITCode: string;
+  duration: number;
+  numOfOwnedAssets?: number;
+}
+
+export interface IPeriodicService {
+  id: number;
+  name: string;
+}
+
+export interface IDepartment {
+  id: number;
+  name: string;
+  organizationId: number;
+  organizationName: string;
 }
