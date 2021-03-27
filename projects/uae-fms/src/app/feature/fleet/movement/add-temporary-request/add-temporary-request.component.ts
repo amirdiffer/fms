@@ -4,17 +4,17 @@ import {
   ChangeDetectionStrategy,
   Injector
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'anms-add-request',
-  templateUrl: './add-request.component.html',
-  styleUrls: ['./add-request.component.scss'],
+  templateUrl: './add-temporary-request.component.html',
+  styleUrls: ['./add-temporary-request.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddRequestComponent extends Utility implements OnInit {
+export class AddTemporaryRequestComponent extends Utility implements OnInit {
   dialogModal = false;
 
   dialogSetting: IDialogAlert = {
@@ -53,7 +53,8 @@ export class AddRequestComponent extends Utility implements OnInit {
       assetType: [''],
       resone: [''],
       quality: [''],
-      oldAssetType: ['']
+      oldAssetType: [''],
+      duration: ['']
     });
   }
   filterAssets(event) {
@@ -68,22 +69,10 @@ export class AddRequestComponent extends Utility implements OnInit {
     ];
   }
 
-  filterOldAssets(event) {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.oldAssetSuggests = [
-      { name: 'Old asset type 1', id: 1 },
-      { name: 'Old asset type 2', id: 2 },
-      { name: 'Old asset type 3', id: 3 },
-      { name: 'Old asset type 4', id: 4 },
-      { name: 'Old asset type 5', id: 5 },
-      { name: 'Old asset type 6', id: 6 }
-    ];
-  }
-
   dialogConfirm(event): void {
     this.dialogModal = false;
     if (event) {
-      this.router.navigate(['/fleet/movement']).then();
+      this.router.navigate(['/fleet/movement/temporary']).then();
     }
   }
 

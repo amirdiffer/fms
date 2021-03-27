@@ -17,6 +17,8 @@ import { AddRequestComponent } from './movement/add-request/add-request.componen
 import { PendingRegistrationOverviewComponent } from './assets/pending-registration-overview/pending-registration-overview.component';
 import { PendingCustomizationOverviewComponent } from './assets/pending-customization-overview/pending-customization-overview.component';
 import { IserveComponent } from '@feature/fleet/movement/iserv/iserv.component';
+import { TemporaryComponent } from '../fleet/movement/temporary/temporary.component';
+import { AddTemporaryRequestComponent } from '../fleet/movement/add-temporary-request/add-temporary-request.component';
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
@@ -25,8 +27,13 @@ const routes: Routes = [
   { path: 'accessory/add-new-accessory', component: AddAccessoryComponent },
   { path: 'sub-asset', component: SubAssetComponent },
   { path: 'movement', component: MovementComponent },
+  { path: 'movement/temporary', component: TemporaryComponent },
   { path: 'movement/iserve', component: IserveComponent },
-  { path: 'movement/add-request', component: AddRequestComponent },
+  { path: 'movement/add-permanent-request', component: AddRequestComponent },
+  {
+    path: 'movement/add-temporary-request',
+    component: AddTemporaryRequestComponent
+  },
   { path: 'operator', component: OperatorComponent },
   { path: 'operator/add', component: AddOperatorComponent },
   { path: 'assets', component: AssetsComponent },
