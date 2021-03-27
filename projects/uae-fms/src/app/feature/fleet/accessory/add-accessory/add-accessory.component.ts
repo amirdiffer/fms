@@ -10,6 +10,8 @@ import { TableSetting } from '@core/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AccessoryFacade } from '@feature/fleet/+state/accessory';
+import { map } from 'rxjs/operators';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'add-accessory',
@@ -31,12 +33,14 @@ export class AddAccessoryComponent implements OnInit {
     { name: 'assignedTo Type 2', id: 2 },
     { name: 'assignedTo Type 3', id: 3 }
   ];
+
   formSubmitted = false;
   formChanged = false;
   dialogModalAdd = false;
   dialogModalError = false;
   dialogModalCancel = false;
 
+  //#region Dialogs
   dialogSettingAdd: IDialogAlert = {
     header: 'Accessory',
     hasError: false,
@@ -62,6 +66,7 @@ export class AddAccessoryComponent implements OnInit {
     message: 'Please fill in all the required fields.',
     confirmButton: 'OK'
   };
+  //#endregion
 
   accessory_Table: TableSetting = {
     columns: [
@@ -98,7 +103,17 @@ export class AddAccessoryComponent implements OnInit {
     private _route: ActivatedRoute,
     private _facade: AccessoryFacade,
     private changeDetector: ChangeDetectorRef
-  ) {}
+  ) { }
+
+  accessory$ = this._facade.accessory$.pipe(map(x => x.map((item) => {
+    return {
+      statusColor: '#00AFB9',
+      Item: item.itemName,
+      Asset_SubAsset: item.assignedToEntity,
+      Assigned_To: item.assignedToEmployeeId,
+      Quantity: item.quantity
+    };
+  })));
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
@@ -112,20 +127,6 @@ export class AddAccessoryComponent implements OnInit {
 
     this._facade.loadAll();
 
-    this._facade.accessory$.subscribe((data) => {
-      if (data) {
-        this.accessory_Table.data = data.map((item) => {
-          return {
-            statusColor: '#00AFB9',
-            Item: item.itemName,
-            Asset_SubAsset: item.assignedToEntity,
-            Assigned_To: item.assignedToEmployeeId,
-            Quantity: item.quantity
-          };
-        });
-      }
-    });
-
     this.inputForm.valueChanges.subscribe(() => {
       this.formChanged = true;
     });
@@ -133,7 +134,7 @@ export class AddAccessoryComponent implements OnInit {
     this._facade.submitted$.subscribe(x => {
       if (x) {
         this.dialogModalAdd = true;
-        this.dialogSettingError.hasError=false;
+        this.dialogSettingError.hasError = false;
         this.changeDetector.detectChanges();
       }
     });
@@ -141,7 +142,7 @@ export class AddAccessoryComponent implements OnInit {
     this._facade.error$.subscribe(x => {
       if (x?.error) {
         this.dialogModalError = true;
-        this.dialogSettingError.hasError=true;
+        this.dialogSettingError.hasError = true;
         this.changeDetector.detectChanges();
       }
     })
@@ -179,8 +180,8 @@ export class AddAccessoryComponent implements OnInit {
       this.inputForm.markAllAsTouched();
       return;
     } else {
-      const d =this.inputForm.getRawValue();
-      const _data={
+      const d = this.inputForm.getRawValue();
+      const _data = {
         "itemName": d.itemName,
         "assignedToType": 'SUB_ASSET',
         "assignedToEntity": d.assignedToEntity.id,
@@ -207,8 +208,10 @@ export class AddAccessoryComponent implements OnInit {
     }
     this.dialogModalCancel = false;
   }
+
   dialogAddConfirm(value) {
     if (value === true) {
+      this._facade.reset();
       this._router.navigate(['/fleet/accessory']);
     }
     this.dialogModalAdd = false;

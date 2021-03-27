@@ -15,9 +15,9 @@ export class AccessoryFacade {
 
   error$ = this.store.pipe(select(AccessorySelectors.error));
 
-  submitted$ = this.store.pipe(select(OwnershipSelectors.submitted));
+  submitted$ = this.store.pipe(select(AccessorySelectors.submitted));
 
-  constructor(private store: Store<IAccessoryPartialState>) {}
+  constructor(private store: Store<IAccessoryPartialState>) { }
 
   loadAll() {
     this.store.dispatch(AccessoryActions.loadAll());
@@ -30,5 +30,9 @@ export class AccessoryFacade {
   }
   editAccessory(data: any) {
     this.store.dispatch(AccessoryActions.editAccessory({ data }));
+  }
+
+  reset() {
+    this.store.dispatch(AccessoryActions.reset());
   }
 }

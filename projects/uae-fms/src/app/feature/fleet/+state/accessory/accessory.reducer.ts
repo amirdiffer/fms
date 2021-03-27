@@ -43,7 +43,7 @@ const accessoryReducer = createReducer(
 
   on(AccessoryActions.addAccessory, (state, { data }) => ({
     ...state,
-    loaded: false
+    submitted: false
   })),
 
   on(AccessoryActions.accessoryAddedSuccessfully, (state, { data }) =>
@@ -57,6 +57,10 @@ const accessoryReducer = createReducer(
 
   on(AccessoryActions.accessoryEditedSuccessfully, (state, { data }) =>
     accessoryAdapter.updateOne({ changes: data, id: data.id }, state)
+  ),
+
+  on(AccessoryActions.reset, (state) =>
+    ({ ...state, submitted: false, error: false, message: null })
   )
 
 );

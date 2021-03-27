@@ -65,7 +65,7 @@
   </div>
 </form>
 <div class="table-container component_wrapper">
-  <app-table [setting]='accessory_Table'></app-table>
+  <app-table [setting]='accessory_Table' [tableData]="accessory$"></app-table>
 </div>
 
 <alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel"
