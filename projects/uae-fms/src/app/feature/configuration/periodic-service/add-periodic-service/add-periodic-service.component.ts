@@ -9,7 +9,7 @@ import {
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { RouterFacade } from '@core/router';
-import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
+import { ColumnDifinition, ColumnType } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { PeriodicServiceFacade } from '../../+state/periodic-service';
 
@@ -64,9 +64,9 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   ];
 
   units = [
-    { id: 1, name: 'Km/h' },
-    { id: 2, name: 'Km/m' },
-    { id: 3, name: 'Km/s' }
+    { id: 'KmPH', name: 'Km/h' },
+    { id: 'KmPM', name: 'Km/m' },
+    { id: 'KmPS', name: 'Km/s' }
   ];
 
   tableSetting = {
@@ -99,7 +99,8 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   dialogErrorSetting: IDialogAlert = {
     header: 'Error',
     hasError: true,
-    message: 'Some Error Occurred'
+    message: 'Please fill all required fields',
+    confirmButton: 'OK'
   };
   displayCancelModal = false;
   displaySuccessModal = false;
@@ -118,14 +119,33 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
     super(injector);
   }
 
+  getPackageTasks(index: number): FormArray {
+    const packageForm = (this.periodicServiceForm.get(
+      'packages'
+    ) as FormArray).at(index) as FormGroup;
+    const tasks = packageForm.controls['tasks'] as FormArray;
+    return tasks;
+  }
+
+  getTasksForm(packageIndex: number, tasksIndex: number): FormGroup {
+    const tasks = this.getPackageTasks(packageIndex);
+    if (!tasks) {
+      return;
+    }
+    return tasks.at(tasksIndex) as FormGroup;
+  }
+
   ngOnInit(): void {
     this.periodicServiceForm = this._fb.group({
       name: ['', [Validators.required]],
-      packages: this._fb.array([this.createPackageForm()]),
-      tasks: this._fb.array([this.createTaskForm()])
+      packages: this._fb.array([this.createPackageForm()])
     });
-    this.tasks = this.periodicServiceForm.get('tasks') as FormArray;
-    if (!this.tasks) this.tasks.push(this.createTaskForm());
+
+    // const initialPackage = ((this.periodicServiceForm.get('packages')) as FormArray).at(0);
+    // (initialPackage.get('tasks') as FormArray).push(this.createTaskForm());
+
+    // this.tasks = this.periodicServiceForm.get('packages')[0].controls['tasks'] as FormArray;
+    // if (!this.tasks) this.tasks.push(this.createTaskForm());
 
     this.packages = this.periodicServiceForm.get('packages') as FormArray;
     if (!this.packages) this.packages.push(this.createPackageForm());
@@ -179,20 +199,22 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
     this.changeDetector.detectChanges();
   }
 
-  createTaskForm(): FormGroup {
+  createTaskForm(taskName = ''): FormGroup {
     return this._fb.group({
-      name: ['', [Validators.required]]
+      name: [taskName, [Validators.required]]
     });
   }
   createPackageForm(packageName = '', intervals = ''): FormGroup {
     return this._fb.group({
       packageName: [packageName, [Validators.required]],
-      intervals: [intervals]
+      intervals: [intervals],
+      intervalType: [''],
+      tasks: this._fb.array([this.createTaskForm()])
     });
   }
-  addTask(): void {
-    this.tasks = this.periodicServiceForm.get('tasks') as FormArray;
-    this.tasks.push(this.createTaskForm());
+  addTask(taskName = '', packageIndex = 0): void {
+    this.tasks = this.getPackageTasks(packageIndex);
+    this.tasks.push(this.createTaskForm(taskName));
   }
 
   addPackage(packageName = '', intervals = ''): void {
@@ -202,7 +224,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
 
   submit() {
     if (this.periodicServiceForm.invalid) {
-      return;
+      this.displayErrorModal = true;
     } else {
       if (!this.isEdit) {
         const data = this.getPeriodicServicePayload(
@@ -218,8 +240,20 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
       }
     }
   }
-  getPeriodicServicePayload(value: any) {
-    return value;
+  getPeriodicServicePayload(periodServiceFormValue: any) {
+    const { name, packages } = periodServiceFormValue;
+
+    return {
+      name,
+      packages: packages.map((p) => {
+        return {
+          name: p.name,
+          intervalType: p.intervalType.id,
+          intervalValue: p.intervals,
+          tasks: p.tasks.map((t) => t.name)
+        };
+      })
+    };
   }
 
   showCancelAlert() {
