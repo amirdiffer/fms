@@ -1,3 +1,4 @@
+import { IAssetType } from '@models/asset-type.model';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export const CONFIGURATION_ASSET_CONFIGURATION_FEATURE_KEY =
@@ -15,7 +16,7 @@ export interface AssetConfigurationStateModel {
 }
 
 export interface AssetConfigurationState
-  extends EntityState<AssetConfigurationStateModel> {
+  extends EntityState<IAssetType> {
   error?: any;
   loaded?: boolean;
   message?: string;
@@ -25,8 +26,8 @@ export interface AssetConfigurationPartialState {
   [CONFIGURATION_ASSET_CONFIGURATION_FEATURE_KEY]: AssetConfigurationState;
 }
 
-export const assetConfigurationAdapter: EntityAdapter<AssetConfigurationStateModel> = createEntityAdapter<
-  AssetConfigurationStateModel
+export const assetConfigurationAdapter: EntityAdapter<IAssetType> = createEntityAdapter<
+IAssetType
 >();
 
 export const initialState: AssetConfigurationState = assetConfigurationAdapter.getInitialState(

@@ -32,6 +32,8 @@ import {
 import { OrganizationEffects } from '../+state/organization/organization-effects.service';
 import { AccessoryEffect } from './accessory/accessory.effect';
 import { MovementRequestsEffect } from '@feature/fleet/+state/movement/requests/movement-requests.effect';
+import { BusinessCategoryFacade, BusinessCategoryService } from '@feature/configuration/+state/business-category';
+import { ConfigurationStateModule } from '@feature/configuration/+state';
 
 
 @NgModule({
@@ -46,6 +48,7 @@ import { MovementRequestsEffect } from '@feature/fleet/+state/movement/requests/
       AccessoryEffect,
       MovementRequestsEffect
     ]),
+    ConfigurationStateModule
   ],
   exports: [],
   declarations: [],
@@ -67,7 +70,8 @@ import { MovementRequestsEffect } from '@feature/fleet/+state/movement/requests/
     OrganizationService,
     OrganizationFacade,
     SubAssetFacade,
-    SubAssetService
+    SubAssetService,
+
   ]
 })
 export class FleetStateModule {}

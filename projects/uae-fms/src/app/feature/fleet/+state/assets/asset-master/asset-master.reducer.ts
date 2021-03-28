@@ -28,7 +28,7 @@ const assetMasterReducer = createReducer(
   })),
   on(AssetMasterActions.addAsset, (state, { data }) => ({
     ...state,
-    loaded: false
+    submitted: false
   })),
   on(AssetMasterActions.assetAddedSuccessfully, (state, { data }) =>
     assetMasterAdapter.addOne(data, { ...state, submitted: true })

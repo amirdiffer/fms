@@ -11,6 +11,8 @@ export class AssetMasterFacade {
 
   statistics$ = this.store.pipe(select(AssetMasterSelectors.selectStatistics));
 
+  submitted$ = this.store.pipe(select(AssetMasterSelectors.submitted));
+  
   constructor(private store: Store<IAssetMasterPartialState>) {}
 
   loadAll() {
