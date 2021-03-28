@@ -39,7 +39,8 @@ export class AssetsComponent implements OnInit, OnDestroy {
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map(x => {
       return x.map(y => {
-        return { ...y, 
+        return {
+          ...y,
           id: y.id,
           asset: {
             img: 'thumb1.png',
@@ -63,7 +64,8 @@ export class AssetsComponent implements OnInit, OnDestroy {
   dataRegistration$ = this.registrationFacade.registration$.pipe(
     map(x => {
       return x.map(y => {
-        return { ...y, 
+        return {
+          ...y,
           id: y.id,
           asset: {
             img: 'thumb1.png',
@@ -89,7 +91,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
     private registrationFacade: RegistrationFacade,
     private customizationFacade: CustomizationFacade,
     private _router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
@@ -185,9 +187,9 @@ export class AssetsComponent implements OnInit, OnDestroy {
             button: 'edit',
             color: '#3F3F3F',
             onClick: (col, data, button?) => {
-            console.log(data)
-            this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
-          }
+              this.assetMasterFacade.reset();
+              this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
+            }
           },
           {
             button: 'download'
@@ -226,7 +228,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
         filterTagColor: '#F75A4A'
       }
     ];
-    
+
     this.assetMasterFacade.loadAll();
     this.registrationFacade.loadAll();
     this.customizationFacade.loadAll();
@@ -276,6 +278,11 @@ export class AssetsComponent implements OnInit, OnDestroy {
       }
     );
 
+  }
+
+  add() {
+    this.assetMasterFacade.reset();
+    this._router.navigate(['fleet/assets/add-new-asset']);
   }
 
   exportTable() {

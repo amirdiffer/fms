@@ -42,4 +42,7 @@ export class AssetMasterActions {
     props<{ data: IAssetMaster }>()
   );
 
+  static reset = createAction(
+    '[AssetMaster] reset parameters'
+  );
 }

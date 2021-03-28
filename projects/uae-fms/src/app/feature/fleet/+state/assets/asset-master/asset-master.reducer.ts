@@ -31,7 +31,7 @@ const assetMasterReducer = createReducer(
     submitted: false
   })),
   on(AssetMasterActions.assetAddedSuccessfully, (state, { data }) =>
-    assetMasterAdapter.addOne(data, { ...state, submitted: true })
+    ({ ...state, submitted: true })
   ),
   on(AssetMasterActions.editAsset, (state, { data }) => ({
     ...state,
@@ -39,7 +39,13 @@ const assetMasterReducer = createReducer(
   })),
   on(AssetMasterActions.assetEditedSuccessfully, (state, { data }) =>
     assetMasterAdapter.updateOne({ changes: data, id: data.id }, state)
-  )
+  ),
+  on(AssetMasterActions.reset, (state) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
 );
 
 export function reducer(state: IAssetMasterState, action: Action) {

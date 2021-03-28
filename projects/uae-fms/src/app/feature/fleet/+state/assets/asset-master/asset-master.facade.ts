@@ -12,12 +12,13 @@ export class AssetMasterFacade {
   statistics$ = this.store.pipe(select(AssetMasterSelectors.selectStatistics));
 
   submitted$ = this.store.pipe(select(AssetMasterSelectors.submitted));
-  
+
   error$ = this.store.pipe(select(AssetMasterSelectors.error));
 
-  constructor(private store: Store<IAssetMasterPartialState>) {}
+  constructor(private store: Store<IAssetMasterPartialState>) { }
 
   loadAll() {
+    this.reset();
     this.store.dispatch(AssetMasterActions.loadAll());
   }
 
@@ -31,6 +32,10 @@ export class AssetMasterFacade {
 
   editAsset(data: any) {
     this.store.dispatch(AssetMasterActions.editAsset({ data }));
+  }
+
+  reset() {
+    this.store.dispatch(AssetMasterActions.reset());
   }
 
 }
