@@ -1,20 +1,23 @@
 @import '../../../../../themes/green-theme.scss';
 @import '../../../../../assets/scss/form-section.scss';
-.wrapper {
-  // background: white !important;
-  .form-section {
-    box-shadow: none !important;
+:host ::ng-deep{
+  .left-menu{
+    border-right: 1px solid #e0e0e0;
   }
-  .button-container {
-    top: 1.4em;
-    right: 12px;
-  }
-  .title {
-    font-size: 13px;
-    font-weight: bolder;
-  }
+}
+.form-section {
+  box-shadow: none !important;
+}
+.button-container {
+  top: 1.4em;
+  right: 12px;
+}
+.title {
+  font-size: 13px;
+  font-weight: bolder;
 }
 
 .form-check-label {
   margin: 0 20px;
 }
+

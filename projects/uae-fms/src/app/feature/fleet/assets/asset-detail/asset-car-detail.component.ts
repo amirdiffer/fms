@@ -7,20 +7,28 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetCarDetailComponent implements OnInit {
-  assetDetail = {
-    VIN: 'fjhkhfhfhiuwr',
-    licensePlate: 123456,
-    status: 'Infleet Active',
+  vehicle = {
+    id: 1,
+    make: 'bmw.png',
+    vehicle: 'Request No 123456',
+    thumb: 'thumb1.png',
+    type: 'bmw',
+    model: 'I3',
+    plateno: '1234',
+    iserve: '04',
+    status: '1',
+    location: 'Al Ghandi Ato Service Ras A Khor',
+    bodyType: 'Text Type',
+    color: 'Text Type',
+    trim: 'Text Type',
+    group: 'Text Type',
     department: 'Dep Name-Area-Dubai',
+    licensePlate: '123456',
     operator: 'User Name',
-    assetType: 'Text text',
-    make: 'Text text',
-    model: 'Text text',
-    year: 'Text text',
-    trim: 'Text text',
-    color: 'Text text',
     salik: 'Assign',
-    warranty: 'Under Warranty'
+    warranty: 'Under Warranty',
+    vin_sn: 'JTDKBRFU9J30593O7',
+    year: '2020'
   };
   constructor() {}
 

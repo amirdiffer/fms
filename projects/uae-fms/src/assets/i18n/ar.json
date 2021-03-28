@@ -587,6 +587,7 @@
         "km_day": "كيلومتر/يوم",
         "vehicle_sautes_details": "قفز السيارة/تفاصيل",
         "latest_location": "آخر موقع ",
+        "job_card_status":"حالة بطاقة العمل",
         "lifecycle": {
           "lifecycle": "دورة الحياة",
           "all": "الكل",

@@ -37,14 +37,20 @@ export class PendingRegistrationOverviewComponent
   filteredFuelTag: any[];
   inputForm: FormGroup;
   submitted = false;
-  //   displayModal = false;
-  //   dialogSetting : IDialogAlert ={
-  //     header:'Asset Successfully Registered',
-  //     hasError:false,
-  //     message:'Sample hint is here to explain process',
-  //     confirmButton: 'Customize Now',
-  //     cancelButton:'Cancel',
-  // }
+  displayModal = false;
+  dialogSetting : IDialogAlert ={
+    header:'Asset Successfully Registered',
+    hasError:false,
+    message:'Sample hint is here to explain process',
+    confirmButton: 'Customize Now',
+    buttons:[
+      {
+        title:'Customize Later',
+        eventEmit:'customizeLater'
+      }
+    ],
+    cancelButton:'Cancel',
+  }
 
   constructor(
     private dialog: MatDialog,
@@ -89,12 +95,9 @@ export class PendingRegistrationOverviewComponent
     this.filteredFuelTag = filtered;
   }
 
-  openConfirmModal() {
-    this.dialog.open(AssetRegistrationConfirmComponent, {
-      height: '225px',
-      width: '750px'
-    });
-    // this.displayModal = true;
+  dialogConfirm (event){
+    this.displayModal = false;
+    console.log(event)
   }
 
   submit() {
@@ -102,7 +105,7 @@ export class PendingRegistrationOverviewComponent
     if (this.inputForm.invalid) {
       return;
     } else {
-      this.openConfirmModal();
+      this.displayModal = true;
     }
   }
 

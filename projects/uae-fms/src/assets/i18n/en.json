@@ -585,6 +585,7 @@
         "km_day": "Km/Day",
         "vehicle_sautes_details": "Vehicle Sautes/Details",
         "latest_location": "Latest Location",
+        "job_card_status":"Job Card Status",
         "lifecycle": {
           "lifecycle": "Lifecycle",
           "all": "All",

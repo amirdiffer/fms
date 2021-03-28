@@ -19,10 +19,10 @@
                     <button class="btn-primary-small" routerLink="add-new-asset" *ngIf="selectedTab == 'assetMasterTab'"><i>+</i><a>{{'search.add' | translate}}</a></button>
                 </span>
                 <div title="tabs.asset_master" id="assetMasterTab">
-                    <app-table [setting]="assetMasterTableSetting"></app-table>
+                    <app-table [setting]="assetMasterTableSetting" [tableData]="dataAssetMaster$"></app-table>
                 </div>
                 <div title="tabs.pending_registration" id="pendingRegistrationTab">
-                    <app-table [setting]="pendingRegistrationTableSetting"></app-table>
+                    <app-table [setting]="pendingRegistrationTableSetting" [tableData]="dataRegistration$"></app-table>
                 </div>
                 <div title="tabs.pending_customization" id="pendingCustomizationTab">
                     <app-table [setting]="pendingCustomizationTableSetting"></app-table>

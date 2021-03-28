@@ -1,6 +1,6 @@
-<div class="row wrapper">
+<div class="row component_wrapper form-section position-relative">
     <div class="button-container">
-        <button *ngIf="!showCustomizationForm" class="btn-primary-medium add"
+        <button *ngIf="!showCustomizationForm" class="btn-primary-medium add start-customize"
             type="submit" (click)="showCustomizationForm= true">{{ 'assets.start_customization' | translate }}</button>
         <button *ngIf="showCustomizationForm" class="btn-primary-medium
             btn-scondary-green" type="button"
@@ -48,13 +48,12 @@
     </div>
     <ng-template #customizationForm>
         <div class="col-9 p-0">
-            <p-accordion expandIcon="pi pi-fw pi-plus"collapseIcon="pi pi-fw
-                pi-minus">
+            <p-accordion expandIcon="pi pi-fw pi-plus"collapseIcon="pi pi-fw pi-minus">
                 <p-accordionTab header="{{ 'assets.camera' | translate }}">
                     <div class="row camera-row" *ngIf="showFirstCameraForm else selectedFirstCamera">
                         <div class="title col-2">{{ 'assets.first_camera' | translate }}</div>
                         <div class="checkbox col-2">
-                            <div class="form-group form-check">
+                            <div class="form-group form-check px-3">
                                 <input id="checkbox2" type="checkbox"
                                     class="custom-checkbox" name="checkbox2" [(ngModel)]="firstCameraChecked">
                                 <label class="label" for="checkbox2">{{ 'assets.installed' | translate }}</label>
@@ -81,7 +80,7 @@
                     <div class="row camera-row" *ngIf="showSecondCameraForm else selectedSecondCamera">
                         <div class="title col-2">{{ 'assets.second_camera' | translate }}</div>
                         <div class="checkbox col-2">
-                            <div class="form-group form-check">
+                            <div class="form-group form-check px-3">
                                 <input id="checkbox2" type="checkbox"
                                     class="custom-checkbox" name="checkbox2" [(ngModel)]="secondCameraChecked">
                                 <label class="label" for="checkbox2">{{ 'assets.installed' | translate }}</label>
@@ -108,7 +107,7 @@
                     <div class="row camera-row" *ngIf="showThirdCameraForm else selectedThirdCamera">
                         <div class="title col-2">{{ 'assets.third_camera' | translate }}</div>
                         <div class="checkbox col-2">
-                            <div class="form-group form-check">
+                            <div class="form-group form-check px-3">
                                 <input id="checkbox2" type="checkbox"
                                     class="custom-checkbox" name="checkbox2" [(ngModel)]="thirdCameraChecked">
                                 <label class="label" for="checkbox2">{{ 'assets.installed' | translate }}</label>

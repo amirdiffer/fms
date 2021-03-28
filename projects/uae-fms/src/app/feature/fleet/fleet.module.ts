@@ -106,7 +106,7 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
     NgApexchartsModule,
     ChartsModule,
     MapModule,
-    AlertDialogModule
+    AlertDialogModule,
   ]
 })
 export class FleetModule {}

@@ -4,13 +4,13 @@
       <div class="search-box">
         <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
         <button>
-          <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
+          <img [src]="searchIcon" alt="">
         </button>
       </div>
       <button class="btn-download">
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
-      <button class="btn-primary-small" type="button"><i>+</i><a>{{'search.change' | translate}}</a></button>
+      <button class="btn-primary-small" type="button"><svg-icon class="mx-2" [src]="penIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#fff' , 'height': '100%'}"></svg-icon><a>{{'search.change' | translate}}</a></button>
     </span>
     <app-table [setting]="business_category"></app-table>
   </div>

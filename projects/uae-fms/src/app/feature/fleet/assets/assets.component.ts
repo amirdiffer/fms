@@ -12,6 +12,8 @@ import { Subscription } from 'rxjs';
 import { RegistrationFacade } from '@feature/fleet/+state/assets/registration';
 import { CustomizationFacade } from '@feature/fleet/+state/assets/customization';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { yearsPerPage } from '@angular/material/datepicker';
 
 @Component({
   selector: 'anms-assets',
@@ -34,6 +36,53 @@ export class AssetsComponent implements OnInit, OnDestroy {
   selectedTab = 'assetMasterTab';
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
+  dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
+    map(x => {
+      return x.map(y => {
+        return { ...y, 
+          id: y.id,
+          asset: {
+            img: 'thumb1.png',
+            assetName: y.assetTypeName,
+            assetSubName: y.dpd,
+            ownership: 'Owned'
+          },
+          type: y.assetTypeName,
+          businessCategory: 'VIP',
+          allocated: 'Finance',
+          operator: y.operator.firstName + ' ' + y.operator.lastName,
+          status: y.status,
+          submitOn: '2 day ago',
+          brand: 'bmw.png',
+          killometer: 25000,
+          statusColor: '#009EFF'
+        };
+      });
+    })
+  );
+  dataRegistration$ = this.registrationFacade.registration$.pipe(
+    map(x => {
+      return x.map(y => {
+        return { ...y, 
+          id: y.id,
+          asset: {
+            img: 'thumb1.png',
+            assetName: y.assetTypeName,
+            assetSubName: y.dpd,
+            progress: Math.floor(Math.random() * 6) + 1
+          },
+          serialNumber: '123s125583456',
+          brand: 'bmw.png',
+          type: 'Car',
+          allocated: 'Finance',
+          businessCategory: 'VIP',
+          createDate: '00/00/00',
+          registrantionDate: '00/00/00',
+          creator: 'Sam Smith'
+        };
+      });
+    })
+  );
   constructor(
     private _assetsService: AssetsService,
     private assetMasterFacade: AssetMasterFacade,
@@ -172,30 +221,8 @@ export class AssetsComponent implements OnInit, OnDestroy {
         filterTagColor: '#F75A4A'
       }
     ];
-
+    
     this.assetMasterFacade.loadAll();
-    this.assetMasterFacade.assetMaster$.subscribe((data) => {
-      this.assetMasterTableSetting.data = data.map((item) => {
-        return {
-          id: item.id,
-          asset: {
-            img: 'thumb1.png',
-            assetName: 'Asset Name',
-            assetSubName: 'DPD 0000001',
-            ownership: 'Owned'
-          },
-          type: item.assetTypeName,
-          businessCategory: 'VIP',
-          allocated: 'Finance',
-          operator: item.operator.firstName + item.operator.lastName,
-          status: item.status,
-          submitOn: '2 day ago',
-          brand: 'bmw.png',
-          killometer: 25000,
-          statusColor: '#009EFF'
-        }
-      });
-    });
     this.registrationFacade.loadAll();
     this.customizationFacade.loadAll();
     this.assetMasterFacade.loadStatistics();

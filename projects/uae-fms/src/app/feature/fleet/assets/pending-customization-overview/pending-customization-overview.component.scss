@@ -1,12 +1,11 @@
 @import '../../../../../themes/green-theme.scss';
 @import '../../../../../assets/scss/form-section.scss';
-.wrapper {
+.component_wrapper {
   // background: white !important;
   h3 {
     margin: 0;
-    font-family: $fms-green-h3-font-weight;
     font-weight: $fms-green-h3-color;
-    font-size: $fms-green-h3-font-size;
+    font-size: 1.2em;
     color: #008755;
   }
   ul {
@@ -23,13 +22,15 @@
     }
   }
   .button-container {
-    top: 1.4em;
     right: 12px;
-    button {
+    button.start-customize {
       width: 18em;
     }
   }
   ::ng-deep {
+    .left-menu{
+      border-right: 1px solid #e0e0e0;
+    }
     p-accordion {
       .p-accordion-header-link {
         text-decoration: none;
