@@ -3,6 +3,8 @@ import { FilterCardSetting } from '@core/filter/filter.component';
 import { assetsPath } from '@environments/environment';
 import { ColumnType, TableSetting } from '@core/table';
 import { OperatorFacade } from '../+state/operator';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-operator',
@@ -14,6 +16,8 @@ export class OperatorComponent implements OnInit {
   assets = assetsPath;
   downloadBtn = 'assets/icons/download-solid.svg';
   showOverView = false;
+
+  //#region Filter
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
@@ -66,6 +70,25 @@ export class OperatorComponent implements OnInit {
       onActive(index: number) {}
     }
   ];
+  //#endregion
+
+  data$ = this._operatorFacade.operator$.pipe(
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
+          Operator: y.firstName + ' ' + y.lastName,
+          Organization: y.department,
+          Information: { line1: y.emails[0], line2: y.phoneNumbers[0] },
+          Type: 'Operator',
+          Status: 'Active',
+          asset: 0,
+          TF_PAid: 0,
+          TF_Unpaid: 0
+        };
+      });
+    })
+  );
 
   operator_Table: TableSetting = {
     columns: [
@@ -124,164 +147,37 @@ export class OperatorComponent implements OnInit {
         renderer: 'floatButton'
       }
     ],
-    data: [
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      },
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      },
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      },
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      },
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      },
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      },
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      }
-    ],
+    data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
         console.log(col, data, button);
-        if ('external') {
-          this.showOverView = true;
-        }
+        // if ('external') {
+        //   this.showOverView = true;
+        // }
       },
       floatButton: [
         {
-          button: 'external'
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            console.log(data);
+            this._router.navigate(['/fleet/operator/edit-operator/' + data.id]);
+          }
+        },
+        {
+          button: 'external',
+          onClick: (col, data) => {
+            this._router.navigate(['/fleet/operator/' + data.id]);
+          }
         }
       ]
     }
   };
 
-  constructor(private _operatorFacade: OperatorFacade) {}
+  constructor(
+    private _operatorFacade: OperatorFacade,
+    private _router: Router
+  ) {}
 
   ngOnInit(): void {
     this._operatorFacade.loadAll();

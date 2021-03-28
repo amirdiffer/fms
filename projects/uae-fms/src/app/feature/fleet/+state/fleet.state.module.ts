@@ -32,6 +32,8 @@ import {
 import { OrganizationEffects } from '../+state/organization/organization-effects.service';
 import { AccessoryEffect } from './accessory/accessory.effect';
 import { MovementRequestsEffect } from '@feature/fleet/+state/movement/requests/movement-requests.effect';
+import { RolePermissionFacade } from '@feature/configuration/+state/role-permission';
+import { OperatorEffect } from './operator/operator.effect';
 
 @NgModule({
   imports: [
@@ -43,7 +45,8 @@ import { MovementRequestsEffect } from '@feature/fleet/+state/movement/requests/
       OrganizationEffects,
       SubAssetEffect,
       AccessoryEffect,
-      MovementRequestsEffect
+      MovementRequestsEffect,
+      OperatorEffect
     ])
   ],
   exports: [],
@@ -66,7 +69,8 @@ import { MovementRequestsEffect } from '@feature/fleet/+state/movement/requests/
     OrganizationService,
     OrganizationFacade,
     SubAssetFacade,
-    SubAssetService
+    SubAssetService,
+    RolePermissionFacade
   ]
 })
 export class FleetStateModule {}

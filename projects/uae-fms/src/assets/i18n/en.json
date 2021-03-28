@@ -103,7 +103,7 @@
     "add_ownership": "Add Ownership",
     "traffic_fine": "Traffic Fine",
     "add_role_permission": "Add Role Premission",
-    "add_operator": "Add Operator"
+    "add_operator": "Add Operator",
     "add_new_asset": "Add New Asset",
     "department": "Department",
     "add_new_accessory": "Add New Accessory"
@@ -186,6 +186,8 @@
     "out_of_policy": "Out Of Policy",
     "total_lost": "Total Lost",
     "paid": "Paid",
+    "unpaid": "Paid",
+    "deducted": "Deducted",
     "user": "User",
     "pending": "Pending",
     "complete": "Complete",

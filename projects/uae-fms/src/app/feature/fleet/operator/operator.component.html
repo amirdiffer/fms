@@ -13,12 +13,12 @@
     <button class="btn-download" disabled>
       <svg-icon [src]="downloadBtn"></svg-icon>
     </button>
-    <button class="btn-primary-small" [routerLink]="'add-operator'"><i>+</i><a>{{'search.add' | translate}}</a></button>
+    <button class="btn-primary-small" routerLink='add-operator'><i>+</i><a>{{'search.add' | translate}}</a></button>
   </div>
   <div class="">
-    <app-table [setting]='operator_Table'></app-table>
+    <app-table [setting]='operator_Table' [tableData]="data$"></app-table>
   </div>
 </div>
-<ng-container *ngIf="showOverView">
+<!-- <ng-container *ngIf="showOverView">
   <anms-over-view-operator></anms-over-view-operator>
-</ng-container>
+</ng-container> -->

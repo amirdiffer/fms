@@ -19,6 +19,7 @@ import { PendingCustomizationOverviewComponent } from './assets/pending-customiz
 import { IserveComponent } from '@feature/fleet/movement/iserv/iserv.component';
 import { TemporaryComponent } from '../fleet/movement/temporary/temporary.component';
 import { AddTemporaryRequestComponent } from '../fleet/movement/add-temporary-request/add-temporary-request.component';
+import { OverViewOperatorComponent } from './operator/over-view-operator/over-view-operator.component';
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
@@ -36,6 +37,8 @@ const routes: Routes = [
   },
   { path: 'operator', component: OperatorComponent },
   { path: 'operator/add-operator', component: AddOperatorComponent },
+  { path: 'operator/edit-operator/:id', component: AddOperatorComponent },
+  { path: 'operator/:id', component: OverViewOperatorComponent },
   { path: 'assets', component: AssetsComponent },
   { path: 'assets/add-new-asset', component: AddAssetComponent },
   { path: 'assets/:id', component: OverViewAssetComponent },

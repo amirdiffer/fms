@@ -209,7 +209,9 @@
     "tasks": "المهام",
     "started": "بدأت",
     "not_started": "لم يبدأ",
-    "closed": "مغلق"
+    "closed": "مغلق",
+    "unpaid": "دفع",
+    "deducted": "مخصوم"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
