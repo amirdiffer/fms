@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'operator/add', component: AddOperatorComponent },
   { path: 'assets', component: AssetsComponent },
   { path: 'assets/add-new-asset', component: AddAssetComponent },
+  { path: 'assets/edit-asset/:id', component: AddAssetComponent },
   { path: 'assets/:id', component: OverViewAssetComponent },
   {
     path: 'assets/:id/registration',

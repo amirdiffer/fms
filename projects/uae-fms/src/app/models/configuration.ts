@@ -61,6 +61,7 @@ export interface IOwnerShip {
 export interface IPeriodicService {
   id: number;
   name: string;
+  numOfUsage?:number;
 }
 
 export interface IDepartment {

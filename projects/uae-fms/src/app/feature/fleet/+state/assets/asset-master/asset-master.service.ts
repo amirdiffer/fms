@@ -30,8 +30,13 @@ export class AssetMasterService {
   }
   editAsset(data): Observable<ResponseBody<IAssetMaster>> {
     return this._http.post<ResponseBody<IAssetMaster>>(
-      environment.baseApiUrl + 'asset',
+      environment.baseApiUrl + 'asset/' + data.id + '/update',
       data
     );
+  }
+  getAssetByID(id){
+    return this._http.get<ResponseBody<IAssetMaster>>(
+      environment.baseApiUrl + 'asset/' + id
+    )
   }
 }

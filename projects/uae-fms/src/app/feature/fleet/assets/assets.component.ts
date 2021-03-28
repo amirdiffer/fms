@@ -182,7 +182,12 @@ export class AssetsComponent implements OnInit, OnDestroy {
       rowSettings: {
         floatButton: [
           {
-            button: 'edit'
+            button: 'edit',
+            color: '#3F3F3F',
+            onClick: (col, data, button?) => {
+            console.log(data)
+            this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
+          }
           },
           {
             button: 'download'

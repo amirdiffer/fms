@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="ownerShip" [placeholder]="'assets.ownership' | translate" [options]="ownerShip" optionLabel="name" optionValue="id" formControlName="ownership"></p-dropdown>
+                            <p-dropdown inputId="ownerShip" [placeholder]="'assets.ownership' | translate" [options]="ownerShip" optionLabel="type" optionValue="id" formControlName="ownership"></p-dropdown>
                             <label for="ownerShip">{{ 'assets.ownership' | translate }}</label>
                           </span>
                           <anms-error
@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="make"  [placeholder]="'assets.make' | translate " [options]="itemTypes" optionLabel="name" optionValue="id"  formControlName="make"></p-dropdown>
+                            <p-dropdown inputId="make"  [placeholder]="'assets.make' | translate " [options]="assetMake" optionLabel="name" optionValue="id"  formControlName="make" (onChange)="onChangeAssetMake($event)"></p-dropdown>
                             <label for="make">{{ 'assets.make' | translate }} *</label>
                           </span>
                           <anms-error
@@ -68,7 +68,7 @@
                         </div>
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="model" [placeholder]="'assets.model' | translate"  [options]="itemTypes" optionLabel="name" optionValue="id" formControlName="model"></p-dropdown>
+                            <p-dropdown inputId="model" [placeholder]="'assets.model' | translate"  [options]="assetModel" optionLabel="model" optionValue="id" formControlName="model"  (onChange)="onChangeAssetModel($event)"></p-dropdown>
                             <label for="model">{{ 'assets.model' | translate }} *</label>
                           </span>
                           <anms-error
@@ -78,7 +78,7 @@
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="itemTypes" optionLabel="name" optionValue="id" formControlName="color"></p-dropdown>
+                            <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="assetColor" optionLabel="color" optionValue="id" formControlName="color"></p-dropdown>
                             <label for="color">{{ 'assets.color' | translate }}</label>
                           </span>
                           <anms-error
@@ -88,7 +88,7 @@
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="trim" [placeholder]="'assets.trim' | translate" [options]="itemTypes" optionLabel="name" optionValue="id" formControlName="trim"></p-dropdown>
+                            <p-dropdown inputId="trim" [placeholder]="'assets.trim' | translate" [options]="assetTrim" optionLabel="trim" optionValue="id" formControlName="trim"></p-dropdown>
                             <label>{{ 'assets.trim' | translate }} *</label>
                           </span>
                           <anms-error
@@ -203,7 +203,7 @@
                             <div class="col-12 col-md-5 p-field form-section__field dropdown-select"
                                   [class.col-md-12]="policyType.value != ''" >
                               <span class="p-float-label">
-                                <p-dropdown inputId="policyType" formControlName="policyType" [placeholder]="'assets.policy_type' | translate " [options]="itemTypes" optionLabel="name" optionValue="id"></p-dropdown>
+                                <p-dropdown inputId="policyType" formControlName="policyType" [placeholder]="'assets.policy_type' | translate " [options]="policyTypeDropDown" optionLabel="name" optionValue="id" (onChange)="onChangePolicyType($event)"></p-dropdown>
                                 <label for="policyType">{{ 'assets.policy_type' | translate }} *</label>
                               </span>
                               <anms-error
@@ -377,7 +377,7 @@
                               <div class="row">
                                 <div class="col-12 p-field form-section__field dropdown-select" [class.col-md-8]="periodicService.value == '' ">
                                   <span class="p-float-label">
-                                    <p-dropdown inputId="periodicService" formControlName="periodicService" [placeholder]=" 'assets.periodic_service' | translate" [options]="itemTypes" optionLabel="name" optionValue="id"></p-dropdown>
+                                    <p-dropdown inputId="periodicService" formControlName="periodicService" [placeholder]=" 'assets.periodic_service' | translate" [options]="periodicServiceItem" optionLabel="name" optionValue="id"></p-dropdown>
                                     <label for="periodicService">{{ 'assets.periodic_service' | translate }} *</label>
                                   </span>
                                   <anms-error
