@@ -13,6 +13,8 @@ export class AssetMasterFacade {
 
   submitted$ = this.store.pipe(select(AssetMasterSelectors.submitted));
   
+  error$ = this.store.pipe(select(AssetMasterSelectors.error));
+
   constructor(private store: Store<IAssetMasterPartialState>) {}
 
   loadAll() {

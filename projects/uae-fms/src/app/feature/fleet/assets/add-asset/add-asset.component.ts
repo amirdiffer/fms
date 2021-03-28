@@ -74,6 +74,16 @@ export class AddAssetComponent extends Utility implements OnInit  , OnDestroy{
     confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };
+  errorDialogSetting: IDialogAlert = {
+    header: '',
+    message: 'Error occurred in progress',
+    confirmButton: 'Ok',
+    isWarning: false,
+    hasError: true,
+    hasHeader: true,
+    cancelButton: undefined
+  };
+  errorDialogModal = false;
   @ViewChild('stepper') stepper: MatStepper;
   itemTypes = [
     { name: 'Item type 1', id: 1 },
@@ -362,7 +372,6 @@ export class AddAssetComponent extends Utility implements OnInit  , OnDestroy{
   ngOnInit(): void {
     this._facadeBussinessCategory.loadAll();
     this._facadeOwnership.loadAll();
-
     this.businessCategory$ = this._facadeBussinessCategory.businessCategory$.subscribe(
       (x) => {
         x.map(
@@ -392,18 +401,13 @@ export class AddAssetComponent extends Utility implements OnInit  , OnDestroy{
     this.assetType$ = this._assetConfigurationService.loadAll().subscribe(
       (data) => {
         data.message.map(x => {
-          console.log(x)
+          this.assetType.push(x);
           x.makes.map(
             (y) => {
               const make = {
                 id: y.id,
                 name:y.make
               }
-              // y.models.map(
-              //   (z) => {
-
-              //   }
-              // )
               this.assetMake.push(make);
             }
           )
@@ -411,6 +415,43 @@ export class AddAssetComponent extends Utility implements OnInit  , OnDestroy{
         })
       }
     );
+    // this.assetType$ = this._assetConfigurationService.loadAll().subscribe(
+    //   (data) => {
+    //     data.message.map(x => {
+    //       this.assetType.push(x);
+    //       console.log(x.makes)
+    //     })
+    //   }
+    // );
+    // if(this.assetType.length > 0){
+    //   this.assetType.map(
+    //     (items) => {
+    //       items.makes.map(
+    //         (item) => {
+    //           console.log('item', item)
+    //           const data = {
+    //             id: item.id,
+    //             name:item.make
+    //           }
+    //           this.assetMake.push(data)
+    //         }
+    //       )
+    //     }
+    //   );
+    // }
+
+    this._facade.error$.subscribe(x => {
+      if (x?.error) {
+        console.log(x?.error)
+        this.errorDialogModal = true;
+        this.errorDialogSetting.header = 'Add new asset';
+        this.errorDialogSetting.hasError = true;
+        this.errorDialogSetting.cancelButton = undefined;
+        this.errorDialogSetting.confirmButton = "Ok";
+      } else {
+        this.errorDialogModal = false;
+      }
+    });
     this.formGroupAssetDetail = this._fb.group({
       businessInfo: this._fb.group({
         businessCategory:['', Validators.compose([Validators.required])],
@@ -583,6 +624,12 @@ export class AddAssetComponent extends Utility implements OnInit  , OnDestroy{
     const date = this.warrantyStartDate.controls[i] as FormGroup;
     return date.get('warrantyStartDate').value;
   }
+  onChangeAssetMake(event){
+    // assetModel
+    console.log(this.assetType.find(x => x.id == event.value).makes.map(x => {return x.models.map(y => {return y})}))
+    this.assetModel = this.assetType.find(x => x.id == event.value).makes.map(x => {return x.models[0]})
+    console.log(this.assetType.find(x => x.id == event.value).name)
+  }
   generateForm(){
     let formVal_AssetDetail = this.formGroupAssetDetail.getRawValue();
     let formVal_Financial = this.formGroupFinancial.getRawValue();
@@ -638,11 +685,12 @@ export class AddAssetComponent extends Utility implements OnInit  , OnDestroy{
       ],
       "description": formVal_Maintenance.description,
       "dpds": [
-      "DPD1234",
-      "DPD8951"
+        `DPD${Math.floor(Math.random() * 9990)}`,
+        `DPD${Math.floor(Math.random() * 9990)}`,
       ]
     }
-    console.log(formValue)
+    console.log(formValue);
+    
     this._facade.addAsset(formValue);
     // this._router.navigate(['/fleet/assets']);
   }

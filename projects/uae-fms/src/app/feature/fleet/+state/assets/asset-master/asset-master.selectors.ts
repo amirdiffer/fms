@@ -14,6 +14,11 @@ export class AssetMasterSelectors {
     (state: IAssetMasterState) => state.statistics
   );
 
+  static error = createSelector(
+    FleetSelectors.assetMasterSelector,
+    (state) => state.error
+  );
+
   static submitted = createSelector(
     FleetSelectors.assetMasterSelector,
     (state) => state.submitted

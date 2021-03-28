@@ -9,7 +9,7 @@
       </div>
       <div>
         <div class="row form-section__row">
-          <div class="col-12">
+          <div class="col-12 px-0">
             <ng-container>
               <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom">
                 <mat-step [editable]="isEditable" state="">
@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="make"  [placeholder]="'assets.make' | translate " [options]="assetMake" optionLabel="name" optionValue="id"  formControlName="make"></p-dropdown>
+                            <p-dropdown inputId="make"  [placeholder]="'assets.make' | translate " [options]="itemTypes" optionLabel="name" optionValue="id"  formControlName="make"></p-dropdown>
                             <label for="make">{{ 'assets.make' | translate }} *</label>
                           </span>
                           <anms-error
@@ -576,4 +576,4 @@
 </div>
 
 <alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialog($event)"></alert-dialog>
-<!-- <alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal" (confirm)="errorDialogModal=false"></alert-dialog> -->
+<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal" (confirm)="errorDialogModal=false"></alert-dialog>
