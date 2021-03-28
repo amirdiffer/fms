@@ -21,34 +21,6 @@ export class MovementOverviewEffect {
     )
   );
 
-  addMovementRequest$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(MovementOverviewActions.addMovementRequest),
-      mergeMap((action) =>
-        this.service.addMovementRequest(action.data).pipe(
-          map((data) =>
-            MovementOverviewActions.movementRequestAddedSuccessfully({ data: { ...action.data, ...data.message } })
-          ),
-          catchError((error) => of(MovementOverviewActions.error({ reason: error })))
-        )
-      )
-    )
-  );
-
-  editMovementRequest$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(MovementOverviewActions.editMovementRequest),
-      mergeMap((action) =>
-        this.service.editMovementRequest(action.data).pipe(
-          map((data) =>
-            MovementOverviewActions.movementRequestEditedSuccessfully({ data: data.message })
-          ),
-          catchError((error) => of(MovementOverviewActions.error({ reason: error })))
-        )
-      )
-    )
-  );
-
   constructor(
     private action$: Actions,
     private service: MovementOverviewService

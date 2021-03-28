@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   ElementRef,
   ViewChild,
-  AfterViewChecked
+  AfterViewChecked, Injector, ChangeDetectorRef
 } from '@angular/core';
 import { MovementService } from './movement.service';
 import { Observable, of } from 'rxjs';
@@ -16,13 +16,16 @@ import {
   MovementRequestsFacade
 } from '../+state/movement';
 import { map } from 'rxjs/operators';
+import { ButtonType } from '@core/table/table.component';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { Utility } from '@shared/utility/utility';
 @Component({
   selector: 'anms-movement',
   templateUrl: './movement.component.html',
   styleUrls: ['./movement.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovementComponent implements OnInit, AfterViewChecked {
+export class MovementComponent extends Utility implements OnInit, AfterViewChecked {
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   filterSetting = [
@@ -53,6 +56,20 @@ export class MovementComponent implements OnInit, AfterViewChecked {
   selectedTab;
   requestFilterHide$: Observable<boolean> = of(this.requestFilter);
   showTable = true;
+  dialogSuccessSetting: IDialogAlert = {
+    header: 'Success',
+    hasError: false,
+    message: 'Rejected Successfully',
+    confirmButton: 'Ok',
+  };
+  dialogErrorSetting: IDialogAlert = {
+    header: 'Error',
+    hasError: true,
+    message: 'Some Error Occurred',
+    confirmButton: 'Ok',
+  };
+  displaySuccessModal = false;
+  displayErrorModal = false;
 
   @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
 
@@ -61,10 +78,21 @@ export class MovementComponent implements OnInit, AfterViewChecked {
     private _fb: FormBuilder,
     private dialog: MatDialog,
     private _movementOverviewFacade: MovementOverviewFacade,
-    private _movementRequestsFacade: MovementRequestsFacade
-  ) {}
+    private _movementRequestsFacade: MovementRequestsFacade,
+    private changeDetector: ChangeDetectorRef,
+    injector: Injector
+  ) {
+    super(injector);
+  }
 
-  movementOverview$ = this._movementOverviewFacade.MovementOverview$.pipe(
+  // movementOverview$ = this._movementOverviewFacade.MovementOverview$.pipe(
+  //   map(x => {
+  //     return x.map(y => {
+  //       return {...y, }
+  //     });
+  // }));
+
+  movementRequest$ = this._movementRequestsFacade.MovementRequests$.pipe(
     map(x => {
       return x.map(y => {
         return {...y, }
@@ -104,7 +132,96 @@ export class MovementComponent implements OnInit, AfterViewChecked {
     });
 
     this.movementOverViewTableSetting = this._movementService.movmentOverViewTableSetting();
-    this.requestTableSetting = this._movementService.requestTableSetting();
+    this.requestTableSetting = {
+      columns: [
+        {
+          lable: 'tables.column.user',
+          field: 'user',
+          width: 140,
+          type: 1,
+          thumbField: '',
+          renderer: 'assetsRenderer'
+        },
+        {
+          lable: 'tables.column.movement_type',
+          field: 'movementType',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.request_type',
+          field: 'requestType',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.asset_type',
+          field: 'assetType',
+          width: 70,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.reason',
+          field: 'reason',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.date',
+          field: 'date',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.request_status',
+          field: 'requestStatus',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: '',
+          field: 'ButtonReject',
+          width: 80,
+          type: 1,
+          thumbField: '',
+          renderer: 'button',
+          buttonType: ButtonType.reject,
+          onClick: (data) => {
+            console.log('ddd')
+            // this._movementRequestsFacade.rejecting(data);
+          },
+          showOnHover: true
+        },
+        {
+          lable: '',
+          width: 100,
+          type: 1,
+          field: 'ButtonConfirm',
+          renderer: 'button',
+          buttonType: ButtonType.confirm,
+          showOnHover: true
+        }
+      ],
+      data: this._movementService.requestData(),
+      rowSettings: {
+        onClick: (data, button?, col?) => {
+          if (button == 'reject')
+            this._movementRequestsFacade.rejecting(data.id);
+        },
+      }
+    };
     // Handle confirm button click
     let confirmCol = this.requestTableSetting.columns.find(
       (c) => c.field === 'ButtonConfirm'
@@ -136,6 +253,25 @@ export class MovementComponent implements OnInit, AfterViewChecked {
         filterTagColor: '#EF7A85'
       }
     ];
+
+    this._movementRequestsFacade.rejected$.subscribe(x => {
+      if (x) {
+        this.displaySuccessModal = true;
+        this.dialogErrorSetting.hasError=false;
+        this.changeDetector.detectChanges();
+      }
+    });
+    this._movementRequestsFacade.error$.subscribe(x => {
+      console.log(x)
+      if (x?.error) {
+        this.displayErrorModal = true;
+        this.dialogErrorSetting.hasError=true;
+        this.changeDetector.detectChanges();
+      } else {
+        this.displayErrorModal = false;
+      }
+    })
+
   }
   ngAfterViewChecked() {
     if (
@@ -151,7 +287,8 @@ export class MovementComponent implements OnInit, AfterViewChecked {
   openConfirmModal() {
     this.dialog.open(MovementConfirmComponent, {
       height: '600px',
-      width: '800px'
+      width: '800px',
+      data: 1,
     });
   }
   rejectRow() {

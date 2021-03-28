@@ -16,17 +16,4 @@ export class MovementOverviewService {
     );
   }
 
-  addMovementRequest(data): Observable<ResponseBody<MovementOverviewStateModel>> {
-    return this.http.post<ResponseBody<MovementOverviewStateModel>>(
-      environment.baseApiUrl + 'movement/request',
-      data
-    );
-  }
-  editMovementRequest(data): Observable<ResponseBody<MovementOverviewStateModel>> {
-    return this.http.post<ResponseBody<MovementOverviewStateModel>>(
-      environment.baseApiUrl + 'movement/request',
-      data
-    );
-  }
-
 }

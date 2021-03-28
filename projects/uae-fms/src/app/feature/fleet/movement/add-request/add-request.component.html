@@ -12,11 +12,11 @@
                 </div>
                 <div class="col-12 col-md-8 row">
                   <div class="form-check col-6">
-                    <input class="form-check-input" formControlName="requestType" type="radio" name="requestType" id="New" value ="new">
+                    <input class="form-check-input" formControlName="requestType" type="radio" name="requestType" id="New" value ="NEW">
                     <label class="form-check-label" for="New">{{ 'movement.movement.new' | translate }}</label>
                   </div>
                   <div class="form-check col-6">
-                    <input class="form-check-input" formControlName="requestType" type="radio" name="requestType" id="Replacement" value ="replacement">
+                    <input class="form-check-input" formControlName="requestType" type="radio" name="requestType" id="Replacement" value ="REPLACEMENT">
                     <label class="form-check-label" for="Replacement">{{ 'movement.movement.replacement' | translate }}</label>
                   </div>
                 </div>
@@ -50,11 +50,11 @@
         <!-- start quantity -->
         <div class="row form-section__row">
             <div class="col-12 p-field form-section__field"
-                *ngIf="requestForm.controls['requestType'].value === 'new'">
+                *ngIf="requestForm.controls['requestType'].value === 'NEW'">
                 <span class="p-float-label">
                     <input pInputText placeholder="{{ 'movement.movement.quantity' | translate }} *"
                         formControlName="quality"
-                        type="text">
+                        type="number">
                     <label>{{ 'movement.movement.quantity' | translate }} *</label>
                 </span>
             </div>
@@ -65,7 +65,7 @@
             <div class="col-12 col-md-5 p-field form-section__field
                 justify-height"
                 *ngIf="requestForm.controls['requestType'].value ===
-                'replacement'">
+                'REPLACEMENT'">
                 <div class="autocomplete-select">
                     <span class="p-float-label">
                         <p-autoComplete formControlName="oldAssetType"

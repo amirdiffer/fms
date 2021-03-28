@@ -23,4 +23,20 @@ export class MovementRequestsSelectors {
     FleetSelectors.movementRequestsSelector,
     (state) => state.error
   );
+
+  static submitted = createSelector(
+    FleetSelectors.movementOverviewSelector,
+    (state) => state.submitted
+  );
+
+  static rejected = createSelector(
+    FleetSelectors.movementOverviewSelector,
+    (state) => state.rejected
+  );
+
+  static assigned = createSelector(
+    FleetSelectors.movementOverviewSelector,
+    (state) => state.assigned
+  );
+
 }

@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ButtonType } from '@core/table/table.component';
 import { IMovementOverView, IRequests } from './movement.model';
+import { HttpClient } from '@angular/common/http';
+import { ResponseBody } from '@models/response-body';
+import { IAssetType } from '@models/asset-type.model';
+import { environment } from '@environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -92,14 +97,15 @@ export class MovementService {
           renderer: ''
         }
       ],
-      data: []
+      data: this.movmentOverViewData()
     };
   };
 
-  private requestData = (): IRequests[] => {
+  public requestData = (): IRequests[] => {
     const data = [];
     for (let index = 0; index < 9; index++) {
       const el = {
+        id: index + 1,
         user: {
           img: 'user-image.png',
           userName: 'Sam Smith',
@@ -203,7 +209,16 @@ export class MovementService {
       data: this.requestData()
     };
   };
-  constructor() {}
+
+  assetTypes(): Observable<ResponseBody<IAssetType[]>> {
+    return this._http.get<ResponseBody<IAssetType[]>>(
+      environment.baseApiUrl + '/configuration/asset-type'
+    );
+  }
+
+  constructor(
+    private _http: HttpClient
+  ) {}
 
   openConfirmModal() {}
 }

@@ -14,20 +14,10 @@ export class MovementOverviewFacade {
 
   error$ = this.store.pipe(select(MovementOverviewSelectors.error));
 
-  submitted$ = this.store.pipe(select(MovementOverviewSelectors.submitted));
-
   constructor(private store: Store<MovementOverviewPartialState>) {}
 
   loadAll() {
     this.store.dispatch(MovementOverviewActions.loadAll());
-  }
-
-  addMovementRequest(data: any) {
-    this.store.dispatch(MovementOverviewActions.addMovementRequest({ data }));
-  }
-
-  editMovementRequest(data: any) {
-    this.store.dispatch(MovementOverviewActions.editMovementRequest({ data }));
   }
 
 }

@@ -5,6 +5,8 @@ import {
   movementRequestsAdapter,
   MovementRequestsState
 } from './movement-requests.entity';
+import { MovementOverviewActions } from '@feature/fleet/+state/movement/overview/movement-overview.actions';
+import { movementOverviewAdapter } from '@feature/fleet/+state/movement/overview/movement-overview.entity';
 
 const movementRequestsReducer = createReducer(
   initialState,
@@ -41,7 +43,48 @@ const movementRequestsReducer = createReducer(
     ...state,
     error: reason,
     loaded: true
-  }))
+  })),
+
+  on(MovementRequestsActions.addMovementRequest, (state, { data }) => ({
+    ...state,
+    loaded: false
+  })),
+
+  on(MovementRequestsActions.movementRequestAddedSuccessfully, (state, { data }) =>
+    movementRequestsAdapter.addOne(data, { ...state, submitted: true })
+  ),
+
+  on(MovementRequestsActions.editMovementRequest, (state, { data }) => ({
+    ...state,
+    loaded: false
+  })),
+
+  on(MovementRequestsActions.movementRequestEditedSuccessfully, (state, { data }) =>
+    movementRequestsAdapter.updateOne({ changes: data, id: data.id }, state)
+  ),
+
+  on(MovementRequestsActions.reject, (state, { data }) => ({
+    ...state,
+    rejected: false
+  })),
+
+  on(MovementRequestsActions.rejectSuccessfully, (state, { data }) => ({
+      ...state,
+      rejected: true
+    })
+  ),
+
+  on(MovementRequestsActions.assign, (state, { data }) => ({
+    ...state,
+    assigned: false
+  })),
+
+  on(MovementRequestsActions.assignSuccessfully, (state, { data }) => ({
+      ...state,
+      assigned: true
+    })
+  )
+
 );
 
 export function reducer(state: MovementRequestsState, action: Action) {

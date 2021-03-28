@@ -14,24 +14,4 @@ export class MovementOverviewActions {
     props<{ reason: any }>()
   );
 
-  static addMovementRequest = createAction(
-    '[MovementOverview] add Movement Request',
-    props<{ data: any }>()
-  );
-
-  static movementRequestAddedSuccessfully = createAction(
-    '[MovementOverview] Movement Request added successfully',
-    props<{ data: any }>()
-  );
-
-  static editMovementRequest = createAction(
-    '[MovementOverview] edit Movement Request',
-    props<{ data: any }>()
-  );
-
-  static movementRequestEditedSuccessfully = createAction(
-    '[MovementOverview] Movement Request added successfully',
-    props<{ data: MovementOverviewStateModel }>()
-  );
-
 }

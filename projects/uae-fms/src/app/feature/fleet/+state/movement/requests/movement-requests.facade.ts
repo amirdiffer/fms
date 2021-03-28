@@ -16,6 +16,12 @@ export class MovementRequestsFacade {
 
   error$ = this.store.pipe(select(MovementRequestsSelectors.error));
 
+  submitted$ = this.store.pipe(select(MovementRequestsSelectors.submitted));
+
+  rejected$ = this.store.pipe(select(MovementRequestsSelectors.rejected));
+
+  assigned$ = this.store.pipe(select(MovementRequestsSelectors.assigned));
+
   constructor(private store: Store<MovementRequestsPartialState>) {}
 
   loadAll() {
@@ -24,6 +30,22 @@ export class MovementRequestsFacade {
 
   loadRequestStatistic() {
     this.store.dispatch(MovementRequestsActions.loadStatistic());
+  }
+
+  addMovementRequest(data: any) {
+    this.store.dispatch(MovementRequestsActions.addMovementRequest({ data }));
+  }
+
+  editMovementRequest(data: any) {
+    this.store.dispatch(MovementRequestsActions.editMovementRequest({ data }));
+  }
+
+  rejecting(data: any) {
+    this.store.dispatch(MovementRequestsActions.reject({ data }));
+  }
+
+  assigning(id, data: any) {
+    this.store.dispatch(MovementRequestsActions.assign({ id, data }));
   }
 
 }

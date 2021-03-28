@@ -20,9 +20,4 @@ export class MovementOverviewSelectors {
     (state) => state.error
   );
 
-  static submitted = createSelector(
-    FleetSelectors.movementOverviewSelector,
-    (state) => state.submitted
-  )
-
 }

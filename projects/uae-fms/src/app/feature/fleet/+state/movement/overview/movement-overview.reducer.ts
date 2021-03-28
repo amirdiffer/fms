@@ -27,25 +27,7 @@ const movementOverviewReducer = createReducer(
     ...state,
     error: reason,
     loaded: true
-  })),
-
-  on(MovementOverviewActions.addMovementRequest, (state, { data }) => ({
-    ...state,
-    loaded: false
-  })),
-
-  on(MovementOverviewActions.movementRequestAddedSuccessfully, (state, { data }) =>
-    movementOverviewAdapter.addOne(data, { ...state, submitted: true })
-  ),
-
-  on(MovementOverviewActions.editMovementRequest, (state, { data }) => ({
-    ...state,
-    loaded: false
-  })),
-
-  on(MovementOverviewActions.movementRequestEditedSuccessfully, (state, { data }) =>
-    movementOverviewAdapter.updateOne({ changes: data, id: data.id }, state)
-  )
+  }))
 
 );
 

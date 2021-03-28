@@ -1,8 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { MovementOverviewFacade } from '@feature/fleet/+state/movement';
+import { MovementOverviewFacade, MovementRequestsFacade } from '@feature/fleet/+state/movement';
 import { Utility } from '@shared/utility/utility';
+import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { AssetTypeFacade } from '@feature/configuration/+state/asset-configuration';
+import { MovementService } from '@feature/fleet/movement/movement.service';
 
 @Component({
   selector: 'anms-add-request',
@@ -37,35 +40,26 @@ export class AddRequestComponent extends Utility implements OnInit {
   displaySuccessModal = false;
   displayErrorModal = false;
 
-  assetTypes = [
-    { name: 'Asset type 1', id: 1 },
-    { name: 'Asset type 2', id: 2 },
-    { name: 'Asset type 3', id: 3 },
-    { name: 'Asset type 4', id: 4 },
-    { name: 'Asset type 5', id: 5 },
-    { name: 'Asset type 6', id: 6 }
-  ];
-  oldAssetSuggests = [
-    { name: 'Old asset type 1', id: 1 },
-    { name: 'Old asset type 2', id: 2 },
-    { name: 'Old asset type 3', id: 3 },
-    { name: 'Old asset type 4', id: 4 },
-    { name: 'Old asset type 5', id: 5 },
-    { name: 'Old asset type 6', id: 6 }
-  ];
+  assetTypes = [];
+  oldAssetSuggests = [];
+  oldAssetSuggestsB;
+
   constructor(
     private _fb: FormBuilder,
-    private facade: MovementOverviewFacade,
+    private facade: MovementRequestsFacade,
     private changeDetector: ChangeDetectorRef,
+    private assetFacade: AssetMasterFacade,
+    private _movementService: MovementService,
     injector: Injector
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this.assetFacade.loadAll();
     this.requestForm = this._fb.group({
-      requestType: ['new'],
-      assetType: ['', Validators.compose([Validators.required])],
+      requestType: ['NEW'],
+      assetType: [''],
       reason: ['', Validators.compose([Validators.required])],
       quality: [''],
       oldAssetType: ['']
@@ -78,6 +72,14 @@ export class AddRequestComponent extends Utility implements OnInit {
       }
     });
 
+    this.assetFacade.assetMaster$.subscribe(x => {
+      this.oldAssetSuggestsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
+    });
+
+    this._movementService.assetTypes().subscribe(x => {
+      this.assetTypes = x.message.map((y => ({ id: y.id, name: y['name'] })))
+    });
+
     this.facade.error$.subscribe(x => {
       if (x?.error) {
         this.displayErrorModal = true;
@@ -86,17 +88,12 @@ export class AddRequestComponent extends Utility implements OnInit {
       }
     })
   }
+
   filterAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.oldAssetSuggests = [
-      { name: 'Old asset type 1', id: 1 },
-      { name: 'Old asset type 2', id: 2 },
-      { name: 'Old asset type 3', id: 3 },
-      { name: 'Old asset type 4', id: 4 },
-      { name: 'Old asset type 5', id: 5 },
-      { name: 'Old asset type 6', id: 6 }
-    ];
+    this.oldAssetSuggests = this.oldAssetSuggestsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
   }
+
   submit() {
     this.submitted = true;
     if (this.requestForm.invalid) {
@@ -106,9 +103,9 @@ export class AddRequestComponent extends Utility implements OnInit {
       let _data = {
         "requesterId": 11953127,
         "requestType": d.requestType,
-        "movementType": "Permanent",
+        "movementType": "PERMANENT",
         "assetTypeId": d.assetType.id,
-        "reason": d.resone,
+        "reason": d.reason,
         "quantity": d.quality,
         "startDate": "2018-10-18T21:13:06.253Z",
         "endDate": "2008-09-13T21:13:24.636Z"
