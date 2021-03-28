@@ -6,9 +6,9 @@
     <button class="btn-primary-medium add" (click)="submit()">{{ 'search.add' |
       translate }}</button>
   </div>
-    <alret-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)"></alret-dialog>
-    <alret-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal"></alret-dialog>
-    <alret-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal"></alret-dialog>
+    <alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+    <alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal"></alert-dialog>
+    <alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal"></alert-dialog>
 
   <div class="form-section form-section--inline mt-3">
     <div class="row">

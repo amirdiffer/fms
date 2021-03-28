@@ -1,23 +1,9 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { IJobCard } from '@models/body-shop';
 
 export const WORKSHOP_BODYSHOP_JOBCARD_FEATURE_KEY = 'bodyShopJobCard';
 
-export interface IBodyshopJobCardStateModel {
-  item: {
-    name: string;
-    dpd: string;
-    thumb: string;
-  };
-  task: string;
-  startDate: string;
-  endDate: string;
-  location: string;
-  cost: string;
-  approval: string;
-}
-
-export interface IBodyshopJobCardState
-  extends EntityState<IBodyshopJobCardStateModel> {
+export interface IBodyshopJobCardState extends EntityState<IJobCard> {
   error?: any;
   loaded: boolean;
   message: string;
@@ -27,8 +13,8 @@ export interface IBodyshopJobCardPartialState {
   [WORKSHOP_BODYSHOP_JOBCARD_FEATURE_KEY]: IBodyshopJobCardState;
 }
 
-export const bodyShopJobCardAdapter: EntityAdapter<IBodyshopJobCardStateModel> = createEntityAdapter<
-  IBodyshopJobCardStateModel
+export const bodyShopJobCardAdapter: EntityAdapter<IJobCard> = createEntityAdapter<
+  IJobCard
 >();
 
 export const initialState: IBodyshopJobCardState = bodyShopJobCardAdapter.getInitialState(

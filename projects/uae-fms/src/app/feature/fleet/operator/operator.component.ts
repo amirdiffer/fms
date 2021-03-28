@@ -3,6 +3,8 @@ import { FilterCardSetting } from '@core/filter/filter.component';
 import { assetsPath } from '@environments/environment';
 import { ColumnType, TableSetting } from '@core/table';
 import { OperatorFacade } from '../+state/operator';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-operator',
@@ -14,30 +16,32 @@ export class OperatorComponent implements OnInit {
   assets = assetsPath;
   downloadBtn = 'assets/icons/download-solid.svg';
   showOverView = false;
+
+  //#region Filter
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#6C7198',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '356',
       filterTagColor: '#5B8972',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.vacation',
       filterCount: '124',
       filterTagColor: '#DDB16C',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '12',
       filterTagColor: '#E07A5F',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
   filterCardOverView: FilterCardSetting[] = [
@@ -45,27 +49,46 @@ export class OperatorComponent implements OnInit {
       filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#6C7198',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
-      filterTitle: 'statistic.paid',
+      filterTitle: 'statistic.active',
       filterCount: '356',
       filterTagColor: '#5B8972',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
-      filterTitle: 'statistic.unpainted',
+      filterTitle: 'statistic.vacation',
       filterCount: '124',
       filterTagColor: '#DDB16C',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
-      filterTitle: 'statistic.deducte',
+      filterTitle: 'statistic.inactive',
       filterCount: '12',
       filterTagColor: '#E07A5F',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
+  //#endregion
+
+  data$ = this._operatorFacade.operator$.pipe(
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
+          Operator: y.firstName + ' ' + y.lastName,
+          Organization: y.department,
+          Information: { line1: y.emails[0], line2: y.phoneNumbers[0] },
+          Type: 'Operator',
+          Status: 'Active',
+          asset: { img: "thumb1.png" },
+          TF_PAid: 0,
+          TF_Unpaid: 0
+        };
+      });
+    })
+  );
 
   operator_Table: TableSetting = {
     columns: [
@@ -99,14 +122,21 @@ export class OperatorComponent implements OnInit {
         field: 'asset',
         width: 180,
         renderer: 'assetsRenderer',
-        thumbField: ''
+        thumbField: 'assetPicture'
       },
-      { lable: 'tables.column.tf_paid', type: 1, field: 'TF_PAid', width: 100 },
+      {
+        lable: 'tables.column.tf_paid',
+        type: 1,
+        field: 'TF_PAid',
+        width: 100,
+        sortable: true
+      },
       {
         lable: 'tables.column.tf_unpaid',
         type: 1,
         field: 'TF_Unpaid',
-        width: 100
+        width: 100,
+        sortable: true
       },
       {
         lable: '',
@@ -117,164 +147,37 @@ export class OperatorComponent implements OnInit {
         renderer: 'floatButton'
       }
     ],
-    data: [
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      },
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      },
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      },
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      },
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      },
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      },
-      {
-        picture: 'user-image.png',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        asset: {
-          img: 'thumb1.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        Organization: { line1: 'Department Name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150569899' },
-        Type: 'Iserve',
-        Status: 'Active',
-        Asset: '',
-        TF_PAid: '14',
-        TF_Unpaid: '0',
-        statusColor: '#81B29A'
-      }
-    ],
+    data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
         console.log(col, data, button);
-        if ('external') {
-          this.showOverView = true;
-        }
+        // if ('external') {
+        //   this.showOverView = true;
+        // }
       },
       floatButton: [
         {
-          button: 'external'
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            console.log(data);
+            this._router.navigate(['/fleet/operator/edit-operator/' + data.id]);
+          }
+        },
+        {
+          button: 'external',
+          onClick: (col, data) => {
+            this._router.navigate(['/fleet/operator/' + data.id]);
+          }
         }
       ]
     }
   };
 
-  constructor(private _operatorFacade: OperatorFacade) {}
+  constructor(
+    private _operatorFacade: OperatorFacade,
+    private _router: Router
+  ) { }
 
   ngOnInit(): void {
     this._operatorFacade.loadAll();

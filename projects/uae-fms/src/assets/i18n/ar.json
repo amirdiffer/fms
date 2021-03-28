@@ -34,7 +34,8 @@
     "issue_closed_description": "عندما يغلق مستخدم آخر مشكلة",
     "logout": "تسجيل خروج",
     "organization": "منظمة",
-    "phone_number": "رقم التليفون"
+    "phone_number": "رقم التليفون",
+    "add_opeartor": "إضافة عامل"
   },
   "breadcrumb": {
     "dashboard": "لوحة البيانات",
@@ -44,6 +45,7 @@
     "accessory": "الملحقات",
     "operator": "المشغل",
     "organization": "المنظمة",
+    "department": "الإدارة",
     "movement": "الحركة",
     "fuel_management": "إدارة الوقود",
     "traffic_fine": "المخالفات المرورية",
@@ -55,7 +57,7 @@
     "technical_inspection": "الفحص الفني",
     "auction_list": "قائمة المزاد",
     "task_master": "متابعة المهام",
-    "add_task_master":"إضافة المتابعة المهام",
+    "add_task_master": "إضافة المتابعة المهام",
     "part_store": "متجر الجزء",
     "part_list": "قائمة الأجزاء",
     "order_list": "لائحة الطلبات",
@@ -79,6 +81,7 @@
     "add_periodic_service": "إضافة الصيانة الدورية",
     "add_category": "إضافة التصنيف",
     "add_fleet_status": "إضافة حالة الأسطول",
+    "edit_fleet_status": "تحرير حالة الأسطول",
     "add_order_list": "إضافة قائمة الطلبات",
     "add_fuel_card": "إضافة بطاقة الوقود",
     "add_asset_usage": "إضافة استخدام الأصول",
@@ -90,11 +93,21 @@
     "add_supplier": "إضافة مورد",
     "add_technician": "إضافة فني",
     "add_location": "اضافة الموقع",
-    "add_asset_policy":"إضافة سياسة الأصول",
-    "edit_asset_policy":"تحرير سياسة الأصول",
+    "add_asset_policy": "إضافة سياسة الأصول",
+    "edit_asset_policy": "تحرير سياسة الأصول",
     "inspections": "التفتيش",
     "iserve": "IServe",
-    "add_role_permission":"إضافة إذن الدور"
+    "customization": "التخصيص",
+    "registration": "التسجيل",
+    "edit_part": "تحرير الجزء",
+    "overview": "نظرة عامة",
+    "category": "الفئة",
+    "add_business_category": "إضافة فئة العمل",
+    "add_asset_configuration": "إضافة تكوين الأصول",
+    "add_ownership": "أضف ملكية",
+    "add_role_permission": "إضافة إذن الدور",
+    "add_new_asset": "إضافة أصل جديد",
+    "add_new_accessory": "إضافة ملحق جديد"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -104,7 +117,8 @@
       "sub_assets": "الأصول الفرعية",
       "accessory": "الملحقات",
       "operator": "المشغل",
-      "organization": "المنظمة",
+      "organization": "الإدارة",
+      "department": "الإدارة",
       "movement": {
         "~": "الحركة",
         "permanent": "دائم",
@@ -151,6 +165,9 @@
     "integrations": "الدمج"
   },
   "statistic": {
+    "part": "جزء",
+    "waiting": "انتظار",
+    "requests": "طلبات",
     "total": "إجمالي",
     "active": "مفعل",
     "inactive": "غير مفعل",
@@ -192,7 +209,9 @@
     "tasks": "المهام",
     "started": "بدأت",
     "not_started": "لم يبدأ",
-    "closed": "مغلق"
+    "closed": "مغلق",
+    "unpaid": "دفع",
+    "deducted": "مخصوم"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -238,6 +257,7 @@
   },
   "tables": {
     "column": {
+      "request_id": "طلب معرف",
       "suppliers": "الموردين",
       "name": "الاسم",
       "total_sub_asset": "إجمالي الأصول الفرعية",
@@ -263,7 +283,7 @@
       "serial_number": "رقم سري",
       "warranty_expire_date": "تاريخ انتهاء الضمان",
       "item": "الصنف",
-      "asset_sub_asset": "الأصول الفرعية الأصول",
+      "asset_sub_asset": "الأصول الفرعية / الأصول",
       "assigned_to": "تعيين إلى",
       "quantity": "العدد",
       "organization": "منظمة",
@@ -391,14 +411,14 @@
       "traffic_fine": "المخالفات المرورية",
       "cost_of_part": "تكلفة الجزء",
       "system": "نظام",
+      "attachment": "المرفق",
       "priority": "أفضلية",
       "part_cost": "التكلفة الجزئية",
       "actual_end_date": "تاريخ الانتهاء الفعلي",
       "delay": "تأخير",
-      "attachment": "المرفق",
       "issue_type": "نوع القضية",
-      "employe_id":"معرف الموظف",
-      "user_status":"حالة المستخدم"
+      "employe_id": "معرف الموظف",
+      "user_status": "حالة المستخدم"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -471,6 +491,29 @@
     "set_reminder": "تعيين تذكير",
     "week": "أسبوع",
     "reminder_before": "تذكير من قبل",
+    "salik": "سالك",
+    "vin": "فين",
+    "vin_sn": "VIN / SN",
+    "licence_plate": "لوحة معدنية",
+    "fleet_no": "رقم الأسطول",
+    "current_live": "لايف الحالي",
+    "current_live_reading": "القراءة الحية الحالية",
+    "fuel_tag": "بطاقة الوقود",
+    "gps": "نظام تحديد المواقع",
+    "insurance_number": "رقم التأمين",
+    "salik_tag": "بطاقة سالك",
+    "camera": "آلة تصوير",
+    "content": "محتوى",
+    "first_camera": "أول كاميرا",
+    "installed": "المثبتة",
+    "second_camera": "كاميرا ثانية",
+    "start_customization": "ابدأ التخصيص",
+    "third_camera": "الكاميرا الثالثة",
+    "saved": "تم الحفظ",
+    "asset_successfully_registered": "تم تسجيل الأصل بنجاح",
+    "customize_later": "التخصيص لاحقًا",
+    "customize_now": "تخصيص الآن",
+    "sample_hint_is_here_to_explain_process": "نموذج تلميح هنا لشرح العملية",
     "overview": {
       "job_card_history": "تاريخ بطاقة العمل",
       "active_job_card_task": "مهام بطاقات العمل النشطة",
@@ -482,7 +525,7 @@
       "need_part": "تحتاج الجزء",
       "description": "الوصف",
       "select_issue": "حدد المشكلة من فضلك",
-      "latest_location":"آخر موقع ",
+      "latest_location": "آخر موقع ",
       "requests": {
         "asset_info": "معلومات الأصول",
         "asset": "الأصل",
@@ -599,6 +642,7 @@
     }
   },
   "accessory": {
+    "assets_sub_assets": "الأصول / الأصول الفرعية",
     "assigned_to_a": "تعيين إلى",
     "item_name": " اسم الصنف",
     "asset": "الأصول",
@@ -659,7 +703,9 @@
       "reason": "سبب",
       "asset_type": "نوع الأصول",
       "quantity": "العدد",
-      "old_asset": "الأصل القديم"
+      "old_asset": "الأصل القديم",
+      "duration": "مدة",
+      "assign_to": "يسند إلى"
     },
     "request": {
       "request_type": "نوع الطلب",
@@ -718,8 +764,8 @@
       "progressbar_title": "ملف CSV فقط",
       "content": "قم بسحب وإسقاط ملف هنا",
       "upload": "تحميل",
-      "save":"حفظ",
-      "please_upload_a_csv_file":"يرجى تحميل ملف CSV"
+      "save": "حفظ",
+      "please_upload_a_csv_file": "يرجى تحميل ملف CSV"
     }
   },
   "part_store": {
@@ -1005,15 +1051,18 @@
         "set_reminder_before": "تحديد تذكير قبل"
       }
     },
-    "asset_configuration": {
+    "add_asset_configuration": {
       "make_and_model_info": "صنع ونموذج المعلومات",
       "multiple_model": "نموذج متعدد",
       "single_model": "نموذج واحد",
       "select_model": "اختر النموذج",
       "model": "نموذج",
+      "make": "صنع",
+      "color": "اللون",
       "drag_and_drop_a_csv_file_or": "قم بسحب وإسقاط ملف csv أو",
       "click_here": "انقر هنا",
       "description": "الوصف",
+      "type_description": "اكتب الوصف",
       "active_type": "النوع النشط",
       "type_name": "النوع الاسم",
       "accessory": "الملحقات",
@@ -1073,9 +1122,10 @@
     }
   },
   "forms": {
+    "submit": "يقدم",
     "add": "إضافة",
     "save": "حفظ",
-    "cancel": "إلغاء",
+    "cancel": "يلغي",
     "next": "التالي",
     "back": "الرجوع",
     "view": "رأي",
@@ -1091,8 +1141,9 @@
     "upload": "تحميل",
     "generate": "إنشاء",
     "feedback": {
-      "required": "هذا الحقل إلزامي",
-      "invalid-email": "عنوان البريد الإلكتروني غير صالح"
+      "required": "هذا الحقل مطلوب",
+      "invalid-email": "عنوان البريد الإلكتروني غير صالح",
+      "file_ext": "امتداد الملف غير صحيح"
     },
     "order": "ترتيب"
   },
@@ -1128,12 +1179,12 @@
     "boat": "قارب",
     "add_type": "إضافة نوع"
   },
-  "chart":{
-    "lifecycle":"دورة الحياة",
-    "all":"الجميع",
-    "month":"شهر",
-    "week":"أسبوع",
-    "this_month":"الشهر الحالي",
-    "service":"الخدمة"
+  "chart": {
+    "lifecycle": "دورة الحياة",
+    "all": "الجميع",
+    "month": "شهر",
+    "week": "أسبوع",
+    "this_month": "الشهر الحالي",
+    "service": "الخدمة"
   }
 }

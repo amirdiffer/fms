@@ -55,7 +55,8 @@ export class OrganizationComponent implements OnInit {
         type: 1,
         isIconLable: true,
         field: 'car',
-        width: 100
+        width: 100,
+        sortable: true
       },
       {
         lable: '',
@@ -137,5 +138,8 @@ export class OrganizationComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.organization$.subscribe((data) => {
+      console.log(data, 'organizations');
+    });
   }
 }

@@ -19,7 +19,7 @@
                         <button class="btn-download" disabled>
                             <svg-icon [src]="downloadBtn"></svg-icon>
                         </button>
-                        <button *ngIf="selectedTab !='requestTab'" class="btn-primary-small" routerLink="add-request"><a>{{ 'search.request' | translate }}</a></button>
+                        <button *ngIf="selectedTab !='requestTab'" class="btn-primary-small" routerLink="add-permanent-request"><a>{{ 'search.request' | translate }}</a></button>
                     </span>
                     <div title="tabs.movement_over_view" id="MovementOverViewTab">
                         <app-table [setting]="movementOverViewTableSetting"></app-table>

@@ -1,0 +1,148 @@
+<div class="row wrapper">
+    <div class="button-container">
+        <button *ngIf="!showCustomizationForm" class="btn-primary-medium add"
+            type="submit" (click)="showCustomizationForm= true">{{ 'assets.start_customization' | translate }}</button>
+        <button *ngIf="showCustomizationForm" class="btn-primary-medium
+            btn-scondary-green" type="button"
+            [routerLink]="['/fleet/assets']" [queryParams]="{id: 'pendingCustomizationTab'}">{{'forms.cancel' | translate}}</button>
+        <button *ngIf="showCustomizationForm" class="btn-primary-medium add"
+            type="submit">{{'forms.save' |
+            translate}}</button></div>
+    <div class="col-3 p-0">
+        <anms-asset-detail></anms-asset-detail>
+    </div>
+    <div *ngIf="!showCustomizationForm else customizationForm" class="col-9
+        p-0">
+        <div class="p-3">
+            <h3>
+                {{ 'tables.column.category_name' | translate }}
+            </h3>
+            <ul>
+                <li>{{ 'dashboard.active' | translate }}</li>
+            </ul>
+            <p>
+                Description here Description here Description here Description
+                here Description here Description here
+            </p>
+        </div>
+        <div class="table-container">
+            <div class="card-table">
+                <div class="card-table-header">
+                    <div class="search-box">
+                        <input type="text" placeholder="{{
+                            'search.search_in_columns' | translate }}">
+                        <button>
+                            <img [src]="searchIcon"
+                                alt="">
+                        </button>
+                    </div>
+                    <button class="btn-download" disabled>
+                        <svg-icon [src]="downloadBtn"></svg-icon>
+                    </button>
+
+                </div>
+                <app-table [setting]="tableSetting"></app-table>
+            </div>
+        </div>
+
+    </div>
+    <ng-template #customizationForm>
+        <div class="col-9 p-0">
+            <p-accordion expandIcon="pi pi-fw pi-plus"collapseIcon="pi pi-fw
+                pi-minus">
+                <p-accordionTab header="{{ 'assets.camera' | translate }}">
+                    <div class="row camera-row" *ngIf="showFirstCameraForm else selectedFirstCamera">
+                        <div class="title col-2">{{ 'assets.first_camera' | translate }}</div>
+                        <div class="checkbox col-2">
+                            <div class="form-group form-check">
+                                <input id="checkbox2" type="checkbox"
+                                    class="custom-checkbox" name="checkbox2" [(ngModel)]="firstCameraChecked">
+                                <label class="label" for="checkbox2">{{ 'assets.installed' | translate }}</label>
+                            </div>
+                        </div>
+                        <div class="text-box col-5" *ngIf="firstCameraChecked">
+                            <div class=" p-field form-section__field">
+                                <span class="p-float-label">
+                                    <input pInputText placeholder="{{ 'tables.column.serial_number' | translate }}" (keyup.enter)="showFirstCameraForm = false" [(ngModel)]="firstCameraSerialNumber" type="text">
+                                    <label>{{ 'tables.column.serial_number' | translate }}</label>
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <ng-template #selectedFirstCamera>
+                        <div class="row camera-selected-row justify-content-between">
+                            <div class="selected">
+                                {{ 'assets.first_camera' | translate }} S/N: {{firstCameraSerialNumber}} {{ 'assets.saved' | translate }}
+                            </div>
+                            <div>16/08/2020 13:00 pm</div>
+                        </div>
+                    </ng-template>
+                    <div class="row camera-row" *ngIf="showSecondCameraForm else selectedSecondCamera">
+                        <div class="title col-2">{{ 'assets.second_camera' | translate }}</div>
+                        <div class="checkbox col-2">
+                            <div class="form-group form-check">
+                                <input id="checkbox2" type="checkbox"
+                                    class="custom-checkbox" name="checkbox2" [(ngModel)]="secondCameraChecked">
+                                <label class="label" for="checkbox2">{{ 'assets.installed' | translate }}</label>
+                            </div>
+                        </div>
+                        <div class="text-box col-5" *ngIf="secondCameraChecked">
+                            <div class=" p-field form-section__field">
+                                <span class="p-float-label">
+                                    <input pInputText placeholder="{{ 'tables.column.serial_number' | translate }}" (keyup.enter)="showSecondCameraForm = false" [(ngModel)]="secondCameraSerialNumber" type="text">
+                                    <label >{{ 'tables.column.serial_number' | translate }}</label>
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <ng-template #selectedSecondCamera>
+                        <div class="row camera-selected-row justify-content-between">
+                            <div class="selected">
+                                {{ 'assets.second_camera' | translate }} S/N: {{secondCameraSerialNumber}} Saved
+                            </div>
+                            <div>16/08/2020 13:00 pm</div>
+                        </div>
+                    </ng-template>
+                    <div class="row camera-row" *ngIf="showThirdCameraForm else selectedThirdCamera">
+                        <div class="title col-2">{{ 'assets.third_camera' | translate }}</div>
+                        <div class="checkbox col-2">
+                            <div class="form-group form-check">
+                                <input id="checkbox2" type="checkbox"
+                                    class="custom-checkbox" name="checkbox2" [(ngModel)]="thirdCameraChecked">
+                                <label class="label" for="checkbox2">{{ 'assets.installed' | translate }}</label>
+                            </div>
+                        </div>
+                        <div class="text-box col-5" *ngIf="thirdCameraChecked">
+                            <div class=" p-field form-section__field">
+                                <span class="p-float-label">
+                                    <input pInputText placeholder="{{ 'tables.column.serial_number' | translate }}" (keyup.enter)="showThirdCameraForm = false" [(ngModel)]="thirdCameraSerialNumber" type="text">
+                                    <label>{{ 'tables.column.serial_number' | translate }}</label>
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <ng-template #selectedThirdCamera>
+                        <div class="row camera-selected-row justify-content-between">
+                            <div class="selected">
+                                {{ 'assets.third_camera' | translate }} S/N: {{thirdCameraSerialNumber}} Saved
+                            </div>
+                            <div>16/08/2020 13:00 pm</div>
+                        </div>
+                    </ng-template>
+                </p-accordionTab>
+                <p-accordionTab header="{{ 'tables.column.gps' | translate }}">
+                    {{ 'assets.content' | translate }} 2
+                </p-accordionTab>
+                <p-accordionTab header="{{ 'assets.camera' | translate }}">
+                    {{ 'assets.content' | translate }} 3
+                </p-accordionTab>
+                <p-accordionTab header="{{ 'assets.camera' | translate }}">
+                    {{ 'assets.content' | translate }} 3
+                </p-accordionTab>
+            </p-accordion>
+        </div>
+    </ng-template>
+</div>

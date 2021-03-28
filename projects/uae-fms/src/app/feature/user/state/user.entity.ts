@@ -1,27 +1,23 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { IProfile } from '@models/profile';
 
 export const USER_PROFILE_FEATURE_KEY = 'userProfile';
 
-export interface IUserProfileModel {
-  firstName: string;
-  fleetManager: boolean;
-  lastName: string;
-  userName: string;
-}
-
-export interface IUserProfileState extends EntityState<IUserProfileModel> {
+export interface IUserProfileState extends EntityState<IProfile> {
   loaded: boolean;
   error?: any;
   message: string;
+  profile: object;
 }
 
-export const userProfileAdapter: EntityAdapter<IUserProfileModel> = createEntityAdapter<
-  IUserProfileModel
->();
+export const userProfileAdapter: EntityAdapter<
+  IProfile[]
+> = createEntityAdapter<IProfile[]>();
 export const initialState: IUserProfileState = userProfileAdapter.getInitialState(
   {
     loaded: null,
     error: null,
-    message: null
+    message: null,
+    profile: null
   } as IUserProfileState
 );

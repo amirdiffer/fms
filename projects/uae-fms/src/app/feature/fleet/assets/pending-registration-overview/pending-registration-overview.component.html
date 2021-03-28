@@ -1,0 +1,151 @@
+<div class="row wrapper">
+    <div class="button-container">
+        <button class="btn-primary-medium btn-scondary-green" type="button"
+            [routerLink]="['/fleet/assets']" [queryParams]="{id: 'pendingRegistrationTab'}">{{'forms.cancel' | translate}}</button>
+        <button class="btn-primary-medium add" (click)="submit()"
+            type="submit">{{'forms.save' |
+            translate}}</button>
+    </div>
+    <div class="col-3 pl-0">
+        <anms-asset-detail></anms-asset-detail>
+    </div>
+    <div class="col-9">
+        <form [formGroup]="inputForm">
+            <div class="row mt-4">
+                <div class="col-10">
+                    <div class="p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="{{ 'tables.column.plate_number' | translate }} *"
+                                formControlName="plateNumber"
+                                type="text">
+                            <label>{{ 'tables.column.plate_number' | translate }} *</label>
+                        </span>
+                        <anms-error
+                            [showError]="hasError('plateNumber',inputForm,submitted)"
+                            error="forms.feedback.required"></anms-error>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10">
+                    <div class="p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="{{ 'assets.insurance_number' | translate }} *"
+                                type="text" formControlName="insuranceNumber">
+                            <label>{{ 'assets.insurance_number' | translate }} *</label>
+                        </span>
+                        <anms-error
+                            [showError]="hasError('insuranceNumber',inputForm,submitted)"
+                            error="forms.feedback.required"></anms-error>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10">
+                    <div class="form-group p-field form-section__field">
+                        <div class="input-group">
+                            <div class="autocomplete-select w-100">
+                                <span class="p-float-label">
+                                    <p-autoComplete
+                                        formControlName="salikTag"
+                                        [suggestions]="filteredSalikTag"
+                                        (completeMethod)="searchSalikTag($event)"
+                                        field="name"></p-autoComplete>
+                                    <i class="pi pi-search"></i>
+                                    <label>{{ 'assets.salik_tag' | translate }} *</label>
+                                </span>
+                                <anms-error
+                                    [showError]="hasError('salikTag',inputForm,submitted)"
+                                    error="forms.feedback.required"></anms-error>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10">
+                    <div class="form-group p-field form-section__field">
+                        <div class="input-group">
+                            <div class="autocomplete-select w-100">
+                                <span class="p-float-label">
+                                    <p-autoComplete formControlName="fuelTag"
+                                        [suggestions]="filteredFuelTag"
+                                        (completeMethod)="searchFuelTag($event)"
+                                        field="name"></p-autoComplete>
+                                    <i class="pi pi-search"></i>
+                                    <label>{{ 'assets.fuel_tag' | translate }} *</label>
+                                </span>
+                                <anms-error
+                                    [showError]="hasError('fuelTag',inputForm,submitted)"
+                                    error="forms.feedback.required"></anms-error>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="{{ 'assets.operator' | translate }}"
+                                formControlName="operator"
+                                type="text">
+                            <label>{{ 'assets.operator' | translate }}</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="{{ 'assets.department' | translate }}"
+                                formControlName="department"
+                                type="text">
+                            <label>{{ 'assets.department' | translate }}</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="{{ 'operator.employee_number' | translate }}"
+                                formControlName="employeeNumber"
+                                type="text">
+                            <label>{{ 'operator.employee_number' | translate }}</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 title">
+                    {{ 'tables.column.current_meter' | translate }}
+                </div>
+                <div class="col-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                            name="radioButton" id="radioButton2"
+                            value="estimate">
+                        <label  class="form-check-label" for="radioButton2">{{ 'assets.current_live' | translate }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                            name="radioButton" id="radioButton2"
+                            value="estimate">
+                        <label class="form-check-label" for="radioButton2">{{ 'assets.gps' | translate }}<br><small>(CR
+                                136546)</small></label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="{{ 'assets.current_live_reading' | translate }}"
+                                type="text" formControlName ="">
+                            <label>{{ 'assets.current_live_reading' | translate }}</label>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>

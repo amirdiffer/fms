@@ -19,4 +19,8 @@ export class PeriodicServiceFacade {
   loadAll() {
     this.store.dispatch(PeriodicServiceActions.loadAll());
   }
+
+  addPeriodicService(data: any) {
+    this.store.dispatch(PeriodicServiceActions.addPeriodicService({ data }));
+  }
 }
