@@ -43,78 +43,13 @@ export class MovementService {
           thumbField: '',
           renderer: 'assetsRenderer'
         },
-        // {
-        //   lable: 'tables.column.duration',
-        //   field: 'duration',
-        //   width: 100,
-        //   type: 1,
-        //   thumbField: '',
-        //   renderer: ''
-        // },
-        // {
-        //   lable: 'tables.column.start_date',
-        //   field: 'startDate',
-        //   width: 100,
-        //   type: 1,
-        //   thumbField: '',
-        //   renderer: ''
-        // },
-        {
-          lable: 'tables.column.department',
-          field: 'department',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
-          lable: 'tables.column.operator',
-          field: 'operator',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: 'subtextRenderer'
-        },
-        {
-          lable: 'tables.column.fine',
-          field: 'fine',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
-          lable: 'tables.column.reason',
-          field: 'reason',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        }
-      ],
-      data: this.movmentOverViewData()
-    };
-  };
-
-  public movementTemporaryOverViewTableSetting = () => {
-    return {
-      columns: [
-        {
-          lable: 'tables.column.asset',
-          field: 'asset',
-          width: 140,
-          type: 1,
-          thumbField: '',
-          renderer: 'assetsRenderer'
-        },
         {
           lable: 'tables.column.duration',
           field: 'duration',
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: '',
-          sortable: true
+          renderer: ''
         },
         {
           lable: 'tables.column.start_date',
@@ -125,14 +60,6 @@ export class MovementService {
           renderer: ''
         },
         {
-          lable: 'tables.column.end_date',
-          field: 'endDate',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
           lable: 'tables.column.department',
           field: 'department',
           width: 100,
@@ -154,8 +81,7 @@ export class MovementService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: '',
-          sortable: true
+          renderer: ''
         },
         {
           lable: 'tables.column.reason',

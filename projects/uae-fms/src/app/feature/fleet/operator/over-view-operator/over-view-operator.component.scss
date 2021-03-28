@@ -1,10 +1,8 @@
 .person-detail {
   padding: 2em;
-
   &__fullname {
     font-size: 20px;
     color: #008755;
-    font-weight: bold;
   }
   ul {
     padding: 0;
@@ -15,7 +13,6 @@
       padding: 0.7em 0;
       span {
         width: 50%;
-        font-weight: bold;
       }
       span:first-child {
         color: #707070;
@@ -30,14 +27,4 @@
 }
 .fit-height {
   height: calc(100% - 2em);
-}
-
-.toolbar {
-  display: flex;
-  flex-direction: row-reverse;
-  padding: 22px;
-  padding-top: 0px;
-  img {
-    width: 29px;
-  }
 }

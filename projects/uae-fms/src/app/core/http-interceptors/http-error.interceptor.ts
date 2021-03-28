@@ -1,32 +1,24 @@
 import { Injectable, Injector, ErrorHandler } from '@angular/core';
 import {
   HttpEvent,
-  HttpInterceptor as HttpInterceptorBase,
+  HttpInterceptor,
   HttpHandler,
   HttpRequest,
-  HttpErrorResponse,
-  HttpHeaders
+  HttpErrorResponse
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 /** Passes HttpErrorResponse to application-wide error handler */
 @Injectable()
-export class HttpInterceptor implements HttpInterceptorBase {
+export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(private injector: Injector) {}
-  httpHeaders = new HttpHeaders({
-    // 'x-mock-response-code': '200',
-    'Content-Type': 'application/json',
-    permission_level: '123456',
-    user_id: '1'
-  });
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const req = request.clone({ headers: this.httpHeaders });
-    return next.handle(req).pipe(
+    return next.handle(request).pipe(
       tap({
         error: (err: any) => {
           if (err instanceof HttpErrorResponse) {

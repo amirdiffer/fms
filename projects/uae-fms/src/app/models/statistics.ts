@@ -1,26 +1,22 @@
 import { IGeneralResponse } from './general-response';
 
 export interface ITollStatistics extends IGeneralResponse {
+  result_number: number;
   total: number;
   available: number;
   assigned: number;
 }
 
 export interface IAccessoryStatistics extends IGeneralResponse {
-  total: number;
-  available: number;
-  assigned: number;
-  xAccessory: number;
+  result_number: number;
 }
 
 export interface IAssetStatistics extends IGeneralResponse {
   result_number: number;
-  message: {
-    total: number;
-    active: number;
-    inactive: number;
-    xfleet: number;
-  };
+  total: number;
+  active: number;
+  inactive: number;
+  xfleet: number;
 }
 
 export interface IMovementStatistics extends IGeneralResponse {
@@ -37,36 +33,8 @@ export interface IOperatorStatistics extends IGeneralResponse {
 
 export interface ISubAssetStatistics extends IGeneralResponse {
   result_number: number;
-  total: number;
-  active: number;
-  inactive: number;
-  xSubAsset: number;
 }
 
 export interface IUserStatistics extends IGeneralResponse {
-  totalUserNumber?: number;
-  activeUsersNumber: number;
-  inActiveUsersNumber: number;
-}
-
-export interface IBodyShopRequestStatistics {
-  total: number;
-  approved: number;
-  waitingForApproval: number;
-  rejected: number;
-}
-
-export interface IFuelManagementStatistics extends IGeneralResponse {
-  total: number;
-  available: number;
-  assigned: number;
-}
-
-export interface ITrafficFineStatistics extends IGeneralResponse {
-  message: {
-    deducted: number;
-    paid: number;
-    total: number;
-    unpaid: number;
-  };
+  result_number: number;
 }

@@ -18,9 +18,7 @@ export class BodyShopTechnicianEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            return BodyShopTechnicianActions.allDataLoaded({
-              data: data.message
-            });
+            return BodyShopTechnicianActions.allDataLoaded({ data });
           }),
           catchError((error) =>
             of(BodyShopTechnicianActions.error({ reason: error }))

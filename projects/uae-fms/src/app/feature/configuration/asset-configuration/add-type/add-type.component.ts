@@ -1,12 +1,12 @@
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
-  ElementRef,
-  Injector,
   OnInit,
+  ChangeDetectionStrategy,
+  ElementRef,
+  ViewChild,
   Renderer2,
-  ViewChild
+  AfterViewInit,
+  Injector
 } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
@@ -16,8 +16,6 @@ import {
   NgxFileDropEntry
 } from 'ngx-file-drop';
 import { AssetConfigurationService } from '../asset-configuration.service';
-import { TableSetting } from '@core/table';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'congifuration-add-type',
@@ -37,19 +35,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   percent = 80;
   fileName = 'CSV File only';
   submited = false;
-
-  assetConfigurationTableSetting!: TableSetting;
-
-  dialogModal = false;
-
-  dialogSetting: IDialogAlert = {
-    header: 'Add asset configuration',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
-
   constructor(
     private _fb: FormBuilder,
     private _renderer: Renderer2,
@@ -57,7 +42,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     injector: Injector
   ) {
     super(injector);
-    this.assetConfigurationTableSetting = this._assetConfigurationService.assetConfigurationableSetting();
   }
 
   ngOnInit(): void {
@@ -69,30 +53,9 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
       type: ['mModel'],
       selectModel: [''],
       // models: this._fb.array([this._fb.control([])])
-      singleModelArray: new FormArray([this.createSingleModel()])
+      models: ['']
     });
   }
-
-  get singleModelArray(): FormArray {
-    return this.inputForm.get('singleModelArray') as FormArray;
-  }
-
-  createSingleModel(): FormGroup {
-    return this._fb.group({
-      model: [''],
-      color1: ['#707070'],
-      color2: ['#E0DB66'],
-      color3: ['#475F7B'],
-      color4: ['#D05E53']
-    });
-  }
-
-  addSingleModel(): void {
-    console.log(this.inputForm.get('singleModelArray').value);
-    const list = this.inputForm.get('singleModelArray') as FormArray;
-    list.push(this.createSingleModel());
-  }
-
   ngAfterViewInit() {
     this.percent = (+this.value * 100) / +this.maxValue;
     this._renderer.setStyle(
@@ -136,37 +99,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   public cancel() {
-    this.dialogModal = true;
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.message = 'Are you sure to cancel adding new type?';
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.cancelButton = 'No';
-    // this._assetConfigurationService.loadAddForm(false);
-  }
-
-  dialogConfirm($event): void {
-    console.log($event);
-    this.dialogModal = false;
-    if ($event && !this.dialogSetting.hasError) {
-      this.router.navigate(['/configuration/asset-configuration']).then();
-    }
-  }
-
-  color1Clicked(): void {
-    console.log('color1 clicked');
-  }
-
-  color2Clicked(): void {
-    console.log('color2 clicked');
-  }
-
-  color3Clicked(): void {
-    console.log('color3 clicked');
-  }
-
-  color4Clicked(): void {
-    console.log('color4 clicked');
+    this._assetConfigurationService.loadAddForm(false);
   }
 
   submit() {
@@ -174,13 +107,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     if (this.inputForm.invalid) {
       return;
     }
-
-    this.dialogModal = true;
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.message = 'Type added successfully';
-    this.dialogSetting.confirmButton = 'OK';
-    this.dialogSetting.cancelButton = undefined;
-
-    // this._assetConfigurationService.loadAddForm(false);
+    this._assetConfigurationService.loadAddForm(false);
   }
 }

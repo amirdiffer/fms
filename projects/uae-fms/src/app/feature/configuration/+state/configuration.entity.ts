@@ -39,11 +39,6 @@ import {
   AssetConfigurationState,
   CONFIGURATION_ASSET_CONFIGURATION_FEATURE_KEY
 } from './asset-configuration/asset-configuration.entity';
-import {
-  AssetTypeState,
-  CONFIGURATION_ASSET_TYPE_FEATURE_KEY
-} from './asset-configuration/asset-type/asset-type.entity';
-
 export const CONFIGURATION_FEATURE_KEY = 'configuration';
 
 export interface State {
@@ -57,7 +52,6 @@ export interface State {
   readonly [CONFIGURATION_OWNERSHIP_FEATURE_KEY]: OwnershipState;
   readonly [CONFIGURATION_PERIODIC_SERVICE_FEATURE_KEY]: PeriodicServiceState;
   readonly [CONFIGURATION_ASSET_CONFIGURATION_FEATURE_KEY]: AssetConfigurationState;
-  readonly [CONFIGURATION_ASSET_TYPE_FEATURE_KEY]: AssetTypeState;
 }
 
 export interface ConfigurationPartialState {

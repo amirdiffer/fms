@@ -1,7 +1,7 @@
-<form [formGroup] = "inputForm" (ngSubmit)="submit()">
+<form [formGroup] = "inputForm">
     <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
-        <button class="btn-primary-medium add" type="submit">{{ 'forms.order' | translate }}</button>
+        <button class="btn-primary-medium btn-scondary-green" [routerLink]="['..']"  [queryParams]="{id:'my_order'}" >{{ 'forms.cancel' | translate }}</button>
+        <button class="btn-primary-medium add">{{ 'forms.add' | translate }}</button>
     </div>
     <div class="form-section form-section--inline">
         <div class="row form-section__row">
@@ -32,30 +32,18 @@
                     <p-dropdown [options]="assetTypeOptions" formControlName="type" optionLabel="name" optionValue="value" placeholder="Asset Type"></p-dropdown>
                     <label>Asset Type</label>
                 </span>
-              <anms-error
-                [showError]="hasError('type', inputForm.get('assetType'), submited)"
-                error="forms.feedback.required">
-              </anms-error>
             </div>
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
                     <p-dropdown [options]="assetTypeOptions" formControlName="make" optionLabel="name" placeholder="Make" optionValue="value"></p-dropdown>
                     <label>{{ 'part_store.order.make' | translate }}</label>
                 </span>
-              <anms-error
-                [showError]="hasError('make', inputForm.get('assetType'), submited)"
-                error="forms.feedback.required">
-              </anms-error>
             </div>
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
                     <p-dropdown [options]="assetTypeOptions" formControlName="model" optionLabel="name" placeholder="Model" optionValue="value"></p-dropdown>
                     <label>{{ 'part_store.order.model' | translate }}</label>
                 </span>
-              <anms-error
-                [showError]="hasError('model', inputForm.get('assetType'), submited)"
-                error="forms.feedback.required">
-              </anms-error>
             </div>
         </div>
     </div>
@@ -72,21 +60,13 @@
                             <p-dropdown [options]="assetTypeOptions" formControlName="current" optionLabel="name" optionValue="value" placeholder="Current Quotation"></p-dropdown>
                             <label>{{ 'part_store.order.current_quotation' | translate }}</label>
                         </span>
-                      <anms-error
-                        [showError]="hasError('current', inputForm.get('repeatQuotation'), submited)"
-                        error="forms.feedback.required">
-                      </anms-error>
                     </div>
                 </div>
                 <div class="col-12 col-md-2 p-field form-section__field">
                     <span class="p-float-label">
-                        <input pInputText placeholder="Quantity" formControlName="quantity" type="number" >
-                        <label>{{ 'tables.column.quantity' | translate }} *</label>
+                        <input pInputText placeholder="Quantity" formControlName="quantity" type="text" >
+                        <label>{{ 'tables.column.quantity' | translate }}</label>
                     </span>
-                  <anms-error
-                    [showError]="hasError('quantity', inputForm.get('repeatQuotation'), submited)"
-                    error="forms.feedback.required">
-                  </anms-error>
                 </div>
             </div>
             <div class="row form-section__row">
@@ -155,12 +135,10 @@
             <p-inputSwitch formControlName="setReminder"></p-inputSwitch>
         </div>
     </div>
-
+    
     <div class="component_wrapper p-0 table-container">
         <div class="card-table">
             <app-table [setting]="tableSetting"></app-table>
         </div>
     </div>
 </form>
-
-<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>

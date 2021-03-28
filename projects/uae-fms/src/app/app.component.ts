@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'anms-root',
-  template: `<app-spinner></app-spinner><router-outlet></router-outlet>`
+  template: `<router-outlet></router-outlet>`
 })
 export class AppComponent implements OnInit {
   constructor(

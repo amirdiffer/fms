@@ -13,7 +13,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { IDialogAlert } from '@core/alret-dialog/alret-dialog.component';
 
 @Component({
   selector: 'anms-task-master-form',

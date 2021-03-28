@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ResponseBody } from '@models/response-body';
-import { IOrganization } from '@models/organization';
-import { environment } from '@environments/environment';
+import { OrganizationStateModel } from './organization.entity';
 
 @Injectable()
 export class OrganizationService {
   constructor(private _http: HttpClient) {}
 
-  loadAll(): Observable<ResponseBody<IOrganization[]>> {
-    return this._http.get<ResponseBody<IOrganization[]>>(
-      environment.baseApiUrl + 'organization'
-    );
+  loadAll(): Observable<OrganizationStateModel[]> {
+    return this._http.get<OrganizationStateModel[]>('');
   }
 }

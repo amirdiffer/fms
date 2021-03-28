@@ -5,7 +5,6 @@ import {
   trafficFineTableAdapter,
   TrafficFineTableState
 } from './traffic-fine-table.entity';
-import { AssetMasterActions } from '@feature/fleet/+state/assets/asset-master/asset-master.actions';
 
 const trafficFineTableReducer = createReducer(
   initialState,
@@ -22,10 +21,6 @@ const trafficFineTableReducer = createReducer(
       error: null
     })
   ),
-  on(TrafficFineTableActions.statisticsLoaded, (state, data) => ({
-    ...state,
-    statistics: data.data
-  })),
   on(TrafficFineTableActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

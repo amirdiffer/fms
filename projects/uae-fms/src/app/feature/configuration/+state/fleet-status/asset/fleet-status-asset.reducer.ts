@@ -21,13 +21,6 @@ const fleetStatusAssetReducer = createReducer(
       error: null
     })
   ),
-  on(FleetStatusAssetActions.addFleetStatus, (state, { data }) => ({
-    ...state,
-    loaded: false
-  })),
-  on(FleetStatusAssetActions.fleetStatusAddedSuccessfully, (state, { data }) =>
-    fleetStatusAssetAdapter.addOne(data, state)
-  ),
   on(FleetStatusAssetActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

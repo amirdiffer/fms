@@ -9,9 +9,9 @@
     <button class="btn-download" disabled>
       <svg-icon [src]="downloadBtn"></svg-icon>
     </button>
-    <button class="btn-primary-small" [routerLink]="['add-ownership']"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
+    <button class="btn-primary-small" [routerLink]="['add']"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
   </div>
   <div class="table-wreapper">
-    <app-table [setting]='ownerShip_Table' [tableData]="ownerShip$"></app-table>
+    <app-table [setting]='ownerShip_Table'></app-table>
   </div>
 </div>

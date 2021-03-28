@@ -1,4 +1,3 @@
-import { ActivatedRoute, Router } from '@angular/router';
 import { ViewChild } from '@angular/core';
 import {
   ChangeDetectionStrategy,
@@ -14,14 +13,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PartOverviewComponent implements OnInit {
-  recordId: number;
   @ViewChild('selectedImage', { static: false }) element: ElementRef;
 
-  constructor(private _router: Router, private _route: ActivatedRoute) {
-    this._route.queryParamMap.subscribe((params) => {
-      this.recordId = +params.get('id');
-    });
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 

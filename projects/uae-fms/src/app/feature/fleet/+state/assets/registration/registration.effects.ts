@@ -15,7 +15,7 @@ export class RegistrationEffects {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            return RegistrationActions.allDataLoaded({ data: data.message });
+            return RegistrationActions.allDataLoaded({ data });
           }),
           catchError((error) =>
             of(RegistrationActions.error({ reason: error }))

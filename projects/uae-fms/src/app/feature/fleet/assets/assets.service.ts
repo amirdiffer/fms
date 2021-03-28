@@ -48,7 +48,6 @@ export class AssetsService {
         serialNumber: '123s125583456',
         brand: 'bmw.png',
         type: 'Car',
-        allocated: 'Finance',
         businessCategory: 'VIP',
         createDate: '00/00/00',
         registrantionDate: '00/00/00',
@@ -80,6 +79,111 @@ export class AssetsService {
     }
     return data;
   };
+  public assetMastertableSetting = () => {
+    return {
+      columns: [
+        {
+          lable: 'tables.column.asset',
+          field: 'asset',
+          width: '18em',
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: 'assetsRenderer'
+        },
+        {
+          lable: 'tables.column.type',
+          field: 'type',
+          width: 100,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.business_category',
+          field: 'businessCategory',
+          width: 130,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.allocated',
+          field: 'allocated',
+          width: 100,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.operator',
+          field: 'operator',
+          width: 100,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.status',
+          field: 'status',
+          width: 100,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.submitted_on',
+          field: 'submitOn',
+          width: 100,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: '',
+          sortable: true
+        },
+        {
+          lable: 'tables.column.make',
+          field: '',
+          width: 100,
+          type: 3,
+          thumbField: 'brand',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.current_meter',
+          field: 'killometer',
+          width: 100,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: '',
+          sortable: true
+        },
+        {
+          lable: '',
+          field: 'floatButton',
+          width: 0,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: 'floatButton'
+        }
+      ],
+      data: this.assetMaster(),
+      rowSettings: {
+        floatButton: [
+          {
+            button: 'edit'
+          },
+          {
+            button: 'download'
+          },
+          {
+            button: 'external',
+            onClick: (col, data) => {
+              this.router.navigate(['/fleet/assets/' + data.id]);
+            }
+          }
+        ]
+      }
+    };
+  };
   public pedingRegistrationTableSetting = () => {
     return {
       columns: [
@@ -94,14 +198,6 @@ export class AssetsService {
         {
           lable: 'tables.column.s_n',
           field: 'serialNumber',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
-          lable: 'tables.column.allocated',
-          field: 'allocated',
           width: 100,
           type: 1,
           thumbField: '',
@@ -154,10 +250,7 @@ export class AssetsService {
             button: 'download'
           },
           {
-            button: 'external',
-            onClick: (col, data) => {
-              this.router.navigate([`/fleet/assets/1/registration`]);
-            }
+            button: 'external'
           },
           {
             button: 'cancel',
@@ -230,10 +323,7 @@ export class AssetsService {
         floatButton: [
           {
             button: 'external',
-            color: '#3F3F3F',
-            onClick: (col, data) => {
-              this.router.navigate(['/fleet/assets/1/customization']);
-            }
+            color: '#3F3F3F'
           }
         ]
       }

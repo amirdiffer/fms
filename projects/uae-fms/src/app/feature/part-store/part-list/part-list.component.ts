@@ -11,25 +11,23 @@ import { ColumnType, TableSetting } from '@core/table';
 })
 export class PartListComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
-  partList = true;
+  partList:boolean= true;
   filterCard: FilterCardSetting[] = [
+    
     {
       filterTitle: 'statistic.total',
-      filterSupTitle: 'statistic.part',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.available',
-      filterSupTitle: 'statistic.part',
       filterCount: '08',
       filterTagColor: '#6870B4',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.unavailable',
-      filterSupTitle: 'statistic.part',
       filterCount: '02',
       filterTagColor: '#BA7967',
       onActive(index: number) {}
@@ -45,20 +43,9 @@ export class PartListComponent implements OnInit {
         renderer: 'thumbTextRenderer',
         thumbField: 'thumbImage'
       },
-      {
-        lable: 'tables.column.quantity',
-        type: 1,
-        field: 'Quantity',
-        sortable: true
-      },
+      { lable: 'tables.column.quantity', type: 1, field: 'Quantity',sortable: true },
       { lable: 'tables.column.status', type: 1, field: 'Status' },
-      {
-        lable: 'tables.column.total',
-        type: 1,
-        width: 120,
-        field: 'Total',
-        sortable: true
-      },
+      { lable: 'tables.column.total', type: 1, width: 120,field: 'Total',sortable: true },
       {
         lable: '',
         field: 'floatButton',
@@ -135,14 +122,11 @@ export class PartListComponent implements OnInit {
     ],
     rowSettings: {
       onClick: (col, data, button?) => {
-        this._router.navigate(['category'], {
-          relativeTo: this.route,
-          queryParams: { id: data.id }
-        });
+        console.log(col, data, button);
       },
       floatButton: [
         {
-          button: 'external'
+          button: 'external',
         }
       ]
     }
@@ -181,14 +165,10 @@ export class PartListComponent implements OnInit {
     { name: '2006', value: '2006' }
   ];
 
-  constructor(
-    private _activatedRoute: ActivatedRoute,
-    private _router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private _activatedRoute:ActivatedRoute , private _router: Router) {}
 
   ngOnInit(): void {
-    if (typeof this._activatedRoute.snapshot.params.id != 'undefined') {
+    if(typeof this._activatedRoute.snapshot.params.id != 'undefined'){
       this.partList = false;
       this.filterCard.unshift({
         filterTitle: 'statistic.this_month',
@@ -196,7 +176,7 @@ export class PartListComponent implements OnInit {
         filterTagColor: '',
         isCalendar: true,
         onActive(index: number) {}
-      });
+      })
     }
   }
 }

@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { ResponseBody } from '@models/responseBody';
-import { environment } from '@environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { IProfile } from '@models/profile';
+import { IUserProfileModel } from './user.entity';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserProfileService {
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  loadProfile(): Observable<ResponseBody<IProfile>> {
-    return this.http.get<ResponseBody<IProfile>>(
-      environment.baseApiUrl + 'profile'
-    );
+  private _userData$ = new Subject<IUserProfileModel[]>();
+
+  public loadUserData(data) {
+    this._userData$.next(data);
+  }
+  public getUserData(): Observable<IUserProfileModel[]> {
+    return this._userData$.asObservable();
   }
 }

@@ -1,12 +1,11 @@
 import { createSelector } from '@ngrx/store';
 import { ConfigurationSelectors } from '../configuration.selectors';
 import { businessCategoryAdapter } from './business-category.entity';
-const { selectAll } = businessCategoryAdapter.getSelectors();
 
 export class BusinessCategorySelectors {
   static selectAll = createSelector(
     ConfigurationSelectors.businessCategorySelector,
-    selectAll
+    businessCategoryAdapter.setAll
   );
 
   static message = createSelector(
@@ -17,10 +16,5 @@ export class BusinessCategorySelectors {
   static error = createSelector(
     ConfigurationSelectors.businessCategorySelector,
     (state) => state.error
-  );
-
-  static submitted = createSelector(
-    ConfigurationSelectors.businessCategorySelector,
-    (state) => state.submitted
   );
 }

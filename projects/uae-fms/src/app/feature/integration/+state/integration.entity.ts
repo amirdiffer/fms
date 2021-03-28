@@ -1,9 +1,19 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { IIntegration } from '@models/integration';
 
 export const INTEGRATION_FEATURE_KEY = 'integration';
 
-export interface IntegrationState extends EntityState<IIntegration> {
+export interface IntegrationStateModel {
+  integrationName: string;
+  type: string;
+  gpr: string;
+  status: string;
+  email: string;
+  phoneNumber: string;
+  companyName: string;
+  supportOperator: string;
+}
+
+export interface IntegrationState extends EntityState<IntegrationStateModel> {
   error?: any;
   loaded?: boolean;
   message?: string;
@@ -13,8 +23,8 @@ export interface IntegrationPartialState {
   [INTEGRATION_FEATURE_KEY]: IntegrationState;
 }
 
-export const integrationAdapter: EntityAdapter<IIntegration> = createEntityAdapter<
-  IIntegration
+export const integrationAdapter: EntityAdapter<IntegrationStateModel> = createEntityAdapter<
+  IntegrationStateModel
 >();
 
 export const initialState: IntegrationState = integrationAdapter.getInitialState(

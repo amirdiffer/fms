@@ -12,9 +12,7 @@ export class FleetStatusSubAssetEffect {
       ofType(FleetStatusSubAssetActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) =>
-            FleetStatusSubAssetActions.allDataLoaded({ data: data.message })
-          ),
+          map((data) => FleetStatusSubAssetActions.allDataLoaded({ data })),
           catchError((error) =>
             of(FleetStatusSubAssetActions.error({ reason: error }))
           )

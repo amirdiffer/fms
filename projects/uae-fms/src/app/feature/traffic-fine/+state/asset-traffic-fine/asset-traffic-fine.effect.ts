@@ -12,9 +12,7 @@ export class AssetTrafficFineEffect {
       ofType(AssetTrafficFineActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) =>
-            AssetTrafficFineActions.allDataLoaded({ data: data.message })
-          ),
+          map((data) => AssetTrafficFineActions.allDataLoaded({ data })),
           catchError((error) =>
             of(AssetTrafficFineActions.error({ reason: error }))
           )

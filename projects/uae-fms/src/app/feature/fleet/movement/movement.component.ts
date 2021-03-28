@@ -24,28 +24,7 @@ import {
 export class MovementComponent implements OnInit, AfterViewChecked {
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-  filterSetting = [
-    {
-      filterTitle: 'statistic.total',
-      filterCount: '36',
-      filterTagColor: '#B892FF'
-    },
-    {
-      filterTitle: 'statistic.waiting_for_approval',
-      filterCount: '07',
-      filterTagColor: '#648DE5'
-    },
-    {
-      filterTitle: 'statistic.approved',
-      filterCount: '05',
-      filterTagColor: '#709775'
-    },
-    {
-      filterTitle: 'statistic.rejected',
-      filterCount: '12',
-      filterTagColor: '#EF7A85'
-    }
-  ];
+  filterSetting;
   movementOverViewTableSetting;
   requestTableSetting;
   requestFilter: boolean = false;
@@ -66,34 +45,6 @@ export class MovementComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {
     this._movementOverviewFacade.loadAll();
     this._movementRequestsFacade.loadAll();
-    this._movementRequestsFacade.MovementRequests$.subscribe((data) => {
-      console.log(data);
-    });
-    this._movementRequestsFacade.loadRequestStatistic();
-    this._movementRequestsFacade.MovementRequestStatistic.subscribe((x) => {
-      console.log(x);
-      if (x) {
-        const response = x.message;
-        this.filterSetting.map((filter) => {
-          switch (filter.filterTitle) {
-            case 'statistic.total':
-              filter.filterCount = response.total;
-              break;
-            case 'statistic.waiting_for_approval':
-              filter.filterCount = response.waitingForApproval;
-              break;
-            case 'statistic.approved':
-              filter.filterCount = response.approved;
-              break;
-            case 'statistic.rejected':
-              filter.filterCount = response.rejected;
-              break;
-            default:
-              break;
-          }
-        });
-      }
-    });
 
     this.movementOverViewTableSetting = this._movementService.movmentOverViewTableSetting();
     this.requestTableSetting = this._movementService.requestTableSetting();

@@ -1,16 +1,11 @@
 import { createSelector } from '@ngrx/store';
 import { FleetSelectors } from '../fleet.selectors';
 import { accessoryAdapter } from './accessory.entity';
-const { selectAll } = accessoryAdapter.getSelectors();
 
 export class AccessorySelectors {
   static selectAll = createSelector(
     FleetSelectors.accessorySelector,
-    selectAll
-  );
-  static selectStatistics = createSelector(
-    FleetSelectors.accessorySelector,
-    (state) => state.statistics
+    accessoryAdapter.setAll
   );
 
   static message = createSelector(

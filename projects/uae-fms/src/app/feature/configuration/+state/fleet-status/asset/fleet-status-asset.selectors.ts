@@ -1,21 +1,20 @@
 import { createSelector } from '@ngrx/store';
 import { ConfigurationSelectors } from '../../configuration.selectors';
 import { fleetStatusAssetAdapter } from './fleet-status-asset.entity';
-const { selectAll } = fleetStatusAssetAdapter.getSelectors();
 
 export class FleetStatusAssetSelectors {
   static selectAll = createSelector(
     ConfigurationSelectors.fleetStatusAssetSelector,
-    selectAll
+    fleetStatusAssetAdapter.setAll
   );
 
   static message = createSelector(
     ConfigurationSelectors.fleetStatusAssetSelector,
-    (state) => state
+    (state) => state.message
   );
 
   static error = createSelector(
     ConfigurationSelectors.fleetStatusAssetSelector,
-    (state) => state
+    (state) => state.error
   );
 }

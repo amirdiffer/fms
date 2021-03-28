@@ -1,14 +1,9 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ColumnType, TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { UsersFacade } from '../../+state/users';
+import { DataService } from './data.service';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-users',
@@ -18,8 +13,6 @@ import { map } from 'rxjs/operators';
 })
 export class UsersComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
-
-  //#region Filter
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.this_month',
@@ -47,20 +40,6 @@ export class UsersComponent implements OnInit {
       onActive(index: number) {}
     }
   ];
-  //#endregion
-
-  //#region Table
-  data$ = this.facade.users$.pipe(
-    map((x) => {
-      return x.map((y) => {
-        return {
-          ...y,
-          information: { emails: y.emails, phoneNumbers: y.phoneNumbers },
-          roleName: y?.role?.roleName
-        };
-      });
-    })
-  );
 
   users_Table: TableSetting = {
     columns: [
@@ -74,26 +53,17 @@ export class UsersComponent implements OnInit {
       {
         lable: 'tables.column.department',
         type: 1,
-        field: 'department',
-        renderer: 'doubleLineRenderer',
-        rendererOptions: {
-          line1: 'name',
-          line2: 'organizationName'
-        }
+        field: 'Department',
+        renderer: 'doubleLineRenderer'
       },
       {
         lable: 'tables.column.information',
         type: 1,
-        field: 'information',
-        renderer: 'doubleLineRenderer',
-        rendererOptions: {
-          line1: 'emails',
-          line2: 'phoneNumbers',
-          type: 'array'
-        }
+        field: 'Information',
+        renderer: 'doubleLineRenderer'
       },
-      { lable: 'tables.column.status', type: 1, field: 'isActive' },
-      { lable: 'tables.column.role', type: 1, field: 'roleName' },
+      { lable: 'tables.column.status', type: 1, field: 'Status' },
+      { lable: 'tables.column.role', type: 1, field: 'Role' },
       {
         lable: '',
         field: 'floatButton',
@@ -103,25 +73,108 @@ export class UsersComponent implements OnInit {
         renderer: 'floatButton'
       }
     ],
-    data: [],
+    data: [
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      },
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      },
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      },
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      },
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      },
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      },
+      {
+        statusColor: '#7F87CA',
+        firstName: 'Sam',
+        lastName: 'Smith',
+        id: '1234567899',
+        picture: 'user-image.png',
+        Department: { line1: 'Department name', line2: 'Section Name' },
+        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
+        Status: 'Active',
+        Role: 'Fleet Manager'
+      }
+    ],
     rowSettings: {
+      onClick: (col, data, button?) => {
+        console.log(col, data, button);
+        this.dataService.dataToEditFromTable = data;
+        this.dataService.isEditing = true;
+        this.router
+          .navigate(['/configuration/user-management/users/add-new-user'])
+          .then();
+      },
       floatButton: [
         {
           button: 'edit',
-          color: '#3F3F3F',
-          onClick: (col, data, button?) => {
-            console.log(data);
-            this.router.navigate([
-              '/configuration/user-management/users/edit-user/' + data.id
-            ]);
-          }
+          color: '#3F3F3F'
         }
       ]
     }
   };
-  //#endregion
 
-  constructor(private facade: UsersFacade, private router: Router) {}
+  constructor(
+    private facade: UsersFacade,
+    private dataService: DataService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();

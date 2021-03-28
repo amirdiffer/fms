@@ -1,30 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '@environments/environment';
-import { ResponseBody } from '@models/response-body.model';
-import { IAssetPolicy } from '@models/asset-policy.model';
+import { AssetPolicyStateModel } from './asset-policy.entity';
 
 @Injectable()
 export class AssetPolicyService {
   constructor(private http: HttpClient) {}
 
-  loadAll(): Observable<ResponseBody<IAssetPolicy[]>> {
-    return this.http.get<ResponseBody<IAssetPolicy[]>>(
-      environment.baseApiUrl + 'configuration/asset-policy'
-    );
-  }
-  postAssetPolicy(data): Observable<ResponseBody<IAssetPolicy>> {
-    return this.http.post<ResponseBody<IAssetPolicy>>(
-      environment.baseApiUrl + 'configuration/asset-policy',
-      data
-    );
-  }
-
-  updateAssetPolicy(data): Observable<ResponseBody<IAssetPolicy>> {
-    return this.http.post<ResponseBody<IAssetPolicy>>(
-      environment.baseApiUrl + `configuration/asset-policy/${data.id}/update`,
-      data
-    );
+  loadAll(): Observable<AssetPolicyStateModel[]> {
+    return this.http.get<AssetPolicyStateModel[]>('');
   }
 }

@@ -1,26 +1,35 @@
-import { IFuelManagementFuelCard } from '@models/fuel-management';
-import { IFuelManagementStatistics } from '@models/statistics';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export const FUEL_MANAGEMENT_FUEL_CARDS_FEATURE_KEY = 'fuelCards';
 
-export interface FuelCardsState extends EntityState<IFuelManagementFuelCard> {
+export interface FuelCardsStateModel {
+  tagNoItem: {
+    tagNo: string;
+    subInfo: string;
+  };
+  used: string;
+  usageLimit: string;
+  asset: string;
+  cardType: string;
+  expireDate: string;
+}
+
+export interface FuelCardsState extends EntityState<FuelCardsStateModel> {
   error?: any;
   loaded?: boolean;
   message?: string;
-  statistics?: IFuelManagementStatistics;
 }
 
 export interface FuelCardsPartialState {
   [FUEL_MANAGEMENT_FUEL_CARDS_FEATURE_KEY]: FuelCardsState;
 }
 
-export const fuelCardsAdapter: EntityAdapter<IFuelManagementFuelCard> = createEntityAdapter<
-  IFuelManagementFuelCard
+export const fuelCardsAdapter: EntityAdapter<FuelCardsStateModel> = createEntityAdapter<
+  FuelCardsStateModel
 >();
+
 export const initialState: FuelCardsState = fuelCardsAdapter.getInitialState({
   error: null,
   loaded: null,
-  message: null,
-  statistics: null
+  message: null
 } as FuelCardsState);

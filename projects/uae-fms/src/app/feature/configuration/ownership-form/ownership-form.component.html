@@ -1,0 +1,131 @@
+<form [formGroup]="ownerShipForm">
+    <div class="button-container">
+        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="goToList()">{{ 'forms.cancel' | translate }}</button>
+        <button class="btn-primary-medium add" (click)="submit()">{{ 'forms.add' | translate }}</button>
+      </div>
+    <!-- form-section form-section--inline-->
+    <div class="form-section form-section--inline mt-3">
+        <div class="row">
+            <div class="col-12 col-md-2">
+                <h3 class="form-section__title">{{ 'configuration.ownership.ownership_type' | translate }}</h3>
+            </div>
+
+            <div class="col-12 col-md-10">
+                <div class="row">
+                    <div class="col-12 col-md-12 p-field form-section__field
+                        radio-select">
+                        <p-radioButton name="ownershipType"
+                            formControlName="ownershipType" value="external"
+                            label="{{ 'configuration.ownership.external' | translate }}"></p-radioButton>
+                        <p-radioButton name="ownershipType"
+                            formControlName="ownershipType" value="owned"
+                            label="{{ 'configuration.ownership.owned' | translate }}"></p-radioButton>
+                        <p-radioButton name="ownershipType"
+                            formControlName="ownershipType" value="rent"
+                            label="{{ 'configuration.ownership.rent' | translate }}"></p-radioButton>
+                        <p-radioButton name="ownershipType"
+                            formControlName="ownershipType" value="Demo"
+                            label="{{ 'configuration.ownership.demo' | translate }}"></p-radioButton>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end form-section form-section--inline-->
+
+
+    <!-- form-section -->
+    <div class="form-section">
+        <h3 class="form-section__title">{{ 'configuration.ownership.owner_info' | translate }}</h3>
+
+        <div class="row form-section__row">
+            <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText formControlName = "owner" placeholder="{{ 'configuration.ownership.owner' | translate }}" required
+                        type="text">
+                    <label>{{ 'configuration.ownership.owner' | translate }} *</label>
+                    <anms-error
+                    [showError]="hasError('owner',ownerShipForm,submited)"
+                    error="forms.feedback.required"
+                    >
+                    </anms-error>
+                </span>
+            </div>
+            <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText email formControlName="ownerEmail" placeholder="{{ 'configuration.ownership.owner_email_address' | translate }}"
+                        required type="text">
+                    <label>{{ 'configuration.ownership.owner_email_address' | translate }} *</label>
+                    <anms-error
+                    [showError]="hasError('ownerEmail',ownerShipForm,submited)"
+                    error="forms.feedback.required"
+                    ></anms-error>
+                    <anms-error
+                    [showError]="hasError('ownerEmail',ownerShipForm,submited,'email')"
+                    error="forms.feedback.invalid-email"
+                    ></anms-error>
+                </span>
+            </div>
+            <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText formControlName="ownerPhone" placeholder="{{ 'configuration.ownership.owner_phone_number' | translate }}"
+                        type="text">
+                    <label>{{ 'configuration.ownership.owner_phone_number' | translate }}</label>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- end form-section -->
+
+
+    <!-- form-section form-section--inline-->
+    <div class="form-section form-section--inline">
+        <div class="row">
+            <div class="col-12 col-md-2">
+                <h3 class="form-section__title">{{ 'configuration.ownership.ownership_info' | translate }}</h3>
+            </div>
+
+            <div class="col-12 col-md-10">
+                <div class="row">
+                    <div class="col-12 col-md-4 p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="{{ 'configuration.ownership.purpose' | translate }}" type="text">
+                            <label>{{ 'tables.column.purpose' | translate }}</label>
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-4 p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText formControlName="fleetITCode" placeholder="{{ 'configuration.ownership.fleet_it_code' | translate }}"
+                                required type="text">
+                            <label>{{ 'configuration.ownership.fleet_it_code' | translate }} *</label>
+                            <anms-error
+                            [showError]="hasError('fleetITCode',ownerShipForm,submited)"
+                            error="forms.feedback.required"
+                            >
+                            </anms-error>
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-4 p-field form-section__field">
+                        <span class="p-float-label">
+                            <input pInputText placeholder="{{ 'configuration.ownership.duration' | translate }}" formControlName="duration"
+                                type="text" required>
+                            <label>{{ 'configuration.ownership.duration' | translate }} *</label>
+                            <anms-error
+                            [showError]="hasError('duration',ownerShipForm,submited)"
+                            error ="forms.feedback.required">
+                            </anms-error>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end form-section form-section--inline-->
+</form>
+
+
+<div class="component_wrapper table-container">
+    <div class="table-wreapper ">
+        <app-table [setting]='ownerShip_Table'></app-table>
+    </div>
+</div>

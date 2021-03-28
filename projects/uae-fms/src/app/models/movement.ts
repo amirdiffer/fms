@@ -1,4 +1,4 @@
-export interface IMovementRequest {
+export interface IMovement {
   id: number;
   requestType: string;
   movementType: string;
@@ -10,12 +10,4 @@ export interface IMovementRequest {
   requesterId: number;
   startDate: string;
   endDate: string;
-}
-export interface IMovementRequestStatistic {
-  error: boolean;
-  result_number: number;
-  total: number;
-  waitingForApproval: number;
-  approved: number;
-  rejected: number;
 }

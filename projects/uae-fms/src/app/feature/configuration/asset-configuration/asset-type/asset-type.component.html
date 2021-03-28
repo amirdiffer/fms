@@ -1,11 +1,8 @@
-<mat-card class="p-2">
+<mat-card>
     <mat-card-header>
         <mat-card-title class="mat-card-title">{{ 'filter.asset_type' |
             translate }}</mat-card-title>
-      <span class='plus-icon'>
-        <svg-icon src='../../../../../assets/icons/add.svg'
-                  [svgStyle]="{ 'width.px': 18, 'fill': '#0DA06E', 'height': '100%'}"></svg-icon>
-      </span>
+        <button class="add-asset"><a>+</a></button>
     </mat-card-header>
     <span class="border"></span>
     <mat-card-content>

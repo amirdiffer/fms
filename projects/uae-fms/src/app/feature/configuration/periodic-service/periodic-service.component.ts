@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
-import { map } from 'rxjs/operators';
 import { PeriodicServiceFacade } from '../+state/periodic-service';
 
 @Component({
@@ -40,9 +39,24 @@ export class PeriodicServiceComponent implements OnInit {
     }
   ];
 
+  tableData = [
+    {
+      periodicServiceName: 'Basic Vehicle Maintenance',
+      number: '21'
+    },
+    {
+      periodicServiceName: 'Basic Vehicle Maintenance',
+      number: '21'
+    },
+    {
+      periodicServiceName: 'Basic Vehicle Maintenance',
+      number: '21'
+    }
+  ];
+
   tableSetting = {
     columns: this.tableColumns,
-    data: [],
+    data: this.tableData,
     rowSettings: {
       floatButton: [
         {
@@ -51,17 +65,6 @@ export class PeriodicServiceComponent implements OnInit {
       ]
     }
   };
-
-  periodicServices$ = this.facade.periodicService$.pipe(
-    map((x) =>
-      x.map((responseObject) => {
-        return {
-          periodicServiceName: responseObject.name,
-          number: responseObject.id
-        };
-      })
-    )
-  );
 
   constructor(private facade: PeriodicServiceFacade) {}
 

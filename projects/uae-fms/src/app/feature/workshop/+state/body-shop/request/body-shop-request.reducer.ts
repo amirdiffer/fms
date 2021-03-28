@@ -14,19 +14,9 @@ const bodyShopRequestReducer = createReducer(
     error: null,
     message: null
   })),
-  on(BodyShopRequestActions.loadStatistics, (state) => ({
-    ...state,
-    statistics: null,
-    loaded: false
-  })),
   on(BodyShopRequestActions.allDataLoaded, (state, { data }) =>
     bodyShopRequestAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
-  on(BodyShopRequestActions.allStatisticsLoaded, (state, { data }) => ({
-    ...state,
-    statistics: data,
-    loaded: true
-  })),
   on(BodyShopRequestActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

@@ -21,6 +21,5 @@ export const environment = {
     eslint: packageJson.devDependencies['eslint']
   },
   baseFileServer: 'assets/files/',
-  baseLoginApiUrl: 'https://uat.jointscope.ai/fms-api-revamp/',
-  baseApiUrl: 'https://uat.jointscope.ai/fms-api-revamp/'
+  baseApiUrl: 'http://dev.jointscope.ai:8080/'
 };

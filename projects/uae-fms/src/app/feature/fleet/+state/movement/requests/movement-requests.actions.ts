@@ -1,25 +1,16 @@
 import { createAction, props } from '@ngrx/store';
-import { IMovementRequest } from '@models/movement';
-import { IMovementStatistics } from '@models/statistics';
+import { MovementRequestsStateModel } from './movement-requests.entity';
 
 export class MovementRequestsActions {
-  static loadAll = createAction('[MovementRequests] load all Requests');
+  static loadAll = createAction('[MovementRequests] load all Requestss');
 
   static allDataLoaded = createAction(
     '[MovementRequests] all data are loaded',
-    props<{ data: IMovementRequest[] }>()
+    props<{ data: MovementRequestsStateModel[] }>()
   );
+
   static error = createAction(
     '[MovementRequests] error occurred',
     props<{ reason: any }>()
-  );
-
-  static loadStatistic = createAction(
-    '[MovementRequests] load all StatisticRequest'
-  );
-
-  static statisticRequestLoaded = createAction(
-    '[MovementRequests] all StatisticRequest data are loaded',
-    props<{ data: IMovementStatistics }>()
   );
 }

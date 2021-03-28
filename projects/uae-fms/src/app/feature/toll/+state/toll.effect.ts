@@ -12,18 +12,7 @@ export class TollEffect {
       ofType(TollActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => TollActions.allDataLoaded({ data: data.message })),
-          catchError((error) => of(TollActions.error({ reason: error })))
-        )
-      )
-    )
-  );
-  loadStatistic$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(TollActions.loadStatistic),
-      mergeMap((action) =>
-        this.service.loadStatistic().pipe(
-          map((data) => TollActions.statisticLoaded({ data: data.message })),
+          map((data) => TollActions.allDataLoaded({ data })),
           catchError((error) => of(TollActions.error({ reason: error })))
         )
       )
@@ -32,33 +21,8 @@ export class TollEffect {
 
   assignNow$ = createEffect(() =>
     this.action$.pipe(
-      ofType(TollActions.loadAssignNow),
-      map((data) => TollActions.assignNowLoaded({ data }))
-    )
-  );
-
-  assigningToll$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(TollActions.assigningToll),
-      mergeMap((action) =>
-        this.service.assigningToll(action).pipe(
-          map((data) => TollActions.assignedToll({ data: data.message })),
-          catchError((error) => of(TollActions.error({ reason: error })))
-        )
-      )
-    )
-  );
-
-  addToll$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(TollActions.addToll),
-      mergeMap((action) =>
-        this.service.addToll(action.data).pipe(
-          map((data) =>
-            TollActions.addTollSuccessfully({ data: data.message })
-          ),
-          catchError((error) => of(TollActions.error({ reason: error })))
-        )
+        ofType(TollActions.loadAssignNow),
+        map((data) => TollActions.assignNowLoaded({ data })
       )
     )
   );

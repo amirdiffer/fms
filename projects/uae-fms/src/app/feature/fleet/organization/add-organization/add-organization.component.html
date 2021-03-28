@@ -1,6 +1,6 @@
 <form [formGroup]="organizationForm">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" (click)='cancel()'>{{ 'forms.cancel' | translate}}</button>
+    <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{ 'forms.cancel' | translate}}</button>
     <button class="btn-primary-medium add" type="submit" (click)="submit()">{{ 'forms.add' | translate}}</button>
   </div>
   <div class="form-section">
@@ -26,29 +26,32 @@
           <input formControlName="departmentName" pInputText
             placeholder="{{ 'organization.department_name' | translate}}" required type="text">
           <label>{{ 'organization.department_name' | translate}} *</label>
+          <anms-error
+            [showError]="hasError('departmentName',organizationForm,submited)"
+            error="forms.feedback.required"></anms-error>
         </span>
-        <anms-error
-          [showError]="hasError('departmentName',organizationForm,submited)"
-          error="forms.feedback.required"></anms-error>
       </div>
     </div>
 
 
   </div>
   <div class="form-section">
-    <div class='font-weight-bold'>{{ 'organization.tag' | translate }}</div>
+    <h3 class="form-section__title"><span class='plus-icon'>
+      <svg-icon src='../../../../../assets/icons/add.svg'
+        [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
+        '100%'}"></svg-icon>
+    </span>{{ 'organization.tag' | translate }}</h3>
     <div class="row form-section__row">
       <div class="col-12 col-md-5 p-field form-section__field">
 
-        <span class="p-float-label" formArrayName='tags'>
-          <div class="p-inputgroup" *ngFor='let _ of tags.controls; let index = index' [formGroupName]='index'
-               [class.mt-3]='tags.length > 1'>
+        <span class="p-float-label">
+          <div class="p-inputgroup">
             <span class="p-float-label">
               <input type="text"  formControlName="tag" pInputText
                 placeholder="{{'organization.tag' | translate}}">
-              <label>{{ 'organization.tag' | translate}}</label>
+              <label>{{ 'organization.tag' | translate}} *</label>
             </span>
-            <span class="p-inputgroup-addon addon-primary" (click)='addTagField()'>
+            <span class="p-inputgroup-addon addon-primary">
               <i class="pi pi-plus"></i>
             </span>
           </div>
@@ -57,27 +60,19 @@
     </div>
   </div>
   <div class="form-section">
-    <h3 class="form-section__title"><span class='plus-icon'>
-      <svg-icon src='../../../../../assets/icons/add.svg'
-                [svgStyle]="{ 'width.px': 18 , 'fill': '#0DA06E' , 'height':
-        '100%'}" (click)='addSection()'></svg-icon>
-    </span><span class='font-weight-bold ml-2'>{{ 'organization.section_department' | translate}}</span></h3>
-    <div formArrayName='section'>
-      <div class="row form-section__row" *ngFor='let _ of section.controls; let index = index;'
-           [formGroupName]='index'>
+    <h3 class="form-section__title">{{ 'organization.section_department' | translate}}</h3>
+    <div class="row form-section__row">
       <div class="col-12 col-md-4 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="sectionName" pInputText
             placeholder="{{ 'organization.section_name' | translate}}" required type="text">
           <label>{{ 'organization.section_name' | translate}} *</label>
+          <anms-error
+            [showError]="hasError('sectionName',organizationForm,submited)"
+            error="forms.feedback.required"></anms-error>
         </span>
-        <anms-error
-          [showError]="formArrayHasError(submited, section, index, 'sectionName')"
-          error="forms.feedback.required"></anms-error>
       </div>
-        <div class="col-12 col-md-4 p-field form-section__field" formArrayName='locations'>
-      <div *ngFor='let _ of sectionLocation(index).controls; let j = index' [formGroupName]='j'
-           [class.mb-3]='sectionLocation(index).length > 1'>
+      <div class="col-12 col-md-4 p-field form-section__field">
         <span class="p-float-label">
           <div class="p-inputgroup">
             <span class="p-float-label">
@@ -85,17 +80,15 @@
                 placeholder="{{ 'organization.location' | translate}}">
               <label>{{ 'organization.location' | translate}} *</label>
             </span>
-            <span class="p-inputgroup-addon addon-primary" (click)='addSectionLocation(index)'>
+            <span class="p-inputgroup-addon addon-primary">
               <i class="pi pi-plus"></i>
             </span>
           </div>
         </span>
         <anms-error
-        [showError]="formArrayHasError(submited, sectionLocation(index), j, 'location')"
+        [showError]="hasError('location',organizationForm,submited)"
         error="forms.feedback.required"></anms-error>
       </div>
-      </div>
-    </div>
     </div>
   </div>
 </form>
@@ -107,4 +100,3 @@
     </div>
   </div>
 </div>
-<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>

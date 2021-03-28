@@ -3,7 +3,6 @@ import { select, Store } from '@ngrx/store';
 import { IntegrationSelectors } from './integration.selectors';
 import { IntegrationPartialState } from './integration.entity';
 import { IntegrationActions } from './integration.actions';
-import { IIntegration } from '@models/integration';
 
 @Injectable()
 export class IntegrationFacade {
@@ -17,8 +16,5 @@ export class IntegrationFacade {
 
   loadAll() {
     this.store.dispatch(IntegrationActions.loadAll());
-  }
-  addIntegration(data: IIntegration) {
-    this.store.dispatch(IntegrationActions.addintegration({ data }));
   }
 }

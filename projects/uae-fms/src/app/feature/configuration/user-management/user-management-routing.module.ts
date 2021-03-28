@@ -12,7 +12,6 @@ const routes: Routes = [
   { path: 'role-permission', component: RolePermissionComponent },
   { path: 'add-role-permission', component: AddRoleAndPermissionComponent },
   { path: 'users/add-new-user', component: AddUserComponent },
-  { path: 'users/edit-user/:id', component: AddUserComponent },
   {
     path: '',
     pathMatch: 'full',

@@ -21,10 +21,6 @@ const subAssetReducer = createReducer(
       error: null
     })
   ),
-  on(SubAssetActions.statisticsLoaded, (state, data) => ({
-    ...state,
-    statistics: data.data
-  })),
   on(SubAssetActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

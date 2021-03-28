@@ -1,2 +1,11 @@
 @import '../../../../../themes/green-theme.scss';
 @import '../../../../../assets/scss/form-section.scss';
+.row {
+  margin-top: 10px !important;
+  .form-section:first-child {
+    margin-top: 0 !important;
+  }
+}
+.fit-height {
+  height: calc(100% - 10px);
+}

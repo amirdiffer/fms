@@ -1,12 +1,11 @@
 import { createSelector } from '@ngrx/store';
 import { ConfigurationSelectors } from '../../configuration.selectors';
 import { assetPolicyAdapter } from './asset-policy.entity';
-const { selectAll } = assetPolicyAdapter.getSelectors();
 
 export class AssetPolicySelectors {
   static selectAll = createSelector(
     ConfigurationSelectors.assetPolicySelector,
-    selectAll
+    assetPolicyAdapter.setAll
   );
 
   static message = createSelector(
@@ -17,15 +16,5 @@ export class AssetPolicySelectors {
   static error = createSelector(
     ConfigurationSelectors.assetPolicySelector,
     (state) => state.error
-  );
-
-  static submitted = createSelector(
-    ConfigurationSelectors.assetPolicySelector,
-    (state) => state.submitted
-  );
-
-  static selectById = createSelector(
-    AssetPolicySelectors.selectAll,
-    (state, props: { id: number }) => state.find((x) => x.id === props.id)
   );
 }

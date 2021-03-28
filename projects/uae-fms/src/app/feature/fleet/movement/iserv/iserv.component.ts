@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { ColumnType, TableSetting } from '@core/table';
 import * as L from 'leaflet';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-iserv',
@@ -102,27 +101,12 @@ export class IserveComponent implements OnInit {
       },
       { lable: 'tables.column.type', type: 1, field: 'Type', width: 100 },
       { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
-      {
-        lable: 'tables.column.tf_paid',
-        type: 1,
-        field: 'TF_PAid',
-        width: 100,
-        sortable: true
-      },
+      { lable: 'tables.column.tf_paid', type: 1, field: 'TF_PAid', width: 100 },
       {
         lable: 'tables.column.tf_unpaid',
         type: 1,
         field: 'TF_Unpaid',
-        width: 100,
-        sortable: true
-      },
-      {
-        lable: '',
-        field: 'floatButton',
-        width: 0,
-        type: ColumnType.lable,
-        thumbField: '',
-        renderer: 'floatButton'
+        width: 100
       }
     ],
     data: [
@@ -246,17 +230,7 @@ export class IserveComponent implements OnInit {
         TF_Unpaid: '0',
         statusColor: '#81B29A'
       }
-    ],
-    rowSettings: {
-      onClick: (col, data) => {
-        console.log(col, data);
-      },
-      floatButton: [
-        {
-          button: 'edit'
-        }
-      ]
-    }
+    ]
   };
   movementOverView_Table: TableSetting = {
     columns: [
@@ -274,8 +248,7 @@ export class IserveComponent implements OnInit {
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: '',
-        sortable: true
+        renderer: ''
       },
       {
         lable: 'tables.column.date',
@@ -331,8 +304,7 @@ export class IserveComponent implements OnInit {
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: '',
-        sortable: true
+        renderer: ''
       }
     ],
     data: [
@@ -422,7 +394,8 @@ export class IserveComponent implements OnInit {
         width: 100,
         type: ColumnType.lable,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        sortable: true
       },
       {
         lable: 'tables.column.location',
@@ -430,15 +403,16 @@ export class IserveComponent implements OnInit {
         width: 100,
         type: ColumnType.lable,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        sortable: true
       },
       {
         lable: '',
-        field: 'floatButton',
+        field: '',
         width: 0,
         type: ColumnType.lable,
         thumbField: '',
-        renderer: 'floatButton'
+        renderer: 'floatButtonRenderer'
       }
     ],
     data: [
@@ -464,27 +438,13 @@ export class IserveComponent implements OnInit {
     rowSettings: {
       onClick: (col, data) => {
         console.log(col, data);
-      },
-      floatButton: [
-        {
-          button: 'edit'
-        },
-        {
-          button: 'download'
-        },
-        {
-          button: 'external',
-          onClick: (col, data) => {
-            this.router.navigate(['/fleet/assets/' + data.id]).then();
-          }
-        }
-      ]
+      }
     }
   };
 
   map_view;
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {}
 

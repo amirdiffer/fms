@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 import { MainTemplateComponent } from './template/main-template/main-template.component';
 import { LoginTemplateComponent } from './template/login-template/login-template.component';
 import { DesignSystemComponent } from './template/design-system/design-system.component';
-import { SpinnerComponent, SpinnerService } from '@core/spinner';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -28,10 +28,8 @@ import { SpinnerComponent, SpinnerService } from '@core/spinner';
     AppComponent,
     MainTemplateComponent,
     LoginTemplateComponent,
-    DesignSystemComponent,
-    SpinnerComponent
+    DesignSystemComponent
   ],
-  providers: [SpinnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

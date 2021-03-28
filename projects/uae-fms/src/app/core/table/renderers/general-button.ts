@@ -34,12 +34,6 @@ import { ButtonType } from '../table.component';
       >
         {{ 'buttons.reject' | translate }}
       </button>
-      <button
-        class="btn-primary-medium"
-        *ngIf="col.buttonType == buttonType.orderListReject"
-      >
-        {{ 'buttons.reject' | translate }}
-      </button>
     </div>
     <span *ngIf="col.buttonType == buttonType.add" class="plus-icon">+</span>
     <img

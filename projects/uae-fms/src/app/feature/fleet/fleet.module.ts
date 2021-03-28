@@ -46,16 +46,9 @@ import { AddOperatorComponent } from '@feature/fleet/operator/add-operator/add-o
 import { ChartsModule } from '@core/charts';
 
 import { FleetStateModule } from './+state';
-import { PendingRegistrationOverviewComponent } from './assets/pending-registration-overview/pending-registration-overview.component';
-import { AssetCarDetailComponent } from './assets/asset-detail/asset-car-detail.component';
-import { PendingCustomizationOverviewComponent } from './assets/pending-customization-overview/pending-customization-overview.component';
-import { AssetRegistrationConfirmComponent } from './assets/asset-registration-confirm/asset-registration-confirm.component';
 import { MapModule } from '@core/map-view';
 import { OverViewOperatorComponent } from './operator/over-view-operator/over-view-operator.component';
 import { IserveComponent } from './movement/iserv/iserv.component';
-import { TemporaryComponent } from '../fleet/movement/temporary/temporary.component';
-import { AddTemporaryRequestComponent } from '@feature/fleet/movement/add-temporary-request/add-temporary-request.component';
-import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 
 @NgModule({
   declarations: [
@@ -72,19 +65,13 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
     AddAssetComponent,
     AddOperatorComponent,
     AddRequestComponent,
-    PendingRegistrationOverviewComponent,
-    AssetCarDetailComponent,
-    PendingCustomizationOverviewComponent,
-    AssetRegistrationConfirmComponent,
     IserveComponent,
     OverViewAssetComponent,
     VehicleOverviewComponent,
     BusinessCategoryComponent,
     JobCardComponent,
     RequestComponent,
-    OverViewOperatorComponent,
-    TemporaryComponent,
-    AddTemporaryRequestComponent
+    OverViewOperatorComponent
   ],
   imports: [
     AngularSvgIconModule,
@@ -109,8 +96,7 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
     ProgressBarModule,
     NgApexchartsModule,
     ChartsModule,
-    MapModule,
-    AlertDialogModule
+    MapModule
   ]
 })
 export class FleetModule {}

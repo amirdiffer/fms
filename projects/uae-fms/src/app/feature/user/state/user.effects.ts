@@ -12,9 +12,9 @@ export class UserProfileEffect {
     this.action$.pipe(
       ofType(UserPorfileAction.loadData),
       mergeMap((action) =>
-        this._service.loadProfile().pipe(
+        this._service.getUserData().pipe(
           map((data) => {
-            return UserPorfileAction.dataLoaded({ data: data.message });
+            return UserPorfileAction.dataLoaded({ data });
           }),
           catchError((error) => of(UserPorfileAction.error({ reason: error })))
         )

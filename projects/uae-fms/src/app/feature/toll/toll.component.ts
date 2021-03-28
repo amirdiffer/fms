@@ -1,18 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TollFacade } from '../toll/+state';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { IToll } from '@models/toll';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'anms-toll',
@@ -20,16 +8,13 @@ import { IToll } from '@models/toll';
   styleUrls: ['./toll.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TollComponent implements OnInit, OnDestroy {
+export class TollComponent implements OnInit {
   tableSetting;
+  tableData: ITableData[];
   filterSetting = [];
-  statistic$: Subscription;
   searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn = 'assets/icons/download-solid.svg';
-  assignForm: object | null = null;
-  loaded: boolean = false;
-
-  submittedAssign = false;
+  assignForm: object|null = null;
 
   translations = {
     'statistic.total': '',
@@ -40,12 +25,10 @@ export class TollComponent implements OnInit, OnDestroy {
   form: FormGroup;
   migrateForm(): void {
     this.form = this._fb.group({
-      id: ['', Validators.compose([Validators.required])],
-      tollTag: ['', Validators.compose([Validators.required])],
-      assetId: [null, Validators.compose([Validators.required])],
-      status: ['', Validators.compose([Validators.required])],
-      purchaseDate: ['', Validators.compose([Validators.required])]
-    });
+      tag: "",
+      assignTo: "",
+      purshateDate: ""
+    })
   }
 
   constructor(private facade: TollFacade, private _fb: FormBuilder) {
@@ -53,11 +36,48 @@ export class TollComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.facade.loadAll();
+    this.facade.assignNow$.subscribe((x) => {
+      this.assignForm = x;
+      x!=null ? this.form.patchValue(this.assignForm): null;
+    });
+    this.tableData = [
+      {
+        tag: '123456789',
+        status: 'Unassigned',
+        assets: { assetName: 'Asset Name', subAsset: 'Sub Asset' },
+        purshateDate: '02/02/2020'
+      },
+      {
+        tag: '123456789',
+        status: 'Assigned',
+        assets: { assetName: 'Asset Name', subAsset: 'Sub Asset' },
+        purshateDate: '02/02/2020'
+      },
+      {
+        tag: '123456789',
+        status: 'Assigned',
+        assets: { assetName: 'Asset Name', subAsset: 'Sub Asset' },
+        purshateDate: '02/02/2020'
+      },
+      {
+        tag: '123456789',
+        status: 'Assigned',
+        assets: { assetName: 'Asset Name', subAsset: 'Sub Asset' },
+        purshateDate: '02/02/2020'
+      },
+      {
+        tag: '123456789',
+        status: 'Assigned',
+        assets: { assetName: 'Asset Name', subAsset: 'Sub Asset' },
+        purshateDate: '02/02/2020'
+      }
+    ];
     this.tableSetting = {
       columns: [
         {
           lable: 'tables.column.toll_tag',
-          field: 'tollTag',
+          field: 'tag',
           type: 1,
           thumbField: '',
           renderer: ''
@@ -71,80 +91,39 @@ export class TollComponent implements OnInit, OnDestroy {
         },
         {
           lable: 'sidebar.fleets.assets',
-          field: 'relatedAsset',
+          field: 'assets',
           type: 2,
           thumbField: '',
           renderer: 'assignNow'
         },
         {
           lable: 'tables.column.purshate_date',
-          field: 'purchaseDate',
+          field: 'purshateDate',
           type: 1,
           thumbField: '',
           renderer: ''
         }
       ],
-      data: []
+      data: this.tableData
     };
+
     this.filterSetting = [
       {
         filterTitle: 'statistic.total',
-        filterCount: '',
-        filterTagColor: '#CBA786',
-        field: 'total'
+        filterCount: '2456',
+        filterTagColor: '#CBA786'
       },
       {
         filterTitle: 'statistic.available',
-        filterCount: '',
-        filterTagColor: '#00AFB9',
-        field: 'available'
+        filterCount: '356',
+        filterTagColor: '#00AFB9'
       },
       {
         filterTitle: 'statistic.assigned',
-        filterCount: '',
-        filterTagColor: '#EF959D',
-        field: 'assigned'
+        filterCount: '124',
+        filterTagColor: '#EF959D'
       }
     ];
-    this.facade.loadAll();
-    this.facade.toll$.subscribe((data) => {
-      if (data) {
-        this.tableSetting.data = data.map((item) => {
-          return {
-            id: item.id,
-            purchaseDate: item.purchaseDate,
-            // dpd: item.relatedAsset.dpd,
-            // dpdId: item.relatedAsset.id,
-            relatedAsset: {
-              dpd: item.relatedAsset.dpd,
-              id: item.relatedAsset.id
-            },
-            status: item.status,
-            tollTag: item.tollTag
-          };
-        });
-      }
-    });
-    this.facade.assignNow$.subscribe((x) => {
-      this.assignForm = x;
-      if (x != null && x.id) {
-        this.form.patchValue(this.assignForm);
-        this.form.get('assetId').patchValue(x['relatedAsset']['id']);
-        console.log(this.form.getRawValue());
-      }
-    });
-    this.facade.statistic$.subscribe((data) => {
-      if (data) {
-        this.filterSetting.forEach((card, index) => {
-          this.filterSetting[index].filterCount =
-            data[this.filterSetting[index].field];
-        });
-      }
-    });
-    this.facade.loaded$.subscribe((loaded) => {
-      this.facade.loadAssignNow(null);
-      this.loaded = loaded;
-    });
   }
 
   closeForm(): void {
@@ -153,25 +132,20 @@ export class TollComponent implements OnInit, OnDestroy {
   }
 
   lengthObjectAssign(): boolean {
-    if (this.assignForm == null) return false;
-    else return Object.keys(this.assignForm).length > 1;
+    if (this.assignForm == null)
+      return false
+    else
+      return Object.keys(this.assignForm).length > 1;
   }
 
-  hasError(controlName) {
-    const control: FormControl = this.form.get(controlName) as FormControl;
+}
 
-    if (control.dirty && control.invalid) {
-      return true;
-    }
-
-    return false;
-  }
-
-  assignToll(): void {
-    this.submittedAssign = true;
-    if (this.form.invalid) return;
-    this.facade.assigningToll(this.form.getRawValue());
-  }
-
-  ngOnDestroy(): void {}
+export interface ITableData {
+  tag: string;
+  status: string;
+  assets: {
+    assetName: string;
+    subAsset: string;
+  };
+  purshateDate: string;
 }

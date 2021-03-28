@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OwnershipComponent } from './ownership/ownership.component';
 import { FleetStatusComponent } from './fleet-status/fleet-status.component';
 import { AssetPolicyComponent } from './asset-policy/asset-policy.component';
-import { OwnershipFormComponent } from './ownership/ownership-form/ownership-form.component';
+import { OwnershipFormComponent } from './ownership-form/ownership-form.component';
 import { PeriodicServiceComponent } from './periodic-service/periodic-service.component';
 import { AddFleetStatusComponent } from '@feature/configuration/fleet-status/add-fleet-status/add-fleet-status.component';
 import { BusinessCategoryComponent } from './business-category/business-category.component';
@@ -12,20 +12,14 @@ import { AddCategoryComponent } from './business-category/add-category/add-categ
 import { AssetConfigurationComponent } from './asset-configuration/asset-configuration.component';
 import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-asset-policy.component';
 import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-service/add-periodic-service.component';
-import { AddTypeComponent } from '@feature/configuration/asset-configuration/add-type/add-type.component';
 
 const routes: Routes = [
   { path: 'asset-configuration', component: AssetConfigurationComponent },
-  { path: 'add-asset-configuration', component: AddTypeComponent },
   { path: 'business-category', component: BusinessCategoryComponent },
   { path: 'periodic-service', component: PeriodicServiceComponent },
   { path: 'asset-policy/add-asset-policy', component: AddAssetPolicyComponent },
-  {
-    path: 'asset-policy/edit-asset-policy',
-    component: AddAssetPolicyComponent
-  },
-  { path: 'asset-policy/add', component: AddAssetPolicyComponent },
-  { path: 'ownership/add-ownership', component: OwnershipFormComponent },
+  { path: 'asset-policy/edit-asset-policy/:id', component: AddAssetPolicyComponent },
+  { path: 'ownership/add', component: OwnershipFormComponent },
   { path: 'asset-policy', component: AssetPolicyComponent },
   { path: 'fleet-status', component: FleetStatusComponent },
   { path: 'ownership', component: OwnershipComponent },
@@ -35,7 +29,7 @@ const routes: Routes = [
     data: { name: 'Add Periodic Service' }
   },
   {
-    path: 'business-category/add-business-category',
+    path: 'business-category/add-category',
     component: AddCategoryComponent,
     data: { name: 'Category Name' }
   },
@@ -55,11 +49,6 @@ const routes: Routes = [
     path: 'fleet-status/add-fleet-status',
     component: AddFleetStatusComponent,
     data: { name: 'Add Fleet Status' }
-  },
-  {
-    path: 'fleet-status/edit-fleet-status/:id',
-    component: AddFleetStatusComponent,
-    data: { name: 'Edit Fleet Status' }
   },
   { path: 'ownership', component: OwnershipComponent },
   {

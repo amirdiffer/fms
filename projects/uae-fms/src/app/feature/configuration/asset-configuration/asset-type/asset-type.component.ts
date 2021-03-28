@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  OnDestroy
-} from '@angular/core';
-import { AssetTypeFacade } from '../../+state/asset-configuration';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'configuration-asset-type',
@@ -13,22 +6,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./asset-type.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AssetTypeComponent implements OnInit, OnDestroy {
-  getAssetTypeSubscription!: Subscription;
+export class AssetTypeComponent implements OnInit {
+  constructor() {}
 
-  constructor(private facade: AssetTypeFacade) {}
-
-  ngOnInit(): void {
-    this.facade.loadAll();
-
-    this.getAssetTypeSubscription = this.facade.assetType$.subscribe(
-      (response) => {
-        console.log(response);
-      }
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.getAssetTypeSubscription?.unsubscribe();
-  }
+  ngOnInit(): void {}
 }

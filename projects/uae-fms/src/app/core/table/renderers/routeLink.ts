@@ -6,22 +6,18 @@ import { ActivatedRoute, Router } from '@angular/router';
   template: `
     <div class="router-link-container">
       <a (click)="redirect()">
-        <svg-icon
-          [src]="externalLink"
-          class="icon24px"
-          [svgStyle]="{ width: '1.3em' }"
-        ></svg-icon>
+        <svg-icon [src]="externalLink" class="icon24px" [svgStyle]="{'width':'1.3em'}"></svg-icon>
       </a>
     </div>
   `,
   styles: [
-    `
-      .router-link-container {
-        position: relative;
-        width: 100%;
-        height: 100%;
+    ` .router-link-container{
+        position:relative;
+        width:100%;
+        height:100%
+
       }
-      .router-link-container a {
+      .router-link-container a{
         position: absolute;
         top: 50%;
         left: 50%;

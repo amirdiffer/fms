@@ -7,30 +7,12 @@ import { MovementRequestsService } from './movement-requests.service';
 
 @Injectable()
 export class MovementRequestsEffect {
-  loadAll$ = createEffect(() =>
+  LoadAllMovementRequestss$ = createEffect(() =>
     this.action$.pipe(
       ofType(MovementRequestsActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) =>
-            MovementRequestsActions.allDataLoaded({ data: data.message })
-          ),
-          catchError((error) =>
-            of(MovementRequestsActions.error({ reason: error }))
-          )
-        )
-      )
-    )
-  );
-
-  MovementRequestsStatistics$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(MovementRequestsActions.loadStatistic),
-      mergeMap((action) =>
-        this.service.loadRequestStatistic().pipe(
-          map((data) =>
-            MovementRequestsActions.statisticRequestLoaded({ data })
-          ),
+          map((data) => MovementRequestsActions.allDataLoaded({ data })),
           catchError((error) =>
             of(MovementRequestsActions.error({ reason: error }))
           )

@@ -12,37 +12,7 @@ export class OwnershipEffect {
       ofType(OwnershipActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => OwnershipActions.allDataLoaded({ data: data.message })),
-          catchError((error) => of(OwnershipActions.error({ reason: error })))
-        )
-      )
-    )
-  );
-
-  addOwnership$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(OwnershipActions.addOwnership),
-      mergeMap((action) =>
-        this.service.addOwnership(action.data).pipe(
-          map((data) =>
-            OwnershipActions.ownershipAddedSuccessfully({
-              data: { ...action.data, ...data.message }
-            })
-          ),
-          catchError((error) => of(OwnershipActions.error({ reason: error })))
-        )
-      )
-    )
-  );
-
-  editOwnership$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(OwnershipActions.editOwnership),
-      mergeMap((action) =>
-        this.service.addOwnership(action.data).pipe(
-          map((data) =>
-            OwnershipActions.ownershipEditedSuccessfully({ data: data.message })
-          ),
+          map((data) => OwnershipActions.allDataLoaded({ data })),
           catchError((error) => of(OwnershipActions.error({ reason: error })))
         )
       )

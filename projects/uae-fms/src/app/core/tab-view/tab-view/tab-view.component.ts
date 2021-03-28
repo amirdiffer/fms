@@ -35,12 +35,10 @@ export class TabViewComponent implements OnInit, OnDestroy {
   // selectedTab: number = 0;
   selectedParams;
   routeObsvr$: Subscription;
-  constructor(
-    public cd: ChangeDetectorRef,
-    private _router: Router,
-    private _activateRoute: ActivatedRoute,
-    private _renderer: Renderer2
-  ) {}
+  constructor(public cd: ChangeDetectorRef ,
+              private _router : Router ,
+              private _activateRoute : ActivatedRoute ,
+              private _renderer : Renderer2 ) {}
 
   ngOnInit(): void {}
 
@@ -65,15 +63,14 @@ export class TabViewComponent implements OnInit, OnDestroy {
     this.tabs = tabs;
     this.initialized = true;
     this.routeObsvr$ = this._activateRoute.queryParams.subscribe((id) => {
-      id['id']
-        ? (this.selectedParams = id['id'])
-        : (this.selectedParams = this.tabs[0].id);
+      id['id'] ? this.selectedParams = id['id'] : this.selectedParams = this.tabs[0].id;
       this.cd.detectChanges();
       this.selectByUrlParams();
       this.selectedIndex.emit(
         this.returnId == 'title' ? this.selectedParams : this.selectedTab
       );
     });
+
   }
 
   selectedTabChanged() {
@@ -85,58 +82,37 @@ export class TabViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectByUrlParams() {
+  selectByUrlParams (){
     for (let i = 0; i < this.elements.length; i++) {
       this.elements[i].classList.add('hidden-item');
-      if (this.elements[i].getAttribute('id') == this.selectedParams) {
-        this.elements[i].classList.remove('hidden-item');
+      if (this.elements[i].getAttribute('id') == this.selectedParams){
+          this.elements[i].classList.remove('hidden-item');
       }
     }
-    for (
-      let i = 0;
-      i < this.tabsHeader.nativeElement.children.length - 1;
-      i++
-    ) {
-      this._renderer.setAttribute(
-        this.tabsHeader.nativeElement.children[i],
-        'for',
-        this.tabs[i].id ? this.tabs[i].id : ''
-      );
-      this.tabsHeader.nativeElement.children[i].getAttribute('for') ==
-      this.selectedParams
-        ? (this._renderer.addClass(
-            this.tabsHeader.nativeElement.children[i],
-            'active-tab'
-          ),
-          (this.selectedTab = i))
-        : this._renderer.removeClass(
-            this.tabsHeader.nativeElement.children[i],
-            'active-tab'
-          );
+    for (let i=0; i < this.tabsHeader.nativeElement.children.length -1 ; i++){
+      this._renderer.setAttribute(this.tabsHeader.nativeElement.children[i] , 'for',this.tabs[i].id ?this.tabs[i].id:'')
+      this.tabsHeader.nativeElement.children[i].getAttribute('for') == this.selectedParams ?
+        (this._renderer.addClass(this.tabsHeader.nativeElement.children[i],'active-tab'), this.selectedTab = i) :
+        this._renderer.removeClass(this.tabsHeader.nativeElement.children[i],'active-tab');
     }
   }
-  selectTab(index: number, title: string, e: Event) {
+  selectTab(index: number, title: string , e:Event) {
     this.selectedTab = index;
 
-    for (
-      let i = 0;
-      i < this.tabsHeader.nativeElement.children.length - 1;
-      i++
-    ) {
-      this._renderer.removeClass(
-        this.tabsHeader.nativeElement.children[i],
-        'active-tab'
-      );
+    for (let i=0; i < this.tabsHeader.nativeElement.children.length -1 ; i++){
+      this._renderer.removeClass(this.tabsHeader.nativeElement.children[i],'active-tab');
     }
     (e.target as HTMLElement).classList.add('active-tab');
     this.selectedIndex.emit(
       this.returnId == 'title' ? title : index.toString()
     );
-    this._router.navigate([], { queryParams: { id: title } });
+    this._router.navigate([], {queryParams:{id:title}})
     this.selectedTabChanged();
+
   }
 
   ngOnDestroy(): void {
     this.routeObsvr$.unsubscribe();
   }
+
 }

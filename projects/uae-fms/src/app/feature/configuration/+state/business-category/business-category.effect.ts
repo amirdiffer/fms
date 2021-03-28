@@ -12,45 +12,7 @@ export class BusinessCategoryEffect {
       ofType(BusinessCategoryActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) =>
-            BusinessCategoryActions.allDataLoaded({ data: data.message })
-          ),
-          catchError((error) =>
-            of(BusinessCategoryActions.error({ reason: error }))
-          )
-        )
-      )
-    )
-  );
-
-  editCategory$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(BusinessCategoryActions.editCategory),
-      mergeMap((action) =>
-        this.service.editCategory(action.category).pipe(
-          map((data) =>
-            BusinessCategoryActions.categoryEditedSuccessfully({
-              category: action.category
-            })
-          ),
-          catchError((error) =>
-            of(BusinessCategoryActions.error({ reason: error }))
-          )
-        )
-      )
-    )
-  );
-
-  addData$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(BusinessCategoryActions.addCategory),
-      mergeMap((action) =>
-        this.service.post(action.data).pipe(
-          map((data) =>
-            BusinessCategoryActions.categoryAddedSuccessfully({
-              data: data.message
-            })
-          ),
+          map((data) => BusinessCategoryActions.allDataLoaded({ data })),
           catchError((error) =>
             of(BusinessCategoryActions.error({ reason: error }))
           )

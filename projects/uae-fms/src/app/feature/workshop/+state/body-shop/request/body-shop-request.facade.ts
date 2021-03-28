@@ -7,9 +7,6 @@ import { BodyShopRequestSelectors } from './body-shop-request.selectors';
 @Injectable()
 export class BodyShopRequestFacade {
   bodyShop$ = this.store.pipe(select(BodyShopRequestSelectors.selectAll));
-  statistics$ = this.store.pipe(
-    select(BodyShopRequestSelectors.selectStatistics)
-  );
 
   message$ = this.store.pipe(select(BodyShopRequestSelectors.message));
 
@@ -19,8 +16,5 @@ export class BodyShopRequestFacade {
 
   loadAll() {
     this.store.dispatch(BodyShopRequestActions.loadAll());
-  }
-  loadStatistics() {
-    this.store.dispatch(BodyShopRequestActions.loadStatistics());
   }
 }

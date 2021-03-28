@@ -24,7 +24,6 @@ import { FuelCardRendererComponent } from './renderers/fuel-card';
 import { AssignNow } from '@core/table/renderers/assign-now';
 import { TableGeneralButtonRendererComponent } from './renderers/general-button';
 import { FloatButton } from './renderers/float-button'
-import { ColorizeRendererComponent } from "./renderers/colorize";
 
 @NgModule({
   imports: [
@@ -57,8 +56,7 @@ import { ColorizeRendererComponent } from "./renderers/colorize";
     TableRouteLinkRendererComponent,
     FuelCardRendererComponent,
     AssignNow,
-    FloatButton,
-    ColorizeRendererComponent
+    FloatButton
   ],
   providers: []
 })

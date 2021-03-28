@@ -17,14 +17,6 @@ const periodicServiceReducer = createReducer(
   on(PeriodicServiceActions.allDataLoaded, (state, { data }) =>
     periodicServiceAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
-  on(PeriodicServiceActions.addPeriodicService, (state, { data }) => ({
-    ...state,
-    loaded: false
-  })),
-  on(
-    PeriodicServiceActions.periodicServiceAddedSuccessfully,
-    (state, { data }) => periodicServiceAdapter.addOne(data, state)
-  ),
   on(PeriodicServiceActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

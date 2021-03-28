@@ -16,7 +16,7 @@
     <div class="col-12 col-md-8">
       <div class="component_wrapper">
         <div class="button-container">
-          <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="/part-store/part-list/edit-part" [queryParams]="{id : recordId}">{{ 'forms.edit' | translate }}</button>
+          <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{ 'forms.cancel' | translate }}</button>
           <button class="btn-primary-medium add" routerLink="/part-store/order-list/add-order-list">{{ 'forms.order' | translate }}</button>
         </div>
 
@@ -40,10 +40,6 @@
           <tr>
             <th>{{ 'tables.column.warranty_expire' | translate }}</th>
             <td>00/00/0000</td>
-          </tr>
-          <tr>
-            <th>{{ 'tables.column.cost' | translate }}</th>
-            <td>0000 AED</td>
           </tr>
           <tr>
             <th>{{ 'tables.column.total_cost' | translate }}</th>

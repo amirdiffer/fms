@@ -1,9 +1,25 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { ITechnician } from '@models/body-shop';
 
 export const WORKSHOP_BODYSHOP_TECHNICIAN_FEATURE_KEY = 'bodyShopTechnician';
 
-export interface IBodyShopTechnicianState extends EntityState<ITechnician> {
+export interface IBodyShopTechnicianStateModel {
+  name: {
+    fullname: string;
+    number: string;
+    thumb: string;
+  };
+  skill: string;
+  status: string;
+  tasks: number;
+  info: {
+    email: string;
+    phone: string;
+  };
+  ratePerHour: string;
+}
+
+export interface IBodyShopTechnicianState
+  extends EntityState<IBodyShopTechnicianStateModel> {
   error?: any;
   loaded: boolean;
   message: string;
@@ -11,8 +27,8 @@ export interface IBodyShopTechnicianState extends EntityState<ITechnician> {
 export interface IBodyShopTechnicianPartialState {
   [WORKSHOP_BODYSHOP_TECHNICIAN_FEATURE_KEY]: IBodyShopTechnicianState;
 }
-export const bodyShopTechnicianAdapter: EntityAdapter<ITechnician> = createEntityAdapter<
-  ITechnician
+export const bodyShopTechnicianAdapter: EntityAdapter<IBodyShopTechnicianStateModel> = createEntityAdapter<
+  IBodyShopTechnicianStateModel
 >();
 export const initialState: IBodyShopTechnicianState = bodyShopTechnicianAdapter.getInitialState(
   {

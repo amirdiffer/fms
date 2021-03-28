@@ -19,7 +19,7 @@ export class CustomizationEffects {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            return CustomizationActions.allDataLoaded({ data: data.message });
+            return CustomizationActions.allDataLoaded({ data });
           }),
           catchError((error) =>
             of(CustomizationActions.error({ reason: error }))

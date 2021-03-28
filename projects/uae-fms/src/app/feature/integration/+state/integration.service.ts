@@ -1,23 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IIntegration } from '@models/integration';
-import { environment } from '@environments/environment';
-import { ResponseBody } from '@models/response-body';
+import { IntegrationStateModel } from './integration.entity';
 
 @Injectable()
 export class IntegrationService {
   constructor(private http: HttpClient) {}
 
-  loadAll(): Observable<ResponseBody<IIntegration[]>> {
-    return this.http.get<ResponseBody<IIntegration[]>>(
-      environment.baseApiUrl + 'configuration/integrations'
-    );
-  }
-  post(data): Observable<ResponseBody<IIntegration>> {
-    return this.http.post<ResponseBody<IIntegration>>(
-      environment.baseApiUrl + 'configuration/integrations',
-      data
-    );
+  loadAll(): Observable<IntegrationStateModel[]> {
+    return this.http.get<IntegrationStateModel[]>('');
   }
 }

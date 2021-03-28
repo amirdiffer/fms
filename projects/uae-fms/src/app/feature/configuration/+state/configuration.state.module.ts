@@ -44,9 +44,6 @@ import {
   AssetConfigurationService
 } from '../+state/asset-configuration';
 import { AssetConfigurationEffect } from '../+state/asset-configuration/asset-configuration.effect';
-import { AssetTypeEffect } from './asset-configuration/asset-type/asset-type.effect';
-import { AssetTypeFacade } from './asset-configuration/asset-type/asset-type.facade';
-import { AssetTypeService } from './asset-configuration/asset-type/asset-type.service';
 
 @NgModule({
   declarations: [],
@@ -62,8 +59,7 @@ import { AssetTypeService } from './asset-configuration/asset-type/asset-type.se
       FleetStatusSubAssetEffect,
       OwnershipEffect,
       PeriodicServiceEffect,
-      AssetConfigurationEffect,
-      AssetTypeEffect
+      AssetConfigurationEffect
     ])
   ],
   providers: [
@@ -86,9 +82,7 @@ import { AssetTypeService } from './asset-configuration/asset-type/asset-type.se
     PeriodicServiceFacade,
     PeriodicServiceService,
     AssetConfigurationFacade,
-    AssetConfigurationService,
-    AssetTypeFacade,
-    AssetTypeService
+    AssetConfigurationService
   ]
 })
 export class ConfigurationStateModule {}

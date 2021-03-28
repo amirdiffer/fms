@@ -1,11 +1,11 @@
 <div class="filter-container">
-  <div class="button-container" *ngIf="lengthObjectAssign() && loaded">
+  <div class="button-container" *ngIf="lengthObjectAssign()">
     <button class="btn-primary-medium btn-scondary-green" type="button" (click)="closeForm()">{{ 'forms.cancel' | translate }}</button>
-    <button class="btn-primary-medium add" (click)="assignToll();">{{ 'forms.assign' | translate }}</button>
+    <button class="btn-primary-medium add" (click)="closeForm()">{{ 'forms.assign' | translate }}</button>
   </div>
     <app-filter [setting]="filterSetting"></app-filter>
 </div>
-<div class="row" *ngIf="lengthObjectAssign() && loaded">
+<div class="row" *ngIf="lengthObjectAssign()">
   <form class="col-12" [formGroup]="form">
     <div class="form-section">
       <h3 class="form-section__title">{{ 'toll.toll_info' | translate }}</h3>
@@ -18,9 +18,6 @@
                            type="text" readonly>
                     <label>{{ 'toll.toll_tag' | translate }}</label>
                 </span>
-          <anms-error
-            [showError]="hasError('tollTag')"
-            error="forms.feedback.required"></anms-error>
         </div>
 
         <div class="col-12 col-md-4 p-field form-section__field">
@@ -38,9 +35,6 @@
             <i class="pi pi-search" ></i>
             <label>{{ 'toll.assign_to' | translate }} *</label>
           </span>
-            <anms-error
-              [showError]="hasError('assetId')"
-              error="forms.feedback.required"></anms-error>
           </div>
         </div>
 

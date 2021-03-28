@@ -1,10 +1,6 @@
 export interface IToll {
-  id: number;
   tollTag: string;
   status?: string;
-  relatedAsset?: {
-    id: number;
-    dpd: string;
-  };
+  relatedAssetId?: number;
   purchaseDate: string;
 }

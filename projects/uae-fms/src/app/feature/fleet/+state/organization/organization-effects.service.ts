@@ -15,7 +15,7 @@ export class OrganizationEffects {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            return OrganizationActions.allDataLoaded({ data: data.message });
+            return OrganizationActions.allDataLoaded({ data });
           }),
           catchError((error) =>
             of(OrganizationActions.error({ reason: error }))

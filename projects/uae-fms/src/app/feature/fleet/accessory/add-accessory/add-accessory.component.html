@@ -1,63 +1,63 @@
-<form [formGroup]="inputForm">
+<form [formGroup] = "inputForm">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" (click)="cancel()">{{'forms.cancel' | translate}}</button>
-    <button class="btn-primary-medium add" (click)="submit()">{{'forms.add' | translate}}</button>
+    <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{'forms.cancel' | translate}}</button>
+    <button class="btn-primary-medium add">{{'forms.add' | translate}}</button>
   </div>
   <div class="form-section">
     <div class="row form-section__row">
       <div class="col-12 col-md-4 p-field form-section__field">
         <span class="p-float-label">
-          <input formControlName="itemName" pInputText placeholder="{{'accessory.item_name' | translate}} *"
-            type="text">
+          <input formControlName="itemName" pInputText
+                 placeholder="{{'accessory.item_name' | translate}} *"  type="text">
           <label>{{'accessory.item_name' | translate}} *</label>
         </span>
-
-        <anms-error [showError]="hasError('itemName')" error="forms.feedback.required"></anms-error>
-
       </div>
-
-
-
-      <div class="col-12 col-md-4 p-field form-section__field">
-
-        <div class="autocomplete-select">
-          <span class="p-float-label">
-            <p-autoComplete formControlName="asset" (completeMethod)="filterAssets($event)" [suggestions]="assets"
-              field="name" [minLength]="1" (ngModelChange)="assetChanged($event)" required></p-autoComplete>
-            <i class="pi pi-search"></i>
-            <label>{{ 'accessory.assets_sub_assets' | translate }} *</label>
-          </span>
-          <anms-error [showError]="hasError('asset')" error="forms.feedback.required"></anms-error>
+      <div class="col-12 col-md-4 mb-2 align-self-center">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <h3 class="form-section__title m-0">{{'accessory.accessory_type' | translate}}</h3>
+          </div>
+          <div class="col-12 col-md-8 row">
+            <div class="form-check col-6">
+              <input class="form-check-input" formControlName="assignTo" type="radio" name="assignTo" id="asset" value ="asset">
+              <label class="form-check-label" for="asset">{{'accessory.asset' | translate}}</label>
+            </div>
+            <div class="form-check col-6">
+              <input class="form-check-input" formControlName="assignTo" type="radio" name="assignTo" id="subAsset" value ="subAsset">
+              <label class="form-check-label" for="subAsset">{{'accessory.sub_asset' | translate}}</label>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="col-12 col-md-4 p-field form-section__field options-select">
-        <span class="p-float-label">
-          <p-dropdown inputId="accessoryType" [autoDisplayFirst]="false" [options]="accessory"
-            formControlName="accessoryType" optionLabel="name"></p-dropdown>
-          <label for="accessoryType">{{'accessory.accessory_type' | translate}} *</label>
-        </span>
-
-        <anms-error [showError]="hasError('accessoryType')" error="forms.feedback.required"></anms-error>
-      </div>
-
-
-
-    </div>
-    <div class="row form-section__row">
-
       <div class="col-12 col-md-4 p-field form-section__field">
         <span class="p-float-label">
-          <input formControlName="quantity" pInputText placeholder="{{'accessory.quantity' | translate}} *" type="text">
-          <label>{{'accessory.quantity' | translate}} *</label>
+          <input formControlName="search" pInputText
+                 placeholder="{{'accessory.asset' | translate}}"  type="text">
+          <label>{{'accessory.asset' | translate}}</label>
         </span>
-        <anms-error [showError]="hasError('quantity')" error="forms.feedback.required"></anms-error>
       </div>
-
+    </div>
+    <div class="row form-section__row">
       <div class="col-12 col-md-3 p-field form-section__field options-select">
         <span class="p-float-label">
-          <p-dropdown inputId="assignedTo" [autoDisplayFirst]="false" [options]="assignedTo"
-            formControlName="assignedTo" optionLabel="name"></p-dropdown>
+          <p-dropdown inputId="accessoryType" [autoDisplayFirst]="false"
+                      [options]="accessory"
+                      formControlName="accessoryType" optionLabel="name"></p-dropdown>
+          <label for="accessoryType">{{'accessory.accessory_type' | translate}} *</label>
+        </span>
+      </div>
+      <div class="col-12 col-md-4 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="quantity" pInputText
+                 placeholder="{{'accessory.quantity' | translate}} *"  type="text">
+          <label>{{'accessory.quantity' | translate}} *</label>
+        </span>
+      </div>
+      <div class="col-12 col-md-3 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="assignedTo" [autoDisplayFirst]="false"
+                      [options]="assignedTo"
+                      formControlName="assignedTo" optionLabel="name"></p-dropdown>
           <label for="assignedTo">{{'accessory.assigned_to_a' | translate}}</label>
         </span>
       </div>
@@ -67,10 +67,3 @@
 <div class="table-container component_wrapper">
   <app-table [setting]='accessory_Table'></app-table>
 </div>
-
-<alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel"
-  (confirm)="dialogCancelConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="dialogSettingAdd" [displayModal]="dialogModalAdd" (confirm)="dialogAddConfirm($event)">
-</alert-dialog>
-<alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogErrorConfirm($event)">
-</alert-dialog>

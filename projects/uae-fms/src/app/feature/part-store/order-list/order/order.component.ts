@@ -1,12 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Injector,
-  OnInit
-} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Utility } from '@shared/utility/utility';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'order-form',
@@ -14,19 +7,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
   styleUrls: ['./order.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OrderFormComponent extends Utility implements OnInit {
-  submited = false;
-
-  dialogModal = false;
-
-  dialogSetting: IDialogAlert = {
-    header: 'Add Order',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
-
+export class OrderFormComponent implements OnInit {
   checked = false;
   assetTypeOptions = [
     { name: 'Type 1', value: 'Type1' },
@@ -39,21 +20,19 @@ export class OrderFormComponent extends Utility implements OnInit {
   tableSetting;
   tableData;
   public inputForm: FormGroup;
-  constructor(private _fb: FormBuilder, private injector: Injector) {
-    super(injector);
-  }
+  constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
       createQuotation: ['repeat'],
       assetType: this._fb.group({
-        type: ['Type1', [Validators.required]],
-        make: ['Type1', [Validators.required]],
-        model: ['Type1', [Validators.required]]
+        type: ['Type1'],
+        make: ['Type1'],
+        model: ['Type1']
       }),
       repeatQuotation: this._fb.group({
-        current: ['Type1', [Validators.required]],
-        quantity: ['', [Validators.required]],
+        current: ['Type1'],
+        quantity: [''],
         description: ['']
       }),
       newOrder: this._fb.group({
@@ -71,8 +50,7 @@ export class OrderFormComponent extends Utility implements OnInit {
       {
         itemName: 'item Name',
         date: '02/02/2020',
-        suppliers: 'BMW',
-        description: 'Description is here',
+        suppliers: 'Description is here',
         quantity: '12',
         cost: '1000 AED',
         total: '1000 AED',
@@ -81,8 +59,7 @@ export class OrderFormComponent extends Utility implements OnInit {
       {
         itemName: 'item Name',
         date: '02/02/2020',
-        suppliers: 'BMW',
-        description: 'Description is here',
+        suppliers: 'Description is here',
         quantity: '12',
         cost: '1000 AED',
         total: '1000 AED',
@@ -91,8 +68,7 @@ export class OrderFormComponent extends Utility implements OnInit {
       {
         itemName: 'item Name',
         date: '02/02/2020',
-        suppliers: 'BMW',
-        description: 'Description is here',
+        suppliers: 'Description is here',
         quantity: '12',
         cost: '1000 AED',
         total: '1000 AED',
@@ -126,14 +102,6 @@ export class OrderFormComponent extends Utility implements OnInit {
           renderer: ''
         },
         {
-          lable: 'tables.column.description',
-          field: 'description',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
           lable: 'tables.column.quantity',
           field: 'quantity',
           width: 100,
@@ -155,7 +123,6 @@ export class OrderFormComponent extends Utility implements OnInit {
           width: 100,
           type: 1,
           thumbField: '',
-          sortable: true,
           renderer: ''
         },
         {
@@ -169,34 +136,5 @@ export class OrderFormComponent extends Utility implements OnInit {
       ],
       data: this.tableData
     };
-  }
-
-  cancel(): void {
-    this.dialogModal = true;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.cancelButton = 'No';
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.message = 'Are you sure to cancel adding new order?';
-  }
-
-  dialogConfirm(event: any): void {
-    this.dialogModal = false;
-
-    if (!this.dialogSetting.hasError && event) {
-      this.router.navigate(['/part-store/order-list']).then();
-    }
-  }
-
-  submit(): void {
-    this.submited = true;
-    if (this.inputForm.invalid) {
-      return;
-    }
-
-    this.dialogModal = true;
-    this.dialogSetting.message = 'New order added successfully';
-    this.dialogSetting.isWarning = false;
-    this.dialogSetting.confirmButton = 'OK';
-    this.dialogSetting.cancelButton = undefined;
   }
 }

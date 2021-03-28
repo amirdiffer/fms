@@ -1,17 +1,11 @@
 import { createSelector } from '@ngrx/store';
 import { bodyShopRequestAdapter } from './body-shop-request.entity';
 import { WorkshopSelectors } from '../../workshop.selectors';
-const { selectAll } = bodyShopRequestAdapter.getSelectors();
 
 export class BodyShopRequestSelectors {
   static selectAll = createSelector(
     WorkshopSelectors.bodyshopRequestSelector,
-    selectAll
-  );
-
-  static selectStatistics = createSelector(
-    WorkshopSelectors.bodyshopRequestSelector,
-    (state) => state.statistics
+    bodyShopRequestAdapter.setAll
   );
 
   static message = createSelector(

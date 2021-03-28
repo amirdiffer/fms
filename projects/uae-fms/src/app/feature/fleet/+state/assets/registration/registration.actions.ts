@@ -1,12 +1,12 @@
 import { createAction, props } from '@ngrx/store';
-import { IPendingRegistration } from '@models/pending-registration.model';
+import { IRegistrationModel } from '@feature/fleet/+state/assets/registration/registration.entity';
 
 export class RegistrationActions {
   static loadAll = createAction('[Registration] load all data');
 
   static allDataLoaded = createAction(
     '[Registration] all datas are loaded',
-    props<{ data: IPendingRegistration[] }>()
+    props<{ data: IRegistrationModel[] }>()
   );
 
   static error = createAction(
