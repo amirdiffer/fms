@@ -17,6 +17,7 @@ import { AddRequestComponent } from './movement/add-request/add-request.componen
 import { PendingRegistrationOverviewComponent } from './assets/pending-registration-overview/pending-registration-overview.component';
 import { PendingCustomizationOverviewComponent } from './assets/pending-customization-overview/pending-customization-overview.component';
 import { IserveComponent } from '@feature/fleet/movement/iserv/iserv.component';
+import { OverViewOperatorComponent } from './operator/over-view-operator/over-view-operator.component';
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
@@ -26,12 +27,13 @@ const routes: Routes = [
   { path: 'sub-asset', component: SubAssetComponent },
   { path: 'movement', component: MovementComponent },
   { path: 'movement/iserve', component: IserveComponent },
-  { path: 'movement/add-request', component: AddRequestComponent },
+  { path: 'movement/add-permanent-request', component: AddRequestComponent },
   { path: 'operator', component: OperatorComponent },
-  { path: 'operator/add', component: AddOperatorComponent },
+  { path: 'operator/add-operator', component: AddOperatorComponent },
+  { path: 'operator/edit-operator/:id', component: AddOperatorComponent },
+  { path: 'operator/:id', component: OverViewOperatorComponent },
   { path: 'assets', component: AssetsComponent },
   { path: 'assets/add-new-asset', component: AddAssetComponent },
-  { path: 'assets/edit-asset/:id', component: AddAssetComponent },
   { path: 'assets/:id', component: OverViewAssetComponent },
   {
     path: 'assets/:id/registration',
