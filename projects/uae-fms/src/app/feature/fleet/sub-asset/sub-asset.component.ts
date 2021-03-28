@@ -1,7 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { ColumnType, TableSetting } from '@core/table';
 import { SubAssetFacade } from '../+state/sub-asset';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'anms-sub-asset',
@@ -9,7 +15,9 @@ import { SubAssetFacade } from '../+state/sub-asset';
   styleUrls: ['./sub-asset.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SubAssetComponent implements OnInit {
+export class SubAssetComponent implements OnInit, OnDestroy {
+  statisticsSubscription!: Subscription;
+
   downloadBtn = 'assets/icons/download-solid.svg';
   filterCard: FilterCardSetting[] = [
     {
@@ -195,7 +203,7 @@ export class SubAssetComponent implements OnInit {
           color: '#3F3F3F'
         },
         {
-          button: 'external',
+          button: 'external'
         },
         {
           button: 'cancel',
@@ -212,6 +220,20 @@ export class SubAssetComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.loadStatistics();
+
+    this.facade.subAsset$.subscribe((x) => {
+      console.log(x);
+    });
+
+    this.statisticsSubscription = this.facade.statistics$.subscribe(
+      (response) => {
+        console.log(response);
+      }
+    );
   }
 
+  ngOnDestroy(): void {
+    this.statisticsSubscription?.unsubscribe();
+  }
 }

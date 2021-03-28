@@ -4,9 +4,11 @@ import {
   ChangeDetectionStrategy,
   Injector
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { PeriodicServiceFacade } from '../../+state/periodic-service';
 
 @Component({
   selector: 'anms-add-periodic-service',
@@ -29,8 +31,19 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
       sortable: true,
       width: 100,
       type: ColumnType.lable
+    },
+    {
+      lable: '',
+      field: 'floatButton',
+      width: 0,
+      type: ColumnType.lable,
+      thumbField: '',
+      renderer: 'floatButton'
     }
   ];
+
+  packages: FormArray;
+  tasks: FormArray;
 
   tableData = [
     {
@@ -53,32 +66,105 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
     { id: 3, name: 'Km/s' }
   ];
 
-  tableSetting: TableSetting = {
+  tableSetting = {
     columns: this.tableColumns,
-    data: this.tableData
+    data: this.tableData,
+    rowSettings: {
+      floatButton: [
+        {
+          button: 'edit'
+        }
+      ]
+    }
   };
 
   addPeriodicServiceForm: FormGroup;
-  submited: boolean = false;
+  submitted: boolean = false;
+  dialogCancelSetting: IDialogAlert = {
+    header: 'Cancel',
+    hasError: false,
+    isWarning: true,
+    message: 'Are you sure you want to cancel?',
+    confirmButton: 'Cancel',
+    cancelButton: 'No'
+  };
+  dialogSuccessSetting: IDialogAlert = {
+    header: 'Success',
+    hasError: false,
+    message: 'New ownership Successfully Added'
+  };
+  dialogErrorSetting: IDialogAlert = {
+    header: 'Error',
+    hasError: true,
+    message: 'Some Error Occurred'
+  };
+  displayCancelModal = false;
+  displaySuccessModal = false;
+  displayErrorModal = false;
 
-  constructor(private _fb: FormBuilder, injector: Injector) {
+  constructor(
+    private _fb: FormBuilder,
+    injector: Injector,
+    private facade: PeriodicServiceFacade
+  ) {
     super(injector);
   }
 
   ngOnInit(): void {
     this.addPeriodicServiceForm = this._fb.group({
       name: ['', [Validators.required]],
-      packageName: ['', [Validators.required]],
-      intervals: [''],
-      task: ['', [Validators.required]]
+      packages: this._fb.array([this.createPackageForm()]),
+      tasks: this._fb.array([this.createTaskForm()])
     });
+    this.tasks = this.addPeriodicServiceForm.get('tasks') as FormArray;
+    if (!this.tasks) this.tasks.push(this.createTaskForm());
+
+    this.packages = this.addPeriodicServiceForm.get('packages') as FormArray;
+    if (!this.packages) this.packages.push(this.createPackageForm());
+  }
+
+  createTaskForm(): FormGroup {
+    return this._fb.group({
+      name: ['', [Validators.required]]
+    });
+  }
+  createPackageForm(): FormGroup {
+    return this._fb.group({
+      packageName: ['', [Validators.required]],
+      intervals: ['']
+    });
+  }
+  addTask(): void {
+    this.tasks = this.addPeriodicServiceForm.get('tasks') as FormArray;
+    this.tasks.push(this.createTaskForm());
+  }
+
+  addPackage(): void {
+    this.packages = this.addPeriodicServiceForm.get('packages') as FormArray;
+    this.packages.push(this.createPackageForm());
   }
 
   submit() {
-    this.submited = true;
+    this.submitted = true;
     if (this.addPeriodicServiceForm.invalid) {
       return;
+    } else {
+      this.displaySuccessModal = true;
+      setTimeout(() => {
+        this.displaySuccessModal = false;
+        this.goToList();
+      }, 2000);
     }
-    this.goToList();
+  }
+
+  showCancelAlert() {
+    this.displayCancelModal = true;
+  }
+
+  dialogConfirm(confirmed) {
+    if (confirmed) {
+      this.displayCancelModal = false;
+      this.goToList();
+    } else this.displayCancelModal = false;
   }
 }

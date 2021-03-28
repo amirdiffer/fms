@@ -1,0 +1,20 @@
+@import '../../../../../themes/green-theme.scss';
+@import '../../../../../assets/scss/form-section.scss';
+.wrapper {
+  // background: white !important;
+  .form-section {
+    box-shadow: none !important;
+  }
+  .button-container {
+    top: 1.4em;
+    right: 12px;
+  }
+  .title {
+    font-size: 13px;
+    font-weight: bolder;
+  }
+}
+
+.form-check-label {
+  margin: 0 20px;
+}

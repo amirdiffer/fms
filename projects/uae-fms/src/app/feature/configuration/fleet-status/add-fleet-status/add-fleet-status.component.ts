@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { FleetStatusAssetFacade } from '../../+state/fleet-status/asset/fleet-status-asset.facade';
 
 @Component({
   selector: 'anms-add-fleet-status',
@@ -100,22 +101,25 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
   ];
   currentTab: string;
 
-  constructor(injector: Injector, private _fb: FormBuilder) {
+  constructor(
+    injector: Injector,
+    private _fb: FormBuilder,
+    private facade: FleetStatusAssetFacade
+  ) {
     super(injector);
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      (params) => {
-        this.currentTab = params['id']
-      }
-    );
-    this.route.url.subscribe(
-      (params) => {
-        console.log(params)
-        this.isEdit = params.filter(x=>x.path=="edit-fleet-status").length > 0 ? true : false;
-      }
-    );
+    this.route.params.subscribe((params) => {
+      this.currentTab = params['id'];
+    });
+    this.route.url.subscribe((params) => {
+      console.log(params);
+      this.isEdit =
+        params.filter((x) => x.path == 'edit-fleet-status').length > 0
+          ? true
+          : false;
+    });
     this.fleetStatusForm = this._fb.group({
       typeCategory: ['asset'],
       statusCategory: ['', [Validators.required]],
@@ -129,12 +133,11 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
         relativeTo: this.route,
         queryParams: { id: 'fleetStatusAssetTab' }
       });
-    else
-      this.dialogModalCancel = false
+    else this.dialogModalCancel = false;
   }
 
   dialogAddConfirm(event) {
-    console.log(event)
+    console.log(event);
 
     this.router.navigate(['/configuration/fleet-status'], {
       relativeTo: this.route,

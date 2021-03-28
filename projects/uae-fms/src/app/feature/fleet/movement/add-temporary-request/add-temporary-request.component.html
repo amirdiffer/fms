@@ -1,0 +1,110 @@
+<form [formGroup]="requestForm" (ngSubmit)='submit()'>
+  <div class="button-container">
+    <button class="btn-primary-medium btn-scondary-green" type="button" (click)='cancel()'>{{ 'forms.cancel' | translate }}</button>
+    <button class="btn-primary-medium add" type="submit">{{ 'forms.submit' | translate }}</button>
+  </div>
+  <div class="form-section form-section--inline">
+    <div class="row form-section__row">
+      <div class="col-12 col-md-6 mb-2 align-self-center">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <h3 class="form-section__title m-0">{{ 'movement.movement.request_type' | translate }}</h3>
+          </div>
+          <div class="col-12 col-md-8 row">
+            <div class="form-check col-6">
+              <input class="form-check-input" formControlName="requestType" type="radio" name="requestType" id="New" value ="new">
+              <label class="form-check-label" for="New">{{ 'movement.movement.new' | translate }}</label>
+            </div>
+            <div class="form-check col-6">
+              <input class="form-check-input" formControlName="requestType" type="radio" name="requestType" id="Replacement" value ="replacement">
+              <label class="form-check-label" for="Replacement">{{ 'movement.movement.replacement' | translate }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- start assetType -->
+      <div class="col-12 col-md-4 p-field form-section__field">
+        <div class="autocomplete-select">
+              <span class="p-float-label">
+                <p-autoComplete formControlName="assetType"
+                                (completeMethod)="filterAssets($event)"
+                                [suggestions]="assetTypes" field="name"
+                                [minLength]="1"></p-autoComplete>
+                <i class="pi pi-search"></i>
+                <label>{{ 'configuration.business_category.asset_type' | translate }} *</label>
+              </span>
+          <anms-error
+            [showError]="hasError('assetType', requestForm, submited)"
+            error="forms.feedback.required">
+          </anms-error>
+        </div>
+      </div>
+      <!-- end assetType -->
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class='d-flex'>
+      <!-- start resone -->
+      <div class="col-9 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText placeholder="{{ 'movement.movement.reason' | translate }} *"
+                           formControlName="resone" required
+                           type="text">
+                    <label>{{ 'movement.movement.reason' | translate }} *</label>
+                </span>
+        <anms-error
+          [showError]="hasError('resone', requestForm, submited)"
+          error="forms.feedback.required">
+        </anms-error>
+      </div>
+      <!-- end reasone -->
+      <!-- start quantity -->
+      <div class="col-3 p-field form-section__field"
+           [hidden]="requestForm.controls['requestType'].value !== 'new'">
+                <span class="p-float-label">
+                    <input pInputText placeholder="{{ 'movement.movement.quantity' | translate }} *"
+                           formControlName="quality" [required]="requestForm.controls['requestType'].value === 'new'"
+                           type="text">
+                    <label>{{ 'movement.movement.quantity' | translate }} *</label>
+                </span>
+        <anms-error
+          [showError]="hasError('quality', requestForm, submited)"
+          error="forms.feedback.required">
+        </anms-error>
+      </div>
+      <!-- end quantity -->
+    </div>
+    <div class='d-flex'>
+      <!-- start oldAssetType -->
+      <div class="col-12 col-md-4 p-field form-section__field justify-height" [hidden]="requestForm.controls['requestType'].value === 'new'">
+        <div class="autocomplete-select">
+                    <span class="p-float-label">
+                      <p-autoComplete formControlName="oldAssetType"
+                                      (completeMethod)="filterAssets($event)"
+                                      [suggestions]="oldAssetSuggests" field="name"
+                                      [minLength]="1" [required]="requestForm.controls['requestType'].value !== 'new'"></p-autoComplete>
+                      <i class="pi pi-search"></i>
+                      <label>{{ 'movement.movement.old_asset' | translate }} *</label>
+                    </span>
+          <anms-error
+            [showError]="hasError('oldAssetType', requestForm, submited)"
+            error="forms.feedback.required">
+          </anms-error>
+        </div>
+      </div>
+      <div class="col-12 col-md-3 p-field form-section__field
+        date-input" [hidden]="requestForm.controls['requestType'].value === 'replacement'">
+        <span class="p-float-label">
+          <p-calendar inputId="basic" formControlName="duration"></p-calendar>
+          <svg-icon class="date-icon"
+                    src='assets/icons/calendar-alt-regular.svg'
+                    [svgStyle]="{'width.px': 20 , 'fill': 'rgb(161 161 161)' , 'height': '100%'}"></svg-icon>
+          <label>{{'movement.movement.duration' | translate}}</label>
+        </span>
+      </div>
+      <!-- end oldAssetType -->
+    </div>
+  </div>
+</form>
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>

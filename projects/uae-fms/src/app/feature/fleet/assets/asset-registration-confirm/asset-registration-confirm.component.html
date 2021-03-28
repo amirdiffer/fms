@@ -1,0 +1,17 @@
+<div class="wrapper">
+    <div [class.rtl]="activeLang === 'ar'" class="header d-flex">
+        <h5>
+            {{ 'assets.asset_successfully_registered' | translate }}
+        </h5>
+    </div>
+    <section>
+        <p>{{ 'assets.sample_hint_is_here_to_explain_process' | translate }}</p>
+        <div class="btn-container">
+            <button class="btn-primary-medium add" type="submit">{{ 'assets.customize_now' | translate }}</button>
+            <button class="btn-primary-medium btn-scondary-green" type="button"
+            >{{ 'assets.customize_later' | translate }}</button>
+            <button class="btn-primary-medium btn-scondary-green" type="button"
+            >{{'forms.cancel' | translate}}</button>
+        </div>
+    </section>
+</div>

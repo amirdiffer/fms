@@ -1,8 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from '@angular/core';
 import { ColumnType, TableSetting } from '@core/table';
 import { BusinessCategoryFacade } from '../+state/business-category';
 import { DataService } from './data.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-business-category',
@@ -10,8 +17,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./business-category.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BusinessCategoryComponent implements OnInit {
+export class BusinessCategoryComponent implements OnInit, OnDestroy {
+  getBusinessCategorySubscription!: Subscription;
+
   downloadBtn = 'assets/icons/download-solid.svg';
+  businessCategory$ = this.facade.businessCategory$.pipe(
+    map((x) =>
+      x.map((responseObject) => {
+        return {
+          id: responseObject.id,
+          Category_Name: responseObject.name,
+          Status: responseObject.status,
+          Description: responseObject.description,
+          Asset_Type: responseObject.assetTypeId,
+          Sub_Asset: responseObject.numOfSubAssets,
+          Accessory: responseObject.numOfAccessories,
+          assetTypeName: responseObject.assetTypeName
+        };
+      })
+    )
+  );
+
   businessCategory_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.category_name', type: 1, field: 'Category_Name' },
@@ -29,64 +55,7 @@ export class BusinessCategoryComponent implements OnInit {
         renderer: 'floatButton'
       }
     ],
-    data: [
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      },
-      {
-        Category_Name: 'Category Name is here',
-        Status: 'Active',
-        Description: 'Text is here',
-        Asset_Type: 'Car',
-        Sub_Asset: '12',
-        Accessory: '24'
-      }
-    ],
+    data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
         console.log(col, data, button);
@@ -113,5 +82,9 @@ export class BusinessCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+  }
+
+  ngOnDestroy(): void {
+    this.getBusinessCategorySubscription?.unsubscribe();
   }
 }

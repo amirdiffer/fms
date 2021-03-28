@@ -12,6 +12,6 @@
     <button class="btn-primary-small" routerLink='/configuration/user-management/add-role-permission'><i>+</i><a>{{ 'search.add' | translate }}</a></button>
   </div>
   <div class="table-wreapper ">
-    <app-table [setting]='rolePermission_Table'></app-table>
+    <app-table [setting]='rolePermission_Table' [tableData]="data$"></app-table>
   </div>
 </div>

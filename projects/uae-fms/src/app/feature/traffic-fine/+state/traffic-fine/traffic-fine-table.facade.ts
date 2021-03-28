@@ -8,6 +8,10 @@ import { TrafficFineTableActions } from './traffic-fine-table.actions';
 export class TrafficFineTableFacade {
   trafficFine$ = this.store.pipe(select(TrafficFineTableSelectors.selectAll));
 
+  statistics$ = this.store.pipe(
+    select(TrafficFineTableSelectors.selectStatistics)
+  );
+
   message$ = this.store.pipe(select(TrafficFineTableSelectors.message));
 
   error$ = this.store.pipe(select(TrafficFineTableSelectors.error));
@@ -16,5 +20,9 @@ export class TrafficFineTableFacade {
 
   loadAll() {
     this.store.dispatch(TrafficFineTableActions.loadAll());
+  }
+
+  loadStatistics() {
+    this.store.dispatch(TrafficFineTableActions.loadStatistics());
   }
 }

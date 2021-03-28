@@ -1,0 +1,12 @@
+.dimmed {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  z-index: 998;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  overflow: hidden;
+  align-items: center;
+}

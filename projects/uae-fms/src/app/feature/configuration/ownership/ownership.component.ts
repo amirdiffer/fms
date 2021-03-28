@@ -1,5 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { TableSetting } from '@core/table';
+import { map } from 'rxjs/operators';
 import { OwnershipFacade } from '../+state/ownership';
 
 @Component({
@@ -37,71 +43,30 @@ export class OwnershipComponent implements OnInit {
         sortable: true
       }
     ],
-    data: [
-      {
-        Ownership: 'Rent',
-        Owner: 'Joint-scopes company',
-        Fleet_IT_Code: 'REC',
-        Duration: '4 Year',
-        Purpose: 'Rescue',
-        Owner_Email: 'Sample@sample.com',
-        Owner_Phone_No: '50 563 3793',
-        car: '1546'
-      },
-      {
-        Ownership: 'Rent',
-        Owner: 'Joint-scopes company',
-        Fleet_IT_Code: 'REC',
-        Duration: '4 Year',
-        Purpose: 'Rescue',
-        Owner_Email: 'Sample@sample.com',
-        Owner_Phone_No: '50 563 3793',
-        car: '145'
-      },
-      {
-        Ownership: 'Rent',
-        Owner: 'Joint-scopes company',
-        Fleet_IT_Code: 'REC',
-        Duration: '4 Year',
-        Purpose: 'Rescue',
-        Owner_Email: 'Sample@sample.com',
-        Owner_Phone_No: '50 563 3793',
-        car: '5'
-      },
-      {
-        Ownership: 'Rent',
-        Owner: 'Joint-scopes company',
-        Fleet_IT_Code: 'REC',
-        Duration: '4 Year',
-        Purpose: 'Rescue',
-        Owner_Email: 'Sample@sample.com',
-        Owner_Phone_No: '50 563 3793',
-        car: '9995'
-      },
-      {
-        Ownership: 'Rent',
-        Owner: 'Joint-scopes company',
-        Fleet_IT_Code: 'REC',
-        Duration: '4 Year',
-        Purpose: 'Rescue',
-        Owner_Email: 'Sample@sample.com',
-        Owner_Phone_No: '50 563 3793',
-        car: '98'
-      },
-      {
-        Ownership: 'Rent',
-        Owner: 'Joint-scopes company',
-        Fleet_IT_Code: 'REC',
-        Duration: '4 Year',
-        Purpose: 'Rescue',
-        Owner_Email: 'Sample@sample.com',
-        Owner_Phone_No: '50 563 3793',
-        car: '1666'
-      }
-    ]
+    data: []
   };
 
-  constructor(private facade: OwnershipFacade) {}
+  ownerShip$ = this.facade.ownership$.pipe(
+    map((x) =>
+      x.map((item) => {
+        return {
+          Ownership: item.type,
+          Owner: item.name,
+          Fleet_IT_Code: item.fleetITCode,
+          Duration: item.duration,
+          Purpose: item.purpose,
+          Owner_Email: item.email,
+          Owner_Phone_No: item.phoneNumber,
+          car: item.numOfOwnedAssets || 0
+        };
+      })
+    )
+  );
+
+  constructor(
+    private facade: OwnershipFacade,
+    private _cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();

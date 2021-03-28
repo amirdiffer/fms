@@ -1,27 +1,28 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   INTEGRATION_FEATURE_KEY,
-  integrationAdapter
+  integrationAdapter,
+  IntegrationState
 } from './integration.entity';
+const { selectAll } = integrationAdapter.getSelectors();
 
 export class IntegrationSelectors {
-  static tollSelector = createSelector(
-    createFeatureSelector(INTEGRATION_FEATURE_KEY),
-    (state) => state['integration']
+  static integrationSelector = createFeatureSelector<IntegrationState>(
+    INTEGRATION_FEATURE_KEY
   );
 
   static selectAll = createSelector(
-    IntegrationSelectors.tollSelector,
-    integrationAdapter.setAll
+    IntegrationSelectors.integrationSelector,
+    selectAll
   );
 
   static message = createSelector(
-    IntegrationSelectors.tollSelector,
+    IntegrationSelectors.integrationSelector,
     (state) => state.message
   );
 
   static error = createSelector(
-    IntegrationSelectors.tollSelector,
+    IntegrationSelectors.integrationSelector,
     (state) => state.error
   );
 }

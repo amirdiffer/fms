@@ -1,13 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FleetStatusAssetStateModel } from './fleet-status-asset.entity';
+import { environment } from '@environments/environment';
+import { IFleetStatus } from '@models/fleet-status.model';
+import { ResponseBody } from '@models/response-body.model';
 
 @Injectable()
 export class FleetStatusAssetService {
   constructor(private http: HttpClient) {}
 
-  loadAll(): Observable<FleetStatusAssetStateModel[]> {
-    return this.http.get<FleetStatusAssetStateModel[]>('');
+  loadAll(): Observable<ResponseBody<IFleetStatus[]>> {
+    return this.http.get<ResponseBody<IFleetStatus[]>>(
+      environment.baseApiUrl + 'configuration/fleet-status'
+    );
+  }
+
+  post(data): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'configuration/fleet-status',
+      data
+    );
   }
 }

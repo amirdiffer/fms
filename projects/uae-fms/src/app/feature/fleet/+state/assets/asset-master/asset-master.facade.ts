@@ -3,13 +3,29 @@ import { select, Store } from '@ngrx/store';
 import { AssetMasterSelectors } from '@feature/fleet/+state/assets/asset-master/asset-master.selectors';
 import { AssetMasterActions } from '@feature/fleet/+state/assets/asset-master/asset-master.actions';
 import { IAssetMasterPartialState } from '@feature/fleet/+state/assets/asset-master/asset-master.entity';
+import { IAssetMaster } from '@models/asset-master.model';
+
 @Injectable()
 export class AssetMasterFacade {
   assetMaster$ = this.store.pipe(select(AssetMasterSelectors.selectAll));
+
+  statistics$ = this.store.pipe(select(AssetMasterSelectors.selectStatistics));
 
   constructor(private store: Store<IAssetMasterPartialState>) {}
 
   loadAll() {
     this.store.dispatch(AssetMasterActions.loadAll());
+  }
+
+  loadStatistics() {
+    this.store.dispatch(AssetMasterActions.loadStatistics());
+  }
+
+  addAsset(data: any) {
+    this.store.dispatch(AssetMasterActions.addAsset({ data }));
+  }
+
+  editAsset(data: any) {
+    this.store.dispatch(AssetMasterActions.editAsset({ data }));
   }
 }
