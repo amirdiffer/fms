@@ -1,24 +1,10 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Injector,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Injector, ChangeDetectorRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { FilterCardSetting } from '@core/filter';
-import { RolePermissionFacade } from '@feature/configuration/+state/role-permission';
-import {
-  OperatorFacade,
-  OperatorService
-} from '@feature/fleet/+state/operator';
+import { OperatorFacade, OperatorService } from '@feature/fleet/+state/operator';
 import { Utility } from '@shared/utility/utility';
-import {
-  FileSystemDirectoryEntry,
-  FileSystemFileEntry,
-  NgxFileDropEntry
-} from 'ngx-file-drop';
+import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 @Component({
@@ -75,28 +61,28 @@ export class AddOperatorComponent extends Utility implements OnInit {
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
 
@@ -145,16 +131,12 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
   private _operator;
   operators$ = this.operatorFacade.operator$;
-  // roles$ = this.roleFacade.rolePermission$.pipe(
-  //   map((y) => y.map((x) => ({ id: x.roleId, name: x.roleName })))
-  // );
 
   constructor(
     injector: Injector,
     private formBuilder: FormBuilder,
     private operatorFacade: OperatorFacade,
     private changeDetector: ChangeDetectorRef,
-    // private roleFacade: RolePermissionFacade,
     private operatorService: OperatorService
   ) {
     super(injector);
@@ -192,7 +174,11 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
               this.form.controls['personalInformation'].patchValue({
                 firstName: x.firstName,
-                lastName: x.lastName
+                lastName: x.lastName,
+                callCheckbox: x.notifyByCall,
+                smsCheckbox: x.notifyBySMS,
+                emailCheckbox: x.notifyByEmail,
+                whatsappCheckbox: x.notifyByWhatsApp,
               });
 
               this.emails.controls[0].patchValue({
@@ -240,7 +226,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
           : 'Operator Added Successfully';
         this.successDialogSetting.isWarning = false;
         this.successDialogSetting.hasError = false;
-        this.successDialogSetting.confirmButton = 'Yes';
+        this.successDialogSetting.confirmButton = 'Ok';
         this.successDialogSetting.cancelButton = undefined;
         this.changeDetector.detectChanges();
       }
@@ -555,7 +541,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
         if (
           typeof f.personalInformation.phoneNumbers[0] == 'object' &&
           typeof f.personalInformation.phoneNumbers[0].phoneNumber ==
-            'string' &&
+          'string' &&
           f.personalInformation.phoneNumbers[0].phoneNumber.length < 5
         )
           return [];

@@ -23,25 +23,25 @@ export class OperatorComponent implements OnInit {
       filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#6C7198',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '356',
       filterTagColor: '#5B8972',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.vacation',
       filterCount: '124',
       filterTagColor: '#DDB16C',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '12',
       filterTagColor: '#E07A5F',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
   filterCardOverView: FilterCardSetting[] = [
@@ -49,25 +49,25 @@ export class OperatorComponent implements OnInit {
       filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#6C7198',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '356',
       filterTagColor: '#5B8972',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.vacation',
       filterCount: '124',
       filterTagColor: '#DDB16C',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '12',
       filterTagColor: '#E07A5F',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
   //#endregion
@@ -82,7 +82,7 @@ export class OperatorComponent implements OnInit {
           Information: { line1: y.emails[0], line2: y.phoneNumbers[0] },
           Type: 'Operator',
           Status: 'Active',
-          asset: 0,
+          asset: { img: "thumb1.png" },
           TF_PAid: 0,
           TF_Unpaid: 0
         };
@@ -122,7 +122,7 @@ export class OperatorComponent implements OnInit {
         field: 'asset',
         width: 180,
         renderer: 'assetsRenderer',
-        thumbField: ''
+        thumbField: 'assetPicture'
       },
       {
         lable: 'tables.column.tf_paid',
@@ -177,7 +177,7 @@ export class OperatorComponent implements OnInit {
   constructor(
     private _operatorFacade: OperatorFacade,
     private _router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this._operatorFacade.loadAll();
