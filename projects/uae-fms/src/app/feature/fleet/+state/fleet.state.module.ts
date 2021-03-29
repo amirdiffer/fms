@@ -47,7 +47,7 @@ import { ConfigurationStateModule } from '@feature/configuration/+state';
       SubAssetEffect,
       AccessoryEffect,
       MovementRequestsEffect,
-      MovementOverviewEffect
+      MovementOverviewEffect,
       OperatorEffect
     ]),
     ConfigurationStateModule
