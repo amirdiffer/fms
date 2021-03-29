@@ -114,7 +114,7 @@
         background: $form-input-toggle !important;
       }
 
-      .p-radiobutton
+      .p-radiobutton,
         .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
         border-color: $form-input-toggle !important;
       }
