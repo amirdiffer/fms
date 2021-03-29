@@ -20,4 +20,9 @@ export class SubAssetSelectors {
     FleetSelectors.subAssetSelector,
     (state) => state.error
   );
+
+  static submitted = createSelector(
+    FleetSelectors.subAssetSelector,
+    (state) => state.submitted
+  );
 }

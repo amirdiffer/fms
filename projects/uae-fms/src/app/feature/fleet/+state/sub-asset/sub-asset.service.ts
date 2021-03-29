@@ -21,4 +21,35 @@ export class SubAssetService {
       environment.baseApiUrl + 'sub-asset/stats'
     );
   }
+
+  postSubAsset(data): Observable<ResponseBody<ISubasset>> {
+    return this.http.post<ResponseBody<ISubasset>>(
+      environment.baseApiUrl + 'sub-asset',
+      data
+    );
+  }
+
+  getSubAsset(id: number) {
+    return this.http.get(environment.baseApiUrl + `sub-asset/${id}`);
+  }
+
+  editSubAsset(data): Observable<any> {
+    const id = { data };
+    return this.http.post(
+      environment.baseApiUrl + `sub-asset/${id}/update`,
+      data
+    );
+  }
+
+  getAssetTypes(): Observable<any> {
+    return this.http.get(
+      environment.baseApiUrl + 'configuration/asset-type?size=99999'
+    );
+  }
+
+  getPolicyTypes(): Observable<any> {
+    return this.http.get(
+      environment.baseApiUrl + 'configuration/asset-policy?size=99999'
+    );
+  }
 }

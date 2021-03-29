@@ -7,6 +7,7 @@ export const FLEET_SUB_ASSET_FEATURE_KEY = 'sub-asset';
 export interface SubAssetState extends EntityState<ISubasset> {
   error?: any;
   loaded?: boolean;
+  submitted?: boolean;
   statistics: ISubAssetStatistics;
   message?: string;
 }
@@ -23,5 +24,6 @@ export const initialState: SubAssetState = subAssetAdapter.getInitialState({
   error: null,
   loaded: null,
   statistics: null,
-  message: null
+  message: null,
+  submitted: false
 } as SubAssetState);
