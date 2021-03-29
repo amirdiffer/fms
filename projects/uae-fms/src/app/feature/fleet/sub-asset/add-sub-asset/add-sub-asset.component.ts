@@ -440,7 +440,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   createWarrantyForm(
     item = '',
-    year = '',
+    year = { name: 'Week ', id: 'WEEK' },
     duration = '',
     startDate = ''
   ): FormGroup {

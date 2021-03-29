@@ -59,7 +59,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           Warranty_Expire_Date: y.warrantyExpireDate,
           Serial_Number: y.dpd,
           Asset: y.assetTypeName,
-          Date: y.assetTypeName,
+          Date: '2 Days ago',
           thumbField_Make: 'bmw.png',
           thumbField: 'thumb1.png'
         };
@@ -73,7 +73,8 @@ export class SubAssetComponent implements OnInit, OnDestroy {
         lable: 'tables.column.serial_number',
         type: 2,
         field: 'Serial_Number',
-        thumbField: 'thumbField'
+        thumbField: 'thumbField',
+        width: '18em'
       },
       { lable: 'tables.column.date', type: 1, field: 'Date' },
       {
