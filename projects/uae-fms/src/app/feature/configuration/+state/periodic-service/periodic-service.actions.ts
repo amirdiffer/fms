@@ -14,8 +14,18 @@ export class PeriodicServiceActions {
     props<{ data }>()
   );
 
+  static editPeriodicService = createAction(
+    '[PeriodicService] edit periodic service',
+    props<{ data }>()
+  );
+
   static periodicServiceAddedSuccessfully = createAction(
     '[PeriodicService] periodic service added successfully',
+    props<{ data }>()
+  );
+
+  static periodicServiceEditedSuccessfully = createAction(
+    '[PeriodicService] periodic service Edited successfully',
     props<{ data }>()
   );
 
@@ -23,4 +33,6 @@ export class PeriodicServiceActions {
     '[PeriodicService] error occurred',
     props<{ reason: any }>()
   );
+
+  static reset = createAction('[PeriodicService] reset parameters');
 }

@@ -6,7 +6,6 @@
       }}</button>
   </div>
 
-
   <div class="form-section form-section--inline mt-3">
     <div class="row">
       <div class="col-12 col-md-3">
@@ -24,9 +23,9 @@
         <anms-error [showError]="hasError('name',periodicServiceForm,submitted)" error="forms.feedback.required">
         </anms-error>
       </div>
-
     </div>
   </div>
+
   <div class="form-section form-section--inline mt-3">
     <div formArrayName="packages">
       <div class="row" [formGroupName]="i" *ngFor="let item of
@@ -48,10 +47,6 @@
             <label>{{ 'configuration.periodic_service.package_name' | translate
               }} *</label>
           </span>
-          <!-- <anms-error
-            [showError]="hasError('packageName',addPeriodicServiceForm,submitted)"
-            error="forms.feedback.required">
-          </anms-error> -->
           <div *ngIf="((packages.controls[i].get('packageName').dirty &&
             packages.controls[i].get('packageName').invalid) ||
             (packages.controls[i].get('packageName').invalid && submitted)) &&
@@ -79,10 +74,9 @@
             'configuration.periodic_service.task' | translate }}</h3>
         </div>
 
-        <div class="col-12 col-md-5 p-field form-section__field"  formArrayName="tasks">
+        <div class="col-12 col-md-5 p-field form-section__field" formArrayName="tasks">
           <div class="mt-2" [formGroupName]="j" *ngFor="let item of
           getPackageTasks(i).controls ;let j=index">
-
             <span class="p-float-label">
               <div class="p-inputgroup">
                 <span class="p-float-label">
@@ -94,15 +88,10 @@
                   <i class="pi pi-plus" (click)="addTask('',i)"></i>
                 </span>
               </div>
-             <div *ngIf="getTasksForm(i,j).get('name').invalid && submitted"
-                 class="p-error">
+              <div *ngIf="getTasksForm(i,j).get('name').invalid && submitted" class="p-error">
                 {{ 'forms.feedback.required' | translate }}
               </div>
             </span>
-            <!-- <anms-error
-                  [showError]="hasError('task',addPeriodicServiceForm,submitted)"
-                  error="forms.feedback.required">
-                </anms-error> -->
           </div>
         </div>
 
@@ -117,7 +106,7 @@
   <div class='col-12'>
     <div class='component_wrapper'>
       <div class='d-flex'>
-        <app-table [setting]="tableSetting"></app-table>
+        <app-table [setting]="tableSetting" [tableData]="periodicServices$"></app-table>
       </div>
     </div>
   </div>
@@ -126,5 +115,5 @@
 
 <alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)">
 </alert-dialog>
-<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal"></alert-dialog>
+<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="successDialogConfirm($event)"></alert-dialog>
 <alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal"></alert-dialog>

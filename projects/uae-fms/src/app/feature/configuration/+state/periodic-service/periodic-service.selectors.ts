@@ -20,7 +20,7 @@ export class PeriodicServiceSelectors {
   );
 
   static submitted = createSelector(
-    ConfigurationSelectors.assetPolicySelector,
+    ConfigurationSelectors.periodicServiceSelector,
     (state) => state.submitted
   );
 }

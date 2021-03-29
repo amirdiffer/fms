@@ -12,6 +12,7 @@ import { RouterFacade } from '@core/router';
 import { ColumnDifinition, ColumnType } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { PeriodicServiceFacade } from '../../+state/periodic-service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-add-periodic-service',
@@ -45,33 +46,28 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
     }
   ];
 
+  periodicServices$ = this.periodicServiceFacade.periodicService$.pipe(
+    map((x) =>
+      x.map((responseObject) => ({
+        id: responseObject.id,
+        periodicServiceName: responseObject.name,
+        number: responseObject.id
+      }))
+    )
+  );
+
   packages: FormArray;
   tasks: FormArray;
-
-  tableData = [
-    {
-      periodicServiceName: 'Basic Vehicle Maintenance',
-      number: '21'
-    },
-    {
-      periodicServiceName: 'Basic Vehicle Maintenance',
-      number: '21'
-    },
-    {
-      periodicServiceName: 'Basic Vehicle Maintenance',
-      number: '21'
-    }
-  ];
 
   units = [
     { id: 'KmPH', name: 'Km/h' },
     { id: 'KmPM', name: 'Km/m' },
-    { id: 'KmPS', name: 'Km/s' }
+    { id: 'KmPY', name: 'Km/y' }
   ];
 
   tableSetting = {
     columns: this.tableColumns,
-    data: this.tableData,
+    data: [],
     rowSettings: {
       floatButton: [
         {
@@ -83,6 +79,8 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
 
   periodicServiceForm: FormGroup;
   submitted: boolean = false;
+
+  //#region Dialog
   dialogCancelSetting: IDialogAlert = {
     header: 'Cancel',
     hasError: false,
@@ -105,6 +103,8 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   displayCancelModal = false;
   displaySuccessModal = false;
   displayErrorModal = false;
+  //#endregion
+
   id: number;
   isEdit: boolean;
 
@@ -136,22 +136,20 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   }
 
   ngOnInit(): void {
+    this.periodicServiceFacade.loadAll();
     this.periodicServiceForm = this._fb.group({
       name: ['', [Validators.required]],
+      packageName: [''],
+      intervalType: [''],
+      intervals: [''],
       packages: this._fb.array([this.createPackageForm()])
     });
 
-    // const initialPackage = ((this.periodicServiceForm.get('packages')) as FormArray).at(0);
-    // (initialPackage.get('tasks') as FormArray).push(this.createTaskForm());
-
-    // this.tasks = this.periodicServiceForm.get('packages')[0].controls['tasks'] as FormArray;
-    // if (!this.tasks) this.tasks.push(this.createTaskForm());
-
+    this.periodicServiceForm.controls['intervalType'].setValue({ id: 'KmPY', name: 'Km/y' });
     this.packages = this.periodicServiceForm.get('packages') as FormArray;
     if (!this.packages) this.packages.push(this.createPackageForm());
 
     this._routerFacade.route$.subscribe((data: any) => {
-      console.log(data);
       this.id = +data.queryParams['id'];
 
       if (this.id) {
@@ -181,7 +179,18 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
         this.changeDetector.detectChanges();
       }
     });
+
+    this.periodicServiceFacade.error$.subscribe((x) => {
+      if (x) {
+        this.displayErrorModal = true;
+
+        this.dialogErrorSetting.message = 'an error occurred during operation';
+        this.dialogErrorSetting.hasError = true;
+        this.changeDetector.detectChanges();
+      }
+    });
   }
+
   loadPeriodicServiceForm(periodicService: any) {
     const { name, numOfUsage, packages } = periodicService;
 
@@ -193,7 +202,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
     this.packages.removeAt(0);
 
     packages.forEach((pack) => {
-      this.addPackage(pack.name, pack.intervalValue);
+      this.addPackage(pack.name, pack.intervalValue, pack.tasks);
     });
 
     this.changeDetector.detectChanges();
@@ -204,22 +213,37 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
       name: [taskName, [Validators.required]]
     });
   }
-  createPackageForm(packageName = '', intervals = ''): FormGroup {
-    return this._fb.group({
-      packageName: [packageName, [Validators.required]],
-      intervals: [intervals],
-      intervalType: [''],
-      tasks: this._fb.array([this.createTaskForm()])
-    });
+
+  createPackageForm(packageName = '', intervals = '', tasks?): FormGroup {
+    if (tasks && tasks.length > 0) {
+      let forms = [];
+      tasks.forEach((element) => {
+        forms.push(this.createTaskForm(element.name));
+      });
+      return this._fb.group({
+        packageName: [packageName, [Validators.required]],
+        intervals: [intervals],
+        intervalType: [''],
+        tasks: this._fb.array(forms)
+      });
+    }
+    else
+      return this._fb.group({
+        packageName: [packageName, [Validators.required]],
+        intervals: [intervals],
+        intervalType: [''],
+        tasks: this._fb.array([this.createTaskForm()])
+      });
   }
+
   addTask(taskName = '', packageIndex = 0): void {
     this.tasks = this.getPackageTasks(packageIndex);
     this.tasks.push(this.createTaskForm(taskName));
   }
 
-  addPackage(packageName = '', intervals = ''): void {
+  addPackage(packageName = '', intervals = '', tasks?): void {
     this.packages = this.periodicServiceForm.get('packages') as FormArray;
-    this.packages.push(this.createPackageForm(packageName, intervals));
+    this.packages.push(this.createPackageForm(packageName, intervals, tasks));
   }
 
   submit() {
@@ -232,14 +256,17 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
         );
         this.periodicServiceFacade.addPeriodicService(data);
       } else {
-        this.displaySuccessModal = true;
-        setTimeout(() => {
-          this.displaySuccessModal = false;
-          this.goToList();
-        }, 2000);
+        const data = this.getPeriodicServicePayload(
+          this.periodicServiceForm.value
+        );
+        this.periodicServiceFacade.editPeriodicService({
+          ...data,
+          id: this.id
+        });
       }
     }
   }
+
   getPeriodicServicePayload(periodServiceFormValue: any) {
     const { name, packages } = periodServiceFormValue;
 
@@ -247,8 +274,8 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
       name,
       packages: packages.map((p) => {
         return {
-          name: p.name,
-          intervalType: p.intervalType.id,
+          name: p.packageName,
+          intervalType: (p.intervalType?.id) ? p.intervalType?.id : "KmPY",
           intervalValue: p.intervals,
           tasks: p.tasks.map((t) => t.name)
         };
@@ -265,5 +292,10 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
       this.displayCancelModal = false;
       this.goToList();
     } else this.displayCancelModal = false;
+  }
+
+  successDialogConfirm($event) {
+    this.goToList();
+    this.periodicServiceFacade.reset();
   }
 }
