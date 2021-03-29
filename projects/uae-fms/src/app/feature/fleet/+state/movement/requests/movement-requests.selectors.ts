@@ -25,7 +25,7 @@ export class MovementRequestsSelectors {
   );
 
   static submitted = createSelector(
-    FleetSelectors.movementOverviewSelector,
+    FleetSelectors.movementRequestsSelector,
     (state) => state.submitted
   );
 

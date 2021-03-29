@@ -67,7 +67,7 @@ export class AddRequestComponent extends Utility implements OnInit {
     this.facade.submitted$.subscribe(x => {
       if (x) {
         this.displaySuccessModal = true;
-        this.dialogErrorSetting.hasError=false;
+        this.dialogErrorSetting.hasError = false;
         this.changeDetector.detectChanges();
       }
     });
@@ -84,7 +84,7 @@ export class AddRequestComponent extends Utility implements OnInit {
     this.facade.error$.subscribe(x => {
       if (x?.error) {
         this.displayErrorModal = true;
-        this.dialogErrorSetting.hasError=true;
+        this.dialogErrorSetting.hasError = true;
         this.changeDetector.detectChanges();
       }
     })
@@ -103,7 +103,7 @@ export class AddRequestComponent extends Utility implements OnInit {
     } else {
       let d = this.requestForm.getRawValue();
       let _data = {
-        "requesterId": 11953127,
+        "requesterId": 1,
         "requestType": d.requestType,
         "movementType": "PERMANENT",
         "assetTypeId": d.assetType,
@@ -122,6 +122,7 @@ export class AddRequestComponent extends Utility implements OnInit {
   dialogConfirm(confirmed) {
     if (confirmed) {
       this.displaySuccessModal = false;
+      this.facade.reset();
       this.goToList();
     } else this.displaySuccessModal = false;
   }

@@ -47,7 +47,7 @@ const movementRequestsReducer = createReducer(
 
   on(MovementRequestsActions.addMovementRequest, (state, { data }) => ({
     ...state,
-    loaded: false
+    submitted: false
   })),
 
   on(MovementRequestsActions.movementRequestAddedSuccessfully, (state, { data }) =>
@@ -56,22 +56,28 @@ const movementRequestsReducer = createReducer(
 
   on(MovementRequestsActions.editMovementRequest, (state, { data }) => ({
     ...state,
-    loaded: false
+    submitted: false
   })),
 
   on(MovementRequestsActions.movementRequestEditedSuccessfully, (state, { data }) =>
-    movementRequestsAdapter.updateOne({ changes: data, id: data.id }, state)
+    movementRequestsAdapter.updateOne({ changes: data, id: data.id }, { ...state, submitted: true })
   ),
 
   on(MovementRequestsActions.reject, (state, { data }) => ({
     ...state,
     rejected: false
   })),
-
+  on(MovementRequestsActions.reset, (state) => ({
+    ...state,
+    assigned: false,
+    submitted: false,
+    error: null,
+    message: null
+  })),
   on(MovementRequestsActions.rejectSuccessfully, (state, { data }) => ({
-      ...state,
-      rejected: true
-    })
+    ...state,
+    rejected: true
+  })
   ),
 
   on(MovementRequestsActions.assign, (state, { data }) => ({
@@ -80,11 +86,10 @@ const movementRequestsReducer = createReducer(
   })),
 
   on(MovementRequestsActions.assignSuccessfully, (state, { data }) => ({
-      ...state,
-      assigned: true
-    })
+    ...state,
+    assigned: true
+  })
   )
-
 );
 
 export function reducer(state: MovementRequestsState, action: Action) {

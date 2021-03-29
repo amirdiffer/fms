@@ -61,4 +61,9 @@ export class MovementRequestsActions {
     props<{ data: any }>()
   );
 
+  static reset = createAction(
+    '[MovementRequests] reset params'
+  );
+
+
 }

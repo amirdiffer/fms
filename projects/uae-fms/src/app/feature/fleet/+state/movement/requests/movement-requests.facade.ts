@@ -48,4 +48,9 @@ export class MovementRequestsFacade {
     this.store.dispatch(MovementRequestsActions.assign({ id, data }));
   }
 
+
+  reset() {
+    this.store.dispatch(MovementRequestsActions.reset());
+  }
+
 }
