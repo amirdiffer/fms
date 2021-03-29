@@ -104,6 +104,15 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   //#endregion
 
   @ViewChild('stepper') stepper: MatStepper;
+
+  years = [
+    { name: '2017', id: 2017 },
+    { name: '2018', id: 2018 },
+    { name: '2019', id: 2019 },
+    { name: '2020', id: 2020 },
+    { name: '2021', id: 2021 },
+  ];
+
   itemTypes = [
     { name: 'Item type 1', id: 1 },
     { name: 'Item type 2', id: 2 },
