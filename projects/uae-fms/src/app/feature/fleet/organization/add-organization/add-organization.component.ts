@@ -154,6 +154,19 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         this.changeDetection.detectChanges();
       }
     });
+    this.facade.error$.subscribe((x) => {
+      if (x) {
+        this.dialogModal = true;
+        this.dialogType = 'error';
+        this.dialogSetting.header = 'Error';
+        this.dialogSetting.message = 'Error occurred in operation';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = true;
+        this.dialogSetting.confirmButton = 'Ok';
+        this.dialogSetting.cancelButton = undefined;
+        this.changeDetection.detectChanges();
+      }
+    });
   }
 
   createTagField(): FormGroup {
@@ -195,10 +208,12 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     this.sectionLocation(index).push(this.createSectionLocation());
   }
 
+  organizationNumber
   filterDepartments(event) {
+    this.organizationNumber = +event.query
     this.departmentList.next(event);
   }
-  organizationIDChanged($event) {}
+  organizationIDChanged($event) { }
 
   dialogConfirm(event) {
     this.dialogModal = false;
@@ -207,7 +222,7 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     }
     if (this.dialogType == 'submit') {
       const value = {
-        organizationNumber: this.organizationForm.value.departmentId,
+        organizationNumber: this.organizationNumber,
         organizationName: this.organizationForm.value.departmentName,
         tags: this.organizationForm.value.tags.map((x) => {
           return x.tag;
@@ -221,8 +236,6 @@ export class AddOrganizationComponent extends Utility implements OnInit {
           };
         })
       };
-      console.log(value);
-      console.log(this.organizationForm.value);
       this.facade.addOrganization(value);
     }
     if (this.dialogType == 'success') {
