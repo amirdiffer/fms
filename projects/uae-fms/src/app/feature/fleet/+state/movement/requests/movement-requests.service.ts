@@ -12,7 +12,7 @@ export class MovementRequestsService {
 
   loadAll(): Observable<ResponseBody<IMovementRequest[]>> {
     return this.http.get<ResponseBody<IMovementRequest[]>>(
-      environment.baseApiUrl + 'movement/request'
+      environment.baseApiUrl + 'movement/permanent/request'
     );
   }
 

@@ -50,8 +50,7 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
       filterTagColor: '#EF7A85'
     }
   ];
-  movementOverViewTableSetting;
-  requestTableSetting;
+
   requestFilter: boolean = false;
   selectedTab;
   requestFilterHide$: Observable<boolean> = of(this.requestFilter);
@@ -85,26 +84,211 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
     super(injector);
   }
 
-  // movementOverview$ = this._movementOverviewFacade.MovementOverview$.pipe(
-  //   map(x => {
-  //     return x.map(y => {
-  //       return {...y, }
-  //     });
-  // }));
-
   movementRequest$ = this._movementRequestsFacade.MovementRequests$.pipe(
     map(x => {
       return x.map(y => {
-        return {...y, }
+        return {...y,
+          id: y['id'],
+          user: {
+            img: 'user-image.png',
+            userName: y['requester']['firstName'],
+            subName: y['requester']['lastName']
+          },
+          movementType: y['movementType'],
+          requestType: y['requestType'],
+          assetType: y['assetTypeName'],
+          reason: y['reason'],
+          date: 'Saturday 02/02 12:30',
+          requestStatus: y['status'],
+          operation: {
+            accept: 'Confirm',
+            cancel: 'Reject'
+          }
+        }
       });
   }));
+
+  movementOverview$ = this._movementOverviewFacade.MovementOverview$.pipe(
+    map(x => { console.log(x)
+      return x.map(y => {
+        return {...y,
+          id: y.id,
+          asset: {
+            img: 'thumb1.png',
+            assetName: y.asset.dpd,
+            assetSubName: 'DPD 0000001',
+            ownership: 'Owned'
+          },
+          duration: '2 Days',
+          startDate: y.request.startDate,
+          endDate: y.request.endDate,
+          department: y.department.name,
+          operator: {
+            name: y.operator.firstName + ' ' + y.operator.lastName,
+            subName: y.operator.id
+          },
+          fine: 3,
+          reason: y.request.reason
+        }
+      });
+  }));
+
+  requestTableSetting = {
+    columns: [
+      {
+        lable: 'tables.column.user',
+        field: 'user',
+        width: 140,
+        type: 1,
+        thumbField: '',
+        renderer: 'assetsRenderer'
+      },
+      {
+        lable: 'tables.column.movement_type',
+        field: 'movementType',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.request_type',
+        field: 'requestType',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.asset_type',
+        field: 'assetType',
+        width: 70,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.reason',
+        field: 'reason',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.date',
+        field: 'date',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.request_status',
+        field: 'requestStatus',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: '',
+        field: 'ButtonReject',
+        width: 80,
+        type: 1,
+        thumbField: '',
+        renderer: 'button',
+        buttonType: ButtonType.reject,
+        onClick: (data) => {
+          console.log('ddd')
+          // this._movementRequestsFacade.rejecting(data);
+        },
+        showOnHover: true
+      },
+      {
+        lable: '',
+        width: 100,
+        type: 1,
+        field: 'ButtonConfirm',
+        renderer: 'button',
+        buttonType: ButtonType.confirm,
+        showOnHover: true
+      }
+    ],
+    data: [],
+    rowSettings: {
+      onClick: (data, button?, col?) => {
+        if (button == 'reject')
+          this._movementRequestsFacade.rejecting(data.id);
+      },
+    }
+  };
+
+  movementOverViewTableSetting = {
+    columns: [
+      {
+        lable: 'tables.column.asset',
+        field: 'asset',
+        width: 140,
+        type: 1,
+        thumbField: '',
+        renderer: 'assetsRenderer'
+      },
+      {
+        lable: 'tables.column.duration',
+        field: 'duration',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.start_date',
+        field: 'startDate',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.department',
+        field: 'department',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.operator',
+        field: 'operator',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: 'subtextRenderer'
+      },
+      {
+        lable: 'tables.column.fine',
+        field: 'fine',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.reason',
+        field: 'reason',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      }
+    ],
+    data: []
+  };
 
   ngOnInit(): void {
     this._movementOverviewFacade.loadAll();
     this._movementRequestsFacade.loadAll();
-    this._movementRequestsFacade.MovementRequests$.subscribe((data) => {
-      console.log(data);
-    });
     this._movementRequestsFacade.loadRequestStatistic();
     this._movementRequestsFacade.MovementRequestStatistic.subscribe((x) => {
       console.log(x);
@@ -131,97 +315,7 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
       }
     });
 
-    this.movementOverViewTableSetting = this._movementService.movmentOverViewTableSetting();
-    this.requestTableSetting = {
-      columns: [
-        {
-          lable: 'tables.column.user',
-          field: 'user',
-          width: 140,
-          type: 1,
-          thumbField: '',
-          renderer: 'assetsRenderer'
-        },
-        {
-          lable: 'tables.column.movement_type',
-          field: 'movementType',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
-          lable: 'tables.column.request_type',
-          field: 'requestType',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
-          lable: 'tables.column.asset_type',
-          field: 'assetType',
-          width: 70,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
-          lable: 'tables.column.reason',
-          field: 'reason',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
-          lable: 'tables.column.date',
-          field: 'date',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
-          lable: 'tables.column.request_status',
-          field: 'requestStatus',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
-          lable: '',
-          field: 'ButtonReject',
-          width: 80,
-          type: 1,
-          thumbField: '',
-          renderer: 'button',
-          buttonType: ButtonType.reject,
-          onClick: (data) => {
-            console.log('ddd')
-            // this._movementRequestsFacade.rejecting(data);
-          },
-          showOnHover: true
-        },
-        {
-          lable: '',
-          width: 100,
-          type: 1,
-          field: 'ButtonConfirm',
-          renderer: 'button',
-          buttonType: ButtonType.confirm,
-          showOnHover: true
-        }
-      ],
-      data: this._movementService.requestData(),
-      rowSettings: {
-        onClick: (data, button?, col?) => {
-          if (button == 'reject')
-            this._movementRequestsFacade.rejecting(data.id);
-        },
-      }
-    };
+
     // Handle confirm button click
     let confirmCol = this.requestTableSetting.columns.find(
       (c) => c.field === 'ButtonConfirm'
@@ -230,6 +324,7 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
       (c) => c.field === 'ButtonReject'
     );
     confirmCol.onClick = this.openConfirmModal.bind(this);
+    // @ts-ignore
     rejectCol.onClick = this.rejectRow();
     this.filterSetting = [
       {
@@ -262,7 +357,6 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
       }
     });
     this._movementRequestsFacade.error$.subscribe(x => {
-      console.log(x)
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError=true;

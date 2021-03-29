@@ -22,11 +22,10 @@
                         <button *ngIf="selectedTab !='requestTab'" class="btn-primary-small" routerLink="add-request"><a>{{ 'search.request' | translate }}</a></button>
                     </span>
                     <div title="tabs.movement_over_view" id="MovementOverViewTab">
-                        <app-table [setting]="movementOverViewTableSetting"></app-table>
+                        <app-table [setting]="movementOverViewTableSetting" [tableData]="movementOverview$"></app-table>
                     </div>
                     <div title="tabs.request" #requestTab id="requestTab">
-                        <app-table [setting]="requestTableSetting"
-                        [tableData]="movementRequest$"
+                        <app-table [setting]="requestTableSetting" [tableData]="movementRequest$"
                         ></app-table>
                     </div>
                 </app-tab-view>

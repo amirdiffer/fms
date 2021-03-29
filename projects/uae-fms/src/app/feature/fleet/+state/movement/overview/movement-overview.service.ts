@@ -12,7 +12,7 @@ export class MovementOverviewService {
 
   loadAll(): Observable<MovementOverviewStateModel[]> {
     return this.http.get<MovementOverviewStateModel[]>(
-      environment.baseApiUrl + 'movement/request'
+      environment.baseApiUrl + 'movement/permanent/overview'
     );
   }
 

@@ -59,7 +59,7 @@ export class AddRequestComponent extends Utility implements OnInit {
     this.assetFacade.loadAll();
     this.requestForm = this._fb.group({
       requestType: ['NEW'],
-      assetType: [''],
+      assetType: [null],
       reason: ['', Validators.compose([Validators.required])],
       quality: [''],
       oldAssetType: ['']
@@ -77,7 +77,8 @@ export class AddRequestComponent extends Utility implements OnInit {
     });
 
     this._movementService.assetTypes().subscribe(x => {
-      this.assetTypes = x.message.map((y => ({ id: y.id, name: y['name'] })))
+      this.assetTypes = x.message.map((y => ({ id: y.id, name: y['name'] })));
+      this.requestForm.get('assetType').patchValue(this.assetTypes[0]['id']);
     });
 
     this.facade.error$.subscribe(x => {
@@ -97,6 +98,7 @@ export class AddRequestComponent extends Utility implements OnInit {
   submit() {
     this.submitted = true;
     if (this.requestForm.invalid) {
+      this.displayErrorModal = true;
       return;
     } else {
       let d = this.requestForm.getRawValue();
@@ -104,7 +106,7 @@ export class AddRequestComponent extends Utility implements OnInit {
         "requesterId": 11953127,
         "requestType": d.requestType,
         "movementType": "PERMANENT",
-        "assetTypeId": d.assetType.id,
+        "assetTypeId": d.assetType,
         "reason": d.reason,
         "quantity": d.quality,
         "startDate": "2018-10-18T21:13:06.253Z",

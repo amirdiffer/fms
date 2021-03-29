@@ -12,7 +12,7 @@ export class MovementOverviewEffect {
       ofType(MovementOverviewActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => MovementOverviewActions.allDataLoaded({ data })),
+          map((data) => MovementOverviewActions.allDataLoaded({ data:data['message'] })),
           catchError((error) =>
             of(MovementOverviewActions.error({ reason: error }))
           )
