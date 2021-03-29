@@ -22,7 +22,7 @@ const organizationReducer = createReducer(
     submitted: false
   })),
   on(OrganizationActions.organizationAddedSuccessfully, (state, { data }) =>
-    organizationAdapter.addOne(data, { ...state, submitted: true, message: null, error: null })
+    ({ ...state, submitted: true, message: null, error: null })
   ),
   on(OrganizationActions.error, (state, { reason }) => ({
     ...state,
