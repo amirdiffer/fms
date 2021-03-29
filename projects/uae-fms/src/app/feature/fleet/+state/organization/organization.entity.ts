@@ -7,6 +7,7 @@ export interface OrganizationState extends EntityState<IOrganization> {
   error?: any;
   loaded: boolean;
   message: string;
+  submitted?: boolean,
 }
 
 export interface OrganizationPartialState {
@@ -21,6 +22,7 @@ export const initialState: OrganizationState = organizationAdapter.getInitialSta
   {
     loaded: null,
     message: null,
+    submitted: false,
     error: null
   } as OrganizationState
 );
