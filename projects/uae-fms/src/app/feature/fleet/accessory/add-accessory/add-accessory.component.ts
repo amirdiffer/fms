@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,6 +9,11 @@ import { AccessoryService } from '../accessory.service';
 import { TableSetting } from '@core/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { AccessoryFacade } from '@feature/fleet/+state/accessory';
+import { map } from 'rxjs/operators';
+import { ThrowStmt } from '@angular/compiler';
+import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
+import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 
 @Component({
   selector: 'add-accessory',
@@ -30,12 +35,18 @@ export class AddAccessoryComponent implements OnInit {
     { name: 'assignedTo Type 2', id: 2 },
     { name: 'assignedTo Type 3', id: 3 }
   ];
+
+  assetsB;
+  subAssetsB;
+  employee = []
+
   formSubmitted = false;
   formChanged = false;
   dialogModalAdd = false;
   dialogModalError = false;
   dialogModalCancel = false;
 
+  //#region Dialogs
   dialogSettingAdd: IDialogAlert = {
     header: 'Accessory',
     hasError: false,
@@ -61,6 +72,7 @@ export class AddAccessoryComponent implements OnInit {
     message: 'Please fill in all the required fields.',
     confirmButton: 'OK'
   };
+  //#endregion
 
   accessory_Table: TableSetting = {
     columns: [
@@ -79,91 +91,92 @@ export class AddAccessoryComponent implements OnInit {
         sortable: true
       }
     ],
-    data: [
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      }
-    ]
+    data: []
   };
-  assets: [
-    { name: 'Asset 1'; id: 1 },
-    { name: 'Asset 2'; id: 2 },
-    { name: 'Asset 3'; id: 3 },
-    { name: 'Asset 4'; id: 4 },
-    { name: 'Asset 5'; id: 5 },
-    { name: 'Asset 6'; id: 6 }
-  ];
+  assets: [];
+  subAssets: [];
 
   constructor(
     private _fb: FormBuilder,
     private _accessoryService: AccessoryService,
     private _router: Router,
-    private _route: ActivatedRoute
-  ) {}
+    private _route: ActivatedRoute,
+    private _facade: AccessoryFacade,
+    private changeDetector: ChangeDetectorRef,
+    private subAssetFacade: SubAssetFacade,
+    private assetMasterFacade: AssetMasterFacade,
+  ) { }
+
+  accessory$ = this._facade.accessory$.pipe(map(x => x.map((item) => {
+    return {
+      statusColor: '#00AFB9',
+      Item: item.itemName,
+      Asset_SubAsset: item.assignedToEntity,
+      Assigned_To: item.assignedToEmployeeId,
+      Quantity: item.quantity
+    };
+  })));
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
       itemName: ['', Validators.required],
-      assignTo: [''],
-      asset: ['', Validators.required],
-      accessoryType: ['', Validators.required],
+      assignedToType: ['ASSET'],
+      assignedToEntity: ['', Validators.required],
+      accessoryTypeId: ['', Validators.required],
       quantity: ['', Validators.required],
-      assignedTo: ['']
+      assignedToEmployeeId: ['']
     });
+
+    this._facade.loadAll();
+    this.subAssetFacade.loadAll();
+    this.assetMasterFacade.loadAll();
+
+    this.subAssetFacade.subAsset$.subscribe(x => {
+      this.subAssetsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
+    });
+    this.assetMasterFacade.assetMaster$.subscribe(x => {
+      this.assetsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
+    });
+    this._accessoryService.users().subscribe((employee) => {
+      this.employee = employee.message.map(user => {
+        return {
+          id: user.id,
+          name: user.firstName + ' ' + user.lastName
+        }
+      });
+    })
+
 
     this.inputForm.valueChanges.subscribe(() => {
       this.formChanged = true;
     });
+
+    this._facade.submitted$.subscribe(x => {
+      if (x) {
+        this.dialogModalAdd = true;
+        this.dialogSettingError.hasError = false;
+        this.changeDetector.detectChanges();
+      }
+    });
+
+    this._facade.error$.subscribe(x => {
+      if (x?.error) {
+        this.dialogModalError = true;
+        this.dialogSettingError.hasError = true;
+        this.changeDetector.detectChanges();
+      }
+    })
+
   }
 
   filterAssets(event) {
-    this.assets = [
-      { name: 'Asset 1', id: 1 },
-      { name: 'Asset 2', id: 2 },
-      { name: 'Asset 3', id: 3 },
-      { name: 'Asset 4', id: 4 },
-      { name: 'Asset 5', id: 5 },
-      { name: 'Asset 6', id: 6 }
-    ];
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    this.assets = this.assetsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+  }
+
+  filterSubAssets(event) {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    this.subAssets = this.subAssetsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
   }
 
   assetChanged($event) {
@@ -184,10 +197,18 @@ export class AddAccessoryComponent implements OnInit {
     this.formSubmitted = true;
     if (this.inputForm.invalid) {
       this.inputForm.markAllAsTouched();
-      this.dialogModalError = true;
       return;
     } else {
-      this.dialogModalAdd = true;
+      const d = this.inputForm.getRawValue();
+      const _data = {
+        "itemName": d.itemName,
+        "assignedToType": d.assignedToType,
+        "assignedToEntity": d.assignedToEntity.id,
+        "accessoryTypeId": d.accessoryTypeId,
+        "quantity": d.quantity,
+        "assignedToEmployeeId": d.assignedToEmployeeId
+      }
+      this._facade.addAccessory(_data)
     }
   }
 
@@ -206,8 +227,10 @@ export class AddAccessoryComponent implements OnInit {
     }
     this.dialogModalCancel = false;
   }
+
   dialogAddConfirm(value) {
     if (value === true) {
+      this._facade.reset();
       this._router.navigate(['/fleet/accessory']);
     }
     this.dialogModalAdd = false;

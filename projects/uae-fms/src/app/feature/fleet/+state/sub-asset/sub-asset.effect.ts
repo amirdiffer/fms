@@ -19,6 +19,38 @@ export class SubAssetEffect {
     )
   );
 
+  addSubAsset$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(SubAssetActions.addSubAsset),
+      mergeMap((action) =>
+        this.service.postSubAsset(action.data).pipe(
+          map((data) =>
+            SubAssetActions.addSubAssetSuccessfully({
+              data: data.message
+            })
+          ),
+          catchError((error) => of(SubAssetActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  editSubAsset$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(SubAssetActions.editSubAsset),
+      mergeMap((action) =>
+        this.service.editSubAsset(action.data).pipe(
+          map((data) =>
+            SubAssetActions.editSubAssetSuccessfully({
+              data: data.message
+            })
+          ),
+          catchError((error) => of(SubAssetActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   loadStatistics$ = createEffect(() =>
     this.action$.pipe(
       ofType(SubAssetActions.loadStatistics),

@@ -21,4 +21,26 @@ export class SubAssetActions {
     '[SubAsset] error occurred',
     props<{ reason: any }>()
   );
+
+  static addSubAsset = createAction(
+    '[SubAsset] add sub-asset',
+    props<{ data: any }>()
+  );
+
+  static addSubAssetSuccessfully = createAction(
+    '[SubAsset] sub-asset added successfully',
+    props<{ data: ISubasset }>()
+  );
+
+  static editSubAsset = createAction(
+    '[SubAsset] edit sub-asset',
+    props<{ data: any }>()
+  );
+
+  static editSubAssetSuccessfully = createAction(
+    '[SubAsset] sub-asset edited successfully',
+    props<{ data: ISubasset }>()
+  );
+
+  static reset = createAction('[SubAsset] parameters are reset');
 }

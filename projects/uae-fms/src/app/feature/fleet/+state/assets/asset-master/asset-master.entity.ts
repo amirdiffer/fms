@@ -25,6 +25,7 @@ export interface IAssetMasterState extends EntityState<IAssetMaster> {
   loaded: boolean;
   statistics: IAssetStatistics;
   message: string;
+  submitted?: boolean;
 }
 
 export const FLEET_ASSET_MASTER_FEATURE_KEY = 'assetMaster';
@@ -42,6 +43,7 @@ export const initialState: IAssetMasterState = assetMasterAdapter.getInitialStat
     loaded: null,
     message: null,
     statistics: null,
-    error: null
+    error: null,
+    submitted: false,
   } as IAssetMasterState
 );

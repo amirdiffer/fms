@@ -18,6 +18,7 @@ export interface Make {
 export interface MakeModel {
   id: number;
   model: string;
+  modelDescription:string;
   trims: MakeModelTrim[];
 }
 
@@ -30,4 +31,5 @@ export interface MakeModelTrim {
 export interface MakeModelTrimColor {
   id: number;
   color: string;
+  hexColor:string;
 }

@@ -34,4 +34,33 @@ export class AssetMasterEffects {
       )
     )
   );
+
+  addAsset$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetMasterActions.addAsset),
+      mergeMap((action) =>
+        this.service.addAsset(action.data).pipe(
+          map((data) =>
+            AssetMasterActions.assetAddedSuccessfully({ data: { ...action.data, ...data.message } })
+          ),
+          catchError((error) => of(AssetMasterActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  editAsset$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetMasterActions.editAsset),
+      mergeMap((action) =>
+        this.service.editAsset(action.data).pipe(
+          map((data) =>
+            AssetMasterActions.assetEditedSuccessfully({ data: data.message })
+          ),
+          catchError((error) => of(AssetMasterActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
 }

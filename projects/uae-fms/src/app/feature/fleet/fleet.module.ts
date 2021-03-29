@@ -46,9 +46,14 @@ import { AddOperatorComponent } from '@feature/fleet/operator/add-operator/add-o
 import { ChartsModule } from '@core/charts';
 
 import { FleetStateModule } from './+state';
+import { PendingRegistrationOverviewComponent } from './assets/pending-registration-overview/pending-registration-overview.component';
+import { AssetCarDetailComponent } from './assets/asset-detail/asset-car-detail.component';
+import { PendingCustomizationOverviewComponent } from './assets/pending-customization-overview/pending-customization-overview.component';
+import { AssetRegistrationConfirmComponent } from './assets/asset-registration-confirm/asset-registration-confirm.component';
 import { MapModule } from '@core/map-view';
 import { OverViewOperatorComponent } from './operator/over-view-operator/over-view-operator.component';
 import { IserveComponent } from './movement/iserv/iserv.component';
+import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 
 @NgModule({
   declarations: [
@@ -65,6 +70,10 @@ import { IserveComponent } from './movement/iserv/iserv.component';
     AddAssetComponent,
     AddOperatorComponent,
     AddRequestComponent,
+    PendingRegistrationOverviewComponent,
+    AssetCarDetailComponent,
+    PendingCustomizationOverviewComponent,
+    AssetRegistrationConfirmComponent,
     IserveComponent,
     OverViewAssetComponent,
     VehicleOverviewComponent,
@@ -96,7 +105,8 @@ import { IserveComponent } from './movement/iserv/iserv.component';
     ProgressBarModule,
     NgApexchartsModule,
     ChartsModule,
-    MapModule
+    MapModule,
+    AlertDialogModule,
   ]
 })
 export class FleetModule {}

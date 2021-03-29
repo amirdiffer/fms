@@ -16,7 +16,7 @@ import {
 export class AlertDialogComponent implements OnInit {
   @Input('settings') settings: IDialogAlert;
   @Input('displayModal') displayModal: boolean;
-  @Output() confirm = new EventEmitter<boolean>();
+  @Output() confirm = new EventEmitter<any>();
   timesCircle = 'assets/icons/times-circle.svg';
   checkCircle = 'assets/icons/check-circle.svg';
   warningTriangle = 'assets/icons/exclamation-triangle.svg';
@@ -31,6 +31,10 @@ export class AlertDialogComponent implements OnInit {
     this.displayModal = false;
     this.confirm.emit(false);
   }
+  dialogEvent(event){
+    this.displayModal = false;
+    this.confirm.emit(event);
+  }
 }
 
 export interface IDialogAlert {
@@ -41,8 +45,12 @@ export interface IDialogAlert {
   message: string;
   confirmButton?: string;
   cancelButton?: string;
+  buttons?:buttons[];
 }
-
+export interface buttons{
+  title:string;
+  eventEmit:string;
+}
 /* example */
 /*
   .html

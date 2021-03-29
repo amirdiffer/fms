@@ -11,7 +11,7 @@ export class BusinessCategoryComponent implements OnInit {
 
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-
+  penIcon = 'assets/icons/pencil.svg';
   business_category = {
     columns: [
       {

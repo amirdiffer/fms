@@ -1,0 +1,55 @@
+@import '../../../../../themes/green-theme.scss';
+  .vehicle-sec {
+    display: block;
+    padding-bottom: 20px;
+
+    .toolbar {
+      display: flex;
+      flex-direction: row-reverse;
+      padding: 5px;
+      padding-top: 0px;
+    }
+
+    .vehicle {
+      display: flex;
+      justify-content: center;
+      img {
+        width: 120px;
+      }
+    }
+  }
+
+  .vehicle-info {
+    padding: 20px;
+
+    & > span {
+      display: flex;
+      flex-direction: row;
+      padding: .5em 0;
+
+      .title {
+        font-size: 0.7em;
+        font-weight: bold;
+        width: 40%;
+      }
+      .info {
+        font-size: 0.7em;
+        font-weight: bold;
+        margin: 0px 5px;
+        width: 60%;
+        color: #005844;
+      }
+    }
+  }
+
+  .location {
+    .map {
+      padding: 0px 15px 0px 15px;
+    }
+  }
+
+.wrapper_cus {
+  height: 181px;
+  padding: 20px;
+  margin-bottom: 15px;
+}

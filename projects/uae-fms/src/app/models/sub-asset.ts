@@ -14,4 +14,8 @@ export interface ISubasset {
   dpd: string;
   date: string;
   warrantyExpireDate: string;
+  assetTypeName?;
+  modelName?;
+  makeName?;
+  policyTypeName?;
 }

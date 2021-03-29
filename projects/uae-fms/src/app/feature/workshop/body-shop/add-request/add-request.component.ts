@@ -14,7 +14,7 @@ import {
   NgxFileDropEntry
 } from 'ngx-file-drop';
 @Component({
-  selector: 'anms-add-request',
+  selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',
   styleUrls: ['./add-request.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

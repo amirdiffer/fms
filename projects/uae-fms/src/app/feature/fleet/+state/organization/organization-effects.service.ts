@@ -24,4 +24,19 @@ export class OrganizationEffects {
       )
     )
   );
+  addOrganization$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(OrganizationActions.addOrganization),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) =>
+            OrganizationActions.organizationAddedSuccessfully({ data: data.message })
+          ),
+          catchError((error) =>
+            of(OrganizationActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
 }

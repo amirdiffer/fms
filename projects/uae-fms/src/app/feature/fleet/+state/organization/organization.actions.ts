@@ -8,9 +8,19 @@ export class OrganizationActions {
     '[Organization] all datas are loaded',
     props<{ data: IOrganization[] }>()
   );
-
+  static addOrganization = createAction(
+    '[Organization] add organization',
+    props<{ data: IOrganization }>()
+  );
+  static organizationAddedSuccessfully = createAction(
+    '[Organization] organization added successfully',
+    props<{ data: IOrganization }>()
+  )
   static error = createAction(
     '[Organization] error occurred',
     props<{ reason: any }>()
+  );
+  static reset = createAction(
+    '[Organization] parameters are reseted'
   );
 }

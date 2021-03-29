@@ -2,17 +2,23 @@ export interface IPendingRegistration {
   id?: number;
   avatarId?: number;
   dpd?: string;
-  ownerShipId?: number;
-  assetTypeId?: number;
-  makeId?: number;
-  modelId?: number;
-  businessCategoryId?: number;
-  department?: IDepartment;
-  operator?: IOperator;
-  progressStatus?: string;
-  date?: string;
-  meterType?: string;
-  meterValue?: number;
+  plateNumber?:number;
+  status?:string;
+  department?:IDepartment;
+  operator?:IOperator;
+  assetTypeId?:number;
+  assetTypeName?:string;
+  makeId?:number;
+  makeName?:string;
+  modelId?:number;
+  modelName?:string;
+  year?:string;
+  trimId?:number;
+  trimName?:string;
+  colorId?:number;
+  colorName?:string;
+  tollId?:number;
+  fuelCardId?:number;
 }
 
 export interface IOperator {

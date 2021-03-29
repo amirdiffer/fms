@@ -13,6 +13,7 @@ export class SubAssetFacade {
   message$ = this.store.pipe(select(SubAssetSelectors.message));
 
   error$ = this.store.pipe(select(SubAssetSelectors.error));
+  submitted$ = this.store.pipe(select(SubAssetSelectors.submitted));
 
   constructor(private store: Store<SubAssetPartialState>) {}
 
@@ -22,5 +23,17 @@ export class SubAssetFacade {
 
   loadStatistics() {
     this.store.dispatch(SubAssetActions.loadStatistics());
+  }
+
+  addSubAsset(data) {
+    this.store.dispatch(SubAssetActions.addSubAsset({ data }));
+  }
+
+  editSubAsset(data) {
+    this.store.dispatch(SubAssetActions.editSubAsset({ data }));
+  }
+
+  reset() {
+    this.store.dispatch(SubAssetActions.reset());
   }
 }

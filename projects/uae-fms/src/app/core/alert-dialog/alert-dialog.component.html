@@ -16,7 +16,13 @@
     </div>
         <ng-template pTemplate="footer">
             <button *ngIf="settings.confirmButton"  class="btn-primary-medium accept" [class.red-alert-button]="settings.hasError"  [class.warning-alert-button]="settings.isWarning" (click)="confirmDialog()">{{settings.confirmButton}}</button>
+            <ng-container *ngIf="settings.buttons">
+                <ng-container *ngFor="let button of settings.buttons">
+                    <button class="btn-primary-medium btn-scondary-green" [class.warning-alert-button]="settings.isWarning" (click)="dialogEvent(button.eventEmit)">{{button.title}}</button>
+                </ng-container>
+            </ng-container>
             <button *ngIf="settings.cancelButton" class="btn-primary-medium btn-scondary-green" (click)="cancelDialog()" [class.red-alert-button]="settings.hasError" [class.warning-alert-button]="settings.isWarning">{{settings.cancelButton}}</button>
+            
         </ng-template>
     </p-dialog>
 </div>
