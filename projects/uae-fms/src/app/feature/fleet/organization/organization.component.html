@@ -12,6 +12,6 @@
     <button  class="btn-primary-small" [routerLink]="'./add-department'"><i>+</i><a>{{'forms.add' | translate}}</a></button>
   </div>
   <div class="table-wreapper">
-    <app-table [setting]='organization_Table'></app-table>
+    <app-table [setting]='organization_Table' [tableData]="data$"></app-table>
   </div>
 </div>

@@ -16,3 +16,10 @@
     margin-top: 0 !important;
   }
 }
+.flex-with-button {
+  flex: 1 0 85%;
+  overflow: visible;
+}
+.plus-icon , .addon-primary{
+  cursor:pointer;
+}
