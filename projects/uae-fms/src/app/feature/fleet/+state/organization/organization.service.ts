@@ -14,4 +14,15 @@ export class OrganizationService {
       environment.baseApiUrl + 'organization'
     );
   }
+  post(data) : Observable<ResponseBody<IOrganization>>{
+    return this._http.post<ResponseBody<IOrganization>> (
+      environment.baseApiUrl + 'organization',
+      data
+    )
+  }
+  searchDepartment(id) {
+    return this._http.get<ResponseBody<IOrganization>>(
+      environment.baseApiUrl + 'organization/' + id
+    );
+  }
 }

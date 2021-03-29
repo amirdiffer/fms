@@ -8,4 +8,12 @@ export class OrganizationSelectors {
     FleetSelectors.organizationSelector,
     selectAll
   );
+  static submitted = createSelector(
+    FleetSelectors.organizationSelector,
+    (state) => state.submitted
+  );
+  static error = createSelector(
+    FleetSelectors.organizationSelector,
+    (state) => state.error
+  );
 }
