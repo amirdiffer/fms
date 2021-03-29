@@ -32,6 +32,7 @@ import {
 import { OrganizationEffects } from '../+state/organization/organization-effects.service';
 import { AccessoryEffect } from './accessory/accessory.effect';
 import { MovementRequestsEffect } from '@feature/fleet/+state/movement/requests/movement-requests.effect';
+import { MovementOverviewEffect } from '@feature/fleet/+state/movement/overview/movement-overview.effect';
 import { ConfigurationStateModule } from '@feature/configuration/+state';
 
 
@@ -46,6 +47,7 @@ import { ConfigurationStateModule } from '@feature/configuration/+state';
       SubAssetEffect,
       AccessoryEffect,
       MovementRequestsEffect,
+      MovementOverviewEffect,
       OperatorEffect
     ]),
     ConfigurationStateModule

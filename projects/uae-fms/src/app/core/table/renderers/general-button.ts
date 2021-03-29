@@ -31,6 +31,7 @@ import { ButtonType } from '../table.component';
       <button
         class="btn-primary-medium reject"
         *ngIf="col.buttonType == buttonType.reject"
+        (click)="clickButton('reject')"
       >
         {{ 'buttons.reject' | translate }}
       </button>
@@ -118,6 +119,7 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   @Input() button;
   @Input() col;
   @Input() row;
+  @Input() setting;
 
   constructor(private _makeDecisionService: MakeDecisionService) {}
 
@@ -129,4 +131,9 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   public get buttonType(): typeof ButtonType {
     return ButtonType;
   }
+
+  clickButton(button): void {
+      this.setting.onClick(this.button, button)
+  }
+
 }

@@ -28,6 +28,7 @@ const movementOverviewReducer = createReducer(
     error: reason,
     loaded: true
   }))
+
 );
 
 export function reducer(state: MovementOverviewState, action: Action) {

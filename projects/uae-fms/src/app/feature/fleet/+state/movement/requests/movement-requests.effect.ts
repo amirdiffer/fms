@@ -26,13 +26,67 @@ export class MovementRequestsEffect {
       mergeMap((action) =>
         this.service.loadRequestStatistic().pipe(
           map((data) => MovementRequestsActions.statisticRequestLoaded({ data })),
-          catchError((error) =>
-            of(MovementRequestsActions.error({ reason: error }))
-          )
+          // catchError((error) =>
+          //   of(MovementRequestsActions.error({ reason: error }))
+          // )
         )
       )
     )
   );
+
+  addMovementRequest$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(MovementRequestsActions.addMovementRequest),
+      mergeMap((action) =>
+        this.service.addMovementRequest(action.data).pipe(
+          map((data) =>
+            MovementRequestsActions.movementRequestAddedSuccessfully({ data: { ...action.data, ...data.message } })
+          ),
+          catchError((error) => of(MovementRequestsActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  editMovementRequest$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(MovementRequestsActions.editMovementRequest),
+      mergeMap((action) =>
+        this.service.editMovementRequest(action.data).pipe(
+          map((data) =>
+            MovementRequestsActions.movementRequestEditedSuccessfully({ data: data.message })
+          ),
+          catchError((error) => of(MovementRequestsActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  reject$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(MovementRequestsActions.reject),
+      mergeMap((action) =>
+        this.service.rejectRequest(action.data).pipe(
+          map((data) => MovementRequestsActions.rejectSuccessfully({ data: data.message })),
+          catchError((error) => of(MovementRequestsActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+
+  assign$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(MovementRequestsActions.assign),
+      mergeMap((action) =>
+        this.service.assignRequest(action.id, action.data).pipe(
+          map((data) => MovementRequestsActions.assignSuccessfully({ data: data.message })),
+          catchError((error) => of(MovementRequestsActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
 
   constructor(
     private action$: Actions,

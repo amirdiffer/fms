@@ -12,13 +12,39 @@ export class MovementRequestsService {
 
   loadAll(): Observable<ResponseBody<IMovementRequest[]>> {
     return this.http.get<ResponseBody<IMovementRequest[]>>(
-      environment.baseApiUrl + 'movement/request'
+      environment.baseApiUrl + 'movement/permanent/request'
     );
   }
 
   loadRequestStatistic(): Observable<IMovementStatistics> {
     return this.http.get<IMovementStatistics>(
       environment.baseApiUrl + 'movement/stats'
+    );
+  }
+
+  addMovementRequest(data): Observable<ResponseBody<IMovementRequest>> {
+    return this.http.post<ResponseBody<IMovementRequest>>(
+      environment.baseApiUrl + 'movement/request',
+      data
+    );
+  }
+  editMovementRequest(data): Observable<ResponseBody<IMovementRequest>> {
+    return this.http.post<ResponseBody<IMovementRequest>>(
+      environment.baseApiUrl + 'movement/request',
+      data
+    );
+  }
+
+  rejectRequest(data): Observable<ResponseBody<any>> {
+    return this.http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'movement/request/' + data + '/reject'
+    );
+  }
+
+  assignRequest(id, data): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'movement/request/' + id + '/assign',
+      data
     );
   }
 

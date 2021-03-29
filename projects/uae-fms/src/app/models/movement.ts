@@ -1,5 +1,10 @@
 export interface IMovementRequest {
   id: number;
+  requester: {
+    id: number,
+    firstName: string,
+    lastName: string
+  },
   requestType: string;
   movementType: string;
   assetTypeId: number;
@@ -10,6 +15,8 @@ export interface IMovementRequest {
   requesterId: number;
   startDate: string;
   endDate: string;
+  assetTypeName: string,
+  "oldAsset": null
 }
 export interface IMovementRequestStatistic {
   error:boolean;
