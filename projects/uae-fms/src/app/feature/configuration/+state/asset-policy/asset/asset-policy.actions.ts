@@ -32,4 +32,8 @@ export class AssetPolicyActions {
     '[AssetPolicy] asset policy updated successfully',
     props<{ data: IAssetPolicy }>()
   );
+
+  static reset = createAction(
+    '[AssetPolicy] reset parameters'
+  );
 }

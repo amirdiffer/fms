@@ -50,7 +50,8 @@ const assetPolicyReducer = createReducer(
         submitted: true
       }
     )
-  )
+  ),
+  on(AssetPolicyActions.reset, (state) => ({ ...state, error: null, submitted: false, message: null }))
 );
 
 export function reducer(state: AssetPolicyState, action: Action) {

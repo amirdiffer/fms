@@ -33,4 +33,8 @@ export class AssetPolicyFacade {
   getById(id: number) {
     return this.store.pipe(select(AssetPolicySelectors.selectById, { id }));
   }
+
+  reset() {
+    this.store.dispatch(AssetPolicyActions.reset());
+  }
 }

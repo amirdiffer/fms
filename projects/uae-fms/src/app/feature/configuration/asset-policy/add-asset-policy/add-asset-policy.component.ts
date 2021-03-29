@@ -17,10 +17,9 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { RouterFacade } from '@core/router';
 import { TableSetting } from '@core/table';
 import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
-import { IAssetPolicy } from '@models/asset-policy.model';
 import { Utility } from '@shared/utility/utility';
 import { Subscription } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-add-asset-policy',
@@ -65,6 +64,7 @@ export class AddAssetPolicyComponent
       floatButton: [
         {
           onClick: (col, data) => {
+            this.assetPolicyFacade.reset();
             this._router.navigate(
               ['/configuration/asset-policy/edit-asset-policy/'],
               { queryParams: { id: data.id } }
@@ -268,13 +268,17 @@ export class AddAssetPolicyComponent
   }
   dialogCancelConfirm(value) {
     if (value === true) {
-      this._router.navigate(['configuration/asset-policy']);
+      this._router.navigate(['configuration/asset-policy']).then(_ => {
+        this.assetPolicyFacade.reset();
+      });
     }
     this.dialogModalCancel = false;
   }
   dialogAddOrUpdateConfirm(value) {
     if (value === true) {
-      this._router.navigate(['configuration/asset-policy']);
+      this._router.navigate(['configuration/asset-policy']).then(_ => {
+        this.assetPolicyFacade.reset();
+      });
     }
     this.dialogModalAddOrUpdate = false;
   }
