@@ -27,4 +27,14 @@ export class PeriodicServiceService {
       data
     );
   }
+
+  update(data): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl +
+        'configuration/periodic-service/' +
+        data.id +
+        '/update',
+      data
+    );
+  }
 }

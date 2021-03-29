@@ -3,11 +3,11 @@ import { IPeriodicService } from '@models/configuration';
 
 export const CONFIGURATION_PERIODIC_SERVICE_FEATURE_KEY = 'periodic-service';
 
-export interface PeriodicServiceState
-  extends EntityState<IPeriodicService> {
+export interface PeriodicServiceState extends EntityState<IPeriodicService> {
   error?: any;
   loaded?: boolean;
   message?: string;
+  submitted?: boolean;
 }
 
 export interface PeriodicServicePartialState {
@@ -21,7 +21,8 @@ export const periodicServiceAdapter: EntityAdapter<IPeriodicService> = createEnt
 export const initialState: PeriodicServiceState = periodicServiceAdapter.getInitialState(
   {
     error: null,
-    loaded: null,
-    message: null
+    loaded: false,
+    message: null,
+    submitted: false
   } as PeriodicServiceState
 );

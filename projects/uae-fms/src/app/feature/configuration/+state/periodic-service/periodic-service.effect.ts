@@ -41,6 +41,24 @@ export class PeriodicServiceEffect {
     )
   );
 
+  editData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PeriodicServiceActions.editPeriodicService),
+      mergeMap((action) =>
+        this.service.update(action.data).pipe(
+          map((data) =>
+            PeriodicServiceActions.periodicServiceEditedSuccessfully({
+              data: data.message
+            })
+          ),
+          catchError((error) =>
+            of(PeriodicServiceActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
   constructor(
     private action$: Actions,
     private service: PeriodicServiceService
