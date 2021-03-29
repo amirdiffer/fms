@@ -2,7 +2,7 @@ export interface IAssetMaster {
   id?: number;
   avatarId?: number;
   dpd?: string;
-  ownerShipId?: number;
+  ownershipId?: number;
   assetTypeId?: number;
   makeId?: number;
   modelId?: number;
