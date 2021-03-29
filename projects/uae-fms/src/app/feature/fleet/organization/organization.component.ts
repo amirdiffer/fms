@@ -82,19 +82,24 @@ export class OrganizationComponent implements OnInit {
   };
 
   data$ = this.facade.organization$.pipe(
-    map(x => {
-      return x.map(y => {
+    map((x) => {
+      return x.map((y) => {
         return {
           ...y,
           Organization: y.organizationName,
           Section: y.numOfDepartments,
           Location: y.numOfLocations,
+          car: y.numOfAssets,
+          user: y.numOfUsers,
+          TF_Unpaid: y.tfUnpaid,
+          TF_Payed: y.tfPaid
         };
       });
-    }));
+    })
+  );
   //#endregion
 
-  constructor(private facade: OrganizationFacade) { }
+  constructor(private facade: OrganizationFacade) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
