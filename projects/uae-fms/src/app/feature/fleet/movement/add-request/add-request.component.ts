@@ -126,4 +126,11 @@ export class AddRequestComponent extends Utility implements OnInit {
       this.goToList();
     } else this.displaySuccessModal = false;
   }
+
+  successConfirm($event) {
+    this.displaySuccessModal = false;
+    this.facade.reset();
+    this.goToList()
+
+  }
 }

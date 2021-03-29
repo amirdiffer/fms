@@ -81,6 +81,6 @@
 <alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)">
 </alert-dialog>
 <alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal"
-  (confirm)="displaySuccessModal=false;facade.reset();goToList()"></alert-dialog>
+  (confirm)="successConfirm($event)"></alert-dialog>
 <alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="displayErrorModal=false">
 </alert-dialog>
