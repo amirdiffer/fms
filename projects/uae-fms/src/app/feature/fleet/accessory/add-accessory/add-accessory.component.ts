@@ -12,6 +12,8 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AccessoryFacade } from '@feature/fleet/+state/accessory';
 import { map } from 'rxjs/operators';
 import { ThrowStmt } from '@angular/compiler';
+import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
+import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 
 @Component({
   selector: 'add-accessory',
@@ -33,6 +35,10 @@ export class AddAccessoryComponent implements OnInit {
     { name: 'assignedTo Type 2', id: 2 },
     { name: 'assignedTo Type 3', id: 3 }
   ];
+
+  assetsB;
+  subAssetsB;
+  employee = []
 
   formSubmitted = false;
   formChanged = false;
@@ -87,14 +93,8 @@ export class AddAccessoryComponent implements OnInit {
     ],
     data: []
   };
-  assets: [
-    { name: 'Asset 1'; id: 1 },
-    { name: 'Asset 2'; id: 2 },
-    { name: 'Asset 3'; id: 3 },
-    { name: 'Asset 4'; id: 4 },
-    { name: 'Asset 5'; id: 5 },
-    { name: 'Asset 6'; id: 6 }
-  ];
+  assets: [];
+  subAssets: [];
 
   constructor(
     private _fb: FormBuilder,
@@ -102,7 +102,9 @@ export class AddAccessoryComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _facade: AccessoryFacade,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private subAssetFacade: SubAssetFacade,
+    private assetMasterFacade: AssetMasterFacade,
   ) { }
 
   accessory$ = this._facade.accessory$.pipe(map(x => x.map((item) => {
@@ -118,7 +120,7 @@ export class AddAccessoryComponent implements OnInit {
   ngOnInit(): void {
     this.inputForm = this._fb.group({
       itemName: ['', Validators.required],
-      assignedToType: [''],
+      assignedToType: ['ASSET'],
       assignedToEntity: ['', Validators.required],
       accessoryTypeId: ['', Validators.required],
       quantity: ['', Validators.required],
@@ -126,6 +128,24 @@ export class AddAccessoryComponent implements OnInit {
     });
 
     this._facade.loadAll();
+    this.subAssetFacade.loadAll();
+    this.assetMasterFacade.loadAll();
+
+    this.subAssetFacade.subAsset$.subscribe(x => {
+      this.subAssetsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
+    });
+    this.assetMasterFacade.assetMaster$.subscribe(x => {
+      this.assetsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
+    });
+    this._accessoryService.users().subscribe((employee) => {
+      this.employee = employee.message.map(user => {
+        return {
+          id: user.id,
+          name: user.firstName + ' ' + user.lastName
+        }
+      });
+    })
+
 
     this.inputForm.valueChanges.subscribe(() => {
       this.formChanged = true;
@@ -150,14 +170,13 @@ export class AddAccessoryComponent implements OnInit {
   }
 
   filterAssets(event) {
-    this.assets = [
-      { name: 'Asset 1', id: 1 },
-      { name: 'Asset 2', id: 2 },
-      { name: 'Asset 3', id: 3 },
-      { name: 'Asset 4', id: 4 },
-      { name: 'Asset 5', id: 5 },
-      { name: 'Asset 6', id: 6 }
-    ];
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    this.assets = this.assetsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+  }
+
+  filterSubAssets(event) {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    this.subAssets = this.subAssetsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
   }
 
   assetChanged($event) {
@@ -183,7 +202,7 @@ export class AddAccessoryComponent implements OnInit {
       const d = this.inputForm.getRawValue();
       const _data = {
         "itemName": d.itemName,
-        "assignedToType": 'SUB_ASSET',
+        "assignedToType": d.assignedToType,
         "assignedToEntity": d.assignedToEntity.id,
         "accessoryTypeId": d.accessoryTypeId,
         "quantity": d.quantity,
