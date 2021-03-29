@@ -10,7 +10,10 @@ import { TableSetting } from '@core/table';
 import { ButtonType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
+import {
+  OrganizationFacade,
+  OrganizationService
+} from '@feature/fleet/+state/organization';
 import { debounceTime, map } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
 
@@ -82,16 +85,21 @@ export class AddOrganizationComponent extends Utility implements OnInit {
   organizationForm: FormGroup;
   submited: boolean;
   data$ = this.facade.organization$.pipe(
-    map(x => {
-      return x.map(y => {
+    map((x) => {
+      return x.map((y) => {
         return {
           ...y,
           Organization: y.organizationName,
           Section: y.numOfDepartments,
           Location: y.numOfLocations,
+          car: y.numOfAssets,
+          user: y.numOfUsers,
+          TF_Unpaid: y.tfUnpaid,
+          TF_Payed: y.tfPaid
         };
       });
-    }));
+    })
+  );
   get tags(): FormArray {
     return this.organizationForm.get('tags') as FormArray;
   }
@@ -100,12 +108,13 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     return this.organizationForm.get('section') as FormArray;
   }
 
-  constructor(injector: Injector,
+  constructor(
+    injector: Injector,
     private _fb: FormBuilder,
     private facade: OrganizationFacade,
     private organizationService: OrganizationService,
-    private changeDetection:ChangeDetectorRef
-    ) {
+    private changeDetection: ChangeDetectorRef
+  ) {
     super(injector);
   }
 
@@ -123,23 +132,36 @@ export class AddOrganizationComponent extends Utility implements OnInit {
       tags: new FormArray([this.createTagField()]),
       section: new FormArray([this.createSection()])
     });
-    this.departmentList.pipe(debounceTime(600)).subscribe(x => {
-      this.organizationService.searchDepartment(x["query"]).subscribe(y => {
+    this.departmentList.pipe(debounceTime(600)).subscribe((x) => {
+      this.organizationService.searchDepartment(x['query']).subscribe((y) => {
         if (y) {
-          this.department.next([y.message])
+          this.department.next([y.message]);
         } else {
-          this.department.next(null)
+          this.department.next(null);
         }
-      })
+      });
     });
     this.facade.submitted$.subscribe((x) => {
       if (x) {
         this.dialogModal = true;
-        this.dialogType = "success";
-        this.dialogSetting.header = "Add new Organization";
+        this.dialogType = 'success';
+        this.dialogSetting.header = 'Add new Organization';
         this.dialogSetting.message = 'Organization Added Successfully';
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'Ok';
+        this.dialogSetting.cancelButton = undefined;
+        this.changeDetection.detectChanges();
+      }
+    });
+    this.facade.error$.subscribe((x) => {
+      if (x) {
+        this.dialogModal = true;
+        this.dialogType = 'error';
+        this.dialogSetting.header = 'Error';
+        this.dialogSetting.message = 'Error occurred in operation';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = true;
         this.dialogSetting.confirmButton = 'Ok';
         this.dialogSetting.cancelButton = undefined;
         this.changeDetection.detectChanges();
@@ -167,7 +189,7 @@ export class AddOrganizationComponent extends Utility implements OnInit {
   }
 
   addTagField(value): void {
-    if (value != "" && value != null) {
+    if (value != '' && value != null) {
       this.tags.push(this.createTagField());
     }
   }
@@ -186,39 +208,42 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     this.sectionLocation(index).push(this.createSectionLocation());
   }
 
+  organizationNumber
   filterDepartments(event) {
-    this.departmentList.next(event)
+    this.organizationNumber = +event.query
+    this.departmentList.next(event);
   }
-  organizationIDChanged($event) {
-  }
+  organizationIDChanged($event) { }
 
   dialogConfirm(event) {
     this.dialogModal = false;
     if (!event) {
       return;
     }
-    if (this.dialogType == "submit") {
+    if (this.dialogType == 'submit') {
       const value = {
-        organizationNumber: this.organizationForm.value.departmentId.id,
+        organizationNumber: this.organizationNumber,
         organizationName: this.organizationForm.value.departmentName,
-        tags: this.organizationForm.value.tags.map(x => { return x.tag }),
-        departments: this.organizationForm.value.section.map(x => {
+        tags: this.organizationForm.value.tags.map((x) => {
+          return x.tag;
+        }),
+        departments: this.organizationForm.value.section.map((x) => {
           return {
             name: x.sectionName,
-            locationAddresses: x.locations.map(y => { return y.location[0] })
-          }
+            locationAddresses: x.locations.map((y) => {
+              return y.location[0];
+            })
+          };
         })
-      }
-      console.log(value)
-      console.log(this.organizationForm.value)
+      };
       this.facade.addOrganization(value);
     }
-    if (this.dialogType == "success") {
+    if (this.dialogType == 'success') {
       console.log('success');
-      this.goToList()
+      this.goToList();
     }
     if (this.dialogType == null) {
-      this.goToList()
+      this.goToList();
     }
   }
 
@@ -242,9 +267,10 @@ export class AddOrganizationComponent extends Utility implements OnInit {
       this.dialogSetting.header = 'Add new organization';
       this.dialogSetting.isWarning = true;
       this.dialogSetting.hasError = false;
-      this.dialogSetting.message = 'Are you sure you want to add new Organization?';
+      this.dialogSetting.message =
+        'Are you sure you want to add new Organization?';
       this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = "Cancel";
+      this.dialogSetting.cancelButton = 'Cancel';
     }
   }
 }
