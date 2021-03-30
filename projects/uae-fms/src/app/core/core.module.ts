@@ -30,7 +30,8 @@ import {
 } from '@ngrx/router-store';
 
 import { environment } from '../../environments/environment';
-import { HttpErrorInterceptor } from './http-interceptors/http-error.interceptor';
+import { HttpInterceptor } from './http-interceptors/http.interceptor';
+import { LoaderInterceptor } from './http-interceptors/loaderInterceptor';
 
 import {
   AppState,
@@ -134,7 +135,8 @@ export function httpLoaderFactory(http: HttpClient) {
   ],
   declarations: [],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: RouterStateSerializer, useClass: CustomSerializer },
     RouterFacade

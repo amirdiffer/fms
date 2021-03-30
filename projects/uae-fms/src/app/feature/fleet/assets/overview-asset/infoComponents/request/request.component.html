@@ -12,14 +12,14 @@
         </button>
         <button *ngIf="section == 'list'" class="btn-primary-small" type="button" [routerLink]="[]" [queryParams]="{id:'Job Card'}"><i>+</i><a>{{'search.job_card' | translate}}</a></button>
         <button *ngIf="section == 'list'" class="btn-primary-small mx-1" (click)="showSection('form')"><i>+</i><a>{{'search.request' | translate}}</a></button>
-        <button *ngIf="section == 'form'" class="btn-primary-small mx-1" type="button" (click)="showSection('list')"><a>{{'forms.save' | translate}}</a></button>
         <button *ngIf="section == 'form'" class="btn-primary-small btn-scondary-green" type="button" (click)="showSection('list')"><a>{{'forms.cancel' | translate}}</a></button>
+        <button *ngIf="section == 'form'" class="btn-primary-small mx-1" type="button" (click)="submitRequest('list')"><a>{{'forms.save' | translate}}</a></button>
       </span>
     <app-table [setting]="jobCard_Table3"></app-table>
   </div>
 </div>
 
-<div class="form-section component-wrapper damage-history">
+<div class="form-section component-wrapper damage-history"  *ngIf="section != 'form'">
   <div class="row justify-content-between">
     <div class="col-auto">
       <div class="title">Damage History</div>
@@ -77,7 +77,7 @@
   </div>
 </div>
 
-<form *ngIf="section == 'form'">
+<form [formGroup]="inputForm" *ngIf="section == 'form'">
 
   <div class="form-section form-section--inline">
     <div class="row form-section__row">
@@ -85,19 +85,19 @@
       <div class="col-12 col-md-10">
         <div class="row form-group">
           <div class="form-check col-lg-3">
-            <input class="form-check-input" type="radio"  id="body_shop" name="issue_type" value ="body_shop">
+            <input class="form-check-input" type="radio"  id="body_shop" name="issueType" value ="body_shop" formControlName="issueType">
             <label class="form-check-label" for="body_shop">
               {{'assets.overview.requests.body_shop' | translate}}
             </label>
           </div>
           <div class="form-check col-lg-3">
-            <input class="form-check-input" type="radio"  id="service_shop" name="issue_type" value ="service_shop">
+            <input class="form-check-input" type="radio"  id="service_shop" name="issueType" value ="service_shop" formControlName="issueType">
             <label class="form-check-label" for="service_shop">
               {{'assets.overview.requests.service_shop' | translate}}
             </label>
           </div>
           <div class="form-check col-lg-3">
-            <input class="form-check-input" type="radio"  id="tire_shop" name="issue_type" value="tire_shop">
+            <input class="form-check-input" type="radio"  id="tire_shop" name="issueType" value="tire_shop" formControlName="issueType">
             <label class="form-check-label" for="tire_shop">
               {{'assets.overview.requests.tire_shop' | translate}}
             </label>
@@ -114,19 +114,19 @@
         <div class="row form-group align-items-center">
           <div class="custom-control custom-switch col-3">
             <div class="toggle-select">
-              <p-inputSwitch></p-inputSwitch>
+              <p-inputSwitch formControlName="reason"></p-inputSwitch>
               <label>{{'assets.overview.requests.accident' | translate}}</label>
             </div>
           </div>
-          <ng-container *ngIf="false">
+          <ng-container *ngIf="inputForm.get('reason').value == true">
             <div class="form-check col-3">
-              <input class="form-check-input" type="radio"  id="Miner"  name="accident" value ="miner">
+              <input class="form-check-input" type="radio"  id="Miner"  value ="miner" formControlName="accidentOption">
               <label class="form-check-label" for="Miner">
                 {{'assets.overview.requests.miner' | translate}}
               </label>
             </div>
             <div class="form-check col-3">
-              <input class="form-check-input" type="radio"  id="Major" name="accident" value ="major">
+              <input class="form-check-input" type="radio"  id="Major" value ="major" formControlName="accidentOption">
               <label class="form-check-label" for="Major">
                 {{'assets.overview.requests.major' | translate}}
               </label>
@@ -143,26 +143,26 @@
       <div class="col-12 col-md-10">
         <div class="row form-group">
           <div class="form-check col-lg-3">
-            <input class="form-check-input" type="radio"  id="Estimate" name="job_type" value ="estimate">
+            <input class="form-check-input" type="radio"  id="Estimate" name="jobType" value ="estimate" formControlName="jobType">
             <label class="form-check-label" for="Estimate">
               {{'assets.overview.requests.estimate' | translate}}
             </label>
           </div>
           <div class="form-check col-lg-3">
-            <input class="form-check-input" type="radio"  id="Repair" name="job_type" value ="repair">
+            <input class="form-check-input" type="radio"  id="Repair" name="jobType" value ="repair" formControlName="jobType">
             <label class="form-check-label" for="Repair">
               {{'assets.overview.requests.repair' | translate}}
             </label>
           </div>
           <div class="form-check col-lg-3">
-            <input class="form-check-input" type="radio"  id="Technical_Report" name="job_type" value="technical_report">
+            <input class="form-check-input" type="radio"  id="Technical_Report" name="jobType" value="technical_report" formControlName="jobType">
             <label class="form-check-label" for="Technical_Report">
               {{'assets.overview.requests.technical_report' | translate}}
             </label>
           </div>
-          <ng-container *ngIf="true">
+          <ng-container  *ngIf=" inputForm.get('reason').value == false ">
             <div class="form-check col-lg-3">
-              <input class="form-check-input" type="radio"id="Installation" name="job_type" value="installation">
+              <input class="form-check-input" type="radio"id="Installation" name="jobType" value="installation" formControlName="jobType">
               <label class="form-check-label" for="Installation">
                 {{'assets.overview.requests.installation' | translate}}
               </label>
@@ -178,24 +178,30 @@
     <div class="row form-section__row">
       <div class="form-group col-md-8 p-field form-section__field">
         <span class="p-float-label">
-          <input pInputText  type="text" class="form-control" placeholder="{{'assets.overview.requests.issue' | translate}}">
+          <input pInputText  type="text" class="form-control" placeholder="{{'assets.overview.requests.issue' | translate}}" 
+          formControlName="issue"
+          [class.invalid]="!inputForm.get('issue').valid && submitted">
           <label>{{'assets.overview.requests.issue' | translate}}</label>
         </span>
-        <small class="red-font" *ngIf="false">{{'assets.overview.requests.issue_validation_error' | translate}}</small>
+        <small class="red-font " [class.d-none]=" inputForm.get('issue').valid || !submitted">{{'assets.overview.requests.issue_validation_error' | translate}}</small>
       </div>
       <div class="form-group col-md-4 p-field form-section__field">
         <span class="p-float-label">
-          <input pInputText type="text" class="form-control" placeholder="{{'assets.overview.requests.created_by' | translate}}">
+          <input pInputText type="text" class="form-control" placeholder="{{'assets.overview.requests.created_by' | translate}}" 
+          formControlName="createdBy"
+          [class.invalid]="!inputForm.get('createdBy').valid && submitted">
           <label>{{'assets.overview.requests.created_by' | translate}}</label>
         </span>
-        <small class="red-font" *ngIf="false">{{'assets.overview.requests.reported_by_validation_error' | translate}}</small>
+        <small class="red-font " [class.d-none]=" inputForm.get('createdBy').valid || !submitted">{{'assets.overview.requests.reported_by_validation_error' | translate}}</small>
       </div>
       <div class="form-group col-md-12 p-field form-section__field mt-3">
         <span class="p-float-label">
-          <input pInputText type="text" class="form-control" placeholder="{{'assets.overview.requests.description' | translate}}" formControlName="description">
+          <input pInputText type="text" class="form-control" placeholder="{{'assets.overview.requests.description' | translate}}" 
+          [class.invalid]="!inputForm.get('description').valid && submitted"
+          formControlName="description">
           <label>{{'assets.overview.requests.description' | translate}}</label>
         </span>
-        <small class="red-font" *ngIf="false">{{'assets.overview.requests.description_validation_error' | translate}}</small>
+        <small class="red-font " [class.d-none]=" inputForm.get('description').valid || !submitted">{{'assets.overview.requests.description_validation_error' | translate}}</small>
       </div>
     </div>
   </div>

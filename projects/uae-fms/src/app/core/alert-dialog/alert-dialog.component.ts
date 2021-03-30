@@ -8,15 +8,15 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'alret-dialog',
-  templateUrl: './alret-dialog.component.html',
-  styleUrls: ['./alret-dialog.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'alert-dialog',
+  templateUrl: './alert-dialog.component.html',
+  styleUrls: ['./alert-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
-export class AlretDialogComponent implements OnInit {
+export class AlertDialogComponent implements OnInit {
   @Input('settings') settings: IDialogAlert;
   @Input('displayModal') displayModal: boolean;
-  @Output() confirm = new EventEmitter<boolean>();
+  @Output() confirm = new EventEmitter<any>();
   timesCircle = 'assets/icons/times-circle.svg';
   checkCircle = 'assets/icons/check-circle.svg';
   warningTriangle = 'assets/icons/exclamation-triangle.svg';
@@ -31,6 +31,10 @@ export class AlretDialogComponent implements OnInit {
     this.displayModal = false;
     this.confirm.emit(false);
   }
+  dialogEvent(event){
+    this.displayModal = false;
+    this.confirm.emit(event);
+  }
 }
 
 export interface IDialogAlert {
@@ -41,12 +45,16 @@ export interface IDialogAlert {
   message: string;
   confirmButton?: string;
   cancelButton?: string;
+  buttons?:buttons[];
 }
-
+export interface buttons{
+  title:string;
+  eventEmit:string;
+}
 /* example */
 /*
   .html
-      <alret-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alret-dialog>
+      <alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
   .ts
       dialogSetting : IDialogAlert ={
           header:'Header is Here',

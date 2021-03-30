@@ -53,7 +53,7 @@
             <table-double-line-renderer [user]="data" [column]="col"></table-double-line-renderer>
           </div>
           <div *ngIf="showButton(col,i)">
-            <table-general-button-renderer [row]="data[i]" [button]="data"
+            <table-general-button-renderer [setting]="setting.rowSettings" [row]="data[i]" [button]="data"
               [col]="col"></table-general-button-renderer>
           </div>
           <div *ngIf="col.renderer == 'subtextRenderer'">
@@ -91,6 +91,9 @@
           </div>
           <div *ngIf="col.renderer=='floatButton' && i == rowIndexTable">
             <float-button-renderer [lang]="activeLang"  [col]="col" [setting]="setting.rowSettings" [data]="data"></float-button-renderer>
+          </div>
+          <div *ngIf="col.renderer=='colorize'">
+            <table-colorize-renderer [lang]="activeLang"  [data]="data[col.field]" [options]="col.rendererOptions"></table-colorize-renderer>
           </div>
 
         </td>

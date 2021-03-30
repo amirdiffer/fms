@@ -1,27 +1,13 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { IRequest } from '@models/body-shop';
+import { IBodyShopRequestStatistics } from '@models/statistics';
 
 export const WORKSHOP_BODYSHOP_REQUEST_FEATURE_KEY = 'bodyShopRequest';
 
-export interface BodyshopRequestStateModel {
-  item: {
-    title: string;
-    dpd: string;
-    thumb: string;
-    flag: boolean;
-  };
-  issue: string;
-  source: string;
-  refrenceNo: string;
-  jobType: string;
-  date: string;
-  accident: string;
-  action: string;
-}
-
-export interface BodyShopRequestState
-  extends EntityState<BodyshopRequestStateModel> {
+export interface BodyShopRequestState extends EntityState<IRequest> {
   error?: any;
   loaded: boolean;
+  statistics?: IBodyShopRequestStatistics;
   message: string;
 }
 
@@ -29,14 +15,15 @@ export interface BodyshopRequestPartialState {
   [WORKSHOP_BODYSHOP_REQUEST_FEATURE_KEY]: BodyShopRequestState;
 }
 
-export const bodyShopRequestAdapter: EntityAdapter<BodyshopRequestStateModel> = createEntityAdapter<
-  BodyshopRequestStateModel
+export const bodyShopRequestAdapter: EntityAdapter<IRequest> = createEntityAdapter<
+  IRequest
 >();
 
 export const initialState: BodyShopRequestState = bodyShopRequestAdapter.getInitialState(
   {
     loaded: null,
     message: null,
-    error: null
+    error: null,
+    statistics: null
   } as BodyShopRequestState
 );

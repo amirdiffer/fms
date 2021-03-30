@@ -12,15 +12,38 @@ const periodicServiceReducer = createReducer(
     ...state,
     loaded: false,
     error: null,
-    message: null
+    message: null,
+    submitted: false
   })),
   on(PeriodicServiceActions.allDataLoaded, (state, { data }) =>
     periodicServiceAdapter.setAll(data, { ...state, loaded: true, error: null })
+  ),
+  on(PeriodicServiceActions.addPeriodicService, (state, { data }) => ({
+    ...state,
+    submitted: false
+  })),
+  on(
+    PeriodicServiceActions.periodicServiceAddedSuccessfully,
+    (state, { data }) => ({ ...state, submitted: true })
+  ),
+  on(PeriodicServiceActions.editPeriodicService, (state, { data }) => ({
+    ...state,
+    submitted: false
+  })),
+  on(
+    PeriodicServiceActions.periodicServiceEditedSuccessfully,
+    (state, { data }) => ({ ...state, submitted: true })
   ),
   on(PeriodicServiceActions.error, (state, { reason }) => ({
     ...state,
     error: reason,
     loaded: true
+  })),
+  on(PeriodicServiceActions.reset, (state) => ({
+    ...state,
+    submitted: false,
+    error: null,
+    message: null
   }))
 );
 

@@ -11,10 +11,29 @@ export class OperatorFacade {
   message$ = this.store.pipe(select(OperatorSelectors.message));
 
   error$ = this.store.pipe(select(OperatorSelectors.error));
+  statistics$ = this.store.pipe(select(OperatorSelectors.selectStatistics));
+
+  submitted$ = this.store.pipe(select(OperatorSelectors.submitted));
 
   constructor(private store: Store<IOperatorPartialState>) {}
 
   loadAll() {
     this.store.dispatch(OperatorActions.loadAll());
+  }
+
+  addOperator(data: any) {
+    this.store.dispatch(OperatorActions.addOperator({ data }));
+  }
+
+  editOperator(operator: any) {
+    this.store.dispatch(OperatorActions.editOperator({ operator }));
+  }
+
+  getOperatorById(id: number) {
+    return this.store.pipe(select(OperatorSelectors.selectById, { id }));
+  }
+
+  resetParams() {
+    this.store.dispatch(OperatorActions.resetParams());
   }
 }

@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { IUserProfileModel } from './user.entity';
 
 export class UserPorfileAction {
   static loadData = createAction('[userProfile] load user data');

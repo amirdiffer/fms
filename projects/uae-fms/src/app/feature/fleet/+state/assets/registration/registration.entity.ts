@@ -1,4 +1,5 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { IPendingRegistration } from '@models/pending-registration.model';
 
 export interface IRegistrationModel {
   asset: {
@@ -16,7 +17,7 @@ export interface IRegistrationModel {
   creator: string;
 }
 
-export interface IRegistrationState extends EntityState<IRegistrationModel> {
+export interface IRegistrationState extends EntityState<IPendingRegistration> {
   error?: any;
   loaded: boolean;
   message: string;
@@ -28,8 +29,8 @@ export interface IRegistrationPartialState {
   [FLEET_REGISTRATION_FEATURE_KEY]: IRegistrationState;
 }
 
-export const registrationAdapter: EntityAdapter<IRegistrationModel> = createEntityAdapter<
-  IRegistrationModel
+export const registrationAdapter: EntityAdapter<IPendingRegistration> = createEntityAdapter<
+  IPendingRegistration
 >();
 
 export const initialState: IRegistrationState = registrationAdapter.getInitialState(

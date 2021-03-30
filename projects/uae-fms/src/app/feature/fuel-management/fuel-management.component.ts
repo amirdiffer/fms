@@ -4,6 +4,8 @@ import { FuelCardsFacade } from '../fuel-management/+state/fuel-cards';
 import { AssetUsageFacade } from './+state/asset-usage';
 import { Router } from '@angular/router';
 import { ColumnType } from '@core/table';
+import { Subscription } from 'rxjs';
+import { IFuelManagementStatistics } from '@models/statistics';
 
 @Component({
   selector: 'anms-fuel-management',
@@ -14,26 +16,14 @@ import { ColumnType } from '@core/table';
 export class FuelManagementComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-  filterSetting: FilterCardSetting[] = [
-    {
-      filterTitle: 'statistic.total',
-      filterTagColor: '#B892FF',
-      filterCount: '2456',
-      onActive(index: number): void {}
-    },
-    {
-      filterTitle: 'statistic.available',
-      filterTagColor: '#EF7A85',
-      filterCount: '356',
-      onActive(index: number): void {}
-    },
-    {
-      filterTitle: 'statistic.assigned',
-      filterTagColor: '#709775',
-      filterCount: '124',
-      onActive(index: number): void {}
-    }
-  ];
+  fuelCards$: Subscription;
+  statistics$: Subscription;
+  statisticsCount: IFuelManagementStatistics = {
+    total: 2456,
+    available: 356,
+    assigned: 124
+  };
+  filterSetting: FilterCardSetting[];
 
   assetUsageTableData = [
     {
@@ -368,6 +358,37 @@ export class FuelManagementComponent implements OnInit {
   selectedTab;
   ngOnInit(): void {
     this._facadeFuelCard.loadAll();
+    this.statisticsFilters(this.statisticsCount);
+    this.fuelCards$ = this._facadeFuelCard.fuelCards$.subscribe((data:any) => {
+      if (data) {
+        this.fuelCardsTableSetting.data = data.map((item) => {
+          return {
+            tagNo: {
+              tagNo: item.tagNumber,
+              data: item.used.map((used) => {
+                return {
+                  litters: used.amount.toString(),
+                  km: used.mileage.toString(),
+                  day: '',
+                  date: '',
+                  time: ' '
+                };
+              })
+            },
+            used: item.usageLimit,
+            usageLimit: item.usageLimit,
+            asset: item.assignedTo,
+            cardType: item.cardType,
+            expire: item.expireDate
+          };
+        });
+      }
+    });
+    this.statistics$ = this._facadeFuelCard.statistics$.subscribe((data) => {
+      if (data) {
+        this.statisticsFilters(data);
+      }
+    });
     this._facadeAssetUsage.loadAll();
   }
   addClicked(e: Event) {
@@ -386,5 +407,27 @@ export class FuelManagementComponent implements OnInit {
         this._router.navigate(['fuel-management/add-fuel-card']);
         break;
     }
+  }
+  statisticsFilters(statisticsCount: IFuelManagementStatistics) {
+    this.filterSetting = [
+      {
+        filterTitle: 'statistic.total',
+        filterTagColor: '#B892FF',
+        filterCount: statisticsCount.total.toString(),
+        onActive(index: number): void {}
+      },
+      {
+        filterTitle: 'statistic.available',
+        filterTagColor: '#EF7A85',
+        filterCount: statisticsCount.available.toString(),
+        onActive(index: number): void {}
+      },
+      {
+        filterTitle: 'statistic.assigned',
+        filterTagColor: '#709775',
+        filterCount: statisticsCount.assigned.toString(),
+        onActive(index: number): void {}
+      }
+    ];
   }
 }

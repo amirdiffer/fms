@@ -12,7 +12,27 @@ export class FleetStatusAssetEffect {
       ofType(FleetStatusAssetActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => FleetStatusAssetActions.allDataLoaded({ data })),
+          map((data) =>
+            FleetStatusAssetActions.allDataLoaded({ data: data.message })
+          ),
+          catchError((error) =>
+            of(FleetStatusAssetActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  addData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(FleetStatusAssetActions.addFleetStatus),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) =>
+            FleetStatusAssetActions.fleetStatusAddedSuccessfully({
+              data: data.message
+            })
+          ),
           catchError((error) =>
             of(FleetStatusAssetActions.error({ reason: error }))
           )

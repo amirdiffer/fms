@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { ButtonType } from '@core/table/table.component';
+import { map } from 'rxjs/operators';
 import { OrganizationFacade } from '../+state/organization';
 
 @Component({
@@ -11,6 +12,8 @@ import { OrganizationFacade } from '../+state/organization';
 })
 export class OrganizationComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
+
+  //#region Table
   organization_Table: TableSetting = {
     columns: [
       {
@@ -55,7 +58,8 @@ export class OrganizationComponent implements OnInit {
         type: 1,
         isIconLable: true,
         field: 'car',
-        width: 100
+        width: 100,
+        sortable: true
       },
       {
         lable: '',
@@ -74,64 +78,26 @@ export class OrganizationComponent implements OnInit {
         buttonType: ButtonType.action
       }
     ],
-    data: [
-      {
-        Organization: 'Name is here',
-        Section: '7',
-        Location: '4',
-        TF_Payed: '123',
-        TF_Unpaid: '12',
-        user: '3456',
-        car: '4326',
-        addButton: '',
-        actionButton: ''
-      },
-      {
-        Organization: 'Name is here',
-        Section: '7',
-        Location: '4',
-        TF_Payed: '123',
-        TF_Unpaid: '12',
-        user: '3456',
-        car: '4326',
-        addButton: '',
-        actionButton: ''
-      },
-      {
-        Organization: 'Name is here',
-        Section: '7',
-        Location: '4',
-        TF_Payed: '123',
-        TF_Unpaid: '12',
-        user: '3456',
-        car: '4326',
-        addButton: '',
-        actionButton: ''
-      },
-      {
-        Organization: 'Name is here',
-        Section: '7',
-        Location: '4',
-        TF_Payed: '123',
-        TF_Unpaid: '12',
-        user: '3456',
-        car: '4326',
-        addButton: '',
-        actionButton: ''
-      },
-      {
-        Organization: 'Name is here',
-        Section: '7',
-        Location: '4',
-        TF_Payed: '123',
-        TF_Unpaid: '12',
-        user: '3456',
-        car: '4326',
-        addButton: '',
-        actionButton: ''
-      }
-    ]
+    data: []
   };
+
+  data$ = this.facade.organization$.pipe(
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
+          Organization: y.organizationName,
+          Section: y.numOfDepartments,
+          Location: y.numOfLocations,
+          car: y.numOfAssets,
+          user: y.numOfUsers,
+          TF_Unpaid: y.tfUnpaid,
+          TF_Payed: y.tfPaid
+        };
+      });
+    })
+  );
+  //#endregion
 
   constructor(private facade: OrganizationFacade) {}
 

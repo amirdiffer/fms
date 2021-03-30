@@ -8,12 +8,18 @@ import { SettingsFacade } from '@core/settings/settings.facade';
     <div
       class="float-button"
       [ngStyle]="{
-        right: lang == 'en' ? '20px' : null,
+        right: col.hasJobCardButton
+          ? lang == 'en'
+            ? '14em'
+            : null
+          : lang == 'en'
+          ? '20px'
+          : null,
         left: lang == 'ar' ? '20px' : null
       }"
     >
       <ng-container *ngFor="let item of setting?.floatButton">
-        <span (click)="item?.onClick(col, data, item.button)">
+        <span (click)="clicked(item,col,data)">
           <svg-icon
             [src]="getIcon(item.button)"
             class="svg-icon"
@@ -64,9 +70,9 @@ export class FloatButton implements OnInit {
 
   assetPath = 'assets/icons/';
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   getIcon(key: string): string {
     switch (key) {
@@ -85,6 +91,14 @@ export class FloatButton implements OnInit {
       case 'checked': {
         return this.assetPath + 'checked.svg';
       }
+    }
+  }
+
+  clicked(item, col, data) {
+    if (item && item.onClick && item.onClick instanceof Function) {
+      console.log("item.onClick")
+      console.log(item.onClick)
+      item.onClick(col, data, item.button)
     }
   }
 }

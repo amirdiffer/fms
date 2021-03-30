@@ -1,5 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject, Injector, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { MovementRequestsFacade } from '@feature/fleet/+state/movement';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { Utility } from '@shared/utility/utility';
 
 @Component({
   selector: 'anms-movement-confirm',
@@ -7,18 +12,39 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./movement-confirm.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovementConfirmComponent implements OnInit {
+export class MovementConfirmComponent extends Utility implements OnInit {
   confirmForm: FormGroup;
-  assetSuggests = [
-    { name: 'Old asset type 1', id: 1 },
-    { name: 'Old asset type 2', id: 2 },
-    { name: 'Old asset type 3', id: 3 },
-    { name: 'Old asset type 4', id: 4 },
-    { name: 'Old asset type 5', id: 5 },
-    { name: 'Old asset type 6', id: 6 }
-  ];
+  assetSuggests = [];
+  assetSuggestsB;
+  submitted = false;
+  dialogSuccessSetting: IDialogAlert = {
+    header: 'Success',
+    hasError: false,
+    message: 'Assigned Successfully',
+    confirmButton: 'Ok',
+  };
+  dialogErrorSetting: IDialogAlert = {
+    header: 'Error',
+    hasError: true,
+    message: 'Some Error Occurred',
+    confirmButton: 'Ok',
+  };
+  displayCancelModal = false;
+  displaySuccessModal = false;
+  displayErrorModal = false;
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(
+    private _fb: FormBuilder,
+    private _assetFacade: AssetMasterFacade,
+    private _requestFacade: MovementRequestsFacade,
+    public dialog: MatDialog,
+    public dialogRef: MatDialogRef<MovementConfirmComponent>,
+    private changeDetector: ChangeDetectorRef,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    injector: Injector
+  ) {
+    super(injector);
+  }
 
   ngOnInit(): void {
     this.confirmForm = this._fb.group({
@@ -32,21 +58,65 @@ export class MovementConfirmComponent implements OnInit {
       endDate: [''],
       endTime: [''],
       gps: ['464646464'],
-      sendNotification: [''],
+      sendNotification: [true],
       fuelCart: [true],
       serialNumber: ['']
     });
+    this._assetFacade.loadAll();
+    this._assetFacade.assetMaster$.subscribe(x => {
+      this.assetSuggestsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
+    });
+
+    this._requestFacade.assigned$.subscribe(x => {
+      if (x) {
+        this.displaySuccessModal = true;
+        this.dialogErrorSetting.hasError=false;
+        this.changeDetector.detectChanges();
+      }
+    })
+
+    this._requestFacade.error$.subscribe(x => {
+      if (x?.error) {
+        this.displayErrorModal = true;
+        this.dialogErrorSetting.hasError=true;
+        this.changeDetector.detectChanges();
+      }
+    })
+
   }
 
   filterAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.assetSuggests = [
-      { name: 'Old asset type 1', id: 1 },
-      { name: 'Old asset type 2', id: 2 },
-      { name: 'Old asset type 3', id: 3 },
-      { name: 'Old asset type 4', id: 4 },
-      { name: 'Old asset type 5', id: 5 },
-      { name: 'Old asset type 6', id: 6 }
-    ];
+    this.assetSuggests = this.assetSuggestsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
   }
+
+
+  submit(): void {
+    this.submitted = true;
+    if (this.confirmForm.invalid) {
+      return;
+    }
+    let d = this.confirmForm.getRawValue();
+    let _data = {
+      "requestId": 79312377,
+      "assetId": d.asset.id,
+      "operatorId": d.operator.id,
+      "organizationId": 86116942,
+      "departmentId": d.department.id,
+      "comment": d.comment,
+      "gpsMeterSource": d.gps,
+      "shouldSendNotification": d.sendNotification,
+      "hasFuelCard": d.fuelCart,
+      "fuelCardSerialNumber": d.serialNumber
+    }
+    this._requestFacade.assigning(this.data, _data);
+  }
+
+  dialogConfirm(confirmed) {
+    if (confirmed) {
+      this.displaySuccessModal = false;
+      this.goToList();
+    } else this.displaySuccessModal = false;
+  }
+
 }
