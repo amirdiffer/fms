@@ -192,6 +192,7 @@
     "pending": "Pending",
     "complete": "Complete",
     "cancel": "Cancel",
+    "auction_list": "Auction List",
     "insurance_action": "Insurance Action",
     "technical_inspection": "Technical Inspection",
     "insurance_claim": "Insurance Claim",
@@ -975,6 +976,8 @@
       "car_card": "Car Card",
       "asset_policy": "Asset Policy",
       "make_decision": "Make Decision",
+      "actual_market_value": "Actual Market Value",
+      "sold": "Sold",
       "upload_form": {
         "title": "Attach Docs",
         "progressbar_title": "",

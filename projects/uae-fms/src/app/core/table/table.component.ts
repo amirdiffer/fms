@@ -160,6 +160,19 @@ export class TableComponent implements OnInit {
       return col.renderer == 'button' && i == this.rowIndexTable;
     else return col.renderer == 'button';
   }
+
+  selectedTRS = [];
+  selectTR(data) {
+    if(data[0] == 'open') {
+      this.selectedTRS.push(data[1]);
+    } else {
+      this.selectedTRS = this.selectedTRS.filter((x) => x != data[1]);
+    }
+  }
+  isSelected(index): boolean {
+    return this.selectedTRS.includes(index);
+  }
+
 }
 
 export interface TableSetting {

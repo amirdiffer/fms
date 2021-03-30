@@ -195,6 +195,7 @@
     "pending": "قيد الانتظار",
     "complete": "اكتمال",
     "cancel": "يلغي",
+    "auction_list": "قائمة المزاد",
     "insurance_action": "إجراءات التأمين",
     "technical_inspection": "الفحص التقني",
     "insurance_claim": "تعويض من شركة التأمين",
@@ -975,6 +976,8 @@
       "asset_policy": "وثيقة الأصل",
       "make_decision": "إتخذ قرار",
       "generate": "إنشاء",
+      "actual_market_value": "سعر السوق الفعلي",
+      "sold": "مباع",
       "upload_form": {
         "title": "إضافة مرفقات",
         "progressbar_title": "",
