@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ColumnType, TableSetting } from '@core/table';
+import { from, of } from 'rxjs';
 import { RolePermissionFacade } from '../../+state/role-permission';
 
 @Component({
@@ -10,6 +11,44 @@ import { RolePermissionFacade } from '../../+state/role-permission';
 })
 export class RolePermissionComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
+  data$ = of([
+    {
+      Item: 'Name is here',
+      View: 'Task Master, Service Shop',
+      Edit: 'Body Shop',
+      Create: 'Tire Shop'
+    },
+    {
+      Item: 'Name is here',
+      View: 'Task Master, Service Shop',
+      Edit: 'Body Shop',
+      Create: 'Tire Shop'
+    },
+    {
+      Item: 'Name is here',
+      View: 'Task Master, Service Shop',
+      Edit: 'Body Shop',
+      Create: 'Tire Shop'
+    },
+    {
+      Item: 'Name is here',
+      View: 'Task Master, Service Shop',
+      Edit: 'Body Shop',
+      Create: 'Tire Shop'
+    },
+    {
+      Item: 'Name is here',
+      View: 'Task Master, Service Shop',
+      Edit: 'Body Shop',
+      Create: 'Tire Shop'
+    },
+    {
+      Item: 'Name is here',
+      View: 'Task Master, Service Shop',
+      Edit: 'Body Shop',
+      Create: 'Tire Shop'
+    }
+  ])
 
   rolePermission_Table: TableSetting = {
     columns: [
@@ -26,57 +65,20 @@ export class RolePermissionComponent implements OnInit {
         renderer: 'floatButton'
       }
     ],
-    data: [
-      {
-        Item: 'Name is here',
-        View: 'Task Master, Service Shop',
-        Edit: 'Body Shop',
-        Create: 'Tire Shop'
-      },
-      {
-        Item: 'Name is here',
-        View: 'Task Master, Service Shop',
-        Edit: 'Body Shop',
-        Create: 'Tire Shop'
-      },
-      {
-        Item: 'Name is here',
-        View: 'Task Master, Service Shop',
-        Edit: 'Body Shop',
-        Create: 'Tire Shop'
-      },
-      {
-        Item: 'Name is here',
-        View: 'Task Master, Service Shop',
-        Edit: 'Body Shop',
-        Create: 'Tire Shop'
-      },
-      {
-        Item: 'Name is here',
-        View: 'Task Master, Service Shop',
-        Edit: 'Body Shop',
-        Create: 'Tire Shop'
-      },
-      {
-        Item: 'Name is here',
-        View: 'Task Master, Service Shop',
-        Edit: 'Body Shop',
-        Create: 'Tire Shop'
-      }
-    ],
+    data:[],
     rowSettings: {
       onClick: (col, data, button?) => {
         console.log(col, data, button);
       },
       floatButton: [
         {
-          button: 'external',
+          button: 'external'
         }
       ]
     }
   };
 
-  constructor(private facade: RolePermissionFacade) {}
+  constructor(private facade: RolePermissionFacade) { }
 
   ngOnInit(): void {
     this.facade.loadAll();

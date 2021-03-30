@@ -19,6 +19,7 @@ import {
   FileSystemFileEntry,
   NgxFileDropEntry
 } from 'ngx-file-drop';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
@@ -26,6 +27,16 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddTechnicianComponent extends Utility implements OnInit {
+  dialogModal = false;
+
+  dialogSetting: IDialogAlert = {
+    header: 'Add Technician',
+    hasError: false,
+    message: 'Message is Here',
+    confirmButton: 'Register Now',
+    cancelButton: 'Cancel'
+  };
+
   inputForm: FormGroup;
   filteredEmployeNumb;
   filteredLocation;
@@ -103,32 +114,33 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         renderer: 'userRenderer',
         thumbField: 'picture'
       },
-      { lable: 'tables.column.skill', field: 'skill', type: ColumnType.lable },
+      {
+        lable: 'tables.column.skill',
+        field: 'skill',
+        type: ColumnType.lable,
+        width: 400
+      },
       {
         lable: 'tables.column.status',
         field: 'status',
         type: ColumnType.lable,
-        width: 120,
         textColor: '#6870B4'
       },
       {
         lable: 'tables.column.tasks',
         field: 'tasks',
-        type: ColumnType.lable,
-        width: 120
+        type: ColumnType.lable
       },
       {
         lable: 'tables.column.information',
         field: 'information',
         type: ColumnType.lable,
-        width: 100,
         renderer: 'informationRenderer'
       },
       {
         lable: 'tables.column.rate_per_hour',
         field: 'ratePerHour',
-        type: ColumnType.lable,
-        width: 100
+        type: ColumnType.lable
       }
     ],
     data: [
@@ -214,6 +226,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       }
     ]
   };
+  currentTab: string;
 
   constructor(
     private _fb: FormBuilder,
@@ -235,12 +248,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       }),
       professional: this._fb.group({
         skills: this._fb.array([this._fb.control('', [Validators.required])]),
-        location: this._fb.array([
-          this._fb.control('', [
-            Validators.required,
-            this.autocompleteValidationLocation
-          ])
-        ])
+        location: this._fb.array([this._fb.control('', [Validators.required])])
       }),
       file: [''],
       pesonalInfo: this._fb.group({
@@ -318,14 +326,17 @@ export class AddTechnicianComponent extends Utility implements OnInit {
 
   /* Add Forrm Array */
   addSkill() {
+    if (this.inputForm.get('professional.skills').invalid) {
+      return;
+    }
     const skill = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('professional.skills')).push(skill);
   }
   addLocation() {
-    const location = new FormControl(null, [
-      Validators.required,
-      this.autocompleteValidationLocation
-    ]);
+    if (this.inputForm.get('professional.location').invalid) {
+      return;
+    }
+    const location = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('professional.location')).push(location);
   }
   addEmail() {
@@ -338,23 +349,48 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       phoneNumber
     );
   }
+
+  dialogConfirm($event): void {
+    this.dialogModal = false;
+    if ($event && !this.dialogSetting.hasError) {
+      this.goToList();
+    }
+  }
+
   addRequest() {
     console.log(this.inputForm.value);
     this.submited = true;
     if (this.inputForm.invalid) {
       return;
     }
-    this.goToList();
+
+    this.dialogModal = true;
+    this.dialogSetting.isWarning = false;
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.message = 'Technician added successfully';
+    this.dialogSetting.confirmButton = 'OK';
+    this.dialogSetting.cancelButton = undefined;
   }
 
   cancelForm() {
-    if (this.inputForm.dirty) {
-      confirm('Are You sure that you want to cancel?')
-        ? this._roter.navigate(['/workshop/body-shop'] , {queryParams:{id:'technicianTab'}})
-        : null;
-    } else {
-      this._roter.navigate(['/workshop/body-shop'] , {queryParams:{id:'technicianTab'}});
-    }
+    this.dialogModal = true;
+    this.dialogSetting.isWarning = true;
+    this.dialogSetting.message =
+      'Are you sure to cancel adding new technician?';
+    this.dialogSetting.confirmButton = 'Yes';
+    this.dialogSetting.cancelButton = 'No';
+
+    // if (this.inputForm.dirty) {
+    //   confirm('Are You sure that you want to cancel?')
+    //     ? this._roter.navigate(['/workshop/body-shop'], {
+    //         queryParams: { id: 'technicianTab' }
+    //       })
+    //     : null;
+    // } else {
+    //   this._roter.navigate(['/workshop/body-shop'], {
+    //     queryParams: { id: 'technicianTab' }
+    //   });
+    // }
   }
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;

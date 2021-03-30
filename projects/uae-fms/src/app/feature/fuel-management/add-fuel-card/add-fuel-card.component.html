@@ -1,7 +1,7 @@
-<form>
+<form [formGroup]="inputForm">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{ 'forms.cancel' | translate }}</button>
-    <button class="btn-primary-medium add" type="submit" >{{ 'forms.add' | translate }}</button>
+    <button class="btn-primary-medium btn-scondary-green" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
+    <button class="btn-primary-medium add" type="submit" (click)="submit()">{{ 'forms.add' | translate }}</button>
   </div>
   <div class="form-section">
     <h3 class="form-section__title">{{ 'fuel_management.fuel_cards.request_type' | translate }}</h3>
@@ -13,42 +13,55 @@
                         <p-autoComplete
                             (completeMethod)="filterAssets($event)"
                             [suggestions]="assetSuggests" field="name"
-                            [minLength]="1"></p-autoComplete>
+                            [minLength]="1"
+                            formControlName="tagNumber"
+                            [class.invalid]="!inputForm.get('tagNumber').valid && submited"></p-autoComplete>
                         <i class="pi pi-search"></i>
                         <label>{{ 'fuel_management.fuel_cards.tag_number' | translate }} *</label>
                     </span>
                 </div>
+                <anms-error
+                [showError]="hasError('tagNumber',inputForm,submited)"
+                error="{{'fuel_management.fuel_cards.tag_number_validation_error' | translate}}"></anms-error>
             </div>
             <!-- end asset -->
             <div class="col-12 col-md-3 p-field form-section__field
             dropdown-select">
               <span class="p-float-label">
                 <p-dropdown inputId="cardType" [autoDisplayFirst]="false"
-                      [options]="assetTypes" optionLabel="name"></p-dropdown>
+                      [options]="assetTypes" optionLabel="name"
+                      formControlName="cartType"></p-dropdown>
                 <label for="cardType">{{ 'fuel_management.fuel_cards.card_type' | translate }}</label>
               </span>
             </div>
             <div class="col-12 col-md-3 p-field form-section__field date-input">
               <span class="p-float-label">
-                  <p-calendar inputId="basic"></p-calendar>
+                  <p-calendar inputId="basic" formControlName="expireDate" [class.invalid]="!inputForm.get('expireDate').valid && submited"></p-calendar>
                 <svg-icon class="date-icon"
-                          src='../../../../assets/icons/calendar-alt-regular.svg'
+                          src='assets/icons/calendar-alt-regular.svg'
                           [svgStyle]="{ 'width.px':'20' , 'fill': 'rgb(161 161 161)' ,
             'height': '100%'}"></svg-icon>
                   <label>{{ 'fuel_management.fuel_cards.expire_date' | translate }} </label>
               </span>
+              <small class="red-font m-0" [class.d-none]=" inputForm.get('expireDate').valid || !submited">{{'fuel_management.fuel_cards.expire_date_validation_error' | translate}}</small>
+
             </div>
             <div class="col-12 col-md-3 p-field form-section__field">
               <span class="p-float-label">
-                  <input pInputText placeholder="{{ 'fuel_management.fuel_cards.usage_limit' | translate }}" type="text">
+                  <input pInputText placeholder="{{ 'fuel_management.fuel_cards.usage_limit' | translate }}"
+                          formControlName="usageLimit" type="text"
+                          [class.invalid]="!inputForm.get('usageLimit').valid && submited">
                   <label>{{ 'fuel_management.fuel_cards.usage_limit' | translate }}</label>
               </span>
+              <anms-error
+                [showError]="hasError('tagNumber',inputForm,submited)"
+                error="{{'fuel_management.fuel_cards.usage_limit_validation_error' | translate}}"></anms-error>
             </div>
     </div>
   </div>
   <div class="form-section form-section--inline">
     <h3 class="form-section__title">{{ 'fuel_management.fuel_cards.assign_to' | translate }}</h3>
-    <div class="row form-section__row">
+    <div class="row form-section__row mt-3">
           <!-- start asset -->
           <div class="col-12 col-md-6 p-field form-section__field">
               <div class="autocomplete-select">
@@ -56,11 +69,16 @@
                       <p-autoComplete
                           (completeMethod)="filterAssets($event)"
                           [suggestions]="assetSuggests" field="name"
-                          [minLength]="1"></p-autoComplete>
+                          [minLength]="1"
+                          formControlName="assignTo"
+                          [class.invalid]="!inputForm.get('assignTo').valid && submited"></p-autoComplete>
                       <i class="pi pi-search"></i>
                       <label>{{ 'fuel_management.fuel_cards.asset' | translate }} *</label>
                   </span>
               </div>
+              <anms-error
+                [showError]="hasError('assignTo',inputForm,submited)"
+                error="{{'fuel_management.fuel_cards.assign_to_validation_error' | translate}}"></anms-error>
           </div>
           <!-- end asset -->
 
@@ -71,3 +89,8 @@
   <app-table [setting]='fuelCardsTableSetting'></app-table>
 </div>
 
+
+
+
+<alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel" (confirm)="dialogCancelConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogSettingAdd" [displayModal]="dialogModalAdd" (confirm)="dialogAddConfirm($event)"></alert-dialog>

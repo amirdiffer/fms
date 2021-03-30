@@ -8,7 +8,7 @@ import { environment } from '../../../../environments/environment';
   template: `
       <div class="d-flex justify-content-between">
         <div class="d-flex icon-box">
-        <img *ngIf="data" (load)="selectField('close')" class="asset-image" src="../../../assets/icons/check.svg" />
+        <img *ngIf="data" (load)="selectField('close')" class="asset-image" src="assets/icons/check.svg" />
         </div>
         <div class="d-flex icon-box">
           <svg-icon

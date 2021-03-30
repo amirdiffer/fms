@@ -12,7 +12,37 @@ export class OperatorEffect {
       ofType(OperatorActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => OperatorActions.allDataLoaded({ data })),
+          map((data) => OperatorActions.allDataLoaded({ data: data.message })),
+          catchError((error) => of(OperatorActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+  editOperator$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(OperatorActions.editOperator),
+      mergeMap((action) =>
+        this.service.editOperator(action.operator).pipe(
+          map((data) =>
+            OperatorActions.operatorEditedSuccessfully({
+              operator: action.operator
+            })
+          ),
+          catchError((error) => of(OperatorActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+  addData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(OperatorActions.addOperator),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) =>
+            OperatorActions.operatorAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
+          ),
           catchError((error) => of(OperatorActions.error({ reason: error })))
         )
       )

@@ -21,7 +21,7 @@ import {
   MovementRequestsFacade,
   MovementRequestsService
 } from './movement';
-import { OperatorFacade, OperatorService } from './operator/index';
+import { OperatorFacade, OperatorService, OperatorEffect } from './operator/index';
 import { AccessoryFacade, AccessoryService } from './accessory/index';
 import { SubAssetEffect } from './sub-asset/sub-asset.effect';
 import { SubAssetFacade, SubAssetService } from './sub-asset';
@@ -30,6 +30,11 @@ import {
   OrganizationService
 } from '../+state/organization';
 import { OrganizationEffects } from '../+state/organization/organization-effects.service';
+import { AccessoryEffect } from './accessory/accessory.effect';
+import { MovementRequestsEffect } from '@feature/fleet/+state/movement/requests/movement-requests.effect';
+import { MovementOverviewEffect } from '@feature/fleet/+state/movement/overview/movement-overview.effect';
+import { ConfigurationStateModule } from '@feature/configuration/+state';
+
 
 @NgModule({
   imports: [
@@ -39,9 +44,13 @@ import { OrganizationEffects } from '../+state/organization/organization-effects
       CustomizationEffects,
       RegistrationEffects,
       OrganizationEffects,
-      SubAssetEffect
+      SubAssetEffect,
+      AccessoryEffect,
+      MovementRequestsEffect,
+      MovementOverviewEffect,
+      OperatorEffect
     ]),
-    EffectsModule.forFeature([MovementOverviewFacade, MovementRequestsFacade])
+    ConfigurationStateModule
   ],
   exports: [],
   declarations: [],
@@ -63,7 +72,8 @@ import { OrganizationEffects } from '../+state/organization/organization-effects
     OrganizationService,
     OrganizationFacade,
     SubAssetFacade,
-    SubAssetService
+    SubAssetService,
+
   ]
 })
-export class FleetStateModule {}
+export class FleetStateModule { }

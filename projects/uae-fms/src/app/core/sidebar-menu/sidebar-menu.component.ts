@@ -70,9 +70,9 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           route: '/fleet/operator'
         },
         {
-          name: 'sidebar.fleets.organization',
+          name: 'sidebar.fleets.department',
           icon: 'organization',
-          route: '/fleet/organization'
+          route: '/fleet/department'
         },
         {
           name: 'sidebar.fleets.movement.~',
@@ -85,7 +85,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             },
             {
               name: 'sidebar.fleets.movement.temporary',
-              route: '#'
+              route: '/fleet/movement/temporary'
             },
             {
               name: 'sidebar.fleets.movement.iserve',
@@ -115,8 +115,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.workshop.service_shop',
           icon: 'service-shop',
-          route: '/workshop/service-shop',
-          disabled: true
+          route: '/workshop/service-shop'
         },
         {
           name: 'sidebar.workshop.inspection.~',
@@ -188,12 +187,12 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
               icon: 'organization',
               route: '/configuration/user-management/users'
             },
-            {
+            /* {
               name: 'sidebar.configuration.user_management.company_profile',
               icon: 'organization',
               route: '/configuration/user-management/company-setting',
               disabled: true
-            }
+            } */
           ]
         },
         {
@@ -259,7 +258,6 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     this.usingMenu = this.mainMenu;
 
     this.route$.subscribe((x) => {
-      console.log(x);
       if (x?.state?.url) this.urlGroup = x.state.url.split('/');
       this.collapsedMenu = '/' + x.state.url.split('/')[1];
     });

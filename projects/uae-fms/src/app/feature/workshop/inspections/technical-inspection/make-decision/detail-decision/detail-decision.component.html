@@ -1,5 +1,5 @@
 <div class="radio-button-container mt-5">
-    <mat-radio-group aria-label="Select an option" [(ngModel)]="radioButtonSelect">
+    <mat-radio-group aria-label="Select an option" [(ngModel)]="radioButtonSelect" (change)="clickedRadio($event)">
         <mat-radio-button value="reuse">{{ 'workshop.technical_inspection.reuse' | translate }}</mat-radio-button>
         <mat-radio-button value="fix">{{ 'workshop.technical_inspection.fix' | translate }}</mat-radio-button>
         <mat-radio-button value="auction">{{ 'workshop.technical_inspection.auction' | translate }}</mat-radio-button>

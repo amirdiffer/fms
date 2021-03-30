@@ -1,5 +1,9 @@
 import { TableSetting } from '@core/table';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Injector } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Utility } from '@shared/utility/utility';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'anms-add-fuel-card',
@@ -7,10 +11,46 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./add-fuel-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddFuelCardComponent implements OnInit {
-  constructor() {}
+export class AddFuelCardComponent extends Utility implements OnInit {
+  inputForm: FormGroup;
+  submited = false;
+  dialogModalAdd = false;
+  dialogModalCancel = false;
+  currentTab: string;
+  dialogSettingAdd: IDialogAlert = {
+    header: 'Add Fuel Card',
+    hasError: false,
+    hasHeader: true,
+    message: 'New Fuel Card Successfully Added',
+    confirmButton: 'OK',
+  }
+  dialogSettingCancel: IDialogAlert = {
+    header: 'Add Fuel Card',
+    hasError: false,
+    isWarning: true,
+    hasHeader: true,
+    message: 'Are you sure that you want to cancel the fuel card creation?',
+    confirmButton: 'Yes',
+    cancelButton: 'No',
+  }
+  constructor(private _fb: FormBuilder,
+    injector: Injector,
+    private activatedRoute: ActivatedRoute) {
+    super(injector);
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.currentTab = params['id'];
+    });
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.inputForm = this._fb.group({
+      tagNumber: ['', Validators.required],
+      cartType: [''],
+      expireDate: ['', Validators.required],
+      usageLimit: ['', Validators.required],
+      assignTo: ['', Validators.required]
+    })
+  }
 
   fuelCardsTableData = [
     {
@@ -54,14 +94,6 @@ export class AddFuelCardComponent implements OnInit {
         field: 'tagNo'
       },
       {
-        lable: 'tables.column.used',
-        field: 'used'
-      },
-      {
-        lable: 'tables.column.usage_limit',
-        field: 'usageLimit'
-      },
-      {
         lable: 'tables.column.asset',
         field: 'asset'
       },
@@ -71,8 +103,13 @@ export class AddFuelCardComponent implements OnInit {
       },
       {
         lable: 'tables.column.expire_date',
-        field: 'expireDate'
-      }
+        field: 'expireDate',
+        sortable: true
+      },
+      {
+        lable: 'tables.column.usage_limit',
+        field: 'usageLimit'
+      },
     ],
     data: this.fuelCardsTableData
   };
@@ -113,5 +150,28 @@ export class AddFuelCardComponent implements OnInit {
       { name: 'Old asset type 5', id: 5 },
       { name: 'Old asset type 6', id: 6 }
     ];
+  }
+  submit() {
+    this.submited = true;
+    if (this.inputForm.invalid) {
+      return;
+    } else {
+      this.dialogModalAdd = true
+    }
+  }
+  cancel() {
+    this.dialogModalCancel = true;
+  }
+  dialogCancelConfirm(value) {
+    if (value === true) {
+      this.goToList();
+    }
+    this.dialogModalCancel = false
+  }
+  dialogAddConfirm(value) {
+    if (value === true) {
+      this.goToList();
+    }
+    this.dialogModalAdd = false;
   }
 }

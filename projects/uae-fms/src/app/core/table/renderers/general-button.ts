@@ -31,6 +31,13 @@ import { ButtonType } from '../table.component';
       <button
         class="btn-primary-medium reject"
         *ngIf="col.buttonType == buttonType.reject"
+        (click)="clickButton('reject')"
+      >
+        {{ 'buttons.reject' | translate }}
+      </button>
+      <button
+        class="btn-primary-medium"
+        *ngIf="col.buttonType == buttonType.orderListReject"
       >
         {{ 'buttons.reject' | translate }}
       </button>
@@ -39,7 +46,7 @@ import { ButtonType } from '../table.component';
     <img
       *ngIf="col.buttonType == buttonType.action"
       class="action-button"
-      src="../../../assets/icons/three-dots.svg"
+      src="assets/icons/three-dots.svg"
     />
     <button
       *ngIf="col.buttonType == buttonType.jobCard"
@@ -112,6 +119,7 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   @Input() button;
   @Input() col;
   @Input() row;
+  @Input() setting;
 
   constructor(private _makeDecisionService: MakeDecisionService) {}
 
@@ -123,4 +131,9 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   public get buttonType(): typeof ButtonType {
     return ButtonType;
   }
+
+  clickButton(button): void {
+      this.setting.onClick(this.button, button)
+  }
+
 }

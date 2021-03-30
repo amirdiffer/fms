@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ButtonType } from '@core/table/table.component';
 import { IMovementOverView, IRequests } from './movement.model';
+import { HttpClient } from '@angular/common/http';
+import { ResponseBody } from '@models/response-body';
+import { IAssetType } from '@models/asset-type.model';
+import { environment } from '@environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -43,22 +48,22 @@ export class MovementService {
           thumbField: '',
           renderer: 'assetsRenderer'
         },
-        {
-          lable: 'tables.column.duration',
-          field: 'duration',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
-          lable: 'tables.column.start_date',
-          field: 'startDate',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
+        // {
+        //   lable: 'tables.column.duration',
+        //   field: 'duration',
+        //   width: 100,
+        //   type: 1,
+        //   thumbField: '',
+        //   renderer: ''
+        // },
+        // {
+        //   lable: 'tables.column.start_date',
+        //   field: 'startDate',
+        //   width: 100,
+        //   type: 1,
+        //   thumbField: '',
+        //   renderer: ''
+        // },
         {
           lable: 'tables.column.department',
           field: 'department',
@@ -96,10 +101,85 @@ export class MovementService {
     };
   };
 
-  private requestData = (): IRequests[] => {
+  public movementTemporaryOverViewTableSetting = () => {
+    return {
+      columns: [
+        {
+          lable: 'tables.column.asset',
+          field: 'asset',
+          width: 140,
+          type: 1,
+          thumbField: '',
+          renderer: 'assetsRenderer'
+        },
+        {
+          lable: 'tables.column.duration',
+          field: 'duration',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: '',
+          sortable: true
+        },
+        {
+          lable: 'tables.column.start_date',
+          field: 'startDate',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.end_date',
+          field: 'endDate',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.department',
+          field: 'department',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.operator',
+          field: 'operator',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: 'subtextRenderer'
+        },
+        {
+          lable: 'tables.column.fine',
+          field: 'fine',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: '',
+          sortable: true
+        },
+        {
+          lable: 'tables.column.reason',
+          field: 'reason',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        }
+      ],
+      data: this.movmentOverViewData()
+    };
+  };
+
+  public requestData = (): IRequests[] => {
     const data = [];
     for (let index = 0; index < 9; index++) {
       const el = {
+        id: index + 1,
         user: {
           img: 'user-image.png',
           userName: 'Sam Smith',
@@ -203,7 +283,16 @@ export class MovementService {
       data: this.requestData()
     };
   };
-  constructor() {}
+
+  assetTypes(): Observable<ResponseBody<IAssetType[]>> {
+    return this._http.get<ResponseBody<IAssetType[]>>(
+      environment.baseApiUrl + '/configuration/asset-type'
+    );
+  }
+
+  constructor(
+    private _http: HttpClient
+  ) {}
 
   openConfirmModal() {}
 }

@@ -1,45 +1,4 @@
 .side-panel {
-  .vehicle-sec {
-    display: block;
-    padding-bottom: 20px;
-
-    .toolbar {
-      display: flex;
-      flex-direction: row-reverse;
-      padding: 5px;
-      padding-top: 0px;
-    }
-
-    .vehicle {
-      display: flex;
-      justify-content: center;
-      img {
-        width: 120px;
-      }
-    }
-  }
-
-  .vehicle-info {
-    padding: 20px;
-
-    span {
-      display: flex;
-      flex-direction: row;
-
-      .title {
-        font-size: 0.7rem;
-        font-weight: 700;
-        width: 40%;
-      }
-      .info {
-        font-size: 0.7rem;
-        font-weight: 700;
-        margin: 0px 5px;
-        width: 60%;
-      }
-    }
-  }
-
   .location {
     .map {
       padding: 0px 15px 0px 15px;
@@ -51,4 +10,15 @@
   height: 181px;
   padding: 20px;
   margin-bottom: 15px;
+}
+
+.lifecycle{
+  padding: 20px;
+  padding-top: 5px;
+}
+:host ::ng-deep{
+  h4{
+  font-size:.8em;
+  font-weight: bold;
+}
 }

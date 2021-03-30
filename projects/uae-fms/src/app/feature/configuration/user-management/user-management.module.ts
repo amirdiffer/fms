@@ -12,6 +12,7 @@ import { AddRoleAndPermissionComponent } from './role-permission/add-role-and-pe
 import { AddUserComponent } from './users/add-user/add-user.component';
 import { SharedModule } from '@shared/shared.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     FilterModule,
     UserManagementRoutingModule,
     SharedModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    AlertDialogModule
   ]
 })
 export class UserManagementModule {}

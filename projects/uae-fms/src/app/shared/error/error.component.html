@@ -1,4 +1,5 @@
 
-<div *ngIf="showError" class="p-error">
+<!-- <div *ngIf="showError" class="p-error">
   {{ error | translate }}
-</div>
+</div> -->
+<small *ngIf="showError" class="red-font">{{ error | translate }}</small>

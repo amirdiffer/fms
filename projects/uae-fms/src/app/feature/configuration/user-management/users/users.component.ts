@@ -1,7 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { TableSetting } from '@core/table';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ColumnType, TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { UsersFacade } from '../../+state/users';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-users',
@@ -11,33 +13,44 @@ import { UsersFacade } from '../../+state/users';
 })
 export class UsersComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
+
+  //#region Filter
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.this_month',
       filterCount: '',
       filterTagColor: '',
       isCalendar: true,
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '356',
       filterTagColor: '#6EBFB5',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '124',
       filterTagColor: '#6870B4',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '12',
       filterTagColor: '#BA7967',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
+  //#endregion
+
+  //#region Table
+  data$ = this.facade.users$.pipe(
+    map(x => {
+      return x.map(y => {
+        return { ...y, information: { emails: y.emails, phoneNumbers: y.phoneNumbers }, roleName: y?.role?.roleName };
+      });
+    }));
 
   users_Table: TableSetting = {
     columns: [
@@ -51,100 +64,56 @@ export class UsersComponent implements OnInit {
       {
         lable: 'tables.column.department',
         type: 1,
-        field: 'Department',
-        renderer: 'doubleLineRenderer'
+        field: 'department',
+        renderer: 'doubleLineRenderer',
+        rendererOptions: {
+          line1: "name",
+          line2: "organizationName"
+        }
       },
       {
         lable: 'tables.column.information',
         type: 1,
-        field: 'Information',
-        renderer: 'doubleLineRenderer'
+        field: 'information',
+        renderer: 'doubleLineRenderer',
+        rendererOptions: {
+          line1: "emails",
+          line2: "phoneNumbers",
+          type: "array"
+        }
       },
-      { lable: 'tables.column.status', type: 1, field: 'Status' },
-      { lable: 'tables.column.role', type: 1, field: 'Role' }
-    ],
-    data: [
+      { lable: 'tables.column.status', type: 1, field: 'isActive' },
+      { lable: 'tables.column.role', type: 1, field: 'roleName' },
       {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
-      },
-      {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
-      },
-      {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
-      },
-      {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
-      },
-      {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
-      },
-      {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
-      },
-      {
-        statusColor: '#7F87CA',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        id: '1234567899',
-        picture: 'user-image.png',
-        Department: { line1: 'Department name', line2: 'Section Name' },
-        Information: { line1: 'sample@gmail.com', line2: '+97150563793' },
-        Status: 'Active',
-        Role: 'Fleet Manager'
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
-    ]
+    ],
+    data: [],
+    rowSettings: {
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            console.log(data)
+            this.router
+              .navigate(['/configuration/user-management/users/edit-user/' + data.id]);
+          }
+        }
+      ]
+    }
   };
+  //#endregion
 
-  constructor(private facade: UsersFacade) {}
+  constructor(
+    private facade: UsersFacade,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.facade.loadAll();

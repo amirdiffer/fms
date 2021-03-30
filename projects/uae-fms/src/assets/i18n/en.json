@@ -55,6 +55,7 @@
     "technical_inspection": "Technical Inspection",
     "auction_list": "Auction List",
     "task_master": "Task Master",
+    "add_task_master": "Add Task Master",
     "part_store": "Part Store",
     "part_list": "Part List",
     "order_list": "Order List",
@@ -64,6 +65,8 @@
     "user_management": "User Management",
     "role_permission": "Role and Permission",
     "users": "Users",
+    "add_new_user":"Add New User",
+    "edit_user":"Edit User",
     "company_profile": "Company Profile",
     "asset_policy": "Asset Policy",
     "asset_configuration": "Asset Configuration",
@@ -78,6 +81,7 @@
     "add_periodic_service": "Add periodic Service",
     "add_category": "Add Category",
     "add_fleet_status": "Add Fleet Status",
+    "edit_fleet_status": "Edit Fleet Status",
     "add_order_list": "Add Order List",
     "add_fuel_card": "Add Fuel Card",
     "add_asset_usage": "Add Asset Usage",
@@ -89,19 +93,33 @@
     "add_supplier": "Add Supplier",
     "add_technician": "Add Technician",
     "add_location": "Add Location",
-    "add_asset_policy":"Add Asset Policy",
-    "edit_asset_policy":"Edit Asset Policy",
-    "iserve": "IServe"
+    "iserve": "IServe",
+    "customization": "Customization",
+    "edit_part": "Edit Part",
+    "overview": "OverView",
+    "category": "Category",
+    "add_asset_policy": "Add Asset Policy",
+    "edit_asset_policy": "Edit Asset Policy",
+    "add_business_category": "Add Business Category",
+    "add_asset_configuration": "Add Asset Configuration",
+    "add_ownership": "Add Ownership",
+    "traffic_fine": "Traffic Fine",
+    "edit_periodic_service": "Edit Periodic Service",
+    "add_role_permission": "Add Role Premission",
+    "add_new_asset": "Add New Asset",
+    "department": "Department",
+    "add_new_accessory": "Add New Accessory"
   },
   "sidebar": {
     "dashboard": "Dashboard",
     "fleets": {
-      "~": "Fleets",
+      "~": "Fleet",
       "assets": "Assets",
       "sub_assets": "Sub Assets",
       "accessory": "Accessory",
       "operator": "Operator",
-      "organization": "Organization",
+      "organization": "Department",
+      "department": "Department",
       "movement": {
         "~": "Movement",
         "permanent": "Permanent",
@@ -148,6 +166,9 @@
     "integrations": "Integrations"
   },
   "statistic": {
+    "part": "Part",
+    "waiting": "Waiting",
+    "requests": "Requests",
     "total": "Total",
     "active": "Active",
     "inactive": "Inactive",
@@ -168,18 +189,42 @@
     "total_lost": "Total Lost",
     "paid": "Paid",
     "user": "User",
-    "unpainted": "Un Painted",
-    "deducte": "Deducted",
     "pending": "Pending",
     "complete": "Complete",
     "cancel": "Cancel",
-    "auction_list": "Auction List"
+    "auction_list": "Auction List",
+    "insurance_action": "Insurance Action",
+    "technical_inspection": "Technical Inspection",
+    "insurance_claim": "Insurance Claim",
+    "status": "Status",
+    "item": "Item",
+    "asset": "Asset",
+    "sub_asset": "Sub Asset",
+    "accessory": "Accessory",
+    "calendar": "Calendar",
+    "issue_type": "Issue Type",
+    "technical_report": "Technical Report",
+    "estimate": "Estimate",
+    "installation": "Installation",
+    "tasks": "Tasks",
+    "started": "Started",
+    "not_started": "Not Started",
+    "closed": "Closed",
+    "unpainted": "UnPainted",
+    "deducte": "Deducted",
+    "job_card": "Job Card",
+    "workshop_manager": "Workshop Manager",
+    "technician": "Technician",
+    "issue": "Issue",
+    "todo": "To Do",
+    "doing": "Doing",
+    "done": "Done"
   },
   "tabs": {
     "asset_master": "Asset Master",
     "pending_registration": "Pending Registration",
     "pending_customization": "Pending Customization",
-    "movement_over_view": "Movement Over View",
+    "movement_over_view": "Over View",
     "request": "Request",
     "requests": "Requests",
     "fuel_cards": "Fuel Cards",
@@ -214,10 +259,12 @@
     "model": "Model",
     "request": "Request",
     "task": "Task",
-    "job_card": "Job Card"
+    "job_card": "Job Card",
+    "change": "Change"
   },
   "tables": {
     "column": {
+      "request_id": "Request ID",
       "sub_asset_type": "Sub Asset Type",
       "suppliers": "Suppliers",
       "name": "Name",
@@ -244,7 +291,7 @@
       "serial_number": "Serial Number",
       "warranty_expire_date": "warranty Expire Date",
       "item": "Item",
-      "asset_sub_asset": "Asset Sub Asset",
+      "asset_sub_asset": "Asset / Sub Asset",
       "assigned_to": "Assigned To",
       "quantity": "Quantity",
       "organization": "Organization",
@@ -302,6 +349,7 @@
       "reported_by": "Reported By",
       "insurance_value": "Insurance Value",
       "insurance": "Insurance",
+      "insurance_action": "Insurance Action",
       "created_by": "Created By",
       "assignment": "Assignment",
       "estimate_market": "Estimate Market",
@@ -370,12 +418,14 @@
       "traffic_fine": "Traffic Fine",
       "cost_of_part": "Cost of Part",
       "system": "System",
+      "attachment": "Attachment",
       "priority": "Priority",
       "part_cost": "Part Cost",
       "actual_end_date": "Actual End Date",
       "delay": "Delay",
-      "attachment": "Attachment",
-      "issue_type": "Issue Type"
+      "issue_type": "Issue Type",
+      "employe_id": "Employe ID",
+      "user_status": "User Status"
     },
     "button": {
       "view_report": "View Report",
@@ -448,6 +498,29 @@
     "set_reminder": "Set Reminder",
     "week": "Week",
     "reminder_before": "Reminder Before",
+    "insurance_number": "Insurance Number",
+    "salik_tag": "Salik Tag",
+    "fuel_tag": "Fuel Tag",
+    "current_live": "Current Live",
+    "gps": "Gps",
+    "current_live_reading": "Current Live Reading",
+    "vin": "VIN",
+    "vin_sn": "VIN/SN",
+    "licence_plate": "Licence Plate",
+    "salik": "Salik",
+    "fleet_no": "Fleet No",
+    "start_customization": "Start Customization",
+    "camera": "Camera",
+    "first_camera": "First Camera",
+    "installed": "Installed",
+    "second_camera": "Second Camera",
+    "third_camera": "Third Camera",
+    "content": "Content",
+    "saved": "Saved",
+    "customize_later": "Customize Later",
+    "customize_now": "Customize Now",
+    "asset_successfully_registered": "Asset Successfully Registered",
+    "sample_hint_is_here_to_explain_process": "Sample hint is here to explain process",
     "overview": {
       "job_card_history": "Job Card History",
       "active_job_card_task": "Active Job Card's Tasks",
@@ -520,6 +593,7 @@
         "km_day": "Km/Day",
         "vehicle_sautes_details": "Vehicle Sautes/Details",
         "latest_location": "Latest Location",
+        "job_card_status":"Job Card Status",
         "lifecycle": {
           "lifecycle": "Lifecycle",
           "all": "All",
@@ -575,6 +649,7 @@
     }
   },
   "accessory": {
+    "assets_sub_assets": "Assets / Sub Assets",
     "assigned_to_a": "Assigned to a",
     "item_name": "Item Name",
     "asset": "Asset",
@@ -635,7 +710,9 @@
       "reason": "Reason",
       "asset_type": "Asset Type",
       "quantity": "Quantity",
-      "old_asset": "Old Asset"
+      "old_asset": "Old Asset",
+      "duration": "Duration",
+      "assign_to": "Assign To"
     },
     "request": {
       "request_type": "Request Type",
@@ -673,7 +750,11 @@
       "asset": "Asset",
       "card_type": "Card Type",
       "expire_date": "Expire Date",
-      "usage_limit": "Usage Limit"
+      "usage_limit": "Usage Limit",
+      "tag_number_validation_error": "Please fill tag number",
+      "expire_date_validation_error": "Please fill expire date",
+      "usage_limit_validation_error": "Please fill usage limit",
+      "assign_to_validation_error": "Please fill asset"
     },
     "asset_usage": {}
   },
@@ -689,7 +770,9 @@
       "title": "Upload CSV File of Toll",
       "progressbar_title": "CSV File Only",
       "content": "Drag and Drop a File here",
-      "upload": "Upload"
+      "upload": "Upload",
+      "save": "Save",
+      "please_upload_a_csv_file": "Please Uplaod a CSV file"
     }
   },
   "part_store": {
@@ -779,9 +862,11 @@
   "workshop": {
     "body_shop": {
       "requests": {
+        "periodic_service": "Periodic Service",
         "asset_info": "Asset Info",
         "asset": "Asset",
         "asset_validation_error": "Please search and choose an item from list",
+        "periodic_service_validation_error": "Please search and choose an item from periodic service",
         "gps_meter_source": "GPS Meter Source",
         "manual_update": "Manual Update",
         "accident": "Accident",
@@ -809,7 +894,10 @@
           "title": "Attach Picture",
           "progressbar_title": "*.pdf",
           "content": "Drag and Drop a File or click here"
-        }
+        },
+        "fleet_no": "Fleet No",
+        "view_card": "View Card",
+        "asset_type": "Asset Type"
       },
       "job_card": {},
       "technician": {
@@ -977,15 +1065,18 @@
         "set_reminder_before": "Set Reminder Before"
       }
     },
-    "asset_configuration": {
+    "add_asset_configuration": {
       "make_and_model_info": "Make And Model Info",
       "multiple_model": "Multiple Model",
       "single_model": "Single Model",
       "select_model": "Select Model",
       "model": "Model",
+      "make": "Make",
+      "color": "Color",
       "drag_and_drop_a_csv_file_or": "Drag and drop a CSV file or",
       "click_here": "Click here",
       "description": "Description",
+      "type_description": "Type Description",
       "active_type": "Active Type",
       "type_name": "Type Name",
       "accessory": "Accessory",
@@ -1037,7 +1128,7 @@
     "periodic_service": {
       "periodic_service_info": "Periodic Service Info",
       "package": "Package",
-      "task": "Task",
+      "task": "Tasks",
       "periodic_service_name": "Periodic Service Name",
       "package_name": "Package Name",
       "intervals": "Intervals",
@@ -1045,6 +1136,7 @@
     }
   },
   "forms": {
+    "submit": "Submit",
     "add": "Add",
     "order": "Order",
     "save": "Save",
@@ -1065,7 +1157,9 @@
     "upload": "Upload",
     "feedback": {
       "required": "This is Field Required",
-      "invalid-email": "Email address is invalid"
+      "invalid-email": "Email address is invalid",
+      "invalid-phone": "Phone number is invalid",
+      "file_ext": "File extension is incorrect"
     }
   },
   "login": {
@@ -1084,6 +1178,7 @@
     "reject": "Reject",
     "approve": "Approve",
     "receive": "Receive",
+    "recived": "Recived",
     "confirm": "Confirm",
     "make_decision": "Make Decision"
   },
@@ -1098,5 +1193,13 @@
     "bicycle": "Bicycle",
     "boat": "Boat",
     "add_type": "Add Type"
+  },
+  "chart": {
+    "lifecycle": "Lifecycle",
+    "all": "All",
+    "month": "Month",
+    "week": "Week",
+    "this_month": "This Month",
+    "service": "Service"
   }
 }

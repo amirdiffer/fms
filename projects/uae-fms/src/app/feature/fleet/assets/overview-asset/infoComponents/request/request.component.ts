@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColumnType } from '@core/table';
 
 @Component({
@@ -8,12 +9,13 @@ import { ColumnType } from '@core/table';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RequestComponent implements OnInit {
-  constructor() {}
+  constructor(private _fb:FormBuilder) {}
 
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   activeLayout = 'menu';
-
+  inputForm: FormGroup;
+  submitted=false;
   jobCard_Table3 = {
     columns: [
       {
@@ -120,7 +122,27 @@ export class RequestComponent implements OnInit {
     this.section = section;
   }
 
+  submitRequest(section:string){
+    this.submitted = true
+    if(this.inputForm.invalid){
+      return
+    }else{
+      this.section = section;
+
+    }
+  }
 
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.inputForm = this._fb.group({
+      issueType:[''],
+      reason:[false],
+      accidentOption: ['miner'],
+      jobType:[''],
+      issue:['',Validators.required],
+      createdBy:['',Validators.required],
+      description:['',Validators.required],
+      file:['']
+    })
+  }
 }

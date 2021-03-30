@@ -2,81 +2,7 @@
   <div class="row">
     <div class="col-12 col-md-4 col-lg-3 side-panel">
       <div class="component_sec_wrapper">
-        <span class="vehicle-sec">
-          <div class="toolbar">
-            <img class="toolbar-edit" src="../../../../../assets/icons/edit.svg" alt="">
-          </div>
-          <div class="vehicle">
-            <img src="../../../../../assets/vehicle.png" alt="">
-          </div>
-        </span>
-        <hr class="seprator">
-        <div class="vehicle-info">
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.vin_sn' | translate }}</h5>
-            <h5 class="info">{{vehicle.vin_sn}}</h5>
-          </span>
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.license_plate' | translate }}</h5>
-            <h5 class="info">{{vehicle.licensePlate}}</h5>
-          </span>
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.status' | translate }}</h5>
-            <h5 class="info">{{vehicle.status}}</h5>
-          </span>
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.department' | translate }}</h5>
-            <h5 class="info">{{vehicle.department}}</h5>
-          </span>
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.operator' | translate }}</h5>
-            <h5 class="info">{{vehicle.operator}}</h5>
-          </span>
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.group' | translate }}</h5>
-            <h5 class="info">{{vehicle.group}}</h5>
-          </span>
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.make' | translate }}</h5>
-            <h5 class="info">{{vehicle.make}}</h5>
-          </span>
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.model' | translate }}</h5>
-            <h5 class="info">{{vehicle.model}}</h5>
-          </span>
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.year' | translate }}</h5>
-            <h5 class="info">{{vehicle.year}}</h5>
-          </span>
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.trim' | translate }}</h5>
-            <h5 class="info">{{vehicle.trim}}</h5>
-          </span>
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.color' | translate }}</h5>
-            <h5 class="info">{{vehicle.color}}</h5>
-          </span>
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.body_type' | translate }}</h5>
-            <h5 class="info">{{vehicle.bodyType}}</h5>
-          </span>
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.salik' | translate }}</h5>
-            <h5 class="info">{{vehicle.salik}}</h5>
-          </span>
-          <span>
-            <h5 class="title">{{ 'assets.overview.overview.warranty' | translate }}</h5>
-            <h5 class="info">{{vehicle.warranty}}</h5>
-          </span>
-        </div>
-        <hr class="seprator">
-        <div class="location">
-          <h6>Latest Location</h6>
-          <div class="map">
-            <app-map-view-core [miniMap]="true" [iServeVehicles]="[]"
-              [location]="{latitude:25.014743,longitude:55.070165}"></app-map-view-core>
-          </div>
-        </div>
+        <anms-asset-detail></anms-asset-detail>
       </div>
     </div>
 
@@ -84,29 +10,40 @@
     <div class="col-12 col-md-8 col-lg-9 main-panel">
       <div class="row">
         <div class="col-12">
-          <div class="component_sec_wrapper wrapper_cus">
+          <div class="component_sec_wrapper wrapper_cus" *ngIf="activeTab == 'Overview'">
             <div class="lifecycle">
               <app-life-cycle-chart></app-life-cycle-chart>
+            </div>
+          </div>
+          <div class="mb-4">
+            <div  class="filter-container" *ngIf="activeTab == 'Business Category'">
+              <app-filter [setting] = "filterSetting_BusinessCategory"></app-filter>
+            </div>
+            <div  class="filter-container" *ngIf="activeTab == 'Request'">
+              <app-filter [setting] = "filterSetting_Request"></app-filter>
+            </div>
+            <div  class="filter-container" *ngIf="activeTab == 'Job Card'">
+              <app-filter [setting] = "filterSetting_Job_Card"></app-filter>
             </div>
           </div>
         </div>
 
         <div class="col-12">
           <app-tab-view [index]="false" (selectedIndex)="selectedTab($event)" [container]="true">
-            <div title="{{ 'tabs.overview' | translate }}" class="p-2">
+            <div id="Overview" title="tabs.overview" class="p-2">
               <app-vehicle-overview [vehicleId]="vehicleId"></app-vehicle-overview>
             </div>
-            <div title="{{ 'tabs.movement_history' | translate }}" class="p-2"></div>
-            <div title="{{ 'tabs.business_category' | translate }}" class="p-2">
+            <div title="tabs.movement_history" class="p-2"></div>
+            <div id="Business Category" title="tabs.business_category" class="p-2">
               <app-asset-overview-business-category></app-asset-overview-business-category>
             </div>
-            <div title="{{ 'tabs.reminder' | translate }}" class="p-2"></div>
-            <div title="{{ 'tabs.request' | translate }}" class="p-2">
+            <div id="Reminder" title="tabs.reminder" class="p-2"></div>
+            <div id="Request" title="tabs.request" class="p-2">
               <app-asset-overview-request></app-asset-overview-request>
             </div>
-            <div title="{{ 'tabs.job_card' | translate }}" class="p-0 bg-transparent"><app-asset-overview-job-card></app-asset-overview-job-card></div>
-            <div title="{{ 'tabs.maintenance_service' | translate }}" class="p-2"></div>
-            <div title="{{ 'tabs.warranty' | translate }}" class="p-2"></div>
+            <div id="Job Card" title="tabs.job_card" class="p-0 bg-transparent"><app-asset-overview-job-card></app-asset-overview-job-card></div>
+            <div id="Maintenance Service" title="tabs.maintenance_service" class="p-2"></div>
+            <div id="warranty" title="tabs.warranty" class="p-2"></div>
           </app-tab-view>
         </div>
       </div>

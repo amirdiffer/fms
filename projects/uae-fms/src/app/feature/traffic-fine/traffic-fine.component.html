@@ -16,10 +16,10 @@
         </button>
       </span>
       <div title="tabs.traffic_file" id="trafficFineTab">
-        <app-table [setting]='trafficFine_Table'></app-table>
+        <app-table [setting]='trafficFine_Table' [tableData]="trafficFine$"></app-table>
       </div>
       <div title="tabs.asset_traffic_fine" id="assetTrafficFineTab">
-        <app-table [setting]='assetTraffic_Table'></app-table>
+        <app-table [setting]='assetTraffic_Table' [tableData]="assetTraffic$"></app-table>
       </div>
     </app-tab-view>
   </div>

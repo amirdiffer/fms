@@ -7,3 +7,8 @@ $primary: map-get($anms-green-primary, 300);
   justify-content: flex-end;
   margin-bottom: 15px;
 }
+
+::ng-deep .thumb {
+  max-width: 80px;
+  max-height: 80px;
+}
