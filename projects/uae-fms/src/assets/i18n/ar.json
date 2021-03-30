@@ -208,7 +208,14 @@
     "tasks": "المهام",
     "started": "بدأت",
     "not_started": "لم يبدأ",
-    "closed": "مغلق"
+    "closed": "مغلق",
+    "job_card": "بطاقة عمل",
+    "workshop_manager": "مدير ورشة عمل",
+    "technician": "فنى",
+    "issue": "إصدار",
+    "todo": "لكى يفعل",
+    "doing": "عمل",
+    "done": "انتهى"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -882,7 +889,10 @@
           "title": "إرفاق صورة",
           "progressbar_title": "*.pdf",
           "content": "قم بسحب وإسقاط ملف أو انقر هنا"
-        }
+        },
+        "fleet_no": "أسطول لا",
+        "view_card": "بطاقة عرض",
+        "asset_type": "نوع الأصول"
       },
       "job_card": {},
       "technician": {

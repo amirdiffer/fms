@@ -207,7 +207,14 @@
     "not_started": "Not Started",
     "closed": "Closed",
     "unpainted": "UnPainted",
-    "deducte": "Deducted"
+    "deducte": "Deducted",
+    "job_card": "Job Card",
+    "workshop_manager": "Workshop Manager",
+    "technician": "Technician",
+    "issue": "Issue",
+    "todo": "To Do",
+    "doing": "Doing",
+    "done": "Done"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -882,7 +889,10 @@
           "title": "Attach Picture",
           "progressbar_title": "*.pdf",
           "content": "Drag and Drop a File or click here"
-        }
+        },
+        "fleet_no": "Fleet No",
+        "view_card": "View Card",
+        "asset_type": "Asset Type"
       },
       "job_card": {},
       "technician": {
