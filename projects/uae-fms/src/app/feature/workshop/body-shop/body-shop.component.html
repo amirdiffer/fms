@@ -1,7 +1,6 @@
 <app-filter *ngIf="selectedTab === 'requestTab'" [setting]="filterSetting"></app-filter>
 <app-filter *ngIf="selectedTab === 'jobcardTab'" [setting]="jobCardTabFilterSetting"></app-filter>
 <app-filter *ngIf="selectedTab === 'technicianTab'" [setting]="technicianTabFilterSetting"></app-filter>
-<app-filter *ngIf="filterSetting" [setting]="filterSetting"></app-filter>
 <div class="table-container component_wrapper">
 
   <app-tab-view (selectedIndex)="selectedTab=$event">
