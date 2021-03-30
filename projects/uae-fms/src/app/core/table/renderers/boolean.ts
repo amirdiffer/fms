@@ -6,7 +6,7 @@ import { environment } from '../../../../environments/environment';
   selector: 'table-boolean-renderer',
   template: `
     <div class="d-flex" *ngIf="data">
-      <img class="asset-image" src="../../../assets/icons/check.svg" />
+      <img class="asset-image" src="assets/icons/check.svg" />
     </div>
     <div class="d-flex" *ngIf="!data && !isOpen">
       <svg-icon

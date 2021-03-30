@@ -101,7 +101,7 @@
     </div>
     <div class="form-section component_wrapper" formArrayName="warranties">
       <h3 class="form-section__title"><span class='plus-icon' (click)="addWarranty()">
-          <svg-icon src='../../../../../assets/icons/add.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
+          <svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
           '100%'}"></svg-icon>
         </span>{{'sub_asset.warranty_items' | translate}}</h3>
       <div class="row form-section__row" [formGroupName]="i" *ngFor="let
@@ -127,7 +127,7 @@
         date-input">
           <span class="p-float-label">
             <p-calendar inputId="basic" formControlName="startDate"></p-calendar>
-            <svg-icon class="date-icon" src='../../../../../assets/icons/calendar-alt-regular.svg' [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,
+            <svg-icon class="date-icon" src='assets/icons/calendar-alt-regular.svg' [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,
             'height': '100%'}"></svg-icon>
             <label>{{'sub_asset.warranty_start_date' | translate}} *
             </label>

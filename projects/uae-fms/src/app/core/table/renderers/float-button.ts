@@ -68,7 +68,7 @@ export class FloatButton implements OnInit {
   @Input() setting;
   @Input() lang;
 
-  assetPath = '../../../../assets/icons/';
+  assetPath = 'assets/icons/';
 
   constructor() { }
 

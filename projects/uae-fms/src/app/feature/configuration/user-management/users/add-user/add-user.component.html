@@ -73,7 +73,7 @@
             (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
               <label *ngIf='!tempImage.length' (click)="openFileSelector()" style="cursor: pointer;">
-                <svg-icon class="camera-icon" src='../../../../../../assets/icons/camera.svg'
+                <svg-icon class="camera-icon" src='assets/icons/camera.svg'
                   [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
                 <small calss="drag-and-drop">{{ 'configuration.users.upload_form.content' | translate }}</small>
               </label>

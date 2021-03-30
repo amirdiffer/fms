@@ -196,28 +196,28 @@
                             <div class="col-lg-2">
                                 <input class="form-check-input" type="radio" name="priority" id="urgent" value="urgent" formControlName="priority">
                                 <label class="form-check-label flag" for="urgent" (click)="changePriority('urgent')">
-                                    <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#F75A4A' , 'height': '100%', 'opacity': activePriority == 'urgent' ? 1 : 0.2}"></svg-icon>
+                                    <svg-icon src="assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#F75A4A' , 'height': '100%', 'opacity': activePriority == 'urgent' ? 1 : 0.2}"></svg-icon>
                                     <span class="ml-3">{{'workshop.body_shop.requests.urgent' | translate}}</span>
                                 </label>
                             </div>
                             <div class="col-lg-2">
                                 <input class="form-check-input" type="radio" name="priority" id="high" value="high" formControlName="priority">
                                 <label class="form-check-label flag" for="high" (click)="changePriority('high')">
-                                    <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#FCB614' , 'height': '100%', 'opacity': activePriority == 'high' ? 1 : 0.2}"></svg-icon>
+                                    <svg-icon src="assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#FCB614' , 'height': '100%', 'opacity': activePriority == 'high' ? 1 : 0.2}"></svg-icon>
                                     <span class="ml-3">{{'workshop.body_shop.requests.high' | translate}}</span>
                                 </label>
                             </div>
                             <div class="col-lg-2">
                                 <input class="form-check-input" type="radio" name="priority" id="normal" value="normal" formControlName="priority">
                                 <label class="form-check-label flag" for="normal" (click)="changePriority('normal')">
-                                    <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#00CBB2' , 'height': '100%', 'opacity': activePriority == 'normal' ? 1 : 0.2}"></svg-icon>
+                                    <svg-icon src="assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#00CBB2' , 'height': '100%', 'opacity': activePriority == 'normal' ? 1 : 0.2}"></svg-icon>
                                     <span class="ml-3">{{'workshop.body_shop.requests.normal' | translate}}</span>
                                 </label>
                             </div>
                             <div class="col-lg-2">
                                 <input class="form-check-input" type="radio" name="priority" id="low" value="low" formControlName="priority">
                                 <label class="form-check-label flag" for="low" (click)="changePriority('low')">
-                                    <svg-icon src="../../../../../assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%', 'opacity': activePriority == 'low' ? 1 : 0.2}"></svg-icon>
+                                    <svg-icon src="assets/icons/flag-solid.svg" [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%', 'opacity': activePriority == 'low' ? 1 : 0.2}"></svg-icon>
                                     <span class="ml-3">{{'workshop.body_shop.requests.low' | translate}}</span>
                                 </label>
                             </div>
@@ -241,7 +241,7 @@
                         <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
                             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                                 <label (click)="openFileSelector()" style="cursor: pointer;">
-                                <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
+                                <svg-icon  class="drop-icon" src="assets/icons/cloud-computing.svg"
                                     [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
                                     <small calss="drag-and-drop">{{'workshop.body_shop.requests.upload_form.content' | translate}}</small>
                                 </label>
