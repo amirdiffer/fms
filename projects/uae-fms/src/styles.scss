@@ -1011,24 +1011,37 @@ ngx-file-drop {
 .upload-box {
   opacity: 0.5;
 }
-.upload-file-name {
+.upload-file-item {
   width: 100%;
-  height: 40px;
+  height: auto;
   display: flex;
   align-items: center;
+  flex-direction: column;
   border: 1px solid #bfbfbf;
   border-radius: 0.5em;
   background: #f7f7f7;
-  padding: 0 1em;
+  padding: 1em;
   position: relative;
   p {
-    padding: 0;
-    margin: 0;
+    padding: 0 15px 0 0;
+    margin: 5px 0;
   }
   & > span {
     position: absolute;
     right: 10px;
     cursor: pointer;
+  }
+  &.preview {
+    p {
+      width: 8rem;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    img {
+      width: 6rem;
+      height: 6rem;
+    }
   }
 }
 

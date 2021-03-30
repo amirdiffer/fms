@@ -148,46 +148,47 @@
                     <!-- form-section -->
                     <div class="form-section component_wrapper">
                       <h3 class="form-section__title">{{ 'assets.upload_form.title' | translate }}</h3>
-                      <div class="row form-section__row">
-                        <div class="col">
-                          <div class="upload-box">
-                            <div class="row">
-                              <div class="col-12 d-flex justify-content-between file-name-size">
-                                <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
-                                <span>00 MG</span>
-                              </div>
-                              <div class="col-lg-12">
-                                <div class="w-100 p-0">
-                                  <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
-                                </div>
-                              </div>
-                              <div class="col-lg-12 mt-2">
-                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'vehicle')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" multiple="true">
-                                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                                    <label (click)="openFileSelector()" style="cursor: pointer;">
-                                      <svg-icon  class="drop-icon" src="assets/icons/cloud-computing.svg"
-                                        [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                                        <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-                                    </label>
-                                  </ng-template>
-                                </ngx-file-drop>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <ng-container *ngIf="allFileUpload.uploadVehicleDoc.length > 0">
-                          <div class="col-4 d-flex flex-md-column-reverse">
-                            <div *ngFor="let file of allFileUpload.uploadVehicleDoc;trackBy: trackUploadItem; let index=i;" class=" w-100 mb-2  align-self-end">
-                              <span class="upload-file-name">
-                                <p>{{file.relativePath}}</p>
-                                <span>
-                                  <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':12 , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>
-                                </span>
-                              </span>
-                            </div>
-                          </div>
-                        </ng-container>
-                      </div>
+                      <anms-uploader uploaderName="vehicle" [isImage]="false" [files]="[7]" [multiple]="true" (uploadedEvent)="uploadDoc($event)"></anms-uploader>
+                      <!--                      <div class="row form-section__row">-->
+<!--                        <div class="col">-->
+<!--                          <div class="upload-box">-->
+<!--                            <div class="row">-->
+<!--                              <div class="col-12 d-flex justify-content-between file-name-size">-->
+<!--                                <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>-->
+<!--                                <span>00 MG</span>-->
+<!--                              </div>-->
+<!--                              <div class="col-lg-12">-->
+<!--                                <div class="w-100 p-0">-->
+<!--                                  <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="col-lg-12 mt-2">-->
+<!--                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'vehicle')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" multiple="true">-->
+<!--                                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">-->
+<!--                                    <label (click)="openFileSelector()" style="cursor: pointer;">-->
+<!--                                      <svg-icon  class="drop-icon" src="assets/icons/cloud-computing.svg"-->
+<!--                                        [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>-->
+<!--                                        <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>-->
+<!--                                    </label>-->
+<!--                                  </ng-template>-->
+<!--                                </ngx-file-drop>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                        <ng-container *ngIf="allFileUpload.uploadVehicleDoc.length > 0">-->
+<!--                          <div class="col-4 d-flex flex-md-column-reverse">-->
+<!--                            <div *ngFor="let file of allFileUpload.uploadVehicleDoc;trackBy: trackUploadItem; let index=i;" class=" w-100 mb-2  align-self-end">-->
+<!--                              <span class="upload-file-name">-->
+<!--                                <p>{{file.relativePath}}</p>-->
+<!--                                <span>-->
+<!--                                  <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':12 , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>-->
+<!--                                </span>-->
+<!--                              </span>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </ng-container>-->
+<!--                      </div>-->
                     </div>
                     <!-- end form-section -->
                   </form>
