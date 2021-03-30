@@ -866,32 +866,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.dialogModal = false;
   }
 
-
-  uploadDoc(data): void {
-    let uploaderName = data.name;
-    let files = data.files;
-    let index = data.index | 0;
-    console.log(data)
-    switch (uploaderName) {
-      case 'vehicle':
-        break;
-      case 'purchaseOrder':
-        this.formGroupFinancial.get('uploadFile').patchValue(files);
-        break;
-      case 'maintenanceService':
-        this.formGroupGenerate.get('uploadFile').patchValue(files);
-        break;
-      case 'warranty': {
-        this.formGroupMaintenance
-          .get('warrantyItems')
-          ['controls'][index]['controls']['fileUpload'].patchValue(
-          files
-        );
-        break;
-      }
-    }
-  }
-
   ngOnDestroy(): void {
     this.businessCategory$.unsubscribe();
     this.ownerShip$.unsubscribe();
