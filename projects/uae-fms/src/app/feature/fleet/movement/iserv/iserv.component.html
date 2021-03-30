@@ -1,5 +1,5 @@
 <div>
-  <ng-container *ngIf="selectedTab == '0' || selectedTab == '1'">
+  <ng-container *ngIf="selectedTab == '0'">
     <div class="filter-container">
       <app-filter  [setting]="filterSetting1"></app-filter>
     </div>
@@ -23,8 +23,8 @@
             <button class="btn-download" disabled>
               <svg-icon [src]="downloadBtn"></svg-icon>
             </button>
-            <button *ngIf="selectedTab == '2'" class="btn-primary-small" routerLink="add-request"><a>{{ 'search.add' | translate }}</a></button>
-            <button *ngIf="selectedTab == '3'" class="btn-primary-small" routerLink="add-request"><a>{{ 'search.add' | translate }}</a></button>
+            <button *ngIf="selectedTab == '2'" class="btn-primary-small" routerLink="add-request"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
+            <button *ngIf="selectedTab == '3'" class="btn-primary-small" routerLink="add-request"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
           </span>
           <div title="tabs.movement_over_view" id="overViewTab">
             <app-table [setting]="movementOverView_Table"></app-table>

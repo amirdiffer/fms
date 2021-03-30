@@ -211,7 +211,14 @@
     "tasks": "المهام",
     "started": "بدأت",
     "not_started": "لم يبدأ",
-    "closed": "مغلق"
+    "closed": "مغلق",
+    "job_card": "بطاقة عمل",
+    "workshop_manager": "مدير ورشة عمل",
+    "technician": "فنى",
+    "issue": "إصدار",
+    "todo": "لكى يفعل",
+    "doing": "عمل",
+    "done": "انتهى"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -704,7 +711,9 @@
       "reason": "سبب",
       "asset_type": "نوع الأصول",
       "quantity": "العدد",
-      "old_asset": "الأصل القديم"
+      "old_asset": "الأصل القديم",
+      "duration": "مدة",
+      "assign_to": "يسند إلى"
     },
     "request": {
       "request_type": "نوع الطلب",
@@ -884,7 +893,10 @@
           "title": "إرفاق صورة",
           "progressbar_title": "*.pdf",
           "content": "قم بسحب وإسقاط ملف أو انقر هنا"
-        }
+        },
+        "fleet_no": "أسطول لا",
+        "view_card": "بطاقة عرض",
+        "asset_type": "نوع الأصول"
       },
       "job_card": {},
       "technician": {
@@ -1121,6 +1133,7 @@
     }
   },
   "forms": {
+    "submit": "يقدم",
     "add": "إضافة",
     "save": "حفظ",
     "cancel": "يلغي",
