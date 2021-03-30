@@ -267,4 +267,8 @@ export class AddLocationComponent extends Utility implements OnInit {
     //   this._roter.navigate(['/workshop/body-shop'] , {queryParams:{id:'locationTab'}});
     // }
   }
+
+  get section(): FormArray {
+    return this.inputForm.get('section') as FormArray;
+  }
 }
