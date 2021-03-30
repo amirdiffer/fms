@@ -9,7 +9,7 @@ import { selectSettingsLanguage } from '@core/settings/settings.selectors';
 
 @Injectable()
 export class SettingsFacade {
-  constructor(private store: Store<State>) {}
+  constructor(private store: Store<State>) { }
 
   changeLanguage(language: Language): void {
     this.store.dispatch(actionSettingsChangeLanguage({ language: language }));

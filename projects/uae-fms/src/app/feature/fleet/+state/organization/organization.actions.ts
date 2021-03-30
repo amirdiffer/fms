@@ -1,12 +1,12 @@
+import { IOrganization } from '@models/organization';
 import { createAction, props } from '@ngrx/store';
-import { OrganizationStateModel } from './organization.entity';
 
 export class OrganizationActions {
   static loadAll = createAction('[Organization] load all data');
 
   static allDataLoaded = createAction(
     '[Organization] all datas are loaded',
-    props<{ data: OrganizationStateModel[] }>()
+    props<{ data: IOrganization[] }>()
   );
 
   static error = createAction(

@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { FleetStatusAssetFacade } from '../../+state/fleet-status/asset/fleet-status-asset.facade';
 
 @Component({
   selector: 'anms-add-fleet-status',
@@ -100,7 +101,11 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
   ];
   currentTab: string;
 
-  constructor(injector: Injector, private _fb: FormBuilder) {
+  constructor(
+    injector: Injector,
+    private _fb: FormBuilder,
+    private facade: FleetStatusAssetFacade
+  ) {
     super(injector);
   }
 

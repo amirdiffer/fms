@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
+import { map } from 'rxjs/operators';
 import { PeriodicServiceFacade } from '../+state/periodic-service';
 
 @Component({
@@ -21,36 +22,44 @@ export class PeriodicServiceComponent implements OnInit {
       renderer: ''
     },
     {
-      lable: 'tables.column.car_icon',
+      lable:
+        '<img src="../../../../../assets/icons/car-solid.svg" class="icon24px">',
       field: 'number',
+      isIconLable: true,
+      sortable: true,
       width: 100,
+      type: ColumnType.lable
+    },
+    {
+      lable: '',
+      field: 'floatButton',
+      width: 0,
       type: ColumnType.lable,
       thumbField: '',
-      renderer: ''
+      renderer: 'floatButton'
     }
   ];
 
-  tableData = [
-    {
-      periodicServiceName: 'Basic Vehicle Maintenance',
-      number: '21'
-    },
-    {
-      periodicServiceName: 'Basic Vehicle Maintenance',
-      number: '21'
-    },
-    {
-      periodicServiceName: 'Basic Vehicle Maintenance',
-      number: '21'
-    }
-  ];
-
-  tableSetting: TableSetting = {
+  tableSetting = {
     columns: this.tableColumns,
-    data: this.tableData
+    data: [],
+    rowSettings: {
+      floatButton: [
+        {
+          button: 'edit'
+        }
+      ]
+    }
   };
 
-  constructor(private facade: PeriodicServiceFacade) {}
+  periodicServices$ = this.facade.periodicService$.pipe(map(x => x.map((responseObject) => {
+    return {
+      periodicServiceName: responseObject.name,
+      number: responseObject.id
+    };
+  })));
+
+  constructor(private facade: PeriodicServiceFacade) { }
 
   ngOnInit(): void {
     this.facade.loadAll();
