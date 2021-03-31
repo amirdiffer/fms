@@ -47,6 +47,7 @@ export class AddRequestComponent extends Utility implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private facade: MovementRequestsFacade,
+    private overViewFacade: MovementOverviewFacade,
     private changeDetector: ChangeDetectorRef,
     private assetFacade: AssetMasterFacade,
     private _movementService: MovementService,
@@ -67,6 +68,8 @@ export class AddRequestComponent extends Utility implements OnInit {
     this.facade.submitted$.subscribe(x => {
       if (x) {
         this.displaySuccessModal = true;
+        this.facade.loadAll();
+        this.overViewFacade.loadAll();
         this.dialogErrorSetting.hasError = false;
         this.changeDetector.detectChanges();
       }

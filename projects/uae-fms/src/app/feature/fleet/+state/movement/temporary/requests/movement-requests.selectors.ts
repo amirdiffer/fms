@@ -1,11 +1,11 @@
 import { createSelector } from '@ngrx/store';
 import { FleetSelectors } from '../../../fleet.selectors';
-import { movementRequestsAdapter } from './movement-requests.entity';
-const { selectAll } = movementRequestsAdapter.getSelectors();
+import { movementRequestsTemporaryAdapter } from './movement-requests.entity';
+const { selectAll } = movementRequestsTemporaryAdapter.getSelectors();
 
 export class MovementRequestsSelectorsTemporary {
   static selectAll = createSelector(
-    FleetSelectors.movementRequestsSelector,
+    FleetSelectors.movementRequestsSelectorTemporary,
     selectAll
   );
 
