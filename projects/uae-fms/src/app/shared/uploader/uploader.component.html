@@ -17,7 +17,7 @@
             </div>
           </div>
         </ng-container>
-        <div class="col-lg-12" *ngIf="(multiple) || (!multiple && files.length == 0)">
+        <div class="col-lg-12" *ngIf="(multiple) || (!multiple && files?.length == 0)">
           <ngx-file-drop *ngIf="!isUploading" [multiple]="multiple" [accept]="accept.toString()" dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , uploaderName)">
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
               <label (click)="openFileSelector()" style="cursor: pointer;">
@@ -28,10 +28,11 @@
               </label>
             </ng-template>
           </ngx-file-drop>
-          <!-- <anms-error
+          <anms-error
+            *ngIf="hasError"
             [showError]="this.files.length == 0"
             error="forms.feedback.required">
-          </anms-error> -->
+          </anms-error>
         </div>
       </div>
     </div>
@@ -56,3 +57,6 @@
     </div>
   </div>
 </ng-container>
+
+
+<alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogErrorConfirm($event)"></alert-dialog>

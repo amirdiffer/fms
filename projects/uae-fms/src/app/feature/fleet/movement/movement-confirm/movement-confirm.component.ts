@@ -5,6 +5,9 @@ import { MovementRequestsFacade } from '@feature/fleet/+state/movement';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
+import { OperatorFacade } from '@feature/fleet/+state/operator';
+import { OrganizationFacade } from '@feature/fleet/+state/organization';
+import { MovementService } from '@feature/fleet/movement/movement.service';
 
 @Component({
   selector: 'anms-movement-confirm',
@@ -16,6 +19,10 @@ export class MovementConfirmComponent extends Utility implements OnInit {
   confirmForm: FormGroup;
   assetSuggests = [];
   assetSuggestsB;
+  operatorSuggests = [];
+  operatorSuggestsB;
+  organizationSuggests = [];
+  organizationSuggestsB;
   submitted = false;
   dialogSuccessSetting: IDialogAlert = {
     header: 'Success',
@@ -36,7 +43,10 @@ export class MovementConfirmComponent extends Utility implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _assetFacade: AssetMasterFacade,
+    private _operatorFacade: OperatorFacade,
+    private _orgFacade: OrganizationFacade,
     private _requestFacade: MovementRequestsFacade,
+    private _movementService: MovementService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<MovementConfirmComponent>,
     private changeDetector: ChangeDetectorRef,
@@ -67,6 +77,16 @@ export class MovementConfirmComponent extends Utility implements OnInit {
       this.assetSuggestsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
     });
 
+    this._orgFacade.loadAll();
+    this._orgFacade.organization$.subscribe(x => {
+      this.organizationSuggestsB = x.map(y => ({ id: y.id, name: y['organizationName'] }));
+    });
+
+    this._movementService.operators().subscribe(x => {
+      let operator: Array<any> = x.message;
+      this.operatorSuggestsB = operator.map(y => ({ id: y.id, name: y['firstName'] + " " + y['lastName'] }));
+    });
+
     this._requestFacade.assigned$.subscribe(x => {
       if (x) {
         this.displaySuccessModal = true;
@@ -90,6 +110,16 @@ export class MovementConfirmComponent extends Utility implements OnInit {
     this.assetSuggests = this.assetSuggestsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
   }
 
+  filterOperators(event) {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    this.operatorSuggests = this.operatorSuggestsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+  }
+
+  filterOrganizations(event) {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    this.organizationSuggests = this.organizationSuggestsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+  }
+
 
   submit(): void {
     this.submitted = true;
@@ -98,10 +128,9 @@ export class MovementConfirmComponent extends Utility implements OnInit {
     }
     let d = this.confirmForm.getRawValue();
     let _data = {
-      "requestId": 79312377,
       "assetId": d.asset.id,
       "operatorId": d.operator.id,
-      "organizationId": 86116942,
+      "organizationId": d.department.id,
       "departmentId": d.department.id,
       "comment": d.comment,
       "gpsMeterSource": d.gps,
@@ -115,8 +144,15 @@ export class MovementConfirmComponent extends Utility implements OnInit {
   dialogConfirm(confirmed) {
     if (confirmed) {
       this.displaySuccessModal = false;
-      this.goToList();
+      this.displayErrorModal = false;
+      this._requestFacade.reset();
     } else this.displaySuccessModal = false;
+  }
+
+  successConfirm($event) {
+    this.displayErrorModal = false;
+    this.displaySuccessModal = false;
+    this._requestFacade.reset();
   }
 
 }

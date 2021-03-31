@@ -1,0 +1,25 @@
+@import '../../../../../themes/green-theme.scss';
+@import '../../../../../assets/scss/form-section.scss';
+h4.main-title {
+  color: #0da06e;
+  margin-left: 10px;
+}
+
+.justify {
+  margin-top: 10px;
+}
+
+.button-container {
+  position: initial;
+  .add {
+    width: fit-content !important;
+  }
+  .cancel {
+    border: none !important;
+  }
+}
+
+.form-section hr {
+  height: 1px;
+  background-color: #707070;
+}

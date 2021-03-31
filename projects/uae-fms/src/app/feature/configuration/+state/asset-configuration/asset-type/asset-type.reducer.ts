@@ -25,6 +25,36 @@ const assetTypeReducer = createReducer(
     ...state,
     error: reason,
     loaded: true
+  })),
+  on(AssetTypeActions.addAssetType, (state, { data: any }) => ({
+    ...state,
+    submitted: false
+  })),
+  on(AssetTypeActions.assetTypeAddedSuccessfully, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: true
+  })),
+  on(AssetTypeActions.addMake, (state, { data: any }) => ({
+    ...state,
+    submitted: false
+  })),
+  on(AssetTypeActions.makeAddedSuccessfully, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: true
+  })),
+  on(AssetTypeActions.addModel, (state, { data: any }) => ({
+    ...state,
+    submitted: false
+  })),
+  on(AssetTypeActions.modelAddedSuccessfully, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: true
   }))
 );
 

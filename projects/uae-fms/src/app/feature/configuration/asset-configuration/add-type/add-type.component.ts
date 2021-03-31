@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Injector,
@@ -8,7 +9,13 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
 import {
   FileSystemDirectoryEntry,
@@ -18,6 +25,7 @@ import {
 import { AssetConfigurationService } from '../asset-configuration.service';
 import { TableSetting } from '@core/table';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { AssetTypeFacade } from '../../+state/asset-configuration';
 
 @Component({
   selector: 'congifuration-add-type',
@@ -54,6 +62,8 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     private _fb: FormBuilder,
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
+    private facade: AssetTypeFacade,
+    private changeDetectorRef: ChangeDetectorRef,
     injector: Injector
   ) {
     super(injector);
@@ -62,14 +72,41 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      typeCategory: [''],
-      typeName: [''],
-      activetype: [false],
-      description: [''],
-      type: ['mModel'],
-      selectModel: [''],
+      typeCategory: ['asset', Validators.required],
+      typeName: ['', [Validators.required]],
+      activetype: true,
+      description: ['', Validators.required]
+      // type: ['mModel'],
+      // selectModel: [''],
       // models: this._fb.array([this._fb.control([])])
-      singleModelArray: new FormArray([this.createSingleModel()])
+      // singleModelArray: new FormArray([this.createSingleModel()])
+    });
+
+    this.facade.submitted$.subscribe((x) => {
+      console.log('Submit : ', x);
+      if (x) {
+        this.dialogModal = true;
+        this.dialogSetting.header = 'Add new type';
+        this.dialogSetting.message = 'Type Added Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'OK';
+        this.dialogSetting.cancelButton = undefined;
+        this.changeDetectorRef.markForCheck();
+      }
+    });
+
+    this.facade.error$.subscribe((x) => {
+      if (x?.error) {
+        console.log(x?.error);
+        this.dialogModal = true;
+        this.dialogSetting.header = 'Add new type';
+        this.dialogSetting.hasError = true;
+        this.dialogSetting.message = 'Error occurred in progress';
+        this.dialogSetting.cancelButton = undefined;
+        this.dialogSetting.confirmButton = 'OK';
+        this.changeDetectorRef.markForCheck();
+      }
     });
   }
 
@@ -94,17 +131,17 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.percent = (+this.value * 100) / +this.maxValue;
-    this._renderer.setStyle(
-      this.progressBar.nativeElement,
-      'width',
-      `${this.percent}%`
-    );
-    this._renderer.setStyle(
-      this.progressBar.nativeElement,
-      'background-color',
-      `${this.color}`
-    );
+    // this.percent = (+this.value * 100) / +this.maxValue;
+    // this._renderer.setStyle(
+    //   this.progressBar.nativeElement,
+    //   'width',
+    //   `${this.percent}%`
+    // );
+    // this._renderer.setStyle(
+    //   this.progressBar.nativeElement,
+    //   'background-color',
+    //   `${this.color}`
+    // );
   }
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
@@ -175,12 +212,33 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
       return;
     }
 
-    this.dialogModal = true;
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.message = 'Type added successfully';
-    this.dialogSetting.confirmButton = 'OK';
-    this.dialogSetting.cancelButton = undefined;
+    let type: string;
 
+    switch (this.inputForm.value.typeCategory) {
+      case 'asset':
+        type = 'ASSET';
+        break;
+      case 'subAsset':
+        type = 'SUB_ASSET';
+        break;
+      case 'accessory':
+        type = 'ACCESSORY';
+        break;
+      default:
+        type = 'ASSET';
+    }
+
+    const data = {
+      type: type,
+      name: this.inputForm.value.typeName,
+      isActive: this.inputForm.value.activetype,
+      typeDescription: this.inputForm.value.description,
+      makes: []
+    };
+
+    console.log(data);
+
+    this.facade.addAssetType(data);
     // this._assetConfigurationService.loadAddForm(false);
   }
 }

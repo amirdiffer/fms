@@ -30,12 +30,12 @@ export class MovementRequestsSelectors {
   );
 
   static rejected = createSelector(
-    FleetSelectors.movementOverviewSelector,
+    FleetSelectors.movementRequestsSelector,
     (state) => state.rejected
   );
 
   static assigned = createSelector(
-    FleetSelectors.movementOverviewSelector,
+    FleetSelectors.movementRequestsSelector,
     (state) => state.assigned
   );
 

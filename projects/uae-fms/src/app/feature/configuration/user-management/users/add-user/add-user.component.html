@@ -15,8 +15,8 @@
         <div class="autocomplete-select">
           <span class="p-float-label">
             <p-autoComplete formControlName="employeeNumber" (completeMethod)="getEmployee($event)"
-              [suggestions]="employees$|async" field="name" [minLength]="1" (ngModelChange)="employeeNumberChanged($event)"
-              required [disabled]="isEdit"></p-autoComplete>
+              [suggestions]="employees$|async" field="name" [minLength]="1"
+              (ngModelChange)="employeeNumberChanged($event)" required [disabled]="isEdit"></p-autoComplete>
             <i class="pi pi-search"></i>
             <label>{{ 'configuration.users.employee_number' | translate }} *</label>
           </span>
@@ -59,15 +59,8 @@
         <div>
           <p class='font-weight-bold'>{{ 'configuration.users.upload_form.title' | translate }}</p>
         </div>
-
-        <div class="mt-3">
-          <anms-error [showError]="hasError('file',form.get('fileUpload'),submited)" error="forms.feedback.required">
-          </anms-error>
-
-
-          <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [multiple]="false"  [preview]="false" [accept]="['.png','.jpg']" (uploadedEvent)="uploadImage($event)"></anms-uploader>
-
-        </div>
+        <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false"
+          [preview]="true" [accept]="'.png'" (uploadedEvent)="uploadImage($event)"></anms-uploader>
       </div>
     </div>
 
@@ -172,4 +165,5 @@
 </form>
 
 <alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal" (confirm)="errorDialogModal=false"></alert-dialog>
+<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal" (confirm)="errorDialogModal=false">
+</alert-dialog>

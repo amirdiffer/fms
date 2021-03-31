@@ -34,5 +34,5 @@
     </div>
 </div>
 <!-- end table -->
-<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="displaySuccessModal=false;goToList()"></alert-dialog>
-<alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="displayErrorModal=false"></alert-dialog>
+<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal"  (confirm)="successConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="dialogConfirm($event)"></alert-dialog>

@@ -30,7 +30,9 @@ import { PeriodicServiceComponent } from '@feature/configuration/periodic-servic
 import { AddFleetStatusComponent } from './fleet-status/add-fleet-status/add-fleet-status.component';
 import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-service/add-periodic-service.component';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
-import { FleetStateModule } from "../fleet/+state/fleet.state.module";
+import { FleetStateModule } from '../fleet/+state/fleet.state.module';
+import { AddMakeComponent } from '@feature/configuration/asset-configuration/add-make/add-make.component';
+import { AddModelComponent } from './asset-configuration/add-model/add-model.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { FleetStateModule } from "../fleet/+state/fleet.state.module";
     OwnershipComponent,
     AddCategoryComponent,
     OwnershipFormComponent,
-    AddAssetPolicyComponent
+    AddAssetPolicyComponent,
+    AddMakeComponent,
+    AddModelComponent
   ],
   imports: [
     TabViewModule,
@@ -72,4 +76,4 @@ import { FleetStateModule } from "../fleet/+state/fleet.state.module";
     FleetStateModule
   ]
 })
-export class ConfigurationModule { }
+export class ConfigurationModule {}

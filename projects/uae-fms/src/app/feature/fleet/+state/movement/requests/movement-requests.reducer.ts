@@ -69,7 +69,8 @@ const movementRequestsReducer = createReducer(
   })),
   on(MovementRequestsActions.reset, (state) => ({
     ...state,
-    assigned: false,
+    assigned: null,
+    rejected: null,
     submitted: false,
     error: null,
     message: null
