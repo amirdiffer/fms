@@ -28,3 +28,12 @@ ngx-file-drop {
     }
   }
 }
+
+.upload-file-item {
+  height: 40px;
+  border-radius: 3px;
+
+  p {
+    margin: 0;
+  }
+}
