@@ -37,7 +37,7 @@ export class UploaderComponent implements OnInit {
   @Input() preview = true;
   @Input() isImage = false;
   @Input() files = [];
-  @Input() accept = ['.csv', '.png', '.txt', '.json', '.deb'];
+  @Input() accept = ['.csv', '.png', '.jpg', '.txt', '.json'];
   @Output() uploadedEvent: EventEmitter<object> = new EventEmitter<object>();
   allFileUpload: Array<any> = [];
   uploadReview: boolean = false;

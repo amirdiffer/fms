@@ -533,7 +533,10 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     // eg. DPD129348
     const dpds = [];
     if (this.isSingleAsset) {
-      dpds.push(subAssetFormValue.serialNumber);
+      const serialNumber = +subAssetFormValue.serialNumber;
+      if (serialNumber) {
+        dpds.push('DPD' + serialNumber);
+      }
     }
 
     return {
