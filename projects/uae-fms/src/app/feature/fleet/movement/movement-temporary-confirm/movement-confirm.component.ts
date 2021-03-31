@@ -10,12 +10,12 @@ import { OrganizationFacade } from '@feature/fleet/+state/organization';
 import { MovementService } from '@feature/fleet/movement/movement.service';
 
 @Component({
-  selector: 'anms-movement-confirm',
+  selector: 'anms-movement-temporary-confirm',
   templateUrl: './movement-confirm.component.html',
   styleUrls: ['./movement-confirm.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovementConfirmComponent extends Utility implements OnInit {
+export class MovementTemporaryConfirmComponent extends Utility implements OnInit {
   confirmForm: FormGroup;
   assetSuggests = [];
   assetSuggestsB;
@@ -48,7 +48,7 @@ export class MovementConfirmComponent extends Utility implements OnInit {
     private _requestFacade: MovementRequestsFacade,
     private _movementService: MovementService,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<MovementConfirmComponent>,
+    public dialogRef: MatDialogRef<MovementTemporaryConfirmComponent>,
     private changeDetector: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: any,
     injector: Injector
