@@ -18,4 +18,9 @@ export class AssetTypeSelectors {
     ConfigurationSelectors.assetTypeSelector,
     (state) => state.error
   );
+
+  static submitted = createSelector(
+    ConfigurationSelectors.assetTypeSelector,
+    (state) => state.submitted
+  );
 }

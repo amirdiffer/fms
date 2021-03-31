@@ -10,30 +10,28 @@ import {
   ViewChild
 } from '@angular/core';
 import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
-import { Utility } from '@shared/utility/utility';
-import {
   FileSystemDirectoryEntry,
   FileSystemFileEntry,
   NgxFileDropEntry
 } from 'ngx-file-drop';
-import { AssetConfigurationService } from '../asset-configuration.service';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
+import { IAssetType } from '@models/asset-type.model';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { AssetTypeFacade } from '../../+state/asset-configuration';
+import { AssetConfigurationService } from '@feature/configuration/asset-configuration/asset-configuration.service';
+import { AssetTypeFacade } from '@feature/configuration/+state/asset-configuration';
+import { DataService } from '@feature/configuration/asset-configuration/data.service';
+import { Utility } from '@shared/utility/utility';
 
 @Component({
-  selector: 'congifuration-add-type',
-  templateUrl: './add-type.component.html',
-  styleUrls: ['./add-type.component.scss'],
+  selector: 'anms-add-model',
+  templateUrl: './add-model.component.html',
+  styleUrls: ['./add-model.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
+export class AddModelComponent
+  extends Utility
+  implements OnInit, AfterViewInit {
   radioButtonSelect: 'mModel';
   public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
@@ -48,15 +46,21 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
 
   assetConfigurationTableSetting!: TableSetting;
 
+  assetType: IAssetType;
+
   dialogModal = false;
 
   dialogSetting: IDialogAlert = {
-    header: 'Add asset configuration',
+    header: 'Add Make',
     hasError: false,
     message: 'Message is Here',
     confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };
+
+  get models(): FormArray {
+    return this.inputForm.get('models') as FormArray;
+  }
 
   constructor(
     private _fb: FormBuilder,
@@ -64,6 +68,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
     private changeDetectorRef: ChangeDetectorRef,
+    private dataService: DataService,
     injector: Injector
   ) {
     super(injector);
@@ -73,13 +78,49 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
-      typeName: ['', [Validators.required]],
-      activetype: true,
-      description: ['', Validators.required]
+      models: new FormArray([this.createModel()])
+      // typeName: ['', [Validators.required]],
+      // activetype: true,
+      // description: ['', Validators.required]
       // type: ['mModel'],
       // selectModel: [''],
       // models: this._fb.array([this._fb.control([])])
       // singleModelArray: new FormArray([this.createSingleModel()])
+    });
+
+    if (!this.dataService.selectedTypeId) {
+      // TODO: uncomment this line
+      // this.router.navigate(['/configuration/asset-configuration']).then();
+    }
+
+    this.facade.assetType$.subscribe((response) => {
+      response.map((obj) => {
+        obj.makes.map((make) => {
+          if (make.id === this.dataService.selectedMakeId) {
+            this.assetType = obj;
+            if (this.assetType.type === 'ASSET') {
+              this.inputForm.patchValue({ typeCategory: 'asset' });
+            } else if (this.assetType.type === 'SUB_ASSET') {
+              this.inputForm.patchValue({ typeCategory: 'subAsset' });
+            } else if (this.assetType.type === 'ACCESSORY') {
+              this.inputForm.patchValue({ typeCategory: 'accessory' });
+            }
+          }
+
+          this.models.clear();
+          console.log(make.models);
+          for (let index = 0; index < make.models.length; index++) {
+            this.addModel();
+            console.log(make.models[index].model);
+            this.models.controls[index].setValue({
+              model: make.models[index].model,
+              modelDescription: make.models[index].modelDescription,
+              trims: make.models[index].trims
+            });
+          }
+          this.addModel();
+        });
+      });
     });
 
     this.facade.submitted$.subscribe((x) => {
@@ -87,7 +128,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
       if (x) {
         this.dialogModal = true;
         this.dialogSetting.header = 'Add new type';
-        this.dialogSetting.message = 'Type Added Successfully';
+        this.dialogSetting.message = 'Make Added Successfully';
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
@@ -100,7 +141,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
       if (x?.error) {
         console.log(x?.error);
         this.dialogModal = true;
-        this.dialogSetting.header = 'Add new type';
+        this.dialogSetting.header = 'Add new make';
         this.dialogSetting.hasError = true;
         this.dialogSetting.message = 'Error occurred in progress';
         this.dialogSetting.cancelButton = undefined;
@@ -110,24 +151,37 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     });
   }
 
-  get singleModelArray(): FormArray {
-    return this.inputForm.get('singleModelArray') as FormArray;
-  }
-
-  createSingleModel(): FormGroup {
+  createModel(isOptional?: boolean): FormGroup {
+    if (isOptional) {
+      return this._fb.group({
+        model: '',
+        modelDescription: '',
+        trims: []
+      });
+    }
     return this._fb.group({
-      model: [''],
-      color1: ['#707070'],
-      color2: ['#E0DB66'],
-      color3: ['#475F7B'],
-      color4: ['#D05E53']
+      model: '',
+      modelDescription: '',
+      trims: []
     });
   }
 
-  addSingleModel(): void {
-    console.log(this.inputForm.get('singleModelArray').value);
-    const list = this.inputForm.get('singleModelArray') as FormArray;
-    list.push(this.createSingleModel());
+  addModel(): void {
+    if (this.models.invalid) {
+      return;
+    }
+    this.models.push(this.createModel());
+  }
+
+  addOptionalModel(): void {
+    if (this.models.invalid) {
+      return;
+    }
+    this.models.push(this.createModel());
+  }
+
+  removeModel(index: number): void {
+    this.models.removeAt(index);
   }
 
   ngAfterViewInit() {
@@ -143,6 +197,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     //   `${this.color}`
     // );
   }
+
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
     for (const droppedFile of files) {
@@ -166,11 +221,11 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     console.log(event);
   }
 
-  public addModel() {
-    const model = new FormControl('');
-    (<FormArray>this.inputForm.get('models')).push(model);
-    console.log();
-  }
+  // public addModel() {
+  //   const model = new FormControl('');
+  //   (<FormArray>this.inputForm.get('models')).push(model);
+  //   console.log();
+  // }
 
   public cancel() {
     this.dialogModal = true;
@@ -228,17 +283,37 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
         type = 'ASSET';
     }
 
+    /*
+    {
+  "type": "SUB_ASSET",
+  "name": "Emergency",
+  "isActive": true,
+  "typeDescription": "4-wheel vehicles!",
+  "makes": [
+    {
+      "make": "Toyota",
+      "makeDescription": "New model of 2020.",
+      "origins": [
+        "Japan"
+      ],
+      "models": [
+      ]
+    }
+  ]
+}
+    */
+
     const data = {
       type: type,
-      name: this.inputForm.value.typeName,
-      isActive: this.inputForm.value.activetype,
-      typeDescription: this.inputForm.value.description,
-      makes: []
+      name: this.assetType.name,
+      isActive: this.assetType.isActive,
+      typeDescription: this.assetType.typeDescription,
+      makes: this.assetType.makes
     };
 
     console.log(data);
 
-    this.facade.addAssetType(data);
+    // this.facade.addModel(data);
     // this._assetConfigurationService.loadAddForm(false);
   }
 }

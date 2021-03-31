@@ -246,3 +246,25 @@ button.add-model {
     }
   }
 }
+
+.plus-icon {
+  border: 1px solid #009c62;
+  border-radius: 4px;
+  width: 32px;
+  display: inline-block;
+  text-align: center;
+  height: 32px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.remove-icon {
+  border: 1px solid #f75a4a;
+  border-radius: 4px;
+  width: 32px;
+  display: inline-block;
+  text-align: center;
+  height: 32px;
+  margin: 0 5px;
+  cursor: pointer;
+}

@@ -65,8 +65,8 @@
     "user_management": "User Management",
     "role_permission": "Role and Permission",
     "users": "Users",
-    "add_new_user":"Add New User",
-    "edit_user":"Edit User",
+    "add_new_user": "Add New User",
+    "edit_user": "Edit User",
     "company_profile": "Company Profile",
     "asset_policy": "Asset Policy",
     "asset_configuration": "Asset Configuration",
@@ -593,7 +593,7 @@
         "km_day": "Km/Day",
         "vehicle_sautes_details": "Vehicle Sautes/Details",
         "latest_location": "Latest Location",
-        "job_card_status":"Job Card Status",
+        "job_card_status": "Job Card Status",
         "lifecycle": {
           "lifecycle": "Lifecycle",
           "all": "All",
@@ -1184,6 +1184,14 @@
   },
   "filter": {
     "asset_category": "Asset Category",
+    "type_category": "Type Category",
+    "add_asset_type": "Add Asset Type",
+    "add_make_for_car": "Add Make For Car",
+    "add_model_for_car": "Add Model For Car",
+    "make_name": "Make Name",
+    "model_name": "Model Name",
+    "type_status": "Type Status",
+    "description": "Description",
     "asset": "Asset",
     "sub_asset": "Sub Asset",
     "accessory": "Accessory",
@@ -1192,7 +1200,8 @@
     "bus": "Bus",
     "bicycle": "Bicycle",
     "boat": "Boat",
-    "add_type": "Add Type"
+    "add_type": "Add Type",
+    "category": "Category"
   },
   "chart": {
     "lifecycle": "Lifecycle",
