@@ -150,7 +150,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
         this.id = +(params[params.length - 1].path);
         this.userService.getUserById((params[params.length - 1].path)).pipe(map(x => x.message)).subscribe(x => {
           if (x) {
-            this.profileDocId = x.profileDocId ? x.profileDocId : null;
+            // this.profileDocId = x.profileDocId ? x.profileDocId : null;
             this._user = x;
             this.form.controls['portalInformation'].patchValue({
               employeeNumber: {
