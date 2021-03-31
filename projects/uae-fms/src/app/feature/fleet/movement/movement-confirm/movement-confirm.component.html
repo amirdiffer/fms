@@ -25,25 +25,35 @@
         <h3 class="form-section__title">{{ 'movement.request.user_information' | translate }}</h3>
         <div class="row form-section__row">
             <!-- start department -->
-            <div class="col-12 col-md-4 p-field form-section__field">
+            <div class="col-12 col-md-6 p-field form-section__field">
+              <div class="autocomplete-select">
                 <span class="p-float-label">
-                    <input pInputText placeholder="{{ 'movement.request.department' | translate }} *"
-                        formControlName="department" required type="text">
+                  <p-autoComplete formControlName="department"
+                                  (completeMethod)="filterOrganizations($event)"
+                                  [suggestions]="organizationSuggests" field="name"
+                                  [minLength]="1"></p-autoComplete>
+                        <i class="pi pi-search"></i>
                     <label>{{ 'movement.request.department' | translate }} *</label>
                 </span>
+              </div>
             </div>
             <!-- end department -->
             <!-- start operator -->
-            <div class="col-12 col-md-3 p-field form-section__field">
+            <div class="col-12 col-md-6 p-field form-section__field">
+              <div class="autocomplete-select">
                 <span class="p-float-label">
-                    <input pInputText placeholder="{{ 'movement.request.operator' | translate }} *"
-                        formControlName="operator" required type="text">
+                  <p-autoComplete formControlName="operator"
+                                  (completeMethod)="filterOperators($event)"
+                                  [suggestions]="operatorSuggests" field="name"
+                                  [minLength]="1"></p-autoComplete>
+                      <i class="pi pi-search"></i>
                     <label>{{ 'movement.request.operator' | translate }} *</label>
                 </span>
+              </div>
             </div>
             <!-- end operator -->
             <!-- start comment -->
-            <div class="col-12 col-md-5 p-field form-section__field">
+            <div class="col-12 col-md-12 p-field form-section__field">
                 <span class="p-float-label">
                     <input pInputText placeholder="{{ 'movement.request.comment' | translate }}"
                         formControlName="comment" type="text">
@@ -171,5 +181,5 @@
 </form>
 <!-- end form -->
 
-<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="displaySuccessModal=false;goToList()"></alert-dialog>
-<alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="displayErrorModal=false"></alert-dialog>
+<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="successConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="dialogConfirm($event)"></alert-dialog>

@@ -32,6 +32,10 @@
           <p-dropdown formControlName="assetType" [options]="assetTypes" optionLabel="name"></p-dropdown>
           <label>{{ 'movement.movement.asset_type' | translate }} * </label>
         </span>
+        <anms-error
+          [showError]="hasError('assetType',requestForm,submitted)"
+          error="forms.feedback.required">
+        </anms-error>
       </div>
       <!-- end assetType -->
     </div>
@@ -46,6 +50,10 @@
             type="text">
           <label>{{ 'movement.movement.reason' | translate }} *</label>
         </span>
+        <anms-error
+          [showError]="hasError('reason',requestForm,submitted)"
+          error="forms.feedback.required">
+        </anms-error>
       </div>
     </div>
     <!-- end reasone -->

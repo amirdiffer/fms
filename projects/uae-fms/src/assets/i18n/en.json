@@ -108,7 +108,10 @@
     "add_role_permission": "Add Role Premission",
     "add_new_asset": "Add New Asset",
     "department": "Department",
-    "add_new_accessory": "Add New Accessory"
+    "add_new_accessory": "Add New Accessory",
+    "temporary":  "Temporary",
+    "add_temporary_request": "Add Temporary Request",
+    "add_permanent_request": "Add Permanent Request"
   },
   "sidebar": {
     "dashboard": "Dashboard",

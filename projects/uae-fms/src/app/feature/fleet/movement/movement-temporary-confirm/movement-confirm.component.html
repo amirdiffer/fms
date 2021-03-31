@@ -1,0 +1,185 @@
+<h4 class="main-title">Assign 123456</h4>
+<!-- start form -->
+<form [formGroup]="confirmForm">
+  <div class="form-section no-bg no-shadow">
+    <h3 class="form-section__title">{{ 'movement.request.asset_information' | translate }}</h3>
+    <div class="row form-section__row">
+      <!-- start asset -->
+      <div class="col-12 p-field form-section__field">
+        <div class="autocomplete-select">
+                    <span class="p-float-label">
+                        <p-autoComplete formControlName="asset"
+                                        (completeMethod)="filterAssets($event)"
+                                        [suggestions]="assetSuggests" field="name"
+                                        [minLength]="1"></p-autoComplete>
+                        <i class="pi pi-search"></i>
+                        <label>{{ 'movement.request.asset' | translate }} *</label>
+                    </span>
+        </div>
+      </div>
+      <!-- end asset -->
+    </div>
+  </div>
+  <hr>
+  <div class="form-section no-bg no-shadow">
+    <h3 class="form-section__title">{{ 'movement.request.user_information' | translate }}</h3>
+    <div class="row form-section__row">
+      <!-- start department -->
+      <div class="col-12 col-md-6 p-field form-section__field">
+        <div class="autocomplete-select">
+                <span class="p-float-label">
+                  <p-autoComplete formControlName="department"
+                                  (completeMethod)="filterOrganizations($event)"
+                                  [suggestions]="organizationSuggests" field="name"
+                                  [minLength]="1"></p-autoComplete>
+                        <i class="pi pi-search"></i>
+                    <label>{{ 'movement.request.department' | translate }} *</label>
+                </span>
+        </div>
+      </div>
+      <!-- end department -->
+      <!-- start operator -->
+      <div class="col-12 col-md-6 p-field form-section__field">
+        <div class="autocomplete-select">
+                <span class="p-float-label">
+                  <p-autoComplete formControlName="operator"
+                                  (completeMethod)="filterOperators($event)"
+                                  [suggestions]="operatorSuggests" field="name"
+                                  [minLength]="1"></p-autoComplete>
+                      <i class="pi pi-search"></i>
+                    <label>{{ 'movement.request.operator' | translate }} *</label>
+                </span>
+        </div>
+      </div>
+      <!-- end operator -->
+      <!-- start comment -->
+      <div class="col-12 col-md-12 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText placeholder="{{ 'movement.request.comment' | translate }}"
+                           formControlName="comment" type="text">
+                    <label>{{ 'movement.request.comment' | translate }}</label>
+                </span>
+      </div>
+      <!-- end comment -->
+    </div>
+  </div>
+  <hr>
+  <div class="form-section no-bg no-shadow">
+    <h3 class="form-section__title">{{ 'movement.request.movement_information' | translate }}</h3>
+    <!-- start movementType -->
+    <div class="row form-section__row">
+      <div class="col-12 col-md-12 mb-2 align-self-center">
+        <div class="row ml-1">
+          <div class="col-12 col-md-12">
+            <div class="row">
+              <div class="form-check col-3">
+                <input class="form-check-input" formControlName="movementType" type="radio" name="movementType" id="Temporary" value ="temporary">
+                <label class="form-check-label" for="Temporary">{{ 'movement.request.temporary' | translate }}</label>
+              </div>
+              <div class="form-check col-3">
+                <input class="form-check-input" formControlName="movementType" type="radio" name="movementType" id="Permanent" value ="permanent">
+                <label class="form-check-label" for="Permanent">{{ 'movement.request.permanent' | translate }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end movementType -->
+    <div class="row form-section__row">
+      <!-- start startDate -->
+      <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                    <p-calendar inputId="basic" formControlName="startDate"></p-calendar>
+                    <label>{{ 'movement.request.start_date' | translate }} * </label>
+                </span>
+      </div>
+      <!-- end startDate -->
+      <!-- start startTime -->
+      <div class="col-12 col-md-3 p-field form-section__field">
+                <span class="p-float-label">
+                    <p-calendar formControlName="startTime" [timeOnly]="true"
+                                inputId="timeonly"></p-calendar>
+                    <label> {{ 'movement.request.time' | translate }} * </label>
+                </span>
+      </div>
+      <!-- end startTime -->
+      <!-- start gps -->
+      <div class="col-12 col-md-5 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText placeholder="{{ 'movement.request.gps_master_source' | translate }}"
+                           formControlName="gps" type="number">
+                    <label>{{ 'movement.request.gps_master_source' | translate }}</label>
+                </span>
+      </div>
+      <!-- end gps -->
+    </div>
+
+    <div class="row form-section__row">
+      <!-- start endDate -->
+      <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                    <p-calendar inputId="basic" formControlName="endDate"></p-calendar>
+                    <label>{{ 'movement.request.end_date' | translate }} * </label>
+                </span>
+      </div>
+      <!-- end endDate -->
+      <!-- start endTime -->
+      <div class="col-12 col-md-3 p-field form-section__field">
+                <span class="p-float-label">
+                    <p-calendar formControlName="endTime" [timeOnly]="true"
+                                inputId="timeonly"></p-calendar>
+                    <label> {{ 'movement.request.time' | translate }} * </label>
+                </span>
+      </div>
+      <!-- end endTime -->
+      <!-- start sendNotification -->
+      <div class="col-12 col-md-4 form-section__field toggle-select">
+        <p-inputSwitch formControlName="sendNotification"></p-inputSwitch>
+        <span>{{ 'movement.request.send_notification' | translate }}</span>
+      </div>
+      <!-- end sendNotification -->
+    </div>
+
+    <div class="row form-section__row">
+      <div class="col-12 col-md-6 mb-2 align-self-center">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <h3 class="form-section__title m-0">{{ 'movement.request.fuel_card' | translate }}</h3>
+          </div>
+          <div class="col-12 col-md-8">
+            <div class="row">
+              <div class="form-check col-6">
+                <input class="form-check-input" formControlName="fuelCart" type="radio" name="fuelCart" id="Yes" [value] ="true">
+                <label class="form-check-label" for="Yes">{{ 'movement.request.yes' | translate }}</label>
+              </div>
+              <div class="form-check col-6">
+                <input class="form-check-input" formControlName="fuelCart" type="radio" name="fuelCart" id="No" [value] ="false">
+                <label class="form-check-label" for="No">{{ 'movement.request.no' | translate }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- start serialNumber -->
+      <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                    <input pInputText placeholder="{{ 'movement.request.s_n' | translate }}"
+                           formControlName="serialNumber" type="number">
+                    <label>{{ 'movement.request.s_n' | translate }}</label>
+                </span>
+      </div>
+      <!-- end serialNumber -->
+    </div>
+    <div class="d-flex justify-content-end button-container">
+      <button mat-dialog-close class="btn-primary-small btn-scondary-green">{{ 'movement.request.cancel' | translate }}</button>
+      <button class="btn-primary-small add" (click)="submit()">{{ 'movement.request.save_assignment' | translate }}</button>
+    </div>
+  </div>
+
+
+</form>
+<!-- end form -->
+
+<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="successConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="dialogConfirm($event)"></alert-dialog>
