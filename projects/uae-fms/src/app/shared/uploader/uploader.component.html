@@ -28,6 +28,7 @@
             </ng-template>
           </ngx-file-drop>
           <anms-error
+            *ngIf="hasError"
             [showError]="this.files.length == 0"
             error="forms.feedback.required">
           </anms-error>
@@ -55,3 +56,6 @@
     </div>
   </div>
 </ng-container>
+
+
+<alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogErrorConfirm($event)"></alert-dialog>
