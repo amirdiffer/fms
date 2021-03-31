@@ -19,20 +19,20 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/uae-fms",
-            "index": "./projects/uae-fms/src/index.html",
-            "main": "./projects/uae-fms/src/main.ts",
-            "polyfills": "./projects/uae-fms/src/polyfills.ts",
-            "tsConfig": "./projects/uae-fms/tsconfig.app.json",
+            "index": "projects/uae-fms/src/index.html",
+            "main": "projects/uae-fms/src/main.ts",
+            "polyfills": "projects/uae-fms/src/polyfills.ts",
+            "tsConfig": "projects/uae-fms/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "./projects/uae-fms/src/favicon.ico",
-              "./projects/uae-fms/src/assets"
+              "projects/uae-fms/src/favicon.ico",
+              "projects/uae-fms/src/assets"
             ],
             "styles": [
-              "./projects/uae-fms/src/style.scss",
-              "./projects/uae-fms/src/styles-app-loading.scss",
-              "./projects/uae-fms/src/styles.scss",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "projects/uae-fms/src/style.scss",
+              "projects/uae-fms/src/styles-app-loading.scss",
+              "projects/uae-fms/src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
