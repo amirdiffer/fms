@@ -22,12 +22,47 @@ const operatorReducer = createReducer(
       error: null
     })
   ),
+  on(OperatorActions.addOperator, (state, { data: IOperator }) => ({
+    ...state,
+    submitted: false,
+    error: null
+  })),
+  on(OperatorActions.operatorAddedSuccessfully, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: true
+  })),
 
   on(OperatorActions.error, (state, { reason }) => ({
     ...state,
     error: reason,
     loaded: true
-  }))
+  })),
+
+  on(OperatorActions.resetParams, (state) => ({
+    ...state,
+    error: null,
+    submitted: false,
+    message: null
+  })),
+  on(OperatorActions.editOperator, (state, { operator }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(OperatorActions.operatorEditedSuccessfully, (state, { operator }) =>
+    operatorAdapter.updateOne(
+      { changes: operator, id: operator.id },
+      {
+        ...state,
+        error: null,
+        message: null,
+        submitted: true
+      }
+    )
+  )
 );
 
 export function reducer(state: IOperatorState, action: Action) {

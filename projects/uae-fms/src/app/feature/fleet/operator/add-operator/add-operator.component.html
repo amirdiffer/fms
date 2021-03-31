@@ -1,180 +1,171 @@
-<form>
-  <div class="row">
-    <div class="button-container">
-      <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{'forms.cancel' | translate}}</button>
-      <button class="btn-primary-medium add" type="submit" >{{'forms.add' | translate}}</button>
+<form [formGroup]='form' (ngSubmit)="submit()">
+  <div class="button-container">
+    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancel()">{{ 'forms.cancel' | translate
+      }}</button>
+    <button class="btn-primary-medium add" type="submit">{{ (isEdit ? 'forms.edit' : 'forms.add') | translate
+      }}</button>
+  </div>
+  <div class="mt-2">
+    <app-filter [setting]='filter'></app-filter>
+  </div>
+  <div class="form-section mt-3" formGroupName="portalInformation">
+    <h3 class="form-section__title">{{ 'configuration.users.portal_information' | translate }}</h3>
+    <div class="row form-section__row">
+      <div class="col-12 col-md-3 p-field form-section__field">
+        <div class="autocomplete-select">
+          <span class="p-float-label">
+            <p-autoComplete formControlName="employeeNumber" (completeMethod)="getEmployee($event)"
+              [suggestions]="employees$|async" field="name" [minLength]="1" (ngModelChange)="employeeNumberChanged($event)"
+              required [disabled]="isEdit"></p-autoComplete>
+            <i class="pi pi-search"></i>
+            <label>{{ 'configuration.users.employee_number' | translate }} *</label>
+          </span>
+          <anms-error [showError]="hasError('employeeNumber',form.get('portalInformation'),submited)"
+            error="forms.feedback.required">
+          </anms-error>
+        </div>
+      </div>
+      <div class="col-12 col-md-3 p-field form-section__field">
+        <div class="autocomplete-select">
+          <span class="p-float-label">
+            <p-autoComplete formControlName="department" (completeMethod)="filterDepartments($event)"
+              [suggestions]="departments" field="name" [minLength]="1" [disabled]="isEdit"></p-autoComplete>
+            <i class="pi pi-search"></i>
+            <label>{{ 'configuration.users.department' | translate }} *</label>
+          </span>
+          <anms-error [showError]="hasError('department',form.get('portalInformation'),submited)"
+            error="forms.feedback.required"></anms-error>
+        </div>
+      </div>
+      <div class="col-12 col-md-3 form-section__field toggle-select">
+        <span>{{ 'configuration.users.active_employee' | translate }}</span>
+        <p-inputSwitch formControlName="activeEmployee"></p-inputSwitch>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-4 d-flex' formGroupName='fileUpload'>
+      <div class=" form-section w-100">
+        <div>
+          <p class='font-weight-bold'>{{ 'configuration.users.upload_form.title' | translate }}</p>
+        </div>
+        <div>
+          <div class='d-flex justify-content-between'>
+            <label class='progress_bar_label'>{{form.controls['fileUpload'].value.fileName}}</label>
+            <label class='progress_bar_label'>{{form.controls['fileUpload'].value.fileSize}}</label>
+          </div>
+          <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
+        </div>
+        <div class="mt-3">
+          <anms-error [showError]="hasError('file',form.get('fileUpload'),submited)" error="forms.feedback.required">
+          </anms-error>
+          <ngx-file-drop accept='image/*' dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
+            (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+              <label *ngIf='!tempImage.length' (click)="openFileSelector()" style="cursor: pointer;">
+                <svg-icon class="camera-icon" src='assets/icons/camera.svg'
+                  [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                <small calss="drag-and-drop">{{ 'configuration.users.upload_form.content' | translate }}</small>
+              </label>
+              <img *ngIf='tempImage.length' [src]='tempImage' alt='profile' width='128' />
+            </ng-template>
+          </ngx-file-drop>
+        </div>
+      </div>
     </div>
 
-    <div class="col-12">
+    <div class="col-8" formGroupName="personalInformation">
       <div class="form-section">
-        <h3 class="form-section__title">{{'operator.portal_information' | translate}}</h3>
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="form-group p-field form-section__field">
-              <div class="input-group">
-                <div class="autocomplete-select w-100">
-                  <span class="p-float-label">
-                    <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
-                    <i class="pi pi-search"></i>
-                    <label>{{'operator.employee_number' | translate}}</label>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="form-group p-field form-section__field">
-              <div class="input-group">
-                <div class="autocomplete-select w-100">
-                  <span class="p-float-label">
-                    <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
-                    <i class="pi pi-search"></i>
-                    <label>{{'operator.organization' | translate}}</label>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="form-group p-field form-section__field">
-              <div class="input-group">
-                <div class="autocomplete-select w-100">
-                  <span class="p-float-label">
-                    <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
-                    <i class="pi pi-search"></i>
-                    <label>{{'operator.section' | translate}}</label>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="form-group p-field form-section__field">
-              <div class="input-group">
-                <div class="autocomplete-select w-100">
-                  <span class="p-float-label ">
-                    <p-autoComplete [suggestions]="employeNumber" (completeMethod)="searchEmploye($event)"></p-autoComplete>
-                    <i class="pi pi-search"></i>
-                    <label>{{'operator.authorized' | translate}}</label>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 p-field form-section__field date-input">
+        <h3 class="form-section__title">{{ 'configuration.users.personal_information' | translate }}</h3>
+        <div class="row form-section__row">
+          <div class="col-12 col-md-5 p-field form-section__field">
             <span class="p-float-label">
-                <p-calendar inputId="basic"></p-calendar>
-                <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
-                <label>{{'operator.expiry_license' | translate}}</label>
+              <input formControlName="firstName" pInputText placeholder="FirstName *" type="text">
+              <label>{{ 'configuration.users.first_name' | translate }} *</label>
+            </span>
+            <anms-error [showError]="hasError('firstName',form.get('personalInformation'),submited)"
+              error="forms.feedback.required"></anms-error>
+          </div>
+          <div class="col-12 col-md-7 p-field form-section__field">
+            <span class="p-float-label">
+              <input formControlName="lastName" pInputText placeholder="LastName *" type="text">
+              <label>{{ 'configuration.users.last_name' | translate }} *</label>
+            </span>
+            <anms-error [showError]="hasError('lastName',form.get('personalInformation'),submited)"
+              error="forms.feedback.required"></anms-error>
+          </div>
+        </div>
+        <div class="row form-section__row">
+          <div class="col-12 col-md-6 p-field form-section__field" formArrayName='emails'>
+            <span class="p-float-label" *ngFor='let _ of emails.controls; let index = index' [formGroupName]='index'>
+              <div class="p-inputgroup" [class.mt-2]='emails.length > 1'>
+                <span class="p-float-label">
+                  <input type="text" formControlName="email" pInputText placeholder="Email *">
+                  <label>{{ 'configuration.users.email' | translate }} *</label>
+                </span>
+                <span class="p-inputgroup-addon addon-primary" (click)='addEmailField()'>
+                  <i class="pi pi-plus"></i>
+                </span>
+              </div>
+              <anms-error [showError]="formArrayHasError(submited, emails, index, 'email')"
+                error="forms.feedback.required">
+              </anms-error>
+              <anms-error [showError]="formArrayHasError(submited, emails, index, 'email', 'email')"
+                error="forms.feedback.invalid-email">
+              </anms-error>
             </span>
           </div>
-          <div class="col-lg-3  p-field form-section__field">
+          <div class="col-12 col-md-6 p-field form-section__field" formArrayName='phoneNumbers'>
+            <span class="p-float-label" *ngFor='let _ of phoneNumbers.controls; let index = index'
+              [formGroupName]='index'>
+              <div class="p-inputgroup" [class.mt-2]='phoneNumbers.length > 1'>
+                <span class="p-float-label">
+                  <input type="text" formControlName="phoneNumber" pInputText placeholder="Phone Number">
+                  <label>{{ 'configuration.users.phone_number' | translate }}</label>
+                </span>
+                <span class="p-inputgroup-addon addon-primary" (click)='addPhoneField()'>
+                  <i class="pi pi-plus"></i>
+                </span>
+              </div>
+              <anms-error [showError]="formArrayHasError(submited, phoneNumbers, index, 'phoneNumber')"
+                error="{{'forms.feedback.required' | translate}}">
+              </anms-error>
+              <anms-error [showError]="formArrayHasError(submited, phoneNumbers, index, 'phoneNumber','pattern')"
+                error="forms.feedback.invalid-phone">
+              </anms-error>
+            </span>
+
+          </div>
+        </div>
+
+        <div class="row form-section__row">
+          <div class="col-12 col-md-4">
+            <h3 class="form-section__title mt-2">{{ 'configuration.users.send_notification_by' | translate }}</h3>
+          </div>
+          <div class="col-12 col-md-8">
             <div class="row">
-              <div class="col-12">
-                <div class="toggle-select align-items-center">
-                  <p-inputSwitch></p-inputSwitch>
-                  <label>{{'operator.employee_status' | translate}}</label>
+              <div class="col-12 col-md-12 row">
+                <div class="form-group form-check col-3">
+                  <input id="callCheckbox" type="checkbox" value="call" class="custom-checkbox" name="sendNotification"
+                    formControlName="callCheckbox">
+                  <label for="callCheckbox">{{ 'configuration.users.call' | translate }}</label>
+                </div>
+                <div class="form-group form-check col-3">
+                  <input id="smsCheckbox" type="checkbox" value="sms" class="custom-checkbox" name="sendNotification"
+                    formControlName="smsCheckbox">
+                  <label for="smsCheckbox">{{ 'configuration.users.sms' | translate }}</label>
+                </div>
+                <div class="form-group form-check col-3">
+                  <input id="emailCheckbox" type="checkbox" value="email" class="custom-checkbox"
+                    name="sendNotification" formControlName="emailCheckbox">
+                  <label for="emailCheckbox">{{ 'configuration.users.email' | translate }}</label>
+                </div>
+                <div class="form-group form-check col-3">
+                  <input id="whatsappCheckbox" type="checkbox" value="whatsapp" class="custom-checkbox"
+                    name="sendNotification" formControlName="whatsappCheckbox">
+                  <label for="whatsappCheckbox">{{ 'configuration.users.whatsapp' | translate }}</label>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4">
-      <div class="component_wrapper fit-height form-section">
-        <h3 class="form-section__title">{{'operator.upload_form.title' | translate}}</h3>
-        <div class="upload-box">
-          <div class="row">
-            <div class="col-12 d-flex justify-content-between file-name-size">
-              <span>{{'operator.upload_form.progressbar_title' | translate}}</span>
-              <span>00 MG</span>
-            </div>
-            <div class="col-12 w-100 ">
-              <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
-            </div>
-            <div class="col-lg-12 my-2">
-              <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                  <label (click)="openFileSelector()" style="cursor: pointer;">
-                    <svg-icon  class="camera-icon" src="../../../../../assets/icons/camera-solid.svg"
-                               [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                    <small calss="drag-and-drop">{{'operator.upload_form.content' | translate}}</small>
-                  </label>
-                </ng-template>
-              </ngx-file-drop>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-8">
-      <div class="component_wrapper form-section">
-        <h3 class="form-section__title">{{'operator.personal_information' | translate}}</h3>
-        <div class="row">
-          <div class="col-5">
-            <div class=" p-field form-section__field">
-                <span class="p-float-label">
-                    <input pInputText placeholder="{{'operator.first_name' | translate}}" type="text">
-                    <label>{{'operator.first_name' | translate}}</label>
-                </span>
-            </div>
-          </div>
-          <div class="col-lg-7">
-            <div class=" p-field form-section__field">
-                <span class="p-float-label">
-                    <input pInputText placeholder="{{'operator.last_name' | translate}}" type="text">
-                    <label>{{'operator.last_name' | translate}}</label>
-                </span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-7">
-            <div class=" p-field form-section__field">
-              <span class="p-inputgroup p-float-label d-flex">
-                  <input type="text" pInputText placeholder="{{'operator.email' | translate}}">
-                  <label>{{'operator.email' | translate}}</label>
-                  <span class="p-inputgroup-addon"><i class="pi pi-plus"></i></span>
-              </span>
-            </div>
-          </div>
-          <div class="col-lg-5 ">
-            <div class=" p-field form-section__field">
-              <span class="p-inputgroup p-float-label d-flex">
-                  <input type="text" pInputText placeholder="{{'operator.phone_number' | translate}}">
-                  <label>{{'operator.phone_number' | translate}}</label>
-                  <span class="p-inputgroup-addon"><i class="pi pi-plus"></i></span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-3 align-self-center">
-            <h3 class="form-section__title">{{'operator.send_notification_by' | translate}}</h3>
-          </div>
-          <div class="col-lg-2">
-            <div class="form-group form-check">
-              <input id="check-Call" type="checkbox" class="custom-checkbox" name="check-Call" checked>
-              <label for="check-Call">{{'operator.call' | translate}}</label>
-            </div>
-          </div>
-          <div class="col-lg-2">
-            <div class="form-group form-check">
-              <input id="check-SMS" type="checkbox" class="custom-checkbox" name="check-SMS" checked>
-              <label for="check-SMS">{{'operator.sms' | translate}}</label>
-            </div>
-          </div>
-          <div class="col-lg-2">
-            <div class="form-group form-check">
-              <input id="check-Email" type="checkbox" class="custom-checkbox" name="check-Email" checked>
-              <label for="check-Email">{{'operator.email' | translate}}</label>
-            </div>
-          </div>
-          <div class="col-lg-2">
-            <div class="form-group form-check">
-              <input id="check-Whatsapp" type="checkbox" class="custom-checkbox" name="check-Whatsapp" >
-              <label for="check-Whatsapp">{{'operator.whatsapp' | translate}}</label>
             </div>
           </div>
         </div>
@@ -182,3 +173,7 @@
     </div>
   </div>
 </form>
+
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="successDialogSetting" [displayModal]="successDialogModal" (confirm)="successDialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal" (confirm)="errorDialogModal=false"></alert-dialog>

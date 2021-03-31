@@ -12,7 +12,45 @@ export class PeriodicServiceEffect {
       ofType(PeriodicServiceActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => PeriodicServiceActions.allDataLoaded({ data })),
+          map((data) =>
+            PeriodicServiceActions.allDataLoaded({ data: data.message })
+          ),
+          catchError((error) =>
+            of(PeriodicServiceActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  addData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PeriodicServiceActions.addPeriodicService),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) =>
+            PeriodicServiceActions.periodicServiceAddedSuccessfully({
+              data: data.message
+            })
+          ),
+          catchError((error) =>
+            of(PeriodicServiceActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  editData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PeriodicServiceActions.editPeriodicService),
+      mergeMap((action) =>
+        this.service.update(action.data).pipe(
+          map((data) =>
+            PeriodicServiceActions.periodicServiceEditedSuccessfully({
+              data: data.message
+            })
+          ),
           catchError((error) =>
             of(PeriodicServiceActions.error({ reason: error }))
           )

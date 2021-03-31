@@ -83,7 +83,20 @@
       box-shadow: none !important;
     }
 
+    .autocomplete-select {
+      .ng-invalid.ng-touched {
+        input {
+          border-color: $invalid-input-label !important;
+        }
+      }
+    }
+
     .options-select {
+      .ng-invalid.ng-touched {
+        .p-dropdown {
+          border-color: $invalid-input-label !important;
+        }
+      }
       .p-dropdown {
         &:hover {
           border-color: $hovered-input-border;
@@ -101,7 +114,7 @@
         background: $form-input-toggle !important;
       }
 
-      .p-radiobutton
+      .p-radiobutton,
         .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
         border-color: $form-input-toggle !important;
       }

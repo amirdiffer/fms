@@ -1,14 +1,17 @@
-<ng-container *ngIf="addOpen">
-    <congifuration-add-type></congifuration-add-type>
-</ng-container>
+<!--<ng-container *ngIf="addOpen">-->
+<!--    <congifuration-add-type></congifuration-add-type>-->
+<!--</ng-container>-->
+<div class="statistic-card">
+  <app-filter [setting]='filterCard'></app-filter>
+</div>
+<configuration-asset-category></configuration-asset-category>
 <div class="row">
-    <div *ngIf="!addOpen" class="col-3 pl-0">
-        <configuration-asset-category></configuration-asset-category>
-        <configuration-asset-type></configuration-asset-type>
-    </div>
-    <div [ngClass]="!addOpen ? 'col-9' : 'col-12'" class="col-9">
-        <div class="table-container component_wrapper my-0 h-100">
-          <span *ngIf="!addOpen" class="card-table-header search-container">
+  <div class='col-3 pr-0'>
+    <configuration-asset-type></configuration-asset-type>
+  </div>
+    <div class="col-9">
+      <div class="table-container component_wrapper my-0 h-100">
+          <span class="card-table-header search-container">
                         <div class="search-box">
                             <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
                             <button>
@@ -18,7 +21,6 @@
                         <button class="btn-download" disabled>
                             <svg-icon [src]="downloadBtn"></svg-icon>
                         </button>
-                        <button class="btn-primary-small" (click)="openAdd()"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
                     </span>
           <app-table [setting]="assetConfigurationableSetting"></app-table>
         </div>

@@ -15,8 +15,23 @@ export class OrganizationEffects {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            return OrganizationActions.allDataLoaded({ data });
+            return OrganizationActions.allDataLoaded({ data: data.message });
           }),
+          catchError((error) =>
+            of(OrganizationActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+  addOrganization$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(OrganizationActions.addOrganization),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) =>
+            OrganizationActions.organizationAddedSuccessfully({ data: data.message })
+          ),
           catchError((error) =>
             of(OrganizationActions.error({ reason: error }))
           )

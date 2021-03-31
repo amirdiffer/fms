@@ -10,6 +10,8 @@ export class PeriodicServiceFacade {
     select(PeriodicServiceSelectors.selectAll)
   );
 
+  submitted$ = this.store.pipe(select(PeriodicServiceSelectors.submitted));
+
   message$ = this.store.pipe(select(PeriodicServiceSelectors.message));
 
   error$ = this.store.pipe(select(PeriodicServiceSelectors.error));
@@ -18,5 +20,17 @@ export class PeriodicServiceFacade {
 
   loadAll() {
     this.store.dispatch(PeriodicServiceActions.loadAll());
+  }
+
+  addPeriodicService(data: any) {
+    this.store.dispatch(PeriodicServiceActions.addPeriodicService({ data }));
+  }
+
+  editPeriodicService(data: any) {
+    this.store.dispatch(PeriodicServiceActions.editPeriodicService({ data }));
+  }
+
+  reset() {
+    this.store.dispatch(PeriodicServiceActions.reset());
   }
 }

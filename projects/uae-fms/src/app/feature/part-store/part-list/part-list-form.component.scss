@@ -6,3 +6,19 @@
     margin-top: 0 !important;
   }
 }
+
+.calendar-select {
+  .p-float-label label {
+    width: auto;
+  }
+}
+
+::ng-deep .p-calendar {
+  width: 78%;
+}
+
+@media only screen and (max-width: 768px) {
+  ::ng-deep .p-calendar {
+    width: 100%;
+  }
+}

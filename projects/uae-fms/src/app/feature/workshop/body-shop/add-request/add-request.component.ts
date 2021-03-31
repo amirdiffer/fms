@@ -13,13 +13,24 @@ import {
   FileSystemFileEntry,
   NgxFileDropEntry
 } from 'ngx-file-drop';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 @Component({
-  selector: 'anms-add-request',
+  selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',
   styleUrls: ['./add-request.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddRequestComponent implements OnInit {
+  dialogModal = false;
+
+  dialogSetting: IDialogAlert = {
+    header: 'Add Request',
+    hasError: false,
+    message: 'Message is Here',
+    confirmButton: 'Register Now',
+    cancelButton: 'Cancel'
+  };
+
   activePriority: string = 'high';
   progressBarValue = 50;
   bufferValue = 70;
@@ -94,30 +105,53 @@ export class AddRequestComponent implements OnInit {
       return { needsExclamation: true };
     }
   }
-  addRequest() {
-    this.submited = true;
-    if (this.inputForm.valid) {
-      console.log(this.inputForm.value);
-      this._roter.navigate(['/workshop/body-shop']);
-    } else {
-      console.log('have an Error');
-      const controls = this.inputForm.controls;
-      for (const name in controls) {
-        if (controls[name].invalid) {
-          controls[name].markAsTouched();
-        }
-      }
+
+  dialogConfirm($event): void {
+    this.dialogModal = false;
+    if ($event && !this.dialogSetting.hasError) {
+      this._roter.navigate(['/workshop/body-shop']).then();
     }
   }
 
-  cancelForm() {
-    if (this.inputForm.dirty) {
-      confirm('Are You sure that you want to cancel?')
-        ? this._roter.navigate(['/workshop/body-shop'])
-        : null;
-    } else {
-      this._roter.navigate(['/workshop/body-shop']);
+  addRequest() {
+    this.submited = true;
+    if (this.inputForm.invalid) {
+      return;
     }
+    // console.log(this.inputForm.value);
+    // this._roter.navigate(['/workshop/body-shop']);
+    // } else {
+    // console.log('have an Error');
+    // const controls = this.inputForm.controls;
+    // for (const name in controls) {
+    //   if (controls[name].invalid) {
+    //     controls[name].markAsTouched();
+    //   }
+    // }
+    // }
+
+    this.dialogModal = true;
+    this.dialogSetting.isWarning = false;
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.message = 'Request added successfully';
+    this.dialogSetting.confirmButton = 'OK';
+    this.dialogSetting.cancelButton = undefined;
+  }
+
+  cancelForm() {
+    this.dialogModal = true;
+    this.dialogSetting.isWarning = true;
+    this.dialogSetting.message = 'Are you sure to cancel adding new reqeust?';
+    this.dialogSetting.confirmButton = 'Yes';
+    this.dialogSetting.cancelButton = 'No';
+
+    // if (this.inputForm.dirty) {
+    //   confirm('Are You sure that you want to cancel?')
+    //     ? this._roter.navigate(['/workshop/body-shop'])
+    //     : null;
+    // } else {
+    //   this._roter.navigate(['/workshop/body-shop']);
+    // }
   }
   changePriority(statusPriority): void {
     this.activePriority = statusPriority;

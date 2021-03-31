@@ -1,4 +1,6 @@
-<app-filter [setting]="filterSetting"></app-filter>
+<app-filter *ngIf="selectedTab === 'requestTab'" [setting]="filterSetting"></app-filter>
+<app-filter *ngIf="selectedTab === 'jobcardTab'" [setting]="jobCardTabFilterSetting"></app-filter>
+<app-filter *ngIf="selectedTab === 'technicianTab'" [setting]="technicianTabFilterSetting"></app-filter>
 <div class="table-container component_wrapper">
 
   <app-tab-view (selectedIndex)="selectedTab=$event">
@@ -6,7 +8,7 @@
       <div class="search-box">
         <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
         <button>
-          <img src="../../../assets/icons/search-solid.svg" alt="">
+          <img src="assets/icons/search-solid.svg" alt="">
         </button>
       </div>
       <button class="btn-download" disabled>

@@ -1,26 +1,33 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { SettingsFacade } from '@core/settings/settings.facade';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent implements OnInit {
   rowIndexTable = -1;
   activeLang: string;
-
-  constructor(
-    private settingFacade: SettingsFacade
-  ) {}
   @Input() setting: TableSetting;
+  @Input() tableData: Observable<any>;
+
+  constructor(private settingFacade: SettingsFacade, private changeDetection: ChangeDetectorRef) { }
   ngOnInit() {
     this.settingFacade.language.subscribe((lang) => {
       this.activeLang = lang;
+    });
+
+    this.tableData?.subscribe(x => {
+      console.log(x)
+      this.setting.data = x;
+      this.changeDetection.detectChanges();
     })
   }
 
@@ -153,11 +160,24 @@ export class TableComponent implements OnInit {
       return col.renderer == 'button' && i == this.rowIndexTable;
     else return col.renderer == 'button';
   }
+
+  selectedTRS = [];
+  selectTR(data) {
+    if(data[0] == 'open') {
+      this.selectedTRS.push(data[1]);
+    } else {
+      this.selectedTRS = this.selectedTRS.filter((x) => x != data[1]);
+    }
+  }
+  isSelected(index): boolean {
+    return this.selectedTRS.includes(index);
+  }
+
 }
 
 export interface TableSetting {
   columns: ColumnDifinition[];
-  data: any[];
+  data?: any[];
   rowSettings?: RowSettings;
 }
 
@@ -171,10 +191,12 @@ export interface ColumnDifinition {
   type?: ColumnType;
   thumbField?: string;
   renderer?: string;
+  rendererOptions?: RendererOptions;
   buttonType?: ButtonType;
   showOnHover?: boolean;
   textColor?: string;
   onClick?: Function;
+  hasJobCardButton?: boolean;
 }
 
 export enum ColumnType {
@@ -184,8 +206,16 @@ export enum ColumnType {
 }
 
 export interface RowSettings {
-  onClick: Function;
-  floatButton?: FloatButtonType[]
+  onClick?: Function;
+  floatButton?: FloatButtonType[];
+}
+
+export interface RendererOptions {
+  condition?: Function;
+  color?: string;
+  line1?: string;
+  line2?: string;
+  type?: string;
 }
 
 export enum ButtonType {
@@ -194,13 +224,14 @@ export enum ButtonType {
   makeDecision,
   jobCard,
   reject,
+  orderListReject,
   approve,
   confirm,
   receive
 }
 
 export interface FloatButtonType {
-  button: string,
-  color?: string,
+  button: string;
+  color?: string;
   onClick?: Function;
 }

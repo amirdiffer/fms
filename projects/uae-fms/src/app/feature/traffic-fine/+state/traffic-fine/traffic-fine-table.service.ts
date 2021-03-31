@@ -1,13 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TrafficFineTableStateModel } from './traffic-fine-table.entity';
+import { ITrafficFine } from '@models/traffic-fine';
+import { environment } from '@environments/environment';
+import { ResponseBody } from '@models/response-body';
+import { ITrafficFineStatistics } from '@models/statistics';
 
 @Injectable()
 export class TrafficFineTableService {
   constructor(private http: HttpClient) {}
 
-  loadAll(): Observable<TrafficFineTableStateModel[]> {
-    return this.http.get<TrafficFineTableStateModel[]>('');
+  loadAll(): Observable<ResponseBody<ITrafficFine[]>> {
+    return this.http.get<ResponseBody<ITrafficFine[]>>(
+      environment.baseApiUrl + 'traffic-fine'
+    );
+  }
+
+  loadStatistics(): Observable<ITrafficFineStatistics> {
+    return this.http.get<ITrafficFineStatistics>(
+      environment.baseApiUrl + 'traffic-fine/stats'
+    );
   }
 }

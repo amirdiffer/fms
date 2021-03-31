@@ -18,7 +18,22 @@ export class BodyShopRequestEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            return BodyShopRequestActions.allDataLoaded({ data });
+            return BodyShopRequestActions.allDataLoaded({ data: data.message });
+          }),
+          catchError((error) =>
+            of(BodyShopRequestActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+  loadStatistics$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(BodyShopRequestActions.loadStatistics),
+      mergeMap((action) =>
+        this.service.loadStatistics().pipe(
+          map((data) => {
+            return BodyShopRequestActions.allStatisticsLoaded({ data });
           }),
           catchError((error) =>
             of(BodyShopRequestActions.error({ reason: error }))

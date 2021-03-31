@@ -1,11 +1,12 @@
 import { createSelector } from '@ngrx/store';
 import { bodyShopJobCardAdapter } from './body-shop-job-card.entity';
 import { WorkshopSelectors } from '../../workshop.selectors';
+const { selectAll } = bodyShopJobCardAdapter.getSelectors();
 
 export class BodyShopJobCardSelectors {
   static selectAll = createSelector(
     WorkshopSelectors.bodyshopJobCardSelector,
-    bodyShopJobCardAdapter.setAll
+    selectAll
   );
 
   static message = createSelector(

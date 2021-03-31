@@ -1,0 +1,39 @@
+.upload-box {
+  .file-name-size {
+    font-size: 12px;
+  }
+
+  .space-drop {
+    display: block;
+    border: 2px dashed #0000005e;
+    text-align: center;
+    padding: 8px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    div {
+      font-size: 12px;
+    }
+  }
+}
+ngx-file-drop {
+  display: block;
+  margin-bottom: 10px;
+}
+.drag-and-drop-form {
+  ngx-file-drop {
+    ::ng-deep {
+      .ngx-file-drop__drop-zone {
+        height: 40px;
+      }
+    }
+  }
+}
+
+.upload-file-item {
+  height: 40px;
+  border-radius: 3px;
+
+  p {
+    margin: 0;
+  }
+}

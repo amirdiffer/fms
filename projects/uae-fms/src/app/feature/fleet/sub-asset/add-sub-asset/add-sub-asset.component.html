@@ -2,190 +2,159 @@
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{'forms.cancel'
       | translate}}</button>
-    <button *ngIf="formCurrentStep > 0" class="btn-primary-medium btn-scondary-green" type="button"
-            (click)="previous()">{{ 'forms.back' | translate }}</button>
+    <button *ngIf="formCurrentStep > 0 && ((!isSingleAsset && formCurrentStep < 2) || (isSingleAsset && formCurrentStep <=2))" class="btn-primary-medium btn-scondary-green" type="button"
+      (click)="previous()">{{ 'forms.back' | translate }}</button>
     <button class="btn-primary-medium add" *ngIf="formCurrentStep === 0" type="submit" (click)="next()">{{'forms.next'
       | translate }}</button>
-    <button *ngIf="formCurrentStep === 1" class="btn-primary-medium add" (click)="next()">{{ 'forms.upload' | translate }}</button>
-    <button *ngIf="formCurrentStep === 2" class="btn-primary-medium add" routerLink="..">{{ 'forms.generate' | translate }}</button>
+    <button *ngIf="formCurrentStep === 1 && !isSingleAsset" class="btn-primary-medium add" (click)="next()">{{ 'forms.upload' | translate
+      }}</button>
+    <button *ngIf="formCurrentStep === 2 || (isSingleAsset && formCurrentStep == 1)" class="btn-primary-medium add" (click)="submit()">{{ (isEdit ?
+      'forms.edit' : 'forms.save') | translate }}</button>
   </div>
 
   <div id='first_step' *ngIf='formCurrentStep === 0'>
 
-  <div class="form-section">
-    <h3 class="form-section__title">{{'sub_asset.sub_asset_specification' |
-      translate}}</h3>
+    <div class="form-section">
+      <h3 class="form-section__title">{{'sub_asset.sub_asset_specification' |
+        translate}}</h3>
 
-    <div class="row form-section__row">
-      <div class="col-12 col-md-4 p-field form-section__field options-select">
-        <span class="p-float-label">
-          <p-dropdown inputId="subAssetType" [autoDisplayFirst]="false"
-            [options]="subAssetTypes"
-            formControlName="subAssetType" optionLabel="name"></p-dropdown>
-          <label for="subAssetType">{{'sub_asset.sub_asset_type' | translate}} *
-          </label>
-          <anms-error
-            [showError]="hasError('subAssetType',subAssetForm,submitted)"
-            error="forms.feedback.required"></anms-error>
-        </span>
-      </div>
-    </div>
-    <div class="row form-section__row">
-      <div class="col-12 col-md-2 p-field form-section__field options-select">
-        <span class="p-float-label">
-          <p-dropdown inputId="make" [autoDisplayFirst]="false"
-            [options]="makes"
-            formControlName="make" optionLabel="name"></p-dropdown>
-          <label for="make">{{'sub_asset.make' | translate}} * </label>
-          <anms-error
-            [showError]="hasError('make',subAssetForm,submitted)"
-            error="forms.feedback.required"></anms-error>
-        </span>
-      </div>
-      <div class="col-12 col-md-4 p-field form-section__field options-select">
-        <span class="p-float-label">
-          <p-dropdown inputId="model" [autoDisplayFirst]="false"
-            [options]="models"
-            formControlName="model" optionLabel="name"></p-dropdown>
-          <label for="model">{{'sub_asset.model' | translate}} * </label>
-          <anms-error
-            [showError]="hasError('model',subAssetForm,submitted)"
-            error="forms.feedback.required"></anms-error>
-        </span>
-      </div>
-      <div class="col-12 col-md-2 p-field form-section__field
-        options-select">
-        <span class="p-float-label">
-          <p-dropdown inputId="year" [autoDisplayFirst]="false"
-            [options]="years"
-            formControlName="year" optionLabel="name"></p-dropdown>
-          <label for="year">{{'sub_asset.year' | translate}} * </label>
-          <anms-error
-            [showError]="hasError('year',subAssetForm,submitted)"
-            error="forms.feedback.required"></anms-error>
-        </span>
-      </div>
-      <div class="col-12 col-md-2 p-field form-section__field
-        options-select">
-        <span class="p-float-label">
-          <p-dropdown inputId="origin" [autoDisplayFirst]="false"
-            [options]="origins"
-            formControlName="origin" optionLabel="name"></p-dropdown>
-          <label for="origin">{{'sub_asset.origin' | translate}} *
-          </label>
-          <anms-error
-            [showError]="hasError('origin',subAssetForm,submitted)"
-            error="forms.feedback.required"></anms-error>
-        </span>
-      </div>
-    </div>
-
-
-  </div>
-  <div class="form-section">
-    <h3 class="form-section__title">{{'sub_asset.financial' |
-      translate}}</h3>
-    <div class="row form-section__row">
-      <div class="col-12 col-md-4 p-field form-section__field
-        dropdown-select">
-        <span class="p-float-label">
-          <p-dropdown inputId="policyType" [autoDisplayFirst]="false"
-            [options]="policyTypes"
-            formControlName="policyType" optionLabel="name"></p-dropdown>
-          <label for="policyType">{{'sub_asset.policy_type' |
-            translate}} * </label>
-          <anms-error
-            [showError]="hasError('policyType',subAssetForm,submitted)"
-            error="forms.feedback.required"></anms-error>
-        </span>
-      </div>
-
-      <div class="col-12 col-md-4 p-field form-section__field">
-        <span class="p-float-label">
-          <input formControlName="purchaseValue" pInputText
-            placeholder="{{'sub_asset.purchase_value' | translate}}*"
-            type="text">
-          <label>{{'sub_asset.purchase_value' | translate}}*</label>
-          <anms-error
-            [showError]="hasError('purchaseValue',subAssetForm,submitted)"
-            error="forms.feedback.required">
+      <div class="row form-section__row">
+        <div class="col-12 col-md-4 p-field form-section__field options-select">
+          <span class="p-float-label">
+            <p-dropdown inputId="subAssetType" [autoDisplayFirst]="false" (onChange)="setMakes($event.value)"
+              [options]="subAssetTypes" formControlName="subAssetType" optionLabel="name"></p-dropdown>
+            <label for="subAssetType">{{'sub_asset.sub_asset_type' | translate}} *
+            </label>
+          </span>
+          <anms-error [showError]="hasError('subAssetType',subAssetForm,submitted)" error="forms.feedback.required">
           </anms-error>
-        </span>
+        </div>
       </div>
+      <div class="row form-section__row">
+        <div class="col-12 col-md-2 p-field form-section__field options-select">
+          <span class="p-float-label">
+            <p-dropdown inputId="make" [autoDisplayFirst]="false" (onChange)="setModels($event.value)" [options]="makes"
+              formControlName="make" optionLabel="name"></p-dropdown>
+            <label for="make">{{'sub_asset.make' | translate}} * </label>
+          </span>
+          <anms-error [showError]="hasError('make',subAssetForm,submitted)" error="forms.feedback.required">
+          </anms-error>
+        </div>
+        <div class="col-12 col-md-4 p-field form-section__field options-select">
+          <span class="p-float-label">
+            <p-dropdown inputId="model" [autoDisplayFirst]="false" [options]="models" formControlName="model"
+              optionLabel="name"></p-dropdown>
+            <label for="model">{{'sub_asset.model' | translate}} * </label>
+          </span>
+          <anms-error [showError]="hasError('model',subAssetForm,submitted)" error="forms.feedback.required">
+          </anms-error>
+        </div>
+        <div class="col-12 col-md-2 p-field form-section__field">
+          <span class="p-float-label">
+            <input formControlName="year" pInputText placeholder="{{'sub_asset.year' | translate}}*" type="number">
+            <label>{{'sub_asset.year' | translate}}*</label>
+          </span>
+          <anms-error [showError]="hasError('year',subAssetForm,submitted)" error="forms.feedback.required">
+          </anms-error>
+        </div>
+
+        <div class="col-12 col-md-2 p-field form-section__field">
+          <span class="p-float-label">
+            <input formControlName="origin" pInputText placeholder="{{'sub_asset.origin' | translate}}*" type="text">
+            <label>{{'sub_asset.origin' | translate}}*</label>
+          </span>
+          <anms-error [showError]="hasError('origin',subAssetForm,submitted)" error="forms.feedback.required">
+          </anms-error>
+        </div>
+
+
+      </div>
+
+
     </div>
-  </div>
-  <div class="form-section component_wrapper"
-    formArrayName="warranties">
-    <h3 class="form-section__title"><span class='plus-icon'
-        (click)="addWarranty()">
-        <svg-icon src='../../../../../assets/icons/add.svg'
-          [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
-          '100%'}"></svg-icon>
-      </span>{{'sub_asset.warranty_items' | translate}}</h3>
-    <div class="row form-section__row" [formGroupName]="i" *ngFor="let
-      item of subAssetForm.get('warranties')['controls']; let i=
-      index;">
-      <div class="col-12 col-md-3 p-field form-section__field">
-        <span class="p-float-label">
-          <input formControlName="item" pInputText
-            placeholder="{{ 'sub_asset.item' | translate }}" type="text">
-          <label>{{'sub_asset.item' | translate}}</label>
-        </span>
-      </div>
-      <div class="col-12 col-md-3 p-field form-section__field
-        dropdown-select-input">
-        <p-dropdown class='w-50' inputId="unit" [options]="units"
-          formControlName="year"
-          optionLabel="name"></p-dropdown>
-        <span class="p-float-label form-section__field">
-          <input class='w-100' formControlName="duration" pInputText
-            placeholder="{{'sub_asset.duration' | translate}}"
-            type="text">
-          <label>{{'sub_asset.duration' | translate}}</label>
-        </span>
-      </div>
-      <div class="col-12 col-md-3 p-field form-section__field
-        date-input">
-        <span class="p-float-label">
-          <p-calendar inputId="basic" formControlName="startDate"></p-calendar>
-          <svg-icon class="date-icon"
-            src='../../../../../assets/icons/calendar-alt-regular.svg'
-            [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,
-            'height': '100%'}"></svg-icon>
-          <label>{{'sub_asset.warranty_start_date' | translate}} *
-          </label>
-          <!-- <anms-error
-            [showError]="hasError('startDate',subAssetForm.get('warranties')[i],submited)"
-            error="forms.feedback.required">
-          </anms-error> -->
-        </span>
-      </div>
-      <div class='col-12 col-md-3 p-field form-section__field'>
-        <div class='upload-box'>
-          <label class='space-drop' for='attach_picture_sub-asset'>
-            {{ 'sub_asset.upload_form.content' | translate }}
-          </label>
-          <input type='file' hidden id='attach_picture_sub-asset'>
+    <div class="form-section">
+      <h3 class="form-section__title">{{'sub_asset.financial' |
+        translate}}</h3>
+      <div class="row form-section__row">
+        <div class="col-12 col-md-4 p-field form-section__field
+        dropdown-select">
+          <span class="p-float-label">
+            <p-dropdown inputId="policyType" [autoDisplayFirst]="false" [options]="policyTypes"
+              formControlName="policyType" optionLabel="name"></p-dropdown>
+            <label for="policyType">{{'sub_asset.policy_type' |
+              translate}} * </label>
+          </span>
+          <anms-error [showError]="hasError('policyType',subAssetForm,submitted)" error="forms.feedback.required">
+          </anms-error>
+        </div>
+
+        <div class="col-12 col-md-4 p-field form-section__field">
+          <span class="p-float-label">
+            <input formControlName="purchaseValue" pInputText placeholder="{{'sub_asset.purchase_value' | translate}}*"
+              type="text">
+            <label>{{'sub_asset.purchase_value' | translate}}*</label>
+          </span>
+          <anms-error [showError]="hasError('purchaseValue',subAssetForm,submitted)" error="forms.feedback.required">
+          </anms-error>
         </div>
       </div>
     </div>
-  </div>
+    <div class="form-section component_wrapper" formArrayName="warranties">
+      <h3 class="form-section__title"><span class='plus-icon' (click)="addWarranty()">
+          <svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
+          '100%'}"></svg-icon>
+        </span>{{'sub_asset.warranty_items' | translate}}</h3>
+      <div class="row form-section__row" [formGroupName]="i" *ngFor="let
+      item of subAssetForm.get('warranties')['controls']; let i=
+      index;">
+        <div class="col-12 col-md-3 p-field form-section__field">
+          <span class="p-float-label">
+            <input formControlName="item" pInputText placeholder="{{ 'sub_asset.item' | translate }}" type="text">
+            <label>{{'sub_asset.item' | translate}}</label>
+          </span>
+        </div>
+        <div class="col-12 col-md-3 p-field form-section__field
+        dropdown-select-input">
+          <p-dropdown class='w-50' inputId="unit" [options]="units" formControlName="year" optionLabel="name">
+          </p-dropdown>
+          <span class="p-float-label form-section__field">
+            <input class='w-100' formControlName="duration" pInputText
+              placeholder="{{'sub_asset.duration' | translate}}" type="text">
+            <label>{{'sub_asset.duration' | translate}}</label>
+          </span>
+        </div>
+        <div class="col-12 col-md-3 p-field form-section__field
+        date-input">
+          <span class="p-float-label">
+            <p-calendar inputId="basic" formControlName="startDate"></p-calendar>
+            <svg-icon class="date-icon" src='assets/icons/calendar-alt-regular.svg' [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,
+            'height': '100%'}"></svg-icon>
+            <label>{{'sub_asset.warranty_start_date' | translate}} *
+            </label>
+            <!-- <anms-error
+            [showError]="hasError('startDate',subAssetForm.get('warranties')[i],submited)"
+            error="forms.feedback.required">
+          </anms-error> -->
+          </span>
+        </div>
 
-  <div class="form-section component_wrapper">
-    <div class="row form-section__row">
-      <div class="col-12 col-md-12 p-field form-section__field">
-        <span class="p-float-label">
-          <input formControlName="description" pInputText
-            placeholder="{{'sub_asset.description' | translate}}"
-            type="text">
-          <label>{{'sub_asset.description' | translate}}</label>
-        </span>
+        <div class='col-12 col-md-3 p-field form-section__field'>
+        <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [title]="" [preview]="false" [accept]="['.csv']" (uploadedEvent)="uploadWarrantyFiles($event,i)"></anms-uploader>
+        </div>
       </div>
     </div>
 
-
-
-  </div>
+    <div class="form-section component_wrapper">
+      <div class="row form-section__row">
+        <div class="col-12 col-md-12 p-field form-section__field">
+          <span class="p-float-label">
+            <input formControlName="description" pInputText placeholder="{{'sub_asset.description' | translate}}"
+              type="text">
+            <label>{{'sub_asset.description' | translate}}</label>
+          </span>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -197,19 +166,38 @@
       </div>
       <div class="ml-5 col-sm-auto">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="assetQuantity" id="multipleAsset" value ="estimate" Checked>
+          <input class="form-check-input" type="radio" formControlName="assetQuantity" name="assetQuantity"
+            id="multipleAsset" value="multi">
           <label class="form-check-label" for="multipleAsset">{{ 'sub_asset.multiple_assets' | translate }}</label>
         </div>
       </div>
       <div class="col-sm-auto">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="assetQuantity" id="singleAsset" value ="estimate" Checked>
+          <input class="form-check-input" type="radio" formControlName="assetQuantity" name="assetQuantity" id="singleAsset"
+            value="single">
           <label class="form-check-label" for="singleAsset">{{ 'sub_asset.single_asset' | translate }}</label>
+        </div>
+      </div>
+      <div *ngIf="isSingleAsset" class="row form-section__row">
+        <div class="col-12 col-md-12 p-field form-section__field">
+
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+                DPD
+            </span>
+            <span class="p-float-label">
+              <input formControlName="serialNumber" pInputText placeholder="{{'sub_asset.serial_number' | translate}}"
+              type="text">
+                <label for="inputgroup">{{'sub_asset.serial_number' | translate}}</label>
+            </span>
+        </div>
         </div>
       </div>
     </div>
 
-    <div class="second-step-upload-box">
+
+
+    <div *ngIf="!isSingleAsset" class="second-step-upload-box">
       <div class="row">
         <div class="col-12 d-flex justify-content-between file-name-size">
           <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
@@ -221,10 +209,11 @@
           </div>
         </div>
         <div class="col-lg-12 mt-2">
-          <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+          <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
+            (onFileLeave)="fileLeave($event)">
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
               <label (click)="openFileSelector()" style="cursor: pointer;">
-                <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
+                <small class="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
               </label>
             </ng-template>
           </ngx-file-drop>
@@ -241,3 +230,9 @@
   <app-table *ngIf='formCurrentStep === 2' [setting]='thirdStepTable'></app-table>
 
 </form>
+
+
+
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal" (confirm)="errorDialogModal=false">
+</alert-dialog>

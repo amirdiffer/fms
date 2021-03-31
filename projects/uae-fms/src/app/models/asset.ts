@@ -1,6 +1,6 @@
 export interface IAsset {
   businessCategoryId: number;
-  ownerShipId: number;
+  ownershipId: number;
   year: number;
   makeId: number;
   modelId: number;
