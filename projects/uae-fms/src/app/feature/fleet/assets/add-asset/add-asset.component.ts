@@ -882,7 +882,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         dpds: typeof this._asset.dpd === 'string' ? new Array(this._asset.dpd ) : this._asset.dpd,
       };
       formValue.warrantyItems.map((x) => {x.startDate = x.startDate.toISOString()})
-      console.log(formValue)
       this._facade.editAsset(formValue)
     }else{
       let formValue = {
