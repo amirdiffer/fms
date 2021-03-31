@@ -20,6 +20,7 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { environment } from '@environments/environment';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'anms-uploader',
@@ -28,6 +29,7 @@ import { environment } from '@environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UploaderComponent implements OnInit {
+  @Input() hasError = false
   @Input() maxSize = 5120;
   @Input() uploaderName = '';
   @Input() multiple = false;
@@ -51,7 +53,14 @@ export class UploaderComponent implements OnInit {
   fileIcon = 'assets/icons/files.svg';
   /* Ngx File Drop */
   public filesUpdloaded: NgxFileDropEntry[] = [];
-
+  dialogModalError = false;
+  dialogSettingError: IDialogAlert = {
+    header: 'Upload File',
+    hasError: true,
+    hasHeader: true,
+    message: `File format incorrect`,
+    confirmButton: 'OK',
+  }
   constructor(
     private _uploaderService: UploaderService,
     private changeDetector: ChangeDetectorRef
@@ -78,6 +87,11 @@ export class UploaderComponent implements OnInit {
             this.filesSize += fileSize;
             this.formData.append('doc', file);
             this.upload(index);
+            console.log(this.accept.includes(fileSuffix))
+          } else if (!this.accept.includes(fileSuffix)){
+            console.log('IS FALSEEEEEEEEEEEE')
+            this.dialogModalError = true;
+            this.changeDetector.markForCheck();
           }
         });
       }
@@ -151,4 +165,9 @@ export class UploaderComponent implements OnInit {
     this.files.splice(index, 1);
     this.setFiles();
   }
+
+  dialogErrorConfirm(value) {
+    this.dialogModalError = false
+  }
+
 }

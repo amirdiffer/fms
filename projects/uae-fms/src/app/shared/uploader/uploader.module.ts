@@ -6,6 +6,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ErrorModule } from '@shared/error/error.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 
 @NgModule({
   declarations: [UploaderComponent],
@@ -16,7 +17,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatProgressBarModule,
     NgxFileDropModule,
     AngularSvgIconModule,
-    ErrorModule
+    ErrorModule,
+    AlertDialogModule
   ]
 })
 export class UploaderModule { }

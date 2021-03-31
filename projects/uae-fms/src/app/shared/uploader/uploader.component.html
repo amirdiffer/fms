@@ -28,10 +28,11 @@
               </label>
             </ng-template>
           </ngx-file-drop>
-          <!-- <anms-error
+          <anms-error
+            *ngIf="hasError"
             [showError]="this.files.length == 0"
             error="forms.feedback.required">
-          </anms-error> -->
+          </anms-error>
         </div>
       </div>
     </div>
@@ -56,3 +57,6 @@
     </div>
   </div>
 </ng-container>
+
+
+<alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogErrorConfirm($event)"></alert-dialog>

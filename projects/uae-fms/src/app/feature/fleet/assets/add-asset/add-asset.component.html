@@ -5,7 +5,7 @@
         <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate }}</button>
         <button class="btn-primary-medium add" *ngIf="stepper.selectedIndex != 3"  (click)="next()">{{ 'forms.next' | translate }}</button>
         <button *ngIf="stepper.selectedIndex == 3 && !uploadReview" class="btn-primary-medium add" (click)="buttonUpload()">{{ 'forms.upload' | translate }}</button>
-        <button *ngIf="uploadReview" class="btn-primary-medium add" (click)="generateForm()">{{ 'forms.generate' | translate }}</button>
+        <button *ngIf="uploadReview" class="btn-primary-medium add" (click)="generateForm()">{{ (isEdit ? 'forms.edit' : 'forms.generate') | translate }}</button>
       </div>
       <div>
         <div class="row form-section__row">
@@ -113,11 +113,11 @@
                             </div>
                             <div class="col-12 col-md-8 row">
                               <div class="form-check col-6">
-                                <input class="form-check-input" type="radio" id="Kilometers"  formControlName="meterType" value ="Kilometer">
+                                <input class="form-check-input" type="radio" id="Kilometers"  formControlName="meterType" value ="KILOMETER">
                                 <label class="form-check-label" for="Kilometers">{{ 'assets.kilometers' | translate }}</label>
                               </div>
                               <div class="form-check col-6">
-                                <input class="form-check-input" type="radio"  id="By_Hours" formControlName="meterType" value ="Hour">
+                                <input class="form-check-input" type="radio"  id="By_Hours" formControlName="meterType" value ="HOUR">
                                 <label class="form-check-label" for="By_Hours">{{ 'assets.by_hour' | translate }}</label>
                               </div>
                             </div>
@@ -127,18 +127,18 @@
                     </div>
                     <!-- end form-section -->
                     <!-- form-section -->
-                    <div class="form-section component_wrapper" [formGroupName]="'purchasedFor'">
+                    <div class="form-section component_wrapper" [formGroupName]="'purchasedFor'" >
                       <h3 class="form-section__title">{{ 'assets.purchased_for' | translate }}</h3>
                       <div class="row form-section__row">
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="department" [placeholder]="'assets.department' | translate"  [options]="itemTypes" optionLabel="name" optionValue="id" formControlName="department" ></p-dropdown>
+                            <p-dropdown inputId="department" [placeholder]="'assets.department' | translate"  [options]="department" optionLabel="name" optionValue="id" formControlName="department" dataKey="id"></p-dropdown>
                             <label for="department">{{ 'assets.department' | translate }} *</label>
                           </span>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="operator"  [placeholder]="'assets.operator' | translate" [options]="itemTypes" optionLabel="name" optionValue="id" formControlName="operator"></p-dropdown>
+                            <p-dropdown inputId="operator"  [placeholder]="'assets.operator' | translate" [options]="operator" optionLabel="name" optionValue="id" formControlName="operator"></p-dropdown>
                             <label for="operator">{{ 'assets.operator' | translate }} *</label>
                           </span>
                         </div>
@@ -148,46 +148,7 @@
                     <!-- form-section -->
                     <div class="form-section component_wrapper">
                       <h3 class="form-section__title">{{ 'assets.upload_form.title' | translate }}</h3>
-                      <div class="row form-section__row">
-                        <div class="col">
-                          <div class="upload-box">
-                            <div class="row">
-                              <div class="col-12 d-flex justify-content-between file-name-size">
-                                <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
-                                <span>00 MG</span>
-                              </div>
-                              <div class="col-lg-12">
-                                <div class="w-100 p-0">
-                                  <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
-                                </div>
-                              </div>
-                              <div class="col-lg-12 mt-2">
-                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'vehicle')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" multiple="true">
-                                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                                    <label (click)="openFileSelector()" style="cursor: pointer;">
-                                      <svg-icon  class="drop-icon" src="assets/icons/cloud-computing.svg"
-                                        [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                                        <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-                                    </label>
-                                  </ng-template>
-                                </ngx-file-drop>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <ng-container *ngIf="allFileUpload.uploadVehicleDoc.length > 0">
-                          <div class="col-4 d-flex flex-md-column-reverse">
-                            <div *ngFor="let file of allFileUpload.uploadVehicleDoc;trackBy: trackUploadItem; let index=i;" class=" w-100 mb-2  align-self-end">
-                              <span class="upload-file-name">
-                                <p>{{file.relativePath}}</p>
-                                <span>
-                                  <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':12 , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>
-                                </span>
-                              </span>
-                            </div>
-                          </div>
-                        </ng-container>
-                      </div>
+                      <anms-uploader [multiple]="true" [preview]="false" [accept]="'.csv'" [hasError]="vehicleDocRequired" (uploadedEvent)="uploadVehicleFiles($event)"></anms-uploader>
                     </div>
                     <!-- end form-section -->
                   </form>
@@ -215,7 +176,7 @@
                               <span class="p-inputgroup p-float-label d-flex">
                                 <input pInputText formControlName="purchaseValue" [placeholder]=" 'assets.purchase_value' | translate"  type="text">
                                 <label>{{ 'assets.purchase_value' | translate }} *</label>
-                                <button *ngIf="policyType.value != '' && calculate != true " class="btn-primary-small calculate-button" (click)="calculate = true">{{ 'assets.calculate' | translate }}</button>
+                                <button *ngIf="policyType.value != '' && calculate != true " class="btn-primary-small calculate-button" (click)="calculateAssetPolicy()">{{ 'assets.calculate' | translate }}</button>
                                 <span *ngIf="policyType.value != ''" class="input-money-pipe">AED</span>
                               </span>
                               <anms-error
@@ -230,7 +191,7 @@
                           <div class="row">
                             <div class="col-12 col-md-3 p-field form-section__field date-input" [class.col-md-6]="policyType.value != ''" [class.col-md-12]="lifeCylceDate.value == '' && lifeCylceOdometer.value != '' && policyType.value != ''">
                               <span class="p-float-label">
-                                <p-calendar inputId="basic" formControlName="inServiceDate"></p-calendar>
+                                <p-calendar inputId="basic" formControlName="inServiceDate" [readonlyInput]="true"></p-calendar>
                                 <svg-icon class="date-icon"  [src]="calenderIcon" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
                                 <label>{{ 'assets.in_service_date' | translate }} * </label>
                               </span>
@@ -293,50 +254,7 @@
                         </div>
                         <div class="form-section component_wrapper">
                           <h3 class="form-section__title">{{ 'assets.upload_purchase_order' | translate }}</h3>
-                          <div class="row form-section__row">
-                            <div class="col">
-                              <div class="upload-box">
-                                <div class="row">
-                                  <div class="col-12 d-flex justify-content-between file-name-size">
-                                    <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
-                                    <span>00 MG</span>
-                                  </div>
-                                  <div class="col-lg-12">
-                                    <div class="w-100 p-0">
-                                      <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-12 mt-2">
-                                    <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'purchaseOrder')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                                      <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                                        <label (click)="openFileSelector()" style="cursor: pointer;">
-                                          <svg-icon  class="drop-icon" src="assets/icons/cloud-computing.svg"
-                                            [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                                            <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-                                        </label>
-                                      </ng-template>
-                                    </ngx-file-drop>
-                                    <anms-error
-                                      [showError]="this.allFileUpload.uploadPurchaseOrder.length == 0 && submitted_Financial"
-                                      error="forms.feedback.required">
-                                    </anms-error>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <ng-container *ngIf="allFileUpload.uploadPurchaseOrder.length > 0">
-                              <div class="col-4 d-flex flex-md-column-reverse">
-                                <div *ngFor="let file of allFileUpload.uploadPurchaseOrder; let index=i;" class=" w-100 mb-2  align-self-end">
-                                  <span class="upload-file-name">
-                                    <p>{{file.relativePath}}</p>
-                                    <span>
-                                      <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':12 , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>
-                                    </span>
-                                  </span>
-                                </div>
-                              </div>
-                            </ng-container>
-                          </div>
+                          <anms-uploader [multiple]="true" [preview]="false" [accept]="'.csv'" [hasError]="purchaseDocRequired" (uploadedEvent)="uploadPurchaseFiles($event)"></anms-uploader>
                         </div>
                       </div>
                       <div *ngIf="policyType.value != '' " class="col-12 col-md-7">
@@ -395,7 +313,7 @@
                                   <h3 class="form-section__title align-self-center m-0">{{ 'assets.warranty_items' | translate }}</h3>
                                 </span>
                                 <div  formArrayName="warrantyItems" *ngFor="let warranty of formGroupMaintenance.get('warrantyItems')['controls']; let i=index">
-                                  <div class="row" [formGroupName]="i">
+                                  <div class="row mt-2" [formGroupName]="i">
                                     <div class="col-12 col-md-6" [class.col-md-12]="periodicService.value != '' ">
                                       <div class="row">
                                         <div class="col-12 col-md-6 p-field form-section__field dropdown-select">
@@ -410,11 +328,11 @@
                                         </div>
                                         <div class="col-12 col-md-2 pr-0 p-field form-section__field dropdown-select">
                                           <span class="p-float-label">
-                                            <p-dropdown inputId="periodicService" formControlName="year" [placeholder]="'assets.year' | translate" [options]="itemTypes" optionLabel="name" optionValue="id"></p-dropdown>
+                                            <p-dropdown inputId="periodicService" formControlName="periodType" [placeholder]="'assets.year' | translate" [options]="periodType" optionLabel="name" optionValue="id"></p-dropdown>
                                             <label for="periodicService">{{ 'assets.year' | translate }}</label>
                                           </span>
                                           <anms-error
-                                            [showError]="formArrayHasError(submitted_Maintenance, warrantyItems,i,'year')"
+                                            [showError]="formArrayHasError(submitted_Maintenance, warrantyItems,i,'periodType')"
                                             error="forms.feedback.required">
                                           </anms-error>
                                         </div>
@@ -435,38 +353,26 @@
                                         <div class="col" [class.col-6]="periodicService.value != ''">
                                           <div class="p-field form-section__field date-input">
                                             <span class="p-float-label">
-                                              <p-calendar inputId="basic" formControlName="warrantyStartDate"></p-calendar>
+                                              <p-calendar inputId="basic" formControlName="startDate" [readonlyInput]="true" ></p-calendar>
                                               <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
                                               <label>{{ 'assets.warranty_start_date' | translate }}</label>
                                             </span>
                                             <anms-error
-                                              [showError]="formArrayHasError(submitted_Maintenance, warrantyItems,i,'warrantyStartDate')"
+                                              [showError]="formArrayHasError(submitted_Maintenance, warrantyItems,i,'startDate')"
                                               error="forms.feedback.required">
                                             </anms-error>
                                           </div>
                                         </div>
                                         <div class="col-12 col-md-6 p-field form-section__field" *ngIf="getWarrantyStartDat(i) != ''">
                                           <div class="toggle-select">
-                                            <p-inputSwitch></p-inputSwitch>
+                                            <p-inputSwitch formControlName="hasReminder"></p-inputSwitch>
                                             <label>{{ 'assets.set_reminder' | translate }} </label>
                                           </div>
                                         </div>
                                       </div>
                                     </div>
                                     <div class="col-6 col-md-3" [class.col-md-6]="periodicService.value != '' ">
-                                      <div class=" drag-and-drop-form">
-                                        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'warranty', i)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                                          <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                                            <label (click)="openFileSelector()" style="cursor: pointer;">
-                                                <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-                                            </label>
-                                          </ng-template>
-                                        </ngx-file-drop>
-                                      </div>
-                                      <anms-error
-                                        [showError]="formArrayHasError(submitted_Maintenance, warrantyItems,i,'fileUpload')"
-                                        error="forms.feedback.required">
-                                      </anms-error>
+                                      <anms-uploader [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="false" (uploadedEvent)="uploadWarrantyFiles($event , i)"></anms-uploader>
                                     </div>
                                   </div>
                                 </div>
@@ -527,36 +433,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="upload-box">
-                              <div class="row">
-                                <div class="col-12 d-flex justify-content-between file-name-size">
-                                  <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
-                                  <span>00 MG</span>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="w-100 p-0">
-                                    <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12 mt-2">
-                                  <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'maintenanceService')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                                      <label (click)="openFileSelector()" style="cursor: pointer;">
-                                        <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-                                      </label>
-                                    </ng-template>
-                                  </ngx-file-drop>
-                                  <anms-error
-                                    [showError]="hasError('uploadFile', formGroupGenerate, submitted_Generate)"
-                                    error="forms.feedback.required">
-                                  </anms-error>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        <anms-uploader [multiple]="true" [preview]="false" [accept]="'.csv'" [hasError]="maintenanceServiceDocRequired" (uploadedEvent)="maintenanceServiceFiles($event)"></anms-uploader>
                       </div>
                     </form>
                     <div *ngIf="uploadReview">
