@@ -19,12 +19,12 @@ export interface MovementRequestsPartialState {
   [FLEET_MOVEMENT_TEMPORARY_REQUESTS_FEATURE_KEY]: MovementRequestsState;
 }
 
-export const movementRequestsAdapter: EntityAdapter<IMovementRequest|IMovementStatistics> = createEntityAdapter<
+export const movementRequestsTemporaryAdapter: EntityAdapter<IMovementRequest|IMovementStatistics> = createEntityAdapter<
   IMovementRequest|IMovementStatistics
 
 >();
 
-export const initialState: MovementRequestsState = movementRequestsAdapter.getInitialState(
+export const initialState: MovementRequestsState = movementRequestsTemporaryAdapter.getInitialState(
   {
     error: null,
     loaded: null,

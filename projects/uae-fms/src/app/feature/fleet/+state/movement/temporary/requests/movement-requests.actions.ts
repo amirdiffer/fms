@@ -37,7 +37,7 @@ export class MovementRequestsActionsTemporary {
   );
 
   static movementRequestEditedSuccessfully = createAction(
-    '[MovementRequests] Movement Request added successfully',
+    '[MovementRequestsTemporary] Movement Request added successfully',
     props<{ data: any }>()
   );
 
