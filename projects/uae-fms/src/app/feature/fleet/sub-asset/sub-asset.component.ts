@@ -21,6 +21,8 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   statisticsSubscription!: Subscription;
 
   downloadBtn = 'assets/icons/download-solid.svg';
+
+  //#region Filter
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
@@ -48,11 +50,15 @@ export class SubAssetComponent implements OnInit, OnDestroy {
     }
   ];
 
+  //#endregion
+
+  //#region Table
   data$ = this.facade.subAsset$.pipe(
     map((x) => {
       return x.map((y) => {
         return {
           id: y.id,
+          avatarId:y.avatarId,
           Make: y.makeName,
           Model: y.modelName,
           Policy: y.policyTypeName,
@@ -60,8 +66,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           Serial_Number: y.dpd,
           Asset: y.assetTypeName,
           Date: '2 Days ago',
-          thumbField_Make: 'bmw.png',
-          thumbField: 'thumb1.png'
+          thumbField_Make: 'bmw.png'
         };
       });
     })
@@ -73,7 +78,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
         lable: 'tables.column.serial_number',
         type: 2,
         field: 'Serial_Number',
-        thumbField: 'thumbField',
+        thumbField: 'avatarId',
         width: '18em'
       },
       { lable: 'tables.column.date', type: 1, field: 'Date' },
@@ -121,6 +126,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       ]
     }
   };
+  //#endregion
 
   constructor(private facade: SubAssetFacade, private router: Router) {}
 
