@@ -8,7 +8,13 @@ import { SettingsFacade } from '@core/settings/settings.facade';
     <div
       class="float-button"
       [ngStyle]="{
-        right: lang == 'en' ? '20px' : null,
+        right: col.hasJobCardButton
+          ? lang == 'en'
+            ? '14em'
+            : null
+          : lang == 'en'
+          ? '20px'
+          : null,
         left: lang == 'ar' ? '20px' : null
       }"
     >
@@ -62,7 +68,7 @@ export class FloatButton implements OnInit {
   @Input() setting;
   @Input() lang;
 
-  assetPath = '../../../../assets/icons/';
+  assetPath = 'assets/icons/';
 
   constructor() { }
 

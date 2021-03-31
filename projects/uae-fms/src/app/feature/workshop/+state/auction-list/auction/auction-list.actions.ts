@@ -13,4 +13,10 @@ export class AuctionListActions {
     '[AuctionList] error occurred',
     props<{ reason: any }>()
   );
+
+  static updateRow = createAction(
+    '[AuctionList] Update Row',
+    props<{ data: IAuctionListModel }>()
+  );
+
 }

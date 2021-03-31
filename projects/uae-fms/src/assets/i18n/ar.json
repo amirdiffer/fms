@@ -195,6 +195,7 @@
     "pending": "قيد الانتظار",
     "complete": "اكتمال",
     "cancel": "يلغي",
+    "auction_list": "قائمة المزاد",
     "insurance_action": "إجراءات التأمين",
     "technical_inspection": "الفحص التقني",
     "insurance_claim": "تعويض من شركة التأمين",
@@ -211,7 +212,14 @@
     "tasks": "المهام",
     "started": "بدأت",
     "not_started": "لم يبدأ",
-    "closed": "مغلق"
+    "closed": "مغلق",
+    "job_card": "بطاقة عمل",
+    "workshop_manager": "مدير ورشة عمل",
+    "technician": "فنى",
+    "issue": "إصدار",
+    "todo": "لكى يفعل",
+    "doing": "عمل",
+    "done": "انتهى"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -704,7 +712,9 @@
       "reason": "سبب",
       "asset_type": "نوع الأصول",
       "quantity": "العدد",
-      "old_asset": "الأصل القديم"
+      "old_asset": "الأصل القديم",
+      "duration": "مدة",
+      "assign_to": "يسند إلى"
     },
     "request": {
       "request_type": "نوع الطلب",
@@ -884,7 +894,10 @@
           "title": "إرفاق صورة",
           "progressbar_title": "*.pdf",
           "content": "قم بسحب وإسقاط ملف أو انقر هنا"
-        }
+        },
+        "fleet_no": "أسطول لا",
+        "view_card": "بطاقة عرض",
+        "asset_type": "نوع الأصول"
       },
       "job_card": {},
       "technician": {
@@ -963,6 +976,8 @@
       "asset_policy": "وثيقة الأصل",
       "make_decision": "إتخذ قرار",
       "generate": "إنشاء",
+      "actual_market_value": "سعر السوق الفعلي",
+      "sold": "مباع",
       "upload_form": {
         "title": "إضافة مرفقات",
         "progressbar_title": "",
@@ -1121,6 +1136,7 @@
     }
   },
   "forms": {
+    "submit": "يقدم",
     "add": "إضافة",
     "save": "حفظ",
     "cancel": "يلغي",

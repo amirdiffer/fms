@@ -10,11 +10,7 @@ import { environment } from '../../../../environments/environment';
         *ngIf="vehicle.statusColor"
         [style]="'background :' + vehicle.statusColor + ';'"
       ></div>
-      <img
-        class="flag"
-        *ngIf="vehicle.flag"
-        src="../../../../assets/icons/flag.svg"
-      />
+      <img class="flag" *ngIf="vehicle.flag" src="assets/icons/flag.svg" />
       <img class="vehicle-image" [src]="fileServerBase + vehicle.thumb" />
       <span class="lables">
         <span class="vehicle-name">{{ vehicle.title }}</span>

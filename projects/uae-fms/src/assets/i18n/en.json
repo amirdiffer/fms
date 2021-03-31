@@ -192,6 +192,7 @@
     "pending": "Pending",
     "complete": "Complete",
     "cancel": "Cancel",
+    "auction_list": "Auction List",
     "insurance_action": "Insurance Action",
     "technical_inspection": "Technical Inspection",
     "insurance_claim": "Insurance Claim",
@@ -210,7 +211,14 @@
     "not_started": "Not Started",
     "closed": "Closed",
     "unpainted": "UnPainted",
-    "deducte": "Deducted"
+    "deducte": "Deducted",
+    "job_card": "Job Card",
+    "workshop_manager": "Workshop Manager",
+    "technician": "Technician",
+    "issue": "Issue",
+    "todo": "To Do",
+    "doing": "Doing",
+    "done": "Done"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -702,7 +710,9 @@
       "reason": "Reason",
       "asset_type": "Asset Type",
       "quantity": "Quantity",
-      "old_asset": "Old Asset"
+      "old_asset": "Old Asset",
+      "duration": "Duration",
+      "assign_to": "Assign To"
     },
     "request": {
       "request_type": "Request Type",
@@ -884,7 +894,10 @@
           "title": "Attach Picture",
           "progressbar_title": "*.pdf",
           "content": "Drag and Drop a File or click here"
-        }
+        },
+        "fleet_no": "Fleet No",
+        "view_card": "View Card",
+        "asset_type": "Asset Type"
       },
       "job_card": {},
       "technician": {
@@ -963,6 +976,8 @@
       "car_card": "Car Card",
       "asset_policy": "Asset Policy",
       "make_decision": "Make Decision",
+      "actual_market_value": "Actual Market Value",
+      "sold": "Sold",
       "upload_form": {
         "title": "Attach Docs",
         "progressbar_title": "",
@@ -1121,6 +1136,7 @@
     }
   },
   "forms": {
+    "submit": "Submit",
     "add": "Add",
     "order": "Order",
     "save": "Save",

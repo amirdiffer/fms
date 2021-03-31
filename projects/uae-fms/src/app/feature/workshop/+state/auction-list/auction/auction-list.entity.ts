@@ -1,6 +1,8 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export interface IAuctionListModel {
+  id: number;
+  statusColor: string;
   item: {
     title: string;
     dpd: string;
@@ -9,16 +11,17 @@ export interface IAuctionListModel {
   createdBy: string;
   reason: string;
   assignment: string;
-  marketValue: string;
+  estimatedMarket: string;
+  marketValue?: string;
   date: string;
   location: string;
-  removeIt: boolean;
+  removeItem: boolean;
 }
 
 export interface IAuctionListState extends EntityState<IAuctionListModel> {
   error?: any;
   loaded: boolean;
-  message: string;
+  message: Array<any>;
 }
 
 export const WORKSHOP_AUCTION_LIST_FEATURE_KEY = 'auctionList';
