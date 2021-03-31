@@ -2,7 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { MovementRequestsActionsTemporary } from './movement-requests.actions';
 import {
   initialState,
-  movementRequestsAdapter,
+  movementRequestsTemporaryAdapter,
   MovementRequestsState
 } from './movement-requests.entity';
 
@@ -16,7 +16,7 @@ const movementTemporaryRequestsReducer = createReducer(
   })),
 
   on(MovementRequestsActionsTemporary.allDataLoaded, (state, { data }) =>
-    movementRequestsAdapter.setAll(data, {
+    movementRequestsTemporaryAdapter.setAll(data, {
       ...state,
       loaded: true,
       error: null
@@ -30,7 +30,7 @@ const movementTemporaryRequestsReducer = createReducer(
   })),
 
   on(MovementRequestsActionsTemporary.statisticRequestLoaded, (state, { data }) =>
-    movementRequestsAdapter.setOne(data, {
+    movementRequestsTemporaryAdapter.setOne(data, {
       ...state,
       statistic: data,
       loaded: true,
@@ -49,7 +49,7 @@ const movementTemporaryRequestsReducer = createReducer(
   })),
 
   on(MovementRequestsActionsTemporary.movementRequestAddedSuccessfully, (state, { data }) =>
-    movementRequestsAdapter.addOne(data, { ...state, submitted: true })
+    movementRequestsTemporaryAdapter.addOne(data, { ...state, submitted: true })
   ),
 
   on(MovementRequestsActionsTemporary.editMovementRequest, (state, { data }) => ({
@@ -58,7 +58,7 @@ const movementTemporaryRequestsReducer = createReducer(
   })),
 
   on(MovementRequestsActionsTemporary.movementRequestEditedSuccessfully, (state, { data }) =>
-    movementRequestsAdapter.updateOne({ changes: data, id: data.id }, { ...state, submitted: true })
+    movementRequestsTemporaryAdapter.updateOne({ changes: data, id: data.id }, { ...state, submitted: true })
   ),
 
   on(MovementRequestsActionsTemporary.reject, (state, { data }) => ({
@@ -69,7 +69,7 @@ const movementTemporaryRequestsReducer = createReducer(
     ...state,
     assigned: null,
     rejected: null,
-    submitted: null,
+    submitted: false,
     error: null,
     message: null
   })),
