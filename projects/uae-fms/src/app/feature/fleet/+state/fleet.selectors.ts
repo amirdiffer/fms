@@ -27,6 +27,14 @@ export class FleetSelectors {
     FleetSelectors.featureSelector,
     (state) => state['movementRequests']
   );
+  static movementOverviewSelectorTemporary = createSelector(
+    FleetSelectors.featureSelector,
+    (state) => state['movementOverviewTemporary']
+  );
+  static movementRequestsSelectorTemporary = createSelector(
+    FleetSelectors.featureSelector,
+    (state) => state['movementRequestsTemporary']
+  );
 
   static operatorSelector = createSelector(
     FleetSelectors.featureSelector,

@@ -3,8 +3,8 @@
     <div class="upload-box">
       <div class="row">
         <ng-container>
-          <div class="col-12 d-flex my-1 justify-content-between file-name-size text-center">
-            <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
+          <div class="col-12 d-flex justify-content-between file-name-size text-center">
+            <span *ngIf="!hintIsHidden">{{ 'assets.upload_form.progressbar_title' | translate }}</span>
             <div  *ngIf="progressBarValue > 0" class="text-center" style="font-size: 1.3em">
               <span>{{ filesSize / 1024 | number }} MG</span>
               <p *ngIf="filesUploadSuccess > 0"><span style="color: green">{{ filesUploadSuccess }}</span> upload successfully</p>
@@ -17,13 +17,14 @@
             </div>
           </div>
         </ng-container>
-        <div class="col-lg-12 mt-2" *ngIf="(multiple) || (!multiple && files.length == 0)">
-          <ngx-file-drop [multiple]="multiple" [accept]="accept.toString()" dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , uploaderName)">
+        <div class="col-lg-12" *ngIf="(multiple) || (!multiple && files?.length == 0)">
+          <ngx-file-drop *ngIf="!isUploading" [multiple]="multiple" [accept]="accept.toString()" dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , uploaderName)">
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
               <label (click)="openFileSelector()" style="cursor: pointer;">
-                <svg-icon  class="drop-icon" src="assets/icons/cloud-computing.svg"
+
+                <svg-icon *ngIf="!iconIsHidden"  class="drop-icon" src="assets/icons/cloud-computing.svg"
                            [svgStyle]="{ 'width.px':'24' , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
+                <small  class="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
               </label>
             </ng-template>
           </ngx-file-drop>

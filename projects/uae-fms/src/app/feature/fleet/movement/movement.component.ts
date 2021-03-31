@@ -19,6 +19,7 @@ import { map } from 'rxjs/operators';
 import { ButtonType } from '@core/table/table.component';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
+
 @Component({
   selector: 'anms-movement',
   templateUrl: './movement.component.html',
@@ -69,6 +70,7 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
   };
   displaySuccessModal = false;
   displayErrorModal = false;
+  assignID: number;
 
   @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
 
@@ -220,6 +222,11 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
       onClick: (data, button?, col?) => {
         if (button == 'reject')
           this._movementRequestsFacade.rejecting(data.id);
+        else if (button == 'confirm') {
+          console.log(data)
+          this.assignID = data.id;
+          this.openConfirmModal();
+        }
       },
     }
   };
@@ -382,10 +389,25 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
     this.dialog.open(MovementConfirmComponent, {
       height: '600px',
       width: '800px',
-      data: 1,
+      data: this.assignID,
     });
   }
   rejectRow() {
     console.log('reject');
   }
+
+  successConfirm(confirmed) {
+    if (confirmed) {
+      this.displaySuccessModal = false;
+      this.displayErrorModal = false;
+      this._movementRequestsFacade.reset();
+    } else this.displaySuccessModal = false;
+  }
+
+  dialogConfirm($event) {
+    this.displayErrorModal = false;
+    this.displaySuccessModal = false;
+    this._movementRequestsFacade.reset();
+  }
+
 }

@@ -6,6 +6,7 @@ import { ResponseBody } from '@models/response-body';
 import { IAssetType } from '@models/asset-type.model';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
+import { IOperator } from '@models/operator';
 
 @Injectable({
   providedIn: 'root'
@@ -287,6 +288,12 @@ export class MovementService {
   assetTypes(): Observable<ResponseBody<IAssetType[]>> {
     return this._http.get<ResponseBody<IAssetType[]>>(
       environment.baseApiUrl + '/configuration/asset-type'
+    );
+  }
+
+  operators(): Observable<ResponseBody<IOperator[]>>{
+    return this._http.get<ResponseBody<IOperator[]>>(
+      environment.baseApiUrl + 'operator'
     );
   }
 

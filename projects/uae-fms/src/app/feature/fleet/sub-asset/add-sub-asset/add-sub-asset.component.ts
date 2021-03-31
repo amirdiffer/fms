@@ -433,6 +433,17 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     this.formCurrentStep -= 1;
   }
 
+  uploadWarrantyFiles(evt, index: number) {
+    if (!evt || !evt.files) {
+      return;
+    }
+    const docId = evt.files[0];
+    const docControl = (this.subAssetForm.controls['warranties'] as FormArray)
+      .at(index)
+      .get('doc');
+    docControl.setValue(docId);
+  }
+
   addWarranty(): void {
     this.warranties = this.subAssetForm.get('warranties') as FormArray;
     this.warranties.push(this.createWarrantyForm());
@@ -541,7 +552,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         duration: +warranty.duration,
         startDate: warranty.startDate,
         item: warranty.item,
-        docId: 1,
+        docId: +warranty.doc,
         hasReminder: true
       }))
     };

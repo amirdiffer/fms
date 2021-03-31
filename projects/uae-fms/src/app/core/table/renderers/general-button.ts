@@ -24,7 +24,7 @@ import { ButtonType } from '../table.component';
       <button
         class="btn-primary-medium"
         *ngIf="col.buttonType == buttonType.confirm"
-        (click)="col.onClick(row)"
+        (click)="clickButton('confirm')"
       >
         {{ 'buttons.confirm' | translate }}
       </button>
