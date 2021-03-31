@@ -125,6 +125,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
   private _user;
   users$ = this.userFacade.users$;
   roles$ = this.roleFacade.rolePermission$.pipe(map(y => y.map(x => ({ id: x.roleId, name: x.roleName }))));
+  profileDocId = null;
 
   constructor(
     injector: Injector,
@@ -149,6 +150,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
         this.id = +(params[params.length - 1].path);
         this.userService.getUserById((params[params.length - 1].path)).pipe(map(x => x.message)).subscribe(x => {
           if (x) {
+            this.profileDocId = x.profileDocId ? x.profileDocId : null;
             this._user = x;
             this.form.controls['portalInformation'].patchValue({
               employeeNumber: {
@@ -311,7 +313,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
         departmentId: f.portalInformation.department.id || 1,
         roleId: 1,
         isActive: f.portalInformation.activeEmployee,
-        profileDocId: 1,
+        profileDocId: this.profileDocId || 1,
         firstName: f.personalInformation.firstName,
         lastName: f.personalInformation.lastName,
         emails: f.personalInformation.emails.map(x => {
@@ -358,7 +360,6 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
           notifyByIssueClosePush: this._user.notifyByIssueClosePush || false
         }
 
-        console.log(userInfo);
         this.userFacade.editUser(userInfo);
       }
       else {
@@ -544,4 +545,13 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
     this.getEmployeesList.next(event)
     this.employeeId = event.query;
   }
+
+  uploadImage($event) {
+    if (!$event || !$event.files) {
+      return;
+    }
+    const docId = $event.files[0];
+    this.profileDocId = docId;
+  }
+
 }

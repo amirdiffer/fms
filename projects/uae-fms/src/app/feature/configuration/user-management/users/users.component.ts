@@ -59,7 +59,7 @@ export class UsersComponent implements OnInit {
         type: 1,
         field: 'User',
         renderer: 'userRenderer',
-        thumbField: 'picture'
+        thumbField: 'profileDocId'
       },
       {
         lable: 'tables.column.department',

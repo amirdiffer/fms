@@ -57,7 +57,9 @@ export class UploaderComponent implements OnInit {
     private changeDetector: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.files)
+  }
 
   public dropped(files: NgxFileDropEntry[], option: string, index?: number) {
     this.filesUpdloaded = files;

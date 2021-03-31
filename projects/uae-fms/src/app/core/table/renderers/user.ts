@@ -6,7 +6,7 @@ import { environment } from '../../../../environments/environment';
   template: `
     <div class="d-flex">
       <div>
-        <img class="user-image" [src]="fileServerBase + (user.picture?user.picture:'man-in-suit2.png')" />
+        <img class="user-image" [src]="fileServerBase + (user.profileDocId?user.profileDocId:'1')" />
       </div>
       <div class="d-flex flex-column">
         <span class="user-name">{{
