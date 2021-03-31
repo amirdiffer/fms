@@ -13,10 +13,14 @@ import { AssetConfigurationComponent } from './asset-configuration/asset-configu
 import { AddAssetPolicyComponent } from './asset-policy/add-asset-policy/add-asset-policy.component';
 import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-service/add-periodic-service.component';
 import { AddTypeComponent } from '@feature/configuration/asset-configuration/add-type/add-type.component';
+import { AddMakeComponent } from './asset-configuration/add-make/add-make.component';
+import { AddModelComponent } from '@feature/configuration/asset-configuration/add-model/add-model.component';
 
 const routes: Routes = [
   { path: 'asset-configuration', component: AssetConfigurationComponent },
   { path: 'add-asset-configuration', component: AddTypeComponent },
+  { path: 'asset-configuration/add-make', component: AddMakeComponent },
+  { path: 'asset-configuration/add-model', component: AddModelComponent },
   { path: 'business-category', component: BusinessCategoryComponent },
   { path: 'periodic-service', component: PeriodicServiceComponent },
   { path: 'asset-policy/add-asset-policy', component: AddAssetPolicyComponent },

@@ -12,9 +12,23 @@ export class AssetTypeFacade {
 
   error$ = this.store.pipe(select(AssetTypeSelectors.error));
 
+  submitted$ = this.store.pipe(select(AssetTypeSelectors.submitted));
+
   constructor(private store: Store<AssetTypePartialState>) {}
 
   loadAll() {
     this.store.dispatch(AssetTypeActions.loadAll());
+  }
+
+  addAssetType(data: any) {
+    this.store.dispatch(AssetTypeActions.addAssetType({ data }));
+  }
+
+  addMake(data: any) {
+    this.store.dispatch(AssetTypeActions.addMake({ data }));
+  }
+
+  addModel(data: any) {
+    this.store.dispatch(AssetTypeActions.addModel({ data }));
   }
 }

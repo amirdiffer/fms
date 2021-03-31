@@ -19,5 +19,53 @@ export class AssetTypeEffect {
     )
   );
 
+  addData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetTypeActions.addAssetType),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) =>
+            AssetTypeActions.assetTypeAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
+          ),
+          catchError((error) => of(AssetTypeActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  addMakeData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetTypeActions.addMake),
+      mergeMap((action) =>
+        this.service.postMake(action.data).pipe(
+          map((data) =>
+            AssetTypeActions.makeAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
+          ),
+          catchError((error) => of(AssetTypeActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  addModelData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetTypeActions.addModel),
+      mergeMap((action) =>
+        this.service.postModel(action.data).pipe(
+          map((data) =>
+            AssetTypeActions.modelAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
+          ),
+          catchError((error) => of(AssetTypeActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   constructor(private action$: Actions, private service: AssetTypeService) {}
 }
