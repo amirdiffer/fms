@@ -60,7 +60,7 @@
           <p class='font-weight-bold'>{{ 'configuration.users.upload_form.title' | translate }}</p>
         </div>
         <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false"
-          [preview]="true" [accept]="'.png'" (uploadedEvent)="uploadImage($event)" [files]="profileDocId?[profileDocId]:null"></anms-uploader>
+          [preview]="true" [accept]="'.png'" (uploadedEvent)="uploadImage($event)"></anms-uploader>
       </div>
     </div>
 
