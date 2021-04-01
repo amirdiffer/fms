@@ -46,9 +46,9 @@ export class LoginComponent implements OnInit {
      * Redirect to default route if user is logged in already
      */
     let jwt = window.localStorage.getItem('jwt');
-    /* if (jwt) {
+    if (jwt) {
       this.router.navigate(['/dashboard']);
-    } */
+    }
     this.settingFacade.language.subscribe((lang) => (this.activeLang = lang));
   }
 
@@ -107,7 +107,7 @@ export class LoginComponent implements OnInit {
       'jwt',
       'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTczOTk2MzIwNCwiaWF0IjoxNjEzODE5MjA0LCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfQVBQUk9WQUwifSx7ImF1dGhvcml0eSI6IkZMRUVUX0NSRUFURSJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfRURJVCJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfUEVSTUlTU0lPTiJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfVklFVyJ9XX0.PTaSo-b82v4LEHf4JLLpVF6giJKQvYslzvId40N6Fjc3yROe8xi3ROTtxz7BwZXkbqDvGn_uzJQK2CdRupdB5w'
     );
-    // this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard']);
 
     this.loginService
       .login({
