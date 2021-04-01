@@ -27,4 +27,8 @@ export class TaskMasterFacade {
   editTaskMaster(data: any) {
     this.store.dispatch(TaskMasterActions.editTaskMaster({ data }));
   }
+
+  reset() {
+    this.store.dispatch(TaskMasterActions.resetParams());
+  }
 }
