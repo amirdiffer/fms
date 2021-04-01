@@ -148,15 +148,15 @@ export class AssetsService {
         floatButton: [
           {
             button: 'edit',
-            color: '#3F3F3F'
+            color: '#3F3F3F',
           },
           {
             button: 'download'
           },
           {
             button: 'external',
-            onClick: (col, data) => {
-              this.router.navigate([`/fleet/assets/1/registration`]);
+            onClick: (col, data ,  button?) => {
+              this.router.navigate([`/fleet/assets/${data.id}/registration`]);
             }
           },
           {

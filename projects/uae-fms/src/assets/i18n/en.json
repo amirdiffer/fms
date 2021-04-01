@@ -465,6 +465,7 @@
     "business_category": "Business Category",
     "ownership": "Ownership",
     "year": "Year",
+    "type": "Type",
     "make": "Make",
     "model": "Model",
     "color": "Color",

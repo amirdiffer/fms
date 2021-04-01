@@ -466,6 +466,7 @@
     "business_category": "فئة العمل",
     "ownership": "الملكية",
     "year": "سنة",
+    "type":"النوع",
     "make": "ماركة",
     "model": "موديل",
     "color": "اللون",
