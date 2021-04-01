@@ -25,19 +25,19 @@ export class UsersComponent implements OnInit {
     },
     {
       filterTitle: 'statistic.total',
-      filterCount: '356',
+      filterCount: '',
       filterTagColor: '#6EBFB5',
       onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
-      filterCount: '124',
+      filterCount: '',
       filterTagColor: '#6870B4',
       onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
-      filterCount: '12',
+      filterCount: '',
       filterTagColor: '#BA7967',
       onActive(index: number) { }
     }
@@ -112,10 +112,44 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private facade: UsersFacade,
-    private router: Router
+    private router: Router,
+    private changeDetection: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.statistics$.subscribe(x => {
+      if (x) {
+        this.filterCard = [
+          {
+            filterTitle: 'statistic.this_month',
+            filterCount: '',
+            filterTagColor: '',
+            isCalendar: true,
+            onActive(index: number) { }
+          },
+          {
+            filterTitle: 'statistic.total',
+            filterCount: `${x.activeUsersNumber + x.inActiveUsersNumber}`,
+            filterTagColor: '#6EBFB5',
+            onActive(index: number) { }
+          },
+          {
+            filterTitle: 'statistic.active',
+            filterCount: `${x.activeUsersNumber}`,
+            filterTagColor: '#6870B4',
+            onActive(index: number) { }
+          },
+          {
+            filterTitle: 'statistic.inactive',
+            filterCount: `${x.inActiveUsersNumber}`,
+            filterTagColor: '#BA7967',
+            onActive(index: number) { }
+          }
+        ];
+
+        this.changeDetection.detectChanges();
+      }
+    })
   }
 }

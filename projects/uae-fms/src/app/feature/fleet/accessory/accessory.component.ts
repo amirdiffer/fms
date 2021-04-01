@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectorRef
 } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { TableSetting } from '@core/table';
@@ -87,6 +88,12 @@ export class AccessoryComponent implements OnInit, OnDestroy {
     }))
   );
 
+  constructor(
+    private _accessoryService: AccessoryService,
+    private _accessoryFacade: AccessoryFacade,
+    private changeDetection: ChangeDetectorRef
+  ) { }
+
   ngOnInit(): void {
     this.openAdd$ = this._accessoryService.getAddForm().subscribe((open) => {
       this.openAdd = open;
@@ -102,14 +109,10 @@ export class AccessoryComponent implements OnInit, OnDestroy {
           this.filterCard[index].filterCount =
             statistic[this.filterCard[index].field];
         });
+        this.changeDetection.detectChanges();
       }
     });
   }
-
-  constructor(
-    private _accessoryService: AccessoryService,
-    private _accessoryFacade: AccessoryFacade
-  ) { }
 
   addAccessory() {
     this._accessoryService.loadAddForm(true);
