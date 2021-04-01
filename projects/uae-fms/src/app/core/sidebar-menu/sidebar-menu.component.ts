@@ -87,10 +87,10 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
               name: 'sidebar.fleets.movement.temporary',
               route: '/fleet/movement/temporary'
             },
-            {
+            /* {
               name: 'sidebar.fleets.movement.iserve',
               route: '/fleet/movement/iserve'
-            }
+            } */
           ]
         }
       ]
@@ -161,12 +161,12 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         }
       ]
     },
-    {
+  /*{
       name: 'sidebar.report',
       icon: 'report',
       route: '/report',
       disabled: true
-    },
+    }, */
     {
       name: 'sidebar.configuration.~',
       icon: 'configuration',
