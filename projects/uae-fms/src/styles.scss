@@ -55,6 +55,9 @@
     margin: 1em 0 1em;
     background-color: #fff;
   }
+  .card-wrapper{
+    margin: 1em 0 1em;
+  }
   @include elementTypography(
     'h1',
     $fms-green-h1-font,
@@ -205,8 +208,12 @@
     app-filter {
       .filter-wrapper-container {
         .card {
-          background-color: transparent !important;
+          background-color: $fms-black-body1-bg !important;
         }
+        .statistic-button{
+          background-color:#1b1d20;
+        }
+        
       }
     }
     .mat-stepper-horizontal {
@@ -332,6 +339,9 @@
     .filter-wrapper-container {
       .card {
         border: none;
+      }
+      .statistic-button{
+        background: #fff;
       }
     }
   }

@@ -1,10 +1,8 @@
 <!-- start table -->
 <div>
-    <ng-container *ngIf="selectedTab =='requestTab'">
-        <div class="filter-container">
-            <app-filter [setting]="filterSetting"></app-filter>
-        </div>
-    </ng-container>
+    <div class="filter-container" *ngIf="selectedTab =='requestTab'">
+        <app-filter [setting]="filterSetting"></app-filter>
+    </div>
     <div class="table-container component_wrapper">
         <div class="pt-1">
             <div>

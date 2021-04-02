@@ -1,17 +1,60 @@
 .filter-wrapper-container {
-  .parent {
-    height: 100% !important;
-    margin: 0 20px;
-    border-radius: 5px;
+  position: relative;
+  .statistic-button{
+    position: absolute;
+    right: 0;
+    top: -2.4em;
+    height: 2.6em;
+    width: 2.6em;
+    border-radius: .3em;
     cursor: pointer;
-    user-select: none;
-
+    span{
+      position: relative;
+      display: block;
+      svg-icon{
+        position: absolute;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, 35%);
+        ::ng-deep{
+          svg{
+            fill:#0DA06E;
+          }
+        }
+      }
+    }
+    &.button-show{
+      background:#0DA06E;
+      top: -3em;
+      height: 2.2em;
+      width: 2.2em;
+      svg-icon{
+        ::ng-deep{
+          transform: translate(-50%, 15%) !important;
+          svg{
+            fill:#fff !important;
+          }
+        }
+      }
+    }
+  }
+  .statistics{
+    margin: 0 20px;
     &:last-child {
       margin-right: 0;
+      .card{
+        z-index: 2;
+      }
     }
     &:first-child {
       margin-left: 0;
     }
+  }
+  .parent {
+    height: 100% !important;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
   }
 
   .parent:hover {
