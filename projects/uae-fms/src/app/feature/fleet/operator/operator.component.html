@@ -1,4 +1,4 @@
-<div class="statistic-card">
+<div class="statistic-card" style="display: none;">
   <app-filter *ngIf="false" [setting]='filterCard'></app-filter>
   <app-filter [setting]='filterCardOverView'></app-filter>
 </div>
@@ -7,18 +7,18 @@
     <div class="search-box">
       <input placeholder="{{'search.search_in_columns' | translate}}" type="text">
       <button>
-        <img src="../../../assets/icons/search-solid.svg" alt="">
+        <img src="assets/icons/search-solid.svg" alt="">
       </button>
     </div>
     <button class="btn-download" disabled>
       <svg-icon [src]="downloadBtn"></svg-icon>
     </button>
-    <button class="btn-primary-small" [routerLink]="'add'"><i>+</i><a>{{'search.add' | translate}}</a></button>
+    <button class="btn-primary-small" routerLink='add-operator'><i>+</i><a>{{'search.add' | translate}}</a></button>
   </div>
   <div class="">
-    <app-table [setting]='operator_Table'></app-table>
+    <app-table [setting]='operator_Table' [tableData]="data$"></app-table>
   </div>
 </div>
-<ng-container *ngIf="showOverView">
+<!-- <ng-container *ngIf="showOverView">
   <anms-over-view-operator></anms-over-view-operator>
-</ng-container>
+</ng-container> -->

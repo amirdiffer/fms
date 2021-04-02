@@ -6,15 +6,22 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { DashboardModule } from '../../dashboard/dashboard.module';
 import { FilterModule } from '@core/filter';
+import { RequestTabOverviewComponent } from '../body-shop/request-tab-overview/request-tab-overview.component';
+import { SharedModule } from '@shared/shared.module';
+import { TableModule } from '@core/table';
+import { MapModule } from '@core/map-view';
 
 @NgModule({
-  declarations: [],
+  declarations: [RequestTabOverviewComponent],
   imports: [
     CommonModule,
     FilterModule,
     BodyShopRoutingModule,
     AngularSvgIconModule,
-    DashboardModule
+    DashboardModule,
+    SharedModule,
+    TableModule,
+    MapModule
   ]
 })
 export class BodyShopModule {}

@@ -15,13 +15,16 @@ const auctionListReducer = createReducer(
     message: null
   })),
   on(AuctionListActions.allDataLoaded, (state, { data }) =>
-    auctionListAdapter.setAll(data, { ...state, loaded: true, error: null })
+    auctionListAdapter.setAll(data, { ...state, loaded: true, error: null, message: data })
   ),
   on(AuctionListActions.error, (state, { reason }) => ({
     ...state,
     error: reason,
     loaded: true
-  }))
+  })),
+  on(AuctionListActions.updateRow, (state, { data }) => (
+    auctionListAdapter.updateOne({id: data.id, changes: {removeItem: true}, }, {...state, message: []})
+  ))
 );
 
 export function reducer(state: IAuctionListState, action: Action) {

@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import {
-  FleetStatusAssetFacade,
-  FleetStatusSubAssetFacade
-} from '../+state/fleet-status';
-import { TableSetting } from '@core/table';
+import { FleetStatusAssetFacade, FleetStatusSubAssetFacade } from '../+state/fleet-status';
+import { ColumnType, TableSetting } from '@core/table';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-fleet-status',
@@ -35,40 +34,71 @@ export class FleetStatusComponent implements OnInit {
         lable: 'tables.column.usage',
         field: 'usage',
         type: 1
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
-    data: [
-      {
-        statusColor: '#009EFF',
-        Status_Category: 'Inactive',
-        status: 'Storage, Registration, Workshop',
-        tag: 'Wait Permission',
-        usage: '23345'
+    data: [],
+    rowSettings: {
+      onClick: (event) => {
+        console.log(event)
       },
-      {
-        statusColor: '#FCB614',
-        Status_Category: 'Active',
-        status: 'Available, Reuse',
-        tag: 'Assigned',
-        usage: '23345'
-      },
-      {
-        statusColor: '#FE5F4F',
-        Status_Category: 'X Fleet',
-        status: 'End Contract, Total Loss, Auction',
-        tag: 'Sell',
-        usage: '23345'
-      }
-    ]
+      floatButton: [{
+        button: 'edit',
+        onClick: (col, data) => {
+          this._router.navigate(['configuration/fleet-status/edit-fleet-status/' + data.id]);
+        }
+      }]
+    }
   };
+  selectedTab: string;
+  asset$ = this.fleetStatusAssetFacade.fleetStatus$.pipe(map(x => x.map((responseObject) => {
+    const asset = {
+      statusColor: '#FE5F4F',
+      Status_Category: responseObject.category,
+      status: responseObject.status,
+      tag: responseObject.tag,
+      usage: responseObject.totalCount
+    };
+    if (responseObject.category.toLowerCase() === 'active') {
+      asset.statusColor = '#FCB614';
+    } else if (responseObject.category.toLowerCase() === 'inactive') {
+      asset.statusColor = '#009EFF';
+    } else {
+      asset.statusColor = '#FE5F4F';
+    }
+    this.tableSetting.data.push(asset);
+  })));
 
   constructor(
     private fleetStatusAssetFacade: FleetStatusAssetFacade,
-    private fleetStatusSubAssetFacade: FleetStatusSubAssetFacade
-  ) {}
+    private fleetStatusSubAssetFacade: FleetStatusSubAssetFacade,
+    private _router: Router
+  ) { }
 
   ngOnInit(): void {
     this.fleetStatusAssetFacade.loadAll();
     this.fleetStatusSubAssetFacade.loadAll();
+  }
+  addClicked(e: Event) {
+    switch (this.selectedTab) {
+      case 'fleetStatusAssetTab':
+        this._router.navigate(['configuration/fleet-status/add-fleet-status']);
+        break;
+      case 'fleetStatusSubAssetTab':
+        this._router.navigate(['configuration/fleet-status/add-fleet-status'], {
+          queryParams: { id: 'fleetStatusSubAssetTab' }
+        });
+        break;
+      default:
+        this._router.navigate(['configuration/fleet-status']);
+        break;
+    }
   }
 }

@@ -25,25 +25,35 @@
         <h3 class="form-section__title">{{ 'movement.request.user_information' | translate }}</h3>
         <div class="row form-section__row">
             <!-- start department -->
-            <div class="col-12 col-md-4 p-field form-section__field">
+            <div class="col-12 col-md-6 p-field form-section__field">
+              <div class="autocomplete-select">
                 <span class="p-float-label">
-                    <input pInputText placeholder="{{ 'movement.request.department' | translate }} *"
-                        formControlName="department" required type="text">
+                  <p-autoComplete formControlName="department"
+                                  (completeMethod)="filterOrganizations($event)"
+                                  [suggestions]="organizationSuggests" field="name"
+                                  [minLength]="1"></p-autoComplete>
+                        <i class="pi pi-search"></i>
                     <label>{{ 'movement.request.department' | translate }} *</label>
                 </span>
+              </div>
             </div>
             <!-- end department -->
             <!-- start operator -->
-            <div class="col-12 col-md-3 p-field form-section__field">
+            <div class="col-12 col-md-6 p-field form-section__field">
+              <div class="autocomplete-select">
                 <span class="p-float-label">
-                    <input pInputText placeholder="{{ 'movement.request.operator' | translate }} *"
-                        formControlName="operator" required type="text">
+                  <p-autoComplete formControlName="operator"
+                                  (completeMethod)="filterOperators($event)"
+                                  [suggestions]="operatorSuggests" field="name"
+                                  [minLength]="1"></p-autoComplete>
+                      <i class="pi pi-search"></i>
                     <label>{{ 'movement.request.operator' | translate }} *</label>
                 </span>
+              </div>
             </div>
             <!-- end operator -->
             <!-- start comment -->
-            <div class="col-12 col-md-5 p-field form-section__field">
+            <div class="col-12 col-md-12 p-field form-section__field">
                 <span class="p-float-label">
                     <input pInputText placeholder="{{ 'movement.request.comment' | translate }}"
                         formControlName="comment" type="text">
@@ -140,11 +150,11 @@
               <div class="col-12 col-md-8">
                 <div class="row">
                   <div class="form-check col-6">
-                    <input class="form-check-input" formControlName="fuelCart" type="radio" name="fuelCart" id="Yes" value ="true">
+                    <input class="form-check-input" formControlName="fuelCart" type="radio" name="fuelCart" id="Yes" [value] ="true">
                     <label class="form-check-label" for="Yes">{{ 'movement.request.yes' | translate }}</label>
                   </div>
                   <div class="form-check col-6">
-                    <input class="form-check-input" formControlName="fuelCart" type="radio" name="fuelCart" id="No" value ="false">
+                    <input class="form-check-input" formControlName="fuelCart" type="radio" name="fuelCart" id="No" [value] ="false">
                     <label class="form-check-label" for="No">{{ 'movement.request.no' | translate }}</label>
                   </div>
                 </div>
@@ -163,10 +173,13 @@
         </div>
         <div class="d-flex justify-content-end button-container">
             <button mat-dialog-close class="btn-primary-small btn-scondary-green">{{ 'movement.request.cancel' | translate }}</button>
-            <button class="btn-primary-small add">{{ 'movement.request.save_assignment' | translate }}</button>
+            <button class="btn-primary-small add" (click)="submit()">{{ 'movement.request.save_assignment' | translate }}</button>
         </div>
     </div>
 
 
 </form>
 <!-- end form -->
+
+<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="successConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="dialogConfirm($event)"></alert-dialog>

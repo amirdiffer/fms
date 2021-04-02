@@ -3,13 +3,13 @@
     <div class="search-box">
       <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
       <button>
-        <img src="../../../assets/icons/search-solid.svg" alt="">
+        <img src="assets/icons/search-solid.svg" alt="">
       </button>
     </div>
     <button class="btn-download" disabled>
       <svg-icon [src]="downloadBtn"></svg-icon>
     </button>
-    <button class="btn-primary-small" [routerLink]="'./add-category'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
+    <button class="btn-primary-small" [routerLink]="'./add-business-category'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
   </div>
-  <app-table [setting]='businessCategory_Table'></app-table>
+  <app-table [setting]='businessCategory_Table' [tableData]="businessCategory$"></app-table>
 </div>

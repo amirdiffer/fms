@@ -1,7 +1,19 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { AccessoryService } from '../accessory.service';
 import { TableSetting } from '@core/table';
+import { Router, ActivatedRoute } from '@angular/router';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { AccessoryFacade } from '@feature/fleet/+state/accessory';
+import { map } from 'rxjs/operators';
+import { ThrowStmt } from '@angular/compiler';
+import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
+import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 
 @Component({
   selector: 'add-accessory',
@@ -11,10 +23,6 @@ import { TableSetting } from '@core/table';
 })
 export class AddAccessoryComponent implements OnInit {
   public inputForm: FormGroup;
-  constructor(
-    private _fb: FormBuilder,
-    private _accessoryService: AccessoryService
-  ) {}
 
   accessory = [
     { name: 'Accessory Type 1', id: 1 },
@@ -27,6 +35,44 @@ export class AddAccessoryComponent implements OnInit {
     { name: 'assignedTo Type 2', id: 2 },
     { name: 'assignedTo Type 3', id: 3 }
   ];
+
+  assetsB;
+  subAssetsB;
+  employee = []
+
+  formSubmitted = false;
+  formChanged = false;
+  dialogModalAdd = false;
+  dialogModalError = false;
+  dialogModalCancel = false;
+
+  //#region Dialogs
+  dialogSettingAdd: IDialogAlert = {
+    header: 'Accessory',
+    hasError: false,
+    hasHeader: true,
+    message: 'New Accessory Successfully Added',
+    confirmButton: 'OK'
+  };
+  dialogSettingCancel: IDialogAlert = {
+    header: 'Accessory',
+    hasError: false,
+    isWarning: true,
+    hasHeader: true,
+    message: 'Are you sure that you want to cancel the Accessory creation?',
+    confirmButton: 'Yes',
+    cancelButton: 'No'
+  };
+
+  dialogSettingError: IDialogAlert = {
+    header: 'Accessory',
+    hasError: true,
+    isWarning: false,
+    hasHeader: true,
+    message: 'Please fill in all the required fields.',
+    confirmButton: 'OK'
+  };
+  //#endregion
 
   accessory_Table: TableSetting = {
     columns: [
@@ -41,67 +87,156 @@ export class AddAccessoryComponent implements OnInit {
         lable: 'tables.column.quantity',
         type: 1,
         field: 'Quantity',
-        width: 100
+        width: 150,
+        sortable: true
       }
     ],
-    data: [
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      }
-    ]
+    data: []
   };
+  assets: [];
+  subAssets: [];
+
+  constructor(
+    private _fb: FormBuilder,
+    private _accessoryService: AccessoryService,
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _facade: AccessoryFacade,
+    private changeDetector: ChangeDetectorRef,
+    private subAssetFacade: SubAssetFacade,
+    private assetMasterFacade: AssetMasterFacade,
+  ) { }
+
+  accessory$ = this._facade.accessory$.pipe(map(x => x.map((item) => {
+    return {
+      statusColor: '#00AFB9',
+      Item: item.itemName,
+      Asset_SubAsset: item.assignedToEntity,
+      Assigned_To: item.assignedToEmployeeId,
+      Quantity: item.quantity
+    };
+  })));
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      itemName: [''],
-      assignTo: [''],
-      search: [''],
-      accessoryType: [''],
-      quantity: [''],
-      assignedTo: ['']
+      itemName: ['', Validators.required],
+      assignedToType: ['ASSET'],
+      assignedToEntity: ['', Validators.required],
+      accessoryTypeId: ['', Validators.required],
+      quantity: ['', Validators.required],
+      assignedToEmployeeId: ['']
     });
+
+    this._facade.loadAll();
+    this.subAssetFacade.loadAll();
+    this.assetMasterFacade.loadAll();
+
+    this.subAssetFacade.subAsset$.subscribe(x => {
+      this.subAssetsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
+    });
+    this.assetMasterFacade.assetMaster$.subscribe(x => {
+      this.assetsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
+    });
+    this._accessoryService.users().subscribe((employee) => {
+      this.employee = employee.message.map(user => {
+        return {
+          id: user.id,
+          name: user.firstName + ' ' + user.lastName
+        }
+      });
+    })
+
+
+    this.inputForm.valueChanges.subscribe(() => {
+      this.formChanged = true;
+    });
+
+    this._facade.submitted$.subscribe(x => {
+      if (x) {
+        this.dialogModalAdd = true;
+        this.dialogSettingError.hasError = false;
+        this.changeDetector.detectChanges();
+      }
+    });
+
+    this._facade.error$.subscribe(x => {
+      if (x?.error) {
+        this.dialogModalError = true;
+        this.dialogSettingError.hasError = true;
+        this.changeDetector.detectChanges();
+      }
+    })
+
+  }
+
+  filterAssets(event) {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    this.assets = this.assetsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+  }
+
+  filterSubAssets(event) {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    this.subAssets = this.subAssetsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+  }
+
+  assetChanged($event) {
+    console.log($event);
+  }
+
+  hasError(controlName) {
+    const control: FormControl = this.inputForm.get(controlName) as FormControl;
+
+    if (control.dirty && control.invalid) {
+      return true;
+    }
+
+    return false;
+  }
+
+  submit() {
+    this.formSubmitted = true;
+    if (this.inputForm.invalid) {
+      this.inputForm.markAllAsTouched();
+      return;
+    } else {
+      const d = this.inputForm.getRawValue();
+      const _data = {
+        "itemName": d.itemName,
+        "assignedToType": d.assignedToType,
+        "assignedToEntity": d.assignedToEntity.id,
+        "accessoryTypeId": d.accessoryTypeId,
+        "quantity": d.quantity,
+        "assignedToEmployeeId": d.assignedToEmployeeId
+      }
+      this._facade.addAccessory(_data)
+    }
   }
 
   cancel() {
-    this._accessoryService.loadAddForm(false);
+    if (this.formChanged) {
+      this.dialogModalCancel = true;
+      return;
+    }
+
+    this._router.navigate(['fleet/accessory']);
+  }
+
+  dialogCancelConfirm(value) {
+    if (value === true) {
+      this._router.navigate(['fleet/accessory']);
+    }
+    this.dialogModalCancel = false;
+  }
+
+  dialogAddConfirm(value) {
+    if (value === true) {
+      this._facade.reset();
+      this._router.navigate(['/fleet/accessory']);
+    }
+    this.dialogModalAdd = false;
+  }
+
+  dialogErrorConfirm(value) {
+    this.dialogModalError = false;
   }
 }

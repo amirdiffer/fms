@@ -18,7 +18,7 @@ export class BodyShopJobCardEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            return BodyShopJobCardActions.allDataLoaded({ data });
+            return BodyShopJobCardActions.allDataLoaded({ data: data.message });
           }),
           catchError((error) =>
             of(BodyShopJobCardActions.error({ reason: error }))

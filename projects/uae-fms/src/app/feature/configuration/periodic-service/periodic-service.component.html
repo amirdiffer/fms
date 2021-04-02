@@ -3,7 +3,7 @@
     <div class="card-table-header">
       <div class="search-box">
         <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
-        <button><img class="search-icon" src="../../../../assets/icons/search-solid.svg" alt=""></button>
+        <button><img class="search-icon" src="assets/icons/search-solid.svg" alt=""></button>
       </div>
       <button class="btn-download" disabled>
         <svg-icon [src]="downloadBtn"></svg-icon>
@@ -11,6 +11,6 @@
       <button class="btn-primary-small" [routerLink]="'./add-periodic-service'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
 
     </div>
-    <app-table [setting]="tableSetting"></app-table>
+    <app-table [setting]="tableSetting" [tableData]="periodicServices$"></app-table>
   </div>
 </div>

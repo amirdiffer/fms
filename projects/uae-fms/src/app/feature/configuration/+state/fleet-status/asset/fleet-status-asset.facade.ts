@@ -17,4 +17,8 @@ export class FleetStatusAssetFacade {
   loadAll() {
     this.store.dispatch(FleetStatusAssetActions.loadAll());
   }
+
+  addFleetStatus(data: any) {
+    this.store.dispatch(FleetStatusAssetActions.addFleetStatus({ data }));
+  }
 }

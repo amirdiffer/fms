@@ -1,98 +1,119 @@
-<form [formGroup]="addPeriodicServiceForm">
+<form [formGroup]="periodicServiceForm">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="goToList()">{{ 'forms.cancel' | translate }}</button>
-    <button class="btn-primary-medium add" (click)="submit()">{{ 'search.add' | translate }}</button>
+    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="showCancelAlert()">{{ 'forms.cancel' |
+      translate }}</button>
+    <button class="btn-primary-medium add" (click)="submit()">{{ (isEdit ? 'forms.edit' : 'forms.add') | translate
+      }}</button>
   </div>
+
   <div class="form-section form-section--inline mt-3">
     <div class="row">
       <div class="col-12 col-md-3">
-        <h3 class="form-section__title">{{ 'configuration.periodic_service.periodic_service_info' | translate }}</h3>
+        <h3 class="form-section__title">{{
+          'configuration.periodic_service.periodic_service_info' | translate }}</h3>
       </div>
       <div class="col-12 col-md-6 p-field form-section__field">
         <span class="p-float-label">
-          <input formControlName="name" pInputText
-            placeholder="{{ 'configuration.periodic_service.periodic_service_name' | translate }} *" required type="text">
-          <label>{{ 'configuration.periodic_service.periodic_service_name' | translate }} *</label>
-          <anms-error
-            [showError]="hasError('name',addPeriodicServiceForm,submited)"
-            error="forms.feedback.required">
-          </anms-error>
+          <input formControlName="name" pInputText placeholder="{{
+            'configuration.periodic_service.periodic_service_name' | translate
+            }} *" required type="text">
+          <label>{{ 'configuration.periodic_service.periodic_service_name' |
+            translate }} *</label>
         </span>
+        <anms-error [showError]="hasError('name',periodicServiceForm,submitted)" error="forms.feedback.required">
+        </anms-error>
       </div>
-
     </div>
   </div>
-  <div class="form-section form-section--inline mt-3">
-    <div class="row">
-      <div class="col-12 col-md-1">
-        <!-- <span class='plus-icon'>
-          <svg-icon src='../../../../../assets/icons/add.svg'
-            [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
-            '100%'}"></svg-icon>
-        </span> -->
-        <h3 class="form-section__title">{{ 'configuration.periodic_service.package' | translate }}</h3>
-      </div>
-      <div class="col-12 col-md-5 p-field form-section__field">
-        <span class="p-float-label">
-          <input formControlName="packageName" pInputText
-            placeholder="{{ 'configuration.periodic_service.package_name' | translate }} *" required type="text">
-          <label>{{ 'configuration.periodic_service.package_name' | translate }} *</label>
-          <anms-error
-            [showError]="hasError('packageName',addPeriodicServiceForm,submited)"
-            error="forms.feedback.required">
-          </anms-error>
-        </span>
-      </div>
-      <div class="col-12 col-md-5 p-field form-section__field
-        dropdown-select-input">
-        <p-dropdown inputId="unit" [options]="units"
-          optionLabel="name"></p-dropdown>
-          <span class="p-float-label">
-            <input formControlName="intervals" pInputText
-              placeholder="{{ 'configuration.periodic_service.intervals' | translate }}"  type="text">
-            <label>{{ 'configuration.periodic_service.intervals' | translate }}</label>
-          </span>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12 col-md-1">
-        <!-- <span class='plus-icon'>
-        <svg-icon src='../../../../../assets/icons/add.svg'
-          [svgStyle]="{ 'width.px':24 , 'fill': '#0DA06E' , 'height':
-          '100%'}"></svg-icon>
-      </span> -->
-        <h3 class="form-section__title">{{ 'configuration.periodic_service.task' | translate }}</h3>
-      </div>
-      <div class="col-12 col-md-5 p-field form-section__field">
 
-        <span class="p-float-label">
-          <div class="p-inputgroup">
+  <div class="form-section form-section--inline mt-3">
+    <div formArrayName="packages">
+      <div class="row" [formGroupName]="i" *ngFor="let item of
+        periodicServiceForm.get('packages')['controls'];let i= index">
+        <div class="col-md-2 d-flex">
+          <span class='plus-icon' (click)="addPackage()">
+            <svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
+              '100%'}"></svg-icon>
+          </span>
+          <div class="title-wrapper">
+            <h3 class="form-section__title">{{
+              'configuration.periodic_service.package' | translate }}</h3>
+          </div>
+        </div>
+        <div class="col-12 col-md-5 p-field form-section__field">
+          <span class="p-float-label">
+            <input formControlName="packageName" pInputText placeholder="{{ 'configuration.periodic_service.package_name' |
+              translate }} *" required type="text">
+            <label>{{ 'configuration.periodic_service.package_name' | translate
+              }} *</label>
+          </span>
+          <div *ngIf="((packages.controls[i].get('packageName').dirty &&
+            packages.controls[i].get('packageName').invalid) ||
+            (packages.controls[i].get('packageName').invalid && submitted)) &&
+            packages.controls[i].get('packageName').errors?.required" class="p-error">
+            {{ 'forms.feedback.required' | translate }}
+          </div>
+        </div>
+        <div class="col-12 col-md-5 p-field form-section__field
+          dropdown-select-input">
+          <p-dropdown inputId="unit" formControlName="intervalType" [options]="units" optionLabel="name"></p-dropdown>
+          <div class="form-section__field w-100">
             <span class="p-float-label">
-              <input type="text" required formControlName="task" pInputText
-                placeholder="{{ 'configuration.periodic_service.task' | translate }}">
-              <label>{{ 'configuration.periodic_service.task' | translate }} *</label>
+              <input formControlName="intervals" pInputText placeholder="{{ 'configuration.periodic_service.intervals' |
+                translate }}" type="text">
+              <label>{{ 'configuration.periodic_service.intervals' | translate
+                }}</label>
             </span>
-            <span class="p-inputgroup-addon addon-primary">
-              <i class="pi pi-plus"></i>
+
+          </div>
+        </div>
+
+
+        <div class="col-12 col-md-2">
+          <h3 class="form-section__title text-center">{{
+            'configuration.periodic_service.task' | translate }}</h3>
+        </div>
+
+        <div class="col-12 col-md-5 p-field form-section__field" formArrayName="tasks">
+          <div class="mt-2" [formGroupName]="j" *ngFor="let item of
+          getPackageTasks(i).controls ;let j=index">
+            <span class="p-float-label">
+              <div class="p-inputgroup">
+                <span class="p-float-label">
+                  <input type="text" required formControlName="name" pInputText placeholder="{{ 'configuration.periodic_service.task' |
+                      translate }}">
+                  <label>{{ 'configuration.periodic_service.task' | translate }} *</label>
+                </span>
+                <span class="p-inputgroup-addon addon-primary">
+                  <i class="pi pi-plus" (click)="addTask('',i)"></i>
+                </span>
+              </div>
+              <div *ngIf="getTasksForm(i,j).get('name').invalid && submitted" class="p-error">
+                {{ 'forms.feedback.required' | translate }}
+              </div>
             </span>
           </div>
-        </span>
-        <anms-error
-            [showError]="hasError('task',addPeriodicServiceForm,submited)"
-            error="forms.feedback.required">
-          </anms-error>
+        </div>
+
       </div>
     </div>
 
+
   </div>
-  
+
 </form>
 <div class="row">
   <div class='col-12'>
     <div class='component_wrapper'>
       <div class='d-flex'>
-        <app-table [setting]="tableSetting"></app-table>
+        <app-table [setting]="tableSetting" [tableData]="periodicServices$"></app-table>
       </div>
     </div>
   </div>
 </div>
+
+
+<alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)">
+</alert-dialog>
+<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="successDialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal"></alert-dialog>

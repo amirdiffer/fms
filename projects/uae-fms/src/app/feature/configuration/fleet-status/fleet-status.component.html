@@ -1,6 +1,6 @@
 <div class="table-container component_wrapper">
   <div class="pt-1">
-    <app-tab-view>
+    <app-tab-view (selectedIndex)="selectedTab=$event">
       <span class="search-container card-table-header">
         <div class="search-box">
             <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
@@ -11,10 +11,10 @@
         <button class="btn-download" disabled>
             <svg-icon [src]="downloadBtn"></svg-icon>
         </button>
-        <button class="btn-primary-small" [routerLink]="'add-fleet-status'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
+        <button class="btn-primary-small" (click)="addClicked($event)"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
       </span>
       <div title="tabs.asset" id="fleetStatusAssetTab">
-        <app-table [setting]='tableSetting'></app-table>
+        <app-table [setting]='tableSetting' [tableData]="asset$"></app-table>
       </div>
       <div title="tabs.sub_asset" id="fleetStatusSubAssetTab"></div>
     </app-tab-view>

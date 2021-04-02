@@ -2,11 +2,13 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectorRef
 } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { TableSetting } from '@core/table';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AccessoryFacade } from '../+state/accessory';
 import { AccessoryService } from './accessory.service';
 
@@ -24,27 +26,31 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
-      filterCount: '2456',
+      filterCount: '',
       filterTagColor: '#CBA786',
-      onActive(index: number) {}
+      field: 'total',
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.available',
-      filterCount: '356',
+      filterCount: '',
       filterTagColor: '#07858D',
-      onActive(index: number) {}
+      field: 'available',
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.assigned',
-      filterCount: '124',
+      filterCount: '',
       filterTagColor: '#EF959D',
-      onActive(index: number) {}
+      field: 'assigned',
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.x_accessory',
-      filterCount: '12',
+      filterCount: '',
       filterTagColor: '#DD5648',
-      onActive(index: number) {}
+      field: 'xAccesssory',
+      onActive(index: number) { }
     }
   ];
 
@@ -62,71 +68,50 @@ export class AccessoryComponent implements OnInit, OnDestroy {
         lable: 'tables.column.quantity',
         type: 1,
         field: 'Quantity',
-        width: 150
+        width: 150,
+        sortable: true
       }
     ],
-    data: [
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Type: 'Name is here',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Type: 'Name is here',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Type: 'Name is here',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Type: 'Name is here',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Type: 'Name is here',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      },
-      {
-        statusColor: '#00AFB9',
-        Item: 'Sticker',
-        Type: 'Name is here',
-        Asset_SubAsset: 'Item 122334',
-        Assigned_To: 'Unassigned',
-        Quantity: '2'
-      }
-    ]
+    data: []
   };
+
+  accessory$ = this._accessoryFacade.accessory$.pipe(
+    map(x => x.map((item) => {
+      return {
+        statusColor: '#00AFB9',
+        Item: item.itemName,
+        Type: item.assignedToType,
+        Asset_SubAsset: item.assignedToEntity,
+        Assigned_To: item.assignedToEmployeeId,
+        Quantity: item.quantity
+      };
+    }))
+  );
 
   constructor(
     private _accessoryService: AccessoryService,
-    private _accessoryFacade: AccessoryFacade
-  ) {}
+    private _accessoryFacade: AccessoryFacade,
+    private changeDetection: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.openAdd$ = this._accessoryService.getAddForm().subscribe((open) => {
       this.openAdd = open;
     });
     this._accessoryFacade.loadAll();
+
+    this._accessoryFacade.loadStatistics();
+    this._accessoryFacade.statistics$.subscribe((data) => {
+      console.log(data, 'accessory statistics');
+      if (data) {
+        let statistic = data.message;
+        this.filterCard.forEach((card, index) => {
+          this.filterCard[index].filterCount =
+            statistic[this.filterCard[index].field];
+        });
+        this.changeDetection.detectChanges();
+      }
+    });
   }
 
   addAccessory() {

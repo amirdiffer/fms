@@ -1,11 +1,19 @@
 export interface IOrganization {
-  organizationNumber: 19821240;
-  organizationName: 11520067;
+  id: number;
+  organizationNumber: number;
+  organizationName: string;
   tags: string[];
-  departments: IDepartment[];
+  departments: Department[];
+  numOfDepartments: number;
+  numOfLocations: number;
+  numOfUsers: number;
+  numOfAssets: number;
+  tfPaid: number;
+  tfUnpaid: number;
 }
 
-export interface IDepartment {
+export interface Department {
+  id: number;
   name: string;
-  locationAddress: string;
+  locationAddress: string[];
 }

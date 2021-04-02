@@ -6,7 +6,7 @@
   $tableCellBg
 ) {
   .table-container {
-    box-shadow: 0px 0px 2px #0000003d !important;
+    box-shadow: 0 0 2px #0000003d !important;
     border-radius: 4px;
     position: relative;
     background-color: $tableBg;
@@ -50,14 +50,14 @@
       }
       .card.parent {
         height: 45px;
-        margin: 20px 20px 20px 0px;
+        margin: 20px 20px 20px 0;
       }
       .ownership-badge {
         border-radius: 4px;
         color: #fff;
         text-align: center;
         font-size: 80%;
-        background: #fcb614 0% 0% no-repeat padding-box;
+        background: #fcb614 0 0 no-repeat padding-box;
       }
     }
   }

@@ -17,7 +17,7 @@ import { OwnershipComponent } from './ownership/ownership.component';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { AssetPolicyComponent } from './asset-policy/asset-policy.component';
 import { FleetStatusComponent } from './fleet-status/fleet-status.component';
-import { OwnershipFormComponent } from './ownership-form/ownership-form.component';
+import { OwnershipFormComponent } from './ownership/ownership-form/ownership-form.component';
 import { AddTypeComponent } from './asset-configuration/add-type/add-type.component';
 import { AssetTypeComponent } from './asset-configuration/asset-type/asset-type.component';
 import { BusinessCategoryComponent } from './business-category/business-category.component';
@@ -29,6 +29,10 @@ import { AssetCategoryComponent } from './asset-configuration/asset-category/ass
 import { PeriodicServiceComponent } from '@feature/configuration/periodic-service/periodic-service.component';
 import { AddFleetStatusComponent } from './fleet-status/add-fleet-status/add-fleet-status.component';
 import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-service/add-periodic-service.component';
+import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
+import { FleetStateModule } from '../fleet/+state/fleet.state.module';
+import { AddMakeComponent } from '@feature/configuration/asset-configuration/add-make/add-make.component';
+import { AddModelComponent } from './asset-configuration/add-model/add-model.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,9 @@ import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-ser
     OwnershipComponent,
     AddCategoryComponent,
     OwnershipFormComponent,
-    AddAssetPolicyComponent
+    AddAssetPolicyComponent,
+    AddMakeComponent,
+    AddModelComponent
   ],
   imports: [
     TabViewModule,
@@ -65,7 +71,9 @@ import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-ser
     MatProgressBarModule,
     SharedModule,
     ConfigurationStateModule,
-    ConfigurationRoutingModule
+    ConfigurationRoutingModule,
+    AlertDialogModule,
+    FleetStateModule
   ]
 })
 export class ConfigurationModule {}

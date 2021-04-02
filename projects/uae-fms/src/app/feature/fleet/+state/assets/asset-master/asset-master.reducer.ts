@@ -3,8 +3,8 @@ import {
   assetMasterAdapter,
   IAssetMasterState,
   initialState
-} from '@feature/fleet/+state/assets/asset-master/asset-master.entity';
-import { AssetMasterActions } from '@feature/fleet/+state/assets/asset-master/asset-master.actions';
+} from './asset-master.entity';
+import { AssetMasterActions } from './asset-master.actions';
 
 const assetMasterReducer = createReducer(
   initialState,
@@ -17,11 +17,35 @@ const assetMasterReducer = createReducer(
   on(AssetMasterActions.allDataLoaded, (state, { data }) =>
     assetMasterAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+  on(AssetMasterActions.statisticsLoaded, (state, data) => ({
+    ...state,
+    statistics: data.data
+  })),
   on(AssetMasterActions.error, (state, { reason }) => ({
     ...state,
     error: reason,
     loaded: true
-  }))
+  })),
+  on(AssetMasterActions.addAsset, (state, { data }) => ({
+    ...state,
+    submitted: false
+  })),
+  on(AssetMasterActions.assetAddedSuccessfully, (state, { data }) =>
+    ({ ...state, submitted: true })
+  ),
+  on(AssetMasterActions.editAsset, (state, { data }) => ({
+    ...state,
+    loaded: false
+  })),
+  on(AssetMasterActions.assetEditedSuccessfully, (state, { data }) =>
+    assetMasterAdapter.updateOne({ changes: data, id: data.id }, state)
+  ),
+  on(AssetMasterActions.reset, (state) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
 );
 
 export function reducer(state: IAssetMasterState, action: Action) {

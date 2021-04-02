@@ -1,4 +1,5 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { IPendingCustomization } from '@models/pending-customization.model';
 
 export interface ICustomizationModel {
   asset: {
@@ -16,7 +17,8 @@ export interface ICustomizationModel {
   creator: string;
 }
 
-export interface ICustomizationState extends EntityState<ICustomizationModel> {
+export interface ICustomizationState
+  extends EntityState<IPendingCustomization> {
   error?: any;
   loaded: boolean;
   message: string;
@@ -28,8 +30,8 @@ export interface ICustomizationPartialState {
   [FLEET_CUSTOMIZATION_FEATURE_KEY]: ICustomizationState;
 }
 
-export const customizationAdapter: EntityAdapter<ICustomizationModel> = createEntityAdapter<
-  ICustomizationModel
+export const customizationAdapter: EntityAdapter<IPendingCustomization> = createEntityAdapter<
+  IPendingCustomization
 >();
 
 export const initialState: ICustomizationState = customizationAdapter.getInitialState(

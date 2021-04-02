@@ -44,7 +44,16 @@ mat-card {
   max-height: 2.8em;
   display: flex;
   align-items: center;
-  margin: 0 5px;
+  margin: 0 20px;
+}
+
+.category-sub-subItem {
+  font-size: 1em;
+  height: 2.8em;
+  max-height: 2.8em;
+  display: flex;
+  align-items: center;
+  margin: 0 50px;
 }
 
 .category-item {
@@ -86,4 +95,55 @@ mat-card {
     font-size: 2.2em;
     opacity: 0.57;
   }
+}
+
+.plus-icon {
+  border: 1px solid #009c62;
+  border-radius: 4px;
+  width: 32px;
+  display: inline-block;
+  text-align: center;
+  height: 32px;
+  margin: 0 5px;
+}
+
+.right-arrow {
+  transform: rotate(-90deg);
+  cursor: pointer;
+}
+
+.down-arrow {
+  transform: rotate(0deg);
+  cursor: pointer;
+}
+
+.plus {
+  position: absolute;
+  right: 15px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.add-asset-type {
+  color: #0da06e;
+  font-size: 18px;
+}
+
+.status {
+  position: relative;
+}
+
+.status::before {
+  content: attr(data-content);
+  position: absolute;
+  margin-left: 10px;
+  width: 7px;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 7px;
+  background-color: var(--back-color-var);
+  border-radius: 50%;
 }
