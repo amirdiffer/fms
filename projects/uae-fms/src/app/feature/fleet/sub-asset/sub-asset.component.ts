@@ -3,10 +3,11 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   OnDestroy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  ViewChild
 } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
-import { ColumnType, TableSetting } from '@core/table';
+import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { SubAssetFacade } from '../+state/sub-asset';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -19,6 +20,7 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SubAssetComponent implements OnInit, OnDestroy {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
   statisticsSubscription!: Subscription;
 
   downloadBtn = 'assets/icons/download-solid.svg';
@@ -129,7 +131,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   };
   //#endregion
 
-  constructor(private facade: SubAssetFacade, private router: Router,private changeDetector:ChangeDetectorRef) { }
+  constructor(private facade: SubAssetFacade, private router: Router, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -173,5 +175,9 @@ export class SubAssetComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.statisticsSubscription?.unsubscribe();
+  }
+
+  exportTable() {
+    this.table.exportTable(this.assetTraffic_Table, 'Sub Asset');
   }
 }

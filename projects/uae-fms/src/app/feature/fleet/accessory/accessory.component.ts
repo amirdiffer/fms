@@ -3,10 +3,11 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   OnDestroy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  ViewChild
 } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
-import { TableSetting } from '@core/table';
+import { TableComponent, TableSetting } from '@core/table';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccessoryFacade } from '../+state/accessory';
@@ -19,10 +20,15 @@ import { AccessoryService } from './accessory.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccessoryComponent implements OnInit, OnDestroy {
+
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
+
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   openAdd;
   openAdd$: Subscription;
+
+  //#region Filters
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
@@ -53,7 +59,9 @@ export class AccessoryComponent implements OnInit, OnDestroy {
       onActive(index: number) { }
     }
   ];
+  //#endregion
 
+  //#region Table
   accessory_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.item', type: 1, field: 'Item' },
@@ -87,6 +95,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
       };
     }))
   );
+  //#endregion
 
   constructor(
     private _accessoryService: AccessoryService,
@@ -102,7 +111,6 @@ export class AccessoryComponent implements OnInit, OnDestroy {
 
     this._accessoryFacade.loadStatistics();
     this._accessoryFacade.statistics$.subscribe((data) => {
-      console.log(data, 'accessory statistics');
       if (data) {
         let statistic = data.message;
         this.filterCard.forEach((card, index) => {
@@ -116,10 +124,14 @@ export class AccessoryComponent implements OnInit, OnDestroy {
 
   addAccessory() {
     this._accessoryService.loadAddForm(true);
-    console.log('OK');
   }
 
   ngOnDestroy() {
     this.openAdd$.unsubscribe();
+  }
+
+
+  exportTable() {
+    this.table.exportTable(this.accessory_Table, 'Accessories');
   }
 }

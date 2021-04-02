@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { ColumnType, TableSetting } from '@core/table';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { UsersFacade } from '../../+state/users';
 import { Router } from '@angular/router';
@@ -12,6 +12,8 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersComponent implements OnInit {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
+
   downloadBtn = 'assets/icons/download-solid.svg';
 
   //#region Filter
@@ -151,5 +153,9 @@ export class UsersComponent implements OnInit {
         this.changeDetection.detectChanges();
       }
     })
+  }
+
+  exportTable() {
+    this.table.exportTable(this.users_Table, 'Users');
   }
 }
