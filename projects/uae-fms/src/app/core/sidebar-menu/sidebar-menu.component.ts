@@ -98,10 +98,11 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     {
       name: 'sidebar.fuel_management',
       icon: 'fuel',
-      route: '/fuel-management'
+      route: '/fuel-management',
+      disabled: true
     },
-    { name: 'sidebar.traffic_fine', icon: 'traffic', route: '/traffic-fine' },
-    { name: 'sidebar.toll', icon: 'toll', route: '/toll' },
+    { name: 'sidebar.traffic_fine', icon: 'traffic', route: '/traffic-fine', disabled: true },
+    { name: 'sidebar.toll', icon: 'toll', route: '/toll', disabled: true },
     {
       name: 'sidebar.workshop.~',
       icon: 'workshop',
@@ -117,21 +118,21 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           icon: 'service-shop',
           route: '/workshop/service-shop'
         },
-/*         {
-          name: 'sidebar.workshop.inspection.~',
-          icon: 'inspection',
-          route: '/workshop/inspections',
-          items: [
-            {
-              name: 'sidebar.workshop.inspection.technical_inspection',
-              route: '/workshop/inspections/technical-inspection'
-            },
-            {
-              name: 'sidebar.workshop.inspection.auction_list',
-              route: '/workshop/inspections/auction-list'
-            }
-          ]
-        }, */
+        /*         {
+                  name: 'sidebar.workshop.inspection.~',
+                  icon: 'inspection',
+                  route: '/workshop/inspections',
+                  items: [
+                    {
+                      name: 'sidebar.workshop.inspection.technical_inspection',
+                      route: '/workshop/inspections/technical-inspection'
+                    },
+                    {
+                      name: 'sidebar.workshop.inspection.auction_list',
+                      route: '/workshop/inspections/auction-list'
+                    }
+                  ]
+                }, */
         {
           name: 'sidebar.workshop.task_master',
           icon: 'task-master',
@@ -143,7 +144,8 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.part_store.~',
       icon: 'part-store',
       route: '/part-store',
-      items: [
+      disabled: true,
+      /* items: [
         {
           name: 'sidebar.part_store.part_list',
           icon: 'part-list',
@@ -159,14 +161,14 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           icon: 'part-master',
           route: '/part-store/part-master'
         }
-      ]
+      ] */
     },
-  /*{
-      name: 'sidebar.report',
-      icon: 'report',
-      route: '/report',
-      disabled: true
-    }, */
+    /*{
+        name: 'sidebar.report',
+        icon: 'report',
+        route: '/report',
+        disabled: true
+      }, */
     {
       name: 'sidebar.configuration.~',
       icon: 'configuration',
@@ -180,7 +182,8 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             {
               name: 'sidebar.configuration.user_management.role_permission',
               icon: 'organization',
-              route: '/configuration/user-management/role-permission'
+              route: '/configuration/user-management/role-permission',
+              disabled: true
             },
             {
               name: 'sidebar.configuration.user_management.users',
@@ -218,7 +221,8 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.configuration.fleet_status',
           icon: 'flag-solid',
-          route: '/configuration/fleet-status'
+          route: '/configuration/fleet-status',
+          disabled: true
         },
         {
           name: 'sidebar.configuration.periodic_service',
@@ -230,7 +234,8 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     {
       name: 'sidebar.integrations',
       icon: 'integrations',
-      route: '/integration'
+      route: '/integration',
+      disabled: true
     }
   ];
 
@@ -252,7 +257,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     private facade: SidebarMenuFacade,
     private resizeService: WindowResizeService,
     private routerService: RouterService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.usingMenu = this.mainMenu;
