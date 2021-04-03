@@ -8,6 +8,7 @@ import {
 import { TableComponent, TableSetting } from '@core/table';
 import { map } from 'rxjs/operators';
 import { OwnershipFacade } from '../+state/ownership';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Component({
   selector: 'anms-ownership',
@@ -64,11 +65,18 @@ export class OwnershipComponent implements OnInit {
 
   constructor(
     private facade: OwnershipFacade,
+    private tableFacade: TableFacade,
     private _cd: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.facade.loadAll();
+    let i = 1;
+    setInterval(() => {
+      i++;
+      console.log(i)
+      this.tableFacade.initialPaginator('ownership');
+    }, 5000);
   }
 
 

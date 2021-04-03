@@ -16,8 +16,11 @@ import { TranslateService } from '@ngx-translate/core';
 export class TableComponent implements OnInit {
   rowIndexTable = -1;
   activeLang: string;
+  ipp = 50;
   @Input() setting: TableSetting;
   @Input() tableData: Observable<any>;
+  @Input() count: number;
+  arrowIcon = 'assets/icons/arrow-down.svg';
 
   constructor(private settingFacade: SettingsFacade, private changeDetection: ChangeDetectorRef, private translate: TranslateService) { }
   ngOnInit() {

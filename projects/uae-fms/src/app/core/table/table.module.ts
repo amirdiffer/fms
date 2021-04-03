@@ -25,6 +25,13 @@ import { AssignNow } from '@core/table/renderers/assign-now';
 import { TableGeneralButtonRendererComponent } from './renderers/general-button';
 import { FloatButton } from './renderers/float-button'
 import { ColorizeRendererComponent } from "./renderers/colorize";
+import { StoreModule } from '@ngrx/store';
+import { TABLE_FEATURE_KEY } from '@core/table/+state/table.entity';
+import { reducer } from '@core/table/+state/table.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { TableEffect } from '@core/table/+state/table.effect';
+import { TableFacade } from '@core/table/+state/table.facade';
+import { TableService } from '@core/table/+state/table.service';
 
 @NgModule({
   imports: [
@@ -33,7 +40,9 @@ import { ColorizeRendererComponent } from "./renderers/colorize";
     SharedModule,
     MatProgressBarModule,
     AngularSvgIconModule,
-    RouterModule
+    RouterModule,
+    StoreModule.forFeature(TABLE_FEATURE_KEY, reducer),
+    EffectsModule.forFeature([TableEffect])
   ],
   exports: [TableComponent],
   declarations: [
@@ -60,6 +69,9 @@ import { ColorizeRendererComponent } from "./renderers/colorize";
     FloatButton,
     ColorizeRendererComponent
   ],
-  providers: []
+  providers: [
+    TableFacade,
+    TableService
+  ]
 })
 export class TableModule {}
