@@ -500,36 +500,33 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         data.message.map((x) => {
           this.assetType.push(x);
         });
-       
-        if (this.isEdit) {
-          this._service.getAssetByID(this.id)
-            .pipe(map((x) => x.message))
-            .subscribe(
-              (x) => {
-                if (x) {
-                  this._asset = x;
-                  console.log(this._asset)
-                  this.assetType.find((z) => z.id == this._asset.assetTypeId).makes.map((f) =>{
-                    this.assetMake.push(f);
-                  });
-                  this.assetMake.find((z) => z.id == this._asset.makeId).models.map((y) => {
-                    this.assetModel.push(y);
-                    this.assetColor = [];
-                    this.assetTrim = [];
-                    this.assetModel
-                      .find((x) => x.id == this._asset.modelId)
-                      .trims.map((x) => {
-                        this.assetTrim.push(x);
-                        x.colors.map((y) => {
-                          this.assetColor.push(y);
-                        });
-                        console.log(this.assetColor)
-                      });
-                  });
-                  this.editPatchValue(x);
-                }
-              },
-            );
+        if (this.isEdit){
+          this.assetType.find((z) => z.id == this._asset.assetTypeId).makes.map((f) =>{
+            this.assetMake.push(f);
+          });
+          this.assetMake.find((z) => z.id == this._asset.makeId).models.map((y) => {
+            this.assetModel.push(y);
+            this.assetColor = [];
+            this.assetTrim = [];
+            this.assetModel
+              .find((x) => x.id == this._asset.modelId)
+              .trims.map((x) => {
+                this.assetTrim.push(x);
+                x.colors.map((y) => {
+                  this.assetColor.push(y);
+                });
+              });
+          });
+          this.formGroupAssetDetail.patchValue({
+            assetDetails: {
+              year: +this._asset.year,
+              type: this._asset.assetTypeId,
+              make: this._asset.makeId,
+              model: this._asset.modelId,
+              color: this._asset.colorId,
+              trim: this._asset.trimId,
+            },
+          });
         }
 
       });
@@ -658,6 +655,16 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         params.filter((x) => x.path == 'edit-asset').length > 0 ? true : false;
         if (this.isEdit) {
           this.id = +params[params.length - 1].path;
+            this._service.getAssetByID(this.id)
+              .pipe(map((x) => x.message))
+              .subscribe(
+                (x) => {
+                  if (x) {
+                    this._asset = x;
+                    this.editPatchValue(this._asset);
+                  }
+                },
+              );
         }
       
     });
@@ -665,23 +672,14 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   public editPatchValue (x) {
-    console.log(new Array([2019]))
     this.vehicleDoc = Array.isArray(x.vehicleDocIds) ? x.vehicleDocIds : [x.vehicleDocIds];
     this.purchaseDoc = Array.isArray(x.purchaseDocId) ? x.purchaseDocId : [x.purchaseDocId] ;
-    console.log(this.vehicleDoc)
-    console.log(this.purchaseDoc)
     this.formGroupAssetDetail.patchValue({
       businessInfo: {
         businessCategory: x.businessCategoryId,
         ownership: x.ownershipId
       },
       assetDetails: {
-        year: +x.year,
-        type: x.assetTypeId,
-        make: x.makeId,
-        model: x.modelId,
-        color: x.colorId,
-        trim: x.trimId,
         origin:x.origin,
         meterType: x.meterType
       },

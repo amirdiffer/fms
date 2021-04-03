@@ -288,16 +288,16 @@ export class AssetsComponent implements OnInit, OnDestroy {
   exportTable() {
     console.log(this.selectedTab);
     switch (this.selectedTab) {
-      case 'Asset Master':
+      case 'assetMasterTab':
         this.table.exportTable(this.assetMasterTableSetting, this.selectedTab);
         break;
-      case 'Pending Registration':
+      case 'pendingRegistrationTab':
         this.table.exportTable(
           this.pendingRegistrationTableSetting,
           this.selectedTab
         );
         break;
-      case 'Pending Customization':
+      case 'pendingCustomizationTab':
         this.table.exportTable(
           this.pendingCustomizationTableSetting,
           this.selectedTab
