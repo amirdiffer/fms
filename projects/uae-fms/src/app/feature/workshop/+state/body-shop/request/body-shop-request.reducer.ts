@@ -15,6 +15,12 @@ const bodyShopRequestReducer = createReducer(
     error: null,
     message: null
   })),
+  on(BodyShopRequestActions.loadAllRequestsById, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null
+  })),
   on(BodyShopRequestActions.loadStatistics, (state) => ({
     ...state,
     statistics: null,
@@ -22,6 +28,9 @@ const bodyShopRequestReducer = createReducer(
   })),
   on(BodyShopRequestActions.allDataLoaded, (state, { data }) =>
     bodyShopRequestAdapter.setAll(data, { ...state, loaded: true, error: null })
+  ),
+  on(BodyShopRequestActions.requestsByIdDataLoaded, (state, { data }) =>
+    ({ ...state, loaded: true, error: null, requests: data })
   ),
   on(BodyShopRequestActions.allStatisticsLoaded, (state, { data }) => ({
     ...state,

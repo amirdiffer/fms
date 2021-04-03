@@ -24,11 +24,12 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { debounceTime, map } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
 import {
-  BodyShopLocationFacade,
+  BodyShopLocationFacade, BodyShopLocationService,
   BodyShopTechnicianFacade,
   BodyShopTechnicianService
 } from '@feature/workshop/+state/body-shop';
 import { UsersService } from '@feature/configuration/+state/users';
+import { TaskMasterFacade, TaskMasterService } from '@feature/workshop/+state/task-master';
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
@@ -69,33 +70,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   employees$ = this.employees.asObservable();
   getEmployeesList = new Subject();
   employeeId;
-  locations: any[] = [
-    {
-      name: 'Hamid',
-      city: 'Dubai',
-      address: 'street 1'
-    },
-    {
-      name: 'Nirvana',
-      city: 'Dubai',
-      address: 'street 2'
-    },
-    {
-      name: 'Mellisa',
-      city: 'Dubai',
-      address: 'street 3'
-    },
-    {
-      name: 'Farid',
-      city: 'Dubai',
-      address: 'street 4'
-    },
-    {
-      name: 'Eden',
-      city: 'Dubai',
-      address: 'street 5'
-    }
-  ];
+  employee_static;
 
   addTechnician_Table: TableSetting = {
     columns: [
@@ -221,7 +196,10 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   private _technician: any;
   id: any;
   formChangesSubscription!: Subscription;
-  newLocations: any[];
+  locations: any[];
+  locationsB;
+  skills: any[];
+  skillsB;
   profileDocId: number;
   get emails(): FormArray {
     return this.inputForm.get('personalInfo').get('email') as FormArray;
@@ -239,6 +217,8 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     private _technicianFacade: BodyShopTechnicianFacade,
     private _technicalService: BodyShopTechnicianService,
     private _locationFacade: BodyShopLocationFacade,
+    private _locationService: BodyShopLocationService,
+    private _taskMasterService: TaskMasterService,
     private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
@@ -246,9 +226,15 @@ export class AddTechnicianComponent extends Utility implements OnInit {
 
   ngOnInit(): void {
     this._locationFacade.loadAll();
-    this._locationFacade.bodyShop$
-      .pipe(map((y) => y.map((x) => ({ id: x.id, name: x.address }))))
-      .subscribe((data) => (this.locations = data));
+    this._taskMasterService.skills().subscribe((x) => {
+      let data = x.message;
+      this.skillsB = data.map(y => ({ id: y.id, name: y.name }));
+    });
+    this._locationService.loadAll().subscribe(x => {
+      let data = x.message;
+      console.log(data)
+      this.locationsB = data.map(y => ({ id: y.id, name: y.address }));
+    });
     this.buildForm();
     this.route.url.subscribe((params) => {
       this.isEdit =
@@ -265,7 +251,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
             if (x) {
               this._technician = x;
               this.inputForm.controls['portalInfo'].patchValue({
-                emplyeeNumber: {
+                employeeNumber: {
                   name: x.user.id,
                   id: x.user.employeeNumber
                 },
@@ -360,12 +346,10 @@ export class AddTechnicianComponent extends Utility implements OnInit {
 
   private buildForm() {
     this.inputForm = this._fb.group({
+      organizationId: [null, [Validators.required]],
+      departmentId: [null, [Validators.required]],
       portalInfo: this._fb.group({
-        emplyeeNumber: [
-          '',
-          [Validators.required]
-          // [Validators.required, this.autocompleteValidationEmployeNumber]
-        ],
+        employeeNumber: ['', [Validators.required]],
         payPerHours: ['', [Validators.required]],
         active: [false]
       }),
@@ -390,30 +374,34 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       })
     });
   }
+  //
+  // searchEmploye(event) {
+  //   this.getEmployeesList.next(event);
+  //   this.employeeId = event.query;
+  // }
+  //
+  // selectedEmploye(value) {
+  //   this.inputForm.patchValue({
+  //     personalInfo: {
+  //       // firstName: value.fName,
+  //       // lastName: value.lName,
+  //       email: [value.emailAddress],
+  //       phoneNumber: [value.mobileNumber]
+  //     }
+  //   });
+  //   // this.inputForm.get('personalInfo.firstName').markAsDirty();
+  //   // this.inputForm.get('personalInfo.lastName').markAsDirty();
+  //   this.inputForm.get('personalInfo.email')['controls'][0].markAsDirty();
+  //   this.inputForm.get('personalInfo.phoneNumber')['controls'][0].markAsDirty();
+  // }
 
-  searchEmploye(event) {
-    this.getEmployeesList.next(event);
-    this.employeeId = event.query;
+  filterSkills(event) {
+    this.skills = this.skillsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
   }
 
-  selectedEmploye(value) {
-    this.inputForm.patchValue({
-      personalInfo: {
-        // firstName: value.fName,
-        // lastName: value.lName,
-        email: [value.emailAddress],
-        phoneNumber: [value.mobileNumber]
-      }
-    });
-    // this.inputForm.get('personalInfo.firstName').markAsDirty();
-    // this.inputForm.get('personalInfo.lastName').markAsDirty();
-    this.inputForm.get('personalInfo.email')['controls'][0].markAsDirty();
-    this.inputForm.get('personalInfo.phoneNumber')['controls'][0].markAsDirty();
-  }
-  searchLocation(event) {
-    let copyAssets = [];
-    copyAssets = this.locations.slice();
-    this.newLocations = copyAssets.filter((a) => a.name.includes(event.query));
+  filterLocation(event) {
+    this.locations = this.locationsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+    console.log(this.locations)
   }
 
   /* AutoComplete Validation  */
@@ -542,12 +530,35 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     }
   }
 
+  getEmployee(event) {
+    this.getEmployeesList.next(event);
+    this.employeeId = event.query;
+  }
+
+  employeeNumberChanged($event) {
+    this.employee_static = $event;
+    if (typeof $event != 'object') return;
+    this.inputForm.get('organizationId').patchValue($event.organizationId);
+    this.inputForm.get('departmentId').patchValue($event.organizationId);
+    this.inputForm.get('personalInfo').patchValue({
+      phoneNumber: [$event.mobileNumber],
+      email: [$event.emailAddress],
+      firstName: $event.name,
+      lastName: ''
+    });
+      this.inputForm.get('personalInfo.firstName').markAsDirty();
+      this.inputForm.get('personalInfo.lastName').markAsDirty();
+      this.inputForm.get('personalInfo.email')['controls'][0].markAsDirty();
+      this.inputForm.get('personalInfo.phoneNumber')['controls'][0].markAsDirty();
+    console.log(this.inputForm.value);
+  }
+
   addRequest() {
     console.log(this.inputForm.value);
     this.submited = true;
-    if (this.inputForm.invalid) {
-      return;
-    }
+    // if (this.inputForm.invalid) {
+    //   return;
+    // }
 
     this.dialogModal = true;
     this.dialogType = 'submit';
@@ -568,6 +579,29 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       this.dialogSetting.confirmButton = 'OK';
       this.dialogSetting.cancelButton = 'Cancel';
     }
+    let d = this.inputForm.getRawValue();
+    let skills = (<object[]>d.professional.skills).map(x => x = x['id'])
+    let location = (<object[]>d.professional.location).map(x => x = x['id'])
+    console.log(d)
+    let _data = {
+      "employeeNumber": this.employeeId,
+      "organizationId": 1,
+      "departmentId": 1,
+      "payPerHour": d.portalInfo.payPerHours,
+      "isActive": d.portalInfo.active,
+      "skillIds": skills,
+      "locationIds": location,
+      "profileDocId": this.profileDocId,
+      "firstName": d.personalInfo.firstName,
+      "lastName": d.personalInfo.lastName,
+      "emails": d.personalInfo.email,
+      "phoneNumbers": d.personalInfo.phoneNumber,
+      "notifyByCall": d.personalInfo.notification.call,
+      "notifyBySMS": d.personalInfo.notification.sms,
+      "notifyByEmail": d.personalInfo.notification.email,
+      "notifyByWhatsapp": d.personalInfo.notification.whatsapp,
+    };
+    this._technicianFacade.addTechnician(_data)
   }
 
   cancelForm() {
@@ -616,6 +650,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   }
 
   uploadImage($event) {
+    console.log($event)
     if (!$event || !$event.files) {
       return;
     }

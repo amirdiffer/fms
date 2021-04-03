@@ -16,25 +16,18 @@
               <div class="input-group">
                 <div class="autocomplete-select w-100">
                   <span class="p-float-label">
-                    <p-autoComplete
-                      [suggestions]="employees$|async"
-                      formControlName="emplyeeNumber"
-                      (completeMethod)="searchEmploye($event)"
-                      field="name"
-                      [minLength]="1"
-                      (onSelect)="selectedEmploye($event)"
-                      [disabled]="isEdit"
-                      >
-                      [class.invalid]="!inputForm.get('portalInfo.emplyeeNumber').valid
-                      && submited"
-                    </p-autoComplete>
+                    <p-autoComplete formControlName="employeeNumber" (completeMethod)="getEmployee($event)"
+                                    [suggestions]="employees$|async" field="name" [minLength]="1"
+                                    (ngModelChange)="employeeNumberChanged($event)" required [disabled]="isEdit"
+                                    [class.invalid]="!inputForm.get('portalInfo.employeeNumber').valid
+                      && submited"></p-autoComplete>
                     <i class="pi pi-search"></i>
                     <label>{{'workshop.body_shop.technician.employee_number' |
                       translate}}</label>
                   </span>
                 </div>
                 <anms-error
-                  [showError]="hasError('portalInfo.emplyeeNumber',inputForm,submited)"
+                  [showError]="hasError('portalInfo.employeeNumber',inputForm,submited)"
                   error="{{'workshop.body_shop.technician.employee_number_validation_error'
                   | translate}}"></anms-error>
               </div>
@@ -44,7 +37,7 @@
             <div class="m-0 p-field form-section__field">
               <div class="input-group">
                 <span class="p-float-label w-100">
-                  <input type="text" class="form-control"
+                  <input type="number" class="form-control"
                     placeholder="{{'workshop.body_shop.technician.pay_per_hours'
                     | translate}}"
                     formControlName="payPerHours"
@@ -85,15 +78,21 @@
               <div class="p-field form-section__field flex-with-button w-100
                 flex-85" *ngFor="let skill of
                 inputForm.get('professional.skills')['controls']; let i=index">
-                <span class="p-inputgroup p-float-label d-flex">
-                  <input type="text" pInputText class="form-control border"
-                    placeholder="{{'workshop.body_shop.technician.skill' |
-                    translate}}"
-                    [formControlName]="i"
-                    [class.invalid]="!inputForm.get('professional.skills').valid
-                    && submited">
-                  <label>{{'workshop.body_shop.technician.skill' | translate}}</label>
-                </span>
+                <div class="autocomplete-select">
+                  <span class="p-float-label">
+                    <p-autoComplete [suggestions]="skills"
+                                                      [formControlName]="i"
+                                                      (completeMethod)="filterSkills($event)"
+                                                      field="name"
+                                                      [disabled]="isEdit"
+                                                      [minLength]="1"
+                                                      [class.invalid]="!inputForm.get('professional.skills')['controls'][i].valid
+                      && submited">
+                  </p-autoComplete>
+                    <i class="pi pi-search"></i>
+                    <label>{{'workshop.body_shop.technician.skill' | translate}}</label>
+                  </span>
+                </div>
                 <small class="red-font"
                   [class.d-none]="inputForm.get('professional.skills')['controls'][i].valid
                   || !submited">{{'workshop.body_shop.technician.skill_validation_error'
@@ -112,21 +111,14 @@
                 i=index">
                 <div class="autocomplete-select">
                   <span class="p-float-label">
-                    <p-autoComplete [suggestions]="newLocations"
-                      [formControlName]="i"
-                      (completeMethod)="searchLocation($event)"
-                      field="name"
-                      [disabled]="isEdit"
-                      [minLength]="1"
-                      [class.invalid]="!inputForm.get('professional.location')['controls'][i].valid
+                    <p-autoComplete [suggestions]="locations"
+                                    [formControlName]="i"
+                                    (completeMethod)="filterLocation($event)"
+                                    field="name"
+                                    [disabled]="isEdit"
+                                    [minLength]="1"
+                                    [class.invalid]="!inputForm.get('professional.location')['controls'][i].valid
                       && submited">
-                      <!-- <ng-template let-locations pTemplate="item">
-                        <div class="locations-item">
-                          <div>{{locations.name}}</div>
-                          <div>{{locations.city}}</div>
-                          <div>{{locations.address}}</div>
-                        </div>
-                      </ng-template> -->
                     </p-autoComplete>
                     <i class="pi pi-search"></i>
                     <label>{{'workshop.body_shop.technician.location' |
@@ -182,7 +174,7 @@
         </div>
       </div>
     </div> -->
-    <div class='col-4 d-flex' formGroupName='fileUpload'>
+    <div class='col-4 d-flex'>
       <div class="form-section w-100">
         <div>
           <p class='font-weight-bold'>{{'workshop.body_shop.technician.upload_form.title'

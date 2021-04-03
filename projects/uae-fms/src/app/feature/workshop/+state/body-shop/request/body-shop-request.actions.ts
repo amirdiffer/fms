@@ -11,6 +11,14 @@ export class BodyShopRequestActions {
     props<{ data: any[] }>()
   );
 
+  static loadAllRequestsById = createAction('[bodyShopRequest] load all requests by id',
+    props<{ id: number }>()
+    );
+  static requestsByIdDataLoaded = createAction(
+    '[bodyShopRequest] requests by id all data are loaded',
+    props<{ data: any[] }>()
+  );
+
   static addRequest = createAction(
     '[bodyShopRequest] add request',
     props<{ data: IRequest }>()

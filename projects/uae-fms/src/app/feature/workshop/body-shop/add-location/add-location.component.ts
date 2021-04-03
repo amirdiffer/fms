@@ -196,7 +196,8 @@ export class AddLocationComponent extends Utility implements OnInit {
     this.inputForm = this._fb.group({
       locationID: [''],
       address: ['', [Validators.required]],
-      section: this._fb.array([this.createSection()])
+      slots: this._fb.array([this.createSlot()]),
+      services: this._fb.array([this.createService()])
     });
     this.route.url.subscribe((params) => {
       this.isEdit =
@@ -216,9 +217,9 @@ export class AddLocationComponent extends Utility implements OnInit {
                 locationID: x.locationThirdPartyId,
                 address: x.address
               });
-              this.section.controls[0].patchValue({
-                section: x.slots
-              });
+              // this.section.controls[0].patchValue({
+              //   section: x.slots
+              // });
             }
           });
       } else {
@@ -281,10 +282,9 @@ export class AddLocationComponent extends Utility implements OnInit {
     }
   }
 
-  createSection(): FormGroup {
+  createSlot(): FormGroup {
     return this._fb.group({
-      section: ['', [Validators.required]],
-      services: this._fb.array([this.createService()])
+      thirdPartyLocationId: ['', [Validators.required]],
     });
   }
 
@@ -294,20 +294,18 @@ export class AddLocationComponent extends Utility implements OnInit {
     });
   }
 
-  addSection() {
-    const section = <FormArray>this.inputForm.get('section');
+  addSlot() {
+    const slots = <FormArray>this.inputForm.get('slots');
 
-    if (section.invalid) {
+    if (slots.invalid) {
       return;
     }
 
-    section.push(this.createSection());
+    slots.push(this.createSlot());
   }
 
-  addService(index: number) {
-    const services = (<FormArray>this.inputForm.get('section')).controls[
-      index
-    ].get('services') as FormArray;
+  addService() {
+    const services = (<FormArray>this.inputForm.get('services'))
 
     if (services.invalid) {
       return;
@@ -399,6 +397,16 @@ export class AddLocationComponent extends Utility implements OnInit {
       this.dialogSetting.confirmButton = 'OK';
       this.dialogSetting.cancelButton = 'Cancel';
     }
+
+    let d = this.inputForm.getRawValue();
+    let services = (<object[]>d.services).map(x => x = x['service']);
+    let _data = {
+      "locationThirdPartyId": d.locationThirdPartyId,
+      "address": d.address,
+      "services": services,
+      "slots": d.slots
+    }
+    this._facadeLocation.addLocation(_data);
   }
 
   cancelForm() {
@@ -424,7 +432,13 @@ export class AddLocationComponent extends Utility implements OnInit {
     this.dialogSetting.cancelButton = 'Cancel';
   }
 
-  get section(): FormArray {
-    return this.inputForm.get('section') as FormArray;
+  get services(): FormArray {
+    return this.inputForm.get('services') as FormArray;
   }
+
+  get slots(): FormArray {
+    return this.inputForm.get('slots') as FormArray;
+  }
+
+
 }

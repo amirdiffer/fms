@@ -9,6 +9,7 @@ export interface BodyShopRequestState extends EntityState<IRequest> {
   loaded: boolean;
   statistics?: IBodyShopRequestStatistics;
   message: string;
+  requests?: Array<any>
   submitted: boolean;
 }
 
@@ -26,6 +27,7 @@ export const initialState: BodyShopRequestState = bodyShopRequestAdapter.getInit
     message: null,
     error: null,
     statistics: null,
+    requests: [],
     submitted: false
   } as BodyShopRequestState
 );

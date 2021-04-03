@@ -14,4 +14,11 @@ export class TaskMasterService {
       environment.baseApiUrl + 'workshop/taskmaster'
     );
   }
+
+  skills(): Observable<ResponseBody<any[]>> {
+    return this._http.get<ResponseBody<any[]>>(
+      environment.baseApiUrl + 'workshop/taskmaster/skill'
+    );
+  }
+
 }

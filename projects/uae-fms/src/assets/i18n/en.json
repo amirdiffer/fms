@@ -428,7 +428,8 @@
       "delay": "Delay",
       "issue_type": "Issue Type",
       "employe_id": "Employe ID",
-      "user_status": "User Status"
+      "user_status": "User Status",
+      "requests": "Requests"
     },
     "button": {
       "view_report": "View Report",
@@ -907,7 +908,8 @@
         "id": "Id",
         "describe_job_card": "Describe JobCard",
         "task": "Task",
-        "technician": "Technician"
+        "technician": "Technician",
+        "select_request": "Select The Request Please"
       },
       "technician": {
         "portal_info": "Portal Info",
@@ -950,6 +952,7 @@
         "section_id": "Section ID",
         "section_id_validation_error": "Please fill Location",
         "service": "Service",
+        "slot": "Slot",
         "service_validation_error": "Please fill service"
       }
     },

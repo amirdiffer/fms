@@ -15,6 +15,13 @@ export class BodyShopRequestService {
       environment.baseApiUrl + 'workshop/bodyshop/asset/request'
     );
   }
+
+  requestsById(data): Observable<ResponseBody<any[]>> {
+    return this.http.get<ResponseBody<any[]>>(
+      environment.baseApiUrl + `workshop/bodyshop/asset/${data}/request`
+    );
+  }
+
   loadStatistics(): Observable<IBodyShopRequestStatistics> {
     return this.http.get<IBodyShopRequestStatistics>(
       environment.baseApiUrl + 'workshop/bodyshop/stats'

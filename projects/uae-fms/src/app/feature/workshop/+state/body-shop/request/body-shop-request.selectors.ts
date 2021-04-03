@@ -9,6 +9,11 @@ export class BodyShopRequestSelectors {
     selectAll
   );
 
+  static requests = createSelector(
+    WorkshopSelectors.bodyshopRequestSelector,
+    (state) => state.requests
+  );
+
   static selectStatistics = createSelector(
     WorkshopSelectors.bodyshopRequestSelector,
     (state) => state.statistics

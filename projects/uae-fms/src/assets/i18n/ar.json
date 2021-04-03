@@ -429,7 +429,8 @@
       "delay": "تأخير",
       "issue_type": "نوع القضية",
       "employe_id": "معرف الموظف",
-      "user_status": "حالة المستخدم"
+      "user_status": "حالة المستخدم",
+      "requests": "الطلبات"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -907,7 +908,8 @@
         "describe_job_card": "وصف بطاقة العمل",
         "id": "هوية شخصية",
         "task": "مهمة",
-        "technician": "فني"
+        "technician": "فني",
+        "select_request": "حدد الطلب من فضلك"
       },
       "technician": {
         "portal_info": "معلومات البوابة",
@@ -950,6 +952,7 @@
         "section_id": "رقم القسم",
         "section_id_validation_error": "",
         "service": "الخدمة",
+        "slot": "فتحة",
         "service_validation_error": ""
       }
     },

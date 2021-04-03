@@ -13,14 +13,14 @@ import {
   Validators
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TableSetting } from '@core/table';
+import { ColumnType, TableSetting } from '@core/table';
 import { ButtonType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import {
   BodyShopJobCardFacade,
   BodyShopJobCardService,
-  BodyShopLocationFacade,
+  BodyShopLocationFacade, BodyShopRequestFacade,
   BodyShopTechnicianFacade,
   BodyShopTechnicianService
 } from '@feature/workshop/+state/body-shop';
@@ -35,6 +35,8 @@ import { TaskMasterService } from '@feature/workshop/+state/task-master';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddJobCardComponent extends Utility implements OnInit {
+  downloadBtn = 'assets/icons/download-solid.svg';
+  searchIcon = 'assets/icons/search.svg';
   isEdit: boolean = false;
   id: number;
   //#region Dialog
@@ -66,127 +68,48 @@ export class AddJobCardComponent extends Utility implements OnInit {
   filteredJobCard;
   priorities: any[] = [
     {
-      id: '1',
+      id: 1,
       name: 'Priority ID 1'
     },
     {
-      id: '2',
+      id: 2,
       name: 'Priority ID 2'
     },
     {
-      id: '3',
+      id: 3,
       name: 'Priority ID 3'
     },
     {
-      id: '4',
+      id: 4,
       name: 'Priority ID 4'
     },
     {
-      id: '5',
+      id: 5,
       name: 'Priority ID 5'
     },
     {
-      id: '6',
+      id: 6,
       name: 'JobCard ID 6'
     }
   ];
   addJobCard_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.jobCard_id', type: 1, field: 'JobCard_ID' },
-      { lable: 'tables.column.services', type: 1, field: 'Services' },
-      { lable: 'tables.column.jobCard', type: 1, field: 'JobCard' },
-      { lable: 'tables.column.task', type: 1, field: 'Section' },
+      { lable: 'tables.column.requests', type: 1, field: 'request' },
+      { lable: 'tables.column.date', type: 1, sortable: true, field: 'date' },
+      { lable: 'tables.column.description', type: 1, field: 'description' },
+      { lable: 'tables.column.issue_type', type: 1, field: 'issue_type' },
       {
-        lable: 'tables.column.job_card',
+        lable: 'tables.column.reported_by',
         type: 1,
-        field: 'Job_Card',
-        sortable: true
+        field: 'reportedBy'
       },
       {
-        lable: 'tables.column.technician',
+        lable: 'tables.column.attachment',
         type: 1,
-        field: 'Technician',
-        sortable: true
-      },
-      {
-        lable: 'tables.column.assets',
-        type: 1,
-        field: 'Assets',
-        sortable: true
-      },
-      {
-        lable:
-          '<img src="../../../../../assets/icons/ellipsis-v.svg" class="icon24px">',
-        type: 3,
-        width: 70,
-        isIconLable: true,
-        field: 'addButton',
-        renderer: 'button',
-        buttonType: ButtonType.add
+        field: 'attachment'
       }
     ],
-    data: [
-      {
-        JobCard_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        JobCard: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        JobCard_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        JobCard: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        JobCard_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        JobCard: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        JobCard_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        JobCard: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        JobCard_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        JobCard: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        JobCard_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        JobCard: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      }
-    ]
+    data: []
   };
   private _jobCard: any;
   assets$ = this._facadeAsset.assetMaster$.pipe(
@@ -209,6 +132,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
     injector: Injector,
     private _roter: Router,
     private _facadeJobCard: BodyShopJobCardFacade,
+    private _facadeRequest: BodyShopRequestFacade,
     private _facadeAsset: AssetMasterFacade,
     private _facadeLocation: BodyShopLocationFacade,
     private _facadeTechnician: BodyShopTechnicianFacade,
@@ -237,6 +161,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
       assetId: ['', [Validators.required]],
       description: [''],
       wsLocationId: ['', [Validators.required]],
+      relatedRequestIds: [],
       tasks: this._fb.array([this.createTask()])
     });
     this.route.url.subscribe((params) => {
@@ -335,6 +260,14 @@ export class AddJobCardComponent extends Utility implements OnInit {
     }
   }
 
+  assetIdSelected: number = null;
+  requests$ = this._facadeRequest.requestsById$;
+
+  selectAsset(e) {
+    this.assetIdSelected = e.value;
+    this._facadeRequest.getRequestsById(this.assetIdSelected);
+  }
+
   get tasks(): FormArray {
     return this.inputForm.get('tasks') as FormArray;
   }
@@ -396,10 +329,11 @@ export class AddJobCardComponent extends Utility implements OnInit {
     }
   }
   addRequest() {
+    console.log(this.inputForm.getRawValue())
     this.submited = true;
-    if (this.inputForm.invalid) {
-      return;
-    }
+    // if (this.inputForm.invalid) {
+    //   return;
+    // }
 
     this.dialogModal = true;
     this.dialogType = 'submit';
@@ -419,6 +353,18 @@ export class AddJobCardComponent extends Utility implements OnInit {
       this.dialogSetting.confirmButton = 'OK';
       this.dialogSetting.cancelButton = 'Cancel';
     }
+    let d = this.inputForm.getRawValue();
+    let tasks: object[] = d.tasks;
+    console.log(tasks)
+    // tasks = tasks.map(x => x['taskMasterId'] = x['taskMasterId'].id)
+    // console.log(tasks)
+    let _data = {
+      "description": d.description,
+      "wsLocationId": d.wsLocationId,
+      "relatedRequestIds": d.relatedRequestIds,
+      "tasks": tasks
+    }
+    this._facadeJobCard.addJobCard(_data, d.assetId);
   }
 
   searchTaskMaster(event) {
