@@ -27,4 +27,39 @@ export class BodyShopJobCardEffect {
       )
     )
   );
+  editJobCard$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(BodyShopJobCardActions.editJobCard),
+      mergeMap((action) =>
+        this.service.editJobCard(action.jobCard).pipe(
+          map((data) =>
+            BodyShopJobCardActions.jobCardEditedSuccessfully({
+              jobCard: action.jobCard
+            })
+          ),
+          catchError((error) =>
+            of(BodyShopJobCardActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  addData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(BodyShopJobCardActions.addJobCard),
+      mergeMap((action) =>
+        this.service.post(action.data, action.assetId).pipe(
+          map((data) =>
+            BodyShopJobCardActions.jobCardAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
+          ),
+          catchError((error) =>
+            of(BodyShopJobCardActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
 }

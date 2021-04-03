@@ -32,6 +32,10 @@ import {
 } from '@feature/workshop/+state/auction-list';
 import { AuctionListEffect } from '@feature/workshop/+state/auction-list/auction/auction-list.effects';
 import { SoldListEffects } from '@feature/workshop/+state/auction-list/sold/sold-list.effects';
+import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { UsersService } from '@feature/configuration/+state/users';
+import { ConfigurationStateModule } from '@feature/configuration/+state';
+import { FleetStateModule } from '@feature/fleet/+state';
 
 @NgModule({
   imports: [
@@ -45,7 +49,8 @@ import { SoldListEffects } from '@feature/workshop/+state/auction-list/sold/sold
       AuctionListEffect,
       SoldListEffects,
       TaskMasterEffect
-    ])
+    ]),
+    FleetStateModule
   ],
   exports: [],
   declarations: [],
@@ -65,7 +70,9 @@ import { SoldListEffects } from '@feature/workshop/+state/auction-list/sold/sold
     SoldListFacade,
     SoldListService,
     TaskMasterFacade,
-    TaskMasterService
+    TaskMasterService,
+    AssetMasterFacade,
+    UsersService
   ]
 })
 export class WorkshopStateModule {}

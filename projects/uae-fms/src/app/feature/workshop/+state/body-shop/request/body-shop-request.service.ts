@@ -10,14 +10,32 @@ import { IBodyShopRequestStatistics } from '@models/statistics';
 export class BodyShopRequestService {
   constructor(private http: HttpClient) {}
 
-  loadAll(): Observable<ResponseBody<IRequest[]>> {
-    return this.http.get<ResponseBody<IRequest[]>>(
-      environment.baseApiUrl + 'workshop/bodyshop/issue/type/:type'
+  loadAll(): Observable<ResponseBody<any[]>> {
+    return this.http.get<ResponseBody<any[]>>(
+      environment.baseApiUrl + 'workshop/bodyshop/asset/request'
     );
   }
   loadStatistics(): Observable<IBodyShopRequestStatistics> {
     return this.http.get<IBodyShopRequestStatistics>(
       environment.baseApiUrl + 'workshop/bodyshop/stats'
+    );
+  }
+
+  post(data): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'workshop/bodyshop/request',
+      data
+    );
+  }
+  editRequest(data): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'workshop/bodyshop/issue' + data.id + '/update',
+      data
+    );
+  }
+  getRequestById(id) {
+    return this.http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'workshop/body-shop/issue' + id
     );
   }
 }

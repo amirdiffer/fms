@@ -12,9 +12,29 @@ export class BodyShopLocationFacade {
 
   error$ = this.store.pipe(select(BodyShopLocationSelectors.error));
 
+  submitted$ = this.store.pipe(select(BodyShopLocationSelectors.submitted));
   constructor(private store: Store<IBodyShopLocationPartialState>) {}
 
   loadAll() {
     this.store.dispatch(BodyShopLocationActions.loadAll());
+  }
+  addLocation(data: any) {
+    this.store.dispatch(BodyShopLocationActions.addBodyShopLocation({ data }));
+  }
+
+  editLocation(bodyShopLocation: any) {
+    this.store.dispatch(
+      BodyShopLocationActions.editBodyShopLocation({ bodyShopLocation })
+    );
+  }
+
+  getLocationById(id: number) {
+    return this.store.pipe(
+      select(BodyShopLocationSelectors.selectById, { id })
+    );
+  }
+
+  resetParams() {
+    this.store.dispatch(BodyShopLocationActions.resetParams());
   }
 }

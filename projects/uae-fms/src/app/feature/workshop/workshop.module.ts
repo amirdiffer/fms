@@ -45,6 +45,7 @@ import { ServiceShopAddTechnicianComponent } from './service-shop/add-technician
 import { ServiceShopAddLocationComponent } from './service-shop/add-location/add-location.component';
 import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 import { WorkshopStateModule } from './+state';
+import { AddJobCardComponent } from './body-shop/add-job-card/add-job-card.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { WorkshopStateModule } from './+state';
     AddTechnicianComponent,
     AddRequestComponent,
     AddLocationComponent,
+    AddJobCardComponent,
     TaskMasterFormComponent,
     ServiceShopComponent,
     ServiceShopAddRequestComponent,

@@ -15,6 +15,7 @@ export class BodyShopRequestFacade {
 
   error$ = this.store.pipe(select(BodyShopRequestSelectors.error));
 
+  submitted$ = this.store.pipe(select(BodyShopRequestSelectors.submitted));
   constructor(private store: Store<BodyshopRequestPartialState>) {}
 
   loadAll() {
@@ -22,5 +23,21 @@ export class BodyShopRequestFacade {
   }
   loadStatistics() {
     this.store.dispatch(BodyShopRequestActions.loadStatistics());
+  }
+
+  addRequest(data: any) {
+    this.store.dispatch(BodyShopRequestActions.addRequest({ data }));
+  }
+
+  editRequest(request: any) {
+    this.store.dispatch(BodyShopRequestActions.editRequest({ request }));
+  }
+
+  getRequestById(id: number) {
+    return this.store.pipe(select(BodyShopRequestSelectors.selectById, { id }));
+  }
+
+  resetParams() {
+    this.store.dispatch(BodyShopRequestActions.resetParams());
   }
 }

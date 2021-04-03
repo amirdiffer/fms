@@ -17,23 +17,30 @@ import { TableSetting } from '@core/table';
 import { ButtonType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { BodyShopLocationFacade } from '@feature/workshop/+state/body-shop';
+import {
+  BodyShopJobCardFacade,
+  BodyShopJobCardService,
+  BodyShopLocationFacade,
+  BodyShopTechnicianFacade,
+  BodyShopTechnicianService
+} from '@feature/workshop/+state/body-shop';
 import { map } from 'rxjs/operators';
+import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 
 @Component({
-  selector: 'anms-add-location',
-  templateUrl: './add-location.component.html',
-  styleUrls: ['./add-location.component.scss'],
+  selector: 'anms-add-job-card',
+  templateUrl: './add-job-card.component.html',
+  styleUrls: ['./add-job-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddLocationComponent extends Utility implements OnInit {
+export class AddJobCardComponent extends Utility implements OnInit {
   isEdit: boolean = false;
   id: number;
   //#region Dialog
   dialogModal = false;
 
   dialogSetting: IDialogAlert = {
-    header: 'Add Location',
+    header: 'Add JobCard',
     hasError: false,
     message: 'Message is Here',
     confirmButton: 'Register Now',
@@ -53,39 +60,39 @@ export class AddLocationComponent extends Utility implements OnInit {
   //#endregion Dialog
   inputForm: FormGroup;
   submited = false;
-  filteredLocation;
-  locationID: any[] = [
+  filteredJobCard;
+  priorities: any[] = [
     {
       id: '1',
-      name: 'Location ID 1'
+      name: 'Priority ID 1'
     },
     {
       id: '2',
-      name: 'Location ID 2'
+      name: 'Priority ID 2'
     },
     {
       id: '3',
-      name: 'Location ID 3'
+      name: 'Priority ID 3'
     },
     {
       id: '4',
-      name: 'Location ID 4'
+      name: 'Priority ID 4'
     },
     {
       id: '5',
-      name: 'Location ID 5'
+      name: 'Priority ID 5'
     },
     {
       id: '6',
-      name: 'Location ID 6'
+      name: 'JobCard ID 6'
     }
   ];
-  addLocation_Table: TableSetting = {
+  addJobCard_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.location_id', type: 1, field: 'Location_ID' },
+      { lable: 'tables.column.jobCard_id', type: 1, field: 'JobCard_ID' },
       { lable: 'tables.column.services', type: 1, field: 'Services' },
-      { lable: 'tables.column.location', type: 1, field: 'Location' },
-      { lable: 'tables.column.section', type: 1, field: 'Section' },
+      { lable: 'tables.column.jobCard', type: 1, field: 'JobCard' },
+      { lable: 'tables.column.task', type: 1, field: 'Section' },
       {
         lable: 'tables.column.job_card',
         type: 1,
@@ -117,9 +124,9 @@ export class AddLocationComponent extends Utility implements OnInit {
     ],
     data: [
       {
-        Location_ID: '00234567',
+        JobCard_ID: '00234567',
         Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
+        JobCard: 'Bardubai, Street Number 2',
         Section: '3',
         Job_Card: '123456789',
         Technician: '123',
@@ -127,9 +134,9 @@ export class AddLocationComponent extends Utility implements OnInit {
         addButton: ''
       },
       {
-        Location_ID: '00234567',
+        JobCard_ID: '00234567',
         Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
+        JobCard: 'Bardubai, Street Number 2',
         Section: '3',
         Job_Card: '123456789',
         Technician: '123',
@@ -137,9 +144,9 @@ export class AddLocationComponent extends Utility implements OnInit {
         addButton: ''
       },
       {
-        Location_ID: '00234567',
+        JobCard_ID: '00234567',
         Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
+        JobCard: 'Bardubai, Street Number 2',
         Section: '3',
         Job_Card: '123456789',
         Technician: '123',
@@ -147,9 +154,9 @@ export class AddLocationComponent extends Utility implements OnInit {
         addButton: ''
       },
       {
-        Location_ID: '00234567',
+        JobCard_ID: '00234567',
         Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
+        JobCard: 'Bardubai, Street Number 2',
         Section: '3',
         Job_Card: '123456789',
         Technician: '123',
@@ -157,9 +164,9 @@ export class AddLocationComponent extends Utility implements OnInit {
         addButton: ''
       },
       {
-        Location_ID: '00234567',
+        JobCard_ID: '00234567',
         Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
+        JobCard: 'Bardubai, Street Number 2',
         Section: '3',
         Job_Card: '123456789',
         Technician: '123',
@@ -167,9 +174,9 @@ export class AddLocationComponent extends Utility implements OnInit {
         addButton: ''
       },
       {
-        Location_ID: '00234567',
+        JobCard_ID: '00234567',
         Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
+        JobCard: 'Bardubai, Street Number 2',
         Section: '3',
         Job_Card: '123456789',
         Technician: '123',
@@ -178,65 +185,89 @@ export class AddLocationComponent extends Utility implements OnInit {
       }
     ]
   };
-  private _location: any;
+  private _jobCard: any;
+  assets$ = this._facadeAsset.assetMaster$.pipe(
+    map((y) => y.map((x) => ({ id: x.id, name: x.dpd })))
+  );
+  locations$ = this._facadeLocation.bodyShop$.pipe(
+    map((y) => y.map((x) => ({ id: x.id, name: x.address })))
+  );
+  technicians$ = this._facadeTechnician.bodyShop$.pipe(
+    map((y) =>
+      y.map((x) => ({
+        id: x.id,
+        name: x.user.firstName + ' ' + x.user.lastName
+      }))
+    )
+  );
 
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
     private _roter: Router,
+    private _facadeJobCard: BodyShopJobCardFacade,
+    private _facadeAsset: AssetMasterFacade,
     private _facadeLocation: BodyShopLocationFacade,
+    private _facadeTechnician: BodyShopTechnicianFacade,
+    private _jobCardService: BodyShopJobCardService,
     private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this._facadeAsset.loadAll();
+    this._facadeLocation.loadAll();
+    this._facadeTechnician.loadAll();
     this.buildForm();
   }
   private buildForm() {
     this.inputForm = this._fb.group({
-      locationID: [''],
-      address: ['', [Validators.required]],
-      section: this._fb.array([this.createSection()])
+      assetId: ['', [Validators.required]],
+      description: [''],
+      wsLocationId: ['', [Validators.required]],
+      tasks: this._fb.array([this.createTask()])
     });
     this.route.url.subscribe((params) => {
       this.isEdit =
-        params.filter((x) => x.path == 'edit-location').length > 0
+        params.filter((x) => x.path == 'edit-job-card').length > 0
           ? true
           : false;
 
       if (this.isEdit) {
         this.id = +params[params.length - 1].path;
-        this._facadeLocation
-          .getLocationById(+params[params.length - 1].path)
+        this._jobCardService
+          .getJobCardById(this.id)
           .pipe(map((x) => x.message))
           .subscribe((x) => {
             if (x) {
-              this._location = x;
+              this._jobCard = x;
               this.inputForm.patchValue({
-                locationID: x.locationThirdPartyId,
-                address: x.address
+                description: x.description,
+                wsLocationId: x.location.id
               });
-              this.section.controls[0].patchValue({
-                section: x.slots
-              });
+              // this.task.controls[0].patchValue({
+              //   task: x.tasks
+              // });
             }
+            this.inputForm.get('description').markAsDirty();
+            this.inputForm.get('wsLocationId').markAsDirty();
           });
       } else {
       }
     });
 
-    this._facadeLocation.submitted$.subscribe((x) => {
+    this._facadeJobCard.submitted$.subscribe((x) => {
       console.log('Submit : ', x);
       if (x) {
         this.dialogModal = true;
         this.dialogType = 'success';
         this.dialogSetting.header = this.isEdit
-          ? 'Edit location'
-          : 'Add new location';
+          ? 'Edit jobCard'
+          : 'Add new jobCard';
         this.dialogSetting.message = this.isEdit
           ? 'Changes Saved Successfully'
-          : 'Location Added Successfully';
+          : 'JobCard Added Successfully';
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
@@ -245,13 +276,13 @@ export class AddLocationComponent extends Utility implements OnInit {
       }
     });
 
-    this._facadeLocation.error$.subscribe((x) => {
+    this._facadeJobCard.error$.subscribe((x) => {
       if (x?.error) {
         console.log(x?.error);
         this.errorDialogModal = true;
         this.errorDialogSetting.header = this.isEdit
-          ? 'Edit location'
-          : 'Add new location';
+          ? 'Edit jobCard'
+          : 'Add new jobCard';
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
         this.errorDialogSetting.confirmButton = 'Ok';
@@ -262,18 +293,18 @@ export class AddLocationComponent extends Utility implements OnInit {
     });
   }
 
-  searchLocation(event) {
-    let filtered: any[] = [];
-    let query = event.query;
-    for (let i = 0; i < this.locationID.length; i++) {
-      let location = this.locationID[i];
-      if (location.id.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(location);
-      }
-    }
-    this.filteredLocation = filtered;
-  }
-  autocompleteValidationLocationID(input: FormControl) {
+  // searchJobCard(event) {
+  //   let filtered: any[] = [];
+  //   let query = event.query;
+  //   for (let i = 0; i < this.jobCardID.length; i++) {
+  //     let jobCard = this.jobCardID[i];
+  //     if (jobCard.id.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+  //       filtered.push(jobCard);
+  //     }
+  //   }
+  //   this.filteredJobCard = filtered;
+  // }
+  autocompleteValidationJobCardID(input: FormControl) {
     const inputValid = input.value.id;
     if (inputValid) {
       return null;
@@ -282,39 +313,22 @@ export class AddLocationComponent extends Utility implements OnInit {
     }
   }
 
-  createSection(): FormGroup {
+  createTask(): FormGroup {
     return this._fb.group({
-      section: ['', [Validators.required]],
-      services: this._fb.array([this.createService()])
+      taskMasterId: ['1', [Validators.required]],
+      priorityOrder: ['', [Validators.required]],
+      technicianId: ['', [Validators.required]]
     });
   }
 
-  createService(): FormGroup {
-    return this._fb.group({
-      service: ['', [Validators.required]]
-    });
-  }
+  addTask() {
+    const task = <FormArray>this.inputForm.get('tasks');
 
-  addSection() {
-    const section = <FormArray>this.inputForm.get('section');
-
-    if (section.invalid) {
+    if (task.invalid) {
       return;
     }
 
-    section.push(this.createSection());
-  }
-
-  addService(index: number) {
-    const services = (<FormArray>this.inputForm.get('section')).controls[
-      index
-    ].get('services') as FormArray;
-
-    if (services.invalid) {
-      return;
-    }
-
-    services.push(this.createService());
+    task.push(this.createTask());
   }
 
   dialogConfirm($event): void {
@@ -324,55 +338,34 @@ export class AddLocationComponent extends Utility implements OnInit {
 
     if (this.dialogType == 'submit') {
       let f = this.inputForm.value;
-      console.log(this._location);
-      let locationInfo: any = {
-        locationThirdPartyId: f.locationID,
-        address: f.address,
-        slots: [
-          {
-            id: 11,
-            thirdPartySlotId: 'A2'
-          },
-          {
-            id: 1,
-            thirdPartySlotId: 'A1'
-          },
-          {
-            id: 9,
-            thirdPartySlotId: 'A1'
-          },
-          {
-            id: 10,
-            thirdPartySlotId: 'A2'
-          },
-          {
-            id: 5,
-            thirdPartySlotId: 'A1'
-          },
-          {
-            id: 6,
-            thirdPartySlotId: 'A2'
-          }
-        ]
+      console.log(this._jobCard);
+      let jobCardInfo: any = {
+        description: f.description,
+        wsLocationId: f.wsLocationId,
+        tasks: f.tasks.map((t) => ({
+          priorityOrder: t.priorityOrder,
+          taskMasterId: 1,
+          technicianId: t.technicianId
+        }))
       };
 
       if (this.isEdit) {
-        locationInfo = {
-          ...locationInfo,
+        jobCardInfo = {
+          ...jobCardInfo,
           id: this.id
         };
 
-        console.log(locationInfo);
-        this._facadeLocation.editLocation(locationInfo);
+        console.log(jobCardInfo);
+        this._facadeJobCard.editJobCard(jobCardInfo);
       } else {
-        locationInfo = {
-          ...locationInfo
+        jobCardInfo = {
+          ...jobCardInfo
         };
-        this._facadeLocation.addLocation(locationInfo);
+        this._facadeJobCard.addJobCard(jobCardInfo, f.assetId);
       }
     } else {
       this.router.navigate(['/workshop/body-shop']).then((_) => {
-        this._facadeLocation.resetParams();
+        this._facadeJobCard.resetParams();
       });
     }
   }
@@ -385,7 +378,7 @@ export class AddLocationComponent extends Utility implements OnInit {
     this.dialogModal = true;
     this.dialogType = 'submit';
     if (this.isEdit) {
-      this.dialogSetting.header = 'Edit location';
+      this.dialogSetting.header = 'Edit jobCard';
       this.dialogSetting.message =
         'Are you sure you want to submit this changes?';
       this.dialogSetting.isWarning = true;
@@ -393,10 +386,10 @@ export class AddLocationComponent extends Utility implements OnInit {
       this.dialogSetting.cancelButton = 'Cancel';
       return;
     } else {
-      this.dialogSetting.header = 'Add new location';
+      this.dialogSetting.header = 'Add new jobCard';
       this.dialogSetting.isWarning = true;
       this.dialogSetting.hasError = false;
-      this.dialogSetting.message = 'Are you sure you want to add new location?';
+      this.dialogSetting.message = 'Are you sure you want to add new jobCard?';
       this.dialogSetting.confirmButton = 'OK';
       this.dialogSetting.cancelButton = 'Cancel';
     }
@@ -406,26 +399,26 @@ export class AddLocationComponent extends Utility implements OnInit {
     this.dialogModal = true;
     this.dialogType = 'cancel';
     if (this.isEdit) {
-      this.dialogSetting.header = 'Edit location';
+      this.dialogSetting.header = 'Edit jobCard';
       this.dialogSetting.hasError = false;
       this.dialogSetting.isWarning = true;
       this.dialogSetting.message =
-        'Are you sure that you want to cancel editing location?';
+        'Are you sure that you want to cancel editing jobCard?';
       this.dialogSetting.confirmButton = 'Yes';
       this.dialogSetting.cancelButton = 'Cancel';
       return;
     }
 
-    this.dialogSetting.header = 'Add new location';
+    this.dialogSetting.header = 'Add new jobCard';
     this.dialogSetting.hasError = false;
     this.dialogSetting.isWarning = true;
     this.dialogSetting.message =
-      'Are you sure that you want to cancel adding new location?';
+      'Are you sure that you want to cancel adding new jobCard?';
     this.dialogSetting.confirmButton = 'Yes';
     this.dialogSetting.cancelButton = 'Cancel';
   }
 
-  get section(): FormArray {
-    return this.inputForm.get('section') as FormArray;
+  get task(): FormArray {
+    return this.inputForm.get('task') as FormArray;
   }
 }
