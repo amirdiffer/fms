@@ -903,7 +903,12 @@
         "view_card": "بطاقة عرض",
         "asset_type": "نوع الأصول"
       },
-      "job_card": {},
+      "job_card": {
+        "describe_job_card": "وصف بطاقة العمل",
+        "id": "هوية شخصية",
+        "task": "مهمة",
+        "technician": "فني"
+      },
       "technician": {
         "portal_info": "معلومات البوابة",
         "professional_info": "معلومات احترافية",

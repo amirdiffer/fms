@@ -1,4 +1,7 @@
 
+<pre>
+  {{inputForm.value | json}}
+</pre>
 <form [formGroup]="inputForm" (ngSubmit)="addRequest()">
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" type="button"
@@ -15,7 +18,7 @@
           <p-dropdown inputId="asset" [autoDisplayFirst]="false"
             [options]="assets$|async" formControlName="assetId" optionValue="id"
             optionLabel="name"></p-dropdown>
-          <label for="asset">Id</label>
+          <label for="asset">{{ 'workshop.body_shop.job_card.id' | translate }}</label>
           <anms-error
             [showError]="hasError('assetId',inputForm,submited)"
             error="forms.feedback.required">
@@ -25,15 +28,15 @@
     </div>
   </div>
   <div class="form-section mt-3">
-    <h3 class="form-section__title">Describe JobCard</h3>
+    <h3 class="form-section__title">{{ 'workshop.body_shop.job_card.describe_job_card' | translate }}</h3>
     <div class="row form-section__row">
       <div class="col-lg-12">
         <div class="form-group p-field form-section__field">
           <div class="input-group">
             <span class="p-float-label w-100">
-              <input type="text" class="form-control" placeholder="Description"
+              <input type="text" class="form-control" placeholder="{{ 'workshop.body_shop.requests.description' | translate }}"
                 formControlName="description">
-              <label>Description</label>
+              <label>{{ 'workshop.body_shop.requests.description' | translate }}</label>
             </span>
           </div>
         </div>
@@ -44,7 +47,7 @@
           <p-dropdown inputId="location" [autoDisplayFirst]="false"
             [options]="locations$|async" formControlName="wsLocationId" optionValue="id"
             optionLabel="name"></p-dropdown>
-          <label for="location">Location</label>
+          <label for="location">{{ 'workshop.body_shop.technician.location' | translate }}</label>
           <anms-error
             [showError]="hasError('wsLocationId',inputForm,submited)"
             error="forms.feedback.required">
@@ -61,7 +64,7 @@
           <span class="p-inputgroup-addon add-section" (click)="addTask()"
             [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i
               class="pi pi-plus"></i></span>
-          Task
+          {{ 'workshop.body_shop.job_card.task' | translate }}
         </div>
       </div>
       <div class="row">
@@ -102,12 +105,36 @@
                     error="forms.feedback.required"></anms-error>
                 </div>
               </div> -->
+              <div class="col-4">
+                <div class="form-group p-field form-section__field">
+                    <div class="input-group">
+                        <div class="autocomplete-select w-100">
+                            <span class="p-float-label">
+                                <p-autoComplete
+                                    [suggestions]="newTaskMasters"
+                                    formControlName="taskMasterId"
+                                    (completeMethod)="searchTaskMaster($event)"
+                                    field="name"
+                                    [minLength]="1"
+                                    ></p-autoComplete>
+                                    <i class="pi pi-search"></i>
+                                    <!-- [class.invalid]="!inputForm.get('taskMasterId').valid
+                                    && submited" -->
+                                <label>{{ 'workshop.body_shop.job_card.task' | translate }} *</label>
+                            </span>
+                        </div>
+                        <!-- <small class="red-font" [class.d-none]="inputForm.get('taskMasterId').valid
+                            || !submited">{{'workshop.body_shop.requests.asset_validation_error'
+                            | translate}}</small> -->
+                    </div>
+                </div>
+            </div>
               <div class="col-12 col-md-4 p-field form-section__field options-select">
                 <span class="p-float-label">
                   <p-dropdown inputId="priority" [autoDisplayFirst]="false"
                     [options]="priorities" formControlName="priorityOrder" optionValue="id"
                     optionLabel="name"></p-dropdown>
-                  <label for="priority">Priority</label>
+                  <label for="priority">{{ 'workshop.body_shop.requests.priority' | translate }}</label>
                   <!-- <anms-error
                     [showError]="hasError('priorityOrder',inputForm,submited)"
                     error="forms.feedback.required">
@@ -119,7 +146,7 @@
                   <p-dropdown inputId="technician" [autoDisplayFirst]="false"
                     [options]="technicians$|async" formControlName="technicianId" optionValue="id"
                     optionLabel="name"></p-dropdown>
-                  <label for="technician">Technician</label>
+                  <label for="technician">{{ 'workshop.body_shop.job_card.technician' | translate }}</label>
                   <!-- <anms-error
                     [showError]="hasError('priorityOrder',inputForm,submited)"
                     error="forms.feedback.required">

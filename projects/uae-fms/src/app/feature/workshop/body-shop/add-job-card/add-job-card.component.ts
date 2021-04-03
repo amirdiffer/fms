@@ -26,6 +26,7 @@ import {
 } from '@feature/workshop/+state/body-shop';
 import { map } from 'rxjs/operators';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { TaskMasterService } from '@feature/workshop/+state/task-master';
 
 @Component({
   selector: 'anms-add-job-card',
@@ -59,6 +60,8 @@ export class AddJobCardComponent extends Utility implements OnInit {
   errorDialogModal = false;
   //#endregion Dialog
   inputForm: FormGroup;
+  taskMasters: any[] = [];
+  newTaskMasters: any[];
   submited = false;
   filteredJobCard;
   priorities: any[] = [
@@ -210,12 +213,20 @@ export class AddJobCardComponent extends Utility implements OnInit {
     private _facadeLocation: BodyShopLocationFacade,
     private _facadeTechnician: BodyShopTechnicianFacade,
     private _jobCardService: BodyShopJobCardService,
+    private _taskMasterService: TaskMasterService,
     private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this._taskMasterService.loadAll().subscribe(
+      (data) =>
+        (this.taskMasters = data.message.map((t) => ({
+          id: t.id,
+          name: t.name
+        })))
+    );
     this._facadeAsset.loadAll();
     this._facadeLocation.loadAll();
     this._facadeTechnician.loadAll();
@@ -243,9 +254,20 @@ export class AddJobCardComponent extends Utility implements OnInit {
             if (x) {
               this._jobCard = x;
               this.inputForm.patchValue({
+                assetId: x.assetId,
                 description: x.description,
-                wsLocationId: x.location.id
+                wsLocationId: x.location.id,
+                tasks: x.tasks.map((t) => ({
+                  taskMasterId: {
+                    id: t.taskMaster.id,
+                    name: t.taskMaster.name
+                  },
+                  priorityOrder: t.priorityOrder,
+                  technician: t.technicianId
+                }))
               });
+              this.tasks.controls[0].markAsDirty();
+
               // this.task.controls[0].patchValue({
               //   task: x.tasks
               // });
@@ -313,9 +335,13 @@ export class AddJobCardComponent extends Utility implements OnInit {
     }
   }
 
+  get tasks(): FormArray {
+    return this.inputForm.get('tasks') as FormArray;
+  }
+
   createTask(): FormGroup {
     return this._fb.group({
-      taskMasterId: ['1', [Validators.required]],
+      taskMasterId: ['', [Validators.required]],
       priorityOrder: ['', [Validators.required]],
       technicianId: ['', [Validators.required]]
     });
@@ -344,7 +370,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
         wsLocationId: f.wsLocationId,
         tasks: f.tasks.map((t) => ({
           priorityOrder: t.priorityOrder,
-          taskMasterId: 1,
+          taskMasterId: t.taskMasterId.id,
           technicianId: t.technicianId
         }))
       };
@@ -393,6 +419,14 @@ export class AddJobCardComponent extends Utility implements OnInit {
       this.dialogSetting.confirmButton = 'OK';
       this.dialogSetting.cancelButton = 'Cancel';
     }
+  }
+
+  searchTaskMaster(event) {
+    let copyAssets = [];
+    copyAssets = this.taskMasters.slice();
+    this.newTaskMasters = copyAssets.filter((a) =>
+      a.name.includes(event.query)
+    );
   }
 
   cancelForm() {

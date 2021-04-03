@@ -222,6 +222,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   id: any;
   formChangesSubscription!: Subscription;
   newLocations: any[];
+  profileDocId: number;
   get emails(): FormArray {
     return this.inputForm.get('personalInfo').get('email') as FormArray;
   }
@@ -268,11 +269,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
                   name: x.user.id,
                   id: x.user.employeeNumber
                 },
-                // department: {
-                //   name: `${x.department.name}`
-                // },
-                // roleId: x.role.roleId,
-                activeEmployee: x.user.isActive,
+                active: x.user.isActive,
                 payPerHours: x.payPerHour
               });
               this.inputForm.controls['portalInfo']
@@ -285,17 +282,17 @@ export class AddTechnicianComponent extends Utility implements OnInit {
                 callCheckbox: false,
                 smsCheckbox: false,
                 whatsappCheckbox: false,
-                emailCheckbox: false
-              });
-
-              this.emails.controls[0].patchValue({
-                email: x.user.emails
-              });
-
-              this.phoneNumbers.controls[0].patchValue({
+                emailCheckbox: false,
+                email: x.user.emails,
                 phoneNumber: x.user.phoneNumbers
               });
-
+              this.inputForm.controls['personalInfo']
+                .get('firstName')
+                .markAsDirty();
+              this.inputForm.controls['personalInfo']
+                .get('lastName')
+                .markAsDirty();
+              this.emails.controls[0].markAsDirty();
               // this.inputForm.controls['fileUpload'].patchValue({
               //   fileName: x.user.profileDocId
               // });
@@ -479,7 +476,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         departmentId: 1,
         payPerHour: f.portalInfo.payPerHours,
         isActive: f.portalInfo.active,
-        profileDocId: 1,
+        profileDocId: this.profileDocId || 1,
         skillIds: [3],
         locationIds: f.professional.location.map((l) => l.id),
         firstName: f.personalInfo.firstName,
@@ -616,5 +613,13 @@ export class AddTechnicianComponent extends Utility implements OnInit {
 
   public fileLeave(event) {
     console.log(event);
+  }
+
+  uploadImage($event) {
+    if (!$event || !$event.files) {
+      return;
+    }
+    const docId = $event.files[0];
+    this.profileDocId = docId;
   }
 }

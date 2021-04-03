@@ -903,7 +903,12 @@
         "view_card": "View Card",
         "asset_type": "Asset Type"
       },
-      "job_card": {},
+      "job_card": {
+        "id": "Id",
+        "describe_job_card": "Describe JobCard",
+        "task": "Task",
+        "technician": "Technician"
+      },
       "technician": {
         "portal_info": "Portal Info",
         "professional_info": "Professional Info",

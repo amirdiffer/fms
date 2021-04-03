@@ -66,6 +66,7 @@ export class AddRequestComponent implements OnInit {
   filteredAsset: any[];
   submited = false;
   assets: any[] = [];
+  newAssets: any[];
   inputForm: FormGroup;
   public filesUpdloaded: NgxFileDropEntry[] = [];
   isEdit: boolean = false;
@@ -73,7 +74,7 @@ export class AddRequestComponent implements OnInit {
   private _request: IRequest;
   getAssetsList = new Subject();
   assetId: any;
-  newAssets: any[];
+  profileDocIds: number[] = [];
   constructor(
     private _fb: FormBuilder,
     private bodyShopRequestService: BodyShopRequestService,
@@ -204,6 +205,7 @@ export class AddRequestComponent implements OnInit {
         asset: value.name,
         gpsMeterSource: value.gps
       }
+      //Meter Type
     });
   }
   autocompleteValidation(input: FormControl) {
@@ -234,7 +236,7 @@ export class AddRequestComponent implements OnInit {
         request: f.issueInfo.issue,
         description: f.issueInfo.description,
         priority: f.priority,
-        documentIds: [1]
+        documentIds: this.profileDocIds || ['1']
       };
 
       if (this.isEdit) {
@@ -330,5 +332,13 @@ export class AddRequestComponent implements OnInit {
 
   public fileLeave(event) {
     console.log(event);
+  }
+
+  uploadImage($event) {
+    this.profileDocIds = [];
+    if (!$event || !$event.files) {
+      return;
+    }
+    this.profileDocIds = $event.files;
   }
 }

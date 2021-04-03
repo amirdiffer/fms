@@ -16,7 +16,7 @@ export class TaskMasterEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            return TaskMasterActions.allDataLoaded({ data });
+            return TaskMasterActions.allDataLoaded({ data: data.message });
           }),
           catchError((error) => of(TaskMasterActions.error({ reason: error })))
         )

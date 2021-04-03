@@ -325,7 +325,17 @@
                 </div>
             </div>
         </div>
-        <div class="col-12">
+        <div class='col-12 d-flex'>
+            <div class="form-section w-100">
+              <div>
+                <p class='font-weight-bold'>{{'workshop.body_shop.requests.upload_form.title'
+                    | translate}}</p>
+              </div>
+              <anms-uploader [hintIsHidden]="true" [iconIsHidden]="false"  [multiple]="true"
+                [preview]="false" [accept]="'.png'" (uploadedEvent)="uploadImage($event)"></anms-uploader>
+            </div>
+          </div>
+        <!-- <div class="col-12">
             <div class="component_wrapper p-4">
                 <h3 class="form-section__title">{{'workshop.body_shop.requests.upload_form.title'
                     | translate}}</h3>
@@ -364,7 +374,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </form>
 <alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal"
