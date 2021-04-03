@@ -7,9 +7,11 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { MovementRequestsFacade } from '@feature/fleet/+state/movement';
+import { MovementOverviewFacade, MovementRequestsFacade } from '@feature/fleet/+state/movement';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { MovementService } from '@feature/fleet/movement/movement.service';
+import { MovementRequestsFacadeTemporary } from '@feature/fleet/+state/movement/temporary/requests/movement-requests.facade';
+import { MovementOverviewFacadeTemporary } from '@feature/fleet/+state/movement/temporary/overview/movement-overview.facade';
 
 @Component({
   selector: 'anms-add-request',
@@ -50,7 +52,8 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    private facade: MovementRequestsFacade,
+    private facade: MovementRequestsFacadeTemporary,
+    private overViewFacade: MovementOverviewFacadeTemporary,
     private changeDetector: ChangeDetectorRef,
     private assetFacade: AssetMasterFacade,
     private _movementService: MovementService,
@@ -72,6 +75,8 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
       if (x) {
         this.displaySuccessModal = true;
         this.dialogErrorSetting.hasError = false;
+        this.facade.loadAll();
+        this.overViewFacade.loadAll();
         this.changeDetector.detectChanges();
       }
     });
