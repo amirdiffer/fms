@@ -20,7 +20,7 @@
                 </div>
               </div>
               <div class="col-lg-12 mt-2">
-                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" multiple="true" >
+                <ngx-file-drop dropZoneLabel="Drop files here" directory="ture"(onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" multiple="true" >
                   <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                     <label (click)="openFileSelector()" style="cursor: pointer;">
                       <svg-icon  class="drop-icon" src="assets/icons/cloud-computing.svg"

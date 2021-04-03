@@ -497,6 +497,7 @@
     "warranty_start_date": "تاريخ بدء الضمان",
     "description": "الوصف",
     "multiple_assets": "أصول متعددة",
+    "serial_number":"رقم سري",
     "single_asset": "أصل واحد",
     "review_your_plan": "راجع خطتك",
     "calculate": "احسب",

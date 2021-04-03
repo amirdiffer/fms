@@ -180,17 +180,14 @@
       </div>
       <div *ngIf="isSingleAsset" class="row form-section__row">
         <div class="col-12 col-md-12 p-field form-section__field">
-
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">
-                DPD
-            </span>
-            <span class="p-float-label">
-              <input formControlName="serialNumber" pInputText placeholder="{{'sub_asset.serial_number' | translate}}"
-              type="text">
-                <label for="inputgroup">{{'sub_asset.serial_number' | translate}}</label>
-            </span>
-        </div>
+          <span class="p-float-label">
+            <input pInputText numbersOnly [placeholder]="'sub_asset.serial_number' | translate" formControlName="serialNumber"  type="text">
+            <label>{{ 'sub_asset.serial_number' | translate }}</label>
+          </span>
+          <anms-error
+          [showError]="hasError('serialNumber',subAssetForm, submitted)"
+          error="forms.feedback.required">
+          </anms-error>
         </div>
       </div>
     </div>
@@ -198,27 +195,7 @@
 
 
     <div *ngIf="!isSingleAsset" class="second-step-upload-box">
-      <div class="row">
-        <div class="col-12 d-flex justify-content-between file-name-size">
-          <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
-          <span>00 MB</span>
-        </div>
-        <div class="col-lg-12">
-          <div class="w-100 p-0">
-            <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
-          </div>
-        </div>
-        <div class="col-lg-12 mt-2">
-          <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
-            (onFileLeave)="fileLeave($event)">
-            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-              <label (click)="openFileSelector()" style="cursor: pointer;">
-                <small class="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-              </label>
-            </ng-template>
-          </ngx-file-drop>
-        </div>
-      </div>
+      <anms-uploader  [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="subAssetDocRequired" (uploadedEvent)="uploadDocFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
     </div>
   </div>
 

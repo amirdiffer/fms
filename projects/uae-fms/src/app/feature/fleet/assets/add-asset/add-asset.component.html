@@ -159,7 +159,7 @@
                     <!-- form-section -->
                     <div class="form-section component_wrapper">
                       <h3 class="form-section__title">{{ 'assets.upload_form.title' | translate }}</h3>
-                      <anms-uploader [files]="vehicleDoc" [multiple]="true" [preview]="false" [hasError]="vehicleDocRequired" (uploadedEvent)="uploadVehicleFiles($event)"></anms-uploader>
+                      <anms-uploader [files]="vehicleDoc" [multiple]="true" [preview]="false" [hasError]="vehicleDocRequired" (uploadedEvent)="uploadVehicleFiles($event)" ></anms-uploader>
                     </div>
                     <!-- end form-section -->
                   </form>
@@ -265,7 +265,7 @@
                         </div>
                         <div class="form-section component_wrapper">
                           <h3 class="form-section__title">{{ 'assets.upload_purchase_order' | translate }}</h3>
-                          <anms-uploader [files]="purchaseDoc" [multiple]="false" [preview]="false"  [hasError]="purchaseDocRequired" (uploadedEvent)="uploadPurchaseFiles($event)"></anms-uploader>
+                          <anms-uploader [files]="purchaseDoc" [multiple]="false" [preview]="false" [hasError]="purchaseDocRequired" (uploadedEvent)="uploadPurchaseFiles($event)"></anms-uploader>
                         </div>
                       </div>
                       <div *ngIf="policyType.value != '' " class="col-12 col-md-7">
@@ -429,7 +429,7 @@
                       <div class="form-section component_wrapper">
                         <div class="row">
                           <div class="col-2">
-                            <h3 class="form-section__title">{{ 'assets.asset_quantity' | translate }}</h3>
+                            <h3 class="form-section__title">{{ 'assets.maintenance_service' | translate }}</h3>
                           </div>
                           <div class="col-2">
                             <div class="form-check">
@@ -443,8 +443,18 @@
                               <label class="form-check-label" for="singleAsset">{{ 'assets.single_asset' | translate }}</label>
                             </div>
                           </div>
+                          <div *ngIf="this.formGroupGenerate.get('quantity').value == 'singleAsset'" class="col-3 p-field form-section__field">
+                            <span class="p-float-label">
+                              <input pInputText numbersOnly [placeholder]="'assets.serial_number' | translate" formControlName="serialNumber"  type="text">
+                              <label>{{ 'assets.serial_number' | translate }}</label>
+                            </span>
+                            <anms-error
+                            [showError]="hasError('serialNumber',formGroupGenerate,submitted_Generate)"
+                            error="forms.feedback.required">
+                            </anms-error>
+                          </div>
                         </div>
-                        <anms-uploader [multiple]="true" [preview]="false" [hasError]="maintenanceServiceDocRequired" (uploadedEvent)="maintenanceServiceFiles($event)"></anms-uploader>
+                        <anms-uploader *ngIf="this.formGroupGenerate.get('quantity').value == 'multipleAsset'" [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="maintenanceServiceDocRequired" (uploadedEvent)="maintenanceServiceFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
                       </div>
                     </form>
                     <div *ngIf="uploadReview">

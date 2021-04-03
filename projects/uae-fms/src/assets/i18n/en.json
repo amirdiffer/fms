@@ -496,6 +496,7 @@
     "warranty_start_date": "Warranty Start Date",
     "description": "Description",
     "multiple_assets": "Multiple Assets",
+    "serial_number":"Serial Number",
     "single_asset": "Single Asset",
     "review_your_plan": "Review Your Plan",
     "calculate": "Calculate",

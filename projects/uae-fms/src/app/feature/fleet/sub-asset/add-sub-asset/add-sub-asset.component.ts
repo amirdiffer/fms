@@ -36,9 +36,9 @@ const SUB_ASSET_LABEL = 'SUB_ASSET';
 })
 export class AddSubAssetComponent extends Utility implements OnInit {
   formCurrentStep = 0;
-
+  csvText:[];
   progressBarValue = 20;
-
+  subAssetDocRequired: false;
   subAssetForm: FormGroup;
   warranties: FormArray;
   submitted = false;
@@ -371,7 +371,8 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       purchaseValue: ['', [Validators.required]],
       description: [''],
       warranties: this._fb.array([this.createWarrantyForm()]),
-      assetQuantity: ['single']
+      assetQuantity: ['single'],
+      uploadFile:['']
     });
   }
 
@@ -510,6 +511,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       const data = this.getSubAssetRequestPayload(this.subAssetForm.value);
 
       if (!this.isEdit) {
+        console.log(data)
         this.subAssetFacade.addSubAsset(data);
       } else {
         data['id'] = this.recordId;
@@ -517,6 +519,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       }
     }
   }
+
   getSubAssetRequestPayload(subAssetFormValue) {
     const {
       make,
@@ -532,11 +535,18 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
     // eg. DPD129348
     const dpds = [];
+    console.log(this.isSingleAsset)
     if (this.isSingleAsset) {
       const serialNumber = +subAssetFormValue.serialNumber;
       if (serialNumber) {
         dpds.push('DPD' + serialNumber);
       }
+    }else{
+      this.csvText.map(
+        (x) => {
+          dpds.push(`DPD${x}`)
+        }
+      );
     }
 
     return {
@@ -581,5 +591,14 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   public fileLeave(event) {
     console.log(event);
+  }
+  uploadDocFiles(event){
+    this.subAssetForm.patchValue({
+      uploadFile: event.files
+    })
+  }
+  csvReader(event){
+    this.csvText= event
+    console.log(event)
   }
 }
