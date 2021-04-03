@@ -28,7 +28,6 @@ export class TaskMasterComponent implements OnInit {
   data$ = this._facade.taskMasters$.pipe(
     map((x) => {
       return x.map((y: any) => {
-        debugger;
         const skills = y.skills;
         const skill =
           skills && skills instanceof Array && skills.length ? skills[0] : '';

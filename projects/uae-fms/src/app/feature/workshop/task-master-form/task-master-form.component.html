@@ -12,23 +12,23 @@
           <div class="m-0 p-field form-section__field">
             <span class="p-float-label">
               <input pInputText placeholder="{{ 'workshop.task_master.task_name' | translate }} *" type="text" formControlName="taskName"
-                [class.invalid]="!taskMasterForm.get('taskName').valid && submited">
+                [class.invalid]="!taskMasterForm.get('taskName').valid && submitted">
               <label>{{ 'workshop.task_master.task_name' | translate }} *</label>
             </span>
-            <anms-error [showError]="hasError('taskName',taskMasterForm,submited)" error="forms.feedback.required"></anms-error>
+            <anms-error [showError]="hasError('taskName',taskMasterForm,submitted)" error="forms.feedback.required"></anms-error>
           </div>
         </div>
         <div class="col-12 col-md-4 p-field form-section__field">
           <span class="p-float-label">
             <input pInputText placeholder="{{ 'workshop.task_master.instruction' | translate }} *" type="text" formControlName="instruction"
-              [class.invalid]="!taskMasterForm.get('instruction').valid && submited">
+              [class.invalid]="!taskMasterForm.get('instruction').valid && submitted">
             <label>{{ 'workshop.task_master.instruction' | translate }} *</label>
           </span>
-            <anms-error [showError]="hasError('instruction',taskMasterForm,submited)" error="forms.feedback.required"></anms-error>
+            <anms-error [showError]="hasError('instruction',taskMasterForm,submitted)" error="forms.feedback.required"></anms-error>
         </div>
         <div class="col-12 col-md-4 p-field form-section__field">
           <span class="p-float-label">
-            <input pInputText placeholder="{{ 'workshop.task_master.rate_per_hour' | translate }}" type="text" formControlName="ratePerHour">
+            <input pInputText placeholder="{{ 'workshop.task_master.rate_per_hour' | translate }}" type="number" formControlName="ratePerHour">
             <label>{{ 'workshop.task_master.rate_per_hour' | translate }}</label>
           </span>
         </div>
@@ -36,11 +36,11 @@
       <div class="row form-section__row">
         <div class="col-12 col-md-4 p-field form-section__field">
           <span class="p-float-label">
-            <input pInputText placeholder="{{ 'workshop.task_master.time_estimate' | translate }} *" type="text" formControlName="timeEstimate"
-              [class.invalid]="!taskMasterForm.get('timeEstimate').valid && submited">
+            <input pInputText placeholder="{{ 'workshop.task_master.time_estimate' | translate }} *" type="number" formControlName="timeEstimate"
+              [class.invalid]="!taskMasterForm.get('timeEstimate').valid && submitted">
             <label>{{ 'workshop.task_master.time_estimate' | translate }}*</label>
           </span>
-         <anms-error [showError]="hasError('timeEstimate',taskMasterForm,submited)" error="forms.feedback.required"></anms-error>
+         <anms-error [showError]="hasError('timeEstimate',taskMasterForm,submitted)" error="forms.feedback.required"></anms-error>
         </div>
         <div class="col-12 col-md-8 " formArrayName="skill">
           <div class="p-inputgroup flex-wrap d-flex w-100 flex-wrap">
@@ -71,7 +71,7 @@
               *ngFor="let part of taskMasterForm.get('part')['controls']; let i=index; let last = last;">
                 <span class="p-float-label flex-with-button w-100 mb-1">
                   <input type="text" id="inputgroup" pInputText placeholder="{{ 'workshop.task_master.add_part' | translate }}" [formControlName]="i"
-                    [class.invalid]="!taskMasterForm.get('part')['controls'][i].valid && submited">
+                    [class.invalid]="!taskMasterForm.get('part')['controls'][i].valid && submitted">
                   <label >{{ 'workshop.task_master.add_part' | translate }}</label>
                   <span  *ngIf="last"  class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}"
                       (click)="addPart(part.value)">
