@@ -89,6 +89,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   vehicleDoc=[];
   purchaseDoc=[];
   maintenanceServiceDoc = [];
+  warrantyDocs = [];
   public vehicleDocRequired = false;
   public purchaseDocRequired = false;
   public maintenanceServiceDocRequired = false;
@@ -188,7 +189,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   periodicServiceItem = [];
   department = [];
   operator=[];
-  
+  testFile = [{id:1}]
   
   
   
@@ -507,6 +508,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
               (x) => {
                 if (x) {
                   this._asset = x;
+                  console.log(this._asset)
                   this.assetType.find((z) => z.id == this._asset.assetTypeId).makes.map((f) =>{
                     this.assetMake.push(f);
                   });
@@ -521,6 +523,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
                         x.colors.map((y) => {
                           this.assetColor.push(y);
                         });
+                        console.log(this.assetColor)
                       });
                   });
                   this.editPatchValue(x);
@@ -660,8 +663,13 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     });
     
   }
+
   public editPatchValue (x) {
-    console.log(x)
+    console.log(new Array([2019]))
+    this.vehicleDoc = Array.isArray(x.vehicleDocIds) ? x.vehicleDocIds : [x.vehicleDocIds];
+    this.purchaseDoc = Array.isArray(x.purchaseDocId) ? x.purchaseDocId : [x.purchaseDocId] ;
+    console.log(this.vehicleDoc)
+    console.log(this.purchaseDoc)
     this.formGroupAssetDetail.patchValue({
       businessInfo: {
         businessCategory: x.businessCategoryId,
@@ -680,7 +688,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       purchasedFor:{
         department: x.department.id,
         operator: x.operator.id
-      }
+      },
+      uploadFile:this.vehicleDoc
     });
     
     const date = moment.utc(x.inServiceDate , true).local();
@@ -692,7 +701,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       lifeCycle:{
         inServiceDate:date.toDate(),
         inServiceOdometer:x.inServiceOdometer
-      }
+      },
+      uploadFile:this.purchaseDoc
     });
     this.onChangePolicyType(x.policyTypeId);
     for (let index = 0; index < x.warranties.length -1; index++){
@@ -704,6 +714,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       warrantyItems: x.warranties.map(
         (x) => {
           const date = moment.utc(x.startDate).local();
+          this.warrantyDocs.push(x.docId)
           return {
             ...x,
             item:x.item,
@@ -816,6 +827,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     item.push(this.formBuilderArrayControl());
   }
 
+  getWarrantyDoc(index){
+    return [this.warrantyDocs[index]]
+  }
   getWarrantyStartDat(i: number) {
     const date = this.warrantyStartDate.controls[i] as FormGroup;
     return date.get('startDate').value;

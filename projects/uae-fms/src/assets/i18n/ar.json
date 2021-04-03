@@ -489,6 +489,7 @@
     "in_service_odometer": "عداد المسافات أثناء الخدمة",
     "upload_purchase_order": "تحميل أمر الشراء",
     "maintenance_service": "خدمة الصيانة",
+    "asset_quantity":"كمية الأصول",
     "periodic_service": "الصيانة الدورية",
     "warranty_items": "عناصر الضمان",
     "item": "الصنف",

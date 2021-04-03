@@ -488,6 +488,7 @@
     "in_service_odometer": "In-Service Odometer",
     "upload_purchase_order": "Upload Purchase Order",
     "maintenance_service": "Maintenance Service",
+    "asset_quantity":"Asset Quantity",
     "periodic_service": "Periodic Service",
     "warranty_items": "Warranty Items",
     "item": "Item",

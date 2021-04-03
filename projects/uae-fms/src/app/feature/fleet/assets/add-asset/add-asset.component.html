@@ -159,7 +159,7 @@
                     <!-- form-section -->
                     <div class="form-section component_wrapper">
                       <h3 class="form-section__title">{{ 'assets.upload_form.title' | translate }}</h3>
-                      <anms-uploader [multiple]="true" [preview]="false" [accept]="'.csv'" [hasError]="vehicleDocRequired" (uploadedEvent)="uploadVehicleFiles($event)"></anms-uploader>
+                      <anms-uploader [files]="vehicleDoc" [multiple]="true" [preview]="false" [hasError]="vehicleDocRequired" (uploadedEvent)="uploadVehicleFiles($event)"></anms-uploader>
                     </div>
                     <!-- end form-section -->
                   </form>
@@ -265,7 +265,7 @@
                         </div>
                         <div class="form-section component_wrapper">
                           <h3 class="form-section__title">{{ 'assets.upload_purchase_order' | translate }}</h3>
-                          <anms-uploader [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="purchaseDocRequired" (uploadedEvent)="uploadPurchaseFiles($event)"></anms-uploader>
+                          <anms-uploader [files]="purchaseDoc" [multiple]="false" [preview]="false"  [hasError]="purchaseDocRequired" (uploadedEvent)="uploadPurchaseFiles($event)"></anms-uploader>
                         </div>
                       </div>
                       <div *ngIf="policyType.value != '' " class="col-12 col-md-7">
@@ -383,7 +383,7 @@
                                       </div>
                                     </div>
                                     <div class="col-6 col-md-3" [class.col-md-6]="periodicService.value != '' ">
-                                      <anms-uploader [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="false" (uploadedEvent)="uploadWarrantyFiles($event , i)"></anms-uploader>
+                                      <anms-uploader [files]="isEdit ? getWarrantyDoc(i) : warrantyDocs" [multiple]="false" [preview]="false" [hasError]="false" (uploadedEvent)="uploadWarrantyFiles($event , i)"></anms-uploader>
                                     </div>
                                   </div>
                                 </div>
@@ -429,7 +429,7 @@
                       <div class="form-section component_wrapper">
                         <div class="row">
                           <div class="col-2">
-                            <h3 class="form-section__title">{{ 'assets.maintenance_service' | translate }}</h3>
+                            <h3 class="form-section__title">{{ 'assets.asset_quantity' | translate }}</h3>
                           </div>
                           <div class="col-2">
                             <div class="form-check">
@@ -444,7 +444,7 @@
                             </div>
                           </div>
                         </div>
-                        <anms-uploader [multiple]="true" [preview]="false" [accept]="'.csv'" [hasError]="maintenanceServiceDocRequired" (uploadedEvent)="maintenanceServiceFiles($event)"></anms-uploader>
+                        <anms-uploader [multiple]="true" [preview]="false" [hasError]="maintenanceServiceDocRequired" (uploadedEvent)="maintenanceServiceFiles($event)"></anms-uploader>
                       </div>
                     </form>
                     <div *ngIf="uploadReview">
