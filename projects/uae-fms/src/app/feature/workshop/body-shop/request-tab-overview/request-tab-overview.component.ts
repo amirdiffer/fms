@@ -113,7 +113,7 @@ export class RequestTabOverviewComponent implements OnInit {
     ],
     data: [
       {
-        issue: 'Oil Leaking',
+        issue: { checkbox: false, label: 'Oil Leaking' },
         date: '02-02-2020',
         description: 'Description is here, description is here',
         issue_type: 'Repair',
@@ -121,7 +121,7 @@ export class RequestTabOverviewComponent implements OnInit {
         attachment: 'Download'
       },
       {
-        issue: 'Oil Leaking',
+        issue: { checkbox: false, label: 'Oil Leaking' },
         date: '02-02-2020',
         description: 'Description is here, description is here',
         issue_type: 'Repair',
@@ -129,7 +129,7 @@ export class RequestTabOverviewComponent implements OnInit {
         attachment: 'Download'
       },
       {
-        issue: 'Oil Leaking',
+        issue: { checkbox: true, label: 'Oil Leaking' },
         date: '02-02-2020',
         description: 'Description is here, description is here',
         issue_type: 'Repair',
@@ -137,7 +137,7 @@ export class RequestTabOverviewComponent implements OnInit {
         attachment: 'Download'
       },
       {
-        issue: 'Oil Leaking',
+        issue: { checkbox: false, label: 'Oil Leaking' },
         date: '02-02-2020',
         description: 'Description is here, description is here',
         issue_type: 'Repair',
@@ -145,7 +145,7 @@ export class RequestTabOverviewComponent implements OnInit {
         attachment: 'Download'
       },
       {
-        issue: 'Oil Leaking',
+        issue: { checkbox: true, label: 'Oil Leaking' },
         date: '02-02-2020',
         description: 'Description is here, description is here',
         issue_type: 'Repair',
@@ -153,7 +153,7 @@ export class RequestTabOverviewComponent implements OnInit {
         attachment: 'Download'
       },
       {
-        issue: 'Oil Leaking',
+        issue: { checkbox: false, label: 'Oil Leaking' },
         date: '02-02-2020',
         description: 'Description is here, description is here',
         issue_type: 'Repair',
