@@ -2,13 +2,17 @@
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{'forms.cancel'
       | translate}}</button>
-    <button *ngIf="formCurrentStep > 0 && ((!isSingleAsset && formCurrentStep < 2) || (isSingleAsset && formCurrentStep <=2))" class="btn-primary-medium btn-scondary-green" type="button"
-      (click)="previous()">{{ 'forms.back' | translate }}</button>
+    <button
+      *ngIf="formCurrentStep > 0 && ((!isSingleAsset && formCurrentStep < 2) || (isSingleAsset && formCurrentStep <=2))"
+      class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate
+      }}</button>
     <button class="btn-primary-medium add" *ngIf="formCurrentStep === 0" type="submit" (click)="next()">{{'forms.next'
       | translate }}</button>
-    <button *ngIf="formCurrentStep === 1 && !isSingleAsset" class="btn-primary-medium add" (click)="next()">{{ 'forms.upload' | translate
+    <button *ngIf="formCurrentStep === 1 && !isSingleAsset" class="btn-primary-medium add" (click)="next()">{{
+      'forms.upload' | translate
       }}</button>
-    <button *ngIf="formCurrentStep === 2 || (isSingleAsset && formCurrentStep == 1)" class="btn-primary-medium add" (click)="submit()">{{ (isEdit ?
+    <button *ngIf="formCurrentStep === 2 || (isSingleAsset && formCurrentStep == 1)" class="btn-primary-medium add"
+      (click)="submit()">{{ (isEdit ?
       'forms.edit' : 'forms.save') | translate }}</button>
   </div>
 
@@ -139,7 +143,8 @@
         </div>
 
         <div class='col-12 col-md-3 p-field form-section__field'>
-        <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [title]="" [preview]="false" [accept]="['.csv']" (uploadedEvent)="uploadWarrantyFiles($event,i)"></anms-uploader>
+          <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [title]=""
+            [preview]="false" [accept]="['.csv']" (uploadedEvent)="uploadWarrantyFiles($event,i)"></anms-uploader>
         </div>
       </div>
     </div>
@@ -164,17 +169,17 @@
       <div class="col-sm-auto mt-1">
         <h3 class="form-section__title">{{ 'sub_asset.serial_number' | translate }}</h3>
       </div>
-      <div class="ml-5 col-sm-auto">
+      <div class="ml-5 col-sm-auto" *ngIf="!isEdit">
         <div class="form-check">
           <input class="form-check-input" type="radio" formControlName="assetQuantity" name="assetQuantity"
             id="multipleAsset" value="multi">
           <label class="form-check-label" for="multipleAsset">{{ 'sub_asset.multiple_assets' | translate }}</label>
         </div>
       </div>
-      <div class="col-sm-auto">
+      <div class="col-sm-auto" *ngIf="!isEdit">
         <div class="form-check">
-          <input class="form-check-input" type="radio" formControlName="assetQuantity" name="assetQuantity" id="singleAsset"
-            value="single">
+          <input class="form-check-input" type="radio" formControlName="assetQuantity" name="assetQuantity"
+            id="singleAsset" value="single">
           <label class="form-check-label" for="singleAsset">{{ 'sub_asset.single_asset' | translate }}</label>
         </div>
       </div>

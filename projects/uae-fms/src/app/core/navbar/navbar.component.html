@@ -2,12 +2,12 @@
     [class.mat-elevation-z4]="(stickyHeader$ | async)">
     <mat-toolbar color="primary">
         <span class="menus d-none d-sm-none d-md-flex align-items-center">
-            <button mat-icon-button (click)="changeSidebarMenuState()">
+            <!-- <button mat-icon-button (click)="changeSidebarMenuState()">
                 <svg-icon src="assets/icons/bars.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
             </button>
             <button mat-icon-button>
                 <img src="assets/icons/apps.svg">
-            </button>
+            </button> -->
            <button routerLink='/user-profile/profile' mat-icon-button>
             <img src='assets/user-image.png' class='rounded-circle' id='gwd-image-effect_1'>
             <span id='label_1' class='label name_surname_label font-weight-lighter ml-2'>Name Surname</span>
@@ -19,12 +19,12 @@
         </span>
 
         <span class="police-brand">
-            <button mat-icon-button>
+            <!-- <button mat-icon-button>
                 <svg-icon src="assets/icons/history.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
             </button>
             <button mat-icon-button>
                 <svg-icon src="assets/icons/bell.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
-            </button>
+            </button> -->
             <button mat-icon-button (click)="languageBox.toggle($event)">
                 <svg-icon src="assets/icons/globe-americas.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
             </button>

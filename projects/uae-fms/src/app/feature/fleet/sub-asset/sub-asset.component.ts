@@ -2,10 +2,12 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectorRef,
+  ViewChild
 } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
-import { ColumnType, TableSetting } from '@core/table';
+import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { SubAssetFacade } from '../+state/sub-asset';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -18,6 +20,7 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SubAssetComponent implements OnInit, OnDestroy {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
   statisticsSubscription!: Subscription;
 
   downloadBtn = 'assets/icons/download-solid.svg';
@@ -26,27 +29,27 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
-      filterCount: '2456',
+      filterCount: '',
       filterTagColor: '#C543FF',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
-      filterCount: '356',
+      filterCount: '',
       filterTagColor: '#4462A2',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
-      filterCount: '124',
+      filterCount: '',
       filterTagColor: '#40D3C2',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.x_sub_asset',
-      filterCount: '12',
+      filterCount: '',
       filterTagColor: '#F75A4A',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
 
@@ -58,7 +61,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       return x.map((y) => {
         return {
           id: y.id,
-          avatarId:y.avatarId,
+          avatarId: y.avatarId,
           Make: y.makeName,
           Model: y.modelName,
           Policy: y.policyTypeName,
@@ -128,24 +131,53 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   };
   //#endregion
 
-  constructor(private facade: SubAssetFacade, private router: Router) {}
+  constructor(private facade: SubAssetFacade, private router: Router, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.facade.loadAll();
     this.facade.loadStatistics();
 
-    this.facade.subAsset$.subscribe((x) => {
-      console.log(x);
-    });
-
     this.statisticsSubscription = this.facade.statistics$.subscribe(
-      (response) => {
-        console.log(response);
+      (res: any) => {
+        if (res) {
+          const m = res.message
+          this.filterCard = [
+            {
+              filterTitle: 'statistic.total',
+              filterCount: `${m.total}`,
+              filterTagColor: '#C543FF',
+              onActive(index: number) { }
+            },
+            {
+              filterTitle: 'statistic.active',
+              filterCount: `${m.active}`,
+              filterTagColor: '#4462A2',
+              onActive(index: number) { }
+            },
+            {
+              filterTitle: 'statistic.inactive',
+              filterCount: `${m.inactive}`,
+              filterTagColor: '#40D3C2',
+              onActive(index: number) { }
+            },
+            {
+              filterTitle: 'statistic.x_sub_asset',
+              filterCount: `${m.xsubAsset}`,
+              filterTagColor: '#F75A4A',
+              onActive(index: number) { }
+            }
+          ];
+          this.changeDetector.detectChanges();
+        }
       }
     );
   }
 
   ngOnDestroy(): void {
     this.statisticsSubscription?.unsubscribe();
+  }
+
+  exportTable() {
+    this.table.exportTable(this.assetTraffic_Table, 'Sub Asset');
   }
 }

@@ -110,7 +110,7 @@
     "edit_periodic_serivce": "تحرير الخدمة الدورية",
     "add_new_asset": "إضافة أصل جديد",
     "add_new_accessory": "إضافة ملحق جديد",
-    "temporary":  "مؤقت",
+    "temporary": "مؤقت",
     "add_temporary_request": "إضافة طلب مؤقت",
     "add_permanent_request": "إضافة طلب دائم"
   },
@@ -654,7 +654,8 @@
       "title": "",
       "progressbar_title": "",
       "content": "قم بسحب وإسقاط مستند الضمان أو انقر هنا"
-    }
+    },
+    "upload_picture": "صورة الأصل الفرعي"
   },
   "accessory": {
     "assets_sub_assets": "الأصول / الأصول الفرعية",

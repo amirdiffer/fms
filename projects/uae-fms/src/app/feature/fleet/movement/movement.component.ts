@@ -16,7 +16,7 @@ import {
   MovementRequestsFacade
 } from '../+state/movement';
 import { map } from 'rxjs/operators';
-import { ButtonType } from '@core/table/table.component';
+import { ButtonType, TableComponent } from '@core/table/table.component';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
 
@@ -27,6 +27,8 @@ import { Utility } from '@shared/utility/utility';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovementComponent extends Utility implements OnInit, AfterViewChecked {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
+
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   filterSetting = [
@@ -89,31 +91,34 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
   movementRequest$ = this._movementRequestsFacade.MovementRequests$.pipe(
     map(x => {
       return x.map(y => {
-        return {...y,
-          id: y['id'],
-          user: {
-            img: 'user-image.png',
-            userName: y['requester']['firstName'],
-            subName: y['requester']['lastName']
-          },
-          movementType: y['movementType'],
-          requestType: y['requestType'],
-          assetType: y['assetTypeName'],
-          reason: y['reason'],
-          date: 'Saturday 02/02 12:30',
-          requestStatus: y['status'],
-          operation: {
-            accept: 'Confirm',
-            cancel: 'Reject'
+        if (y)
+          return {
+            ...y,
+            id: y['id'],
+            user: {
+              img: 'user-image.png',
+              userName: (y['requester'] && y['requester']['firstName']) ? y['requester']['firstName'] : '',
+              subName: (y['requester'] && y['requester']['lastName']) ? y['requester']['lastName'] : ''
+            },
+            movementType: y['movementType'],
+            requestType: y['requestType'],
+            assetType: y['assetTypeName'],
+            reason: y['reason'],
+            date: 'Saturday 02/02 12:30',
+            requestStatus: y['status'],
+            operation: {
+              accept: 'Confirm',
+              cancel: 'Reject'
+            }
           }
-        }
       });
-  }));
+    }));
 
   movementOverview$ = this._movementOverviewFacade.MovementOverview$.pipe(
-    map(x => { console.log(x)
+    map(x => {
       return x.map(y => {
-        return {...y,
+        return {
+          ...y,
           id: y.id,
           asset: {
             img: 'thumb1.png',
@@ -133,7 +138,7 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
           reason: y.request.reason
         }
       });
-  }));
+    }));
 
   requestTableSetting = {
     columns: [
@@ -359,14 +364,14 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
     this._movementRequestsFacade.rejected$.subscribe(x => {
       if (x) {
         this.displaySuccessModal = true;
-        this.dialogErrorSetting.hasError=false;
+        this.dialogErrorSetting.hasError = false;
         this.changeDetector.detectChanges();
       }
     });
     this._movementRequestsFacade.error$.subscribe(x => {
       if (x?.error) {
         this.displayErrorModal = true;
-        this.dialogErrorSetting.hasError=true;
+        this.dialogErrorSetting.hasError = true;
         this.changeDetector.detectChanges();
       } else {
         this.displayErrorModal = false;
@@ -374,6 +379,7 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
     })
 
   }
+
   ngAfterViewChecked() {
     if (
       this.requestTab &&
@@ -408,6 +414,17 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
     this.displayErrorModal = false;
     this.displaySuccessModal = false;
     this._movementRequestsFacade.reset();
+  }
+
+  exportTable() {
+    switch (this.selectedTab) {
+      case 'MovementOverViewTab':
+        this.table.exportTable(this.movementOverViewTableSetting, 'Overview');
+        break;
+      case 'requestTab':
+        this.table.exportTable(this.requestTableSetting, 'Request');
+        break;
+    }
   }
 
 }

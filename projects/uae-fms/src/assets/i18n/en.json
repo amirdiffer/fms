@@ -109,7 +109,7 @@
     "add_new_asset": "Add New Asset",
     "department": "Department",
     "add_new_accessory": "Add New Accessory",
-    "temporary":  "Temporary",
+    "temporary": "Temporary",
     "add_temporary_request": "Add Temporary Request",
     "add_permanent_request": "Add Permanent Request"
   },
@@ -652,7 +652,8 @@
       "title": "",
       "progressbar_title": "",
       "content": "Drag and Drop A Warranty Doc or Click Here"
-    }
+    },
+    "upload_picture": "Sub Asset Picture"
   },
   "accessory": {
     "assets_sub_assets": "Assets / Sub Assets",
@@ -1166,7 +1167,8 @@
       "invalid-email": "Email address is invalid",
       "invalid-phone": "Phone number is invalid",
       "file_ext": "File extension is incorrect"
-    }
+    },
+    "upload_avatar": "Upload Avatar"
   },
   "login": {
     "fleet": "Fleet",

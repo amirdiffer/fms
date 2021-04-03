@@ -1,10 +1,13 @@
 import { createSelector } from '@ngrx/store';
 import { WorkshopSelectors } from '../workshop.selectors';
 import { taskMasterAdapter } from './task-master.entity';
+
+const { selectAll } = taskMasterAdapter.getSelectors();
+
 export class TaskMasterSelectors {
   static selectAll = createSelector(
     WorkshopSelectors.taskMasterSelector,
-    taskMasterAdapter.setAll
+    selectAll
   );
 
   static message = createSelector(
@@ -15,5 +18,10 @@ export class TaskMasterSelectors {
   static error = createSelector(
     WorkshopSelectors.taskMasterSelector,
     (state) => state.error
+  );
+
+  static submitted = createSelector(
+    WorkshopSelectors.taskMasterSelector,
+    (state) => state.submitted
   );
 }

@@ -21,6 +21,22 @@ const taskMasterReducer = createReducer(
     ...state,
     error: reason,
     loaded: true
+  })),
+  on(TaskMasterActions.resetParams, (state) => ({
+    ...state,
+    error: null,
+    submitted:false
+  })),
+  on(TaskMasterActions.addTaskMaster, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(TaskMasterActions.taskMasterAddedSuccessfully, (state, { data }) => ({
+    ...state,
+    submitted: true
   }))
 );
 

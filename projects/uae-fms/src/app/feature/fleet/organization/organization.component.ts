@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { TableSetting } from '@core/table';
-import { ButtonType } from '@core/table/table.component';
+import { ButtonType, TableComponent } from '@core/table/table.component';
 import { map } from 'rxjs/operators';
 import { OrganizationFacade } from '../+state/organization';
 
@@ -11,6 +11,8 @@ import { OrganizationFacade } from '../+state/organization';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrganizationComponent implements OnInit {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
+
   downloadBtn = 'assets/icons/download-solid.svg';
 
   //#region Table
@@ -103,5 +105,9 @@ export class OrganizationComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+  }
+
+  exportTable() {
+    this.table.exportTable(this.organization_Table, 'Department');
   }
 }
