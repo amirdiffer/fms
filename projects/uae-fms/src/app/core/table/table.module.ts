@@ -23,8 +23,10 @@ import { RouterModule } from '@angular/router';
 import { FuelCardRendererComponent } from './renderers/fuel-card';
 import { AssignNow } from '@core/table/renderers/assign-now';
 import { TableGeneralButtonRendererComponent } from './renderers/general-button';
-import { FloatButton } from './renderers/float-button'
-import { ColorizeRendererComponent } from "./renderers/colorize";
+import { FloatButton } from './renderers/float-button';
+import { ColorizeRendererComponent } from './renderers/colorize';
+import { CheckboxRendererComponent } from '@core/table/renderers/checkbox-renderer';
+import { DownloadButtonRendererComponent } from '@core/table/renderers/download-button-renderer';
 
 @NgModule({
   imports: [
@@ -58,7 +60,9 @@ import { ColorizeRendererComponent } from "./renderers/colorize";
     FuelCardRendererComponent,
     AssignNow,
     FloatButton,
-    ColorizeRendererComponent
+    ColorizeRendererComponent,
+    CheckboxRendererComponent,
+    DownloadButtonRendererComponent
   ],
   providers: []
 })

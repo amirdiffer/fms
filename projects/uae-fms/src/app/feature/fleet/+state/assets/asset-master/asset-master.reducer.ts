@@ -35,10 +35,17 @@ const assetMasterReducer = createReducer(
   ),
   on(AssetMasterActions.editAsset, (state, { data }) => ({
     ...state,
-    loaded: false
+    error: null,
+    message: null,
+    submitted: false
   })),
   on(AssetMasterActions.assetEditedSuccessfully, (state, { data }) =>
-    assetMasterAdapter.updateOne({ changes: data, id: data.id }, state)
+    assetMasterAdapter.updateOne({ changes: data, id: data.id }, {
+      ...state,
+      error:null,
+      message: null,
+      submitted: true
+    })
   ),
   on(AssetMasterActions.reset, (state) => ({
     ...state,

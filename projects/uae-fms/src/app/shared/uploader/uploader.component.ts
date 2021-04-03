@@ -33,7 +33,7 @@ export class UploaderComponent implements OnInit {
   @Input() maxSize = 5120;
   @Input() uploaderName = '';
   @Input() multiple = false;
-
+  @Input() readCSVFile= false;
   @Input() iconIsHidden = false;
   @Input() hintIsHidden = false;
   @Input() preview = true;
@@ -41,6 +41,7 @@ export class UploaderComponent implements OnInit {
   @Input() files = [];
   @Input() accept = ['.csv', '.png', '.jpg', '.txt', '.json'];
   @Output() uploadedEvent: EventEmitter<object> = new EventEmitter<object>();
+  @Output() csvTextEvent: EventEmitter<any> = new EventEmitter<any>();
   allFileUpload: Array<any> = [];
   uploadReview: boolean = false;
   isUploading = false;
@@ -118,7 +119,15 @@ export class UploaderComponent implements OnInit {
   getAddress(id): string {
     return environment.baseApiUrl + `document/${id}`;
   }
-
+  getValueCSV(id){
+    this._uploaderService.getCSVfile(id).subscribe(x => {processData(x)})
+    let that = this;
+    function processData(allText) {
+      let textEmit = allText.split(/\r\n|\n/);
+      console.log(textEmit);
+      that.csvTextEvent.emit(textEmit);
+    }
+  }
   upload(indexUploadBox?: number) {
     this.filesUploadSuccess = 0;
     this.filesUploadError = 0;
@@ -147,6 +156,9 @@ export class UploaderComponent implements OnInit {
           if (!event.body.error) {
             if (!this.multiple) this.files = [];
             this.files.push(event.body.message.id);
+            if(this.readCSVFile){
+              this.getValueCSV(event.body.message.id)
+            }
             this.filesUploadSuccess++;
             this.progressBarValue = 0;
             this.setFiles(indexUploadBox);

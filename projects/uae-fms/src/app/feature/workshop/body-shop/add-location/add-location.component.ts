@@ -320,38 +320,17 @@ export class AddLocationComponent extends Utility implements OnInit {
     if (!$event) return;
 
     if (this.dialogType == 'submit') {
-      let f = this.inputForm.value;
-      console.log(this._location);
+      let d = this.inputForm.getRawValue();
+      let services = (<object[]>d.services).map(x => x = x['service']);
+      // let slots = (<object[]>d.slots).map(x => x = x['thirdPartyLocationId']);
+
       let locationInfo: any = {
-        locationThirdPartyId: f.locationID,
-        address: f.address,
-        slots: [
-          {
-            id: 11,
-            thirdPartySlotId: 'A2'
-          },
-          {
-            id: 1,
-            thirdPartySlotId: 'A1'
-          },
-          {
-            id: 9,
-            thirdPartySlotId: 'A1'
-          },
-          {
-            id: 10,
-            thirdPartySlotId: 'A2'
-          },
-          {
-            id: 5,
-            thirdPartySlotId: 'A1'
-          },
-          {
-            id: 6,
-            thirdPartySlotId: 'A2'
-          }
-        ]
-      };
+        "locationThirdPartyId": d.locationID.id,
+        "address": d.address,
+        "services": services,
+        "slots": d.slots
+      }
+      console.log(this._location);
 
       if (this.isEdit) {
         locationInfo = {
@@ -397,16 +376,6 @@ export class AddLocationComponent extends Utility implements OnInit {
       this.dialogSetting.confirmButton = 'OK';
       this.dialogSetting.cancelButton = 'Cancel';
     }
-
-    let d = this.inputForm.getRawValue();
-    let services = (<object[]>d.services).map(x => x = x['service']);
-    let _data = {
-      "locationThirdPartyId": d.locationThirdPartyId,
-      "address": d.address,
-      "services": services,
-      "slots": d.slots
-    }
-    this._facadeLocation.addLocation(_data);
   }
 
   cancelForm() {

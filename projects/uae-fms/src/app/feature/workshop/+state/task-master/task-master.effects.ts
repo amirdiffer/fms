@@ -8,14 +8,12 @@ import { TaskMasterActions } from './task-master.actions';
 
 @Injectable()
 export class TaskMasterEffect {
-  constructor(private action$: Actions, private service: TaskMasterService) {}
-
   loadAll$ = createEffect(() =>
     this.action$.pipe(
       ofType(TaskMasterActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => {
+          map((data: any) => {
             return TaskMasterActions.allDataLoaded({ data: data.message });
           }),
           catchError((error) => of(TaskMasterActions.error({ reason: error })))
@@ -23,4 +21,22 @@ export class TaskMasterEffect {
       )
     )
   );
+
+  addTaskMaster$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(TaskMasterActions.addTaskMaster),
+      mergeMap((action) =>
+        this.service.addTaskMaster(action.data).pipe(
+          map((data) =>
+            TaskMasterActions.taskMasterAddedSuccessfully({
+              data: data.message
+            })
+          ),
+          catchError((error) => of(TaskMasterActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  constructor(private action$: Actions, private service: TaskMasterService) {}
 }

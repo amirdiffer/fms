@@ -11,6 +11,6 @@ export class AssetConfigurationService {
 
   loadAll(): Observable<ResponseBody<IAssetType[]>> {
     return this.http.get<ResponseBody<IAssetType[]>>(
-      environment.baseApiUrl + 'configuration/asset-type');
+      environment.baseApiUrl + 'configuration/asset-type?page=0&sort=createdAt,desc&size=1000');
   }
 }
