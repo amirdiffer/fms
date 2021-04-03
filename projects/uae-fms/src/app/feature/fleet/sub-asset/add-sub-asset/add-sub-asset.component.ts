@@ -36,9 +36,9 @@ const SUB_ASSET_LABEL = 'SUB_ASSET';
 })
 export class AddSubAssetComponent extends Utility implements OnInit {
   formCurrentStep = 0;
-
+  csvText:[];
   progressBarValue = 20;
-
+  subAssetDocRequired: false;
   subAssetForm: FormGroup;
   warranties: FormArray;
   submitted = false;
@@ -372,7 +372,8 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       avatarId: [],
       description: [''],
       warranties: this._fb.array([this.createWarrantyForm()]),
-      assetQuantity: ['single']
+      assetQuantity: ['single'],
+      uploadFile:['']
     });
   }
 
@@ -509,8 +510,9 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       return;
     } else {
       const data = this.getSubAssetRequestPayload(this.subAssetForm.value);
-
+      console.log(data)
       if (!this.isEdit) {
+        console.log(data)
         this.subAssetFacade.addSubAsset(data);
       } else {
         data['id'] = this.recordId;
@@ -518,6 +520,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       }
     }
   }
+
   getSubAssetRequestPayload(subAssetFormValue) {
     const {
       make,
@@ -536,7 +539,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     if (this.isEdit) {
       const dpd = subAssetFormValue.serialNumber;
       return {
-        avatarId,
+        avatarId:1,
         dpd,
         assetTypeId: subAssetType.id,
         makeId: make.id,
@@ -558,14 +561,21 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     }
     else {
       const dpds = [];
-      if (this.isSingleAsset) {
-        const serialNumber = subAssetFormValue.serialNumber;
-        if (serialNumber) {
-          dpds.push(serialNumber);
-        }
+    console.log(this.isSingleAsset)
+    if (this.isSingleAsset) {
+      const serialNumber = +subAssetFormValue.serialNumber;
+      if (serialNumber) {
+        dpds.push('DPD' + serialNumber);
       }
+    }else{
+      this.csvText.map(
+        (x) => {
+          dpds.push(`DPD${x}`)
+        }
+      );
+    }
       return {
-        avatarId,
+        avatarId:1,
         dpds,
         assetTypeId: subAssetType.id,
         makeId: make.id,
@@ -578,16 +588,14 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         warrantyItems: warranties.map((warranty) => ({
           periodType: warranty.year.id,
           duration: +warranty.duration,
-          startDate: warranty.startDate,
+          startDate: warranty.startDate.toISOString(),
           item: warranty.item,
           docId: +warranty.doc,
           hasReminder: true
         }))
       };
     }
-
   }
-
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUploaded = files;
     for (const droppedFile of files) {
@@ -615,5 +623,14 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     console.log(docId)
     console.log(typeof docId)
     this.subAssetForm.controls['avatarId'].setValue(docId);
+  }
+  uploadDocFiles(event){
+    this.subAssetForm.patchValue({
+      uploadFile: event.files
+    })
+  }
+  csvReader(event){
+    this.csvText= event
+    console.log(event)
   }
 }

@@ -14,4 +14,10 @@ export class RegistrationService {
       environment.baseApiUrl + 'asset/registration'
     );
   }
+  registerAsset(data):Observable<ResponseBody<any>>{
+    return this._http.post<ResponseBody<any>>(
+      environment.baseApiUrl + '/asset/'+data.id+'/register',
+      data
+    )
+  }
 }

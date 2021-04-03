@@ -43,6 +43,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AccordionModule } from 'primeng/accordion';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 import { UploaderModule } from '@shared/uploader/uploader.module';
+import { OnlyDigitsDirective } from '@core/directive/only-digit.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -84,7 +85,7 @@ import { UploaderModule } from '@shared/uploader/uploader.module';
     AlertDialogModule,
     UploaderModule
   ],
-  declarations: [RtlSupportDirective, CheckAccessDirective],
+  declarations: [RtlSupportDirective, CheckAccessDirective, OnlyDigitsDirective],
   exports: [
     CommonModule,
     FormsModule,
@@ -131,7 +132,8 @@ import { UploaderModule } from '@shared/uploader/uploader.module';
     OverlayPanelModule,
     AccordionModule,
     AlertDialogModule,
-    UploaderModule
+    UploaderModule,
+    OnlyDigitsDirective
   ]
 })
 export class SharedModule {

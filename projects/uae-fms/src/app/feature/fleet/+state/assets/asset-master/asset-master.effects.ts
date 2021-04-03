@@ -55,7 +55,7 @@ export class AssetMasterEffects {
       mergeMap((action) =>
         this.service.editAsset(action.data).pipe(
           map((data) =>
-            AssetMasterActions.assetEditedSuccessfully({ data: data.message })
+            AssetMasterActions.assetEditedSuccessfully({ data: action.data })
           ),
           catchError((error) => of(AssetMasterActions.error({ reason: error })))
         )

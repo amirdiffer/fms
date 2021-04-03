@@ -12,4 +12,7 @@ export class RegistrationFacade {
   loadAll() {
     this.store.dispatch(RegistrationActions.loadAll());
   }
+  register(data) {
+    this.store.dispatch(RegistrationActions.registerAsset({data}))
+  }
 }
