@@ -16,10 +16,8 @@ export class LoginService {
 
   login(loginRequest: LoginRequest): Observable<any> {
     let form = new FormData();
-    // form.append("username", loginRequest.username);
-    // form.append("password", loginRequest.password);
-    form.append("username", "admin");
-    form.append("password", "pass");
+    form.append("username", loginRequest.username);
+    form.append("password", loginRequest.password);
 
     return this.http.post(this.loginApiUrl, form, { headers: new HttpHeaders() });
   }

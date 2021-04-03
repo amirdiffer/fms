@@ -55,7 +55,7 @@ export class TabViewComponent implements OnInit, OnDestroy {
           count: this.index
             ? this.elements[i].attributes.getNamedItem('count') != null
               ? this.elements[i].attributes.getNamedItem('count').nodeValue
-              : Math.floor(Math.random() * 500) + 1
+              : null
             : null
         });
       }

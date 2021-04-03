@@ -1,7 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { assetsPath } from '@environments/environment';
-import { ColumnType, TableSetting } from '@core/table';
+import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { OperatorFacade } from '../+state/operator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OperatorComponent implements OnInit {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
   assets = assetsPath;
   downloadBtn = 'assets/icons/download-solid.svg';
   showOverView = false;
@@ -181,5 +182,9 @@ export class OperatorComponent implements OnInit {
 
   ngOnInit(): void {
     this._operatorFacade.loadAll();
+  }
+
+  exportTable() {
+    this.table.exportTable(this.operator_Table, 'Operator');
   }
 }
