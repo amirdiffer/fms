@@ -10,14 +10,15 @@ import { environment } from '@environments/environment';
         type="checkbox"
         class="custom-checkbox"
         name="checkbox1"
+        [(ngModel)]="data.checkbox"
       />
-      <label>{{ label }}</label>
+      <label>{{ data.label }}</label>
     </div>
   `,
   styleUrls: ['./checkbox-renderer.scss']
 })
 export class CheckboxRendererComponent implements OnInit {
-  @Input() label = '';
+  @Input() data;
   fileServerBase = environment.baseFileServer;
 
   constructor() {}
