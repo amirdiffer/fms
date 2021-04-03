@@ -539,7 +539,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     if (this.isEdit) {
       const dpd = subAssetFormValue.serialNumber;
       return {
-        avatarId,
+        avatarId:1,
         dpd,
         assetTypeId: subAssetType.id,
         makeId: make.id,
@@ -575,7 +575,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       );
     }
       return {
-        avatarId,
+        avatarId:1,
         dpds,
         assetTypeId: subAssetType.id,
         makeId: make.id,
