@@ -5,7 +5,8 @@
                 <button class="btn-primary-medium btn-scondary-green" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
                 <button class="btn-primary-medium add" (click)="submit()">{{ 'search.add' | translate }}</button>
             </div>
-            <div class="form-section mx-0 form-section--inline">
+          <div class='row'>
+          <div class="col-12 form-section mx-0 form-section--inline">
                 <div class="row form-section__row">
                     <div class="col-12 col-md-5 mb-2 align-self-center">
                       <div class="row">
@@ -30,164 +31,42 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 col-md-3 p-field form-section__field mt-2">
-                        <span class="p-float-label">
-                            <input formControlName="typeName" pInputText
-                                placeholder="{{ 'configuration.add_asset_configuration.type_name' | translate }} *" required type="text">
-                            <label>{{ 'configuration.add_asset_configuration.type_name' | translate }} *</label>
-                        </span>
-                      <anms-error
-                        [showError]="hasError('typeName',inputForm,submited)"
-                        error="forms.feedback.required">
-                      </anms-error>
-                    </div>
-                    <div class="col-sm-auto form-section__field toggle-select mt-2">
-                        <p-inputSwitch formControlName="activetype"></p-inputSwitch>
-                        <span class="ml-3">{{ 'configuration.add_asset_configuration.active_type' | translate }}</span>
-                    </div>
-                </div>
-                <div class="pb-3 p-field form-section__field">
-                    <span class="p-float-label">
-                        <input formControlName="description" pInputText
-                            placeholder="{{'configuration.add_asset_configuration.description' | translate}}" type="text">
-                        <label>{{ 'configuration.add_asset_configuration.type_description' | translate }}</label>
-
-                    </span>
                 </div>
             </div>
-
-            <!-- form-section -->
-            <div class="form-section mx-0">
-                <h3 class="form-section__title">{{ 'configuration.add_asset_configuration.make_and_model_info' | translate }}</h3>
-
-
-                <div class="row">
-                    <div class="col-12 col-md-3 mt-4 pl-5">
-                    <div class="row">
-                      <div class="col-12 col-md-12">
-                        <div class="row">
-                          <div class="form-check col-6">
-                            <input class="form-check-input" formControlName="type" type="radio" name="type" id="mModel" value ="mModel">
-                            <label class="form-check-label" for="mModel">{{ 'configuration.add_asset_configuration.multiple_model' | translate }}</label>
-                          </div>
-                          <div class="form-check col-6">
-                            <input class="form-check-input" formControlName="type" type="radio" name="type" id="sModel" value ="sModel">
-                            <label class="form-check-label" for="sModel">{{ 'configuration.add_asset_configuration.single_model' | translate }}</label>
-                          </div>
-                        </div>
-                      </div>
+            <div class='col-3 pl-0 mt-2'>
+              <configuration-asset-type></configuration-asset-type>
+            </div>
+            <div class="col-9 form-section mt-3 h-100">
+                <h3 class="form-section__title">{{ 'filter.add_asset_type' | translate }}</h3>
+                <div class="row form-section__row">
+                  <div class="col-12 col-md-3 p-field form-section__field">
+                    <div class="autocomplete-select">
+                      <span class="p-float-label">
+                        <input formControlName="typeName" pInputText placeholder="{{ 'filter.asset_type' | translate }} *" type="text">
+                        <label>{{ 'filter.asset_type' | translate }} *</label>
+                      </span>
+                      <anms-error [showError]="hasError('typeName', inputForm, submited)"
+                                  error="forms.feedback.required"></anms-error>
                     </div>
                   </div>
-                    <div class="col-12 col-md-4 p-field form-section__field">
-                        <span class="p-float-label mt-3">
-                            <input formControlName="selectModel" pInputText
-                                placeholder="{{ 'configuration.add_asset_configuration.make' | translate }}" type="text">
-                            <label>{{ 'configuration.add_asset_configuration.make' | translate }}</label>
-                        </span>
+                  <div class="col-12 col-md-2 form-section__field toggle-select">
+                    <span class='font-weight-bold'>{{ 'filter.type_status' | translate }}</span>
+                    <p-inputSwitch formControlName="activetype"></p-inputSwitch>
+                  </div>
+                  <div class="col-12 col-md-12 p-field form-section__field">
+                    <div class="autocomplete-select">
+                      <span class="p-float-label">
+                        <input formControlName="description" pInputText placeholder="{{ 'filter.description' | translate }} *" type="text">
+                        <label>{{ 'filter.description' | translate }} *</label>
+                      </span>
+                      <anms-error [showError]="hasError('description', inputForm, submited)"
+                                  error="forms.feedback.required"></anms-error>
                     </div>
-                    <div class="col-12 col-md-5 mt-3 p-field form-section__field">
-                        <ng-container *ngIf="inputForm.get('type').value ==
-                                'mModel'; else singleModel">
-                                <div class="progress-bar-container">
-                                    <div class="progress">
-                                        <div class="progress-bar" #progressBar></div>
-                                    </div>
-                                    <p class='progress-title'>{{fileName}}</p>
-                                    <small #small class='value-title'>{{ value }} MB</small>
-                                </div>
-                          <div>
-                            <div class='upload-box'>
-                              <label class='space-drop' for='attach_picture_sub-asset'>
-                                {{ 'configuration.add_asset_configuration.drag_and_drop_a_csv_file_or' | translate }}<a type="button"
-                                                              style="color:#007bff;
-                                                              margin-left: 4px;">{{ 'configuration.add_asset_configuration.click_here' | translate }}</a>
-                              </label>
-                              <input type='file' hidden id='attach_picture_sub-asset'>
-                            </div>
-                          </div>
-                         </ng-container>
-
-                    </div>
-                    <ng-template #singleModel formArrayName='singleModelArray'>
-                        <!-- <div formArrayName="models" class="d-flex w-100
-                            flex-wrap">
-                            <div *ngFor="let model of
-                                inputForm.get('models')['controls']; let
-                                i=index" class="w-100 flex-85">
-                                <mat-form-field class="mb-3">
-                                    <input matInput placeholder="Model"
-                                        value="" [formControlName]="i">
-                                </mat-form-field>
-                                <br>
-                            </div>
-                            <button class="add-model"
-                                (click)="addModel()"><a>+</a></button>
-                        </div> -->
-
-                      <div class="row form-section__row" *ngFor="let _ of singleModelArray.controls; let index = index" [formGroupName]="index">
-                        <span class="p-float-label" [class.mt-1]='singleModelArray.length > 1'>
-                          <div class="p-inputgroup">
-                            <span class="p-float-label">
-                              <input type="text" formControlName="model" pInputText placeholder="{{ 'configuration.add_asset_configuration.model' | translate }}">
-                              <label>{{ 'configuration.add_asset_configuration.model' | translate }}</label>
-                            </span>
-                            <span class="p-inputgroup-addon addon-primary" (click)='addSingleModel()'>
-                              <i class="pi pi-plus"></i>
-                            </span>
-                          </div>
-                        </span>
-                        <span class="ml-2" [class.mt-1]='singleModelArray.length > 1'>
-                          <div>
-                            <div class="col-12">
-                              <div class='row mt-1'>
-                                <span class='dot ml-1' [style.backgroundColor]="inputForm.get('singleModelArray').value[index].color1"
-                                      (click)='color1Clicked()'>
-                                  <input formControlName='color1' hidden/>
-                                </span>
-                                <span class="dot ml-1" [style.backgroundColor]="inputForm.get('singleModelArray').value[index].color2"
-                                      (click)='color2Clicked()'>
-                                  <input formControlName='color2' hidden/>
-                                </span>
-                                <span class="dot ml-1" [style.backgroundColor]="inputForm.get('singleModelArray').value[index].color3"
-                                      (click)='color3Clicked()'>
-                                  <input formControlName='color3' hidden/>
-                                </span>
-                                <span class="dot ml-1" [style.backgroundColor]="inputForm.get('singleModelArray').value[index].color4"
-                                      (click)='color4Clicked()'>
-                                  <input formControlName='color4' hidden/>
-                                </span>
-                              </div>
-<!--                              <mat-radio-group formControlName="color">-->
-<!--                                <mat-radio-button id='radio' [classList]='colorClass'></mat-radio-button>-->
-<!--                              </mat-radio-group>-->
-<!--                              <input class='radio-color' formControlName="color" type="radio" name="type" id="color">-->
-<!--                              <label class="form-check-label" for="sModel">{{ 'configuration.add_asset_configuration.single_model' | translate }}</label>-->
-                            </div>
-                            <!--                            <span class="p-float-label">-->
-<!--                              <input type="text" formControlName="color" pInputText placeholder="{{ 'configuration.add_asset_configuration.color' | translate }}">-->
-<!--                              <label>{{ 'configuration.add_asset_configuration.color' | translate }}</label>-->
-<!--                            </span>-->
-<!--                            <span class="p-inputgroup-addon addon-primary">-->
-<!--                              <i class="pi pi-plus"></i>-->
-<!--                            </span>-->
-                          </div>
-                        </span>
-                      </div>
-
-
-                    </ng-template>
-
+                  </div>
                 </div>
-
-
-
+              </div>
             </div>
-
-            <!-- end form-section -->
         </form>
-      <div class="table-container">
-        <app-table [setting]="assetConfigurationTableSetting"></app-table>
-      </div>
     </div>
 </div>
 <alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>

@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col">
+    <div class="upload-box">
+      <div class="row">
+        <ng-container>
+          <div class="col-12 d-flex justify-content-between file-name-size text-center">
+            <span *ngIf="!hintIsHidden">{{ 'assets.upload_form.progressbar_title' | translate }}</span>
+            <div  *ngIf="progressBarValue > 0" class="text-center" style="font-size: 1.3em">
+              <span>{{ filesSize / 1024 | number }} MG</span>
+              <p *ngIf="filesUploadSuccess > 0"><span style="color: green">{{ filesUploadSuccess }}</span> upload successfully</p>
+              <p *ngIf="filesUploadError > 0"><span style="color: red">{{ filesUploadError }}</span> Error File Upload</p>
+            </div>
+          </div>
+          <div class="col-lg-12 mb-1"  *ngIf="progressBarValue > 0">
+            <div class="w-100 p-0">
+              <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
+            </div>
+          </div>
+        </ng-container>
+        <div class="col-lg-12" *ngIf="(multiple) || (!multiple && files?.length == 0)">
+          <ngx-file-drop *ngIf="!isUploading" [multiple]="multiple" [accept]="accept.toString()" dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , uploaderName)">
+            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+              <label (click)="openFileSelector()" style="cursor: pointer;">
+
+                <svg-icon *ngIf="!iconIsHidden"  class="drop-icon" src="assets/icons/cloud-computing.svg"
+                           [svgStyle]="{ 'width.px':'24' , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                <small  class="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
+              </label>
+            </ng-template>
+          </ngx-file-drop>
+          <anms-error
+            *ngIf="hasError"
+            [showError]="this.files.length == 0"
+            error="forms.feedback.required">
+          </anms-error>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-container>
+  <div class="col-12 d-flex flex-md-column-reverse">
+    <div class="row">
+      <div *ngFor="let file of files; let index=i;" class="col-auto mb-2  align-self-end">
+        <div  [class.preview]="preview" class="upload-file-item">
+          <p>file name</p>
+          <span (click)="removeFile(index)">
+            <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':'12' , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>
+          </span>
+          <div *ngIf="preview">
+            <a [href]="getAddress(file)" download>
+              <img [src]="isImage ? getAddress(file) : fileIcon">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+
+<alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogErrorConfirm($event)"></alert-dialog>

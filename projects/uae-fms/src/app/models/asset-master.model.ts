@@ -1,3 +1,5 @@
+import { IWarrantyItems } from './asset';
+
 export interface IAssetMaster {
   id?: number;
   avatarId?: number;
@@ -15,6 +17,13 @@ export interface IAssetMaster {
   meterValue?: number;
   status: string;
   assetTypeName: string;
+  policyTypeId?: number;
+  policyTypeName?: string;
+  inServiceDate?: string;
+  inServiceOdometer?: number;
+  periodicServiceId?: number;
+  periodicServiceName?: string;
+  purchaseValue?: number;
   colorId: number;
   colorName: string;
   fuelCardId: number;
@@ -25,6 +34,8 @@ export interface IAssetMaster {
   trimId: number;
   trimName: string;
   year: string;
+  description?: string;
+  warranties?: IWarranty[];
 }
 
 export interface IOperator {
@@ -38,4 +49,14 @@ export interface IDepartment {
   name?: string;
   organizationId?: number;
   organizationName?: string;
+}
+
+export interface IWarranty {
+  id?: number;
+  item: string;
+  periodType: string;
+  duration: number;
+  startDate: string;
+  docId: number;
+  hasReminder: boolean;
 }

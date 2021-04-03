@@ -4,7 +4,8 @@ import {
   HttpInterceptor as HttpInterceptorBase,
   HttpHandler,
   HttpRequest,
-  HttpErrorResponse, HttpHeaders
+  HttpErrorResponse,
+  HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -13,24 +14,35 @@ import { tap } from 'rxjs/operators';
 @Injectable()
 export class HttpInterceptor implements HttpInterceptorBase {
   constructor(private injector: Injector) {}
-  httpHeaders = new HttpHeaders({
-    // 'x-mock-response-code': '200',
-    'Content-Type': 'application/json',
-    permission_level: '123456',
-    user_id: '1'
-  });
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const req = request.clone({ headers: this.httpHeaders });
+    let req;
+    let headers;
+    request = request.clone({
+      withCredentials: true
+    });
+
+    if (request.url.indexOf('login') > 0) {
+      headers = new HttpHeaders({ 'Content-Type': 'multipart/form-data' });
+      req = request.clone({ headers: headers });
+    } else {
+      headers = new HttpHeaders({
+        permission_level: '123456',
+        user_id: '1'
+      });
+      req = request.clone({ headers: headers });
+    }
     return next.handle(req).pipe(
       tap({
         error: (err: any) => {
-          if (err instanceof HttpErrorResponse) {
-            const appErrorHandler = this.injector.get(ErrorHandler);
-            appErrorHandler.handleError(err);
+          if (err.url.indexOf('login') < 0) {
+            if (err instanceof HttpErrorResponse) {
+              const appErrorHandler = this.injector.get(ErrorHandler);
+              appErrorHandler.handleError(err);
+            }
           }
         }
       })

@@ -11,16 +11,13 @@ import { LoginRequest, LoginResponse } from './login.model';
 export class LoginService {
   constructor(private http: HttpClient) {}
 
-  private loginApiUrl = environment.baseApiUrl + 'users/login';
+  private loginApiUrl = environment.baseApiUrl + 'login';
+
   login(loginRequest: LoginRequest): Observable<any> {
-    return this.http.post(this.loginApiUrl, loginRequest).pipe(
-      tap((response: LoginResponse) => {
-        window.localStorage.setItem(
-          'user_info',
-          JSON.stringify(response.fleetUser)
-        );
-        window.localStorage.setItem('jwt', response.token);
-      })
-    );
+    let form = new FormData();
+    form.append('username', 'admin');
+    form.append('password', 'pass');
+
+    return this.http.post(this.loginApiUrl, form);
   }
 }

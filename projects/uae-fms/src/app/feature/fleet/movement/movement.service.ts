@@ -6,6 +6,7 @@ import { ResponseBody } from '@models/response-body';
 import { IAssetType } from '@models/asset-type.model';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
+import { IOperator } from '@models/operator';
 
 @Injectable({
   providedIn: 'root'
@@ -290,9 +291,13 @@ export class MovementService {
     );
   }
 
-  constructor(
-    private _http: HttpClient
-  ) {}
+  operators(): Observable<ResponseBody<IOperator[]>> {
+    return this._http.get<ResponseBody<IOperator[]>>(
+      environment.baseApiUrl + 'operator'
+    );
+  }
+
+  constructor(private _http: HttpClient) {}
 
   openConfirmModal() {}
 }

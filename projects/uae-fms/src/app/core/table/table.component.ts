@@ -1,10 +1,17 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { SettingsFacade } from '@core/settings/settings.facade';
 import { Observable } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-table',
@@ -18,17 +25,21 @@ export class TableComponent implements OnInit {
   @Input() setting: TableSetting;
   @Input() tableData: Observable<any>;
 
-  constructor(private settingFacade: SettingsFacade, private changeDetection: ChangeDetectorRef) { }
+  constructor(
+    private settingFacade: SettingsFacade,
+    private changeDetection: ChangeDetectorRef,
+    private translate: TranslateService
+  ) {}
   ngOnInit() {
     this.settingFacade.language.subscribe((lang) => {
       this.activeLang = lang;
     });
 
-    this.tableData?.subscribe(x => {
-      console.log(x)
+    this.tableData?.subscribe((x) => {
+      console.log(x);
       this.setting.data = x;
       this.changeDetection.detectChanges();
-    })
+    });
   }
 
   getCol(col, data) {
@@ -104,16 +115,22 @@ export class TableComponent implements OnInit {
 
   exportTable(tableSetting: TableSetting, title: string): void {
     const exportColumns = tableSetting.columns.map((col) => {
-      if (col.thumbField?.length) {
+      /* if (col.thumbField?.length) {
         return;
-      }
-      return { title: col.lable, dataKey: col.field };
+      } */
+      return {
+        title:
+          col.lable && this.translate.instant(col.lable)
+            ? this.translate.instant(col.lable)
+            : col.lable,
+        dataKey: col.field
+      };
     });
 
     const exportRows: any[] = tableSetting.data.map((data) => ({ ...data }));
 
     tableSetting.columns.map((col) => {
-      if (title === 'Asset Master') {
+      if (title === 'assetMasterTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
             data[col.field] = `${data[col.field].assetName}\n${
@@ -122,7 +139,7 @@ export class TableComponent implements OnInit {
           });
         }
       }
-      if (title === 'Pending Registration') {
+      if (title === 'pendingRegistrationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
             data[col.field] = `${data[col.field].assetName}\n${
@@ -131,7 +148,7 @@ export class TableComponent implements OnInit {
           });
         }
       }
-      if (title === 'Pending Customization') {
+      if (title === 'pendingCustomizationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
             data[col.field] = `${data[col.field].assetName}\n${
@@ -159,6 +176,18 @@ export class TableComponent implements OnInit {
     if (col.showOnHover)
       return col.renderer == 'button' && i == this.rowIndexTable;
     else return col.renderer == 'button';
+  }
+
+  selectedTRS = [];
+  selectTR(data) {
+    if (data[0] == 'open') {
+      this.selectedTRS.push(data[1]);
+    } else {
+      this.selectedTRS = this.selectedTRS.filter((x) => x != data[1]);
+    }
+  }
+  isSelected(index): boolean {
+    return this.selectedTRS.includes(index);
   }
 }
 

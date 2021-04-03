@@ -2,10 +2,11 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  OnDestroy
+  OnDestroy,
+  ViewChild
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { TableSetting } from '@core/table';
+import { TableComponent, TableSetting } from '@core/table';
 import {
   AssetPolicyFacade,
   SubAssetPolicyFacade
@@ -20,6 +21,8 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetPolicyComponent implements OnInit, OnDestroy {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
+
   getAssetPolicySubscription!: Subscription;
 
   downloadBtn = 'assets/icons/download-solid.svg';
@@ -60,8 +63,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {
-      },
+      onClick: (col, data, button?) => {},
       floatButton: [
         {
           onClick: (col, data) => {
@@ -104,8 +106,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {
-      },
+      onClick: (col, data, button?) => {},
       floatButton: [
         {
           onClick: (col, data) => {
@@ -163,6 +164,17 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
         break;
       default:
         this._router.navigate(['configuration/asset-policy']);
+        break;
+    }
+  }
+
+  exportTable() {
+    switch (this.selectedTab) {
+      case 'assetPolicyAssetTab':
+        this.table.exportTable(this.assetPolicy_Table, 'Asset');
+        break;
+      case 'assetPolicySubAssetTab':
+        this.table.exportTable(this.subAssetPolicy_Table, 'Sub Asset');
         break;
     }
   }

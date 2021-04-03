@@ -66,8 +66,8 @@
     "user_management": "إدارةالمستخدم",
     "role_permission": "الدور والإذن",
     "users": "المستخدمون",
-    "add_new_user":"إضافة المستخدمون",
-    "edit_user":"تحرير المستخدمون",
+    "add_new_user": "إضافة المستخدمون",
+    "edit_user": "تحرير المستخدمون",
     "company_profile": "ملف الشركة",
     "asset_policy": "سياسة الأصول",
     "asset_configuration": "تكوين الأصول",
@@ -109,7 +109,10 @@
     "add_role_permission": "إضافة إذن الدور",
     "edit_periodic_serivce": "تحرير الخدمة الدورية",
     "add_new_asset": "إضافة أصل جديد",
-    "add_new_accessory": "إضافة ملحق جديد"
+    "add_new_accessory": "إضافة ملحق جديد",
+    "temporary": "مؤقت",
+    "add_temporary_request": "إضافة طلب مؤقت",
+    "add_permanent_request": "إضافة طلب دائم"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -195,6 +198,7 @@
     "pending": "قيد الانتظار",
     "complete": "اكتمال",
     "cancel": "يلغي",
+    "auction_list": "قائمة المزاد",
     "insurance_action": "إجراءات التأمين",
     "technical_inspection": "الفحص التقني",
     "insurance_claim": "تعويض من شركة التأمين",
@@ -594,7 +598,7 @@
         "km_day": "كيلومتر/يوم",
         "vehicle_sautes_details": "قفز السيارة/تفاصيل",
         "latest_location": "آخر موقع ",
-        "job_card_status":"حالة بطاقة العمل",
+        "job_card_status": "حالة بطاقة العمل",
         "lifecycle": {
           "lifecycle": "دورة الحياة",
           "all": "الكل",
@@ -647,7 +651,8 @@
       "title": "",
       "progressbar_title": "",
       "content": "قم بسحب وإسقاط مستند الضمان أو انقر هنا"
-    }
+    },
+    "upload_picture": "صورة الأصل الفرعي"
   },
   "accessory": {
     "assets_sub_assets": "الأصول / الأصول الفرعية",
@@ -975,6 +980,8 @@
       "asset_policy": "وثيقة الأصل",
       "make_decision": "إتخذ قرار",
       "generate": "إنشاء",
+      "actual_market_value": "سعر السوق الفعلي",
+      "sold": "مباع",
       "upload_form": {
         "title": "إضافة مرفقات",
         "progressbar_title": "",
@@ -1180,6 +1187,14 @@
   },
   "filter": {
     "asset_category": "فئة الأصول",
+    "type_category": "اكتب الفئة",
+    "add_asset_type": "إضافة نوع الأصل",
+    "add_make_for_car": "أضف صنع للسيارة",
+    "add_model_for_car": "إضافة نموذج للسيارة",
+    "make_name": "اصنع الاسم",
+    "model_name": "اسم النموذج",
+    "type_status": "اكتب الحالة",
+    "description": "الوصف",
     "asset": "الأصول",
     "sub_asset": "أصل فرعي",
     "accessory": "الملحقات",
@@ -1188,7 +1203,8 @@
     "bus": "أوتوبيس",
     "bicycle": "دراجة",
     "boat": "قارب",
-    "add_type": "إضافة نوع"
+    "add_type": "إضافة نوع",
+    "category": "الفئة"
   },
   "chart": {
     "lifecycle": "دورة الحياة",

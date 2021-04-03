@@ -1,5 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { ColumnType, TableSetting } from '@core/table';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  ViewChild
+} from '@angular/core';
+import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { UsersFacade } from '../../+state/users';
 import { Router } from '@angular/router';
@@ -12,6 +18,8 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersComponent implements OnInit {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
+
   downloadBtn = 'assets/icons/download-solid.svg';
 
   //#region Filter
@@ -21,36 +29,41 @@ export class UsersComponent implements OnInit {
       filterCount: '',
       filterTagColor: '',
       isCalendar: true,
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.total',
-      filterCount: '356',
+      filterCount: '',
       filterTagColor: '#6EBFB5',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
-      filterCount: '124',
+      filterCount: '',
       filterTagColor: '#6870B4',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
-      filterCount: '12',
+      filterCount: '',
       filterTagColor: '#BA7967',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
   //#endregion
 
   //#region Table
   data$ = this.facade.users$.pipe(
-    map(x => {
-      return x.map(y => {
-        return { ...y, information: { emails: y.emails, phoneNumbers: y.phoneNumbers }, roleName: y?.role?.roleName };
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
+          information: { emails: y.emails, phoneNumbers: y.phoneNumbers },
+          roleName: y?.role?.roleName
+        };
       });
-    }));
+    })
+  );
 
   users_Table: TableSetting = {
     columns: [
@@ -59,7 +72,7 @@ export class UsersComponent implements OnInit {
         type: 1,
         field: 'User',
         renderer: 'userRenderer',
-        thumbField: 'picture'
+        thumbField: 'profileDocId'
       },
       {
         lable: 'tables.column.department',
@@ -67,8 +80,8 @@ export class UsersComponent implements OnInit {
         field: 'department',
         renderer: 'doubleLineRenderer',
         rendererOptions: {
-          line1: "name",
-          line2: "organizationName"
+          line1: 'name',
+          line2: 'organizationName'
         }
       },
       {
@@ -77,9 +90,9 @@ export class UsersComponent implements OnInit {
         field: 'information',
         renderer: 'doubleLineRenderer',
         rendererOptions: {
-          line1: "emails",
-          line2: "phoneNumbers",
-          type: "array"
+          line1: 'emails',
+          line2: 'phoneNumbers',
+          type: 'array'
         }
       },
       { lable: 'tables.column.status', type: 1, field: 'isActive' },
@@ -100,9 +113,10 @@ export class UsersComponent implements OnInit {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
-            console.log(data)
-            this.router
-              .navigate(['/configuration/user-management/users/edit-user/' + data.id]);
+            console.log(data);
+            this.router.navigate([
+              '/configuration/user-management/users/edit-user/' + data.id
+            ]);
           }
         }
       ]
@@ -112,10 +126,48 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private facade: UsersFacade,
-    private router: Router
-  ) { }
+    private router: Router,
+    private changeDetection: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.facade.statistics$.subscribe((x) => {
+      if (x) {
+        this.filterCard = [
+          {
+            filterTitle: 'statistic.this_month',
+            filterCount: '',
+            filterTagColor: '',
+            isCalendar: true,
+            onActive(index: number) {}
+          },
+          {
+            filterTitle: 'statistic.total',
+            filterCount: `${x.activeUsersNumber + x.inActiveUsersNumber}`,
+            filterTagColor: '#6EBFB5',
+            onActive(index: number) {}
+          },
+          {
+            filterTitle: 'statistic.active',
+            filterCount: `${x.activeUsersNumber}`,
+            filterTagColor: '#6870B4',
+            onActive(index: number) {}
+          },
+          {
+            filterTitle: 'statistic.inactive',
+            filterCount: `${x.inActiveUsersNumber}`,
+            filterTagColor: '#BA7967',
+            onActive(index: number) {}
+          }
+        ];
+
+        this.changeDetection.detectChanges();
+      }
+    });
+  }
+
+  exportTable() {
+    this.table.exportTable(this.users_Table, 'Users');
   }
 }

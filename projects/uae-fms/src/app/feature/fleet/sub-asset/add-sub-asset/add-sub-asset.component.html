@@ -2,13 +2,17 @@
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{'forms.cancel'
       | translate}}</button>
-    <button *ngIf="formCurrentStep > 0 && ((!isSingleAsset && formCurrentStep < 2) || (isSingleAsset && formCurrentStep <=2))" class="btn-primary-medium btn-scondary-green" type="button"
-      (click)="previous()">{{ 'forms.back' | translate }}</button>
+    <button
+      *ngIf="formCurrentStep > 0 && ((!isSingleAsset && formCurrentStep < 2) || (isSingleAsset && formCurrentStep <=2))"
+      class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate
+      }}</button>
     <button class="btn-primary-medium add" *ngIf="formCurrentStep === 0" type="submit" (click)="next()">{{'forms.next'
       | translate }}</button>
-    <button *ngIf="formCurrentStep === 1 && !isSingleAsset" class="btn-primary-medium add" (click)="next()">{{ 'forms.upload' | translate
+    <button *ngIf="formCurrentStep === 1 && !isSingleAsset" class="btn-primary-medium add" (click)="next()">{{
+      'forms.upload' | translate
       }}</button>
-    <button *ngIf="formCurrentStep === 2 || (isSingleAsset && formCurrentStep == 1)" class="btn-primary-medium add" (click)="submit()">{{ (isEdit ?
+    <button *ngIf="formCurrentStep === 2 || (isSingleAsset && formCurrentStep == 1)" class="btn-primary-medium add"
+      (click)="submit()">{{ (isEdit ?
       'forms.edit' : 'forms.save') | translate }}</button>
   </div>
 
@@ -101,7 +105,7 @@
     </div>
     <div class="form-section component_wrapper" formArrayName="warranties">
       <h3 class="form-section__title"><span class='plus-icon' (click)="addWarranty()">
-          <svg-icon src='../../../../../assets/icons/add.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
+          <svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
           '100%'}"></svg-icon>
         </span>{{'sub_asset.warranty_items' | translate}}</h3>
       <div class="row form-section__row" [formGroupName]="i" *ngFor="let
@@ -127,7 +131,7 @@
         date-input">
           <span class="p-float-label">
             <p-calendar inputId="basic" formControlName="startDate"></p-calendar>
-            <svg-icon class="date-icon" src='../../../../../assets/icons/calendar-alt-regular.svg' [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,
+            <svg-icon class="date-icon" src='assets/icons/calendar-alt-regular.svg' [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,
             'height': '100%'}"></svg-icon>
             <label>{{'sub_asset.warranty_start_date' | translate}} *
             </label>
@@ -137,13 +141,10 @@
           </anms-error> -->
           </span>
         </div>
+
         <div class='col-12 col-md-3 p-field form-section__field'>
-          <div class='upload-box'>
-            <label class='space-drop' for='attach_picture_sub-asset'>
-              {{ 'sub_asset.upload_form.content' | translate }}
-            </label>
-            <input type='file' hidden id='attach_picture_sub-asset'>
-          </div>
+          <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [title]=""
+            [preview]="false" [accept]="['.csv']" (uploadedEvent)="uploadWarrantyFiles($event,i)"></anms-uploader>
         </div>
       </div>
     </div>
@@ -168,30 +169,49 @@
       <div class="col-sm-auto mt-1">
         <h3 class="form-section__title">{{ 'sub_asset.serial_number' | translate }}</h3>
       </div>
-      <div class="ml-5 col-sm-auto">
+      <div class="ml-5 col-sm-auto" *ngIf="!isEdit">
         <div class="form-check">
           <input class="form-check-input" type="radio" formControlName="assetQuantity" name="assetQuantity"
             id="multipleAsset" value="multi">
           <label class="form-check-label" for="multipleAsset">{{ 'sub_asset.multiple_assets' | translate }}</label>
         </div>
       </div>
-      <div class="col-sm-auto">
+      <div class="col-sm-auto" *ngIf="!isEdit">
         <div class="form-check">
-          <input class="form-check-input" type="radio" formControlName="assetQuantity" name="assetQuantity" id="singleAsset"
-            value="single">
+          <input class="form-check-input" type="radio" formControlName="assetQuantity" name="assetQuantity"
+            id="singleAsset" value="single">
           <label class="form-check-label" for="singleAsset">{{ 'sub_asset.single_asset' | translate }}</label>
         </div>
       </div>
       <div *ngIf="isSingleAsset" class="row form-section__row">
         <div class="col-12 col-md-12 p-field form-section__field">
-          <span class="p-float-label">
-            <input formControlName="serialNumber" pInputText placeholder="{{'sub_asset.serial_number' | translate}}"
-              type="text">
-            <label>{{'sub_asset.serial_number' | translate}}</label>
-          </span>
+
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              DPD
+            </span>
+            <span class="p-float-label">
+              <input formControlName="serialNumber" pInputText placeholder="{{'sub_asset.serial_number' | translate}}"
+                type="text">
+              <label for="inputgroup">{{'sub_asset.serial_number' | translate}}</label>
+            </span>
+          </div>
         </div>
       </div>
+      <div class="col-12 col-md-12 p-field form-section__field">
+        <span class="">
+          {{'sub_asset.upload_picture'|translate}}
+        </span>
+        <span class="p-float-label">
+          <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [multiple]="false"
+            [title]="'sub_asset.upload_picture'|translate" [preview]="true" [accept]="['.png','.jpg']"
+            (uploadedEvent)="uploadAssetPicture($event)">
+          </anms-uploader>
+        </span>
+      </div>
     </div>
+
+
 
     <div *ngIf="!isSingleAsset" class="second-step-upload-box">
       <div class="row">
@@ -209,7 +229,7 @@
             (onFileLeave)="fileLeave($event)">
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
               <label (click)="openFileSelector()" style="cursor: pointer;">
-                <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
+                <small class="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
               </label>
             </ng-template>
           </ngx-file-drop>

@@ -1,6 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild
+} from '@angular/core';
 import { TableSetting } from '@core/table';
-import { ButtonType } from '@core/table/table.component';
+import { ButtonType, TableComponent } from '@core/table/table.component';
 import { map } from 'rxjs/operators';
 import { OrganizationFacade } from '../+state/organization';
 
@@ -11,6 +16,8 @@ import { OrganizationFacade } from '../+state/organization';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrganizationComponent implements OnInit {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
+
   downloadBtn = 'assets/icons/download-solid.svg';
 
   //#region Table
@@ -46,7 +53,7 @@ export class OrganizationComponent implements OnInit {
         field: 'TF_Unpaid'
       },
       {
-        lable: '<img src="../../../../assets/icons/operator.svg">',
+        lable: '<img src="assets/icons/operator.svg">',
         type: 1,
         sortable: true,
         isIconLable: true,
@@ -54,7 +61,7 @@ export class OrganizationComponent implements OnInit {
         width: 100
       },
       {
-        lable: '<img src="../../../../assets/icons/car-solid.svg">',
+        lable: '<img src="assets/icons/car-solid.svg">',
         type: 1,
         isIconLable: true,
         field: 'car',
@@ -103,5 +110,9 @@ export class OrganizationComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+  }
+
+  exportTable() {
+    this.table.exportTable(this.organization_Table, 'Department');
   }
 }

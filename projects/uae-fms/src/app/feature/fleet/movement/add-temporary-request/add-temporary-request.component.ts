@@ -2,11 +2,20 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Injector
+  Injector,
+  ChangeDetectorRef
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import {
+  MovementOverviewFacade,
+  MovementRequestsFacade
+} from '@feature/fleet/+state/movement';
+import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { MovementService } from '@feature/fleet/movement/movement.service';
+import { MovementRequestsFacadeTemporary } from '@feature/fleet/+state/movement/temporary/requests/movement-requests.facade';
+import { MovementOverviewFacadeTemporary } from '@feature/fleet/+state/movement/temporary/overview/movement-overview.facade';
 
 @Component({
   selector: 'anms-add-request',
@@ -15,86 +24,133 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddTemporaryRequestComponent extends Utility implements OnInit {
-  dialogModal = false;
-
-  dialogSetting: IDialogAlert = {
-    header: 'Add New Request',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
-
-  submited = false;
   requestForm: FormGroup;
-  assetTypes = [
-    { name: 'Asset type 1', id: 1 },
-    { name: 'Asset type 2', id: 2 },
-    { name: 'Asset type 3', id: 3 },
-    { name: 'Asset type 4', id: 4 },
-    { name: 'Asset type 5', id: 5 },
-    { name: 'Asset type 6', id: 6 }
-  ];
-  oldAssetSuggests = [
-    { name: 'Old asset type 1', id: 1 },
-    { name: 'Old asset type 2', id: 2 },
-    { name: 'Old asset type 3', id: 3 },
-    { name: 'Old asset type 4', id: 4 },
-    { name: 'Old asset type 5', id: 5 },
-    { name: 'Old asset type 6', id: 6 }
-  ];
-  constructor(private _fb: FormBuilder, private injector: Injector) {
+  submitted = false;
+  dialogCancelSetting: IDialogAlert = {
+    header: 'Cancel',
+    hasError: false,
+    isWarning: true,
+    message: 'Are you sure you want to cancel?',
+    confirmButton: 'Cancel',
+    cancelButton: 'No'
+  };
+  dialogSuccessSetting: IDialogAlert = {
+    header: 'Success',
+    hasError: false,
+    message: 'New Request Successfully Added',
+    confirmButton: 'Ok'
+  };
+  dialogErrorSetting: IDialogAlert = {
+    header: 'Error',
+    hasError: true,
+    message: 'Some Error Occurred',
+    confirmButton: 'Ok'
+  };
+  displayCancelModal = false;
+  displaySuccessModal = false;
+  displayErrorModal = false;
+
+  assetTypes = [];
+  oldAssetSuggests = [];
+  oldAssetSuggestsB;
+
+  constructor(
+    private _fb: FormBuilder,
+    private facade: MovementRequestsFacadeTemporary,
+    private overViewFacade: MovementOverviewFacadeTemporary,
+    private changeDetector: ChangeDetectorRef,
+    private assetFacade: AssetMasterFacade,
+    private _movementService: MovementService,
+    injector: Injector
+  ) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this.assetFacade.loadAll();
     this.requestForm = this._fb.group({
-      requestType: ['new'],
-      assetType: [''],
-      resone: [''],
+      requestType: ['NEW'],
+      assetType: [null, Validators.compose([Validators.required])],
+      reason: ['', Validators.compose([Validators.required])],
       quality: [''],
-      oldAssetType: [''],
-      duration: ['']
+      oldAssetType: ['']
+    });
+    this.facade.submitted$.subscribe((x) => {
+      if (x) {
+        this.displaySuccessModal = true;
+        this.dialogErrorSetting.hasError = false;
+        this.facade.loadAll();
+        this.overViewFacade.loadAll();
+        this.changeDetector.detectChanges();
+      }
+    });
+
+    this.assetFacade.assetMaster$.subscribe((x) => {
+      this.oldAssetSuggestsB = x.map((y) => ({
+        id: y.id,
+        name: y['makeName'] + ' ' + y['modelName']
+      }));
+    });
+
+    this._movementService.assetTypes().subscribe((x) => {
+      this.assetTypes = x.message.map((y) => ({ id: y.id, name: y['name'] }));
+      if (this.assetTypes.length)
+        this.requestForm.get('assetType').patchValue(this.assetTypes[0]);
+    });
+
+    this.facade.error$.subscribe((x) => {
+      if (x?.error) {
+        this.displayErrorModal = true;
+        this.dialogErrorSetting.hasError = true;
+        this.changeDetector.detectChanges();
+      }
     });
   }
+
   filterAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.oldAssetSuggests = [
-      { name: 'Old asset type 1', id: 1 },
-      { name: 'Old asset type 2', id: 2 },
-      { name: 'Old asset type 3', id: 3 },
-      { name: 'Old asset type 4', id: 4 },
-      { name: 'Old asset type 5', id: 5 },
-      { name: 'Old asset type 6', id: 6 }
-    ];
+    this.oldAssetSuggests = this.oldAssetSuggestsB.filter(
+      (x) =>
+        (x.id + '').indexOf(event.query) >= 0 ||
+        x.name.indexOf(event.query) >= 0
+    );
   }
 
-  dialogConfirm(event): void {
-    this.dialogModal = false;
-    if (event) {
-      this.router.navigate(['/fleet/movement/temporary']).then();
-    }
-  }
-
-  cancel(): void {
-    this.dialogModal = true;
-    this.dialogSetting.message =
-      'Are you sure that you want to cancel adding new request?';
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.cancelButton = 'No';
-    this.dialogSetting.confirmButton = 'Yes';
-  }
-
-  submit(): void {
-    this.submited = true;
+  submit() {
+    this.submitted = true;
     if (this.requestForm.invalid) {
+      this.displayErrorModal = true;
       return;
+    } else {
+      let d = this.requestForm.getRawValue();
+      let _data = {
+        requesterId: 1,
+        requestType: d.requestType,
+        movementType: 'PERMANENT',
+        assetTypeId: d.assetType.id,
+        reason: d.reason,
+        quantity: d.quality,
+        startDate: '2018-10-18T21:13:06.253Z',
+        endDate: '2008-09-13T21:13:24.636Z'
+      };
+      this.facade.addMovementRequest(_data);
     }
+  }
+  showCancelAlert() {
+    this.displayCancelModal = true;
+  }
 
-    this.dialogModal = true;
-    this.dialogSetting.message = 'Request successfully added';
-    this.dialogSetting.isWarning = false;
-    this.dialogSetting.cancelButton = undefined;
-    this.dialogSetting.confirmButton = 'OK';
+  dialogConfirm(confirmed) {
+    if (confirmed) {
+      this.displaySuccessModal = false;
+      this.facade.reset();
+      this.goToList();
+    } else this.displaySuccessModal = false;
+  }
+
+  successConfirm($event) {
+    this.displaySuccessModal = false;
+    this.facade.reset();
+    this.goToList();
   }
 }

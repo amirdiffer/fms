@@ -65,8 +65,8 @@
     "user_management": "User Management",
     "role_permission": "Role and Permission",
     "users": "Users",
-    "add_new_user":"Add New User",
-    "edit_user":"Edit User",
+    "add_new_user": "Add New User",
+    "edit_user": "Edit User",
     "company_profile": "Company Profile",
     "asset_policy": "Asset Policy",
     "asset_configuration": "Asset Configuration",
@@ -108,7 +108,10 @@
     "add_role_permission": "Add Role Premission",
     "add_new_asset": "Add New Asset",
     "department": "Department",
-    "add_new_accessory": "Add New Accessory"
+    "add_new_accessory": "Add New Accessory",
+    "temporary": "Temporary",
+    "add_temporary_request": "Add Temporary Request",
+    "add_permanent_request": "Add Permanent Request"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -192,6 +195,7 @@
     "pending": "Pending",
     "complete": "Complete",
     "cancel": "Cancel",
+    "auction_list": "Auction List",
     "insurance_action": "Insurance Action",
     "technical_inspection": "Technical Inspection",
     "insurance_claim": "Insurance Claim",
@@ -592,7 +596,7 @@
         "km_day": "Km/Day",
         "vehicle_sautes_details": "Vehicle Sautes/Details",
         "latest_location": "Latest Location",
-        "job_card_status":"Job Card Status",
+        "job_card_status": "Job Card Status",
         "lifecycle": {
           "lifecycle": "Lifecycle",
           "all": "All",
@@ -645,7 +649,8 @@
       "title": "",
       "progressbar_title": "",
       "content": "Drag and Drop A Warranty Doc or Click Here"
-    }
+    },
+    "upload_picture": "Sub Asset Picture"
   },
   "accessory": {
     "assets_sub_assets": "Assets / Sub Assets",
@@ -975,6 +980,8 @@
       "car_card": "Car Card",
       "asset_policy": "Asset Policy",
       "make_decision": "Make Decision",
+      "actual_market_value": "Actual Market Value",
+      "sold": "Sold",
       "upload_form": {
         "title": "Attach Docs",
         "progressbar_title": "",
@@ -1157,7 +1164,8 @@
       "invalid-email": "Email address is invalid",
       "invalid-phone": "Phone number is invalid",
       "file_ext": "File extension is incorrect"
-    }
+    },
+    "upload_avatar": "Upload Avatar"
   },
   "login": {
     "fleet": "Fleet",
@@ -1181,6 +1189,14 @@
   },
   "filter": {
     "asset_category": "Asset Category",
+    "type_category": "Type Category",
+    "add_asset_type": "Add Asset Type",
+    "add_make_for_car": "Add Make For Car",
+    "add_model_for_car": "Add Model For Car",
+    "make_name": "Make Name",
+    "model_name": "Model Name",
+    "type_status": "Type Status",
+    "description": "Description",
     "asset": "Asset",
     "sub_asset": "Sub Asset",
     "accessory": "Accessory",
@@ -1189,7 +1205,8 @@
     "bus": "Bus",
     "bicycle": "Bicycle",
     "boat": "Boat",
-    "add_type": "Add Type"
+    "add_type": "Add Type",
+    "category": "Category"
   },
   "chart": {
     "lifecycle": "Lifecycle",

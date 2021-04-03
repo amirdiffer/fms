@@ -1,6 +1,16 @@
 import { Router } from '@angular/router';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import {
+  ColumnDifinition,
+  ColumnType,
+  TableComponent,
+  TableSetting
+} from '@core/table';
 import { map } from 'rxjs/operators';
 import { PeriodicServiceFacade } from '../+state/periodic-service';
 
@@ -11,6 +21,7 @@ import { PeriodicServiceFacade } from '../+state/periodic-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PeriodicServiceComponent implements OnInit {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
   downloadBtn = 'assets/icons/download-solid.svg';
 
   tableColumns: ColumnDifinition[] = [
@@ -23,8 +34,7 @@ export class PeriodicServiceComponent implements OnInit {
       renderer: ''
     },
     {
-      lable:
-        '<img src="../../../../../assets/icons/car-solid.svg" class="icon24px">',
+      lable: '<img src="assets/icons/car-solid.svg" class="icon24px">',
       field: 'number',
       isIconLable: true,
       sortable: true,
@@ -75,5 +85,9 @@ export class PeriodicServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+  }
+
+  exportTable() {
+    this.table.exportTable(this.tableSetting, 'Accessories');
   }
 }

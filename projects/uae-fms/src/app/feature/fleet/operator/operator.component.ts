@@ -1,7 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild
+} from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { assetsPath } from '@environments/environment';
-import { ColumnType, TableSetting } from '@core/table';
+import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { OperatorFacade } from '../+state/operator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
@@ -13,6 +18,7 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OperatorComponent implements OnInit {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
   assets = assetsPath;
   downloadBtn = 'assets/icons/download-solid.svg';
   showOverView = false;
@@ -23,25 +29,25 @@ export class OperatorComponent implements OnInit {
       filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#6C7198',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '356',
       filterTagColor: '#5B8972',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.vacation',
       filterCount: '124',
       filterTagColor: '#DDB16C',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '12',
       filterTagColor: '#E07A5F',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
   filterCardOverView: FilterCardSetting[] = [
@@ -49,25 +55,25 @@ export class OperatorComponent implements OnInit {
       filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#6C7198',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '356',
       filterTagColor: '#5B8972',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.vacation',
       filterCount: '124',
       filterTagColor: '#DDB16C',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '12',
       filterTagColor: '#E07A5F',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
   //#endregion
@@ -82,7 +88,7 @@ export class OperatorComponent implements OnInit {
           Information: { line1: y.emails[0], line2: y.phoneNumbers[0] },
           Type: 'Operator',
           Status: 'Active',
-          asset: { img: "thumb1.png" },
+          asset: { img: 'thumb1.png' },
           TF_PAid: 0,
           TF_Unpaid: 0
         };
@@ -177,9 +183,13 @@ export class OperatorComponent implements OnInit {
   constructor(
     private _operatorFacade: OperatorFacade,
     private _router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this._operatorFacade.loadAll();
+  }
+
+  exportTable() {
+    this.table.exportTable(this.operator_Table, 'Operator');
   }
 }

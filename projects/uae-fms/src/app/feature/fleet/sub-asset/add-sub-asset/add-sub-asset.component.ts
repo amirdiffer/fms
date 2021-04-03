@@ -369,6 +369,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       origin: ['', [Validators.required]],
       policyType: ['', [Validators.required]],
       purchaseValue: ['', [Validators.required]],
+      avatarId: [],
       description: [''],
       warranties: this._fb.array([this.createWarrantyForm()]),
       assetQuantity: ['single']
@@ -431,6 +432,17 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   previous(): void {
     this.formCurrentStep -= 1;
+  }
+
+  uploadWarrantyFiles(evt, index: number) {
+    if (!evt || !evt.files) {
+      return;
+    }
+    const docId = evt.files[0];
+    const docControl = (this.subAssetForm.controls['warranties'] as FormArray)
+      .at(index)
+      .get('doc');
+    docControl.setValue(docId);
   }
 
   addWarranty(): void {
@@ -510,6 +522,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     const {
       make,
       model,
+      avatarId,
       subAssetType,
       policyType,
       origin,
@@ -520,31 +533,57 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     } = subAssetFormValue;
 
     // eg. DPD129348
-    const dpds = [];
-    if (this.isSingleAsset) {
-      dpds.push(subAssetFormValue.serialNumber);
+    if (this.isEdit) {
+      const dpd = subAssetFormValue.serialNumber;
+      return {
+        avatarId,
+        dpd,
+        assetTypeId: subAssetType.id,
+        makeId: make.id,
+        origin: origin,
+        modelId: model.id,
+        year: year,
+        policyTypeId: policyType.id,
+        purchaseValue: +purchaseValue,
+        description: description,
+        warrantyItems: warranties.map((warranty) => ({
+          periodType: warranty.year.id,
+          duration: +warranty.duration,
+          startDate: warranty.startDate,
+          item: warranty.item,
+          docId: +warranty.doc,
+          hasReminder: true
+        }))
+      };
+    } else {
+      const dpds = [];
+      if (this.isSingleAsset) {
+        const serialNumber = subAssetFormValue.serialNumber;
+        if (serialNumber) {
+          dpds.push(serialNumber);
+        }
+      }
+      return {
+        avatarId,
+        dpds,
+        assetTypeId: subAssetType.id,
+        makeId: make.id,
+        origin: origin,
+        modelId: model.id,
+        year: year,
+        policyTypeId: policyType.id,
+        purchaseValue: +purchaseValue,
+        description: description,
+        warrantyItems: warranties.map((warranty) => ({
+          periodType: warranty.year.id,
+          duration: +warranty.duration,
+          startDate: warranty.startDate,
+          item: warranty.item,
+          docId: +warranty.doc,
+          hasReminder: true
+        }))
+      };
     }
-
-    return {
-      avatarId: 1,
-      dpds,
-      assetTypeId: subAssetType.id,
-      makeId: make.id,
-      origin: origin,
-      modelId: model.id,
-      year: year,
-      policyTypeId: policyType.id,
-      purchaseValue: +purchaseValue,
-      description: description,
-      warrantyItems: warranties.map((warranty) => ({
-        periodType: warranty.year.id,
-        duration: +warranty.duration,
-        startDate: warranty.startDate,
-        item: warranty.item,
-        docId: 1,
-        hasReminder: true
-      }))
-    };
   }
 
   public dropped(files: NgxFileDropEntry[]) {
@@ -567,5 +606,12 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   public fileLeave(event) {
     console.log(event);
+  }
+
+  uploadAssetPicture($event) {
+    const docId = $event.files[0];
+    console.log(docId);
+    console.log(typeof docId);
+    this.subAssetForm.controls['avatarId'].setValue(docId);
   }
 }

@@ -59,8 +59,7 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         field: 'TF_Unpaid'
       },
       {
-        lable:
-          '<img src="../../../../assets/icons/operator.svg" class="icon24px">',
+        lable: '<img src="assets/icons/operator.svg" class="icon24px">',
         type: 1,
         sortable: true,
         isIconLable: true,
@@ -68,8 +67,7 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         width: 100
       },
       {
-        lable:
-          '<img src="../../../../assets/icons/car-solid.svg" class="icon24px">',
+        lable: '<img src="assets/icons/car-solid.svg" class="icon24px">',
         type: 1,
         sortable: true,
         isIconLable: true,
@@ -208,12 +206,12 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     this.sectionLocation(index).push(this.createSectionLocation());
   }
 
-  organizationNumber
+  organizationNumber;
   filterDepartments(event) {
-    this.organizationNumber = +event.query
+    this.organizationNumber = +event.query;
     this.departmentList.next(event);
   }
-  organizationIDChanged($event) { }
+  organizationIDChanged($event) {}
 
   dialogConfirm(event) {
     this.dialogModal = false;

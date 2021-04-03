@@ -3,7 +3,8 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   ViewChild,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectorRef
 } from '@angular/core';
 import { AssetsService } from './assets.service';
 import { ColumnType, TableComponent } from '@core/table';
@@ -14,6 +15,7 @@ import { CustomizationFacade } from '@feature/fleet/+state/assets/customization'
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { yearsPerPage } from '@angular/material/datepicker';
+import { TechnicalInspectionSelectors } from '@feature/workshop/+state/technical-inspections/technical-inspections.selectors';
 
 @Component({
   selector: 'anms-assets',
@@ -33,12 +35,15 @@ export class AssetsComponent implements OnInit, OnDestroy {
   pendingRegistrationTableSetting;
   pendingCustomizationTableSetting;
   filterSetting;
+
   selectedTab = 'assetMasterTab';
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
+
+  //#region  table
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
-    map(x => {
-      return x.map(y => {
+    map((x) => {
+      return x.map((y) => {
         return {
           ...y,
           id: y.id,
@@ -61,9 +66,10 @@ export class AssetsComponent implements OnInit, OnDestroy {
       });
     })
   );
+
   dataRegistration$ = this.registrationFacade.registration$.pipe(
-    map(x => {
-      return x.map(y => {
+    map((x) => {
+      return x.map((y) => {
         return {
           ...y,
           id: y.id,
@@ -85,16 +91,18 @@ export class AssetsComponent implements OnInit, OnDestroy {
       });
     })
   );
+  //#endregion
+
   constructor(
     private _assetsService: AssetsService,
     private assetMasterFacade: AssetMasterFacade,
     private registrationFacade: RegistrationFacade,
     private customizationFacade: CustomizationFacade,
+    private changeDetector: ChangeDetectorRef,
     private _router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.assetMasterTableSetting = {
       columns: [
         {
@@ -203,28 +211,29 @@ export class AssetsComponent implements OnInit, OnDestroy {
         ]
       }
     };
+
     this.pendingRegistrationTableSetting = this._assetsService.pedingRegistrationTableSetting();
     this.pendingCustomizationTableSetting = this._assetsService.pedingCustomizationTableSetting();
 
     this.filterSetting = [
       {
         filterTitle: 'statistic.total',
-        filterCount: '2456',
+        filterCount: '',
         filterTagColor: '#028D5D'
       },
       {
         filterTitle: 'statistic.active',
-        filterCount: '2456',
+        filterCount: '',
         filterTagColor: '#009EFF'
       },
       {
         filterTitle: 'statistic.inactive',
-        filterCount: '2456',
+        filterCount: '',
         filterTagColor: '#FCB614'
       },
       {
         filterTitle: 'statistic.xfleet',
-        filterCount: '2456',
+        filterCount: '',
         filterTagColor: '#F75A4A'
       }
     ];
@@ -254,7 +263,6 @@ export class AssetsComponent implements OnInit, OnDestroy {
 
     this.statisticsSubscription = this.assetMasterFacade.statistics$.subscribe(
       (response) => {
-        console.log(response);
         if (response) {
           this.filterSetting.map((filter) => {
             switch (filter.filterTitle) {
@@ -274,10 +282,10 @@ export class AssetsComponent implements OnInit, OnDestroy {
                 break;
             }
           });
+          this.changeDetector.detectChanges();
         }
       }
     );
-
   }
 
   add() {
@@ -286,18 +294,17 @@ export class AssetsComponent implements OnInit, OnDestroy {
   }
 
   exportTable() {
-    console.log(this.selectedTab);
     switch (this.selectedTab) {
-      case 'Asset Master':
+      case 'assetMasterTab':
         this.table.exportTable(this.assetMasterTableSetting, this.selectedTab);
         break;
-      case 'Pending Registration':
+      case 'pendingRegistrationTab':
         this.table.exportTable(
           this.pendingRegistrationTableSetting,
           this.selectedTab
         );
         break;
-      case 'Pending Customization':
+      case 'pendingCustomizationTab':
         this.table.exportTable(
           this.pendingCustomizationTableSetting,
           this.selectedTab

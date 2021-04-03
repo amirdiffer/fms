@@ -1,4 +1,5 @@
 @import '../../../../../themes/green-theme.scss';
+@import '../../../../../assets/scss/form-section.scss';
 $primary: map-get($anms-green-primary, 300);
 
 .card-table-header {
@@ -6,9 +7,7 @@ $primary: map-get($anms-green-primary, 300);
   display: flex;
   justify-content: flex-end;
   margin-bottom: 15px;
-
 }
-
 
 .edit-box {
   background-color: #fff;
@@ -83,4 +82,11 @@ $primary: map-get($anms-green-primary, 300);
   ::ng-deep .mat-ripple {
     display: none;
   }
+}
+
+.sold-box {
+  padding: 0 10px;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
 }

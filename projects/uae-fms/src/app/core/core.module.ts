@@ -87,7 +87,7 @@ export {
 export function httpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(
     http,
-    `${environment.i18nPrefix}/assets/i18n/`,
+    `${environment.i18nPrefix}assets/i18n/`,
     '.json'
   );
 }

@@ -24,7 +24,7 @@ import { ButtonType } from '../table.component';
       <button
         class="btn-primary-medium"
         *ngIf="col.buttonType == buttonType.confirm"
-        (click)="col.onClick(row)"
+        (click)="clickButton('confirm')"
       >
         {{ 'buttons.confirm' | translate }}
       </button>
@@ -46,7 +46,7 @@ import { ButtonType } from '../table.component';
     <img
       *ngIf="col.buttonType == buttonType.action"
       class="action-button"
-      src="../../../assets/icons/three-dots.svg"
+      src="assets/icons/three-dots.svg"
     />
     <button
       *ngIf="col.buttonType == buttonType.jobCard"
@@ -133,7 +133,6 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   }
 
   clickButton(button): void {
-      this.setting.onClick(this.button, button)
+    this.setting.onClick(this.button, button);
   }
-
 }

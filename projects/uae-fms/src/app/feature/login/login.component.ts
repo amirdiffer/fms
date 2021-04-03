@@ -108,24 +108,22 @@ export class LoginComponent implements OnInit {
       'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTczOTk2MzIwNCwiaWF0IjoxNjEzODE5MjA0LCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfQVBQUk9WQUwifSx7ImF1dGhvcml0eSI6IkZMRUVUX0NSRUFURSJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfRURJVCJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfUEVSTUlTU0lPTiJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfVklFVyJ9XX0.PTaSo-b82v4LEHf4JLLpVF6giJKQvYslzvId40N6Fjc3yROe8xi3ROTtxz7BwZXkbqDvGn_uzJQK2CdRupdB5w'
     );
     this.router.navigate(['/dashboard']);
-    /* this.loginService
+
+    this.loginService
       .login({
         username: this.credentialsFG.value.username,
         password: this.credentialsFG.value.password
       })
       .subscribe(
         (data) => {
-          console.log(data);
+          console.log('response : ', data);
         },
         (error) => {
-          if (error.error.toLowerCase().indexOf('password') > -1) {
-            this.credentialsFG.controls.password.setErrors({ incorrect: true });
-            this.credentialsFG.controls.password.markAllAsTouched();
-          } else if (error.error.toLowerCase().indexOf('user') > -1) {
-            this.credentialsFG.controls.username.setErrors({ incorrect: true });
-            this.credentialsFG.controls.username.markAllAsTouched();
-          }
+          let headers: Headers = error.headers;
+          // headers.getAll('set-cookie');
+          console.log(headers.get('Cookie'));
+          console.log('Error : ', error);
         }
-      ); */
+      );
   }
 }

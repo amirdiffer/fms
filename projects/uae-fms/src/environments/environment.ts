@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 const packageJson = require('../../../../package.json');
-export const assetsPath = '../assets/';
+export const assetsPath = 'assets/';
 
 export const environment = {
   appName: 'Fleet Management Service',
@@ -25,7 +25,7 @@ export const environment = {
     cypress: packageJson.devDependencies['cypress'],
     eslint: packageJson.devDependencies['eslint']
   },
-  baseFileServer: 'http://127.0.0.1:8080/',
+  baseFileServer: 'https://uat.jointscope.ai/fms-api-revamp/document/',
   baseLoginApiUrl: 'http://localhost:4200/fms-api-revamp/',
   baseApiUrl: 'http://localhost:4200/fms-api-revamp/'
   // baseLoginApiUrl: 'https://uat.jointscope.ai/fms-api-revamp/v1/',

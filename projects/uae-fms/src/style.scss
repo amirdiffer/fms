@@ -72,12 +72,12 @@ html {
   }
 
   .thumb {
-    padding: 0px 10px;
+    padding: 0 10px;
   }
 
   .text-of-cell-with-image {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -88,9 +88,9 @@ html {
     text-align: right;
   }
   .wrapper .card-table-header {
-    padding-right:auto;
-    padding-left:15px;
-    .search-box button{
+    padding-right: auto;
+    padding-left: 15px;
+    .search-box button {
       left: 0;
       right: auto;
       border-radius: 0.25em 0 0 0.25em;
@@ -134,18 +134,18 @@ html {
     left: 0;
     right: auto !important;
   }
-  
-  .calculate-button{
+
+  .calculate-button {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-top-left-radius: .25em !important;
-    border-bottom-left-radius: .25em !important;
+    border-top-left-radius: 0.25em !important;
+    border-bottom-left-radius: 0.25em !important;
   }
-  .input-money-pipe{
+  .input-money-pipe {
     left: 10px;
     right: auto !important;
   }
-  .btn-primary-small.calculate-button{
+  .btn-primary-small.calculate-button {
     & ~ .input-money-pipe {
       left: 25%;
     }
@@ -176,18 +176,14 @@ html {
         left: 10px;
         right: auto !important;
       }
-      .p-inputgroup-addon:last-child{
-        border-radius: 0;
-        border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
+      .p-inputgroup-addon:last-child {
+        border-radius: 3px 0 0 3px;
       }
-      .p-inputgroup input:first-child{
-        border-radius: 0;
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
+      .p-inputgroup input:first-child {
+        border-radius: 0 3px 3px 0;
       }
-      .form-section__field  .search-btn.addon-primary{
-        left:0;
+      .form-section__field .search-btn.addon-primary {
+        left: 0;
         right: auto !important;
       }
     }
@@ -196,18 +192,14 @@ html {
       right: auto !important;
     }
     .p-inputgroup-addon:last-child {
-      border-radius: 0;
-      border-top-left-radius: 3px;
-      border-bottom-left-radius: 3px;
+      border-radius: 3px 0 0 3px;
     }
     .p-inputgroup input:first-child {
-      border-radius: 0;
-      border-top-right-radius: 3px;
-      border-bottom-right-radius: 3px;
+      border-radius: 0 3px 3px 0;
     }
-    .yearly{
-      right:auto !important;
-      left:25px;
+    .yearly {
+      right: auto !important;
+      left: 25px;
     }
   }
 
@@ -219,7 +211,7 @@ html {
     .statusColor {
       left: auto !important;
       right: 0;
-      border-radius: 5px 0px 0px 5px !important;
+      border-radius: 5px 0 0 5px !important;
     }
   }
   app-fuel-card-table {
@@ -252,34 +244,34 @@ html {
   }
 
   /* Drag and Drop  */
-  .upload-file-name{
-    &>span{
+  .upload-file-item {
+    & > span {
       right: auto;
       left: 10px;
     }
   }
   /* Other Detail */
-  .wrapper{
-    .edit-box{
-      &__box--first{
+  .wrapper {
+    .edit-box {
+      &__box--first {
         border-right: 3px solid #828acd;
-        border-left:0;
-        border-radius: 0 5px 5px 0
+        border-left: 0;
+        border-radius: 0 5px 5px 0;
       }
-      &__box--last{
+      &__box--last {
         border-radius: 5px 0 0 5px;
       }
     }
-    anms-part-list{
+    anms-part-list {
       .p-inputgroup {
-        .p-inputgroup-addon.search-btn{
+        .p-inputgroup-addon.search-btn {
           left: 0;
           right: auto !important;
         }
       }
     }
-    .part-overview{
-      .component_wrapper .btn-download{
+    .part-overview {
+      .component_wrapper .btn-download {
         left: 16px;
         right: auto !important;
       }
@@ -306,6 +298,20 @@ html {
         margin-right: 0 !important;
       }
     }
+    .statistics {
+      &:last-child {
+        margin-right: auto !important;
+        margin-left: 0 !important;
+      }
+      &:first-child {
+        margin-right: auto !important;
+        margin-left: 0 !important;
+      }
+    }
+    .statistic-button {
+      right: auto !important;
+      left: 0;
+    }
   }
 
   /* role and permission */
@@ -317,22 +323,22 @@ html {
   }
   /* Dialog */
   p-dialog {
-    .p-dialog-footer{
+    .p-dialog-footer {
       text-align: left;
     }
   }
   /* Charts */
-  app-life-cycle-chart{
-    .active-lifecycle > .lifecycle-section::before{
+  app-life-cycle-chart {
+    .active-lifecycle > .lifecycle-section::before {
       transform: translate(16%, -16%) !important;
     }
-    .lifecycle-section-container:last-child{
-      span::after{
+    .lifecycle-section-container:last-child {
+      span::after {
         left: auto !important;
       }
     }
     .lifecycle-line {
-      .lifecycle-section-container:not(:first-child) > p{
+      .lifecycle-section-container:not(:first-child) > p {
         transform: translateX(50%) !important;
       }
     }

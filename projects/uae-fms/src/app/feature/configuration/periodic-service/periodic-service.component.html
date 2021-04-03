@@ -3,9 +3,9 @@
     <div class="card-table-header">
       <div class="search-box">
         <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
-        <button><img class="search-icon" src="../../../../assets/icons/search-solid.svg" alt=""></button>
+        <button><img class="search-icon" src="assets/icons/search-solid.svg" alt=""></button>
       </div>
-      <button class="btn-download" disabled>
+      <button class="btn-download" (click)="exportTable()">
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
       <button class="btn-primary-small" [routerLink]="'./add-periodic-service'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>

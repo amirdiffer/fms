@@ -1,10 +1,8 @@
 <!-- start table -->
 <div>
-    <ng-container *ngIf="selectedTab =='requestTab'">
-        <div class="filter-container">
-            <app-filter [setting]="filterSetting"></app-filter>
-        </div>
-    </ng-container>
+    <div class="filter-container" *ngIf="selectedTab =='requestTab'">
+        <app-filter [setting]="filterSetting"></app-filter>
+    </div>
     <div class="table-container component_wrapper">
         <div class="pt-1">
             <div>
@@ -16,7 +14,7 @@
                               <img [src]="searchIcon" alt="">
                             </button>
                         </div>
-                        <button class="btn-download" disabled>
+                        <button class="btn-download" (click)="exportTable()">
                             <svg-icon [src]="downloadBtn"></svg-icon>
                         </button>
                         <button *ngIf="selectedTab !='requestTab'" class="btn-primary-small" routerLink="add-permanent-request"><a>{{ 'search.request' | translate }}</a></button>
@@ -34,5 +32,5 @@
     </div>
 </div>
 <!-- end table -->
-<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="displaySuccessModal=false;goToList()"></alert-dialog>
-<alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="displayErrorModal=false"></alert-dialog>
+<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal"  (confirm)="successConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="dialogConfirm($event)"></alert-dialog>

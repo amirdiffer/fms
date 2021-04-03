@@ -4,7 +4,9 @@ import {
   ChangeDetectionStrategy,
   ElementRef,
   ViewChild,
-  AfterViewChecked, Injector, ChangeDetectorRef
+  AfterViewChecked,
+  Injector,
+  ChangeDetectorRef
 } from '@angular/core';
 import { MovementService } from './movement.service';
 import { Observable, of } from 'rxjs';
@@ -16,16 +18,21 @@ import {
   MovementRequestsFacade
 } from '../+state/movement';
 import { map } from 'rxjs/operators';
-import { ButtonType } from '@core/table/table.component';
+import { ButtonType, TableComponent } from '@core/table/table.component';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
+
 @Component({
   selector: 'anms-movement',
   templateUrl: './movement.component.html',
   styleUrls: ['./movement.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovementComponent extends Utility implements OnInit, AfterViewChecked {
+export class MovementComponent
+  extends Utility
+  implements OnInit, AfterViewChecked {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
+
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   filterSetting = [
@@ -59,16 +66,17 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
     header: 'Success',
     hasError: false,
     message: 'Rejected Successfully',
-    confirmButton: 'Ok',
+    confirmButton: 'Ok'
   };
   dialogErrorSetting: IDialogAlert = {
     header: 'Error',
     hasError: true,
     message: 'Some Error Occurred',
-    confirmButton: 'Ok',
+    confirmButton: 'Ok'
   };
   displaySuccessModal = false;
   displayErrorModal = false;
+  assignID: number;
 
   @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
 
@@ -85,33 +93,43 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
   }
 
   movementRequest$ = this._movementRequestsFacade.MovementRequests$.pipe(
-    map(x => {
-      return x.map(y => {
-        return {...y,
-          id: y['id'],
-          user: {
-            img: 'user-image.png',
-            userName: y['requester']['firstName'],
-            subName: y['requester']['lastName']
-          },
-          movementType: y['movementType'],
-          requestType: y['requestType'],
-          assetType: y['assetTypeName'],
-          reason: y['reason'],
-          date: 'Saturday 02/02 12:30',
-          requestStatus: y['status'],
-          operation: {
-            accept: 'Confirm',
-            cancel: 'Reject'
-          }
-        }
+    map((x) => {
+      return x.map((y) => {
+        if (y)
+          return {
+            ...y,
+            id: y['id'],
+            user: {
+              img: 'user-image.png',
+              userName:
+                y['requester'] && y['requester']['firstName']
+                  ? y['requester']['firstName']
+                  : '',
+              subName:
+                y['requester'] && y['requester']['lastName']
+                  ? y['requester']['lastName']
+                  : ''
+            },
+            movementType: y['movementType'],
+            requestType: y['requestType'],
+            assetType: y['assetTypeName'],
+            reason: y['reason'],
+            date: 'Saturday 02/02 12:30',
+            requestStatus: y['status'],
+            operation: {
+              accept: 'Confirm',
+              cancel: 'Reject'
+            }
+          };
       });
-  }));
+    })
+  );
 
   movementOverview$ = this._movementOverviewFacade.MovementOverview$.pipe(
-    map(x => { console.log(x)
-      return x.map(y => {
-        return {...y,
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
           id: y.id,
           asset: {
             img: 'thumb1.png',
@@ -129,9 +147,10 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
           },
           fine: 3,
           reason: y.request.reason
-        }
+        };
       });
-  }));
+    })
+  );
 
   requestTableSetting = {
     columns: [
@@ -200,7 +219,7 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
         renderer: 'button',
         buttonType: ButtonType.reject,
         onClick: (data) => {
-          console.log('ddd')
+          console.log('ddd');
           // this._movementRequestsFacade.rejecting(data);
         },
         showOnHover: true
@@ -218,9 +237,13 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
     data: [],
     rowSettings: {
       onClick: (data, button?, col?) => {
-        if (button == 'reject')
-          this._movementRequestsFacade.rejecting(data.id);
-      },
+        if (button == 'reject') this._movementRequestsFacade.rejecting(data.id);
+        else if (button == 'confirm') {
+          console.log(data);
+          this.assignID = data.id;
+          this.openConfirmModal();
+        }
+      }
     }
   };
 
@@ -315,7 +338,6 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
       }
     });
 
-
     // Handle confirm button click
     let confirmCol = this.requestTableSetting.columns.find(
       (c) => c.field === 'ButtonConfirm'
@@ -349,24 +371,24 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
       }
     ];
 
-    this._movementRequestsFacade.rejected$.subscribe(x => {
+    this._movementRequestsFacade.rejected$.subscribe((x) => {
       if (x) {
         this.displaySuccessModal = true;
-        this.dialogErrorSetting.hasError=false;
+        this.dialogErrorSetting.hasError = false;
         this.changeDetector.detectChanges();
       }
     });
-    this._movementRequestsFacade.error$.subscribe(x => {
+    this._movementRequestsFacade.error$.subscribe((x) => {
       if (x?.error) {
         this.displayErrorModal = true;
-        this.dialogErrorSetting.hasError=true;
+        this.dialogErrorSetting.hasError = true;
         this.changeDetector.detectChanges();
       } else {
         this.displayErrorModal = false;
       }
-    })
-
+    });
   }
+
   ngAfterViewChecked() {
     if (
       this.requestTab &&
@@ -382,10 +404,35 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
     this.dialog.open(MovementConfirmComponent, {
       height: '600px',
       width: '800px',
-      data: 1,
+      data: this.assignID
     });
   }
   rejectRow() {
     console.log('reject');
+  }
+
+  successConfirm(confirmed) {
+    if (confirmed) {
+      this.displaySuccessModal = false;
+      this.displayErrorModal = false;
+      this._movementRequestsFacade.reset();
+    } else this.displaySuccessModal = false;
+  }
+
+  dialogConfirm($event) {
+    this.displayErrorModal = false;
+    this.displaySuccessModal = false;
+    this._movementRequestsFacade.reset();
+  }
+
+  exportTable() {
+    switch (this.selectedTab) {
+      case 'MovementOverViewTab':
+        this.table.exportTable(this.movementOverViewTableSetting, 'Overview');
+        break;
+      case 'requestTab':
+        this.table.exportTable(this.requestTableSetting, 'Request');
+        break;
+    }
   }
 }

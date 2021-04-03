@@ -56,6 +56,7 @@ import { IserveComponent } from './movement/iserv/iserv.component';
 import { TemporaryComponent } from '../fleet/movement/temporary/temporary.component';
 import { AddTemporaryRequestComponent } from '@feature/fleet/movement/add-temporary-request/add-temporary-request.component';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
+import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movement-temporary-confirm/movement-confirm.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
     AddSubAssetComponent,
     AddOrganizationComponent,
     MovementConfirmComponent,
+    MovementTemporaryConfirmComponent,
     OrganizationComponent,
     AddAssetComponent,
     AddOperatorComponent,
@@ -110,7 +112,7 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
     NgApexchartsModule,
     ChartsModule,
     MapModule,
-    AlertDialogModule,
+    AlertDialogModule
   ]
 })
 export class FleetModule {}

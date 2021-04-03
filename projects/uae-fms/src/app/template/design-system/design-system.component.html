@@ -191,8 +191,8 @@
                     <div class="input-group">
                         <div class="autocomplete-select w-100">
                             <span class="p-float-label ">
-                                <p-autoComplete [suggestions]="filteredAsset" 
-                                                (completeMethod)="searchAsset($event)" 
+                                <p-autoComplete [suggestions]="filteredAsset"
+                                                (completeMethod)="searchAsset($event)"
                                                 field="name"></p-autoComplete>
                                 <i class="pi pi-search"></i>
                                 <label>Asset *</label>
@@ -206,8 +206,8 @@
                     <div class="input-group">
                         <div class="autocomplete-select w-100">
                             <span class="p-float-label ">
-                                <p-autoComplete [suggestions]="filteredAsset" 
-                                                (completeMethod)="searchAsset($event)" 
+                                <p-autoComplete [suggestions]="filteredAsset"
+                                                (completeMethod)="searchAsset($event)"
                                                 field="name" class="invalid"></p-autoComplete>
                                 <i class="pi pi-search"></i>
                                 <label>Asset *</label>
@@ -256,7 +256,7 @@
                         <form [formGroup]="controlStep">
                             <ng-template matStepLabel>Label 2</ng-template>
                             <button mat-button matStepperPrevious>Back</button>
-                            <button mat-button matStepperNext>Next</button>                    
+                            <button mat-button matStepperNext>Next</button>
                         </form>
                     </mat-step>
                     <mat-step [editable]="isEditable" [stepControl]="controlStep">
@@ -264,7 +264,7 @@
                             <ng-template matStepLabel>Label 3</ng-template>
                             <button mat-button matStepperPrevious>Back</button>
                             <button mat-button matStepperNext>Next</button>
-                    
+
                         </form>
                     </mat-step>
                     <mat-step [editable]="isEditable" [stepControl]="controlStep">
@@ -272,7 +272,7 @@
                             <ng-template matStepLabel>Label 4</ng-template>
                             <button mat-button matStepperPrevious>Back</button>
                             <button mat-button matStepperNext>Next</button>
-                    
+
                         </form>
                     </mat-step>
                     <mat-step [editable]="isEditable" [stepControl]="controlStep">
@@ -300,7 +300,7 @@
                 <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
                     <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                       <label (click)="openFileSelector()" style="cursor: pointer;">
-                        <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
+                        <svg-icon  class="drop-icon" src="assets/icons/cloud-computing.svg"
                           [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
                           <small calss="drag-and-drop">Drag and drop a file or Click here</small>
                       </label>

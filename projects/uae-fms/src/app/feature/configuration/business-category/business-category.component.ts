@@ -2,9 +2,10 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  OnDestroy
+  OnDestroy,
+  ViewChild
 } from '@angular/core';
-import { ColumnType, TableSetting } from '@core/table';
+import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { BusinessCategoryFacade } from '../+state/business-category';
 import { DataService } from './data.service';
 import { Router } from '@angular/router';
@@ -18,6 +19,7 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BusinessCategoryComponent implements OnInit, OnDestroy {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
   getBusinessCategorySubscription!: Subscription;
 
   downloadBtn = 'assets/icons/download-solid.svg';
@@ -78,7 +80,7 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
     private facade: BusinessCategoryFacade,
     private dataService: DataService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -86,5 +88,9 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.getBusinessCategorySubscription?.unsubscribe();
+  }
+
+  exportTable() {
+    this.table.exportTable(this.businessCategory_Table, 'Business Category');
   }
 }

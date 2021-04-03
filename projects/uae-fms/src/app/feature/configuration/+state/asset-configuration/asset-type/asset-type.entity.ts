@@ -10,6 +10,7 @@ export const CONFIGURATION_ASSET_TYPE_FEATURE_KEY = 'assetType';
 export interface AssetTypeState extends EntityState<IAssetType> {
   error?: any;
   loaded?: boolean;
+  submitted: boolean;
   message?: string;
 }
 
@@ -24,5 +25,6 @@ export const assetTypeAdapter: EntityAdapter<IAssetType> = createEntityAdapter<
 export const initialState: AssetTypeState = assetTypeAdapter.getInitialState({
   error: null,
   loaded: null,
+  submitted: false,
   message: null
 } as AssetTypeState);
