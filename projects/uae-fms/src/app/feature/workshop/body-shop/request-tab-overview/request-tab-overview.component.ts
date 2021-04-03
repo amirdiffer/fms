@@ -71,7 +71,8 @@ export class RequestTabOverviewComponent implements OnInit {
         lable: 'tables.column.issue',
         field: 'issue',
         type: ColumnType.lable,
-        thumbField: ''
+        thumbField: '',
+        renderer: 'checkboxRenderer'
       },
       {
         lable: 'tables.column.date',
@@ -106,7 +107,7 @@ export class RequestTabOverviewComponent implements OnInit {
         field: 'attachment',
         type: ColumnType.lable,
         thumbField: '',
-        renderer: '',
+        renderer: 'downloadButtonRenderer',
         sortable: true
       }
     ],

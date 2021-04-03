@@ -95,6 +95,12 @@
           <div *ngIf="col.renderer=='colorize'">
             <table-colorize-renderer [lang]="activeLang"  [data]="data[col.field]" [options]="col.rendererOptions"></table-colorize-renderer>
           </div>
+          <div *ngIf="col.renderer=='checkboxRenderer'">
+            <table-checkbox-renderer [label]='data[col.field]'></table-checkbox-renderer>
+          </div>
+          <div *ngIf="col.renderer=='downloadButtonRenderer'">
+            <table-download-button-renderer [link]='data[col.field]'></table-download-button-renderer>
+          </div>
 
         </td>
         <div [class]="'statusColor'+ (hasRendere(setting.columns)?'with-renderer-table':' simple-table')"
