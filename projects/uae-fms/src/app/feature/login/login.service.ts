@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '@environments/environment';
@@ -9,18 +9,22 @@ import { LoginRequest, LoginResponse } from './login.model';
   providedIn: 'root'
 })
 export class LoginService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  private loginApiUrl = environment.baseApiUrl + 'users/login';
+  private loginApiUrl = environment.baseApiUrl + 'login';
+  private baseUrl = environment.baseApiUrl;
+
   login(loginRequest: LoginRequest): Observable<any> {
-    return this.http.post(this.loginApiUrl, loginRequest).pipe(
-      tap((response: LoginResponse) => {
-        window.localStorage.setItem(
-          'user_info',
-          JSON.stringify(response.fleetUser)
-        );
-        window.localStorage.setItem('jwt', response.token);
-      })
-    );
+    let form = new FormData();
+    // form.append("username", loginRequest.username);
+    // form.append("password", loginRequest.password);
+    form.append("username", "admin");
+    form.append("password", "pass");
+
+    return this.http.post(this.loginApiUrl, form, { headers: new HttpHeaders() });
+  }
+
+  getUserProfile() {
+    return this.http.get(this.baseUrl + "profile");
   }
 }
