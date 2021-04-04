@@ -5,9 +5,9 @@
     <button class="btn-primary-medium add" type="submit">{{ (isEdit ? 'forms.edit' : 'forms.add') | translate
       }}</button>
   </div>
-  <div class="mt-2">
+  <!-- <div class="mt-2">
     <app-filter [setting]='filter'></app-filter>
-  </div>
+  </div> -->
   <div class="form-section mt-3" formGroupName="portalInformation">
     <h3 class="form-section__title">{{ 'configuration.users.portal_information' | translate }}</h3>
     <div class="row form-section__row">
@@ -15,7 +15,7 @@
         <div class="autocomplete-select">
           <span class="p-float-label">
             <p-autoComplete formControlName="employeeNumber" (completeMethod)="getEmployee($event)"
-              [suggestions]="employees$|async" field="name" [minLength]="1"
+              [suggestions]="employees$|async" field="organizationId" [minLength]="1"
               (ngModelChange)="employeeNumberChanged($event)" required [disabled]="isEdit"></p-autoComplete>
             <i class="pi pi-search"></i>
             <label>{{ 'configuration.users.employee_number' | translate }} *</label>
@@ -70,16 +70,16 @@
         <div class="row form-section__row">
           <div class="col-12 col-md-5 p-field form-section__field">
             <span class="p-float-label">
-              <input formControlName="firstName" pInputText placeholder="FirstName *" type="text">
-              <label>{{ 'configuration.users.first_name' | translate }} *</label>
+              <input formControlName="firstName" pInputText placeholder="{{ 'configuration.users.full_name_english' | translate }} *" type="text">
+              <label>{{ 'configuration.users.full_name_english' | translate }} *</label>
             </span>
             <anms-error [showError]="hasError('firstName',form.get('personalInformation'),submited)"
               error="forms.feedback.required"></anms-error>
           </div>
           <div class="col-12 col-md-7 p-field form-section__field">
             <span class="p-float-label">
-              <input formControlName="lastName" pInputText placeholder="LastName *" type="text">
-              <label>{{ 'configuration.users.last_name' | translate }} *</label>
+              <input formControlName="lastName" pInputText placeholder="{{ 'configuration.users.full_name_arabic' | translate }} *" type="text">
+              <label>{{ 'configuration.users.full_name_arabic' | translate }} *</label>
             </span>
             <anms-error [showError]="hasError('lastName',form.get('personalInformation'),submited)"
               error="forms.feedback.required"></anms-error>

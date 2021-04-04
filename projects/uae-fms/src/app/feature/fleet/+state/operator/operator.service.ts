@@ -43,7 +43,7 @@ export class OperatorService {
   }
 
   getOperatorById(id) {
-    return this.http.get<ResponseBody<IOperator>>(
+    return this.http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'configuration/user/' + id
     );
   }
