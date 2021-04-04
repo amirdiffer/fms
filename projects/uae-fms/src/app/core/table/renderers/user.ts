@@ -13,7 +13,9 @@ import { environment } from '../../../../environments/environment';
       </div>
       <div class="d-flex flex-column">
         <span class="user-name">{{
-          user.firstName + ' ' + user.lastName
+          user.technician
+            ? user.technician.firstName + ' ' + user.technician.lastName
+            : user.firstName + ' ' + user.lastName
         }}</span>
         <span class="user-info">{{ user.id }}</span>
       </div>

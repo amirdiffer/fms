@@ -159,8 +159,8 @@ export class BodyShopComponent implements OnInit {
           technician: {
             firstName: y.user.firstName,
             lastName: y.user.lastName,
-            picture: '',
             id: y.user.id
+            // picture: 'assets/user-image.png',
           },
           skill: y.skills.map((s) => s.name).join(','),
           status: 'Available',
