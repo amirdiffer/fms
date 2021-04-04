@@ -79,7 +79,6 @@ export class NavbarComponent implements OnInit {
   }
 
   logOut() {
-    localStorage.clear();
-    this.router.navigate(['login']);
+    this.router.navigate(['login'], { queryParams: { action: 'logout' } });
   }
 }

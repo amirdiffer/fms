@@ -22,6 +22,10 @@ export class LoginService {
     return this.http.post(this.loginApiUrl, form, { headers: new HttpHeaders() });
   }
 
+  logOut() {
+    return this.http.get(this.baseUrl + 'logout');
+  }
+
   getUserProfile() {
     return this.http.get(this.baseUrl + "profile");
   }
