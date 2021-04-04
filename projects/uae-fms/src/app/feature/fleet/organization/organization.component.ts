@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild
+} from '@angular/core';
 import { TableSetting } from '@core/table';
 import { ButtonType, TableComponent } from '@core/table/table.component';
 import { map } from 'rxjs/operators';
@@ -62,23 +67,23 @@ export class OrganizationComponent implements OnInit {
         field: 'car',
         width: 100,
         sortable: true
-      },
-      {
-        lable: '',
-        type: 3,
-        width: 70,
-        field: 'addButton',
-        renderer: 'button',
-        buttonType: ButtonType.add
-      },
-      {
-        lable: '',
-        width: 70,
-        type: 3,
-        field: 'actionButton',
-        renderer: 'button',
-        buttonType: ButtonType.action
       }
+      // {
+      //   lable: '',
+      //   type: 3,
+      //   width: 70,
+      //   field: 'addButton',
+      //   renderer: 'button',
+      //   buttonType: ButtonType.add
+      // },
+      // {
+      //   lable: '',
+      //   width: 70,
+      //   type: 3,
+      //   field: 'actionButton',
+      //   renderer: 'button',
+      //   buttonType: ButtonType.action
+      // }
     ],
     data: []
   };
