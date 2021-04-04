@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting } from '@core/table';
 import { AuctionListFacade } from '@feature/workshop/+state/auction-list/auction/auction-list.facade';
@@ -19,35 +20,41 @@ export class AuctionListComponent implements OnInit, OnDestroy {
   editOpen: boolean = false;
   downloadBtn = 'assets/icons/download-solid.svg';
   editOpen$: Subscription;
+  selectedRow = null;
   filterSetting: FilterCardSetting[] = [
     {
       filterCount: '',
       filterTagColor: '',
       filterTitle: 'statistic.this_month',
+      filterSupTitle: 'statistic.auction_list',
       isCalendar: true,
       onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
+      filterSupTitle: 'statistic.auction_list',
       filterTitle: 'statistic.total',
       onActive: () => {}
     },
     {
       filterCount: '08',
       filterTagColor: '#6870B4',
+      filterSupTitle: 'statistic.auction_list',
       filterTitle: 'statistic.out_of_policy',
       onActive: () => {}
     },
     {
       filterCount: '02',
       filterTagColor: '#BA7967',
+      filterSupTitle: 'statistic.auction_list',
       filterTitle: 'statistic.total_lost',
       onActive: () => {}
     },
     {
       filterCount: '09',
       filterTagColor: '#DD5648',
+      filterSupTitle: 'statistic.auction_list',
       filterTitle: 'statistic.accident',
       onActive: () => {}
     }
@@ -64,8 +71,8 @@ export class AuctionListComponent implements OnInit, OnDestroy {
       { lable: 'tables.column.created_by', field: 'createdBy' },
       { lable: 'tables.column.reason', field: 'reason' },
       { lable: 'tables.column.assignment', field: 'assignment' },
-      { lable: 'tables.column.estimate_market', field: 'estimatedMarket' },
-      { lable: 'tables.column.date', field: 'date' },
+      { lable: 'tables.column.estimate_market', field: 'estimatedMarket', sortable: true },
+      { lable: 'tables.column.date', field: 'date', sortable: true },
       { lable: 'tables.column.location', field: 'location' },
       {
         lable: 'tables.column.remove_item',
@@ -74,98 +81,13 @@ export class AuctionListComponent implements OnInit, OnDestroy {
         renderer: 'booleanRenderer'
       }
     ],
-    data: [
-      {
-        statusColor: '#7F87CA',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        createdBy: 'Automatic',
-        reason: 'Out Of Policy',
-        assignment: 'Sam Smith, Sam Smith',
-        estimatedMarket: '1111111 AED',
-        date: '02/02/2020',
-        location: 'Bardubai, Dubai',
-        removeItem: true
-      },
-      {
-        statusColor: '#7F87CA',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        createdBy: 'Automatic',
-        reason: 'Out Of Policy',
-        assignment: 'Sam Smith, Sam Smith',
-        estimatedMarket: '1111111 AED',
-        date: '02/02/2020',
-        location: 'Bardubai, Dubai',
-        removeItem: false
-      },
-      {
-        statusColor: '#7F87CA',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        createdBy: 'Automatic',
-        reason: 'Out Of Policy',
-        assignment: 'Sam Smith, Sam Smith',
-        estimatedMarket: '1111111 AED',
-        date: '02/02/2020',
-        location: 'Bardubai, Dubai',
-        removeItem: false
-      },
-      {
-        statusColor: '#7F87CA',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        createdBy: 'Automatic',
-        reason: 'Out Of Policy',
-        assignment: 'Sam Smith, Sam Smith',
-        estimatedMarket: '1111111 AED',
-        date: '02/02/2020',
-        location: 'Bardubai, Dubai',
-        removeItem: true
-      },
-      {
-        statusColor: '#7F87CA',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        createdBy: 'Automatic',
-        reason: 'Out Of Policy',
-        assignment: 'Sam Smith, Sam Smith',
-        estimatedMarket: '1111111 AED',
-        date: '02/02/2020',
-        location: 'Bardubai, Dubai',
-        removeItem: true
-      },
-      {
-        statusColor: '#7F87CA',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        createdBy: 'Automatic',
-        reason: 'Out Of Policy',
-        assignment: 'Sam Smith, Sam Smith',
-        estimatedMarket: '1111111 AED',
-        date: '02/02/2020',
-        location: 'Bardubai, Dubai',
-        removeItem: true
+    data: [],
+    rowSettings: {
+      onClick: (data) => {
+        if (data.id)
+          this.selectedRow = data;
       }
-    ]
+    }
   };
 
   settingTable2: TableSetting = {
@@ -184,7 +106,7 @@ export class AuctionListComponent implements OnInit, OnDestroy {
       },
       { lable: 'tables.column.date', field: 'date' },
       { lable: 'tables.column.description', field: 'description' },
-      { lable: 'tables.column.cost', field: 'cost', width: 120 }
+      { lable: 'tables.column.cost', field: 'cost', width: 120, sortable: true }
     ],
     data: [
       {
@@ -276,7 +198,8 @@ export class AuctionListComponent implements OnInit, OnDestroy {
 
   constructor(
     private _facade: AuctionListFacade,
-    private _fake_serviceservice: FakeServiceAuctionList
+    private _fake_serviceservice: FakeServiceAuctionList,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -284,8 +207,17 @@ export class AuctionListComponent implements OnInit, OnDestroy {
       this.editOpen = open;
     });
     this._facade.loadAll();
+    this._facade.message$.subscribe((x) => {
+      this.settingTable1.data = x;
+    })
   }
   ngOnDestroy() {
     this.editOpen$.unsubscribe();
   }
+
+  submitSold() {
+    this._facade.updateRow(this.selectedRow);
+    this._router.navigate([], { queryParams: { id: 'soldTab' } });
+  }
+
 }

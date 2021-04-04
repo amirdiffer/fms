@@ -5,21 +5,6 @@ import { ITaskMaster } from './task-master.model';
   providedIn: 'root'
 })
 export class TaskMasterService {
-  private tableData = (): ITaskMaster[] => {
-    let data = [];
-    for (let index = 0; index < 7; index++) {
-      const el = {
-        taskName: 'Change AC',
-        timeEstimate: '7 hours',
-        instrunction: 'Description is here, description is here',
-        ratePerHour: '65 AED',
-        skill: 'Skill is Here',
-        part: 'Filter'
-      };
-      data.push(el);
-    }
-    return data;
-  };
   public tableSetting = {
     columns: [
       {
@@ -40,9 +25,9 @@ export class TaskMasterService {
       },
       {
         lable: 'tables.column.instruction',
-        field: 'instrunction',
+        field: 'instruction',
         width: 200,
-        type: 2,
+        type: 1,
         thumbField: '',
         renderer: ''
       },
@@ -71,7 +56,7 @@ export class TaskMasterService {
         renderer: ''
       }
     ],
-    data: this.tableData()
+    data: []
   };
   constructor() {}
 }

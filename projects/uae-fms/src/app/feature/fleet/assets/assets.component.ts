@@ -2,75 +2,306 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  ViewChild
+  ViewChild,
+  OnDestroy,
+  ChangeDetectorRef
 } from '@angular/core';
 import { AssetsService } from './assets.service';
-import { TableComponent } from '@core/table';
+import { ColumnType, TableComponent } from '@core/table';
+import { AssetMasterFacade } from '../+state/assets/asset-master';
+import { Subscription } from 'rxjs';
+import { RegistrationFacade } from '@feature/fleet/+state/assets/registration';
+import { CustomizationFacade } from '@feature/fleet/+state/assets/customization';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { yearsPerPage } from '@angular/material/datepicker';
+import { TechnicalInspectionSelectors } from '@feature/workshop/+state/technical-inspections/technical-inspections.selectors';
+
 @Component({
   selector: 'anms-assets',
   templateUrl: './assets.component.html',
   styleUrls: ['./assets.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AssetsComponent implements OnInit {
+export class AssetsComponent implements OnInit, OnDestroy {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
+
+  statisticsSubscription!: Subscription;
+  assetMasterSubscription!: Subscription;
+  registrationSubscription!: Subscription;
+  customizationSubscription!: Subscription;
 
   assetMasterTableSetting;
   pendingRegistrationTableSetting;
   pendingCustomizationTableSetting;
   filterSetting;
-  selectedTab = "assetMasterTab";
+
+  selectedTab = 'assetMasterTab';
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-  constructor(private _assetsService: AssetsService) {}
+  sampleImg='assets/thumb.png'
+  //#region  table
+  dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
+    map(x => {
+      return x.map(y => {
+        return {
+          ...y,
+          id: y.id,
+          asset: {
+            img: this.sampleImg,
+            assetName: y.assetTypeName,
+            assetSubName: y.dpd,
+            ownership: 'Owned'
+          },
+          type: y.assetTypeName,
+          businessCategory: 'VIP',
+          allocated: 'Finance',
+          operator: y.operator.firstName + ' ' + y.operator.lastName,
+          status: y.status,
+          submitOn: '2 day ago',
+          // brand: 'bmw.png',
+          brand: y.makeName,
+          killometer: 25000,
+          statusColor: '#009EFF'
+        };
+      });
+    })
+  );
+
+  dataRegistration$ = this.registrationFacade.registration$.pipe(
+    map(x => {
+      return x.map(y => {
+        return {
+          ...y,
+          id: y.id,
+          asset: {
+            img: 'thumb1.png',
+            assetName: y.assetTypeName,
+            assetSubName: y.dpd,
+            progress: Math.floor(Math.random() * 6) + 1
+          },
+          serialNumber: '123s125583456',
+          brand: 'bmw.png',
+          type: 'Car',
+          allocated: 'Finance',
+          businessCategory: 'VIP',
+          createDate: '00/00/00',
+          registrantionDate: '00/00/00',
+          creator: 'Sam Smith'
+        };
+      });
+    })
+  );
+  //#endregion
+
+  constructor(
+    private _assetsService: AssetsService,
+    private assetMasterFacade: AssetMasterFacade,
+    private registrationFacade: RegistrationFacade,
+    private customizationFacade: CustomizationFacade,
+    private changeDetector: ChangeDetectorRef,
+    private _router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.assetMasterTableSetting = this._assetsService.assetMastertableSetting();
+
+    this.assetMasterTableSetting = {
+      columns: [
+        {
+          lable: 'tables.column.asset',
+          field: 'asset',
+          width: '18em',
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: 'assetsRenderer'
+        },
+        {
+          lable: 'tables.column.type',
+          field: 'type',
+          width: 100,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.business_category',
+          field: 'businessCategory',
+          width: 130,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.department',
+          field: 'allocated',
+          width: 100,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.operator',
+          field: 'operator',
+          width: 100,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.status',
+          field: 'status',
+          width: 100,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.submitted_on',
+          field: 'submitOn',
+          width: 100,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: '',
+          sortable: true
+        },
+        {
+          lable: 'tables.column.make',
+          field: 'brand',
+          width: 100,
+          type: 1,
+          thumbField: 'brand',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.current_meter',
+          field: 'killometer',
+          width: 100,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: '',
+          sortable: true
+        },
+        {
+          lable: '',
+          field: 'floatButton',
+          width: 0,
+          type: ColumnType.lable,
+          thumbField: '',
+          renderer: 'floatButton'
+        }
+      ],
+      data: [],
+      rowSettings: {
+        floatButton: [
+          {
+            button: 'edit',
+            color: '#3F3F3F',
+            onClick: (col, data, button?) => {
+              this.assetMasterFacade.reset();
+              this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
+            }
+          },
+          // {
+          //   button: 'download'
+          // },
+          // {
+          //   button: 'external',
+          //   onClick: (col, data) => {
+          //     this._router.navigate(['/fleet/assets/' + data.id]);
+          //   }
+          // }
+        ]
+      }
+    };
+
     this.pendingRegistrationTableSetting = this._assetsService.pedingRegistrationTableSetting();
     this.pendingCustomizationTableSetting = this._assetsService.pedingCustomizationTableSetting();
 
     this.filterSetting = [
       {
         filterTitle: 'statistic.total',
-        filterCount: '2456',
+        filterCount: '',
         filterTagColor: '#028D5D'
       },
       {
         filterTitle: 'statistic.active',
-        filterCount: '2456',
+        filterCount: '',
         filterTagColor: '#009EFF'
       },
       {
         filterTitle: 'statistic.inactive',
-        filterCount: '2456',
+        filterCount: '',
         filterTagColor: '#FCB614'
       },
       {
         filterTitle: 'statistic.xfleet',
-        filterCount: '2456',
+        filterCount: '',
         filterTagColor: '#F75A4A'
       }
     ];
+
+    this.assetMasterFacade.loadAll();
+    this.registrationFacade.loadAll();
+    this.customizationFacade.loadAll();
+    this.assetMasterFacade.loadStatistics();
+
+    this.statisticsSubscription = this.assetMasterFacade.statistics$.subscribe(
+      (response) => {
+        if (response) {
+          this.filterSetting.map((filter) => {
+            switch (filter.filterTitle) {
+              case 'statistic.total':
+                filter.filterCount = response.message.total;
+                break;
+              case 'statistic.active':
+                filter.filterCount = response.message.active;
+                break;
+              case 'statistic.inactive':
+                filter.filterCount = response.message.inactive;
+                break;
+              case 'statistic.xfleet':
+                filter.filterCount = response.message.xfleet;
+                break;
+              default:
+                break;
+            }
+          });
+          this.changeDetector.detectChanges();
+        }
+      }
+    );
+
+  }
+
+  add() {
+    this.assetMasterFacade.reset();
+    this._router.navigate(['fleet/assets/add-new-asset']);
   }
 
   exportTable() {
-    console.log(this.selectedTab);
     switch (this.selectedTab) {
-      case 'Asset Master':
+      case 'assetMasterTab':
         this.table.exportTable(this.assetMasterTableSetting, this.selectedTab);
         break;
-      case 'Pending Registration':
+      case 'pendingRegistrationTab':
         this.table.exportTable(
           this.pendingRegistrationTableSetting,
           this.selectedTab
         );
         break;
-      case 'Pending Customization':
+      case 'pendingCustomizationTab':
         this.table.exportTable(
           this.pendingCustomizationTableSetting,
           this.selectedTab
         );
         break;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.assetMasterSubscription?.unsubscribe();
+    this.registrationSubscription?.unsubscribe();
+    this.customizationSubscription?.unsubscribe();
+    this.statisticsSubscription?.unsubscribe();
   }
 }

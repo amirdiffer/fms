@@ -46,9 +46,18 @@ import { AddOperatorComponent } from '@feature/fleet/operator/add-operator/add-o
 import { ChartsModule } from '@core/charts';
 
 import { FleetStateModule } from './+state';
+import { PendingRegistrationOverviewComponent } from './assets/pending-registration-overview/pending-registration-overview.component';
+import { AssetCarDetailComponent } from './assets/asset-detail/asset-car-detail.component';
+import { PendingCustomizationOverviewComponent } from './assets/pending-customization-overview/pending-customization-overview.component';
+import { AssetRegistrationConfirmComponent } from './assets/asset-registration-confirm/asset-registration-confirm.component';
 import { MapModule } from '@core/map-view';
 import { OverViewOperatorComponent } from './operator/over-view-operator/over-view-operator.component';
 import { IserveComponent } from './movement/iserv/iserv.component';
+import { TemporaryComponent } from '../fleet/movement/temporary/temporary.component';
+import { AddTemporaryRequestComponent } from '@feature/fleet/movement/add-temporary-request/add-temporary-request.component';
+import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
+import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movement-temporary-confirm/movement-confirm.component';
+import { AccessoryOverviewComponent } from './accessory/accessory-overview/accessory-overview.component';
 
 @NgModule({
   declarations: [
@@ -59,19 +68,27 @@ import { IserveComponent } from './movement/iserv/iserv.component';
     AccessoryComponent,
     AddAccessoryComponent,
     AddSubAssetComponent,
+    AccessoryOverviewComponent,
     AddOrganizationComponent,
     MovementConfirmComponent,
+    MovementTemporaryConfirmComponent,
     OrganizationComponent,
     AddAssetComponent,
     AddOperatorComponent,
     AddRequestComponent,
+    PendingRegistrationOverviewComponent,
+    AssetCarDetailComponent,
+    PendingCustomizationOverviewComponent,
+    AssetRegistrationConfirmComponent,
     IserveComponent,
     OverViewAssetComponent,
     VehicleOverviewComponent,
     BusinessCategoryComponent,
     JobCardComponent,
     RequestComponent,
-    OverViewOperatorComponent
+    OverViewOperatorComponent,
+    TemporaryComponent,
+    AddTemporaryRequestComponent
   ],
   imports: [
     AngularSvgIconModule,
@@ -96,7 +113,8 @@ import { IserveComponent } from './movement/iserv/iserv.component';
     ProgressBarModule,
     NgApexchartsModule,
     ChartsModule,
-    MapModule
+    MapModule,
+    AlertDialogModule
   ]
 })
 export class FleetModule {}

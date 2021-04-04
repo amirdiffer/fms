@@ -20,7 +20,7 @@ export class DetailDecisionComponent implements OnInit {
   }
 
   clickedRadio(radioButton?): void {
-    console.log(radioButton.value)
+    // console.log(radioButton.value)
     if(radioButton) this._makeDecisionService.activeRadio = radioButton.value;
     this._makeDecisionService.isStartStepper$.next(false);
   }

@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ColumnDifinition, ColumnType, TableSetting } from '@core/table';
+import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ColumnDifinition, ColumnType, TableComponent, TableSetting } from '@core/table';
+import { map } from 'rxjs/operators';
 import { PeriodicServiceFacade } from '../+state/periodic-service';
 
 @Component({
@@ -9,6 +11,7 @@ import { PeriodicServiceFacade } from '../+state/periodic-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PeriodicServiceComponent implements OnInit {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
   downloadBtn = 'assets/icons/download-solid.svg';
 
   tableColumns: ColumnDifinition[] = [
@@ -21,8 +24,7 @@ export class PeriodicServiceComponent implements OnInit {
       renderer: ''
     },
     {
-      lable:
-        '<img src="../../../../../assets/icons/car-solid.svg" class="icon24px">',
+      lable: '<img src="assets/icons/car-solid.svg" class="icon24px">',
       field: 'number',
       isIconLable: true,
       sortable: true,
@@ -39,36 +41,43 @@ export class PeriodicServiceComponent implements OnInit {
     }
   ];
 
-  tableData = [
-    {
-      periodicServiceName: 'Basic Vehicle Maintenance',
-      number: '21'
-    },
-    {
-      periodicServiceName: 'Basic Vehicle Maintenance',
-      number: '21'
-    },
-    {
-      periodicServiceName: 'Basic Vehicle Maintenance',
-      number: '21'
-    }
-  ];
-
   tableSetting = {
     columns: this.tableColumns,
-    data: this.tableData,
+    data: [],
     rowSettings: {
       floatButton: [
         {
-          button: 'edit'
+          button: 'edit',
+          onClick: (col, data, button?) => {
+            this.router
+              .navigate(
+                ['/configuration/periodic-service/edit-periodic-service'],
+                { queryParams: { id: data.id } }
+              )
+              .then();
+          }
         }
       ]
     }
   };
 
-  constructor(private facade: PeriodicServiceFacade) {}
+  periodicServices$ = this.facade.periodicService$.pipe(
+    map((x) =>
+      x.map((responseObject) => ({
+        id: responseObject.id,
+        periodicServiceName: responseObject.name,
+        number: responseObject.id
+      }))
+    )
+  );
+
+  constructor(private facade: PeriodicServiceFacade, private router: Router) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
+  }
+
+  exportTable() {
+    this.table.exportTable(this.tableSetting, 'Accessories');
   }
 }

@@ -23,18 +23,18 @@ const routes: Routes = [
     path: 'inspections/technical-inspection',
     component: TechnicalInspectionComponent
   },
-  {
+  /* {
     path: 'body-shop',
     loadChildren: () =>
       import('./body-shop/body-shop.module').then((m) => m.BodyShopModule)
-  },
-  {
+  }, */
+  /* {
     path: 'service-shop',
     loadChildren: () =>
       import('./service-shop/service-shop.module').then(
         (m) => m.ServiceShopModule
       )
-  },
+  }, */
   {
     path: 'inspections',
     redirectTo: 'inspections/technical-inspection'

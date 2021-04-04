@@ -14,7 +14,7 @@
         <button class="btn-primary-small" (click)="addClicked($event)"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
       </span>
       <div title="tabs.asset" id="fleetStatusAssetTab">
-        <app-table [setting]='tableSetting'></app-table>
+        <app-table [setting]='tableSetting' [tableData]="asset$"></app-table>
       </div>
       <div title="tabs.sub_asset" id="fleetStatusSubAssetTab"></div>
     </app-tab-view>

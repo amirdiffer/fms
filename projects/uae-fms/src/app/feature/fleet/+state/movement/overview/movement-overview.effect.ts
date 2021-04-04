@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { MovementOverviewActions } from './movement-overview.actions';
 import { MovementOverviewService } from './movement-overview.service';
@@ -12,7 +12,7 @@ export class MovementOverviewEffect {
       ofType(MovementOverviewActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => MovementOverviewActions.allDataLoaded({ data })),
+          map((data) => MovementOverviewActions.allDataLoaded({ data:data['message'] })),
           catchError((error) =>
             of(MovementOverviewActions.error({ reason: error }))
           )

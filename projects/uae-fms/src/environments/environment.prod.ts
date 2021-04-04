@@ -1,5 +1,5 @@
 const packageJson = require('../../../../package.json');
-export const assetsPath = '../assets/';
+export const assetsPath = 'assets/';
 
 export const environment = {
   appName: 'Fleet Management Service',
@@ -20,6 +20,7 @@ export const environment = {
     cypress: packageJson.devDependencies['cypress'],
     eslint: packageJson.devDependencies['eslint']
   },
-  baseFileServer: 'assets/files/',
-  baseApiUrl: 'http://dev.jointscope.ai:8080/'
+  baseFileServer: 'https://uat.jointscope.ai/fms-api-revamp/document/',
+  baseLoginApiUrl: 'https://uat.jointscope.ai/fms-api-revamp/',
+  baseApiUrl: 'https://uat.jointscope.ai/fms-api-revamp/'
 };

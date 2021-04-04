@@ -72,12 +72,12 @@ html {
   }
 
   .thumb {
-    padding: 0px 10px;
+    padding: 0 10px;
   }
 
   .text-of-cell-with-image {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -134,7 +134,7 @@ html {
     left: 0;
     right: auto !important;
   }
-  
+
   .calculate-button{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -177,14 +177,10 @@ html {
         right: auto !important;
       }
       .p-inputgroup-addon:last-child{
-        border-radius: 0;
-        border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
+        border-radius: 3px 0 0 3px;
       }
       .p-inputgroup input:first-child{
-        border-radius: 0;
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
+        border-radius: 0 3px 3px 0;
       }
       .form-section__field  .search-btn.addon-primary{
         left:0;
@@ -196,14 +192,10 @@ html {
       right: auto !important;
     }
     .p-inputgroup-addon:last-child {
-      border-radius: 0;
-      border-top-left-radius: 3px;
-      border-bottom-left-radius: 3px;
+      border-radius: 3px 0 0 3px;
     }
     .p-inputgroup input:first-child {
-      border-radius: 0;
-      border-top-right-radius: 3px;
-      border-bottom-right-radius: 3px;
+      border-radius: 0 3px 3px 0;
     }
     .yearly{
       right:auto !important;
@@ -219,7 +211,7 @@ html {
     .statusColor {
       left: auto !important;
       right: 0;
-      border-radius: 5px 0px 0px 5px !important;
+      border-radius: 5px 0 0 5px !important;
     }
   }
   app-fuel-card-table {
@@ -252,7 +244,7 @@ html {
   }
 
   /* Drag and Drop  */
-  .upload-file-name{
+  .upload-file-item{
     &>span{
       right: auto;
       left: 10px;
@@ -305,6 +297,20 @@ html {
         margin-left: unset !important;
         margin-right: 0 !important;
       }
+    }
+    .statistics{
+      &:last-child {
+        margin-right: auto !important;
+        margin-left: 0 !important;
+      }
+      &:first-child {
+        margin-right: auto !important;
+        margin-left: 0 !important;
+      }
+    }
+    .statistic-button {
+      right: auto !important;
+      left: 0;
     }
   }
 

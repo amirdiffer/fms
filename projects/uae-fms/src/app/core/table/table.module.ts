@@ -23,7 +23,12 @@ import { RouterModule } from '@angular/router';
 import { FuelCardRendererComponent } from './renderers/fuel-card';
 import { AssignNow } from '@core/table/renderers/assign-now';
 import { TableGeneralButtonRendererComponent } from './renderers/general-button';
-import { FloatButton } from './renderers/float-button'
+import { FloatButton } from './renderers/float-button';
+import { ColorizeRendererComponent } from './renderers/colorize';
+import { AssetConfigurationTrimColorRendererComponent } from '@core/table/renderers/asset-configuration-trim-color-renderer.component';
+import { CheckboxRendererComponent } from '@core/table/renderers/checkbox-renderer';
+import { DownloadButtonRendererComponent } from '@core/table/renderers/download-button-renderer';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   imports: [
@@ -32,7 +37,8 @@ import { FloatButton } from './renderers/float-button'
     SharedModule,
     MatProgressBarModule,
     AngularSvgIconModule,
-    RouterModule
+    RouterModule,
+    TooltipModule
   ],
   exports: [TableComponent],
   declarations: [
@@ -56,7 +62,11 @@ import { FloatButton } from './renderers/float-button'
     TableRouteLinkRendererComponent,
     FuelCardRendererComponent,
     AssignNow,
-    FloatButton
+    FloatButton,
+    ColorizeRendererComponent,
+    AssetConfigurationTrimColorRendererComponent,
+    CheckboxRendererComponent,
+    DownloadButtonRendererComponent
   ],
   providers: []
 })

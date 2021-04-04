@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FilterCardSetting } from '@core/filter';
 import { TableSetting } from '@core/table';
 
 @Component({
@@ -177,6 +178,60 @@ export class OverViewOperatorComponent implements OnInit {
       }
     ]
   };
+
+  trafficFinFilterCard: FilterCardSetting[] = [
+    {
+      filterTitle: 'statistic.total',
+      filterCount: '2456',
+      filterTagColor: '#6C7198',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'statistic.paid',
+      filterCount: '356',
+      filterTagColor: '#5B8972',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'statistic.unpaid',
+      filterCount: '124',
+      filterTagColor: '#DDB16C',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'statistic.deducted',
+      filterCount: '12',
+      filterTagColor: '#E07A5F',
+      onActive(index: number) {}
+    }
+  ];
+
+  movementHistoryFilterCard: FilterCardSetting[] = [
+    {
+      filterTitle: 'statistic.total',
+      filterCount: '2456',
+      filterTagColor: '#6C7198',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'statistic.active',
+      filterCount: '356',
+      filterTagColor: '#5B8972',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'statistic.inactive',
+      filterCount: '124',
+      filterTagColor: '#DDB16C',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'statistic.xfleet',
+      filterCount: '12',
+      filterTagColor: '#E07A5F',
+      onActive(index: number) {}
+    }
+  ];
 
   constructor() {}
 

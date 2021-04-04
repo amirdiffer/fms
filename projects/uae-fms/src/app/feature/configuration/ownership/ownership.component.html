@@ -3,15 +3,15 @@
     <div class="search-box">
       <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
       <button>
-        <img src="../../../assets/icons/search-solid.svg" alt="">
+        <img src="assets/icons/search-solid.svg" alt="">
       </button>
     </div>
-    <button class="btn-download" disabled>
+    <button class="btn-download" (click)="exportTable()">
       <svg-icon [src]="downloadBtn"></svg-icon>
     </button>
-    <button class="btn-primary-small" [routerLink]="['add']"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
+    <button class="btn-primary-small" [routerLink]="['add-ownership']"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
   </div>
   <div class="table-wreapper">
-    <app-table [setting]='ownerShip_Table'></app-table>
+    <app-table [setting]='ownerShip_Table' [tableData]="ownerShip$"></app-table>
   </div>
 </div>

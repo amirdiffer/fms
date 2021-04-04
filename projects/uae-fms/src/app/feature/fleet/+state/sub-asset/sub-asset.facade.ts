@@ -8,13 +8,32 @@ import { SubAssetActions } from './sub-asset.actions';
 export class SubAssetFacade {
   subAsset$ = this.store.pipe(select(SubAssetSelectors.selectAll));
 
+  statistics$ = this.store.pipe(select(SubAssetSelectors.selectStatistics));
+
   message$ = this.store.pipe(select(SubAssetSelectors.message));
 
   error$ = this.store.pipe(select(SubAssetSelectors.error));
+  submitted$ = this.store.pipe(select(SubAssetSelectors.submitted));
 
   constructor(private store: Store<SubAssetPartialState>) {}
 
   loadAll() {
     this.store.dispatch(SubAssetActions.loadAll());
+  }
+
+  loadStatistics() {
+    this.store.dispatch(SubAssetActions.loadStatistics());
+  }
+
+  addSubAsset(data) {
+    this.store.dispatch(SubAssetActions.addSubAsset({ data }));
+  }
+
+  editSubAsset(data) {
+    this.store.dispatch(SubAssetActions.editSubAsset({ data }));
+  }
+
+  reset() {
+    this.store.dispatch(SubAssetActions.reset());
   }
 }

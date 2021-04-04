@@ -1,8 +1,8 @@
 <!-- form-section -->
-<form [formGroup]="inputForm">
+<form [formGroup]="taskMasterForm">
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
-    <button class="btn-primary-medium add" type="submit"  (click)="addRequest()">{{ 'forms.add' | translate }}</button>
+    <button class="btn-primary-medium add" type="submit"  (click)="submit()">{{ 'forms.add' | translate }}</button>
   </div>
   <div class="row">
     <div class="form-section mx-0 fix">
@@ -12,23 +12,23 @@
           <div class="m-0 p-field form-section__field">
             <span class="p-float-label">
               <input pInputText placeholder="{{ 'workshop.task_master.task_name' | translate }} *" type="text" formControlName="taskName"
-                [class.invalid]="!inputForm.get('taskName').valid && submited">
+                [class.invalid]="!taskMasterForm.get('taskName').valid && submitted">
               <label>{{ 'workshop.task_master.task_name' | translate }} *</label>
             </span>
-            <anms-error [showError]="hasError('taskName',inputForm,submited)" error="forms.feedback.required"></anms-error>
+            <anms-error [showError]="hasError('taskName',taskMasterForm,submitted)" error="forms.feedback.required"></anms-error>
           </div>
         </div>
         <div class="col-12 col-md-4 p-field form-section__field">
           <span class="p-float-label">
             <input pInputText placeholder="{{ 'workshop.task_master.instruction' | translate }} *" type="text" formControlName="instruction"
-              [class.invalid]="!inputForm.get('instruction').valid && submited">
+              [class.invalid]="!taskMasterForm.get('instruction').valid && submitted">
             <label>{{ 'workshop.task_master.instruction' | translate }} *</label>
           </span>
-            <anms-error [showError]="hasError('instruction',inputForm,submited)" error="forms.feedback.required"></anms-error>
+            <anms-error [showError]="hasError('instruction',taskMasterForm,submitted)" error="forms.feedback.required"></anms-error>
         </div>
         <div class="col-12 col-md-4 p-field form-section__field">
           <span class="p-float-label">
-            <input pInputText placeholder="{{ 'workshop.task_master.rate_per_hour' | translate }}" type="text" formControlName="ratePerHour">
+            <input pInputText placeholder="{{ 'workshop.task_master.rate_per_hour' | translate }}" type="number" formControlName="ratePerHour">
             <label>{{ 'workshop.task_master.rate_per_hour' | translate }}</label>
           </span>
         </div>
@@ -36,15 +36,15 @@
       <div class="row form-section__row">
         <div class="col-12 col-md-4 p-field form-section__field">
           <span class="p-float-label">
-            <input pInputText placeholder="{{ 'workshop.task_master.time_estimate' | translate }} *" type="text" formControlName="timeEstimate"
-              [class.invalid]="!inputForm.get('timeEstimate').valid && submited">
+            <input pInputText placeholder="{{ 'workshop.task_master.time_estimate' | translate }} *" type="number" formControlName="timeEstimate"
+              [class.invalid]="!taskMasterForm.get('timeEstimate').valid && submitted">
             <label>{{ 'workshop.task_master.time_estimate' | translate }}*</label>
           </span>
-         <anms-error [showError]="hasError('timeEstimate',inputForm,submited)" error="forms.feedback.required"></anms-error>
+         <anms-error [showError]="hasError('timeEstimate',taskMasterForm,submitted)" error="forms.feedback.required"></anms-error>
         </div>
         <div class="col-12 col-md-8 " formArrayName="skill">
           <div class="p-inputgroup flex-wrap d-flex w-100 flex-wrap">
-            <div class="p-field form-section__field flex-with-button w-100" *ngFor="let skill of inputForm.get('skill')['controls']; let i=index; let last=last;">
+            <div class="p-field form-section__field flex-with-button w-100" *ngFor="let skill of taskMasterForm.get('skill')['controls']; let i=index; let last=last;">
                 <span class="p-float-label flex-with-button w-100 mb-1">
                   <input type="text" id="inputgroup" pInputText placeholder="{{ 'workshop.task_master.skills' | translate }}" [formControlName]="i">
                   <label>{{ 'workshop.task_master.skills' | translate }}</label>
@@ -65,13 +65,13 @@
           <p-inputSwitch formControlName="needPart"></p-inputSwitch>
           <span class="mx-4">{{ 'workshop.task_master.this_task_needs_part' | translate }}</span>
         </div>
-        <div class="col-12 col-md-3" formArrayName="part" *ngIf="inputForm.get('needPart').value">
+        <div class="col-12 col-md-3" formArrayName="part" *ngIf="taskMasterForm.get('needPart').value">
           <div class="p-inputgroup flex-wrap d-flex w-100 flex-wrap">
             <div class="p-field form-section__field flex-with-button w-100"
-              *ngFor="let part of inputForm.get('part')['controls']; let i=index; let last = last;">
+              *ngFor="let part of taskMasterForm.get('part')['controls']; let i=index; let last = last;">
                 <span class="p-float-label flex-with-button w-100 mb-1">
                   <input type="text" id="inputgroup" pInputText placeholder="{{ 'workshop.task_master.add_part' | translate }}" [formControlName]="i"
-                    [class.invalid]="!inputForm.get('part')['controls'][i].valid && submited">
+                    [class.invalid]="!taskMasterForm.get('part')['controls'][i].valid && submitted">
                   <label >{{ 'workshop.task_master.add_part' | translate }}</label>
                   <span  *ngIf="last"  class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}"
                       (click)="addPart(part.value)">
@@ -89,9 +89,7 @@
 </form>
 <!-- end form-section -->
 
-<div class="pt-0 table-container">
-  <app-table [setting]="tableSetting"></app-table>
-</div>
 
-<alret-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel" (confirm)="dialogCancelConfirm($event)"></alret-dialog>
-<alret-dialog [settings]="dialogSettingAdd" [displayModal]="dialogModalAdd" (confirm)="dialogAddConfirm($event)"></alret-dialog>
+<alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel" (confirm)="dialogCancelConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogModalError=false"></alert-dialog>

@@ -77,8 +77,7 @@ export class ServiceShopAddLocationComponent extends Utility implements OnInit {
         sortable: true
       },
       {
-        lable:
-          '<img src="../../../../../assets/icons/ellipsis-v.svg" class="icon24px">',
+        lable: '<img src="assets/icons/ellipsis-v.svg" class="icon24px">',
         type: 3,
         width: 70,
         isIconLable: true,
@@ -198,7 +197,6 @@ export class ServiceShopAddLocationComponent extends Utility implements OnInit {
     if (this.inputForm.invalid) {
       return;
     } else {
-      console.log(this.inputForm.value);
       this._roter.navigate(['/workshop/body-shop'], {
         queryParams: { id: 'locationTab' }
       });

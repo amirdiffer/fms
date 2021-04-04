@@ -12,7 +12,7 @@ export class AssetConfigurationEffect {
       ofType(AssetConfigurationActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => AssetConfigurationActions.allDataLoaded({ data })),
+          map((data) => AssetConfigurationActions.allDataLoaded({ data: data.message })),
           catchError((error) =>
             of(AssetConfigurationActions.error({ reason: error }))
           )

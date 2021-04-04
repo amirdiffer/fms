@@ -5,8 +5,10 @@ import {
   Injector
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { FleetStatusAssetFacade } from '../../+state/fleet-status/asset/fleet-status-asset.facade';
 
 @Component({
   selector: 'anms-add-fleet-status',
@@ -15,6 +17,30 @@ import { Utility } from '@shared/utility/utility';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddFleetStatusComponent extends Utility implements OnInit {
+  isEdit: boolean = false;
+  dialogSettingCancel: IDialogAlert = {
+    header: 'Asset Policy',
+    hasError: false,
+    isWarning: true,
+    hasHeader: true,
+    message: 'Are you sure that you want to cancel the asset policy creation?',
+    confirmButton: 'Yes',
+    cancelButton: 'No'
+  };
+
+  dialogSettingAdd: IDialogAlert = {
+    header: 'Asset Policy',
+    hasError: false,
+    isWarning: false,
+    hasHeader: true,
+    message: 'New Asset Policy Successfully Added',
+    confirmButton: 'Yes',
+    cancelButton: 'No'
+  };
+
+  dialogModalCancel: boolean = false;
+  dialogModalAdd: boolean = false;
+
   tableSetting: TableSetting = {
     columns: [
       {
@@ -75,18 +101,47 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
   ];
   currentTab: string;
 
-  constructor(injector: Injector, private _fb: FormBuilder) {
+  constructor(
+    injector: Injector,
+    private _fb: FormBuilder,
+    private facade: FleetStatusAssetFacade
+  ) {
     super(injector);
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(
-      (params) => (this.currentTab = params['id'])
+    this.route.params.subscribe(
+      (params) => {
+        this.currentTab = params['id']
+      }
+    );
+    this.route.url.subscribe(
+      (params) => {
+        this.isEdit = params.filter(x=>x.path=="edit-fleet-status").length > 0 ? true : false;
+      }
     );
     this.fleetStatusForm = this._fb.group({
       typeCategory: ['asset'],
       statusCategory: ['', [Validators.required]],
       statusName: ['', [Validators.required]]
+    });
+  }
+
+  dialogCancelConfirm(event) {
+    if (event)
+      this.router.navigate(['/configuration/fleet-status'], {
+        relativeTo: this.route,
+        queryParams: { id: 'fleetStatusAssetTab' }
+      });
+    else
+      this.dialogModalCancel = false
+  }
+
+  dialogAddConfirm(event) {
+
+    this.router.navigate(['/configuration/fleet-status'], {
+      relativeTo: this.route,
+      queryParams: { id: 'fleetStatusAssetTab' }
     });
   }
 
@@ -99,9 +154,10 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
     if (this.fleetStatusForm.invalid) {
       return;
     }
-    this.router.navigate(['..'], {
-      relativeTo: this.route,
-      queryParams: { id: 'fleetStatusSubAssetTab' }
-    });
+    this.dialogModalAdd = true;
+  }
+
+  cancel() {
+    this.dialogModalCancel = true;
   }
 }

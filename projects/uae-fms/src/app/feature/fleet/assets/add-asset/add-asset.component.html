@@ -1,15 +1,15 @@
 <div class="row">
   <div class="col-12">
       <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="..">{{ 'forms.cancel' | translate }}</button>
+        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{ 'forms.cancel' | translate }}</button>
         <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate }}</button>
         <button class="btn-primary-medium add" *ngIf="stepper.selectedIndex != 3"  (click)="next()">{{ 'forms.next' | translate }}</button>
-        <button *ngIf="stepper.selectedIndex == 3 && !uploadReview" class="btn-primary-medium add" (click)="uploadReview = true">{{ 'forms.upload' | translate }}</button>
-        <button *ngIf="uploadReview" class="btn-primary-medium add" (click)="generateForm()" routerLink="..">{{ 'forms.generate' | translate }}</button>
+        <button *ngIf="stepper.selectedIndex == 3 && !uploadReview" class="btn-primary-medium add" (click)="buttonUpload()">{{ 'forms.upload' | translate }}</button>
+        <button *ngIf="uploadReview" class="btn-primary-medium add" (click)="generateForm()">{{ (isEdit ? 'forms.edit' : 'forms.generate') | translate }}</button>
       </div>
       <div>
         <div class="row form-section__row">
-          <div class="col-12">
+          <div class="col-12 px-0">
             <ng-container>
               <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom">
                 <mat-step [editable]="isEditable" state="">
@@ -21,15 +21,23 @@
                       <div class="row form-section__row">
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="businessCategory" [placeholder]="'assets.business_category' | translate"  [options]="itemTypes" optionLabel="name" optionValue="id" formControlName="businessCategory"></p-dropdown>
+                            <p-dropdown inputId="businessCategory" [placeholder]="'assets.business_category' | translate"  [options]="businessCategory" optionLabel="name" optionValue="id" formControlName="businessCategory"></p-dropdown>
                             <label for="businessCategory">{{ 'assets.business_category' | translate }}</label>
                           </span>
+                          <anms-error
+                            [showError]="hasError('businessInfo.businessCategory',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="ownerShip" [placeholder]="'assets.ownership' | translate" [options]="itemTypes" optionLabel="name" optionValue="id" formControlName="ownership"></p-dropdown>
+                            <p-dropdown inputId="ownerShip" [placeholder]="'assets.ownership' | translate" [options]="ownerShip" optionLabel="type" optionValue="id" formControlName="ownership"></p-dropdown>
                             <label for="ownerShip">{{ 'assets.ownership' | translate }}</label>
                           </span>
+                          <anms-error
+                            [showError]="hasError('businessInfo.ownership',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
                       </div>
                     </div>
@@ -40,52 +48,87 @@
                       <div class="row form-section__row">
                         <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="year" [placeholder]="'assets.year' | translate" [options]="itemTypes" optionLabel="name"  formControlName="year"></p-dropdown>
+                            <p-dropdown inputId="year" [placeholder]="'assets.year' | translate" [options]="years" optionLabel="name" optionValue="id"  formControlName="year"></p-dropdown>
                             <label for="year">{{ 'assets.year' | translate }} *</label>
                           </span>
+                          <anms-error
+                            [showError]="hasError('assetDetails.year',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="make"  [placeholder]="'assets.make' | translate " [options]="itemTypes" optionLabel="name"  formControlName="make"></p-dropdown>
+                            <p-dropdown inputId="type" [placeholder]="'assets.type' | translate" [options]="assetType" optionLabel="name" optionValue="id" formControlName="type" (onChange)="onChangeAssetType($event)"></p-dropdown>
+                            <label for="type">{{ 'assets.type' | translate }}</label>
+                          </span>
+                          <anms-error
+                            [showError]="hasError('assetDetails.type',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
+                        </div>
+                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <p-dropdown inputId="make"  [placeholder]="'assets.make' | translate " [options]="assetMake" optionLabel="make" optionValue="id"  formControlName="make" (onChange)="onChangeAssetMake($event)"></p-dropdown>
                             <label for="make">{{ 'assets.make' | translate }} *</label>
                           </span>
+                          <anms-error
+                            [showError]="hasError('assetDetails.make',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="model" [placeholder]="'assets.model' | translate"  [options]="itemTypes" optionLabel="name" formControlName="model"></p-dropdown>
+                            <p-dropdown inputId="model" [placeholder]="'assets.model' | translate"  [options]="assetModel" optionLabel="model" optionValue="id" formControlName="model"  (onChange)="onChangeAssetModel($event)"></p-dropdown>
                             <label for="model">{{ 'assets.model' | translate }} *</label>
                           </span>
+                          <anms-error
+                            [showError]="hasError('assetDetails.model',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="itemTypes" optionLabel="name" formControlName="color"></p-dropdown>
+                            <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="assetColor" optionLabel="color" optionValue="id" formControlName="color"></p-dropdown>
                             <label for="color">{{ 'assets.color' | translate }}</label>
                           </span>
+                          <anms-error
+                            [showError]="hasError('assetDetails.color',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
-                        <div class="col-12 col-md-3 p-field form-section__field">
+                        
+                        <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <input pInputText [placeholder]="'assets.trim' | translate"  type="text" formControlName="trim">
+                            <p-dropdown inputId="trim" [placeholder]="'assets.trim' | translate" [options]="assetTrim" optionLabel="trim" optionValue="id" formControlName="trim"></p-dropdown>
                             <label>{{ 'assets.trim' | translate }} *</label>
                           </span>
+                          <anms-error
+                            [showError]="hasError('assetDetails.trim',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field">
                           <span class="p-float-label">
                             <input pInputText [placeholder]="'assets.origin' | translate"  type="text" formControlName="origin">
                             <label>{{ 'assets.origin' | translate }} *</label>
                           </span>
+                          <anms-error
+                            [showError]="hasError('assetDetails.origin',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
-                        <div class="col-12 col-md-6 mb-2 align-selft-center ">
+                        <div class="col-12 col-md-4 mb-2 align-selft-center ">
                           <div class="row">
                             <div class="col-12 col-md-4">
                               <h3 class="form-section__title m-0">{{ 'assets.meterType' | translate }}</h3>
                             </div>
                             <div class="col-12 col-md-8 row">
                               <div class="form-check col-6">
-                                <input class="form-check-input" type="radio" id="Kilometers"  formControlName="meterType" value ="kilometers">
+                                <input class="form-check-input" type="radio" id="Kilometers"  formControlName="meterType" value ="KILOMETER">
                                 <label class="form-check-label" for="Kilometers">{{ 'assets.kilometers' | translate }}</label>
                               </div>
                               <div class="form-check col-6">
-                                <input class="form-check-input" type="radio"  id="By_Hours" formControlName="meterType" value ="By_Hours">
+                                <input class="form-check-input" type="radio"  id="By_Hours" formControlName="meterType" value ="HOUR">
                                 <label class="form-check-label" for="By_Hours">{{ 'assets.by_hour' | translate }}</label>
                               </div>
                             </div>
@@ -95,18 +138,18 @@
                     </div>
                     <!-- end form-section -->
                     <!-- form-section -->
-                    <div class="form-section component_wrapper" [formGroupName]="'purchasedFor'">
+                    <div class="form-section component_wrapper" [formGroupName]="'purchasedFor'" >
                       <h3 class="form-section__title">{{ 'assets.purchased_for' | translate }}</h3>
                       <div class="row form-section__row">
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="department" [placeholder]="'assets.department' | translate"  [options]="itemTypes" optionLabel="name" formControlName="department"></p-dropdown>
+                            <p-dropdown inputId="department" [placeholder]="'assets.department' | translate"  [options]="department" optionLabel="name" optionValue="id" formControlName="department" dataKey="id"></p-dropdown>
                             <label for="department">{{ 'assets.department' | translate }} *</label>
                           </span>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="operator"  [placeholder]="'assets.operator' | translate" [options]="itemTypes" optionLabel="name" formControlName="operator"></p-dropdown>
+                            <p-dropdown inputId="operator"  [placeholder]="'assets.operator' | translate" [options]="operator" optionLabel="name" optionValue="id" formControlName="operator"></p-dropdown>
                             <label for="operator">{{ 'assets.operator' | translate }} *</label>
                           </span>
                         </div>
@@ -116,46 +159,7 @@
                     <!-- form-section -->
                     <div class="form-section component_wrapper">
                       <h3 class="form-section__title">{{ 'assets.upload_form.title' | translate }}</h3>
-                      <div class="row form-section__row">
-                        <div class="col">
-                          <div class="upload-box">
-                            <div class="row">
-                              <div class="col-12 d-flex justify-content-between file-name-size">
-                                <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
-                                <span>00 MG</span>
-                              </div>
-                              <div class="col-lg-12">
-                                <div class="w-100 p-0">
-                                  <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
-                                </div>
-                              </div>
-                              <div class="col-lg-12 mt-2">
-                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'vehicle')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" multiple="true">
-                                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                                    <label (click)="openFileSelector()" style="cursor: pointer;">
-                                      <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
-                                        [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                                        <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-                                    </label>
-                                  </ng-template>
-                                </ngx-file-drop>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <ng-container *ngIf="allFileUpload.uploadVehicleDoc.length > 0">
-                          <div class="col-4 d-flex flex-md-column-reverse">
-                            <div *ngFor="let file of allFileUpload.uploadVehicleDoc;trackBy: trackUploadItem; let index=i;" class=" w-100 mb-2  align-self-end">
-                              <span class="upload-file-name">
-                                <p>{{file.relativePath}}</p>
-                                <span>
-                                  <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':12 , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>
-                                </span>
-                              </span>
-                            </div>
-                          </div>
-                        </ng-container>
-                      </div>
+                      <anms-uploader [files]="vehicleDoc" [multiple]="true" [preview]="false" [hasError]="vehicleDocRequired" (uploadedEvent)="uploadVehicleFiles($event)" ></anms-uploader>
                     </div>
                     <!-- end form-section -->
                   </form>
@@ -171,17 +175,25 @@
                             <div class="col-12 col-md-5 p-field form-section__field dropdown-select"
                                   [class.col-md-12]="policyType.value != ''" >
                               <span class="p-float-label">
-                                <p-dropdown inputId="policyType" formControlName="policyType" [placeholder]="'assets.policy_type' | translate " [options]="itemTypes" optionLabel="name"></p-dropdown>
+                                <p-dropdown inputId="policyType" formControlName="policyType" [placeholder]="'assets.policy_type' | translate " [options]="policyTypeDropDown" optionLabel="name" optionValue="id" (onChange)="onChangePolicyType($event)"></p-dropdown>
                                 <label for="policyType">{{ 'assets.policy_type' | translate }} *</label>
                               </span>
+                              <anms-error
+                                [showError]="hasError('assetFinancialPlan.policyType',formGroupFinancial,submitted_Financial)"
+                                error="forms.feedback.required">
+                              </anms-error>
                             </div>
                             <div class="col-12 col-md-3  p-field form-section__field" [class.col-md-9]="policyType.value != ''" >
                               <span class="p-inputgroup p-float-label d-flex">
-                                <input pInputText formControlName="purchaseValue" [placeholder]=" 'assets.purchase_value' | translate"  type="text">
+                                <input pInputText numbersOnly formControlName="purchaseValue" [placeholder]=" 'assets.purchase_value' | translate"  type="text">
                                 <label>{{ 'assets.purchase_value' | translate }} *</label>
-                                <button *ngIf="policyType.value != '' && calculate != true " class="btn-primary-small calculate-button" (click)="calculate = true">{{ 'assets.calculate' | translate }}</button>
+                                <button *ngIf="policyType.value != '' && calculate != true " class="btn-primary-small calculate-button" (click)="calculateAssetPolicy()">{{ 'assets.calculate' | translate }}</button>
                                 <span *ngIf="policyType.value != ''" class="input-money-pipe">AED</span>
                               </span>
+                              <anms-error
+                                [showError]="hasError('assetFinancialPlan.purchaseValue',formGroupFinancial,submitted_Financial)"
+                                error="forms.feedback.required">
+                              </anms-error>
                             </div>
                           </div>
                         </div>
@@ -190,10 +202,14 @@
                           <div class="row">
                             <div class="col-12 col-md-3 p-field form-section__field date-input" [class.col-md-6]="policyType.value != ''" [class.col-md-12]="lifeCylceDate.value == '' && lifeCylceOdometer.value != '' && policyType.value != ''">
                               <span class="p-float-label">
-                                <p-calendar inputId="basic" formControlName="inServiceDate"></p-calendar>
+                                <p-calendar inputId="basic" formControlName="inServiceDate" [readonlyInput]="true"></p-calendar>
                                 <svg-icon class="date-icon"  [src]="calenderIcon" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
                                 <label>{{ 'assets.in_service_date' | translate }} * </label>
                               </span>
+                              <anms-error
+                                [showError]="hasError('lifeCycle.inServiceDate',formGroupFinancial,submitted_Financial)"
+                                error="forms.feedback.required">
+                              </anms-error>
                             </div>
                             <div *ngIf="lifeCylceDate.value != '' " class="col-md-3 form-section__field" [class.col-md-6]="policyType.value != ''" >
                               <div class="toggle-select">
@@ -205,7 +221,7 @@
                               <div class="row">
                                 <div class="col-5 pr-0 p-field form-section__field dropdown-select">
                                   <span class="p-float-label ">
-                                    <p-dropdown inputId="lifeCycleDateReminder" [placeholder]="'assets.week' | translate " [options]="itemTypes" optionLabel="name"></p-dropdown>
+                                    <p-dropdown inputId="lifeCycleDateReminder" [placeholder]="'assets.week' | translate " [options]="itemTypes" optionLabel="name" optionValue="id"></p-dropdown>
                                     <label for="lifeCycleDateReminder">{{ 'assets.week' | translate }} </label>
                                   </span>
                                 </div>
@@ -219,7 +235,7 @@
                             </div>
                             <div class="col-12 col-md-3 p-field form-section__field" [class.col-md-6]="policyType.value != ''" >
                               <span class="p-float-label">
-                                <input pInputText  formControlName="inServiceOdometer"  [placeholder]="'assets.in_service_odometer' | translate" type="text">
+                                <input pInputText numbersOnly formControlName="inServiceOdometer"  [placeholder]="'assets.in_service_odometer' | translate" type="text">
                                 <label>{{ 'assets.in_service_odometer' | translate }}</label>
                               </span>
                             </div>
@@ -233,7 +249,7 @@
                               <div class="row">
                                 <div class="col-5 pr-0 p-field form-section__field dropdown-select">
                                   <span class="p-float-label ">
-                                    <p-dropdown inputId="lifeCycleDateReminder" [placeholder]="'assets.week' | translate " [options]="itemTypes" optionLabel="name"></p-dropdown>
+                                    <p-dropdown inputId="lifeCycleDateReminder" [placeholder]="'assets.week' | translate " [options]="itemTypes" optionLabel="name" optionValue="id"></p-dropdown>
                                     <label for="lifeCycleDateReminder">{{ 'assets.week' | translate }} </label>
                                   </span>
                                 </div>
@@ -249,46 +265,7 @@
                         </div>
                         <div class="form-section component_wrapper">
                           <h3 class="form-section__title">{{ 'assets.upload_purchase_order' | translate }}</h3>
-                          <div class="row form-section__row">
-                            <div class="col">
-                              <div class="upload-box">
-                                <div class="row">
-                                  <div class="col-12 d-flex justify-content-between file-name-size">
-                                    <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
-                                    <span>00 MG</span>
-                                  </div>
-                                  <div class="col-lg-12">
-                                    <div class="w-100 p-0">
-                                      <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-12 mt-2">
-                                    <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'purchaseOrder')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                                      <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                                        <label (click)="openFileSelector()" style="cursor: pointer;">
-                                          <svg-icon  class="drop-icon" src="../../../../../assets/icons/cloud-computing.svg"
-                                            [svgStyle]="{ 'width.px':24 , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
-                                            <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-                                        </label>
-                                      </ng-template>
-                                    </ngx-file-drop>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <ng-container *ngIf="allFileUpload.uploadPurchaseOrder.length > 0">
-                              <div class="col-4 d-flex flex-md-column-reverse">
-                                <div *ngFor="let file of allFileUpload.uploadPurchaseOrder; let index=i;" class=" w-100 mb-2  align-self-end">
-                                  <span class="upload-file-name">
-                                    <p>{{file.relativePath}}</p>
-                                    <span>
-                                      <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':12 , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>
-                                    </span>
-                                  </span>
-                                </div>
-                              </div>
-                            </ng-container>
-                          </div>
+                          <anms-uploader [files]="purchaseDoc" [multiple]="false" [preview]="false" [hasError]="purchaseDocRequired" (uploadedEvent)="uploadPurchaseFiles($event)"></anms-uploader>
                         </div>
                       </div>
                       <div *ngIf="policyType.value != '' " class="col-12 col-md-7">
@@ -329,9 +306,13 @@
                               <div class="row">
                                 <div class="col-12 p-field form-section__field dropdown-select" [class.col-md-8]="periodicService.value == '' ">
                                   <span class="p-float-label">
-                                    <p-dropdown inputId="periodicService" formControlName="periodicService" [placeholder]=" 'assets.periodic_service' | translate" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                                    <p-dropdown inputId="periodicService" formControlName="periodicService" [placeholder]=" 'assets.periodic_service' | translate" [options]="periodicServiceItem" optionLabel="name" optionValue="id"></p-dropdown>
                                     <label for="periodicService">{{ 'assets.periodic_service' | translate }} *</label>
                                   </span>
+                                  <anms-error
+                                    [showError]="hasError('periodicService',formGroupMaintenance,submitted_Maintenance)"
+                                    error="forms.feedback.required">
+                                  </anms-error>
                                 </div>
                               </div>
                             </div>
@@ -343,7 +324,7 @@
                                   <h3 class="form-section__title align-self-center m-0">{{ 'assets.warranty_items' | translate }}</h3>
                                 </span>
                                 <div  formArrayName="warrantyItems" *ngFor="let warranty of formGroupMaintenance.get('warrantyItems')['controls']; let i=index">
-                                  <div class="row" [formGroupName]="i">
+                                  <div class="row mt-2" [formGroupName]="i">
                                     <div class="col-12 col-md-6" [class.col-md-12]="periodicService.value != '' ">
                                       <div class="row">
                                         <div class="col-12 col-md-6 p-field form-section__field dropdown-select">
@@ -351,18 +332,30 @@
                                             <input pInputText formControlName="item" [placeholder]="'assets.item' | translate"  type="text">
                                             <label>{{ 'assets.item' | translate }}</label>
                                           </span>
+                                          <anms-error
+                                            [showError]="formArrayHasError(submitted_Maintenance, warrantyItems,i,'item')"
+                                            error="forms.feedback.required">
+                                          </anms-error>
                                         </div>
                                         <div class="col-12 col-md-2 pr-0 p-field form-section__field dropdown-select">
                                           <span class="p-float-label">
-                                            <p-dropdown inputId="periodicService" formControlName="year" [placeholder]="'assets.year' | translate" [options]="itemTypes" optionLabel="name"></p-dropdown>
+                                            <p-dropdown inputId="periodicService" formControlName="periodType" [placeholder]="'assets.year' | translate" [options]="periodType" optionLabel="name" optionValue="id"></p-dropdown>
                                             <label for="periodicService">{{ 'assets.year' | translate }}</label>
                                           </span>
+                                          <anms-error
+                                            [showError]="formArrayHasError(submitted_Maintenance, warrantyItems,i,'periodType')"
+                                            error="forms.feedback.required">
+                                          </anms-error>
                                         </div>
                                         <div class="col-12 col-md-4 pl-0 p-field form-section__field dropdown-select">
                                           <span class="p-float-label">
-                                            <input pInputText [placeholder]="'assets.duration' | translate" formControlName="duration"  type="text">
+                                            <input pInputText numbersOnly [placeholder]="'assets.duration' | translate" formControlName="duration"  type="text">
                                             <label>{{ 'assets.duration' | translate }}</label>
                                           </span>
+                                          <anms-error
+                                            [showError]="formArrayHasError(submitted_Maintenance, warrantyItems,i,'duration')"
+                                            error="forms.feedback.required">
+                                          </anms-error>
                                         </div>
                                       </div>
                                     </div>
@@ -371,30 +364,26 @@
                                         <div class="col" [class.col-6]="periodicService.value != ''">
                                           <div class="p-field form-section__field date-input">
                                             <span class="p-float-label">
-                                              <p-calendar inputId="basic" formControlName="warrantyStartDate"></p-calendar>
+                                              <p-calendar inputId="basic" formControlName="startDate" [readonlyInput]="true" ></p-calendar>
                                               <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
                                               <label>{{ 'assets.warranty_start_date' | translate }}</label>
                                             </span>
+                                            <anms-error
+                                              [showError]="formArrayHasError(submitted_Maintenance, warrantyItems,i,'startDate')"
+                                              error="forms.feedback.required">
+                                            </anms-error>
                                           </div>
                                         </div>
                                         <div class="col-12 col-md-6 p-field form-section__field" *ngIf="getWarrantyStartDat(i) != ''">
                                           <div class="toggle-select">
-                                            <p-inputSwitch></p-inputSwitch>
+                                            <p-inputSwitch formControlName="hasReminder"></p-inputSwitch>
                                             <label>{{ 'assets.set_reminder' | translate }} </label>
                                           </div>
                                         </div>
                                       </div>
                                     </div>
                                     <div class="col-6 col-md-3" [class.col-md-6]="periodicService.value != '' ">
-                                      <div class=" drag-and-drop-form">
-                                        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'warranty')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                                          <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                                            <label (click)="openFileSelector()" style="cursor: pointer;">
-                                                <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-                                            </label>
-                                          </ng-template>
-                                        </ngx-file-drop>
-                                      </div>
+                                      <anms-uploader [files]="isEdit ? getWarrantyDoc(i) : warrantyDocs" [multiple]="false" [preview]="false" [hasError]="false" (uploadedEvent)="uploadWarrantyFiles($event , i)"></anms-uploader>
                                     </div>
                                   </div>
                                 </div>
@@ -415,73 +404,64 @@
                           </div>
                         </div>
                       </div>
-                      
+
                     </div>
                     <div class="form-section component_wrapper">
                       <div class="row">
                         <div class="col-12 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <input  pInputTextarea   [placeholder]="'assets.description' | translate"  type="text">
+                            <input  formControlName="description" pInputTextarea   [placeholder]="'assets.description' | translate"  type="text">
                             <label>{{ 'assets.description' | translate }}</label>
                           </span>
+                          <anms-error
+                            [showError]="hasError('description',formGroupMaintenance,submitted_Maintenance)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
                       </div>
                     </div>
                   </form>
                 </mat-step>
                 <mat-step [editable]="isEditable">
-                  <form *ngIf="!uploadReview">
-                    <ng-template matStepLabel>{{ 'assets.generate' | translate }}</ng-template>
-                    <div class="form-section component_wrapper">
-                      <div class="row">
-                        <div class="col-2">
-                          <h3 class="form-section__title">{{ 'assets.maintenance_service' | translate }}</h3>
-                        </div>
-                        <div class="col-2">
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="assetQuantity" id="multipleAsset" value ="multipleAsset" Checked>
-                            <label class="form-check-label" for="multipleAsset">{{ 'assets.multiple_assets' | translate }}</label>
+                  <div >
+                    <form *ngIf="!uploadReview" [formGroup]="formGroupGenerate">
+                      <ng-template matStepLabel>{{ 'assets.generate' | translate }}</ng-template>
+                      <div class="form-section component_wrapper">
+                        <div class="row">
+                          <div class="col-2">
+                            <h3 class="form-section__title">{{ 'assets.asset_quantity' | translate }}</h3>
                           </div>
-                        </div>
-                        <div class="col-2">
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="assetQuantity" id="singleAsset" value ="singleAsset" Checked>
-                            <label class="form-check-label" for="singleAsset">{{ 'assets.single_asset' | translate }}</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="upload-box">
-                            <div class="row">
-                              <div class="col-12 d-flex justify-content-between file-name-size">
-                                <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
-                                <span>00 MG</span>
-                              </div>
-                              <div class="col-lg-12">
-                                <div class="w-100 p-0">
-                                  <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
-                                </div>
-                              </div>
-                              <div class="col-lg-12 mt-2">
-                                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , 'maintenanceService')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                                    <label (click)="openFileSelector()" style="cursor: pointer;">
-                                        <small calss="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-                                    </label>
-                                  </ng-template>
-                                </ngx-file-drop>
-                              </div>
+                          <div class="col-2">
+                            <div class="form-check" *ngIf="!isEdit">
+                              <input class="form-check-input" formControlName="quantity"  type="radio" name="quantity" id="multipleAsset" value ="multipleAsset">
+                              <label class="form-check-label" for="multipleAsset">{{ 'assets.multiple_assets' | translate }}</label>
                             </div>
                           </div>
+                          <div class="col-2">
+                            <div class="form-check" *ngIf="!isEdit">
+                              <input class="form-check-input" formControlName="quantity" type="radio" name="quantity" id="singleAsset" value ="singleAsset">
+                              <label class="form-check-label" for="singleAsset">{{ 'assets.single_asset' | translate }}</label>
+                            </div>
+                          </div>
+                          <div *ngIf="this.formGroupGenerate.get('quantity').value == 'singleAsset'" class="col-3 p-field form-section__field">
+                            <span class="p-float-label">
+                              <input pInputText numbersOnly [placeholder]="'assets.serial_number' | translate" formControlName="serialNumber"  type="text">
+                              <label>{{ 'assets.serial_number' | translate }}</label>
+                            </span>
+                            <anms-error
+                            [showError]="hasError('serialNumber',formGroupGenerate,submitted_Generate)"
+                            error="forms.feedback.required">
+                            </anms-error>
+                          </div>
                         </div>
+                        <anms-uploader *ngIf="this.formGroupGenerate.get('quantity').value == 'multipleAsset'" [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="maintenanceServiceDocRequired" (uploadedEvent)="maintenanceServiceFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
                       </div>
-                    </div>
-                  </form>
-                  <div *ngIf="uploadReview">
-                    <div class="table-container p-0 mt-2 review-table">
-                      <h3 class="form-section__title px-4 pt-4">5 Asset Found Please Review</h3>
-                      <app-table [setting]="formReviewSettingTable"></app-table>
+                    </form>
+                    <div *ngIf="uploadReview">
+                      <div class="table-container p-0 mt-2 review-table">
+                        <h3 class="form-section__title px-4 pt-4">5 Asset Found Please Review</h3>
+                        <app-table [setting]="formReviewSettingTable"></app-table>
+                      </div>
                     </div>
                   </div>
                 </mat-step>
@@ -492,3 +472,7 @@
       </div>
   </div>
 </div>
+
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialog($event)"></alert-dialog>
+<alert-dialog [settings]="cancelDialogSetting" [displayModal]="cancelDialogModal" (confirm)="cancelDialog($event)"></alert-dialog>
+<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal" (confirm)="errorDialogModal=false"></alert-dialog>

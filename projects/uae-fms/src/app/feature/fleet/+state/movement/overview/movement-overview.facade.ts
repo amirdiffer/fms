@@ -19,4 +19,5 @@ export class MovementOverviewFacade {
   loadAll() {
     this.store.dispatch(MovementOverviewActions.loadAll());
   }
+
 }

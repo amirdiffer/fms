@@ -40,7 +40,10 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { AlretDialogModule } from '@core/alret-dialog/alret-dialog.module';
+import { AccordionModule } from 'primeng/accordion';
+import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
+import { UploaderModule } from '@shared/uploader/uploader.module';
+import { OnlyDigitsDirective } from '@core/directive/only-digit.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -78,9 +81,11 @@ import { AlretDialogModule } from '@core/alret-dialog/alret-dialog.module';
     MatStepperModule,
     MatProgressBarModule,
     NgxFileDropModule,
-    AlretDialogModule
+    AccordionModule,
+    AlertDialogModule,
+    UploaderModule
   ],
-  declarations: [RtlSupportDirective, CheckAccessDirective],
+  declarations: [RtlSupportDirective, CheckAccessDirective, OnlyDigitsDirective],
   exports: [
     CommonModule,
     FormsModule,
@@ -125,7 +130,10 @@ import { AlretDialogModule } from '@core/alret-dialog/alret-dialog.module';
     MatProgressBarModule,
     NgxFileDropModule,
     OverlayPanelModule,
-    AlretDialogModule
+    AccordionModule,
+    AlertDialogModule,
+    UploaderModule,
+    OnlyDigitsDirective
   ]
 })
 export class SharedModule {
