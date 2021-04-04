@@ -43,7 +43,12 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
 
   usingMenu = [];
   mainMenu = [
-    { name: 'sidebar.dashboard', icon: 'dashboard', route: '/dashboard' },
+    {
+      name: 'sidebar.dashboard',
+      icon: 'dashboard',
+      route: '/dashboard',
+      disabled: true
+    },
     {
       name: 'sidebar.fleets.~',
       icon: 'fleets',
@@ -116,12 +121,14 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.workshop.body_shop',
           icon: 'body-shop',
-          route: '/workshop/body-shop'
+          route: '/workshop/body-shop',
+          disabled: true
         },
         {
           name: 'sidebar.workshop.service_shop',
           icon: 'service-shop',
-          route: '/workshop/service-shop'
+          route: '/workshop/service-shop',
+          disabled: true
         },
         /*         {
                   name: 'sidebar.workshop.inspection.~',

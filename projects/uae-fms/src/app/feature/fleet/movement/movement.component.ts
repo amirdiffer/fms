@@ -219,7 +219,6 @@ export class MovementComponent
         renderer: 'button',
         buttonType: ButtonType.reject,
         onClick: (data) => {
-          console.log('ddd');
           // this._movementRequestsFacade.rejecting(data);
         },
         showOnHover: true
@@ -239,7 +238,6 @@ export class MovementComponent
       onClick: (data, button?, col?) => {
         if (button == 'reject') this._movementRequestsFacade.rejecting(data.id);
         else if (button == 'confirm') {
-          console.log(data);
           this.assignID = data.id;
           this.openConfirmModal();
         }
@@ -314,7 +312,6 @@ export class MovementComponent
     this._movementRequestsFacade.loadAll();
     this._movementRequestsFacade.loadRequestStatistic();
     this._movementRequestsFacade.MovementRequestStatistic.subscribe((x) => {
-      console.log(x);
       if (x) {
         const response = x.message;
         this.filterSetting.map((filter) => {
@@ -408,7 +405,7 @@ export class MovementComponent
     });
   }
   rejectRow() {
-    console.log('reject');
+    // console.log('reject');
   }
 
   successConfirm(confirmed) {

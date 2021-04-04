@@ -429,16 +429,16 @@
                       <div class="form-section component_wrapper">
                         <div class="row">
                           <div class="col-2">
-                            <h3 class="form-section__title">{{ 'assets.maintenance_service' | translate }}</h3>
+                            <h3 class="form-section__title">{{ 'assets.asset_quantity' | translate }}</h3>
                           </div>
                           <div class="col-2">
-                            <div class="form-check">
+                            <div class="form-check" *ngIf="!isEdit">
                               <input class="form-check-input" formControlName="quantity"  type="radio" name="quantity" id="multipleAsset" value ="multipleAsset">
                               <label class="form-check-label" for="multipleAsset">{{ 'assets.multiple_assets' | translate }}</label>
                             </div>
                           </div>
                           <div class="col-2">
-                            <div class="form-check">
+                            <div class="form-check" *ngIf="!isEdit">
                               <input class="form-check-input" formControlName="quantity" type="radio" name="quantity" id="singleAsset" value ="singleAsset">
                               <label class="form-check-label" for="singleAsset">{{ 'assets.single_asset' | translate }}</label>
                             </div>

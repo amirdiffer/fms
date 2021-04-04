@@ -62,7 +62,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
         return {
           id: y.id,
           avatarId: y.avatarId,
-          Make: y.makeName,
+          MakeName: y.makeName,
           Model: y.modelName,
           Policy: y.policyTypeName,
           Warranty_Expire_Date: y.warrantyExpireDate,
@@ -82,15 +82,14 @@ export class SubAssetComponent implements OnInit, OnDestroy {
         type: 2,
         field: 'Serial_Number',
         thumbField: 'avatarId',
+        override: 'thumb.png',
         width: '18em'
       },
       { lable: 'tables.column.date', type: 1, field: 'Date' },
       {
         lable: 'tables.column.make',
         type: 1,
-        field: 'Make',
-        thumbField: 'thumbField_Make',
-        renderer: 'companyRenderer'
+        field: 'MakeName'
       },
       { lable: 'tables.column.model', type: 1, field: 'Model' },
       { lable: 'tables.column.policy', type: 1, field: 'Policy' },
@@ -113,17 +112,17 @@ export class SubAssetComponent implements OnInit, OnDestroy {
     data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
-        console.log(col, data, button);
+        // console.log(col, data, button);
       },
       floatButton: [
         {
           onClick: (col, data) => {
-            console.log(data);
+            // console.log(data);
             this.router.navigate(['/fleet/sub-asset/edit-sub-asset'], {
               queryParams: { id: data['id'] }
             });
           },
-          button: 'external',
+          button: 'edit',
           color: '#3F3F3F'
         }
       ]

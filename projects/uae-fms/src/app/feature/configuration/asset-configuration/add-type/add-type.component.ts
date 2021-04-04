@@ -83,7 +83,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     });
 
     this.facade.submitted$.subscribe((x) => {
-      console.log('Submit : ', x);
       if (x) {
         this.dialogModal = true;
         this.dialogSetting.header = 'Add new type';
@@ -98,7 +97,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
 
     this.facade.error$.subscribe((x) => {
       if (x?.error) {
-        console.log(x?.error);
         this.dialogModal = true;
         this.dialogSetting.header = 'Add new type';
         this.dialogSetting.hasError = true;
@@ -125,7 +123,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   addSingleModel(): void {
-    console.log(this.inputForm.get('singleModelArray').value);
     const list = this.inputForm.get('singleModelArray') as FormArray;
     list.push(this.createSingleModel());
   }
@@ -148,30 +145,27 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-          console.log(droppedFile.relativePath, file);
-        });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
       }
     }
   }
 
   public fileOver(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public fileLeave(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public addModel() {
     const model = new FormControl('');
     (<FormArray>this.inputForm.get('models')).push(model);
-    console.log();
   }
 
+  dialogType = '';
   public cancel() {
     this.dialogModal = true;
     this.dialogSetting.hasError = false;
@@ -179,35 +173,42 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     this.dialogSetting.message = 'Are you sure to cancel adding new type?';
     this.dialogSetting.confirmButton = 'Yes';
     this.dialogSetting.cancelButton = 'No';
+    this.dialogType = 'cancel';
     // this._assetConfigurationService.loadAddForm(false);
   }
 
   dialogConfirm($event): void {
-    console.log($event);
+    if (this.dialogType == 'cancel') {
+      this.facade.resetParams();
+      return;
+    }
     this.dialogModal = false;
     if ($event && !this.dialogSetting.hasError) {
-      this.router.navigate(['/configuration/asset-configuration']).then();
+      this.router.navigate(['/configuration/asset-configuration']).then((_) => {
+        this.facade.resetParams();
+      });
     }
   }
 
   color1Clicked(): void {
-    console.log('color1 clicked');
+    // console.log('color1 clicked');
   }
 
   color2Clicked(): void {
-    console.log('color2 clicked');
+    // console.log('color2 clicked');
   }
 
   color3Clicked(): void {
-    console.log('color3 clicked');
+    // console.log('color3 clicked');
   }
 
   color4Clicked(): void {
-    console.log('color4 clicked');
+    // console.log('color4 clicked');
   }
 
   submit() {
     this.submited = true;
+    this.dialogType = 'submit';
     if (this.inputForm.invalid) {
       return;
     }
@@ -235,8 +236,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
       typeDescription: this.inputForm.value.description,
       makes: []
     };
-
-    console.log(data);
 
     this.facade.addAssetType(data);
     // this._assetConfigurationService.loadAddForm(false);

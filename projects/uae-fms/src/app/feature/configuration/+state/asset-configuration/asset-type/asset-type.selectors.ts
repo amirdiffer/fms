@@ -23,4 +23,9 @@ export class AssetTypeSelectors {
     ConfigurationSelectors.assetTypeSelector,
     (state) => state.submitted
   );
+
+  static loaded = createSelector(
+    ConfigurationSelectors.assetTypeSelector,
+    (state) => state.loaded
+  );
 }

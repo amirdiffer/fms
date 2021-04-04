@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import {
   Component,
   OnInit,
@@ -7,7 +8,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
-import { TableComponent, TableSetting } from '@core/table';
+import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccessoryFacade } from '../+state/accessory';
@@ -77,15 +78,37 @@ export class AccessoryComponent implements OnInit, OnDestroy {
         field: 'Quantity',
         width: 150,
         sortable: true
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
-    data: []
+    data: [],
+    rowSettings: {
+      floatButton: [
+        {
+          onClick: (col, data) => {
+            this._router.navigate(['/fleet/accessory/edit-accessory'], {
+              queryParams: { id: data['id'] }
+            });
+          },
+          button: 'external',
+          color: '#3F3F3F'
+        }
+      ]
+    }
   };
 
   accessory$ = this._accessoryFacade.accessory$.pipe(
     map((x) =>
       x.map((item) => {
         return {
+          id: item.id,
           statusColor: '#00AFB9',
           Item: item.itemName,
           Type: item.assignedToType,
@@ -101,7 +124,8 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   constructor(
     private _accessoryService: AccessoryService,
     private _accessoryFacade: AccessoryFacade,
-    private changeDetection: ChangeDetectorRef
+    private changeDetection: ChangeDetectorRef,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {

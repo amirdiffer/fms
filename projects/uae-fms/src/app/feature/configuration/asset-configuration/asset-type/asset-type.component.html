@@ -1,42 +1,44 @@
 <mat-card class="p-2 m-0">
-    <mat-card-header>
-        <mat-card-title class="mat-card-title">{{ 'filter.category' | translate }}</mat-card-title>
-    </mat-card-header>
-    <span class="border"></span>
-    <mat-card-content>
-        <div *ngFor='let assetType of assetTypes'>
-          <div class="category-item">
-            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#505050'}" [svgClass]='assetType.iconSvgClass'
-                      (click)="onTypeClick(assetType)"></svg-icon>
-            <span class='ml-2 cursor-pointer'>{{assetType.name}}</span>
-            <svg-icon class='plus cursor-pointer' (click)="createMake(assetType)" src='assets/icons/add.svg'
-                      [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
+  <mat-card-header>
+    <mat-card-title class="mat-card-title">{{ 'filter.category' | translate }}</mat-card-title>
+  </mat-card-header>
+  <span class="border"></span>
+  <mat-card-content *ngIf="loaded$|async">
+    <div *ngFor='let assetType of assetType$ | async'>
+      <div class="category-item">
+        <svg-icon [src]="arrowIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#505050'}"
+          [svgClass]='assetType.iconSvgClass' (click)="onTypeClick(assetType)"></svg-icon>
+        <span class='ml-2 cursor-pointer' (click)='onTypeClick(assetType)'>{{assetType.name}}</span>
+        <svg-icon class='plus cursor-pointer' (click)="createMake(assetType)" src='assets/icons/add.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
           '100%'}"></svg-icon>
-          </div>
-          <div *ngFor='let make of assetType.makes; let index = index'>
-            <div class="category-subItem" [hidden]='!assetType.isSelected'>
-              <svg-icon [src]="arrowIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#505050'}" [svgClass]='make.iconSvgClass'
-                        (click)="onMakeClick(make)"></svg-icon>
-              <span class='ml-2 cursor-pointer'>{{make.make}}</span>
-              <svg-icon class='plus cursor-pointer' (click)="createModel(make)" src='assets/icons/add.svg'
-                        [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-            </div>
-            <div *ngFor='let model of assetType.makes[index].models'>
-              <div class="category-sub-subItem" [hidden]='!make.isSelected || !assetType.isSelected'>
-                <span class="status" (click)='onModelClick(model)' [style]="{ '--back-color-var': getStatusColor(model.isSelected) }"
-                      [ngStyle]="{ color: getStatusColor(model.isSelected) }"></span>
-                <span class='ml-2 cursor-pointer' [style]="'color:' + getStatusColor(model.isSelected)" [class]='getStatusColor(model.isSelected)' (click)='onModelClick(model)'>{{model.model}}</span>
-                <svg-icon class='plus cursor-pointer' (click)="createMake(undefined)" src='assets/icons/add.svg'
-                          [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-              </div>
-            </div>
+      </div>
+      <div *ngFor='let make of assetType.makes; let index = index'>
+        <div class="category-subItem" [hidden]='!assetType.isSelected'>
+          <svg-icon [src]="arrowIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#505050'}" [svgClass]='make.iconSvgClass'
+            (click)="onMakeClick(make)"></svg-icon>
+          <span class='ml-2 cursor-pointer' (click)='onMakeClick(make)'>{{make.make}}</span>
+          <svg-icon class='plus cursor-pointer' (click)="createModel(assetType,make)" src='assets/icons/add.svg'
+            [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+        </div>
+        <div *ngFor='let model of assetType.makes[index].models'>
+          <div class="category-sub-subItem" [hidden]='!make.isSelected || !assetType.isSelected'>
+            <span class="status" (click)='onModelClick(model)'
+              [style]="{ '--back-color-var': getStatusColor(model.isSelected) }"
+              [ngStyle]="{ color: getStatusColor(model.isSelected) }"></span>
+            <span class='ml-2 cursor-pointer' [style]="'color:' + getStatusColor(model.isSelected)"
+              [class]='getStatusColor(model.isSelected)' (click)='onModelClick(model)'>{{model.model}}</span>
+            <svg-icon class='plus cursor-pointer' (click)="createTrim(assetType,model, make)" src='assets/icons/add.svg'
+              [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
           </div>
         </div>
-      <div class='d-flex mt-2'>
-        <svg-icon class='cursor-pointer ml-2' src='assets/icons/add.svg'
-                  [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-        <span class='font-weight-bold add-asset-type cursor-pointer ml-2' routerLink='/configuration/add-asset-configuration'>{{'filter.add_asset_type' | translate}}</span>
       </div>
-    </mat-card-content>
+    </div>
+    <div class='d-flex mt-2'>
+      <svg-icon class='cursor-pointer ml-2' src='assets/icons/add.svg'
+        [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+      <span class='font-weight-bold add-asset-type cursor-pointer ml-2'
+        routerLink='/configuration/add-asset-configuration'>{{'filter.add_asset_type' | translate}}</span>
+    </div>
+  </mat-card-content>
 
 </mat-card>

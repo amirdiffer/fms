@@ -113,7 +113,6 @@ export class UsersComponent implements OnInit {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
-            console.log(data);
             this.router.navigate([
               '/configuration/user-management/users/edit-user/' + data.id
             ]);

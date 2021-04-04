@@ -237,7 +237,6 @@ export class AddOrganizationComponent extends Utility implements OnInit {
       this.facade.addOrganization(value);
     }
     if (this.dialogType == 'success') {
-      console.log('success');
       this.goToList();
     }
     if (this.dialogType == null) {

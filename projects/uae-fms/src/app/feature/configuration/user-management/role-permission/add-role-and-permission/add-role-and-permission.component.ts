@@ -53,7 +53,6 @@ export class AddRoleAndPermissionComponent
     this.translationService.get(translationLabels).subscribe((translation) => {
       this.translations = translation;
       this.middleCheckboxLabelArray = [];
-      console.log(translation);
       Object.keys(translation).forEach((key) => {
         this.middleCheckboxLabelArray.push({ name: translation[key] });
       });

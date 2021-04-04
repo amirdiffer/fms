@@ -28,10 +28,14 @@ export class UploaderService {
     return this._http.get(environment.baseApiUrl + `document/${id}`);
   }
 
-  getCSVfile(id){
-    return this._http.get(
-      environment.baseApiUrl + `document/${id}`,
-      {responseType:'text'}
-    );
+  getCSVfile(id) {
+    return this._http.get(environment.baseApiUrl + `document/${id}`, {
+      responseType: 'text'
+    });
+  }
+  getCSVfile(id) {
+    return this._http.get(environment.baseApiUrl + `document/${id}`, {
+      responseType: 'text'
+    });
   }
 }

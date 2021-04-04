@@ -117,10 +117,13 @@
             <label>{{'sub_asset.item' | translate}}</label>
           </span>
         </div>
-        <div class="col-12 col-md-3 p-field form-section__field
-        dropdown-select-input">
-          <p-dropdown class='w-50' inputId="unit" [options]="units" formControlName="year" optionLabel="name">
-          </p-dropdown>
+        <div class="col-12 col-md-1 pr-0 p-field form-section__field dropdown-select">
+          <span class="p-float-label">
+            <p-dropdown class='w-50' inputId="unit" [options]="units" formControlName="periodType" optionLabel="name" optionValue="id"></p-dropdown>
+            <label for="periodicService">{{ 'assets.year' | translate }}</label>
+          </span>
+        </div>
+        <div class="col-12 col-md-2 pl-0 p-field form-section__field">
           <span class="p-float-label form-section__field">
             <input class='w-100' formControlName="duration" pInputText
               placeholder="{{'sub_asset.duration' | translate}}" type="text">
@@ -144,7 +147,8 @@
 
         <div class='col-12 col-md-3 p-field form-section__field'>
           <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [title]=""
-            [preview]="false" [accept]="['.csv']" (uploadedEvent)="uploadWarrantyFiles($event,i)"></anms-uploader>
+            [preview]="false" [accept]="['.csv']" (uploadedEvent)="uploadWarrantyFiles($event,i)"
+            [files]="isEdit ? getWarrantyDoc(i) : warrantyDocs"></anms-uploader>
         </div>
       </div>
     </div>
@@ -196,11 +200,19 @@
         </div>
       </div>
     </div>
-
-
-
     <div *ngIf="!isSingleAsset" class="second-step-upload-box">
       <anms-uploader  [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="subAssetDocRequired" (uploadedEvent)="uploadDocFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
+    </div>
+    <div class="col-12 col-md-12 p-field form-section__field">
+      <span class="">
+        {{'sub_asset.upload_picture'|translate}}
+      </span>
+      <span class="p-float-label">
+        <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [multiple]="false"
+          [title]="'sub_asset.upload_picture'|translate" [preview]="true" [accept]="['.png','.jpg']"
+          (uploadedEvent)="uploadAssetPicture($event)">
+        </anms-uploader>
+      </span>
     </div>
   </div>
 

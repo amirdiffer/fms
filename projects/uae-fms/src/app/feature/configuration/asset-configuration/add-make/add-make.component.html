@@ -45,7 +45,7 @@
           <configuration-asset-type></configuration-asset-type>
         </div>
         <div class='col-9'>
-          <h3 class='form-section__title'>{{ 'filter.add_make_for_car' | translate }}</h3>
+          <h3 class='form-section__title'>{{ ('filter.add_make_for' | translate) + ' ' + dataService.selectedTypeName }}</h3>
           <div formArrayName='makes'>
             <div class='form-section mt-3 h-100' *ngFor='let make of makes.controls; let index = index' [formGroupName]='index'>
             <div class='row form-section__row'>

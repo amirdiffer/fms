@@ -24,12 +24,16 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { debounceTime, map } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
 import {
-  BodyShopLocationFacade, BodyShopLocationService,
+  BodyShopLocationFacade,
+  BodyShopLocationService,
   BodyShopTechnicianFacade,
   BodyShopTechnicianService
 } from '@feature/workshop/+state/body-shop';
 import { UsersService } from '@feature/configuration/+state/users';
-import { TaskMasterFacade, TaskMasterService } from '@feature/workshop/+state/task-master';
+import {
+  TaskMasterFacade,
+  TaskMasterService
+} from '@feature/workshop/+state/task-master';
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
@@ -228,12 +232,12 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     this._locationFacade.loadAll();
     this._taskMasterService.skills().subscribe((x) => {
       let data = x.message;
-      this.skillsB = data.map(y => ({ id: y.id, name: y.name }));
+      this.skillsB = data.map((y) => ({ id: y.id, name: y.name }));
     });
-    this._locationService.loadAll().subscribe(x => {
+    this._locationService.loadAll().subscribe((x) => {
       let data = x.message;
-      console.log(data)
-      this.locationsB = data.map(y => ({ id: y.id, name: y.address }));
+      console.log(data);
+      this.locationsB = data.map((y) => ({ id: y.id, name: y.address }));
     });
     this.buildForm();
     this.route.url.subscribe((params) => {
@@ -396,12 +400,20 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   // }
 
   filterSkills(event) {
-    this.skills = this.skillsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+    this.skills = this.skillsB.filter(
+      (x) =>
+        (x.id + '').indexOf(event.query) >= 0 ||
+        x.name.indexOf(event.query) >= 0
+    );
   }
 
   filterLocation(event) {
-    this.locations = this.locationsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
-    console.log(this.locations)
+    this.locations = this.locationsB.filter(
+      (x) =>
+        (x.id + '').indexOf(event.query) >= 0 ||
+        x.name.indexOf(event.query) >= 0
+    );
+    console.log(this.locations);
   }
 
   /* AutoComplete Validation  */
@@ -546,15 +558,14 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       firstName: $event.name,
       lastName: ''
     });
-      this.inputForm.get('personalInfo.firstName').markAsDirty();
-      this.inputForm.get('personalInfo.lastName').markAsDirty();
-      this.inputForm.get('personalInfo.email')['controls'][0].markAsDirty();
-      this.inputForm.get('personalInfo.phoneNumber')['controls'][0].markAsDirty();
+    this.inputForm.get('personalInfo.firstName').markAsDirty();
+    this.inputForm.get('personalInfo.lastName').markAsDirty();
+    this.inputForm.get('personalInfo.email')['controls'][0].markAsDirty();
+    this.inputForm.get('personalInfo.phoneNumber')['controls'][0].markAsDirty();
     console.log(this.inputForm.value);
   }
 
   addRequest() {
-    console.log(this.inputForm.value);
     this.submited = true;
     // if (this.inputForm.invalid) {
     //   return;
@@ -608,26 +619,23 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-          console.log(droppedFile.relativePath, file);
-        });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
       }
     }
   }
 
   public fileOver(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public fileLeave(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   uploadImage($event) {
-    console.log($event)
+    console.log($event);
     if (!$event || !$event.files) {
       return;
     }

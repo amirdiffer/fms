@@ -7,10 +7,10 @@
 <configuration-asset-category></configuration-asset-category>
 <div class="row">
   <div class='col-3 pr-0'>
-    <configuration-asset-type></configuration-asset-type>
+    <configuration-asset-type (selectMake)='makes($event)' (selectModel)='models($event)' (selectTrim)='trims($event)'></configuration-asset-type>
   </div>
-    <div class="col-9">
-      <div class="table-container component_wrapper my-0 h-100">
+    <div class="col-9 h-100">
+      <div class="table-container component_wrapper my-0">
           <span class="card-table-header search-container">
                         <div class="search-box">
                             <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
@@ -18,11 +18,11 @@
                                 <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
                             </button>
                         </div>
-                        <button class="btn-download" disabled>
+                        <button class="btn-download" (click)="exportTable()">
                             <svg-icon [src]="downloadBtn"></svg-icon>
                         </button>
                     </span>
-          <app-table [setting]="assetConfigurationableSetting"></app-table>
+          <app-table [setting]="assetConfigurationableSetting" [tableData]='assetType$'></app-table>
         </div>
     </div>
 </div>

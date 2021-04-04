@@ -1,19 +1,20 @@
-<form [formGroup]="inputForm">
+<form [formGroup]="accessoryForm">
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" (click)="cancel()">{{'forms.cancel' | translate}}</button>
-    <button class="btn-primary-medium add" (click)="submit()">{{'forms.add' | translate}}</button>
+    <button class="btn-primary-medium add" (click)="submit()">
+      {{ (isEdit ? 'forms.edit' : 'forms.save') | translate }}
+    </button>
   </div>
   <div class="form-section">
     <div class="row form-section__row">
+
       <div class="col-12 col-md-3 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="itemName" pInputText placeholder="{{'accessory.item_name' | translate}} *"
             type="text">
           <label>{{'accessory.item_name' | translate}} *</label>
         </span>
-
         <anms-error [showError]="hasError('itemName')" error="forms.feedback.required"></anms-error>
-
       </div>
 
       <div class="col-12 col-md-5">
@@ -42,8 +43,8 @@
         <div class="autocomplete-select">
           <span class="p-float-label">
             <p-autoComplete formControlName="assignedToEntity" field="name" dataKey="id"
-                            (completeMethod)="inputForm.get('assignedToType').value == 'ASSET' ? filterAssets($event) : filterSubAssets($event)"
-                            [suggestions]="inputForm.get('assignedToType').value == 'ASSET' ? assets : subAssets"
+                            (completeMethod)="accessoryForm.get('assignedToType').value == 'ASSET' ? filterAssets($event) : filterSubAssets($event)"
+                            [suggestions]="accessoryForm.get('assignedToType').value == 'ASSET' ? assets : subAssets"
               field="name" [minLength]="1" (ngModelChange)="assetChanged($event)" required></p-autoComplete>
             <i class="pi pi-search"></i>
             <label>{{ 'accessory.assets_sub_assets' | translate }} *</label>
@@ -88,7 +89,7 @@
 
 <alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel"
   (confirm)="dialogCancelConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="dialogSettingAdd" [displayModal]="dialogModalAdd" (confirm)="dialogAddConfirm($event)">
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)">
 </alert-dialog>
 <alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogErrorConfirm($event)">
 </alert-dialog>

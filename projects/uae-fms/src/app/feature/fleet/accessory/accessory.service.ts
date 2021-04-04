@@ -18,13 +18,5 @@ export class AccessoryService {
     return this._addAccessory$.asObservable();
   }
 
-  public users(): Observable<ResponseBody<IUser[]>> {
-    return this._http.get<ResponseBody<IUser[]>>(
-      environment.baseApiUrl + 'configuration/user'
-    );
-  }
-
-  constructor(
-    private _http: HttpClient
-  ) {}
+  constructor(private _http: HttpClient) {}
 }

@@ -25,8 +25,10 @@ import { AssignNow } from '@core/table/renderers/assign-now';
 import { TableGeneralButtonRendererComponent } from './renderers/general-button';
 import { FloatButton } from './renderers/float-button';
 import { ColorizeRendererComponent } from './renderers/colorize';
+import { AssetConfigurationTrimColorRendererComponent } from '@core/table/renderers/asset-configuration-trim-color-renderer.component';
 import { CheckboxRendererComponent } from '@core/table/renderers/checkbox-renderer';
 import { DownloadButtonRendererComponent } from '@core/table/renderers/download-button-renderer';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   imports: [
@@ -35,7 +37,8 @@ import { DownloadButtonRendererComponent } from '@core/table/renderers/download-
     SharedModule,
     MatProgressBarModule,
     AngularSvgIconModule,
-    RouterModule
+    RouterModule,
+    TooltipModule
   ],
   exports: [TableComponent],
   declarations: [
@@ -61,6 +64,7 @@ import { DownloadButtonRendererComponent } from '@core/table/renderers/download-
     AssignNow,
     FloatButton,
     ColorizeRendererComponent,
+    AssetConfigurationTrimColorRendererComponent,
     CheckboxRendererComponent,
     DownloadButtonRendererComponent
   ],

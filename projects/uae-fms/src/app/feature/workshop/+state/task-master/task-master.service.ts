@@ -9,17 +9,17 @@ import { ResponseBody } from '@models/responseBody';
 export class TaskMasterService {
   constructor(private _http: HttpClient) {}
 
-  loadAll(): Observable<ResponseBody<any[]>> {
-    return this._http.get<ResponseBody<any[]>>(
+  loadAll(): Observable<ResponseBody<ITaskMasterModel[]>> {
+    return this._http.get<ResponseBody<ITaskMasterModel[]>>(
       environment.baseApiUrl + 'workshop/taskmaster'
     );
   }
 
-    //   loadAll(): Observable<ITaskMasterModel[]> {
-//     return this._http.get<ITaskMasterModel[]>(
-//       environment.baseApiUrl + 'workshop/taskmaster'
-//     );
-//   }
+  //   loadAll(): Observable<ITaskMasterModel[]> {
+  //     return this._http.get<ITaskMasterModel[]>(
+  //       environment.baseApiUrl + 'workshop/taskmaster'
+  //     );
+  //   }
 
   getTaskMaster(id: number) {
     return this._http.get<ITaskMasterModel[]>(
@@ -49,5 +49,4 @@ export class TaskMasterService {
       environment.baseApiUrl + 'workshop/taskmaster/skill'
     );
   }
-
 }

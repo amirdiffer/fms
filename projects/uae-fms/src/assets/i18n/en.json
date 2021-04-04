@@ -111,7 +111,9 @@
     "add_new_accessory": "Add New Accessory",
     "temporary": "Temporary",
     "add_temporary_request": "Add Temporary Request",
-    "add_permanent_request": "Add Permanent Request"
+    "add_permanent_request": "Add Permanent Request",
+    "accessory_overview": "Accessory Overview",
+    "edit_accessory": "Edit Accessory"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -429,7 +431,11 @@
       "issue_type": "Issue Type",
       "employe_id": "Employe ID",
       "user_status": "User Status",
-      "requests": "Requests"
+      "requests": "Requests",
+      "trim": "Trim",
+      "trims": "Trims",
+      "color": "Color",
+      "models": "Models"
     },
     "button": {
       "view_report": "View Report",
@@ -489,7 +495,7 @@
     "in_service_odometer": "In-Service Odometer",
     "upload_purchase_order": "Upload Purchase Order",
     "maintenance_service": "Maintenance Service",
-    "asset_quantity":"Asset Quantity",
+    "asset_quantity": "Asset Quantity",
     "periodic_service": "Periodic Service",
     "warranty_items": "Warranty Items",
     "item": "Item",
@@ -497,7 +503,7 @@
     "warranty_start_date": "Warranty Start Date",
     "description": "Description",
     "multiple_assets": "Multiple Assets",
-    "serial_number":"Serial Number",
+    "serial_number": "Serial Number",
     "single_asset": "Single Asset",
     "review_your_plan": "Review Your Plan",
     "calculate": "Calculate",
@@ -630,6 +636,21 @@
         }
       }
     }
+  },
+  "sub_asset_overview": {
+    "item_name": "Item Name",
+    "asset_name": "Asset Name",
+    "accessory_type": "Accessory Type",
+    "accessory_name": "Accessory Name",
+    "accessory_item_name": "Accessory Item Name",
+    "assignment_asset_info": "Assignment Asset Info",
+    "dpd_number": "DPD-Number",
+    "quantity": "Quantity",
+    "make": "Make",
+    "model": "Model",
+    "year_of_make": "Year of Make",
+    "meter_reading": "Meter reading",
+    "dep_section": "Dep/Section"
   },
   "sub_asset": {
     "sub_asset_specification": "Sub Asset Specification",
@@ -1202,8 +1223,12 @@
     "asset_category": "Asset Category",
     "type_category": "Type Category",
     "add_asset_type": "Add Asset Type",
-    "add_make_for_car": "Add Make For Car",
-    "add_model_for_car": "Add Model For Car",
+    "add_make_for": "Add Make For",
+    "add_model_for": "Add Model For",
+    "add_trim_for": "Add Trim For",
+    "trim": "Trim",
+    "upload_asset_picture": "Upload Asset Picture",
+    "colors": "Colors",
     "make_name": "Make Name",
     "model_name": "Model Name",
     "type_status": "Type Status",

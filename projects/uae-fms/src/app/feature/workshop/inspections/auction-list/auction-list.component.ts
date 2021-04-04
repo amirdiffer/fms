@@ -211,7 +211,6 @@ export class AuctionListComponent implements OnInit, OnDestroy {
     });
     this._facade.loadAll();
     this._facade.message$.subscribe((x) => {
-      console.log(x);
       this.settingTable1.data = x;
     });
   }

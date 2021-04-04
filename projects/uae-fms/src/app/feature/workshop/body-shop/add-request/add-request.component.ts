@@ -226,16 +226,16 @@ export class AddRequestComponent implements OnInit {
     if (this.dialogType == 'submit') {
       let d = this.inputForm.getRawValue();
       let requestInfo: any = {
-        "assetId": d.assetId.id,
-        "gpsMeterSource": d.issueInfo.gpsMeterSource,
-        "hasAccident": d.hasAccident,
-        "accidentType": d.accidentType,
-        "jobType": d.jobType,
-        "reportedBy": d.issueInfo.reportedBy,
-        "request": d.issueInfo.issue,
-        "description": d.issueInfo.description,
-        "priority": d.priority,
-        "documentIds": this.profileDocIds
+        assetId: d.assetId.id,
+        gpsMeterSource: d.issueInfo.gpsMeterSource,
+        hasAccident: d.hasAccident,
+        accidentType: d.accidentType,
+        jobType: d.jobType,
+        reportedBy: d.issueInfo.reportedBy,
+        request: d.issueInfo.issue,
+        description: d.issueInfo.description,
+        priority: d.priority,
+        documentIds: this.profileDocIds
       };
 
       if (this.isEdit) {
@@ -281,7 +281,7 @@ export class AddRequestComponent implements OnInit {
       this.dialogSetting.message = 'Are you sure you want to add new request?';
       this.dialogSetting.confirmButton = 'OK';
       this.dialogSetting.cancelButton = 'Cancel';
-    };
+    }
   }
 
   cancelForm() {
@@ -315,23 +315,16 @@ export class AddRequestComponent implements OnInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-          console.log(droppedFile.relativePath, file);
-        });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
       }
     }
   }
 
-  public fileOver(event) {
-    console.log(event);
-  }
+  public fileOver(event) {}
 
-  public fileLeave(event) {
-    console.log(event);
-  }
+  public fileLeave(event) {}
 
   uploadImage($event) {
     this.profileDocIds = [];

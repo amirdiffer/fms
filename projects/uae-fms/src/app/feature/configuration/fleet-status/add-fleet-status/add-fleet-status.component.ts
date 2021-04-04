@@ -110,17 +110,15 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      (params) => {
-        this.currentTab = params['id']
-      }
-    );
-    this.route.url.subscribe(
-      (params) => {
-        console.log(params)
-        this.isEdit = params.filter(x=>x.path=="edit-fleet-status").length > 0 ? true : false;
-      }
-    );
+    this.route.params.subscribe((params) => {
+      this.currentTab = params['id'];
+    });
+    this.route.url.subscribe((params) => {
+      this.isEdit =
+        params.filter((x) => x.path == 'edit-fleet-status').length > 0
+          ? true
+          : false;
+    });
     this.fleetStatusForm = this._fb.group({
       typeCategory: ['asset'],
       statusCategory: ['', [Validators.required]],
@@ -134,13 +132,10 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
         relativeTo: this.route,
         queryParams: { id: 'fleetStatusAssetTab' }
       });
-    else
-      this.dialogModalCancel = false
+    else this.dialogModalCancel = false;
   }
 
   dialogAddConfirm(event) {
-    console.log(event)
-
     this.router.navigate(['/configuration/fleet-status'], {
       relativeTo: this.route,
       queryParams: { id: 'fleetStatusAssetTab' }

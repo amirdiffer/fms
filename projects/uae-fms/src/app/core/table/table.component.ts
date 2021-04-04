@@ -36,9 +36,10 @@ export class TableComponent implements OnInit {
     });
 
     this.tableData?.subscribe((x) => {
-      console.log(x);
-      this.setting.data = x;
-      this.changeDetection.detectChanges();
+      if (x) {
+        this.setting.data = x;
+        this.changeDetection.detectChanges();
+      }
     });
   }
 
@@ -50,7 +51,9 @@ export class TableComponent implements OnInit {
         case 2:
           return data[col.thumbField]
             ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
-                environment.baseFileServer + data[col.thumbField]
+                col.override
+                  ? 'assets/' + col.override
+                  : environment.baseFileServer + data[col.thumbField]
               }'> <p class='text-of-cell-with-image'>${
                 data[col.field]
               }</p></div>`
@@ -206,6 +209,7 @@ export interface ColumnDifinition {
   width?: any;
   type?: ColumnType;
   thumbField?: string;
+  override?: string;
   renderer?: string;
   rendererOptions?: RendererOptions;
   buttonType?: ButtonType;

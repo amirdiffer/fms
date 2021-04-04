@@ -15,12 +15,23 @@ import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-ser
 import { AddTypeComponent } from '@feature/configuration/asset-configuration/add-type/add-type.component';
 import { AddMakeComponent } from './asset-configuration/add-make/add-make.component';
 import { AddModelComponent } from '@feature/configuration/asset-configuration/add-model/add-model.component';
+import { AddTrimComponent } from '@feature/configuration/asset-configuration/add-trim/add-trim.component';
 
 const routes: Routes = [
   { path: 'asset-configuration', component: AssetConfigurationComponent },
   { path: 'add-asset-configuration', component: AddTypeComponent },
-  { path: 'asset-configuration/add-make', component: AddMakeComponent },
-  { path: 'asset-configuration/add-model', component: AddModelComponent },
+  {
+    path: 'asset-configuration/add-make/:assetType',
+    component: AddMakeComponent
+  },
+  {
+    path: 'asset-configuration/add-model/:assetType/:make',
+    component: AddModelComponent
+  },
+  {
+    path: 'asset-configuration/add-trim/:assetType/:make/:model',
+    component: AddTrimComponent
+  },
   { path: 'business-category', component: BusinessCategoryComponent },
   { path: 'periodic-service', component: PeriodicServiceComponent },
   { path: 'asset-policy/add-asset-policy', component: AddAssetPolicyComponent },
@@ -62,12 +73,12 @@ const routes: Routes = [
   { path: 'asset-policy', component: AssetPolicyComponent },
   { path: 'business-category', component: BusinessCategoryComponent },
   { path: 'asset-configuration', component: AssetConfigurationComponent },
-  { path: 'fleet-status', component: FleetStatusComponent },
+  /* { path: 'fleet-status', component: FleetStatusComponent },
   {
     path: 'fleet-status/add-fleet-status',
     component: AddFleetStatusComponent,
     data: { name: 'Add Fleet Status' }
-  },
+  }, */
   {
     path: 'fleet-status/edit-fleet-status/:id',
     component: AddFleetStatusComponent,

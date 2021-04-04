@@ -39,7 +39,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
   selectedTab = 'assetMasterTab';
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-
+  sampleImg = 'assets/thumb.png';
   //#region  table
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map((x) => {
@@ -48,7 +48,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
           ...y,
           id: y.id,
           asset: {
-            img: 'thumb1.png',
+            img: this.sampleImg,
             assetName: y.assetTypeName,
             assetSubName: y.dpd,
             ownership: 'Owned'
@@ -59,7 +59,8 @@ export class AssetsComponent implements OnInit, OnDestroy {
           operator: y.operator.firstName + ' ' + y.operator.lastName,
           status: y.status,
           submitOn: '2 day ago',
-          brand: 'bmw.png',
+          // brand: 'bmw.png',
+          brand: y.makeName,
           killometer: 25000,
           statusColor: '#009EFF'
         };
@@ -164,9 +165,9 @@ export class AssetsComponent implements OnInit, OnDestroy {
         },
         {
           lable: 'tables.column.make',
-          field: '',
+          field: 'brand',
           width: 100,
-          type: 3,
+          type: 1,
           thumbField: 'brand',
           renderer: ''
         },
@@ -198,16 +199,16 @@ export class AssetsComponent implements OnInit, OnDestroy {
               this.assetMasterFacade.reset();
               this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
             }
-          },
-          {
-            button: 'download'
-          },
-          {
-            button: 'external',
-            onClick: (col, data) => {
-              this._router.navigate(['/fleet/assets/' + data.id]);
-            }
           }
+          // {
+          //   button: 'download'
+          // },
+          // {
+          //   button: 'external',
+          //   onClick: (col, data) => {
+          //     this._router.navigate(['/fleet/assets/' + data.id]);
+          //   }
+          // }
         ]
       }
     };
@@ -242,24 +243,6 @@ export class AssetsComponent implements OnInit, OnDestroy {
     this.registrationFacade.loadAll();
     this.customizationFacade.loadAll();
     this.assetMasterFacade.loadStatistics();
-
-    this.assetMasterSubscription = this.assetMasterFacade.assetMaster$.subscribe(
-      (response) => {
-        console.log(response);
-      }
-    );
-
-    this.registrationSubscription = this.registrationFacade.registration$.subscribe(
-      (response) => {
-        console.log(response);
-      }
-    );
-
-    this.customizationSubscription = this.customizationFacade.customization$.subscribe(
-      (response) => {
-        console.log(response);
-      }
-    );
 
     this.statisticsSubscription = this.assetMasterFacade.statistics$.subscribe(
       (response) => {

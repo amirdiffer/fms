@@ -12,49 +12,44 @@ export class AssetTypeService {
 
   loadAll(): Observable<ResponseBody<IAssetType[]>> {
     return this.http.get<ResponseBody<IAssetType[]>>(
-      environment.baseApiUrl + '/configuration/asset-type'
+      environment.baseApiUrl + 'configuration/asset-type'
     );
   }
 
   post(data): Observable<ResponseBody<any>> {
-    return this.http
-      .post<ResponseBody<any>>(
-        environment.baseApiUrl + 'configuration/asset-type',
-        data
-      )
-      .pipe(
-        tap((res) => {
-          console.log(data);
-          console.log(res);
-        })
-      );
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'configuration/asset-type',
+      data
+    );
   }
 
   postMake(data): Observable<ResponseBody<any>> {
-    return this.http
-      .post<ResponseBody<any>>(
-        environment.baseApiUrl + 'configuration/asset-type',
-        data
-      )
-      .pipe(
-        tap((res) => {
-          console.log(data);
-          console.log(res);
-        })
-      );
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl +
+        'configuration/asset-type/' +
+        data.id +
+        '/update',
+      data
+    );
   }
 
   postModel(data): Observable<ResponseBody<any>> {
-    return this.http
-      .post<ResponseBody<any>>(
-        environment.baseApiUrl + 'configuration/asset-type',
-        data
-      )
-      .pipe(
-        tap((res) => {
-          console.log(data);
-          console.log(res);
-        })
-      );
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl +
+        'configuration/asset-type/' +
+        data.id +
+        '/update',
+      data
+    );
+  }
+
+  postTrim(data): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl +
+        'configuration/asset-type/' +
+        data.id +
+        '/update',
+      data
+    );
   }
 }

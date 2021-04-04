@@ -57,6 +57,7 @@ import { TemporaryComponent } from '../fleet/movement/temporary/temporary.compon
 import { AddTemporaryRequestComponent } from '@feature/fleet/movement/add-temporary-request/add-temporary-request.component';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movement-temporary-confirm/movement-confirm.component';
+import { AccessoryOverviewComponent } from './accessory/accessory-overview/accessory-overview.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movem
     AccessoryComponent,
     AddAccessoryComponent,
     AddSubAssetComponent,
+    AccessoryOverviewComponent,
     AddOrganizationComponent,
     MovementConfirmComponent,
     MovementTemporaryConfirmComponent,

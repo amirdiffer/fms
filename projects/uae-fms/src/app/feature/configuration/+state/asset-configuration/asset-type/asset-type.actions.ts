@@ -36,8 +36,17 @@ export class AssetTypeActions {
     props<{ data: any }>()
   );
 
+  static addTrim = createAction('[AssetType] add trim', props<{ data: any }>());
+
+  static trimAddedSuccessfully = createAction(
+    '[AssetType] trim added successfully',
+    props<{ data: any }>()
+  );
+
   static error = createAction(
     '[AssetType] error occurred',
     props<{ reason: any }>()
   );
+
+  static resetParams = createAction('[AssetType] Reset Parameters');
 }

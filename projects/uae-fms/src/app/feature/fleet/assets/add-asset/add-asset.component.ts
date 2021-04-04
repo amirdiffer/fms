@@ -20,14 +20,20 @@ import {
 } from '@feature/fleet/+state/assets/asset-master';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { BusinessCategoryFacade } from '@feature/configuration/+state/business-category';
-import { map , tap } from 'rxjs/operators';
-import { Subscription , of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Subscription, of } from 'rxjs';
 import { OwnershipFacade } from '@feature/configuration/+state/ownership';
 import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
 import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
 import { PeriodicServiceFacade } from '@feature/configuration/+state/periodic-service';
-import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
-import { OperatorFacade, OperatorService } from '@feature/fleet/+state/operator'
+import {
+  OrganizationFacade,
+  OrganizationService
+} from '@feature/fleet/+state/organization';
+import {
+  OperatorFacade,
+  OperatorService
+} from '@feature/fleet/+state/operator';
 
 @Component({
   selector: 'anms-add-asset',
@@ -53,7 +59,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   isEdit: boolean = false;
   id: number;
   private _asset;
-  private csvText=[];
+  private csvText = [];
   /* Forms */
   formGroupAssetDetail: FormGroup;
   formGroupFinancial: FormGroup;
@@ -84,16 +90,14 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     return this.formGroupMaintenance.get('warrantyItems') as FormArray;
   }
 
-
   // Upload Files
-  vehicleDoc=[];
-  purchaseDoc=[];
+  vehicleDoc = [];
+  purchaseDoc = [];
   maintenanceServiceDoc = [];
   warrantyDocs = [];
   public vehicleDocRequired = false;
   public purchaseDocRequired = false;
   public maintenanceServiceDocRequired = false;
-
 
   //#region  Dialog
   dialogModal = false;
@@ -163,11 +167,10 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     { name: 'Item type 5', id: 5 },
     { name: 'Item type 6', id: 6 }
   ];
-  periodType =[
-    {name:'Month', id:'MONTH'},
-    {name:'Year', id:'YEAR'},
-  ]
-
+  periodType = [
+    { name: 'Month', id: 'MONTH' },
+    { name: 'Year', id: 'YEAR' }
+  ];
 
   businessCategory$: Subscription;
   ownerShip$: Subscription;
@@ -188,11 +191,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   policyTypeValue;
   periodicServiceItem = [];
   department = [];
-  operator=[];
-  testFile = [{id:1}]
-
-
-
+  operator = [];
+  testFile = [{ id: 1 }];
 
   //#region Table Settings
   reviewPlaneSettingTable2: TableSetting = {
@@ -467,7 +467,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         department: [''],
         operator: ['']
       }),
-      uploadFile: ['',Validators.compose([Validators.required])]
+      uploadFile: ['', Validators.compose([Validators.required])]
     });
     this.formGroupFinancial = this._fb.group({
       assetFinancialPlan: this._fb.group({
@@ -491,10 +491,29 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
     this.formGroupGenerate = this._fb.group({
       quantity: ['multipleAsset', Validators.compose([Validators.required])],
-      serialNumber:[''],
+      serialNumber: [''],
       uploadFile: ['']
     });
-
+    this.route.url.subscribe((params) => {
+      this.isEdit =
+        params.filter((x) => x.path == 'edit-asset').length > 0 ? true : false;
+      if (this.isEdit) {
+        this.id = +params[params.length - 1].path;
+        this._service
+          .getAssetByID(this.id)
+          .pipe(map((x) => x.message))
+          .subscribe((x) => {
+            if (x) {
+              this._asset = x;
+              this.formGroupGenerate.patchValue({
+                quantity: ['singleAsset'],
+                serialNumber: [x.dpd]
+              });
+              this.editPatchValue(this._asset);
+            }
+          });
+      }
+    });
     this.reviewPlaneSettingTable = {
       columns: [
         {
@@ -542,7 +561,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       });
     });
 
-
     this.policyType$ = this._facadeAssetPolicy.assetPolicy$.subscribe(
       (data) => {
         data.map((response) => {
@@ -555,115 +573,88 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       (data) => {
         data.map((response) => {
           this.periodicServiceItem.push(response);
-
         });
       }
     );
-    this.department$ = this._departmentService.loadAll().subscribe(
-      (data) => {
-        data.message.map((response) => {
-          console.log(response);
-          const dep = {
-            id: response.id,
-            name: response.organizationName,
-            organizationID: response.organizationNumber
-          };
-          this.department.push(dep);
-
-        });
-        console.log('Department' , this._asset)
-        if(this.isEdit && this._asset.length > 0){
-
-          this.formGroupAssetDetail.patchValue({
-            purchasedFor:{
-              department: this._asset.department.id,
-            },
-          })
-        }
-      }
-    );
-
-    this.operator$ = this._operatorService.loadAll().subscribe(
-      (data) => {
-        data.message.map((response) => {
-          console.log(response);
-          const opr = {
-            id: response.id,
-            name:`${response.firstName} ${response.lastName}`,
-          }
-          this.operator.push(opr);
-        });
-        if(this.isEdit && this._asset.length > 0){
-          this.formGroupAssetDetail.patchValue({
-            purchasedFor:{
-              operator: this._asset.operator.id,
-            },
-          })
-        }
-      }
-    );
-    this.assetType$ = this._assetConfigurationService
-    .loadAll()
-    .subscribe((data) => {
-      data.message.map((x) => {
-        this.assetType.push(x);
+    this.department$ = this._departmentService.loadAll().subscribe((data) => {
+      data.message.map((response) => {
+        const dep = {
+          id: response.id,
+          name: response.organizationName,
+          organizationID: response.organizationNumber
+        };
+        this.department.push(dep);
       });
-      if (this.isEdit){
-        this.assetType.find((z) => z.id == this._asset.assetTypeId).makes.map((f) =>{
-          this.assetMake.push(f);
-        });
-        this.assetMake.find((z) => z.id == this._asset.makeId).models.map((y) => {
-          this.assetModel.push(y);
-          this.assetColor = [];
-          this.assetTrim = [];
-          this.assetModel
-            .find((x) => x.id == this._asset.modelId)
-            .trims.map((x) => {
-              this.assetTrim.push(x);
-              x.colors.map((y) => {
-                this.assetColor.push(y);
-              });
-            });
-        });
+      // console.log('Department' , this._asset, this.isEdit)
+      if (this.isEdit && this._asset) {
         this.formGroupAssetDetail.patchValue({
-          assetDetails: {
-            year: +this._asset.year,
-            type: this._asset.assetTypeId,
-            make: this._asset.makeId,
-            model: this._asset.modelId,
-            color: this._asset.colorId,
-            trim: this._asset.trimId,
-          },
+          purchasedFor: {
+            department: this._asset.department.id
+          }
         });
       }
-
     });
 
-
-
-    this.route.url.subscribe((params) => {
-      this.isEdit =
-        params.filter((x) => x.path == 'edit-asset').length > 0 ? true : false;
+    this.operator$ = this._operatorService.loadAll().subscribe((data) => {
+      data.message.map((response) => {
+        console.log(response);
+        const opr = {
+          id: response.id,
+          name: `${response.firstName} ${response.lastName}`
+        };
+        this.operator.push(opr);
+      });
+      if (this.isEdit && this._asset) {
+        this.formGroupAssetDetail.patchValue({
+          purchasedFor: {
+            operator: this._asset.operator.id
+          }
+        });
+      }
+    });
+    this.assetType$ = this._assetConfigurationService
+      .loadAll()
+      .subscribe((data) => {
+        data.message.map((x) => {
+          this.assetType.push(x);
+        });
         if (this.isEdit) {
-          this.id = +params[params.length - 1].path;
-            this._service.getAssetByID(this.id)
-              .pipe(map((x) => x.message))
-              .subscribe(
-                (x) => {
-                  if (x) {
-                    this._asset = x;
-                    console.log(x)
-                    this.editPatchValue(this._asset);
-                  }
-                },
-              );
+          this.assetType
+            .find((z) => z.id == this._asset.assetTypeId)
+            .makes.map((f) => {
+              this.assetMake.push(f);
+            });
+          this.assetMake
+            .find((z) => z.id == this._asset.makeId)
+            .models.map((y) => {
+              this.assetModel.push(y);
+              this.assetColor = [];
+              this.assetTrim = [];
+              this.assetModel
+                .find((x) => x.id == this._asset.modelId)
+                .trims.map((x) => {
+                  this.assetTrim.push(x);
+                  x.colors.map((y) => {
+                    this.assetColor.push(y);
+                  });
+                });
+            });
+          this.formGroupAssetDetail.patchValue({
+            assetDetails: {
+              year: +this._asset.year,
+              type: this._asset.assetTypeId,
+              make: this._asset.makeId,
+              model: this._asset.modelId,
+              color: this._asset.colorId,
+              trim: this._asset.trimId
+            }
+          });
         }
-    });
+      });
 
     // Request to Server - Error
     this._facade.error$.subscribe((x) => {
       if (x?.error) {
-        console.log(x?.error);
         this.errorDialogModal = true;
         this.errorDialogSetting.header = this.isEdit
           ? 'Edit Asset'
@@ -694,63 +685,63 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         this.changeDetection.detectChanges();
       }
     });
-
   }
 
-  public editPatchValue (x) {
-    this.vehicleDoc = Array.isArray(x.vehicleDocIds) ? x.vehicleDocIds : [x.vehicleDocIds];
-    this.purchaseDoc = Array.isArray(x.purchaseDocId) ? x.purchaseDocId : [x.purchaseDocId] ;
+  public editPatchValue(x) {
+    this.vehicleDoc = Array.isArray(x.vehicleDocIds)
+      ? x.vehicleDocIds
+      : [x.vehicleDocIds];
+    this.purchaseDoc = Array.isArray(x.purchaseDocId)
+      ? x.purchaseDocId
+      : [x.purchaseDocId];
     this.formGroupAssetDetail.patchValue({
       businessInfo: {
         businessCategory: x.businessCategoryId,
         ownership: x.ownershipId
       },
       assetDetails: {
-        origin:x.origin,
+        origin: x.origin,
         meterType: x.meterType
       },
-      purchasedFor:{
+      purchasedFor: {
         department: x.department.id,
         operator: x.operator.id
       },
-      uploadFile:this.vehicleDoc
+      uploadFile: this.vehicleDoc
     });
 
-    const date = moment.utc(x.inServiceDate , true).local();
+    const date = moment.utc(x.inServiceDate, true).local();
     this.formGroupFinancial.patchValue({
-      assetFinancialPlan:{
-        policyType:x.policyTypeId,
+      assetFinancialPlan: {
+        policyType: x.policyTypeId,
         purchaseValue: x.purchaseValue
       },
-      lifeCycle:{
-        inServiceDate:date.toDate(),
-        inServiceOdometer:x.inServiceOdometer
+      lifeCycle: {
+        inServiceDate: date.toDate(),
+        inServiceOdometer: x.inServiceOdometer
       },
-      uploadFile:this.purchaseDoc
+      uploadFile: this.purchaseDoc
     });
     this.onChangePolicyType(x.policyTypeId);
-    for (let index = 0; index < x.warranties.length -1; index++){
+    for (let index = 0; index < x.warranties.length - 1; index++) {
       this.addWarrantyItem(false);
-    };
+    }
     this.formGroupMaintenance.patchValue({
-      periodicService : x.periodicServiceId,
-      description:x.description,
-      warrantyItems: x.warranties.map(
-        (x) => {
-          const date = moment.utc(x.startDate).local();
-          this.warrantyDocs.push(x.docId)
-          return {
-            ...x,
-            item:x.item,
-            startDate:date.toDate(),
-            duration: x.duration ,
-            periodType: x.periodType,
-            docId:x.docId,
-            hasReminder:x.hasReminder
-          }
-        }
-
-      )
+      periodicService: x.periodicServiceId,
+      description: x.description,
+      warrantyItems: x.warranties.map((x) => {
+        const date = moment.utc(x.startDate).local();
+        this.warrantyDocs.push(x.docId);
+        return {
+          ...x,
+          item: x.item,
+          startDate: date.toDate(),
+          duration: x.duration,
+          periodType: x.periodType,
+          docId: x.docId,
+          hasReminder: x.hasReminder
+        };
+      })
     });
   }
   public calculateAssetPolicy() {
@@ -775,12 +766,12 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
   public formBuilderArrayControl(): FormGroup {
     return this._fb.group({
-      item: ['' , Validators.required],
-      periodType: ['' , Validators.required],
-      duration: ['' , Validators.required],
-      startDate: ['' , Validators.required],
-      hasReminder:[false],
-      docId:['',Validators.required]
+      item: ['', Validators.required],
+      periodType: ['', Validators.required],
+      duration: ['', Validators.required],
+      startDate: ['', Validators.required],
+      hasReminder: [false],
+      docId: ['', Validators.required]
     });
   }
 
@@ -788,14 +779,13 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     return file.name;
   }
   selectedPlicyType(value) {
-    console.log(value);
+    // console.log(value);
   }
 
   next() {
     let activeStep = this.stepper.selectedIndex;
     switch (activeStep) {
       case 0: {
-        console.log(this.formGroupAssetDetail.getRawValue());
         this.submitted_AssetDetail = true;
         if (this.formGroupAssetDetail.get('uploadFile').invalid) {
           this.vehicleDocRequired = true;
@@ -804,8 +794,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         break;
       }
       case 1: {
-        console.log(this.formGroupFinancial.getRawValue());
-        console.log(this.formGroupFinancial.getRawValue());
         this.submitted_Financial = true;
         if (this.formGroupFinancial.get('uploadFile').invalid) {
           this.purchaseDocRequired = true;
@@ -833,61 +821,67 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
   buttonUpload(): void {
     this.submitted_Generate = true;
-    if(this.formGroupGenerate.get('quantity').value == 'multipleAsset'){
-      this.formGroupGenerate.get('uploadFile').setValidators([Validators.required])
+    if (this.formGroupGenerate.get('quantity').value == 'multipleAsset') {
+      this.formGroupGenerate
+        .get('uploadFile')
+        .setValidators([Validators.required]);
       this.formGroupGenerate.get('serialNumber').clearValidators();
-      if(this.formGroupGenerate.get('uploadFile').invalid ||
-        this.formGroupGenerate.get('uploadFile').value == ''){
+      if (
+        this.formGroupGenerate.get('uploadFile').invalid ||
+        this.formGroupGenerate.get('uploadFile').value == ''
+      ) {
         this.maintenanceServiceDocRequired = true;
-        return
+        return;
       }
-    }else{
-      this.formGroupGenerate.get('serialNumber').setValidators([Validators.required])
+    } else {
+      this.formGroupGenerate
+        .get('serialNumber')
+        .setValidators([Validators.required]);
       this.formGroupGenerate.get('uploadFile').clearValidators();
-      if(this.formGroupGenerate.get('serialNumber').invalid ||
-        this.formGroupGenerate.get('serialNumber').value == ''){
-        return
+      if (
+        this.formGroupGenerate.get('serialNumber').invalid ||
+        this.formGroupGenerate.get('serialNumber').value == ''
+      ) {
+        return;
       }
     }
     this.uploadReview = true;
   }
-
 
   addWarrantyItem(hasValidation = true) {
     const item = this.formGroupMaintenance.get('warrantyItems') as FormArray;
     item.push(this.formBuilderArrayControl());
   }
 
-  getWarrantyDoc(index){
-    return [this.warrantyDocs[index]]
+  getWarrantyDoc(index) {
+    return [this.warrantyDocs[index]];
   }
   getWarrantyStartDat(i: number) {
     const date = this.warrantyStartDate.controls[i] as FormGroup;
     return date.get('startDate').value;
   }
-  onChangeAssetType (event){
+  onChangeAssetType(event) {
     this.assetMake = [];
     const value = event.value ? event.value : event;
-    console.log(value)
-    this.assetType.find((x) => x.id == value).makes.map((x) =>{
-      this.assetMake.push(x);
-    })
-
+    this.assetType
+      .find((x) => x.id == value)
+      .makes.map((x) => {
+        this.assetMake.push(x);
+      });
   }
   onChangeAssetMake(event) {
     this.assetModel = [];
 
     const value = event.value ? event.value : event;
-    console.log(value)
-    this.assetMake.find((x) => x.id == value).models.map((x) => {
-      this.assetModel.push(x);
-      console.log(this.assetModel);
-    });
+    this.assetMake
+      .find((x) => x.id == value)
+      .models.map((x) => {
+        this.assetModel.push(x);
+      });
   }
 
   onChangeAssetModel(event) {
     const value = event.value ? event.value : event;
-    console.log(value)
     this.assetColor = [];
     this.assetTrim = [];
     this.assetModel
@@ -901,9 +895,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   onChangePolicyType(event) {
-    this.calculate = false
-    const value = event.value? event.value : event;
-    console.log(value)
+    this.calculate = false;
+    const value = event.value ? event.value : event;
+    console.log(value);
     this.policyTypeValue = this.policyTypeDropDown.find((x) => x.id == value);
     const dataChange = {
       depreciationValue: `%${this.policyTypeValue.maxUsageKPHour}`,
@@ -913,30 +907,27 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.reviewPlaneSettingTable.data = [];
     this.reviewPlaneSettingTable.data.push(dataChange);
   }
-  csvReader(event){
-    console.log(event);
-    this.csvText= event
+  csvReader(event) {
+    this.csvText = event;
   }
 
-  dpdGenerate(ownership){;
-    const fleetItCode = this.ownerShip.find((x) => x.id == ownership).fleetITCode;
-    let dpdCodes=[]
-    this.csvText.map(
-      (x) => {
-        dpdCodes.push(`${fleetItCode}${x}`)
-      }
-    );
-    return dpdCodes
-
+  dpdGenerate(ownership) {
+    const fleetItCode = this.ownerShip.find((x) => x.id == ownership)
+      .fleetITCode;
+    let dpdCodes = [];
+    this.csvText.map((x) => {
+      dpdCodes.push(`${fleetItCode}${x}`);
+    });
+    return dpdCodes;
   }
   generateForm() {
     let formVal_AssetDetail = this.formGroupAssetDetail.getRawValue();
     let formVal_Financial = this.formGroupFinancial.getRawValue();
     let formVal_Maintenance = this.formGroupMaintenance.getRawValue();
     let formVal_Generate = this.formGroupGenerate.getRawValue();
-    let dpdcodes = this.dpdGenerate(formVal_AssetDetail.businessInfo.ownership)
+    let dpdcodes = this.dpdGenerate(formVal_AssetDetail.businessInfo.ownership);
     if (this.formGroupGenerate.invalid) return;
-    if(this.isEdit) {
+    if (this.isEdit) {
       let formValue = {
         id: this.id,
         avatarId: 1,
@@ -950,7 +941,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         trimId: formVal_AssetDetail.assetDetails.trim,
         origin: formVal_AssetDetail.assetDetails.origin,
         meterType: formVal_AssetDetail.assetDetails.meterType,
-        vehicleDocIds:formVal_AssetDetail.uploadFile,
+        vehicleDocIds: formVal_AssetDetail.uploadFile,
         organizationId: 1,
         departmentId: formVal_AssetDetail.purchasedFor.department,
         operatorId: formVal_AssetDetail.purchasedFor.operator,
@@ -967,10 +958,12 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
             ? new Array(this._asset.dpd)
             : this._asset.dpd
       };
-      formValue.warrantyItems.map((x) => {x.startDate = x.startDate.toISOString()})
-      console.log(formValue)
-      this._facade.editAsset(formValue)
-    }else{
+      formValue.warrantyItems.map((x) => {
+        x.startDate = x.startDate.toISOString();
+      });
+      console.log(formValue);
+      this._facade.editAsset(formValue);
+    } else {
       let formValue = {
         avatarId: 1,
         businessCategoryId: formVal_AssetDetail.businessInfo.businessCategory,
@@ -983,7 +976,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         trimId: formVal_AssetDetail.assetDetails.trim,
         origin: formVal_AssetDetail.assetDetails.origin,
         meterType: formVal_AssetDetail.assetDetails.meterType,
-        vehicleDocIds:formVal_AssetDetail.uploadFile,
+        vehicleDocIds: formVal_AssetDetail.uploadFile,
         organizationId: 1,
         departmentId: formVal_AssetDetail.purchasedFor.department,
         operatorId: formVal_AssetDetail.purchasedFor.operator,
@@ -999,10 +992,20 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         //   `DPD${Math.floor(Math.random() * 99990)}`,
         //   `DPD${Math.floor(Math.random() * 99990)}`
         // ]
-        dpds:formVal_Generate.quantity == 'multipleAsset'? dpdcodes : [`${this.ownerShip.find((x) => x.id == formVal_AssetDetail.businessInfo.ownership).fleetITCode}${formVal_Generate.serialNumber}`]
+        dpds:
+          formVal_Generate.quantity == 'multipleAsset'
+            ? dpdcodes
+            : [
+                `${
+                  this.ownerShip.find(
+                    (x) => x.id == formVal_AssetDetail.businessInfo.ownership
+                  ).fleetITCode
+                }${formVal_Generate.serialNumber}`
+              ]
       };
-      formValue.warrantyItems.map((x) => {x.startDate = x.startDate.toISOString()});
-      console.log(formValue)
+      formValue.warrantyItems.map((x) => {
+        x.startDate = x.startDate.toISOString();
+      });
       this._facade.addAsset(formValue);
     }
   }
@@ -1016,7 +1019,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   dialog(event) {
     if (event) {
       this._facade.reset();
-      this._router.navigate(['/fleet/assets'])
+      this._router.navigate(['/fleet/assets']);
     }
     this.dialogModal = false;
   }
@@ -1024,7 +1027,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   cancelDialog($event) {
     if ($event) {
       this._facade.reset();
-      this._router.navigate(['/fleet/assets'])
+      this._router.navigate(['/fleet/assets']);
     }
     this.dialogModal = false;
   }

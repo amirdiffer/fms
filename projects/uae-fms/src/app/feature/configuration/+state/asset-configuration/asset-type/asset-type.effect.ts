@@ -42,7 +42,7 @@ export class AssetTypeEffect {
         this.service.postMake(action.data).pipe(
           map((data) =>
             AssetTypeActions.makeAddedSuccessfully({
-              data: { ...action.data, ...data.message }
+              data: { ...action.data }
             })
           ),
           catchError((error) => of(AssetTypeActions.error({ reason: error })))
@@ -58,7 +58,23 @@ export class AssetTypeEffect {
         this.service.postModel(action.data).pipe(
           map((data) =>
             AssetTypeActions.modelAddedSuccessfully({
-              data: { ...action.data, ...data.message }
+              data: { ...action.data }
+            })
+          ),
+          catchError((error) => of(AssetTypeActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  addTrimData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetTypeActions.addTrim),
+      mergeMap((action) =>
+        this.service.postTrim(action.data).pipe(
+          map((data) =>
+            AssetTypeActions.trimAddedSuccessfully({
+              data: { ...action.data }
             })
           ),
           catchError((error) => of(AssetTypeActions.error({ reason: error })))

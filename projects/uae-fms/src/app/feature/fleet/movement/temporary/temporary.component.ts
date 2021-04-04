@@ -114,7 +114,6 @@ export class TemporaryComponent
 
   movementOverview$ = this._movementOverviewFacade.MovementOverview$.pipe(
     map((x) => {
-      console.log(x);
       return x.map((y) => {
         return {
           ...y,
@@ -207,7 +206,6 @@ export class TemporaryComponent
         renderer: 'button',
         buttonType: ButtonType.reject,
         onClick: (data) => {
-          console.log('ddd');
           // this._movementRequestsFacade.rejecting(data);
         },
         showOnHover: true
@@ -227,7 +225,6 @@ export class TemporaryComponent
       onClick: (data, button?, col?) => {
         if (button == 'reject') this._movementRequestsFacade.rejecting(data.id);
         else if (button == 'confirm') {
-          console.log(data);
           this.assignID = data.id;
           this.openConfirmModal();
         }
@@ -316,7 +313,6 @@ export class TemporaryComponent
     this._movementRequestsFacade.loadAll();
     this._movementRequestsFacade.loadRequestStatistic();
     this._movementRequestsFacade.MovementRequestStatistic.subscribe((x) => {
-      console.log(x);
       if (x) {
         const response = x.message;
         this.filterSetting.map((filter) => {
@@ -410,9 +406,7 @@ export class TemporaryComponent
     });
   }
 
-  rejectRow() {
-    console.log('reject');
-  }
+  rejectRow() {}
 
   dialogConfirm(confirmed) {
     if (confirmed) {

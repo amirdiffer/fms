@@ -40,6 +40,5 @@ export class AddIntegrationComponent implements OnInit {
   save() {
     this._facade.addIntegration(this.inputForm.value);
     this._integrationservice.loadInegrationForm(false);
-    console.log(this.inputForm.value);
   }
 }

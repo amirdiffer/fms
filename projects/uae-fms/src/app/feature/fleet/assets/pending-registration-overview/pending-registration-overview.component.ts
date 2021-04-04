@@ -38,19 +38,19 @@ export class PendingRegistrationOverviewComponent
   inputForm: FormGroup;
   submitted = false;
   displayModal = false;
-  dialogSetting : IDialogAlert ={
-    header:'Asset Successfully Registered',
-    hasError:false,
-    message:'Sample hint is here to explain process',
+  dialogSetting: IDialogAlert = {
+    header: 'Asset Successfully Registered',
+    hasError: false,
+    message: 'Sample hint is here to explain process',
     confirmButton: 'Customize Now',
-    buttons:[
+    buttons: [
       {
-        title:'Customize Later',
-        eventEmit:'customizeLater'
+        title: 'Customize Later',
+        eventEmit: 'customizeLater'
       }
     ],
-    cancelButton:'Cancel',
-  }
+    cancelButton: 'Cancel'
+  };
 
   constructor(
     private dialog: MatDialog,
@@ -95,9 +95,8 @@ export class PendingRegistrationOverviewComponent
     this.filteredFuelTag = filtered;
   }
 
-  dialogConfirm (event){
+  dialogConfirm(event) {
     this.displayModal = false;
-    console.log(event)
   }
 
   submit() {
