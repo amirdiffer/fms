@@ -639,19 +639,9 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     this.csvText = event;
   }
 
-  uploadAssetPicture($event) {
-    const docId = $event.files[0];
-    console.log(docId);
-    console.log(typeof docId);
-    this.subAssetForm.controls['avatarId'].setValue(docId);
-  }
-  uploadDocFiles(event) {
-    this.subAssetForm.patchValue({
-      uploadFile: event.files
-    });
-  }
-  csvReader(event) {
-    this.csvText = event;
-    console.log(event);
-  }
+  // uploadDocFiles(event) {
+  //   this.subAssetForm.patchValue({
+  //     uploadFile: event.files
+  //   });
+  // }
 }

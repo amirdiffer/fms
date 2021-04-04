@@ -25,12 +25,11 @@ export class HttpInterceptor implements HttpInterceptorBase {
       withCredentials: true
     });
 
-
     if (request.url.indexOf('login') < 0) {
       headers = new HttpHeaders({
         permission_level: '123456',
         user_id: '1',
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'application/json'
       });
       req = request.clone({ headers: headers });
     } else {

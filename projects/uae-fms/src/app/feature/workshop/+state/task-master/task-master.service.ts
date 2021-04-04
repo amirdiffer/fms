@@ -9,8 +9,8 @@ import { ResponseBody } from '@models/responseBody';
 export class TaskMasterService {
   constructor(private _http: HttpClient) {}
 
-  loadAll(): Observable<ResponseBody<ITaskMasterModel[]>> {
-    return this._http.get<ResponseBody<ITaskMasterModel[]>>(
+  loadAll(): Observable<ResponseBody<any[]>> {
+    return this._http.get<ResponseBody<any[]>>(
       environment.baseApiUrl + 'workshop/taskmaster'
     );
   }

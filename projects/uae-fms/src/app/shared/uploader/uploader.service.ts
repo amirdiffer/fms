@@ -33,9 +33,4 @@ export class UploaderService {
       responseType: 'text'
     });
   }
-  getCSVfile(id) {
-    return this._http.get(environment.baseApiUrl + `document/${id}`, {
-      responseType: 'text'
-    });
-  }
 }

@@ -196,8 +196,4 @@ export class OperatorComponent implements OnInit {
   exportTable() {
     this.table.exportTable(this.operator_Table, 'Operator');
   }
-
-  exportTable() {
-    this.table.exportTable(this.operator_Table, 'Operator');
-  }
 }
