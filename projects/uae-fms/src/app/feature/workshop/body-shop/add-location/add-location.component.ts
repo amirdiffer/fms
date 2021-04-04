@@ -244,7 +244,6 @@ export class AddLocationComponent extends Utility implements OnInit {
       return;
     }
 
-    console.log(this.inputForm.value);
     this.dialogModal = true;
     this.dialogSetting.isWarning = false;
     this.dialogSetting.message = 'New location added successfully';

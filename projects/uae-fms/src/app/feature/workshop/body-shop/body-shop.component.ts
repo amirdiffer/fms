@@ -313,7 +313,6 @@ export class BodyShopComponent implements OnInit {
         {
           button: 'external',
           onClick: (col, data) => {
-            console.log(data);
             this.router
               .navigate(['/workshop/body-shop/request-overview/' + data.id])
               .then();
@@ -477,7 +476,7 @@ export class BodyShopComponent implements OnInit {
     ],
     rowSettings: {
       onClick: (col, data) => {
-        console.log(col, data);
+        // console.log(col, data);
       },
       floatButton: [
         {
@@ -766,20 +765,16 @@ export class BodyShopComponent implements OnInit {
   ngOnInit(): void {
     this._facadeRequest.loadAll();
     this._facadeRequest.bodyShop$.subscribe((x) => {
-      console.log(x);
     });
     this._facadeJobCard.loadAll();
     this._facadeJobCard.bodyShop$.subscribe((x) => {
-      console.log(x);
     });
     this._facadeTechnician.loadAll();
     this._facadeTechnician.bodyShop$.subscribe((x) => {
-      console.log(x);
     });
     this._facadeLocation.loadAll();
     this._facadeRequest.loadStatistics();
     this._facadeRequest.statistics$.subscribe((x) => {
-      console.log(x);
       if (x) {
         this.filterSetting.map((filter) => {
           switch (filter.filterTitle) {

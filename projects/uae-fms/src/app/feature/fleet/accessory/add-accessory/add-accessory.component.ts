@@ -1,19 +1,31 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { AccessoryService } from './../../+state/accessory/accessory.service';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
-import { AccessoryService } from '../accessory.service';
 import { TableSetting } from '@core/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AccessoryFacade } from '@feature/fleet/+state/accessory';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { ThrowStmt } from '@angular/compiler';
 import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+
+const EMPTY_SELECT_ITEM_LIST = [
+  {
+    name: '',
+    id: null
+  }
+];
 
 @Component({
   selector: 'add-accessory',
@@ -22,13 +34,9 @@ import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddAccessoryComponent implements OnInit {
-  public inputForm: FormGroup;
+  public accessoryForm: FormGroup;
 
-  accessory = [
-    { name: 'Accessory Type 1', id: 1 },
-    { name: 'Accessory Type 2', id: 2 },
-    { name: 'Accessory Type 3', id: 3 }
-  ];
+  accessory = [{ name: '', id: null }];
 
   assignedTo = [
     { name: 'assignedTo Type 1', id: 1 },
@@ -38,16 +46,16 @@ export class AddAccessoryComponent implements OnInit {
 
   assetsB;
   subAssetsB;
-  employee = []
+  employee = [];
 
   formSubmitted = false;
   formChanged = false;
-  dialogModalAdd = false;
+  dialogModal = false;
   dialogModalError = false;
   dialogModalCancel = false;
 
   //#region Dialogs
-  dialogSettingAdd: IDialogAlert = {
+  dialogSetting: IDialogAlert = {
     header: 'Accessory',
     hasError: false,
     hasHeader: true,
@@ -69,7 +77,7 @@ export class AddAccessoryComponent implements OnInit {
     hasError: true,
     isWarning: false,
     hasHeader: true,
-    message: 'Please fill in all the required fields.',
+    message: 'Error occurred in progress',
     confirmButton: 'OK'
   };
   //#endregion
@@ -95,30 +103,100 @@ export class AddAccessoryComponent implements OnInit {
   };
   assets: [];
   subAssets: [];
+  isEdit = false;
+  recordId: number;
+  dialogType: string;
+  accessoryAssetTypes: any;
 
   constructor(
     private _fb: FormBuilder,
-    private _accessoryService: AccessoryService,
+    private accessoryService: AccessoryService,
     private _router: Router,
     private _route: ActivatedRoute,
     private _facade: AccessoryFacade,
     private changeDetector: ChangeDetectorRef,
     private subAssetFacade: SubAssetFacade,
-    private assetMasterFacade: AssetMasterFacade,
-  ) { }
+    private assetMasterFacade: AssetMasterFacade
+  ) {}
 
-  accessory$ = this._facade.accessory$.pipe(map(x => x.map((item) => {
-    return {
-      statusColor: '#00AFB9',
-      Item: item.itemName,
-      Asset_SubAsset: item.assignedToEntity,
-      Assigned_To: item.assignedToEmployeeId,
-      Quantity: item.quantity
-    };
-  })));
+  accessory$ = this._facade.accessory$.pipe(
+    map((x) =>
+      x.map((item) => {
+        return {
+          statusColor: '#00AFB9',
+          Item: item.itemName,
+          Asset_SubAsset: item.assignedToEntity,
+          Assigned_To: item.assignedToEmployeeId,
+          Quantity: item.quantity
+        };
+      })
+    )
+  );
+
+  handleEditMode() {
+    this._route.queryParams.subscribe((queryParams) => {
+      if (queryParams['id']) {
+        this.isEdit = true;
+        this.recordId = +queryParams['id'];
+      } else {
+        this.isEdit = false;
+      }
+
+      this.loadAccessoryData(this.recordId);
+    });
+  }
+  loadAccessoryData(recordId: number) {
+    debugger;
+    this.accessoryService.getAccessory(recordId).subscribe((result: any) => {
+      if (result) {
+        const accessory = result.message;
+        const {
+          assignedToType,
+          itemName,
+          quantity,
+          assignedToEntity,
+          accessoryTypeId,
+          assignedToEmployeeId
+        } = accessory;
+
+        this.loadAccessoryType(() => {
+          const selectedAccessoryType: any = this.accessory.find(
+            (a) => a.id === accessoryTypeId
+          );
+          this.accessoryForm.patchValue({
+            accessoryTypeId: selectedAccessoryType?.id
+          });
+        });
+
+        this.setUsers(() => {
+          debugger;
+          const selectedEmployee: any = this.employee.find(
+            (e) => e.id === assignedToEmployeeId
+          );
+
+          this.accessoryForm.patchValue({
+            assignedToEmployeeId: selectedEmployee
+          });
+        });
+
+        const selectedAsset: any = this.assetsB.find(
+          (a) => a.id === assignedToEntity
+        );
+
+        const data = {
+          itemName,
+          assignedToType,
+          quantity,
+          assignedToEntity: selectedAsset
+        };
+
+        this.accessoryForm.patchValue(data);
+      }
+    });
+  }
 
   ngOnInit(): void {
-    this.inputForm = this._fb.group({
+    this.accessoryForm = this._fb.group({
       itemName: ['', Validators.required],
       assignedToType: ['ASSET'],
       assignedToEntity: ['', Validators.required],
@@ -127,64 +205,107 @@ export class AddAccessoryComponent implements OnInit {
       assignedToEmployeeId: ['']
     });
 
+    this.loadAccessoryType();
     this._facade.loadAll();
     this.subAssetFacade.loadAll();
     this.assetMasterFacade.loadAll();
 
-    this.subAssetFacade.subAsset$.subscribe(x => {
-      this.subAssetsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
-    });
-    this.assetMasterFacade.assetMaster$.subscribe(x => {
-      this.assetsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
-    });
-    this._accessoryService.users().subscribe((employee) => {
-      this.employee = employee.message.map(user => {
-        return {
-          id: user.id,
-          name: user.firstName + ' ' + user.lastName
-        }
-      });
-    })
+    this.setAssets();
 
+    this.setUsers();
 
-    this.inputForm.valueChanges.subscribe(() => {
+    this.accessoryForm.valueChanges.subscribe(() => {
       this.formChanged = true;
     });
 
-    this._facade.submitted$.subscribe(x => {
-      if (x) {
-        this.dialogModalAdd = true;
-        this.dialogSettingError.hasError = false;
-        this.changeDetector.detectChanges();
-      }
-    });
+    this.handleEditMode();
+    this.handleSubmissionDialog();
 
-    this._facade.error$.subscribe(x => {
+    this._facade.error$.subscribe((x) => {
       if (x?.error) {
         this.dialogModalError = true;
         this.dialogSettingError.hasError = true;
         this.changeDetector.detectChanges();
       }
-    })
+    });
+  }
+  private setUsers(cb = null) {
+    this.accessoryService.users().subscribe((employee) => {
+      this.employee = employee.message.map((user) => {
+        return {
+          id: user.id,
+          name: user.firstName + ' ' + user.lastName
+        };
+      });
 
+      if (typeof cb === 'function') {
+        cb();
+      }
+    });
+  }
+
+  private setAssets() {
+    this.subAssetFacade.subAsset$.subscribe((x) => {
+      this.subAssetsB = x.map((y) => ({
+        id: y.id,
+        name: y['makeName'] + ' ' + y['modelName']
+      }));
+    });
+    this.assetMasterFacade.assetMaster$.subscribe((x) => {
+      this.assetsB = x.map((y) => ({
+        id: y.id,
+        name: y['makeName'] + ' ' + y['modelName']
+      }));
+    });
+  }
+
+  handleSubmissionDialog() {
+    this._facade.submitted$.subscribe((x) => {
+      if (x) {
+        debugger;
+        this.dialogModal = true;
+        this.dialogType = 'success';
+        this.dialogSetting.header = this.isEdit
+          ? 'Edit Accessory'
+          : 'Add new Accessory';
+        this.dialogSetting.message = this.isEdit
+          ? 'Changes Saved Successfully'
+          : 'Accessory Added Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'OK';
+        this.dialogSetting.cancelButton = undefined;
+        this.changeDetector.detectChanges();
+      }
+    });
   }
 
   filterAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.assets = this.assetsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+    this.assets = this.assetsB.filter(
+      (x) =>
+        (x.id + '').indexOf(event.query) >= 0 ||
+        x.name.indexOf(event.query) >= 0
+    );
   }
 
   filterSubAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.subAssets = this.subAssetsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+    this.subAssets = this.subAssetsB.filter(
+      (x) =>
+        (x.id + '').indexOf(event.query) >= 0 ||
+        x.name.indexOf(event.query) >= 0
+    );
   }
 
   assetChanged($event) {
-    console.log($event);
+    // console.log($event);
   }
 
   hasError(controlName) {
-    const control: FormControl = this.inputForm.get(controlName) as FormControl;
+    const control: FormControl = this.accessoryForm.get(
+      controlName
+    ) as FormControl;
 
     if (control.dirty && control.invalid) {
       return true;
@@ -193,22 +314,54 @@ export class AddAccessoryComponent implements OnInit {
     return false;
   }
 
+  setAssetTypes(assetTypes) {
+    if (!assetTypes) {
+      return [];
+    }
+
+    return (this.accessory = assetTypes
+      .filter((a) => a.type === 'ACCESSORY')
+      .map((assetType) => ({
+        id: assetType.id,
+        name: assetType.name,
+        children: assetType.makes ? assetType.makes : EMPTY_SELECT_ITEM_LIST
+      })));
+  }
+
+  loadAccessoryType(cb = null) {
+    this.accessoryService.getAssetTypes().subscribe((result) => {
+      if (result) {
+        const assetTypes = result.message;
+        this.setAssetTypes(assetTypes);
+
+        if (typeof cb === 'function') {
+          cb();
+        }
+      }
+    });
+  }
+
   submit() {
+    debugger;
     this.formSubmitted = true;
-    if (this.inputForm.invalid) {
-      this.inputForm.markAllAsTouched();
+    if (this.accessoryForm.invalid) {
+      this.accessoryForm.markAllAsTouched();
       return;
     } else {
-      const d = this.inputForm.getRawValue();
+      const d = this.accessoryForm.getRawValue();
       const _data = {
-        "itemName": d.itemName,
-        "assignedToType": d.assignedToType,
-        "assignedToEntity": d.assignedToEntity.id,
-        "accessoryTypeId": d.accessoryTypeId,
-        "quantity": d.quantity,
-        "assignedToEmployeeId": d.assignedToEmployeeId
+        itemName: d.itemName,
+        assignedToType: d.assignedToType,
+        assignedToEntity: d.assignedToEntity.id,
+        accessoryTypeId: d.accessoryTypeId,
+        quantity: d.quantity,
+        assignedToEmployeeId: d.assignedToEmployeeId
+      };
+      if (!this.isEdit) {
+        this._facade.addAccessory(_data);
+      } else {
+        this._facade.editAccessory(_data, this.recordId);
       }
-      this._facade.addAccessory(_data)
     }
   }
 
@@ -228,12 +381,12 @@ export class AddAccessoryComponent implements OnInit {
     this.dialogModalCancel = false;
   }
 
-  dialogAddConfirm(value) {
+  dialogConfirm(value) {
     if (value === true) {
       this._facade.reset();
       this._router.navigate(['/fleet/accessory']);
     }
-    this.dialogModalAdd = false;
+    this.dialogModal = false;
   }
 
   dialogErrorConfirm(value) {

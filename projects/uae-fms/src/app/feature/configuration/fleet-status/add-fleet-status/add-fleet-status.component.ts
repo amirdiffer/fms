@@ -117,7 +117,6 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
     );
     this.route.url.subscribe(
       (params) => {
-        console.log(params)
         this.isEdit = params.filter(x=>x.path=="edit-fleet-status").length > 0 ? true : false;
       }
     );
@@ -139,7 +138,6 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
   }
 
   dialogAddConfirm(event) {
-    console.log(event)
 
     this.router.navigate(['/configuration/fleet-status'], {
       relativeTo: this.route,

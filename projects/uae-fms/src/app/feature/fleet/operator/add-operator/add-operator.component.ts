@@ -214,7 +214,6 @@ export class AddOperatorComponent extends Utility implements OnInit {
     });
 
     this.operatorFacade.submitted$.subscribe((x) => {
-      console.log('Submit : ', x);
       if (x) {
         this.successDialogModal = true;
 
@@ -322,7 +321,6 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
     if (this.dialogType == 'submit') {
       let f = this.form.value;
-      console.log(this._operator);
       let operatorInfo: any = {
         employeeNumber: this.isEdit
           ? this._operator?.employeeNumber
@@ -380,7 +378,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
           notifyByIssueClosePush: this._operator.notifyByIssueClosePush || false
         };
 
-        console.log(operatorInfo);
+        (operatorInfo);
         this.operatorFacade.editOperator(operatorInfo);
       } else {
         operatorInfo = {
@@ -477,7 +475,6 @@ export class AddOperatorComponent extends Utility implements OnInit {
   }
 
   public dropped(files: NgxFileDropEntry[]) {
-    console.log(this.form.value);
     this.filesUpdloaded = files;
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
@@ -492,12 +489,10 @@ export class AddOperatorComponent extends Utility implements OnInit {
               fileSize: file.size,
               file: reader.result
             });
-            console.log(droppedFile.relativePath, file);
           };
         });
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
       }
     }
   }
@@ -516,15 +511,14 @@ export class AddOperatorComponent extends Utility implements OnInit {
       emails: [{ email: $event.emailAddress }]
     });
 
-    console.log(this.form.value);
   }
 
   public fileOver(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public fileLeave(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   ngOnDestroy(): void {
@@ -537,7 +531,6 @@ export class AddOperatorComponent extends Utility implements OnInit {
       f.personalInformation.phoneNumbers.length > 0
     ) {
       if (typeof f.personalInformation.phoneNumbers[0] == 'object') {
-        console.log(f.personalInformation.phoneNumbers[0].phoneNumber.length);
         if (
           typeof f.personalInformation.phoneNumbers[0] == 'object' &&
           typeof f.personalInformation.phoneNumbers[0].phoneNumber ==

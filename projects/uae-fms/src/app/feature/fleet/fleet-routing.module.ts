@@ -20,19 +20,28 @@ import { IserveComponent } from '@feature/fleet/movement/iserv/iserv.component';
 import { OverViewOperatorComponent } from './operator/over-view-operator/over-view-operator.component';
 import { TemporaryComponent } from '@feature/fleet/movement/temporary/temporary.component';
 import { AddTemporaryRequestComponent } from '@feature/fleet/movement/add-temporary-request/add-temporary-request.component';
+import { AccessoryOverviewComponent } from './accessory/accessory-overview/accessory-overview.component';
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
   { path: 'sub-asset/edit-sub-asset', component: AddSubAssetComponent },
   { path: 'department', component: OrganizationComponent },
-  { path: 'accessory', component: AccessoryComponent },
+  {
+    path: 'accessory/accessory-overview',
+    component: AccessoryOverviewComponent
+  },
   { path: 'accessory/add-new-accessory', component: AddAccessoryComponent },
+  { path: 'accessory/edit-accessory', component: AddAccessoryComponent },
+  { path: 'accessory', component: AccessoryComponent },
   { path: 'sub-asset', component: SubAssetComponent },
   { path: 'movement', component: MovementComponent },
-  { path: 'movement/iserve', component: IserveComponent },
+  // { path: 'movement/iserve', component: IserveComponent },
   { path: 'movement/temporary', component: TemporaryComponent },
   { path: 'movement/add-permanent-request', component: AddRequestComponent },
-  { path: 'movement/temporary/add-temporary-request', component: AddTemporaryRequestComponent },
+  {
+    path: 'movement/temporary/add-temporary-request',
+    component: AddTemporaryRequestComponent
+  },
   { path: 'operator', component: OperatorComponent },
   { path: 'operator/add-operator', component: AddOperatorComponent },
   { path: 'operator/edit-operator/:id', component: AddOperatorComponent },

@@ -71,24 +71,20 @@ export class AddTollComponent extends Utility implements OnInit {
           this._cd.markForCheck();
           const fileArrayForm = new FormControl(fileEntry.file, [Validators.required]);
           (<FormArray>this.inputForm.get('upload')).push(fileArrayForm);
-          console.log(this.allFileUpload)
         });
-        console.log('2', droppedFile.relativePath);
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
         this.dialogModalError = true;
       }
-      console.log('3', files);
 
     }
   }
   public fileOver(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public fileLeave(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   dropAndDragValidation(file: string) {
@@ -127,7 +123,6 @@ export class AddTollComponent extends Utility implements OnInit {
       return;
     } else {
       this.openReview = true;
-      console.log('hamid')
     }
 
   }

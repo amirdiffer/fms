@@ -141,13 +141,9 @@ export class IntegrationComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.tableSettings);
     this.facade.loadAll();
     this.facade.integration$.subscribe((x) => {
-      console.log(x);
       this.tableData = x.map((item) => {
-        console.log(item);
-        console.log(this.tableData);
         return {
           name: item.name,
           type: item.type,
@@ -296,14 +292,12 @@ export class IntegrationComponent implements OnInit, OnDestroy {
   }
   public add() {
     this._integrationService.loadInegrationForm(true);
-    console.log('Click');
   }
   public tableRendering(tableColumn, dataItem): TableSetting {
     const table = {
       columns: tableColumn,
       data: dataItem
     };
-    console.log(table);
     return table;
   }
   ngOnDestroy() {

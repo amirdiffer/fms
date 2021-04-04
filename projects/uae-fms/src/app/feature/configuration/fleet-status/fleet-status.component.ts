@@ -47,7 +47,6 @@ export class FleetStatusComponent implements OnInit {
     data: [],
     rowSettings: {
       onClick: (event) => {
-        console.log(event)
       },
       floatButton: [{
         button: 'edit',

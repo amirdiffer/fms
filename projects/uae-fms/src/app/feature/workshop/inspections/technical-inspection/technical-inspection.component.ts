@@ -198,7 +198,7 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
       .getMakeDecision()
       .subscribe((open) => {
         this.makeDecision = open;
-        console.log(open);
+        // console.log(open);
       });
     this._facade.loadAll();
   }

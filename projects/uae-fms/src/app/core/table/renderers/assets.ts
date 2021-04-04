@@ -7,7 +7,7 @@ import { environment } from '../../../../environments/environment';
     <div class="row m-0">
       <img
         class="asset-image col-5 p-0 m-0"
-        [src]="fileServerBase + data.img"
+        [src]="data.img"
       />
       <span class="title col-7">
         <p class="m-0">{{ data.assetName }} {{ data.userName }}</p>

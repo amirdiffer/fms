@@ -28,6 +28,7 @@ import { AssetTypeFacade } from '@feature/configuration/+state/asset-configurati
 import { Utility } from '@shared/utility/utility';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { IAssetType } from '@models/asset-type.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'anms-add-make',
@@ -66,20 +67,33 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
     return this.inputForm.get('makes') as FormArray;
   }
 
+  assetTypeId;
+  assets;
+
   constructor(
     private _fb: FormBuilder,
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
     private changeDetectorRef: ChangeDetectorRef,
-    private dataService: DataService,
-    injector: Injector
+    public dataService: DataService,
+    injector: Injector,
+    public route: ActivatedRoute
   ) {
     super(injector);
     this.assetConfigurationTableSetting = this._assetConfigurationService.assetConfigurationableSetting();
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(x => {
+      if (x && x.assetType)
+        this.assetTypeId = x.assetType
+    })
+
+    this.facade.assetType$.subscribe(x => {
+      this.assets = x;
+    })
+
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
       makes: new FormArray([this.createMake()])
@@ -93,7 +107,9 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
     });
 
     if (!this.dataService.selectedTypeId) {
-      this.router.navigate(['/configuration/asset-configuration']).then();
+      this.router.navigate(['/configuration/asset-configuration']).then(_ => {
+        this.facade.resetParams()
+      });
     }
 
     this.facade.assetType$.subscribe((response) => {
@@ -113,6 +129,7 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
           for (let index = 0; index < obj.makes.length; index++) {
             this.addMake();
             this.makes.controls[index].patchValue({
+              id: obj.makes[index].id,
               make: obj.makes[index].make,
               makeDescription: obj.makes[index].makeDescription,
               models: obj.makes[index].models,
@@ -126,7 +143,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
     });
 
     this.facade.submitted$.subscribe((x) => {
-      console.log('Submit : ', x);
       if (x) {
         this.dialogModal = true;
         this.dialogSetting.header = 'Add new type';
@@ -141,7 +157,7 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
 
     this.facade.error$.subscribe((x) => {
       if (x?.error) {
-        console.log(x?.error);
+        (x?.error);
         this.dialogModal = true;
         this.dialogSetting.header = 'Add new make';
         this.dialogSetting.hasError = true;
@@ -156,6 +172,7 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
   createMake(isOptional?: boolean): FormGroup {
     if (isOptional) {
       return this._fb.group({
+        id: null,
         make: '',
         makeDescription: '',
         origins: [['USA']],
@@ -163,6 +180,7 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
       });
     }
     return this._fb.group({
+      id: [],
       make: ['', Validators.required],
       makeDescription: ['', Validators.required],
       origins: [['USA']],
@@ -189,17 +207,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // this.percent = (+this.value * 100) / +this.maxValue;
-    // this._renderer.setStyle(
-    //   this.progressBar.nativeElement,
-    //   'width',
-    //   `${this.percent}%`
-    // );
-    // this._renderer.setStyle(
-    //   this.progressBar.nativeElement,
-    //   'background-color',
-    //   `${this.color}`
-    // );
   }
 
   public dropped(files: NgxFileDropEntry[]) {
@@ -208,27 +215,25 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
-          console.log(droppedFile.relativePath, file);
         });
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
+        (droppedFile.relativePath, fileEntry);
       }
     }
   }
 
   public fileOver(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public fileLeave(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public addModel() {
     const model = new FormControl('');
     (<FormArray>this.inputForm.get('models')).push(model);
-    console.log();
   }
 
   public cancel() {
@@ -242,27 +247,28 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   dialogConfirm($event): void {
-    console.log($event);
     this.dialogModal = false;
     if ($event && !this.dialogSetting.hasError) {
-      this.router.navigate(['/configuration/asset-configuration']).then();
+      this.router
+        .navigate(['/configuration/asset-configuration'])
+        .then((_) => this.facade.resetParams());
     }
   }
 
   color1Clicked(): void {
-    console.log('color1 clicked');
+    // console.log('color1 clicked');
   }
 
   color2Clicked(): void {
-    console.log('color2 clicked');
+    // console.log('color2 clicked');
   }
 
   color3Clicked(): void {
-    console.log('color3 clicked');
+    // console.log('color3 clicked');
   }
 
   color4Clicked(): void {
-    console.log('color4 clicked');
+    // console.log('color4 clicked');
   }
 
   submit() {
@@ -308,15 +314,59 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
     */
 
     const data = {
+      id: this.assetTypeId,
       type: type,
       name: this.assetType.name,
       isActive: this.assetType.isActive,
       typeDescription: this.assetType.typeDescription,
-      makes: this.inputForm.value.makes
+      makes: this.inputForm.value.makes.map(x => {
+        if (x.id) return x;
+        else {
+          return {
+            make: x.make,
+            makeDescription: x.makeDescription,
+            models: x.models,
+            origins: x.origins,
+          }
+        }
+      })
     };
 
-    console.log(data);
-
+    data.makes = data.makes.map(x => {
+      if (x.models && x.models.length > 0) {
+        return {
+          ...x,
+          models:
+            x.models.map(y => {
+              if (y.trims && y.trims.length > 0) {
+                return {
+                  ...y,
+                  trims: y.trims.map(z => {
+                    if (z.colors && z.colors.length > 0) {
+                      return {
+                        ...z,
+                        colors: z.colors.map(v => {
+                          return {
+                            name: v.color,
+                            hexColor: v.hexColor,
+                            id: v.id
+                          }
+                        })
+                      }
+                    }
+                    else
+                      return z;
+                  })
+                }
+              }
+              else
+                return y;
+            })
+        }
+      }
+      else
+        return x;
+    })
     this.facade.addMake(data);
     // this._assetConfigurationService.loadAddForm(false);
   }

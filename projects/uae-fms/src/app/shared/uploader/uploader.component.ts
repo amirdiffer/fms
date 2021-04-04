@@ -33,7 +33,7 @@ export class UploaderComponent implements OnInit {
   @Input() maxSize = 5120;
   @Input() uploaderName = '';
   @Input() multiple = false;
-
+  @Input() readCSVFile= false;
   @Input() iconIsHidden = false;
   @Input() hintIsHidden = false;
   @Input() preview = true;
@@ -41,6 +41,7 @@ export class UploaderComponent implements OnInit {
   @Input() files = [];
   @Input() accept = ['.csv', '.png', '.jpg', '.txt', '.json'];
   @Output() uploadedEvent: EventEmitter<object> = new EventEmitter<object>();
+  @Output() csvTextEvent: EventEmitter<any> = new EventEmitter<any>();
   allFileUpload: Array<any> = [];
   uploadReview: boolean = false;
   isUploading = false;
@@ -67,7 +68,6 @@ export class UploaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.files)
   }
 
   public dropped(files: NgxFileDropEntry[], option: string, index?: number) {
@@ -87,9 +87,7 @@ export class UploaderComponent implements OnInit {
             this.filesSize += fileSize;
             this.formData.append('doc', file);
             this.upload(index);
-            console.log(this.accept.includes(fileSuffix))
           } else if (!this.accept.includes(fileSuffix)){
-            console.log('IS FALSEEEEEEEEEEEE')
             this.dialogModalError = true;
             this.changeDetector.markForCheck();
           }
@@ -118,7 +116,15 @@ export class UploaderComponent implements OnInit {
   getAddress(id): string {
     return environment.baseApiUrl + `document/${id}`;
   }
-
+  getValueCSV(id){
+    this._uploaderService.getCSVfile(id).subscribe(x => {processData(x)})
+    let that = this;
+    function processData(allText) {
+      let textEmit = allText.split(/\r\n|\n/);
+      (textEmit);
+      that.csvTextEvent.emit(textEmit);
+    }
+  }
   upload(indexUploadBox?: number) {
     this.filesUploadSuccess = 0;
     this.filesUploadError = 0;
@@ -135,7 +141,7 @@ export class UploaderComponent implements OnInit {
               (event.loaded / event.total) * 100
             );
             this.changeDetector.detectChanges();
-            console.log(this.progressBarValue + ' %');
+            (this.progressBarValue + ' %');
             break;
           case HttpEventType.Response:
             setTimeout(() => {
@@ -147,6 +153,9 @@ export class UploaderComponent implements OnInit {
           if (!event.body.error) {
             if (!this.multiple) this.files = [];
             this.files.push(event.body.message.id);
+            if(this.readCSVFile){
+              this.getValueCSV(event.body.message.id)
+            }
             this.filesUploadSuccess++;
             this.progressBarValue = 0;
             this.setFiles(indexUploadBox);

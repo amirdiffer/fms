@@ -66,7 +66,7 @@ export class PartMasterService {
       data: this.partMasterData(),
       rowSettings: {
         onClick: (col, data) => {
-          console.log(col, data);
+          // console.log(col, data);
         },
         floatButton: [
           {

@@ -392,8 +392,6 @@ export class FuelManagementComponent implements OnInit {
     this._facadeAssetUsage.loadAll();
   }
   addClicked(e: Event) {
-    console.log(this._router.navigate(['add-fuel-card']));
-
     switch (this.selectedTab) {
       case 'Fuel Cards':
         this._router.navigate(['fuel-management/add-fuel-card']);

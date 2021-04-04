@@ -30,5 +30,11 @@ export class UploaderService {
       environment.baseApiUrl + `document/${id}`
     );
   }
+  getCSVfile(id){
+    return this._http.get(
+      environment.baseApiUrl + `document/${id}`,
+      {responseType:'text'}
+    );
+  }
 
 }

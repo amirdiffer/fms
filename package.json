@@ -1,6 +1,6 @@
 {
   "name": "uae-fms",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -73,6 +73,8 @@
     "leaflet": "^1.7.1",
     "ng-apexcharts": "^1.5.6",
     "ng2-charts": "^2.4.2",
+    "ngx-color": "^6.2.0",
+    "ngx-color-picker": "^11.0.0",
     "ngx-file-drop": "^11.0.0",
     "primeicons": "^4.1.0",
     "primeng": "^11.1.0-rc.1",

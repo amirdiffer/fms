@@ -96,8 +96,6 @@ export class FloatButton implements OnInit {
 
   clicked(item, col, data) {
     if (item && item.onClick && item.onClick instanceof Function) {
-      console.log("item.onClick")
-      console.log(item.onClick)
       item.onClick(col, data, item.button)
     }
   }

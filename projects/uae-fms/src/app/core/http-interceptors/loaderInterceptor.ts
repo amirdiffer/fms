@@ -24,11 +24,13 @@ export class LoaderInterceptor implements HttpInterceptor {
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // APIConfig;
-    this.counter$.next(true);
-    return next.handle(req).pipe(
-      finalize(() => {
-        this.counter$.next(false)
-      })
-    );
+    if (req) {
+      this.counter$.next(true);
+      return next.handle(req).pipe(
+        finalize(() => {
+          this.counter$.next(false)
+        })
+      );
+    }
   }
 }

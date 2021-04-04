@@ -22,12 +22,10 @@ export class AssetPolicyFacade {
   }
   addAssetPolicy(data: any) {
     this.store.dispatch(AssetPolicyActions.addAssetPolicy({ data }));
-    console.log(data);
   }
 
   updateAssetPolicy(data: IAssetPolicy) {
     this.store.dispatch(AssetPolicyActions.editAssetPolicy({ data }));
-    console.log(data);
   }
 
   getById(id: number) {

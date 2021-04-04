@@ -8,11 +8,11 @@ import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class AssetTypeService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   loadAll(): Observable<ResponseBody<IAssetType[]>> {
     return this.http.get<ResponseBody<IAssetType[]>>(
-      environment.baseApiUrl + '/configuration/asset-type'
+      environment.baseApiUrl + 'configuration/asset-type'
     );
   }
 
@@ -21,40 +21,30 @@ export class AssetTypeService {
       .post<ResponseBody<any>>(
         environment.baseApiUrl + 'configuration/asset-type',
         data
-      )
-      .pipe(
-        tap((res) => {
-          console.log(data);
-          console.log(res);
-        })
       );
   }
 
   postMake(data): Observable<ResponseBody<any>> {
     return this.http
       .post<ResponseBody<any>>(
-        environment.baseApiUrl + 'configuration/asset-type',
+        environment.baseApiUrl + 'configuration/asset-type/' + data.id + "/update",
         data
-      )
-      .pipe(
-        tap((res) => {
-          console.log(data);
-          console.log(res);
-        })
       );
   }
 
   postModel(data): Observable<ResponseBody<any>> {
     return this.http
       .post<ResponseBody<any>>(
-        environment.baseApiUrl + 'configuration/asset-type',
+        environment.baseApiUrl + 'configuration/asset-type/' + data.id + "/update",
         data
-      )
-      .pipe(
-        tap((res) => {
-          console.log(data);
-          console.log(res);
-        })
+      );
+  }
+
+  postTrim(data): Observable<ResponseBody<any>> {
+    return this.http
+      .post<ResponseBody<any>>(
+        environment.baseApiUrl + 'configuration/asset-type/' + data.id + "/update",
+        data
       );
   }
 }

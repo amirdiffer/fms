@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AssetMasterFacade, AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 
 import { environment } from '../../../../../environments/environment';
 
@@ -303,23 +304,33 @@ export class OverViewAssetComponent implements OnInit, OnDestroy {
   vehicleId = null;
   activeButton = 1;
   fileServerBaseUrl = environment.baseFileServer;
-
-  constructor(private activeRoute: ActivatedRoute) {}
+  id;
+  assetDetail$: Subscription;
+  assetDetail;
+  constructor(private activeRoute: ActivatedRoute,
+              private _service:AssetMasterService) {}
 
   ngOnInit() {
     this.activeRoute.url.pipe(takeUntil(this.onDestroy)).subscribe((x) => {
       this.vehicleId = +x[1].path.split('-')[1];
     });
+    this.id = this.activeRoute.snapshot.params['id']
+    this.assetDetail$ = this._service.getAssetByID(this.id)
+    .pipe(map((x) => x.message))
+    .subscribe(
+      (x) => {this.assetDetail = x}
+    )
   }
 
   ngOnDestroy() {
+    this.assetDetail$.unsubscribe()
     this.onDestroy.next();
     this.onDestroy.complete();
+
   }
 
   activeTab = 'Overview';
   selectedTab(event: string) {
-    console.log(event);
     this.activeTab = event;
   }
 }

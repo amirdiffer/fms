@@ -68,7 +68,6 @@ export class RolePermissionComponent implements OnInit {
     data:[],
     rowSettings: {
       onClick: (col, data, button?) => {
-        console.log(col, data, button);
       },
       floatButton: [
         {

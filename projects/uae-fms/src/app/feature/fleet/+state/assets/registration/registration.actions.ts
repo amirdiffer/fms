@@ -8,7 +8,14 @@ export class RegistrationActions {
     '[Registration] all datas are loaded',
     props<{ data: IPendingRegistration[] }>()
   );
-
+  static registerAsset = createAction(
+    '[Registration] register an asset',
+    props<{ data: any}>()
+  );
+  static assetRegisterSuccessfull = createAction(
+    '[Registration] asset registered successfully ',
+    props<{ data: any}>()
+  );
   static error = createAction(
     '[Registration] error occurred',
     props<{ reason: any }>()

@@ -189,7 +189,6 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
 
     this.facade.error$.subscribe((x) => {
       if (x?.error) {
-        console.log(x?.error);
         this.dialogModal = true;
         this.dialogSetting.header = this.dataService.isEditing
           ? 'Edit category'

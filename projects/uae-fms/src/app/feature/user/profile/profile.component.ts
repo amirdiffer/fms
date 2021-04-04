@@ -69,7 +69,6 @@ export class ProfileComponent implements OnInit {
     this.facade.loadAll();
     this.facade.loadData$.subscribe((data) => {
       if (data) this.form.patchValue(data);
-      console.log(this.form.getRawValue());
     });
   }
 }

@@ -8,4 +8,9 @@ export class RegistrationSelectors {
     FleetSelectors.registrationSelector,
     selectAll
   );
+  static submitted = createSelector(
+    FleetSelectors.registrationSelector,
+    (state) => state.submitted
+  );
+  
 }

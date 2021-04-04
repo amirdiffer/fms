@@ -204,7 +204,6 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
     });
 
     this.userFacade.submitted$.subscribe((x) => {
-      console.log("Submit : ", x)
       if (x) {
         this.dialogModal = true;
         this.dialogType = "success";
@@ -220,7 +219,6 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
 
     this.userFacade.error$.subscribe(x => {
       if (x?.error) {
-        console.log(x?.error)
         this.errorDialogModal = true;
         this.errorDialogSetting.header = this.isEdit ? 'Edit user' : 'Add new user';
         this.errorDialogSetting.hasError = true;
@@ -306,7 +304,6 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
 
     if (this.dialogType == "submit") {
       let f = this.form.value;
-      console.log(this._user)
       let userInfo: any = {
         employeeNumber: this.isEdit ? this._user?.employeeNumber : this.employeeId,
         organizationId: 1,
@@ -459,7 +456,6 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
   }
 
   public dropped(files: NgxFileDropEntry[]) {
-    console.log(this.form.value);
     this.filesUpdloaded = files;
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
@@ -474,12 +470,10 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
               fileSize: file.size,
               file: reader.result
             });
-            console.log(droppedFile.relativePath, file);
           };
         });
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
       }
     }
   }
@@ -498,15 +492,14 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
       emails: [{ email: $event.emailAddress }]
     })
 
-    console.log(this.form.value)
   }
 
   public fileOver(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public fileLeave(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   ngOnDestroy(): void {
@@ -516,7 +509,6 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
   getPhone(f) {
     if (f.personalInformation.phoneNumbers && f.personalInformation.phoneNumbers.length > 0) {
       if (typeof f.personalInformation.phoneNumbers[0] == 'object') {
-        console.log(f.personalInformation.phoneNumbers[0].phoneNumber.length)
         if (typeof f.personalInformation.phoneNumbers[0] == "object"
           && typeof f.personalInformation.phoneNumbers[0].phoneNumber == "string"
           && f.personalInformation.phoneNumbers[0].phoneNumber.length < 5) return [];

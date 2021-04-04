@@ -24,28 +24,28 @@ export class HttpInterceptor implements HttpInterceptorBase {
       withCredentials: true
     });
 
-    if (request.url.indexOf('login') > 0) {
-      headers = new HttpHeaders({ "Content-Type": "multipart/form-data" })
-      req = request.clone({ headers: headers });
-    }
-    else {
+    if (request.url.indexOf('login') < 0) {
       headers = new HttpHeaders({
         permission_level: '123456',
         user_id: '1'
       });
       req = request.clone({ headers: headers });
+    } else {
+      req = request;
     }
-    return next.handle(req).pipe(
-      tap({
-        error: (err: any) => {
-          if (err.url.indexOf('login') < 0) {
-            if (err instanceof HttpErrorResponse) {
-              const appErrorHandler = this.injector.get(ErrorHandler);
-              appErrorHandler.handleError(err);
+    if (req) {
+      return next.handle(req).pipe(
+        tap({
+          error: (err: any) => {
+            if (err.url.indexOf('login') < 0) {
+              if (err instanceof HttpErrorResponse) {
+                const appErrorHandler = this.injector.get(ErrorHandler);
+                appErrorHandler.handleError(err);
+              }
             }
           }
-        }
-      })
-    );
+        })
+      );
+    }
   }
 }

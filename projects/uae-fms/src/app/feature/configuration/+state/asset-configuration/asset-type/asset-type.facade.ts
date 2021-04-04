@@ -14,7 +14,11 @@ export class AssetTypeFacade {
 
   submitted$ = this.store.pipe(select(AssetTypeSelectors.submitted));
 
-  constructor(private store: Store<AssetTypePartialState>) {}
+  loaded$ = this.store.pipe(select(AssetTypeSelectors.loaded));
+
+  constructor(private store: Store<AssetTypePartialState>) {
+    this.loadAll();
+  }
 
   loadAll() {
     this.store.dispatch(AssetTypeActions.loadAll());
@@ -30,5 +34,14 @@ export class AssetTypeFacade {
 
   addModel(data: any) {
     this.store.dispatch(AssetTypeActions.addModel({ data }));
+  }
+
+  addTrim(data: any) {
+    this.store.dispatch(AssetTypeActions.addTrim({ data }));
+  }
+
+  resetParams() {
+    this.loadAll();
+    this.store.dispatch(AssetTypeActions.resetParams());
   }
 }

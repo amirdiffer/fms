@@ -25,48 +25,32 @@ export class AssetConfigurationService {
     return {
       columns: [
         {
-          lable: 'tables.column.model',
-          field: 'model',
+          lable: 'tables.column.trim',
+          field: 'trim',
           width: 100,
           type: 1,
           thumbField: '',
           renderer: ''
         },
         {
-          lable: 'tables.column.make',
-          field: 'make',
+          lable: 'tables.column.color',
+          field: 'color',
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: 'trimColorRenderer'
         },
         {
-          lable: 'tables.column.type_status',
+          lable: 'tables.column.status',
           field: 'status',
           width: 100,
           type: 1,
           thumbField: '',
           renderer: '',
           textColor: '#0DA06E'
-        },
-        {
-          lable: 'tables.column.description',
-          field: 'description',
-          width: 200,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
-          lable: 'tables.column.icon',
-          field: 'quant',
-          width: 50,
-          type: 1,
-          thumbField: '',
-          renderer: ''
         }
       ],
-      data: this.assetConfigurationData(),
+      data: [],
       rowSettings: {
         onClick: (col, data) => {
           console.log(col, data);

@@ -12,7 +12,7 @@ const routes: Routes = [
       import('../app/feature/login/login.module').then((m) => m.LoginModule),
     component: LoginTemplateComponent
   },
-  {
+  /* {
     path: 'dashboard',
     canLoad: [AuthGuardService],
     loadChildren: () =>
@@ -20,7 +20,7 @@ const routes: Routes = [
         (m) => m.DashboardModule
       ),
     component: MainTemplateComponent
-  },
+  }, */
   {
     path: 'fleet',
     canLoad: [AuthGuardService],
@@ -46,7 +46,7 @@ const routes: Routes = [
       ),
     component: MainTemplateComponent
   },
-  {
+  /* {
     path: 'part-store',
     canLoad: [AuthGuardService],
     loadChildren: () =>
@@ -54,8 +54,8 @@ const routes: Routes = [
         (m) => m.PartStoreModule
       ),
     component: MainTemplateComponent
-  },
-  {
+  }, */
+  /* {
     path: 'traffic-fine',
     canLoad: [AuthGuardService],
     loadChildren: () =>
@@ -63,15 +63,15 @@ const routes: Routes = [
         (m) => m.TrafficFineModule
       ),
     component: MainTemplateComponent
-  },
-  {
+  }, */
+ /*  {
     path: 'toll',
     canLoad: [AuthGuardService],
     loadChildren: () =>
       import('./feature/toll/toll.module').then((m) => m.TollModule),
     component: MainTemplateComponent
-  },
-  {
+  }, */
+  /* {
     path: 'integration',
     canLoad: [AuthGuardService],
     loadChildren: () =>
@@ -79,8 +79,8 @@ const routes: Routes = [
         (m) => m.IntegrationModule
       ),
     component: MainTemplateComponent
-  },
-  {
+  }, */
+  /* {
     path: 'fuel-management',
     canLoad: [AuthGuardService],
     loadChildren: () =>
@@ -88,18 +88,18 @@ const routes: Routes = [
         (m) => m.FuelManagementModule
       ),
     component: MainTemplateComponent
-  },
-  {
+  }, */
+  /* {
     path: 'user-profile',
     canLoad: [AuthGuardService],
     loadChildren: () =>
       import('./feature/user/user.module').then((m) => m.UserProfileModule),
     component: MainTemplateComponent
-  },
-  {
+  }, */
+  /* {
     path: 'design-system',
     component: DesignSystemComponent
-  },
+  }, */
   {
     path: '',
     pathMatch: 'full',

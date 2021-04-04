@@ -97,7 +97,6 @@ export class PendingRegistrationOverviewComponent
 
   dialogConfirm (event){
     this.displayModal = false;
-    console.log(event)
   }
 
   submit() {

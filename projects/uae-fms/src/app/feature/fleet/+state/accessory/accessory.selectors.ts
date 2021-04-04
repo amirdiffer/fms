@@ -25,7 +25,7 @@ export class AccessorySelectors {
 
   static submitted = createSelector(
     FleetSelectors.accessorySelector,
-    (state) => { console.log(state); return state.submitted }
+    (state) => { return state.submitted }
   )
 
 }

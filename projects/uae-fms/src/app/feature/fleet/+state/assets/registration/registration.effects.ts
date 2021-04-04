@@ -24,4 +24,15 @@ export class RegistrationEffects {
       )
     )
   );
+  register$ = createEffect(() =>
+  this.action$.pipe(
+    ofType(RegistrationActions.registerAsset),
+    mergeMap((action) =>
+      this.service.registerAsset(action.data).pipe(
+        map((data) => RegistrationActions.assetRegisterSuccessfull({ data: action.data })),
+        catchError((error) => of(RegistrationActions.error({ reason: error })))
+      )
+    )
+  )
+);
 }

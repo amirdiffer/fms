@@ -36,6 +36,12 @@ const assetTypeReducer = createReducer(
     message: null,
     submitted: true
   })),
+  on(AssetTypeActions.resetParams, (state) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
   on(AssetTypeActions.addMake, (state, { data: any }) => ({
     ...state,
     submitted: false
@@ -51,6 +57,16 @@ const assetTypeReducer = createReducer(
     submitted: false
   })),
   on(AssetTypeActions.modelAddedSuccessfully, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: true
+  })),
+  on(AssetTypeActions.addTrim, (state, { data: any }) => ({
+    ...state,
+    submitted: false
+  })),
+  on(AssetTypeActions.trimAddedSuccessfully, (state, { data }) => ({
     ...state,
     error: null,
     message: null,

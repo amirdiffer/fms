@@ -19,7 +19,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { MovementOverviewFacadeTemporary } from '@feature/fleet/+state/movement/temporary/overview/movement-overview.facade';
 import { MovementRequestsFacadeTemporary } from '@feature/fleet/+state/movement/temporary/requests/movement-requests.facade';
 import { map } from 'rxjs/operators';
-import { ButtonType } from '@core/table/table.component';
+import { ButtonType, TableComponent } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movement-temporary-confirm/movement-confirm.component';
 @Component({
@@ -76,27 +76,18 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
 
   @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
 
-  constructor(
-    private _movementService: MovementService,
-    private _fb: FormBuilder,
-    private dialog: MatDialog,
-    private _movementOverviewFacade: MovementOverviewFacadeTemporary,
-    private _movementRequestsFacade: MovementRequestsFacadeTemporary,
-    private changeDetector: ChangeDetectorRef,
-    injector: Injector
-  ) {
-    super(injector)
-  }
+
 
   movementRequest$ = this._movementRequestsFacade.MovementRequests$.pipe(
     map(x => {
       return x.map(y => {
-        return {...y,
+        return {
+          ...y,
           id: y['id'],
           user: {
             img: 'user-image.png',
-            userName: y['requester']['firstName'],
-            subName: y['requester']['lastName']
+            userName: (y['requester'] && y['requester']['firstName']) ? y['requester']['firstName'] : '',
+            subName: (y['requester'] && y['requester']['lastName']) ? y['requester']['lastName'] : ''
           },
           movementType: y['movementType'],
           requestType: y['requestType'],
@@ -113,9 +104,10 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
     }));
 
   movementOverview$ = this._movementOverviewFacade.MovementOverview$.pipe(
-    map(x => { console.log(x)
+    map(x => {
       return x.map(y => {
-        return {...y,
+        return {
+          ...y,
           id: y.id,
           asset: {
             img: 'thumb1.png',
@@ -204,7 +196,6 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
         renderer: 'button',
         buttonType: ButtonType.reject,
         onClick: (data) => {
-          console.log('ddd')
           // this._movementRequestsFacade.rejecting(data);
         },
         showOnHover: true
@@ -225,7 +216,6 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
         if (button == 'reject')
           this._movementRequestsFacade.rejecting(data.id);
         else if (button == 'confirm') {
-          console.log(data)
           this.assignID = data.id;
           this.openConfirmModal();
         }
@@ -295,12 +285,25 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
     data: []
   };
 
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
+
+  constructor(
+    private _movementService: MovementService,
+    private _fb: FormBuilder,
+    private dialog: MatDialog,
+    private _movementOverviewFacade: MovementOverviewFacadeTemporary,
+    private _movementRequestsFacade: MovementRequestsFacadeTemporary,
+    private changeDetector: ChangeDetectorRef,
+    injector: Injector
+  ) {
+    super(injector)
+  }
+
   ngOnInit(): void {
     this._movementOverviewFacade.loadAll();
     this._movementRequestsFacade.loadAll();
     this._movementRequestsFacade.loadRequestStatistic();
     this._movementRequestsFacade.MovementRequestStatistic.subscribe((x) => {
-      console.log(x);
       if (x) {
         const response = x.message;
         this.filterSetting.map((filter) => {
@@ -361,14 +364,14 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
     this._movementRequestsFacade.rejected$.subscribe(x => {
       if (x) {
         this.displaySuccessModal = true;
-        this.dialogErrorSetting.hasError=false;
+        this.dialogErrorSetting.hasError = false;
         this.changeDetector.detectChanges();
       }
     });
     this._movementRequestsFacade.error$.subscribe(x => {
       if (x?.error) {
         this.displayErrorModal = true;
-        this.dialogErrorSetting.hasError=true;
+        this.dialogErrorSetting.hasError = true;
         this.changeDetector.detectChanges();
       } else {
         this.displayErrorModal = false;
@@ -376,6 +379,7 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
     })
 
   }
+
   ngAfterViewChecked() {
     if (
       this.requestTab &&
@@ -394,8 +398,8 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
       data: this.assignID,
     });
   }
+
   rejectRow() {
-    console.log('reject');
   }
 
   dialogConfirm(confirmed) {
@@ -410,6 +414,17 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
     this.displayErrorModal = false;
     this.displaySuccessModal = false;
     this._movementRequestsFacade.reset();
+  }
+
+  exportTable() {
+    switch (this.selectedTab) {
+      case 'MovementOverViewTab':
+        this.table.exportTable(this.movementOverViewTableSetting, 'Overview');
+        break;
+      case 'requestTab':
+        this.table.exportTable(this.requestTableSetting, 'Request');
+        break;
+    }
   }
 
 }

@@ -1,39 +1,44 @@
 <div class="toolbar" [style.position]="(stickyHeader$ | async) ? 'fixed' : 'inherit'"
-    [class.mat-elevation-z4]="(stickyHeader$ | async)">
-    <mat-toolbar color="primary">
-        <span class="menus d-none d-sm-none d-md-flex align-items-center">
-            <button mat-icon-button (click)="changeSidebarMenuState()">
+  [class.mat-elevation-z4]="(stickyHeader$ | async)">
+  <mat-toolbar color="primary">
+    <span class="menus d-none d-sm-none d-md-flex align-items-center">
+      <!-- <button mat-icon-button (click)="changeSidebarMenuState()">
                 <svg-icon src="assets/icons/bars.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
             </button>
             <button mat-icon-button>
                 <img src="assets/icons/apps.svg">
-            </button>
-           <button routerLink='/user-profile/profile' mat-icon-button>
-            <img src='assets/user-image.png' class='rounded-circle' id='gwd-image-effect_1'>
-            <span id='label_1' class='label name_surname_label font-weight-lighter ml-2'>Name Surname</span>
-            <span id='label_2' class='label role_label ml-2'>Admin</span>
-          </button>
-          <!--            <span>-->
-<!--                <user-widget></user-widget>-->
-<!--            </span>-->
-        </span>
+            </button> -->
+      <button mat-icon-button  [matMenuTriggerFor]="menu">
+        <img src='assets/user-image.png' class='rounded-circle' id='gwd-image-effect_1'>
+        <span id='label_1' class='label name_surname_label font-weight-lighter ml-2'>Name Surname</span>
+        <span id='label_2' class='label role_label ml-2'>Admin</span>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="logOut()">Log Out</button>
+      </mat-menu>
+      <!--            <span>-->
+      <!--                <user-widget></user-widget>-->
+      <!--            </span>-->
+    </span>
 
-        <span class="police-brand">
-            <button mat-icon-button>
+    <span class="police-brand">
+      <!-- <button mat-icon-button>
                 <svg-icon src="assets/icons/history.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
             </button>
             <button mat-icon-button>
                 <svg-icon src="assets/icons/bell.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
-            </button>
-            <button mat-icon-button (click)="languageBox.toggle($event)">
-                <svg-icon src="assets/icons/globe-americas.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
-            </button>
-            <button mat-icon-button (click)="changeTheme()">
-                <svg-icon src="assets/icons/eye.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
-            </button>
-            <img [src]="policeLogo" [alt]="policeLogo" />
-        </span>
-    </mat-toolbar>
+            </button> -->
+      <button mat-icon-button (click)="languageBox.toggle($event)">
+        <svg-icon src="assets/icons/globe-americas.svg"
+          [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
+      </button>
+      <button mat-icon-button (click)="changeTheme()">
+        <svg-icon src="assets/icons/eye.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}">
+        </svg-icon>
+      </button>
+      <img [src]="policeLogo" [alt]="policeLogo" />
+    </span>
+  </mat-toolbar>
 </div>
 
 <!-- overlay panel -->
@@ -42,15 +47,17 @@
     <div class="language-panel">
       <ul>
         <li (click)="changeLanguage('en');">
-        <span class="flag">
-          <svg-icon src="assets/icons/united-kingdom.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
-        </span>
+          <span class="flag">
+            <svg-icon src="assets/icons/united-kingdom.svg"
+              [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
+          </span>
           <p>English</p>
         </li>
         <li (click)="changeLanguage('ar');">
-        <span class="flag">
-          <svg-icon src="assets/icons/united-arab-emirates.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
-        </span>
+          <span class="flag">
+            <svg-icon src="assets/icons/united-arab-emirates.svg"
+              [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
+          </span>
           <p>Arabic</p>
         </li>
       </ul>
