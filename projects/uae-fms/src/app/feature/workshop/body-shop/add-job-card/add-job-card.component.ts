@@ -94,7 +94,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
   ];
   addJobCard_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.requests', type: 1, field: 'request' },
+      { lable: 'tables.column.requests', type: 1, field: 'request', renderer: 'checkboxRenderer' },
       { lable: 'tables.column.date', type: 1, sortable: true, field: 'date' },
       { lable: 'tables.column.description', type: 1, field: 'description' },
       { lable: 'tables.column.issue_type', type: 1, field: 'issue_type' },
@@ -106,10 +106,25 @@ export class AddJobCardComponent extends Utility implements OnInit {
       {
         lable: 'tables.column.attachment',
         type: 1,
-        field: 'attachment'
+        field: 'attachment',
+        renderer: 'downloadButtonRenderer',
       }
     ],
-    data: []
+    data: [
+      {
+        date: '02/02/2020',
+        description: 'Description Is here',
+        issue_type: 'issue type',
+        reportedBy: 'faezeh',
+        request: {
+          label: 'Request',
+          checkbox: false
+        },
+        attachment: {
+          link: 'http://'
+        }
+      }
+    ]
   };
   private _jobCard: any;
   assets$ = this._facadeAsset.assetMaster$.pipe(
@@ -297,7 +312,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
 
     if (this.dialogType == 'submit') {
       let f = this.inputForm.value;
-      console.log(this._jobCard);
+
       let jobCardInfo: any = {
         description: f.description,
         wsLocationId: f.wsLocationId,
@@ -353,18 +368,6 @@ export class AddJobCardComponent extends Utility implements OnInit {
       this.dialogSetting.confirmButton = 'OK';
       this.dialogSetting.cancelButton = 'Cancel';
     }
-    let d = this.inputForm.getRawValue();
-    let tasks: object[] = d.tasks;
-    console.log(tasks)
-    // tasks = tasks.map(x => x['taskMasterId'] = x['taskMasterId'].id)
-    // console.log(tasks)
-    let _data = {
-      "description": d.description,
-      "wsLocationId": d.wsLocationId,
-      "relatedRequestIds": d.relatedRequestIds,
-      "tasks": tasks
-    }
-    this._facadeJobCard.addJobCard(_data, d.assetId);
   }
 
   searchTaskMaster(event) {

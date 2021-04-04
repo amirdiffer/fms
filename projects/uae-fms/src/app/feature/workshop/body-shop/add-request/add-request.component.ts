@@ -186,7 +186,8 @@ export class AddRequestComponent implements OnInit {
       issueInfo: this._fb.group({
         issue: ['', Validators.required],
         reportedBy: ['', Validators.required],
-        description: ['', Validators.required]
+        description: ['', Validators.required],
+        gpsMeterSource: ['']
       }),
       priority: [''],
       file: ['']
@@ -223,20 +224,18 @@ export class AddRequestComponent implements OnInit {
     if (!$event) return;
 
     if (this.dialogType == 'submit') {
-      let f = this.inputForm.value;
-      console.log(this._request);
+      let d = this.inputForm.getRawValue();
       let requestInfo: any = {
-        assetId: f.assetId.id,
-        gpsMeterSource: 'asdfasdf',
-        // assetId: this.isEdit ? this._user?.employeeNumber : this.employeeId,
-        hasAccident: f.hasAccident,
-        accidentType: f.accidentType,
-        jobType: f.jobType,
-        reportedBy: f.issueInfo.reportedBy,
-        request: f.issueInfo.issue,
-        description: f.issueInfo.description,
-        priority: f.priority,
-        documentIds: this.profileDocIds || ['1']
+        "assetId": d.assetId.id,
+        "gpsMeterSource": d.issueInfo.gpsMeterSource,
+        "hasAccident": d.hasAccident,
+        "accidentType": d.accidentType,
+        "jobType": d.jobType,
+        "reportedBy": d.issueInfo.reportedBy,
+        "request": d.issueInfo.issue,
+        "description": d.issueInfo.description,
+        "priority": d.priority,
+        "documentIds": this.profileDocIds
       };
 
       if (this.isEdit) {
@@ -282,7 +281,7 @@ export class AddRequestComponent implements OnInit {
       this.dialogSetting.message = 'Are you sure you want to add new request?';
       this.dialogSetting.confirmButton = 'OK';
       this.dialogSetting.cancelButton = 'Cancel';
-    }
+    };
   }
 
   cancelForm() {

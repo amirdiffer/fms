@@ -579,29 +579,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       this.dialogSetting.confirmButton = 'OK';
       this.dialogSetting.cancelButton = 'Cancel';
     }
-    let d = this.inputForm.getRawValue();
-    let skills = (<object[]>d.professional.skills).map(x => x = x['id'])
-    let location = (<object[]>d.professional.location).map(x => x = x['id'])
-    console.log(d)
-    let _data = {
-      "employeeNumber": this.employeeId,
-      "organizationId": 1,
-      "departmentId": 1,
-      "payPerHour": d.portalInfo.payPerHours,
-      "isActive": d.portalInfo.active,
-      "skillIds": skills,
-      "locationIds": location,
-      "profileDocId": this.profileDocId,
-      "firstName": d.personalInfo.firstName,
-      "lastName": d.personalInfo.lastName,
-      "emails": d.personalInfo.email,
-      "phoneNumbers": d.personalInfo.phoneNumber,
-      "notifyByCall": d.personalInfo.notification.call,
-      "notifyBySMS": d.personalInfo.notification.sms,
-      "notifyByEmail": d.personalInfo.notification.email,
-      "notifyByWhatsapp": d.personalInfo.notification.whatsapp,
-    };
-    this._technicianFacade.addTechnician(_data)
   }
 
   cancelForm() {

@@ -1,7 +1,3 @@
-
-<pre>
-  {{inputForm.value | json}}
-</pre>
 <form [formGroup]="inputForm" (ngSubmit)="addRequest()">
 <!--  <div class="button-container">-->
 <!--    <button class="btn-primary-medium btn-scondary-green" type="button"-->
@@ -45,7 +41,7 @@
           <button class="btn-primary-small mx-1"><a>{{'forms.save' | translate}}</a></button>
         </span>
       </div>
-      <app-table [setting]="addJobCard_Table" [tableData]="requests$"></app-table>
+      <app-table [setting]="addJobCard_Table" ></app-table>
     </div>
   </div>
   <div class="form-section mt-3">
