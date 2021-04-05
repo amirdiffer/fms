@@ -54,53 +54,43 @@
       </div>
     </div>
 
-    <div class="col-12" formArrayName="section">
+    <div class="col-12">
       <div class="component_wrapper form-section">
         <div class="row mt-3">
-          <div class="col-lg-2">
-            <span class="p-inputgroup-addon add-section" (click)="addSection()" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i class="pi pi-plus"></i></span>
-            {{'workshop.body_shop.location.section' | translate}}
-          </div>
-          <div class="col-10">
-            <ng-container  *ngFor="let skill of inputForm.get('section')['controls']; let i=index" [formGroupName]="i">
-              <div class="row overflow-visible" >
-                <div class="col-lg-5 ">
-                  <div class="form-group form-group p-field form-section__field">
-                    <div class="input-group">
-                      <span class="p-float-label w-100">
-                          <input type="text" class="form-control "
-                                  formControlName="section"
-                                  placeholder="{{'workshop.body_shop.location.section_id' | translate}}">
-                          <label>{{'workshop.body_shop.location.section_id' | translate}}</label>
-                      </span>
-                      <anms-error
-                        [showError]="formArrayHasError(submited, section, i, 'section')"
-                        error="{{'forms.feedback.required' | translate}}"></anms-error>
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-lg-5" formArrayName="services">
-                  <div class="form-group" *ngFor="let _ of inputForm.get('section')['controls'][i].get('services')['controls']; let index = index;" [formGroupName]="index">
-                    <div class="input-group d-flex w-100  flex-wrap">
-                     <div class="p-field form-section__field  flex-with-button w-100 flex-85">
+          <div class="col-lg-6" formArrayName="services">
+            <div class="form-group" *ngFor="let _ of inputForm.get('services')['controls']; let index = index;" [formGroupName]="index">
+              <div class="input-group d-flex w-100  flex-wrap">
+                <div class="p-field form-section__field  flex-with-button w-100 flex-85">
                       <span class="p-float-label">
                         <input type="text" class="form-control border" placeholder="{{'workshop.body_shop.location.service' | translate}}"
-                                formControlName="service">
+                               formControlName="service">
                         <label>{{'workshop.body_shop.location.service' | translate}}</label>
                       </span>
-                       <anms-error
-                         [showError]="formArrayHasError(submited, inputForm.get('section')['controls'][i].get('services'), index, 'service')"
-                         error="{{'forms.feedback.required' | translate}}"></anms-error>
-                     </div>
-                     <span class="p-inputgroup-addon" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}" (click)="addService(i)"><i class="pi pi-plus"></i></span>
-                    </div>
-                  </div>
+                                      <anms-error
+                                        [showError]="formArrayHasError(submited, services, index, 'service')"
+                                        error="{{'forms.feedback.required' | translate}}"></anms-error>
                 </div>
+                <span class="p-inputgroup-addon" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}" (click)="addService()"><i class="pi pi-plus"></i></span>
               </div>
-            </ng-container>
+            </div>
           </div>
-
+          <div class="col-lg-6" formArrayName="slots">
+            <div class="form-group" *ngFor="let _ of inputForm.get('slots')['controls']; let index = index;" [formGroupName]="index">
+              <div class="input-group d-flex w-100  flex-wrap">
+                <div class="p-field form-section__field  flex-with-button w-100 flex-85">
+                      <span class="p-float-label">
+                        <input type="text" class="form-control border" placeholder="{{'workshop.body_shop.location.slot' | translate}}"
+                               formControlName="thirdPartyLocationId">
+                        <label>{{'workshop.body_shop.location.slot' | translate}}</label>
+                      </span>
+                                      <anms-error
+                                        [showError]="formArrayHasError(submited, slots, index, 'thirdPartyLocationId')"
+                                        error="{{'forms.feedback.required' | translate}}"></anms-error>
+                </div>
+                <span class="p-inputgroup-addon" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}" (click)="addSlot()"><i class="pi pi-plus"></i></span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -116,3 +106,5 @@
   </div>
 </div>
 <alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal"
+  (confirm)="errorDialogModal=false"></alert-dialog>

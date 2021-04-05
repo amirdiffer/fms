@@ -64,7 +64,7 @@ const routes: Routes = [
       ),
     component: MainTemplateComponent
   }, */
- /*  {
+  /*  {
     path: 'toll',
     canLoad: [AuthGuardService],
     loadChildren: () =>

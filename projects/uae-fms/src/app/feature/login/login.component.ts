@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsFacade } from '@core/settings/settings.facade';
 import { Language } from '@core/settings/settings.model';
 import { DOCUMENT } from '@angular/common';
-import { UserProfileFacade } from "@feature/user/state";
+import { UserProfileFacade } from '@feature/user/state';
 
 @Component({
   selector: 'app-login',
@@ -43,17 +43,17 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(x => {
-      if (x.action && x.action == "logout") {
-        this.loginService.logOut().subscribe(_ => {
+    this.route.queryParams.subscribe((x) => {
+      if (x.action && x.action == 'logout') {
+        this.loginService.logOut().subscribe((_) => {
           this.router.navigate(['login']);
           localStorage.clear();
-        })
+        });
       }
     });
 
     this.settingFacade.language.subscribe((lang) => (this.activeLang = lang));
-    this.profileFacade.loadData$.subscribe(x => {
+    this.profileFacade.loadData$.subscribe((x) => {
       if (x) {
         window.localStorage.setItem(
           'user_info',
@@ -111,7 +111,7 @@ export class LoginComponent implements OnInit {
         );
         this.router.navigate(['/configuration/user-management/users']);
       }
-    })
+    });
   }
 
   login(): void {

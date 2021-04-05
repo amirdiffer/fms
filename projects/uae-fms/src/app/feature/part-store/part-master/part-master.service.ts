@@ -70,7 +70,7 @@ export class PartMasterService {
         },
         floatButton: [
           {
-            button: 'external',
+            button: 'external'
           }
         ]
       }

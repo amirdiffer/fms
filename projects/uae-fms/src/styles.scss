@@ -55,7 +55,7 @@
     margin: 1em 0 1em;
     background-color: #fff;
   }
-  .card-wrapper{
+  .card-wrapper {
     margin: 1em 0 1em;
   }
   @include elementTypography(
@@ -197,11 +197,13 @@
       .tab-titles .tab {
         background: $fms-black-body1-bg !important;
         color: #a2a2a2 !important;
-        &.active-tab, &.active-tab-w {
+        &.active-tab,
+        &.active-tab-w {
           background: $fms-black-body2-bg !important;
         }
       }
-      .tab-body, .tab-body-w {
+      .tab-body,
+      .tab-body-w {
         background: $fms-black-body2-bg !important;
       }
     }
@@ -210,10 +212,9 @@
         .card {
           background-color: $fms-black-body1-bg !important;
         }
-        .statistic-button{
-          background-color:#1b1d20;
+        .statistic-button {
+          background-color: #1b1d20;
         }
-        
       }
     }
     .mat-stepper-horizontal {
@@ -267,8 +268,8 @@
     mat-card.mat-card,
     .card,
     anms-add-asset,
-      mat-horizontal-stepper,
-      .mat-horizontal-stepper-header-container {
+    mat-horizontal-stepper,
+    .mat-horizontal-stepper-header-container {
       background-color: $fms-black-body2-bg;
     }
     .mat-toolbar.mat-primary {
@@ -282,7 +283,7 @@
         color: $fms-black-body-color;
       }
     }
-    .component_sec_wrapper{
+    .component_sec_wrapper {
       background-color: $fms-black-body2-bg;
     }
   }
@@ -299,7 +300,6 @@
       background-color: $fms-black-body2-bg;
     }
   }
-
 }
 /* Light Mode */
 .green-theme {
@@ -322,11 +322,11 @@
       }
     }
     anms-add-asset,
-      mat-horizontal-stepper,
-      .mat-horizontal-stepper-header-container {
+    mat-horizontal-stepper,
+    .mat-horizontal-stepper-header-container {
       background: #fff;
     }
-    .component_sec_wrapper{
+    .component_sec_wrapper {
       background-color: $fms-green-body1-bg;
     }
   }
@@ -340,7 +340,7 @@
       .card {
         border: none;
       }
-      .statistic-button{
+      .statistic-button {
         background: #fff;
       }
     }
@@ -358,7 +358,6 @@
       background-color: #fff;
     }
   }
-
 
   @include form-section(
     $fms-green-body2-bg,
@@ -442,8 +441,8 @@
   z-index: 2;
   &:hover:not([disabled]) {
     background: transparent
-      linear-gradient(0deg, #10a770 0%, $fms-green-button-bg 100%) 0 0
-      no-repeat padding-box;
+      linear-gradient(0deg, #10a770 0%, $fms-green-button-bg 100%) 0 0 no-repeat
+      padding-box;
     box-shadow: 0 2px 4px #5a8dee66;
   }
   i {
@@ -1064,7 +1063,7 @@ small {
   color: none;
 }
 .p-inputtext,
-.p-component{
+.p-component {
   font-family: '29LT Bukra' !important;
   font-size: 1em !important;
 }
@@ -1074,7 +1073,6 @@ small {
 .p-dropdown {
   background: transparent;
 }
-
 
 .thumb {
   max-width: 45px;

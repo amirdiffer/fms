@@ -1,7 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Injector } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Injector
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { MovementOverviewFacade, MovementRequestsFacade } from '@feature/fleet/+state/movement';
+import {
+  MovementOverviewFacade,
+  MovementRequestsFacade
+} from '@feature/fleet/+state/movement';
 import { Utility } from '@shared/utility/utility';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { AssetTypeFacade } from '@feature/configuration/+state/asset-configuration';
@@ -28,13 +37,13 @@ export class AddRequestComponent extends Utility implements OnInit {
     header: 'Success',
     hasError: false,
     message: 'New Request Successfully Added',
-    confirmButton: 'Ok',
+    confirmButton: 'Ok'
   };
   dialogErrorSetting: IDialogAlert = {
     header: 'Error',
     hasError: true,
     message: 'Some Error Occurred',
-    confirmButton: 'Ok',
+    confirmButton: 'Ok'
   };
   displayCancelModal = false;
   displaySuccessModal = false;
@@ -65,7 +74,7 @@ export class AddRequestComponent extends Utility implements OnInit {
       quality: [''],
       oldAssetType: ['']
     });
-    this.facade.submitted$.subscribe(x => {
+    this.facade.submitted$.subscribe((x) => {
       if (x) {
         this.displaySuccessModal = true;
         this.facade.loadAll();
@@ -75,28 +84,35 @@ export class AddRequestComponent extends Utility implements OnInit {
       }
     });
 
-    this.assetFacade.assetMaster$.subscribe(x => {
-      this.oldAssetSuggestsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
+    this.assetFacade.assetMaster$.subscribe((x) => {
+      this.oldAssetSuggestsB = x.map((y) => ({
+        id: y.id,
+        name: y['makeName'] + ' ' + y['modelName']
+      }));
     });
 
-    this._movementService.assetTypes().subscribe(x => {
-      this.assetTypes = x.message.map((y => ({ id: y.id, name: y['name'] })));
+    this._movementService.assetTypes().subscribe((x) => {
+      this.assetTypes = x.message.map((y) => ({ id: y.id, name: y['name'] }));
       if (this.assetTypes.length)
         this.requestForm.get('assetType').patchValue(this.assetTypes[0]);
     });
 
-    this.facade.error$.subscribe(x => {
+    this.facade.error$.subscribe((x) => {
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
         this.changeDetector.detectChanges();
       }
-    })
+    });
   }
 
   filterAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.oldAssetSuggests = this.oldAssetSuggestsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+    this.oldAssetSuggests = this.oldAssetSuggestsB.filter(
+      (x) =>
+        (x.id + '').indexOf(event.query) >= 0 ||
+        x.name.indexOf(event.query) >= 0
+    );
   }
 
   submit() {
@@ -107,14 +123,14 @@ export class AddRequestComponent extends Utility implements OnInit {
     } else {
       let d = this.requestForm.getRawValue();
       let _data = {
-        "requesterId": 1,
-        "requestType": d.requestType,
-        "movementType": "PERMANENT",
-        "assetTypeId": d.assetType.id,
-        "reason": d.reason,
-        "quantity": d.quality,
-        "startDate": "2018-10-18T21:13:06.253Z",
-        "endDate": "2008-09-13T21:13:24.636Z"
+        requesterId: 1,
+        requestType: d.requestType,
+        movementType: 'PERMANENT',
+        assetTypeId: d.assetType.id,
+        reason: d.reason,
+        quantity: d.quality,
+        startDate: '2018-10-18T21:13:06.253Z',
+        endDate: '2008-09-13T21:13:24.636Z'
       };
       this.facade.addMovementRequest(_data);
     }
@@ -134,7 +150,6 @@ export class AddRequestComponent extends Utility implements OnInit {
   successConfirm($event) {
     this.displaySuccessModal = false;
     this.facade.reset();
-    this.goToList()
-
+    this.goToList();
   }
 }

@@ -76,9 +76,8 @@ export class AddTrimComponent extends Utility implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(x => {
-      if (x && x.assetType)
-        this.assetTypeId = x.assetType
+    this.route.params.subscribe((x) => {
+      if (x && x.assetType) this.assetTypeId = x.assetType;
     });
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
@@ -86,8 +85,8 @@ export class AddTrimComponent extends Utility implements OnInit {
     });
 
     if (!this.dataService.selectedModelId) {
-      this.router.navigate(['/configuration/asset-configuration']).then(_ => {
-        this.facade.resetParams()
+      this.router.navigate(['/configuration/asset-configuration']).then((_) => {
+        this.facade.resetParams();
       });
     }
 
@@ -216,8 +215,7 @@ export class AddTrimComponent extends Utility implements OnInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-        });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }

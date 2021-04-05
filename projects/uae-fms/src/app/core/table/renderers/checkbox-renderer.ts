@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from '@environments/environment';
 
 @Component({
@@ -10,15 +10,18 @@ import { environment } from '@environments/environment';
         type="checkbox"
         class="custom-checkbox"
         name="checkbox1"
-        [(ngModel)]="data.checkbox"
+        [(ngModel)]="data[field].checkbox"
+        (change)="onChange.emit(this.data)"
       />
-      <label>{{ data.label }}</label>
+      <label>{{ data[field].label }}</label>
     </div>
   `,
   styleUrls: ['./checkbox-renderer.scss']
 })
 export class CheckboxRendererComponent implements OnInit {
   @Input() data;
+  @Input() field;
+  @Output() onChange = new EventEmitter();
   fileServerBase = environment.baseFileServer;
 
   constructor() {}

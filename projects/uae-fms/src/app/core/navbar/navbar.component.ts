@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit {
     private settingsFacade: SettingsFacade,
     @Inject(DOCUMENT) private document: Document,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.isAuthenticated$ = this.store.pipe(select(this.selectIsAuthenticated));

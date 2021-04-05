@@ -21,7 +21,7 @@ export class TollService {
     );
   }
   assigningToll(data): Observable<any> {
-    (data);
+    data;
     return this.http.post<ResponseBody<any>>(
       environment.baseApiUrl + `toll/${data['id']}/assign`,
       data

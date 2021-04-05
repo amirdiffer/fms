@@ -130,8 +130,7 @@ export class ServiceShopAddRequestComponent implements OnInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-        });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }

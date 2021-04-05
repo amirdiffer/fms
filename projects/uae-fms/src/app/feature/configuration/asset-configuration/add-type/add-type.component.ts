@@ -64,7 +64,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
     private changeDetectorRef: ChangeDetectorRef,
-    injector: Injector,
+    injector: Injector
   ) {
     super(injector);
     this.assetConfigurationTableSetting = this._assetConfigurationService.assetConfigurationableSetting();
@@ -145,8 +145,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-        });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
@@ -166,7 +165,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     (<FormArray>this.inputForm.get('models')).push(model);
   }
 
-  dialogType = ""
+  dialogType = '';
   public cancel() {
     this.dialogModal = true;
     this.dialogSetting.hasError = false;
@@ -174,19 +173,19 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     this.dialogSetting.message = 'Are you sure to cancel adding new type?';
     this.dialogSetting.confirmButton = 'Yes';
     this.dialogSetting.cancelButton = 'No';
-    this.dialogType = "cancel"
+    this.dialogType = 'cancel';
     // this._assetConfigurationService.loadAddForm(false);
   }
 
   dialogConfirm($event): void {
-    if (this.dialogType == "cancel") {
+    if (this.dialogType == 'cancel') {
       this.facade.resetParams();
       return;
     }
     this.dialogModal = false;
     if ($event && !this.dialogSetting.hasError) {
-      this.router.navigate(['/configuration/asset-configuration']).then(_ => {
-        this.facade.resetParams()
+      this.router.navigate(['/configuration/asset-configuration']).then((_) => {
+        this.facade.resetParams();
       });
     }
   }
@@ -209,7 +208,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
 
   submit() {
     this.submited = true;
-    this.dialogType = "submit";
+    this.dialogType = 'submit';
     if (this.inputForm.invalid) {
       return;
     }

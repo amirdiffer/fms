@@ -6,27 +6,32 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'table-boolean-renderer',
   template: `
-      <div class="d-flex justify-content-between">
-        <div class="d-flex icon-box">
-        <img *ngIf="data" (load)="selectField('close')" class="asset-image" src="assets/icons/check.svg" />
-        </div>
-        <div class="d-flex icon-box">
-          <svg-icon
-            *ngIf="!data && !isOpen && hover == indexTR"
-            [src]="externalLink"
-            class="icon24px pointer"
-            (click)="editOpen();selectField('open');setting?.onClick(allData)"
-            [svgStyle]="{ fill: '#0da06e' }"
-          ></svg-icon>
-        <svg-icon
-            *ngIf="isOpen"
-            [src]="delete"
-            class="icon24px pointer"
-            (click)="editClose();selectField('close')"
-            [svgStyle]="{ 'width.px': 20, fill: '#fff' }"
-          ></svg-icon>
-        </div>
+    <div class="d-flex justify-content-between">
+      <div class="d-flex icon-box">
+        <img
+          *ngIf="data"
+          (load)="selectField('close')"
+          class="asset-image"
+          src="assets/icons/check.svg"
+        />
       </div>
+      <div class="d-flex icon-box">
+        <svg-icon
+          *ngIf="!data && !isOpen && hover == indexTR"
+          [src]="externalLink"
+          class="icon24px pointer"
+          (click)="editOpen(); selectField('open'); setting?.onClick(allData)"
+          [svgStyle]="{ fill: '#0da06e' }"
+        ></svg-icon>
+        <svg-icon
+          *ngIf="isOpen"
+          [src]="delete"
+          class="icon24px pointer"
+          (click)="editClose(); selectField('close')"
+          [svgStyle]="{ 'width.px': 20, fill: '#fff' }"
+        ></svg-icon>
+      </div>
+    </div>
   `,
   styles: [
     `

@@ -1,15 +1,25 @@
-import { Component, OnInit, ChangeDetectionStrategy, Injector, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Injector,
+  OnDestroy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { DataService } from '../data.service';
-import { BusinessCategoryFacade, BusinessCategoryService } from '../../+state/business-category';
+import {
+  BusinessCategoryFacade,
+  BusinessCategoryService
+} from '../../+state/business-category';
 import { map } from 'rxjs/operators';
 
-import { AccessoryFacade } from "@feature/fleet/+state/accessory";
-import { SubAssetFacade } from "@feature/fleet/+state/sub-asset";
-import { AssetTypeFacade } from "../../+state/asset-configuration";
+import { AccessoryFacade } from '@feature/fleet/+state/accessory';
+import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
+import { AssetTypeFacade } from '../../+state/asset-configuration';
 
 @Component({
   selector: 'anms-add-category',
@@ -18,7 +28,6 @@ import { AssetTypeFacade } from "../../+state/asset-configuration";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
-
   //#region  Dialog
   dialogModal = false;
   dialogMode = null;
@@ -41,7 +50,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       { lable: 'tables.column.sub_asset', type: 1, field: 'Sub_Asset' },
       { lable: 'tables.column.accessory', type: 1, field: 'Accessory' }
     ],
-    data: [],
+    data: []
   };
 
   businessCategory$ = this.facade.businessCategory$.pipe(
@@ -58,7 +67,8 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
           assetTypeName: responseObject.assetTypeName
         };
       })
-    ));
+    )
+  );
 
   //#endregion
 
@@ -96,22 +106,24 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.accessoryFacade.loadAll();
     this.subAssetFacade.loadAll();
     this.assetTypeFacade.loadAll();
 
-    this.accessoryFacade.accessory$.subscribe(x => {
-      this.accessoriesB = x.map(y => ({ id: y.id, name: y.itemName }));
-    })
+    this.accessoryFacade.accessory$.subscribe((x) => {
+      this.accessoriesB = x.map((y) => ({ id: y.id, name: y.itemName }));
+    });
 
-    this.subAssetFacade.subAsset$.subscribe(x => {
-      this.subAssetsB = x.map(y => ({ id: y.id, name: y['makeName'] + " " + y['modelName'] }));
-    })
+    this.subAssetFacade.subAsset$.subscribe((x) => {
+      this.subAssetsB = x.map((y) => ({
+        id: y.id,
+        name: y['makeName'] + ' ' + y['modelName']
+      }));
+    });
 
-    this.assetTypeFacade.assetType$.subscribe(x => {
-      this.assetTypesB = x.map(y => ({ id: y.id, name: y.name }));
-    })
+    this.assetTypeFacade.assetType$.subscribe((x) => {
+      this.assetTypesB = x.map((y) => ({ id: y.id, name: y.name }));
+    });
 
     this.addCategoryForm = this._fb.group({
       name: ['', [Validators.required]],
@@ -170,7 +182,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
 
     this.facade.submitted$.subscribe((x) => {
       if (x) {
-        this.dialogMode = "cancel";
+        this.dialogMode = 'cancel';
         this.dialogModal = true;
         this.dialogSetting.header = this.dataService.isEditing
           ? 'Edit category'
@@ -231,7 +243,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   }
 
   dialogConfirm(event): void {
-    if (this.dialogMode == "cancel") {
+    if (this.dialogMode == 'cancel') {
       this.router.navigate(['/configuration/business-category']).then();
       return;
     }
@@ -243,7 +255,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     const itemToPost = {
       name: this.addCategoryForm.value.name,
       assetTypeId: this.addCategoryForm.value.assetType.id,
-      status: this.addCategoryForm.value.activeCategory ? "ACTIVE" : "DEACTIVE",
+      status: this.addCategoryForm.value.activeCategory ? 'ACTIVE' : 'DEACTIVE',
       description: this.addCategoryForm.value.description,
       subAssets: [],
       accessories: []
@@ -266,7 +278,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     }
 
     if (this.dataService.isEditing) {
-      itemToPost["id"] = this.id;
+      itemToPost['id'] = this.id;
       this.facade.editCategory(itemToPost);
     } else {
       this.facade.addCategory(itemToPost);
@@ -274,7 +286,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   }
 
   cancel(): void {
-    this.dialogMode = "cancel";
+    this.dialogMode = 'cancel';
     this.dialogModal = true;
     this.dialogSetting.confirmButton = 'Yes';
     this.dialogSetting.cancelButton = 'No';
@@ -289,7 +301,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     if (this.addCategoryForm.invalid) {
       return;
     }
-    this.dialogMode = "submit";
+    this.dialogMode = 'submit';
 
     this.dialogModal = true;
     if (this.dataService.isEditing) {
@@ -305,17 +317,29 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
 
   filterAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.assetTypes = this.assetTypesB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+    this.assetTypes = this.assetTypesB.filter(
+      (x) =>
+        (x.id + '').indexOf(event.query) >= 0 ||
+        x.name.indexOf(event.query) >= 0
+    );
   }
 
   filterSubAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.subAssets = this.subAssetsB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+    this.subAssets = this.subAssetsB.filter(
+      (x) =>
+        (x.id + '').indexOf(event.query) >= 0 ||
+        x.name.indexOf(event.query) >= 0
+    );
   }
 
   filterAccessories(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.accessories = this.accessoriesB.filter(x => (x.id + "").indexOf(event.query) >= 0 || x.name.indexOf(event.query) >= 0);
+    this.accessories = this.accessoriesB.filter(
+      (x) =>
+        (x.id + '').indexOf(event.query) >= 0 ||
+        x.name.indexOf(event.query) >= 0
+    );
   }
 
   ngOnDestroy(): void {

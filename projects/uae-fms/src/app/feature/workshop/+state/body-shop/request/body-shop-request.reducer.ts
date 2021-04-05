@@ -5,10 +5,17 @@ import {
   BodyShopRequestState
 } from './body-shop-request.entity';
 import { BodyShopRequestActions } from './body-shop-request.actions';
+import { state } from '@angular/animations';
 
 const bodyShopRequestReducer = createReducer(
   initialState,
   on(BodyShopRequestActions.loadAll, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null
+  })),
+  on(BodyShopRequestActions.loadAllRequestsById, (state) => ({
     ...state,
     loaded: false,
     error: null,
@@ -22,10 +29,48 @@ const bodyShopRequestReducer = createReducer(
   on(BodyShopRequestActions.allDataLoaded, (state, { data }) =>
     bodyShopRequestAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+  on(BodyShopRequestActions.requestsByIdDataLoaded, (state, { data }) =>
+    ({ ...state, loaded: true, error: null, requests: data })
+  ),
   on(BodyShopRequestActions.allStatisticsLoaded, (state, { data }) => ({
     ...state,
     statistics: data,
     loaded: true
+  })),
+  on(BodyShopRequestActions.addRequest, (state, { data: IRequest }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(BodyShopRequestActions.requestAddedSuccessfully, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: true
+  })),
+  on(BodyShopRequestActions.editRequest, (state, { request }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(BodyShopRequestActions.requestEditedSuccessfully, (state, { request }) =>
+    bodyShopRequestAdapter.updateOne(
+      { changes: request, id: request.id },
+      {
+        ...state,
+        error: null,
+        message: null,
+        submitted: true
+      }
+    )
+  ),
+  on(BodyShopRequestActions.resetParams, (state) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
   })),
   on(BodyShopRequestActions.error, (state, { reason }) => ({
     ...state,

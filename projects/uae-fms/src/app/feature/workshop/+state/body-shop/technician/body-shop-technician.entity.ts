@@ -3,11 +3,11 @@ import { ITechnician } from '@models/body-shop';
 
 export const WORKSHOP_BODYSHOP_TECHNICIAN_FEATURE_KEY = 'bodyShopTechnician';
 
-export interface IBodyShopTechnicianState
-  extends EntityState<ITechnician> {
+export interface IBodyShopTechnicianState extends EntityState<ITechnician> {
   error?: any;
   loaded: boolean;
   message: string;
+  submitted: boolean;
 }
 export interface IBodyShopTechnicianPartialState {
   [WORKSHOP_BODYSHOP_TECHNICIAN_FEATURE_KEY]: IBodyShopTechnicianState;
@@ -19,6 +19,7 @@ export const initialState: IBodyShopTechnicianState = bodyShopTechnicianAdapter.
   {
     loaded: null,
     message: null,
-    error: null
+    error: null,
+    submitted: false
   } as IBodyShopTechnicianState
 );

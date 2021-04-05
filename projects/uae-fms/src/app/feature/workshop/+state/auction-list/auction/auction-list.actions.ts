@@ -18,5 +18,4 @@ export class AuctionListActions {
     '[AuctionList] Update Row',
     props<{ data: IAuctionListModel }>()
   );
-
 }

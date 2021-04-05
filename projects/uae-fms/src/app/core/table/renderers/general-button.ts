@@ -133,7 +133,6 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   }
 
   clickButton(button): void {
-      this.setting.onClick(this.button, button)
+    this.setting.onClick(this.button, button);
   }
-
 }

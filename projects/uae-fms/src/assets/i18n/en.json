@@ -433,6 +433,7 @@
       "issue_type": "Issue Type",
       "employe_id": "Employe ID",
       "user_status": "User Status",
+      "requests": "Requests",
       "trim": "Trim",
       "trims": "Trims",
       "color": "Color",
@@ -929,7 +930,13 @@
         "view_card": "View Card",
         "asset_type": "Asset Type"
       },
-      "job_card": {},
+      "job_card": {
+        "id": "Id",
+        "describe_job_card": "Describe JobCard",
+        "task": "Task",
+        "technician": "Technician",
+        "select_request": "Select The Request Please"
+      },
       "technician": {
         "portal_info": "Portal Info",
         "professional_info": "Professional Info",
@@ -971,6 +978,7 @@
         "section_id": "Section ID",
         "section_id_validation_error": "Please fill Location",
         "service": "Service",
+        "slot": "Slot",
         "service_validation_error": "Please fill service"
       }
     },

@@ -51,5 +51,9 @@ export class TaskMasterComponent implements OnInit {
   ngOnInit(): void {
     this.tableSetting = this._taskMasterService.tableSetting;
     this._facade.loadAll();
+
+    this._facade.taskMasters$.subscribe((x) => {
+      console.log(x);
+    });
   }
 }

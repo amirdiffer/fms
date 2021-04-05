@@ -21,6 +21,48 @@ const bodyShopTechnicianReducer = createReducer(
       error: null
     })
   ),
+  on(
+    BodyShopTechnicianActions.addTechnician,
+    (state, { data: ITechnician }) => ({
+      ...state,
+      submitted: false
+    })
+  ),
+  on(
+    BodyShopTechnicianActions.technicianAddedSuccessfully,
+    (state, { data }) => ({
+      ...state,
+      error: null,
+      message: null,
+      submitted: true
+    })
+  ),
+  on(BodyShopTechnicianActions.resetParams, (state) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(BodyShopTechnicianActions.editTechnician, (state, { technician }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(
+    BodyShopTechnicianActions.technicianEditedSuccessfully,
+    (state, { technician }) =>
+      bodyShopTechnicianAdapter.updateOne(
+        { changes: technician, id: technician.id },
+        {
+          ...state,
+          error: null,
+          message: null,
+          submitted: true
+        }
+      )
+  ),
+
   on(BodyShopTechnicianActions.error, (state, { reason }) => ({
     ...state,
     error: reason,
