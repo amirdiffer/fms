@@ -6,6 +6,7 @@ import { SettingsFacade } from '@core/settings/settings.facade';
 import { Language } from '@core/settings/settings.model';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { DOCUMENT } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -32,7 +33,8 @@ export class NavbarComponent implements OnInit {
     private store: Store,
     private sidebarMenuFacade: SidebarMenuFacade,
     private settingsFacade: SettingsFacade,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -74,5 +76,9 @@ export class NavbarComponent implements OnInit {
     this.theme == 'green-theme'
       ? this.settingsFacade.changeTheme('BLACK-THEME')
       : this.settingsFacade.changeTheme('GREEN-THEME');
+  }
+
+  logOut() {
+    this.router.navigate(['login'], { queryParams: { action: 'logout' } });
   }
 }

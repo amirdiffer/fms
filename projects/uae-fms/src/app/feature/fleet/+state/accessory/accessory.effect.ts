@@ -57,7 +57,9 @@ export class AccessoryEffect {
       mergeMap((action) =>
         this.service.addAccessory(action.data).pipe(
           map((data) =>
-            AccessoryActions.accessoryAddedSuccessfully({ data: { ...action.data, ...data.message } })
+            AccessoryActions.accessoryAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
           ),
           catchError((error) => of(AccessoryActions.error({ reason: error })))
         )
@@ -68,14 +70,15 @@ export class AccessoryEffect {
   editAccessory$ = createEffect(() =>
     this.action$.pipe(
       ofType(AccessoryActions.editAccessory),
-      mergeMap((action) =>
-        this.service.editAccessory(action.data).pipe(
+      mergeMap((action) => {
+        debugger;
+        return this.service.editAccessory(action.data, action.id).pipe(
           map((data) =>
             AccessoryActions.accessoryEditedSuccessfully({ data: data.message })
           ),
           catchError((error) => of(AccessoryActions.error({ reason: error })))
-        )
-      )
+        );
+      })
     )
   );
 

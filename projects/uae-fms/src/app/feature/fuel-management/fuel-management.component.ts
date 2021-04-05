@@ -159,7 +159,7 @@ export class FuelManagementComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: '',
-        sortable:true
+        sortable: true
       },
       {
         lable: 'tables.column.amount',
@@ -167,7 +167,7 @@ export class FuelManagementComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: '',
-        sortable:true
+        sortable: true
       },
       {
         lable: 'tables.column.mileage',
@@ -175,7 +175,7 @@ export class FuelManagementComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: '',
-        sortable:true
+        sortable: true
       },
       {
         lable: 'tables.column.total_usage',
@@ -183,7 +183,7 @@ export class FuelManagementComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: '',
-        sortable:true
+        sortable: true
       },
       {
         lable: 'tables.column.cost',
@@ -191,7 +191,7 @@ export class FuelManagementComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: '',
-        sortable:true
+        sortable: true
       },
       {
         lable: 'tables.column.card_type',
@@ -343,7 +343,7 @@ export class FuelManagementComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: '',
-        sortable:true
+        sortable: true
       }
     ],
     data: this.fuelCardTableData
@@ -359,7 +359,7 @@ export class FuelManagementComponent implements OnInit {
   ngOnInit(): void {
     this._facadeFuelCard.loadAll();
     this.statisticsFilters(this.statisticsCount);
-    this.fuelCards$ = this._facadeFuelCard.fuelCards$.subscribe((data:any) => {
+    this.fuelCards$ = this._facadeFuelCard.fuelCards$.subscribe((data: any) => {
       if (data) {
         this.fuelCardsTableSetting.data = data.map((item) => {
           return {
@@ -392,8 +392,6 @@ export class FuelManagementComponent implements OnInit {
     this._facadeAssetUsage.loadAll();
   }
   addClicked(e: Event) {
-    console.log(this._router.navigate(['add-fuel-card']));
-
     switch (this.selectedTab) {
       case 'Fuel Cards':
         this._router.navigate(['fuel-management/add-fuel-card']);

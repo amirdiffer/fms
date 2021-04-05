@@ -2,7 +2,9 @@ import { createAction, props } from '@ngrx/store';
 import { MovementOverviewStateModel } from './movement-overview.entity';
 
 export class MovementOverviewActionsTemporary {
-  static loadAll = createAction('[MovementOverviewTemporary] load all overviews');
+  static loadAll = createAction(
+    '[MovementOverviewTemporary] load all overviews'
+  );
 
   static allDataLoaded = createAction(
     '[MovementOverviewTemporary] all data are loaded',
@@ -13,5 +15,4 @@ export class MovementOverviewActionsTemporary {
     '[MovementOverviewTemporary] error occurred',
     props<{ reason: any }>()
   );
-
 }

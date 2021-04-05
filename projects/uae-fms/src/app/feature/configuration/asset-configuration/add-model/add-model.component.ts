@@ -16,12 +16,13 @@ import {
 } from 'ngx-file-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
-import { IAssetType } from '@models/asset-type.model';
+import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetConfigurationService } from '@feature/configuration/asset-configuration/asset-configuration.service';
 import { AssetTypeFacade } from '@feature/configuration/+state/asset-configuration';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { Utility } from '@shared/utility/utility';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'anms-add-model',
@@ -62,13 +63,14 @@ export class AddModelComponent
     return this.inputForm.get('models') as FormArray;
   }
 
+  assetTypeId;
   constructor(
     private _fb: FormBuilder,
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
     private changeDetectorRef: ChangeDetectorRef,
-    private dataService: DataService,
+    public dataService: DataService,
     injector: Injector
   ) {
     super(injector);
@@ -76,6 +78,10 @@ export class AddModelComponent
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe((x) => {
+      if (x && x.assetType) this.assetTypeId = x.assetType;
+    });
+
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
       models: new FormArray([this.createModel()])
@@ -88,9 +94,10 @@ export class AddModelComponent
       // singleModelArray: new FormArray([this.createSingleModel()])
     });
 
-    if (!this.dataService.selectedTypeId) {
-      // TODO: uncomment this line
-      // this.router.navigate(['/configuration/asset-configuration']).then();
+    if (!this.dataService.selectedMakeId) {
+      this.router
+        .navigate(['/configuration/asset-configuration'])
+        .then((_) => this.facade.resetParams());
     }
 
     this.facade.assetType$.subscribe((response) => {
@@ -105,26 +112,23 @@ export class AddModelComponent
             } else if (this.assetType.type === 'ACCESSORY') {
               this.inputForm.patchValue({ typeCategory: 'accessory' });
             }
-          }
 
-          this.models.clear();
-          console.log(make.models);
-          for (let index = 0; index < make.models.length; index++) {
+            this.models.clear();
+            for (let index = 0; index < make.models.length; index++) {
+              this.addModel();
+              this.models.controls[index].setValue({
+                model: make.models[index].model,
+                modelDescription: make.models[index].modelDescription,
+                trims: make.models[index].trims
+              });
+            }
             this.addModel();
-            console.log(make.models[index].model);
-            this.models.controls[index].setValue({
-              model: make.models[index].model,
-              modelDescription: make.models[index].modelDescription,
-              trims: make.models[index].trims
-            });
           }
-          this.addModel();
         });
       });
     });
 
     this.facade.submitted$.subscribe((x) => {
-      console.log('Submit : ', x);
       if (x) {
         this.dialogModal = true;
         this.dialogSetting.header = 'Add new type';
@@ -139,7 +143,6 @@ export class AddModelComponent
 
     this.facade.error$.subscribe((x) => {
       if (x?.error) {
-        console.log(x?.error);
         this.dialogModal = true;
         this.dialogSetting.header = 'Add new make';
         this.dialogSetting.hasError = true;
@@ -154,15 +157,15 @@ export class AddModelComponent
   createModel(isOptional?: boolean): FormGroup {
     if (isOptional) {
       return this._fb.group({
-        model: '',
-        modelDescription: '',
-        trims: []
+        model: ['', [Validators.required]],
+        modelDescription: ['', [Validators.required]],
+        trims: [[]]
       });
     }
     return this._fb.group({
       model: '',
       modelDescription: '',
-      trims: []
+      trims: [[]]
     });
   }
 
@@ -203,22 +206,17 @@ export class AddModelComponent
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-          console.log(droppedFile.relativePath, file);
-        });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
       }
     }
   }
 
-  public fileOver(event) {
-    console.log(event);
-  }
+  public fileOver(event) {}
 
   public fileLeave(event) {
-    console.log(event);
+    event;
   }
 
   // public addModel() {
@@ -238,27 +236,28 @@ export class AddModelComponent
   }
 
   dialogConfirm($event): void {
-    console.log($event);
     this.dialogModal = false;
     if ($event && !this.dialogSetting.hasError) {
-      this.router.navigate(['/configuration/asset-configuration']).then();
+      this.router
+        .navigate(['/configuration/asset-configuration'])
+        .then((_) => this.facade.resetParams());
     }
   }
 
   color1Clicked(): void {
-    console.log('color1 clicked');
+    // console.log('color1 clicked');
   }
 
   color2Clicked(): void {
-    console.log('color2 clicked');
+    // console.log('color2 clicked');
   }
 
   color3Clicked(): void {
-    console.log('color3 clicked');
+    // console.log('color3 clicked');
   }
 
   color4Clicked(): void {
-    console.log('color4 clicked');
+    // console.log('color4 clicked');
   }
 
   submit() {
@@ -303,17 +302,38 @@ export class AddModelComponent
 }
     */
 
+    const makes: Make[] = [];
+
+    for (let i = 0; i < this.assetType.makes.length; i++) {
+      if (this.assetType.makes[i].id === this.dataService.selectedMakeId) {
+        const make = {
+          id: this.assetType.makes[i].id,
+          totalMakeCount: this.assetType.makes[i].totalMakeCount,
+          make: this.assetType.makes[i].make,
+          makeDescription: this.assetType.makes[i].makeDescription,
+          // @ts-ignore
+          origins: this.assetType.makes[i].origins,
+          models: this.inputForm.value.models
+        };
+        makes.push(make);
+        makes;
+      }
+    }
+
     const data = {
+      id: this.assetTypeId,
       type: type,
       name: this.assetType.name,
       isActive: this.assetType.isActive,
       typeDescription: this.assetType.typeDescription,
-      makes: this.assetType.makes
+      makes: makes
     };
 
-    console.log(data);
+    data.makes = data.makes.map((x) => {
+      return x;
+    });
 
-    // this.facade.addModel(data);
+    this.facade.addModel(data);
     // this._assetConfigurationService.loadAddForm(false);
   }
 }

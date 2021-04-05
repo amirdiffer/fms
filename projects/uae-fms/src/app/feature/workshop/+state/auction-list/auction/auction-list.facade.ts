@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AuctionListSelectors } from './auction-list.selectors';
-import { IAuctionListModel, IAuctionListPartialState } from './auction-list.entity';
+import {
+  IAuctionListModel,
+  IAuctionListPartialState
+} from './auction-list.entity';
 import { AuctionListActions } from './auction-list.actions';
 
 @Injectable()
@@ -19,7 +22,6 @@ export class AuctionListFacade {
   }
 
   updateRow(data: IAuctionListModel) {
-    this.store.dispatch(AuctionListActions.updateRow({data: data}))
+    this.store.dispatch(AuctionListActions.updateRow({ data: data }));
   }
-
 }

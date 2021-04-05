@@ -69,6 +69,5 @@ export class FuelCardRendererComponent implements OnInit {
 
   ngOnInit() {
     this.items = this.data.data;
-    console.log(this.data.data);
   }
 }

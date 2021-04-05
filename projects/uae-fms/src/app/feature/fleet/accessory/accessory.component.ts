@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import {
   Component,
   OnInit,
@@ -7,7 +8,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
-import { TableComponent, TableSetting } from '@core/table';
+import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccessoryFacade } from '../+state/accessory';
@@ -20,7 +21,6 @@ import { AccessoryService } from './accessory.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccessoryComponent implements OnInit, OnDestroy {
-
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
   downloadBtn = 'assets/icons/download-solid.svg';
@@ -35,28 +35,28 @@ export class AccessoryComponent implements OnInit, OnDestroy {
       filterCount: '',
       filterTagColor: '#CBA786',
       field: 'total',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.available',
       filterCount: '',
       filterTagColor: '#07858D',
       field: 'available',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.assigned',
       filterCount: '',
       filterTagColor: '#EF959D',
       field: 'assigned',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.x_accessory',
       filterCount: '',
       filterTagColor: '#DD5648',
       field: 'xAccesssory',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
   //#endregion
@@ -78,30 +78,55 @@ export class AccessoryComponent implements OnInit, OnDestroy {
         field: 'Quantity',
         width: 150,
         sortable: true
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
-    data: []
+    data: [],
+    rowSettings: {
+      floatButton: [
+        {
+          onClick: (col, data) => {
+            this._router.navigate(['/fleet/accessory/edit-accessory'], {
+              queryParams: { id: data['id'] }
+            });
+          },
+          button: 'external',
+          color: '#3F3F3F'
+        }
+      ]
+    }
   };
 
   accessory$ = this._accessoryFacade.accessory$.pipe(
-    map(x => x.map((item) => {
-      return {
-        statusColor: '#00AFB9',
-        Item: item.itemName,
-        Type: item.assignedToType,
-        Asset_SubAsset: item.assignedToEntity,
-        Assigned_To: item.assignedToEmployeeId,
-        Quantity: item.quantity
-      };
-    }))
+    map((x) =>
+      x.map((item) => {
+        return {
+          id: item.id,
+          statusColor: '#00AFB9',
+          Item: item.itemName,
+          Type: item.assignedToType,
+          Asset_SubAsset: item.assignedToEntity,
+          Assigned_To: item.assignedToEmployeeId,
+          Quantity: item.quantity
+        };
+      })
+    )
   );
   //#endregion
 
   constructor(
     private _accessoryService: AccessoryService,
     private _accessoryFacade: AccessoryFacade,
-    private changeDetection: ChangeDetectorRef
-  ) { }
+    private changeDetection: ChangeDetectorRef,
+    private _router: Router
+  ) {}
 
   ngOnInit(): void {
     this.openAdd$ = this._accessoryService.getAddForm().subscribe((open) => {
@@ -129,7 +154,6 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.openAdd$.unsubscribe();
   }
-
 
   exportTable() {
     this.table.exportTable(this.accessory_Table, 'Accessories');

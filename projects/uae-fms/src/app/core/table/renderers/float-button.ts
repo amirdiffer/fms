@@ -19,7 +19,7 @@ import { SettingsFacade } from '@core/settings/settings.facade';
       }"
     >
       <ng-container *ngFor="let item of setting?.floatButton">
-        <span (click)="clicked(item,col,data)">
+        <span (click)="clicked(item, col, data)">
           <svg-icon
             [src]="getIcon(item.button)"
             class="svg-icon"
@@ -70,9 +70,9 @@ export class FloatButton implements OnInit {
 
   assetPath = 'assets/icons/';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   getIcon(key: string): string {
     switch (key) {
@@ -96,9 +96,7 @@ export class FloatButton implements OnInit {
 
   clicked(item, col, data) {
     if (item && item.onClick && item.onClick instanceof Function) {
-      console.log("item.onClick")
-      console.log(item.onClick)
-      item.onClick(col, data, item.button)
+      item.onClick(col, data, item.button);
     }
   }
 }

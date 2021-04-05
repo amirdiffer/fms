@@ -33,6 +33,8 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 import { FleetStateModule } from '../fleet/+state/fleet.state.module';
 import { AddMakeComponent } from '@feature/configuration/asset-configuration/add-make/add-make.component';
 import { AddModelComponent } from './asset-configuration/add-model/add-model.component';
+import { AddTrimComponent } from './asset-configuration/add-trim/add-trim.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { AddModelComponent } from './asset-configuration/add-model/add-model.com
     OwnershipFormComponent,
     AddAssetPolicyComponent,
     AddMakeComponent,
-    AddModelComponent
+    AddModelComponent,
+    AddTrimComponent
   ],
   imports: [
     TabViewModule,
@@ -73,7 +76,8 @@ import { AddModelComponent } from './asset-configuration/add-model/add-model.com
     ConfigurationStateModule,
     ConfigurationRoutingModule,
     AlertDialogModule,
-    FleetStateModule
+    FleetStateModule,
+    ColorPickerModule
   ]
 })
 export class ConfigurationModule {}

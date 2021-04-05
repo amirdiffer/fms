@@ -5,7 +5,7 @@ export class TableActions {
 
   static initial = createAction(
     '[Table] Create',
-    props<{ data: string }>()
+    props<{ ipp: number, count: number, name: string }>()
   );
 
   static next = createAction(

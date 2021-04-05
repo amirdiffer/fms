@@ -60,7 +60,6 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
     data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
-        console.log(col, data, button);
         this.dataService.dataToEditFromTable = data;
         this.dataService.isEditing = true;
         this.router
@@ -80,7 +79,7 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
     private facade: BusinessCategoryFacade,
     private dataService: DataService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();

@@ -7,9 +7,9 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 })
 export class FilterComponent implements OnInit, OnChanges {
   @Input() setting: FilterCardSetting[];
-  chartIcon='assets/icons/chart-bar.svg'
+  chartIcon = 'assets/icons/chart-bar.svg';
   cardSetting: FilterCard[];
-  showStatistics:boolean = true;
+  showStatistics: boolean = true;
   constructor() {}
 
   ngOnInit(): void {}

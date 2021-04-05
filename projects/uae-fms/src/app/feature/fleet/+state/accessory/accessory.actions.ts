@@ -3,7 +3,6 @@ import { createAction, props } from '@ngrx/store';
 import { IAccessory } from '@models/accessory';
 
 export class AccessoryActions {
-
   static loadAll = createAction('[accessory] load all data');
   static allDataLoaded = createAction(
     '[accessory] all data are loaded',
@@ -33,7 +32,7 @@ export class AccessoryActions {
 
   static editAccessory = createAction(
     '[accessory] edit accessory',
-    props<{ data: any }>()
+    props<{ data: any; id: number }>()
   );
 
   static accessoryEditedSuccessfully = createAction(
@@ -41,7 +40,5 @@ export class AccessoryActions {
     props<{ data: IAccessory }>()
   );
 
-  static reset = createAction(
-    '[accessory] accessory resets'
-  );
+  static reset = createAction('[accessory] accessory resets');
 }

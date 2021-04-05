@@ -5,7 +5,7 @@ import { ResponseBody } from '@models/responseBody';
 import { environment } from '@environments/environment';
 import { IAccessory } from '@models/accessory';
 import { IAccessoryStatistics } from '@models/statistics';
-import { IOwnerShip } from '@models/configuration';
+import { IOwnerShip, IUser } from '@models/configuration';
 
 @Injectable()
 export class AccessoryService {
@@ -23,17 +23,34 @@ export class AccessoryService {
     );
   }
 
+  getAssetTypes(): Observable<any> {
+    return this.http.get(
+      environment.baseApiUrl + 'configuration/asset-type?size=999'
+    );
+  }
+
   addAccessory(data): Observable<ResponseBody<IAccessory>> {
     return this.http.post<ResponseBody<IAccessory>>(
       environment.baseApiUrl + 'accessory',
       data
     );
   }
-  editAccessory(data): Observable<ResponseBody<IAccessory>> {
+  editAccessory(data, id: number): Observable<ResponseBody<IAccessory>> {
     return this.http.post<ResponseBody<IAccessory>>(
-      environment.baseApiUrl + 'accessory',
+      environment.baseApiUrl + `accessory/${id}/update`,
       data
     );
   }
 
+  getAccessory(id: number): Observable<IAccessoryStatistics> {
+    return this.http.get<IAccessoryStatistics>(
+      environment.baseApiUrl + `accessory/${id}`
+    );
+  }
+
+  public users(): Observable<ResponseBody<IUser[]>> {
+    return this.http.get<ResponseBody<IUser[]>>(
+      environment.baseApiUrl + 'configuration/user'
+    );
+  }
 }

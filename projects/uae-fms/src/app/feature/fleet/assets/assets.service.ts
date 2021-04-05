@@ -40,7 +40,7 @@ export class AssetsService {
     for (let index = 0; index < 9; index++) {
       const el = {
         asset: {
-          img: 'thumb1.png',
+          img: 'assets/thumb.png',
           assetName: 'Asset Name',
           assetSubName: 'DPD 0000001',
           progress: Math.floor(Math.random() * 6) + 1
@@ -109,10 +109,10 @@ export class AssetsService {
         },
         {
           lable: 'tables.column.make',
-          field: '',
+          field: 'make',
           width: 100,
-          type: 3,
-          thumbField: 'brand',
+          type: 1,
+          thumbField: '',
           renderer: ''
         },
         {
@@ -142,31 +142,29 @@ export class AssetsService {
       ],
       data: this.pedingRegistration(),
       rowSettings: {
-        onClick: (col, data, button?) => {
-          console.log(col, data, button);
-        },
-        floatButton: [
-          {
-            button: 'edit',
-            color: '#3F3F3F'
-          },
-          {
-            button: 'download'
-          },
-          {
-            button: 'external',
-            onClick: (col, data) => {
-              this.router.navigate([`/fleet/assets/1/registration`]);
-            }
-          },
-          {
-            button: 'cancel',
-            color: '#F75A4A'
-          },
-          {
-            button: 'checked'
-          }
-        ]
+        onClick: (col, data, button?) => {}
+        // floatButton: [
+        //   {
+        //     button: 'edit',
+        //     color: '#3F3F3F',
+        //   },
+        //   {
+        //     button: 'download'
+        //   },
+        //   {
+        //     button: 'external',
+        //     onClick: (col, data ,  button?) => {
+        //       this.router.navigate([`/fleet/assets/${data.id}/registration`]);
+        //     }
+        //   },
+        //   {
+        //     button: 'cancel',
+        //     color: '#F75A4A'
+        //   },
+        //   {
+        //     button: 'checked'
+        //   }
+        // ]
       }
     };
   };
@@ -224,22 +222,20 @@ export class AssetsService {
       ],
       data: this.pedingCustomization(),
       rowSettings: {
-        onClick: (col, data, button?) => {
-          console.log(col, data, button);
-        },
-        floatButton: [
-          {
-            button: 'external',
-            color: '#3F3F3F',
-            onClick: (col, data) => {
-              this.router.navigate(['/fleet/assets/1/customization']);
-            }
-          }
-        ]
+        onClick: (col, data, button?) => {}
+        // floatButton: [
+        //   {
+        //     button: 'external',
+        //     color: '#3F3F3F',
+        //     onClick: (col, data) => {
+        //       this.router.navigate(['/fleet/assets/1/customization']);
+        //     }
+        //   }
+        // ]
       }
     };
   };
   private onClick() {
-    console.log('hi');
+    // console.log('hi');
   }
 }

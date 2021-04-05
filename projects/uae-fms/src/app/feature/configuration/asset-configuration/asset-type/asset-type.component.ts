@@ -3,13 +3,16 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   OnDestroy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { AssetTypeFacade } from '../../+state/asset-configuration';
-import { Subject, merge } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
 import { Router } from '@angular/router';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'configuration-asset-type',
@@ -18,27 +21,14 @@ import { DataService } from '@feature/configuration/asset-configuration/data.ser
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetTypeComponent implements OnInit, OnDestroy {
-  assetType$ = this.facade.assetType$;
-  filter = new Subject();
+  @Output() selectTrim = new EventEmitter();
+  @Output() selectMake = new EventEmitter();
+  @Output() selectModel = new EventEmitter();
 
-  assetData$ = merge(this.assetType$, this.filter.asObservable());
-
-  assetTypes: AssetTypeExtension[] = [];
-  arrowIcon = 'assets/icons/arrow-down.svg';
-
-  constructor(
-    private facade: AssetTypeFacade,
-    private changeDetectorRef: ChangeDetectorRef,
-    private router: Router,
-    private dataService: DataService
-  ) {}
-
-  ngOnInit(): void {
-    this.facade.loadAll();
-
-    this.assetType$.subscribe((response) => {
+  assetType$ = this.facade.assetType$.pipe(
+    map((response) =>
       response.map((obj) => {
-        const assetType: AssetTypeExtension = {
+        const assetType = {
           ...obj,
           isSelected: false,
           iconSvgClass: 'right-arrow',
@@ -57,15 +47,31 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
           });
           assetType.makes.push(x);
         });
-        this.assetTypes.push(assetType);
-        console.log(this.assetTypes);
-      });
-      console.log(this.assetTypes);
-      this.changeDetectorRef.markForCheck();
-    });
-    this.assetData$.subscribe((x) => {
-      console.log(x);
-    });
+        return assetType as AssetTypeExtension;
+      })
+    )
+  );
+
+  loaded$ = this.facade.loaded$;
+
+  filter = new Subject();
+
+  // assetData$ = merge(this.assetType$, this.filter.asObservable());
+
+  assetTypes: AssetTypeExtension[] = [];
+  arrowIcon = 'assets/icons/arrow-down.svg';
+
+  constructor(
+    private facade: AssetTypeFacade,
+    private changeDetectorRef: ChangeDetectorRef,
+    private router: Router,
+    private dataService: DataService
+  ) {}
+
+  ngOnInit(): void {
+    // this.assetData$.subscribe((x) => {
+    // console.log(x);
+    // });
     this.filter.next('ASSET');
 
     setTimeout(() => {
@@ -75,15 +81,31 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
 
   createMake(assetType: AssetTypeExtension): void {
     this.dataService.selectedTypeId = assetType.id;
+    this.dataService.selectedTypeName = assetType.name;
     this.router
-      .navigate(['/configuration/asset-configuration/add-make'])
+      .navigate(['/configuration/asset-configuration/add-make/' + assetType.id])
       .then();
   }
 
-  createModel(make: MakeExtension): void {
+  createModel(assetType, make: MakeExtension): void {
     this.dataService.selectedMakeId = make.id;
+    this.dataService.selectedMakeName = make.make;
     this.router
-      .navigate(['/configuration/asset-configuration/add-model'])
+      .navigate([
+        `/configuration/asset-configuration/add-model/${assetType.id}/${make.id}`
+      ])
+      .then();
+  }
+
+  createTrim(assetType, model: ModelExtension, make: MakeExtension): void {
+    this.dataService.selectedModelId = model.id;
+    this.dataService.selectedModelName = model.model;
+    this.dataService.selectedMakeId = make.id;
+    this.dataService.selectedMakeName = make.make;
+    this.router
+      .navigate([
+        `/configuration/asset-configuration/add-trim/${assetType.id}/${make.id}/${model.id}`
+      ])
       .then();
   }
 
@@ -95,6 +117,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       item.isSelected = true;
       item.iconSvgClass = 'down-arrow';
     }
+    this.selectMake.emit(item.makes);
   }
 
   onMakeClick(make: MakeExtension): void {
@@ -105,14 +128,12 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       make.isSelected = true;
       make.iconSvgClass = 'down-arrow';
     }
+    this.selectModel.emit(make.models);
   }
 
   onModelClick(model: ModelExtension): void {
-    if (model.isSelected) {
-      model.isSelected = false;
-    } else {
-      model.isSelected = true;
-    }
+    this.selectTrim.emit(model.trims);
+    model.isSelected = !model.isSelected;
   }
 
   getStatusColor(status: boolean): string {

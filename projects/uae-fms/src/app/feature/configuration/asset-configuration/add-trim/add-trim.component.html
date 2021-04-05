@@ -1,0 +1,117 @@
+<div class='row'>
+  <div class='col-12'>
+    <form [formGroup]='inputForm'>
+      <div class='button-container'>
+        <button class='btn-primary-medium btn-scondary-green'
+                (click)='cancel()'>{{ 'forms.cancel' | translate }}</button>
+        <button class='btn-primary-medium add' (click)='submit()'>{{ 'search.add' | translate }}</button>
+      </div>
+      <div class='row'>
+        <div class='col-12 form-section mx-0 form-section--inline'>
+          <div class='row form-section__row'>
+            <div class='col-12 col-md-5 mb-2 align-self-center'>
+              <div class='row'>
+                <div class='col-12 col-md-3'>
+                  <h3
+                    class='form-section__title m-0'>{{ 'configuration.add_asset_configuration.type_category' | translate }}</h3>
+                </div>
+                <div class='col-12 col-md-9'>
+                  <div class='row mt-2 ml-3'>
+                    <div class='form-check col-3'>
+                      <input class='form-check-input' formControlName='typeCategory' type='radio' name='typeCategory'
+                             id='asset' value='asset'>
+                      <label class='form-check-label'
+                             for='asset'>{{ 'configuration.add_asset_configuration.asset' | translate }}</label>
+                    </div>
+                    <div class='form-check col-4'>
+                      <input class='form-check-input' formControlName='typeCategory' type='radio' name='typeCategory'
+                             id='subAsset' value='subAsset'>
+                      <label class='form-check-label'
+                             for='subAsset'>{{ 'configuration.add_asset_configuration.sub_asset' | translate }}</label>
+                    </div>
+                    <div class='form-check col-3'>
+                      <input class='form-check-input' formControlName='typeCategory' type='radio' name='typeCategory'
+                             id='accessory' value='accessory'>
+                      <label class='form-check-label'
+                             for='accessory'>{{ 'configuration.add_asset_configuration.accessory' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='col-3 pl-0 mt-2'>
+          <configuration-asset-type></configuration-asset-type>
+        </div>
+        <div class='col-9'>
+          <h3
+            class='form-section__title'>{{ ('filter.add_trim_for' | translate) + ' ' + dataService.selectedMakeName + ' ' + dataService.selectedModelName }}</h3>
+          <div formArrayName='trims'>
+            <div class='d-flex col-12 form-section h-100' *ngFor='let trim of trims.controls; let index = index'
+                 [formGroupName]='index'>
+              <div class='col-6'>
+                <div class='row form-section__row'>
+                  <span class='remove-icon mt-1' (click)='removeTrim(index)' [hidden]='!trim.value.trim.length'>
+                    <svg-icon src='assets/icons/add.svg'
+                              [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}">
+                    </svg-icon>
+                  </span>
+                  <span class='plus-icon mt-1' (click)='addTrim()' [hidden]='trim.value.trim.length'>
+                    <svg-icon src='assets/icons/add.svg'
+                              [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                  </span>
+                  <div class='col-12 col-md-6 p-field form-section__field'>
+                    <div class='autocomplete-select'>
+                  <span class='p-float-label'>
+                    <input formControlName='trim' pInputText
+                           placeholder="{{ 'filter.trim' | translate }} *" type='text'>
+                    <label>{{ 'filter.trim' | translate }} *</label>
+                  </span>
+                      <anms-error [showError]="formArrayHasError(submited, trims, index, 'trim')"
+                                  error='forms.feedback.required'></anms-error>
+                    </div>
+                  </div>
+                </div>
+                <div class='d-flex' formArrayName='colors'>
+                  <p class='mt-1 font-weight-bold'>{{'filter.colors' | translate}}</p>
+                  <span class='color-circle mb-2 ml-2 mr-2' *ngFor='let color of colors(index).controls; let j = index'
+                        [formGroupName]='j'
+                        [class.bg-dark]="color.value.hexColor.toLowerCase() === 'ffffff' || color.value.hexColor.toLowerCase() === '#ffffff'">
+                    <svg-icon [(colorPicker)]='color.value.hexColor' (colorPickerClose)='selectedColor($event, color)'
+                              *ngIf="color.value.hexColor.includes('#')"
+                              src='assets/icons/car-solid.svg' class='car-icon'
+                              [svgStyle]="{ 'width.px':20 , 'fill': color.value.hexColor , 'height': '100%'}">
+                    </svg-icon>
+                    <svg-icon [(colorPicker)]='color.value.hexColor' (colorPickerClose)='selectedColor($event, color)'
+                              *ngIf="!color.value.hexColor.includes('#')"
+                              src='assets/icons/car-solid.svg' class='car-icon'
+                              [svgStyle]="{ 'width.px':20 , 'fill': '#' + color.value.hexColor , 'height': '100%'}">
+                    </svg-icon>
+                </span>
+                  <span class='new-color-circle ml-2'>
+                    <svg-icon src='assets/icons/add.svg' class='add-color-icon' (click)='addColor(index)'
+                              [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}">
+                    </svg-icon>
+                </span>
+                  <span class='new-color-circle ml-2'>
+                    <svg-icon src='assets/icons/add.svg' class='add-color-icon' (click)='removeColor(index)'
+                              [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}">
+                    </svg-icon>
+                  </span>
+                </div>
+              </div>
+              <div class='col-6'>
+                <span class='font-weight-bold'>{{'filter.upload_asset_picture' | translate}}</span>
+                <anms-uploader [hintIsHidden]='true' [iconIsHidden]='true' [multiple]='false' [title]=''
+                               [preview]='true' [accept]="'.png'" (uploadedEvent)='uploadAssetPicture($event, index)'>
+                </anms-uploader>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<alert-dialog [settings]='dialogSetting' [displayModal]='dialogModal' (confirm)='dialogConfirm($event)'></alert-dialog>

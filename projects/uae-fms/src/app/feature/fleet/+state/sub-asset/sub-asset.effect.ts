@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { SubAssetActions } from './sub-asset.actions';
 import { SubAssetService } from './sub-asset.service';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class SubAssetEffect {
@@ -12,7 +13,10 @@ export class SubAssetEffect {
       ofType(SubAssetActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => SubAssetActions.allDataLoaded({ data: data.message })),
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'sub-asset');
+            return  SubAssetActions.allDataLoaded({ data: data.message })
+          }),
           catchError((error) => of(SubAssetActions.error({ reason: error })))
         )
       )
@@ -63,5 +67,5 @@ export class SubAssetEffect {
     )
   );
 
-  constructor(private action$: Actions, private service: SubAssetService) {}
+  constructor(private action$: Actions, private service: SubAssetService, private _tableFacade: TableFacade) {}
 }

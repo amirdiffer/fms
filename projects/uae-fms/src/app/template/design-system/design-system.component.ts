@@ -23,7 +23,7 @@ export class DesignSystemComponent implements OnInit {
   isLinear: boolean = true;
   progressBarValue = 50;
   bufferValue = 70;
-  calenderIcon = 'assets/icons/calendar-alt-regular.svg'
+  calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   public filesUpdloaded: NgxFileDropEntry[] = [];
   @ViewChild('stepper') stepper: MatStepper;
   controlStep: FormGroup;
@@ -53,12 +53,9 @@ export class DesignSystemComponent implements OnInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-          console.log(droppedFile.relativePath, file);
-        });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
       }
     }
   }
@@ -76,10 +73,10 @@ export class DesignSystemComponent implements OnInit {
   }
 
   public fileOver(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public fileLeave(event) {
-    console.log(event);
+    // console.log(event);
   }
 }

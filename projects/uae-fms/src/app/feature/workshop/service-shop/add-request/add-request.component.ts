@@ -101,10 +101,8 @@ export class ServiceShopAddRequestComponent implements OnInit {
   addRequest() {
     this.submited = true;
     if (this.inputForm.valid) {
-      console.log(this.inputForm.value);
       this._roter.navigate(['/workshop/body-shop']);
     } else {
-      console.log('have an Error');
       const controls = this.inputForm.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
@@ -132,21 +130,18 @@ export class ServiceShopAddRequestComponent implements OnInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-          console.log(droppedFile.relativePath, file);
-        });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
       }
     }
   }
 
   public fileOver(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public fileLeave(event) {
-    console.log(event);
+    // console.log(event);
   }
 }

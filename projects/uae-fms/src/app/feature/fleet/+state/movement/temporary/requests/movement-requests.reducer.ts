@@ -26,15 +26,17 @@ const movementTemporaryRequestsReducer = createReducer(
   on(MovementRequestsActionsTemporary.loadStatistic, (state) => ({
     ...state,
     statistic: null,
-    loaded: false,
+    loaded: false
   })),
 
-  on(MovementRequestsActionsTemporary.statisticRequestLoaded, (state, { data }) =>
-    movementRequestsTemporaryAdapter.setOne(data, {
-      ...state,
-      statistic: data,
-      loaded: true,
-    })
+  on(
+    MovementRequestsActionsTemporary.statisticRequestLoaded,
+    (state, { data }) =>
+      movementRequestsTemporaryAdapter.setOne(data, {
+        ...state,
+        statistic: data,
+        loaded: true
+      })
   ),
 
   on(MovementRequestsActionsTemporary.error, (state, { reason }) => ({
@@ -43,22 +45,38 @@ const movementTemporaryRequestsReducer = createReducer(
     loaded: true
   })),
 
-  on(MovementRequestsActionsTemporary.addMovementRequest, (state, { data }) => ({
-    ...state,
-    submitted: false
-  })),
-
-  on(MovementRequestsActionsTemporary.movementRequestAddedSuccessfully, (state, { data }) =>
-    movementRequestsTemporaryAdapter.addOne(data, { ...state, submitted: true })
+  on(
+    MovementRequestsActionsTemporary.addMovementRequest,
+    (state, { data }) => ({
+      ...state,
+      submitted: false
+    })
   ),
 
-  on(MovementRequestsActionsTemporary.editMovementRequest, (state, { data }) => ({
-    ...state,
-    submitted: false
-  })),
+  on(
+    MovementRequestsActionsTemporary.movementRequestAddedSuccessfully,
+    (state, { data }) =>
+      movementRequestsTemporaryAdapter.addOne(data, {
+        ...state,
+        submitted: true
+      })
+  ),
 
-  on(MovementRequestsActionsTemporary.movementRequestEditedSuccessfully, (state, { data }) =>
-    movementRequestsTemporaryAdapter.updateOne({ changes: data, id: data.id }, { ...state, submitted: true })
+  on(
+    MovementRequestsActionsTemporary.editMovementRequest,
+    (state, { data }) => ({
+      ...state,
+      submitted: false
+    })
+  ),
+
+  on(
+    MovementRequestsActionsTemporary.movementRequestEditedSuccessfully,
+    (state, { data }) =>
+      movementRequestsTemporaryAdapter.updateOne(
+        { changes: data, id: data.id },
+        { ...state, submitted: true }
+      )
   ),
 
   on(MovementRequestsActionsTemporary.reject, (state, { data }) => ({
@@ -73,10 +91,12 @@ const movementTemporaryRequestsReducer = createReducer(
     error: null,
     message: null
   })),
-  on(MovementRequestsActionsTemporary.rejectSuccessfully, (state, { data }) => ({
-    ...state,
-    rejected: true
-  })
+  on(
+    MovementRequestsActionsTemporary.rejectSuccessfully,
+    (state, { data }) => ({
+      ...state,
+      rejected: true
+    })
   ),
 
   on(MovementRequestsActionsTemporary.assign, (state, { data }) => ({
@@ -84,10 +104,12 @@ const movementTemporaryRequestsReducer = createReducer(
     assigned: false
   })),
 
-  on(MovementRequestsActionsTemporary.assignSuccessfully, (state, { data }) => ({
-    ...state,
-    assigned: true
-  })
+  on(
+    MovementRequestsActionsTemporary.assignSuccessfully,
+    (state, { data }) => ({
+      ...state,
+      assigned: true
+    })
   )
 );
 

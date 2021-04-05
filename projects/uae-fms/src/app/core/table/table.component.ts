@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  OnDestroy
+} from '@angular/core';
+
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
 import { jsPDF } from 'jspdf';
@@ -7,6 +18,7 @@ import { SettingsFacade } from '@core/settings/settings.facade';
 import { Observable, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { ITablePagination } from '@core/table/+state/table.entity';
 
 @Component({
   selector: 'app-table',
@@ -18,15 +30,17 @@ export class TableComponent implements OnInit, OnDestroy {
   rowIndexTable = -1;
   activeLang: string;
   activePage: number;
-  @Input() ipp = 50;
+  @Input() ipp = 10;
   @Input() setting: TableSetting;
   @Input() tableData: Observable<any>;
-  @Input() count: number;
+  count: number;
   @Input() pagination: string;
   arrowIcon = 'assets/icons/arrow-down.svg';
   subscribePagination$: Subscription
   pagesCount: number;
-
+  @Output() onSelectItems = new EventEmitter();
+  @Output() onPagination= new EventEmitter();
+  selectedIds = [];
   constructor(
     private settingFacade: SettingsFacade,
     private changeDetection: ChangeDetectorRef,
@@ -34,24 +48,20 @@ export class TableComponent implements OnInit, OnDestroy {
     private _tableFacade: TableFacade
   ) { }
 
-
   ngOnInit() {
-    if (this.pagination && this.count) {
-      this.paginationEvent('rowCount');
-      this.paginationEvent('count');
-      this.subscribePagination$ = this._tableFacade.getPaginationByName(this.pagination).subscribe(x => {
-        this.activePage = x['page'];
-      });
+    if (this.pagination) {
+      this.initialPagination();
     }
     this.settingFacade.language.subscribe((lang) => {
       this.activeLang = lang;
     });
 
-    this.tableData?.subscribe(x => {
-      console.log(x)
-      this.setting.data = x;
-      this.changeDetection.detectChanges();
-    })
+    this.tableData?.subscribe((x) => {
+      if (x) {
+        this.setting.data = x;
+        this.changeDetection.detectChanges();
+      }
+    });
   }
 
   getCol(col, data) {
@@ -61,14 +71,19 @@ export class TableComponent implements OnInit, OnDestroy {
           return data[col.field];
         case 2:
           return data[col.thumbField]
-            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${environment.baseFileServer + data[col.thumbField]
-            }'> <p class='text-of-cell-with-image'>${data[col.field]
-            }</p></div>`
+            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
+                col.override
+                  ? 'assets/' + col.override
+                  : environment.baseFileServer + data[col.thumbField]
+              }'> <p class='text-of-cell-with-image'>${
+                data[col.field]
+              }</p></div>`
             : data[col.field];
         case 3:
           return data[col.thumbField]
-            ? `<img class='thumb' src='${environment.baseFileServer + data[col.thumbField]
-            }'>`
+            ? `<img class='thumb' src='${
+                environment.baseFileServer + data[col.thumbField]
+              }'>`
             : '';
       }
     } else {
@@ -127,7 +142,13 @@ export class TableComponent implements OnInit, OnDestroy {
       /* if (col.thumbField?.length) {
         return;
       } */
-      return { title: (col.lable && this.translate.instant(col.lable)) ? this.translate.instant(col.lable) : col.lable, dataKey: col.field };
+      return {
+        title:
+          col.lable && this.translate.instant(col.lable)
+            ? this.translate.instant(col.lable)
+            : col.lable,
+        dataKey: col.field
+      };
     });
 
     const exportRows: any[] = tableSetting.data.map((data) => ({ ...data }));
@@ -136,24 +157,27 @@ export class TableComponent implements OnInit, OnDestroy {
       if (title === 'assetMasterTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
-              }\n${data[col.field].ownership}`;
+            data[col.field] = `${data[col.field].assetName}\n${
+              data[col.field].assetSubName
+            }\n${data[col.field].ownership}`;
           });
         }
       }
       if (title === 'pendingRegistrationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
-              }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${
+              data[col.field].assetSubName
+            }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
       if (title === 'pendingCustomizationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
-              }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${
+              data[col.field].assetSubName
+            }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
@@ -190,6 +214,20 @@ export class TableComponent implements OnInit, OnDestroy {
     return this.selectedTRS.includes(index);
   }
 
+  initialPagination() {
+    let i = 0;
+    this._tableFacade.getPaginationByName(this.pagination).subscribe(x => {
+      if (x != null) {
+        i++;
+        this.activePage = x['page'];
+        this.count = x['count'];
+        this.ipp = x['ipp'];
+        i > 1 ? this.onPagination.emit() : null;
+        console.log('pagination Event')
+      }
+    });
+  }
+
   paginationEvent(action) {
     switch (action) {
       case 'next': {
@@ -222,11 +260,19 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.pagination && this.count) {
+    if (this.pagination) {
       this.subscribePagination$.unsubscribe();
     }
   }
 
+  updatedSelectedIds(data, field) {
+    if (data[field].checkbox) this.selectedIds.push(data.id);
+    else {
+      let index = this.selectedIds.findIndex((x) => x == data.id);
+      this.selectedIds.splice(index, 1);
+    }
+    this.onSelectItems.emit(this.selectedIds);
+  }
 }
 
 export interface TableSetting {
@@ -244,6 +290,7 @@ export interface ColumnDifinition {
   width?: any;
   type?: ColumnType;
   thumbField?: string;
+  override?: string;
   renderer?: string;
   rendererOptions?: RendererOptions;
   buttonType?: ButtonType;

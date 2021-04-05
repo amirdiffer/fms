@@ -18,8 +18,45 @@ export class BodyShopLocationEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            return BodyShopLocationActions.allDataLoaded({ data });
+            return BodyShopLocationActions.allDataLoaded({
+              data: data.message
+            });
           }),
+          catchError((error) =>
+            of(BodyShopLocationActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+  editBodyShopLocation$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(BodyShopLocationActions.editBodyShopLocation),
+      mergeMap((action) =>
+        this.service.editLocation(action.bodyShopLocation).pipe(
+          map((data) =>
+            BodyShopLocationActions.bodyShopLocationEditedSuccessfully({
+              bodyShopLocation: action.bodyShopLocation
+            })
+          ),
+          catchError((error) =>
+            of(BodyShopLocationActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  addData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(BodyShopLocationActions.addBodyShopLocation),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) =>
+            BodyShopLocationActions.bodyShopLocationAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
+          ),
           catchError((error) =>
             of(BodyShopLocationActions.error({ reason: error }))
           )

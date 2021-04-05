@@ -39,7 +39,7 @@ export class AssetMasterActions {
 
   static assetEditedSuccessfully = createAction(
     '[AssetMaster] asset added successfully',
-    props<{ data: IAssetMaster }>()
+    props<{ data: any }>()
   );
 
   static reset = createAction(

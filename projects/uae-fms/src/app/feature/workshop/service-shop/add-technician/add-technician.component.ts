@@ -341,7 +341,6 @@ export class ServiceShopAddTechnicianComponent
     );
   }
   addRequest() {
-    console.log(this.inputForm.value);
     this.submited = true;
     if (this.inputForm.invalid) {
       return;
@@ -367,21 +366,18 @@ export class ServiceShopAddTechnicianComponent
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-          console.log(droppedFile.relativePath, file);
-        });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
       }
     }
   }
 
   public fileOver(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public fileLeave(event) {
-    console.log(event);
+    // console.log(event);
   }
 }

@@ -21,6 +21,7 @@ export interface IRegistrationState extends EntityState<IPendingRegistration> {
   error?: any;
   loaded: boolean;
   message: string;
+  submitted: boolean;
 }
 
 export const FLEET_REGISTRATION_FEATURE_KEY = 'registration';
@@ -37,6 +38,7 @@ export const initialState: IRegistrationState = registrationAdapter.getInitialSt
   {
     loaded: null,
     message: null,
-    error: null
+    error: null,
+    submitted: false,
   } as IRegistrationState
 );

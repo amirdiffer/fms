@@ -10,7 +10,9 @@ export class MovementOverviewFacadeTemporary {
     select(MovementOverviewSelectorsTemporary.selectAll)
   );
 
-  message$ = this.store.pipe(select(MovementOverviewSelectorsTemporary.message));
+  message$ = this.store.pipe(
+    select(MovementOverviewSelectorsTemporary.message)
+  );
 
   error$ = this.store.pipe(select(MovementOverviewSelectorsTemporary.error));
 
@@ -19,5 +21,4 @@ export class MovementOverviewFacadeTemporary {
   loadAll() {
     this.store.dispatch(MovementOverviewActionsTemporary.loadAll());
   }
-
 }

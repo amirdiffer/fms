@@ -14,8 +14,8 @@ export class TableFacade {
     return this.store.pipe(select(TableSelectors.selectByName, { name: data }));
   }
 
-  initialPaginator(data) {
-    this.store.dispatch(TableActions.initial({ data }))
+  initialPaginator(count, name) {
+    this.store.dispatch(TableActions.initial({ ipp: 10, count, name }))
   }
 
   next(name) {

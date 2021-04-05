@@ -138,16 +138,12 @@ export class IntegrationComponent implements OnInit, OnDestroy {
   constructor(
     private _integrationService: IntegrationService,
     private facade: IntegrationFacade
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.tableSettings);
     this.facade.loadAll();
     this.facade.integration$.subscribe((x) => {
-      console.log(x);
       this.tableData = x.map((item) => {
-        console.log(item);
-        console.log(this.tableData);
         return {
           name: item.name,
           type: item.type,
@@ -176,9 +172,14 @@ export class IntegrationComponent implements OnInit, OnDestroy {
         { lable: 'tables.column.type', field: 'type', width: 90 },
         { lable: 'tables.column.gpr', field: 'gpr' },
         {
-          lable: 'tables.column.status', field: 'status', width: 110, renderer: "colorize", rendererOptions: {
-            color: "#0da06e", condition: (data: string) => {
-              if (data.toLowerCase() == "connect") return true;
+          lable: 'tables.column.status',
+          field: 'status',
+          width: 110,
+          renderer: 'colorize',
+          rendererOptions: {
+            color: '#0da06e',
+            condition: (data: string) => {
+              if (data.toLowerCase() == 'connect') return true;
               else false;
             }
           }
@@ -296,14 +297,12 @@ export class IntegrationComponent implements OnInit, OnDestroy {
   }
   public add() {
     this._integrationService.loadInegrationForm(true);
-    console.log('Click');
   }
   public tableRendering(tableColumn, dataItem): TableSetting {
     const table = {
       columns: tableColumn,
       data: dataItem
     };
-    console.log(table);
     return table;
   }
   ngOnDestroy() {

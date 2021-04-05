@@ -1,7 +1,12 @@
 import { Utility } from './../../../../../../shared/utility/utility';
 import { Output, Injector } from '@angular/core';
 import { Input } from '@angular/core';
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  EventEmitter
+} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   FileSystemDirectoryEntry,
@@ -28,17 +33,17 @@ export class MaintenanceComponent extends Utility implements OnInit {
     this.inputForm = this._fb.group({
       service: this._fb.group({
         purchase: [true, Validators.compose([Validators.required])],
-        integration: [false, Validators.compose([Validators.required])],
+        integration: [false, Validators.compose([Validators.required])]
       }),
       priodicService: ['', Validators.compose([Validators.required])],
       warrantyPackage: ['', Validators.compose([Validators.required])],
       warrantyDat: ['', Validators.compose([Validators.required])],
       description: ['', Validators.compose([Validators.required])],
-      file: [''],
+      file: ['']
     });
     this.inputForm.valueChanges.subscribe((form) => {
       this.formGroup.emit(form);
-    })
+    });
   }
 
   public dropped(files: NgxFileDropEntry[]) {
@@ -46,21 +51,18 @@ export class MaintenanceComponent extends Utility implements OnInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-          console.log(droppedFile.relativePath, file);
-        });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
       }
     }
   }
 
   public fileOver(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public fileLeave(event) {
-    console.log(event);
+    // console.log(event);
   }
 }

@@ -130,7 +130,6 @@ export class TollComponent implements OnInit, OnDestroy {
       if (x != null && x.id) {
         this.form.patchValue(this.assignForm);
         this.form.get('assetId').patchValue(x['relatedAsset']['id']);
-        console.log(this.form.getRawValue());
       }
     });
     this.facade.statistic$.subscribe((data) => {

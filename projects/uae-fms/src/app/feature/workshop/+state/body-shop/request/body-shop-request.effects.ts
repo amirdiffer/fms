@@ -27,6 +27,21 @@ export class BodyShopRequestEffect {
       )
     )
   );
+  loadAllRequestsById = createEffect(() =>
+    this.action$.pipe(
+      ofType(BodyShopRequestActions.loadAllRequestsById),
+      mergeMap((action) =>
+        this.service.requestsById(action.id).pipe(
+          map((data) => {
+            return BodyShopRequestActions.requestsByIdDataLoaded({ data: data.message });
+          }),
+          catchError((error) =>
+            of(BodyShopRequestActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
   loadStatistics$ = createEffect(() =>
     this.action$.pipe(
       ofType(BodyShopRequestActions.loadStatistics),
@@ -35,6 +50,42 @@ export class BodyShopRequestEffect {
           map((data) => {
             return BodyShopRequestActions.allStatisticsLoaded({ data });
           }),
+          catchError((error) =>
+            of(BodyShopRequestActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  editRequest$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(BodyShopRequestActions.editRequest),
+      mergeMap((action) =>
+        this.service.editRequest(action.request).pipe(
+          map((data) =>
+            BodyShopRequestActions.requestEditedSuccessfully({
+              request: action.request
+            })
+          ),
+          catchError((error) =>
+            of(BodyShopRequestActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  addData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(BodyShopRequestActions.addRequest),
+      mergeMap((action) =>
+        this.service.post(action.data).pipe(
+          map((data) =>
+            BodyShopRequestActions.requestAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
+          ),
           catchError((error) =>
             of(BodyShopRequestActions.error({ reason: error }))
           )

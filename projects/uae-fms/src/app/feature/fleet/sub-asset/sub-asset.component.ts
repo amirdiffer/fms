@@ -12,6 +12,8 @@ import { SubAssetFacade } from '../+state/sub-asset';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { TableFacade } from '@core/table/+state/table.facade';
+import { ITablePagination } from '@core/table/+state/table.entity';
 
 @Component({
   selector: 'anms-sub-asset',
@@ -31,25 +33,25 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       filterTitle: 'statistic.total',
       filterCount: '',
       filterTagColor: '#C543FF',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '',
       filterTagColor: '#4462A2',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '',
       filterTagColor: '#40D3C2',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.x_sub_asset',
       filterCount: '',
       filterTagColor: '#F75A4A',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
 
@@ -62,7 +64,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
         return {
           id: y.id,
           avatarId: y.avatarId,
-          Make: y.makeName,
+          MakeName: y.makeName,
           Model: y.modelName,
           Policy: y.policyTypeName,
           Warranty_Expire_Date: y.warrantyExpireDate,
@@ -82,15 +84,14 @@ export class SubAssetComponent implements OnInit, OnDestroy {
         type: 2,
         field: 'Serial_Number',
         thumbField: 'avatarId',
+        override: 'thumb.png',
         width: '18em'
       },
       { lable: 'tables.column.date', type: 1, field: 'Date' },
       {
         lable: 'tables.column.make',
         type: 1,
-        field: 'Make',
-        thumbField: 'thumbField_Make',
-        renderer: 'companyRenderer'
+        field: 'MakeName'
       },
       { lable: 'tables.column.model', type: 1, field: 'Model' },
       { lable: 'tables.column.policy', type: 1, field: 'Policy' },
@@ -113,17 +114,17 @@ export class SubAssetComponent implements OnInit, OnDestroy {
     data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
-        console.log(col, data, button);
+        // console.log(col, data, button);
       },
       floatButton: [
         {
           onClick: (col, data) => {
-            console.log(data);
+            // console.log(data);
             this.router.navigate(['/fleet/sub-asset/edit-sub-asset'], {
               queryParams: { id: data['id'] }
             });
           },
-          button: 'external',
+          button: 'edit',
           color: '#3F3F3F'
         }
       ]
@@ -131,40 +132,44 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   };
   //#endregion
 
-  constructor(private facade: SubAssetFacade, private router: Router, private changeDetector: ChangeDetectorRef) { }
+  constructor(
+    private facade: SubAssetFacade,
+    private router: Router,
+    private changeDetector: ChangeDetectorRef,
+    private _tableFacade: TableFacade
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
     this.facade.loadStatistics();
-
     this.statisticsSubscription = this.facade.statistics$.subscribe(
       (res: any) => {
         if (res) {
-          const m = res.message
+          const m = res.message;
           this.filterCard = [
             {
               filterTitle: 'statistic.total',
               filterCount: `${m.total}`,
               filterTagColor: '#C543FF',
-              onActive(index: number) { }
+              onActive(index: number) {}
             },
             {
               filterTitle: 'statistic.active',
               filterCount: `${m.active}`,
               filterTagColor: '#4462A2',
-              onActive(index: number) { }
+              onActive(index: number) {}
             },
             {
               filterTitle: 'statistic.inactive',
               filterCount: `${m.inactive}`,
               filterTagColor: '#40D3C2',
-              onActive(index: number) { }
+              onActive(index: number) {}
             },
             {
               filterTitle: 'statistic.x_sub_asset',
               filterCount: `${m.xsubAsset}`,
               filterTagColor: '#F75A4A',
-              onActive(index: number) { }
+              onActive(index: number) {}
             }
           ];
           this.changeDetector.detectChanges();
@@ -180,4 +185,9 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   exportTable() {
     this.table.exportTable(this.assetTraffic_Table, 'Sub Asset');
   }
+
+  eventPagination() {
+   this.facade.loadAll();
+  }
+
 }

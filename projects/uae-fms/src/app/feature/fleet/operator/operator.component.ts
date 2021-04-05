@@ -1,10 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild
+} from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { assetsPath } from '@environments/environment';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { OperatorFacade } from '../+state/operator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-operator',
@@ -24,25 +30,25 @@ export class OperatorComponent implements OnInit {
       filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#6C7198',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '356',
       filterTagColor: '#5B8972',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.vacation',
       filterCount: '124',
       filterTagColor: '#DDB16C',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '12',
       filterTagColor: '#E07A5F',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
   filterCardOverView: FilterCardSetting[] = [
@@ -50,25 +56,25 @@ export class OperatorComponent implements OnInit {
       filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#6C7198',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '356',
       filterTagColor: '#5B8972',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.vacation',
       filterCount: '124',
       filterTagColor: '#DDB16C',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '12',
       filterTagColor: '#E07A5F',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
   //#endregion
@@ -79,11 +85,14 @@ export class OperatorComponent implements OnInit {
         return {
           ...y,
           Operator: y.firstName + ' ' + y.lastName,
-          Organization: y.department,
+          Organization: {
+            line1: y.department.name,
+            line2: y.department.organizationName
+          },
           Information: { line1: y.emails[0], line2: y.phoneNumbers[0] },
           Type: 'Operator',
           Status: 'Active',
-          asset: { img: "thumb1.png" },
+          asset: { img: 'assets/thumb1.png' },
           TF_PAid: 0,
           TF_Unpaid: 0
         };
@@ -121,11 +130,12 @@ export class OperatorComponent implements OnInit {
         lable: 'tables.column.asset',
         type: 1,
         field: 'asset',
-        width: 180,
+        width: 80,
         renderer: 'assetsRenderer',
-        thumbField: 'assetPicture'
+        thumbField: 'assetPicture',
+        override: 'assets/thumb.png'
       },
-      {
+      /*       {
         lable: 'tables.column.tf_paid',
         type: 1,
         field: 'TF_PAid',
@@ -138,7 +148,7 @@ export class OperatorComponent implements OnInit {
         field: 'TF_Unpaid',
         width: 100,
         sortable: true
-      },
+      }, */
       {
         lable: '',
         field: 'floatButton',
@@ -151,7 +161,6 @@ export class OperatorComponent implements OnInit {
     data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
-        console.log(col, data, button);
         // if ('external') {
         //   this.showOverView = true;
         // }
@@ -161,7 +170,6 @@ export class OperatorComponent implements OnInit {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
-            console.log(data);
             this._router.navigate(['/fleet/operator/edit-operator/' + data.id]);
           }
         },
@@ -178,10 +186,11 @@ export class OperatorComponent implements OnInit {
   constructor(
     private _operatorFacade: OperatorFacade,
     private _router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this._operatorFacade.loadAll();
+    this.data$.subscribe((x) => console.log(x));
   }
 
   exportTable() {

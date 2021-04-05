@@ -94,7 +94,7 @@
 
         <div class="col-12 col-md-4 p-field form-section__field">
           <span class="p-float-label">
-            <input formControlName="purchaseValue" pInputText placeholder="{{'sub_asset.purchase_value' | translate}}*"
+            <input  numbersOnly formControlName="purchaseValue" pInputText placeholder="{{'sub_asset.purchase_value' | translate}}*"
               type="text">
             <label>{{'sub_asset.purchase_value' | translate}}*</label>
           </span>
@@ -117,10 +117,13 @@
             <label>{{'sub_asset.item' | translate}}</label>
           </span>
         </div>
-        <div class="col-12 col-md-3 p-field form-section__field
-        dropdown-select-input">
-          <p-dropdown class='w-50' inputId="unit" [options]="units" formControlName="year" optionLabel="name">
-          </p-dropdown>
+        <div class="col-12 col-md-1 pr-0 p-field form-section__field dropdown-select">
+          <span class="p-float-label">
+            <p-dropdown class='w-50' inputId="unit" [options]="units" formControlName="periodType" optionLabel="name" optionValue="id"></p-dropdown>
+            <label for="periodicService">{{ 'assets.year' | translate }}</label>
+          </span>
+        </div>
+        <div class="col-12 col-md-2 pl-0 p-field form-section__field">
           <span class="p-float-label form-section__field">
             <input class='w-100' formControlName="duration" pInputText
               placeholder="{{'sub_asset.duration' | translate}}" type="text">
@@ -144,7 +147,8 @@
 
         <div class='col-12 col-md-3 p-field form-section__field'>
           <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [title]=""
-            [preview]="false" [accept]="['.csv']" (uploadedEvent)="uploadWarrantyFiles($event,i)"></anms-uploader>
+            [preview]="false" [accept]="['.csv']" (uploadedEvent)="uploadWarrantyFiles($event,i)"
+            [files]="isEdit ? getWarrantyDoc(i) : warrantyDocs"></anms-uploader>
         </div>
       </div>
     </div>
@@ -185,56 +189,30 @@
       </div>
       <div *ngIf="isSingleAsset" class="row form-section__row">
         <div class="col-12 col-md-12 p-field form-section__field">
-
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">
-              DPD
-            </span>
-            <span class="p-float-label">
-              <input formControlName="serialNumber" pInputText placeholder="{{'sub_asset.serial_number' | translate}}"
-                type="text">
-              <label for="inputgroup">{{'sub_asset.serial_number' | translate}}</label>
-            </span>
-          </div>
+          <span class="p-float-label">
+            <input pInputText numbersOnly [placeholder]="'sub_asset.serial_number' | translate" formControlName="serialNumber"  type="text">
+            <label>{{ 'sub_asset.serial_number' | translate }}</label>
+          </span>
+          <anms-error
+          [showError]="hasError('serialNumber',subAssetForm, submitted)"
+          error="forms.feedback.required">
+          </anms-error>
         </div>
-      </div>
-      <div class="col-12 col-md-12 p-field form-section__field">
-        <span class="">
-          {{'sub_asset.upload_picture'|translate}}
-        </span>
-        <span class="p-float-label">
-          <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [multiple]="false"
-            [title]="'sub_asset.upload_picture'|translate" [preview]="true" [accept]="['.png','.jpg']"
-            (uploadedEvent)="uploadAssetPicture($event)">
-          </anms-uploader>
-        </span>
       </div>
     </div>
-
-
-
     <div *ngIf="!isSingleAsset" class="second-step-upload-box">
-      <div class="row">
-        <div class="col-12 d-flex justify-content-between file-name-size">
-          <span>{{ 'assets.upload_form.progressbar_title' | translate }}</span>
-          <span>00 MB</span>
-        </div>
-        <div class="col-lg-12">
-          <div class="w-100 p-0">
-            <mat-progress-bar [value]="progressBarValue" mode="determinate" class="upload-progress"></mat-progress-bar>
-          </div>
-        </div>
-        <div class="col-lg-12 mt-2">
-          <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
-            (onFileLeave)="fileLeave($event)">
-            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-              <label (click)="openFileSelector()" style="cursor: pointer;">
-                <small class="drag-and-drop">{{ 'assets.upload_form.content' | translate }}</small>
-              </label>
-            </ng-template>
-          </ngx-file-drop>
-        </div>
-      </div>
+      <anms-uploader  [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="subAssetDocRequired" (uploadedEvent)="uploadDocFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
+    </div>
+    <div class="col-12 col-md-12 p-field form-section__field">
+      <span class="">
+        {{'sub_asset.upload_picture'|translate}}
+      </span>
+      <span class="p-float-label">
+        <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [multiple]="false"
+          [title]="'sub_asset.upload_picture'|translate" [preview]="true" [accept]="['.png','.jpg']"
+          (uploadedEvent)="uploadAssetPicture($event)">
+        </anms-uploader>
+      </span>
     </div>
   </div>
 

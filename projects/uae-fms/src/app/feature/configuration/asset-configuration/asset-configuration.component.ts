@@ -2,12 +2,25 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectorRef,
+  ViewChild
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AssetConfigurationService } from './asset-configuration.service';
-import { AssetConfigurationFacade } from '../+state/asset-configuration';
+import {
+  AssetConfigurationFacade,
+  AssetTypeFacade
+} from '../+state/asset-configuration';
 import { FilterCardSetting } from '@core/filter';
+import { Make, MakeModel, MakeModelTrim } from '@models/asset-type.model';
+import { map } from 'rxjs/operators';
+import {
+  AssetTypeExtension,
+  MakeExtension,
+  ModelExtension
+} from '@feature/configuration/asset-configuration/asset-type/asset-type.component';
+import { TableComponent } from '@core/table';
 @Component({
   selector: 'anms-asset-configuration',
   templateUrl: './asset-configuration.component.html',
@@ -15,6 +28,8 @@ import { FilterCardSetting } from '@core/filter';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetConfigurationComponent implements OnInit, OnDestroy {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
+
   searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn = 'assets/icons/download-solid.svg';
 
@@ -42,33 +57,225 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     }
   ];
 
-  assetConfigurationableSetting;
+  assetConfigurationableSetting = {
+    /*
+    iconSvgClass: "right-arrow"
+id: 39
+isActive: true
+isSelected: false
+makes: [{…}]
+name: "NUEVO"
+type: "SUB_ASSET"
+typeDescription: "4-
+     */
+    columns: [
+      {
+        lable: 'tables.column.category',
+        field: 'name',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.type_status',
+        field: 'isActive',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.description',
+        field: 'typeDescription',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: '<img src="assets/icons/car-solid.svg">',
+        type: 1,
+        isIconLable: true,
+        field: 'makes',
+        width: 100
+      }
+    ],
+    data: []
+  };
   addOpen;
   addOpen$: Subscription;
 
-  assetConfiguration$ = this.facade.assetConfiguration$;
+  assetType$ = this.facade.assetType$.pipe(
+    map((response) =>
+      response.map((obj) => {
+        const assetType = {
+          ...obj,
+          isSelected: false,
+          iconSvgClass: 'right-arrow',
+          makes: obj.makes.length
+        };
+        return assetType;
+      })
+    )
+  );
+
+  assetConfiguration$ = this.facade.assetType$;
   constructor(
-    private facade: AssetConfigurationFacade,
+    private facade: AssetTypeFacade,
     private _assetConfigurationService: AssetConfigurationService
   ) {}
 
   ngOnInit(): void {
-    this.facade.loadAll();
-    this.assetConfigurationableSetting = this._assetConfigurationService.assetConfigurationableSetting();
+    // this.facade.loadAll();
+    // this.assetTypeFacade.assetType$.subscribe((value) => {
+    //   if (!value.length) {
+    //     this.assetTypeFacade.loadAll();
+    //   }
+    // });
+    // this.assetConfigurationableSetting = this._assetConfigurationService.assetConfigurationableSetting();
+
     this.addOpen$ = this._assetConfigurationService
       .getAddForm()
       .subscribe((open) => {
         this.addOpen = open;
       });
-
-    this.assetConfiguration$.subscribe((x) => {
-      console.log(x);
-    });
   }
   openAdd() {
     this._assetConfigurationService.loadAddForm(true);
   }
+
+  makes(makes: Make[]): void {
+    this.assetConfigurationableSetting = {
+      columns: [
+        {
+          lable: 'tables.column.make',
+          field: 'make',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.description',
+          field: 'makeDescription',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.models',
+          field: 'models',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        }
+      ],
+      data: []
+    };
+    const data = [];
+    makes.map((make) => {
+      const x = {
+        ...make,
+        models: make.models.length
+      };
+      console.log(x);
+      data.push(x);
+    });
+    this.assetConfigurationableSetting.data = data;
+  }
+
+  models(models: MakeModel[]): void {
+    this.assetConfigurationableSetting = {
+      columns: [
+        {
+          lable: 'tables.column.model',
+          field: 'model',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.description',
+          field: 'modelDescription',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.trims',
+          field: 'trims',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        }
+      ],
+      data: []
+    };
+    const data = [];
+    models.map((model) => {
+      const x = {
+        ...model,
+        trims: model.trims.length
+      };
+      data.push(x);
+    });
+    this.assetConfigurationableSetting.data = data;
+  }
+
+  trims(trims: MakeModelTrim[]): void {
+    this.assetConfigurationableSetting = {
+      columns: [
+        {
+          lable: 'tables.column.trim',
+          field: 'trim',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.color',
+          field: 'color',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: 'trimColorRenderer'
+        },
+        {
+          lable: 'tables.column.status',
+          field: 'status',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+          // textColor: '#0DA06E'
+        }
+      ],
+      data: []
+    };
+    const data = [];
+    trims.map((trim) => {
+      data.push({
+        trim: trim.trim,
+        color: trim.colors,
+        status: 'Available'
+      });
+      this.assetConfigurationableSetting.data = data;
+    });
+  }
+
+  exportTable() {
+    this.table.exportTable(this.assetConfigurationableSetting, 'Asset Type');
+  }
+
   ngOnDestroy() {
     this.addOpen$.unsubscribe();
+    this.assetConfigurationableSetting.data = [];
   }
 }

@@ -39,16 +39,16 @@ export class AssetsComponent implements OnInit, OnDestroy {
   selectedTab = 'assetMasterTab';
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-
+  sampleImg = 'assets/thumb.png';
   //#region  table
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
-    map(x => {
-      return x.map(y => {
+    map((x) => {
+      return x.map((y) => {
         return {
           ...y,
           id: y.id,
           asset: {
-            img: 'thumb1.png',
+            img: this.sampleImg,
             assetName: y.assetTypeName,
             assetSubName: y.dpd,
             ownership: 'Owned'
@@ -59,7 +59,8 @@ export class AssetsComponent implements OnInit, OnDestroy {
           operator: y.operator.firstName + ' ' + y.operator.lastName,
           status: y.status,
           submitOn: '2 day ago',
-          brand: 'bmw.png',
+          // brand: 'bmw.png',
+          brand: y.makeName,
           killometer: 25000,
           statusColor: '#009EFF'
         };
@@ -68,13 +69,13 @@ export class AssetsComponent implements OnInit, OnDestroy {
   );
 
   dataRegistration$ = this.registrationFacade.registration$.pipe(
-    map(x => {
-      return x.map(y => {
+    map((x) => {
+      return x.map((y) => {
         return {
           ...y,
           id: y.id,
           asset: {
-            img: 'thumb1.png',
+            img: 'assets/thumb.png',
             assetName: y.assetTypeName,
             assetSubName: y.dpd,
             progress: Math.floor(Math.random() * 6) + 1
@@ -82,6 +83,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
           serialNumber: '123s125583456',
           brand: 'bmw.png',
           type: 'Car',
+          make: 'Toyota',
           allocated: 'Finance',
           businessCategory: 'VIP',
           createDate: '00/00/00',
@@ -100,10 +102,9 @@ export class AssetsComponent implements OnInit, OnDestroy {
     private customizationFacade: CustomizationFacade,
     private changeDetector: ChangeDetectorRef,
     private _router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.assetMasterTableSetting = {
       columns: [
         {
@@ -165,9 +166,9 @@ export class AssetsComponent implements OnInit, OnDestroy {
         },
         {
           lable: 'tables.column.make',
-          field: '',
+          field: 'brand',
           width: 100,
-          type: 3,
+          type: 1,
           thumbField: 'brand',
           renderer: ''
         },
@@ -199,16 +200,16 @@ export class AssetsComponent implements OnInit, OnDestroy {
               this.assetMasterFacade.reset();
               this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
             }
-          },
-          {
-            button: 'download'
-          },
-          {
-            button: 'external',
-            onClick: (col, data) => {
-              this._router.navigate(['/fleet/assets/' + data.id]);
-            }
           }
+          // {
+          //   button: 'download'
+          // },
+          // {
+          //   button: 'external',
+          //   onClick: (col, data) => {
+          //     this._router.navigate(['/fleet/assets/' + data.id]);
+          //   }
+          // }
         ]
       }
     };
@@ -244,24 +245,6 @@ export class AssetsComponent implements OnInit, OnDestroy {
     this.customizationFacade.loadAll();
     this.assetMasterFacade.loadStatistics();
 
-    this.assetMasterSubscription = this.assetMasterFacade.assetMaster$.subscribe(
-      (response) => {
-        console.log(response);
-      }
-    );
-
-    this.registrationSubscription = this.registrationFacade.registration$.subscribe(
-      (response) => {
-        console.log(response);
-      }
-    );
-
-    this.customizationSubscription = this.customizationFacade.customization$.subscribe(
-      (response) => {
-        console.log(response);
-      }
-    );
-
     this.statisticsSubscription = this.assetMasterFacade.statistics$.subscribe(
       (response) => {
         if (response) {
@@ -287,7 +270,6 @@ export class AssetsComponent implements OnInit, OnDestroy {
         }
       }
     );
-
   }
 
   add() {

@@ -1,5 +1,13 @@
 import { InjectableCompiler } from '@angular/compiler/src/injectable_compiler';
-import { AfterContentInit, ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  OnDestroy,
+  OnInit,
+  ChangeDetectorRef
+} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FilterCardSetting } from '@core/filter';
 import { Utility } from '@shared/utility/utility';
@@ -11,9 +19,9 @@ import {
 import { Subject, Subscription } from 'rxjs';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { UsersFacade } from '../../../+state/users';
-import { RolePermissionFacade } from "../../../+state/role-permission";
+import { RolePermissionFacade } from '../../../+state/role-permission';
 import { debounceTime, map } from 'rxjs/operators';
-import { UsersService } from "../../../+state/users/users.service";
+import { UsersService } from '../../../+state/users/users.service';
 import { ThrowStmt } from '@angular/compiler';
 import { timeStamp } from 'console';
 @Component({
@@ -22,10 +30,11 @@ import { timeStamp } from 'console';
   styleUrls: ['./add-user.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddUserComponent extends Utility implements OnInit, AfterContentInit, OnDestroy {
+export class AddUserComponent
+  extends Utility
+  implements OnInit, AfterContentInit, OnDestroy {
   isEdit: boolean = false;
   id: number;
-
 
   //#region Dialog
   dialogSetting: IDialogAlert = {
@@ -59,28 +68,28 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
 
@@ -99,9 +108,7 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
   employee_static;
   employeeId;
 
-  departments = [
-    { name: 'Finance', id: 1 }
-  ];
+  departments = [{ name: 'Finance', id: 1 }];
 
   roles = [
     { name: 'Police', id: 1 },
@@ -124,7 +131,9 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
 
   private _user;
   users$ = this.userFacade.users$;
-  roles$ = this.roleFacade.rolePermission$.pipe(map(y => y.map(x => ({ id: x.roleId, name: x.roleName }))));
+  roles$ = this.roleFacade.rolePermission$.pipe(
+    map((y) => y.map((x) => ({ id: x.roleId, name: x.roleName })))
+  );
   profileDocId = null;
 
   constructor(
@@ -147,45 +156,48 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
         params.filter((x) => x.path == 'edit-user').length > 0 ? true : false;
 
       if (this.isEdit) {
-        this.id = +(params[params.length - 1].path);
-        this.userService.getUserById((params[params.length - 1].path)).pipe(map(x => x.message)).subscribe(x => {
-          if (x) {
-            // this.profileDocId = x.profileDocId ? x.profileDocId : null;
-            this._user = x;
-            this.form.controls['portalInformation'].patchValue({
-              employeeNumber: {
-                name: x.id,
-                id: x.employeeNumber
-              },
-              department: {
-                name: `${x.department.name}`
-              },
-              roleId: x.role.roleId,
-              activeEmployee: x.isActive
-            });
+        this.id = +params[params.length - 1].path;
+        this.userService
+          .getUserById(params[params.length - 1].path)
+          .pipe(map((x) => x.message))
+          .subscribe((x) => {
+            if (x) {
+              // this.profileDocId = x.profileDocId ? x.profileDocId : null;
+              this._user = x;
+              this.form.controls['portalInformation'].patchValue({
+                employeeNumber: {
+                  name: x.id,
+                  id: x.employeeNumber
+                },
+                department: {
+                  name: `${x.department.name}`
+                },
+                roleId: x.role.roleId,
+                activeEmployee: x.isActive
+              });
 
-            this.form.controls['personalInformation'].patchValue({
-              firstName: x.firstName,
-              lastName: x.lastName,
-              callCheckbox: x.notifyByCall,
-              smsCheckbox: x.notifyBySMS,
-              whatsappCheckbox: x.notifyByWhatsApp,
-              emailCheckbox: x.notifyByEmail,
-            });
+              this.form.controls['personalInformation'].patchValue({
+                firstName: x.firstName,
+                lastName: x.lastName,
+                callCheckbox: x.notifyByCall,
+                smsCheckbox: x.notifyBySMS,
+                whatsappCheckbox: x.notifyByWhatsApp,
+                emailCheckbox: x.notifyByEmail
+              });
 
-            this.emails.controls[0].patchValue({
-              email: x.emails
-            });
+              this.emails.controls[0].patchValue({
+                email: x.emails
+              });
 
-            this.phoneNumbers.controls[0].patchValue({
-              phoneNumber: x.phoneNumbers
-            });
+              this.phoneNumbers.controls[0].patchValue({
+                phoneNumber: x.phoneNumbers
+              });
 
-            this.form.controls['fileUpload'].patchValue({
-              fileName: x.profileDocId
-            });
-          }
-        });
+              this.form.controls['fileUpload'].patchValue({
+                fileName: x.profileDocId
+              });
+            }
+          });
       } else {
         this.formChangesSubscription = this.form.valueChanges.subscribe(
           (formValues) => {
@@ -204,12 +216,13 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
     });
 
     this.userFacade.submitted$.subscribe((x) => {
-      console.log("Submit : ", x)
       if (x) {
         this.dialogModal = true;
-        this.dialogType = "success";
+        this.dialogType = 'success';
         this.dialogSetting.header = this.isEdit ? 'Edit user' : 'Add new user';
-        this.dialogSetting.message = this.isEdit ? 'Changes Saved Successfully' : 'User Added Successfully';
+        this.dialogSetting.message = this.isEdit
+          ? 'Changes Saved Successfully'
+          : 'User Added Successfully';
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
@@ -218,29 +231,30 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
       }
     });
 
-    this.userFacade.error$.subscribe(x => {
+    this.userFacade.error$.subscribe((x) => {
       if (x?.error) {
-        console.log(x?.error)
         this.errorDialogModal = true;
-        this.errorDialogSetting.header = this.isEdit ? 'Edit user' : 'Add new user';
+        this.errorDialogSetting.header = this.isEdit
+          ? 'Edit user'
+          : 'Add new user';
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
-        this.errorDialogSetting.confirmButton = "Ok";
+        this.errorDialogSetting.confirmButton = 'Ok';
         this.changeDetector.detectChanges();
       } else {
         this.errorDialogModal = false;
       }
     });
 
-    this.getEmployeesList.pipe(debounceTime(600)).subscribe(x => {
-      this.userService.searchEmployee(x["query"]).subscribe(y => {
+    this.getEmployeesList.pipe(debounceTime(600)).subscribe((x) => {
+      this.userService.searchEmployee(x['query']).subscribe((y) => {
         if (y) {
-          this.employees.next([y.message])
+          this.employees.next([y.message]);
         } else {
-          this.employees.next(null)
+          this.employees.next(null);
         }
-      })
-    })
+      });
+    });
   }
 
   ngAfterContentInit(): void {
@@ -304,11 +318,12 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
     this.dialogModal = false;
     if (!$event) return;
 
-    if (this.dialogType == "submit") {
+    if (this.dialogType == 'submit') {
       let f = this.form.value;
-      console.log(this._user)
       let userInfo: any = {
-        employeeNumber: this.isEdit ? this._user?.employeeNumber : this.employeeId,
+        employeeNumber: this.isEdit
+          ? this._user?.employeeNumber
+          : this.employeeId,
         organizationId: 1,
         departmentId: f.portalInformation.department.id || 1,
         roleId: 1,
@@ -316,23 +331,18 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
         profileDocId: this.profileDocId || 1,
         firstName: f.personalInformation.firstName,
         lastName: f.personalInformation.lastName,
-        emails: f.personalInformation.emails.map(x => {
+        emails: f.personalInformation.emails.map((x) => {
           if (x.email) {
-            if (typeof x.email == "string")
-              return x.email
-            else
-              return x.email[0]
-
-          }
-          else if (typeof x == "object")
-            return x[0]
+            if (typeof x.email == 'string') return x.email;
+            else return x.email[0];
+          } else if (typeof x == 'object') return x[0];
         }),
         phoneNumbers: this.getPhone(f),
         notifyByCall: f.personalInformation.callCheckbox,
         notifyBySMS: f.personalInformation.smsCheckbox,
         notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
-        notifyByEmail: f.personalInformation.emailCheckbox,
-      }
+        notifyByEmail: f.personalInformation.emailCheckbox
+      };
 
       if (this.isEdit) {
         userInfo = {
@@ -350,19 +360,24 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
           newRecalls: this._user.newRecalls || false,
           notifyByNewIssueEmail: this._user.notifyByNewIssueEmail || false,
           notifyByNewIssuePush: this._user.notifyByNewIssuePush || false,
-          notifyByIssueAssignedEmail: this._user.notifyByIssueAssignedEmail || false,
-          notifyByIssueAssignedPush: this._user.notifyByIssueAssignedPush || false,
-          notifyByCommentOnIssueEmail: this._user.notifyByCommentOnIssueEmail || false,
-          notifyByCommentOnIssuePush: this._user.notifyByCommentOnIssuePush || false,
-          notifyByIssueResolvedEmail: this._user.notifyByIssueResolvedEmail || false,
-          notifyByIssueResolvedPush: this._user.notifyByIssueResolvedPush || false,
+          notifyByIssueAssignedEmail:
+            this._user.notifyByIssueAssignedEmail || false,
+          notifyByIssueAssignedPush:
+            this._user.notifyByIssueAssignedPush || false,
+          notifyByCommentOnIssueEmail:
+            this._user.notifyByCommentOnIssueEmail || false,
+          notifyByCommentOnIssuePush:
+            this._user.notifyByCommentOnIssuePush || false,
+          notifyByIssueResolvedEmail:
+            this._user.notifyByIssueResolvedEmail || false,
+          notifyByIssueResolvedPush:
+            this._user.notifyByIssueResolvedPush || false,
           notifyByIssueCloseEmail: this._user.notifyByIssueCloseEmail || false,
           notifyByIssueClosePush: this._user.notifyByIssueClosePush || false
-        }
+        };
 
         this.userFacade.editUser(userInfo);
-      }
-      else {
+      } else {
         userInfo = {
           ...userInfo,
           notifyByPush: false,
@@ -385,14 +400,15 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
           notifyByIssueResolvedPush: false,
           notifyByIssueCloseEmail: false,
           notifyByIssueClosePush: false
-        }
+        };
         this.userFacade.addUser(userInfo);
       }
-    }
-    else {
-      this.router.navigate(['/configuration/user-management/users']).then(_ => {
-        this.userFacade.resetParams();
-      });
+    } else {
+      this.router
+        .navigate(['/configuration/user-management/users'])
+        .then((_) => {
+          this.userFacade.resetParams();
+        });
     }
   }
 
@@ -433,16 +449,15 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
         'Are you sure you want to submit this changes?';
       this.dialogSetting.isWarning = true;
       this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = "Cancel";
+      this.dialogSetting.cancelButton = 'Cancel';
       return;
-    }
-    else {
+    } else {
       this.dialogSetting.header = 'Add new user';
       this.dialogSetting.isWarning = true;
       this.dialogSetting.hasError = false;
       this.dialogSetting.message = 'Are you sure you want to add new user?';
       this.dialogSetting.confirmButton = 'OK';
-      this.dialogSetting.cancelButton = "Cancel";
+      this.dialogSetting.cancelButton = 'Cancel';
     }
   }
 
@@ -459,7 +474,6 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
   }
 
   public dropped(files: NgxFileDropEntry[]) {
-    console.log(this.form.value);
     this.filesUpdloaded = files;
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
@@ -474,39 +488,37 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
               fileSize: file.size,
               file: reader.result
             });
-            console.log(droppedFile.relativePath, file);
           };
         });
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
       }
     }
   }
 
   employeeNumberChanged($event) {
     this.employee_static = $event;
-    if (typeof $event != "object") return;
+    if (typeof $event != 'object') return;
     this.form.controls['portalInformation'].patchValue({
       department: $event.organizationId
     });
     this.form.controls['fileUpload'].patchValue({
-      "file": $event.profileImage
+      file: $event.profileImage
     });
     this.form.controls['personalInformation'].patchValue({
+      firstName: $event.nameEn,
+      lastName: $event.name,
       phoneNumbers: [{ phoneNumber: $event.mobileNumber }],
       emails: [{ email: $event.emailAddress }]
-    })
-
-    console.log(this.form.value)
+    });
   }
 
   public fileOver(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public fileLeave(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   ngOnDestroy(): void {
@@ -514,35 +526,37 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
   }
 
   getPhone(f) {
-    if (f.personalInformation.phoneNumbers && f.personalInformation.phoneNumbers.length > 0) {
+    if (
+      f.personalInformation.phoneNumbers &&
+      f.personalInformation.phoneNumbers.length > 0
+    ) {
       if (typeof f.personalInformation.phoneNumbers[0] == 'object') {
-        console.log(f.personalInformation.phoneNumbers[0].phoneNumber.length)
-        if (typeof f.personalInformation.phoneNumbers[0] == "object"
-          && typeof f.personalInformation.phoneNumbers[0].phoneNumber == "string"
-          && f.personalInformation.phoneNumbers[0].phoneNumber.length < 5) return [];
+        if (
+          typeof f.personalInformation.phoneNumbers[0] == 'object' &&
+          typeof f.personalInformation.phoneNumbers[0].phoneNumber ==
+            'string' &&
+          f.personalInformation.phoneNumbers[0].phoneNumber.length < 5
+        )
+          return [];
       } else if (typeof f.personalInformation.phoneNumbers[0] == 'string') {
         if (f.personalInformation.phoneNumbers[0].length < 5) return [];
       }
-      return f.personalInformation.phoneNumbers.map(x => {
+      return f.personalInformation.phoneNumbers.map((x) => {
         if (!x) return;
         if (x.phoneNumber) {
-          if (typeof x.phoneNumber == "string")
-            return x.phoneNumber
-          else
-            return x.phoneNumber[0]
-
-        }
-        else if (typeof x == "object") {
+          if (typeof x.phoneNumber == 'string') return x.phoneNumber;
+          else return x.phoneNumber[0];
+        } else if (typeof x == 'object') {
           if (x.phoneNumber) return x.phoneNumber;
-          else if (x[0]) return x[0]
-          else return ""
+          else if (x[0]) return x[0];
+          else return '';
         }
-      })
+      });
     }
   }
 
   getEmployee(event) {
-    this.getEmployeesList.next(event)
+    this.getEmployeesList.next(event);
     this.employeeId = event.query;
   }
 
@@ -553,5 +567,4 @@ export class AddUserComponent extends Utility implements OnInit, AfterContentIni
     const docId = $event.files[0];
     this.profileDocId = docId;
   }
-
 }

@@ -206,12 +206,12 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     this.sectionLocation(index).push(this.createSectionLocation());
   }
 
-  organizationNumber
+  organizationNumber;
   filterDepartments(event) {
-    this.organizationNumber = +event.query
+    this.organizationNumber = +event.query;
     this.departmentList.next(event);
   }
-  organizationIDChanged($event) { }
+  organizationIDChanged($event) {}
 
   dialogConfirm(event) {
     this.dialogModal = false;
@@ -237,7 +237,6 @@ export class AddOrganizationComponent extends Utility implements OnInit {
       this.facade.addOrganization(value);
     }
     if (this.dialogType == 'success') {
-      console.log('success');
       this.goToList();
     }
     if (this.dialogType == null) {

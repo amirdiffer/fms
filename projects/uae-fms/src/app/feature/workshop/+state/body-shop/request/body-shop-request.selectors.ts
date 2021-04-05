@@ -9,6 +9,11 @@ export class BodyShopRequestSelectors {
     selectAll
   );
 
+  static requests = createSelector(
+    WorkshopSelectors.bodyshopRequestSelector,
+    (state) => state.requests
+  );
+
   static selectStatistics = createSelector(
     WorkshopSelectors.bodyshopRequestSelector,
     (state) => state.statistics
@@ -22,5 +27,18 @@ export class BodyShopRequestSelectors {
   static error = createSelector(
     WorkshopSelectors.bodyshopRequestSelector,
     (state) => state.error
+  );
+  static submitted = createSelector(
+    WorkshopSelectors.bodyshopRequestSelector,
+    (state) => state.submitted
+  );
+
+  static selectById = createSelector(
+    BodyShopRequestSelectors.selectAll,
+    (state, props: { id: number }) => {
+      let data = state.filter((x) => x.id == props.id);
+      if (data.length > 0) return data[0];
+      else return null;
+    }
   );
 }

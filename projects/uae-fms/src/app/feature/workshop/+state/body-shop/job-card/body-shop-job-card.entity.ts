@@ -3,11 +3,11 @@ import { IJobCard } from '@models/body-shop';
 
 export const WORKSHOP_BODYSHOP_JOBCARD_FEATURE_KEY = 'bodyShopJobCard';
 
-export interface IBodyshopJobCardState
-  extends EntityState<IJobCard> {
+export interface IBodyshopJobCardState extends EntityState<IJobCard> {
   error?: any;
   loaded: boolean;
   message: string;
+  submitted: boolean;
 }
 
 export interface IBodyshopJobCardPartialState {
@@ -20,8 +20,9 @@ export const bodyShopJobCardAdapter: EntityAdapter<IJobCard> = createEntityAdapt
 
 export const initialState: IBodyshopJobCardState = bodyShopJobCardAdapter.getInitialState(
   {
-    loaded: null,
+    loaded: false,
     message: null,
-    error: null
+    error: null,
+    submitted: false
   } as IBodyshopJobCardState
 );

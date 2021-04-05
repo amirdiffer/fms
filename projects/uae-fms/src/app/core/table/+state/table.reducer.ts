@@ -49,10 +49,10 @@ const TableReducer = createReducer(
     st[i] = copyData;
     return ({...state, pagination: st})
   }),
-  on(TableActions.initial, (state, { data }) => {
+  on(TableActions.initial, (state, { ipp, count, name }) => {
     let st = state;
-    if(existByName(state, data) == null) {
-      st = ({ ...state, pagination: [...state.pagination, { name: data, count: 0, page: 1, ipp: 0 }] })
+    if(existByName(state, name) == null) {
+      st = ({ ...state, pagination: [...state.pagination, { name: name, count: count, page: 1, ipp: ipp }] })
     }
     return st
   }),

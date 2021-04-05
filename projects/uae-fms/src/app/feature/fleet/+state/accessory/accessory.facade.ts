@@ -17,7 +17,7 @@ export class AccessoryFacade {
 
   submitted$ = this.store.pipe(select(AccessorySelectors.submitted));
 
-  constructor(private store: Store<IAccessoryPartialState>) { }
+  constructor(private store: Store<IAccessoryPartialState>) {}
 
   loadAll() {
     this.store.dispatch(AccessoryActions.loadAll());
@@ -28,8 +28,8 @@ export class AccessoryFacade {
   addAccessory(data: any) {
     this.store.dispatch(AccessoryActions.addAccessory({ data }));
   }
-  editAccessory(data: any) {
-    this.store.dispatch(AccessoryActions.editAccessory({ data }));
+  editAccessory(data: any, id: number) {
+    this.store.dispatch(AccessoryActions.editAccessory({ data, id }));
   }
 
   reset() {

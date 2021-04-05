@@ -70,14 +70,23 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
       { lable: 'tables.column.status', field: 'status', width: 100 },
       { lable: 'tables.column.source', field: 'source', width: 100 },
       { lable: 'tables.column.reported_by', field: 'reportedby', width: 100 },
-      { lable: 'tables.column.cost', field: 'cost', width: 100, sortable: true },
+      {
+        lable: 'tables.column.cost',
+        field: 'cost',
+        width: 100,
+        sortable: true
+      },
       {
         lable: 'tables.column.insurance_value',
         field: 'insuranceValue',
         sortable: true,
         width: 100
       },
-      { lable: 'tables.column.insurance_action', field: 'insurance', width: 80 },
+      {
+        lable: 'tables.column.insurance_action',
+        field: 'insurance',
+        width: 80
+      },
       {
         lable: '',
         field: '',
@@ -198,7 +207,7 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
       .getMakeDecision()
       .subscribe((open) => {
         this.makeDecision = open;
-        console.log(open);
+        // console.log(open);
       });
     this._facade.loadAll();
   }

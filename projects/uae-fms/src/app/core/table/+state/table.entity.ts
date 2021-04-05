@@ -3,7 +3,7 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 export const TABLE_FEATURE_KEY = 'table';
 
 export interface ITablePagination {
-  name: string;
+  name?: string;
   count?: number;
   page?: number;
   ipp?:number;

@@ -71,7 +71,11 @@ export class AuctionListComponent implements OnInit, OnDestroy {
       { lable: 'tables.column.created_by', field: 'createdBy' },
       { lable: 'tables.column.reason', field: 'reason' },
       { lable: 'tables.column.assignment', field: 'assignment' },
-      { lable: 'tables.column.estimate_market', field: 'estimatedMarket', sortable: true },
+      {
+        lable: 'tables.column.estimate_market',
+        field: 'estimatedMarket',
+        sortable: true
+      },
       { lable: 'tables.column.date', field: 'date', sortable: true },
       { lable: 'tables.column.location', field: 'location' },
       {
@@ -84,8 +88,7 @@ export class AuctionListComponent implements OnInit, OnDestroy {
     data: [],
     rowSettings: {
       onClick: (data) => {
-        if (data.id)
-          this.selectedRow = data;
+        if (data.id) this.selectedRow = data;
       }
     }
   };
@@ -208,9 +211,8 @@ export class AuctionListComponent implements OnInit, OnDestroy {
     });
     this._facade.loadAll();
     this._facade.message$.subscribe((x) => {
-      console.log(x)
       this.settingTable1.data = x;
-    })
+    });
   }
   ngOnDestroy() {
     this.editOpen$.unsubscribe();
@@ -220,5 +222,4 @@ export class AuctionListComponent implements OnInit, OnDestroy {
     this._facade.updateRow(this.selectedRow);
     this._router.navigate([], { queryParams: { id: 'soldTab' } });
   }
-
 }

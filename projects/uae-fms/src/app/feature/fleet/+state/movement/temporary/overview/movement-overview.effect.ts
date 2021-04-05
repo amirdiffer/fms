@@ -12,7 +12,11 @@ export class MovementOverviewEffectTemporary {
       ofType(MovementOverviewActionsTemporary.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => MovementOverviewActionsTemporary.allDataLoaded({ data:data['message'] })),
+          map((data) =>
+            MovementOverviewActionsTemporary.allDataLoaded({
+              data: data['message']
+            })
+          ),
           catchError((error) =>
             of(MovementOverviewActionsTemporary.error({ reason: error }))
           )
