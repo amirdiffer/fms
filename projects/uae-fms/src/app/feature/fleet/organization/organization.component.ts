@@ -67,23 +67,23 @@ export class OrganizationComponent implements OnInit {
         field: 'car',
         width: 100,
         sortable: true
-      },
-      {
-        lable: '',
-        type: 3,
-        width: 70,
-        field: 'addButton',
-        renderer: 'button',
-        buttonType: ButtonType.add
-      },
-      {
-        lable: '',
-        width: 70,
-        type: 3,
-        field: 'actionButton',
-        renderer: 'button',
-        buttonType: ButtonType.action
       }
+      // {
+      //   lable: '',
+      //   type: 3,
+      //   width: 70,
+      //   field: 'addButton',
+      //   renderer: 'button',
+      //   buttonType: ButtonType.add
+      // },
+      // {
+      //   lable: '',
+      //   width: 70,
+      //   type: 3,
+      //   field: 'actionButton',
+      //   renderer: 'button',
+      //   buttonType: ButtonType.action
+      // }
     ],
     data: []
   };

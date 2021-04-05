@@ -113,7 +113,9 @@
     "add_temporary_request": "Add Temporary Request",
     "add_permanent_request": "Add Permanent Request",
     "accessory_overview": "Accessory Overview",
-    "edit_accessory": "Edit Accessory"
+    "edit_accessory": "Edit Accessory",
+    "add_operator": "Add Operator",
+    "edit_operator": "Edit Operator"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -1071,7 +1073,9 @@
         "title": "Upload Profile Picture",
         "progressbar_title": ".pdf",
         "content": "Drag and Drop Picture Here"
-      }
+      },
+      "full_name_english": "Full Name English",
+      "full_name_arabic": "Full Name Arabic"
     },
     "company_profile": {},
     "asset_policy": {

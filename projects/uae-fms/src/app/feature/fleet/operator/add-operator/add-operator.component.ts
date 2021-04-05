@@ -27,6 +27,8 @@ import { debounceTime, map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddOperatorComponent extends Utility implements OnInit {
+  profileDocId = null;
+
   isEdit: boolean = false;
   id: number;
 
@@ -342,7 +344,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
         departmentId: f.portalInformation.department.id || 1,
         roleId: 1,
         isActive: f.portalInformation.activeEmployee,
-        profileDocId: 1,
+        profileDocId: this.profileDocId || 1,
         firstName: f.personalInformation.firstName,
         lastName: f.personalInformation.lastName,
         emails: f.personalInformation.emails.map((x) => {
@@ -515,11 +517,14 @@ export class AddOperatorComponent extends Utility implements OnInit {
     if (typeof $event != 'object') return;
     this.form.controls['portalInformation'].patchValue({
       department: $event.organizationId
+      // employeeNumber:$event.organizationId
     });
     this.form.controls['fileUpload'].patchValue({
       file: $event.profileImage
     });
     this.form.controls['personalInformation'].patchValue({
+      firstName: $event.nameEn,
+      lastName: $event.name,
       phoneNumbers: [{ phoneNumber: $event.mobileNumber }],
       emails: [{ email: $event.emailAddress }]
     });
@@ -576,5 +581,13 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.router.navigate(['fleet/operator']).then((_) => {
       this.operatorFacade.resetParams();
     });
+  }
+
+  uploadImage($event) {
+    if (!$event || !$event.files) {
+      return;
+    }
+    const docId = $event.files[0];
+    this.profileDocId = docId;
   }
 }

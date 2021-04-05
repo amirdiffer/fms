@@ -24,6 +24,10 @@ export class LoginService {
     });
   }
 
+  logOut() {
+    return this.http.get(this.baseUrl + 'logout');
+  }
+
   getUserProfile() {
     return this.http.get(this.baseUrl + 'profile');
   }

@@ -506,6 +506,8 @@ export class AddUserComponent
       file: $event.profileImage
     });
     this.form.controls['personalInformation'].patchValue({
+      firstName: $event.nameEn,
+      lastName: $event.name,
       phoneNumbers: [{ phoneNumber: $event.mobileNumber }],
       emails: [{ email: $event.emailAddress }]
     });

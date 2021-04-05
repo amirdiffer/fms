@@ -75,7 +75,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
           ...y,
           id: y.id,
           asset: {
-            img: 'thumb1.png',
+            img: 'assets/thumb.png',
             assetName: y.assetTypeName,
             assetSubName: y.dpd,
             progress: Math.floor(Math.random() * 6) + 1
@@ -83,6 +83,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
           serialNumber: '123s125583456',
           brand: 'bmw.png',
           type: 'Car',
+          make: 'Toyota',
           allocated: 'Finance',
           businessCategory: 'VIP',
           createDate: '00/00/00',
