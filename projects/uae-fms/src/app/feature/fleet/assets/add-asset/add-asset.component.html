@@ -146,12 +146,20 @@
                             <p-dropdown inputId="department" [placeholder]="'assets.department' | translate"  [options]="department" optionLabel="name" optionValue="id" formControlName="department" dataKey="id"></p-dropdown>
                             <label for="department">{{ 'assets.department' | translate }} *</label>
                           </span>
+                          <anms-error
+                            [showError]="hasError('purchasedFor.department',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="operator"  [placeholder]="'assets.operator' | translate" [options]="operator" optionLabel="name" optionValue="id" formControlName="operator"></p-dropdown>
                             <label for="operator">{{ 'assets.operator' | translate }} *</label>
                           </span>
+                          <anms-error
+                            [showError]="hasError('purchasedFor.operator',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
                       </div>
                     </div>
