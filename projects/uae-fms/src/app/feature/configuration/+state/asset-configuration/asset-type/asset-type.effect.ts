@@ -39,7 +39,7 @@ export class AssetTypeEffect {
     this.action$.pipe(
       ofType(AssetTypeActions.addMake),
       mergeMap((action) =>
-        this.service.postMake(action.data).pipe(
+        this.service.postMake(action.data, action.assetId).pipe(
           map((data) =>
             AssetTypeActions.makeAddedSuccessfully({
               data: { ...action.data }
@@ -55,7 +55,7 @@ export class AssetTypeEffect {
     this.action$.pipe(
       ofType(AssetTypeActions.addModel),
       mergeMap((action) =>
-        this.service.postModel(action.data).pipe(
+        this.service.postModel(action.data, action.assetId, action.makeId).pipe(
           map((data) =>
             AssetTypeActions.modelAddedSuccessfully({
               data: { ...action.data }
@@ -71,7 +71,7 @@ export class AssetTypeEffect {
     this.action$.pipe(
       ofType(AssetTypeActions.addTrim),
       mergeMap((action) =>
-        this.service.postTrim(action.data).pipe(
+        this.service.postTrim(action.data, action.assetId, action.makeId, action.modelId).pipe(
           map((data) =>
             AssetTypeActions.trimAddedSuccessfully({
               data: { ...action.data }
@@ -83,5 +83,5 @@ export class AssetTypeEffect {
     )
   );
 
-  constructor(private action$: Actions, private service: AssetTypeService) {}
+  constructor(private action$: Actions, private service: AssetTypeService) { }
 }

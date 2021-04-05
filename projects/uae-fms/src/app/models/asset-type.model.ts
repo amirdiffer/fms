@@ -4,7 +4,7 @@ export interface IAssetType {
   type: string;
   typeDescription: string;
   isActive: false;
-  makes: Make[];
+  makes?: Make[];
 }
 
 export interface Make {
@@ -19,7 +19,7 @@ export interface MakeModel {
   id: number;
   model: string;
   modelDescription:string;
-  trims: MakeModelTrim[];
+  trims?: MakeModelTrim[];
 }
 
 export interface MakeModelTrim {

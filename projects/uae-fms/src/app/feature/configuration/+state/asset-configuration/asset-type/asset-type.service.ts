@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class AssetTypeService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   loadAll(): Observable<ResponseBody<IAssetType[]>> {
     return this.http.get<ResponseBody<IAssetType[]>>(
@@ -23,32 +23,25 @@ export class AssetTypeService {
     );
   }
 
-  postMake(data): Observable<ResponseBody<any>> {
+  postMake(data, assetId): Observable<ResponseBody<any>> {
     return this.http.post<ResponseBody<any>>(
       environment.baseApiUrl +
-        'configuration/asset-type/' +
-        data.id +
-        '/update',
+      'configuration/asset-type/' + assetId + '/make',
       data
     );
   }
 
-  postModel(data): Observable<ResponseBody<any>> {
+  postModel(data, assetId, makeId): Observable<ResponseBody<any>> {
     return this.http.post<ResponseBody<any>>(
-      environment.baseApiUrl +
-        'configuration/asset-type/' +
-        data.id +
-        '/update',
+      environment.baseApiUrl + 'configuration/asset-type/' + assetId + '/make/' + makeId + '/model',
       data
     );
   }
 
-  postTrim(data): Observable<ResponseBody<any>> {
+  postTrim(data, assetId, makeId, modelId): Observable<ResponseBody<any>> {
     return this.http.post<ResponseBody<any>>(
       environment.baseApiUrl +
-        'configuration/asset-type/' +
-        data.id +
-        '/update',
+      'configuration/asset-type/' + assetId + '/make/' + makeId + '/model/'+modelId+'/trim',
       data
     );
   }
