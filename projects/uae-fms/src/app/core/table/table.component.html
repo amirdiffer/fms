@@ -101,13 +101,11 @@
             <table-trim-color-renderer [colors]="data[col.field]"></table-trim-color-renderer>
           </div>
           <div *ngIf="col.renderer=='checkboxRenderer'">
-            <table-checkbox-renderer [data]='data[col.field]'></table-checkbox-renderer>
+            <table-checkbox-renderer (onChange)="updatedSelectedIds($event,col.field)" [data]='data' [field]="col.field"></table-checkbox-renderer>
+            <!-- <table-checkbox-renderer (onChange)="updatedSelectedIds($event)" [data]='data[col.field]'></table-checkbox-renderer> -->
           </div>
           <div *ngIf="col.renderer=='downloadButtonRenderer'">
             <table-download-button-renderer [link]='data[col.field]'></table-download-button-renderer>
-          </div>
-          <div *ngIf="col.renderer=='checkboxRenderer'">
-            <table-checkbox-renderer [data]='data[col.field]'></table-checkbox-renderer>
           </div>
           <div *ngIf="col.renderer=='downloadButtonRenderer'">
             <table-download-button-renderer [link]='data[col.field]'></table-download-button-renderer>

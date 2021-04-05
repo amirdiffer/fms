@@ -2,8 +2,10 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
-  OnInit
+  OnInit,
+  Output
 } from '@angular/core';
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
@@ -24,7 +26,8 @@ export class TableComponent implements OnInit {
   activeLang: string;
   @Input() setting: TableSetting;
   @Input() tableData: Observable<any>;
-
+  @Output() onSelectItems = new EventEmitter();
+  selectedIds = [];
   constructor(
     private settingFacade: SettingsFacade,
     private changeDetection: ChangeDetectorRef,
@@ -191,6 +194,15 @@ export class TableComponent implements OnInit {
   }
   isSelected(index): boolean {
     return this.selectedTRS.includes(index);
+  }
+
+  updatedSelectedIds(data, field) {
+    if (data[field].checkbox) this.selectedIds.push(data.id);
+    else {
+      let index = this.selectedIds.findIndex((x) => x == data.id);
+      this.selectedIds.splice(index, 1);
+    }
+    this.onSelectItems.emit(this.selectedIds);
   }
 }
 

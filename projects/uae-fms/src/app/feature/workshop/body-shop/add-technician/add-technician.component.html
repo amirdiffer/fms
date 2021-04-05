@@ -17,7 +17,7 @@
                 <div class="autocomplete-select w-100">
                   <span class="p-float-label">
                     <p-autoComplete formControlName="employeeNumber" (completeMethod)="getEmployee($event)"
-                                    [suggestions]="employees$|async" field="name" [minLength]="1"
+                                    [suggestions]="employees$|async" field="organizationId" [minLength]="1"
                                     (ngModelChange)="employeeNumberChanged($event)" required [disabled]="isEdit"
                                     [class.invalid]="!inputForm.get('portalInfo.employeeNumber').valid
                       && submited"></p-autoComplete>
@@ -37,7 +37,7 @@
             <div class="m-0 p-field form-section__field">
               <div class="input-group">
                 <span class="p-float-label w-100">
-                  <input type="number" class="form-control"
+                  <input type="text" class="form-control"
                     placeholder="{{'workshop.body_shop.technician.pay_per_hours'
                     | translate}}"
                     formControlName="payPerHours"

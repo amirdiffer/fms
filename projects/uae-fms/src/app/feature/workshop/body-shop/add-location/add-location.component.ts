@@ -284,7 +284,7 @@ export class AddLocationComponent extends Utility implements OnInit {
 
   createSlot(): FormGroup {
     return this._fb.group({
-      thirdPartyLocationId: ['', [Validators.required]],
+      thirdPartyLocationId: ['', [Validators.required]]
     });
   }
 
@@ -305,7 +305,7 @@ export class AddLocationComponent extends Utility implements OnInit {
   }
 
   addService() {
-    const services = (<FormArray>this.inputForm.get('services'))
+    const services = <FormArray>this.inputForm.get('services');
 
     if (services.invalid) {
       return;
@@ -321,15 +321,15 @@ export class AddLocationComponent extends Utility implements OnInit {
 
     if (this.dialogType == 'submit') {
       let d = this.inputForm.getRawValue();
-      let services = (<object[]>d.services).map(x => x = x['service']);
+      let services = (<object[]>d.services).map((x) => (x = x['service']));
       // let slots = (<object[]>d.slots).map(x => x = x['thirdPartyLocationId']);
 
       let locationInfo: any = {
-        "locationThirdPartyId": d.locationID.id,
-        "address": d.address,
-        "services": services,
-        "slots": d.slots
-      }
+        locationThirdPartyId: 1, //d.locationID.id,
+        address: d.address,
+        services: services,
+        slots: d.slots
+      };
       console.log(this._location);
 
       if (this.isEdit) {
@@ -408,6 +408,4 @@ export class AddLocationComponent extends Utility implements OnInit {
   get slots(): FormArray {
     return this.inputForm.get('slots') as FormArray;
   }
-
-
 }

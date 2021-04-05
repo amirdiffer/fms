@@ -20,7 +20,8 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import {
   BodyShopJobCardFacade,
   BodyShopJobCardService,
-  BodyShopLocationFacade, BodyShopRequestFacade,
+  BodyShopLocationFacade,
+  BodyShopRequestFacade,
   BodyShopTechnicianFacade,
   BodyShopTechnicianService
 } from '@feature/workshop/+state/body-shop';
@@ -94,7 +95,12 @@ export class AddJobCardComponent extends Utility implements OnInit {
   ];
   addJobCard_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.requests', type: 1, field: 'request', renderer: 'checkboxRenderer' },
+      {
+        lable: 'tables.column.requests',
+        type: 1,
+        field: 'request',
+        renderer: 'checkboxRenderer'
+      },
       { lable: 'tables.column.date', type: 1, sortable: true, field: 'date' },
       { lable: 'tables.column.description', type: 1, field: 'description' },
       { lable: 'tables.column.issue_type', type: 1, field: 'issue_type' },
@@ -107,23 +113,52 @@ export class AddJobCardComponent extends Utility implements OnInit {
         lable: 'tables.column.attachment',
         type: 1,
         field: 'attachment',
-        renderer: 'downloadButtonRenderer',
+        renderer: 'downloadButtonRenderer'
       }
     ],
     data: [
-      {
-        date: '02/02/2020',
-        description: 'Description Is here',
-        issue_type: 'issue type',
-        reportedBy: 'faezeh',
-        request: {
-          label: 'Request',
-          checkbox: false
-        },
-        attachment: {
-          link: 'http://'
-        }
-      }
+      // {
+      //   id: 1,
+      //   date: '02/02/2020',
+      //   description: 'Description Is here',
+      //   issue_type: 'issue type',
+      //   reportedBy: 'faezeh',
+      //   request: {
+      //     label: 'Request',
+      //     checkbox: false
+      //   },
+      //   attachment: {
+      //     link: 'http://'
+      //   }
+      // },
+      // {
+      //   id: 2,
+      //   date: '02/02/2020',
+      //   description: 'Description Is here',
+      //   issue_type: 'issue type',
+      //   reportedBy: 'faezeh',
+      //   request: {
+      //     label: 'Request',
+      //     checkbox: false
+      //   },
+      //   attachment: {
+      //     link: 'http://'
+      //   }
+      // },
+      // {
+      //   id: 3,
+      //   date: '02/02/2020',
+      //   description: 'Description Is here',
+      //   issue_type: 'issue type',
+      //   reportedBy: 'faezeh',
+      //   request: {
+      //     label: 'Request',
+      //     checkbox: false
+      //   },
+      //   attachment: {
+      //     link: 'http://'
+      //   }
+      // }
     ]
   };
   private _jobCard: any;
@@ -138,6 +173,22 @@ export class AddJobCardComponent extends Utility implements OnInit {
       y.map((x) => ({
         id: x.id,
         name: x.user.firstName + ' ' + x.user.lastName
+      }))
+    )
+  );
+  relatedRequests$ = this._facadeRequest.requestsById$.pipe(
+    map((y) =>
+      y.map((x) => ({
+        id: x.id,
+        request: {
+          label: x.request,
+          checkbox: false
+        },
+        date: x.createdAt,
+        description: x.description,
+        issue_type: x.jobType,
+        reported_by: x.reportedBy,
+        attachment: ''
       }))
     )
   );
@@ -279,7 +330,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
   requests$ = this._facadeRequest.requestsById$;
 
   selectAsset(e) {
-    this.assetIdSelected = e.value;
+    this.assetIdSelected = 24; //e.value;
     this._facadeRequest.getRequestsById(this.assetIdSelected);
   }
 
@@ -316,6 +367,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
       let jobCardInfo: any = {
         description: f.description,
         wsLocationId: f.wsLocationId,
+        relatedRequestIds: f.relatedRequestIds,
         tasks: f.tasks.map((t) => ({
           priorityOrder: t.priorityOrder,
           taskMasterId: t.taskMasterId.id,
@@ -344,7 +396,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
     }
   }
   addRequest() {
-    console.log(this.inputForm.getRawValue())
+    console.log(this.inputForm.getRawValue());
     this.submited = true;
     // if (this.inputForm.invalid) {
     //   return;
@@ -403,5 +455,11 @@ export class AddJobCardComponent extends Utility implements OnInit {
 
   get task(): FormArray {
     return this.inputForm.get('task') as FormArray;
+  }
+
+  getSelectedRequestIds(event) {
+    this.inputForm.patchValue({
+      relatedRequestIds: event
+    });
   }
 }
