@@ -70,3 +70,22 @@ export interface IDepartment {
   organizationId: number;
   organizationName: string;
 }
+
+export interface ISpecificPeriodicService{
+  id: number;
+  name: string;
+  packages:IPeridoicServicePackages[]
+}
+
+export interface IPeridoicServicePackages{
+  id?:number,
+  name:string;
+  intervalType:string;
+  intervalValue:number;
+  tasks:IPeridoicServiceTask[]
+}
+export interface IPeridoicServiceTask {
+  id?:number;
+  taskMasterId?:number;
+  taskMasterName:string;
+}

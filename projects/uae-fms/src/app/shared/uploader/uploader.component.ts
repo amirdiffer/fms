@@ -68,6 +68,11 @@ export class UploaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if(!this.multiple && typeof this.files[0] == 'undefined'){
+      this.files =[];
+      console.log(this.files)
+    }
+    console.log(this.files)
   }
 
   public dropped(files: NgxFileDropEntry[], option: string, index?: number) {
@@ -84,9 +89,12 @@ export class UploaderComponent implements OnInit {
           if ((fileSize < this.maxSize, this.accept.includes(fileSuffix))) {
             this.formData.delete('doc');
             this.allFileUpload.push(droppedFile);
+            console.log(this.allFileUpload)
+            console.log(this.files)
             this.filesSize += fileSize;
             this.formData.append('doc', file);
             this.upload(index);
+            this.changeDetector.markForCheck();
           } else if (!this.accept.includes(fileSuffix)){
             this.dialogModalError = true;
             this.changeDetector.markForCheck();
@@ -97,11 +105,15 @@ export class UploaderComponent implements OnInit {
   }
 
   setFiles(index?: number): void {
-    this.uploadedEvent.emit({
-      name: this.uploaderName,
-      files: this.files,
-      index: index
-    });
+    if(this.files){
+      this.uploadedEvent.emit({
+        name: this.uploaderName,
+        files: this.files,
+        index: index
+      });
+    }
+    console.log(this.files.length)
+    
   }
 
   getSuffix(file: File): string {
@@ -121,7 +133,7 @@ export class UploaderComponent implements OnInit {
     let that = this;
     function processData(allText) {
       let textEmit = allText.split(/\r\n|\n/);
-      (textEmit);
+      console.log(textEmit);
       that.csvTextEvent.emit(textEmit);
     }
   }
@@ -137,22 +149,28 @@ export class UploaderComponent implements OnInit {
           case HttpEventType.ResponseHeader:
             break;
           case HttpEventType.UploadProgress:
+            console.log(event.loaded , event.total)
             this.progressBarValue = Math.round(
               (event.loaded / event.total) * 100
-            );
-            this.changeDetector.detectChanges();
-            (this.progressBarValue + ' %');
+              );
+              (this.progressBarValue + ' %');
+              console.log(this.progressBarValue )
+              this.changeDetector.markForCheck();
             break;
           case HttpEventType.Response:
             setTimeout(() => {
               this.progressBarValue = 0;
               this.isUploading = false;
             }, 1500);
+            console.log(this.files)
+            this.changeDetector.markForCheck();
+            this.changeDetector.detectChanges();
         }
         if (event instanceof HttpResponse) {
           if (!event.body.error) {
             if (!this.multiple) this.files = [];
             this.files.push(event.body.message.id);
+            this.changeDetector.markForCheck();
             if(this.readCSVFile){
               this.getValueCSV(event.body.message.id)
             }
@@ -161,6 +179,7 @@ export class UploaderComponent implements OnInit {
             this.setFiles(indexUploadBox);
           }
         }
+        this.changeDetector.detectChanges();
       },
       (error) => {
         this.filesUploadError++;
@@ -172,7 +191,8 @@ export class UploaderComponent implements OnInit {
 
   removeFile(index) {
     this.files.splice(index, 1);
-    this.setFiles();
+    this.setFiles(index);
+    this.changeDetector.detectChanges();
   }
 
   dialogErrorConfirm(value) {
