@@ -1,17 +1,16 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { FLEET_FEATURE_KEY } from '@feature/fleet/+state/fleet.entity';
-import { ITablePagination } from '@core/table/+state/table.entity';
+import { ITablePagination, TABLE_FEATURE_KEY } from '@core/table/+state/table.entity';
 
 export class TableSelectors {
 
-  static featureSelector = createFeatureSelector(FLEET_FEATURE_KEY);
+  static featureSelector = createFeatureSelector(TABLE_FEATURE_KEY);
 
   static pagination = createSelector(
     TableSelectors.featureSelector,
     (state) => state['pagination']
   );
 
-  static selectById = createSelector(
+  static selectByName = createSelector(
     TableSelectors.pagination,
     (state: ITablePagination[], props: { name: string }) => {
       let data = state.filter((x) => x.name == props.name);

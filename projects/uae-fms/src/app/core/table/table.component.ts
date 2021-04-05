@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { SettingsFacade } from '@core/settings/settings.facade';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Component({
   selector: 'app-table',
@@ -13,17 +14,35 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnDestroy {
   rowIndexTable = -1;
   activeLang: string;
-  ipp = 50;
+  activePage: number;
+  @Input() ipp = 50;
   @Input() setting: TableSetting;
   @Input() tableData: Observable<any>;
   @Input() count: number;
+  @Input() pagination: string;
   arrowIcon = 'assets/icons/arrow-down.svg';
+  subscribePagination$: Subscription
+  pagesCount: number;
 
-  constructor(private settingFacade: SettingsFacade, private changeDetection: ChangeDetectorRef, private translate: TranslateService) { }
+  constructor(
+    private settingFacade: SettingsFacade,
+    private changeDetection: ChangeDetectorRef,
+    private translate: TranslateService,
+    private _tableFacade: TableFacade
+  ) { }
+
+
   ngOnInit() {
+    if (this.pagination && this.count) {
+      this.paginationEvent('rowCount');
+      this.paginationEvent('count');
+      this.subscribePagination$ = this._tableFacade.getPaginationByName(this.pagination).subscribe(x => {
+        this.activePage = x['page'];
+      });
+    }
     this.settingFacade.language.subscribe((lang) => {
       this.activeLang = lang;
     });
@@ -169,6 +188,43 @@ export class TableComponent implements OnInit {
   }
   isSelected(index): boolean {
     return this.selectedTRS.includes(index);
+  }
+
+  paginationEvent(action) {
+    switch (action) {
+      case 'next': {
+        this._tableFacade.next(this.pagination);
+        break;
+      }
+      case 'previous': {
+        this._tableFacade.previous(this.pagination);
+        break;
+      }
+      case 'rowCount': {
+        this._tableFacade.rowCount(this.ipp, this.pagination);
+        break;
+      }
+      case 'count': {
+        this._tableFacade.count(this.count, this.pagination);
+        break;
+      }
+    }
+  }
+
+
+  trackingShowRow(): string {
+    this.pagesCount = Math.ceil(this.count / this.ipp);
+    let leftOver = this.count % this.ipp;
+    let start = (this.activePage * this.ipp) - this.ipp;
+    let end = start + this.ipp;
+    (leftOver > 0 && this.pagesCount == this.activePage) ? end = (end - this.ipp) + leftOver: null;
+    return `${start}-${end}`
+  }
+
+  ngOnDestroy(): void {
+    if (this.pagination && this.count) {
+      this.subscribePagination$.unsubscribe();
+    }
   }
 
 }

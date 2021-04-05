@@ -102,28 +102,28 @@
       </tr>
     </ng-template>
   </p-table>
-  <ng-template [ngIf]="true">
+  <ng-template [ngIf]="pagination && count">
     <div class="paginator">
       <div class="show-entries">
         <span>Show</span>
-        <select [value]="ipp">
-          <option [value]="10">10</option>
-          <option [value]="25">25</option>
-          <option [value]="50">50</option>
-          <option [value]="100">100</option>
+        <select [(ngModel)]="ipp" (change)="paginationEvent('rowCount')">
+          <option [ngValue]="10">10</option>
+          <option [ngValue]="25">25</option>
+          <option [ngValue]="50">50</option>
+          <option [ngValue]="100">100</option>
         </select>
         <span>Entries</span>
       </div>
       <div class="pagination">
         <div class="pagination-caption">
-          <p>01-50 of 1066</p>
+          <p>{{ trackingShowRow() }} of {{count}}</p>
         </div>
         <div class="pagination-action">
-          <span class="pagination-action__previous">
-            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': 'rotate(90deg)', 'width.px':'23' , 'fill': '#000' , 'height': '100%'}"></svg-icon>
+          <span class="pagination-action__previous" (click)="paginationEvent('previous')">
+            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': 'rotate(90deg)', 'width.px':'23' , 'fill': activePage == 1 ? '#bbb': '#000' , 'height': '100%'}"></svg-icon>
           </span>
-          <span class="pagination-action__next">
-            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': 'rotate(-90deg)', 'width.px':'23' , 'fill': '#000' , 'height': '100%'}"></svg-icon>
+          <span class="pagination-action__next" (click)="paginationEvent('next')">
+            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': 'rotate(-90deg)', 'width.px':'23' , 'fill': pagesCount > activePage ? '#000': '#bbb' , 'height': '100%'}"></svg-icon>
           </span>
         </div>
       </div>

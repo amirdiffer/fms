@@ -9,16 +9,33 @@ export class TableActions {
   );
 
   static next = createAction(
-    '[Table] Next Page'
+    '[Table] Next Page',
+    props<{ name: string }>()
   );
 
   static previous = createAction(
-    '[Table] Previous Page'
+    '[Table] Previous Page',
+    props<{ name: string }>()
   );
 
   static rowCount = createAction(
     '[Table] Row Count',
-    props<{ data: number }>()
-  )
+    props<{ data: number, name: string }>()
+  );
+
+  static count = createAction(
+    '[Table] All Row Count',
+    props<{ data: number, name: string }>()
+  );
+
+  static page = createAction(
+    '[Table] Page',
+    props<{ data: number, name: string }>()
+  );
+
+  static reset = createAction(
+    '[Table] reset Param',
+    props<{ name: string }>()
+  );
 
 }
