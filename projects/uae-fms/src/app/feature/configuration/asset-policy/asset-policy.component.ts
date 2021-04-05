@@ -63,8 +63,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {
-      },
+      onClick: (col, data, button?) => {},
       floatButton: [
         {
           onClick: (col, data) => {
@@ -107,8 +106,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {
-      },
+      onClick: (col, data, button?) => {},
       floatButton: [
         {
           onClick: (col, data) => {
@@ -143,7 +141,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     private _router: Router,
     private assetPolicyFacade: AssetPolicyFacade,
     private subAssetPolicyFacade: SubAssetPolicyFacade
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.assetPolicyFacade.loadAll();
@@ -169,7 +167,6 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
         break;
     }
   }
-
 
   exportTable() {
     switch (this.selectedTab) {

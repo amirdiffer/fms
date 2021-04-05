@@ -15,5 +15,4 @@ export class MovementOverviewServiceTemporary {
       environment.baseApiUrl + 'movement/temporary/overview'
     );
   }
-
 }

@@ -6,11 +6,16 @@ import { environment } from '../../../../environments/environment';
   template: `
     <div class="d-flex">
       <div>
-        <img class="user-image" [src]="fileServerBase + (user.profileDocId?user.profileDocId:'1')" />
+        <img
+          class="user-image"
+          [src]="fileServerBase + (user.profileDocId ? user.profileDocId : '1')"
+        />
       </div>
       <div class="d-flex flex-column">
         <span class="user-name">{{
-          user.firstName + ' ' + user.lastName
+          user.technician
+            ? user.technician.firstName + ' ' + user.technician.lastName
+            : user.firstName + ' ' + user.lastName
         }}</span>
         <span class="user-info">{{ user.id }}</span>
       </div>
@@ -40,8 +45,7 @@ export class TableUserRendererComponent implements OnInit {
   @Input() user;
   fileServerBase = environment.baseFileServer;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

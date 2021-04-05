@@ -1,9 +1,11 @@
 import { createAction, props } from '@ngrx/store';
-import { IMovementRequest } from '@models/movement'
+import { IMovementRequest } from '@models/movement';
 import { IMovementStatistics } from '@models/statistics';
 
 export class MovementRequestsActionsTemporary {
-  static loadAll = createAction('[MovementRequestsTemporary] load all Requests');
+  static loadAll = createAction(
+    '[MovementRequestsTemporary] load all Requests'
+  );
 
   static allDataLoaded = createAction(
     '[MovementRequestsTemporary] all data are loaded',
@@ -14,7 +16,9 @@ export class MovementRequestsActionsTemporary {
     props<{ reason: any }>()
   );
 
-  static loadStatistic = createAction('[MovementRequestsTemporary] load all StatisticRequest');
+  static loadStatistic = createAction(
+    '[MovementRequestsTemporary] load all StatisticRequest'
+  );
 
   static statisticRequestLoaded = createAction(
     '[MovementRequestsTemporary] all StatisticRequest data are loaded',
@@ -50,10 +54,9 @@ export class MovementRequestsActionsTemporary {
     props<{ data: any }>()
   );
 
-
   static assign = createAction(
     '[MovementRequestsTemporary] assign Request',
-    props<{ id: any, data: any }>()
+    props<{ id: any; data: any }>()
   );
 
   static assignSuccessfully = createAction(
@@ -61,9 +64,5 @@ export class MovementRequestsActionsTemporary {
     props<{ data: any }>()
   );
 
-  static reset = createAction(
-    '[MovementRequestsTemporary] reset params'
-  );
-
-
+  static reset = createAction('[MovementRequestsTemporary] reset params');
 }

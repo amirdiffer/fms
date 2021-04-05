@@ -1,48 +1,48 @@
 .filter-wrapper-container {
   position: relative;
-  .statistic-button{
+  .statistic-button {
     position: absolute;
     right: 0;
     top: -2.4em;
     height: 2.6em;
     width: 2.6em;
-    border-radius: .3em;
+    border-radius: 0.3em;
     cursor: pointer;
-    span{
+    span {
       position: relative;
       display: block;
-      svg-icon{
+      svg-icon {
         position: absolute;
         top: 35%;
         left: 50%;
         transform: translate(-50%, 35%);
-        ::ng-deep{
-          svg{
-            fill:#0DA06E;
+        ::ng-deep {
+          svg {
+            fill: #0da06e;
           }
         }
       }
     }
-    &.button-show{
-      background:#0DA06E;
+    &.button-show {
+      background: #0da06e;
       top: -3em;
       height: 2.2em;
       width: 2.2em;
-      svg-icon{
-        ::ng-deep{
+      svg-icon {
+        ::ng-deep {
           transform: translate(-50%, 15%) !important;
-          svg{
-            fill:#fff !important;
+          svg {
+            fill: #fff !important;
           }
         }
       }
     }
   }
-  .statistics{
+  .statistics {
     margin: 0 20px;
     &:last-child {
       margin-right: 0;
-      .card{
+      .card {
         z-index: 2;
       }
     }

@@ -48,7 +48,7 @@ export class RolePermissionComponent implements OnInit {
       Edit: 'Body Shop',
       Create: 'Tire Shop'
     }
-  ])
+  ]);
 
   rolePermission_Table: TableSetting = {
     columns: [
@@ -65,10 +65,9 @@ export class RolePermissionComponent implements OnInit {
         renderer: 'floatButton'
       }
     ],
-    data:[],
+    data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {
-      },
+      onClick: (col, data, button?) => {},
       floatButton: [
         {
           button: 'external'
@@ -77,7 +76,7 @@ export class RolePermissionComponent implements OnInit {
     }
   };
 
-  constructor(private facade: RolePermissionFacade) { }
+  constructor(private facade: RolePermissionFacade) {}
 
   ngOnInit(): void {
     this.facade.loadAll();

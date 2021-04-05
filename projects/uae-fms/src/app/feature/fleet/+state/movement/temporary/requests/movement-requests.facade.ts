@@ -10,17 +10,27 @@ export class MovementRequestsFacadeTemporary {
     select(MovementRequestsSelectorsTemporary.selectAll)
   );
 
-  MovementRequestStatistic = this.store.pipe(select(MovementRequestsSelectorsTemporary.requestStatistic));
+  MovementRequestStatistic = this.store.pipe(
+    select(MovementRequestsSelectorsTemporary.requestStatistic)
+  );
 
-  message$ = this.store.pipe(select(MovementRequestsSelectorsTemporary.message));
+  message$ = this.store.pipe(
+    select(MovementRequestsSelectorsTemporary.message)
+  );
 
   error$ = this.store.pipe(select(MovementRequestsSelectorsTemporary.error));
 
-  submitted$ = this.store.pipe(select(MovementRequestsSelectorsTemporary.submitted));
+  submitted$ = this.store.pipe(
+    select(MovementRequestsSelectorsTemporary.submitted)
+  );
 
-  rejected$ = this.store.pipe(select(MovementRequestsSelectorsTemporary.rejected));
+  rejected$ = this.store.pipe(
+    select(MovementRequestsSelectorsTemporary.rejected)
+  );
 
-  assigned$ = this.store.pipe(select(MovementRequestsSelectorsTemporary.assigned));
+  assigned$ = this.store.pipe(
+    select(MovementRequestsSelectorsTemporary.assigned)
+  );
 
   constructor(private store: Store<MovementRequestsPartialState>) {}
 
@@ -33,11 +43,15 @@ export class MovementRequestsFacadeTemporary {
   }
 
   addMovementRequest(data: any) {
-    this.store.dispatch(MovementRequestsActionsTemporary.addMovementRequest({ data }));
+    this.store.dispatch(
+      MovementRequestsActionsTemporary.addMovementRequest({ data })
+    );
   }
 
   editMovementRequest(data: any) {
-    this.store.dispatch(MovementRequestsActionsTemporary.editMovementRequest({ data }));
+    this.store.dispatch(
+      MovementRequestsActionsTemporary.editMovementRequest({ data })
+    );
   }
 
   rejecting(data: any) {
@@ -48,9 +62,7 @@ export class MovementRequestsFacadeTemporary {
     this.store.dispatch(MovementRequestsActionsTemporary.assign({ id, data }));
   }
 
-
   reset() {
     this.store.dispatch(MovementRequestsActionsTemporary.reset());
   }
-
 }

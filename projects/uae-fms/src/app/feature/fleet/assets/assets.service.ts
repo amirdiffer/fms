@@ -40,7 +40,7 @@ export class AssetsService {
     for (let index = 0; index < 9; index++) {
       const el = {
         asset: {
-          img: 'thumb1.png',
+          img: 'assets/thumb.png',
           assetName: 'Asset Name',
           assetSubName: 'DPD 0000001',
           progress: Math.floor(Math.random() * 6) + 1
@@ -109,10 +109,10 @@ export class AssetsService {
         },
         {
           lable: 'tables.column.make',
-          field: '',
+          field: 'make',
           width: 100,
-          type: 3,
-          thumbField: 'brand',
+          type: 1,
+          thumbField: '',
           renderer: ''
         },
         {
@@ -142,8 +142,7 @@ export class AssetsService {
       ],
       data: this.pedingRegistration(),
       rowSettings: {
-        onClick: (col, data, button?) => {
-        },
+        onClick: (col, data, button?) => {}
         // floatButton: [
         //   {
         //     button: 'edit',
@@ -223,8 +222,7 @@ export class AssetsService {
       ],
       data: this.pedingCustomization(),
       rowSettings: {
-        onClick: (col, data, button?) => {
-        },
+        onClick: (col, data, button?) => {}
         // floatButton: [
         //   {
         //     button: 'external',

@@ -10,7 +10,7 @@ export class AuctionListService {
 
   loadAll(): Observable<IAuctionListModel[]> {
     //return this._http.get<IAuctionListModel[]>(
-     // environment.baseApiUrl + 'workshop/bodyshop/technician'
+    // environment.baseApiUrl + 'workshop/bodyshop/technician'
     //);
     let data = [
       {
@@ -109,8 +109,7 @@ export class AuctionListService {
         location: 'Bardubai, Dubai',
         removeItem: true
       }
-    ]
-    return of(data)
+    ];
+    return of(data);
   }
-
 }

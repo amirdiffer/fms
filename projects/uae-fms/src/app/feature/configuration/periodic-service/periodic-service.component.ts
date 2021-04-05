@@ -1,6 +1,16 @@
 import { Router } from '@angular/router';
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
-import { ColumnDifinition, ColumnType, TableComponent, TableSetting } from '@core/table';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import {
+  ColumnDifinition,
+  ColumnType,
+  TableComponent,
+  TableSetting
+} from '@core/table';
 import { map } from 'rxjs/operators';
 import { PeriodicServiceFacade } from '../+state/periodic-service';
 

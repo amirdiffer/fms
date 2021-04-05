@@ -38,5 +38,4 @@ export class MovementRequestsSelectorsTemporary {
     FleetSelectors.movementRequestsSelectorTemporary,
     (state) => state.assigned
   );
-
 }

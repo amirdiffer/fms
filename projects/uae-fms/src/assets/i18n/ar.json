@@ -112,7 +112,9 @@
     "add_new_accessory": "إضافة ملحق جديد",
     "temporary": "مؤقت",
     "add_temporary_request": "إضافة طلب مؤقت",
-    "add_permanent_request": "إضافة طلب دائم"
+    "add_permanent_request": "إضافة طلب دائم",
+    "add_operator": "إضافة عامل",
+    "edit_operator": "تحرير المشغل"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -430,6 +432,7 @@
       "issue_type": "نوع القضية",
       "employe_id": "معرف الموظف",
       "user_status": "حالة المستخدم",
+      "requests": "الطلبات",
       "trim": "موديل فرعي",
       "trims": "الديكورات",
       "color": "اللون",
@@ -470,7 +473,7 @@
     "business_category": "فئة العمل",
     "ownership": "الملكية",
     "year": "سنة",
-    "type":"النوع",
+    "type": "النوع",
     "make": "ماركة",
     "model": "موديل",
     "color": "اللون",
@@ -493,7 +496,7 @@
     "in_service_odometer": "عداد المسافات أثناء الخدمة",
     "upload_purchase_order": "تحميل أمر الشراء",
     "maintenance_service": "خدمة الصيانة",
-    "asset_quantity":"كمية الأصول",
+    "asset_quantity": "كمية الأصول",
     "periodic_service": "الصيانة الدورية",
     "warranty_items": "عناصر الضمان",
     "item": "الصنف",
@@ -501,7 +504,7 @@
     "warranty_start_date": "تاريخ بدء الضمان",
     "description": "الوصف",
     "multiple_assets": "أصول متعددة",
-    "serial_number":"رقم سري",
+    "serial_number": "رقم سري",
     "single_asset": "أصل واحد",
     "review_your_plan": "راجع خطتك",
     "calculate": "احسب",
@@ -911,7 +914,13 @@
         "view_card": "بطاقة عرض",
         "asset_type": "نوع الأصول"
       },
-      "job_card": {},
+      "job_card": {
+        "describe_job_card": "وصف بطاقة العمل",
+        "id": "هوية شخصية",
+        "task": "مهمة",
+        "technician": "فني",
+        "select_request": "حدد الطلب من فضلك"
+      },
       "technician": {
         "portal_info": "معلومات البوابة",
         "professional_info": "معلومات احترافية",
@@ -953,6 +962,7 @@
         "section_id": "رقم القسم",
         "section_id_validation_error": "",
         "service": "الخدمة",
+        "slot": "فتحة",
         "service_validation_error": ""
       }
     },
@@ -1047,7 +1057,9 @@
         "title": "تحميل صورة الملف الشخصي",
         "progressbar_title": ".pdf",
         "content": "قم بسحب وإفلات الصورة هنا"
-      }
+      },
+      "full_name_arabic": "الاسم الكامل عربي",
+      "full_name_english": "الاسم الكامل بالإنجليزية"
     },
     "company_profile": {},
     "asset_policy": {

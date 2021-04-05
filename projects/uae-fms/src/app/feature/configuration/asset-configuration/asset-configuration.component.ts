@@ -39,21 +39,21 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       filterCount: '356',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.part',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.available',
       filterCount: '124',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.part',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.unavailable',
       filterCount: '12',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.part',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
 
@@ -124,7 +124,7 @@ typeDescription: "4-
   constructor(
     private facade: AssetTypeFacade,
     private _assetConfigurationService: AssetConfigurationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     // this.facade.loadAll();
@@ -253,7 +253,7 @@ typeDescription: "4-
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: '',
+          renderer: ''
           // textColor: '#0DA06E'
         }
       ],

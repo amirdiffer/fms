@@ -4,7 +4,9 @@ import {
   ChangeDetectionStrategy,
   ElementRef,
   ViewChild,
-  AfterViewChecked, Injector, ChangeDetectorRef
+  AfterViewChecked,
+  Injector,
+  ChangeDetectorRef
 } from '@angular/core';
 import { MovementService } from './movement.service';
 import { Observable, of } from 'rxjs';
@@ -26,7 +28,9 @@ import { Utility } from '@shared/utility/utility';
   styleUrls: ['./movement.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovementComponent extends Utility implements OnInit, AfterViewChecked {
+export class MovementComponent
+  extends Utility
+  implements OnInit, AfterViewChecked {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
   downloadBtn = 'assets/icons/download-solid.svg';
@@ -62,13 +66,13 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
     header: 'Success',
     hasError: false,
     message: 'Rejected Successfully',
-    confirmButton: 'Ok',
+    confirmButton: 'Ok'
   };
   dialogErrorSetting: IDialogAlert = {
     header: 'Error',
     hasError: true,
     message: 'Some Error Occurred',
-    confirmButton: 'Ok',
+    confirmButton: 'Ok'
   };
   displaySuccessModal = false;
   displayErrorModal = false;
@@ -89,16 +93,22 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
   }
 
   movementRequest$ = this._movementRequestsFacade.MovementRequests$.pipe(
-    map(x => {
-      return x.map(y => {
+    map((x) => {
+      return x.map((y) => {
         if (y)
           return {
             ...y,
             id: y['id'],
             user: {
               img: 'user-image.png',
-              userName: (y['requester'] && y['requester']['firstName']) ? y['requester']['firstName'] : '',
-              subName: (y['requester'] && y['requester']['lastName']) ? y['requester']['lastName'] : ''
+              userName:
+                y['requester'] && y['requester']['firstName']
+                  ? y['requester']['firstName']
+                  : '',
+              subName:
+                y['requester'] && y['requester']['lastName']
+                  ? y['requester']['lastName']
+                  : ''
             },
             movementType: y['movementType'],
             requestType: y['requestType'],
@@ -110,13 +120,14 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
               accept: 'Confirm',
               cancel: 'Reject'
             }
-          }
+          };
       });
-    }));
+    })
+  );
 
   movementOverview$ = this._movementOverviewFacade.MovementOverview$.pipe(
-    map(x => {
-      return x.map(y => {
+    map((x) => {
+      return x.map((y) => {
         return {
           ...y,
           id: y.id,
@@ -136,9 +147,10 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
           },
           fine: 3,
           reason: y.request.reason
-        }
+        };
       });
-    }));
+    })
+  );
 
   requestTableSetting = {
     columns: [
@@ -224,13 +236,12 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
     data: [],
     rowSettings: {
       onClick: (data, button?, col?) => {
-        if (button == 'reject')
-          this._movementRequestsFacade.rejecting(data.id);
+        if (button == 'reject') this._movementRequestsFacade.rejecting(data.id);
         else if (button == 'confirm') {
           this.assignID = data.id;
           this.openConfirmModal();
         }
-      },
+      }
     }
   };
 
@@ -324,7 +335,6 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
       }
     });
 
-
     // Handle confirm button click
     let confirmCol = this.requestTableSetting.columns.find(
       (c) => c.field === 'ButtonConfirm'
@@ -358,14 +368,14 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
       }
     ];
 
-    this._movementRequestsFacade.rejected$.subscribe(x => {
+    this._movementRequestsFacade.rejected$.subscribe((x) => {
       if (x) {
         this.displaySuccessModal = true;
         this.dialogErrorSetting.hasError = false;
         this.changeDetector.detectChanges();
       }
     });
-    this._movementRequestsFacade.error$.subscribe(x => {
+    this._movementRequestsFacade.error$.subscribe((x) => {
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
@@ -373,8 +383,7 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
       } else {
         this.displayErrorModal = false;
       }
-    })
-
+    });
   }
 
   ngAfterViewChecked() {
@@ -392,7 +401,7 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
     this.dialog.open(MovementConfirmComponent, {
       height: '600px',
       width: '800px',
-      data: this.assignID,
+      data: this.assignID
     });
   }
   rejectRow() {
@@ -423,5 +432,4 @@ export class MovementComponent extends Utility implements OnInit, AfterViewCheck
         break;
     }
   }
-
 }

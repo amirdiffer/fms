@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
 import { jsPDF } from 'jspdf';
@@ -18,19 +26,24 @@ export class TableComponent implements OnInit {
   activeLang: string;
   @Input() setting: TableSetting;
   @Input() tableData: Observable<any>;
-
-  constructor(private settingFacade: SettingsFacade, private changeDetection: ChangeDetectorRef, private translate: TranslateService) { }
+  @Output() onSelectItems = new EventEmitter();
+  selectedIds = [];
+  constructor(
+    private settingFacade: SettingsFacade,
+    private changeDetection: ChangeDetectorRef,
+    private translate: TranslateService
+  ) {}
   ngOnInit() {
     this.settingFacade.language.subscribe((lang) => {
       this.activeLang = lang;
     });
 
-    this.tableData?.subscribe(x => {
+    this.tableData?.subscribe((x) => {
       if (x) {
         this.setting.data = x;
         this.changeDetection.detectChanges();
       }
-    })
+    });
   }
 
   getCol(col, data) {
@@ -40,14 +53,19 @@ export class TableComponent implements OnInit {
           return data[col.field];
         case 2:
           return data[col.thumbField]
-            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${col.override ? ('assets/' + col.override) : (environment.baseFileServer + data[col.thumbField])
-            }'> <p class='text-of-cell-with-image'>${data[col.field]
-            }</p></div>`
+            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
+                col.override
+                  ? 'assets/' + col.override
+                  : environment.baseFileServer + data[col.thumbField]
+              }'> <p class='text-of-cell-with-image'>${
+                data[col.field]
+              }</p></div>`
             : data[col.field];
         case 3:
           return data[col.thumbField]
-            ? `<img class='thumb' src='${environment.baseFileServer + data[col.thumbField]
-            }'>`
+            ? `<img class='thumb' src='${
+                environment.baseFileServer + data[col.thumbField]
+              }'>`
             : '';
       }
     } else {
@@ -106,7 +124,13 @@ export class TableComponent implements OnInit {
       /* if (col.thumbField?.length) {
         return;
       } */
-      return { title: (col.lable && this.translate.instant(col.lable)) ? this.translate.instant(col.lable) : col.lable, dataKey: col.field };
+      return {
+        title:
+          col.lable && this.translate.instant(col.lable)
+            ? this.translate.instant(col.lable)
+            : col.lable,
+        dataKey: col.field
+      };
     });
 
     const exportRows: any[] = tableSetting.data.map((data) => ({ ...data }));
@@ -115,24 +139,27 @@ export class TableComponent implements OnInit {
       if (title === 'assetMasterTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
-              }\n${data[col.field].ownership}`;
+            data[col.field] = `${data[col.field].assetName}\n${
+              data[col.field].assetSubName
+            }\n${data[col.field].ownership}`;
           });
         }
       }
       if (title === 'pendingRegistrationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
-              }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${
+              data[col.field].assetSubName
+            }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
       if (title === 'pendingCustomizationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
-              }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${
+              data[col.field].assetSubName
+            }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
@@ -169,6 +196,14 @@ export class TableComponent implements OnInit {
     return this.selectedTRS.includes(index);
   }
 
+  updatedSelectedIds(data, field) {
+    if (data[field].checkbox) this.selectedIds.push(data.id);
+    else {
+      let index = this.selectedIds.findIndex((x) => x == data.id);
+      this.selectedIds.splice(index, 1);
+    }
+    this.onSelectItems.emit(this.selectedIds);
+  }
 }
 
 export interface TableSetting {

@@ -17,19 +17,19 @@
       <button class="btn-download" disabled>
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
-      <button *ngIf="selectedTab!='jobcardTab'" class="btn-primary-small" (click)="addClicked($event)" ><i>+</i><a>{{'search.add' | translate}}</a></button>
+      <button  class="btn-primary-small" (click)="addClicked($event)" ><i>+</i><a>{{'search.add' | translate}}</a></button>
     </span>
     <div title="tabs.requests" id="requestTab">
-      <app-table [setting]="table1Setting"></app-table>
+      <app-table [setting]="table1Setting" [tableData]="requestData$"></app-table>
     </div>
     <div title="tabs.job_card" id="jobcardTab">
-      <app-table [setting]="table2Setting"></app-table>
+      <app-table [setting]="table2Setting" [tableData]="jobCardData$"></app-table>
     </div>
     <div title="tabs.technician" id="technicianTab">
-      <app-table [setting]="table3Setting"></app-table>
+      <app-table [setting]="table3Setting" [tableData]="technicianData$"></app-table>
     </div>
     <div title="tabs.location" id="locationTab">
-      <app-table [setting]="table4Setting"></app-table>
+      <app-table [setting]="table4Setting" [tableData]="locationData$"></app-table>
     </div>
   </app-tab-view>
 </div>

@@ -18,5 +18,4 @@ export class AuctionListSelectors {
     WorkshopSelectors.auctionListSelector,
     (state) => state.error
   );
-
 }

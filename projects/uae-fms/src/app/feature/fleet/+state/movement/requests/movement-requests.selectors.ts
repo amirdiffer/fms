@@ -38,5 +38,4 @@ export class MovementRequestsSelectors {
     FleetSelectors.movementRequestsSelector,
     (state) => state.assigned
   );
-
 }

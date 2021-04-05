@@ -291,15 +291,13 @@ export class MovementService {
     );
   }
 
-  operators(): Observable<ResponseBody<IOperator[]>>{
+  operators(): Observable<ResponseBody<IOperator[]>> {
     return this._http.get<ResponseBody<IOperator[]>>(
       environment.baseApiUrl + 'operator'
     );
   }
 
-  constructor(
-    private _http: HttpClient
-  ) {}
+  constructor(private _http: HttpClient) {}
 
   openConfirmModal() {}
 }

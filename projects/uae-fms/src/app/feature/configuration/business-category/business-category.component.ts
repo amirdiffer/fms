@@ -79,7 +79,7 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
     private facade: BusinessCategoryFacade,
     private dataService: DataService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();

@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit {
     private settingsFacade: SettingsFacade,
     @Inject(DOCUMENT) private document: Document,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.isAuthenticated$ = this.store.pipe(select(this.selectIsAuthenticated));
@@ -79,7 +79,6 @@ export class NavbarComponent implements OnInit {
   }
 
   logOut() {
-    localStorage.clear();
-    this.router.navigate(['login']);
+    this.router.navigate(['login'], { queryParams: { action: 'logout' } });
   }
 }

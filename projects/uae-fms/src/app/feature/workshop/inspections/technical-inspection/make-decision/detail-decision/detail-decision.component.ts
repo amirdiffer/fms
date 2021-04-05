@@ -1,5 +1,10 @@
 import { MakeDecisionComponent } from './../make-decision.component';
-import { Component, OnInit, ChangeDetectionStrategy, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Output
+} from '@angular/core';
 import { MakeDecisionService } from '../make-decision.service';
 
 @Component({
@@ -21,8 +26,7 @@ export class DetailDecisionComponent implements OnInit {
 
   clickedRadio(radioButton?): void {
     // console.log(radioButton.value)
-    if(radioButton) this._makeDecisionService.activeRadio = radioButton.value;
+    if (radioButton) this._makeDecisionService.activeRadio = radioButton.value;
     this._makeDecisionService.isStartStepper$.next(false);
   }
-
 }

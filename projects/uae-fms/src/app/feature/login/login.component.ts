@@ -1,12 +1,11 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoginService } from './login.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsFacade } from '@core/settings/settings.facade';
 import { Language } from '@core/settings/settings.model';
 import { DOCUMENT } from '@angular/common';
-// import { NgxSpinnerService } from "ngx-spinner";
-import { UserProfileFacade } from "@feature/user/state";
+import { UserProfileFacade } from '@feature/user/state';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +14,14 @@ import { UserProfileFacade } from "@feature/user/state";
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
-  //In this componet some icons not exist now.Fix this later. Username and password and login icons is commented now
   public credentialsFG: FormGroup;
   constructor(
     private loginService: LoginService,
-    private router: Router, // private spinner: NgxSpinnerService,
+    private router: Router,
     private settingFacade: SettingsFacade,
     @Inject(DOCUMENT) private document: Document,
-    private profileFacade: UserProfileFacade
+    private profileFacade: UserProfileFacade,
+    private route: ActivatedRoute
   ) {
     this.credentialsFG = new FormGroup({
       username: new FormControl('', [Validators.required]),
@@ -44,13 +43,18 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    /* let jwt = window.localStorage.getItem('jwt');
-    if (jwt) {
-      this.router.navigate(['/dashboard']);
-    } */
+    this.route.queryParams.subscribe((x) => {
+      if (x.action && x.action == 'logout') {
+        this.loginService.logOut().subscribe((_) => {
+          this.router.navigate(['login']);
+          localStorage.clear();
+        });
+      }
+    });
+
     this.settingFacade.language.subscribe((lang) => (this.activeLang = lang));
-    this.profileFacade.loadData$.subscribe(x => {
-      if(x){
+    this.profileFacade.loadData$.subscribe((x) => {
+      if (x) {
         window.localStorage.setItem(
           'user_info',
           JSON.stringify({
@@ -107,7 +111,7 @@ export class LoginComponent implements OnInit {
         );
         this.router.navigate(['/configuration/user-management/users']);
       }
-    })
+    });
   }
 
   login(): void {

@@ -85,14 +85,13 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(x => {
-      if (x && x.assetType)
-        this.assetTypeId = x.assetType
-    })
+    this.route.params.subscribe((x) => {
+      if (x && x.assetType) this.assetTypeId = x.assetType;
+    });
 
-    this.facade.assetType$.subscribe(x => {
+    this.facade.assetType$.subscribe((x) => {
       this.assets = x;
-    })
+    });
 
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
@@ -107,8 +106,8 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
     });
 
     if (!this.dataService.selectedTypeId) {
-      this.router.navigate(['/configuration/asset-configuration']).then(_ => {
-        this.facade.resetParams()
+      this.router.navigate(['/configuration/asset-configuration']).then((_) => {
+        this.facade.resetParams();
       });
     }
 
@@ -157,7 +156,7 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
 
     this.facade.error$.subscribe((x) => {
       if (x?.error) {
-        (x?.error);
+        x?.error;
         this.dialogModal = true;
         this.dialogSetting.header = 'Add new make';
         this.dialogSetting.hasError = true;
@@ -206,19 +205,17 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
     this.makes.removeAt(index);
   }
 
-  ngAfterViewInit() {
-  }
+  ngAfterViewInit() {}
 
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-        });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        (droppedFile.relativePath, fileEntry);
+        droppedFile.relativePath, fileEntry;
       }
     }
   }
@@ -319,54 +316,47 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
       name: this.assetType.name,
       isActive: this.assetType.isActive,
       typeDescription: this.assetType.typeDescription,
-      makes: this.inputForm.value.makes.map(x => {
+      makes: this.inputForm.value.makes.map((x) => {
         if (x.id) return x;
         else {
           return {
             make: x.make,
             makeDescription: x.makeDescription,
             models: x.models,
-            origins: x.origins,
-          }
+            origins: x.origins
+          };
         }
       })
     };
 
-    data.makes = data.makes.map(x => {
+    data.makes = data.makes.map((x) => {
       if (x.models && x.models.length > 0) {
         return {
           ...x,
-          models:
-            x.models.map(y => {
-              if (y.trims && y.trims.length > 0) {
-                return {
-                  ...y,
-                  trims: y.trims.map(z => {
-                    if (z.colors && z.colors.length > 0) {
-                      return {
-                        ...z,
-                        colors: z.colors.map(v => {
-                          return {
-                            name: v.color,
-                            hexColor: v.hexColor,
-                            id: v.id
-                          }
-                        })
-                      }
-                    }
-                    else
-                      return z;
-                  })
-                }
-              }
-              else
-                return y;
-            })
-        }
-      }
-      else
-        return x;
-    })
+          models: x.models.map((y) => {
+            if (y.trims && y.trims.length > 0) {
+              return {
+                ...y,
+                trims: y.trims.map((z) => {
+                  if (z.colors && z.colors.length > 0) {
+                    return {
+                      ...z,
+                      colors: z.colors.map((v) => {
+                        return {
+                          name: v.color,
+                          hexColor: v.hexColor,
+                          id: v.id
+                        };
+                      })
+                    };
+                  } else return z;
+                })
+              };
+            } else return y;
+          })
+        };
+      } else return x;
+    });
     this.facade.addMake(data);
     // this._assetConfigurationService.loadAddForm(false);
   }

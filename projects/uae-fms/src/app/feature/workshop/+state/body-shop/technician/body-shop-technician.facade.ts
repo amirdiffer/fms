@@ -11,10 +11,30 @@ export class BodyShopTechnicianFacade {
   message$ = this.store.pipe(select(BodyShopTechnicianSelectors.message));
 
   error$ = this.store.pipe(select(BodyShopTechnicianSelectors.error));
+  submitted$ = this.store.pipe(select(BodyShopTechnicianSelectors.submitted));
 
   constructor(private store: Store<IBodyShopTechnicianPartialState>) {}
 
   loadAll() {
     this.store.dispatch(BodyShopTechnicianActions.loadAll());
+  }
+  addTechnician(data: any) {
+    this.store.dispatch(BodyShopTechnicianActions.addTechnician({ data }));
+  }
+
+  editTechnician(technician: any) {
+    this.store.dispatch(
+      BodyShopTechnicianActions.editTechnician({ technician })
+    );
+  }
+
+  getTechnicianById(id: number) {
+    return this.store.pipe(
+      select(BodyShopTechnicianSelectors.selectById, { id })
+    );
+  }
+
+  resetParams() {
+    this.store.dispatch(BodyShopTechnicianActions.resetParams());
   }
 }
