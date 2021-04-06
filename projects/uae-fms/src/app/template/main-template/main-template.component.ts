@@ -89,7 +89,8 @@ export class MainTemplateComponent implements OnInit {
       if (x?.queryParams) {
         let arrPath2 = Object.values(x?.queryParams);
         arrPath2.forEach(p => {
-          pathByQueryParam = pathByQueryParam + '/' + p;
+          if (!isNaN(parseInt(p)))
+            pathByQueryParam = pathByQueryParam + '/' + p;
         })
       }
       x?.queryParams ?
