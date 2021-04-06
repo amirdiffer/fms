@@ -1,0 +1,129 @@
+<div class="row">
+    <div class="col-3">
+        <user-detail-side [hasActivate]="true"></user-detail-side>
+    </div>
+    <div class="col-9">
+        <div  class="filter-container" *ngIf="selectedTab == 'jobcard'">
+            <app-filter [setting] ="filterSettingJobCard"></app-filter>
+        </div>
+        <div  class="filter-container" *ngIf="selectedTab == 'activity'">
+            <app-filter [setting] ="filterSettingActivity"></app-filter>
+        </div>
+        <div class="component_wrapper form-section">
+            <div class="pt-1">
+                <app-tab-view (selectedIndex)="selectedTab=$event">
+                    <span *ngIf="selectedTab != 'overview'" class="search-container card-table-header">
+                        <div class="search-box">
+                            <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
+                            <button>
+                                <img [src]="searchIcon" alt="">
+                            </button>
+                        </div>
+                        <button class="btn-download">
+                            <svg-icon [src]="downloadBtn"></svg-icon>
+                        </button>
+                    </span>
+                    <div title="tabs.overview" id="overview">
+                        <div class="row technician-background">
+                            <div class="col-8">
+                                <div class="button-header-container">
+                                    <button class="btn-primary-large">
+                                        <small>Totall</small>
+                                        <span>
+                                            <p>Job Card</p>
+                                            <p>1425</p>
+                                        </span>
+                                    </button>
+                                    <button class="btn-primary-large">
+                                        <small>Done</small>
+                                        <span>
+                                            <p>Job Card</p>
+                                            <p>1400</p>
+                                        </span>
+                                    </button>
+                                    <button class="btn-primary-large">
+                                        <small>Doing</small>
+                                        <span>
+                                            <p>Job Card</p>
+                                            <p>25</p>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="form-section component_wrapper detail-container position-relative">
+                                    <div class="edit-button">
+                                        <svg-icon [src]="editIcon" [svgStyle]="{ 'width.em':.9 , 'fill': '#0da06e' , 'height': '100%'}"></svg-icon>
+                                    </div>
+                                    <h3 class="detail-title">
+                                        Personal Detail
+                                    </h3>
+                                    <div class="personal-detail mt-4">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <small>First Name</small>
+                                                <p>Mohammad</p>
+                                            </div>
+                                            <div class="col-3">
+                                                <small>Last Name</small>
+                                                <p>Sadoon</p>
+                                            </div>
+                                            <div class="col-3">
+                                                <small>Birthday</small>
+                                                <p>Mohammad</p>
+                                            </div>
+                                            <div class="col-3">
+                                                <small>Mobile phone</small>
+                                                <p>+44 77435000</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="location-detail mt-4">
+                                        <h6 class="detail-title">
+                                            Location
+                                        </h6>
+                                        <div class="row mt-4">
+                                            <div class="col-4">
+                                                <small>Postal / Zip Code</small>
+                                                <p>EC2A2EX</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <small>Country</small>
+                                                <p>United Kingdom</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <small>City</small>
+                                                <p>London</p>
+                                            </div>
+                                            <div class="col-12">
+                                                <small>Address Line</small>
+                                                <p>1 Primrose Street , Floor3 , Office #4</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card table-container">
+
+                                    <app-table [setting]="skillTable"></app-table>
+                                </div>
+                                <div class="card table-container">
+                                    <app-table [setting]="locationTable"></app-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div title="tabs.technician_job_card" id="jobcard">
+                        <div class="table-container">
+                            <app-table [setting]="technicalJobCardTable"></app-table>
+                        </div>
+                    </div>
+                    <div title="tabs.activity" id="activity">
+                        <div class="table-container">
+                            <app-table [setting]="technicalActivityTable"></app-table>
+                        </div>
+                    </div>
+                </app-tab-view>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+:host ::ng-deep{
+    table-assets-renderer{
+        p{
+            white-space: nowrap;
+        }
+    } 
+}
+.edit-button{
+    width: 1.7em;
+    height: 1.7em;
+    border: 2px solid #0da06e;
+    border-radius: 0.3em;
+    text-align: center;
+    right: 1em;
+    top: 1em;
+    position: absolute;
+    z-index: 2;
+}
+.button-header-container{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
+    .btn-primary-large{
+        flex:  0 0 31%;
+        height: 4.5em;
+        text-align: left;
+        padding: 0 1em;
+        margin: 0;
+        & > span {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+.detail-container{
+    padding: 2em;
+    small{
+        opacity: .8;
+    }
+    .personal-detail{
+        border-bottom: 1px solid #eaeaea;
+    }
+    .detail-title{
+        color:#0da06e
+    }
+    h3.detail-title{
+        font-size: 1.3em;
+        font-weight: bold;
+    }
+    h6.detail-title{
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+}
+
+.card{
+    margin-top: 1em;
+    ::ng-deep{
+        p-table .p-datatable .p-datatable-thead > tr > th{
+            color:#0da06e
+        }
+    }
+}
