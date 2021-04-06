@@ -1,10 +1,23 @@
-import { Component, OnInit, ChangeDetectionStrategy, Injector, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Injector,
+  ChangeDetectorRef
+} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { FilterCardSetting } from '@core/filter';
-import { OperatorFacade, OperatorService } from '@feature/fleet/+state/operator';
+import {
+  OperatorFacade,
+  OperatorService
+} from '@feature/fleet/+state/operator';
 import { Utility } from '@shared/utility/utility';
-import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
+import {
+  FileSystemDirectoryEntry,
+  FileSystemFileEntry,
+  NgxFileDropEntry
+} from 'ngx-file-drop';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 @Component({
@@ -14,6 +27,8 @@ import { debounceTime, map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddOperatorComponent extends Utility implements OnInit {
+  profileDocId = null;
+
   isEdit: boolean = false;
   id: number;
 
@@ -61,28 +76,28 @@ export class AddOperatorComponent extends Utility implements OnInit {
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
 
@@ -178,7 +193,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
                 callCheckbox: x.notifyByCall,
                 smsCheckbox: x.notifyBySMS,
                 emailCheckbox: x.notifyByEmail,
-                whatsappCheckbox: x.notifyByWhatsApp,
+                whatsappCheckbox: x.notifyByWhatsApp
               });
 
               this.emails.controls[0].patchValue({
@@ -329,7 +344,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
         departmentId: f.portalInformation.department.id || 1,
         roleId: 1,
         isActive: f.portalInformation.activeEmployee,
-        profileDocId: 1,
+        profileDocId: this.profileDocId || 1,
         firstName: f.personalInformation.firstName,
         lastName: f.personalInformation.lastName,
         emails: f.personalInformation.emails.map((x) => {
@@ -378,7 +393,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
           notifyByIssueClosePush: this._operator.notifyByIssueClosePush || false
         };
 
-        (operatorInfo);
+        operatorInfo;
         this.operatorFacade.editOperator(operatorInfo);
       } else {
         operatorInfo = {
@@ -502,15 +517,17 @@ export class AddOperatorComponent extends Utility implements OnInit {
     if (typeof $event != 'object') return;
     this.form.controls['portalInformation'].patchValue({
       department: $event.organizationId
+      // employeeNumber:$event.organizationId
     });
     this.form.controls['fileUpload'].patchValue({
       file: $event.profileImage
     });
     this.form.controls['personalInformation'].patchValue({
+      firstName: $event.nameEn,
+      lastName: $event.name,
       phoneNumbers: [{ phoneNumber: $event.mobileNumber }],
       emails: [{ email: $event.emailAddress }]
     });
-
   }
 
   public fileOver(event) {
@@ -534,7 +551,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
         if (
           typeof f.personalInformation.phoneNumbers[0] == 'object' &&
           typeof f.personalInformation.phoneNumbers[0].phoneNumber ==
-          'string' &&
+            'string' &&
           f.personalInformation.phoneNumbers[0].phoneNumber.length < 5
         )
           return [];
@@ -564,5 +581,13 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.router.navigate(['fleet/operator']).then((_) => {
       this.operatorFacade.resetParams();
     });
+  }
+
+  uploadImage($event) {
+    if (!$event || !$event.files) {
+      return;
+    }
+    const docId = $event.files[0];
+    this.profileDocId = docId;
   }
 }

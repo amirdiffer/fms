@@ -4,7 +4,9 @@ import {
   ChangeDetectionStrategy,
   ElementRef,
   ViewChild,
-  AfterViewChecked, ChangeDetectorRef, Injector
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Injector
 } from '@angular/core';
 import { MovementService } from '../movement.service';
 import { Observable, of } from 'rxjs';
@@ -28,7 +30,9 @@ import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movem
   styleUrls: ['./temporary.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TemporaryComponent extends Utility implements OnInit, AfterViewChecked {
+export class TemporaryComponent
+  extends Utility
+  implements OnInit, AfterViewChecked {
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   filterSetting = [
@@ -62,13 +66,13 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
     header: 'Success',
     hasError: false,
     message: 'Rejected Successfully',
-    confirmButton: 'Ok',
+    confirmButton: 'Ok'
   };
   dialogErrorSetting: IDialogAlert = {
     header: 'Error',
     hasError: true,
     message: 'Some Error Occurred',
-    confirmButton: 'Ok',
+    confirmButton: 'Ok'
   };
   displaySuccessModal = false;
   displayErrorModal = false;
@@ -76,18 +80,22 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
 
   @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
 
-
-
   movementRequest$ = this._movementRequestsFacade.MovementRequests$.pipe(
-    map(x => {
-      return x.map(y => {
+    map((x) => {
+      return x.map((y) => {
         return {
           ...y,
           id: y['id'],
           user: {
             img: 'user-image.png',
-            userName: (y['requester'] && y['requester']['firstName']) ? y['requester']['firstName'] : '',
-            subName: (y['requester'] && y['requester']['lastName']) ? y['requester']['lastName'] : ''
+            userName:
+              y['requester'] && y['requester']['firstName']
+                ? y['requester']['firstName']
+                : '',
+            subName:
+              y['requester'] && y['requester']['lastName']
+                ? y['requester']['lastName']
+                : ''
           },
           movementType: y['movementType'],
           requestType: y['requestType'],
@@ -99,13 +107,14 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
             accept: 'Confirm',
             cancel: 'Reject'
           }
-        }
+        };
       });
-    }));
+    })
+  );
 
   movementOverview$ = this._movementOverviewFacade.MovementOverview$.pipe(
-    map(x => {
-      return x.map(y => {
+    map((x) => {
+      return x.map((y) => {
         return {
           ...y,
           id: y.id,
@@ -125,9 +134,10 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
           },
           fine: 3,
           reason: y.request.reason
-        }
+        };
       });
-    }));
+    })
+  );
 
   requestTableSetting = {
     columns: [
@@ -213,13 +223,12 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
     data: [],
     rowSettings: {
       onClick: (data, button?, col?) => {
-        if (button == 'reject')
-          this._movementRequestsFacade.rejecting(data.id);
+        if (button == 'reject') this._movementRequestsFacade.rejecting(data.id);
         else if (button == 'confirm') {
           this.assignID = data.id;
           this.openConfirmModal();
         }
-      },
+      }
     }
   };
 
@@ -296,7 +305,7 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
     private changeDetector: ChangeDetectorRef,
     injector: Injector
   ) {
-    super(injector)
+    super(injector);
   }
 
   ngOnInit(): void {
@@ -326,7 +335,6 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
         });
       }
     });
-
 
     // Handle confirm button click
     let confirmCol = this.requestTableSetting.columns.find(
@@ -361,14 +369,14 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
       }
     ];
 
-    this._movementRequestsFacade.rejected$.subscribe(x => {
+    this._movementRequestsFacade.rejected$.subscribe((x) => {
       if (x) {
         this.displaySuccessModal = true;
         this.dialogErrorSetting.hasError = false;
         this.changeDetector.detectChanges();
       }
     });
-    this._movementRequestsFacade.error$.subscribe(x => {
+    this._movementRequestsFacade.error$.subscribe((x) => {
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
@@ -376,8 +384,7 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
       } else {
         this.displayErrorModal = false;
       }
-    })
-
+    });
   }
 
   ngAfterViewChecked() {
@@ -395,12 +402,11 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
     this.dialog.open(MovementTemporaryConfirmComponent, {
       height: '600px',
       width: '800px',
-      data: this.assignID,
+      data: this.assignID
     });
   }
 
-  rejectRow() {
-  }
+  rejectRow() {}
 
   dialogConfirm(confirmed) {
     if (confirmed) {
@@ -426,5 +432,4 @@ export class TemporaryComponent extends Utility implements OnInit, AfterViewChec
         break;
     }
   }
-
 }

@@ -14,4 +14,25 @@ export class BodyShopTechnicianService {
       environment.baseApiUrl + 'workshop/bodyshop/technician'
     );
   }
+  post(data): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'workshop/bodyshop/technician',
+      data
+    );
+  }
+
+  editTechnician(data): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl +
+        'workshop/bodyshop/technician/' +
+        data.id +
+        '/update',
+      data
+    );
+  }
+  getTechnicianById(id) {
+    return this.http.get<ResponseBody<ITechnician>>(
+      environment.baseApiUrl + 'workshop/bodyshop/technician/' + id
+    );
+  }
 }

@@ -27,8 +27,10 @@ export const reducers = {
   [FLEET_REGISTRATION_FEATURE_KEY]: registrationReducer.reducer,
   [FLEET_MOVEMENT_OVERVIEW_FEATURE_KEY]: movementOverviewReducer.reducer,
   [FLEET_MOVEMENT_REQUESTS_FEATURE_KEY]: movementRequestsReducer.reducer,
-  [FLEET_MOVEMENT_TEMPORARY_OVERVIEW_FEATURE_KEY]: movementTemporaryOverviewReducer.reducer,
-  [FLEET_MOVEMENT_TEMPORARY_REQUESTS_FEATURE_KEY]: movementTemporaryRequestsReducer.reducer,
+  [FLEET_MOVEMENT_TEMPORARY_OVERVIEW_FEATURE_KEY]:
+    movementTemporaryOverviewReducer.reducer,
+  [FLEET_MOVEMENT_TEMPORARY_REQUESTS_FEATURE_KEY]:
+    movementTemporaryRequestsReducer.reducer,
   [FLEET_OPERATOR_FEATURE_KEY]: operatorReducer.reducer,
   [FLEET_ACCESSORY_FEATURE_KEY]: accessoryReducer.reducer,
   [FLEET_SUB_ASSET_FEATURE_KEY]: subAssetReducer.reducer,

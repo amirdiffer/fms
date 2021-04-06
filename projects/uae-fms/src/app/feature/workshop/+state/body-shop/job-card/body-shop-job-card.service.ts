@@ -14,4 +14,25 @@ export class BodyShopJobCardService {
       environment.baseApiUrl + 'workshop/bodyshop/jobcard'
     );
   }
+  post(data, assetId): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'workshop/bodyshop/jobcard/asset/' + assetId,
+      data
+    );
+  }
+
+  editJobCard(data): Observable<ResponseBody<any>> {
+    return this.http.post<ResponseBody<any>>(
+      environment.baseApiUrl +
+        'workshop/bodyshop/jobcard/' +
+        data.id +
+        '/update',
+      data
+    );
+  }
+  getJobCardById(id) {
+    return this.http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'workshop/bodyshop/jobcard/' + id
+    );
+  }
 }

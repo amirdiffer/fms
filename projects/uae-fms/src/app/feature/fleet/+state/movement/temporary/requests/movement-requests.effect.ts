@@ -7,14 +7,19 @@ import { MovementRequestsServiceTemporary } from './movement-requests.service';
 
 @Injectable()
 export class MovementRequestsEffectTemporary {
-
   loadAll$ = createEffect(() =>
     this.action$.pipe(
       ofType(MovementRequestsActionsTemporary.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => MovementRequestsActionsTemporary.allDataLoaded({ data: data.message })),
-          catchError((error) => of(MovementRequestsActionsTemporary.error({ reason: error })))
+          map((data) =>
+            MovementRequestsActionsTemporary.allDataLoaded({
+              data: data.message
+            })
+          ),
+          catchError((error) =>
+            of(MovementRequestsActionsTemporary.error({ reason: error }))
+          )
         )
       )
     )
@@ -25,7 +30,9 @@ export class MovementRequestsEffectTemporary {
       ofType(MovementRequestsActionsTemporary.loadStatistic),
       mergeMap((action) =>
         this.service.loadRequestStatistic().pipe(
-          map((data) => MovementRequestsActionsTemporary.statisticRequestLoaded({ data })),
+          map((data) =>
+            MovementRequestsActionsTemporary.statisticRequestLoaded({ data })
+          )
           // catchError((error) =>
           //   of(MovementRequestsActions.error({ reason: error }))
           // )
@@ -40,9 +47,13 @@ export class MovementRequestsEffectTemporary {
       mergeMap((action) =>
         this.service.addMovementRequest(action.data).pipe(
           map((data) =>
-            MovementRequestsActionsTemporary.movementRequestAddedSuccessfully({ data: { ...action.data, ...data.message } })
+            MovementRequestsActionsTemporary.movementRequestAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
           ),
-          catchError((error) => of(MovementRequestsActionsTemporary.error({ reason: error })))
+          catchError((error) =>
+            of(MovementRequestsActionsTemporary.error({ reason: error }))
+          )
         )
       )
     )
@@ -54,9 +65,13 @@ export class MovementRequestsEffectTemporary {
       mergeMap((action) =>
         this.service.editMovementRequest(action.data).pipe(
           map((data) =>
-            MovementRequestsActionsTemporary.movementRequestEditedSuccessfully({ data: data.message })
+            MovementRequestsActionsTemporary.movementRequestEditedSuccessfully({
+              data: data.message
+            })
           ),
-          catchError((error) => of(MovementRequestsActionsTemporary.error({ reason: error })))
+          catchError((error) =>
+            of(MovementRequestsActionsTemporary.error({ reason: error }))
+          )
         )
       )
     )
@@ -67,26 +82,36 @@ export class MovementRequestsEffectTemporary {
       ofType(MovementRequestsActionsTemporary.reject),
       mergeMap((action) =>
         this.service.rejectRequest(action.data).pipe(
-          map((data) => MovementRequestsActionsTemporary.rejectSuccessfully({ data: data.message })),
-          catchError((error) => of(MovementRequestsActionsTemporary.error({ reason: error })))
+          map((data) =>
+            MovementRequestsActionsTemporary.rejectSuccessfully({
+              data: data.message
+            })
+          ),
+          catchError((error) =>
+            of(MovementRequestsActionsTemporary.error({ reason: error }))
+          )
         )
       )
     )
   );
-
 
   assign$ = createEffect(() =>
     this.action$.pipe(
       ofType(MovementRequestsActionsTemporary.assign),
       mergeMap((action) =>
         this.service.assignRequest(action.id, action.data).pipe(
-          map((data) => MovementRequestsActionsTemporary.assignSuccessfully({ data: data.message })),
-          catchError((error) => of(MovementRequestsActionsTemporary.error({ reason: error })))
+          map((data) =>
+            MovementRequestsActionsTemporary.assignSuccessfully({
+              data: data.message
+            })
+          ),
+          catchError((error) =>
+            of(MovementRequestsActionsTemporary.error({ reason: error }))
+          )
         )
       )
     )
   );
-
 
   constructor(
     private action$: Actions,

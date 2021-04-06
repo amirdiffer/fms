@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+  OnChanges
+} from '@angular/core';
 
 @Component({
   selector: 'anms-asset-detail',
@@ -6,7 +12,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges } from '@a
   styleUrls: ['./asset-car-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AssetCarDetailComponent implements OnInit , OnChanges{
+export class AssetCarDetailComponent implements OnInit, OnChanges {
   @Input() asset;
   vehicle = {
     id: 1,
@@ -34,7 +40,7 @@ export class AssetCarDetailComponent implements OnInit , OnChanges{
   constructor() {}
 
   ngOnInit(): void {}
-  ngOnChanges(){
+  ngOnChanges() {
     // console.log(this.asset)
   }
 }

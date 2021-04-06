@@ -39,11 +39,11 @@ export class AssetsComponent implements OnInit, OnDestroy {
   selectedTab = 'assetMasterTab';
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-  sampleImg='assets/thumb.png'
+  sampleImg = 'assets/thumb.png';
   //#region  table
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
-    map(x => {
-      return x.map(y => {
+    map((x) => {
+      return x.map((y) => {
         return {
           ...y,
           id: y.id,
@@ -69,13 +69,13 @@ export class AssetsComponent implements OnInit, OnDestroy {
   );
 
   dataRegistration$ = this.registrationFacade.registration$.pipe(
-    map(x => {
-      return x.map(y => {
+    map((x) => {
+      return x.map((y) => {
         return {
           ...y,
           id: y.id,
           asset: {
-            img: 'thumb1.png',
+            img: 'assets/thumb.png',
             assetName: y.assetTypeName,
             assetSubName: y.dpd,
             progress: Math.floor(Math.random() * 6) + 1
@@ -83,6 +83,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
           serialNumber: '123s125583456',
           brand: 'bmw.png',
           type: 'Car',
+          make: 'Toyota',
           allocated: 'Finance',
           businessCategory: 'VIP',
           createDate: '00/00/00',
@@ -101,10 +102,9 @@ export class AssetsComponent implements OnInit, OnDestroy {
     private customizationFacade: CustomizationFacade,
     private changeDetector: ChangeDetectorRef,
     private _router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.assetMasterTableSetting = {
       columns: [
         {
@@ -200,7 +200,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
               this.assetMasterFacade.reset();
               this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
             }
-          },
+          }
           // {
           //   button: 'download'
           // },
@@ -270,7 +270,6 @@ export class AssetsComponent implements OnInit, OnDestroy {
         }
       }
     );
-
   }
 
   add() {

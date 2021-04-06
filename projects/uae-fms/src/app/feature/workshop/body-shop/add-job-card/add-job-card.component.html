@@ -1,0 +1,184 @@
+{{inputForm.value | json}}
+<form [formGroup]="inputForm" (ngSubmit)="addRequest()">
+<!--  <div class="button-container">-->
+<!--    <button class="btn-primary-medium btn-scondary-green" type="button"-->
+<!--      (click)="cancelForm()">{{'forms.cancel' | translate}}</button>-->
+<!--    <button class="btn-primary-medium add" type="submit">{{'forms.add' |-->
+<!--      translate}}</button>-->
+<!--  </div>-->
+  <div class="form-section mt-3">
+    <h3 class="form-section__title">AssetId</h3>
+    <div class="row form-section__row">
+
+      <div class="col-12 col-md-6 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown (onChange)="selectAsset($event)" inputId="asset" [autoDisplayFirst]="false"
+            [options]="assets$|async" formControlName="assetId" optionValue="id"
+            optionLabel="name"></p-dropdown>
+          <label for="asset">{{ 'workshop.body_shop.job_card.id' | translate }}</label>
+          <anms-error
+            [showError]="hasError('assetId',inputForm,submited)"
+            error="forms.feedback.required">
+          </anms-error>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="table-container">
+    <div class="card-table">
+      <div class="row px-2">
+        <p class="title col-md-4" style="color: red !important;">{{ 'workshop.body_shop.job_card.select_request' | translate }}</p>
+        <span class="search-container card-table-header">
+          <div class="search-box">
+          <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
+          <button>
+            <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
+          </button>
+        </div>
+          <button class="btn-download">
+            <svg-icon [src]="downloadBtn"></svg-icon>
+          </button>
+          <button class="btn-primary-small btn-scondary-green" type="button"><a>{{'forms.cancel' | translate}}</a></button>
+          <button class="btn-primary-small mx-1"><a>{{'forms.save' | translate}}</a></button>
+        </span>
+      </div>
+      <app-table [setting]="addJobCard_Table" [tableData]="relatedRequests$" (onSelectItems)="getSelectedRequestIds($event)"></app-table>
+    </div>
+  </div>
+  <div class="form-section mt-3">
+    <h3 class="form-section__title">{{ 'workshop.body_shop.job_card.describe_job_card' | translate }}</h3>
+    <div class="row form-section__row">
+      <div class="col-lg-12">
+        <div class="form-group p-field form-section__field">
+          <div class="input-group">
+            <span class="p-float-label w-100">
+              <input type="text" class="form-control" placeholder="{{ 'workshop.body_shop.requests.description' | translate }}"
+                formControlName="description">
+              <label>{{ 'workshop.body_shop.requests.description' | translate }}</label>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-9 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="location" [autoDisplayFirst]="false"
+            [options]="locations$|async" formControlName="wsLocationId" optionValue="id"
+            optionLabel="name"></p-dropdown>
+          <label for="location">{{ 'workshop.body_shop.technician.location' | translate }}</label>
+          <anms-error
+            [showError]="hasError('wsLocationId',inputForm,submited)"
+            error="forms.feedback.required">
+          </anms-error>
+        </span>
+      </div>
+
+    </div>
+  </div>
+  <div class="form-section" formArrayName="tasks">
+    <div class="row mt-3">
+      <div class="col-lg-12">
+          <span class="p-inputgroup-addon add-section" (click)="addTask()"
+                [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i
+            class="pi pi-plus"></i></span>
+        {{ 'workshop.body_shop.job_card.task' | translate }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10">
+        <ng-container *ngFor="let task of
+            inputForm.get('tasks')['controls']; let i=index"
+                      [formGroupName]="i">
+          <div class="row overflow-visible">
+            <!-- <div class="col-12 col-md-3 p-field form-section__field">
+              <div class="autocomplete-select">
+                <span class="p-float-label">
+                  <p-autoComplete formControlName="employeeNumber"
+                    (completeMethod)="getEmployee($event)"
+                    [suggestions]="employees$|async" field="name" [minLength]="1"
+                    (ngModelChange)="employeeNumberChanged($event)"
+                    required [disabled]="isEdit"></p-autoComplete>
+                  <i class="pi pi-search"></i>
+                  <label>{{ 'configuration.users.employee_number' | translate }} *</label>
+                </span>
+                <anms-error
+                  [showError]="hasError('employeeNumber',form.get('portalInformation'),submited)"
+                  error="forms.feedback.required">
+                </anms-error>
+              </div>
+            </div> -->
+            <!-- <div class="col-12 col-md-3 p-field form-section__field">
+              <div class="autocomplete-select">
+                <span class="p-float-label">
+                  <p-autoComplete formControlName="department"
+                    (completeMethod)="filterDepartments($event)"
+                    [suggestions]="departments" field="name" [minLength]="1"
+                    [disabled]="isEdit"></p-autoComplete>
+                  <i class="pi pi-search"></i>
+                  <label>{{ 'configuration.users.department' | translate }} *</label>
+                </span>
+                <anms-error
+                  [showError]="hasError('department',form.get('portalInformation'),submited)"
+                  error="forms.feedback.required"></anms-error>
+              </div>
+            </div> -->
+            <div class="col-4">
+              <div class="form-group p-field form-section__field">
+                <div class="input-group">
+                  <div class="autocomplete-select w-100">
+                            <span class="p-float-label">
+                                <p-autoComplete
+                                  [suggestions]="newTaskMasters"
+                                  formControlName="taskMasterId"
+                                  (completeMethod)="searchTaskMaster($event)"
+                                  field="name"
+                                  [minLength]="1"
+                                ></p-autoComplete>
+                                    <i class="pi pi-search"></i>
+                              <!-- [class.invalid]="!inputForm.get('taskMasterId').valid
+                              && submited" -->
+                                <label>{{ 'workshop.body_shop.job_card.task' | translate }} *</label>
+                            </span>
+                  </div>
+                  <!-- <small class="red-font" [class.d-none]="inputForm.get('taskMasterId').valid
+                      || !submited">{{'workshop.body_shop.requests.asset_validation_error'
+                      | translate}}</small> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-4 p-field form-section__field options-select">
+                <span class="p-float-label">
+                  <p-dropdown inputId="priority" [autoDisplayFirst]="false"
+                              [options]="priorities" formControlName="priorityOrder" optionValue="id"
+                              optionLabel="name"></p-dropdown>
+                  <label for="priority">{{ 'workshop.body_shop.requests.priority' | translate }}</label>
+                  <!-- <anms-error
+                    [showError]="hasError('priorityOrder',inputForm,submited)"
+                    error="forms.feedback.required">
+                  </anms-error> -->
+                </span>
+            </div>
+            <div class="col-12 col-md-4 p-field form-section__field options-select">
+                <span class="p-float-label">
+                  <p-dropdown inputId="technician" [autoDisplayFirst]="false"
+                              [options]="technicians$|async" formControlName="technicianId" optionValue="id"
+                              optionLabel="name"></p-dropdown>
+                  <label for="technician">{{ 'workshop.body_shop.job_card.technician' | translate }}</label>
+                  <!-- <anms-error
+                    [showError]="hasError('priorityOrder',inputForm,submited)"
+                    error="forms.feedback.required">
+                  </anms-error> -->
+                </span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal"
+  (confirm)="dialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal"
+  (confirm)="errorDialogModal=false"></alert-dialog>

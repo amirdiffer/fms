@@ -1,12 +1,10 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { IMovementRequest } from '@models/movement'
+import { IMovementRequest } from '@models/movement';
 import { IMovementStatistics } from '@models/statistics';
-export const FLEET_MOVEMENT_TEMPORARY_REQUESTS_FEATURE_KEY = 'movementRequestsTemporary';
+export const FLEET_MOVEMENT_TEMPORARY_REQUESTS_FEATURE_KEY =
+  'movementRequestsTemporary';
 
-
-
-export interface MovementRequestsState
-  extends EntityState<IMovementRequest> {
+export interface MovementRequestsState extends EntityState<IMovementRequest> {
   error?: any;
   loaded?: boolean;
   statistic?: IMovementStatistics;
@@ -19,10 +17,9 @@ export interface MovementRequestsPartialState {
   [FLEET_MOVEMENT_TEMPORARY_REQUESTS_FEATURE_KEY]: MovementRequestsState;
 }
 
-export const movementRequestsTemporaryAdapter: EntityAdapter<IMovementRequest|IMovementStatistics> = createEntityAdapter<
-  IMovementRequest|IMovementStatistics
-
->();
+export const movementRequestsTemporaryAdapter: EntityAdapter<
+  IMovementRequest | IMovementStatistics
+> = createEntityAdapter<IMovementRequest | IMovementStatistics>();
 
 export const initialState: MovementRequestsState = movementRequestsTemporaryAdapter.getInitialState(
   {

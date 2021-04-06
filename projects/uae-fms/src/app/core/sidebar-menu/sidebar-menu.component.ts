@@ -20,6 +20,7 @@ import {
   ResizeEvent,
   RouterService
 } from '../general-services';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar-manu',
@@ -43,7 +44,12 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
 
   usingMenu = [];
   mainMenu = [
-    { name: 'sidebar.dashboard', icon: 'dashboard', route: '/dashboard', disabled: true },
+    {
+      name: 'sidebar.dashboard',
+      icon: 'dashboard',
+      route: '/dashboard',
+      disabled: true
+    },
     {
       name: 'sidebar.fleets.~',
       icon: 'fleets',
@@ -86,7 +92,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             {
               name: 'sidebar.fleets.movement.temporary',
               route: '/fleet/movement/temporary'
-            },
+            }
             /* {
               name: 'sidebar.fleets.movement.iserve',
               route: '/fleet/movement/iserve'
@@ -101,7 +107,12 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       route: '/fuel-management',
       disabled: true
     },
-    { name: 'sidebar.traffic_fine', icon: 'traffic', route: '/traffic-fine', disabled: true },
+    {
+      name: 'sidebar.traffic_fine',
+      icon: 'traffic',
+      route: '/traffic-fine',
+      disabled: true
+    },
     { name: 'sidebar.toll', icon: 'toll', route: '/toll', disabled: true },
     {
       name: 'sidebar.workshop.~',
@@ -111,8 +122,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.workshop.body_shop',
           icon: 'body-shop',
-          route: '/workshop/body-shop',
-          disabled: true
+          route: '/workshop/body-shop'
         },
         {
           name: 'sidebar.workshop.service_shop',
@@ -146,7 +156,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.part_store.~',
       icon: 'part-store',
       route: '/part-store',
-      disabled: true,
+      disabled: true
       /* items: [
         {
           name: 'sidebar.part_store.part_list',
@@ -191,7 +201,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
               name: 'sidebar.configuration.user_management.users',
               icon: 'organization',
               route: '/configuration/user-management/users'
-            },
+            }
             /* {
               name: 'sidebar.configuration.user_management.company_profile',
               icon: 'organization',
@@ -258,18 +268,23 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     private store: Store,
     private facade: SidebarMenuFacade,
     private resizeService: WindowResizeService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
     this.usingMenu = this.mainMenu;
+    this.route.url.subscribe(x => {
+      let url = this.router.url;
+      if (url.indexOf('?') >= 0) {
+        url = url.split('?')[0]
+      }
+      this.urlGroup = url.split('/');
+      this.collapsedMenu = '/' + url.split('/')[1];
+    })
 
-    this.route$.subscribe((x) => {
-      if (x?.state?.url) this.urlGroup = x.state.url.split('/');
-      this.collapsedMenu = '/' + x.state.url.split('/')[1];
-    });
-
-    this.checkMenuState = this.opened$.subscribe((x) => {
+    this.opened$.subscribe((x) => {
       !x ? (this.activeGroup = 'root') : null;
     });
 
@@ -293,7 +308,6 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.checkMenuState.unsubscribe();
   }
 
   activeMenuCheck(route: string) {

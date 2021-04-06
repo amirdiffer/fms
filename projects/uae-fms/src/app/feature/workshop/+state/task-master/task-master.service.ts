@@ -9,11 +9,17 @@ import { ResponseBody } from '@models/responseBody';
 export class TaskMasterService {
   constructor(private _http: HttpClient) {}
 
-  loadAll(): Observable<ITaskMasterModel[]> {
-    return this._http.get<ITaskMasterModel[]>(
+  loadAll(): Observable<ResponseBody<any[]>> {
+    return this._http.get<ResponseBody<any[]>>(
       environment.baseApiUrl + 'workshop/taskmaster'
     );
   }
+
+  //   loadAll(): Observable<ITaskMasterModel[]> {
+  //     return this._http.get<ITaskMasterModel[]>(
+  //       environment.baseApiUrl + 'workshop/taskmaster'
+  //     );
+  //   }
 
   getTaskMaster(id: number) {
     return this._http.get<ITaskMasterModel[]>(
@@ -22,6 +28,7 @@ export class TaskMasterService {
   }
 
   addTaskMaster(data) {
+    console.log({ taskMasterAdd: data });
     return this._http.post<ResponseBody<ITaskMasterModel>>(
       environment.baseApiUrl + 'workshop/taskmaster',
       data
@@ -29,10 +36,17 @@ export class TaskMasterService {
   }
 
   editTaskMaster(data) {
+    console.log({ taskMasterEdit: data });
     const { id } = data;
     return this._http.post<ResponseBody<ITaskMasterModel>>(
       environment.baseApiUrl + `workshop/taskmaster/${id}/update`,
       data
+    );
+  }
+
+  skills(): Observable<ResponseBody<any[]>> {
+    return this._http.get<ResponseBody<any[]>>(
+      environment.baseApiUrl + 'workshop/taskmaster/skill'
     );
   }
 }

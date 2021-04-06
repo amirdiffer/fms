@@ -20,9 +20,18 @@ import { AddTrimComponent } from '@feature/configuration/asset-configuration/add
 const routes: Routes = [
   { path: 'asset-configuration', component: AssetConfigurationComponent },
   { path: 'add-asset-configuration', component: AddTypeComponent },
-  { path: 'asset-configuration/add-make/:assetType', component: AddMakeComponent },
-  { path: 'asset-configuration/add-model/:assetType/:make', component: AddModelComponent },
-  { path: 'asset-configuration/add-trim/:assetType/:make/:model', component: AddTrimComponent },
+  {
+    path: 'asset-configuration/add-make/:assetType',
+    component: AddMakeComponent
+  },
+  {
+    path: 'asset-configuration/add-model/:assetType/:make',
+    component: AddModelComponent
+  },
+  {
+    path: 'asset-configuration/add-trim/:assetType/:make/:model',
+    component: AddTrimComponent
+  },
   { path: 'business-category', component: BusinessCategoryComponent },
   { path: 'periodic-service', component: PeriodicServiceComponent },
   { path: 'asset-policy/add-asset-policy', component: AddAssetPolicyComponent },

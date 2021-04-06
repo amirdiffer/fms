@@ -31,25 +31,25 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       filterTitle: 'statistic.total',
       filterCount: '',
       filterTagColor: '#C543FF',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '',
       filterTagColor: '#4462A2',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '',
       filterTagColor: '#40D3C2',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.x_sub_asset',
       filterCount: '',
       filterTagColor: '#F75A4A',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
 
@@ -82,7 +82,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
         type: 2,
         field: 'Serial_Number',
         thumbField: 'avatarId',
-        override:'thumb.png',
+        override: 'thumb.png',
         width: '18em'
       },
       { lable: 'tables.column.date', type: 1, field: 'Date' },
@@ -130,7 +130,11 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   };
   //#endregion
 
-  constructor(private facade: SubAssetFacade, private router: Router, private changeDetector: ChangeDetectorRef) { }
+  constructor(
+    private facade: SubAssetFacade,
+    private router: Router,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -139,31 +143,31 @@ export class SubAssetComponent implements OnInit, OnDestroy {
     this.statisticsSubscription = this.facade.statistics$.subscribe(
       (res: any) => {
         if (res) {
-          const m = res.message
+          const m = res.message;
           this.filterCard = [
             {
               filterTitle: 'statistic.total',
               filterCount: `${m.total}`,
               filterTagColor: '#C543FF',
-              onActive(index: number) { }
+              onActive(index: number) {}
             },
             {
               filterTitle: 'statistic.active',
               filterCount: `${m.active}`,
               filterTagColor: '#4462A2',
-              onActive(index: number) { }
+              onActive(index: number) {}
             },
             {
               filterTitle: 'statistic.inactive',
               filterCount: `${m.inactive}`,
               filterTagColor: '#40D3C2',
-              onActive(index: number) { }
+              onActive(index: number) {}
             },
             {
               filterTitle: 'statistic.x_sub_asset',
               filterCount: `${m.xsubAsset}`,
               filterTagColor: '#F75A4A',
-              onActive(index: number) { }
+              onActive(index: number) {}
             }
           ];
           this.changeDetector.detectChanges();

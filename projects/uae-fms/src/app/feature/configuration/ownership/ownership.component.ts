@@ -49,29 +49,31 @@ export class OwnershipComponent implements OnInit {
     data: []
   };
 
-  ownerShip$ = this.facade.ownership$.pipe(map(x => x.map((item) => {
-    return {
-      Ownership: item.type,
-      Owner: item.name,
-      Fleet_IT_Code: item.fleetITCode,
-      Duration: item.duration,
-      Purpose: item.purpose,
-      Owner_Email: item.email,
-      Owner_Phone_No: item.phoneNumber,
-      car:item.numOfOwnedAssets||0
-    };
-  })));
+  ownerShip$ = this.facade.ownership$.pipe(
+    map((x) =>
+      x.map((item) => {
+        return {
+          Ownership: item.type,
+          Owner: item.name,
+          Fleet_IT_Code: item.fleetITCode,
+          Duration: item.duration,
+          Purpose: item.purpose,
+          Owner_Email: item.email,
+          Owner_Phone_No: item.phoneNumber,
+          car: item.numOfOwnedAssets || 0
+        };
+      })
+    )
+  );
 
   constructor(
     private facade: OwnershipFacade,
     private _cd: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
   }
-
-
 
   exportTable() {
     this.table.exportTable(this.ownerShip_Table, 'Ownership');

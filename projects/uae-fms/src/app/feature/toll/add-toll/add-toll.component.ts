@@ -1,5 +1,17 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Injector } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Injector
+} from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
 import {
@@ -32,8 +44,8 @@ export class AddTollComponent extends Utility implements OnInit {
     hasError: true,
     hasHeader: true,
     message: 'file format incorrect (CSV only)',
-    confirmButton: 'OK',
-  }
+    confirmButton: 'OK'
+  };
   dialogSettingCancel: IDialogAlert = {
     header: 'Add Toll',
     hasError: false,
@@ -41,42 +53,52 @@ export class AddTollComponent extends Utility implements OnInit {
     isWarning: true,
     message: 'Are you sure that you want to cancel the toll creation?',
     confirmButton: 'Yes',
-    cancelButton: 'No',
-  }
+    cancelButton: 'No'
+  };
 
   dialogSettingAdd: IDialogAlert = {
     header: 'Add Toll',
     hasError: false,
     hasHeader: true,
     message: 'New Toll Successfully Added',
-    confirmButton: 'OK',
+    confirmButton: 'OK'
+  };
+  constructor(
+    private _cd: ChangeDetectorRef,
+    private _fb: FormBuilder,
+    injector: Injector
+  ) {
+    super(injector);
   }
-  constructor(private _cd: ChangeDetectorRef, private _fb: FormBuilder, injector: Injector,) { super(injector); }
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
       // upload:[this.allFileUpload , Validators.required]
       upload: this._fb.array([])
-    })
+    });
   }
 
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
     let fileUpload = null;
     for (const droppedFile of files) {
-      if (droppedFile.fileEntry.isFile && this.dropAndDragValidation(droppedFile.fileEntry.name)) {
+      if (
+        droppedFile.fileEntry.isFile &&
+        this.dropAndDragValidation(droppedFile.fileEntry.name)
+      ) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
-          this.allFileUpload.push(droppedFile)
+          this.allFileUpload.push(droppedFile);
           this._cd.markForCheck();
-          const fileArrayForm = new FormControl(fileEntry.file, [Validators.required]);
+          const fileArrayForm = new FormControl(fileEntry.file, [
+            Validators.required
+          ]);
           (<FormArray>this.inputForm.get('upload')).push(fileArrayForm);
         });
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
         this.dialogModalError = true;
       }
-
     }
   }
   public fileOver(event) {
@@ -103,13 +125,13 @@ export class AddTollComponent extends Utility implements OnInit {
   }
 
   dialogErrorConfirm(value) {
-    this.dialogModalError = false
+    this.dialogModalError = false;
   }
   dialogCancelConfirm(value) {
     if (value === true) {
       this.goToList();
     }
-    this.dialogModalCancel = false
+    this.dialogModalCancel = false;
   }
   dialogAddConfirm(value) {
     if (value === true) {
@@ -124,7 +146,6 @@ export class AddTollComponent extends Utility implements OnInit {
     } else {
       this.openReview = true;
     }
-
   }
   cancel() {
     if (!this.openReview) {
@@ -134,14 +155,13 @@ export class AddTollComponent extends Utility implements OnInit {
         this.goToList();
       }
     } else {
-      this.openReview = false
+      this.openReview = false;
     }
   }
   save() {
     this.dialogModalAdd = true;
   }
   deleteFile(index) {
-    this.allFileUpload.splice(index, 1)
+    this.allFileUpload.splice(index, 1);
   }
-
 }

@@ -21,4 +21,4 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
     AlertDialogModule
   ]
 })
-export class UploaderModule { }
+export class UploaderModule {}

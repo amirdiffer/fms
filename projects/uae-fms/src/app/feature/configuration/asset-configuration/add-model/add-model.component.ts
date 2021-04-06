@@ -63,7 +63,7 @@ export class AddModelComponent
     return this.inputForm.get('models') as FormArray;
   }
 
-  assetTypeId
+  assetTypeId;
   constructor(
     private _fb: FormBuilder,
     private _renderer: Renderer2,
@@ -78,9 +78,8 @@ export class AddModelComponent
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(x => {
-      if (x && x.assetType)
-        this.assetTypeId = x.assetType
+    this.route.params.subscribe((x) => {
+      if (x && x.assetType) this.assetTypeId = x.assetType;
     });
 
     this.inputForm = this._fb.group({
@@ -96,9 +95,9 @@ export class AddModelComponent
     });
 
     if (!this.dataService.selectedMakeId) {
-      this.router.navigate(['/configuration/asset-configuration']).then(
-        _ => this.facade.resetParams()
-      );
+      this.router
+        .navigate(['/configuration/asset-configuration'])
+        .then((_) => this.facade.resetParams());
     }
 
     this.facade.assetType$.subscribe((response) => {
@@ -207,19 +206,17 @@ export class AddModelComponent
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-        });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
     }
   }
 
-  public fileOver(event) {
-  }
+  public fileOver(event) {}
 
   public fileLeave(event) {
-    (event);
+    event;
   }
 
   // public addModel() {
@@ -305,7 +302,6 @@ export class AddModelComponent
 }
     */
 
-
     const makes: Make[] = [];
 
     for (let i = 0; i < this.assetType.makes.length; i++) {
@@ -320,7 +316,7 @@ export class AddModelComponent
           models: this.inputForm.value.models
         };
         makes.push(make);
-        (makes);
+        makes;
       }
     }
 
@@ -333,9 +329,9 @@ export class AddModelComponent
       makes: makes
     };
 
-    data.makes = data.makes.map(x => {
+    data.makes = data.makes.map((x) => {
       return x;
-    })
+    });
 
     this.facade.addModel(data);
     // this._assetConfigurationService.loadAddForm(false);

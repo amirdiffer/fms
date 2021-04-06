@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Injector
+  Injector,
+  ChangeDetectorRef
 } from '@angular/core';
 import {
   FormArray,
@@ -16,6 +17,8 @@ import { TableSetting } from '@core/table';
 import { ButtonType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { BodyShopLocationFacade } from '@feature/workshop/+state/body-shop';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-add-location',
@@ -24,6 +27,9 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddLocationComponent extends Utility implements OnInit {
+  isEdit: boolean = false;
+  id: number;
+  //#region Dialog
   dialogModal = false;
 
   dialogSetting: IDialogAlert = {
@@ -33,7 +39,18 @@ export class AddLocationComponent extends Utility implements OnInit {
     confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };
-
+  errorDialogSetting: IDialogAlert = {
+    header: '',
+    message: 'Error occurred in progress',
+    confirmButton: 'Ok',
+    isWarning: false,
+    hasError: true,
+    hasHeader: true,
+    cancelButton: undefined
+  };
+  dialogType = null;
+  errorDialogModal = false;
+  //#endregion Dialog
   inputForm: FormGroup;
   submited = false;
   filteredLocation;
@@ -160,22 +177,91 @@ export class AddLocationComponent extends Utility implements OnInit {
       }
     ]
   };
+  private _location: any;
 
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
-    private _roter: Router
+    private _roter: Router,
+    private _facadeLocation: BodyShopLocationFacade,
+    private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this.buildForm();
+  }
+  private buildForm() {
     this.inputForm = this._fb.group({
       locationID: [''],
       address: ['', [Validators.required]],
-      section: this._fb.array([this.createSection()])
+      slots: this._fb.array([this.createSlot()]),
+      services: this._fb.array([this.createService()])
+    });
+    this.route.url.subscribe((params) => {
+      this.isEdit =
+        params.filter((x) => x.path == 'edit-location').length > 0
+          ? true
+          : false;
+
+      if (this.isEdit) {
+        this.id = +params[params.length - 1].path;
+        this._facadeLocation
+          .getLocationById(+params[params.length - 1].path)
+          .pipe(map((x) => x.message))
+          .subscribe((x) => {
+            if (x) {
+              this._location = x;
+              this.inputForm.patchValue({
+                locationID: x.locationThirdPartyId,
+                address: x.address
+              });
+              // this.section.controls[0].patchValue({
+              //   section: x.slots
+              // });
+            }
+          });
+      } else {
+      }
+    });
+
+    this._facadeLocation.submitted$.subscribe((x) => {
+      console.log('Submit : ', x);
+      if (x) {
+        this.dialogModal = true;
+        this.dialogType = 'success';
+        this.dialogSetting.header = this.isEdit
+          ? 'Edit location'
+          : 'Add new location';
+        this.dialogSetting.message = this.isEdit
+          ? 'Changes Saved Successfully'
+          : 'Location Added Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'Yes';
+        this.dialogSetting.cancelButton = undefined;
+        this.changeDetector.detectChanges();
+      }
+    });
+
+    this._facadeLocation.error$.subscribe((x) => {
+      if (x?.error) {
+        console.log(x?.error);
+        this.errorDialogModal = true;
+        this.errorDialogSetting.header = this.isEdit
+          ? 'Edit location'
+          : 'Add new location';
+        this.errorDialogSetting.hasError = true;
+        this.errorDialogSetting.cancelButton = undefined;
+        this.errorDialogSetting.confirmButton = 'Ok';
+        this.changeDetector.detectChanges();
+      } else {
+        this.errorDialogModal = false;
+      }
     });
   }
+
   searchLocation(event) {
     let filtered: any[] = [];
     let query = event.query;
@@ -196,10 +282,9 @@ export class AddLocationComponent extends Utility implements OnInit {
     }
   }
 
-  createSection(): FormGroup {
+  createSlot(): FormGroup {
     return this._fb.group({
-      section: ['', [Validators.required]],
-      services: this._fb.array([this.createService()])
+      thirdPartyLocationId: ['', [Validators.required]]
     });
   }
 
@@ -209,20 +294,18 @@ export class AddLocationComponent extends Utility implements OnInit {
     });
   }
 
-  addSection() {
-    const section = <FormArray>this.inputForm.get('section');
+  addSlot() {
+    const slots = <FormArray>this.inputForm.get('slots');
 
-    if (section.invalid) {
+    if (slots.invalid) {
       return;
     }
 
-    section.push(this.createSection());
+    slots.push(this.createSlot());
   }
 
-  addService(index: number) {
-    const services = (<FormArray>this.inputForm.get('section')).controls[
-      index
-    ].get('services') as FormArray;
+  addService() {
+    const services = <FormArray>this.inputForm.get('services');
 
     if (services.invalid) {
       return;
@@ -231,13 +314,44 @@ export class AddLocationComponent extends Utility implements OnInit {
     services.push(this.createService());
   }
 
-  dialogConfirm(event) {
+  dialogConfirm($event): void {
+    this.errorDialogModal = false;
     this.dialogModal = false;
-    if (event && !this.dialogSetting.hasError) {
-      this.goToList();
+    if (!$event) return;
+
+    if (this.dialogType == 'submit') {
+      let d = this.inputForm.getRawValue();
+      let services = (<object[]>d.services).map((x) => (x = x['service']));
+      // let slots = (<object[]>d.slots).map(x => x = x['thirdPartyLocationId']);
+
+      let locationInfo: any = {
+        locationThirdPartyId: 1, //d.locationID.id,
+        address: d.address,
+        services: services,
+        slots: d.slots
+      };
+      console.log(this._location);
+
+      if (this.isEdit) {
+        locationInfo = {
+          ...locationInfo,
+          id: this.id
+        };
+
+        console.log(locationInfo);
+        this._facadeLocation.editLocation(locationInfo);
+      } else {
+        locationInfo = {
+          ...locationInfo
+        };
+        this._facadeLocation.addLocation(locationInfo);
+      }
+    } else {
+      this.router.navigate(['/workshop/body-shop']).then((_) => {
+        this._facadeLocation.resetParams();
+      });
     }
   }
-
   addRequest() {
     this.submited = true;
     if (this.inputForm.invalid) {
@@ -245,28 +359,53 @@ export class AddLocationComponent extends Utility implements OnInit {
     }
 
     this.dialogModal = true;
-    this.dialogSetting.isWarning = false;
-    this.dialogSetting.message = 'New location added successfully';
-    this.dialogSetting.confirmButton = 'Ok';
-    this.dialogSetting.cancelButton = undefined;
+    this.dialogType = 'submit';
+    if (this.isEdit) {
+      this.dialogSetting.header = 'Edit location';
+      this.dialogSetting.message =
+        'Are you sure you want to submit this changes?';
+      this.dialogSetting.isWarning = true;
+      this.dialogSetting.confirmButton = 'Yes';
+      this.dialogSetting.cancelButton = 'Cancel';
+      return;
+    } else {
+      this.dialogSetting.header = 'Add new location';
+      this.dialogSetting.isWarning = true;
+      this.dialogSetting.hasError = false;
+      this.dialogSetting.message = 'Are you sure you want to add new location?';
+      this.dialogSetting.confirmButton = 'OK';
+      this.dialogSetting.cancelButton = 'Cancel';
+    }
   }
 
   cancelForm() {
     this.dialogModal = true;
+    this.dialogType = 'cancel';
+    if (this.isEdit) {
+      this.dialogSetting.header = 'Edit location';
+      this.dialogSetting.hasError = false;
+      this.dialogSetting.isWarning = true;
+      this.dialogSetting.message =
+        'Are you sure that you want to cancel editing location?';
+      this.dialogSetting.confirmButton = 'Yes';
+      this.dialogSetting.cancelButton = 'Cancel';
+      return;
+    }
+
+    this.dialogSetting.header = 'Add new location';
+    this.dialogSetting.hasError = false;
     this.dialogSetting.isWarning = true;
-    this.dialogSetting.cancelButton = 'No';
+    this.dialogSetting.message =
+      'Are you sure that you want to cancel adding new location?';
     this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.message = 'Are you sure cancelling add new location?';
-    // if (this.inputForm.dirty) {
-    //   confirm('Are You sure that you want to cancel?')
-    //     ? this._roter.navigate(['/workshop/body-shop'] , {queryParams:{id:'locationTab'}})
-    //     : null;
-    // } else {
-    //   this._roter.navigate(['/workshop/body-shop'] , {queryParams:{id:'locationTab'}});
-    // }
+    this.dialogSetting.cancelButton = 'Cancel';
   }
 
-  get section(): FormArray {
-    return this.inputForm.get('section') as FormArray;
+  get services(): FormArray {
+    return this.inputForm.get('services') as FormArray;
+  }
+
+  get slots(): FormArray {
+    return this.inputForm.get('slots') as FormArray;
   }
 }

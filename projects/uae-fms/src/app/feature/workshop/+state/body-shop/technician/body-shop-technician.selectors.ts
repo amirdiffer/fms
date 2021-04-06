@@ -18,4 +18,16 @@ export class BodyShopTechnicianSelectors {
     WorkshopSelectors.bodyshopTechnicianSelector,
     (state) => state.error
   );
+  static submitted = createSelector(
+    WorkshopSelectors.bodyshopTechnicianSelector,
+    (state) => state.submitted
+  );
+  static selectById = createSelector(
+    BodyShopTechnicianSelectors.selectAll,
+    (state, props: { id: number }) => {
+      let data = state.filter((x) => x.id == props.id);
+      if (data.length > 0) return data[0];
+      else return null;
+    }
+  );
 }

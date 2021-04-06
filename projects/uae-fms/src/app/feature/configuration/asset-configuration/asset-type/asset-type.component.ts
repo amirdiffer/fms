@@ -25,7 +25,6 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   @Output() selectMake = new EventEmitter();
   @Output() selectModel = new EventEmitter();
 
-
   assetType$ = this.facade.assetType$.pipe(
     map((response) =>
       response.map((obj) => {
@@ -67,10 +66,9 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
     private dataService: DataService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     // this.assetData$.subscribe((x) => {
     // console.log(x);
     // });
@@ -93,7 +91,9 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     this.dataService.selectedMakeId = make.id;
     this.dataService.selectedMakeName = make.make;
     this.router
-      .navigate([`/configuration/asset-configuration/add-model/${assetType.id}/${make.id}`])
+      .navigate([
+        `/configuration/asset-configuration/add-model/${assetType.id}/${make.id}`
+      ])
       .then();
   }
 
@@ -103,7 +103,9 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     this.dataService.selectedMakeId = make.id;
     this.dataService.selectedMakeName = make.make;
     this.router
-      .navigate([`/configuration/asset-configuration/add-trim/${assetType.id}/${make.id}/${model.id}`])
+      .navigate([
+        `/configuration/asset-configuration/add-trim/${assetType.id}/${make.id}/${model.id}`
+      ])
       .then();
   }
 
