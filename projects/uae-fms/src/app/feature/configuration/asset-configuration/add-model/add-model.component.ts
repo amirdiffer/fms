@@ -64,6 +64,7 @@ export class AddModelComponent
   }
 
   assetTypeId;
+  makeId;
   constructor(
     private _fb: FormBuilder,
     private _renderer: Renderer2,
@@ -79,19 +80,14 @@ export class AddModelComponent
 
   ngOnInit(): void {
     this.route.params.subscribe((x) => {
+      console.log(x)
       if (x && x.assetType) this.assetTypeId = x.assetType;
+      if (x && x.make) this.makeId = x.make;
     });
 
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
       models: new FormArray([this.createModel()])
-      // typeName: ['', [Validators.required]],
-      // activetype: true,
-      // description: ['', Validators.required]
-      // type: ['mModel'],
-      // selectModel: [''],
-      // models: this._fb.array([this._fb.control([])])
-      // singleModelArray: new FormArray([this.createSingleModel()])
     });
 
     if (!this.dataService.selectedMakeId) {
@@ -117,6 +113,7 @@ export class AddModelComponent
             for (let index = 0; index < make.models.length; index++) {
               this.addModel();
               this.models.controls[index].setValue({
+                id: make.models[index].id,
                 model: make.models[index].model,
                 modelDescription: make.models[index].modelDescription,
                 trims: make.models[index].trims
@@ -157,12 +154,14 @@ export class AddModelComponent
   createModel(isOptional?: boolean): FormGroup {
     if (isOptional) {
       return this._fb.group({
+        id: [],
         model: ['', [Validators.required]],
         modelDescription: ['', [Validators.required]],
         trims: [[]]
       });
     }
     return this._fb.group({
+      id: '',
       model: '',
       modelDescription: '',
       trims: [[]]
@@ -188,17 +187,6 @@ export class AddModelComponent
   }
 
   ngAfterViewInit() {
-    // this.percent = (+this.value * 100) / +this.maxValue;
-    // this._renderer.setStyle(
-    //   this.progressBar.nativeElement,
-    //   'width',
-    //   `${this.percent}%`
-    // );
-    // this._renderer.setStyle(
-    //   this.progressBar.nativeElement,
-    //   'background-color',
-    //   `${this.color}`
-    // );
   }
 
   public dropped(files: NgxFileDropEntry[]) {
@@ -206,24 +194,18 @@ export class AddModelComponent
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {});
+        fileEntry.file((file: File) => { });
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
     }
   }
 
-  public fileOver(event) {}
+  public fileOver(event) { }
 
   public fileLeave(event) {
     event;
   }
-
-  // public addModel() {
-  //   const model = new FormControl('');
-  //   (<FormArray>this.inputForm.get('models')).push(model);
-  //   console.log();
-  // }
 
   public cancel() {
     this.dialogModal = true;
@@ -232,7 +214,6 @@ export class AddModelComponent
     this.dialogSetting.message = 'Are you sure to cancel adding new type?';
     this.dialogSetting.confirmButton = 'Yes';
     this.dialogSetting.cancelButton = 'No';
-    // this._assetConfigurationService.loadAddForm(false);
   }
 
   dialogConfirm($event): void {
@@ -282,58 +263,24 @@ export class AddModelComponent
         type = 'ASSET';
     }
 
-    /*
-    {
-  "type": "SUB_ASSET",
-  "name": "Emergency",
-  "isActive": true,
-  "typeDescription": "4-wheel vehicles!",
-  "makes": [
-    {
-      "make": "Toyota",
-      "makeDescription": "New model of 2020.",
-      "origins": [
-        "Japan"
-      ],
-      "models": [
-      ]
-    }
-  ]
-}
-    */
+    const models = this.inputForm.value.models
 
-    const makes: Make[] = [];
-
-    for (let i = 0; i < this.assetType.makes.length; i++) {
-      if (this.assetType.makes[i].id === this.dataService.selectedMakeId) {
-        const make = {
-          id: this.assetType.makes[i].id,
-          totalMakeCount: this.assetType.makes[i].totalMakeCount,
-          make: this.assetType.makes[i].make,
-          makeDescription: this.assetType.makes[i].makeDescription,
-          // @ts-ignore
-          origins: this.assetType.makes[i].origins,
-          models: this.inputForm.value.models
-        };
-        makes.push(make);
-        makes;
+    let data = models.map((x) => {
+      if (x.id) {
+        return {
+          id: x.id,
+          model: x.model,
+          modelDescription: x.modelDescription,
+        }
       }
-    }
-
-    const data = {
-      id: this.assetTypeId,
-      type: type,
-      name: this.assetType.name,
-      isActive: this.assetType.isActive,
-      typeDescription: this.assetType.typeDescription,
-      makes: makes
-    };
-
-    data.makes = data.makes.map((x) => {
-      return x;
+      else
+        return {
+          model: x.model,
+          modelDescription: x.modelDescription,
+        }
     });
 
-    this.facade.addModel(data);
+    this.facade.addModel(data, this.assetTypeId, this.makeId);
     // this._assetConfigurationService.loadAddForm(false);
   }
 }

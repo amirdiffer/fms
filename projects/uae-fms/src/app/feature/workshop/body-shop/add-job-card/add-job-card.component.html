@@ -1,4 +1,3 @@
-{{inputForm.value | json}}
 <form [formGroup]="inputForm" (ngSubmit)="addRequest()">
 <!--  <div class="button-container">-->
 <!--    <button class="btn-primary-medium btn-scondary-green" type="button"-->
@@ -38,7 +37,7 @@
           <button class="btn-download">
             <svg-icon [src]="downloadBtn"></svg-icon>
           </button>
-          <button class="btn-primary-small btn-scondary-green" type="button"><a>{{'forms.cancel' | translate}}</a></button>
+          <button class="btn-primary-small btn-scondary-green" type="button"><a (click)="cancelForm()">{{'forms.cancel' | translate}}</a></button>
           <button class="btn-primary-small mx-1"><a>{{'forms.save' | translate}}</a></button>
         </span>
       </div>

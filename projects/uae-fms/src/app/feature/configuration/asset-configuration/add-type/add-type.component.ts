@@ -58,6 +58,8 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     cancelButton: 'Cancel'
   };
 
+  assetTypes;
+
   constructor(
     private _fb: FormBuilder,
     private _renderer: Renderer2,
@@ -76,11 +78,11 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
       typeName: ['', [Validators.required]],
       activetype: true,
       description: ['', Validators.required]
-      // type: ['mModel'],
-      // selectModel: [''],
-      // models: this._fb.array([this._fb.control([])])
-      // singleModelArray: new FormArray([this.createSingleModel()])
     });
+
+    this.facade.assetType$.subscribe(x => {
+      this.assetTypes = x;
+    })
 
     this.facade.submitted$.subscribe((x) => {
       if (x) {
@@ -127,25 +129,15 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     list.push(this.createSingleModel());
   }
 
-  ngAfterViewInit() {
-    // this.percent = (+this.value * 100) / +this.maxValue;
-    // this._renderer.setStyle(
-    //   this.progressBar.nativeElement,
-    //   'width',
-    //   `${this.percent}%`
-    // );
-    // this._renderer.setStyle(
-    //   this.progressBar.nativeElement,
-    //   'background-color',
-    //   `${this.color}`
-    // );
-  }
+  ngAfterViewInit() { }
+
+
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {});
+        fileEntry.file((file: File) => { });
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
@@ -229,13 +221,23 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
         type = 'ASSET';
     }
 
-    const data = {
-      type: type,
-      name: this.inputForm.value.typeName,
-      isActive: this.inputForm.value.activetype,
-      typeDescription: this.inputForm.value.description,
-      makes: []
-    };
+    const data = [
+      ...this.assetTypes.map(x => {
+        return {
+          id: x.id,
+          type: x.type,
+          name: x.name,
+          isActive: x.isActive,
+          typeDescription: x.typeDescription
+        }
+      })
+      , {
+        type: type,
+        name: this.inputForm.value.typeName,
+        isActive: this.inputForm.value.activetype,
+        typeDescription: this.inputForm.value.description
+      }];
+
 
     this.facade.addAssetType(data);
     // this._assetConfigurationService.loadAddForm(false);

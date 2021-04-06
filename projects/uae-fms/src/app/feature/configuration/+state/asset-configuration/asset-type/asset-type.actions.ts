@@ -19,7 +19,7 @@ export class AssetTypeActions {
     props<{ data: any }>()
   );
 
-  static addMake = createAction('[AssetType] add make', props<{ data: any }>());
+  static addMake = createAction('[AssetType] add make', props<{ data: any, assetId: number }>());
 
   static makeAddedSuccessfully = createAction(
     '[AssetType] make added successfully',
@@ -28,7 +28,7 @@ export class AssetTypeActions {
 
   static addModel = createAction(
     '[AssetType] add model',
-    props<{ data: any }>()
+    props<{ data: any, assetId: number, makeId: number }>()
   );
 
   static modelAddedSuccessfully = createAction(
@@ -36,7 +36,7 @@ export class AssetTypeActions {
     props<{ data: any }>()
   );
 
-  static addTrim = createAction('[AssetType] add trim', props<{ data: any }>());
+  static addTrim = createAction('[AssetType] add trim', props<{ data: any, assetId: number, makeId: number, modelId: number }>());
 
   static trimAddedSuccessfully = createAction(
     '[AssetType] trim added successfully',

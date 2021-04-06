@@ -28,16 +28,16 @@ export class AssetTypeFacade {
     this.store.dispatch(AssetTypeActions.addAssetType({ data }));
   }
 
-  addMake(data: any) {
-    this.store.dispatch(AssetTypeActions.addMake({ data }));
+  addMake(data: any, assetId: number) {
+    this.store.dispatch(AssetTypeActions.addMake({ data, assetId }));
   }
 
-  addModel(data: any) {
-    this.store.dispatch(AssetTypeActions.addModel({ data }));
+  addModel(data: any, assetId: number, makeId: number) {
+    this.store.dispatch(AssetTypeActions.addModel({ data, assetId, makeId }));
   }
 
-  addTrim(data: any) {
-    this.store.dispatch(AssetTypeActions.addTrim({ data }));
+  addTrim(data: any, assetId: number, makeId: number, modelId: number) {
+    this.store.dispatch(AssetTypeActions.addTrim({ data, assetId, makeId, modelId }));
   }
 
   resetParams() {

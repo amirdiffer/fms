@@ -4,8 +4,8 @@
         <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{ 'forms.cancel' | translate }}</button>
         <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate }}</button>
         <button class="btn-primary-medium add" *ngIf="stepper.selectedIndex != 3"  (click)="next()">{{ 'forms.next' | translate }}</button>
-        <button *ngIf="stepper.selectedIndex == 3 && !uploadReview" class="btn-primary-medium add" (click)="buttonUpload()">{{ 'forms.upload' | translate }}</button>
-        <button *ngIf="uploadReview" class="btn-primary-medium add" (click)="generateForm()">{{ (isEdit ? 'forms.edit' : 'forms.generate') | translate }}</button>
+        <button *ngIf="stepper.selectedIndex == 3 && !uploadReview && !singleAsset" class="btn-primary-medium add" (click)="buttonUpload()">{{ 'forms.upload' | translate }}</button>
+        <button *ngIf="uploadReview || (stepper.selectedIndex == 3 && singleAsset)" class="btn-primary-medium add" (click)="generateForm()">{{ (isEdit ? 'forms.edit' : 'forms.generate') | translate }}</button>
       </div>
       <div>
         <div class="row form-section__row">
@@ -146,12 +146,20 @@
                             <p-dropdown inputId="department" [placeholder]="'assets.department' | translate"  [options]="department" optionLabel="name" optionValue="id" formControlName="department" dataKey="id"></p-dropdown>
                             <label for="department">{{ 'assets.department' | translate }} *</label>
                           </span>
+                          <anms-error
+                            [showError]="hasError('purchasedFor.department',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="operator"  [placeholder]="'assets.operator' | translate" [options]="operator" optionLabel="name" optionValue="id" formControlName="operator"></p-dropdown>
                             <label for="operator">{{ 'assets.operator' | translate }} *</label>
                           </span>
+                          <anms-error
+                            [showError]="hasError('purchasedFor.operator',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
                       </div>
                     </div>
@@ -185,9 +193,9 @@
                             </div>
                             <div class="col-12 col-md-3  p-field form-section__field" [class.col-md-9]="policyType.value != ''" >
                               <span class="p-inputgroup p-float-label d-flex">
-                                <input pInputText numbersOnly formControlName="purchaseValue" [placeholder]=" 'assets.purchase_value' | translate"  type="text">
+                                <input pInputText numbersOnly formControlName="purchaseValue" [placeholder]=" 'assets.purchase_value' | translate"  type="text" (keyup)="calculate = false">
                                 <label>{{ 'assets.purchase_value' | translate }} *</label>
-                                <button *ngIf="policyType.value != '' && calculate != true " class="btn-primary-small calculate-button" (click)="calculateAssetPolicy()">{{ 'assets.calculate' | translate }}</button>
+                                <button *ngIf="!calculate" class="btn-primary-small calculate-button" (click)="calculateAssetPolicy()">{{ 'assets.calculate' | translate }} </button>
                                 <span *ngIf="policyType.value != ''" class="input-money-pipe">AED</span>
                               </span>
                               <anms-error
@@ -272,7 +280,7 @@
                         <div class="form-section component_wrapper pb-3">
                           <h3 class="form-section__title">{{ 'assets.review_your_plan' | translate }}</h3>
                           <div class="table-container p-0 review-table">
-                            <app-table [setting]="reviewPlaneSettingTable"></app-table>
+                            <app-table [setting]="reviewPlaneSettingTable" [tableData]="policyTypeTableData$"></app-table>
                           </div>
                           <ng-container *ngIf="calculate">
                             <div  class="table-container p-0 review-table">
@@ -306,7 +314,7 @@
                               <div class="row">
                                 <div class="col-12 p-field form-section__field dropdown-select" [class.col-md-8]="periodicService.value == '' ">
                                   <span class="p-float-label">
-                                    <p-dropdown inputId="periodicService" formControlName="periodicService" [placeholder]=" 'assets.periodic_service' | translate" [options]="periodicServiceItem" optionLabel="name" optionValue="id"></p-dropdown>
+                                    <p-dropdown inputId="periodicService" formControlName="periodicService" [placeholder]=" 'assets.periodic_service' | translate" [options]="periodicServiceItem" optionLabel="name" optionValue="id" (onChange)="onChangePeriodicService($event)"></p-dropdown>
                                     <label for="periodicService">{{ 'assets.periodic_service' | translate }} *</label>
                                   </span>
                                   <anms-error
@@ -339,8 +347,8 @@
                                         </div>
                                         <div class="col-12 col-md-2 pr-0 p-field form-section__field dropdown-select">
                                           <span class="p-float-label">
-                                            <p-dropdown inputId="periodicService" formControlName="periodType" [placeholder]="'assets.year' | translate" [options]="periodType" optionLabel="name" optionValue="id"></p-dropdown>
-                                            <label for="periodicService">{{ 'assets.year' | translate }}</label>
+                                            <p-dropdown inputId="periodicService" formControlName="periodType" [placeholder]="'assets.period_type' | translate" [options]="periodType" optionLabel="name" optionValue="id"></p-dropdown>
+                                            <label for="periodicService">{{ 'assets.period_type' | translate }}</label>
                                           </span>
                                           <anms-error
                                             [showError]="formArrayHasError(submitted_Maintenance, warrantyItems,i,'periodType')"
@@ -383,7 +391,7 @@
                                       </div>
                                     </div>
                                     <div class="col-6 col-md-3" [class.col-md-6]="periodicService.value != '' ">
-                                      <anms-uploader [files]="isEdit ? getWarrantyDoc(i) : warrantyDocs" [multiple]="false" [preview]="false" [hasError]="false" (uploadedEvent)="uploadWarrantyFiles($event , i)"></anms-uploader>
+                                      <anms-uploader [files]="[warrantyDocs[i]]" [multiple]="false" [preview]="false" [hasError]="false" (uploadedEvent)="uploadWarrantyFiles($event , i)"></anms-uploader>
                                     </div>
                                   </div>
                                 </div>
@@ -394,7 +402,7 @@
                       <div class="col-12 col-md-6 d-flex" *ngIf="periodicService.value != '' ">
                         <div class="form-section">
                           <div class="table-container p-0 review-table">
-                            <app-table [setting]="periodicServiceSettingTable"></app-table>
+                            <app-table [setting]="periodicServiceSettingTable" [tableData]="periodicServiceTableData$"></app-table>
                           </div>
                           <p class="green-color" *ngIf="getWarrantyStartDat(0) != ''">
                             Job Cards For Maintenance Services Automatically Will Create After This Step
@@ -433,19 +441,19 @@
                           </div>
                           <div class="col-2">
                             <div class="form-check" *ngIf="!isEdit">
-                              <input class="form-check-input" formControlName="quantity"  type="radio" name="quantity" id="multipleAsset" value ="multipleAsset">
+                              <input class="form-check-input" formControlName="quantity"  type="radio" name="quantity" id="multipleAsset" value ="multipleAsset" (click)="assetQuantity($event)">
                               <label class="form-check-label" for="multipleAsset">{{ 'assets.multiple_assets' | translate }}</label>
                             </div>
                           </div>
                           <div class="col-2">
                             <div class="form-check" *ngIf="!isEdit">
-                              <input class="form-check-input" formControlName="quantity" type="radio" name="quantity" id="singleAsset" value ="singleAsset">
+                              <input class="form-check-input" formControlName="quantity" type="radio" name="quantity" id="singleAsset" value ="singleAsset" (click)="assetQuantity($event)">
                               <label class="form-check-label" for="singleAsset">{{ 'assets.single_asset' | translate }}</label>
                             </div>
                           </div>
                           <div *ngIf="this.formGroupGenerate.get('quantity').value == 'singleAsset'" class="col-3 p-field form-section__field">
                             <span class="p-float-label">
-                              <input pInputText numbersOnly [placeholder]="'assets.serial_number' | translate" formControlName="serialNumber"  type="text">
+                              <input pInputText numbersOnly [placeholder]="'assets.serial_number' | translate" formControlName="serialNumber" type="text">
                               <label>{{ 'assets.serial_number' | translate }}</label>
                             </span>
                             <anms-error

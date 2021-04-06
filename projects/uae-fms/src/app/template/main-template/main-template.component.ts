@@ -85,10 +85,17 @@ export class MainTemplateComponent implements OnInit {
     });
 
     this.route$.subscribe((x) => {
-      x?.queryParams['id'] ?
-      this.getPath(x?.url.split('?').shift()) :
+      let pathByQueryParam = '';
+      if (x?.queryParams) {
+        let arrPath2 = Object.values(x?.queryParams);
+        arrPath2.forEach(p => {
+          if (!isNaN(parseInt(p)))
+            pathByQueryParam = pathByQueryParam + '/' + p;
+        })
+      }
+      x?.queryParams ?
+      this.getPath(x?.url.split('?').shift() + pathByQueryParam) :
       this.getPath(x?.url);
-
       this.translations = {};
       this.translations = Object.assign.apply(
         null,
@@ -104,8 +111,24 @@ export class MainTemplateComponent implements OnInit {
     const translationLabels = Object.keys(this.translations);
     this.translationService.get(translationLabels).subscribe((translation) => {
       this.translations = translation;
-      this.breadcrumb = Object.values(this.translations);
+      let y = Object.entries(this.translations).map(x => {
+        if (x[0] == x[1]) {
+          x[1] = (<string>x[1]).split('.')[1];
+          if (!this.existUnderline((<string>x[1]))) {
+            x[1] = 'item_' + x[1];
+          }
+        }
+        return x;
+      });
+      this.breadcrumb = y.map(x => x[1]);
     });
+  }
+
+  existUnderline(part: string): boolean {
+    return part.includes('_')
+  }
+  splitPart(part: string) {
+    return part.split('_');
   }
 
   onLoginClick() {

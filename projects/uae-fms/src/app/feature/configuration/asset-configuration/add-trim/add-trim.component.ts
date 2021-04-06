@@ -61,6 +61,8 @@ export class AddTrimComponent extends Utility implements OnInit {
     return this.inputForm.get('trims') as FormArray;
   }
   assetTypeId;
+  makeId;
+  modelId;
 
   constructor(
     private _fb: FormBuilder,
@@ -78,6 +80,8 @@ export class AddTrimComponent extends Utility implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((x) => {
       if (x && x.assetType) this.assetTypeId = x.assetType;
+      if (x && x.make) this.makeId = x.make;
+      if (x && x.model) this.modelId = x.model;
     });
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
@@ -111,6 +115,7 @@ export class AddTrimComponent extends Utility implements OnInit {
                   for (let index = 0; index < model.trims.length; index++) {
                     this.addTrim();
                     this.trims.controls[index].patchValue({
+                      id: model.trims[index].id,
                       trim: model.trims[index].trim,
                       description: 'Something about the trim.',
                       colors: model.trims[index].colors
@@ -159,12 +164,14 @@ export class AddTrimComponent extends Utility implements OnInit {
   createTrim(isOptional?: boolean): FormGroup {
     if (isOptional) {
       return this._fb.group({
+        id: '',
         trim: '',
         description: 'Something about the trim.',
         colors: new FormArray([this.createColor()])
       });
     }
     return this._fb.group({
+      id: '',
       trim: ['', Validators.required],
       description: 'Something about the trim.',
       colors: new FormArray([this.createColor()])
@@ -215,7 +222,7 @@ export class AddTrimComponent extends Utility implements OnInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {});
+        fileEntry.file((file: File) => { });
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
@@ -293,46 +300,18 @@ export class AddTrimComponent extends Utility implements OnInit {
 
     const makes: Make[] = [];
 
-    for (let i = 0; i < this.assetType.makes.length; i++) {
-      for (let j = 0; j < this.assetType.makes[i].models.length; j++) {
-        if (
-          this.assetType.makes[i].models[j].id ===
-          this.dataService.selectedModelId
-        ) {
-          const make = {
-            id: this.assetType.makes[i].id,
-            totalMakeCount: this.assetType.makes[i].totalMakeCount,
-            make: this.assetType.makes[i].make,
-            makeDescription: this.assetType.makes[i].makeDescription,
-            // @ts-ignore
-            origins: this.assetType.makes[i].origins,
-            models: []
-          };
-          this.assetType.makes[i].models[j].trims.map((trim) => {
-            trim.colors.map((color) => {
-              const model = {
-                model: this.assetType.makes[i].models[j].model,
-                modelDescription: this.assetType.makes[i].models[j]
-                  .modelDescription,
-                trims: this.inputForm.value.trims
-              };
-              make.models.push(model);
-            });
-          });
-          makes.push(make);
+
+    const data = this.inputForm.value.trims.map(x => {
+      if (x.id) {
+        return x;
+      } else
+        return {
+          colors: x.colors,
+          description: x.description,
+          trim: x.trim,
         }
-      }
-    }
+    })
 
-    const data = {
-      id: this.assetTypeId,
-      type: type,
-      name: this.assetType.name,
-      isActive: this.assetType.isActive,
-      typeDescription: this.assetType.typeDescription,
-      makes: makes
-    };
-
-    this.facade.addTrim(data);
+    this.facade.addTrim(data, this.assetTypeId, this.makeId, this.modelId);
   }
 }
