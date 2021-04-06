@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
-import { IPeriodicService } from '@models/configuration';
+import { IPeriodicService, ISpecificPeriodicService } from '@models/configuration';
 import { ResponseBody } from '@models/response-body';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class PeriodicServiceService {
   }
 
   getById(id: number) {
-    return this.http.get<ResponseBody<IPeriodicService[]>>(
+    return this.http.get<ResponseBody<ISpecificPeriodicService>>(
       environment.baseApiUrl + `configuration/periodic-service/${id}`
     );
   }
