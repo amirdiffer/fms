@@ -437,7 +437,8 @@
       "trim": "Trim",
       "trims": "Trims",
       "color": "Color",
-      "models": "Models"
+      "models": "Models",
+      "capacity": "Capacity"
     },
     "button": {
       "view_report": "View Report",
@@ -966,7 +967,9 @@
           "title": "Upload Profile Picture",
           "progressbar_title": "*.pdf",
           "content": "Drag and Drop Picture File"
-        }
+        },
+        "full_name_arabic_validation_error": "Please fill fullname arabic",
+        "full_name_english_validation_error": "Please fill fullname english"
       },
       "location": {
         "location_info": "Location Info",

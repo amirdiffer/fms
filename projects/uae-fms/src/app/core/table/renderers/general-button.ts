@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MakeDecisionService } from '@feature/workshop/inspections/technical-inspection/make-decision/make-decision.service';
 import { environment } from '../../../../environments/environment';
 import { ButtonType } from '../table.component';
@@ -52,7 +53,10 @@ import { ButtonType } from '../table.component';
       *ngIf="col.buttonType == buttonType.jobCard"
       class="btn-primary-large job-card"
     >
-      <i>+</i><a>{{ 'tables.column.job_card' | translate }}</a>
+      <i>+</i
+      ><a (click)="_router.navigate(['/workshop/body-shop/add-job-card'])">{{
+        'tables.column.job_card' | translate
+      }}</a>
     </button>
     <button
       *ngIf="col.buttonType == buttonType.makeDecision"
@@ -121,7 +125,10 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   @Input() row;
   @Input() setting;
 
-  constructor(private _makeDecisionService: MakeDecisionService) {}
+  constructor(
+    private _makeDecisionService: MakeDecisionService,
+    public _router: Router
+  ) {}
 
   ngOnInit() {}
   openMakeDecision() {
