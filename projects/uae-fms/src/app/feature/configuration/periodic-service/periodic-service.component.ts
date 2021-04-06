@@ -90,4 +90,9 @@ export class PeriodicServiceComponent implements OnInit {
   exportTable() {
     this.table.exportTable(this.tableSetting, 'Accessories');
   }
+
+  eventPagination() {
+    this.facade.loadAll();
+  }
+
 }

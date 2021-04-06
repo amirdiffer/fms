@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
 import { TaskMasterActions } from './task-master.actions';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class TaskMasterEffect {
@@ -14,6 +15,7 @@ export class TaskMasterEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data: any) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'taskmaster');
             return TaskMasterActions.allDataLoaded({ data: data.message });
           }),
           catchError((error) => of(TaskMasterActions.error({ reason: error })))
@@ -38,5 +40,5 @@ export class TaskMasterEffect {
     )
   );
 
-  constructor(private action$: Actions, private service: TaskMasterService) {}
+  constructor(private action$: Actions, private service: TaskMasterService, private _tableFacade: TableFacade) {}
 }

@@ -80,4 +80,9 @@ export class OwnershipComponent implements OnInit {
   exportTable() {
     this.table.exportTable(this.ownerShip_Table, 'Ownership');
   }
+
+  eventPagination() {
+    this.facade.loadAll();
+  }
+
 }

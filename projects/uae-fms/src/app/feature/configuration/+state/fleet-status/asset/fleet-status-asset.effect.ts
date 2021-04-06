@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { FleetStatusAssetActions } from './fleet-status-asset.actions';
 import { FleetStatusAssetService } from './fleet-status-asset.service';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class FleetStatusAssetEffect {
@@ -12,9 +13,10 @@ export class FleetStatusAssetEffect {
       ofType(FleetStatusAssetActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) =>
-            FleetStatusAssetActions.allDataLoaded({ data: data.message })
-          ),
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'fleet-status');
+            return FleetStatusAssetActions.allDataLoaded({ data: data.message });
+          }),
           catchError((error) =>
             of(FleetStatusAssetActions.error({ reason: error }))
           )
@@ -43,6 +45,7 @@ export class FleetStatusAssetEffect {
 
   constructor(
     private action$: Actions,
-    private service: FleetStatusAssetService
+    private service: FleetStatusAssetService,
+    private _tableFacade: TableFacade
   ) {}
 }

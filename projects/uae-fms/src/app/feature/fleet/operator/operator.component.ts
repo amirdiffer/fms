@@ -196,4 +196,9 @@ export class OperatorComponent implements OnInit {
   exportTable() {
     this.table.exportTable(this.operator_Table, 'Operator');
   }
+
+  eventPagination() {
+    this._operatorFacade.loadAll();
+  }
+
 }

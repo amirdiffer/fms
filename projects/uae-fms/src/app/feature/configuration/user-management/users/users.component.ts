@@ -166,6 +166,10 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  eventPagination() {
+    this.facade.loadAll();
+  }
+
   exportTable() {
     this.table.exportTable(this.users_Table, 'Users');
   }

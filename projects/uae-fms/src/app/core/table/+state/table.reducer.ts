@@ -33,7 +33,7 @@ const TableReducer = createReducer(
     let i = getIndex(state, name);
     let st = [...state.pagination];
     let copyData = Object.assign({}, st[i]);
-    let pages = st[i].count / st[i].ipp;
+    let pages = st[i].count > st[i].ipp ? st[i].count / st[i].ipp : 0;
     if(pages > 0) {
       pages = Math.ceil(pages);
       copyData.page < pages ? copyData.page++ : null;
@@ -45,14 +45,14 @@ const TableReducer = createReducer(
     let i = getIndex(state, name);
     let st = [...state.pagination];
     let copyData = Object.assign({}, st[i]);
-    st[i].page >= 2 ? copyData.page-- : null;
+    st[i].page >= 1 ? copyData.page-- : null;
     st[i] = copyData;
     return ({...state, pagination: st})
   }),
   on(TableActions.initial, (state, { ipp, count, name }) => {
     let st = state;
     if(existByName(state, name) == null) {
-      st = ({ ...state, pagination: [...state.pagination, { name: name, count: count, page: 1, ipp: ipp }] })
+      st = ({ ...state, pagination: [...state.pagination, { name: name, count: count, page: 0, ipp: ipp }] })
     }
     return st
   }),
@@ -60,7 +60,7 @@ const TableReducer = createReducer(
     let i = getIndex(state, name);
     let st = [...state.pagination];
     let copyData = Object.assign({}, st[i]);
-    copyData.page = 1;
+    copyData.page = 0;
     copyData.count = 0;
     copyData.ipp = 0;
     st[i] = copyData;

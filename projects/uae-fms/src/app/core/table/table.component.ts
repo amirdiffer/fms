@@ -217,7 +217,7 @@ export class TableComponent implements OnInit, OnDestroy {
   initialPagination() {
     let i = 0;
     this.subscribePagination$ = this._tableFacade.getPaginationByName(this.pagination).subscribe(x => {
-      if (x != null) {
+      if (x != null && (this.activePage != x['page'] || this.ipp != x['ipp'])) {
         i++;
         this.activePage = x['page'];
         this.count = x['count'];
@@ -251,12 +251,16 @@ export class TableComponent implements OnInit, OnDestroy {
 
 
   trackingShowRow(): string {
-    this.pagesCount = Math.ceil(this.count / this.ipp);
+    this.pagesCount = this.count > this.ipp ? Math.ceil(this.count / this.ipp) : 0;
     let leftOver = this.count % this.ipp;
-    let start = (this.activePage * this.ipp) - this.ipp;
+    let start = (this.activePage * this.ipp);
     let end = start + this.ipp;
     (leftOver > 0 && this.pagesCount == this.activePage) ? end = (end - this.ipp) + leftOver: null;
-    return `${start}-${end}`
+
+    if(!isNaN(start) && !isNaN(end)) {
+      return `${start}-${end}`
+    }
+    return '';
   }
 
   ngOnDestroy(): void {

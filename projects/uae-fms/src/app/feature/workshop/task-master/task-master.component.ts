@@ -56,4 +56,9 @@ export class TaskMasterComponent implements OnInit {
       console.log(x);
     });
   }
+
+  eventPagination() {
+    this._facade.loadAll();
+  }
+
 }

@@ -92,4 +92,9 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   exportTable() {
     this.table.exportTable(this.businessCategory_Table, 'Business Category');
   }
+
+  eventPagination() {
+    this.facade.loadAll();
+  }
+
 }

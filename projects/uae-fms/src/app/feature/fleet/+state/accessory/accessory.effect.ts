@@ -4,6 +4,8 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AccessoryActions } from './accessory.actions';
 import { AccessoryService } from './accessory.service';
+import { SubAssetService } from '@feature/fleet/+state/sub-asset';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class AccessoryEffect {
@@ -32,7 +34,10 @@ export class AccessoryEffect {
       ofType(AccessoryActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => AccessoryActions.allDataLoaded({ data: data.message })),
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'accessory');
+            return AccessoryActions.allDataLoaded({ data: data.message });
+          }),
           catchError((error) => of(AccessoryActions.error({ reason: error })))
         )
       )
@@ -82,5 +87,5 @@ export class AccessoryEffect {
     )
   );
 
-  constructor(private action$: Actions, private service: AccessoryService) {}
+  constructor(private action$: Actions, private service: AccessoryService, private _tableFacade: TableFacade) {}
 }

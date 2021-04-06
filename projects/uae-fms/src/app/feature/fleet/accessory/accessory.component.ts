@@ -147,6 +147,10 @@ export class AccessoryComponent implements OnInit, OnDestroy {
     });
   }
 
+  eventPagination() {
+    this._accessoryFacade.loadAll();
+  }
+
   addAccessory() {
     this._accessoryService.loadAddForm(true);
   }

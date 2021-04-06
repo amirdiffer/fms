@@ -297,6 +297,13 @@ export class AssetsComponent implements OnInit, OnDestroy {
     }
   }
 
+  eventPagination_assetmaster() {
+    this.assetMasterFacade.loadAll();
+  }
+  eventPagination_registration() {
+    this.registrationFacade.loadAll();
+  }
+
   ngOnDestroy(): void {
     this.assetMasterSubscription?.unsubscribe();
     this.registrationSubscription?.unsubscribe();

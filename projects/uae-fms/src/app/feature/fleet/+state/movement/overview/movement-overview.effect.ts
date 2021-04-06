@@ -4,6 +4,7 @@ import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { MovementOverviewActions } from './movement-overview.actions';
 import { MovementOverviewService } from './movement-overview.service';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class MovementOverviewEffect {
@@ -12,7 +13,10 @@ export class MovementOverviewEffect {
       ofType(MovementOverviewActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => MovementOverviewActions.allDataLoaded({ data:data['message'] })),
+          map((data) => {
+            this._tableFacade.initialPaginator(data['resultNumber'], 'movement_overview');
+            return MovementOverviewActions.allDataLoaded({ data:data['message'] });
+          }),
           catchError((error) =>
             of(MovementOverviewActions.error({ reason: error }))
           )
@@ -23,6 +27,7 @@ export class MovementOverviewEffect {
 
   constructor(
     private action$: Actions,
-    private service: MovementOverviewService
+    private service: MovementOverviewService,
+    private _tableFacade: TableFacade
   ) {}
 }

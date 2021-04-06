@@ -135,7 +135,7 @@
         </div>
         <div class="pagination-action">
           <span class="pagination-action__previous" (click)="paginationEvent('previous')">
-            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': 'rotate(90deg)', 'width.px':'23' , 'fill': activePage == 1 ? '#bbb': '#000' , 'height': '100%'}"></svg-icon>
+            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': 'rotate(90deg)', 'width.px':'23' , 'fill': activePage == 0 ? '#bbb': '#000' , 'height': '100%'}"></svg-icon>
           </span>
           <span class="pagination-action__next" (click)="paginationEvent('next')">
             <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': 'rotate(-90deg)', 'width.px':'23' , 'fill': pagesCount > activePage ? '#000': '#bbb' , 'height': '100%'}"></svg-icon>

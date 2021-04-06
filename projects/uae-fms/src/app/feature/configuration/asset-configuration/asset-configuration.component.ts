@@ -274,6 +274,10 @@ typeDescription: "4-
     this.table.exportTable(this.assetConfigurationableSetting, 'Asset Type');
   }
 
+  eventPagination() {
+    this.facade.loadAll();
+  }
+
   ngOnDestroy() {
     this.addOpen$.unsubscribe();
     this.assetConfigurationableSetting.data = [];
