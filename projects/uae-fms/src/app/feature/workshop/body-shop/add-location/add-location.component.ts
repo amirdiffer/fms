@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TableSetting } from '@core/table';
-import { ButtonType } from '@core/table/table.component';
+import { ButtonType, ColumnType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { BodyShopLocationFacade } from '@feature/workshop/+state/body-shop';
@@ -80,102 +80,66 @@ export class AddLocationComponent extends Utility implements OnInit {
       name: 'Location ID 6'
     }
   ];
+  locationData$ = this._facadeLocation.bodyShop$.pipe(
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
+          locationId: y.locationThirdPartyId,
+          service: y.services.join(','),
+          address: y.address,
+          section: '',
+          jobCard: y.numOfJobCards,
+          technician: y.numOfTechnicians,
+          capacity: y.capacity
+        };
+      });
+    })
+  );
   addLocation_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.location_id', type: 1, field: 'Location_ID' },
-      { lable: 'tables.column.services', type: 1, field: 'Services' },
-      { lable: 'tables.column.location', type: 1, field: 'Location' },
-      { lable: 'tables.column.section', type: 1, field: 'Section' },
+      { lable: 'tables.column.location_id', field: 'locationId', width: 200 },
+      {
+        lable: 'tables.column.services',
+        field: 'service',
+        type: ColumnType.lable,
+        width: 200
+      },
+      {
+        lable: 'tables.column.address',
+        field: 'address',
+        type: ColumnType.lable,
+        width: 200
+      },
+      {
+        lable: 'tables.column.section',
+        field: 'section',
+        type: ColumnType.lable,
+        width: 120
+      },
       {
         lable: 'tables.column.job_card',
-        type: 1,
-        field: 'Job_Card',
+        field: 'jobCard',
+        type: ColumnType.lable,
+        width: 100,
         sortable: true
       },
       {
         lable: 'tables.column.technician',
-        type: 1,
-        field: 'Technician',
+        field: 'technician',
+        type: ColumnType.lable,
+        width: 100,
         sortable: true
       },
       {
-        lable: 'tables.column.assets',
-        type: 1,
-        field: 'Assets',
+        lable: 'tables.column.capacity',
+        field: 'capacity',
+        type: ColumnType.lable,
+        width: 100,
         sortable: true
-      },
-      {
-        lable: '<img src="assets/icons/ellipsis-v.svg" class="icon24px">',
-        type: 3,
-        width: 70,
-        isIconLable: true,
-        field: 'addButton',
-        renderer: 'button',
-        buttonType: ButtonType.add
       }
     ],
-    data: [
-      {
-        Location_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        Location_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        Location_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        Location_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        Location_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        Location_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      }
-    ]
+    data: []
   };
   private _location: any;
 
@@ -190,6 +154,7 @@ export class AddLocationComponent extends Utility implements OnInit {
   }
 
   ngOnInit(): void {
+    this._facadeLocation.loadAll();
     this.buildForm();
   }
   private buildForm() {

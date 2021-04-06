@@ -304,17 +304,17 @@ export class BodyShopComponent implements OnInit {
               .navigate(['/workshop/body-shop/request-overview/' + data.id])
               .then();
           }
-        },
-        {
-          button: 'edit',
-          color: '#3F3F3F',
-          onClick: (col, data, button?) => {
-            this._facadeRequest.resetParams();
-            this.router.navigate([
-              '/workshop/body-shop/edit-request/' + data.id
-            ]);
-          }
         }
+        // {
+        //   button: 'edit',
+        //   color: '#3F3F3F',
+        //   onClick: (col, data, button?) => {
+        //     this._facadeRequest.resetParams();
+        //     this.router.navigate([
+        //       '/workshop/body-shop/edit-request/' + data.id
+        //     ]);
+        //   }
+        // }
       ]
     }
   };
@@ -664,7 +664,7 @@ export class BodyShopComponent implements OnInit {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
-            this._facadeRequest.resetParams();
+            this._facadeTechnician.resetParams();
             this.router.navigate([
               '/workshop/body-shop/edit-technician/' + data.id
             ]);

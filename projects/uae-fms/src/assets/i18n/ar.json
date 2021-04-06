@@ -436,7 +436,8 @@
       "trim": "موديل فرعي",
       "trims": "الديكورات",
       "color": "اللون",
-      "models": "عارضات ازياء"
+      "models": "عارضات ازياء",
+      "Capacity": "الاهلية"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -949,7 +950,8 @@
           "title": "تحميل صورة الملف الشخصي",
           "progressbar_title": "*.pdf",
           "content": "سحب وإسقاط ملف الصورة"
-        }
+        },
+        "full_name_arabic_validation_error": "يرجى ملء الاسم الكامل باللغة الإنجليزية"
       },
       "location": {
         "location_info": "معلومات الموقع",

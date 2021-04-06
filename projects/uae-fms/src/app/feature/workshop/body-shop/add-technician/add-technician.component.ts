@@ -75,126 +75,97 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   getEmployeesList = new Subject();
   employeeId;
   employee_static;
+  technicianData$ = this._technicianFacade.bodyShop$.pipe(
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
+          technician: {
+            firstName: y.user.firstName,
+            lastName: y.user.lastName,
+            id: y.user.id
+            // picture: 'assets/user-image.png',
+          },
+          skill: y.skills.map((s) => s.name).join(','),
+          status: 'Available',
+          tasks: y.numOfTasks,
+          information: {
+            email: y.user.emails[0],
+            phoneNumber: y.user.phoneNumbers[0]
+          },
+          ratePerHour: y.payPerHour
+        };
+      });
+    })
+  );
 
   addTechnician_Table: TableSetting = {
     columns: [
       {
         lable: 'tables.column.technician',
         field: 'technician',
-        renderer: 'technicianRenderer',
-        thumbField: 'picture'
+        width: 180,
+        renderer: 'userRenderer'
       },
       {
         lable: 'tables.column.skill',
         field: 'skill',
-        type: ColumnType.lable,
-        width: 400
+        width: 180,
+        type: ColumnType.lable
       },
       {
         lable: 'tables.column.status',
         field: 'status',
         type: ColumnType.lable,
+        width: 120,
         textColor: '#6870B4'
       },
       {
-        lable: 'tables.column.tasks',
+        lable: 'tables.column.task',
         field: 'tasks',
-        type: ColumnType.lable
+        type: ColumnType.lable,
+        width: 80
       },
       {
         lable: 'tables.column.information',
         field: 'information',
         type: ColumnType.lable,
+        width: 120,
         renderer: 'informationRenderer'
       },
       {
         lable: 'tables.column.rate_per_hour',
         field: 'ratePerHour',
-        type: ColumnType.lable
+        type: ColumnType.lable,
+        width: 100,
+        sortable: true
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton',
+        hasJobCardButton: false
       }
     ],
-    data: [
-      {
-        statusColor: '#6870B4',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        picture: 'technician-image.png',
-        id: '123456789',
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      },
-      {
-        statusColor: '#6870B4',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        picture: 'technician-image.png',
-        id: '123456789',
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      },
-      {
-        statusColor: '#6870B4',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        picture: 'technician-image.png',
-        id: '123456789',
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      },
-      {
-        statusColor: '#6870B4',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        picture: 'technician-image.png',
-        id: '123456789',
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      },
-      {
-        statusColor: '#6870B4',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        picture: 'technician-image.png',
-        id: '123456789',
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      }
-    ]
+    data: [],
+    rowSettings: {
+      onClick: (col, data, button?) => {},
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this._technicianFacade.resetParams();
+            this.router.navigate([
+              '/workshop/body-shop/edit-technician/' + data.id
+            ]);
+          }
+        }
+      ]
+    }
   };
   currentTab: string;
   private _technician: any;
@@ -229,6 +200,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   }
 
   ngOnInit(): void {
+    this._technicianFacade.loadAll();
     this._locationFacade.loadAll();
     this._taskMasterService.skills().subscribe((x) => {
       let data = x.message;
@@ -276,6 +248,9 @@ export class AddTechnicianComponent extends Utility implements OnInit {
                 email: x.user.emails,
                 phoneNumber: x.user.phoneNumbers
               });
+              this.inputForm.controls['professionalInfo'].patchValue({
+                skills: x.skills
+              });
               this.inputForm.controls['personalInfo']
                 .get('firstName')
                 .markAsDirty();
@@ -294,7 +269,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
             if (formValues.portalInfo.employeeNumber.name) {
               this.inputForm.controls['personalInfo'].patchValue(
                 {
-                  firstName: formValues.portalInfo.employeeNumber.name,
+                  firstName: formValues.portalInfo.employeeNumber.nameEn,
                   lastName: formValues.portalInfo.employeeNumber.name
                 },
                 { emitEvent: false }
@@ -477,7 +452,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         payPerHour: f.portalInfo.payPerHours,
         isActive: f.portalInfo.active,
         profileDocId: this.profileDocId || 1,
-        skillIds: [3],
+        skillIds: f.professional.skills.map((s) => s.id),
         locationIds: f.professional.location.map((l) => l.id),
         firstName: f.personalInfo.firstName,
         lastName: f.personalInfo.lastName,
@@ -490,7 +465,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         phoneNumbers: this.getPhone(f),
         notifyByCall: f.personalInfo.notification.call,
         notifyBySMS: f.personalInfo.notification.sms,
-        notifyByWhatsApp: f.personalInfo.notification.whatsapp,
+        notifyByWhatsapp: f.personalInfo.notification.whatsapp,
         notifyByEmail: f.personalInfo.notification.email
       };
 
@@ -555,8 +530,8 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     this.inputForm.get('personalInfo').patchValue({
       phoneNumber: [$event.mobileNumber],
       email: [$event.emailAddress],
-      firstName: $event.name,
-      lastName: ''
+      firstName: $event.nameEn,
+      lastName: $event.name
     });
     this.inputForm.get('personalInfo.firstName').markAsDirty();
     this.inputForm.get('personalInfo.lastName').markAsDirty();
