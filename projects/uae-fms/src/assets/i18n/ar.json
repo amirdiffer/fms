@@ -114,7 +114,21 @@
     "add_temporary_request": "إضافة طلب مؤقت",
     "add_permanent_request": "إضافة طلب دائم",
     "add_operator": "إضافة عامل",
-    "edit_operator": "تحرير المشغل"
+    "edit_operator": "تحرير المشغل",
+    "item":  "بند",
+    "edit_sub_asset": "تعديل أصل فرعي",
+    "edit_asset": "تعديل الأصول ",
+    "add_department": "إضافة الإدارة",
+    "edit_request": "تعديل الطلب",
+    "edit_technician": "تعديل الفني",
+    "add_job_card": "إضافة بطاقة العمل",
+    "edit_job_card": "تعديل بطاقة العمل",
+    "request_overview": "طلب نظرة عامة",
+    "add_make": "إضافة الماركة",
+    "add_model": "إضافة الموديل",
+    "add_trim": "إضافة الموديل الفرعي ",
+    "edit_business_category": "تعديل طبيعة الأصل",
+    "company_setting": "إعداد الشركة"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
