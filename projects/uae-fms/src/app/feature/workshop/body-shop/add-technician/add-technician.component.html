@@ -195,18 +195,15 @@
                 <span class="p-float-label w-100">
                   <input type="text" class="form-control"
                     formControlName="firstName"
-                    placeholder="{{'workshop.body_shop.technician.first_name' |
-                    translate}}"
+                    placeholder="{{ 'configuration.users.full_name_english' | translate }}"
                     [class.invalid]="!inputForm.get('personalInfo.firstName').valid
                     && submited">
-                  <label>{{'workshop.body_shop.technician.first_name' |
-                    translate}}</label>
+                  <label>{{ 'configuration.users.full_name_english' | translate }}</label>
                 </span>
               </div>
               <anms-error
                 [showError]="hasError('personalInfo.firstName',inputForm,submited)"
-                error="{{'workshop.body_shop.technician.first_name_validation_error'
-                | translate}}"></anms-error>
+                error="{{ 'workshop.body_shop.technician.full_name_english_validation_error' | translate }}"></anms-error>
             </div>
           </div>
           <div class="col-lg-7">
@@ -215,18 +212,15 @@
                 <span class="p-float-label w-100">
                   <input type="text" class="form-control"
                     formControlName="lastName"
-                    placeholder="{{'workshop.body_shop.technician.last_name' |
-                    translate}}"
+                    placeholder="{{ 'configuration.users.full_name_arabic' | translate }}"
                     [class.invalid]="!inputForm.get('personalInfo.lastName').valid
                     && submited">
-                  <label>{{'workshop.body_shop.technician.last_name' |
-                    translate}}</label>
+                  <label>{{ 'configuration.users.full_name_arabic' | translate }}</label>
                 </span>
               </div>
               <anms-error
                 [showError]="hasError('personalInfo.lastName',inputForm,submited)"
-                error="{{'workshop.body_shop.technician.last_name_validation_error'
-                | translate}}"></anms-error>
+                error="{{ 'workshop.body_shop.technician.full_name_arabic_validation_error' | translate }}"></anms-error>
             </div>
           </div>
         </div>
@@ -323,7 +317,7 @@
   <div class="col-12">
     <div class="component_wrapper table-container">
       <div class="table-wreapper">
-        <app-table [setting]='addTechnician_Table'></app-table>
+        <app-table [setting]='addTechnician_Table' [tableData]="technicianData$"></app-table>
       </div>
     </div>
   </div>

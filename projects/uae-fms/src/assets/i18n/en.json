@@ -115,7 +115,21 @@
     "accessory_overview": "Accessory Overview",
     "edit_accessory": "Edit Accessory",
     "add_operator": "Add Operator",
-    "edit_operator": "Edit Operator"
+    "edit_operator": "Edit Operator",
+    "item": "Item",
+    "edit_sub_asset": "Edit Sub Asset",
+    "edit_asset": "Edit Asset",
+    "add_department": "Add Department",
+    "edit_request": "Edit Request",
+    "edit_technician": "Edit Technician",
+    "add_job_card": "Add Job Card",
+    "edit_job_card": "Edit Job Card",
+    "request_overview": "Request OverView",
+    "add_make": "Add Make",
+    "add_model": "Add Model",
+    "add_trim": "Add Trim",
+    "edit_business_category": "Edit Business Category",
+    "company_setting": "Company Setting"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -437,7 +451,8 @@
       "trim": "Trim",
       "trims": "Trims",
       "color": "Color",
-      "models": "Models"
+      "models": "Models",
+      "capacity": "Capacity"
     },
     "button": {
       "view_report": "View Report",
@@ -966,7 +981,9 @@
           "title": "Upload Profile Picture",
           "progressbar_title": "*.pdf",
           "content": "Drag and Drop Picture File"
-        }
+        },
+        "full_name_arabic_validation_error": "Please fill fullname arabic",
+        "full_name_english_validation_error": "Please fill fullname english"
       },
       "location": {
         "location_info": "Location Info",
