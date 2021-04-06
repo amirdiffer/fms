@@ -114,7 +114,21 @@
     "add_temporary_request": "إضافة طلب مؤقت",
     "add_permanent_request": "إضافة طلب دائم",
     "add_operator": "إضافة عامل",
-    "edit_operator": "تحرير المشغل"
+    "edit_operator": "تحرير المشغل",
+    "item":  "بند",
+    "edit_sub_asset": "تعديل أصل فرعي",
+    "edit_asset": "تعديل الأصول ",
+    "add_department": "إضافة الإدارة",
+    "edit_request": "تعديل الطلب",
+    "edit_technician": "تعديل الفني",
+    "add_job_card": "إضافة بطاقة العمل",
+    "edit_job_card": "تعديل بطاقة العمل",
+    "request_overview": "طلب نظرة عامة",
+    "add_make": "إضافة الماركة",
+    "add_model": "إضافة الموديل",
+    "add_trim": "إضافة الموديل الفرعي ",
+    "edit_business_category": "تعديل طبيعة الأصل",
+    "company_setting": "إعداد الشركة"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -436,7 +450,8 @@
       "trim": "موديل فرعي",
       "trims": "الديكورات",
       "color": "اللون",
-      "models": "عارضات ازياء"
+      "models": "عارضات ازياء",
+      "Capacity": "الاهلية"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -531,6 +546,7 @@
     "start_customization": "ابدأ التخصيص",
     "third_camera": "الكاميرا الثالثة",
     "saved": "تم الحفظ",
+    "period_type":"نوع الفترة",
     "asset_successfully_registered": "تم تسجيل الأصل بنجاح",
     "customize_later": "التخصيص لاحقًا",
     "customize_now": "تخصيص الآن",
@@ -949,7 +965,8 @@
           "title": "تحميل صورة الملف الشخصي",
           "progressbar_title": "*.pdf",
           "content": "سحب وإسقاط ملف الصورة"
-        }
+        },
+        "full_name_arabic_validation_error": "يرجى ملء الاسم الكامل باللغة الإنجليزية"
       },
       "location": {
         "location_info": "معلومات الموقع",
