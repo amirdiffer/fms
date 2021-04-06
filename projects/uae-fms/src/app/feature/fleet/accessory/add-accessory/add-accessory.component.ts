@@ -146,7 +146,6 @@ export class AddAccessoryComponent implements OnInit {
     });
   }
   loadAccessoryData(recordId: number) {
-    debugger;
     this.accessoryService.getAccessory(recordId).subscribe((result: any) => {
       if (result) {
         const accessory = result.message;
@@ -169,7 +168,6 @@ export class AddAccessoryComponent implements OnInit {
         });
 
         this.setUsers(() => {
-          debugger;
           const selectedEmployee: any = this.employee.find(
             (e) => e.id === assignedToEmployeeId
           );
@@ -262,7 +260,6 @@ export class AddAccessoryComponent implements OnInit {
   handleSubmissionDialog() {
     this._facade.submitted$.subscribe((x) => {
       if (x) {
-        debugger;
         this.dialogModal = true;
         this.dialogType = 'success';
         this.dialogSetting.header = this.isEdit
@@ -342,7 +339,6 @@ export class AddAccessoryComponent implements OnInit {
   }
 
   submit() {
-    debugger;
     this.formSubmitted = true;
     if (this.accessoryForm.invalid) {
       this.accessoryForm.markAllAsTouched();

@@ -71,7 +71,6 @@ export class AccessoryEffect {
     this.action$.pipe(
       ofType(AccessoryActions.editAccessory),
       mergeMap((action) => {
-        debugger;
         return this.service.editAccessory(action.data, action.id).pipe(
           map((data) =>
             AccessoryActions.accessoryEditedSuccessfully({ data: data.message })
