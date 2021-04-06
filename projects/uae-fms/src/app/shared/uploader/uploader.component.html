@@ -39,9 +39,9 @@
   </div>
 </div>
 <ng-container>
-  <div class="col-12 d-flex flex-md-column-reverse">
+  <div class="col-12 d-flex flex-md-column-reverse" >
     <div class="row">
-      <div *ngFor="let file of files; let index=i;" class="col-auto mb-2  align-self-end">
+      <div *ngFor="let file of files; let index=index;" class="col-auto mb-2  align-self-end">
         <div  [class.preview]="preview" class="upload-file-item">
           <p>file name</p>
           <span (click)="removeFile(index)">
