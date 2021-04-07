@@ -21,6 +21,7 @@ import { UserProfileFacade } from '@feature/user/state';
 })
 export class LoginComponent implements OnInit {
   showLoginError = false;
+  submited = false;
 
   public credentialsFG: FormGroup;
   constructor(
@@ -51,6 +52,24 @@ export class LoginComponent implements OnInit {
     htmlTag.dir = language === 'ar' ? 'rtl' : 'ltr';
   }
 
+
+
+  hasError(
+    controlName: string,
+    formGroup: any,
+    submited = false,
+    errorType = 'required'
+  ): boolean {
+    const control: FormControl = formGroup.controls[controlName] as FormControl;
+    if (
+      (control && ((control.dirty && control.invalid) || (control.invalid && submited))) &&
+      control.hasError(errorType)
+    ) {
+      return true;
+    }
+    return;
+  }
+
   ngOnInit() {
     this.route.queryParams.subscribe((x) => {
       if (x.action && x.action == 'logout') {
@@ -69,6 +88,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
+    this.submited = true;
+    if (this.credentialsFG.invalid) return;
     this.loginService
       .login({
         username: this.credentialsFG.value.username,
