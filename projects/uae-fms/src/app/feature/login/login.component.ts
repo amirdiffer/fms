@@ -1,4 +1,10 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import { LoginService } from './login.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +20,9 @@ import { UserProfileFacade } from '@feature/user/state';
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
+  showLoginError = false;
+  submited = false;
+
   public credentialsFG: FormGroup;
   constructor(
     private loginService: LoginService,
@@ -21,7 +30,8 @@ export class LoginComponent implements OnInit {
     private settingFacade: SettingsFacade,
     @Inject(DOCUMENT) private document: Document,
     private profileFacade: UserProfileFacade,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private changeDetector: ChangeDetectorRef
   ) {
     this.credentialsFG = new FormGroup({
       username: new FormControl('', [Validators.required]),
@@ -42,6 +52,24 @@ export class LoginComponent implements OnInit {
     htmlTag.dir = language === 'ar' ? 'rtl' : 'ltr';
   }
 
+
+
+  hasError(
+    controlName: string,
+    formGroup: any,
+    submited = false,
+    errorType = 'required'
+  ): boolean {
+    const control: FormControl = formGroup.controls[controlName] as FormControl;
+    if (
+      (control && ((control.dirty && control.invalid) || (control.invalid && submited))) &&
+      control.hasError(errorType)
+    ) {
+      return true;
+    }
+    return;
+  }
+
   ngOnInit() {
     this.route.queryParams.subscribe((x) => {
       if (x.action && x.action == 'logout') {
@@ -54,11 +82,14 @@ export class LoginComponent implements OnInit {
 
     this.settingFacade.language.subscribe((lang) => (this.activeLang = lang));
     this.profileFacade.loadData$.subscribe((x) => {
-      if (x) { }
+      if (x) {
+      }
     });
   }
 
   login(): void {
+    this.submited = true;
+    if (this.credentialsFG.invalid) return;
     this.loginService
       .login({
         username: this.credentialsFG.value.username,
@@ -124,7 +155,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/configuration/user-management/users']);
         },
         (error) => {
-          // console.log("Error : ", error)
+          this.showLoginError = true;
+          this.changeDetector.markForCheck();
         }
       );
   }

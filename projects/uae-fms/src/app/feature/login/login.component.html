@@ -31,13 +31,14 @@
                   <div class="field-icon">
                   </div>
                   <div class="field-input">
-                    <input type="text" class="w-100" placeholder="{{ 'login.user_name' | translate }}" formControlName="username" />
+                    <input type="text" class="w-100" placeholder="{{ 'login.user_name' | translate }}"
+                      (input)='showLoginError = false' formControlName="username" />
                   </div>
                 </div>
               </div>
-              <span class="form-control-feedback" *ngIf="credentialsFG.controls.username.hasError('incorrect')">
-                {{ 'login.incorrect_username' | translate }}
-              </span>
+              <anms-error [showError]="hasError('username',credentialsFG,submited)"
+                error="login.incorrect_username">
+              </anms-error>
             </div>
 
             <div class="form-group has-feedback">
@@ -46,25 +47,32 @@
                   <div class="field-icon">
                   </div>
                   <div class="field-input">
-                    <input (keyup.enter)="login()" type="password" class="w-100 input_component" placeholder="{{ 'login.password' | translate }}"
-                      formControlName="password" />
+                    <input (keyup.enter)="login()" type="password" class="w-100 input_component"
+                      placeholder="{{ 'login.password' | translate }}" formControlName="password"
+                      (input)='showLoginError = false' />
                   </div>
                 </div>
               </div>
-              <span class="form-control-feedback" *ngIf="credentialsFG.controls.password.hasError('incorrect')">
-                {{ 'login.incorrect_password' | translate }}
-              </span>
+              <anms-error [showError]="hasError('password',credentialsFG,submited)"
+                error="login.incorrect_password">
+              </anms-error>
+
             </div>
-            <div class="m-card-options row m-0">
-              <button type="submit" class="w-75 fw-400 font-weight-bold button-login col-10">
+            <div class="d-flex flex-nowrap">
+              <button type="submit" class="w-75 font-weight-bold button-login" [class.mr-1]='activeLang === "en"'
+                [class.ml-1]='activeLang === "ar"'>
                 {{ 'login.login' | translate }}
               </button>
-              <button type="button" (click)="changeLanguage(activeLang == 'en' ? 'ar' : 'en')"  class="fw-400 font-weight-bold button-language col-1">
+              <button type="button" (click)="changeLanguage(activeLang == 'en' ? 'ar' : 'en')"
+                class="w-25 font-weight-bold button-language">
                 <ng-template [ngIf]="activeLang == 'en'" [ngIfElse]="english">
                   العربية
                 </ng-template>
                 <ng-template #english>English</ng-template>
               </button>
+            </div>
+            <div class='w-75 mt-1' [hidden]='!showLoginError'>
+              <p class='text-danger font-weight-bold'>{{ 'login.username_or_password_is_incorrect' | translate }}</p>
             </div>
           </form>
         </div>
