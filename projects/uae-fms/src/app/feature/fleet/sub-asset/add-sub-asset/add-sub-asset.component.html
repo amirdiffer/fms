@@ -55,7 +55,8 @@
         </div>
         <div class="col-12 col-md-2 p-field form-section__field">
           <span class="p-float-label">
-            <input formControlName="year" pInputText placeholder="{{'sub_asset.year' | translate}}*" type="number">
+            <input formControlName="year" class="number_input" pInputText
+              placeholder="{{'sub_asset.year' | translate}}*" type="number">
             <label>{{'sub_asset.year' | translate}}*</label>
           </span>
           <anms-error [showError]="hasError('year',subAssetForm,submitted)" error="forms.feedback.required">
@@ -94,8 +95,8 @@
 
         <div class="col-12 col-md-4 p-field form-section__field">
           <span class="p-float-label">
-            <input  numbersOnly formControlName="purchaseValue" pInputText placeholder="{{'sub_asset.purchase_value' | translate}}*"
-              type="text">
+            <input numbersOnly formControlName="purchaseValue" pInputText
+              placeholder="{{'sub_asset.purchase_value' | translate}}*" type="text">
             <label>{{'sub_asset.purchase_value' | translate}}*</label>
           </span>
           <anms-error [showError]="hasError('purchaseValue',subAssetForm,submitted)" error="forms.feedback.required">
@@ -109,8 +110,7 @@
           '100%'}"></svg-icon>
         </span>{{'sub_asset.warranty_items' | translate}}</h3>
       <div class="row form-section__row" [formGroupName]="i" *ngFor="let
-      item of subAssetForm.get('warranties')['controls']; let i=
-      index;">
+      item of subAssetForm.get('warranties')['controls']; let i=index;">
         <div class="col-12 col-md-3 p-field form-section__field">
           <span class="p-float-label">
             <input formControlName="item" pInputText placeholder="{{ 'sub_asset.item' | translate }}" type="text">
@@ -119,7 +119,8 @@
         </div>
         <div class="col-12 col-md-1 pr-0 p-field form-section__field dropdown-select">
           <span class="p-float-label">
-            <p-dropdown class='w-50' inputId="unit" [options]="units" formControlName="periodType" optionLabel="name" optionValue="id"></p-dropdown>
+            <p-dropdown class='w-50' inputId="unit" [options]="units" formControlName="periodType" optionLabel="name"
+              optionValue="id"></p-dropdown>
             <label for="periodicService">{{ 'assets.year' | translate }}</label>
           </span>
         </div>
@@ -190,18 +191,18 @@
       <div *ngIf="isSingleAsset" class="row form-section__row">
         <div class="col-12 col-md-12 p-field form-section__field">
           <span class="p-float-label">
-            <input pInputText numbersOnly [placeholder]="'sub_asset.serial_number' | translate" formControlName="serialNumber"  type="text">
+            <input pInputText numbersOnly [placeholder]="'sub_asset.serial_number' | translate"
+              formControlName="serialNumber" type="text">
             <label>{{ 'sub_asset.serial_number' | translate }}</label>
           </span>
-          <anms-error
-          [showError]="hasError('serialNumber',subAssetForm, submitted)"
-          error="forms.feedback.required">
+          <anms-error [showError]="hasError('serialNumber',subAssetForm, submitted)" error="forms.feedback.required">
           </anms-error>
         </div>
       </div>
     </div>
     <div *ngIf="!isSingleAsset" class="second-step-upload-box">
-      <anms-uploader  [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="subAssetDocRequired" (uploadedEvent)="uploadDocFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
+      <anms-uploader [multiple]="true" [preview]="false" [accept]="['.png','.jpg']"
+        (uploadedEvent)="uploadDocFiles($event)"></anms-uploader>
     </div>
     <div class="col-12 col-md-12 p-field form-section__field">
       <span class="">

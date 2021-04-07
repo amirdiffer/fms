@@ -387,9 +387,11 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       avatarId: [],
       description: [''],
       warranties: this._fb.array([this.createWarrantyForm()]),
-      assetQuantity: ['single']
+      assetQuantity: ['single'],
       // uploadFile:['']
     });
+
+    // this.setAssetTypes['periodType'].value = 'MONTH';
   }
 
   initPolicyTypes() {
@@ -467,7 +469,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   createWarrantyForm(
     item = '',
-    year = '',
+    year = 'YEAR',
     duration = '',
     startDate = ''
   ): FormGroup {
@@ -612,7 +614,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {});
+        fileEntry.file((file: File) => { });
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
