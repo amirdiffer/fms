@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
 import { jsPDF } from 'jspdf';
@@ -32,7 +24,7 @@ export class TableComponent implements OnInit {
     private settingFacade: SettingsFacade,
     private changeDetection: ChangeDetectorRef,
     private translate: TranslateService
-  ) {}
+  ) { }
   ngOnInit() {
     this.settingFacade.language.subscribe((lang) => {
       this.activeLang = lang;
@@ -53,19 +45,16 @@ export class TableComponent implements OnInit {
           return data[col.field];
         case 2:
           return data[col.thumbField]
-            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
-                col.override
-                  ? 'assets/' + col.override
-                  : environment.baseFileServer + data[col.thumbField]
-              }'> <p class='text-of-cell-with-image'>${
-                data[col.field]
-              }</p></div>`
+            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${col.override
+              ? 'assets/' + col.override
+              : environment.baseFileServer + data[col.thumbField]
+            }'> <p class='text-of-cell-with-image'>${data[col.field]
+            }</p></div>`
             : data[col.field];
         case 3:
           return data[col.thumbField]
-            ? `<img class='thumb' src='${
-                environment.baseFileServer + data[col.thumbField]
-              }'>`
+            ? `<img class='thumb' src='${environment.baseFileServer + data[col.thumbField]
+            }'>`
             : '';
       }
     } else {
@@ -139,27 +128,24 @@ export class TableComponent implements OnInit {
       if (title === 'assetMasterTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\n${data[col.field].ownership}`;
+            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+              }\n${data[col.field].ownership}`;
           });
         }
       }
       if (title === 'pendingRegistrationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+              }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
       if (title === 'pendingCustomizationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+              }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
