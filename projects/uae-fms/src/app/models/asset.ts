@@ -24,6 +24,7 @@ export interface IAsset {
 }
 
 export interface IWarrantyItems {
+  id?:number;
   item: string;
   periodType: string;
   duration: number;

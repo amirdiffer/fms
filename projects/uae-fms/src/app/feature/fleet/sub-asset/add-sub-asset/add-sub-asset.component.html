@@ -210,6 +210,9 @@
       <span class="p-float-label">
         <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [multiple]="false"
           [title]="'sub_asset.upload_picture'|translate" [preview]="true" [accept]="['.png','.jpg']"
+          [files]="avatarDoc"
+          [isImage]="true"
+          [hasError]="avatarDocRequired"
           (uploadedEvent)="uploadAssetPicture($event)">
         </anms-uploader>
       </span>

@@ -43,6 +43,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   warranties: FormArray;
   submitted = false;
   warrantyDocs = [];
+  avatarDoc;
   public filesUploaded: NgxFileDropEntry[] = [];
 
   thirdStepTableColumns: ColumnDifinition[] = [
@@ -207,6 +208,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   isSingleAsset = true;
   //#endregion
 
+  avatarDocRequired:boolean=false;
   constructor(
     injector: Injector,
     private _fb: FormBuilder,
@@ -250,6 +252,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     this.subAssetService.getSubAsset(recordId).subscribe((result: any) => {
       if (result && result.message) {
         const subAsset = result.message;
+        console.log(subAsset)
         this.subAssetForm.patchValue({
           warranties: subAsset.warranties.map((x) => {
             const date = moment.utc(x.startDate).local();
@@ -267,6 +270,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         this.subAssetForm.patchValue({
           avatarId: subAsset.avatarId
         });
+        this.avatarDoc =  Array.isArray(subAsset.avatarId) ? subAsset.avatarId : [subAsset.avatarId];
         const {
           assetTypeId,
           assetTypeName,
@@ -339,6 +343,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
   handleSubmissionDialog() {
     this.subAssetFacade.submitted$.subscribe((x) => {
+      console.log(x)
       if (x) {
         this.dialogModal = true;
         this.dialogType = 'success';
@@ -415,6 +420,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       (result) => {
         if (result) {
           const assetTypes = result.message;
+
           const subAssetTypes = assetTypes.filter(
             (assetType) => assetType.type === SUB_ASSET_LABEL
           );
@@ -520,10 +526,14 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   submit() {
     this.submitted = true;
+    if(!this.avatarDoc){
+      this.avatarDocRequired=true;
+    }
     if (this.subAssetForm.invalid) {
       return;
     } else {
       const data = this.getSubAssetRequestPayload(this.subAssetForm.value);
+      console.log(data);
       if (!this.isEdit) {
         console.log(data);
         this.subAssetFacade.addSubAsset(data);
@@ -552,6 +562,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     if (this.isEdit) {
       const dpd = subAssetFormValue.serialNumber;
       return {
+        id:this.recordId,
         avatarId,
         dpd,
         assetTypeId: subAssetType.id,

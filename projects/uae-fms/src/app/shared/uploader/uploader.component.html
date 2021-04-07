@@ -42,7 +42,7 @@
   <div class="col-12 d-flex flex-md-column-reverse" >
     <div class="row">
       <div *ngFor="let file of files; let index=index;" class="col-auto mb-2  align-self-end">
-        <div  [class.preview]="preview" class="upload-file-item">
+        <div  [class.preview]="preview" class="upload-file-item" [class.is-image]="isImage">
           <p>file name</p>
           <span (click)="removeFile(index)">
             <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':'12' , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>
