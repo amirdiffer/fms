@@ -115,7 +115,7 @@
     "add_permanent_request": "إضافة طلب دائم",
     "add_operator": "إضافة عامل",
     "edit_operator": "تحرير المشغل",
-    "item":  "بند",
+    "item": "بند",
     "edit_sub_asset": "تعديل أصل فرعي",
     "edit_asset": "تعديل الأصول ",
     "add_department": "إضافة الإدارة",
@@ -546,7 +546,7 @@
     "start_customization": "ابدأ التخصيص",
     "third_camera": "الكاميرا الثالثة",
     "saved": "تم الحفظ",
-    "period_type":"نوع الفترة",
+    "period_type": "نوع الفترة",
     "asset_successfully_registered": "تم تسجيل الأصل بنجاح",
     "customize_later": "التخصيص لاحقًا",
     "customize_now": "تخصيص الآن",
@@ -1211,7 +1211,8 @@
     "service": "خدمة",
     "system": "نظام",
     "user_name": "اسم االمستخدم",
-    "title": "نظام إدارة الأسطول"
+    "title": "نظام إدارة الأسطول",
+    "username_or_password_is_incorrect": "اسم المستخدم أو كلمة المرور غير صحيحة"
   },
   "buttons": {
     "reject": "يرفض",
