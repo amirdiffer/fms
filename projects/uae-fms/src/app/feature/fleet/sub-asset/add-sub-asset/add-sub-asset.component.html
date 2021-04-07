@@ -147,7 +147,7 @@
         </div>
 
         <div class='col-12 col-md-3 p-field form-section__field'>
-          <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [title]=""
+          <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [title]=""
             [preview]="false" [accept]="['.csv']" (uploadedEvent)="uploadWarrantyFiles($event,i)"
             [files]="[warrantyDocs[i]]"></anms-uploader>
         </div>
@@ -209,7 +209,7 @@
         {{'sub_asset.upload_picture'|translate}}
       </span>
       <span class="p-float-label">
-        <anms-uploader [hintIsHidden]="true" [iconIsHidden]="true" [multiple]="false"
+        <anms-uploader [iconIsHidden]="true" [multiple]="false"
           [title]="'sub_asset.upload_picture'|translate" [preview]="true" [accept]="['.png','.jpg']"
           (uploadedEvent)="uploadAssetPicture($event)">
         </anms-uploader>
