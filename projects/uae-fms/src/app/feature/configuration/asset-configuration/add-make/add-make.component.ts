@@ -28,7 +28,7 @@ import { AssetTypeFacade } from '@feature/configuration/+state/asset-configurati
 import { Utility } from '@shared/utility/utility';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { IAssetType } from '@models/asset-type.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'anms-add-make',
@@ -78,7 +78,8 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
     private changeDetectorRef: ChangeDetectorRef,
     public dataService: DataService,
     injector: Injector,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public router: Router
   ) {
     super(injector);
     this.assetConfigurationTableSetting = this._assetConfigurationService.assetConfigurationableSetting();

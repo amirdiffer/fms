@@ -22,6 +22,7 @@ import { AssetTypeFacade } from '@feature/configuration/+state/asset-configurati
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { Utility } from '@shared/utility/utility';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-add-trim',
@@ -71,6 +72,7 @@ export class AddTrimComponent extends Utility implements OnInit {
     private facade: AssetTypeFacade,
     private changeDetectorRef: ChangeDetectorRef,
     public dataService: DataService,
+    public router: Router,
     injector: Injector
   ) {
     super(injector);
