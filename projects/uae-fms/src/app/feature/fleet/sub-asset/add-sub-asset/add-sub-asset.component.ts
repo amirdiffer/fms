@@ -276,7 +276,10 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     this.subAssetService.getSubAsset(recordId).subscribe((result: any) => {
       if (result && result.message) {
         const subAsset = result.message;
-        console.log(subAsset)
+        console.log(subAsset.warranties.length)
+        for (let index = 0; index < subAsset.warranties.length-1; index++){
+          this.addWarranty();
+        };
         this.subAssetForm.patchValue({
           warranties: subAsset.warranties.map((x) => {
             const date = moment.utc(x.startDate).local();
@@ -356,8 +359,10 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           purchaseValue,
           description
         };
-
         this.subAssetForm.patchValue(formValue);
+        this.subAssetForm.patchValue({
+          year:+formValue.year
+        })
 
         // reset warranty form
         // (this.subAssetForm.get('warrantyItems') as FormArray).removeAt(0);
@@ -411,14 +416,16 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       model: ['', [Validators.required]],
       year: ['', [Validators.required]],
       origin: ['', [Validators.required]],
-      policyType: ['', [Validators.required]],
+      policyType: [''],
       purchaseValue: ['', [Validators.required]],
       avatarId: [],
       description: [''],
       warranties: this._fb.array([this.createWarrantyForm()]),
-      assetQuantity: ['single']
+      assetQuantity: ['single'],
       // uploadFile:['']
     });
+
+    // this.setAssetTypes['periodType'].value = 'MONTH';
   }
 
   initPolicyTypes() {
@@ -470,6 +477,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     console.log(this.subAssetForm.value)
     if (this.subAssetForm.invalid) {
       this.subAssetForm.markAllAsTouched();
+      this.submitted = true;
       return;
     }
     console.log(this.warrantyDocs)
@@ -540,7 +548,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   createWarrantyForm(
     item = '',
-    periodType = '',
+    periodType = 'YEAR',
     duration = '',
     startDate = ''
   ): FormGroup {
@@ -698,7 +706,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {});
+        fileEntry.file((file: File) => { });
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
