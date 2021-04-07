@@ -672,7 +672,10 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         if(this.formGroupAssetDetail.get('uploadFile').invalid){
           this.vehicleDocRequired = true;
         }
-        if (this.formGroupAssetDetail.invalid) return;
+        if (this.formGroupAssetDetail.invalid) {
+          this.formGroupAssetDetail.markAllAsTouched();
+          return;
+        }
         break;
       }
       case 1: {
@@ -680,12 +683,17 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         if(this.formGroupFinancial.get('uploadFile').invalid){
           this.purchaseDocRequired = true
         }
-        if (this.formGroupFinancial.invalid) return;
+        if (this.formGroupFinancial.invalid) {
+          this.formGroupFinancial.markAllAsTouched();
+          return;}
         break;
       }
       case 2: {
         this.submitted_Maintenance = true;
-        if (this.formGroupMaintenance.invalid) return;
+        if (this.formGroupMaintenance.invalid) {
+          this.formGroupMaintenance.markAllAsTouched();
+          return
+        };
         break;
       }
     }

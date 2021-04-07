@@ -155,6 +155,7 @@ export class AddUserComponent
           .pipe(map((x) => x.message))
           .subscribe((x) => {
             if (x) {
+              console.log(x)
               // this.profileDocId = x.profileDocId ? x.profileDocId : null;
               this._user = x;
               this.form.controls['portalInformation'].patchValue({

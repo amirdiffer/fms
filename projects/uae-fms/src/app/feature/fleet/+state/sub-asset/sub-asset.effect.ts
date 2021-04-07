@@ -41,9 +41,7 @@ export class SubAssetEffect {
       mergeMap((action) =>
         this.service.editSubAsset(action.data).pipe(
           map((data) =>
-            SubAssetActions.editSubAssetSuccessfully({
-              data: data.message
-            })
+            SubAssetActions.editSubAssetSuccessfully({ data: action.data})
           ),
           catchError((error) => of(SubAssetActions.error({ reason: error })))
         )

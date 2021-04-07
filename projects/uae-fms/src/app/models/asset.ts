@@ -18,12 +18,14 @@ export interface IAsset {
   inServiceOdometer: number;
   purchaseDocId: number;
   periodicServiceId: number;
+  createdAt?:string;
   warrantyItems: IWarrantyItems[];
   description: string;
   dpds: IDpds[];
 }
 
 export interface IWarrantyItems {
+  id?:number;
   item: string;
   periodType: string;
   duration: number;

@@ -33,8 +33,8 @@ export class SubAssetService {
     return this.http.get(environment.baseApiUrl + `sub-asset/${id}`);
   }
 
-  editSubAsset(data): Observable<any> {
-    return this.http.post(
+  editSubAsset(data): Observable<ResponseBody<ISubasset>> {
+    return this.http.post<ResponseBody<ISubasset>>(
       environment.baseApiUrl + `sub-asset/${data.id}/update`,
       data
     );
