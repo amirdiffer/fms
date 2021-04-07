@@ -6,7 +6,7 @@
           | translate }}</button>
   </div>
   <alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)"></alert-dialog>
-  <alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="displaySuccessModal=false;goToList()"></alert-dialog>
+  <alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="displaySuccessModal=false;goToList();resetParams();"></alert-dialog>
   <alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="displayErrorModal=false"></alert-dialog>
   <!-- form-section form-section--inline-->
   <div class="form-section mt-3">
@@ -138,12 +138,10 @@
                       <span class="p-float-label">
                           <input pInputText placeholder="{{
                               'configuration.ownership.duration' | translate
-                              }}" formControlName="duration"
+                              }} *" formControlName="duration"
                               type="number">
-                          <label>{{ 'configuration.ownership.duration' |
-                              translate }}</label>
                       </span>
-
+                    <anms-error [showError]="hasError('duration', ownerShipForm, submitted)" error="forms.feedback.required"></anms-error>
                   </div>
               </div>
           </div>
