@@ -22,7 +22,7 @@ import { AssetConfigurationService } from '@feature/configuration/asset-configur
 import { AssetTypeFacade } from '@feature/configuration/+state/asset-configuration';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { Utility } from '@shared/utility/utility';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'anms-add-model',
@@ -72,7 +72,6 @@ export class AddModelComponent
     private facade: AssetTypeFacade,
     private changeDetectorRef: ChangeDetectorRef,
     public dataService: DataService,
-    public router: Router,
     injector: Injector
   ) {
     super(injector);

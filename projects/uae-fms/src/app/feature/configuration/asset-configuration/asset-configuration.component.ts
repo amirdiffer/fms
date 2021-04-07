@@ -21,7 +21,6 @@ import {
   ModelExtension
 } from '@feature/configuration/asset-configuration/asset-type/asset-type.component';
 import { TableComponent } from '@core/table';
-import { Router } from '@angular/router';
 @Component({
   selector: 'anms-asset-configuration',
   templateUrl: './asset-configuration.component.html',
@@ -124,8 +123,7 @@ typeDescription: "4-
   assetConfiguration$ = this.facade.assetType$;
   constructor(
     private facade: AssetTypeFacade,
-    private _assetConfigurationService: AssetConfigurationService,
-    public router: Router
+    private _assetConfigurationService: AssetConfigurationService
   ) {}
 
   ngOnInit(): void {

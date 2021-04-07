@@ -26,7 +26,6 @@ import { AssetConfigurationService } from '../asset-configuration.service';
 import { TableSetting } from '@core/table';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetTypeFacade } from '../../+state/asset-configuration';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'congifuration-add-type',
@@ -67,7 +66,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
     private changeDetectorRef: ChangeDetectorRef,
-    public router: Router,
     injector: Injector
   ) {
     super(injector);
