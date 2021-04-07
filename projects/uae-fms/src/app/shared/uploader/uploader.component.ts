@@ -149,12 +149,10 @@ export class UploaderComponent implements OnInit {
           case HttpEventType.ResponseHeader:
             break;
           case HttpEventType.UploadProgress:
-            console.log(event.loaded , event.total)
             this.progressBarValue = Math.round(
               (event.loaded / event.total) * 100
               );
               (this.progressBarValue + ' %');
-              console.log(this.progressBarValue )
               this.changeDetector.markForCheck();
             break;
           case HttpEventType.Response:
@@ -170,6 +168,7 @@ export class UploaderComponent implements OnInit {
           if (!event.body.error) {
             if (!this.multiple) this.files = [];
             this.files.push(event.body.message.id);
+            console.log(event.body.message.id)
             this.changeDetector.markForCheck();
             if(this.readCSVFile){
               this.getValueCSV(event.body.message.id)

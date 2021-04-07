@@ -8,7 +8,7 @@
       }}</button>
     <button class="btn-primary-medium add" *ngIf="formCurrentStep === 0" type="submit" (click)="next()">{{'forms.next'
       | translate }}</button>
-    <button *ngIf="formCurrentStep === 1 && !isSingleAsset" class="btn-primary-medium add" (click)="next()">{{
+    <button *ngIf="formCurrentStep === 1 && !isSingleAsset" class="btn-primary-medium add" (click)="upload()">{{
       'forms.upload' | translate
       }}</button>
     <button *ngIf="formCurrentStep === 2 || (isSingleAsset && formCurrentStep == 1)" class="btn-primary-medium add"
@@ -53,15 +53,14 @@
           <anms-error [showError]="hasError('model',subAssetForm,submitted)" error="forms.feedback.required">
           </anms-error>
         </div>
-        <div class="col-12 col-md-2 p-field form-section__field">
+        <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
           <span class="p-float-label">
-            <input formControlName="year" pInputText placeholder="{{'sub_asset.year' | translate}}*" type="number">
-            <label>{{'sub_asset.year' | translate}}*</label>
+            <p-dropdown inputId="year" [placeholder]="'sub_asset.year' | translate" [options]="years" optionLabel="name" optionValue="id"  formControlName="year"></p-dropdown>
+            <label for="year">{{ 'sub_asset.year' | translate }} *</label>
           </span>
           <anms-error [showError]="hasError('year',subAssetForm,submitted)" error="forms.feedback.required">
           </anms-error>
         </div>
-
         <div class="col-12 col-md-2 p-field form-section__field">
           <span class="p-float-label">
             <input formControlName="origin" pInputText placeholder="{{'sub_asset.origin' | translate}}*" type="text">
@@ -119,13 +118,13 @@
         </div>
         <div class="col-12 col-md-1 pr-0 p-field form-section__field dropdown-select">
           <span class="p-float-label">
-            <p-dropdown class='w-50' inputId="unit" [options]="units" formControlName="periodType" optionLabel="name" optionValue="id"></p-dropdown>
+            <p-dropdown class='w-50' inputId="unit" [autoDisplayFirst]="false" [options]="units" formControlName="periodType" optionLabel="name" optionValue="id"></p-dropdown>
             <label for="periodicService">{{ 'assets.year' | translate }}</label>
           </span>
         </div>
         <div class="col-12 col-md-2 pl-0 p-field form-section__field">
           <span class="p-float-label form-section__field">
-            <input class='w-100' formControlName="duration" pInputText
+            <input numbersOnly class='w-100' formControlName="duration" pInputText
               placeholder="{{'sub_asset.duration' | translate}}" type="text">
             <label>{{'sub_asset.duration' | translate}}</label>
           </span>
@@ -201,7 +200,7 @@
       </div>
     </div>
     <div *ngIf="!isSingleAsset" class="second-step-upload-box">
-      <anms-uploader  [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="subAssetDocRequired" (uploadedEvent)="uploadDocFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
+      <anms-uploader [files]="csvDoc" [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="subAssetDocRequired" (uploadedEvent)="uploadDocFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
     </div>
     <div class="col-12 col-md-12 p-field form-section__field">
       <span class="">
