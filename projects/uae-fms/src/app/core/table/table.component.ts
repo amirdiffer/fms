@@ -152,6 +152,8 @@ export class TableComponent implements OnInit {
     });
 
     const pdf = new jsPDF('p', 'pt', 'a4');
+    pdf.text(title, 20, 20);
+
     autoTable(pdf, {
       columns: exportColumns,
       body: exportRows,
