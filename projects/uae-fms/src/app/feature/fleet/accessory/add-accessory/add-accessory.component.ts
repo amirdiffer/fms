@@ -260,7 +260,6 @@ export class AddAccessoryComponent implements OnInit {
   handleSubmissionDialog() {
     this._facade.submitted$.subscribe((x) => {
       if (x) {
-
         this.dialogModal = true;
         this.dialogType = 'success';
         this.dialogSetting.header = this.isEdit

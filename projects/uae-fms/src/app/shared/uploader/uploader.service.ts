@@ -12,13 +12,11 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class UploaderService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) { }
 
   uploadDoc(data: FormData) {
     return this._http.post(environment.baseApiUrl + 'document', data, {
-      headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data'
-      }),
+      headers: new HttpHeaders({}),
       reportProgress: true,
       observe: 'events'
     });
