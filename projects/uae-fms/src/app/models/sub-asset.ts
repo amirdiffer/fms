@@ -12,6 +12,7 @@ export interface ISubasset {
   avatarId: number;
   dpd: string;
   date?: string;
+  createdAt?:string;
   warrantyExpireDate?: string;
   assetTypeName?;
   modelName?;

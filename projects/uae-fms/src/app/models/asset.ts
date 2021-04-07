@@ -18,6 +18,7 @@ export interface IAsset {
   inServiceOdometer: number;
   purchaseDocId: number;
   periodicServiceId: number;
+  createdAt?:string;
   warrantyItems: IWarrantyItems[];
   description: string;
   dpds: IDpds[];

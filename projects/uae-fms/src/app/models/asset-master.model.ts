@@ -6,6 +6,7 @@ export interface IAssetMaster {
   dpd?: string;
   ownershipId?: number;
   assetTypeId?: number;
+  createdAt?:string;
   makeId?: number;
   modelId?: number;
   businessCategoryId?: number;
