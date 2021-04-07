@@ -68,28 +68,28 @@ export class AddUserComponent
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
 
@@ -109,13 +109,6 @@ export class AddUserComponent
   employeeId;
 
   departments = [{ name: 'Finance', id: 1 }];
-
-  roles = [
-    { name: 'Police', id: 1 },
-    { name: 'Manager', id: 2 },
-    { name: 'Admin', id: 3 },
-    { name: 'User', id: 4 }
-  ];
 
   tempImage: any = '';
 
@@ -232,7 +225,10 @@ export class AddUserComponent
     });
 
     this.userFacade.error$.subscribe((x) => {
-      if (x?.error) {
+      if (x) {
+        if (x?.error?.error && x.error.message) this.errorDialogSetting.message = x.error.message;
+        else this.errorDialogSetting.message = "Error occurred in progress";
+
         this.errorDialogModal = true;
         this.errorDialogSetting.header = this.isEdit
           ? 'Edit user'
@@ -302,7 +298,7 @@ export class AddUserComponent
 
   createPhoneField(): FormGroup {
     return this.formBuilder.group({
-      phoneNumber: ['', [Validators.pattern('^(00|\\+|)[0-9]{10,12}')]]
+      phoneNumber: ['']
     });
   }
 
@@ -328,7 +324,7 @@ export class AddUserComponent
         departmentId: f.portalInformation.department.id || 1,
         roleId: 1,
         isActive: f.portalInformation.activeEmployee,
-        profileDocId: this.profileDocId || 1,
+        profileDocId: this.profileDocId,
         firstName: f.personalInformation.firstName,
         lastName: f.personalInformation.lastName,
         emails: f.personalInformation.emails.map((x) => {
@@ -534,7 +530,7 @@ export class AddUserComponent
         if (
           typeof f.personalInformation.phoneNumbers[0] == 'object' &&
           typeof f.personalInformation.phoneNumbers[0].phoneNumber ==
-            'string' &&
+          'string' &&
           f.personalInformation.phoneNumbers[0].phoneNumber.length < 5
         )
           return [];
