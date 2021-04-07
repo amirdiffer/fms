@@ -16,12 +16,12 @@ export class TechnicianOverviewComponent implements OnInit {
   skillTable:TableSetting = {
     columns: [
       {
-        lable: 'Skill',
+        lable: 'tables.column.skill',
         field: 'skill',
         type: 1,
       },
       {
-        lable: 'Rate Per Hour',
+        lable: 'tables.column.rate_per_hour',
         field: 'ratePerHour',
         type: 1,
       }
@@ -52,7 +52,7 @@ export class TechnicianOverviewComponent implements OnInit {
   locationTable:TableSetting = {
     columns: [
       {
-        lable: 'Location',
+        lable: 'tables.column.location',
         type: 1,
         field: 'location',
         renderer: 'doubleLineRenderer',
@@ -95,42 +95,42 @@ export class TechnicianOverviewComponent implements OnInit {
         renderer: 'assetsRenderer'
       },
       {
-        lable: 'Priority',
+        lable: 'tables.column.priority',
         field: 'priority',
         type: ColumnType.lable,
         thumbField: '',
         renderer: 'priorityRenderer'
       },
       {
-        lable: 'Task',
+        lable: 'tables.column.task',
         field: 'task',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Start Date',
+        lable: 'tables.column.start_date',
         field: 'startDate',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Totall Cost',
+        lable: 'tables.column.total_cost',
         field: 'totalCost',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Time Estimate',
+        lable: 'tables.column.time_estimate',
         field: 'timeEtimate',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'Status',
+        lable: 'tables.column.status',
         field: 'status',
         type: ColumnType.lable,
         thumbField: '',
@@ -233,7 +233,7 @@ export class TechnicianOverviewComponent implements OnInit {
   technicalActivityTable:TableSetting = {
     columns: [
       {
-        lable: 'Title ',
+        lable: 'tables.column.title',
         type: 1,
         field: 'title',
         renderer: 'doubleLineRenderer',
@@ -244,7 +244,7 @@ export class TechnicianOverviewComponent implements OnInit {
         }
       },
       {
-        lable: 'Date ',
+        lable: 'tables.column.date',
         type: 1,
         field: 'date',
         width:'14em',
@@ -350,44 +350,44 @@ export class TechnicianOverviewComponent implements OnInit {
   }
   filterSettingJobCard =  [
     {
-      filterTitle: 'Open',
+      filterTitle: 'statistic.open',
       filterCount: '3450',
       filterTagColor: '#028D5D'
     },
     {
-      filterTitle: 'Started',
+      filterTitle: 'statistic.started',
       filterCount: '56',
       filterTagColor: '#009EFF'
     },
     {
-      filterTitle: 'Stoped',
+      filterTitle: 'statistic.stoped',
       filterCount: '2456',
       filterTagColor: '#FCB614'
     },
     {
-      filterTitle: 'Closed',
+      filterTitle: 'statistic.closed',
       filterCount: '2456',
       filterTagColor: '#C543FF'
     },
     {
-      filterTitle: 'Delayed',
+      filterTitle: 'statistic.delayed',
       filterCount: '12',
       filterTagColor: '#40D3C2'
     }
   ];
   filterSettingActivity =[
     {
-      filterTitle: 'To Do',
+      filterTitle: 'statistic.todo',
       filterCount: '2456',
       filterTagColor: '#009EFF'
     },
     {
-      filterTitle: 'Doing',
+      filterTitle: 'statistic.doing',
       filterCount: '2456',
       filterTagColor: '#C543FF'
     },
     {
-      filterTitle: 'Done',
+      filterTitle: 'statistic.done',
       filterCount: '12',
       filterTagColor: '#40D3C2'
     },
