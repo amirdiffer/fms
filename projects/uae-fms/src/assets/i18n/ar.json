@@ -128,7 +128,8 @@
     "add_model": "إضافة الموديل",
     "add_trim": "إضافة الموديل الفرعي ",
     "edit_business_category": "تعديل طبيعة الأصل",
-    "company_setting": "إعداد الشركة"
+    "company_setting": "إعداد الشركة",
+    "permanent": "دائم"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
