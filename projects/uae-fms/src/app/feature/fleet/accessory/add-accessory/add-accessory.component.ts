@@ -222,7 +222,6 @@ export class AddAccessoryComponent implements OnInit {
         switch (x) {
           case 'data':
             this.assignedToEntity = this.accessoryForm.controls['assignedToEntity'].value;
-            console.log('data');
             break;
           case 'asset':
             selectedAsset = this.assetsB.find(
@@ -230,7 +229,6 @@ export class AddAccessoryComponent implements OnInit {
                 return a.id === this.assignedToEntity
               }
             );
-            console.log('asset');
             break;
           case 'subAsset':
             selectedAsset = this.subAssetsB.find(
@@ -238,12 +236,10 @@ export class AddAccessoryComponent implements OnInit {
                 return a.id === this.assignedToEntity
               }
             );
-            console.log('subAsset');
             break;
         }
 
         if (selectedAsset) {
-          console.log(selectedAsset)
           this.accessoryForm.controls['assignedToEntity'].setValue(selectedAsset);
         }
       }
