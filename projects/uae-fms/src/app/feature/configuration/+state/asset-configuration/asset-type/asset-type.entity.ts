@@ -2,11 +2,6 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { IAssetType } from '@models/asset-type.model';
 
 export const CONFIGURATION_ASSET_TYPE_FEATURE_KEY = 'assetType';
-
-// export interface AssetTypeStateModel {
-//   type: string;
-// }
-
 export interface AssetTypeState extends EntityState<IAssetType> {
   error?: any;
   loaded?: boolean;

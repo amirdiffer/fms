@@ -18,6 +18,8 @@ import { OwnershipFacade } from "../../+state/ownership";
   styleUrls: ['./ownership-form.component.scss']
 })
 export class OwnershipFormComponent extends Utility implements OnInit {
+
+  //#region Table
   ownerShip_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.ownership', type: 1, field: 'Ownership' },
@@ -60,9 +62,9 @@ export class OwnershipFormComponent extends Utility implements OnInit {
       car: item.numOfOwnedAssets || 0
     };
   })));
+  //#endregion
 
-  ownerShipForm: FormGroup;
-  submitted = false;
+  //#region Dialogs
   dialogCancelSetting: IDialogAlert = {
     header: 'Cancel',
     hasError: false,
@@ -86,6 +88,12 @@ export class OwnershipFormComponent extends Utility implements OnInit {
   displayCancelModal = false;
   displaySuccessModal = false;
   displayErrorModal = false;
+  //#endregion
+
+  //#region  Variables
+  ownerShipForm: FormGroup;
+  submitted = false;
+  //#endregion
 
   constructor(injector: Injector, private _fb: FormBuilder, private facade: OwnershipFacade, private changeDetector: ChangeDetectorRef) {
     super(injector);

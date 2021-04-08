@@ -1,22 +1,11 @@
 import { AccessoryService } from './../../+state/accessory/accessory.service';
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AccessoryFacade } from '@feature/fleet/+state/accessory';
-import { map, filter } from 'rxjs/operators';
-import { ThrowStmt } from '@angular/compiler';
+import { map } from 'rxjs/operators';
 import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 
@@ -34,27 +23,11 @@ const EMPTY_SELECT_ITEM_LIST = [
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddAccessoryComponent implements OnInit {
-  public accessoryForm: FormGroup;
 
-  accessory = [{ name: '', id: null }];
-
-  assignedTo = [
-    { name: 'assignedTo Type 1', id: 1 },
-    { name: 'assignedTo Type 2', id: 2 },
-    { name: 'assignedTo Type 3', id: 3 }
-  ];
-
-  assetsB;
-  subAssetsB;
-  employee = [];
-
-  formSubmitted = false;
-  formChanged = false;
+  //#region Dialogs
   dialogModal = false;
   dialogModalError = false;
   dialogModalCancel = false;
-
-  //#region Dialogs
   dialogSetting: IDialogAlert = {
     header: 'Accessory',
     hasError: false,
@@ -82,6 +55,7 @@ export class AddAccessoryComponent implements OnInit {
   };
   //#endregion
 
+  //#region Table
   accessory_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.item', type: 1, field: 'Item' },
@@ -101,6 +75,25 @@ export class AddAccessoryComponent implements OnInit {
     ],
     data: []
   };
+  //#endregion
+
+  public accessoryForm: FormGroup;
+
+  accessory = [{ name: '', id: null }];
+
+  assignedTo = [
+    { name: 'assignedTo Type 1', id: 1 },
+    { name: 'assignedTo Type 2', id: 2 },
+    { name: 'assignedTo Type 3', id: 3 }
+  ];
+
+  assetsB;
+  subAssetsB;
+  employee = [];
+
+  formSubmitted = false;
+  formChanged = false;
+
   assets: [];
   subAssets: [];
   isEdit = false;
@@ -117,7 +110,7 @@ export class AddAccessoryComponent implements OnInit {
     private changeDetector: ChangeDetectorRef,
     private subAssetFacade: SubAssetFacade,
     private assetMasterFacade: AssetMasterFacade
-  ) {}
+  ) { }
 
   accessory$ = this._facade.accessory$.pipe(
     map((x) =>

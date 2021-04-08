@@ -1,11 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewChild } from '@angular/core';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit } from '@angular/core';
 import { AccessoryService } from '@feature/fleet/+state/accessory/accessory.service';
 
 @Component({
@@ -28,9 +23,7 @@ export class AccessoryOverviewComponent implements OnInit {
       this.loadAccessoryData(this.recordId);
     });
   }
-  loadAccessoryData(recordId: number) {
-    // this.accessoryService.getAccessory(recordId).subscribe( accessory => )
-  }
+  loadAccessoryData(recordId: number) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

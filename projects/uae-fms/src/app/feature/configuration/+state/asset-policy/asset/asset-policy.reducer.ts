@@ -40,16 +40,12 @@ const assetPolicyReducer = createReducer(
     message: null,
     submitted: false
   })),
-  on(AssetPolicyActions.editAssetPolicySuccessfully, (state, { data }) =>
-    assetPolicyAdapter.updateOne(
-      { changes: data, id: data.id },
-      {
-        ...state,
-        error: null,
-        message: null,
-        submitted: true
-      }
-    )
+  on(AssetPolicyActions.editAssetPolicySuccessfully, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: true
+  })
   ),
   on(AssetPolicyActions.reset, (state) => ({ ...state, error: null, submitted: false, message: null }))
 );

@@ -1,16 +1,6 @@
 import { Router } from '@angular/router';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  ViewChild
-} from '@angular/core';
-import {
-  ColumnDifinition,
-  ColumnType,
-  TableComponent,
-  TableSetting
-} from '@core/table';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ColumnDifinition, ColumnType, TableComponent } from '@core/table';
 import { map } from 'rxjs/operators';
 import { PeriodicServiceFacade } from '../+state/periodic-service';
 
@@ -24,6 +14,7 @@ export class PeriodicServiceComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   downloadBtn = 'assets/icons/download-solid.svg';
 
+  //#region Table
   tableColumns: ColumnDifinition[] = [
     {
       lable: 'tables.column.periodic_service_name',
@@ -80,8 +71,9 @@ export class PeriodicServiceComponent implements OnInit {
       }))
     )
   );
+  //#endregion
 
-  constructor(private facade: PeriodicServiceFacade, private router: Router) {}
+  constructor(private facade: PeriodicServiceFacade, private router: Router) { }
 
   ngOnInit(): void {
     this.facade.loadAll();
