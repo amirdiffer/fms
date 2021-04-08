@@ -34,10 +34,11 @@ const routes: Routes = [
   { path: 'accessory/edit-accessory', component: AddAccessoryComponent },
   { path: 'accessory', component: AccessoryComponent },
   { path: 'sub-asset', component: SubAssetComponent },
-  { path: 'movement', component: MovementComponent },
+  { path: 'movement', redirectTo: 'movement/permanent' },
+  { path: 'movement/permanent', component: MovementComponent },
   // { path: 'movement/iserve', component: IserveComponent },
   { path: 'movement/temporary', component: TemporaryComponent },
-  { path: 'movement/add-permanent-request', component: AddRequestComponent },
+  { path: 'movement/permanent/add-permanent-request', component: AddRequestComponent },
   {
     path: 'movement/temporary/add-temporary-request',
     component: AddTemporaryRequestComponent
