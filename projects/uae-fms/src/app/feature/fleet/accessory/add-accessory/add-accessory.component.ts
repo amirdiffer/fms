@@ -8,6 +8,7 @@ import { AccessoryFacade } from '@feature/fleet/+state/accessory';
 import { map } from 'rxjs/operators';
 import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { Subject } from 'rxjs';
 
 const EMPTY_SELECT_ITEM_LIST = [
   {
@@ -80,6 +81,8 @@ export class AddAccessoryComponent implements OnInit {
   public accessoryForm: FormGroup;
 
   accessory = [{ name: '', id: null }];
+  setSearchValue = new Subject();
+  setSearchValue$ = this.setSearchValue.asObservable();
 
   assignedTo = [
     { name: 'assignedTo Type 1', id: 1 },
@@ -100,6 +103,7 @@ export class AddAccessoryComponent implements OnInit {
   recordId: number;
   dialogType: string;
   accessoryAssetTypes: any;
+  assignedToEntity;
 
   constructor(
     private _fb: FormBuilder,
@@ -138,6 +142,7 @@ export class AddAccessoryComponent implements OnInit {
       this.loadAccessoryData(this.recordId);
     });
   }
+
   loadAccessoryData(recordId: number) {
     this.accessoryService.getAccessory(recordId).subscribe((result: any) => {
       if (result) {
@@ -161,27 +166,18 @@ export class AddAccessoryComponent implements OnInit {
         });
 
         this.setUsers(() => {
-          const selectedEmployee: any = this.employee.find(
-            (e) => e.id === assignedToEmployeeId
-          );
-
-          this.accessoryForm.patchValue({
-            assignedToEmployeeId: selectedEmployee
-          });
+          this.accessoryForm.controls['assignedToEmployeeId'].setValue(assignedToEmployeeId)
         });
-
-        const selectedAsset: any = this.assetsB.find(
-          (a) => a.id === assignedToEntity
-        );
 
         const data = {
           itemName,
           assignedToType,
           quantity,
-          assignedToEntity: selectedAsset
+          assignedToEntity
         };
 
         this.accessoryForm.patchValue(data);
+        this.setSearchValue.next('data');
       }
     });
   }
@@ -219,7 +215,41 @@ export class AddAccessoryComponent implements OnInit {
         this.changeDetector.detectChanges();
       }
     });
+
+    this.setSearchValue$.subscribe(x => {
+      if (x) {
+        let selectedAsset;
+        switch (x) {
+          case 'data':
+            this.assignedToEntity = this.accessoryForm.controls['assignedToEntity'].value;
+            console.log('data');
+            break;
+          case 'asset':
+            selectedAsset = this.assetsB.find(
+              (a) => {
+                return a.id === this.assignedToEntity
+              }
+            );
+            console.log('asset');
+            break;
+          case 'subAsset':
+            selectedAsset = this.subAssetsB.find(
+              (a) => {
+                return a.id === this.assignedToEntity
+              }
+            );
+            console.log('subAsset');
+            break;
+        }
+
+        if (selectedAsset) {
+          console.log(selectedAsset)
+          this.accessoryForm.controls['assignedToEntity'].setValue(selectedAsset);
+        }
+      }
+    })
   }
+
   private setUsers(cb = null) {
     this.accessoryService.users().subscribe((employee) => {
       this.employee = employee.message.map((user) => {
@@ -241,12 +271,15 @@ export class AddAccessoryComponent implements OnInit {
         id: y.id,
         name: y['makeName'] + ' ' + y['modelName']
       }));
+      if (x) this.setSearchValue.next('subAsset');
     });
+
     this.assetMasterFacade.assetMaster$.subscribe((x) => {
       this.assetsB = x.map((y) => ({
         id: y.id,
         name: y['makeName'] + ' ' + y['modelName']
       }));
+      if (x) this.setSearchValue.next('asset');
     });
   }
 
