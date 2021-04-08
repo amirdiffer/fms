@@ -254,23 +254,23 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
 
     for (const subAsset of this.addCategoryForm.value.assignSubAsset) {
       itemToPost['subAssets'].push({
-        subAssetId: subAsset.subAsset.id || 1,
-        quantity: subAsset.assetQuantity || 0,
+        subAssetId: subAsset.subAsset.id,
+        quantity: subAsset.assetQuantity,
         specDocId: 1
       });
     }
 
     for (const accessory of this.addCategoryForm.value.assignAccessory) {
       itemToPost['accessories'].push({
-        accessoryId: accessory.id || 1,
-        quantity: accessory.accessoryQuantity || 0,
+        accessoryId: accessory.accessory.id,
+        quantity: accessory.accessoryQuantity,
         specDocId: 1
       });
     }
 
     if (this.dataService.isEditing) {
-      itemToPost['id'] = this.id;
-      this.facade.editCategory(itemToPost);
+      // itemToPost['id'] = this.id;
+      this.facade.editCategory(itemToPost,this.id);
     } else {
       this.facade.addCategory(itemToPost);
     }
