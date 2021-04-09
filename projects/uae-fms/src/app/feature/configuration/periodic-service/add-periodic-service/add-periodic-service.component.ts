@@ -21,6 +21,8 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddPeriodicServiceComponent extends Utility implements OnInit {
+
+  //#region  Table
   tableColumns: ColumnDifinition[] = [
     {
       lable: 'tables.column.periodic_service_name',
@@ -56,15 +58,6 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
     )
   );
 
-  packages: FormArray;
-  tasks: FormArray;
-
-  units = [
-    { id: 'KmPH', name: 'Km/h' },
-    { id: 'KmPM', name: 'Km/m' },
-    { id: 'KmPY', name: 'Km/y' }
-  ];
-
   tableSetting = {
     columns: this.tableColumns,
     data: [],
@@ -76,9 +69,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
       ]
     }
   };
-
-  periodicServiceForm: FormGroup;
-  submitted: boolean = false;
+  //#endregion
 
   //#region Dialog
   dialogCancelSetting: IDialogAlert = {
@@ -105,8 +96,21 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   displayErrorModal = false;
   //#endregion
 
+  //#region Variables
   id: number;
   isEdit: boolean;
+  packages: FormArray;
+  tasks: FormArray;
+
+  units = [
+    { id: 'KmPH', name: 'Km/h' },
+    { id: 'KmPM', name: 'Km/m' },
+    { id: 'KmPY', name: 'Km/y' }
+  ];
+
+  periodicServiceForm: FormGroup;
+  submitted: boolean = false;
+  //#endregion
 
   constructor(
     private _fb: FormBuilder,

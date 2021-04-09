@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input,
-  ViewChild,
-  ElementRef,
-  Renderer2
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'anms-progress-bar',
@@ -21,14 +13,19 @@ import {
   styleUrls: ['./progress-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class ProgressBarComponent implements OnInit {
+
+  //#region Inputs and Outputs
   @Input() color;
   @Input() maxValue;
   @Input() value;
   @ViewChild('progressBar', { static: true }) progressBar: ElementRef;
   @ViewChild('small', { static: true }) small: ElementRef;
   percent;
-  constructor(private _renderer: Renderer2) {}
+  //#endregion
+
+  constructor(private _renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.percent = (+this.value * 100) / +this.maxValue;
