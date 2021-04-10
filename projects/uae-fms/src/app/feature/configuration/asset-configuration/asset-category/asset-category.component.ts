@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'configuration-asset-category',
@@ -7,7 +9,27 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetCategoryComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+  constructor(
+    private _dataService:DataService,
+    private _fb:FormBuilder
+  ) {}
+  form:FormGroup
+  ngOnInit(): void {
+    this.form = this._fb.group({
+      type:['']
+    })
+    this._dataService.watchType().subscribe(
+      (x) => {
+        console.log(x)
+        if(x){
+          this.form.patchValue({
+            type: x
+          })
+        }
+      }
+    );
+  }
+  typeCategory(event){
+    this._dataService.selectType(event)
+  }
 }

@@ -4,8 +4,10 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { AssetConfigurationService } from '../asset-configuration.service';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetTypeFacade } from '../../+state/asset-configuration';
+import { Router } from '@angular/router';
 import { Utility } from '@shared/utility/utility';
 import { TableSetting } from '@core/table';
+import { DataService } from '@feature/configuration/asset-configuration/data.service';
 
 @Component({
   selector: 'congifuration-add-type',
@@ -46,6 +48,8 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
     private changeDetectorRef: ChangeDetectorRef,
+    public router: Router,
+    private _dataService: DataService,
     injector: Injector
   ) {
     super(injector);
@@ -63,7 +67,14 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     this.facade.assetType$.subscribe(x => {
       this.assetTypes = x;
     })
-
+    this._dataService.watchType().subscribe(
+      (x)=>{
+        console.log(x)
+        this.inputForm.patchValue({
+          typeCategory:x
+        })
+      }
+    )
     this.facade.submitted$.subscribe((x) => {
       if (x) {
         this.dialogModal = true;
@@ -179,27 +190,28 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   submit() {
+
     this.submited = true;
     this.dialogType = 'submit';
     if (this.inputForm.invalid) {
+      this.inputForm.markAllAsTouched();
       return;
     }
 
-    let type: string;
-
-    switch (this.inputForm.value.typeCategory) {
-      case 'asset':
-        type = 'ASSET';
-        break;
-      case 'subAsset':
-        type = 'SUB_ASSET';
-        break;
-      case 'accessory':
-        type = 'ACCESSORY';
-        break;
-      default:
-        type = 'ASSET';
-    }
+    let type: string = this.inputForm.value.typeCategory;
+    // switch (this.inputForm.value.typeCategory) {
+    //   case 'asset':
+    //     type = 'ASSET';
+    //     break;
+    //   case 'subAsset':
+    //     type = 'SUB_ASSET';
+    //     break;
+    //   case 'accessory':
+    //     type = 'ACCESSORY';
+    //     break;
+    //   default:
+    //     type = 'ASSET';
+    // }
 
     const data = [
       ...this.assetTypes.map(x => {
@@ -217,6 +229,12 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
         isActive: this.inputForm.value.activetype,
         typeDescription: this.inputForm.value.description
       }];
+/*       const value ={
+        type: type,
+        name: this.inputForm.value.typeName,
+        isActive: this.inputForm.value.activetype,
+        typeDescription: this.inputForm.value.description
+      } */
 
 
     this.facade.addAssetType(data);

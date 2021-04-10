@@ -6,7 +6,7 @@ import { FilterCardSetting } from '@core/filter';
 import { Make, MakeModel, MakeModelTrim } from '@models/asset-type.model';
 import { map } from 'rxjs/operators';
 import { TableComponent } from '@core/table';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'anms-asset-configuration',
   templateUrl: './asset-configuration.component.html',
@@ -103,9 +103,10 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
 
   constructor(
     private facade: AssetTypeFacade,
+    public router: Router,
     private assetConfigurationFacade: AssetConfigurationFacade,
     private _assetConfigurationService: AssetConfigurationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.assetConfigurationFacade.loadAll();

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { AssetTypeFacade } from '../../+state/asset-configuration';
 import { Subject, Observable } from 'rxjs';
 import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
@@ -18,49 +18,59 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   @Output() selectTrim = new EventEmitter();
   @Output() selectMake = new EventEmitter();
   @Output() selectModel = new EventEmitter();
+  
   //#endregion
 
   //#region Variables
-  assetType$ = this.facade.assetType$.pipe(
-    map((response) =>
-      response.map((obj) => {
-        const assetType = {
-          ...obj,
-          isSelected: false,
-          iconSvgClass: 'right-arrow',
-          makes: []
-        };
-        obj.makes.map((make) => {
-          const x: MakeExtension = {
-            ...make,
-            isSelected: false,
-            iconSvgClass: 'right-arrow',
-            models: []
-          };
-          make.models.map((model) => {
-            const y: ModelExtension = { ...model, isSelected: false };
-            x.models.push(y);
-          });
-          assetType.makes.push(x);
-        });
-        return assetType as AssetTypeExtension;
-      })
-    )
-  );
-
+  assetType$ = new Observable();
   loaded$ = this.facade.loaded$;
   filter = new Subject();
   assetTypes: AssetTypeExtension[] = [];
   arrowIcon = 'assets/icons/arrow-down.svg';
+  categoryType$;
   //#endregion
 
   constructor(
     private facade: AssetTypeFacade,
     private router: Router,
-    private dataService: DataService
+    private dataService: DataService,
+    
   ) { }
 
   ngOnInit(): void {
+    this.assetType$ = this.facade.assetType$.pipe(
+      map((response) =>
+        response.map((obj) => {
+          const assetType = {
+            ...obj,
+            isSelected: false,
+            iconSvgClass: 'right-arrow',
+            makes: []
+          };
+          obj.makes.map((make) => {
+            const x: MakeExtension = {
+              ...make,
+              isSelected: false,
+              iconSvgClass: 'right-arrow',
+              models: []
+            };
+            make.models.map((model) => {
+              const y: ModelExtension = { ...model, isSelected: false };
+              x.models.push(y);
+            });
+            assetType.makes.push(x);
+            
+          });
+          return assetType as AssetTypeExtension;
+        })
+      )
+    );
+    this.categoryType$ = this.dataService.watchType().pipe(
+      type =>{
+        type.subscribe(y => {console.log(y)})
+        return type
+      }
+    )
     this.filter.next('ASSET');
 
     setTimeout(() => {
