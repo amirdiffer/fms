@@ -80,7 +80,10 @@ export class LoginComponent implements OnInit {
       }
     });
 
-    this.settingFacade.language.subscribe((lang) => (this.activeLang = lang));
+    this.settingFacade.language.subscribe((lang) => {
+      this.activeLang = lang;
+      this.changeRTLStyle(this.activeLang);
+    });
     this.profileFacade.loadData$.subscribe((x) => {
       if (x) {
       }
