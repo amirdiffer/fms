@@ -129,7 +129,8 @@
     "add_model": "Add Model",
     "add_trim": "Add Sub Model",
     "edit_business_category": "Edit Usage Category",
-    "company_setting": "Company Setting"
+    "company_setting": "Company Setting",
+    "permanent": "Permanent"
   },
   "sidebar": {
     "dashboard": "Dashboard",
