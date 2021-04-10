@@ -190,7 +190,6 @@ export class OperatorComponent implements OnInit {
 
   ngOnInit(): void {
     this._operatorFacade.loadAll();
-    this.data$.subscribe((x) => console.log(x));
   }
 
   exportTable() {
