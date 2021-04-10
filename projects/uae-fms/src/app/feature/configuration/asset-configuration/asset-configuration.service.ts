@@ -67,5 +67,6 @@ export class AssetConfigurationService {
   public getAddForm(): Observable<boolean> {
     return this._addtype$.asObservable();
   }
+ 
   constructor() {}
 }
