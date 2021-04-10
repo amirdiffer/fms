@@ -47,7 +47,7 @@
             <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':'12' , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>
           </span>
           <div *ngIf="preview">
-            <a [href]="fileImage" download>
+            <a (click)="showImage()" download style="cursor: pointer;">
               <img [src]="isImage ? fileImage : fileIcon">
             </a>
           </div>
@@ -58,4 +58,7 @@
 </ng-container>
 
 
+<p-dialog [(visible)]="imageModal" [modal]="true" [baseZIndex]="10000">
+  <img [src]="fileImage">
+</p-dialog>
 <alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogErrorConfirm($event)"></alert-dialog>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResponseBody } from '@models/response-body';
 import { IOrganization } from '@models/organization';
@@ -23,6 +23,17 @@ export class OrganizationService {
   searchDepartment(id) {
     return this._http.get<ResponseBody<IOrganization>>(
       environment.baseApiUrl + 'organization/' + id
+    );
+  }
+  loadWithPagination(page:number = 0 , sort:string = 'createdAt,desc' , size:number = 10000): Observable<ResponseBody<IOrganization[]>>{
+    let params = new HttpParams();
+    params=params.append('page',`${page}`)
+    params = params.append('sort',sort)
+    params = params.append('size',`${size}`)
+    console.log(params)
+    return this._http.get<ResponseBody<IOrganization[]>>(
+      environment.baseApiUrl + 'organization',
+      {params: params}
     );
   }
 }

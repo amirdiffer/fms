@@ -7,6 +7,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ErrorModule } from '@shared/error/error.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [UploaderComponent],
@@ -18,7 +19,8 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
     NgxFileDropModule,
     AngularSvgIconModule,
     ErrorModule,
-    AlertDialogModule
+    AlertDialogModule,
+    DialogModule
   ]
 })
 export class UploaderModule {}
