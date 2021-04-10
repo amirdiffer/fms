@@ -190,7 +190,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   submit() {
-    
+
     this.submited = true;
     this.dialogType = 'submit';
     if (this.inputForm.invalid) {
@@ -229,15 +229,14 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
         isActive: this.inputForm.value.activetype,
         typeDescription: this.inputForm.value.description
       }];
-      const value ={
+/*       const value ={
         type: type,
         name: this.inputForm.value.typeName,
         isActive: this.inputForm.value.activetype,
         typeDescription: this.inputForm.value.description
-      }
+      } */
 
-      console.log(value)
 
-    this.facade.addAssetType(value);
+    this.facade.addAssetType(data);
   }
 }
