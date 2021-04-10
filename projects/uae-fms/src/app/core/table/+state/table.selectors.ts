@@ -15,10 +15,7 @@ export class TableSelectors {
     (state: ITablePagination[], props: { name: string }) => {
       let data = state.filter((x) => x.name == props.name);
       if (data.length > 0) return data[0];
-      else return {
-        ipp: 10,
-        page: 0
-      };
+      else return null;
     }
   );
 
