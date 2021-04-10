@@ -777,7 +777,8 @@
       "no": "لا",
       "s_n": "S/N",
       "save_assignment": "احفظ الواجب",
-      "cancel": "إلغاء"
+      "cancel": "إلغاء",
+      "assign_request_id": "تعيين معرف الطلب: {{id}}"
     }
   },
   "fuel_management": {

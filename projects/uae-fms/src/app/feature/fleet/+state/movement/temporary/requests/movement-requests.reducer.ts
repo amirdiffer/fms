@@ -31,12 +31,10 @@ const movementTemporaryRequestsReducer = createReducer(
 
   on(
     MovementRequestsActionsTemporary.statisticRequestLoaded,
-    (state, { data }) =>
-      movementRequestsTemporaryAdapter.setOne(data, {
-        ...state,
-        statistic: data,
-        loaded: true
-      })
+    (state, { data }) => ({
+      ...state,
+      statistic: data
+    })
   ),
 
   on(MovementRequestsActionsTemporary.error, (state, { reason }) => ({

@@ -72,7 +72,7 @@ export class AddRequestComponent extends Utility implements OnInit {
       assetType: [null, Validators.compose([Validators.required])],
       reason: ['', Validators.compose([Validators.required])],
       quality: [''],
-      oldAssetType: ['']
+      oldAssetId: ['']
     });
     this.facade.submitted$.subscribe((x) => {
       if (x) {
@@ -123,15 +123,15 @@ export class AddRequestComponent extends Utility implements OnInit {
     } else {
       let d = this.requestForm.getRawValue();
       let _data = {
-        requesterId: 1,
+        requesterId: 103,
         requestType: d.requestType,
         movementType: 'PERMANENT',
+        oldAssetId: d.oldAssetId.id,
         assetTypeId: d.assetType.id,
         reason: d.reason,
-        quantity: d.quality,
-        startDate: '2018-10-18T21:13:06.253Z',
-        endDate: '2008-09-13T21:13:24.636Z'
+        quantity: d.quality
       };
+      if (_data.requestType == 'NEW') _data.oldAssetId = undefined; else _data.quantity = undefined;
       this.facade.addMovementRequest(_data);
     }
   }

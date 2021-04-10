@@ -792,7 +792,8 @@
       "no": "No",
       "s_n": "S/N",
       "save_assignment": "Save Assignment",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "assign_request_id": "Assign Request ID: {{id}}"
     }
   },
   "fuel_management": {

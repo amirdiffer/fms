@@ -38,22 +38,22 @@ export class TemporaryComponent
   filterSetting = [
     {
       filterTitle: 'statistic.total',
-      filterCount: '36',
+      filterCount: 0,
       filterTagColor: '#B892FF'
     },
     {
       filterTitle: 'statistic.waiting_for_approval',
-      filterCount: '07',
+      filterCount: 0,
       filterTagColor: '#648DE5'
     },
     {
       filterTitle: 'statistic.approved',
-      filterCount: '05',
+      filterCount: 0,
       filterTagColor: '#709775'
     },
     {
       filterTitle: 'statistic.rejected',
-      filterCount: '12',
+      filterCount: 0,
       filterTagColor: '#EF7A85'
     }
   ];
@@ -314,20 +314,20 @@ export class TemporaryComponent
     this._movementRequestsFacade.loadRequestStatistic();
     this._movementRequestsFacade.MovementRequestStatistic.subscribe((x) => {
       if (x) {
-        const response = x.message;
+        const response = x;
         this.filterSetting.map((filter) => {
           switch (filter.filterTitle) {
             case 'statistic.total':
-              filter.filterCount = response.total;
+              filter.filterCount = x.total;
               break;
             case 'statistic.waiting_for_approval':
-              filter.filterCount = response.waitingForApproval;
+              filter.filterCount = x.waitingForApproval;
               break;
             case 'statistic.approved':
-              filter.filterCount = response.approved;
+              filter.filterCount = x.approved;
               break;
             case 'statistic.rejected':
-              filter.filterCount = response.rejected;
+              filter.filterCount = x.rejected;
               break;
             default:
               break;
@@ -349,22 +349,22 @@ export class TemporaryComponent
     this.filterSetting = [
       {
         filterTitle: 'statistic.total',
-        filterCount: '36',
+        filterCount: 0,
         filterTagColor: '#B892FF'
       },
       {
         filterTitle: 'statistic.waiting_for_approval',
-        filterCount: '07',
+        filterCount: 0,
         filterTagColor: '#648DE5'
       },
       {
         filterTitle: 'statistic.approved',
-        filterCount: '05',
+        filterCount: 0,
         filterTagColor: '#709775'
       },
       {
         filterTitle: 'statistic.rejected',
-        filterCount: '12',
+        filterCount: 0,
         filterTagColor: '#EF7A85'
       }
     ];

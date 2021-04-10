@@ -75,7 +75,7 @@
                 'REPLACEMENT'">
         <div class="autocomplete-select">
           <span class="p-float-label">
-            <p-autoComplete formControlName="oldAssetType" (completeMethod)="filterAssets($event)"
+            <p-autoComplete formControlName="oldAssetId" (completeMethod)="filterAssets($event)"
                             [suggestions]="oldAssetSuggests" field="name" [minLength]="1"></p-autoComplete>
             <i class="pi pi-search"></i>
             <label>{{ 'movement.movement.old_asset' | translate }} *</label>
@@ -84,6 +84,43 @@
       </div>
       <!-- end oldAssetType -->
     </div>
+    <div class="row form-section__row">
+      <div class="col-12 col-md-3">
+        <div class="row">
+          <div class="col">
+            <div class="p-field form-section__field date-input">
+              <span class="p-float-label">
+                <p-calendar inputId="basic" formControlName="startDate" [readonlyInput]="true" ></p-calendar>
+                <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':'20' , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
+                <label>{{ 'movement.request.start_date' | translate }}</label>
+              </span>
+              <anms-error
+                [showError]="hasError('startDate', requestForm, submitted)"
+                error="forms.feedback.required">
+              </anms-error>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="row">
+          <div class="col">
+            <div class="p-field form-section__field date-input">
+              <span class="p-float-label">
+                <p-calendar inputId="basic" formControlName="endDate" [readonlyInput]="true" ></p-calendar>
+                <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':'20' , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
+                <label>{{ 'movement.request.end_date' | translate }}</label>
+              </span>
+              <anms-error
+                [showError]="hasError('endDate', requestForm, submitted)"
+                error="forms.feedback.required">
+              </anms-error>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </form>
 <alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)">

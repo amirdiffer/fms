@@ -19,7 +19,7 @@
                         <button class="btn-download" (click)="exportTable()">
                             <svg-icon [src]="downloadBtn"></svg-icon>
                         </button>
-                        <button *ngIf="selectedTab !='requestTab'" class="btn-primary-small" routerLink="add-temporary-request" style="display: none;"><a>{{ 'search.request' | translate }}</a></button>
+                        <button *ngIf="selectedTab !='requestTab'" class="btn-primary-small" routerLink="add-temporary-request"><a>{{ 'search.request' | translate }}</a></button>
                     </span>
           <div title="tabs.movement_over_view" id="MovementOverViewTab">
             <app-table (onPagination)="eventPagination_overview()" pagination="temporary_movement_overview" [setting]="movementOverViewTableSetting" [tableData]="movementOverview$"></app-table>
