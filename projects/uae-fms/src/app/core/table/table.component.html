@@ -89,6 +89,9 @@
           <div *ngIf="col.renderer=='assignNow'">
             <table-assign-now-renderer [data]="data"></table-assign-now-renderer>
           </div>
+          <div *ngIf="col.renderer == 'priorityRenderer'">
+            <table-priority-renderer [data]="data[col.field]"></table-priority-renderer>
+          </div>
           <div *ngIf="col.renderer=='floatButton' && i == rowIndexTable">
             <float-button-renderer [lang]="activeLang" [col]="col" [setting]="setting.rowSettings" [data]="data">
             </float-button-renderer>

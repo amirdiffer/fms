@@ -529,6 +529,16 @@ export class BodyShopComponent implements OnInit {
               '/workshop/body-shop/edit-technician/' + data.id
             ]);
           }
+        },
+        {
+          button: 'external',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this._facadeRequest.resetParams();
+            this.router.navigate([
+              '/workshop/body-shop/technician/' + data.id
+            ]);
+          }
         }
       ]
     }

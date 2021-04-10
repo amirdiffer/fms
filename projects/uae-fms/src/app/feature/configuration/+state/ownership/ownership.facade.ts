@@ -15,7 +15,7 @@ export class OwnershipFacade {
 
   submitted$ = this.store.pipe(select(OwnershipSelectors.submitted));
 
-  constructor(private store: Store<OwnershipPartialState>) { }
+  constructor(private store: Store<OwnershipPartialState>) {}
 
   loadAll() {
     this.store.dispatch(OwnershipActions.loadAll());
@@ -27,5 +27,10 @@ export class OwnershipFacade {
 
   editOwnership(data: any) {
     this.store.dispatch(OwnershipActions.editOwnership({ data }));
+  }
+
+  resetParams() {
+    this.loadAll();
+    this.store.dispatch(OwnershipActions.resetParams());
   }
 }

@@ -24,6 +24,7 @@ import { debounceTime, map } from 'rxjs/operators';
 import { UsersService } from '../../../+state/users/users.service';
 import { ThrowStmt } from '@angular/compiler';
 import { timeStamp } from 'console';
+import { OrganizationFacade } from '@feature/fleet/+state/organization';
 @Component({
   selector: 'anms-add-user',
   templateUrl: './add-user.component.html',
@@ -99,6 +100,7 @@ export class AddUserComponent
   bufferValue = 70;
   public filesUpdloaded: NgxFileDropEntry[] = [];
   formChangesSubscription!: Subscription;
+  departmentSubscription: Subscription;
   form: FormGroup;
   submited = false;
 
@@ -108,7 +110,8 @@ export class AddUserComponent
   employee_static;
   employeeId;
 
-  departments = [{ name: 'Finance', id: 1 }];
+  departments = [];
+  departmentsB;
 
   tempImage: any = '';
 
@@ -133,6 +136,7 @@ export class AddUserComponent
     injector: Injector,
     private formBuilder: FormBuilder,
     private userFacade: UsersFacade,
+    private _orgfacade: OrganizationFacade,
     private changeDetector: ChangeDetectorRef,
     private roleFacade: RolePermissionFacade,
     private userService: UsersService
@@ -142,6 +146,13 @@ export class AddUserComponent
 
   ngOnInit(): void {
     this.roleFacade.loadAll();
+    this._orgfacade.loadAll();
+    this.departmentSubscription = this._orgfacade.organization$.subscribe(x => {
+      this.departmentsB = x.map((y) => ({
+        id: y.id,
+        name: y['organizationName']
+      }));
+    })
     this.buildForm();
 
     this.route.url.subscribe((params) => {
@@ -460,14 +471,11 @@ export class AddUserComponent
 
   filterDepartments(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.departments = [
-      { name: 'Dapartment 1', id: 1 },
-      { name: 'Dapartment 2', id: 2 },
-      { name: 'Dapartment 3', id: 3 },
-      { name: 'Dapartment 4', id: 4 },
-      { name: 'Dapartment 5', id: 5 },
-      { name: 'Dapartment 6', id: 6 }
-    ];
+    this.departments = this.departmentsB.filter(
+      (x) =>
+        (x.id + '').indexOf(event.query) >= 0 ||
+        x.name.indexOf(event.query) >= 0
+    );
   }
 
   public dropped(files: NgxFileDropEntry[]) {
@@ -520,6 +528,7 @@ export class AddUserComponent
 
   ngOnDestroy(): void {
     this.formChangesSubscription?.unsubscribe();
+    this.departmentSubscription.unsubscribe();
   }
 
   getPhone(f) {

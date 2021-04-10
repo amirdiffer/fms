@@ -8,7 +8,13 @@ import { environment } from '../../../../environments/environment';
       <div>
         <img
           class="user-image"
-          [src]="fileServerBase + (user.profileDocId ? user.profileDocId : '1')"
+          [src]="
+            isImageLoaded
+              ? fileServerBase + (user.profileDocId ? user.profileDocId : '1')
+              : defaultImage
+          "
+          (error)="onError($event)"
+          [class.default-image-size]="defaultImage.length"
         />
       </div>
       <div class="d-flex flex-column">
@@ -38,14 +44,28 @@ import { environment } from '../../../../environments/environment';
         margin-left: 10px;
         text-align: left;
       }
+
+      div .default-image-size {
+        width: 2.5em;
+        height: 2.5em;
+      }
     `
   ]
 })
 export class TableUserRendererComponent implements OnInit {
   @Input() user;
+  defaultImage = '';
+  isImageLoaded = true;
   fileServerBase = environment.baseFileServer;
 
   constructor() {}
 
   ngOnInit() {}
+
+  onError($event): void {
+    if ($event.type === 'error') {
+      this.isImageLoaded = false;
+      this.defaultImage = 'assets/user.svg';
+    }
+  }
 }

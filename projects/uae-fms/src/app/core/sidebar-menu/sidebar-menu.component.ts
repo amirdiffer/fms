@@ -39,6 +39,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
 
   urlGroup = [];
   collapsedMenu = '';
+  collapsedSubMenu = '';
 
   public activeGroup: string = '';
 
@@ -87,7 +88,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           items: [
             {
               name: 'sidebar.fleets.movement.permanent',
-              route: '/fleet/movement'
+              route: '/fleet/movement/permanent'
             },
             {
               name: 'sidebar.fleets.movement.temporary',
@@ -280,6 +281,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       if (url.indexOf('?') >= 0) {
         url = url.split('?')[0]
       }
+      this.activeRoute = url;
       this.urlGroup = url.split('/');
       this.collapsedMenu = '/' + url.split('/')[1];
     })
@@ -318,25 +320,32 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     return this.urlGroup.indexOf(r) >= 0 && this.activeGroup != 'root';
   }
 
+  activeRoute = '';
   activeSubMenuCheck(route: string) {
     let r;
     if (route[0] == '/') {
       r = route.split('/');
       r = r[r.length - 1];
     }
-    return this.urlGroup.indexOf(r) >= 0 && this.activeGroup != 'root';
+    return this.urlGroup.indexOf(r) >= 0 && this.activeGroup != 'root' && this.collapsedSubMenu != 'root';
+  }
+
+  activeToggleSubGroup(route): boolean {
+    return this.activeRoute.includes(route);
   }
 
   toggleGroup(item: MenuItem): void {
     if (item.items) {
-      /* this.activeGroup == item.name || this.activeGroup == ''
-        ? (this.activeGroup = 'root')
-        : (this.activeGroup = item.name); */
       if (this.collapsedMenu == item.route) this.collapsedMenu = 'root';
       else this.collapsedMenu = item.route;
     } else {
       if (!item.disabled) this.routerService.navigate(item.route);
     }
+  }
+
+  toggleSubGroup(item: MenuItem) {
+    if (this.collapsedSubMenu == '/' + item.route.split('/')[2] ) this.collapsedSubMenu = 'root';
+    else this.collapsedSubMenu = '/' + item.route.split('/')[2];
   }
 }
 
