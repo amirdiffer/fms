@@ -22,7 +22,7 @@ import {
 } from 'ngx-file-drop';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
-import {IOrganization} from '@models/organization'
+import { IOrganization } from '@models/organization'
 @Component({
   selector: 'anms-add-operator',
   templateUrl: './add-operator.component.html',
@@ -34,7 +34,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
   isEdit: boolean = false;
   id: number;
-  allDepartment:IOrganization[]=[];
+  allDepartment: IOrganization[] = [];
   //#region Dialog
   dialogSetting: IDialogAlert = {
     header: 'Add new operator alert',
@@ -116,27 +116,17 @@ export class AddOperatorComponent extends Utility implements OnInit {
   employees = new Subject();
   employees$ = this.employees.asObservable();
   getEmployeesList = new Subject();
-  // department = new Subject();
-  // department$ = this.department.asObservable();
-  // getDepartmentList = new Subject();
 
-  departmentSerive$:Subscription;
-  departmentList : any[]
+  departmentSerive$: Subscription;
+  departmentList: any[]
   departmentFiltered: any[]
   employee_static;
   department_static;
   employeeId;
   departmentId;
-  avatarId=[]
+  avatarId = []
 
-  departments = [
-    { organizationName: 'Department 1', id: 1 },
-    { organizationName: 'Department 2', id: 2 },
-    { organizationName: 'Department 3', id: 3 },
-    { organizationName: 'Department 4', id: 4 },
-    { organizationName: 'Department 5', id: 5 },
-    { organizationName: 'Department 6', id: 6 }
-  ];
+  departments = [];
 
   roles = [
     { name: 'Police', id: 1 },
@@ -157,7 +147,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
       .get('phoneNumbers') as FormArray;
   }
 
-  private _operator : IOperator;
+  private _operator: IOperator;
   operators$ = this.operatorFacade.operator$;
 
   constructor(
@@ -176,10 +166,10 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.departmentSerive$ = this._departmentService.loadWithPagination().subscribe(
       (x) => {
         console.log(x)
-        x.message 
-        // ? this.department.next(x.message)
-        ? this.departmentList = x.message
-        : this.departmentList = []
+        x.message
+          // ? this.department.next(x.message)
+          ? this.departmentList = x.message
+          : this.departmentList = []
       }
     )
     this.route.url.subscribe((params) => {
@@ -202,9 +192,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
                   name: x.id,
                   id: x.employeeNumber
                 },
-                department:{
-                  organizationName:x.department.organizationName,
-                  id:x.department.organizationId
+                department: {
+                  organizationName: x.department.organizationName,
+                  id: x.department.organizationId
                 },
                 roleId: 1,
                 activeEmployee: x.isActive
@@ -214,7 +204,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
               //     emails
               //   })
               //   this.createEmailField()
-                
+
               // }
               // x.emails.map(
               //   (email) => {
@@ -236,14 +226,14 @@ export class AddOperatorComponent extends Utility implements OnInit {
               for (let index = 0; index < x.emails.length; index++) {
                 this.addEmailField()
                 this.emails.controls[index].patchValue({
-                    email: x.emails[index]
+                  email: x.emails[index]
                 });
               }
               for (let index = 0; index < x.phoneNumbers.length; index++) {
-                this.addPhoneField()  
+                this.addPhoneField()
                 this.phoneNumbers.controls[index].patchValue({
-                    phoneNumber: x.phoneNumbers[index]
-                });         
+                  phoneNumber: x.phoneNumbers[index]
+                });
               }
               this.form.controls['fileUpload'].patchValue({
                 fileName: x.profileDocId
@@ -370,12 +360,12 @@ export class AddOperatorComponent extends Utility implements OnInit {
     }
     this.emails.push(this.createEmailField());
   }
-  removeEmailField(index){
+  removeEmailField(index) {
     this.emails.removeAt(index)
   }
   createPhoneField(): FormGroup {
     return this.formBuilder.group({
-      phoneNumber: ['', [Validators.pattern('^(00|\\+|)[0-9]{10,12}'),Validators.required]]
+      phoneNumber: ['', []]
     });
   }
 
@@ -385,7 +375,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
     }
     this.phoneNumbers.push(this.createPhoneField());
   }
-  removePhoneField(index){
+  removePhoneField(index) {
     this.phoneNumbers.removeAt(index)
   }
   dialogConfirm($event): void {
@@ -545,9 +535,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
       { organizationName: 'Dapartment 1', id: 1 },
       { organizationName: 'Dapartment 2', id: 2 },
       { organizationName: 'Dapartment 3', id: 3 },
-      { organizationName:'Dapartment 4', id: 4 },
-      { organizationName:'Dapartment 5', id: 5 },
-      { organizationName:'Dapartment 6', id: 6 }
+      { organizationName: 'Dapartment 4', id: 4 },
+      { organizationName: 'Dapartment 5', id: 5 },
+      { organizationName: 'Dapartment 6', id: 6 }
     ];
   }
 
@@ -650,12 +640,12 @@ export class AddOperatorComponent extends Utility implements OnInit {
   //   this.departmentId = event.query
   // }
 
-  searchDepartment(event){
+  searchDepartment(event) {
     let query = event.query
     let filtered = []
     for (let index = 0; index < this.departmentList.length; index++) {
       let department = this.departmentList[index];
-      if(department.organizationName.toLowerCase().indexOf(query.toLowerCase()) == 0){
+      if (department.organizationName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         filtered.push(department)
       }
     }
