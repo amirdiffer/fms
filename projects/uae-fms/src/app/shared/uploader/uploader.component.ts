@@ -5,7 +5,8 @@ import {
   Input,
   Output,
   EventEmitter,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnChanges
 } from '@angular/core';
 import {
   FileSystemDirectoryEntry,
@@ -28,7 +29,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
   styleUrls: ['./uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UploaderComponent implements OnInit {
+export class UploaderComponent implements OnInit , OnChanges{
   @Input() hasError = false
   @Input() maxSize = 5120;
   @Input() uploaderName = '';
@@ -53,6 +54,7 @@ export class UploaderComponent implements OnInit {
   fileIcon = 'assets/icons/files.svg';
   fileName = '';
   fileImage: string = undefined;
+  imageModal:boolean = false;
   /* Ngx File Drop */
   public filesUpdloaded: NgxFileDropEntry[] = [];
   dialogModalError = false;
@@ -69,6 +71,10 @@ export class UploaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
+  }
+
+  ngOnChanges(){
     if(!this.multiple && typeof this.files[0] == 'undefined'){
       this.files =[];
     }
@@ -76,7 +82,6 @@ export class UploaderComponent implements OnInit {
       this.fileImage = `${environment.baseApiUrl}document/${this.files[0]}`;
     }
   }
-
   public dropped(files: NgxFileDropEntry[], option: string, index?: number) {
     this.filesUpdloaded = files;
     let fileUpload = null;
@@ -197,5 +202,9 @@ export class UploaderComponent implements OnInit {
   dialogErrorConfirm(value) {
     this.dialogModalError = false
   }
-
+  showImage(){
+    console.log(this.imageModal)
+    console.log('Image')
+    this.imageModal= true
+  }
 }

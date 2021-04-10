@@ -37,4 +37,15 @@ export class OrganizationService {
       environment.baseApiUrl + 'organization/' + id
     );
   }
+  loadWithPagination(page:number = 0 , sort:string = 'createdAt,desc' , size:number = 10000): Observable<ResponseBody<IOrganization[]>>{
+    let params = new HttpParams();
+    params=params.append('page',`${page}`)
+    params = params.append('sort',sort)
+    params = params.append('size',`${size}`)
+    console.log(params)
+    return this._http.get<ResponseBody<IOrganization[]>>(
+      environment.baseApiUrl + 'organization',
+      {params: params}
+    );
+  }
 }

@@ -12,6 +12,8 @@ import {
   OperatorFacade,
   OperatorService
 } from '@feature/fleet/+state/operator';
+import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
+import { IOperator } from '@models/operator';
 import { Utility } from '@shared/utility/utility';
 import {
   FileSystemDirectoryEntry,
@@ -20,6 +22,7 @@ import {
 } from 'ngx-file-drop';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
+import { IOrganization } from '@models/organization'
 @Component({
   selector: 'anms-add-operator',
   templateUrl: './add-operator.component.html',
@@ -31,7 +34,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
   isEdit: boolean = false;
   id: number;
-
+  allDepartment: IOrganization[] = [];
   //#region Dialog
   dialogSetting: IDialogAlert = {
     header: 'Add new operator alert',
@@ -113,17 +116,17 @@ export class AddOperatorComponent extends Utility implements OnInit {
   employees = new Subject();
   employees$ = this.employees.asObservable();
   getEmployeesList = new Subject();
-  employee_static;
-  employeeId;
 
-  departments = [
-    { name: 'Department 1', id: 1 },
-    { name: 'Department 2', id: 2 },
-    { name: 'Department 3', id: 3 },
-    { name: 'Department 4', id: 4 },
-    { name: 'Department 5', id: 5 },
-    { name: 'Department 6', id: 6 }
-  ];
+  departmentSerive$: Subscription;
+  departmentList: any[]
+  departmentFiltered: any[]
+  employee_static;
+  department_static;
+  employeeId;
+  departmentId;
+  avatarId = []
+
+  departments = [];
 
   roles = [
     { name: 'Police', id: 1 },
@@ -144,7 +147,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
       .get('phoneNumbers') as FormArray;
   }
 
-  private _operator;
+  private _operator: IOperator;
   operators$ = this.operatorFacade.operator$;
 
   constructor(
@@ -152,15 +155,23 @@ export class AddOperatorComponent extends Utility implements OnInit {
     private formBuilder: FormBuilder,
     private operatorFacade: OperatorFacade,
     private changeDetector: ChangeDetectorRef,
-    private operatorService: OperatorService
+    private operatorService: OperatorService,
+    private _departmentService: OrganizationService
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
-    // this.roleFacade.loadAll();
     this.buildForm();
-
+    this.departmentSerive$ = this._departmentService.loadWithPagination().subscribe(
+      (x) => {
+        console.log(x)
+        x.message
+          // ? this.department.next(x.message)
+          ? this.departmentList = x.message
+          : this.departmentList = []
+      }
+    )
     this.route.url.subscribe((params) => {
       this.isEdit =
         params.filter((x) => x.path == 'edit-operator').length > 0
@@ -174,6 +185,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
           .pipe(map((x) => x.message))
           .subscribe((x) => {
             if (x) {
+              console.log(x)
               this._operator = x;
               this.form.controls['portalInformation'].patchValue({
                 employeeNumber: {
@@ -181,34 +193,53 @@ export class AddOperatorComponent extends Utility implements OnInit {
                   id: x.employeeNumber
                 },
                 department: {
-                  name: `${x.department.name}`
+                  organizationName: x.department.organizationName,
+                  id: x.department.organizationId
                 },
                 roleId: 1,
                 activeEmployee: x.isActive
               });
+              // for (let index = 0; index < x.emails.length; index++) {
+              //   this.form.controls['personalInformation'].patchValue({
+              //     emails
+              //   })
+              //   this.createEmailField()
 
+              // }
+              // x.emails.map(
+              //   (email) => {
+              //     this.form.controls['personalInformation'].patchValue({
+              //       emails:email
+              //     })
+              //     this.createEmailField()
+              //   }
+              // )
               this.form.controls['personalInformation'].patchValue({
                 firstName: x.firstName,
                 lastName: x.lastName,
                 callCheckbox: x.notifyByCall,
                 smsCheckbox: x.notifyBySMS,
                 emailCheckbox: x.notifyByEmail,
-                whatsappCheckbox: x.notifyByWhatsApp
-              });
+                whatsappCheckbox: x.notifyByWhatsApp,
 
-              this.emails.controls[0].patchValue({
-                email: x.emails
               });
-
-              this.phoneNumbers.controls[0].patchValue({
-                phoneNumber: x.phoneNumbers
-              });
-
+              for (let index = 0; index < x.emails.length; index++) {
+                this.addEmailField()
+                this.emails.controls[index].patchValue({
+                  email: x.emails[index]
+                });
+              }
+              for (let index = 0; index < x.phoneNumbers.length; index++) {
+                this.addPhoneField()
+                this.phoneNumbers.controls[index].patchValue({
+                  phoneNumber: x.phoneNumbers[index]
+                });
+              }
               this.form.controls['fileUpload'].patchValue({
                 fileName: x.profileDocId
               });
-              // console.log(x)
-              // console.log(this.form.value)
+              this.avatarId = [x.profileDocId]
+
             }
           });
       } else {
@@ -267,12 +298,23 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.getEmployeesList.pipe(debounceTime(600)).subscribe((x) => {
       this.operatorService.searchEmployee(x['query']).subscribe((y) => {
         if (y) {
+          console.log(y)
           this.employees.next([y.message]);
         } else {
           this.employees.next(null);
         }
       });
     });
+    // this.getDepartmentList.pipe(debounceTime(600)).subscribe((x) => {
+    //   this._departmentService.searchDepartment(x['query']).subscribe((y) => {
+    //     if (y) {
+    //       console.log(y)
+    //       this.department.next([y.message]);
+    //     } else {
+    //       this.department.next(null);
+    //     }
+    //   });
+    // });
   }
 
   ngAfterContentInit(): void {
@@ -306,6 +348,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
   }
 
   createEmailField(): FormGroup {
+    console.log('email')
     return this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
@@ -317,7 +360,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
     }
     this.emails.push(this.createEmailField());
   }
-
+  removeEmailField(index) {
+    this.emails.removeAt(index)
+  }
   createPhoneField(): FormGroup {
     return this.formBuilder.group({
       phoneNumber: ['', []]
@@ -330,7 +375,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
     }
     this.phoneNumbers.push(this.createPhoneField());
   }
-
+  removePhoneField(index) {
+    this.phoneNumbers.removeAt(index)
+  }
   dialogConfirm($event): void {
     this.errorDialogModal = false;
     this.dialogModal = false;
@@ -343,7 +390,8 @@ export class AddOperatorComponent extends Utility implements OnInit {
           ? this._operator?.employeeNumber
           : this.employeeId,
         organizationId: 1,
-        departmentId: f.portalInformation.department.id || 1,
+        // departmentId: f.portalInformation.department.id || 1,
+        departmentId: this.isEdit ? this._operator?.department.id : this.departmentId,
         roleId: 1,
         isActive: f.portalInformation.activeEmployee,
         profileDocId: this.profileDocId || 1,
@@ -454,8 +502,10 @@ export class AddOperatorComponent extends Utility implements OnInit {
   }
 
   submit(): void {
+    console.log(this.form.value)
     this.submited = true;
     if (this.form.invalid) {
+      this.form.markAllAsTouched()
       return;
     }
 
@@ -482,12 +532,12 @@ export class AddOperatorComponent extends Utility implements OnInit {
   filterDepartments(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     this.departments = [
-      { name: 'Dapartment 1', id: 1 },
-      { name: 'Dapartment 2', id: 2 },
-      { name: 'Dapartment 3', id: 3 },
-      { name: 'Dapartment 4', id: 4 },
-      { name: 'Dapartment 5', id: 5 },
-      { name: 'Dapartment 6', id: 6 }
+      { organizationName: 'Dapartment 1', id: 1 },
+      { organizationName: 'Dapartment 2', id: 2 },
+      { organizationName: 'Dapartment 3', id: 3 },
+      { organizationName: 'Dapartment 4', id: 4 },
+      { organizationName: 'Dapartment 5', id: 5 },
+      { organizationName: 'Dapartment 6', id: 6 }
     ];
   }
 
@@ -532,6 +582,12 @@ export class AddOperatorComponent extends Utility implements OnInit {
     });
   }
 
+  departmentChanged($event) {
+
+    this.department_static = $event;
+    if (typeof $event != 'object') return;
+    this.departmentId = $event.id
+  }
   public fileOver(event) {
     // console.log(event);
   }
@@ -579,6 +635,22 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.employeeId = event.query;
   }
 
+  // getDepartment(event) {
+  //   this.getDepartmentList.next(event);
+  //   this.departmentId = event.query
+  // }
+
+  searchDepartment(event) {
+    let query = event.query
+    let filtered = []
+    for (let index = 0; index < this.departmentList.length; index++) {
+      let department = this.departmentList[index];
+      if (department.organizationName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(department)
+      }
+    }
+    this.departmentFiltered = filtered
+  }
   successDialogConfirm($event) {
     this.router.navigate(['fleet/operator']).then((_) => {
       this.operatorFacade.resetParams();
