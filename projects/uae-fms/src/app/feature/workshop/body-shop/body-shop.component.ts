@@ -23,35 +23,35 @@ export class BodyShopComponent implements OnInit {
       filterTagColor: '',
       filterTitle: 'statistic.calendar',
       isCalendar: true,
-      onActive: () => {}
+      onActive: () => { }
     },
     {
       filterCount: '15',
       filterTagColor: '#6EBFB5',
       filterTitle: 'statistic.total',
       filterSupTitle: 'statistic.insurance_claim',
-      onActive: () => {}
+      onActive: () => { }
     },
     {
       filterCount: '15',
       filterTagColor: '#6870B4',
       filterTitle: 'statistic.approved',
       filterSupTitle: 'statistic.insurance_claim',
-      onActive: () => {}
+      onActive: () => { }
     },
     {
       filterCount: '10',
       filterTagColor: '#BA7967',
       filterTitle: 'statistic.waiting_for_approval',
       filterSupTitle: 'statistic.insurance_claim',
-      onActive: () => {}
+      onActive: () => { }
     },
     {
       filterCount: '30',
       filterTagColor: '#DD5648',
       filterTitle: 'statistic.rejected',
       filterSupTitle: 'statistic.insurance_claim',
-      onActive: () => {}
+      onActive: () => { }
     }
   ];
 
@@ -61,35 +61,35 @@ export class BodyShopComponent implements OnInit {
       filterTagColor: '',
       filterTitle: 'statistic.this_month',
       isCalendar: true,
-      onActive: () => {}
+      onActive: () => { }
     },
     {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterTitle: 'statistic.total',
       filterSupTitle: 'statistic.job_card',
-      onActive: () => {}
+      onActive: () => { }
     },
     {
       filterCount: '8',
       filterTagColor: '#6870B4',
       filterTitle: 'statistic.approved',
       filterSupTitle: 'statistic.workshop_manager',
-      onActive: () => {}
+      onActive: () => { }
     },
     {
       filterCount: '13',
       filterTagColor: '#BA7967',
       filterTitle: 'statistic.waiting_for_approval',
       filterSupTitle: 'statistic.workshop_manager',
-      onActive: () => {}
+      onActive: () => { }
     },
     {
       filterCount: '13',
       filterTagColor: '#DD5648',
       filterTitle: 'statistic.rejected',
       filterSupTitle: 'statistic.workshop_manager',
-      onActive: () => {}
+      onActive: () => { }
     }
   ];
 
@@ -99,28 +99,28 @@ export class BodyShopComponent implements OnInit {
       filterTagColor: '',
       filterTitle: 'statistic.this_month',
       isCalendar: true,
-      onActive: () => {}
+      onActive: () => { }
     },
     {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterTitle: 'statistic.total',
       filterSupTitle: 'statistic.technician',
-      onActive: () => {}
+      onActive: () => { }
     },
     {
       filterCount: '8',
       filterTagColor: '#6870B4',
       filterTitle: 'statistic.available',
       filterSupTitle: 'statistic.technician',
-      onActive: () => {}
+      onActive: () => { }
     },
     {
       filterCount: '13',
       filterTagColor: '#BA7967',
       filterTitle: 'statistic.unavailable',
       filterSupTitle: 'statistic.technician',
-      onActive: () => {}
+      onActive: () => { }
     }
   ];
 
@@ -232,43 +232,6 @@ export class BodyShopComponent implements OnInit {
         width: 100,
         type: ColumnType.lable
       },
-      // {
-      //   lable: 'tables.column.item',
-      //   field: 'item',
-      //   width: 190,
-      //   renderer: 'vehicleRenderer'
-      // },
-      // {
-      //   lable: 'tables.column.issue',
-      //   field: 'issue',
-      //   type: ColumnType.lable,
-      //   width: 70
-      // },
-      // {
-      //   lable: 'tables.column.source',
-      //   field: 'source',
-      //   type: ColumnType.lable,
-      //   width: 120
-      // },
-      // {
-      //   lable: 'tables.column.reference_no',
-      //   field: 'refrenceNo',
-      //   width: 100,
-      //   type: ColumnType.lable
-      // },
-      // {
-      //   lable: 'tables.column.job_type',
-      //   field: 'jobType',
-      //   type: ColumnType.lable,
-      //   width: 100
-      // },
-      // {
-      //   lable: 'tables.column.date',
-      //   field: 'date',
-      //   width: 100,
-      //   type: ColumnType.lable,
-      //   sortable: true
-      // },
       {
         lable: '',
         field: 'floatButton',
@@ -295,7 +258,7 @@ export class BodyShopComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {},
+      onClick: (col, data, button?) => { },
       floatButton: [
         {
           button: 'external',
@@ -366,111 +329,7 @@ export class BodyShopComponent implements OnInit {
         renderer: 'floatButton'
       }
     ],
-    data: [
-      // {
-      //   id: 1,
-      //   statusColor: '#838BCE',
-      //   item: {
-      //     title: 'Request No 123456',
-      //     dpd: 'DPD 0000001',
-      //     thumb: 'thumb1.png'
-      //   },
-      //   task: 'Oil leaking, Oil leaking, Oil leaking..',
-      //   startDate: '20-20-2020',
-      //   endDate: '20-20-2020',
-      //   location: 'Station 2',
-      //   cost: '30.000 AED',
-      //   workshopManagerApproval: 'Approved'
-      // },
-      // {
-      //   id: 1,
-      //   statusColor: '#838BCE',
-      //   item: {
-      //     title: 'Request No 123456',
-      //     dpd: 'DPD 0000001',
-      //     thumb: 'thumb1.png'
-      //   },
-      //   task: 'Oil leaking, Oil leaking, Oil leaking..',
-      //   startDate: '20-20-2020',
-      //   endDate: '20-20-2020',
-      //   location: 'Station 2',
-      //   cost: '30.000 AED',
-      //   workshopManagerApproval: 'Approved'
-      // },
-      // {
-      //   id: 1,
-      //   statusColor: '#838BCE',
-      //   item: {
-      //     title: 'Request No 123456',
-      //     dpd: 'DPD 0000001',
-      //     thumb: 'thumb1.png'
-      //   },
-      //   task: 'Oil leaking, Oil leaking, Oil leaking..',
-      //   startDate: '20-20-2020',
-      //   endDate: '20-20-2020',
-      //   location: 'Station 2',
-      //   cost: '30.000 AED',
-      //   workshopManagerApproval: 'Approved'
-      // },
-      // {
-      //   id: 1,
-      //   statusColor: '#838BCE',
-      //   item: {
-      //     title: 'Request No 123456',
-      //     dpd: 'DPD 0000001',
-      //     thumb: 'thumb1.png'
-      //   },
-      //   task: 'Oil leaking, Oil leaking, Oil leaking..',
-      //   startDate: '20-20-2020',
-      //   endDate: '20-20-2020',
-      //   location: 'Station 2',
-      //   cost: '30.000 AED',
-      //   workshopManagerApproval: 'Approved'
-      // },
-      // {
-      //   id: 1,
-      //   statusColor: '#838BCE',
-      //   item: {
-      //     title: 'Request No 123456',
-      //     dpd: 'DPD 0000001',
-      //     thumb: 'thumb1.png'
-      //   },
-      //   task: 'Oil leaking, Oil leaking, Oil leaking..',
-      //   startDate: '20-20-2020',
-      //   endDate: '20-20-2020',
-      //   location: 'Station 2',
-      //   cost: '30.000 AED',
-      //   workshopManagerApproval: 'Approved'
-      // },
-      // {
-      //   statusColor: '#BA7967',
-      //   item: {
-      //     title: 'Request No 123456',
-      //     dpd: 'DPD 0000001',
-      //     thumb: 'thumb1.png'
-      //   },
-      //   task: 'Oil leaking, Oil leaking, Oil leaking..',
-      //   startDate: '20-20-2020',
-      //   endDate: '20-20-2020',
-      //   location: 'Station 2',
-      //   cost: '30.000 AED',
-      //   workshopManagerApproval: 'Approved'
-      // },
-      // {
-      //   statusColor: '#F75A4A',
-      //   item: {
-      //     title: 'Request No 123456',
-      //     dpd: 'DPD 0000001',
-      //     thumb: 'thumb1.png'
-      //   },
-      //   task: 'Oil leaking, Oil leaking, Oil leaking..',
-      //   startDate: '20-20-2020',
-      //   endDate: '20-20-2020',
-      //   location: 'Station 2',
-      //   cost: '30.000 AED',
-      //   workshopManagerApproval: 'Approved'
-      // }
-    ],
+    data: [],
     rowSettings: {
       onClick: (col, data) => {
         // console.log(col, data);
@@ -486,6 +345,7 @@ export class BodyShopComponent implements OnInit {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
+            console.log(data)
             this._facadeJobCard.resetParams();
             this.router.navigate([
               '/workshop/body-shop/edit-job-card/' + data.id
@@ -658,7 +518,7 @@ export class BodyShopComponent implements OnInit {
       // }
     ],
     rowSettings: {
-      onClick: (col, data, button?) => {},
+      onClick: (col, data, button?) => { },
       floatButton: [
         {
           button: 'edit',
@@ -667,6 +527,16 @@ export class BodyShopComponent implements OnInit {
             this._facadeTechnician.resetParams();
             this.router.navigate([
               '/workshop/body-shop/edit-technician/' + data.id
+            ]);
+          }
+        },
+        {
+          button: 'external',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this._facadeRequest.resetParams();
+            this.router.navigate([
+              '/workshop/body-shop/technician/' + data.id
             ]);
           }
         }
@@ -727,7 +597,7 @@ export class BodyShopComponent implements OnInit {
     private _facadeTechnician: BodyShopTechnicianFacade,
     private _facadeLocation: BodyShopLocationFacade,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this._facadeRequest.loadAll();

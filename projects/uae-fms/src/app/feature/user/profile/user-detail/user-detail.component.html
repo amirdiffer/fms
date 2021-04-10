@@ -1,0 +1,52 @@
+<div class="form-section component_wrapper position-relative">
+    <div class="edit-button">
+        <svg-icon [src]="editIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#0da06e' , 'height': '100%'}"></svg-icon>
+    </div>
+    <div class="profile-image-container">
+        <div class="profile-image-body"></div>
+        <div class="profile-image">
+            <img [src]="userImage" alt="">
+        </div>
+        <span class="add-button"><a>+</a></span>
+    </div>
+    <div class="user-info">
+        <h3 class="fullname-title">Mohammad Saddon</h3>
+        <h6 class="user-subtitle">Tecnhical</h6>
+        <p class="user-number">0027567565</p>
+    </div>
+    <ng-container *ngIf="hasActivate">
+        <div class="toggle-select justify-content-center">
+            <p-inputSwitch></p-inputSwitch>
+        </div>
+    </ng-container>
+    
+</div>
+<div class="form-section component_wrapper option-container">
+    <div class="user-option">
+        <div class="icon-body">
+            <svg-icon [src]="organizationIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#0da06e' , 'height': '100%'}"></svg-icon>
+        </div>
+        <div class="user-option-title">
+            <p class="p-0 m-0">{{'profile.organization' | translate}}</p>
+            <small class="p-0 m-0">Sample Department</small>
+        </div>
+    </div>
+    <div class="user-option">
+        <div class="icon-body">
+            <svg-icon [src]="emailIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': 'orange' , 'height': '100%'}"></svg-icon>
+        </div>
+        <div class="user-option-title">
+            <p class="p-0 m-0">{{'profile.email' | translate}}</p>
+            <small class="p-0 m-0">Mohammad@example.com</small>
+        </div>
+    </div>
+    <div class="user-option">
+        <div class="icon-body">
+            <svg-icon [src]="phoneIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': 'red' , 'height': '100%'}"></svg-icon>
+        </div>
+        <div class="user-option-title">
+            <p  class="p-0 m-0">{{'profile.phone_number' | translate}}</p>
+            <small class="p-0 m-0">+971505653793</small>
+        </div>
+    </div>
+</div>

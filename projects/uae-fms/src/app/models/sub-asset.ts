@@ -1,8 +1,7 @@
-import { IWarrantyItems } from './asset';
 
 export interface ISubasset {
-  id: number;
-  subAssetTypeId: number;
+  id?: number;
+  assetTypeId: number;
   makeId: number;
   modelId: number;
   year: number;
@@ -12,10 +11,20 @@ export interface ISubasset {
   warrantyItems: IWarrantyItems[];
   avatarId: number;
   dpd: string;
-  date: string;
-  warrantyExpireDate: string;
+  date?: string;
+  createdAt?:string;
+  warrantyExpireDate?: string;
   assetTypeName?;
   modelName?;
   makeName?;
   policyTypeName?;
+}
+export interface IWarrantyItems {
+  id?:number;
+  item: string;
+  periodType: string;
+  duration: number;
+  startDate: string;
+  docId: number;
+  hasReminder:boolean;
 }

@@ -97,13 +97,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
       makes: new FormArray([this.createMake()])
-      // typeName: ['', [Validators.required]],
-      // activetype: true,
-      // description: ['', Validators.required]
-      // type: ['mModel'],
-      // selectModel: [''],
-      // models: this._fb.array([this._fb.control([])])
-      // singleModelArray: new FormArray([this.createSingleModel()])
     });
 
     if (!this.dataService.selectedTypeId) {
@@ -308,6 +301,5 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
     })
 
     this.facade.addMake(data, this.assetTypeId);
-    // this._assetConfigurationService.loadAddForm(false);
   }
 }

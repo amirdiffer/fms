@@ -330,7 +330,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
   requests$ = this._facadeRequest.requestsById$;
 
   selectAsset(e) {
-    this.assetIdSelected = 24; //e.value;
+    this.assetIdSelected = e.value;
     this._facadeRequest.getRequestsById(this.assetIdSelected);
   }
 

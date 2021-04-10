@@ -72,6 +72,9 @@ export class UploaderComponent implements OnInit {
     if(!this.multiple && typeof this.files[0] == 'undefined'){
       this.files =[];
     }
+    if(this.isImage && this.files.length > 0){
+      this.fileImage = `${environment.baseApiUrl}document/${this.files[0]}`;
+    }
   }
 
   public dropped(files: NgxFileDropEntry[], option: string, index?: number) {
@@ -147,8 +150,9 @@ export class UploaderComponent implements OnInit {
           case HttpEventType.UploadProgress:
             this.progressBarValue = Math.round(
               (event.loaded / event.total) * 100
-            );
-            this.changeDetector.markForCheck();
+              );
+              (this.progressBarValue + ' %');
+              this.changeDetector.markForCheck();
             break;
           case HttpEventType.Response:
             setTimeout(() => {
@@ -162,6 +166,7 @@ export class UploaderComponent implements OnInit {
           if (!event.body.error) {
             if (!this.multiple) this.files = [];
             this.files.push(event.body.message.id);
+            console.log(event.body.message.id)
             this.changeDetector.markForCheck();
             if(this.readCSVFile){
               this.getValueCSV(event.body.message.id)

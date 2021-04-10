@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-/** Passes HttpErrorResponse to application-wide error handler */
 @Injectable()
 export class HttpInterceptor implements HttpInterceptorBase {
   constructor(private injector: Injector, private router: Router) { }

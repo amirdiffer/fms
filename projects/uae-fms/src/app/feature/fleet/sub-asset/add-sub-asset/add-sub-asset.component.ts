@@ -37,12 +37,14 @@ const SUB_ASSET_LABEL = 'SUB_ASSET';
 export class AddSubAssetComponent extends Utility implements OnInit {
   formCurrentStep = 0;
   csvText: [];
+  csvDoc=[];
   progressBarValue = 20;
-  subAssetDocRequired: false;
+  subAssetDocRequired: boolean = false;
   subAssetForm: FormGroup;
   warranties: FormArray;
   submitted = false;
   warrantyDocs = [];
+  avatarDoc =[];
   public filesUploaded: NgxFileDropEntry[] = [];
 
   thirdStepTableColumns: ColumnDifinition[] = [
@@ -56,7 +58,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     {
       lable: 'tables.column.model',
       thumbField: 'model',
-      type: 3
+      type: 1
     },
     {
       lable: 'tables.column.make',
@@ -168,7 +170,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   thirdStepTable: TableSetting = {
     columns: this.thirdStepTableColumns,
-    data: this.thirdStepTableData
+    data:[]
   };
 
   subAssetTypes = EMPTY_SELECT_ITEM_LIST;
@@ -177,10 +179,33 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   policyTypes = EMPTY_SELECT_ITEM_LIST;
 
   units = [
-    { name: 'Year ', id: 'YEAR' },
-    { name: 'Month ', id: 'MONTH' }
+    { name: 'Year', id: 'YEAR' },
+    { name: 'Month', id: 'MONTH' }
   ];
-
+  years = [
+    { name: '2000', id: 2000 },
+    { name: '2001', id: 2001 },
+    { name: '2002', id: 2002 },
+    { name: '2003', id: 2003 },
+    { name: '2004', id: 2004 },
+    { name: '2005', id: 2005 },
+    { name: '2006', id: 2006 },
+    { name: '2007', id: 2007 },
+    { name: '2008', id: 2008 },
+    { name: '2009', id: 2009 },
+    { name: '2010', id: 2010 },
+    { name: '2011', id: 2011 },
+    { name: '2012', id: 2012 },
+    { name: '2013', id: 2013 },
+    { name: '2014', id: 2014 },
+    { name: '2015', id: 2015 },
+    { name: '2016', id: 2016 },
+    { name: '2017', id: 2017 },
+    { name: '2018', id: 2018 },
+    { name: '2019', id: 2019 },
+    { name: '2020', id: 2020 },
+    { name: '2021', id: 2021 }
+  ];
   dialogSetting: IDialogAlert = {
     header: 'Add new Sub Asset alert',
     hasError: false,
@@ -207,6 +232,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   isSingleAsset = true;
   //#endregion
 
+  avatarDocRequired:boolean=false;
   constructor(
     injector: Injector,
     private _fb: FormBuilder,
@@ -250,23 +276,29 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     this.subAssetService.getSubAsset(recordId).subscribe((result: any) => {
       if (result && result.message) {
         const subAsset = result.message;
+        console.log(subAsset.warranties.length)
+        for (let index = 0; index < subAsset.warranties.length-1; index++){
+          this.addWarranty();
+        };
         this.subAssetForm.patchValue({
           warranties: subAsset.warranties.map((x) => {
             const date = moment.utc(x.startDate).local();
             this.warrantyDocs.push(x.docId);
+            console.log(this.warrantyDocs)
             return {
               ...x,
               periodType: x.durationType,
               duration: x.duration,
               startDate: date.toDate(),
               item: x.item,
-              docId: +x.docId
+              doc: +x.docId
             };
           })
         });
         this.subAssetForm.patchValue({
           avatarId: subAsset.avatarId
         });
+        this.avatarDoc =  Array.isArray(subAsset.avatarId) ? subAsset.avatarId : [subAsset.avatarId];
         const {
           assetTypeId,
           assetTypeName,
@@ -327,8 +359,10 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           purchaseValue,
           description
         };
-
         this.subAssetForm.patchValue(formValue);
+        this.subAssetForm.patchValue({
+          year:+formValue.year
+        })
 
         // reset warranty form
         // (this.subAssetForm.get('warrantyItems') as FormArray).removeAt(0);
@@ -382,7 +416,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       model: ['', [Validators.required]],
       year: ['', [Validators.required]],
       origin: ['', [Validators.required]],
-      policyType: ['', [Validators.required]],
+      policyType: [''],
       purchaseValue: ['', [Validators.required]],
       avatarId: [],
       description: [''],
@@ -417,6 +451,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       (result) => {
         if (result) {
           const assetTypes = result.message;
+
           const subAssetTypes = assetTypes.filter(
             (assetType) => assetType.type === SUB_ASSET_LABEL
           );
@@ -439,11 +474,52 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
 
   next(): void {
+    console.log(this.subAssetForm.value)
     if (this.subAssetForm.invalid) {
       this.subAssetForm.markAllAsTouched();
+      this.submitted = true;
       return;
     }
-
+    console.log(this.warrantyDocs)
+    this.formCurrentStep += 1;
+  }
+  upload(){
+    console.log(this.avatarDoc)
+    if(this.avatarDoc.length < 1 ||
+      this.avatarDoc.length < 1 ){
+      this.subAssetDocRequired = true;
+      this.avatarDocRequired = true;
+      return
+    }
+    
+    let formVal = this.subAssetForm.getRawValue();
+    let data = [];
+    let DPD = [];
+    this.csvText.map(
+      (x) => {
+        DPD.push(`DPD${x}`)
+      }
+    )
+    console.log(this.subAssetTypes)
+    console.log(this.models)
+    console.log(this.makes)
+    console.log(formVal.subAssetType)
+    console.log(formVal.model)
+    console.log(formVal.make)
+    for (let index = 0; index < this.csvText.length; index++) {
+      data.push({
+        subAssetName: {
+          img: 'assets/thumb1.png',
+          assetName: this.subAssetTypes.find((type) => type.id == formVal.subAssetType.id).name,
+          assetSubName: DPD[index],
+        },
+        model: this.models.find((model) => model.id == formVal.model.id).name,
+        make: this.makes.find((make) => make.id == formVal.make.id).name,
+        serialNumber: this.csvText[index],
+        type: this.subAssetTypes.find((type) => type.id == formVal.subAssetType.id).name,
+      })
+    }
+    this.thirdStepTable.data = data
     this.formCurrentStep += 1;
   }
 
@@ -460,6 +536,9 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       .at(index)
       .get('doc');
     docControl.setValue(docId);
+    if(evt.files.length>0){
+      this.warrantyDocs[index] = evt.files
+    }
   }
 
   addWarranty(): void {
@@ -469,13 +548,13 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   createWarrantyForm(
     item = '',
-    year = 'YEAR',
+    periodType = 'YEAR',
     duration = '',
     startDate = ''
   ): FormGroup {
     return this._fb.group({
       item: [item],
-      periodType: [year],
+      periodType: [periodType],
       duration: [duration],
       startDate: [startDate],
       doc: ['']
@@ -522,15 +601,22 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   submit() {
     this.submitted = true;
+    console.log(this.avatarDoc)
+    if(this.avatarDoc.length < 1){
+      this.avatarDocRequired=true;
+      return
+    }
     if (this.subAssetForm.invalid) {
       return;
     } else {
       const data = this.getSubAssetRequestPayload(this.subAssetForm.value);
+      console.log(data);
       if (!this.isEdit) {
         console.log(data);
         this.subAssetFacade.addSubAsset(data);
       } else {
         data['id'] = this.recordId;
+        console.log(data);
         this.subAssetFacade.editSubAsset(data);
       }
     }
@@ -552,8 +638,13 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
     // eg. DPD129348
     if (this.isEdit) {
-      const dpd = subAssetFormValue.serialNumber;
+      const serialNumber = subAssetFormValue.serialNumber;
+      let dpd=''
+      isNaN(+serialNumber) ? dpd=serialNumber : dpd ='DPD'+ serialNumber
+      console.log(serialNumber , dpd)
+      console.log(warranties)
       return {
+        id:this.recordId,
         avatarId,
         dpd,
         assetTypeId: subAssetType.id,
@@ -569,13 +660,14 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           duration: +warranty.duration,
           startDate: warranty.startDate.toISOString(),
           item: warranty.item,
-          // docId: +warranty.docId,
-          docId: 1,
+          docId: warranty.doc,
+          // docId: 1,
           hasReminder: true
         }))
       };
     } else {
       const dpds = [];
+      console.log(warranties)
       if (this.isSingleAsset) {
         const serialNumber = +subAssetFormValue.serialNumber;
         if (serialNumber) {
@@ -602,8 +694,8 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           duration: +warranty.duration,
           startDate: warranty.startDate.toISOString(),
           item: warranty.item,
-          // docId: +warranty.docId,
-          docId: 1,
+          docId: warranty.doc,
+          // docId: 1,
           hasReminder: true
         }))
       };
@@ -621,21 +713,22 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     }
   }
   public fileOver(event) {
-    // console.log(event);
   }
 
   public fileLeave(event) {
-    // console.log(event);
   }
 
   uploadAssetPicture($event) {
     const docId = $event.files[0];
     this.subAssetForm.controls['avatarId'].setValue(docId);
+    if($event.files.length>0){
+      this.avatarDoc = $event.files
+    }
   }
   uploadDocFiles(event) {
-    this.subAssetForm.patchValue({
-      // uploadFile: event.files
-    });
+    if(event.files.length>0){
+      this.csvDoc = event.files
+    }
   }
   csvReader(event) {
     this.csvText = event;

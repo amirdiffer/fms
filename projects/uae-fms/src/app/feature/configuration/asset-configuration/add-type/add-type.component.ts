@@ -1,32 +1,12 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  Injector,
-  OnInit,
-  Renderer2,
-  ViewChild
-} from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
-import { Utility } from '@shared/utility/utility';
-import {
-  FileSystemDirectoryEntry,
-  FileSystemFileEntry,
-  NgxFileDropEntry
-} from 'ngx-file-drop';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Injector, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AssetConfigurationService } from '../asset-configuration.service';
-import { TableSetting } from '@core/table';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetTypeFacade } from '../../+state/asset-configuration';
 import { Router } from '@angular/router';
+import { Utility } from '@shared/utility/utility';
+import { TableSetting } from '@core/table';
 
 @Component({
   selector: 'congifuration-add-type',
@@ -242,6 +222,5 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
 
 
     this.facade.addAssetType(data);
-    // this._assetConfigurationService.loadAddForm(false);
   }
 }

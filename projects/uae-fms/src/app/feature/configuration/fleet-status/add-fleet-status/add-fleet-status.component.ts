@@ -17,7 +17,8 @@ import { FleetStatusAssetFacade } from '../../+state/fleet-status/asset/fleet-st
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddFleetStatusComponent extends Utility implements OnInit {
-  isEdit: boolean = false;
+
+  //#region Dialog Settings
   dialogSettingCancel: IDialogAlert = {
     header: 'Asset Policy',
     hasError: false,
@@ -40,7 +41,10 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
 
   dialogModalCancel: boolean = false;
   dialogModalAdd: boolean = false;
+  //#endregion
 
+
+  //#region Table
   tableSetting: TableSetting = {
     columns: [
       {
@@ -88,9 +92,13 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
       }
     ]
   };
+  //#endregion
+
+  //#region Variables
   fleetStatusForm: FormGroup;
   submited = false;
   languagePrefix = 'fms.configuration.fleetStatus.';
+  isEdit: boolean = false;
 
   statusCategories = [
     { name: 'Category 1', id: 1 },
@@ -100,6 +108,7 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
     { name: 'Category 5', id: 5 }
   ];
   currentTab: string;
+  //#endregion
 
   constructor(
     injector: Injector,
