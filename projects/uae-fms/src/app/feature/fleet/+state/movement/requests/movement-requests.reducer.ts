@@ -25,14 +25,10 @@ const movementRequestsReducer = createReducer(
     loaded: false
   })),
 
-  on(MovementRequestsActions.statisticRequestLoaded, (state, { data }) =>
-    movementRequestsAdapter.setOne(data, {
+  on(MovementRequestsActions.statisticRequestLoaded, (state, { data }) => ({
       ...state,
-      statistic: data,
-      loaded: true
-    })
-  ),
-
+      statistic: data
+  })),
   on(MovementRequestsActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

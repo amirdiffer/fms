@@ -6,7 +6,7 @@ import {
   Injector,
   ChangeDetectorRef
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { MovementRequestsFacade } from '@feature/fleet/+state/movement';
 import {
@@ -71,19 +71,19 @@ export class MovementTemporaryConfirmComponent
 
   ngOnInit(): void {
     this.confirmForm = this._fb.group({
-      asset: [''],
-      department: [''],
-      operator: [''],
-      comment: [''],
+      asset: ['', Validators.compose([Validators.required])],
+      department: ['', Validators.compose([Validators.required])],
+      operator: ['', Validators.compose([Validators.required])],
+      comment: ['', Validators.compose([Validators.required])],
       movementType: ['temporary'],
       startDate: [''],
       startTime: [''],
       endDate: [''],
       endTime: [''],
-      gps: ['464646464'],
+      gps: ['', Validators.compose([Validators.required])],
       sendNotification: [true],
       fuelCart: [true],
-      serialNumber: ['']
+      serialNumber: ['', Validators.compose([Validators.required])]
     });
     this._assetFacade.loadAll();
     this._assetFacade.assetMaster$.subscribe((x) => {
@@ -155,6 +155,11 @@ export class MovementTemporaryConfirmComponent
 
   submit(): void {
     this.submitted = true;
+    this.confirmForm.get('department').markAsDirty();
+    this.confirmForm.get('operator').markAsDirty();
+    this.confirmForm.get('comment').markAsDirty();
+    this.confirmForm.get('gps').markAsDirty();
+    this.confirmForm.get('serialNumber').markAsDirty();
     if (this.confirmForm.invalid) {
       return;
     }
@@ -184,6 +189,7 @@ export class MovementTemporaryConfirmComponent
   successConfirm($event) {
     this.displayErrorModal = false;
     this.displaySuccessModal = false;
+    this.dialogRef.close();
     this._requestFacade.reset();
   }
 }

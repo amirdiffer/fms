@@ -31,11 +31,11 @@ export class MovementRequestsEffectTemporary {
       mergeMap((action) =>
         this.service.loadRequestStatistic().pipe(
           map((data) =>
-            MovementRequestsActionsTemporary.statisticRequestLoaded({ data })
+            MovementRequestsActionsTemporary.statisticRequestLoaded({ data: data.message })
+          ),
+          catchError((error) =>
+            of(MovementRequestsActionsTemporary.error({ reason: error }))
           )
-          // catchError((error) =>
-          //   of(MovementRequestsActions.error({ reason: error }))
-          // )
         )
       )
     )

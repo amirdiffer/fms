@@ -1,4 +1,4 @@
-<h4 class="main-title">Assign 123456</h4>
+<h4 class="main-title">{{ 'movement.request.assign_request_id' | translate:{id: data} }}</h4>
 <!-- start form -->
 <form [formGroup]="confirmForm">
     <div class="form-section no-bg no-shadow">
@@ -15,6 +15,9 @@
                         <i class="pi pi-search"></i>
                         <label>{{ 'movement.request.asset' | translate }} *</label>
                     </span>
+                  <anms-error
+                    [showError]="hasError('asset',confirmForm,submitted)"
+                    error="{{'forms.feedback.required' | translate}}"></anms-error>
                 </div>
             </div>
             <!-- end asset -->
@@ -35,6 +38,9 @@
                         <i class="pi pi-search"></i>
                     <label>{{ 'movement.request.department' | translate }} *</label>
                 </span>
+                <anms-error
+                  [showError]="hasError('department',confirmForm,submitted)"
+                  error="{{'forms.feedback.required' | translate}}"></anms-error>
               </div>
             </div>
             <!-- end department -->
@@ -49,6 +55,9 @@
                       <i class="pi pi-search"></i>
                     <label>{{ 'movement.request.operator' | translate }} *</label>
                 </span>
+                <anms-error
+                  [showError]="hasError('operator',confirmForm,submitted)"
+                  error="{{'forms.feedback.required' | translate}}"></anms-error>
               </div>
             </div>
             <!-- end operator -->
@@ -59,6 +68,9 @@
                         formControlName="comment" type="text">
                     <label>{{ 'movement.request.comment' | translate }}</label>
                 </span>
+              <anms-error
+                [showError]="hasError('comment',confirmForm,submitted)"
+                error="{{'forms.feedback.required' | translate}}"></anms-error>
             </div>
             <!-- end comment -->
         </div>
@@ -111,6 +123,9 @@
                         formControlName="gps" type="number">
                     <label>{{ 'movement.request.gps_master_source' | translate }}</label>
                 </span>
+              <anms-error
+                [showError]="hasError('gps',confirmForm,submitted)"
+                error="{{'forms.feedback.required' | translate}}"></anms-error>
             </div>
             <!-- end gps -->
         </div>
@@ -168,6 +183,9 @@
                         formControlName="serialNumber" type="number">
                     <label>{{ 'movement.request.s_n' | translate }}</label>
                 </span>
+              <anms-error
+                [showError]="hasError('serialNumber',confirmForm,submitted)"
+                error="{{'forms.feedback.required' | translate}}"></anms-error>
             </div>
             <!-- end serialNumber -->
         </div>

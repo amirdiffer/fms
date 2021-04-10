@@ -16,8 +16,8 @@ export class MovementRequestsServiceTemporary {
     );
   }
 
-  loadRequestStatistic(): Observable<IMovementStatistics> {
-    return this.http.get<IMovementStatistics>(
+  loadRequestStatistic(): Observable<ResponseBody<IMovementStatistics>> {
+    return this.http.get<ResponseBody<IMovementStatistics>>(
       environment.baseApiUrl + 'movement/stats'
     );
   }

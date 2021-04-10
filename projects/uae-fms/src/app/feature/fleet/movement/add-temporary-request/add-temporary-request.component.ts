@@ -26,6 +26,7 @@ import { MovementOverviewFacadeTemporary } from '@feature/fleet/+state/movement/
 export class AddTemporaryRequestComponent extends Utility implements OnInit {
   requestForm: FormGroup;
   submitted = false;
+  calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   dialogCancelSetting: IDialogAlert = {
     header: 'Cancel',
     hasError: false,
@@ -73,7 +74,9 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
       assetType: [null, Validators.compose([Validators.required])],
       reason: ['', Validators.compose([Validators.required])],
       quality: [''],
-      oldAssetType: ['']
+      oldAssetId: [''],
+      startDate: ['', Validators.compose([Validators.required])],
+      endDate: ['', Validators.compose([Validators.required])]
     });
     this.facade.submitted$.subscribe((x) => {
       if (x) {
@@ -124,15 +127,17 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
     } else {
       let d = this.requestForm.getRawValue();
       let _data = {
-        requesterId: 1,
+        requesterId: 103,
         requestType: d.requestType,
-        movementType: 'PERMANENT',
+        movementType: 'TEMPORARY',
         assetTypeId: d.assetType.id,
         reason: d.reason,
         quantity: d.quality,
-        startDate: '2018-10-18T21:13:06.253Z',
-        endDate: '2008-09-13T21:13:24.636Z'
+        oldAssetId: d.oldAssetId.id,
+        startDate: d.startDate,
+        endDate: d.endDate
       };
+      if (_data.requestType == 'NEW') _data.oldAssetId = undefined; else _data.quantity = undefined;
       this.facade.addMovementRequest(_data);
     }
   }

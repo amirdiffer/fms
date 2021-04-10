@@ -75,7 +75,7 @@
                 'REPLACEMENT'">
         <div class="autocomplete-select">
           <span class="p-float-label">
-            <p-autoComplete formControlName="oldAssetType" (completeMethod)="filterAssets($event)"
+            <p-autoComplete formControlName="oldAssetId" (completeMethod)="filterAssets($event)"
               [suggestions]="oldAssetSuggests" field="name" [minLength]="1"></p-autoComplete>
             <i class="pi pi-search"></i>
             <label>{{ 'movement.movement.old_asset' | translate }} *</label>
