@@ -181,4 +181,13 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
         break;
     }
   }
+
+  eventPagination_asset() {
+    this.assetPolicyFacade.loadAll();
+  }
+
+  eventPagination_subasset() {
+    this.subAssetPolicyFacade.loadAll();
+  }
+
 }

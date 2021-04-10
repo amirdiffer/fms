@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { MovementRequestsActions } from './movement-requests.actions';
 import { MovementRequestsService } from './movement-requests.service';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class MovementRequestsEffect {
@@ -13,7 +14,10 @@ export class MovementRequestsEffect {
       ofType(MovementRequestsActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => MovementRequestsActions.allDataLoaded({ data: data.message })),
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'movement_request');
+            return MovementRequestsActions.allDataLoaded({ data: data.message });
+          }),
           catchError((error) => of(MovementRequestsActions.error({ reason: error })))
         )
       )
@@ -90,6 +94,7 @@ export class MovementRequestsEffect {
 
   constructor(
     private action$: Actions,
-    private service: MovementRequestsService
+    private service: MovementRequestsService,
+    private _tableFacade: TableFacade
   ) {}
 }

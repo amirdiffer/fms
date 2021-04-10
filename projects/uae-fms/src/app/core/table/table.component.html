@@ -119,6 +119,33 @@
           *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
       </tr>
     </ng-template>
-
   </p-table>
+  <ng-template [ngIf]="pagination && showPagination">
+    <div class="paginator">
+      <div class="show-entries">
+        <span>Show</span>
+        <select [(ngModel)]="ipp" (change)="paginationEvent('rowCount')">
+          <option [ngValue]="5">5</option>
+          <option [ngValue]="10">10</option>
+          <option [ngValue]="25">25</option>
+          <option [ngValue]="50">50</option>
+          <option [ngValue]="100">100</option>
+        </select>
+        <span>Entries</span>
+      </div>
+      <div class="pagination">
+        <div class="pagination-caption">
+          <p>{{ trackingShowRow() }} of {{count}}</p>
+        </div>
+        <div class="pagination-action">
+          <span class="pagination-action__previous" (click)="paginationEvent('previous')">
+            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': 'rotate(90deg)', 'width.px':'23' , 'fill': activePage == 0 ? '#bbb': '#000' , 'height': '100%'}"></svg-icon>
+          </span>
+          <span class="pagination-action__next" (click)="paginationEvent('next')">
+            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': 'rotate(-90deg)', 'width.px':'23' , 'fill': pagesCount > activePage ? '#000': '#bbb' , 'height': '100%'}"></svg-icon>
+          </span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>

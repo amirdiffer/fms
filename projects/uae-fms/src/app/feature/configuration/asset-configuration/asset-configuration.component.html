@@ -22,7 +22,7 @@
                             <svg-icon [src]="downloadBtn"></svg-icon>
                         </button>
                     </span>
-          <app-table [setting]="assetConfigurationableSetting" [tableData]='assetType$'></app-table>
+          <app-table (onPagination)="eventPagination()" pagination="asset-configuration" [showPagination]="false" [setting]="assetConfigurationableSetting" [tableData]='assetType$'></app-table>
         </div>
     </div>
 </div>

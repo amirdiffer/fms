@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AssetPolicyActions } from './asset-policy.actions';
 import { AssetPolicyService } from './asset-policy.service';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class AssetPolicyEffect {
@@ -12,9 +13,10 @@ export class AssetPolicyEffect {
       ofType(AssetPolicyActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) =>
-            AssetPolicyActions.allDataLoaded({ data: data.message })
-          ),
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'asset-policy_asset');
+            return AssetPolicyActions.allDataLoaded({ data: data.message })
+          }),
           catchError((error) => of(AssetPolicyActions.error({ reason: error })))
         )
       )
@@ -52,5 +54,5 @@ export class AssetPolicyEffect {
     )
   );
 
-  constructor(private action$: Actions, private service: AssetPolicyService) {}
+  constructor(private action$: Actions, private service: AssetPolicyService, private _tableFacade: TableFacade) {}
 }

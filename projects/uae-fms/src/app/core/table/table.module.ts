@@ -23,6 +23,13 @@ import { RouterModule } from '@angular/router';
 import { FuelCardRendererComponent } from './renderers/fuel-card';
 import { AssignNow } from '@core/table/renderers/assign-now';
 import { TableGeneralButtonRendererComponent } from './renderers/general-button';
+import { StoreModule } from '@ngrx/store';
+import { TABLE_FEATURE_KEY } from '@core/table/+state/table.entity';
+import { reducer } from '@core/table/+state/table.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { TableEffect } from '@core/table/+state/table.effect';
+import { TableFacade } from '@core/table/+state/table.facade';
+import { TableService } from '@core/table/+state/table.service';
 import { FloatButton } from './renderers/float-button';
 import { ColorizeRendererComponent } from './renderers/colorize';
 import { AssetConfigurationTrimColorRendererComponent } from '@core/table/renderers/asset-configuration-trim-color-renderer.component';
@@ -30,6 +37,7 @@ import { CheckboxRendererComponent } from '@core/table/renderers/checkbox-render
 import { DownloadButtonRendererComponent } from '@core/table/renderers/download-button-renderer';
 import { TooltipModule } from 'primeng/tooltip';
 import { PriorityRendererComponent } from './renderers/priority';
+
 
 @NgModule({
   imports: [
@@ -39,6 +47,8 @@ import { PriorityRendererComponent } from './renderers/priority';
     MatProgressBarModule,
     AngularSvgIconModule,
     RouterModule,
+    StoreModule.forFeature(TABLE_FEATURE_KEY, reducer),
+    EffectsModule.forFeature([TableEffect]),
     TooltipModule
   ],
   exports: [TableComponent],
@@ -70,6 +80,9 @@ import { PriorityRendererComponent } from './renderers/priority';
     DownloadButtonRendererComponent,
     PriorityRendererComponent
   ],
-  providers: []
+  providers: [
+    TableFacade,
+    TableService
+  ]
 })
 export class TableModule {}

@@ -4,6 +4,7 @@ import { UsersActions } from './users.actions';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class UsersEffect {
@@ -12,7 +13,10 @@ export class UsersEffect {
       ofType(UsersActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => UsersActions.allDataLoaded({ data: data.message })),
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'users');
+            return UsersActions.allDataLoaded({ data: data.message });
+          }),
           catchError((error) => of(UsersActions.error({ reason: error })))
         )
       )
@@ -58,5 +62,5 @@ export class UsersEffect {
     )
   );
 
-  constructor(private action$: Actions, private service: UsersService) { }
+  constructor(private action$: Actions, private service: UsersService, private _tableFacade: TableFacade) { }
 }

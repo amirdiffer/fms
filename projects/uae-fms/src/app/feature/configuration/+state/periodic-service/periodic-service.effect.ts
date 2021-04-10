@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { PeriodicServiceActions } from './periodic-service.actions';
 import { PeriodicServiceService } from './periodic-service.service';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class PeriodicServiceEffect {
@@ -12,9 +13,10 @@ export class PeriodicServiceEffect {
       ofType(PeriodicServiceActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) =>
-            PeriodicServiceActions.allDataLoaded({ data: data.message })
-          ),
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'periodic-service');
+            return PeriodicServiceActions.allDataLoaded({ data: data.message });
+          }),
           catchError((error) =>
             of(PeriodicServiceActions.error({ reason: error }))
           )
@@ -61,6 +63,7 @@ export class PeriodicServiceEffect {
 
   constructor(
     private action$: Actions,
-    private service: PeriodicServiceService
+    private service: PeriodicServiceService,
+    private _tableFacade: TableFacade
   ) {}
 }

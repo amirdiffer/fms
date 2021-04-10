@@ -1,5 +1,5 @@
 export interface ResponseBody<T> {
   error: boolean;
-  result_number: number;
+  resultNumber: number;
   message: T;
 }

@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AssetConfigurationActions } from './asset-configuration.actions';
 import { AssetConfigurationService } from './asset-configuration.service';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class AssetConfigurationEffect {
@@ -12,7 +13,10 @@ export class AssetConfigurationEffect {
       ofType(AssetConfigurationActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => AssetConfigurationActions.allDataLoaded({ data: data.message })),
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'asset-configuration', 99999999);
+            return AssetConfigurationActions.allDataLoaded({ data: data.message })
+          }),
           catchError((error) =>
             of(AssetConfigurationActions.error({ reason: error }))
           )
@@ -23,6 +27,7 @@ export class AssetConfigurationEffect {
 
   constructor(
     private action$: Actions,
-    private service: AssetConfigurationService
+    private service: AssetConfigurationService,
+    private _tableFacade: TableFacade
   ) {}
 }

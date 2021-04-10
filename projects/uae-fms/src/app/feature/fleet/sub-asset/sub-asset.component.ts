@@ -12,7 +12,10 @@ import { SubAssetFacade } from '../+state/sub-asset';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { TableFacade } from '@core/table/+state/table.facade';
+import { ITablePagination } from '@core/table/+state/table.entity';
 import moment from 'moment';
+
 
 @Component({
   selector: 'anms-sub-asset',
@@ -142,13 +145,13 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   constructor(
     private facade: SubAssetFacade,
     private router: Router,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private _tableFacade: TableFacade
   ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
     this.facade.loadStatistics();
-
     this.statisticsSubscription = this.facade.statistics$.subscribe(
       (res: any) => {
         if (res) {
@@ -192,4 +195,9 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   exportTable() {
     this.table.exportTable(this.assetTraffic_Table, 'Sub Asset');
   }
+
+  eventPagination() {
+   this.facade.loadAll();
+  }
+
 }
