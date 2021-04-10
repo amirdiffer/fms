@@ -422,6 +422,14 @@ export class TemporaryComponent
     this._movementRequestsFacade.reset();
   }
 
+  eventPagination_overview() {
+    this._movementOverviewFacade.loadAll();
+  }
+
+  eventPagination_request() {
+    this._movementRequestsFacade.loadAll();
+  }
+
   exportTable() {
     switch (this.selectedTab) {
       case 'MovementOverViewTab':

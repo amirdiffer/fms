@@ -112,6 +112,10 @@ export class OrganizationComponent implements OnInit {
     this.facade.loadAll();
   }
 
+  eventPagination() {
+    this.facade.loadAll();
+  }
+
   exportTable() {
     this.table.exportTable(this.organization_Table, 'Department');
   }

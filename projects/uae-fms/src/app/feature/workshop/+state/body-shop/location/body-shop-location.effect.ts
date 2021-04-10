@@ -4,12 +4,14 @@ import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { BodyShopLocationActions } from './body-shop-location.actions';
 import { BodyShopLocationService } from './body-shop-location.service';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class BodyShopLocationEffect {
   constructor(
     private action$: Actions,
-    private service: BodyShopLocationService
+    private service: BodyShopLocationService,
+    private _tableFacade: TableFacade
   ) {}
 
   loadAll$ = createEffect(() =>
@@ -18,6 +20,7 @@ export class BodyShopLocationEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'body-shop_location');
             return BodyShopLocationActions.allDataLoaded({
               data: data.message
             });

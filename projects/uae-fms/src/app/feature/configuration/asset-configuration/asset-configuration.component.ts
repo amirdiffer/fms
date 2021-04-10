@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AssetConfigurationService } from './asset-configuration.service';
-import { AssetTypeFacade } from '../+state/asset-configuration';
+import { AssetConfigurationFacade, AssetTypeFacade } from '../+state/asset-configuration';
 import { FilterCardSetting } from '@core/filter';
 import { Make, MakeModel, MakeModelTrim } from '@models/asset-type.model';
 import { map } from 'rxjs/operators';
@@ -103,11 +103,13 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
 
   constructor(
     private facade: AssetTypeFacade,
-    private _assetConfigurationService: AssetConfigurationService,
-    public router: Router
+    public router: Router,
+    private assetConfigurationFacade: AssetConfigurationFacade,
+    private _assetConfigurationService: AssetConfigurationService
   ) {}
 
   ngOnInit(): void {
+    this.assetConfigurationFacade.loadAll();
     this.addOpen$ = this._assetConfigurationService
       .getAddForm()
       .subscribe((open) => {
@@ -245,6 +247,10 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
 
   exportTable() {
     this.table.exportTable(this.assetConfigurationableSetting, 'Asset Type');
+  }
+
+  eventPagination() {
+    this.assetConfigurationFacade.loadAll();
   }
 
   ngOnDestroy() {

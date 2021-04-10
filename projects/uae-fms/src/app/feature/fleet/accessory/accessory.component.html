@@ -20,5 +20,5 @@
           translate}}</a></button>
     </ng-container>
   </div>
-  <app-table [setting]='accessory_Table' [tableData]="accessory$"></app-table>
+  <app-table (onPagination)="eventPagination()" pagination="accessory" [setting]='accessory_Table' [tableData]="accessory$"></app-table>
 </div>

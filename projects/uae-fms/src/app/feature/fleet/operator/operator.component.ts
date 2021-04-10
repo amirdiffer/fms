@@ -115,14 +115,20 @@ export class OperatorComponent implements OnInit {
         type: 1,
         field: 'Organization',
         width: 150,
-        renderer: 'doubleLineRenderer'
+        renderer: 'doubleLineRenderer',
+        rendererOptions: {
+          type: 'array'
+        }
       },
       {
         lable: 'tables.column.information',
         type: 1,
         field: 'Information',
         width: 150,
-        renderer: 'doubleLineRenderer'
+        renderer: 'doubleLineRenderer',
+        rendererOptions: {
+          type: 'array'
+        }
       },
       { lable: 'tables.column.type', type: 1, field: 'Type', width: 100 },
       { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
@@ -195,4 +201,9 @@ export class OperatorComponent implements OnInit {
   exportTable() {
     this.table.exportTable(this.operator_Table, 'Operator');
   }
+
+  eventPagination() {
+    this._operatorFacade.loadAll();
+  }
+
 }

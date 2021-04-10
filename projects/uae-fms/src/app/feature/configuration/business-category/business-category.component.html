@@ -11,5 +11,5 @@
     </button>
     <button class="btn-primary-small" [routerLink]="'./add-business-category'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
   </div>
-  <app-table [setting]='businessCategory_Table' [tableData]="businessCategory$"></app-table>
+  <app-table (onPagination)="eventPagination()" pagination="business-category" [setting]='businessCategory_Table' [tableData]="businessCategory$"></app-table>
 </div>

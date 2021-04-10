@@ -11,6 +11,6 @@
     </button>
     <button class="btn-primary-small" [routerLink]="['add-task-master']" CheckAccess="task-master:create"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
   </div>
-  <app-table [setting]="tableSetting" [tableData]="data$"></app-table>
+  <app-table (onPagination)="eventPagination()" pagination="taskmaster" [setting]="tableSetting" [tableData]="data$"></app-table>
 </div>
 

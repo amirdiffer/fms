@@ -8,6 +8,7 @@ import {
 import { TableComponent, TableSetting } from '@core/table';
 import { map } from 'rxjs/operators';
 import { OwnershipFacade } from '../+state/ownership';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Component({
   selector: 'anms-ownership',
@@ -73,6 +74,7 @@ export class OwnershipComponent implements OnInit {
 
   constructor(
     private facade: OwnershipFacade,
+    private tableFacade: TableFacade,
     private _cd: ChangeDetectorRef
   ) {}
 
@@ -83,4 +85,9 @@ export class OwnershipComponent implements OnInit {
   exportTable() {
     this.table.exportTable(this.ownerShip_Table, 'Ownership');
   }
+
+  eventPagination() {
+    this.facade.loadAll();
+  }
+
 }

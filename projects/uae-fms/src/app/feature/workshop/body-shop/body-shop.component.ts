@@ -651,4 +651,21 @@ export class BodyShopComponent implements OnInit {
         break;
     }
   }
+
+  eventPagination_request() {
+    this._facadeRequest.loadAll();
+  }
+
+  eventPagination_jobcard() {
+    this._facadeJobCard.loadAll();
+  }
+
+  eventPagination_technician() {
+    this._facadeTechnician.loadAll();
+  }
+
+  eventPagination_location() {
+    this._facadeLocation.loadAll();
+  }
+
 }

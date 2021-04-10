@@ -181,10 +181,15 @@
     background: none;
     color: #009c62;
     border-color: #009c62;
+    cursor: pointer;
     .pi-plus {
       font-size: 18px;
       font-weight: bold;
     }
+  }
+  .remove-icon {
+    border: 1px solid #f75a4a !important;
+    cursor: pointer;
   }
 }
 

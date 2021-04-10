@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { BusinessCategoryActions } from './business-category.actions';
 import { BusinessCategoryService } from './business-category.service';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class BusinessCategoryEffect {
@@ -12,9 +13,10 @@ export class BusinessCategoryEffect {
       ofType(BusinessCategoryActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) =>
-            BusinessCategoryActions.allDataLoaded({ data: data.message })
-          ),
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'business-category');
+            return BusinessCategoryActions.allDataLoaded({ data: data.message })
+          }),
           catchError((error) =>
             of(BusinessCategoryActions.error({ reason: error }))
           )
@@ -61,6 +63,7 @@ export class BusinessCategoryEffect {
 
   constructor(
     private action$: Actions,
-    private service: BusinessCategoryService
+    private service: BusinessCategoryService,
+    private _tableFacade: TableFacade
   ) {}
 }

@@ -4,10 +4,11 @@ import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { RegistrationActions } from '@feature/fleet/+state/assets/registration/registration.actions';
 import { RegistrationService } from '@feature/fleet/+state/assets/registration/registration.service';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class RegistrationEffects {
-  constructor(private action$: Actions, private service: RegistrationService) {}
+  constructor(private action$: Actions, private service: RegistrationService,  private _tableFacade: TableFacade) {}
 
   loadAll$ = createEffect(() =>
     this.action$.pipe(
@@ -15,6 +16,7 @@ export class RegistrationEffects {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'asset_registration');
             return RegistrationActions.allDataLoaded({ data: data.message });
           }),
           catchError((error) =>

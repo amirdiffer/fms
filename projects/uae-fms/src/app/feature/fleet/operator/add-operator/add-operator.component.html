@@ -16,7 +16,7 @@
         <div class="autocomplete-select">
           <span class="p-float-label">
             <p-autoComplete formControlName="employeeNumber" (completeMethod)="getEmployee($event)"
-              [suggestions]="employees$|async" field="organizationId" [minLength]="1" (onSelect)="employeeNumberChanged($event)"
+              [suggestions]="employees$|async" field="nameEn" [minLength]="1" (onSelect)="employeeNumberChanged($event)"
               required [disabled]="isEdit"></p-autoComplete>
             <i class="pi pi-search"></i>
             <label>{{ 'configuration.users.employee_number' | translate }} *</label>
@@ -29,8 +29,12 @@
       <div class="col-12 col-md-3 p-field form-section__field">
         <div class="autocomplete-select">
           <span class="p-float-label">
-            <p-autoComplete formControlName="department" (completeMethod)="filterDepartments($event)"
-              [suggestions]="departments" field="name" [minLength]="1" [disabled]="isEdit"></p-autoComplete>
+            <p-autoComplete formControlName="department" (completeMethod)="searchDepartment($event)"
+            [suggestions]="departmentFiltered" field="organizationName" [minLength]="1" 
+            (onSelect)="departmentChanged($event)"
+            [disabled]="isEdit"
+            [dropdown]="true">
+            </p-autoComplete>
             <i class="pi pi-search"></i>
             <label>{{ 'configuration.users.department' | translate }} *</label>
           </span>
@@ -79,8 +83,13 @@
         <div>
           <p class='font-weight-bold'>{{ 'configuration.users.upload_form.title' | translate }}</p>
         </div>
-        <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false"
-          [preview]="false" [accept]="'.png'" (uploadedEvent)="uploadImage($event)"></anms-uploader>
+        <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" 
+          [multiple]="false"
+          [preview]="true" [accept]="['.png', '.jpg']" 
+          (uploadedEvent)="uploadImage($event)"
+          [isImage]="true"
+          [files]="avatarId"
+          ></anms-uploader>
       </div>
     </div>
     <div class="col-8" formGroupName="personalInformation">
@@ -106,14 +115,18 @@
         </div>
         <div class="row form-section__row">
           <div class="col-12 col-md-6 p-field form-section__field" formArrayName='emails'>
-            <span class="p-float-label" *ngFor='let _ of emails.controls; let index = index' [formGroupName]='index'>
+            <span class="p-float-label" *ngFor='let _ of emails.controls; let index = index; let last=last' [formGroupName]='index'>
               <div class="p-inputgroup" [class.mt-2]='emails.length > 1'>
                 <span class="p-float-label">
                   <input type="text" formControlName="email" pInputText placeholder="Email *">
                   <label>{{ 'configuration.users.email' | translate }} *</label>
                 </span>
-                <span class="p-inputgroup-addon addon-primary" (click)='addEmailField()'>
+                <span *ngIf="last" class="p-inputgroup-addon addon-primary" (click)='addEmailField()'>
                   <i class="pi pi-plus"></i>
+                </span>
+                <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeEmailField(index)">
+                  <svg-icon src='assets/icons/add.svg'
+                            [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
                 </span>
               </div>
               <anms-error [showError]="formArrayHasError(submited, emails, index, 'email')"
@@ -125,15 +138,19 @@
             </span>
           </div>
           <div class="col-12 col-md-6 p-field form-section__field" formArrayName='phoneNumbers'>
-            <span class="p-float-label" *ngFor='let _ of phoneNumbers.controls; let index = index'
+            <span class="p-float-label" *ngFor='let _ of phoneNumbers.controls; let index = index; let last=last;'
               [formGroupName]='index'>
               <div class="p-inputgroup" [class.mt-2]='phoneNumbers.length > 1'>
                 <span class="p-float-label">
                   <input type="text" formControlName="phoneNumber" pInputText placeholder="Phone Number">
                   <label>{{ 'configuration.users.phone_number' | translate }}</label>
                 </span>
-                <span class="p-inputgroup-addon addon-primary" (click)='addPhoneField()'>
+                <span *ngIf="last" class="p-inputgroup-addon addon-primary" (click)='addPhoneField()'>
                   <i class="pi pi-plus"></i>
+                </span>
+                <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removePhoneField(index)">
+                  <svg-icon src='assets/icons/add.svg'
+                            [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
                 </span>
               </div>
               <anms-error [showError]="formArrayHasError(submited, phoneNumbers, index, 'phoneNumber')"

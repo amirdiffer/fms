@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { MovementRequestsActionsTemporary } from './movement-requests.actions';
 import { MovementRequestsServiceTemporary } from './movement-requests.service';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class MovementRequestsEffectTemporary {
@@ -12,11 +13,10 @@ export class MovementRequestsEffectTemporary {
       ofType(MovementRequestsActionsTemporary.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) =>
-            MovementRequestsActionsTemporary.allDataLoaded({
-              data: data.message
-            })
-          ),
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'temporary_movement_request');
+            return MovementRequestsActionsTemporary.allDataLoaded({data: data.message});
+          }),
           catchError((error) =>
             of(MovementRequestsActionsTemporary.error({ reason: error }))
           )
@@ -115,6 +115,7 @@ export class MovementRequestsEffectTemporary {
 
   constructor(
     private action$: Actions,
-    private service: MovementRequestsServiceTemporary
+    private service: MovementRequestsServiceTemporary,
+    private _tableFacade: TableFacade
   ) {}
 }

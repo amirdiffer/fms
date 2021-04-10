@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { OwnershipActions } from './ownership.actions';
 import { OwnershipService } from './ownership.service';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class OwnershipEffect {
@@ -12,7 +13,10 @@ export class OwnershipEffect {
       ofType(OwnershipActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => OwnershipActions.allDataLoaded({ data: data.message })),
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'ownership');
+            return OwnershipActions.allDataLoaded({ data: data.message })
+          }),
           catchError((error) => of(OwnershipActions.error({ reason: error })))
         )
       )
@@ -47,5 +51,5 @@ export class OwnershipEffect {
     )
   );
 
-  constructor(private action$: Actions, private service: OwnershipService) { }
+  constructor(private action$: Actions, private service: OwnershipService, private _tableFacade: TableFacade) { }
 }

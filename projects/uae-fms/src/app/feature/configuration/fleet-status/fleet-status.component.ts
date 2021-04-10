@@ -117,4 +117,9 @@ export class FleetStatusComponent implements OnInit {
         break;
     }
   }
+
+  eventPagination() {
+    this.fleetStatusAssetFacade.loadAll();
+  }
+
 }

@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="ownerShip" [placeholder]="'assets.ownership' | translate" [options]="ownerShip" optionLabel="type" optionValue="id" formControlName="ownership"></p-dropdown>
+                            <p-dropdown inputId="ownerShip" [placeholder]="'assets.ownership' | translate" [options]="ownerShip" optionLabel="name" optionValue="id" formControlName="ownership"></p-dropdown>
                             <label for="ownerShip">{{ 'assets.ownership' | translate }}</label>
                           </span>
                           <anms-error
@@ -59,7 +59,7 @@
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="type" [placeholder]="'assets.type' | translate" [options]="assetType" optionLabel="name" optionValue="id" formControlName="type" (onChange)="onChangeAssetType($event)"></p-dropdown>
-                            <label for="type">{{ 'assets.type' | translate }}</label>
+                            <label for="type">{{ 'assets.type' | translate }} *</label>
                           </span>
                           <anms-error
                             [showError]="hasError('assetDetails.type',formGroupAssetDetail,submitted_AssetDetail)"
@@ -96,7 +96,7 @@
                             error="forms.feedback.required">
                           </anms-error>
                         </div>
-                        
+
                         <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="trim" [placeholder]="'assets.trim' | translate" [options]="assetTrim" optionLabel="trim" optionValue="id" formControlName="trim"></p-dropdown>
@@ -191,12 +191,12 @@
                                 error="forms.feedback.required">
                               </anms-error>
                             </div>
-                            <div class="col-12 col-md-3  p-field form-section__field" [class.col-md-9]="policyType.value != ''" >
+                            <div class="col-md-3 p-field form-section__field" [class.col-md-9]="policyType.value != ''" >
                               <span class="p-inputgroup p-float-label d-flex">
-                                <input pInputText numbersOnly formControlName="purchaseValue" [placeholder]=" 'assets.purchase_value' | translate"  type="text" (keyup)="calculate = false">
+                                <input id="purchase_value" pInputText numbersOnly formControlName="purchaseValue" [placeholder]=" 'assets.purchase_value' | translate"  type="text" (keyup)="calculate = false">
+                                <input [hidden]='policyType.value === ""' pInputText type="text" id="currency" value="AED" disabled/>
                                 <label>{{ 'assets.purchase_value' | translate }} *</label>
                                 <button *ngIf="!calculate" class="btn-primary-small calculate-button" (click)="calculateAssetPolicy()">{{ 'assets.calculate' | translate }} </button>
-                                <span *ngIf="policyType.value != ''" class="input-money-pipe">AED</span>
                               </span>
                               <anms-error
                                 [showError]="hasError('assetFinancialPlan.purchaseValue',formGroupFinancial,submitted_Financial)"
@@ -243,8 +243,8 @@
                             </div>
                             <div class="col-12 col-md-3 p-field form-section__field" [class.col-md-6]="policyType.value != ''" >
                               <span class="p-float-label">
-                                <input pInputText numbersOnly formControlName="inServiceOdometer"  [placeholder]="'assets.in_service_odometer' | translate" type="text">
-                                <label>{{ 'assets.in_service_odometer' | translate }}</label>
+                                <input pInputText numbersOnly formControlName="inServiceOdometer"  [placeholder]="('assets.in_service_odometer' | translate) + ' *'" type="text">
+                                <label>{{ 'assets.in_service_odometer' | translate }} *</label>
                               </span>
                             </div>
                             <div *ngIf="lifeCylceOdometer.value != '' " class="col-md-3 form-section__field" [class.col-md-6]="policyType.value != ''">

@@ -75,6 +75,48 @@
   }
 }
 
+.paginator {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2em;
+  .pagination {
+    display: flex;
+    margin: 0 1em;
+    .pagination-caption {
+      margin: 1em;
+      p {
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+    }
+    .pagination-action {
+      &__previous {
+        padding: 1em;
+        cursor: pointer;
+      }
+      &__next {
+        padding: 1em;
+        cursor: pointer;
+      }
+    }
+  }
+  .show-entries {
+    align-self: center;
+    margin: 0 1em;
+    select {
+      margin: 0 1em;
+      padding: 0.3em 1.5em 0.3em 0.8em;
+      border: 1px solid #bbb;
+      border-radius: 5px;
+      -webkit-appearance: none;
+      background: url(../../../assets/icons/arrow-left.png) no-repeat right 0.3em top 50%;
+      background-size: 20px;
+      cursor: pointer;
+    }
+  }
+}
+
 @media screen and (max-width: 40rem) {
   :host ::ng-deep {
     .p-datatable {
