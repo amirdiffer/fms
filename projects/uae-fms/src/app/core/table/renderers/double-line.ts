@@ -24,6 +24,13 @@ import { environment } from '../../../../environments/environment';
         <span class="line-2">{{ getLastElement(user[column.field][column.rendererOptions.line2]) }}</span>
       </div>
   </div>
+  <div *ngIf="column.rendererOptions.type=='list'">
+    <div class="d-flex">
+      <span class="line-1">{{ getLastElement(user[column.field][column.rendererOptions.line1]) }}</span>
+      <span class="line-2" style="opacity:.8">{{ getLastElement(user[column.field][column.rendererOptions.line2]) }}</span>
+    </div>
+  </div>
+
   `,
   styles: [
     `
@@ -47,6 +54,7 @@ export class TableDoubleLineRendererComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.user)
   }
 
   getLastElement(data: any) {

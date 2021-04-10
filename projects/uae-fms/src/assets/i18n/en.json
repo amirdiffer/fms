@@ -240,7 +240,10 @@
     "issue": "Issue",
     "todo": "To Do",
     "doing": "Doing",
-    "done": "Done"
+    "done": "Done",
+    "open":"Open",
+    "stoped":"Stoped",
+    "delayed":"Delayed"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -255,6 +258,7 @@
     "asset_traffic_fine": "Asset Traffic Fine",
     "job_card": "Job Card",
     "technician": "Technician",
+    "technician_job_card": "Technician Job Card",
     "location": "Location",
     "auction": "Auction",
     "sold": "Sold",
@@ -286,6 +290,7 @@
   },
   "tables": {
     "column": {
+      "title":"Title",
       "request_id": "Request ID",
       "sub_asset_type": "Sub Asset Type",
       "suppliers": "Suppliers",
@@ -966,7 +971,17 @@
         "employee_status": "Employee Status Is Active",
         "skill": "Skill",
         "skill_validation_error": "Please fill skill",
+        "total":"Total",
+        "job_card":"Job Card",
+        "done":"Done",
+        "doing":"Doing",
         "location": "Location",
+        "personal_detail":"Personal Detail",
+        "postal_zip_code":"Postal / Zip Code",
+        "country": "Country",
+        "city":"City",
+        "address_line":"Address Line",
+        "organization":"Organization",
         "location_validation_error": "Please fill Location",
         "first_name": "First Name",
         "first_name_validation_error": "Please fill first name",

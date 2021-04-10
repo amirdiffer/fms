@@ -239,7 +239,10 @@
     "issue": "إصدار",
     "todo": "لكى يفعل",
     "doing": "عمل",
-    "done": "انتهى"
+    "done": "انتهى",
+    "open":"افتح",
+    "stoped":"توقفت",
+    "delayed":"تأخير"
   },
   "tabs": {
     "asset_master": "ماجستير الأصول",
@@ -254,6 +257,7 @@
     "asset_traffic_fine": "غرامة مرور الأصول",
     "job_card": "بطاقة عمل",
     "technician": "فنى",
+    "technician_job_card": "بطاقة عمل",
     "location": "موقع",
     "auction": "مزاد",
     "sold": "مباع",
@@ -285,6 +289,7 @@
   },
   "tables": {
     "column": {
+      "title":"العنوان",
       "request_id": "طلب معرف",
       "suppliers": "الموردين",
       "name": "الاسم",
@@ -949,7 +954,17 @@
         "employee_status": "حالة الموظف مفعلة",
         "skill": "المهارة",
         "skill_validation_error": "",
+        "total":"الإجمالي",
+        "job_card":"بطاقة عمل",
+        "done":"انتهى",
+        "doing":"عمل",
         "location": "الموقع",
+        "personal_detail":"التفاصيل الشخصية",
+        "postal_zip_code":"بريدي / الرمز البريدي",
+        "country": "دولة",
+        "city":"مدينة",
+        "address_line":"خط عنوان",
+        "organization":"الإدارة",
         "location_validation_error": "",
         "first_name": "الاسم الاول",
         "first_name_validation_error": "",

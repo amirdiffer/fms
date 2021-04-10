@@ -10,10 +10,11 @@ import { StoreModule } from '@ngrx/store';
 import { USER_PROFILE_FEATURE_KEY } from './state/user.entity';
 import { reducer } from './state/user.reducer';
 import { SharedModule } from '@shared/shared.module';
+import { UserDetailComponent } from './profile/user-detail/user-detail.component';
 
 @NgModule({
-  declarations: [ProfileComponent, UserWidgetComponent],
-  exports: [UserWidgetComponent],
+  declarations: [ProfileComponent, UserWidgetComponent, UserDetailComponent],
+  exports: [UserWidgetComponent , UserDetailComponent],
   imports: [
     StoreModule.forFeature(USER_PROFILE_FEATURE_KEY, reducer),
     EffectsModule.forFeature([UserProfileEffect]),
