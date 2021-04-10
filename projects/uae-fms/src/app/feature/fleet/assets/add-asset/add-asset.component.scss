@@ -1,7 +1,7 @@
 @import '../../../../../themes/green-theme.scss';
 @import '../../../../../assets/scss/form-section.scss';
 
-.button-container{
+.button-container {
   top: -4em;
   right: 20px;
 }
@@ -23,12 +23,36 @@
     }
   }
 }
-.input-money-pipe {
-  align-self: center;
-  z-index: 2;
-  position: absolute;
-  right: 10px;
+$temp-border-color: null;
+input[type='text']#currency {
+  color: black;
+  opacity: 1;
   font-weight: bold;
+  width: 50px;
+  border-left: 0;
+  margin: 0 0 0 -7px;
+  background: white;
+}
+input[type='text']#purchase_value {
+  border-right: 0;
+  outline: none;
+}
+#purchase_value:hover + #currency {
+  @if $temp-border-color != $fms-green-invalid-input-border {
+    $temp-border-color: $fms-green-hovered-input-border;
+    border-color: $temp-border-color;
+  } @else {
+    $temp-border-color: $fms-green-invalid-input-border;
+    border-color: $temp-border-color;
+  }
+}
+#purchase_value.ng-invalid.ng-touched + #currency {
+  $temp-border-color: $fms-green-invalid-input-label;
+  border-color: $temp-border-color;
+}
+input:focus + #currency {
+  $temp-border-color: $fms-green-hovered-input-border;
+  border-color: $temp-border-color !important;
 }
 .btn-primary-small.calculate-button {
   padding: 1px 1em;
