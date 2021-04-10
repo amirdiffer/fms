@@ -34,6 +34,7 @@ export class TableComponent implements OnInit, OnDestroy {
   @Input() tableData: Observable<any>;
   count: number;
   @Input() pagination: string;
+  @Input() showPagination: boolean = true;
   arrowIcon = 'assets/icons/arrow-down.svg';
   subscribePagination$: Subscription
   pagesCount: number;

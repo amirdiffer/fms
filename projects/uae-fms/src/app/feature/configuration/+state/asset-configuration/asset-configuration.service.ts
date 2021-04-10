@@ -15,7 +15,7 @@ export class AssetConfigurationService {
     this._tableFacade.getPaginationByName(name).subscribe(x => {
       if (x != null) {
         this.params = this.params.set('page', x.page.toString())
-          .set('size', x.ipp.toString());
+          .set('size', '99999999');
       }
     });
     return this.params;

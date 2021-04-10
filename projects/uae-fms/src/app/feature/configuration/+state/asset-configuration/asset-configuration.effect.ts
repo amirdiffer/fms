@@ -14,8 +14,7 @@ export class AssetConfigurationEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            console.log(data.resultNumber)
-            this._tableFacade.initialPaginator(data.resultNumber, 'asset-configuration');
+            this._tableFacade.initialPaginator(data.resultNumber, 'asset-configuration', 99999999);
             return AssetConfigurationActions.allDataLoaded({ data: data.message })
           }),
           catchError((error) =>
