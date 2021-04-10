@@ -1,24 +1,14 @@
 import { AccessoryService } from './../../+state/accessory/accessory.service';
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AccessoryFacade } from '@feature/fleet/+state/accessory';
-import { map, filter } from 'rxjs/operators';
-import { ThrowStmt } from '@angular/compiler';
+import { map } from 'rxjs/operators';
 import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { Subject } from 'rxjs';
 
 const EMPTY_SELECT_ITEM_LIST = [
   {
@@ -34,27 +24,11 @@ const EMPTY_SELECT_ITEM_LIST = [
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddAccessoryComponent implements OnInit {
-  public accessoryForm: FormGroup;
 
-  accessory = [{ name: '', id: null }];
-
-  assignedTo = [
-    { name: 'assignedTo Type 1', id: 1 },
-    { name: 'assignedTo Type 2', id: 2 },
-    { name: 'assignedTo Type 3', id: 3 }
-  ];
-
-  assetsB;
-  subAssetsB;
-  employee = [];
-
-  formSubmitted = false;
-  formChanged = false;
+  //#region Dialogs
   dialogModal = false;
   dialogModalError = false;
   dialogModalCancel = false;
-
-  //#region Dialogs
   dialogSetting: IDialogAlert = {
     header: 'Accessory',
     hasError: false,
@@ -82,6 +56,7 @@ export class AddAccessoryComponent implements OnInit {
   };
   //#endregion
 
+  //#region Table
   accessory_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.item', type: 1, field: 'Item' },
@@ -101,12 +76,34 @@ export class AddAccessoryComponent implements OnInit {
     ],
     data: []
   };
+  //#endregion
+
+  public accessoryForm: FormGroup;
+
+  accessory = [{ name: '', id: null }];
+  setSearchValue = new Subject();
+  setSearchValue$ = this.setSearchValue.asObservable();
+
+  assignedTo = [
+    { name: 'assignedTo Type 1', id: 1 },
+    { name: 'assignedTo Type 2', id: 2 },
+    { name: 'assignedTo Type 3', id: 3 }
+  ];
+
+  assetsB;
+  subAssetsB;
+  employee = [];
+
+  formSubmitted = false;
+  formChanged = false;
+
   assets: [];
   subAssets: [];
   isEdit = false;
   recordId: number;
   dialogType: string;
   accessoryAssetTypes: any;
+  assignedToEntity;
 
   constructor(
     private _fb: FormBuilder,
@@ -117,7 +114,7 @@ export class AddAccessoryComponent implements OnInit {
     private changeDetector: ChangeDetectorRef,
     private subAssetFacade: SubAssetFacade,
     private assetMasterFacade: AssetMasterFacade
-  ) {}
+  ) { }
 
   accessory$ = this._facade.accessory$.pipe(
     map((x) =>
@@ -145,8 +142,8 @@ export class AddAccessoryComponent implements OnInit {
       this.loadAccessoryData(this.recordId);
     });
   }
+
   loadAccessoryData(recordId: number) {
-    debugger;
     this.accessoryService.getAccessory(recordId).subscribe((result: any) => {
       if (result) {
         const accessory = result.message;
@@ -169,28 +166,18 @@ export class AddAccessoryComponent implements OnInit {
         });
 
         this.setUsers(() => {
-          debugger;
-          const selectedEmployee: any = this.employee.find(
-            (e) => e.id === assignedToEmployeeId
-          );
-
-          this.accessoryForm.patchValue({
-            assignedToEmployeeId: selectedEmployee
-          });
+          this.accessoryForm.controls['assignedToEmployeeId'].setValue(assignedToEmployeeId)
         });
-
-        const selectedAsset: any = this.assetsB.find(
-          (a) => a.id === assignedToEntity
-        );
 
         const data = {
           itemName,
           assignedToType,
           quantity,
-          assignedToEntity: selectedAsset
+          assignedToEntity
         };
 
         this.accessoryForm.patchValue(data);
+        this.setSearchValue.next('data');
       }
     });
   }
@@ -228,7 +215,37 @@ export class AddAccessoryComponent implements OnInit {
         this.changeDetector.detectChanges();
       }
     });
+
+    this.setSearchValue$.subscribe(x => {
+      if (x) {
+        let selectedAsset;
+        switch (x) {
+          case 'data':
+            this.assignedToEntity = this.accessoryForm.controls['assignedToEntity'].value;
+            break;
+          case 'asset':
+            selectedAsset = this.assetsB.find(
+              (a) => {
+                return a.id === this.assignedToEntity
+              }
+            );
+            break;
+          case 'subAsset':
+            selectedAsset = this.subAssetsB.find(
+              (a) => {
+                return a.id === this.assignedToEntity
+              }
+            );
+            break;
+        }
+
+        if (selectedAsset) {
+          this.accessoryForm.controls['assignedToEntity'].setValue(selectedAsset);
+        }
+      }
+    })
   }
+
   private setUsers(cb = null) {
     this.accessoryService.users().subscribe((employee) => {
       this.employee = employee.message.map((user) => {
@@ -250,19 +267,21 @@ export class AddAccessoryComponent implements OnInit {
         id: y.id,
         name: y['makeName'] + ' ' + y['modelName']
       }));
+      if (x) this.setSearchValue.next('subAsset');
     });
+
     this.assetMasterFacade.assetMaster$.subscribe((x) => {
       this.assetsB = x.map((y) => ({
         id: y.id,
         name: y['makeName'] + ' ' + y['modelName']
       }));
+      if (x) this.setSearchValue.next('asset');
     });
   }
 
   handleSubmissionDialog() {
     this._facade.submitted$.subscribe((x) => {
       if (x) {
-        debugger;
         this.dialogModal = true;
         this.dialogType = 'success';
         this.dialogSetting.header = this.isEdit
@@ -342,7 +361,6 @@ export class AddAccessoryComponent implements OnInit {
   }
 
   submit() {
-    debugger;
     this.formSubmitted = true;
     if (this.accessoryForm.invalid) {
       this.accessoryForm.markAllAsTouched();

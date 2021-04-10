@@ -35,7 +35,6 @@ export class UploaderComponent implements OnInit {
   @Input() multiple = false;
   @Input() readCSVFile= false;
   @Input() iconIsHidden = false;
-  @Input() hintIsHidden = false;
   @Input() preview = true;
   @Input() isImage = false;
   @Input() files = [];
@@ -52,6 +51,8 @@ export class UploaderComponent implements OnInit {
   formData = new FormData();
   closeIcon = 'assets/icons/times.svg';
   fileIcon = 'assets/icons/files.svg';
+  fileName = '';
+  fileImage: string = undefined;
   /* Ngx File Drop */
   public filesUpdloaded: NgxFileDropEntry[] = [];
   dialogModalError = false;
@@ -70,9 +71,10 @@ export class UploaderComponent implements OnInit {
   ngOnInit(): void {
     if(!this.multiple && typeof this.files[0] == 'undefined'){
       this.files =[];
-      console.log(this.files)
     }
-    console.log(this.files)
+    if(this.isImage && this.files.length > 0){
+      this.fileImage = `${environment.baseApiUrl}document/${this.files[0]}`;
+    }
   }
 
   public dropped(files: NgxFileDropEntry[], option: string, index?: number) {
@@ -81,6 +83,7 @@ export class UploaderComponent implements OnInit {
     let fileSize = 0;
     let fileSuffix = '';
     for (const droppedFile of files) {
+      this.fileName = droppedFile.fileEntry.name;
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
@@ -89,8 +92,6 @@ export class UploaderComponent implements OnInit {
           if ((fileSize < this.maxSize, this.accept.includes(fileSuffix))) {
             this.formData.delete('doc');
             this.allFileUpload.push(droppedFile);
-            console.log(this.allFileUpload)
-            console.log(this.files)
             this.filesSize += fileSize;
             this.formData.append('doc', file);
             this.upload(index);
@@ -112,8 +113,6 @@ export class UploaderComponent implements OnInit {
         index: index
       });
     }
-    console.log(this.files.length)
-    
   }
 
   getSuffix(file: File): string {
@@ -149,12 +148,10 @@ export class UploaderComponent implements OnInit {
           case HttpEventType.ResponseHeader:
             break;
           case HttpEventType.UploadProgress:
-            console.log(event.loaded , event.total)
             this.progressBarValue = Math.round(
               (event.loaded / event.total) * 100
               );
               (this.progressBarValue + ' %');
-              console.log(this.progressBarValue )
               this.changeDetector.markForCheck();
             break;
           case HttpEventType.Response:
@@ -162,7 +159,6 @@ export class UploaderComponent implements OnInit {
               this.progressBarValue = 0;
               this.isUploading = false;
             }, 1500);
-            console.log(this.files)
             this.changeDetector.markForCheck();
             this.changeDetector.detectChanges();
         }
@@ -170,10 +166,12 @@ export class UploaderComponent implements OnInit {
           if (!event.body.error) {
             if (!this.multiple) this.files = [];
             this.files.push(event.body.message.id);
+            console.log(event.body.message.id)
             this.changeDetector.markForCheck();
             if(this.readCSVFile){
               this.getValueCSV(event.body.message.id)
             }
+            this.fileImage = `${event.url}/${event.body.message.id}`;
             this.filesUploadSuccess++;
             this.progressBarValue = 0;
             this.setFiles(indexUploadBox);
@@ -192,6 +190,7 @@ export class UploaderComponent implements OnInit {
   removeFile(index) {
     this.files.splice(index, 1);
     this.setFiles(index);
+    this.fileName = '';
     this.changeDetector.detectChanges();
   }
 

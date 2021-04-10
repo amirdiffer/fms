@@ -150,15 +150,6 @@
                         <div class="row form-group">
                             <div class="form-check col-lg-2">
                                 <input class="form-check-input" type="radio"
-                                    id="Estimate" value="ESTIMATE"
-                                    formControlName="jobType">
-                                <label class="form-check-label" for="Estimate">
-                                    {{'workshop.body_shop.requests.estimate' |
-                                    translate}}
-                                </label>
-                            </div>
-                            <div class="form-check col-lg-2">
-                                <input class="form-check-input" type="radio"
                                     id="Repair" value="NORMAL"
                                     formControlName="jobType">
                                 <label class="form-check-label" for="Repair">
@@ -177,19 +168,15 @@
                                     | translate}}
                                 </label>
                             </div>
-                            <ng-container *ngIf="inputForm.get('hasAccident').value
-                                == false">
-                                <div class="form-check col-lg-2">
-                                    <input class="form-check-input" type="radio"
-                                        id="Installation" value="INSTALLATION"
-                                        formControlName="jobType">
-                                    <label class="form-check-label"
-                                        for="Installation">
-                                        {{'workshop.body_shop.requests.installation'
-                                        | translate}}
-                                    </label>
-                                </div>
-                            </ng-container>
+                            <div class="form-check col-lg-2">
+                                <input class="form-check-input" type="radio"
+                                    id="INSTALLATION" value="INSTALLATION"
+                                    formControlName="jobType">
+                                <label class="form-check-label" for="INSTALLATION">
+                                    {{'workshop.body_shop.requests.installation' |
+                                    translate}}
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -277,7 +264,7 @@
                         <div class="row form-group select-level">
                             <div class="col-lg-2">
                                 <input class="form-check-input" type="radio"
-                                    name="priority" id="urgent" value="URGET"
+                                    name="priority" id="urgent" value="URGENT"
                                     formControlName="priority">
                                 <label class="form-check-label flag"
                                     for="urgent"
@@ -348,7 +335,7 @@
                 <p class='font-weight-bold'>{{'workshop.body_shop.requests.upload_form.title'
                     | translate}}</p>
               </div>
-              <anms-uploader [hintIsHidden]="true" [iconIsHidden]="false"  [multiple]="true"
+              <anms-uploader [iconIsHidden]="false"  [multiple]="true"
                 [preview]="false" [accept]="'.png'" (uploadedEvent)="uploadImage($event)"></anms-uploader>
             </div>
           </div>

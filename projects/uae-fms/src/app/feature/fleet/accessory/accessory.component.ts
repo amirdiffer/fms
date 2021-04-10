@@ -97,7 +97,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
               queryParams: { id: data['id'] }
             });
           },
-          button: 'external',
+          button: 'edit',
           color: '#3F3F3F'
         }
       ]

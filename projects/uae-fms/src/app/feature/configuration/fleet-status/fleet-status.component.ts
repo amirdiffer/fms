@@ -14,8 +14,8 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FleetStatusComponent implements OnInit {
-  searchIcon = 'assets/icons/search-solid.svg';
-  downloadBtn = 'assets/icons/download-solid.svg';
+
+  //#region Table
   tableSetting: TableSetting = {
     columns: [
       {
@@ -49,7 +49,7 @@ export class FleetStatusComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
-      onClick: (event) => {},
+      onClick: (event) => { },
       floatButton: [
         {
           button: 'edit',
@@ -62,7 +62,7 @@ export class FleetStatusComponent implements OnInit {
       ]
     }
   };
-  selectedTab: string;
+
   asset$ = this.fleetStatusAssetFacade.fleetStatus$.pipe(
     map((x) =>
       x.map((responseObject) => {
@@ -84,12 +84,19 @@ export class FleetStatusComponent implements OnInit {
       })
     )
   );
+  //#endregion
+
+  //#region Variables
+  searchIcon = 'assets/icons/search-solid.svg';
+  downloadBtn = 'assets/icons/download-solid.svg';
+  selectedTab: string;
+  //#endregion
 
   constructor(
     private fleetStatusAssetFacade: FleetStatusAssetFacade,
     private fleetStatusSubAssetFacade: FleetStatusSubAssetFacade,
     private _router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fleetStatusAssetFacade.loadAll();

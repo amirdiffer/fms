@@ -115,14 +115,20 @@ export class OperatorComponent implements OnInit {
         type: 1,
         field: 'Organization',
         width: 150,
-        renderer: 'doubleLineRenderer'
+        renderer: 'doubleLineRenderer',
+        rendererOptions: {
+          type: 'array'
+        }
       },
       {
         lable: 'tables.column.information',
         type: 1,
         field: 'Information',
         width: 150,
-        renderer: 'doubleLineRenderer'
+        renderer: 'doubleLineRenderer',
+        rendererOptions: {
+          type: 'array'
+        }
       },
       { lable: 'tables.column.type', type: 1, field: 'Type', width: 100 },
       { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
@@ -190,7 +196,6 @@ export class OperatorComponent implements OnInit {
 
   ngOnInit(): void {
     this._operatorFacade.loadAll();
-    this.data$.subscribe((x) => console.log(x));
   }
 
   exportTable() {

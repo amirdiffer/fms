@@ -1,26 +1,12 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  OnDestroy,
-  ChangeDetectorRef,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AssetConfigurationService } from './asset-configuration.service';
-import {
-  AssetConfigurationFacade,
-  AssetTypeFacade
-} from '../+state/asset-configuration';
+import { AssetTypeFacade } from '../+state/asset-configuration';
 import { FilterCardSetting } from '@core/filter';
 import { Make, MakeModel, MakeModelTrim } from '@models/asset-type.model';
 import { map } from 'rxjs/operators';
-import {
-  AssetTypeExtension,
-  MakeExtension,
-  ModelExtension
-} from '@feature/configuration/asset-configuration/asset-type/asset-type.component';
 import { TableComponent } from '@core/table';
+
 @Component({
   selector: 'anms-asset-configuration',
   templateUrl: './asset-configuration.component.html',
@@ -28,6 +14,8 @@ import { TableComponent } from '@core/table';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetConfigurationComponent implements OnInit, OnDestroy {
+
+  //#region Variables
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
   searchIcon = 'assets/icons/search-solid.svg';
@@ -39,35 +27,25 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       filterCount: '356',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.part',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.available',
       filterCount: '124',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.part',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.unavailable',
       filterCount: '12',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.part',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
 
   assetConfigurationableSetting = {
-    /*
-    iconSvgClass: "right-arrow"
-id: 39
-isActive: true
-isSelected: false
-makes: [{…}]
-name: "NUEVO"
-type: "SUB_ASSET"
-typeDescription: "4-
-     */
     columns: [
       {
         lable: 'tables.column.category',
@@ -121,26 +99,21 @@ typeDescription: "4-
   );
 
   assetConfiguration$ = this.facade.assetType$;
+  //#endregion
+
   constructor(
     private facade: AssetTypeFacade,
     private _assetConfigurationService: AssetConfigurationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    // this.facade.loadAll();
-    // this.assetTypeFacade.assetType$.subscribe((value) => {
-    //   if (!value.length) {
-    //     this.assetTypeFacade.loadAll();
-    //   }
-    // });
-    // this.assetConfigurationableSetting = this._assetConfigurationService.assetConfigurationableSetting();
-
     this.addOpen$ = this._assetConfigurationService
       .getAddForm()
       .subscribe((open) => {
         this.addOpen = open;
       });
   }
+
   openAdd() {
     this._assetConfigurationService.loadAddForm(true);
   }
@@ -254,7 +227,6 @@ typeDescription: "4-
           type: 1,
           thumbField: '',
           renderer: ''
-          // textColor: '#0DA06E'
         }
       ],
       data: []

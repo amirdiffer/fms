@@ -24,7 +24,7 @@ export class SubAssetService {
 
   loadAll(): Observable<ResponseBody<ISubasset[]>> {
     return this.http.get<ResponseBody<ISubasset[]>>(
-      environment.baseApiUrl + 'sub-asset', {params: this.getParam('asset')}
+      environment.baseApiUrl + 'sub-asset', {params: this.getParam('sub-asset')}
     );
   }
 
@@ -45,8 +45,8 @@ export class SubAssetService {
     return this.http.get(environment.baseApiUrl + `sub-asset/${id}`);
   }
 
-  editSubAsset(data): Observable<any> {
-    return this.http.post(
+  editSubAsset(data): Observable<ResponseBody<ISubasset>> {
+    return this.http.post<ResponseBody<ISubasset>>(
       environment.baseApiUrl + `sub-asset/${data.id}/update`,
       data
     );

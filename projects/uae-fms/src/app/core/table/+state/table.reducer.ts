@@ -9,7 +9,7 @@ const TableReducer = createReducer(
     let st = [...state.pagination];
     let copyData = Object.assign({}, st[i]);
     copyData.ipp = data;
-    copyData.page = 1;
+    copyData.page = 0;
     st[i] = copyData;
     return ({...state, pagination: st})
   }),
@@ -35,7 +35,7 @@ const TableReducer = createReducer(
     let copyData = Object.assign({}, st[i]);
     let pages = st[i].count > st[i].ipp ? st[i].count / st[i].ipp : 0;
     if(pages > 0) {
-      pages = Math.ceil(pages);
+      pages = Math.ceil(pages) - 1;
       copyData.page < pages ? copyData.page++ : null;
     }
     st[i] = copyData;

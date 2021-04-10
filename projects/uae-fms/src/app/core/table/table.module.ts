@@ -36,6 +36,7 @@ import { AssetConfigurationTrimColorRendererComponent } from '@core/table/render
 import { CheckboxRendererComponent } from '@core/table/renderers/checkbox-renderer';
 import { DownloadButtonRendererComponent } from '@core/table/renderers/download-button-renderer';
 import { TooltipModule } from 'primeng/tooltip';
+import { PriorityRendererComponent } from './renderers/priority';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import { TooltipModule } from 'primeng/tooltip';
     ColorizeRendererComponent,
     AssetConfigurationTrimColorRendererComponent,
     CheckboxRendererComponent,
-    DownloadButtonRendererComponent
+    DownloadButtonRendererComponent,
+    PriorityRendererComponent
   ],
   providers: [
     TableFacade,

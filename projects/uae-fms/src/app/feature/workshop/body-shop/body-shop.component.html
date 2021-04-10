@@ -1,10 +1,6 @@
 <div class="filter-container">
-  <!-- <app-filter *ngIf="selectedTab === 'requestTab'" [setting]="filterSetting"></app-filter> -->
   <app-filter *ngIf="selectedTab === 'jobcardTab'" [setting]="jobCardTabFilterSetting"></app-filter>
-  <!-- <app-filter *ngIf="selectedTab === 'technicianTab'" [setting]="technicianTabFilterSetting"></app-filter> -->
 </div>
-  <div class="table-container component_wrapper">
-
 <div class="table-container component_wrapper">
   <app-tab-view (selectedIndex)="selectedTab=$event">
     <span class="search-container card-table-header">
@@ -33,4 +29,3 @@
     </div>
   </app-tab-view>
 </div>
-  </div>

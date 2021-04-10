@@ -24,7 +24,7 @@ export class OperatorService {
 
   loadAll(): Observable<ResponseBody<IOperator[]>> {
     return this.http.get<ResponseBody<IOperator[]>>(
-      environment.baseApiUrl + 'operator', {params: this.getParam('asset')}
+      environment.baseApiUrl + 'operator', {params: this.getParam('operator')}
     );
   }
 

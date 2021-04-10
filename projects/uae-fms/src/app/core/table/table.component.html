@@ -89,6 +89,9 @@
           <div *ngIf="col.renderer=='assignNow'">
             <table-assign-now-renderer [data]="data"></table-assign-now-renderer>
           </div>
+          <div *ngIf="col.renderer == 'priorityRenderer'">
+            <table-priority-renderer [data]="data[col.field]"></table-priority-renderer>
+          </div>
           <div *ngIf="col.renderer=='floatButton' && i == rowIndexTable">
             <float-button-renderer [lang]="activeLang" [col]="col" [setting]="setting.rowSettings" [data]="data">
             </float-button-renderer>
@@ -117,11 +120,12 @@
       </tr>
     </ng-template>
   </p-table>
-  <ng-template [ngIf]="pagination && this.count > 10">
+  <ng-template [ngIf]="pagination">
     <div class="paginator">
       <div class="show-entries">
         <span>Show</span>
         <select [(ngModel)]="ipp" (change)="paginationEvent('rowCount')">
+          <option [ngValue]="5">5</option>
           <option [ngValue]="10">10</option>
           <option [ngValue]="25">25</option>
           <option [ngValue]="50">50</option>

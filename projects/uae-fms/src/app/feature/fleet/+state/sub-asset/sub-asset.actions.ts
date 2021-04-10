@@ -39,7 +39,7 @@ export class SubAssetActions {
 
   static editSubAssetSuccessfully = createAction(
     '[SubAsset] sub-asset edited successfully',
-    props<{ data: ISubasset }>()
+    props<{ data: any }>()
   );
 
   static reset = createAction('[SubAsset] parameters are reset');

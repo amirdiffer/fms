@@ -17,9 +17,8 @@ import { TableFacade } from '@core/table/+state/table.facade';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OwnershipComponent implements OnInit {
-  @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
-  downloadBtn = 'assets/icons/download-solid.svg';
+  //#region Table
   ownerShip_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.ownership', type: 1, field: 'Ownership' },
@@ -66,6 +65,12 @@ export class OwnershipComponent implements OnInit {
       })
     )
   );
+  //#endregion
+
+  //#region Variables
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
+  downloadBtn = 'assets/icons/download-solid.svg';
+  //#endregion
 
   constructor(
     private facade: OwnershipFacade,

@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input,
-  Output,
-  EventEmitter
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'alert-dialog',
@@ -14,24 +7,33 @@ import {
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class AlertDialogComponent implements OnInit {
+  //#region Input and Outputs
   @Input('settings') settings: IDialogAlert;
   @Input('displayModal') displayModal: boolean;
   @Output() confirm = new EventEmitter<any>();
+  //#endregion
+
+  //#region  Variables
   timesCircle = 'assets/icons/times-circle.svg';
   checkCircle = 'assets/icons/check-circle.svg';
   warningTriangle = 'assets/icons/exclamation-triangle.svg';
-  constructor() {}
+  //#endregion
 
-  ngOnInit(): void {}
+  constructor() { }
+
+  ngOnInit(): void { }
+
   confirmDialog() {
     this.displayModal = false;
     this.confirm.emit(true);
   }
+
   cancelDialog() {
     this.displayModal = false;
     this.confirm.emit(false);
   }
-  dialogEvent(event){
+
+  dialogEvent(event) {
     this.displayModal = false;
     this.confirm.emit(event);
   }
@@ -45,22 +47,9 @@ export interface IDialogAlert {
   message: string;
   confirmButton?: string;
   cancelButton?: string;
-  buttons?:buttons[];
+  buttons?: buttons[];
 }
-export interface buttons{
-  title:string;
-  eventEmit:string;
+export interface buttons {
+  title: string;
+  eventEmit: string;
 }
-/* example */
-/*
-  .html
-      <alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
-  .ts
-      dialogSetting : IDialogAlert ={
-          header:'Header is Here',
-          hasError:false,
-          message:'Message is Here',
-          confirmButton: 'Register Now',
-          cancelButton:'Cancel',
-      }
-*/

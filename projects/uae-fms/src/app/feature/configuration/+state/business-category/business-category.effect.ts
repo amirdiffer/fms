@@ -29,7 +29,7 @@ export class BusinessCategoryEffect {
     this.action$.pipe(
       ofType(BusinessCategoryActions.editCategory),
       mergeMap((action) =>
-        this.service.editCategory(action.category).pipe(
+        this.service.editCategory(action.category,action.id).pipe(
           map((data) =>
             BusinessCategoryActions.categoryEditedSuccessfully({
               category: action.category

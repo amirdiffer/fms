@@ -37,6 +37,20 @@ const subAssetReducer = createReducer(
     message: null,
     submitted: false
   })),
+  on(SubAssetActions.editSubAsset, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(SubAssetActions.editSubAssetSuccessfully, (state, { data }) =>
+  subAssetAdapter.updateOne({ changes: data, id: data.id }, {
+      ...state,
+      error:null,
+      message: null,
+      submitted: true
+    })
+  ),
 
   on(SubAssetActions.addSubAssetSuccessfully, (state, { data }) => ({
     ...state,

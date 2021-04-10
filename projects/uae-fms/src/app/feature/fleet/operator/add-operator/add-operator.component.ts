@@ -76,28 +76,28 @@ export class AddOperatorComponent extends Utility implements OnInit {
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
 
@@ -248,7 +248,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
     this.operatorFacade.error$.subscribe((x) => {
       if (x) {
-        // console.log(x?.error);
+        if (x?.error?.error && x.error.message) this.errorDialogSetting.message = x.error.message;
+        else this.errorDialogSetting.message = "Error occurred in progress";
+
         this.errorDialogModal = true;
         this.errorDialogSetting.header = this.isEdit
           ? 'Edit operator'
@@ -318,7 +320,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
   createPhoneField(): FormGroup {
     return this.formBuilder.group({
-      phoneNumber: ['', [Validators.pattern('^(00|\\+|)[0-9]{10,12}')]]
+      phoneNumber: ['', []]
     });
   }
 
@@ -551,7 +553,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
         if (
           typeof f.personalInformation.phoneNumbers[0] == 'object' &&
           typeof f.personalInformation.phoneNumbers[0].phoneNumber ==
-            'string' &&
+          'string' &&
           f.personalInformation.phoneNumbers[0].phoneNumber.length < 5
         )
           return [];

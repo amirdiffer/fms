@@ -21,6 +21,8 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetPolicyComponent implements OnInit, OnDestroy {
+
+  //#region Variables
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
   getAssetPolicySubscription!: Subscription;
@@ -63,7 +65,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {},
+      onClick: (col, data, button?) => { },
       floatButton: [
         {
           onClick: (col, data) => {
@@ -106,7 +108,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {},
+      onClick: (col, data, button?) => { },
       floatButton: [
         {
           onClick: (col, data) => {
@@ -136,12 +138,13 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       })
     )
   );
+  //#endregion
 
   constructor(
     private _router: Router,
     private assetPolicyFacade: AssetPolicyFacade,
     private subAssetPolicyFacade: SubAssetPolicyFacade
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.assetPolicyFacade.loadAll();

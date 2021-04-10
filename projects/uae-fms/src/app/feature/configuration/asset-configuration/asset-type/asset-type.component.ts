@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  OnDestroy,
-  ChangeDetectorRef,
-  Output,
-  EventEmitter
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { AssetTypeFacade } from '../../+state/asset-configuration';
 import { Subject, Observable } from 'rxjs';
 import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
@@ -21,10 +13,14 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssetTypeComponent implements OnInit, OnDestroy {
+
+  //#region Inputs and Outputs
   @Output() selectTrim = new EventEmitter();
   @Output() selectMake = new EventEmitter();
   @Output() selectModel = new EventEmitter();
+  //#endregion
 
+  //#region Variables
   assetType$ = this.facade.assetType$.pipe(
     map((response) =>
       response.map((obj) => {
@@ -53,25 +49,18 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   );
 
   loaded$ = this.facade.loaded$;
-
   filter = new Subject();
-
-  // assetData$ = merge(this.assetType$, this.filter.asObservable());
-
   assetTypes: AssetTypeExtension[] = [];
   arrowIcon = 'assets/icons/arrow-down.svg';
+  //#endregion
 
   constructor(
     private facade: AssetTypeFacade,
-    private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
     private dataService: DataService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    // this.assetData$.subscribe((x) => {
-    // console.log(x);
-    // });
     this.filter.next('ASSET');
 
     setTimeout(() => {
@@ -144,9 +133,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    // this.getAssetTypeSubscription?.unsubscribe();
-  }
+  ngOnDestroy(): void { }
 }
 
 export interface AssetTypeExtension extends IAssetType {

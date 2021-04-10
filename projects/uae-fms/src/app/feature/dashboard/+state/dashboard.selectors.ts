@@ -1,10 +1,5 @@
 import { createFeatureSelector, createSelector, State } from '@ngrx/store';
-import {
-  Dashboard_FEATURE_KEY,
-  dashboardAdapter,
-  DashboardPartialState,
-  DashboardState
-} from './dashboard.entity';
+import { Dashboard_FEATURE_KEY, DashboardPartialState, DashboardState } from './dashboard.entity';
 
 export class DashboardSelectors {
   static featureSelector = createFeatureSelector<

@@ -4,7 +4,6 @@
       <div class="row">
         <ng-container>
           <div class="col-12 d-flex justify-content-between file-name-size text-center">
-            <span *ngIf="!hintIsHidden">{{ 'assets.upload_form.progressbar_title' | translate }}</span>
             <div  *ngIf="progressBarValue > 0" class="text-center" style="font-size: 1.3em">
               <span>{{ filesSize / 1024 | number }} MG</span>
               <p *ngIf="filesUploadSuccess > 0"><span style="color: green">{{ filesUploadSuccess }}</span> upload successfully</p>
@@ -42,14 +41,14 @@
   <div class="col-12 d-flex flex-md-column-reverse" >
     <div class="row">
       <div *ngFor="let file of files; let index=index;" class="col-auto mb-2  align-self-end">
-        <div  [class.preview]="preview" class="upload-file-item">
+        <div  [class.preview]="preview" class="upload-file-item" [class.is-image]="isImage">
           <p>file name</p>
           <span (click)="removeFile(index)">
             <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':'12' , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>
           </span>
           <div *ngIf="preview">
-            <a [href]="getAddress(file)" download>
-              <img [src]="isImage ? getAddress(file) : fileIcon">
+            <a [href]="fileImage" download>
+              <img [src]="isImage ? fileImage : fileIcon">
             </a>
           </div>
         </div>

@@ -6,12 +6,13 @@ import { AddTechnicianComponent } from './add-technician/add-technician.componen
 import { BodyShopComponent } from './body-shop.component';
 import { RequestTabOverviewComponent } from '../body-shop/request-tab-overview/request-tab-overview.component';
 import { AddJobCardComponent } from './add-job-card/add-job-card.component';
-
+import {TechnicianOverviewComponent} from './technician-overview/technician-overview.component';
 const routes: Routes = [
   { path: '', component: BodyShopComponent, pathMatch: 'full' },
   { path: 'add-request', component: AddRequestComponent },
   { path: 'edit-request/:id', component: AddRequestComponent },
   { path: 'add-technician', component: AddTechnicianComponent },
+  {path: 'technician/:id' , component: TechnicianOverviewComponent},
   { path: 'edit-technician/:id', component: AddTechnicianComponent },
   { path: 'add-location', component: AddLocationComponent },
   { path: 'add-job-card', component: AddJobCardComponent },

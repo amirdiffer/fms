@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -48,6 +47,7 @@ export class TableComponent implements OnInit, OnDestroy {
     private _tableFacade: TableFacade
   ) { }
 
+
   ngOnInit() {
     if (this.pagination) {
       this.initialPagination();
@@ -71,19 +71,16 @@ export class TableComponent implements OnInit, OnDestroy {
           return data[col.field];
         case 2:
           return data[col.thumbField]
-            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
-                col.override
-                  ? 'assets/' + col.override
-                  : environment.baseFileServer + data[col.thumbField]
-              }'> <p class='text-of-cell-with-image'>${
-                data[col.field]
-              }</p></div>`
+            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${col.override
+              ? 'assets/' + col.override
+              : environment.baseFileServer + data[col.thumbField]
+            }'> <p class='text-of-cell-with-image'>${data[col.field]
+            }</p></div>`
             : data[col.field];
         case 3:
           return data[col.thumbField]
-            ? `<img class='thumb' src='${
-                environment.baseFileServer + data[col.thumbField]
-              }'>`
+            ? `<img class='thumb' src='${environment.baseFileServer + data[col.thumbField]
+            }'>`
             : '';
       }
     } else {
@@ -139,9 +136,6 @@ export class TableComponent implements OnInit, OnDestroy {
 
   exportTable(tableSetting: TableSetting, title: string): void {
     const exportColumns = tableSetting.columns.map((col) => {
-      /* if (col.thumbField?.length) {
-        return;
-      } */
       return {
         title:
           col.lable && this.translate.instant(col.lable)
@@ -157,33 +151,32 @@ export class TableComponent implements OnInit, OnDestroy {
       if (title === 'assetMasterTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\n${data[col.field].ownership}`;
+            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+              }\n${data[col.field].ownership}`;
           });
         }
       }
       if (title === 'pendingRegistrationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+              }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
       if (title === 'pendingCustomizationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+              }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
     });
 
     const pdf = new jsPDF('p', 'pt', 'a4');
+    pdf.text(title, 20, 20);
+
     autoTable(pdf, {
       columns: exportColumns,
       body: exportRows,
@@ -214,14 +207,16 @@ export class TableComponent implements OnInit, OnDestroy {
     return this.selectedTRS.includes(index);
   }
 
+  lastIpp = 0;
   initialPagination() {
     let i = 0;
     this.subscribePagination$ = this._tableFacade.getPaginationByName(this.pagination).subscribe(x => {
-      if (x != null && (this.activePage != x['page'] || this.ipp != x['ipp'])) {
+      if (x != null && (this.activePage != x['page'] || this.lastIpp != x['ipp'])) {
         i++;
         this.activePage = x['page'];
         this.count = x['count'];
         this.ipp = x['ipp'];
+        this.lastIpp = this.ipp;
         i > 1 ? this.onPagination.emit() : null;
         console.log('pagination Event')
       }
@@ -251,7 +246,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
 
   trackingShowRow(): string {
-    this.pagesCount = this.count > this.ipp ? Math.ceil(this.count / this.ipp) : 0;
+    this.pagesCount = this.count > this.ipp ? Math.ceil(this.count / this.ipp) - 1 : 0;
     let leftOver = this.count % this.ipp;
     let start = (this.activePage * this.ipp);
     let end = start + this.ipp;

@@ -8,6 +8,7 @@ import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class BusinessCategoryService {
+
   constructor(private http: HttpClient, private _tableFacade: TableFacade) {}
 
   params = new HttpParams();
@@ -40,12 +41,12 @@ export class BusinessCategoryService {
     );
   }
 
-  editCategory(data: any): Observable<ResponseBody<any>> {
+  editCategory(data: any, id): Observable<ResponseBody<any>> {
     return this.http.post<ResponseBody<any>>(
       environment.baseApiUrl +
-        'configuration/business-category/' +
-        data.id +
-        '/update',
+      'configuration/business-category/' +
+      id +
+      '/update',
       data
     );
   }

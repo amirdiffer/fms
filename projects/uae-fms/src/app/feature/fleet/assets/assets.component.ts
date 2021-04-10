@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { yearsPerPage } from '@angular/material/datepicker';
 import { TechnicalInspectionSelectors } from '@feature/workshop/+state/technical-inspections/technical-inspections.selectors';
+import moment from 'moment';
 
 @Component({
   selector: 'anms-assets',
@@ -44,6 +45,14 @@ export class AssetsComponent implements OnInit, OnDestroy {
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map((x) => {
       return x.map((y) => {
+        function date (){
+          let createdDate=moment.utc(y.createdAt).local().toDate();
+          let nowDate = new Date();
+          let newDate =nowDate.getTime() - createdDate.getTime()
+          return {
+            day : Math.floor(newDate/ (1000 * 3600 * 24))
+          }
+        }
         return {
           ...y,
           id: y.id,
@@ -58,7 +67,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
           allocated: 'Finance',
           operator: y.operator.firstName + ' ' + y.operator.lastName,
           status: y.status,
-          submitOn: '2 day ago',
+          submitOn:  date().day > 0 ? (date().day == 1 ? `${date().day} Yesterday`: `${date().day} Days Ago`)  : 'Today' ,
           // brand: 'bmw.png',
           brand: y.makeName,
           killometer: 25000,
