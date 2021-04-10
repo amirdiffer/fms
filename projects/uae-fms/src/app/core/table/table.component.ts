@@ -211,7 +211,7 @@ export class TableComponent implements OnInit, OnDestroy {
   initialPagination() {
     let i = 0;
     this.subscribePagination$ = this._tableFacade.getPaginationByName(this.pagination).subscribe(x => {
-      if (x != null && (this.activePage != x['page'] || this.lastIpp != x['ipp'])) {
+      if (x != null && (this.activePage != x['page'] || this.lastIpp != x['ipp'] || this.count != x['count'])) {
         i++;
         this.activePage = x['page'];
         this.count = x['count'];
