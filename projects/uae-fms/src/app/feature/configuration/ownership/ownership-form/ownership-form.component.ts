@@ -10,7 +10,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { map } from 'rxjs/operators';
-import { OwnershipFacade } from "../../+state/ownership";
+import { OwnershipFacade } from '../../+state/ownership';
 
 @Component({
   selector: 'anms-ownership-form',
@@ -18,6 +18,8 @@ import { OwnershipFacade } from "../../+state/ownership";
   styleUrls: ['./ownership-form.component.scss']
 })
 export class OwnershipFormComponent extends Utility implements OnInit {
+
+  //#region Table
   ownerShip_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.ownership', type: 1, field: 'Ownership' },
@@ -48,21 +50,25 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     data: []
   };
 
-  ownerShip$ = this.facade.ownership$.pipe(map(x => x.map((item) => {
-    return {
-      Ownership: item.type,
-      Owner: item.name,
-      Fleet_IT_Code: item.fleetITCode,
-      Duration: item.duration,
-      Purpose: item.purpose,
-      Owner_Email: item.email,
-      Owner_Phone_No: item.phoneNumber,
-      car: item.numOfOwnedAssets || 0
-    };
-  })));
+  ownerShip$ = this.facade.ownership$.pipe(
+    map((x) =>
+      x.map((item) => {
+        return {
+          Ownership: item.type,
+          Owner: item.name,
+          Fleet_IT_Code: item.fleetITCode,
+          Duration: item.duration,
+          Purpose: item.purpose,
+          Owner_Email: item.email,
+          Owner_Phone_No: item.phoneNumber,
+          car: item.numOfOwnedAssets || 0
+        };
+      })
+    )
+  );
+  //#endregion
 
-  ownerShipForm: FormGroup;
-  submitted = false;
+  //#region Dialogs
   dialogCancelSetting: IDialogAlert = {
     header: 'Cancel',
     hasError: false,
@@ -75,19 +81,30 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     header: 'Success',
     hasError: false,
     message: 'New ownership Successfully Added',
-    confirmButton: 'Ok',
+    confirmButton: 'Ok'
   };
   dialogErrorSetting: IDialogAlert = {
     header: 'Error',
     hasError: true,
     message: 'Some Error Occurred',
-    confirmButton: 'Ok',
+    confirmButton: 'Ok'
   };
   displayCancelModal = false;
   displaySuccessModal = false;
   displayErrorModal = false;
+  //#endregion
 
-  constructor(injector: Injector, private _fb: FormBuilder, private facade: OwnershipFacade, private changeDetector: ChangeDetectorRef) {
+  //#region  Variables
+  ownerShipForm: FormGroup;
+  submitted = false;
+  //#endregion
+
+  constructor(
+    injector: Injector,
+    private _fb: FormBuilder,
+    private facade: OwnershipFacade,
+    private changeDetector: ChangeDetectorRef
+  ) {
     super(injector);
   }
 
@@ -101,38 +118,44 @@ export class OwnershipFormComponent extends Utility implements OnInit {
       phoneNumber: [''],
       purpose: [''],
       fleetITCode: ['', [Validators.required]],
-      duration: ['']
+      duration: ['', [Validators.required]]
     });
 
-    this.facade.submitted$.subscribe(x => {
+    this.facade.submitted$.subscribe((x) => {
       if (x) {
         this.displaySuccessModal = true;
-        this.dialogErrorSetting.hasError=false;
+        this.dialogErrorSetting.hasError = false;
         this.changeDetector.detectChanges();
       }
     });
 
-    this.facade.error$.subscribe(x => {
+    this.facade.error$.subscribe((x) => {
       if (x?.error) {
         this.displayErrorModal = true;
-        this.dialogErrorSetting.hasError=true;
+        this.dialogErrorSetting.hasError = true;
         this.changeDetector.detectChanges();
       }
-    })
+    });
   }
   submit() {
     this.submitted = true;
     if (this.ownerShipForm.invalid) {
       return;
     } else {
-      this.facade.addOwnership(this.ownerShipForm.value)
+      this.facade.addOwnership(this.ownerShipForm.value);
     }
   }
   showCancelAlert() {
     this.displayCancelModal = true;
   }
 
+  resetParams(): void {
+    this.facade.resetParams();
+  }
+
   dialogConfirm(confirmed) {
+    this.displayCancelModal = false;
+    this.displayErrorModal = false;
     if (confirmed) {
       this.displaySuccessModal = false;
       this.goToList();

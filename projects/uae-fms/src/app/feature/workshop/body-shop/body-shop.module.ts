@@ -10,9 +10,12 @@ import { RequestTabOverviewComponent } from '../body-shop/request-tab-overview/r
 import { SharedModule } from '@shared/shared.module';
 import { TableModule } from '@core/table';
 import { MapModule } from '@core/map-view';
+import { TechnicianOverviewComponent } from './technician-overview/technician-overview.component';
+import { UserProfileModule } from '@feature/user/user.module';
+import { TabViewModule } from '@core/tab-view';
 
 @NgModule({
-  declarations: [RequestTabOverviewComponent],
+  declarations: [RequestTabOverviewComponent, TechnicianOverviewComponent],
   imports: [
     CommonModule,
     FilterModule,
@@ -21,7 +24,9 @@ import { MapModule } from '@core/map-view';
     DashboardModule,
     SharedModule,
     TableModule,
-    MapModule
+    MapModule,
+    TabViewModule,
+    UserProfileModule
   ]
 })
 export class BodyShopModule {}

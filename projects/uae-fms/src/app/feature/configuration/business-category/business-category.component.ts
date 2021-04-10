@@ -19,6 +19,8 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BusinessCategoryComponent implements OnInit, OnDestroy {
+
+  //#region Variables
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   getBusinessCategorySubscription!: Subscription;
 
@@ -74,6 +76,7 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
       ]
     }
   };
+  //#endregion
 
   constructor(
     private facade: BusinessCategoryFacade,

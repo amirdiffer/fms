@@ -96,7 +96,18 @@ html {
       border-radius: 0.25em 0 0 0.25em;
     }
   }
-
+  /* Buttons */
+  anms-technician-overview{
+    .edit-button{
+      right: auto !important;
+      left:1em;
+    }
+  }
+  .profile-image-container{
+    span.add-button a{
+      transform: translate(-0.4em, 0) !important;
+    }
+  }
   /* dashboard */
   .dashboard-card {
     .card-header {

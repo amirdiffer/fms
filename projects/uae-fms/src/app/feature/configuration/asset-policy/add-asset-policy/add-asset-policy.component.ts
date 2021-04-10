@@ -79,9 +79,12 @@ export class AddAssetPolicyComponent
   assetPolicyForm: FormGroup;
   submitted = false;
   isEdit = false;
+
+  //#region Dialog
   dialogModalAddOrUpdate = false;
   dialogModalCancel = false;
   dialogModalError = false;
+
   dialogSettingAddOrUpdate: IDialogAlert = {
     header: 'Asset Policy',
     hasError: true,
@@ -89,6 +92,7 @@ export class AddAssetPolicyComponent
     message: 'New Asset Policy Successfully Added',
     confirmButton: 'OK'
   };
+
   dialogSettingError: IDialogAlert = {
     header: 'Asset Policy',
     hasError: true,
@@ -96,6 +100,7 @@ export class AddAssetPolicyComponent
     message: 'An Error Occured',
     confirmButton: 'OK'
   };
+
   dialogSettingCancel: IDialogAlert = {
     header: 'Asset Policy',
     hasError: false,
@@ -105,6 +110,8 @@ export class AddAssetPolicyComponent
     confirmButton: 'Yes',
     cancelButton: 'No'
   };
+  //#endregion
+
   id: number;
 
 
@@ -236,31 +243,31 @@ export class AddAssetPolicyComponent
 
   submit() {
     this.submitted = true;
-    if (this.assetPolicyForm.invalid) {
-      return;
-    } else {
-      if (!this.isEdit) {
-        const data = this.getAssetPolicyRequestPayload(
-          this.assetPolicyForm.value
-        );
-        const _data = {
-          type: data.type,
-          name: data.name,
-          maxUsageKmPHour: data.maxUsageKPHour,
-          maxUsageYear: data.maxUsageYear,
-          depreciationValue: data.depreciationValue,
-          setReminderBefore: data.reminder,
-        }
-        this.assetPolicyFacade.addAssetPolicy(_data);
-      } else {
-        const data = this.getAssetPolicyRequestPayload(
-          this.assetPolicyForm.value,
-          this.id
-        );
+    if (this.assetPolicyForm.invalid) return;
 
-        this.assetPolicyFacade.updateAssetPolicy(data);
-      }
+    const data = this.getAssetPolicyRequestPayload(
+      this.assetPolicyForm.value
+    );
+    const _data = {
+      type: data.type,
+      name: data.name,
+      maxUsageKmPHour: data.maxUsageKPHour,
+      maxUsageYear: data.maxUsageYear,
+      depreciationValue: data.depreciationValue,
+      setReminderBefore: data.reminder,
     }
+
+    if (!this.isEdit) {
+      this.assetPolicyFacade.addAssetPolicy(_data);
+    } else {
+      const data = {
+        id: this.id,
+        ..._data
+      }
+
+      this.assetPolicyFacade.updateAssetPolicy(data);
+    }
+
     // this.goToList();
   }
   cancel() {

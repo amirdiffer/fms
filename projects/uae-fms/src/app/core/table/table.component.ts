@@ -110,9 +110,6 @@ export class TableComponent implements OnInit {
 
   exportTable(tableSetting: TableSetting, title: string): void {
     const exportColumns = tableSetting.columns.map((col) => {
-      /* if (col.thumbField?.length) {
-        return;
-      } */
       return {
         title:
           col.lable && this.translate.instant(col.lable)

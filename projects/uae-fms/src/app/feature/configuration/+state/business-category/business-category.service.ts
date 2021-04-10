@@ -7,7 +7,7 @@ import { ResponseBody } from '@models/response-body.model';
 
 @Injectable()
 export class BusinessCategoryService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   loadAll(): Observable<ResponseBody<IBusinessCategory[]>> {
     return this.http.get<ResponseBody<IBusinessCategory[]>>(
@@ -28,12 +28,12 @@ export class BusinessCategoryService {
     );
   }
 
-  editCategory(data: any): Observable<ResponseBody<any>> {
+  editCategory(data: any, id): Observable<ResponseBody<any>> {
     return this.http.post<ResponseBody<any>>(
       environment.baseApiUrl +
-        'configuration/business-category/' +
-        data.id +
-        '/update',
+      'configuration/business-category/' +
+      id +
+      '/update',
       data
     );
   }

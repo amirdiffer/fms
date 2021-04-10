@@ -1,11 +1,6 @@
-import {
-  dashboardAdapter,
-  DashboardState,
-  initialState
-} from './dashboard.entity';
+import {  DashboardState,  initialState} from './dashboard.entity';
 import { DashboardActions } from './dashboard.actions';
 import { Action, createReducer, on } from '@ngrx/store';
-import { state } from '@angular/animations';
 
 const dashboardReducer = createReducer(
   initialState,

@@ -16,6 +16,7 @@ export class ActiveAssetsComponent implements OnInit {
     'dashboard.temporary': '',
     'dashboard.workshop': ''
   };
+
   constructor(private translationService: TranslateService) {
     this.getTranslations();
   }

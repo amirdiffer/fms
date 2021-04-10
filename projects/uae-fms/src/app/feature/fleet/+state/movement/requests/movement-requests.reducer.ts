@@ -1,12 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { MovementRequestsActions } from './movement-requests.actions';
-import {
-  initialState,
-  movementRequestsAdapter,
-  MovementRequestsState
-} from './movement-requests.entity';
-import { MovementOverviewActions } from '@feature/fleet/+state/movement/overview/movement-overview.actions';
-import { movementOverviewAdapter } from '@feature/fleet/+state/movement/overview/movement-overview.entity';
+import {  initialState,  movementRequestsAdapter,  MovementRequestsState} from './movement-requests.entity';
 
 const movementRequestsReducer = createReducer(
   initialState,
