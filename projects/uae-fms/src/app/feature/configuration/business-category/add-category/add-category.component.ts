@@ -220,7 +220,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   createAssignSubAsset(): FormGroup {
     return this._fb.group({
       subAsset: ['', [Validators.required]],
-      file: [[1]],
+      file: [],
       assetQuantity: ['']
     });
   }
@@ -228,7 +228,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   createAssignAccessory(): FormGroup {
     return this._fb.group({
       accessory: ['', [Validators.required]],
-      file: [[1]],
+      file: [],
       accessoryQuantity: ['']
     });
   }
@@ -281,7 +281,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       itemToPost['subAssets'].push({
         subAssetId: subAsset.subAsset.id,
         quantity: subAsset.assetQuantity,
-        specDocId: subAsset.file[0]
+        specDocId: (subAsset.file && subAsset.file.length > 0) ? subAsset.file[0] : null
       });
     }
 
@@ -289,7 +289,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       itemToPost['accessories'].push({
         accessoryId: accessory.accessory.id,
         quantity: accessory.accessoryQuantity,
-        specDocId: accessory.file[0]
+        specDocId: (accessory.file && accessory.file.length > 0) ? accessory.file[0] : null
       });
     }
 
