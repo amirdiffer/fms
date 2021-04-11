@@ -1,7 +1,7 @@
 <div class="table-container component_wrapper">
   <div class="search-container card-table-header">
     <div class="search-box">
-      <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
+      <input id="searchInput" type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
       <button>
         <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
       </button>
@@ -11,6 +11,6 @@
     </button>
     <button class="btn-primary-small" [routerLink]="['add-task-master']" CheckAccess="task-master:create"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
   </div>
-  <app-table (onPagination)="eventPagination()" pagination="taskmaster" [setting]="tableSetting" [tableData]="data$"></app-table>
+  <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="taskmaster" [setting]="tableSetting" [tableData]="data$"></app-table>
 </div>
 

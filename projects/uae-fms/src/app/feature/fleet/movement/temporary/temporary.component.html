@@ -11,7 +11,7 @@
         <app-tab-view (selectedIndex)="selectedTab=$event">
                     <span class="search-container card-table-header">
                         <div class="search-box">
-                            <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
+                            <input id="searchInput" type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
                             <button>
                               <img [src]="searchIcon" alt="">
                             </button>
@@ -22,10 +22,10 @@
                         <button *ngIf="selectedTab !='requestTab'" class="btn-primary-small" routerLink="add-temporary-request"><a>{{ 'search.request' | translate }}</a></button>
                     </span>
           <div title="tabs.movement_over_view" id="MovementOverViewTab">
-            <app-table (onPagination)="eventPagination_overview()" pagination="temporary_movement_overview" [setting]="movementOverViewTableSetting" [tableData]="movementOverview$"></app-table>
+            <app-table searchInput="searchInput" (onPagination)="eventPagination_overview()" pagination="temporary_movement_overview" [setting]="movementOverViewTableSetting" [tableData]="movementOverview$"></app-table>
           </div>
           <div title="tabs.request" #requestTab id="requestTab">
-            <app-table (onPagination)="eventPagination_request()" pagination="temporary_movement_request" [setting]="requestTableSetting" [tableData]="movementRequest$"
+            <app-table searchInput="searchInput" (onPagination)="eventPagination_request()" pagination="temporary_movement_request" [setting]="requestTableSetting" [tableData]="movementRequest$"
             ></app-table>
           </div>
         </app-tab-view>

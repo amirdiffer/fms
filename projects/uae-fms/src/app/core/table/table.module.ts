@@ -37,6 +37,7 @@ import { CheckboxRendererComponent } from '@core/table/renderers/checkbox-render
 import { DownloadButtonRendererComponent } from '@core/table/renderers/download-button-renderer';
 import { TooltipModule } from 'primeng/tooltip';
 import { PriorityRendererComponent } from './renderers/priority';
+import { TableServiceS } from '@core/table/table.service';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { PriorityRendererComponent } from './renderers/priority';
   ],
   providers: [
     TableFacade,
-    TableService
+    TableService,
+    TableServiceS
   ]
 })
 export class TableModule {}

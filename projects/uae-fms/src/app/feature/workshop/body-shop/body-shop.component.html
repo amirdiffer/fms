@@ -5,7 +5,7 @@
   <app-tab-view (selectedIndex)="selectedTab=$event">
     <span class="search-container card-table-header">
       <div class="search-box">
-        <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
+        <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
         <button>
           <img src="assets/icons/search-solid.svg" alt="">
         </button>
@@ -16,16 +16,16 @@
       <button  class="btn-primary-small" (click)="addClicked($event)" ><i>+</i><a>{{'search.add' | translate}}</a></button>
     </span>
     <div title="tabs.requests" id="requestTab">
-      <app-table (onPagination)="eventPagination_request()" pagination="body-shop_request" [setting]="table1Setting" [tableData]="requestData$"></app-table>
+      <app-table searchInput="searchInput" (onPagination)="eventPagination_request()" pagination="body-shop_request" [setting]="table1Setting" [tableData]="requestData$"></app-table>
     </div>
     <div title="tabs.job_card" id="jobcardTab">
-      <app-table (onPagination)="eventPagination_jobcard()" pagination="body-shop_jobcard" [setting]="table2Setting" [tableData]="jobCardData$"></app-table>
+      <app-table searchInput="searchInput" (onPagination)="eventPagination_jobcard()" pagination="body-shop_jobcard" [setting]="table2Setting" [tableData]="jobCardData$"></app-table>
     </div>
     <div title="tabs.technician" id="technicianTab">
-      <app-table (onPagination)="eventPagination_technician()" pagination="body-shop_technician" [setting]="table3Setting" [tableData]="technicianData$"></app-table>
+      <app-table searchInput="searchInput" (onPagination)="eventPagination_technician()" pagination="body-shop_technician" [setting]="table3Setting" [tableData]="technicianData$"></app-table>
     </div>
     <div title="tabs.location" id="locationTab">
-      <app-table (onPagination)="eventPagination_location()" pagination="body-shop_location" [setting]="table4Setting" [tableData]="locationData$"></app-table>
+      <app-table searchInput="searchInput" (onPagination)="eventPagination_location()" pagination="body-shop_location" [setting]="table4Setting" [tableData]="locationData$"></app-table>
     </div>
   </app-tab-view>
 </div>
