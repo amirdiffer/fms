@@ -23,7 +23,7 @@ export class AssetPolicyService {
 
   loadAll(): Observable<ResponseBody<IAssetPolicy[]>> {
     return this.http.get<ResponseBody<IAssetPolicy[]>>(
-      environment.baseApiUrl + 'configuration/asset-policy', {params: this.getParam('asset-policy_asset')}
+      environment.baseApiUrl + 'configuration/asset-policy/asset', {params: this.getParam('asset-policy_asset')}
     );
   }
   postAssetPolicy(data): Observable<ResponseBody<IAssetPolicy>> {
