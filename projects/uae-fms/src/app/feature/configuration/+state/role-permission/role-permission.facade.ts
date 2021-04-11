@@ -12,7 +12,9 @@ export class RolePermissionFacade {
 
   error$ = this.store.pipe(select(RolePermissionSelectors.error));
 
-  constructor(private store: Store<RolePermissionPartialState>) {}
+  loaded$ = this.store.pipe(select(RolePermissionSelectors.loaded));
+
+  constructor(private store: Store<RolePermissionPartialState>) { }
 
   loadAll() {
     this.store.dispatch(RolePermissionActions.loadAll());

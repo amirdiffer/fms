@@ -16,11 +16,15 @@
     <div class="row form-section__row">
       <div class="col-12 col-md-3 p-field form-section__field">
         <div class="autocomplete-select">
-          <span class="p-float-label">
+          <span class="p-float-label"  *ngIf="!isEdit">
             <p-autoComplete formControlName="employeeNumber" (completeMethod)="getEmployee($event)"
               [suggestions]="employees$|async" field="organizationId" [minLength]="1"
               (ngModelChange)="employeeNumberChanged($event)" required [disabled]="isEdit"></p-autoComplete>
             <i class="pi pi-search"></i>
+            <label>{{ 'configuration.users.employee_number' | translate }} *</label>
+          </span>
+          <span class="p-float-label" *ngIf="isEdit">
+            <input formControlName="employeeNumber" pInputText type="text" disabled>
             <label>{{ 'configuration.users.employee_number' | translate }} *</label>
           </span>
           <anms-error
@@ -70,7 +74,7 @@
             | translate }}</p>
         </div>
         <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [isImage]='true'
-          [preview]="true" [accept]="'.png'" (uploadedEvent)="uploadImage($event)"></anms-uploader>
+          [preview]="true" [accept]="'.png'" (uploadedEvent)="uploadImage($event)" [files]="[profileDocId]"></anms-uploader>
       </div>
     </div>
 

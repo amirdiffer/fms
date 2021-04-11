@@ -1,30 +1,17 @@
-import { InjectableCompiler } from '@angular/compiler/src/injectable_compiler';
-import {
-  AfterContentInit,
-  ChangeDetectionStrategy,
-  Component,
-  Injector,
-  OnDestroy,
-  OnInit,
-  ChangeDetectorRef
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FilterCardSetting } from '@core/filter';
-import { Utility } from '@shared/utility/utility';
-import {
-  FileSystemDirectoryEntry,
-  FileSystemFileEntry,
-  NgxFileDropEntry
-} from 'ngx-file-drop';
+import { debounceTime, map } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+
 import { UsersFacade } from '../../../+state/users';
 import { RolePermissionFacade } from '../../../+state/role-permission';
-import { debounceTime, map } from 'rxjs/operators';
 import { UsersService } from '../../../+state/users/users.service';
-import { ThrowStmt } from '@angular/compiler';
-import { timeStamp } from 'console';
+
+import { FilterCardSetting } from '@core/filter';
+import { Utility } from '@shared/utility/utility';
 import { OrganizationFacade } from '@feature/fleet/+state/organization';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 @Component({
   selector: 'anms-add-user',
   templateUrl: './add-user.component.html',
@@ -166,20 +153,28 @@ export class AddUserComponent
           .pipe(map((x) => x.message))
           .subscribe((x) => {
             if (x) {
-              console.log(x)
-              // this.profileDocId = x.profileDocId ? x.profileDocId : null;
+              this.profileDocId = x.profileDocId ? x.profileDocId : null;
               this._user = x;
+              this.getEmployeesList.next({ query: x.employeeNumber });
+
               this.form.controls['portalInformation'].patchValue({
-                employeeNumber: {
-                  name: x.id,
-                  id: x.employeeNumber
-                },
+                employeeNumber: x.employeeNumber,
                 department: {
                   name: `${x.department.name}`
                 },
                 roleId: x.role.roleId,
                 activeEmployee: x.isActive
               });
+
+              this.roleFacade.loaded$.subscribe(z => {
+                if (z)
+                  this.roles$.subscribe(a => {
+                    this.form.controls['portalInformation'].patchValue({
+                      ...this.form.controls['portalInformation'].value,
+                      roleId: a.find(y => y.id == x.role.roleId)
+                    })
+                  })
+              })
 
               this.form.controls['personalInformation'].patchValue({
                 firstName: x.firstName,
