@@ -42,7 +42,6 @@ export class HttpInterceptor implements HttpInterceptorBase {
             if (err.url.indexOf('login') < 0) {
               if (err instanceof HttpErrorResponse) {
                 const appErrorHandler = this.injector.get(ErrorHandler);
-                console.log(err);
                 if (err.status == 401) return this.router.navigate(['login']);
                 appErrorHandler.handleError(err);
               }

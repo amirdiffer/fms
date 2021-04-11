@@ -19,12 +19,6 @@ import { SubAssetFacade } from '@feature/fleet/+state/sub-asset/sub-asset.facade
 import { RouterFacade } from '@core/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import * as moment from 'moment';
-const EMPTY_SELECT_ITEM_LIST = [
-  {
-    name: '',
-    id: null
-  }
-];
 
 const SUB_ASSET_LABEL = 'SUB_ASSET';
 
@@ -173,10 +167,10 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     data:[]
   };
 
-  subAssetTypes = EMPTY_SELECT_ITEM_LIST;
-  makes = EMPTY_SELECT_ITEM_LIST;
-  models = EMPTY_SELECT_ITEM_LIST;
-  policyTypes = EMPTY_SELECT_ITEM_LIST;
+  subAssetTypes = [];
+  makes = [];
+  models = [];
+  policyTypes = [];
 
   units = [
     { name: 'Year', id: 'YEAR' },
@@ -330,21 +324,21 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           name: assetTypeName,
           children: selectedSubAsset
             ? selectedSubAsset.children
-            : EMPTY_SELECT_ITEM_LIST
+            : []
         };
         const make = {
           id: makeId,
           name: makeName,
           children: selectedMake
             ? selectedMake.children
-            : EMPTY_SELECT_ITEM_LIST
+            : []
         };
         const model = {
           id: modelId,
           name: modelName,
           children: selectedModel
             ? selectedModel.children
-            : EMPTY_SELECT_ITEM_LIST
+            : []
         };
         const policyType = { id: policyTypeId, name: policyTypeName };
 
@@ -491,7 +485,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       this.avatarDocRequired = true;
       return
     }
-    
+
     let formVal = this.subAssetForm.getRawValue();
     let data = [];
     let DPD = [];
@@ -569,7 +563,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     return (this.subAssetTypes = assetTypes.map((assetType) => ({
       id: assetType.id,
       name: assetType.name,
-      children: assetType.makes ? assetType.makes : EMPTY_SELECT_ITEM_LIST
+      children: assetType.makes ? assetType.makes : []
     })));
   }
 
@@ -582,7 +576,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     return (this.makes = makes.map((make) => ({
       id: make.id,
       name: make.make,
-      children: make.models ? make.models : EMPTY_SELECT_ITEM_LIST
+      children: make.models ? make.models : []
     })));
   }
 
@@ -595,7 +589,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     return (this.models = models.map((model) => ({
       id: model.id,
       name: model.model,
-      children: model.trims ? model.trims : EMPTY_SELECT_ITEM_LIST
+      children: model.trims ? model.trims : []
     })));
   }
 

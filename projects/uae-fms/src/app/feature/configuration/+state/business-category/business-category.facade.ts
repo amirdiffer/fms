@@ -16,7 +16,7 @@ export class BusinessCategoryFacade {
 
   submitted$ = this.store.pipe(select(BusinessCategorySelectors.submitted));
 
-  constructor(private store: Store<BusinessCategoryPartialState>) { }
+  constructor(private store: Store<BusinessCategoryPartialState>) {}
 
   loadAll() {
     this.store.dispatch(BusinessCategoryActions.loadAll());
@@ -28,5 +28,9 @@ export class BusinessCategoryFacade {
 
   editCategory(category: any, id) {
     this.store.dispatch(BusinessCategoryActions.editCategory({ category, id }));
+  }
+
+  reset() {
+    this.store.dispatch(BusinessCategoryActions.reset());
   }
 }
