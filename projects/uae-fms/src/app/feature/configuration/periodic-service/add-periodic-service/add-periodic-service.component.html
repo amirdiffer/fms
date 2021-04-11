@@ -88,9 +88,7 @@
                   <i class="pi pi-plus" (click)="addTask('',i)"></i>
                 </span>
               </div>
-              <div *ngIf="getTasksForm(i,j).get('name').invalid && submitted" class="p-error">
-                {{ 'forms.feedback.required' | translate }}
-              </div>
+              <anms-error [showError]="formArrayHasError(submitted, getTasksForm(i, j), j, 'name')" error="forms.feedback.required"></anms-error>
             </span>
           </div>
         </div>
