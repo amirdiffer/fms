@@ -185,13 +185,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
           .pipe(map((x) => x.message))
           .subscribe((x) => {
             if (x) {
-              console.log(x)
               this._operator = x;
               this.form.controls['portalInformation'].patchValue({
-                employeeNumber: {
-                  name: x.id,
-                  id: x.employeeNumber
-                },
+                employeeNumber: x.employeeNumber,
                 department: {
                   organizationName: x.department.organizationName,
                   id: x.department.organizationId
@@ -199,21 +195,8 @@ export class AddOperatorComponent extends Utility implements OnInit {
                 roleId: 1,
                 activeEmployee: x.isActive
               });
-              // for (let index = 0; index < x.emails.length; index++) {
-              //   this.form.controls['personalInformation'].patchValue({
-              //     emails
-              //   })
-              //   this.createEmailField()
 
-              // }
-              // x.emails.map(
-              //   (email) => {
-              //     this.form.controls['personalInformation'].patchValue({
-              //       emails:email
-              //     })
-              //     this.createEmailField()
-              //   }
-              // )
+
               this.form.controls['personalInformation'].patchValue({
                 firstName: x.firstName,
                 lastName: x.lastName,
@@ -223,18 +206,26 @@ export class AddOperatorComponent extends Utility implements OnInit {
                 whatsappCheckbox: x.notifyByWhatsApp,
 
               });
-              for (let index = 0; index < x.emails.length; index++) {
-                this.addEmailField()
-                this.emails.controls[index].patchValue({
-                  email: x.emails[index]
-                });
+
+
+              this.emails.controls = [];
+              this.emails.controls = [];
+              for (let i = 0; i < x.emails.length; i++) {
+                this.emails.controls.push(
+                  this.createEmailField()
+                );
               }
-              for (let index = 0; index < x.phoneNumbers.length; index++) {
-                this.addPhoneField()
-                this.phoneNumbers.controls[index].patchValue({
-                  phoneNumber: x.phoneNumbers[index]
-                });
+              this.emails.patchValue(x.emails.map(y => ({ email: y })))
+
+              this.phoneNumbers.controls = [];
+              for (let i = 0; i < x.phoneNumbers.length; i++) {
+                this.phoneNumbers.controls.push(
+                  this.createPhoneField()
+                )
               }
+              this.phoneNumbers.patchValue(x.phoneNumbers.map(y => ({ phoneNumber: y })))
+
+
               this.form.controls['fileUpload'].patchValue({
                 fileName: x.profileDocId
               });
