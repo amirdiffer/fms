@@ -21,13 +21,20 @@ const businessCategoryReducer = createReducer(
       error: null
     })
   ),
+  on(BusinessCategoryActions.reset, (state) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
   on(BusinessCategoryActions.addCategory, (state, { data }) => ({
     ...state,
     loaded: false
   })),
-  on(BusinessCategoryActions.categoryAddedSuccessfully, (state, { data }) =>
-    ({ ...state, submitted: true })
-  ),
+  on(BusinessCategoryActions.categoryAddedSuccessfully, (state, { data }) => ({
+    ...state,
+    submitted: true
+  })),
   on(BusinessCategoryActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

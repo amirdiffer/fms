@@ -24,7 +24,7 @@ export class BusinessCategoryActions {
 
   static editCategory = createAction(
     '[BusinessCategory] Eiditing Category',
-    props<{ category: any, id }>()
+    props<{ category: any; id }>()
   );
 
   static categoryEditedSuccessfully = createAction(
@@ -36,4 +36,6 @@ export class BusinessCategoryActions {
     '[BusinessCategory] error occurred',
     props<{ reason: any }>()
   );
+
+  static reset = createAction('[BusinessCategory] reset parameters');
 }
