@@ -129,7 +129,6 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       floatButton: [
         {
           onClick: (col, data) => {
-            // console.log(data);
             this.router.navigate(['/fleet/sub-asset/edit-sub-asset'], {
               queryParams: { id: data['id'] }
             });

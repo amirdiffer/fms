@@ -54,8 +54,6 @@ export class TableDoubleLineRendererComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.user)
-    console.log(this.column)
   }
 
   getLastElement(data: any) {
