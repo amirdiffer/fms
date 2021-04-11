@@ -187,9 +187,9 @@ export class AddAssetPolicyComponent
   ngOnInit(): void {
     this.assetPolicyFacade.loadAll();
     this.assetPolicyForm = this._fb.group({
-      policyType: ['asset', [Validators.required]],
+      policyType: ['ASSET', [Validators.required]],
       policyName: ['', [Validators.required]],
-      kilometerUsage: ['', [Validators.required]],
+      kilometerUsage: [0, [Validators.required]],
       yearUsage: [''],
       depreciationValue: ['', [Validators.required]],
       reminder: [false]
@@ -251,8 +251,8 @@ export class AddAssetPolicyComponent
     const _data = {
       type: data.type,
       name: data.name,
-      maxUsageKmPHour: data.maxUsageKPHour,
-      maxUsageYear: data.maxUsageYear,
+      maxUsageKmPHour: data.maxUsageKPHour ? data.maxUsageKPHour : 0,
+      maxUsageYear: data.maxUsageYear ? data.maxUsageYear : 0,
       depreciationValue: data.depreciationValue,
       setReminderBefore: data.reminder,
     }

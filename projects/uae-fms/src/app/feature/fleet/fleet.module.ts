@@ -59,6 +59,8 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movement-temporary-confirm/movement-confirm.component';
 import { AccessoryOverviewComponent } from './accessory/accessory-overview/accessory-overview.component';
 
+import { TranslateModule } from "@ngx-translate/core";
+
 @NgModule({
   declarations: [
     AssetsComponent,
@@ -114,7 +116,8 @@ import { AccessoryOverviewComponent } from './accessory/accessory-overview/acces
     NgApexchartsModule,
     ChartsModule,
     MapModule,
-    AlertDialogModule
+    AlertDialogModule,
+    TranslateModule
   ]
 })
-export class FleetModule {}
+export class FleetModule { }

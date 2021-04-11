@@ -78,12 +78,10 @@
           </div>
         </div>
         <div class='col-lg-3'>
-          <div class='upload-box'>
-            <label class='space-drop' for='attach_picture_sub-asset'>
-              {{ 'configuration.business_category.upload_form.content' | translate }}
-            </label>
-            <input type='file' hidden id='attach_picture_sub-asset'>
-          </div>
+          <anms-uploader [isSmall]='true' [dropzoneLabel]="'configuration.business_category.upload_form.content'"
+                         [iconIsHidden]='true' [multiple]="true" [preview]="false"
+                         (uploadedEvent)="uploadSubAssetFile($event, index)">
+          </anms-uploader>
         </div>
         <div class="col-12 col-md-3 p-field form-section__field">
         <span class="p-float-label">
@@ -120,12 +118,10 @@
         </div>
       </div>
       <div class='col-lg-3'>
-        <div class='upload-box'>
-          <label class='space-drop' for='attach_picture_sub-asset'>
-            {{ 'configuration.business_category.upload_form.content' | translate }}
-          </label>
-          <input type='file' hidden id='attach_picture_sub-asset'>
-        </div>
+        <anms-uploader [isSmall]='true' dropzoneLabel='configuration.business_category.upload_form.content'
+                       [iconIsHidden]='true' [multiple]="true" [preview]="false"
+                       (uploadedEvent)="uploadAccessoryFile(index, $event)">
+        </anms-uploader>
       </div>
       <div class="col-12 col-md-3 p-field form-section__field">
         <span class="p-float-label">

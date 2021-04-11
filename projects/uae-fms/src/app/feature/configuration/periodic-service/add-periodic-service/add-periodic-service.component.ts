@@ -21,7 +21,6 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddPeriodicServiceComponent extends Utility implements OnInit {
-
   //#region  Table
   tableColumns: ColumnDifinition[] = [
     {
@@ -131,12 +130,9 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
     return tasks;
   }
 
-  getTasksForm(packageIndex: number, tasksIndex: number): FormGroup {
-    const tasks = this.getPackageTasks(packageIndex);
-    if (!tasks) {
-      return;
-    }
-    return tasks.at(tasksIndex) as FormGroup;
+  getTasksForm(packageIndex: number, tasksIndex: number): FormArray {
+    const packages = this.periodicServiceForm.get('packages');
+    return packages['controls'][packageIndex].get('tasks') as FormArray;
   }
 
   ngOnInit(): void {
@@ -149,7 +145,10 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
       packages: this._fb.array([this.createPackageForm()])
     });
 
-    this.periodicServiceForm.controls['intervalType'].setValue({ id: 'KmPY', name: 'Km/y' });
+    this.periodicServiceForm.controls['intervalType'].setValue({
+      id: 'KmPY',
+      name: 'Km/y'
+    });
     this.packages = this.periodicServiceForm.get('packages') as FormArray;
     if (!this.packages) this.packages.push(this.createPackageForm());
 
@@ -230,8 +229,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
         intervalType: [''],
         tasks: this._fb.array(forms)
       });
-    }
-    else
+    } else
       return this._fb.group({
         packageName: [packageName, [Validators.required]],
         intervals: [intervals],
@@ -251,23 +249,24 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   }
 
   submit() {
+    this.submitted = true;
     if (this.periodicServiceForm.invalid) {
-      this.displayErrorModal = true;
+      return;
+    }
+
+    if (!this.isEdit) {
+      const data = this.getPeriodicServicePayload(
+        this.periodicServiceForm.value
+      );
+      this.periodicServiceFacade.addPeriodicService(data);
     } else {
-      if (!this.isEdit) {
-        const data = this.getPeriodicServicePayload(
-          this.periodicServiceForm.value
-        );
-        this.periodicServiceFacade.addPeriodicService(data);
-      } else {
-        const data = this.getPeriodicServicePayload(
-          this.periodicServiceForm.value
-        );
-        this.periodicServiceFacade.editPeriodicService({
-          ...data,
-          id: this.id
-        });
-      }
+      const data = this.getPeriodicServicePayload(
+        this.periodicServiceForm.value
+      );
+      this.periodicServiceFacade.editPeriodicService({
+        ...data,
+        id: this.id
+      });
     }
   }
 
@@ -279,7 +278,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
       packages: packages.map((p) => {
         return {
           name: p.packageName,
-          intervalType: (p.intervalType?.id) ? p.intervalType?.id : "KmPY",
+          intervalType: p.intervalType?.id ? p.intervalType?.id : 'KmPY',
           intervalValue: p.intervals,
           tasks: p.tasks.map((t) => t.name)
         };

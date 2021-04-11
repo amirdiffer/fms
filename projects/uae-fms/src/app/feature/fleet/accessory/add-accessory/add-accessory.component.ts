@@ -1,6 +1,17 @@
 import { AccessoryService } from './../../+state/accessory/accessory.service';
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Injector
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
@@ -9,6 +20,7 @@ import { map } from 'rxjs/operators';
 import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { Subject } from 'rxjs';
+import { Utility } from '@shared/utility/utility';
 
 const EMPTY_SELECT_ITEM_LIST = [
   {
@@ -23,8 +35,7 @@ const EMPTY_SELECT_ITEM_LIST = [
   styleUrls: ['./add-accessory.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddAccessoryComponent implements OnInit {
-
+export class AddAccessoryComponent extends Utility implements OnInit {
   //#region Dialogs
   dialogModal = false;
   dialogModalError = false;
@@ -113,8 +124,11 @@ export class AddAccessoryComponent implements OnInit {
     private _facade: AccessoryFacade,
     private changeDetector: ChangeDetectorRef,
     private subAssetFacade: SubAssetFacade,
-    private assetMasterFacade: AssetMasterFacade
-  ) { }
+    private assetMasterFacade: AssetMasterFacade,
+    private injector: Injector
+  ) {
+    super(injector);
+  }
 
   accessory$ = this._facade.accessory$.pipe(
     map((x) =>
@@ -166,7 +180,9 @@ export class AddAccessoryComponent implements OnInit {
         });
 
         this.setUsers(() => {
-          this.accessoryForm.controls['assignedToEmployeeId'].setValue(assignedToEmployeeId)
+          this.accessoryForm.controls['assignedToEmployeeId'].setValue(
+            assignedToEmployeeId
+          );
         });
 
         const data = {
@@ -216,34 +232,34 @@ export class AddAccessoryComponent implements OnInit {
       }
     });
 
-    this.setSearchValue$.subscribe(x => {
+    this.setSearchValue$.subscribe((x) => {
       if (x) {
         let selectedAsset;
         switch (x) {
           case 'data':
-            this.assignedToEntity = this.accessoryForm.controls['assignedToEntity'].value;
+            this.assignedToEntity = this.accessoryForm.controls[
+              'assignedToEntity'
+            ].value;
             break;
           case 'asset':
-            selectedAsset = this.assetsB.find(
-              (a) => {
-                return a.id === this.assignedToEntity
-              }
-            );
+            selectedAsset = this.assetsB.find((a) => {
+              return a.id === this.assignedToEntity;
+            });
             break;
           case 'subAsset':
-            selectedAsset = this.subAssetsB.find(
-              (a) => {
-                return a.id === this.assignedToEntity
-              }
-            );
+            selectedAsset = this.subAssetsB.find((a) => {
+              return a.id === this.assignedToEntity;
+            });
             break;
         }
 
         if (selectedAsset) {
-          this.accessoryForm.controls['assignedToEntity'].setValue(selectedAsset);
+          this.accessoryForm.controls['assignedToEntity'].setValue(
+            selectedAsset
+          );
         }
       }
-    })
+    });
   }
 
   private setUsers(cb = null) {
@@ -319,18 +335,6 @@ export class AddAccessoryComponent implements OnInit {
 
   assetChanged($event) {
     // console.log($event);
-  }
-
-  hasError(controlName) {
-    const control: FormControl = this.accessoryForm.get(
-      controlName
-    ) as FormControl;
-
-    if (control.dirty && control.invalid) {
-      return true;
-    }
-
-    return false;
   }
 
   setAssetTypes(assetTypes) {

@@ -138,6 +138,20 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       })
     )
   );
+
+  subAssetPolicy$ = this.subAssetPolicyFacade.subAssetPolicy$.pipe(
+    map((x) =>
+      x.map((item) => {
+        return {
+          id: item.id,
+          Policy_Name: item.name,
+          Distance: item.maxUsageKPHour,
+          Year: item.maxUsageYear,
+          Depreciation_Value: item.depreciationValue
+        };
+      })
+    )
+  );
   //#endregion
 
   constructor(

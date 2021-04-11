@@ -55,7 +55,8 @@
         </div>
         <div class="col-12 col-md-2 p-field form-section__field dropdown-select options-select">
           <span class="p-float-label">
-            <p-dropdown inputId="year" [placeholder]="'sub_asset.year' | translate" [options]="years" optionLabel="name" optionValue="id"  formControlName="year"></p-dropdown>
+            <p-dropdown inputId="year" [placeholder]="'sub_asset.year' | translate" [options]="years" optionLabel="name"
+              optionValue="id" formControlName="year"></p-dropdown>
             <label for="year">{{ 'sub_asset.year' | translate }} *</label>
           </span>
           <anms-error [showError]="hasError('year',subAssetForm,submitted)" error="forms.feedback.required">
@@ -84,7 +85,7 @@
             <p-dropdown inputId="policyType" [autoDisplayFirst]="false" [options]="policyTypes"
               formControlName="policyType" optionLabel="name"></p-dropdown>
             <label for="policyType">{{'sub_asset.policy_type' |
-              translate}} * </label>
+              translate}} </label>
           </span>
           <!-- <anms-error [showError]="hasError('policyType',subAssetForm,submitted)" error="forms.feedback.required">
           </anms-error> -->
@@ -116,7 +117,8 @@
         </div>
         <div class="col-12 col-md-1 pr-0 p-field form-section__field dropdown-select">
           <span class="p-float-label">
-            <p-dropdown class='w-50' inputId="unit" [autoDisplayFirst]="false" [options]="units" formControlName="periodType" optionLabel="name" optionValue="id"></p-dropdown>
+            <p-dropdown class='w-50' inputId="unit" [autoDisplayFirst]="false" [options]="units"
+              formControlName="periodType" optionLabel="name" optionValue="id"></p-dropdown>
             <label for="periodicService">{{ 'assets.year' | translate }}</label>
           </span>
         </div>
@@ -143,9 +145,9 @@
         </div>
 
         <div class='col-12 col-md-3 p-field form-section__field'>
-          <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [title]=""
-            [preview]="false" [accept]="['.csv']" (uploadedEvent)="uploadWarrantyFiles($event,i)"
-            [files]="[warrantyDocs[i]]"></anms-uploader>
+          <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [title]="" [preview]="false"
+            [accept]="['.csv']" (uploadedEvent)="uploadWarrantyFiles($event,i)" [files]="[warrantyDocs[i]]">
+          </anms-uploader>
         </div>
       </div>
     </div>
@@ -197,21 +199,18 @@
       </div>
     </div>
     <div *ngIf="!isSingleAsset" class="second-step-upload-box">
-      <anms-uploader [files]="csvDoc" [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="subAssetDocRequired" (uploadedEvent)="uploadDocFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
+      <anms-uploader [files]="csvDoc" [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'"
+        [hasError]="subAssetDocRequired" (uploadedEvent)="uploadDocFiles($event)" (csvTextEvent)="csvReader($event)">
+      </anms-uploader>
     </div>
-    <div class="col-12 col-md-12 p-field form-section__field">
-      <span class="">
-        {{'sub_asset.upload_picture'|translate}}
-      </span>
-      <span class="p-float-label">
-        <anms-uploader [iconIsHidden]="true" [multiple]="false"
-          [title]="'sub_asset.upload_picture'|translate" [preview]="true" [accept]="['.png','.jpg']"
-          [files]="avatarDoc"
-          [isImage]="true"
-          [hasError]="avatarDocRequired"
-          (uploadedEvent)="uploadAssetPicture($event)">
-        </anms-uploader>
-      </span>
+    <div class='col-12 d-flex'>
+      <div class="form-section w-100">
+        <div>
+          <p class='font-weight-bold'>{{'sub_asset.upload_picture'|translate}}</p>
+        </div>
+        <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [isImage]='true' [preview]="true"
+          [accept]="['.png', '.jpg']" (uploadedEvent)="uploadAssetPicture($event)" [files]="avatarDoc"></anms-uploader>
+      </div>
     </div>
   </div>
 

@@ -336,7 +336,7 @@
                     | translate}}</p>
               </div>
               <anms-uploader [iconIsHidden]="false"  [multiple]="true"
-                [preview]="false" [accept]="'.png'" (uploadedEvent)="uploadImage($event)"></anms-uploader>
+                [preview]="false" [accept]="['.png', '.jpg']" (uploadedEvent)="uploadImage($event)"></anms-uploader>
             </div>
           </div>
         <!-- <div class="col-12">

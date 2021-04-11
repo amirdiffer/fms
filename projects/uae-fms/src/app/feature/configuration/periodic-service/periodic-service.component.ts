@@ -1,5 +1,10 @@
 import { Router } from '@angular/router';
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { ColumnDifinition, ColumnType, TableComponent } from '@core/table';
 import { map } from 'rxjs/operators';
 import { PeriodicServiceFacade } from '../+state/periodic-service';
@@ -44,22 +49,22 @@ export class PeriodicServiceComponent implements OnInit {
 
   tableSetting = {
     columns: this.tableColumns,
-    data: [],
-    rowSettings: {
-      floatButton: [
-        {
-          button: 'edit',
-          onClick: (col, data, button?) => {
-            this.router
-              .navigate(
-                ['/configuration/periodic-service/edit-periodic-service'],
-                { queryParams: { id: data.id } }
-              )
-              .then();
-          }
-        }
-      ]
-    }
+    data: []
+    // rowSettings: {
+    //   floatButton: [
+    //     {
+    //       button: 'edit',
+    //       onClick: (col, data, button?) => {
+    //         this.router
+    //           .navigate(
+    //             ['/configuration/periodic-service/edit-periodic-service'],
+    //             { queryParams: { id: data.id } }
+    //           )
+    //           .then();
+    //       }
+    //     }
+    //   ]
+    // }
   };
 
   periodicServices$ = this.facade.periodicService$.pipe(
@@ -73,7 +78,7 @@ export class PeriodicServiceComponent implements OnInit {
   );
   //#endregion
 
-  constructor(private facade: PeriodicServiceFacade, private router: Router) { }
+  constructor(private facade: PeriodicServiceFacade, private router: Router) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -86,5 +91,4 @@ export class PeriodicServiceComponent implements OnInit {
   eventPagination() {
     this.facade.loadAll();
   }
-
 }

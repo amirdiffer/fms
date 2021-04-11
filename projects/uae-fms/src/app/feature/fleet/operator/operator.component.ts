@@ -116,23 +116,17 @@ export class OperatorComponent implements OnInit {
         field: 'Organization',
         width: 150,
         renderer: 'doubleLineRenderer',
-        rendererOptions: {
-          type: 'array'
-        }
       },
       {
         lable: 'tables.column.information',
         type: 1,
         field: 'Information',
         width: 150,
-        renderer: 'doubleLineRenderer',
-        rendererOptions: {
-          type: 'array'
-        }
+        renderer: 'doubleLineRenderer'
       },
       { lable: 'tables.column.type', type: 1, field: 'Type', width: 100 },
       { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
-      {
+      /* {
         lable: 'tables.column.asset',
         type: 1,
         field: 'asset',
@@ -140,7 +134,7 @@ export class OperatorComponent implements OnInit {
         renderer: 'assetsRenderer',
         thumbField: 'assetPicture',
         override: 'assets/thumb.png'
-      },
+      }, */
       /*       {
         lable: 'tables.column.tf_paid',
         type: 1,

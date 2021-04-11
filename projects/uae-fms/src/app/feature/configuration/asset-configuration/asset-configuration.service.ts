@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { IAssetConfiguration } from './asset-configuration.model';
@@ -67,6 +68,12 @@ export class AssetConfigurationService {
   public getAddForm(): Observable<boolean> {
     return this._addtype$.asObservable();
   }
- 
-  constructor() {}
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  getStatics(){
+    return this.http.get('')
+  }
 }
