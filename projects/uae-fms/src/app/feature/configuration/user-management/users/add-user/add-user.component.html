@@ -74,7 +74,7 @@
             | translate }}</p>
         </div>
         <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [isImage]='true'
-          [preview]="true" [accept]="'.png'" (uploadedEvent)="uploadImage($event)" [files]="[profileDocId]"></anms-uploader>
+          [preview]="true" [accept]="['.png', '.jpg']" (uploadedEvent)="uploadImage($event)" [files]="[profileDocId]"></anms-uploader>
       </div>
     </div>
 
