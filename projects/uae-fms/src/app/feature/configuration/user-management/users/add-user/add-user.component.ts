@@ -176,6 +176,23 @@ export class AddUserComponent
                   })
               })
 
+              this.emails.controls = [];
+              this.emails.controls = [];
+              for (let i = 0; i < x.emails.length; i++) {
+                this.emails.controls.push(
+                  this.createEmailField()
+                );
+              }
+              this.emails.patchValue(x.emails.map(y => ({ email: y })))
+
+              this.phoneNumbers.controls = [];
+              for (let i = 0; i < x.phoneNumbers.length; i++) {
+                this.phoneNumbers.controls.push(
+                  this.createPhoneField()
+                )
+              }
+              this.phoneNumbers.patchValue(x.phoneNumbers.map(y => ({ phoneNumber: y })))
+
               this.form.controls['personalInformation'].patchValue({
                 firstName: x.firstName,
                 lastName: x.lastName,
@@ -183,14 +200,6 @@ export class AddUserComponent
                 smsCheckbox: x.notifyBySMS,
                 whatsappCheckbox: x.notifyByWhatsApp,
                 emailCheckbox: x.notifyByEmail
-              });
-
-              this.emails.controls[0].patchValue({
-                email: x.emails
-              });
-
-              this.phoneNumbers.controls[0].patchValue({
-                phoneNumber: x.phoneNumbers
               });
 
               this.form.controls['fileUpload'].patchValue({
@@ -290,9 +299,9 @@ export class AddUserComponent
     });
   }
 
-  createEmailField(): FormGroup {
+  createEmailField(value?): FormGroup {
     return this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: [value ? value : '', [Validators.required, Validators.email]]
     });
   }
 
@@ -303,9 +312,9 @@ export class AddUserComponent
     this.emails.push(this.createEmailField());
   }
 
-  createPhoneField(): FormGroup {
+  createPhoneField(value?): FormGroup {
     return this.formBuilder.group({
-      phoneNumber: ['']
+      phoneNumber: [value ? value : '']
     });
   }
 
@@ -439,6 +448,7 @@ export class AddUserComponent
   }
 
   submit(): void {
+    console.log(this.form.value)
     this.submited = true;
     if (this.form.invalid) {
       return;
