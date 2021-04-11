@@ -18,4 +18,9 @@ export class RolePermissionSelectors {
     ConfigurationSelectors.rolePermissionSelector,
     (state) => state.error
   );
+
+  static loaded = createSelector(
+    ConfigurationSelectors.rolePermissionSelector,
+    (state) => state.loaded
+  );
 }

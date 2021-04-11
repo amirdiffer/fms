@@ -1,30 +1,17 @@
-import { InjectableCompiler } from '@angular/compiler/src/injectable_compiler';
-import {
-  AfterContentInit,
-  ChangeDetectionStrategy,
-  Component,
-  Injector,
-  OnDestroy,
-  OnInit,
-  ChangeDetectorRef
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FilterCardSetting } from '@core/filter';
-import { Utility } from '@shared/utility/utility';
-import {
-  FileSystemDirectoryEntry,
-  FileSystemFileEntry,
-  NgxFileDropEntry
-} from 'ngx-file-drop';
+import { debounceTime, map } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+
 import { UsersFacade } from '../../../+state/users';
 import { RolePermissionFacade } from '../../../+state/role-permission';
-import { debounceTime, map } from 'rxjs/operators';
 import { UsersService } from '../../../+state/users/users.service';
-import { ThrowStmt } from '@angular/compiler';
-import { timeStamp } from 'console';
+
+import { FilterCardSetting } from '@core/filter';
+import { Utility } from '@shared/utility/utility';
 import { OrganizationFacade } from '@feature/fleet/+state/organization';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 @Component({
   selector: 'anms-add-user',
   templateUrl: './add-user.component.html',
@@ -166,20 +153,45 @@ export class AddUserComponent
           .pipe(map((x) => x.message))
           .subscribe((x) => {
             if (x) {
-              console.log(x)
-              // this.profileDocId = x.profileDocId ? x.profileDocId : null;
+              this.profileDocId = x.profileDocId ? x.profileDocId : null;
               this._user = x;
+              this.getEmployeesList.next({ query: x.employeeNumber });
+
               this.form.controls['portalInformation'].patchValue({
-                employeeNumber: {
-                  name: x.id,
-                  id: x.employeeNumber
-                },
+                employeeNumber: x.employeeNumber,
                 department: {
                   name: `${x.department.name}`
                 },
                 roleId: x.role.roleId,
                 activeEmployee: x.isActive
               });
+
+              this.roleFacade.loaded$.subscribe(z => {
+                if (z)
+                  this.roles$.subscribe(a => {
+                    this.form.controls['portalInformation'].patchValue({
+                      ...this.form.controls['portalInformation'].value,
+                      roleId: a.find(y => y.id == x.role.roleId)
+                    })
+                  })
+              })
+
+              this.emails.controls = [];
+              this.emails.controls = [];
+              for (let i = 0; i < x.emails.length; i++) {
+                this.emails.controls.push(
+                  this.createEmailField()
+                );
+              }
+              this.emails.patchValue(x.emails.map(y => ({ email: y })))
+
+              this.phoneNumbers.controls = [];
+              for (let i = 0; i < x.phoneNumbers.length; i++) {
+                this.phoneNumbers.controls.push(
+                  this.createPhoneField()
+                )
+              }
+              this.phoneNumbers.patchValue(x.phoneNumbers.map(y => ({ phoneNumber: y })))
 
               this.form.controls['personalInformation'].patchValue({
                 firstName: x.firstName,
@@ -188,14 +200,6 @@ export class AddUserComponent
                 smsCheckbox: x.notifyBySMS,
                 whatsappCheckbox: x.notifyByWhatsApp,
                 emailCheckbox: x.notifyByEmail
-              });
-
-              this.emails.controls[0].patchValue({
-                email: x.emails
-              });
-
-              this.phoneNumbers.controls[0].patchValue({
-                phoneNumber: x.phoneNumbers
               });
 
               this.form.controls['fileUpload'].patchValue({
@@ -295,9 +299,9 @@ export class AddUserComponent
     });
   }
 
-  createEmailField(): FormGroup {
+  createEmailField(value?): FormGroup {
     return this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: [value ? value : '', [Validators.required, Validators.email]]
     });
   }
 
@@ -308,9 +312,9 @@ export class AddUserComponent
     this.emails.push(this.createEmailField());
   }
 
-  createPhoneField(): FormGroup {
+  createPhoneField(value?): FormGroup {
     return this.formBuilder.group({
-      phoneNumber: ['']
+      phoneNumber: [value ? value : '']
     });
   }
 
@@ -444,6 +448,7 @@ export class AddUserComponent
   }
 
   submit(): void {
+    console.log(this.form.value)
     this.submited = true;
     if (this.form.invalid) {
       return;
