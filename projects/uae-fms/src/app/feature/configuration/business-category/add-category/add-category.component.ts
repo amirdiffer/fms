@@ -1,5 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy, Injector, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { BusinessCategoryFacade, BusinessCategoryService } from '../../+state/business-category';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Injector,
+  OnDestroy,
+  ChangeDetectorRef
+} from '@angular/core';
+import {
+  BusinessCategoryFacade,
+  BusinessCategoryService
+} from '../../+state/business-category';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
@@ -210,6 +220,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   createAssignSubAsset(): FormGroup {
     return this._fb.group({
       subAsset: ['', [Validators.required]],
+      file: [],
       assetQuantity: ['']
     });
   }
@@ -217,6 +228,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   createAssignAccessory(): FormGroup {
     return this._fb.group({
       accessory: ['', [Validators.required]],
+      file: [],
       accessoryQuantity: ['']
     });
   }
@@ -233,9 +245,22 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     }
   }
 
+  uploadSubAssetFile(e, index) {
+    this.assignSubAsset.at(index).patchValue({
+      file: e.files.length ? e.files : [1]
+    });
+  }
+
+  uploadAccessoryFile(index, e) {
+    this.assignAccessory.at(index).patchValue({
+      file: e.files.length ? e.files : [1]
+    });
+  }
+
   dialogConfirm(event): void {
     if (this.dialogMode == 'cancel') {
       this.router.navigate(['/configuration/business-category']).then();
+      this.facade.reset();
       return;
     }
 
@@ -256,7 +281,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       itemToPost['subAssets'].push({
         subAssetId: subAsset.subAsset.id,
         quantity: subAsset.assetQuantity,
-        specDocId: 1
+        specDocId: (subAsset.file && subAsset.file.length > 0) ? subAsset.file[0] : null
       });
     }
 
@@ -264,13 +289,13 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       itemToPost['accessories'].push({
         accessoryId: accessory.accessory.id,
         quantity: accessory.accessoryQuantity,
-        specDocId: 1
+        specDocId: (accessory.file && accessory.file.length > 0) ? accessory.file[0] : null
       });
     }
 
     if (this.dataService.isEditing) {
       // itemToPost['id'] = this.id;
-      this.facade.editCategory(itemToPost,this.id);
+      this.facade.editCategory(itemToPost, this.id);
     } else {
       this.facade.addCategory(itemToPost);
     }
@@ -295,6 +320,14 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     this.dialogMode = 'submit';
 
     this.dialogModal = true;
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.header = 'Add Business Category';
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.message =
+      'Are you sure you want to add new Business Category?';
+    this.dialogSetting.confirmButton = 'Register Now';
+    this.dialogSetting.cancelButton = 'Cancel';
+
     if (this.dataService.isEditing) {
       this.dialogSetting.header = 'Edit category';
       this.dialogSetting.message =

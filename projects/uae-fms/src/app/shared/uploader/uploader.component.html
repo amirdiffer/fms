@@ -17,7 +17,18 @@
           </div>
         </ng-container>
         <div class="col-lg-12" *ngIf="(multiple) || (!multiple && files?.length == 0)">
-          <ngx-file-drop *ngIf="!isUploading" [multiple]="multiple" [accept]="accept.toString()" dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , uploaderName)">
+          <ngx-file-drop dropZoneClassName='file-drop' *ngIf="!isUploading && isSmall" [multiple]="multiple" [accept]="accept.toString()"
+                         (onFileDrop)="dropped($event , uploaderName)">
+            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+              <label (click)="openFileSelector()" style="cursor: pointer;">
+
+                <svg-icon *ngIf="!iconIsHidden"  class="drop-icon" src="assets/icons/cloud-computing.svg"
+                           [svgStyle]="{ 'width.px':'24' , 'fill': '#707070' , 'height': '100%'}"></svg-icon>
+                <small  class="drag-and-drop">{{ dropzoneLabel | translate }}</small>
+              </label>
+            </ng-template>
+          </ngx-file-drop>
+          <ngx-file-drop *ngIf="!isUploading && !isSmall" [multiple]="multiple" [accept]="accept.toString()" dropZoneLabel="Drop files here" (onFileDrop)="dropped($event , uploaderName)">
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
               <label (click)="openFileSelector()" style="cursor: pointer;">
 
@@ -47,7 +58,7 @@
             <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':'12' , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>
           </span>
           <div *ngIf="preview">
-            <a (click)="showImage()" download style="cursor: pointer;">
+            <a [href]="fileImage" download>
               <img [src]="isImage ? fileImage : fileIcon">
             </a>
           </div>
@@ -58,7 +69,4 @@
 </ng-container>
 
 
-<p-dialog [(visible)]="imageModal" [modal]="true" [baseZIndex]="10000">
-  <img [src]="fileImage">
-</p-dialog>
 <alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogErrorConfirm($event)"></alert-dialog>
