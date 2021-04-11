@@ -1,7 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild
+} from '@angular/core';
 import { map } from 'rxjs/operators';
 import { TaskMasterFacade } from '../+state/task-master';
 import { TaskMasterService } from './task-master.service';
+import { TableComponent } from '@core/table';
 
 @Component({
   selector: 'anms-task-master',
@@ -10,6 +16,7 @@ import { TaskMasterService } from './task-master.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskMasterComponent implements OnInit {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
   searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn = 'assets/icons/download-solid.svg';
   tableSetting;
@@ -61,4 +68,7 @@ export class TaskMasterComponent implements OnInit {
     this._facade.loadAll();
   }
 
+  exportTable() {
+    this.table.exportTable(this.tableSetting, 'TaskMaster');
+  }
 }
