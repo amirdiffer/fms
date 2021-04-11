@@ -15,7 +15,7 @@
       <div class="table-container component_wrapper my-0">
           <span class="card-table-header search-container">
                         <div class="search-box">
-                            <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
+                            <input id="searchInput" type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
                             <button>
                                 <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
                             </button>
@@ -24,7 +24,7 @@
                             <svg-icon [src]="downloadBtn"></svg-icon>
                         </button>
                     </span>
-          <app-table (onPagination)="eventPagination()" pagination="asset-configuration" [showPagination]="false" [setting]="assetConfigurationableSetting" [tableData]='assetType$'></app-table>
+          <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="asset-configuration" [showPagination]="false" [setting]="assetConfigurationableSetting" [tableData]='assetType$'></app-table>
         </div>
     </div>
 </div>

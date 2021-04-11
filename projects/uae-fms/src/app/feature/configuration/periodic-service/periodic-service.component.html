@@ -2,7 +2,7 @@
   <div class="card-table">
     <div class="card-table-header">
       <div class="search-box">
-        <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
+        <input id="searchInput" type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
         <button><img class="search-icon" src="assets/icons/search-solid.svg" alt=""></button>
       </div>
       <button class="btn-download" (click)="exportTable()">
@@ -11,6 +11,6 @@
       <button class="btn-primary-small" [routerLink]="'./add-periodic-service'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
 
     </div>
-    <app-table (onPagination)="eventPagination()" pagination="periodic-service" [setting]="tableSetting" [tableData]="periodicServices$"></app-table>
+    <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="periodic-service" [setting]="tableSetting" [tableData]="periodicServices$"></app-table>
   </div>
 </div>
