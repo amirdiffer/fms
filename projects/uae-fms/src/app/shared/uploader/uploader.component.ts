@@ -29,17 +29,19 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
   styleUrls: ['./uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UploaderComponent implements OnInit , OnChanges{
-  @Input() hasError = false
+export class UploaderComponent implements OnInit, OnChanges {
+  @Input() hasError = false;
   @Input() maxSize = 5120;
   @Input() uploaderName = '';
   @Input() multiple = false;
-  @Input() readCSVFile= false;
+  @Input() readCSVFile = false;
   @Input() iconIsHidden = false;
   @Input() preview = true;
   @Input() isImage = false;
   @Input() files = [];
   @Input() accept = ['.csv', '.png', '.jpg', '.txt', '.json'];
+  @Input() isSmall = false;
+  @Input() dropzoneLabel = '';
   @Output() uploadedEvent: EventEmitter<object> = new EventEmitter<object>();
   @Output() csvTextEvent: EventEmitter<any> = new EventEmitter<any>();
   allFileUpload: Array<any> = [];
@@ -54,7 +56,7 @@ export class UploaderComponent implements OnInit , OnChanges{
   fileIcon = 'assets/icons/files.svg';
   fileName = '';
   fileImage: string = undefined;
-  imageModal:boolean = false;
+  imageModal: boolean = false;
   /* Ngx File Drop */
   public filesUpdloaded: NgxFileDropEntry[] = [];
   dialogModalError = false;
@@ -63,22 +65,20 @@ export class UploaderComponent implements OnInit , OnChanges{
     hasError: true,
     hasHeader: true,
     message: `File format incorrect`,
-    confirmButton: 'OK',
-  }
+    confirmButton: 'OK'
+  };
   constructor(
     private _uploaderService: UploaderService,
     private changeDetector: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
-  ngOnChanges(){
-    if(!this.multiple && typeof this.files[0] == 'undefined'){
-      this.files =[];
+  ngOnChanges() {
+    if (!this.multiple && typeof this.files[0] == 'undefined') {
+      this.files = [];
     }
-    if(this.isImage && this.files.length > 0){
+    if (this.isImage && this.files.length > 0) {
       this.fileImage = `${environment.baseApiUrl}document/${this.files[0]}`;
     }
   }
@@ -101,7 +101,7 @@ export class UploaderComponent implements OnInit , OnChanges{
             this.formData.append('doc', file);
             this.upload(index);
             this.changeDetector.markForCheck();
-          } else if (!this.accept.includes(fileSuffix)){
+          } else if (!this.accept.includes(fileSuffix)) {
             this.dialogModalError = true;
             this.changeDetector.markForCheck();
           }
@@ -111,7 +111,7 @@ export class UploaderComponent implements OnInit , OnChanges{
   }
 
   setFiles(index?: number): void {
-    if(this.files){
+    if (this.files) {
       this.uploadedEvent.emit({
         name: this.uploaderName,
         files: this.files,
@@ -132,8 +132,10 @@ export class UploaderComponent implements OnInit , OnChanges{
   getAddress(id): string {
     return environment.baseApiUrl + `document/${id}`;
   }
-  getValueCSV(id){
-    this._uploaderService.getCSVfile(id).subscribe(x => {processData(x)})
+  getValueCSV(id) {
+    this._uploaderService.getCSVfile(id).subscribe((x) => {
+      processData(x);
+    });
     let that = this;
     function processData(allText) {
       let textEmit = allText.split(/\r\n|\n/);
@@ -155,9 +157,9 @@ export class UploaderComponent implements OnInit , OnChanges{
           case HttpEventType.UploadProgress:
             this.progressBarValue = Math.round(
               (event.loaded / event.total) * 100
-              );
-              (this.progressBarValue + ' %');
-              this.changeDetector.markForCheck();
+            );
+            this.progressBarValue + ' %';
+            this.changeDetector.markForCheck();
             break;
           case HttpEventType.Response:
             setTimeout(() => {
@@ -171,10 +173,10 @@ export class UploaderComponent implements OnInit , OnChanges{
           if (!event.body.error) {
             if (!this.multiple) this.files = [];
             this.files.push(event.body.message.id);
-            console.log(event.body.message.id)
+            console.log(event.body.message.id);
             this.changeDetector.markForCheck();
-            if(this.readCSVFile){
-              this.getValueCSV(event.body.message.id)
+            if (this.readCSVFile) {
+              this.getValueCSV(event.body.message.id);
             }
             this.fileImage = `${event.url}/${event.body.message.id}`;
             this.filesUploadSuccess++;
@@ -200,11 +202,11 @@ export class UploaderComponent implements OnInit , OnChanges{
   }
 
   dialogErrorConfirm(value) {
-    this.dialogModalError = false
+    this.dialogModalError = false;
   }
-  showImage(){
-    console.log(this.imageModal)
-    console.log('Image')
-    this.imageModal= true
+  showImage() {
+    console.log(this.imageModal);
+    console.log('Image');
+    this.imageModal = true;
   }
 }
