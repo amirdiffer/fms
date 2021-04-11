@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SubAssetPolicyStateModel } from './sub-asset-policy.entity';
 import { TableFacade } from '@core/table/+state/table.facade';
 import { environment } from '@environments/environment';
+import { IAssetPolicy } from '@models/asset-policy.model';
+import { ResponseBody } from '@models/response-body.model';
 
 @Injectable()
 export class SubAssetPolicyService {
@@ -20,9 +21,9 @@ export class SubAssetPolicyService {
     return this.params;
   }
 
-  loadAll(): Observable<SubAssetPolicyStateModel[]> {
-    return this.http.get<SubAssetPolicyStateModel[]>(
-      environment.baseApiUrl + '', {params: this.getParam('asset-policy_subasset')}
+  loadAll(): Observable<ResponseBody<IAssetPolicy[]>> {
+    return this.http.get<ResponseBody<IAssetPolicy[]>>(
+      environment.baseApiUrl + 'configuration/asset-policy/sub-asset', {params: this.getParam('asset-policy_subasset')}
     );
   }
 }
