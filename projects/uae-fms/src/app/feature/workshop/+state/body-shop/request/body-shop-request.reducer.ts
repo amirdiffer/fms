@@ -15,28 +15,48 @@ const bodyShopRequestReducer = createReducer(
     error: null,
     message: null
   })),
+  on(BodyShopRequestActions.allDataLoaded, (state, { data }) =>
+    bodyShopRequestAdapter.setAll(data, { ...state, loaded: true, error: null })
+  ),
+  /* Request By Id */
   on(BodyShopRequestActions.loadAllRequestsById, (state) => ({
     ...state,
     loaded: false,
     error: null,
     message: null
   })),
+  on(BodyShopRequestActions.requestsByIdDataLoaded, (state, { data }) =>
+    ({ ...state, loaded: true, error: null, requests: data })
+  ),
+
+
+  /* Request By AssetIdd */
+  on(BodyShopRequestActions.loadAllRequestByAssetId, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null
+  })),
+  on(BodyShopRequestActions.allRequestByAssetIdLoaded, (state, { data }) =>
+    ({ ...state, loaded: true, error: null, assetRequest: data })
+  ),
+
+
+  /* Statistics */
   on(BodyShopRequestActions.loadStatistics, (state) => ({
     ...state,
     statistics: null,
     loaded: false
   })),
-  on(BodyShopRequestActions.allDataLoaded, (state, { data }) =>
-    bodyShopRequestAdapter.setAll(data, { ...state, loaded: true, error: null })
-  ),
-  on(BodyShopRequestActions.requestsByIdDataLoaded, (state, { data }) =>
-    ({ ...state, loaded: true, error: null, requests: data })
-  ),
+  
   on(BodyShopRequestActions.allStatisticsLoaded, (state, { data }) => ({
     ...state,
     statistics: data,
     loaded: true
   })),
+
+
+  /* Post Request */
   on(BodyShopRequestActions.addRequest, (state, { data: IRequest }) => ({
     ...state,
     error: null,
@@ -49,6 +69,8 @@ const bodyShopRequestReducer = createReducer(
     message: null,
     submitted: true
   })),
+
+  /* Update Request */
   on(BodyShopRequestActions.editRequest, (state, { request }) => ({
     ...state,
     error: null,
@@ -66,16 +88,20 @@ const bodyShopRequestReducer = createReducer(
       }
     )
   ),
+
+  /* Error */
+  on(BodyShopRequestActions.error, (state, { reason }) => ({
+    ...state,
+    error: reason,
+    loaded: true
+  })),
+
+  /* Reset */
   on(BodyShopRequestActions.resetParams, (state) => ({
     ...state,
     error: null,
     message: null,
     submitted: false
-  })),
-  on(BodyShopRequestActions.error, (state, { reason }) => ({
-    ...state,
-    error: reason,
-    loaded: true
   }))
 );
 

@@ -334,6 +334,7 @@
       "user": "المستخدم",
       "movement_type": "نوع الحركة",
       "request_type": "نوع الطلب",
+      "request":"طلب",
       "asset_type": "نوع الأصول",
       "sub_asset_type": "نوع الأصل الفرعي",
       "request_status": "حالة الطلب",

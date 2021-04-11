@@ -47,7 +47,7 @@ export class AssetMasterService {
     );
   }
   getAssetByID(id){
-    return this._http.get<ResponseBody<IAssetMaster>>(
+    return this._http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'asset/' + id
     )
   }

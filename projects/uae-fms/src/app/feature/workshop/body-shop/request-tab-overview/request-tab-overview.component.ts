@@ -1,5 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ColumnType } from '@core/table';
+import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { BodyShopRequestFacade } from '@feature/workshop/+state/body-shop';
+import moment from 'moment';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-asset-overview-request',
@@ -8,7 +13,14 @@ import { ColumnType } from '@core/table';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RequestTabOverviewComponent implements OnInit {
-  constructor() {}
+  assetId;
+  tableData$;
+  assetDetail;
+  constructor(
+    private _facadeRequest : BodyShopRequestFacade,
+    private _activatedRoute: ActivatedRoute,
+    private _assetMasterFacade: AssetMasterFacade
+  ) {}
 
   vehicle = {
     id: 1,
@@ -68,11 +80,11 @@ export class RequestTabOverviewComponent implements OnInit {
   jobCard_Table3 = {
     columns: [
       {
-        lable: 'tables.column.issue',
-        field: 'issue',
+        lable: 'tables.column.request',
+        field: 'request',
         type: ColumnType.lable,
         thumbField: '',
-        renderer: 'checkboxRenderer'
+        renderer: ''
       },
       {
         lable: 'tables.column.date',
@@ -89,15 +101,15 @@ export class RequestTabOverviewComponent implements OnInit {
         renderer: ''
       },
       {
-        lable: 'tables.column.issue_type',
-        field: 'issue_type',
+        lable: 'tables.column.request_type',
+        field: 'requestType',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
         lable: 'tables.column.reported_by',
-        field: 'reported_by',
+        field: 'reportedBy',
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
@@ -108,7 +120,6 @@ export class RequestTabOverviewComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: 'downloadButtonRenderer',
-        sortable: true
       }
     ],
     data: [
@@ -168,5 +179,47 @@ export class RequestTabOverviewComponent implements OnInit {
 
   section = 'list';
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.assetId = this._activatedRoute.snapshot.params.id;
+    this.tableData$ = this._facadeRequest.assetRequest$.pipe(
+      map((x) => {
+        return x.map( y =>{
+          let jobType;
+          switch (y.jobType) {
+            case 'TECHNICAL_REPORT':
+              jobType = 'Technical Report'
+              break;
+            case 'NORMAL':
+              jobType = 'Normal'
+              break;
+            case 'INSTALLATION':
+              jobType = 'Installation'
+              break;
+            default:
+              jobType = y.jobType
+              break;
+          }
+          return {
+            ...y,
+            date:moment.utc(y.updatedAt).local().format('DD-MM-YYYY'),
+            requestType: jobType,
+            attachment:y.documentIds,
+            statusColor: '#6870B4',
+          }
+        })
+      })
+    )
+    this._facadeRequest.assetRequest$.subscribe(x => {
+      if(x.length < 1){
+        this._facadeRequest.getAssetRequest( this.assetId)
+      }
+      console.log(x)
+    })
+    this._assetMasterFacade.getAssetByID(81)
+    this._assetMasterFacade.specificAsset$.subscribe(
+      (x) => {
+        console.log(x)
+      }
+    )
+  }
 }

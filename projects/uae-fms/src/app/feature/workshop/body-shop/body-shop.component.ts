@@ -124,13 +124,19 @@ export class BodyShopComponent implements OnInit {
       onActive: () => { }
     }
   ];
-
+  
   requestData$ = this._facadeRequest.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
         console.log(y)
         return {
           ...y,
+          asset: {
+            img: 'assets/thumb.png',
+            assetName: y.assetTypeName,
+            assetSubName: y.dpd,
+          },
+          plateNumber: y.plateNumber != null ? y.plateNumber : 'Without Plate Number',
           department: y.department.name,
           operatorName: y.operator.firstName + ' ' + y.operator.lastName
         };
@@ -200,39 +206,37 @@ export class BodyShopComponent implements OnInit {
   table1Setting: TableSetting = {
     columns: [
       {
-        lable: 'Asset',
-        field: 'dpd',
-        width: 100,
-        type: ColumnType.lable
+        lable: 'tables.column.asset',
+        field: 'asset',
+        width: '18em',
+        thumbField: '',
+        type: ColumnType.lable,
+        renderer: 'assetsRenderer'
       },
       {
         lable: 'Plate Number',
         field: 'plateNumber',
-        width: 100,
         type: ColumnType.lable
       },
       {
         lable: 'Department',
         field: 'department',
-        width: 100,
         type: ColumnType.lable
       },
       {
         lable: 'Operator Name',
         field: 'operatorName',
-        width: 100,
         type: ColumnType.lable
       },
       {
         lable: 'َAsset Type',
         field: 'assetTypeName',
-        width: 100,
         type: ColumnType.lable
       },
       {
         lable: 'َNumber Of Request',
         field: 'numberOfActiveRequests',
-        width: 100,
+
         type: ColumnType.lable
       },
       {
@@ -263,6 +267,7 @@ export class BodyShopComponent implements OnInit {
         {
           button: 'external',
           onClick: (col, data) => {
+            this._facadeRequest.getAssetRequest(data.assetId)
             this.router
               .navigate(['/workshop/body-shop/request-overview/' + data.id])
               .then();
@@ -605,6 +610,9 @@ export class BodyShopComponent implements OnInit {
     this._facadeJobCard.loadAll();
     this._facadeTechnician.loadAll();
     this._facadeLocation.loadAll();
+    this._facadeRequest.bodyShop$.subscribe(x => {
+      console.log(x)
+    })
     // this._facadeRequest.loadStatistics();
     this._facadeRequest.statistics$.subscribe((x) => {
       if (x) {

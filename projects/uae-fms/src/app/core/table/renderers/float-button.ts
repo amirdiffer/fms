@@ -25,7 +25,7 @@ import { SettingsFacade } from '@core/settings/settings.facade';
             [src]="getIcon(item.button)"
             class="svg-icon"
             [applyClass]="true"
-            [svgStyle]="{ 'fill': item.color || null , 'width.em':(item.button == 'folder-check'? 1.8 : 1.4)}"
+            [svgStyle]="{ 'fill': item.color || null , 'width.em':(item.button == 'folder-check'? 2 : 1.8)}"
           ></svg-icon>
         </span>
       </ng-container>

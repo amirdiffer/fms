@@ -87,3 +87,26 @@ export interface Slot {
   id: number;
   thirdPartySlotId: string;
 }
+
+
+/* Get a list of request related to a specific asset */
+export interface IRequestListSpecificAsset{
+  id:number;
+  request:string;
+  description:string;
+  reportedBy:string;
+  creator:ICreator;
+  hasAccident:boolean;
+  accidentType:string;
+  jobType:string;
+  documentIds:number[];
+  approveStatus:string;
+  createdAt:string;
+  updatedAt:string;
+  deletedAt:string;
+}
+export interface ICreator {
+  id:number;
+  firstName:string;
+  lastName:string;
+}

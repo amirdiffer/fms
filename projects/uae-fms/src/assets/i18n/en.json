@@ -336,6 +336,7 @@
       "user": "User",
       "movement_type": "Movement Type",
       "request_type": "Request TYpe",
+      "request":"Request",
       "asset_type": "Asset Type",
       "request_status": "Request Status",
       "tag_no": "Tag No",

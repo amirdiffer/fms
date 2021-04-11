@@ -115,6 +115,9 @@ import { AccessoryOverviewComponent } from './accessory/accessory-overview/acces
     ChartsModule,
     MapModule,
     AlertDialogModule
+  ],
+  exports:[
+    AssetCarDetailComponent
   ]
 })
 export class FleetModule {}

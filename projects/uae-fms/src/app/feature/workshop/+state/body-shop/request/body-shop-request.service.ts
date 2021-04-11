@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResponseBody } from '@models/response-body';
-import { IRequest } from '@models/body-shop';
+import { IRequest, IRequestListSpecificAsset } from '@models/body-shop';
 import { environment } from '@environments/environment';
 import { IBodyShopRequestStatistics } from '@models/statistics';
 import { TableFacade } from '@core/table/+state/table.facade';
@@ -54,7 +54,12 @@ export class BodyShopRequestService {
   }
   getRequestById(id) {
     return this.http.get<ResponseBody<any>>(
-      environment.baseApiUrl + 'workshop/body-shop/issue' + id
+      environment.baseApiUrl + 'workshop/bodyshop/request/' + id
+    );
+  }
+  getRequestListByAssetId(id):Observable<ResponseBody<IRequestListSpecificAsset[]>>{
+    return this.http.get<ResponseBody<IRequestListSpecificAsset[]>>(
+      environment.baseApiUrl + `workshop/bodyshop/asset/${id}/request` , {params: this.getParam('body-shop_request')}
     );
   }
 }

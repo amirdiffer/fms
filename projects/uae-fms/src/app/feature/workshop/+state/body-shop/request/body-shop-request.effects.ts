@@ -20,8 +20,16 @@ export class BodyShopRequestEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
+            let newData = data.message.map(
+              ((x)=>{
+                return {
+                  ...x,
+                  id:x.assetId
+                }
+              })
+            )
             this._tableFacade.initialPaginator(data.resultNumber, 'body-shop_request');
-            return BodyShopRequestActions.allDataLoaded({ data: data.message });
+            return BodyShopRequestActions.allDataLoaded({ data: newData });
           }),
           catchError((error) =>
             of(BodyShopRequestActions.error({ reason: error }))
@@ -37,6 +45,21 @@ export class BodyShopRequestEffect {
         this.service.requestsById(action.id).pipe(
           map((data) => {
             return BodyShopRequestActions.requestsByIdDataLoaded({ data: data.message });
+          }),
+          catchError((error) =>
+            of(BodyShopRequestActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+  loadAllRequestsByassetId = createEffect(() =>
+    this.action$.pipe(
+      ofType(BodyShopRequestActions.loadAllRequestByAssetId),
+      mergeMap((action) =>
+        this.service.getRequestListByAssetId(action.assetId).pipe(
+          map((data) => {
+            return BodyShopRequestActions.allRequestByAssetIdLoaded({ data: data.message });
           }),
           catchError((error) =>
             of(BodyShopRequestActions.error({ reason: error }))
