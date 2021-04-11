@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting, ColumnType } from '@core/table';
 import {
@@ -8,7 +8,7 @@ import {
   BodyShopTechnicianFacade
 } from '../+state/body-shop';
 import { Event, Router } from '@angular/router';
-import { ButtonType } from '@core/table/table.component';
+import { ButtonType, TableComponent } from '@core/table/table.component';
 import { map } from 'rxjs/operators';
 @Component({
   templateUrl: './body-shop.component.html',
@@ -16,6 +16,7 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodyShopComponent implements OnInit {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
   downloadBtn = 'assets/icons/download-solid.svg';
   filterSetting: FilterCardSetting[] = [
     {
@@ -127,6 +128,7 @@ export class BodyShopComponent implements OnInit {
   requestData$ = this._facadeRequest.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
+        console.log(y)
         return {
           ...y,
           department: y.department.name,
@@ -154,6 +156,7 @@ export class BodyShopComponent implements OnInit {
   technicianData$ = this._facadeTechnician.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
+        console.log(y)
         return {
           ...y,
           technician: {
@@ -239,27 +242,24 @@ export class BodyShopComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: 'floatButton',
-        hasJobCardButton: true
-      },
-      // {
-      //   lable: 'tables.column.accident',
-      //   field: 'accident',
-      //   type: ColumnType.lable,
-      //   width: 100
-      // },
-      {
-        lable: 'tables.column.action',
-        field: '',
-        type: ColumnType.lable,
-        width: 120,
-        renderer: 'button',
-        buttonType: ButtonType.jobCard
+        hasJobCardButton: false
       }
     ],
     data: [],
     rowSettings: {
       onClick: (col, data, button?) => { },
       floatButton: [
+        {
+          button: 'folder-check',
+          color: '#0da06e',
+          tooltip:'Create job card',
+          onClick: (col, data, button?) => {
+            this._facadeRequest.resetParams();
+            this.router.navigate([
+              '/workshop/body-shop/add-job-card'
+            ]);
+          }
+        },
         {
           button: 'external',
           onClick: (col, data) => {
@@ -268,6 +268,7 @@ export class BodyShopComponent implements OnInit {
               .then();
           }
         }
+        
         // {
         //   button: 'edit',
         //   color: '#3F3F3F',
@@ -651,7 +652,22 @@ export class BodyShopComponent implements OnInit {
         break;
     }
   }
-
+  exportTable() {
+    switch (this.selectedTab) {
+      case 'requestTab':
+        this.table.exportTable(this.table1Setting, this.selectedTab);
+        break;
+      case 'jobcardTab':
+        this.table.exportTable(this.table2Setting,this.selectedTab);
+        break;
+      case 'technicianTab':
+        this.table.exportTable(this.table3Setting,this.selectedTab);
+        break;
+      case 'locationTab':
+      this.table.exportTable(this.table4Setting,this.selectedTab);
+      break;
+    }
+  }
   eventPagination_request() {
     this._facadeRequest.loadAll();
   }

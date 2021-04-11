@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { RowSettings } from '@core/table/table.component';
 import { SettingsFacade } from '@core/settings/settings.facade';
 
@@ -19,12 +19,13 @@ import { SettingsFacade } from '@core/settings/settings.facade';
       }"
     >
       <ng-container *ngFor="let item of setting?.floatButton">
-        <span (click)="clicked(item, col, data)">
+        <span (click)="clicked(item, col, data)" (mouseenter)="item.tooltip ? tooltipEnter() : null" (mouseleave)="item.tooltip ? tooltipLeave() : null">
+          <p *ngIf="item.button == 'folder-check' && item.tooltip" class="tooltip-float-button" #tooltip>{{item.tooltip}}</p>
           <svg-icon
             [src]="getIcon(item.button)"
             class="svg-icon"
             [applyClass]="true"
-            [svgStyle]="{ fill: item.color || null }"
+            [svgStyle]="{ 'fill': item.color || null , 'width.em':(item.button == 'folder-check'? 1.8 : 1.4)}"
           ></svg-icon>
         </span>
       </ng-container>
@@ -51,6 +52,23 @@ import { SettingsFacade } from '@core/settings/settings.facade';
         width: 24px;
         height: 24px;
       }
+      .tooltip-float-button{
+        opacity:0;
+        background: #0da06e !important;
+        color: #fff !important;
+        font-size: .8em !important;
+        padding: 2px 5px;
+        border-radius: .3em;
+        margin: 0;
+        position: absolute;
+        top: -30%;
+        transform: translate(-35%, 0);
+      }
+      .animation-fade{
+        opacity:1;
+        animation: 500ms ease-in-out 0s 1 fadein;
+      }
+
       @keyframes fadein {
         from {
           opacity: 0;
@@ -67,7 +85,7 @@ export class FloatButton implements OnInit {
   @Input() col;
   @Input() setting;
   @Input() lang;
-
+  @ViewChild('tooltip') tooltip:ElementRef 
   assetPath = 'assets/icons/';
 
   constructor() {}
@@ -91,6 +109,9 @@ export class FloatButton implements OnInit {
       case 'checked': {
         return this.assetPath + 'checked.svg';
       }
+      case 'folder-check': {
+        return this.assetPath + 'folder-check.svg';
+      }
     }
   }
 
@@ -98,5 +119,11 @@ export class FloatButton implements OnInit {
     if (item && item.onClick && item.onClick instanceof Function) {
       item.onClick(col, data, item.button);
     }
+  }
+  tooltipEnter(){
+    this.tooltip.nativeElement.classList.add('animation-fade')
+  }
+  tooltipLeave(){
+    this.tooltip.nativeElement.classList.remove('animation-fade')
   }
 }

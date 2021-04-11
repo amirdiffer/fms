@@ -334,5 +334,6 @@ export enum ButtonType {
 export interface FloatButtonType {
   button: string;
   color?: string;
+  tooltip?: string;
   onClick?: Function;
 }
