@@ -631,6 +631,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     let maxUsageKPHour = this.policyTypeValue.maxUsageKPHour;
     this.reviewPlaneSettingTable2.data = [];
     let newValue = (value * depreciationValue) / 100;
+    console.log(newValue);
 
     let iterator: number;
 
@@ -643,22 +644,20 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     }
 
     let kmValue = maxUsageKPHour;
+    let kmBookValue = value;
     for (let index = 0; index < iterator; index++) {
       if (index > 9) {
         break;
       }
 
-      value = value - newValue;
-
-      if (value < 0) {
-        break;
-      }
+      value = value - newValue / maxUsageYear;
+      kmBookValue = kmBookValue - newValue;
 
       if (maxUsageYear === 0) {
         kmValue += maxUsageKPHour;
         const rowData = {
           year: kmValue,
-          bookValue: Math.round(value)
+          bookValue: Math.round(kmBookValue)
         };
         this.reviewPlaneSettingTable2.data.push(rowData);
         continue;
