@@ -50,7 +50,7 @@
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
                     <input formControlName="kilometerUsage" pInputText
-                        placeholder="{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *" required type="number">
+                        placeholder="{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *" type="number">
                     <label>{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *</label>
                   </span>
                   <anms-error
@@ -66,6 +66,9 @@
                     <input formControlName="yearUsage" pInputText placeholder="{{ 'configuration.asset_policy.asset.year' | translate }}" type="number">
                     <label>{{ 'configuration.asset_policy.asset.year' | translate }}</label>
                 </span>
+              <anms-error
+                [showError]="hasError('yearUsage',assetPolicyForm,submitted)"
+                error="forms.feedback.required"></anms-error>
             </div>
         </div>
         <div class="row form-section__row">
