@@ -31,7 +31,7 @@ export class PeriodicServiceComponent implements OnInit {
     },
     {
       lable: '<img src="assets/icons/car-solid.svg" class="icon24px">',
-      field: 'number',
+      field: 'numOfUsage',
       isIconLable: true,
       sortable: true,
       width: 100,
@@ -72,7 +72,7 @@ export class PeriodicServiceComponent implements OnInit {
       x.map((responseObject) => ({
         id: responseObject.id,
         periodicServiceName: responseObject.name,
-        number: responseObject.id
+        numOfUsage: responseObject.numOfUsage
       }))
     )
   );
