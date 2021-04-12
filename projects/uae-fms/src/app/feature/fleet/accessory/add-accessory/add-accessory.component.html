@@ -14,7 +14,7 @@
             type="text">
           <label>{{'accessory.item_name' | translate}} *</label>
         </span>
-        <anms-error [showError]="hasError('itemName')" error="forms.feedback.required"></anms-error>
+        <anms-error [showError]="hasError('itemName', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
       </div>
 
       <div class="col-12 col-md-5">
@@ -49,7 +49,7 @@
             <i class="pi pi-search"></i>
             <label>{{ 'accessory.assets_sub_assets' | translate }} *</label>
           </span>
-          <anms-error [showError]="hasError('assignedToEntity')" error="forms.feedback.required"></anms-error>
+          <anms-error [showError]="hasError('assignedToEntity', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
         </div>
       </div>
 
@@ -60,15 +60,14 @@
           <label for="accessoryType">{{'accessory.accessory_type' | translate}} *</label>
         </span>
 
-        <anms-error [showError]="hasError('accessoryTypeId')" error="forms.feedback.required"></anms-error>
+        <anms-error [showError]="hasError('accessoryTypeId', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
       </div>
 
       <div class="col-12 col-md-4 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="quantity" pInputText placeholder="{{'accessory.quantity' | translate}} *" type="number">
-          <label>{{'accessory.quantity' | translate}} *</label>
         </span>
-        <anms-error [showError]="hasError('quantity')" error="forms.feedback.required"></anms-error>
+        <anms-error [showError]="hasError('quantity', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
       </div>
 
       <div class="col-12 col-md-4 p-field form-section__field options-select">

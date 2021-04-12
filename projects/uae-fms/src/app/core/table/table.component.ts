@@ -6,7 +6,7 @@ import {
   Input,
   OnInit,
   Output,
-  OnDestroy
+  OnDestroy, ElementRef, AfterViewInit, AfterViewChecked, AfterContentInit
 } from '@angular/core';
 
 import { environment } from '@environments/environment';
@@ -14,10 +14,12 @@ import { SortEvent } from 'primeng/api';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { SettingsFacade } from '@core/settings/settings.facade';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, TimeInterval } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { TableFacade } from '@core/table/+state/table.facade';
 import { ITablePagination } from '@core/table/+state/table.entity';
+import { ofType } from '@ngrx/effects';
+import { TableServiceS } from '@core/table/table.service';
 
 @Component({
   selector: 'app-table',
@@ -25,7 +27,7 @@ import { ITablePagination } from '@core/table/+state/table.entity';
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent implements OnInit, OnDestroy {
+export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   rowIndexTable = -1;
   activeLang: string;
   activePage: number;
@@ -41,13 +43,25 @@ export class TableComponent implements OnInit, OnDestroy {
   @Output() onSelectItems = new EventEmitter();
   @Output() onPagination= new EventEmitter();
   selectedIds = [];
+  initialSearchBox = false;
+  @Input() searchInput: string = '';
+  @Output() onSearch = new EventEmitter();
+  allData = [];
   constructor(
     private settingFacade: SettingsFacade,
     private changeDetection: ChangeDetectorRef,
     private translate: TranslateService,
-    private _tableFacade: TableFacade
+    private _tableFacade: TableFacade,
+    private _tableService: TableServiceS
   ) { }
 
+  getSearchBoxData() {
+    this._tableService.getSearchBoxData(this.searchInput).subscribe((x) => {
+      this.initialSearchBox = true;
+      this.searchText = x;
+      this.filterBySearchBox();
+    });
+  }
 
   ngOnInit() {
     if (this.pagination) {
@@ -58,7 +72,9 @@ export class TableComponent implements OnInit, OnDestroy {
     });
 
     this.tableData?.subscribe((x) => {
+      !this.initialSearchBox ? this.getSearchBoxData() : null;
       if (x) {
+        this.allData = x;
         this.setting.data = x;
         this.changeDetection.detectChanges();
       }
@@ -212,7 +228,7 @@ export class TableComponent implements OnInit, OnDestroy {
   initialPagination() {
     let i = 0;
     this.subscribePagination$ = this._tableFacade.getPaginationByName(this.pagination).subscribe(x => {
-      if (x != null && (this.activePage != x['page'] || this.lastIpp != x['ipp'] || this.count != x['count'])) {
+      if (x != null && (this.activePage != x['page'] || this.lastIpp != x['ipp'])) {
         i++;
         this.activePage = x['page'];
         this.count = x['count'];
@@ -259,10 +275,26 @@ export class TableComponent implements OnInit, OnDestroy {
     return '';
   }
 
+  searchText = '';
+
+
+  filterBySearchBox() {
+    let data = this.allData.filter( x => {
+      let find = JSON.stringify(x).toLocaleLowerCase().includes(this.searchText.toLocaleLowerCase());
+      if (find)
+        return x;
+    })
+    this.setting.data = data;
+    this.changeDetection.detectChanges();
+  }
+
   ngOnDestroy(): void {
     if (this.pagination) {
       this.subscribePagination$.unsubscribe();
     }
+  }
+
+  ngAfterViewInit(): void {
   }
 
   updatedSelectedIds(data, field) {

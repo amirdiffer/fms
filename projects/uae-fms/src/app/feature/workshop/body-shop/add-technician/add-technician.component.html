@@ -181,7 +181,7 @@
             | translate}}</p>
         </div>
         <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false"
-          [preview]="false" [accept]="'.png'" (uploadedEvent)="uploadImage($event)"></anms-uploader>
+          [preview]="false" [accept]="['.png', '.jpg']" (uploadedEvent)="uploadImage($event)"></anms-uploader>
       </div>
     </div>
     <div class="col-xl-8 pl-0" [formGroupName]="'personalInfo'">

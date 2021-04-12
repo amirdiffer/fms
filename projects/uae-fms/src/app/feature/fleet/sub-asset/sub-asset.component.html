@@ -4,7 +4,7 @@
 <div class="table-container component_wrapper">
   <div class="search-container card-table-header">
     <div class="search-box">
-      <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
+      <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
       <button>
         <img src="assets/icons/search-solid.svg" alt="">
       </button>
@@ -15,6 +15,6 @@
     <button CheckAccess='sub-asset:create'  class="btn-primary-small" [routerLink]="'./add-new-sub-asset'"><i>+</i><a>{{'search.add' | translate }}</a></button>
   </div>
   <div class="table-wreapper">
-    <app-table (onPagination)="eventPagination()" pagination="sub-asset" [setting]='assetTraffic_Table' [tableData]="data$"></app-table>
+    <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="sub-asset" [setting]='assetTraffic_Table' [tableData]="data$"></app-table>
   </div>
 </div>

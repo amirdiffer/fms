@@ -5,7 +5,7 @@
 <div class="component_wrapper table-container " *ngIf="!showOverView">
   <div class="card-table-header">
     <div class="search-box">
-      <input placeholder="{{'search.search_in_columns' | translate}}" type="text">
+      <input id="searchInput" placeholder="{{'search.search_in_columns' | translate}}" type="text">
       <button>
         <img src="assets/icons/search-solid.svg" alt="">
       </button>
@@ -16,7 +16,7 @@
     <button class="btn-primary-small" routerLink='add-operator'><i>+</i><a>{{'search.add' | translate}}</a></button>
   </div>
   <div class="">
-    <app-table (onPagination)="eventPagination()" pagination="operator" [setting]='operator_Table' [tableData]="data$"></app-table>
+    <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="operator" [setting]='operator_Table' [tableData]="data$"></app-table>
   </div>
 </div>
 <!-- <ng-container *ngIf="showOverView">
