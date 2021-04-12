@@ -631,8 +631,39 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     let maxUsageKPHour = this.policyTypeValue.maxUsageKPHour;
     this.reviewPlaneSettingTable2.data = [];
     let newValue = (value * depreciationValue) / 100;
-    for (let index = 0; index < maxUsageYear; index++) {
+
+    let iterator: number;
+
+    if (maxUsageYear === 0) {
+      iterator = maxUsageKPHour;
+      this.reviewPlaneSettingTable2.columns[0].lable = 'tables.column.km';
+    } else {
+      iterator = maxUsageYear;
+      this.reviewPlaneSettingTable2.columns[0].lable = 'tables.column.year';
+    }
+
+    let kmValue = maxUsageKPHour;
+    for (let index = 0; index < iterator; index++) {
+      if (index > 9) {
+        break;
+      }
+
       value = value - newValue;
+
+      if (value < 0) {
+        break;
+      }
+
+      if (maxUsageYear === 0) {
+        kmValue += maxUsageKPHour;
+        const rowData = {
+          year: kmValue,
+          bookValue: Math.round(value)
+        };
+        this.reviewPlaneSettingTable2.data.push(rowData);
+        continue;
+      }
+
       const data = {
         year: index + 1,
         bookValue: Math.round(value)
