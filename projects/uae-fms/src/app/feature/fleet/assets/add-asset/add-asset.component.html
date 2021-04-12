@@ -246,6 +246,9 @@
                                 <input pInputText numbersOnly formControlName="inServiceOdometer"  [placeholder]="('assets.in_service_odometer' | translate) + ' *'" type="text">
                                 <label>{{ 'assets.in_service_odometer' | translate }} *</label>
                               </span>
+                              <anms-error [showError]="hasError('lifeCycle.inServiceOdometer', formGroupFinancial, submitted_Financial)"
+                                          error="forms.feedback.required">
+                              </anms-error>
                             </div>
                             <div *ngIf="lifeCylceOdometer.value != '' " class="col-md-3 form-section__field" [class.col-md-6]="policyType.value != ''">
                               <div class="toggle-select">

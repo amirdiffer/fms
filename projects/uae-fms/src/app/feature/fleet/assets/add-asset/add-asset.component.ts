@@ -372,7 +372,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       }),
       lifeCycle: this._fb.group({
         inServiceDate: ['', Validators.compose([Validators.required])],
-        inServiceOdometer: [''],
+        inServiceOdometer: ['', Validators.required],
         inServiceDateReminder: [false],
         inServiceOdometerReminder: [false]
       }),
