@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'asset-policy/add', component: AddAssetPolicyComponent },
   { path: 'ownership/add-ownership', component: OwnershipFormComponent },
   { path: 'asset-policy', component: AssetPolicyComponent },
-  { path: 'fleet-status', component: FleetStatusComponent },
+  // { path: 'fleet-status', component: FleetStatusComponent },
   { path: 'ownership', component: OwnershipComponent },
   {
     path: 'periodic-service/add-periodic-service',
