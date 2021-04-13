@@ -7,6 +7,7 @@ import {
   OnDestroy
 } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -189,10 +190,21 @@ export class AddAssetPolicyComponent
     this.assetPolicyForm = this._fb.group({
       policyType: ['ASSET', [Validators.required]],
       policyName: ['', [Validators.required]],
-      kilometerUsage: [0, [Validators.required]],
-      yearUsage: [''],
+      kilometerUsage: [null],
+      yearUsage: [null],
       depreciationValue: ['', [Validators.required]],
       reminder: [false]
+    }, {
+      validators: (AC: AbstractControl) => {
+        if (!AC.get('kilometerUsage').value && !AC.get('yearUsage').value) {
+          console.log(AC.get('kilometerUsage').value)
+          AC.get('kilometerUsage').setErrors({ required: true });
+          AC.get('yearUsage').setErrors({ required: true });
+        } else {
+          AC.get('kilometerUsage').setErrors(null);
+          AC.get('yearUsage').setErrors(null);
+        }
+      }
     });
 
     this.route.queryParams.subscribe(

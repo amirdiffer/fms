@@ -77,6 +77,13 @@
             <div class="input-group d-flex w-100 flex-wrap" formArrayName="skills">
               <div class="p-field form-section__field flex-with-button w-100 flex-85 d-flex" 
                     *ngFor="let skill of inputForm.get('professional.skills')['controls']; let i=index; let last=last;">
+                    <span class="p-float-label w-100">
+                      <input type="text" class="form-control"
+                        placeholder="{{'workshop.body_shop.technician.skill'| | translate}}"
+                        formControlName="i"
+                        [class.invalid]="!inputForm.get('professional.skills')['controls'][i].valid && submited">
+                      <label>{{'workshop.body_shop.technician.skill'| translate}}</label>
+                    </span>
                 <div class="autocomplete-select flex-with-button">
                   <span class="p-float-label">
                     <p-autoComplete [suggestions]="skills"
