@@ -4,10 +4,10 @@
       <div class="row">
         <ng-container>
           <div class="col-12 d-flex justify-content-between file-name-size text-center">
-            <div  *ngIf="progressBarValue > 0" class="text-center" style="font-size: 1.3em">
-              <span>{{ filesSize / 1024 | number }} MG</span>
-              <p *ngIf="filesUploadSuccess > 0"><span style="color: green">{{ filesUploadSuccess }}</span> upload successfully</p>
-              <p *ngIf="filesUploadError > 0"><span style="color: red">{{ filesUploadError }}</span> Error File Upload</p>
+            <div  class="text-center" style="font-size: 1.3em">
+              <span *ngIf="progressBarValue > 0">{{ filesSize / 1024 | number }} MG</span>
+              <p *ngIf="filesUploadSuccess > 0 && progressBarValue > 0"><span style="color: green">{{ filesUploadSuccess }}</span> upload successfully</p>
+              <p *ngIf="filesUploadError > 0 && progressBarValue == 0"><span style="color: red">Error while uploading the file</span></p>
             </div>
           </div>
           <div class="col-lg-12 mb-1"  *ngIf="progressBarValue > 0">

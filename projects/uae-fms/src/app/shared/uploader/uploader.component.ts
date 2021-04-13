@@ -187,6 +187,8 @@ export class UploaderComponent implements OnInit, OnChanges {
         this.changeDetector.detectChanges();
       },
       (error) => {
+        this.isUploading = false;
+        this.progressBarValue = 0;
         this.filesUploadError++;
         this.changeDetector.detectChanges();
       }
@@ -195,8 +197,8 @@ export class UploaderComponent implements OnInit, OnChanges {
   }
 
   filterFilesOfNull(): Array<any> {
-    console.log(this.files.filter(x => x != null))
-    return this.files.filter(x => x != null)
+    console.log(this.files.filter((x) => x != null));
+    return this.files.filter((x) => x != null);
   }
 
   removeFile(index) {
