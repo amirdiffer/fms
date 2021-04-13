@@ -1,29 +1,10 @@
 <form [formGroup]="inputForm" (ngSubmit)="addRequest()">
-<!--  <div class="button-container">-->
-<!--    <button class="btn-primary-medium btn-scondary-green" type="button"-->
-<!--      (click)="cancelForm()">{{'forms.cancel' | translate}}</button>-->
-<!--    <button class="btn-primary-medium add" type="submit">{{'forms.add' |-->
-<!--      translate}}</button>-->
-<!--  </div>-->
 <div class="row">
-  <!-- <div class="col-12 col-md-4 col-lg-3 side-panel">
-    <div class="component_wrapper">
-      <anms-asset-detail></anms-asset-detail>
-      <hr class="seprator">
-      <div class="location">
-        <h6 class="ml-3">{{ 'assets.overview.overview.latest_location' | translate }} </h6>
-        <div class="map">
-          <app-map-view-core [miniMap]="true" [iServeVehicles]="[]"
-                             [location]="{latitude:25.014743,longitude:55.070165}"></app-map-view-core>
-        </div>
-      </div>
-    </div>
-  </div> -->
   <div class="col-12">
     <div class="form-section mt-3">
       <h3 class="form-section__title">AssetId</h3>
       <div class="row form-section__row">
-  
+
         <div class="col-12 col-md-6 p-field form-section__field options-select">
           <span class="p-float-label">
             <p-dropdown (onChange)="selectAsset($event)" inputId="asset" [autoDisplayFirst]="false"
@@ -73,7 +54,7 @@
             </div>
           </div>
         </div>
-  
+
         <div class="col-12 col-md-9 p-field form-section__field options-select">
           <span class="p-float-label">
             <p-dropdown inputId="location" [autoDisplayFirst]="false"
@@ -86,7 +67,7 @@
             error="forms.feedback.required">
           </anms-error>
         </div>
-  
+
       </div>
     </div>
     <div class="form-section" formArrayName="tasks">
@@ -102,7 +83,7 @@
           <ng-container *ngFor="let task of
               inputForm.get('tasks')['controls']; let i=index; let last=last; let first=first;"
                         [formGroupName]="i">
-            
+
             <div class="row overflow-visible">
               <!-- <div class="col-12 col-md-3 p-field form-section__field">
                 <div class="autocomplete-select">
@@ -145,7 +126,7 @@
               <div class="col-3">
                 <div class="form-group p-field form-section__field">
                   <div class="input-group">
-                    
+
                     <div class="autocomplete-select w-100">
                         <span class="p-float-label">
                             <p-autoComplete
@@ -200,7 +181,7 @@
     </div>
   </div>
 </div>
-  
+
 
 </form>
 

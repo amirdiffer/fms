@@ -476,7 +476,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
         'Are you sure that you want to cancel editing jobCard?';
       this.dialogSetting.confirmButton = 'Yes';
       this.dialogSetting.cancelButton = 'Cancel';
-      return;
+      this.changeDetector.detectChanges();
     }
 
     this.dialogSetting.header = 'Add new jobCard';

@@ -330,14 +330,14 @@ export class BodyShopComponent implements OnInit {
         type: ColumnType.lable,
         renderer:'radialBar'
       },
-      {
-        lable: '',
-        field: 'floatButton',
-        width: 0,
-        type: ColumnType.lable,
-        thumbField: '',
-        renderer: 'floatButton'
-      }
+      // {
+      //   lable: '',
+      //   field: 'floatButton',
+      //   width: 0,
+      //   type: ColumnType.lable,
+      //   thumbField: '',
+      //   renderer: 'floatButton'
+      // }
     ],
     data: [
       {
@@ -431,116 +431,7 @@ export class BodyShopComponent implements OnInit {
         hasJobCardButton: false
       }
     ],
-    data: [
-      // {
-      //   statusColor: '#6870B4',
-      //   technician: {
-      //     firstName: 'Sam',
-      //     lastName: 'Smith',
-      //     picture: 'man-in-suit2.png',
-      //     id: '1234567890'
-      //   },
-      //   skill:
-      //     'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-      //   status: 'Available',
-      //   tasks: '2',
-      //   information: {
-      //     email: 'sample@gmail.com',
-      //     phoneNumber: '+971505653793'
-      //   },
-      //   ratePerHour: '0000 AED'
-      // },
-      // {
-      //   statusColor: '#6870B4',
-      //   technician: {
-      //     firstName: 'Sam',
-      //     lastName: 'Smith',
-      //     picture: 'man-in-suit2.png',
-      //     id: '1234567890'
-      //   },
-      //   skill:
-      //     'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-      //   status: 'Available',
-      //   tasks: '2',
-      //   information: {
-      //     email: 'sample@gmail.com',
-      //     phoneNumber: '+971505653793'
-      //   },
-      //   ratePerHour: '0000 AED'
-      // },
-      // {
-      //   statusColor: '#6870B4',
-      //   technician: {
-      //     firstName: 'Sam',
-      //     lastName: 'Smith',
-      //     picture: 'man-in-suit2.png',
-      //     id: '1234567890'
-      //   },
-      //   skill:
-      //     'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-      //   status: 'Available',
-      //   tasks: '2',
-      //   information: {
-      //     email: 'sample@gmail.com',
-      //     phoneNumber: '+971505653793'
-      //   },
-      //   ratePerHour: '0000 AED'
-      // },
-      // {
-      //   statusColor: '#6870B4',
-      //   technician: {
-      //     firstName: 'Sam',
-      //     lastName: 'Smith',
-      //     picture: 'man-in-suit2.png',
-      //     id: '1234567890'
-      //   },
-      //   skill:
-      //     'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-      //   status: 'Available',
-      //   tasks: '2',
-      //   information: {
-      //     email: 'sample@gmail.com',
-      //     phoneNumber: '+971505653793'
-      //   },
-      //   ratePerHour: '0000 AED'
-      // },
-      // {
-      //   statusColor: '#6870B4',
-      //   technician: {
-      //     firstName: 'Sam',
-      //     lastName: 'Smith',
-      //     picture: 'man-in-suit2.png',
-      //     id: '1234567890'
-      //   },
-      //   skill:
-      //     'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-      //   status: 'Available',
-      //   tasks: '2',
-      //   information: {
-      //     email: 'sample@gmail.com',
-      //     phoneNumber: '+971505653793'
-      //   },
-      //   ratePerHour: '0000 AED'
-      // },
-      // {
-      //   statusColor: '#6870B4',
-      //   technician: {
-      //     firstName: 'Sam',
-      //     lastName: 'Smith',
-      //     picture: 'man-in-suit2.png',
-      //     id: '1234567890'
-      //   },
-      //   skill:
-      //     'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-      //   status: 'Available',
-      //   tasks: '2',
-      //   information: {
-      //     email: 'sample@gmail.com',
-      //     phoneNumber: '+971505653793'
-      //   },
-      //   ratePerHour: '0000 AED'
-      // }
-    ],
+    data: [    ],
     rowSettings: {
       onClick: (col, data, button?) => { },
       floatButton: [
@@ -554,7 +445,7 @@ export class BodyShopComponent implements OnInit {
             ]);
           }
         },
-        {
+        /* {
           button: 'external',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
@@ -563,7 +454,7 @@ export class BodyShopComponent implements OnInit {
               '/workshop/body-shop/technician/' + data.id
             ]);
           }
-        }
+        } */
       ]
     }
   };

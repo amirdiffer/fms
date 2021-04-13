@@ -121,7 +121,7 @@
         <div class="row">
           <div class="col-lg-5 form-group">
             <div class="input-group d-flex w-100 flex-wrap" formArrayName="skills">
-              <div [class.d-flex]="!last" class="p-field form-section__field flex-with-button w-100 flex-85" 
+              <div [class.d-flex]="!last" class="p-field form-section__field flex-with-button w-100 flex-85"
                     *ngFor="let skill of inputForm.get('professional.skills')['controls']; let i=index; let last=last;" >
                     <span class="p-float-label w-100">
                       <input type="text" class="form-control"
@@ -222,7 +222,7 @@
             | translate}}</p>
         </div>
         <anms-uploader [isImage]="true" [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false"
-          [preview]="false" [accept]="['.png', '.jpg']" (uploadedEvent)="uploadImage($event)" [files]="avatarId"></anms-uploader>
+          [preview]="true" [accept]="['.png', '.jpg']" (uploadedEvent)="uploadImage($event)" [files]="avatarId"></anms-uploader>
       </div>
     </div>
     <div class="col-xl-8 pl-0" [formGroupName]="'personalInfo'">
@@ -268,12 +268,12 @@
         <div class="row form-section__row">
           <div class="col-lg-6 form-group">
             <div class="input-group" formArrayName="email">
-              <div class="p-field form-section__field w-100" 
+              <div class="p-field form-section__field w-100"
                   *ngFor="let email of emails.controls; let i=index; let last=last;">
                   <div class="p-inputgroup" [class.mt-2]='emails.length > 1'>
                     <span class="p-float-label">
-                      <input type="text" [formControlName]="i" 
-                              pInputText 
+                      <input type="text" [formControlName]="i"
+                              pInputText
                               placeholder="{{'workshop.body_shop.technician.email' | translate}}"
                               [class.invalid]="!inputForm.get('personalInfo.email')['controls'][i].valid && submited">
                       <label>{{'workshop.body_shop.technician.email' | translate}} *</label>
@@ -295,12 +295,12 @@
           </div>
           <div class="col-lg-6 form-group">
             <div class="input-group d-flex w-100 flex-wrap" formArrayName="phoneNumber">
-              <div class="p-field form-section__field w-100" 
+              <div class="p-field form-section__field w-100"
                 *ngFor="let number of phoneNumbers.controls; let i=index; let last=last;">
                 <div class="p-inputgroup" [class.mt-2]='phoneNumbers.length > 1'>
                   <span class="p-float-label">
-                    <input type="text" numbersOnly [formControlName]="i" 
-                          pInputText 
+                    <input type="text" numbersOnly [formControlName]="i"
+                          pInputText
                           placeholder="{{'workshop.body_shop.technician.phone_number' | translate}}"
                           [class.invalid]="!inputForm.get('personalInfo.phoneNumber')['controls'][i].valid && submited">
                     <label>{{'workshop.body_shop.technician.phone_number' | translate}}</label>
