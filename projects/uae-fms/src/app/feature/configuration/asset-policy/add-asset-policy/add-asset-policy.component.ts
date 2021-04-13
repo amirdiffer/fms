@@ -186,7 +186,7 @@ export class AddAssetPolicyComponent
   }
 
   ngOnInit(): void {
-    this.assetPolicyFacade.loadAll();
+    // this.assetPolicyFacade.loadAll();
     this.assetPolicyForm = this._fb.group({
       policyType: ['ASSET', [Validators.required]],
       policyName: ['', [Validators.required]],

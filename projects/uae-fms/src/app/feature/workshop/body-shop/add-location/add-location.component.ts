@@ -154,7 +154,7 @@ export class AddLocationComponent extends Utility implements OnInit {
   }
 
   ngOnInit(): void {
-    this._facadeLocation.loadAll();
+    // this._facadeLocation.loadAll();
     this.buildForm();
   }
   private buildForm() {
