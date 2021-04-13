@@ -1018,6 +1018,8 @@
         "pay_per_hours_validation_error": "Please fill Pay per Hours",
         "employee_status": "Employee Status Is Active",
         "skill": "Skill",
+        "department":"Department",
+        "section":"Section",
         "skill_validation_error": "Please fill skill",
         "location": "Location",
         "location_validation_error": "Please fill Location",

@@ -974,6 +974,8 @@
         "pay_per_hours_validation_error": "",
         "employee_status": "حالة الموظف مفعلة",
         "skill": "المهارة",
+        "department":"الإدارة",
+        "section":"الجزء",
         "skill_validation_error": "",
         "location": "الموقع",
         "location_validation_error": "",

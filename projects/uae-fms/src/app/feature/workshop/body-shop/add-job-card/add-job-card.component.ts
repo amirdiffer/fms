@@ -163,8 +163,9 @@ export class AddJobCardComponent extends Utility implements OnInit {
     ]
   };
   private _jobCard: any;
-  assets$ = this._facadeAsset.assetMaster$.pipe(
-    map((y) => y.map((x) => ({ id: x.id, name: x.dpd })))
+  
+  assets$ = this._jobCardService.getAllAssethasJobCard().pipe(
+    map((y) => y.message.map((x) => ({ id: x.assetId, name: x.dpd })))
   );
   locations$ = this._facadeLocation.bodyShop$.pipe(
     map((y) => y.map((x) => ({ id: x.id, name: x.address })))
@@ -177,23 +178,23 @@ export class AddJobCardComponent extends Utility implements OnInit {
       }))
     )
   );
-  
-  relatedRequests$ = this._facadeRequest.requestsById$.pipe(
-    map((y) =>
-      y.map((x) => ({
-        id: x.id,
-        request: {
-          label: x.request,
-          checkbox: false
-        },
-        date: x.createdAt ? moment.utc(x.createdAt).local().format('DD-MM-YYYY') : 'ex: 20-20-2020',
-        description: x.description,
-        issue_type: x.jobType,
-        reportedBy: x.reportedBy,
-        attachment: x.documentIds
-      }))
-    )
-  );
+  relatedRequests$;
+  // relatedRequests$ = this._facadeRequest.requestsById$.pipe(
+  //   map((y) =>
+  //     y.map((x) => ({
+  //       id: x.id,
+  //       request: {
+  //         label: x.request,
+  //         checkbox: false
+  //       },
+  //       date: x.createdAt ? moment.utc(x.createdAt).local().format('DD-MM-YYYY') : 'ex: 20-20-2020',
+  //       description: x.description,
+  //       issue_type: x.jobType,
+  //       reportedBy: x.reportedBy,
+  //       attachment: x.documentIds
+  //     }))
+  //   )
+  // );
 
   constructor(
     private _fb: FormBuilder,
@@ -212,7 +213,23 @@ export class AddJobCardComponent extends Utility implements OnInit {
   }
 
   ngOnInit(): void {
-    this.relatedRequests$;
+    // this.relatedRequests$ = this._facadeRequest.assetRequest$.subscribe()
+    this.relatedRequests$ =  this._facadeRequest.assetRequest$.pipe(
+      map((y) =>
+      y.map((x) => ({
+        id: x.id,
+        request: {
+          label: x.request,
+          checkbox: false
+        },
+        date: x.createdAt ? moment.utc(x.createdAt).local().format('DD-MM-YYYY') : 'ex: 20-20-2020',
+        description: x.description,
+        issue_type: x.jobType,
+        reportedBy: x.reportedBy,
+        attachment: x.documentIds
+      }))
+      )
+    )
     this._taskMasterService.getAllTaks().subscribe(
       (data) =>{
         (this.taskMasters = data.message.map((t) => ({
@@ -223,6 +240,9 @@ export class AddJobCardComponent extends Utility implements OnInit {
         console.log(this.taskMasters)
       }
     );
+    this._jobCardService.getAllAssethasJobCard().subscribe(x => {
+      console.log(x)
+    })
     this._facadeRequest.requestsById$.subscribe(x => { console.log(x)})
     this._facadeAsset.loadAll();
     this._facadeLocation.loadAll();
@@ -339,9 +359,11 @@ export class AddJobCardComponent extends Utility implements OnInit {
   selectAsset(e) {
     this._facadeJobCard.resetParams();
     this.assetIdSelected = e.value;
-    this._facadeRequest.getRequestsById(this.assetIdSelected);
+    console.log(e.value)
+    // this._facadeRequest.getRequestsById(this.assetIdSelected);
+    this.relatedRequests$ = this._facadeRequest.getAssetRequest(e.value)
+    this._facadeRequest.getAssetRequest(e.value)
   }
-
   get tasks(): FormArray {
     return this.inputForm.get('tasks') as FormArray;
   }

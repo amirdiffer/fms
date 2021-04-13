@@ -67,6 +67,7 @@ export interface ITechnician {
   payPerHour: number;
   skills: Skill[];
   numOfTasks: number;
+  locations?:any[];
 }
 
 export interface Skill {
