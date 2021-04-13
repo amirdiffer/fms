@@ -81,7 +81,6 @@ export class AddModelComponent
 
   ngOnInit(): void {
     this.route.params.subscribe((x) => {
-      console.log(x)
       if (x && x.assetType) this.assetTypeId = x.assetType;
       if (x && x.make) this.makeId = x.make;
     });

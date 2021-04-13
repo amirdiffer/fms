@@ -165,7 +165,6 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.buildForm();
     this.departmentSerive$ = this._departmentService.loadWithPagination().subscribe(
       (x) => {
-        console.log(x)
         x.message
           // ? this.department.next(x.message)
           ? this.departmentList = x.message
@@ -339,7 +338,6 @@ export class AddOperatorComponent extends Utility implements OnInit {
   }
 
   createEmailField(): FormGroup {
-    console.log('email')
     return this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
@@ -493,7 +491,6 @@ export class AddOperatorComponent extends Utility implements OnInit {
   }
 
   submit(): void {
-    console.log(this.form.value)
     this.submited = true;
     if (this.form.invalid) {
       this.form.markAllAsTouched()

@@ -213,13 +213,7 @@ export class RequestTabOverviewComponent implements OnInit {
       if(x.length < 1){
         this._facadeRequest.getAssetRequest( this.assetId)
       }
-      console.log(x)
     })
     this._assetMasterFacade.getAssetByID(81)
-    this._assetMasterFacade.specificAsset$.subscribe(
-      (x) => {
-        console.log(x)
-      }
-    )
   }
 }

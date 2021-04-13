@@ -270,7 +270,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     this.subAssetService.getSubAsset(recordId).subscribe((result: any) => {
       if (result && result.message) {
         const subAsset = result.message;
-        console.log(subAsset.warranties.length)
         for (let index = 0; index < subAsset.warranties.length-1; index++){
           this.addWarranty();
         };
@@ -278,7 +277,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           warranties: subAsset.warranties.map((x) => {
             const date = moment.utc(x.startDate).local();
             this.warrantyDocs.push(x.docId);
-            console.log(this.warrantyDocs)
             return {
               ...x,
               periodType: x.durationType,
@@ -435,7 +433,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         }
       },
       (error) => {
-        console.error(error);
       }
     );
   }
@@ -456,7 +453,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         }
       },
       (error) => {
-        console.error(error);
       }
     );
   }
@@ -468,17 +464,14 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
 
   next(): void {
-    console.log(this.subAssetForm.value)
     if (this.subAssetForm.invalid) {
       this.subAssetForm.markAllAsTouched();
       this.submitted = true;
       return;
     }
-    console.log(this.warrantyDocs)
     this.formCurrentStep += 1;
   }
   upload(){
-    console.log(this.avatarDoc)
     if(this.avatarDoc.length < 1 ||
       this.avatarDoc.length < 1 ){
       this.subAssetDocRequired = true;
@@ -494,12 +487,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         DPD.push(`DPD${x}`)
       }
     )
-    console.log(this.subAssetTypes)
-    console.log(this.models)
-    console.log(this.makes)
-    console.log(formVal.subAssetType)
-    console.log(formVal.model)
-    console.log(formVal.make)
     for (let index = 0; index < this.csvText.length; index++) {
       data.push({
         subAssetName: {
@@ -595,7 +582,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   submit() {
     this.submitted = true;
-    console.log(this.avatarDoc)
     if(this.avatarDoc.length < 1){
       this.avatarDocRequired=true;
       return
@@ -604,13 +590,10 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       return;
     } else {
       const data = this.getSubAssetRequestPayload(this.subAssetForm.value);
-      console.log(data);
       if (!this.isEdit) {
-        console.log(data);
         this.subAssetFacade.addSubAsset(data);
       } else {
         data['id'] = this.recordId;
-        console.log(data);
         this.subAssetFacade.editSubAsset(data);
       }
     }
@@ -635,8 +618,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       const serialNumber = subAssetFormValue.serialNumber;
       let dpd=''
       isNaN(+serialNumber) ? dpd=serialNumber : dpd ='DPD'+ serialNumber
-      console.log(serialNumber , dpd)
-      console.log(warranties)
       return {
         id:this.recordId,
         avatarId,
@@ -661,7 +642,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       };
     } else {
       const dpds = [];
-      console.log(warranties)
       if (this.isSingleAsset) {
         const serialNumber = +subAssetFormValue.serialNumber;
         if (serialNumber) {

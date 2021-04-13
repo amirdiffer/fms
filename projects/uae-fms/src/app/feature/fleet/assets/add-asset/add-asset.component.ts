@@ -402,7 +402,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           .subscribe((x) => {
             if (x) {
               this._asset = x;
-              console.log(x);
               this.formGroupGenerate.patchValue({
                 quantity: ['singleAsset'],
                 serialNumber: [x.dpd]
@@ -432,7 +431,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
     this.ownerShip$ = this._facadeOwnership.ownership$.subscribe((x) => {
       x.map((response) => {
-        console.log(response);
         this.ownerShip.push(response);
       });
     });
@@ -448,7 +446,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.periodicService$ = this._facadePeriodicService.periodicService$.subscribe(
       (data) => {
         data.map((response) => {
-          console.log(response);
           this.periodicServiceItem.push(response);
         });
       }
@@ -609,7 +606,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       warrantyItems: x.warranties.map((x) => {
         const date = moment.utc(x.startDate).local();
         this.warrantyDocs.push(x.docId);
-        console.log(this.warrantyDocs);
         return {
           ...x,
           item: x.item,
@@ -631,7 +627,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     let maxUsageKPHour = this.policyTypeValue.maxUsageKPHour;
     this.reviewPlaneSettingTable2.data = [];
     let newValue = (value * depreciationValue) / 100;
-    console.log(newValue);
 
     let iterator: number;
 
@@ -735,7 +730,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     }
   }
   assetQuantity(e) {
-    console.log(e.target.value);
     switch (e.target.value) {
       case 'multipleAsset':
         this.formGroupGenerate
@@ -759,8 +753,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     }
   }
   buttonUpload(): void {
-    console.log('is valid', this.formGroupGenerate.get('uploadFile').valid);
-    console.log('is valid', this.formGroupGenerate.valid);
     if (
       this.formGroupGenerate.get('uploadFile').invalid ||
       this.formGroupGenerate.get('uploadFile').value == ''
@@ -812,9 +804,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   getWarrantyDoc(index) {
-    console.log(this.warrantyDocs);
-    console.log(index);
-    console.log(this.warrantyDocs[index]);
     return [this.warrantyDocs[index]];
   }
   getWarrantyStartDat(i: number) {
@@ -988,7 +977,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       formValue.warrantyItems.map((x) => {
         x.startDate = x.startDate.toISOString();
       });
-      console.log(formValue);
       this._facade.addAsset(formValue);
     }
   }

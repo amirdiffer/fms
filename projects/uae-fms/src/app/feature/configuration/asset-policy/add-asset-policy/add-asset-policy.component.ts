@@ -197,7 +197,6 @@ export class AddAssetPolicyComponent
     }, {
       validators: (AC: AbstractControl) => {
         if (!AC.get('kilometerUsage').value && !AC.get('yearUsage').value) {
-          console.log(AC.get('kilometerUsage').value)
           AC.get('kilometerUsage').setErrors({ required: true });
           AC.get('yearUsage').setErrors({ required: true });
         } else {

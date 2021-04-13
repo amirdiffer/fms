@@ -125,11 +125,10 @@ export class BodyShopComponent implements OnInit {
       onActive: () => { }
     }
   ];
-  
+
   requestData$ = this._facadeRequest.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
-        console.log(y)
         return {
           ...y,
           asset: {
@@ -163,7 +162,6 @@ export class BodyShopComponent implements OnInit {
   technicianData$ = this._facadeTechnician.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
-        console.log(y)
         return {
           ...y,
           technician: {
@@ -187,7 +185,6 @@ export class BodyShopComponent implements OnInit {
   jobCardData$ = this._facadeJobCard.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
-        console.log(y)
         return {
           ...y,
           asset: {
@@ -275,7 +272,7 @@ export class BodyShopComponent implements OnInit {
               .then();
           }
         }
-        
+
         // {
         //   button: 'edit',
         //   color: '#3F3F3F',
@@ -326,8 +323,8 @@ export class BodyShopComponent implements OnInit {
         field: 'technician',
         type: ColumnType.lable
       },
-      { 
-        lable: 'tables.column.task', 
+      {
+        lable: 'tables.column.task',
         field: 'task',
         width: '18em',
         type: ColumnType.lable,
@@ -632,7 +629,6 @@ export class BodyShopComponent implements OnInit {
     this._facadeTechnician.loadAll();
     this._facadeLocation.loadAll();
     this._facadeRequest.bodyShop$.subscribe(x => {
-      console.log(x)
     })
     // this._facadeRequest.loadStatistics();
     this._facadeRequest.statistics$.subscribe((x) => {

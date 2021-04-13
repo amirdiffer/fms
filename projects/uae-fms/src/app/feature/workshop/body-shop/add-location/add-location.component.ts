@@ -192,7 +192,6 @@ export class AddLocationComponent extends Utility implements OnInit {
     });
 
     this._facadeLocation.submitted$.subscribe((x) => {
-      console.log('Submit : ', x);
       if (x) {
         this.dialogModal = true;
         this.dialogType = 'success';
@@ -212,7 +211,6 @@ export class AddLocationComponent extends Utility implements OnInit {
 
     this._facadeLocation.error$.subscribe((x) => {
       if (x?.error) {
-        console.log(x?.error);
         this.errorDialogModal = true;
         this.errorDialogSetting.header = this.isEdit
           ? 'Edit location'
@@ -295,7 +293,6 @@ export class AddLocationComponent extends Utility implements OnInit {
         services: services,
         slots: d.slots
       };
-      console.log(this._location);
 
       if (this.isEdit) {
         locationInfo = {
@@ -303,7 +300,6 @@ export class AddLocationComponent extends Utility implements OnInit {
           id: this.id
         };
 
-        console.log(locationInfo);
         this._facadeLocation.editLocation(locationInfo);
       } else {
         locationInfo = {

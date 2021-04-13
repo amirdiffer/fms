@@ -22,6 +22,6 @@ export class DownloadButtonRendererComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.link)
+
   }
 }

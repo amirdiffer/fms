@@ -163,7 +163,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
     ]
   };
   private _jobCard: any;
-  
+
   assets$ = this._jobCardService.getAllAssethasJobCard().pipe(
     map((y) => y.message.map((x) => ({ id: x.assetId, name: x.dpd })))
   );
@@ -236,14 +236,8 @@ export class AddJobCardComponent extends Utility implements OnInit {
           id: t.id,
           name: t.name
         })))
-        console.log(data)
-        console.log(this.taskMasters)
       }
     );
-    this._jobCardService.getAllAssethasJobCard().subscribe(x => {
-      console.log(x)
-    })
-    this._facadeRequest.requestsById$.subscribe(x => { console.log(x)})
     this._facadeAsset.loadAll();
     this._facadeLocation.loadAll();
     this._facadeTechnician.loadAll();
@@ -298,7 +292,6 @@ export class AddJobCardComponent extends Utility implements OnInit {
     });
 
     this._facadeJobCard.submitted$.subscribe((x) => {
-      console.log('Submit : ', x);
       if (x) {
         this.dialogModal = true;
         this.dialogType = 'success';
@@ -318,7 +311,6 @@ export class AddJobCardComponent extends Utility implements OnInit {
 
     this._facadeJobCard.error$.subscribe((x) => {
       if (x?.error) {
-        console.log(x?.error);
         this.errorDialogModal = true;
         this.errorDialogSetting.header = this.isEdit
           ? 'Edit jobCard'
@@ -359,7 +351,6 @@ export class AddJobCardComponent extends Utility implements OnInit {
   selectAsset(e) {
     this._facadeJobCard.resetParams();
     this.assetIdSelected = e.value;
-    console.log(e.value)
     // this._facadeRequest.getRequestsById(this.assetIdSelected);
     this.relatedRequests$ = this._facadeRequest.getAssetRequest(e.value)
     this._facadeRequest.getAssetRequest(e.value)
@@ -411,13 +402,11 @@ export class AddJobCardComponent extends Utility implements OnInit {
           id: this.id
         };
 
-        console.log(jobCardInfo);
         this._facadeJobCard.editJobCard(jobCardInfo);
       } else {
         jobCardInfo = {
           ...jobCardInfo
         };
-        console.log(jobCardInfo)
         this._facadeJobCard.addJobCard(jobCardInfo, f.assetId);
       }
     } else {
@@ -427,7 +416,6 @@ export class AddJobCardComponent extends Utility implements OnInit {
     }
   }
   addRequest() {
-    console.log(this.inputForm.getRawValue());
     this.submited = true;
     if (this.inputForm.invalid) {
       this.inputForm.markAllAsTouched();

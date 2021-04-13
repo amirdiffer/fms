@@ -40,7 +40,6 @@ export class TaskMasterService {
   }
 
   addTaskMaster(data) {
-    console.log({ taskMasterAdd: data });
     return this._http.post<ResponseBody<ITaskMasterModel>>(
       environment.baseApiUrl + 'workshop/taskmaster',
       data
@@ -48,7 +47,6 @@ export class TaskMasterService {
   }
 
   editTaskMaster(data) {
-    console.log({ taskMasterEdit: data });
     const { id } = data;
     return this._http.post<ResponseBody<ITaskMasterModel>>(
       environment.baseApiUrl + `workshop/taskmaster/${id}/update`,

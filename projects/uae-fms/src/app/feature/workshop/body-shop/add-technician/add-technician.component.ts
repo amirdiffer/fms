@@ -230,7 +230,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     });
     this._locationService.loadAll().subscribe((x) => {
       let data = x.message;
-      console.log(data);
       this.locationsB = data.map((y) => ({ id: y.id, name: y.address }));
     });
     this.buildForm();
@@ -246,7 +245,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
           .getTechnicianById(params[params.length - 1].path)
           .pipe(map((x) => x.message))
           .subscribe((x) => {
-            console.log(x)
             if (x) {
               this._technician = x;
               this.inputForm.controls['portalInfo'].patchValue({
@@ -275,7 +273,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
                 whatsappCheckbox: false,
                 emailCheckbox: false,
               });
-             
+
               for (let i = 0; i < x.skills.length; i++) {
                 this.addSkill();
                 this.getSkill.controls[i].patchValue(x.skills[i])
@@ -332,7 +330,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       }
     )
     this._technicianFacade.submitted$.subscribe((x) => {
-      console.log('Submit : ', x);
       if (x) {
         this.dialogModal = true;
         this.dialogType = 'success';
@@ -350,7 +347,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
 
     this._technicianFacade.error$.subscribe((x) => {
       if (x?.error) {
-        console.log(x?.error);
         this.errorDialogModal = true;
         this.errorDialogSetting.header = this.isEdit
           ? 'Edit user'
@@ -366,7 +362,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     this.getEmployeesList.pipe(debounceTime(600)).subscribe((x) => {
       this.userService.searchEmployee(x['query']).subscribe((y) => {
         if (y) {
-          console.log(y.message)
           this.employees.next([y.message]);
         } else {
           this.employees.next(null);
@@ -483,7 +478,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         (x.id + '').indexOf(event.query) >= 0 ||
         x.name.indexOf(event.query) >= 0
     );
-    console.log(this.locations);
   }
 
   /* AutoComplete Validation  */
@@ -536,14 +530,13 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     this.phoneNumbers.removeAt(index)
   }
   dialogConfirm($event): void {
-    
+
     this.errorDialogModal = false;
     this.dialogModal = false;
     if (!$event) return;
 
     if (this.dialogType == 'submit') {
       let f = this.inputForm.value;
-      console.log(this._technician);
       let technicianInfo: any = {
         employeeNumber: this.isEdit
           ? this._technician?.employeeNumber
@@ -576,7 +569,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
           id: this.id
         };
 
-        console.log(technicianInfo);
         this._technicianFacade.editTechnician(technicianInfo);
       } else {
         technicianInfo = {
@@ -594,7 +586,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   getPhone(f) {
     if (f.personalInfo.phoneNumber && f.personalInfo.phoneNumber.length > 0) {
       if (typeof f.personalInfo.phoneNumber[0] == 'object') {
-        console.log(f.personalInfo.phoneNumber[0].phoneNumber.length);
         if (
           typeof f.personalInfo.phoneNumber[0] == 'object' &&
           typeof f.personalInfo.phoneNumber[0].phoneNumber == 'string' &&
@@ -638,13 +629,10 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     this.inputForm.get('personalInfo.lastName').markAsDirty();
     this.inputForm.get('personalInfo.email')['controls'][0].markAsDirty();
     this.inputForm.get('personalInfo.phoneNumber')['controls'][0].markAsDirty();
-    console.log(this.inputForm.value);
   }
 
   addRequest() {
     this.submited = true;
-    console.log(this._technician);
-    console.log(this.inputForm.value)
     if (this.inputForm.invalid) {
       this.inputForm.markAllAsTouched();
       return;
@@ -714,7 +702,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   }
 
   uploadImage($event) {
-    console.log($event);
     if (!$event || !$event.files) {
       return;
     }
