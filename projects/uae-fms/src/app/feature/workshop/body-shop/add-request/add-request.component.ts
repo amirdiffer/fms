@@ -181,7 +181,7 @@ export class AddRequestComponent implements OnInit {
       }),
       assetId: [''],
       hasAccident: [false],
-      accidentType: ['miner'],
+      accidentType: ['MINOR'],
       jobType: ['estimate'],
       issueInfo: this._fb.group({
         issue: ['', Validators.required],

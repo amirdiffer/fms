@@ -116,8 +116,10 @@ import { TranslateModule } from "@ngx-translate/core";
     NgApexchartsModule,
     ChartsModule,
     MapModule,
-    AlertDialogModule,
-    TranslateModule
+    AlertDialogModule
+  ],
+  exports:[
+    AssetCarDetailComponent
   ]
 })
 export class FleetModule { }

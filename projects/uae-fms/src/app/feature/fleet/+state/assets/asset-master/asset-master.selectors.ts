@@ -8,7 +8,11 @@ export class AssetMasterSelectors {
     FleetSelectors.assetMasterSelector,
     selectAll
   );
-
+  
+  static specificAsset = createSelector(
+    FleetSelectors.assetMasterSelector,
+    (state) => state.asset
+  );
   static selectStatistics = createSelector(
     FleetSelectors.assetMasterSelector,
     (state: IAssetMasterState) => state.statistics

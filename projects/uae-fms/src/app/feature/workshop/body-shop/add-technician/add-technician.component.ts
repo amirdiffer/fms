@@ -34,6 +34,8 @@ import {
   TaskMasterFacade,
   TaskMasterService
 } from '@feature/workshop/+state/task-master';
+import { Department } from '@models/organization';
+import { OrganizationService } from '@feature/fleet/+state/organization';
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
@@ -75,6 +77,17 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   getEmployeesList = new Subject();
   employeeId;
   employee_static;
+  departmentList: any[];
+  departmentFiltered: any[];
+  departmentSerive$:Subscription;
+  sectionFiltered:any[];
+  sectionList:any[];
+  depatmentSectionSevice$: Subscription;
+  department_static;
+  departmentId;
+  avatarId = [];
+  section_static;
+  sectionId;
   technicianData$ = this._technicianFacade.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
@@ -184,6 +197,14 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     return this.inputForm.get('personalInfo').get('phoneNumber') as FormArray;
   }
 
+  get getSkill(): FormArray{
+    return this.inputForm.get('professional').get('skills') as FormArray;
+  }
+
+  get getLocation (): FormArray{
+    return this.inputForm.get('professional').get('location') as FormArray;
+  }
+
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
@@ -194,6 +215,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     private _locationFacade: BodyShopLocationFacade,
     private _locationService: BodyShopLocationService,
     private _taskMasterService: TaskMasterService,
+    private _departmentService: OrganizationService,
     private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
@@ -224,20 +246,27 @@ export class AddTechnicianComponent extends Utility implements OnInit {
           .getTechnicianById(params[params.length - 1].path)
           .pipe(map((x) => x.message))
           .subscribe((x) => {
+            console.log(x)
             if (x) {
               this._technician = x;
               this.inputForm.controls['portalInfo'].patchValue({
                 employeeNumber: {
-                  name: x.user.id,
-                  id: x.user.employeeNumber
+                  organizationId:x.user.employeeNumber
                 },
                 active: x.user.isActive,
-                payPerHours: x.payPerHour
+                payPerHours: x.payPerHour,
+                department: {
+                  organizationName: x.user.department.organizationName,
+                  id: x.user.department.organizationId
+                },
+                section:{
+                  name: x.user.department.name,
+                  id : x.user.department.id
+                }
               });
               this.inputForm.controls['portalInfo']
                 .get('payPerHours')
                 .markAsDirty();
-
               this.inputForm.controls['personalInfo'].patchValue({
                 firstName: x.user.firstName,
                 lastName: x.user.lastName,
@@ -245,12 +274,31 @@ export class AddTechnicianComponent extends Utility implements OnInit {
                 smsCheckbox: false,
                 whatsappCheckbox: false,
                 emailCheckbox: false,
-                email: x.user.emails,
-                phoneNumber: x.user.phoneNumbers
               });
-              this.inputForm.controls['professionalInfo'].patchValue({
-                skills: x.skills
-              });
+             
+              for (let i = 0; i < x.skills.length; i++) {
+                this.addSkill();
+                this.getSkill.controls[i].patchValue(x.skills[i])
+              }
+              for (let i = 0; i < x.locations.length; i++) {
+                this.addLocation();
+                this.getLocation.controls[i].patchValue({
+                  name: x.locations[i].address,
+                  id: x.locations[i].id
+                })
+              }
+              this.emails.controls = [];
+              for (let i = 0; i < x.user.emails.length; i++) {
+                this.addEmail();
+                this.emails.controls[i].patchValue(x.user.emails[i])
+              }
+              this.phoneNumbers.controls = [];
+              for (let i = 0; i < x.user.phoneNumbers.length; i++) {
+                this.addPhoneNumber();
+                this.phoneNumbers.controls[i].patchValue(x.user.phoneNumbers[i])
+              }
+
+
               this.inputForm.controls['personalInfo']
                 .get('firstName')
                 .markAsDirty();
@@ -258,9 +306,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
                 .get('lastName')
                 .markAsDirty();
               this.emails.controls[0].markAsDirty();
-              // this.inputForm.controls['fileUpload'].patchValue({
-              //   fileName: x.user.profileDocId
-              // });
             }
           });
       } else {
@@ -279,7 +324,13 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         );
       }
     });
-
+    this.departmentSerive$ = this._departmentService.loadWithPagination().subscribe(
+      (x) => {
+        x.message
+          ? this.departmentList = x.message
+          : this.departmentList = []
+      }
+    )
     this._technicianFacade.submitted$.subscribe((x) => {
       console.log('Submit : ', x);
       if (x) {
@@ -315,6 +366,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     this.getEmployeesList.pipe(debounceTime(600)).subscribe((x) => {
       this.userService.searchEmployee(x['query']).subscribe((y) => {
         if (y) {
+          console.log(y.message)
           this.employees.next([y.message]);
         } else {
           this.employees.next(null);
@@ -325,11 +377,13 @@ export class AddTechnicianComponent extends Utility implements OnInit {
 
   private buildForm() {
     this.inputForm = this._fb.group({
-      organizationId: [null, [Validators.required]],
-      departmentId: [null, [Validators.required]],
+      // organizationId: [null, [Validators.required]],
+      // departmentId: [null, [Validators.required]],
       portalInfo: this._fb.group({
         employeeNumber: ['', [Validators.required]],
         payPerHours: ['', [Validators.required]],
+        department:['', [Validators.required]],
+        section:['', [Validators.required]],
         active: [false]
       }),
       professional: this._fb.group({
@@ -373,6 +427,47 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   //   this.inputForm.get('personalInfo.email')['controls'][0].markAsDirty();
   //   this.inputForm.get('personalInfo.phoneNumber')['controls'][0].markAsDirty();
   // }
+  searchDepartment(event) {
+    let query = event.query
+    let filtered = []
+    for (let index = 0; index < this.departmentList.length; index++) {
+      let department = this.departmentList[index];
+      if (department.organizationName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(department)
+      }
+    }
+    this.departmentFiltered = filtered
+  }
+  searchSection(event) {
+    let query = event.query
+    let filtered = []
+    for (let index = 0; index < this.sectionList.length; index++) {
+      let section = this.sectionList[index];
+      if (section.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(section)
+      }
+    }
+    this.sectionFiltered = filtered
+  }
+
+
+  departmentChanged($event) {
+    this.department_static = $event;
+    if (typeof $event != 'object') return;
+    this.sectionList =[];
+    this.departmentId = $event.id
+    this._departmentService.searchDepartment($event.id).subscribe(
+      (x)=>{
+        x.message.departments ? this.sectionList = x.message.departments : this.sectionList = []
+      }
+    )
+  }
+
+  sectionChanged($event) {
+    this.section_static = $event;
+    if (typeof $event != 'object') return;
+    this.sectionId = $event.id
+  }
 
   filterSkills(event) {
     this.skills = this.skillsB.filter(
@@ -428,14 +523,20 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     const email = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('personalInfo.email')).push(email);
   }
+  removeEmail(index){
+    this.emails.removeAt(index)
+  }
   addPhoneNumber() {
     const phoneNumber = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('personalInfo.phoneNumber')).push(
       phoneNumber
     );
   }
-
+  removePhoneNumber(index){
+    this.phoneNumbers.removeAt(index)
+  }
   dialogConfirm($event): void {
+    
     this.errorDialogModal = false;
     this.dialogModal = false;
     if (!$event) return;
@@ -447,8 +548,8 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         employeeNumber: this.isEdit
           ? this._technician?.employeeNumber
           : this.employeeId,
-        organizationId: 1,
-        departmentId: 1,
+        organizationId: f.portalInfo.department,
+        departmentId: f.portalInfo.section,
         payPerHour: f.portalInfo.payPerHours,
         isActive: f.portalInfo.active,
         profileDocId: this.profileDocId || 1,
@@ -525,8 +626,8 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   employeeNumberChanged($event) {
     this.employee_static = $event;
     if (typeof $event != 'object') return;
-    this.inputForm.get('organizationId').patchValue($event.organizationId);
-    this.inputForm.get('departmentId').patchValue($event.organizationId);
+    // this.inputForm.get('organizationId').patchValue($event.organizationId);
+    // this.inputForm.get('departmentId').patchValue($event.organizationId);
     this.inputForm.get('personalInfo').patchValue({
       phoneNumber: [$event.mobileNumber],
       email: [$event.emailAddress],
@@ -542,9 +643,12 @@ export class AddTechnicianComponent extends Utility implements OnInit {
 
   addRequest() {
     this.submited = true;
-    // if (this.inputForm.invalid) {
-    //   return;
-    // }
+    console.log(this._technician);
+    console.log(this.inputForm.value)
+    if (this.inputForm.invalid) {
+      this.inputForm.markAllAsTouched();
+      return;
+    }
 
     this.dialogModal = true;
     this.dialogType = 'submit';
