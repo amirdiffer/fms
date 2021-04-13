@@ -283,6 +283,7 @@
         color: $fms-black-body-color;
       }
     }
+    
     .component_sec_wrapper {
       background-color: $fms-black-body2-bg;
     }
@@ -1076,6 +1077,16 @@ small {
 }
 .p-dropdown {
   background: transparent;
+}
+button.p-autocomplete-dropdown{
+  z-index: 22;
+  position: absolute;
+  width: 100% !important;
+  opacity: 0; 
+  cursor: text;
+}
+button.p-autocomplete-dropdown:disabled{
+  opacity: 0 !important;
 }
 
 .thumb {

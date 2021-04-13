@@ -4,12 +4,16 @@ import { environment } from '@environments/environment';
 @Component({
   selector: 'table-download-button-renderer',
   template: `
-    <div class="d-flex">
+    <div class="d-flex align-items-center" *ngFor="let l of link">
       <img src="assets/icons/download-solid.svg" />
-      <a class="mt-3 ml-2" [href]="link">Download</a>
+      <a class="mt-2 ml-2" [href]="fileServerBase + l">Download</a>
     </div>
   `,
-  styleUrls: ['./download-button-renderer.scss']
+  styles: [`
+    img{
+      width:1.3em;
+    }
+  `]
 })
 export class DownloadButtonRendererComponent implements OnInit {
   @Input() link = '';
@@ -17,5 +21,7 @@ export class DownloadButtonRendererComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.link)
+  }
 }

@@ -39,7 +39,9 @@ export class AssetCarDetailComponent implements OnInit, OnChanges {
   };
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.asset)
+  }
   ngOnChanges() {
     // console.log(this.asset)
   }

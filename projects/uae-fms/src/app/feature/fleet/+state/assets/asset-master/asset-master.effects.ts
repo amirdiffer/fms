@@ -64,5 +64,20 @@ export class AssetMasterEffects {
       )
     )
   );
+  getAssetByID = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetMasterActions.assetById),
+      mergeMap((action) =>
+        this.service.getAssetByID(action.id).pipe(
+          map((data) => {
+            return AssetMasterActions.assetByIdLoaded({ data: data.message });
+          }),
+          catchError((error) =>
+            of(AssetMasterActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
 
 }

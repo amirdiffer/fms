@@ -46,6 +46,8 @@ import { ServiceShopAddLocationComponent } from './service-shop/add-location/add
 import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 import { WorkshopStateModule } from './+state';
 import { AddJobCardComponent } from './body-shop/add-job-card/add-job-card.component';
+import { FleetModule } from '@feature/fleet/fleet.module';
+import { MapModule } from '@core/map-view';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,9 @@ import { AddJobCardComponent } from './body-shop/add-job-card/add-job-card.compo
     MatDatepickerModule,
     MatCheckboxModule,
     MatStepperModule,
-    MatRadioModule
+    MatRadioModule,
+    MapModule,
+    FleetModule,
   ]
 })
 export class WorkshopModule {}

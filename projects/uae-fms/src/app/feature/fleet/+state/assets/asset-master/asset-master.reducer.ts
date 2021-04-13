@@ -47,6 +47,24 @@ const assetMasterReducer = createReducer(
       submitted: true
     })
   ),
+
+  
+  /* Asset By Id */
+  on(AssetMasterActions.assetById, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null
+  })),
+  on(AssetMasterActions.assetByIdLoaded, (state, { data }) =>
+    ({ 
+      ...state, 
+      loaded: true, 
+      error: null, 
+      asset: data 
+    })),
+
+  
   on(AssetMasterActions.reset, (state) => ({
     ...state,
     error: null,

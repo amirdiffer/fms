@@ -38,6 +38,8 @@ import { DownloadButtonRendererComponent } from '@core/table/renderers/download-
 import { TooltipModule } from 'primeng/tooltip';
 import { PriorityRendererComponent } from './renderers/priority';
 import { TableServiceS } from '@core/table/table.service';
+import { RadialBarRendererComponent } from './renderers/radialBar';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import { TableServiceS } from '@core/table/table.service';
     RouterModule,
     StoreModule.forFeature(TABLE_FEATURE_KEY, reducer),
     EffectsModule.forFeature([TableEffect]),
-    TooltipModule
+    TooltipModule,
+    NgApexchartsModule,
+    AngularSvgIconModule
   ],
   exports: [TableComponent],
   declarations: [
@@ -79,7 +83,8 @@ import { TableServiceS } from '@core/table/table.service';
     AssetConfigurationTrimColorRendererComponent,
     CheckboxRendererComponent,
     DownloadButtonRendererComponent,
-    PriorityRendererComponent
+    PriorityRendererComponent,
+    RadialBarRendererComponent
   ],
   providers: [
     TableFacade,
