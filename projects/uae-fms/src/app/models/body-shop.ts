@@ -1,7 +1,35 @@
 export interface IJobCard {
+  id?:number;
+  assetId?:number;
+  assetDpd?:string;
+  creatorId?:number;
   description: string;
-  wsLocationId: number;
-  tasks: Task[];
+  location?: {
+    id:number;
+    address?:string;
+    thirdPartyLocationId:string;
+  };
+  startDate?:string;
+  endDate?:string;
+  cost?:string;
+  status?:string;
+  tasks: IJobcardTask[];
+}
+export interface IJobcardTask{
+  id?:number;
+  technicianId?:number;
+  priorityOrder?:number;
+  taskMaster?:{
+    id?:number;
+    shopType:string;
+    taskType:string;
+    name:string;
+    instruction:string;
+    timeEstimate:number;
+    ratePerHour:number;
+    skills:Skill[],
+    doesNeedParty:boolean
+  }
 }
 
 export interface Task {
@@ -42,7 +70,7 @@ export interface ITechnician {
 }
 
 export interface Skill {
-  id: number;
+  id?: number;
   name: string;
 }
 

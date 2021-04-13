@@ -428,13 +428,18 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     const email = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('personalInfo.email')).push(email);
   }
+  removeEmail(index){
+    this.emails.removeAt(index)
+  }
   addPhoneNumber() {
     const phoneNumber = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('personalInfo.phoneNumber')).push(
       phoneNumber
     );
   }
-
+  removePhoneNumber(index){
+    this.phoneNumbers.removeAt(index)
+  }
   dialogConfirm($event): void {
     this.errorDialogModal = false;
     this.dialogModal = false;
@@ -542,9 +547,11 @@ export class AddTechnicianComponent extends Utility implements OnInit {
 
   addRequest() {
     this.submited = true;
-    // if (this.inputForm.invalid) {
-    //   return;
-    // }
+    console.log(this.inputForm.value)
+    if (this.inputForm.invalid) {
+      this.inputForm.markAllAsTouched();
+      return;
+    }
 
     this.dialogModal = true;
     this.dialogType = 'submit';

@@ -111,6 +111,10 @@
           <div *ngIf="col.renderer=='downloadButtonRenderer'">
             <table-download-button-renderer [link]='data[col.field]'></table-download-button-renderer>
           </div>
+          
+          <div *ngIf="col.renderer=='radialBar'">
+            <radialBar-renderer [percent]='data[col.field]'></radialBar-renderer>
+          </div>
 
         </td>
         <div [class]="'statusColor'+ (hasRendere(setting.columns)?'with-renderer-table':' simple-table')"

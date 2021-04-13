@@ -42,7 +42,8 @@
                     | translate}}"
                     formControlName="payPerHours"
                     [class.invalid]="!inputForm.get('portalInfo.payPerHours').valid
-                    && submited">
+                    && submited"
+                    numbersOnly>
                   <label>{{'workshop.body_shop.technician.pay_per_hours' |
                     translate}}</label>
                 </span>
@@ -73,30 +74,30 @@
           | translate}}</h3>
         <div class="row">
           <div class="col-lg-5 form-group">
-            <div class="input-group d-flex w-100 flex-wrap"
-              formArrayName="skills">
-              <div class="p-field form-section__field flex-with-button w-100
-                flex-85" *ngFor="let skill of
-                inputForm.get('professional.skills')['controls']; let i=index">
-                <div class="autocomplete-select">
+            <div class="input-group d-flex w-100 flex-wrap" formArrayName="skills">
+              <div class="p-field form-section__field flex-with-button w-100 flex-85 d-flex" 
+                    *ngFor="let skill of inputForm.get('professional.skills')['controls']; let i=index; let last=last;">
+                <div class="autocomplete-select flex-with-button">
                   <span class="p-float-label">
                     <p-autoComplete [suggestions]="skills"
-                                                      [formControlName]="i"
-                                                      (completeMethod)="filterSkills($event)"
-                                                      field="name"
-                                                      [disabled]="isEdit"
-                                                      [minLength]="1"
-                                                      [class.invalid]="!inputForm.get('professional.skills')['controls'][i].valid
-                      && submited">
+                                    [formControlName]="i"
+                                    (completeMethod)="filterSkills($event)"
+                                    field="name"
+                                    [disabled]="isEdit"
+                                    [minLength]="1"
+                                    [class.invalid]="!inputForm.get('professional.skills')['controls'][i].valid && submited">
                   </p-autoComplete>
                     <i class="pi pi-search"></i>
                     <label>{{'workshop.body_shop.technician.skill' | translate}}</label>
                   </span>
+                  <small class="red-font"
+                    [class.d-none]="inputForm.get('professional.skills')['controls'][i].valid || !submited">{{'workshop.body_shop.technician.skill_validation_error' | translate}}
+                  </small>
                 </div>
-                <small class="red-font"
-                  [class.d-none]="inputForm.get('professional.skills')['controls'][i].valid
-                  || !submited">{{'workshop.body_shop.technician.skill_validation_error'
-                  | translate}}</small>
+                  <span *ngIf="!last" class='remove-icon p-inputgroup-addon'>
+                    <svg-icon src='assets/icons/add.svg'
+                              [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+                  </span>
               </div>
               <span class="p-inputgroup-addon" (click)="addSkill()"
                 [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i
@@ -105,11 +106,9 @@
           </div>
           <div class="col-lg-5 form-group">
             <div class="input-group flex-wrap" formArrayName="location">
-              <div class="p-field form-section__field flex-with-button w-100
-                flex-85" *ngFor="let location of
-                inputForm.get('professional.location')['controls']; let
-                i=index">
-                <div class="autocomplete-select">
+              <div class="p-field form-section__field flex-with-button w-100 flex-85 d-flex" *ngFor="let location of
+                inputForm.get('professional.location')['controls']; let i=index; let last=last;">
+                <div class="autocomplete-select flex-with-button">
                   <span class="p-float-label">
                     <p-autoComplete [suggestions]="locations"
                                     [formControlName]="i"
@@ -129,6 +128,10 @@
                     || !submited">{{'workshop.body_shop.technician.location_validation_error'
                     | translate}}</small>
                 </div>
+                <span *ngIf="!last" class='remove-icon p-inputgroup-addon'>
+                  <svg-icon src='assets/icons/add.svg'
+                            [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+                </span>
               </div>
               <span class="p-inputgroup-addon" (click)="addLocation()"
                 [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i
@@ -224,58 +227,59 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row form-section__row">
           <div class="col-lg-6 form-group">
-            <div class="input-group d-flex w-100 flex-wrap"
-              formArrayName="email">
-              <div class="p-field form-section__field flex-with-button w-100
-                flex-85" *ngFor="let email of
-                inputForm.get('personalInfo.email')['controls']; let i=index">
-                <span class="p-float-label">
-                  <input type="text" class="form-control border"
-                    placeholder="{{'workshop.body_shop.technician.email' |
-                    translate}}"
-                    [formControlName]="i"
-                    [class.invalid]="!inputForm.get('personalInfo.email')['controls'][i].valid
-                    && submited">
-                  <label>{{'workshop.body_shop.technician.email' | translate}}</label>
-                </span>
+            <div class="input-group" formArrayName="email">
+              <div class="p-field form-section__field w-100" 
+                  *ngFor="let email of emails.controls; let i=index; let last=last;">
+                  <div class="p-inputgroup" [class.mt-2]='emails.length > 1'>
+                    <span class="p-float-label">
+                      <input type="text" [formControlName]="i" 
+                              pInputText 
+                              placeholder="{{'workshop.body_shop.technician.email' | translate}}"
+                              [class.invalid]="!inputForm.get('personalInfo.email')['controls'][i].valid && submited">
+                      <label>{{'workshop.body_shop.technician.email' | translate}} *</label>
+                    </span>
+                    <span *ngIf="last" class="p-inputgroup-addon addon-primary" (click)="addEmail()">
+                      <i class="pi pi-plus"></i>
+                    </span>
+                    <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeEmail(i)">
+                      <svg-icon src='assets/icons/add.svg'
+                                [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+                    </span>
+                  </div>
                 <small class="error-input"
-                  [class.d-none]="inputForm.get('personalInfo.email')['controls'][i].valid
-                  || !submited">{{'workshop.body_shop.technician.email_validation_error'
-                  | translate}}</small>
+                  [class.d-none]="inputForm.get('personalInfo.email')['controls'][i].valid || !submited">
+                    {{'workshop.body_shop.technician.email_validation_error' | translate}}
+                </small>
               </div>
-              <span class="p-inputgroup-addon" (click)="addEmail()"
-                [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i
-                  class="pi pi-plus"></i></span>
             </div>
           </div>
           <div class="col-lg-6 form-group">
-            <div class="input-group d-flex w-100 flex-wrap"
-              formArrayName="phoneNumber">
-              <div class="p-field form-section__field flex-with-button w-100
-                flex-85" *ngFor="let number of
-                inputForm.get('personalInfo.phoneNumber')['controls']; let
-                i=index">
-                <span class="p-float-label">
-                  <input type="text" class="form-control border"
-                    placeholder="{{'workshop.body_shop.technician.phone_number'
-                    | translate}}"
-                    [formControlName]="i"
-                    [class.invalid]="!inputForm.get('personalInfo.phoneNumber')['controls'][i].valid
-                    && submited">
-                  <label>{{'workshop.body_shop.technician.phone_number' |
-                    translate}}</label>
-                </span>
+            <div class="input-group d-flex w-100 flex-wrap" formArrayName="phoneNumber">
+              <div class="p-field form-section__field w-100" 
+                *ngFor="let number of phoneNumbers.controls; let i=index; let last=last;">
+                <div class="p-inputgroup" [class.mt-2]='phoneNumbers.length > 1'>
+                  <span class="p-float-label">
+                    <input type="text" numbersOnly [formControlName]="i" 
+                          pInputText 
+                          placeholder="{{'workshop.body_shop.technician.phone_number' | translate}}"
+                          [class.invalid]="!inputForm.get('personalInfo.phoneNumber')['controls'][i].valid && submited">
+                    <label>{{'workshop.body_shop.technician.phone_number' | translate}}</label>
+                  </span>
+                  <span *ngIf="last" class="p-inputgroup-addon addon-primary" (click)='addPhoneNumber()'>
+                    <i class="pi pi-plus"></i>
+                  </span>
+                  <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removePhoneNumber(i)">
+                    <svg-icon src='assets/icons/add.svg'
+                              [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+                  </span>
+                </div>
                 <small class="error-input"
                   [class.d-none]="inputForm.get('personalInfo.phoneNumber')['controls'][i].valid
                   || !submited">{{'workshop.body_shop.technician.phone_number_validation_error'
                   | translate}}</small>
-
               </div>
-              <span class="p-inputgroup-addon" (click)="addPhoneNumber()"
-                [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}"><i
-                  class="pi pi-plus"></i></span>
             </div>
           </div>
         </div>

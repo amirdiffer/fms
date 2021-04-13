@@ -10,6 +10,7 @@ import {
 import { Event, Router } from '@angular/router';
 import { ButtonType, TableComponent } from '@core/table/table.component';
 import { map } from 'rxjs/operators';
+import moment from 'moment';
 @Component({
   templateUrl: './body-shop.component.html',
   styleUrls: ['./body-shop.component.scss'],
@@ -186,19 +187,20 @@ export class BodyShopComponent implements OnInit {
   jobCardData$ = this._facadeJobCard.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
+        console.log(y)
         return {
           ...y,
-          item: {
-            title: 'Request No 123456',
-            dpd: 'DPD 0000001',
-            thumb: 'thumb1.png'
+          asset: {
+            img: 'assets/thumb.png',
+            assetName: y.assetDpd,
+            assetSubName: y.assetDpd,
           },
-          task: 'Oil leaking, Oil leaking, Oil leaking..',
-          startDate: '20-20-2020',
-          endDate: '20-20-2020',
-          location: 'Station 2',
-          cost: '30.000 AED',
-          workshopManagerApproval: 'Approved'
+          startDate: y.startDate ? moment.utc(y.startDate).local().format('DD-MM-YYYY') : 'ex: 20-20-2020',
+          endDate: y.endDate ? moment.utc(y.endDate).local().format('DD-MM-YYYY') : 'ex: 20-20-2020',
+          location: y.location.address ? y.location.address : 'ex: Dubai',
+          cost: y.cost ? `${y.cost} AED` : 'ex: 30.000 AED ',
+          technician: Math.floor(Math.random() * 20) + 1  ,
+          task: Math.floor(Math.random() * 100) + 1,
         };
       });
     })
@@ -291,40 +293,45 @@ export class BodyShopComponent implements OnInit {
   table2Setting: TableSetting = {
     columns: [
       {
-        lable: 'tables.column.item',
-        field: 'item',
-        renderer: 'vehicleRenderer'
+        lable: 'tables.column.asset',
+        field: 'asset',
+        width: '18em',
+        thumbField: '',
+        type: ColumnType.lable,
+        renderer: 'assetsRenderer'
       },
-      { lable: 'tables.column.task', field: 'task', type: ColumnType.lable },
       {
         lable: 'tables.column.start_date',
         field: 'startDate',
         type: ColumnType.lable,
-        width: 120
       },
       {
         lable: 'tables.column.end_date',
         field: 'endDate',
         type: ColumnType.lable,
-        width: 120
       },
       {
         lable: 'tables.column.location',
         field: 'location',
         type: ColumnType.lable,
-        width: 100
       },
       {
         lable: 'tables.column.cost',
         field: 'cost',
         type: ColumnType.lable,
-        width: 100,
         sortable: true
       },
       {
-        lable: 'tables.column.workshop_manager_approval',
-        field: 'workshopManagerApproval',
+        lable: 'tables.column.technician',
+        field: 'technician',
         type: ColumnType.lable
+      },
+      { 
+        lable: 'tables.column.task', 
+        field: 'task',
+        width: '18em',
+        type: ColumnType.lable,
+        renderer:'radialBar'
       },
       {
         lable: '',
@@ -335,7 +342,21 @@ export class BodyShopComponent implements OnInit {
         renderer: 'floatButton'
       }
     ],
-    data: [],
+    data: [
+      {
+        asset: {
+          img: 'assets/thumb.png',
+          assetName: 'sdadasdasd',
+          assetSubName: '456456456',
+        },
+        startDate:  'ex: 20-20-2020',
+        endDate: 'ex: 20-20-2020',
+        location: 'ex: Dubai',
+        cost: 'ex: 30.000 AED ',
+        technician: 7 ,
+        task: '100',
+      }
+    ],
     rowSettings: {
       onClick: (col, data) => {
         // console.log(col, data);
@@ -347,17 +368,17 @@ export class BodyShopComponent implements OnInit {
             this.router.navigate(['/fleet/assets/' + data.id]).then();
           }
         },
-        {
-          button: 'edit',
-          color: '#3F3F3F',
-          onClick: (col, data, button?) => {
-            console.log(data)
-            this._facadeJobCard.resetParams();
-            this.router.navigate([
-              '/workshop/body-shop/edit-job-card/' + data.id
-            ]);
-          }
-        }
+        // {
+        //   button: 'edit',
+        //   color: '#3F3F3F',
+        //   onClick: (col, data, button?) => {
+        //     console.log(data)
+        //     this._facadeJobCard.resetParams();
+        //     this.router.navigate([
+        //       '/workshop/body-shop/edit-job-card/' + data.id
+        //     ]);
+        //   }
+        // }
       ]
     }
   };

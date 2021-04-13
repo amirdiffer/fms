@@ -149,11 +149,11 @@ export class AddAccessoryComponent extends Utility implements OnInit {
       if (queryParams['id']) {
         this.isEdit = true;
         this.recordId = +queryParams['id'];
+        console.log('is Edit')
+        this.loadAccessoryData(this.recordId);
       } else {
         this.isEdit = false;
       }
-
-      this.loadAccessoryData(this.recordId);
     });
   }
 
