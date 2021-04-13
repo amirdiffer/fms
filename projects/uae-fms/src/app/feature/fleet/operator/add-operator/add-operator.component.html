@@ -36,7 +36,6 @@
             <p-autoComplete formControlName="department" (completeMethod)="searchDepartment($event)"
             [suggestions]="departmentFiltered" field="organizationName" [minLength]="1"
             (onSelect)="departmentChanged($event)"
-            [disabled]="isEdit"
             [dropdown]="true">
             </p-autoComplete>
             <i class="pi pi-search"></i>
