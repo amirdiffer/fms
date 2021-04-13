@@ -209,7 +209,7 @@ export class AddAccessoryComponent extends Utility implements OnInit {
     });
 
     this.loadAccessoryType();
-    this._facade.loadAll();
+    // this._facade.loadAll();
     this.subAssetFacade.loadAll();
     this.assetMasterFacade.loadAll();
 

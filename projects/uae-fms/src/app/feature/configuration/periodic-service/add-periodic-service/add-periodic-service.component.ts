@@ -136,7 +136,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   }
 
   ngOnInit(): void {
-    this.periodicServiceFacade.loadAll();
+    // this.periodicServiceFacade.loadAll();
     this.periodicServiceForm = this._fb.group({
       name: ['', [Validators.required]],
       packageName: [''],
