@@ -14,6 +14,10 @@ export class BodyShopRequestSelectors {
     (state) => state.requests
   );
 
+  static assetRequest = createSelector(
+    WorkshopSelectors.bodyshopRequestSelector,
+    (state) => state.assetRequest
+  );
   static selectStatistics = createSelector(
     WorkshopSelectors.bodyshopRequestSelector,
     (state) => state.statistics

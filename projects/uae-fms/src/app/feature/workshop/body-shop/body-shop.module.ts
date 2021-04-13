@@ -13,6 +13,7 @@ import { MapModule } from '@core/map-view';
 import { TechnicianOverviewComponent } from './technician-overview/technician-overview.component';
 import { UserProfileModule } from '@feature/user/user.module';
 import { TabViewModule } from '@core/tab-view';
+import { FleetModule } from '@feature/fleet/fleet.module';
 
 @NgModule({
   declarations: [RequestTabOverviewComponent, TechnicianOverviewComponent],
@@ -26,7 +27,8 @@ import { TabViewModule } from '@core/tab-view';
     TableModule,
     MapModule,
     TabViewModule,
-    UserProfileModule
+    UserProfileModule,
+    FleetModule,
   ]
 })
 export class BodyShopModule {}

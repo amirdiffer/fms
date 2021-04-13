@@ -12,7 +12,6 @@ export class TableServiceS {
   getSearchBoxData(elementID: string) {
     let input = document.getElementById(elementID) as HTMLInputElement;
     if (input != null) {
-      console.log('ok')
       input.addEventListener('keyup', (x) => {
         this.searchBox$.next(input.value)
       });

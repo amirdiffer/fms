@@ -69,7 +69,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     })
     this._dataService.watchType().subscribe(
       (x)=>{
-        console.log(x)
         this.inputForm.patchValue({
           typeCategory:x
         })

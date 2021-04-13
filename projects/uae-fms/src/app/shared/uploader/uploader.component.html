@@ -70,5 +70,7 @@
   </div>
 </ng-container>
 
-
+<p-dialog [(visible)]="imageModal" [modal]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <img [src]="fileImage">
+</p-dialog>
 <alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogErrorConfirm($event)"></alert-dialog>

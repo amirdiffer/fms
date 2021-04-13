@@ -42,7 +42,6 @@ export class OrganizationService {
     params=params.append('page',`${page}`)
     params = params.append('sort',sort)
     params = params.append('size',`${size}`)
-    console.log(params)
     return this._http.get<ResponseBody<IOrganization[]>>(
       environment.baseApiUrl + 'organization',
       {params: params}

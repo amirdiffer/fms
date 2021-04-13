@@ -42,6 +42,15 @@ export class AssetMasterActions {
     props<{ data: any }>()
   );
 
+  /* Get Asset By Id */
+  static assetById= createAction(
+    '[AssetMaster] load asset by Id',
+    props<{ id: number }>()
+  );
+  static assetByIdLoaded = createAction(
+    '[AssetMaster] specific asset loaded',
+    props<{ data: any }>()
+  );
   static reset = createAction(
     '[AssetMaster] reset parameters'
   );

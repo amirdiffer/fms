@@ -124,7 +124,6 @@ export class AddRequestComponent implements OnInit {
       } else {
       }
       this._bodyShopRequestFacade.submitted$.subscribe((x) => {
-        console.log('Submit : ', x);
         if (x) {
           this.dialogModal = true;
           this.dialogType = 'success';
@@ -144,7 +143,6 @@ export class AddRequestComponent implements OnInit {
 
       this._bodyShopRequestFacade.error$.subscribe((x) => {
         if (x?.error) {
-          console.log(x?.error);
           this.errorDialogModal = true;
           this.errorDialogSetting.header = this.isEdit
             ? 'Edit request'
@@ -181,7 +179,7 @@ export class AddRequestComponent implements OnInit {
       }),
       assetId: [''],
       hasAccident: [false],
-      accidentType: ['miner'],
+      accidentType: ['MINOR'],
       jobType: ['estimate'],
       issueInfo: this._fb.group({
         issue: ['', Validators.required],
@@ -244,7 +242,6 @@ export class AddRequestComponent implements OnInit {
           id: this.id
         };
 
-        console.log(requestInfo);
         this._bodyShopRequestFacade.editRequest(requestInfo);
       } else {
         requestInfo = {

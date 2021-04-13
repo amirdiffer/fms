@@ -448,7 +448,6 @@ export class AddUserComponent
   }
 
   submit(): void {
-    console.log(this.form.value)
     this.submited = true;
     if (this.form.invalid) {
       return;

@@ -139,7 +139,6 @@ export class UploaderComponent implements OnInit, OnChanges {
     let that = this;
     function processData(allText) {
       let textEmit = allText.split(/\r\n|\n/);
-      console.log(textEmit);
       that.csvTextEvent.emit(textEmit);
     }
   }
@@ -173,7 +172,6 @@ export class UploaderComponent implements OnInit, OnChanges {
           if (!event.body.error) {
             if (!this.multiple) this.files = [];
             this.files.push(event.body.message.id);
-            console.log(event.body.message.id);
             this.changeDetector.markForCheck();
             if (this.readCSVFile) {
               this.getValueCSV(event.body.message.id);
@@ -197,7 +195,6 @@ export class UploaderComponent implements OnInit, OnChanges {
   }
 
   filterFilesOfNull(): Array<any> {
-    console.log(this.files.filter((x) => x != null));
     return this.files.filter((x) => x != null);
   }
 
@@ -212,8 +209,6 @@ export class UploaderComponent implements OnInit, OnChanges {
     this.dialogModalError = false;
   }
   showImage() {
-    console.log(this.imageModal);
-    console.log('Image');
     this.imageModal = true;
   }
 }

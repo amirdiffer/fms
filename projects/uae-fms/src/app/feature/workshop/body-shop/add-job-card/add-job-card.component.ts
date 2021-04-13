@@ -28,6 +28,7 @@ import {
 import { map } from 'rxjs/operators';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
+import moment from 'moment';
 
 @Component({
   selector: 'anms-add-job-card',
@@ -42,7 +43,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
   id: number;
   //#region Dialog
   dialogModal = false;
-
+  taskFiltered: any[];
   dialogSetting: IDialogAlert = {
     header: 'Add JobCard',
     hasError: false,
@@ -63,7 +64,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
   errorDialogModal = false;
   //#endregion Dialog
   inputForm: FormGroup;
-  taskMasters: any[] = [];
+  taskMasters: any[];
   newTaskMasters: any[];
   submited = false;
   filteredJobCard;
@@ -162,8 +163,9 @@ export class AddJobCardComponent extends Utility implements OnInit {
     ]
   };
   private _jobCard: any;
-  assets$ = this._facadeAsset.assetMaster$.pipe(
-    map((y) => y.map((x) => ({ id: x.id, name: x.dpd })))
+
+  assets$ = this._jobCardService.getAllAssethasJobCard().pipe(
+    map((y) => y.message.map((x) => ({ id: x.assetId, name: x.dpd })))
   );
   locations$ = this._facadeLocation.bodyShop$.pipe(
     map((y) => y.map((x) => ({ id: x.id, name: x.address })))
@@ -176,22 +178,23 @@ export class AddJobCardComponent extends Utility implements OnInit {
       }))
     )
   );
-  relatedRequests$ = this._facadeRequest.requestsById$.pipe(
-    map((y) =>
-      y.map((x) => ({
-        id: x.id,
-        request: {
-          label: x.request,
-          checkbox: false
-        },
-        date: x.createdAt,
-        description: x.description,
-        issue_type: x.jobType,
-        reported_by: x.reportedBy,
-        attachment: ''
-      }))
-    )
-  );
+  relatedRequests$;
+  // relatedRequests$ = this._facadeRequest.requestsById$.pipe(
+  //   map((y) =>
+  //     y.map((x) => ({
+  //       id: x.id,
+  //       request: {
+  //         label: x.request,
+  //         checkbox: false
+  //       },
+  //       date: x.createdAt ? moment.utc(x.createdAt).local().format('DD-MM-YYYY') : 'ex: 20-20-2020',
+  //       description: x.description,
+  //       issue_type: x.jobType,
+  //       reportedBy: x.reportedBy,
+  //       attachment: x.documentIds
+  //     }))
+  //   )
+  // );
 
   constructor(
     private _fb: FormBuilder,
@@ -210,12 +213,30 @@ export class AddJobCardComponent extends Utility implements OnInit {
   }
 
   ngOnInit(): void {
-    this._taskMasterService.loadAll().subscribe(
-      (data) =>
+    // this.relatedRequests$ = this._facadeRequest.assetRequest$.subscribe()
+    this.relatedRequests$ =  this._facadeRequest.assetRequest$.pipe(
+      map((y) =>
+      y.map((x) => ({
+        id: x.id,
+        request: {
+          label: x.request,
+          checkbox: false
+        },
+        date: x.createdAt ? moment.utc(x.createdAt).local().format('DD-MM-YYYY') : 'ex: 20-20-2020',
+        description: x.description,
+        issue_type: x.jobType,
+        reportedBy: x.reportedBy,
+        attachment: x.documentIds
+      }))
+      )
+    )
+    this._taskMasterService.getAllTaks().subscribe(
+      (data) =>{
         (this.taskMasters = data.message.map((t) => ({
           id: t.id,
           name: t.name
         })))
+      }
     );
     this._facadeAsset.loadAll();
     this._facadeLocation.loadAll();
@@ -271,7 +292,6 @@ export class AddJobCardComponent extends Utility implements OnInit {
     });
 
     this._facadeJobCard.submitted$.subscribe((x) => {
-      console.log('Submit : ', x);
       if (x) {
         this.dialogModal = true;
         this.dialogType = 'success';
@@ -291,7 +311,6 @@ export class AddJobCardComponent extends Utility implements OnInit {
 
     this._facadeJobCard.error$.subscribe((x) => {
       if (x?.error) {
-        console.log(x?.error);
         this.errorDialogModal = true;
         this.errorDialogSetting.header = this.isEdit
           ? 'Edit jobCard'
@@ -330,10 +349,12 @@ export class AddJobCardComponent extends Utility implements OnInit {
   requests$ = this._facadeRequest.requestsById$;
 
   selectAsset(e) {
+    this._facadeJobCard.resetParams();
     this.assetIdSelected = e.value;
-    this._facadeRequest.getRequestsById(this.assetIdSelected);
+    // this._facadeRequest.getRequestsById(this.assetIdSelected);
+    this.relatedRequests$ = this._facadeRequest.getAssetRequest(e.value)
+    this._facadeRequest.getAssetRequest(e.value)
   }
-
   get tasks(): FormArray {
     return this.inputForm.get('tasks') as FormArray;
   }
@@ -381,7 +402,6 @@ export class AddJobCardComponent extends Utility implements OnInit {
           id: this.id
         };
 
-        console.log(jobCardInfo);
         this._facadeJobCard.editJobCard(jobCardInfo);
       } else {
         jobCardInfo = {
@@ -396,11 +416,11 @@ export class AddJobCardComponent extends Utility implements OnInit {
     }
   }
   addRequest() {
-    console.log(this.inputForm.getRawValue());
     this.submited = true;
-    // if (this.inputForm.invalid) {
-    //   return;
-    // }
+    if (this.inputForm.invalid) {
+      this.inputForm.markAllAsTouched();
+      return;
+    }
 
     this.dialogModal = true;
     this.dialogType = 'submit';
@@ -421,13 +441,28 @@ export class AddJobCardComponent extends Utility implements OnInit {
       this.dialogSetting.cancelButton = 'Cancel';
     }
   }
+  removeTask(index){
+    this.tasks.removeAt(index)
+  }
 
+  // searchTaskMaster(event) {
+  //   let copyAssets = [];
+  //   copyAssets = this.taskMasters.slice();
+  //   this.newTaskMasters = copyAssets.filter((a) =>
+  //     a.name.includes(event.query)
+  //   );
+  // }
   searchTaskMaster(event) {
-    let copyAssets = [];
-    copyAssets = this.taskMasters.slice();
-    this.newTaskMasters = copyAssets.filter((a) =>
-      a.name.includes(event.query)
-    );
+    let query = event.query
+
+    let filtered = []
+    for (let index = 0; index < this.taskMasters.length; index++) {
+      let task = this.taskMasters[index];
+      if (task.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(task)
+      }
+    }
+    this.taskFiltered = filtered
   }
 
   cancelForm() {

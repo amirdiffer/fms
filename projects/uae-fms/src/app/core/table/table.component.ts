@@ -235,7 +235,6 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
         this.ipp = x['ipp'];
         this.lastIpp = this.ipp;
         i > 1 ? this.onPagination.emit() : null;
-        console.log('pagination Event')
       }
     });
   }
@@ -366,5 +365,6 @@ export enum ButtonType {
 export interface FloatButtonType {
   button: string;
   color?: string;
+  tooltip?: string;
   onClick?: Function;
 }

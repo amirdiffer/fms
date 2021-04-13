@@ -20,7 +20,6 @@ export class AssetCategoryComponent implements OnInit {
     })
     this._dataService.watchType().subscribe(
       (x) => {
-        console.log(x)
         if(x){
           this.form.patchValue({
             type: x

@@ -9,6 +9,8 @@ import { IAssetMaster } from '@models/asset-master.model';
 export class AssetMasterFacade {
   assetMaster$ = this.store.pipe(select(AssetMasterSelectors.selectAll));
 
+  specificAsset$ = this.store.pipe(select(AssetMasterSelectors.specificAsset));
+
   statistics$ = this.store.pipe(select(AssetMasterSelectors.selectStatistics));
 
   submitted$ = this.store.pipe(select(AssetMasterSelectors.submitted));
@@ -34,6 +36,9 @@ export class AssetMasterFacade {
     this.store.dispatch(AssetMasterActions.editAsset({ data }));
   }
 
+  getAssetByID(id:number){
+    this.store.dispatch(AssetMasterActions.assetById({ id }));
+  }
   reset() {
     this.store.dispatch(AssetMasterActions.reset());
   }

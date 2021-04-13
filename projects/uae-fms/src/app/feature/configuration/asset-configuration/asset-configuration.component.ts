@@ -157,7 +157,6 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
         ...make,
         models: make.models.length
       };
-      console.log(x);
       data.push(x);
     });
     this.assetConfigurationableSetting.data = data;
