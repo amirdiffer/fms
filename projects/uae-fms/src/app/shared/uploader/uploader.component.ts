@@ -194,6 +194,11 @@ export class UploaderComponent implements OnInit, OnChanges {
     this.changeDetector.detectChanges();
   }
 
+  filterFilesOfNull(): Array<any> {
+    console.log(this.files.filter(x => x != null))
+    return this.files.filter(x => x != null)
+  }
+
   removeFile(index) {
     this.files.splice(index, 1);
     this.setFiles(index);

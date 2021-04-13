@@ -23,6 +23,7 @@ import { MovementService } from '@feature/fleet/movement/movement.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddRequestComponent extends Utility implements OnInit {
+  calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   requestForm: FormGroup;
   submitted = false;
   dialogCancelSetting: IDialogAlert = {
@@ -72,7 +73,9 @@ export class AddRequestComponent extends Utility implements OnInit {
       assetType: [null, Validators.compose([Validators.required])],
       reason: ['', Validators.compose([Validators.required])],
       quality: [''],
-      oldAssetId: ['']
+      oldAssetId: [''],
+      startDate: [''],
+      endDate: ['']
     });
     this.facade.submitted$.subscribe((x) => {
       if (x) {
@@ -123,13 +126,15 @@ export class AddRequestComponent extends Utility implements OnInit {
     } else {
       let d = this.requestForm.getRawValue();
       let _data = {
-        requesterId: 103,
+        requesterId: 1,
         requestType: d.requestType,
         movementType: 'PERMANENT',
         oldAssetId: d.oldAssetId.id,
         assetTypeId: d.assetType.id,
         reason: d.reason,
-        quantity: d.quality
+        quantity: d.quality,
+        startDate: d.startDate,
+        endDate: d.startDate,
       };
       if (_data.requestType == 'NEW') _data.oldAssetId = undefined; else _data.quantity = undefined;
       this.facade.addMovementRequest(_data);

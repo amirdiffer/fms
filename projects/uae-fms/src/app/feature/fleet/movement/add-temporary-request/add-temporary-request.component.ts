@@ -127,7 +127,7 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
     } else {
       let d = this.requestForm.getRawValue();
       let _data = {
-        requesterId: 103,
+        requesterId: 1,
         requestType: d.requestType,
         movementType: 'TEMPORARY',
         assetTypeId: d.assetType.id,

@@ -122,7 +122,7 @@ export class AddOrganizationComponent extends Utility implements OnInit {
   }
 
   ngOnInit(): void {
-    this.facade.loadAll();
+    // this.facade.loadAll();
 
     this.organizationForm = this._fb.group({
       departmentId: ['', [Validators.required]],

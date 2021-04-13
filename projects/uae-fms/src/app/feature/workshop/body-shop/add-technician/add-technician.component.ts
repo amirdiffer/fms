@@ -222,7 +222,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   }
 
   ngOnInit(): void {
-    this._technicianFacade.loadAll();
+    // this._technicianFacade.loadAll();
     this._locationFacade.loadAll();
     this._taskMasterService.skills().subscribe((x) => {
       let data = x.message;

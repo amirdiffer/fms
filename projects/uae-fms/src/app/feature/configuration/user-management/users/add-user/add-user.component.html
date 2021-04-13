@@ -38,8 +38,7 @@
           <span class="p-float-label">
             <p-autoComplete formControlName="department"
               (completeMethod)="filterDepartments($event)"
-              [suggestions]="departments" field="name" [minLength]="1"
-              [disabled]="isEdit"></p-autoComplete>
+              [suggestions]="departments" field="name" [minLength]="1"></p-autoComplete>
             <i class="pi pi-search"></i>
             <label>{{ 'configuration.users.department' | translate }} *</label>
           </span>
