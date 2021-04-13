@@ -271,7 +271,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     const itemToPost = {
       name: this.addCategoryForm.value.name,
       assetTypeId: this.addCategoryForm.value.assetType.id,
-      status: this.addCategoryForm.value.activeCategory ? 'ACTIVE' : 'DEACTIVE',
+      status: this.addCategoryForm.value.activeCategory ? 'ACTIVE' : 'INACTIVE',
       description: this.addCategoryForm.value.description,
       subAssets: [],
       accessories: []
