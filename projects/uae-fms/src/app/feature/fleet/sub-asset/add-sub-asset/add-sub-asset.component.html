@@ -146,7 +146,7 @@
 
         <div class='col-12 col-md-3 p-field form-section__field'>
           <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [title]="" [preview]="false"
-            [accept]="['.csv']" (uploadedEvent)="uploadWarrantyFiles($event,i)" [files]="[warrantyDocs[i]]">
+            [accept]="['*']" (uploadedEvent)="uploadWarrantyFiles($event,i)" [files]="[warrantyDocs[i]]">
           </anms-uploader>
         </div>
       </div>
