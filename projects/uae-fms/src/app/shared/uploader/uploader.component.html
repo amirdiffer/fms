@@ -16,7 +16,7 @@
             </div>
           </div>
         </ng-container>
-        <div class="col-lg-12" *ngIf="(multiple) || (!multiple && files?.length == 0)">
+        <div class="col-lg-12" *ngIf="(multiple) || (!multiple && filterFilesOfNull().length == 0)">
           <ngx-file-drop dropZoneClassName='file-drop' *ngIf="!isUploading && isSmall" [multiple]="multiple" [accept]="accept.toString()"
                          (onFileDrop)="dropped($event , uploaderName)">
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
@@ -40,7 +40,7 @@
           </ngx-file-drop>
           <anms-error
             *ngIf="hasError"
-            [showError]="this.files.length == 0"
+            [showError]="filterFilesOfNull().length == 0"
             error="forms.feedback.required">
           </anms-error>
         </div>
@@ -52,17 +52,19 @@
   <div class="col-12 d-flex flex-md-column-reverse" >
     <div class="row">
       <div *ngFor="let file of files; let index=index;" class="col-auto mb-2  align-self-end">
-        <div  [class.preview]="preview" class="upload-file-item" [class.is-image]="preview" [class.is-text]="!preview">
-          <a [href]="fileImage" download><p>File Name</p></a>
-          <span (click)="removeFile(index)">
+        <ng-template [ngIf]="filterFilesOfNull().length">
+          <div  [class.preview]="preview" class="upload-file-item" [class.is-image]="preview" [class.is-text]="!preview">
+            <a [href]="fileImage" download><p>File Name</p></a>
+            <span (click)="removeFile(index)">
             <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.px':'12' , 'fill': 'rgba(0, 0, 0, 0.87)' ,'height': '100%'}"></svg-icon>
           </span>
-          <div class="my-2" *ngIf="preview">
-            <a [href]="fileImage" download>
-              <img [src]="isImage ? fileImage : fileIcon">
-            </a>
+            <div class="my-2" *ngIf="preview">
+              <a [href]="fileImage" download>
+                <img [src]="isImage ? fileImage : fileIcon">
+              </a>
+            </div>
           </div>
-        </div>
+        </ng-template>
       </div>
     </div>
   </div>
