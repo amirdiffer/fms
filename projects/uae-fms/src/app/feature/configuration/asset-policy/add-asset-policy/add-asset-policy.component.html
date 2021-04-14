@@ -49,7 +49,7 @@
         <div class="row form-section__row">
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
-                    <input formControlName="kilometerUsage" pInputText
+                    <input formControlName="kilometerUsage" pInputText (keydown)="assetPolicyForm.get('yearUsage').patchValue(null)"
                         placeholder="{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *" type="number">
                     <label>{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *</label>
                   </span>
@@ -63,7 +63,7 @@
             </div>
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
-                    <input formControlName="yearUsage" pInputText placeholder="{{ 'configuration.asset_policy.asset.year' | translate }}" type="number">
+                    <input formControlName="yearUsage" (keydown)="assetPolicyForm.get('kilometerUsage').patchValue(null)" pInputText placeholder="{{ 'configuration.asset_policy.asset.year' | translate }}" type="number">
                     <label>{{ 'configuration.asset_policy.asset.year' | translate }}</label>
                 </span>
               <anms-error
