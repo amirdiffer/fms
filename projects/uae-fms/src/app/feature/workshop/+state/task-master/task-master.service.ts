@@ -61,7 +61,8 @@ export class TaskMasterService {
   }
   getAllTaks():Observable<ResponseBody<any[]>> {
     return this._http.get<ResponseBody<any[]>>(
-      environment.baseApiUrl + 'workshop/taskmaster?page=0&sort=createdAt,desc&size=10'
+      environment.baseApiUrl + 'workshop/taskmaster?page=0&sort=createdAt,desc&size=10000'
     );
   }
+  
 }
