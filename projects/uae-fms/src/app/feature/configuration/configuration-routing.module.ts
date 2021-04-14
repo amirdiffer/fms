@@ -59,7 +59,7 @@ const routes: Routes = [
     data: { name: 'Category Name' }
   },
   {
-    path: 'business-category/edit-business-category/:id',
+    path: 'business-category/edit-business-category',
     component: AddCategoryComponent
   },
   {
