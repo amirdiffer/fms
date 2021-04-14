@@ -1,0 +1,104 @@
+@import '../../../../../themes/green-theme.scss';
+@import '../../../../../assets/scss/form-section.scss';
+
+.damage-history {
+
+  .sort {
+    span {
+      background-color: #f3f3f3;
+      padding: 5px 4px;
+      height: 30px;
+      width: 45px;
+      text-align: center;
+      display: inline-block;
+      cursor: pointer;
+    }
+  }
+  .item-body {
+    box-shadow: 0px 0px 10px #00000026;
+    padding: 1em;
+    &__title {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    &__desc {
+      font-size: 12px;
+    }
+    &__img {
+      width: 180px;
+      height: 180px;
+      border-radius: 5px;
+    }
+    &__author {
+      font-size: 12px;
+    }
+  }
+}
+
+.side-panel {
+  .vehicle-sec {
+    display: block;
+    padding-bottom: 20px;
+
+    .toolbar {
+      display: flex;
+      flex-direction: row-reverse;
+      padding: 5px;
+      padding-top: 0px;
+    }
+
+    .vehicle {
+      display: flex;
+      justify-content: center;
+      img {
+        width: 120px;
+      }
+    }
+  }
+
+  .vehicle-info {
+    padding: 20px;
+
+    span {
+      display: flex;
+      flex-direction: row;
+
+      .title {
+        font-size: 0.7rem;
+        font-weight: 700;
+        width: 40%;
+      }
+      .info {
+        font-size: 0.7rem;
+        font-weight: 700;
+        margin: 0px 5px;
+        width: 60%;
+      }
+    }
+  }
+
+  .location {
+    .map {
+      padding: 0px 15px 0px 15px;
+    }
+  }
+}
+
+.wrapper_cus {
+  height: 181px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.lifecycle {
+  padding: 20px;
+  padding-top: 5px;
+}
+
+.view_card_button {
+  top: 0;
+}
+
+.green {
+  color: #0da06e;
+}

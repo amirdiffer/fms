@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ServiceShopAddTechnicianComponent } from './add-technician.component';
+import { AddTechnicianComponent } from './add-technician.component';
 
 describe('AddTechnicianComponent', () => {
-  let component: ServiceShopAddTechnicianComponent;
-  let fixture: ComponentFixture<ServiceShopAddTechnicianComponent>;
+  let component: AddTechnicianComponent;
+  let fixture: ComponentFixture<AddTechnicianComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ServiceShopAddTechnicianComponent]
+      declarations: [AddTechnicianComponent]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ServiceShopAddTechnicianComponent);
+    fixture = TestBed.createComponent(AddTechnicianComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

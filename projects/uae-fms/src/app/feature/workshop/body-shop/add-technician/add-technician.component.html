@@ -175,11 +175,12 @@
                 inputForm.get('professional.location')['controls']; let i=index; let last=last;">
                 <div class="autocomplete-select flex-with-button">
                   <span class="p-float-label">
-                    <p-autoComplete [suggestions]="locations"
+                    <p-autoComplete [suggestions]="locationFiltered"
                                     [formControlName]="i"
-                                    (completeMethod)="filterLocation($event)"
-                                    field="name"
+                                    (completeMethod)="getFilteredLocation($event)"
+                                    field="address"
                                     [minLength]="1"
+                                    [dropdown]="true"
                                     [class.invalid]="!inputForm.get('professional.location')['controls'][i].valid
                       && submited">
                     </p-autoComplete>

@@ -30,6 +30,10 @@ import {
   ISoldListState,
   WORKSHOP_SOLD_LIST_FEATURE_KEY
 } from '@feature/workshop/+state/auction-list/sold/sold-list.entity';
+import { IServiceShopJobCardState, WORKSHOP_SERVICESHOP_JOBCARD_FEATURE_KEY } from './service-shop/job-card/service-shop-job-card.entity';
+import { IServiceShopLocationState, WORKSHOP_SERVICESHOP_LOCATION_FEATURE_KEY } from './service-shop/location/service-shop-location.entity';
+import { ServiceShopRequestState, WORKSHOP_SERVICESHOP_REQUEST_FEATURE_KEY } from './service-shop/request/service-shop-request.entity';
+import { IServiceShopTechnicianState, WORKSHOP_SERVICESHOP_TECHNICIAN_FEATURE_KEY } from './service-shop/technician/service-shop-technician.entity';
 
 export const WORKSHOP_FEATURE_KEY = 'workshop';
 
@@ -42,6 +46,10 @@ export interface State {
   readonly [WORKSHOP_AUCTION_LIST_FEATURE_KEY]: IAuctionListState;
   readonly [WORKSHOP_SOLD_LIST_FEATURE_KEY]: ISoldListState;
   readonly [WORKSHOP_TASK_MASTER_FEATURE_KEY]: ITaskMasterState;
+  readonly [WORKSHOP_SERVICESHOP_JOBCARD_FEATURE_KEY]:IServiceShopJobCardState;
+  readonly [WORKSHOP_SERVICESHOP_LOCATION_FEATURE_KEY]:IServiceShopLocationState;
+  readonly [WORKSHOP_SERVICESHOP_REQUEST_FEATURE_KEY]:ServiceShopRequestState;
+  readonly [WORKSHOP_SERVICESHOP_TECHNICIAN_FEATURE_KEY]:IServiceShopTechnicianState
 }
 
 export interface WorkshopPartialState {

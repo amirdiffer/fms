@@ -6,15 +6,29 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { DashboardModule } from '../../dashboard/dashboard.module';
 import { FilterModule } from '@core/filter';
+import { UserProfileModule } from '@feature/user/user.module';
+import { TabViewModule } from '@core/tab-view';
+import { FleetModule } from '@feature/fleet/fleet.module';
+import { SharedModule } from '@shared/shared.module';
+import { TableModule } from '@core/table';
+import { MapModule } from '@core/map-view';
+import { RequestTabOverviewServiceShopComponent } from './request-tab-overview/request-tab-overview.component';
+import { TechnicianOverviewServiceShopComponent } from './technician-overview/technician-overview.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [RequestTabOverviewServiceShopComponent , TechnicianOverviewServiceShopComponent],
   imports: [
     CommonModule,
     FilterModule,
     ServiceShopRoutingModule,
     AngularSvgIconModule,
-    DashboardModule
+    DashboardModule,
+    SharedModule,
+    TableModule,
+    MapModule,
+    TabViewModule,
+    UserProfileModule,
+    FleetModule,
   ]
 })
 export class ServiceShopModule {}

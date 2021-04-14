@@ -13,6 +13,16 @@ import {
   BodyShopLocationFacade,
   BodyShopLocationService
 } from './body-shop/index';
+import {
+  ServiceShopRequestFacade,
+  ServiceShopRequestService,
+  ServiceShopJobCardFacade,
+  ServiceShopJobCardService,
+  ServiceShopTechnicianFacade,
+  ServiceShopTechnicianService,
+  ServiceShopLocationFacade,
+  ServiceShopLocationService,
+} from './service-shop/index'
 import { BodyShopRequestEffect } from './body-shop/request/body-shop-request.effects';
 import {
   TechnicalInspectionFacade,
@@ -36,6 +46,10 @@ import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { UsersService } from '@feature/configuration/+state/users';
 import { ConfigurationStateModule } from '@feature/configuration/+state';
 import { FleetStateModule } from '@feature/fleet/+state';
+import { ServiceShopRequestEffect } from './service-shop/request/service-shop-request.effects';
+import { ServiceShopTechnicianEffect } from './service-shop/technician/service-shop-technician.effect';
+import { ServiceShopJobCardEffect } from './service-shop/job-card/service-shop-job-card.effect';
+import { ServiceShopLocationEffect } from './service-shop/location/service-shop-location.effect';
 
 @NgModule({
   imports: [
@@ -45,6 +59,10 @@ import { FleetStateModule } from '@feature/fleet/+state';
       BodyShopJobCardEffect,
       BodyShopTechnicianEffect,
       BodyShopLocationEffect,
+      ServiceShopRequestEffect,
+      ServiceShopLocationEffect,
+      ServiceShopJobCardEffect,
+      ServiceShopTechnicianEffect,
       TechnicalInspectionEffect,
       AuctionListEffect,
       SoldListEffects,
@@ -63,6 +81,16 @@ import { FleetStateModule } from '@feature/fleet/+state';
     BodyShopTechnicianService,
     BodyShopLocationFacade,
     BodyShopLocationService,
+    TechnicalInspectionFacade,
+    TechnicalInspectionService,
+    ServiceShopRequestFacade,
+    ServiceShopRequestService,
+    ServiceShopJobCardFacade,
+    ServiceShopJobCardService,
+    ServiceShopTechnicianFacade,
+    ServiceShopTechnicianService,
+    ServiceShopLocationFacade,
+    ServiceShopLocationService,
     TechnicalInspectionFacade,
     TechnicalInspectionService,
     AuctionListFacade,
