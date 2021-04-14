@@ -65,7 +65,7 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
         this.dataService.dataToEditFromTable = data;
         this.dataService.isEditing = true;
         this.router
-          .navigate(['/configuration/business-category/add-business-category'])
+          .navigate(['/configuration/business-category/edit-usage-category'])
           .then();
       },
       floatButton: [

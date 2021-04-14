@@ -54,12 +54,12 @@ const routes: Routes = [
     component: AddPeriodicServiceComponent
   },
   {
-    path: 'business-category/add-business-category',
+    path: 'business-category/add-usage-category',
     component: AddCategoryComponent,
     data: { name: 'Category Name' }
   },
   {
-    path: 'business-category/edit-business-category/:id',
+    path: 'business-category/edit-usage-category',
     component: AddCategoryComponent
   },
   {
