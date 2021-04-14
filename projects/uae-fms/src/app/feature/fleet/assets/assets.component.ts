@@ -44,7 +44,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
   //#region  table
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map((x) => {
-      return x.map((y) => {
+      return x.map((y:any) => {
         function date() {
           let createdDate = moment.utc(y.createdAt).local().toDate();
           let nowDate = new Date();
