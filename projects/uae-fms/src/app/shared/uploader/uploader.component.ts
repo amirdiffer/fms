@@ -39,7 +39,7 @@ export class UploaderComponent implements OnInit, OnChanges {
   @Input() preview = true;
   @Input() isImage = false;
   @Input() files = [];
-  @Input() accept = ['.csv', '.png', '.jpg', '.txt', '.json'];
+  @Input() accept = ['.csv', '.png', '.jpg', '.txt', '.json', '.pdf', '.doc', '.docx', '.xls', '.xlsx'];
   @Input() isSmall = false;
   @Input() dropzoneLabel = '';
   @Output() uploadedEvent: EventEmitter<object> = new EventEmitter<object>();
@@ -70,9 +70,9 @@ export class UploaderComponent implements OnInit, OnChanges {
   constructor(
     private _uploaderService: UploaderService,
     private changeDetector: ChangeDetectorRef
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnChanges() {
     if (!this.multiple && typeof this.files[0] == 'undefined') {
