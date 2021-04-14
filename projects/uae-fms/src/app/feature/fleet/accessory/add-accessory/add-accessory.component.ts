@@ -108,8 +108,8 @@ export class AddAccessoryComponent extends Utility implements OnInit {
   formSubmitted = false;
   formChanged = false;
 
-  assets: [];
-  subAssets: [];
+  assets = [];
+  subAssets = [];
   isEdit = false;
   recordId: number;
   dialogType: string;
@@ -149,7 +149,7 @@ export class AddAccessoryComponent extends Utility implements OnInit {
       if (queryParams['id']) {
         this.isEdit = true;
         this.recordId = +queryParams['id'];
-        console.log('is Edit')
+        console.log('is Edit');
         this.loadAccessoryData(this.recordId);
       } else {
         this.isEdit = false;
@@ -283,7 +283,12 @@ export class AddAccessoryComponent extends Utility implements OnInit {
         id: y.id,
         name: y['makeName'] + ' ' + y['modelName']
       }));
-      if (x) this.setSearchValue.next('subAsset');
+      if (this.accessoryForm.value.assignedToType === 'SUB_ASSET') {
+        const subAsset = this.subAssetsB.find(
+          (a) => a.id === this.assignedToEntity
+        );
+        this.accessoryForm.controls['assignedToEntity'].setValue(subAsset);
+      }
     });
 
     this.assetMasterFacade.assetMaster$.subscribe((x) => {
@@ -291,7 +296,10 @@ export class AddAccessoryComponent extends Utility implements OnInit {
         id: y.id,
         name: y['makeName'] + ' ' + y['modelName']
       }));
-      if (x) this.setSearchValue.next('asset');
+      if (this.accessoryForm.value.assignedToType === 'ASSET') {
+        const asset = this.assetsB.find((a) => a.id === this.assignedToEntity);
+        this.accessoryForm.controls['assignedToEntity'].setValue(asset);
+      }
     });
   }
 
@@ -318,18 +326,14 @@ export class AddAccessoryComponent extends Utility implements OnInit {
   filterAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     this.assets = this.assetsB.filter(
-      (x) =>
-        (x.id + '').indexOf(event.query) >= 0 ||
-        x.name.indexOf(event.query) >= 0
+      (x) => x.name.toLowerCase().indexOf(event.query.toLowerCase()) >= 0
     );
   }
 
   filterSubAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     this.subAssets = this.subAssetsB.filter(
-      (x) =>
-        (x.id + '').indexOf(event.query) >= 0 ||
-        x.name.indexOf(event.query) >= 0
+      (x) => x.name.toLowerCase().indexOf(event.query.toLowerCase()) >= 0
     );
   }
 
