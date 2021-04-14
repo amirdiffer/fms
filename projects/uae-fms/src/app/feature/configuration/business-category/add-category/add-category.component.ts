@@ -3,7 +3,6 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   Injector,
-  OnDestroy,
   ChangeDetectorRef
 } from '@angular/core';
 import {
@@ -13,7 +12,6 @@ import {
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
-import { DataService } from '../data.service';
 import { TableSetting } from '@core/table';
 import { map } from 'rxjs/operators';
 
@@ -27,7 +25,7 @@ import { AssetTypeFacade } from '../../+state/asset-configuration';
   styleUrls: ['./add-category.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
+export class AddCategoryComponent extends Utility implements OnInit {
   //#region  Dialog
   dialogModal = false;
   dialogMode = null;
@@ -75,6 +73,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   //#region Variables
   addCategoryForm: FormGroup;
   submited = false;
+  isEditing = false;
 
   assetTypes = [];
   assetTypesB;
@@ -83,6 +82,8 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   accessories = [];
   accessoriesB;
   id;
+  subAssetDocs = [];
+  accessoryDocs = [];
 
   get assignSubAsset(): FormArray {
     return this.addCategoryForm.get('assignSubAsset') as FormArray;
@@ -96,7 +97,6 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
-    public dataService: DataService,
     private networkService: BusinessCategoryService,
     private facade: BusinessCategoryFacade,
     private changeDetectorRef: ChangeDetectorRef,
@@ -136,11 +136,49 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       assignAccessory: new FormArray([this.createAssignAccessory()])
     });
 
-    if (this.dataService.isEditing) {
-      this.id = this.dataService.dataToEditFromTable.id;
-      this.networkService
-        .getOne(this.dataService.dataToEditFromTable.id)
-        .subscribe((response) => {
+    this.handleEditMode();
+
+    this.facade.submitted$.subscribe((x) => {
+      if (x) {
+        this.dialogMode = 'cancel';
+        this.dialogModal = true;
+        this.dialogSetting.header = this.isEditing
+          ? 'Edit category'
+          : 'Add new category';
+        this.dialogSetting.message = this.isEditing
+          ? 'Changes Saved Successfully'
+          : 'Category Added Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'Yes';
+        this.dialogSetting.cancelButton = undefined;
+        this.changeDetectorRef.detectChanges();
+      }
+    });
+
+    this.facade.error$.subscribe((x) => {
+      if (x?.error) {
+        this.dialogModal = true;
+        this.dialogSetting.header = this.isEditing
+          ? 'Edit category'
+          : 'Add new category';
+        this.dialogSetting.message = 'Error occurred in progress';
+        this.dialogSetting.hasError = true;
+        this.dialogSetting.cancelButton = undefined;
+        this.dialogSetting.confirmButton = 'OK';
+        this.changeDetectorRef.markForCheck();
+      } else {
+        this.dialogModal = false;
+      }
+    });
+  }
+
+  handleEditMode(): void {
+    this.route.queryParams.subscribe((queryParams) => {
+      if (queryParams['id']) {
+        this.isEditing = true;
+        this.id = queryParams['id'];
+        this.networkService.getOne(this.id).subscribe((response) => {
           this.addCategoryForm.patchValue({
             name: response.message.name,
             assetType: {
@@ -157,12 +195,22 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
             if (i > 0) {
               this.assignSubAsset.push(this.createAssignSubAsset());
             }
-            this.assignSubAsset.controls[i].patchValue({
-              subAsset: {
-                id: subAssets[i].subAssetId,
-                name: 'sub asset ' + (i + 1)
-              },
-              assetQuantity: subAssets[i].quantity
+            this.subAssetFacade.subAsset$.subscribe((x) => {
+              this.subAssetsB = x.map((y) => {
+                this.subAssetDocs.push(y.id);
+                this.assignSubAsset.controls[i].patchValue({
+                  subAsset: {
+                    id: subAssets[i].subAssetId,
+                    name:
+                      y.id === subAssets[i].subAssetId
+                        ? y['makeName'] + ' ' + y['modelName']
+                        : ''
+                  },
+                  assetQuantity: subAssets[i].quantity,
+                  file: subAssets[i].id
+                });
+                return { id: y.id, name: y['makeName'] + ' ' + y['modelName'] };
+              });
             });
           }
 
@@ -171,48 +219,22 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
             if (i > 0) {
               this.assignAccessory.push(this.createAssignAccessory());
             }
-            this.assignAccessory.controls[i].patchValue({
-              accessory: {
-                id: accessories[i].accessoryId,
-                name: 'accessory ' + (i + 1)
-              },
-              accessoryQuantity: accessories[i].quantity
+            this.accessoryFacade.accessory$.subscribe((x) => {
+              this.accessoriesB = x.map((y) => {
+                this.accessoryDocs.push(y.id);
+                this.assignAccessory.controls[i].patchValue({
+                  accessory: {
+                    id: accessories[i].accessoryId,
+                    name: y.id === accessories[i].accessoryId ? y.itemName : ''
+                  },
+                  accessoryQuantity: accessories[i].quantity,
+                  file: accessories[i].id
+                });
+                return { id: y.id, name: y.itemName };
+              });
             });
           }
         });
-    }
-
-    this.facade.submitted$.subscribe((x) => {
-      if (x) {
-        this.dialogMode = 'cancel';
-        this.dialogModal = true;
-        this.dialogSetting.header = this.dataService.isEditing
-          ? 'Edit category'
-          : 'Add new category';
-        this.dialogSetting.message = this.dataService.isEditing
-          ? 'Changes Saved Successfully'
-          : 'Category Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'Yes';
-        this.dialogSetting.cancelButton = undefined;
-        this.changeDetectorRef.detectChanges();
-      }
-    });
-
-    this.facade.error$.subscribe((x) => {
-      if (x?.error) {
-        this.dialogModal = true;
-        this.dialogSetting.header = this.dataService.isEditing
-          ? 'Edit category'
-          : 'Add new category';
-        this.dialogSetting.message = 'Error occurred in progress';
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.cancelButton = undefined;
-        this.dialogSetting.confirmButton = 'OK';
-        this.changeDetectorRef.markForCheck();
-      } else {
-        this.dialogModal = false;
       }
     });
   }
@@ -249,12 +271,18 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     this.assignSubAsset.at(index).patchValue({
       file: e.files.length ? e.files : [1]
     });
+    if (e.files.length > 0) {
+      this.subAssetDocs[index] = e.files;
+    }
   }
 
   uploadAccessoryFile(index, e) {
     this.assignAccessory.at(index).patchValue({
       file: e.files.length ? e.files : [1]
     });
+    if (e.files.length > 0) {
+      this.accessoryDocs[index] = e.files;
+    }
   }
 
   dialogConfirm(event): void {
@@ -281,7 +309,8 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       itemToPost['subAssets'].push({
         subAssetId: subAsset.subAsset.id,
         quantity: subAsset.assetQuantity,
-        specDocId: (subAsset.file && subAsset.file.length > 0) ? subAsset.file[0] : null
+        specDocId:
+          subAsset.file && subAsset.file.length > 0 ? subAsset.file[0] : null
       });
     }
 
@@ -289,11 +318,12 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
       itemToPost['accessories'].push({
         accessoryId: accessory.accessory.id,
         quantity: accessory.accessoryQuantity,
-        specDocId: (accessory.file && accessory.file.length > 0) ? accessory.file[0] : null
+        specDocId:
+          accessory.file && accessory.file.length > 0 ? accessory.file[0] : null
       });
     }
 
-    if (this.dataService.isEditing) {
+    if (this.isEditing) {
       // itemToPost['id'] = this.id;
       this.facade.editCategory(itemToPost, this.id);
     } else {
@@ -328,7 +358,7 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
     this.dialogSetting.confirmButton = 'Register Now';
     this.dialogSetting.cancelButton = 'Cancel';
 
-    if (this.dataService.isEditing) {
+    if (this.isEditing) {
       this.dialogSetting.header = 'Edit category';
       this.dialogSetting.message =
         'Are you sure you want to submit this changes?';
@@ -364,10 +394,5 @@ export class AddCategoryComponent extends Utility implements OnInit, OnDestroy {
         (x.id + '').indexOf(event.query) >= 0 ||
         x.name.indexOf(event.query) >= 0
     );
-  }
-
-  ngOnDestroy(): void {
-    this.dataService.isEditing = false;
-    this.dataService.dataToEditFromTable = undefined;
   }
 }

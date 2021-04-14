@@ -1,7 +1,7 @@
 <form [formGroup]="addCategoryForm">
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
-    <button class="btn-primary-medium add" (click)="submit()">{{ (dataService.isEditing ? 'forms.edit' : 'forms.add') | translate }}</button>
+    <button class="btn-primary-medium add" (click)="submit()">{{ (isEditing ? 'forms.edit' : 'forms.add') | translate }}</button>
   </div>
   <div class="form-section mx-0">
     <h3 class="form-section__title">{{ 'configuration.business_category.business_category_info' | translate }}</h3>
@@ -79,8 +79,8 @@
         </div>
         <div class='col-lg-3'>
           <anms-uploader [isSmall]='true' [dropzoneLabel]="'configuration.business_category.upload_form.content'"
-                         [iconIsHidden]='true' [multiple]="true" [preview]="false"
-                         (uploadedEvent)="uploadSubAssetFile($event, index)">
+                         [iconIsHidden]='true' [multiple]="false" [preview]="false"
+                         (uploadedEvent)="uploadSubAssetFile($event, index)" [files]="[subAssetDocs[index]]">
           </anms-uploader>
         </div>
         <div class="col-12 col-md-3 p-field form-section__field">
@@ -119,8 +119,8 @@
       </div>
       <div class='col-lg-3'>
         <anms-uploader [isSmall]='true' dropzoneLabel='configuration.business_category.upload_form.content'
-                       [iconIsHidden]='true' [multiple]="true" [preview]="false"
-                       (uploadedEvent)="uploadAccessoryFile(index, $event)">
+                       [iconIsHidden]='true' [multiple]="false" [preview]="false"
+                       (uploadedEvent)="uploadAccessoryFile(index, $event)" [files]="[accessoryDocs[index]]">
         </anms-uploader>
       </div>
       <div class="col-12 col-md-3 p-field form-section__field">
