@@ -196,6 +196,7 @@ export class AddTrimComponent extends Utility implements OnInit {
   }
 
   addTrim(): void {
+    if (this.trims.invalid) return;
     this.trims.push(this.createTrim());
   }
 
