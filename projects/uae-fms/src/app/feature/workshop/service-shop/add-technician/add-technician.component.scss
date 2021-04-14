@@ -1,10 +1,10 @@
 @import '../../../../../assets/scss/form-section.scss';
 
 :host ::ng-deep {
-  .p-inputgroup-addon {
+  .p-inputgroup-addon{
     max-height: 40px;
   }
-  .ngx-file-drop__content {
+  .ngx-file-drop__content{
     font-size: 1.3em;
   }
 }
@@ -17,6 +17,6 @@
   }
 }
 .flex-with-button {
-  flex: 1 0 85%;
-  overflow: visible;
+    flex: 1 0 85%;
+    overflow: visible;
 }

@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Injector
+  Injector,
+  ChangeDetectorRef
 } from '@angular/core';
 import {
   FormArray,
@@ -13,8 +14,11 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TableSetting } from '@core/table';
-import { ButtonType } from '@core/table/table.component';
+import { ColumnType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { map } from 'rxjs/operators';
+import { ServiceShopLocationFacade } from '@feature/workshop/+state/service-shop';
 
 @Component({
   selector: 'anms-add-location',
@@ -22,7 +26,31 @@ import { Utility } from '@shared/utility/utility';
   styleUrls: ['./add-location.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ServiceShopAddLocationComponent extends Utility implements OnInit {
+export class AddLocationServiceShopComponent extends Utility implements OnInit {
+  isEdit: boolean = false;
+  id: number;
+  //#region Dialog
+  dialogModal = false;
+
+  dialogSetting: IDialogAlert = {
+    header: 'Add Location',
+    hasError: false,
+    message: 'Message is Here',
+    confirmButton: 'Register Now',
+    cancelButton: 'Cancel'
+  };
+  errorDialogSetting: IDialogAlert = {
+    header: '',
+    message: 'Error occurred in progress',
+    confirmButton: 'Ok',
+    isWarning: false,
+    hasError: true,
+    hasHeader: true,
+    cancelButton: undefined
+  };
+  dialogType = null;
+  errorDialogModal = false;
+  //#endregion Dialog
   inputForm: FormGroup;
   submited = false;
   filteredLocation;
@@ -52,122 +80,156 @@ export class ServiceShopAddLocationComponent extends Utility implements OnInit {
       name: 'Location ID 6'
     }
   ];
+  locationData$ = this._facadeLocation.serviceShop$.pipe(
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
+          locationId: y.locationThirdPartyId,
+          service: y.services.join(','),
+          address: y.address,
+          section: '',
+          jobCard: y.numOfJobCards,
+          technician: y.numOfTechnicians,
+          capacity: y.capacity
+        };
+      });
+    })
+  );
   addLocation_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.location_id', type: 1, field: 'Location_ID' },
-      { lable: 'tables.column.services', type: 1, field: 'Services' },
-      { lable: 'tables.column.location', type: 1, field: 'Location' },
-      { lable: 'tables.column.section', type: 1, field: 'Section' },
+      { lable: 'tables.column.location_id', field: 'locationId', width: 200 },
+      {
+        lable: 'tables.column.services',
+        field: 'service',
+        type: ColumnType.lable,
+        width: 200
+      },
+      {
+        lable: 'tables.column.address',
+        field: 'address',
+        type: ColumnType.lable,
+        width: 200
+      },
+      // {
+      //   lable: 'tables.column.section',
+      //   field: 'section',
+      //   type: ColumnType.lable,
+      //   width: 120
+      // },
       {
         lable: 'tables.column.job_card',
-        type: 1,
-        field: 'Job_Card',
+        field: 'jobCard',
+        type: ColumnType.lable,
+        width: 100,
         sortable: true
       },
       {
         lable: 'tables.column.technician',
-        type: 1,
-        field: 'Technician',
+        field: 'technician',
+        type: ColumnType.lable,
+        width: 100,
         sortable: true
       },
       {
-        lable: 'tables.column.assets',
-        type: 1,
-        field: 'Assets',
+        lable: 'tables.column.capacity',
+        field: 'capacity',
+        type: ColumnType.lable,
+        width: 100,
         sortable: true
-      },
-      {
-        lable: '<img src="assets/icons/ellipsis-v.svg" class="icon24px">',
-        type: 3,
-        width: 70,
-        isIconLable: true,
-        field: 'addButton',
-        renderer: 'button',
-        buttonType: ButtonType.add
       }
     ],
-    data: [
-      {
-        Location_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        Location_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        Location_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        Location_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        Location_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      },
-      {
-        Location_ID: '00234567',
-        Services: 'Repair, Car-wash, Fuei',
-        Location: 'Bardubai, Street Number 2',
-        Section: '3',
-        Job_Card: '123456789',
-        Technician: '123',
-        Assets: '123456/1234',
-        addButton: ''
-      }
-    ]
+    data: []
   };
-
+  private _location: any;
+  get service(): FormArray {
+    return this.inputForm.get('services') as FormArray;
+  }
+  get slot(): FormArray {
+    return this.inputForm.get('slots') as FormArray;
+  }
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
-    private _roter: Router
+    private _roter: Router,
+    private _facadeLocation: ServiceShopLocationFacade,
+    private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
+    // this._facadeLocation.loadAll();
+    this.buildForm();
+  }
+  private buildForm() {
     this.inputForm = this._fb.group({
-      locationID: [
-        '',
-        [Validators.required, this.autocompleteValidationLocationID]
-      ],
+      locationID: [''],
       address: ['', [Validators.required]],
-      section: this._fb.array([this._fb.control('', [Validators.required])])
+      slots: this._fb.array([this.createSlot()]),
+      services: this._fb.array([this.createService()])
+    });
+    this.route.url.subscribe((params) => {
+      this.isEdit =
+        params.filter((x) => x.path == 'edit-location').length > 0
+          ? true
+          : false;
+
+      if (this.isEdit) {
+        this.id = +params[params.length - 1].path;
+        this._facadeLocation
+          .getLocationById(+params[params.length - 1].path)
+          .pipe(map((x) => x.message))
+          .subscribe((x) => {
+            if (x) {
+              this._location = x;
+              this.inputForm.patchValue({
+                locationID: x.locationThirdPartyId,
+                address: x.address
+              });
+              // this.section.controls[0].patchValue({
+              //   section: x.slots
+              // });
+            }
+          });
+      } else {
+      }
+    });
+
+    this._facadeLocation.submitted$.subscribe((x) => {
+      if (x) {
+        this.dialogModal = true;
+        this.dialogType = 'success';
+        this.dialogSetting.header = this.isEdit
+          ? 'Edit location'
+          : 'Add new location';
+        this.dialogSetting.message = this.isEdit
+          ? 'Changes Saved Successfully'
+          : 'Location Added Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'Yes';
+        this.dialogSetting.cancelButton = undefined;
+        this.changeDetector.detectChanges();
+      }
+    });
+
+    this._facadeLocation.error$.subscribe((x) => {
+      if (x?.error) {
+        this.errorDialogModal = true;
+        this.errorDialogSetting.header = this.isEdit
+          ? 'Edit location'
+          : 'Add new location';
+        this.errorDialogSetting.hasError = true;
+        this.errorDialogSetting.cancelButton = undefined;
+        this.errorDialogSetting.confirmButton = 'Ok';
+        this.changeDetector.detectChanges();
+      } else {
+        this.errorDialogModal = false;
+      }
     });
   }
+
   searchLocation(event) {
     let filtered: any[] = [];
     let query = event.query;
@@ -187,35 +249,136 @@ export class ServiceShopAddLocationComponent extends Utility implements OnInit {
       return { needsExclamation: true };
     }
   }
-  addSection() {
-    const section = new FormControl(null, [Validators.required]);
-    (<FormArray>this.inputForm.get('section')).push(section);
+
+  createSlot(): FormGroup {
+    return this._fb.group({
+      thirdPartyLocationId: ['', [Validators.required]]
+    });
   }
 
-  addRequest() {
-    this.submited = true;
-    if (this.inputForm.invalid) {
+  createService(): FormGroup {
+    return this._fb.group({
+      service: ['', [Validators.required]]
+    });
+  }
+
+  addSlot() {
+    const slots = <FormArray>this.inputForm.get('slots');
+
+    if (slots.invalid) {
       return;
-    } else {
-      this._roter.navigate(['/workshop/body-shop'], {
-        queryParams: { id: 'locationTab' }
-      });
     }
 
-    this.goToList();
+    slots.push(this.createSlot());
+  }
+  removeSlot(index){
+    this.slot.removeAt(index)
+  }
+
+  addService() {
+    const services = <FormArray>this.inputForm.get('services');
+
+    if (services.invalid) {
+      return;
+    }
+
+    services.push(this.createService());
+  }
+  removeService(index){
+    this.service.removeAt(index)
+  }
+  
+  dialogConfirm($event): void {
+    this.errorDialogModal = false;
+    this.dialogModal = false;
+    if (!$event) return;
+
+    if (this.dialogType == 'submit') {
+      let d = this.inputForm.getRawValue();
+      let services = (<object[]>d.services).map((x) => (x = x['service']));
+      // let slots = (<object[]>d.slots).map(x => x = x['thirdPartyLocationId']);
+
+      let locationInfo: any = {
+        locationThirdPartyId: 1, //d.locationID.id,
+        address: d.address,
+        services: services,
+        slots: d.slots
+      };
+
+      if (this.isEdit) {
+        locationInfo = {
+          ...locationInfo,
+          id: this.id
+        };
+
+        this._facadeLocation.editLocation(locationInfo);
+      } else {
+        locationInfo = {
+          ...locationInfo
+        };
+        this._facadeLocation.addLocation(locationInfo);
+      }
+    } else {
+      this.router.navigate(['/workshop/service-shop'] , {queryParams:{id:'locationTab'}}).then((_) => {
+        this._facadeLocation.resetParams();
+      });
+    }
+  }
+  addRequest() {
+    this.submited = true;
+    this.inputForm.markAllAsTouched();
+    if (this.inputForm.invalid) {
+      return;
+    }
+
+    this.dialogModal = true;
+    this.dialogType = 'submit';
+    if (this.isEdit) {
+      this.dialogSetting.header = 'Edit location';
+      this.dialogSetting.message =
+        'Are you sure you want to submit this changes?';
+      this.dialogSetting.isWarning = true;
+      this.dialogSetting.confirmButton = 'Yes';
+      this.dialogSetting.cancelButton = 'Cancel';
+      return;
+    } else {
+      this.dialogSetting.header = 'Add new location';
+      this.dialogSetting.isWarning = true;
+      this.dialogSetting.hasError = false;
+      this.dialogSetting.message = 'Are you sure you want to add new location?';
+      this.dialogSetting.confirmButton = 'OK';
+      this.dialogSetting.cancelButton = 'Cancel';
+    }
   }
 
   cancelForm() {
-    if (this.inputForm.dirty) {
-      confirm('Are You sure that you want to cancel?')
-        ? this._roter.navigate(['/workshop/body-shop'], {
-            queryParams: { id: 'locationTab' }
-          })
-        : null;
-    } else {
-      this._roter.navigate(['/workshop/body-shop'], {
-        queryParams: { id: 'locationTab' }
-      });
+    this.dialogModal = true;
+    this.dialogType = 'cancel';
+    if (this.isEdit) {
+      this.dialogSetting.header = 'Edit location';
+      this.dialogSetting.hasError = false;
+      this.dialogSetting.isWarning = true;
+      this.dialogSetting.message =
+        'Are you sure that you want to cancel editing location?';
+      this.dialogSetting.confirmButton = 'Yes';
+      this.dialogSetting.cancelButton = 'Cancel';
+      return;
     }
+
+    this.dialogSetting.header = 'Add new location';
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.isWarning = true;
+    this.dialogSetting.message =
+      'Are you sure that you want to cancel adding new location?';
+    this.dialogSetting.confirmButton = 'Yes';
+    this.dialogSetting.cancelButton = 'Cancel';
+  }
+
+  get services(): FormArray {
+    return this.inputForm.get('services') as FormArray;
+  }
+
+  get slots(): FormArray {
+    return this.inputForm.get('slots') as FormArray;
   }
 }

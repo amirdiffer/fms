@@ -58,7 +58,7 @@
       <div class="component_wrapper form-section">
         <div class="row mt-3">
           <div class="col-lg-6" formArrayName="services">
-            <div class="form-group" *ngFor="let _ of inputForm.get('services')['controls']; let index = index;" [formGroupName]="index">
+            <div class="form-group mb-0" *ngFor="let _ of inputForm.get('services')['controls']; let index = index; let last=last;" [formGroupName]="index">
               <div class="input-group d-flex w-100  flex-wrap">
                 <div class="p-field form-section__field  flex-with-button w-100 flex-85">
                       <span class="p-float-label">
@@ -70,12 +70,16 @@
                                         [showError]="formArrayHasError(submited, services, index, 'service')"
                                         error="{{'forms.feedback.required' | translate}}"></anms-error>
                 </div>
-                <span class="p-inputgroup-addon" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}" (click)="addService()"><i class="pi pi-plus"></i></span>
+                <span  *ngIf="last" class="p-inputgroup-addon" [ngStyle]="{'cursor': 'pointer' , 'height':' 40px'}" (click)="addService()"><i class="pi pi-plus"></i></span>
+                <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeService(index)" [ngStyle]="{'cursor': 'pointer' , 'height':' 40px'}">
+                  <svg-icon src='assets/icons/add.svg'
+                            [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+                </span>
               </div>
             </div>
           </div>
           <div class="col-lg-6" formArrayName="slots">
-            <div class="form-group" *ngFor="let _ of inputForm.get('slots')['controls']; let index = index;" [formGroupName]="index">
+            <div class="form-group mb-0" *ngFor="let _ of inputForm.get('slots')['controls']; let index = index; let last=last;" [formGroupName]="index">
               <div class="input-group d-flex w-100  flex-wrap">
                 <div class="p-field form-section__field  flex-with-button w-100 flex-85">
                       <span class="p-float-label">
@@ -87,7 +91,11 @@
                                         [showError]="formArrayHasError(submited, slots, index, 'thirdPartyLocationId')"
                                         error="{{'forms.feedback.required' | translate}}"></anms-error>
                 </div>
-                <span class="p-inputgroup-addon" [ngStyle]="{'cursor': 'pointer' , 'margin-bottom':' 20px'}" (click)="addSlot()"><i class="pi pi-plus"></i></span>
+                <span *ngIf="last" class="p-inputgroup-addon" [ngStyle]="{'cursor': 'pointer' , 'height':' 40px'}" (click)="addSlot()"><i class="pi pi-plus"></i></span>
+                <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeSlot(index)" [ngStyle]="{'cursor': 'pointer' , 'height':' 40px'}">
+                  <svg-icon src='assets/icons/add.svg'
+                            [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+                </span>
               </div>
             </div>
           </div>

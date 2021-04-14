@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ServiceShopAddRequestComponent } from './add-request.component';
+import { AddRequestComponent } from './add-request.component';
 
 describe('AddRequestComponent', () => {
-  let component: ServiceShopAddRequestComponent;
-  let fixture: ComponentFixture<ServiceShopAddRequestComponent>;
+  let component: AddRequestComponent;
+  let fixture: ComponentFixture<AddRequestComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ServiceShopAddRequestComponent]
+      declarations: [AddRequestComponent]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ServiceShopAddRequestComponent);
+    fixture = TestBed.createComponent(AddRequestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

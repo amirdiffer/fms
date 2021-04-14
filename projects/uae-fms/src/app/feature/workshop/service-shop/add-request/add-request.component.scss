@@ -25,7 +25,9 @@
   }
 }
 
-.component_wrapper {
-  padding: 14px !important;
-  margin: 4px 0px !important;
+input[name="priority"]{
+  display: none;
+}
+svg-icon{
+  cursor: pointer;
 }
