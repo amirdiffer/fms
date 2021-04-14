@@ -1,348 +1,379 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy , ViewChild } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting, ColumnType } from '@core/table';
-import {
-  BodyShopJobCardFacade,
-  BodyShopLocationFacade,
-  BodyShopRequestFacade,
-  BodyShopTechnicianFacade
-} from '../+state/body-shop';
+import { map } from 'rxjs/operators';
+import moment from 'moment';
 import { Event, Router } from '@angular/router';
-import { ButtonType } from '@core/table/table.component';
+import {  TableComponent } from '@core/table/table.component';
+import { ServiceShopJobCardFacade, ServiceShopLocationFacade, ServiceShopRequestFacade, ServiceShopTechnicianFacade } from '../+state/service-shop';
 @Component({
   templateUrl: './service-shop.component.html',
   styleUrls: ['./service-shop.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ServiceShopComponent implements OnInit {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
   downloadBtn = 'assets/icons/download-solid.svg';
   filterSetting: FilterCardSetting[] = [
+    {
+      filterCount: '',
+      filterTagColor: '',
+      filterTitle: 'statistic.calendar',
+      isCalendar: true,
+      onActive: () => { }
+    },
+    {
+      filterCount: '15',
+      filterTagColor: '#6EBFB5',
+      filterTitle: 'statistic.total',
+      filterSupTitle: 'statistic.insurance_claim',
+      onActive: () => { }
+    },
+    {
+      filterCount: '15',
+      filterTagColor: '#6870B4',
+      filterTitle: 'statistic.approved',
+      filterSupTitle: 'statistic.insurance_claim',
+      onActive: () => { }
+    },
+    {
+      filterCount: '10',
+      filterTagColor: '#BA7967',
+      filterTitle: 'statistic.waiting_for_approval',
+      filterSupTitle: 'statistic.insurance_claim',
+      onActive: () => { }
+    },
+    {
+      filterCount: '30',
+      filterTagColor: '#DD5648',
+      filterTitle: 'statistic.rejected',
+      filterSupTitle: 'statistic.insurance_claim',
+      onActive: () => { }
+    }
+  ];
+
+  jobCardTabFilterSetting: FilterCardSetting[] = [
+    {
+      filterCount: '',
+      filterTagColor: '',
+      filterTitle: 'statistic.this_month',
+      isCalendar: true,
+      onActive: () => { }
+    },
     {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterTitle: 'statistic.total',
-      onActive: () => {}
+      filterSupTitle: 'statistic.job_card',
+      onActive: () => { }
     },
     {
       filterCount: '8',
       filterTagColor: '#6870B4',
       filterTitle: 'statistic.approved',
-      onActive: () => {}
+      filterSupTitle: 'statistic.workshop_manager',
+      onActive: () => { }
     },
     {
       filterCount: '13',
       filterTagColor: '#BA7967',
       filterTitle: 'statistic.waiting_for_approval',
-      onActive: () => {}
+      filterSupTitle: 'statistic.workshop_manager',
+      onActive: () => { }
     },
     {
       filterCount: '13',
       filterTagColor: '#DD5648',
       filterTitle: 'statistic.rejected',
-      onActive: () => {}
+      filterSupTitle: 'statistic.workshop_manager',
+      onActive: () => { }
     }
   ];
 
+  technicianTabFilterSetting: FilterCardSetting[] = [
+    {
+      filterCount: '',
+      filterTagColor: '',
+      filterTitle: 'statistic.this_month',
+      isCalendar: true,
+      onActive: () => { }
+    },
+    {
+      filterCount: '13',
+      filterTagColor: '#6EBFB5',
+      filterTitle: 'statistic.total',
+      filterSupTitle: 'statistic.technician',
+      onActive: () => { }
+    },
+    {
+      filterCount: '8',
+      filterTagColor: '#6870B4',
+      filterTitle: 'statistic.available',
+      filterSupTitle: 'statistic.technician',
+      onActive: () => { }
+    },
+    {
+      filterCount: '13',
+      filterTagColor: '#BA7967',
+      filterTitle: 'statistic.unavailable',
+      filterSupTitle: 'statistic.technician',
+      onActive: () => { }
+    }
+  ];
+
+  requestData$ = this._facadeRequest.serviceShop$.pipe(
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
+          asset: {
+            img: 'assets/thumb.png',
+            assetName: y.assetTypeName,
+            assetSubName: y.dpd,
+          },
+          plateNumber: y.plateNumber != null ? y.plateNumber : 'Without Plate Number',
+          department: y.department.name,
+          operatorName: y.operator.firstName + ' ' + y.operator.lastName
+        };
+      });
+    })
+  );
+  locationData$ = this._facadeLocation.serviceShop$.pipe(
+    map((x) => {
+      console.log(x)
+      return x.map((y) => {
+        return {
+          ...y,
+          locationId: y.locationThirdPartyId,
+          service: y.services.join(','),
+          address: y.address,
+          section: '',
+          jobCard: y.numOfJobCards,
+          technician: y.numOfTechnicians,
+          capacity: y.capacity
+        };
+      });
+    })
+  );
+  technicianData$ = this._facadeTechnician.serviceShop$.pipe(
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
+          technician: {
+            firstName: y.user.firstName,
+            lastName: y.user.lastName,
+            id: y.user.id
+            // picture: 'assets/user-image.png',
+          },
+          skill: y.skills.map((s) => s.name).join(','),
+          status: 'Available',
+          tasks: y.numOfTasks,
+          information: {
+            email: y.user.emails[0],
+            phoneNumber: y.user.phoneNumbers[0]
+          },
+          ratePerHour: y.payPerHour
+        };
+      });
+    })
+  );
+  jobCardData$ = this._facadeJobCard.serviceShop$.pipe(
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
+          asset: {
+            img: 'assets/thumb.png',
+            assetName: y.assetDpd,
+            assetSubName: y.assetDpd,
+          },
+          startDate: y.startDate ? moment.utc(y.startDate).local().format('DD-MM-YYYY') : 'ex: 20-20-2020',
+          endDate: y.endDate ? moment.utc(y.endDate).local().format('DD-MM-YYYY') : 'ex: 20-20-2020',
+          location: y.location.address ? y.location.address : 'ex: Dubai',
+          cost: y.cost ? `${y.cost} AED` : 'ex: 30.000 AED ',
+          technician: Math.floor(Math.random() * 20) + 1  ,
+          task: Math.floor(Math.random() * 100) + 1,
+        };
+      });
+    })
+  );
   table1Setting: TableSetting = {
     columns: [
       {
-        lable: 'tables.column.item',
-        field: 'item',
-        width: 190,
-        renderer: 'vehicleRenderer'
-      },
-      {
-        lable: 'tables.column.issue',
-        field: 'issue',
+        lable: 'tables.column.asset',
+        field: 'asset',
+        width: '18em',
+        thumbField: '',
         type: ColumnType.lable,
-        width: 70
+        renderer: 'assetsRenderer'
       },
       {
-        lable: 'tables.column.source',
-        field: 'source',
-        type: ColumnType.lable,
-        width: 120
-      },
-      {
-        lable: 'tables.column.reference_no',
-        field: 'refrenceNo',
-        width: 100,
+        lable: 'Plate Number',
+        field: 'plateNumber',
         type: ColumnType.lable
       },
       {
-        lable: 'tables.column.job_type',
-        field: 'jobType',
-        type: ColumnType.lable,
-        width: 100
-      },
-      {
-        lable: 'tables.column.date',
-        field: 'date',
-        width: 100,
+        lable: 'Department',
+        field: 'department',
         type: ColumnType.lable
       },
       {
-        lable: 'tables.column.accident',
-        field: 'accident',
-        type: ColumnType.lable,
-        width: 100
+        lable: 'Operator Name',
+        field: 'operatorName',
+        type: ColumnType.lable
       },
       {
-        lable: 'tables.column.action',
-        field: '',
+        lable: 'َAsset Type',
+        field: 'assetTypeName',
+        type: ColumnType.lable
+      },
+      {
+        lable: 'َNumber Of Request',
+        field: 'numberOfActiveRequests',
+
+        type: ColumnType.lable
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
         type: ColumnType.lable,
-        width: 120,
-        renderer: 'button',
-        buttonType: ButtonType.jobCard
+        thumbField: '',
+        renderer: 'floatButton',
+        hasJobCardButton: false
       }
     ],
-    data: [
-      {
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png',
-          flag: true
+    data: [],
+    rowSettings: {
+      onClick: (col, data, button?) => { },
+      floatButton: [
+        {
+          button: 'folder-check',
+          color: '#0da06e',
+          tooltip:'Create job card',
+          onClick: (col, data, button?) => {
+            this._facadeRequest.resetParams();
+            this.router.navigate([
+              '/workshop/service-shop/add-job-card'
+            ]);
+          }
         },
-        issue: 'Dent',
-        source: 'Reception',
-        refrenceNo: '2200100224',
-        jobType: 'Repair',
-        date: '02/02/2020',
-        accident: 'Miner',
-        action: ''
-      },
-      {
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png',
-          flag: true
-        },
-        issue: 'Dent',
-        source: 'Reception',
-        refrenceNo: '2200100224',
-        jobType: 'Repair',
-        date: '02/02/2020',
-        accident: 'Miner',
-        action: ''
-      },
-      {
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png',
-          flag: true
-        },
-        issue: 'Dent',
-        source: 'Reception',
-        refrenceNo: '2200100224',
-        jobType: 'Repair',
-        date: '02/02/2020',
-        accident: 'Miner',
-        action: ''
-      },
-      {
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png',
-          flag: true
-        },
-        issue: 'Dent',
-        source: 'Reception',
-        refrenceNo: '2200100224',
-        jobType: 'Repair',
-        date: '02/02/2020',
-        accident: 'Miner',
-        action: ''
-      },
-      {
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png',
-          flag: true
-        },
-        issue: 'Dent',
-        source: 'Reception',
-        refrenceNo: '2200100224',
-        jobType: 'Repair',
-        date: '02/02/2020',
-        accident: 'Miner',
-        action: ''
-      },
-      {
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png',
-          flag: true
-        },
-        issue: 'Dent',
-        source: 'Reception',
-        refrenceNo: '2200100224',
-        jobType: 'Repair',
-        date: '02/02/2020',
-        accident: 'Miner',
-        action: ''
-      },
-      {
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png',
-          flag: true
-        },
-        issue: 'Dent',
-        source: 'Reception',
-        refrenceNo: '2200100224',
-        jobType: 'Repair',
-        date: '02/02/2020',
-        accident: 'Miner',
-        action: ''
-      }
-    ]
+        {
+          button: 'external',
+          onClick: (col, data) => {
+            this._facadeRequest.getAssetRequest(data.assetId)
+            this.router
+              .navigate(['/workshop/service-shop/request-overview/' + data.id])
+              .then();
+          }
+        }
+
+        // {
+        //   button: 'edit',
+        //   color: '#3F3F3F',
+        //   onClick: (col, data, button?) => {
+        //     this._facadeRequest.resetParams();
+        //     this.router.navigate([
+        //       '/workshop/service-shop/edit-request/' + data.id
+        //     ]);
+        //   }
+        // }
+      ]
+    }
   };
 
   table2Setting: TableSetting = {
     columns: [
       {
-        lable: 'tables.column.item',
-        field: 'item',
-        renderer: 'vehicleRenderer'
+        lable: 'tables.column.asset',
+        field: 'asset',
+        width: '18em',
+        thumbField: '',
+        type: ColumnType.lable,
+        renderer: 'assetsRenderer'
       },
-      { lable: 'tables.column.task', field: 'task', type: ColumnType.lable },
       {
         lable: 'tables.column.start_date',
         field: 'startDate',
         type: ColumnType.lable,
-        width: 120
       },
       {
         lable: 'tables.column.end_date',
         field: 'endDate',
         type: ColumnType.lable,
-        width: 120
       },
       {
         lable: 'tables.column.location',
         field: 'location',
         type: ColumnType.lable,
-        width: 100
       },
       {
         lable: 'tables.column.cost',
         field: 'cost',
         type: ColumnType.lable,
-        width: 100
+        sortable: true
       },
       {
-        lable: 'tables.column.workshop_manager_approval',
-        field: 'workshopManagerApproval',
+        lable: 'tables.column.technician',
+        field: 'technician',
         type: ColumnType.lable
-      }
+      },
+      {
+        lable: 'tables.column.task',
+        field: 'task',
+        width: '18em',
+        type: ColumnType.lable,
+        renderer:'radialBar'
+      },
+      // {
+      //   lable: '',
+      //   field: 'floatButton',
+      //   width: 0,
+      //   type: ColumnType.lable,
+      //   thumbField: '',
+      //   renderer: 'floatButton'
+      // }
     ],
     data: [
       {
-        statusColor: '#838BCE',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
+        asset: {
+          img: 'assets/thumb.png',
+          assetName: 'sdadasdasd',
+          assetSubName: '456456456',
         },
-        task: 'Oil leaking, Oil leaking, Oil leaking..',
-        startDate: '20-20-2020',
-        endDate: '20-20-2020',
-        location: 'Station 2',
-        cost: '30.000 AED',
-        workshopManagerApproval: 'Approved'
-      },
-      {
-        statusColor: '#838BCE',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        task: 'Oil leaking, Oil leaking, Oil leaking..',
-        startDate: '20-20-2020',
-        endDate: '20-20-2020',
-        location: 'Station 2',
-        cost: '30.000 AED',
-        workshopManagerApproval: 'Approved'
-      },
-      {
-        statusColor: '#838BCE',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        task: 'Oil leaking, Oil leaking, Oil leaking..',
-        startDate: '20-20-2020',
-        endDate: '20-20-2020',
-        location: 'Station 2',
-        cost: '30.000 AED',
-        workshopManagerApproval: 'Approved'
-      },
-      {
-        statusColor: '#838BCE',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        task: 'Oil leaking, Oil leaking, Oil leaking..',
-        startDate: '20-20-2020',
-        endDate: '20-20-2020',
-        location: 'Station 2',
-        cost: '30.000 AED',
-        workshopManagerApproval: 'Approved'
-      },
-      {
-        statusColor: '#838BCE',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        task: 'Oil leaking, Oil leaking, Oil leaking..',
-        startDate: '20-20-2020',
-        endDate: '20-20-2020',
-        location: 'Station 2',
-        cost: '30.000 AED',
-        workshopManagerApproval: 'Approved'
-      },
-      {
-        statusColor: '#BA7967',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        task: 'Oil leaking, Oil leaking, Oil leaking..',
-        startDate: '20-20-2020',
-        endDate: '20-20-2020',
-        location: 'Station 2',
-        cost: '30.000 AED',
-        workshopManagerApproval: 'Approved'
-      },
-      {
-        statusColor: '#F75A4A',
-        item: {
-          title: 'Request No 123456',
-          dpd: 'DPD 0000001',
-          thumb: 'thumb1.png'
-        },
-        task: 'Oil leaking, Oil leaking, Oil leaking..',
-        startDate: '20-20-2020',
-        endDate: '20-20-2020',
-        location: 'Station 2',
-        cost: '30.000 AED',
-        workshopManagerApproval: 'Approved'
+        startDate:  'ex: 20-20-2020',
+        endDate: 'ex: 20-20-2020',
+        location: 'ex: Dubai',
+        cost: 'ex: 30.000 AED ',
+        technician: 7 ,
+        task: '100',
       }
-    ]
+    ],
+    rowSettings: {
+      onClick: (col, data) => {
+        // console.log(col, data);
+      },
+      floatButton: [
+        {
+          button: 'external',
+          onClick: (col, data) => {
+            this.router.navigate(['/fleet/assets/' + data.id]).then();
+          }
+        },
+        // {
+        //   button: 'edit',
+        //   color: '#3F3F3F',
+        //   onClick: (col, data, button?) => {
+        //     console.log(data)
+        //     this._facadeJobCard.resetParams();
+        //     this.router.navigate([
+        //       '/workshop/service-shop/edit-job-card/' + data.id
+        //     ]);
+        //   }
+        // }
+      ]
+    }
   };
 
   table3Setting: TableSetting = {
@@ -383,246 +414,139 @@ export class ServiceShopComponent implements OnInit {
         lable: 'tables.column.rate_per_hour',
         field: 'ratePerHour',
         type: ColumnType.lable,
-        width: 100
+        width: 100,
+        sortable: true
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton',
+        hasJobCardButton: false
       }
     ],
-    data: [
-      {
-        statusColor: '#6870B4',
-        technician: {
-          firstName: 'Sam',
-          lastName: 'Smith',
-          picture: 'man-in-suit2.png',
-          id: '1234567890'
+    data: [    ],
+    rowSettings: {
+      onClick: (col, data, button?) => { },
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this._facadeTechnician.resetParams();
+            this.router.navigate([
+              '/workshop/service-shop/edit-technician/' + data.id
+            ]);
+          }
         },
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      },
-      {
-        statusColor: '#6870B4',
-        technician: {
-          firstName: 'Sam',
-          lastName: 'Smith',
-          picture: 'man-in-suit2.png',
-          id: '1234567890'
-        },
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      },
-      {
-        statusColor: '#6870B4',
-        technician: {
-          firstName: 'Sam',
-          lastName: 'Smith',
-          picture: 'man-in-suit2.png',
-          id: '1234567890'
-        },
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      },
-      {
-        statusColor: '#6870B4',
-        technician: {
-          firstName: 'Sam',
-          lastName: 'Smith',
-          picture: 'man-in-suit2.png',
-          id: '1234567890'
-        },
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      },
-      {
-        statusColor: '#6870B4',
-        technician: {
-          firstName: 'Sam',
-          lastName: 'Smith',
-          picture: 'man-in-suit2.png',
-          id: '1234567890'
-        },
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      },
-      {
-        statusColor: '#6870B4',
-        technician: {
-          firstName: 'Sam',
-          lastName: 'Smith',
-          picture: 'man-in-suit2.png',
-          id: '1234567890'
-        },
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      }
-    ]
+        /* {
+          button: 'external',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this._facadeRequest.resetParams();
+            this.router.navigate([
+              '/workshop/service-shop/technician/' + data.id
+            ]);
+          }
+        } */
+      ]
+    }
   };
 
   table4Setting: TableSetting = {
     columns: [
-      { lable: 'tables.column.location_id', field: 'locationId' },
+      { lable: 'tables.column.location_id', field: 'locationId', width: 200 },
       {
-        lable: 'tables.column.service',
+        lable: 'tables.column.services',
         field: 'service',
-        type: ColumnType.lable
+        type: ColumnType.lable,
+        width: 200
       },
       {
         lable: 'tables.column.address',
         field: 'address',
         type: ColumnType.lable,
-        width: 120
+        width: 200
       },
-      {
-        lable: 'tables.column.section',
-        field: 'section',
-        type: ColumnType.lable,
-        width: 120
-      },
+      // {
+      //   lable: 'tables.column.section',
+      //   field: 'section',
+      //   type: ColumnType.lable,
+      //   width: 120
+      // },
       {
         lable: 'tables.column.job_card',
         field: 'jobCard',
         type: ColumnType.lable,
-        width: 100
+        width: 100,
+        sortable: true
       },
       {
         lable: 'tables.column.technician',
         field: 'technician',
         type: ColumnType.lable,
-        width: 100
+        width: 100,
+        sortable: true
       },
       {
-        lable: 'tables.column.asset',
-        field: 'assets',
+        lable: 'tables.column.capacity',
+        field: 'capacity',
         type: ColumnType.lable,
-        width: 100
+        width: 100,
+        sortable: true
       }
     ],
-    data: [
-      {
-        locationId: '0023457687',
-        service: 'Repair, Car-wash, Fuel',
-        address: 'Bardubai, Street Number 2',
-        section: '3',
-        jobCard: '123456789',
-        technician: '123',
-        assets: '123456/1234'
-      },
-      {
-        locationId: '0023457687',
-        service: 'Repair, Car-wash, Fuel',
-        address: 'Bardubai, Street Number 2',
-        section: '3',
-        jobCard: '123456789',
-        technician: '123',
-        assets: '123456/1234'
-      },
-      {
-        locationId: '0023457687',
-        service: 'Repair, Car-wash, Fuel',
-        address: 'Bardubai, Street Number 2',
-        section: '3',
-        jobCard: '123456789',
-        technician: '123',
-        assets: '123456/1234'
-      },
-      {
-        locationId: '0023457687',
-        service: 'Repair, Car-wash, Fuel',
-        address: 'Bardubai, Street Number 2',
-        section: '3',
-        jobCard: '123456789',
-        technician: '123',
-        assets: '123456/1234'
-      },
-      {
-        locationId: '0023457687',
-        service: 'Repair, Car-wash, Fuel',
-        address: 'Bardubai, Street Number 2',
-        section: '3',
-        jobCard: '123456789',
-        technician: '123',
-        assets: '123456/1234'
-      },
-      {
-        locationId: '0023457687',
-        service: 'Repair, Car-wash, Fuel',
-        address: 'Bardubai, Street Number 2',
-        section: '3',
-        jobCard: '123456789',
-        technician: '123',
-        assets: '123456/1234'
-      },
-      {
-        locationId: '0023457687',
-        service: 'Repair, Car-wash, Fuel',
-        address: 'Bardubai, Street Number 2',
-        section: '3',
-        jobCard: '123456789',
-        technician: '123',
-        assets: '123456/1234'
-      }
-    ]
+    data: []
   };
 
   selectedTab;
   constructor(
-    private _facadeRequest: BodyShopRequestFacade,
-    private _facadeJobCard: BodyShopJobCardFacade,
-    private _facadeTechnician: BodyShopTechnicianFacade,
-    private _facadeLocation: BodyShopLocationFacade,
+    private _facadeRequest: ServiceShopRequestFacade,
+    private _facadeJobCard: ServiceShopJobCardFacade,
+    private _facadeTechnician: ServiceShopTechnicianFacade,
+    private _facadeLocation: ServiceShopLocationFacade,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this._facadeRequest.loadAll();
     this._facadeJobCard.loadAll();
     this._facadeTechnician.loadAll();
     this._facadeLocation.loadAll();
+
+    // this._facadeRequest.loadStatistics();
+    this._facadeRequest.statistics$.subscribe((x) => {
+      if (x) {
+        this.filterSetting.map((filter) => {
+          switch (filter.filterTitle) {
+            case 'statistic.total':
+              filter.filterCount = x.total;
+              break;
+            case 'statistic.waiting_for_approval':
+              filter.filterCount = x.waitingForApproval;
+              break;
+            case 'statistic.approved':
+              filter.filterCount = x.approved;
+              break;
+            case 'statistic.rejected':
+              filter.filterCount = x.rejected;
+              break;
+            default:
+              break;
+          }
+        });
+      }
+    });
   }
 
   addClicked(e: Event) {
     switch (this.selectedTab) {
       case 'jobcardTab':
+        this.router.navigate(['workshop/service-shop/add-job-card'], {
+          queryParams: { id: 'jobcardTab' }
+        });
         break;
       case 'technicianTab':
         this.router.navigate(['workshop/service-shop/add-technician'], {
@@ -639,4 +563,36 @@ export class ServiceShopComponent implements OnInit {
         break;
     }
   }
+  exportTable() {
+    switch (this.selectedTab) {
+      case 'requestTab':
+        this.table.exportTable(this.table1Setting, this.selectedTab);
+        break;
+      case 'jobcardTab':
+        this.table.exportTable(this.table2Setting,this.selectedTab);
+        break;
+      case 'technicianTab':
+        this.table.exportTable(this.table3Setting,this.selectedTab);
+        break;
+      case 'locationTab':
+      this.table.exportTable(this.table4Setting,this.selectedTab);
+      break;
+    }
+  }
+  eventPagination_request() {
+    this._facadeRequest.loadAll();
+  }
+
+  eventPagination_jobcard() {
+    this._facadeJobCard.loadAll();
+  }
+
+  eventPagination_technician() {
+    this._facadeTechnician.loadAll();
+  }
+
+  eventPagination_location() {
+    this._facadeLocation.loadAll();
+  }
+
 }

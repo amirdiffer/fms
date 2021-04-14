@@ -40,14 +40,15 @@ import { DetailDecisionComponent } from './inspections/technical-inspection/make
 import { AddRequestComponent } from './body-shop/add-request/add-request.component';
 import { AddTechnicianComponent } from './body-shop/add-technician/add-technician.component';
 import { AddLocationComponent } from './body-shop/add-location/add-location.component';
-import { ServiceShopAddRequestComponent } from './service-shop/add-request/add-request.component';
-import { ServiceShopAddTechnicianComponent } from './service-shop/add-technician/add-technician.component';
-import { ServiceShopAddLocationComponent } from './service-shop/add-location/add-location.component';
 import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 import { WorkshopStateModule } from './+state';
 import { AddJobCardComponent } from './body-shop/add-job-card/add-job-card.component';
 import { FleetModule } from '@feature/fleet/fleet.module';
 import { MapModule } from '@core/map-view';
+import { AddJobCardServiceShopComponent } from './service-shop/add-job-card/add-job-card.component';
+import { AddLocationServiceShopComponent } from './service-shop/add-location/add-location.component';
+import { AddRequestServiceShopComponent } from './service-shop/add-request/add-request.component';
+import { AddTechnicianServiceShopComponent } from './service-shop/add-technician/add-technician.component';
 
 @NgModule({
   declarations: [
@@ -68,9 +69,11 @@ import { MapModule } from '@core/map-view';
     AddJobCardComponent,
     TaskMasterFormComponent,
     ServiceShopComponent,
-    ServiceShopAddRequestComponent,
-    ServiceShopAddTechnicianComponent,
-    ServiceShopAddLocationComponent
+    AddJobCardServiceShopComponent,
+    AddLocationServiceShopComponent,
+    AddRequestServiceShopComponent,
+    AddTechnicianServiceShopComponent
+
   ],
   imports: [
     FormsModule,

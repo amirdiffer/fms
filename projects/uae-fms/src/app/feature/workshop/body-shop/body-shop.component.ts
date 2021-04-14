@@ -145,6 +145,7 @@ export class BodyShopComponent implements OnInit {
   );
   locationData$ = this._facadeLocation.bodyShop$.pipe(
     map((x) => {
+      console.log(x)
       return x.map((y) => {
         return {
           ...y,
@@ -474,12 +475,12 @@ export class BodyShopComponent implements OnInit {
         type: ColumnType.lable,
         width: 200
       },
-      {
-        lable: 'tables.column.section',
-        field: 'section',
-        type: ColumnType.lable,
-        width: 120
-      },
+      // {
+      //   lable: 'tables.column.section',
+      //   field: 'section',
+      //   type: ColumnType.lable,
+      //   width: 120
+      // },
       {
         lable: 'tables.column.job_card',
         field: 'jobCard',

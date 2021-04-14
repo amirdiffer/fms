@@ -111,12 +111,12 @@ export class AddLocationComponent extends Utility implements OnInit {
         type: ColumnType.lable,
         width: 200
       },
-      {
-        lable: 'tables.column.section',
-        field: 'section',
-        type: ColumnType.lable,
-        width: 120
-      },
+      // {
+      //   lable: 'tables.column.section',
+      //   field: 'section',
+      //   type: ColumnType.lable,
+      //   width: 120
+      // },
       {
         lable: 'tables.column.job_card',
         field: 'jobCard',
@@ -142,7 +142,12 @@ export class AddLocationComponent extends Utility implements OnInit {
     data: []
   };
   private _location: any;
-
+  get service(): FormArray {
+    return this.inputForm.get('services') as FormArray;
+  }
+  get slot(): FormArray {
+    return this.inputForm.get('slots') as FormArray;
+  }
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
@@ -266,6 +271,9 @@ export class AddLocationComponent extends Utility implements OnInit {
 
     slots.push(this.createSlot());
   }
+  removeSlot(index){
+    this.slot.removeAt(index)
+  }
 
   addService() {
     const services = <FormArray>this.inputForm.get('services');
@@ -276,7 +284,10 @@ export class AddLocationComponent extends Utility implements OnInit {
 
     services.push(this.createService());
   }
-
+  removeService(index){
+    this.service.removeAt(index)
+  }
+  
   dialogConfirm($event): void {
     this.errorDialogModal = false;
     this.dialogModal = false;
@@ -315,6 +326,7 @@ export class AddLocationComponent extends Utility implements OnInit {
   }
   addRequest() {
     this.submited = true;
+    this.inputForm.markAllAsTouched();
     if (this.inputForm.invalid) {
       return;
     }

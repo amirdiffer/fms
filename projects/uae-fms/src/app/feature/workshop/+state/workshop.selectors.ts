@@ -7,17 +7,33 @@ export class WorkshopSelectors {
     WorkshopSelectors.featureSelector,
     (state) => state['bodyShopRequest']
   );
+  static serviceshopRequestSelector = createSelector(
+    WorkshopSelectors.featureSelector,
+    (state) => state['serviceShopRequest']
+  );
   static bodyshopJobCardSelector = createSelector(
     WorkshopSelectors.featureSelector,
     (state) => state['bodyShopJobCard']
+  );
+  static serviceshopJobCardSelector = createSelector(
+    WorkshopSelectors.featureSelector,
+    (state) => state['serviceShopJobCard']
   );
   static bodyshopTechnicianSelector = createSelector(
     WorkshopSelectors.featureSelector,
     (state) => state['bodyShopTechnician']
   );
+  static serviceshopTechnicianSelector = createSelector(
+    WorkshopSelectors.featureSelector,
+    (state) => state['serviceShopTechnician']
+  );
   static bodyshopLocationSelector = createSelector(
     WorkshopSelectors.featureSelector,
     (state) => state['bodyShopLocation']
+  );
+  static serviceshopLocationSelector = createSelector(
+    WorkshopSelectors.featureSelector,
+    (state) => state['serviceShopLocation']
   );
   static technicalInspectionSelector = createSelector(
     WorkshopSelectors.featureSelector,

@@ -192,6 +192,9 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   skills: any[];
   skillsB;
   profileDocId: number;
+  location$:Subscription;
+  locationList:any[] =[];
+  locationFiltered:any[] =[];
   get emails(): FormArray {
     return this.inputForm.get('personalInfo').get('email') as FormArray;
   }
@@ -227,13 +230,17 @@ export class AddTechnicianComponent extends Utility implements OnInit {
 
   ngOnInit(): void {
     this._facadeTaskMaster.loadAllSkill();
+    this._locationFacade.loadAll();
     this.skills$ = this._facadeTaskMaster.skills$.subscribe(
       (x)=>{
         console.log(x)
         this.skillList = x
       }
+    );
+    this.location$ = this._locationFacade.bodyShop$.subscribe(
+      x => {console.log(x); this.locationList = x}
     )
-    this._locationFacade.loadAll();
+
     this._taskMasterService.skills().subscribe((x) => {
       let data = x.message;
       this.skillsB = data.map((y) => ({ id: y.id, name: y.name }));
@@ -491,6 +498,18 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       }
     }
     this.skillFiltered = filtered
+  }
+
+  getFilteredLocation(event) {
+    let query = event.query
+    let filtered = []
+    for (let index = 0; index < this.locationList.length; index++) {
+      let location = this.locationList[index];
+      if (location.address.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(location)
+      }
+    }
+    this.locationFiltered = filtered
   }
 
   filterLocation(event) {

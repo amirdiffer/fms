@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Injector
+  Injector,
+  ChangeDetectorRef
 } from '@angular/core';
 import {
   FormArray,
@@ -14,98 +15,112 @@ import {
 import { Router } from '@angular/router';
 import { ColumnType, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { debounceTime, map } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
+import { UsersService } from '@feature/configuration/+state/users';
 import {
-  FileSystemDirectoryEntry,
-  FileSystemFileEntry,
-  NgxFileDropEntry
-} from 'ngx-file-drop';
+  TaskMasterFacade,
+  TaskMasterService
+} from '@feature/workshop/+state/task-master';
+import { Department } from '@models/organization';
+import { OrganizationService } from '@feature/fleet/+state/organization';
+import { ServiceShopLocationFacade, ServiceShopLocationService, ServiceShopTechnicianFacade, ServiceShopTechnicianService } from '@feature/workshop/+state/service-shop';
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
   styleUrls: ['./add-technician.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ServiceShopAddTechnicianComponent
-  extends Utility
-  implements OnInit {
+export class AddTechnicianServiceShopComponent extends Utility implements OnInit {
+  isEdit: boolean = false;
+  //#region Dialog
+  dialogSetting: IDialogAlert = {
+    header: 'Add Technician',
+    hasError: false,
+    message: 'Message is Here',
+    confirmButton: 'Register Now',
+    cancelButton: 'Cancel'
+  };
+  errorDialogSetting: IDialogAlert = {
+    header: '',
+    message: 'Error occurred in progress',
+    confirmButton: 'Ok',
+    isWarning: false,
+    hasError: true,
+    hasHeader: true,
+    cancelButton: undefined
+  };
+  dialogModal = false;
+  dialogType = null;
+  errorDialogModal = false;
+  //#endregion Dialog
   inputForm: FormGroup;
   filteredEmployeNumb;
   filteredLocation;
   submited = false;
   progressBarValue = 50;
   bufferValue = 70;
-  public filesUpdloaded: NgxFileDropEntry[] = [];
-  employes: any[] = [
-    {
-      id: '1',
-      fName: 'Hamid',
-      lName: 'Mottaghian',
-      email: 'admin@jointscopes.com',
-      number: '+989351730011',
-      employeNumber: '1234568'
-    },
-    {
-      id: '2',
-      fName: 'Alireza',
-      lName: 'Hamidi',
-      email: 'admin@jointscopes.com',
-      number: '+989351730011',
-      employeNumber: '1234568'
-    },
-    {
-      id: '3',
-      fName: 'Amir Hossein',
-      lName: 'Hosseini',
-      email: 'admin@jointscopes.com',
-      number: '+989351730011',
-      employeNumber: '1234568'
-    },
-    {
-      id: '4',
-      fName: 'Mahdi',
-      lName: 'MaddahPour',
-      email: 'admin@jointscopes.com',
-      number: '+989351730011',
-      employeNumber: '1234568'
-    }
-  ];
-  locations: any[] = [
-    {
-      name: 'Hamid',
-      city: 'Dubai',
-      address: 'street 1'
-    },
-    {
-      name: 'Nirvana',
-      city: 'Dubai',
-      address: 'street 2'
-    },
-    {
-      name: 'Mellisa',
-      city: 'Dubai',
-      address: 'street 3'
-    },
-    {
-      name: 'Farid',
-      city: 'Dubai',
-      address: 'street 4'
-    },
-    {
-      name: 'Eden',
-      city: 'Dubai',
-      address: 'street 5'
-    }
-  ];
+  employees = new Subject();
+  employees$ = this.employees.asObservable();
+  getEmployeesList = new Subject();
+  employeeId;
+  employee_static;
+  departmentList: any[];
+  departmentFiltered: any[];
+  departmentSerive$:Subscription;
+  sectionFiltered:any[];
+  sectionList:any[];
+  depatmentSectionSevice$: Subscription;
+  department_static;
+  departmentId;
+  avatarId = [];
+  section_static;
+  sectionId;
+  skillList:any[] =[];
+  skillFiltered:any[] =[];
+  skills$:Subscription;
+  location$:Subscription;
+  locationList:any[] =[];
+  locationFiltered:any[] =[];
+  technicianData$ = this._technicianFacade.serviceShop$.pipe(
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
+          technician: {
+            firstName: y.user.firstName,
+            lastName: y.user.lastName,
+            id: y.user.id
+            // picture: 'assets/user-image.png',
+          },
+          skill: y.skills.map((s) => s.name).join(','),
+          status: 'Available',
+          tasks: y.numOfTasks,
+          information: {
+            email: y.user.emails[0],
+            phoneNumber: y.user.phoneNumbers[0]
+          },
+          ratePerHour: y.payPerHour
+        };
+      });
+    })
+  );
 
   addTechnician_Table: TableSetting = {
     columns: [
       {
         lable: 'tables.column.technician',
         field: 'technician',
-        renderer: 'userRenderer',
-        thumbField: 'picture'
+        width: 180,
+        renderer: 'userRenderer'
       },
-      { lable: 'tables.column.skill', field: 'skill', type: ColumnType.lable },
+      {
+        lable: 'tables.column.skill',
+        field: 'skill',
+        width: 180,
+        type: ColumnType.lable
+      },
       {
         lable: 'tables.column.status',
         field: 'status',
@@ -114,138 +129,278 @@ export class ServiceShopAddTechnicianComponent
         textColor: '#6870B4'
       },
       {
-        lable: 'tables.column.tasks',
+        lable: 'tables.column.task',
         field: 'tasks',
         type: ColumnType.lable,
-        width: 120
+        width: 80
       },
       {
         lable: 'tables.column.information',
         field: 'information',
         type: ColumnType.lable,
-        width: 100,
+        width: 120,
         renderer: 'informationRenderer'
       },
       {
         lable: 'tables.column.rate_per_hour',
         field: 'ratePerHour',
         type: ColumnType.lable,
-        width: 100
+        width: 100,
+        sortable: true
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton',
+        hasJobCardButton: false
       }
     ],
-    data: [
-      {
-        statusColor: '#6870B4',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        picture: 'user-image.png',
-        id: '123456789',
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      },
-      {
-        statusColor: '#6870B4',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        picture: 'user-image.png',
-        id: '123456789',
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      },
-      {
-        statusColor: '#6870B4',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        picture: 'user-image.png',
-        id: '123456789',
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      },
-      {
-        statusColor: '#6870B4',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        picture: 'user-image.png',
-        id: '123456789',
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      },
-      {
-        statusColor: '#6870B4',
-        firstName: 'Sam',
-        lastName: 'Smith',
-        picture: 'user-image.png',
-        id: '123456789',
-        skill:
-          'Electrician, Electrician, Electrician, Electrician, Electrician, Electrician',
-        status: 'Available',
-        tasks: '2',
-        information: {
-          email: 'sample@gmail.com',
-          phoneNumber: '+971505653793'
-        },
-        ratePerHour: '0000 AED'
-      }
-    ]
+    data: [],
+    rowSettings: {
+      onClick: (col, data, button?) => {},
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this._technicianFacade.resetParams();
+            this.router.navigate([
+              '/workshop/service-shop/edit-technician/' + data.id
+            ]);
+          }
+        }
+      ]
+    }
   };
+  currentTab: string;
+  private _technician: any;
+  id: any;
+  formChangesSubscription!: Subscription;
+  locations: any[];
+  locationsB;
+  skills: any[];
+  skillsB;
+  profileDocId: number;
+  get emails(): FormArray {
+    return this.inputForm.get('personalInfo').get('email') as FormArray;
+  }
+
+  get phoneNumbers(): FormArray {
+    return this.inputForm.get('personalInfo').get('phoneNumber') as FormArray;
+  }
+
+  get getSkill(): FormArray{
+    return this.inputForm.get('professional').get('skills') as FormArray;
+  }
+
+  get getLocation (): FormArray{
+    return this.inputForm.get('professional').get('location') as FormArray;
+  }
 
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
-    private _roter: Router
+    private _roter: Router,
+    private userService: UsersService,
+    private _technicianFacade: ServiceShopTechnicianFacade,
+    private _technicalService: ServiceShopTechnicianService,
+    private _locationFacade: ServiceShopLocationFacade,
+    private _locationService: ServiceShopLocationService,
+    private _taskMasterService: TaskMasterService,
+    private _departmentService: OrganizationService,
+    private _facadeTaskMaster: TaskMasterFacade,
+    private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this._facadeTaskMaster.loadAllSkill();
+    this._locationFacade.loadAll();
+    this.skills$ = this._facadeTaskMaster.skills$.subscribe(
+      (x)=>{
+        console.log(x)
+        this.skillList = x
+      }
+    );
+    this.location$ = this._locationFacade.serviceShop$.subscribe(
+      x => {console.log(x); this.locationList = x}
+    )
+    this._locationFacade.loadAll();
+    this._taskMasterService.skills().subscribe((x) => {
+      let data = x.message;
+      this.skillsB = data.map((y) => ({ id: y.id, name: y.name }));
+    });
+    this._locationService.loadAll().subscribe((x) => {
+      let data = x.message;
+      console.log(x)
+      this.locationsB = data.map((y) => ({ id: y.id, name: y.address }));
+    });
+    this.buildForm();
+    this.route.url.subscribe((params) => {
+      this.isEdit =
+        params.filter((x) => x.path == 'edit-technician').length > 0
+          ? true
+          : false;
+
+      if (this.isEdit) {
+        this.id = +params[params.length - 1].path;
+        this._technicalService
+          .getTechnicianById(params[params.length - 1].path)
+          .pipe(map((x) => x.message))
+          .subscribe((x) => {
+            if (x) {
+              this._technician = x;
+              this.avatarId = Array.isArray(x.user.profileDocId) ? x.user.profileDocId : [x.user.profileDocId];
+              console.log(x)
+              this.inputForm.controls['portalInfo'].patchValue({
+                employeeNumber: {
+                  organizationId:x.user.employeeNumber
+                },
+                active: x.user.isActive,
+                payPerHours: x.payPerHour,
+                department: {
+                  organizationName: x.user.department.organizationName,
+                  id: x.user.department.organizationId
+                },
+                section:{
+                  name: x.user.department.name,
+                  id : x.user.department.id
+                }
+              });
+              this.inputForm.controls['portalInfo']
+                .get('payPerHours')
+                .markAsDirty();
+              this.inputForm.controls['personalInfo'].patchValue({
+                firstName: x.user.firstName,
+                lastName: x.user.lastName,
+                callCheckbox: false,
+                smsCheckbox: false,
+                whatsappCheckbox: false,
+                emailCheckbox: false,
+              });
+
+              for (let i = 0; i < x.skills.length; i++) {
+                this.getSkill.controls[i].patchValue(x.skills[i])
+                if(i != x.skills.length -1){
+                  this.addSkill();
+                }
+              }
+              for (let i = 0; i < x.locations.length; i++) {
+                this.getLocation.controls[i].patchValue({
+                  name: x.locations[i].address,
+                  id: x.locations[i].id
+                })
+                if(i != x.locations.length -1){
+                  this.addLocation();
+                }
+                
+              }
+              this.emails.controls = [];
+              for (let i = 0; i < x.user.emails.length; i++) {
+                this.addEmail();
+                this.emails.controls[i].patchValue(x.user.emails[i])
+              }
+              this.phoneNumbers.controls = [];
+              for (let i = 0; i < x.user.phoneNumbers.length; i++) {
+                this.addPhoneNumber();
+                this.phoneNumbers.controls[i].patchValue(x.user.phoneNumbers[i])
+              }
+
+
+              this.inputForm.controls['personalInfo']
+                .get('firstName')
+                .markAsDirty();
+              this.inputForm.controls['personalInfo']
+                .get('lastName')
+                .markAsDirty();
+              this.emails.controls[0].markAsDirty();
+            }
+          });
+      } else {
+        this.formChangesSubscription = this.inputForm.valueChanges.subscribe(
+          (formValues) => {
+            if (formValues.portalInfo.employeeNumber.name) {
+              this.inputForm.controls['personalInfo'].patchValue(
+                {
+                  firstName: formValues.portalInfo.employeeNumber.nameEn,
+                  lastName: formValues.portalInfo.employeeNumber.name
+                },
+                { emitEvent: false }
+              );
+            }
+          }
+        );
+      }
+    });
+    this.departmentSerive$ = this._departmentService.loadWithPagination().subscribe(
+      (x) => {
+        x.message
+          ? this.departmentList = x.message
+          : this.departmentList = []
+      }
+    )
+    this._technicianFacade.submitted$.subscribe((x) => {
+      if (x) {
+        this.dialogModal = true;
+        this.dialogType = 'success';
+        this.dialogSetting.header = this.isEdit ? 'Edit user' : 'Add new user';
+        this.dialogSetting.message = this.isEdit
+          ? 'Changes Saved Successfully'
+          : 'User Added Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'Yes';
+        this.dialogSetting.cancelButton = undefined;
+        this.changeDetector.detectChanges();
+      }
+    });
+
+    this._technicianFacade.error$.subscribe((x) => {
+      if (x?.error) {
+        this.errorDialogModal = true;
+        this.errorDialogSetting.header = this.isEdit
+          ? 'Edit user'
+          : 'Add new user';
+        this.errorDialogSetting.hasError = true;
+        this.errorDialogSetting.cancelButton = undefined;
+        this.errorDialogSetting.confirmButton = 'Ok';
+        this.changeDetector.detectChanges();
+      } else {
+        this.errorDialogModal = false;
+      }
+    });
+    this.getEmployeesList.pipe(debounceTime(600)).subscribe((x) => {
+      this.userService.searchEmployee(x['query']).subscribe((y) => {
+        if (y) {
+          this.employees.next([y.message]);
+        } else {
+          this.employees.next(null);
+        }
+      });
+    });
+  }
+
+  private buildForm() {
     this.inputForm = this._fb.group({
+      // organizationId: [null, [Validators.required]],
+      // departmentId: [null, [Validators.required]],
       portalInfo: this._fb.group({
-        emplyeeNumber: [
-          '',
-          [Validators.required, this.autocompleteValidationEmployeNumber]
-        ],
+        employeeNumber: ['', [Validators.required]],
         payPerHours: ['', [Validators.required]],
+        department:['', [Validators.required]],
+        section:['', [Validators.required]],
         active: [false]
       }),
       professional: this._fb.group({
         skills: this._fb.array([this._fb.control('', [Validators.required])]),
-        location: this._fb.array([
-          this._fb.control('', [
-            Validators.required,
-            this.autocompleteValidationLocation
-          ])
-        ])
+        location: this._fb.array([this._fb.control('', [Validators.required])])
       }),
       file: [''],
-      pesonalInfo: this._fb.group({
+      personalInfo: this._fb.group({
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
         email: this._fb.array([this._fb.control('', [Validators.required])]),
@@ -261,43 +416,98 @@ export class ServiceShopAddTechnicianComponent
       })
     });
   }
-
-  searchEmploye(event) {
-    let filtered: any[] = [];
-    let query = event.query;
-    for (let i = 0; i < this.employes.length; i++) {
-      let employe = this.employes[i];
-      if (employe.fName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(employe);
+  //
+  // searchEmploye(event) {
+  //   this.getEmployeesList.next(event);
+  //   this.employeeId = event.query;
+  // }
+  //
+  // selectedEmploye(value) {
+  //   this.inputForm.patchValue({
+  //     personalInfo: {
+  //       // firstName: value.fName,
+  //       // lastName: value.lName,
+  //       email: [value.emailAddress],
+  //       phoneNumber: [value.mobileNumber]
+  //     }
+  //   });
+  //   // this.inputForm.get('personalInfo.firstName').markAsDirty();
+  //   // this.inputForm.get('personalInfo.lastName').markAsDirty();
+  //   this.inputForm.get('personalInfo.email')['controls'][0].markAsDirty();
+  //   this.inputForm.get('personalInfo.phoneNumber')['controls'][0].markAsDirty();
+  // }
+  searchDepartment(event) {
+    let query = event.query
+    let filtered = []
+    for (let index = 0; index < this.departmentList.length; index++) {
+      let department = this.departmentList[index];
+      if (department.organizationName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(department)
       }
     }
-    this.filteredEmployeNumb = filtered;
+    this.departmentFiltered = filtered
   }
-
-  selectedEmploye(value) {
-    this.inputForm.patchValue({
-      pesonalInfo: {
-        firstName: value.fName,
-        lastName: value.lName,
-        email: [value.email],
-        phoneNumber: [value.number]
-      }
-    });
-    this.inputForm.get('pesonalInfo.firstName').markAsDirty();
-    this.inputForm.get('pesonalInfo.lastName').markAsDirty();
-    this.inputForm.get('pesonalInfo.email')['controls'][0].markAsDirty();
-    this.inputForm.get('pesonalInfo.phoneNumber')['controls'][0].markAsDirty();
-  }
-  searchLocation(event) {
-    let filtered: any[] = [];
-    let query = event.query;
-    for (let i = 0; i < this.locations.length; i++) {
-      let location = this.locations[i];
-      if (location.city.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(location);
+  searchSection(event) {
+    let query = event.query
+    let filtered = []
+    for (let index = 0; index < this.sectionList.length; index++) {
+      let section = this.sectionList[index];
+      if (section.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(section)
       }
     }
-    this.filteredLocation = filtered;
+    this.sectionFiltered = filtered
+  }
+
+
+  departmentChanged($event) {
+    this.department_static = $event;
+    if (typeof $event != 'object') return;
+    this.sectionList =[];
+    this.departmentId = $event.id
+    this._departmentService.searchDepartment($event.id).subscribe(
+      (x)=>{
+        x.message.departments ? this.sectionList = x.message.departments : this.sectionList = []
+      }
+    )
+  }
+
+  sectionChanged($event) {
+    this.section_static = $event;
+    if (typeof $event != 'object') return;
+    this.sectionId = $event.id
+  }
+
+  getAllSkill(event) {
+    let query = event.query
+    let filtered = []
+    for (let index = 0; index < this.skillList.length; index++) {
+      let skill = this.skillList[index];
+      if (skill.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(skill)
+      }
+    }
+    this.skillFiltered = filtered
+  }
+
+  getFilteredLocation(event) {
+    let query = event.query
+    let filtered = []
+    for (let index = 0; index < this.locationList.length; index++) {
+      let location = this.locationList[index];
+      if (location.address.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(location)
+      }
+    }
+    this.locationFiltered = filtered
+  }
+
+  filterLocation(event) {
+    this.locations = this.locationsB.filter(
+      (x) =>
+        (x.id + '').indexOf(event.query) >= 0 ||
+        x.name.indexOf(event.query) >= 0
+    );
   }
 
   /* AutoComplete Validation  */
@@ -320,64 +530,205 @@ export class ServiceShopAddTechnicianComponent
 
   /* Add Forrm Array */
   addSkill() {
+    if (this.inputForm.get('professional.skills').invalid) {
+      return;
+    }
     const skill = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('professional.skills')).push(skill);
   }
+  removeSkill(i){
+    this.getSkill.removeAt(i)
+  }
   addLocation() {
-    const location = new FormControl(null, [
-      Validators.required,
-      this.autocompleteValidationLocation
-    ]);
+    if (this.inputForm.get('professional.location').invalid) {
+      return;
+    }
+    const location = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('professional.location')).push(location);
+  }
+  removeLocation(i){
+    this.getLocation.removeAt(i)
   }
   addEmail() {
     const email = new FormControl(null, [Validators.required]);
-    (<FormArray>this.inputForm.get('pesonalInfo.email')).push(email);
+    (<FormArray>this.inputForm.get('personalInfo.email')).push(email);
+  }
+  removeEmail(index){
+    this.emails.removeAt(index)
   }
   addPhoneNumber() {
     const phoneNumber = new FormControl(null, [Validators.required]);
-    (<FormArray>this.inputForm.get('pesonalInfo.phoneNumber')).push(
+    (<FormArray>this.inputForm.get('personalInfo.phoneNumber')).push(
       phoneNumber
     );
   }
-  addRequest() {
-    this.submited = true;
-    if (this.inputForm.invalid) {
-      return;
-    }
-    this.goToList();
+  removePhoneNumber(index){
+    this.phoneNumbers.removeAt(index)
   }
+  dialogConfirm($event): void {
 
-  cancelForm() {
-    if (this.inputForm.dirty) {
-      confirm('Are You sure that you want to cancel?')
-        ? this._roter.navigate(['/workshop/body-shop'], {
-            queryParams: { id: 'technicianTab' }
-          })
-        : null;
+    this.errorDialogModal = false;
+    this.dialogModal = false;
+    if (!$event) return;
+
+    if (this.dialogType == 'submit') {
+      let f = this.inputForm.value;
+      let technicianInfo: any = {
+        employeeNumber: this.isEdit
+          ? this._technician?.employeeNumber
+          : this.employeeId,
+        organizationId: +f.portalInfo.department.id,
+        departmentId: +f.portalInfo.section.id,
+        payPerHour: f.portalInfo.payPerHours,
+        isActive: f.portalInfo.active,
+        profileDocId: this.profileDocId || 1,
+        skillIds: f.professional.skills.map((s) => s.id),
+        locationIds: f.professional.location.map((l) => l.id),
+        firstName: f.personalInfo.firstName,
+        lastName: f.personalInfo.lastName,
+        emails: f.personalInfo.email.map((x) => {
+          if (x) {
+            if (typeof x == 'string') return x;
+            else return x[0];
+          } else if (typeof x == 'object') return x[0];
+        }),
+        phoneNumbers: this.getPhone(f),
+        notifyByCall: f.personalInfo.notification.call,
+        notifyBySMS: f.personalInfo.notification.sms,
+        notifyByWhatsapp: f.personalInfo.notification.whatsapp,
+        notifyByEmail: f.personalInfo.notification.email
+      };
+
+      if (this.isEdit) {
+        technicianInfo = {
+          ...technicianInfo,
+          id: this.id
+        };
+
+        this._technicianFacade.editTechnician(technicianInfo);
+      } else {
+        technicianInfo = {
+          ...technicianInfo
+        };
+        this._technicianFacade.addTechnician(technicianInfo);
+      }
     } else {
-      this._roter.navigate(['/workshop/body-shop'], {
-        queryParams: { id: 'technicianTab' }
+      this.router.navigate(['workshop/service-shop'],{queryParams:{id:'technicianTab'}}).then((_) => {
+        this._technicianFacade.resetParams();
       });
     }
   }
-  public dropped(files: NgxFileDropEntry[]) {
-    this.filesUpdloaded = files;
-    for (const droppedFile of files) {
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {});
-      } else {
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+
+  getPhone(f) {
+    if (f.personalInfo.phoneNumber && f.personalInfo.phoneNumber.length > 0) {
+      if (typeof f.personalInfo.phoneNumber[0] == 'object') {
+        if (
+          typeof f.personalInfo.phoneNumber[0] == 'object' &&
+          typeof f.personalInfo.phoneNumber[0].phoneNumber == 'string' &&
+          f.personalInfo.phoneNumber[0].phoneNumber.length < 5
+        )
+          return [];
+      } else if (typeof f.personalInfo.phoneNumber[0] == 'string') {
+        if (f.personalInfo.phoneNumber[0].length < 5) return [];
       }
+      return f.personalInfo.phoneNumber.map((x) => {
+        if (!x) return;
+        if (x) {
+          if (typeof x == 'string') return x;
+          else return x[0];
+        } else if (typeof x == 'object') {
+          if (x) return x;
+          else if (x[0]) return x[0];
+          else return '';
+        }
+      });
     }
   }
 
-  public fileOver(event) {
-    // console.log(event);
+  getEmployee(event) {
+    this.getEmployeesList.next(event);
+    this.employeeId = event.query;
   }
 
-  public fileLeave(event) {
-    // console.log(event);
+  employeeNumberChanged($event) {
+    this.employee_static = $event;
+    if (typeof $event != 'object') return;
+    // this.inputForm.get('organizationId').patchValue($event.organizationId);
+    // this.inputForm.get('departmentId').patchValue($event.organizationId);
+    this.inputForm.get('personalInfo').patchValue({
+      phoneNumber: [$event.mobileNumber],
+      email: [$event.emailAddress],
+      firstName: $event.nameEn,
+      lastName: $event.name
+    });
+    this.inputForm.get('personalInfo.firstName').markAsDirty();
+    this.inputForm.get('personalInfo.lastName').markAsDirty();
+    this.inputForm.get('personalInfo.email')['controls'][0].markAsDirty();
+    this.inputForm.get('personalInfo.phoneNumber')['controls'][0].markAsDirty();
+  }
+
+  addRequest() {
+    this.submited = true;
+    if(this.getSkill.length> 1 && this.getSkill.controls[this.getSkill.length -1].value == null){
+      this.removeSkill(this.getSkill.length -1)
+    }
+    if(this.getLocation.length> 1 && this.getLocation.controls[this.getLocation.length -1].value == null){
+      this.removeLocation(this.getLocation.length -1)
+    }
+    if (this.inputForm.invalid) {
+      this.inputForm.markAllAsTouched();
+      return;
+    }
+    
+    this.dialogModal = true;
+    this.dialogType = 'submit';
+    if (this.isEdit) {
+      this.dialogSetting.header = 'Edit technician';
+      this.dialogSetting.message =
+        'Are you sure you want to submit this changes?';
+      this.dialogSetting.isWarning = true;
+      this.dialogSetting.confirmButton = 'Yes';
+      this.dialogSetting.cancelButton = 'Cancel';
+      return;
+    } else {
+      this.dialogSetting.header = 'Add new technician';
+      this.dialogSetting.isWarning = true;
+      this.dialogSetting.hasError = false;
+      this.dialogSetting.message =
+        'Are you sure you want to add new technician?';
+      this.dialogSetting.confirmButton = 'OK';
+      this.dialogSetting.cancelButton = 'Cancel';
+    }
+  }
+
+  cancelForm() {
+    this.dialogModal = true;
+    this.dialogType = 'cancel';
+    if (this.isEdit) {
+      this.dialogSetting.header = 'Edit technician';
+      this.dialogSetting.hasError = false;
+      this.dialogSetting.isWarning = true;
+      this.dialogSetting.message =
+        'Are you sure that you want to cancel editing technician?';
+      this.dialogSetting.confirmButton = 'Yes';
+      this.dialogSetting.cancelButton = 'Cancel';
+      return;
+    }
+
+    this.dialogSetting.header = 'Add new technician';
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.isWarning = true;
+    this.dialogSetting.message =
+      'Are you sure that you want to cancel adding new technician?';
+    this.dialogSetting.confirmButton = 'Yes';
+    this.dialogSetting.cancelButton = 'Cancel';
+  }
+
+  uploadImage($event) {
+    if (!$event || !$event.files) {
+      return;
+    }
+    const docId = $event.files[0];
+    this.profileDocId = docId;
   }
 }
