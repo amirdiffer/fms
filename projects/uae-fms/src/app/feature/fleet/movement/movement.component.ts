@@ -238,6 +238,7 @@ export class MovementComponent
     data: [],
     rowSettings: {
       onClick: (data, button?, col?) => {
+        // TODO : handle confirm message
         if (button == 'reject') this._movementRequestsFacade.rejecting(data.id);
         else if (button == 'confirm') {
           this.assignID = data.id;
