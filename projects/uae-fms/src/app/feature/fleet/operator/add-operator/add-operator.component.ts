@@ -381,7 +381,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
         organizationId: 1,
         // departmentId: f.portalInformation.department.id || 1,
         departmentId: this.isEdit ? this._operator?.department.id : this.departmentId,
-        roleId: 1,
+        roleIds: [1],
         isActive: f.portalInformation.activeEmployee,
         profileDocId: this.profileDocId || 1,
         firstName: f.personalInformation.firstName,

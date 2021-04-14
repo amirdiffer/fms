@@ -151,7 +151,7 @@ export class AddUserComponent
         this.userService
           .getUserById(params[params.length - 1].path)
           .pipe(map((x) => x.message))
-          .subscribe((x) => {
+          .subscribe((x:any) => {
             if (x) {
               this.profileDocId = x.profileDocId ? x.profileDocId : null;
               this._user = x;
@@ -163,7 +163,7 @@ export class AddUserComponent
                   name: `${x.department.organizationName}`,
                   id: `${x.department.id}`
                 },
-                roleId: x.role.roleId,
+                roleId: x.roles[0].roleId,
                 activeEmployee: x.isActive
               });
 
@@ -172,7 +172,7 @@ export class AddUserComponent
                   this.roles$.subscribe(a => {
                     this.form.controls['portalInformation'].patchValue({
                       ...this.form.controls['portalInformation'].value,
-                      roleId: a.find(y => y.id == x.role.roleId)
+                      roleId: a.find(y => y.id == x.roles[0].roleId)
                     })
                   })
               })
@@ -333,13 +333,14 @@ export class AddUserComponent
 
     if (this.dialogType == 'submit') {
       let f = this.form.value;
+      console.log(f.portalInformation.roleId.id);
       let userInfo: any = {
         employeeNumber: this.isEdit
           ? this._user?.employeeNumber
           : this.employeeId,
         organizationId: 1,
         departmentId: f.portalInformation.department.id,
-        roleId: 1,
+        roleIds: [f.portalInformation.roleId.id],
         isActive: f.portalInformation.activeEmployee,
         profileDocId: this.profileDocId,
         firstName: f.personalInformation.firstName,
@@ -475,7 +476,6 @@ export class AddUserComponent
   }
 
   filterDepartments(event) {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     this.departments = this.departmentsB.filter(
       (x) =>
         (x.id + '').indexOf(event.query) >= 0 ||

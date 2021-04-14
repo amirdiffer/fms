@@ -52,7 +52,7 @@
           <p-dropdown inputId="role" [autoDisplayFirst]="false"
             [options]="roles$|async" formControlName="roleId"
             optionLabel="name"></p-dropdown>
-          <label for="role">{{ 'configuration.users.role' | translate }}</label>
+          <label for="role">{{ 'configuration.users.role' | translate }} *</label>
         </span>
         <anms-error
           [showError]="hasError('roleId',form.get('portalInformation'),submited)"
