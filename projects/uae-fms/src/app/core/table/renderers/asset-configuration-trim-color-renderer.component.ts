@@ -4,7 +4,8 @@ import { environment } from '@environments/environment';
 @Component({
   selector: 'table-trim-color-renderer',
   template: `
-    <div class="d-flex ml-3" *ngFor="let color of colors">
+    <div class="d-flex">
+      <div class="d-flex mx-1" *ngFor="let color of colors">
       <span
         [class.bg-dark]="
           color.hexColor.toLowerCase() === 'ffffff' ||
@@ -39,6 +40,7 @@ import { environment } from '@environments/environment';
         >
         </svg-icon>
       </span>
+      </div>
     </div>
   `,
   styleUrls: ['./trim-color-renderer.scss']

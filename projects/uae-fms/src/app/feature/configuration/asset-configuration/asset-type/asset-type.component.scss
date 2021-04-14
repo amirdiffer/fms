@@ -128,7 +128,7 @@ mat-card {
 
 .add-asset-type {
   color: #0da06e;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .status {
@@ -146,4 +146,8 @@ mat-card {
   height: 7px;
   background-color: var(--back-color-var);
   border-radius: 50%;
+}
+
+.mat-card-title {
+  font-size: 1em !important;
 }

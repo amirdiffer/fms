@@ -6,15 +6,15 @@
           <div class="col-12 col-md-2 mb-3">
             <h3 class="form-section__title">{{ 'filter.type_category' | translate }}</h3>
           </div>
-          <div class="form-check col-sm-1 mt-2">
+          <div class="form-check col-md-3 col-lg-2 mt-2">
             <input class="form-check-input" formControlName="type" type="radio" id="radioButton1" value ="ASSET" (click)="typeCategory($event.target.value)">
             <label class="form-check-label" for="radioButton1">{{ 'filter.asset' | translate }}</label>
           </div>
-          <div class="form-check col-md-1 mr-4 mt-2">
+          <div class="form-check col-md-3 col-lg-2 mr-4 mt-2">
             <input class="form-check-input" formControlName="type" type="radio" id="radioButton2" value ="SUB_ASSET" (click)="typeCategory($event.target.value)">
             <label class="form-check-label" for="radioButton2">{{ 'filter.sub_asset' | translate }}</label>
           </div>
-          <div class="form-check col-md-1 mt-2">
+          <div class="form-check col-md-3 col-lg-2 mt-2">
             <input class="form-check-input" formControlName="type" type="radio"  id="radioButton3" value ="ACCESSORY" (click)="typeCategory($event.target.value)">
             <label class="form-check-label" for="radioButton3">{{ 'filter.accessory' | translate }}</label>
           </div>
@@ -22,5 +22,5 @@
       </div>
     </div>
   </div>
-  
+
 </form>
