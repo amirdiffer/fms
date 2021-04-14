@@ -228,11 +228,11 @@ export class AddAssetPolicyComponent
       if (x) {
         this.dialogModalAddOrUpdate = true;
         this.dialogSettingAddOrUpdate.header = this.isEdit
-          ? 'Edit user'
-          : 'Add new user';
+          ? 'Edit Asset Policy'
+          : 'Add new Asset Policy';
         this.dialogSettingAddOrUpdate.message = this.isEdit
           ? 'Changes Saved Successfully'
-          : 'User Added Successfully';
+          : 'Asset Policy Added Successfully';
         this.dialogSettingAddOrUpdate.isWarning = false;
         this.dialogSettingAddOrUpdate.hasError = false;
         this.dialogSettingAddOrUpdate.confirmButton = 'Yes';

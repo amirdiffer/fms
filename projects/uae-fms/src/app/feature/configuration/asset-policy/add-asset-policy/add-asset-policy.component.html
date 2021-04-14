@@ -1,109 +1,117 @@
 <form [formGroup]="assetPolicyForm" (ngSubmit)="submit()">
-    <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
-        <button class="btn-primary-medium add" type="submit">{{ (isEdit ? 'forms.edit' : 'forms.add') | translate }}</button>
-    </div>
-    <!-- form-section form-section--inline-->
-    <div class="form-section form-section--inline mt-3">
-        <div class="row">
+  <div class="button-container">
+    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancel()">{{ 'forms.cancel' | translate
+      }}</button>
+    <button class="btn-primary-medium add" type="submit">{{ (isEdit ? 'forms.edit' : 'forms.add') | translate
+      }}</button>
+  </div>
+  <!-- form-section form-section--inline-->
+  <div class="form-section form-section--inline mt-3">
+    <div class="row">
 
-          <div class="col-12 col-md-6 mb-2 align-self-center">
+      <div class="col-12 col-md-6 mb-2 align-self-center">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <h3 class="form-section__title m-0">{{ 'configuration.asset_policy.asset.this_policy_is_for' | translate }}
+            </h3>
+          </div>
+          <div class="col-12 col-md-8">
             <div class="row">
-              <div class="col-12 col-md-4">
-                <h3 class="form-section__title m-0">{{ 'configuration.asset_policy.asset.this_policy_is_for' | translate }}</h3>
+              <div class="form-check col-6">
+                <input class="form-check-input" formControlName="policyType" type="radio" name="policyType" id="asset"
+                  value="ASSET">
+                <label class="form-check-label" for="asset">{{ 'configuration.asset_policy.asset.asset' | translate
+                  }}</label>
               </div>
-              <div class="col-12 col-md-8">
-                <div class="row">
-                  <div class="form-check col-6">
-                    <input class="form-check-input" formControlName="policyType" type="radio" name="policyType" id="asset" value ="ASSET">
-                    <label class="form-check-label" for="asset">{{ 'configuration.asset_policy.asset.asset' | translate }}</label>
-                  </div>
-                  <div class="form-check col-6">
-                    <input class="form-check-input" formControlName="policyType" type="radio" name="policyType" id="subAsset" value ="SUB_ASSET">
-                    <label class="form-check-label" for="subAsset">{{ 'configuration.asset_policy.asset.sub_asset' | translate }}</label>
-                  </div>
-                </div>
+              <div class="form-check col-6">
+                <input class="form-check-input" formControlName="policyType" type="radio" name="policyType"
+                  id="subAsset" value="SUB_ASSET">
+                <label class="form-check-label" for="subAsset">{{ 'configuration.asset_policy.asset.sub_asset' |
+                  translate }}</label>
               </div>
             </div>
           </div>
-
-            <div class="col-12 col-md-6 p-field form-section__field">
-                <span class="p-float-label">
-                    <input formControlName="policyName" pInputText
-                        placeholder="{{ 'configuration.asset_policy.asset.policy_name' | translate }} *" required type="text">
-                    <label>{{ 'configuration.asset_policy.asset.policy_name' | translate }} *</label>
-                  </span>
-                  <anms-error
-                      [showError]="hasError('policyName',assetPolicyForm,submitted)"
-                      error="forms.feedback.required">
-                  </anms-error>
-            </div>
-
         </div>
-    </div>
-    <!-- end form-section form-section--inline-->
-    <!-- form-section -->
-    <div class="form-section">
-        <h3 class="form-section__title">{{ 'configuration.asset_policy.asset.maximum_usage' | translate }}</h3>
+      </div>
 
-        <div class="row form-section__row">
-            <div class="col-12 col-md-3 p-field form-section__field">
-                <span class="p-float-label">
-                    <input formControlName="kilometerUsage" pInputText
-                        placeholder="{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *" type="number">
-                    <label>{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *</label>
-                  </span>
-                  <anms-error
-                      [showError]="hasError('kilometerUsage',assetPolicyForm,submitted)"
-                      error="forms.feedback.required"></anms-error>
-            </div>
-            <div class="col-12 col-md-1 p-field form-section__field
+      <div class="col-12 col-md-6 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="policyName" pInputText
+            placeholder="{{ 'configuration.asset_policy.asset.policy_name' | translate }} *" required type="text">
+          <label>{{ 'configuration.asset_policy.asset.policy_name' | translate }} *</label>
+        </span>
+        <anms-error [showError]="hasError('policyName',assetPolicyForm,submitted)" error="forms.feedback.required">
+        </anms-error>
+      </div>
+
+    </div>
+  </div>
+  <!-- end form-section form-section--inline-->
+  <!-- form-section -->
+  <div class="form-section">
+    <h3 class="form-section__title">{{ 'configuration.asset_policy.asset.maximum_usage' | translate }}</h3>
+
+    <div class="row form-section__row">
+      <div class="col-12 col-md-3 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="kilometerUsage" pInputText
+            (keydown)="assetPolicyForm.get('yearUsage').patchValue(null)"
+            placeholder="{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *" type="number"
+            [attr.disabled]="assetPolicyForm.get('yearUsage').value && assetPolicyForm.get('yearUsage').value!=''">
+          <label>{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *</label>
+        </span>
+        <anms-error [showError]="hasError('kilometerUsage',assetPolicyForm,submitted)" error="forms.feedback.required">
+        </anms-error>
+      </div>
+      <div class="col-12 col-md-1 p-field form-section__field
                 d-flex justify-content-center align-self-center">
-                {{ 'configuration.asset_policy.asset.or' | translate }}
-            </div>
-            <div class="col-12 col-md-3 p-field form-section__field">
-                <span class="p-float-label">
-                    <input formControlName="yearUsage" pInputText placeholder="{{ 'configuration.asset_policy.asset.year' | translate }}" type="number">
-                    <label>{{ 'configuration.asset_policy.asset.year' | translate }}</label>
-                </span>
-              <anms-error
-                [showError]="hasError('yearUsage',assetPolicyForm,submitted)"
-                error="forms.feedback.required"></anms-error>
-            </div>
-        </div>
-        <div class="row form-section__row">
-            <div class="col-12 col-md-5 p-field form-section__field">
-              <div class="p-inputgroup">
-                <span class="p-float-label">
-                    <input formControlName="depreciationValue" pInputText
-                           placeholder="% {{ 'tables.column.depreciation_value' | translate }} *" required
-                           type="number">
-                           <label>% {{ 'tables.column.depreciation_value' | translate }} *</label>
-                          </span>
-                          <span class="yearly">{{ 'configuration.asset_policy.asset.yearly' | translate }}</span>
-                        </div>
-                      </div>
-                      <anms-error
-                        [showError]="hasError('depreciationValue',assetPolicyForm,submitted)"
-                        error="forms.feedback.required"></anms-error>
-
-            <div class="col-12 col-md-3 form-section__field toggle-select">
-                <p-inputSwitch formControlName="reminder"></p-inputSwitch>
-                <span>{{ 'configuration.asset_policy.asset.set_reminder_before' | translate }}</span>
-            </div>
-        </div>
-
+        {{ 'configuration.asset_policy.asset.or' | translate }}
+      </div>
+      <div class="col-12 col-md-3 p-field form-section__field">
+        <span class="p-float-label">
+          <input formControlName="yearUsage" (keydown)="assetPolicyForm.get('kilometerUsage').patchValue(null)"
+            pInputText placeholder="{{ 'configuration.asset_policy.asset.year' | translate }}" type="number"
+            [attr.disabled]="assetPolicyForm.get('kilometerUsage').value&&assetPolicyForm.get('kilometerUsage').value!=''">
+          <label>{{ 'configuration.asset_policy.asset.year' | translate }}</label>
+        </span>
+        <anms-error [showError]="hasError('yearUsage',assetPolicyForm,submitted)" error="forms.feedback.required">
+        </anms-error>
+      </div>
     </div>
-    <!-- end form-section -->
+    <div class="row form-section__row">
+      <div class="col-12 col-md-5 p-field form-section__field">
+        <div class="p-inputgroup">
+          <span class="p-float-label">
+            <input formControlName="depreciationValue" pInputText
+              placeholder="% {{ 'tables.column.depreciation_value' | translate }} *" required type="number">
+            <label>% {{ 'tables.column.depreciation_value' | translate }} *</label>
+          </span>
+          <span class="yearly">{{ 'configuration.asset_policy.asset.yearly' | translate }}</span>
+        </div>
+      </div>
+      <anms-error [showError]="hasError('depreciationValue',assetPolicyForm,submitted)" error="forms.feedback.required">
+      </anms-error>
+
+      <div class="col-12 col-md-3 form-section__field toggle-select">
+        <p-inputSwitch formControlName="reminder"></p-inputSwitch>
+        <span>{{ 'configuration.asset_policy.asset.set_reminder_before' | translate }}</span>
+      </div>
+    </div>
+
+  </div>
+  <!-- end form-section -->
 </form>
 
 <div class="table-container" *ngIf="false">
-    <div class="card-table">
-        <app-table [setting]="assetPolicy_Table" [tableData]="assetPolicy$"></app-table>
-    </div>
+  <div class="card-table">
+    <app-table [setting]="assetPolicy_Table" [tableData]="assetPolicy$"></app-table>
+  </div>
 </div>
 
 
-<alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel" (confirm)="dialogCancelConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogModalError=false"></alert-dialog>
-<alert-dialog [settings]="dialogSettingAddOrUpdate" [displayModal]="dialogModalAddOrUpdate" (confirm)="dialogAddOrUpdateConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel"
+  (confirm)="dialogCancelConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogModalError=false">
+</alert-dialog>
+<alert-dialog [settings]="dialogSettingAddOrUpdate" [displayModal]="dialogModalAddOrUpdate"
+  (confirm)="dialogAddOrUpdateConfirm($event)"></alert-dialog>
