@@ -340,7 +340,7 @@
                                       <div class="row">
                                         <div class="col-12 col-md-6 p-field form-section__field dropdown-select">
                                           <span class="p-float-label">
-                                            <input pInputText formControlName="item" [placeholder]="'assets.item' | translate"  type="text">
+                                            <input pInputText formControlName="item" [placeholder]="('assets.item' | translate) + '*'"  type="text">
                                             <label>{{ 'assets.item' | translate }}</label>
                                           </span>
                                           <anms-error
@@ -348,7 +348,7 @@
                                             error="forms.feedback.required">
                                           </anms-error>
                                         </div>
-                                        <div class="col-12 col-md-2 pr-0 p-field form-section__field dropdown-select">
+                                        <div class="col-12 col-md-3 pr-0 p-field form-section__field dropdown-select">
                                           <span class="p-float-label">
                                             <p-dropdown inputId="periodicService" formControlName="periodType" [placeholder]="'assets.period_type' | translate" [options]="periodType" optionLabel="name" optionValue="id"></p-dropdown>
                                             <label for="periodicService">{{ 'assets.period_type' | translate }}</label>
@@ -358,7 +358,7 @@
                                             error="forms.feedback.required">
                                           </anms-error>
                                         </div>
-                                        <div class="col-12 col-md-4 pl-0 p-field form-section__field dropdown-select">
+                                        <div class="col-12 col-md-3 pl-0 p-field form-section__field dropdown-select">
                                           <span class="p-float-label">
                                             <input pInputText numbersOnly [placeholder]="'assets.duration' | translate" formControlName="duration"  type="text">
                                             <label>{{ 'assets.duration' | translate }}</label>
@@ -394,7 +394,7 @@
                                       </div>
                                     </div>
                                     <div class="col-6 col-md-3" [class.col-md-6]="periodicService.value != '' ">
-                                      <anms-uploader [files]="[warrantyDocs[i]]" [multiple]="false" [preview]="false" [hasError]="false" (uploadedEvent)="uploadWarrantyFiles($event , i)"></anms-uploader>
+                                      <anms-uploader [files]="[warrantyDocs[i]]" [multiple]="false" [preview]="false" [hasError]="(formGroupMaintenance.get('warrantyItems')['controls'][i]['controls'].docId.errors !== null) && formGroupMaintenance.get('warrantyItems')['controls'][i]['controls'].docId.touched" (uploadedEvent)="uploadWarrantyFiles($event , i)"></anms-uploader>
                                     </div>
                                   </div>
                                 </div>
@@ -421,8 +421,8 @@
                       <div class="row">
                         <div class="col-12 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <input  formControlName="description" pInputTextarea   [placeholder]="'assets.description' | translate"  type="text">
-                            <label>{{ 'assets.description' | translate }}</label>
+                            <input  formControlName="description" pInputTextarea   [placeholder]="('assets.description' | translate) + '*'"  type="text">
+                            <label>{{ 'assets.description' | translate }} *</label>
                           </span>
                           <anms-error
                             [showError]="hasError('description',formGroupMaintenance,submitted_Maintenance)"
