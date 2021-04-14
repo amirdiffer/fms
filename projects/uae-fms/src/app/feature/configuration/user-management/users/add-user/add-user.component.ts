@@ -508,9 +508,9 @@ export class AddUserComponent
   employeeNumberChanged($event) {
     this.employee_static = $event;
     if (typeof $event != 'object') return;
-    this.form.controls['portalInformation'].patchValue({
-      department: this.departmentsB.filter(x => x.id == parseInt($event.organizationId))
-    });
+    // this.form.controls['portalInformation'].patchValue({
+    //   department: this.departmentsB.filter(x => x.id == parseInt($event.organizationId))
+    // });
     this.form.controls['fileUpload'].patchValue({
       file: $event.profileImage
     });
