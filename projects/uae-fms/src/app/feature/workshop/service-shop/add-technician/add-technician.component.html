@@ -133,8 +133,7 @@
                 <small class="red-font"
                         [class.d-none]="inputForm.get('professional.skills')['controls'][i].valid || !submited">{{'workshop.body_shop.technician.skill_validation_error' | translate}}
                 </small>
-                <!-- <small *ngIf="last" class="error-input"
-                    [class.d-none]="skill.value != null  || !addSkillValidation">{{ 'workshop.task_master.please_fill_skill' | translate }}</small> -->
+            
               </div>
               <span *ngIf="last" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}"
                   (click)="addSkill()">
@@ -175,11 +174,12 @@
                 inputForm.get('professional.location')['controls']; let i=index; let last=last;">
                 <div class="autocomplete-select flex-with-button">
                   <span class="p-float-label">
-                    <p-autoComplete [suggestions]="locations"
+                    <p-autoComplete [suggestions]="locationFiltered"
                                     [formControlName]="i"
-                                    (completeMethod)="filterLocation($event)"
-                                    field="name"
+                                    (completeMethod)="getFilteredLocation($event)"
+                                    field="address"
                                     [minLength]="1"
+                                    [dropdown]="true"
                                     [class.invalid]="!inputForm.get('professional.location')['controls'][i].valid
                       && submited">
                     </p-autoComplete>
