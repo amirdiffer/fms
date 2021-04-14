@@ -49,11 +49,11 @@
           <div formArrayName='makes'>
             <div class='form-section mt-3 h-100' *ngFor='let make of makes.controls; let index = index' [formGroupName]='index'>
             <div class='row form-section__row'>
-              <span class='remove-icon mt-1' (click)="removeMake(index)" [hidden]='!make.value.make.length'>
+              <span class='remove-icon mt-1' (click)="removeMake(index)" *ngIf='makes.controls.length != index + 1'>
                 <svg-icon src='assets/icons/add.svg'
                           [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
               </span>
-              <span class='plus-icon mt-1' (click)="addMake()" [hidden]='make.value.make.length'>
+              <span class='plus-icon mt-1' (click)="addMake()" *ngIf='makes.controls.length == index + 1'>
                 <svg-icon src='assets/icons/add.svg'
                           [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
               </span>

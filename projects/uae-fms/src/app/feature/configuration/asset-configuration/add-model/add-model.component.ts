@@ -162,8 +162,8 @@ export class AddModelComponent
     }
     return this._fb.group({
       id: '',
-      model: '',
-      modelDescription: '',
+      model: ['', Validators.compose([Validators.required])],
+      modelDescription: ['', Validators.compose([Validators.required])],
       trims: [[]]
     });
   }

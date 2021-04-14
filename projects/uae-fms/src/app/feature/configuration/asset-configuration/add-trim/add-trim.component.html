@@ -52,12 +52,12 @@
                  [formGroupName]='index'>
               <div class='col-6'>
                 <div class='row form-section__row'>
-                  <span class='remove-icon mt-1' (click)='removeTrim(index)' [hidden]='!trim.value.trim.length'>
+                  <span class='remove-icon mt-1' (click)='removeTrim(index)' *ngIf='trims.controls.length != index + 1'>
                     <svg-icon src='assets/icons/add.svg'
                               [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}">
                     </svg-icon>
                   </span>
-                  <span class='plus-icon mt-1' (click)='addTrim()' [hidden]='trim.value.trim.length'>
+                  <span class='plus-icon mt-1' (click)='addTrim()' *ngIf='trims.controls.length == index + 1'>
                     <svg-icon src='assets/icons/add.svg'
                               [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
                   </span>
@@ -103,7 +103,7 @@
               </div>
               <div class='col-6'>
                 <span class='font-weight-bold'>{{'filter.upload_asset_picture' | translate}}</span>
-                <anms-uploader [iconIsHidden]='true' [multiple]='false' [title]=''
+                <anms-uploader [isImage]="true" [iconIsHidden]='true' [multiple]='false' [title]=''
                                [preview]='true' [accept]="['.png', '.jpg']" (uploadedEvent)='uploadAssetPicture($event, index)'>
                 </anms-uploader>
               </div>
