@@ -381,18 +381,14 @@ export class AddCategoryComponent extends Utility implements OnInit {
   filterSubAssets(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     this.subAssets = this.subAssetsB.filter(
-      (x) =>
-        (x.id + '').indexOf(event.query) >= 0 ||
-        x.name.indexOf(event.query) >= 0
+      (x) => x.name.toLowerCase().indexOf(event.query.toLowerCase()) >= 0
     );
   }
 
   filterAccessories(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     this.accessories = this.accessoriesB.filter(
-      (x) =>
-        (x.id + '').indexOf(event.query) >= 0 ||
-        x.name.indexOf(event.query) >= 0
+      (x) => x.name.toLowerCase().indexOf(event.query.toLowerCase()) >= 0
     );
   }
 }
