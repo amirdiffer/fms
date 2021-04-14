@@ -45,13 +45,13 @@ export class AssetsComponent implements OnInit, OnDestroy {
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map((x) => {
       return x.map((y) => {
-        function date (){
-          let createdDate=moment.utc(y.createdAt).local().toDate();
+        function date() {
+          let createdDate = moment.utc(y.createdAt).local().toDate();
           let nowDate = new Date();
-          let newDate =nowDate.getTime() - createdDate.getTime()
+          let newDate = nowDate.getTime() - createdDate.getTime();
           return {
-            day : Math.floor(newDate/ (1000 * 3600 * 24))
-          }
+            day: Math.floor(newDate / (1000 * 3600 * 24))
+          };
         }
         return {
           ...y,
@@ -63,14 +63,19 @@ export class AssetsComponent implements OnInit, OnDestroy {
             ownership: 'Owned'
           },
           type: y.assetTypeName,
-          businessCategory: 'VIP',
-          allocated: 'Finance',
+          businessCategory: y.businessCategoryName,
+          allocated: y.department.name,
           operator: y.operator.firstName + ' ' + y.operator.lastName,
           status: y.status,
-          submitOn:  date().day > 0 ? (date().day == 1 ? `${date().day} Yesterday`: `${date().day} Days Ago`)  : 'Today' ,
+          submitOn:
+            date().day > 0
+              ? date().day == 1
+                ? `${date().day} Yesterday`
+                : `${date().day} Days Ago`
+              : 'Today',
           // brand: 'bmw.png',
           brand: y.makeName,
-          killometer: 25000,
+          killometer: y.actualOdometer,
           statusColor: '#009EFF'
         };
       });

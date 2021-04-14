@@ -102,6 +102,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   public vehicleDocRequired = false;
   public purchaseDocRequired = false;
   public maintenanceServiceDocRequired = false;
+  public warrantyDocsRequired: boolean[] = [];
 
   //#region  Dialog
   dialogModal = false;
@@ -667,12 +668,12 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
   public formBuilderArrayControl(): FormGroup {
     return this._fb.group({
-      item: [''],
-      periodType: [''],
-      duration: [''],
-      startDate: [''],
+      item: ['', [Validators.required]],
+      periodType: ['', [Validators.required]],
+      duration: ['', [Validators.required]],
+      startDate: ['', [Validators.required]],
       hasReminder: [false],
-      docId: ['']
+      docId: ['', [Validators.required]]
     });
   }
 
@@ -966,11 +967,12 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           formVal_Generate.quantity == 'multipleAsset'
             ? dpdcodes
             : [
-              `${this.ownerShip.find(
-                (x) => x.id == formVal_AssetDetail.businessInfo.ownership
-              ).fleetITCode
-              }${formVal_Generate.serialNumber}`
-            ]
+                `${
+                  this.ownerShip.find(
+                    (x) => x.id == formVal_AssetDetail.businessInfo.ownership
+                  ).fleetITCode
+                }${formVal_Generate.serialNumber}`
+              ]
       };
       formValue.warrantyItems.map((x) => {
         x.startDate = x.startDate.toISOString();
