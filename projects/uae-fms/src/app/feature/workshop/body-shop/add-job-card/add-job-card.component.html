@@ -33,7 +33,7 @@
             <button class="btn-download">
               <svg-icon [src]="downloadBtn"></svg-icon>
             </button>
-            <button class="btn-primary-small btn-scondary-green" type="button"><a (click)="cancelForm()">{{'forms.cancel' | translate}}</a></button>
+            <button class="btn-primary-small btn-scondary-green" type="button"(click)="cancelForm()"><a >{{'forms.cancel' | translate}}</a></button>
             <button class="btn-primary-small mx-1"><a>{{'forms.save' | translate}}</a></button>
           </span>
         </div>

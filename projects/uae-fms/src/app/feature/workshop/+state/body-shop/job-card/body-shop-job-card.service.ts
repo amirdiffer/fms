@@ -47,6 +47,11 @@ export class BodyShopJobCardService {
       environment.baseApiUrl + 'workshop/bodyshop/jobcard/' + id
     );
   }
+  getAssetActiveJobCard(id:number): Observable<ResponseBody<any[]>>{
+    return this.http.get<ResponseBody<any[]>>(
+      environment.baseApiUrl + `workshop/bodyshop/jobcard/asset/${id}`
+    );
+  }
   getAllAssethasJobCard(): Observable<ResponseBody<any[]>>{
     return this.http.get<ResponseBody<any[]>>(
       environment.baseApiUrl + 'workshop/bodyshop/asset/request?page=0&sort=createdAt,desc&size=10000'

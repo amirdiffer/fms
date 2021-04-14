@@ -29,6 +29,7 @@ import { map } from 'rxjs/operators';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
 import moment from 'moment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'anms-add-job-card',
@@ -68,6 +69,8 @@ export class AddJobCardComponent extends Utility implements OnInit {
   newTaskMasters: any[];
   submited = false;
   filteredJobCard;
+  jobCard$:Subscription;
+  allJobCards=[];
   priorities: any[] = [
     {
       id: 1,
@@ -214,6 +217,11 @@ export class AddJobCardComponent extends Utility implements OnInit {
 
   ngOnInit(): void {
     // this.relatedRequests$ = this._facadeRequest.assetRequest$.subscribe()
+    this._facadeRequest.resetParams();
+    this._facadeJobCard.loadAll();
+    this.jobCard$ = this._facadeJobCard.bodyShop$.subscribe(x =>{
+      this.allJobCards = x
+    })
     this.relatedRequests$ =  this._facadeRequest.assetRequest$.pipe(
       map((y) =>
       y.map((x) => ({
@@ -350,10 +358,22 @@ export class AddJobCardComponent extends Utility implements OnInit {
 
   selectAsset(e) {
     this._facadeJobCard.resetParams();
-    this.assetIdSelected = e.value;
-    // this._facadeRequest.getRequestsById(this.assetIdSelected);
-    this.relatedRequests$ = this._facadeRequest.getAssetRequest(e.value)
-    this._facadeRequest.getAssetRequest(e.value)
+    if(this.allJobCards.find((jobcard) => jobcard.assetId == e.value)){
+      this.errorDialogSetting.header = 'Job Card';
+      this.errorDialogSetting.message="Asset has alredy a job card, you can't add more than once!"
+      this.errorDialogSetting.hasError = true;
+      this.errorDialogSetting.cancelButton = undefined;
+      this.errorDialogSetting.confirmButton = 'Ok';
+      this.errorDialogModal= true;
+      this.inputForm.patchValue({
+        assetId:''
+      })
+    }else{
+      this.assetIdSelected = e.value;
+      this._facadeRequest.getAssetRequest(e.value);
+
+    }
+    
   }
   get tasks(): FormArray {
     return this.inputForm.get('tasks') as FormArray;
