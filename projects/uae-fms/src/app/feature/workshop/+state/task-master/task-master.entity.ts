@@ -14,6 +14,7 @@ export interface ITaskMasterState extends EntityState<ITaskMasterModel> {
   loaded: boolean;
   message: string;
   submitted:boolean;
+  skills:any[];
 }
 
 export const WORKSHOP_TASK_MASTER_FEATURE_KEY = 'taskMaster';
@@ -30,6 +31,7 @@ export const initialState: ITaskMasterState = taskMasterAdapter.getInitialState(
     loaded: null,
     message: null,
     error: null,
-    submitted:false
+    submitted:false,
+    skills:null
   } as ITaskMasterState
 );

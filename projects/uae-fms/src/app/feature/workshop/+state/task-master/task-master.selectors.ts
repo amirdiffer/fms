@@ -20,6 +20,11 @@ export class TaskMasterSelectors {
     (state) => state.error
   );
 
+  static skills = createSelector(
+    WorkshopSelectors.taskMasterSelector,
+    (state) => state.skills
+  );
+
   static submitted = createSelector(
     WorkshopSelectors.taskMasterSelector,
     (state) => state.submitted

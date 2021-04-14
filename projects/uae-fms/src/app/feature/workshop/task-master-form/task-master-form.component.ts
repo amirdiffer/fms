@@ -4,7 +4,8 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   Injector,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from '@angular/core';
 import { TaskMasterService } from '../task-master/task-master.service';
 import { Utility } from '@shared/utility/utility';
@@ -16,6 +17,7 @@ import {
   Validators
 } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'anms-task-master-form',
@@ -23,7 +25,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
   styleUrls: ['./task-master-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskMasterFormComponent extends Utility implements OnInit {
+export class TaskMasterFormComponent extends Utility implements OnInit , OnDestroy{
   searchIcon = 'assets/icons/search.svg';
   checked = true;
   taskMasterForm: FormGroup;
@@ -33,6 +35,9 @@ export class TaskMasterFormComponent extends Utility implements OnInit {
   dialogModal = false;
   dialogModalCancel = false;
   dialogModalError = false;
+  skillList:any[] =[];
+  skillFiltered:any[] =[];
+  skills$:Subscription;
   dialogSetting: IDialogAlert = {
     header: 'Task Master',
     hasError: false,
@@ -63,6 +68,10 @@ export class TaskMasterFormComponent extends Utility implements OnInit {
   isEdit = false;
   recordId: number;
   dialogType: string;
+
+  get skills(): FormArray{
+    return this.taskMasterForm.get('skill') as FormArray;
+  }
   constructor(
     private _taskMasterService: TaskMasterService,
     injector: Injector,
@@ -74,6 +83,13 @@ export class TaskMasterFormComponent extends Utility implements OnInit {
   }
 
   ngOnInit(): void {
+    this._facade.loadAllSkill();
+    this.skills$ = this._facade.skills$.subscribe(
+      (x)=>{
+        console.log(x)
+        this.skillList = x
+      }
+    )
     this.taskMasterForm = this._fb.group({
       taskName: ['', [Validators.required]],
       instruction: ['', [Validators.required]],
@@ -89,6 +105,9 @@ export class TaskMasterFormComponent extends Utility implements OnInit {
   }
   submit() {
     this.submitted = true;
+    if(this.skills.length> 1 && this.skills.controls[this.skills.length -1].value == null){
+      this.removeSkill(this.skills.length -1)
+    }
     if (this.taskMasterForm.invalid) {
       return;
     } else {
@@ -140,6 +159,20 @@ export class TaskMasterFormComponent extends Utility implements OnInit {
     });
   }
 
+  getAllSkill(event) {
+    let query = event.query
+    let filtered = []
+    for (let index = 0; index < this.skillList.length; index++) {
+      let skill = this.skillList[index];
+      if (skill.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(skill)
+      }
+    }
+    this.skillFiltered = filtered
+  }
+  skillSelect(event){
+    console.log(event)
+  }
   getTaskMasterPayload(value: any) {
     const {
       instruction,
@@ -157,9 +190,10 @@ export class TaskMasterFormComponent extends Utility implements OnInit {
       instruction: instruction,
       timeEstimate: timeEstimate,
       ratePerHour: ratePerHour,
-      skills: skill.map((s) => ({ name: s })),
+      skills: skill.map((s) => ({ name: s.name?s.name:s })),
       doesNeedParty: needPart
     };
+    console.log(taskMaster)
     return taskMaster;
   }
   cancel() {
@@ -185,6 +219,9 @@ export class TaskMasterFormComponent extends Utility implements OnInit {
       this.addSkillValidation = true;
     }
   }
+  removeSkill(i){
+    this.skills.removeAt(i);
+  }
   addPart(value) {
     if (value !== '' && value != null) {
       this.addPartValidation = false;
@@ -193,5 +230,9 @@ export class TaskMasterFormComponent extends Utility implements OnInit {
     } else {
       this.addPartValidation = true;
     }
+  }
+
+  ngOnDestroy():void{
+    this.skills$.unsubscribe()
   }
 }

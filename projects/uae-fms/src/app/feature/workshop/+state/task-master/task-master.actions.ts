@@ -34,5 +34,12 @@ export class TaskMasterActions {
     props<{ data: ITaskMasterModel }>()
   );
 
+  static loadAllSkill = createAction (
+    '[TaskMaster] load all skills',
+  )
+  static allSkillLoaded = createAction(
+    '[TaskMaster] all skills are loaded',
+    props<{ data: any[] }>()
+  );
   static resetParams = createAction('[Users] Reset Parameters');
 }
