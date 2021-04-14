@@ -283,7 +283,7 @@
         color: $fms-black-body-color;
       }
     }
-    
+
     .component_sec_wrapper {
       background-color: $fms-black-body2-bg;
     }
@@ -1078,14 +1078,14 @@ small {
 .p-dropdown {
   background: transparent;
 }
-button.p-autocomplete-dropdown{
+button.p-autocomplete-dropdown {
   z-index: 22;
   position: absolute;
   width: 100% !important;
-  opacity: 0; 
+  opacity: 0;
   cursor: text;
 }
-button.p-autocomplete-dropdown:disabled{
+button.p-autocomplete-dropdown:disabled {
   opacity: 0 !important;
 }
 
@@ -1105,4 +1105,10 @@ button.p-autocomplete-dropdown:disabled{
   border-radius: 5px;
   font-size: 10px;
   font-weight: bold;
+}
+
+/* fix overlap of spinner overlay with dialogs overlay*/
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 100;
 }
