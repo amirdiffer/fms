@@ -47,6 +47,7 @@ import { AssetConfigurationEffect } from '../+state/asset-configuration/asset-co
 import { AssetTypeEffect } from './asset-configuration/asset-type/asset-type.effect';
 import { AssetTypeFacade } from './asset-configuration/asset-type/asset-type.facade';
 import { AssetTypeService } from './asset-configuration/asset-type/asset-type.service';
+import { TaskMasterService } from '@feature/workshop/+state/task-master';
 
 @NgModule({
   declarations: [],
@@ -88,7 +89,8 @@ import { AssetTypeService } from './asset-configuration/asset-type/asset-type.se
     AssetConfigurationFacade,
     AssetConfigurationService,
     AssetTypeFacade,
-    AssetTypeService
+    AssetTypeService,
+    TaskMasterService
   ]
 })
 export class ConfigurationStateModule {}
