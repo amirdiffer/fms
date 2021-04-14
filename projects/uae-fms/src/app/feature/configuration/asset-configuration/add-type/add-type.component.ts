@@ -162,6 +162,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   dialogConfirm($event): void {
     if (this.dialogType == 'cancel') {
       this.facade.resetParams();
+      this.router.navigate(['/configuration/asset-configuration']);
       return;
     }
     this.dialogModal = false;

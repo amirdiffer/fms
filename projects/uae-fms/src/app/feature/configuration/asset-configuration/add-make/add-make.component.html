@@ -6,7 +6,7 @@
                 (click)='cancel()'>{{ 'forms.cancel' | translate }}</button>
         <button class='btn-primary-medium add' (click)='submit()'>{{ 'search.add' | translate }}</button>
       </div>
-      <div class='row'>
+      <div class='row' style="margin: 10px;">
         <div [ngStyle]="{'display': router.isActive('/configuration/add-asset-configuration/', true) ? 'block' : 'none'}" class='col-12 form-section mx-0 form-section--inline'>
           <div class='row form-section__row'>
             <div class='col-12 col-md-5 mb-2 align-self-center'>
