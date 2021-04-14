@@ -53,11 +53,11 @@
             [options]="roles$|async" formControlName="roleId"
             optionLabel="name"></p-dropdown>
           <label for="role">{{ 'configuration.users.role' | translate }}</label>
-          <anms-error
-            [showError]="hasError('roleId',form.get('portalInformation'),submited)"
-            error="forms.feedback.required">
-          </anms-error>
         </span>
+        <anms-error
+          [showError]="hasError('roleId',form.get('portalInformation'),submited)"
+          error="forms.feedback.required">
+        </anms-error>
       </div>
       <div class="col-12 col-md-3 form-section__field toggle-select">
         <span>{{ 'configuration.users.active_employee' | translate }}</span>
@@ -104,7 +104,7 @@
         <div class="row form-section__row">
           <div class="col-12 col-md-6 p-field form-section__field"
             formArrayName='emails'>
-            <span class="p-float-label" *ngFor='let _ of emails.controls; let
+            <span class="p-float-label mb-4" *ngFor='let _ of emails.controls; let
               index= index' [formGroupName]='index'>
               <div class="p-inputgroup" [class.mt-2]='emails.length> 1'>
                 <span class="p-float-label">
@@ -129,7 +129,7 @@
           </div>
           <div class="col-12 col-md-6 p-field form-section__field"
             formArrayName='phoneNumbers'>
-            <span class="p-float-label" *ngFor='let _ of phoneNumbers.controls;
+            <span class="p-float-label mb-4" *ngFor='let _ of phoneNumbers.controls;
               let index= index'
               [formGroupName]='index'>
               <div class="p-inputgroup" [class.mt-2]='phoneNumbers.length> 1'>

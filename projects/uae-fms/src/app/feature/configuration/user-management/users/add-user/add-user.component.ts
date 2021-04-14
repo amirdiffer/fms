@@ -278,7 +278,7 @@ export class AddUserComponent
       portalInformation: this.formBuilder.group({
         employeeNumber: ['', [Validators.required]],
         department: ['', [Validators.required]],
-        roleId: [''],
+        roleId: ['', [Validators.required]],
         activeEmployee: false
       }),
       fileUpload: this.formBuilder.group({
@@ -337,7 +337,7 @@ export class AddUserComponent
           ? this._user?.employeeNumber
           : this.employeeId,
         organizationId: 1,
-        departmentId: f.portalInformation.department.id || 1,
+        departmentId: f.portalInformation.department.id,
         roleId: 1,
         isActive: f.portalInformation.activeEmployee,
         profileDocId: this.profileDocId,
@@ -349,7 +349,7 @@ export class AddUserComponent
             else return x.email[0];
           } else if (typeof x == 'object') return x[0];
         }),
-        phoneNumbers: this.getPhone(f),
+        phoneNumbers: Array.isArray(this.getPhone(f)) ? (<Array<string>>this.getPhone(f)).filter(x => x != '') : this.getPhone(f),
         notifyByCall: f.personalInformation.callCheckbox,
         notifyBySMS: f.personalInformation.smsCheckbox,
         notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
@@ -509,7 +509,7 @@ export class AddUserComponent
     this.employee_static = $event;
     if (typeof $event != 'object') return;
     this.form.controls['portalInformation'].patchValue({
-      department: $event.organizationId
+      department: this.departmentsB.filter(x => x.id == parseInt($event.organizationId))
     });
     this.form.controls['fileUpload'].patchValue({
       file: $event.profileImage
