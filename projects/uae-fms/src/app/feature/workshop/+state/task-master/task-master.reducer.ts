@@ -34,6 +34,20 @@ const taskMasterReducer = createReducer(
     message: null,
     submitted: false
   })),
+  on(TaskMasterActions.loadAllSkill, (state) => ({
+    ...state,
+    loaded: false,
+    skills:null,
+    error: null,
+  })),
+  on(TaskMasterActions.allSkillLoaded, (state, { data }) =>
+    taskMasterAdapter.setAll(data, {
+       ...state, 
+       loaded: true, 
+       error: null,
+       skills:data
+    })
+  ),
   on(TaskMasterActions.taskMasterAddedSuccessfully, (state, { data }) => ({
     ...state,
     submitted: true

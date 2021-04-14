@@ -40,5 +40,19 @@ export class TaskMasterEffect {
     )
   );
 
+  loadAllSkills$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(TaskMasterActions.loadAllSkill),
+      mergeMap((action) =>
+        this.service.skills().pipe(
+          map((data: any) => {
+            return TaskMasterActions.allSkillLoaded({ data: data.message });
+          }),
+          catchError((error) => of(TaskMasterActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   constructor(private action$: Actions, private service: TaskMasterService, private _tableFacade: TableFacade) {}
 }

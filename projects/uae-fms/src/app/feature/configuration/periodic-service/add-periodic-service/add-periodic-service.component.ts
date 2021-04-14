@@ -4,7 +4,8 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   Injector,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
@@ -13,6 +14,8 @@ import { ColumnDifinition, ColumnType } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { PeriodicServiceFacade } from '../../+state/periodic-service';
 import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { TaskMasterService } from '@feature/workshop/+state/task-master';
 
 @Component({
   selector: 'anms-add-periodic-service',
@@ -20,7 +23,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./add-periodic-service.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddPeriodicServiceComponent extends Utility implements OnInit {
+export class AddPeriodicServiceComponent extends Utility implements OnInit , OnDestroy{
   //#region  Table
   tableColumns: ColumnDifinition[] = [
     {
@@ -111,12 +114,20 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   submitted: boolean = false;
   //#endregion
 
+  taskList:any[] =[];
+  taskFiltered:any[] =[];
+  tasks$:Subscription;
+  get task(): FormArray {
+    return this.periodicServiceForm.get('tasks') as FormArray;
+     
+  }
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
     private periodicServiceFacade: PeriodicServiceFacade,
     private periodicService: PeriodicServiceService,
     private _routerFacade: RouterFacade,
+    private _taskMasterService: TaskMasterService,
     private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
@@ -135,8 +146,18 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
     return packages['controls'][packageIndex].get('tasks') as FormArray;
   }
 
+  removeTask(i,j){
+    console.log(i ,j)
+    this.getTasksForm(i,j).removeAt(j)
+  }
   ngOnInit(): void {
     // this.periodicServiceFacade.loadAll();
+    this.tasks$ = this._taskMasterService.getAllTaks().subscribe(
+      (x)=>{
+        console.log(x)
+        this.taskList = x.message
+      }
+    )
     this.periodicServiceForm = this._fb.group({
       name: ['', [Validators.required]],
       packageName: [''],
@@ -193,7 +214,18 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
       }
     });
   }
-
+  getAllTask(event) {
+    let query = event.query
+    let filtered = []
+    for (let index = 0; index < this.taskList.length; index++) {
+      let task = this.taskList[index];
+      console.log(task)
+      if (task.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(task)
+      }
+    }
+    this.taskFiltered = filtered
+  }
   loadPeriodicServiceForm(periodicService: any) {
     const { name, numOfUsage, packages } = periodicService;
 
@@ -238,9 +270,11 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
       });
   }
 
-  addTask(taskName = '', packageIndex = 0): void {
+  addTask(taskName = '',packageIndex = 0, taskIndex): void {
+    if(this.getTasksForm(packageIndex,taskIndex).invalid)return;
+    
     this.tasks = this.getPackageTasks(packageIndex);
-    this.tasks.push(this.createTaskForm(taskName));
+    this.tasks.push(this.createTaskForm());
   }
 
   addPackage(packageName = '', intervals = '', tasks?): void {
@@ -250,6 +284,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
 
   submit() {
     this.submitted = true;
+    console.log(this.periodicServiceForm.value)
     if (this.periodicServiceForm.invalid) {
       return;
     }
@@ -280,7 +315,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
           name: p.packageName,
           intervalType: p.intervalType?.id ? p.intervalType?.id : 'KmPY',
           intervalValue: p.intervals,
-          tasks: p.tasks.map((t) => t.name)
+          tasks: p.tasks.map((t) => t.name.id)
         };
       })
     };
@@ -300,5 +335,8 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit {
   successDialogConfirm($event) {
     this.goToList();
     this.periodicServiceFacade.reset();
+  }
+  ngOnDestroy(){
+    this.tasks$.unsubscribe()
   }
 }

@@ -68,6 +68,7 @@ export interface ITechnician {
   skills: Skill[];
   numOfTasks: number;
   locations?:any[];
+
 }
 
 export interface Skill {
