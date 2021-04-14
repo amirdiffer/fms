@@ -214,6 +214,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
 
   ngOnInit(): void {
     // this.relatedRequests$ = this._facadeRequest.assetRequest$.subscribe()
+    this._facadeRequest.resetParams();
     this.relatedRequests$ =  this._facadeRequest.assetRequest$.pipe(
       map((y) =>
       y.map((x) => ({
@@ -351,9 +352,20 @@ export class AddJobCardComponent extends Utility implements OnInit {
   selectAsset(e) {
     this._facadeJobCard.resetParams();
     this.assetIdSelected = e.value;
-    // this._facadeRequest.getRequestsById(this.assetIdSelected);
-    this.relatedRequests$ = this._facadeRequest.getAssetRequest(e.value)
-    this._facadeRequest.getAssetRequest(e.value)
+    this._jobCardService.getAssetActiveJobCard(e.value).subscribe(
+      (x)=>{
+        console.log(x)
+        if(x){
+          if(x.resultNumber > 0){
+            return;
+          } else {
+            // this.relatedRequests$ = this._facadeRequest.getAssetRequest(e.value)
+            this._facadeRequest.getAssetRequest(e.value);
+          }
+        }
+      }
+    )
+    
   }
   get tasks(): FormArray {
     return this.inputForm.get('tasks') as FormArray;
