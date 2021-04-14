@@ -24,6 +24,13 @@ const organizationReducer = createReducer(
   on(OrganizationActions.organizationAddedSuccessfully, (state, { data }) =>
     ({ ...state, submitted: true, message: null, error: null })
   ),
+  on(OrganizationActions.editOrganization, (state, { data }) => ({
+    ...state,
+    submitted: false
+  })),
+  on(OrganizationActions.organizationEditedSuccessfully, (state, { data }) =>
+    ({ ...state, submitted: true, message: null, error: null })
+  ),
   on(OrganizationActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

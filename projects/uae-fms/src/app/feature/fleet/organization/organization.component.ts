@@ -4,8 +4,9 @@ import {
   ChangeDetectionStrategy,
   ViewChild
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { TableSetting } from '@core/table';
-import { ButtonType, TableComponent } from '@core/table/table.component';
+import { ButtonType, ColumnType, TableComponent } from '@core/table/table.component';
 import { map } from 'rxjs/operators';
 import { OrganizationFacade } from '../+state/organization';
 
@@ -67,25 +68,33 @@ export class OrganizationComponent implements OnInit {
         field: 'car',
         width: 100,
         sortable: true
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
-      // {
-      //   lable: '',
-      //   type: 3,
-      //   width: 70,
-      //   field: 'addButton',
-      //   renderer: 'button',
-      //   buttonType: ButtonType.add
-      // },
-      // {
-      //   lable: '',
-      //   width: 70,
-      //   type: 3,
-      //   field: 'actionButton',
-      //   renderer: 'button',
-      //   buttonType: ButtonType.action
-      // }
     ],
-    data: []
+    data: [],
+    rowSettings: {
+      onClick: (col, data, button?) => {
+        // if ('external') {
+        //   this.showOverView = true;
+        // }
+      },
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this.router.navigate(['/fleet/department/edit-department/' + data.id]);
+          }
+        }
+      ]
+    }
   };
 
   data$ = this.facade.organization$.pipe(
@@ -106,7 +115,7 @@ export class OrganizationComponent implements OnInit {
   );
   //#endregion
 
-  constructor(private facade: OrganizationFacade) {}
+  constructor(private facade: OrganizationFacade, private router: Router) { }
 
   ngOnInit(): void {
     this.facade.loadAll();

@@ -16,6 +16,14 @@ export class OrganizationActions {
     '[Organization] organization added successfully',
     props<{ data: IOrganization }>()
   )
+  static editOrganization = createAction(
+    '[Organization] edit organization',
+    props<{ data: IOrganization }>()
+  );
+  static organizationEditedSuccessfully = createAction(
+    '[Organization] organization Edited successfully',
+    props<{ data: IOrganization }>()
+  )
   static error = createAction(
     '[Organization] error occurred',
     props<{ reason: any }>()

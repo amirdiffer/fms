@@ -1,7 +1,7 @@
 <form [formGroup]="organizationForm">
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" (click)='cancel()'>{{ 'forms.cancel' | translate}}</button>
-    <button class="btn-primary-medium add" type="submit" (click)="submit()">{{ 'forms.add' | translate}}</button>
+    <button class="btn-primary-medium add" type="submit" (click)="submit()">{{ (isEdit?'forms.edit':'forms.add') | translate}}</button>
   </div>
   <div class="form-section">
     <h3 class="form-section__title">{{ 'organization.department_info' | translate}}</h3>
@@ -9,17 +9,15 @@
       <div class="col-12 col-md-6 p-field form-section__field">
         <div class="autocomplete-select">
           <span class="p-float-label">
-            <p-autoComplete formControlName="departmentId"
-              (completeMethod)="filterDepartments($event)"
+            <p-autoComplete *ngIf="!isEdit" formControlName="departmentId" (completeMethod)="filterDepartments($event)"
               [suggestions]="departments$ | async" field="organizationName"
-              (ngModelChange)="organizationIDChanged($event)"
-              [minLength]="1"></p-autoComplete>
-            <i class="pi pi-search"></i>
+              (ngModelChange)="organizationIDChanged($event)" [minLength]="1"></p-autoComplete>
+            <i *ngIf="!isEdit" class="pi pi-search"></i>
+            <input *ngIf="isEdit" formControlName="departmentId" pInputText type="text" disabled>
             <label>{{ 'organization.department_id' | translate}} *</label>
           </span>
-          <anms-error
-            [showError]="hasError('departmentId',organizationForm,submited)"
-            error="forms.feedback.required"></anms-error>
+          <anms-error [showError]="hasError('departmentId',organizationForm,submited)" error="forms.feedback.required">
+          </anms-error>
         </div>
       </div>
       <div class="col-12 col-md-6 p-field form-section__field">
@@ -28,9 +26,8 @@
             placeholder="{{ 'organization.department_name' | translate}}" required type="text">
           <label>{{ 'organization.department_name' | translate}} *</label>
         </span>
-        <anms-error
-          [showError]="hasError('departmentName',organizationForm,submited)"
-          error="forms.feedback.required"></anms-error>
+        <anms-error [showError]="hasError('departmentName',organizationForm,submited)" error="forms.feedback.required">
+        </anms-error>
       </div>
     </div>
 
@@ -42,13 +39,13 @@
       <div class="col-12 col-md-5 p-field form-section__field">
 
         <span class="input-group d-flex w-100 mt-3 flex-wrap" formArrayName='tags'>
-          <div class="p-field form-section__field flex-with-button w-100 flex-85" *ngFor='let tagItem of tags.controls; let index = index; let last=last;' [formGroupName]='index'>
+          <div class="p-field form-section__field flex-with-button w-100 flex-85"
+            *ngFor='let tagItem of tags.controls; let index = index; let last=last;' [formGroupName]='index'>
             <span class="p-float-label d-flex">
-              <input type="text"  formControlName="tag" pInputText
-                placeholder="{{'organization.tag' | translate}}">
+              <input type="text" formControlName="tag" pInputText placeholder="{{'organization.tag' | translate}}">
               <label>{{ 'organization.tag' | translate}}</label>
               <span *ngIf="last" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}"
-                    (click)="addTagField(tagItem.value.tag)">
+                (click)="addTagField(tagItem.value.tag)">
                 <i class="pi pi-plus"></i>
               </span>
             </span>
@@ -59,30 +56,27 @@
   </div>
   <div class="form-section">
     <h3 class="form-section__title"><span class='plus-icon'>
-      <svg-icon src='assets/icons/add.svg'
-                [svgStyle]="{ 'width.px': 18 , 'fill': '#0DA06E' , 'height':
+        <svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.px': 18 , 'fill': '#0DA06E' , 'height':
         '100%'}" (click)='addSection()'></svg-icon>
-    </span><span class='font-weight-bold ml-2'>{{ 'organization.section_department' | translate}}</span></h3>
+      </span><span class='font-weight-bold ml-2'>{{ 'organization.section_department' | translate}}</span></h3>
     <div formArrayName='section'>
-      <div class="row form-section__row" *ngFor='let _ of section.controls; let index = index;'
-           [formGroupName]='index'>
-      <div class="col-12 col-md-4 p-field form-section__field">
-        <span class="p-float-label">
-          <input formControlName="sectionName" pInputText
-            placeholder="{{ 'organization.section_name' | translate}}" required type="text">
-          <label>{{ 'organization.section_name' | translate}} *</label>
-        </span>
-        <anms-error
-          [showError]="formArrayHasError(submited, section, index, 'sectionName')"
-          error="forms.feedback.required"></anms-error>
-      </div>
+      <div class="row form-section__row" *ngFor='let _ of section.controls; let index = index;' [formGroupName]='index'>
+        <div class="col-12 col-md-4 p-field form-section__field">
+          <span class="p-float-label">
+            <input formControlName="sectionName" pInputText placeholder="{{ 'organization.section_name' | translate}}"
+              required type="text">
+            <label>{{ 'organization.section_name' | translate}} *</label>
+          </span>
+          <anms-error [showError]="formArrayHasError(submited, section, index, 'sectionName')"
+            error="forms.feedback.required"></anms-error>
+        </div>
         <div class="col-12 col-md-4 p-field form-section__field" formArrayName='locations'>
           <div *ngFor='let _ of sectionLocation(index).controls; let j = index; let last = last' [formGroupName]='j'
-              [class.mb-3]='sectionLocation(index).length > 1'>
+            [class.mb-3]='sectionLocation(index).length > 1'>
             <span class="p-float-label">
               <div class="p-inputgroup">
                 <span class="p-float-label">
-                  <input type="text"  formControlName="location" pInputText
+                  <input type="text" formControlName="location" pInputText
                     placeholder="{{ 'organization.location' | translate}}">
                   <label>{{ 'organization.location' | translate}} *</label>
                 </span>
@@ -91,9 +85,8 @@
                 </span>
               </div>
             </span>
-            <anms-error
-            [showError]="formArrayHasError(submited, sectionLocation(index), j, 'location')"
-            error="forms.feedback.required"></anms-error>
+            <anms-error [showError]="formArrayHasError(submited, sectionLocation(index), j, 'location')"
+              error="forms.feedback.required"></anms-error>
           </div>
         </div>
       </div>
@@ -104,7 +97,7 @@
 <div class="row" *ngIf="false">
   <div class='col-12'>
     <div class="table-container p-0">
-      <app-table [setting]='organization_Table'  [tableData]="data$" ></app-table>
+      <app-table [setting]='organization_Table' [tableData]="data$"></app-table>
     </div>
   </div>
 </div>

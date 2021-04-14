@@ -16,6 +16,8 @@ import {
 } from '@feature/fleet/+state/organization';
 import { debounceTime, map } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'anms-add-organization',
@@ -24,6 +26,9 @@ import { Subject, Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddOrganizationComponent extends Utility implements OnInit {
+  isEdit = false;
+  id;
+
   dialogModal = false;
   dialogType = null;
   dialogSetting: IDialogAlert = {
@@ -111,7 +116,8 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     private _fb: FormBuilder,
     private facade: OrganizationFacade,
     private organizationService: OrganizationService,
-    private changeDetection: ChangeDetectorRef
+    private changeDetection: ChangeDetectorRef,
+    public route: ActivatedRoute
   ) {
     super(injector);
   }
@@ -165,6 +171,47 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         this.changeDetection.detectChanges();
       }
     });
+
+    this.route.params.subscribe(z => {
+      if (!z?.id) return;
+      this.isEdit = true;
+      this.organizationService.searchDepartment(z.id).subscribe((x: any) => {
+        const res = x.message;
+        this.id = res.id;
+
+        let f = this.organizationForm.get('tags') as FormArray;
+        f.controls = [];
+        res.tags.forEach((a, i) => {
+          f.controls.push(this.createTagField())
+        })
+
+        let g = this.organizationForm.get('section') as FormArray;
+        g.controls = []
+        res.departments.forEach((a, i) => {
+          g.controls.push(this.createSection());
+          const l = g.controls[i].get('locations') as FormArray;
+          l.controls = [];
+          a.locationAddresses.forEach((b, j) => {
+            l.controls.push(this.createSectionLocation());
+          })
+
+          this.organizationForm.patchValue({
+            departmentId: res.organizationNumber,
+            departmentName: res.organizationName,
+            tags: res.tags.map(a => ({ tag: a })),
+            section: res.departments.map(a => ({
+              sectionName: a.name,
+              locations: a.locationAddresses.map(b => ({ location: b }))
+            }))
+          })
+
+          this.organizationNumber = res.organizationNumber;
+        })
+
+
+        this.changeDetection.detectChanges();
+      })
+    })
   }
 
   createTagField(): FormGroup {
@@ -211,7 +258,7 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     this.organizationNumber = +event.query;
     this.departmentList.next(event);
   }
-  organizationIDChanged($event) {}
+  organizationIDChanged($event) { }
 
   dialogConfirm(event) {
     this.dialogModal = false;
@@ -234,13 +281,18 @@ export class AddOrganizationComponent extends Utility implements OnInit {
           };
         })
       };
-      this.facade.addOrganization(value);
+
+      if (this.isEdit) {
+        this.facade.editOrganization({ ...value, id: this.id });
+      } else {
+        this.facade.addOrganization(value);
+      }
     }
     if (this.dialogType == 'success') {
-      this.goToList();
+      this._goToList();
     }
     if (this.dialogType == null) {
-      this.goToList();
+      this._goToList();
     }
   }
 
@@ -269,5 +321,10 @@ export class AddOrganizationComponent extends Utility implements OnInit {
       this.dialogSetting.confirmButton = 'Yes';
       this.dialogSetting.cancelButton = 'Cancel';
     }
+  }
+
+  _goToList() {
+    this.router.navigate(['fleet/department']);
+    this.facade.reset();
   }
 }

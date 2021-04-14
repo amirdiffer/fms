@@ -63,6 +63,10 @@ const routes: Routes = [
     path: 'department/add-department',
     component: AddOrganizationComponent
   },
+  {
+    path: 'department/edit-department/:id',
+    component: AddOrganizationComponent
+  },
   { path: '', redirectTo: 'assets' }
 ];
 

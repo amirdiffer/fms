@@ -9,7 +9,7 @@ import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class OrganizationEffects {
-  constructor(private action$: Actions, private service: OrganizationService, private _tableFacade: TableFacade) {}
+  constructor(private action$: Actions, private service: OrganizationService, private _tableFacade: TableFacade) { }
 
   loadAll$ = createEffect(() =>
     this.action$.pipe(
@@ -27,6 +27,7 @@ export class OrganizationEffects {
       )
     )
   );
+
   addOrganization$ = createEffect(() =>
     this.action$.pipe(
       ofType(OrganizationActions.addOrganization),
@@ -34,6 +35,22 @@ export class OrganizationEffects {
         this.service.post(action.data).pipe(
           map((data) =>
             OrganizationActions.organizationAddedSuccessfully({ data: data.message })
+          ),
+          catchError((error) =>
+            of(OrganizationActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  editOrganization$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(OrganizationActions.editOrganization),
+      mergeMap((action) =>
+        this.service.edit(action.data).pipe(
+          map((data) =>
+            OrganizationActions.organizationEditedSuccessfully({ data: data.message })
           ),
           catchError((error) =>
             of(OrganizationActions.error({ reason: error }))

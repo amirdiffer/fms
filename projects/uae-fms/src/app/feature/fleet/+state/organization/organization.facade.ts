@@ -16,6 +16,9 @@ export class OrganizationFacade {
   addOrganization(data: any) {
     this.store.dispatch(OrganizationActions.addOrganization({ data }));
   }
+  editOrganization(data: any) {
+    this.store.dispatch(OrganizationActions.editOrganization({ data }));
+  }
   reset() {
     this.store.dispatch(OrganizationActions.reset());
   }

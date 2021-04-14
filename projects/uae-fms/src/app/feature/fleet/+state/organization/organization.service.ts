@@ -8,7 +8,7 @@ import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class OrganizationService {
-  constructor(private _http: HttpClient, private _tableFacade: TableFacade) {}
+  constructor(private _http: HttpClient, private _tableFacade: TableFacade) { }
 
   params = new HttpParams();
   getParam(name) {
@@ -23,12 +23,18 @@ export class OrganizationService {
 
   loadAll(): Observable<ResponseBody<IOrganization[]>> {
     return this._http.get<ResponseBody<IOrganization[]>>(
-      environment.baseApiUrl + 'organization', {params: this.getParam('organization')}
+      environment.baseApiUrl + 'organization', { params: this.getParam('organization') }
     );
   }
-  post(data) : Observable<ResponseBody<IOrganization>>{
-    return this._http.post<ResponseBody<IOrganization>> (
+  post(data): Observable<ResponseBody<IOrganization>> {
+    return this._http.post<ResponseBody<IOrganization>>(
       environment.baseApiUrl + 'organization',
+      data
+    )
+  }
+  edit(data): Observable<ResponseBody<IOrganization>> {
+    return this._http.post<ResponseBody<IOrganization>>(
+      environment.baseApiUrl + 'organization/' + data.id + '/update',
       data
     )
   }
@@ -37,14 +43,14 @@ export class OrganizationService {
       environment.baseApiUrl + 'organization/' + id
     );
   }
-  loadWithPagination(page:number = 0 , sort:string = 'createdAt,desc' , size:number = 10000): Observable<ResponseBody<IOrganization[]>>{
+  loadWithPagination(page: number = 0, sort: string = 'createdAt,desc', size: number = 10000): Observable<ResponseBody<IOrganization[]>> {
     let params = new HttpParams();
-    params=params.append('page',`${page}`)
-    params = params.append('sort',sort)
-    params = params.append('size',`${size}`)
+    params = params.append('page', `${page}`)
+    params = params.append('sort', sort)
+    params = params.append('size', `${size}`)
     return this._http.get<ResponseBody<IOrganization[]>>(
       environment.baseApiUrl + 'organization',
-      {params: params}
+      { params: params }
     );
   }
 }
