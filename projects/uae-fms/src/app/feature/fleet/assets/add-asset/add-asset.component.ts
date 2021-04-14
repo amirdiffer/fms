@@ -419,12 +419,11 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
     this.businessCategory$ = this._facadeBussinessCategory.businessCategory$.subscribe(
       (x) => {
-        x.map((response) => {
-          const value = {
+        this.businessCategory = x.map((response) => {
+          return {
             id: response.id,
             name: response.name
           };
-          this.businessCategory.push(value);
         });
       }
     );
@@ -463,7 +462,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       if (this.isEdit && this._asset) {
         this.formGroupAssetDetail.patchValue({
           purchasedFor: {
-            department: this._asset.department.id
+            department: this._asset?.department?.id
           }
         });
       }
@@ -967,12 +966,11 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           formVal_Generate.quantity == 'multipleAsset'
             ? dpdcodes
             : [
-                `${
-                  this.ownerShip.find(
-                    (x) => x.id == formVal_AssetDetail.businessInfo.ownership
-                  ).fleetITCode
-                }${formVal_Generate.serialNumber}`
-              ]
+              `${this.ownerShip.find(
+                (x) => x.id == formVal_AssetDetail.businessInfo.ownership
+              ).fleetITCode
+              }${formVal_Generate.serialNumber}`
+            ]
       };
       formValue.warrantyItems.map((x) => {
         x.startDate = x.startDate.toISOString();
