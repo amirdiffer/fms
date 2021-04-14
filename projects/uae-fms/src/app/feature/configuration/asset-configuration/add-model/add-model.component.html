@@ -6,7 +6,7 @@
                 (click)='cancel()'>{{ 'forms.cancel' | translate }}</button>
         <button class='btn-primary-medium add' (click)='submit()'>{{ 'search.add' | translate }}</button>
       </div>
-      <div class='row'>
+      <div class='row' style="margin: 10px;">
         <div [ngStyle]="{'display': router.isActive('/configuration/add-asset-configuration/', true) ? 'block' : 'none'}" class='col-12 form-section mx-0 form-section--inline'>
           <div class='row form-section__row'>
             <div class='col-12 col-md-5 mb-2 align-self-center'>
@@ -49,11 +49,11 @@
           <div formArrayName='models'>
             <div class='form-section mt-3 h-100' *ngFor='let model of models.controls; let index = index' [formGroupName]='index'>
               <div class='row form-section__row'>
-              <span class='remove-icon mt-1' (click)="removeModel(index)" [hidden]='!model.value.model.length'>
+              <span class='remove-icon mt-1' (click)="removeModel(index)" *ngIf='models.controls.length != index + 1'>
                 <svg-icon src='assets/icons/add.svg'
                           [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
               </span>
-                <span class='plus-icon mt-1' (click)="addModel()" [hidden]='model.value.model.length'>
+                <span class='plus-icon mt-1' (click)="addModel()" *ngIf='models.controls.length == index + 1'>
                 <svg-icon src='assets/icons/add.svg'
                           [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
               </span>

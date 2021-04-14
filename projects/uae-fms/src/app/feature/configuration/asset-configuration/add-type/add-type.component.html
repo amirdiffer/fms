@@ -1,73 +1,44 @@
-<div class="row">
-    <div class="col-12">
-        <form [formGroup]="inputForm">
-            <div class="button-container">
-                <button class="btn-primary-medium btn-scondary-green" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
-                <button class="btn-primary-medium add" (click)="submit()">{{ 'search.add' | translate }}</button>
-            </div>
-          <div class='row'>
-          <div class="col-12">
-                <div class="row form-section__row">
-                    <!-- <div class="col-12 col-md-5 mb-2 align-self-center">
-                      <div class="row">
-                        <div class="col-12 col-md-3">
-                          <h3 class="form-section__title m-0">{{ 'configuration.add_asset_configuration.type_category' | translate }}</h3>
-                        </div>
-                        <div class="col-12 col-md-9">
-                          <div class="row mt-2 ml-3">
-                            <div class="form-check col-3">
-                              <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="asset" value ="asset">
-                              <label class="form-check-label" for="asset">{{ 'configuration.add_asset_configuration.asset' | translate }}</label>
-                            </div>
-                            <div class="form-check col-4">
-                              <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="subAsset" value ="subAsset">
-                              <label class="form-check-label" for="subAsset">{{ 'configuration.add_asset_configuration.sub_asset' | translate }}</label>
-                            </div>
-                            <div class="form-check col-3">
-                              <input class="form-check-input" formControlName="typeCategory" type="radio" name="typeCategory" id="accessory" value ="accessory">
-                              <label class="form-check-label" for="accessory">{{ 'configuration.add_asset_configuration.accessory' | translate }}</label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
-                    <configuration-asset-category class="w-100"></configuration-asset-category>
-                  </div>
-            </div>
-            <div class='col-3 pl-0 mt-2'>
-              <configuration-asset-type></configuration-asset-type>
-            </div>
-            <div class="col-9 form-section mt-3 h-100">
-                <h3 class="form-section__title">{{ 'filter.add_asset_type' | translate }}</h3>
-                <div class="row form-section__row">
-                  <div class="col-12 col-md-3 p-field form-section__field">
-                    <div class="autocomplete-select">
+<form [formGroup]="inputForm">
+  <div class="button-container">
+    <button class="btn-primary-medium btn-scondary-green" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
+    <button class="btn-primary-medium add" (click)="submit()">{{ 'search.add' | translate }}</button>
+  </div>
+  <configuration-asset-category class="w-100"></configuration-asset-category>
+  <div class='row'>
+    <div class='col-3 mt-2'>
+      <configuration-asset-type></configuration-asset-type>
+    </div>
+    <div class="col-9 h-100">
+      <div class="form-section">
+        <h3 class="form-section__title">{{ 'filter.add_asset_type' | translate }}</h3>
+        <div class="row form-section__row">
+          <div class="col-12 col-md-3 p-field form-section__field">
+            <div class="autocomplete-select">
                       <span class="p-float-label">
                         <input formControlName="typeName" pInputText placeholder="{{ 'filter.asset_type' | translate }} *" type="text">
                         <label>{{ 'filter.asset_type' | translate }} *</label>
                       </span>
-                      <anms-error [showError]="hasError('typeName', inputForm, submited)"
-                                  error="forms.feedback.required"></anms-error>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-2 form-section__field toggle-select">
-                    <span class='font-weight-bold'>{{ 'filter.type_status' | translate }}</span>
-                    <p-inputSwitch formControlName="activetype"></p-inputSwitch>
-                  </div>
-                  <div class="col-12 col-md-12 p-field form-section__field">
-                    <div class="autocomplete-select">
+              <anms-error [showError]="hasError('typeName', inputForm, submited)"
+                          error="forms.feedback.required"></anms-error>
+            </div>
+          </div>
+          <div class="col-12 col-md-2 form-section__field toggle-select">
+            <span class='font-weight-bold'>{{ 'filter.type_status' | translate }}</span>
+            <p-inputSwitch formControlName="activetype"></p-inputSwitch>
+          </div>
+          <div class="col-12 col-md-12 p-field form-section__field">
+            <div class="autocomplete-select">
                       <span class="p-float-label">
                         <input formControlName="description" pInputText placeholder="{{ 'filter.description' | translate }} *" type="text">
                         <label>{{ 'filter.description' | translate }} *</label>
                       </span>
-                      <anms-error [showError]="hasError('description', inputForm, submited)"
-                                  error="forms.feedback.required"></anms-error>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <anms-error [showError]="hasError('description', inputForm, submited)"
+                          error="forms.feedback.required"></anms-error>
             </div>
-        </form>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+</form>
 <alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
