@@ -160,7 +160,8 @@ export class AddUserComponent
               this.form.controls['portalInformation'].patchValue({
                 employeeNumber: x.employeeNumber,
                 department: {
-                  name: `${x.department.name}`
+                  name: `${x.department.organizationName}`,
+                  id: `${x.department.id}`
                 },
                 roleId: x.role.roleId,
                 activeEmployee: x.isActive
