@@ -14,6 +14,8 @@ export class TaskMasterFacade {
 
   submitted$ = this.store.pipe(select(TaskMasterSelectors.submitted));
 
+  skills$ = this.store.pipe(select(TaskMasterSelectors.skills));
+
   constructor(private store: Store<ITaskMasterPartialState>) {}
 
   loadAll() {
@@ -28,6 +30,9 @@ export class TaskMasterFacade {
     this.store.dispatch(TaskMasterActions.editTaskMaster({ data }));
   }
 
+  loadAllSkill (){
+    this.store.dispatch(TaskMasterActions.loadAllSkill());
+  }
   reset() {
     this.store.dispatch(TaskMasterActions.resetParams());
   }

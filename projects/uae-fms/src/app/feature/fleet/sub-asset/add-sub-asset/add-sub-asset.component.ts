@@ -582,10 +582,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   submit() {
     this.submitted = true;
-    if(this.avatarDoc.length < 1){
-      this.avatarDocRequired=true;
-      return
-    }
     if (this.subAssetForm.invalid) {
       return;
     } else {

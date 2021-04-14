@@ -64,32 +64,37 @@
               <label>{{ 'configuration.periodic_service.intervals' | translate
                 }}</label>
             </span>
-
           </div>
         </div>
-
-
         <div class="col-12 col-md-2">
           <h3 class="form-section__title text-center">{{
             'configuration.periodic_service.task' | translate }}</h3>
         </div>
-
         <div class="col-12 col-md-5 p-field form-section__field" formArrayName="tasks">
-          <div class="mt-2" [formGroupName]="j" *ngFor="let item of
-          getPackageTasks(i).controls ;let j=index">
-            <span class="p-float-label">
-              <div class="p-inputgroup">
+          <div class="mt-2">
+          <div class="mb-3 p-field form-section__field d-flex " *ngFor="let item of getPackageTasks(i).controls ;let j=index; let last=last;">
+            <div class="input-group flex-with-button" [formGroupName]="j">
+              <div class="autocomplete-select w-100">
                 <span class="p-float-label">
-                  <input type="text" required formControlName="name" pInputText placeholder="{{ 'configuration.periodic_service.task' |
-                      translate }}">
-                  <label>{{ 'configuration.periodic_service.task' | translate }} *</label>
-                </span>
-                <span class="p-inputgroup-addon addon-primary">
-                  <i class="pi pi-plus" (click)="addTask('',i)"></i>
+                  <p-autoComplete formControlName="name" (completeMethod)="getAllTask($event)"
+                                  [suggestions]="taskFiltered" field="name" [minLength]="1"
+                                  [dropdown]="true"></p-autoComplete>
+                                  <i class="pi pi-search"></i>
+                                  <label>{{ 'configuration.periodic_service.task' | translate }} *</label>
                 </span>
               </div>
               <anms-error [showError]="formArrayHasError(submitted, getTasksForm(i, j), j, 'name')" error="forms.feedback.required"></anms-error>
+
+            </div>
+            <span *ngIf="last" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer','height': '40px'}"
+                (click)="addTask('',i,j)">
+                <i class="pi pi-plus"></i>
+              </span>
+            <span *ngIf="!last" class='remove-icon p-inputgroup-addon'(click)="removeTask(i,j)" [ngStyle]="{'cursor': 'pointer','height': '40px'}">
+              <svg-icon src='assets/icons/add.svg'
+                        [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
             </span>
+          </div>
           </div>
         </div>
 

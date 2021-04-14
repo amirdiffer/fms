@@ -88,6 +88,9 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   avatarId = [];
   section_static;
   sectionId;
+  skillList:any[] =[];
+  skillFiltered:any[] =[];
+  skills$:Subscription;
   technicianData$ = this._technicianFacade.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
@@ -216,13 +219,20 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     private _locationService: BodyShopLocationService,
     private _taskMasterService: TaskMasterService,
     private _departmentService: OrganizationService,
+    private _facadeTaskMaster: TaskMasterFacade,
     private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
-    // this._technicianFacade.loadAll();
+    this._facadeTaskMaster.loadAllSkill();
+    this.skills$ = this._facadeTaskMaster.skills$.subscribe(
+      (x)=>{
+        console.log(x)
+        this.skillList = x
+      }
+    )
     this._locationFacade.loadAll();
     this._taskMasterService.skills().subscribe((x) => {
       let data = x.message;
@@ -247,6 +257,8 @@ export class AddTechnicianComponent extends Utility implements OnInit {
           .subscribe((x) => {
             if (x) {
               this._technician = x;
+              this.avatarId = Array.isArray(x.user.profileDocId) ? x.user.profileDocId : [x.user.profileDocId];
+              console.log(x)
               this.inputForm.controls['portalInfo'].patchValue({
                 employeeNumber: {
                   organizationId:x.user.employeeNumber
@@ -275,15 +287,20 @@ export class AddTechnicianComponent extends Utility implements OnInit {
               });
 
               for (let i = 0; i < x.skills.length; i++) {
-                this.addSkill();
                 this.getSkill.controls[i].patchValue(x.skills[i])
+                if(i != x.skills.length -1){
+                  this.addSkill();
+                }
               }
               for (let i = 0; i < x.locations.length; i++) {
-                this.addLocation();
                 this.getLocation.controls[i].patchValue({
                   name: x.locations[i].address,
                   id: x.locations[i].id
                 })
+                if(i != x.locations.length -1){
+                  this.addLocation();
+                }
+                
               }
               this.emails.controls = [];
               for (let i = 0; i < x.user.emails.length; i++) {
@@ -464,12 +481,16 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     this.sectionId = $event.id
   }
 
-  filterSkills(event) {
-    this.skills = this.skillsB.filter(
-      (x) =>
-        (x.id + '').indexOf(event.query) >= 0 ||
-        x.name.indexOf(event.query) >= 0
-    );
+  getAllSkill(event) {
+    let query = event.query
+    let filtered = []
+    for (let index = 0; index < this.skillList.length; index++) {
+      let skill = this.skillList[index];
+      if (skill.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(skill)
+      }
+    }
+    this.skillFiltered = filtered
   }
 
   filterLocation(event) {
@@ -506,12 +527,18 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     const skill = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('professional.skills')).push(skill);
   }
+  removeSkill(i){
+    this.getSkill.removeAt(i)
+  }
   addLocation() {
     if (this.inputForm.get('professional.location').invalid) {
       return;
     }
     const location = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('professional.location')).push(location);
+  }
+  removeLocation(i){
+    this.getLocation.removeAt(i)
   }
   addEmail() {
     const email = new FormControl(null, [Validators.required]);
@@ -541,8 +568,8 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         employeeNumber: this.isEdit
           ? this._technician?.employeeNumber
           : this.employeeId,
-        organizationId: f.portalInfo.department,
-        departmentId: f.portalInfo.section,
+        organizationId: +f.portalInfo.department.id,
+        departmentId: +f.portalInfo.section.id,
         payPerHour: f.portalInfo.payPerHours,
         isActive: f.portalInfo.active,
         profileDocId: this.profileDocId || 1,
@@ -577,7 +604,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         this._technicianFacade.addTechnician(technicianInfo);
       }
     } else {
-      this.router.navigate(['workshop/body-shop']).then((_) => {
+      this.router.navigate(['workshop/body-shop'],{queryParams:{id:'technicianTab'}}).then((_) => {
         this._technicianFacade.resetParams();
       });
     }
@@ -633,11 +660,17 @@ export class AddTechnicianComponent extends Utility implements OnInit {
 
   addRequest() {
     this.submited = true;
+    if(this.getSkill.length> 1 && this.getSkill.controls[this.getSkill.length -1].value == null){
+      this.removeSkill(this.getSkill.length -1)
+    }
+    if(this.getLocation.length> 1 && this.getLocation.controls[this.getLocation.length -1].value == null){
+      this.removeLocation(this.getLocation.length -1)
+    }
     if (this.inputForm.invalid) {
       this.inputForm.markAllAsTouched();
       return;
     }
-
+    
     this.dialogModal = true;
     this.dialogType = 'submit';
     if (this.isEdit) {
@@ -680,25 +713,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       'Are you sure that you want to cancel adding new technician?';
     this.dialogSetting.confirmButton = 'Yes';
     this.dialogSetting.cancelButton = 'Cancel';
-  }
-  public dropped(files: NgxFileDropEntry[]) {
-    this.filesUpdloaded = files;
-    for (const droppedFile of files) {
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {});
-      } else {
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-      }
-    }
-  }
-
-  public fileOver(event) {
-    // console.log(event);
-  }
-
-  public fileLeave(event) {
-    // console.log(event);
   }
 
   uploadImage($event) {

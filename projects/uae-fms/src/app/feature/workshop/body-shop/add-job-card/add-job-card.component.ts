@@ -422,7 +422,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
         this._facadeJobCard.addJobCard(jobCardInfo, f.assetId);
       }
     } else {
-      this.router.navigate(['/workshop/body-shop']).then((_) => {
+      this.router.navigate(['/workshop/body-shop'],{queryParams:{id:'jobcardTab'}}).then((_) => {
         this._facadeJobCard.resetParams();
       });
     }

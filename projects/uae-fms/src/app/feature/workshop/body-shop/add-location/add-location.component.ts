@@ -308,7 +308,7 @@ export class AddLocationComponent extends Utility implements OnInit {
         this._facadeLocation.addLocation(locationInfo);
       }
     } else {
-      this.router.navigate(['/workshop/body-shop']).then((_) => {
+      this.router.navigate(['/workshop/body-shop'] , {queryParams:{id:'locationTab'}}).then((_) => {
         this._facadeLocation.resetParams();
       });
     }
