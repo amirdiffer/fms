@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { BusinessCategoryFacade } from '../+state/business-category';
-import { DataService } from './data.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -19,7 +18,6 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BusinessCategoryComponent implements OnInit, OnDestroy {
-
   //#region Variables
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   getBusinessCategorySubscription!: Subscription;
@@ -62,10 +60,11 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
     data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
-        this.dataService.dataToEditFromTable = data;
-        this.dataService.isEditing = true;
         this.router
-          .navigate(['/configuration/business-category/edit-usage-category'])
+          .navigate(
+            ['/configuration/business-category/edit-usage-category'],
+            { queryParams: { id: data['id'] } }
+          )
           .then();
       },
       floatButton: [
@@ -78,11 +77,7 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   };
   //#endregion
 
-  constructor(
-    private facade: BusinessCategoryFacade,
-    private dataService: DataService,
-    private router: Router
-  ) {}
+  constructor(private facade: BusinessCategoryFacade, private router: Router) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -99,5 +94,4 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   eventPagination() {
     this.facade.loadAll();
   }
-
 }
