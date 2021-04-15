@@ -12,6 +12,7 @@ import { SettingsFacade } from '@core/settings/settings.facade';
 import { Language } from '@core/settings/settings.model';
 import { DOCUMENT } from '@angular/common';
 import { UserProfileFacade } from '@feature/user/state';
+import { environment } from "@environments/environment";
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ import { UserProfileFacade } from '@feature/user/state';
 export class LoginComponent implements OnInit {
   showLoginError = false;
   submited = false;
+  appVersion = environment.versions.app;
 
   public credentialsFG: FormGroup;
   constructor(
