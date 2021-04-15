@@ -59,7 +59,8 @@ export class UsersComponent implements OnInit {
         return {
           ...y,
           information: { emails: y.emails, phoneNumbers: y.phoneNumbers },
-          roleName: y?.role?.roleName
+          roleName: y?.role?.roleName,
+          statusColor: y.isActive ? '#7F87CA' : '#BA7967'
         };
       });
     })
@@ -95,7 +96,12 @@ export class UsersComponent implements OnInit {
           type: 'array'
         }
       },
-      { lable: 'tables.column.status', type: 1, field: 'isActive', renderer: 'booleanRenderer' },
+      {
+        lable: 'tables.column.status',
+        type: 1,
+        field: 'isActive',
+        renderer: 'booleanRenderer'
+      },
       { lable: 'tables.column.role', type: 1, field: 'roleName' },
       {
         lable: '',

@@ -17,7 +17,7 @@
       <div class="col-12 col-md-3 p-field form-section__field">
         <div class="autocomplete-select">
           <span class="p-float-label"  *ngIf="!isEdit">
-            <p-autoComplete formControlName="employeeNumber" (completeMethod)="getEmployee($event)"
+            <p-autoComplete type="number" formControlName="employeeNumber" (completeMethod)="getEmployee($event)"
               [suggestions]="employees$|async" field="organizationId" [minLength]="1"
               (ngModelChange)="employeeNumberChanged($event)" required [disabled]="isEdit"></p-autoComplete>
             <i class="pi pi-search"></i>
@@ -134,7 +134,7 @@
               [formGroupName]='index'>
               <div class="p-inputgroup" [class.mt-2]='phoneNumbers.length> 1'>
                 <span class="p-float-label">
-                  <input type="text" formControlName="phoneNumber" pInputText
+                  <input type="number" formControlName="phoneNumber" pInputText
                     placeholder="Phone Number">
                   <label>{{ 'configuration.users.phone_number' | translate }}</label>
                 </span>
