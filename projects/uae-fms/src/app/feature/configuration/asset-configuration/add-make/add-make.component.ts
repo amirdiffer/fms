@@ -4,7 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  Injector,
+  Injector, OnDestroy,
   OnInit,
   Renderer2,
   ViewChild
@@ -29,6 +29,7 @@ import { Utility } from '@shared/utility/utility';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { IAssetType } from '@models/asset-type.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'anms-add-make',
@@ -36,7 +37,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./add-make.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
+export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, OnDestroy {
   radioButtonSelect: 'mModel';
   public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
@@ -48,6 +49,8 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
   percent = 80;
   fileName = 'CSV File only';
   submited = false;
+
+  assetTypeSubs$: Subscription;
 
   assetConfigurationTableSetting!: TableSetting;
 
@@ -86,18 +89,50 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
+    this.inputForm = this._fb.group({
+      typeCategory: ['asset', Validators.required],
+      makes: new FormArray([this.createMake()])
+    });
+
     this.route.params.subscribe((x) => {
       if (x && x.assetType) this.assetTypeId = x.assetType;
+      this.assetTypeSubs$ = this.facade.assetType$.subscribe((response) => {
+        response.map((obj) => {
+          if (obj.id === this.dataService.selectedTypeId) {
+            this.assetType = obj;
+
+            if (this.assetType.type === 'ASSET') {
+              this.inputForm.patchValue({ typeCategory: 'asset' });
+            } else if (this.assetType.type === 'SUB_ASSET') {
+              this.inputForm.patchValue({ typeCategory: 'subAsset' });
+            } else if (this.assetType.type === 'ACCESSORY') {
+              this.inputForm.patchValue({ typeCategory: 'accessory' });
+            }
+
+            this.makes.clear();
+            for (let index = 0; index < obj.makes.length; index++) {
+              this.addMake();
+              this.makes.controls[index].patchValue({
+                id: obj.makes[index].id,
+                make: obj.makes[index].make,
+                makeDescription: obj.makes[index].makeDescription,
+                models: obj.makes[index].models,
+                // @ts-ignore
+                origins: obj.makes[index].origins
+              });
+            }
+            this.addMake();
+          }
+        });
+      });
     });
 
     this.facade.assetType$.subscribe((x) => {
       this.assets = x;
     });
 
-    this.inputForm = this._fb.group({
-      typeCategory: ['asset', Validators.required],
-      makes: new FormArray([this.createMake()])
-    });
+
 
     if (!this.dataService.selectedTypeId) {
       this.router.navigate(['/configuration/asset-configuration']).then((_) => {
@@ -105,35 +140,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
       });
     }
 
-    this.facade.assetType$.subscribe((response) => {
-      response.map((obj) => {
-        if (obj.id === this.dataService.selectedTypeId) {
-          this.assetType = obj;
-
-          if (this.assetType.type === 'ASSET') {
-            this.inputForm.patchValue({ typeCategory: 'asset' });
-          } else if (this.assetType.type === 'SUB_ASSET') {
-            this.inputForm.patchValue({ typeCategory: 'subAsset' });
-          } else if (this.assetType.type === 'ACCESSORY') {
-            this.inputForm.patchValue({ typeCategory: 'accessory' });
-          }
-
-          this.makes.clear();
-          for (let index = 0; index < obj.makes.length; index++) {
-            this.addMake();
-            this.makes.controls[index].patchValue({
-              id: obj.makes[index].id,
-              make: obj.makes[index].make,
-              makeDescription: obj.makes[index].makeDescription,
-              models: obj.makes[index].models,
-              // @ts-ignore
-              origins: obj.makes[index].origins
-            });
-          }
-          this.addMake();
-        }
-      });
-    });
 
     this.facade.submitted$.subscribe((x) => {
       if (x) {
@@ -302,4 +308,10 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
 
     this.facade.addMake(data, this.assetTypeId);
   }
+
+  ngOnDestroy(): void {
+    this.assetTypeSubs$.unsubscribe();
+  }
+
+
 }
