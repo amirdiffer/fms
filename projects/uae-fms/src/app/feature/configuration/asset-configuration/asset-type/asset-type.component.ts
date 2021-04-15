@@ -123,7 +123,6 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     }
     this.selectMake.emit(item.makes);
     this.dataService.updateTree(item.id, item.type, item);
-    console.log(this.dataService.tree)
   }
 
   onMakeClick(make: MakeExtension): void {
@@ -136,14 +135,12 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     }
     this.selectModel.emit(make.models);
     this.dataService.updateTree(make.id, 'make', make)
-    console.log(this.dataService.tree)
   }
 
   onModelClick(model: ModelExtension): void {
     this.selectTrim.emit(model.trims);
     model.isSelected = !model.isSelected;
     this.dataService.updateTree(model.id, 'model', model);
-    console.log(this.dataService.tree)
   }
 
 
