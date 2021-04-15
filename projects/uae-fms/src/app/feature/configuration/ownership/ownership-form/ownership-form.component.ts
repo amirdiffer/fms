@@ -6,11 +6,12 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { map } from 'rxjs/operators';
-import { OwnershipFacade } from '../../+state/ownership';
+import { OwnershipFacade, OwnershipService } from '../../+state/ownership';
 
 @Component({
   selector: 'anms-ownership-form',
@@ -18,6 +19,9 @@ import { OwnershipFacade } from '../../+state/ownership';
   styleUrls: ['./ownership-form.component.scss']
 })
 export class OwnershipFormComponent extends Utility implements OnInit {
+
+  isEdit = false;
+  id;
 
   //#region Table
   ownerShip_Table: TableSetting = {
@@ -103,7 +107,9 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     injector: Injector,
     private _fb: FormBuilder,
     private facade: OwnershipFacade,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private service: OwnershipService,
+    public route: ActivatedRoute
   ) {
     super(injector);
   }
@@ -124,6 +130,7 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     this.facade.submitted$.subscribe((x) => {
       if (x) {
         this.displaySuccessModal = true;
+        this.dialogSuccessSetting.message = this.isEdit ? 'Ownership Edited Successfully' : 'New ownership Successfully Added'
         this.dialogErrorSetting.hasError = false;
         this.changeDetector.detectChanges();
       }
@@ -136,13 +143,36 @@ export class OwnershipFormComponent extends Utility implements OnInit {
         this.changeDetector.detectChanges();
       }
     });
+
+    this.route.params.subscribe(z => {
+      if (!z?.id) return;
+      this.isEdit = true;
+      this.id = z.id;
+      this.service.getByID(z.id).subscribe(q => {
+        const res: any = q.message;
+
+        this.ownerShipForm.patchValue({
+          type: res.type,
+          name: res.name,
+          email: res.email,
+          phoneNumber: res.phoneNumber,
+          purpose: res.purpose,
+          fleetITCode: res.fleetITCode,
+          duration: res.duration,
+        })
+      })
+    })
   }
   submit() {
     this.submitted = true;
     if (this.ownerShipForm.invalid) {
       return;
     } else {
-      this.facade.addOwnership(this.ownerShipForm.value);
+      if (this.isEdit) {
+        this.facade.editOwnership({ ...this.ownerShipForm.value, id: this.id });
+      } else {
+        this.facade.addOwnership(this.ownerShipForm.value);
+      }
     }
   }
   showCancelAlert() {
@@ -158,7 +188,17 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     this.displayErrorModal = false;
     if (confirmed) {
       this.displaySuccessModal = false;
-      this.goToList();
+      this._goToList();
     } else this.displaySuccessModal = false;
+  }
+
+  _goToList() {
+    this.router.navigate(['configuration/ownership']);
+  }
+
+  successConfirmed() {
+    this.displaySuccessModal = false;
+    this._goToList();
+    this.resetParams();
   }
 }

@@ -5,10 +5,11 @@ import {
   ChangeDetectorRef,
   ViewChild
 } from '@angular/core';
-import { TableComponent, TableSetting } from '@core/table';
+import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { map } from 'rxjs/operators';
 import { OwnershipFacade } from '../+state/ownership';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-ownership',
@@ -44,9 +45,28 @@ export class OwnershipComponent implements OnInit {
         field: 'car',
         width: 100,
         sortable: true
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
-    data: []
+    data: [],
+    rowSettings: {
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this.router.navigate(['/configuration/ownership/edit-ownership/' + data.id]);
+          }
+        }
+      ]
+    }
   };
 
   ownerShip$ = this.facade.ownership$.pipe(
@@ -60,7 +80,8 @@ export class OwnershipComponent implements OnInit {
           Purpose: item.purpose,
           Owner_Email: item.email,
           Owner_Phone_No: item.phoneNumber,
-          car: item.numOfOwnedAssets || 0
+          car: item.numOfOwnedAssets || 0,
+          id:item.id
         };
       })
     )
@@ -75,8 +96,9 @@ export class OwnershipComponent implements OnInit {
   constructor(
     private facade: OwnershipFacade,
     private tableFacade: TableFacade,
-    private _cd: ChangeDetectorRef
-  ) {}
+    private _cd: ChangeDetectorRef,
+    private router:Router
+  ) { }
 
   ngOnInit(): void {
     this.facade.loadAll();

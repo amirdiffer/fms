@@ -41,9 +41,9 @@ export class OwnershipEffect {
     this.action$.pipe(
       ofType(OwnershipActions.editOwnership),
       mergeMap((action) =>
-        this.service.addOwnership(action.data).pipe(
+        this.service.editOwnership(action.data).pipe(
           map((data) =>
-            OwnershipActions.ownershipEditedSuccessfully({ data: data.message })
+            OwnershipActions.ownershipEditedSuccessfully()
           ),
           catchError((error) => of(OwnershipActions.error({ reason: error })))
         )

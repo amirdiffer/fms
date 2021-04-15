@@ -30,8 +30,7 @@ export class OwnershipActions {
   );
 
   static ownershipEditedSuccessfully = createAction(
-    '[Ownership] ownership added succesfully',
-    props<{ data: IOwnerShip }>()
+    '[Ownership] ownership Edited succesfully'
   );
 
   static resetParams = createAction('[Ownership] Reset Parameters');

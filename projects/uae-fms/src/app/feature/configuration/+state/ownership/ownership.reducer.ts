@@ -22,6 +22,14 @@ const ownershipReducer = createReducer(
     error: reason,
     loaded: true
   })),
+  on(OwnershipActions.editOwnership, (state, { data }) => ({
+    ...state,
+    submitted: false
+  })),
+  on(OwnershipActions.ownershipEditedSuccessfully, (state) => {
+    return { ...state, submitted: true }
+  }
+  ),
   on(OwnershipActions.addOwnership, (state, { data }) => ({
     ...state,
     loaded: false
@@ -34,14 +42,7 @@ const ownershipReducer = createReducer(
     error: null,
     message: null,
     submitted: false
-  })),
-  on(OwnershipActions.editOwnership, (state, { data }) => ({
-    ...state,
-    loaded: false
-  })),
-  on(OwnershipActions.ownershipEditedSuccessfully, (state, { data }) =>
-    ownershipAdapter.updateOne({ changes: data, id: data.id }, state)
-  )
+  }))
 );
 
 export function reducer(state: OwnershipState, action: Action) {

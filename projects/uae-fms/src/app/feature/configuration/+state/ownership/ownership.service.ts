@@ -8,7 +8,7 @@ import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class OwnershipService {
-  constructor(private http: HttpClient, private _tableFacade: TableFacade) {}
+  constructor(private http: HttpClient, private _tableFacade: TableFacade) { }
 
   params = new HttpParams();
   getParam(name) {
@@ -23,18 +23,27 @@ export class OwnershipService {
 
   loadAll(): Observable<ResponseBody<IOwnerShip[]>> {
     return this.http.get<ResponseBody<IOwnerShip[]>>(
-      environment.baseApiUrl + 'configuration/ownership', {params: this.getParam('ownership')}
+      environment.baseApiUrl + 'configuration/ownership', { params: this.getParam('ownership') }
     );
   }
+
+  getByID(id): Observable<ResponseBody<IOwnerShip[]>> {
+    return this.http.get<ResponseBody<IOwnerShip[]>>(
+      environment.baseApiUrl + 'configuration/ownership/' + id
+    );
+  }
+
   addOwnership(data): Observable<ResponseBody<IOwnerShip>> {
     return this.http.post<ResponseBody<IOwnerShip>>(
       environment.baseApiUrl + 'configuration/ownership',
       data
     );
   }
+
   editOwnership(data): Observable<ResponseBody<IOwnerShip>> {
+    console.log(data)
     return this.http.post<ResponseBody<IOwnerShip>>(
-      environment.baseApiUrl + 'configuration/ownership',
+      environment.baseApiUrl + 'configuration/ownership/' + data.id + '/update',
       data
     );
   }
