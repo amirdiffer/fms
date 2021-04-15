@@ -71,6 +71,7 @@
     "business_category": "Usage Category",
     "edit_usage_category": "Edit Usage Category",
     "ownership": "Ownership",
+    "edit_ownership": "Edit Ownership",
     "fleet_status": "Fleet Status",
     "periodic_service": "Periodic Service",
     "integrations": "Integrations",
