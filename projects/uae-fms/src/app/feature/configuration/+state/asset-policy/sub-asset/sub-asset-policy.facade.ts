@@ -17,4 +17,7 @@ export class SubAssetPolicyFacade {
   loadAll() {
     this.store.dispatch(SubAssetPolicyActions.loadAll());
   }
+  getById(id: number) {
+    return this.store.pipe(select(SubAssetPolicySelectors.selectById, { id }));
+  }
 }
