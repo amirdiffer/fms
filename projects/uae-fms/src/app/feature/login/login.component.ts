@@ -86,6 +86,7 @@ export class LoginComponent implements OnInit {
     });
     this.profileFacade.loadData$.subscribe((x) => {
       if (x) {
+        console.log(x)
       }
     });
   }

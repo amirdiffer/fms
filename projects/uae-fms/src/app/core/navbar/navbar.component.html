@@ -10,8 +10,8 @@
             </button> -->
       <button mat-icon-button  [matMenuTriggerFor]="menu">
         <img src='assets/user-image.png' class='rounded-circle' id='gwd-image-effect_1'>
-        <span id='label_1' class='label name_surname_label font-weight-lighter ml-2'>Name Surname</span>
-        <span id='label_2' class='label role_label ml-2'>Admin</span>
+        <span id='label_1' class='label name_surname_label font-weight-lighter ml-2' *ngIf="(profile$ | async)?.firstName">{{ (profile$ | async)?.firstName + '  '  + (profile$ | async)?.lastName}}</span>
+        <span id='label_2' class='label role_label ml-2' *ngIf=" (profile$ | async)?.roles[0].roleName">{{ (profile$ | async)?.roles[0].roleName }}</span>
       </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="logOut()">Log Out</button>
