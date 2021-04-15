@@ -16,13 +16,13 @@ import { environment } from '../../../../environments/environment';
         />
       </div>
       <div class="d-flex icon-box">
-        <svg-icon
+        <!-- <svg-icon
           *ngIf="!data && !isOpen && hover == indexTR"
           [src]="externalLink"
           class="icon24px pointer"
           (click)="editOpen(); selectField('open'); setting?.onClick(allData)"
           [svgStyle]="{ fill: '#0da06e' }"
-        ></svg-icon>
+        ></svg-icon> -->
         <svg-icon
           *ngIf="isOpen"
           [src]="delete"
