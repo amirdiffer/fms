@@ -10,13 +10,13 @@
       <button class="btn-download" (click)="exportTable()">
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
-      <button *ngIf="selectedTab=='assetPolicyAssetTab'" CheckAccess="asset-policy:create" class="btn-primary-small" [routerLink]="'./add-asset-policy'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
+      <button CheckAccess="asset-policy:create" class="btn-primary-small" [routerLink]="'./add-asset-policy'"[queryParams]="{type: (selectedTab == 'assetPolicyAssetTab' ? 'asset' : 'sub_asset')}"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
     </span>
     <div title="tabs.asset" id="assetPolicyAssetTab">
       <app-table searchInput="searchInput" (onPagination)="eventPagination_asset()" pagination="asset-policy_asset" [setting]='assetPolicy_Table' [tableData]="assetPolicy$"></app-table>
     </div>
     <div title="tabs.sub_asset" id="assetPolicySubAssetTab">
-      <app-table searchInput="searchInput" (onPagination)="eventPagination_subasset()" pagination="asset-policy_subasset" [setting]='subAssetPolicy_Table' [tableData]="assetPolicy$"></app-table>
+      <app-table searchInput="searchInput" (onPagination)="eventPagination_subasset()" pagination="asset-policy_subasset" [setting]='subAssetPolicy_Table' [tableData]="subAssetPolicy$"></app-table>
     </div>
   </app-tab-view>
 </div>

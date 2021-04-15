@@ -157,7 +157,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private assetPolicyFacade: AssetPolicyFacade,
-    private subAssetPolicyFacade: SubAssetPolicyFacade
+    private subAssetPolicyFacade: SubAssetPolicyFacade,
   ) { }
 
   ngOnInit(): void {

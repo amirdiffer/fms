@@ -13,11 +13,11 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { RouterFacade } from '@core/router';
 import { TableSetting } from '@core/table';
-import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
+import { AssetPolicyFacade, SubAssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
 import { Utility } from '@shared/utility/utility';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -137,7 +137,9 @@ export class AddAssetPolicyComponent
     private injector: Injector,
     private _routerFacade: RouterFacade,
     private assetPolicyFacade: AssetPolicyFacade,
-    private changeDetector: ChangeDetectorRef
+    private _subAssetPolicyFacade: SubAssetPolicyFacade,
+    private changeDetector: ChangeDetectorRef,
+    private _activatedRoute: ActivatedRoute
   ) {
     super(injector);
   }
@@ -187,6 +189,8 @@ export class AddAssetPolicyComponent
 
   ngOnInit(): void {
     // this.assetPolicyFacade.loadAll();
+    
+
     this.assetPolicyForm = this._fb.group({
       policyType: ['ASSET', [Validators.required]],
       policyName: ['', [Validators.required]],
@@ -205,6 +209,20 @@ export class AddAssetPolicyComponent
         }
       }
     });
+    switch (this._activatedRoute.snapshot.queryParams.type) {
+      case 'asset':
+        this.assetPolicyForm.patchValue({
+          policyType:'ASSET'
+        })
+        break;
+      case 'sub_asset':
+        this.assetPolicyForm.patchValue({
+          policyType:'SUB_ASSET'
+        })
+        break;
+      default:
+        break;
+    }
 
     this.route.queryParams.subscribe(
       (params) => (this.currentTab = params['id'])
@@ -215,10 +233,15 @@ export class AddAssetPolicyComponent
 
       if (this.id) {
         this.isEdit = true;
-
         this.assetPolicyFacade.getById(this.id).subscribe((assetPolicy) => {
           if (assetPolicy) {
             this.loadAssetPolicyForm(assetPolicy);
+          }else{
+            this._subAssetPolicyFacade.getById(this.id).subscribe((sub_assetPolicy) => {
+              if (sub_assetPolicy) {
+                this.loadAssetPolicyForm(sub_assetPolicy);
+              }
+            });
           }
         });
       }
@@ -254,6 +277,7 @@ export class AddAssetPolicyComponent
 
   submit() {
     this.submitted = true;
+    this.assetPolicyForm.markAllAsTouched();
     if (this.assetPolicyForm.invalid) return;
 
     const data = this.getAssetPolicyRequestPayload(
@@ -286,7 +310,7 @@ export class AddAssetPolicyComponent
   }
   dialogCancelConfirm(value) {
     if (value === true) {
-      this._router.navigate(['configuration/asset-policy']).then(_ => {
+      this._router.navigate(['configuration/asset-policy'],{queryParams:{id:(this.assetPolicyForm.get('policyType').value == 'ASSET'?'assetPolicyAssetTab':'assetPolicySubAssetTab')}}).then(_ => {
         this.assetPolicyFacade.reset();
       });
     }
@@ -294,7 +318,7 @@ export class AddAssetPolicyComponent
   }
   dialogAddOrUpdateConfirm(value) {
     if (value === true) {
-      this._router.navigate(['configuration/asset-policy']).then(_ => {
+      this._router.navigate(['configuration/asset-policy'],{queryParams:{id:(this.assetPolicyForm.get('policyType').value == 'ASSET'?'assetPolicyAssetTab':'assetPolicySubAssetTab')}}).then(_ => {
         this.assetPolicyFacade.reset();
       });
     }

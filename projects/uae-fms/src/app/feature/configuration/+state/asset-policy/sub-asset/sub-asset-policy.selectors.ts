@@ -18,4 +18,8 @@ export class SubAssetPolicySelectors {
     ConfigurationSelectors.subAssetPolicySelector,
     (state) => state.error
   );
+  static selectById = createSelector(
+    SubAssetPolicySelectors.selectAll,
+    (state, props: { id: number }) => state.find((x) => x.id === props.id)
+  );
 }
