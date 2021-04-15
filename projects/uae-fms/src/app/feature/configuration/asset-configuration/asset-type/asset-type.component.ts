@@ -4,7 +4,7 @@ import { Subject, Observable } from 'rxjs';
 import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
 import { Router } from '@angular/router';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'configuration-asset-type',
@@ -18,11 +18,11 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   @Output() selectTrim = new EventEmitter();
   @Output() selectMake = new EventEmitter();
   @Output() selectModel = new EventEmitter();
-  
+
   //#endregion
 
   //#region Variables
-  assetType$ = new Observable();
+  // assetType$ = new Observable();
   loaded$ = this.facade.loaded$;
   filter = new Subject();
   assetTypes: AssetTypeExtension[] = [];
@@ -30,41 +30,46 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   categoryType$;
   //#endregion
 
+  tree = [];
+
+  assetType$ = this.facade.assetType$.pipe(
+    map((response) =>
+      response.map((obj) => {
+        const assetType = {
+          ...obj,
+          isSelected: this.returnItemTree(obj.id, obj.type, obj).isSelected || false,
+          iconSvgClass:  this.returnItemTree(obj.id, obj.type, obj).iconSvgClass || 'right-arrow',
+          makes: []
+        };
+        obj.makes.map((make) => {
+          const x: MakeExtension = {
+            ...make,
+            isSelected: this.returnItemTree(make.id, 'make', make).isSelected || false,
+            iconSvgClass: this.returnItemTree(make.id, 'make', make).iconSvgClass || 'right-arrow',
+            models: []
+          };
+          make.models.map((model) => {
+            const y: ModelExtension = { ...model, isSelected: false };
+            x.models.push(y);
+          });
+          assetType.makes.push(x);
+
+        });
+        return assetType as AssetTypeExtension;
+      })
+    )
+  );
+
   constructor(
     private facade: AssetTypeFacade,
     private router: Router,
     private dataService: DataService,
-    
+
   ) { }
 
   ngOnInit(): void {
-    this.assetType$ = this.facade.assetType$.pipe(
-      map((response) =>
-        response.map((obj) => {
-          const assetType = {
-            ...obj,
-            isSelected: false,
-            iconSvgClass: 'right-arrow',
-            makes: []
-          };
-          obj.makes.map((make) => {
-            const x: MakeExtension = {
-              ...make,
-              isSelected: false,
-              iconSvgClass: 'right-arrow',
-              models: []
-            };
-            make.models.map((model) => {
-              const y: ModelExtension = { ...model, isSelected: false };
-              x.models.push(y);
-            });
-            assetType.makes.push(x);
-            
-          });
-          return assetType as AssetTypeExtension;
-        })
-      )
-    );
+    this.facade.loadAll();
+
     this.categoryType$ = this.dataService.watchType().pipe(
       type =>{
         type.subscribe(y => {console.log(y)})
@@ -117,6 +122,8 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       item.iconSvgClass = 'down-arrow';
     }
     this.selectMake.emit(item.makes);
+    this.dataService.updateTree(item.id, item.type, item);
+    console.log(this.dataService.tree)
   }
 
   onMakeClick(make: MakeExtension): void {
@@ -128,11 +135,23 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       make.iconSvgClass = 'down-arrow';
     }
     this.selectModel.emit(make.models);
+    this.dataService.updateTree(make.id, 'make', make)
+    console.log(this.dataService.tree)
   }
 
   onModelClick(model: ModelExtension): void {
     this.selectTrim.emit(model.trims);
     model.isSelected = !model.isSelected;
+    this.dataService.updateTree(model.id, 'model', model);
+    console.log(this.dataService.tree)
+  }
+
+
+  returnItemTree(id, type, orgData) {
+    if (this.dataService.returnTreeItem(id, type)) {
+      return this.dataService.returnTreeItem(id, type).data;
+    }
+    else return orgData;
   }
 
   getStatusColor(status: boolean): string {

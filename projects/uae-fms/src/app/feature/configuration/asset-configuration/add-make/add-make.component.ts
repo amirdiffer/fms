@@ -80,6 +80,7 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, 
     private facade: AssetTypeFacade,
     private changeDetectorRef: ChangeDetectorRef,
     public dataService: DataService,
+    private assetTypeFacade: AssetTypeFacade,
     injector: Injector,
     public route: ActivatedRoute,
     public router: Router
