@@ -7,6 +7,7 @@ import { Language } from '@core/settings/settings.model';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
+import { UserProfileFacade } from '@feature/user/state';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -23,6 +24,7 @@ export class NavbarComponent implements OnInit {
   stickyHeader$: Observable<boolean>;
   language$: Observable<string>;
   theme$: Observable<string>;
+  profile$: Observable<any>;
 
   logo = require('../../../assets/logo.svg').default;
   policeLogo = require('../../../assets/police-logo.svg').default;
@@ -33,17 +35,20 @@ export class NavbarComponent implements OnInit {
     private store: Store,
     private sidebarMenuFacade: SidebarMenuFacade,
     private settingsFacade: SettingsFacade,
+    private profileFacade: UserProfileFacade,
     @Inject(DOCUMENT) private document: Document,
     private router: Router
   ) {}
 
   ngOnInit() {
+    this.profileFacade.loadAll();
     this.isAuthenticated$ = this.store.pipe(select(this.selectIsAuthenticated));
     this.stickyHeader$ = this.store.pipe(
       select(this.selectSettingsStickyHeader)
     );
     this.language$ = this.store.pipe(select(this.selectSettingsLanguage));
     this.theme$ = this.store.pipe(select(this.selectEffectiveTheme));
+    this.profile$ = this.profileFacade.loadData$;
 
     this.sidebarMenuFacade.opened$.subscribe((x) => {
       this.sidebarMenuOpened = x;
