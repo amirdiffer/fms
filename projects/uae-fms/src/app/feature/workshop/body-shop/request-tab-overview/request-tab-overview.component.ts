@@ -17,10 +17,11 @@ export class RequestTabOverviewComponent implements OnInit {
   tableData$;
   assetDetail;
   constructor(
-    private _facadeRequest : BodyShopRequestFacade,
+    private _facadeRequest: BodyShopRequestFacade,
     private _activatedRoute: ActivatedRoute,
-    private _assetMasterFacade: AssetMasterFacade
-  ) {}
+    private _assetMasterFacade: AssetMasterFacade,
+    private route: ActivatedRoute
+  ) { }
 
   vehicle = {
     id: 1,
@@ -183,7 +184,7 @@ export class RequestTabOverviewComponent implements OnInit {
     this.assetId = this._activatedRoute.snapshot.params.id;
     this.tableData$ = this._facadeRequest.assetRequest$.pipe(
       map((x) => {
-        return x.map( y =>{
+        return x.map(y => {
           let jobType;
           switch (y.jobType) {
             case 'TECHNICAL_REPORT':
@@ -201,19 +202,22 @@ export class RequestTabOverviewComponent implements OnInit {
           }
           return {
             ...y,
-            date:moment.utc(y.updatedAt).local().format('DD-MM-YYYY'),
+            date: moment.utc(y.updatedAt).local().format('DD-MM-YYYY'),
             requestType: jobType,
-            attachment:y.documentIds,
+            attachment: y.documentIds,
             statusColor: '#6870B4',
           }
         })
       })
     )
     this._facadeRequest.assetRequest$.subscribe(x => {
-      if(x.length < 1){
-        this._facadeRequest.getAssetRequest( this.assetId)
+      if (x.length < 1) {
+        this._facadeRequest.getAssetRequest(this.assetId)
       }
     })
-    this._assetMasterFacade.getAssetByID(81)
+    this.route.params.subscribe(x => {
+      if (x?.id)
+        this._assetMasterFacade.getAssetByID(x.id)
+    });
   }
 }
