@@ -111,7 +111,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
           id: item.id,
           statusColor: '#00AFB9',
           Item: item.itemName,
-          Type: item.assignedToType,
+          Type: item.assignedToType === 'ASSET' ? 'Asset' : 'Sub Asset',
           Asset_SubAsset: item.assignedToEntity,
           Assigned_To: item.assignedToEmployeeId,
           Quantity: item.quantity
