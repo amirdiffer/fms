@@ -28,8 +28,10 @@ import { map } from 'rxjs/operators';
 export class AddAssetPolicyComponent
   extends Utility
   implements OnInit, OnDestroy {
+
+  #startRegionVariables
+  itemID;
   currentTab = '';
-  editForm: Subscription;
   assetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
@@ -77,8 +79,10 @@ export class AddAssetPolicyComponent
   assetPolicyForm: FormGroup;
   submitted = false;
   isEdit = false;
+  id: number;
+  #endRegionVariables
 
-  //#region Dialog
+  #startRegionDialog
   dialogModalAddOrUpdate = false;
   dialogModalCancel = false;
   dialogModalError = false;
@@ -108,12 +112,9 @@ export class AddAssetPolicyComponent
     confirmButton: 'Yes',
     cancelButton: 'No'
   };
-  //#endregion
+  #endRegionDialog
 
-  id: number;
-
-
-
+  #startRegionTables
   assetPolicy$ = this.assetPolicyFacade.assetPolicy$.pipe(
     map((x) =>
       x.map((item) => {
@@ -127,6 +128,7 @@ export class AddAssetPolicyComponent
       })
     )
   );
+  #endRegionTables
 
   constructor(
     private _fb: FormBuilder,
@@ -186,7 +188,6 @@ export class AddAssetPolicyComponent
   ngOnInit(): void {
     // this.assetPolicyFacade.loadAll();
 
-
     this.assetPolicyForm = this._fb.group({
       policyType: ['ASSET', [Validators.required]],
       policyName: ['', [Validators.required]],
@@ -223,25 +224,23 @@ export class AddAssetPolicyComponent
     this.route.queryParams.subscribe(
       (params) => (this.currentTab = params['id'])
     );
-
-    this.editForm = this._routerFacade.route$.subscribe((data: any) => {
-      this.id = +data.queryParams['id'];
-
-      if (this.id) {
-        this.isEdit = true;
-        this.assetPolicyFacade.getById(this.id).subscribe((assetPolicy) => {
-          if (assetPolicy) {
-            this.loadAssetPolicyForm(assetPolicy);
-          }else{
-            this._subAssetPolicyFacade.getById(this.id).subscribe((sub_assetPolicy) => {
-              if (sub_assetPolicy) {
-                this.loadAssetPolicyForm(sub_assetPolicy);
-              }
-            });
-          }
-        });
-      }
-    });
+    this.route.params.subscribe(data => {
+      this.id = data['id'];
+    })
+    if (this.id) {
+      this.isEdit = true;
+      this.assetPolicyFacade.getById(this.id).subscribe((assetPolicy) => {
+        if (assetPolicy) {
+          this.loadAssetPolicyForm(assetPolicy);
+        }else{
+          this._subAssetPolicyFacade.getById(this.id).subscribe((sub_assetPolicy) => {
+            if (sub_assetPolicy) {
+              this.loadAssetPolicyForm(sub_assetPolicy);
+            }
+          });
+        }
+      });
+    }
 
     this.assetPolicyFacade.submitted$.subscribe((x) => {
       if (x) {
@@ -319,6 +318,5 @@ export class AddAssetPolicyComponent
     this.dialogModalAddOrUpdate = false;
   }
   ngOnDestroy(): void {
-    this.editForm.unsubscribe();
   }
 }
