@@ -85,7 +85,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
 
   dataRegistration$ = this.registrationFacade.registration$.pipe(
     map((x) => {
-      return x.map((y) => {
+      return x.map((y: any) => {
         return {
           ...y,
           id: y.id,
@@ -117,7 +117,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
     private customizationFacade: CustomizationFacade,
     private changeDetector: ChangeDetectorRef,
     private _router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.assetMasterTableSetting = {
