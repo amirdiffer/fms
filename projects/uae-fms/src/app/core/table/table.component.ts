@@ -305,7 +305,6 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       case 'active':
         break;
     }
-    // this.changeDetection.markForCheck();
   }
 
   ngOnDestroy(): void {
