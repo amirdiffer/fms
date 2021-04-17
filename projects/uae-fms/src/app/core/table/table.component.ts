@@ -6,7 +6,11 @@ import {
   Input,
   OnInit,
   Output,
-  OnDestroy, ElementRef, AfterViewInit, AfterViewChecked, AfterContentInit
+  OnDestroy,
+  ElementRef,
+  AfterViewInit,
+  AfterViewChecked,
+  AfterContentInit
 } from '@angular/core';
 
 import { environment } from '@environments/environment';
@@ -38,10 +42,10 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() pagination: string;
   @Input() showPagination: boolean = true;
   arrowIcon = 'assets/icons/arrow-down.svg';
-  subscribePagination$: Subscription
+  subscribePagination$: Subscription;
   pagesCount: number;
   @Output() onSelectItems = new EventEmitter();
-  @Output() onPagination= new EventEmitter();
+  @Output() onPagination = new EventEmitter();
   selectedIds = [];
   initialSearchBox = false;
   @Input() searchInput: string = '';
@@ -53,7 +57,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     private translate: TranslateService,
     private _tableFacade: TableFacade,
     private _tableService: TableServiceS
-  ) { }
+  ) {}
 
   getSearchBoxData() {
     this._tableService.getSearchBoxData(this.searchInput).subscribe((x) => {
@@ -88,16 +92,19 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
           return data[col.field];
         case 2:
           return data[col.thumbField]
-            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${col.override
-              ? 'assets/' + col.override
-              : environment.baseFileServer + data[col.thumbField]
-            }'> <p class='text-of-cell-with-image'>${data[col.field]
-            }</p></div>`
+            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
+                col.override
+                  ? 'assets/' + col.override
+                  : environment.baseFileServer + data[col.thumbField]
+              }'> <p class='text-of-cell-with-image'>${
+                data[col.field]
+              }</p></div>`
             : data[col.field];
         case 3:
           return data[col.thumbField]
-            ? `<img class='thumb' src='${environment.baseFileServer + data[col.thumbField]
-            }'>`
+            ? `<img class='thumb' src='${
+                environment.baseFileServer + data[col.thumbField]
+              }'>`
             : '';
       }
     } else {
@@ -168,24 +175,27 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       if (title === 'assetMasterTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
-              }\n${data[col.field].ownership}`;
+            data[col.field] = `${data[col.field].assetName}\n${
+              data[col.field].assetSubName
+            }\n${data[col.field].ownership}`;
           });
         }
       }
       if (title === 'pendingRegistrationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
-              }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${
+              data[col.field].assetSubName
+            }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
       if (title === 'pendingCustomizationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
-              }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${
+              data[col.field].assetSubName
+            }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
@@ -227,16 +237,21 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   lastIpp = 0;
   initialPagination() {
     let i = 0;
-    this.subscribePagination$ = this._tableFacade.getPaginationByName(this.pagination).subscribe(x => {
-      x['count'] ? this.count = x['count'] : null;
-      if (x != null && (this.activePage != x['page'] || this.lastIpp != x['ipp'])) {
-        i++;
-        this.activePage = x['page'];
-        this.ipp = x['ipp'];
-        this.lastIpp = this.ipp;
-        i > 1 ? this.onPagination.emit() : null;
-      }
-    });
+    this.subscribePagination$ = this._tableFacade
+      .getPaginationByName(this.pagination)
+      .subscribe((x) => {
+        x['count'] ? (this.count = x['count']) : null;
+        if (
+          x != null &&
+          (this.activePage != x['page'] || this.lastIpp != x['ipp'])
+        ) {
+          i++;
+          this.activePage = x['page'];
+          this.ipp = x['ipp'];
+          this.lastIpp = this.ipp;
+          i > 1 ? this.onPagination.emit() : null;
+        }
+      });
   }
 
   paginationEvent(action) {
@@ -260,31 +275,43 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-
   trackingShowRow(): string {
-    this.pagesCount = this.count > this.ipp ? Math.ceil(this.count / this.ipp) - 1 : 0;
+    this.pagesCount =
+      this.count > this.ipp ? Math.ceil(this.count / this.ipp) - 1 : 0;
     let leftOver = this.count % this.ipp;
-    let start = (this.activePage * this.ipp);
+    let start = this.activePage * this.ipp;
     let end = start + this.ipp;
-    (leftOver > 0 && this.pagesCount == this.activePage) ? end = (end - this.ipp) + leftOver: null;
+    leftOver > 0 && this.pagesCount == this.activePage
+      ? (end = end - this.ipp + leftOver)
+      : null;
 
-    if(!isNaN(start) && !isNaN(end)) {
-      return `${start}-${end}`
+    if (!isNaN(start) && !isNaN(end)) {
+      return `${start}-${end}`;
     }
     return '';
   }
 
   searchText = '';
 
-
   filterBySearchBox() {
-    let data = this.allData.filter( x => {
-      let find = JSON.stringify(x).toLocaleLowerCase().includes(this.searchText.toLocaleLowerCase());
-      if (find)
-        return x;
-    })
+    let data = this.allData.filter((x) => {
+      let find = JSON.stringify(x)
+        .toLocaleLowerCase()
+        .includes(this.searchText.toLocaleLowerCase());
+      if (find) return x;
+    });
     this.setting.data = data;
     this.changeDetection.detectChanges();
+  }
+
+  filterByStatistics(statistic: string): void {
+    switch (statistic) {
+      case 'total':
+        break;
+      case 'active':
+        break;
+    }
+    this.changeDetection.markForCheck();
   }
 
   ngOnDestroy(): void {
@@ -293,8 +320,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   updatedSelectedIds(data, field) {
     if (data[field].checkbox) this.selectedIds.push(data.id);
