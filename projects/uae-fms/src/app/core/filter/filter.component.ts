@@ -7,6 +7,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 })
 export class FilterComponent implements OnInit, OnChanges {
   @Input() setting: FilterCardSetting[];
+  @Input() filterCardSettingDelegate!: FilterCardSetting;
   chartIcon = 'assets/icons/chart-bar.svg';
   cardSetting: FilterCard[];
   showStatistics: boolean = true;
@@ -36,13 +37,13 @@ export class FilterComponent implements OnInit, OnChanges {
 }
 
 export interface FilterCardSetting {
-  filterTitle: string;
+  filterTitle?: string;
   filterSupTitle?: string;
-  filterCount: string | number;
-  filterTagColor: string;
+  filterCount?: string | number;
+  filterTagColor?: string;
   isCalendar?: boolean;
   field?: string;
-  onActive(index: number): void;
+  onActive?(index: number): void;
 }
 
 interface FilterCard {
