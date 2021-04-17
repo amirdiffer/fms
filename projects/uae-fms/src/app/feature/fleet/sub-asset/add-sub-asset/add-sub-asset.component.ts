@@ -1,4 +1,3 @@
-import { map } from 'rxjs/operators';
 import { SubAssetService } from './../../+state/sub-asset/sub-asset.service';
 import {
   Component,
@@ -29,6 +28,8 @@ const SUB_ASSET_LABEL = 'SUB_ASSET';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddSubAssetComponent extends Utility implements OnInit {
+  #startRegionVariables
+  itemId = this.route.snapshot.params['id'];
   formCurrentStep = 0;
   csvText: [];
   csvDoc=[];
@@ -39,8 +40,49 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   submitted = false;
   warrantyDocs = [];
   avatarDoc =[];
-  public filesUploaded: NgxFileDropEntry[] = [];
+  subAssetTypes = [];
+  makes = [];
+  models = [];
+  policyTypes = [];
+  units = [
+    { name: 'Year', id: 'YEAR' },
+    { name: 'Month', id: 'MONTH' }
+  ];
+  years = [
+    { name: '2000', id: 2000 },
+    { name: '2001', id: 2001 },
+    { name: '2002', id: 2002 },
+    { name: '2003', id: 2003 },
+    { name: '2004', id: 2004 },
+    { name: '2005', id: 2005 },
+    { name: '2006', id: 2006 },
+    { name: '2007', id: 2007 },
+    { name: '2008', id: 2008 },
+    { name: '2009', id: 2009 },
+    { name: '2010', id: 2010 },
+    { name: '2011', id: 2011 },
+    { name: '2012', id: 2012 },
+    { name: '2013', id: 2013 },
+    { name: '2014', id: 2014 },
+    { name: '2015', id: 2015 },
+    { name: '2016', id: 2016 },
+    { name: '2017', id: 2017 },
+    { name: '2018', id: 2018 },
+    { name: '2019', id: 2019 },
+    { name: '2020', id: 2020 },
+    { name: '2021', id: 2021 }
+  ];
+  filesUploaded: NgxFileDropEntry[] = [];
+  dialogModal = false;
+  dialogType = null;
+  errorDialogModal = false;
+  isEdit: any;
+  recordId: number;
+  isSingleAsset = true;
+  avatarDocRequired:boolean=false;
+  #endRegionVariables
 
+  #startTablesRegion
   thirdStepTableColumns: ColumnDifinition[] = [
     {
       lable: 'tables.column.sub_asset_name',
@@ -70,136 +112,13 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       type: 1
     }
   ];
-
-  thirdStepTableData = [
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    }
-  ];
-
   thirdStepTable: TableSetting = {
     columns: this.thirdStepTableColumns,
     data:[]
   };
+  #endTablesRegion
 
-  subAssetTypes = [];
-  makes = [];
-  models = [];
-  policyTypes = [];
-
-  units = [
-    { name: 'Year', id: 'YEAR' },
-    { name: 'Month', id: 'MONTH' }
-  ];
-  years = [
-    { name: '2000', id: 2000 },
-    { name: '2001', id: 2001 },
-    { name: '2002', id: 2002 },
-    { name: '2003', id: 2003 },
-    { name: '2004', id: 2004 },
-    { name: '2005', id: 2005 },
-    { name: '2006', id: 2006 },
-    { name: '2007', id: 2007 },
-    { name: '2008', id: 2008 },
-    { name: '2009', id: 2009 },
-    { name: '2010', id: 2010 },
-    { name: '2011', id: 2011 },
-    { name: '2012', id: 2012 },
-    { name: '2013', id: 2013 },
-    { name: '2014', id: 2014 },
-    { name: '2015', id: 2015 },
-    { name: '2016', id: 2016 },
-    { name: '2017', id: 2017 },
-    { name: '2018', id: 2018 },
-    { name: '2019', id: 2019 },
-    { name: '2020', id: 2020 },
-    { name: '2021', id: 2021 }
-  ];
+  #startDialogRegion
   dialogSetting: IDialogAlert = {
     header: 'Add new Sub Asset alert',
     hasError: false,
@@ -207,7 +126,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };
-
   errorDialogSetting: IDialogAlert = {
     header: '',
     message: 'Error occurred in progress',
@@ -217,16 +135,8 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     hasHeader: true,
     cancelButton: undefined
   };
+  #endDialogRegion
 
-  dialogModal = false;
-  dialogType = null;
-  errorDialogModal = false;
-  isEdit: any;
-  recordId: number;
-  isSingleAsset = true;
-  //#endregion
-
-  avatarDocRequired:boolean=false;
   constructor(
     injector: Injector,
     private _fb: FormBuilder,
@@ -253,19 +163,15 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     );
   }
   handleEditMode() {
-    this.route.queryParams.subscribe((queryParams) => {
-      if (queryParams['id']) {
-        this.isEdit = true;
-        this.recordId = +queryParams['id'];
-      }
+    if (this.itemId) {
+      this.isEdit = true;
+      this.recordId = this.itemId;
+    }
 
-      this.initAssetTypes();
-      this.initPolicyTypes();
-    });
+    this.initAssetTypes();
+    this.initPolicyTypes();
   }
-  getWarrantyDoc(index) {
-    return [this.warrantyDocs[index]];
-  }
+
   loadSubAssetFormData(recordId: number) {
     this.subAssetService.getSubAsset(recordId).subscribe((result: any) => {
       if (result && result.message) {
@@ -355,9 +261,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         this.subAssetForm.patchValue({
           year:+formValue.year
         })
-
-        // reset warranty form
-        // (this.subAssetForm.get('warrantyItems') as FormArray).removeAt(0);
 
         // todo : fill warranties
       }
@@ -459,7 +362,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   dialogConfirm($event) {
     this.subAssetFacade.reset();
-    this.goToList();
+    this.goToList('/fleet/sub-asset/');
     return;
   }
 
@@ -682,11 +585,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       }
     }
   }
-  public fileOver(event) {
-  }
-
-  public fileLeave(event) {
-  }
 
   uploadAssetPicture($event) {
     const docId = $event.files[0];
@@ -704,9 +602,4 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     this.csvText = event;
   }
 
-  // uploadDocFiles(event) {
-  //   this.subAssetForm.patchValue({
-  //     uploadFile: event.files
-  //   });
-  // }
 }

@@ -87,8 +87,6 @@
             <label for="policyType">{{'sub_asset.policy_type' |
               translate}} </label>
           </span>
-          <!-- <anms-error [showError]="hasError('policyType',subAssetForm,submitted)" error="forms.feedback.required">
-          </anms-error> -->
         </div>
 
         <div class="col-12 col-md-4 p-field form-section__field">
@@ -137,10 +135,6 @@
             'height': '100%'}"></svg-icon>
             <label>{{'sub_asset.warranty_start_date' | translate}} *
             </label>
-            <!-- <anms-error
-            [showError]="hasError('startDate',subAssetForm.get('warranties')[i],submited)"
-            error="forms.feedback.required">
-          </anms-error> -->
           </span>
         </div>
 
@@ -208,7 +202,7 @@
         <div>
           <p class='font-weight-bold'>{{'sub_asset.upload_picture'|translate}}</p>
         </div>
-        <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [isImage]='true' [preview]="true"
+        <anms-uploader [iconIsHidden]="true" [multiple]="false" [isImage]='true' [preview]="true"
           [accept]="['.png', '.jpg']" (uploadedEvent)="uploadAssetPicture($event)" [files]="avatarDoc"></anms-uploader>
       </div>
     </div>
