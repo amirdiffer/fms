@@ -1,11 +1,9 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   ElementRef,
   ViewChild,
   AfterViewChecked,
-  ChangeDetectorRef,
   Injector
 } from '@angular/core';
 import { MovementService } from '../movement.service';
@@ -27,8 +25,7 @@ import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movem
 @Component({
   selector: 'anms-temporary',
   templateUrl: './temporary.component.html',
-  styleUrls: ['./temporary.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./temporary.component.scss']
 })
 export class TemporaryComponent
   extends Utility
@@ -79,7 +76,12 @@ export class TemporaryComponent
   assignID: number;
 
   @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
-
+  movementOverviewCount$ = this._movementOverviewFacade.conut$.pipe(
+    map(x => {return x})
+  );
+  movementRequestCount$ = this._movementRequestsFacade.conut$.pipe(
+    map(x => {return x})
+  );
   movementRequest$ = this._movementRequestsFacade.MovementRequests$.pipe(
     map((x) => {
       return x.map((y) => {
@@ -302,7 +304,6 @@ export class TemporaryComponent
     private dialog: MatDialog,
     private _movementOverviewFacade: MovementOverviewFacadeTemporary,
     private _movementRequestsFacade: MovementRequestsFacadeTemporary,
-    private changeDetector: ChangeDetectorRef,
     injector: Injector
   ) {
     super(injector);
@@ -373,14 +374,12 @@ export class TemporaryComponent
       if (x) {
         this.displaySuccessModal = true;
         this.dialogErrorSetting.hasError = false;
-        this.changeDetector.detectChanges();
       }
     });
     this._movementRequestsFacade.error$.subscribe((x) => {
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
-        this.changeDetector.detectChanges();
       } else {
         this.displayErrorModal = false;
       }

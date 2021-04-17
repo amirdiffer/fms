@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { ButtonType } from '@core/table/table.component';
@@ -6,8 +6,7 @@ import { ButtonType } from '@core/table/table.component';
 @Component({
   selector: 'anms-order-list',
   templateUrl: './order-list.component.html',
-  styleUrls: ['./order-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./order-list.component.scss']
 })
 export class OrderListComponent implements OnInit {
   isSuppliersAddFormHidden = true;

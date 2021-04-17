@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   ViewChild,
   ElementRef,
   Renderer2
@@ -13,8 +12,7 @@ import { MakeDecisionService } from './make-decision.service';
 @Component({
   selector: 'inspection-make-decision',
   templateUrl: './make-decision.component.html',
-  styleUrls: ['./make-decision.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./make-decision.component.scss']
 })
 export class MakeDecisionComponent implements OnInit {
   isEditable: boolean = true;

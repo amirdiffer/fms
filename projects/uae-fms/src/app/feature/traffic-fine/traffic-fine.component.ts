@@ -1,9 +1,7 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   OnDestroy,
-  ChangeDetectorRef
 } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter/filter.component';
@@ -15,8 +13,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'anms-traffic-fine',
   templateUrl: './traffic-fine.component.html',
-  styleUrls: ['./traffic-fine.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./traffic-fine.component.scss']
 })
 export class TrafficFineComponent implements OnInit, OnDestroy {
   getStatisticsSubscription!: Subscription;

@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Injector
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,8 +12,7 @@ import { AssetRegistrationConfirmComponent } from '../asset-registration-confirm
 @Component({
   selector: 'anms-pending-registration-overview',
   templateUrl: './pending-registration-overview.component.html',
-  styleUrls: ['./pending-registration-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./pending-registration-overview.component.scss']
 })
 export class PendingRegistrationOverviewComponent
   extends Utility

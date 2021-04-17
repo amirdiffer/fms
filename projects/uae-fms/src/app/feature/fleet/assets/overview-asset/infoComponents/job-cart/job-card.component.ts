@@ -1,14 +1,13 @@
 import { Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, ChangeDetectionStrategy, Injector } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { ColumnType } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 
 @Component({
   selector: 'app-asset-overview-job-card',
   templateUrl: './job-card.component.html',
-  styleUrls: ['./job-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./job-card.component.scss']
 })
 export class JobCardComponent extends Utility implements OnInit {
 

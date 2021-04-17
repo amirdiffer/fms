@@ -19,6 +19,11 @@ const assetPolicyReducer = createReducer(
     assetPolicyAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
 
+  on(AssetPolicyActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber:data
+  })),
+
   on(AssetPolicyActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

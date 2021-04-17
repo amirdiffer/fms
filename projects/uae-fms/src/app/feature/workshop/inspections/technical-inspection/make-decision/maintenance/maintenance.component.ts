@@ -4,7 +4,6 @@ import { Input } from '@angular/core';
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   EventEmitter
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,8 +16,7 @@ import {
 @Component({
   selector: 'step3-maintenance',
   templateUrl: './maintenance.component.html',
-  styleUrls: ['./maintenance.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./maintenance.component.scss']
 })
 export class MaintenanceComponent extends Utility implements OnInit {
   @Output('formGroup') formGroup: EventEmitter<FormGroup> = new EventEmitter();

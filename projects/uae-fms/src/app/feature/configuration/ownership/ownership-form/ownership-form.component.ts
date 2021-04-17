@@ -1,9 +1,7 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Injector,
-  ChangeDetectorRef
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -107,7 +105,6 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     injector: Injector,
     private _fb: FormBuilder,
     private facade: OwnershipFacade,
-    private changeDetector: ChangeDetectorRef,
     private service: OwnershipService,
     public route: ActivatedRoute
   ) {
@@ -132,7 +129,6 @@ export class OwnershipFormComponent extends Utility implements OnInit {
         this.displaySuccessModal = true;
         this.dialogSuccessSetting.message = this.isEdit ? 'Ownership Edited Successfully' : 'New ownership Successfully Added'
         this.dialogErrorSetting.hasError = false;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -140,7 +136,6 @@ export class OwnershipFormComponent extends Utility implements OnInit {
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
-        this.changeDetector.detectChanges();
       }
     });
 

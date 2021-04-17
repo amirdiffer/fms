@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   OnDestroy,
   ViewChild
 } from '@angular/core';
@@ -14,8 +13,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'anms-business-category',
   templateUrl: './business-category.component.html',
-  styleUrls: ['./business-category.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./business-category.component.scss']
 })
 export class BusinessCategoryComponent implements OnInit, OnDestroy {
   //#region Variables

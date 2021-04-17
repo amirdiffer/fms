@@ -2,8 +2,6 @@ import { AccessoryService } from './../../+state/accessory/accessory.service';
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Injector
 } from '@angular/core';
 import {
@@ -32,8 +30,7 @@ const EMPTY_SELECT_ITEM_LIST = [
 @Component({
   selector: 'add-accessory',
   templateUrl: './add-accessory.component.html',
-  styleUrls: ['./add-accessory.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-accessory.component.scss']
 })
 export class AddAccessoryComponent extends Utility implements OnInit {
   //#region Dialogs
@@ -122,7 +119,6 @@ export class AddAccessoryComponent extends Utility implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _facade: AccessoryFacade,
-    private changeDetector: ChangeDetectorRef,
     private subAssetFacade: SubAssetFacade,
     private assetMasterFacade: AssetMasterFacade,
     private injector: Injector
@@ -228,7 +224,6 @@ export class AddAccessoryComponent extends Utility implements OnInit {
       if (x?.error) {
         this.dialogModalError = true;
         this.dialogSettingError.hasError = true;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -318,7 +313,6 @@ export class AddAccessoryComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
   }

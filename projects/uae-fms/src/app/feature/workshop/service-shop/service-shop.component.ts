@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy , ViewChild } from '@angular/core';
+import { Component, OnInit , ViewChild } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting, ColumnType } from '@core/table';
 import { map } from 'rxjs/operators';
@@ -8,8 +8,7 @@ import {  TableComponent } from '@core/table/table.component';
 import { ServiceShopJobCardFacade, ServiceShopLocationFacade, ServiceShopRequestFacade, ServiceShopTechnicianFacade } from '../+state/service-shop';
 @Component({
   templateUrl: './service-shop.component.html',
-  styleUrls: ['./service-shop.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./service-shop.component.scss']
 })
 export class ServiceShopComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
@@ -502,6 +501,18 @@ export class ServiceShopComponent implements OnInit {
   };
 
   selectedTab;
+  jobCardCount$ = this._facadeJobCard.conut$.pipe(
+    map(x => {return x})
+  );
+  locationCount$ = this._facadeLocation.conut$.pipe(
+    map(x => {return x})
+  );
+  requestCount$ = this._facadeRequest.conut$.pipe(
+    map(x => {return x})
+  );
+  technicianCount$ = this._facadeTechnician.conut$.pipe(
+    map(x => {return x})
+  );
   constructor(
     private _facadeRequest: ServiceShopRequestFacade,
     private _facadeJobCard: ServiceShopJobCardFacade,

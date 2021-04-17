@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { SubAssetPolicyActions } from './sub-asset-policy.actions';
 import { SubAssetPolicyService } from './sub-asset-policy.service';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class SubAssetPolicyEffect {
@@ -15,6 +16,7 @@ export class SubAssetPolicyEffect {
         this.service.loadAll().pipe(
           map((data) => {
             this._tableFacade.initialPaginator(data.resultNumber, 'asset-policy_subasset');
+            this._store.dispatch(SubAssetPolicyActions.count({data:data.resultNumber}))
             return SubAssetPolicyActions.allDataLoaded({ data: data.message })
           }),
           catchError((error) =>
@@ -28,6 +30,7 @@ export class SubAssetPolicyEffect {
   constructor(
     private action$: Actions,
     private service: SubAssetPolicyService,
-    private _tableFacade: TableFacade
+    private _tableFacade: TableFacade,
+    private _store:Store
   ) {}
 }

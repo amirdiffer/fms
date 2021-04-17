@@ -8,7 +8,11 @@ export class AssetPolicyActions {
     '[AssetPolicy] all datas are loaded',
     props<{ data: IAssetPolicy[] }>()
   );
-
+  
+  static count = createAction(
+    '[AssetPolicy] get result number',
+    props<{ data: number }>()
+  );
   static error = createAction(
     '[AssetPolicy] error occurred',
     props<{ reason: any }>()

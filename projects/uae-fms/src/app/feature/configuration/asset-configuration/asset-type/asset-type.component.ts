@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { AssetTypeFacade } from '../../+state/asset-configuration';
 import { Subject, Observable } from 'rxjs';
 import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
@@ -9,8 +9,7 @@ import { map, tap } from 'rxjs/operators';
 @Component({
   selector: 'configuration-asset-type',
   templateUrl: './asset-type.component.html',
-  styleUrls: ['./asset-type.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./asset-type.component.scss']
 })
 export class AssetTypeComponent implements OnInit, OnDestroy {
 

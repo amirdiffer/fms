@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
 
@@ -14,8 +13,7 @@ import { ButtonType } from '@core/table/table.component';
 
 @Component({
   templateUrl: './technical-inspection.component.html',
-  styleUrls: ['./technical-inspection.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./technical-inspection.component.scss']
 })
 export class TechnicalInspectionComponent implements OnInit, OnDestroy {
   makeDecision: boolean;

@@ -1,12 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DataService } from '../data.service';
 
 @Component({
   selector: 'configuration-asset-category',
   templateUrl: './asset-category.component.html',
-  styleUrls: ['./asset-category.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./asset-category.component.scss']
 })
 export class AssetCategoryComponent implements OnInit {
   constructor(

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting, ColumnType } from '@core/table';
 import {
@@ -13,8 +13,7 @@ import { map } from 'rxjs/operators';
 import moment from 'moment';
 @Component({
   templateUrl: './body-shop.component.html',
-  styleUrls: ['./body-shop.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./body-shop.component.scss']
 })
 export class BodyShopComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
@@ -507,6 +506,18 @@ export class BodyShopComponent implements OnInit {
   };
 
   selectedTab;
+  jobCardCount$ = this._facadeJobCard.conut$.pipe(
+    map(x => {return x})
+  );
+  locationCount$ = this._facadeLocation.conut$.pipe(
+    map(x => {return x})
+  );
+  requestCount$ = this._facadeRequest.conut$.pipe(
+    map(x => {return x})
+  );
+  technicianCount$ = this._facadeTechnician.conut$.pipe(
+    map(x => {return x})
+  );
   constructor(
     private _facadeRequest: BodyShopRequestFacade,
     private _facadeJobCard: BodyShopJobCardFacade,

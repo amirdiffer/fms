@@ -12,6 +12,7 @@ export interface ServiceShopRequestState extends EntityState<IRequest> {
   requests?: Array<any>
   submitted: boolean;
   assetRequest?:IRequestListSpecificAsset[];
+  resultNumber?:number;
 }
 
 export interface ServiceshopRequestPartialState {
@@ -28,6 +29,7 @@ export const initialState: ServiceShopRequestState = serviceShopRequestAdapter.g
     statistics: null,
     requests: [],
     submitted: false,
-    assetRequest:[]
+    assetRequest:[],
+    resultNumber:0
   } as ServiceShopRequestState
 );

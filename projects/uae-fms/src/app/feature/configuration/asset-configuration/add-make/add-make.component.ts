@@ -1,7 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   Injector, OnDestroy,
@@ -34,8 +32,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'anms-add-make',
   templateUrl: './add-make.component.html',
-  styleUrls: ['./add-make.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-make.component.scss']
 })
 export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, OnDestroy {
   radioButtonSelect: 'mModel';
@@ -78,7 +75,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, 
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
-    private changeDetectorRef: ChangeDetectorRef,
     public dataService: DataService,
     private assetTypeFacade: AssetTypeFacade,
     injector: Injector,
@@ -151,7 +147,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, 
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetectorRef.markForCheck();
       }
     });
 
@@ -164,7 +159,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, 
         this.dialogSetting.message = 'Error occurred in progress';
         this.dialogSetting.cancelButton = undefined;
         this.dialogSetting.confirmButton = 'OK';
-        this.changeDetectorRef.markForCheck();
       }
     });
   }

@@ -8,6 +8,10 @@ export class MovementRequestsSelectors {
     FleetSelectors.movementRequestsSelector,
     selectAll
   );
+  static count = createSelector(
+    FleetSelectors.movementRequestsSelector,
+    (state) => state.resultNumber
+  );
 
   static requestStatistic = createSelector(
     FleetSelectors.movementRequestsSelector,

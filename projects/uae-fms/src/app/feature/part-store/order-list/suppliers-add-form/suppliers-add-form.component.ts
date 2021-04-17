@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Output,
   EventEmitter
 } from '@angular/core';
@@ -11,8 +10,7 @@ import { TableSetting } from '@core/table';
 @Component({
   selector: 'suppliers-add-form',
   templateUrl: './suppliers-add-form.component.html',
-  styleUrls: ['./suppliers-add-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./suppliers-add-form.component.scss']
 })
 export class SuppliersAddFormComponent implements OnInit {
   @Output() cancel = new EventEmitter();

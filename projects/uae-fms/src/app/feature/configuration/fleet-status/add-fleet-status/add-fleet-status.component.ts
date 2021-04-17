@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Injector
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,8 +12,7 @@ import { FleetStatusAssetFacade } from '../../+state/fleet-status/asset/fleet-st
 @Component({
   selector: 'anms-add-fleet-status',
   templateUrl: './add-fleet-status.component.html',
-  styleUrls: ['./add-fleet-status.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-fleet-status.component.scss']
 })
 export class AddFleetStatusComponent extends Utility implements OnInit {
 

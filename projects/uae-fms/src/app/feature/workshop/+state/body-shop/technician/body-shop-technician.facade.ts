@@ -11,7 +11,10 @@ export class BodyShopTechnicianFacade {
   message$ = this.store.pipe(select(BodyShopTechnicianSelectors.message));
 
   error$ = this.store.pipe(select(BodyShopTechnicianSelectors.error));
+
   submitted$ = this.store.pipe(select(BodyShopTechnicianSelectors.submitted));
+
+  conut$ = this.store.pipe(select(BodyShopTechnicianSelectors.count))
 
   constructor(private store: Store<IBodyShopTechnicianPartialState>) {}
 

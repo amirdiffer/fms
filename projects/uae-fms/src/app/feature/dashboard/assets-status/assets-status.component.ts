@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ApexNonAxisChartSeries, ApexPlotOptions, ApexChart, ChartComponent, ApexLegend } from 'ng-apexcharts';
 
@@ -14,8 +14,7 @@ export type ChartOptions = {
 @Component({
   selector: 'anms-assets-status',
   templateUrl: './assets-status.component.html',
-  styleUrls: ['./assets-status.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./assets-status.component.scss']
 })
 export class AssetsStatusComponent implements OnInit {
   @ViewChild('chart') chart: ChartComponent;

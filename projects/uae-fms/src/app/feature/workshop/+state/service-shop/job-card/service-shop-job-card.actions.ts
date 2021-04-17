@@ -7,6 +7,10 @@ export class ServiceShopJobCardActions {
     '[serviceShopJobCard] all datas are loaded',
     props<{ data: IJobCard[] }>()
   );
+  static count = createAction(
+    '[serviceShopJobCard] get result number',
+    props<{ data: number }>()
+  );
   static addJobCard = createAction(
     '[serviceShopJobCard] add jobCard',
     props<{ data: IJobCard; assetId: number }>()

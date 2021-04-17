@@ -11,6 +11,11 @@ export class MovementOverviewActionsTemporary {
     props<{ data: MovementOverviewStateModel[] }>()
   );
 
+  static count = createAction(
+    '[MovementOverviewTemporary] get result number',
+    props<{ data: number }>()
+  );
+
   static error = createAction(
     '[MovementOverviewTemporary] error occurred',
     props<{ reason: any }>()

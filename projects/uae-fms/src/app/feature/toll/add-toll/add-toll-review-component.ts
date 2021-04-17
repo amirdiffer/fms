@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'add-toll-review',
@@ -12,8 +12,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
                 h3{
                     font-size: 1em;
                 }
-            `],
-  changeDetection: ChangeDetectionStrategy.OnPush
+            `]
 })
 export class AddTollReviewComponent implements OnInit {
     tableSetting = {

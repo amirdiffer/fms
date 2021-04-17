@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'anms-progress-bar',
@@ -10,8 +10,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ElementRe
       <small #small>{{ value }}<ng-content></ng-content></small>
     </div>
   `,
-  styleUrls: ['./progress-bar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./progress-bar.component.scss']
 })
 
 export class ProgressBarComponent implements OnInit {

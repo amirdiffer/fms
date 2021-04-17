@@ -1,9 +1,7 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Injector,
-  ChangeDetectorRef
 } from '@angular/core';
 import {
   FormArray,
@@ -27,8 +25,7 @@ import { ServiceShopJobCardFacade, ServiceShopJobCardService, ServiceShopLocatio
 @Component({
   selector: 'anms-add-job-card',
   templateUrl: './add-job-card.component.html',
-  styleUrls: ['./add-job-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-job-card.component.scss']
 })
 export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
@@ -203,7 +200,6 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     private _facadeTechnician: ServiceShopTechnicianFacade,
     private _jobCardService: ServiceShopJobCardService,
     private _taskMasterService: TaskMasterService,
-    private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
@@ -306,7 +302,6 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -319,7 +314,6 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
         this.errorDialogSetting.confirmButton = 'Ok';
-        this.changeDetector.detectChanges();
       } else {
         this.errorDialogModal = false;
       }
@@ -366,7 +360,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
       this._facadeRequest.getAssetRequest(e.value);
 
     }
-    
+
   }
   get tasks(): FormArray {
     return this.inputForm.get('tasks') as FormArray;
@@ -489,7 +483,6 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
         'Are you sure that you want to cancel editing jobCard?';
       this.dialogSetting.confirmButton = 'Yes';
       this.dialogSetting.cancelButton = 'Cancel';
-      this.changeDetector.detectChanges();
     }
 
     this.dialogSetting.header = 'Add new jobCard';

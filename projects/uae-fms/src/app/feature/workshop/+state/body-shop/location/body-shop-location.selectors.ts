@@ -12,6 +12,10 @@ export class BodyShopLocationSelectors {
     WorkshopSelectors.bodyshopLocationSelector,
     selectAll
   );
+  static count = createSelector(
+    WorkshopSelectors.bodyshopLocationSelector,
+    (state) => state.resultNumber
+  );
 
   static message = createSelector(
     WorkshopSelectors.bodyshopLocationSelector,

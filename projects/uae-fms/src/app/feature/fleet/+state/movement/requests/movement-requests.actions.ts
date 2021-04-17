@@ -9,6 +9,11 @@ export class MovementRequestsActions {
     '[MovementRequests] all data are loaded',
     props<{ data: IMovementRequest[] }>()
   );
+
+  static count = createAction(
+    '[MovementRequests] get result number',
+    props<{ data: number }>()
+  );
   static error = createAction(
     '[MovementRequests] error occurred',
     props<{ reason: any }>()

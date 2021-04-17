@@ -1,6 +1,4 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   Injector, OnDestroy,
@@ -28,8 +26,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'anms-add-trim',
   templateUrl: './add-trim.component.html',
-  styleUrls: ['./add-trim.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-trim.component.scss']
 })
 export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   radioButtonSelect: 'mModel';
@@ -73,7 +70,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
-    private changeDetectorRef: ChangeDetectorRef,
     public dataService: DataService,
     public router: Router,
     injector: Injector
@@ -146,7 +142,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetectorRef.markForCheck();
       }
     });
 
@@ -158,7 +153,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.message = 'Error occurred in progress';
         this.dialogSetting.cancelButton = undefined;
         this.dialogSetting.confirmButton = 'OK';
-        this.changeDetectorRef.markForCheck();
       }
     });
   }

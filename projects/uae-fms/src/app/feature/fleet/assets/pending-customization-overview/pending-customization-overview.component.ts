@@ -1,11 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AnyCnameRecord, AnySrvRecord } from 'dns';
 
 @Component({
   selector: 'anms-pending-customization-overview',
   templateUrl: './pending-customization-overview.component.html',
-  styleUrls: ['./pending-customization-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./pending-customization-overview.component.scss']
 })
 export class PendingCustomizationOverviewComponent implements OnInit {
   tableSetting;

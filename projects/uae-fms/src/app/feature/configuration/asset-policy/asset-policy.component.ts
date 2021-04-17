@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   OnDestroy,
   ViewChild
 } from '@angular/core';
@@ -17,8 +16,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'anms-asset-policy',
   templateUrl: './asset-policy.component.html',
-  styleUrls: ['./asset-policy.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./asset-policy.component.scss']
 })
 export class AssetPolicyComponent implements OnInit, OnDestroy {
 
@@ -153,7 +151,12 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     )
   );
   //#endregion
-
+  assetPolicyCount$ = this.assetPolicyFacade.conut$.pipe(
+    map(x => {return x})
+  );
+  subAssetPolicyCount$ =this.subAssetPolicyFacade.conut$.pipe(
+    map(x => {return x})
+  );
   constructor(
     private _router: Router,
     private assetPolicyFacade: AssetPolicyFacade,

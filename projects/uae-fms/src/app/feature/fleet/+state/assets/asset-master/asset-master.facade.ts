@@ -17,11 +17,13 @@ export class AssetMasterFacade {
 
   error$ = this.store.pipe(select(AssetMasterSelectors.error));
 
+  conut$ = this.store.pipe(select(AssetMasterSelectors.count))
+
   constructor(private store: Store<IAssetMasterPartialState>) { }
 
   loadAll() {
     this.reset();
-    this.store.dispatch(AssetMasterActions.loadAll());
+    this.store.dispatch(AssetMasterActions.loadAll());;
   }
 
   loadStatistics() {

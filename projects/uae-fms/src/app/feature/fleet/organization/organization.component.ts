@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   ViewChild
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -13,8 +12,7 @@ import { OrganizationFacade } from '../+state/organization';
 @Component({
   selector: 'anms-organization',
   templateUrl: './organization.component.html',
-  styleUrls: ['./organization.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./organization.component.scss']
 })
 export class OrganizationComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;

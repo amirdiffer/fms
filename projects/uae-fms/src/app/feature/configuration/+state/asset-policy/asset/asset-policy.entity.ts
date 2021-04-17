@@ -8,6 +8,7 @@ export interface AssetPolicyState extends EntityState<IAssetPolicy> {
   error?: any;
   loaded?: boolean;
   message?: string;
+  resultNumber?:number
 }
 
 export interface AssetPolicyPartialState {
@@ -22,6 +23,8 @@ export const initialState: AssetPolicyState = assetPolicyAdapter.getInitialState
     submitted: false,
     error: null,
     loaded: null,
-    message: null
+    message: null,
+    resultNumber:0
+
   } as AssetPolicyState
 );

@@ -8,6 +8,8 @@ export interface IServiceShopTechnicianState extends EntityState<ITechnician> {
   loaded: boolean;
   message: string;
   submitted: boolean;
+  resultNumber?:number
+
 }
 export interface IServiceShopTechnicianPartialState {
   [WORKSHOP_SERVICESHOP_TECHNICIAN_FEATURE_KEY]: IServiceShopTechnicianState;
@@ -20,6 +22,8 @@ export const initialState: IServiceShopTechnicianState = serviceShopTechnicianAd
     loaded: null,
     message: null,
     error: null,
-    submitted: false
+    submitted: false,
+    resultNumber:0
+
   } as IServiceShopTechnicianState
 );

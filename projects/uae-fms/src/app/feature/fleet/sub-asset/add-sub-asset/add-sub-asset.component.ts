@@ -3,9 +3,7 @@ import { SubAssetService } from './../../+state/sub-asset/sub-asset.service';
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Injector,
-  ChangeDetectorRef
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
@@ -25,8 +23,7 @@ const SUB_ASSET_LABEL = 'SUB_ASSET';
 @Component({
   selector: 'anms-add-sub-asset',
   templateUrl: './add-sub-asset.component.html',
-  styleUrls: ['./add-sub-asset.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-sub-asset.component.scss']
 })
 export class AddSubAssetComponent extends Utility implements OnInit {
   formCurrentStep = 0;
@@ -233,7 +230,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     private subAssetFacade: SubAssetFacade,
     private subAssetService: SubAssetService,
     private routerFacade: RouterFacade,
-    private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
@@ -378,7 +374,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
   }
@@ -393,7 +388,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
         this.errorDialogSetting.confirmButton = 'Ok';
-        this.changeDetector.detectChanges();
       } else {
         this.errorDialogModal = false;
       }

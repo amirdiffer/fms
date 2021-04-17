@@ -2,9 +2,7 @@ import { TaskMasterFacade } from './../+state/task-master/task-master.facade';
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Injector,
-  ChangeDetectorRef,
   OnDestroy
 } from '@angular/core';
 import { TaskMasterService } from '../task-master/task-master.service';
@@ -22,8 +20,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'anms-task-master-form',
   templateUrl: './task-master-form.component.html',
-  styleUrls: ['./task-master-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./task-master-form.component.scss']
 })
 export class TaskMasterFormComponent extends Utility implements OnInit , OnDestroy{
   searchIcon = 'assets/icons/search.svg';
@@ -77,7 +74,6 @@ export class TaskMasterFormComponent extends Utility implements OnInit , OnDestr
     injector: Injector,
     private _fb: FormBuilder,
     private _facade: TaskMasterFacade,
-    private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
@@ -137,7 +133,6 @@ export class TaskMasterFormComponent extends Utility implements OnInit , OnDestr
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
   }
@@ -152,7 +147,6 @@ export class TaskMasterFormComponent extends Utility implements OnInit , OnDestr
         this.dialogSettingError.hasError = true;
         this.dialogSettingError.cancelButton = undefined;
         this.dialogSettingError.confirmButton = 'Ok';
-        this.changeDetector.detectChanges();
       } else {
         this.dialogModalError = false;
       }

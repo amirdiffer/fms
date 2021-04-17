@@ -1,9 +1,7 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Injector,
-  ChangeDetectorRef
 } from '@angular/core';
 import {
   FormArray,
@@ -39,8 +37,7 @@ import { OrganizationService } from '@feature/fleet/+state/organization';
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
-  styleUrls: ['./add-technician.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-technician.component.scss']
 })
 export class AddTechnicianComponent extends Utility implements OnInit {
   isEdit: boolean = false;
@@ -223,7 +220,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     private _taskMasterService: TaskMasterService,
     private _departmentService: OrganizationService,
     private _facadeTaskMaster: TaskMasterFacade,
-    private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
@@ -307,7 +303,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
                 if(i != x.locations.length -1){
                   this.addLocation();
                 }
-                
+
               }
               this.emails.controls = [];
               for (let i = 0; i < x.user.emails.length; i++) {
@@ -365,7 +361,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -378,7 +373,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
         this.errorDialogSetting.confirmButton = 'Ok';
-        this.changeDetector.detectChanges();
       } else {
         this.errorDialogModal = false;
       }
@@ -689,7 +683,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       this.inputForm.markAllAsTouched();
       return;
     }
-    
+
     this.dialogModal = true;
     this.dialogType = 'submit';
     if (this.isEdit) {

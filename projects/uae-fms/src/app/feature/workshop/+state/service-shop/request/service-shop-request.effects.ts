@@ -6,13 +6,15 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { TableFacade } from '@core/table/+state/table.facade';
 import { ServiceShopRequestService } from './service-shop-request.service';
 import { ServiceShopRequestActions } from './service-shop-request.actions';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class ServiceShopRequestEffect {
   constructor(
     private action$: Actions,
     private service: ServiceShopRequestService,
-    private _tableFacade: TableFacade
+    private _tableFacade: TableFacade,
+    private _store:Store
   ) {}
 
   loadAll$ = createEffect(() =>
@@ -30,6 +32,7 @@ export class ServiceShopRequestEffect {
               })
             )
             this._tableFacade.initialPaginator(data.resultNumber, 'body-shop_request');
+            this._store.dispatch(ServiceShopRequestActions.count({data:data.resultNumber}))
             return ServiceShopRequestActions.allDataLoaded({ data: newData });
           }),
           catchError((error) =>

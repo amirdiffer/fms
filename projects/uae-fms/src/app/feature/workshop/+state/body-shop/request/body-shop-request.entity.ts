@@ -12,6 +12,7 @@ export interface BodyShopRequestState extends EntityState<IRequest> {
   requests?: Array<any>
   submitted: boolean;
   assetRequest?:IRequestListSpecificAsset[];
+  resultNumber?:number
 }
 
 export interface BodyshopRequestPartialState {
@@ -28,6 +29,7 @@ export const initialState: BodyShopRequestState = bodyShopRequestAdapter.getInit
     statistics: null,
     requests: [],
     submitted: false,
-    assetRequest:[]
+    assetRequest:[],
+    resultNumber:0
   } as BodyShopRequestState
 );

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { ColumnType, TableSetting } from '@core/table';
 import * as L from 'leaflet';
@@ -7,8 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'anms-iserv',
   templateUrl: './iserv.component.html',
-  styleUrls: ['./iserv.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./iserv.component.scss']
 })
 export class IserveComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';

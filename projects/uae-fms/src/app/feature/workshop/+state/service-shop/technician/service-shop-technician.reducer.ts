@@ -18,6 +18,12 @@ const serviceShopTechnicianReducer = createReducer(
       error: null
     })
   ),
+
+  on(ServiceShopTechnicianActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber:data
+  })),
+
   on(
     ServiceShopTechnicianActions.addTechnician,
     (state, { data: ITechnician }) => ({

@@ -5,13 +5,15 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { BodyShopLocationActions } from './body-shop-location.actions';
 import { BodyShopLocationService } from './body-shop-location.service';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class BodyShopLocationEffect {
   constructor(
     private action$: Actions,
     private service: BodyShopLocationService,
-    private _tableFacade: TableFacade
+    private _tableFacade: TableFacade,
+    private _store: Store
   ) {}
 
   loadAll$ = createEffect(() =>
@@ -21,6 +23,7 @@ export class BodyShopLocationEffect {
         this.service.loadAll().pipe(
           map((data) => {
             this._tableFacade.initialPaginator(data.resultNumber, 'body-shop_location');
+            this._store.dispatch(BodyShopLocationActions.count({data:data.resultNumber}))
             return BodyShopLocationActions.allDataLoaded({
               data: data.message
             });

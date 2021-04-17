@@ -10,6 +10,11 @@ export class BodyShopRequestActions {
     props<{ data: any[] }>()
     );  
  
+  static count = createAction(
+    '[bodyShopRequest] get result number',
+    props<{ data: number }>()
+  );
+
 
   /* Request By ID */
   static loadAllRequestsById = createAction('[bodyShopRequest] load all requests by id',

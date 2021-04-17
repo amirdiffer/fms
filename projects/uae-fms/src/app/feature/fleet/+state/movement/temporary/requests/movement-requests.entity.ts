@@ -12,6 +12,8 @@ export interface MovementRequestsState extends EntityState<IMovementRequest> {
   submitted?: boolean;
   rejected?: boolean;
   assigned?: boolean;
+  resultNumber?:number
+
 }
 export interface MovementRequestsPartialState {
   [FLEET_MOVEMENT_TEMPORARY_REQUESTS_FEATURE_KEY]: MovementRequestsState;
@@ -27,6 +29,8 @@ export const initialState: MovementRequestsState = movementRequestsTemporaryAdap
     statistic: null,
     submitted: false,
     rejected: null,
-    assigned: null
+    assigned: null,
+    resultNumber:0
+
   } as MovementRequestsState
 );

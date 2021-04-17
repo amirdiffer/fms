@@ -1,9 +1,7 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   OnDestroy,
-  ChangeDetectorRef,
   ViewChild
 } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
@@ -20,8 +18,7 @@ import moment from 'moment';
 @Component({
   selector: 'anms-sub-asset',
   templateUrl: './sub-asset.component.html',
-  styleUrls: ['./sub-asset.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./sub-asset.component.scss']
 })
 export class SubAssetComponent implements OnInit, OnDestroy {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
@@ -141,7 +138,6 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   constructor(
     private facade: SubAssetFacade,
     private router: Router,
-    private changeDetector: ChangeDetectorRef,
     private _tableFacade: TableFacade
   ) {}
 
@@ -178,7 +174,6 @@ export class SubAssetComponent implements OnInit, OnDestroy {
               onActive(index: number) {}
             }
           ];
-          this.changeDetector.detectChanges();
         }
       }
     );
