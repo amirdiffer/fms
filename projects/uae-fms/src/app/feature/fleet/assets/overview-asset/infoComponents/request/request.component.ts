@@ -1,12 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColumnType } from '@core/table';
 
 @Component({
   selector: 'app-asset-overview-request',
   templateUrl: './request.component.html',
-  styleUrls: ['./request.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./request.component.scss']
 })
 export class RequestComponent implements OnInit {
   constructor(private _fb:FormBuilder) {}

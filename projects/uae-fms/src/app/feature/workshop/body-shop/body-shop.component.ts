@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting, ColumnType } from '@core/table';
 import {
@@ -13,8 +13,7 @@ import { map } from 'rxjs/operators';
 import moment from 'moment';
 @Component({
   templateUrl: './body-shop.component.html',
-  styleUrls: ['./body-shop.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./body-shop.component.scss']
 })
 export class BodyShopComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;

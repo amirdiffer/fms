@@ -2,9 +2,7 @@ import { PeriodicServiceService } from './../../+state/periodic-service/periodic
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Injector,
-  ChangeDetectorRef,
   OnDestroy
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -20,8 +18,7 @@ import { TaskMasterService } from '@feature/workshop/+state/task-master';
 @Component({
   selector: 'anms-add-periodic-service',
   templateUrl: './add-periodic-service.component.html',
-  styleUrls: ['./add-periodic-service.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-periodic-service.component.scss']
 })
 export class AddPeriodicServiceComponent extends Utility implements OnInit , OnDestroy{
   //#region  Table
@@ -119,7 +116,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
   tasks$:Subscription;
   get task(): FormArray {
     return this.periodicServiceForm.get('tasks') as FormArray;
-     
+
   }
   constructor(
     private _fb: FormBuilder,
@@ -128,7 +125,6 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
     private periodicService: PeriodicServiceService,
     private _routerFacade: RouterFacade,
     private _taskMasterService: TaskMasterService,
-    private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
@@ -200,7 +196,6 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
         this.dialogSuccessSetting.hasError = false;
         this.dialogSuccessSetting.confirmButton = 'Yes';
         this.dialogSuccessSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -210,7 +205,6 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
 
         this.dialogErrorSetting.message = 'an error occurred during operation';
         this.dialogErrorSetting.hasError = true;
-        this.changeDetector.detectChanges();
       }
     });
   }
@@ -240,7 +234,6 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
       this.addPackage(pack.name, pack.intervalValue, pack.tasks);
     });
 
-    this.changeDetector.detectChanges();
   }
 
   createTaskForm(taskName = ''): FormGroup {
@@ -272,7 +265,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
 
   addTask(taskName = '',packageIndex = 0, taskIndex): void {
     if(this.getTasksForm(packageIndex,taskIndex).invalid)return;
-    
+
     this.tasks = this.getPackageTasks(packageIndex);
     this.tasks.push(this.createTaskForm());
   }

@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   Injector,
   OnInit
@@ -11,8 +10,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 @Component({
   selector: 'order-form',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./order.component.scss']
 })
 export class OrderFormComponent extends Utility implements OnInit {
   submited = false;

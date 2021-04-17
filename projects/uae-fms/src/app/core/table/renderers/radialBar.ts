@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewChild, } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild, } from '@angular/core';
 import {
     ApexNonAxisChartSeries,
     ApexPlotOptions,
@@ -27,7 +27,7 @@ import {
             <span class="title">Completed</span>
         </div>
     </div>
-    
+
   `,
   styles: [
     `
@@ -46,8 +46,7 @@ import {
         font-weight:bold;
     }
     `
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  ]
 })
 export class RadialBarRendererComponent implements OnInit  {
     @Input() percent;

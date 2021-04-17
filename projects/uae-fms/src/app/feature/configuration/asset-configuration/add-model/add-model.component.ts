@@ -1,7 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   Injector, OnDestroy,
@@ -28,8 +26,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'anms-add-model',
   templateUrl: './add-model.component.html',
-  styleUrls: ['./add-model.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-model.component.scss']
 })
 export class AddModelComponent
   extends Utility
@@ -73,7 +70,6 @@ export class AddModelComponent
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
-    private changeDetectorRef: ChangeDetectorRef,
     public dataService: DataService,
     public router: Router,
     injector: Injector
@@ -139,7 +135,6 @@ export class AddModelComponent
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetectorRef.markForCheck();
       }
     });
 
@@ -151,7 +146,6 @@ export class AddModelComponent
         this.dialogSetting.message = 'Error occurred in progress';
         this.dialogSetting.cancelButton = undefined;
         this.dialogSetting.confirmButton = 'OK';
-        this.changeDetectorRef.markForCheck();
       }
     });
   }

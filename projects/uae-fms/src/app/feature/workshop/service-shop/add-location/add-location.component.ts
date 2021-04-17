@@ -1,9 +1,7 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Injector,
-  ChangeDetectorRef
 } from '@angular/core';
 import {
   FormArray,
@@ -23,8 +21,7 @@ import { ServiceShopLocationFacade } from '@feature/workshop/+state/service-shop
 @Component({
   selector: 'anms-add-location',
   templateUrl: './add-location.component.html',
-  styleUrls: ['./add-location.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-location.component.scss']
 })
 export class AddLocationServiceShopComponent extends Utility implements OnInit {
   isEdit: boolean = false;
@@ -153,7 +150,6 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
     injector: Injector,
     private _roter: Router,
     private _facadeLocation: ServiceShopLocationFacade,
-    private changeDetector: ChangeDetectorRef
   ) {
     super(injector);
   }
@@ -210,7 +206,6 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -223,7 +218,6 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
         this.errorDialogSetting.confirmButton = 'Ok';
-        this.changeDetector.detectChanges();
       } else {
         this.errorDialogModal = false;
       }
@@ -287,7 +281,7 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
   removeService(index){
     this.service.removeAt(index)
   }
-  
+
   dialogConfirm($event): void {
     this.errorDialogModal = false;
     this.dialogModal = false;

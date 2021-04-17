@@ -1,11 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TableSetting, ColumnType } from '@core/table';
 
 @Component({
   selector: 'anms-technician-overview',
   templateUrl: './technician-overview.component.html',
-  styleUrls: ['./technician-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./technician-overview.component.scss']
 })
 export class TechnicianOverviewComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
@@ -345,7 +344,7 @@ export class TechnicianOverviewComponent implements OnInit {
         },
         statusColor: '#028D5D'
       },
-      
+
     ]
   }
   filterSettingJobCard =  [

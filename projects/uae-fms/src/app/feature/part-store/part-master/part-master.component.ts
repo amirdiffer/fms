@@ -1,11 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PartMasterService } from './part-master.service';
 
 @Component({
   selector: 'anms-part-master',
   templateUrl: './part-master.component.html',
-  styleUrls: ['./part-master.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./part-master.component.scss']
 })
 export class PartMasterComponent implements OnInit {
   searchIcon = 'assets/icons/search-solid.svg';

@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   ViewChild
 } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
@@ -15,8 +14,7 @@ import { ThrowStmt } from '@angular/compiler';
 @Component({
   selector: 'app-operator',
   templateUrl: './operator.component.html',
-  styleUrls: ['./operator.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./operator.component.scss']
 })
 export class OperatorComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;

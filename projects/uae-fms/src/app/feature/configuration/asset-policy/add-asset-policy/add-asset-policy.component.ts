@@ -1,8 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Injector,
   OnDestroy
 } from '@angular/core';
@@ -25,8 +23,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'anms-add-asset-policy',
   templateUrl: './add-asset-policy.component.html',
-  styleUrls: ['./add-asset-policy.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-asset-policy.component.scss']
 })
 export class AddAssetPolicyComponent
   extends Utility
@@ -138,7 +135,6 @@ export class AddAssetPolicyComponent
     private _routerFacade: RouterFacade,
     private assetPolicyFacade: AssetPolicyFacade,
     private _subAssetPolicyFacade: SubAssetPolicyFacade,
-    private changeDetector: ChangeDetectorRef,
     private _activatedRoute: ActivatedRoute
   ) {
     super(injector);
@@ -189,7 +185,7 @@ export class AddAssetPolicyComponent
 
   ngOnInit(): void {
     // this.assetPolicyFacade.loadAll();
-    
+
 
     this.assetPolicyForm = this._fb.group({
       policyType: ['ASSET', [Validators.required]],
@@ -260,7 +256,6 @@ export class AddAssetPolicyComponent
         this.dialogSettingAddOrUpdate.hasError = false;
         this.dialogSettingAddOrUpdate.confirmButton = 'Yes';
         this.dialogSettingAddOrUpdate.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -268,7 +263,6 @@ export class AddAssetPolicyComponent
       if (x) {
         this.dialogModalError = true;
         this.dialogSettingError.hasError = true;
-        this.changeDetector.detectChanges();
       } else {
         this.dialogModalError = false;
       }

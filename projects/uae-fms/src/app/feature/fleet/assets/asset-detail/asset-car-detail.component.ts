@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Input,
   OnChanges
 } from '@angular/core';
@@ -9,8 +8,7 @@ import {
 @Component({
   selector: 'anms-asset-detail',
   templateUrl: './asset-car-detail.component.html',
-  styleUrls: ['./asset-car-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./asset-car-detail.component.scss']
 })
 export class AssetCarDetailComponent implements OnInit, OnChanges {
   @Input() asset;

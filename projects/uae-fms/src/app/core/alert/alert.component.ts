@@ -1,15 +1,13 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Input
 } from '@angular/core';
 
 @Component({
   selector: 'anms-alert',
   templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./alert.component.scss']
 })
 export class AlertComponent implements OnInit {
   @Input('status') status: string = 'light'; // check style file for status list

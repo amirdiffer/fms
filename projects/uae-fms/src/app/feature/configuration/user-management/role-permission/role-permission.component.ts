@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ColumnType, TableSetting } from '@core/table';
 import { from, of } from 'rxjs';
 import { RolePermissionFacade } from '../../+state/role-permission';
@@ -6,8 +6,7 @@ import { RolePermissionFacade } from '../../+state/role-permission';
 @Component({
   selector: 'anms-role-permission',
   templateUrl: './role-permission.component.html',
-  styleUrls: ['./role-permission.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./role-permission.component.scss']
 })
 export class RolePermissionComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';

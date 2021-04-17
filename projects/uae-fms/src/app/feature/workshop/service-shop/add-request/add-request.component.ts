@@ -1,8 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
 } from '@angular/core';
 import {
   FormBuilder,
@@ -25,8 +23,7 @@ import { ServiceShopRequestFacade, ServiceShopRequestService } from '@feature/wo
 @Component({
   selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',
-  styleUrls: ['./add-request.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-request.component.scss']
 })
 export class AddRequestServiceShopComponent implements OnInit {
   //#region Dialog
@@ -78,7 +75,6 @@ export class AddRequestServiceShopComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _serviceShopRequestFacade: ServiceShopRequestFacade,
-    private _changeDetector: ChangeDetectorRef,
     private _assetMasterFacade: AssetMasterFacade
   ) {}
 
@@ -134,7 +130,6 @@ export class AddRequestServiceShopComponent implements OnInit {
           this.dialogSetting.hasError = false;
           this.dialogSetting.confirmButton = 'Yes';
           this.dialogSetting.cancelButton = undefined;
-          this._changeDetector.detectChanges();
         }
       });
 
@@ -147,7 +142,6 @@ export class AddRequestServiceShopComponent implements OnInit {
           this.errorDialogSetting.hasError = true;
           this.errorDialogSetting.cancelButton = undefined;
           this.errorDialogSetting.confirmButton = 'Ok';
-          this._changeDetector.detectChanges();
         } else {
           this.errorDialogModal = false;
         }

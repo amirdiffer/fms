@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { AfterContentInit, Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounceTime, map } from 'rxjs/operators';
@@ -15,8 +15,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 @Component({
   selector: 'anms-add-user',
   templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-user.component.scss']
 })
 export class AddUserComponent
   extends Utility
@@ -124,7 +123,6 @@ export class AddUserComponent
     private formBuilder: FormBuilder,
     private userFacade: UsersFacade,
     private _orgfacade: OrganizationFacade,
-    private changeDetector: ChangeDetectorRef,
     private roleFacade: RolePermissionFacade,
     private userService: UsersService
   ) {
@@ -237,7 +235,6 @@ export class AddUserComponent
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -253,7 +250,6 @@ export class AddUserComponent
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
         this.errorDialogSetting.confirmButton = 'Ok';
-        this.changeDetector.detectChanges();
       } else {
         this.errorDialogModal = false;
       }

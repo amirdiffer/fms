@@ -1,13 +1,12 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewChild } from '@angular/core';
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { AccessoryService } from '@feature/fleet/+state/accessory/accessory.service';
 
 @Component({
   selector: 'anms-accessory-overview',
   templateUrl: './accessory-overview.component.html',
-  styleUrls: ['./accessory-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./accessory-overview.component.scss']
 })
 export class AccessoryOverviewComponent implements OnInit {
   recordId: number;

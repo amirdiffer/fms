@@ -1,9 +1,7 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Injector,
-  ChangeDetectorRef
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
@@ -20,8 +18,7 @@ import { MovementOverviewFacadeTemporary } from '@feature/fleet/+state/movement/
 @Component({
   selector: 'anms-add-request',
   templateUrl: './add-temporary-request.component.html',
-  styleUrls: ['./add-temporary-request.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-temporary-request.component.scss']
 })
 export class AddTemporaryRequestComponent extends Utility implements OnInit {
   requestForm: FormGroup;
@@ -59,7 +56,6 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
     private _fb: FormBuilder,
     private facade: MovementRequestsFacadeTemporary,
     private overViewFacade: MovementOverviewFacadeTemporary,
-    private changeDetector: ChangeDetectorRef,
     private assetFacade: AssetMasterFacade,
     private _movementService: MovementService,
     injector: Injector
@@ -84,7 +80,6 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
         this.dialogErrorSetting.hasError = false;
         this.facade.loadAll();
         this.overViewFacade.loadAll();
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -105,7 +100,6 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
-        this.changeDetector.detectChanges();
       }
     });
   }

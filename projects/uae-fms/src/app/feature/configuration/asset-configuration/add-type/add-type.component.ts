@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Injector, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Injector, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AssetConfigurationService } from '../asset-configuration.service';
@@ -12,8 +12,7 @@ import { DataService } from '@feature/configuration/asset-configuration/data.ser
 @Component({
   selector: 'congifuration-add-type',
   templateUrl: './add-type.component.html',
-  styleUrls: ['./add-type.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-type.component.scss']
 })
 export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   radioButtonSelect: 'mModel';
@@ -47,7 +46,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
-    private changeDetectorRef: ChangeDetectorRef,
     public router: Router,
     private _dataService: DataService,
     injector: Injector
@@ -83,7 +81,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetectorRef.markForCheck();
       }
     });
 
@@ -95,7 +92,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
         this.dialogSetting.message = 'Error occurred in progress';
         this.dialogSetting.cancelButton = undefined;
         this.dialogSetting.confirmButton = 'OK';
-        this.changeDetectorRef.markForCheck();
       }
     });
   }

@@ -1,12 +1,11 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TableSetting } from '@core/table';
 
 @Component({
   selector: 'part-detail-list',
   template: `<app-table [setting]="partListDetaisTable"></app-table>`,
-  styleUrls: ['./part-detail-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./part-detail-list.component.scss']
 })
 export class PartDetailListComponent implements OnInit {
   recordId: number;

@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   Inject,
   OnInit,
@@ -33,7 +32,6 @@ export class LoginComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document,
     private profileFacade: UserProfileFacade,
     private route: ActivatedRoute,
-    private changeDetector: ChangeDetectorRef
   ) {
     this.credentialsFG = new FormGroup({
       username: new FormControl('', [Validators.required]),
@@ -162,7 +160,6 @@ export class LoginComponent implements OnInit {
         },
         (error) => {
           this.showLoginError = true;
-          this.changeDetector.markForCheck();
         }
       );
   }

@@ -1,8 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   ViewChild
 } from '@angular/core';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
@@ -14,8 +12,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'anms-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
@@ -132,7 +129,6 @@ export class UsersComponent implements OnInit {
   constructor(
     private facade: UsersFacade,
     private router: Router,
-    private changeDetection: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -167,7 +163,6 @@ export class UsersComponent implements OnInit {
           }
         ];
 
-        this.changeDetection.detectChanges();
       }
     });
   }

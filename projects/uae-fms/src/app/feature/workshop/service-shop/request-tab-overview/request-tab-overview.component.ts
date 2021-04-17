@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ColumnType } from '@core/table';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
@@ -9,8 +9,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-asset-overview-request',
   templateUrl: './request-tab-overview.component.html',
-  styleUrls: ['./request-tab-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./request-tab-overview.component.scss']
 })
 export class RequestTabOverviewServiceShopComponent implements OnInit {
   assetId;
