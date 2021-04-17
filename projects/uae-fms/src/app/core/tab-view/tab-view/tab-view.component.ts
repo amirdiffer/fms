@@ -7,7 +7,7 @@ import {
   EventEmitter,
   Input,
   Renderer2,
-  OnDestroy, AfterViewInit
+  OnDestroy, AfterViewInit, ChangeDetectorRef
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -35,7 +35,8 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private _router: Router,
     private _activateRoute: ActivatedRoute,
-    private _renderer: Renderer2
+    private _renderer: Renderer2,
+    private _cd:ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {}
@@ -51,11 +52,7 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
             index: i,
             title: this.elements[i].attributes.getNamedItem('title').nodeValue,
             id: tabID ? tabID.nodeValue : null,
-            count: this.index
-              ? this.elements[i].attributes.getNamedItem('count') != null
-                ? this.elements[i].attributes.getNamedItem('count').nodeValue
-                : null
-              : null
+            
           });
         }
       }
@@ -77,15 +74,18 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
   ngAfterViewChecked(){
-    if (this.elements.length > 0){
-      for (let i = 0; i < this.elements.length; i++){
-        let countAttr = this.elements[i].attributes.getNamedItem('count');
-        if(countAttr){
-          this.tabs[i].count = +countAttr.nodeValue
+    if(this.initialized){
+      if (this.elements.length > 0 ){
+        for (let i = 0; i < this.elements.length; i++){
+          let countAttr = this.elements[i].attributes.getNamedItem('count');
+          if(+countAttr.nodeValue > 0){
+            this.tabs[i].count = +countAttr.nodeValue
+          }
         }
       }
+      this._cd.detectChanges()
     }
-    this.cd.detectChanges();
+
   }
   selectedTabChanged() {
     for (let i = 0; i < this.elements.length; i++) {
