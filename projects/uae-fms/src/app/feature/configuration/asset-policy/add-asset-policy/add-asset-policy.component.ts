@@ -30,8 +30,46 @@ export class AddAssetPolicyComponent
   implements OnInit, OnDestroy {
 
   #startRegionVariables
-  itemID;
   currentTab = '';
+  assetPolicyForm: FormGroup;
+  submitted = false;
+  isEdit = false;
+  id: number;
+  #endRegionVariables
+
+  #startRegionDialog
+  dialogModalAddOrUpdate = false;
+  dialogModalCancel = false;
+  dialogModalError = false;
+
+  dialogSettingAddOrUpdate: IDialogAlert = {
+    header: 'Asset Policy',
+    hasError: true,
+    hasHeader: true,
+    message: 'New Asset Policy Successfully Added',
+    confirmButton: 'OK'
+  };
+
+  dialogSettingError: IDialogAlert = {
+    header: 'Asset Policy',
+    hasError: true,
+    hasHeader: true,
+    message: 'An Error Occured',
+    confirmButton: 'OK'
+  };
+
+  dialogSettingCancel: IDialogAlert = {
+    header: 'Asset Policy',
+    hasError: false,
+    isWarning: true,
+    hasHeader: true,
+    message: 'Are you sure that you want to cancel the asset policy creation?',
+    confirmButton: 'Yes',
+    cancelButton: 'No'
+  };
+  #endRegionDialog
+
+  #startRegionTables
   assetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
@@ -76,45 +114,6 @@ export class AddAssetPolicyComponent
       ]
     }
   };
-  assetPolicyForm: FormGroup;
-  submitted = false;
-  isEdit = false;
-  id: number;
-  #endRegionVariables
-
-  #startRegionDialog
-  dialogModalAddOrUpdate = false;
-  dialogModalCancel = false;
-  dialogModalError = false;
-
-  dialogSettingAddOrUpdate: IDialogAlert = {
-    header: 'Asset Policy',
-    hasError: true,
-    hasHeader: true,
-    message: 'New Asset Policy Successfully Added',
-    confirmButton: 'OK'
-  };
-
-  dialogSettingError: IDialogAlert = {
-    header: 'Asset Policy',
-    hasError: true,
-    hasHeader: true,
-    message: 'An Error Occured',
-    confirmButton: 'OK'
-  };
-
-  dialogSettingCancel: IDialogAlert = {
-    header: 'Asset Policy',
-    hasError: false,
-    isWarning: true,
-    hasHeader: true,
-    message: 'Are you sure that you want to cancel the asset policy creation?',
-    confirmButton: 'Yes',
-    cancelButton: 'No'
-  };
-  #endRegionDialog
-
-  #startRegionTables
   assetPolicy$ = this.assetPolicyFacade.assetPolicy$.pipe(
     map((x) =>
       x.map((item) => {
@@ -224,23 +223,25 @@ export class AddAssetPolicyComponent
     this.route.queryParams.subscribe(
       (params) => (this.currentTab = params['id'])
     );
-    this.route.params.subscribe(data => {
-      this.id = data['id'];
-    })
-    if (this.id) {
-      this.isEdit = true;
-      this.assetPolicyFacade.getById(this.id).subscribe((assetPolicy) => {
-        if (assetPolicy) {
-          this.loadAssetPolicyForm(assetPolicy);
-        }else{
-          this._subAssetPolicyFacade.getById(this.id).subscribe((sub_assetPolicy) => {
-            if (sub_assetPolicy) {
-              this.loadAssetPolicyForm(sub_assetPolicy);
-            }
-          });
-        }
-      });
-    }
+
+    this._routerFacade.route$.subscribe((data: any) => {
+      this.id = +data.params['id'];
+
+      if (this.id) {
+        this.isEdit = true;
+        this.assetPolicyFacade.getById(this.id).subscribe((assetPolicy) => {
+          if (assetPolicy) {
+            this.loadAssetPolicyForm(assetPolicy);
+          }else{
+            this._subAssetPolicyFacade.getById(this.id).subscribe((sub_assetPolicy) => {
+              if (sub_assetPolicy) {
+                this.loadAssetPolicyForm(sub_assetPolicy);
+              }
+            });
+          }
+        });
+      }
+    });
 
     this.assetPolicyFacade.submitted$.subscribe((x) => {
       if (x) {
