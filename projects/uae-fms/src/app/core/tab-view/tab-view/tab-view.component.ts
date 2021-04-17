@@ -10,7 +10,7 @@ import {
   OnDestroy, AfterViewInit, ChangeDetectorRef
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import {Subscription } from 'rxjs';
 @Component({
   selector: 'app-tab-view',
   templateUrl: './tab-view.component.html',
