@@ -123,9 +123,6 @@ export class SubAssetComponent implements OnInit, OnDestroy {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {
-        // console.log(col, data, button);
-      },
       floatButton: [
         {
           onClick: (col, data) => {
