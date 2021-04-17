@@ -10,7 +10,7 @@ import {
   OnDestroy, AfterViewInit, ChangeDetectorRef
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 @Component({
   selector: 'app-tab-view',
   templateUrl: './tab-view.component.html',
@@ -32,11 +32,12 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   // selectedTab: number = 0;
   selectedParams;
   routeObsvr$: Subscription;
+
   constructor(
     private _router: Router,
     private _activateRoute: ActivatedRoute,
     private _renderer: Renderer2,
-    // private _cd:ChangeDetectorRef
+    private _cd:ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {}
@@ -68,7 +69,6 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
           this.selectedIndex.emit(
             this.returnId == 'title' ? this.selectedParams : this.selectedTab
           );
-
       });
     }, 0);
 
@@ -78,29 +78,10 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
       for (let i = 0; i < this.elements.length; i++){
         let countAttr = this.elements[i].attributes.getNamedItem('count');
         if(this.tabs[i].count == 0 && +countAttr.nodeValue > 0){
-          console.log(countAttr.nodeValue)
           this.tabs[i].count = +countAttr.nodeValue
         }
       }
-      // if (this.elements.length > 0 ){
-        // for (let i = 0; i < this.elements.length; i++){
-        //   let countAttr = this.elements[i].attributes.getNamedItem('count');
-        //   console.log( this.tabs[i].count);
-        //   if(this.tabs[i].count == 0){
-        //     console.log( this.tabs[i].count);
-        //     if(+countAttr.nodeValue > 0){
-        //       this.tabs[i].count = +countAttr.nodeValue
-        //     }
-        //   }
-          // if(this.tabs[i].count = 0 && +countAttr.nodeValue > 0){
-          //   this.tabs[i].count = +countAttr.nodeValue
-          // }
-          // if(+countAttr.nodeValue > 0){
-          //   this.tabs[i].count = +countAttr.nodeValue
-          // }
-        // }
-      // }
-      // this._cd.detectChanges()
+      this._cd.detectChanges()
     }
   }
   selectedTabChanged() {
