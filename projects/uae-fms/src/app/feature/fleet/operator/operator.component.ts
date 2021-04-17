@@ -28,51 +28,25 @@ export class OperatorComponent implements OnInit {
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
-      filterCount: '2456',
+      filterCount: '',
       filterTagColor: '#6C7198',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
-      filterCount: '356',
+      filterCount: '',
       filterTagColor: '#5B8972',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.vacation',
-      filterCount: '124',
+      filterCount: '',
       filterTagColor: '#DDB16C',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
-      filterCount: '12',
-      filterTagColor: '#E07A5F',
-      onActive(index: number) {}
-    }
-  ];
-  filterCardOverView: FilterCardSetting[] = [
-    {
-      filterTitle: 'statistic.total',
-      filterCount: '2456',
-      filterTagColor: '#6C7198',
-      onActive(index: number) {}
-    },
-    {
-      filterTitle: 'statistic.active',
-      filterCount: '356',
-      filterTagColor: '#5B8972',
-      onActive(index: number) {}
-    },
-    {
-      filterTitle: 'statistic.vacation',
-      filterCount: '124',
-      filterTagColor: '#DDB16C',
-      onActive(index: number) {}
-    },
-    {
-      filterTitle: 'statistic.inactive',
-      filterCount: '12',
+      filterCount: '',
       filterTagColor: '#E07A5F',
       onActive(index: number) {}
     }
@@ -115,7 +89,7 @@ export class OperatorComponent implements OnInit {
         type: 1,
         field: 'Organization',
         width: 150,
-        renderer: 'doubleLineRenderer',
+        renderer: 'doubleLineRenderer'
       },
       {
         lable: 'tables.column.information',
@@ -172,12 +146,6 @@ export class OperatorComponent implements OnInit {
           onClick: (col, data, button?) => {
             this._router.navigate(['/fleet/operator/edit-operator/' + data.id]);
           }
-        },
-        {
-          button: 'external',
-          onClick: (col, data) => {
-            this._router.navigate(['/fleet/operator/' + data.id]);
-          }
         }
       ]
     }
@@ -190,6 +158,30 @@ export class OperatorComponent implements OnInit {
 
   ngOnInit(): void {
     this._operatorFacade.loadAll();
+    this._operatorFacade.loadStatistics();
+
+    this._operatorFacade.statistics$.subscribe((response) => {
+      if (response) {
+        this.filterCard.map((filter) => {
+          switch (filter.filterTitle) {
+            case 'statistic.total':
+              filter.filterCount = response.message.total;
+              break;
+            case 'statistic.active':
+              filter.filterCount = response.message.active;
+              break;
+            case 'statistic.inactive':
+              filter.filterCount = response.message.inActive;
+              break;
+            case 'statistic.vacation':
+              filter.filterCount = response.message.vacation;
+              break;
+            default:
+              break;
+          }
+        });
+      }
+    });
   }
 
   exportTable() {
@@ -199,5 +191,4 @@ export class OperatorComponent implements OnInit {
   eventPagination() {
     this._operatorFacade.loadAll();
   }
-
 }
