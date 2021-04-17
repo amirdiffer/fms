@@ -16,7 +16,10 @@ import { TableSetting } from '@core/table';
 import { map } from 'rxjs/operators';
 
 import { AccessoryFacade } from '@feature/fleet/+state/accessory';
-import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
+import {
+  SubAssetFacade,
+  SubAssetService
+} from '@feature/fleet/+state/sub-asset';
 import { AssetTypeFacade } from '../../+state/asset-configuration';
 
 @Component({
@@ -102,26 +105,27 @@ export class AddCategoryComponent extends Utility implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private accessoryFacade: AccessoryFacade,
     private subAssetFacade: SubAssetFacade,
-    private assetTypeFacade: AssetTypeFacade
+    private assetTypeFacade: AssetTypeFacade,
+    private subAssetService: SubAssetService
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
     this.accessoryFacade.loadAll();
-    this.subAssetFacade.loadAll();
+    // this.subAssetFacade.loadAll();
     this.assetTypeFacade.loadAll();
 
     this.accessoryFacade.accessory$.subscribe((x) => {
       this.accessoriesB = x.map((y) => ({ id: y.id, name: y.itemName }));
     });
 
-    this.subAssetFacade.subAsset$.subscribe((x) => {
-      this.subAssetsB = x.map((y) => ({
-        id: y.id,
-        name: y['makeName'] + ' ' + y['modelName']
-      }));
-    });
+    // this.subAssetFacade.subAsset$.subscribe((x) => {
+    //   this.subAssetsB = x.map((y) => ({
+    //     id: y.id,
+    //     name: y['makeName'] + ' ' + y['modelName']
+    //   }));
+    // });
 
     this.assetTypeFacade.assetType$.subscribe((x) => {
       this.assetTypesB = x.map((y) => ({ id: y.id, name: y.name }));
@@ -136,7 +140,18 @@ export class AddCategoryComponent extends Utility implements OnInit {
       assignAccessory: new FormArray([this.createAssignAccessory()])
     });
 
-    this.handleEditMode();
+    this.subAssetService.loadAll().subscribe(
+      (x) => {
+        this.subAssetsB = x.message.map((y) => ({
+          id: y.id,
+          name: y['makeName'] + ' ' + y['modelName']
+        }));
+      },
+      () => {},
+      () => {
+        this.handleEditMode();
+      }
+    );
 
     this.facade.submitted$.subscribe((x) => {
       if (x) {
@@ -195,23 +210,35 @@ export class AddCategoryComponent extends Utility implements OnInit {
             if (i > 0) {
               this.assignSubAsset.push(this.createAssignSubAsset());
             }
-            this.subAssetFacade.subAsset$.subscribe((x) => {
-              this.subAssetsB = x.map((y) => {
-                this.subAssetDocs.push(y.id);
-                this.assignSubAsset.controls[i].patchValue({
-                  subAsset: {
-                    id: subAssets[i].subAssetId,
-                    name:
-                      y.id === subAssets[i].subAssetId
-                        ? y['makeName'] + ' ' + y['modelName']
-                        : ''
-                  },
-                  assetQuantity: subAssets[i].quantity,
-                  file: subAssets[i].id
-                });
-                return { id: y.id, name: y['makeName'] + ' ' + y['modelName'] };
-              });
+            let subAsset = this.subAssetsB.find(
+              (a) => a.id == subAssets[i].subAssetId
+            );
+            this.subAssetDocs.push(subAsset.id);
+            this.assignSubAsset.controls[i].patchValue({
+              subAsset: {
+                id: subAssets[i].subAssetId,
+                name: subAsset.name
+              },
+              assetQuantity: subAssets[i].quantity,
+              file: subAssets[i].id
             });
+            // this.subAssetFacade.subAsset$.subscribe((x) => {
+            //   this.subAssetsB = x.map((y) => {
+            //     this.subAssetDocs.push(y.id);
+            //     this.assignSubAsset.controls[i].patchValue({
+            //       subAsset: {
+            //         id: subAssets[i].subAssetId,
+            //         name:
+            //           y.id === subAssets[i].subAssetId
+            //             ? y['makeName'] + ' ' + y['modelName']
+            //             : ''
+            //       },
+            //       assetQuantity: subAssets[i].quantity,
+            //       file: subAssets[i].id
+            //     });
+            //     return { id: y.id, name: y['makeName'] + ' ' + y['modelName'] };
+            //   });
+            // });
           }
 
           const accessories = response.message.accessories;
@@ -219,20 +246,32 @@ export class AddCategoryComponent extends Utility implements OnInit {
             if (i > 0) {
               this.assignAccessory.push(this.createAssignAccessory());
             }
-            this.accessoryFacade.accessory$.subscribe((x) => {
-              this.accessoriesB = x.map((y) => {
-                this.accessoryDocs.push(y.id);
-                this.assignAccessory.controls[i].patchValue({
-                  accessory: {
-                    id: accessories[i].accessoryId,
-                    name: y.id === accessories[i].accessoryId ? y.itemName : ''
-                  },
-                  accessoryQuantity: accessories[i].quantity,
-                  file: accessories[i].id
-                });
-                return { id: y.id, name: y.itemName };
-              });
+            let accessory = this.accessoriesB.find(
+              (a) => a.id == accessories[i].accessoryId
+            );
+            this.accessoryDocs.push(accessory.id);
+            this.assignAccessory.controls[i].patchValue({
+              accessory: {
+                id: accessories[i].accessoryId,
+                name: accessory.name
+              },
+              accessoryQuantity: accessories[i].quantity,
+              file: accessories[i].id
             });
+            // this.accessoryFacade.accessory$.subscribe((x) => {
+            //   this.accessoriesB = x.map((y) => {
+            //     this.accessoryDocs.push(y.id);
+            //     this.assignAccessory.controls[i].patchValue({
+            //       accessory: {
+            //         id: accessories[i].accessoryId,
+            //         name: y.id === accessories[i].accessoryId ? y.itemName : ''
+            //       },
+            //       accessoryQuantity: accessories[i].quantity,
+            //       file: accessories[i].id
+            //     });
+            //     return { id: y.id, name: y.itemName };
+            //   });
+            // });
           }
         });
       }
