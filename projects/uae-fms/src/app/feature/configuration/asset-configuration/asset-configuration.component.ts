@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AssetConfigurationService } from './asset-configuration.service';
 import { AssetConfigurationFacade, AssetTypeFacade } from '../+state/asset-configuration';
@@ -11,8 +11,7 @@ import { DataService } from '@feature/configuration/asset-configuration/data.ser
 @Component({
   selector: 'anms-asset-configuration',
   templateUrl: './asset-configuration.component.html',
-  styleUrls: ['./asset-configuration.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./asset-configuration.component.scss']
 })
 export class AssetConfigurationComponent implements OnInit, OnDestroy {
 
@@ -121,7 +120,6 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     private assetConfigurationFacade: AssetConfigurationFacade,
     private _assetConfigurationService: AssetConfigurationService,
     private _dataService: DataService,
-    private _changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {

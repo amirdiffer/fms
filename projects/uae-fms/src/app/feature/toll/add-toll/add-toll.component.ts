@@ -1,8 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Injector
 } from '@angular/core';
 import {
@@ -22,8 +20,7 @@ import {
 @Component({
   selector: 'anms-add-toll',
   templateUrl: './add-toll.component.html',
-  styleUrls: ['./add-toll.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-toll.component.scss']
 })
 export class AddTollComponent extends Utility implements OnInit {
   fileValid = false;
@@ -64,7 +61,6 @@ export class AddTollComponent extends Utility implements OnInit {
     confirmButton: 'OK'
   };
   constructor(
-    private _cd: ChangeDetectorRef,
     private _fb: FormBuilder,
     injector: Injector
   ) {
@@ -89,7 +85,6 @@ export class AddTollComponent extends Utility implements OnInit {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
           this.allFileUpload.push(droppedFile);
-          this._cd.markForCheck();
           const fileArrayForm = new FormControl(fileEntry.file, [
             Validators.required
           ]);

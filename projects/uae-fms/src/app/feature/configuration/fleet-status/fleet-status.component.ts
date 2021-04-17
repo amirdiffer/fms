@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FleetStatusAssetFacade,
   FleetStatusSubAssetFacade
@@ -10,8 +10,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'anms-fleet-status',
   templateUrl: './fleet-status.component.html',
-  styleUrls: ['./fleet-status.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./fleet-status.component.scss']
 })
 export class FleetStatusComponent implements OnInit {
 

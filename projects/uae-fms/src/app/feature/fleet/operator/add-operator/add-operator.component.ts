@@ -1,9 +1,7 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Injector,
-  ChangeDetectorRef
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
@@ -26,8 +24,7 @@ import { IOrganization } from '@models/organization'
 @Component({
   selector: 'anms-add-operator',
   templateUrl: './add-operator.component.html',
-  styleUrls: ['./add-operator.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-operator.component.scss']
 })
 export class AddOperatorComponent extends Utility implements OnInit {
   profileDocId = null;
@@ -154,7 +151,6 @@ export class AddOperatorComponent extends Utility implements OnInit {
     injector: Injector,
     private formBuilder: FormBuilder,
     private operatorFacade: OperatorFacade,
-    private changeDetector: ChangeDetectorRef,
     private operatorService: OperatorService,
     private _departmentService: OrganizationService
   ) {
@@ -263,7 +259,6 @@ export class AddOperatorComponent extends Utility implements OnInit {
         this.successDialogSetting.hasError = false;
         this.successDialogSetting.confirmButton = 'Ok';
         this.successDialogSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -279,7 +274,6 @@ export class AddOperatorComponent extends Utility implements OnInit {
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
         this.errorDialogSetting.confirmButton = 'Ok';
-        this.changeDetector.detectChanges();
       } else {
         this.errorDialogModal = false;
       }

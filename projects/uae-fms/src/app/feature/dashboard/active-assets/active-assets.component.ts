@@ -1,11 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'anms-active-assets',
   templateUrl: './active-assets.component.html',
-  styleUrls: ['./active-assets.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./active-assets.component.scss']
 })
 export class ActiveAssetsComponent implements OnInit {
   chartData = [];

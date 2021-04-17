@@ -1,5 +1,5 @@
 import { TableSetting } from '@core/table';
-import { Component, OnInit, ChangeDetectionStrategy, Injector } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
@@ -8,8 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'anms-add-fuel-card',
   templateUrl: './add-fuel-card.component.html',
-  styleUrls: ['./add-fuel-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-fuel-card.component.scss']
 })
 export class AddFuelCardComponent extends Utility implements OnInit {
   inputForm: FormGroup;

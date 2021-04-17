@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy , ViewChild } from '@angular/core';
+import { Component, OnInit , ViewChild } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting, ColumnType } from '@core/table';
 import { map } from 'rxjs/operators';
@@ -8,8 +8,7 @@ import {  TableComponent } from '@core/table/table.component';
 import { ServiceShopJobCardFacade, ServiceShopLocationFacade, ServiceShopRequestFacade, ServiceShopTechnicianFacade } from '../+state/service-shop';
 @Component({
   templateUrl: './service-shop.component.html',
-  styleUrls: ['./service-shop.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./service-shop.component.scss']
 })
 export class ServiceShopComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;

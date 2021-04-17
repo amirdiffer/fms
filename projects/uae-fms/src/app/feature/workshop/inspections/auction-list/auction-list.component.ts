@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -13,8 +12,7 @@ import { FakeServiceAuctionList } from './_fake-service.service';
 
 @Component({
   templateUrl: './auction-list.component.html',
-  styleUrls: ['./auction-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./auction-list.component.scss']
 })
 export class AuctionListComponent implements OnInit, OnDestroy {
   editOpen: boolean = false;

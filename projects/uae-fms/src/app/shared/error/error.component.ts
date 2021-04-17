@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   Input,
   OnInit
@@ -9,8 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'anms-error',
   templateUrl: './error.component.html',
-  styleUrls: ['./error.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./error.component.scss']
 })
 export class ErrorComponent implements OnInit {
   @Input('error') error;

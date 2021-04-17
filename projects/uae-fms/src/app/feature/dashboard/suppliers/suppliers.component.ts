@@ -1,11 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'anms-suppliers',
   templateUrl: './suppliers.component.html',
-  styleUrls: ['./suppliers.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./suppliers.component.scss']
 })
 export class SuppliersComponent implements OnInit {
   tabsImg = [`assets/icons/surface1.svg`];

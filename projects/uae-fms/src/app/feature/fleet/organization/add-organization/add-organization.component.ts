@@ -1,6 +1,4 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Injector,
   OnInit
@@ -22,8 +20,7 @@ import { ThrowStmt } from '@angular/compiler';
 @Component({
   selector: 'anms-add-organization',
   templateUrl: './add-organization.component.html',
-  styleUrls: ['./add-organization.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-organization.component.scss']
 })
 export class AddOrganizationComponent extends Utility implements OnInit {
   isEdit = false;
@@ -116,7 +113,6 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     private _fb: FormBuilder,
     private facade: OrganizationFacade,
     private organizationService: OrganizationService,
-    private changeDetection: ChangeDetectorRef,
     public route: ActivatedRoute
   ) {
     super(injector);
@@ -155,7 +151,6 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Ok';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetection.detectChanges();
       }
     });
     this.facade.error$.subscribe((x) => {
@@ -168,7 +163,6 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = true;
         this.dialogSetting.confirmButton = 'Ok';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetection.detectChanges();
       }
     });
 
@@ -209,7 +203,6 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         })
 
 
-        this.changeDetection.detectChanges();
       })
     })
   }

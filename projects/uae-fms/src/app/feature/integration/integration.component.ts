@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
 import { ColumnType, TableSetting } from '@core/table';
@@ -12,8 +11,7 @@ import { IntegrationFacade } from '../integration/+state';
 @Component({
   selector: 'anms-integration',
   templateUrl: './integration.component.html',
-  styleUrls: ['./integration.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./integration.component.scss']
 })
 export class IntegrationComponent implements OnInit, OnDestroy {
   tableData = new Array<any>();

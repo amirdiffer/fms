@@ -1,8 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   ViewChild
 } from '@angular/core';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
@@ -14,8 +12,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'anms-ownership',
   templateUrl: './ownership.component.html',
-  styleUrls: ['./ownership.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./ownership.component.scss']
 })
 export class OwnershipComponent implements OnInit {
 
@@ -96,7 +93,6 @@ export class OwnershipComponent implements OnInit {
   constructor(
     private facade: OwnershipFacade,
     private tableFacade: TableFacade,
-    private _cd: ChangeDetectorRef,
     private router:Router
   ) { }
 

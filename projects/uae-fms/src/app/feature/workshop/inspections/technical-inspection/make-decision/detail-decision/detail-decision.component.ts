@@ -2,7 +2,6 @@ import { MakeDecisionComponent } from './../make-decision.component';
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Output
 } from '@angular/core';
 import { MakeDecisionService } from '../make-decision.service';
@@ -10,8 +9,7 @@ import { MakeDecisionService } from '../make-decision.service';
 @Component({
   selector: 'detail-decision',
   templateUrl: './detail-decision.component.html',
-  styleUrls: ['./detail-decision.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./detail-decision.component.scss']
 })
 export class DetailDecisionComponent implements OnInit {
   tableSetting;

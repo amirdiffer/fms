@@ -1,10 +1,8 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   ViewChild,
   OnDestroy,
-  ChangeDetectorRef
 } from '@angular/core';
 import { AssetsService } from './assets.service';
 import { ColumnType, TableComponent } from '@core/table';
@@ -21,8 +19,7 @@ import moment from 'moment';
 @Component({
   selector: 'anms-assets',
   templateUrl: './assets.component.html',
-  styleUrls: ['./assets.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./assets.component.scss']
 })
 export class AssetsComponent implements OnInit, OnDestroy {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
@@ -114,7 +111,6 @@ export class AssetsComponent implements OnInit, OnDestroy {
     private assetMasterFacade: AssetMasterFacade,
     private registrationFacade: RegistrationFacade,
     private customizationFacade: CustomizationFacade,
-    private changeDetector: ChangeDetectorRef,
     private _router: Router
   ) {}
 
@@ -280,7 +276,6 @@ export class AssetsComponent implements OnInit, OnDestroy {
                 break;
             }
           });
-          this.changeDetector.detectChanges();
         }
       }
     );

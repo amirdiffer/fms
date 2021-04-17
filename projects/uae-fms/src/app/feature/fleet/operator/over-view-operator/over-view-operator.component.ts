@@ -1,12 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting } from '@core/table';
 
 @Component({
   selector: 'anms-over-view-operator',
   templateUrl: './over-view-operator.component.html',
-  styleUrls: ['./over-view-operator.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./over-view-operator.component.scss']
 })
 export class OverViewOperatorComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';

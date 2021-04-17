@@ -1,12 +1,10 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   ElementRef,
   ViewChild,
   AfterViewChecked,
   Injector,
-  ChangeDetectorRef
 } from '@angular/core';
 import { MovementService } from './movement.service';
 import { Observable, of } from 'rxjs';
@@ -26,8 +24,7 @@ import { FilterCardSetting } from '@core/filter';
 @Component({
   selector: 'anms-movement',
   templateUrl: './movement.component.html',
-  styleUrls: ['./movement.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./movement.component.scss']
 })
 export class MovementComponent
   extends Utility
@@ -87,7 +84,6 @@ export class MovementComponent
     private dialog: MatDialog,
     private _movementOverviewFacade: MovementOverviewFacade,
     private _movementRequestsFacade: MovementRequestsFacade,
-    private changeDetector: ChangeDetectorRef,
     injector: Injector
   ) {
     super(injector);
@@ -335,7 +331,6 @@ export class MovementComponent
           }
         });
       }
-      this.changeDetector.detectChanges();
     });
 
     // Handle confirm button click
@@ -375,14 +370,12 @@ export class MovementComponent
       if (x) {
         this.displaySuccessModal = true;
         this.dialogErrorSetting.hasError = false;
-        this.changeDetector.detectChanges();
       }
     });
     this._movementRequestsFacade.error$.subscribe((x) => {
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
-        this.changeDetector.detectChanges();
       } else {
         this.displayErrorModal = false;
       }
