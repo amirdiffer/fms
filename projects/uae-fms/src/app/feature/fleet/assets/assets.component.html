@@ -1,6 +1,6 @@
 
 <div  class="filter-container" *ngIf="selectedTab == 'assetMasterTab'">
-    <app-filter [setting] = "filterSetting"></app-filter>
+    <app-filter [setting] = "filterSetting" [filterCardSettingDelegate]='this'></app-filter>
 </div>
 
 <div class="table-container component_wrapper">

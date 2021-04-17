@@ -37,7 +37,7 @@ export class OperatorActions {
 
   static statisticsLoaded = createAction(
     '[Operators] all statistics are loaded',
-    props<{ data: IOperatorStatistics }>()
+    props<{ data: any }>()
   );
 
   static resetParams = createAction('[Operators] Reset Parameters');

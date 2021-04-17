@@ -2,7 +2,7 @@
   <div class="d-flex w-100 filter-wrapper" *ngIf="showStatistics" >
     <div *ngFor="let card of cardSetting; let index = index; let last = last" class="col statistics p-0">
       <div class="card parent overflow-hidden shadow-sm p-0"
-             [style.border-color]="card.setting.filterTagColor"><!-- (click)="onClick(index); card.setting.onActive(index)" -->
+             [style.border-color]="card.setting.filterTagColor" (click)="onClick(index); filterCardSettingDelegate.onActive(index)"><!-- (click)="onClick(index); card.setting.onActive(index)" -->
         <div class="d-inline-flex h-100" [style.background]="card.filterBackgroundColor">
           <div class="d-inline-flex card-body p-0">
             <ng-container *ngIf="!card.setting.isCalendar || card.setting.isCalendar == 'undefined'; else calendar">

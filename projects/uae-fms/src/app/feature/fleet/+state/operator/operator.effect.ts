@@ -23,6 +23,19 @@ export class OperatorEffect {
       )
     )
   );
+
+  loadStatistics$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(OperatorActions.loadStatistics),
+      mergeMap((action) =>
+        this.service.loadAllStatistics().pipe(
+          map((data) => OperatorActions.statisticsLoaded({ data })),
+          catchError((error) => of(OperatorActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   editOperator$ = createEffect(() =>
     this.action$.pipe(
       ofType(OperatorActions.editOperator),
@@ -54,5 +67,9 @@ export class OperatorEffect {
     )
   );
 
-  constructor(private action$: Actions, private service: OperatorService, private _tableFacade: TableFacade) {}
+  constructor(
+    private action$: Actions,
+    private service: OperatorService,
+    private _tableFacade: TableFacade
+  ) {}
 }

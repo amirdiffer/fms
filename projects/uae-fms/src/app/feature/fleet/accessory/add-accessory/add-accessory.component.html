@@ -65,7 +65,8 @@
 
       <div class="col-12 col-md-4 p-field form-section__field">
         <span class="p-float-label">
-          <input formControlName="quantity" pInputText placeholder="{{'accessory.quantity' | translate}} *" type="number">
+          <input formControlName="quantity" pInputText type="number">
+          <label>{{'accessory.quantity' | translate}} *</label>
         </span>
         <anms-error [showError]="hasError('quantity', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
       </div>

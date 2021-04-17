@@ -53,7 +53,7 @@
                 <svg-icon src='assets/icons/add.svg'
                           [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
               </span>
-              <span class='plus-icon mt-1' (click)="addMake()" *ngIf='makes.controls.length == index + 1'>
+              <span class='plus-icon mt-1' (click)="addMake();submited = true;" *ngIf='makes.controls.length == index + 1'>
                 <svg-icon src='assets/icons/add.svg'
                           [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
               </span>

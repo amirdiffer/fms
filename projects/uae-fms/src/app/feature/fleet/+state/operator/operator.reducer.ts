@@ -22,6 +22,10 @@ const operatorReducer = createReducer(
       error: null
     })
   ),
+  on(OperatorActions.statisticsLoaded, (state, data) => ({
+    ...state,
+    statistics: data.data
+  })),
   on(OperatorActions.addOperator, (state, { data: IOperator }) => ({
     ...state,
     submitted: false,

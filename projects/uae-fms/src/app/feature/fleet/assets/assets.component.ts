@@ -17,6 +17,7 @@ import { map } from 'rxjs/operators';
 import { yearsPerPage } from '@angular/material/datepicker';
 import { TechnicalInspectionSelectors } from '@feature/workshop/+state/technical-inspections/technical-inspections.selectors';
 import moment from 'moment';
+import { FilterCardSetting } from '@core/filter';
 
 @Component({
   selector: 'anms-assets',
@@ -24,7 +25,7 @@ import moment from 'moment';
   styleUrls: ['./assets.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AssetsComponent implements OnInit, OnDestroy {
+export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
   statisticsSubscription!: Subscription;
@@ -50,8 +51,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
   );
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map((x) => {
-      console.log(x)
-      return x.map((y:any) => {
+      return x.map((y: any) => {
         function date() {
           let createdDate = moment.utc(y.createdAt).local().toDate();
           let nowDate = new Date();
@@ -91,7 +91,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
 
   dataRegistration$ = this.registrationFacade.registration$.pipe(
     map((x) => {
-      return x.map((y) => {
+      return x.map((y: any) => {
         return {
           ...y,
           id: y.id,
@@ -101,13 +101,13 @@ export class AssetsComponent implements OnInit, OnDestroy {
             assetSubName: y.dpd,
             progress: Math.floor(Math.random() * 6) + 1
           },
-          serialNumber: '123s125583456',
-          brand: 'bmw.png',
-          type: 'Car',
-          make: 'Toyota',
+          serialNumber: y.dpd,
+          brand: y.makeName + ' ' + y.modelName,
+          type: y.assetTypeName,
+          make: y.makeName,
           allocated: 'Finance',
-          businessCategory: 'VIP',
-          createDate: '00/00/00',
+          businessCategory: y.businessCategoryName,
+          createDate: y.createdAt,
           registrantionDate: '00/00/00',
           creator: 'Sam Smith'
         };
@@ -123,7 +123,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
     private customizationFacade: CustomizationFacade,
     private changeDetector: ChangeDetectorRef,
     private _router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.assetMasterFacade.conut$.subscribe(
@@ -134,7 +134,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
         {
           lable: 'tables.column.asset',
           field: 'asset',
-          width: '18em',
+          width: '12em',
           type: ColumnType.lable,
           thumbField: '',
           renderer: 'assetsRenderer'
@@ -158,7 +158,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
         {
           lable: 'tables.column.department',
           field: 'allocated',
-          width: 100,
+          width: '10em',
           type: ColumnType.lable,
           thumbField: '',
           renderer: ''
@@ -294,6 +294,21 @@ export class AssetsComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  onActive(index: number): void {
+    switch (index) {
+      case 0:
+        console.log('here 0');
+        this.table.filterByStatistics('total');
+        break;
+      case 1:
+        console.log('here 1');
+        this.table.filterByStatistics('active');
+        break;
+      default:
+        break;
+    }
   }
 
   add() {

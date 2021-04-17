@@ -430,6 +430,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     );
 
     this.ownerShip$ = this._facadeOwnership.ownership$.subscribe((x) => {
+      this.ownerShip = [];
       x.map((response) => {
         this.ownerShip.push(response);
       });
@@ -437,6 +438,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
     this.policyType$ = this._facadeAssetPolicy.assetPolicy$.subscribe(
       (data) => {
+        this.policyTypeDropDown = [];
         data.map((response) => {
           this.policyTypeDropDown.push(response);
         });
@@ -445,12 +447,14 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
     this.periodicService$ = this._facadePeriodicService.periodicService$.subscribe(
       (data) => {
+        this.periodicServiceItem = [];
         data.map((response) => {
           this.periodicServiceItem.push(response);
         });
       }
     );
     this.department$ = this._departmentService.loadAll().subscribe((data) => {
+      this.department = [];
       data.message.map((response) => {
         const dep = {
           id: response.id,
@@ -470,6 +474,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     });
 
     this.operator$ = this._operatorService.loadAll().subscribe((data) => {
+      this.operator = [];
       data.message.map((response) => {
         const opr = {
           id: response.id,
@@ -488,15 +493,18 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.assetType$ = this._assetConfigurationService
       .loadAll()
       .subscribe((data) => {
+        this.assetType = [];
         data.message.map((x) => {
           this.assetType.push(x);
         });
         if (this.isEdit) {
+          this.assetMake = [];
           this.assetType
             .find((z) => z.id == this._asset.assetTypeId)
             .makes.map((f) => {
               this.assetMake.push(f);
             });
+          this.assetModel = [];
           this.assetMake
             .find((z) => z.id == this._asset.makeId)
             .models.map((y) => {
@@ -617,6 +625,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         };
       })
     });
+    this.calculateAssetPolicy();
   }
   public calculateAssetPolicy() {
     this.calculate = true;

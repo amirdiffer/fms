@@ -8,26 +8,26 @@
       <ng-container *ngIf="assetType.type == (categoryType$ | async) || !(categoryType$ | async)">
         <div class="category-item">
           <svg-icon [src]="arrowIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#505050'}"
-            [svgClass]='assetType.iconSvgClass' (click)="onTypeClick(assetType)"></svg-icon>
-          <span class='ml-2 cursor-pointer' (click)='onTypeClick(assetType)'>{{assetType.name}}</span>
+            [svgClass]='returnItemTree(assetType.id, assetType.type, assetType).iconSvgClass' (click)="onTypeClick(returnItemTree(assetType.id, assetType.type, assetType))"></svg-icon>
+          <span class='ml-2 cursor-pointer' (click)='onTypeClick(returnItemTree(assetType.id, assetType.type, assetType))'>{{assetType.name}}</span>
           <svg-icon class='plus cursor-pointer' (click)="createMake(assetType)" src='assets/icons/add.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
             '100%'}"></svg-icon>
         </div>
         <div *ngFor='let make of assetType.makes; let index = index'>
-          <div class="category-subItem" [hidden]='!assetType.isSelected'>
-            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#505050'}" [svgClass]='make.iconSvgClass'
-              (click)="onMakeClick(make)"></svg-icon>
-            <span class='ml-2 cursor-pointer' (click)='onMakeClick(make)'>{{make.make}}</span>
+          <div class="category-subItem" [hidden]='!returnItemTree(assetType.id, assetType.type, assetType).isSelected'>
+            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#505050'}" [svgClass]='returnItemTree(make.id, "make", make).iconSvgClass'
+              (click)="onMakeClick(returnItemTree(make.id, 'make', make))"></svg-icon>
+            <span class='ml-2 cursor-pointer' (click)='onMakeClick(returnItemTree(make.id, "make", make))'>{{make.make}}</span>
             <svg-icon class='plus cursor-pointer' (click)="createModel(assetType,make)" src='assets/icons/add.svg'
               [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
           </div>
-          <div *ngFor='let model of assetType.makes[index].models'>
-            <div class="category-sub-subItem" [hidden]='!make.isSelected || !assetType.isSelected'>
-              <span class="status" (click)='onModelClick(model)'
-                [style]="{ '--back-color-var': getStatusColor(model.isSelected) }"
-                [ngStyle]="{ color: getStatusColor(model.isSelected) }"></span>
-              <span class='ml-2 cursor-pointer' [style]="'color:' + getStatusColor(model.isSelected)"
-                [class]='getStatusColor(model.isSelected)' (click)='onModelClick(model)'>{{model.model}}</span>
+          <div *ngFor='let model of (assetType.makes[index]).models'>
+            <div class="category-sub-subItem" [hidden]='!returnItemTree(make.id, "make", make).isSelected || !returnItemTree(assetType.id, assetType.type, assetType).isSelected'>
+              <span class="status" (click)='onModelClick(returnItemTree(model.id, "model", model))'
+                [style]="{ '--back-color-var': getStatusColor(returnItemTree(model.id, 'model', model).isSelected) }"
+                [ngStyle]="{ color: getStatusColor(returnItemTree(model.id, 'model', model).isSelected) }"></span>
+              <span class='ml-2 cursor-pointer' [style]="'color:' + getStatusColor(returnItemTree(model.id, 'model', model).isSelected)"
+                [class]='getStatusColor(returnItemTree(model.id, "model", model).isSelected)' (click)='onModelClick(returnItemTree(model.id, "model", model))'>{{model.model}}</span>
               <svg-icon class='plus cursor-pointer' (click)="createTrim(assetType,model, make)" src='assets/icons/add.svg'
                 [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
             </div>

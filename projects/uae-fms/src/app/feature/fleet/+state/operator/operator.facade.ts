@@ -21,6 +21,10 @@ export class OperatorFacade {
     this.store.dispatch(OperatorActions.loadAll());
   }
 
+  loadStatistics() {
+    this.store.dispatch(OperatorActions.loadStatistics());
+  }
+
   addOperator(data: any) {
     this.store.dispatch(OperatorActions.addOperator({ data }));
   }
