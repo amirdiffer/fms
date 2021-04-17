@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AssetConfigurationService } from './asset-configuration.service';
 import { AssetConfigurationFacade, AssetTypeFacade } from '../+state/asset-configuration';
@@ -7,6 +7,7 @@ import { Make, MakeModel, MakeModelTrim } from '@models/asset-type.model';
 import { map } from 'rxjs/operators';
 import { TableComponent } from '@core/table';
 import { Router } from '@angular/router';
+import { DataService } from '@feature/configuration/asset-configuration/data.service';
 @Component({
   selector: 'anms-asset-configuration',
   templateUrl: './asset-configuration.component.html',
@@ -20,6 +21,8 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
 
   searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn = 'assets/icons/download-solid.svg';
+
+  activeTypeCategory: string = 'ASSET';
 
   filterCard: FilterCardSetting[] = [
     {
@@ -83,10 +86,21 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
   };
   addOpen;
   addOpen$: Subscription;
+  dataTable = [];
 
   assetType$ = this.facade.assetType$.pipe(
-    map((response) =>
-      response.map((obj) => {
+    map((response) => {
+      this.dataTable = response.map((obj) => {
+        const assetType = {
+          ...obj,
+          isSelected: false,
+          iconSvgClass: 'right-arrow',
+          makes: obj.makes.length
+        };
+        return assetType;
+      });
+      this.filterTable();
+      return response.map((obj) => {
         const assetType = {
           ...obj,
           isSelected: false,
@@ -95,7 +109,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
         };
         return assetType;
       })
-    )
+    })
   );
 
   assetConfiguration$ = this.facade.assetType$;
@@ -105,10 +119,16 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     private facade: AssetTypeFacade,
     public router: Router,
     private assetConfigurationFacade: AssetConfigurationFacade,
-    private _assetConfigurationService: AssetConfigurationService
+    private _assetConfigurationService: AssetConfigurationService,
+    private _dataService: DataService,
+    private _changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this._dataService.watchType().subscribe((x) => {
+      this.activeTypeCategory = x;
+      this.filterTable();
+    });
     this.assetConfigurationFacade.loadAll();
     this.addOpen$ = this._assetConfigurationService
       .getAddForm()
@@ -250,6 +270,46 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
 
   eventPagination() {
     this.assetConfigurationFacade.loadAll();
+  }
+
+  filterTable(): void {
+    this.assetConfigurationableSetting = {
+      columns: [
+        {
+          lable: 'tables.column.category',
+          field: 'name',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.type_status',
+          field: 'isActive',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.description',
+          field: 'typeDescription',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: '<img src="assets/icons/car-solid.svg">',
+          type: 1,
+          isIconLable: true,
+          field: 'makes',
+          width: 100
+        }
+      ],
+      data: []
+    };
+    this.assetConfigurationableSetting.data = this.dataTable.filter(x => x.type == this.activeTypeCategory);
   }
 
   ngOnDestroy() {
