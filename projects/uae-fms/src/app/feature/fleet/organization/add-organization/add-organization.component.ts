@@ -180,7 +180,7 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         this.id = res.id;
 
         let f = this.organizationForm.get('tags') as FormArray;
-        f.controls = [];
+        f.controls = [this.createTagField()];
         res.tags.forEach((a, i) => {
           f.controls.push(this.createTagField())
         })
