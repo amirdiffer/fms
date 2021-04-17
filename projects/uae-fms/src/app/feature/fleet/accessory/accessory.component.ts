@@ -12,7 +12,6 @@ import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccessoryFacade } from '../+state/accessory';
-import { AccessoryService } from './accessory.service';
 
 @Component({
   selector: 'anms-accessory',
@@ -25,9 +24,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
 
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-  openAdd;
-  openAdd$: Subscription;
-
+  accessorySubscription$:Subscription;
   //#region Filters
   filterCard: FilterCardSetting[] = [
     {
@@ -122,20 +119,15 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   //#endregion
 
   constructor(
-    private _accessoryService: AccessoryService,
     private _accessoryFacade: AccessoryFacade,
     private changeDetection: ChangeDetectorRef,
     private _router: Router
   ) {}
 
   ngOnInit(): void {
-    this.openAdd$ = this._accessoryService.getAddForm().subscribe((open) => {
-      this.openAdd = open;
-    });
     this._accessoryFacade.loadAll();
-
     this._accessoryFacade.loadStatistics();
-    this._accessoryFacade.statistics$.subscribe((data) => {
+    this.accessorySubscription$ = this._accessoryFacade.statistics$.subscribe((data) => {
       if (data) {
         let statistic = data.message;
         this.filterCard.forEach((card, index) => {
@@ -151,12 +143,9 @@ export class AccessoryComponent implements OnInit, OnDestroy {
     this._accessoryFacade.loadAll();
   }
 
-  addAccessory() {
-    this._accessoryService.loadAddForm(true);
-  }
 
   ngOnDestroy() {
-    this.openAdd$.unsubscribe();
+    this.accessorySubscription$.unsubscribe();
   }
 
   exportTable() {
