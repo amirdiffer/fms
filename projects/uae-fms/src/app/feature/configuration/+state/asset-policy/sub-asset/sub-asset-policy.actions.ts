@@ -12,6 +12,11 @@ export class SubAssetPolicyActions {
     props<{ data: IAssetPolicy[] }>()
   );
 
+  static count = createAction(
+    '[SubAssetPolicy] get result number',
+    props<{ data: number }>()
+  );
+
   static error = createAction(
     '[SubAssetPolicy] error occurred',
     props<{ reason: any }>()

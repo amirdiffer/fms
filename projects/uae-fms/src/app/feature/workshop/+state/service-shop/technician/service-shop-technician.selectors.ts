@@ -9,6 +9,11 @@ export class ServiceShopTechnicianSelectors {
     selectAll
   );
 
+  static count = createSelector(
+    WorkshopSelectors.serviceshopTechnicianSelector,
+    (state) => state.resultNumber
+  );
+
   static message = createSelector(
     WorkshopSelectors.serviceshopTechnicianSelector,
     (state) => state.message

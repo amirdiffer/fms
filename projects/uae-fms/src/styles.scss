@@ -807,7 +807,7 @@ form {
       max-height: 90vh;
       overflow: hidden;
       overflow-y: scroll;
-      width: 300px;
+      width: 23em;
 
       .container {
         padding: 1.1em;
@@ -1127,3 +1127,4 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield; /* Firefox */
 }
+

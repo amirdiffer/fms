@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { MovementRequestsActions } from './movement-requests.actions';
 import { MovementRequestsService } from './movement-requests.service';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class MovementRequestsEffect {
@@ -16,6 +17,7 @@ export class MovementRequestsEffect {
         this.service.loadAll().pipe(
           map((data) => {
             this._tableFacade.initialPaginator(data.resultNumber, 'movement_request');
+            this._store.dispatch(MovementRequestsActions.count({data:data.resultNumber}))
             return MovementRequestsActions.allDataLoaded({ data: data.message });
           }),
           catchError((error) => of(MovementRequestsActions.error({ reason: error })))
@@ -95,6 +97,7 @@ export class MovementRequestsEffect {
   constructor(
     private action$: Actions,
     private service: MovementRequestsService,
-    private _tableFacade: TableFacade
+    private _tableFacade: TableFacade,
+    private _store:Store
   ) {}
 }

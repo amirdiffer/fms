@@ -8,7 +8,10 @@ export class SubAssetPolicySelectors {
     ConfigurationSelectors.subAssetPolicySelector,
     selectAll
   );
-
+  static count = createSelector(
+    ConfigurationSelectors.subAssetPolicySelector,
+    (state) => state.resultNumber
+  );
   static message = createSelector(
     ConfigurationSelectors.subAssetPolicySelector,
     (state) => state.message

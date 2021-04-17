@@ -14,6 +14,8 @@ export interface MovementRequestsState
   submitted?: boolean;
   rejected?: boolean;
   assigned?: boolean;
+  resultNumber?:number;
+
 }
 export interface MovementRequestsPartialState {
   [FLEET_MOVEMENT_REQUESTS_FEATURE_KEY]: MovementRequestsState;
@@ -31,6 +33,8 @@ export const initialState: MovementRequestsState = movementRequestsAdapter.getIn
     statistic: null,
     submitted: false,
     rejected: false,
-    assigned: false
+    assigned: false,
+    resultNumber:0
+
   } as MovementRequestsState
 );

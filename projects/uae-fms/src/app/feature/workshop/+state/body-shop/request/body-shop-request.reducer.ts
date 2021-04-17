@@ -18,6 +18,11 @@ const bodyShopRequestReducer = createReducer(
   on(BodyShopRequestActions.allDataLoaded, (state, { data }) =>
     bodyShopRequestAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+
+  on(BodyShopRequestActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber:data
+  })),
   /* Request By Id */
   on(BodyShopRequestActions.loadAllRequestsById, (state) => ({
     ...state,

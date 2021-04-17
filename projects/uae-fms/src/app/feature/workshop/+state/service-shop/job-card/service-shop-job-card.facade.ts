@@ -13,6 +13,10 @@ export class ServiceShopJobCardFacade {
   error$ = this.store.pipe(select(ServiceShopJobCardSelectors.error));
 
   submitted$ = this.store.pipe(select(ServiceShopJobCardSelectors.submitted));
+
+  conut$ = this.store.pipe(select(ServiceShopJobCardSelectors.count))
+
+
   constructor(private store: Store<IServiceShopJobCardPartialState>) {}
 
   loadAll() {

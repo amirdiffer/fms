@@ -43,6 +43,12 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   searchIcon = 'assets/icons/search-solid.svg';
   sampleImg = 'assets/thumb.png';
   //#region  table
+  assetMasterCount$ = this.assetMasterFacade.conut$.pipe(
+    map(x => {return x})
+  );
+  registrationCount$ =this.registrationFacade.conut$.pipe(
+    map(x => {return x})
+  );
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map((x) => {
       return x.map((y: any) => {
@@ -120,6 +126,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   ) { }
 
   ngOnInit(): void {
+    this.assetMasterFacade.conut$.subscribe(
+      x=> { console.log(x)}
+    )
     this.assetMasterTableSetting = {
       columns: [
         {

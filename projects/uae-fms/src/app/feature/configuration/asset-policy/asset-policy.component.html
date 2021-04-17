@@ -12,10 +12,10 @@
       </button>
       <button CheckAccess="asset-policy:create" class="btn-primary-small" [routerLink]="'./add-asset-policy'"[queryParams]="{type: (selectedTab == 'assetPolicyAssetTab' ? 'asset' : 'sub_asset')}"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
     </span>
-    <div title="tabs.asset" id="assetPolicyAssetTab">
+    <div title="tabs.asset" id="assetPolicyAssetTab" [attr.count]="assetPolicyCount$ | async">
       <app-table searchInput="searchInput" (onPagination)="eventPagination_asset()" pagination="asset-policy_asset" [setting]='assetPolicy_Table' [tableData]="assetPolicy$"></app-table>
     </div>
-    <div title="tabs.sub_asset" id="assetPolicySubAssetTab">
+    <div title="tabs.sub_asset" id="assetPolicySubAssetTab" [attr.count]="subAssetPolicyCount$ | async">
       <app-table searchInput="searchInput" (onPagination)="eventPagination_subasset()" pagination="asset-policy_subasset" [setting]='subAssetPolicy_Table' [tableData]="subAssetPolicy$"></app-table>
     </div>
   </app-tab-view>

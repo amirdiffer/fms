@@ -20,6 +20,9 @@ export class ServiceShopRequestFacade {
   error$ = this.store.pipe(select(ServiceShopRequestSelectors.error));
 
   submitted$ = this.store.pipe(select(ServiceShopRequestSelectors.submitted));
+
+  conut$ = this.store.pipe(select(ServiceShopRequestSelectors.count))
+
   constructor(private store: Store<ServiceshopRequestPartialState>) {}
 
   loadAll() {

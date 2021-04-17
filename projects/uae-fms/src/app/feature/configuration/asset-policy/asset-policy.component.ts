@@ -153,7 +153,12 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     )
   );
   //#endregion
-
+  assetPolicyCount$ = this.assetPolicyFacade.conut$.pipe(
+    map(x => {return x})
+  );
+  subAssetPolicyCount$ =this.subAssetPolicyFacade.conut$.pipe(
+    map(x => {return x})
+  );
   constructor(
     private _router: Router,
     private assetPolicyFacade: AssetPolicyFacade,

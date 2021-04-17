@@ -9,6 +9,12 @@ export class ServiceShopLocationActions {
     props<{ data: ILocation[] }>()
   );
 
+  
+  static count = createAction(
+    '[serviceShopLocation] get result number',
+    props<{ data: number }>()
+  );
+
   static addServiceShopLocation = createAction(
     '[serviceShopLocation] add serviceshop Location',
     props<{ data: any }>()

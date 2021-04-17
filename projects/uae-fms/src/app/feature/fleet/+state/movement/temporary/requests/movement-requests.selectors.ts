@@ -8,6 +8,10 @@ export class MovementRequestsSelectorsTemporary {
     FleetSelectors.movementRequestsSelectorTemporary,
     selectAll
   );
+  static count = createSelector(
+    FleetSelectors.movementRequestsSelectorTemporary,
+    (state) => state.resultNumber
+  );
 
   static requestStatistic = createSelector(
     FleetSelectors.movementRequestsSelectorTemporary,

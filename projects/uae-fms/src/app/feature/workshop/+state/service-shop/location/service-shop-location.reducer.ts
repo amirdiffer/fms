@@ -19,6 +19,10 @@ const serviceShopLocationReducer = createReducer(
       error: null
     })
   ),
+  on(ServiceShopLocationActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber:data
+  })),
   on(
     ServiceShopLocationActions.addServiceShopLocation,
     (state, { data: IBodyShopLocation }) => ({

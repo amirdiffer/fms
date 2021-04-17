@@ -5,13 +5,15 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { TableFacade } from '@core/table/+state/table.facade';
 import { ServiceShopTechnicianService } from './service-shop-technician.service';
 import { ServiceShopTechnicianActions } from './service-shop-technician.actions';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class ServiceShopTechnicianEffect {
   constructor(
     private action$: Actions,
     private service: ServiceShopTechnicianService,
-    private _tableFacade: TableFacade
+    private _tableFacade: TableFacade,
+    private _store:Store
   ) {}
 
   loadAll$ = createEffect(() =>
@@ -21,6 +23,7 @@ export class ServiceShopTechnicianEffect {
         this.service.loadAll().pipe(
           map((data) => {
             this._tableFacade.initialPaginator(data.resultNumber, 'service-shop_technician');
+            this._store.dispatch(ServiceShopTechnicianActions.count({data:data.resultNumber}))
             return ServiceShopTechnicianActions.allDataLoaded({
               data: data.message
             });

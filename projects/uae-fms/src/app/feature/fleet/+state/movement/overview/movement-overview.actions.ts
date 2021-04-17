@@ -14,4 +14,9 @@ export class MovementOverviewActions {
     props<{ reason: any }>()
   );
 
+  static count = createAction(
+    '[MovementOverview] get result number',
+    props<{ data: number }>()
+  );
+
 }

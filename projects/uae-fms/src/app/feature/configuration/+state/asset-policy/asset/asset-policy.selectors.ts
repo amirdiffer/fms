@@ -8,6 +8,10 @@ export class AssetPolicySelectors {
     ConfigurationSelectors.assetPolicySelector,
     selectAll
   );
+  static count = createSelector(
+    ConfigurationSelectors.assetPolicySelector,
+    (state) => state.resultNumber
+  );
 
   static message = createSelector(
     ConfigurationSelectors.assetPolicySelector,

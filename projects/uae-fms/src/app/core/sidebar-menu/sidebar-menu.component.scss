@@ -1,5 +1,5 @@
 .menu {
-  margin-top: 76px;
+  margin-top: 4.75em;
   padding: 10px;
 
   .showing-menu {
@@ -61,18 +61,19 @@
     &::after {
       content: url('../../../assets/icons/arrow-down.svg');
       position: absolute;
-      right: 10px;
+      right: -2em;
       top: 10px;
       bottom: 0;
       height: 20px;
       width: 20px;
       transition: 400ms;
+      transform: scale(.8);
       transition-timing-function: ease-in-out;
     }
     &.showing-menu {
       &::after {
         content: url('../../../assets/icons/arrow-down-active.svg');
-        transform: rotate(180deg);
+        transform: rotate(180deg) scale(.8);
         color: #0da06e;
       }
     }
@@ -90,10 +91,10 @@
 }
 
 .active_menu_line {
-  width: 5px;
+  width: .3em;
   border-radius: 3px;
   left: 32px;
-  background: #0da06e;
+  background: #0DA06E;
   height: auto;
 }
 
@@ -103,4 +104,26 @@
 
 .__sidemenu__disabled {
   color: #b1b1b1 !important;
+}
+@media only screen and (max-width: 1600px) {
+  .menu{
+    margin-top: 3.2em;
+  }
+}
+@media only screen and (max-width: 1366px) {
+  .menu{
+    svg{
+      transform: scale(.85) !important;
+    }
+    .has-child {
+      &::after{
+        transform: scale(0.65) !important;
+      }
+    }
+    .has-child.showing-menu{
+      &::after{
+        transform: scale(0.65) rotate(180deg) !important;
+      }
+    }
+  }
 }

@@ -8,6 +8,10 @@ export class RegistrationActions {
     '[Registration] all datas are loaded',
     props<{ data: IPendingRegistration[] }>()
   );
+  static count = createAction(
+    '[Registration] get result number',
+    props<{ data: number }>()
+  );
   static registerAsset = createAction(
     '[Registration] register an asset',
     props<{ data: any}>()

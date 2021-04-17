@@ -14,6 +14,10 @@ export class ServiceShopLocationFacade {
   error$ = this.store.pipe(select(ServiceShopLocationSelectors.error));
 
   submitted$ = this.store.pipe(select(ServiceShopLocationSelectors.submitted));
+
+  conut$ = this.store.pipe(select(ServiceShopLocationSelectors.count))
+
+
   constructor(private store: Store<IServiceShopLocationPartialState>) {}
 
   loadAll() {

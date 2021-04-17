@@ -5,10 +5,11 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { RegistrationActions } from '@feature/fleet/+state/assets/registration/registration.actions';
 import { RegistrationService } from '@feature/fleet/+state/assets/registration/registration.service';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class RegistrationEffects {
-  constructor(private action$: Actions, private service: RegistrationService,  private _tableFacade: TableFacade) {}
+  constructor(private action$: Actions, private service: RegistrationService,  private _tableFacade: TableFacade, private _store:Store) {}
 
   loadAll$ = createEffect(() =>
     this.action$.pipe(
@@ -17,6 +18,7 @@ export class RegistrationEffects {
         this.service.loadAll().pipe(
           map((data) => {
             this._tableFacade.initialPaginator(data.resultNumber, 'asset_registration');
+            this._store.dispatch(RegistrationActions.count({data:data.resultNumber}))
             return RegistrationActions.allDataLoaded({ data: data.message });
           }),
           catchError((error) =>
