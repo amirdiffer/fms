@@ -8,6 +8,7 @@ export interface SubAssetPolicyState
   error?: any;
   loaded?: boolean;
   message?: string;
+  resultNumber?:number
 }
 
 export interface SubAssetPolicyPartialState {
@@ -22,6 +23,7 @@ export const initialState: SubAssetPolicyState = subAssetPolicyAdapter.getInitia
   {
     error: null,
     loaded: null,
-    message: null
+    message: null,
+    resultNumber:0
   } as SubAssetPolicyState
 );

@@ -15,17 +15,17 @@
       </button>
       <button  class="btn-primary-small" (click)="addClicked($event)" ><i>+</i><a>{{(selectedTab == 'jobcardTab'? 'search.job_card' :'search.add') | translate}}</a></button>
     </span>
-    <div title="tabs.requests" id="requestTab">
+    <div title="tabs.requests" id="requestTab"  [attr.count]="requestCount$ | async">
       <app-table searchInput="searchInput" (onPagination)="eventPagination_request()" pagination="service-shop_request" [setting]="table1Setting" [tableData]="requestData$"></app-table>
     </div>
-    <div title="tabs.job_card" id="jobcardTab">
+    <div title="tabs.job_card" id="jobcardTab" [attr.count]="jobCardCount$ | async">
       <!-- <app-table searchInput="searchInput" (onPagination)="eventPagination_jobcard()" pagination="service-shop_jobcard" [setting]="table2Setting" [tableData]="jobCardData$"></app-table> -->
       <app-table searchInput="searchInput" (onPagination)="eventPagination_jobcard()" pagination="service-shop_jobcard" [setting]="table2Setting" [tableData]="jobCardData$"></app-table>
     </div>
-    <div title="tabs.technician" id="technicianTab">
+    <div title="tabs.technician" id="technicianTab" [attr.count]="technicianCount$ | async">
       <app-table searchInput="searchInput" (onPagination)="eventPagination_technician()" pagination="service-shop_technician" [setting]="table3Setting" [tableData]="technicianData$"></app-table>
     </div>
-    <div title="tabs.location" id="locationTab">
+    <div title="tabs.location" id="locationTab"  [attr.count]="locationCount$ | async">
       <app-table searchInput="searchInput" (onPagination)="eventPagination_location()" pagination="service-shop_location" [setting]="table4Setting" [tableData]="locationData$"></app-table>
     </div>
   </app-tab-view>

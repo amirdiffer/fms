@@ -11,6 +11,12 @@ export class MovementRequestsActionsTemporary {
     '[MovementRequestsTemporary] all data are loaded',
     props<{ data: IMovementRequest[] }>()
   );
+
+  static count = createAction(
+    '[MovementRequestsTemporary] get result number',
+    props<{ data: number }>()
+  );
+
   static error = createAction(
     '[MovementRequestsTemporary] error occurred',
     props<{ reason: any }>()

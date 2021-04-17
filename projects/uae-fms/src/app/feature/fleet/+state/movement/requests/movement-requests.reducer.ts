@@ -19,6 +19,10 @@ const movementRequestsReducer = createReducer(
     })
   ),
 
+  on(MovementRequestsActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber:data
+  })),
   on(MovementRequestsActions.loadStatistic, (state) => ({
     ...state,
     statistic: null,

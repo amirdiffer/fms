@@ -78,7 +78,12 @@ export class MovementComponent
   displaySuccessModal = false;
   displayErrorModal = false;
   assignID: number;
-
+  movementOverviewCount$ = this._movementOverviewFacade.conut$.pipe(
+    map(x => {return x})
+  );
+  movementRequestCount$ = this._movementRequestsFacade.conut$.pipe(
+    map(x => {return x})
+  );
   @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
 
   constructor(

@@ -19,6 +19,9 @@ export class BodyShopRequestFacade {
   error$ = this.store.pipe(select(BodyShopRequestSelectors.error));
 
   submitted$ = this.store.pipe(select(BodyShopRequestSelectors.submitted));
+
+  conut$ = this.store.pipe(select(BodyShopRequestSelectors.count))
+
   constructor(private store: Store<BodyshopRequestPartialState>) {}
 
   loadAll() {

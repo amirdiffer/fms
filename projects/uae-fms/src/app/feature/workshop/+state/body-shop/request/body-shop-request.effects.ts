@@ -5,13 +5,15 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { BodyShopRequestActions } from './body-shop-request.actions';
 import { BodyShopRequestService } from './body-shop-request.service';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class BodyShopRequestEffect {
   constructor(
     private action$: Actions,
     private service: BodyShopRequestService,
-    private _tableFacade: TableFacade
+    private _tableFacade: TableFacade,
+    private _store:Store
   ) {}
 
   loadAll$ = createEffect(() =>
@@ -29,6 +31,7 @@ export class BodyShopRequestEffect {
               })
             )
             this._tableFacade.initialPaginator(data.resultNumber, 'body-shop_request');
+            this._store.dispatch(BodyShopRequestActions.count({data:data.resultNumber}))
             return BodyShopRequestActions.allDataLoaded({ data: newData });
           }),
           catchError((error) =>

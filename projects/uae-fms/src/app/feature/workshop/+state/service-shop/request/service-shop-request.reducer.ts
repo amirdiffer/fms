@@ -14,6 +14,11 @@ const serviceShopRequestReducer = createReducer(
   on(ServiceShopRequestActions.allDataLoaded, (state, { data }) =>
     serviceShopRequestAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+
+  on(ServiceShopRequestActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber:data
+  })),
   /* Request By Id */
   on(ServiceShopRequestActions.loadAllRequestsById, (state) => ({
     ...state,

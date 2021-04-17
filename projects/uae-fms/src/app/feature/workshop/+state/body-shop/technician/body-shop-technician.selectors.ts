@@ -8,6 +8,10 @@ export class BodyShopTechnicianSelectors {
     WorkshopSelectors.bodyshopTechnicianSelector,
     selectAll
   );
+  static count = createSelector(
+    WorkshopSelectors.bodyshopTechnicianSelector,
+    (state) => state.resultNumber
+  );
 
   static message = createSelector(
     WorkshopSelectors.bodyshopTechnicianSelector,

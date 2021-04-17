@@ -19,5 +19,10 @@ export class MovementOverviewSelectors {
     FleetSelectors.movementOverviewSelector,
     (state) => state.error
   );
+  static count = createSelector(
+    FleetSelectors.movementOverviewSelector,
+    (state) => state.resultNumber
+  );
+
 
 }

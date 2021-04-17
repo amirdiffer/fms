@@ -9,6 +9,11 @@ export class ServiceShopJobCardSelectors {
     selectAll
   );
 
+  static count = createSelector(
+    WorkshopSelectors.serviceshopJobCardSelector,
+    (state) => state.resultNumber
+  );
+
   static message = createSelector(
     WorkshopSelectors.serviceshopJobCardSelector,
     (state) => state.message

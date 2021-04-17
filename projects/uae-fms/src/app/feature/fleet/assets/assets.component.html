@@ -18,10 +18,10 @@
                     </button>
                     <button class="btn-primary-small" (click)="add()" *ngIf="selectedTab == 'assetMasterTab'"><i>+</i><a>{{'search.add' | translate}}</a></button>
                 </span>
-                <div title="tabs.asset_master" id="assetMasterTab">
+                <div title="tabs.asset_master" id="assetMasterTab" [attr.count]="assetMasterCount$ | async">
                     <app-table searchInput="searchInput" (onPagination)="eventPagination_assetmaster()" pagination="asset_asset-master" [setting]="assetMasterTableSetting" [tableData]="dataAssetMaster$"></app-table>
                 </div>
-                <div title="tabs.pending_registration" id="pendingRegistrationTab">
+                <div title="tabs.pending_registration" id="pendingRegistrationTab"  [attr.count]="registrationCount$ | async">
                     <app-table searchInput="searchInput" (onPagination)="eventPagination_registration()" pagination="asset_registration" [setting]="pendingRegistrationTableSetting" [tableData]="dataRegistration$"></app-table>
                 </div>
                 <!-- <div title="tabs.pending_customization" id="pendingCustomizationTab">

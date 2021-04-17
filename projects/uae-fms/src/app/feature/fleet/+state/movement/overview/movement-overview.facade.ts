@@ -14,6 +14,8 @@ export class MovementOverviewFacade {
 
   error$ = this.store.pipe(select(MovementOverviewSelectors.error));
 
+  conut$ = this.store.pipe(select(MovementOverviewSelectors.count))
+
   constructor(private store: Store<MovementOverviewPartialState>) {}
 
   loadAll() {

@@ -8,7 +8,10 @@ export class ServiceShopRequestActions {
     '[serviceShopRequest] all data are loaded',
     props<{ data: any[] }>()
     );  
- 
+  static count = createAction(
+    '[serviceShopRequest] get result number',
+    props<{ data: number }>()
+  );
 
   /* Request By ID */
   static loadAllRequestsById = createAction('[serviceShopRequest] load all requests by id',

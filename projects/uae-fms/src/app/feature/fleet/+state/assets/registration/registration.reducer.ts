@@ -17,6 +17,10 @@ const registrationReducer = createReducer(
   on(RegistrationActions.allDataLoaded, (state, { data }) =>
     registrationAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+  on(RegistrationActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber:data
+  })),
   on(RegistrationActions.registerAsset, (state, { data }) => ({
     ...state,
     error: null,

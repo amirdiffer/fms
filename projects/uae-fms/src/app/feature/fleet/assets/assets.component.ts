@@ -42,8 +42,15 @@ export class AssetsComponent implements OnInit, OnDestroy {
   searchIcon = 'assets/icons/search-solid.svg';
   sampleImg = 'assets/thumb.png';
   //#region  table
+  assetMasterCount$ = this.assetMasterFacade.conut$.pipe(
+    map(x => {return x})
+  );
+  registrationCount$ =this.registrationFacade.conut$.pipe(
+    map(x => {return x})
+  );
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map((x) => {
+      console.log(x)
       return x.map((y:any) => {
         function date() {
           let createdDate = moment.utc(y.createdAt).local().toDate();
@@ -119,6 +126,9 @@ export class AssetsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.assetMasterFacade.conut$.subscribe(
+      x=> { console.log(x)}
+    )
     this.assetMasterTableSetting = {
       columns: [
         {

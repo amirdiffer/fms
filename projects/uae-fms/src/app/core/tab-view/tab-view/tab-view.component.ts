@@ -75,7 +75,17 @@ export class TabViewComponent implements OnInit, OnDestroy {
       );
     });
   }
-
+  ngAfterViewChecked(){
+    if (this.elements.length > 0){
+      for (let i = 0; i < this.elements.length; i++){
+        let countAttr = this.elements[i].attributes.getNamedItem('count');
+        if(countAttr){
+          this.tabs[i].count = +countAttr.nodeValue
+        }
+      }
+    }
+    this.cd.detectChanges();
+  }
   selectedTabChanged() {
     for (let i = 0; i < this.elements.length; i++) {
       this.elements[i].classList.remove('hidden-item');

@@ -19,10 +19,10 @@
                         </button>
                         <button *ngIf="selectedTab !='requestTab'" class="btn-primary-small" routerLink="add-permanent-request"><a>{{ 'search.request' | translate }}</a></button>
                     </span>
-                    <div title="tabs.movement_over_view" id="MovementOverViewTab">
+                    <div title="tabs.movement_over_view" id="MovementOverViewTab" [attr.count]="movementOverviewCount$ | async">
                         <app-table searchInput="searchInput" (onPagination)="eventPagination_overview()" pagination="movement_overview" [setting]="movementOverViewTableSetting" [tableData]="movementOverview$"></app-table>
                     </div>
-                    <div title="tabs.request" #requestTab id="requestTab">
+                    <div title="tabs.request" #requestTab id="requestTab" [attr.count]="movementRequestCount$ | async">
                         <app-table searchInput="searchInput" (onPagination)="eventPagination_request()" pagination="movement_request" [setting]="requestTableSetting" [tableData]="movementRequest$"
                         ></app-table>
                     </div>

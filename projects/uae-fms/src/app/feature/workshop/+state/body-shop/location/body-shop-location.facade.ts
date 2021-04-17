@@ -13,6 +13,9 @@ export class BodyShopLocationFacade {
   error$ = this.store.pipe(select(BodyShopLocationSelectors.error));
 
   submitted$ = this.store.pipe(select(BodyShopLocationSelectors.submitted));
+
+  conut$ = this.store.pipe(select(BodyShopLocationSelectors.count))
+
   constructor(private store: Store<IBodyShopLocationPartialState>) {}
 
   loadAll() {

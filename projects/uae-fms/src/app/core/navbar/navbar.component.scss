@@ -7,13 +7,29 @@
   z-index: 10;
 
   mat-toolbar {
-    height: 60px;
-
+    height: 4em;
+    font-family: "29LT Bukra";
+    font-size: 1em;
+    ::ng-deep{
+      .mat-icon-button {
+        font-family: "29LT Bukra";
+        font-size: 1em;
+        width: 2.6em;
+        height: 100%;
+      }
+    }
+    .role_label{
+      font-size: .7em;
+      font-weight: bold;
+    }
+    img.police-logo{
+      width: 7.5em;
+    }
     .menus {
       button {
         margin: 2px;
         img {
-          width: 30px;
+          width: 2.6em;
         }
       }
 
@@ -140,9 +156,9 @@
 }
 
 .role_label {
-  top: 10px;
+  top: 1.3em;
 }
 
 .name_surname_label {
-  top: -10px;
+  top: -0.5em;
 }

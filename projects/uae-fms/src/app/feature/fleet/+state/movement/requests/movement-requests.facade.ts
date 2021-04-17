@@ -22,6 +22,8 @@ export class MovementRequestsFacade {
 
   assigned$ = this.store.pipe(select(MovementRequestsSelectors.assigned));
 
+  conut$ = this.store.pipe(select(MovementRequestsSelectors.count))
+
   constructor(private store: Store<MovementRequestsPartialState>) {}
 
   loadAll() {

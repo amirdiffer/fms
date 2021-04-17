@@ -9,7 +9,10 @@ export class AssetMasterActions {
     '[AssetMaster] all datas are loaded',
     props<{ data: IAssetMaster[] }>()
   );
-
+  static count = createAction(
+    '[AssetMaster] get result number',
+    props<{ data: number }>()
+  );
   static loadStatistics = createAction('[AssetMaster] load all statistics');
 
   static statisticsLoaded = createAction(

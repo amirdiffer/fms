@@ -502,6 +502,18 @@ export class ServiceShopComponent implements OnInit {
   };
 
   selectedTab;
+  jobCardCount$ = this._facadeJobCard.conut$.pipe(
+    map(x => {return x})
+  );
+  locationCount$ = this._facadeLocation.conut$.pipe(
+    map(x => {return x})
+  );
+  requestCount$ = this._facadeRequest.conut$.pipe(
+    map(x => {return x})
+  );
+  technicianCount$ = this._facadeTechnician.conut$.pipe(
+    map(x => {return x})
+  );
   constructor(
     private _facadeRequest: ServiceShopRequestFacade,
     private _facadeJobCard: ServiceShopJobCardFacade,

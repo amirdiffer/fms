@@ -12,7 +12,10 @@ export class ServiceShopTechnicianFacade {
   message$ = this.store.pipe(select(ServiceShopTechnicianSelectors.message));
 
   error$ = this.store.pipe(select(ServiceShopTechnicianSelectors.error));
+
   submitted$ = this.store.pipe(select(ServiceShopTechnicianSelectors.submitted));
+
+  conut$ = this.store.pipe(select(ServiceShopTechnicianSelectors.count))
 
   constructor(private store: Store<IServiceShopTechnicianPartialState>) {}
 

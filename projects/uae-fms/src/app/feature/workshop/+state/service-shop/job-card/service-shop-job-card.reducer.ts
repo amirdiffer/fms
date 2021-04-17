@@ -13,6 +13,12 @@ const serviceShopJobCardReducer = createReducer(
   on(ServiceShopJobCardActions.allDataLoaded, (state, { data }) =>
   serviceshopJobCardAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+
+  on(ServiceShopJobCardActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber:data
+  })),
+
   on(ServiceShopJobCardActions.addJobCard, (state, { data: IJobCard }) => ({
     ...state,
     submitted: false
