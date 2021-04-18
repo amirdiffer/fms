@@ -13,9 +13,10 @@ export class OperatorService {
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
@@ -24,13 +25,14 @@ export class OperatorService {
 
   loadAll(): Observable<ResponseBody<IOperator[]>> {
     return this.http.get<ResponseBody<IOperator[]>>(
-      environment.baseApiUrl + 'operator', {params: this.getParam('operator')}
+      environment.baseApiUrl + 'operator',
+      { params: this.getParam('operator') }
     );
   }
 
   loadAllStatistics(): Observable<ResponseBody<IOperatorStatistics>> {
     return this.http.get<ResponseBody<IOperatorStatistics>>(
-      environment.baseApiUrl + 'configuration/user/stats'
+      environment.baseApiUrl + 'operator/stats'
     );
   }
 

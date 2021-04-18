@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { FuelCardsFacade } from '../fuel-management/+state/fuel-cards';
 import { AssetUsageFacade } from './+state/asset-usage';
@@ -10,8 +10,7 @@ import { IFuelManagementStatistics } from '@models/statistics';
 @Component({
   selector: 'anms-fuel-management',
   templateUrl: './fuel-management.component.html',
-  styleUrls: ['./fuel-management.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./fuel-management.component.scss']
 })
 export class FuelManagementComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';

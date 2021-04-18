@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  OnDestroy,
-  ChangeDetectorRef,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { SubAssetFacade } from '../+state/sub-asset';
@@ -16,12 +9,10 @@ import { TableFacade } from '@core/table/+state/table.facade';
 import { ITablePagination } from '@core/table/+state/table.entity';
 import moment from 'moment';
 
-
 @Component({
   selector: 'anms-sub-asset',
   templateUrl: './sub-asset.component.html',
-  styleUrls: ['./sub-asset.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./sub-asset.component.scss']
 })
 export class SubAssetComponent implements OnInit, OnDestroy {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
@@ -63,13 +54,13 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   data$ = this.facade.subAsset$.pipe(
     map((x) => {
       return x.map((y) => {
-        function date (){
-          let createdDate=moment.utc(y.createdAt).local().toDate();
+        function date() {
+          let createdDate = moment.utc(y.createdAt).local().toDate();
           let nowDate = new Date();
-          let newDate =nowDate.getTime() - createdDate.getTime()
+          let newDate = nowDate.getTime() - createdDate.getTime();
           return {
-            day : Math.floor(newDate/ (1000 * 3600 * 24))
-          }
+            day: Math.floor(newDate / (1000 * 3600 * 24))
+          };
         }
         return {
           id: y.id,
@@ -80,7 +71,12 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           Warranty_Expire_Date: y.warrantyExpireDate,
           Serial_Number: y.dpd,
           Asset: y.assetTypeName,
-          Date: date().day > 0 ? (date().day == 1 ? `${date().day} Yesterday`: `${date().day} Days Ago`)  : 'Today' ,
+          Date:
+            date().day > 0
+              ? date().day == 1
+                ? `${date().day} Yesterday`
+                : `${date().day} Days Ago`
+              : 'Today',
           thumbField_Make: 'bmw.png'
         };
       });
@@ -141,7 +137,6 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   constructor(
     private facade: SubAssetFacade,
     private router: Router,
-    private changeDetector: ChangeDetectorRef,
     private _tableFacade: TableFacade
   ) {}
 
@@ -178,7 +173,6 @@ export class SubAssetComponent implements OnInit, OnDestroy {
               onActive(index: number) {}
             }
           ];
-          this.changeDetector.detectChanges();
         }
       }
     );
@@ -193,7 +187,6 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   }
 
   eventPagination() {
-   this.facade.loadAll();
+    this.facade.loadAll();
   }
-
 }

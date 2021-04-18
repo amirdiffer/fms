@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { UsersFacade } from '../../+state/users';
@@ -14,8 +8,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'anms-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
@@ -129,11 +122,7 @@ export class UsersComponent implements OnInit {
   };
   //#endregion
 
-  constructor(
-    private facade: UsersFacade,
-    private router: Router,
-    private changeDetection: ChangeDetectorRef
-  ) {}
+  constructor(private facade: UsersFacade, private router: Router) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -166,8 +155,6 @@ export class UsersComponent implements OnInit {
             onActive(index: number) {}
           }
         ];
-
-        this.changeDetection.detectChanges();
       }
     });
   }

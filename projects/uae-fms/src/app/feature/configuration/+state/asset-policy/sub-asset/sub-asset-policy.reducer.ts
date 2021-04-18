@@ -18,6 +18,10 @@ const subAssetPolicyReducer = createReducer(
   on(SubAssetPolicyActions.allDataLoaded, (state, { data }) =>
     subAssetPolicyAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+  on(SubAssetPolicyActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber: data
+  })),
   on(SubAssetPolicyActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

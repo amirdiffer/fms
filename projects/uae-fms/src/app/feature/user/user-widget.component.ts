@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from '@environments/environment';
 import { UserProfileService } from './state';
 import { UserProfileFacade } from './state/user.facade';
@@ -49,8 +49,7 @@ import { UserProfileFacade } from './state/user.facade';
         font-weight: bold;
       }
     `
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  ]
 })
 export class UserWidgetComponent implements OnInit {
   fileServerBase = environment.baseFileServer;

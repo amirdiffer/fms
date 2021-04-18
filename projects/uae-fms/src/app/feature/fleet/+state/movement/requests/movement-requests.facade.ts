@@ -10,7 +10,9 @@ export class MovementRequestsFacade {
     select(MovementRequestsSelectors.selectAll)
   );
 
-  MovementRequestStatistic = this.store.pipe(select(MovementRequestsSelectors.requestStatistic));
+  MovementRequestStatistic = this.store.pipe(
+    select(MovementRequestsSelectors.requestStatistic)
+  );
 
   message$ = this.store.pipe(select(MovementRequestsSelectors.message));
 
@@ -21,6 +23,8 @@ export class MovementRequestsFacade {
   rejected$ = this.store.pipe(select(MovementRequestsSelectors.rejected));
 
   assigned$ = this.store.pipe(select(MovementRequestsSelectors.assigned));
+
+  conut$ = this.store.pipe(select(MovementRequestsSelectors.count));
 
   constructor(private store: Store<MovementRequestsPartialState>) {}
 
@@ -48,9 +52,7 @@ export class MovementRequestsFacade {
     this.store.dispatch(MovementRequestsActions.assign({ id, data }));
   }
 
-
   reset() {
     this.store.dispatch(MovementRequestsActions.reset());
   }
-
 }

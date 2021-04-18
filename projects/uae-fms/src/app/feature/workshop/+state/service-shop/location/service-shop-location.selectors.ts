@@ -13,6 +13,10 @@ export class ServiceShopLocationSelectors {
     WorkshopSelectors.serviceshopLocationSelector,
     selectAll
   );
+  static count = createSelector(
+    WorkshopSelectors.serviceshopLocationSelector,
+    (state) => state.resultNumber
+  );
 
   static message = createSelector(
     WorkshopSelectors.serviceshopLocationSelector,

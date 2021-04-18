@@ -1,10 +1,9 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild
@@ -29,14 +28,16 @@ import { Utility } from '@shared/utility/utility';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { IAssetType } from '@models/asset-type.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'anms-add-make',
   templateUrl: './add-make.component.html',
-  styleUrls: ['./add-make.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-make.component.scss']
 })
-export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
+export class AddMakeComponent
+  extends Utility
+  implements OnInit, AfterViewInit, OnDestroy {
   radioButtonSelect: 'mModel';
   public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
@@ -48,6 +49,8 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
   percent = 80;
   fileName = 'CSV File only';
   submited = false;
+
+  assetTypeSubs$: Subscription;
 
   assetConfigurationTableSetting!: TableSetting;
 
@@ -75,8 +78,8 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
-    private changeDetectorRef: ChangeDetectorRef,
     public dataService: DataService,
+    private assetTypeFacade: AssetTypeFacade,
     injector: Injector,
     public route: ActivatedRoute,
     public router: Router
@@ -86,17 +89,46 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.inputForm = this._fb.group({
+      typeCategory: ['asset', Validators.required],
+      makes: new FormArray([this.createMake()])
+    });
+
     this.route.params.subscribe((x) => {
       if (x && x.assetType) this.assetTypeId = x.assetType;
+      this.assetTypeSubs$ = this.facade.assetType$.subscribe((response) => {
+        response.map((obj) => {
+          if (obj.id === this.dataService.selectedTypeId) {
+            this.assetType = obj;
+
+            if (this.assetType.type === 'ASSET') {
+              this.inputForm.patchValue({ typeCategory: 'asset' });
+            } else if (this.assetType.type === 'SUB_ASSET') {
+              this.inputForm.patchValue({ typeCategory: 'subAsset' });
+            } else if (this.assetType.type === 'ACCESSORY') {
+              this.inputForm.patchValue({ typeCategory: 'accessory' });
+            }
+
+            this.makes.clear();
+            for (let index = 0; index < obj.makes.length; index++) {
+              this.addMake();
+              this.makes.controls[index].patchValue({
+                id: obj.makes[index].id,
+                make: obj.makes[index].make,
+                makeDescription: obj.makes[index].makeDescription,
+                models: obj.makes[index].models,
+                // @ts-ignore
+                origins: obj.makes[index].origins
+              });
+            }
+            this.addMake();
+          }
+        });
+      });
     });
 
     this.facade.assetType$.subscribe((x) => {
       this.assets = x;
-    });
-
-    this.inputForm = this._fb.group({
-      typeCategory: ['asset', Validators.required],
-      makes: new FormArray([this.createMake()])
     });
 
     if (!this.dataService.selectedTypeId) {
@@ -104,36 +136,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
         this.facade.resetParams();
       });
     }
-
-    this.facade.assetType$.subscribe((response) => {
-      response.map((obj) => {
-        if (obj.id === this.dataService.selectedTypeId) {
-          this.assetType = obj;
-
-          if (this.assetType.type === 'ASSET') {
-            this.inputForm.patchValue({ typeCategory: 'asset' });
-          } else if (this.assetType.type === 'SUB_ASSET') {
-            this.inputForm.patchValue({ typeCategory: 'subAsset' });
-          } else if (this.assetType.type === 'ACCESSORY') {
-            this.inputForm.patchValue({ typeCategory: 'accessory' });
-          }
-
-          this.makes.clear();
-          for (let index = 0; index < obj.makes.length; index++) {
-            this.addMake();
-            this.makes.controls[index].patchValue({
-              id: obj.makes[index].id,
-              make: obj.makes[index].make,
-              makeDescription: obj.makes[index].makeDescription,
-              models: obj.makes[index].models,
-              // @ts-ignore
-              origins: obj.makes[index].origins
-            });
-          }
-          this.addMake();
-        }
-      });
-    });
 
     this.facade.submitted$.subscribe((x) => {
       if (x) {
@@ -144,7 +146,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetectorRef.markForCheck();
       }
     });
 
@@ -157,7 +158,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
         this.dialogSetting.message = 'Error occurred in progress';
         this.dialogSetting.cancelButton = undefined;
         this.dialogSetting.confirmButton = 'OK';
-        this.changeDetectorRef.markForCheck();
       }
     });
   }
@@ -199,14 +199,14 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
     this.makes.removeAt(index);
   }
 
-  ngAfterViewInit() { }
+  ngAfterViewInit() {}
 
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => { });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
         droppedFile.relativePath, fileEntry;
@@ -285,12 +285,13 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
     }
 
     const data = this.inputForm.value.makes.map((x) => {
-      if (x.id) return {
-        id: x.id,
-        make: x.make,
-        makeDescription: x.makeDescription,
-        origins: x.origins
-      };
+      if (x.id)
+        return {
+          id: x.id,
+          make: x.make,
+          makeDescription: x.makeDescription,
+          origins: x.origins
+        };
       else {
         return {
           make: x.make,
@@ -298,8 +299,12 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit {
           origins: x.origins
         };
       }
-    })
+    });
 
     this.facade.addMake(data, this.assetTypeId);
+  }
+
+  ngOnDestroy(): void {
+    this.assetTypeSubs$.unsubscribe();
   }
 }

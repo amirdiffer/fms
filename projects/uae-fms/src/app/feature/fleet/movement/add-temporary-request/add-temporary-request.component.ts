@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Injector,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
@@ -20,8 +14,7 @@ import { MovementOverviewFacadeTemporary } from '@feature/fleet/+state/movement/
 @Component({
   selector: 'anms-add-request',
   templateUrl: './add-temporary-request.component.html',
-  styleUrls: ['./add-temporary-request.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-temporary-request.component.scss']
 })
 export class AddTemporaryRequestComponent extends Utility implements OnInit {
   requestForm: FormGroup;
@@ -59,7 +52,6 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
     private _fb: FormBuilder,
     private facade: MovementRequestsFacadeTemporary,
     private overViewFacade: MovementOverviewFacadeTemporary,
-    private changeDetector: ChangeDetectorRef,
     private assetFacade: AssetMasterFacade,
     private _movementService: MovementService,
     injector: Injector
@@ -84,7 +76,6 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
         this.dialogErrorSetting.hasError = false;
         this.facade.loadAll();
         this.overViewFacade.loadAll();
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -105,7 +96,6 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
-        this.changeDetector.detectChanges();
       }
     });
   }
@@ -137,7 +127,8 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
         startDate: d.startDate,
         endDate: d.endDate
       };
-      if (_data.requestType == 'NEW') _data.oldAssetId = undefined; else _data.quantity = undefined;
+      if (_data.requestType == 'NEW') _data.oldAssetId = undefined;
+      else _data.quantity = undefined;
       this.facade.addMovementRequest(_data);
     }
   }

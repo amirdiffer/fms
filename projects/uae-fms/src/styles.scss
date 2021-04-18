@@ -583,6 +583,9 @@
       font-size: 0.9em;
     }
   }
+  .mat-card {
+    font-family: $fms-green-body1-font;
+  }
   .card-table-header {
     height: 3em;
     display: flex;
@@ -804,7 +807,7 @@ form {
       max-height: 90vh;
       overflow: hidden;
       overflow-y: scroll;
-      width: 300px;
+      width: 23em;
 
       .container {
         padding: 1.1em;

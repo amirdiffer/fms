@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { SpinnerService } from './spinner.service';
 
 @Component({
@@ -12,20 +12,20 @@ export class SpinnerComponent implements OnInit, OnDestroy {
   /** input to show fullSpinner UI */
   @Input() fullSpinner: boolean;
   spinnerSubscription;
-  constructor(private spinnerService: SpinnerService, private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private spinnerService: SpinnerService) {}
 
   ngOnInit() {
     /** controlling enabling and disabling the spinner observed in loaderService using BehaviorSubject object */
-    this.spinnerSubscription = this.spinnerService.status.subscribe((val: boolean) => {
-      this.showSpinner = val;
-      this.changeDetectorRef.detectChanges();
-    });
+    this.spinnerSubscription = this.spinnerService.status.subscribe(
+      (val: boolean) => {
+        this.showSpinner = val;
+      }
+    );
   }
 
   ngOnDestroy() {
     if (this.spinnerSubscription != null) {
-       this.spinnerSubscription.unsubscribe();
+      this.spinnerSubscription.unsubscribe();
     }
   }
-
 }

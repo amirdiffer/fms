@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TollFacade } from '../toll/+state';
 import {
   FormBuilder,
@@ -17,8 +12,7 @@ import { IToll } from '@models/toll';
 @Component({
   selector: 'anms-toll',
   templateUrl: './toll.component.html',
-  styleUrls: ['./toll.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./toll.component.scss']
 })
 export class TollComponent implements OnInit, OnDestroy {
   tableSetting;

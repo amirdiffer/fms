@@ -17,6 +17,11 @@ const assetMasterReducer = createReducer(
   on(AssetMasterActions.allDataLoaded, (state, { data }) =>
     assetMasterAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+  on(AssetMasterActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber: data
+  })),
+
   on(AssetMasterActions.statisticsLoaded, (state, data) => ({
     ...state,
     statistics: data.data
@@ -30,9 +35,10 @@ const assetMasterReducer = createReducer(
     ...state,
     submitted: false
   })),
-  on(AssetMasterActions.assetAddedSuccessfully, (state, { data }) =>
-    ({ ...state, submitted: true })
-  ),
+  on(AssetMasterActions.assetAddedSuccessfully, (state, { data }) => ({
+    ...state,
+    submitted: true
+  })),
   on(AssetMasterActions.editAsset, (state, { data }) => ({
     ...state,
     error: null,
@@ -40,15 +46,17 @@ const assetMasterReducer = createReducer(
     submitted: false
   })),
   on(AssetMasterActions.assetEditedSuccessfully, (state, { data }) =>
-    assetMasterAdapter.updateOne({ changes: data, id: data.id }, {
-      ...state,
-      error:null,
-      message: null,
-      submitted: true
-    })
+    assetMasterAdapter.updateOne(
+      { changes: data, id: data.id },
+      {
+        ...state,
+        error: null,
+        message: null,
+        submitted: true
+      }
+    )
   ),
 
-  
   /* Asset By Id */
   on(AssetMasterActions.assetById, (state) => ({
     ...state,
@@ -56,21 +64,19 @@ const assetMasterReducer = createReducer(
     error: null,
     message: null
   })),
-  on(AssetMasterActions.assetByIdLoaded, (state, { data }) =>
-    ({ 
-      ...state, 
-      loaded: true, 
-      error: null, 
-      asset: data 
-    })),
+  on(AssetMasterActions.assetByIdLoaded, (state, { data }) => ({
+    ...state,
+    loaded: true,
+    error: null,
+    asset: data
+  })),
 
-  
   on(AssetMasterActions.reset, (state) => ({
     ...state,
     error: null,
     message: null,
     submitted: false
-  })),
+  }))
 );
 
 export function reducer(state: IAssetMasterState, action: Action) {

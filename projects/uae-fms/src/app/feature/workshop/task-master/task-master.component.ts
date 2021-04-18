@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { TaskMasterFacade } from '../+state/task-master';
 import { TaskMasterService } from './task-master.service';
@@ -12,8 +7,7 @@ import { TableComponent } from '@core/table';
 @Component({
   selector: 'anms-task-master',
   templateUrl: './task-master.component.html',
-  styleUrls: ['./task-master.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./task-master.component.scss']
 })
 export class TaskMasterComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;

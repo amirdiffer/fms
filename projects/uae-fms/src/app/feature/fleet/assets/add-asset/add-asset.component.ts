@@ -2,10 +2,8 @@ import {
   Component,
   OnInit,
   ViewChild,
-  ChangeDetectionStrategy,
   Injector,
-  OnDestroy,
-  ChangeDetectorRef
+  OnDestroy
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
@@ -40,8 +38,7 @@ import {
 @Component({
   selector: 'anms-add-asset',
   templateUrl: './add-asset.component.html',
-  styleUrls: ['./add-asset.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-asset.component.scss']
 })
 export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   //icons
@@ -337,8 +334,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     private _facadePeriodicService: PeriodicServiceFacade,
     private _periodicService: PeriodicServiceService,
     private _departmentService: OrganizationService,
-    private _operatorService: OperatorService,
-    private changeDetection: ChangeDetectorRef
+    private _operatorService: OperatorService
   ) {
     super(injector);
   }
@@ -430,6 +426,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     );
 
     this.ownerShip$ = this._facadeOwnership.ownership$.subscribe((x) => {
+      this.ownerShip = [];
       x.map((response) => {
         this.ownerShip.push(response);
       });
@@ -437,6 +434,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
     this.policyType$ = this._facadeAssetPolicy.assetPolicy$.subscribe(
       (data) => {
+        this.policyTypeDropDown = [];
         data.map((response) => {
           this.policyTypeDropDown.push(response);
         });
@@ -445,12 +443,14 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
     this.periodicService$ = this._facadePeriodicService.periodicService$.subscribe(
       (data) => {
+        this.periodicServiceItem = [];
         data.map((response) => {
           this.periodicServiceItem.push(response);
         });
       }
     );
     this.department$ = this._departmentService.loadAll().subscribe((data) => {
+      this.department = [];
       data.message.map((response) => {
         const dep = {
           id: response.id,
@@ -470,6 +470,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     });
 
     this.operator$ = this._operatorService.loadAll().subscribe((data) => {
+      this.operator = [];
       data.message.map((response) => {
         const opr = {
           id: response.id,
@@ -488,15 +489,18 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.assetType$ = this._assetConfigurationService
       .loadAll()
       .subscribe((data) => {
+        this.assetType = [];
         data.message.map((x) => {
           this.assetType.push(x);
         });
         if (this.isEdit) {
+          this.assetMake = [];
           this.assetType
             .find((z) => z.id == this._asset.assetTypeId)
             .makes.map((f) => {
               this.assetMake.push(f);
             });
+          this.assetModel = [];
           this.assetMake
             .find((z) => z.id == this._asset.makeId)
             .models.map((y) => {
@@ -535,7 +539,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
         this.errorDialogSetting.confirmButton = 'Ok';
-        this.changeDetection.detectChanges();
       } else {
         this.errorDialogModal = false;
       }
@@ -555,7 +558,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetection.detectChanges();
       }
     });
   }
@@ -617,6 +619,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         };
       })
     });
+    this.calculateAssetPolicy();
   }
   public calculateAssetPolicy() {
     this.calculate = true;
@@ -984,7 +987,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   cancelForm() {
     this.cancelDialogModal = true;
     this.cancelDialogSetting.isWarning = true;
-    this.changeDetection.detectChanges();
   }
 
   dialog(event) {

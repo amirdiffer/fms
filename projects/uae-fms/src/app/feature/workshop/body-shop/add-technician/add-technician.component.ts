@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Injector,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -39,8 +33,7 @@ import { OrganizationService } from '@feature/fleet/+state/organization';
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
-  styleUrls: ['./add-technician.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-technician.component.scss']
 })
 export class AddTechnicianComponent extends Utility implements OnInit {
   isEdit: boolean = false;
@@ -222,8 +215,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     private _locationService: BodyShopLocationService,
     private _taskMasterService: TaskMasterService,
     private _departmentService: OrganizationService,
-    private _facadeTaskMaster: TaskMasterFacade,
-    private changeDetector: ChangeDetectorRef
+    private _facadeTaskMaster: TaskMasterFacade
   ) {
     super(injector);
   }
@@ -292,7 +284,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -305,7 +296,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
         this.errorDialogSetting.confirmButton = 'Ok';
-        this.changeDetector.detectChanges();
       } else {
         this.errorDialogModal = false;
       }

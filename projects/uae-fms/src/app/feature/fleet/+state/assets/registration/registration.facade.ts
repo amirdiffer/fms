@@ -6,6 +6,7 @@ import { RegistrationActions } from '@feature/fleet/+state/assets/registration/r
 @Injectable()
 export class RegistrationFacade {
   registration$ = this.store.pipe(select(RegistrationSelectors.selectAll));
+  conut$ = this.store.pipe(select(RegistrationSelectors.count));
 
   constructor(private store: Store<IRegistrationPartialState>) {}
 
@@ -13,6 +14,6 @@ export class RegistrationFacade {
     this.store.dispatch(RegistrationActions.loadAll());
   }
   register(data) {
-    this.store.dispatch(RegistrationActions.registerAsset({data}))
+    this.store.dispatch(RegistrationActions.registerAsset({ data }));
   }
 }

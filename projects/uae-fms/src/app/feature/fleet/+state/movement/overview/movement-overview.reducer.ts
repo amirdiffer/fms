@@ -23,12 +23,15 @@ const movementOverviewReducer = createReducer(
     })
   ),
 
+  on(MovementOverviewActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber: data
+  })),
   on(MovementOverviewActions.error, (state, { reason }) => ({
     ...state,
     error: reason,
     loaded: true
   }))
-
 );
 
 export function reducer(state: MovementOverviewState, action: Action) {

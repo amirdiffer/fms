@@ -12,6 +12,11 @@ export class BodyShopJobCardActions {
     props<{ data: IJobCard; assetId: number }>()
   );
 
+  static count = createAction(
+    '[JobCards] get result number',
+    props<{ data: number }>()
+  );
+
   static jobCardAddedSuccessfully = createAction(
     '[JobCards] jobCard added successfully',
     props<{ data: IJobCard }>()

@@ -5,13 +5,15 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { BodyShopRequestActions } from './body-shop-request.actions';
 import { BodyShopRequestService } from './body-shop-request.service';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class BodyShopRequestEffect {
   constructor(
     private action$: Actions,
     private service: BodyShopRequestService,
-    private _tableFacade: TableFacade
+    private _tableFacade: TableFacade,
+    private _store: Store
   ) {}
 
   loadAll$ = createEffect(() =>
@@ -20,15 +22,19 @@ export class BodyShopRequestEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            let newData = data.message.map(
-              ((x)=>{
-                return {
-                  ...x,
-                  id:x.assetId
-                }
-              })
-            )
-            this._tableFacade.initialPaginator(data.resultNumber, 'body-shop_request');
+            let newData = data.message.map((x) => {
+              return {
+                ...x,
+                id: x.assetId
+              };
+            });
+            this._tableFacade.initialPaginator(
+              data.resultNumber,
+              'body-shop_request'
+            );
+            this._store.dispatch(
+              BodyShopRequestActions.count({ data: data.resultNumber })
+            );
             return BodyShopRequestActions.allDataLoaded({ data: newData });
           }),
           catchError((error) =>
@@ -44,7 +50,9 @@ export class BodyShopRequestEffect {
       mergeMap((action) =>
         this.service.requestsById(action.id).pipe(
           map((data) => {
-            return BodyShopRequestActions.requestsByIdDataLoaded({ data: data.message });
+            return BodyShopRequestActions.requestsByIdDataLoaded({
+              data: data.message
+            });
           }),
           catchError((error) =>
             of(BodyShopRequestActions.error({ reason: error }))
@@ -59,7 +67,9 @@ export class BodyShopRequestEffect {
       mergeMap((action) =>
         this.service.getRequestListByAssetId(action.assetId).pipe(
           map((data) => {
-            return BodyShopRequestActions.allRequestByAssetIdLoaded({ data: data.message });
+            return BodyShopRequestActions.allRequestByAssetIdLoaded({
+              data: data.message
+            });
           }),
           catchError((error) =>
             of(BodyShopRequestActions.error({ reason: error }))

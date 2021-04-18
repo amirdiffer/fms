@@ -9,6 +9,11 @@ export class ServiceShopRequestSelectors {
     selectAll
   );
 
+  static count = createSelector(
+    WorkshopSelectors.serviceshopRequestSelector,
+    (state) => state.resultNumber
+  );
+
   static requests = createSelector(
     WorkshopSelectors.serviceshopRequestSelector,
     (state) => state.requests

@@ -6,13 +6,15 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { TableFacade } from '@core/table/+state/table.facade';
 import { ServiceShopRequestService } from './service-shop-request.service';
 import { ServiceShopRequestActions } from './service-shop-request.actions';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class ServiceShopRequestEffect {
   constructor(
     private action$: Actions,
     private service: ServiceShopRequestService,
-    private _tableFacade: TableFacade
+    private _tableFacade: TableFacade,
+    private _store: Store
   ) {}
 
   loadAll$ = createEffect(() =>
@@ -21,15 +23,19 @@ export class ServiceShopRequestEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            let newData = data.message.map(
-              ((x)=>{
-                return {
-                  ...x,
-                  id:x.assetId
-                }
-              })
-            )
-            this._tableFacade.initialPaginator(data.resultNumber, 'body-shop_request');
+            let newData = data.message.map((x) => {
+              return {
+                ...x,
+                id: x.assetId
+              };
+            });
+            this._tableFacade.initialPaginator(
+              data.resultNumber,
+              'body-shop_request'
+            );
+            this._store.dispatch(
+              ServiceShopRequestActions.count({ data: data.resultNumber })
+            );
             return ServiceShopRequestActions.allDataLoaded({ data: newData });
           }),
           catchError((error) =>
@@ -45,7 +51,9 @@ export class ServiceShopRequestEffect {
       mergeMap((action) =>
         this.service.requestsById(action.id).pipe(
           map((data) => {
-            return ServiceShopRequestActions.requestsByIdDataLoaded({ data: data.message });
+            return ServiceShopRequestActions.requestsByIdDataLoaded({
+              data: data.message
+            });
           }),
           catchError((error) =>
             of(ServiceShopRequestActions.error({ reason: error }))
@@ -60,7 +68,9 @@ export class ServiceShopRequestEffect {
       mergeMap((action) =>
         this.service.getRequestListByAssetId(action.assetId).pipe(
           map((data) => {
-            return ServiceShopRequestActions.allRequestByAssetIdLoaded({ data: data.message });
+            return ServiceShopRequestActions.allRequestByAssetIdLoaded({
+              data: data.message
+            });
           }),
           catchError((error) =>
             of(ServiceShopRequestActions.error({ reason: error }))
@@ -91,7 +101,7 @@ export class ServiceShopRequestEffect {
       mergeMap((action) =>
         this.service.editRequest(action.request).pipe(
           map((data) =>
-          ServiceShopRequestActions.requestEditedSuccessfully({
+            ServiceShopRequestActions.requestEditedSuccessfully({
               request: action.request
             })
           ),
@@ -109,7 +119,7 @@ export class ServiceShopRequestEffect {
       mergeMap((action) =>
         this.service.post(action.data).pipe(
           map((data) =>
-          ServiceShopRequestActions.requestAddedSuccessfully({
+            ServiceShopRequestActions.requestAddedSuccessfully({
               data: { ...action.data, ...data.message }
             })
           ),

@@ -17,6 +17,12 @@ const bodyShopJobCardReducer = createReducer(
   on(BodyShopJobCardActions.allDataLoaded, (state, { data }) =>
     bodyShopJobCardAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+
+  on(BodyShopJobCardActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber: data
+  })),
+
   on(BodyShopJobCardActions.addJobCard, (state, { data: IJobCard }) => ({
     ...state,
     submitted: false

@@ -1,10 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'anms-factory-category',
   templateUrl: './factory-category.component.html',
-  styleUrls: ['./factory-category.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./factory-category.component.scss']
 })
 export class FactoryCategoryComponent implements OnInit {
   tableData = [];

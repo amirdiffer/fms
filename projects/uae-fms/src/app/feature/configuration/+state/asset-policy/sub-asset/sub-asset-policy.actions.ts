@@ -1,7 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import {
-  SubAssetPolicyState,
-} from './sub-asset-policy.entity';
+import { SubAssetPolicyState } from './sub-asset-policy.entity';
 import { IAssetPolicy } from '@models/asset-policy.model';
 
 export class SubAssetPolicyActions {
@@ -10,6 +8,11 @@ export class SubAssetPolicyActions {
   static allDataLoaded = createAction(
     '[SubAssetPolicy] all sub assets are loaded',
     props<{ data: IAssetPolicy[] }>()
+  );
+
+  static count = createAction(
+    '[SubAssetPolicy] get result number',
+    props<{ data: number }>()
   );
 
   static error = createAction(

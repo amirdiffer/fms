@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Injector,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -26,8 +20,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'anms-add-location',
   templateUrl: './add-location.component.html',
-  styleUrls: ['./add-location.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-location.component.scss']
 })
 export class AddLocationComponent extends Utility implements OnInit {
   isEdit: boolean = false;
@@ -233,7 +226,6 @@ export class AddLocationComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -246,7 +238,6 @@ export class AddLocationComponent extends Utility implements OnInit {
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
         this.errorDialogSetting.confirmButton = 'Ok';
-        this.changeDetector.detectChanges();
       } else {
         this.errorDialogModal = false;
       }

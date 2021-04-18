@@ -2,12 +2,11 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { IAssetPolicy } from '@models/asset-policy.model';
 export const CONFIGURATION_SUB_ASSET_POLICY_FEATURE_KEY = 'subAssetPolicy';
 
-
-export interface SubAssetPolicyState
-  extends EntityState<IAssetPolicy> {
+export interface SubAssetPolicyState extends EntityState<IAssetPolicy> {
   error?: any;
   loaded?: boolean;
   message?: string;
+  resultNumber?: number;
 }
 
 export interface SubAssetPolicyPartialState {
@@ -22,6 +21,7 @@ export const initialState: SubAssetPolicyState = subAssetPolicyAdapter.getInitia
   {
     error: null,
     loaded: null,
-    message: null
+    message: null,
+    resultNumber: 0
   } as SubAssetPolicyState
 );

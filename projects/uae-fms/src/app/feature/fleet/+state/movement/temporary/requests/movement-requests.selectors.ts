@@ -1,12 +1,19 @@
 import { createSelector } from '@ngrx/store';
 import { FleetSelectors } from '../../../fleet.selectors';
-import { MovementRequestsState, movementRequestsTemporaryAdapter } from './movement-requests.entity';
+import {
+  MovementRequestsState,
+  movementRequestsTemporaryAdapter
+} from './movement-requests.entity';
 const { selectAll } = movementRequestsTemporaryAdapter.getSelectors();
 
 export class MovementRequestsSelectorsTemporary {
   static selectAll = createSelector(
     FleetSelectors.movementRequestsSelectorTemporary,
     selectAll
+  );
+  static count = createSelector(
+    FleetSelectors.movementRequestsSelectorTemporary,
+    (state) => state.resultNumber
   );
 
   static requestStatistic = createSelector(

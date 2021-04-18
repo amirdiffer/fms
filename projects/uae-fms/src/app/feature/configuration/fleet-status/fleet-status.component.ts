@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FleetStatusAssetFacade,
   FleetStatusSubAssetFacade
@@ -10,11 +10,9 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'anms-fleet-status',
   templateUrl: './fleet-status.component.html',
-  styleUrls: ['./fleet-status.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./fleet-status.component.scss']
 })
 export class FleetStatusComponent implements OnInit {
-
   //#region Table
   tableSetting: TableSetting = {
     columns: [
@@ -49,7 +47,7 @@ export class FleetStatusComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
-      onClick: (event) => { },
+      onClick: (event) => {},
       floatButton: [
         {
           button: 'edit',
@@ -96,7 +94,7 @@ export class FleetStatusComponent implements OnInit {
     private fleetStatusAssetFacade: FleetStatusAssetFacade,
     private fleetStatusSubAssetFacade: FleetStatusSubAssetFacade,
     private _router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.fleetStatusAssetFacade.loadAll();
@@ -121,5 +119,4 @@ export class FleetStatusComponent implements OnInit {
   eventPagination() {
     this.fleetStatusAssetFacade.loadAll();
   }
-
 }

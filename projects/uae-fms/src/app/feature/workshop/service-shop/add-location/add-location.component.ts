@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Injector,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -23,8 +17,7 @@ import { ServiceShopLocationFacade } from '@feature/workshop/+state/service-shop
 @Component({
   selector: 'anms-add-location',
   templateUrl: './add-location.component.html',
-  styleUrls: ['./add-location.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-location.component.scss']
 })
 export class AddLocationServiceShopComponent extends Utility implements OnInit {
   isEdit: boolean = false;
@@ -152,8 +145,7 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
     private _fb: FormBuilder,
     injector: Injector,
     private _roter: Router,
-    private _facadeLocation: ServiceShopLocationFacade,
-    private changeDetector: ChangeDetectorRef
+    private _facadeLocation: ServiceShopLocationFacade
   ) {
     super(injector);
   }
@@ -210,7 +202,6 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -223,7 +214,6 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
         this.errorDialogSetting.confirmButton = 'Ok';
-        this.changeDetector.detectChanges();
       } else {
         this.errorDialogModal = false;
       }
@@ -271,8 +261,8 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
 
     slots.push(this.createSlot());
   }
-  removeSlot(index){
-    this.slot.removeAt(index)
+  removeSlot(index) {
+    this.slot.removeAt(index);
   }
 
   addService() {
@@ -284,10 +274,10 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
 
     services.push(this.createService());
   }
-  removeService(index){
-    this.service.removeAt(index)
+  removeService(index) {
+    this.service.removeAt(index);
   }
-  
+
   dialogConfirm($event): void {
     this.errorDialogModal = false;
     this.dialogModal = false;
@@ -319,9 +309,13 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
         this._facadeLocation.addLocation(locationInfo);
       }
     } else {
-      this.router.navigate(['/workshop/service-shop'] , {queryParams:{id:'locationTab'}}).then((_) => {
-        this._facadeLocation.resetParams();
-      });
+      this.router
+        .navigate(['/workshop/service-shop'], {
+          queryParams: { id: 'locationTab' }
+        })
+        .then((_) => {
+          this._facadeLocation.resetParams();
+        });
     }
   }
   addRequest() {

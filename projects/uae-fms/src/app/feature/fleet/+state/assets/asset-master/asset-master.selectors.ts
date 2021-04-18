@@ -8,7 +8,7 @@ export class AssetMasterSelectors {
     FleetSelectors.assetMasterSelector,
     selectAll
   );
-  
+
   static specificAsset = createSelector(
     FleetSelectors.assetMasterSelector,
     (state) => state.asset
@@ -23,9 +23,13 @@ export class AssetMasterSelectors {
     (state) => state.error
   );
 
+  static count = createSelector(
+    FleetSelectors.assetMasterSelector,
+    (state) => state.resultNumber
+  );
+
   static submitted = createSelector(
     FleetSelectors.assetMasterSelector,
     (state) => state.submitted
-  )
-
+  );
 }

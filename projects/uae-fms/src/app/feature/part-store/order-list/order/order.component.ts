@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Injector,
-  OnInit
-} from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
@@ -11,8 +6,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 @Component({
   selector: 'order-form',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./order.component.scss']
 })
 export class OrderFormComponent extends Utility implements OnInit {
   submited = false;

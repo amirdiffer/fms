@@ -13,13 +13,18 @@ export class ServiceShopJobCardFacade {
   error$ = this.store.pipe(select(ServiceShopJobCardSelectors.error));
 
   submitted$ = this.store.pipe(select(ServiceShopJobCardSelectors.submitted));
+
+  conut$ = this.store.pipe(select(ServiceShopJobCardSelectors.count));
+
   constructor(private store: Store<IServiceShopJobCardPartialState>) {}
 
   loadAll() {
     this.store.dispatch(ServiceShopJobCardActions.loadAll());
   }
   addJobCard(data: any, assetId: number) {
-    this.store.dispatch(ServiceShopJobCardActions.addJobCard({ data, assetId }));
+    this.store.dispatch(
+      ServiceShopJobCardActions.addJobCard({ data, assetId })
+    );
   }
 
   editJobCard(jobCard: any) {
@@ -27,7 +32,9 @@ export class ServiceShopJobCardFacade {
   }
 
   getJobCardById(id: number) {
-    return this.store.pipe(select(ServiceShopJobCardSelectors.selectById, { id }));
+    return this.store.pipe(
+      select(ServiceShopJobCardSelectors.selectById, { id })
+    );
   }
 
   resetParams() {

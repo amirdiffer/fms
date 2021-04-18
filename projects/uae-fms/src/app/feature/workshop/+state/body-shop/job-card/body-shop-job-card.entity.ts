@@ -8,6 +8,7 @@ export interface IBodyshopJobCardState extends EntityState<IJobCard> {
   loaded: boolean;
   message: string;
   submitted: boolean;
+  resultNumber?: number;
 }
 
 export interface IBodyshopJobCardPartialState {
@@ -23,6 +24,7 @@ export const initialState: IBodyshopJobCardState = bodyShopJobCardAdapter.getIni
     loaded: false,
     message: null,
     error: null,
-    submitted: false
+    submitted: false,
+    resultNumber: 0
   } as IBodyshopJobCardState
 );

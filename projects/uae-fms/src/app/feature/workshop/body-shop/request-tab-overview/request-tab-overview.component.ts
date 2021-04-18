@@ -9,8 +9,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-asset-overview-request',
   templateUrl: './request-tab-overview.component.html',
-  styleUrls: ['./request-tab-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./request-tab-overview.component.scss']
 })
 export class RequestTabOverviewComponent implements OnInit {
   assetId;

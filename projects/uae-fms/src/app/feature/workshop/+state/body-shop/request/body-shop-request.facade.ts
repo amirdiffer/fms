@@ -8,7 +8,9 @@ import { BodyShopRequestSelectors } from './body-shop-request.selectors';
 export class BodyShopRequestFacade {
   bodyShop$ = this.store.pipe(select(BodyShopRequestSelectors.selectAll));
   requestsById$ = this.store.pipe(select(BodyShopRequestSelectors.requests));
-  assetRequest$ = this.store.pipe(select(BodyShopRequestSelectors.assetRequest));
+  assetRequest$ = this.store.pipe(
+    select(BodyShopRequestSelectors.assetRequest)
+  );
 
   statistics$ = this.store.pipe(
     select(BodyShopRequestSelectors.selectStatistics)
@@ -19,6 +21,9 @@ export class BodyShopRequestFacade {
   error$ = this.store.pipe(select(BodyShopRequestSelectors.error));
 
   submitted$ = this.store.pipe(select(BodyShopRequestSelectors.submitted));
+
+  conut$ = this.store.pipe(select(BodyShopRequestSelectors.count));
+
   constructor(private store: Store<BodyshopRequestPartialState>) {}
 
   loadAll() {
@@ -41,11 +46,13 @@ export class BodyShopRequestFacade {
   }
 
   getRequestsById(id: number) {
-    this.store.dispatch(BodyShopRequestActions.loadAllRequestsById({ id } ));
+    this.store.dispatch(BodyShopRequestActions.loadAllRequestsById({ id }));
   }
 
-  getAssetRequest (assetId:number) {
-    this.store.dispatch(BodyShopRequestActions.loadAllRequestByAssetId({assetId}))
+  getAssetRequest(assetId: number) {
+    this.store.dispatch(
+      BodyShopRequestActions.loadAllRequestByAssetId({ assetId })
+    );
   }
   resetParams() {
     this.store.dispatch(BodyShopRequestActions.resetParams());

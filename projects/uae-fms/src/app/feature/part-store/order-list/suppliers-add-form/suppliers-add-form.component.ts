@@ -1,18 +1,11 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Output,
-  EventEmitter
-} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { TableSetting } from '@core/table';
 
 @Component({
   selector: 'suppliers-add-form',
   templateUrl: './suppliers-add-form.component.html',
-  styleUrls: ['./suppliers-add-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./suppliers-add-form.component.scss']
 })
 export class SuppliersAddFormComponent implements OnInit {
   @Output() cancel = new EventEmitter();
@@ -23,7 +16,12 @@ export class SuppliersAddFormComponent implements OnInit {
       { lable: 'tables.column.email', type: 1, field: 'Email' },
       { lable: 'tables.column.phone', type: 1, field: 'Phone' },
       { lable: 'tables.column.address', type: 1, field: 'Address' },
-      { lable: 'tables.column.quotation', type: 1, field: 'Quotation',sortable: true }
+      {
+        lable: 'tables.column.quotation',
+        type: 1,
+        field: 'Quotation',
+        sortable: true
+      }
     ],
     data: [
       {

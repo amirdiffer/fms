@@ -1,10 +1,9 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild
@@ -23,16 +22,16 @@ import { AssetTypeFacade } from '@feature/configuration/+state/asset-configurati
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { Utility } from '@shared/utility/utility';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'anms-add-model',
   templateUrl: './add-model.component.html',
-  styleUrls: ['./add-model.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-model.component.scss']
 })
 export class AddModelComponent
   extends Utility
-  implements OnInit, AfterViewInit {
+  implements OnInit, AfterViewInit, OnDestroy {
   radioButtonSelect: 'mModel';
   public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
@@ -44,6 +43,8 @@ export class AddModelComponent
   percent = 80;
   fileName = 'CSV File only';
   submited = false;
+
+  assetTypeSubs$: Subscription;
 
   assetConfigurationTableSetting!: TableSetting;
 
@@ -70,7 +71,6 @@ export class AddModelComponent
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
-    private changeDetectorRef: ChangeDetectorRef,
     public dataService: DataService,
     public router: Router,
     injector: Injector
@@ -80,14 +80,42 @@ export class AddModelComponent
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((x) => {
-      if (x && x.assetType) this.assetTypeId = x.assetType;
-      if (x && x.make) this.makeId = x.make;
-    });
-
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
       models: new FormArray([this.createModel()])
+    });
+
+    this.route.params.subscribe((x) => {
+      if (x && x.assetType) this.assetTypeId = x.assetType;
+      if (x && x.make) this.makeId = x.make;
+      this.assetTypeSubs$ = this.facade.assetType$.subscribe((response) => {
+        response.map((obj) => {
+          obj.makes.map((make) => {
+            if (make.id === this.dataService.selectedMakeId) {
+              this.assetType = obj;
+              if (this.assetType.type === 'ASSET') {
+                this.inputForm.patchValue({ typeCategory: 'asset' });
+              } else if (this.assetType.type === 'SUB_ASSET') {
+                this.inputForm.patchValue({ typeCategory: 'subAsset' });
+              } else if (this.assetType.type === 'ACCESSORY') {
+                this.inputForm.patchValue({ typeCategory: 'accessory' });
+              }
+
+              this.models.clear();
+              for (let index = 0; index < make.models.length; index++) {
+                this.addModel();
+                this.models.controls[index].setValue({
+                  id: make.models[index].id,
+                  model: make.models[index].model,
+                  modelDescription: make.models[index].modelDescription,
+                  trims: make.models[index].trims
+                });
+              }
+              this.addModel();
+            }
+          });
+        });
+      });
     });
 
     if (!this.dataService.selectedMakeId) {
@@ -95,35 +123,6 @@ export class AddModelComponent
         .navigate(['/configuration/asset-configuration'])
         .then((_) => this.facade.resetParams());
     }
-
-    this.facade.assetType$.subscribe((response) => {
-      response.map((obj) => {
-        obj.makes.map((make) => {
-          if (make.id === this.dataService.selectedMakeId) {
-            this.assetType = obj;
-            if (this.assetType.type === 'ASSET') {
-              this.inputForm.patchValue({ typeCategory: 'asset' });
-            } else if (this.assetType.type === 'SUB_ASSET') {
-              this.inputForm.patchValue({ typeCategory: 'subAsset' });
-            } else if (this.assetType.type === 'ACCESSORY') {
-              this.inputForm.patchValue({ typeCategory: 'accessory' });
-            }
-
-            this.models.clear();
-            for (let index = 0; index < make.models.length; index++) {
-              this.addModel();
-              this.models.controls[index].setValue({
-                id: make.models[index].id,
-                model: make.models[index].model,
-                modelDescription: make.models[index].modelDescription,
-                trims: make.models[index].trims
-              });
-            }
-            this.addModel();
-          }
-        });
-      });
-    });
 
     this.facade.submitted$.subscribe((x) => {
       if (x) {
@@ -134,7 +133,6 @@ export class AddModelComponent
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetectorRef.markForCheck();
       }
     });
 
@@ -146,7 +144,6 @@ export class AddModelComponent
         this.dialogSetting.message = 'Error occurred in progress';
         this.dialogSetting.cancelButton = undefined;
         this.dialogSetting.confirmButton = 'OK';
-        this.changeDetectorRef.markForCheck();
       }
     });
   }
@@ -186,22 +183,21 @@ export class AddModelComponent
     this.models.removeAt(index);
   }
 
-  ngAfterViewInit() {
-  }
+  ngAfterViewInit() {}
 
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => { });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
     }
   }
 
-  public fileOver(event) { }
+  public fileOver(event) {}
 
   public fileLeave(event) {
     event;
@@ -263,24 +259,27 @@ export class AddModelComponent
         type = 'ASSET';
     }
 
-    const models = this.inputForm.value.models
+    const models = this.inputForm.value.models;
 
     let data = models.map((x) => {
       if (x.id) {
         return {
           id: x.id,
           model: x.model,
-          modelDescription: x.modelDescription,
-        }
-      }
-      else
+          modelDescription: x.modelDescription
+        };
+      } else
         return {
           model: x.model,
-          modelDescription: x.modelDescription,
-        }
+          modelDescription: x.modelDescription
+        };
     });
 
     this.facade.addModel(data, this.assetTypeId, this.makeId);
     // this._assetConfigurationService.loadAddForm(false);
+  }
+
+  ngOnDestroy(): void {
+    this.assetTypeSubs$.unsubscribe();
   }
 }
