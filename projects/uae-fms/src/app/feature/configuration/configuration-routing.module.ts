@@ -20,6 +20,7 @@ import { AddTrimComponent } from '@feature/configuration/asset-configuration/add
 const routes: Routes = [
   { path: 'asset-configuration', component: AssetConfigurationComponent },
   { path: 'add-asset-configuration', component: AddTypeComponent },
+  { path: 'edit-asset-configuration/:id', component: AddTypeComponent },
   {
     path: 'asset-configuration/add-make/:assetType',
     component: AddMakeComponent

@@ -81,9 +81,31 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
         isIconLable: true,
         field: 'makes',
         width: 100
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: 1,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
-    data: []
+    data: [],
+    rowSettings: {
+      onClick: (col, data, button?) => { },
+      floatButton: [
+        {
+          onClick: (col, data) => {
+            console.log(data.id)
+            this.router.navigate(
+              ['/configuration/edit-asset-configuration/' + data.id]
+            );
+          },
+          button: 'edit'
+        }
+      ]
+    } || {}
   };
   addOpen;
   addOpen$: Subscription;
@@ -169,7 +191,8 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           renderer: ''
         }
       ],
-      data: []
+      data: [],
+      rowSettings: {}
     };
     const data = [];
     makes.map((make) => {
@@ -210,7 +233,8 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           renderer: ''
         }
       ],
-      data: []
+      data: [],
+      rowSettings: {}
     };
     const data = [];
     models.map((model) => {
@@ -251,7 +275,8 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           renderer: ''
         }
       ],
-      data: []
+      data: [],
+      rowSettings: {}
     };
     const data = [];
     trims.map((trim) => {
@@ -305,9 +330,31 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           isIconLable: true,
           field: 'makes',
           width: 100
+        },
+        {
+          lable: '',
+          field: 'floatButton',
+          width: 0,
+          type: 1,
+          thumbField: '',
+          renderer: 'floatButton'
         }
       ],
-      data: []
+      data: [],
+      rowSettings: {
+        onClick: (col, data, button?) => { },
+        floatButton: [
+          {
+            onClick: (col, data) => {
+              console.log(data.id)
+              this.router.navigate(
+                ['/configuration/edit-asset-configuration/' + data.id]
+              );
+            },
+            button: 'edit'
+          }
+        ]
+      }
     };
     this.assetConfigurationableSetting.data = this.dataTable.filter(
       (x) => x.type == this.activeTypeCategory

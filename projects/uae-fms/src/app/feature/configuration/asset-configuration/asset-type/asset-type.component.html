@@ -10,8 +10,12 @@
           <svg-icon [src]="arrowIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#505050'}"
             [svgClass]='returnItemTree(assetType.id, assetType.type, assetType).iconSvgClass' (click)="onTypeClick(returnItemTree(assetType.id, assetType.type, assetType))"></svg-icon>
           <span class='ml-2 cursor-pointer' (click)='onTypeClick(returnItemTree(assetType.id, assetType.type, assetType))'>{{assetType.name}}</span>
-          <svg-icon class='plus cursor-pointer' (click)="createMake(assetType)" src='assets/icons/add.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
+          <span class="action">
+            <svg-icon class='plus cursor-pointer' (click)="createMake(assetType)" src='assets/icons/add.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
             '100%'}"></svg-icon>
+            <svg-icon class='plus cursor-pointer mx-5' [routerLink]="'/configuration/edit-asset-configuration/' + assetType.id" src='assets/icons/edit.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
+            '100%'}"></svg-icon>
+          </span>
         </div>
         <div *ngFor='let make of assetType.makes; let index = index'>
           <div class="category-subItem" [hidden]='!returnItemTree(assetType.id, assetType.type, assetType).isSelected'>

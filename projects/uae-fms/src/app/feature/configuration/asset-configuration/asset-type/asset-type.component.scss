@@ -76,6 +76,15 @@ mat-card {
     flex: 0 0 15%;
     text-align: center;
   }
+  .action {
+    display: none;
+    margin-top: -1.8em;
+  }
+  &:hover {
+    .action {
+      display: inline-block;
+    }
+  }
 }
 
 .category-addItem {
