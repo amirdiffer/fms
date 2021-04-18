@@ -149,8 +149,7 @@ export class AddLocationComponent extends Utility implements OnInit {
     injector: Injector,
     private _roter: Router,
     private _facadeLocation: BodyShopLocationFacade,
-    private _serviceLocation: BodyShopLocationService,
-    private changeDetector: ChangeDetectorRef
+    private _serviceLocation: BodyShopLocationService
   ) {
     super(injector);
   }
