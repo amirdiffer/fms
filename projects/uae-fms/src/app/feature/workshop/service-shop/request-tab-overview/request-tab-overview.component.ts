@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnType } from '@core/table';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { ServiceShopRequestFacade } from '@feature/workshop/+state/service-shop';
@@ -16,9 +16,10 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
   tableData$;
   assetDetail;
   constructor(
-    private _facadeRequest : ServiceShopRequestFacade,
+    private _facadeRequest: ServiceShopRequestFacade,
     private _activatedRoute: ActivatedRoute,
-    private _assetMasterFacade: AssetMasterFacade
+    private _assetMasterFacade: AssetMasterFacade,
+    private router: Router
   ) {}
 
   vehicle = {
@@ -118,61 +119,31 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
         field: 'attachment',
         type: ColumnType.lable,
         thumbField: '',
-        renderer: 'downloadButtonRenderer',
+        renderer: 'downloadButtonRenderer'
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
-    data: [
-      {
-        issue: { checkbox: false, label: 'Oil Leaking' },
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: 'Download'
-      },
-      {
-        issue: { checkbox: false, label: 'Oil Leaking' },
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: 'Download'
-      },
-      {
-        issue: { checkbox: true, label: 'Oil Leaking' },
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: 'Download'
-      },
-      {
-        issue: { checkbox: false, label: 'Oil Leaking' },
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: 'Download'
-      },
-      {
-        issue: { checkbox: true, label: 'Oil Leaking' },
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: 'Download'
-      },
-      {
-        issue: { checkbox: false, label: 'Oil Leaking' },
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: 'Download'
-      }
-    ],
+    data: [],
     rowSettings: {
-      floatButton: []
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this._facadeRequest.resetParams();
+            this.router.navigate([
+              '/workshop/service-shop/edit-request/' + data.id
+            ]);
+          }
+        }
+      ]
     }
   };
 
@@ -182,37 +153,37 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
     this.assetId = this._activatedRoute.snapshot.params.id;
     this.tableData$ = this._facadeRequest.assetRequest$.pipe(
       map((x) => {
-        return x.map( y =>{
+        return x.map((y) => {
           let jobType;
           switch (y.jobType) {
             case 'TECHNICAL_REPORT':
-              jobType = 'Technical Report'
+              jobType = 'Technical Report';
               break;
             case 'NORMAL':
-              jobType = 'Normal'
+              jobType = 'Normal';
               break;
             case 'INSTALLATION':
-              jobType = 'Installation'
+              jobType = 'Installation';
               break;
             default:
-              jobType = y.jobType
+              jobType = y.jobType;
               break;
           }
           return {
             ...y,
-            date:moment.utc(y.updatedAt).local().format('DD-MM-YYYY'),
+            date: moment.utc(y.updatedAt).local().format('DD-MM-YYYY'),
             requestType: jobType,
-            attachment:y.documentIds,
-            statusColor: '#6870B4',
-          }
-        })
+            attachment: y.documentIds,
+            statusColor: '#6870B4'
+          };
+        });
       })
-    )
-    this._facadeRequest.assetRequest$.subscribe(x => {
-      if(x.length < 1){
-        this._facadeRequest.getAssetRequest( this.assetId)
+    );
+    this._facadeRequest.assetRequest$.subscribe((x) => {
+      if (x.length < 1) {
+        this._facadeRequest.getAssetRequest(this.assetId);
       }
-    })
-    this._assetMasterFacade.getAssetByID(81)
+    });
+    this._assetMasterFacade.getAssetByID(81);
   }
 }

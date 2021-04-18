@@ -8,7 +8,7 @@ export class AssetPolicyActions {
     '[AssetPolicy] all datas are loaded',
     props<{ data: IAssetPolicy[] }>()
   );
-  
+
   static count = createAction(
     '[AssetPolicy] get result number',
     props<{ data: number }>()
@@ -37,7 +37,5 @@ export class AssetPolicyActions {
     props<{ data: IAssetPolicy }>()
   );
 
-  static reset = createAction(
-    '[AssetPolicy] reset parameters'
-  );
+  static reset = createAction('[AssetPolicy] reset parameters');
 }

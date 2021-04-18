@@ -112,7 +112,7 @@
     "add_role_permission": "Add Role Premission",
     "add_new_asset": "Add New Asset",
     "department": "Department",
-    "edit_department":"Edit Department",
+    "edit_department": "Edit Department",
     "add_new_accessory": "Add New Accessory",
     "temporary": "Temporary",
     "add_temporary_request": "Add Temporary Request",
@@ -506,7 +506,8 @@
       "color": "Color",
       "models": "Models",
       "capacity": "Capacity",
-      "km": "KM"
+      "km": "KM",
+      "request": "Request"
     },
     "button": {
       "view_report": "View Report",

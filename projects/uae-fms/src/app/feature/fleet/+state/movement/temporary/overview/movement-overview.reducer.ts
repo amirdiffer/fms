@@ -25,7 +25,7 @@ const movementTemporaryOverviewReducer = createReducer(
 
   on(MovementOverviewActionsTemporary.count, (state, { data }) => ({
     ...state,
-    resultNumber:data
+    resultNumber: data
   })),
 
   on(MovementOverviewActionsTemporary.error, (state, { reason }) => ({

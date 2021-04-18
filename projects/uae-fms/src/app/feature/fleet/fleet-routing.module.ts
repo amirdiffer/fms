@@ -24,7 +24,7 @@ import { AccessoryOverviewComponent } from './accessory/accessory-overview/acces
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
-  { path: 'sub-asset/edit-sub-asset', component: AddSubAssetComponent },
+  { path: 'sub-asset/edit-sub-asset/:id', component: AddSubAssetComponent },
   { path: 'department', component: OrganizationComponent },
   {
     path: 'accessory/accessory-overview',

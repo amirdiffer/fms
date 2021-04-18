@@ -14,7 +14,7 @@ export class BodyShopLocationFacade {
 
   submitted$ = this.store.pipe(select(BodyShopLocationSelectors.submitted));
 
-  conut$ = this.store.pipe(select(BodyShopLocationSelectors.count))
+  conut$ = this.store.pipe(select(BodyShopLocationSelectors.count));
 
   constructor(private store: Store<IBodyShopLocationPartialState>) {}
 

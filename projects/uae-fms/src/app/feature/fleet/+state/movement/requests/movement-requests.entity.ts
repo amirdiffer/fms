@@ -1,12 +1,9 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { IMovementRequest } from '@models/movement'
+import { IMovementRequest } from '@models/movement';
 import { IMovementStatistics } from '@models/statistics';
 export const FLEET_MOVEMENT_REQUESTS_FEATURE_KEY = 'movementRequests';
 
-
-
-export interface MovementRequestsState
-  extends EntityState<IMovementRequest> {
+export interface MovementRequestsState extends EntityState<IMovementRequest> {
   error?: any;
   loaded?: boolean;
   statistic?: IMovementStatistics;
@@ -14,8 +11,7 @@ export interface MovementRequestsState
   submitted?: boolean;
   rejected?: boolean;
   assigned?: boolean;
-  resultNumber?:number;
-
+  resultNumber?: number;
 }
 export interface MovementRequestsPartialState {
   [FLEET_MOVEMENT_REQUESTS_FEATURE_KEY]: MovementRequestsState;
@@ -34,7 +30,6 @@ export const initialState: MovementRequestsState = movementRequestsAdapter.getIn
     submitted: false,
     rejected: false,
     assigned: false,
-    resultNumber:0
-
+    resultNumber: 0
   } as MovementRequestsState
 );

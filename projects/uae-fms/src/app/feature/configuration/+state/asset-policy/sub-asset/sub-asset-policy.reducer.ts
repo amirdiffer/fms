@@ -20,7 +20,7 @@ const subAssetPolicyReducer = createReducer(
   ),
   on(SubAssetPolicyActions.count, (state, { data }) => ({
     ...state,
-    resultNumber:data
+    resultNumber: data
   })),
   on(SubAssetPolicyActions.error, (state, { reason }) => ({
     ...state,

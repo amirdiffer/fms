@@ -1,9 +1,5 @@
 import { Router } from '@angular/router';
-import {
-  Component,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColumnDifinition, ColumnType, TableComponent } from '@core/table';
 import { map } from 'rxjs/operators';
 import { PeriodicServiceFacade } from '../+state/periodic-service';

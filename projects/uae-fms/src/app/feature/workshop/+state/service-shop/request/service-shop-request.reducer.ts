@@ -1,7 +1,10 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { ServiceShopRequestActions } from './service-shop-request.actions';
-import { ServiceShopRequestState , initialState,serviceShopRequestAdapter } from './service-shop-request.entity';
-
+import {
+  ServiceShopRequestState,
+  initialState,
+  serviceShopRequestAdapter
+} from './service-shop-request.entity';
 
 const serviceShopRequestReducer = createReducer(
   initialState,
@@ -12,12 +15,16 @@ const serviceShopRequestReducer = createReducer(
     message: null
   })),
   on(ServiceShopRequestActions.allDataLoaded, (state, { data }) =>
-    serviceShopRequestAdapter.setAll(data, { ...state, loaded: true, error: null })
+    serviceShopRequestAdapter.setAll(data, {
+      ...state,
+      loaded: true,
+      error: null
+    })
   ),
 
   on(ServiceShopRequestActions.count, (state, { data }) => ({
     ...state,
-    resultNumber:data
+    resultNumber: data
   })),
   /* Request By Id */
   on(ServiceShopRequestActions.loadAllRequestsById, (state) => ({
@@ -26,10 +33,12 @@ const serviceShopRequestReducer = createReducer(
     error: null,
     message: null
   })),
-  on(ServiceShopRequestActions.requestsByIdDataLoaded, (state, { data }) =>
-    ({ ...state, loaded: true, error: null, requests: data })
-  ),
-
+  on(ServiceShopRequestActions.requestsByIdDataLoaded, (state, { data }) => ({
+    ...state,
+    loaded: true,
+    error: null,
+    requests: data
+  })),
 
   /* Request By AssetIdd */
   on(ServiceShopRequestActions.loadAllRequestByAssetId, (state) => ({
@@ -38,10 +47,15 @@ const serviceShopRequestReducer = createReducer(
     error: null,
     message: null
   })),
-  on(ServiceShopRequestActions.allRequestByAssetIdLoaded, (state, { data }) =>
-    ({ ...state, loaded: true, error: null, assetRequest: data })
+  on(
+    ServiceShopRequestActions.allRequestByAssetIdLoaded,
+    (state, { data }) => ({
+      ...state,
+      loaded: true,
+      error: null,
+      assetRequest: data
+    })
   ),
-
 
   /* Statistics */
   on(ServiceShopRequestActions.loadStatistics, (state) => ({
@@ -49,13 +63,12 @@ const serviceShopRequestReducer = createReducer(
     statistics: null,
     loaded: false
   })),
-  
+
   on(ServiceShopRequestActions.allStatisticsLoaded, (state, { data }) => ({
     ...state,
     statistics: data,
     loaded: true
   })),
-
 
   /* Post Request */
   on(ServiceShopRequestActions.addRequest, (state, { data: IRequest }) => ({
@@ -78,16 +91,18 @@ const serviceShopRequestReducer = createReducer(
     message: null,
     submitted: false
   })),
-  on(ServiceShopRequestActions.requestEditedSuccessfully, (state, { request }) =>
-  serviceShopRequestAdapter.updateOne(
-      { changes: request, id: request.id },
-      {
-        ...state,
-        error: null,
-        message: null,
-        submitted: true
-      }
-    )
+  on(
+    ServiceShopRequestActions.requestEditedSuccessfully,
+    (state, { request }) =>
+      serviceShopRequestAdapter.updateOne(
+        { changes: request, id: request.id },
+        {
+          ...state,
+          error: null,
+          message: null,
+          submitted: true
+        }
+      )
   ),
 
   /* Error */

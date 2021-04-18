@@ -4,7 +4,7 @@ import {
   ElementRef,
   ViewChild,
   AfterViewChecked,
-  Injector,
+  Injector
 } from '@angular/core';
 import { MovementService } from './movement.service';
 import { Observable, of } from 'rxjs';
@@ -76,10 +76,14 @@ export class MovementComponent
   displayErrorModal = false;
   assignID: number;
   movementOverviewCount$ = this._movementOverviewFacade.conut$.pipe(
-    map(x => {return x})
+    map((x) => {
+      return x;
+    })
   );
   movementRequestCount$ = this._movementRequestsFacade.conut$.pipe(
-    map(x => {return x})
+    map((x) => {
+      return x;
+    })
   );
   @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
 

@@ -7,22 +7,22 @@ export class ServiceShopRequestActions {
   static allDataLoaded = createAction(
     '[serviceShopRequest] all data are loaded',
     props<{ data: any[] }>()
-    );  
+  );
   static count = createAction(
     '[serviceShopRequest] get result number',
     props<{ data: number }>()
   );
 
   /* Request By ID */
-  static loadAllRequestsById = createAction('[serviceShopRequest] load all requests by id',
+  static loadAllRequestsById = createAction(
+    '[serviceShopRequest] load all requests by id',
     props<{ id: number }>()
   );
-  
+
   static requestsByIdDataLoaded = createAction(
     '[serviceShopRequest] requests by id all data are loaded',
     props<{ data: any[] }>()
   );
-  
 
   /* Request By AssetId */
   static loadAllRequestByAssetId = createAction(
@@ -33,7 +33,6 @@ export class ServiceShopRequestActions {
     '[serviceShopRequest] all requests by assetId are loaded',
     props<{ data: IRequestListSpecificAsset[] }>()
   );
-
 
   /* Post Request */
   static addRequest = createAction(
@@ -56,7 +55,9 @@ export class ServiceShopRequestActions {
   );
 
   /* Statistics */
-  static loadStatistics = createAction('[serviceShopRequest] load all statistics');
+  static loadStatistics = createAction(
+    '[serviceShopRequest] load all statistics'
+  );
   static allStatisticsLoaded = createAction(
     '[serviceShopRequest] all statistics are loaded',
     props<{ data: IBodyShopRequestStatistics }>()

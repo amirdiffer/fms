@@ -15,9 +15,14 @@ export class AssetPolicyEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            this._tableFacade.initialPaginator(data.resultNumber, 'asset-policy_asset');
-            this._store.dispatch(AssetPolicyActions.count({data:data.resultNumber}))
-            return AssetPolicyActions.allDataLoaded({ data: data.message })
+            this._tableFacade.initialPaginator(
+              data.resultNumber,
+              'asset-policy_asset'
+            );
+            this._store.dispatch(
+              AssetPolicyActions.count({ data: data.resultNumber })
+            );
+            return AssetPolicyActions.allDataLoaded({ data: data.message });
           }),
           catchError((error) => of(AssetPolicyActions.error({ reason: error })))
         )
@@ -56,9 +61,10 @@ export class AssetPolicyEffect {
     )
   );
 
-  constructor(private action$: Actions, 
-    private service: AssetPolicyService, 
+  constructor(
+    private action$: Actions,
+    private service: AssetPolicyService,
     private _tableFacade: TableFacade,
     private _store: Store
-    ) {}
+  ) {}
 }

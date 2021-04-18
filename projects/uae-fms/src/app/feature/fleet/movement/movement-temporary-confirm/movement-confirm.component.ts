@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Inject,
-  Injector,
-} from '@angular/core';
+import { Component, OnInit, Inject, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { MovementRequestsFacade } from '@feature/fleet/+state/movement';

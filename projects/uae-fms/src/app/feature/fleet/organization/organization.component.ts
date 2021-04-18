@@ -1,11 +1,11 @@
-import {
-  Component,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableSetting } from '@core/table';
-import { ButtonType, ColumnType, TableComponent } from '@core/table/table.component';
+import {
+  ButtonType,
+  ColumnType,
+  TableComponent
+} from '@core/table/table.component';
 import { map } from 'rxjs/operators';
 import { OrganizationFacade } from '../+state/organization';
 
@@ -88,7 +88,9 @@ export class OrganizationComponent implements OnInit {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
-            this.router.navigate(['/fleet/department/edit-department/' + data.id]);
+            this.router.navigate([
+              '/fleet/department/edit-department/' + data.id
+            ]);
           }
         }
       ]
@@ -113,7 +115,7 @@ export class OrganizationComponent implements OnInit {
   );
   //#endregion
 
-  constructor(private facade: OrganizationFacade, private router: Router) { }
+  constructor(private facade: OrganizationFacade, private router: Router) {}
 
   ngOnInit(): void {
     this.facade.loadAll();

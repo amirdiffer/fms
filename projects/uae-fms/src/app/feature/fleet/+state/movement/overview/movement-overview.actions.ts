@@ -18,5 +18,4 @@ export class MovementOverviewActions {
     '[MovementOverview] get result number',
     props<{ data: number }>()
   );
-
 }

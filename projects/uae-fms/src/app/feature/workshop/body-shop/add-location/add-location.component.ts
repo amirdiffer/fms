@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Injector,
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -15,7 +11,10 @@ import { TableSetting } from '@core/table';
 import { ButtonType, ColumnType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { BodyShopLocationFacade } from '@feature/workshop/+state/body-shop';
+import {
+  BodyShopLocationFacade,
+  BodyShopLocationService
+} from '@feature/workshop/+state/body-shop';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -150,6 +149,7 @@ export class AddLocationComponent extends Utility implements OnInit {
     injector: Injector,
     private _roter: Router,
     private _facadeLocation: BodyShopLocationFacade,
+    private _serviceLocation: BodyShopLocationService
   ) {
     super(injector);
   }
@@ -173,21 +173,40 @@ export class AddLocationComponent extends Utility implements OnInit {
 
       if (this.isEdit) {
         this.id = +params[params.length - 1].path;
-        this._facadeLocation
+        this._serviceLocation
           .getLocationById(+params[params.length - 1].path)
           .pipe(map((x) => x.message))
-          .subscribe((x) => {
-            if (x) {
-              this._location = x;
-              this.inputForm.patchValue({
-                locationID: x.locationThirdPartyId,
-                address: x.address
-              });
-              // this.section.controls[0].patchValue({
-              //   section: x.slots
-              // });
+          .subscribe(
+            (x) => {
+              if (x) {
+                this._location = x;
+                this.inputForm.patchValue({
+                  locationID: 22,
+                  address: x.address
+                });
+                for (let i = 0; i < x.services.length; i++) {
+                  this.services.controls[i].patchValue({
+                    service: x.services[i]
+                  });
+                  if (i != x.services.length - 1) {
+                    this.addService();
+                  }
+                }
+                for (let i = 0; i < x.slots.length; i++) {
+                  this.slots.controls[i].patchValue({
+                    thirdPartyLocationId: x.slots[i].thirdPartySlotId
+                  });
+                  if (i != x.slots.length - 1) {
+                    this.addSlot();
+                  }
+                }
+              }
+            },
+            () => {},
+            () => {
+              this.markDirty();
             }
-          });
+          );
       } else {
       }
     });
@@ -224,6 +243,16 @@ export class AddLocationComponent extends Utility implements OnInit {
     });
   }
 
+  private markFormGroupDirty(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach((control) => {
+      //if (control.value) {
+      control.markAsDirty();
+      if (control.controls) {
+        this.markFormGroupDirty(control);
+      }
+      //}
+    });
+  }
   searchLocation(event) {
     let filtered: any[] = [];
     let query = event.query;
@@ -265,8 +294,8 @@ export class AddLocationComponent extends Utility implements OnInit {
 
     slots.push(this.createSlot());
   }
-  removeSlot(index){
-    this.slot.removeAt(index)
+  removeSlot(index) {
+    this.slot.removeAt(index);
   }
 
   addService() {
@@ -278,8 +307,8 @@ export class AddLocationComponent extends Utility implements OnInit {
 
     services.push(this.createService());
   }
-  removeService(index){
-    this.service.removeAt(index)
+  removeService(index) {
+    this.service.removeAt(index);
   }
 
   dialogConfirm($event): void {
@@ -313,9 +342,13 @@ export class AddLocationComponent extends Utility implements OnInit {
         this._facadeLocation.addLocation(locationInfo);
       }
     } else {
-      this.router.navigate(['/workshop/body-shop'] , {queryParams:{id:'locationTab'}}).then((_) => {
-        this._facadeLocation.resetParams();
-      });
+      this.router
+        .navigate(['/workshop/body-shop'], {
+          queryParams: { id: 'locationTab' }
+        })
+        .then((_) => {
+          this._facadeLocation.resetParams();
+        });
     }
   }
   addRequest() {
@@ -374,5 +407,41 @@ export class AddLocationComponent extends Utility implements OnInit {
 
   get slots(): FormArray {
     return this.inputForm.get('slots') as FormArray;
+  }
+  markDirty() {
+    this.markGroupDirty(this.inputForm);
+  }
+  markGroupDirty(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((key) => {
+      switch (formGroup.get(key).constructor.name) {
+        case 'FormGroup':
+          this.markGroupDirty(formGroup.get(key) as FormGroup);
+          break;
+        case 'FormArray':
+          this.markArrayDirty(formGroup.get(key) as FormArray);
+          break;
+        case 'FormControl':
+          this.markControlDirty(formGroup.get(key) as FormControl);
+          break;
+      }
+    });
+  }
+  markArrayDirty(formArray: FormArray) {
+    formArray.controls.forEach((control) => {
+      switch (control.constructor.name) {
+        case 'FormGroup':
+          this.markGroupDirty(control as FormGroup);
+          break;
+        case 'FormArray':
+          this.markArrayDirty(control as FormArray);
+          break;
+        case 'FormControl':
+          this.markControlDirty(control as FormControl);
+          break;
+      }
+    });
+  }
+  markControlDirty(formControl: FormControl) {
+    formControl.markAsDirty();
   }
 }

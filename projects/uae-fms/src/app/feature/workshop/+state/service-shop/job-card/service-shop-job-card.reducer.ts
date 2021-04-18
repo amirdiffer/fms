@@ -1,6 +1,10 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { ServiceShopJobCardActions } from './service-shop-job-card.actions';
-import { IServiceShopJobCardState, serviceshopJobCardAdapter,initialState } from './service-shop-job-card.entity';
+import {
+  IServiceShopJobCardState,
+  serviceshopJobCardAdapter,
+  initialState
+} from './service-shop-job-card.entity';
 
 const serviceShopJobCardReducer = createReducer(
   initialState,
@@ -11,12 +15,16 @@ const serviceShopJobCardReducer = createReducer(
     message: null
   })),
   on(ServiceShopJobCardActions.allDataLoaded, (state, { data }) =>
-  serviceshopJobCardAdapter.setAll(data, { ...state, loaded: true, error: null })
+    serviceshopJobCardAdapter.setAll(data, {
+      ...state,
+      loaded: true,
+      error: null
+    })
   ),
 
   on(ServiceShopJobCardActions.count, (state, { data }) => ({
     ...state,
-    resultNumber:data
+    resultNumber: data
   })),
 
   on(ServiceShopJobCardActions.addJobCard, (state, { data: IJobCard }) => ({
@@ -46,16 +54,18 @@ const serviceShopJobCardReducer = createReducer(
     message: null,
     submitted: false
   })),
-  on(ServiceShopJobCardActions.jobCardEditedSuccessfully, (state, { jobCard }) =>
-    serviceshopJobCardAdapter.updateOne(
-      { changes: jobCard, id: jobCard.id },
-      {
-        ...state,
-        error: null,
-        message: null,
-        submitted: true
-      }
-    )
+  on(
+    ServiceShopJobCardActions.jobCardEditedSuccessfully,
+    (state, { jobCard }) =>
+      serviceshopJobCardAdapter.updateOne(
+        { changes: jobCard, id: jobCard.id },
+        {
+          ...state,
+          error: null,
+          message: null,
+          submitted: true
+        }
+      )
   )
 );
 

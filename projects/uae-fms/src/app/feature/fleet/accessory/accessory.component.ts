@@ -1,10 +1,5 @@
 import { Router } from '@angular/router';
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { Subscription } from 'rxjs';

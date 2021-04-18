@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { map } from 'rxjs/operators';
 import { OwnershipFacade } from '../+state/ownership';
@@ -15,7 +11,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./ownership.component.scss']
 })
 export class OwnershipComponent implements OnInit {
-
   //#region Table
   ownerShip_Table: TableSetting = {
     columns: [
@@ -59,7 +54,9 @@ export class OwnershipComponent implements OnInit {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
-            this.router.navigate(['/configuration/ownership/edit-ownership/' + data.id]);
+            this.router.navigate([
+              '/configuration/ownership/edit-ownership/' + data.id
+            ]);
           }
         }
       ]
@@ -78,7 +75,7 @@ export class OwnershipComponent implements OnInit {
           Owner_Email: item.email,
           Owner_Phone_No: item.phoneNumber,
           car: item.numOfOwnedAssets || 0,
-          id:item.id
+          id: item.id
         };
       })
     )
@@ -93,8 +90,8 @@ export class OwnershipComponent implements OnInit {
   constructor(
     private facade: OwnershipFacade,
     private tableFacade: TableFacade,
-    private router:Router
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -107,5 +104,4 @@ export class OwnershipComponent implements OnInit {
   eventPagination() {
     this.facade.loadAll();
   }
-
 }

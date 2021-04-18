@@ -1,7 +1,8 @@
 import {
   Component,
   ElementRef,
-  Injector, OnDestroy,
+  Injector,
+  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild
@@ -79,7 +80,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
       trims: new FormArray([this.createTrim()])
@@ -125,7 +125,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
         )
         .subscribe();
     });
-
 
     if (!this.dataService.selectedModelId) {
       this.router.navigate(['/configuration/asset-configuration']).then((_) => {
@@ -224,7 +223,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => { });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
@@ -302,17 +301,16 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
 
     const makes: Make[] = [];
 
-
-    const data = this.inputForm.value.trims.map(x => {
+    const data = this.inputForm.value.trims.map((x) => {
       if (x.id) {
         return x;
       } else
         return {
           colors: x.colors,
           description: x.description,
-          trim: x.trim,
-        }
-    })
+          trim: x.trim
+        };
+    });
 
     this.facade.addTrim(data, this.assetTypeId, this.makeId, this.modelId);
   }
@@ -320,5 +318,4 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.assetTypeSubs$.unsubscribe();
   }
-
 }

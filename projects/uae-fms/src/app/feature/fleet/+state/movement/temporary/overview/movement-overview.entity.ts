@@ -43,8 +43,7 @@ export interface MovementOverviewState
   error?: any;
   loaded?: boolean;
   message?: string;
-  resultNumber?:number
-
+  resultNumber?: number;
 }
 
 export interface MovementOverviewPartialState {
@@ -60,6 +59,6 @@ export const initialState: MovementOverviewState = movementOverviewAdapter.getIn
     error: null,
     loaded: null,
     message: null,
-    resultNumber:0
+    resultNumber: 0
   } as MovementOverviewState
 );

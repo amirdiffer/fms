@@ -7,14 +7,15 @@ import {
   EventEmitter,
   Input,
   Renderer2,
-  OnDestroy, AfterViewInit
+  OnDestroy,
+  AfterViewInit
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Subscription } from 'rxjs';
 @Component({
   selector: 'app-tab-view',
   templateUrl: './tab-view.component.html',
-  styleUrls: ['./tab-view.component.scss'],
+  styleUrls: ['./tab-view.component.scss']
 })
 export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input('selectedTab') selectedTab: number = 0;
@@ -78,7 +79,6 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
           );
       });
     }, 0);
-
   }
   selectedTabChanged() {
     for (let i = 0; i < this.elements.length; i++) {

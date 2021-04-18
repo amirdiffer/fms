@@ -22,8 +22,13 @@ export class BodyShopLocationEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            this._tableFacade.initialPaginator(data.resultNumber, 'body-shop_location');
-            this._store.dispatch(BodyShopLocationActions.count({data:data.resultNumber}))
+            this._tableFacade.initialPaginator(
+              data.resultNumber,
+              'body-shop_location'
+            );
+            this._store.dispatch(
+              BodyShopLocationActions.count({ data: data.resultNumber })
+            );
             return BodyShopLocationActions.allDataLoaded({
               data: data.message
             });

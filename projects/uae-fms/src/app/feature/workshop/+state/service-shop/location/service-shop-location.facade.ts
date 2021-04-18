@@ -4,10 +4,11 @@ import { ServiceShopLocationActions } from './service-shop-location.actions';
 import { IServiceShopLocationPartialState } from './service-shop-location.entity';
 import { ServiceShopLocationSelectors } from './service-shop-location.selectors';
 
-
 @Injectable()
 export class ServiceShopLocationFacade {
-  serviceShop$ = this.store.pipe(select(ServiceShopLocationSelectors.selectAll));
+  serviceShop$ = this.store.pipe(
+    select(ServiceShopLocationSelectors.selectAll)
+  );
 
   message$ = this.store.pipe(select(ServiceShopLocationSelectors.message));
 
@@ -15,8 +16,7 @@ export class ServiceShopLocationFacade {
 
   submitted$ = this.store.pipe(select(ServiceShopLocationSelectors.submitted));
 
-  conut$ = this.store.pipe(select(ServiceShopLocationSelectors.count))
-
+  conut$ = this.store.pipe(select(ServiceShopLocationSelectors.count));
 
   constructor(private store: Store<IServiceShopLocationPartialState>) {}
 
@@ -24,12 +24,16 @@ export class ServiceShopLocationFacade {
     this.store.dispatch(ServiceShopLocationActions.loadAll());
   }
   addLocation(data: any) {
-    this.store.dispatch(ServiceShopLocationActions.addServiceShopLocation({ data }));
+    this.store.dispatch(
+      ServiceShopLocationActions.addServiceShopLocation({ data })
+    );
   }
 
   editLocation(serviceShopLocation: any) {
     this.store.dispatch(
-      ServiceShopLocationActions.editServiceShopLocation({ serviceShopLocation })
+      ServiceShopLocationActions.editServiceShopLocation({
+        serviceShopLocation
+      })
     );
   }
 

@@ -1,7 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import {
-  SubAssetPolicyState,
-} from './sub-asset-policy.entity';
+import { SubAssetPolicyState } from './sub-asset-policy.entity';
 import { IAssetPolicy } from '@models/asset-policy.model';
 
 export class SubAssetPolicyActions {

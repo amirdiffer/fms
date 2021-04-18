@@ -77,10 +77,14 @@ export class TemporaryComponent
 
   @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
   movementOverviewCount$ = this._movementOverviewFacade.conut$.pipe(
-    map(x => {return x})
+    map((x) => {
+      return x;
+    })
   );
   movementRequestCount$ = this._movementRequestsFacade.conut$.pipe(
-    map(x => {return x})
+    map((x) => {
+      return x;
+    })
   );
   movementRequest$ = this._movementRequestsFacade.MovementRequests$.pipe(
     map((x) => {

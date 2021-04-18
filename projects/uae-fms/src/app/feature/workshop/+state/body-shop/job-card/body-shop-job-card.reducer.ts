@@ -20,10 +20,9 @@ const bodyShopJobCardReducer = createReducer(
 
   on(BodyShopJobCardActions.count, (state, { data }) => ({
     ...state,
-    resultNumber:data
+    resultNumber: data
   })),
 
-  
   on(BodyShopJobCardActions.addJobCard, (state, { data: IJobCard }) => ({
     ...state,
     submitted: false

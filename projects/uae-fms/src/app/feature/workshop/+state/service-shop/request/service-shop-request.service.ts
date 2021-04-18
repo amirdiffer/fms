@@ -13,9 +13,10 @@ export class ServiceShopRequestService {
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
@@ -24,7 +25,8 @@ export class ServiceShopRequestService {
 
   loadAll(): Observable<ResponseBody<any[]>> {
     return this.http.get<ResponseBody<any[]>>(
-      environment.baseApiUrl + 'workshop/serviceshop/asset/request', {params: this.getParam('service-shop_request')}
+      environment.baseApiUrl + 'workshop/serviceshop/asset/request',
+      { params: this.getParam('service-shop_request') }
     );
   }
 
@@ -48,7 +50,10 @@ export class ServiceShopRequestService {
   }
   editRequest(data): Observable<ResponseBody<any>> {
     return this.http.post<ResponseBody<any>>(
-      environment.baseApiUrl + 'workshop/serviceshop/issue' + data.id + '/update',
+      environment.baseApiUrl +
+        'workshop/serviceshop/request/' +
+        data.id +
+        '/update',
       data
     );
   }
@@ -57,9 +62,12 @@ export class ServiceShopRequestService {
       environment.baseApiUrl + 'workshop/serviceshop/request/' + id
     );
   }
-  getRequestListByAssetId(id):Observable<ResponseBody<IRequestListSpecificAsset[]>>{
+  getRequestListByAssetId(
+    id
+  ): Observable<ResponseBody<IRequestListSpecificAsset[]>> {
     return this.http.get<ResponseBody<IRequestListSpecificAsset[]>>(
-      environment.baseApiUrl + `workshop/serviceshop/asset/${id}/request` , {params: this.getParam('body-shop_request')}
+      environment.baseApiUrl + `workshop/serviceshop/asset/${id}/request`,
+      { params: this.getParam('body-shop_request') }
     );
   }
 }

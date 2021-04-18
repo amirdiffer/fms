@@ -1,9 +1,5 @@
 import { MakeDecisionComponent } from './../make-decision.component';
-import {
-  Component,
-  OnInit,
-  Output
-} from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { MakeDecisionService } from '../make-decision.service';
 
 @Component({

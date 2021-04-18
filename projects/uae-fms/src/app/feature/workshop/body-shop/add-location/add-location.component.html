@@ -1,7 +1,7 @@
 <form  [formGroup]="inputForm" (ngSubmit)="addRequest()">
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{'forms.cancel' | translate}}</button>
-    <button class="btn-primary-medium add" type="submit">{{'forms.add' | translate}}</button>
+    <button class="btn-primary-medium add" type="submit">{{isEdit ? ('forms.edit'  | translate) : ('forms.add' | translate)}}</button>
   </div>
 
   <div class="row">

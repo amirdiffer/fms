@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Injector
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { TableSetting } from '@core/table';
@@ -15,7 +11,6 @@ import { FleetStatusAssetFacade } from '../../+state/fleet-status/asset/fleet-st
   styleUrls: ['./add-fleet-status.component.scss']
 })
 export class AddFleetStatusComponent extends Utility implements OnInit {
-
   //#region Dialog Settings
   dialogSettingCancel: IDialogAlert = {
     header: 'Asset Policy',
@@ -40,7 +35,6 @@ export class AddFleetStatusComponent extends Utility implements OnInit {
   dialogModalCancel: boolean = false;
   dialogModalAdd: boolean = false;
   //#endregion
-
 
   //#region Table
   tableSetting: TableSetting = {

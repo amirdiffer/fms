@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Injector,
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -11,7 +7,7 @@ import {
   Validators
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import {  TableSetting } from '@core/table';
+import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
@@ -20,7 +16,13 @@ import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
 import moment from 'moment';
 import { Subscription } from 'rxjs';
-import { ServiceShopJobCardFacade, ServiceShopJobCardService, ServiceShopLocationFacade, ServiceShopRequestFacade, ServiceShopTechnicianFacade } from '@feature/workshop/+state/service-shop';
+import {
+  ServiceShopJobCardFacade,
+  ServiceShopJobCardService,
+  ServiceShopLocationFacade,
+  ServiceShopRequestFacade,
+  ServiceShopTechnicianFacade
+} from '@feature/workshop/+state/service-shop';
 
 @Component({
   selector: 'anms-add-job-card',
@@ -59,8 +61,8 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   newTaskMasters: any[];
   submited = false;
   filteredJobCard;
-  jobCard$:Subscription;
-  allJobCards=[];
+  jobCard$: Subscription;
+  allJobCards = [];
   priorities: any[] = [
     {
       id: 1,
@@ -157,9 +159,9 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   };
   private _jobCard: any;
 
-  assets$ = this._jobCardService.getAllAssethasJobCard().pipe(
-    map((y) => y.message.map((x) => ({ id: x.assetId, name: x.dpd })))
-  );
+  assets$ = this._jobCardService
+    .getAllAssethasJobCard()
+    .pipe(map((y) => y.message.map((x) => ({ id: x.assetId, name: x.dpd }))));
   locations$ = this._facadeLocation.serviceShop$.pipe(
     map((y) => y.map((x) => ({ id: x.id, name: x.address })))
   );
@@ -199,7 +201,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     private _facadeLocation: ServiceShopLocationFacade,
     private _facadeTechnician: ServiceShopTechnicianFacade,
     private _jobCardService: ServiceShopJobCardService,
-    private _taskMasterService: TaskMasterService,
+    private _taskMasterService: TaskMasterService
   ) {
     super(injector);
   }
@@ -208,37 +210,43 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     // this.relatedRequests$ = this._facadeRequest.assetRequest$.subscribe()
     this._facadeRequest.resetParams();
     this._facadeJobCard.loadAll();
-    this.jobCard$ = this._facadeJobCard.serviceShop$.subscribe(x =>{
-      this.allJobCards = x
-    })
-    this.relatedRequests$ =  this._facadeRequest.assetRequest$.pipe(
+    this.jobCard$ = this._facadeJobCard.serviceShop$.subscribe((x) => {
+      this.allJobCards = x;
+    });
+    this.relatedRequests$ = this._facadeRequest.assetRequest$.pipe(
       map((y) =>
-      y.map((x) => ({
-        id: x.id,
-        request: {
-          label: x.request,
-          checkbox: false
-        },
-        date: x.createdAt ? moment.utc(x.createdAt).local().format('DD-MM-YYYY') : 'ex: 20-20-2020',
-        description: x.description,
-        issue_type: x.jobType,
-        reportedBy: x.reportedBy,
-        attachment: x.documentIds
-      }))
+        y.map((x) => ({
+          id: x.id,
+          request: {
+            label: x.request,
+            checkbox: false
+          },
+          date: x.createdAt
+            ? moment.utc(x.createdAt).local().format('DD-MM-YYYY')
+            : 'ex: 20-20-2020',
+          description: x.description,
+          issue_type: x.jobType,
+          reportedBy: x.reportedBy,
+          attachment: x.documentIds
+        }))
       )
-    )
-    this._taskMasterService.getAllTaks().subscribe(
-      (data) =>{
-        (this.taskMasters = data.message.map((t) => ({
-          id: t.id,
-          name: t.name
-        })))
-      }
     );
+    this._taskMasterService.getAllTaks().subscribe((data) => {
+      this.taskMasters = data.message.map((t) => ({
+        id: t.id,
+        name: t.name
+      }));
+    });
     this._facadeAsset.loadAll();
     this._facadeLocation.loadAll();
     this._facadeTechnician.loadAll();
     this.buildForm();
+    //fill asset Id from queryParams
+    this.route.queryParams.subscribe((params) => {
+      if (params['assetId']) {
+        this.inputForm.controls['assetId'].setValue(+params['assetId']);
+      }
+    });
   }
   private buildForm() {
     this.inputForm = this._fb.group({
@@ -345,22 +353,21 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
 
   selectAsset(e) {
     this._facadeJobCard.resetParams();
-    if(this.allJobCards.find((jobcard) => jobcard.assetId == e.value)){
+    if (this.allJobCards.find((jobcard) => jobcard.assetId == e.value)) {
       this.errorDialogSetting.header = 'Job Card';
-      this.errorDialogSetting.message="Asset has alredy a job card, you can't add more than once!"
+      this.errorDialogSetting.message =
+        "Asset has alredy a job card, you can't add more than once!";
       this.errorDialogSetting.hasError = true;
       this.errorDialogSetting.cancelButton = undefined;
       this.errorDialogSetting.confirmButton = 'Ok';
-      this.errorDialogModal= true;
+      this.errorDialogModal = true;
       this.inputForm.patchValue({
-        assetId:''
-      })
-    }else{
+        assetId: ''
+      });
+    } else {
       this.assetIdSelected = e.value;
       this._facadeRequest.getAssetRequest(e.value);
-
     }
-
   }
   get tasks(): FormArray {
     return this.inputForm.get('tasks') as FormArray;
@@ -417,9 +424,13 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
         this._facadeJobCard.addJobCard(jobCardInfo, f.assetId);
       }
     } else {
-      this.router.navigate(['/workshop/service-shop'],{queryParams:{id:'jobcardTab'}}).then((_) => {
-        this._facadeJobCard.resetParams();
-      });
+      this.router
+        .navigate(['/workshop/service-shop'], {
+          queryParams: { id: 'jobcardTab' }
+        })
+        .then((_) => {
+          this._facadeJobCard.resetParams();
+        });
     }
   }
   addRequest() {
@@ -448,8 +459,8 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
       this.dialogSetting.cancelButton = 'Cancel';
     }
   }
-  removeTask(index){
-    this.tasks.removeAt(index)
+  removeTask(index) {
+    this.tasks.removeAt(index);
   }
 
   // searchTaskMaster(event) {
@@ -460,16 +471,16 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   //   );
   // }
   searchTaskMaster(event) {
-    let query = event.query
+    let query = event.query;
 
-    let filtered = []
+    let filtered = [];
     for (let index = 0; index < this.taskMasters.length; index++) {
       let task = this.taskMasters[index];
       if (task.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(task)
+        filtered.push(task);
       }
     }
-    this.taskFiltered = filtered
+    this.taskFiltered = filtered;
   }
 
   cancelForm() {

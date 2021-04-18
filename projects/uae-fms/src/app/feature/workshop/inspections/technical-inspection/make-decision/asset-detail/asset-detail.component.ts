@@ -24,10 +24,10 @@ export class AssetDetailComponent extends Utility implements OnInit {
       policyType: ['', Validators.compose([Validators.required])],
       serviceDate: ['', Validators.compose([Validators.required])],
       serviceOdometer: ['', Validators.compose([Validators.required])],
-      setReminder: [false, Validators.compose([Validators.required])],
+      setReminder: [false, Validators.compose([Validators.required])]
     });
     this.inputForm.valueChanges.subscribe((form) => {
       this.formGroup.emit(form);
-    })
+    });
   }
 }

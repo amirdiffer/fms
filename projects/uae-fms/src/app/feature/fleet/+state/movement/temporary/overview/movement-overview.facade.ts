@@ -16,8 +16,7 @@ export class MovementOverviewFacadeTemporary {
 
   error$ = this.store.pipe(select(MovementOverviewSelectorsTemporary.error));
 
-
-  conut$ = this.store.pipe(select(MovementOverviewSelectorsTemporary.count))
+  conut$ = this.store.pipe(select(MovementOverviewSelectorsTemporary.count));
 
   constructor(private store: Store<MovementOverviewPartialState>) {}
 

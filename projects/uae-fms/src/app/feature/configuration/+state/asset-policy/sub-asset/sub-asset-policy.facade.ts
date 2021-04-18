@@ -12,7 +12,7 @@ export class SubAssetPolicyFacade {
 
   error$ = this.store.pipe(select(SubAssetPolicySelectors.error));
 
-  conut$ = this.store.pipe(select(SubAssetPolicySelectors.count))
+  conut$ = this.store.pipe(select(SubAssetPolicySelectors.count));
 
   constructor(private store: Store<SubAssetPolicyPartialState>) {}
 

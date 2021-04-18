@@ -1,10 +1,5 @@
 import { TaskMasterFacade } from './../+state/task-master/task-master.facade';
-import {
-  Component,
-  OnInit,
-  Injector,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import { TaskMasterService } from '../task-master/task-master.service';
 import { Utility } from '@shared/utility/utility';
 import {
@@ -22,7 +17,9 @@ import { Subscription } from 'rxjs';
   templateUrl: './task-master-form.component.html',
   styleUrls: ['./task-master-form.component.scss']
 })
-export class TaskMasterFormComponent extends Utility implements OnInit , OnDestroy{
+export class TaskMasterFormComponent
+  extends Utility
+  implements OnInit, OnDestroy {
   searchIcon = 'assets/icons/search.svg';
   checked = true;
   taskMasterForm: FormGroup;
@@ -32,9 +29,9 @@ export class TaskMasterFormComponent extends Utility implements OnInit , OnDestr
   dialogModal = false;
   dialogModalCancel = false;
   dialogModalError = false;
-  skillList:any[] =[];
-  skillFiltered:any[] =[];
-  skills$:Subscription;
+  skillList: any[] = [];
+  skillFiltered: any[] = [];
+  skills$: Subscription;
   dialogSetting: IDialogAlert = {
     header: 'Task Master',
     hasError: false,
@@ -66,26 +63,24 @@ export class TaskMasterFormComponent extends Utility implements OnInit , OnDestr
   recordId: number;
   dialogType: string;
 
-  get skills(): FormArray{
+  get skills(): FormArray {
     return this.taskMasterForm.get('skill') as FormArray;
   }
   constructor(
     private _taskMasterService: TaskMasterService,
     injector: Injector,
     private _fb: FormBuilder,
-    private _facade: TaskMasterFacade,
+    private _facade: TaskMasterFacade
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
     this._facade.loadAllSkill();
-    this.skills$ = this._facade.skills$.subscribe(
-      (x)=>{
-        console.log(x)
-        this.skillList = x
-      }
-    )
+    this.skills$ = this._facade.skills$.subscribe((x) => {
+      console.log(x);
+      this.skillList = x;
+    });
     this.taskMasterForm = this._fb.group({
       taskName: ['', [Validators.required]],
       instruction: ['', [Validators.required]],
@@ -101,8 +96,11 @@ export class TaskMasterFormComponent extends Utility implements OnInit , OnDestr
   }
   submit() {
     this.submitted = true;
-    if(this.skills.length> 1 && this.skills.controls[this.skills.length -1].value == null){
-      this.removeSkill(this.skills.length -1)
+    if (
+      this.skills.length > 1 &&
+      this.skills.controls[this.skills.length - 1].value == null
+    ) {
+      this.removeSkill(this.skills.length - 1);
     }
     if (this.taskMasterForm.invalid) {
       return;
@@ -154,18 +152,18 @@ export class TaskMasterFormComponent extends Utility implements OnInit , OnDestr
   }
 
   getAllSkill(event) {
-    let query = event.query
-    let filtered = []
+    let query = event.query;
+    let filtered = [];
     for (let index = 0; index < this.skillList.length; index++) {
       let skill = this.skillList[index];
       if (skill.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(skill)
+        filtered.push(skill);
       }
     }
-    this.skillFiltered = filtered
+    this.skillFiltered = filtered;
   }
-  skillSelect(event){
-    console.log(event)
+  skillSelect(event) {
+    console.log(event);
   }
   getTaskMasterPayload(value: any) {
     const {
@@ -184,10 +182,10 @@ export class TaskMasterFormComponent extends Utility implements OnInit , OnDestr
       instruction: instruction,
       timeEstimate: timeEstimate,
       ratePerHour: ratePerHour,
-      skills: skill.map((s) => ({ name: s.name?s.name:s })),
+      skills: skill.map((s) => ({ name: s.name ? s.name : s })),
       doesNeedParty: needPart
     };
-    console.log(taskMaster)
+    console.log(taskMaster);
     return taskMaster;
   }
   cancel() {
@@ -213,7 +211,7 @@ export class TaskMasterFormComponent extends Utility implements OnInit , OnDestr
       this.addSkillValidation = true;
     }
   }
-  removeSkill(i){
+  removeSkill(i) {
     this.skills.removeAt(i);
   }
   addPart(value) {
@@ -226,7 +224,7 @@ export class TaskMasterFormComponent extends Utility implements OnInit , OnDestr
     }
   }
 
-  ngOnDestroy():void{
-    this.skills$.unsubscribe()
+  ngOnDestroy(): void {
+    this.skills$.unsubscribe();
   }
 }

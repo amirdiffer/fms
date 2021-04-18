@@ -42,18 +42,18 @@ export class MakeDecisionComponent implements OnInit {
         policyType: ['', Validators.compose([Validators.required])],
         serviceDate: ['', Validators.compose([Validators.required])],
         serviceOdometer: ['', Validators.compose([Validators.required])],
-        setReminder: [false, Validators.compose([Validators.required])],
+        setReminder: [false, Validators.compose([Validators.required])]
       }),
       maintenance: this._fb.group({
         service: this._fb.group({
           purchase: [true, Validators.compose([Validators.required])],
-          integration: [false, Validators.compose([Validators.required])],
+          integration: [false, Validators.compose([Validators.required])]
         }),
         priodicService: ['', Validators.compose([Validators.required])],
         warrantyPackage: ['', Validators.compose([Validators.required])],
         warrantyDat: ['', Validators.compose([Validators.required])],
         description: ['', Validators.compose([Validators.required])],
-        file: [''],
+        file: ['']
       })
     });
     this._makeDecisionService.activeRadio = '';
@@ -63,9 +63,9 @@ export class MakeDecisionComponent implements OnInit {
   }
 
   next() {
-    if(this.getActiveForm() != '') {
-      if(this.controlStep.get(this.getActiveForm()).invalid) {
-        return
+    if (this.getActiveForm() != '') {
+      if (this.controlStep.get(this.getActiveForm()).invalid) {
+        return;
       }
     }
     this.stepper.next();
@@ -86,7 +86,7 @@ export class MakeDecisionComponent implements OnInit {
 
   getActiveForm(): string {
     let indexStepper = this.stepper.selectedIndex;
-    switch(indexStepper) {
+    switch (indexStepper) {
       case 1: {
         this.submits.submit_asset_detail = true;
         return 'asset_detail';
@@ -100,5 +100,4 @@ export class MakeDecisionComponent implements OnInit {
       }
     }
   }
-
 }

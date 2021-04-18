@@ -21,7 +21,7 @@ const bodyShopRequestReducer = createReducer(
 
   on(BodyShopRequestActions.count, (state, { data }) => ({
     ...state,
-    resultNumber:data
+    resultNumber: data
   })),
   /* Request By Id */
   on(BodyShopRequestActions.loadAllRequestsById, (state) => ({
@@ -30,10 +30,12 @@ const bodyShopRequestReducer = createReducer(
     error: null,
     message: null
   })),
-  on(BodyShopRequestActions.requestsByIdDataLoaded, (state, { data }) =>
-    ({ ...state, loaded: true, error: null, requests: data })
-  ),
-
+  on(BodyShopRequestActions.requestsByIdDataLoaded, (state, { data }) => ({
+    ...state,
+    loaded: true,
+    error: null,
+    requests: data
+  })),
 
   /* Request By AssetIdd */
   on(BodyShopRequestActions.loadAllRequestByAssetId, (state) => ({
@@ -42,10 +44,12 @@ const bodyShopRequestReducer = createReducer(
     error: null,
     message: null
   })),
-  on(BodyShopRequestActions.allRequestByAssetIdLoaded, (state, { data }) =>
-    ({ ...state, loaded: true, error: null, assetRequest: data })
-  ),
-
+  on(BodyShopRequestActions.allRequestByAssetIdLoaded, (state, { data }) => ({
+    ...state,
+    loaded: true,
+    error: null,
+    assetRequest: data
+  })),
 
   /* Statistics */
   on(BodyShopRequestActions.loadStatistics, (state) => ({
@@ -53,13 +57,12 @@ const bodyShopRequestReducer = createReducer(
     statistics: null,
     loaded: false
   })),
-  
+
   on(BodyShopRequestActions.allStatisticsLoaded, (state, { data }) => ({
     ...state,
     statistics: data,
     loaded: true
   })),
-
 
   /* Post Request */
   on(BodyShopRequestActions.addRequest, (state, { data: IRequest }) => ({

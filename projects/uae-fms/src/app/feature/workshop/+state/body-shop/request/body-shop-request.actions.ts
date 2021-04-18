@@ -8,24 +8,23 @@ export class BodyShopRequestActions {
   static allDataLoaded = createAction(
     '[bodyShopRequest] all data are loaded',
     props<{ data: any[] }>()
-    );  
- 
+  );
+
   static count = createAction(
     '[bodyShopRequest] get result number',
     props<{ data: number }>()
   );
 
-
   /* Request By ID */
-  static loadAllRequestsById = createAction('[bodyShopRequest] load all requests by id',
+  static loadAllRequestsById = createAction(
+    '[bodyShopRequest] load all requests by id',
     props<{ id: number }>()
   );
-  
+
   static requestsByIdDataLoaded = createAction(
     '[bodyShopRequest] requests by id all data are loaded',
     props<{ data: any[] }>()
   );
-  
 
   /* Request By AssetId */
   static loadAllRequestByAssetId = createAction(
@@ -36,7 +35,6 @@ export class BodyShopRequestActions {
     '[bodyShopRequest] all requests by assetId are loaded',
     props<{ data: IRequestListSpecificAsset[] }>()
   );
-
 
   /* Post Request */
   static addRequest = createAction(

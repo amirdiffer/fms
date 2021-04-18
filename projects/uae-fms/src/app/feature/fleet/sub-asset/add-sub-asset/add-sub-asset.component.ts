@@ -1,10 +1,5 @@
-import { map } from 'rxjs/operators';
 import { SubAssetService } from './../../+state/sub-asset/sub-asset.service';
-import {
-  Component,
-  OnInit,
-  Injector,
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
 import {
@@ -26,9 +21,11 @@ const SUB_ASSET_LABEL = 'SUB_ASSET';
   styleUrls: ['./add-sub-asset.component.scss']
 })
 export class AddSubAssetComponent extends Utility implements OnInit {
+  #startRegionVariables
+  itemId = this.route.snapshot.params['id'];
   formCurrentStep = 0;
   csvText: [];
-  csvDoc=[];
+  csvDoc = [];
   progressBarValue = 20;
   subAssetDocRequired: boolean = false;
   subAssetForm: FormGroup;
@@ -36,8 +33,49 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   submitted = false;
   warrantyDocs = [];
   avatarDoc =[];
-  public filesUploaded: NgxFileDropEntry[] = [];
+  subAssetTypes = [];
+  makes = [];
+  models = [];
+  policyTypes = [];
+  units = [
+    { name: 'Year', id: 'YEAR' },
+    { name: 'Month', id: 'MONTH' }
+  ];
+  years = [
+    { name: '2000', id: 2000 },
+    { name: '2001', id: 2001 },
+    { name: '2002', id: 2002 },
+    { name: '2003', id: 2003 },
+    { name: '2004', id: 2004 },
+    { name: '2005', id: 2005 },
+    { name: '2006', id: 2006 },
+    { name: '2007', id: 2007 },
+    { name: '2008', id: 2008 },
+    { name: '2009', id: 2009 },
+    { name: '2010', id: 2010 },
+    { name: '2011', id: 2011 },
+    { name: '2012', id: 2012 },
+    { name: '2013', id: 2013 },
+    { name: '2014', id: 2014 },
+    { name: '2015', id: 2015 },
+    { name: '2016', id: 2016 },
+    { name: '2017', id: 2017 },
+    { name: '2018', id: 2018 },
+    { name: '2019', id: 2019 },
+    { name: '2020', id: 2020 },
+    { name: '2021', id: 2021 }
+  ];
+  filesUploaded: NgxFileDropEntry[] = [];
+  dialogModal = false;
+  dialogType = null;
+  errorDialogModal = false;
+  isEdit: any;
+  recordId: number;
+  isSingleAsset = true;
+  avatarDocRequired:boolean=false;
+  #endRegionVariables
 
+  #startTablesRegion
   thirdStepTableColumns: ColumnDifinition[] = [
     {
       lable: 'tables.column.sub_asset_name',
@@ -67,136 +105,13 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       type: 1
     }
   ];
-
-  thirdStepTableData = [
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    },
-    {
-      subAssetName: {
-        img: 'steering.png',
-        assetName: 'Sub Asset Name',
-        assetSubName: 'DPD 0000001'
-      },
-      model: 'bmw.png',
-      make: 'Text text',
-      serialNumber: '234567890',
-      type: 'Gear'
-    }
-  ];
-
   thirdStepTable: TableSetting = {
     columns: this.thirdStepTableColumns,
-    data:[]
+    data: []
   };
+  #endTablesRegion
 
-  subAssetTypes = [];
-  makes = [];
-  models = [];
-  policyTypes = [];
-
-  units = [
-    { name: 'Year', id: 'YEAR' },
-    { name: 'Month', id: 'MONTH' }
-  ];
-  years = [
-    { name: '2000', id: 2000 },
-    { name: '2001', id: 2001 },
-    { name: '2002', id: 2002 },
-    { name: '2003', id: 2003 },
-    { name: '2004', id: 2004 },
-    { name: '2005', id: 2005 },
-    { name: '2006', id: 2006 },
-    { name: '2007', id: 2007 },
-    { name: '2008', id: 2008 },
-    { name: '2009', id: 2009 },
-    { name: '2010', id: 2010 },
-    { name: '2011', id: 2011 },
-    { name: '2012', id: 2012 },
-    { name: '2013', id: 2013 },
-    { name: '2014', id: 2014 },
-    { name: '2015', id: 2015 },
-    { name: '2016', id: 2016 },
-    { name: '2017', id: 2017 },
-    { name: '2018', id: 2018 },
-    { name: '2019', id: 2019 },
-    { name: '2020', id: 2020 },
-    { name: '2021', id: 2021 }
-  ];
+  #startDialogRegion
   dialogSetting: IDialogAlert = {
     header: 'Add new Sub Asset alert',
     hasError: false,
@@ -204,7 +119,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };
-
   errorDialogSetting: IDialogAlert = {
     header: '',
     message: 'Error occurred in progress',
@@ -214,22 +128,14 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     hasHeader: true,
     cancelButton: undefined
   };
+  #endDialogRegion
 
-  dialogModal = false;
-  dialogType = null;
-  errorDialogModal = false;
-  isEdit: any;
-  recordId: number;
-  isSingleAsset = true;
-  //#endregion
-
-  avatarDocRequired:boolean=false;
   constructor(
     injector: Injector,
     private _fb: FormBuilder,
     private subAssetFacade: SubAssetFacade,
     private subAssetService: SubAssetService,
-    private routerFacade: RouterFacade,
+    private routerFacade: RouterFacade
   ) {
     super(injector);
   }
@@ -249,26 +155,22 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     );
   }
   handleEditMode() {
-    this.route.queryParams.subscribe((queryParams) => {
-      if (queryParams['id']) {
-        this.isEdit = true;
-        this.recordId = +queryParams['id'];
-      }
+    if (this.itemId) {
+      this.isEdit = true;
+      this.recordId = this.itemId;
+    }
 
-      this.initAssetTypes();
-      this.initPolicyTypes();
-    });
+    this.initAssetTypes();
+    this.initPolicyTypes();
   }
-  getWarrantyDoc(index) {
-    return [this.warrantyDocs[index]];
-  }
+
   loadSubAssetFormData(recordId: number) {
     this.subAssetService.getSubAsset(recordId).subscribe((result: any) => {
       if (result && result.message) {
         const subAsset = result.message;
-        for (let index = 0; index < subAsset.warranties.length-1; index++){
+        for (let index = 0; index < subAsset.warranties.length - 1; index++) {
           this.addWarranty();
-        };
+        }
         this.subAssetForm.patchValue({
           warranties: subAsset.warranties.map((x) => {
             const date = moment.utc(x.startDate).local();
@@ -286,7 +188,9 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         this.subAssetForm.patchValue({
           avatarId: subAsset.avatarId
         });
-        this.avatarDoc =  Array.isArray(subAsset.avatarId) ? subAsset.avatarId : [subAsset.avatarId];
+        this.avatarDoc = Array.isArray(subAsset.avatarId)
+          ? subAsset.avatarId
+          : [subAsset.avatarId];
         const {
           assetTypeId,
           assetTypeName,
@@ -316,23 +220,17 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         const subAssetType = {
           id: assetTypeId,
           name: assetTypeName,
-          children: selectedSubAsset
-            ? selectedSubAsset.children
-            : []
+          children: selectedSubAsset ? selectedSubAsset.children : []
         };
         const make = {
           id: makeId,
           name: makeName,
-          children: selectedMake
-            ? selectedMake.children
-            : []
+          children: selectedMake ? selectedMake.children : []
         };
         const model = {
           id: modelId,
           name: modelName,
-          children: selectedModel
-            ? selectedModel.children
-            : []
+          children: selectedModel ? selectedModel.children : []
         };
         const policyType = { id: policyTypeId, name: policyTypeName };
 
@@ -349,11 +247,8 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         };
         this.subAssetForm.patchValue(formValue);
         this.subAssetForm.patchValue({
-          year:+formValue.year
-        })
-
-        // reset warranty form
-        // (this.subAssetForm.get('warrantyItems') as FormArray).removeAt(0);
+          year: +formValue.year
+        });
 
         // todo : fill warranties
       }
@@ -407,7 +302,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       avatarId: [],
       description: [''],
       warranties: this._fb.array([this.createWarrantyForm()]),
-      assetQuantity: ['single'],
+      assetQuantity: ['single']
       // uploadFile:['']
     });
 
@@ -426,8 +321,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           }));
         }
       },
-      (error) => {
-      }
+      (error) => {}
     );
   }
 
@@ -446,14 +340,13 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           }
         }
       },
-      (error) => {
-      }
+      (error) => {}
     );
   }
 
   dialogConfirm($event) {
     this.subAssetFacade.reset();
-    this.goToList();
+    this.goToList('/fleet/sub-asset/');
     return;
   }
 
@@ -465,36 +358,37 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     }
     this.formCurrentStep += 1;
   }
-  upload(){
-    if(this.avatarDoc.length < 1 ||
-      this.avatarDoc.length < 1 ){
+  upload() {
+    if (this.avatarDoc.length < 1 || this.avatarDoc.length < 1) {
       this.subAssetDocRequired = true;
       this.avatarDocRequired = true;
-      return
+      return;
     }
 
     let formVal = this.subAssetForm.getRawValue();
     let data = [];
     let DPD = [];
-    this.csvText.map(
-      (x) => {
-        DPD.push(`DPD${x}`)
-      }
-    )
+    this.csvText.map((x) => {
+      DPD.push(`DPD${x}`);
+    });
     for (let index = 0; index < this.csvText.length; index++) {
       data.push({
         subAssetName: {
           img: 'assets/thumb1.png',
-          assetName: this.subAssetTypes.find((type) => type.id == formVal.subAssetType.id).name,
-          assetSubName: DPD[index],
+          assetName: this.subAssetTypes.find(
+            (type) => type.id == formVal.subAssetType.id
+          ).name,
+          assetSubName: DPD[index]
         },
         model: this.models.find((model) => model.id == formVal.model.id).name,
         make: this.makes.find((make) => make.id == formVal.make.id).name,
         serialNumber: this.csvText[index],
-        type: this.subAssetTypes.find((type) => type.id == formVal.subAssetType.id).name,
-      })
+        type: this.subAssetTypes.find(
+          (type) => type.id == formVal.subAssetType.id
+        ).name
+      });
     }
-    this.thirdStepTable.data = data
+    this.thirdStepTable.data = data;
     this.formCurrentStep += 1;
   }
 
@@ -511,8 +405,8 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       .at(index)
       .get('doc');
     docControl.setValue(docId);
-    if(evt.files.length>0){
-      this.warrantyDocs[index] = evt.files
+    if (evt.files.length > 0) {
+      this.warrantyDocs[index] = evt.files;
     }
   }
 
@@ -606,10 +500,12 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     // eg. DPD129348
     if (this.isEdit) {
       const serialNumber = subAssetFormValue.serialNumber;
-      let dpd=''
-      isNaN(+serialNumber) ? dpd=serialNumber : dpd ='DPD'+ serialNumber
+      let dpd = '';
+      isNaN(+serialNumber)
+        ? (dpd = serialNumber)
+        : (dpd = 'DPD' + serialNumber);
       return {
-        id:this.recordId,
+        id: this.recordId,
         avatarId,
         dpd,
         assetTypeId: subAssetType.id,
@@ -670,37 +566,27 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => { });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
     }
   }
-  public fileOver(event) {
-  }
-
-  public fileLeave(event) {
-  }
 
   uploadAssetPicture($event) {
     const docId = $event.files[0];
     this.subAssetForm.controls['avatarId'].setValue(docId);
-    if($event.files.length>0){
-      this.avatarDoc = $event.files
+    if ($event.files.length > 0) {
+      this.avatarDoc = $event.files;
     }
   }
   uploadDocFiles(event) {
-    if(event.files.length>0){
-      this.csvDoc = event.files
+    if (event.files.length > 0) {
+      this.csvDoc = event.files;
     }
   }
   csvReader(event) {
     this.csvText = event;
   }
 
-  // uploadDocFiles(event) {
-  //   this.subAssetForm.patchValue({
-  //     uploadFile: event.files
-  //   });
-  // }
 }

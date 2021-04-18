@@ -1,10 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewChild } from '@angular/core';
-import {
-  Component,
-  ElementRef,
-  OnInit
-} from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 
 @Component({
   selector: 'anms-part-overview',

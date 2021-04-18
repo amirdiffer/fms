@@ -32,8 +32,7 @@ export class MovementRequestsFacadeTemporary {
     select(MovementRequestsSelectorsTemporary.assigned)
   );
 
-  conut$ = this.store.pipe(select(MovementRequestsSelectorsTemporary.count))
-
+  conut$ = this.store.pipe(select(MovementRequestsSelectorsTemporary.count));
 
   constructor(private store: Store<MovementRequestsPartialState>) {}
 

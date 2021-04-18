@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableComponent, TableSetting } from '@core/table';
 import {
@@ -19,7 +14,6 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./asset-policy.component.scss']
 })
 export class AssetPolicyComponent implements OnInit, OnDestroy {
-
   //#region Variables
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
@@ -63,7 +57,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => { },
+      onClick: (col, data, button?) => {},
       floatButton: [
         {
           onClick: (col, data) => {
@@ -106,7 +100,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => { },
+      onClick: (col, data, button?) => {},
       floatButton: [
         {
           onClick: (col, data) => {
@@ -152,16 +146,20 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
   );
   //#endregion
   assetPolicyCount$ = this.assetPolicyFacade.conut$.pipe(
-    map(x => {return x})
+    map((x) => {
+      return x;
+    })
   );
-  subAssetPolicyCount$ =this.subAssetPolicyFacade.conut$.pipe(
-    map(x => {return x})
+  subAssetPolicyCount$ = this.subAssetPolicyFacade.conut$.pipe(
+    map((x) => {
+      return x;
+    })
   );
   constructor(
     private _router: Router,
     private assetPolicyFacade: AssetPolicyFacade,
-    private subAssetPolicyFacade: SubAssetPolicyFacade,
-  ) { }
+    private subAssetPolicyFacade: SubAssetPolicyFacade
+  ) {}
 
   ngOnInit(): void {
     this.assetPolicyFacade.loadAll();
@@ -206,5 +204,4 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
   eventPagination_subasset() {
     this.subAssetPolicyFacade.loadAll();
   }
-
 }

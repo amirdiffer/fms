@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { UsersFacade } from '../../+state/users';
@@ -126,10 +122,7 @@ export class UsersComponent implements OnInit {
   };
   //#endregion
 
-  constructor(
-    private facade: UsersFacade,
-    private router: Router,
-  ) {}
+  constructor(private facade: UsersFacade, private router: Router) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -162,7 +155,6 @@ export class UsersComponent implements OnInit {
             onActive(index: number) {}
           }
         ];
-
       }
     });
   }
