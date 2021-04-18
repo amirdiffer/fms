@@ -1,5 +1,10 @@
 import { AccessoryService } from './../../+state/accessory/accessory.service';
-import { Component, OnInit, Injector } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Injector,
+  OnDestroy
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -13,7 +18,7 @@ import { AccessoryFacade } from '@feature/fleet/+state/accessory';
 import { map } from 'rxjs/operators';
 import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Utility } from '@shared/utility/utility';
 
 const EMPTY_SELECT_ITEM_LIST = [
@@ -28,7 +33,7 @@ const EMPTY_SELECT_ITEM_LIST = [
   templateUrl: './add-accessory.component.html',
   styleUrls: ['./add-accessory.component.scss']
 })
-export class AddAccessoryComponent extends Utility implements OnInit {
+export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy{
   //#region Dialogs
   dialogModal = false;
   dialogModalError = false;
@@ -108,7 +113,7 @@ export class AddAccessoryComponent extends Utility implements OnInit {
   dialogType: string;
   accessoryAssetTypes: any;
   assignedToEntity;
-
+  accessoryService$:Subscription;
   constructor(
     private _fb: FormBuilder,
     private accessoryService: AccessoryService,
@@ -137,20 +142,19 @@ export class AddAccessoryComponent extends Utility implements OnInit {
   );
 
   handleEditMode() {
-    this._route.queryParams.subscribe((queryParams) => {
-      if (queryParams['id']) {
-        this.isEdit = true;
-        this.recordId = +queryParams['id'];
-        console.log('is Edit');
-        this.loadAccessoryData(this.recordId);
-      } else {
-        this.isEdit = false;
-      }
-    });
+    const url = this._route.snapshot.url
+    console.log(this._route.snapshot.url)
+    if(url.filter((x) => x.path == "edit-accessory").length > 0){
+      this.isEdit = true;
+      this.recordId = +url[url.length - 1].path;;
+      this.loadAccessoryData(this.recordId);
+    }else{
+      this.isEdit = false;
+    }
   }
 
   loadAccessoryData(recordId: number) {
-    this.accessoryService.getAccessory(recordId).subscribe((result: any) => {
+    this.accessoryService$ =this.accessoryService.getAccessory(recordId).subscribe((result: any) => {
       if (result) {
         const accessory = result.message;
         const {
@@ -201,20 +205,17 @@ export class AddAccessoryComponent extends Utility implements OnInit {
     });
 
     this.loadAccessoryType();
-    // this._facade.loadAll();
     this.subAssetFacade.loadAll();
     this.assetMasterFacade.loadAll();
-
     this.setAssets();
-
     this.setUsers();
+    this.handleEditMode();
+    this.handleSubmissionDialog();
 
     this.accessoryForm.valueChanges.subscribe(() => {
       this.formChanged = true;
     });
 
-    this.handleEditMode();
-    this.handleSubmissionDialog();
 
     this._facade.error$.subscribe((x) => {
       if (x?.error) {
@@ -269,6 +270,9 @@ export class AddAccessoryComponent extends Utility implements OnInit {
   }
 
   private setAssets() {
+    this.subAssetFacade.subAsset$.pipe(map(
+      x=>{console.log(x)}
+    ))
     this.subAssetFacade.subAsset$.subscribe((x) => {
       this.subAssetsB = x.map((y) => ({
         id: y.id,
@@ -407,5 +411,7 @@ export class AddAccessoryComponent extends Utility implements OnInit {
 
   dialogErrorConfirm(value) {
     this.dialogModalError = false;
+  }
+  ngOnDestroy(){
   }
 }

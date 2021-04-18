@@ -4,7 +4,8 @@
       <div [class]="'tab'+(tab.index==selectedTab?(container?' active-tab-w':' active-tab'):'')" *ngFor="let tab of tabs"
            (click)="selectTab(tab.index, tab.id != null ?  tab.id : tab.title , $event)">
         {{tab.title | translate}}
-        <span *ngIf="tab.count != null" class="count">{{tab.count}}</span>
+        <span *ngIf="tab.count != null" class="count">{{tab.count | async}}</span>
+        <!-- <span class="count">{{count[0] | async }}</span> -->
       </div>
       <ng-content select=".search-container"></ng-content>
     </ng-template>

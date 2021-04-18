@@ -2,7 +2,7 @@
   <app-filter *ngIf="selectedTab === 'jobcardTab'" [setting]="jobCardTabFilterSetting"></app-filter>
 </div> -->
 <div class="table-container component_wrapper">
-  <app-tab-view (selectedIndex)="selectedTab=$event">
+  <app-tab-view (selectedIndex)="selectedTab=$event"  [count]="[requestCount$ , jobCardCount$ , technicianCount$, locationCount$]">
     <span class="search-container card-table-header">
       <div class="search-box">
         <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
@@ -15,10 +15,11 @@
       </button>
       <button  class="btn-primary-small" (click)="addClicked($event)" ><i>+</i><a>{{(selectedTab == 'jobcardTab'? 'search.job_card' :'search.add') | translate}}</a></button>
     </span>
-    <div title="tabs.requests" id="requestTab"  [attr.count]="requestCount$ | async">
+    <div title="tabs.requests" id="requestTab">
       <app-table searchInput="searchInput" (onPagination)="eventPagination_request()" pagination="service-shop_request" [setting]="table1Setting" [tableData]="requestData$"></app-table>
     </div>
     <div title="tabs.job_card" id="jobcardTab">
+      <!-- <app-table searchInput="searchInput" (onPagination)="eventPagination_jobcard()" pagination="service-shop_jobcard" [setting]="table2Setting" [tableData]="jobCardData$"></app-table> -->
       <app-table searchInput="searchInput" (onPagination)="eventPagination_jobcard()" pagination="service-shop_jobcard" [setting]="table2Setting" [tableData]="jobCardData$"></app-table>
     </div>
     <!-- <div title="tabs.technician" id="technicianTab">
