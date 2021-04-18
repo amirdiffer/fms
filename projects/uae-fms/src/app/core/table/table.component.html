@@ -34,8 +34,18 @@
           <div *ngIf="!col.renderer">
             <div class="d-flex">
               <span class="p-column-title">{{col.lable}}</span>
-              <span [innerHTML]="this.getCol(col,data)" class="column-data">
-                <!-- {{ this.getCol(col,data) }} -->
+              <span class="column-data">
+                {{ getCol(col,data) }}
+                <ng-template [ngIf]="col.type && col.type == 2 && data[col.thumbField]" [ngIfThen]="thumb" [ngIfElse]="dataField"></ng-template>
+                <ng-template #thumb>
+                  <div class='d-inline-flex cell-with-image'>
+                    <img class='thumb' [src]="col.override ? 'assets/' + col.override : baseFileServer + data[col.thumbField]" onerror="this.src='assets/thumb.png'">
+                    <p class='text-of-cell-with-image'>
+                      {{data[col.field]}}
+                      </p>
+                  </div>
+                </ng-template>
+                <ng-template #dataField>{{ data[col.field] }}</ng-template>
               </span>
             </div>
           </div>
@@ -111,7 +121,7 @@
           <div *ngIf="col.renderer=='downloadButtonRenderer'">
             <table-download-button-renderer [link]='data[col.field]'></table-download-button-renderer>
           </div>
-          
+
           <div *ngIf="col.renderer=='radialBar'">
             <radialBar-renderer [percent]='data[col.field]'></radialBar-renderer>
           </div>
