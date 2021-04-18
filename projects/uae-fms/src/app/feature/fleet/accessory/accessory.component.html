@@ -1,12 +1,8 @@
-<ng-container *ngIf="!openAdd">
-  <div class="statistic-card">
-    <app-filter [setting]='filterCard'></app-filter>
-  </div>
-</ng-container>
-
+<div class="statistic-card">
+  <app-filter [setting]='filterCard'></app-filter>
+</div>
 <div class="table-container component_wrapper">
   <div class="search-container card-table-header">
-    <ng-container *ngIf="!openAdd;">
       <div class="search-box">
         <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
         <button>
@@ -16,9 +12,7 @@
       <button class="btn-download" (click)="exportTable()">
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
-      <button class="btn-primary-small" routerLink="add-new-accessory"><i>+</i><a>{{'search.add' |
-          translate}}</a></button>
-    </ng-container>
+      <button class="btn-primary-small" routerLink="add-new-accessory"><i>+</i><a>{{'search.add' | translate}}</a></button>
   </div>
   <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="accessory" [setting]='accessory_Table' [tableData]="accessory$"></app-table>
 </div>

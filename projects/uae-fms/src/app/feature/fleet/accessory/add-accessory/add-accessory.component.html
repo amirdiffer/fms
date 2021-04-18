@@ -28,7 +28,7 @@
               <label class="form-check-label" for="asset">{{ 'accessory.asset' | translate }}</label>
             </div>
           </div>
-          <div class="col-3">
+          <div class="col-4">
             <div class="form-check">
               <input class="form-check-input" formControlName="assignedToType" type="radio" name="assignedToType" id="sub_asset" value ="SUB_ASSET">
               <label class="form-check-label" for="sub_asset">{{ 'accessory.sub_asset' | translate }}</label>
@@ -65,7 +65,7 @@
 
       <div class="col-12 col-md-4 p-field form-section__field">
         <span class="p-float-label">
-          <input formControlName="quantity" pInputText type="number">
+          <input formControlName="quantity" numbersOnly pInputText type="text">
           <label>{{'accessory.quantity' | translate}} *</label>
         </span>
         <anms-error [showError]="hasError('quantity', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
