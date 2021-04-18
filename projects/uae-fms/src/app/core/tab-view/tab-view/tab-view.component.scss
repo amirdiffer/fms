@@ -18,13 +18,14 @@
       cursor: pointer;
       display: flex;
       align-items: center;
+      font-family: '29LT Bukra';
       .count {
         color: #475f7b;
         margin: 0 0.4em;
         padding: 0 0.3em;
         border-radius: 3px;
         background-color: #fff;
-        font-size: .9em;
+        font-size: 0.9em;
         font-family: 'IBM Plex Sans', '29LT Bukra';
       }
       &:first-child {

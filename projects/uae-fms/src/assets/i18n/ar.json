@@ -97,7 +97,7 @@
     "inspections": "التفتيش",
     "أيسيرف": "أيسيرف",
     "department": "الإدارة",
-    "edit_department":"تحرير الإدارة",
+    "edit_department": "تحرير الإدارة",
     "add_new_user": "إضافة المستخدمون",
     "edit_user": "تحرير المستخدمون",
     "edit_fleet_status": "تحرير حالة الأسطول",
@@ -336,7 +336,7 @@
       "user": "المستخدم",
       "movement_type": "نوع الحركة",
       "request_type": "نوع الطلب",
-      "request":"طلب",
+      "request": "طلب",
       "asset_type": "نوع الأصول",
       "sub_asset_type": "نوع الأصل الفرعي",
       "request_status": "حالة الطلب",
@@ -469,6 +469,11 @@
       "view_report": "عرض التقرير",
       "next": "التالي",
       "prev": "رجوع"
+    },
+    "pagination": {
+      "show": "تبين",
+      "entries": "إدخالات",
+      "of": "من"
     }
   },
   "dashboard": {
@@ -976,8 +981,8 @@
         "pay_per_hours_validation_error": "",
         "employee_status": "حالة الموظف مفعلة",
         "skill": "المهارة",
-        "department":"الإدارة",
-        "section":"الجزء",
+        "department": "الإدارة",
+        "section": "الجزء",
         "skill_validation_error": "",
         "location": "الموقع",
         "location_validation_error": "",
