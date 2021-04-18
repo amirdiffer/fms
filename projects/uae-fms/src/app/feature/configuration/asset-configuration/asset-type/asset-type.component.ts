@@ -1,4 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Output,
+  EventEmitter,
+  Input
+} from '@angular/core';
 import { AssetTypeFacade } from '../../+state/asset-configuration';
 import { Subject, Observable } from 'rxjs';
 import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
@@ -9,11 +16,9 @@ import { map, tap } from 'rxjs/operators';
 @Component({
   selector: 'configuration-asset-type',
   templateUrl: './asset-type.component.html',
-  styleUrls: ['./asset-type.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./asset-type.component.scss']
 })
 export class AssetTypeComponent implements OnInit, OnDestroy {
-
   //#region Inputs and Outputs
   @Output() selectTrim = new EventEmitter();
   @Output() selectMake = new EventEmitter();
@@ -37,15 +42,21 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       response.map((obj) => {
         const assetType = {
           ...obj,
-          isSelected: this.returnItemTree(obj.id, obj.type, obj).isSelected || false,
-          iconSvgClass:  this.returnItemTree(obj.id, obj.type, obj).iconSvgClass || 'right-arrow',
+          isSelected:
+            this.returnItemTree(obj.id, obj.type, obj).isSelected || false,
+          iconSvgClass:
+            this.returnItemTree(obj.id, obj.type, obj).iconSvgClass ||
+            'right-arrow',
           makes: []
         };
         obj.makes.map((make) => {
           const x: MakeExtension = {
             ...make,
-            isSelected: this.returnItemTree(make.id, 'make', make).isSelected || false,
-            iconSvgClass: this.returnItemTree(make.id, 'make', make).iconSvgClass || 'right-arrow',
+            isSelected:
+              this.returnItemTree(make.id, 'make', make).isSelected || false,
+            iconSvgClass:
+              this.returnItemTree(make.id, 'make', make).iconSvgClass ||
+              'right-arrow',
             models: []
           };
           make.models.map((model) => {
@@ -53,7 +64,6 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
             x.models.push(y);
           });
           assetType.makes.push(x);
-
         });
         return assetType as AssetTypeExtension;
       })
@@ -63,19 +73,18 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   constructor(
     private facade: AssetTypeFacade,
     private router: Router,
-    private dataService: DataService,
-
-  ) { }
+    private dataService: DataService
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
 
-    this.categoryType$ = this.dataService.watchType().pipe(
-      type =>{
-        type.subscribe(y => {console.log(y)})
-        return type
-      }
-    )
+    this.categoryType$ = this.dataService.watchType().pipe((type) => {
+      type.subscribe((y) => {
+        console.log(y);
+      });
+      return type;
+    });
     this.filter.next('ASSET');
 
     setTimeout(() => {
@@ -134,7 +143,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       make.iconSvgClass = 'down-arrow';
     }
     this.selectModel.emit(make.models);
-    this.dataService.updateTree(make.id, 'make', make)
+    this.dataService.updateTree(make.id, 'make', make);
   }
 
   onModelClick(model: ModelExtension): void {
@@ -143,12 +152,10 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     this.dataService.updateTree(model.id, 'model', model);
   }
 
-
   returnItemTree(id, type, orgData) {
     if (this.dataService.returnTreeItem(id, type)) {
       return this.dataService.returnTreeItem(id, type).data;
-    }
-    else return orgData;
+    } else return orgData;
   }
 
   getStatusColor(status: boolean): string {
@@ -159,7 +166,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {}
 }
 
 export interface AssetTypeExtension extends IAssetType {

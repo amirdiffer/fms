@@ -9,6 +9,10 @@ export class AssetPolicyActions {
     props<{ data: IAssetPolicy[] }>()
   );
 
+  static count = createAction(
+    '[AssetPolicy] get result number',
+    props<{ data: number }>()
+  );
   static error = createAction(
     '[AssetPolicy] error occurred',
     props<{ reason: any }>()
@@ -33,7 +37,5 @@ export class AssetPolicyActions {
     props<{ data: IAssetPolicy }>()
   );
 
-  static reset = createAction(
-    '[AssetPolicy] reset parameters'
-  );
+  static reset = createAction('[AssetPolicy] reset parameters');
 }

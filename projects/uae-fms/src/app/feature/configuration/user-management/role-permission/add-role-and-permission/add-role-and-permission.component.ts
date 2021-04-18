@@ -1,7 +1,6 @@
 import {
   AfterContentChecked,
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   OnInit
 } from '@angular/core';
@@ -11,8 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'anms-add-role-and-permission',
   templateUrl: './add-role-and-permission.component.html',
-  styleUrls: ['./add-role-and-permission.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-role-and-permission.component.scss']
 })
 export class AddRoleAndPermissionComponent
   implements OnInit, AfterViewInit, AfterContentChecked {

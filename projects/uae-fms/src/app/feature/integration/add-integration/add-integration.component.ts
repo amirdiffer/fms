@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IntegrationFacade } from '../+state/index';
 import { IntegrationService } from '../integration.service';
@@ -6,8 +6,7 @@ import { IntegrationService } from '../integration.service';
 @Component({
   selector: 'add-integration',
   templateUrl: './add-integration.component.html',
-  styleUrls: ['./add-integration.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-integration.component.scss']
 })
 export class AddIntegrationComponent implements OnInit {
   public inputForm: FormGroup;

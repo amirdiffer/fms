@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterCardSetting } from '@core/filter';
 import { ColumnType, TableSetting } from '@core/table';
@@ -6,8 +6,7 @@ import { ColumnType, TableSetting } from '@core/table';
 @Component({
   selector: 'anms-part-list',
   templateUrl: './part-list.component.html',
-  styleUrls: ['./part-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./part-list.component.scss']
 })
 export class PartListComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';

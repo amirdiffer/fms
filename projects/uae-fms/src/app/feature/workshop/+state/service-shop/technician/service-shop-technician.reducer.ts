@@ -1,7 +1,10 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { ServiceShopTechnicianActions } from './service-shop-technician.actions';
-import { IServiceShopTechnicianState, serviceShopTechnicianAdapter , initialState} from './service-shop-technician.entity';
-
+import {
+  IServiceShopTechnicianState,
+  serviceShopTechnicianAdapter,
+  initialState
+} from './service-shop-technician.entity';
 
 const serviceShopTechnicianReducer = createReducer(
   initialState,
@@ -18,6 +21,12 @@ const serviceShopTechnicianReducer = createReducer(
       error: null
     })
   ),
+
+  on(ServiceShopTechnicianActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber: data
+  })),
+
   on(
     ServiceShopTechnicianActions.addTechnician,
     (state, { data: ITechnician }) => ({
@@ -49,7 +58,7 @@ const serviceShopTechnicianReducer = createReducer(
   on(
     ServiceShopTechnicianActions.technicianEditedSuccessfully,
     (state, { technician }) =>
-    serviceShopTechnicianAdapter.updateOne(
+      serviceShopTechnicianAdapter.updateOne(
         { changes: technician, id: technician.id },
         {
           ...state,

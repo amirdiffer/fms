@@ -1,10 +1,9 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
-  Injector, OnDestroy,
+  Injector,
+  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild
@@ -34,10 +33,11 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'anms-add-make',
   templateUrl: './add-make.component.html',
-  styleUrls: ['./add-make.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-make.component.scss']
 })
-export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, OnDestroy {
+export class AddMakeComponent
+  extends Utility
+  implements OnInit, AfterViewInit, OnDestroy {
   radioButtonSelect: 'mModel';
   public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
@@ -78,7 +78,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, 
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
-    private changeDetectorRef: ChangeDetectorRef,
     public dataService: DataService,
     private assetTypeFacade: AssetTypeFacade,
     injector: Injector,
@@ -90,7 +89,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, 
   }
 
   ngOnInit(): void {
-
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
       makes: new FormArray([this.createMake()])
@@ -133,14 +131,11 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, 
       this.assets = x;
     });
 
-
-
     if (!this.dataService.selectedTypeId) {
       this.router.navigate(['/configuration/asset-configuration']).then((_) => {
         this.facade.resetParams();
       });
     }
-
 
     this.facade.submitted$.subscribe((x) => {
       if (x) {
@@ -151,7 +146,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, 
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetectorRef.markForCheck();
       }
     });
 
@@ -164,7 +158,6 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, 
         this.dialogSetting.message = 'Error occurred in progress';
         this.dialogSetting.cancelButton = undefined;
         this.dialogSetting.confirmButton = 'OK';
-        this.changeDetectorRef.markForCheck();
       }
     });
   }
@@ -206,14 +199,14 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, 
     this.makes.removeAt(index);
   }
 
-  ngAfterViewInit() { }
+  ngAfterViewInit() {}
 
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => { });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
         droppedFile.relativePath, fileEntry;
@@ -292,12 +285,13 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, 
     }
 
     const data = this.inputForm.value.makes.map((x) => {
-      if (x.id) return {
-        id: x.id,
-        make: x.make,
-        makeDescription: x.makeDescription,
-        origins: x.origins
-      };
+      if (x.id)
+        return {
+          id: x.id,
+          make: x.make,
+          makeDescription: x.makeDescription,
+          origins: x.origins
+        };
       else {
         return {
           make: x.make,
@@ -305,7 +299,7 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, 
           origins: x.origins
         };
       }
-    })
+    });
 
     this.facade.addMake(data, this.assetTypeId);
   }
@@ -313,6 +307,4 @@ export class AddMakeComponent extends Utility implements OnInit, AfterViewInit, 
   ngOnDestroy(): void {
     this.assetTypeSubs$.unsubscribe();
   }
-
-
 }

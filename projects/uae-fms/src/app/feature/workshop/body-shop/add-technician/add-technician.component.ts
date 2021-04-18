@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Injector,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -39,8 +33,7 @@ import { OrganizationService } from '@feature/fleet/+state/organization';
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
-  styleUrls: ['./add-technician.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-technician.component.scss']
 })
 export class AddTechnicianComponent extends Utility implements OnInit {
   isEdit: boolean = false;
@@ -79,18 +72,18 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   employee_static;
   departmentList: any[];
   departmentFiltered: any[];
-  departmentSerive$:Subscription;
-  sectionFiltered:any[];
-  sectionList:any[];
+  departmentSerive$: Subscription;
+  sectionFiltered: any[];
+  sectionList: any[];
   depatmentSectionSevice$: Subscription;
   department_static;
   departmentId;
   avatarId = [];
   section_static;
   sectionId;
-  skillList:any[] =[];
-  skillFiltered:any[] =[];
-  skills$:Subscription;
+  skillList: any[] = [];
+  skillFiltered: any[] = [];
+  skills$: Subscription;
   technicianData$ = this._technicianFacade.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
@@ -192,9 +185,9 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   skills: any[];
   skillsB;
   profileDocId: number;
-  location$:Subscription;
-  locationList:any[] =[];
-  locationFiltered:any[] =[];
+  location$: Subscription;
+  locationList: any[] = [];
+  locationFiltered: any[] = [];
   get emails(): FormArray {
     return this.inputForm.get('personalInfo').get('email') as FormArray;
   }
@@ -203,11 +196,11 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     return this.inputForm.get('personalInfo').get('phoneNumber') as FormArray;
   }
 
-  get getSkill(): FormArray{
+  get getSkill(): FormArray {
     return this.inputForm.get('professional').get('skills') as FormArray;
   }
 
-  get getLocation (): FormArray{
+  get getLocation(): FormArray {
     return this.inputForm.get('professional').get('location') as FormArray;
   }
 
@@ -222,8 +215,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     private _locationService: BodyShopLocationService,
     private _taskMasterService: TaskMasterService,
     private _departmentService: OrganizationService,
-    private _facadeTaskMaster: TaskMasterFacade,
-    private changeDetector: ChangeDetectorRef
+    private _facadeTaskMaster: TaskMasterFacade
   ) {
     super(injector);
   }
@@ -231,15 +223,14 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   ngOnInit(): void {
     this._facadeTaskMaster.loadAllSkill();
     this._locationFacade.loadAll();
-    this.skills$ = this._facadeTaskMaster.skills$.subscribe(
-      (x)=>{
-        console.log(x)
-        this.skillList = x
-      }
-    );
-    this.location$ = this._locationFacade.bodyShop$.subscribe(
-      x => {console.log(x); this.locationList = x}
-    )
+    this.skills$ = this._facadeTaskMaster.skills$.subscribe((x) => {
+      console.log(x);
+      this.skillList = x;
+    });
+    this.location$ = this._locationFacade.bodyShop$.subscribe((x) => {
+      console.log(x);
+      this.locationList = x;
+    });
 
     this._taskMasterService.skills().subscribe((x) => {
       let data = x.message;
@@ -247,7 +238,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     });
     this._locationService.loadAll().subscribe((x) => {
       let data = x.message;
-      this.locationsB = data.map((y) => ({ id: y.id, name: y.address }));
+      this.locationsB = data.map((y) => ({ id: y.id, address: y.address }));
     });
     this.buildForm();
     this.route.url.subscribe((params) => {
@@ -257,79 +248,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
           : false;
 
       if (this.isEdit) {
-        this.id = +params[params.length - 1].path;
-        this._technicalService
-          .getTechnicianById(params[params.length - 1].path)
-          .pipe(map((x) => x.message))
-          .subscribe((x) => {
-            if (x) {
-              this._technician = x;
-              this.avatarId = Array.isArray(x.user.profileDocId) ? x.user.profileDocId : [x.user.profileDocId];
-              console.log(x)
-              this.inputForm.controls['portalInfo'].patchValue({
-                employeeNumber: {
-                  organizationId:x.user.employeeNumber
-                },
-                active: x.user.isActive,
-                payPerHours: x.payPerHour,
-                department: {
-                  organizationName: x.user.department.organizationName,
-                  id: x.user.department.organizationId
-                },
-                section:{
-                  name: x.user.department.name,
-                  id : x.user.department.id
-                }
-              });
-              this.inputForm.controls['portalInfo']
-                .get('payPerHours')
-                .markAsDirty();
-              this.inputForm.controls['personalInfo'].patchValue({
-                firstName: x.user.firstName,
-                lastName: x.user.lastName,
-                callCheckbox: false,
-                smsCheckbox: false,
-                whatsappCheckbox: false,
-                emailCheckbox: false,
-              });
-
-              for (let i = 0; i < x.skills.length; i++) {
-                this.getSkill.controls[i].patchValue(x.skills[i])
-                if(i != x.skills.length -1){
-                  this.addSkill();
-                }
-              }
-              for (let i = 0; i < x.locations.length; i++) {
-                this.getLocation.controls[i].patchValue({
-                  name: x.locations[i].address,
-                  id: x.locations[i].id
-                })
-                if(i != x.locations.length -1){
-                  this.addLocation();
-                }
-                
-              }
-              this.emails.controls = [];
-              for (let i = 0; i < x.user.emails.length; i++) {
-                this.addEmail();
-                this.emails.controls[i].patchValue(x.user.emails[i])
-              }
-              this.phoneNumbers.controls = [];
-              for (let i = 0; i < x.user.phoneNumbers.length; i++) {
-                this.addPhoneNumber();
-                this.phoneNumbers.controls[i].patchValue(x.user.phoneNumbers[i])
-              }
-
-
-              this.inputForm.controls['personalInfo']
-                .get('firstName')
-                .markAsDirty();
-              this.inputForm.controls['personalInfo']
-                .get('lastName')
-                .markAsDirty();
-              this.emails.controls[0].markAsDirty();
-            }
-          });
+        this.handleEdit(params);
       } else {
         this.formChangesSubscription = this.inputForm.valueChanges.subscribe(
           (formValues) => {
@@ -346,13 +265,13 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         );
       }
     });
-    this.departmentSerive$ = this._departmentService.loadWithPagination().subscribe(
-      (x) => {
+    this.departmentSerive$ = this._departmentService
+      .loadWithPagination()
+      .subscribe((x) => {
         x.message
-          ? this.departmentList = x.message
-          : this.departmentList = []
-      }
-    )
+          ? (this.departmentList = x.message)
+          : (this.departmentList = []);
+      });
     this._technicianFacade.submitted$.subscribe((x) => {
       if (x) {
         this.dialogModal = true;
@@ -365,7 +284,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -378,7 +296,6 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
         this.errorDialogSetting.confirmButton = 'Ok';
-        this.changeDetector.detectChanges();
       } else {
         this.errorDialogModal = false;
       }
@@ -394,6 +311,80 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     });
   }
 
+  private handleEdit(params) {
+    this.id = +params[params.length - 1].path;
+    this._technicalService
+      .getTechnicianById(params[params.length - 1].path)
+      .pipe(map((x) => x.message))
+      .subscribe((x) => {
+        if (x) {
+          this._technician = x;
+          this.avatarId = Array.isArray(x.user.profileDocId)
+            ? x.user.profileDocId
+            : [x.user.profileDocId];
+          console.log(x);
+          this.inputForm.controls['portalInfo'].patchValue({
+            employeeNumber: {
+              organizationId: x.user.employeeNumber
+            },
+            active: x.user.isActive,
+            payPerHours: x.payPerHour,
+            department: {
+              organizationName: x.user.department.organizationName,
+              id: x.user.department.organizationId
+            },
+            section: {
+              name: x.user.department.name,
+              id: x.user.department.id
+            }
+          });
+          this.inputForm.controls['portalInfo']
+            .get('payPerHours')
+            .markAsDirty();
+          this.inputForm.controls['personalInfo'].patchValue({
+            firstName: x.user.firstName,
+            lastName: x.user.lastName,
+            callCheckbox: false,
+            smsCheckbox: false,
+            whatsappCheckbox: false,
+            emailCheckbox: false
+          });
+
+          for (let i = 0; i < x.skills.length; i++) {
+            this.getSkill.controls[i].patchValue(x.skills[i]);
+            if (i != x.skills.length - 1) {
+              this.addSkill();
+            }
+          }
+          for (let i = 0; i < x.locations.length; i++) {
+            this.getLocation.controls[i].patchValue({
+              address: x.locations[i].address,
+              id: x.locations[i].id
+            });
+            if (i != x.locations.length - 1) {
+              this.addLocation();
+            }
+          }
+          this.emails.controls = [];
+          for (let i = 0; i < x.user.emails.length; i++) {
+            this.addEmail();
+            this.emails.controls[i].patchValue(x.user.emails[i]);
+          }
+          this.phoneNumbers.controls = [];
+          for (let i = 0; i < x.user.phoneNumbers.length; i++) {
+            this.addPhoneNumber();
+            this.phoneNumbers.controls[i].patchValue(x.user.phoneNumbers[i]);
+          }
+
+          this.inputForm.controls['personalInfo']
+            .get('firstName')
+            .markAsDirty();
+          this.inputForm.controls['personalInfo'].get('lastName').markAsDirty();
+          this.emails.controls[0].markAsDirty();
+        }
+      });
+  }
+
   private buildForm() {
     this.inputForm = this._fb.group({
       // organizationId: [null, [Validators.required]],
@@ -401,8 +392,8 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       portalInfo: this._fb.group({
         employeeNumber: ['', [Validators.required]],
         payPerHours: ['', [Validators.required]],
-        department:['', [Validators.required]],
-        section:['', [Validators.required]],
+        department: ['', [Validators.required]],
+        section: ['', [Validators.required]],
         active: [false]
       }),
       professional: this._fb.group({
@@ -447,69 +438,72 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   //   this.inputForm.get('personalInfo.phoneNumber')['controls'][0].markAsDirty();
   // }
   searchDepartment(event) {
-    let query = event.query
-    let filtered = []
+    let query = event.query;
+    let filtered = [];
     for (let index = 0; index < this.departmentList.length; index++) {
       let department = this.departmentList[index];
-      if (department.organizationName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(department)
+      if (
+        department.organizationName
+          .toLowerCase()
+          .indexOf(query.toLowerCase()) == 0
+      ) {
+        filtered.push(department);
       }
     }
-    this.departmentFiltered = filtered
+    this.departmentFiltered = filtered;
   }
   searchSection(event) {
-    let query = event.query
-    let filtered = []
+    let query = event.query;
+    let filtered = [];
     for (let index = 0; index < this.sectionList.length; index++) {
       let section = this.sectionList[index];
       if (section.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(section)
+        filtered.push(section);
       }
     }
-    this.sectionFiltered = filtered
+    this.sectionFiltered = filtered;
   }
-
 
   departmentChanged($event) {
     this.department_static = $event;
     if (typeof $event != 'object') return;
-    this.sectionList =[];
-    this.departmentId = $event.id
-    this._departmentService.searchDepartment($event.id).subscribe(
-      (x)=>{
-        x.message.departments ? this.sectionList = x.message.departments : this.sectionList = []
-      }
-    )
+    this.sectionList = [];
+    this.departmentId = $event.id;
+    this._departmentService.searchDepartment($event.id).subscribe((x) => {
+      x.message.departments
+        ? (this.sectionList = x.message.departments)
+        : (this.sectionList = []);
+    });
   }
 
   sectionChanged($event) {
     this.section_static = $event;
     if (typeof $event != 'object') return;
-    this.sectionId = $event.id
+    this.sectionId = $event.id;
   }
 
   getAllSkill(event) {
-    let query = event.query
-    let filtered = []
+    let query = event.query;
+    let filtered = [];
     for (let index = 0; index < this.skillList.length; index++) {
       let skill = this.skillList[index];
       if (skill.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(skill)
+        filtered.push(skill);
       }
     }
-    this.skillFiltered = filtered
+    this.skillFiltered = filtered;
   }
 
   getFilteredLocation(event) {
-    let query = event.query
-    let filtered = []
+    let query = event.query;
+    let filtered = [];
     for (let index = 0; index < this.locationList.length; index++) {
       let location = this.locationList[index];
       if (location.address.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(location)
+        filtered.push(location);
       }
     }
-    this.locationFiltered = filtered
+    this.locationFiltered = filtered;
   }
 
   filterLocation(event) {
@@ -546,8 +540,8 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     const skill = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('professional.skills')).push(skill);
   }
-  removeSkill(i){
-    this.getSkill.removeAt(i)
+  removeSkill(i) {
+    this.getSkill.removeAt(i);
   }
   addLocation() {
     if (this.inputForm.get('professional.location').invalid) {
@@ -556,15 +550,15 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     const location = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('professional.location')).push(location);
   }
-  removeLocation(i){
-    this.getLocation.removeAt(i)
+  removeLocation(i) {
+    this.getLocation.removeAt(i);
   }
   addEmail() {
     const email = new FormControl(null, [Validators.required]);
     (<FormArray>this.inputForm.get('personalInfo.email')).push(email);
   }
-  removeEmail(index){
-    this.emails.removeAt(index)
+  removeEmail(index) {
+    this.emails.removeAt(index);
   }
   addPhoneNumber() {
     const phoneNumber = new FormControl(null, [Validators.required]);
@@ -572,11 +566,10 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       phoneNumber
     );
   }
-  removePhoneNumber(index){
-    this.phoneNumbers.removeAt(index)
+  removePhoneNumber(index) {
+    this.phoneNumbers.removeAt(index);
   }
   dialogConfirm($event): void {
-
     this.errorDialogModal = false;
     this.dialogModal = false;
     if (!$event) return;
@@ -623,9 +616,13 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         this._technicianFacade.addTechnician(technicianInfo);
       }
     } else {
-      this.router.navigate(['workshop/body-shop'],{queryParams:{id:'technicianTab'}}).then((_) => {
-        this._technicianFacade.resetParams();
-      });
+      this.router
+        .navigate(['workshop/body-shop'], {
+          queryParams: { id: 'technicianTab' }
+        })
+        .then((_) => {
+          this._technicianFacade.resetParams();
+        });
     }
   }
 
@@ -679,17 +676,23 @@ export class AddTechnicianComponent extends Utility implements OnInit {
 
   addRequest() {
     this.submited = true;
-    if(this.getSkill.length> 1 && this.getSkill.controls[this.getSkill.length -1].value == null){
-      this.removeSkill(this.getSkill.length -1)
+    if (
+      this.getSkill.length > 1 &&
+      this.getSkill.controls[this.getSkill.length - 1].value == null
+    ) {
+      this.removeSkill(this.getSkill.length - 1);
     }
-    if(this.getLocation.length> 1 && this.getLocation.controls[this.getLocation.length -1].value == null){
-      this.removeLocation(this.getLocation.length -1)
+    if (
+      this.getLocation.length > 1 &&
+      this.getLocation.controls[this.getLocation.length - 1].value == null
+    ) {
+      this.removeLocation(this.getLocation.length - 1);
     }
     if (this.inputForm.invalid) {
       this.inputForm.markAllAsTouched();
       return;
     }
-    
+
     this.dialogModal = true;
     this.dialogType = 'submit';
     if (this.isEdit) {

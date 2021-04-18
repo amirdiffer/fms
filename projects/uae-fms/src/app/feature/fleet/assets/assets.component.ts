@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ViewChild,
-  OnDestroy,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { AssetsService } from './assets.service';
 import { ColumnType, TableComponent } from '@core/table';
 import { AssetMasterFacade } from '../+state/assets/asset-master';
@@ -22,8 +15,7 @@ import { FilterCardSetting } from '@core/filter';
 @Component({
   selector: 'anms-assets',
   templateUrl: './assets.component.html',
-  styleUrls: ['./assets.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./assets.component.scss']
 })
 export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
@@ -43,6 +35,16 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   searchIcon = 'assets/icons/search-solid.svg';
   sampleImg = 'assets/thumb.png';
   //#region  table
+  assetMasterCount$ = this.assetMasterFacade.conut$.pipe(
+    map((x) => {
+      return x;
+    })
+  );
+  registrationCount$ = this.registrationFacade.conut$.pipe(
+    map((x) => {
+      return x;
+    })
+  );
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map((x) => {
       return x.map((y: any) => {
@@ -115,11 +117,13 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
     private assetMasterFacade: AssetMasterFacade,
     private registrationFacade: RegistrationFacade,
     private customizationFacade: CustomizationFacade,
-    private changeDetector: ChangeDetectorRef,
     private _router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+    this.assetMasterFacade.conut$.subscribe((x) => {
+      console.log(x);
+    });
     this.assetMasterTableSetting = {
       columns: [
         {
@@ -281,7 +285,6 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
                 break;
             }
           });
-          this.changeDetector.detectChanges();
         }
       }
     );

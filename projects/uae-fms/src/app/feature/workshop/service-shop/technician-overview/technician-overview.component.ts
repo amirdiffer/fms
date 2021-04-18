@@ -1,55 +1,54 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TableSetting, ColumnType } from '@core/table';
 
 @Component({
   selector: 'anms-technician-overview',
   templateUrl: './technician-overview.component.html',
-  styleUrls: ['./technician-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./technician-overview.component.scss']
 })
 export class TechnicianOverviewServiceShopComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   selectedTab = 'overview';
-  editIcon='assets/icons/pen.svg';
+  editIcon = 'assets/icons/pen.svg';
 
-  skillTable:TableSetting = {
+  skillTable: TableSetting = {
     columns: [
       {
         lable: 'tables.column.skill',
         field: 'skill',
-        type: 1,
+        type: 1
       },
       {
         lable: 'tables.column.rate_per_hour',
         field: 'ratePerHour',
-        type: 1,
+        type: 1
       }
     ],
-    data:[
+    data: [
       {
-        skill:'Electrician',
-        ratePerHour : '0000AED'
+        skill: 'Electrician',
+        ratePerHour: '0000AED'
       },
       {
-        skill:'Electrician',
-        ratePerHour : '0000AED'
+        skill: 'Electrician',
+        ratePerHour: '0000AED'
       },
       {
-        skill:'Electrician',
-        ratePerHour : '0000AED'
+        skill: 'Electrician',
+        ratePerHour: '0000AED'
       },
       {
-        skill:'Electrician',
-        ratePerHour : '0000AED'
+        skill: 'Electrician',
+        ratePerHour: '0000AED'
       },
       {
-        skill:'Electrician',
-        ratePerHour : '0000AED'
+        skill: 'Electrician',
+        ratePerHour: '0000AED'
       }
     ]
-  }
-  locationTable:TableSetting = {
+  };
+  locationTable: TableSetting = {
     columns: [
       {
         lable: 'tables.column.location',
@@ -61,30 +60,30 @@ export class TechnicianOverviewServiceShopComponent implements OnInit {
           line2: 'address',
           type: 'array'
         }
-      },
+      }
     ],
-    data:[
+    data: [
       {
         location: {
-          zip:'0023457687',
-          address : 'Bardubai, Street Number 2'
+          zip: '0023457687',
+          address: 'Bardubai, Street Number 2'
         }
       },
       {
         location: {
-          zip:'0023457687',
-          address : 'Bardubai, Street Number 2'
+          zip: '0023457687',
+          address: 'Bardubai, Street Number 2'
         }
       },
       {
         location: {
-          zip:'0023457687',
-          address : 'Bardubai, Street Number 2'
+          zip: '0023457687',
+          address: 'Bardubai, Street Number 2'
         }
-      },
+      }
     ]
-  }
-  technicalJobCardTable:TableSetting = {
+  };
+  technicalJobCardTable: TableSetting = {
     columns: [
       {
         lable: 'tables.column.asset',
@@ -134,10 +133,10 @@ export class TechnicianOverviewServiceShopComponent implements OnInit {
         field: 'status',
         type: ColumnType.lable,
         thumbField: '',
-        renderer: '',
-      },
+        renderer: ''
+      }
     ],
-    data:[
+    data: [
       {
         asset: {
           img: 'assets/thumb.png',
@@ -145,12 +144,12 @@ export class TechnicianOverviewServiceShopComponent implements OnInit {
           assetSubName: 'DPD 00000001',
           ownership: 'Repair'
         },
-        priority:'high',
-        task:'Oil Leaking',
-        startDate:'02/02/2020',
-        totalCost:'000 AED',
-        timeEtimate:'7 hour',
-        status:'started',
+        priority: 'high',
+        task: 'Oil Leaking',
+        startDate: '02/02/2020',
+        totalCost: '000 AED',
+        timeEtimate: '7 hour',
+        status: 'started',
         statusColor: '#028D5D'
       },
       {
@@ -160,12 +159,12 @@ export class TechnicianOverviewServiceShopComponent implements OnInit {
           assetSubName: 'DPD 00000001',
           ownership: 'Repair'
         },
-        priority:'high',
-        task:'Oil Leaking',
-        startDate:'02/02/2020',
-        totalCost:'000 AED',
-        timeEtimate:'7 hour',
-        status:'started',
+        priority: 'high',
+        task: 'Oil Leaking',
+        startDate: '02/02/2020',
+        totalCost: '000 AED',
+        timeEtimate: '7 hour',
+        status: 'started',
         statusColor: '#028D5D'
       },
       {
@@ -175,12 +174,12 @@ export class TechnicianOverviewServiceShopComponent implements OnInit {
           assetSubName: 'DPD 00000001',
           ownership: 'Repair'
         },
-        priority:'high',
-        task:'Oil Leaking',
-        startDate:'02/02/2020',
-        totalCost:'000 AED',
-        timeEtimate:'7 hour',
-        status:'started',
+        priority: 'high',
+        task: 'Oil Leaking',
+        startDate: '02/02/2020',
+        totalCost: '000 AED',
+        timeEtimate: '7 hour',
+        status: 'started',
         statusColor: '#028D5D'
       },
       {
@@ -190,12 +189,12 @@ export class TechnicianOverviewServiceShopComponent implements OnInit {
           assetSubName: 'DPD 00000001',
           ownership: 'Repair'
         },
-        priority:'high',
-        task:'Oil Leaking',
-        startDate:'02/02/2020',
-        totalCost:'000 AED',
-        timeEtimate:'7 hour',
-        status:'started',
+        priority: 'high',
+        task: 'Oil Leaking',
+        startDate: '02/02/2020',
+        totalCost: '000 AED',
+        timeEtimate: '7 hour',
+        status: 'started',
         statusColor: '#028D5D'
       },
       {
@@ -205,12 +204,12 @@ export class TechnicianOverviewServiceShopComponent implements OnInit {
           assetSubName: 'DPD 00000001',
           ownership: 'Repair'
         },
-        priority:'high',
-        task:'Oil Leaking',
-        startDate:'02/02/2020',
-        totalCost:'000 AED',
-        timeEtimate:'7 hour',
-        status:'started',
+        priority: 'high',
+        task: 'Oil Leaking',
+        startDate: '02/02/2020',
+        totalCost: '000 AED',
+        timeEtimate: '7 hour',
+        status: 'started',
         statusColor: '#028D5D'
       },
       {
@@ -220,17 +219,17 @@ export class TechnicianOverviewServiceShopComponent implements OnInit {
           assetSubName: 'DPD 00000001',
           ownership: 'Repair'
         },
-        priority:'high',
-        task:'Oil Leaking',
-        startDate:'02/02/2020',
-        totalCost:'000 AED',
-        timeEtimate:'7 hour',
-        status:'started',
+        priority: 'high',
+        task: 'Oil Leaking',
+        startDate: '02/02/2020',
+        totalCost: '000 AED',
+        timeEtimate: '7 hour',
+        status: 'started',
         statusColor: '#028D5D'
       }
     ]
-  }
-  technicalActivityTable:TableSetting = {
+  };
+  technicalActivityTable: TableSetting = {
     columns: [
       {
         lable: 'tables.column.title',
@@ -247,108 +246,107 @@ export class TechnicianOverviewServiceShopComponent implements OnInit {
         lable: 'tables.column.date',
         type: 1,
         field: 'date',
-        width:'14em',
+        width: '14em',
         renderer: 'doubleLineRenderer',
         rendererOptions: {
           line1: 'date',
           line2: 'time',
           type: 'array'
         }
-      },
+      }
     ],
-    data:[
+    data: [
       {
-        title:{
-          info:'Job Card Created',
-          description:'Asset DPD123456 Assign to This User'
+        title: {
+          info: 'Job Card Created',
+          description: 'Asset DPD123456 Assign to This User'
         },
-        date:{
-          date:'Saturday 02/02',
-          time:'12:30'
+        date: {
+          date: 'Saturday 02/02',
+          time: '12:30'
         },
         statusColor: '#028D5D'
       },
       {
-        title:{
-          info:'Task Started',
-          description:'Asset DPD123456 Assign to This User'
+        title: {
+          info: 'Task Started',
+          description: 'Asset DPD123456 Assign to This User'
         },
-        date:{
-          date:'Saturday 02/02',
-          time:'12:30'
-        },
-        statusColor: '#028D5D'
-      },
-      {
-        title:{
-          info:'Job Card Created',
-          description:'Asset DPD123456 Assign to This User'
-        },
-        date:{
-          date:'Saturday 02/02',
-          time:'12:30'
+        date: {
+          date: 'Saturday 02/02',
+          time: '12:30'
         },
         statusColor: '#028D5D'
       },
       {
-        title:{
-          info:'Task Started',
-          description:'Asset DPD123456 Assign to This User'
+        title: {
+          info: 'Job Card Created',
+          description: 'Asset DPD123456 Assign to This User'
         },
-        date:{
-          date:'Saturday 02/02',
-          time:'12:30'
-        },
-        statusColor: '#028D5D'
-      },
-      {
-        title:{
-          info:'Job Card Created',
-          description:'Asset DPD123456 Assign to This User'
-        },
-        date:{
-          date:'Saturday 02/02',
-          time:'12:30'
+        date: {
+          date: 'Saturday 02/02',
+          time: '12:30'
         },
         statusColor: '#028D5D'
       },
       {
-        title:{
-          info:'Task Started',
-          description:'Asset DPD123456 Assign to This User'
+        title: {
+          info: 'Task Started',
+          description: 'Asset DPD123456 Assign to This User'
         },
-        date:{
-          date:'Saturday 02/02',
-          time:'12:30'
-        },
-        statusColor: '#028D5D'
-      },
-      {
-        title:{
-          info:'Job Card Created',
-          description:'Asset DPD123456 Assign to This User'
-        },
-        date:{
-          date:'Saturday 02/02',
-          time:'12:30'
+        date: {
+          date: 'Saturday 02/02',
+          time: '12:30'
         },
         statusColor: '#028D5D'
       },
       {
-        title:{
-          info:'Task Started',
-          description:'Asset DPD123456 Assign to This User'
+        title: {
+          info: 'Job Card Created',
+          description: 'Asset DPD123456 Assign to This User'
         },
-        date:{
-          date:'Saturday 02/02',
-          time:'12:30'
+        date: {
+          date: 'Saturday 02/02',
+          time: '12:30'
         },
         statusColor: '#028D5D'
       },
-      
+      {
+        title: {
+          info: 'Task Started',
+          description: 'Asset DPD123456 Assign to This User'
+        },
+        date: {
+          date: 'Saturday 02/02',
+          time: '12:30'
+        },
+        statusColor: '#028D5D'
+      },
+      {
+        title: {
+          info: 'Job Card Created',
+          description: 'Asset DPD123456 Assign to This User'
+        },
+        date: {
+          date: 'Saturday 02/02',
+          time: '12:30'
+        },
+        statusColor: '#028D5D'
+      },
+      {
+        title: {
+          info: 'Task Started',
+          description: 'Asset DPD123456 Assign to This User'
+        },
+        date: {
+          date: 'Saturday 02/02',
+          time: '12:30'
+        },
+        statusColor: '#028D5D'
+      }
     ]
-  }
-  filterSettingJobCard =  [
+  };
+  filterSettingJobCard = [
     {
       filterTitle: 'statistic.open',
       filterCount: '3450',
@@ -375,7 +373,7 @@ export class TechnicianOverviewServiceShopComponent implements OnInit {
       filterTagColor: '#40D3C2'
     }
   ];
-  filterSettingActivity =[
+  filterSettingActivity = [
     {
       filterTitle: 'statistic.todo',
       filterCount: '2456',
@@ -390,11 +388,9 @@ export class TechnicianOverviewServiceShopComponent implements OnInit {
       filterTitle: 'statistic.done',
       filterCount: '12',
       filterTagColor: '#40D3C2'
-    },
+    }
   ];
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

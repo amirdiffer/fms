@@ -5,13 +5,15 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { BodyShopJobCardActions } from './body-shop-job-card.actions';
 import { BodyShopJobCardService } from './body-shop-job-card.service';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class BodyShopJobCardEffect {
   constructor(
     private action$: Actions,
     private service: BodyShopJobCardService,
-    private _tableFacade: TableFacade
+    private _tableFacade: TableFacade,
+    private _store: Store
   ) {}
 
   loadAll$ = createEffect(() =>
@@ -20,7 +22,14 @@ export class BodyShopJobCardEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            this._tableFacade.initialPaginator(data.resultNumber, 'body-shop_jobcard');
+            this._tableFacade.initialPaginator(
+              data.resultNumber,
+              'body-shop_jobcard'
+            );
+            this._store.dispatch(
+              BodyShopJobCardActions.count({ data: data.resultNumber })
+            );
+
             return BodyShopJobCardActions.allDataLoaded({ data: data.message });
           }),
           catchError((error) =>

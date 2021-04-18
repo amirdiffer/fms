@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -11,8 +11,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 @Component({
   selector: 'anms-part-list-form',
   templateUrl: './part-list-form.component.html',
-  styleUrls: ['./part-list-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./part-list-form.component.scss']
 })
 export class PartListFormComponent implements OnInit {
   searchIcon = 'assets/icons/search.svg';

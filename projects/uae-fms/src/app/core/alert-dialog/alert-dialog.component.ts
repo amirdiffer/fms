@@ -1,10 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'alert-dialog',
   templateUrl: './alert-dialog.component.html',
-  styleUrls: ['./alert-dialog.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  styleUrls: ['./alert-dialog.component.scss']
 })
 export class AlertDialogComponent implements OnInit {
   //#region Input and Outputs
@@ -19,9 +18,9 @@ export class AlertDialogComponent implements OnInit {
   warningTriangle = 'assets/icons/exclamation-triangle.svg';
   //#endregion
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   confirmDialog() {
     this.displayModal = false;

@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Injector,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import {
   BusinessCategoryFacade,
   BusinessCategoryService
@@ -25,8 +19,7 @@ import { AssetTypeFacade } from '../../+state/asset-configuration';
 @Component({
   selector: 'anms-add-category',
   templateUrl: './add-category.component.html',
-  styleUrls: ['./add-category.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-category.component.scss']
 })
 export class AddCategoryComponent extends Utility implements OnInit {
   //#region  Dialog
@@ -102,7 +95,6 @@ export class AddCategoryComponent extends Utility implements OnInit {
     injector: Injector,
     private networkService: BusinessCategoryService,
     private facade: BusinessCategoryFacade,
-    private changeDetectorRef: ChangeDetectorRef,
     private accessoryFacade: AccessoryFacade,
     private subAssetFacade: SubAssetFacade,
     private assetTypeFacade: AssetTypeFacade,
@@ -167,7 +159,6 @@ export class AddCategoryComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetectorRef.detectChanges();
       }
     });
 
@@ -181,7 +172,6 @@ export class AddCategoryComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = true;
         this.dialogSetting.cancelButton = undefined;
         this.dialogSetting.confirmButton = 'OK';
-        this.changeDetectorRef.markForCheck();
       } else {
         this.dialogModal = false;
       }

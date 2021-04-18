@@ -9,7 +9,10 @@ export class AssetMasterActions {
     '[AssetMaster] all datas are loaded',
     props<{ data: IAssetMaster[] }>()
   );
-
+  static count = createAction(
+    '[AssetMaster] get result number',
+    props<{ data: number }>()
+  );
   static loadStatistics = createAction('[AssetMaster] load all statistics');
 
   static statisticsLoaded = createAction(
@@ -43,7 +46,7 @@ export class AssetMasterActions {
   );
 
   /* Get Asset By Id */
-  static assetById= createAction(
+  static assetById = createAction(
     '[AssetMaster] load asset by Id',
     props<{ id: number }>()
   );
@@ -51,7 +54,5 @@ export class AssetMasterActions {
     '[AssetMaster] specific asset loaded',
     props<{ data: any }>()
   );
-  static reset = createAction(
-    '[AssetMaster] reset parameters'
-  );
+  static reset = createAction('[AssetMaster] reset parameters');
 }

@@ -13,6 +13,9 @@ export class BodyShopJobCardFacade {
   error$ = this.store.pipe(select(BodyShopJobCardSelectors.error));
 
   submitted$ = this.store.pipe(select(BodyShopJobCardSelectors.submitted));
+
+  conut$ = this.store.pipe(select(BodyShopJobCardSelectors.count));
+
   constructor(private store: Store<IBodyshopJobCardPartialState>) {}
 
   loadAll() {

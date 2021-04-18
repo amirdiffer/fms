@@ -13,9 +13,10 @@ export class BodyShopRequestService {
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
@@ -24,7 +25,8 @@ export class BodyShopRequestService {
 
   loadAll(): Observable<ResponseBody<any[]>> {
     return this.http.get<ResponseBody<any[]>>(
-      environment.baseApiUrl + 'workshop/bodyshop/asset/request', {params: this.getParam('body-shop_request')}
+      environment.baseApiUrl + 'workshop/bodyshop/asset/request',
+      { params: this.getParam('body-shop_request') }
     );
   }
 
@@ -48,7 +50,10 @@ export class BodyShopRequestService {
   }
   editRequest(data): Observable<ResponseBody<any>> {
     return this.http.post<ResponseBody<any>>(
-      environment.baseApiUrl + 'workshop/bodyshop/issue' + data.id + '/update',
+      environment.baseApiUrl +
+        'workshop/bodyshop/request/' +
+        data.id +
+        '/update',
       data
     );
   }
@@ -57,9 +62,12 @@ export class BodyShopRequestService {
       environment.baseApiUrl + 'workshop/bodyshop/request/' + id
     );
   }
-  getRequestListByAssetId(id):Observable<ResponseBody<IRequestListSpecificAsset[]>>{
+  getRequestListByAssetId(
+    id
+  ): Observable<ResponseBody<IRequestListSpecificAsset[]>> {
     return this.http.get<ResponseBody<IRequestListSpecificAsset[]>>(
-      environment.baseApiUrl + `workshop/bodyshop/asset/${id}/request` , {params: this.getParam('body-shop_request')}
+      environment.baseApiUrl + `workshop/bodyshop/asset/${id}/request`,
+      { params: this.getParam('body-shop_request') }
     );
   }
 }

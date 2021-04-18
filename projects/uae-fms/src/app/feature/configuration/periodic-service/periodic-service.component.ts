@@ -1,10 +1,5 @@
 import { Router } from '@angular/router';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColumnDifinition, ColumnType, TableComponent } from '@core/table';
 import { map } from 'rxjs/operators';
 import { PeriodicServiceFacade } from '../+state/periodic-service';
@@ -12,8 +7,7 @@ import { PeriodicServiceFacade } from '../+state/periodic-service';
 @Component({
   selector: 'anms-periodic-service',
   templateUrl: './periodic-service.component.html',
-  styleUrls: ['./periodic-service.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./periodic-service.component.scss']
 })
 export class PeriodicServiceComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;

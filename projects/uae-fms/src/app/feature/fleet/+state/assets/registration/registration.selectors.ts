@@ -12,5 +12,8 @@ export class RegistrationSelectors {
     FleetSelectors.registrationSelector,
     (state) => state.submitted
   );
-  
+  static count = createSelector(
+    FleetSelectors.registrationSelector,
+    (state) => state.resultNumber
+  );
 }

@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Inject,
-  Injector,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, Inject, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { MovementRequestsFacade } from '@feature/fleet/+state/movement';
@@ -23,8 +16,7 @@ import { MovementService } from '@feature/fleet/movement/movement.service';
 @Component({
   selector: 'anms-movement-temporary-confirm',
   templateUrl: './movement-confirm.component.html',
-  styleUrls: ['./movement-confirm.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./movement-confirm.component.scss']
 })
 export class MovementTemporaryConfirmComponent
   extends Utility
@@ -62,7 +54,6 @@ export class MovementTemporaryConfirmComponent
     private _movementService: MovementService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<MovementTemporaryConfirmComponent>,
-    private changeDetector: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: any,
     injector: Injector
   ) {
@@ -113,7 +104,6 @@ export class MovementTemporaryConfirmComponent
       if (x) {
         this.displaySuccessModal = true;
         this.dialogErrorSetting.hasError = false;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -121,7 +111,6 @@ export class MovementTemporaryConfirmComponent
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
-        this.changeDetector.detectChanges();
       }
     });
   }

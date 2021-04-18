@@ -1,8 +1,10 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { ServiceShopLocationActions } from './service-shop-location.actions';
-import { IServiceShopLocationState, serviceShopLocationAdapter , initialState} from './service-shop-location.entity';
-
-
+import {
+  IServiceShopLocationState,
+  serviceShopLocationAdapter,
+  initialState
+} from './service-shop-location.entity';
 
 const serviceShopLocationReducer = createReducer(
   initialState,
@@ -19,6 +21,10 @@ const serviceShopLocationReducer = createReducer(
       error: null
     })
   ),
+  on(ServiceShopLocationActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber: data
+  })),
   on(
     ServiceShopLocationActions.addServiceShopLocation,
     (state, { data: IBodyShopLocation }) => ({
@@ -53,7 +59,7 @@ const serviceShopLocationReducer = createReducer(
   on(
     ServiceShopLocationActions.serviceShopLocationEditedSuccessfully,
     (state, { serviceShopLocation }) =>
-    serviceShopLocationAdapter.updateOne(
+      serviceShopLocationAdapter.updateOne(
         { changes: serviceShopLocation, id: serviceShopLocation.id },
         {
           ...state,

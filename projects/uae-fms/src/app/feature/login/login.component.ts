@@ -1,10 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoginService } from './login.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +6,7 @@ import { SettingsFacade } from '@core/settings/settings.facade';
 import { Language } from '@core/settings/settings.model';
 import { DOCUMENT } from '@angular/common';
 import { UserProfileFacade } from '@feature/user/state';
-import { environment } from "@environments/environment";
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -32,8 +26,7 @@ export class LoginComponent implements OnInit {
     private settingFacade: SettingsFacade,
     @Inject(DOCUMENT) private document: Document,
     private profileFacade: UserProfileFacade,
-    private route: ActivatedRoute,
-    private changeDetector: ChangeDetectorRef
+    private route: ActivatedRoute
   ) {
     this.credentialsFG = new FormGroup({
       username: new FormControl('', [Validators.required]),
@@ -54,8 +47,6 @@ export class LoginComponent implements OnInit {
     htmlTag.dir = language === 'ar' ? 'rtl' : 'ltr';
   }
 
-
-
   hasError(
     controlName: string,
     formGroup: any,
@@ -64,7 +55,8 @@ export class LoginComponent implements OnInit {
   ): boolean {
     const control: FormControl = formGroup.controls[controlName] as FormControl;
     if (
-      (control && ((control.dirty && control.invalid) || (control.invalid && submited))) &&
+      control &&
+      ((control.dirty && control.invalid) || (control.invalid && submited)) &&
       control.hasError(errorType)
     ) {
       return true;
@@ -88,7 +80,7 @@ export class LoginComponent implements OnInit {
     });
     this.profileFacade.loadData$.subscribe((x) => {
       if (x) {
-        console.log(x)
+        console.log(x);
       }
     });
   }
@@ -158,11 +150,10 @@ export class LoginComponent implements OnInit {
             'jwt',
             'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTczOTk2MzIwNCwiaWF0IjoxNjEzODE5MjA0LCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfQVBQUk9WQUwifSx7ImF1dGhvcml0eSI6IkZMRUVUX0NSRUFURSJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfRURJVCJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfUEVSTUlTU0lPTiJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfVklFVyJ9XX0.PTaSo-b82v4LEHf4JLLpVF6giJKQvYslzvId40N6Fjc3yROe8xi3ROTtxz7BwZXkbqDvGn_uzJQK2CdRupdB5w'
           );
-          this.router.navigate(['/configuration/user-management/users']);
+          this.router.navigate(['/fleet/assets']);
         },
         (error) => {
           this.showLoginError = true;
-          this.changeDetector.markForCheck();
         }
       );
   }

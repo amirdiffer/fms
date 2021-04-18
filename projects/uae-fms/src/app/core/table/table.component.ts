@@ -1,6 +1,4 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -28,8 +26,7 @@ import { TableServiceS } from '@core/table/table.service';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   rowIndexTable = -1;
@@ -53,7 +50,6 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   allData = [];
   constructor(
     private settingFacade: SettingsFacade,
-    private changeDetection: ChangeDetectorRef,
     private translate: TranslateService,
     private _tableFacade: TableFacade,
     private _tableService: TableServiceS
@@ -80,7 +76,6 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       if (x) {
         this.allData = x;
         this.setting.data = x;
-        this.changeDetection.detectChanges();
       }
     });
   }
@@ -301,7 +296,6 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       if (find) return x;
     });
     this.setting.data = data;
-    this.changeDetection.detectChanges();
   }
 
   filterByStatistics(statistic: string): void {
@@ -311,7 +305,6 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       case 'active':
         break;
     }
-    this.changeDetection.markForCheck();
   }
 
   ngOnDestroy(): void {

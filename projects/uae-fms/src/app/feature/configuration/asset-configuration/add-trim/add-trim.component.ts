@@ -1,9 +1,8 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
-  Injector, OnDestroy,
+  Injector,
+  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild
@@ -28,8 +27,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'anms-add-trim',
   templateUrl: './add-trim.component.html',
-  styleUrls: ['./add-trim.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-trim.component.scss']
 })
 export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   radioButtonSelect: 'mModel';
@@ -73,7 +71,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
-    private changeDetectorRef: ChangeDetectorRef,
     public dataService: DataService,
     public router: Router,
     injector: Injector
@@ -83,7 +80,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
       trims: new FormArray([this.createTrim()])
@@ -130,7 +126,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
         .subscribe();
     });
 
-
     if (!this.dataService.selectedModelId) {
       this.router.navigate(['/configuration/asset-configuration']).then((_) => {
         this.facade.resetParams();
@@ -146,7 +141,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetectorRef.markForCheck();
       }
     });
 
@@ -158,7 +152,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.message = 'Error occurred in progress';
         this.dialogSetting.cancelButton = undefined;
         this.dialogSetting.confirmButton = 'OK';
-        this.changeDetectorRef.markForCheck();
       }
     });
   }
@@ -230,7 +223,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => { });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
@@ -308,17 +301,16 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
 
     const makes: Make[] = [];
 
-
-    const data = this.inputForm.value.trims.map(x => {
+    const data = this.inputForm.value.trims.map((x) => {
       if (x.id) {
         return x;
       } else
         return {
           colors: x.colors,
           description: x.description,
-          trim: x.trim,
-        }
-    })
+          trim: x.trim
+        };
+    });
 
     this.facade.addTrim(data, this.assetTypeId, this.makeId, this.modelId);
   }
@@ -326,5 +318,4 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.assetTypeSubs$.unsubscribe();
   }
-
 }

@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  OnDestroy,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { BusinessCategoryFacade } from '../+state/business-category';
 import { Router } from '@angular/router';
@@ -14,8 +8,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'anms-business-category',
   templateUrl: './business-category.component.html',
-  styleUrls: ['./business-category.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./business-category.component.scss']
 })
 export class BusinessCategoryComponent implements OnInit, OnDestroy {
   //#region Variables
@@ -61,10 +54,9 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
     rowSettings: {
       onClick: (col, data, button?) => {
         this.router
-          .navigate(
-            ['/configuration/business-category/edit-usage-category'],
-            { queryParams: { id: data['id'] } }
-          )
+          .navigate(['/configuration/business-category/edit-usage-category'], {
+            queryParams: { id: data['id'] }
+          })
           .then();
       },
       floatButton: [

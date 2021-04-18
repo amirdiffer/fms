@@ -2,10 +2,8 @@ import {
   Component,
   OnInit,
   ViewChild,
-  ChangeDetectionStrategy,
   Injector,
-  OnDestroy,
-  ChangeDetectorRef
+  OnDestroy
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
@@ -40,8 +38,7 @@ import {
 @Component({
   selector: 'anms-add-asset',
   templateUrl: './add-asset.component.html',
-  styleUrls: ['./add-asset.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-asset.component.scss']
 })
 export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   //icons
@@ -337,8 +334,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     private _facadePeriodicService: PeriodicServiceFacade,
     private _periodicService: PeriodicServiceService,
     private _departmentService: OrganizationService,
-    private _operatorService: OperatorService,
-    private changeDetection: ChangeDetectorRef
+    private _operatorService: OperatorService
   ) {
     super(injector);
   }
@@ -543,7 +539,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         this.errorDialogSetting.hasError = true;
         this.errorDialogSetting.cancelButton = undefined;
         this.errorDialogSetting.confirmButton = 'Ok';
-        this.changeDetection.detectChanges();
       } else {
         this.errorDialogModal = false;
       }
@@ -563,7 +558,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
-        this.changeDetection.detectChanges();
       }
     });
   }
@@ -993,7 +987,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   cancelForm() {
     this.cancelDialogModal = true;
     this.cancelDialogSetting.isWarning = true;
-    this.changeDetection.detectChanges();
   }
 
   dialog(event) {

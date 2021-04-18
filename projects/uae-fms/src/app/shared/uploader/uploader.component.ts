@@ -1,11 +1,9 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Input,
   Output,
   EventEmitter,
-  ChangeDetectorRef,
   OnChanges
 } from '@angular/core';
 import {
@@ -26,8 +24,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 @Component({
   selector: 'anms-uploader',
   templateUrl: './uploader.component.html',
-  styleUrls: ['./uploader.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./uploader.component.scss']
 })
 export class UploaderComponent implements OnInit, OnChanges {
   @Input() hasError = false;
@@ -39,7 +36,18 @@ export class UploaderComponent implements OnInit, OnChanges {
   @Input() preview = true;
   @Input() isImage = false;
   @Input() files = [];
-  @Input() accept = ['.csv', '.png', '.jpg', '.txt', '.json', '.pdf', '.doc', '.docx', '.xls', '.xlsx'];
+  @Input() accept = [
+    '.csv',
+    '.png',
+    '.jpg',
+    '.txt',
+    '.json',
+    '.pdf',
+    '.doc',
+    '.docx',
+    '.xls',
+    '.xlsx'
+  ];
   @Input() isSmall = false;
   @Input() dropzoneLabel = '';
   @Output() uploadedEvent: EventEmitter<object> = new EventEmitter<object>();
@@ -67,12 +75,9 @@ export class UploaderComponent implements OnInit, OnChanges {
     message: `File format incorrect`,
     confirmButton: 'OK'
   };
-  constructor(
-    private _uploaderService: UploaderService,
-    private changeDetector: ChangeDetectorRef
-  ) { }
+  constructor(private _uploaderService: UploaderService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnChanges() {
     if (!this.multiple && typeof this.files[0] == 'undefined') {
@@ -100,10 +105,8 @@ export class UploaderComponent implements OnInit, OnChanges {
             this.filesSize += fileSize;
             this.formData.append('doc', file);
             this.upload(index);
-            this.changeDetector.markForCheck();
           } else if (!this.accept.includes(fileSuffix)) {
             this.dialogModalError = true;
-            this.changeDetector.markForCheck();
           }
         });
       }
@@ -158,21 +161,17 @@ export class UploaderComponent implements OnInit, OnChanges {
               (event.loaded / event.total) * 100
             );
             this.progressBarValue + ' %';
-            this.changeDetector.markForCheck();
             break;
           case HttpEventType.Response:
             setTimeout(() => {
               this.progressBarValue = 0;
               this.isUploading = false;
             }, 1500);
-            this.changeDetector.markForCheck();
-            this.changeDetector.detectChanges();
         }
         if (event instanceof HttpResponse) {
           if (!event.body.error) {
             if (!this.multiple) this.files = [];
             this.files.push(event.body.message.id);
-            this.changeDetector.markForCheck();
             if (this.readCSVFile) {
               this.getValueCSV(event.body.message.id);
             }
@@ -182,16 +181,13 @@ export class UploaderComponent implements OnInit, OnChanges {
             this.setFiles(indexUploadBox);
           }
         }
-        this.changeDetector.detectChanges();
       },
       (error) => {
         this.isUploading = false;
         this.progressBarValue = 0;
         this.filesUploadError++;
-        this.changeDetector.detectChanges();
       }
     );
-    this.changeDetector.detectChanges();
   }
 
   filterFilesOfNull(): Array<any> {
@@ -202,7 +198,6 @@ export class UploaderComponent implements OnInit, OnChanges {
     this.files.splice(index, 1);
     this.setFiles(index);
     this.fileName = '';
-    this.changeDetector.detectChanges();
   }
 
   dialogErrorConfirm(value) {

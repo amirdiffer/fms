@@ -1,12 +1,5 @@
 import { Router } from '@angular/router';
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  OnDestroy,
-  ChangeDetectorRef,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { Subscription } from 'rxjs';
@@ -17,8 +10,7 @@ import { AccessoryService } from './accessory.service';
 @Component({
   selector: 'anms-accessory',
   templateUrl: './accessory.component.html',
-  styleUrls: ['./accessory.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./accessory.component.scss']
 })
 export class AccessoryComponent implements OnInit, OnDestroy {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
@@ -124,7 +116,6 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   constructor(
     private _accessoryService: AccessoryService,
     private _accessoryFacade: AccessoryFacade,
-    private changeDetection: ChangeDetectorRef,
     private _router: Router
   ) {}
 
@@ -142,7 +133,6 @@ export class AccessoryComponent implements OnInit, OnDestroy {
           this.filterCard[index].filterCount =
             statistic[this.filterCard[index].field];
         });
-        this.changeDetection.detectChanges();
       }
     });
   }

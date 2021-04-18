@@ -1,10 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'anms-add-part-master',
   templateUrl: './add-part-master.component.html',
-  styleUrls: ['./add-part-master.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-part-master.component.scss']
 })
 export class AddPartMasterComponent implements OnInit {
   filterSetting = [

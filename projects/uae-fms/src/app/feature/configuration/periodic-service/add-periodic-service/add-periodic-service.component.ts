@@ -1,12 +1,5 @@
 import { PeriodicServiceService } from './../../+state/periodic-service/periodic-service.service';
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Injector,
-  ChangeDetectorRef,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { RouterFacade } from '@core/router';
@@ -20,10 +13,11 @@ import { TaskMasterService } from '@feature/workshop/+state/task-master';
 @Component({
   selector: 'anms-add-periodic-service',
   templateUrl: './add-periodic-service.component.html',
-  styleUrls: ['./add-periodic-service.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-periodic-service.component.scss']
 })
-export class AddPeriodicServiceComponent extends Utility implements OnInit , OnDestroy{
+export class AddPeriodicServiceComponent
+  extends Utility
+  implements OnInit, OnDestroy {
   //#region  Table
   tableColumns: ColumnDifinition[] = [
     {
@@ -114,12 +108,11 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
   submitted: boolean = false;
   //#endregion
 
-  taskList:any[] =[];
-  taskFiltered:any[] =[];
-  tasks$:Subscription;
+  taskList: any[] = [];
+  taskFiltered: any[] = [];
+  tasks$: Subscription;
   get task(): FormArray {
     return this.periodicServiceForm.get('tasks') as FormArray;
-     
   }
   constructor(
     private _fb: FormBuilder,
@@ -127,8 +120,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
     private periodicServiceFacade: PeriodicServiceFacade,
     private periodicService: PeriodicServiceService,
     private _routerFacade: RouterFacade,
-    private _taskMasterService: TaskMasterService,
-    private changeDetector: ChangeDetectorRef
+    private _taskMasterService: TaskMasterService
   ) {
     super(injector);
   }
@@ -146,18 +138,16 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
     return packages['controls'][packageIndex].get('tasks') as FormArray;
   }
 
-  removeTask(i,j){
-    console.log(i ,j)
-    this.getTasksForm(i,j).removeAt(j)
+  removeTask(i, j) {
+    console.log(i, j);
+    this.getTasksForm(i, j).removeAt(j);
   }
   ngOnInit(): void {
     // this.periodicServiceFacade.loadAll();
-    this.tasks$ = this._taskMasterService.getAllTaks().subscribe(
-      (x)=>{
-        console.log(x)
-        this.taskList = x.message
-      }
-    )
+    this.tasks$ = this._taskMasterService.getAllTaks().subscribe((x) => {
+      console.log(x);
+      this.taskList = x.message;
+    });
     this.periodicServiceForm = this._fb.group({
       name: ['', [Validators.required]],
       packageName: [''],
@@ -200,7 +190,6 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
         this.dialogSuccessSetting.hasError = false;
         this.dialogSuccessSetting.confirmButton = 'Yes';
         this.dialogSuccessSetting.cancelButton = undefined;
-        this.changeDetector.detectChanges();
       }
     });
 
@@ -210,21 +199,20 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
 
         this.dialogErrorSetting.message = 'an error occurred during operation';
         this.dialogErrorSetting.hasError = true;
-        this.changeDetector.detectChanges();
       }
     });
   }
   getAllTask(event) {
-    let query = event.query
-    let filtered = []
+    let query = event.query;
+    let filtered = [];
     for (let index = 0; index < this.taskList.length; index++) {
       let task = this.taskList[index];
-      console.log(task)
+      console.log(task);
       if (task.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(task)
+        filtered.push(task);
       }
     }
-    this.taskFiltered = filtered
+    this.taskFiltered = filtered;
   }
   loadPeriodicServiceForm(periodicService: any) {
     const { name, numOfUsage, packages } = periodicService;
@@ -239,8 +227,6 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
     packages.forEach((pack) => {
       this.addPackage(pack.name, pack.intervalValue, pack.tasks);
     });
-
-    this.changeDetector.detectChanges();
   }
 
   createTaskForm(taskName = ''): FormGroup {
@@ -270,9 +256,9 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
       });
   }
 
-  addTask(taskName = '',packageIndex = 0, taskIndex): void {
-    if(this.getTasksForm(packageIndex,taskIndex).invalid)return;
-    
+  addTask(taskName = '', packageIndex = 0, taskIndex): void {
+    if (this.getTasksForm(packageIndex, taskIndex).invalid) return;
+
     this.tasks = this.getPackageTasks(packageIndex);
     this.tasks.push(this.createTaskForm());
   }
@@ -284,7 +270,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
 
   submit() {
     this.submitted = true;
-    console.log(this.periodicServiceForm.value)
+    console.log(this.periodicServiceForm.value);
     if (this.periodicServiceForm.invalid) {
       return;
     }
@@ -336,7 +322,7 @@ export class AddPeriodicServiceComponent extends Utility implements OnInit , OnD
     this.goToList();
     this.periodicServiceFacade.reset();
   }
-  ngOnDestroy(){
-    this.tasks$.unsubscribe()
+  ngOnDestroy() {
+    this.tasks$.unsubscribe();
   }
 }

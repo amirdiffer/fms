@@ -8,6 +8,10 @@ export class ServiceShopTechnicianActions {
     '[serviceShopTechnician] all data are loaded',
     props<{ data: ITechnician[] }>()
   );
+  static count = createAction(
+    '[serviceShopTechnician] get result number',
+    props<{ data: number }>()
+  );
   static addTechnician = createAction(
     '[serviceShopTechnician] add technician',
     props<{ data: ITechnician }>()

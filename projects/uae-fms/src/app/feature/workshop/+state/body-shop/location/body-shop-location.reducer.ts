@@ -21,6 +21,10 @@ const bodyShopLocationReducer = createReducer(
       error: null
     })
   ),
+  on(BodyShopLocationActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber: data
+  })),
   on(
     BodyShopLocationActions.addBodyShopLocation,
     (state, { data: IBodyShopLocation }) => ({

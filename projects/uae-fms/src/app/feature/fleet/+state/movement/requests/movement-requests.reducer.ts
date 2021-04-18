@@ -1,6 +1,10 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { MovementRequestsActions } from './movement-requests.actions';
-import {  initialState,  movementRequestsAdapter,  MovementRequestsState} from './movement-requests.entity';
+import {
+  initialState,
+  movementRequestsAdapter,
+  MovementRequestsState
+} from './movement-requests.entity';
 
 const movementRequestsReducer = createReducer(
   initialState,
@@ -19,6 +23,10 @@ const movementRequestsReducer = createReducer(
     })
   ),
 
+  on(MovementRequestsActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber: data
+  })),
   on(MovementRequestsActions.loadStatistic, (state) => ({
     ...state,
     statistic: null,
@@ -26,8 +34,8 @@ const movementRequestsReducer = createReducer(
   })),
 
   on(MovementRequestsActions.statisticRequestLoaded, (state, { data }) => ({
-      ...state,
-      statistic: data
+    ...state,
+    statistic: data
   })),
   on(MovementRequestsActions.error, (state, { reason }) => ({
     ...state,

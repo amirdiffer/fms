@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import {
@@ -14,8 +9,7 @@ import {
 @Component({
   selector: 'anms-design-system',
   templateUrl: './design-system.component.html',
-  styleUrls: ['./design-system.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./design-system.component.scss']
 })
 export class DesignSystemComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';

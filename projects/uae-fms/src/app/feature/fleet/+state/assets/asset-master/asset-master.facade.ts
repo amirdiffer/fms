@@ -17,7 +17,9 @@ export class AssetMasterFacade {
 
   error$ = this.store.pipe(select(AssetMasterSelectors.error));
 
-  constructor(private store: Store<IAssetMasterPartialState>) { }
+  conut$ = this.store.pipe(select(AssetMasterSelectors.count));
+
+  constructor(private store: Store<IAssetMasterPartialState>) {}
 
   loadAll() {
     this.reset();
@@ -36,11 +38,10 @@ export class AssetMasterFacade {
     this.store.dispatch(AssetMasterActions.editAsset({ data }));
   }
 
-  getAssetByID(id:number){
+  getAssetByID(id: number) {
     this.store.dispatch(AssetMasterActions.assetById({ id }));
   }
   reset() {
     this.store.dispatch(AssetMasterActions.reset());
   }
-
 }

@@ -8,6 +8,7 @@ export interface IBodyShopTechnicianState extends EntityState<ITechnician> {
   loaded: boolean;
   message: string;
   submitted: boolean;
+  resultNumber?: number;
 }
 export interface IBodyShopTechnicianPartialState {
   [WORKSHOP_BODYSHOP_TECHNICIAN_FEATURE_KEY]: IBodyShopTechnicianState;
@@ -20,6 +21,7 @@ export const initialState: IBodyShopTechnicianState = bodyShopTechnicianAdapter.
     loaded: null,
     message: null,
     error: null,
-    submitted: false
+    submitted: false,
+    resultNumber: 0
   } as IBodyShopTechnicianState
 );

@@ -1,28 +1,27 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColumnType } from '@core/table';
 
 @Component({
   selector: 'app-asset-overview-request',
   templateUrl: './request.component.html',
-  styleUrls: ['./request.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./request.component.scss']
 })
 export class RequestComponent implements OnInit {
-  constructor(private _fb:FormBuilder) {}
+  constructor(private _fb: FormBuilder) {}
 
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   activeLayout = 'menu';
   inputForm: FormGroup;
-  submitted=false;
+  submitted = false;
   jobCard_Table3 = {
     columns: [
       {
         lable: 'tables.column.issue',
         field: 'issue',
         type: ColumnType.lable,
-        thumbField: '',
+        thumbField: ''
       },
       {
         lable: 'tables.column.date',
@@ -112,8 +111,7 @@ export class RequestComponent implements OnInit {
       }
     ],
     rowSettings: {
-      floatButton: [
-      ]
+      floatButton: []
     }
   };
 
@@ -122,27 +120,25 @@ export class RequestComponent implements OnInit {
     this.section = section;
   }
 
-  submitRequest(section:string){
-    this.submitted = true
-    if(this.inputForm.invalid){
-      return
-    }else{
+  submitRequest(section: string) {
+    this.submitted = true;
+    if (this.inputForm.invalid) {
+      return;
+    } else {
       this.section = section;
-
     }
   }
 
-
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      issueType:[''],
-      reason:[false],
+      issueType: [''],
+      reason: [false],
       accidentOption: ['miner'],
-      jobType:[''],
-      issue:['',Validators.required],
-      createdBy:['',Validators.required],
-      description:['',Validators.required],
-      file:['']
-    })
+      jobType: [''],
+      issue: ['', Validators.required],
+      createdBy: ['', Validators.required],
+      description: ['', Validators.required],
+      file: ['']
+    });
   }
 }

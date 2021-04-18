@@ -30,13 +30,13 @@
             </button> -->
       <button mat-icon-button (click)="languageBox.toggle($event)">
         <svg-icon src="assets/icons/globe-americas.svg"
-          [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
+          [svgStyle]="{ 'width.em':1.5 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
       </button>
-      <button mat-icon-button (click)="changeTheme()">
-        <svg-icon src="assets/icons/eye.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}">
+      <button mat-icon-button (click)="changeTheme()" class="ml-2 mr-3">
+        <svg-icon src="assets/icons/eye.svg" [svgStyle]="{ 'width.em':1.5 , 'fill': '#fff' , 'height': '100%'}">
         </svg-icon>
       </button>
-      <img [src]="policeLogo" [alt]="policeLogo" />
+      <img [src]="policeLogo" [alt]="policeLogo" class="police-logo"/>
     </span>
   </mat-toolbar>
 </div>

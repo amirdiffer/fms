@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -28,8 +23,7 @@ import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 @Component({
   selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',
-  styleUrls: ['./add-request.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./add-request.component.scss']
 })
 export class AddRequestComponent implements OnInit {
   //#region Dialog
@@ -81,7 +75,6 @@ export class AddRequestComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _bodyShopRequestFacade: BodyShopRequestFacade,
-    private _changeDetector: ChangeDetectorRef,
     private _assetMasterFacade: AssetMasterFacade
   ) {}
 
@@ -105,19 +98,25 @@ export class AddRequestComponent implements OnInit {
           .subscribe((x) => {
             if (x) {
               this._request = x;
+              this.profileDocIds = Array.isArray(x.documentIds)
+                ? x.documentIds
+                : [x.documentIds];
               this.inputForm.patchValue({
                 assetId: {
                   name: x.asset.dpd,
                   id: x.asset.id
                 },
                 hasAccident: x.hasAccident,
-                jobType: x.jobType
+                jobType: x.jobType,
+                priority: x.priority, //'HIGH',
+                accidentType: x.accidentType
               });
-
+              this.changePriority(x.priority);
               this.inputForm.controls['issueInfo'].patchValue({
                 issue: x.request,
                 reportedBy: x.reportedBy,
-                description: x.description
+                description: x.description,
+                gpsMeterSource: x.gpsMeterSource
               });
             }
           });
@@ -137,7 +136,6 @@ export class AddRequestComponent implements OnInit {
           this.dialogSetting.hasError = false;
           this.dialogSetting.confirmButton = 'Yes';
           this.dialogSetting.cancelButton = undefined;
-          this._changeDetector.detectChanges();
         }
       });
 
@@ -150,7 +148,6 @@ export class AddRequestComponent implements OnInit {
           this.errorDialogSetting.hasError = true;
           this.errorDialogSetting.cancelButton = undefined;
           this.errorDialogSetting.confirmButton = 'Ok';
-          this._changeDetector.detectChanges();
         } else {
           this.errorDialogModal = false;
         }

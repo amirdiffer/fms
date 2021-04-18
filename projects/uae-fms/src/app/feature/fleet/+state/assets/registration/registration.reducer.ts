@@ -17,19 +17,27 @@ const registrationReducer = createReducer(
   on(RegistrationActions.allDataLoaded, (state, { data }) =>
     registrationAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+  on(RegistrationActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber: data
+  })),
   on(RegistrationActions.registerAsset, (state, { data }) => ({
     ...state,
     error: null,
     message: null,
     submitted: false
   })),
-  on(RegistrationActions.assetRegisterSuccessfull, (state, { data }) => (
-    registrationAdapter.updateOne({ changes: data, id: data.id }, {
-    ...state,
-    error: null,
-    message: null,
-    submitted: true
-  }))),
+  on(RegistrationActions.assetRegisterSuccessfull, (state, { data }) =>
+    registrationAdapter.updateOne(
+      { changes: data, id: data.id },
+      {
+        ...state,
+        error: null,
+        message: null,
+        submitted: true
+      }
+    )
+  ),
   on(RegistrationActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

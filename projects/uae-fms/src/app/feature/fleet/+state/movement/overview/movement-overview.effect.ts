@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { MovementOverviewActions } from './movement-overview.actions';
 import { MovementOverviewService } from './movement-overview.service';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class MovementOverviewEffect {
@@ -14,8 +15,16 @@ export class MovementOverviewEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            this._tableFacade.initialPaginator(data['resultNumber'], 'movement_overview');
-            return MovementOverviewActions.allDataLoaded({ data:data['message'] });
+            this._tableFacade.initialPaginator(
+              data['resultNumber'],
+              'movement_overview'
+            );
+            this._store.dispatch(
+              MovementOverviewActions.count({ data: data['resultNumber'] })
+            );
+            return MovementOverviewActions.allDataLoaded({
+              data: data['message']
+            });
           }),
           catchError((error) =>
             of(MovementOverviewActions.error({ reason: error }))
@@ -28,6 +37,7 @@ export class MovementOverviewEffect {
   constructor(
     private action$: Actions,
     private service: MovementOverviewService,
-    private _tableFacade: TableFacade
+    private _tableFacade: TableFacade,
+    private _store: Store
   ) {}
 }

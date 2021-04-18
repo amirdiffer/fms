@@ -13,6 +13,11 @@ export class MovementOverviewSelectorsTemporary {
     selectAll
   );
 
+  static count = createSelector(
+    FleetSelectors.movementOverviewSelectorTemporary,
+    (state) => state.resultNumber
+  );
+
   static message = createSelector(
     FleetSelectors.movementRequestsSelectorTemporary,
     (state) => state.message
