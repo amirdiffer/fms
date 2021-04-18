@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { AssetsService } from './assets.service';
 import { ColumnType, TableComponent } from '@core/table';
 import { AssetMasterFacade } from '../+state/assets/asset-master';
@@ -41,10 +36,14 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   sampleImg = 'assets/thumb.png';
   //#region  table
   assetMasterCount$ = this.assetMasterFacade.conut$.pipe(
-    map(x => {return x})
+    map((x) => {
+      return x;
+    })
   );
-  registrationCount$ =this.registrationFacade.conut$.pipe(
-    map(x => {return x})
+  registrationCount$ = this.registrationFacade.conut$.pipe(
+    map((x) => {
+      return x;
+    })
   );
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map((x) => {
@@ -119,12 +118,12 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
     private registrationFacade: RegistrationFacade,
     private customizationFacade: CustomizationFacade,
     private _router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.assetMasterFacade.conut$.subscribe(
-      x=> { console.log(x)}
-    )
+    this.assetMasterFacade.conut$.subscribe((x) => {
+      console.log(x);
+    });
     this.assetMasterTableSetting = {
       columns: [
         {

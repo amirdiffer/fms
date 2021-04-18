@@ -15,9 +15,14 @@ export class SubAssetPolicyEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            this._tableFacade.initialPaginator(data.resultNumber, 'asset-policy_subasset');
-            this._store.dispatch(SubAssetPolicyActions.count({data:data.resultNumber}))
-            return SubAssetPolicyActions.allDataLoaded({ data: data.message })
+            this._tableFacade.initialPaginator(
+              data.resultNumber,
+              'asset-policy_subasset'
+            );
+            this._store.dispatch(
+              SubAssetPolicyActions.count({ data: data.resultNumber })
+            );
+            return SubAssetPolicyActions.allDataLoaded({ data: data.message });
           }),
           catchError((error) =>
             of(SubAssetPolicyActions.error({ reason: error }))
@@ -31,6 +36,6 @@ export class SubAssetPolicyEffect {
     private action$: Actions,
     private service: SubAssetPolicyService,
     private _tableFacade: TableFacade,
-    private _store:Store
+    private _store: Store
   ) {}
 }

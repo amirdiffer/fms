@@ -15,9 +15,18 @@ export class MovementRequestsEffectTemporary {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            this._tableFacade.initialPaginator(data.resultNumber, 'temporary_movement_request');
-            this._store.dispatch(MovementRequestsActionsTemporary.count({data:data.resultNumber}))
-            return MovementRequestsActionsTemporary.allDataLoaded({data: data.message});
+            this._tableFacade.initialPaginator(
+              data.resultNumber,
+              'temporary_movement_request'
+            );
+            this._store.dispatch(
+              MovementRequestsActionsTemporary.count({
+                data: data.resultNumber
+              })
+            );
+            return MovementRequestsActionsTemporary.allDataLoaded({
+              data: data.message
+            });
           }),
           catchError((error) =>
             of(MovementRequestsActionsTemporary.error({ reason: error }))
@@ -33,7 +42,9 @@ export class MovementRequestsEffectTemporary {
       mergeMap((action) =>
         this.service.loadRequestStatistic().pipe(
           map((data) =>
-            MovementRequestsActionsTemporary.statisticRequestLoaded({ data: data.message })
+            MovementRequestsActionsTemporary.statisticRequestLoaded({
+              data: data.message
+            })
           ),
           catchError((error) =>
             of(MovementRequestsActionsTemporary.error({ reason: error }))
@@ -119,6 +130,6 @@ export class MovementRequestsEffectTemporary {
     private action$: Actions,
     private service: MovementRequestsServiceTemporary,
     private _tableFacade: TableFacade,
-    private _store:Store
+    private _store: Store
   ) {}
 }

@@ -7,7 +7,7 @@ export interface IServiceShopLocationState extends EntityState<ILocation> {
   loaded: boolean;
   message: string;
   submitted: boolean;
-  resultNumber?:number;
+  resultNumber?: number;
 }
 export interface IServiceShopLocationPartialState {
   [WORKSHOP_SERVICESHOP_LOCATION_FEATURE_KEY]: IServiceShopLocationState;
@@ -22,6 +22,6 @@ export const initialState: IServiceShopLocationState = serviceShopLocationAdapte
     message: null,
     error: null,
     submitted: false,
-    resultNumber:0
+    resultNumber: 0
   } as IServiceShopLocationState
 );

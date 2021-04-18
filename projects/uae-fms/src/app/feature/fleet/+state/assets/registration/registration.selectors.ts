@@ -16,5 +16,4 @@ export class RegistrationSelectors {
     FleetSelectors.registrationSelector,
     (state) => state.resultNumber
   );
-  
 }

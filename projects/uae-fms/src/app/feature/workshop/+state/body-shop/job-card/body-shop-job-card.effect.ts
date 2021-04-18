@@ -13,7 +13,7 @@ export class BodyShopJobCardEffect {
     private action$: Actions,
     private service: BodyShopJobCardService,
     private _tableFacade: TableFacade,
-    private _store:Store
+    private _store: Store
   ) {}
 
   loadAll$ = createEffect(() =>
@@ -22,8 +22,13 @@ export class BodyShopJobCardEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            this._tableFacade.initialPaginator(data.resultNumber, 'body-shop_jobcard');
-            this._store.dispatch(BodyShopJobCardActions.count({data:data.resultNumber}))
+            this._tableFacade.initialPaginator(
+              data.resultNumber,
+              'body-shop_jobcard'
+            );
+            this._store.dispatch(
+              BodyShopJobCardActions.count({ data: data.resultNumber })
+            );
 
             return BodyShopJobCardActions.allDataLoaded({ data: data.message });
           }),

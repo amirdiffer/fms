@@ -24,7 +24,7 @@ const bodyShopTechnicianReducer = createReducer(
 
   on(BodyShopTechnicianActions.count, (state, { data }) => ({
     ...state,
-    resultNumber:data
+    resultNumber: data
   })),
   on(
     BodyShopTechnicianActions.addTechnician,

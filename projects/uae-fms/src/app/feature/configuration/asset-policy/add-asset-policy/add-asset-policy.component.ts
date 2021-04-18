@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Injector,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -15,7 +10,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { RouterFacade } from '@core/router';
 import { TableSetting } from '@core/table';
-import { AssetPolicyFacade, SubAssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
+import {
+  AssetPolicyFacade,
+  SubAssetPolicyFacade
+} from '@feature/configuration/+state/asset-policy';
 import { Utility } from '@shared/utility/utility';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -97,8 +95,7 @@ export class AddAssetPolicyComponent
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {
-      },
+      onClick: (col, data, button?) => {},
       floatButton: [
         {
           onClick: (col, data) => {
@@ -187,34 +184,38 @@ export class AddAssetPolicyComponent
   ngOnInit(): void {
     // this.assetPolicyFacade.loadAll();
 
-    this.assetPolicyForm = this._fb.group({
-      policyType: ['ASSET', [Validators.required]],
-      policyName: ['', [Validators.required]],
-      kilometerUsage: [null],
-      yearUsage: [null],
-      depreciationValue: ['', [Validators.required]],
-      reminder: [false]
-    }, {
-      validators: (AC: AbstractControl) => {
-        if (!AC.get('kilometerUsage').value && !AC.get('yearUsage').value) {
-          AC.get('kilometerUsage').setErrors({ required: true });
-          AC.get('yearUsage').setErrors({ required: true });
-        } else {
-          AC.get('kilometerUsage').setErrors(null);
-          AC.get('yearUsage').setErrors(null);
+
+    this.assetPolicyForm = this._fb.group(
+      {
+        policyType: ['ASSET', [Validators.required]],
+        policyName: ['', [Validators.required]],
+        kilometerUsage: [null],
+        yearUsage: [null],
+        depreciationValue: ['', [Validators.required]],
+        reminder: [false]
+      },
+      {
+        validators: (AC: AbstractControl) => {
+          if (!AC.get('kilometerUsage').value && !AC.get('yearUsage').value) {
+            AC.get('kilometerUsage').setErrors({ required: true });
+            AC.get('yearUsage').setErrors({ required: true });
+          } else {
+            AC.get('kilometerUsage').setErrors(null);
+            AC.get('yearUsage').setErrors(null);
+          }
         }
       }
-    });
+    );
     switch (this._activatedRoute.snapshot.queryParams.type) {
       case 'asset':
         this.assetPolicyForm.patchValue({
-          policyType:'ASSET'
-        })
+          policyType: 'ASSET'
+        });
         break;
       case 'sub_asset':
         this.assetPolicyForm.patchValue({
-          policyType:'SUB_ASSET'
-        })
+          policyType: 'SUB_ASSET'
+        });
         break;
       default:
         break;
@@ -232,12 +233,14 @@ export class AddAssetPolicyComponent
         this.assetPolicyFacade.getById(this.id).subscribe((assetPolicy) => {
           if (assetPolicy) {
             this.loadAssetPolicyForm(assetPolicy);
-          }else{
-            this._subAssetPolicyFacade.getById(this.id).subscribe((sub_assetPolicy) => {
-              if (sub_assetPolicy) {
-                this.loadAssetPolicyForm(sub_assetPolicy);
-              }
-            });
+          } else {
+            this._subAssetPolicyFacade
+              .getById(this.id)
+              .subscribe((sub_assetPolicy) => {
+                if (sub_assetPolicy) {
+                  this.loadAssetPolicyForm(sub_assetPolicy);
+                }
+              });
           }
         });
       }
@@ -259,7 +262,7 @@ export class AddAssetPolicyComponent
       }
     });
 
-    this.assetPolicyFacade.error$.subscribe(x => {
+    this.assetPolicyFacade.error$.subscribe((x) => {
       if (x) {
         this.dialogModalError = true;
         this.dialogSettingError.hasError = true;
@@ -274,17 +277,15 @@ export class AddAssetPolicyComponent
     this.assetPolicyForm.markAllAsTouched();
     if (this.assetPolicyForm.invalid) return;
 
-    const data = this.getAssetPolicyRequestPayload(
-      this.assetPolicyForm.value
-    );
+    const data = this.getAssetPolicyRequestPayload(this.assetPolicyForm.value);
     const _data = {
       type: data.type,
       name: data.name,
       maxUsageKmPHour: data.maxUsageKPHour ? data.maxUsageKPHour : 0,
       maxUsageYear: data.maxUsageYear ? data.maxUsageYear : 0,
       depreciationValue: data.depreciationValue,
-      setReminderBefore: data.reminder,
-    }
+      setReminderBefore: data.reminder
+    };
 
     if (!this.isEdit) {
       this.assetPolicyFacade.addAssetPolicy(_data);
@@ -292,7 +293,7 @@ export class AddAssetPolicyComponent
       const data = {
         id: this.id,
         ..._data
-      }
+      };
 
       this.assetPolicyFacade.updateAssetPolicy(data);
     }
@@ -304,17 +305,35 @@ export class AddAssetPolicyComponent
   }
   dialogCancelConfirm(value) {
     if (value === true) {
-      this._router.navigate(['configuration/asset-policy'],{queryParams:{id:(this.assetPolicyForm.get('policyType').value == 'ASSET'?'assetPolicyAssetTab':'assetPolicySubAssetTab')}}).then(_ => {
-        this.assetPolicyFacade.reset();
-      });
+      this._router
+        .navigate(['configuration/asset-policy'], {
+          queryParams: {
+            id:
+              this.assetPolicyForm.get('policyType').value == 'ASSET'
+                ? 'assetPolicyAssetTab'
+                : 'assetPolicySubAssetTab'
+          }
+        })
+        .then((_) => {
+          this.assetPolicyFacade.reset();
+        });
     }
     this.dialogModalCancel = false;
   }
   dialogAddOrUpdateConfirm(value) {
     if (value === true) {
-      this._router.navigate(['configuration/asset-policy'],{queryParams:{id:(this.assetPolicyForm.get('policyType').value == 'ASSET'?'assetPolicyAssetTab':'assetPolicySubAssetTab')}}).then(_ => {
-        this.assetPolicyFacade.reset();
-      });
+      this._router
+        .navigate(['configuration/asset-policy'], {
+          queryParams: {
+            id:
+              this.assetPolicyForm.get('policyType').value == 'ASSET'
+                ? 'assetPolicyAssetTab'
+                : 'assetPolicySubAssetTab'
+          }
+        })
+        .then((_) => {
+          this.assetPolicyFacade.reset();
+        });
     }
     this.dialogModalAddOrUpdate = false;
   }

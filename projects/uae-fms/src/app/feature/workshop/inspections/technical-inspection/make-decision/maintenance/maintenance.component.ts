@@ -1,11 +1,7 @@
 import { Utility } from './../../../../../../shared/utility/utility';
 import { Output, Injector } from '@angular/core';
 import { Input } from '@angular/core';
-import {
-  Component,
-  OnInit,
-  EventEmitter
-} from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   FileSystemDirectoryEntry,

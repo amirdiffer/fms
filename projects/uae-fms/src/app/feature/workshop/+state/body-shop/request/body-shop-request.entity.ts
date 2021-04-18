@@ -9,17 +9,19 @@ export interface BodyShopRequestState extends EntityState<IRequest> {
   loaded: boolean;
   statistics?: IBodyShopRequestStatistics;
   message: string;
-  requests?: Array<any>
+  requests?: Array<any>;
   submitted: boolean;
-  assetRequest?:IRequestListSpecificAsset[];
-  resultNumber?:number
+  assetRequest?: IRequestListSpecificAsset[];
+  resultNumber?: number;
 }
 
 export interface BodyshopRequestPartialState {
   [WORKSHOP_BODYSHOP_REQUEST_FEATURE_KEY]: BodyShopRequestState;
 }
 
-export const bodyShopRequestAdapter: EntityAdapter<any> = createEntityAdapter<any>();
+export const bodyShopRequestAdapter: EntityAdapter<any> = createEntityAdapter<
+  any
+>();
 
 export const initialState: BodyShopRequestState = bodyShopRequestAdapter.getInitialState(
   {
@@ -29,7 +31,7 @@ export const initialState: BodyShopRequestState = bodyShopRequestAdapter.getInit
     statistics: null,
     requests: [],
     submitted: false,
-    assetRequest:[],
-    resultNumber:0
+    assetRequest: [],
+    resultNumber: 0
   } as BodyShopRequestState
 );

@@ -2,7 +2,8 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Injector, OnDestroy,
+  Injector,
+  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild
@@ -79,7 +80,6 @@ export class AddModelComponent
   }
 
   ngOnInit(): void {
-
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
       models: new FormArray([this.createModel()])
@@ -118,13 +118,11 @@ export class AddModelComponent
       });
     });
 
-
     if (!this.dataService.selectedMakeId) {
       this.router
         .navigate(['/configuration/asset-configuration'])
         .then((_) => this.facade.resetParams());
     }
-
 
     this.facade.submitted$.subscribe((x) => {
       if (x) {
@@ -185,22 +183,21 @@ export class AddModelComponent
     this.models.removeAt(index);
   }
 
-  ngAfterViewInit() {
-  }
+  ngAfterViewInit() {}
 
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => { });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
     }
   }
 
-  public fileOver(event) { }
+  public fileOver(event) {}
 
   public fileLeave(event) {
     event;
@@ -262,21 +259,20 @@ export class AddModelComponent
         type = 'ASSET';
     }
 
-    const models = this.inputForm.value.models
+    const models = this.inputForm.value.models;
 
     let data = models.map((x) => {
       if (x.id) {
         return {
           id: x.id,
           model: x.model,
-          modelDescription: x.modelDescription,
-        }
-      }
-      else
+          modelDescription: x.modelDescription
+        };
+      } else
         return {
           model: x.model,
-          modelDescription: x.modelDescription,
-        }
+          modelDescription: x.modelDescription
+        };
     });
 
     this.facade.addModel(data, this.assetTypeId, this.makeId);
@@ -286,5 +282,4 @@ export class AddModelComponent
   ngOnDestroy(): void {
     this.assetTypeSubs$.unsubscribe();
   }
-
 }

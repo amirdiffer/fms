@@ -13,7 +13,6 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./fleet-status.component.scss']
 })
 export class FleetStatusComponent implements OnInit {
-
   //#region Table
   tableSetting: TableSetting = {
     columns: [
@@ -48,7 +47,7 @@ export class FleetStatusComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
-      onClick: (event) => { },
+      onClick: (event) => {},
       floatButton: [
         {
           button: 'edit',
@@ -95,7 +94,7 @@ export class FleetStatusComponent implements OnInit {
     private fleetStatusAssetFacade: FleetStatusAssetFacade,
     private fleetStatusSubAssetFacade: FleetStatusSubAssetFacade,
     private _router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.fleetStatusAssetFacade.loadAll();
@@ -120,5 +119,4 @@ export class FleetStatusComponent implements OnInit {
   eventPagination() {
     this.fleetStatusAssetFacade.loadAll();
   }
-
 }

@@ -1,8 +1,4 @@
-import {
-  Component,
-  Injector,
-  OnInit
-} from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { ButtonType } from '@core/table/table.component';
@@ -166,7 +162,7 @@ export class AddOrganizationComponent extends Utility implements OnInit {
       }
     });
 
-    this.route.params.subscribe(z => {
+    this.route.params.subscribe((z) => {
       if (!z?.id) return;
       this.isEdit = true;
       this.organizationService.searchDepartment(z.id).subscribe((x: any) => {
@@ -176,35 +172,33 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         let f = this.organizationForm.get('tags') as FormArray;
         f.controls = [this.createTagField()];
         res.tags.forEach((a, i) => {
-          f.controls.push(this.createTagField())
-        })
+          f.controls.push(this.createTagField());
+        });
 
         let g = this.organizationForm.get('section') as FormArray;
-        g.controls = []
+        g.controls = [];
         res.departments.forEach((a, i) => {
           g.controls.push(this.createSection());
           const l = g.controls[i].get('locations') as FormArray;
           l.controls = [];
           a.locationAddresses.forEach((b, j) => {
             l.controls.push(this.createSectionLocation());
-          })
+          });
 
           this.organizationForm.patchValue({
             departmentId: res.organizationNumber,
             departmentName: res.organizationName,
-            tags: res.tags.map(a => ({ tag: a })),
-            section: res.departments.map(a => ({
+            tags: res.tags.map((a) => ({ tag: a })),
+            section: res.departments.map((a) => ({
               sectionName: a.name,
-              locations: a.locationAddresses.map(b => ({ location: b }))
+              locations: a.locationAddresses.map((b) => ({ location: b }))
             }))
-          })
+          });
 
           this.organizationNumber = res.organizationNumber;
-        })
-
-
-      })
-    })
+        });
+      });
+    });
   }
 
   createTagField(): FormGroup {
@@ -251,7 +245,7 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     this.organizationNumber = +event.query;
     this.departmentList.next(event);
   }
-  organizationIDChanged($event) { }
+  organizationIDChanged($event) {}
 
   dialogConfirm(event) {
     this.dialogModal = false;

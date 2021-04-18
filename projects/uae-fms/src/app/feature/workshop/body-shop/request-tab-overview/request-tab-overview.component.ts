@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnType } from '@core/table';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { BodyShopRequestFacade } from '@feature/workshop/+state/body-shop';
@@ -19,8 +19,9 @@ export class RequestTabOverviewComponent implements OnInit {
     private _facadeRequest: BodyShopRequestFacade,
     private _activatedRoute: ActivatedRoute,
     private _assetMasterFacade: AssetMasterFacade,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   vehicle = {
     id: 1,
@@ -119,61 +120,31 @@ export class RequestTabOverviewComponent implements OnInit {
         field: 'attachment',
         type: ColumnType.lable,
         thumbField: '',
-        renderer: 'downloadButtonRenderer',
+        renderer: 'downloadButtonRenderer'
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
-    data: [
-      {
-        issue: { checkbox: false, label: 'Oil Leaking' },
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: 'Download'
-      },
-      {
-        issue: { checkbox: false, label: 'Oil Leaking' },
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: 'Download'
-      },
-      {
-        issue: { checkbox: true, label: 'Oil Leaking' },
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: 'Download'
-      },
-      {
-        issue: { checkbox: false, label: 'Oil Leaking' },
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: 'Download'
-      },
-      {
-        issue: { checkbox: true, label: 'Oil Leaking' },
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: 'Download'
-      },
-      {
-        issue: { checkbox: false, label: 'Oil Leaking' },
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: 'Download'
-      }
-    ],
+    data: [],
     rowSettings: {
-      floatButton: []
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this._facadeRequest.resetParams();
+            this.router.navigate([
+              '/workshop/body-shop/edit-request/' + data.id
+            ]);
+          }
+        }
+      ]
     }
   };
 
@@ -183,20 +154,20 @@ export class RequestTabOverviewComponent implements OnInit {
     this.assetId = this._activatedRoute.snapshot.params.id;
     this.tableData$ = this._facadeRequest.assetRequest$.pipe(
       map((x) => {
-        return x.map(y => {
+        return x.map((y) => {
           let jobType;
           switch (y.jobType) {
             case 'TECHNICAL_REPORT':
-              jobType = 'Technical Report'
+              jobType = 'Technical Report';
               break;
             case 'NORMAL':
-              jobType = 'Normal'
+              jobType = 'Normal';
               break;
             case 'INSTALLATION':
-              jobType = 'Installation'
+              jobType = 'Installation';
               break;
             default:
-              jobType = y.jobType
+              jobType = y.jobType;
               break;
           }
           return {
@@ -204,19 +175,18 @@ export class RequestTabOverviewComponent implements OnInit {
             date: moment.utc(y.updatedAt).local().format('DD-MM-YYYY'),
             requestType: jobType,
             attachment: y.documentIds,
-            statusColor: '#6870B4',
-          }
-        })
+            statusColor: '#6870B4'
+          };
+        });
       })
-    )
-    this._facadeRequest.assetRequest$.subscribe(x => {
+    );
+    this._facadeRequest.assetRequest$.subscribe((x) => {
       if (x.length < 1) {
-        this._facadeRequest.getAssetRequest(this.assetId)
+        this._facadeRequest.getAssetRequest(this.assetId);
       }
-    })
-    this.route.params.subscribe(x => {
-      if (x?.id)
-        this._assetMasterFacade.getAssetByID(x.id)
+    });
+    this.route.params.subscribe((x) => {
+      if (x?.id) this._assetMasterFacade.getAssetByID(x.id);
     });
   }
 }

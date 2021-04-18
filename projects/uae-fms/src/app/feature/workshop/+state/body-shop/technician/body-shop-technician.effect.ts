@@ -13,7 +13,7 @@ export class BodyShopTechnicianEffect {
     private action$: Actions,
     private service: BodyShopTechnicianService,
     private _tableFacade: TableFacade,
-    private _store: Store,
+    private _store: Store
   ) {}
 
   loadAll$ = createEffect(() =>
@@ -22,8 +22,13 @@ export class BodyShopTechnicianEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            this._tableFacade.initialPaginator(data.resultNumber, 'body-shop_technician');
-            this._store.dispatch(BodyShopTechnicianActions.count({data:data.resultNumber}))
+            this._tableFacade.initialPaginator(
+              data.resultNumber,
+              'body-shop_technician'
+            );
+            this._store.dispatch(
+              BodyShopTechnicianActions.count({ data: data.resultNumber })
+            );
             return BodyShopTechnicianActions.allDataLoaded({
               data: data.message
             });

@@ -24,14 +24,14 @@ import { AccessoryOverviewComponent } from './accessory/accessory-overview/acces
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
-  { path: 'sub-asset/edit-sub-asset', component: AddSubAssetComponent },
+  { path: 'sub-asset/edit-sub-asset/:id', component: AddSubAssetComponent },
   { path: 'department', component: OrganizationComponent },
   {
     path: 'accessory/accessory-overview',
     component: AccessoryOverviewComponent
   },
   { path: 'accessory/add-new-accessory', component: AddAccessoryComponent },
-  { path: 'accessory/edit-accessory', component: AddAccessoryComponent },
+  { path: 'accessory/edit-accessory/:id', component: AddAccessoryComponent },
   { path: 'accessory', component: AccessoryComponent },
   { path: 'sub-asset', component: SubAssetComponent },
   { path: 'movement', redirectTo: 'movement/permanent' },

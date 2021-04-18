@@ -9,8 +9,10 @@ export class Utility {
     this.router = injector.get(Router);
     this.route = injector.get(ActivatedRoute);
   }
-  goToList() {
-    this.router.navigate(['../'], { relativeTo: this.route });
+  goToList(redirect?: string) {
+    if (!redirect)
+      this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate([redirect]);
   }
 
   hasError(

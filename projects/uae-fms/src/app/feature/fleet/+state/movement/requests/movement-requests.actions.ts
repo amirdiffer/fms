@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IMovementRequest } from '@models/movement'
+import { IMovementRequest } from '@models/movement';
 import { IMovementStatistics } from '@models/statistics';
 
 export class MovementRequestsActions {
@@ -19,7 +19,9 @@ export class MovementRequestsActions {
     props<{ reason: any }>()
   );
 
-  static loadStatistic = createAction('[MovementRequests] load all StatisticRequest');
+  static loadStatistic = createAction(
+    '[MovementRequests] load all StatisticRequest'
+  );
 
   static statisticRequestLoaded = createAction(
     '[MovementRequests] all StatisticRequest data are loaded',
@@ -55,10 +57,9 @@ export class MovementRequestsActions {
     props<{ data: any }>()
   );
 
-
   static assign = createAction(
     '[MovementRequests] assign Request',
-    props<{ id: any, data: any }>()
+    props<{ id: any; data: any }>()
   );
 
   static assignSuccessfully = createAction(
@@ -66,9 +67,5 @@ export class MovementRequestsActions {
     props<{ data: any }>()
   );
 
-  static reset = createAction(
-    '[MovementRequests] reset params'
-  );
-
-
+  static reset = createAction('[MovementRequests] reset params');
 }

@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges
-} from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'anms-asset-detail',
@@ -38,7 +33,7 @@ export class AssetCarDetailComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.asset)
+    console.log(this.asset);
   }
   ngOnChanges() {
     // console.log(this.asset)

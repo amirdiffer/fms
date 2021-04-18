@@ -9,7 +9,12 @@ import { Store } from '@ngrx/store';
 
 @Injectable()
 export class AssetMasterEffects {
-  constructor(private action$: Actions, private service: AssetMasterService, private _tableFacade: TableFacade , private _store:Store) {}
+  constructor(
+    private action$: Actions,
+    private service: AssetMasterService,
+    private _tableFacade: TableFacade,
+    private _store: Store
+  ) {}
 
   loadAll$ = createEffect(() =>
     this.action$.pipe(
@@ -17,8 +22,13 @@ export class AssetMasterEffects {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            this._tableFacade.initialPaginator(data.resultNumber, 'asset_asset-master');
-            this._store.dispatch(AssetMasterActions.count({data:data.resultNumber}))
+            this._tableFacade.initialPaginator(
+              data.resultNumber,
+              'asset_asset-master'
+            );
+            this._store.dispatch(
+              AssetMasterActions.count({ data: data.resultNumber })
+            );
             return AssetMasterActions.allDataLoaded({ data: data.message });
           }),
           catchError((error) => of(AssetMasterActions.error({ reason: error })))
@@ -45,7 +55,9 @@ export class AssetMasterEffects {
       mergeMap((action) =>
         this.service.addAsset(action.data).pipe(
           map((data) =>
-            AssetMasterActions.assetAddedSuccessfully({ data: { ...action.data, ...data.message } })
+            AssetMasterActions.assetAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
           ),
           catchError((error) => of(AssetMasterActions.error({ reason: error })))
         )
@@ -74,12 +86,9 @@ export class AssetMasterEffects {
           map((data) => {
             return AssetMasterActions.assetByIdLoaded({ data: data.message });
           }),
-          catchError((error) =>
-            of(AssetMasterActions.error({ reason: error }))
-          )
+          catchError((error) => of(AssetMasterActions.error({ reason: error })))
         )
       )
     )
   );
-
 }

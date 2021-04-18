@@ -1,5 +1,15 @@
-import { AfterContentInit, Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
+import {
+  AfterContentInit,
+  Component,
+  Injector,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
+import {
+  FileSystemDirectoryEntry,
+  FileSystemFileEntry,
+  NgxFileDropEntry
+} from 'ngx-file-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounceTime, map } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
@@ -55,28 +65,28 @@ export class AddUserComponent
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
 
@@ -132,12 +142,14 @@ export class AddUserComponent
   ngOnInit(): void {
     this.roleFacade.loadAll();
     this._orgfacade.loadAll();
-    this.departmentSubscription = this._orgfacade.organization$.subscribe(x => {
-      this.departmentsB = x.map((y) => ({
-        id: y.id,
-        name: y['organizationName']
-      }));
-    })
+    this.departmentSubscription = this._orgfacade.organization$.subscribe(
+      (x) => {
+        this.departmentsB = x.map((y) => ({
+          id: y.id,
+          name: y['organizationName']
+        }));
+      }
+    );
     this.buildForm();
 
     this.route.url.subscribe((params) => {
@@ -149,7 +161,7 @@ export class AddUserComponent
         this.userService
           .getUserById(params[params.length - 1].path)
           .pipe(map((x) => x.message))
-          .subscribe((x:any) => {
+          .subscribe((x: any) => {
             if (x) {
               this.profileDocId = x.profileDocId ? x.profileDocId : null;
               this._user = x;
@@ -165,32 +177,30 @@ export class AddUserComponent
                 activeEmployee: x.isActive
               });
 
-              this.roleFacade.loaded$.subscribe(z => {
+              this.roleFacade.loaded$.subscribe((z) => {
                 if (z)
-                  this.roles$.subscribe(a => {
+                  this.roles$.subscribe((a) => {
                     this.form.controls['portalInformation'].patchValue({
                       ...this.form.controls['portalInformation'].value,
-                      roleId: a.find(y => y.id == x.roles[0].roleId)
-                    })
-                  })
-              })
+                      roleId: a.find((y) => y.id == x.roles[0].roleId)
+                    });
+                  });
+              });
 
               this.emails.controls = [];
               this.emails.controls = [];
               for (let i = 0; i < x.emails.length; i++) {
-                this.emails.controls.push(
-                  this.createEmailField()
-                );
+                this.emails.controls.push(this.createEmailField());
               }
-              this.emails.patchValue(x.emails.map(y => ({ email: y })))
+              this.emails.patchValue(x.emails.map((y) => ({ email: y })));
 
               this.phoneNumbers.controls = [];
               for (let i = 0; i < x.phoneNumbers.length; i++) {
-                this.phoneNumbers.controls.push(
-                  this.createPhoneField()
-                )
+                this.phoneNumbers.controls.push(this.createPhoneField());
               }
-              this.phoneNumbers.patchValue(x.phoneNumbers.map(y => ({ phoneNumber: y })))
+              this.phoneNumbers.patchValue(
+                x.phoneNumbers.map((y) => ({ phoneNumber: y }))
+              );
 
               this.form.controls['personalInformation'].patchValue({
                 firstName: x.firstName,
@@ -240,8 +250,9 @@ export class AddUserComponent
 
     this.userFacade.error$.subscribe((x) => {
       if (x) {
-        if (x?.error?.error && x.error.message) this.errorDialogSetting.message = x.error.message;
-        else this.errorDialogSetting.message = "Error occurred in progress";
+        if (x?.error?.error && x.error.message)
+          this.errorDialogSetting.message = x.error.message;
+        else this.errorDialogSetting.message = 'Error occurred in progress';
 
         this.errorDialogModal = true;
         this.errorDialogSetting.header = this.isEdit
@@ -347,7 +358,9 @@ export class AddUserComponent
             else return x.email[0];
           } else if (typeof x == 'object') return x[0];
         }),
-        phoneNumbers: Array.isArray(this.getPhone(f)) ? (<Array<string>>this.getPhone(f)).filter(x => x != '') : this.getPhone(f),
+        phoneNumbers: Array.isArray(this.getPhone(f))
+          ? (<Array<string>>this.getPhone(f)).filter((x) => x != '')
+          : this.getPhone(f),
         notifyByCall: f.personalInformation.callCheckbox,
         notifyBySMS: f.personalInformation.smsCheckbox,
         notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
@@ -541,7 +554,7 @@ export class AddUserComponent
         if (
           typeof f.personalInformation.phoneNumbers[0] == 'object' &&
           typeof f.personalInformation.phoneNumbers[0].phoneNumber ==
-          'string' &&
+            'string' &&
           f.personalInformation.phoneNumbers[0].phoneNumber.length < 5
         )
           return [];

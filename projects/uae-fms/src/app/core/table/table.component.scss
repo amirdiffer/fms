@@ -106,11 +106,12 @@
     margin: 0 1em;
     select {
       margin: 0 1em;
-      padding: 0.3em 1.5em 0.3em 0.8em;
+      padding: 4px 25px 4px 9px;
       border: 1px solid #bbb;
       border-radius: 5px;
       -webkit-appearance: none;
-      background: url(../../../assets/icons/arrow-left.png) no-repeat right 0.3em top 50%;
+      background: url(../../../assets/icons/arrow-left.png) no-repeat right
+        0.3em top 50%;
       background-size: 20px;
       cursor: pointer;
     }

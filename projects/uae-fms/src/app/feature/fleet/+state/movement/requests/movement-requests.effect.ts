@@ -9,18 +9,26 @@ import { Store } from '@ngrx/store';
 
 @Injectable()
 export class MovementRequestsEffect {
-
   loadAll$ = createEffect(() =>
     this.action$.pipe(
       ofType(MovementRequestsActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            this._tableFacade.initialPaginator(data.resultNumber, 'movement_request');
-            this._store.dispatch(MovementRequestsActions.count({data:data.resultNumber}))
-            return MovementRequestsActions.allDataLoaded({ data: data.message });
+            this._tableFacade.initialPaginator(
+              data.resultNumber,
+              'movement_request'
+            );
+            this._store.dispatch(
+              MovementRequestsActions.count({ data: data.resultNumber })
+            );
+            return MovementRequestsActions.allDataLoaded({
+              data: data.message
+            });
           }),
-          catchError((error) => of(MovementRequestsActions.error({ reason: error })))
+          catchError((error) =>
+            of(MovementRequestsActions.error({ reason: error }))
+          )
         )
       )
     )
@@ -31,7 +39,11 @@ export class MovementRequestsEffect {
       ofType(MovementRequestsActions.loadStatistic),
       mergeMap((action) =>
         this.service.loadRequestStatistic().pipe(
-          map((data) => MovementRequestsActions.statisticRequestLoaded({ data: data.message })),
+          map((data) =>
+            MovementRequestsActions.statisticRequestLoaded({
+              data: data.message
+            })
+          ),
           catchError((error) =>
             of(MovementRequestsActions.error({ reason: error }))
           )
@@ -46,9 +58,13 @@ export class MovementRequestsEffect {
       mergeMap((action) =>
         this.service.addMovementRequest(action.data).pipe(
           map((data) =>
-            MovementRequestsActions.movementRequestAddedSuccessfully({ data: { ...action.data, ...data.message } })
+            MovementRequestsActions.movementRequestAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
           ),
-          catchError((error) => of(MovementRequestsActions.error({ reason: error })))
+          catchError((error) =>
+            of(MovementRequestsActions.error({ reason: error }))
+          )
         )
       )
     )
@@ -60,9 +76,13 @@ export class MovementRequestsEffect {
       mergeMap((action) =>
         this.service.editMovementRequest(action.data).pipe(
           map((data) =>
-            MovementRequestsActions.movementRequestEditedSuccessfully({ data: data.message })
+            MovementRequestsActions.movementRequestEditedSuccessfully({
+              data: data.message
+            })
           ),
-          catchError((error) => of(MovementRequestsActions.error({ reason: error })))
+          catchError((error) =>
+            of(MovementRequestsActions.error({ reason: error }))
+          )
         )
       )
     )
@@ -73,31 +93,37 @@ export class MovementRequestsEffect {
       ofType(MovementRequestsActions.reject),
       mergeMap((action) =>
         this.service.rejectRequest(action.data).pipe(
-          map((data) => MovementRequestsActions.rejectSuccessfully({ data: data.message })),
-          catchError((error) => of(MovementRequestsActions.error({ reason: error })))
+          map((data) =>
+            MovementRequestsActions.rejectSuccessfully({ data: data.message })
+          ),
+          catchError((error) =>
+            of(MovementRequestsActions.error({ reason: error }))
+          )
         )
       )
     )
   );
-
 
   assign$ = createEffect(() =>
     this.action$.pipe(
       ofType(MovementRequestsActions.assign),
       mergeMap((action) =>
         this.service.assignRequest(action.id, action.data).pipe(
-          map((data) => MovementRequestsActions.assignSuccessfully({ data: data.message })),
-          catchError((error) => of(MovementRequestsActions.error({ reason: error })))
+          map((data) =>
+            MovementRequestsActions.assignSuccessfully({ data: data.message })
+          ),
+          catchError((error) =>
+            of(MovementRequestsActions.error({ reason: error }))
+          )
         )
       )
     )
   );
 
-
   constructor(
     private action$: Actions,
     private service: MovementRequestsService,
     private _tableFacade: TableFacade,
-    private _store:Store
+    private _store: Store
   ) {}
 }

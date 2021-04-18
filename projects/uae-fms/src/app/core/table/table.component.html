@@ -125,7 +125,7 @@
   <ng-template [ngIf]="pagination && showPagination">
     <div class="paginator">
       <div class="show-entries">
-        <span>Show</span>
+        <span>{{ 'tables.pagination.show' | translate }}</span>
         <select [(ngModel)]="ipp" (change)="paginationEvent('rowCount')">
           <option [ngValue]="5">5</option>
           <option [ngValue]="10">10</option>
@@ -133,11 +133,11 @@
           <option [ngValue]="50">50</option>
           <option [ngValue]="100">100</option>
         </select>
-        <span>Entries</span>
+        <span>{{ 'tables.pagination.entries' | translate }}</span>
       </div>
       <div class="pagination">
         <div class="pagination-caption">
-          <p>{{ trackingShowRow() }} of {{count}}</p>
+          <p>{{ trackingShowRow() }} {{ 'tables.pagination.of' | translate }} {{count}}</p>
         </div>
         <div class="pagination-action">
           <span class="pagination-action__previous" (click)="paginationEvent('previous')">

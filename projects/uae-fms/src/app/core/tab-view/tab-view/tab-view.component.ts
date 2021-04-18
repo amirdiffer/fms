@@ -7,20 +7,22 @@ import {
   EventEmitter,
   Input,
   Renderer2,
-  OnDestroy, AfterViewInit
+  OnDestroy,
+  AfterViewInit
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import {Subscription } from 'rxjs';
 @Component({
   selector: 'app-tab-view',
   templateUrl: './tab-view.component.html',
-  styleUrls: ['./tab-view.component.scss'],
+  styleUrls: ['./tab-view.component.scss']
 })
 export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input('selectedTab') selectedTab: number = 0;
   @Input('returnId') returnId: string = 'title';
   @Input() index?: boolean = true;
   @Input() container?: boolean = false;
+  @Input() count = null
   @Output('selectedIndex') selectedIndex: EventEmitter<
     string
   > = new EventEmitter<string>();
@@ -32,13 +34,16 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   // selectedTab: number = 0;
   selectedParams;
   routeObsvr$: Subscription;
+
   constructor(
     private _router: Router,
     private _activateRoute: ActivatedRoute,
-    private _renderer: Renderer2
+    private _renderer: Renderer2,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.count)
+  }
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -51,11 +56,12 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
             index: i,
             title: this.elements[i].attributes.getNamedItem('title').nodeValue,
             id: tabID ? tabID.nodeValue : null,
-            count: this.index
-              ? this.elements[i].attributes.getNamedItem('count') != null
-                ? this.elements[i].attributes.getNamedItem('count').nodeValue
-                : null
-              : null
+            // count: this.index
+            //   ? this.elements[i].attributes.getNamedItem('count') != null
+            //     ? this.elements[i].attributes.getNamedItem('count').nodeValue
+            //     : null
+            //   : null
+            count: this.count ? this.count[i] : null
           });
         }
       }
@@ -71,22 +77,9 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
           this.selectedIndex.emit(
             this.returnId == 'title' ? this.selectedParams : this.selectedTab
           );
-
       });
     }, 0);
 
-  }
-  ngAfterViewChecked(){
-    setTimeout(() => {
-      if (this.elements.length > 0) {
-        for (let i = 0; i < this.elements.length; i++) {
-          let countAttr = this.elements[i].attributes.getNamedItem('count');
-          if (countAttr) {
-            this.tabs[i].count = +countAttr.nodeValue
-          }
-        }
-      }
-    }, 0);
   }
   selectedTabChanged() {
     for (let i = 0; i < this.elements.length; i++) {
