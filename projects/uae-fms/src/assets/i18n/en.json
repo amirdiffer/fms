@@ -513,6 +513,11 @@
       "view_report": "View Report",
       "next": "Next",
       "prev": "Prev"
+    },
+    "pagination": {
+      "show": "Show",
+      "entries": "Entries",
+      "of": "of"
     }
   },
   "dashboard": {
