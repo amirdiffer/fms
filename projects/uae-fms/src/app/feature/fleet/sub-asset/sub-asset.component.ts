@@ -30,7 +30,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   downloadBtn = 'assets/icons/download-solid.svg';
   #endRegionVariables
 
-  #startRegionFilter
+  //#region filter
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
@@ -57,9 +57,10 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       onActive(index: number) {}
     }
   ];
-  #endRegionFilter
+  //#endregion
 
-  #startRegionTable
+
+  //#region Table
   data$ = this.facade.subAsset$.pipe(
     map((x) => {
       return x.map((y) => {
@@ -133,7 +134,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       ]
     }
   };
-  #endRegionTable
+  //#endregion
 
   constructor(
     private facade: SubAssetFacade,
