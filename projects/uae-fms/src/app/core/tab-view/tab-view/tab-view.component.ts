@@ -7,7 +7,7 @@ import {
   EventEmitter,
   Input,
   Renderer2,
-  OnDestroy, AfterViewInit, ChangeDetectorRef
+  OnDestroy, AfterViewInit
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Subscription } from 'rxjs';
@@ -38,7 +38,6 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
     private _router: Router,
     private _activateRoute: ActivatedRoute,
     private _renderer: Renderer2,
-    private _cd:ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
