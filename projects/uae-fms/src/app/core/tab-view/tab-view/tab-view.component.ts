@@ -21,6 +21,7 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input('returnId') returnId: string = 'title';
   @Input() index?: boolean = true;
   @Input() container?: boolean = false;
+  @Input() count = null
   @Output('selectedIndex') selectedIndex: EventEmitter<
     string
   > = new EventEmitter<string>();
@@ -40,7 +41,9 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
     private _cd:ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.count)
+  }
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -53,7 +56,12 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
             index: i,
             title: this.elements[i].attributes.getNamedItem('title').nodeValue,
             id: tabID ? tabID.nodeValue : null,
-            count:0
+            // count: this.index
+            //   ? this.elements[i].attributes.getNamedItem('count') != null
+            //     ? this.elements[i].attributes.getNamedItem('count').nodeValue
+            //     : null
+            //   : null
+            count: this.count ? this.count[i] : null
           });
         }
       }
@@ -72,17 +80,6 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }, 0);
 
-  }
-  ngAfterViewChecked(){
-    if(this.initialized && this.elements.length > 0){
-      for (let i = 0; i < this.elements.length; i++){
-        let countAttr = this.elements[i].attributes.getNamedItem('count');
-        if(this.tabs[i].count == 0 && +countAttr.nodeValue > 0){
-          this.tabs[i].count = +countAttr.nodeValue
-        }
-      }
-      this._cd.detectChanges()
-    }
   }
   selectedTabChanged() {
     for (let i = 0; i < this.elements.length; i++) {
