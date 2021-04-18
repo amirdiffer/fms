@@ -276,6 +276,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
         };
       }),
       {
+        id: this.itemId,
         type: type,
         name: this.inputForm.value.typeName,
         isActive: this.inputForm.value.activetype,
