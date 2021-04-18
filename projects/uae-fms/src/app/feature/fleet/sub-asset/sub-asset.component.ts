@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { TableFacade } from '@core/table/+state/table.facade';
-import { ITablePagination } from '@core/table/+state/table.entity';
 import moment from 'moment';
 
 @Component({
@@ -15,12 +14,14 @@ import moment from 'moment';
   styleUrls: ['./sub-asset.component.scss']
 })
 export class SubAssetComponent implements OnInit, OnDestroy {
+
+  #startRegionVariables
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   statisticsSubscription!: Subscription;
-
   downloadBtn = 'assets/icons/download-solid.svg';
+  #endRegionVariables
 
-  //#region Filter
+  //#region filter
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
@@ -47,8 +48,8 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       onActive(index: number) {}
     }
   ];
-
   //#endregion
+
 
   //#region Table
   data$ = this.facade.subAsset$.pipe(
@@ -82,7 +83,6 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       });
     })
   );
-
   assetTraffic_Table: TableSetting = {
     columns: [
       {
@@ -122,9 +122,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       floatButton: [
         {
           onClick: (col, data) => {
-            this.router.navigate(['/fleet/sub-asset/edit-sub-asset'], {
-              queryParams: { id: data['id'] }
-            });
+            this.router.navigate(['/fleet/sub-asset/edit-sub-asset/' + data['id']]);
           },
           button: 'edit',
           color: '#3F3F3F'
