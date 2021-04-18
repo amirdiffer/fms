@@ -8,7 +8,7 @@ export class AssetMasterSelectors {
     FleetSelectors.assetMasterSelector,
     selectAll
   );
-  
+
   static specificAsset = createSelector(
     FleetSelectors.assetMasterSelector,
     (state) => state.asset
@@ -31,6 +31,5 @@ export class AssetMasterSelectors {
   static submitted = createSelector(
     FleetSelectors.assetMasterSelector,
     (state) => state.submitted
-  )
-
+  );
 }

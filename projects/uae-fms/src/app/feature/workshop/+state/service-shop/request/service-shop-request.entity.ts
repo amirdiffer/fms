@@ -9,17 +9,19 @@ export interface ServiceShopRequestState extends EntityState<IRequest> {
   loaded: boolean;
   statistics?: IBodyShopRequestStatistics;
   message: string;
-  requests?: Array<any>
+  requests?: Array<any>;
   submitted: boolean;
-  assetRequest?:IRequestListSpecificAsset[];
-  resultNumber?:number;
+  assetRequest?: IRequestListSpecificAsset[];
+  resultNumber?: number;
 }
 
 export interface ServiceshopRequestPartialState {
   [WORKSHOP_SERVICESHOP_REQUEST_FEATURE_KEY]: ServiceShopRequestState;
 }
 
-export const serviceShopRequestAdapter: EntityAdapter<any> = createEntityAdapter<any>();
+export const serviceShopRequestAdapter: EntityAdapter<any> = createEntityAdapter<
+  any
+>();
 
 export const initialState: ServiceShopRequestState = serviceShopRequestAdapter.getInitialState(
   {
@@ -29,7 +31,7 @@ export const initialState: ServiceShopRequestState = serviceShopRequestAdapter.g
     statistics: null,
     requests: [],
     submitted: false,
-    assetRequest:[],
-    resultNumber:0
+    assetRequest: [],
+    resultNumber: 0
   } as ServiceShopRequestState
 );

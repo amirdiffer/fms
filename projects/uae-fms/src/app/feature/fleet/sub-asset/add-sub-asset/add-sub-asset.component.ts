@@ -1,10 +1,6 @@
 import { map } from 'rxjs/operators';
 import { SubAssetService } from './../../+state/sub-asset/sub-asset.service';
-import {
-  Component,
-  OnInit,
-  Injector,
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
 import {
@@ -28,14 +24,14 @@ const SUB_ASSET_LABEL = 'SUB_ASSET';
 export class AddSubAssetComponent extends Utility implements OnInit {
   formCurrentStep = 0;
   csvText: [];
-  csvDoc=[];
+  csvDoc = [];
   progressBarValue = 20;
   subAssetDocRequired: boolean = false;
   subAssetForm: FormGroup;
   warranties: FormArray;
   submitted = false;
   warrantyDocs = [];
-  avatarDoc =[];
+  avatarDoc = [];
   public filesUploaded: NgxFileDropEntry[] = [];
 
   thirdStepTableColumns: ColumnDifinition[] = [
@@ -161,7 +157,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   thirdStepTable: TableSetting = {
     columns: this.thirdStepTableColumns,
-    data:[]
+    data: []
   };
 
   subAssetTypes = [];
@@ -223,13 +219,13 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   isSingleAsset = true;
   //#endregion
 
-  avatarDocRequired:boolean=false;
+  avatarDocRequired: boolean = false;
   constructor(
     injector: Injector,
     private _fb: FormBuilder,
     private subAssetFacade: SubAssetFacade,
     private subAssetService: SubAssetService,
-    private routerFacade: RouterFacade,
+    private routerFacade: RouterFacade
   ) {
     super(injector);
   }
@@ -266,9 +262,9 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     this.subAssetService.getSubAsset(recordId).subscribe((result: any) => {
       if (result && result.message) {
         const subAsset = result.message;
-        for (let index = 0; index < subAsset.warranties.length-1; index++){
+        for (let index = 0; index < subAsset.warranties.length - 1; index++) {
           this.addWarranty();
-        };
+        }
         this.subAssetForm.patchValue({
           warranties: subAsset.warranties.map((x) => {
             const date = moment.utc(x.startDate).local();
@@ -286,7 +282,9 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         this.subAssetForm.patchValue({
           avatarId: subAsset.avatarId
         });
-        this.avatarDoc =  Array.isArray(subAsset.avatarId) ? subAsset.avatarId : [subAsset.avatarId];
+        this.avatarDoc = Array.isArray(subAsset.avatarId)
+          ? subAsset.avatarId
+          : [subAsset.avatarId];
         const {
           assetTypeId,
           assetTypeName,
@@ -316,23 +314,17 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         const subAssetType = {
           id: assetTypeId,
           name: assetTypeName,
-          children: selectedSubAsset
-            ? selectedSubAsset.children
-            : []
+          children: selectedSubAsset ? selectedSubAsset.children : []
         };
         const make = {
           id: makeId,
           name: makeName,
-          children: selectedMake
-            ? selectedMake.children
-            : []
+          children: selectedMake ? selectedMake.children : []
         };
         const model = {
           id: modelId,
           name: modelName,
-          children: selectedModel
-            ? selectedModel.children
-            : []
+          children: selectedModel ? selectedModel.children : []
         };
         const policyType = { id: policyTypeId, name: policyTypeName };
 
@@ -349,8 +341,8 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         };
         this.subAssetForm.patchValue(formValue);
         this.subAssetForm.patchValue({
-          year:+formValue.year
-        })
+          year: +formValue.year
+        });
 
         // reset warranty form
         // (this.subAssetForm.get('warrantyItems') as FormArray).removeAt(0);
@@ -407,7 +399,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       avatarId: [],
       description: [''],
       warranties: this._fb.array([this.createWarrantyForm()]),
-      assetQuantity: ['single'],
+      assetQuantity: ['single']
       // uploadFile:['']
     });
 
@@ -426,8 +418,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           }));
         }
       },
-      (error) => {
-      }
+      (error) => {}
     );
   }
 
@@ -446,8 +437,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           }
         }
       },
-      (error) => {
-      }
+      (error) => {}
     );
   }
 
@@ -465,36 +455,37 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     }
     this.formCurrentStep += 1;
   }
-  upload(){
-    if(this.avatarDoc.length < 1 ||
-      this.avatarDoc.length < 1 ){
+  upload() {
+    if (this.avatarDoc.length < 1 || this.avatarDoc.length < 1) {
       this.subAssetDocRequired = true;
       this.avatarDocRequired = true;
-      return
+      return;
     }
 
     let formVal = this.subAssetForm.getRawValue();
     let data = [];
     let DPD = [];
-    this.csvText.map(
-      (x) => {
-        DPD.push(`DPD${x}`)
-      }
-    )
+    this.csvText.map((x) => {
+      DPD.push(`DPD${x}`);
+    });
     for (let index = 0; index < this.csvText.length; index++) {
       data.push({
         subAssetName: {
           img: 'assets/thumb1.png',
-          assetName: this.subAssetTypes.find((type) => type.id == formVal.subAssetType.id).name,
-          assetSubName: DPD[index],
+          assetName: this.subAssetTypes.find(
+            (type) => type.id == formVal.subAssetType.id
+          ).name,
+          assetSubName: DPD[index]
         },
         model: this.models.find((model) => model.id == formVal.model.id).name,
         make: this.makes.find((make) => make.id == formVal.make.id).name,
         serialNumber: this.csvText[index],
-        type: this.subAssetTypes.find((type) => type.id == formVal.subAssetType.id).name,
-      })
+        type: this.subAssetTypes.find(
+          (type) => type.id == formVal.subAssetType.id
+        ).name
+      });
     }
-    this.thirdStepTable.data = data
+    this.thirdStepTable.data = data;
     this.formCurrentStep += 1;
   }
 
@@ -511,8 +502,8 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       .at(index)
       .get('doc');
     docControl.setValue(docId);
-    if(evt.files.length>0){
-      this.warrantyDocs[index] = evt.files
+    if (evt.files.length > 0) {
+      this.warrantyDocs[index] = evt.files;
     }
   }
 
@@ -606,10 +597,12 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     // eg. DPD129348
     if (this.isEdit) {
       const serialNumber = subAssetFormValue.serialNumber;
-      let dpd=''
-      isNaN(+serialNumber) ? dpd=serialNumber : dpd ='DPD'+ serialNumber
+      let dpd = '';
+      isNaN(+serialNumber)
+        ? (dpd = serialNumber)
+        : (dpd = 'DPD' + serialNumber);
       return {
-        id:this.recordId,
+        id: this.recordId,
         avatarId,
         dpd,
         assetTypeId: subAssetType.id,
@@ -670,28 +663,26 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => { });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
     }
   }
-  public fileOver(event) {
-  }
+  public fileOver(event) {}
 
-  public fileLeave(event) {
-  }
+  public fileLeave(event) {}
 
   uploadAssetPicture($event) {
     const docId = $event.files[0];
     this.subAssetForm.controls['avatarId'].setValue(docId);
-    if($event.files.length>0){
-      this.avatarDoc = $event.files
+    if ($event.files.length > 0) {
+      this.avatarDoc = $event.files;
     }
   }
   uploadDocFiles(event) {
-    if(event.files.length>0){
-      this.csvDoc = event.files
+    if (event.files.length > 0) {
+      this.csvDoc = event.files;
     }
   }
   csvReader(event) {

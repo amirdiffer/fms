@@ -8,21 +8,21 @@
 
   mat-toolbar {
     height: 4em;
-    font-family: "29LT Bukra";
+    font-family: '29LT Bukra';
     font-size: 1em;
-    ::ng-deep{
+    ::ng-deep {
       .mat-icon-button {
-        font-family: "29LT Bukra";
+        font-family: '29LT Bukra';
         font-size: 1em;
         width: 2.6em;
         height: 100%;
       }
     }
-    .role_label{
-      font-size: .7em;
+    .role_label {
+      font-size: 0.7em;
       font-weight: bold;
     }
-    img.police-logo{
+    img.police-logo {
       width: 7.5em;
     }
     .menus {

@@ -23,7 +23,7 @@ const bodyShopLocationReducer = createReducer(
   ),
   on(BodyShopLocationActions.count, (state, { data }) => ({
     ...state,
-    resultNumber:data
+    resultNumber: data
   })),
   on(
     BodyShopLocationActions.addBodyShopLocation,

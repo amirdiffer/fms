@@ -14,7 +14,7 @@ export class BodyShopJobCardFacade {
 
   submitted$ = this.store.pipe(select(BodyShopJobCardSelectors.submitted));
 
-  conut$ = this.store.pipe(select(BodyShopJobCardSelectors.count))
+  conut$ = this.store.pipe(select(BodyShopJobCardSelectors.count));
 
   constructor(private store: Store<IBodyshopJobCardPartialState>) {}
 

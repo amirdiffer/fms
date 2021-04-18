@@ -1,7 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AssetConfigurationService } from './asset-configuration.service';
-import { AssetConfigurationFacade, AssetTypeFacade } from '../+state/asset-configuration';
+import {
+  AssetConfigurationFacade,
+  AssetTypeFacade
+} from '../+state/asset-configuration';
 import { FilterCardSetting } from '@core/filter';
 import { Make, MakeModel, MakeModelTrim } from '@models/asset-type.model';
 import { map } from 'rxjs/operators';
@@ -14,7 +17,6 @@ import { DataService } from '@feature/configuration/asset-configuration/data.ser
   styleUrls: ['./asset-configuration.component.scss']
 })
 export class AssetConfigurationComponent implements OnInit, OnDestroy {
-
   //#region Variables
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
@@ -29,21 +31,21 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       filterCount: '356',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.part',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.available',
       filterCount: '124',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.part',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.unavailable',
       filterCount: '12',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.part',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
 
@@ -107,7 +109,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           makes: obj.makes.length
         };
         return assetType;
-      })
+      });
     })
   );
 
@@ -119,7 +121,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     public router: Router,
     private assetConfigurationFacade: AssetConfigurationFacade,
     private _assetConfigurationService: AssetConfigurationService,
-    private _dataService: DataService,
+    private _dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -307,7 +309,9 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       ],
       data: []
     };
-    this.assetConfigurationableSetting.data = this.dataTable.filter(x => x.type == this.activeTypeCategory);
+    this.assetConfigurationableSetting.data = this.dataTable.filter(
+      (x) => x.type == this.activeTypeCategory
+    );
   }
 
   ngOnDestroy() {

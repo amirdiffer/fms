@@ -2,8 +2,7 @@
     <div class="button-container">
         <button class="btn-primary-medium btn-scondary-green" type="button"
             (click)="cancelForm()">{{'forms.cancel' | translate}}</button>
-        <button class="btn-primary-medium add" type="submit">{{'forms.add' |
-            translate}}</button>
+        <button class="btn-primary-medium add" type="submit">{{ (isEdit?'forms.edit':'forms.add') | translate }}</button>
     </div>
 
     <div class="row">
@@ -336,7 +335,7 @@
                     | translate}}</p>
               </div>
               <anms-uploader [iconIsHidden]="false"  [multiple]="true"
-                [preview]="false" [accept]="['.png', '.jpg']" (uploadedEvent)="uploadImage($event)"></anms-uploader>
+                [preview]="false" [accept]="['.png', '.jpg']" (uploadedEvent)="uploadImage($event)" [files]="profileDocIds"></anms-uploader>
             </div>
           </div>
         <!-- <div class="col-12">

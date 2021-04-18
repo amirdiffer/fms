@@ -22,7 +22,7 @@ export class AccessoryOverviewComponent implements OnInit {
       this.loadAccessoryData(this.recordId);
     });
   }
-  loadAccessoryData(recordId: number) { }
+  loadAccessoryData(recordId: number) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

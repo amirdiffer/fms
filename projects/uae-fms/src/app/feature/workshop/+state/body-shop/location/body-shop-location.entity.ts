@@ -7,8 +7,7 @@ export interface IBodyShopLocationState extends EntityState<ILocation> {
   loaded: boolean;
   message: string;
   submitted: boolean;
-  resultNumber?:number
-
+  resultNumber?: number;
 }
 export interface IBodyShopLocationPartialState {
   [WORKSHOP_BODYSHOP_LOCATION_FEATURE_KEY]: IBodyShopLocationState;
@@ -23,6 +22,6 @@ export const initialState: IBodyShopLocationState = bodyShopLocationAdapter.getI
     message: null,
     error: null,
     submitted: false,
-    resultNumber:0
+    resultNumber: 0
   } as IBodyShopLocationState
 );

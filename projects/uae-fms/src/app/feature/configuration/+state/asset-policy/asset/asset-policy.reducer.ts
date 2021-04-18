@@ -21,7 +21,7 @@ const assetPolicyReducer = createReducer(
 
   on(AssetPolicyActions.count, (state, { data }) => ({
     ...state,
-    resultNumber:data
+    resultNumber: data
   })),
 
   on(AssetPolicyActions.error, (state, { reason }) => ({
@@ -50,9 +50,13 @@ const assetPolicyReducer = createReducer(
     error: null,
     message: null,
     submitted: true
-  })
-  ),
-  on(AssetPolicyActions.reset, (state) => ({ ...state, error: null, submitted: false, message: null }))
+  })),
+  on(AssetPolicyActions.reset, (state) => ({
+    ...state,
+    error: null,
+    submitted: false,
+    message: null
+  }))
 );
 
 export function reducer(state: AssetPolicyState, action: Action) {

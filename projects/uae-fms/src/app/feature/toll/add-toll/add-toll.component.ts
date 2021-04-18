@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Injector
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -60,10 +56,7 @@ export class AddTollComponent extends Utility implements OnInit {
     message: 'New Toll Successfully Added',
     confirmButton: 'OK'
   };
-  constructor(
-    private _fb: FormBuilder,
-    injector: Injector
-  ) {
+  constructor(private _fb: FormBuilder, injector: Injector) {
     super(injector);
   }
 

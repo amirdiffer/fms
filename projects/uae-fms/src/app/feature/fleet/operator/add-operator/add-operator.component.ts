@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Injector,
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { FilterCardSetting } from '@core/filter';
@@ -10,7 +6,10 @@ import {
   OperatorFacade,
   OperatorService
 } from '@feature/fleet/+state/operator';
-import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
+import {
+  OrganizationFacade,
+  OrganizationService
+} from '@feature/fleet/+state/organization';
 import { IOperator } from '@models/operator';
 import { Utility } from '@shared/utility/utility';
 import {
@@ -20,7 +19,7 @@ import {
 } from 'ngx-file-drop';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
-import { IOrganization } from '@models/organization'
+import { IOrganization } from '@models/organization';
 @Component({
   selector: 'anms-add-operator',
   templateUrl: './add-operator.component.html',
@@ -76,28 +75,28 @@ export class AddOperatorComponent extends Utility implements OnInit {
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
 
@@ -115,13 +114,13 @@ export class AddOperatorComponent extends Utility implements OnInit {
   getEmployeesList = new Subject();
 
   departmentSerive$: Subscription;
-  departmentList: any[]
-  departmentFiltered: any[]
+  departmentList: any[];
+  departmentFiltered: any[];
   employee_static;
   department_static;
   employeeId;
   departmentId;
-  avatarId = []
+  avatarId = [];
 
   departments = [];
 
@@ -159,14 +158,14 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    this.departmentSerive$ = this._departmentService.loadWithPagination().subscribe(
-      (x) => {
+    this.departmentSerive$ = this._departmentService
+      .loadWithPagination()
+      .subscribe((x) => {
         x.message
-          // ? this.department.next(x.message)
-          ? this.departmentList = x.message
-          : this.departmentList = []
-      }
-    )
+          ? // ? this.department.next(x.message)
+            (this.departmentList = x.message)
+          : (this.departmentList = []);
+      });
     this.route.url.subscribe((params) => {
       this.isEdit =
         params.filter((x) => x.path == 'edit-operator').length > 0
@@ -191,41 +190,34 @@ export class AddOperatorComponent extends Utility implements OnInit {
                 activeEmployee: x.isActive
               });
 
-
               this.form.controls['personalInformation'].patchValue({
                 firstName: x.firstName,
                 lastName: x.lastName,
                 callCheckbox: x.notifyByCall,
                 smsCheckbox: x.notifyBySMS,
                 emailCheckbox: x.notifyByEmail,
-                whatsappCheckbox: x.notifyByWhatsApp,
-
+                whatsappCheckbox: x.notifyByWhatsApp
               });
-
 
               this.emails.controls = [];
               this.emails.controls = [];
               for (let i = 0; i < x.emails.length; i++) {
-                this.emails.controls.push(
-                  this.createEmailField()
-                );
+                this.emails.controls.push(this.createEmailField());
               }
-              this.emails.patchValue(x.emails.map(y => ({ email: y })))
+              this.emails.patchValue(x.emails.map((y) => ({ email: y })));
 
               this.phoneNumbers.controls = [];
               for (let i = 0; i < x.phoneNumbers.length; i++) {
-                this.phoneNumbers.controls.push(
-                  this.createPhoneField()
-                )
+                this.phoneNumbers.controls.push(this.createPhoneField());
               }
-              this.phoneNumbers.patchValue(x.phoneNumbers.map(y => ({ phoneNumber: y })))
-
+              this.phoneNumbers.patchValue(
+                x.phoneNumbers.map((y) => ({ phoneNumber: y }))
+              );
 
               this.form.controls['fileUpload'].patchValue({
                 fileName: x.profileDocId
               });
-              this.avatarId = [x.profileDocId]
-
+              this.avatarId = [x.profileDocId];
             }
           });
       } else {
@@ -264,8 +256,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
     this.operatorFacade.error$.subscribe((x) => {
       if (x) {
-        if (x?.error?.error && x.error.message) this.errorDialogSetting.message = x.error.message;
-        else this.errorDialogSetting.message = "Error occurred in progress";
+        if (x?.error?.error && x.error.message)
+          this.errorDialogSetting.message = x.error.message;
+        else this.errorDialogSetting.message = 'Error occurred in progress';
 
         this.errorDialogModal = true;
         this.errorDialogSetting.header = this.isEdit
@@ -282,7 +275,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.getEmployeesList.pipe(debounceTime(600)).subscribe((x) => {
       this.operatorService.searchEmployee(x['query']).subscribe((y) => {
         if (y) {
-          console.log(y)
+          console.log(y);
           this.employees.next([y.message]);
         } else {
           this.employees.next(null);
@@ -344,7 +337,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.emails.push(this.createEmailField());
   }
   removeEmailField(index) {
-    this.emails.removeAt(index)
+    this.emails.removeAt(index);
   }
   createPhoneField(): FormGroup {
     return this.formBuilder.group({
@@ -359,7 +352,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.phoneNumbers.push(this.createPhoneField());
   }
   removePhoneField(index) {
-    this.phoneNumbers.removeAt(index)
+    this.phoneNumbers.removeAt(index);
   }
   dialogConfirm($event): void {
     this.errorDialogModal = false;
@@ -374,7 +367,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
           : this.employeeId,
         organizationId: 1,
         // departmentId: f.portalInformation.department.id || 1,
-        departmentId: this.isEdit ? this._operator?.department.id : this.departmentId,
+        departmentId: this.isEdit
+          ? this._operator?.department.id
+          : this.departmentId,
         roleIds: [1],
         isActive: f.portalInformation.activeEmployee,
         profileDocId: this.profileDocId || 1,
@@ -487,7 +482,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
   submit(): void {
     this.submited = true;
     if (this.form.invalid) {
-      this.form.markAllAsTouched()
+      this.form.markAllAsTouched();
       return;
     }
 
@@ -565,10 +560,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
   }
 
   departmentChanged($event) {
-
     this.department_static = $event;
     if (typeof $event != 'object') return;
-    this.departmentId = $event.id
+    this.departmentId = $event.id;
   }
   public fileOver(event) {
     // console.log(event);
@@ -591,7 +585,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
         if (
           typeof f.personalInformation.phoneNumbers[0] == 'object' &&
           typeof f.personalInformation.phoneNumbers[0].phoneNumber ==
-          'string' &&
+            'string' &&
           f.personalInformation.phoneNumbers[0].phoneNumber.length < 5
         )
           return [];
@@ -623,15 +617,19 @@ export class AddOperatorComponent extends Utility implements OnInit {
   // }
 
   searchDepartment(event) {
-    let query = event.query
-    let filtered = []
+    let query = event.query;
+    let filtered = [];
     for (let index = 0; index < this.departmentList.length; index++) {
       let department = this.departmentList[index];
-      if (department.organizationName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(department)
+      if (
+        department.organizationName
+          .toLowerCase()
+          .indexOf(query.toLowerCase()) == 0
+      ) {
+        filtered.push(department);
       }
     }
-    this.departmentFiltered = filtered
+    this.departmentFiltered = filtered;
   }
   successDialogConfirm($event) {
     this.router.navigate(['fleet/operator']).then((_) => {

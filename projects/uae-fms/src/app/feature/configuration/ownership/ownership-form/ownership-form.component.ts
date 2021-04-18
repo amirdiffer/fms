@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Injector,
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
@@ -17,7 +13,6 @@ import { OwnershipFacade, OwnershipService } from '../../+state/ownership';
   styleUrls: ['./ownership-form.component.scss']
 })
 export class OwnershipFormComponent extends Utility implements OnInit {
-
   isEdit = false;
   id;
 
@@ -127,7 +122,9 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     this.facade.submitted$.subscribe((x) => {
       if (x) {
         this.displaySuccessModal = true;
-        this.dialogSuccessSetting.message = this.isEdit ? 'Ownership Edited Successfully' : 'New ownership Successfully Added'
+        this.dialogSuccessSetting.message = this.isEdit
+          ? 'Ownership Edited Successfully'
+          : 'New ownership Successfully Added';
         this.dialogErrorSetting.hasError = false;
       }
     });
@@ -139,11 +136,11 @@ export class OwnershipFormComponent extends Utility implements OnInit {
       }
     });
 
-    this.route.params.subscribe(z => {
+    this.route.params.subscribe((z) => {
       if (!z?.id) return;
       this.isEdit = true;
       this.id = z.id;
-      this.service.getByID(z.id).subscribe(q => {
+      this.service.getByID(z.id).subscribe((q) => {
         const res: any = q.message;
 
         this.ownerShipForm.patchValue({
@@ -153,10 +150,10 @@ export class OwnershipFormComponent extends Utility implements OnInit {
           phoneNumber: res.phoneNumber,
           purpose: res.purpose,
           fleetITCode: res.fleetITCode,
-          duration: res.duration,
-        })
-      })
-    })
+          duration: res.duration
+        });
+      });
+    });
   }
   submit() {
     this.submitted = true;

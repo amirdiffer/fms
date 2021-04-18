@@ -10,7 +10,6 @@ import { Utility } from '@shared/utility/utility';
   styleUrls: ['./job-card.component.scss']
 })
 export class JobCardComponent extends Utility implements OnInit {
-
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
 
@@ -29,7 +28,7 @@ export class JobCardComponent extends Utility implements OnInit {
         lable: 'tables.column.task',
         field: 'task',
         type: ColumnType.lable,
-        thumbField: '',
+        thumbField: ''
       },
       {
         lable: 'tables.column.priority',
@@ -116,7 +115,7 @@ export class JobCardComponent extends Utility implements OnInit {
         technician: 'Atefeh',
         cost: '2300 AED',
         part_cost: '2300 AED',
-        total_cost: '4700 AED',
+        total_cost: '4700 AED'
       },
       {
         task: 'Charge AC',
@@ -127,7 +126,7 @@ export class JobCardComponent extends Utility implements OnInit {
         technician: 'Atefeh',
         cost: '2300 AED',
         part_cost: '2300 AED',
-        total_cost: '4700 AED',
+        total_cost: '4700 AED'
       },
       {
         task: 'Charge AC',
@@ -138,7 +137,7 @@ export class JobCardComponent extends Utility implements OnInit {
         technician: 'Atefeh',
         cost: '2300 AED',
         part_cost: '2300 AED',
-        total_cost: '4700 AED',
+        total_cost: '4700 AED'
       },
       {
         task: 'Charge AC',
@@ -149,7 +148,7 @@ export class JobCardComponent extends Utility implements OnInit {
         technician: 'Atefeh',
         cost: '2300 AED',
         part_cost: '2300 AED',
-        total_cost: '4700 AED',
+        total_cost: '4700 AED'
       },
       {
         task: 'Charge AC',
@@ -160,7 +159,7 @@ export class JobCardComponent extends Utility implements OnInit {
         technician: 'Atefeh',
         cost: '2300 AED',
         part_cost: '2300 AED',
-        total_cost: '4700 AED',
+        total_cost: '4700 AED'
       },
       {
         lable: '',
@@ -185,7 +184,7 @@ export class JobCardComponent extends Utility implements OnInit {
         }
       ]
     }
-  }
+  };
 
   jobCard_Table2 = {
     columns: [
@@ -193,7 +192,7 @@ export class JobCardComponent extends Utility implements OnInit {
         lable: 'tables.column.start_date',
         field: 'start_date',
         type: ColumnType.lable,
-        thumbField: '',
+        thumbField: ''
       },
       {
         lable: 'tables.column.duration',
@@ -272,7 +271,7 @@ export class JobCardComponent extends Utility implements OnInit {
         technician: 'Mohammad, Ahmad',
         cost: '2300 AED',
         part_cost: '2300 AED',
-        total_cost: '4700 AED',
+        total_cost: '4700 AED'
       },
       {
         start_date: '02-02-2020',
@@ -283,7 +282,7 @@ export class JobCardComponent extends Utility implements OnInit {
         technician: 'Mohammad, Ahmad',
         cost: '2300 AED',
         part_cost: '2300 AED',
-        total_cost: '4700 AED',
+        total_cost: '4700 AED'
       },
       {
         start_date: '02-02-2020',
@@ -294,7 +293,7 @@ export class JobCardComponent extends Utility implements OnInit {
         technician: 'Mohammad, Ahmad',
         cost: '2300 AED',
         part_cost: '2300 AED',
-        total_cost: '4700 AED',
+        total_cost: '4700 AED'
       },
       {
         start_date: '02-02-2020',
@@ -305,7 +304,7 @@ export class JobCardComponent extends Utility implements OnInit {
         technician: 'Mohammad, Ahmad',
         cost: '2300 AED',
         part_cost: '2300 AED',
-        total_cost: '4700 AED',
+        total_cost: '4700 AED'
       },
       {
         start_date: '02-02-2020',
@@ -316,12 +315,11 @@ export class JobCardComponent extends Utility implements OnInit {
         technician: 'Mohammad, Ahmad',
         cost: '2300 AED',
         part_cost: '2300 AED',
-        total_cost: '4700 AED',
+        total_cost: '4700 AED'
       }
     ],
     rowSettings: {
-      floatButton: [
-      ]
+      floatButton: []
     }
   };
 
@@ -331,7 +329,7 @@ export class JobCardComponent extends Utility implements OnInit {
         lable: 'tables.column.issue',
         field: 'issue',
         type: ColumnType.lable,
-        thumbField: '',
+        thumbField: ''
       },
       {
         lable: 'tables.column.date',
@@ -421,11 +419,9 @@ export class JobCardComponent extends Utility implements OnInit {
       }
     ],
     rowSettings: {
-      floatButton: [
-      ]
+      floatButton: []
     }
   };
-
 
   formGroup: FormGroup;
 
@@ -435,14 +431,13 @@ export class JobCardComponent extends Utility implements OnInit {
     });
   }
 
-
   createTaskForm(): FormGroup {
     return this._fb.group({
       task: ['', Validators.compose([Validators.required])],
       priority: ['', Validators.compose([Validators.required])],
       technician: ['', Validators.compose([Validators.required])],
       location: ['', Validators.compose([Validators.required])],
-      need_part: [false, Validators.compose([Validators.required])],
+      need_part: [false, Validators.compose([Validators.required])]
     });
   }
 
@@ -450,8 +445,8 @@ export class JobCardComponent extends Utility implements OnInit {
   addTask(): void {
     this.submitted = true;
     let tasks = this.formGroup.get('task') as FormArray;
-    if(tasks.invalid) {
-      return
+    if (tasks.invalid) {
+      return;
     }
     tasks.push(this.createTaskForm());
   }
@@ -461,7 +456,9 @@ export class JobCardComponent extends Utility implements OnInit {
   }
 
   getValidity(formControl, i) {
-    let invalid = (<FormArray>this.formGroup.get('task')).controls[i]['controls'][formControl].invalid;
+    let invalid = (<FormArray>this.formGroup.get('task')).controls[i][
+      'controls'
+    ][formControl].invalid;
     return invalid && this.submitted;
   }
 
@@ -470,8 +467,11 @@ export class JobCardComponent extends Utility implements OnInit {
     this.section = section;
   }
 
-
-  constructor(private _fb: FormBuilder, injector: Injector, private _router: Router) {
+  constructor(
+    private _fb: FormBuilder,
+    injector: Injector,
+    private _router: Router
+  ) {
     super(injector);
     this.migrateForm();
   }
@@ -480,11 +480,10 @@ export class JobCardComponent extends Utility implements OnInit {
 
   submit() {
     let tasks = this.formGroup.get('task') as FormArray;
-    if(tasks.invalid) {
-      return
+    if (tasks.invalid) {
+      return;
     }
     this.showSection('list');
-    this._router.navigate([], { queryParams: {id:'Request'}})
+    this._router.navigate([], { queryParams: { id: 'Request' } });
   }
-
 }

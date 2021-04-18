@@ -3,7 +3,7 @@ import {
   OnInit,
   ViewChild,
   Injector,
-  OnDestroy,
+  OnDestroy
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
@@ -334,7 +334,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     private _facadePeriodicService: PeriodicServiceFacade,
     private _periodicService: PeriodicServiceService,
     private _departmentService: OrganizationService,
-    private _operatorService: OperatorService,
+    private _operatorService: OperatorService
   ) {
     super(injector);
   }

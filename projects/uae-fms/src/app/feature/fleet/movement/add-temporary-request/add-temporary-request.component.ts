@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Injector,
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
@@ -131,7 +127,8 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
         startDate: d.startDate,
         endDate: d.endDate
       };
-      if (_data.requestType == 'NEW') _data.oldAssetId = undefined; else _data.quantity = undefined;
+      if (_data.requestType == 'NEW') _data.oldAssetId = undefined;
+      else _data.quantity = undefined;
       this.facade.addMovementRequest(_data);
     }
   }

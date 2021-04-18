@@ -21,8 +21,8 @@ export class AddFuelCardComponent extends Utility implements OnInit {
     hasError: false,
     hasHeader: true,
     message: 'New Fuel Card Successfully Added',
-    confirmButton: 'OK',
-  }
+    confirmButton: 'OK'
+  };
   dialogSettingCancel: IDialogAlert = {
     header: 'Add Fuel Card',
     hasError: false,
@@ -30,11 +30,13 @@ export class AddFuelCardComponent extends Utility implements OnInit {
     hasHeader: true,
     message: 'Are you sure that you want to cancel the fuel card creation?',
     confirmButton: 'Yes',
-    cancelButton: 'No',
-  }
-  constructor(private _fb: FormBuilder,
+    cancelButton: 'No'
+  };
+  constructor(
+    private _fb: FormBuilder,
     injector: Injector,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute
+  ) {
     super(injector);
     this.activatedRoute.queryParams.subscribe((params) => {
       this.currentTab = params['id'];
@@ -48,7 +50,7 @@ export class AddFuelCardComponent extends Utility implements OnInit {
       expireDate: ['', Validators.required],
       usageLimit: ['', Validators.required],
       assignTo: ['', Validators.required]
-    })
+    });
   }
 
   fuelCardsTableData = [
@@ -108,7 +110,7 @@ export class AddFuelCardComponent extends Utility implements OnInit {
       {
         lable: 'tables.column.usage_limit',
         field: 'usageLimit'
-      },
+      }
     ],
     data: this.fuelCardsTableData
   };
@@ -155,7 +157,7 @@ export class AddFuelCardComponent extends Utility implements OnInit {
     if (this.inputForm.invalid) {
       return;
     } else {
-      this.dialogModalAdd = true
+      this.dialogModalAdd = true;
     }
   }
   cancel() {
@@ -165,7 +167,7 @@ export class AddFuelCardComponent extends Utility implements OnInit {
     if (value === true) {
       this.goToList();
     }
-    this.dialogModalCancel = false
+    this.dialogModalCancel = false;
   }
   dialogAddConfirm(value) {
     if (value === true) {

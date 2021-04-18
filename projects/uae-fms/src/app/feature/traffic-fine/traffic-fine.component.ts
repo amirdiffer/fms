@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { assetsPath } from '@environments/environment';
@@ -29,25 +25,25 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
       filterTitle: 'statistic.total',
       filterCount: '2456',
       filterTagColor: '#6F89A7',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.paid',
       filterCount: '356',
       filterTagColor: '#4F4198',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.unpainted',
       filterCount: '124',
       filterTagColor: '#EB941D',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.deducte',
       filterCount: '12',
       filterTagColor: '#F75A4A',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
   //#endregion
@@ -102,8 +98,19 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
         width: 100
       },
       { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
-      { lable: 'tables.column.user_status', type: 1, field: 'User', width: 100 },
-      { lable: 'tables.column.amount', type: 1, field: 'Amount', width: 100, sortable: true }
+      {
+        lable: 'tables.column.user_status',
+        type: 1,
+        field: 'User',
+        width: 100
+      },
+      {
+        lable: 'tables.column.amount',
+        type: 1,
+        field: 'Amount',
+        width: 100,
+        sortable: true
+      }
     ],
     data: []
   };
@@ -145,7 +152,13 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
         width: 100,
         sortable: true
       },
-      { lable: 'tables.column.amount', type: 1, field: 'Amount', width: 100, sortable: true }
+      {
+        lable: 'tables.column.amount',
+        type: 1,
+        field: 'Amount',
+        width: 100,
+        sortable: true
+      }
     ],
     data: []
   };
@@ -157,7 +170,7 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
   constructor(
     private _trafficFineFacade: TrafficFineTableFacade,
     private _assetTrafficFineFacade: AssetTrafficFineFacade
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this._trafficFineFacade.loadAll();

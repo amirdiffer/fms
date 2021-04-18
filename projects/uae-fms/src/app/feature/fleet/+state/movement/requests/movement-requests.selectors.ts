@@ -1,6 +1,9 @@
 import { createSelector } from '@ngrx/store';
 import { FleetSelectors } from '../../fleet.selectors';
-import { movementRequestsAdapter, MovementRequestsState } from './movement-requests.entity';
+import {
+  movementRequestsAdapter,
+  MovementRequestsState
+} from './movement-requests.entity';
 const { selectAll } = movementRequestsAdapter.getSelectors();
 
 export class MovementRequestsSelectors {

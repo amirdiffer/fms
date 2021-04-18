@@ -1,9 +1,5 @@
 import { AccessoryService } from './../../+state/accessory/accessory.service';
-import {
-  Component,
-  OnInit,
-  Injector
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import {
   FormBuilder,
   FormControl,

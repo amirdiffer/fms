@@ -18,9 +18,9 @@ export class AlertDialogComponent implements OnInit {
   warningTriangle = 'assets/icons/exclamation-triangle.svg';
   //#endregion
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   confirmDialog() {
     this.displayModal = false;

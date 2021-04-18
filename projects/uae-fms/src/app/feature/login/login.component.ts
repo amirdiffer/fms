@@ -1,9 +1,4 @@
-import {
-  Component,
-  Inject,
-  OnInit,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoginService } from './login.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,7 +6,7 @@ import { SettingsFacade } from '@core/settings/settings.facade';
 import { Language } from '@core/settings/settings.model';
 import { DOCUMENT } from '@angular/common';
 import { UserProfileFacade } from '@feature/user/state';
-import { environment } from "@environments/environment";
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +26,7 @@ export class LoginComponent implements OnInit {
     private settingFacade: SettingsFacade,
     @Inject(DOCUMENT) private document: Document,
     private profileFacade: UserProfileFacade,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     this.credentialsFG = new FormGroup({
       username: new FormControl('', [Validators.required]),
@@ -52,8 +47,6 @@ export class LoginComponent implements OnInit {
     htmlTag.dir = language === 'ar' ? 'rtl' : 'ltr';
   }
 
-
-
   hasError(
     controlName: string,
     formGroup: any,
@@ -62,7 +55,8 @@ export class LoginComponent implements OnInit {
   ): boolean {
     const control: FormControl = formGroup.controls[controlName] as FormControl;
     if (
-      (control && ((control.dirty && control.invalid) || (control.invalid && submited))) &&
+      control &&
+      ((control.dirty && control.invalid) || (control.invalid && submited)) &&
       control.hasError(errorType)
     ) {
       return true;
@@ -86,7 +80,7 @@ export class LoginComponent implements OnInit {
     });
     this.profileFacade.loadData$.subscribe((x) => {
       if (x) {
-        console.log(x)
+        console.log(x);
       }
     });
   }

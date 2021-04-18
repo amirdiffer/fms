@@ -7,14 +7,15 @@ import {
   EventEmitter,
   Input,
   Renderer2,
-  OnDestroy, AfterViewInit
+  OnDestroy,
+  AfterViewInit
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-tab-view',
   templateUrl: './tab-view.component.html',
-  styleUrls: ['./tab-view.component.scss'],
+  styleUrls: ['./tab-view.component.scss']
 })
 export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input('selectedTab') selectedTab: number = 0;
@@ -67,21 +68,19 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
           ? (this.selectedParams = id['id'])
           : (this.selectedParams = this.tabs[0].id);
 
-          this.selectByUrlParams();
-          this.selectedIndex.emit(
-            this.returnId == 'title' ? this.selectedParams : this.selectedTab
-          );
-
+        this.selectByUrlParams();
+        this.selectedIndex.emit(
+          this.returnId == 'title' ? this.selectedParams : this.selectedTab
+        );
       });
     }, 0);
-
   }
-  ngAfterViewChecked(){
-    if (this.elements.length > 0){
-      for (let i = 0; i < this.elements.length; i++){
+  ngAfterViewChecked() {
+    if (this.elements.length > 0) {
+      for (let i = 0; i < this.elements.length; i++) {
         let countAttr = this.elements[i].attributes.getNamedItem('count');
-        if(countAttr){
-          this.tabs[i].count = +countAttr.nodeValue
+        if (countAttr) {
+          this.tabs[i].count = +countAttr.nodeValue;
         }
       }
     }

@@ -25,7 +25,7 @@ const movementTemporaryRequestsReducer = createReducer(
 
   on(MovementRequestsActionsTemporary.count, (state, { data }) => ({
     ...state,
-    resultNumber:data
+    resultNumber: data
   })),
   on(MovementRequestsActionsTemporary.loadStatistic, (state) => ({
     ...state,

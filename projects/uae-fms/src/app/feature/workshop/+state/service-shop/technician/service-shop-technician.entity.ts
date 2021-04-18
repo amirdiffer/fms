@@ -1,15 +1,15 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { ITechnician } from '@models/body-shop';
 
-export const WORKSHOP_SERVICESHOP_TECHNICIAN_FEATURE_KEY = 'serviceShopTechnician';
+export const WORKSHOP_SERVICESHOP_TECHNICIAN_FEATURE_KEY =
+  'serviceShopTechnician';
 
 export interface IServiceShopTechnicianState extends EntityState<ITechnician> {
   error?: any;
   loaded: boolean;
   message: string;
   submitted: boolean;
-  resultNumber?:number
-
+  resultNumber?: number;
 }
 export interface IServiceShopTechnicianPartialState {
   [WORKSHOP_SERVICESHOP_TECHNICIAN_FEATURE_KEY]: IServiceShopTechnicianState;
@@ -23,7 +23,6 @@ export const initialState: IServiceShopTechnicianState = serviceShopTechnicianAd
     message: null,
     error: null,
     submitted: false,
-    resultNumber:0
-
+    resultNumber: 0
   } as IServiceShopTechnicianState
 );

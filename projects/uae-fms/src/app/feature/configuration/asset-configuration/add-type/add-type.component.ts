@@ -1,6 +1,24 @@
-import { AfterViewInit, Component, ElementRef, Injector, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Injector,
+  OnInit,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
+import {
+  FileSystemDirectoryEntry,
+  FileSystemFileEntry,
+  NgxFileDropEntry
+} from 'ngx-file-drop';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { AssetConfigurationService } from '../asset-configuration.service';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetTypeFacade } from '../../+state/asset-configuration';
@@ -62,16 +80,14 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
       description: ['', Validators.required]
     });
 
-    this.facade.assetType$.subscribe(x => {
+    this.facade.assetType$.subscribe((x) => {
       this.assetTypes = x;
-    })
-    this._dataService.watchType().subscribe(
-      (x)=>{
-        this.inputForm.patchValue({
-          typeCategory:x
-        })
-      }
-    )
+    });
+    this._dataService.watchType().subscribe((x) => {
+      this.inputForm.patchValue({
+        typeCategory: x
+      });
+    });
     this.facade.submitted$.subscribe((x) => {
       if (x) {
         this.dialogModal = true;
@@ -115,15 +131,14 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     list.push(this.createSingleModel());
   }
 
-  ngAfterViewInit() { }
-
+  ngAfterViewInit() {}
 
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => { });
+        fileEntry.file((file: File) => {});
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
@@ -186,7 +201,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   submit() {
-
     this.submited = true;
     this.dialogType = 'submit';
     if (this.inputForm.invalid) {
@@ -210,28 +224,28 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     // }
 
     const data = [
-      ...this.assetTypes.map(x => {
+      ...this.assetTypes.map((x) => {
         return {
           id: x.id,
           type: x.type,
           name: x.name,
           isActive: x.isActive,
           typeDescription: x.typeDescription
-        }
-      })
-      , {
+        };
+      }),
+      {
         type: type,
         name: this.inputForm.value.typeName,
         isActive: this.inputForm.value.activetype,
         typeDescription: this.inputForm.value.description
-      }];
-/*       const value ={
+      }
+    ];
+    /*       const value ={
         type: type,
         name: this.inputForm.value.typeName,
         isActive: this.inputForm.value.activetype,
         typeDescription: this.inputForm.value.description
       } */
-
 
     this.facade.addAssetType(data);
   }

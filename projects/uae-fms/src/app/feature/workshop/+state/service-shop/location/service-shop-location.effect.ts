@@ -22,8 +22,13 @@ export class ServiceShopLocationEffect {
       mergeMap((action) =>
         this.service.loadAll().pipe(
           map((data) => {
-            this._tableFacade.initialPaginator(data.resultNumber, 'service-shop_location');
-            this._store.dispatch(ServiceShopLocationActions.count({data:data.resultNumber}))
+            this._tableFacade.initialPaginator(
+              data.resultNumber,
+              'service-shop_location'
+            );
+            this._store.dispatch(
+              ServiceShopLocationActions.count({ data: data.resultNumber })
+            );
             return ServiceShopLocationActions.allDataLoaded({
               data: data.message
             });
@@ -41,7 +46,7 @@ export class ServiceShopLocationEffect {
       mergeMap((action) =>
         this.service.editLocation(action.serviceShopLocation).pipe(
           map((data) =>
-          ServiceShopLocationActions.serviceShopLocationEditedSuccessfully({
+            ServiceShopLocationActions.serviceShopLocationEditedSuccessfully({
               serviceShopLocation: action.serviceShopLocation
             })
           ),
@@ -59,7 +64,7 @@ export class ServiceShopLocationEffect {
       mergeMap((action) =>
         this.service.post(action.data).pipe(
           map((data) =>
-          ServiceShopLocationActions.serviceshopLocationAddedSuccessfully({
+            ServiceShopLocationActions.serviceshopLocationAddedSuccessfully({
               data: { ...action.data, ...data.message }
             })
           ),

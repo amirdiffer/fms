@@ -8,26 +8,21 @@ import { DataService } from '../data.service';
   styleUrls: ['./asset-category.component.scss']
 })
 export class AssetCategoryComponent implements OnInit {
-  constructor(
-    private _dataService:DataService,
-    private _fb:FormBuilder
-  ) {}
-  form:FormGroup
+  constructor(private _dataService: DataService, private _fb: FormBuilder) {}
+  form: FormGroup;
   ngOnInit(): void {
     this.form = this._fb.group({
-      type:['']
-    })
-    this._dataService.watchType().subscribe(
-      (x) => {
-        if(x){
-          this.form.patchValue({
-            type: x
-          })
-        }
+      type: ['']
+    });
+    this._dataService.watchType().subscribe((x) => {
+      if (x) {
+        this.form.patchValue({
+          type: x
+        });
       }
-    );
+    });
   }
-  typeCategory(event){
-    this._dataService.selectType(event)
+  typeCategory(event) {
+    this._dataService.selectType(event);
   }
 }

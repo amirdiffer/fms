@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Injector,
-} from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -149,7 +145,7 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
     private _fb: FormBuilder,
     injector: Injector,
     private _roter: Router,
-    private _facadeLocation: ServiceShopLocationFacade,
+    private _facadeLocation: ServiceShopLocationFacade
   ) {
     super(injector);
   }
@@ -265,8 +261,8 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
 
     slots.push(this.createSlot());
   }
-  removeSlot(index){
-    this.slot.removeAt(index)
+  removeSlot(index) {
+    this.slot.removeAt(index);
   }
 
   addService() {
@@ -278,8 +274,8 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
 
     services.push(this.createService());
   }
-  removeService(index){
-    this.service.removeAt(index)
+  removeService(index) {
+    this.service.removeAt(index);
   }
 
   dialogConfirm($event): void {
@@ -313,9 +309,13 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
         this._facadeLocation.addLocation(locationInfo);
       }
     } else {
-      this.router.navigate(['/workshop/service-shop'] , {queryParams:{id:'locationTab'}}).then((_) => {
-        this._facadeLocation.resetParams();
-      });
+      this.router
+        .navigate(['/workshop/service-shop'], {
+          queryParams: { id: 'locationTab' }
+        })
+        .then((_) => {
+          this._facadeLocation.resetParams();
+        });
     }
   }
   addRequest() {

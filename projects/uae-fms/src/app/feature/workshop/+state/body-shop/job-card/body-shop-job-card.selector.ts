@@ -13,7 +13,7 @@ export class BodyShopJobCardSelectors {
     WorkshopSelectors.bodyshopJobCardSelector,
     (state) => state.resultNumber
   );
-  
+
   static message = createSelector(
     WorkshopSelectors.bodyshopJobCardSelector,
     (state) => state.message
@@ -35,5 +35,4 @@ export class BodyShopJobCardSelectors {
       else return null;
     }
   );
-  
 }
