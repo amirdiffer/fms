@@ -105,19 +105,25 @@ export class AddRequestComponent implements OnInit {
           .subscribe((x) => {
             if (x) {
               this._request = x;
+              this.profileDocIds = Array.isArray(x.documentIds)
+                ? x.documentIds
+                : [x.documentIds];
               this.inputForm.patchValue({
                 assetId: {
                   name: x.asset.dpd,
                   id: x.asset.id
                 },
                 hasAccident: x.hasAccident,
-                jobType: x.jobType
+                jobType: x.jobType,
+                priority: x.priority, //'HIGH',
+                accidentType: x.accidentType
               });
-
+              this.changePriority(x.priority);
               this.inputForm.controls['issueInfo'].patchValue({
                 issue: x.request,
                 reportedBy: x.reportedBy,
-                description: x.description
+                description: x.description,
+                gpsMeterSource: x.gpsMeterSource
               });
             }
           });

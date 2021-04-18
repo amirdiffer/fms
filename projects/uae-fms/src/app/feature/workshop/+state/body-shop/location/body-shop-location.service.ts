@@ -12,9 +12,10 @@ export class BodyShopLocationService {
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
@@ -23,7 +24,8 @@ export class BodyShopLocationService {
 
   loadAll(): Observable<ResponseBody<ILocation[]>> {
     return this.http.get<ResponseBody<ILocation[]>>(
-      environment.baseApiUrl + 'workshop/bodyshop/location', {params: this.getParam('body-shop_location')}
+      environment.baseApiUrl + 'workshop/bodyshop/location',
+      { params: this.getParam('body-shop_location') }
     );
   }
   post(data): Observable<ResponseBody<any>> {
@@ -44,7 +46,7 @@ export class BodyShopLocationService {
   }
   getLocationById(id) {
     return this.http.get<ResponseBody<ILocation>>(
-      environment.baseApiUrl + 'workshop/bodyshop/location' + id
+      environment.baseApiUrl + 'workshop/bodyshop/location/' + id
     );
   }
 }

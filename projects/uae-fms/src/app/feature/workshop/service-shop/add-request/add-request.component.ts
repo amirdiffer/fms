@@ -21,7 +21,10 @@ import { map } from 'rxjs/operators';
 import { IRequest } from '@models/body-shop';
 import { Subject } from 'rxjs';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
-import { ServiceShopRequestFacade, ServiceShopRequestService } from '@feature/workshop/+state/service-shop';
+import {
+  ServiceShopRequestFacade,
+  ServiceShopRequestService
+} from '@feature/workshop/+state/service-shop';
 @Component({
   selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',
@@ -102,19 +105,25 @@ export class AddRequestServiceShopComponent implements OnInit {
           .subscribe((x) => {
             if (x) {
               this._request = x;
+              this.profileDocIds = Array.isArray(x.documentIds)
+                ? x.documentIds
+                : [x.documentIds];
               this.inputForm.patchValue({
                 assetId: {
                   name: x.asset.dpd,
                   id: x.asset.id
                 },
                 hasAccident: x.hasAccident,
-                jobType: x.jobType
+                jobType: x.jobType,
+                priority: x.priority,
+                accidentType: x.accidentType
               });
-
+              this.changePriority(x.priority);
               this.inputForm.controls['issueInfo'].patchValue({
                 issue: x.request,
                 reportedBy: x.reportedBy,
-                description: x.description
+                description: x.description,
+                gpsMeterSource: x.gpsMeterSource
               });
             }
           });
