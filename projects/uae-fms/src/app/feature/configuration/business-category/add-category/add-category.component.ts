@@ -3,7 +3,7 @@ import {
   BusinessCategoryFacade,
   BusinessCategoryService
 } from '../../+state/business-category';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
 import { TableSetting } from '@core/table';
@@ -26,7 +26,7 @@ export class AddCategoryComponent extends Utility implements OnInit {
   dialogModal = false;
   dialogMode = null;
   dialogSetting: IDialogAlert = {
-    header: 'Add Business Category',
+    header: 'Add Usage Category',
     hasError: false,
     message: 'Are you sure you want to add new Business Category?',
     confirmButton: 'Register Now',
@@ -125,7 +125,7 @@ export class AddCategoryComponent extends Utility implements OnInit {
 
     this.addCategoryForm = this._fb.group({
       name: ['', [Validators.required]],
-      assetType: ['', [Validators.required]],
+      assetType: ['', [Validators.required , this.autocompleteValidation]],
       activeCategory: [''],
       description: [''],
       assignSubAsset: new FormArray([this.createAssignSubAsset()]),
@@ -179,98 +179,98 @@ export class AddCategoryComponent extends Utility implements OnInit {
   }
 
   handleEditMode(): void {
-    this.route.queryParams.subscribe((queryParams) => {
-      if (queryParams['id']) {
-        this.isEditing = true;
-        this.id = queryParams['id'];
-        this.networkService.getOne(this.id).subscribe((response) => {
-          this.addCategoryForm.patchValue({
-            name: response.message.name,
-            assetType: {
-              name: response.message.assetTypeName,
-              id: response.message.assetTypeId
-            },
-            activeCategory:
-              response.message.status.toLocaleLowerCase() === 'active',
-            description: response.message.description
-          });
-
-          const subAssets = response.message.subAssets;
-          for (let i = 0; i < subAssets.length; i++) {
-            if (i > 0) {
-              this.assignSubAsset.push(this.createAssignSubAsset());
-            }
-            let subAsset = this.subAssetsB.find(
-              (a) => a.id == subAssets[i].subAssetId
-            );
-            this.subAssetDocs.push(subAsset.id);
-            this.assignSubAsset.controls[i].patchValue({
-              subAsset: {
-                id: subAssets[i].subAssetId,
-                name: subAsset.name
-              },
-              assetQuantity: subAssets[i].quantity,
-              file: subAssets[i].id
-            });
-            // this.subAssetFacade.subAsset$.subscribe((x) => {
-            //   this.subAssetsB = x.map((y) => {
-            //     this.subAssetDocs.push(y.id);
-            //     this.assignSubAsset.controls[i].patchValue({
-            //       subAsset: {
-            //         id: subAssets[i].subAssetId,
-            //         name:
-            //           y.id === subAssets[i].subAssetId
-            //             ? y['makeName'] + ' ' + y['modelName']
-            //             : ''
-            //       },
-            //       assetQuantity: subAssets[i].quantity,
-            //       file: subAssets[i].id
-            //     });
-            //     return { id: y.id, name: y['makeName'] + ' ' + y['modelName'] };
-            //   });
-            // });
-          }
-
-          const accessories = response.message.accessories;
-          for (let i = 0; i < accessories.length; i++) {
-            if (i > 0) {
-              this.assignAccessory.push(this.createAssignAccessory());
-            }
-            let accessory = this.accessoriesB.find(
-              (a) => a.id == accessories[i].accessoryId
-            );
-            this.accessoryDocs.push(accessory.id);
-            this.assignAccessory.controls[i].patchValue({
-              accessory: {
-                id: accessories[i].accessoryId,
-                name: accessory.name
-              },
-              accessoryQuantity: accessories[i].quantity,
-              file: accessories[i].id
-            });
-            // this.accessoryFacade.accessory$.subscribe((x) => {
-            //   this.accessoriesB = x.map((y) => {
-            //     this.accessoryDocs.push(y.id);
-            //     this.assignAccessory.controls[i].patchValue({
-            //       accessory: {
-            //         id: accessories[i].accessoryId,
-            //         name: y.id === accessories[i].accessoryId ? y.itemName : ''
-            //       },
-            //       accessoryQuantity: accessories[i].quantity,
-            //       file: accessories[i].id
-            //     });
-            //     return { id: y.id, name: y.itemName };
-            //   });
-            // });
-          }
+    const url = this.route.snapshot.url
+    if (url.filter((x) => x.path == "edit-usage-category").length > 0) {
+      this.isEditing = true;
+      this.id = +url[url.length - 1].path;;
+      this.networkService.getOne(this.id).subscribe((response) => {
+        console.log(response)
+        this.addCategoryForm.patchValue({
+          name: response.message.name,
+          assetType: {
+            name: response.message.assetTypeName,
+            id: response.message.assetTypeId
+          },
+          activeCategory:
+            response.message.status.toLocaleLowerCase() === 'active',
+          description: response.message.description
         });
-      }
-    });
+
+        const subAssets = response.message.subAssets;
+        for (let i = 0; i < subAssets.length; i++) {
+          if (i > 0) {
+            this.assignSubAsset.push(this.createAssignSubAsset());
+          }
+          let subAsset = this.subAssetsB.find(
+            (a) => a.id == subAssets[i].subAssetId
+          );
+          this.subAssetDocs.push(subAsset.specDocId);
+          this.assignSubAsset.controls[i].patchValue({
+            subAsset: {
+              id: subAssets[i].subAssetId,
+              name: subAsset.name
+            },
+            assetQuantity: subAssets[i].quantity,
+            file: subAssets[i].id
+          });
+          // this.subAssetFacade.subAsset$.subscribe((x) => {
+          //   this.subAssetsB = x.map((y) => {
+          //     this.subAssetDocs.push(y.id);
+          //     this.assignSubAsset.controls[i].patchValue({
+          //       subAsset: {
+          //         id: subAssets[i].subAssetId,
+          //         name:
+          //           y.id === subAssets[i].subAssetId
+          //             ? y['makeName'] + ' ' + y['modelName']
+          //             : ''
+          //       },
+          //       assetQuantity: subAssets[i].quantity,
+          //       file: subAssets[i].id
+          //     });
+          //     return { id: y.id, name: y['makeName'] + ' ' + y['modelName'] };
+          //   });
+          // });
+        }
+
+        const accessories = response.message.accessories;
+        for (let i = 0; i < accessories.length; i++) {
+          if (i > 0) {
+            this.assignAccessory.push(this.createAssignAccessory());
+          }
+          let accessory = this.accessoriesB.find(
+            (a) => a.id == accessories[i].accessoryId
+          );
+          this.accessoryDocs.push(accessory.specDocId);
+          this.assignAccessory.controls[i].patchValue({
+            accessory: {
+              id: accessories[i].accessoryId,
+              name: accessory.name
+            },
+            accessoryQuantity: accessories[i].quantity,
+            file: accessories[i].id
+          });
+          // this.accessoryFacade.accessory$.subscribe((x) => {
+          //   this.accessoriesB = x.map((y) => {
+          //     this.accessoryDocs.push(y.id);
+          //     this.assignAccessory.controls[i].patchValue({
+          //       accessory: {
+          //         id: accessories[i].accessoryId,
+          //         name: y.id === accessories[i].accessoryId ? y.itemName : ''
+          //       },
+          //       accessoryQuantity: accessories[i].quantity,
+          //       file: accessories[i].id
+          //     });
+          //     return { id: y.id, name: y.itemName };
+          //   });
+          // });
+        }
+      });
+    }
   }
 
   createAssignSubAsset(): FormGroup {
     return this._fb.group({
-      subAsset: ['', [Validators.required]],
+      subAsset: ['', [Validators.required , this.autocompleteValidation]],
       file: [],
       assetQuantity: ['']
     });
@@ -278,7 +278,7 @@ export class AddCategoryComponent extends Utility implements OnInit {
 
   createAssignAccessory(): FormGroup {
     return this._fb.group({
-      accessory: ['', [Validators.required]],
+      accessory: ['', [Validators.required , this.autocompleteValidation]],
       file: [],
       accessoryQuantity: ['']
     });
@@ -316,7 +316,7 @@ export class AddCategoryComponent extends Utility implements OnInit {
 
   dialogConfirm(event): void {
     if (this.dialogMode == 'cancel') {
-      this.router.navigate(['/configuration/business-category']).then();
+      this.router.navigate(['/configuration/usage-category']).then();
       this.facade.reset();
       return;
     }
@@ -368,10 +368,12 @@ export class AddCategoryComponent extends Utility implements OnInit {
     this.dialogSetting.hasError = false;
     this.dialogSetting.isWarning = true;
     this.dialogSetting.message =
-      'Are you sure to cancel adding new business category?';
+      'Are you sure to cancel adding new usage category?';
   }
 
   submit() {
+    console.log(this.assignAccessory.controls[0].value)
+    this.addCategoryForm.markAllAsTouched();
     this.submited = true;
     if (this.addCategoryForm.invalid) {
       return;
@@ -380,10 +382,10 @@ export class AddCategoryComponent extends Utility implements OnInit {
 
     this.dialogModal = true;
     this.dialogSetting.hasError = false;
-    this.dialogSetting.header = 'Add Business Category';
+    this.dialogSetting.header = 'Add Usage Category';
     this.dialogSetting.hasError = false;
     this.dialogSetting.message =
-      'Are you sure you want to add new Business Category?';
+      'Are you sure you want to add new Usage Category?';
     this.dialogSetting.confirmButton = 'Register Now';
     this.dialogSetting.cancelButton = 'Cancel';
 
@@ -420,4 +422,21 @@ export class AddCategoryComponent extends Utility implements OnInit {
       (x) => x.name.toLowerCase().indexOf(event.query.toLowerCase()) >= 0
     );
   }
+
+  autocompleteValidation(input: FormControl) {
+    const inputValid = input.value.name;
+    if (inputValid) {
+      return null;
+    } else {
+      return { needsExclamation: true };
+    }
+  }
+
+  removeassignSubAsset(index){
+    this.assignSubAsset.removeAt(index)
+  }
+  removeassignAccessory(index){
+    this.assignAccessory.removeAt(index)
+  }
+    
 }
