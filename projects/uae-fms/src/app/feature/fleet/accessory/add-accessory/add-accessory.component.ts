@@ -142,10 +142,11 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
   );
 
   handleEditMode() {
-    
-    if(this._route.snapshot.queryParams.id){
+    const url = this._route.snapshot.url
+    console.log(this._route.snapshot.url)
+    if(url.filter((x) => x.path == "edit-accessory").length > 0){
       this.isEdit = true;
-      this.recordId = this._route.snapshot.queryParams.id;
+      this.recordId = +url[url.length - 1].path;;
       this.loadAccessoryData(this.recordId);
     }else{
       this.isEdit = false;

@@ -31,7 +31,7 @@ const routes: Routes = [
     component: AccessoryOverviewComponent
   },
   { path: 'accessory/add-new-accessory', component: AddAccessoryComponent },
-  { path: 'accessory/edit-accessory', component: AddAccessoryComponent },
+  { path: 'accessory/edit-accessory/:id', component: AddAccessoryComponent },
   { path: 'accessory', component: AccessoryComponent },
   { path: 'sub-asset', component: SubAssetComponent },
   { path: 'movement', redirectTo: 'movement/permanent' },

@@ -87,9 +87,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
       floatButton: [
         {
           onClick: (col, data) => {
-            this._router.navigate(['/fleet/accessory/edit-accessory'], {
-              queryParams: { id: data['id'] }
-            });
+            this._router.navigate(['/fleet/accessory/edit-accessory/'+ data.id]);
           },
           button: 'edit',
           color: '#3F3F3F'
