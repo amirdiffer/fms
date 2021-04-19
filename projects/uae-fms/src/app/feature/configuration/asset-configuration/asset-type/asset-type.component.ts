@@ -12,6 +12,7 @@ import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
 import { Router } from '@angular/router';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { map, tap } from 'rxjs/operators';
+import { SettingsFacade } from '@core/settings/settings.facade';
 
 @Component({
   selector: 'configuration-asset-type',
@@ -33,6 +34,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   assetTypes: AssetTypeExtension[] = [];
   arrowIcon = 'assets/icons/arrow-down.svg';
   categoryType$;
+  activeLang = '';
   //#endregion
 
   tree = [];
@@ -73,7 +75,8 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   constructor(
     private facade: AssetTypeFacade,
     private router: Router,
-    private dataService: DataService
+    private dataService: DataService,
+    private settingFacade: SettingsFacade
   ) {}
 
   ngOnInit(): void {
@@ -90,6 +93,10 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.filter.next('SUB_ASSET');
     }, 4000);
+
+    this.settingFacade.language.subscribe((lang) => {
+      this.activeLang = lang;
+    });
   }
 
   createMake(assetType: AssetTypeExtension): void {
