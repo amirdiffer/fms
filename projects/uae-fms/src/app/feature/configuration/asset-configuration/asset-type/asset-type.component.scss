@@ -117,9 +117,9 @@ mat-card {
   cursor: pointer;
 }
 
-.plus {
-  position: absolute;
-  right: 15px;
+.down-arrow-ar {
+  transform: rotate(-180deg);
+  cursor: pointer;
 }
 
 .cursor-pointer {
