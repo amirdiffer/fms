@@ -49,7 +49,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.dashboard',
       icon: 'dashboard',
       route: '/dashboard',
-      disabled: true
+      disabled: false
     },
     {
       name: 'sidebar.fleets.~',
@@ -128,7 +128,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.workshop.service_shop',
           icon: 'service-shop',
-          route: '/workshop/service-shop',
+          route: '/workshop/service-shop'
           // disabled: true
         },
         /*         {
@@ -271,20 +271,20 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     private resizeService: WindowResizeService,
     private routerService: RouterService,
     private route: ActivatedRoute,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.usingMenu = this.mainMenu;
-    this.route.url.subscribe(x => {
+    this.route.url.subscribe((x) => {
       let url = this.router.url;
       if (url.indexOf('?') >= 0) {
-        url = url.split('?')[0]
+        url = url.split('?')[0];
       }
       this.activeRoute = url;
       this.urlGroup = url.split('/');
       this.collapsedMenu = '/' + url.split('/')[1];
-    })
+    });
 
     this.opened$.subscribe((x) => {
       !x ? (this.activeGroup = 'root') : null;
@@ -309,8 +309,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       }
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   activeMenuCheck(route: string) {
     let r = '';
@@ -327,7 +326,11 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       r = route.split('/');
       r = r[r.length - 1];
     }
-    return this.urlGroup.indexOf(r) >= 0 && this.activeGroup != 'root' && this.collapsedSubMenu != 'root';
+    return (
+      this.urlGroup.indexOf(r) >= 0 &&
+      this.activeGroup != 'root' &&
+      this.collapsedSubMenu != 'root'
+    );
   }
 
   activeToggleSubGroup(route): boolean {
@@ -344,7 +347,8 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
   }
 
   toggleSubGroup(item: MenuItem) {
-    if (this.collapsedSubMenu == '/' + item.route.split('/')[2] ) this.collapsedSubMenu = 'root';
+    if (this.collapsedSubMenu == '/' + item.route.split('/')[2])
+      this.collapsedSubMenu = 'root';
     else this.collapsedSubMenu = '/' + item.route.split('/')[2];
   }
 }

@@ -8,15 +8,23 @@
     font-size: 0.6rem;
   }
   .item {
+    margin-top: 30px;
     width: 222px;
     &__title {
       font-size: 0.75rem;
     }
+    &__icon {
+      background-color: #dbeee7;
+      width: 38px;
+      border-radius: 6px;
+      height: 38px;
+    }
     &__progress {
-      width: 47px;
+      width: 15px;
     }
     &__percent {
       flex-grow: 0.8;
+      font-size: 0.75rem;
     }
   }
   &__more {

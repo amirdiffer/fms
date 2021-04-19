@@ -20,6 +20,8 @@ import { DashboardComponent } from './dashboard.component';
 import { FactoryCategoryComponent } from './factory-category/factory-category.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
+import { RadialProgressBarComponent } from './radial-progress-bar/radial-progress-bar.component';
+import { WorkshopJobTypeComponent } from './workshop-job-type/workshop-job-type.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { SuppliersComponent } from './suppliers/suppliers.component';
     AssetsStatusComponent,
     ActiveAssetsComponent,
     FactoryCategoryComponent,
-    BusinessCategoryComponent
+    BusinessCategoryComponent,
+    RadialProgressBarComponent,
+    WorkshopJobTypeComponent
   ],
   exports: [ProgressBarComponent],
   imports: [

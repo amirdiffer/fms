@@ -59,9 +59,9 @@
   padding-bottom: 50px;
 }
 
-.flex-container {
-  display: flex !important;
-  justify-content: space-between;
+.wrapper {
+  // display: flex !important;
+  // justify-content: space-between;
   .assets-status {
     flex: 0 0 30%;
   }
@@ -73,13 +73,14 @@
   }
   .dashboard-card {
     border-radius: 6px;
-    height: 100%;
+    // height: 73%;
+    height: 366px;
     max-width: 100%;
   }
-  .category {
-    flex: 0 0 49.5%;
-    justify-content: space-between;
-  }
+  // .category {
+  //   flex: 0 0 25%;
+  //   justify-content: space-between;
+  // }
 }
 
 @media screen and (max-width: 968px) {

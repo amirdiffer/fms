@@ -12,7 +12,7 @@ const routes: Routes = [
       import('../app/feature/login/login.module').then((m) => m.LoginModule),
     component: LoginTemplateComponent
   },
-  /* {
+  {
     path: 'dashboard',
     canLoad: [AuthGuardService],
     loadChildren: () =>
@@ -20,7 +20,7 @@ const routes: Routes = [
         (m) => m.DashboardModule
       ),
     component: MainTemplateComponent
-  }, */
+  },
   {
     path: 'fleet',
     canLoad: [AuthGuardService],

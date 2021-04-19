@@ -1,0 +1,15 @@
+:host ::ng-deep .apexcharts-datalabel-value {
+  transform: translate(0px, -13px);
+  font-size: 80%;
+  display: none;
+}
+.chart-custom {
+  // position: absolute;
+  // top: 50%;
+  // transform: translateY(-50%);
+}
+.title {
+  color: #0da06e;
+  margin: 0 0.3em;
+  font-weight: bold;
+}
