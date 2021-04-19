@@ -163,18 +163,21 @@ export class AddPeriodicServiceComponent
     this.packages = this.periodicServiceForm.get('packages') as FormArray;
     if (!this.packages) this.packages.push(this.createPackageForm());
 
+    const url = this.route.snapshot.url;
+    if (url.filter((x) => x.path === 'edit-periodic-service').length > 0) {
+      this.isEdit = true;
+      this.id = 8;
+      this.periodicService.getById(this.id).subscribe((result) => {
+        if (result) {
+          this.loadPeriodicServiceForm(result.message);
+        }
+      });
+    } else {
+      this.isEdit = false;
+    }
+
     this._routerFacade.route$.subscribe((data: any) => {
       this.id = +data.queryParams['id'];
-
-      if (this.id) {
-        this.isEdit = true;
-
-        this.periodicService.getById(this.id).subscribe((result) => {
-          if (result) {
-            this.loadPeriodicServiceForm(result.message);
-          }
-        });
-      }
     });
 
     this.periodicServiceFacade.submitted$.subscribe((x) => {
