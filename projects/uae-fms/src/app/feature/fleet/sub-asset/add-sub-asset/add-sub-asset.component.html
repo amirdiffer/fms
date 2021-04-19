@@ -1,7 +1,6 @@
 <form [formGroup]="subAssetForm">
   <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" routerLink="..">{{'forms.cancel'
-      | translate}}</button>
+    <button class="btn-primary-medium btn-scondary-green" (click)="cancel()">{{'forms.cancel'| translate}}</button>
     <button
       *ngIf="formCurrentStep > 0 && ((!isSingleAsset && formCurrentStep < 2) || (isSingleAsset && formCurrentStep <=2))"
       class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate
