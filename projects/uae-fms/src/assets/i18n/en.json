@@ -135,7 +135,8 @@
     "add_trim": "Add Sub Model",
     "edit_business_category": "Edit Usage Category",
     "company_setting": "Company Setting",
-    "permanent": "Permanent"
+    "permanent": "Permanent",
+    "technical_inspection_report": "Technical Inspection Report"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -507,7 +508,9 @@
       "models": "Models",
       "capacity": "Capacity",
       "km": "KM",
-      "request": "Request"
+      "request": "Request",
+      "spare_part": "Spare Part",
+      "working_hours": "Working Hours"
     },
     "button": {
       "view_report": "View Report",
@@ -1121,7 +1124,41 @@
         "content": "Drag and Drop a File or Click here"
       },
       "actual_market_value": "Actual Market Value",
-      "sold": "Sold"
+      "sold": "Sold",
+      "overview": {
+        "asset_number": "Asset Number",
+        "dpd_number": "DPD Number",
+        "make": "Make",
+        "year_of_make": "Year of make",
+        "meter_reading": "Meter reading",
+        "dep_section": "Dep/Section",
+        "category": "Category",
+        "purchase_value": "Purchase Value",
+        "insurance_value": "Insurance Value",
+        "total_spare_part": "Total spare part",
+        "labour_cost": "Labour Cost",
+        "market_value": "Market Value",
+        "last_entry_date_workshop": "Last entry date workshop",
+        "transfer_form": "Transfer Form",
+        "transfer_reason": "Transfer Reason",
+        "technician": "Technician",
+        "note": "Note",
+        "date": "Date",
+        "status": "Status",
+        "add_decision": "Add Decision",
+        "technical_name": "Technical Name",
+        "request": "Request",
+        "task": "Task",
+        "request_type": "Request Type",
+        "spare_part": "Spare Part",
+        "working_hours": "Working hours",
+        "rate_per_hour": "Rate per hour",
+        "manager_decisions": "Manager Decision",
+        "manager_name": "Manager Name",
+        "decision": "Decision",
+        "description": "Description",
+        "total_cost": "Total Cost"
+      }
     },
     "task_master": {
       "task_info": "Task Info",

@@ -1,14 +1,15 @@
-<div class='row'>
+<div class='row component_cus_wrapper'>
   <div class='col-12'>
-    <form>
+    <form [formGroup]="formGroup">
       <div class='button-container'>
-        <button class='btn-primary-medium btn-scondary-green'
-        >{{ 'forms.cancel' | translate }}</button>
-        <button class='btn-primary-medium add'>{{ 'search.add' | translate }}</button>
+        <button class='btn-primary-medium btn-scondary-green' *ngIf="activeForm" (click)="activeForm=false">{{ 'forms.cancel' | translate }}</button>
+        <button class='btn-primary-medium add' *ngIf="activeForm" (click)="activeForm=false">{{ 'forms.save' | translate }}</button>
+        <button class='btn-primary-medium add' style="min-width: 15rem;" *ngIf="!activeForm" (click)="activeForm=true"><i>+</i> Add Decision</button>
       </div>
       <div class="row">
         <div class="col-md-4 col-lg-3 mt-2">
-          <div class="left-menu">
+          <div class="component_sec_wrapper">
+            <div class="left-menu">
             <span class="vehicle-sec">
               <div class="toolbar">
                 <img class="toolbar-edit" src="assets/icons/edit.svg" alt="">
@@ -17,76 +18,291 @@
                 <img src="assets/vehicle.png" alt="">
               </div>
             </span>
-            <hr class="seprator">
-            <div class="ml-3">
-              <h6 class="vehicle-title">1111</h6>
-            </div>
-            <div class="vehicle-info">
+              <hr class="seprator">
+              <div class="ml-3">
+                <h6 class="vehicle-title">Fleet No. DPD 123</h6>
+              </div>
+              <div class="vehicle-info">
               <span>
-                <h5 class="title">{{ 'assets.overview.overview.vin_sn' | translate }}</h5>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.asset_number' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.license_plate' | translate }}</h5>
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.dpd_number' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.status' | translate }}</h5>
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.make' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.department' | translate }}</h5>
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.year_of_make' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.operator' | translate }}</h5>
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.meter_reading' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.group' | translate }}</h5>
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.dep_section' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.make' | translate }}</h5>
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.category' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.model' | translate }}</h5>
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.purchase_value' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.year' | translate }}</h5>
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.insurance_value' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.trim' | translate }}</h5>
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.total_spare_part' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.color' | translate }}</h5>
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.labour_cost' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.body_type' | translate }}</h5>
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.market_value' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.salik' | translate }}</h5>
+                <hr class="seprator">
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.last_entry_date_workshop' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.warranty' | translate }}</h5>
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.transfer_form' | translate }}</h5>
                 <h5 class="info">1111</h5>
               </span>
-              <span>
-                <h5 class="title">{{ 'assets.overview.overview.job_card_status' | translate }}</h5>
+                <span>
+                <h5 class="title">{{ 'workshop.technical_inspection.overview.transfer_reason' | translate }}</h5>
                 <h5 class="info">Open</h5>
               </span>
+              </div>
             </div>
           </div>
         </div>
         <div class="col-md-8 col-lg-9 mt-2">
-
+          <div *ngIf="activeForm" class="form-section">
+            <div class="row form-section__row">
+              <div class="col-12 col-md-6 p-field form-section__field">
+                <span class="p-float-label">
+                  <input formControlName="technical_name" pInputText type="text">
+                  <label>{{ 'workshop.technical_inspection.overview.technical_name' | translate }}*</label>
+                </span>
+              </div>
+              <div class="col-12 col-md-6 p-field form-section__field options-select">
+                <span class="p-float-label">
+                  <p-dropdown id="status" inputId="status" [autoDisplayFirst]="false"
+                              [options]="status"
+                              formControlName="status" optionLabel="name"></p-dropdown>
+                  <label for="status">{{ 'workshop.technical_inspection.overview.status' | translate }}</label>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="activeForm" class="form-section">
+            <h3 class="form-section__title">
+              <span class='plus-icon' (click)="addRequestFormArr()">
+                <svg-icon src='assets/icons/add.svg'
+                          [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+              </span>
+              {{ 'workshop.technical_inspection.overview.request' | translate }}
+            </h3>
+            <div formArrayName="request">
+              <div class="row form-section__row" *ngFor="let _ of requestFormArr.controls; let index = index" [formGroupName]="index">
+                <div class="col-12 col-md-6 p-field form-section__field options-select">
+                <span class="p-float-label">
+                  <p-dropdown  inputId="status" [autoDisplayFirst]="false"
+                              [options]="status" optionLabel="name"></p-dropdown>
+                  <label for="status">{{ 'workshop.technical_inspection.overview.task' | translate }}</label>
+                </span>
+                </div>
+                <div class="col-12 col-md-6 p-field form-section__field options-select">
+                <span class="p-float-label">
+                  <p-dropdown  inputId="status" [autoDisplayFirst]="false"
+                              [options]="status" optionLabel="name"></p-dropdown>
+                  <label for="status">{{ 'workshop.technical_inspection.overview.request_type' | translate }}</label>
+                </span>
+                </div>
+              </div>
+            </div>
+            <div class="row form-section__row">
+              <div class="col-12 col-md-4 form-group">
+                <div class="input-group" formArrayName="spare_part">
+                  <div class="p-field form-section__field w-100"
+                       *ngFor="let part of getSparePart.controls; let i=index; let last=last;">
+                    <div class="p-inputgroup" [class.mt-2]='getSparePart.length > 1'>
+                    <span class="p-float-label">
+                      <input type="text" [formControlName]="i" pInputText>
+                      <label>{{ 'workshop.technical_inspection.overview.spare_part' | translate }}</label>
+                    </span>
+                      <span *ngIf="last" class="p-inputgroup-addon addon-primary" (click)="addSparePart()">
+                      <i class="pi pi-plus"></i>
+                    </span>
+                      <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeSparePart(i)">
+                      <svg-icon src='assets/icons/add.svg'
+                                [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+                    </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                  <input pInputText type="number">
+                  <label>{{ 'workshop.technical_inspection.overview.working_hours' | translate }}</label>
+                </span>
+              </div>
+              <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                  <input pInputText type="number">
+                  <label>{{ 'workshop.technical_inspection.overview.rate_per_hour' | translate }}</label>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="table-container">
+            <div class="card-table">
+              <div class="table_header">
+                <div class="">
+                  <ul>
+                    <li>
+                      <span class="title">{{ 'workshop.technical_inspection.overview.technician' | translate }}: </span>
+                      <span class="desc">
+                        <img src="assets/user-image.png">
+                        Sam Smith 12345678900
+                      </span>
+                    </li>
+                    <li>
+                      <span class="title">{{ 'workshop.technical_inspection.overview.note' | translate }}: </span>
+                      <span class="desc">Text Text Text Text Text </span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="">
+                  <ul>
+                    <li>
+                      <span class="title">{{ 'workshop.technical_inspection.overview.date' | translate }}: </span>
+                      <span class="desc">20/20/2020</span>
+                    </li>
+                    <li>
+                      <span class="title">{{ 'workshop.technical_inspection.overview.status' | translate }}: </span>
+                      <span class="desc">
+                        <span class="status-repair">Repair</span>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <app-table [setting]="setting"></app-table>
+              <div class="table_footer" style="background-color: #0C9768;">
+                <p class="m-0">
+                  {{ 'workshop.technical_inspection.overview.total_cost' | translate }}: <span>24000 AED</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="table-container">
+            <div class="card-table">
+              <div class="table_header">
+                <div class="">
+                  <ul>
+                    <li>
+                      <span class="title">{{ 'workshop.technical_inspection.overview.technician' | translate }}: </span>
+                      <span class="desc">
+                        <img src="assets/user-image.png">
+                        Sam Smith 12345678900
+                      </span>
+                    </li>
+                    <li>
+                      <span class="title">{{ 'workshop.technical_inspection.overview.note' | translate }}: </span>
+                      <span class="desc">Text Text Text Text Text </span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="">
+                  <ul>
+                    <li>
+                      <span class="title">{{ 'workshop.technical_inspection.overview.date' | translate }}: </span>
+                      <span class="desc">20/20/2020</span>
+                    </li>
+                    <li>
+                      <span class="title">{{ 'workshop.technical_inspection.overview.status' | translate }}: </span>
+                      <span class="desc">
+                        <span class="status-cancel">Cancel</span>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <app-table [setting]="setting"></app-table>
+              <div class="table_footer" style="background-color: #FCAA59;">
+                <p class="m-0">
+                  {{ 'workshop.technical_inspection.overview.total_cost' | translate }}: <span>24000 AED</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="activeForm" class="form-section">
+            <h3 class="form-section__title">{{ 'workshop.technical_inspection.overview.manager_decisions' | translate }}</h3>
+            <div class="row form-section__row" style="padding: 0 3em;">
+              <div class="col-12 manager-decisions-box">
+                <div class="row">
+                  <div class="col-md-3">Work shop Manager</div>
+                  <div class="col-md-3 status-fix">Fix</div>
+                  <div class="col-md-4">Opinion for this Asset is that, Opinion for this Asset is that, Opinion for this Asset is that,</div>
+                  <div class="col-md-2">12 Sep 2019</div>
+                </div>
+              </div>
+              <div class="col-12 manager-decisions-box">
+                <div class="row">
+                  <div class="col-md-3">Work shop Manager</div>
+                  <div class="col-md-3 status-sendto">Send to insurance</div>
+                  <div class="col-md-4">Opinion for this Asset is that, Opinion for this Asset is that, Opinion for this Asset is that,</div>
+                  <div class="col-md-2">12 Sep 2019</div>
+                </div>
+              </div>
+              <div class="col-12 manager-decisions-box">
+                <div class="row">
+                  <div class="col-md-3">Work shop Manager</div>
+                  <div class="col-md-3 status-reuse">Reuse</div>
+                  <div class="col-md-4">Opinion for this Asset is that, Opinion for this Asset is that, Opinion for this Asset is that,</div>
+                  <div class="col-md-2">12 Sep 2019</div>
+                </div>
+              </div>
+              <div class="col-12 manager-decisions-box">
+                <div class="row">
+                  <div class="col-12 col-md-4 p-field form-section__field">
+                <span class="p-float-label">
+                  <input pInputText type="text">
+                  <label>{{ 'workshop.technical_inspection.overview.manager_name' | translate }}</label>
+                </span>
+                  </div>
+                  <div class="col-12 col-md-4 p-field form-section__field options-select">
+                    <span class="p-float-label">
+                      <p-dropdown inputId="status" [autoDisplayFirst]="false"
+                                  [options]="status"
+                                  formControlName="status" optionLabel="name"></p-dropdown>
+                      <label for="status">{{ 'workshop.technical_inspection.overview.decision' | translate }}</label>
+                    </span>
+                  </div>
+                  <div class="col-12 col-md-12 p-field form-section__field">
+                    <span class="p-float-label">
+                      <input pInputText type="text">
+                      <label>{{ 'workshop.technical_inspection.overview.description' | translate }}*</label>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </form>
