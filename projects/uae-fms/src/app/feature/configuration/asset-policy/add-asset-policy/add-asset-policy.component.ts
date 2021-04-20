@@ -12,7 +12,8 @@ import { RouterFacade } from '@core/router';
 import { TableSetting } from '@core/table';
 import {
   AssetPolicyFacade,
-  SubAssetPolicyFacade
+  SubAssetPolicyFacade,
+  AssetPolicyService
 } from '@feature/configuration/+state/asset-policy';
 import { Utility } from '@shared/utility/utility';
 import { Subscription } from 'rxjs';
@@ -27,15 +28,15 @@ export class AddAssetPolicyComponent
   extends Utility
   implements OnInit, OnDestroy {
 
-  #startRegionVariables
+  //#region Variables
   currentTab = '';
   assetPolicyForm: FormGroup;
   submitted = false;
   isEdit = false;
   id: number;
-  #endRegionVariables
+  //#endregion
 
-  #startRegionDialog
+  //#region Dialog
   dialogModalAddOrUpdate = false;
   dialogModalCancel = false;
   dialogModalError = false;
@@ -65,9 +66,9 @@ export class AddAssetPolicyComponent
     confirmButton: 'Yes',
     cancelButton: 'No'
   };
-  #endRegionDialog
+  //#endregion
 
-  #startRegionTables
+  //#region Tables
   assetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
@@ -95,7 +96,7 @@ export class AddAssetPolicyComponent
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {},
+      onClick: (col, data, button?) => { },
       floatButton: [
         {
           onClick: (col, data) => {
@@ -124,7 +125,7 @@ export class AddAssetPolicyComponent
       })
     )
   );
-  #endRegionTables
+  //#endregion
 
   constructor(
     private _fb: FormBuilder,
@@ -133,7 +134,8 @@ export class AddAssetPolicyComponent
     private _routerFacade: RouterFacade,
     private assetPolicyFacade: AssetPolicyFacade,
     private _subAssetPolicyFacade: SubAssetPolicyFacade,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private service: AssetPolicyService
   ) {
     super(injector);
   }
@@ -149,8 +151,8 @@ export class AddAssetPolicyComponent
     this.assetPolicyForm.patchValue({
       policyType: type,
       policyName: name,
-      kilometerUsage: maxUsageKPHour,
-      yearUsage: maxUsageYear,
+      kilometerUsage: (!maxUsageKPHour || maxUsageKPHour == 0) ? null : maxUsageKPHour,
+      yearUsage: (!maxUsageYear || maxUsageYear == 0) ? null : maxUsageYear,
       depreciationValue,
       reminder: false
     });
@@ -230,7 +232,8 @@ export class AddAssetPolicyComponent
 
       if (this.id) {
         this.isEdit = true;
-        this.assetPolicyFacade.getById(this.id).subscribe((assetPolicy) => {
+        this.service.getAssetById(this.id).subscribe((x: any) => {
+          const assetPolicy = x.message;
           if (assetPolicy) {
             this.loadAssetPolicyForm(assetPolicy);
           } else {
