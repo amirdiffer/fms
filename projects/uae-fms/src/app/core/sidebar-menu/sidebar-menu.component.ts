@@ -231,12 +231,12 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           icon: 'copyright-solid',
           route: '/configuration/ownership'
         },
-        {
+        /* {
           name: 'sidebar.configuration.fleet_status',
           icon: 'flag-solid',
           route: '/configuration/fleet-status',
           disabled: true
-        },
+        }, */
         {
           name: 'sidebar.configuration.periodic_service',
           icon: 'periodic-service',

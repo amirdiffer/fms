@@ -8,7 +8,7 @@ import {
   ElementRef,
   AfterViewInit,
   AfterViewChecked,
-  AfterContentInit
+  AfterContentInit, Renderer2
 } from '@angular/core';
 
 import { environment } from '@environments/environment';
@@ -29,6 +29,7 @@ import { TableServiceS } from '@core/table/table.service';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
+  baseFileServer =  environment.baseFileServer;
   rowIndexTable = -1;
   activeLang: string;
   activePage: number;
@@ -52,7 +53,8 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     private settingFacade: SettingsFacade,
     private translate: TranslateService,
     private _tableFacade: TableFacade,
-    private _tableService: TableServiceS
+    private _tableService: TableServiceS,
+    private renderer: Renderer2
   ) {}
 
   getSearchBoxData() {
@@ -85,26 +87,29 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       switch (col.type) {
         case 1:
           return data[col.field];
-        case 2:
-          return data[col.thumbField]
-            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
-                col.override
-                  ? 'assets/' + col.override
-                  : environment.baseFileServer + data[col.thumbField]
-              }'> <p class='text-of-cell-with-image'>${
-                data[col.field]
-              }</p></div>`
-            : data[col.field];
+        // case 2: {
+        //   return data[col.thumbField]
+        //     ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
+        //       col.override
+        //         ? 'assets/' + col.override
+        //         : '/fms-api/document/' + data[col.thumbField]
+        //         // : environment.baseFileServer + data[col.thumbField]
+        //     }'> <p class='text-of-cell-with-image'>${
+        //       data[col.field]
+        //     }</p></div>`
+        //     : data[col.field];
+        // }
         case 3:
           return data[col.thumbField]
             ? `<img class='thumb' src='${
-                environment.baseFileServer + data[col.thumbField]
+              '/fms-api/document/' + data[col.thumbField]
               }'>`
             : '';
       }
-    } else {
-      return data[col.field];
     }
+    // else {
+    //   return data[col.field];
+    // }
   }
 
   click(col: ColumnDifinition, data: any) {

@@ -79,6 +79,7 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
           );
       });
     }, 0);
+
   }
   selectedTabChanged() {
     for (let i = 0; i < this.elements.length; i++) {

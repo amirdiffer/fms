@@ -93,6 +93,7 @@ import { TranslateModule } from "@ngx-translate/core";
     AddTemporaryRequestComponent
   ],
   imports: [
+    // TranslateModule,
     AngularSvgIconModule,
     FleetRoutingModule,
     TabViewModule,
