@@ -145,7 +145,8 @@ mat-tab-group {
 }
 .sub-checkbox{
   
-  border-left: .3em solid #0da06e;
+  border-left: .3em solid;
+  border-color: #0da06e;
   transition: height .6s ease-out;;
   height: 0px;
   display: none;

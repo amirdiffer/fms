@@ -213,6 +213,9 @@
         & > .mat-tab-body-wrapper{
           background:$fms-black-body2-bg !important;
         }
+        .tabs-content-header{
+          background: #333;
+        }
       }
     }
     app-filter {

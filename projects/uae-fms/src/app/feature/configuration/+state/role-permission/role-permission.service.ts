@@ -14,4 +14,23 @@ export class RolePermissionService {
       environment.baseApiUrl + 'configuration/role'
     );
   }
+  addNewRole(data): Observable<ResponseBody<IRole>> {
+    return this.http.post<ResponseBody<IRole>>(
+      environment.baseApiUrl + 'configuration/role',
+      data
+    );
+  }
+
+  updateRole(data): Observable<ResponseBody<IRole>> {
+    return this.http.post<ResponseBody<IRole>>(
+      environment.baseApiUrl + 'configuration/role/' + data.id + '/update',
+      data
+    );
+  }
+
+  getRoleByRoleID(roleId){
+    return this.http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'configuration/role/' + roleId
+    )
+  }
 }

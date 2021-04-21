@@ -7,6 +7,8 @@ export interface RolePermissionState extends EntityState<IRole> {
   error?: any;
   loaded?: boolean;
   message?: string;
+  submitted?: boolean;
+  role?:IRole;
 }
 
 export interface RolePermissionPartialState {
@@ -21,6 +23,8 @@ export const initialState: RolePermissionState = rolePermissionAdapter.getInitia
   {
     error: null,
     loaded: null,
-    message: null
+    message: null,
+    submitted: false,
+    role:null,
   } as RolePermissionState
 );
