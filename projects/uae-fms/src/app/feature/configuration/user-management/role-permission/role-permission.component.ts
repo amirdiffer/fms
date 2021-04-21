@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ColumnType, TableSetting } from '@core/table';
 import { from, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -41,12 +42,20 @@ export class RolePermissionComponent implements OnInit {
       floatButton: [
         {
           button: 'external'
+        },
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this._router.navigate(['/configuration/user-management/edit-role-permission/' + data.id]);
+          }
         }
       ]
     }
   };
 
-  constructor(private facade: RolePermissionFacade) {}
+  constructor(private facade: RolePermissionFacade ,
+              private _router:Router) {}
 
   ngOnInit(): void {
     this.facade.loadAll();

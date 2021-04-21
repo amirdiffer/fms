@@ -2,7 +2,7 @@
   <div class="form-section position-relative" >
     <div class="button-container">
       <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()" >{{ 'forms.cancel' | translate}}</button>
-      <button class="btn-primary-medium add" type="button" (click)="submitForm()">{{ 'forms.add' | translate}}</button>
+      <button class="btn-primary-medium add" type="button" (click)="submitForm()">{{ (isEdit ? 'forms.edit' :'forms.add' )| translate}}</button>
     </div>
     <h3 class="form-section__title">{{'configuration.role_permission.role_info' | translate}}</h3>
     <div class="row">

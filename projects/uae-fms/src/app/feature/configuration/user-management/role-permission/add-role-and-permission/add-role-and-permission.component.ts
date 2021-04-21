@@ -1,6 +1,6 @@
 import {Component,Injector,OnInit} from '@angular/core';
 import {  FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration';
 import {BusinessCategoryService} from '@feature/configuration/+state/business-category'
@@ -19,6 +19,8 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
   closeIcon = 'assets/icons/times.svg';
   submitted:boolean = false;
   optionDialog='submit'
+  isEdit:boolean= false;
+  id;
   /* forms */
   /* Role Information Forms*/
   roleInfoFrom: FormGroup;
@@ -87,6 +89,7 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
               private _roleFacade : RolePermissionFacade,
               private _router :Router,
               private _fb : FormBuilder,
+              private _activatedRoute:ActivatedRoute,
               injector: Injector){super(injector);}
 
 
@@ -103,6 +106,10 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
 
   
   ngOnInit():void{
+    const url = this._activatedRoute.snapshot.url.filter(x => x.path == 'edit-role-permission')
+    if(url.length > 0){
+      this.isEdit = true
+    }
     this._roleFacade.loadAll();
     this._assetConfigurationService.loadAll().subscribe(
       x => {this.assetType = x.message}

@@ -111,6 +111,7 @@
     "add_asset_configuration": "إضافة تكوين الأصول",
     "add_ownership": "أضف ملكية",
     "add_role_permission": "إضافة إذن الدور",
+    "edit_role_permission": "تحرير إذن الدور",
     "edit_periodic_serivce": "تحرير الخدمة الدورية",
     "add_new_asset": "إضافة أصل جديد",
     "add_new_accessory": "إضافة ملحق جديد",
