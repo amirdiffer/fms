@@ -2,7 +2,7 @@
 <form [formGroup]="taskMasterForm">
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
-    <button class="btn-primary-medium add" type="submit"  (click)="submit()">{{ 'forms.add' | translate }}</button>
+    <button class="btn-primary-medium add" type="submit"  (click)="submit()">{{ (isEdit ? ('forms.edit' | translate) : ('forms.add' | translate)) }}</button>
   </div>
   <div class="row">
     <div class="form-section mx-0 fix">
@@ -28,7 +28,7 @@
         </div>
         <div class="col-12 col-md-4 p-field form-section__field">
           <span class="p-float-label w-100">
-            <input pInputText placeholder="{{ 'workshop.task_master.rate_per_hour' | translate }}" type="number" formControlName="ratePerHour" class="w-100">
+            <input pInputText type="number" formControlName="ratePerHour" class="w-100">
             <label>{{ 'workshop.task_master.rate_per_hour' | translate }}</label>
           </span>
         </div>
@@ -36,29 +36,27 @@
       <div class="row form-section__row">
         <div class="col-12 col-md-4 p-field form-section__field">
           <span class="p-float-label w-100">
-            <input pInputText placeholder="{{ 'workshop.task_master.time_estimate' | translate }} *" type="number" formControlName="timeEstimate"
+            <input pInputText type="number" formControlName="timeEstimate"
               [class.invalid]="!taskMasterForm.get('timeEstimate').valid && submitted" class="w-100">
-            <label>{{ 'workshop.task_master.time_estimate' | translate }}*</label>
+            <label>{{ 'workshop.task_master.time_estimate' | translate }} *</label>
           </span>
          <anms-error [showError]="hasError('timeEstimate',taskMasterForm,submitted)" error="forms.feedback.required"></anms-error>
         </div>
-        <div class="col-12 col-md-8 " formArrayName="skill">
-          <div class="mb-3 p-field form-section__field d-flex " *ngFor="let skill of taskMasterForm.get('skill')['controls']; let i=index; let last=last;">
+        <div class="col-12 col-md-8 " formArrayName="skills">
+          <div class="mb-3 p-field form-section__field d-flex " *ngFor="let skill of skills.controls; let i=index; let last=last;" [formGroupName]='i'>
             <div class="input-group flex-with-button">
               <div class="autocomplete-select w-100">
                 <span class="p-float-label">
-                  <p-autoComplete [formControlName]="i" (completeMethod)="getAllSkill($event)"
+                  <p-autoComplete formControlName='skill' (completeMethod)="getAllSkill($event)"
                                   [suggestions]="skillFiltered" field="name" [minLength]="1"
-                                  (onSelect)="skillSelect($event)"
-                                  [class.invalid]="!skill.valid && addSkillValidation"></p-autoComplete>
+                                  (onSelect)="skillSelect($event)"></p-autoComplete>
                   <label>{{ 'workshop.task_master.skills' | translate }}</label>
                 </span>
+                <anms-error [showError]="formArrayHasError(submitted, skills, i, 'skill')" error="forms.feedback.required"></anms-error>
               </div>
-              <small *ngIf="last" class="error-input"
-                  [class.d-none]="skill.value != null  || !addSkillValidation">{{ 'workshop.task_master.please_fill_skill' | translate }}</small>
             </div>
             <span *ngIf="last" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}"
-                (click)="addSkill(skill.value)">
+                (click)="addSkill()">
                 <i class="pi pi-plus"></i>
               </span>
             <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeSkill(i)">
@@ -66,22 +64,6 @@
                         [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
             </span>
           </div>
-          <!-- OLD -->
-          <!-- <div class="p-inputgroup flex-wrap d-flex w-100 flex-wrap">
-            <div class="p-field form-section__field flex-with-button w-100" *ngFor="let skill of taskMasterForm.get('skill')['controls']; let i=index; let last=last;">
-                <span class="p-float-label flex-with-button w-100 mb-1">
-                  <input type="text" id="inputgroup" pInputText placeholder="{{ 'workshop.task_master.skills' | translate }}" [formControlName]="i">
-                  <label>{{ 'workshop.task_master.skills' | translate }}</label>
-                  <span *ngIf="last" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer'}"
-                    (click)="addSkill(skill.value)">
-                    <i class="pi pi-plus"></i>
-                  </span>
-                </span>
-                <small *ngIf="last" class="error-input"
-                  [class.d-none]="skill.value != null  || !addSkillValidation">{{ 'workshop.task_master.please_fill_skill' | translate }}</small>
-            </div>
-          </div> -->
-          <!-- OLD -->
         </div>
       </div>
 

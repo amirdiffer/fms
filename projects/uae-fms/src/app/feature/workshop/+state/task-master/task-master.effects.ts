@@ -40,6 +40,20 @@ export class TaskMasterEffect {
     )
   );
 
+  editAsset$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(TaskMasterActions.editTaskMaster),
+      mergeMap((action) =>
+        this.service.editTaskMaster(action.data).pipe(
+          map((data) =>
+            TaskMasterActions.taskMasterEditedSuccessfully({ data: action.data })
+          ),
+          catchError((error) => of(TaskMasterActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   loadAllSkills$ = createEffect(() =>
     this.action$.pipe(
       ofType(TaskMasterActions.loadAllSkill),
