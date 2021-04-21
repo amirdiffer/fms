@@ -1,194 +1,1839 @@
-<div>
-  <form (ngSubmit)='submit()' [formGroup]='form'>
-    <div class='button-container'>
-      <button class='btn-primary-medium btn-scondary-green' routerLink='/configuration/user-management/role-permission'>{{ 'forms.cancel' | translate }}</button>
-      <button class='btn-primary-medium add' (click)='submit()'>{{ 'forms.add' | translate }}</button>
+<form [formGroup]="roleInfoFrom">
+  <div class="form-section position-relative" >
+    <div class="button-container">
+      <button class="btn-primary-medium btn-scondary-green" type="button">{{ 'forms.cancel' | translate}}</button>
+      <button class="btn-primary-medium add" type="button">{{ 'forms.add' | translate}}</button>
     </div>
-    <div class='mt-1 form-section component_wrapper'>
-     <div class="row">
-       <div class="col-2 align-self-center">
-          <h3 class="form-section__title">{{ 'configuration.role_permission.role_info' | translate }}</h3>
-       </div>
-      <div class="col-5">
-        <div class=" p-field form-section__field">
+    <h3 class="form-section__title">Role Info</h3>
+    <div class="row">
+      <div class="col-4 p-field form-section__field">
+        <span class="p-float-label ">
+          <input pInputText placeholder="Role Name"  type="text" formControlName="roleName">
+          <label>Role Name</label>
+        </span>
+      </div>
+      <div class="col-6 d-flex role-drop-down">
+        <p class="my-0 mx-4 align-self-center">User existing as template</p>
+        <div class="p-field form-section__field dropdown-select w-100">
           <span class="p-float-label">
-              <input pInputText placeholder="{{ 'configuration.role_permission.role_name' | translate }} *" type="text">
-              <label>{{ 'configuration.role_permission.role_name' | translate }} *</label>
+            <p-dropdown  [options]="existingRole" optionLabel="role" optionValue="id"></p-dropdown>
+            <label>Role</label>
           </span>
         </div>
       </div>
-     </div>
     </div>
-
-    <div class='form-section component_wrapper'>
-      <div>
-          <h3 class="form-section__title">{{ 'configuration.role_permission.permissions' | translate }}</h3>
-       </div>
-      <div class='card-body body_div mt-3'>
-
-        <!--      Top Fleet Row-->
-        <div class='d-flex' formGroupName='fleet'>
-          <div class='w-25 mt-3 ml-1'>
-            <div class="form-group form-check">
-              <input id="checkbox-fleet" type="checkbox" class="custom-checkbox"  name='vehicle_comments' formControlName='fleetCheckbox'>
-              <label for="checkbox-fleet">{{ 'configuration.role_permission.fleet' | translate }}</label>
-            </div>
+    <div class="row mt-2">
+      <div class="col-4 p-field form-section__field">
+        <span class="p-float-label ">
+          <input pInputText placeholder="Description"  type="text" formControlName="desciption">
+          <label>Description</label>
+        </span>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- Tabs -->
+<div class="vertical-tabs mt-3 form-section">
+  <p class="tabs-section-title">Section List</p>
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Fleet">
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Asset">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
           </div>
-          <div class='w-75 d-flex ml-3 mt-3'>
-            <div *ngFor='let aSwitch of fleet.value.switches; let index = index'>
-            <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.d-flex]='index === 0'>
-                <label>{{ 'forms.' + aSwitch.label | translate }}</label>
-                <p-inputSwitch></p-inputSwitch>
-              </div>
-            </div>
-          </div>
-
-          <div class='d-flex align-items-center' (click)="toggleGroup('fleet')">
-            <div class='curved_right_tag text-center'>
-              <svg-icon src="assets/icons/up.svg" [svgStyle]="{ 'width.px':'16' , 'fill': '#fff' , 'height': '16', 'stroke-width': '40px','stroke': 'white', 'transform': activeGroup == 'fleet' ? 'rotate(0deg)' : 'rotate(180deg)'}"></svg-icon>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="body_div__inactive" [class.body_div__active]="activeGroup == 'fleet'">
-          <div class='card-body pl-1 ml-3 mr-4 mt-3 mb-3 border rounded'>
-
-            <!--        Asset Master Table-->
-            <div class='d-flex pb-2' formGroupName='assetMaster'>
-
-              <div class='w-25 pl-1 ml-1'>
-
-                <div class="form-group form-check">
-                  <input id="checkbox-assetMaster" type="checkbox" class="custom-checkbox"  name='vehicle_comments' formControlName='assetMasterCheckBox' (change)="selectParent('fleet', $event)">
-                  <label for="checkbox-assetMaster">{{ 'configuration.role_permission.asset_master' | translate }}</label>
-                  <img class='ml-2' src='assets/icons/up.svg' alt='up' width='14'>
-                </div>
-              </div>
-
-              <div class='w-75 d-flex '>
-                <div *ngFor='let aSwitch of assetMaster.value.switches; let index = index'>
-                  <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.d-flex]='index === 0'>
-                    <label>{{ 'forms.' + aSwitch.label | translate }}</label>
-                    <p-inputSwitch></p-inputSwitch>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <div class='d-flex' formGroupName='assetConfiguration'>
-
-              <div class='w-25 col-md-3 ml-0'>
-                <div class=" p-field form-section__field">
-                <span class="p-float-label">
-                    <p-dropdown inputId="assetConfigurationSelectList" [options]="middleCheckboxLabelArray" optionLabel="name" formControlName='assetConfigurationSelectList' class="dropdown-select"></p-dropdown>
-                    <label for="assetConfigurationSelectList">{{'configuration.role_permission.asset_configuration' | translate}}</label>
-                </span>
-                </div>
-              </div>
-
-              <div class='w-75 d-flex pt-2'>
-                <div *ngFor='let aSwitch of assetConfiguration.value.switches; let index = index'>
-                  <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.d-flex]='index === 0'>
-                    <label>{{ 'forms.' + aSwitch.label | translate }}</label>
-                    <p-inputSwitch></p-inputSwitch>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <div class='d-flex' formGroupName='businessCategory'>
-              <div class='w-25 col-md-3 ml-0'>
-                <div class=" p-field form-section__field">
-                <span class="p-float-label">
-                    <p-dropdown inputId="businessCategorySelectList" [options]="middleCheckboxLabelArray" optionLabel="name" formControlName='businessCategorySelectList' class="dropdown-select"></p-dropdown>
-                    <label for="businessCategorySelectList">{{'configuration.role_permission.business_category' | translate}}</label>
-                </span>
-                </div>
-              </div>
-
-              <div class='w-75 d-flex pt-2 '>
-                <div *ngFor='let aSwitch of businessCategory.value.switches; let index = index'>
-                  <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.d-flex]='index === 0'>
-                    <label>{{ 'forms.' + aSwitch.label | translate }}</label>
-                    <p-inputSwitch></p-inputSwitch>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-          <!--          MiddleArray-->
-          <div formArrayName='middleArray'>
-            <div class='card-body pl-0 ml-3 mr-4 mt-3 border pr-0 p-0 rounded'
-                 *ngFor='let row of middleArray.controls; let index = index' [formGroupName]='index'>
-              <div class='d-flex'>
-
-                <div class='pl-2 pt-1 pb-1 ml-1 w-25 mt-3'>
-                  <div class="form-group form-check">
-                    <input id="checkbox-{{row.value.checkboxLabel}}" type="checkbox" class="custom-checkbox" name='vehicle_comments' formControlName='checkboxValue' (change)="selectParent('fleet', $event)">
-                    <label for="checkbox-{{row.value.checkboxLabel}}">{{'configuration.role_permission.'+row.value.checkboxLabel|translate}}</label>
-                  </div>
-                </div>
-
-                <div class='w-75 d-flex mb-3 mt-3 align-items-center'>
-                  <div *ngFor='let aSwitch of row.value.switches; let index = index'>
-                    <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.invisible]='!aSwitch.visible' [class.d-flex]='index === 0'>
-                      <label>{{ 'forms.' + aSwitch.label | translate }}</label>
-                      <p-inputSwitch></p-inputSwitch>
+          <form [formGroup]="fleetAssetForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="archiveAsset">
+                      <label>Archive asset</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="archiveOwnAsset">
+                      <label>Archive own asset</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportAssetList">
+                      <label>Export asset list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnAsset">
+                      <label>View own asset</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewAssetmaster">
+                      <label>View asset master</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addAsset">
+                      <label>Add asset</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search through business category
+                        </div>
+                        <div class="item-check">
+                          Search through ownership category
+                        </div>
+                        <div class="item-check">
+                          Search through asset type detail
+                        </div>
+                        <div class="item-check">
+                          Search through asset policy
+                        </div>
+                        <div class="item-check">
+                          Search though periodic service
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateAssetMaster">
+                      <label>Update asset master</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnAsset">
+                      <label>Update/edit own asset</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewPendingRegistrationList">
+                      <label>View pending registration list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnPendingRegistrationList">
+                      <label>View own pending registration list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnRegistrationList">
+                      <label>Update/edit own registration list </label>
                     </div>
                   </div>
                 </div>
-                <div class='right_tag text-center' *ngIf='index !== 0 && index !== 1'>
-                  <div class=''>
-                    <svg-icon src="assets/icons/up.svg" [svgStyle]="{ 'width.px':'16' , 'fill': '#fff' , 'height': '16', 'stroke-width': '40px','stroke': 'white', 'transform': 'rotate(180deg)'}"></svg-icon>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewPendingCustomizationList">
+                      <label>View pending customization list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnPendingCustomizationList">
+                      <label>View own pending customization list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditCustomizationList">
+                      <label>Update/edit customization list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="customizeAsset">
+                      <label>Customize asset</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="assetViewDetailOverview">
+                      <label>Asset view detail/overview</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="assetMovementHistory">
+                      <label>Asset movement history</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="assetUsageCategory">
+                      <label>Asset usage category</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="assetReminderList">
+                      <label>Asset reminder list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addReminder">
+                      <label>Add reminder</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewAssetConfiguration">
+                      <label>View asset configuration</label>
+                      <div class="sub-checkbox">
+                        <p class="search-title mx-3 mb-1">Select The items you want to access</p>
+                        <div class="p-field form-section__field mx-3 mb-2">
+                          <div class="autocomplete-select">
+                            <span class="p-float-label">
+                              <p-autoComplete [minLength]="1" 
+                                placeholder="Search and drop list"
+                                [suggestions]="assetTypeFiltered"
+                                field="name"
+                                (completeMethod)="getFilteredAssetType($event)"
+                                (onSelect)="addToList('FlEET_VIEW_ASSET_ASSET_TYPE',$event)"
+                                [dropdown]="true"></p-autoComplete>
+                              <i class="pi pi-search"></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="selected-items mx-3 ">
+                          <div class="item" *ngFor="let assetType of FlEET_VIEW_ASSET_ASSET_TYPE; let index=index;">
+                            <span class="close-item" (click)="removelist('FlEET_VIEW_ASSET_ASSET_TYPE' , index)">
+                              <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.em':'.9' , 'fill': '#fff' ,'height': '100%'}"></svg-icon>
+                            </span>
+                            <p>{{assetType.name}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addAssetConfiguration">
+                      <label>Add asset configuration</label>
+                      <div class="sub-checkbox">
+                        <p class="search-title mx-3 mb-1">Select The items you want to access</p>
+                        <div class="p-field form-section__field mx-3 mb-2">
+                          <div class="autocomplete-select">
+                            <span class="p-float-label">
+                              <p-autoComplete [minLength]="1" 
+                                placeholder="Search and drop list"
+                                [suggestions]="assetTypeFiltered"
+                                field="name"
+                                (completeMethod)="getFilteredAssetType($event)"
+                                (onSelect)="addToList('FlEET_ADD_ASSET_ASSET_TYPE',$event)"
+                                [dropdown]="true"></p-autoComplete>
+                              <i class="pi pi-search"></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="selected-items mx-3 ">
+                          <div class="item" *ngFor="let assetType of FlEET_ADD_ASSET_ASSET_TYPE; let index=index;">
+                            <span class="close-item" (click)="removelist('FlEET_ADD_ASSET_ASSET_TYPE' , index)">
+                              <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.em':'.9' , 'fill': '#fff' ,'height': '100%'}"></svg-icon>
+                            </span>
+                            <p>{{assetType.name}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateAssetConfiguration">
+                      <label>Update asset configuration</label>
+                      <div class="sub-checkbox">
+                        <p class="search-title mx-3 mb-1">Select The items you want to access</p>
+                        <div class="p-field form-section__field mx-3 mb-2">
+                          <div class="autocomplete-select">
+                            <span class="p-float-label">
+                              <p-autoComplete [minLength]="1" 
+                                placeholder="Search and drop list"
+                                [suggestions]="assetTypeFiltered"
+                                field="name"
+                                (completeMethod)="getFilteredAssetType($event)"
+                                (onSelect)="addToList('FlEET_UPDATE_ASSET_ASSET_TYPE',$event)"
+                                [dropdown]="true"></p-autoComplete>
+                              <i class="pi pi-search"></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="selected-items mx-3 ">
+                          <div class="item" *ngFor="let assetType of FlEET_UPDATE_ASSET_ASSET_TYPE; let index=index;">
+                            <span class="close-item" (click)="removelist('FlEET_UPDATE_ASSET_ASSET_TYPE' , index)">
+                              <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.em':'.9' , 'fill': '#fff' ,'height': '100%'}"></svg-icon>
+                            </span>
+                            <p>{{assetType.name}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewUsageCategory">
+                      <label>View usage category</label>
+                      <div class="sub-checkbox">
+                        <p class="search-title mx-3 mb-1">Select The items you want to access</p>
+                        <div class="p-field form-section__field mx-3 mb-2">
+                          <div class="autocomplete-select">
+                            <span class="p-float-label">
+                              <p-autoComplete [minLength]="1" 
+                                placeholder="Search and drop list"
+                                [suggestions]="usageCategoryFiltered"
+                                field="name"
+                                (completeMethod)="getFilteredUsageCategory($event)"
+                                (onSelect)="addToList('FLEET_VIEW_ASSET_USAGE_CATEGORY',$event)"
+                                [dropdown]="true"></p-autoComplete>
+                              <i class="pi pi-search"></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="selected-items mx-3 ">
+                          <div class="item" *ngFor="let usageCategory of FLEET_VIEW_ASSET_USAGE_CATEGORY; let index=index;">
+                            <span class="close-item" (click)="removelist('FLEET_VIEW_ASSET_USAGE_CATEGORY' , index)">
+                              <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.em':'.9' , 'fill': '#fff' ,'height': '100%'}"></svg-icon>
+                            </span>
+                            <p>{{usageCategory.name}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addUsageCategory">
+                      <label>Add usage category</label>
+                      <div class="sub-checkbox">
+                        <p class="search-title mx-3 mb-1">Select The items you want to access</p>
+                        <div class="p-field form-section__field mx-3 mb-2">
+                          <div class="autocomplete-select">
+                            <span class="p-float-label">
+                              <p-autoComplete [minLength]="1" 
+                                placeholder="Search and drop list"
+                                [suggestions]="usageCategoryFiltered"
+                                field="name"
+                                (completeMethod)="getFilteredUsageCategory($event)"
+                                (onSelect)="addToList('FLEET_ADD_ASSET_USAGE_CATEGORY',$event)"
+                                [dropdown]="true"></p-autoComplete>
+                              <i class="pi pi-search"></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="selected-items mx-3 ">
+                          <div class="item" *ngFor="let usageCategory of FLEET_ADD_ASSET_USAGE_CATEGORY; let index=index;">
+                            <span class="close-item" (click)="removelist('FLEET_ADD_ASSET_USAGE_CATEGORY' , index)">
+                              <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.em':'.9' , 'fill': '#fff' ,'height': '100%'}"></svg-icon>
+                            </span>
+                            <p>{{usageCategory.name}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateUsageCategory">
+                      <label>Update usage category</label>
+                      <div class="sub-checkbox">
+                        <p class="search-title mx-3 mb-1">Select The items you want to access</p>
+                        <div class="p-field form-section__field mx-3 mb-2">
+                          <div class="autocomplete-select">
+                            <span class="p-float-label">
+                              <p-autoComplete [minLength]="1" 
+                              placeholder="Search and drop list"
+                              [suggestions]="usageCategoryFiltered"
+                              field="name"
+                              (completeMethod)="getFilteredUsageCategory($event)"
+                              (onSelect)="addToList('FLEET_UPDATE_ASSET_USAGE_CATEGORY',$event)"
+                              [dropdown]="true"></p-autoComplete>
+                              <i class="pi pi-search"></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="selected-items mx-3 ">
+                          <div class="item" *ngFor="let usageCategory of FLEET_UPDATE_ASSET_USAGE_CATEGORY; let index=index;">
+                            <span class="close-item" (click)="removelist('FLEET_UPDATE_ASSET_USAGE_CATEGORY' , index)">
+                              <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.em':'.9' , 'fill': '#fff' ,'height': '100%'}"></svg-icon>
+                            </span>
+                            <p>{{usageCategory.name}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Sub Asset">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form [formGroup]="fleetSubAssetForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewSubAssetList">
+                      <label>View sub asset list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnSubAssetList">
+                      <label>View own sub asset list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportSubAssetList">
+                      <label>Export sub asset list</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="archiveSubAsset">
+                      <label>Archive sub asset </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewSubAssetDetail">
+                      <label>View sub asset detail</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="editSubAsset">
+                      <label>Edit sub asset</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnSubAsset">
+                      <label>Update/edit own sub asset</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addSubAsset">
+                      <label>Add sub asset</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search through sub asset specification
+                        </div>
+                        <div class="item-check">
+                          Search through policy type 
+                        </div>
+                        <div class="item-check">
+                          Search through warranty item
+                        </div>
+                        <div class="item-check">
+                          Upload file
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Accessory">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form [formGroup]="fleetAccessoryForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewAccesssoryList">
+                      <label>View accessory list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnAccessorylist">
+                      <label>View own accessory list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="archiveAccessory">
+                      <label>Archive accessory</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewAccessoryDetail">
+                      <label>View accessory detail</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnAccessory">
+                      <label>Update/edit own accessory</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="editAccessory">
+                      <label>Edit accessory</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportAccessoryDetail">
+                      <label>Export accessory detail</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addAccessory">
+                      <label>Add accessory</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search through asset name
+                        </div>
+                        <div class="item-check">
+                          Search through sub asset name 
+                        </div>
+                        <div class="item-check">
+                          Search through accessory detail
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Operator">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form [formGroup]="fleetOperatorForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOperatorList">
+                      <label>View Operator list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportOperatorList">
+                      <label>Export operator list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOperator">
+                      <label>Update/edit operator</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addOperator">
+                      <label>Add operator</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search throught employees
+                        </div>
+                        <div class="item-check">
+                          Search throught department
+                        </div>
+                        <div class="item-check">
+                          Search throught section 
+                        </div>
+                        <div class="item-check">
+                          Search through asset configuration 
+                        </div>
+                        <div class="item-check">
+                          Upload file
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnList">
+                      <label>View own list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnTrafficFine">
+                      <label>View own traffic fine</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnMovementHistory">
+                      <label>View own movement history</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnActivity">
+                      <label>View own activity</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOperatorDetails">
+                      <label>View operator details</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOperatorTrafficFine">
+                      <label>View operator traffic fine</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOperatorMovementHistory">
+                      <label>View operator movement history</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOperatorActivity">
+                      <label>View operator activity</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Movement">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form  [formGroup]="fleetMovementForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewMovementListOverview">
+                      <label>View movement list overview</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewMovementRequestList">
+                      <label>View movement request lis</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportMovementList">
+                      <label>Export movement list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="approveRequest">
+                      <label>Approve request</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditMovement">
+                      <label>Update/edit movement</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addRequest">
+                      <label>Add request</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search through asset type
+                        </div>
+                        <div class="item-check">
+                          Search through users
+                        </div>
+                        <div class="item-check">
+                          Search through departments
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnMovementListOverview">
+                      <label>View own movement list overview</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnMovementRequestList">
+                      <label>View own movement request list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportOwnMovementList">
+                      <label>Export own movement list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="approveOwnRequest">
+                      <label>Approve own request</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnMovement">
+                      <label>Update/edit own movement</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Department">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form [formGroup]="fleetDepartmentForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewDepartmentList">
+                      <label>View department list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportDepartmentList">
+                      <label>Export department list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditDepartment">
+                      <label>Update/edit department</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addDepartment">
+                      <label>Add department</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search throught department id
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewDepartmentDetailOverview">
+                      <label>View department details/overview</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewDepartmentUsers">
+                      <label>View department users</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewDepartmentTrafficFines">
+                      <label>View department traffic fines</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewDepartmentMovementHistory">
+                      <label>View department movement history</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+  
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-tab>
+    <mat-tab label="Fuel Management">
+      <div class="tabs-content-header">
+        <a>Select All</a>
+        <a>Clear All</a>
+      </div>
+      <form [formGroup]="fuelManagementForm">
+        <div class="tabs-content mt-4">
+          <div class="row m-0">
+            <div class="col-4">
+              <div class="d-flex flex-column">
+                <div class="form-check">
+                  <input type="checkbox" class="custom-checkbox" formControlName="viewFuelCardsList">
+                  <label>View fuel cards list</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="custom-checkbox" formControlName="viewAssetUsageList">
+                  <label>View asset usage list</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="custom-checkbox" formControlName="updateEditFuelCard">
+                  <label>Update/edit fuel card</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="d-flex flex-column">
+                <div class="form-check">
+                  <input type="checkbox" class="custom-checkbox" formControlName="exportFuelCard">
+                  <label>Export fuel card</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="custom-checkbox" formControlName="addFuelCard">
+                  <label>Add fuel card</label>
+                  <div class="sub-checkbox">
+                    <div class="item-check">
+                      Search through tag number
+                    </div>
+                    <div class="item-check">
+                      Search through assets
+                    </div>
+                  </div>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="custom-checkbox" formControlName="viewFuelCardDetail">
+                  <label>View fuel card details</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="d-flex flex-column">
+                <div class="form-check">
+                  <input type="checkbox" class="custom-checkbox" formControlName="viewOwnFuelCardsList">
+                  <label>View owen fuel cards list</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="custom-checkbox" formControlName="viewOwnAssetUsageList">
+                  <label>View own asset usage list</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Traffic Fine">
+      <div class="tabs-content-header">
+        <a>Select All</a>
+        <a>Clear All</a>
+      </div>
+    </mat-tab>
+    <mat-tab label="Salik">
+      <div class="tabs-content-header">
+        <a>Select All</a>
+        <a>Clear All</a>
+      </div>
+      <form [formGroup]="salikForm">
+        <div class="tabs-content mt-4">
+          <div class="row m-0">
+            <div class="col-4">
+              <div class="d-flex flex-column">
+                <div class="form-check">
+                  <input type="checkbox" class="custom-checkbox" formControlName="viewListOfSalik">
+                  <label>View list of salik</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="custom-checkbox" formControlName="addSalik">
+                  <label>Add salik </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="d-flex flex-column">
+                <div class="form-check">
+                  <input type="checkbox" class="custom-checkbox" formControlName="uploadFile">
+                  <label>Upload file</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="d-flex flex-column">
+                <div class="form-check">
+                  <input type="checkbox" class="custom-checkbox" formControlName="assignSalik">
+                  <label>Assign salik </label>
+                  <div class="sub-checkbox">
+                    <div class="item-check">
+                      Search through asset id
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-      </div>
-
-      <!--          Bottom 2 length array-->
-      <div class='card border-0' formArrayName='bottomArray'>
-        <div style="background-color: #F7F9FA" class='card-body body_div mt-3'
-             *ngFor='let row of bottomArray.controls; let index = index' [formGroupName]='index'>
-
-          <div class='d-flex'>
-
-            <div class='w-25 ml-1'>
-              <div class="form-group form-check">
-                <input id="checkbox-{{row.value.checkboxLabel}}" type="checkbox" class="custom-checkbox" name='vehicle_comments' formControlName='checkboxValue'>
-                <label for="checkbox-{{row.value.checkboxLabel}}">{{'configuration.role_permission.'+row.value.checkboxLabel|translate}}</label>
-              </div>
-            </div>
-
-            <div class='w-75 d-flex ml-4 '>
-              <div *ngFor='let aSwitch of row.value.switches; let index = index'>
-                <div class="toggle-select" [class.pl-4]='index !== 0' [class.ml-5]='index !== 0' [class.invisible]='!aSwitch.visible' [class.d-flex]='index === 0'>
-                  <label>{{ 'forms.' + aSwitch.label | translate }}</label>
-                  <p-inputSwitch></p-inputSwitch>
+      </form>
+    </mat-tab>
+    <mat-tab label="Part Store">
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Part List">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form [formGroup]="partStorePartListForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewPartList">
+                      <label>View part list</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          View part category list
+                        </div>
+                        <div class="item-check">
+                          View part item list
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportPartList">
+                      <label>Export part list</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewPartdetail">
+                      <label>View part detail</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="orderPart">
+                      <label>Order part</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditPart">
+                      <label>Update/edit part</label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div class='d-flex align-items-center' (click)="toggleGroup(row.value.checkboxLabel)">
-              <div class='curved_right_tag text-center'>
-                <svg-icon src="assets/icons/up.svg" [svgStyle]="{ 'width.px':'16' , 'fill': '#fff' , 'height': '16', 'stroke-width': '40px','stroke': 'white', 'transform': activeGroup == row.value.checkboxLabel ? 'rotate(0deg)' : 'rotate(180deg)'}"></svg-icon>
+          </form>
+        </mat-tab>
+        <mat-tab label="Order List">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form  [formGroup]="partStoreOrderListForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewRequestList">
+                      <label>View request list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exporRequestList">
+                      <label>Export request list</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="approveRequest">
+                      <label>Approve request</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewMyOrderList">
+                      <label>View my order list</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportMyOrderList">
+                      <label>Export my order list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addOrder">
+                      <label>Add order</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Serach through asset details ( type -make - model )
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-
+          </form>
+        </mat-tab>
+        <mat-tab label="Supplier">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
           </div>
-        </div>
-        <div class='mt-1 mb-1'></div>
-      </div>
-    </div>
-
-  </form>
+          <form [formGroup]="partStoreSupplierForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewSupplierList">
+                      <label>View supplier list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportSupplierList">
+                      <label>Export supplier list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addSupplier">
+                      <label>Add supplier</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Part Master">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-tab>
+    <mat-tab label="Work Shop">
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Body Shop">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form  [formGroup]="workshopBodyshopForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewRequestList">
+                      <label>View request list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportRequestList">
+                      <label>Export request list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addRequest">
+                      <label>Add request</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search through asset id 
+                        </div>
+                        <div class="item-check">
+                          Upload file
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnRequest">
+                      <label>Update/edit own request</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnRequest">
+                      <label>View own request</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewRequestDetail">
+                      <label>View request detail</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="rejectRequest">
+                      <label>Reject request</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="archiveOwnRequest">
+                      <label>Archive own request</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewLocationList">
+                      <label>View Location list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportLocationList">
+                      <label>Export Location list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addLocation">
+                      <label>Add Location</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search through location id 
+                        </div>
+                        <div class="item-check">
+                          Search through section id 
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditLocation">
+                      <label>Update/edit Location</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="archiveLocation">
+                      <label>Archive Location</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianList">
+                      <label>View technician List</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportTechnicianList">
+                      <label>Export technician List</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="AddTechnician">
+                      <label>Add technician</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search  through employees
+                        </div>
+                        <div class="item-check">
+                          Search through locations
+                        </div>
+                        <div class="item-check">
+                          Upload file
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianDetailOverview">
+                      <label>View technician detail/overview</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnTechnicianDetailOverview">
+                      <label>View own technician detail/overview</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditTechnicianInformation">
+                      <label>Update/edit technician information</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnTechnicianInformation">
+                      <label>Update/edit own technician information</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianJobCardsList">
+                      <label>View technican jobcards list </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportTechnicianJobCardsList">
+                      <label>Export technican jobcards list  </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnTechnicianActivity">
+                      <label>View own technican activity </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianActivity">
+                      <label>View technican activity</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="archiveTechnician">
+                      <label>Archive technican</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewJobCardList">
+                      <label>View job card list </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportJobCardList">
+                      <label>Export jobcard list </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addJobCard">
+                      <label>Add jobcard </label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search through asset id 
+                        </div>
+                        <div class="item-check">
+                          Search through tasks
+                        </div>
+                        <div class="item-check">
+                          Search through technicians
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewAssetRequest">
+                      <label>View asset request</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewAssetList">
+                      <label>View asset list  </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewAddTask">
+                      <label>Add task</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewTaskDetail">
+                      <label>View task detail</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="UpdateEditOwnJobCard">
+                      <label>Update/edit own jobcard</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnJobCard">
+                      <label>View own jobcard</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="closeJobCard">
+                      <label>Close jobcard</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Service Shop">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form  [formGroup]="workshopServiceshopForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewRequestList">
+                      <label>View request list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportRequestList">
+                      <label>Export request list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addRequest">
+                      <label>Add request</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search through asset id 
+                        </div>
+                        <div class="item-check">
+                          Upload file
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnRequest">
+                      <label>Update/edit own request</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnRequest">
+                      <label>View own request</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewRequestDetail">
+                      <label>View request detail</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="rejectRequest">
+                      <label>Reject request</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="archiveOwnRequest">
+                      <label>Archive own request</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewLocationList">
+                      <label>View Location list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportLocationList">
+                      <label>Export Location list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addLocation">
+                      <label>Add Location</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search through location id 
+                        </div>
+                        <div class="item-check">
+                          Search through section id 
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditLocation">
+                      <label>Update/edit Location</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="archiveLocation">
+                      <label>Archive Location</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianList">
+                      <label>View technician List</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportTechnicianList">
+                      <label>Export technician List</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="AddTechnician">
+                      <label>Add technician</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search  through employees
+                        </div>
+                        <div class="item-check">
+                          Search through locations
+                        </div>
+                        <div class="item-check">
+                          Upload file
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianDetailOverview">
+                      <label>View technician detail/overview</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnTechnicianDetailOverview">
+                      <label>View own technician detail/overview</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditTechnicianInformation">
+                      <label>Update/edit technician information</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnTechnicianInformation">
+                      <label>Update/edit own technician information</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianJobCardsList">
+                      <label>View technican jobcards list </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportTechnicianJobCardsList">
+                      <label>Export technican jobcards list  </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnTechnicianActivity">
+                      <label>View own technican activity </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianActivity">
+                      <label>View technican activity</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="archiveTechnician">
+                      <label>Archive technican</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewJobCardList">
+                      <label>View job card list </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportJobCardList">
+                      <label>Export jobcard list </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addJobCard">
+                      <label>Add jobcard </label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search through asset id 
+                        </div>
+                        <div class="item-check">
+                          Search through tasks
+                        </div>
+                        <div class="item-check">
+                          Search through technicians
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewAssetRequest">
+                      <label>View asset request</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewAssetList">
+                      <label>View asset list  </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewAddTask">
+                      <label>Add task</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewTaskDetail">
+                      <label>View task detail</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="UpdateEditOwnJobCard">
+                      <label>Update/edit own jobcard</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnJobCard">
+                      <label>View own jobcard</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="closeJobCard">
+                      <label>Close jobcard</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Technical Inspection">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+        <form [formGroup]="workshopTechnicalInspectionForm">
+          <div class="tabs-content mt-4">
+            <div class="row m-0">
+              <div class="col-4">
+                <div class="d-flex flex-column">
+                  <div class="form-check">
+                    <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicalInspectionRequestList">
+                    <label>View technical inspection request list </label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="custom-checkbox" formControlName="exportTechnicalInspectionRequestList">
+                    <label>Export technical inspection request list </label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="custom-checkbox" formControlName="addTechnicalInspection">
+                    <label>Add technical inspection</label>
+                    <div class="sub-checkbox">
+                      <div class="item-check">
+                        Search through asset id
+                      </div>
+                      <div class="item-check">
+                        Search through requests
+                      </div>
+                      <div class="item-check">
+                        Search through employees
+                      </div>
+                      <div class="item-check">
+                        Upload file
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="d-flex flex-column">
+                  <div class="form-check">
+                    <input type="checkbox" class="custom-checkbox" formControlName="approveTechnicalInspectionRequest">
+                    <label>Approve technical inspection request</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicalInspectionRequestDetail">
+                    <label>View technical inspection request detail</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="custom-checkbox" formControlName="addDecision">
+                    <label>Add decision </label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="custom-checkbox" formControlName="viewAllDecision">
+                    <label>View all decision</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="d-flex flex-column">
+                  <div class="form-check">
+                    <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnDecision">
+                    <label>Update/edit own desicion</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="custom-checkbox" formControlName="finalDecision">
+                    <label>Final decision </label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="custom-checkbox" formControlName="viewAssetType">
+                    <label>View asset type</label>
+                    <div class="sub-checkbox">
+                      <p class="search-title mx-3 mb-1">Select The items you want to access</p>
+                      <div class="p-field form-section__field mx-3 mb-2">
+                        <div class="autocomplete-select">
+                          <span class="p-float-label">
+                            <p-autoComplete [minLength]="1" 
+                              placeholder="Search and drop list"
+                              [suggestions]="assetTypeFiltered"
+                              field="name"
+                              (completeMethod)="getFilteredAssetType($event)"
+                              (onSelect)="addToList('WORKSHOP_TECHNICAL_INSPECTION_VIEW_ASSET_TYPE',$event)"
+                              [dropdown]="true"></p-autoComplete>
+                            <i class="pi pi-search"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="selected-items mx-3 ">
+                        <div class="item" *ngFor="let assetType of WORKSHOP_TECHNICAL_INSPECTION_VIEW_ASSET_TYPE; let index=index;">
+                          <span class="close-item" (click)="removelist('WORKSHOP_TECHNICAL_INSPECTION_VIEW_ASSET_TYPE' , index)">
+                            <svg-icon class="date-icon" [src]="closeIcon" [svgStyle]="{ 'width.em':'.9' , 'fill': '#fff' ,'height': '100%'}"></svg-icon>
+                          </span>
+                          <p>{{assetType.name}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        </mat-tab>
+        <mat-tab label="Auction list">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form [formGroup]="workshopAuctionListForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewAuctionList">
+                      <label>View auction list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewSoldList">
+                      <label>View sold list</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportAuctionList">
+                      <label>Export auction list </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportSoldList">
+                      <label>Export sold list</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewItemDetail">
+                      <label>View item detail</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateItemDetail">
+                      <label>Update item detail</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Task Master">
+          <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form [formGroup]="workshopTaskMasterForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewTaskList">
+                      <label>View task list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="exportTaskList">
+                      <label>Export task list</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addTask">
+                      <label>Add task</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateEdittask">
+                      <label>Update/edit task</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="archiveTask">
+                      <label>Archive task</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-tab>
+    <mat-tab label="Configuration">
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="User Management">
+           <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form [formGroup]="configurationUserManagementForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewRoleList">
+                      <label>View role list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addRole">
+                      <label>Add role</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateRole">
+                      <label>Update role</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewUserList">
+                      <label>View user list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addUser">
+                      <label>Add user</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search through employee
+                        </div>
+                        <div class="item-check">
+                          Search through departments
+                        </div>
+                        <div class="item-check">
+                          Search through role
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateUser">
+                      <label>Update user</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search through employee
+                        </div>
+                        <div class="item-check">
+                          Search through departments
+                        </div>
+                        <div class="item-check">
+                          Search through role
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Asset policy">
+           <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form [formGroup]="configurationAssetPolicyForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewAssetPolicyList">
+                      <label>View asset policy list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewSubAssetPolicyList">
+                      <label>View sub asset policy list</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateAssetPolicy">
+                      <label>Update asset policy</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateSubAssetPolicy">
+                      <label>Update sub asset policy</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addAssetSubAssetPolicy">
+                      <label>Add asset/sub asset policy</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Asset Configuration">
+           <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form  [formGroup]="configurationAssetConfigurationForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addAssetConfiguration">
+                      <label>Add asset configuration</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewAssetConfigurationList">
+                      <label>View asset configuration list</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateAssetConfiguration">
+                      <label>Update asset configuration</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Usage Category">
+           <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form [formGroup]="configurationUsageCategoryForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewUsageCategoryList">
+                      <label>View usage category list</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateUsageCategory">
+                      <label>Update usage category</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addusageCategory">
+                      <label>Add usage category</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search through asset type ( asset configuration)
+                        </div>
+                        <div class="item-check">
+                          Search through sub assets
+                        </div>
+                        <div class="item-check">
+                          Search through accessories
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Ownership">
+           <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form [formGroup]="configurationOwnershipForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addOwnerShipList">
+                      <label>Add ownership list</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="updateOwnership">
+                      <label>update ownershipt</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnershipList">
+                      <label>View ownership list</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Periodic Service">
+           <div class="tabs-content-header">
+            <a>Select All</a>
+            <a>Clear All</a>
+          </div>
+          <form [formGroup]="configurationPeriodicServiceForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="viewPeriodicServiceList">
+                      <label>View Periodic service list</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="editPeriodicService">
+                      <label>Edit Periodic service</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox" class="custom-checkbox" formControlName="addPeriodicServie">
+                      <label>Add Periodic service</label>
+                      <div class="sub-checkbox">
+                        <div class="item-check">
+                          Search though tasks
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 </div>

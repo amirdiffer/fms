@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColumnType, TableSetting } from '@core/table';
 import { from, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { RolePermissionFacade } from '../../+state/role-permission';
 
 @Component({
@@ -10,51 +11,21 @@ import { RolePermissionFacade } from '../../+state/role-permission';
 })
 export class RolePermissionComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
-  data$ = of([
-    {
-      Item: 'Name is here',
-      View: 'Task Master, Service Shop',
-      Edit: 'Body Shop',
-      Create: 'Tire Shop'
-    },
-    {
-      Item: 'Name is here',
-      View: 'Task Master, Service Shop',
-      Edit: 'Body Shop',
-      Create: 'Tire Shop'
-    },
-    {
-      Item: 'Name is here',
-      View: 'Task Master, Service Shop',
-      Edit: 'Body Shop',
-      Create: 'Tire Shop'
-    },
-    {
-      Item: 'Name is here',
-      View: 'Task Master, Service Shop',
-      Edit: 'Body Shop',
-      Create: 'Tire Shop'
-    },
-    {
-      Item: 'Name is here',
-      View: 'Task Master, Service Shop',
-      Edit: 'Body Shop',
-      Create: 'Tire Shop'
-    },
-    {
-      Item: 'Name is here',
-      View: 'Task Master, Service Shop',
-      Edit: 'Body Shop',
-      Create: 'Tire Shop'
-    }
-  ]);
+  data$ = this.facade.rolePermission$.pipe(
+    map(
+      x => {
+        return x.map(y =>{
+          return {...y , description:'No description' , numberOfUser:'No Number of User'}
+        })
+      }
+    )
+  )
 
   rolePermission_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.name', type: 1, field: 'Item' },
-      { lable: 'tables.column.view', type: 1, field: 'View' },
-      { lable: 'tables.column.edit', type: 1, field: 'Edit' },
-      { lable: 'tables.column.create', type: 1, field: 'Create' },
+      { lable: 'tables.column.role_name', type: 1, field: 'roleName' },
+      { lable: 'tables.column.description', type: 1, field: 'description' },
+      { lable: 'tables.column.number_of_user', type: 1, field: 'numberOfUser' },
       {
         lable: '',
         field: 'floatButton',

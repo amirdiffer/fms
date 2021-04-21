@@ -196,7 +196,6 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
               name: 'sidebar.configuration.user_management.role_permission',
               icon: 'organization',
               route: '/configuration/user-management/role-permission',
-              disabled: true
             },
             {
               name: 'sidebar.configuration.user_management.users',

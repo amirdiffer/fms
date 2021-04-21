@@ -507,7 +507,9 @@
       "models": "Models",
       "capacity": "Capacity",
       "km": "KM",
-      "request": "Request"
+      "request": "Request",
+      "role_name":"Role Name",
+      "number_of_user":"Number Of User"
     },
     "button": {
       "view_report": "View Report",

@@ -13,6 +13,7 @@ import { AddUserComponent } from './users/add-user/add-user.component';
 import { SharedModule } from '@shared/shared.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
     UserManagementRoutingModule,
     SharedModule,
     MatProgressBarModule,
-    AlertDialogModule
+    AlertDialogModule,
+    MatTabsModule
   ]
 })
 export class UserManagementModule {}
