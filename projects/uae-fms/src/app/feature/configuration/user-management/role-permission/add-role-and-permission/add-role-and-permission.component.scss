@@ -158,6 +158,7 @@ mat-tab-group {
     ::ng-deep{
       input{
         padding:0 2.8em;
+        margin: 5px 0;
       }
     }
   }
@@ -223,4 +224,7 @@ mat-tab-group {
       display: none;
     }
   }
+}
+p-autocomplete ::ng-deep .p-autocomplete-panel{
+  margin-top:5px
 }
