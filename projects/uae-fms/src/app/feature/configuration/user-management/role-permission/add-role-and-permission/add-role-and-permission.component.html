@@ -1,43 +1,58 @@
 <form [formGroup]="roleInfoFrom">
   <div class="form-section position-relative" >
-    <div class="button-container">
+    <div class="button-container" *ngIf="!IsOverview">
       <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()" >{{ 'forms.cancel' | translate}}</button>
       <button class="btn-primary-medium add" type="button" (click)="submitForm()">{{ (isEdit ? 'forms.edit' :'forms.add' )| translate}}</button>
     </div>
     <h3 class="form-section__title">{{'configuration.role_permission.role_info' | translate}}</h3>
-    <div class="row">
-      <div class="col-4 p-field form-section__field">
-        <span class="p-float-label ">
-          <input pInputText placeholder="{{'configuration.role_permission.role_name' | translate}}"  type="text" formControlName="roleName">
-          <label>{{'configuration.role_permission.role_name' | translate}}</label>
-        </span>
-        <anms-error
-          [showError]="hasError('roleName',roleInfoFrom,submitted)"
-          error="forms.feedback.required">
-        </anms-error>
+    <ng-container *ngIf="!IsOverview; else roleInfoOverview">
+      <div class="row">
+        <div class="col-4 p-field form-section__field">
+          <span class="p-float-label ">
+            <input pInputText placeholder="{{'configuration.role_permission.role_name' | translate}}"  type="text" formControlName="roleName">
+            <label>{{'configuration.role_permission.role_name' | translate}}</label>
+          </span>
+          <anms-error
+            [showError]="hasError('roleName',roleInfoFrom,submitted)"
+            error="forms.feedback.required">
+          </anms-error>
+        </div>
+        <div class="col-6 d-flex role-drop-down">
+          <p class="my-0 mx-4 align-self-center">{{'configuration.role_permission.user_existing_as_template' | translate}}</p>
+          <div class="p-field form-section__field dropdown-select w-100">
+            <span class="p-float-label">
+              <p-dropdown [showClear]="true" [autoDisplayFirst]="false" (onChange)="selectTemplate($event)" [options]="roleData$ | async" optionLabel="roleName" optionValue="permissions"></p-dropdown>
+              <label>{{'configuration.role_permission.role' | translate}}</label>
+            </span>
+          </div>
+        </div>
       </div>
-      <div class="col-6 d-flex role-drop-down">
-        <p class="my-0 mx-4 align-self-center">{{'configuration.role_permission.user_existing_as_template' | translate}}</p>
-        <div class="p-field form-section__field dropdown-select w-100">
-          <span class="p-float-label">
-            <p-dropdown [autoDisplayFirst]="false" [options]="roleData$ | async" optionLabel="roleName" optionValue="id"></p-dropdown>
-            <label>{{'configuration.role_permission.role' | translate}}</label>
+      <div class="row mt-2">
+        <div class="col-4 p-field form-section__field">
+          <span class="p-float-label ">
+            <input pInputText placeholder="{{'configuration.role_permission.description' | translate}}"  type="text" formControlName="desciption">
+            <label>{{'configuration.role_permission.description' | translate}}</label>
           </span>
         </div>
       </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-4 p-field form-section__field">
-        <span class="p-float-label ">
-          <input pInputText placeholder="{{'configuration.role_permission.description' | translate}}"  type="text" formControlName="desciption">
-          <label>{{'configuration.role_permission.description' | translate}}</label>
-        </span>
+    </ng-container>
+    <ng-template #roleInfoOverview>
+      <div class="row">
+        <div class="col-3">
+          <p class="opacity-8">{{'configuration.role_permission.role_name' | translate}}</p>
+          <p>{{roleOverView?roleOverView.roleName:null}}</p>
+        </div>
+        <div class="col-9">
+          <p class="opacity-8">{{'configuration.role_permission.description' | translate}}</p>
+          <p></p>
+        </div>
       </div>
-    </div>
+    </ng-template>
+    
   </div>
 </form>
 <!-- Tabs -->
-<div class="vertical-tabs mt-3 form-section">
+<div class="vertical-tabs mt-3 form-section" [class.isOverview]="IsOverview">
   <p class="tabs-section-title">{{'configuration.role_permission.section_list' | translate}}</p>
   <mat-tab-group mat-align-tabs="start">
     <mat-tab label="{{'sidebar.fleets.~' | translate}}">

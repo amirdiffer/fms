@@ -209,3 +209,18 @@ mat-tab-group {
     }
   }
 }
+
+.opacity-8{
+  opacity: .8;
+}
+
+.isOverview{
+  .tabs-content-header {
+    display: none;
+  }
+  .form-check{
+    input[type="checkbox"]{
+      display: none;
+    }
+  }
+}

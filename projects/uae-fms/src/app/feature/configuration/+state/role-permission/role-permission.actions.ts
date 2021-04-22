@@ -42,4 +42,6 @@ export class RolePermissionActions {
     '[RolePermission] error occurred',
     props<{ reason: any }>()
   );
+
+  static reset = createAction('[RolePermission] reset parameters');
 }

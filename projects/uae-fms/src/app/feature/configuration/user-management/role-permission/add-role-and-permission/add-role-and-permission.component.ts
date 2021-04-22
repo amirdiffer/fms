@@ -20,7 +20,10 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
   submitted:boolean = false;
   optionDialog='submit'
   isEdit:boolean= false;
-  id;
+  IsOverview:boolean=false;
+  roleId;
+  specificRole=[];
+  roleOverView;
   /* forms */
   /* Role Information Forms*/
   roleInfoFrom: FormGroup;
@@ -106,9 +109,32 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
 
   
   ngOnInit():void{
+    this.formBuilders();
     const url = this._activatedRoute.snapshot.url.filter(x => x.path == 'edit-role-permission')
-    if(url.length > 0){
-      this.isEdit = true
+    const urlOverview = this._activatedRoute.snapshot.url.filter(x => x.path == 'role-permission')
+    const chackHasId = +this._activatedRoute.snapshot.url[this._activatedRoute.snapshot.url.length -1].path
+    if(urlOverview && !isNaN(chackHasId)){
+      this.IsOverview = true;
+    }
+    if(url.length > 0 || this.IsOverview){
+      this.isEdit = true;
+      this.roleId = +this._activatedRoute.snapshot.url[this._activatedRoute.snapshot.url.length -1].path
+      this._roleFacade.getRoleByRoleID(this.roleId)
+      this._roleFacade.specificRole$.subscribe(
+        role => {
+          if(role){
+            this.specificRole = role.permissions;
+            this.roleOverView= role
+            if(this.roleInfoFrom){
+              this.roleInfoFrom.patchValue({
+                roleName:role.roleName
+              })
+            }
+            this.patchValueEditForm();
+          }
+        }
+
+      )
     }
     this._roleFacade.loadAll();
     this._assetConfigurationService.loadAll().subscribe(
@@ -123,28 +149,7 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
       roleName:['',Validators.required],
       desciption:['']
     })
-    this.fleetAssetFormBuilder();
-    this.fleetSubAssetFormBuilder();
-    this.fleetAccessoryFormBuilder();
-    this.fleetOperatorFormBuilder();
-    this.fleetMovementFormBuilder();
-    this.fleetDepartmentFormBuilder();
-    this.fuelManagementFormBuilder();
-    this.salikFormBuilder();
-    this.partStorePartListFormBuilder();
-    this.partStoreOrderListFormBuilder();
-    this.partStoreSupplierFormBuilder();
-    this.workshopBodyshopFormBuilder();
-    this.workshopServiceshopFormBuilder();
-    this.workshopTechnicalInspectionFormBuilder();
-    this.workshopAuctionListFormBuilder();
-    this.workshopTaskMasterFormBuilder();
-    this.configurationUserManagementFormBuilder();
-    this.configurationAssetPolicyFormBuilder();
-    this.configurationAssetConfigurationFormBuilder();
-    this.configurationUsageCategoryFormBuilder();
-    this.configurationOwnershipFormBuilder();
-    this.configurationPeriodicServiceFormBuilder();
+    
   }
   
 
@@ -649,9 +654,32 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
       PERIODIC_SERVICE_ADD:[false],
     })
   }
+  formBuilders(){
+    this.fleetAssetFormBuilder();
+    this.fleetSubAssetFormBuilder();
+    this.fleetAccessoryFormBuilder();
+    this.fleetOperatorFormBuilder();
+    this.fleetMovementFormBuilder();
+    this.fleetDepartmentFormBuilder();
+    this.fuelManagementFormBuilder();
+    this.salikFormBuilder();
+    this.partStorePartListFormBuilder();
+    this.partStoreOrderListFormBuilder();
+    this.partStoreSupplierFormBuilder();
+    this.workshopBodyshopFormBuilder();
+    this.workshopServiceshopFormBuilder();
+    this.workshopTechnicalInspectionFormBuilder();
+    this.workshopAuctionListFormBuilder();
+    this.workshopTaskMasterFormBuilder();
+    this.configurationUserManagementFormBuilder();
+    this.configurationAssetPolicyFormBuilder();
+    this.configurationAssetConfigurationFormBuilder();
+    this.configurationUsageCategoryFormBuilder();
+    this.configurationOwnershipFormBuilder();
+    this.configurationPeriodicServiceFormBuilder();
+  }
 
-  getTrueValue(){
-    const value=[];
+  getListOfForm(){
     const form = [
       this.fleetAssetForm,
       this.fleetSubAssetForm,
@@ -677,10 +705,14 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
       this.configurationUsageCategoryForm,
       this.configurationOwnershipForm,
       this.configurationPeriodicServiceForm
-    ]
-    for (let index = 0; index < form.length; index++) {
-      Object.keys(form[index].controls).forEach(key =>{
-        if(form[index].get(key).value){
+    ];
+    return form
+  }
+  getTrueValue(){
+    const value=[];
+    for (let index = 0; index < this.getListOfForm().length; index++) {
+      Object.keys(this.getListOfForm()[index].controls).forEach(key =>{
+        if(this.getListOfForm()[index].get(key).value){
           value.push(key)
         }
       })
@@ -688,9 +720,44 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
     }
     return value
   }
+
   selectAlForm(form:FormGroup , option:string){
     Object.keys(form.controls).forEach(key =>{
       option == 'select' ? form.get(key).patchValue(true) : form.get(key).patchValue(false)
     })
+  }
+
+  patchValueEditForm (){
+    this.specificRole.map(
+      x=>{
+        for (let index = 0; index < this.getListOfForm().length; index++) {
+          Object.keys(this.getListOfForm()[index].controls).forEach(key =>{
+            if(key == x){
+              this.getListOfForm()[index].get(key).patchValue(true)
+            }
+          })
+        }
+      }
+    )
+    if(this.IsOverview){
+      for (let index = 0; index < this.getListOfForm().length; index++) {
+        Object.keys(this.getListOfForm()[index].controls).forEach(key =>{
+          if(this.getListOfForm()[index].get(key).value == false){
+
+          }
+        })
+      }
+    }
+  }
+  selectTemplate(event){
+    for (let index = 0; index < this.getListOfForm().length; index++) {
+      Object.keys(this.getListOfForm()[index].controls).forEach(key =>{
+        this.getListOfForm()[index].get(key).patchValue(false)
+      })
+    }
+    if(event.value){
+      this.specificRole = event.value;
+      this.patchValueEditForm();
+    }
   }
 }

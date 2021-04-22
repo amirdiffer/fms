@@ -34,4 +34,8 @@ export class RolePermissionFacade {
   getRoleByRoleID(roleId: number) {
     this.store.dispatch(RolePermissionActions.roleByRoleId({ roleId }));
   }
+
+  reset() {
+    this.store.dispatch(RolePermissionActions.reset());
+  }
 }

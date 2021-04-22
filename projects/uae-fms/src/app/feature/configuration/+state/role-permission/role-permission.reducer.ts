@@ -60,6 +60,13 @@ const rolePermissionReducer = createReducer(
     error: null,
     role: data
   })),
+  on(RolePermissionActions.reset, (state) => ({
+    ...state,
+    error: null,
+    submitted: false,
+    message: null,
+    role:null
+  }))
 );
 
 export function reducer(state: RolePermissionState, action: Action) {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnType, TableSetting } from '@core/table';
-import { from, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RolePermissionFacade } from '../../+state/role-permission';
 
@@ -41,12 +40,17 @@ export class RolePermissionComponent implements OnInit {
       onClick: (col, data, button?) => {},
       floatButton: [
         {
-          button: 'external'
+          button: 'external',
+          onClick: (col, data, button?) => {
+            this.facade.reset();
+            this._router.navigate(['/configuration/user-management/role-permission/' + data.id]);
+          }
         },
         {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
+            this.facade.reset();
             this._router.navigate(['/configuration/user-management/edit-role-permission/' + data.id]);
           }
         }
