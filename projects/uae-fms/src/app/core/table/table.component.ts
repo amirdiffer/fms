@@ -97,9 +97,9 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
             : '';
       }
     }
-    // else {
-    //   return data[col.field];
-    // }
+    else {
+      return data[col.field];
+    }
   }
 
   click(col: ColumnDifinition, data: any) {
