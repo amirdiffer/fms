@@ -708,7 +708,8 @@
           "over": "OVER",
           "urgent": "URGENT",
           "normal": "Normal"
-        }
+        },
+        "asset_type": "Asset Type"
       }
     },
     "type": "Type",

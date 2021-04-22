@@ -53,4 +53,22 @@ export class RegistrationEffects {
       )
     )
   );
+
+  getAssetForRegistrationByassetId = createEffect(() =>
+    this.action$.pipe(
+      ofType(RegistrationActions.loadAssetForRegistrationByAssetId),
+      mergeMap((action) =>
+        this.service.getAssetForRegistrationByAssetId(action.assetId).pipe(
+          map((data) => {
+            return RegistrationActions.AssetForRegistrationByAssetIdLoaded({
+              data: data.message
+            });
+          }),
+          catchError((error) =>
+            of(RegistrationActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
 }

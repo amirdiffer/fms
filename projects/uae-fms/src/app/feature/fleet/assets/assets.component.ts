@@ -110,6 +110,27 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
       });
     })
   );
+
+  dataCustomization$ = this.customizationFacade.customization$.pipe(
+    map((x) => {
+      return x.map((y: any) => {
+        return {
+          ...y,
+          id: y.id,
+          asset: {
+            img: 'assets/thumb.png',
+            assetName: y.assetTypeName,
+            assetSubName: y.dpd,
+            progress: Math.floor(Math.random() * 6) + 1
+          },
+          businessCategory: y.businessCategoryName,
+          createDate: y.createdAt,
+          registrantionDate: '00/00/00',
+          creator: 'Sam Smith'
+        };
+      });
+    })
+  );
   //#endregion
 
   constructor(
