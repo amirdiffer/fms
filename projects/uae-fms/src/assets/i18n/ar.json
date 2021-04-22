@@ -68,7 +68,7 @@
     "company_profile": "ملف الشركة",
     "asset_policy": "سياسة الأصول",
     "asset_configuration": "تكوين الأصول",
-    "business_category": "نوع العمل",
+    "usage_category": "نوع العمل",
     "edit_usage_category": "تحرير نوع العمل",
     "ownership": "الملكية",
     "edit_ownership": "تحرير الملكية",
@@ -107,7 +107,7 @@
     "edit_part": "تحرير الجزء",
     "overview": "نظرة عامة",
     "category": "الفئة",
-    "add_business_category": "إضافة فئة العمل",
+    "add_usage_category": "إضافة فئة العمل",
     "add_asset_configuration": "إضافة تكوين الأصول",
     "add_ownership": "أضف ملكية",
     "add_role_permission": "إضافة إذن الدور",
@@ -131,7 +131,7 @@
     "add_make": "إضافة الماركة",
     "add_model": "إضافة الموديل",
     "add_trim": "إضافة الموديل الفرعي ",
-    "edit_business_category": "تعديل طبيعة الأصل",
+    "edit_usage_category": "تعديل طبيعة الأصل",
     "company_setting": "إعداد الشركة",
     "permanent": "دائم",
     "technical_inspection_report": "تقرير الفحص الفني"
@@ -1306,7 +1306,8 @@
     "feedback": {
       "required": "هذا الحقل مطلوب",
       "invalid-email": "عنوان البريد الإلكتروني غير صالح",
-      "file_ext": "امتداد الملف غير صحيح"
+      "file_ext": "امتداد الملف غير صحيح",
+      "autocomplete_select":"الرجاء البحث وتحديد عنصر"
     },
     "order": "ترتيب",
     "submit": "يقدم"

@@ -68,7 +68,7 @@
     "company_profile": "Company Profile",
     "asset_policy": "Asset Policy",
     "asset_configuration": "Asset Configuration",
-    "business_category": "Usage Category",
+    "usage_category": "Usage Category",
     "edit_usage_category": "Edit Usage Category",
     "ownership": "Ownership",
     "edit_ownership": "Edit Ownership",
@@ -105,7 +105,7 @@
     "edit_part": "Edit Part",
     "overview": "OverView",
     "category": "Category",
-    "add_business_category": "Add Usage Category",
+    "add_usage_category": "Add Usage Category",
     "add_asset_configuration": "Add Asset Configuration",
     "add_ownership": "Add Ownership",
     "edit_periodic_service": "Edit Periodic Service",
@@ -1353,7 +1353,8 @@
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid",
       "invalid-phone": "Phone number is invalid",
-      "file_ext": "File extension is incorrect"
+      "file_ext": "File extension is incorrect",
+      "autocomplete_select":"Please search and select an item"
     },
     "order": "Order",
     "submit": "Submit",

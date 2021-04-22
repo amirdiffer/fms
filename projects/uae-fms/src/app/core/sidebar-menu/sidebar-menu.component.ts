@@ -224,7 +224,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.configuration.business_category',
           icon: 'business',
-          route: '/configuration/business-category'
+          route: '/configuration/usage-category'
         },
         {
           name: 'sidebar.configuration.ownership',
