@@ -144,13 +144,13 @@ export class AssetsService {
       rowSettings: {
         onClick: (col, data, button?) => {},
         floatButton: [
-          {
+          /* {
             button: 'edit',
             color: '#3F3F3F',
             onClick: (col, data, button?) => {
               this.router.navigate([`/fleet/assets/${data.id}/registration`]);
             }
-          },
+          }, */
           // {
           //   button: 'download'
           // },
