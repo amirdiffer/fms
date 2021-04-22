@@ -90,7 +90,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
         type: 2,
         field: 'Serial_Number',
         thumbField: 'avatarId',
-        override: 'thumb.png',
+        // override: 'thumb.png',
         width: '18em'
       },
       { lable: 'tables.column.date', type: 1, field: 'Date' },

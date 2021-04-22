@@ -14,13 +14,15 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./asset-policy.component.scss']
 })
 export class AssetPolicyComponent implements OnInit, OnDestroy {
-  //#region Variables
+
+  #startRegionVariables
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
-
+  selectedTab: any;
   getAssetPolicySubscription!: Subscription;
-
   downloadBtn = 'assets/icons/download-solid.svg';
+  #endRegionVariables
 
+  #startRegionTables
   assetPolicy_Table: TableSetting = {
     columns: [
       {
@@ -61,9 +63,9 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       floatButton: [
         {
           onClick: (col, data) => {
+            console.log(data.id)
             this._router.navigate(
-              ['/configuration/asset-policy/edit-asset-policy/'],
-              { queryParams: { id: data.id } }
+              ['/configuration/asset-policy/edit-asset-policy/' + data.id]
             );
           },
 
@@ -72,7 +74,6 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       ]
     }
   };
-
   subAssetPolicy_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
@@ -105,8 +106,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
         {
           onClick: (col, data) => {
             this._router.navigate(
-              ['/configuration/asset-policy/edit-asset-policy/'],
-              { queryParams: { id: data.id } }
+              ['/configuration/asset-policy/edit-asset-policy/' + data.id]
             );
           },
 
@@ -115,8 +115,6 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       ]
     }
   };
-  selectedTab: any;
-
   assetPolicy$ = this.assetPolicyFacade.assetPolicy$.pipe(
     map((x) =>
       x.map((item) => {
@@ -130,7 +128,6 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       })
     )
   );
-
   subAssetPolicy$ = this.subAssetPolicyFacade.subAssetPolicy$.pipe(
     map((x) =>
       x.map((item) => {
@@ -144,7 +141,6 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       })
     )
   );
-  //#endregion
   assetPolicyCount$ = this.assetPolicyFacade.conut$.pipe(
     map((x) => {
       return x;
@@ -155,6 +151,8 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       return x;
     })
   );
+  #endRegionTables
+
   constructor(
     private _router: Router,
     private assetPolicyFacade: AssetPolicyFacade,

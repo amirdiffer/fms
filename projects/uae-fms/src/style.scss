@@ -97,14 +97,14 @@ html {
     }
   }
   /* Buttons */
-  anms-technician-overview{
-    .edit-button{
+  anms-technician-overview {
+    .edit-button {
       right: auto !important;
-      left:1em;
+      left: 1em;
     }
   }
-  .profile-image-container{
-    span.add-button a{
+  .profile-image-container {
+    span.add-button a {
       transform: translate(-0.4em, 0) !important;
     }
   }
@@ -201,6 +201,9 @@ html {
     p-calendar ~ .date-icon {
       left: 4%;
       right: auto !important;
+    }
+    .p-datepicker {
+      left: auto !important;
     }
     .p-inputgroup-addon:last-child {
       border-radius: 3px 0 0 3px;

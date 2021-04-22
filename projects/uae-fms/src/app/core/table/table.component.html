@@ -34,8 +34,18 @@
           <div *ngIf="!col.renderer">
             <div class="d-flex">
               <span class="p-column-title">{{col.lable}}</span>
-              <span [innerHTML]="this.getCol(col,data)" class="column-data">
-                <!-- {{ this.getCol(col,data) }} -->
+              <span class="column-data">
+                {{ getCol(col,data) }}
+                <ng-template [ngIf]="col.type && col.type == 2 && data[col.thumbField]" [ngIfThen]="thumb"></ng-template>
+                <ng-template #thumb>
+                  <div class='d-inline-flex cell-with-image'>
+                    <img class='thumb' [src]="col.override ? 'assets/' + col.override : baseFileServer + data[col.thumbField]" onerror="this.src='assets/thumb.png'">
+                    <p class='text-of-cell-with-image'>
+                      {{data[col.field]}}
+                      </p>
+                  </div>
+                </ng-template>
+                <ng-template [ngIf]="col.type && col.type == 2 && !data[col.thumbField]" #dataField>{{ data[col.field] }}</ng-template>
               </span>
             </div>
           </div>
@@ -111,7 +121,7 @@
           <div *ngIf="col.renderer=='downloadButtonRenderer'">
             <table-download-button-renderer [link]='data[col.field]'></table-download-button-renderer>
           </div>
-          
+
           <div *ngIf="col.renderer=='radialBar'">
             <radialBar-renderer [percent]='data[col.field]'></radialBar-renderer>
           </div>
@@ -125,7 +135,7 @@
   <ng-template [ngIf]="pagination && showPagination">
     <div class="paginator">
       <div class="show-entries">
-        <span>Show</span>
+        <span>{{ 'tables.pagination.show' | translate }}</span>
         <select [(ngModel)]="ipp" (change)="paginationEvent('rowCount')">
           <option [ngValue]="5">5</option>
           <option [ngValue]="10">10</option>
@@ -133,11 +143,11 @@
           <option [ngValue]="50">50</option>
           <option [ngValue]="100">100</option>
         </select>
-        <span>Entries</span>
+        <span>{{ 'tables.pagination.entries' | translate }}</span>
       </div>
       <div class="pagination">
         <div class="pagination-caption">
-          <p>{{ trackingShowRow() }} of {{count}}</p>
+          <p>{{ trackingShowRow() }} {{ 'tables.pagination.of' | translate }} {{count}}</p>
         </div>
         <div class="pagination-action">
           <span class="pagination-action__previous" (click)="paginationEvent('previous')">

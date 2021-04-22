@@ -45,6 +45,15 @@ mat-card {
   display: flex;
   align-items: center;
   margin: 0 20px;
+  .action {
+    display: none;
+    margin-top: -1.8em;
+  }
+  &:hover {
+    .action {
+      display: inline-block;
+    }
+  }
 }
 
 .category-sub-subItem {
@@ -54,6 +63,15 @@ mat-card {
   display: flex;
   align-items: center;
   margin: 0 50px;
+  .action {
+    display: none;
+    margin-top: -1.8em;
+  }
+  &:hover {
+    .action {
+      display: inline-block;
+    }
+  }
 }
 
 .category-item {
@@ -126,9 +144,9 @@ mat-card {
   cursor: pointer;
 }
 
-.plus {
-  position: absolute;
-  right: 15px;
+.down-arrow-ar {
+  transform: rotate(-180deg);
+  cursor: pointer;
 }
 
 .cursor-pointer {

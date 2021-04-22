@@ -227,7 +227,7 @@
                             </div>
                             <div *ngIf="inServiceDateReminder.value == true " class="col-12 col-md-4" [class.col-md-12]="policyType.value != ''">
                               <div class="row">
-                                <div class="col-5 pr-0 p-field form-section__field dropdown-select">
+                                <div class="col-5 p-field form-section__field dropdown-select">
                                   <span class="p-float-label ">
                                     <p-dropdown inputId="lifeCycleDateReminder" [placeholder]="'assets.week' | translate " [options]="itemTypes" optionLabel="name" optionValue="id"></p-dropdown>
                                     <label for="lifeCycleDateReminder">{{ 'assets.week' | translate }} </label>
@@ -258,7 +258,7 @@
                             </div>
                             <div *ngIf="inServiceOdometerReminder.value == true " class="col-12 col-md-4" [class.col-md-12]="policyType.value != ''">
                               <div class="row">
-                                <div class="col-5 pr-0 p-field form-section__field dropdown-select">
+                                <div class="col-5 p-field form-section__field dropdown-select">
                                   <span class="p-float-label ">
                                     <p-dropdown inputId="lifeCycleDateReminder" [placeholder]="'assets.week' | translate " [options]="itemTypes" optionLabel="name" optionValue="id"></p-dropdown>
                                     <label for="lifeCycleDateReminder">{{ 'assets.week' | translate }} </label>
@@ -331,8 +331,8 @@
                             <div class="col-12 p-0 d-flex">
                               <div class="form-section component_wrapper w-100" >
                                 <span class="d-flex mb-4">
-                                  <span class="p-inputgroup-addon mr-2 add-warranty-button" (click)="addWarrantyItem()"><i class="pi pi-plus"></i></span>
-                                  <h3 class="form-section__title align-self-center m-0">{{ 'assets.warranty_items' | translate }}</h3>
+                                  <span class="p-inputgroup-addon  add-warranty-button" (click)="addWarrantyItem()"><i class="pi pi-plus"></i></span>
+                                  <h3 class="form-section__title align-self-center m-2">{{ 'assets.warranty_items' | translate }}</h3>
                                 </span>
                                 <div  formArrayName="warrantyItems" *ngFor="let warranty of formGroupMaintenance.get('warrantyItems')['controls']; let i=index">
                                   <div class="row mt-2" [formGroupName]="i">
@@ -348,7 +348,7 @@
                                             error="forms.feedback.required">
                                           </anms-error>
                                         </div>
-                                        <div class="col-12 col-md-3 pr-0 p-field form-section__field dropdown-select">
+                                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                                           <span class="p-float-label">
                                             <p-dropdown inputId="periodicService" formControlName="periodType" [placeholder]="'assets.period_type' | translate" [options]="periodType" optionLabel="name" optionValue="id"></p-dropdown>
                                             <label for="periodicService">{{ 'assets.period_type' | translate }}</label>
