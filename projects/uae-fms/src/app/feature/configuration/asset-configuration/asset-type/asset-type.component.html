@@ -33,7 +33,7 @@
             </span>
           </div>
           <div *ngFor='let model of (assetType.makes[index]).models'>
-            <div class="category-sub-subItem" [hidden]='!returnItemTree(make.id, "make", make).isSelected || !returnItemTree(assetType.id, assetType.type, assetType).isSelected'>
+            <div class="category-sub-subItem" [ngStyle]="(activeLang == 'en')? {'margin': '0 0 0 50px'} : {'margin': '0 50px 0 0'}" [hidden]='!returnItemTree(make.id, "make", make).isSelected || !returnItemTree(assetType.id, assetType.type, assetType).isSelected'>
               <span class="status" (click)='onModelClick(returnItemTree(model.id, "model", model))'
                 [style]="{ '--back-color-var': getStatusColor(returnItemTree(model.id, 'model', model).isSelected) }"
                 [ngStyle]="{ color: getStatusColor(returnItemTree(model.id, 'model', model).isSelected) }"></span>
