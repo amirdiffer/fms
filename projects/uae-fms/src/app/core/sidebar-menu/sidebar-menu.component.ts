@@ -131,7 +131,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           route: '/workshop/service-shop',
           // disabled: true
         },
-                 {
+               {
                   name: 'sidebar.workshop.inspection.~',
                   icon: 'inspection',
                   route: '/workshop/inspections',

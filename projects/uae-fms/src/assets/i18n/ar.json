@@ -667,7 +667,8 @@
           "over": "على",
           "urgent": "العاجلة",
           "normal": "طبيعي"
-        }
+        },
+        "asset_type": "نوع الأصول"
       },
       "latest_location": "آخر موقع "
     },
