@@ -94,7 +94,7 @@ export class AddPeriodicServiceComponent
 
   //#region Variables
   id: number;
-  isEdit: boolean;
+  isEdit: boolean = false;
   packages: FormArray;
   tasks: FormArray;
 
@@ -114,6 +114,7 @@ export class AddPeriodicServiceComponent
   get task(): FormArray {
     return this.periodicServiceForm.get('tasks') as FormArray;
   }
+
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
@@ -139,9 +140,9 @@ export class AddPeriodicServiceComponent
   }
 
   removeTask(i, j) {
-    console.log(i, j);
     this.getTasksForm(i, j).removeAt(j);
   }
+
   ngOnInit(): void {
     // this.periodicServiceFacade.loadAll();
     this.tasks$ = this._taskMasterService.getAllTaks().subscribe((x) => {
@@ -163,21 +164,17 @@ export class AddPeriodicServiceComponent
     this.packages = this.periodicServiceForm.get('packages') as FormArray;
     if (!this.packages) this.packages.push(this.createPackageForm());
 
-    const url = this.route.snapshot.url;
-    if (url.filter((x) => x.path === 'edit-periodic-service').length > 0) {
-      this.isEdit = true;
-      this.id = 8;
-      this.periodicService.getById(this.id).subscribe((result) => {
-        if (result) {
-          this.loadPeriodicServiceForm(result.message);
-        }
-      });
-    } else {
-      this.isEdit = false;
-    }
-
     this._routerFacade.route$.subscribe((data: any) => {
-      this.id = +data.queryParams['id'];
+      this.id = data.params['id'];
+
+      if (this.id) {
+        this.isEdit = true;
+        this.periodicService.getById(this.id).subscribe((result) => {
+          if (result) {
+            this.loadPeriodicServiceForm(result.message);
+          }
+        });
+      }
     });
 
     this.periodicServiceFacade.submitted$.subscribe((x) => {
@@ -205,6 +202,7 @@ export class AddPeriodicServiceComponent
       }
     });
   }
+
   getAllTask(event) {
     let query = event.query;
     let filtered = [];
@@ -217,18 +215,35 @@ export class AddPeriodicServiceComponent
     }
     this.taskFiltered = filtered;
   }
+
   loadPeriodicServiceForm(periodicService: any) {
-    const { name, numOfUsage, packages } = periodicService;
-
-    this.periodicServiceForm.patchValue({
-      name
-    });
-
     this.packages = this.periodicServiceForm.get('packages') as FormArray;
     this.packages.removeAt(0);
 
-    packages.forEach((pack) => {
+    periodicService.packages.forEach((pack) => {
       this.addPackage(pack.name, pack.intervalValue, pack.tasks);
+    });
+
+
+
+    this.periodicServiceForm.patchValue({
+      name: periodicService.name,
+      packages: periodicService.packages.map(x => {
+        return {
+          id: x.id,
+          intervalType: x.intervalType,
+          intervalValue: x.intervalValue,
+          name: x.name,
+          tasks: x.tasks.map(y => {
+            return {
+              id: y.id,
+              taskMasterId: y.taskMasterId,
+              taskMasterName: y.taskMasterName,
+              name:y.taskMasterName
+            }
+          })
+        };
+      })
     });
   }
 
@@ -273,7 +288,6 @@ export class AddPeriodicServiceComponent
 
   submit() {
     this.submitted = true;
-    console.log(this.periodicServiceForm.value);
     if (this.periodicServiceForm.invalid) {
       return;
     }
@@ -317,15 +331,19 @@ export class AddPeriodicServiceComponent
   dialogConfirm(confirmed) {
     if (confirmed) {
       this.displayCancelModal = false;
-      this.goToList();
+      this._goToList();
     } else this.displayCancelModal = false;
   }
 
   successDialogConfirm($event) {
-    this.goToList();
+    this._goToList();
     this.periodicServiceFacade.reset();
   }
   ngOnDestroy() {
     this.tasks$.unsubscribe();
+  }
+
+  _goToList() {
+    this.router.navigate(['configuration/periodic-service']);
   }
 }
