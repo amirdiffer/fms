@@ -45,6 +45,24 @@ export class TableStatusRendererComponent implements OnInit {
       case 'Pending': {
         return '#EA931C';
       }
+      case 'Done': {
+        return '#1cbaea';
+      }
+      case 'Todo': {
+        return '#7cea1c';
+      }
+      case 'Doing': {
+        return '#721cea';
+      }
+      case 'Start': {
+        return '#8f8d89';
+      }
+      case 'Install': {
+        return '#8f8d89';
+      }
+      case 'JobCard': {
+        return '#EA931C';
+      }
       default: {
         return '#000000';
       }

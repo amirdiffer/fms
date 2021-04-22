@@ -12,13 +12,12 @@ export class RequestComponent implements OnInit {
 
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-  activeLayout = 'menu';
   inputForm: FormGroup;
   submitted = false;
   jobCard_Table3 = {
     columns: [
       {
-        lable: 'tables.column.issue',
+        lable: 'tables.column.request',
         field: 'issue',
         type: ColumnType.lable,
         thumbField: ''
@@ -38,7 +37,7 @@ export class RequestComponent implements OnInit {
         renderer: ''
       },
       {
-        lable: 'tables.column.issue_type',
+        lable: 'tables.column.request_type',
         field: 'issue_type',
         type: ColumnType.lable,
         thumbField: '',
@@ -55,9 +54,7 @@ export class RequestComponent implements OnInit {
         lable: 'tables.column.attachment',
         field: 'attachment',
         type: ColumnType.lable,
-        thumbField: '',
-        renderer: '',
-        sortable: true
+        renderer: 'downloadButtonRenderer'
       }
     ],
     data: [
@@ -67,7 +64,7 @@ export class RequestComponent implements OnInit {
         description: 'Description is here, description is here',
         issue_type: 'Repair',
         reported_by: 'Atefeh',
-        attachment: 'Download'
+        attachment: [1]
       },
       {
         issue: 'Oil Leaking',
@@ -75,7 +72,7 @@ export class RequestComponent implements OnInit {
         description: 'Description is here, description is here',
         issue_type: 'Repair',
         reported_by: 'Atefeh',
-        attachment: 'Download'
+        attachment: [1]
       },
       {
         issue: 'Oil Leaking',
@@ -83,7 +80,7 @@ export class RequestComponent implements OnInit {
         description: 'Description is here, description is here',
         issue_type: 'Repair',
         reported_by: 'Atefeh',
-        attachment: 'Download'
+        attachment: [1]
       },
       {
         issue: 'Oil Leaking',
@@ -91,7 +88,7 @@ export class RequestComponent implements OnInit {
         description: 'Description is here, description is here',
         issue_type: 'Repair',
         reported_by: 'Atefeh',
-        attachment: 'Download'
+        attachment: [1]
       },
       {
         issue: 'Oil Leaking',
@@ -99,7 +96,7 @@ export class RequestComponent implements OnInit {
         description: 'Description is here, description is here',
         issue_type: 'Repair',
         reported_by: 'Atefeh',
-        attachment: 'Download'
+        attachment: [1]
       },
       {
         issue: 'Oil Leaking',
@@ -107,7 +104,7 @@ export class RequestComponent implements OnInit {
         description: 'Description is here, description is here',
         issue_type: 'Repair',
         reported_by: 'Atefeh',
-        attachment: 'Download'
+        attachment: [1]
       }
     ],
     rowSettings: {

@@ -39,9 +39,9 @@ export class BusinessCategoryComponent implements OnInit {
       },
       {
         lable: 'tables.column.attachment',
+        type: 1,
         field: 'attachment',
-        type: ColumnType.lable,
-        thumbField: ''
+        renderer: 'downloadButtonRenderer'
       }
     ],
     data: [
@@ -50,42 +50,42 @@ export class BusinessCategoryComponent implements OnInit {
         type: 'Asset',
         quantity: '21',
         description: 'Description is Here',
-        attachment: 'Spec Document'
+        attachment: [1]
       },
       {
         item: 'Camera',
         type: 'Asset',
         quantity: '21',
         description: 'Description is Here',
-        attachment: 'Spec Document'
+        attachment: [1]
       },
       {
         item: 'Camera',
         type: 'Asset',
         quantity: '21',
         description: 'Description is Here',
-        attachment: 'Spec Document'
+        attachment: [1]
       },
       {
         item: 'Camera',
         type: 'Asset',
         quantity: '21',
         description: 'Description is Here',
-        attachment: 'Spec Document'
+        attachment: [1]
       },
       {
         item: 'Camera',
         type: 'Asset',
         quantity: '21',
         description: 'Description is Here',
-        attachment: 'Spec Document'
+        attachment: [1]
       },
       {
         item: 'Camera',
         type: 'Asset',
         quantity: '21',
         description: 'Description is Here',
-        attachment: 'Spec Document'
+        attachment: [1]
       }
     ],
     rowSettings: {

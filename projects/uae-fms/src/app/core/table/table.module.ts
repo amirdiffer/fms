@@ -40,6 +40,7 @@ import { PriorityRendererComponent } from './renderers/priority';
 import { TableServiceS } from '@core/table/table.service';
 import { RadialBarRendererComponent } from './renderers/radialBar';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { ToggleRenderer } from '@core/table/renderers/toggle';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     CheckboxRendererComponent,
     DownloadButtonRendererComponent,
     PriorityRendererComponent,
-    RadialBarRendererComponent
+    RadialBarRendererComponent,
+    ToggleRenderer
   ],
   providers: [
     TableFacade,

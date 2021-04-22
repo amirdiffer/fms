@@ -10,11 +10,11 @@
     <div class="col-12 col-md-8 col-lg-9 main-panel">
       <div class="row">
         <div class="col-12">
-          <div class="component_sec_wrapper wrapper_cus" *ngIf="activeTab == 'Overview'">
-            <div class="lifecycle">
-              <app-life-cycle-chart></app-life-cycle-chart>
-            </div>
-          </div>
+<!--          <div class="component_sec_wrapper wrapper_cus" *ngIf="activeTab == 'Overview'">-->
+<!--            <div class="lifecycle">-->
+<!--              <app-life-cycle-chart></app-life-cycle-chart>-->
+<!--            </div>-->
+<!--          </div>-->
           <div class="mb-4">
             <div  class="filter-container" *ngIf="activeTab == 'Business Category'">
               <app-filter [setting] = "filterSetting_BusinessCategory"></app-filter>
@@ -37,7 +37,9 @@
             <div id="Business Category" title="tabs.business_category" class="p-2">
               <app-asset-overview-business-category></app-asset-overview-business-category>
             </div>
-            <div id="Reminder" title="tabs.reminder" class="p-2"></div>
+            <div id="Reminder" title="tabs.reminder" class="p-2">
+              <app-asset-overview-reminder></app-asset-overview-reminder>
+            </div>
             <div id="Request" title="tabs.request" class="p-2">
               <app-asset-overview-request></app-asset-overview-request>
             </div>

@@ -19,69 +19,11 @@
   </div>
 </div>
 
-<div class="form-section component-wrapper damage-history"  *ngIf="section != 'form'">
-  <div class="row justify-content-between">
-    <div class="col-auto">
-      <div class="title">Damage History</div>
-    </div>
-    <div class="col-auto">
-      <div class="sort">
-        <span (click)="activeLayout = 'menu'" [ngStyle]="{'background-color': activeLayout == 'menu' ? '#0DA06E' : null}">
-        <svg-icon src='assets/icons/layout-menu.svg'
-                  [svgStyle]="{ 'width.px':'24' , 'fill': activeLayout == 'menu' ? '#ffffff' : '#0DA06E' , 'height': '100%'}"></svg-icon>
-        </span>
-        <span (click)="activeLayout = 'grid'" [ngStyle]="{'background-color': activeLayout == 'grid' ? '#0DA06E' : null}">
-        <svg-icon src='assets/icons/layout-grid.svg'
-                  [svgStyle]="{ 'width.px':'24' , 'fill': activeLayout == 'grid' ? '#ffffff' : '#0DA06E' , 'height': '100%'}"></svg-icon>
-        </span>
-        <span (click)="activeLayout = 'top'" [ngStyle]="{'background-color': activeLayout == 'top' ? '#0DA06E' : null}">
-        <svg-icon src='assets/icons/layout-top.svg'
-                  [svgStyle]="{ 'width.px':'24' , 'fill': activeLayout == 'top' ? '#ffffff' : '#0DA06E' , 'height': '100%'}"></svg-icon>
-        </span>
-      </div>
-    </div>
-  </div>
-  <div class="row my-3">
-    <div class="my-2 mx-1">
-      <div class="item-body">
-        <div class="item-body__title">Title is Here</div>
-        <div class="item-body__desc my-1">00/00/0000</div>
-        <img class="item-body__img" src="assets/thumb.png">
-        <div class="item-body__author my-1">Reported By Mohammad</div>
-      </div>
-    </div>
-    <div class="my-2 mx-1">
-      <div class="item-body">
-        <div class="item-body__title">Title is Here</div>
-        <div class="item-body__desc my-1">00/00/0000</div>
-        <img class="item-body__img" src="assets/thumb.png">
-        <div class="item-body__author my-1">Reported By Mohammad</div>
-      </div>
-    </div>
-    <div class="my-2 mx-1">
-      <div class="item-body">
-        <div class="item-body__title">Title is Here</div>
-        <div class="item-body__desc my-1">00/00/0000</div>
-        <img class="item-body__img" src="assets/thumb.png">
-        <div class="item-body__author my-1">Reported By Mohammad</div>
-      </div>
-    </div>
-    <div class="my-2 mx-1">
-      <div class="item-body">
-        <div class="item-body__title">Title is Here</div>
-        <div class="item-body__desc my-1">00/00/0000</div>
-        <img class="item-body__img" src="assets/thumb.png">
-        <div class="item-body__author my-1">Reported By Mohammad</div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <form [formGroup]="inputForm" *ngIf="section == 'form'">
 
   <div class="form-section form-section--inline">
     <div class="row form-section__row">
-      <h3 class="form-section__title col-md-2">{{'assets.overview.requests.issue_type' | translate}}</h3>
+      <h3 class="form-section__title col-md-2">{{'assets.overview.requests.request_type' | translate}}</h3>
       <div class="col-12 col-md-10">
         <div class="row form-group">
           <div class="form-check col-lg-3">
@@ -143,12 +85,6 @@
       <div class="col-12 col-md-10">
         <div class="row form-group">
           <div class="form-check col-lg-3">
-            <input class="form-check-input" type="radio"  id="Estimate" name="jobType" value ="estimate" formControlName="jobType">
-            <label class="form-check-label" for="Estimate">
-              {{'assets.overview.requests.estimate' | translate}}
-            </label>
-          </div>
-          <div class="form-check col-lg-3">
             <input class="form-check-input" type="radio"  id="Repair" name="jobType" value ="repair" formControlName="jobType">
             <label class="form-check-label" for="Repair">
               {{'assets.overview.requests.repair' | translate}}
@@ -174,20 +110,20 @@
   </div>
 
   <div class="form-section">
-    <h3 class="form-section__title">{{'assets.overview.requests.issue_info' | translate}}</h3>
+    <h3 class="form-section__title">{{'assets.overview.requests.request_info' | translate}}</h3>
     <div class="row form-section__row">
       <div class="form-group col-md-8 p-field form-section__field">
         <span class="p-float-label">
-          <input pInputText  type="text" class="form-control" placeholder="{{'assets.overview.requests.issue' | translate}}" 
+          <input pInputText  type="text" class="form-control" placeholder="{{'assets.overview.requests.request' | translate}}"
           formControlName="issue"
           [class.invalid]="!inputForm.get('issue').valid && submitted">
-          <label>{{'assets.overview.requests.issue' | translate}}</label>
+          <label>{{'assets.overview.requests.request' | translate}}</label>
         </span>
         <small class="red-font " [class.d-none]=" inputForm.get('issue').valid || !submitted">{{'assets.overview.requests.issue_validation_error' | translate}}</small>
       </div>
       <div class="form-group col-md-4 p-field form-section__field">
         <span class="p-float-label">
-          <input pInputText type="text" class="form-control" placeholder="{{'assets.overview.requests.created_by' | translate}}" 
+          <input pInputText type="text" class="form-control" placeholder="{{'assets.overview.requests.created_by' | translate}}"
           formControlName="createdBy"
           [class.invalid]="!inputForm.get('createdBy').valid && submitted">
           <label>{{'assets.overview.requests.created_by' | translate}}</label>
@@ -196,7 +132,7 @@
       </div>
       <div class="form-group col-md-12 p-field form-section__field mt-3">
         <span class="p-float-label">
-          <input pInputText type="text" class="form-control" placeholder="{{'assets.overview.requests.description' | translate}}" 
+          <input pInputText type="text" class="form-control" placeholder="{{'assets.overview.requests.description' | translate}}"
           [class.invalid]="!inputForm.get('description').valid && submitted"
           formControlName="description">
           <label>{{'assets.overview.requests.description' | translate}}</label>

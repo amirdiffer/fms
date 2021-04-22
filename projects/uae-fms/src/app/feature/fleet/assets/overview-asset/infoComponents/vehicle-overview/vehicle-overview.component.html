@@ -1,176 +1,186 @@
 <div class="overview">
-    <div class="status-bar">
-        <div class="_row">
-            <span class="status-box color-button">
-                <span class="text d-flex flex-column justify-content-center">
-                    <section class="amount">{{data.totalKm}}km</section>
-                    <section class="unit">{{ 'assets.overview.overview.card.total_km' | translate }}</section>
-                </span>
-                <section class="icon"><img src="assets/icons/speed-meter.svg" alt=""></section>
-            </span>
-            <span class="status-box color-button">
-                <span class="text d-flex flex-column justify-content-center">
-                    <section class="amount">{{data.currentFuel}}L</section>
-                    <section class="unit">{{ 'assets.overview.overview.card.current_fuel' | translate }}</section>
-                </span>
-                <section class="icon"><img src="assets/icons/refule.svg" alt=""></section>
-            </span>
-            <span class="status-box color-button">
-                <span class="text d-flex flex-column justify-content-center">
-                    <section class="amount">{{data.totalFuel}}L</section>
-                    <section class="unit">{{ 'assets.overview.overview.card.total_fuel' | translate }}</section>
-                </span>
-                <section class="icon"><img src="assets/icons/gas-pomp.svg" alt=""></section>
-            </span>
-            <span class="status-box color-button">
-                <span class="text d-flex flex-column justify-content-center">
-                    <section class="amount">{{data.battryUse}}%</section>
-                    <section class="unit">{{ 'assets.overview.overview.card.battery_life' | translate }}</section>
-                </span>
-                <section class="icon"><img src="assets/icons/battry.svg" alt=""></section>
-            </span>
-            <span class="status-box color-button">
-                <span class="text d-flex flex-column justify-content-center">
-                    <section class="amount">{{data.slackCredit}} AED</section>
-                    <section class="unit">{{ 'assets.overview.overview.card.slack_credit' | translate }}</section>
-                </span>
-                <section class="icon"><img src="assets/icons/road.svg" alt=""></section>
-            </span>
-        </div>
-        <div class="_row">
-            <span class="status-box  color-button-invert">
-                <span class="text d-flex flex-column justify-content-center">
-                    <section class="amount">{{data.totalOil}}</section>
-                    <section class="unit">TOTAL TEXT</section>
-                </span>
-                <section class="icon"><img src="assets/icons/engin-oil.svg" alt=""></section>
-            </span>
-            <span class="status-box  color-button-invert">
-                <span class="text d-flex flex-column justify-content-center">
-                    <section class="amount">{{data.totalBrake}}</section>
-                    <section class="unit">TOTAL TEXT</section>
-                </span>
-                <section class="icon"><img src="assets/icons/brake.svg" alt=""></section>
-            </span>
-            <span class="status-box  color-button-invert">
-                <span class="text d-flex flex-column justify-content-center">
-                    <section class="amount">{{data.totalTire}}</section>
-                    <section class="unit">TOTAL TEXT</section>
-                </span>
-                <section class="icon"><img src="assets/icons/tire.svg" alt=""></section>
-            </span>
-            <span class="status-box  color-button-invert">
-                <span class="text d-flex flex-column justify-content-center">
-                    <section class="amount">{{data.totalEngin}}</section>
-                    <section class="unit">TOTAL TEXT</section>
-                </span>
-                <section class="icon"><img src="assets/icons/engine.svg" alt=""></section>
-            </span>
-        </div>
-    </div>
-
     <div class="body-box">
         <div class="_row-custom-wrap">
 
-            <div class="speed-average contain">
-                <h4>{{ 'assets.overview.overview.speed_average' | translate }}</h4>
-                <app-speed-meter-chart></app-speed-meter-chart>
+            <div class="traffic-fine contain">
+              <div class="title">
+                <h4>{{ 'assets.overview.overview.traffic_fine_activity' | translate }}</h4>
+                <div class="summary">
+                  <span class="summary-value">123 AED</span>
+                  <span class="summary-title">{{ 'assets.overview.overview.total_traffic_fine' | translate }}</span>
+                </div>
+              </div>
+<!--                <app-speed-meter-chart></app-speed-meter-chart>-->
+              <div class="chart">
+                <apx-chart id="chart"
+                           [series]="chartOptions.series"
+                           [labels]="chartOptions.labels"
+                           [chart]="chartOptions.chart"
+                           [responsive]="chartOptions.responsive"
+                           [plotOptions]="chartOptions.plotOptions"
+                ></apx-chart>
+              </div>
             </div>
 
             <div class="workout-statics contain">
-<!--                <app-linear-chart [data]="data.workoutStatic"></app-linear-chart>-->
-              <apx-chart id="chart"
-                         [series]="chartOptions.series"
-                         [chart]="chartOptions.chart"
-                         [xaxis]="chartOptions.xaxis"
-                         [stroke]="chartOptions.stroke"
-                         [colors]="chartOptions.colors"
-                         [dataLabels]="chartOptions.dataLabels"
-                         [legend]="chartOptions.legend"
-                         [markers]="chartOptions.markers"
-                         [grid]="chartOptions.grid"
-                         [yaxis]="chartOptions.yaxis"
-                         [title]="chartOptions.title"
-                         [responsive]="chartOptions.responsive"
-                         ></apx-chart>
+              <div class="title">
+                <h4>{{ 'assets.overview.overview.fuel_card_activity' | translate }}</h4>
+                <div class="summary">
+                  <span class="summary-value">123 {{ 'assets.overview.overview.litters' | translate }}</span>
+                  <span class="summary-title">{{ 'assets.overview.overview.remaining' | translate }}</span>
+                </div>
+              </div>
+              <div>
+                <apx-chart id="chart2"
+                           [series]="chartOptionsColumn.series"
+                           [chart]="chartOptionsColumn.chart"
+                           [responsive]="chartOptionsColumn.responsive"
+                           [plotOptions]="chartOptionsColumn.plotOptions"
+                           [xaxis]="chartOptionsColumn.xaxis"
+                           [legend]="chartOptionsColumn.legend"
+                ></apx-chart>
+              </div>
+
             </div>
 
         </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="reminders contain">
-                <h4>{{ 'assets.overview.overview.reminder.reminder' | translate }}</h4>
-                <span class="reminders-box">
-                    <span [class]="'reminder '+item.status" *ngFor="let item of data.reminders">
-                        <span class="text">
-                            <p>{{'assets.overview.overview.reminder.' + item.title|translate}}</p>
-                            <span class="date">
-                                <section class="bullet"></section>
-                                <p>{{item.date|date:'dd MMM yyyy / hh:mm a'}}</p>
-                            </span>
-                        </span>
-                        <span class="action">
-                            <p>{{ 'assets.overview.overview.reminder.action' | translate }}</p>
-                        </span>
-                    </span>
-                    <span class="legend">
-                        <span class="over border-override">
-                            <section class="bullet"></section>
-                            <p>{{ 'assets.overview.overview.reminder.over' | translate }}</p>
-                        </span>
-                        <span class="urgent border-override">
-                            <section class="bullet"></section>
-                            <p>{{ 'assets.overview.overview.reminder.urgent' | translate }}</p>
-                        </span>
-                        <span class="normal border-override">
-                            <section class="bullet"></section>
-                            <p>{{ 'assets.overview.overview.reminder.normal' | translate }}</p>
-                        </span>
-                        <span class="normal2 border-override">
-                            <section class="bullet"></section>
-                            <p>{{ 'assets.overview.overview.reminder.normal' | translate }}</p>
-                        </span>
-                    </span>
-                </span>
-            </div>
-          </div>
-          <div class="col-md-8">
+
+      <div class="table-container">
+        <div class="card-table">
+          <app-table [setting]="tableSetting"></app-table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
             <div class="vehicle-details contain">
-                <h4>{{ 'assets.overview.overview.vehicle_sautes_details' | translate }}</h4>
-                <div class="flex-container">
-                    <span class="infos">
-                        <section class="info" *ngFor="let item of data.vhicle.details">{{item}}</section>
-                    </span>
-                    <span class="details">
-                        <h6 class="title">{{data.vhicle.title}}</h6>
-                        <span class="detail">
-                            <span class="details-box">
-                                <section class="detail-section">{{data.vhicle.title}}</section>
-                                <section class="detail-box">
-                                    <section class="inner-details">
-                                        <section class="detail-item">{{data.vhicle.info}}</section>
-                                    </section>
-                                    <section class="image-section">
-                                        <img src="assets/def.svg" alt="">
-                                    </section>
-                                </section>
-                            </span>
-                            <span class="speed-box">
-                                <section class="speed-section" *ngFor="let item of data.vhicle.speed">
-                                    <h6 class="text">{{item.title}}</h6>
-                                    <p-progressBar class="progress" mode="determinate" [value]="item.precent"
-                                        [style]="{'height': '6px'}">
-                                    </p-progressBar>
-                                </section>
-                            </span>
+              <div class="title">
+                <h4>Toyota Rav4 (XLE 2021)</h4>
+              </div>
+                <div class="d-flex flex-column">
+                  <span class="car">
+                    <img src="assets/car.svg" alt="">
+                    <div class="driver">
+                      <div class="color-button-invert">
+                        <span class="avatar">
+                          <img src="assets/user-image.png">
                         </span>
-                    </span>
-                    <span class="car">
-                        <img src="assets/car.svg" alt="">
-                    </span>
+                        <hr class="seprator">
+                        <span class="fullname">Sam Smith</span>
+                        <span class="desc">12345678900</span>
+                      </div>
+                      <span class="connect-line"></span>
+                    </div>
+                  </span>
+                  <div class="status-bar">
+                    <div class="_row">
+                      <span class="status-box color-button-invert">
+                        <span class="text d-flex flex-column justify-content-center">
+                          <div class="mb-2">
+                            <section class="unit">{{ 'assets.overview.overview.oil_level' | translate }}</section>
+                          <section class="amount">4L</section>
+                          </div>
+                          <div>
+                            <section class="unit">{{ 'assets.overview.overview.oil_life_cycle' | translate }}</section>
+                          <section class="amount">324 KM / 4000KM</section>
+                          </div>
+                        </span>
+                        <section class="icon"><img src="assets/icons/engin-oil.svg" alt=""></section>
+                      </span>
+                      <span class="status-box color-button-invert">
+                        <span class="text d-flex flex-column justify-content-center">
+                          <div class="mb-2">
+                            <section class="unit">{{ 'assets.overview.overview.tire_life' | translate }}</section>
+                          <section class="amount">12000 KM</section>
+                          </div>
+                          <div>
+                            <section class="unit">{{ 'assets.overview.overview.tire_life_cycle' | translate }}</section>
+                          <section class="amount">324 KM / 4000KM</section>
+                          </div>
+                        </span>
+                        <section class="icon">
+                          <img src="assets/icons/tire.svg" alt="">
+                        </section>
+                      </span>
+                    </div>
+                  </div>
                 </div>
             </div>
           </div>
+        <div class="col-md-7">
+          <div class="vehicle-details contain">
+            <div class="tabs-specific">
+              <span [class.active]="selectedTab=='sub_asset'" (click)="selectedTab='sub_asset'">{{ 'assets.overview.overview.sub_asset' | translate }}</span>
+              <span [class.active]="selectedTab=='accessory'" (click)="selectedTab='accessory'">{{ 'assets.overview.overview.accessory' | translate }}</span>
+            </div>
+            <div class="tabs-specific__body">
+              <app-table *ngIf="selectedTab=='sub_asset'" [setting]="tableSetting2"></app-table>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 damage-history" >
+          <div class="vehicle-details contain">
+            <div class="title">
+              <h4>{{ 'assets.overview.overview.damage_history' | translate }}</h4>
+              <div class="col-auto">
+                <div class="sort">
+               <span (click)="activeLayout = 'menu'" [ngStyle]="{'background-color': activeLayout == 'menu' ? '#0DA06E' : null}">
+               <svg-icon src='assets/icons/layout-menu.svg'
+                         [svgStyle]="{ 'width.px':'24' , 'fill': activeLayout == 'menu' ? '#ffffff' : '#0DA06E' , 'height': '100%'}"></svg-icon>
+               </span>
+                  <span (click)="activeLayout = 'grid'" [ngStyle]="{'background-color': activeLayout == 'grid' ? '#0DA06E' : null}">
+               <svg-icon src='assets/icons/layout-grid.svg'
+                         [svgStyle]="{ 'width.px':'24' , 'fill': activeLayout == 'grid' ? '#ffffff' : '#0DA06E' , 'height': '100%'}"></svg-icon>
+               </span>
+                  <span (click)="activeLayout = 'top'" [ngStyle]="{'background-color': activeLayout == 'top' ? '#0DA06E' : null}">
+               <svg-icon src='assets/icons/layout-top.svg'
+                         [svgStyle]="{ 'width.px':'24' , 'fill': activeLayout == 'top' ? '#ffffff' : '#0DA06E' , 'height': '100%'}"></svg-icon>
+               </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row my-3">
+                <div class="my-2 mx-1">
+                  <div class="item-body rounded">
+                    <div class="item-body__title">Title is Here</div>
+                    <div class="item-body__desc my-1">00/00/0000</div>
+                    <img class="item-body__img" src="assets/thumb.png">
+                    <div class="item-body__author my-1">Reported By Mohammad</div>
+                  </div>
+                </div>
+                <div class="my-2 mx-1">
+                  <div class="item-body rounded">
+                    <div class="item-body__title">Title is Here</div>
+                    <div class="item-body__desc my-1">00/00/0000</div>
+                    <img class="item-body__img" src="assets/thumb.png">
+                    <div class="item-body__author my-1">Reported By Mohammad</div>
+                  </div>
+                </div>
+                <div class="my-2 mx-1">
+                  <div class="item-body rounded">
+                    <div class="item-body__title">Title is Here</div>
+                    <div class="item-body__desc my-1">00/00/0000</div>
+                    <img class="item-body__img" src="assets/thumb.png">
+                    <div class="item-body__author my-1">Reported By Mohammad</div>
+                  </div>
+                </div>
+                <div class="my-2 mx-1">
+                  <div class="item-body rounded">
+                    <div class="item-body__title">Title is Here</div>
+                    <div class="item-body__desc my-1">00/00/0000</div>
+                    <img class="item-body__img" src="assets/thumb.png">
+                    <div class="item-body__author my-1">Reported By Mohammad</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 </div>

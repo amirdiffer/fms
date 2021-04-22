@@ -1,0 +1,19 @@
+<div class="table-container">
+  <div class="card-table">
+    <span class="search-container card-table-header">
+        <div class="search-box">
+        <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
+        <button>
+          <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
+        </button>
+      </div>
+        <button class="btn-download">
+          <svg-icon [src]="downloadBtn"></svg-icon>
+        </button>
+        <button *ngIf="section == 'list'" class="btn-primary-medium mx-1" (click)="section='form'"><i>+</i><a>{{'assets.overview.reminder.add_reminder' | translate}}</a></button>
+<!--        <button *ngIf="section == 'form'" class="btn-primary-small btn-scondary-green" type="button" (click)="showSection('list')"><a>{{'forms.cancel' | translate}}</a></button>-->
+<!--        <button *ngIf="section == 'form'" class="btn-primary-small mx-1" type="button" (click)="submitRequest('list')"><a>{{'forms.save' | translate}}</a></button>-->
+      </span>
+    <app-table [setting]="tableSetting"></app-table>
+  </div>
+</div>

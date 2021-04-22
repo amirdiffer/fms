@@ -60,6 +60,7 @@ import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movem
 import { AccessoryOverviewComponent } from './accessory/accessory-overview/accessory-overview.component';
 
 import { TranslateModule } from "@ngx-translate/core";
+import { ReminderComponent } from '@feature/fleet/assets/overview-asset/infoComponents/reminder/reminder.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { TranslateModule } from "@ngx-translate/core";
     RequestComponent,
     OverViewOperatorComponent,
     TemporaryComponent,
-    AddTemporaryRequestComponent
+    AddTemporaryRequestComponent,
+    ReminderComponent
   ],
   imports: [
     // TranslateModule,
