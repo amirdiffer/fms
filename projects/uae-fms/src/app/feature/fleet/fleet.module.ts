@@ -60,6 +60,8 @@ import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movem
 import { AccessoryOverviewComponent } from './accessory/accessory-overview/accessory-overview.component';
 
 import { TranslateModule } from "@ngx-translate/core";
+import { DepartmentOverviewComponent } from './organization/department-overview/department-overview.component';
+import { OverviewTabComponent } from './organization/department-overview/overview-tab/overview-tab.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,9 @@ import { TranslateModule } from "@ngx-translate/core";
     RequestComponent,
     OverViewOperatorComponent,
     TemporaryComponent,
-    AddTemporaryRequestComponent
+    AddTemporaryRequestComponent,
+    DepartmentOverviewComponent,
+    OverviewTabComponent
   ],
   imports: [
     // TranslateModule,

@@ -17,6 +17,10 @@ const organizationReducer = createReducer(
   on(OrganizationActions.allDataLoaded, (state, { data }) =>
     organizationAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+  on(OrganizationActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber: data
+  })),
   on(OrganizationActions.addOrganization, (state, { data }) => ({
     ...state,
     submitted: false

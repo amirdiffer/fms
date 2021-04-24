@@ -320,7 +320,9 @@
     "reminder": "Reminder",
     "maintenance_service": "Maintenance Service",
     "warranty": "Warranty",
-    "technician_job_card": "Technician Job Card"
+    "technician_job_card": "Technician Job Card",
+    "user": "User",
+    "traffic_fine": "Traffic Fine"
   },
   "search": {
     "add": "Add",
