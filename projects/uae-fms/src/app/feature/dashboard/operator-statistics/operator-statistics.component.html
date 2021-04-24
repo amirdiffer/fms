@@ -1,0 +1,68 @@
+<div class="box">
+    <div class="box__header d-flex justify-content-between">
+        <div class="box__header__title">
+            <h3>Operator Statistics</h3>
+        </div>
+        <div class="box__header__date">
+            <p>Updated 1 day ago</p>
+        </div>
+    </div>
+    <div class="box__body row ml-0 mr-0">
+        <div class="col-3 d-flex pr-0 pl-0">
+            <div class="box__body__icon box__body__icon--blue">
+                <span>
+                    <svg-icon [src]="totalIcon" [svgStyle]="{ 'width.em':1.5 ,
+                        'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+                </span>
+            </div>
+            <div class="box__body__content">
+                <div>
+                    <p class="font-weight-bolder">2000</p>
+                    <p class="box__body__content__title">Total</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 d-flex pr-0 pl-0">
+            <div class="box__body__icon box__body__icon--purple">
+                <span>
+                    <svg-icon [src]="totalFineIcon" [svgStyle]="{ 'width.em':1.5 ,
+                        'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+                </span>
+            </div>
+            <div class="box__body__content">
+                <div>
+                    <p class="font-weight-bolder">$9745</p>
+                    <p class="box__body__content__title">Total Fines</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 d-flex pr-0 pl-0">
+            <div class="box__body__icon box__body__icon--pink">
+                <span>
+                    <svg-icon [src]="activeIcon" [svgStyle]="{ 'width.em':1.5 ,
+                        'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+                </span>
+            </div>
+            <div class="box__body__content">
+                <div>
+                    <p class="font-weight-bolder">230k</p>
+                    <p class="box__body__content__title">Active</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 d-flex pr-0 pl-0">
+            <div class="box__body__icon box__body__icon--grey">
+                <span>
+                    <svg-icon [src]="deactiveIcon" [svgStyle]="{ 'width.em':1.5 ,
+                        'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+                </span>
+            </div>
+            <div class="box__body__content">
+                <div>
+                    <p class="font-weight-bolder">1.423k</p>
+                    <p class="box__body__content__title">Deactive</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

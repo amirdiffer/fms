@@ -1,0 +1,32 @@
+.box {
+  padding: 23px 32px;
+  .box__header {
+    .box__header__title {
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin: 0;
+    }
+    .box__header__sub-title {
+      font-size: 0.55rem;
+      color: rgba($color: #000000, $alpha: 0.54);
+      margin-top: 6px;
+    }
+  }
+  .box__body {
+    p {
+      text-align: center;
+      color: #ff4c04;
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+    button {
+      color: white;
+      background-color: #ff4c04;
+      border-radius: 7px;
+      padding: 6px;
+      border: none;
+      font-size: 0.55rem;
+      font-weight: bold;
+    }
+  }
+}

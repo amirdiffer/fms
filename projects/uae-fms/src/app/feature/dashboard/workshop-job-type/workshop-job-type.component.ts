@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkshopJobTypeComponent implements OnInit {
   estimateIcon = 'assets/icons/estimate.svg';
+  repairIcon = 'assets/icons/repair.svg';
+  technicalReportIcon = 'assets/icons/technical-report.svg';
+  installationIcon = 'assets/icons/installation.svg';
 
   constructor() {}
 

@@ -1,0 +1,47 @@
+.box {
+  padding: 23px 32px;
+  &__header {
+    h3 {
+      font-size: 0.95rem;
+      font-weight: bold;
+      margin: 0;
+    }
+    P {
+      font-size: 0.66rem;
+      margin-top: 4px;
+      color: rgba(0, 0, 0, 46%);
+    }
+  }
+  &__body {
+    margin-top: 44px;
+    &__icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 57px;
+      height: 57px;
+      border-radius: 50%;
+      &--blue {
+        background-color: #e0f9fc;
+      }
+      &--purple {
+        background-color: #e8e0fc;
+      }
+      &--pink {
+        background-color: #fce0e0;
+      }
+      &--grey {
+        background-color: #dbeee7;
+      }
+    }
+    &__content {
+      margin: 0 0.35rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &__title {
+        margin-top: 4px;
+      }
+    }
+  }
+}

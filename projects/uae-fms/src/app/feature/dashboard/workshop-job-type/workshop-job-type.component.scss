@@ -9,7 +9,7 @@
   }
   .item {
     margin-top: 30px;
-    width: 222px;
+    // width: 222px;
     &__title {
       font-size: 0.75rem;
     }
@@ -18,7 +18,12 @@
       width: 38px;
       border-radius: 6px;
       height: 38px;
+
+      &--pink {
+        background-color: #fff3e8;
+      }
     }
+
     &__progress {
       width: 15px;
     }

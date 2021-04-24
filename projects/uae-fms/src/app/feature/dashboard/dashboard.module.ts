@@ -22,6 +22,9 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { RadialProgressBarComponent } from './radial-progress-bar/radial-progress-bar.component';
 import { WorkshopJobTypeComponent } from './workshop-job-type/workshop-job-type.component';
+import { OperatorStatisticsComponent } from './operator-statistics/operator-statistics.component';
+import { OperatorCongratulationsComponent } from './operator-congratulations/operator-congratulations.component';
+import { OperatorWarningComponent } from './operator-warning/operator-warning.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { WorkshopJobTypeComponent } from './workshop-job-type/workshop-job-type.
     FactoryCategoryComponent,
     BusinessCategoryComponent,
     RadialProgressBarComponent,
-    WorkshopJobTypeComponent
+    WorkshopJobTypeComponent,
+    OperatorStatisticsComponent,
+    OperatorCongratulationsComponent,
+    OperatorWarningComponent
   ],
   exports: [ProgressBarComponent],
   imports: [
