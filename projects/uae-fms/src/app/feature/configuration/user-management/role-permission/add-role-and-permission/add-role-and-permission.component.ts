@@ -326,7 +326,9 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
         header: 'Add New Role',
         hasError: false,
         isWarning:true,
-        message: 'Are you sure you want to add new role ?',
+        message:this.isEdit
+        ? 'Are you sure you want to edit role ?'
+        : 'Are you sure you want to add new role ?',
         confirmButton: 'Yes',
         cancelButton: 'No'
       };
