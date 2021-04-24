@@ -1,0 +1,30 @@
+<div class="history d-flex flex-column">
+    <div class="component-title pb-3">
+        {{title}}
+    </div>
+    <ng-container *ngFor="let item of data; let index=index;">
+        <div [class]="'history-item '+item.type">
+            <div class="d-flex justify-content-between">
+                <div class="text-ellipsis">
+                    <p>{{item.title}}</p>
+                    <small>{{item.date}} / {{item.time}}</small>
+                </div>
+                <div class="align-self-center">
+                    <span>{{ 'sub_asset.history.by' | translate }} <a>{{item.assign}}</a></span>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+<div class="history-labels">
+    <div class="label done">
+        <small>{{ 'sub_asset.history.done' | translate }}</small>
+    </div>
+    <div class="label to-do">
+        <small>{{ 'sub_asset.history.todo' | translate }}</small>
+    </div>
+    <div class="label doing">
+        <small>{{ 'sub_asset.history.doing' | translate }}</small>
+    </div>
+
+</div>

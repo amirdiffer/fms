@@ -357,6 +357,24 @@ html {
       }
     }
   }
+
+  /*Reminder and history in sub asset overview*/
+  anms-reminder , anms-history{
+    .reminders .reminders-item,
+    .history .history-item{
+        small::before{
+          margin-right: auto !important;
+          margin-left: 1em;
+        }
+    }
+    .reminders-labels,
+    .history-labels{
+      .label small::before{
+        margin-left: 0.5em;
+        margin-right: auto !important;
+      }
+    }
+  }
 }
 
 /* END RTL Arabic */
