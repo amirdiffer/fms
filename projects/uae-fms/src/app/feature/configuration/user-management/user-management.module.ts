@@ -21,7 +21,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     RolePermissionComponent,
     CompanySettingComponent,
     AddRoleAndPermissionComponent,
-    AddUserComponent
+    AddUserComponent,
   ],
   imports: [
     TableModule,

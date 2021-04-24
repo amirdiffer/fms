@@ -52,11 +52,11 @@
   </div>
 </form>
 <!-- Tabs -->
-<div class="vertical-tabs mt-3 form-section" [class.isOverview]="IsOverview">
+<div class="vertical-tabs mt-3 form-section" [class.isOverview]="IsOverview" #roleAndPermision>
   <p class="tabs-section-title">{{'configuration.role_permission.section_list' | translate}}</p>
-  <mat-tab-group mat-align-tabs="start">
+  <mat-tab-group mat-align-tabs="start" (selectedTabChange)="tabChanges()">
     <mat-tab label="{{'sidebar.fleets.~' | translate}}">
-      <mat-tab-group mat-align-tabs="start">
+      <mat-tab-group mat-align-tabs="start" (selectedTabChange)="tabChanges()">
         <mat-tab label="{{'sidebar.fleets.assets' | translate}}">
           <div class="tabs-content-header">
             <a (click)="selectAndClearAll('FLEET_ASSET','select')">{{'configuration.role_permission.select_all' | translate}}</a>
@@ -68,27 +68,27 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="archiveAsset">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_ARCHIVE_OTHERS">
                       <label>{{'configuration.role_permission.archive_asset' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="archiveOwnAsset">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_ARCHIVE_OWN">
                       <label>{{'configuration.role_permission.archive_own_asset' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_EXPORT_LIST_MASTER">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_EXPORT_LIST_MASTER">
                       <label>{{'configuration.role_permission.export_asset_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_VIEW_LIST_MASTER_OWN">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_VIEW_LIST_MASTER_OWN">
                       <label>{{'configuration.role_permission.view_own_asset' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_VIEW_LIST_MASTER_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_VIEW_LIST_MASTER_OTHERS">
                       <label>{{'configuration.role_permission.view_asset_master' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_ADD">
                       <label>{{'configuration.role_permission.add_asset' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -109,23 +109,23 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_UPDATE_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_UPDATE_OTHERS">
                       <label>{{'configuration.role_permission.update_asset_master' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_UPDATE_OWN">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_UPDATE_OWN">
                       <label>{{'configuration.role_permission.update_edit_own_asset' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_VIEW_LIST_PENDING_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_VIEW_LIST_PENDING_OTHERS">
                       <label>{{'configuration.role_permission.view_pending_registration_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_VIEW_LIST_PENDING_OWN">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_VIEW_LIST_PENDING_OWN">
                       <label>{{'configuration.role_permission.view_own_pending_registration_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnRegistrationList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="updateEditOwnRegistrationList" >
                       <label>{{'configuration.role_permission.update_edit_own_registration_list' | translate}}</label>
                     </div>
                   </div>
@@ -133,45 +133,45 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_VIEW_LIST_CUSTOMIZATION_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_VIEW_LIST_CUSTOMIZATION_OTHERS">
                       <label>{{'configuration.role_permission.view_pending_customization_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_VIEW_LIST_CUSTOMIZATION_OWN">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_VIEW_LIST_CUSTOMIZATION_OWN">
                       <label>{{'configuration.role_permission.view_own_pending_customization_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditCustomizationList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="updateEditCustomizationList" >
                       <label>{{'configuration.role_permission.update_edit_customization_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_CUSTOMIZE_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_CUSTOMIZE_OTHERS">
                       <label>{{'configuration.role_permission.customize_asset' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_VIEW_DETAILS_OVERVIEW_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_VIEW_DETAILS_OTHERS">
                       <label>{{'configuration.role_permission.asset_view_detail_overview' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_VIEW_MOVEMENT_HISTORY_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_VIEW_MOVEMENT_HISTORY_OTHERS">
                       <label>{{'configuration.role_permission.asset_movement_history' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="assetUsageCategory">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="assetUsageCategory" >
                       <label>{{'configuration.role_permission.asset_usage_category' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="assetReminderList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="assetReminderList" >
                       <label>{{'configuration.role_permission.asset_reminder_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="addReminder">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="addReminder" >
                       <label>{{'configuration.role_permission.add_reminder' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewAssetConfiguration">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewAssetConfiguration" >
                       <label>{{'configuration.role_permission.view_asset_configuration' | translate}}</label>
-                      <div class="sub-checkbox">
+                      <div class="sub-checkbox" *ngIf="!IsOverview">
                         <p class="search-title mx-3 mb-1">{{'configuration.role_permission.select_the_items_you_want_to_access' | translate}}</p>
                         <div class="p-field form-section__field mx-3 mb-2">
                           <div class="autocomplete-select">
@@ -198,9 +198,9 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="addAssetConfiguration">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="addAssetConfiguration" >
                       <label>{{'configuration.role_permission.add_asset_configuration' | translate}}</label>
-                      <div class="sub-checkbox">
+                      <div class="sub-checkbox" *ngIf="!IsOverview">
                         <p class="search-title mx-3 mb-1">{{'configuration.role_permission.select_the_items_you_want_to_access' | translate}}</p>
                         <div class="p-field form-section__field mx-3 mb-2">
                           <div class="autocomplete-select">
@@ -231,9 +231,9 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="updateAssetConfiguration">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="updateAssetConfiguration" >
                       <label>{{'configuration.role_permission.update_asset_configuration' | translate}}</label>
-                      <div class="sub-checkbox">
+                      <div class="sub-checkbox" *ngIf="!IsOverview">
                         <p class="search-title mx-3 mb-1">{{'configuration.role_permission.select_the_items_you_want_to_access' | translate}}</p>
                         <div class="p-field form-section__field mx-3 mb-2">
                           <div class="autocomplete-select">
@@ -260,9 +260,9 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="BUSINESS_CATEGORY_VIEW_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="BUSINESS_CATEGORY_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_usage_category' | translate}}</label>
-                      <div class="sub-checkbox">
+                      <div class="sub-checkbox" *ngIf="!IsOverview">
                         <p class="search-title mx-3 mb-1">{{'configuration.role_permission.select_the_items_you_want_to_access' | translate}}</p>
                         <div class="p-field form-section__field mx-3 mb-2">
                           <div class="autocomplete-select">
@@ -289,9 +289,9 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="BUSINESS_CATEGORY_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="BUSINESS_CATEGORY_ADD">
                       <label>{{'configuration.role_permission.add_usage_category' | translate}}</label>
-                      <div class="sub-checkbox">
+                      <div class="sub-checkbox" *ngIf="!IsOverview">
                         <p class="search-title mx-3 mb-1">{{'configuration.role_permission.select_the_items_you_want_to_access' | translate}}</p>
                         <div class="p-field form-section__field mx-3 mb-2">
                           <div class="autocomplete-select">
@@ -318,9 +318,9 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="BUSINESS_CATEGORY_UPDATE">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="BUSINESS_CATEGORY_UPDATE">
                       <label>{{'configuration.role_permission.update_usage_category' | translate}}</label>
-                      <div class="sub-checkbox">
+                      <div class="sub-checkbox" *ngIf="!IsOverview">
                         <p class="search-title mx-3 mb-1">{{'configuration.role_permission.select_the_items_you_want_to_access' | translate}}</p>
                         <div class="p-field form-section__field mx-3 mb-2">
                           <div class="autocomplete-select">
@@ -363,15 +363,15 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="SUB_ASSET_VIEW_LIST_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="SUB_ASSET_VIEW_LIST_OTHERS">
                       <label>{{'configuration.role_permission.view_sub_asset_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="SUB_ASSET_VIEW_LIST_OWN">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="SUB_ASSET_VIEW_LIST_OWN">
                       <label>{{'configuration.role_permission.view_own_sub_asset_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="SUB_ASSET_EXPORT_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="SUB_ASSET_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_sub_asset_list' | translate}}</label>
                     </div>
                   </div>
@@ -379,15 +379,15 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="archiveSubAsset">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="archiveSubAsset" >
                       <label>{{'configuration.role_permission.archive_sub_asset_list' | translate}} </label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="SUB_ASSET_VIEW_DETAILS_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="SUB_ASSET_VIEW_DETAILS_OTHERS">
                       <label>{{'configuration.role_permission.view_sub_asset_detail' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="SUB_ASSET_UPDATE_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="SUB_ASSET_UPDATE_OTHERS">
                       <label>{{'configuration.role_permission.edit_sub_asset' | translate}}</label>
                     </div>
                   </div>
@@ -395,11 +395,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="SUB_ASSET_UPDATE_OWN">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="SUB_ASSET_UPDATE_OWN">
                       <label>{{'configuration.role_permission.update_edit_own_sub_asset' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="SUB_ASSET_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="SUB_ASSET_ADD">
                       <label>{{'configuration.role_permission.add_sub_asset' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -433,15 +433,15 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ACCESSORY_VIEW_LIST_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ACCESSORY_VIEW_LIST_OTHERS">
                       <label>{{'configuration.role_permission.view_accessory_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ACCESSORY_VIEW_LIST_OWN">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ACCESSORY_VIEW_LIST_OWN">
                       <label>{{'configuration.role_permission.view_own_accessory_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="archiveAccessory">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="archiveAccessory" >
                       <label>{{'configuration.role_permission.archive_accessory' | translate}}</label>
                     </div>
                   </div>
@@ -449,15 +449,15 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ACCESSORY_VIEW_DETAILS_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ACCESSORY_VIEW_DETAILS_OTHERS">
                       <label>{{'configuration.role_permission.view_accessory_detail' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ACCESSORY_UPDATE_OWN">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ACCESSORY_UPDATE_OWN">
                       <label>{{'configuration.role_permission.update_edit_own_accessory' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ACCESSORY_UPDATE_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ACCESSORY_UPDATE_OTHERS">
                       <label>{{'configuration.role_permission.edit_accessory' | translate}}</label>
                     </div>
                   </div>
@@ -465,11 +465,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ACCESSORY_EXPORT_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ACCESSORY_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_accessory_detail' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ACCESSORY_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ACCESSORY_ADD">
                       <label>{{'configuration.role_permission.add_accessory' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -500,19 +500,19 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="USER_OPERATOR_VIEW_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="USER_OPERATOR_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_operator_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="USER_OPERATOR_EXPORT_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="USER_OPERATOR_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_operator_list' | translate}}</label>
                     </div>
-                    <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="USER_OPERATOR_UPDATE">
+                    <div class="form-check" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="USER_OPERATOR_UPDATE">
                       <label>{{'configuration.role_permission.update_edit' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="USER_OPERATOR_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="USER_OPERATOR_ADD">
                       <label>{{'configuration.role_permission.add_operator' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -537,19 +537,19 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnList" >
                       <label>{{'configuration.role_permission.view_own_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnTrafficFine">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnTrafficFine" >
                       <label>{{'configuration.role_permission.view_own_traffic_fine' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnMovementHistory">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnMovementHistory" >
                       <label>{{'configuration.role_permission.view_own_movement_history' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnActivity">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnActivity" >
                       <label>{{'configuration.role_permission.view_own_activity' | translate}}</label>
                     </div>
                   </div>
@@ -557,19 +557,19 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="USER_OPERATOR_VIEW_DETAILS_GENERAL">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="USER_OPERATOR_VIEW_DETAILS_GENERAL">
                       <label>{{'configuration.role_permission.view_operator_detail' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="USER_OPERATOR_VIEW_DETAILS_TRAFFIC_FINE">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="USER_OPERATOR_VIEW_DETAILS_TRAFFIC_FINE">
                       <label>{{'configuration.role_permission.view_operator_traffic_fine' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="USER_OPERATOR_VIEW_DETAILS_MOVEMENT_HISTORY">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="USER_OPERATOR_VIEW_DETAILS_MOVEMENT_HISTORY">
                       <label>{{'configuration.role_permission.view_operator_movement_history' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOperatorActivity">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOperatorActivity" >
                       <label>{{'configuration.role_permission.view_operator_activity' | translate}}</label>
                     </div>
                   </div>
@@ -589,19 +589,19 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewMovementListOverview">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewMovementListOverview">
                       <label>{{'configuration.role_permission.view_movement_list_overview' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="MOVEMENT_REQUEST_VIEW_LIST_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="MOVEMENT_REQUEST_VIEW_LIST_OTHERS">
                       <label>{{'configuration.role_permission.view_movement_request_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="MOVEMENT_REQUEST_EXPORT_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="MOVEMENT_REQUEST_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_movement_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="approveRequest">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="approveRequest" >
                       <label>{{'configuration.role_permission.approve_request' | translate}}</label>
                     </div>
                   </div>
@@ -609,11 +609,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="MOVEMENT_REQUEST_UPDATE_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="MOVEMENT_REQUEST_UPDATE_OTHERS">
                       <label>{{'configuration.role_permission.update_edit_movement' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="addRequest">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="addRequest" >
                       <label>{{'configuration.role_permission.add_request' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -632,23 +632,23 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnMovementListOverview">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnMovementListOverview" >
                       <label>{{'configuration.role_permission.view_own_movement_list_overview' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnMovementRequestList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnMovementRequestList" >
                       <label>{{'configuration.role_permission.view_own_movement_request_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportOwnMovementList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="exportOwnMovementList" >
                       <label>{{'configuration.role_permission.export_own_movement_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="approveOwnRequest">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="approveOwnRequest" >
                       <label>{{'configuration.role_permission.approve_own_request' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="MOVEMENT_REQUEST_UPDATE_OWN">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="MOVEMENT_REQUEST_UPDATE_OWN">
                       <label>{{'configuration.role_permission.update_edit_own_movement' | translate}}</label>
                     </div>
                   </div>
@@ -668,19 +668,19 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ORGANIZATION_VIEW_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ORGANIZATION_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_department_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ORGANIZATION_EXPORT_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ORGANIZATION_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_department_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ORGANIZATION_UPDATE">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ORGANIZATION_UPDATE">
                       <label>{{'configuration.role_permission.update_edit_department' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ORGANIZATION_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ORGANIZATION_ADD">
                       <label>{{'configuration.role_permission.add_department' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -693,19 +693,19 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ORGANIZATION_VIEW_DETAILS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ORGANIZATION_VIEW_DETAILS">
                       <label>{{'configuration.role_permission.view_department_details_overview' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ORGANIZATION_VIEW_USERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ORGANIZATION_VIEW_USERS">
                       <label>{{'configuration.role_permission.view_department_users' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ORGANIZATION_VIEW_TRAFFIC_FINES">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ORGANIZATION_VIEW_TRAFFIC_FINES">
                       <label>{{'configuration.role_permission.view_department_traffic_fines' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ORGANIZATION_VIEW_MOVEMENT_HISTORY">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ORGANIZATION_VIEW_MOVEMENT_HISTORY">
                       <label>{{'configuration.role_permission.view_department_movement_history' | translate}}</label>
                     </div>
                   </div>
@@ -730,15 +730,15 @@
             <div class="col-4">
               <div class="d-flex flex-column">
                 <div class="form-check">
-                  <input type="checkbox" class="custom-checkbox" formControlName="FUEL_CARD_VIEW_LIST">
+                  <input type="checkbox"  class="custom-checkbox" formControlName="FUEL_CARD_VIEW_LIST">
                   <label>{{'configuration.role_permission.view_fuel_cards_list' | translate}}</label>
                 </div>
                 <div class="form-check">
-                  <input type="checkbox" class="custom-checkbox" formControlName="FUEL_CARD_VIEW_LIST_ASSET_USAGE">
+                  <input type="checkbox"  class="custom-checkbox" formControlName="FUEL_CARD_VIEW_LIST_ASSET_USAGE">
                   <label>{{'configuration.role_permission.view_asset_usage_list' | translate}}</label>
                 </div>
                 <div class="form-check">
-                  <input type="checkbox" class="custom-checkbox" formControlName="FUEL_CARD_UPDATE">
+                  <input type="checkbox"  class="custom-checkbox" formControlName="FUEL_CARD_UPDATE">
                   <label>{{'configuration.role_permission.update_edit_fuel_card' | translate}}</label>
                 </div>
               </div>
@@ -746,11 +746,11 @@
             <div class="col-4">
               <div class="d-flex flex-column">
                 <div class="form-check">
-                  <input type="checkbox" class="custom-checkbox" formControlName="FUEL_CARD_EXPORT_LIST">
+                  <input type="checkbox"  class="custom-checkbox" formControlName="FUEL_CARD_EXPORT_LIST">
                   <label>{{'configuration.role_permission.export_fuel_card' | translate}}</label>
                 </div>
                 <div class="form-check">
-                  <input type="checkbox" class="custom-checkbox" formControlName="FUEL_CARD_ADD">
+                  <input type="checkbox"  class="custom-checkbox" formControlName="FUEL_CARD_ADD">
                   <label>{{'configuration.role_permission.add_fuel_card' | translate}}</label>
                   <div class="sub-checkbox">
                     <div class="item-check">
@@ -762,7 +762,7 @@
                   </div>
                 </div>
                 <div class="form-check">
-                  <input type="checkbox" class="custom-checkbox" formControlName="FUEL_CARD_VIEW_DETAILS">
+                  <input type="checkbox"  class="custom-checkbox" formControlName="FUEL_CARD_VIEW_DETAILS">
                   <label>{{'configuration.role_permission.view_fuel_card_details' | translate}}</label>
                 </div>
               </div>
@@ -770,11 +770,11 @@
             <div class="col-4">
               <div class="d-flex flex-column">
                 <div class="form-check">
-                  <input type="checkbox" class="custom-checkbox" formControlName="viewOwnFuelCardsList">
+                  <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnFuelCardsList" >
                   <label>{{'configuration.role_permission.view_onw_fuel_cards_list' | translate}}</label>
                 </div>
                 <div class="form-check">
-                  <input type="checkbox" class="custom-checkbox" formControlName="viewOwnAssetUsageList">
+                  <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnAssetUsageList" >
                   <label>{{'configuration.role_permission.view_onw_asset_usage_list' | translate}}</label>
                 </div>
               </div>
@@ -800,11 +800,11 @@
             <div class="col-4">
               <div class="d-flex flex-column">
                 <div class="form-check">
-                  <input type="checkbox" class="custom-checkbox" formControlName="viewListOfSalik">
+                  <input type="checkbox"  class="custom-checkbox" formControlName="viewListOfSalik" >
                   <label>{{'configuration.role_permission.view_list_of_salik' | translate}}</label>
                 </div>
                 <div class="form-check">
-                  <input type="checkbox" class="custom-checkbox" formControlName="addSalik">
+                  <input type="checkbox"  class="custom-checkbox" formControlName="addSalik" >
                   <label>{{'configuration.role_permission.add_salik' | translate}} </label>
                 </div>
               </div>
@@ -812,7 +812,7 @@
             <div class="col-4">
               <div class="d-flex flex-column">
                 <div class="form-check">
-                  <input type="checkbox" class="custom-checkbox" formControlName="uploadFile">
+                  <input type="checkbox"  class="custom-checkbox" formControlName="uploadFile" >
                   <label>{{'configuration.role_permission.upload_file' | translate}}</label>
                 </div>
               </div>
@@ -820,7 +820,7 @@
             <div class="col-4">
               <div class="d-flex flex-column">
                 <div class="form-check">
-                  <input type="checkbox" class="custom-checkbox" formControlName="assignSalik">
+                  <input type="checkbox"  class="custom-checkbox" formControlName="assignSalik" >
                   <label>{{'configuration.role_permission.assign_salik' | translate}} </label>
                   <div class="sub-checkbox">
                     <div class="item-check">
@@ -835,7 +835,7 @@
       </form>
     </mat-tab>
     <mat-tab label="{{'sidebar.part_store.~' | translate}}">
-      <mat-tab-group mat-align-tabs="start">
+      <mat-tab-group mat-align-tabs="start" (selectedTabChange)="tabChanges()">
         <mat-tab label="{{'sidebar.part_store.part_list' | translate}}">
           <div class="tabs-content-header">
             <a (click)="selectAndClearAll('PART_STORE_PART_LIST','select')">{{'configuration.role_permission.select_all' | translate}}</a>
@@ -847,7 +847,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewPartList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewPartList" >
                       <label>{{'configuration.role_permission.view_part_list' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -859,7 +859,7 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportPartList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="exportPartList" >
                       <label>{{'configuration.role_permission.export_part_list' | translate}}</label>
                     </div>
                   </div>
@@ -867,11 +867,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewPartdetail">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewPartdetail" >
                       <label>{{'configuration.role_permission.view_part_detail' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="orderPart">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="orderPart" >
                       <label>{{'configuration.role_permission.order_part' | translate}}</label>
                     </div>
                   </div>
@@ -879,7 +879,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditPart">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="updateEditPart" >
                       <label>{{'configuration.role_permission.update_edit_part' | translate}}</label>
                     </div>
                   </div>
@@ -899,11 +899,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewRequestList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewRequestList" >
                       <label>{{'configuration.role_permission.view_request_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exporRequestList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="exporRequestList" >
                       <label>{{'configuration.role_permission.export_request_list' | translate}}</label>
                     </div>
                   </div>
@@ -911,11 +911,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="approveRequest">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="approveRequest" >
                       <label>{{'configuration.role_permission.approve_request' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewMyOrderList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewMyOrderList" >
                       <label>{{'configuration.role_permission.view_my_order_list' | translate}}</label>
                     </div>
                   </div>
@@ -923,11 +923,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportMyOrderList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="exportMyOrderList" >
                       <label>{{'configuration.role_permission.export_my_order_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="addOrder">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="addOrder" >
                       <label>{{'configuration.role_permission.add_order' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -952,15 +952,15 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewSupplierList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewSupplierList" >
                       <label>{{'configuration.role_permission.view_supplier_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportSupplierList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="exportSupplierList" >
                       <label>{{'configuration.role_permission.export_supplier_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="addSupplier">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="addSupplier" >
                       <label>{{'configuration.role_permission.add_supplier' | translate}}</label>
                     </div>
                   </div>
@@ -978,7 +978,7 @@
       </mat-tab-group>
     </mat-tab>
     <mat-tab label="{{'sidebar.workshop.~' | translate}}">
-      <mat-tab-group mat-align-tabs="start">
+      <mat-tab-group mat-align-tabs="start" (selectedTabChange)="tabChanges()">
         <mat-tab label="{{'sidebar.workshop.body_shop' | translate}}">
           <div class="tabs-content-header">
             <a (click)="selectAndClearAll('WORKSHOP_BODY_SHOP','select')">{{'configuration.role_permission.select_all' | translate}}</a>
@@ -990,15 +990,15 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_VIEW_LIST_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_VIEW_LIST_OTHERS">
                       <label>{{'configuration.role_permission.view_request_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_EXPORT_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_request_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_ADD">
                       <label>{{'configuration.role_permission.add_request' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -1010,35 +1010,35 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OWN">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OWN">
                       <label>{{'configuration.role_permission.update_edit_own_request' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_VIEW_LIST_OWN">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_VIEW_LIST_OWN">
                       <label>{{'configuration.role_permission.view_own_request' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_VIEW_DETAILS_OTHERS">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_VIEW_DETAILS_OTHERS">
                       <label>{{'configuration.role_permission.view_request_detail' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_REJECT">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_REQUEST_REJECT">
                       <label>{{'configuration.role_permission.reject_request' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="archiveOwnRequest">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="archiveOwnRequest" >
                       <label>{{'configuration.role_permission.archive_own_request' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewLocationList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_LOCATION_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_location_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportLocationList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_LOCATION_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_location_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="addLocation">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_LOCATION_ADD">
                       <label>{{'configuration.role_permission.add_location' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -1050,11 +1050,11 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditLocation">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_LOCATION_UPDATE">
                       <label>{{'configuration.role_permission.update_edit_location' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="archiveLocation">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="archiveLocation" >
                       <label>{{'configuration.role_permission.archive_location' | translate}}</label>
                     </div>
                   </div>
@@ -1062,15 +1062,15 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_TECHNICIAN_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_technician_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportTechnicianList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_TECHNICIAN_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_technician_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="AddTechnician">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_TECHNICIAN_ADD">
                       <label>{{'configuration.role_permission.add_technician' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -1085,39 +1085,39 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianDetailOverview">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_TECHNICIAN_VIEW_DETAILS">
                       <label>{{'configuration.role_permission.view_technician_detail_overview' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnTechnicianDetailOverview">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnTechnicianDetailOverview" >
                       <label>{{'configuration.role_permission.view_own_technician_detail_overview' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditTechnicianInformation">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_TECHNICIAN_UPDATE">
                       <label>{{'configuration.role_permission.update_edit_technician_information' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnTechnicianInformation">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="updateEditOwnTechnicianInformation" >
                       <label>{{'configuration.role_permission.update_edit_own_technician_information' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianJobCardsList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewTechnicianJobCardsList" >
                       <label>{{'configuration.role_permission.view_technician_job_cards_list' | translate}} </label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportTechnicianJobCardsList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="exportTechnicianJobCardsList" >
                       <label>{{'configuration.role_permission.export_technician_job_cards_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnTechnicianActivity">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnTechnicianActivity" >
                       <label>{{'configuration.role_permission.view_own_technician_activity' | translate}} </label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianActivity">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewTechnicianActivity" >
                       <label>{{'configuration.role_permission.view_technician_activity' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="archiveTechnician">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="archiveTechnician" >
                       <label>{{'configuration.role_permission.archive_technician' | translate}}</label>
                     </div>
                   </div>
@@ -1125,15 +1125,15 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_job_card_list' | translate}} </label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_JOB_CARD_EXPORT_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_JOB_CARD_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_job_card_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="addJobCard">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="addJobCard" >
                       <label>{{'configuration.role_permission.add_job_card' | translate}} </label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -1148,31 +1148,31 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewAssetRequest">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS">
                       <label>{{'configuration.role_permission.view_asset_request' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewAssetList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewAssetList" >
                       <label>{{'configuration.role_permission.view_asset_list' | translate}}  </label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewAddTask">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewAddTask" >
                       <label>{{'configuration.role_permission.add_task' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewTaskDetail">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewTaskDetail" >
                       <label>{{'configuration.role_permission.view_task_detail' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="UpdateEditOwnJobCard">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="UpdateEditOwnJobCard" >
                       <label>{{'configuration.role_permission.update_edit_own_job_card' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnJobCard">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnJobCard" >
                       <label>{{'configuration.role_permission.view_own_job_card' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE">
                       <label>{{'configuration.role_permission.close_job_card' | translate}}</label>
                     </div>
                   </div>
@@ -1192,15 +1192,15 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewRequestList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OTHERS">
                       <label>{{'configuration.role_permission.view_request_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportRequestList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_REQUEST_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_request_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="addRequest">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_REQUEST_ADD">
                       <label>{{'configuration.role_permission.add_request' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -1212,35 +1212,35 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnRequest">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_REQUEST_UPDATE_OWN">
                       <label>{{'configuration.role_permission.update_edit_own_request' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnRequest">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OWN">
                       <label>{{'configuration.role_permission.view_own_request' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewRequestDetail">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_REQUEST_VIEW_DETAILS_OTHERS">
                       <label>{{'configuration.role_permission.view_request_detail' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="rejectRequest">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_REQUEST_REJECT">
                       <label>{{'configuration.role_permission.reject_request' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="archiveOwnRequest">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="archiveOwnRequest" >
                       <label>{{'configuration.role_permission.archive_own_request' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewLocationList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_LOCATION_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_location_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportLocationList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_LOCATION_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_location_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="addLocation">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_LOCATION_ADD">
                       <label>{{'configuration.role_permission.add_location' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -1252,11 +1252,11 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditLocation">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_LOCATION_UPDATE">
                       <label>{{'configuration.role_permission.update_edit_location' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="archiveLocation">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="archiveLocation" >
                       <label>{{'configuration.role_permission.archive_location' | translate}}</label>
                     </div>
                   </div>
@@ -1264,15 +1264,15 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_TECHNICIAN_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_technician_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportTechnicianList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_TECHNICIAN_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_technician_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="AddTechnician">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_TECHNICIAN_ADD">
                       <label>{{'configuration.role_permission.add_technician' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -1287,39 +1287,39 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianDetailOverview">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_TECHNICIAN_VIEW_DETAILS">
                       <label>{{'configuration.role_permission.view_technician_detail_overview' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnTechnicianDetailOverview">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnTechnicianDetailOverview" >
                       <label>{{'configuration.role_permission.view_own_technician_detail_overview' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditTechnicianInformation">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="updateEditTechnicianInformation" >
                       <label>{{'configuration.role_permission.update_edit_technician_information' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnTechnicianInformation">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="updateEditOwnTechnicianInformation" >
                       <label>{{'configuration.role_permission.update_edit_own_technician_information' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianJobCardsList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewTechnicianJobCardsList" >
                       <label>{{'configuration.role_permission.view_technician_job_cards_list' | translate}} </label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportTechnicianJobCardsList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="exportTechnicianJobCardsList" >
                       <label>{{'configuration.role_permission.export_technician_job_cards_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnTechnicianActivity">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnTechnicianActivity" >
                       <label>{{'configuration.role_permission.view_own_technician_activity' | translate}} </label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicianActivity">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewTechnicianActivity" >
                       <label>{{'configuration.role_permission.view_technician_activity' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="archiveTechnician">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="archiveTechnician" >
                       <label>{{'configuration.role_permission.archive_technician' | translate}}</label>
                     </div>
                   </div>
@@ -1327,15 +1327,15 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewJobCardList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_JOB_CARD_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_job_card_list' | translate}} </label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportJobCardList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_JOB_CARD_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_job_card_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="addJobCard">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="addJobCard" >
                       <label>{{'configuration.role_permission.add_job_card' | translate}} </label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -1350,31 +1350,31 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewAssetRequest">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS">
                       <label>{{'configuration.role_permission.view_asset_request' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewAssetList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewAssetList" >
                       <label>{{'configuration.role_permission.view_asset_list' | translate}}  </label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewAddTask">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewAddTask" >
                       <label>{{'configuration.role_permission.add_task' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewTaskDetail">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewTaskDetail" >
                       <label>{{'configuration.role_permission.view_task_detail' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="UpdateEditOwnJobCard">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="UpdateEditOwnJobCard" >
                       <label>{{'configuration.role_permission.update_edit_own_job_card' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewOwnJobCard">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnJobCard" >
                       <label>{{'configuration.role_permission.view_own_job_card' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="closeJobCard">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="WORKSHOP_SERVICE_SHOP_JOB_CARD_OPEN_CLOSE">
                       <label>{{'configuration.role_permission.close_job_card' | translate}}</label>
                     </div>
                   </div>
@@ -1394,15 +1394,15 @@
               <div class="col-4">
                 <div class="d-flex flex-column">
                   <div class="form-check">
-                    <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicalInspectionRequestList">
+                    <input type="checkbox"  class="custom-checkbox" formControlName="viewTechnicalInspectionRequestList" >
                     <label>{{'configuration.role_permission.view_technical_inspection_request_list' | translate}} </label>
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="custom-checkbox" formControlName="exportTechnicalInspectionRequestList">
+                    <input type="checkbox"  class="custom-checkbox" formControlName="exportTechnicalInspectionRequestList" >
                     <label>{{'configuration.role_permission.export_technical_inspection_request_list' | translate}} </label>
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="custom-checkbox" formControlName="addTechnicalInspection">
+                    <input type="checkbox"  class="custom-checkbox" formControlName="addTechnicalInspection" >
                     <label>{{'configuration.role_permission.add_technical_inspection' | translate}}</label>
                     <div class="sub-checkbox">
                       <div class="item-check">
@@ -1424,19 +1424,19 @@
               <div class="col-4">
                 <div class="d-flex flex-column">
                   <div class="form-check">
-                    <input type="checkbox" class="custom-checkbox" formControlName="approveTechnicalInspectionRequest">
+                    <input type="checkbox"  class="custom-checkbox" formControlName="approveTechnicalInspectionRequest" >
                     <label>{{'configuration.role_permission.approve_technical_inspection_request' | translate}}</label>
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="custom-checkbox" formControlName="viewTechnicalInspectionRequestDetail">
+                    <input type="checkbox"  class="custom-checkbox" formControlName="viewTechnicalInspectionRequestDetail" >
                     <label>{{'configuration.role_permission.view_technical_inspection_request_detail' | translate}}</label>
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="custom-checkbox" formControlName="addDecision">
+                    <input type="checkbox"  class="custom-checkbox" formControlName="addDecision" >
                     <label>{{'configuration.role_permission.add_decision' | translate}} </label>
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="custom-checkbox" formControlName="viewAllDecision">
+                    <input type="checkbox"  class="custom-checkbox" formControlName="viewAllDecision" >
                     <label>{{'configuration.role_permission.view_all_decision' | translate}}</label>
                   </div>
                 </div>
@@ -1444,17 +1444,17 @@
               <div class="col-4">
                 <div class="d-flex flex-column">
                   <div class="form-check">
-                    <input type="checkbox" class="custom-checkbox" formControlName="updateEditOwnDecision">
+                    <input type="checkbox"  class="custom-checkbox" formControlName="updateEditOwnDecision" >
                     <label>{{'configuration.role_permission.update_edit_own_desicion' | translate}}</label>
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="custom-checkbox" formControlName="finalDecision">
+                    <input type="checkbox"  class="custom-checkbox" formControlName="finalDecision" >
                     <label>{{'configuration.role_permission.final_decision' | translate}} </label>
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="custom-checkbox" formControlName="viewAssetType">
+                    <input type="checkbox"  class="custom-checkbox" formControlName="viewAssetType" >
                     <label>{{'configuration.role_permission.view_asset_type' | translate}}</label>
-                    <div class="sub-checkbox">
+                    <div class="sub-checkbox" *ngIf="!IsOverview">
                       <p class="search-title mx-3 mb-1">{{'configuration.role_permission.select_the_items_you_want_to_access' | translate}}</p>
                       <div class="p-field form-section__field mx-3 mb-2">
                         <div class="autocomplete-select">
@@ -1497,11 +1497,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewAuctionList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewAuctionList" >
                       <label>{{'configuration.role_permission.view_auction_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewSoldList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewSoldList" >
                       <label>{{'configuration.role_permission.view_sold_list' | translate}}</label>
                     </div>
                   </div>
@@ -1509,11 +1509,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportAuctionList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="exportAuctionList" >
                       <label>{{'configuration.role_permission.export_auction_list' | translate}} </label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="exportSoldList">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="exportSoldList" >
                       <label>{{'configuration.role_permission.export_sold_list' | translate}}</label>
                     </div>
                   </div>
@@ -1521,11 +1521,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="viewItemDetail">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="viewItemDetail" >
                       <label>{{'configuration.role_permission.view_item_detail' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="updateItemDetail">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="updateItemDetail" >
                       <label>{{'configuration.role_permission.update_item_detail' | translate}}</label>
                     </div>
                   </div>
@@ -1545,11 +1545,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="TASK_MASTER_VIEW_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="TASK_MASTER_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_task_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="TASK_MASTER_EXPORT_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="TASK_MASTER_EXPORT_LIST">
                       <label>{{'configuration.role_permission.export_task_list' | translate}}</label>
                     </div>
                   </div>
@@ -1557,11 +1557,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="TASK_MASTER_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="TASK_MASTER_ADD">
                       <label>{{'configuration.role_permission.add_task' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="TASK_MASTER_UPDATE">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="TASK_MASTER_UPDATE">
                       <label>{{'configuration.role_permission.update_edit_task' | translate}}</label>
                     </div>
                   </div>
@@ -1569,7 +1569,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="archiveTask">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="archiveTask" >
                       <label>{{'configuration.role_permission.archive_task' | translate}}</label>
                     </div>
                   </div>
@@ -1581,7 +1581,7 @@
       </mat-tab-group>
     </mat-tab>
     <mat-tab label="{{'sidebar.configuration.~' | translate}}">
-      <mat-tab-group mat-align-tabs="start">
+      <mat-tab-group mat-align-tabs="start" (selectedTabChange)="tabChanges()">
         <mat-tab label="{{'sidebar.configuration.user_management.~' | translate}}">
            <div class="tabs-content-header">
             <a (click)="selectAndClearAll('CONFIGURATION_USER','select')">{{'configuration.role_permission.select_all' | translate}}</a>
@@ -1593,15 +1593,15 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ROLE_VIEW_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="DROLE_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_role_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ROLE_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="DROLE_ADD">
                       <label>{{'configuration.role_permission.add_role' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ROLE_UPDATE">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="DROLE_UPDATE">
                       <label>{{'configuration.role_permission.update_role' | translate}}</label>
                     </div>
                   </div>
@@ -1609,11 +1609,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="USER_NORMAL_VIEW_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="USER_NORMAL_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_user_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="USER_NORMAL_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="USER_NORMAL_ADD">
                       <label>{{'configuration.role_permission.add_user' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -1628,7 +1628,7 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="USER_NORMAL_UPDATE">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="USER_NORMAL_UPDATE">
                       <label>{{'configuration.role_permission.update_user' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -1659,11 +1659,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_POLICY_ASSET_VIEW_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_POLICY_ASSET_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_asset_policy_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_POLICY_SUB_ASSET_VIEW_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_POLICY_SUB_ASSET_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_sub_asset_policy_list' | translate}}</label>
                     </div>
                   </div>
@@ -1671,11 +1671,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_POLICY_ASSET_UPDATE">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_POLICY_ASSET_UPDATE">
                       <label>{{'configuration.role_permission.update_asset_policy' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_POLICY_SUB_ASSET_UPDATE">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_POLICY_SUB_ASSET_UPDATE">
                       <label>{{'configuration.role_permission.update_sub_asset_policy' | translate}}</label>
                     </div>
                   </div>
@@ -1683,11 +1683,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_POLICY_ASSET_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_POLICY_ASSET_ADD">
                       <label>{{'configuration.role_permission.add_asset_policy' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_POLICY_SUB_ASSET_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_POLICY_SUB_ASSET_ADD">
                       <label>{{'configuration.role_permission.add_sub_asset_policy' | translate}}</label>
                     </div>
                   </div>
@@ -1707,7 +1707,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="addAssetConfiguration">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="addAssetConfiguration">
                       <label>{{'configuration.role_permission.add_asset_configuration' | translate}}</label>
                     </div>
                   </div>
@@ -1715,7 +1715,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="ASSET_TYPE_VIEW_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_TYPE_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_asset_configuration' | translate}} list</label>
                     </div>
                   </div>
@@ -1723,7 +1723,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="updateAssetConfiguration">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="updateAssetConfiguration" >
                       <label>{{'configuration.role_permission.update_asset_configuration' | translate}}</label>
                     </div>
                   </div>
@@ -1743,7 +1743,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="BUSINESS_CATEGORY_VIEW_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="BUSINESS_CATEGORY_VIEW_LIST">
                       <label>{{'configuration.role_permission.category_list' | translate}}</label>
                     </div>
                   </div>
@@ -1751,7 +1751,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="BUSINESS_CATEGORY_UPDATE">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="BUSINESS_CATEGORY_UPDATE">
                       <label>{{'configuration.role_permission.update_usage_category' | translate}}</label>
                     </div>
                   </div>
@@ -1759,7 +1759,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="BUSINESS_CATEGORY_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="BUSINESS_CATEGORY_ADD">
                       <label>{{'configuration.role_permission.add_usage_category' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -1790,7 +1790,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="OWNERSHIP_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="OWNERSHIP_ADD">
                       <label>{{'configuration.role_permission.add_ownership_list' | translate}}</label>
                     </div>
                   </div>
@@ -1798,7 +1798,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="OWNERSHIP_UPDATE">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="OWNERSHIP_UPDATE">
                       <label>{{'configuration.role_permission.update_ownership' | translate}}</label>
                     </div>
                   </div>
@@ -1806,7 +1806,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="OWNERSHIP_VIEW_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="OWNERSHIP_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_ownership_list' | translate}}</label>
                     </div>
                   </div>
@@ -1826,7 +1826,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="PERIODIC_SERVICE_VIEW_LIST">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PERIODIC_SERVICE_VIEW_LIST">
                       <label>{{'configuration.role_permission.view_periodic_service_list' | translate}}</label>
                     </div>
                   </div>
@@ -1834,7 +1834,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="PERIODIC_SERVICE_UPDATE">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PERIODIC_SERVICE_UPDATE">
                       <label>{{'configuration.role_permission.edit_periodic_service' | translate}}</label>
                     </div>
                   </div>
@@ -1842,7 +1842,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox" class="custom-checkbox" formControlName="PERIODIC_SERVICE_ADD">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PERIODIC_SERVICE_ADD">
                       <label>{{'configuration.role_permission.add_periodic_service' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -1863,3 +1863,4 @@
 
 
 <alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialog($event)"></alert-dialog>
+<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal" (confirm)="errorDialogModal=false"></alert-dialog>
