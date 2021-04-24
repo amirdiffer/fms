@@ -710,6 +710,8 @@
     "item": "الصنف",
     "duration": "المدة الزمنية",
     "warranty_start_date": "تاريخ بدء الضمان",
+    "warranty_item":"عناصر الضمان",
+    "warranty_duration":"مدة الضمان",
     "description": "الوصف",
     "serial_number": "رقم سري",
     "multiple_assets": "أصول متعددة",

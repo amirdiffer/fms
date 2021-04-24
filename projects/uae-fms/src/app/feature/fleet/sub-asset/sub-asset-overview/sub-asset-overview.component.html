@@ -1,0 +1,34 @@
+<div class="component_cus_wrapper wrapper_cus">
+    <div class="row">
+        <div class="col-3 component_sec_wrapper">
+            <anms-sub-asset-detail></anms-sub-asset-detail>
+        </div>
+        <div class="col-9">
+            <div class="component_sec_wrapper wrapper_cus">
+                <div class="lifecycle">
+                    <app-life-cycle-chart></app-life-cycle-chart>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <div class="component_sec_wrapper table-container">
+
+                    </div>
+
+                </div>
+                <div class="col-8">
+                    <div class="component_sec_wrapper table-container" >
+                        <div class="p-3">
+                            <div class="component-title pb-3">
+                                Review Your Policy Plan
+                            </div>
+                            <app-table [setting]="reviewPlaneSettingTable"></app-table>
+                            <br><br>
+                            <app-table [setting]="reviewPlaneSettingTable2" class="mt-5"></app-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

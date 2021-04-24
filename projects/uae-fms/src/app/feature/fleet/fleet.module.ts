@@ -60,6 +60,8 @@ import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movem
 import { AccessoryOverviewComponent } from './accessory/accessory-overview/accessory-overview.component';
 
 import { TranslateModule } from "@ngx-translate/core";
+import { SubAssetOverviewComponent } from './sub-asset/sub-asset-overview/sub-asset-overview.component';
+import { SubAssetDetailComponent } from './sub-asset/sub-asset-overview/sub-asset-detail/sub-asset-detail.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,9 @@ import { TranslateModule } from "@ngx-translate/core";
     RequestComponent,
     OverViewOperatorComponent,
     TemporaryComponent,
-    AddTemporaryRequestComponent
+    AddTemporaryRequestComponent,
+    SubAssetOverviewComponent,
+    SubAssetDetailComponent
   ],
   imports: [
     // TranslateModule,

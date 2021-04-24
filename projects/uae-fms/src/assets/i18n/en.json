@@ -753,6 +753,8 @@
     "item": "Item",
     "duration": "Duration",
     "warranty_start_date": "Warranty Start Date",
+    "warranty_item":"Warranty Items",
+    "warranty_duration":"Warranty Duration",
     "description": "Description",
     "serial_number": "Serial Number",
     "multiple_assets": "Multiple Assets",
