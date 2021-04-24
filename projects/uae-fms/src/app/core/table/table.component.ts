@@ -1,16 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  OnDestroy,
-  ElementRef,
-  AfterViewInit,
-  AfterViewChecked,
-  AfterContentInit
-} from '@angular/core';
-
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy, AfterViewInit, Renderer2 } from '@angular/core';
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
 import { jsPDF } from 'jspdf';
@@ -22,6 +10,9 @@ import { TableFacade } from '@core/table/+state/table.facade';
 import { ITablePagination } from '@core/table/+state/table.entity';
 import { ofType } from '@ngrx/effects';
 import { TableServiceS } from '@core/table/table.service';
+import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
+import { CSVExport } from "@core/export";
+import { CSVExportColumn } from '@core/export/csv.component';
 
 @Component({
   selector: 'app-table',
@@ -29,6 +20,7 @@ import { TableServiceS } from '@core/table/table.service';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
+  baseFileServer = environment.baseFileServer;
   rowIndexTable = -1;
   activeLang: string;
   activePage: number;
@@ -52,8 +44,9 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     private settingFacade: SettingsFacade,
     private translate: TranslateService,
     private _tableFacade: TableFacade,
-    private _tableService: TableServiceS
-  ) {}
+    private _tableService: TableServiceS,
+    private renderer: Renderer2
+  ) { }
 
   getSearchBoxData() {
     this._tableService.getSearchBoxData(this.searchInput).subscribe((x) => {
@@ -85,24 +78,26 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       switch (col.type) {
         case 1:
           return data[col.field];
-        case 2:
-          return data[col.thumbField]
-            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
-                col.override
-                  ? 'assets/' + col.override
-                  : environment.baseFileServer + data[col.thumbField]
-              }'> <p class='text-of-cell-with-image'>${
-                data[col.field]
-              }</p></div>`
-            : data[col.field];
+        // case 2: {
+        //   return data[col.thumbField]
+        //     ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
+        //       col.override
+        //         ? 'assets/' + col.override
+        //         : '/fms-api/document/' + data[col.thumbField]
+        //         // : environment.baseFileServer + data[col.thumbField]
+        //     }'> <p class='text-of-cell-with-image'>${
+        //       data[col.field]
+        //     }</p></div>`
+        //     : data[col.field];
+        // }
         case 3:
           return data[col.thumbField]
-            ? `<img class='thumb' src='${
-                environment.baseFileServer + data[col.thumbField]
-              }'>`
+            ? `<img class='thumb' src='${'/fms-api/document/' + data[col.thumbField]
+            }'>`
             : '';
       }
-    } else {
+    }
+    else {
       return data[col.field];
     }
   }
@@ -154,13 +149,13 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   exportTable(tableSetting: TableSetting, title: string): void {
-    const exportColumns = tableSetting.columns.map((col) => {
+    const exportColumns: CSVExportColumn[] = tableSetting.columns.map((col) => {
       return {
         title:
           col.lable && this.translate.instant(col.lable)
             ? this.translate.instant(col.lable)
             : col.lable,
-        dataKey: col.field
+        field: col.field
       };
     });
 
@@ -170,33 +165,32 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       if (title === 'assetMasterTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\n${data[col.field].ownership}`;
+            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+              }\n${data[col.field].ownership}`;
           });
         }
       }
       if (title === 'pendingRegistrationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+              }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
       if (title === 'pendingCustomizationTab') {
         if (col.renderer === 'assetsRenderer') {
           exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\nprogress: ${data[col.field].progress}/6`;
+            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+              }\nprogress: ${data[col.field].progress}/6`;
           });
         }
       }
     });
 
-    const pdf = new jsPDF('p', 'pt', 'a4');
+    new CSVExport(exportRows, { columns: exportColumns }).export(title, title);
+
+    /* const pdf = new jsPDF('p', 'pt', 'a4');
     pdf.text(title, 20, 20);
 
     autoTable(pdf, {
@@ -205,7 +199,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       columnStyles: { 0: { cellWidth: 100 } }
     });
 
-    pdf.save(`${title}.pdf`);
+    pdf.save(`${title}.pdf`); */
   }
   isNumber(val): boolean {
     return typeof val === 'number';
@@ -313,7 +307,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   updatedSelectedIds(data, field) {
     if (data[field].checkbox) this.selectedIds.push(data.id);

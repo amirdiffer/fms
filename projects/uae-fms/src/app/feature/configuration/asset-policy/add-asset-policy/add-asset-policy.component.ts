@@ -12,7 +12,8 @@ import { RouterFacade } from '@core/router';
 import { TableSetting } from '@core/table';
 import {
   AssetPolicyFacade,
-  SubAssetPolicyFacade
+  SubAssetPolicyFacade,
+  AssetPolicyService
 } from '@feature/configuration/+state/asset-policy';
 import { Utility } from '@shared/utility/utility';
 import { Subscription } from 'rxjs';
@@ -26,54 +27,14 @@ import { map } from 'rxjs/operators';
 export class AddAssetPolicyComponent
   extends Utility
   implements OnInit, OnDestroy {
-  currentTab = '';
-  editForm: Subscription;
-  assetPolicy_Table: TableSetting = {
-    columns: [
-      { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
-      {
-        lable: 'tables.column.distance',
-        type: 1,
-        field: 'Distance',
-        sortable: true
-      },
-      { lable: 'tables.column.year', type: 1, field: 'Year', sortable: true },
-      {
-        lable: 'tables.column.depreciation_value',
-        type: 1,
-        field: 'Depreciation_Value',
-        sortable: true
-      },
-      {
-        lable: '',
-        field: 'floatButton',
-        width: 0,
-        type: 1,
-        thumbField: '',
-        renderer: 'floatButton'
-      }
-    ],
-    data: [],
-    rowSettings: {
-      onClick: (col, data, button?) => {},
-      floatButton: [
-        {
-          onClick: (col, data) => {
-            this.assetPolicyFacade.reset();
-            this._router.navigate(
-              ['/configuration/asset-policy/edit-asset-policy/'],
-              { queryParams: { id: data.id } }
-            );
-          },
 
-          button: 'edit'
-        }
-      ]
-    }
-  };
+  //#region Variables
+  currentTab = '';
   assetPolicyForm: FormGroup;
   submitted = false;
   isEdit = false;
+  id: number;
+  //#endregion
 
   //#region Dialog
   dialogModalAddOrUpdate = false;
@@ -107,8 +68,50 @@ export class AddAssetPolicyComponent
   };
   //#endregion
 
-  id: number;
+  //#region Tables
+  assetPolicy_Table: TableSetting = {
+    columns: [
+      { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
+      {
+        lable: 'tables.column.distance',
+        type: 1,
+        field: 'Distance',
+        sortable: true
+      },
+      { lable: 'tables.column.year', type: 1, field: 'Year', sortable: true },
+      {
+        lable: 'tables.column.depreciation_value',
+        type: 1,
+        field: 'Depreciation_Value',
+        sortable: true
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: 1,
+        thumbField: '',
+        renderer: 'floatButton'
+      }
+    ],
+    data: [],
+    rowSettings: {
+      onClick: (col, data, button?) => { },
+      floatButton: [
+        {
+          onClick: (col, data) => {
+            this.assetPolicyFacade.reset();
+            this._router.navigate(
+              ['/configuration/asset-policy/edit-asset-policy/'],
+              { queryParams: { id: data.id } }
+            );
+          },
 
+          button: 'edit'
+        }
+      ]
+    }
+  };
   assetPolicy$ = this.assetPolicyFacade.assetPolicy$.pipe(
     map((x) =>
       x.map((item) => {
@@ -122,6 +125,7 @@ export class AddAssetPolicyComponent
       })
     )
   );
+  //#endregion
 
   constructor(
     private _fb: FormBuilder,
@@ -130,7 +134,8 @@ export class AddAssetPolicyComponent
     private _routerFacade: RouterFacade,
     private assetPolicyFacade: AssetPolicyFacade,
     private _subAssetPolicyFacade: SubAssetPolicyFacade,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private service: AssetPolicyService
   ) {
     super(injector);
   }
@@ -146,8 +151,8 @@ export class AddAssetPolicyComponent
     this.assetPolicyForm.patchValue({
       policyType: type,
       policyName: name,
-      kilometerUsage: maxUsageKPHour,
-      yearUsage: maxUsageYear,
+      kilometerUsage: (!maxUsageKPHour || maxUsageKPHour == 0) ? null : maxUsageKPHour,
+      yearUsage: (!maxUsageYear || maxUsageYear == 0) ? null : maxUsageYear,
       depreciationValue,
       reminder: false
     });
@@ -180,6 +185,7 @@ export class AddAssetPolicyComponent
 
   ngOnInit(): void {
     // this.assetPolicyFacade.loadAll();
+
 
     this.assetPolicyForm = this._fb.group(
       {
@@ -221,12 +227,13 @@ export class AddAssetPolicyComponent
       (params) => (this.currentTab = params['id'])
     );
 
-    this.editForm = this._routerFacade.route$.subscribe((data: any) => {
-      this.id = +data.queryParams['id'];
+    this._routerFacade.route$.subscribe((data: any) => {
+      this.id = +data.params['id'];
 
       if (this.id) {
         this.isEdit = true;
-        this.assetPolicyFacade.getById(this.id).subscribe((assetPolicy) => {
+        this.service.getAssetById(this.id).subscribe((x: any) => {
+          const assetPolicy = x.message;
           if (assetPolicy) {
             this.loadAssetPolicyForm(assetPolicy);
           } else {
@@ -334,6 +341,5 @@ export class AddAssetPolicyComponent
     this.dialogModalAddOrUpdate = false;
   }
   ngOnDestroy(): void {
-    this.editForm.unsubscribe();
   }
 }

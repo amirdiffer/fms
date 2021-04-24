@@ -68,7 +68,7 @@
     "company_profile": "ملف الشركة",
     "asset_policy": "سياسة الأصول",
     "asset_configuration": "تكوين الأصول",
-    "business_category": "نوع العمل",
+    "usage_category": "نوع العمل",
     "edit_usage_category": "تحرير نوع العمل",
     "ownership": "الملكية",
     "edit_ownership": "تحرير الملكية",
@@ -107,7 +107,7 @@
     "edit_part": "تحرير الجزء",
     "overview": "نظرة عامة",
     "category": "الفئة",
-    "add_business_category": "إضافة فئة العمل",
+    "add_usage_category": "إضافة فئة العمل",
     "add_asset_configuration": "إضافة تكوين الأصول",
     "add_ownership": "أضف ملكية",
     "add_role_permission": "إضافة إذن الدور",
@@ -132,9 +132,10 @@
     "add_make": "إضافة الماركة",
     "add_model": "إضافة الموديل",
     "add_trim": "إضافة الموديل الفرعي ",
-    "edit_business_category": "تعديل طبيعة الأصل",
+    "edit_usage_category": "تعديل طبيعة الأصل",
     "company_setting": "إعداد الشركة",
-    "permanent": "دائم"
+    "permanent": "دائم",
+    "technical_inspection_report": "تقرير الفحص الفني"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -468,7 +469,9 @@
       "Capacity": "الاهلية",
       "km": "كيلومتر",
       "role_name":"اسم الدور",
-      "number_of_user":"عدد المستخدمين"
+      "number_of_user":"عدد المستخدمين",
+      "spare_part": "قطع غيار",
+      "working_hours": "ساعات العمل"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -669,7 +672,8 @@
           "over": "على",
           "urgent": "العاجلة",
           "normal": "طبيعي"
-        }
+        },
+        "asset_type": "نوع الأصول"
       },
       "latest_location": "آخر موقع "
     },
@@ -1080,7 +1084,41 @@
         "content": "قم بسحب وإسقاط ملف أو انقر هنا"
       },
       "actual_market_value": "سعر السوق الفعلي",
-      "sold": "مباع"
+      "sold": "مباع",
+      "overview": {
+        "asset_number": "رقم الأصل",
+        "dpd_number": "DPD رقم",
+        "make": "الماركة",
+        "year_of_make": "سنة الصنع",
+        "meter_reading": "قراءة العداد",
+        "dep_section": "Dep/القسم",
+        "category": "الفئة",
+        "purchase_value": "قيمة الشراء",
+        "insurance_value": "القيمة التأمينية",
+        "total_spare_part": "مجموع قطع الغيار",
+        "labour_cost": "أجرة العاملين",
+        "market_value": "سعر السوق",
+        "last_entry_date_workshop": "ورشة عمل تاريخ الدخول الأخير",
+        "transfer_form": "استمارة التحويل",
+        "transfer_reason": "سبب التحويل",
+        "technician": "الفني",
+        "note": "ملحوظة",
+        "date": "التاريخ",
+        "status": "الحالة",
+        "add_decision": "أضف القرار",
+        "technical_name": "الاسم الفني",
+        "request": "الطلب",
+        "task": "المهمة",
+        "request_type": "نوع الطلب",
+        "spare_part": "قطع غيار",
+        "working_hours": "ساعات العمل",
+        "rate_per_hour": "سعر لكل ساعة",
+        "manager_decisions": "قرار المدير",
+        "manager_name": "اسم المدير",
+        "decision": "قرار",
+        "description": "الوصف",
+        "total_cost": "التكلفة الإجمالية"
+      }
     },
     "task_master": {
       "task_info": "معلومات المهمة",
@@ -1488,7 +1526,8 @@
     "feedback": {
       "required": "هذا الحقل مطلوب",
       "invalid-email": "عنوان البريد الإلكتروني غير صالح",
-      "file_ext": "امتداد الملف غير صحيح"
+      "file_ext": "امتداد الملف غير صحيح",
+      "autocomplete_select":"الرجاء البحث وتحديد عنصر"
     },
     "order": "ترتيب",
     "submit": "يقدم"

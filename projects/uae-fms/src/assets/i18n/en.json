@@ -68,7 +68,7 @@
     "company_profile": "Company Profile",
     "asset_policy": "Asset Policy",
     "asset_configuration": "Asset Configuration",
-    "business_category": "Usage Category",
+    "usage_category": "Usage Category",
     "edit_usage_category": "Edit Usage Category",
     "ownership": "Ownership",
     "edit_ownership": "Edit Ownership",
@@ -105,7 +105,7 @@
     "edit_part": "Edit Part",
     "overview": "OverView",
     "category": "Category",
-    "add_business_category": "Add Usage Category",
+    "add_usage_category": "Add Usage Category",
     "add_asset_configuration": "Add Asset Configuration",
     "add_ownership": "Add Ownership",
     "edit_periodic_service": "Edit Periodic Service",
@@ -136,7 +136,8 @@
     "add_trim": "Add Sub Model",
     "edit_business_category": "Edit Usage Category",
     "company_setting": "Company Setting",
-    "permanent": "Permanent"
+    "permanent": "Permanent",
+    "technical_inspection_report": "Technical Inspection Report"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -512,7 +513,9 @@
       "km": "KM",
       "request": "Request",
       "role_name":"Role Name",
-      "number_of_user":"Number Of User"
+      "number_of_user":"Number Of User",
+      "spare_part": "Spare Part",
+      "working_hours": "Working Hours"
     },
     "button": {
       "view_report": "View Report",
@@ -713,7 +716,8 @@
           "over": "OVER",
           "urgent": "URGENT",
           "normal": "Normal"
-        }
+        },
+        "asset_type": "Asset Type"
       }
     },
     "type": "Type",
@@ -1126,7 +1130,41 @@
         "content": "Drag and Drop a File or Click here"
       },
       "actual_market_value": "Actual Market Value",
-      "sold": "Sold"
+      "sold": "Sold",
+      "overview": {
+        "asset_number": "Asset Number",
+        "dpd_number": "DPD Number",
+        "make": "Make",
+        "year_of_make": "Year of make",
+        "meter_reading": "Meter reading",
+        "dep_section": "Dep/Section",
+        "category": "Category",
+        "purchase_value": "Purchase Value",
+        "insurance_value": "Insurance Value",
+        "total_spare_part": "Total spare part",
+        "labour_cost": "Labour Cost",
+        "market_value": "Market Value",
+        "last_entry_date_workshop": "Last entry date workshop",
+        "transfer_form": "Transfer Form",
+        "transfer_reason": "Transfer Reason",
+        "technician": "Technician",
+        "note": "Note",
+        "date": "Date",
+        "status": "Status",
+        "add_decision": "Add Decision",
+        "technical_name": "Technical Name",
+        "request": "Request",
+        "task": "Task",
+        "request_type": "Request Type",
+        "spare_part": "Spare Part",
+        "working_hours": "Working hours",
+        "rate_per_hour": "Rate per hour",
+        "manager_decisions": "Manager Decision",
+        "manager_name": "Manager Name",
+        "decision": "Decision",
+        "description": "Description",
+        "total_cost": "Total Cost"
+      }
     },
     "task_master": {
       "task_info": "Task Info",
@@ -1536,7 +1574,8 @@
       "required": "This is Field Required",
       "invalid-email": "Email address is invalid",
       "invalid-phone": "Phone number is invalid",
-      "file_ext": "File extension is incorrect"
+      "file_ext": "File extension is incorrect",
+      "autocomplete_select":"Please search and select an item"
     },
     "order": "Order",
     "submit": "Submit",
