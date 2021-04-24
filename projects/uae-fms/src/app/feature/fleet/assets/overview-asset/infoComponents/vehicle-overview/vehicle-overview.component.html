@@ -1,8 +1,9 @@
 <div class="overview">
     <div class="body-box">
-        <div class="_row-custom-wrap">
 
-            <div class="traffic-fine contain">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-md-5 traffic-fine contain">
               <div class="title">
                 <h4>{{ 'assets.overview.overview.traffic_fine_activity' | translate }}</h4>
                 <div class="summary">
@@ -10,7 +11,7 @@
                   <span class="summary-title">{{ 'assets.overview.overview.total_traffic_fine' | translate }}</span>
                 </div>
               </div>
-<!--                <app-speed-meter-chart></app-speed-meter-chart>-->
+              <!--                <app-speed-meter-chart></app-speed-meter-chart>-->
               <div class="chart">
                 <apx-chart id="chart"
                            [series]="chartOptions.series"
@@ -21,8 +22,7 @@
                 ></apx-chart>
               </div>
             </div>
-
-            <div class="workout-statics contain">
+            <div class="col-md-6 workout-statics contain">
               <div class="title">
                 <h4>{{ 'assets.overview.overview.fuel_card_activity' | translate }}</h4>
                 <div class="summary">
@@ -42,7 +42,7 @@
               </div>
 
             </div>
-
+          </div>
         </div>
 
       <div class="table-container">

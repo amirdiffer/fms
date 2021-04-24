@@ -511,7 +511,9 @@
       "task_list": "Task List",
       "type_category": "Type Category",
       "time": "Time",
-      "reminder": "Reminder"
+      "reminder": "Reminder",
+      "start_km": "Start Km",
+      "mileage_km": "Mileage Km"
     },
     "button": {
       "view_report": "View Report",
@@ -601,6 +603,7 @@
       "description": "Description",
       "select_issue": "Select The Issue Please",
       "requests": {
+        "request_list": "Request List",
         "asset_info": "Asset Info",
         "asset": "Asset",
         "asset_validation_error": "Please search and choose an item from list",
@@ -730,7 +733,21 @@
         }
       },
       "reminder": {
-        "add_reminder": "Add Reminder"
+        "add_reminder": "Add Reminder",
+        "reminder_info": "Reminder Info",
+        "category": "Category",
+        "title":  "Title",
+        "description": "Description",
+        "alert": "Alert",
+        "time": "Time",
+        "mileage":  "Mileage",
+        "exactly": "Exactly"
+      },
+      "warranty": {
+        "warranty": "Warranty"
+      },
+      "movement_history": {
+        "movement_history": "Movement History"
       }
     },
     "type": "Type",

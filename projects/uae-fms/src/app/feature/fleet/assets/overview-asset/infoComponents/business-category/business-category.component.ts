@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ColumnType } from '@core/table';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-asset-overview-business-category',
@@ -7,6 +8,7 @@ import { ColumnType } from '@core/table';
   styleUrls: ['./business-category.component.scss']
 })
 export class BusinessCategoryComponent implements OnInit {
+  assetId = this.route.snapshot.params['id'];
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   penIcon = 'assets/icons/pencil.svg';
@@ -93,7 +95,9 @@ export class BusinessCategoryComponent implements OnInit {
     }
   };
 
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {}
 }

@@ -273,7 +273,7 @@ export class VehicleOverviewComponent implements OnInit {
         breakpoint: 480,
         options: {
           chart: {
-            width: 200
+            width: '100%'
           },
           legend: {
             position: 'bottom'
@@ -339,7 +339,7 @@ export class VehicleOverviewComponent implements OnInit {
       },
       stroke: {
         show: true,
-        width: 1,
+        width: 2,
         colors: ['transparent']
       },
       xaxis: {

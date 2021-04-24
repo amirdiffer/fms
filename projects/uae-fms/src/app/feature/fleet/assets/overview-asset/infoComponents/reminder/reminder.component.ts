@@ -69,16 +69,22 @@ export class ReminderComponent implements OnInit {
     ],
     rowSettings: {
       onClick: (col, data, button?, val?) => {
-        console.log(data)
-        console.log('nnn')
         if (button == 'toggle') {
           console.log(data)
-          console.log('nnn')
+          console.log(val)
         }
       },
       floatButton: []
     }
   };
+
+  option = [
+    { name: 'Option 1', id: 1 },
+    { name: 'Option 2', id: 2 },
+    { name: 'Option 3', id: 3 },
+    { name: 'Option 4', id: 4 },
+    { name: 'Option 5', id: 5 }
+  ];
 
   constructor() { }
 

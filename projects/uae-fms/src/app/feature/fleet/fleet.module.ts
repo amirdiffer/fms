@@ -61,6 +61,8 @@ import { AccessoryOverviewComponent } from './accessory/accessory-overview/acces
 
 import { TranslateModule } from "@ngx-translate/core";
 import { ReminderComponent } from '@feature/fleet/assets/overview-asset/infoComponents/reminder/reminder.component';
+import { WarrantyComponent } from './assets/overview-asset/infoComponents/warranty/warranty.component';
+import { MovementHistoryComponent } from './assets/overview-asset/infoComponents/movement-history/movement-history.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +94,9 @@ import { ReminderComponent } from '@feature/fleet/assets/overview-asset/infoComp
     OverViewOperatorComponent,
     TemporaryComponent,
     AddTemporaryRequestComponent,
-    ReminderComponent
+    ReminderComponent,
+    WarrantyComponent,
+    MovementHistoryComponent
   ],
   imports: [
     // TranslateModule,

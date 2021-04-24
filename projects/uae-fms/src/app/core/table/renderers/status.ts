@@ -60,6 +60,12 @@ export class TableStatusRendererComponent implements OnInit {
       case 'Install': {
         return '#8f8d89';
       }
+      case 'Approval': {
+        return '#20E19D';
+      }
+      case 'Rejected': {
+        return '#F2B06E';
+      }
       case 'JobCard': {
         return '#EA931C';
       }

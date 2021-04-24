@@ -467,7 +467,9 @@
       "task_list": "قائمة المهام",
       "type_category": "اكتب الفئة",
       "time": "زمن",
-      "reminder": "تذكير"
+      "reminder": "تذكير",
+      "start_km": "Km البداية",
+      "mileage_km": "الأميال KM"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -557,6 +559,7 @@
       "description": "الوصف",
       "select_issue": "حدد المشكلة من فضلك",
       "requests": {
+        "request_list": "قائمة الطلبات",
         "asset_info": "معلومات الأصول",
         "asset": "الأصل",
         "asset_validation_error": "",
@@ -684,6 +687,23 @@
           "urgent": "العاجلة",
           "normal": "طبيعي"
         }
+      },
+      "reminder": {
+        "add_reminder": "إضافة تذكير",
+        "reminder_info": "معلومات التذكير",
+        "category": "الفئة",
+        "title":  "لقب",
+        "description": "وصف",
+        "alert": "يحذر",
+        "time": "زمن",
+        "mileage":  "عدد الأميال",
+        "exactly": "بالضبط"
+      },
+      "warranty": {
+        "warranty": "الضمان"
+      },
+      "movement_history": {
+        "movement_history": "تاريخ الحركة"
       },
       "latest_location": "آخر موقع "
     },

@@ -10,7 +10,7 @@
       <button class="btn-download">
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
-      <button class="btn-primary-small" type="button"><svg-icon class="mx-2" [src]="penIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#fff' , 'height': '100%'}"></svg-icon><a>{{'search.change' | translate}}</a></button>
+      <button class="btn-primary-small" type="button" [routerLink]="'/fleet/assets/edit-asset/' + assetId">{{'forms.edit' | translate}}</button>
     </span>
     <app-table [setting]="business_category"></app-table>
   </div>

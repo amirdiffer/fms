@@ -1,21 +1,174 @@
-<div class="table-container">
+<div class="table-container" *ngIf="section == 'list'">
   <div class="card-table">
-    <span class="search-container card-table-header">
+    <div class="row px-2">
+      <div class="col-12">
+        <p>Description is here, Description is here, Description is here, Description is here, Description is here,
+          Description is here, Description is here, Description is here, Description is here, Description is here,
+        </p>
+      </div>
+      <div class="col-12">
+        <p>
+          <b>Location:</b> Location Is here, Location Is here
+        </p>
+      </div>
+      <p class="title col-md-6">{{ 'assets.overview.requests.request_list' | translate }}</p>
+      <span class="search-container card-table-header">
         <div class="search-box">
         <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
         <button>
-          <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
+          <img [src]="searchIcon" alt="">
         </button>
       </div>
         <button class="btn-download">
           <svg-icon [src]="downloadBtn"></svg-icon>
         </button>
-        <button *ngIf="section == 'list'" class="btn-primary-small" type="button" [routerLink]="[]" [queryParams]="{id:'Job Card'}"><i>+</i><a>{{'search.job_card' | translate}}</a></button>
-        <button *ngIf="section == 'list'" class="btn-primary-small mx-1" (click)="showSection('form')"><i>+</i><a>{{'search.request' | translate}}</a></button>
-        <button *ngIf="section == 'form'" class="btn-primary-small btn-scondary-green" type="button" (click)="showSection('list')"><a>{{'forms.cancel' | translate}}</a></button>
-        <button *ngIf="section == 'form'" class="btn-primary-small mx-1" type="button" (click)="submitRequest('list')"><a>{{'forms.save' | translate}}</a></button>
+        <!--        <button *ngIf="section == 'list'" class="btn-primary-small" type="button" [routerLink]="[]" [queryParams]="{id:'Job Card'}"><i>+</i><a>{{'search.job_card' | translate}}</a></button>-->
+        <!--        <button *ngIf="section == 'list'" class="btn-primary-small mx-1" (click)="showSection('form')"><i>+</i><a>{{'search.request' | translate}}</a></button>-->
+        <!--        <button *ngIf="section == 'form'" class="btn-primary-small btn-scondary-green" type="button" (click)="showSection('list')"><a>{{'forms.cancel' | translate}}</a></button>-->
+        <!--        <button *ngIf="section == 'form'" class="btn-primary-small mx-1" type="button" (click)="submitRequest('list')"><a>{{'forms.save' | translate}}</a></button>-->
       </span>
+    </div>
     <app-table [setting]="jobCard_Table3"></app-table>
+  </div>
+</div>
+<div class="table-container" *ngIf="section == 'list' || section == 'detail-box'">
+  <div class="card-table">
+    <div class="row px-2">
+      <p class="title col-md-6">{{ 'assets.overview.active_job_card_task' | translate }}</p>
+      <span class="search-container card-table-header col-auto">
+<!--        <div class="search-box">-->
+<!--          <input type="text" placeholder="{{'search.search_in_columns' | translate}}">-->
+<!--          <button>-->
+<!--            <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">-->
+<!--          </button>-->
+<!--        </div>-->
+<!--        <button class="btn-download">-->
+<!--          <svg-icon [src]="downloadBtn"></svg-icon>-->
+<!--        </button>-->
+<!--        <button class="btn-primary-small" type="button" (click)="showSection('form')"><i>+</i><a>{{'search.task' | translate}}</a></button>-->
+      </span>
+    </div>
+    <app-table [setting]="jobCard_Table1"></app-table>
+  </div>
+</div>
+<ng-container *ngIf="section == 'detail-box'">
+  <div class="edit-box">
+    <div class="edit-box__box edit-box__box--first col-md-3">
+      <h3>{{ 'assets.overview.job_card.latest_activity' | translate }}</h3>
+      <ul class="activities-step">
+        <li>
+          <div class="info">
+            <span class="info__caption">Task Started</span>
+            <span class="info__date">July 6</span>
+          </div>
+          <span class="ago">2 hours ago</span>
+        </li>
+        <li>
+          <div class="info">
+            <span class="info__caption">Task Started</span>
+            <span class="info__date">July 6</span>
+          </div>
+          <span class="ago">2 hours ago</span>
+        </li>
+        <li>
+          <div class="info">
+            <span class="info__caption">Task Started</span>
+            <span class="info__date">July 6</span>
+          </div>
+          <span class="ago">2 hours ago</span>
+        </li>
+        <li>
+          <div class="info">
+            <span class="info__caption">Task Started</span>
+            <span class="info__date">July 6</span>
+          </div>
+          <span class="ago">2 hours ago</span>
+        </li>
+        <li>
+          <div class="info">
+            <span class="info__caption">Task Started</span>
+            <span class="info__date">July 6</span>
+          </div>
+          <span class="ago">2 hours ago</span>
+        </li>
+      </ul>
+    </div>
+    <div class="edit-box__box edit-box__box--first col-md-5">
+      <h3>{{ 'assets.overview.job_card.task_specification' | translate }}</h3>
+      <ul class="task_specification">
+        <li>
+          <strong>{{ 'tables.column.priority' | translate }}</strong>
+          <span>2</span>
+        </li>
+        <li>
+          <strong>{{ 'tables.column.status' | translate }}</strong>
+          <span class="danger">
+            <svg-icon src="assets/icons/out-of-policy.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
+            {{ 'tables.column.out_of_policy' | translate }}
+          </span>
+        </li>
+        <li>
+          <strong>{{ 'tables.column.start_date' | translate }}</strong>
+          <span>20/202020</span>
+        </li>
+        <li>
+          <strong>{{ 'tables.column.technician' | translate }}</strong>
+          <span>
+            <img class="user-image" src="assets/mock-user.jpg"  />
+            Sam Smith &nbsp;&nbsp; 1234567890
+          </span>
+        </li>
+        <li>
+          <strong>{{ 'tables.column.cost' | translate }}</strong>
+          <span>12000 AED</span>
+        </li>
+        <li>
+          <strong>{{ 'tables.column.part_cost' | translate }}</strong>
+          <span>12000 AED</span>
+        </li>
+        <li>
+          <strong>{{ 'tables.column.total_cost' | translate }}</strong>
+          <span>12000 AED</span>
+        </li>
+        <li>
+          <strong>{{ 'tables.column.technician' | translate }}</strong>
+          <span>Text text text text text text text</span>
+        </li>
+      </ul>
+    </div>
+    <div class="edit-box__box edit-box__box--last col-md-4">
+      <h3>{{ 'assets.overview.job_card.task_master_info' | translate }}</h3>
+      <ul class="task_master">
+        <li>
+          <strong>{{ 'tables.column.time_estimate' | translate }}</strong>
+          <span>7 hours</span>
+        </li>
+        <li>
+          <strong>{{ 'tables.column.instruction' | translate }}</strong>
+          <span>Description is here</span>
+        </li>
+        <li>
+          <strong>{{ 'tables.column.rate_per_hour' | translate }}</strong>
+          <span>65 AED</span>
+        </li>
+        <li>
+          <strong>{{ 'tables.column.skill' | translate }}</strong>
+          <span>Skill is here</span>
+        </li>
+        <li>
+          <strong>{{ 'tables.column.part' | translate }}</strong>
+          <span>Filter</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-container>
+<div class="table-container" *ngIf="section == 'list'">
+  <div class="card-table">
+    <span class="search-container card-table-header justify-content-start">
+      <p class="title">{{ 'assets.overview.job_card_history' | translate }}</p>
+    </span>
+    <app-table [setting]="jobCard_Table2"></app-table>
   </div>
 </div>
 
