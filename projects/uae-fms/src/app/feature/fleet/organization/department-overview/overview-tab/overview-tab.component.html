@@ -1,0 +1,126 @@
+<div class='overview d-flex'>
+  <div class='col-md-12 status-bar mt-3 p-0'>
+    <div class='_row'>
+      <span class='status-box color-button'>
+        <span class='text d-flex flex-column justify-content-center'>
+          <section class='amount'>15000AED</section>
+          <section class='unit'>Total Traffic Fine</section>
+        </span>
+      </span>
+      <span class='status-box color-button'>
+        <span class='text d-flex flex-column justify-content-center'>
+          <section class='amount'>3400</section>
+          <section class='unit'>Total Fine Paid</section>
+        </span>
+    <section class='icon'>
+      <img src='assets/icons/pay.png' alt='sedan-car'>
+    </section>
+      </span>
+      <span class='status-box color-button'>
+        <span class='text d-flex flex-column justify-content-center'>
+          <section class='amount'>56</section>
+          <section class='unit'>Traffic Fine Unpaid</section>
+        </span>
+        <section class='icon'>
+      <img src='assets/icons/pay.png' alt='handshake'>
+        </section>
+      </span>
+      <span class='status-box color-button'>
+        <span class='text d-flex flex-column justify-content-center'>
+          <section class='amount'>14245</section>
+          <section class='unit'>Total movement in this month</section>
+        </span>
+        <section class='icon'>
+      <img src='assets/icons/sedan-car-front.png' alt='handshake'>
+        </section>
+      </span>
+    </div>
+    <div class='col-md-12 d-inline-flex mt-3 mb-3 pl-2 justify-content-between'>
+      <mat-card class='card-width'>
+        <mat-card-content>
+          <div class='row justify-content-between pl-2 pr-2'>
+            <span class='header'>Section</span>
+            <span class='header'>2456</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class='card-width ml-1'>
+        <mat-card-content>
+          <div class='row justify-content-between pl-2 pr-2'>
+            <span class='header'>Total Users</span>
+            <span class='header'>2456</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class='card-width ml-1'>
+        <mat-card-content>
+          <div class='row justify-content-between pl-2 pr-2'>
+            <span class='header'>Total Movement</span>
+            <span class='header'>2456</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class='component_wrapper form-section'>
+      <div class='_row col-md-12 justify-content-between'>
+        <div class='mt-2' [ngClass]="isEditingDepartmentInfo ? 'col-md-12' : 'col-md-11'">
+          <h6 class='component-wrapper-header'>{{ 'organization.department_info' | translate}}</h6>
+          <div class='row col-md-6 mt-4 justify-content-between' *ngIf='!isEditingDepartmentInfo'>
+            <div>
+              <div>{{ 'organization.department_id' | translate}}</div>
+              <div>123456789</div>
+            </div>
+            <div>
+              <div>{{ 'organization.department_name' | translate}}</div>
+              <div>Sample Department</div>
+            </div>
+          </div>
+          <div class='row mt-4 mb-3' *ngIf='isEditingDepartmentInfo'>
+            <div class='col-md-6 form-section__field autocomplete-select'>
+              <div class='p-float-label'>
+                <p-autoComplete field='organizationName' [minLength]='1'>
+                </p-autoComplete>
+                <i class='pi pi-search'></i>
+                <label>{{ 'organization.department_id' | translate}} *</label>
+              </div>
+            </div>
+            <div class='col-md-6 form-section__field'>
+              <div class='p-float-label'>
+                <input class='w-100' pInputText>
+                <label>{{ 'organization.department_name' | translate}} *</label>
+              </div>
+            </div>
+            <div class='w-100 text-right mr-3' [class.text-right]='activeLang === "en"'
+                 [class.text-left]='activeLang === "ar"'>
+              <button class='btn-primary-small btn-scondary-green' [class.mr-2]='activeLang === "en"'
+                      [class.ml-2]='activeLang === "ar"' (click)='isEditingDepartmentInfo = false'>
+                {{'forms.cancel' | translate}}
+              </button>
+              <button class='btn-primary-small' (click)='isEditingDepartmentInfo = false'>
+                {{'forms.save' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf='!isEditingDepartmentInfo' class='col-1'>
+          <img class='float-right cursor-pointer' src='assets/icons/edit.svg' alt=''
+               (click)='onDepartmentInfoEdit()'>
+        </div>
+      </div>
+    </div>
+    <div class='component_wrapper form-section pb-3'>
+      <div class='col-md-12 mt-2 ml-3'>
+        <h6 class='component-wrapper-header'>Tag</h6>
+      </div>
+      <div class='col-md-12 mt-3 p-0 ml-4'>
+        <button class='btn-primary-small btn-disable col-md-1' disabled>Tag</button>
+        <button class='ml-1 btn-primary-small btn-disable col-md-1' disabled>Tag</button>
+        <button class='ml-1 btn-primary-small btn-disable col-md-1' disabled>Tag</button>
+        <button class='ml-1 btn-primary-small btn-disable col-md-1' disabled>Tag</button>
+      </div>
+    </div>
+    <div>
+      <app-table [setting]='organizationTable' [tableData]='data$'></app-table>
+    </div>
+  </div>
+</div>

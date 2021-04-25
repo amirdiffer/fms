@@ -8,6 +8,10 @@ export class OrganizationSelectors {
     FleetSelectors.organizationSelector,
     selectAll
   );
+  static count = createSelector(
+    FleetSelectors.organizationSelector,
+    (state) => state.resultNumber
+  );
   static submitted = createSelector(
     FleetSelectors.organizationSelector,
     (state) => state.submitted

@@ -280,7 +280,9 @@
     "reminder": "تذكير",
     "maintenance_service": "خدمة الصيانة",
     "warranty": "الضمان",
-    "technician_job_card": "بطاقة عمل"
+    "technician_job_card": "بطاقة عمل",
+    "traffic_fine": "غرامة المرور",
+    "user": "المستعمل"
   },
   "search": {
     "add": "إضافة",
