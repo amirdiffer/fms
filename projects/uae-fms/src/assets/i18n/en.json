@@ -512,20 +512,17 @@
       "capacity": "Capacity",
       "km": "KM",
       "request": "Request",
-<<<<<<< HEAD
       "task_list": "Task List",
       "type_category": "Type Category",
       "time": "Time",
       "reminder": "Reminder",
       "start_km": "Start Km",
       "mileage_km": "Mileage Km",
-      "service_tasks": "Service Tasks"
-=======
+      "service_tasks": "Service Tasks",
       "role_name":"Role Name",
       "number_of_user":"Number Of User",
       "spare_part": "Spare Part",
       "working_hours": "Working Hours"
->>>>>>> 8adeaa9b8d728f818e8fbf1536b72d7c9f290300
     },
     "button": {
       "view_report": "View Report",
@@ -742,8 +739,8 @@
           "over": "OVER",
           "urgent": "URGENT",
           "normal": "Normal"
-<<<<<<< HEAD
-        }
+        },
+        "asset_type": "Asset Type"
       },
       "reminder": {
         "add_reminder": "Add Reminder",
@@ -761,10 +758,6 @@
       },
       "movement_history": {
         "movement_history": "Movement History"
-=======
-        },
-        "asset_type": "Asset Type"
->>>>>>> 8adeaa9b8d728f818e8fbf1536b72d7c9f290300
       }
     },
     "type": "Type",
