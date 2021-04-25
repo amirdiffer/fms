@@ -59,11 +59,12 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movement-temporary-confirm/movement-confirm.component';
 import { AccessoryOverviewComponent } from './accessory/accessory-overview/accessory-overview.component';
 
-import { TranslateModule } from "@ngx-translate/core";
+import { TranslateModule } from '@ngx-translate/core';
 import { SubAssetOverviewComponent } from './sub-asset/sub-asset-overview/sub-asset-overview.component';
 import { SubAssetDetailComponent } from './sub-asset/sub-asset-overview/sub-asset-detail/sub-asset-detail.component';
 import { ReminderModule } from './sub-asset/sub-asset-overview/reminder/reminder.module';
 import { HistoryModule } from './sub-asset/sub-asset-overview/history/history.module';
+import { OverviewTabComponent } from '@feature/fleet/operator/over-view-operator/overview-tab/overview-tab.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { HistoryModule } from './sub-asset/sub-asset-overview/history/history.mo
     TemporaryComponent,
     AddTemporaryRequestComponent,
     SubAssetOverviewComponent,
-    SubAssetDetailComponent
+    SubAssetDetailComponent,
+    OverviewTabComponent
   ],
   imports: [
     // TranslateModule,
@@ -127,8 +129,6 @@ import { HistoryModule } from './sub-asset/sub-asset-overview/history/history.mo
     ReminderModule,
     HistoryModule
   ],
-  exports:[
-    AssetCarDetailComponent
-  ]
+  exports: [AssetCarDetailComponent]
 })
-export class FleetModule { }
+export class FleetModule {}

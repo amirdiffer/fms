@@ -8,7 +8,10 @@ export class OperatorActions {
     '[operator] all data are loaded',
     props<{ data: IOperator[] }>()
   );
-
+  static count = createAction(
+    '[operator] get result number',
+    props<{ data: number }>()
+  );
   static addOperator = createAction(
     '[Operators] add operator',
     props<{ data: IOperator }>()

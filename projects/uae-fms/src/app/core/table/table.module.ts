@@ -40,7 +40,7 @@ import { PriorityRendererComponent } from './renderers/priority';
 import { TableServiceS } from '@core/table/table.service';
 import { RadialBarRendererComponent } from './renderers/radialBar';
 import { NgApexchartsModule } from 'ng-apexcharts';
-
+import { LowOpacityColumnRendererComponent } from '@core/table/renderers/lowOpacityColumnRenderer';
 
 @NgModule({
   imports: [
@@ -84,12 +84,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     CheckboxRendererComponent,
     DownloadButtonRendererComponent,
     PriorityRendererComponent,
-    RadialBarRendererComponent
+    RadialBarRendererComponent,
+    LowOpacityColumnRendererComponent
   ],
-  providers: [
-    TableFacade,
-    TableService,
-    TableServiceS
-  ]
+  providers: [TableFacade, TableService, TableServiceS]
 })
 export class TableModule {}
