@@ -378,6 +378,7 @@
       "location_id": "رقم الموقع",
       "service": "الخدمة",
       "services": "الخدمات",
+      "service_tasks":"مهام الخدمة",
       "address": "العنوان",
       "job_card": "بطاقة عمل",
       "reported_by": "تم عمل تقرير بواسطة",
@@ -719,6 +720,8 @@
     "item": "الصنف",
     "duration": "المدة الزمنية",
     "warranty_start_date": "تاريخ بدء الضمان",
+    "warranty_item":"عناصر الضمان",
+    "warranty_duration":"مدة الضمان",
     "description": "الوصف",
     "serial_number": "رقم سري",
     "multiple_assets": "أصول متعددة",
@@ -728,7 +731,25 @@
       "progressbar_title": "",
       "content": "قم بسحب وإسقاط مستند الضمان أو انقر هنا"
     },
-    "upload_picture": "صورة الأصل الفرعي"
+    "upload_picture": "صورة الأصل الفرعي",
+    "review_your_policy_plan":"راجع خطة السياسة الخاصة بك",
+    "review_your_maintenance_plan":"راجع خطة الصيانة الخاصة بك",
+    "review_your_warranty_plan":"راجع خطة الضمان الخاصة بك",
+    "reminders":"تذكير",
+    "workshop_history":"تاريخ ورشة العمل",
+    "location":"الموقع",
+    "reminder":{
+      "action":"التنفيذ",
+      "over":"على",
+      "urgent":"العاجلة",
+      "normal":"طبيعي"
+    },
+    "history":{
+      "done":"انتهى",
+      "doing":"عمل",
+      "todo":"لكى يفعل",
+      "by":"بواسطة"
+    }
   },
   "accessory": {
     "assigned_to_a": "تعيين إلى",

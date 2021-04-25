@@ -14,3 +14,5 @@
     <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="periodic-service" [setting]="tableSetting" [tableData]="periodicServices$"></app-table>
   </div>
 </div>
+<alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)">
+</alert-dialog>

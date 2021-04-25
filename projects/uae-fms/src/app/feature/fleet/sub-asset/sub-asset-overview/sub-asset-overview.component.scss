@@ -1,0 +1,29 @@
+@import '../../../../../themes/green-theme.scss';
+@import '../../../../../assets/scss/form-section.scss';
+
+  
+.lifecycle{
+    padding: 20px;
+    padding-top: 5px;
+}
+
+.table-field{
+    padding:20px 20px 0 20px;
+    input{
+        font-weight: bold;
+    }
+    .input-money-pipe{
+        position: absolute;
+        right: 25px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: bold;
+    } 
+}
+.component-title{
+    font-weight: bold;
+    color:#0DA06E;
+}
+.map {
+    padding: 1em;
+}

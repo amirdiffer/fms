@@ -21,6 +21,7 @@ import { OverViewOperatorComponent } from './operator/over-view-operator/over-vi
 import { TemporaryComponent } from '@feature/fleet/movement/temporary/temporary.component';
 import { AddTemporaryRequestComponent } from '@feature/fleet/movement/add-temporary-request/add-temporary-request.component';
 import { AccessoryOverviewComponent } from './accessory/accessory-overview/accessory-overview.component';
+import { SubAssetOverviewComponent } from './sub-asset/sub-asset-overview/sub-asset-overview.component';
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'accessory/edit-accessory/:id', component: AddAccessoryComponent },
   { path: 'accessory', component: AccessoryComponent },
   { path: 'sub-asset', component: SubAssetComponent },
+  { path: 'sub-asset/:id', component: SubAssetOverviewComponent },
   { path: 'movement', redirectTo: 'movement/permanent' },
   { path: 'movement/permanent', component: MovementComponent },
   // { path: 'movement/iserve', component: IserveComponent },
