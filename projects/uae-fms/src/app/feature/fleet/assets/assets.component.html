@@ -3,7 +3,7 @@
     <app-filter [setting] = "filterSetting" [filterCardSettingDelegate]='this'></app-filter>
 </div>
 
-<div class="table-container component_wrapper">
+<div class="table-container component_wrapper" *hasPermission="['ASSET_VIEW_LIST_MASTER_OTHERS']">
     <div class="pt-1">
             <app-tab-view  (selectedIndex)="selectedTab=$event" [count]="[assetMasterCount$ , registrationCount$, customizationCount$]">
                 <span class="search-container card-table-header">
