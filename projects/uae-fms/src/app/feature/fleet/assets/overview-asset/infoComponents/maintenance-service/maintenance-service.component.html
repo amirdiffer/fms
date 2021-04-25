@@ -10,8 +10,7 @@
       <button class="btn-download">
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
-      <button class="btn-primary-small" type="button" [routerLink]="'/fleet/assets/edit-asset/' + assetId">{{'forms.edit' | translate}}</button>
     </span>
-    <app-table [setting]="business_category"></app-table>
+    <app-table (selectedSubTable)="filterSubTableData($event)" [subTable]="subTableSetting" [setting]="tableSetting"></app-table>
   </div>
 </div>

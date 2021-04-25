@@ -213,7 +213,7 @@
     "fine": "Fine",
     "reason": "Reason",
     "movement_type": "Movement Type",
-    "request_type": "Request TYpe",
+    "request_type": "Request Type",
     "request": "Request",
     "asset_type": "Asset Type",
     "request_status": "Request Status",
@@ -320,7 +320,7 @@
     "map_view": "Map View",
     "assets": "Assets",
     "iserve_operator": "Iserv Operators",
-    "business_category": "Usage Category",
+    "business_category": "Business Category",
     "reminder": "Reminder",
     "maintenance_service": "Maintenance Service",
     "warranty": "Warranty",
@@ -385,7 +385,7 @@
       "reason": "Reason",
       "user": "User",
       "movement_type": "Movement Type",
-      "request_type": "Request TYpe",
+      "request_type": "Request Type",
       "asset_type": "Asset Type",
       "sub_asset_type": "Sub Asset Type",
       "request_status": "Request Status",
@@ -515,6 +515,13 @@
       "capacity": "Capacity",
       "km": "KM",
       "request": "Request",
+      "task_list": "Task List",
+      "type_category": "Type Category",
+      "time": "Time",
+      "reminder": "Reminder",
+      "start_km": "Start Km",
+      "mileage_km": "Mileage Km",
+      "service_tasks": "Service Tasks",
       "role_name":"Role Name",
       "number_of_user":"Number Of User",
       "spare_part": "Spare Part",
@@ -608,6 +615,7 @@
       "description": "Description",
       "select_issue": "Select The Issue Please",
       "requests": {
+        "request_list": "Request List",
         "asset_info": "Asset Info",
         "asset": "Asset",
         "asset_validation_error": "Please search and choose an item from list",
@@ -638,6 +646,9 @@
         "upload_formtitle": "Attach Picture",
         "upload_formprogressbar_title": "*.pdf",
         "upload_formcontent": "Drag and Drop a File or click here",
+        "request_info": "Request Info",
+        "request": "Request",
+        "request_type": "Request Type",
         "upload_form": {
           "title": "Attach Picture",
           "progressbar_title": "*.pdf",
@@ -693,6 +704,18 @@
         "reminderurgent": "URGENT",
         "remindernormal": "Normal",
         "job_card_status": "Job Card Status",
+        "traffic_fine_activity": "Traffic Fine Activity",
+        "total_traffic_fine": "Total Traffic Fine",
+        "fuel_card_activity": "Fuel Card Activity",
+        "remaining": "Remaining",
+        "sub_asset": "Sub Asset",
+        "accessory": "Accessory",
+        "oil_level": "Oil Level",
+        "oil_life_cycle": "Oil Life Cycle",
+        "tire_life": "Tire Life",
+        "tire_life_cycle": "Tire Life Cycle",
+        "damage_history": "Damage History",
+        "litters": "Litters",
         "lifecycle": {
           "lifecycle": "Lifecycle",
           "all": "All",
@@ -721,6 +744,23 @@
           "normal": "Normal"
         },
         "asset_type": "Asset Type"
+      },
+      "reminder": {
+        "add_reminder": "Add Reminder",
+        "reminder_info": "Reminder Info",
+        "category": "Category",
+        "title":  "Title",
+        "description": "Description",
+        "alert": "Alert",
+        "time": "Time",
+        "mileage":  "Mileage",
+        "exactly": "Exactly"
+      },
+      "warranty": {
+        "warranty": "Warranty"
+      },
+      "movement_history": {
+        "movement_history": "Movement History"
       }
     },
     "type": "Type",

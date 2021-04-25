@@ -276,7 +276,7 @@
     "map_view": "عرض الخريطة",
     "assets": "أصل",
     "iserve_operator": "Iserv العاملين",
-    "business_category": "فئة العمل",
+    "business_category": "نوع العمل",
     "reminder": "تذكير",
     "maintenance_service": "خدمة الصيانة",
     "warranty": "الضمان",
@@ -471,10 +471,20 @@
       "models": "عارضات ازياء",
       "Capacity": "الاهلية",
       "km": "كيلومتر",
+<<<<<<< HEAD
+      "task_list": "قائمة المهام",
+      "type_category": "اكتب الفئة",
+      "time": "زمن",
+      "reminder": "تذكير",
+      "start_km": "Km البداية",
+      "mileage_km": "الأميال KM",
+      "service_tasks": "مهام الخدمة"
+=======
       "role_name":"اسم الدور",
       "number_of_user":"عدد المستخدمين",
       "spare_part": "قطع غيار",
       "working_hours": "ساعات العمل"
+>>>>>>> 8adeaa9b8d728f818e8fbf1536b72d7c9f290300
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -564,6 +574,7 @@
       "description": "الوصف",
       "select_issue": "حدد المشكلة من فضلك",
       "requests": {
+        "request_list": "قائمة الطلبات",
         "asset_info": "معلومات الأصول",
         "asset": "الأصل",
         "asset_validation_error": "",
@@ -594,6 +605,9 @@
         "upload_formtitle": "إرفاق صورة",
         "upload_formprogressbar_title": "*.pdf",
         "upload_formcontent": "قم بسحب وإسقاط ملف أو انقر هنا",
+        "request_info": "اطلب معلومات",
+        "request": "طلب",
+        "request_type": "نوع الطلب",
         "upload_form": {
           "title": "إرفاق صورة",
           "progressbar_title": "*.pdf",
@@ -649,6 +663,18 @@
         "reminderurgent": "العاجلة",
         "remindernormal": "طبيعي",
         "job_card_status": "حالة بطاقة العمل",
+        "traffic_fine_activity": "نشاط المخالفة المرورية",
+        "total_traffic_fine": "إجمالي غرامة المرور",
+        "fuel_card_activity": "نشاط بطاقة الوقود",
+        "remaining": "متبقي",
+        "sub_asset": "أصل فرعي",
+        "accessory": "الملحقات",
+        "oil_level": "مستوى الزيت",
+        "oil_life_cycle": "دورة حياة الزيت",
+        "tire_life": "حياة صور",
+        "tire_life_cycle": "دورة حياة الإطارات",
+        "damage_history": "دمر التاريخ",
+        "litters": "الفضلات",
         "lifecycle": {
           "lifecycle": "دورة الحياة",
           "all": "الكل",
@@ -677,6 +703,23 @@
           "normal": "طبيعي"
         },
         "asset_type": "نوع الأصول"
+      },
+      "reminder": {
+        "add_reminder": "إضافة تذكير",
+        "reminder_info": "معلومات التذكير",
+        "category": "الفئة",
+        "title":  "لقب",
+        "description": "وصف",
+        "alert": "يحذر",
+        "time": "زمن",
+        "mileage":  "عدد الأميال",
+        "exactly": "بالضبط"
+      },
+      "warranty": {
+        "warranty": "الضمان"
+      },
+      "movement_history": {
+        "movement_history": "تاريخ الحركة"
       },
       "latest_location": "آخر موقع "
     },

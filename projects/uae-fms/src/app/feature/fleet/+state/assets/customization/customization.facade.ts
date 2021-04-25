@@ -7,6 +7,7 @@ import { CustomizationActions } from '@feature/fleet/+state/assets/customization
 @Injectable()
 export class CustomizationFacade {
   customization$ = this.store.pipe(select(CustomizationSelectors.selectAll));
+  conut$ = this.store.pipe(select(CustomizationSelectors.count));
 
   constructor(private store: Store<ICustomizationPartialState>) {}
 

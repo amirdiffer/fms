@@ -45,6 +45,11 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
       return x;
     })
   );
+  customizationCount$ = this.customizationFacade.conut$.pipe(
+    map((x) => {
+      return x;
+    })
+  );
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map((x) => {
       return x.map((y: any) => {
@@ -111,6 +116,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
     })
   );
 
+
   dataCustomization$ = this.customizationFacade.customization$.pipe(
     map((x) => {
       return x.map((y: any) => {
@@ -118,15 +124,18 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           ...y,
           id: y.id,
           asset: {
-            img: 'assets/thumb.png',
+            img: y.avatarId,
             assetName: y.assetTypeName,
             assetSubName: y.dpd,
             progress: Math.floor(Math.random() * 6) + 1
           },
+          serialNumber: '123s125583456',
+          brand: 'bmw.png',
+          type: 'Car',
           businessCategory: y.businessCategoryName,
           createDate: y.createdAt,
           registrantionDate: '00/00/00',
-          creator: 'Sam Smith'
+          creator: y.operator.firstName + ' ' + y.operator.lastName
         };
       });
     })
@@ -240,16 +249,16 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
               this.assetMasterFacade.reset();
               this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
             }
-          }
+          },
           // {
           //   button: 'download'
           // },
-          // {
-          //   button: 'external',
-          //   onClick: (col, data) => {
-          //     this._router.navigate(['/fleet/assets/' + data.id]);
-          //   }
-          // }
+          {
+            button: 'external',
+            onClick: (col, data) => {
+              this._router.navigate(['/fleet/assets/' + data.id]);
+            }
+          }
         ]
       }
     };
@@ -356,6 +365,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   }
   eventPagination_registration() {
     this.registrationFacade.loadAll();
+  }
+  eventPagination_customization() {
+    this.customizationFacade.loadAll();
   }
 
   ngOnDestroy(): void {

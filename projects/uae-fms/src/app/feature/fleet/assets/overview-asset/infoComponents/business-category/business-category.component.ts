@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ColumnType } from '@core/table';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-asset-overview-business-category',
@@ -7,6 +8,7 @@ import { ColumnType } from '@core/table';
   styleUrls: ['./business-category.component.scss']
 })
 export class BusinessCategoryComponent implements OnInit {
+  assetId = this.route.snapshot.params['id'];
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   penIcon = 'assets/icons/pencil.svg';
@@ -39,9 +41,9 @@ export class BusinessCategoryComponent implements OnInit {
       },
       {
         lable: 'tables.column.attachment',
+        type: 1,
         field: 'attachment',
-        type: ColumnType.lable,
-        thumbField: ''
+        renderer: 'downloadButtonRenderer'
       }
     ],
     data: [
@@ -50,42 +52,42 @@ export class BusinessCategoryComponent implements OnInit {
         type: 'Asset',
         quantity: '21',
         description: 'Description is Here',
-        attachment: 'Spec Document'
+        attachment: [1]
       },
       {
         item: 'Camera',
         type: 'Asset',
         quantity: '21',
         description: 'Description is Here',
-        attachment: 'Spec Document'
+        attachment: [1]
       },
       {
         item: 'Camera',
         type: 'Asset',
         quantity: '21',
         description: 'Description is Here',
-        attachment: 'Spec Document'
+        attachment: [1]
       },
       {
         item: 'Camera',
         type: 'Asset',
         quantity: '21',
         description: 'Description is Here',
-        attachment: 'Spec Document'
+        attachment: [1]
       },
       {
         item: 'Camera',
         type: 'Asset',
         quantity: '21',
         description: 'Description is Here',
-        attachment: 'Spec Document'
+        attachment: [1]
       },
       {
         item: 'Camera',
         type: 'Asset',
         quantity: '21',
         description: 'Description is Here',
-        attachment: 'Spec Document'
+        attachment: [1]
       }
     ],
     rowSettings: {
@@ -93,7 +95,9 @@ export class BusinessCategoryComponent implements OnInit {
     }
   };
 
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {}
 }
