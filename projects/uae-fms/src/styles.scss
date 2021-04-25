@@ -207,6 +207,17 @@
         background: $fms-black-body2-bg !important;
       }
     }
+    anms-add-role-and-permission{
+      .vertical-tabs > .mat-tab-group{
+        & > .mat-tab-header,
+        & > .mat-tab-body-wrapper{
+          background:$fms-black-body2-bg !important;
+        }
+        .tabs-content-header{
+          background: #333;
+        }
+      }
+    }
     app-filter {
       .filter-wrapper-container {
         .card {
@@ -339,6 +350,14 @@
   mat-sidenav-container {
     .content .path > span:not(:last-child) {
       color: #00000061;
+    }
+  }
+  anms-add-role-and-permission{
+    .vertical-tabs > .mat-tab-group{
+      & > .mat-tab-header,
+      & > .mat-tab-body-wrapper{
+        background:#fff;
+      }
     }
   }
   app-filter {
@@ -938,6 +957,17 @@ mat-progress-bar {
       background-color: #0000005e !important;
       box-shadow: none;
     }
+  }
+}
+
+/*Tabs Angular Material*/
+mat-tab-group{
+  font-family: "29LT Bukra" !important;
+  font-size: 1em;
+  .mat-tab-label{
+    font-family: "29LT Bukra" !important;
+    font-size: 1em;
+
   }
 }
 
