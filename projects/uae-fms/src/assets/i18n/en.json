@@ -324,7 +324,9 @@
     "reminder": "Reminder",
     "maintenance_service": "Maintenance Service",
     "warranty": "Warranty",
-    "technician_job_card": "Technician Job Card"
+    "technician_job_card": "Technician Job Card",
+    "user": "User",
+    "traffic_fine": "Traffic Fine"
   },
   "search": {
     "add": "Add",
@@ -420,6 +422,7 @@
       "location_id": "Location ID",
       "service": "Service",
       "services": "Services",
+      "service_tasks":"Service Tasks",
       "address": "Address",
       "job_card": "Job Card",
       "reported_by": "Reported By",
@@ -802,6 +805,8 @@
     "item": "Item",
     "duration": "Duration",
     "warranty_start_date": "Warranty Start Date",
+    "warranty_item":"Warranty Items",
+    "warranty_duration":"Warranty Duration",
     "description": "Description",
     "serial_number": "Serial Number",
     "multiple_assets": "Multiple Assets",
@@ -811,7 +816,25 @@
       "progressbar_title": "",
       "content": "Drag and Drop A Warranty Doc or Click Here"
     },
-    "upload_picture": "Sub Asset Picture"
+    "upload_picture": "Sub Asset Picture",
+    "review_your_policy_plan":"Review Your Policy Plan",
+    "review_your_maintenance_plan":"Review Your Maintenance Plan",
+    "review_your_warranty_plan":"Review Your Warranty Plan",
+    "reminders":"Reminders",
+    "workshop_history":"Workshop History",
+    "location":"Location",
+    "reminder":{
+      "action":"Action",
+      "over":"OVER",
+      "urgent":"URGENT",
+      "normal":"NORMAL"
+    },
+    "history":{
+      "done":"DONE",
+      "doing":"Doing",
+      "todo":"To Do",
+      "by":"By"
+    }
   },
   "accessory": {
     "assigned_to_a": "Assigned to a",

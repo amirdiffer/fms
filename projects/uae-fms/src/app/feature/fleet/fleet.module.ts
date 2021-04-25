@@ -63,6 +63,12 @@ import { ReminderComponent } from '@feature/fleet/assets/overview-asset/infoComp
 import { WarrantyComponent } from './assets/overview-asset/infoComponents/warranty/warranty.component';
 import { MovementHistoryComponent } from './assets/overview-asset/infoComponents/movement-history/movement-history.component';
 import { MaintenanceServiceComponent } from './assets/overview-asset/infoComponents/maintenance-service/maintenance-service.component';
+import { DepartmentOverviewComponent } from './organization/department-overview/department-overview.component';
+import { OverviewTabComponent } from './organization/department-overview/overview-tab/overview-tab.component';
+import { SubAssetOverviewComponent } from './sub-asset/sub-asset-overview/sub-asset-overview.component';
+import { SubAssetDetailComponent } from './sub-asset/sub-asset-overview/sub-asset-detail/sub-asset-detail.component';
+import { ReminderModule } from './sub-asset/sub-asset-overview/reminder/reminder.module';
+import { HistoryModule } from './sub-asset/sub-asset-overview/history/history.module';
 
 @NgModule({
   declarations: [
@@ -96,7 +102,11 @@ import { MaintenanceServiceComponent } from './assets/overview-asset/infoCompone
     ReminderComponent,
     WarrantyComponent,
     MovementHistoryComponent,
-    MaintenanceServiceComponent
+    MaintenanceServiceComponent,
+    DepartmentOverviewComponent,
+    OverviewTabComponent,
+    SubAssetOverviewComponent,
+    SubAssetDetailComponent
   ],
   imports: [
     // TranslateModule,
@@ -123,7 +133,9 @@ import { MaintenanceServiceComponent } from './assets/overview-asset/infoCompone
     NgApexchartsModule,
     ChartsModule,
     MapModule,
-    AlertDialogModule
+    AlertDialogModule,
+    ReminderModule,
+    HistoryModule
   ],
   exports:[
     AssetCarDetailComponent
