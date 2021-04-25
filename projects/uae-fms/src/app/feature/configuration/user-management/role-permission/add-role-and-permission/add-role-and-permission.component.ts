@@ -560,11 +560,11 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
   };
   workshopBodyshopFormBuilder(){
     this.workshopBodyshopForm = this._fb.group({
-      WORKSHOP_BODY_SHOP_REQUEST_VIEW_LIST_OTHERS:[false],
+      WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OTHERS:[false],
       WORKSHOP_BODY_SHOP_REQUEST_EXPORT_LIST:[false],
       WORKSHOP_BODY_SHOP_REQUEST_ADD:[false],
       WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OWN:[false],
-      WORKSHOP_BODY_SHOP_REQUEST_VIEW_LIST_OWN:[false],
+      WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OWN:[false],
       WORKSHOP_BODY_SHOP_REQUEST_VIEW_DETAILS_OTHERS:[false],
       WORKSHOP_BODY_SHOP_REQUEST_REJECT:[false],
       archiveOwnRequest:[{value:false ,  disabled: true}],
@@ -577,7 +577,7 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
       WORKSHOP_BODY_SHOP_TECHNICIAN_EXPORT_LIST:[false],
       WORKSHOP_BODY_SHOP_TECHNICIAN_ADD:[false],
       WORKSHOP_BODY_SHOP_TECHNICIAN_VIEW_DETAILS:[false],
-      viewOwnTechnicianDetailOverview:[false],
+      viewOwnTechnicianDetailOverview:[{value:false ,  disabled: true}],
       WORKSHOP_BODY_SHOP_TECHNICIAN_UPDATE:[false],
       updateEditOwnTechnicianInformation:[{value:false ,  disabled: true}],
       viewTechnicianJobCardsList:[{value:false ,  disabled: true}],
@@ -592,7 +592,7 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
       viewAssetList:[{value:false ,  disabled: true}],
       viewAddTask:[{value:false ,  disabled: true}],
       viewTaskDetail:[{value:false ,  disabled: true}],
-      UpdateEditOwnJobCard:[false],
+      UpdateEditOwnJobCard:[{value:false ,  disabled: true}],
       viewOwnJobCard:[{value:false ,  disabled: true}],
       WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE:[false],
     })
