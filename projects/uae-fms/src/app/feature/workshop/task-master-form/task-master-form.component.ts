@@ -209,10 +209,14 @@ export class TaskMasterFormComponent
       instruction: instruction,
       timeEstimate: timeEstimate,
       ratePerHour: ratePerHour,
-      skills: skills.map((s) => ({ name: s.skill.name, id: s.skill.id })),
+      skills: skills.map((s) => {
+        if (!s.skill.id) {
+          return { name: s.skill };
+        }
+        return { name: s.skill.name, id: s.skill.id };
+      }),
       doesNeedParty: needPart
     };
-    console.log(taskMaster);
     return taskMaster;
   }
   cancel() {
