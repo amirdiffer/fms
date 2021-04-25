@@ -469,7 +469,8 @@
       "time": "زمن",
       "reminder": "تذكير",
       "start_km": "Km البداية",
-      "mileage_km": "الأميال KM"
+      "mileage_km": "الأميال KM",
+      "service_tasks": "مهام الخدمة"
     },
     "button": {
       "view_report": "عرض التقرير",

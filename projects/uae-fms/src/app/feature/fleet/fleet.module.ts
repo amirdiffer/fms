@@ -34,7 +34,6 @@ import {
   OverViewAssetComponent,
   VehicleOverviewComponent,
   BusinessCategoryComponent,
-  JobCardComponent,
   RequestComponent
 } from './assets';
 
@@ -63,6 +62,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { ReminderComponent } from '@feature/fleet/assets/overview-asset/infoComponents/reminder/reminder.component';
 import { WarrantyComponent } from './assets/overview-asset/infoComponents/warranty/warranty.component';
 import { MovementHistoryComponent } from './assets/overview-asset/infoComponents/movement-history/movement-history.component';
+import { MaintenanceServiceComponent } from './assets/overview-asset/infoComponents/maintenance-service/maintenance-service.component';
 
 @NgModule({
   declarations: [
@@ -89,14 +89,14 @@ import { MovementHistoryComponent } from './assets/overview-asset/infoComponents
     OverViewAssetComponent,
     VehicleOverviewComponent,
     BusinessCategoryComponent,
-    JobCardComponent,
     RequestComponent,
     OverViewOperatorComponent,
     TemporaryComponent,
     AddTemporaryRequestComponent,
     ReminderComponent,
     WarrantyComponent,
-    MovementHistoryComponent
+    MovementHistoryComponent,
+    MaintenanceServiceComponent
   ],
   imports: [
     // TranslateModule,

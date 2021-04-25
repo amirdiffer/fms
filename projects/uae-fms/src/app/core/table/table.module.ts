@@ -41,6 +41,7 @@ import { TableServiceS } from '@core/table/table.service';
 import { RadialBarRendererComponent } from './renderers/radialBar';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ToggleRenderer } from '@core/table/renderers/toggle';
+import { DropdownRenderer } from '@core/table/renderers/dropdown';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { ToggleRenderer } from '@core/table/renderers/toggle';
     DownloadButtonRendererComponent,
     PriorityRendererComponent,
     RadialBarRendererComponent,
-    ToggleRenderer
+    ToggleRenderer,
+    DropdownRenderer
   ],
   providers: [
     TableFacade,

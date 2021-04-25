@@ -48,6 +48,9 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   initialSearchBox = false;
   @Input() searchInput: string = '';
   @Output() onSearch = new EventEmitter();
+  @Input() subTable: TableSetting;
+  dropdownItemSelected = null;
+  @Output() selectedSubTable: EventEmitter<number> = new EventEmitter<number>();
   allData = [];
   constructor(
     private settingFacade: SettingsFacade,
@@ -310,6 +313,12 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       case 'active':
         break;
     }
+  }
+
+  changeItemDropdownSelected(obj) {
+    let data =  Object.values(obj);
+    this.dropdownItemSelected = data[1];
+    this.selectedSubTable.emit((<number>data[0]));
   }
 
   ngOnDestroy(): void {

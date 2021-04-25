@@ -513,7 +513,8 @@
       "time": "Time",
       "reminder": "Reminder",
       "start_km": "Start Km",
-      "mileage_km": "Mileage Km"
+      "mileage_km": "Mileage Km",
+      "service_tasks": "Service Tasks"
     },
     "button": {
       "view_report": "View Report",

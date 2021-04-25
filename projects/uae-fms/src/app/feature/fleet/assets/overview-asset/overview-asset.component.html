@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <div class="col-12">
+        <div class="col-12" *ngIf="activeTab == 'Overview'">
           <div class="form-section filter-date">
             <ul>
               <li (click)="activeFilterDate = 'week'" [class.active]="activeFilterDate == 'week'">
@@ -70,8 +70,9 @@
             <div id="Request" title="tabs.request" class="p-0">
               <app-asset-overview-request></app-asset-overview-request>
             </div>
-<!--            <div id="Job Card" title="tabs.job_card" class="p-0 bg-transparent"><app-asset-overview-job-card></app-asset-overview-job-card></div>-->
-            <div id="Maintenance Service" title="tabs.maintenance_service" class="p-0"></div>
+            <div id="Maintenance Service" title="tabs.maintenance_service" class="p-0">
+              <app-asset-overview-maintenance-service></app-asset-overview-maintenance-service>
+            </div>
             <div id="warranty" title="tabs.warranty" class="p-0">
               <app-asset-overview-warranty></app-asset-overview-warranty>
             </div>
