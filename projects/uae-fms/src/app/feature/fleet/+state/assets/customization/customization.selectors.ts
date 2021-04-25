@@ -8,4 +8,8 @@ export class CustomizationSelectors {
     FleetSelectors.customizationSelector,
     selectAll
   );
+  static count = createSelector(
+    FleetSelectors.customizationSelector,
+    (state) => state.resultNumber
+  );
 }

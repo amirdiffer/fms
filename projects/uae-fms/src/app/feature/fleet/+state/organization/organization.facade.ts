@@ -7,6 +7,7 @@ import { OrganizationActions } from './organization.actions';
 export class OrganizationFacade {
   organization$ = this.store.pipe(select(OrganizationSelectors.selectAll));
   submitted$ = this.store.pipe(select(OrganizationSelectors.submitted));
+  conut$ = this.store.pipe(select(OrganizationSelectors.count));
   error$ = this.store.pipe(select(OrganizationSelectors.error));
   constructor(private store: Store<OrganizationPartialState>) { }
 

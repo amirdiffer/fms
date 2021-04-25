@@ -17,6 +17,10 @@ const customizationReducer = createReducer(
   on(CustomizationActions.allDataLoaded, (state, { data }) =>
     customizationAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+  on(CustomizationActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber: data
+  })),
   on(CustomizationActions.error, (state, { reason }) => ({
     ...state,
     error: reason,

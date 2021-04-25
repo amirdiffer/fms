@@ -40,6 +40,8 @@ import { PriorityRendererComponent } from './renderers/priority';
 import { TableServiceS } from '@core/table/table.service';
 import { RadialBarRendererComponent } from './renderers/radialBar';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { ToggleRenderer } from '@core/table/renderers/toggle';
+import { DropdownRenderer } from '@core/table/renderers/dropdown';
 import { LowOpacityColumnRendererComponent } from '@core/table/renderers/lowOpacityColumnRenderer';
 
 @NgModule({
@@ -85,8 +87,15 @@ import { LowOpacityColumnRendererComponent } from '@core/table/renderers/lowOpac
     DownloadButtonRendererComponent,
     PriorityRendererComponent,
     RadialBarRendererComponent,
+    ToggleRenderer,
+    DropdownRenderer,
+    RadialBarRendererComponent,
     LowOpacityColumnRendererComponent
   ],
-  providers: [TableFacade, TableService, TableServiceS]
+  providers: [
+    TableFacade,
+    TableService,
+    TableServiceS
+  ]
 })
 export class TableModule {}

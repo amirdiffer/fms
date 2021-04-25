@@ -21,6 +21,7 @@ import { OverViewOperatorComponent } from './operator/over-view-operator/over-vi
 import { TemporaryComponent } from '@feature/fleet/movement/temporary/temporary.component';
 import { AddTemporaryRequestComponent } from '@feature/fleet/movement/add-temporary-request/add-temporary-request.component';
 import { AccessoryOverviewComponent } from './accessory/accessory-overview/accessory-overview.component';
+import { DepartmentOverviewComponent } from '@feature/fleet/organization/department-overview/department-overview.component';
 import { SubAssetOverviewComponent } from './sub-asset/sub-asset-overview/sub-asset-overview.component';
 
 const routes: Routes = [
@@ -68,6 +69,10 @@ const routes: Routes = [
   {
     path: 'department/edit-department/:id',
     component: AddOrganizationComponent
+  },
+  {
+    path: 'department/department-overview/:id',
+    component: DepartmentOverviewComponent
   },
   { path: '', redirectTo: 'assets' }
 ];

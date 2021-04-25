@@ -1,0 +1,82 @@
+<ng-template [ngIf]="section == 'form'">
+  <div class='button-container'>
+    <button class='btn-primary-medium btn-scondary-green' (click)="section = 'list'"
+    >{{ 'forms.cancel' | translate }}</button>
+    <button class='btn-primary-medium add' (click)="section = 'list'">{{ 'forms.save' | translate }}</button>
+</div>
+</ng-template>
+
+<div class="table-container" *ngIf="section == 'list'">
+  <div class="card-table">
+    <span class="search-container card-table-header">
+        <button  class="btn-primary-medium mx-1" (click)="section='form'"><i>+</i><a>{{'assets.overview.reminder.add_reminder' | translate}}</a></button>
+    </span>
+    <app-table [setting]="tableSetting"></app-table>
+  </div>
+</div>
+
+<form  *ngIf="section == 'form'">
+
+  <div class="form-section">
+    <p class="title">{{'assets.overview.overview.reminder.reminder' | translate}}</p>
+    <h3 class="form-section__title">{{'assets.overview.reminder.reminder_info' | translate}}</h3>
+    <div class="row form-section__row">
+      <div class="col-12 col-md-6 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="role" [autoDisplayFirst]="false"
+                      [options]="option"
+                      optionLabel="name"></p-dropdown>
+          <label>{{'assets.overview.reminder.category' | translate}}</label>
+        </span>
+      </div>
+      <div class="form-group col-md-6 p-field form-section__field">
+        <span class="p-float-label">
+          <input pInputText  type="text" class="form-control" placeholder="{{'assets.overview.reminder.title' | translate}}">
+          <label>{{'assets.overview.reminder.title' | translate}}</label>
+        </span>
+      </div>
+      <div class="form-group col-md-12 p-field form-section__field">
+        <span class="p-float-label">
+          <input pInputText  type="text" class="form-control" placeholder="{{'assets.overview.reminder.description' | translate}}">
+          <label>{{'assets.overview.reminder.description' | translate}}</label>
+        </span>
+      </div>
+      <hr>
+      <div class="col-12 mb-3 align-self-center ">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <h3 class="form-section__title m-0">{{ 'assets.overview.reminder.alert' | translate }}</h3>
+          </div>
+          <div class="col-12 col-md-8 row">
+            <div class="form-check col-3">
+              <input class="form-check-input" type="radio" id="time" value ="time">
+              <label class="form-check-label" for="time">{{ 'assets.overview.reminder.time' | translate }}</label>
+            </div>
+            <div class="form-check col-3">
+              <input class="form-check-input" type="radio"  id="mileage" value ="mileage">
+              <label class="form-check-label" for="mileage">{{ 'assets.overview.reminder.mileage' | translate }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="role" [autoDisplayFirst]="false"
+                      [options]="option"
+                      optionLabel="name"></p-dropdown>
+          <label>{{'assets.overview.reminder.exactly' | translate}}</label>
+        </span>
+      </div>
+      <div class="col-12 col-md-4 p-field form-section__field
+        date-input">
+          <span class="p-float-label">
+            <p-calendar inputId="basic"></p-calendar>
+            <svg-icon class="date-icon" src='assets/icons/calendar-alt-regular.svg' [svgStyle]="{ 'width.px':'20' , 'fill': 'rgb(161 161 161)' ,
+            'height': '100%'}"></svg-icon>
+            <label> mm//dd/yy </label>
+          </span>
+      </div>
+    </div>
+  </div>
+
+</form>
