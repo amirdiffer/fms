@@ -44,7 +44,8 @@ export class CSVExport {
       }
     }
 
-    saveAs(new Blob([outStr]), (fileName ? fileName : 'file') + '.csv');
+    var file = new File([outStr], (fileName ? fileName : 'file') + '.csv', { type: "text/plain;charset=utf-8" });
+    saveAs(file);
   }
 }
 

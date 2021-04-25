@@ -8,7 +8,10 @@ export class CustomizationActions {
     '[Customization] all datas are loaded',
     props<{ data: IPendingCustomization[] }>()
   );
-
+  static count = createAction(
+    '[Customization] get result number',
+    props<{ data: number }>()
+  );
   static error = createAction(
     '[Customization] error occurred',
     props<{ reason: any }>()

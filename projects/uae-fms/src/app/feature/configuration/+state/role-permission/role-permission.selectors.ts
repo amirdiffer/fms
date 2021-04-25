@@ -23,4 +23,14 @@ export class RolePermissionSelectors {
     ConfigurationSelectors.rolePermissionSelector,
     (state) => state.loaded
   );
+
+  static submitted = createSelector(
+    ConfigurationSelectors.rolePermissionSelector,
+    (state) => state.submitted
+  );
+
+  static specificRole= createSelector(
+    ConfigurationSelectors.rolePermissionSelector,
+    (state) => state.role
+  );
 }

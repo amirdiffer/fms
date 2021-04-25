@@ -54,9 +54,8 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
     rowSettings: {
       onClick: (col, data, button?) => {
         this.router
-          .navigate(['/configuration/business-category/edit-usage-category'], {
-            queryParams: { id: data['id'] }
-          })
+          .navigate(
+            ['/configuration/usage-category/edit-usage-category/'+data.id])
           .then();
       },
       floatButton: [

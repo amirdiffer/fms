@@ -44,6 +44,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 import { UploaderModule } from '@shared/uploader/uploader.module';
 import { OnlyDigitsDirective } from '@core/directive/only-digit.directive';
+import { HasPermissionDirective } from '@core/directive/permission-access.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -85,7 +86,7 @@ import { OnlyDigitsDirective } from '@core/directive/only-digit.directive';
     AlertDialogModule,
     UploaderModule
   ],
-  declarations: [RtlSupportDirective, CheckAccessDirective, OnlyDigitsDirective],
+  declarations: [RtlSupportDirective, CheckAccessDirective, HasPermissionDirective, OnlyDigitsDirective],
   exports: [
     CommonModule,
     FormsModule,
@@ -133,7 +134,8 @@ import { OnlyDigitsDirective } from '@core/directive/only-digit.directive';
     AccordionModule,
     AlertDialogModule,
     UploaderModule,
-    OnlyDigitsDirective
+    OnlyDigitsDirective,
+    HasPermissionDirective
   ]
 })
 export class SharedModule {

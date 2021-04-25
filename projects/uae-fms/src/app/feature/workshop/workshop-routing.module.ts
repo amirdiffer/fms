@@ -5,6 +5,7 @@ import { TaskMasterComponent } from './task-master/task-master.component';
 import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
+import { TechnicalOverviewComponent } from '@feature/workshop/inspections/technical-inspection/technical-overview/technical-overview.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'inspections/technical-inspection',
     component: TechnicalInspectionComponent
+  },
+  {
+    path: 'inspections/technical-inspection-report/:id',
+    component: TechnicalOverviewComponent
   },
   {
     path: 'body-shop',
