@@ -6,7 +6,7 @@ import { SettingsFacade } from '@core/settings/settings.facade';
   templateUrl: './overview-tab.component.html',
   styleUrls: ['./overview-tab.component.scss']
 })
-export class OverviewTabComponent implements OnInit {
+export class OperatorOverviewTabComponent implements OnInit {
   activeLang = '';
 
   constructor(private settingFacade: SettingsFacade) {}

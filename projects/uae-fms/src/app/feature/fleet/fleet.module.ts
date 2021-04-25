@@ -69,6 +69,7 @@ import { SubAssetOverviewComponent } from './sub-asset/sub-asset-overview/sub-as
 import { SubAssetDetailComponent } from './sub-asset/sub-asset-overview/sub-asset-detail/sub-asset-detail.component';
 import { ReminderModule } from './sub-asset/sub-asset-overview/reminder/reminder.module';
 import { HistoryModule } from './sub-asset/sub-asset-overview/history/history.module';
+import { OperatorOverviewTabComponent } from './operator/over-view-operator/overview-tab/overview-tab.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { HistoryModule } from './sub-asset/sub-asset-overview/history/history.mo
     DepartmentOverviewComponent,
     OverviewTabComponent,
     SubAssetOverviewComponent,
-    SubAssetDetailComponent
+    SubAssetDetailComponent,
+    OperatorOverviewTabComponent
   ],
   imports: [
     // TranslateModule,
