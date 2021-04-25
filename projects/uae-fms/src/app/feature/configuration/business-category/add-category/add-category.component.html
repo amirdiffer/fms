@@ -31,6 +31,11 @@
             [showError]="hasError('assetType',addCategoryForm,submited)"
             error="forms.feedback.required">
           </anms-error>
+          <small class="red-font" 
+          *ngIf="addCategoryForm.get('assetType').value != ''"
+          [class.d-none]="addCategoryForm.get('assetType').value.name || !submited">
+          {{ 'forms.feedback.autocomplete_select' | translate }}
+          </small>
         </div>
       </div>
       <div class="col-2 form-section__field toggle-select">
@@ -52,17 +57,25 @@
   </div>
   <div class="form-section mx-0">
     <h3 class="form-section__title">
-      <span class='plus-icon' (click)="addAssignSubAsset()">
-        <svg-icon src='assets/icons/add.svg'
-          [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-      </span>
+      <div class="mr-3 d-inline-block" (click)="addAssignSubAsset()">
+        <span  class='p-inputgroup-addon'>
+          <svg-icon src='assets/icons/add.svg'
+                    [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+        </span>
+      </div>
       {{ 'configuration.business_category.assign_sub_asset' | translate }}
     </h3>
 
     <div formArrayName="assignSubAsset">
-      <div class="row form-section__row" *ngFor="let _ of assignSubAsset.controls; let index = index" [formGroupName]="index">
-        <div class="col-12 col-md-6 p-field form-section__field">
-          <div class="autocomplete-select">
+      <div class="row form-section__row" *ngFor="let _ of assignSubAsset.controls; let index = index; let first=first; let last=last;" [formGroupName]="index">
+        <div class="col-12 col-md-6 d-flex p-field form-section__field">
+          <div class="mx-3" *ngIf="!last || !first">
+            <span  class='remove-icon p-inputgroup-addon' (click)="removeassignSubAsset(index)">
+              <svg-icon src='assets/icons/add.svg'
+                        [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+            </span>
+          </div>
+          <div class="autocomplete-select w-100">
           <span class="p-float-label">
             <p-autoComplete formControlName="subAsset"
               (completeMethod)="filterSubAssets($event)"
@@ -75,6 +88,11 @@
               [showError]="formArrayHasError(submited, assignSubAsset, index, 'subAsset')"
               error="forms.feedback.required">
             </anms-error>
+            <small class="red-font"
+              *ngIf="this.assignSubAsset.controls[index].value.subAsset != ''"
+              [class.d-none]="this.assignSubAsset.controls[index].value.subAsset.name || !submited ">
+              {{ 'forms.feedback.autocomplete_select' | translate }}
+          </small>
           </div>
         </div>
         <div class='col-lg-3'>
@@ -86,23 +104,32 @@
         <div class="col-12 col-md-3 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="assetQuantity" pInputText
-                 placeholder="{{ 'configuration.business_category.quantity' | translate }}" type="number">
-          <!--          <label>{{ 'configuration.business_category.quantity' | translate }}</label>-->
+                 placeholder="{{ 'configuration.business_category.quantity' | translate }}" type="text" numbersOnly>
+                   <label>{{ 'configuration.business_category.quantity' | translate }}</label>
         </span>
       </div>
     </div>
   </div>
-    <h3 class="form-section__title"><span class='plus-icon' (click)="addAssignAccessory()">
-        <svg-icon src='assets/icons/add.svg'
-          [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-      </span>
+    <h3 class="form-section__title mt-2">
+      <div class="mr-3 d-inline-block" (click)="addAssignAccessory()">
+        <span  class='p-inputgroup-addon'>
+          <svg-icon src='assets/icons/add.svg'
+                    [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+        </span>
+      </div>
       {{ 'configuration.business_category.assign_accessory' | translate }}
     </h3>
 
     <div formArrayName="assignAccessory">
-      <div class="row form-section__row" *ngFor="let _ of assignAccessory.controls; let index = index" [formGroupName]="index">
-      <div class="col-12 col-md-6 p-field form-section__field">
-        <div class="autocomplete-select">
+      <div class="row form-section__row" *ngFor="let _ of assignAccessory.controls; let index = index; let first=first; let last=last;" [formGroupName]="index">
+      <div class="col-12 col-md-6 p-field d-flex form-section__field">
+        <div class="mx-3" *ngIf="!last || !first">
+          <span  class='remove-icon p-inputgroup-addon' (click)="removeassignAccessory(index)">
+            <svg-icon src='assets/icons/add.svg'
+                      [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+          </span>
+        </div>
+        <div class="autocomplete-select w-100">
           <span class="p-float-label">
             <p-autoComplete formControlName="accessory"
               (completeMethod)="filterAccessories($event)"
@@ -115,6 +142,11 @@
             [showError]="formArrayHasError(submited, assignAccessory, index, 'accessory')"
             error="forms.feedback.required">
           </anms-error>
+          <small class="red-font"
+              *ngIf="this.assignAccessory.controls[index].value.accessory != ''"
+              [class.d-none]="this.assignAccessory.controls[index].value.accessory.name || !submited ">
+              {{ 'forms.feedback.autocomplete_select' | translate }}
+          </small>
         </div>
       </div>
       <div class='col-lg-3'>
@@ -126,7 +158,9 @@
       <div class="col-12 col-md-3 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="accessoryQuantity" pInputText
-            placeholder="{{ 'configuration.business_category.quantity' | translate }}" type="number">
+            placeholder="{{ 'configuration.business_category.quantity' | translate }}" type="text" numbersOnly>
+            <label>{{ 'configuration.business_category.quantity' | translate }}</label>
+
         </span>
       </div>
     </div>
