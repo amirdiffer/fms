@@ -116,7 +116,8 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
     })
   );
 
-  dataCustomizaion$ = this.customizationFacade.customization$.pipe(
+
+  dataCustomization$ = this.customizationFacade.customization$.pipe(
     map((x) => {
       return x.map((y: any) => {
         return {

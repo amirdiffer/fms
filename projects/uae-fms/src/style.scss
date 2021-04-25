@@ -103,6 +103,7 @@ html {
       left: 1em;
     }
   }
+  
   .profile-image-container {
     span.add-button a {
       transform: translate(-0.4em, 0) !important;
@@ -354,6 +355,38 @@ html {
     .lifecycle-line {
       .lifecycle-section-container:not(:first-child) > p {
         transform: translateX(50%) !important;
+      }
+    }
+  }
+  anms-add-role-and-permission{
+    .vertical-tabs {
+     & > mat-tab-group {
+       & > .mat-tab-body-wrapper{
+          margin-left: auto !important;
+          margin-right: 10px !important;
+       }
+        & >  mat-tab-header{
+          margin-right: auto !important;
+          margin-left: 10px !important;
+        }
+      }
+      p.tabs-section-title{
+        right: 1.5em;
+        left: auto !important;
+      }
+      .form-check{
+        padding-left: 0 !important;
+        padding-right: 1.25rem;
+      }
+      .sub-checkbox{
+        border-right: .3em solid;
+        border-left:none !important;
+        border-color: #0da06e;
+        margin-right: .5em;
+      }
+      .autocomplete-select .pi-search{
+        left: auto !important;
+        right: 10px  !important;
       }
     }
   }

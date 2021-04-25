@@ -144,13 +144,6 @@ export class AssetsService {
       rowSettings: {
         onClick: (col, data, button?) => {},
         floatButton: [
-          // {
-          //   button: 'edit',
-          //   color: '#3F3F3F',
-          // },
-          // {
-          //   button: 'download'
-          // },
           {
             button: 'external',
             onClick: (col, data ,  button?) => {

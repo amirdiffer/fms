@@ -41,9 +41,10 @@ export interface IUser {
 }
 
 export interface IRole {
-  id: number;
-  roleId: number;
-  roleName: string;
+  id?: number;
+  roleId?: number;
+  roleName?: string;
+  permissions?:string[];
 }
 
 export interface IOwnerShip {

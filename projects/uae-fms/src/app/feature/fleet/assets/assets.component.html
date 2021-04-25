@@ -24,9 +24,11 @@
                 <div title="tabs.pending_registration" id="pendingRegistrationTab">
                     <app-table searchInput="searchInput" (onPagination)="eventPagination_registration()" pagination="asset_registration" [setting]="pendingRegistrationTableSetting" [tableData]="dataRegistration$"></app-table>
                 </div>
+
                 <div title="tabs.pending_customization" id="pendingCustomizationTab">
-                    <app-table searchInput="searchInput" (onPagination)="eventPagination_customization()" pagination="asset_customization" [setting]="pendingCustomizationTableSetting" [tableData]="dataCustomizaion$"></app-table>
+                    <app-table searchInput="searchInput" (onPagination)="eventPagination_customization()" pagination="asset_customization" [setting]="pendingCustomizationTableSetting" [tableData]="dataCustomization$"></app-table>
                 </div>
+
             </app-tab-view>
     </div>
 </div>

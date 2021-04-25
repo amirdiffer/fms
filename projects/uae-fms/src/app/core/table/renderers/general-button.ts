@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MakeDecisionService } from '@feature/workshop/inspections/technical-inspection/make-decision/make-decision.service';
 import { environment } from '../../../../environments/environment';
 import { ButtonType } from '../table.component';
 
@@ -58,13 +57,13 @@ import { ButtonType } from '../table.component';
         'tables.column.job_card' | translate
       }}</a>
     </button>
-    <button
-      *ngIf="col.buttonType == buttonType.makeDecision"
-      class="btn-primary-large make-decision"
-      (click)="openMakeDecision()"
-    >
-      {{ 'buttons.make_decision' | translate }}
-    </button>
+<!--    <button-->
+<!--      *ngIf="col.buttonType == buttonType.makeDecision"-->
+<!--      class="btn-primary-large make-decision"-->
+<!--      (click)="openMakeDecision()"-->
+<!--    >-->
+<!--      {{ 'buttons.make_decision' | translate }}-->
+<!--    </button>-->
   `,
   styles: [
     `
@@ -126,14 +125,10 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   @Input() setting;
 
   constructor(
-    private _makeDecisionService: MakeDecisionService,
     public _router: Router
   ) {}
 
   ngOnInit() {}
-  openMakeDecision() {
-    this._makeDecisionService.loadMakeDecision(true);
-  }
 
   public get buttonType(): typeof ButtonType {
     return ButtonType;

@@ -16,12 +16,29 @@ export class RegistrationActions {
     '[Registration] register an asset',
     props<{ data: any }>()
   );
+  static editRegister = createAction(
+    '[Registration] edit register',
+    props<{ register: any }>()
+  );
+  static registerEditedSuccessfully = createAction(
+    '[Registration] register edited successfully',
+    props<{ register: any }>()
+  );
   static assetRegisterSuccessfull = createAction(
     '[Registration] asset registered successfully ',
+    props<{ data: any }>()
+  );
+  static loadAssetForRegistrationByAssetId = createAction(
+    '[Registration] load asset for registration by assetId',
+    props<{ assetId: number }>()
+  );
+  static AssetForRegistrationByAssetIdLoaded = createAction(
+    '[Registration]  asset for registration by assetId is loaded',
     props<{ data: any }>()
   );
   static error = createAction(
     '[Registration] error occurred',
     props<{ reason: any }>()
   );
+  static resetParams = createAction('[Registration] reset parameters');
 }
