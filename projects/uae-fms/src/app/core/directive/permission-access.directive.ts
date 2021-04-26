@@ -10,7 +10,7 @@ import { Subscription } from "rxjs";
 
 export class HasPermissionDirective implements OnInit{
 
-    private _currentUser;
+    private _currentUser = null;
     private _permissions =[];
     @Input()
     set hasPermission(val) {
@@ -26,7 +26,7 @@ export class HasPermissionDirective implements OnInit{
     ngOnInit(){
         this._facadeProfile.loadData$.subscribe(
             user => {
-                if(user){
+                if(user && this._currentUser == null){
                     this._currentUser = user;
                     this.update();
                 }
