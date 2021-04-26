@@ -107,6 +107,7 @@
     "category": "Category",
     "add_usage_category": "Add Usage Category",
     "add_asset_configuration": "Add Asset Configuration",
+    "edit_asset_configuration": "Edit Asset Configuration",
     "add_ownership": "Add Ownership",
     "edit_periodic_service": "Edit Periodic Service",
     "add_role_permission": "Add Role Premission",

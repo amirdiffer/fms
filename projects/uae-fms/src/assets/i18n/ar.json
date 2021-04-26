@@ -109,6 +109,7 @@
     "category": "الفئة",
     "add_usage_category": "إضافة فئة العمل",
     "add_asset_configuration": "إضافة تكوين الأصول",
+    "edit_asset_configuration": "تعديل تكوين الأصول",
     "add_ownership": "أضف ملكية",
     "add_role_permission": "إضافة إذن الدور",
     "edit_role_permission": "تحرير إذن الدور",
