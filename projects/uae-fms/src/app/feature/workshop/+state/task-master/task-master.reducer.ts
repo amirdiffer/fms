@@ -25,7 +25,7 @@ const taskMasterReducer = createReducer(
   on(TaskMasterActions.resetParams, (state) => ({
     ...state,
     error: null,
-    submitted:false
+    submitted: false
   })),
   on(TaskMasterActions.addTaskMaster, (state) => ({
     ...state,
@@ -37,21 +37,35 @@ const taskMasterReducer = createReducer(
   on(TaskMasterActions.loadAllSkill, (state) => ({
     ...state,
     loaded: false,
-    skills:null,
+    skills: null,
     error: null,
   })),
   on(TaskMasterActions.allSkillLoaded, (state, { data }) =>
     taskMasterAdapter.setAll(data, {
-       ...state, 
-       loaded: true, 
-       error: null,
-       skills:data
+      ...state,
+      loaded: true,
+      error: null,
+      skills: data
     })
   ),
   on(TaskMasterActions.taskMasterAddedSuccessfully, (state, { data }) => ({
     ...state,
     submitted: true
-  }))
+  })),
+  on(TaskMasterActions.editTaskMaster, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(TaskMasterActions.taskMasterEditedSuccessfully, (state, { data }) =>
+  ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: true
+  })
+  ),
 );
 
 export function reducer(state: ITaskMasterState, action: Action) {

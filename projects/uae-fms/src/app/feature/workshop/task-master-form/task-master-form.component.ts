@@ -1,6 +1,5 @@
 import { TaskMasterFacade } from './../+state/task-master/task-master.facade';
 import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
-import { TaskMasterService } from '../task-master/task-master.service';
 import { Utility } from '@shared/utility/utility';
 import {
   FormArray,
@@ -11,6 +10,8 @@ import {
 } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { TaskMasterService } from '@feature/workshop/+state/task-master';
 
 @Component({
   selector: 'anms-task-master-form',
@@ -64,33 +65,59 @@ export class TaskMasterFormComponent
   dialogType: string;
 
   get skills(): FormArray {
-    return this.taskMasterForm.get('skill') as FormArray;
+    return this.taskMasterForm.get('skills') as FormArray;
   }
   constructor(
-    private _taskMasterService: TaskMasterService,
     injector: Injector,
     private _fb: FormBuilder,
-    private _facade: TaskMasterFacade
+    private _facade: TaskMasterFacade,
+    private taskMasterService: TaskMasterService,
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
     this._facade.loadAllSkill();
-    this.skills$ = this._facade.skills$.subscribe((x) => {
-      console.log(x);
-      this.skillList = x;
-    });
     this.taskMasterForm = this._fb.group({
       taskName: ['', [Validators.required]],
       instruction: ['', [Validators.required]],
       ratePerHour: [''],
       timeEstimate: ['', [Validators.required]],
-      skill: this._fb.array([this._fb.control(null)]),
+      skills: this._fb.array([this.createSkill()]),
       needPart: [false],
       part: this._fb.array([this._fb.control(null)])
     });
 
+    this.route.url.subscribe((params) => {
+      this.isEdit = params.filter((x) => x.path === 'edit-task-master').length > 0;
+      if (this.isEdit) {
+        this.recordId = +params[params.length - 1].path
+        this.taskMasterService.getTaskMaster(this.recordId)
+          .pipe(map((y) => y.message))
+          .subscribe((z) => {
+            if (z) {
+              this.taskMasterForm.patchValue({
+                taskName: z.name,
+                instruction: z.instruction,
+                ratePerHour: z.ratePerHour,
+                timeEstimate: z.timeEstimate,
+                needPart: z.doesNeedParty
+              })
+              this.skills$ = this._facade.skills$.subscribe((x) => {
+                if (x) {
+                  this.skillList = x;
+                  for (let i = 0; i < z.skills.length; i++) {
+                    this.addSkill();
+                    this.skills.controls[i].patchValue({
+                      skill: this.skillList[i]
+                    })
+                  }
+                }
+              });
+            }
+          })
+      }
+    });
     this.handleSubmissionDialog();
     this.handleErrorDialog();
   }
@@ -169,7 +196,7 @@ export class TaskMasterFormComponent
     const {
       instruction,
       ratePerHour,
-      skill,
+      skills,
       taskName,
       timeEstimate,
       needPart
@@ -182,10 +209,14 @@ export class TaskMasterFormComponent
       instruction: instruction,
       timeEstimate: timeEstimate,
       ratePerHour: ratePerHour,
-      skills: skill.map((s) => ({ name: s.name ? s.name : s })),
+      skills: skills.map((s) => {
+        if (!s.skill.id) {
+          return { name: s.skill };
+        }
+        return { name: s.skill.name, id: s.skill.id };
+      }),
       doesNeedParty: needPart
     };
-    console.log(taskMaster);
     return taskMaster;
   }
   cancel() {
@@ -193,23 +224,27 @@ export class TaskMasterFormComponent
   }
   dialogCancelConfirm(value) {
     if (value === true) {
-      this.goToList();
+      this.router.navigate(['/workshop/task-master/']).then(_ => this._facade.reset())
     }
     this.dialogModalCancel = false;
   }
   dialogConfirm(value) {
     this._facade.reset();
-    this.goToList();
+    this.router.navigate(['/workshop/task-master/']).then(_ => this._facade.reset())
     return;
   }
-  addSkill(value) {
-    if (value !== '' && value != null) {
-      this.addSkillValidation = false;
-      const skill = new FormControl(null);
-      (<FormArray>this.taskMasterForm.get('skill')).push(skill);
-    } else {
-      this.addSkillValidation = true;
+
+  createSkill(): FormGroup {
+    return this._fb.group({
+      skill: ['', Validators.required]
+    })
+  }
+
+  addSkill() {
+    if (this.skills.invalid) {
+      return;
     }
+    this.skills.push(this.createSkill())
   }
   removeSkill(i) {
     this.skills.removeAt(i);
@@ -225,6 +260,6 @@ export class TaskMasterFormComponent
   }
 
   ngOnDestroy(): void {
-    this.skills$.unsubscribe();
+    this.skills$?.unsubscribe();
   }
 }

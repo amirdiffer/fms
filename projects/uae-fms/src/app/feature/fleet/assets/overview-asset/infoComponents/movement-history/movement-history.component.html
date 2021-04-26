@@ -1,0 +1,19 @@
+<div class="table-container">
+  <div class="card-table">
+    <div class="row px-2">
+      <p class="title col-md-4">{{'assets.overview.movement_history.movement_history' | translate}}</p>
+      <span class="search-container card-table-header">
+      <div class="search-box">
+        <input id="searchInput" type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
+        <button>
+          <img [src]="searchIcon" alt="">
+        </button>
+      </div>
+      <button class="btn-download">
+        <svg-icon [src]="downloadBtn"></svg-icon>
+      </button>
+    </span>
+    </div>
+    <app-table [showPagination]="true" [setting]="tableSetting"></app-table>
+  </div>
+</div>

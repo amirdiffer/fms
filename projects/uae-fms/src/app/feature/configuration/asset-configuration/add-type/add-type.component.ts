@@ -34,6 +34,7 @@ import { DataService } from '@feature/configuration/asset-configuration/data.ser
 })
 export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   radioButtonSelect: 'mModel';
+  itemId;
   public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
   @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
@@ -57,7 +58,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     cancelButton: 'Cancel'
   };
 
-  assetTypes;
+  assetTypes = [];
 
   constructor(
     private _fb: FormBuilder,
@@ -73,6 +74,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    // this.facade.loadAll();
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
       typeName: ['', [Validators.required]],
@@ -88,11 +90,51 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
         typeCategory: x
       });
     });
+
+    this.route.params.subscribe(x => {
+      this.itemId = x['id'];
+      if (this.itemId) {
+        let filterById = this.assetTypes.filter(y => y.id == this.itemId).map(d => {
+          return {
+            typeName: d.name,
+            activetype: d.isActive,
+            description: d.typeDescription
+          }
+        });
+        console.log(filterById)
+        if (filterById.length)
+          this.inputForm.patchValue(filterById[0]);
+      }
+    })
+    this.facade.assetType$.subscribe(x => {
+      this.assetTypes = x;
+      if (this.itemId) {
+        let filterById = this.assetTypes.filter(y => y.id == this.itemId).map(d => {
+          return {
+            typeName: d.name,
+            activetype: d.isActive,
+            description: d.typeDescription
+          }
+        });
+        console.log(filterById)
+        if (filterById.length)
+          this.inputForm.patchValue(filterById[0]);
+      }
+    })
+    this._dataService.watchType().subscribe(
+      (x)=>{
+        this.inputForm.patchValue({
+          typeCategory:x
+        })
+      }
+    )
+
+
     this.facade.submitted$.subscribe((x) => {
       if (x) {
         this.dialogModal = true;
-        this.dialogSetting.header = 'Add new type';
-        this.dialogSetting.message = 'Type Added Successfully';
+        this.dialogSetting.header = this.itemId ? 'Edit Type' : 'Add new type';
+        this.dialogSetting.message = this.itemId ? 'Changes Saved Successfully' : 'Type Added Successfully';
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
@@ -103,7 +145,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     this.facade.error$.subscribe((x) => {
       if (x?.error) {
         this.dialogModal = true;
-        this.dialogSetting.header = 'Add new type';
+        this.dialogSetting.header = this.itemId ? 'Edit Type' : 'Add new type';
         this.dialogSetting.hasError = true;
         this.dialogSetting.message = 'Error occurred in progress';
         this.dialogSetting.cancelButton = undefined;
@@ -163,7 +205,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     this.dialogModal = true;
     this.dialogSetting.hasError = false;
     this.dialogSetting.isWarning = true;
-    this.dialogSetting.message = 'Are you sure to cancel adding new type?';
+    this.dialogSetting.message = this.itemId ? 'Are you sure to cancel changes type?' : 'Are you sure to cancel adding new type?';
     this.dialogSetting.confirmButton = 'Yes';
     this.dialogSetting.cancelButton = 'No';
     this.dialogType = 'cancel';
@@ -234,6 +276,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
         };
       }),
       {
+        id: this.itemId,
         type: type,
         name: this.inputForm.value.typeName,
         isActive: this.inputForm.value.activetype,

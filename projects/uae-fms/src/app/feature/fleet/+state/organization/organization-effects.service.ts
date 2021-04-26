@@ -6,10 +6,11 @@ import { OrganizationService } from './organization.service';
 import { OrganizationActions } from './organization.actions';
 import { SubAssetService } from '@feature/fleet/+state/sub-asset';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class OrganizationEffects {
-  constructor(private action$: Actions, private service: OrganizationService, private _tableFacade: TableFacade) { }
+  constructor(private action$: Actions, private service: OrganizationService, private _tableFacade: TableFacade, private store: Store) { }
 
   loadAll$ = createEffect(() =>
     this.action$.pipe(
@@ -18,6 +19,7 @@ export class OrganizationEffects {
         this.service.loadAll().pipe(
           map((data) => {
             this._tableFacade.initialPaginator(data.resultNumber, 'organization');
+            this.store.dispatch(OrganizationActions.count({ data: data.resultNumber }));
             return OrganizationActions.allDataLoaded({ data: data.message });
           }),
           catchError((error) =>

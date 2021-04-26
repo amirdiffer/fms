@@ -3,9 +3,9 @@
     <app-filter [setting] = "filterSetting" [filterCardSettingDelegate]='this'></app-filter>
 </div>
 
-<div class="table-container component_wrapper">
+<div class="table-container component_wrapper" *hasPermission="['ASSET_VIEW_LIST_MASTER_OTHERS']">
     <div class="pt-1">
-            <app-tab-view  (selectedIndex)="selectedTab=$event" [count]="[assetMasterCount$ , registrationCount$]">
+            <app-tab-view  (selectedIndex)="selectedTab=$event" [count]="[assetMasterCount$ , registrationCount$, customizationCount$]">
                 <span class="search-container card-table-header">
                     <div class="search-box">
                         <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
@@ -24,9 +24,11 @@
                 <div title="tabs.pending_registration" id="pendingRegistrationTab">
                     <app-table searchInput="searchInput" (onPagination)="eventPagination_registration()" pagination="asset_registration" [setting]="pendingRegistrationTableSetting" [tableData]="dataRegistration$"></app-table>
                 </div>
-                <!-- <div title="tabs.pending_customization" id="pendingCustomizationTab">
-                    <app-table [setting]="pendingCustomizationTableSetting" [tableData]="dataCustomization$"></app-table>
-                </div> -->
+
+                <div title="tabs.pending_customization" id="pendingCustomizationTab">
+                    <app-table searchInput="searchInput" (onPagination)="eventPagination_customization()" pagination="asset_customization" [setting]="pendingCustomizationTableSetting" [tableData]="dataCustomization$"></app-table>
+                </div>
+
             </app-tab-view>
     </div>
 </div>

@@ -34,7 +34,6 @@ import {
   OverViewAssetComponent,
   VehicleOverviewComponent,
   BusinessCategoryComponent,
-  JobCardComponent,
   RequestComponent
 } from './assets';
 
@@ -60,6 +59,12 @@ import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movem
 import { AccessoryOverviewComponent } from './accessory/accessory-overview/accessory-overview.component';
 
 import { TranslateModule } from "@ngx-translate/core";
+import { ReminderComponent } from '@feature/fleet/assets/overview-asset/infoComponents/reminder/reminder.component';
+import { WarrantyComponent } from './assets/overview-asset/infoComponents/warranty/warranty.component';
+import { MovementHistoryComponent } from './assets/overview-asset/infoComponents/movement-history/movement-history.component';
+import { MaintenanceServiceComponent } from './assets/overview-asset/infoComponents/maintenance-service/maintenance-service.component';
+import { DepartmentOverviewComponent } from './organization/department-overview/department-overview.component';
+import { OverviewTabComponent } from './organization/department-overview/overview-tab/overview-tab.component';
 import { SubAssetOverviewComponent } from './sub-asset/sub-asset-overview/sub-asset-overview.component';
 import { SubAssetDetailComponent } from './sub-asset/sub-asset-overview/sub-asset-detail/sub-asset-detail.component';
 import { ReminderModule } from './sub-asset/sub-asset-overview/reminder/reminder.module';
@@ -90,11 +95,16 @@ import { HistoryModule } from './sub-asset/sub-asset-overview/history/history.mo
     OverViewAssetComponent,
     VehicleOverviewComponent,
     BusinessCategoryComponent,
-    JobCardComponent,
     RequestComponent,
     OverViewOperatorComponent,
     TemporaryComponent,
     AddTemporaryRequestComponent,
+    ReminderComponent,
+    WarrantyComponent,
+    MovementHistoryComponent,
+    MaintenanceServiceComponent,
+    DepartmentOverviewComponent,
+    OverviewTabComponent,
     SubAssetOverviewComponent,
     SubAssetDetailComponent
   ],

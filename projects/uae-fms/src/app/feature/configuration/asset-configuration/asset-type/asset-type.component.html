@@ -10,10 +10,16 @@
           <svg-icon [ngStyle]="(activeLang === 'en') ? {'transform': 'rotate(0deg)'} : {'transform': 'rotate(180deg)'}" [src]="arrowIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#505050'}"
                     [svgClass]='(returnItemTree(assetType.id, assetType.type, assetType).iconSvgClass === "down-arrow") ? ((activeLang === "en") ? "down-arrow" : "down-arrow-ar") : "right-arrow"' (click)="onTypeClick(returnItemTree(assetType.id, assetType.type, assetType))"></svg-icon>
           <span class='ml-2 mr-2 cursor-pointer' (click)='onTypeClick(returnItemTree(assetType.id, assetType.type, assetType))'>{{assetType.name}}</span>
-          <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}"
-                    class='cursor-pointer' (click)="createMake(assetType)" src='assets/icons/add.svg'
-                    [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}">
-          </svg-icon>
+          <span class="action">
+            <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}"
+                      class='cursor-pointer' (click)="createMake(assetType)" src='assets/icons/add.svg'
+                      [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}">
+            </svg-icon>
+            <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
+                      class='cursor-pointer' [routerLink]="'/configuration/edit-asset-configuration/' + assetType.id" src='assets/icons/edit.svg'
+                      [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':'100%'}">
+            </svg-icon>
+          </span>
         </div>
         <div *ngFor='let make of assetType.makes; let index = index'>
           <div class="category-subItem" [hidden]='!returnItemTree(assetType.id, assetType.type, assetType).isSelected'>
@@ -21,18 +27,22 @@
                       [svgClass]='(returnItemTree(make.id, "make", make).iconSvgClass === "down-arrow") ? ((activeLang === "en") ? "down-arrow" : "down-arrow-ar") : "right-arrow"'
               (click)="onMakeClick(returnItemTree(make.id, 'make', make))"></svg-icon>
             <span class='ml-2 mr-2 cursor-pointer' (click)='onMakeClick(returnItemTree(make.id, "make", make))'>{{make.make}}</span>
-            <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}" class='cursor-pointer' (click)="createModel(assetType,make)" src='assets/icons/add.svg'
-              [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+            <span class="action">
+              <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}" class='cursor-pointer' (click)="createModel(assetType,make)" src='assets/icons/add.svg'
+                        [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+            </span>
           </div>
           <div *ngFor='let model of (assetType.makes[index]).models'>
-            <div class="category-sub-subItem" [hidden]='!returnItemTree(make.id, "make", make).isSelected || !returnItemTree(assetType.id, assetType.type, assetType).isSelected'>
+            <div class="category-sub-subItem" [ngStyle]="(activeLang == 'en')? {'margin': '0 0 0 50px'} : {'margin': '0 50px 0 0'}" [hidden]='!returnItemTree(make.id, "make", make).isSelected || !returnItemTree(assetType.id, assetType.type, assetType).isSelected'>
               <span class="status" (click)='onModelClick(returnItemTree(model.id, "model", model))'
                 [style]="{ '--back-color-var': getStatusColor(returnItemTree(model.id, 'model', model).isSelected) }"
                 [ngStyle]="{ color: getStatusColor(returnItemTree(model.id, 'model', model).isSelected) }"></span>
               <span class='ml-2 mr-2 cursor-pointer' [style]="'color:' + getStatusColor(returnItemTree(model.id, 'model', model).isSelected)"
                 [class]='getStatusColor(returnItemTree(model.id, "model", model).isSelected)' (click)='onModelClick(returnItemTree(model.id, "model", model))'>{{model.model}}</span>
-              <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}" class='cursor-pointer' (click)="createTrim(assetType,model, make)" src='assets/icons/add.svg'
-                [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+              <span class="action">
+                <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}" class='cursor-pointer' (click)="createTrim(assetType,model, make)" src='assets/icons/add.svg'
+                          [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+              </span>
             </div>
           </div>
         </div>
