@@ -25,7 +25,7 @@ export const environment = {
     cypress: packageJson.devDependencies['cypress'],
     eslint: packageJson.devDependencies['eslint']
   },
-  baseFileServer: 'https://uat.jointscope.ai/fms-api/document/',
+  baseFileServer: 'https://dev.jointscope.ai:8080/fms-api/document/',
   baseLoginApiUrl: 'http://localhost:4200/fms-api/',
   baseApiUrl: 'http://localhost:4200/fms-api/'
   // baseLoginApiUrl: 'https://uat.jointscope.ai/fms-api-revamp/v1/',
