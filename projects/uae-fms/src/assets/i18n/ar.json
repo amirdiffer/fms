@@ -906,7 +906,11 @@
         "content": "قم بسحب وإسقاط صورة عنصر أو انقر هنا"
       },
       "engine": "محرك",
-      "filters": "المرشحات"
+      "filters": "المرشحات",
+      "supplier":"المورد",
+      "search":"بحث",
+      "category_type":"معلومات الفئة",
+      "filter_setting":"إعداد المرشح"
     },
     "integration": {
       "type": "النوع",
@@ -1530,7 +1534,8 @@
       "autocomplete_select":"الرجاء البحث وتحديد عنصر"
     },
     "order": "ترتيب",
-    "submit": "يقدم"
+    "submit": "يقدم",
+    "apply":"تطبيق"
   },
   "login": {
     "incorrect_password": "كلمة سر خاطئة",

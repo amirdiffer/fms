@@ -19,7 +19,7 @@ export class AddCategoryComponent extends Utility implements OnInit {
   ngOnInit(): void {
     this.form = this._fb.group({
       categoryName:['',[Validators.required]],
-      shortCode:['',[Validators.required]]
+      shortCode:['']
     })
     this.dialogSetting = {
       header: 'Add new category',

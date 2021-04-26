@@ -1,30 +1,30 @@
 <div class="form-section">
     <div class="d-flex justify-content-between filter-section">
-        <h3 class="form-section__title ">Filter Setting</h3>
-        <button class="btn-primary-small add">Apply</button>
+        <h3 class="form-section__title ">{{ 'part_store.part_master.filter_setting' | translate}}</h3>
+        <button class="btn-primary-small add">{{ 'forms.apply' | translate}}</button>
     </div>
     <div class="row">
         <div class="col-4">
             <div class="p-field form-section__field dropdown-select">
                 <span class="p-float-label">
-                  <p-dropdown inputId="item" placeholder="Asset Type" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
-                  <label for="item">Item</label>
+                  <p-dropdown inputId="item" placeholder="{{ 'part_store.part_master.asset_type' | translate}}<" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+                  <label for="item">{{ 'part_store.part_master.asset_type' | translate}}</label>
                 </span>
             </div>
         </div>
         <div class="col-4">
             <div class="p-field form-section__field dropdown-select">
                 <span class="p-float-label">
-                  <p-dropdown inputId="make" placeholder="Make" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
-                  <label for="make">Make</label>
+                  <p-dropdown inputId="make" placeholder="{{ 'part_store.part_master.make' | translate}}" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+                  <label for="make">{{ 'part_store.part_master.make' | translate}}</label>
                 </span>
             </div>
         </div>
         <div class="col-4">
             <div class="p-field form-section__field dropdown-select">
                 <span class="p-float-label">
-                  <p-dropdown inputId="model" placeholder="Model" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
-                  <label for="model">Model</label>
+                  <p-dropdown inputId="model" placeholder="{{ 'part_store.part_master.model' | translate}}" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+                  <label for="model">{{ 'part_store.part_master.model' | translate}}</label>
                 </span>
             </div>
         </div>

@@ -4,13 +4,13 @@
         <button class="btn-primary-medium add" type="submit" (click)="submit()">{{ 'forms.add' | translate}}</button>
       </div>
     <div class="form-section">
-        <h3 class="form-section__title ">Category Info</h3>
+        <h3 class="form-section__title ">{{ 'part_store.part_master.category_info' | translate}}</h3>
         <div class="row">
             <div class="col-6">
                 <div class="p-field form-section__field">
                     <span class="p-float-label">
-                        <input pInputText placeholder="Category Name *" type="text" formControlName="categoryName">
-                        <label>Category Name *</label>
+                        <input pInputText placeholder="{{ 'part_store.part_master.category_name' | translate}} *" type="text" formControlName="categoryName">
+                        <label>{{ 'part_store.part_master.category_name' | translate}} *</label>
                     </span>
                     <anms-error 
                     [showError]="hasError('categoryName',form,submitted)" error="forms.feedback.required">
@@ -20,8 +20,8 @@
             <div class="col-6">
                 <div class="p-field form-section__field">
                     <span class="p-float-label">
-                        <input pInputText placeholder="Short Code" type="text" formControlName="shortCode">
-                        <label>Short Code</label>
+                        <input pInputText placeholder="{{ 'part_store.part_master.category_name' | translate}}" type="text" formControlName="shortCode">
+                        <label>{{ 'part_store.part_master.category_name' | translate}}</label>
                     </span>
                     <anms-error 
                     [showError]="hasError('shortCode',form,submitted)" error="forms.feedback.required">

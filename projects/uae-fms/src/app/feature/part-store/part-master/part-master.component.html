@@ -3,11 +3,11 @@
 </div>
 <div class="row ml-0 card-wrapper">
     <div class="col-3 col-md-3 component_wrapper form-section">
-        <h3 class="form-section__title">Category</h3>
+        <h3 class="form-section__title">{{'part_store.part_master.category' | translate}}</h3>
         <div class="p-field form-section__field">
             <div class="autocomplete-select">
                 <span class="p-float-label">
-                  <p-autoComplete [minLength]="1" placeholder="Search ..."></p-autoComplete>
+                  <p-autoComplete [minLength]="1" placeholder="{{'part_store.part_master.search' | translate}} ..."></p-autoComplete>
                   <i class="pi pi-search"></i>
                   <!-- <label>Search...</label> -->
                 </span>
@@ -17,15 +17,15 @@
         <div class="mt-5">
             <div class="p-field form-section__field dropdown-select mt-4">
                 <span class="p-float-label">
-                  <p-dropdown inputId="typeCategory" placeholder="Type Category" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
-                  <label for="typeCategory">Type Category</label>
+                  <p-dropdown inputId="typeCategory" placeholder="{{'part_store.part_master.category_type' | translate}}" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+                  <label for="typeCategory">{{'part_store.part_master.category_type' | translate}}</label>
                 </span>
             </div>
         </div>
         <div class="p-field form-section__field dropdown-select mt-4">
             <span class="p-float-label">
-              <p-dropdown inputId="assetType" placeholder="Asset Type" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
-              <label for="assetType">Asset Type</label>
+              <p-dropdown inputId="assetType" placeholder="{{'part_store.part_master.asset_type' | translate}}" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+              <label for="assetType">{{'part_store.part_master.asset_type' | translate}}</label>
             </span>
         </div>
         <div class="category-list">
@@ -37,7 +37,7 @@
             </ul>
             <a *ngIf="_router.url !=='/part-store/part-master/add-category'" class="d-flex add-category" [routerLink]="['add-category']" (click)="hasForm = true">
                 <svg-icon class='cursor-pointer ml-2' src='assets/icons/add.svg' [svgStyle]="{ 'width.em':'1.2' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-                <span>Add Category</span>
+                <span>{{'part_store.part_master.add_category' | translate}}</span>
             </a>
         </div>
     </div>

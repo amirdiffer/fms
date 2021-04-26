@@ -12,7 +12,7 @@
                         <svg-icon src='assets/icons/add.svg'
                                   [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
                     </span>
-                    <h3 *ngIf="last" class="form-section__title m-0 align-self-center">Item Info</h3>
+                    <h3 *ngIf="last" class="form-section__title m-0 align-self-center">{{ 'part_store.part_master.item_info' | translate}}</h3>
                 </div>
             </div>
             <ng-container [formGroupName]="i" >
@@ -21,8 +21,8 @@
                         <div class="col-12">
                             <div class="p-field form-section__field">
                                 <span class="p-float-label">
-                                    <input pInputText placeholder="Item Name *" type="text" formControlName="itemName">
-                                    <label>Item Name *</label>
+                                    <input pInputText placeholder="{{'part_store.part_master.item_name' | translate}} *" type="text" formControlName="itemName">
+                                    <label>{{ 'part_store.part_master.item_name' | translate}} *</label>
                                 </span>
                                 <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'itemName')"
                                     error="forms.feedback.required">
@@ -32,8 +32,8 @@
                         <div class="col-4">
                             <div class="p-field form-section__field options-select">
                                 <span class="p-float-label">
-                                  <p-dropdown inputId="make" placeholder="Make" [options]="itemTypes" optionLabel="name" class="dropdown-select" formControlName="make"></p-dropdown>
-                                  <label for="make">Make</label>
+                                  <p-dropdown inputId="make" placeholder="{{'part_store.part_master.make' | translate}} *" [options]="itemTypes" optionLabel="name" class="dropdown-select" formControlName="make"></p-dropdown>
+                                  <label for="make">{{'part_store.part_master.make' | translate}} *</label>
                                 </span>
                                 <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'make')"
                                     error="forms.feedback.required">
@@ -43,8 +43,8 @@
                         <div class="col-4">
                             <div class="p-field form-section__field options-select">
                                 <span class="p-float-label">
-                                  <p-dropdown inputId="model" placeholder="Model" [options]="itemTypes" optionLabel="name" class="dropdown-select" formControlName="model"></p-dropdown>
-                                  <label for="model">Model</label>
+                                  <p-dropdown inputId="model" placeholder="{{'part_store.part_master.make' | translate}} *" [options]="itemTypes" optionLabel="name" class="dropdown-select" formControlName="model"></p-dropdown>
+                                  <label for="model">{{'part_store.part_master.model' | translate}} *</label>
                                 </span>
                                 <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'model')"
                                     error="forms.feedback.required">
@@ -56,8 +56,8 @@
                                 <div class="p-field form-section__field " [formGroupName]="j">
                                     <div class="d-flex">
                                         <span class="p-float-label w-100">
-                                            <input pInputText placeholder="Supplier *" type="text" formControlName="supplier">
-                                            <label>Supplier *</label>
+                                            <input pInputText placeholder="{{'part_store.part_master.supplier' | translate}} *" type="text" formControlName="supplier">
+                                            <label>{{'part_store.part_master.supplier' | translate}} *</label>
                                         </span>
                                         <span *ngIf="lastest"class="p-inputgroup-addon addon-primary" (click)="addSupplier(i)">
                                             <i class="pi pi-plus"></i>
