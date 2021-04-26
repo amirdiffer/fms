@@ -1,0 +1,39 @@
+<div class="form-section">
+    <div class="d-flex justify-content-between filter-section">
+        <h3 class="form-section__title ">Filter Setting</h3>
+        <button class="btn-primary-small add">Apply</button>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="p-field form-section__field dropdown-select">
+                <span class="p-float-label">
+                  <p-dropdown inputId="item" placeholder="Asset Type" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+                  <label for="item">Item</label>
+                </span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="p-field form-section__field dropdown-select">
+                <span class="p-float-label">
+                  <p-dropdown inputId="make" placeholder="Make" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+                  <label for="make">Make</label>
+                </span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="p-field form-section__field dropdown-select">
+                <span class="p-float-label">
+                  <p-dropdown inputId="model" placeholder="Model" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+                  <label for="model">Model</label>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-container form-section">
+    <h3 class="form-section__title">{{ 'part_store.part_master.filter_and_fuel_pump' | translate }}</h3>
+
+    <div class="card-table-content">
+        <app-table [setting]="partMastertableSetting"></app-table>
+    </div>
+</div>

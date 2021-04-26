@@ -1,4 +1,4 @@
-<div class="filter-container" *ngIf="!hasForm">
+<div class="filter-container" *ngIf="_router.url ==='/part-store/part-master'">
     <app-filter [setting]="filterSetting"></app-filter>
 </div>
 <div class="row ml-0 card-wrapper">
@@ -32,9 +32,10 @@
             <ul>
                 <li [class.active-category]="index == selectedCategory" *ngFor="let item of categoryItem;let index=index;" (click)="categorySelect(index)">
                     {{item.name}}
+                    <a *ngIf="index == selectedCategory && _router.url !=='/part-store/part-master/add-item'" [routerLink]="['add-item']"><svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.em':'1' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon></a>
                 </li>
             </ul>
-            <a class="d-flex add-category" [routerLink]="['add-category']" (click)="hasForm = true">
+            <a *ngIf="_router.url !=='/part-store/part-master/add-category'" class="d-flex add-category" [routerLink]="['add-category']" (click)="hasForm = true">
                 <svg-icon class='cursor-pointer ml-2' src='assets/icons/add.svg' [svgStyle]="{ 'width.em':'1.2' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
                 <span>Add Category</span>
             </a>
@@ -42,47 +43,5 @@
     </div>
     <div class="col-9 col-md-9 pr-0" >
         <router-outlet></router-outlet>
-        <ng-container *ngIf="!hasForm">
-            <div class="form-section">
-                <div class="d-flex justify-content-between filter-section">
-                    <h3 class="form-section__title ">Filter Setting</h3>
-                    <button class="btn-primary-small add">Apply</button>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <div class="p-field form-section__field dropdown-select">
-                            <span class="p-float-label">
-                              <p-dropdown inputId="item" placeholder="Asset Type" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
-                              <label for="item">Item</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="p-field form-section__field dropdown-select">
-                            <span class="p-float-label">
-                              <p-dropdown inputId="make" placeholder="Make" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
-                              <label for="make">Make</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="p-field form-section__field dropdown-select">
-                            <span class="p-float-label">
-                              <p-dropdown inputId="model" placeholder="Model" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
-                              <label for="model">Model</label>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-container form-section">
-                <h3 class="form-section__title">{{ 'part_store.part_master.filter_and_fuel_pump' | translate }}</h3>
-    
-                <div class="card-table-content">
-                    <app-table [setting]="partMasterTableSetting"></app-table>
-                </div>
-            </div>
-        </ng-container>
-        
     </div>
 </div>

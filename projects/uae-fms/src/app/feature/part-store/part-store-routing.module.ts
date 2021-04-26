@@ -10,6 +10,7 @@ import { PartDetailListComponent } from './part-list/part-detail-list/part-detai
 import { SuppliersAddFormComponent } from './order-list/suppliers-add-form/suppliers-add-form.component';
 import { AddCategoryComponent } from './part-master/add-category/add-category.component'
 import { AddItemComponent } from './part-master/add-item/add-item.component';
+import { TableContentComponent } from './part-master/table-content/table-content.component';
 const routes: Routes = [
   { path: 'part-list/add', component: PartListFormComponent },
   { path: 'part-list/edit-part', component: PartListFormComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'part-list', component: PartListComponent },
   { path: 'part-master', component: PartMasterComponent,
     children:[
+      {path:'' , component:TableContentComponent},
       {path:'add-category' , component:AddCategoryComponent},
       {path:'add-item' , component:AddItemComponent},
     ]

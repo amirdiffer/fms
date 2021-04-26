@@ -36,7 +36,9 @@ a{
     padding:0;
     li{
       list-style: none;
-      margin: 1.2em 0;
+      margin: .5em 20px;
+      padding: .5em 0;
+      position: relative;
       cursor: pointer;
       &::before{
         content: '';
@@ -50,15 +52,22 @@ a{
       &.active-category{
         color:#0DA06E;
         font-weight: bold;
+        background:#0DA06E14;
+        
         &::before{
-          background:#0DA06E;
+          background:#0aa874;
         }
+      }
+      a{
+        position: absolute;
+        right: 10px;
+        cursor: cell;
       }
     }
   }
   .add-category{
     cursor: pointer;
-    margin: 1.2em 10px;
+    margin: 1.2em 28px;
     color:#0DA06E;
     font-weight: bold;
     font-family: '29LT Bukra - Bold';

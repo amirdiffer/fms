@@ -1,6 +1,5 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { PartMasterService } from './part-master.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-part-master',
@@ -44,11 +43,9 @@ export class PartMasterComponent implements OnInit {
       name:'Hood'
     },
   ]
-  constructor(private _partMasterService: PartMasterService,
-              private _activateRouter : ActivatedRoute) {}
+  constructor(public _router : Router) {}
 
   ngOnInit(): void {
-    this.checkChildrenUrl();
     this.filterSetting = [
       {
         filterTitle: 'statistic.total',
@@ -66,23 +63,14 @@ export class PartMasterComponent implements OnInit {
         filterTagColor: '#BA7967'
       }
     ];
-    this.partMasterTableSetting = this._partMasterService.partMastertableSetting();
+    
   }
   categorySelect(index){
+    if(this._router.url != '/part-store/part-master'){
+      return
+    }
     this.selectedCategory = index
   }
-  @HostListener('window:popstate', ['$event'])
-  onPopState(event) {
-    setTimeout(()=>{
-      this.checkChildrenUrl();
-    })
-    console.log(event)
-  }
-  checkChildrenUrl(){
-    if(this._activateRouter.snapshot.children.length > 0) {
-      this.hasForm = true;
-    }else{
-      this.hasForm = false;
-    }
-  }
+
+
 }

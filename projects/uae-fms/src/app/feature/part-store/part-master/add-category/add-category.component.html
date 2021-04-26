@@ -1,7 +1,7 @@
-<form class=pb-4>
+<form class="pb-4" [formGroup]="form">
     <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button">{{ 'forms.cancel' | translate}}</button>
-        <button class="btn-primary-medium add" type="submit">{{ 'forms.add' | translate}}</button>
+        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{ 'forms.cancel' | translate}}</button>
+        <button class="btn-primary-medium add" type="submit" (click)="submit()">{{ 'forms.add' | translate}}</button>
       </div>
     <div class="form-section">
         <h3 class="form-section__title ">Category Info</h3>
@@ -9,19 +9,28 @@
             <div class="col-6">
                 <div class="p-field form-section__field">
                     <span class="p-float-label">
-                        <input pInputText placeholder="Category Name *" type="text">
+                        <input pInputText placeholder="Category Name *" type="text" formControlName="categoryName">
                         <label>Category Name *</label>
                     </span>
+                    <anms-error 
+                    [showError]="hasError('categoryName',form,submitted)" error="forms.feedback.required">
+                    </anms-error>
                 </div>
             </div>
             <div class="col-6">
                 <div class="p-field form-section__field">
                     <span class="p-float-label">
-                        <input pInputText placeholder="Short Code" type="text">
+                        <input pInputText placeholder="Short Code" type="text" formControlName="shortCode">
                         <label>Short Code</label>
                     </span>
+                    <anms-error 
+                    [showError]="hasError('shortCode',form,submitted)" error="forms.feedback.required">
+                    </anms-error>
                 </div>
             </div>
         </div>
     </div>  
 </form> 
+
+
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>

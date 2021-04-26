@@ -10,8 +10,6 @@ import { DashboardModule } from '@feature/dashboard/dashboard.module';
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PartStoreStateModule } from './+state/part-store.state.module';
-import { AssetTypeComponent } from './asset-type/asset-type.component';
-import { CategoryComponent } from './category/category.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderFormComponent } from './order-list/order/order.component';
 import { PartListFormComponent } from './part-list/part-list-form.component';
@@ -24,6 +22,7 @@ import { SuppliersAddFormComponent } from './order-list/suppliers-add-form/suppl
 import { PartDetailListComponent } from './part-list/part-detail-list/part-detail-list.component';
 import { AddCategoryComponent } from './part-master/add-category/add-category.component';
 import { AddItemComponent } from './part-master/add-item/add-item.component';
+import { TableContentComponent } from './part-master/table-content/table-content.component';
 
 @NgModule({
   imports: [
@@ -44,8 +43,6 @@ import { AddItemComponent } from './part-master/add-item/add-item.component';
   declarations: [
     PartListComponent,
     PartListFormComponent,
-    CategoryComponent,
-    AssetTypeComponent,
     OrderListComponent,
     PartMasterComponent,
     OrderFormComponent,
@@ -54,7 +51,8 @@ import { AddItemComponent } from './part-master/add-item/add-item.component';
     SuppliersAddFormComponent,
     PartDetailListComponent,
     AddCategoryComponent,
-    AddItemComponent
+    AddItemComponent,
+    TableContentComponent
   ]
 })
 export class PartStoreModule {}
