@@ -69,7 +69,6 @@
     "asset_policy": "سياسة الأصول",
     "asset_configuration": "تكوين الأصول",
     "usage_category": "نوع العمل",
-    "edit_usage_category": "تحرير نوع العمل",
     "ownership": "الملكية",
     "edit_ownership": "تحرير الملكية",
     "fleet_status": "حالة الأسطول",
@@ -472,20 +471,16 @@
       "models": "عارضات ازياء",
       "Capacity": "الاهلية",
       "km": "كيلومتر",
-<<<<<<< HEAD
       "task_list": "قائمة المهام",
       "type_category": "اكتب الفئة",
       "time": "زمن",
       "reminder": "تذكير",
       "start_km": "Km البداية",
       "mileage_km": "الأميال KM",
-      "service_tasks": "مهام الخدمة"
-=======
       "role_name":"اسم الدور",
       "number_of_user":"عدد المستخدمين",
       "spare_part": "قطع غيار",
       "working_hours": "ساعات العمل"
->>>>>>> 8adeaa9b8d728f818e8fbf1536b72d7c9f290300
     },
     "button": {
       "view_report": "عرض التقرير",

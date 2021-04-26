@@ -423,7 +423,6 @@
       "location_id": "Location ID",
       "service": "Service",
       "services": "Services",
-      "service_tasks":"Service Tasks",
       "address": "Address",
       "job_card": "Job Card",
       "reported_by": "Reported By",
