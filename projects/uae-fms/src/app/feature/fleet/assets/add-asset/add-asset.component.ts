@@ -44,6 +44,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   //icons
   calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   closeIcon = 'assets/icons/times.svg';
+  avatarDocId;
   singleAsset: boolean = false;
   submitted_AssetDetail = false;
   submitted_Financial = false;
@@ -385,7 +386,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.formGroupGenerate = this._fb.group({
       quantity: ['multipleAsset', Validators.compose([Validators.required])],
       serialNumber: [''],
-      uploadFile: ['']
+      uploadFile: [''],
+      avatarId: ['']
     });
     this.route.url.subscribe((params) => {
       this.isEdit =
@@ -403,6 +405,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
                 quantity: ['singleAsset'],
                 serialNumber: [x.dpd]
               });
+              this.avatarDocId = x.avatarId;
               this.editPatchValue(this._asset);
             }
           });
@@ -905,7 +908,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     if (this.isEdit) {
       let formValue = {
         id: this.id,
-        avatarId: 1,
+        avatarId: this.avatarDocId,
         businessCategoryId: formVal_AssetDetail.businessInfo.businessCategory,
         ownershipId: formVal_AssetDetail.businessInfo.ownership,
         year: formVal_AssetDetail.assetDetails.year,
@@ -939,7 +942,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       this._facade.editAsset(formValue);
     } else {
       let formValue = {
-        avatarId: 1,
+        avatarId: this.avatarDocId,
         businessCategoryId: formVal_AssetDetail.businessInfo.businessCategory,
         ownershipId: formVal_AssetDetail.businessInfo.ownership,
         year: formVal_AssetDetail.assetDetails.year,
@@ -1028,6 +1031,15 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       uploadFile: e.files
     });
   }
+
+  uploadImage($event) {
+    if (!$event || !$event.files) {
+      return;
+    }
+    const docId = $event.files[0];
+    this.avatarDocId = docId;
+  }
+
   ngOnDestroy(): void {
     this.businessCategory$.unsubscribe();
     this.ownerShip$.unsubscribe();
