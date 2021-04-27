@@ -24,7 +24,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-data let-i="rowIndex">
       <tr (mouseover)='rowIsHover(i)' [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')"
-        [ngStyle]="{'background': isSelected(i) ? data.statusColor : null }">
+        [ngStyle]="{'background': isSelected(i) ? data.statusColor : null,'border-inline-start': (dropdownItemSelected == i && subTable) ? '4px solid #008755': null }">
         <span style="height:100% ; width: 5px; position: relative;display: table-cell;">
           <div class="statusColor with-renderer-table" *ngIf="data.statusColor"
             [style]="'background:'+data.statusColor+';'"></div>
@@ -34,8 +34,18 @@
           <div *ngIf="!col.renderer">
             <div class="d-flex">
               <span class="p-column-title">{{col.lable}}</span>
-              <span [innerHTML]="this.getCol(col,data)" class="column-data">
-                <!-- {{ this.getCol(col,data) }} -->
+              <span class="column-data">
+                {{ getCol(col,data) }}
+                <ng-template [ngIf]="col.type && col.type == 2 && data[col.thumbField]" [ngIfThen]="thumb"></ng-template>
+                <ng-template #thumb>
+                  <div class='d-inline-flex cell-with-image'>
+                    <img class='thumb' [src]="col.override ? 'assets/' + col.override : baseFileServer + data[col.thumbField]" onerror="this.src='assets/thumb.png'">
+                    <p class='text-of-cell-with-image'>
+                      {{data[col.field]}}
+                      </p>
+                  </div>
+                </ng-template>
+                <ng-template [ngIf]="col.type && col.type == 2 && !data[col.thumbField]" #dataField>{{ data[col.field] }}</ng-template>
               </span>
             </div>
           </div>
@@ -107,11 +117,15 @@
             <table-checkbox-renderer (onChange)="updatedSelectedIds($event,col.field)" [data]='data' [field]="col.field"></table-checkbox-renderer>
             <!-- <table-checkbox-renderer (onChange)="updatedSelectedIds($event)" [data]='data[col.field]'></table-checkbox-renderer> -->
           </div>
-
+          <div *ngIf="col.renderer=='toggleRenderer'">
+            <table-toggle-renderer [data]='data' [setting]="setting.rowSettings" [field]="col.field"></table-toggle-renderer>
+          </div>
           <div *ngIf="col.renderer=='downloadButtonRenderer'">
             <table-download-button-renderer [link]='data[col.field]'></table-download-button-renderer>
           </div>
-          
+          <div *ngIf="col.renderer=='dropdownRenderer'">
+            <table-dropdown-renderer [rowIndexTable]="dropdownItemSelected" [data]="data" [index]="i" (selected)="changeItemDropdownSelected($event)"></table-dropdown-renderer>
+          </div>
           <div *ngIf="col.renderer=='radialBar'">
             <radialBar-renderer [percent]='data[col.field]'></radialBar-renderer>
           </div>
@@ -120,12 +134,17 @@
         <div [class]="'statusColor'+ (hasRendere(setting.columns)?'with-renderer-table':' simple-table')"
           *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
       </tr>
+      <tr [ngStyle]="{'border-inline-start': '4px solid #008755'}" *ngIf="dropdownItemSelected == i && subTable">
+        <td class="p-0" [colSpan]="setting.columns.length + 1">
+          <app-table [setting]="subTable"></app-table>
+        </td>
+      </tr>
     </ng-template>
   </p-table>
   <ng-template [ngIf]="pagination && showPagination">
     <div class="paginator">
       <div class="show-entries">
-        <span>Show</span>
+        <span>{{ 'tables.pagination.show' | translate }}</span>
         <select [(ngModel)]="ipp" (change)="paginationEvent('rowCount')">
           <option [ngValue]="5">5</option>
           <option [ngValue]="10">10</option>
@@ -133,11 +152,11 @@
           <option [ngValue]="50">50</option>
           <option [ngValue]="100">100</option>
         </select>
-        <span>Entries</span>
+        <span>{{ 'tables.pagination.entries' | translate }}</span>
       </div>
       <div class="pagination">
         <div class="pagination-caption">
-          <p>{{ trackingShowRow() }} of {{count}}</p>
+          <p>{{ trackingShowRow() }} {{ 'tables.pagination.of' | translate }} {{count}}</p>
         </div>
         <div class="pagination-action">
           <span class="pagination-action__previous" (click)="paginationEvent('previous')">

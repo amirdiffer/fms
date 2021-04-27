@@ -131,7 +131,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           route: '/workshop/service-shop'
           // disabled: true
         },
-        /*         {
+               {
                   name: 'sidebar.workshop.inspection.~',
                   icon: 'inspection',
                   route: '/workshop/inspections',
@@ -145,7 +145,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
                       route: '/workshop/inspections/auction-list'
                     }
                   ]
-                }, */
+                },
         {
           name: 'sidebar.workshop.task_master',
           icon: 'task-master',
@@ -196,7 +196,6 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
               name: 'sidebar.configuration.user_management.role_permission',
               icon: 'organization',
               route: '/configuration/user-management/role-permission',
-              disabled: true
             },
             {
               name: 'sidebar.configuration.user_management.users',
@@ -224,19 +223,19 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.configuration.business_category',
           icon: 'business',
-          route: '/configuration/business-category'
+          route: '/configuration/usage-category'
         },
         {
           name: 'sidebar.configuration.ownership',
           icon: 'copyright-solid',
           route: '/configuration/ownership'
         },
-        {
+        /* {
           name: 'sidebar.configuration.fleet_status',
           icon: 'flag-solid',
           route: '/configuration/fleet-status',
           disabled: true
-        },
+        }, */
         {
           name: 'sidebar.configuration.periodic_service',
           icon: 'periodic-service',

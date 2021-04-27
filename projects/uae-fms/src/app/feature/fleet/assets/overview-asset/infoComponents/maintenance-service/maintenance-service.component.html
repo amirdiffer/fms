@@ -1,0 +1,16 @@
+<div class="table-container">
+  <div class="card-table">
+    <span class="search-container card-table-header col-auto">
+      <div class="search-box">
+        <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
+        <button>
+          <img [src]="searchIcon" alt="">
+        </button>
+      </div>
+      <button class="btn-download">
+        <svg-icon [src]="downloadBtn"></svg-icon>
+      </button>
+    </span>
+    <app-table (selectedSubTable)="filterSubTableData($event)" [subTable]="subTableSetting" [setting]="tableSetting"></app-table>
+  </div>
+</div>

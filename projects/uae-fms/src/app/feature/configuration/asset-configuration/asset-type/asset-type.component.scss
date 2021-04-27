@@ -45,6 +45,15 @@ mat-card {
   display: flex;
   align-items: center;
   margin: 0 20px;
+  .action {
+    display: none;
+    margin-top: -1.8em;
+  }
+  &:hover {
+    .action {
+      display: inline-block;
+    }
+  }
 }
 
 .category-sub-subItem {
@@ -53,7 +62,15 @@ mat-card {
   max-height: 2.8em;
   display: flex;
   align-items: center;
-  margin: 0 50px;
+  .action {
+    display: none;
+    margin-top: -1.8em;
+  }
+  &:hover {
+    .action {
+      display: inline-block;
+    }
+  }
 }
 
 .category-item {
@@ -75,6 +92,15 @@ mat-card {
     opacity: 0.57;
     flex: 0 0 15%;
     text-align: center;
+  }
+  .action {
+    display: none;
+    margin-top: -1.8em;
+  }
+  &:hover {
+    .action {
+      display: inline-block;
+    }
   }
 }
 
@@ -117,9 +143,9 @@ mat-card {
   cursor: pointer;
 }
 
-.plus {
-  position: absolute;
-  right: 15px;
+.down-arrow-ar {
+  transform: rotate(-180deg);
+  cursor: pointer;
 }
 
 .cursor-pointer {

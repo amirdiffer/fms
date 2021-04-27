@@ -32,7 +32,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   warranties: FormArray;
   submitted = false;
   warrantyDocs = [];
-  avatarDoc =[];
+  avatarDoc = [];
   subAssetTypes = [];
   makes = [];
   models = [];
@@ -72,7 +72,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   isEdit: any;
   recordId: number;
   isSingleAsset = true;
-  avatarDocRequired:boolean=false;
+  avatarDocRequired: boolean = false;
   #endRegionVariables
 
   #startTablesRegion
@@ -321,7 +321,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           }));
         }
       },
-      (error) => {}
+      (error) => { }
     );
   }
 
@@ -340,14 +340,21 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           }
         }
       },
-      (error) => {}
+      (error) => { }
     );
   }
 
   dialogConfirm($event) {
-    this.subAssetFacade.reset();
-    this.goToList('/fleet/sub-asset/');
+    this.dialogModal = false;
+    if ($event) {
+      this.subAssetFacade.reset();
+      this._goToList();
+    }
     return;
+  }
+
+  _goToList() {
+    this.router.navigate(['/fleet/sub-asset/']);
   }
 
   next(): void {
@@ -566,7 +573,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {});
+        fileEntry.file((file: File) => { });
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
@@ -587,6 +594,16 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
   csvReader(event) {
     this.csvText = event;
+  }
+
+  cancel() {
+    this.dialogSetting.isWarning = true;
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.message = "Are you sure you want to Cancel?"
+    this.dialogSetting.header = (this.isEdit ? "Cancel Edit Sub Asset" : "Cancel Add Sub Asset");
+    this.dialogSetting.confirmButton = "Cancel";
+    this.dialogSetting.cancelButton = "No";
+    this.dialogModal = true;
   }
 
 }

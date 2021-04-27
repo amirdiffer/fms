@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { TaskMasterFacade } from '../+state/task-master';
-import { TaskMasterService } from './task-master.service';
-import { TableComponent } from '@core/table';
+import { ColumnType, TableComponent } from '@core/table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-task-master',
@@ -13,7 +13,78 @@ export class TaskMasterComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn = 'assets/icons/download-solid.svg';
-  tableSetting;
+  tableSetting = {
+    columns: [
+      {
+        lable: 'tables.column.task_name',
+        field: 'taskName',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.time_estimate',
+        field: 'timeEstimate',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.instruction',
+        field: 'instruction',
+        width: 200,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.rate_per_hour',
+        field: 'ratePerHour',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.skill',
+        field: 'skill',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.part',
+        field: 'part',
+        width: 100,
+        type: 1,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
+      }
+    ],
+    data: [],
+    rowSettings: {
+      floatButton: [
+        {
+          button: 'edit',
+          onClick: (col, data, button?) => {
+            this.router.navigate(['/workshop/task-master/edit-task-master/' + data.id],).then();
+          }
+        }
+      ]
+    }
+  };
+
 
   /*
   doesNeedParty: false
@@ -45,12 +116,11 @@ export class TaskMasterComponent implements OnInit {
   );
 
   constructor(
-    private _taskMasterService: TaskMasterService,
-    private _facade: TaskMasterFacade
+    private _facade: TaskMasterFacade,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.tableSetting = this._taskMasterService.tableSetting;
     this._facade.loadAll();
   }
 

@@ -12,9 +12,10 @@ export class RegistrationService {
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
@@ -26,10 +27,27 @@ export class RegistrationService {
       environment.baseApiUrl + 'asset/registration'
     );
   }
-  registerAsset(data):Observable<ResponseBody<any>>{
+  registerAsset(data): Observable<ResponseBody<any>> {
     return this._http.post<ResponseBody<any>>(
-      environment.baseApiUrl + '/asset/'+data.id+'/register',
+      environment.baseApiUrl + 'asset/' + data.id + '/register',
       data
-    )
+    );
+  }
+  editRegister(data): Observable<ResponseBody<any>> {
+    return this._http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'asset/register/' + data.id + '/update',
+      data
+    );
+  }
+  getRegisterById(id) {
+    return this._http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'asset/register/' + id
+    );
+  }
+
+  getAssetForRegistrationByAssetId(id) {
+    return this._http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'asset/' + id + '/summary/registration'
+    );
   }
 }

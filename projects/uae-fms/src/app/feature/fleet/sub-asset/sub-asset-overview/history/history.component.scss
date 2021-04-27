@@ -1,0 +1,91 @@
+.history{
+    padding: 1em;
+    .component-title{
+        font-weight: bold;
+        color:#0DA06E;
+    }
+    .history-item{
+        padding: 1em;
+        border:1px solid;
+        border-color:transparent;
+        border-radius: .5em;
+        p{
+            margin:0;
+        }
+        small{
+            &::before{
+                content: '';
+                width: .4em;
+                height: .4em;
+                display: inline-block;
+                border-radius: 50%;
+                margin-right: 1em;
+                
+            }
+        }
+        span{
+            color:#414D55;
+            font-size: .7em;
+            a{
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+    }
+    .history-item.done{
+        small::before{
+            background: #0DA06E;
+        } 
+    }
+    .history-item.toDo{
+        small::before{
+            background: #F17105;
+        } 
+    }
+    .history-item.doing{
+        small::before{
+            background: #FDC43E;
+        } 
+    }
+    
+}
+
+.history-labels{
+    display: flex;
+    justify-content: space-between;
+    padding:1em;
+    .label{
+        margin: 0 .5em;
+        small{
+            padding: 0;
+            &::before{
+                content: '';
+                width: .8em;
+                height: .8em;
+                border-radius: 50%;
+                margin-right: .5em;
+                display: inline-block;
+            }
+        }
+    }
+    .label.done small{
+        &::before{
+            background:#0DA06E; 
+        }
+    }
+    .label.to-do small{
+        &::before{
+            background:#F17105; 
+        }
+    }
+    .label.doing small{
+        &::before{
+            background:#FDC43E; 
+        }
+    }
+}
+.text-ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

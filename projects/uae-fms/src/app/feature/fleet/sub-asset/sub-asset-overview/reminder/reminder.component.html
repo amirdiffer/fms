@@ -1,0 +1,32 @@
+<div class="reminders d-flex flex-column">
+    <div class="component-title pb-3">
+        {{title}}
+    </div>
+    <ng-container *ngFor="let item of data; let index=index;">
+        <div [class]="'reminders-item '+item.type">
+            <div class="d-flex justify-content-between">
+                <div class="text-ellipsis">
+                    <p>{{item.title}}</p>
+                    <small>{{item.date}} / {{item.time}}</small>
+                </div>
+                <div class=" align-self-center">
+                    <span>{{ 'sub_asset.reminder.action' | translate }}</span>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+<div class="reminders-labels">
+    <div class="label over">
+        <small>{{ 'sub_asset.reminder.over' | translate }}</small>
+    </div>
+    <div class="label urgent">
+        <small>{{ 'sub_asset.reminder.urgent' | translate }}</small>
+    </div>
+    <div class="label normal-1">
+        <small>{{ 'sub_asset.reminder.normal' | translate }}</small>
+    </div>
+    <div class="label normal-2">
+        <small>{{ 'sub_asset.reminder.normal' | translate }}</small>
+    </div>
+</div>

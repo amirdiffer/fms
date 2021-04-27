@@ -45,17 +45,26 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
       return x;
     })
   );
+
+  date(y) {
+    let createdDate = moment.utc(y).local().toDate();
+    let nowDate = new Date();
+    let newDate = nowDate.getTime() - createdDate.getTime();
+    return {
+      day: Math.floor(newDate / (1000 * 3600 * 24))
+    };
+  }
+
+  customizationCount$ = this.customizationFacade.conut$.pipe(
+    map((x) => {
+      return x;
+    })
+  );
+
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map((x) => {
       return x.map((y: any) => {
-        function date() {
-          let createdDate = moment.utc(y.createdAt).local().toDate();
-          let nowDate = new Date();
-          let newDate = nowDate.getTime() - createdDate.getTime();
-          return {
-            day: Math.floor(newDate / (1000 * 3600 * 24))
-          };
-        }
+
         return {
           ...y,
           id: y.id,
@@ -71,10 +80,10 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           operator: y.operator.firstName + ' ' + y.operator.lastName,
           status: y.status,
           submitOn:
-            date().day > 0
-              ? date().day == 1
-                ? `${date().day} Yesterday`
-                : `${date().day} Days Ago`
+            this.date(y.createdAt).day > 0
+              ? this.date(y.createdAt).day == 1
+                ? `${this.date(y.createdAt).day} Yesterday`
+                : `${this.date(y.createdAt).day} Days Ago`
               : 'Today',
           // brand: 'bmw.png',
           brand: y.makeName,
@@ -106,6 +115,31 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           createDate: y.createdAt,
           registrantionDate: '00/00/00',
           creator: 'Sam Smith'
+        };
+      });
+    })
+  );
+
+
+  dataCustomization$ = this.customizationFacade.customization$.pipe(
+    map((x) => {
+      return x.map((y: any) => {
+        return {
+          ...y,
+          id: y.id,
+          asset: {
+            img: y.avatarId,
+            assetName: y.assetTypeName,
+            assetSubName: y.dpd,
+            progress: Math.floor(Math.random() * 6) + 1
+          },
+          serialNumber: '123s125583456',
+          brand: 'bmw.png',
+          type: 'Car',
+          businessCategory: y.businessCategoryName,
+          createDate: y.createdAt,
+          registrantionDate: '00/00/00',
+          creator: y.operator.firstName + ' ' + y.operator.lastName
         };
       });
     })
@@ -219,16 +253,16 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
               this.assetMasterFacade.reset();
               this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
             }
-          }
+          },
           // {
           //   button: 'download'
           // },
-          // {
-          //   button: 'external',
-          //   onClick: (col, data) => {
-          //     this._router.navigate(['/fleet/assets/' + data.id]);
-          //   }
-          // }
+          {
+            button: 'external',
+            onClick: (col, data) => {
+              this._router.navigate(['/fleet/assets/' + data.id]);
+            }
+          }
         ]
       }
     };
@@ -313,7 +347,25 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   exportTable() {
     switch (this.selectedTab) {
       case 'assetMasterTab':
-        this.table.exportTable(this.assetMasterTableSetting, this.selectedTab);
+        let filter = {
+          asset: 'assetTypeName|dpd|Owned',
+          type: 'assetTypeName',
+          businessCategory: 'businessCategoryName',
+          allocated: 'department.name',
+          operator: 'operator',
+          status: 'status',
+          submitOn: 'createdAt?func:submitOnFunc',
+          submitOnFunc: (y) => {
+            return this.date(y).day > 0
+              ? this.date(y).day == 1
+              ? `${this.date(y).day} Yesterday`
+              : `${this.date(y).day} Days Ago`
+              : 'Today'
+          },
+          brand: 'makeName',
+          killometer: 'actualOdometer'
+        };
+        this.table.exportTable(this.assetMasterTableSetting, this.selectedTab, filter);
         break;
       case 'pendingRegistrationTab':
         this.table.exportTable(
@@ -335,6 +387,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   }
   eventPagination_registration() {
     this.registrationFacade.loadAll();
+  }
+  eventPagination_customization() {
+    this.customizationFacade.loadAll();
   }
 
   ngOnDestroy(): void {

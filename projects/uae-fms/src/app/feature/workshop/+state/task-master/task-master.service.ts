@@ -34,7 +34,7 @@ export class TaskMasterService {
   //   }
 
   getTaskMaster(id: number) {
-    return this._http.get<ITaskMasterModel[]>(
+    return this._http.get<ResponseBody<ITaskMasterModel>>(
       environment.baseApiUrl + `workshop/taskmaster/${id}`
     );
   }
@@ -64,5 +64,5 @@ export class TaskMasterService {
       environment.baseApiUrl + 'workshop/taskmaster?page=0&sort=createdAt,desc&size=10000'
     );
   }
-  
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   AssetMasterFacade,
@@ -9,6 +9,7 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
 import { environment } from '../../../../../environments/environment';
+import { Calendar } from 'primeng/calendar';
 
 @Component({
   selector: 'app-vehicle-detail',
@@ -16,6 +17,9 @@ import { environment } from '../../../../../environments/environment';
   styleUrls: ['./overview-asset.component.scss']
 })
 export class OverViewAssetComponent implements OnInit, OnDestroy {
+
+  activeFilterDate = 'week';
+
   onDestroy = new Subject();
   vehicles = [
     {
@@ -337,4 +341,5 @@ export class OverViewAssetComponent implements OnInit, OnDestroy {
   selectedTab(event: string) {
     this.activeTab = event;
   }
+
 }

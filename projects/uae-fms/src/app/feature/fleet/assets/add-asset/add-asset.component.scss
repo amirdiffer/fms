@@ -34,7 +34,7 @@ input[type='text']#currency {
   background: white;
 }
 input[type='text']#purchase_value {
-  border-right: 0;
+  // border-right: 0;
   outline: none;
 }
 #purchase_value:hover + #currency {

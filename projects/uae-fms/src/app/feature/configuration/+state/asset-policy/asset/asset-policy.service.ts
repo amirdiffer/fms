@@ -8,7 +8,7 @@ import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class AssetPolicyService {
-  constructor(private http: HttpClient, private _tableFacade: TableFacade) {}
+  constructor(private http: HttpClient, private _tableFacade: TableFacade) { }
 
   params = new HttpParams();
   getParam(name) {
@@ -23,7 +23,7 @@ export class AssetPolicyService {
 
   loadAll(): Observable<ResponseBody<IAssetPolicy[]>> {
     return this.http.get<ResponseBody<IAssetPolicy[]>>(
-      environment.baseApiUrl + 'configuration/asset-policy/asset', {params: this.getParam('asset-policy_asset')}
+      environment.baseApiUrl + 'configuration/asset-policy/asset', { params: this.getParam('asset-policy_asset') }
     );
   }
   postAssetPolicy(data): Observable<ResponseBody<IAssetPolicy>> {
@@ -38,5 +38,10 @@ export class AssetPolicyService {
       environment.baseApiUrl + `configuration/asset-policy/${data.id}/update`,
       data
     );
+  }
+
+  getAssetById(id: number) {
+    return this.http.get(
+      environment.baseApiUrl + 'configuration/asset-policy/' + id);
   }
 }

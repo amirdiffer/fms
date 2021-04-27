@@ -1,0 +1,109 @@
+.reminders{
+    padding: 1em;
+    .component-title{
+        font-weight: bold;
+        color:#0DA06E;
+    }
+    .reminders-item{
+        padding: 1em;
+        border:1px solid;
+        border-color:transparent;
+        border-radius: .5em;
+        p{
+            margin:0;
+        }
+        small{
+            &::before{
+                content: '';
+                width: .4em;
+                height: .4em;
+                display: inline-block;
+                border-radius: 50%;
+                margin-right: 1em;
+                
+            }
+        }
+        span{
+            color:#6665DD;
+        }
+    }
+    .reminders-item:nth-child(odd){
+        small::before{
+            background: #34D1BF;
+        } 
+    }
+    .reminders-item:nth-child(even){
+        small::before{
+            background: #6665DD;
+        } 
+    }
+    
+    .reminders-item.over{
+        border-color:#FF0000;
+        span{
+            color:#FF0000;
+        }
+        small::before{
+            width: .8em;
+            height: .8em;
+            background:#FF0000;
+        }
+    }
+    
+    .reminders-item.urgent{
+        border-color:#F17105;
+        span{
+            color:#F17105;
+        }
+        small::before{
+            width: .8em;
+            height: .8em;
+            background:#F17105;
+        }
+    }
+}
+
+.reminders-labels{
+    display: flex;
+    justify-content: space-between;
+    padding:1em;
+    .label{
+        margin: 0 .5em;
+        small{
+            padding: 0;
+            &::before{
+                content: '';
+                width: .8em;
+                height: .8em;
+                border-radius: 50%;
+                margin-right: .5em;
+                display: inline-block;
+            }
+        }
+    }
+    .label.over small{
+        &::before{
+            background:#FF0000; 
+        }
+    }
+    .label.urgent small{
+        &::before{
+            background:#F17105; 
+        }
+    }
+    .label.normal-1 small{
+        &::before{
+            background:#34D1BF; 
+        }
+    }
+    .label.normal-2 small{
+        &::before{
+            background:#6665DD; 
+        }
+    }
+}
+.text-ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

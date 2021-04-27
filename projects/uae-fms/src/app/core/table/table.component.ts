@@ -1,16 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  OnDestroy,
-  ElementRef,
-  AfterViewInit,
-  AfterViewChecked,
-  AfterContentInit
-} from '@angular/core';
-
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy, AfterViewInit, Renderer2 } from '@angular/core';
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
 import { jsPDF } from 'jspdf';
@@ -22,6 +10,9 @@ import { TableFacade } from '@core/table/+state/table.facade';
 import { ITablePagination } from '@core/table/+state/table.entity';
 import { ofType } from '@ngrx/effects';
 import { TableServiceS } from '@core/table/table.service';
+import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
+import { CSVExport } from "@core/export";
+import { CSVExportColumn } from '@core/export/csv.component';
 
 @Component({
   selector: 'app-table',
@@ -29,6 +20,7 @@ import { TableServiceS } from '@core/table/table.service';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
+  baseFileServer = environment.baseFileServer;
   rowIndexTable = -1;
   activeLang: string;
   activePage: number;
@@ -47,13 +39,17 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   initialSearchBox = false;
   @Input() searchInput: string = '';
   @Output() onSearch = new EventEmitter();
+  @Input() subTable: TableSetting;
+  dropdownItemSelected = null;
+  @Output() selectedSubTable: EventEmitter<number> = new EventEmitter<number>();
   allData = [];
   constructor(
     private settingFacade: SettingsFacade,
     private translate: TranslateService,
     private _tableFacade: TableFacade,
-    private _tableService: TableServiceS
-  ) {}
+    private _tableService: TableServiceS,
+    private renderer: Renderer2
+  ) { }
 
   getSearchBoxData() {
     this._tableService.getSearchBoxData(this.searchInput).subscribe((x) => {
@@ -85,24 +81,26 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       switch (col.type) {
         case 1:
           return data[col.field];
-        case 2:
-          return data[col.thumbField]
-            ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
-                col.override
-                  ? 'assets/' + col.override
-                  : environment.baseFileServer + data[col.thumbField]
-              }'> <p class='text-of-cell-with-image'>${
-                data[col.field]
-              }</p></div>`
-            : data[col.field];
+        // case 2: {
+        //   return data[col.thumbField]
+        //     ? `<div class='d-inline-flex cell-with-image'><img class='thumb' src='${
+        //       col.override
+        //         ? 'assets/' + col.override
+        //         : '/fms-api/document/' + data[col.thumbField]
+        //         // : environment.baseFileServer + data[col.thumbField]
+        //     }'> <p class='text-of-cell-with-image'>${
+        //       data[col.field]
+        //     }</p></div>`
+        //     : data[col.field];
+        // }
         case 3:
           return data[col.thumbField]
-            ? `<img class='thumb' src='${
-                environment.baseFileServer + data[col.thumbField]
-              }'>`
+            ? `<img class='thumb' src='${'/fms-api/document/' + data[col.thumbField]
+            }'>`
             : '';
       }
-    } else {
+    }
+    else {
       return data[col.field];
     }
   }
@@ -153,50 +151,103 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  exportTable(tableSetting: TableSetting, title: string): void {
-    const exportColumns = tableSetting.columns.map((col) => {
+  getText(key: string, obj) {
+    let selectionArray = key.split('.');
+    selectionArray.forEach(key => {
+      obj = obj[key];
+    });
+    return obj;
+  }
+
+  exportTable(tableSetting: TableSetting, title: string, filter?: object): void {
+    const exportColumns: CSVExportColumn[] = tableSetting.columns.map((col) => {
       return {
         title:
           col.lable && this.translate.instant(col.lable)
             ? this.translate.instant(col.lable)
             : col.lable,
-        dataKey: col.field
+        field: col.field
       };
     });
 
-    const exportRows: any[] = tableSetting.data.map((data) => ({ ...data }));
-
-    tableSetting.columns.map((col) => {
-      if (title === 'assetMasterTab') {
-        if (col.renderer === 'assetsRenderer') {
-          exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\n${data[col.field].ownership}`;
-          });
+    const exportRows: any[] = tableSetting.data.map((data) => {
+      let objKey = Object.keys(filter);
+      let dataKey = Object.keys(data);
+      let map = new Map;
+      objKey.forEach(x => {
+        let func = [];
+        let columnMultiData = []
+        if (typeof filter[x] == 'string') {
+           columnMultiData = (<string>filter[x]).split('|');
+           func =  (<string>filter[x]).split('?func:');
         }
-      }
-      if (title === 'pendingRegistrationTab') {
-        if (col.renderer === 'assetsRenderer') {
-          exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\nprogress: ${data[col.field].progress}/6`;
-          });
-        }
-      }
-      if (title === 'pendingCustomizationTab') {
-        if (col.renderer === 'assetsRenderer') {
-          exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${
-              data[col.field].assetSubName
-            }\nprogress: ${data[col.field].progress}/6`;
-          });
-        }
-      }
+        columnMultiData.forEach(y => {
+          let hasFunc = false;
+          let returnedFunc: string;
+          if (func.length == 2) {
+            hasFunc = true;
+            let f = filter[func[1]];
+            returnedFunc = f(this.getText(func[0], data));
+          }
+          if ((<string>y).includes('.')) {
+            if (map.has(x)) {
+              map.set(x, map.get(x) + ' ' + this.getText(y, data))
+            } else {
+              map.set(x, this.getText(y, data))
+            }
+          } else {
+            if (dataKey.includes(y)) {
+              if (map.has(x)) {
+                map.set(x, map.get(x) + ' ' + data[y])
+              } else {
+                map.set(x, data[y])
+              }
+            } else {
+              if (map.has(x)) {
+                map.set(x, map.get(x) + ' ' + y)
+              } else {
+                map.set(x, hasFunc ? returnedFunc : y)
+              }
+            }
+          }
+        });
+      });
+      let d = Array.from(map).reduce((obj, [key, value]) => (
+        Object.assign(obj, { [key]: value })
+      ), {});
+      return d;
     });
 
-    const pdf = new jsPDF('p', 'pt', 'a4');
+    // tableSetting.columns.map((col) => {
+    //   if (title === 'assetMasterTab') {
+    //     if (col.renderer === 'assetsRenderer') {
+    //       exportRows.map((data) => {
+    //         data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+    //           }\n${data[col.field].ownership}`;
+    //       });
+    //     }
+    //   }
+    //   if (title === 'pendingRegistrationTab') {
+    //     if (col.renderer === 'assetsRenderer') {
+    //       exportRows.map((data) => {
+    //         data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+    //           }\nprogress: ${data[col.field].progress}/6`;
+    //       });
+    //     }
+    //   }
+    //   if (title === 'pendingCustomizationTab') {
+    //     if (col.renderer === 'assetsRenderer') {
+    //       exportRows.map((data) => {
+    //         data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+    //           }\nprogress: ${data[col.field].progress}/6`;
+    //       });
+    //     }
+    //   }
+    // });
+
+    new CSVExport(exportRows, { columns: exportColumns }).export(title, title);
+
+    /* const pdf = new jsPDF('p', 'pt', 'a4');
     pdf.text(title, 20, 20);
 
     autoTable(pdf, {
@@ -205,7 +256,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       columnStyles: { 0: { cellWidth: 100 } }
     });
 
-    pdf.save(`${title}.pdf`);
+    pdf.save(`${title}.pdf`); */
   }
   isNumber(val): boolean {
     return typeof val === 'number';
@@ -307,13 +358,19 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  changeItemDropdownSelected(obj) {
+    let data =  Object.values(obj);
+    this.dropdownItemSelected = data[1];
+    this.selectedSubTable.emit((<number>data[0]));
+  }
+
   ngOnDestroy(): void {
     if (this.pagination) {
       this.subscribePagination$.unsubscribe();
     }
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   updatedSelectedIds(data, field) {
     if (data[field].checkbox) this.selectedIds.push(data.id);

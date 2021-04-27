@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit {
         this.loginService.logOut().subscribe((_) => {
           this.router.navigate(['login']);
           localStorage.clear();
+          this.profileFacade.resetParams();
         });
       }
     });
@@ -95,6 +96,7 @@ export class LoginComponent implements OnInit {
       })
       .subscribe(
         () => {
+          this.profileFacade.resetParams();
           this.profileFacade.loadAll();
           window.localStorage.setItem(
             'user_info',

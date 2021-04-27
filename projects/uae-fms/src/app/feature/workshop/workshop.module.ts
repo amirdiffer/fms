@@ -27,16 +27,7 @@ import { BodyShopComponent } from './body-shop/body-shop.component';
 import { ServiceShopComponent } from './service-shop/service-shop.component';
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
-import { MakeDecisionComponent } from './inspections/technical-inspection/make-decision/make-decision.component';
-import { AssetDetailComponent } from './inspections/technical-inspection/make-decision/asset-detail/asset-detail.component';
-import { MaintenanceComponent } from './inspections/technical-inspection/make-decision/maintenance/maintenance.component';
-import { CustomizationComponent } from './inspections/technical-inspection/make-decision/customization/customization.component';
 import { DashboardModule } from '@feature/dashboard/dashboard.module';
-
-import { MainComponent } from './inspections/technical-inspection/make-decision/main/main.component';
-import { TechnicalInspectionStepComponent } from './inspections/technical-inspection/make-decision/technical-inspection/technical-inspection.component';
-
-import { DetailDecisionComponent } from './inspections/technical-inspection/make-decision/detail-decision/detail-decision.component';
 import { AddRequestComponent } from './body-shop/add-request/add-request.component';
 import { AddTechnicianComponent } from './body-shop/add-technician/add-technician.component';
 import { AddLocationComponent } from './body-shop/add-location/add-location.component';
@@ -49,20 +40,14 @@ import { AddJobCardServiceShopComponent } from './service-shop/add-job-card/add-
 import { AddLocationServiceShopComponent } from './service-shop/add-location/add-location.component';
 import { AddRequestServiceShopComponent } from './service-shop/add-request/add-request.component';
 import { AddTechnicianServiceShopComponent } from './service-shop/add-technician/add-technician.component';
+import { TechnicalOverviewComponent } from './inspections/technical-inspection/technical-overview/technical-overview.component';
 
 @NgModule({
   declarations: [
-    MainComponent,
     BodyShopComponent,
     TaskMasterComponent,
     AuctionListComponent,
-    MakeDecisionComponent,
-    AssetDetailComponent,
-    MaintenanceComponent,
-    CustomizationComponent,
     TechnicalInspectionComponent,
-    TechnicalInspectionStepComponent,
-    DetailDecisionComponent,
     AddTechnicianComponent,
     AddRequestComponent,
     AddLocationComponent,
@@ -72,7 +57,8 @@ import { AddTechnicianServiceShopComponent } from './service-shop/add-technician
     AddJobCardServiceShopComponent,
     AddLocationServiceShopComponent,
     AddRequestServiceShopComponent,
-    AddTechnicianServiceShopComponent
+    AddTechnicianServiceShopComponent,
+    TechnicalOverviewComponent
 
   ],
   imports: [

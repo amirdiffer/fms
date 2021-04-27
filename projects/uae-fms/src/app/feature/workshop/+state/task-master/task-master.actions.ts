@@ -31,7 +31,7 @@ export class TaskMasterActions {
 
   static taskMasterEditedSuccessfully = createAction(
     '[TaskMaster] task master edited successfully',
-    props<{ data: ITaskMasterModel }>()
+    props<{ data: any }>()
   );
 
   static loadAllSkill = createAction (

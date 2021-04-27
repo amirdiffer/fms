@@ -12,17 +12,25 @@ import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
 import { Router } from '@angular/router';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { map, tap } from 'rxjs/operators';
+import { SettingsFacade } from '@core/settings/settings.facade';
 
 @Component({
   selector: 'configuration-asset-type',
   templateUrl: './asset-type.component.html',
   styleUrls: ['./asset-type.component.scss']
 })
+
 export class AssetTypeComponent implements OnInit, OnDestroy {
   //#region Inputs and Outputs
   @Output() selectTrim = new EventEmitter();
   @Output() selectMake = new EventEmitter();
   @Output() selectModel = new EventEmitter();
+  @Output() select = new EventEmitter<activeCat>();
+
+  activeCat: activeCat = {
+    manufacturer: null,
+    category: null
+  }
 
   //#endregion
 
@@ -33,6 +41,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   assetTypes: AssetTypeExtension[] = [];
   arrowIcon = 'assets/icons/arrow-down.svg';
   categoryType$;
+  activeLang = '';
   //#endregion
 
   tree = [];
@@ -73,7 +82,8 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   constructor(
     private facade: AssetTypeFacade,
     private router: Router,
-    private dataService: DataService
+    private dataService: DataService,
+    private settingFacade: SettingsFacade
   ) {}
 
   ngOnInit(): void {
@@ -90,6 +100,10 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.filter.next('SUB_ASSET');
     }, 4000);
+
+    this.settingFacade.language.subscribe((lang) => {
+      this.activeLang = lang;
+    });
   }
 
   createMake(assetType: AssetTypeExtension): void {
@@ -130,6 +144,8 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       item.isSelected = true;
       item.iconSvgClass = 'down-arrow';
     }
+    this.activeCat.category = item.id;
+    this.select.emit(this.activeCat);
     this.selectMake.emit(item.makes);
     this.dataService.updateTree(item.id, item.type, item);
   }
@@ -142,11 +158,14 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       make.isSelected = true;
       make.iconSvgClass = 'down-arrow';
     }
+    this.activeCat.manufacturer = make.id;
+    this.select.emit(this.activeCat);
     this.selectModel.emit(make.models);
     this.dataService.updateTree(make.id, 'make', make);
   }
 
   onModelClick(model: ModelExtension): void {
+    this.select.emit(this.activeCat)
     this.selectTrim.emit(model.trims);
     model.isSelected = !model.isSelected;
     this.dataService.updateTree(model.id, 'model', model);
@@ -183,4 +202,9 @@ export interface MakeExtension extends Make {
 
 export interface ModelExtension extends MakeModel {
   isSelected: boolean;
+}
+
+export interface activeCat {
+  category: number,
+  manufacturer: number;
 }

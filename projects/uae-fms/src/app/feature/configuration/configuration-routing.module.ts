@@ -20,6 +20,7 @@ import { AddTrimComponent } from '@feature/configuration/asset-configuration/add
 const routes: Routes = [
   { path: 'asset-configuration', component: AssetConfigurationComponent },
   { path: 'add-asset-configuration', component: AddTypeComponent },
+  { path: 'edit-asset-configuration/:id', component: AddTypeComponent },
   {
     path: 'asset-configuration/add-make/:assetType',
     component: AddMakeComponent
@@ -32,11 +33,11 @@ const routes: Routes = [
     path: 'asset-configuration/add-trim/:assetType/:make/:model',
     component: AddTrimComponent
   },
-  { path: 'business-category', component: BusinessCategoryComponent },
+  { path: 'usage-category', component: BusinessCategoryComponent },
   { path: 'periodic-service', component: PeriodicServiceComponent },
   { path: 'asset-policy/add-asset-policy', component: AddAssetPolicyComponent },
   {
-    path: 'asset-policy/edit-asset-policy',
+    path: 'asset-policy/edit-asset-policy/:id',
     component: AddAssetPolicyComponent
   },
   { path: 'asset-policy/add', component: AddAssetPolicyComponent },
@@ -51,16 +52,16 @@ const routes: Routes = [
     data: { name: 'Add Periodic Service' }
   },
   {
-    path: 'periodic-service/edit-periodic-service',
+    path: 'periodic-service/edit-periodic-service/:id',
     component: AddPeriodicServiceComponent
   },
   {
-    path: 'business-category/add-usage-category',
+    path: 'usage-category/add-usage-category',
     component: AddCategoryComponent,
     data: { name: 'Category Name' }
   },
   {
-    path: 'business-category/edit-usage-category',
+    path: 'usage-category/edit-usage-category/:id',
     component: AddCategoryComponent
   },
   {
@@ -72,7 +73,7 @@ const routes: Routes = [
   },
   { path: 'periodic-service', component: PeriodicServiceComponent },
   { path: 'asset-policy', component: AssetPolicyComponent },
-  { path: 'business-category', component: BusinessCategoryComponent },
+  { path: 'usage-category', component: BusinessCategoryComponent },
   { path: 'asset-configuration', component: AssetConfigurationComponent },
   /* { path: 'fleet-status', component: FleetStatusComponent },
   {

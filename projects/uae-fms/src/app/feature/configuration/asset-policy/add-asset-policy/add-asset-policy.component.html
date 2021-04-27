@@ -55,9 +55,7 @@
       <div class="col-12 col-md-3 p-field form-section__field">
         <span class="p-float-label w-100">
           <input formControlName="kilometerUsage" pInputText
-            (keydown)="assetPolicyForm.get('yearUsage').patchValue(null)"
             placeholder="{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *" type="number"
-            [attr.disabled]="assetPolicyForm.get('yearUsage').value && assetPolicyForm.get('yearUsage').value!=''"
             class="w-100">
           <label>{{ 'configuration.asset_policy.asset.kilometer_hour' | translate }} *</label>
         </span>
@@ -70,9 +68,8 @@
       </div>
       <div class="col-12 col-md-3 p-field form-section__field">
         <span class="p-float-label w-100">
-          <input formControlName="yearUsage" (keydown)="assetPolicyForm.get('kilometerUsage').patchValue(null)"
-            pInputText placeholder="{{ 'configuration.asset_policy.asset.year' | translate }}" type="number"
-            [attr.disabled]="assetPolicyForm.get('kilometerUsage').value&&assetPolicyForm.get('kilometerUsage').value!=''" class="w-100">
+          <input formControlName="yearUsage" pInputText
+            placeholder="{{ 'configuration.asset_policy.asset.year' | translate }}" type="number" class="w-100">
           <label>{{ 'configuration.asset_policy.asset.year' | translate }}</label>
         </span>
         <anms-error [showError]="hasError('yearUsage',assetPolicyForm,submitted)" error="forms.feedback.required">
@@ -89,8 +86,9 @@
           </span>
           <span class="yearly">{{ 'configuration.asset_policy.asset.yearly' | translate }}</span>
         </div>
-            <anms-error [showError]="hasError('depreciationValue',assetPolicyForm,submitted)" error="forms.feedback.required">
-            </anms-error>
+        <anms-error [showError]="hasError('depreciationValue',assetPolicyForm,submitted)"
+          error="forms.feedback.required">
+        </anms-error>
       </div>
 
       <div class="col-12 col-md-3 form-section__field toggle-select">
