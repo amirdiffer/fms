@@ -38,9 +38,15 @@ export class Utility {
     controlName?: string,
     errorType = 'required'
   ): boolean {
-    const formControl: FormControl = formArray
-      .at(index)
-      .get(controlName) as FormControl;
+    let formControl: FormControl;
+    if (controlName) {
+      formControl = formArray
+        .at(index)
+        .get(controlName) as FormControl;
+    } else {
+      formControl = formArray
+        .at(index) as FormControl;
+    }
     return (
       ((formControl.dirty && formControl.invalid) ||
         (formControl.invalid && submited)) &&

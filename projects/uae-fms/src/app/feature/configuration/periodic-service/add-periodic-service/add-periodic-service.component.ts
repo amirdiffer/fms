@@ -1,6 +1,6 @@
 import { PeriodicServiceService } from './../../+state/periodic-service/periodic-service.service';
 import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { RouterFacade } from '@core/router';
 import { ColumnDifinition, ColumnType } from '@core/table';
@@ -109,6 +109,7 @@ export class AddPeriodicServiceComponent
   //#endregion
 
   taskList: any[] = [];
+  taskListB;
   taskFiltered: any[] = [];
   tasks$: Subscription;
   get task(): FormArray {
@@ -146,8 +147,8 @@ export class AddPeriodicServiceComponent
   ngOnInit(): void {
     // this.periodicServiceFacade.loadAll();
     this.tasks$ = this._taskMasterService.getAllTaks().subscribe((x) => {
-      console.log(x);
-      this.taskList = x.message;
+      let data = x.message;
+      this.taskListB = data.map((y) => ({ id: y.id, name: y.name }));
     });
     this.periodicServiceForm = this._fb.group({
       name: ['', [Validators.required]],
@@ -203,17 +204,23 @@ export class AddPeriodicServiceComponent
     });
   }
 
-  getAllTask(event) {
-    let query = event.query;
-    let filtered = [];
-    for (let index = 0; index < this.taskList.length; index++) {
-      let task = this.taskList[index];
-      console.log(task);
-      if (task.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(task);
-      }
-    }
-    this.taskFiltered = filtered;
+  // getAllTask(event) {
+  //   let query = event.query;
+  //   let filtered = [];
+  //   for (let index = 0; index < this.taskList.length; index++) {
+  //     let task = this.taskList[index];
+  //     if (task.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+  //       filtered.push(task);
+  //     }
+  //   }
+  //   this.taskFiltered = filtered;
+  // }
+  filterTasks(event) {
+    this.taskList = this.taskListB.filter(
+      (x) =>
+        (x.id + '').indexOf(event.query) >= 0 ||
+        x.name.indexOf(event.query) >= 0
+    );
   }
 
   loadPeriodicServiceForm(periodicService: any) {
@@ -221,7 +228,13 @@ export class AddPeriodicServiceComponent
     this.packages.removeAt(0);
 
     periodicService.packages.forEach((pack) => {
-      this.addPackage(pack.name, pack.intervalValue, pack.tasks);
+      let tasks = (<Array<object>>pack.tasks).map(x => {
+        return {
+          id: x['taskMasterId'],
+          name: x['taskMasterName']
+        }
+      });
+      this.addPackage(pack.name, pack.intervalValue, tasks);
     });
 
 
@@ -236,9 +249,7 @@ export class AddPeriodicServiceComponent
           name: x.name,
           tasks: x.tasks.map(y => {
             return {
-              id: y.id,
-              taskMasterId: y.taskMasterId,
-              taskMasterName: y.taskMasterName,
+              id: y.taskMasterId,
               name:y.taskMasterName
             }
           })
@@ -247,17 +258,15 @@ export class AddPeriodicServiceComponent
     });
   }
 
-  createTaskForm(taskName = ''): FormGroup {
-    return this._fb.group({
-      name: [taskName, [Validators.required]]
-    });
+  createTaskForm(taskName = '', id = null): FormControl {
+    return this._fb.control(id, [Validators.required])
   }
 
   createPackageForm(packageName = '', intervals = '', tasks?): FormGroup {
     if (tasks && tasks.length > 0) {
       let forms = [];
       tasks.forEach((element) => {
-        forms.push(this.createTaskForm(element.name));
+        forms.push(this.createTaskForm(element.name, element.id));
       });
       return this._fb.group({
         packageName: [packageName, [Validators.required]],
@@ -318,7 +327,7 @@ export class AddPeriodicServiceComponent
           name: p.packageName,
           intervalType: p.intervalType?.id ? p.intervalType?.id : 'KmPY',
           intervalValue: p.intervals,
-          tasks: p.tasks.map((t) => t.name.id)
+          tasks: p.tasks.map((t) => t.id)
         };
       })
     };

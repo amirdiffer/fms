@@ -60,7 +60,7 @@
           <div class="form-section__field w-100">
             <span class="p-float-label">
               <input formControlName="intervals" pInputText placeholder="{{ 'configuration.periodic_service.intervals' |
-                translate }}" type="text">
+                translate }}" type="number">
               <label>{{ 'configuration.periodic_service.intervals' | translate
                 }}</label>
             </span>
@@ -73,17 +73,18 @@
         <div class="col-12 col-md-5 p-field form-section__field" formArrayName="tasks">
           <div class="mt-2">
           <div class="mb-3 p-field form-section__field d-flex " *ngFor="let item of getPackageTasks(i).controls ;let j=index; let last=last;">
-            <div class="input-group flex-with-button" [formGroupName]="j">
+            <div class="input-group flex-with-button">
               <div class="autocomplete-select w-100">
                 <span class="p-float-label">
-                  <p-autoComplete formControlName="name" (completeMethod)="getAllTask($event)"
-                                  [suggestions]="taskFiltered" field="name" [minLength]="1"
+<!--                  {{ item.value.id }}-->
+                  <p-autoComplete [formControl]="item" (completeMethod)="filterTasks($event)"
+                                  [suggestions]="taskList" field="name" [minLength]="1"
                                   [dropdown]="true"></p-autoComplete>
                                   <i class="pi pi-search"></i>
                                   <label>{{ 'configuration.periodic_service.task' | translate }} *</label>
                 </span>
               </div>
-              <anms-error [showError]="formArrayHasError(submitted, getTasksForm(i, j), j, 'name')" error="forms.feedback.required"></anms-error>
+              <anms-error [showError]="formArrayHasError(submitted, getPackageTasks(i), j)" error="forms.feedback.required"></anms-error>
 
             </div>
             <span *ngIf="last" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer','height': '40px'}"
