@@ -525,7 +525,9 @@
       "role_name":"Role Name",
       "number_of_user":"Number Of User",
       "spare_part": "Spare Part",
-      "working_hours": "Working Hours"
+      "working_hours": "Working Hours",
+      "num_accessory": "Num Of Accessories",
+      "num_subasset": "Num Of Sub Assets"
     },
     "button": {
       "view_report": "View Report",

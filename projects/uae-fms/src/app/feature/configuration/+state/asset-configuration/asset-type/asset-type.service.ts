@@ -16,6 +16,25 @@ export class AssetTypeService {
     );
   }
 
+  allAsset(): Observable<ResponseBody<any>> {
+    return this.http.get<ResponseBody<IAssetType[]>>(
+      environment.baseApiUrl + 'configuration/fleet-configuration/asset'
+    );
+  }
+
+  allSubAsset(): Observable<ResponseBody<any>> {
+    return this.http.get<ResponseBody<IAssetType[]>>(
+      environment.baseApiUrl + 'configuration/fleet-configuration/sub-asset'
+    );
+  }
+
+  allAccessory(): Observable<ResponseBody<any>> {
+    return this.http.get<ResponseBody<IAssetType[]>>(
+      environment.baseApiUrl + 'configuration/fleet-configuration/accessory'
+    );
+  }
+
+
   post(data): Observable<ResponseBody<any>> {
     return this.http.post<ResponseBody<any>>(
       environment.baseApiUrl + 'configuration/asset-type',
