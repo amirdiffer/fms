@@ -44,9 +44,22 @@ import {
   AssetConfigurationService
 } from '../+state/asset-configuration';
 import { AssetConfigurationEffect } from '../+state/asset-configuration/asset-configuration.effect';
-import { AssetTypeEffect } from './asset-configuration/asset-type/asset-type.effect';
-import { AssetTypeFacade } from './asset-configuration/asset-type/asset-type.facade';
-import { AssetTypeService } from './asset-configuration/asset-type/asset-type.service';
+// import { AssetTypeEffect } from './asset-configuration/asset-type/asset-type.effect';
+// import { AssetTypeFacade } from './asset-configuration/asset-type/asset-type.facade';
+// import { AssetTypeService } from './asset-configuration/asset-type/asset-type.service';
+
+import { AssetTypeEffect } from './fleet-configuration/asset-type/asset-type.effects';
+import { AccessoryTypeEffect } from './fleet-configuration/accessory-type/accessory-type.effects';
+import { SubAssetTypeEffect } from './fleet-configuration/sub-asset-type/sub-asset-type.effects';
+import { 
+  AssetTypeFacade ,  
+  AssetTypeService,
+  AccessoryTypeFacade,
+  AccessoryTypeService,
+  SubAssetTypeFacade,
+  SubAssetTypeService
+ } from './fleet-configuration/index';
+
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
 
 @NgModule({
@@ -64,7 +77,9 @@ import { TaskMasterService } from '@feature/workshop/+state/task-master';
       OwnershipEffect,
       PeriodicServiceEffect,
       AssetConfigurationEffect,
-      AssetTypeEffect
+      AssetTypeEffect,
+      AccessoryTypeEffect,
+      SubAssetTypeEffect
     ])
   ],
   providers: [
@@ -90,6 +105,10 @@ import { TaskMasterService } from '@feature/workshop/+state/task-master';
     AssetConfigurationService,
     AssetTypeFacade,
     AssetTypeService,
+    AccessoryTypeFacade,
+    AccessoryTypeService,
+    SubAssetTypeFacade,
+    SubAssetTypeService,
     TaskMasterService
   ]
 })
