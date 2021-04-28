@@ -18,7 +18,7 @@ import { TableSetting } from '@core/table';
 import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetConfigurationService } from '@feature/configuration/asset-configuration/asset-configuration.service';
-import { AssetTypeFacade } from '@feature/configuration/+state/asset-configuration';
+import { AssetTypeFacade, SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/index';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { Utility } from '@shared/utility/utility';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -43,7 +43,7 @@ export class AddModelComponent
   percent = 80;
   fileName = 'CSV File only';
   submited = false;
-
+  selectedType;
   assetTypeSubs$: Subscription;
 
   assetConfigurationTableSetting!: TableSetting;
@@ -71,6 +71,7 @@ export class AddModelComponent
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
+    private _subAssetTypeFacade : SubAssetTypeFacade,
     public dataService: DataService,
     public router: Router,
     injector: Injector
@@ -84,7 +85,11 @@ export class AddModelComponent
       typeCategory: ['asset', Validators.required],
       models: new FormArray([this.createModel()])
     });
-
+    this.dataService.watchType().subscribe(
+      (x) => {this.selectedType = x}
+    )
+    this.errorAndSubmitHandler(this.facade);
+    this.errorAndSubmitHandler(this._subAssetTypeFacade);
     this.route.params.subscribe((x) => {
       if (x && x.assetType) this.assetTypeId = x.assetType;
       if (x && x.make) this.makeId = x.make;
@@ -124,28 +129,7 @@ export class AddModelComponent
         .then((_) => this.facade.resetParams());
     }
 
-    this.facade.submitted$.subscribe((x) => {
-      if (x) {
-        this.dialogModal = true;
-        this.dialogSetting.header = 'Add new type';
-        this.dialogSetting.message = 'Make Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
-      }
-    });
-
-    this.facade.error$.subscribe((x) => {
-      if (x?.error) {
-        this.dialogModal = true;
-        this.dialogSetting.header = 'Add new make';
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.message = 'Error occurred in progress';
-        this.dialogSetting.cancelButton = undefined;
-        this.dialogSetting.confirmButton = 'OK';
-      }
-    });
+    
   }
 
   createModel(isOptional?: boolean): FormGroup {
@@ -261,25 +245,81 @@ export class AddModelComponent
 
     const models = this.inputForm.value.models;
 
-    let data = models.map((x) => {
-      if (x.id) {
-        return {
-          id: x.id,
-          model: x.model,
-          modelDescription: x.modelDescription
-        };
-      } else
-        return {
-          model: x.model,
-          modelDescription: x.modelDescription
-        };
-    });
+    let data = {
+      models:models.map((x) => {
+        if (x.id) {
+          if(this.selectedType == "SUB_ASSET"){
+            return {
+              id: x.id,
+              name: x.model,
+              description: x.modelDescription,
+              origins: ["Japan"]
+            }
+          }else{
+            return {
+              id: x.id,
+              name: x.model,
+              description: x.modelDescription
+            }
+          }
+        } else {
+          if(this.selectedType == "SUB_ASSET"){
+            return {
+              origins: ["Japan"],
+              name: x.model,
+              description: x.modelDescription
+            };
+          }else{
+            return{
+              name: x.model,
+              description: x.modelDescription
+            }
+          }
+        }
+        
+      })
+    };
+    switch (this.selectedType) {
+      case 'ASSET':
+        this.facade.addModel(data, this.assetTypeId, this.makeId);
+        break;
+      case 'SUB_ASSET':
+        this._subAssetTypeFacade.addModel(data, this.assetTypeId , this.makeId)
+        break;
+      default:
+        break;
+    }
 
-    this.facade.addModel(data, this.assetTypeId, this.makeId);
+    
     // this._assetConfigurationService.loadAddForm(false);
   }
+  errorAndSubmitHandler(facade){
+    facade.submitted$.subscribe((x) => {
+      if (x) {
+        this.dialogModal = true;
+        this.dialogSetting.header = 'Add new type';
+        this.dialogSetting.message = 'Make Added Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'OK';
+        this.dialogSetting.cancelButton = undefined;
+      }
+    });
 
+    facade.error$.subscribe((x) => {
+      if (x?.error) {
+        this.dialogModal = true;
+        this.dialogSetting.header = 'Add new make';
+        this.dialogSetting.hasError = true;
+        this.dialogSetting.message = 'Error occurred in progress';
+        this.dialogSetting.cancelButton = undefined;
+        this.dialogSetting.confirmButton = 'OK';
+      }
+    });
+  }
   ngOnDestroy(): void {
     this.assetTypeSubs$.unsubscribe();
+    this._subAssetTypeFacade.resetParams();
+    this.facade.resetParams();
   }
 }

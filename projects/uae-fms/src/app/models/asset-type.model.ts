@@ -1,8 +1,8 @@
 export interface IAssetType {
   id: number;
   name: string;
-  type: string;
-  typeDescription: string;
+  type?: string;
+  description: string;
   isActive: false;
   makes?: Make[];
 }
@@ -24,7 +24,8 @@ export interface MakeModel {
 
 export interface MakeModelTrim {
   id: number;
-  trim: string;
+  trim?: string;
+  name?: string;
   colors: MakeModelTrimColor[];
 }
 
