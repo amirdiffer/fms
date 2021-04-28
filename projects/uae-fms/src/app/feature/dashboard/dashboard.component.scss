@@ -4,8 +4,19 @@
     border: none;
     font-size: 1.2em !important;
   }
-
+  .p-4{
+    padding:1.5em !important
+  }
   .category {
+    display: flex;
+    padding-right: .6em;
+    padding-left: .6em;
+    &.two-column{
+      justify-content: space-between;
+      .dashboard-card{
+        flex: 0 0 47%;
+      }
+    }
     h6.card-header {
       line-height: 1.1rem;
       height: 1.1rem;
@@ -74,7 +85,8 @@
   .dashboard-card {
     border-radius: 6px;
     // height: 73%;
-    height: 366px;
+    // height: 366px;
+    width: 100%;
     max-width: 100%;
   }
   .work-overview-card {

@@ -2,18 +2,26 @@
     <div class="row wrapper">
         <div class="category col-3">
             <div class="dashboard-card">
-                <anms-business-category></anms-business-category>
+                <detail-card-dashboard [title]="'Business Category'"
+                [subtitle]="'Number Of Asset In This Category'"
+                [chartData]="bussinessCategoryChartData"></detail-card-dashboard>
             </div>
         </div>
         <div class="category col-3">
             <div class="dashboard-card">
-                <anms-business-category></anms-business-category>
+                <detail-card-dashboard [title]="'Asset In Department'"
+                [subtitle]="'Number Of Asset In This Category'"
+                [chartData]="AssetDepartmentChartData"></detail-card-dashboard>
             </div>
         </div>
-        <div class="category col-3">
-            <div class="dashboard-card">
-                <anms-business-category></anms-business-category>
+        <div class="category flex-column two-column col-3">
+            <div class="dashboard-card  ">
+                <detail-mini-card-dashboard></detail-mini-card-dashboard>
             </div>
+            <div class="dashboard-card ">
+                <detail-mini-card-dashboard></detail-mini-card-dashboard>
+            </div>
+            
         </div>
         <div class="category col-3">
             <div class="dashboard-card">

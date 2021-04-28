@@ -7,11 +7,20 @@ import {
 } from 'ng-apexcharts';
 
 @Component({
-  selector: 'anms-radial-progress-bar',
-  templateUrl: './radial-progress-bar.component.html',
-  styleUrls: ['./radial-progress-bar.component.scss']
+  selector: 'regular-radial-progress-bar',
+  template:`
+  <div #chart>
+    <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [plotOptions]="chartOptions.plotOptions"
+        [colors]="chartOptions.colors">
+    </apx-chart>
+  </div>
+  `,
+  styleUrls: ['./chart-progress-bar.scss']
 })
-export class RadialProgressBarComponent implements OnInit {
+export class RegularRadialProgressBarComponent implements OnInit {
   @Input() percent;
   @Input() color;
   checkIcon = 'assets/icons/checked.svg';
