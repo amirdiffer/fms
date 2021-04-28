@@ -135,7 +135,7 @@ export class AddModelComponent
   createModel(isOptional?: boolean): FormGroup {
     if (isOptional) {
       return this._fb.group({
-        id: [],
+        id: [''],
         model: ['', [Validators.required]],
         modelDescription: ['', [Validators.required]],
         trims: [[]]
