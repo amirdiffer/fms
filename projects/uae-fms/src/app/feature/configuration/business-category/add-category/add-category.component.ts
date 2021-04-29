@@ -8,13 +8,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
 import { TableSetting } from '@core/table';
 import { map } from 'rxjs/operators';
-
-import { AccessoryFacade } from '@feature/fleet/+state/accessory';
-import {
-  SubAssetFacade,
-  SubAssetService
-} from '@feature/fleet/+state/sub-asset';
-import { AssetConfigurationFacade, AssetTypeFacade, AssetTypeService } from '../../+state/asset-configuration';
+import { AssetTypeFacade, AccessoryTypeFacade, SubAssetTypeFacade } from '../../+state/fleet-configuration';
 
 @Component({
   selector: 'anms-add-category',
@@ -99,27 +93,29 @@ export class AddCategoryComponent extends Utility implements OnInit {
     private networkService: BusinessCategoryService,
     private facade: BusinessCategoryFacade,
     private assetTypeFacade: AssetTypeFacade,
-    private assetTypeService: AssetTypeService,
-    private assetConfFacade: AssetConfigurationFacade
+    private subAssetTypeFacade: SubAssetTypeFacade,
+    private accessoryTypeFacade: AccessoryTypeFacade,
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
-    this.assetConfFacade.loadAll();
-    this.assetTypeService.allAsset().subscribe(x => {
-      let data = x.message;
-      this.assetTypesB = data.map((y) => ({ id: y.id, name: y.name }));
+    this.assetTypeFacade.loadAll();
+    this.subAssetTypeFacade.loadAll();
+    this.accessoryTypeFacade.loadAll();
+    this.assetTypeFacade.assetType$.subscribe(x => {
+      // let data = x.message;
+      this.assetTypesB = x.map((y) => ({ id: y.id, name: y.name }));
     });
 
-    this.assetTypeService.allAccessory().subscribe((x) => {
-      let data = x.message;
-      this.accessoriesB = data.map((y) => ({ id: y.id, name: y.name }));
+    this.accessoryTypeFacade.accessoryType$.subscribe((x) => {
+      // let data = x.message;
+      this.accessoriesB = x.map((y) => ({ id: y.id, name: y.name }));
     });
 
-    this.assetTypeService.allSubAsset().subscribe(
+    this.subAssetTypeFacade.subAssetType$.subscribe(
       (x) => {
-        this.subAssets = x.message.map((y) => ({
+        this.subAssets = x.map((y) => ({
           id: y.id,
           name: y.name,
           makes: y.makes
@@ -367,15 +363,7 @@ export class AddCategoryComponent extends Utility implements OnInit {
     this.assetTypes = this.assetTypesB.filter(
       (x) => x.name.toLowerCase().indexOf(event.query.toLowerCase()) >= 0
     );
-    console.log(this.assetTypes)
   }
-
-  // filterSubAssets(event) {
-  //   //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-  //   this.subAssets = this.subAssetsB.filter(
-  //     (x) => x.name.toLowerCase().indexOf(event.query.toLowerCase()) >= 0
-  //   );
-  // }
 
   filterAccessories(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
