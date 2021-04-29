@@ -7,12 +7,12 @@ import {
   NgxFileDropEntry
 } from 'ngx-file-drop';
 import { ColumnDifinition, TableSetting } from '@core/table';
-import { SubAssetFacade } from '@feature/fleet/+state/sub-asset/sub-asset.facade';
 import { RouterFacade } from '@core/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import * as moment from 'moment';
 import { SubAssetTypeService, SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
 import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
+import { SubAssetService, SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 
 const SUB_ASSET_LABEL = 'SUB_ASSET';
 
@@ -134,6 +134,8 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   constructor(
     injector: Injector,
     private _fb: FormBuilder,
+    private subAssetFacade: SubAssetFacade,
+    private subAssetService: SubAssetService,
     private subAssetTypeFacade: SubAssetTypeFacade,
     private subAssetTypeService: SubAssetTypeService,
     private assetPolicyFacade: AssetPolicyFacade,
@@ -169,7 +171,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
 
   loadSubAssetFormData(recordId: number) {
-    this.subAssetTypeService.getSubAssetTypeById(recordId).subscribe((result: any) => {
+    this.subAssetService.getSubAsset(recordId).subscribe((result: any) => {
       if (result && result.message) {
         const subAsset = result.message;
         for (let index = 0; index < subAsset.warranties.length - 1; index++) {
@@ -196,17 +198,16 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           ? subAsset.avatarId
           : [subAsset.avatarId];
         const {
-          assetTypeId,
-          assetTypeName,
+          subAssetConfigurationId,
+          subAssetConfigurationName,
           avatarId,
           date,
           description,
           dpd,
-          makeId,
-          makeName,
-          modelId,
-          modelName,
-          origin,
+          subAssetMakeId,
+          subAssetMakeName,
+          subAssetModelId,
+          subAssetModelName,
           policyTypeId,
           policyTypeName,
           purchaseValue,
@@ -214,42 +215,43 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         } = subAsset;
 
         const selectedSubAsset: any = this.subAssetTypes.find(
-          (a) => a.id === assetTypeId
+          (a) => a.id === subAssetConfigurationId
         );
         this.setMakes(selectedSubAsset);
-        const selectedMake: any = this.makes.find((a) => a.id === makeId);
+        const selectedMake: any = this.makes.find((a) => a.id === subAssetMakeId);
         this.setModels(selectedMake);
-        const selectedModel: any = this.models.find((a) => a.id === modelId);
+        const selectedModel: any = this.models.find((a) => a.id === subAssetModelId);
 
         const subAssetType = {
-          id: assetTypeId,
-          name: assetTypeName,
+          id: subAssetConfigurationId,
+          name: subAssetConfigurationName,
           children: selectedSubAsset ? selectedSubAsset.children : []
         };
         const make = {
-          id: makeId,
-          name: makeName,
+          id: subAssetMakeId,
+          name: subAssetMakeName,
           children: selectedMake ? selectedMake.children : []
         };
         const model = {
-          id: modelId,
-          name: modelName,
+          id: subAssetModelId,
+          name: subAssetModelName,
           children: selectedModel ? selectedModel.children : []
         };
         const policyType = { id: policyTypeId, name: policyTypeName };
 
         const formValue = {
           serialNumber: dpd,
-          subAssetType,
-          make,
-          model,
+          subAssetType: subAssetConfigurationId,
+          make: subAssetMakeId,
+          model: subAssetModelId,
           year,
-          origin,
           policyType,
           purchaseValue,
           description
         };
+        console.log(formValue)
         this.subAssetForm.patchValue(formValue);
+        console.log(this.subAssetForm.value)
         this.subAssetForm.patchValue({
           year: +formValue.year
         });
@@ -259,7 +261,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     });
   }
   handleSubmissionDialog() {
-    this.subAssetTypeFacade.submitted$.subscribe((x) => {
+    this.subAssetFacade.submitted$.subscribe((x) => {
       if (x) {
         this.dialogModal = true;
         this.dialogType = 'success';
@@ -278,7 +280,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
 
   handleErrorDialog() {
-    this.subAssetTypeFacade.error$.subscribe((x) => {
+    this.subAssetFacade.error$.subscribe((x) => {
       if (x?.error) {
         this.errorDialogModal = true;
         this.errorDialogSetting.header = this.isEdit
@@ -300,7 +302,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       make: ['', [Validators.required]],
       model: ['', [Validators.required]],
       year: ['', [Validators.required]],
-      origin: ['', [Validators.required]],
       policyType: [''],
       purchaseValue: ['', [Validators.required]],
       avatarId: [],
@@ -344,7 +345,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   dialogConfirm($event) {
     this.dialogModal = false;
     if ($event) {
-      // this.subAssetTypeFacade.reset();
+      this.subAssetFacade.reset();
       this._goToList();
     }
     return;
@@ -478,10 +479,10 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     } else {
       const data = this.getSubAssetRequestPayload(this.subAssetForm.value);
       if (!this.isEdit) {
-        this.subAssetTypeFacade.addSubAssetType(data);
+        this.subAssetFacade.addSubAsset(data);
       } else {
         data['id'] = this.recordId;
-        this.subAssetTypeFacade.updateSubAssetType(data);
+        this.subAssetFacade.editSubAsset(data);
       }
     }
   }
@@ -493,11 +494,11 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       avatarId,
       subAssetType,
       policyType,
-      origin,
       year,
       purchaseValue,
       description,
-      warranties
+      warranties,
+      serialNumber
     } = subAssetFormValue;
 
     // eg. DPD129348
@@ -510,10 +511,9 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       return {
         id: this.recordId,
         avatarId,
-        dpd,
-        assetTypeId: subAssetType.id,
+        serialNumbers: [dpd],
+        subAssetConfigurationId: subAssetType.id,
         makeId: make.id,
-        origin: origin,
         modelId: model.id,
         year: +year,
         policyTypeId: policyType.id,
@@ -543,10 +543,9 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       }
       return {
         avatarId,
-        dpds,
-        assetTypeId: subAssetType.id,
+        serialNumbers: dpds,
+        subAssetConfigurationId: subAssetType.id,
         makeId: make.id,
-        origin: origin,
         modelId: model.id,
         year: +year,
         policyTypeId: policyType.id,
