@@ -14,7 +14,7 @@ import {
   SubAssetFacade,
   SubAssetService
 } from '@feature/fleet/+state/sub-asset';
-import { AssetTypeFacade, AssetTypeService } from '../../+state/asset-configuration';
+import { AssetConfigurationFacade, AssetTypeFacade, AssetTypeService } from '../../+state/asset-configuration';
 
 @Component({
   selector: 'anms-add-category',
@@ -100,12 +100,13 @@ export class AddCategoryComponent extends Utility implements OnInit {
     private facade: BusinessCategoryFacade,
     private assetTypeFacade: AssetTypeFacade,
     private assetTypeService: AssetTypeService,
+    private assetConfFacade: AssetConfigurationFacade
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
-
+    this.assetConfFacade.loadAll();
     this.assetTypeService.allAsset().subscribe(x => {
       let data = x.message;
       this.assetTypesB = data.map((y) => ({ id: y.id, name: y.name }));

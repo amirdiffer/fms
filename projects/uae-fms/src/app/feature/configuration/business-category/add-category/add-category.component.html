@@ -76,8 +76,8 @@
         </div>
         <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
         <span class="p-float-label">
-          <p-dropdown inputId="subAsset" [placeholder]="'assets.type' | translate" [options]="subAssets" optionLabel="name" optionValue="id" formControlName="subAsset" (onChange)="onChangeSubAsset($event, index, true)"></p-dropdown>
-          <label for="subAsset">{{ 'assets.type' | translate }} *</label>
+          <p-dropdown inputId="subAsset" [placeholder]="'configuration.business_category.sub_asset' | translate" [options]="subAssets" optionLabel="name" optionValue="id" formControlName="subAsset" (onChange)="onChangeSubAsset($event, index, true)"></p-dropdown>
+          <label for="subAsset">{{ 'configuration.business_category.sub_asset' | translate }} *</label>
         </span>
           <anms-error
             [showError]="formArrayHasError(submited, assignSubAsset, index, 'subAssetMake')"
@@ -86,8 +86,8 @@
         </div>
         <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
         <span class="p-float-label">
-          <p-dropdown inputId="make" [placeholder]="'assets.type' | translate" [options]="subAssetMake[index]" optionLabel="name" optionValue="id" formControlName="subAssetMake" (onChange)="onChangeSubAssetMake($event, index, true)"></p-dropdown>
-          <label for="make">{{ 'assets.type' | translate }} *</label>
+          <p-dropdown inputId="make" [placeholder]="'configuration.business_category.make' | translate" [options]="subAssetMake[index]" optionLabel="name" optionValue="id" formControlName="subAssetMake" (onChange)="onChangeSubAssetMake($event, index, true)"></p-dropdown>
+          <label for="make">{{ 'configuration.business_category.make' | translate }} *</label>
         </span>
           <anms-error
             [showError]="formArrayHasError(submited, assignSubAsset, index, 'subAssetMake')"
@@ -96,8 +96,8 @@
         </div>
         <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
         <span class="p-float-label">
-          <p-dropdown inputId="model" [placeholder]="'assets.type' | translate" [options]="subAssetModel[index]" optionLabel="name" optionValue="id" formControlName="subAssetModel" (onChange)="onChangeSubAssetModel($event, index)"></p-dropdown>
-          <label for="model">{{ 'assets.type' | translate }} *</label>
+          <p-dropdown inputId="model" [placeholder]="'configuration.business_category.model' | translate" [options]="subAssetModel[index]" optionLabel="name" optionValue="id" formControlName="subAssetModel" (onChange)="onChangeSubAssetModel($event, index)"></p-dropdown>
+          <label for="model">{{ 'configuration.business_category.model' | translate }} *</label>
         </span>
           <anms-error
             [showError]="formArrayHasError(submited, assignSubAsset, index, 'subAssetModel')"

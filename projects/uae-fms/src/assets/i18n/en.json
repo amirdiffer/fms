@@ -1557,6 +1557,8 @@
       "sub_asset": "Sub Asset",
       "quantity": "Quantity",
       "accessory": "Accessory",
+      "make": "Make",
+      "model": "Model",
       "upload_form": {
         "title": "",
         "progressbar_title": "",

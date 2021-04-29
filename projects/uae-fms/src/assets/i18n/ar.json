@@ -1509,6 +1509,8 @@
       "sub_asset": "أصل فرعي",
       "quantity": "العدد",
       "accessory": "الملحقات",
+      "model": "نموذج",
+      "make": "صنع",
       "upload_form": {
         "title": "",
         "progressbar_title": "",
