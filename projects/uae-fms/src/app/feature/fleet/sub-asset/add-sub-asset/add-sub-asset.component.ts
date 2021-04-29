@@ -1,4 +1,3 @@
-import { SubAssetService } from './../../+state/sub-asset/sub-asset.service';
 import { Component, OnInit, Injector } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
@@ -12,6 +11,8 @@ import { SubAssetFacade } from '@feature/fleet/+state/sub-asset/sub-asset.facade
 import { RouterFacade } from '@core/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import * as moment from 'moment';
+import { SubAssetTypeService, SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
+import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
 
 const SUB_ASSET_LABEL = 'SUB_ASSET';
 
@@ -133,14 +134,17 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   constructor(
     injector: Injector,
     private _fb: FormBuilder,
-    private subAssetFacade: SubAssetFacade,
-    private subAssetService: SubAssetService,
+    private subAssetTypeFacade: SubAssetTypeFacade,
+    private subAssetTypeService: SubAssetTypeService,
+    private assetPolicyFacade: AssetPolicyFacade,
     private routerFacade: RouterFacade
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this.subAssetTypeFacade.loadAll();
+    this.assetPolicyFacade.loadAll();
     this.buildForm();
     this.handleEditMode();
 
@@ -165,7 +169,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
 
   loadSubAssetFormData(recordId: number) {
-    this.subAssetService.getSubAsset(recordId).subscribe((result: any) => {
+    this.subAssetTypeService.getSubAssetTypeById(recordId).subscribe((result: any) => {
       if (result && result.message) {
         const subAsset = result.message;
         for (let index = 0; index < subAsset.warranties.length - 1; index++) {
@@ -255,7 +259,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     });
   }
   handleSubmissionDialog() {
-    this.subAssetFacade.submitted$.subscribe((x) => {
+    this.subAssetTypeFacade.submitted$.subscribe((x) => {
       if (x) {
         this.dialogModal = true;
         this.dialogType = 'success';
@@ -274,7 +278,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
 
   handleErrorDialog() {
-    this.subAssetFacade.error$.subscribe((x) => {
+    this.subAssetTypeFacade.error$.subscribe((x) => {
       if (x?.error) {
         this.errorDialogModal = true;
         this.errorDialogSetting.header = this.isEdit
@@ -310,12 +314,10 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
 
   initPolicyTypes() {
-    this.subAssetService.getPolicyTypes().subscribe(
+    this.assetPolicyFacade.assetPolicy$.subscribe(
       (result) => {
         if (result) {
-          const policyTypes = result.message;
-
-          this.policyTypes = policyTypes.map((policyType) => ({
+          this.policyTypes = result.map((policyType) => ({
             id: policyType.id,
             name: policyType.name
           }));
@@ -326,15 +328,10 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
 
   initAssetTypes() {
-    this.subAssetService.getAssetTypes().subscribe(
+    this.subAssetTypeFacade.subAssetType$.subscribe(
       (result) => {
         if (result) {
-          const assetTypes = result.message;
-
-          const subAssetTypes = assetTypes.filter(
-            (assetType) => assetType.type === SUB_ASSET_LABEL
-          );
-          this.setAssetTypes(subAssetTypes);
+          this.setAssetTypes(result);
           if (this.isEdit) {
             this.loadSubAssetFormData(this.recordId);
           }
@@ -347,7 +344,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   dialogConfirm($event) {
     this.dialogModal = false;
     if ($event) {
-      this.subAssetFacade.reset();
+      // this.subAssetTypeFacade.reset();
       this._goToList();
     }
     return;
@@ -457,7 +454,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     const makes = subAssetType.children;
     return (this.makes = makes.map((make) => ({
       id: make.id,
-      name: make.make,
+      name: make.name,
       children: make.models ? make.models : []
     })));
   }
@@ -470,8 +467,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     const models = make.children;
     return (this.models = models.map((model) => ({
       id: model.id,
-      name: model.model,
-      children: model.trims ? model.trims : []
+      name: model.name,
     })));
   }
 
@@ -482,10 +478,10 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     } else {
       const data = this.getSubAssetRequestPayload(this.subAssetForm.value);
       if (!this.isEdit) {
-        this.subAssetFacade.addSubAsset(data);
+        this.subAssetTypeFacade.addSubAssetType(data);
       } else {
         data['id'] = this.recordId;
-        this.subAssetFacade.editSubAsset(data);
+        this.subAssetTypeFacade.updateSubAssetType(data);
       }
     }
   }
