@@ -1596,7 +1596,8 @@
       "autocomplete_select":"الرجاء البحث وتحديد عنصر"
     },
     "order": "ترتيب",
-    "submit": "يقدم"
+    "submit": "يقدم",
+    "operator_list": "قائمة المشغل"
   },
   "login": {
     "incorrect_password": "كلمة سر خاطئة",

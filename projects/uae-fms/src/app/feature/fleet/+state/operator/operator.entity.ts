@@ -10,6 +10,7 @@ export interface IOperatorState extends EntityState<IOperator> {
   message?: string;
   submitted: boolean;
   statistics?: IOperatorStatistics;
+  resultNumber?: number;
 }
 
 export interface IOperatorPartialState {
@@ -25,5 +26,6 @@ export const initialState: IOperatorState = operatorAdapter.getInitialState({
   loaded: null,
   message: null,
   submitted: false,
-  statistics: null
+  statistics: null,
+  resultNumber: 0
 } as IOperatorState);

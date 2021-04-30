@@ -1646,7 +1646,8 @@
     },
     "order": "Order",
     "submit": "Submit",
-    "upload_avatar": "Upload Avatar"
+    "upload_avatar": "Upload Avatar",
+    "operator_list": "Operator List"
   },
   "login": {
     "incorrect_password": "Incorrect Password",
