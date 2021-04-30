@@ -410,6 +410,18 @@ html {
       }
     }
   }
+  anms-part-master{
+    .category-list ul li a{
+      left: 10px;
+      right: auto !important;
+    }
+    .add-button {
+      margin-left: 1rem;
+    }
+    .item-info .remove-icon {
+      margin-right: 1rem;
+    }
+  }
 }
 
 /* END RTL Arabic */

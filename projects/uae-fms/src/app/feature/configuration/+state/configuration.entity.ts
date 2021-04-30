@@ -39,10 +39,24 @@ import {
   AssetConfigurationState,
   CONFIGURATION_ASSET_CONFIGURATION_FEATURE_KEY
 } from './asset-configuration/asset-configuration.entity';
-import {
-  AssetTypeState,
-  CONFIGURATION_ASSET_TYPE_FEATURE_KEY
-} from './asset-configuration/asset-type/asset-type.entity';
+// import {
+//   AssetTypeState,
+//   CONFIGURATION_ASSET_TYPE_FEATURE_KEY
+// } from './asset-configuration/asset-type/asset-type.entity';
+import { 
+  FLEET_CONFIGURATION_ASSET_TYPE_FEATURE_KEY,
+  AssetTypeState 
+} from './fleet-configuration/asset-type/asset-type.entity';
+
+import { 
+  AccessoryTypeState, 
+  FLEET_CONFIGURATION_ACCESSORY_TYPE_FEATURE_KEY 
+} from './fleet-configuration/accessory-type/accessory-type.entity';
+
+import { 
+  FLEET_CONFIGURATION_SUB_ASSET_TYPE_FEATURE_KEY, 
+  SubAssetTypeState 
+} from './fleet-configuration/sub-asset-type/sub-asset-type.entity';
 
 export const CONFIGURATION_FEATURE_KEY = 'configuration';
 
@@ -57,7 +71,10 @@ export interface State {
   readonly [CONFIGURATION_OWNERSHIP_FEATURE_KEY]: OwnershipState;
   readonly [CONFIGURATION_PERIODIC_SERVICE_FEATURE_KEY]: PeriodicServiceState;
   readonly [CONFIGURATION_ASSET_CONFIGURATION_FEATURE_KEY]: AssetConfigurationState;
-  readonly [CONFIGURATION_ASSET_TYPE_FEATURE_KEY]: AssetTypeState;
+  // readonly [CONFIGURATION_ASSET_TYPE_FEATURE_KEY]: AssetTypeState;
+  readonly [FLEET_CONFIGURATION_ASSET_TYPE_FEATURE_KEY] : AssetTypeState;
+  readonly [FLEET_CONFIGURATION_ACCESSORY_TYPE_FEATURE_KEY ] : AccessoryTypeState,
+  readonly [FLEET_CONFIGURATION_SUB_ASSET_TYPE_FEATURE_KEY] : SubAssetTypeState
 }
 
 export interface ConfigurationPartialState {

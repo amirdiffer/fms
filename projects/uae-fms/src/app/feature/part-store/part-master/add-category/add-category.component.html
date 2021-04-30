@@ -1,0 +1,36 @@
+<form class="pb-4" [formGroup]="form">
+    <div class="button-container">
+        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{ 'forms.cancel' | translate}}</button>
+        <button class="btn-primary-medium add" type="submit" (click)="submit()">{{ 'forms.add' | translate}}</button>
+      </div>
+    <div class="form-section">
+        <h3 class="form-section__title ">{{ 'part_store.part_master.category_info' | translate}}</h3>
+        <div class="row">
+            <div class="col-6">
+                <div class="p-field form-section__field">
+                    <span class="p-float-label">
+                        <input pInputText placeholder="{{ 'part_store.part_master.category_name' | translate}} *" type="text" formControlName="categoryName">
+                        <label>{{ 'part_store.part_master.category_name' | translate}} *</label>
+                    </span>
+                    <anms-error 
+                    [showError]="hasError('categoryName',form,submitted)" error="forms.feedback.required">
+                    </anms-error>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="p-field form-section__field">
+                    <span class="p-float-label">
+                        <input pInputText placeholder="{{ 'part_store.part_master.category_name' | translate}}" type="text" formControlName="shortCode">
+                        <label>{{ 'part_store.part_master.category_name' | translate}}</label>
+                    </span>
+                    <anms-error 
+                    [showError]="hasError('shortCode',form,submitted)" error="forms.feedback.required">
+                    </anms-error>
+                </div>
+            </div>
+        </div>
+    </div>  
+</form> 
+
+
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>

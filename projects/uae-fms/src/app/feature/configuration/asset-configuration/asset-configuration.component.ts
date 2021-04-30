@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, SubscriptionLike } from 'rxjs';
 import { AssetConfigurationService } from './asset-configuration.service';
-import {
-  AssetConfigurationFacade,
-  AssetTypeFacade
-} from '../+state/asset-configuration';
+// import {
+//   AssetConfigurationFacade,
+//   AssetTypeFacade
+// } from '../+state/asset-configuration';
+
+import { AccessoryTypeFacade, AssetTypeFacade, SubAssetTypeFacade } from '../+state/fleet-configuration/index'
 import { FilterCardSetting } from '@core/filter';
 import { Make, MakeModel, MakeModelTrim } from '@models/asset-type.model';
 import { map } from 'rxjs/operators';
@@ -97,7 +99,6 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       floatButton: [
         {
           onClick: (col, data) => {
-            console.log(data.id)
             this.router.navigate(
               ['/configuration/edit-asset-configuration/' + data.id]
             );
@@ -110,48 +111,100 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
   addOpen;
   addOpen$: Subscription;
   dataTable = [];
-
-  assetType$ = this.facade.assetType$.pipe(
-    map((response) => {
-      this.dataTable = response.map((obj) => {
-        const assetType = {
-          ...obj,
-          isSelected: false,
-          iconSvgClass: 'right-arrow',
-          makes: obj.makes.length
-        };
-        return assetType;
-      });
-      this.filterTable();
-      return response.map((obj) => {
-        const assetType = {
-          ...obj,
-          isSelected: false,
-          iconSvgClass: 'right-arrow',
-          makes: obj.makes.length
-        };
-        return assetType;
-      });
-    })
-  );
-
-  assetConfiguration$ = this.facade.assetType$;
+  tableData$ = new Subject<any>()
+  assetType$:Subscription;
+  subAssetType$:Subscription;
+  accessoryType$:Subscription;
+  assetType:IConfigurationTable[];
+  subAssetType:IConfigurationTable[];
+  accessoryType:IConfigurationTable[];
+  assetConfiguration$ = this._assetTypefacade.assetType$;
   //#endregion
 
   constructor(
-    private facade: AssetTypeFacade,
+    private _assetTypefacade: AssetTypeFacade,
+    private _accessoryTypeFacade: AccessoryTypeFacade,
+    private _subAssetTypeFacade: SubAssetTypeFacade,
     public router: Router,
-    private assetConfigurationFacade: AssetConfigurationFacade,
+    // private assetConfigurationFacade: AssetConfigurationFacade,
     private _assetConfigurationService: AssetConfigurationService,
     private _dataService: DataService
   ) {}
 
   ngOnInit(): void {
+    this._assetTypefacade.loadAll();
+    this._accessoryTypeFacade.loadAll();
+    this._subAssetTypeFacade.loadAll();
+    this.assetType$ = this._assetTypefacade.assetType$.subscribe(
+      (x) => {
+        console.log(x)
+        this.assetType = x.map(
+          y => {
+            const value = {
+              isSelected: false,
+              iconSvgClass: 'right-arrow',
+              name : y.name,
+              description: y.description,
+              isActive: y.isActive,
+              numberOfAsset:+y.makes.length
+            }
+            return value
+          }
+        )
+        if(this.activeTypeCategory == "ASSET"){
+          this.tableData$.next(this.assetType);
+        }
+      }
+    );
+    this.subAssetType$ = this._subAssetTypeFacade.subAssetType$.subscribe(
+      (x) => {
+        this.subAssetType = x.map(
+          y => {
+            const value = {
+              isSelected: false,
+              iconSvgClass: 'right-arrow',
+              name : y.name,
+              description: y.description,
+              isActive: y.isActive,
+              numberOfAsset:+y.makes.length
+            }
+            
+            return value
+          }
+        )
+      }
+    );
+    this.accessoryType$= this._accessoryTypeFacade.accessoryType$.subscribe(
+      (x) => {
+        this.accessoryType = x.map(
+          y => {
+            const value = {
+              name : y.name,
+              description: y.description,
+              isActive: y.isActive,
+            }
+            return value
+          }
+        )
+      }
+    );
     this._dataService.watchType().subscribe((x) => {
       this.activeTypeCategory = x;
+      switch (x) {
+        case 'ASSET':
+          this.tableData$.next(this.assetType);
+          break;
+        case 'SUB_ASSET':
+          this.tableData$.next(this.subAssetType);
+          break;
+        case 'ACCESSORY':
+          this.tableData$.next(this.accessoryType);
+          break;
+        default:
+          break;
+      }
       this.filterTable();
     });
-    this.assetConfigurationFacade.loadAll();
     this.addOpen$ = this._assetConfigurationService
       .getAddForm()
       .subscribe((open) => {
@@ -168,7 +221,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       columns: [
         {
           lable: 'tables.column.make',
-          field: 'make',
+          field: 'name',
           width: 100,
           type: 1,
           thumbField: '',
@@ -176,7 +229,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
         },
         {
           lable: 'tables.column.description',
-          field: 'makeDescription',
+          field: 'description',
           width: 100,
           type: 1,
           thumbField: '',
@@ -210,7 +263,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       columns: [
         {
           lable: 'tables.column.model',
-          field: 'model',
+          field: 'name',
           width: 100,
           type: 1,
           thumbField: '',
@@ -218,7 +271,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
         },
         {
           lable: 'tables.column.description',
-          field: 'modelDescription',
+          field: 'description',
           width: 100,
           type: 1,
           thumbField: '',
@@ -240,7 +293,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     models.map((model) => {
       const x = {
         ...model,
-        trims: model.trims.length
+        trims: model.trims ? model.trims.length : null
       };
       data.push(x);
     });
@@ -252,7 +305,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       columns: [
         {
           lable: 'tables.column.trim',
-          field: 'trim',
+          field: 'name',
           width: 100,
           type: 1,
           thumbField: '',
@@ -279,14 +332,14 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       rowSettings: {}
     };
     const data = [];
-    trims.map((trim) => {
+    trims? (trims.map((trim) => {
       data.push({
-        trim: trim.trim,
+        name: trim.name,
         color: trim.colors,
         status: 'Available'
-      });
+      })
       this.assetConfigurationableSetting.data = data;
-    });
+    })):null
   }
 
   exportTable() {
@@ -294,12 +347,12 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
   }
 
   eventPagination() {
-    this.assetConfigurationFacade.loadAll();
+    // this.assetConfigurationFacade.loadAll();
   }
 
   filterTable(): void {
-    this.assetConfigurationableSetting = {
-      columns: [
+    if(this.activeTypeCategory == 'ACCESSORY') {
+      this.assetConfigurationableSetting.columns = [
         {
           lable: 'tables.column.category',
           field: 'name',
@@ -318,7 +371,42 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
         },
         {
           lable: 'tables.column.description',
-          field: 'typeDescription',
+          field: 'description',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: '',
+          field: 'floatButton',
+          width: 0,
+          type: 1,
+          thumbField: '',
+          renderer: 'floatButton'
+        }
+      ]
+    }else{
+      this.assetConfigurationableSetting.columns = [
+        {
+          lable: 'tables.column.category',
+          field: 'name',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.type_status',
+          field: 'isActive',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.description',
+          field: 'description',
           width: 100,
           type: 1,
           thumbField: '',
@@ -328,7 +416,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           lable: '<img src="assets/icons/car-solid.svg">',
           type: 1,
           isIconLable: true,
-          field: 'makes',
+          field: 'numberOfAsset',
           width: 100
         },
         {
@@ -339,30 +427,24 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           thumbField: '',
           renderer: 'floatButton'
         }
-      ],
-      data: [],
-      rowSettings: {
-        onClick: (col, data, button?) => { },
-        floatButton: [
-          {
-            onClick: (col, data) => {
-              console.log(data.id)
-              this.router.navigate(
-                ['/configuration/edit-asset-configuration/' + data.id]
-              );
-            },
-            button: 'edit'
-          }
-        ]
-      }
-    };
-    this.assetConfigurationableSetting.data = this.dataTable.filter(
-      (x) => x.type == this.activeTypeCategory
-    );
+      ]
+    }
   }
 
+
+  checkType(){
+  }
   ngOnDestroy() {
     this.addOpen$.unsubscribe();
     this.assetConfigurationableSetting.data = [];
   }
+}
+
+export interface IConfigurationTable {
+  isSelected?: boolean;
+  iconSvgClass?:string;
+  name:string;
+  isActive:boolean;
+  description: string;
+  numberOfAsset?:number;
 }

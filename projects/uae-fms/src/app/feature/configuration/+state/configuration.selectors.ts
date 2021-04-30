@@ -57,4 +57,14 @@ export class ConfigurationSelectors {
     ConfigurationSelectors.featureSelector,
     (state) => state['assetType']
   );
+
+  static accessoryTypeSelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['accessoryType']
+  );
+
+  static subAssetTypeSelector = createSelector(
+    ConfigurationSelectors.featureSelector,
+    (state) => state['subAssetType']
+  );
 }
