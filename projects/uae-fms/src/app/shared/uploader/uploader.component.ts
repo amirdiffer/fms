@@ -26,7 +26,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
   templateUrl: './uploader.component.html',
   styleUrls: ['./uploader.component.scss']
 })
-export class UploaderComponent implements OnInit, OnChanges {
+export class UploaderComponent implements OnInit {
   @Input() hasError = false;
   @Input() maxSize = 5120;
   @Input() uploaderName = '';
@@ -65,6 +65,7 @@ export class UploaderComponent implements OnInit, OnChanges {
   fileName = '';
   fileImage: string = undefined;
   imageModal: boolean = false;
+  fileServer = environment.baseApiUrl + 'document/';
   /* Ngx File Drop */
   public filesUpdloaded: NgxFileDropEntry[] = [];
   dialogModalError = false;
@@ -79,17 +80,8 @@ export class UploaderComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
 
-  ngOnChanges() {
-    if (!this.multiple && typeof this.files[0] == 'undefined') {
-      this.files = [];
-    }
-    if (this.isImage && this.files.length > 0) {
-      this.fileImage = `${environment.baseApiUrl}document/${this.files[0]}`;
-    }
-  }
   public dropped(files: NgxFileDropEntry[], option: string, index?: number) {
     this.filesUpdloaded = files;
-    let fileUpload = null;
     let fileSize = 0;
     let fileSuffix = '';
     for (const droppedFile of files) {
@@ -114,6 +106,7 @@ export class UploaderComponent implements OnInit, OnChanges {
   }
 
   setFiles(index?: number): void {
+    console.log(this.files)
     if (this.files) {
       this.uploadedEvent.emit({
         name: this.uploaderName,
