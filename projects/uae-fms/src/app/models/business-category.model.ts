@@ -9,6 +9,9 @@ export interface IBusinessCategory extends IGeneralResponse {
   assetTypeName: string;
   numOfSubAssets: number;
   numOfAccessories: number;
+  assetConfigurationId: number;
+  numOfSubAssetConfigurations: number;
+  numOfAccessoryConfigurations: number;
   accessories?: any[];
   subAssets?: any[];
 }

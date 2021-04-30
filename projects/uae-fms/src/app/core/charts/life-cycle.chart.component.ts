@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-life-cycle-chart',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class LifeCycleComponent implements OnInit {
+    @Input() hasCalendar:boolean = false;
     nowYears=2023;
     lifeCycleData:ILifeCycle[]=[
         {

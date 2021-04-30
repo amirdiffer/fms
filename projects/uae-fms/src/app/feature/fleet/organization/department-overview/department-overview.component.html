@@ -1,0 +1,74 @@
+<div class='row'>
+  <div class='col-lg-3'>
+    <div class='component_wrapper form-section'>
+      <div class='flex-lg-column person'>
+        <div class='toolbar'>
+          <img class='toolbar-edit' [class.mr-3]='activeLang === "en"' [class.ml-3]='activeLang === "ar"'
+               src='assets/icons/edit.svg' alt=''>
+        </div>
+        <div class='col-lg-12 text-center'>
+          <img class='operator-avatar-border' src='assets/icons/airbnb.png' width='89' />
+        </div>
+        <hr>
+        <div class='col-lg-12 p-0'>
+          <div class='text-center header'>
+            Sample Department
+          </div>
+          <div class='text-center mt-3'>
+            Department Id
+          </div>
+          <div class='text-center mt-3 p-0'>
+            <button class='ml-1 mr-1 btn-primary-small col-md-2'>Tag</button>
+            <button class='ml-1 mr-1 btn-primary-small col-md-2'>Tag</button>
+            <button class='ml-1 mr-1 btn-primary-small col-md-2'>Tag</button>
+            <button class='ml-1 mr-1 btn-primary-small col-md-2'>Tag</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='component_wrapper form-section'>
+      <div *ngFor='let section of sections; let index = index'>
+        <div (click)='onSectionSelect(index)' class='bg-green green mb-2 p-2 text-light cursor-pointer'>
+          {{section.name}}
+        </div>
+        <div *ngIf='section.isSelected' class='d-flex mt-3 mb-2'>
+          <div class='parent' [ngStyle]='(activeLang === "en")? {"margin-left": "30px"}: {"margin-right": "30px"}'>
+            <div class='child'>
+              <div *ngFor='let location of section.locations; let j = index; let last = last'
+                   class='dot dot-mt dot-mb'>
+              </div>
+            </div>
+          </div>
+          <div [class.ml-3]='activeLang === "en"' [class.mr-3]='activeLang === "ar"'>
+            <div *ngFor='let location of section.locations; let k = index; let last = last'
+                 class='location-text dot-mb'>
+              {{location.name}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='col-lg-9'>
+    <div class='statistic-card'>
+      <app-filter *ngIf='selectedTab === "userTab"' [setting]='userTabFilter'></app-filter>
+      <app-filter *ngIf='selectedTab === "trafficFineTab"' [setting]='trafficFineFilter'></app-filter>
+    </div>
+    <div class='component_wrapper table-container'>
+      <app-tab-view (selectedIndex)='selectedTab=$event' [count]='[undefined, count$, count$, count$]'>
+        <div title="{{ 'tabs.overview' | translate }}" id='overviewTab'>
+          <anms-overview-tab></anms-overview-tab>
+        </div>
+        <div count='3456' title="{{ 'tabs.user' | translate }}" id='userTab'>
+          <app-table [setting]='userTable'></app-table>
+        </div>
+        <div count='3456' title="{{ 'tabs.traffic_fine' | translate }}" id='trafficFineTab'>
+          <app-table [setting]='trafficFineTable'></app-table>
+        </div>
+        <div count='3456' title="{{ 'tabs.movement_history' | translate }}" id='movementHistoryTab'>
+          <app-table [setting]='movementTable'></app-table>
+        </div>
+      </app-tab-view>
+    </div>
+  </div>
+</div>

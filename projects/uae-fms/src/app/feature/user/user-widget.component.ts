@@ -67,6 +67,5 @@ export class UserWidgetComponent implements OnInit {
     this.firstName = data['firstName'];
     this.lastName = data['lastName'];
     this.userName = data['username'];
-    this._facade.loadAll();
   }
 }

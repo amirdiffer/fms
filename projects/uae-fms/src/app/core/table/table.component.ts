@@ -39,6 +39,9 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   initialSearchBox = false;
   @Input() searchInput: string = '';
   @Output() onSearch = new EventEmitter();
+  @Input() subTable: TableSetting;
+  dropdownItemSelected = null;
+  @Output() selectedSubTable: EventEmitter<number> = new EventEmitter<number>();
   allData = [];
   constructor(
     private settingFacade: SettingsFacade,
@@ -148,7 +151,15 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  exportTable(tableSetting: TableSetting, title: string): void {
+  getText(key: string, obj) {
+    let selectionArray = key.split('.');
+    selectionArray.forEach(key => {
+      obj = obj[key];
+    });
+    return obj;
+  }
+
+  exportTable(tableSetting: TableSetting, title: string, filter?: object): void {
     const exportColumns: CSVExportColumn[] = tableSetting.columns.map((col) => {
       return {
         title:
@@ -159,34 +170,80 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       };
     });
 
-    const exportRows: any[] = tableSetting.data.map((data) => ({ ...data }));
-
-    tableSetting.columns.map((col) => {
-      if (title === 'assetMasterTab') {
-        if (col.renderer === 'assetsRenderer') {
-          exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
-              }\n${data[col.field].ownership}`;
-          });
+    const exportRows: any[] = tableSetting.data.map((data) => {
+      let objKey = Object.keys(filter);
+      let dataKey = Object.keys(data);
+      let map = new Map;
+      objKey.forEach(x => {
+        let func = [];
+        let columnMultiData = []
+        if (typeof filter[x] == 'string') {
+           columnMultiData = (<string>filter[x]).split('|');
+           func =  (<string>filter[x]).split('?func:');
         }
-      }
-      if (title === 'pendingRegistrationTab') {
-        if (col.renderer === 'assetsRenderer') {
-          exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
-              }\nprogress: ${data[col.field].progress}/6`;
-          });
-        }
-      }
-      if (title === 'pendingCustomizationTab') {
-        if (col.renderer === 'assetsRenderer') {
-          exportRows.map((data) => {
-            data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
-              }\nprogress: ${data[col.field].progress}/6`;
-          });
-        }
-      }
+        columnMultiData.forEach(y => {
+          let hasFunc = false;
+          let returnedFunc: string;
+          if (func.length == 2) {
+            hasFunc = true;
+            let f = filter[func[1]];
+            returnedFunc = f(this.getText(func[0], data));
+          }
+          if ((<string>y).includes('.')) {
+            if (map.has(x)) {
+              map.set(x, map.get(x) + ' ' + this.getText(y, data))
+            } else {
+              map.set(x, this.getText(y, data))
+            }
+          } else {
+            if (dataKey.includes(y)) {
+              if (map.has(x)) {
+                map.set(x, map.get(x) + ' ' + data[y])
+              } else {
+                map.set(x, data[y])
+              }
+            } else {
+              if (map.has(x)) {
+                map.set(x, map.get(x) + ' ' + y)
+              } else {
+                map.set(x, hasFunc ? returnedFunc : y)
+              }
+            }
+          }
+        });
+      });
+      let d = Array.from(map).reduce((obj, [key, value]) => (
+        Object.assign(obj, { [key]: value })
+      ), {});
+      return d;
     });
+
+    // tableSetting.columns.map((col) => {
+    //   if (title === 'assetMasterTab') {
+    //     if (col.renderer === 'assetsRenderer') {
+    //       exportRows.map((data) => {
+    //         data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+    //           }\n${data[col.field].ownership}`;
+    //       });
+    //     }
+    //   }
+    //   if (title === 'pendingRegistrationTab') {
+    //     if (col.renderer === 'assetsRenderer') {
+    //       exportRows.map((data) => {
+    //         data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+    //           }\nprogress: ${data[col.field].progress}/6`;
+    //       });
+    //     }
+    //   }
+    //   if (title === 'pendingCustomizationTab') {
+    //     if (col.renderer === 'assetsRenderer') {
+    //       exportRows.map((data) => {
+    //         data[col.field] = `${data[col.field].assetName}\n${data[col.field].assetSubName
+    //           }\nprogress: ${data[col.field].progress}/6`;
+    //       });
+    //     }
+    //   }
+    // });
 
     new CSVExport(exportRows, { columns: exportColumns }).export(title, title);
 
@@ -299,6 +356,12 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       case 'active':
         break;
     }
+  }
+
+  changeItemDropdownSelected(obj) {
+    let data =  Object.values(obj);
+    this.dropdownItemSelected = data[1];
+    this.selectedSubTable.emit((<number>data[0]));
   }
 
   ngOnDestroy(): void {

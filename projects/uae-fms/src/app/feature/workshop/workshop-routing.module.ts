@@ -21,6 +21,10 @@ const routes: Routes = [
     component: TaskMasterFormComponent
   },
   {
+    path: 'task-master/edit-task-master/:id',
+    component: TaskMasterFormComponent
+  },
+  {
     path: 'inspections/technical-inspection',
     component: TechnicalInspectionComponent
   },

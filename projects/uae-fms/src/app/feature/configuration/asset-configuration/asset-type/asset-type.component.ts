@@ -6,24 +6,32 @@ import {
   EventEmitter,
   Input
 } from '@angular/core';
-import { AssetTypeFacade } from '../../+state/asset-configuration';
+import { AccessoryTypeFacade, AssetTypeFacade, SubAssetTypeFacade } from '../../+state/fleet-configuration/index';
 import { Subject, Observable } from 'rxjs';
 import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
 import { Router } from '@angular/router';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { map, tap } from 'rxjs/operators';
 import { SettingsFacade } from '@core/settings/settings.facade';
+import { ISubAssetType } from '@models/sub-asset';
 
 @Component({
   selector: 'configuration-asset-type',
   templateUrl: './asset-type.component.html',
   styleUrls: ['./asset-type.component.scss']
 })
+
 export class AssetTypeComponent implements OnInit, OnDestroy {
   //#region Inputs and Outputs
   @Output() selectTrim = new EventEmitter();
   @Output() selectMake = new EventEmitter();
   @Output() selectModel = new EventEmitter();
+  @Output() select = new EventEmitter<activeCat>();
+
+  activeCat: activeCat = {
+    manufacturer: null,
+    category: null
+  }
 
   //#endregion
 
@@ -31,7 +39,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   // assetType$ = new Observable();
   loaded$ = this.facade.loaded$;
   filter = new Subject();
-  assetTypes: AssetTypeExtension[] = [];
+  assetTypes: AssetTypeExtension[]= [];
   arrowIcon = 'assets/icons/arrow-down.svg';
   categoryType$;
   activeLang = '';
@@ -39,52 +47,22 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
 
   tree = [];
 
-  assetType$ = this.facade.assetType$.pipe(
-    map((response) =>
-      response.map((obj) => {
-        const assetType = {
-          ...obj,
-          isSelected:
-            this.returnItemTree(obj.id, obj.type, obj).isSelected || false,
-          iconSvgClass:
-            this.returnItemTree(obj.id, obj.type, obj).iconSvgClass ||
-            'right-arrow',
-          makes: []
-        };
-        obj.makes.map((make) => {
-          const x: MakeExtension = {
-            ...make,
-            isSelected:
-              this.returnItemTree(make.id, 'make', make).isSelected || false,
-            iconSvgClass:
-              this.returnItemTree(make.id, 'make', make).iconSvgClass ||
-              'right-arrow',
-            models: []
-          };
-          make.models.map((model) => {
-            const y: ModelExtension = { ...model, isSelected: false };
-            x.models.push(y);
-          });
-          assetType.makes.push(x);
-        });
-        return assetType as AssetTypeExtension;
-      })
-    )
-  );
+  assetType$;
 
   constructor(
     private facade: AssetTypeFacade,
+    private _subAssetTypeFacade : SubAssetTypeFacade,
+    private _accessoryTypeFacade : AccessoryTypeFacade,
     private router: Router,
     private dataService: DataService,
     private settingFacade: SettingsFacade
   ) {}
 
   ngOnInit(): void {
-    this.facade.loadAll();
 
     this.categoryType$ = this.dataService.watchType().pipe((type) => {
       type.subscribe((y) => {
-        console.log(y);
+        this.changeType(y)
       });
       return type;
     });
@@ -137,6 +115,8 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       item.isSelected = true;
       item.iconSvgClass = 'down-arrow';
     }
+    this.activeCat.category = item.id;
+    this.select.emit(this.activeCat);
     this.selectMake.emit(item.makes);
     this.dataService.updateTree(item.id, item.type, item);
   }
@@ -149,11 +129,14 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       make.isSelected = true;
       make.iconSvgClass = 'down-arrow';
     }
+    this.activeCat.manufacturer = make.id;
+    this.select.emit(this.activeCat);
     this.selectModel.emit(make.models);
     this.dataService.updateTree(make.id, 'make', make);
   }
 
   onModelClick(model: ModelExtension): void {
+    this.select.emit(this.activeCat)
     this.selectTrim.emit(model.trims);
     model.isSelected = !model.isSelected;
     this.dataService.updateTree(model.id, 'model', model);
@@ -173,6 +156,61 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     }
   }
 
+  changeType(type:string){
+    if(type == 'ASSET' || type == 'SUB_ASSET'){
+      this.assetType$ =  (type == 'ASSET' ? this.facade.assetType$:this._subAssetTypeFacade.subAssetType$).pipe(
+        map((response) =>
+          response.map((obj) => {
+            const assetType = {
+              ...obj,
+              isSelected:
+                this.returnItemTree(obj.id, obj.type, obj).isSelected || false,
+              iconSvgClass:
+                this.returnItemTree(obj.id, obj.type, obj).iconSvgClass ||
+                'right-arrow',
+              makes: []
+            };
+            obj.makes.map((make) => {
+              const x: MakeExtension = {
+                ...make,
+                isSelected:
+                  this.returnItemTree(make.id, 'make', make).isSelected || false,
+                iconSvgClass:
+                  this.returnItemTree(make.id, 'make', make).iconSvgClass ||
+                  'right-arrow',
+                models: []
+              };
+              make.models.map((model) => {
+                const y: ModelExtension = { ...model, isSelected: false };
+                x.models.push(y);
+              });
+              assetType.makes.push(x);
+            });
+            return assetType as AssetTypeExtension;
+          })
+        )
+      );
+    }
+    if(type == 'ACCESSORY'){
+      this.assetType$ = this._accessoryTypeFacade.accessoryType$.pipe(
+        map((response) =>
+          response.map((obj) => {
+            const assetType = {
+              ...obj,
+              isSelected:false,
+              iconSvgClass:false,
+              makes: [],
+              models: []
+            };
+            return assetType as AssetTypeExtension;
+          })
+        )
+      );
+    
+    }
+    
+  }
+
   ngOnDestroy(): void {}
 }
 
@@ -182,6 +220,7 @@ export interface AssetTypeExtension extends IAssetType {
   makes: MakeExtension[];
 }
 
+
 export interface MakeExtension extends Make {
   isSelected: boolean;
   iconSvgClass: string;
@@ -190,4 +229,9 @@ export interface MakeExtension extends Make {
 
 export interface ModelExtension extends MakeModel {
   isSelected: boolean;
+}
+
+export interface activeCat {
+  category: number,
+  manufacturer: number;
 }

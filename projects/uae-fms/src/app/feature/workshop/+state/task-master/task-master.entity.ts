@@ -1,12 +1,17 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export interface ITaskMasterModel {
-  taskName: string;
-  timeStimation: string;
+  name: string;
+  timeEstimate: string;
   instruction: string;
-  rPH: string;
-  skill: string;
-  part: string;
+  ratePerHour: string;
+  skills: TaskMasterSkill[];
+  doesNeedParty: boolean;
+}
+
+export interface TaskMasterSkill {
+  id: number;
+  name: string;
 }
 
 export interface ITaskMasterState extends EntityState<ITaskMasterModel> {

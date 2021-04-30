@@ -18,6 +18,7 @@ export interface ISubasset {
   modelName?;
   makeName?;
   policyTypeName?;
+  type?;
 }
 export interface IWarrantyItems {
   id?:number;
@@ -27,4 +28,28 @@ export interface IWarrantyItems {
   startDate: string;
   docId: number;
   hasReminder:boolean;
+}
+
+
+export interface ISubAssetType{
+  id: number;
+  name: string;
+  type?: string;
+  description: string;
+  isActive: false;
+  makes?: Make[];
+}
+
+export interface Make {
+  id: number;
+  name: string;
+  models?: MakeModel[];
+  description?: string;
+  totalMakeCount?: number;
+}
+
+export interface MakeModel {
+  id?: number;
+  name?: string;
+  description?:string;
 }

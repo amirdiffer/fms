@@ -21,7 +21,9 @@ export class DataService {
 
   tree = [];
   updateTree(id, type, obj) {
-    let arr = this.tree.filter((x) => x.type == type);
+    console.log(this.tree)
+    let arr = this.tree;
+    // let arr = this.tree.filter((x) => x.type == type);
     let exist = arr.find((x) => x.id == id);
     !exist
       ? this.tree.push({ id: id, type: type, data: obj })
