@@ -1,6 +1,6 @@
 {
   "/fms": {
-    "target": "http://dev.jointscope.ai:8080/",
+    "target": "http://dev.jointscope.ai:8080",
     "secure": false,
     "changeOrigin": true
   }
