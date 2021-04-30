@@ -1014,7 +1014,12 @@
         "content": "Drag and Drop a Item picture or click here"
       },
       "engine": "Engine",
-      "filters": "Filters"
+      "filters": "Filters",
+      "supplier":"Supplier",
+      "search":"Search",
+      "category_type":"Category Type",
+      "filter_setting":"Filter setting"
+
     },
     "integration": {
       "type": "Type",
@@ -1647,6 +1652,7 @@
     "order": "Order",
     "submit": "Submit",
     "upload_avatar": "Upload Avatar",
+    "apply":"Apply",
     "operator_list": "Operator List"
   },
   "login": {

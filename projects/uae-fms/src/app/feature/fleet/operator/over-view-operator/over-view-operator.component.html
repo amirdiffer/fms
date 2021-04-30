@@ -52,7 +52,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf='selectedTab === 1' class='text-center mt-4'>
+    <div *ngIf='selectedTab == "1"' class='text-center mt-4'>
       <button class='btn-primary-large p-3 pb-5' (click)='backToOperatorTable()'>
         <span>
           <img src='assets/icons/back-arrow.png' alt='' width='34'/>
@@ -67,7 +67,7 @@
     </div>
     <div class="component_wrapper table-container">
       <app-tab-view returnId="index" (selectedIndex)="selectedTab=$event" [count]='[undefined, count$, count$, count$]'>
-        <span class="card-table-header search-container" *ngIf="selectedTab !== 0">
+        <span class="card-table-header search-container" *ngIf="selectedTab != '0'">
           <div class="search-box">
             <input placeholder="{{'search.search_in_columns' | translate}}"
               type="text">
@@ -79,7 +79,7 @@
             <svg-icon [src]="downloadBtn"></svg-icon>
           </button>
         </span>
-        <span *ngIf='selectedTab === 0' class='card-table-header search-container'>
+        <span *ngIf='selectedTab == "0"' class='card-table-header search-container'>
           <img src='assets/icons/printer.png' alt=''>
         </span>
         <div title="{{ 'tabs.overview' | translate }}" id='overviewTab'>

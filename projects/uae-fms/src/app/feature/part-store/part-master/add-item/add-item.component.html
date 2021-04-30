@@ -1,0 +1,87 @@
+<form class="pb-4" [formGroup]="form">
+    <div class="button-container">
+        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{ 'forms.cancel' | translate}}</button>
+        <button class="btn-primary-medium add" type="submit" (click)="submit()">{{ 'forms.add' | translate}}</button>
+      </div>
+    <div class="form-section" formArrayName="itemInfo">
+        <div class="row position-relative" *ngFor="let _ of itemInfo.controls;let i=index; let last=last; let first=first;">
+            <div class="col-2">
+                <div class="item-info d-flex">
+                    <span *ngIf="last" class="p-inputgroup-addon mr-3 add-button" (click)="addItemInfo()"><i class="pi pi-plus"></i></span>
+                    <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeItemInfo(i)">
+                        <svg-icon src='assets/icons/add.svg'
+                                  [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+                    </span>
+                    <h3 *ngIf="last" class="form-section__title m-0 align-self-center">{{ 'part_store.part_master.item_info' | translate}}</h3>
+                </div>
+            </div>
+            <ng-container [formGroupName]="i" >
+                <div class="col-10">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="p-field form-section__field">
+                                <span class="p-float-label">
+                                    <input pInputText placeholder="{{'part_store.part_master.item_name' | translate}} *" type="text" formControlName="itemName">
+                                    <label>{{ 'part_store.part_master.item_name' | translate}} *</label>
+                                </span>
+                                <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'itemName')"
+                                    error="forms.feedback.required">
+                                </anms-error>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-field form-section__field options-select">
+                                <span class="p-float-label">
+                                  <p-dropdown inputId="make" placeholder="{{'part_store.part_master.make' | translate}} *" [options]="itemTypes" optionLabel="name" class="dropdown-select" formControlName="make"></p-dropdown>
+                                  <label for="make">{{'part_store.part_master.make' | translate}} *</label>
+                                </span>
+                                <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'make')"
+                                    error="forms.feedback.required">
+                                </anms-error>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-field form-section__field options-select">
+                                <span class="p-float-label">
+                                  <p-dropdown inputId="model" placeholder="{{'part_store.part_master.make' | translate}} *" [options]="itemTypes" optionLabel="name" class="dropdown-select" formControlName="model"></p-dropdown>
+                                  <label for="model">{{'part_store.part_master.model' | translate}} *</label>
+                                </span>
+                                <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'model')"
+                                    error="forms.feedback.required">
+                                </anms-error>
+                            </div>
+                        </div>
+                        <div class="col-4" formArrayName="suppliers">
+                            <ng-container *ngFor="let sup of supplier(i).controls;let j=index; let lastest=last;" >
+                                <div class="p-field form-section__field " [formGroupName]="j">
+                                    <div class="d-flex">
+                                        <span class="p-float-label w-100">
+                                            <input pInputText placeholder="{{'part_store.part_master.supplier' | translate}} *" type="text" formControlName="supplier">
+                                            <label>{{'part_store.part_master.supplier' | translate}} *</label>
+                                        </span>
+                                        <span *ngIf="lastest"class="p-inputgroup-addon addon-primary" (click)="addSupplier(i)">
+                                            <i class="pi pi-plus"></i>
+                                        </span>
+                                        <span *ngIf="!lastest" class='remove-icon p-inputgroup-addon' (click)="removeSupplier(i,j)">
+                                            <svg-icon src='assets/icons/add.svg'
+                                                      [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+                                        </span>
+                                    </div>
+                                    <anms-error [showError]="formArrayHasError((submited || supplierAdded), supplier(i), j, 'supplier')"
+                                        error="forms.feedback.required">
+                                    </anms-error>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-4 pb-4">
+                    <anms-uploader class="drag-and-drop-form" [isImage]="true" [iconIsHidden]="true"[multiple]="true" [preview]="true"></anms-uploader>
+                </div>
+            </ng-container>
+            <hr *ngIf="!last" class="line">
+        </div>
+    </div>  
+</form> 
+
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
