@@ -90,8 +90,8 @@ export class PendingRegistrationOverviewComponent
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      plateNumber: ['', [Validators.required]],
-      insuranceNumber: ['', [Validators.required]],
+      plateNumber: [''],
+      insuranceNumber: [''],
       salikTag: [''],
       fuelTag: [''],
       operator: [''],
