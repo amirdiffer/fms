@@ -102,18 +102,17 @@ export class TaskMasterFormComponent
                 ratePerHour: z.ratePerHour,
                 timeEstimate: z.timeEstimate,
                 needPart: z.doesNeedParty
-              })
-              this.skills$ = this._facade.skills$.subscribe((x) => {
-                if (x) {
-                  this.skillList = x;
-                  for (let i = 0; i < z.skills.length; i++) {
-                    this.addSkill();
-                    this.skills.controls[i].patchValue({
-                      skill: this.skillList[i]
-                    })
-                  }
-                }
               });
+
+              if (z.skills) {
+                this.skillList = z.skills;
+                for (let i = 0; i < z.skills.length; i++) {
+                  this.addSkill();
+                  this.skills.controls[i].patchValue({
+                    skill: this.skillList[i]
+                  });
+                }
+              }
             }
           })
       }

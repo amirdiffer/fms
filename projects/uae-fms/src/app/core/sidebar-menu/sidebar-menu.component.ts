@@ -157,8 +157,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.part_store.~',
       icon: 'part-store',
       route: '/part-store',
-      disabled: true
-      /* items: [
+      items: [
         {
           name: 'sidebar.part_store.part_list',
           icon: 'part-list',
@@ -174,7 +173,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           icon: 'part-master',
           route: '/part-store/part-master'
         }
-      ] */
+      ]
     },
     /*{
         name: 'sidebar.report',

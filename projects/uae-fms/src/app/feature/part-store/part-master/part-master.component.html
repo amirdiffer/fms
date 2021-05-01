@@ -1,33 +1,47 @@
-<div class="filter-container">
+<div class="filter-container" *ngIf="_router.url ==='/part-store/part-master'">
     <app-filter [setting]="filterSetting"></app-filter>
 </div>
 <div class="row ml-0 card-wrapper">
-    <div class="col-3 col-md-3 px-0">
-        <part-store-asset-type></part-store-asset-type>
-        <part-store-category></part-store-category>
-    </div>
-    <div class="col-9 col-md-9 pr-0">
-        <div class="table-container form-section">
-            <div>
-                <div class="card-table-header">
-                    <p>{{ 'part_store.part_master.filter_and_fuel_pump' | translate }}</p>
-                    <span class="search-container">
-                        <div class="search-box">
-                            <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
-                            <button>
-                                <img [src]="searchIcon" alt="">
-                            </button>
-                        </div>
-                        <button class="btn-download" disabled>
-                            <svg-icon [src]="downloadBtn"></svg-icon>
-                        </button>
-                        <button class="btn-primary-small" [routerLink]="'./add'"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
-                    </span>
-                </div>
-                <div class="card-table-content">
-                    <app-table [setting]="partMasterTableSetting"></app-table>
-                </div>
+    <div class="col-3 col-md-3 component_wrapper form-section">
+        <h3 class="form-section__title">{{'part_store.part_master.category' | translate}}</h3>
+        <div class="p-field form-section__field">
+            <div class="autocomplete-select">
+                <span class="p-float-label">
+                  <p-autoComplete [minLength]="1" placeholder="{{'part_store.part_master.search' | translate}} ..."></p-autoComplete>
+                  <i class="pi pi-search"></i>
+                  <!-- <label>Search...</label> -->
+                </span>
             </div>
         </div>
+        <hr class="line">
+        <div class="mt-5">
+            <div class="p-field form-section__field dropdown-select mt-4">
+                <span class="p-float-label">
+                  <p-dropdown inputId="typeCategory" placeholder="{{'part_store.part_master.category_type' | translate}}" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+                  <label for="typeCategory">{{'part_store.part_master.category_type' | translate}}</label>
+                </span>
+            </div>
+        </div>
+        <div class="p-field form-section__field dropdown-select mt-4">
+            <span class="p-float-label">
+              <p-dropdown inputId="assetType" placeholder="{{'part_store.part_master.asset_type' | translate}}" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+              <label for="assetType">{{'part_store.part_master.asset_type' | translate}}</label>
+            </span>
+        </div>
+        <div class="category-list">
+            <ul>
+                <li [class.active-category]="index == selectedCategory" *ngFor="let item of categoryItem;let index=index;" (click)="categorySelect(index)">
+                    {{item.name}}
+                    <a *ngIf="index == selectedCategory && _router.url !=='/part-store/part-master/add-item'" [routerLink]="['add-item']"><svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.em':'1' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon></a>
+                </li>
+            </ul>
+            <a *ngIf="_router.url !=='/part-store/part-master/add-category'" class="d-flex add-category" [routerLink]="['add-category']" (click)="hasForm = true">
+                <svg-icon class='cursor-pointer ml-2' src='assets/icons/add.svg' [svgStyle]="{ 'width.em':'1.2' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                <span>{{'part_store.part_master.add_category' | translate}}</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-9 col-md-9 pr-0" >
+        <router-outlet></router-outlet>
     </div>
 </div>

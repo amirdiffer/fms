@@ -140,7 +140,13 @@ export class OperatorComponent implements OnInit {
           onClick: (col, data, button?) => {
             this._router.navigate(['/fleet/operator/edit-operator/' + data.id]);
           }
-        }
+        },
+        {
+          button: 'external',
+          onClick: (col, data, button?) => {
+            this._router.navigate(['/fleet/operator/' + data.id]);
+          }
+        },
       ]
     }
   };

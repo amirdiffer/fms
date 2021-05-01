@@ -41,3 +41,33 @@
     width: 29px;
   }
 }
+
+.operator-avatar-border {
+  border-radius: 50%;
+  padding: 5px;
+  border: 1px dashed #f2b06e;
+}
+
+.people-border {
+  border-radius: 50%;
+  padding: 5px;
+  border: 1px solid #42d0d9;
+}
+
+.mail-border {
+  border-radius: 50%;
+  padding: 5px;
+  border: 1px solid #f2b06e;
+}
+
+.tel-border {
+  border-radius: 50%;
+  padding: 5px;
+  border: 1px solid #f66d5e;
+}
+
+.header {
+  font-size: 1.3em;
+  color: #0da06e;
+  font-weight: bold;
+}
