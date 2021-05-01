@@ -21,8 +21,8 @@
                       <div class="row form-section__row">
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="businessCategory" [placeholder]="'assets.business_category' | translate"  [options]="businessCategory" optionLabel="name" optionValue="id" formControlName="businessCategory"></p-dropdown>
-                            <label for="businessCategory">{{ 'assets.business_category' | translate }}</label>
+                            <p-dropdown inputId="businessCategory" [placeholder]="'assets.business_category' | translate"  [options]="businessCategory" optionLabel="name" optionValue="id" formControlName="businessCategory" (onChange)='onBusinessCategoryChange($event)'></p-dropdown>
+                            <label for="businessCategory">{{ 'assets.business_category' | translate }} *</label>
                           </span>
                           <anms-error
                             [showError]="hasError('businessInfo.businessCategory',formGroupAssetDetail,submitted_AssetDetail)"
@@ -32,7 +32,7 @@
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="ownerShip" [placeholder]="'assets.ownership' | translate" [options]="ownerShip" optionLabel="name" optionValue="id" formControlName="ownership"></p-dropdown>
-                            <label for="ownerShip">{{ 'assets.ownership' | translate }}</label>
+                            <label for="ownerShip">{{ 'assets.ownership' | translate }} *</label>
                           </span>
                           <anms-error
                             [showError]="hasError('businessInfo.ownership',formGroupAssetDetail,submitted_AssetDetail)"
@@ -58,17 +58,7 @@
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="type" [placeholder]="'assets.type' | translate" [options]="assetType" optionLabel="name" optionValue="id" formControlName="type" (onChange)="onChangeAssetType($event)"></p-dropdown>
-                            <label for="type">{{ 'assets.type' | translate }} *</label>
-                          </span>
-                          <anms-error
-                            [showError]="hasError('assetDetails.type',formGroupAssetDetail,submitted_AssetDetail)"
-                            error="forms.feedback.required">
-                          </anms-error>
-                        </div>
-                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
-                          <span class="p-float-label">
-                            <p-dropdown inputId="make"  [placeholder]="'assets.make' | translate " [options]="assetMake" optionLabel="make" optionValue="id"  formControlName="make" (onChange)="onChangeAssetMake($event)"></p-dropdown>
+                            <p-dropdown inputId="make"  [placeholder]="'assets.make' | translate " [options]="assetMake" optionLabel="name" optionValue="id"  formControlName="make" (onChange)="onChangeAssetMake($event)"></p-dropdown>
                             <label for="make">{{ 'assets.make' | translate }} *</label>
                           </span>
                           <anms-error
@@ -78,7 +68,7 @@
                         </div>
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="model" [placeholder]="'assets.model' | translate"  [options]="assetModel" optionLabel="model" optionValue="id" formControlName="model"  (onChange)="onChangeAssetModel($event)"></p-dropdown>
+                            <p-dropdown inputId="model" [placeholder]="'assets.model' | translate"  [options]="assetModel" optionLabel="name" optionValue="id" formControlName="model"  (onChange)="onChangeAssetModel($event)"></p-dropdown>
                             <label for="model">{{ 'assets.model' | translate }} *</label>
                           </span>
                           <anms-error
@@ -88,7 +78,7 @@
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="assetColor" optionLabel="color" optionValue="id" formControlName="color"></p-dropdown>
+                            <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="assetColor" optionLabel="name" optionValue="id" formControlName="color"></p-dropdown>
                             <label for="color">{{ 'assets.color' | translate }}</label>
                           </span>
                           <anms-error
@@ -99,7 +89,7 @@
 
                         <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="trim" [placeholder]="'assets.trim' | translate" [options]="assetTrim" optionLabel="trim" optionValue="id" formControlName="trim"></p-dropdown>
+                            <p-dropdown inputId="trim" [placeholder]="'assets.trim' | translate" [options]="assetTrim" optionLabel="name" optionValue="id" formControlName="trim" (onChange)='onChangeAssetTrim($event)'></p-dropdown>
                             <label>{{ 'assets.trim' | translate }} *</label>
                           </span>
                           <anms-error
@@ -107,22 +97,22 @@
                             error="forms.feedback.required">
                           </anms-error>
                         </div>
-                        <div class="col-12 col-md-3 p-field form-section__field">
+                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <input pInputText [placeholder]="'assets.origin' | translate"  type="text" formControlName="origin">
+                            <p-dropdown inputId="origin"  [placeholder]="'assets.origin' | translate " [options]="origins" optionLabel="name" optionValue="name"  formControlName="origin"></p-dropdown>
                             <label>{{ 'assets.origin' | translate }} *</label>
+                            <anms-error
+                              [showError]="hasError('assetDetails.origin', formGroupAssetDetail, submitted_AssetDetail)"
+                              error="forms.feedback.required">
+                            </anms-error>
                           </span>
-                          <anms-error
-                            [showError]="hasError('assetDetails.origin',formGroupAssetDetail,submitted_AssetDetail)"
-                            error="forms.feedback.required">
-                          </anms-error>
                         </div>
                         <div class="col-12 col-md-4 mb-2 align-selft-center ">
                           <div class="row">
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-4 mt-3">
                               <h3 class="form-section__title m-0">{{ 'assets.meterType' | translate }}</h3>
                             </div>
-                            <div class="col-12 col-md-8 row">
+                            <div class="col-12 col-md-8 row mt-2 pt-1">
                               <div class="form-check col-6">
                                 <input class="form-check-input" type="radio" id="Kilometers"  formControlName="meterType" value ="KILOMETER">
                                 <label class="form-check-label" for="Kilometers">{{ 'assets.kilometers' | translate }}</label>
