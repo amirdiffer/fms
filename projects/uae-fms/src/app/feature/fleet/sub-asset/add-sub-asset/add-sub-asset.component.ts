@@ -203,7 +203,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           avatarId,
           date,
           description,
-          dpd,
+          serialNumber,
           subAssetMakeId,
           subAssetMakeName,
           subAssetModelId,
@@ -213,6 +213,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           purchaseValue,
           year
         } = subAsset;
+        console.log(subAsset)
 
         const selectedSubAsset: any = this.subAssetTypes.find(
           (a) => a.id === subAssetConfigurationId
@@ -240,7 +241,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         const policyType = { id: policyTypeId, name: policyTypeName };
 
         const formValue = {
-          serialNumber: dpd,
+          serialNumber: serialNumber,
           subAssetType: subAssetConfigurationId,
           make: subAssetMakeId,
           model: subAssetModelId,
@@ -249,9 +250,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           purchaseValue,
           description
         };
-        console.log(formValue)
         this.subAssetForm.patchValue(formValue);
-        console.log(this.subAssetForm.value)
         this.subAssetForm.patchValue({
           year: +formValue.year
         });
@@ -328,13 +327,15 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     );
   }
 
+  initAssetType = false;
   initAssetTypes() {
     this.subAssetTypeFacade.subAssetType$.subscribe(
       (result) => {
         if (result) {
           this.setAssetTypes(result);
-          if (this.isEdit) {
+          if (this.isEdit && !this.initAssetType) {
             this.loadSubAssetFormData(this.recordId);
+            this.initAssetType = true;
           }
         }
       },
@@ -511,7 +512,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       return {
         id: this.recordId,
         avatarId,
-        serialNumbers: [dpd],
+        serialNumber: dpd,
         subAssetConfigurationId: subAssetType.id,
         makeId: make.id,
         modelId: model.id,
