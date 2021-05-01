@@ -16,7 +16,7 @@ import {
   AssetMasterService
 } from '@feature/fleet/+state/assets/asset-master';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { BusinessCategoryFacade } from '@feature/configuration/+state/business-category';
+import { BusinessCategoryFacade, BusinessCategoryService } from '@feature/configuration/+state/business-category';
 import { map, tap } from 'rxjs/operators';
 import { Subscription, of, Observable, observable, Subject } from 'rxjs';
 import { OwnershipFacade } from '@feature/configuration/+state/ownership';
@@ -105,9 +105,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   dialogModal = false;
   dialogOption = null;
   dialogSetting: IDialogAlert = {
-    header: 'Add new user alert',
+    header: 'Asset Successfully Generated',
     hasError: false,
-    message: 'Message is Here',
+    message: 'Sample hit is here to explain Process',
     confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };
@@ -208,6 +208,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   assetModel = [];
   assetColor = [];
   assetTrim = [];
+  origins = [];
   policyTypeDropDown = [];
   policyTypeValue;
   periodicServiceItem = [];
@@ -334,7 +335,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     private _facadePeriodicService: PeriodicServiceFacade,
     private _periodicService: PeriodicServiceService,
     private _departmentService: OrganizationService,
-    private _operatorService: OperatorService
+    private _operatorService: OperatorService,
+    private businessCategoryService: BusinessCategoryService
   ) {
     super(injector);
   }
@@ -348,7 +350,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       }),
       assetDetails: this._fb.group({
         year: ['', Validators.compose([Validators.required])],
-        type: ['', Validators.compose([Validators.required])],
         make: ['', Validators.compose([Validators.required])],
         model: ['', Validators.compose([Validators.required])],
         color: ['', Validators.compose([Validators.required])],
@@ -813,6 +814,20 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     const date = this.warrantyStartDate.controls[i] as FormGroup;
     return date.get('startDate').value;
   }
+
+  onBusinessCategoryChange(event): void {
+    const value = event.value ? event.value : event;
+    this.businessCategoryService.getOne(value).subscribe((res) => {
+      const message = res.message as any
+      const assetConfigurationId = message.assetConfigurationId
+      this.assetMake = [];
+      this.assetType.find((x) => x.id === assetConfigurationId).makes
+        .map((x) => {
+          this.assetMake.push(x);
+        });
+    })
+  }
+
   onChangeAssetType(event) {
     this.assetMake = [];
     const value = event.value ? event.value : event;
@@ -845,6 +860,13 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           this.assetColor.push(y);
         });
       });
+  }
+
+  onChangeAssetTrim(event) {
+    const value = event.value ? event.value : event;
+    this.origins = [];
+    this.assetTrim.find((x) => x.id === value).origins
+      .map((y) => this.origins.push({name: y}));
   }
 
   onChangePolicyType(event) {
@@ -946,7 +968,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         assetTypeId: formVal_AssetDetail.assetDetails.type,
         makeId: formVal_AssetDetail.assetDetails.make,
         modelId: formVal_AssetDetail.assetDetails.model,
-        colorId: formVal_AssetDetail.assetDetails.color,
+        trimColorId: formVal_AssetDetail.assetDetails.color,
         trimId: formVal_AssetDetail.assetDetails.trim,
         origin: formVal_AssetDetail.assetDetails.origin,
         meterType: formVal_AssetDetail.assetDetails.meterType,
