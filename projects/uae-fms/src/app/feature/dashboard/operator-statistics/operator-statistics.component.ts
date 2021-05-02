@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'anms-operator-statistics',
+  selector: 'dashboard-operator-statistics',
   templateUrl: './operator-statistics.component.html',
   styleUrls: ['./operator-statistics.component.scss']
 })

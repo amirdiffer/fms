@@ -1,1 +1,33 @@
-<p>card-alert-dashboard works!</p>
+<div [class]="'box p-4 h-100 d-flex flex-column justify-content-between ' + (isAlert? 'is-alert': '')">
+    <div class="box-header">
+        <div class="d-flex">
+            <p class="box_title">{{title | translate}}</p>
+            <span class="mx-2" *ngIf="!isAlert">
+                <svg-icon [src]="congratulationsIcon" [svgStyle]="{ 'width.em':1.5 ,
+                    'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+            </span>
+            <p class="box_title">John</p>
+        </div>
+        <h5 class="box_sub_title mt-2">
+            {{subTitle | translate}}
+        </h5>
+    </div>
+    <div class="box__body row ">
+        <div class="col-9 d-flex flex-column justify-content-end">
+            <p class="mb-2 mt-3 content-text">{{cost}}</p>
+            <div>
+                <button>{{'dashboard.view_operator_profil' | translate}}</button>
+            </div>
+        </div>
+        <div class="col-3 px-1">
+            <span *ngIf="!isAlert">
+                <svg-icon [src]="congratulationsIcon2" [svgStyle]="{ 'width' : '100%',
+                    'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+            </span>
+            <span *ngIf="isAlert">
+                <svg-icon [src]="warningIcon" [svgStyle]="{ 'width' : '100%',
+                    'fill': 'rgba(0,0,0,64%)' , 'height': '100%' , 'transform':'translateY(10px)'}"></svg-icon>
+            </span>
+        </div>
+    </div>
+</div>

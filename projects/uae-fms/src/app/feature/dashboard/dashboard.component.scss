@@ -69,23 +69,17 @@
 .dashboard-container {
   padding-bottom: 50px;
 }
-
+.title-smaller{
+  font-size: .9em;
+  &.primary-color{
+    text-decoration: underline;
+  }
+}
 .wrapper {
-  // display: flex !important;
-  // justify-content: space-between;
-  .assets-status {
-    flex: 0 0 30%;
-  }
-  .active-assets {
-    flex: 0 0 40%;
-  }
-  .suppliers {
-    flex: 0 0 28%;
-  }
+
   .dashboard-card {
     border-radius: 6px;
-    // height: 73%;
-    // height: 366px;
+    overflow: hidden;
     width: 100%;
     max-width: 100%;
   }
@@ -96,6 +90,9 @@
   //   flex: 0 0 25%;
   //   justify-content: space-between;
   // }
+}
+.overflow-visible{
+  overflow: visible !important;
 }
 
 @media screen and (max-width: 968px) {

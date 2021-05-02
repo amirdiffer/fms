@@ -312,6 +312,22 @@
       background-color: $fms-black-body2-bg;
     }
   }
+  /* Dashboard*/
+  .apexcharts-legend-text{
+    color:$fms-black-body-color !important;
+  }
+  overview-card-dashboard,
+  detail-card-dashboard,
+  dashboard-filter{
+    svg{
+      fill:$fms-black-body-color !important;
+    }
+  }
+  detail-mini-card-dashboard{
+    .box_sub_number{
+      color:$fms-black-body-color !important;
+    }
+  }
 }
 /* Light Mode */
 .green-theme {

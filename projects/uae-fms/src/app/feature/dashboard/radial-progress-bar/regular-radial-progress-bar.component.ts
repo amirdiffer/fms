@@ -3,6 +3,7 @@ import {
   ApexChart,
   ApexNonAxisChartSeries,
   ApexPlotOptions,
+  ApexResponsive,
   ChartComponent
 } from 'ng-apexcharts';
 
@@ -14,7 +15,8 @@ import {
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
         [plotOptions]="chartOptions.plotOptions"
-        [colors]="chartOptions.colors">
+        [colors]="chartOptions.colors"
+        [responsive]="chartOptions.responsive">
     </apx-chart>
   </div>
   `,
@@ -47,6 +49,32 @@ export class RegularRadialProgressBarComponent implements OnInit {
           }
         }
       },
+      responsive: [
+        {
+          breakpoint: 1920,
+          options: {
+            chart: {
+              height: 90
+            },
+          }
+        },
+        {
+          breakpoint: 1600,
+          options: {
+            chart: {
+              height: 85
+            },
+          }
+        },
+        {
+          breakpoint: 1365,
+          options: {
+            chart: {
+              height: 80
+            },
+          }
+        }
+      ],
       colors: [this.color]
     };
   }
@@ -56,4 +84,5 @@ export type ChartOptions = {
   chart: ApexChart;
   colors: string[];
   plotOptions: ApexPlotOptions;
+  responsive:ApexResponsive[];
 };

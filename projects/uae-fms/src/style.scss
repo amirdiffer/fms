@@ -124,6 +124,30 @@ html {
       text-align: left !important;
     }
   }
+  overview-card-dashboard{
+    .footer-card > div:nth-child(2){
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      border-left:none !important;
+    }
+    .chart-labels p:nth-child(1)::before{
+      margin-left: 0.4em;
+      margin-right: 0 !important
+    }
+  }
+  detail-mini-card-dashboard{
+    .item__progress{
+      right:auto !important;
+      left: -2.3em;
+    }
+    .footer-card.chart-labels .chart-label p::before{
+      margin-left: 0.4em;
+      margin-right: 0 !important
+    }
+  }
+  dashboard-filter .border-1{
+    border-right: 1px solid #eaeaea;
+    border-left: none !important;
+  }
 
   /* Navbar */
   .toolbar {

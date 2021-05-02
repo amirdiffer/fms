@@ -1,0 +1,43 @@
+<div class="box p-4 d-flex flex-column justify-content-between h-100">
+    <div class="row">
+        <div class="col-12">
+            <p class="box_title">
+                {{'dashboard.total_jobcard' | translate}}
+            </p>
+        </div>
+    </div>
+    <div class="chart-container">
+        <div class="total-title">
+            <p>2549</p>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div id="chart">
+                    <apx-chart
+                      [series]="chartOptions.series"
+                      [chart]="chartOptions.chart"
+                      [xaxis]="chartOptions.xaxis"
+                      [stroke]="chartOptions.stroke"
+                      [tooltip]="chartOptions.tooltip"
+                      [dataLabels]="chartOptions.dataLabels"
+                      [colors]="chartOptions.colors"
+                      [fill]="chartOptions.fill"
+                      [yaxis]="chartOptions.yaxis"
+                      [legend]="chartOptions.legend"
+                      [grid]="chartOptions.grid"
+                      [responsive]="chartOptions.responsive"
+                    ></apx-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-card">
+        <a>{{'dashboard.full_report' | translate}}</a> 
+        <span class="mx-1">
+            <svg-icon [src]="'assets/icons/arrow-down-active.svg'"
+                    [svgStyle]="{ 'fill': '#0DA06E', 'width.em':'1.1' , 'transform':'rotate(-90deg)'}">
+            </svg-icon>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="box p-4 h-100 d-flex flex-column justify-content-between">
+    <div>
+        <h5 class="box_title">{{'dashboard.workshop_job_type' | translate}}</h5>
+    </div>
+        <div class="item d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="item__icon position-relative">
+                    <span>
+                        <svg-icon [src]="estimateIcon" [svgStyle]="{ 'width.em':1.6 ,
+                            'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+                    </span>
+                </div>
+                <div class="d-flex justify-content-start item__percent  mx-3">
+                    <p>{{'dashboard.estimate' | translate}}</p>
+                </div>
+            </div>
+            <div class="item__progress">
+                250
+            </div>
+        </div>
+        <div class="item d-flex justify-content-between align-items-center">
+            <div class=" d-flex justify-content-center align-items-center">
+                <div class="item__icon item__icon--pink position-relative">
+                    <span>
+                        <svg-icon [src]="repairIcon" [svgStyle]="{ 'width.em':1.6 ,
+                            'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+                    </span>
+                </div>
+                <div class="d-flex justify-content-start item__percent  mx-3">
+                    <p>{{'dashboard.repair' | translate}}</p>
+                </div>
+            </div>
+            <div class="item__progress">
+                250
+            </div>
+        </div>
+        <div class="item d-flex justify-content-between align-items-center">
+            <div class=" d-flex justify-content-center align-items-center ">
+                <div class="item__icon item__icon--pink position-relative">
+                    <span>
+                        <svg-icon [src]="technicalReportIcon" [svgStyle]="{ 'width.em':1.6 ,
+                            'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+                    </span>
+                </div>
+                <div class="d-flex justify-content-start item__percent  mx-3">
+                    <p>{{'dashboard.technical_report' | translate}}</p>
+                </div>
+            </div>
+            <div class="item__progress">
+                250
+            </div>
+        </div>
+        <div class="item d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-center align-items-center ">
+                <div class="item__icon position-relative">
+                    <span>
+                        <svg-icon [src]="installationIcon" [svgStyle]="{ 'width.em':1.6 ,
+                            'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+                    </span>
+                </div>
+                <div class="d-flex justify-content-start item__percent  mx-3">
+                    <p>{{'dashboard.installation' | translate}}</p>
+                </div>
+            </div>
+            <div class="item__progress">
+                250
+            </div>
+
+</div>

@@ -1,25 +1,15 @@
 .box {
-  padding: 23px 32px;
-  &__header {
-    h3 {
-      font-size: 0.95rem;
-      font-weight: bold;
-      margin: 0;
-    }
-    P {
-      font-size: 0.66rem;
-      margin-top: 4px;
-      color: rgba(0, 0, 0, 46%);
-    }
+  .box_sub_title{
+    font-size: 1em;
   }
   &__body {
-    margin-top: 44px;
+    margin-top: 2em;
     &__icon {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 57px;
-      height: 57px;
+      width: 3.5em;
+      height: 3.5em;
       border-radius: 50%;
       &--blue {
         background-color: #e0f9fc;
@@ -35,7 +25,7 @@
       }
     }
     &__content {
-      margin: 0 0.35rem;
+      margin: 0 .6em;
       display: flex;
       justify-content: center;
       align-items: center;

@@ -1,6 +1,7 @@
 @mixin dashboard(
   $headerColor: #475f7b,
   $headerBackground: #fff,
+  $primaryColor:#0DA06E,
   $headerFontSize: 1.1rem,
   $buttonColor: #ffff,
   $buttonBackgroundColor: #26d07c,
@@ -42,12 +43,21 @@
       font-family: $fontFamilyTitle;
       font-size: 1em;
     }
+    .dashboard-title{
+      font-family: $fontFamilyTitle;
+      font-size: 1.2em;
+    }
+    .primary-color{
+      color:$primaryColor;
+    }
     .box_sub_title{
       font-size: .8em;
     }
     .box_sub_number{
       font-size:1.5em;
       color: $subTitleColor;
+      font-weight: bold;
+      margin-top: .5em;
     }
   }
 

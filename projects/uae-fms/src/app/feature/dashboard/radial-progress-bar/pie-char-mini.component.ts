@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   ApexChart,
   ApexNonAxisChartSeries,
@@ -23,10 +23,11 @@ import {
     </apx-chart>
     </div>
   `,
-  styleUrls: ['./chart-progress-bar.scss']
+  styles:['']
 })
 export class PieChartMiniComponent  implements OnInit {
   @ViewChild("chart") chart: ChartComponent;
+  
   public chartOptions;
 
   constructor() {
@@ -37,7 +38,7 @@ export class PieChartMiniComponent  implements OnInit {
       series: [40, 35, 25],
       chart: {
         type: "donut",
-        width: 150
+        width: 160
       },
       plotOptions:{
         pie:{
@@ -47,17 +48,26 @@ export class PieChartMiniComponent  implements OnInit {
           donut:{
             size:"60%",
             labels:{
+              show:true,
+              value: {
+                offsetY: -17,
+                show: true,
+                fontSize: '.8em',
+                fontFamily: '29LT Bukra - Bold !important',
+                fontWeight:'bold',
+                opacity:.9,
+              },
               total:{
                 show:true,
+                offsetY: 4,
                 label:'Total',
-                showAlways: true
+                showAlways: true,
+                fontSize: '.8em',
               },
               name: {
-                show: true
-              },
-              value: {
-                  offsetY: -1,
-                  show: true
+                show: true,
+                offsetY: 13,
+                fontSize: '1.3em',
               }
             }
           }
@@ -75,7 +85,7 @@ export class PieChartMiniComponent  implements OnInit {
           breakpoint: 1920,
           options: {
             chart: {
-              width: 130
+              width: 140
             },
           }
         },
@@ -83,7 +93,7 @@ export class PieChartMiniComponent  implements OnInit {
           breakpoint: 1600,
           options: {
             chart: {
-              width: 120
+              width: 130
             },
           }
         },
@@ -91,7 +101,7 @@ export class PieChartMiniComponent  implements OnInit {
           breakpoint: 1365,
           options: {
             chart: {
-              width: 110
+              width: 120
             },
           }
         }
