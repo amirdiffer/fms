@@ -1,115 +1,73 @@
 
 <div class="row">
   <div class="col-lg-3">
-    <div class="component_wrapper fit-height">
+    <div class="component_wrapper form-section">
       <div class="row flex-lg-column person">
-        <div class="toolbar">
-          <img class="toolbar-edit" src="assets/icons/edit.svg"
-            alt="">
-        </div>
         <div class="col-lg-12 text-center">
-          <img src="assets/logo.png">
+            <img class='operator-avatar-border' src='assets/operator.png' width='184' />
         </div>
         <hr>
         <div class="col-lg-12">
-          <div class="person-detail">
-            <p class="person-detail__fullname">Danyal Acarka</p>
-            <ul>
-              <li>
-                <span class="person-detail__label">
-                  {{ 'operator.overview.first_name' | translate }}
-                </span>
-                <span class="person-detail__value">
-                  Danyal
-                </span>
-              </li>
-              <li>
-                <span class="person-detail__label">
-                  {{ 'operator.overview.last_name' | translate }}
-                </span>
-                <span class="person-detail__value">
-                  Acarka
-                </span>
-              </li>
-              <li>
-                <span class="person-detail__label">
-                  {{ 'operator.overview.age' | translate }}
-                </span>
-                <span class="person-detail__value">
-                  37
-                </span>
-              </li>
-              <li>
-                <span class="person-detail__label">
-                  {{ 'operator.overview.email' | translate }}
-                </span>
-                <span class="person-detail__value">
-                  Text text
-                </span>
-              </li>
-              <li>
-                <span class="person-detail__label">
-                  {{ 'operator.overview.phone_number' | translate }}
-                </span>
-                <span class="person-detail__value">
-                  Text text
-                </span>
-              </li>
-              <li>
-                <span class="person-detail__label">
-                  {{ 'operator.overview.employee_number' | translate }}
-                </span>
-                <span class="person-detail__value">
-                  Text text
-                </span>
-              </li>
-              <li>
-                <span class="person-detail__label">
-                  {{ 'operator.overview.organization' | translate }}
-                </span>
-                <span class="person-detail__value">
-                  Text text
-                </span>
-              </li>
-              <li>
-                <span class="person-detail__label">
-                  {{ 'operator.overview.section' | translate }}
-                </span>
-                <span class="person-detail__value">
-                  Danyal
-                </span>
-              </li>
-              <li>
-                <span class="person-detail__label">
-                  {{ 'operator.overview.authorized' | translate }}
-                </span>
-                <span class="person-detail__value">
-                  Text text
-                </span>
-              </li>
-              <li>
-                <span class="person-detail__label">
-                  {{ 'operator.overview.expiry_license' | translate }}
-                </span>
-                <span class="person-detail__value">
-                  Text text
-                </span>
-              </li>
-            </ul>
+          <div class='text-center header'>
+            Mohammad Saadoun
+          </div>
+          <div class='text-center font-weight-bold mt-3'>
+            Operator
+          </div>
+          <div class='text-center mt-3'>
+            0027567356
+          </div>
+          <div class="mt-3 justify-content-center toggle-select">
+            <p-inputSwitch></p-inputSwitch>
           </div>
         </div>
       </div>
+    </div>
+    <div class="component_wrapper form-section pl-3 pr-3">
+      <div class='mt-3'>
+        <div class='row' [class.ml-2]='activeLang === "en"' [class.mr-2]='activeLang === "ar"'>
+          <img class='people-border' [class.ml-3]='activeLang === "ar"' [class.mr-3]='activeLang === "en"' src='assets/people.png' width='40' height='35' />
+          <div>
+            <div>Organization</div>
+            <div>Sample Department</div>
+          </div>
+        </div>
+      </div>
+      <div class='mt-3'>
+        <div class='row' [class.ml-2]='activeLang === "en"' [class.mr-2]='activeLang === "ar"'>
+          <img class='mail-border' [class.ml-3]='activeLang === "ar"' [class.mr-3]='activeLang === "en"' src='assets/mail.png' width='40' height='35' />
+          <div>
+            <div>Email</div>
+            <div>Mohammad@sample.com</div>
+          </div>
+        </div>
+      </div>
+      <div class='mt-3'>
+        <div class='row' [class.ml-2]='activeLang === "en"' [class.mr-2]='activeLang === "ar"'>
+          <img class='tel-border' [class.ml-3]='activeLang === "ar"' [class.mr-3]='activeLang === "en"' src='assets/tel.png' width='40' height='35' />
+          <div>
+            <div>Phone Number</div>
+            <div>+971 50 565 3793</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf='selectedTab == "1"' class='text-center mt-4'>
+      <button class='btn-primary-large p-3 pb-5' (click)='backToOperatorTable()'>
+        <span>
+          <img src='assets/icons/back-arrow.png' alt='' width='34'/>
+        </span>
+        <span class='ml-2'>{{ 'forms.operator_list' | translate }}</span>
+      </button>
     </div>
   </div>
   <div class="col-lg-9">
     <div class="statistic-card">
       <app-filter *ngIf="selectedTab == '1'" [setting]='trafficFinFilterCard'></app-filter>
-      <app-filter *ngIf="selectedTab == '2'" [setting]='movementHistoryFilterCard'></app-filter>
     </div>
     <div class="component_wrapper table-container">
-      <app-tab-view selectedTab="1" returnId="index"
-        (selectedIndex)="selectedTab=$event">
-        <span class="card-table-header search-container">
+      <app-tab-view returnId="index" (selectedIndex)="selectedTab=$event" [count]='[undefined, count$, count$, count$]'>
+        <span class="card-table-header search-container" *ngIf="selectedTab != '0'">
           <div class="search-box">
             <input placeholder="{{'search.search_in_columns' | translate}}"
               type="text">
@@ -121,14 +79,20 @@
             <svg-icon [src]="downloadBtn"></svg-icon>
           </button>
         </span>
-        <div title="{{ 'tabs.overview' | translate }}">
+        <span *ngIf='selectedTab == "0"' class='card-table-header search-container'>
+          <img src='assets/icons/printer.png' alt=''>
+        </span>
+        <div title="{{ 'tabs.overview' | translate }}" id='overviewTab'>
+          <anms-overviewtab></anms-overviewtab>
         </div>
-        <div count="3456" title="{{ 'tabs.traffic_file' | translate }}">
+        <div count="3456" title="{{ 'tabs.traffic_fine' | translate }}" id='trafficFileTab'>
           <app-table [setting]="trafficFine_Table"></app-table>
         </div>
-        <div count="3456" title="{{ 'tabs.movement_history' | translate }}">
+        <div count="3456" title="{{ 'tabs.movement_history' | translate }}" id='movementHistoryTab'>
+          <app-table [setting]='movementHistoryTable'></app-table>
         </div>
-        <div count="3456" title="{{ 'tabs.activity' | translate }}">
+        <div count="3456" title="{{ 'tabs.activity' | translate }}" id='activityTab'>
+          <app-table [setting]='activityTable'></app-table>
         </div>
       </app-tab-view>
     </div>

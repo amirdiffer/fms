@@ -23,7 +23,7 @@ import {
 import { TableSetting } from '@core/table';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetConfigurationService } from '@feature/configuration/asset-configuration/asset-configuration.service';
-import { AssetTypeFacade } from '@feature/configuration/+state/asset-configuration';
+import { AssetTypeFacade, SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/index';
 import { Utility } from '@shared/utility/utility';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { IAssetType } from '@models/asset-type.model';
@@ -72,14 +72,14 @@ export class AddMakeComponent
 
   assetTypeId;
   assets;
-
+  selectedType;
   constructor(
     private _fb: FormBuilder,
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
+    private _subAssetTypeFacade : SubAssetTypeFacade,
     private facade: AssetTypeFacade,
     public dataService: DataService,
-    private assetTypeFacade: AssetTypeFacade,
     injector: Injector,
     public route: ActivatedRoute,
     public router: Router
@@ -93,7 +93,11 @@ export class AddMakeComponent
       typeCategory: ['asset', Validators.required],
       makes: new FormArray([this.createMake()])
     });
-
+    this.dataService.watchType().subscribe(
+      (x) => {this.selectedType = x}
+    )
+    this.errorAndSubmitHandler(this.facade);
+    this.errorAndSubmitHandler(this._subAssetTypeFacade);
     this.route.params.subscribe((x) => {
       if (x && x.assetType) this.assetTypeId = x.assetType;
       this.assetTypeSubs$ = this.facade.assetType$.subscribe((response) => {
@@ -136,30 +140,6 @@ export class AddMakeComponent
         this.facade.resetParams();
       });
     }
-
-    this.facade.submitted$.subscribe((x) => {
-      if (x) {
-        this.dialogModal = true;
-        this.dialogSetting.header = 'Add new type';
-        this.dialogSetting.message = 'Make Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
-      }
-    });
-
-    this.facade.error$.subscribe((x) => {
-      if (x?.error) {
-        x?.error;
-        this.dialogModal = true;
-        this.dialogSetting.header = 'Add new make';
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.message = 'Error occurred in progress';
-        this.dialogSetting.cancelButton = undefined;
-        this.dialogSetting.confirmButton = 'OK';
-      }
-    });
   }
 
   createMake(isOptional?: boolean): FormGroup {
@@ -261,7 +241,31 @@ export class AddMakeComponent
   color4Clicked(): void {
     // console.log('color4 clicked');
   }
+  errorAndSubmitHandler(facade){
+    facade.submitted$.subscribe((x) => {
+      if (x) {
+        this.dialogModal = true;
+        this.dialogSetting.header = 'Add new type';
+        this.dialogSetting.message = 'Make Added Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'OK';
+        this.dialogSetting.cancelButton = undefined;
+      }
+    });
 
+    facade.error$.subscribe((x) => {
+      if (x?.error) {
+        x?.error;
+        this.dialogModal = true;
+        this.dialogSetting.header = 'Add new make';
+        this.dialogSetting.hasError = true;
+        this.dialogSetting.message = 'Error occurred in progress';
+        this.dialogSetting.cancelButton = undefined;
+        this.dialogSetting.confirmButton = 'OK';
+      }
+    });
+  }
   submit() {
     this.submited = true;
     if (this.inputForm.invalid) {
@@ -283,28 +287,37 @@ export class AddMakeComponent
       default:
         type = 'ASSET';
     }
-
-    const data = this.inputForm.value.makes.map((x) => {
-      if (x.id)
-        return {
-          id: x.id,
-          make: x.make,
-          makeDescription: x.makeDescription,
-          origins: x.origins
-        };
-      else {
-        return {
-          make: x.make,
-          makeDescription: x.makeDescription,
-          origins: x.origins
-        };
-      }
-    });
-
-    this.facade.addMake(data, this.assetTypeId);
+    const data = {
+      makes:this.inputForm.value.makes.map((x) => {
+        if (x.id)
+          return {
+            id: x.id,
+            name: x.make,
+            description: x.makeDescription,
+          };
+        else {
+          return {
+            name: x.make,
+            description: x.makeDescription,
+          };
+        }
+      })
+    }
+    switch (this.selectedType) {
+      case 'ASSET':
+        this.facade.addMake(data, this.assetTypeId);
+        break;
+      case 'SUB_ASSET':
+        this._subAssetTypeFacade.addMake(data, this.assetTypeId)
+        break;
+      default:
+        break;
+    }
   }
 
   ngOnDestroy(): void {
     this.assetTypeSubs$.unsubscribe();
+    this._subAssetTypeFacade.resetParams();
+    this.facade.resetParams();
   }
 }

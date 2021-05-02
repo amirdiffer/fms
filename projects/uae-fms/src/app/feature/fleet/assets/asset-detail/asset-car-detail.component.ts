@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ChangeDetectorRef } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'anms-asset-detail',
@@ -6,11 +7,23 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
   styleUrls: ['./asset-car-detail.component.scss']
 })
 export class AssetCarDetailComponent implements OnInit, OnChanges {
-  @Input() asset;
-  constructor() {}
+  @Input() asset: any;
+  @Input() asset$: Observable<any>;
+
+  constructor(
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
-    console.log(this.asset);
+    if (this.asset$) {
+      this.asset$.subscribe(x => {
+        if (x && x.message) {
+          this.asset = x.message;
+          console.log(this.asset)
+          this.changeDetector.detectChanges();
+        }
+      })
+    }
   }
-  ngOnChanges() {}
+  ngOnChanges() { }
 }

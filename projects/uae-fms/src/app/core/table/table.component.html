@@ -130,6 +130,10 @@
             <radialBar-renderer [percent]='data[col.field]'></radialBar-renderer>
           </div>
 
+          <div *ngIf="col.renderer=='lowOpacityRenderer'">
+            <table-low-opacity-renderer [data]='data[col.field]'></table-low-opacity-renderer>
+          </div>
+
         </td>
         <div [class]="'statusColor'+ (hasRendere(setting.columns)?'with-renderer-table':' simple-table')"
           *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>

@@ -221,7 +221,7 @@ export class AssetsService {
             button: 'external',
             color: '#3F3F3F',
             onClick: (col, data) => {
-              this.router.navigate(['/fleet/assets/1/customization']);
+              this.router.navigate([`/fleet/assets/${data.id}/customization`]);
             }
           }
         ]

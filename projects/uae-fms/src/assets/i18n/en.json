@@ -525,7 +525,9 @@
       "role_name":"Role Name",
       "number_of_user":"Number Of User",
       "spare_part": "Spare Part",
-      "working_hours": "Working Hours"
+      "working_hours": "Working Hours",
+      "num_accessory": "Num Of Accessories",
+      "num_subasset": "Num Of Sub Assets"
     },
     "button": {
       "view_report": "View Report",
@@ -614,13 +616,14 @@
     "financial": "Financial",
     "maintenance": "Maintenance",
     "generate": "Generate",
-    "business_category": "Usage Category",
+    "business_category": "Business Category",
+    "usage_category": "Usage Category",
     "ownership": "Ownership",
     "year": "Year",
-    "make": "Manufacturer",
+    "make": "Make",
     "model": "Model",
     "color": "Color",
-    "trim": "Sub Model",
+    "trim": "Trim",
     "origin": "Origin",
     "kilometers": "Kilometers",
     "by_hour": "By Hour",
@@ -830,6 +833,8 @@
     "start_customization": "Start Customization",
     "camera": "Camera",
     "first_camera": "First Camera",
+    "accessories":"Accessories",
+    "sub-assets":"Sub Assets",
     "installed": "Installed",
     "second_camera": "Second Camera",
     "third_camera": "Third Camera",
@@ -1062,7 +1067,12 @@
         "content": "Drag and Drop a Item picture or click here"
       },
       "engine": "Engine",
-      "filters": "Filters"
+      "filters": "Filters",
+      "supplier":"Supplier",
+      "search":"Search",
+      "category_type":"Category Type",
+      "filter_setting":"Filter setting"
+
     },
     "integration": {
       "type": "Type",
@@ -1605,6 +1615,8 @@
       "sub_asset": "Sub Asset",
       "quantity": "Quantity",
       "accessory": "Accessory",
+      "make": "Make",
+      "model": "Model",
       "upload_form": {
         "title": "",
         "progressbar_title": "",
@@ -1692,7 +1704,9 @@
     },
     "order": "Order",
     "submit": "Submit",
-    "upload_avatar": "Upload Avatar"
+    "upload_avatar": "Upload Avatar",
+    "apply":"Apply",
+    "operator_list": "Operator List"
   },
   "login": {
     "incorrect_password": "Incorrect Password",

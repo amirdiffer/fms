@@ -1,4 +1,3 @@
-import { SubAssetService } from './../../+state/sub-asset/sub-asset.service';
 import { Component, OnInit, Injector } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
@@ -8,10 +7,12 @@ import {
   NgxFileDropEntry
 } from 'ngx-file-drop';
 import { ColumnDifinition, TableSetting } from '@core/table';
-import { SubAssetFacade } from '@feature/fleet/+state/sub-asset/sub-asset.facade';
 import { RouterFacade } from '@core/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import * as moment from 'moment';
+import { SubAssetTypeService, SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
+import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
+import { SubAssetService, SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 
 const SUB_ASSET_LABEL = 'SUB_ASSET';
 
@@ -135,12 +136,17 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     private _fb: FormBuilder,
     private subAssetFacade: SubAssetFacade,
     private subAssetService: SubAssetService,
+    private subAssetTypeFacade: SubAssetTypeFacade,
+    private subAssetTypeService: SubAssetTypeService,
+    private assetPolicyFacade: AssetPolicyFacade,
     private routerFacade: RouterFacade
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this.subAssetTypeFacade.loadAll();
+    this.assetPolicyFacade.loadAll();
     this.buildForm();
     this.handleEditMode();
 
@@ -192,55 +198,54 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           ? subAsset.avatarId
           : [subAsset.avatarId];
         const {
-          assetTypeId,
-          assetTypeName,
+          subAssetConfigurationId,
+          subAssetConfigurationName,
           avatarId,
           date,
           description,
-          dpd,
-          makeId,
-          makeName,
-          modelId,
-          modelName,
-          origin,
+          serialNumber,
+          subAssetMakeId,
+          subAssetMakeName,
+          subAssetModelId,
+          subAssetModelName,
           policyTypeId,
           policyTypeName,
           purchaseValue,
           year
         } = subAsset;
+        console.log(subAsset)
 
         const selectedSubAsset: any = this.subAssetTypes.find(
-          (a) => a.id === assetTypeId
+          (a) => a.id === subAssetConfigurationId
         );
         this.setMakes(selectedSubAsset);
-        const selectedMake: any = this.makes.find((a) => a.id === makeId);
+        const selectedMake: any = this.makes.find((a) => a.id === subAssetMakeId);
         this.setModels(selectedMake);
-        const selectedModel: any = this.models.find((a) => a.id === modelId);
+        const selectedModel: any = this.models.find((a) => a.id === subAssetModelId);
 
         const subAssetType = {
-          id: assetTypeId,
-          name: assetTypeName,
+          id: subAssetConfigurationId,
+          name: subAssetConfigurationName,
           children: selectedSubAsset ? selectedSubAsset.children : []
         };
         const make = {
-          id: makeId,
-          name: makeName,
+          id: subAssetMakeId,
+          name: subAssetMakeName,
           children: selectedMake ? selectedMake.children : []
         };
         const model = {
-          id: modelId,
-          name: modelName,
+          id: subAssetModelId,
+          name: subAssetModelName,
           children: selectedModel ? selectedModel.children : []
         };
         const policyType = { id: policyTypeId, name: policyTypeName };
 
         const formValue = {
-          serialNumber: dpd,
-          subAssetType,
-          make,
-          model,
+          serialNumber: serialNumber,
+          subAssetType: subAssetConfigurationId,
+          make: subAssetMakeId,
+          model: subAssetModelId,
           year,
-          origin,
           policyType,
           purchaseValue,
           description
@@ -296,7 +301,6 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       make: ['', [Validators.required]],
       model: ['', [Validators.required]],
       year: ['', [Validators.required]],
-      origin: ['', [Validators.required]],
       policyType: [''],
       purchaseValue: ['', [Validators.required]],
       avatarId: [],
@@ -310,12 +314,10 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
 
   initPolicyTypes() {
-    this.subAssetService.getPolicyTypes().subscribe(
+    this.assetPolicyFacade.assetPolicy$.subscribe(
       (result) => {
         if (result) {
-          const policyTypes = result.message;
-
-          this.policyTypes = policyTypes.map((policyType) => ({
+          this.policyTypes = result.map((policyType) => ({
             id: policyType.id,
             name: policyType.name
           }));
@@ -325,18 +327,15 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     );
   }
 
+  initAssetType = false;
   initAssetTypes() {
-    this.subAssetService.getAssetTypes().subscribe(
+    this.subAssetTypeFacade.subAssetType$.subscribe(
       (result) => {
         if (result) {
-          const assetTypes = result.message;
-
-          const subAssetTypes = assetTypes.filter(
-            (assetType) => assetType.type === SUB_ASSET_LABEL
-          );
-          this.setAssetTypes(subAssetTypes);
-          if (this.isEdit) {
+          this.setAssetTypes(result);
+          if (this.isEdit && !this.initAssetType) {
             this.loadSubAssetFormData(this.recordId);
+            this.initAssetType = true;
           }
         }
       },
@@ -457,7 +456,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     const makes = subAssetType.children;
     return (this.makes = makes.map((make) => ({
       id: make.id,
-      name: make.make,
+      name: make.name,
       children: make.models ? make.models : []
     })));
   }
@@ -470,8 +469,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     const models = make.children;
     return (this.models = models.map((model) => ({
       id: model.id,
-      name: model.model,
-      children: model.trims ? model.trims : []
+      name: model.name,
     })));
   }
 
@@ -497,11 +495,11 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       avatarId,
       subAssetType,
       policyType,
-      origin,
       year,
       purchaseValue,
       description,
-      warranties
+      warranties,
+      serialNumber
     } = subAssetFormValue;
 
     // eg. DPD129348
@@ -514,10 +512,9 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       return {
         id: this.recordId,
         avatarId,
-        dpd,
-        assetTypeId: subAssetType.id,
+        serialNumber: dpd,
+        subAssetConfigurationId: subAssetType.id,
         makeId: make.id,
-        origin: origin,
         modelId: model.id,
         year: +year,
         policyTypeId: policyType.id,
@@ -547,10 +544,9 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       }
       return {
         avatarId,
-        dpds,
-        assetTypeId: subAssetType.id,
+        serialNumbers: dpds,
+        subAssetConfigurationId: subAssetType.id,
         makeId: make.id,
-        origin: origin,
         modelId: model.id,
         year: +year,
         policyTypeId: policyType.id,

@@ -52,12 +52,6 @@ export class SubAssetService {
     );
   }
 
-  getAssetTypes(): Observable<any> {
-    return this.http.get(
-      environment.baseApiUrl + 'configuration/asset-type?size=99999'
-    );
-  }
-
   getPolicyTypes(): Observable<any> {
     return this.http.get(
       environment.baseApiUrl + 'configuration/asset-policy?size=99999'

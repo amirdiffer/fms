@@ -22,6 +22,11 @@ const operatorReducer = createReducer(
       error: null
     })
   ),
+  on(OperatorActions.count, (state, { data }) => ({
+    ...state,
+    resultNumber: data
+  })),
+
   on(OperatorActions.statisticsLoaded, (state, data) => ({
     ...state,
     statistics: data.data

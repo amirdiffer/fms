@@ -17,7 +17,7 @@ import { TableSetting } from '@core/table';
 import { IAssetType, Make } from '@models/asset-type.model';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetConfigurationService } from '@feature/configuration/asset-configuration/asset-configuration.service';
-import { AssetTypeFacade } from '@feature/configuration/+state/asset-configuration';
+import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/index';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { Utility } from '@shared/utility/utility';
 import { map } from 'rxjs/operators';
@@ -301,16 +301,49 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
 
     const makes: Make[] = [];
 
-    const data = this.inputForm.value.trims.map((x) => {
-      if (x.id) {
-        return x;
-      } else
-        return {
-          colors: x.colors,
-          description: x.description,
-          trim: x.trim
-        };
-    });
+    const data = {
+      trims:this.inputForm.value.trims.map((x) => {
+        if (x.id) {
+          return {
+            id: x.id,
+            name:x.trim,
+            description: x.description,
+            meterType: "KILOMETER",
+            meterValue: 10,
+            origins: [
+              "Germany"
+            ],
+            colors: x.colors.map(
+               y => {
+                return {
+                  name : y.name,
+                  hexColor: y.hexColor
+                }
+              }
+            )
+          }
+        } else {
+          return {
+              name:x.trim,
+              description: x.description,
+              meterType: "KILOMETER",
+              meterValue: 10,
+              origins: [
+                "Germany"
+              ],
+              colors: x.colors.map(
+                 y => {
+                  return {
+                    name : y.name,
+                    hexColor: y.hexColor
+                  }
+                }
+              )
+          }
+        }
+          
+      })
+    }
 
     this.facade.addTrim(data, this.assetTypeId, this.makeId, this.modelId);
   }
