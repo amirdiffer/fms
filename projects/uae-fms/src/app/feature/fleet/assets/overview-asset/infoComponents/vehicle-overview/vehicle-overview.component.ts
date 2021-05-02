@@ -2,17 +2,18 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
-  ApexDataLabels,
+  ApexDataLabels, ApexFill,
   ApexGrid,
   ApexLegend,
-  ApexMarkers,
+  ApexMarkers, ApexNonAxisChartSeries, ApexPlotOptions,
   ApexResponsive,
   ApexStroke,
-  ApexTitleSubtitle,
+  ApexTitleSubtitle, ApexTooltip,
   ApexXAxis,
   ApexYAxis,
   ChartComponent
 } from 'ng-apexcharts';
+import { ColumnType } from '@core/table';
 
 @Component({
   selector: 'app-vehicle-overview',
@@ -23,6 +24,8 @@ export class VehicleOverviewComponent implements OnInit {
   @Input() vehicleId;
   @ViewChild('chart') chart: ChartComponent;
   chartOptions: Partial<ChartOptions>;
+  chartOptionsColumn: Partial<ChartOptions>;
+  selectedTab = 'sub_asset';
 
   data = {
     totalKm: 14245,
@@ -126,162 +129,250 @@ export class VehicleOverviewComponent implements OnInit {
       ]
     }
   };
-  constructor() {
-    const lineChartData: WorkStatisticsChartSettings = {
-      dates: ['01-07 Dec', '18-14 Dec', '15-21 Dec', '22-28 Dec', '29-31 Dec'],
-      hoursPerDayData: [10, 80, 18, 70, 100],
-      kilometersPerDayData: [10, 30, 10, 18, 90]
-    };
+  activeLayout = 'menu';
+  tableSetting = {
+    columns: [
+      {
+        lable: 'tables.column.task_list',
+        field: 'task_list',
+        type: ColumnType.lable,
+        thumbField: ''
+      },
+      {
+        lable: 'tables.column.date',
+        field: 'date',
+        width: 100,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.technician',
+        field: 'technician',
+        width: 130,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.status',
+        field: 'Status',
+        width: 100,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'statusRenderer'
+      }
+    ],
+    data: [
+      {
+        task_list: 'Charge Oil After 456 Km',
+        date: '20/20/2020',
+        technician: 'Sam Smith',
+        Status: 'Done'
+      },
+      {
+        task_list: 'Charge Oil After 456 Km',
+        date: '20/20/2020',
+        technician: 'Sam Smith',
+        Status: 'Done'
+      },
+      {
+        task_list: 'Charge Oil After 456 Km',
+        date: '20/20/2020',
+        technician: 'Sam Smith',
+        Status: 'Todo'
+      },
+      {
+        task_list: 'Charge Oil After 456 Km',
+        date: '20/20/2020',
+        technician: 'Sam Smith',
+        Status: 'Doing'
+      },
+      {
+        task_list: 'Charge Oil After 456 Km',
+        date: '20/20/2020',
+        technician: 'Sam Smith',
+        Status: 'Start'
+      },
+      {
+        task_list: 'Charge Oil After 456 Km',
+        date: '20/20/2020',
+        technician: 'Sam Smith',
+        Status: 'Start'
+      }
+    ]
+  };
+  tableSetting2 = {
+    columns: [
+      {
+        lable: 'tables.column.name',
+        field: 'name',
+        type: ColumnType.lable,
+        thumbField: ''
+      },
+      {
+        lable: 'tables.column.s_n',
+        field: 's_n',
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: ''
+      },
+      {
+        lable: 'tables.column.status',
+        field: 'Status',
+        width: 100,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'statusRenderer'
+      }
+    ],
+    data: [
+      {
+        name: 'First Camera',
+        s_n: '4894949849',
+        Status: 'Install'
+      },
+      {
+        name: 'Second Camera',
+        s_n: '48949498490',
+        Status: 'JobCard'
+      },
+      {
+        name: 'First Camera',
+        s_n: '4894949849',
+        Status: 'Install'
+      },
+      {
+        name: 'First Camera',
+        s_n: '4894949849',
+        Status: 'Install'
+      },
+      {
+        name: 'First Camera',
+        s_n: '4894949849',
+        Status: 'Install'
+      },
+      {
+        name: 'First Camera',
+        s_n: '4894949849',
+        Status: 'Install'
+      }
+    ]
+  };
 
+
+  constructor() {
     this.chartOptions = {
-      series: [
-        {
-          name: 'Hours/Day',
-          data: lineChartData.hoursPerDayData
-        },
-        {
-          name: 'Km/Day',
-          data: lineChartData.kilometersPerDayData
-        }
-      ],
+      series: [44, 55, 41],
+      labels: ["Paid", "Unpaid", "Deducted"],
       chart: {
-        height: 350,
-        width: '650px',
-        zoom: {
-          enabled: false
-        },
-        type: 'line',
-        dropShadow: {
-          enabled: true,
-          color: '#000',
-          top: 18,
-          left: 7,
-          blur: 10,
-          opacity: 0.2
-        },
+        type: 'donut',
+        height: 280,
+      },
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: '100%'
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }],
+      plotOptions: {
+        pie: {
+          donut: {
+            labels: {
+              show: false,
+              total: {
+                show: false,
+                label: 'Total',
+                color: '#373d3f',
+                showAlways: true,
+                fontFamily: '29LT Bukra',
+                formatter: (w) => {
+                  return w.globals.seriesTotals.reduce((a, b) => {
+                    return a + b
+                  }, 0) + ' AED'
+                }
+              },
+              name: {
+                offsetY: 18,
+                fontSize: '8px'
+              },
+              value: {
+                offsetY: -15
+              }
+            }
+          }
+        }
+      }
+    };
+    this.chartOptionsColumn = {
+      series: [{
+        name: 'Demanded',
+        data: [44, 55, 57, 56, 61, 58]
+      }, {
+        name: 'Consumption',
+        data: [76, 85, 101, 98, 87, 105]
+      }],
+      chart: {
+        type: 'bar',
+        height: 280,
         toolbar: {
           show: false
         }
       },
-      colors: ['#FF326E', '#008755'],
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '20%',
+          endingShape: 'rounded'
+        },
+      },
       dataLabels: {
         enabled: false
       },
+      legend: {
+        position: 'top'
+      },
       stroke: {
-        curve: 'smooth'
-      },
-      title: {
-        text: 'Workout Statistics',
-        align: 'left'
-      },
-      grid: {
-        borderColor: '#e7e7e7',
-        row: {
-          colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
-          opacity: 0.5
-        }
-      },
-      markers: {
-        size: 6,
-        shape: 'circle'
+        show: true,
+        width: 2,
+        colors: ['transparent']
       },
       xaxis: {
-        categories: lineChartData.dates
+        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
       },
       yaxis: {
         title: {
-          text: 'Fleet Average'
+          text: '$ (thousands)'
         }
       },
-      legend: {
-        position: 'top',
-        horizontalAlign: 'right',
-        floating: true,
-        offsetY: -25,
-        offsetX: -5
+      fill: {
+        opacity: 1
       },
-      responsive: [
-        {
-          breakpoint: 1750,
-          options: {
-            chart: {
-              width: '600px'
-            }
-          }
-        },
-        {
-          breakpoint: 1675,
-          options: {
-            chart: {
-              width: '550px'
-            }
-          }
-        },
-        {
-          breakpoint: 1600,
-          options: {
-            chart: {
-              width: '500px'
-            }
-          }
-        },
-        {
-          breakpoint: 1550,
-          options: {
-            chart: {
-              width: '450px'
-            }
-          }
-        },
-        {
-          breakpoint: 1475,
-          options: {
-            chart: {
-              width: '400px'
-            }
-          }
-        },
-        {
-          breakpoint: 1410,
-          options: {
-            chart: {
-              width: '700px'
-            }
-          }
-        },
-        {
-          breakpoint: 1320,
-          options: {
-            chart: {
-              width: '600px'
-            }
-          }
-        },
-        {
-          breakpoint: 1185,
-          options: {
-            chart: {
-              width: '500px'
-            }
-          }
-        },
-        {
-          breakpoint: 1050,
-          options: {
-            chart: {
-              width: '400px'
-            }
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'top'
           }
         }
-      ]
-    };
+      }]
+    }
   }
 
   ngOnInit() {}
 }
 
 export interface ChartOptions {
-  series: ApexAxisChartSeries;
+  series: any;
+  labels: any;
   chart: ApexChart;
   xaxis: ApexXAxis;
   stroke: ApexStroke;
@@ -293,6 +384,9 @@ export interface ChartOptions {
   legend: ApexLegend;
   title: ApexTitleSubtitle;
   responsive: ApexResponsive[];
+  plotOptions: ApexPlotOptions;
+  fill: ApexFill;
+  tooltip: ApexTooltip;
 }
 
 export interface WorkStatisticsChartSettings {

@@ -22,6 +22,49 @@ export class RolePermissionEffect {
       )
     )
   );
+  addRole$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(RolePermissionActions.addRole),
+      mergeMap((action) =>
+        this.service.addNewRole(action.data).pipe(
+          map((data) =>
+          RolePermissionActions.roleAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
+          ),
+          catchError((error) => of(RolePermissionActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  updateRole$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(RolePermissionActions.updateRole),
+      mergeMap((action) =>
+        this.service.updateRole(action.data).pipe(
+          map((data) =>
+          RolePermissionActions.roleUpdateSuccessfully({ data: action.data })
+          ),
+          catchError((error) => of(RolePermissionActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  getAssetByID = createEffect(() =>
+    this.action$.pipe(
+      ofType(RolePermissionActions.roleByRoleId),
+      mergeMap((action) =>
+        this.service.getRoleByRoleID(action.roleId).pipe(
+          map((data) => {
+            return RolePermissionActions.roleByRoleIdLoaded({ data: data.message });
+          }),
+          catchError((error) => of(RolePermissionActions.error({ reason: error })))
+        )
+      )
+    )
+  );
 
   constructor(
     private action$: Actions,

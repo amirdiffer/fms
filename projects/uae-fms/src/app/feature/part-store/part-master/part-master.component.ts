@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PartMasterService } from './part-master.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-part-master',
@@ -7,11 +7,43 @@ import { PartMasterService } from './part-master.service';
   styleUrls: ['./part-master.component.scss']
 })
 export class PartMasterComponent implements OnInit {
+  
+  
   searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn = 'assets/icons/download-solid.svg';
   filterSetting = [];
   partMasterTableSetting;
-  constructor(private _partMasterService: PartMasterService) {}
+  selectedCategory;
+  hasForm:boolean= false;
+  itemTypes = [
+    { name: 'Item type 1', id: 1 },
+    { name: 'Item type 2', id: 2 },
+    { name: 'Item type 3', id: 3 },
+    { name: 'Item type 4', id: 4 },
+    { name: 'Item type 5', id: 5 },
+    { name: 'Item type 6', id: 6 }
+  ];
+  categoryItem=[
+    {
+      name:'Filter'
+    },
+    {
+      name:'Engine'
+    },
+    {
+      name:'Air Condition'
+    },
+    {
+      name:'Tire'
+    },
+    {
+      name:'Door'
+    },
+    {
+      name:'Hood'
+    },
+  ]
+  constructor(public _router : Router) {}
 
   ngOnInit(): void {
     this.filterSetting = [
@@ -31,6 +63,14 @@ export class PartMasterComponent implements OnInit {
         filterTagColor: '#BA7967'
       }
     ];
-    this.partMasterTableSetting = this._partMasterService.partMastertableSetting();
+    
   }
+  categorySelect(index){
+    if(this._router.url != '/part-store/part-master'){
+      return
+    }
+    this.selectedCategory = index
+  }
+
+
 }

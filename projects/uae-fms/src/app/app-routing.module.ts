@@ -46,7 +46,7 @@ const routes: Routes = [
       ),
     component: MainTemplateComponent
   },
-  /* {
+  {
     path: 'part-store',
     canLoad: [AuthGuardService],
     loadChildren: () =>
@@ -54,7 +54,7 @@ const routes: Routes = [
         (m) => m.PartStoreModule
       ),
     component: MainTemplateComponent
-  }, */
+  },
   /* {
     path: 'traffic-fine',
     canLoad: [AuthGuardService],

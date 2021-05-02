@@ -1,12 +1,12 @@
 <div class="lifecycle-container">
     <div class="lifecycle-header d-flex">
         <h3 class="lifecycle-title">{{ 'chart.lifecycle' |translate}}</h3>
-        <div class="lifecycle-tabs d-flex mx-5">
+        <div *ngIf="hasCalendar" class="lifecycle-tabs d-flex mx-5">
             <p class="mx-3">{{ 'chart.all' | translate}}</p>
             <p class="mx-3">{{ 'chart.month' | translate}}</p>
             <p class="mx-3">{{ 'chart.week' | translate}}</p>
         </div>
-        <p >{{ 'chart.this_month' | translate}}</p>
+        <p  *ngIf="hasCalendar">{{ 'chart.this_month' | translate}}</p>
     </div>
     <div class="lifecycle-line">
         <ng-container *ngFor="let cycle of lifeCycleData; let index=index; let last=last; let first=first">

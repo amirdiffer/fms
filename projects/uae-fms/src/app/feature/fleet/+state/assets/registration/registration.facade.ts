@@ -6,7 +6,14 @@ import { RegistrationActions } from '@feature/fleet/+state/assets/registration/r
 @Injectable()
 export class RegistrationFacade {
   registration$ = this.store.pipe(select(RegistrationSelectors.selectAll));
+  error$ = this.store.pipe(select(RegistrationSelectors.error));
+
+  submitted$ = this.store.pipe(select(RegistrationSelectors.submitted));
+
   conut$ = this.store.pipe(select(RegistrationSelectors.count));
+  assetForRegistration$ = this.store.pipe(
+    select(RegistrationSelectors.assetForRegistration)
+  );
 
   constructor(private store: Store<IRegistrationPartialState>) {}
 
@@ -15,5 +22,17 @@ export class RegistrationFacade {
   }
   register(data) {
     this.store.dispatch(RegistrationActions.registerAsset({ data }));
+  }
+  editRegister(register: any) {
+    this.store.dispatch(RegistrationActions.editRegister({ register }));
+  }
+
+  getAssetForRegistration(assetId: number) {
+    this.store.dispatch(
+      RegistrationActions.loadAssetForRegistrationByAssetId({ assetId })
+    );
+  }
+  resetParams() {
+    this.store.dispatch(RegistrationActions.resetParams());
   }
 }

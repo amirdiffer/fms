@@ -13,6 +13,8 @@ export class OperatorFacade {
   error$ = this.store.pipe(select(OperatorSelectors.error));
   statistics$ = this.store.pipe(select(OperatorSelectors.selectStatistics));
 
+  conut$ = this.store.pipe(select(OperatorSelectors.count));
+
   submitted$ = this.store.pipe(select(OperatorSelectors.submitted));
 
   constructor(private store: Store<IOperatorPartialState>) {}

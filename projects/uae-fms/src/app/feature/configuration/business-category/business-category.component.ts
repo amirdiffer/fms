@@ -24,9 +24,9 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
           Category_Name: responseObject.name,
           Status: responseObject.status,
           Description: responseObject.description,
-          Asset_Type: responseObject.assetTypeId,
-          Sub_Asset: responseObject.numOfSubAssets,
-          Accessory: responseObject.numOfAccessories,
+          Asset_Type: responseObject.assetConfigurationId,
+          Sub_Asset: responseObject.numOfSubAssetConfigurations,
+          Accessory: responseObject.numOfAccessoryConfigurations,
           assetTypeName: responseObject.assetTypeName
         };
       })
@@ -36,11 +36,11 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   businessCategory_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.category_name', type: 1, field: 'Category_Name' },
-      { lable: 'tables.column.status', type: 1, field: 'Status' },
+      { lable: 'tables.column.status', type: 1, field: 'Status', renderer: 'statusRenderer' },
       { lable: 'tables.column.description', type: 1, field: 'Description' },
       { lable: 'tables.column.asset_type', type: 1, field: 'Asset_Type' },
-      { lable: 'tables.column.sub_asset', type: 1, field: 'Sub_Asset' },
-      { lable: 'tables.column.accessory', type: 1, field: 'Accessory' },
+      { lable: 'tables.column.num_subasset', type: 1, field: 'Sub_Asset' },
+      { lable: 'tables.column.num_accessory', type: 1, field: 'Accessory' },
       {
         lable: '',
         field: 'floatButton',
@@ -54,9 +54,8 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
     rowSettings: {
       onClick: (col, data, button?) => {
         this.router
-          .navigate(['/configuration/business-category/edit-usage-category'], {
-            queryParams: { id: data['id'] }
-          })
+          .navigate(
+            ['/configuration/usage-category/edit-usage-category/'+data.id])
           .then();
       },
       floatButton: [

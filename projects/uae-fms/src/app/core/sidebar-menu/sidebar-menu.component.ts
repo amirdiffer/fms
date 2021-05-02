@@ -131,21 +131,21 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           route: '/workshop/service-shop',
           // disabled: true
         },
-        /*         {
-                  name: 'sidebar.workshop.inspection.~',
-                  icon: 'inspection',
-                  route: '/workshop/inspections',
-                  items: [
-                    {
-                      name: 'sidebar.workshop.inspection.technical_inspection',
-                      route: '/workshop/inspections/technical-inspection'
-                    },
-                    {
-                      name: 'sidebar.workshop.inspection.auction_list',
-                      route: '/workshop/inspections/auction-list'
-                    }
-                  ]
-                }, */
+        /* {
+          name: 'sidebar.workshop.inspection.~',
+          icon: 'inspection',
+          route: '/workshop/inspections',
+          items: [
+            {
+              name: 'sidebar.workshop.inspection.technical_inspection',
+              route: '/workshop/inspections/technical-inspection'
+            },
+            {
+              name: 'sidebar.workshop.inspection.auction_list',
+              route: '/workshop/inspections/auction-list'
+            }
+          ]
+        }, */
         {
           name: 'sidebar.workshop.task_master',
           icon: 'task-master',
@@ -157,7 +157,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.part_store.~',
       icon: 'part-store',
       route: '/part-store',
-      disabled: true
+      disabled:true
       /* items: [
         {
           name: 'sidebar.part_store.part_list',
@@ -196,7 +196,6 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
               name: 'sidebar.configuration.user_management.role_permission',
               icon: 'organization',
               route: '/configuration/user-management/role-permission',
-              disabled: true
             },
             {
               name: 'sidebar.configuration.user_management.users',
@@ -224,7 +223,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.configuration.business_category',
           icon: 'business',
-          route: '/configuration/business-category'
+          route: '/configuration/usage-category'
         },
         {
           name: 'sidebar.configuration.ownership',

@@ -38,11 +38,49 @@ const registrationReducer = createReducer(
       }
     )
   ),
+  on(RegistrationActions.editRegister, (state, { register }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(RegistrationActions.registerEditedSuccessfully, (state, { register }) =>
+    registrationAdapter.updateOne(
+      { changes: register, id: register.id },
+      {
+        ...state,
+        error: null,
+        message: null,
+        submitted: true
+      }
+    )
+  ),
+  on(RegistrationActions.resetParams, (state) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
   on(RegistrationActions.error, (state, { reason }) => ({
     ...state,
     error: reason,
     loaded: true
-  }))
+  })),
+  on(RegistrationActions.loadAssetForRegistrationByAssetId, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null
+  })),
+  on(
+    RegistrationActions.AssetForRegistrationByAssetIdLoaded,
+    (state, { data }) => ({
+      ...state,
+      loaded: true,
+      error: null,
+      assetForRegistration: data
+    })
+  )
 );
 
 export function reducer(state: IRegistrationState, action: Action) {

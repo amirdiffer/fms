@@ -65,4 +65,11 @@ export class AccessoryService {
       environment.baseApiUrl + 'configuration/user'
     );
   }
+
+
+  loadFullList(): Observable<ResponseBody<IAccessory[]>> {
+    return this.http.get<ResponseBody<IAccessory[]>>(
+      environment.baseApiUrl + 'accessory?page=0&size=99999999'
+    );
+  }
 }

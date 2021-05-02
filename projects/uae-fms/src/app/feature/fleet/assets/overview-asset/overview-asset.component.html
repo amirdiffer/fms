@@ -10,11 +10,11 @@
     <div class="col-12 col-md-8 col-lg-9 main-panel">
       <div class="row">
         <div class="col-12">
-          <div class="component_sec_wrapper wrapper_cus" *ngIf="activeTab == 'Overview'">
-            <div class="lifecycle">
-              <app-life-cycle-chart></app-life-cycle-chart>
-            </div>
-          </div>
+<!--          <div class="component_sec_wrapper wrapper_cus" *ngIf="activeTab == 'Overview'">-->
+<!--            <div class="lifecycle">-->
+<!--              <app-life-cycle-chart></app-life-cycle-chart>-->
+<!--            </div>-->
+<!--          </div>-->
           <div class="mb-4">
             <div  class="filter-container" *ngIf="activeTab == 'Business Category'">
               <app-filter [setting] = "filterSetting_BusinessCategory"></app-filter>
@@ -28,22 +28,54 @@
           </div>
         </div>
 
+        <div class="col-12" *ngIf="activeTab == 'Overview'">
+          <div class="form-section filter-date">
+            <ul>
+              <li (click)="activeFilterDate = 'week'" [class.active]="activeFilterDate == 'week'">
+                Last Week
+              </li>
+              <li (click)="activeFilterDate = 'month'" [class.active]="activeFilterDate == 'month'">
+                Last Month
+              </li>
+              <li (click)="activeFilterDate = 'year'" [class.active]="activeFilterDate == 'year'">
+                Last Year
+              </li>
+              <li>
+                <svg-icon class="date-icon" src='assets/icons/calendar-alt-regular.svg' [svgStyle]="{ 'width.px':'20' , 'fill': activeFilterDate == 'custom' ? '#008755' : '#ccc'}"></svg-icon>
+                <span>From: <b><label (click)="calendarStart.showOverlay();activeFilterDate = 'custom'" class="m-0" for="from">1 June 2020</label></b>
+                  <p-calendar class="d-none" #calendarStart id="from" inputId="from"></p-calendar>
+                </span>
+                <span>To: <b><label (click)="calendarEnd.showOverlay();activeFilterDate = 'custom'" class="m-0" for="to">8 July 2020</label></b>
+                  <p-calendar class="d-none" #calendarEnd id="to" inputId="to"></p-calendar>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div class="col-12">
           <app-tab-view [index]="false" (selectedIndex)="selectedTab($event)" [container]="true">
-            <div id="Overview" title="tabs.overview" class="p-2">
+            <div id="Overview" title="tabs.overview" class="p-0">
               <app-vehicle-overview [vehicleId]="vehicleId"></app-vehicle-overview>
             </div>
-            <div title="tabs.movement_history" class="p-2"></div>
-            <div id="Business Category" title="tabs.business_category" class="p-2">
+            <div id="Movement History" title="tabs.movement_history" class="p-0">
+              <app-asset-overview-movement-history></app-asset-overview-movement-history>
+            </div>
+            <div id="Business Category" title="tabs.business_category" class="p-0">
               <app-asset-overview-business-category></app-asset-overview-business-category>
             </div>
-            <div id="Reminder" title="tabs.reminder" class="p-2"></div>
-            <div id="Request" title="tabs.request" class="p-2">
+            <div id="Reminder" title="tabs.reminder" class="p-0">
+              <app-asset-overview-reminder></app-asset-overview-reminder>
+            </div>
+            <div id="Request" title="tabs.request" class="p-0">
               <app-asset-overview-request></app-asset-overview-request>
             </div>
-            <div id="Job Card" title="tabs.job_card" class="p-0 bg-transparent"><app-asset-overview-job-card></app-asset-overview-job-card></div>
-            <div id="Maintenance Service" title="tabs.maintenance_service" class="p-2"></div>
-            <div id="warranty" title="tabs.warranty" class="p-2"></div>
+            <div id="Maintenance Service" title="tabs.maintenance_service" class="p-0">
+              <app-asset-overview-maintenance-service></app-asset-overview-maintenance-service>
+            </div>
+            <div id="warranty" title="tabs.warranty" class="p-0">
+              <app-asset-overview-warranty></app-asset-overview-warranty>
+            </div>
           </app-tab-view>
         </div>
       </div>

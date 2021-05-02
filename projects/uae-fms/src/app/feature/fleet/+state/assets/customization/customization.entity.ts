@@ -22,6 +22,7 @@ export interface ICustomizationState
   error?: any;
   loaded: boolean;
   message: string;
+  resultNumber?: number;
 }
 
 export const FLEET_CUSTOMIZATION_FEATURE_KEY = 'customization';
@@ -38,6 +39,7 @@ export const initialState: ICustomizationState = customizationAdapter.getInitial
   {
     loaded: null,
     message: null,
-    error: null
+    error: null,
+    resultNumber: null
   } as ICustomizationState
 );

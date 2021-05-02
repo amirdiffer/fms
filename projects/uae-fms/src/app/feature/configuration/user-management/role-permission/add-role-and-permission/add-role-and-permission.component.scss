@@ -1,71 +1,230 @@
 @import '../../../../../../assets/scss/form-section.scss';
 
-.toggle-select label {
-  margin-right: 0.8em;
-  margin-bottom: 0;
+.form-section__title{
+  color:#0DA06E;
+  &.font-weight-lighter{
+    font-family: "29LT Bukra";
+    padding: 20px 20px 0 20px;
+  }
+}
+.role-drop-down{
+  white-space: nowrap;
+  max-height: 40px;
 }
 
-.right_tag {
-  max-width: 24px;
-  min-height: available;
-  background: #bac4ce 0 0 no-repeat padding-box;
-  border-radius: 0 4px 4px 0;
-  opacity: 0.77;
-  cursor: pointer;
-  width: 1.7em;
+.vertical-tabs{
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.curved_right_tag {
-  min-width: 20px;
-  background: #475f7b58 0 0 no-repeat padding-box;
-  border-radius: 100px 0 0 100px;
-  opacity: 1;
-  padding: 1em 1em;
-  cursor: pointer;
-}
-
-.down_icon {
-  position: sticky;
-  top: 0;
-  bottom: 0;
-  filter: invert(1);
-  transform: rotate(180deg);
-}
-
-.top_icon {
-  position: sticky;
-  top: 0;
-  bottom: 0;
-  filter: invert(1);
-}
-
-.bottom_icon {
-  position: sticky;
-  top: 0;
-  bottom: 0;
-  filter: invert(1);
-  transform: rotate(180deg);
-}
-
-.card{
-  background:transparent;
-}
-
-.body_div {
-  background-color: #F7F9FA;
-  border: 1px solid #77767726;
-  padding: 2em 0 2em 1em;
-  &__inactive {
-    max-height: 0;
-    overflow: hidden;
+  flex-direction: column;
+  width: 100%;
+  button{
+    height: 3.75em;
+    text-align: left;
+    padding: 0 15px;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid;
+    border-color:#eaeaea;
+    &.active{
+      background-color:#0DA06E;
+      color:#fff;
+      box-shadow: 0px 3px 6px #00000029;
+    }
   }
-  &__active {
-    max-height: none !important;
+}
+mat-tab-group {
+  ::ng-deep{
+    mat-tab-header{
+      ::ng-deep{
+        .mat-tab-label-active{
+          color: #0DA06E;
+          opacity: 1;
+          font-weight: bold;
+        }
+        .mat-tab-label{
+          min-width: max-content;
+        }
+      }
+    }
   }
-  .card-body {
-    background-color: #ffffff;
+}
+.vertical-tabs{
+  position: relative;
+  &.form-section{
+    padding: 0;
+    margin: 0;
+    margin-top:15px !important;
+    background-color:transparent !important;
+    box-shadow:none;
+    font-size: 1em;
   }
+  p.tabs-section-title{
+    position: absolute;
+    margin: 0;
+    top: 1.2em;
+    left: 1.5em;
+    color: #0DA06E;
+    font-size: 1em;
+    font-family: "29LT Bukra";
+    z-index: 2;
+  }
+  & > mat-tab-group{
+    flex-direction: row;
+    ::ng-deep{
+      & > mat-tab-header{
+        flex: 1 1 15%;
+        font-size: 0.9em;
+        box-shadow: 0 0 2px #0000003d;
+        border-radius: 5px;
+        margin-right: 10px;
+        ::ng-deep{
+          & > .mat-tab-header-pagination {
+            display: none;
+          }
+          .mat-tab-list{
+            .mat-ink-bar{
+              display: none;
+            }
+          }
+          .mat-tab-labels{
+            flex-direction: column;
+            .mat-tab-label{
+              height: 3.75em;
+              text-align: left;
+              padding: 0 15px;
+              border: none;
+              background: transparent;
+              border-bottom: 1px solid;
+              border-color:#eaeaea;
+              justify-content: left;
+              
+            }
+          }
+          .mat-tab-label-container{
+            padding-top: 4em;
+          }
+          .mat-tab-label-active{
+            background-color: #0DA06E !important;
+            color: #fff;
+            box-shadow: 0px 3px 6px #00000029;
+            opacity: 1;
+          }
+        }
+      }
+      & > .mat-tab-body-wrapper{
+        flex:1 1 80%;
+        padding: 20px 20px 0 20px;
+        font-size: 0.9em;
+        box-shadow: 0 0 2px #0000003d;
+        border-radius: 5px;
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+.tabs-content-header{
+  background: #E6F7EF;
+  padding: 1.5em;
+  a{
+    text-decoration: underline;
+    cursor: pointer;
+    margin: 0 1.2em;
+  }
+  a:first-child{
+    color:#0DA06E 
+  }
+}
+
+.form-check {
+  padding-bottom: 1.2em;
+  input:checked ~ .sub-checkbox{
+    height: auto !important;
+    display: block !important;
+    transition: height .6s ease-in;
+  }
+}
+.sub-checkbox{
+  
+  border-left: .3em solid;
+  border-color: #0da06e;
+  transition: height .6s ease-out;;
+  height: 0px;
+  display: none;
+  p.search-title{
+    font-size: .8em;
+  }
+
+  p-autocomplete{
+    ::ng-deep{
+      input{
+        padding:0 2.8em;
+        margin: 5px 0;
+      }
+    }
+  }
+  .pi-search{
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: max-content;
+  }
+  .item-check{
+    font-size:.8em;
+    padding: .5em;
+    &:before{
+      content:  '';
+      background:  url('../../../../../../assets/icons/check.svg');
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      background-size: 1em;
+      background-repeat: no-repeat;
+      background-position-y: 3px;
+      margin: 0 5px;
+    }
+  }
+  .selected-items{
+    
+    .item{
+      display: inline-block;
+      margin: .3em;
+      background: #AEAEAE;
+      color:#fff;
+      width: max-content;
+      padding: 1em 1.6em;
+      position: relative;
+      border-radius: .3em;
+      font-size: .8em;
+    }
+    .close-item{
+      position: absolute;
+      right: -1px;
+      top: -1px;
+      cursor: pointer;
+      width: 15px;
+      height: 15px;
+    }
+    p{
+      margin: 0;
+      
+    }
+  }
+}
+
+.opacity-8{
+  opacity: .8;
+}
+
+.isOverview{
+  .tabs-content-header {
+    display: none;
+  }
+  .form-check{
+    input[type="checkbox"]{
+      display: none;
+    }
+  }
+}
+p-autocomplete ::ng-deep .p-autocomplete-panel{
+  margin-top:5px
 }

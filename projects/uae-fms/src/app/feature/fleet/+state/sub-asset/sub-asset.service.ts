@@ -52,15 +52,15 @@ export class SubAssetService {
     );
   }
 
-  getAssetTypes(): Observable<any> {
-    return this.http.get(
-      environment.baseApiUrl + 'configuration/asset-type?size=99999'
-    );
-  }
-
   getPolicyTypes(): Observable<any> {
     return this.http.get(
       environment.baseApiUrl + 'configuration/asset-policy?size=99999'
+    );
+  }
+
+  loadFullList(): Observable<ResponseBody<ISubasset[]>> {
+    return this.http.get<ResponseBody<ISubasset[]>>(
+      environment.baseApiUrl + 'sub-asset?page=0&size=99999999'
     );
   }
 }

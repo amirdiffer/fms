@@ -24,7 +24,13 @@ const userProfileReducer = createReducer(
     ...state,
     error: reason,
     loaded: true
-  }))
+  })),
+  on(UserPorfileAction.resetParams, (state) => ({
+    ...state,
+    error: null,
+    message: null,
+    profile:null,
+  })),
 );
 
 export function reducer(state: IUserProfileState, action: Action) {

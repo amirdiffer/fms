@@ -71,11 +71,9 @@
 .color-button-invert {
   padding: 5px;
   background: transparent;
-  color: #0da06e;
   box-shadow: 0px 0px 2px #0000003D;
   border-radius: 8px;
   margin: 5px;
-
   img {
     width: 1.6em;
     height:  1.6em;
@@ -98,13 +96,13 @@
           flex: 1 60%;
 
           .amount {
-            font-size: 1.4em;
-            font-weight: 700;
+            font-size: 0.7em;
+            font-weight: bold;
+            color: #008755;
           }
 
           .unit {
-            font-size: 0.5rem;
-            font-weight: 600;
+            font-size: 0.8em;
           }
         }
 
@@ -131,10 +129,71 @@
     margin: 20px 10px;
     border-radius: 5px;
     padding: 10px;
+    .title {
+      display: flex;
+      justify-content: space-between;
+      h4 {
+        font-size: 1em;
+        color: #008755;
+        font-weight: bold;
+      }
+      .summary {
+        display: flex;
+        flex-direction: column;
+        &-title {
+          font-size: 0.6em;
+        }
+        &-value {
+          color: #008755;
+        }
+      }
+    }
   }
 
-  .speed-average {
-    flex: 1 26%;
+  .traffic-fine {
+    display: flex;
+    flex-direction: column;
+    .chart {
+      display: flex;
+      flex: 1 1 auto;
+      align-items: center;
+    }
+  }
+
+  .damage-history {
+    .title {
+
+    }
+    .sort {
+      span {
+        background-color: #f3f3f3;
+        padding: 5px 4px;
+        height: 30px;
+        width: 45px;
+        text-align: center;
+        display: inline-block;
+        cursor: pointer;
+      }
+    }
+    .item-body {
+      box-shadow:  0px 0px 10px #00000026;
+      padding: 1em;
+      &__title {
+        font-weight: 600;
+        font-size: 14px;
+      }
+      &__desc {
+        font-size: 12px;
+      }
+      &__img {
+        width: 180px;
+        height: 180px;
+        border-radius: 5px;
+      }
+      &__author {
+        font-size: 12px;
+      }
+    }
   }
 
   .workout-statics {
@@ -290,9 +349,60 @@
           }
         }
       }
-      .car {
-        flex: 3 30%;
+    }
+
+    .car {
+      flex: 3 30%;
+      position: relative;
+      justify-content: flex-end;
+      display: flex;
+      .driver {
+        top: 50%;
+        position: absolute;
+        width: 100%;
+        display: flex;
+        .color-button-invert {
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          width: 12rem;
+          margin: 0;
+          img {
+            width: 2.6em;
+            height: 2.6em;
+            border-radius: 0.5em;
+          }
+          .seprator {
+            margin: 0 0.1em;
+          }
+          .fullname {
+            font-size: 0.8em;
+            font-weight: bold;
+          }
+          .desc {
+            font-size: 0.7em;
+          }
+        }
+        .connect-line {
+          width: 6rem;
+          background-color: #008755;
+          height: 2px;
+          margin-top: 1.5rem;
+        }
       }
+    }
+
+  }
+}
+
+.tabs-specific {
+  padding: 1em 0;
+  span {
+    padding: 1em 0.5em;
+    cursor: pointer;
+    &.active {
+      color: #008755;
+      border-bottom: 2px solid #008755;
     }
   }
 }
@@ -307,6 +417,22 @@
   ._row-custom-wrap {
     display: flex;
     flex-direction: row;
+  }
+  .vehicle-details {
+    .car {
+      flex-direction: column;
+      img {
+        height: 25rem;
+        width: 100%;
+      }
+      .driver {
+        justify-content: center;
+        position: initial !important;
+        .connect-line {
+          display: none;
+        }
+      }
+    }
   }
 }
 

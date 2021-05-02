@@ -10,4 +10,5 @@ export class UserPorfileAction {
     '[userProfile] error occurred',
     props<{ reason: any }>()
   );
+  static resetParams = createAction('[userProfile] reset parameters');
 }

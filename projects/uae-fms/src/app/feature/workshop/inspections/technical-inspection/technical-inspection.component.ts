@@ -1,20 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
-import { Subscription } from 'rxjs';
-import { TableSetting } from '@core/table';
+import { ColumnType, TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
-import { MakeDecisionService } from './make-decision/make-decision.service';
 import { TechnicalInspectionFacade } from '@feature/workshop/+state/technical-inspections';
-import { ButtonType } from '@core/table/table.component';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './technical-inspection.component.html',
   styleUrls: ['./technical-inspection.component.scss']
 })
 export class TechnicalInspectionComponent implements OnInit, OnDestroy {
-  makeDecision: boolean;
   downloadBtn = 'assets/icons/download-solid.svg';
-  makeDecision$: Subscription;
   filterSetting: FilterCardSetting[] = [
     {
       filterCount: '',
@@ -56,7 +51,7 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
   setting: TableSetting = {
     columns: [
       {
-        lable: 'tables.column.item',
+        lable: 'tables.column.asset',
         field: 'item',
         renderer: 'vehicleRenderer',
         width: 150
@@ -83,10 +78,11 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
       },
       {
         lable: '',
-        field: '',
-        width: 130,
-        renderer: 'button',
-        buttonType: ButtonType.makeDecision
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
     data: [
@@ -189,24 +185,43 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
         insurance: 'Repair',
         action: ''
       }
-    ]
+    ],
+    rowSettings: {
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+          }
+        },
+        /* {
+          button: 'external',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            // todo check condition data.id
+            if (true) {
+              this._router.navigate(['/workshop/inspections/technical-inspection-report/', 1])
+            }
+          }
+        }, */
+        {
+          button: 'cancel',
+          color: '#F75A4A',
+          onClick: (col, data, button?) => {
+          }
+        }
+      ]
+    }
   };
   constructor(
-    private _makeDecisionService: MakeDecisionService,
-    private _facade: TechnicalInspectionFacade
+    private _facade: TechnicalInspectionFacade,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
-    this.makeDecision$ = this._makeDecisionService
-      .getMakeDecision()
-      .subscribe((open) => {
-        this.makeDecision = open;
-        // console.log(open);
-      });
     this._facade.loadAll();
   }
 
   ngOnDestroy() {
-    this.makeDecision$.unsubscribe();
   }
 }

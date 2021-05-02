@@ -23,7 +23,7 @@ export class AssetConfigurationService {
 
   loadAll(): Observable<ResponseBody<IAssetType[]>> {
     return this.http.get<ResponseBody<IAssetType[]>>(
-      environment.baseApiUrl + 'configuration/asset-type', {params: this.getParam('asset-configuration')}
-      );
+      environment.baseApiUrl + 'configuration/fleet-configuration/asset', {params: this.getParam('asset-configuration')}
+      )
   }
 }

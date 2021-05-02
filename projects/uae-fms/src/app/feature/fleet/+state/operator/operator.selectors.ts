@@ -26,6 +26,11 @@ export class OperatorSelectors {
     (state) => state.statistics
   );
 
+  static count = createSelector(
+    FleetSelectors.operatorSelector,
+    (state) => state.resultNumber
+  );
+
   static selectById = createSelector(
     OperatorSelectors.selectAll,
     (state, props: { id: number }) => {

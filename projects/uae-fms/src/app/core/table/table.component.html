@@ -24,7 +24,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-data let-i="rowIndex">
       <tr (mouseover)='rowIsHover(i)' [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')"
-        [ngStyle]="{'background': isSelected(i) ? data.statusColor : null }">
+        [ngStyle]="{'background': isSelected(i) ? data.statusColor : null,'border-inline-start': (dropdownItemSelected == i && subTable) ? '4px solid #008755': null }">
         <span style="height:100% ; width: 5px; position: relative;display: table-cell;">
           <div class="statusColor with-renderer-table" *ngIf="data.statusColor"
             [style]="'background:'+data.statusColor+';'"></div>
@@ -117,18 +117,31 @@
             <table-checkbox-renderer (onChange)="updatedSelectedIds($event,col.field)" [data]='data' [field]="col.field"></table-checkbox-renderer>
             <!-- <table-checkbox-renderer (onChange)="updatedSelectedIds($event)" [data]='data[col.field]'></table-checkbox-renderer> -->
           </div>
-
+          <div *ngIf="col.renderer=='toggleRenderer'">
+            <table-toggle-renderer [data]='data' [setting]="setting.rowSettings" [field]="col.field"></table-toggle-renderer>
+          </div>
           <div *ngIf="col.renderer=='downloadButtonRenderer'">
             <table-download-button-renderer [link]='data[col.field]'></table-download-button-renderer>
           </div>
-
+          <div *ngIf="col.renderer=='dropdownRenderer'">
+            <table-dropdown-renderer [rowIndexTable]="dropdownItemSelected" [data]="data" [index]="i" (selected)="changeItemDropdownSelected($event)"></table-dropdown-renderer>
+          </div>
           <div *ngIf="col.renderer=='radialBar'">
             <radialBar-renderer [percent]='data[col.field]'></radialBar-renderer>
+          </div>
+
+          <div *ngIf="col.renderer=='lowOpacityRenderer'">
+            <table-low-opacity-renderer [data]='data[col.field]'></table-low-opacity-renderer>
           </div>
 
         </td>
         <div [class]="'statusColor'+ (hasRendere(setting.columns)?'with-renderer-table':' simple-table')"
           *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
+      </tr>
+      <tr [ngStyle]="{'border-inline-start': '4px solid #008755'}" *ngIf="dropdownItemSelected == i && subTable">
+        <td class="p-0" [colSpan]="setting.columns.length + 1">
+          <app-table [setting]="subTable"></app-table>
+        </td>
       </tr>
     </ng-template>
   </p-table>

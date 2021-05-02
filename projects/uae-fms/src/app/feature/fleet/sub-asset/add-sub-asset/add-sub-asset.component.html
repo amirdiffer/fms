@@ -61,14 +61,14 @@
           <anms-error [showError]="hasError('year',subAssetForm,submitted)" error="forms.feedback.required">
           </anms-error>
         </div>
-        <div class="col-12 col-md-2 p-field form-section__field">
-          <span class="p-float-label">
-            <input formControlName="origin" pInputText placeholder="{{'sub_asset.origin' | translate}}*" type="text">
-            <label>{{'sub_asset.origin' | translate}}*</label>
-          </span>
-          <anms-error [showError]="hasError('origin',subAssetForm,submitted)" error="forms.feedback.required">
-          </anms-error>
-        </div>
+<!--        <div class="col-12 col-md-2 p-field form-section__field">-->
+<!--          <span class="p-float-label">-->
+<!--            <input formControlName="origin" pInputText placeholder="{{'sub_asset.origin' | translate}}*" type="number">-->
+<!--            <label>{{'sub_asset.origin' | translate}}*</label>-->
+<!--          </span>-->
+<!--          <anms-error [showError]="hasError('origin',subAssetForm,submitted)" error="forms.feedback.required">-->
+<!--          </anms-error>-->
+<!--        </div>-->
 
 
       </div>
@@ -138,7 +138,7 @@
         </div>
 
         <div class='col-12 col-md-3 p-field form-section__field'>
-          <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [title]="" [preview]="false"
+          <anms-uploader [iconIsHidden]="true" [multiple]="false" [title]="" [preview]="false"
             (uploadedEvent)="uploadWarrantyFiles($event,i)" [files]="[warrantyDocs[i]]">
           </anms-uploader>
         </div>

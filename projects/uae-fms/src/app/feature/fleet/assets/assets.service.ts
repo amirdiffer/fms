@@ -142,29 +142,22 @@ export class AssetsService {
       ],
       data: this.pedingRegistration(),
       rowSettings: {
-        onClick: (col, data, button?) => {}
-        // floatButton: [
-        //   {
-        //     button: 'edit',
-        //     color: '#3F3F3F',
-        //   },
-        //   {
-        //     button: 'download'
-        //   },
-        //   {
-        //     button: 'external',
-        //     onClick: (col, data ,  button?) => {
-        //       this.router.navigate([`/fleet/assets/${data.id}/registration`]);
-        //     }
-        //   },
-        //   {
-        //     button: 'cancel',
-        //     color: '#F75A4A'
-        //   },
-        //   {
-        //     button: 'checked'
-        //   }
-        // ]
+        onClick: (col, data, button?) => {},
+        floatButton: [
+          {
+            button: 'external',
+            onClick: (col, data ,  button?) => {
+              this.router.navigate([`/fleet/assets/${data.id}/registration`]);
+            }
+          },
+          // {
+          //   button: 'cancel',
+          //   color: '#F75A4A'
+          // },
+          // {
+          //   button: 'checked'
+          // }
+        ]
       }
     };
   };
@@ -222,16 +215,16 @@ export class AssetsService {
       ],
       data: this.pedingCustomization(),
       rowSettings: {
-        onClick: (col, data, button?) => {}
-        // floatButton: [
-        //   {
-        //     button: 'external',
-        //     color: '#3F3F3F',
-        //     onClick: (col, data) => {
-        //       this.router.navigate(['/fleet/assets/1/customization']);
-        //     }
-        //   }
-        // ]
+        onClick: (col, data, button?) => {},
+        floatButton: [
+          {
+            button: 'external',
+            color: '#3F3F3F',
+            onClick: (col, data) => {
+              this.router.navigate([`/fleet/assets/${data.id}/customization`]);
+            }
+          }
+        ]
       }
     };
   };

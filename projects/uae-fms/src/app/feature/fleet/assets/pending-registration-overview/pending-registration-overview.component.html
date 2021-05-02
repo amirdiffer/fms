@@ -1,12 +1,12 @@
 <div class="row component_wrapper form-section">
     <div class="button-container">
         <button class="btn-primary-medium btn-scondary-green" type="button"
-            [routerLink]="['/fleet/assets']" [queryParams]="{id: 'pendingRegistrationTab'}">{{'forms.cancel' | translate}}</button>
-        <button class="btn-primary-medium add" (click)="submit()"
+            (click)="cancelForm()">{{'forms.cancel' | translate}}</button>
+        <button class="btn-primary-medium add" (click)="addRegistration()"
             type="submit">{{'forms.save' | translate}}</button>
     </div>
     <div class="col-3 pl-0">
-        <anms-asset-detail></anms-asset-detail>
+        <anms-asset-detail [asset]="assetSummary"></anms-asset-detail>
     </div>
     <div class="col-9">
         <form [formGroup]="inputForm">
@@ -14,11 +14,11 @@
                 <div class="col-10">
                     <div class="p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText placeholder="{{ 'tables.column.plate_number' | translate }} *"
+                            <input pInputText placeholder="{{ 'tables.column.plate_number' | translate }}"
                                 formControlName="plateNumber"
                                 type="text"
-                                [class.invalid]="!inputForm.get('plateNumber').valid && submitted">
-                            <label>{{ 'tables.column.plate_number' | translate }} *</label>
+                                [class.invalid]="inputForm.get('plateNumber').invalid && submitted">
+                            <label>{{ 'tables.column.plate_number' | translate }}</label>
                         </span>
                         <anms-error
                             [showError]="hasError('plateNumber',inputForm,submitted)"
@@ -30,10 +30,10 @@
                 <div class="col-10">
                     <div class="p-field form-section__field">
                         <span class="p-float-label">
-                            <input pInputText placeholder="{{ 'assets.insurance_number' | translate }} *"
+                            <input pInputText placeholder="{{ 'assets.insurance_number' | translate }}"
                                 type="text" formControlName="insuranceNumber"
-                                [class.invalid]="!inputForm.get('insuranceNumber').valid && submitted">
-                            <label>{{ 'assets.insurance_number' | translate }} *</label>
+                                [class.invalid]="inputForm.get('insuranceNumber').invalid && submitted">
+                            <label>{{ 'assets.insurance_number' | translate }}</label>
                         </span>
                         <anms-error
                             [showError]="hasError('insuranceNumber',inputForm,submitted)"
@@ -41,30 +41,30 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-10">
-                    <div class="form-group p-field form-section__field">
-                        <div class="input-group">
-                            <div class="autocomplete-select w-100">
-                                <span class="p-float-label">
-                                    <p-autoComplete
-                                        formControlName="salikTag"
-                                        [suggestions]="filteredSalikTag"
-                                        (completeMethod)="searchSalikTag($event)"
-                                        field="name"
-                                        [class.invalid]="!inputForm.get('salikTag').valid && submitted"></p-autoComplete>
-                                    <i class="pi pi-search"></i>
-                                    <label>{{ 'assets.salik_tag' | translate }} *</label>
-                                </span>
-                                <anms-error
-                                    [showError]="hasError('salikTag',inputForm,submitted)"
-                                    error="forms.feedback.required"></anms-error>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+              <!-- <div class="row">
+                  <div class="col-10">
+                      <div class="form-group p-field form-section__field">
+                          <div class="input-group">
+                              <div class="autocomplete-select w-100">
+                                  <span class="p-float-label">
+                                      <p-autoComplete
+                                          formControlName="salikTag"
+                                          [suggestions]="filteredSalikTag"
+                                          (completeMethod)="searchSalikTag($event)"
+                                          field="name"
+                                          [class.invalid]="!inputForm.get('salikTag').valid && submitted"></p-autoComplete>
+                                      <i class="pi pi-search"></i>
+                                      <label>{{ 'assets.salik_tag' | translate }}</label>
+                                  </span>
+                                  <anms-error
+                                      [showError]="hasError('salikTag',inputForm,submitted)"
+                                      error="forms.feedback.required"></anms-error>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div> -->
+            <!-- <div class="row">
                 <div class="col-10">
                     <div class="form-group p-field form-section__field">
                         <div class="input-group">
@@ -76,7 +76,7 @@
                                         field="name"
                                         [class.invalid]="!inputForm.get('fuelTag').valid && submitted"></p-autoComplete>
                                     <i class="pi pi-search"></i>
-                                    <label>{{ 'assets.fuel_tag' | translate }} *</label>
+                                    <label>{{ 'assets.fuel_tag' | translate }}</label>
                                 </span>
                                 <anms-error
                                     [showError]="hasError('fuelTag',inputForm,submitted)"
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <ng-template #afterSave>
                 <div class="row">
                     <div class="col-6">
@@ -150,4 +150,8 @@
 </div>
 
 
-<alert-dialog [settings]="dialogSetting" [displayModal]="displayModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+<!-- <alert-dialog [settings]="dialogSetting" [displayModal]="displayModal" (confirm)="dialogConfirm($event)"></alert-dialog> -->
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal"
+  (confirm)="dialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal"
+  (confirm)="errorDialogModal=false"></alert-dialog>

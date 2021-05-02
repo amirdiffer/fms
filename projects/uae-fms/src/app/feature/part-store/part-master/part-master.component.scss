@@ -1,3 +1,5 @@
+@import '../../../../themes/green-theme.scss';
+@import '../../../../assets/scss/form-section.scss';
 .card-table-header {
   font-weight: bold;
 }
@@ -13,4 +15,76 @@
   flex: auto;
   margin-right: 15px;
   align-self: center;
+}
+
+
+hr.line{
+  position: absolute;
+  display: block;
+  width: 100%;
+  left: 0;
+  margin-top: auto;
+}
+a{
+  text-decoration: none;
+}
+
+.category-list{
+  font-size: 1.1em;
+  margin: 35px -20px;
+  ul{
+    padding:0;
+    li{
+      list-style: none;
+      margin: .5em 20px;
+      padding: .5em 0;
+      position: relative;
+      cursor: pointer;
+      &::before{
+        content: '';
+        width: .6em;
+        height: .6em;
+        display: inline-block;
+        background:#868686;
+        border-radius: 50%;
+        margin: 0 20px;
+      }
+      &.active-category{
+        color:#0DA06E;
+        font-weight: bold;
+        background:#0DA06E14;
+        
+        &::before{
+          background:#0aa874;
+        }
+      }
+      a{
+        position: absolute;
+        right: 10px;
+        cursor: cell;
+      }
+    }
+  }
+  .add-category{
+    cursor: pointer;
+    margin: 1.2em 28px;
+    color:#0DA06E;
+    font-weight: bold;
+    font-family: '29LT Bukra - Bold';
+    span{
+      margin: 0 .9em;
+    }
+  }
+}
+.table-container .form-section__title{
+  padding:20px 20px 0 20px;
+}
+
+.filter-section{
+  .form-section__title{
+    color:#0DA06E;
+  }
+  button{
+    transform: translateY(-10px);
+  }
 }

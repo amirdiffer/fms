@@ -8,6 +8,10 @@ export class OrganizationActions {
     '[Organization] all datas are loaded',
     props<{ data: IOrganization[] }>()
   );
+  static count = createAction(
+    '[Organization] get result number',
+    props<{ data: number }>()
+  );
   static addOrganization = createAction(
     '[Organization] add organization',
     props<{ data: IOrganization }>()

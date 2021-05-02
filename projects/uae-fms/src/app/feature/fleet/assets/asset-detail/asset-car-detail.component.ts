@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ChangeDetectorRef } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'anms-asset-detail',
@@ -6,36 +7,23 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
   styleUrls: ['./asset-car-detail.component.scss']
 })
 export class AssetCarDetailComponent implements OnInit, OnChanges {
-  @Input() asset;
-  vehicle = {
-    id: 1,
-    make: 'bmw.png',
-    vehicle: 'Request No 123456',
-    thumb: 'thumb1.png',
-    type: 'bmw',
-    model: 'I3',
-    plateno: '1234',
-    iserve: '04',
-    status: '1',
-    location: 'Al Ghandi Ato Service Ras A Khor',
-    bodyType: 'Text Type',
-    color: 'Text Type',
-    trim: 'Text Type',
-    group: 'Text Type',
-    department: 'Dep Name-Area-Dubai',
-    licensePlate: '123456',
-    operator: 'User Name',
-    salik: 'Assign',
-    warranty: 'Under Warranty',
-    vin_sn: 'JTDKBRFU9J30593O7',
-    year: '2020'
-  };
-  constructor() {}
+  @Input() asset: any;
+  @Input() asset$: Observable<any>;
+
+  constructor(
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
-    console.log(this.asset);
+    if (this.asset$) {
+      this.asset$.subscribe(x => {
+        if (x && x.message) {
+          this.asset = x.message;
+          console.log(this.asset)
+          this.changeDetector.detectChanges();
+        }
+      })
+    }
   }
-  ngOnChanges() {
-    // console.log(this.asset)
-  }
+  ngOnChanges() { }
 }

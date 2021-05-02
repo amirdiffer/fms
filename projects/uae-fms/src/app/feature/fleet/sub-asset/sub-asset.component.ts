@@ -126,7 +126,14 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           },
           button: 'edit',
           color: '#3F3F3F'
-        }
+        },
+        // {
+        //   onClick: (col, data) => {
+        //     this.router.navigate(['/fleet/sub-asset/' + data['id']]);
+        //   },
+        //   button: 'external',
+        //   color: '#3F3F3F'
+        // }
       ]
     }
   };

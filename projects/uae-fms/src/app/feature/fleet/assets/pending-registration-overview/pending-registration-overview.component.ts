@@ -2,7 +2,12 @@ import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import {
+  RegistrationFacade,
+  RegistrationService
+} from '@feature/fleet/+state/assets/registration';
 import { Utility } from '@shared/utility/utility';
+import { map } from 'rxjs/internal/operators/map';
 import { AssetRegistrationConfirmComponent } from '../asset-registration-confirm/asset-registration-confirm.component';
 
 @Component({
@@ -31,39 +36,122 @@ export class PendingRegistrationOverviewComponent
   filteredFuelTag: any[];
   inputForm: FormGroup;
   submitted = false;
-  displayModal = false;
+  // displayModal = false;
+  // dialogSetting: IDialogAlert = {
+  //   header: 'Asset Successfully Registered',
+  //   hasError: false,
+  //   message: 'Sample hint is here to explain process',
+  //   confirmButton: 'Customize Now',
+  //   buttons: [
+  //     {
+  //       title: 'Customize Later',
+  //       eventEmit: 'customizeLater'
+  //     }
+  //   ],
+  //   cancelButton: 'Cancel'
+  // };
+  //#region Dialog
+  dialogModal = false;
+  taskFiltered: any[];
   dialogSetting: IDialogAlert = {
-    header: 'Asset Successfully Registered',
+    header: 'Add Registration',
     hasError: false,
-    message: 'Sample hint is here to explain process',
-    confirmButton: 'Customize Now',
-    buttons: [
-      {
-        title: 'Customize Later',
-        eventEmit: 'customizeLater'
-      }
-    ],
+    message: 'Message is Here',
+    confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };
+  errorDialogSetting: IDialogAlert = {
+    header: '',
+    message: 'Error occurred in progress',
+    confirmButton: 'Ok',
+    isWarning: false,
+    hasError: true,
+    hasHeader: true,
+    cancelButton: undefined
+  };
+  dialogType = null;
+  //#endregion Dialog
+  errorDialogModal = false;
+  isEdit: boolean = false;
+  id: any;
+  _registration: any;
+  assetId: number;
+  assetSummary: any;
 
   constructor(
     private dialog: MatDialog,
     private _fb: FormBuilder,
-    injector: Injector
+    injector: Injector,
+    private _registrationFacade: RegistrationFacade,
+    private _registrationService: RegistrationService
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      plateNumber: ['', [Validators.required]],
-      insuranceNumber: ['', [Validators.required]],
-      salikTag: ['', [Validators.required]],
-      fuelTag: ['', [Validators.required]],
+      plateNumber: [''],
+      insuranceNumber: [''],
+      salikTag: [''],
+      fuelTag: [''],
       operator: [''],
       department: [''],
       employeeNumber: [''],
       currentLiveReading: ['']
+    });
+    this.route.params.subscribe((params) => {
+      this.assetId = +params['id'];
+      this._registrationFacade.getAssetForRegistration(this.assetId);
+      this._registrationFacade.assetForRegistration$.subscribe((x) => {
+        this.assetSummary = x;
+      });
+      // if (this.isEdit) {
+      //   this.id = +params[params.length - 1].path;
+      //   this._registrationService
+      //     .getRegistrationById(params[params.length - 1].path)
+      //     .pipe(map((x) => x.message))
+      //     .subscribe((x) => {
+      //       if (x) {
+      //         this._registration = x;
+      //         this.inputForm.patchValue({
+      //           plateNumber: x.plateNumber,
+      //           insuranceNumber: x.insuranceNumber
+      //         });
+      //       }
+      //     });
+      // }
+      // else {
+      // }
+      this._registrationFacade.submitted$.subscribe((x) => {
+        if (x) {
+          this.dialogModal = true;
+          this.dialogType = 'success';
+          this.dialogSetting.header = this.isEdit
+            ? 'Edit registration'
+            : 'Add new registration';
+          this.dialogSetting.message = this.isEdit
+            ? 'Changes Saved Successfully'
+            : 'Registration Added Successfully';
+          this.dialogSetting.isWarning = false;
+          this.dialogSetting.hasError = false;
+          this.dialogSetting.confirmButton = 'Yes';
+          this.dialogSetting.cancelButton = undefined;
+        }
+      });
+
+      this._registrationFacade.error$.subscribe((x) => {
+        if (x?.error) {
+          this.errorDialogModal = true;
+          this.errorDialogSetting.header = this.isEdit
+            ? 'Edit registration'
+            : 'Add new registration';
+          this.errorDialogSetting.hasError = true;
+          this.errorDialogSetting.cancelButton = undefined;
+          this.errorDialogSetting.confirmButton = 'Ok';
+        } else {
+          this.errorDialogModal = false;
+        }
+      });
     });
   }
   searchSalikTag(event) {
@@ -89,20 +177,96 @@ export class PendingRegistrationOverviewComponent
     this.filteredFuelTag = filtered;
   }
 
-  dialogConfirm(event) {
-    this.displayModal = false;
+  dialogConfirm($event): void {
+    this.errorDialogModal = false;
+    this.dialogModal = false;
+    if (!$event) return;
+
+    if (this.dialogType == 'submit') {
+      let f = this.inputForm.value;
+
+      let registrationInfo: any = {
+        plateNumber: f.plateNumber,
+        insuranceNumber: f.insuranceNumber,
+        fuelTag: '2l1k34jl' //f.fuelTag,
+      };
+
+      if (this.isEdit) {
+        // registrationInfo = {
+        //   ...registrationInfo,
+        //   id: this.id
+        // };
+        // this._registrationFacade.editRegistration(registrationInfo);
+      } else {
+        registrationInfo = {
+          ...registrationInfo,
+          id: this.assetId
+        };
+
+        this._registrationFacade.register(registrationInfo);
+      }
+    } else {
+      this.router
+        .navigate(['/fleet/assets'], {
+          queryParams: { id: 'pendingRegistrationTab' }
+        })
+        .then((_) => {
+          this._registrationFacade.resetParams();
+        });
+    }
   }
 
-  submit() {
+  addRegistration() {
     this.submitted = true;
     if (this.inputForm.invalid) {
+      this.inputForm.markAllAsTouched();
+      return;
+    }
+
+    this.dialogModal = true;
+    this.dialogType = 'submit';
+    if (this.isEdit) {
+      this.dialogSetting.header = 'Edit registration';
+      this.dialogSetting.message =
+        'Are you sure you want to submit this changes?';
+      this.dialogSetting.isWarning = true;
+      this.dialogSetting.confirmButton = 'Yes';
+      this.dialogSetting.cancelButton = 'Cancel';
       return;
     } else {
-      this.displayModal = true;
+      this.dialogSetting.header = 'Add new registration';
+      this.dialogSetting.isWarning = true;
+      this.dialogSetting.hasError = false;
+      this.dialogSetting.message =
+        'Are you sure you want to add new registration?';
+      this.dialogSetting.confirmButton = 'OK';
+      this.dialogSetting.cancelButton = 'Cancel';
     }
   }
 
   public get language(): string {
     return localStorage.getItem('lang');
+  }
+
+  cancelForm() {
+    this.dialogModal = true;
+    this.dialogType = 'cancel';
+    if (this.isEdit) {
+      this.dialogSetting.header = 'Edit registration';
+      this.dialogSetting.hasError = false;
+      this.dialogSetting.isWarning = true;
+      this.dialogSetting.message =
+        'Are you sure that you want to cancel editing registration?';
+      this.dialogSetting.confirmButton = 'Yes';
+      this.dialogSetting.cancelButton = 'Cancel';
+    }
+
+    this.dialogSetting.header = 'Add new registration';
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.isWarning = true;
+    this.dialogSetting.message =
+      'Are you sure that you want to cancel adding new registration?';
+    this.dialogSetting.confirmButton = 'Yes';
+    this.dialogSetting.cancelButton = 'Cancel';
   }
 }
