@@ -70,6 +70,13 @@ export class PendingCustomizationOverviewComponent implements OnInit {
   accessory: any[];
   _accessory: any[];
 
+  pickData = new Subject();
+  pickData$ = this.pickData.asObservable();
+
+  accessoryLoaded = false;
+  subAssetLoaded = false;
+  assetLoaded = false;
+
   constructor(
     private route: ActivatedRoute,
     private service: AssetMasterService,
@@ -81,6 +88,25 @@ export class PendingCustomizationOverviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.pickData$.subscribe(x => {
+      console.log(x);
+      if (x == "accessory") this.accessoryLoaded = true;
+      if (x == "subAsset") this.subAssetLoaded = true;
+      if (x == "asset") this.assetLoaded = true;
+      if (this.accessoryLoaded && this.subAssetLoaded && this.assetLoaded) {
+        this.outp.accessories = this.outp.accessories.map(y => {
+          if (y.accessoryId && y.accessoryId != "") return { ...y, accessory: y.accessoryId ? this._accessory.filter(z => z.id == y.accessoryId)[0] : y }
+          else return y;
+        })
+        this.outp.subAssets = this.outp.subAssets.map(y => {
+          if (y.subAssetId && y.subAssetId != "") return { ...y, subAsset: y.subAssetId ? this._subAsset.filter(z => z.id == y.subAssetId)[0] : y }
+          else return y;
+        })
+
+        console.log(this.outp)
+      }
+    })
+
     this.tableSetting = {
       columns: [
         {
@@ -119,10 +145,12 @@ export class PendingCustomizationOverviewComponent implements OnInit {
     this.subAsset$.subscribe(x => {
       this.subAsset = x;
       this._subAsset = x;
+      this.pickData.next("subAsset");
     })
     this.accessory$.subscribe(x => {
       this.accessory = x;
       this._accessory = x;
+      this.pickData.next("accessory");
     })
 
     this.route.params.subscribe(x => {
@@ -132,10 +160,10 @@ export class PendingCustomizationOverviewComponent implements OnInit {
           if (a && a.message) {
             this.customizationData = a.message;
             this.customizationData.subAssets.forEach(e => {
-              this.outp.subAssets.push({ checked: false, subAssetId: '', assetBcSubAssetId: e.assetBcSubAssetId });
+              this.outp.subAssets.push({ checked: e?.subAssetId ? true : false, subAssetId: (e?.subAssetId) ? e.accessoryId : '', assetBcSubAssetId: e.assetBcSubAssetId });
             });
             this.customizationData.accessories.forEach(e => {
-              this.outp.accessories.push({ checked: false, accessoryId: '', assetBcAccessoryId: e.assetBcAccessoryId });
+              this.outp.accessories.push({ checked: e?.accessoryId ? true : false, accessoryId: (e?.accessoryId) ? e.accessoryId : '', assetBcAccessoryId: e.assetBcAccessoryId });
             });
 
             /* this.customizationForm = this.fb.group({
@@ -143,6 +171,7 @@ export class PendingCustomizationOverviewComponent implements OnInit {
               accessories: new FormArray([this.createFields(a.message.accessories.length)])
             }); */
 
+            this.pickData.next("asset");
             return [...a.message.subAssets.map(b => {
               return {
                 item: `${b.subAssetMakeName} ${b.subAssetModelName}`,
@@ -156,6 +185,7 @@ export class PendingCustomizationOverviewComponent implements OnInit {
               };
             })];
           }
+
         }));
         this.assetStatus$ = this.service.getAssetByID(x.id + "/summary/customization").pipe(map(z => {
           return z;
@@ -204,14 +234,14 @@ export class PendingCustomizationOverviewComponent implements OnInit {
     if ($event) {
       let outdata = {
         accessories: this.outp.accessories.map(x => {
-          if (!x.accessory?.id || x.accessory?.id == null || x.accessory?.id == "") return;
+          // if (!x.accessory?.id || x.accessory?.id == null || x.accessory?.id == "") return;
           return {
             assetBcAccessoryId: x.assetBcAccessoryId,
             accessoryId: x.accessory?.id || null
           }
         }).filter(z => z != null),
         subAssets: this.outp.subAssets.map(x => {
-          if (!x.subAsset?.id || x.subAsset?.id == null || x.subAsset?.id == "") return;
+          // if (!x.subAsset?.id || x.subAsset?.id == null || x.subAsset?.id == "") return;
           return {
             assetBcSubAssetId: x.assetBcSubAssetId,
             subAssetId: x.subAsset?.id || null
@@ -225,7 +255,7 @@ export class PendingCustomizationOverviewComponent implements OnInit {
     }
   }
 
-  successDialogConfirm(){
+  successDialogConfirm() {
     this.successDialogModal = false;
     this.router.navigate(['fleet/assets']);
   }
