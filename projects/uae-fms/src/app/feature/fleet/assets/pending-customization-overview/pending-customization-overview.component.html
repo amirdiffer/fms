@@ -61,11 +61,20 @@
                         </div>
 
                         <div class="col-3 inline-111" *ngIf="outp.accessories[i].checked">
-                          <label class="form-check-label" for="subAsset">S/N</label>
+                          <!-- <label class="form-check-label" for="subAsset">S/N</label>
 
                             <span class="p-inputgroup p-float-label">
                               <input style="width: 100%;" pInputText type="text" id="subAsset" [(ngModel)]="outp.accessories[i].serial">
-                            </span>
+                            </span> -->
+
+                            <div class="autocomplete-select">
+                              <span class="p-float-label">
+                                <p-autoComplete (completeMethod)="filterAccessory($event)"
+                                  [suggestions]="accessory" field="organizationName"
+                                  [(ngModel)]="outp.accessories[i].accessory" field="itemName" [minLength]="1"></p-autoComplete>
+                                <label>{{ 'assets.accessory' | translate}} *</label>
+                              </span>
+                            </div>
                         </div>
                     </div>
                 </p-accordionTab>
@@ -81,10 +90,20 @@
                       </div>
 
                       <div class="col-3 inline-111" *ngIf="outp.subAssets[i].checked">
-                        <label class="form-check-label" for="subAsset">S/N</label>
+                        <!-- <label class="form-check-label" for="subAsset">S/N</label>
                         <span class="p-inputgroup p-float-label">
                           <input style="width: 100%;" pInputText type="text" id="subAsset" [(ngModel)]="outp.subAssets[i].serial">
-                        </span>
+                        </span> -->
+
+
+                        <div class="autocomplete-select">
+                          <span class="p-float-label">
+                            <p-autoComplete (completeMethod)="filterSubAsset($event)"
+                              [suggestions]="subAsset" field="organizationName"
+                              [(ngModel)]="outp.subAssets[i].subAsset" field="itemName" [minLength]="1"></p-autoComplete>
+                            <label>{{ 'assets.sub-asset' | translate}} *</label>
+                          </span>
+                        </div>
                       </div>
                   </div>
               </p-accordionTab>
@@ -92,3 +111,6 @@
         </div>
     </ng-template>
 </div>
+
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="successDialogSetting" [displayModal]="successDialogModal" (confirm)="successDialogConfirm()"></alert-dialog>

@@ -741,6 +741,8 @@
     "first_camera": "أول كاميرا",
     "accessories":"الملحقات",
     "sub-assets":"الأصول الفرعية",
+    "accessory":"الملحق",
+    "sub-asset":"الأصل الفرعية",
     "installed": "المثبتة",
     "second_camera": "كاميرا ثانية",
     "start_customization": "ابدأ التخصيص",

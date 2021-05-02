@@ -784,6 +784,8 @@
     "camera": "Camera",
     "first_camera": "First Camera",
     "accessories":"Accessories",
+    "accessory":"Accessory",
+    "sub-asset":"Sub Asset",
     "sub-assets":"Sub Assets",
     "installed": "Installed",
     "second_camera": "Second Camera",

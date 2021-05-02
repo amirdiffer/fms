@@ -57,4 +57,10 @@ export class SubAssetService {
       environment.baseApiUrl + 'configuration/asset-policy?size=99999'
     );
   }
+
+  loadFullList(): Observable<ResponseBody<ISubasset[]>> {
+    return this.http.get<ResponseBody<ISubasset[]>>(
+      environment.baseApiUrl + 'sub-asset?page=0&size=99999999'
+    );
+  }
 }
