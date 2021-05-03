@@ -387,6 +387,8 @@
       "user": "User",
       "movement_type": "Movement Type",
       "request_type": "Request Type",
+      "operator_name":"Operator Name",
+      "number_of_request":"Number Of Request",
       "asset_type": "Asset Type",
       "sub_asset_type": "Sub Asset Type",
       "request_status": "Request Status",
