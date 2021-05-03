@@ -374,7 +374,7 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
         itemName: d.itemName,
         assignedToType: d.assignedToType,
         assignedToEntity: d.assignedToEntity.id,
-        accessoryTypeId: d.accessoryTypeId,
+        accessoryConfigurationId : d.accessoryTypeId,
         quantity: d.quantity,
         assignedToEmployeeId: d.assignedToEmployeeId
       };
