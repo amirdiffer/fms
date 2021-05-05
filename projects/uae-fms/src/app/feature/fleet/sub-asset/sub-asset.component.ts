@@ -27,25 +27,25 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       filterTitle: 'statistic.total',
       filterCount: '',
       filterTagColor: '#C543FF',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '',
       filterTagColor: '#4462A2',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '',
       filterTagColor: '#40D3C2',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.x_sub_asset',
       filterCount: '',
       filterTagColor: '#F75A4A',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
   //#endregion
@@ -56,7 +56,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
     map((x) => {
       return x.map((y) => {
         function date() {
-          let createdDate = moment.utc(y.createdAt).local().toDate();
+          let createdDate = moment.utc((y.createdAt as any)*1000).local().toDate();
           let nowDate = new Date();
           let newDate = nowDate.getTime() - createdDate.getTime();
           return {
@@ -73,11 +73,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           Serial_Number: y.dpd,
           Asset: y.assetTypeName,
           Date:
-            date().day > 0
-              ? date().day == 1
-                ? `${date().day} Yesterday`
-                : `${date().day} Days Ago`
-              : 'Today',
+            this.getDateString(date()),
           thumbField_Make: 'bmw.png'
         };
       });
@@ -143,7 +139,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
     private facade: SubAssetFacade,
     private router: Router,
     private _tableFacade: TableFacade
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -157,25 +153,25 @@ export class SubAssetComponent implements OnInit, OnDestroy {
               filterTitle: 'statistic.total',
               filterCount: `${m.total}`,
               filterTagColor: '#C543FF',
-              onActive(index: number) {}
+              onActive(index: number) { }
             },
             {
               filterTitle: 'statistic.active',
               filterCount: `${m.active}`,
               filterTagColor: '#4462A2',
-              onActive(index: number) {}
+              onActive(index: number) { }
             },
             {
               filterTitle: 'statistic.inactive',
               filterCount: `${m.inactive}`,
               filterTagColor: '#40D3C2',
-              onActive(index: number) {}
+              onActive(index: number) { }
             },
             {
               filterTitle: 'statistic.x_sub_asset',
               filterCount: `${m.xsubAsset}`,
               filterTagColor: '#F75A4A',
-              onActive(index: number) {}
+              onActive(index: number) { }
             }
           ];
         }
@@ -193,5 +189,20 @@ export class SubAssetComponent implements OnInit, OnDestroy {
 
   eventPagination() {
     this.facade.loadAll();
+  }
+
+
+  getDateString(date) {
+    if (date.day > 365) {
+      return `${Math.floor(date.day / 365)} Years Ago`;
+    } else if (date.day > 30) {
+      return `About ${Math.floor(date.day / 30)} Months Ago`;
+    }
+    else
+      return date.day > 0
+        ? date.day == 1
+          ? `Yesterday`
+          : `${date.day} Days Ago`
+        : 'Today'
   }
 }
