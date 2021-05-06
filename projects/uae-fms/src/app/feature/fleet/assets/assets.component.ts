@@ -253,12 +253,12 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           // {
           //   button: 'download'
           // },
-          // {
-          //   button: 'external',
-          //   onClick: (col, data) => {
-          //     this._router.navigate(['/fleet/assets/' + data.id]);
-          //   }
-          // }
+          {
+            button: 'external',
+            onClick: (col, data) => {
+              this._router.navigate(['/fleet/assets/' + data.id]);
+            }
+          }
         ]
       }
     };

@@ -131,21 +131,21 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           route: '/workshop/service-shop',
           // disabled: true
         },
-        /* {
-          name: 'sidebar.workshop.inspection.~',
-          icon: 'inspection',
-          route: '/workshop/inspections',
-          items: [
-            {
-              name: 'sidebar.workshop.inspection.technical_inspection',
-              route: '/workshop/inspections/technical-inspection'
-            },
-            {
-              name: 'sidebar.workshop.inspection.auction_list',
-              route: '/workshop/inspections/auction-list'
-            }
-          ]
-        }, */
+               {
+                  name: 'sidebar.workshop.inspection.~',
+                  icon: 'inspection',
+                  route: '/workshop/inspections',
+                  items: [
+                    {
+                      name: 'sidebar.workshop.inspection.technical_inspection',
+                      route: '/workshop/inspections/technical-inspection'
+                    },
+                    {
+                      name: 'sidebar.workshop.inspection.auction_list',
+                      route: '/workshop/inspections/auction-list'
+                    }
+                  ]
+                },
         {
           name: 'sidebar.workshop.task_master',
           icon: 'task-master',
@@ -157,8 +157,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.part_store.~',
       icon: 'part-store',
       route: '/part-store',
-      disabled:true
-      /* items: [
+      items: [
         {
           name: 'sidebar.part_store.part_list',
           icon: 'part-list',
@@ -174,7 +173,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           icon: 'part-master',
           route: '/part-store/part-master'
         }
-      ] */
+      ]
     },
     /*{
         name: 'sidebar.report',
