@@ -15,11 +15,11 @@ import moment from 'moment';
 })
 export class SubAssetComponent implements OnInit, OnDestroy {
 
-  #startRegionVariables
+  //#region  Variables
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   statisticsSubscription!: Subscription;
   downloadBtn = 'assets/icons/download-solid.svg';
-  #endRegionVariables
+  //#endregion
 
   //#region filter
   filterCard: FilterCardSetting[] = [
@@ -70,7 +70,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           Model: y.modelName,
           Policy: y.policyTypeName,
           Warranty_Expire_Date: y.warrantyExpireDate,
-          Serial_Number: y.dpd,
+          Serial_Number: y.serialNumber,
           Asset: y.assetTypeName,
           Date:
             this.getDateString(date()),
