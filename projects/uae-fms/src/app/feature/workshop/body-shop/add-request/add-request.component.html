@@ -9,7 +9,7 @@
         <!-- <ng-container *ngIf=" !inputForm.get('assetId').value.name"> -->
         <ng-container>
             <div class="col-12 overflow-visible">
-                <div class="component_wrapper p-3">
+                <div class="component_wrapper form-section p-3">
                     <h3 class="form-section__title">{{'workshop.body_shop.requests.asset_info'
                         | translate}}</h3>
                     <div class="row mt-3">
@@ -95,7 +95,7 @@
             </div>
         </ng-container> -->
         <div class="col-12">
-            <div class="component_wrapper pl-4">
+            <div class="component_wrapper form-section pl-4">
                 <div class="row mt-3">
                     <h3 class="col-1 mt-3 form-section__title">{{'workshop.body_shop.requests.reason'
                         | translate}}</h3>
@@ -141,7 +141,7 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="component_wrapper pl-4">
+            <div class="component_wrapper form-section pl-4">
                 <div class="row mt-3">
                     <h3 class="col-1 mt-3 form-section__title">{{'workshop.body_shop.requests.job_type'
                         | translate}}</h3>
@@ -182,7 +182,7 @@
             </div>
         </div>
         <div class="col-12" [formGroupName]="'issueInfo'">
-            <div class="component_wrapper p-3">
+            <div class="component_wrapper form-section p-3">
                 <h3 class="form-section__title">{{'workshop.body_shop.requests.issue_info'
                     | translate}}</h3>
                 <div class="row mt-3">
@@ -255,7 +255,7 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="component_wrapper">
+            <div class="component_wrapper form-section">
                 <div class="row">
                     <h3 class="col-2 pt-3 ml-4 form-section__title">{{'workshop.body_shop.requests.priority'
                         | translate}}</h3>
@@ -273,7 +273,7 @@
                                         [svgStyle]="{ 'width.px':24 , 'fill':
                                         '#F75A4A' , 'height': '100%', 'opacity':
                                         activePriority == 'URGET' ? 1 : 0.2}"></svg-icon>
-                                    <span class="ml-3">{{'workshop.body_shop.requests.urgent'
+                                    <span class="mx-3">{{'workshop.body_shop.requests.urgent'
                                         | translate}}</span>
                                 </label>
                             </div>
@@ -288,7 +288,7 @@
                                         [svgStyle]="{ 'width.px':24 , 'fill':
                                         '#FCB614' , 'height': '100%', 'opacity':
                                         activePriority == 'HIGH' ? 1 : 0.2}"></svg-icon>
-                                    <span class="ml-3">{{'workshop.body_shop.requests.high'
+                                    <span class="mx-3">{{'workshop.body_shop.requests.high'
                                         | translate}}</span>
                                 </label>
                             </div>
@@ -304,7 +304,7 @@
                                         [svgStyle]="{ 'width.px':24 , 'fill':
                                         '#00CBB2' , 'height': '100%', 'opacity':
                                         activePriority == 'NORMAL' ? 1 : 0.2}"></svg-icon>
-                                    <span class="ml-3">{{'workshop.body_shop.requests.normal'
+                                    <span class="mx-3">{{'workshop.body_shop.requests.normal'
                                         | translate}}</span>
                                 </label>
                             </div>
@@ -319,7 +319,7 @@
                                         [svgStyle]="{ 'width.px':24 , 'fill':
                                         '#707070' , 'height': '100%', 'opacity':
                                         activePriority == 'LOW' ? 1 : 0.2}"></svg-icon>
-                                    <span class="ml-3">{{'workshop.body_shop.requests.low'
+                                    <span class="mx-3">{{'workshop.body_shop.requests.low'
                                         | translate}}</span>
                                 </label>
                             </div>

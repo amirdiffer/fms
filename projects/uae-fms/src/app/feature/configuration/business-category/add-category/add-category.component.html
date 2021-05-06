@@ -57,8 +57,8 @@
   </div>
   <div class="form-section mx-0">
     <h3 class="form-section__title">
-      <div class="mr-3 d-inline-block" (click)="addAssignSubAsset()">
-        <span  class='p-inputgroup-addon'>
+      <div class=" d-inline-block" (click)="addAssignSubAsset()">
+        <span  class='p-inputgroup-addon add-button'>
           <svg-icon src='assets/icons/add.svg'
                     [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
         </span>
@@ -115,8 +115,8 @@
     </div>
 
     <h3 class="form-section__title mt-2">
-      <div class="mr-3 d-inline-block" (click)="addAssignAccessory()">
-        <span  class='p-inputgroup-addon'>
+      <div class="d-inline-block" (click)="addAssignAccessory()">
+        <span  class='p-inputgroup-addon add-button'>
           <svg-icon src='assets/icons/add.svg'
                     [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
         </span>
@@ -128,7 +128,7 @@
       <div class="row form-section__row" *ngFor="let _ of assignAccessory.controls; let index = index; let first=first; let last=last;" [formGroupName]="index">
       <div class="col-12 col-md-4 p-field d-flex form-section__field">
         <div class="mx-3" *ngIf="!last || !first">
-          <span  class='remove-icon p-inputgroup-addon' (click)="removeassignAccessory(index)">
+          <span  class='remove-icon p-inputgroup-addon ' (click)="removeassignAccessory(index)">
             <svg-icon src='assets/icons/add.svg'
                       [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
           </span>

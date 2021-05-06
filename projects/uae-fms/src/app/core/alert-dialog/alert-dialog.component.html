@@ -7,7 +7,7 @@
     <ng-template pTemplate="header"  >
         {{settings.header}}
     </ng-template>
-    <div class="d-flex flex-wrap">
+    <div class="d-flex flex-wrap content">
         <span *ngIf="!settings.hasError && settings.isWarning"><svg-icon [src]="warningTriangle" [svgStyle]="{ 'width.em':2.2 , 'fill': '#fcb614'}"></svg-icon></span>
         <span *ngIf="settings.hasError"><svg-icon [src]="timesCircle" [svgStyle]="{ 'width.em':2.2 , 'fill': '#dd5648'}"></svg-icon></span>
         <span *ngIf="!settings.hasError && !settings.isWarning"><svg-icon [src]="checkCircle" [svgStyle]="{ 'width.em':2.2 , 'fill': '#07C880'}"></svg-icon></span>

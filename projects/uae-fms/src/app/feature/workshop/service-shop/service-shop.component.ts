@@ -223,29 +223,28 @@ export class ServiceShopComponent implements OnInit {
         renderer: 'assetsRenderer'
       },
       {
-        lable: 'Plate Number',
+        lable: 'tables.column.plate_number',
         field: 'plateNumber',
         type: ColumnType.lable
       },
       {
-        lable: 'Department',
+        lable: 'tables.column.department',
         field: 'department',
         type: ColumnType.lable
       },
       {
-        lable: 'Operator Name',
+        lable: 'tables.column.operator_name',
         field: 'operatorName',
         type: ColumnType.lable
       },
       {
-        lable: 'َAsset Type',
+        lable: 'tables.column.asset_type',
         field: 'assetTypeName',
         type: ColumnType.lable
       },
       {
-        lable: 'َNumber Of Request',
+        lable: 'tables.column.number_of_request',
         field: 'numberOfActiveRequests',
-
         type: ColumnType.lable
       },
       {
@@ -268,7 +267,7 @@ export class ServiceShopComponent implements OnInit {
           tooltip: 'Create job card',
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
-            this.router.navigate(['/workshop/service-shop/add-job-card'], {
+            this.router.navigate(['/workshop/body-shop/add-job-card'], {
               queryParams: { assetId: data.assetId }
             });
           }
@@ -278,7 +277,7 @@ export class ServiceShopComponent implements OnInit {
           onClick: (col, data) => {
             this._facadeRequest.getAssetRequest(data.assetId);
             this.router
-              .navigate(['/workshop/service-shop/request-overview/' + data.id])
+              .navigate(['/workshop/body-shop/request-overview/' + data.id])
               .then();
           }
         }
@@ -289,7 +288,7 @@ export class ServiceShopComponent implements OnInit {
         //   onClick: (col, data, button?) => {
         //     this._facadeRequest.resetParams();
         //     this.router.navigate([
-        //       '/workshop/service-shop/edit-request/' + data.id
+        //       '/workshop/body-shop/edit-request/' + data.id
         //     ]);
         //   }
         // }

@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-12">
-      <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{ 'forms.cancel' | translate }}</button>
-        <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate }}</button>
-        <button class="btn-primary-medium add" *ngIf="stepper.selectedIndex != 3"  (click)="next()">{{ 'forms.next' | translate }}</button>
-        <button *ngIf="stepper.selectedIndex == 3 && !uploadReview && !singleAsset" class="btn-primary-medium add" (click)="buttonUpload()">{{ 'forms.upload' | translate }}</button>
-        <button *ngIf="uploadReview || (stepper.selectedIndex == 3 && singleAsset)" class="btn-primary-medium add" (click)="generateForm()">{{ (isEdit ? 'forms.edit' : 'forms.generate') | translate }}</button>
-      </div>
-      <div>
+    <div class="position-relative">
+        <div class="button-container">
+          <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{ 'forms.cancel' | translate }}</button>
+          <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate }}</button>
+          <button class="btn-primary-medium add" *ngIf="stepper.selectedIndex != 3"  (click)="next()">{{ 'forms.next' | translate }}</button>
+          <button *ngIf="stepper.selectedIndex == 3 && !uploadReview && !singleAsset" class="btn-primary-medium add" (click)="buttonUpload()">{{ 'forms.upload' | translate }}</button>
+          <button *ngIf="uploadReview || (stepper.selectedIndex == 3 && singleAsset)" class="btn-primary-medium add" (click)="generateForm()">{{ (isEdit ? 'forms.edit' : 'forms.generate') | translate }}</button>
+        </div>
         <div class="row form-section__row">
           <div class="col-12 px-0">
             <ng-container>
@@ -101,11 +101,11 @@
                           <span class="p-float-label">
                             <p-dropdown inputId="origin"  [placeholder]="'assets.origin' | translate " [options]="origins" optionLabel="name" optionValue="name"  formControlName="origin"></p-dropdown>
                             <label>{{ 'assets.origin' | translate }} *</label>
-                            <anms-error
-                              [showError]="hasError('assetDetails.origin', formGroupAssetDetail, submitted_AssetDetail)"
-                              error="forms.feedback.required">
-                            </anms-error>
                           </span>
+                          <anms-error
+                            [showError]="hasError('assetDetails.origin', formGroupAssetDetail, submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
                         <div class="col-12 col-md-4 mb-2 align-selft-center ">
                           <div class="row">
