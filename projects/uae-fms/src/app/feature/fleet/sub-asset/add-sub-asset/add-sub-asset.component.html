@@ -61,14 +61,14 @@
           <anms-error [showError]="hasError('year',subAssetForm,submitted)" error="forms.feedback.required">
           </anms-error>
         </div>
-<!--        <div class="col-12 col-md-2 p-field form-section__field">-->
-<!--          <span class="p-float-label">-->
-<!--            <input formControlName="origin" pInputText placeholder="{{'sub_asset.origin' | translate}}*" type="number">-->
-<!--            <label>{{'sub_asset.origin' | translate}}*</label>-->
-<!--          </span>-->
-<!--          <anms-error [showError]="hasError('origin',subAssetForm,submitted)" error="forms.feedback.required">-->
-<!--          </anms-error>-->
-<!--        </div>-->
+        <!--        <div class="col-12 col-md-2 p-field form-section__field">-->
+        <!--          <span class="p-float-label">-->
+        <!--            <input formControlName="origin" pInputText placeholder="{{'sub_asset.origin' | translate}}*" type="number">-->
+        <!--            <label>{{'sub_asset.origin' | translate}}*</label>-->
+        <!--          </span>-->
+        <!--          <anms-error [showError]="hasError('origin',subAssetForm,submitted)" error="forms.feedback.required">-->
+        <!--          </anms-error>-->
+        <!--        </div>-->
 
 
       </div>
@@ -141,6 +141,10 @@
           <anms-uploader [iconIsHidden]="true" [multiple]="false" [title]="" [preview]="false"
             (uploadedEvent)="uploadWarrantyFiles($event,i)" [files]="[warrantyDocs[i]]">
           </anms-uploader>
+
+          <anms-error [showError]="hasError('doc',subAssetForm.get('warranties')['controls'][i],submitted)"
+            error="forms.feedback.required">
+          </anms-error>
         </div>
       </div>
     </div>
@@ -203,6 +207,9 @@
         </div>
         <anms-uploader [iconIsHidden]="true" [multiple]="false" [isImage]='true' [preview]="true"
           [accept]="['.png', '.jpg']" (uploadedEvent)="uploadAssetPicture($event)" [files]="avatarDoc"></anms-uploader>
+        <span *ngIf="invalidAvatar">
+          <p style="color: rgb(255, 0, 0);">{{'forms.feedback.required'|translate}}</p>
+        </span>
       </div>
     </div>
   </div>

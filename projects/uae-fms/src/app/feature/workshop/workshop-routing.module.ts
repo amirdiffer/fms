@@ -44,10 +44,10 @@ const routes: Routes = [
         (m) => m.ServiceShopModule
       )
   },
-  {
+  /* {
     path: 'inspections',
     redirectTo: 'inspections/technical-inspection'
-  },
+  }, */
   { path: '', redirectTo: 'body-shop' }
 ];
 

@@ -1,5 +1,5 @@
-@import '../../../../../themes/green-theme.scss';
-@import '../../../../../assets/scss/form-section.scss';
+@import "../../../../../themes/green-theme.scss";
+@import "../../../../../assets/scss/form-section.scss";
 .component_wrapper {
   // background: white !important;
   h3 {
@@ -17,7 +17,7 @@
       color: #008755;
     }
     li::before {
-      content: '• ';
+      content: "• ";
       color: #008755; /* or whatever color you prefer */
     }
   }
@@ -28,7 +28,7 @@
     }
   }
   ::ng-deep {
-    .left-menu{
+    .left-menu {
       border-right: 1px solid #e0e0e0;
     }
     p-accordion {
@@ -50,8 +50,7 @@
 
       .checkbox {
         .form-check {
-          padding: 0 5px;
-          border: 1px solid #d3d3d3;
+          padding: 5px 5px;
           border-radius: 6px;
         }
         .label {
@@ -71,7 +70,8 @@
       .camera-row {
         border-bottom: 1px solid #d3d3d3;
         padding: 10px 0;
-        height: 62px;
+        padding-top: 30px;
+        height: 80px;
       }
     }
   }
