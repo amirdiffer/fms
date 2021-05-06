@@ -17,7 +17,9 @@ export class AssetPolicyFacade {
 
   conut$ = this.store.pipe(select(AssetPolicySelectors.count));
 
-  constructor(private store: Store<AssetPolicyPartialState>) {}
+  loaded$ = this.store.pipe(select(AssetPolicySelectors.loaded));
+
+  constructor(private store: Store<AssetPolicyPartialState>) { }
 
   loadAll() {
     this.store.dispatch(AssetPolicyActions.loadAll());

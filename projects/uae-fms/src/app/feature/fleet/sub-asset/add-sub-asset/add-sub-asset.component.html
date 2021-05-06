@@ -24,7 +24,8 @@
       <div class="row form-section__row">
         <div class="col-12 col-md-4 p-field form-section__field options-select">
           <span class="p-float-label">
-            <p-dropdown inputId="subAssetType" [autoDisplayFirst]="false" (onChange)="setMakes($event.value)"
+            <input numbersOnly *ngIf="isEdit" class='w-100' formControlName="subAssetType" pInputText type="text" disabled>
+            <p-dropdown *ngIf="!isEdit" inputId="subAssetType" [autoDisplayFirst]="false" (onChange)="setMakes($event.value)"
               [options]="subAssetTypes" formControlName="subAssetType" optionLabel="name"></p-dropdown>
             <label for="subAssetType">{{'sub_asset.sub_asset_type' | translate}} *
             </label>
@@ -36,7 +37,8 @@
       <div class="row form-section__row">
         <div class="col-12 col-md-2 p-field form-section__field options-select">
           <span class="p-float-label">
-            <p-dropdown inputId="make" [autoDisplayFirst]="false" (onChange)="setModels($event.value)" [options]="makes"
+            <input numbersOnly *ngIf="isEdit" class='w-100' formControlName="make" pInputText type="text" disabled>
+            <p-dropdown *ngIf="!isEdit" inputId="make" [autoDisplayFirst]="false" (onChange)="setModels($event.value)" [options]="makes"
               formControlName="make" optionLabel="name"></p-dropdown>
             <label for="make">{{'sub_asset.make' | translate}} * </label>
           </span>
@@ -45,7 +47,8 @@
         </div>
         <div class="col-12 col-md-4 p-field form-section__field options-select">
           <span class="p-float-label">
-            <p-dropdown inputId="model" [autoDisplayFirst]="false" [options]="models" formControlName="model"
+            <input numbersOnly *ngIf="isEdit" class='w-100' formControlName="model" pInputText type="text" disabled>
+            <p-dropdown *ngIf="!isEdit" inputId="model" [autoDisplayFirst]="false" [options]="models" formControlName="model"
               optionLabel="name"></p-dropdown>
             <label for="model">{{'sub_asset.model' | translate}} * </label>
           </span>
