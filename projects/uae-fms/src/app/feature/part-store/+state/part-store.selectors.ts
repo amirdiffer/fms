@@ -20,8 +20,12 @@ export class PartStoreSelectors {
     PartStoreSelectors.featureSelector,
     (state) => state['suppliers']
   );
-  static partMasterSelector = createSelector(
+  static partMasterCategorySelector = createSelector(
     PartStoreSelectors.featureSelector,
-    (state) => state['part-master']
+    (state) => state['PartMasterCategory']
+  );
+  static partMasterItemSelector = createSelector(
+    PartStoreSelectors.featureSelector,
+    (state) => state['PartMasterItem']
   );
 }

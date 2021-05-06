@@ -957,6 +957,7 @@
     },
     "part_master": {
       "asset_type": "نوع الأصول",
+      "sub_asset_type": "نوع الأصل الفرعي",
       "category": "الفئة",
       "add_category": "إضافة فئة",
       "make": "الماركة",

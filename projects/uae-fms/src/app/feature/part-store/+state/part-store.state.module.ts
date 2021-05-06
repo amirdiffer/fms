@@ -26,6 +26,7 @@ import {
   SuppliersService
 } from '@feature/part-store/+state/order-list/suppliers';
 import { SuppliersEffects } from '@feature/part-store/+state/order-list/suppliers/suppliers.effects';
+import { ConfigurationStateModule } from '@feature/configuration/+state';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { SuppliersEffects } from '@feature/part-store/+state/order-list/supplier
       RequestListEffect,
       MyOrderEffects,
       SuppliersEffects
-    ])
+    ]),
+    ConfigurationStateModule
   ],
   exports: [],
   declarations: [],
@@ -51,6 +53,7 @@ import { SuppliersEffects } from '@feature/part-store/+state/order-list/supplier
     RequestListFacade,
     SuppliersFacade,
     SuppliersService
+
   ]
 })
 export class PartStoreStateModule {}

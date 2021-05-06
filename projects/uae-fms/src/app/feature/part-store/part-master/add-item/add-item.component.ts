@@ -1,7 +1,10 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { PartMasterService } from '@feature/part-store/+state/part-master';
 import { Utility } from '@shared/utility/utility';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'anms-add-item',
@@ -19,7 +22,11 @@ export class AddItemComponent extends Utility implements OnInit {
   ];
   form: FormGroup;
   submited:boolean=false;
-  supplierAdded:boolean = false
+  supplierAdded:boolean = false;
+  categoryData;
+  manufacturer$:Observable<any>
+  model$:Observable<any>
+
   get itemInfo(): FormArray {
     return this.form.get('itemInfo') as FormArray;
   }
@@ -28,12 +35,24 @@ export class AddItemComponent extends Utility implements OnInit {
   dialogModal:boolean = false;
   dialogOption:dialogOption;
   dialogSetting: IDialogAlert;
-  constructor(private _fb:FormBuilder,
-              injector: Injector) {
+  constructor(
+              private _fb:FormBuilder,
+              private _partMasterService : PartMasterService,
+              private _router: Router,
+              injector: Injector,) {
                 super(injector); 
               }
 
   ngOnInit(): void {
+    this._partMasterService.getCategoryData().subscribe(x => {
+      if (x == null){
+        this._router.navigate(['/part-store/part-master'])
+      }else{
+        this.categoryData=x
+        this.loadMake(x.makes)
+        
+      }
+    });
     this.form = this._fb.group({
       itemInfo: new FormArray([this.createItemInfoFormArray()])
     });
@@ -87,6 +106,18 @@ export class AddItemComponent extends Utility implements OnInit {
     this.supplier(index).removeAt(j);
   }
 
+  loadMake(make:IMake[]){
+    this.manufacturer$ = of(make);
+  }
+
+  selectMake(event){
+    this.loadModel(event.models)
+  }
+
+  loadModel(model:IModel[]){
+    this.model$ = of(model)
+  }
+  
   dialogConfirm(event){
     if(event && this.dialogOption == dialogOption.cancel){
       this.goToList('part-store/part-master')
@@ -111,4 +142,18 @@ export enum dialogOption{
   success='success',
   error = 'error',
   cancel = 'cancel'
-} 
+}
+
+export interface IMake {
+  id?:number;
+  name?:string;
+  description?:string;
+  models?:IModel[]
+}
+
+export interface IModel {
+  id?:number;
+  name?:string;
+  description?:string;
+  trims:any[]
+}

@@ -1,6 +1,6 @@
-<div class="filter-container" *ngIf="_router.url ==='/part-store/part-master'">
+<!-- <div class="filter-container" *ngIf="router.url ==='/part-store/part-master'">
     <app-filter [setting]="filterSetting"></app-filter>
-</div>
+</div> -->
 <div class="row ml-0 card-wrapper">
     <div class="col-3 col-md-3 component_wrapper form-section">
         <h3 class="form-section__title">{{'part_store.part_master.category' | translate}}</h3>
@@ -17,28 +17,48 @@
         <div class="mt-5">
             <div class="p-field form-section__field dropdown-select mt-4">
                 <span class="p-float-label">
-                  <p-dropdown inputId="typeCategory" placeholder="{{'part_store.part_master.category_type' | translate}}" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
+                  <p-dropdown [(ngModel)]="selectedCategoryType" 
+                                (onChange)="categoryTypeChanges($event.value)" 
+                                inputId="typeCategory" 
+                                placeholder="{{'part_store.part_master.category_type' | translate}}" 
+                                [options]="itemTypes" 
+                                optionLabel="name" 
+                                class="dropdown-select"
+                                [disabled]="router.url !=='/part-store/part-master'"></p-dropdown>
                   <label for="typeCategory">{{'part_store.part_master.category_type' | translate}}</label>
                 </span>
             </div>
         </div>
         <div class="p-field form-section__field dropdown-select mt-4">
             <span class="p-float-label">
-              <p-dropdown inputId="assetType" placeholder="{{'part_store.part_master.asset_type' | translate}}" [options]="itemTypes" optionLabel="name" class="dropdown-select"></p-dropdown>
-              <label for="assetType">{{'part_store.part_master.asset_type' | translate}}</label>
+              <p-dropdown [(ngModel)]="selectedSubCategoryType" 
+                            inputId="assetType" 
+                            (onChange)="typeChanges($event.value)" 
+                            placeholder="{{'part_store.part_master.asset_type' | translate}}" 
+                            [options]="subCatrgotyType$ | async" 
+                            optionLabel="name" 
+                            class="dropdown-select"
+                            [disabled]="router.url !=='/part-store/part-master'"></p-dropdown>
+              <label for="assetType">{{isAsset ? ('part_store.part_master.asset_type' | translate ): ('part_store.part_master.sub_asset_type' | translate)}}</label>
             </span>
         </div>
-        <div class="category-list">
+        <div class="category-list" *ngIf="router.url !=='/part-store/part-master/add-category'">
             <ul>
-                <li [class.active-category]="index == selectedCategory" *ngFor="let item of categoryItem;let index=index;" (click)="categorySelect(index)">
-                    {{item.name}}
-                    <a *ngIf="index == selectedCategory && _router.url !=='/part-store/part-master/add-item'" [routerLink]="['add-item']"><svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.em':'1' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon></a>
+                <li [class.active-category]="index == selectedCategory"  
+                    [ngStyle]="{'opacity': (index != selectedCategory && router.url =='/part-store/part-master/add-item' ? '.6' :'1')}" *ngFor="let category of categoryList$ | async;let index=index;" 
+                    (click)="categorySelect(index)"
+                    (mouseover)="hover(index)"
+                    (mouseleave)="leaveMouse()">
+                    {{category.name}}
+                    <a *ngIf="index == selectedCategory && router.url !=='/part-store/part-master/add-item'" (click)="addItemForm(category)"><svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.em':'1' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon></a>
+                    <a *ngIf="index == selectedCategory && router.url !=='/part-store/part-master/add-item' && hoverIndex == index" (click)="editCategoryForm(category)"><svg-icon src='assets/icons/edit.svg' [svgStyle]="{ 'width.em':'1.2' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon></a>
                 </li>
             </ul>
-            <a *ngIf="_router.url !=='/part-store/part-master/add-category'" class="d-flex add-category" [routerLink]="['add-category']" (click)="hasForm = true">
+            <a *ngIf="router.url !=='/part-store/part-master/add-item'" class="d-flex add-category" (click)="addCategoryForm()">
                 <svg-icon class='cursor-pointer ml-2' src='assets/icons/add.svg' [svgStyle]="{ 'width.em':'1.2' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
                 <span>{{'part_store.part_master.add_category' | translate}}</span>
             </a>
+            
         </div>
     </div>
     <div class="col-9 col-md-9 pr-0" >

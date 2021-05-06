@@ -32,7 +32,7 @@
                         <div class="col-4">
                             <div class="p-field form-section__field options-select">
                                 <span class="p-float-label">
-                                  <p-dropdown inputId="make" placeholder="{{'part_store.part_master.make' | translate}} *" [options]="itemTypes" optionLabel="name" class="dropdown-select" formControlName="make"></p-dropdown>
+                                  <p-dropdown inputId="make" (onChange)="selectMake($event.value)" placeholder="{{'part_store.part_master.make' | translate}} *" [options]="manufacturer$ | async" optionLabel="name" class="dropdown-select" formControlName="make"></p-dropdown>
                                   <label for="make">{{'part_store.part_master.make' | translate}} *</label>
                                 </span>
                                 <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'make')"
@@ -43,7 +43,7 @@
                         <div class="col-4">
                             <div class="p-field form-section__field options-select">
                                 <span class="p-float-label">
-                                  <p-dropdown inputId="model" placeholder="{{'part_store.part_master.make' | translate}} *" [options]="itemTypes" optionLabel="name" class="dropdown-select" formControlName="model"></p-dropdown>
+                                  <p-dropdown inputId="model" placeholder="{{'part_store.part_master.model' | translate}} *" [options]="model$ | async" optionLabel="name" class="dropdown-select" formControlName="model"></p-dropdown>
                                   <label for="model">{{'part_store.part_master.model' | translate}} *</label>
                                 </span>
                                 <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'model')"

@@ -1001,9 +1001,10 @@
     },
     "part_master": {
       "asset_type": "Asset Type",
+      "sub_asset_type": "Sub Asset Type",
       "category": "Category",
       "add_category": "Add Category",
-      "make": "Manufacturer",
+      "make": "Make",
       "model": "Model",
       "folder_info": "Folder Info",
       "category_info": "Category Info",
