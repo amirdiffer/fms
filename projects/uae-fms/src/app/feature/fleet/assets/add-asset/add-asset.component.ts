@@ -1,20 +1,11 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  Injector,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit, ViewChild, Injector, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { ColumnType, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import {
-  AssetMasterFacade,
-  AssetMasterService
-} from '@feature/fleet/+state/assets/asset-master';
+import { AssetMasterFacade, AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { BusinessCategoryFacade, BusinessCategoryService } from '@feature/configuration/+state/business-category';
 import { map, tap } from 'rxjs/operators';
@@ -22,18 +13,9 @@ import { Subscription, of, Observable, observable, Subject } from 'rxjs';
 import { OwnershipFacade } from '@feature/configuration/+state/ownership';
 import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
 import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
-import {
-  PeriodicServiceFacade,
-  PeriodicServiceService
-} from '@feature/configuration/+state/periodic-service';
-import {
-  OrganizationFacade,
-  OrganizationService
-} from '@feature/fleet/+state/organization';
-import {
-  OperatorFacade,
-  OperatorService
-} from '@feature/fleet/+state/operator';
+import { PeriodicServiceFacade, PeriodicServiceService } from '@feature/configuration/+state/periodic-service';
+import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
+import { OperatorFacade, OperatorService } from '@feature/fleet/+state/operator';
 
 @Component({
   selector: 'anms-add-asset',
@@ -66,6 +48,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   formGroupFinancial: FormGroup;
   formGroupMaintenance: FormGroup;
   formGroupGenerate: FormGroup;
+
   get policyType() {
     return this.formGroupFinancial.get('assetFinancialPlan.policyType');
   }
@@ -111,6 +94,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };
+
   errorDialogSetting: IDialogAlert = {
     header: '',
     message: 'Error occurred in progress',
@@ -462,7 +446,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       });
       // console.log('Department' , this._asset, this.isEdit)
       if (this.isEdit && this._asset) {
-        this.formGroupAssetDetail.patchValue({
+        ({
+          ...this.formGroupAssetDetail.value,
           purchasedFor: {
             department: this._asset?.department?.id
           }
@@ -481,6 +466,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       });
       if (this.isEdit && this._asset) {
         this.formGroupAssetDetail.patchValue({
+          ...this.formGroupAssetDetail.value,
           purchasedFor: {
             operator: this._asset.operator.id
           }
@@ -491,20 +477,17 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       .loadAll()
       .subscribe((data) => {
         this.assetType = [];
-        data.message.map((x) => {
-          this.assetType.push(x);
-        });
+        this.assetType = data.message;
+
         if (this.isEdit) {
           this.assetMake = [];
-          this.assetType
-            .find((z) => z.id == this._asset.assetTypeId)
-            .makes.map((f) => {
-              this.assetMake.push(f);
-            });
+          this.assetMake = this.assetType
+            .find((z) => z.id == this._asset.assetConfigurationId)?.makes;
+
           this.assetModel = [];
           this.assetMake
-            .find((z) => z.id == this._asset.makeId)
-            .models.map((y) => {
+            .find((z) => z.id == this._asset.makeId)?.models
+            .map((y) => {
               this.assetModel.push(y);
               this.assetColor = [];
               this.assetTrim = [];
@@ -518,6 +501,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
                 });
             });
           this.formGroupAssetDetail.patchValue({
+            ...this.formGroupAssetDetail.value,
             assetDetails: {
               year: +this._asset.year,
               type: this._asset.assetTypeId,
@@ -571,11 +555,13 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       ? x.purchaseDocId
       : [x.purchaseDocId];
     this.formGroupAssetDetail.patchValue({
+      ...this.formGroupAssetDetail.value,
       businessInfo: {
         businessCategory: x.businessCategoryId,
         ownership: x.ownershipId
       },
       assetDetails: {
+        ...this.formGroupAssetDetail.value.assetDetails,
         origin: x.origin,
         meterType: x.meterType
       },
@@ -866,7 +852,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     const value = event.value ? event.value : event;
     this.origins = [];
     this.assetTrim.find((x) => x.id === value).origins
-      .map((y) => this.origins.push({name: y}));
+      .map((y) => this.origins.push({ name: y }));
   }
 
   onChangePolicyType(event) {
@@ -992,12 +978,11 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           formVal_Generate.quantity == 'multipleAsset'
             ? dpdcodes
             : [
-                `${
-                  this.ownerShip.find(
-                    (x) => x.id == formVal_AssetDetail.businessInfo.ownership
-                  ).fleetITCode
-                }${formVal_Generate.serialNumber}`
-              ]
+              `${this.ownerShip.find(
+                (x) => x.id == formVal_AssetDetail.businessInfo.ownership
+              ).fleetITCode
+              }${formVal_Generate.serialNumber}`
+            ]
       };
       formValue.warrantyItems.map((x) => {
         x.startDate = x.startDate.toISOString();
@@ -1028,6 +1013,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
   uploadVehicleFiles(e) {
     this.formGroupAssetDetail.patchValue({
+      ...this.formGroupAssetDetail.value,
       uploadFile: e.files
     });
   }
