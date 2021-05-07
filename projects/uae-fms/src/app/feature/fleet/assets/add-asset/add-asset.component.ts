@@ -206,7 +206,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       {
         lable: 'tables.column.year',
         type: 1,
-        width: 100,
         field: 'year',
         renderer: ''
       },
