@@ -5,6 +5,7 @@ import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { BodyShopRequestFacade } from '@feature/workshop/+state/body-shop';
 import moment from 'moment';
 import { map } from 'rxjs/operators';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master'
 
 @Component({
   selector: 'app-asset-overview-request',
@@ -20,8 +21,9 @@ export class RequestTabOverviewComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _assetMasterFacade: AssetMasterFacade,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private assetService: AssetMasterService
+  ) { }
 
   vehicle = {
     id: 1,
@@ -152,6 +154,7 @@ export class RequestTabOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.assetId = this._activatedRoute.snapshot.params.id;
+    this._assetMasterFacade.loadAll();
     this.tableData$ = this._facadeRequest.assetRequest$.pipe(
       map((x) => {
         return x.map((y) => {
@@ -188,5 +191,9 @@ export class RequestTabOverviewComponent implements OnInit {
     this.route.params.subscribe((x) => {
       if (x?.id) this._assetMasterFacade.getAssetByID(x.id);
     });
+
+    this.assetService.getAssetByID(this.assetId).subscribe(x => {
+      this.assetDetail = x.message;
+    })
   }
 }
