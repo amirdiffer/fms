@@ -195,7 +195,7 @@ export class BodyShopComponent implements OnInit {
           ...y,
           asset: {
             img: 'assets/thumb.png',
-            assetName: y.assetDpd,
+            // assetName: y.assetDpd,
             assetSubName: y.assetDpd
           },
           startDate: y.startDate
