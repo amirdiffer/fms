@@ -200,10 +200,10 @@ export class BodyShopComponent implements OnInit {
           },
           startDate: y.startDate
             ? moment.utc(y.startDate).local().format('DD-MM-YYYY')
-            : 'ex: 20-20-2020',
+            : '',
           endDate: y.endDate
             ? moment.utc(y.endDate).local().format('DD-MM-YYYY')
-            : 'ex: 20-20-2020',
+            : '',
           location: y.location.address ? y.location.address : 'ex: Dubai',
           cost: y.cost ? `${y.cost} AED` : 'ex: 30.000 AED ',
           technician: Math.floor(Math.random() * 20) + 1,
@@ -333,13 +333,13 @@ export class BodyShopComponent implements OnInit {
         field: 'technician',
         type: ColumnType.lable
       },
-      {
+      /* {
         lable: 'tables.column.task',
         field: 'task',
         width: '18em',
         type: ColumnType.lable,
         renderer: 'radialBar'
-      }
+      } */
       // {
       //   lable: '',
       //   field: 'floatButton',
