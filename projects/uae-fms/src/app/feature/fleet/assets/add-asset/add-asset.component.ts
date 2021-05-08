@@ -634,7 +634,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         break;
       }
 
-      value = value - newValue / maxUsageYear;
+      value = value - newValue;
       kmBookValue = kmBookValue - newValue;
 
       if (maxUsageYear === 0) {
