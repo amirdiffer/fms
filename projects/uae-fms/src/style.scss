@@ -412,7 +412,12 @@ html {
   }
   anms-part-master{
     .category-list ul li a{
-      left: 10px;
+      &:nth-child(1){
+        left: 10px;
+      }
+      &:nth-child(2){
+        left: 30px;
+      }
       right: auto !important;
     }
     .add-button {

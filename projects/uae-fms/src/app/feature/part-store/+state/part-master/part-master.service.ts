@@ -61,7 +61,7 @@ export class PartMasterService {
   /* Item Of Asset */
   getItemOfAsset(id){
     return this._http.get<ResponseBody<any[]>>(
-      environment.baseApiUrl + 'partstore/part-master/asset/category/' + id
+      environment.baseApiUrl + 'partstore/part-master/asset/category/' + id + '/item'
     )
   }
 
@@ -91,7 +91,7 @@ export class PartMasterService {
 
   getItemOfSubAsset(id){
     return this._http.get<ResponseBody<any[]>>(
-      environment.baseApiUrl + 'partstore/part-master/sub-asset/category/' + id
+      environment.baseApiUrl + 'partstore/part-master/sub-asset/category/' + id +'/item'
     )
   }
 
@@ -122,7 +122,6 @@ export class PartMasterService {
       data
     );
   }
-
   
   private addCategory$ = new BehaviorSubject(null);
 
@@ -132,4 +131,14 @@ export class PartMasterService {
   public setCategoryData(data){
     return this.addCategory$.next(data)
   }
+
+  private selectedCategory$ = new BehaviorSubject<string>('');
+
+  public getSelectedCategory (){
+    return this.selectedCategory$.asObservable()
+  }
+  public setSelectedCategory(data){
+    return this.selectedCategory$.next(data)
+  }
+
 }

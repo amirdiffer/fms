@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssetTypeFacade, SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PartMasterFacade, PartMasterService } from '../+state/part-master';
 
@@ -10,26 +10,37 @@ import { PartMasterFacade, PartMasterService } from '../+state/part-master';
   templateUrl: './part-master.component.html',
   styleUrls: ['./part-master.component.scss']
 })
-export class PartMasterComponent implements OnInit {
+export class PartMasterComponent implements OnInit , OnDestroy {
   searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn = 'assets/icons/download-solid.svg';
   filterSetting = [];
   isAsset:boolean = true;
   partMasterTableSetting;
+
   selectedCategory = 0;
-  selectedSubCategoryType;
-  selectedCategoryType={ name: 'Asset', id: 'ASSET' };
-  subCatrgotyType$:Observable<any>
-  categoryList$ : Observable<any> = this._partMasterFacade.partMasterCategory$
   hoverIndex=-1;
+  selectedSubCategoryType:any;
+  selectedCategoryType={ name: 'Asset', id: 'ASSET' };
   addCategoryData = {fleetType:'' , fleetConfigurationId:null}
-  hasForm:boolean= false;
+
+  subCatrgotyType$:Observable<any>
+  categoryList$ : Observable<any> = this._partMasterFacade.partMasterCategory$;
+  categoryListSubscription$:Subscription;
+  categoryForm: Observable<any>;
+  itemForm:Observable<any>;
+
+  itemFormPath:string = '/part-store/part-master/add-item';
+  categoryFormPath:string = '/part-store/part-master/add-category';
+
+
   itemTypes = [
     { name: 'Asset', id: 'ASSET' },
     { name: 'Sub Asset', id: 'SUB_ASSET' },
   ];
+
+
   constructor(public router : Router,
-              private _activatedRoute : ActivatedRoute,
+              public activatedRoute : ActivatedRoute,
               private _partMasterFacade:PartMasterFacade,
               private _partMasteService : PartMasterService,
               private _fleetConfigurationAssetTypeFacade : AssetTypeFacade,
@@ -38,32 +49,60 @@ export class PartMasterComponent implements OnInit {
   ngOnInit(): void {
     this._fleetConfigurationAssetTypeFacade.loadAll();
     this._fleetConfigurationSubAssetTypeFacade.loadAll();
-    this.categoryTypeChanges(this.selectedCategoryType)
-    // this.filterSetting = [
-    //   {
-    //     filterTitle: 'statistic.total',
-    //     filterCount: '13',
-    //     filterTagColor: '#6EBFB5'
-    //   },
-    //   {
-    //     filterTitle: 'statistic.available',
-    //     filterCount: '08',
-    //     filterTagColor: '#848CCF'
-    //   },
-    //   {
-    //     filterTitle: 'statistic.unavailable',
-    //     filterCount: '02',
-    //     filterTagColor: '#BA7967'
-    //   }
-    // ];
+
+    this._partMasterFacade.submittedCategory$.subscribe(
+      x => {if(x){this.categoryTypeChanges(this.selectedCategoryType , true)}}
+    );
+
+
+    this._partMasterFacade.submittedItem$.subscribe(
+      x => {if(x){this.loadCategoryList()}}
+    );
+
+    /* Check Form in children route is OPEN or not */
+    this.categoryForm = this._partMasteService.getCategoryData().pipe(map(
+      x=>{
+        if (x && x.isForm){return true;} else{ return false;}
+      }
+    ));
+    this.itemForm = this._partMasteService.getCategoryData().pipe(map(
+      x=>{
+        if (x && x.isItemForm){return true;} else{ return false;}
+      }
+    ));
+    this.categoryTypeChanges(this.selectedCategoryType , true);
+    this.loadCategoryList();
   }
-  categorySelect(index){
-    if(this.router.url != '/part-store/part-master'){
+  categorySelect(index , category , reload:boolean = false){
+    if(this.router.url != '/part-store/part-master' && !reload){
       return
     }
+    this.selectedCategory = index
+    this.selectedCategoryType.id === 'ASSET'
+    ?
+    this._partMasterFacade.loadAllItemOfAsset(category.id)
+    :
+    this._partMasterFacade.loadAllItemOfSubAsset(category.id)
     this.selectedCategory = index;
+    this._partMasteService.setSelectedCategory(category.name);
+    this._partMasteService.setCategoryData(
+      {
+        fleetType:this.addCategoryData.fleetType , 
+        categoryId:category.id,
+        makes:this.selectedSubCategoryType.makes
+      }
+    )
   }
 
+  loadCategoryList(){
+    this.categoryListSubscription$ = this.categoryList$.subscribe(
+      x =>{
+        if(x.length > 0){
+          this.categorySelect(this.selectedCategory,x[this.selectedCategory],true);
+        }
+      }
+    );
+  }
   addItemForm(category){
     this._partMasteService.setCategoryData(
       {
@@ -72,14 +111,13 @@ export class PartMasterComponent implements OnInit {
         makes:this.selectedSubCategoryType.makes
       }
     );
-    this.router.navigate(['add-item'],{relativeTo:this._activatedRoute})
+    this.router.navigate(['add-item'],{relativeTo:this.activatedRoute})
   }
 
 
   /* Category Changes Asset Or Sub Asset */
-  categoryTypeChanges(event){
+  categoryTypeChanges(event, isLoaded:boolean=false){
     this.selectedCategory = 0
-    this.selectedSubCategoryType = event
     this.addCategoryData.fleetConfigurationId = null
     if(event.id === 'ASSET'){
       this.selectedCategoryType = { name: 'Asset', id: 'ASSET' };
@@ -88,9 +126,13 @@ export class PartMasterComponent implements OnInit {
         map( x => {
           return x.map(
             (y , i) => {
-              if(i == 0 ) {
-                this.selectedSubCategoryType = {...y};
-                this.typeChanges(y);
+              if(isLoaded && this.selectedSubCategoryType){
+                this.typeChanges(this.selectedSubCategoryType);
+              }else{
+                if(i == 0 ) {
+                  this.selectedSubCategoryType = {...y};
+                  this.typeChanges(y);
+                }
               }
               return {...y}
             }
@@ -104,9 +146,13 @@ export class PartMasterComponent implements OnInit {
         map( x => {
           return x.map(
             (y , i) => {
-              if(i == 0 ) {
-                this.selectedSubCategoryType = {...y};
-                this.typeChanges(y)
+              if(isLoaded && this.selectedSubCategoryType){
+                this.typeChanges(this.selectedSubCategoryType);
+              }else{
+                if(i == 0 ) {
+                  this.selectedSubCategoryType = {...y};
+                  this.typeChanges(y);
+                }
               }
               return {...y}}
             )
@@ -117,28 +163,26 @@ export class PartMasterComponent implements OnInit {
   };
 
   typeChanges(event){
+    this.selectedSubCategoryType = event
     this.selectedCategory = 0
     this.addCategoryData.fleetConfigurationId = event.id;
     this.selectedCategoryType.id === 'ASSET' 
       ?
       this._partMasterFacade.loadAllCategoryOfAsset(event.id)
       :
-      this._partMasterFacade.loadAllCategoryOfSubAsset(event.id)
+      this._partMasterFacade.loadAllCategoryOfSubAsset(event.id);
   }
 
   addCategoryForm(){
-    console.log(this.addCategoryData)
     if(this.addCategoryData.fleetConfigurationId == null){
       return;
     };
-    console.log(this.addCategoryData)
-
-    this.hasForm = true;
-    this.router.navigate(['add-category'],{relativeTo:this._activatedRoute})
-    this._partMasteService.setCategoryData(this.addCategoryData)
+    this.router.navigate(['add-category'],{relativeTo:this.activatedRoute})
+    this._partMasteService.setCategoryData({...this.addCategoryData , isForm:true})
   }
   editCategoryForm(category){
-    console.log(category)
+    this._partMasteService.setCategoryData({...category , ...this.addCategoryData , isEdit:true , isForm:true})
+    this.router.navigate(['edit-category/' +category.id],{relativeTo:this.activatedRoute})
   }
   hover(index){
     this.hoverIndex = index
@@ -146,4 +190,9 @@ export class PartMasterComponent implements OnInit {
   leaveMouse(){
     this.hoverIndex = -1
   }
+
+  ngOnDestroy(){
+    this.categoryListSubscription$.unsubscribe()
+  }
+  
 }

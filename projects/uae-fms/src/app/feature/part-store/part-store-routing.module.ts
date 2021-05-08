@@ -22,6 +22,8 @@ const routes: Routes = [
       {path:'' , component:TableContentComponent},
       {path:'add-category' , component:AddCategoryComponent},
       {path:'add-item' , component:AddItemComponent},
+      {path:'edit-category/:id' , component:AddCategoryComponent},
+      {path:'edit-item/:id' , component:AddItemComponent},
     ]
   },
   { path: 'order-list/add-order-list', component: OrderFormComponent },

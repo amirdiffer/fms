@@ -1024,7 +1024,9 @@
       "supplier":"Supplier",
       "search":"Search",
       "category_type":"Category Type",
-      "filter_setting":"Filter setting"
+      "filter_setting":"Filter setting",
+      "trim":"Trim",
+      "color":"Color"
 
     },
     "integration": {

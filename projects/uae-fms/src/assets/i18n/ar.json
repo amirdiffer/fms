@@ -980,7 +980,9 @@
       "supplier":"المورد",
       "search":"بحث",
       "category_type":"معلومات الفئة",
-      "filter_setting":"إعداد المرشح"
+      "filter_setting":"إعداد المرشح",
+      "trim":"تريم",
+      "color":"اللون"
     },
     "integration": {
       "type": "النوع",

@@ -7,6 +7,7 @@ export interface IAssetType {
   makes?: Make[];
 }
 
+
 export interface Make {
   id: number;
   make: string;
@@ -33,4 +34,32 @@ export interface MakeModelTrimColor {
   id: number;
   color: string;
   hexColor:string;
+}
+
+
+
+export interface IMake {
+  id?:number;
+  name?:string;
+  description?:string;
+  models?:IModel[]
+}
+
+export interface IModel {
+  id?:number;
+  name?:string;
+  description?:string;
+  trims:Itrim[]
+}
+
+export interface Itrim{
+  id?:number;
+  colors?:IColor[];
+  name?:string;
+}
+
+export interface IColor{
+  id?:number;
+  name?:string;
+  hexColor?:string;
 }

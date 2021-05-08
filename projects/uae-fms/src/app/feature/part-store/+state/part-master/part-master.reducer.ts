@@ -132,7 +132,8 @@ const partMasterCategoryReducer = createReducer(
     ...state,
     error: null,
     message: null,
-    submitted: false
+    submitted: false,
+    specificCategory:null
   }))
 
 );
@@ -274,8 +275,13 @@ const partMasterItemReducer = createReducer(
     ...state,
     error: null,
     message: null,
-    submitted: false
-  }))
+    submitted: false,
+    specificItem:null
+  })),
+
+  
+
+
 )
 export function categoryReducer(state: PartMasterCategoryState, action: Action) {
   return partMasterCategoryReducer(state, action);

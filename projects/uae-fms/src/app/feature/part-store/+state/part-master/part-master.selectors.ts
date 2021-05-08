@@ -1,18 +1,26 @@
 import { partMasterCategoryAdapter, partMasterItemAdapter } from './part-master.entity';
 import { createSelector } from '@ngrx/store';
 import { PartStoreSelectors } from '../part-store.selectors';
-const { selectAll } = partMasterCategoryAdapter.getSelectors();
 
+export const select = (adapter) =>{
+  if(adapter = 'category'){
+    const { selectAll } = partMasterCategoryAdapter.getSelectors();
+    return selectAll;
+  }else{
+    const { selectAll } = partMasterItemAdapter.getSelectors();
+    return selectAll;
+  }
+};
 export class PartMasterSelectors {
 
   static selectAllCategory = createSelector(
     PartStoreSelectors.partMasterCategorySelector,
-    selectAll
+    select('category')
   );
 
   static selectAllItem = createSelector(
     PartStoreSelectors.partMasterItemSelector,
-    partMasterItemAdapter.setAll
+    select('item')
   );
 
   static specificCategory = createSelector(
