@@ -1,18 +1,14 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Utility } from '@shared/utility/utility';
-import {
-  FileSystemDirectoryEntry,
-  FileSystemFileEntry,
-  NgxFileDropEntry
-} from 'ngx-file-drop';
-import { ColumnDifinition, TableSetting } from '@core/table';
-import { RouterFacade } from '@core/router';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import * as moment from 'moment';
+import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { SubAssetTypeService, SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
 import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
 import { SubAssetService, SubAssetFacade } from '@feature/fleet/+state/sub-asset';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { ColumnDifinition, TableSetting } from '@core/table';
+import { RouterFacade } from '@core/router';
+import { Utility } from '@shared/utility/utility';
+import * as moment from 'moment';
 
 const SUB_ASSET_LABEL = 'SUB_ASSET';
 
@@ -23,6 +19,7 @@ const SUB_ASSET_LABEL = 'SUB_ASSET';
 })
 export class AddSubAssetComponent extends Utility implements OnInit {
   #startRegionVariables
+  invalidAvatar = false;
   itemId = this.route.snapshot.params['id'];
   formCurrentStep = 0;
   csvText: [];
@@ -303,7 +300,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
       year: ['', [Validators.required]],
       policyType: [''],
       purchaseValue: ['', [Validators.required]],
-      avatarId: [],
+      avatarId: [null],
       description: [''],
       warranties: this._fb.array([this.createWarrantyForm()]),
       assetQuantity: ['single']
@@ -428,11 +425,11 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     startDate = ''
   ): FormGroup {
     return this._fb.group({
-      item: [item],
-      periodType: [periodType],
-      duration: [duration],
-      startDate: [startDate],
-      doc: ['']
+      item: [item, Validators.required],
+      periodType: [periodType, Validators.required],
+      duration: [duration, Validators.required],
+      startDate: [startDate, Validators.required],
+      doc: ['', Validators.required]
     });
   }
 
@@ -475,7 +472,8 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   submit() {
     this.submitted = true;
-    if (this.subAssetForm.invalid) {
+    this.invalidAvatar = this.subAssetForm.value.avatarId ? false : true;
+    if (this.subAssetForm.invalid || this.invalidAvatar) {
       return;
     } else {
       const data = this.getSubAssetRequestPayload(this.subAssetForm.value);

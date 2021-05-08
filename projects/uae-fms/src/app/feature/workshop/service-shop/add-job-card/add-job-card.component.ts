@@ -31,7 +31,7 @@ import {
 })
 export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
-  searchIcon = 'assets/icons/search.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   isEdit: boolean = false;
   id: number;
   //#region Dialog

@@ -11,7 +11,7 @@ import {
   NgxFileDropEntry
 } from 'ngx-file-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { debounceTime, map } from 'rxjs/operators';
+import { debounceTime, filter, map } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
 
 import { UsersFacade } from '../../../+state/users';
@@ -65,28 +65,28 @@ export class AddUserComponent
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
 
@@ -124,7 +124,7 @@ export class AddUserComponent
   private _user;
   users$ = this.userFacade.users$;
   roles$ = this.roleFacade.rolePermission$.pipe(
-    map((y) => y.map((x) => ({ id: x.roleId, name: x.roleName })))
+    map((y) => y.map((x) => ({ id: x.roleId, name: x.roleName })).filter(z => z.id != 1 && z.id != 2 && z.id != 3))
   );
   profileDocId = null;
 
@@ -554,7 +554,7 @@ export class AddUserComponent
         if (
           typeof f.personalInformation.phoneNumbers[0] == 'object' &&
           typeof f.personalInformation.phoneNumbers[0].phoneNumber ==
-            'string' &&
+          'string' &&
           f.personalInformation.phoneNumbers[0].phoneNumber.length < 5
         )
           return [];

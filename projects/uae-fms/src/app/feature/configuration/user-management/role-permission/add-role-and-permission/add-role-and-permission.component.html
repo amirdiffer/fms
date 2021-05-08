@@ -589,7 +589,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="viewMovementListOverview">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="MOVEMENT_REQUEST_VIEW_DETAILS_OTHERS">
                       <label>{{'configuration.role_permission.view_movement_list_overview' | translate}}</label>
                     </div>
                     <div class="form-check">
@@ -613,7 +613,7 @@
                       <label>{{'configuration.role_permission.update_edit_movement' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="addRequest" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="MOVEMENT_REQUEST_ADD" >
                       <label>{{'configuration.role_permission.add_request' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -632,11 +632,11 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnMovementListOverview" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="MOVEMENT_REQUEST_VIEW_DETAILS_OWN" >
                       <label>{{'configuration.role_permission.view_own_movement_list_overview' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="viewOwnMovementRequestList" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="MOVEMENT_REQUEST_VIEW_LIST_OWN" >
                       <label>{{'configuration.role_permission.view_own_movement_request_list' | translate}}</label>
                     </div>
                     <div class="form-check">
@@ -847,7 +847,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="viewPartList" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_VIEW_LIST" >
                       <label>{{'configuration.role_permission.view_part_list' | translate}}</label>
                       <div class="sub-checkbox">
                         <div class="item-check">
@@ -867,19 +867,15 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="viewPartdetail" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_VIEW_DETAILS" >
                       <label>{{'configuration.role_permission.view_part_detail' | translate}}</label>
-                    </div>
-                    <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="orderPart" >
-                      <label>{{'configuration.role_permission.order_part' | translate}}</label>
                     </div>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="updateEditPart" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_UPDATE" >
                       <label>{{'configuration.role_permission.update_edit_part' | translate}}</label>
                     </div>
                   </div>
@@ -899,41 +895,72 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="viewRequestList" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_REQUEST_ADD" >
+                      <label>{{'configuration.role_permission.add_request' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_REQUEST_VIEW_LIST_OWN" >
+                      <label>{{'configuration.role_permission.view_own_request_list' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_REQUEST_VIEW_LIST_OTHERS" >
                       <label>{{'configuration.role_permission.view_request_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="exporRequestList" >
-                      <label>{{'configuration.role_permission.export_request_list' | translate}}</label>
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_REQUEST_VIEW_DETAILS_OWN" >
+                      <label>{{'configuration.role_permission.view_own_request_detail' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_REQUEST_VIEW_DETAILS_OTHERS" >
+                      <label>{{'configuration.role_permission.view_request_detail' | translate}}</label>
                     </div>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="approveRequest" >
-                      <label>{{'configuration.role_permission.approve_request' | translate}}</label>
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_REQUEST_UPDATE_OWN" >
+                      <label>{{'configuration.role_permission.update_edit_own_request' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="viewMyOrderList" >
-                      <label>{{'configuration.role_permission.view_my_order_list' | translate}}</label>
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_REQUEST_ARCHIVE_OWN" >
+                      <label>{{'configuration.role_permission.archive_own_request' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_REQUEST_APPROVE_REJECT" >
+                      <label>{{'configuration.role_permission.approve_reject_own_request' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_ORDER_ADD" >
+                      <label>{{'configuration.role_permission.add_oreder' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_ORDER_UPDATE" >
+                      <label>{{'configuration.role_permission.update_order' | translate}}</label>
                     </div>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="exportMyOrderList" >
-                      <label>{{'configuration.role_permission.export_my_order_list' | translate}}</label>
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_ORDER_ARCHIVE" >
+                      <label>{{'configuration.role_permission.archive_order' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="addOrder" >
-                      <label>{{'configuration.role_permission.add_order' | translate}}</label>
-                      <div class="sub-checkbox">
-                        <div class="item-check">
-                          {{'configuration.role_permission.search_throught_asset_details_type_make_model' | translate}}
-                        </div>
-                      </div>
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_ORDER_VIEW_DETAILS" >
+                      <label>{{'configuration.role_permission.view_order_detail' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_ORDER_VIEW_LIST" >
+                      <label>{{'configuration.role_permission.view_order_list' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_LIST_ORDER_EXPORT_LIST" >
+                      <label>{{'configuration.role_permission.export_order_list' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_ORDER_RECEIVED" >
+                      <label>{{'configuration.role_permission.received_order' | translate}}</label>
                     </div>
                   </div>
                 </div>
@@ -952,16 +979,36 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="viewSupplierList" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_SUPPLIER_VIEW_LIST" >
                       <label>{{'configuration.role_permission.view_supplier_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="exportSupplierList" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_SUPPLIER_EXPORT_LIST" >
                       <label>{{'configuration.role_permission.export_supplier_list' | translate}}</label>
                     </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="addSupplier" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_SUPPLIER_ADD" >
                       <label>{{'configuration.role_permission.add_supplier' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_SUPPLIER_UPDATE" >
+                      <label>{{'configuration.role_permission.update_supplier' | translate}}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_SUPPLIER_ARCHIVE" >
+                      <label>{{'configuration.role_permission.archive_supplier' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_SUPPLIER_VIEW_DETAILS" >
+                      <label>{{'configuration.role_permission.view_supplier_detail' | translate}}</label>
                     </div>
                   </div>
                 </div>
@@ -974,6 +1021,72 @@
             <a (click)="selectAndClearAll('PART_STORE_PART_MASTER','select')">{{'configuration.role_permission.select_all' | translate}}</a>
             <a (click)="selectAndClearAll('PART_STORE_PART_MASTER')">{{'configuration.role_permission.clear_all' | translate}}</a>
           </div>
+          <form [formGroup]="partStorePartMasterForm">
+            <div class="tabs-content mt-4">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_MASTER_CATEGORY_ADD" >
+                      <label>{{'configuration.role_permission.add_part_master_category' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_MASTER_CATEGORY_UPDATE" >
+                      <label>{{'configuration.role_permission.update_part_master_category' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_MASTER_CATEGORY_ARCHIVE" >
+                      <label>{{'configuration.role_permission.archive_part_master_category' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_MASTER_CATEGORY_VIEW_DETAILS" >
+                      <label>{{'configuration.role_permission.view_part_master_category_detail' | translate}}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_MASTER_CATEGORY_VIEW_LIST" >
+                      <label>{{'configuration.role_permission.view_part_master_category' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_MASTER_CATEGORY_EXPORT_LIST" >
+                      <label>{{'configuration.role_permission.export_part_master_category' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_MASTER_ITEM_ADD" >
+                      <label>{{'configuration.role_permission.add_part_master_item' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_MASTER_ITEM_UPDATE" >
+                      <label>{{'configuration.role_permission.update_part_master_item' | translate}}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_MASTER_ITEM_ARCHIVE" >
+                      <label>{{'configuration.role_permission.archive_part_master_item' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_MASTER_ITEM_VIEW_DETAILS" >
+                      <label>{{'configuration.role_permission.view_part_master_item_detail' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_MASTER_ITEM_VIEW_LIST" >
+                      <label>{{'configuration.role_permission.view_part_master_item' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="PARTSTORE_PART_MASTER_ITEM_EXPORT_LIST" >
+                      <label>{{'configuration.role_permission.export_part_master_item' | translate}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </mat-tab>
       </mat-tab-group>
     </mat-tab>
@@ -1707,23 +1820,31 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="addAssetConfiguration">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="FLEET_CONFIGURATION_ADD">
                       <label>{{'configuration.role_permission.add_asset_configuration' | translate}}</label>
                     </div>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_TYPE_VIEW_LIST">
-                      <label>{{'configuration.role_permission.view_asset_configuration' | translate}} list</label>
+                      <input type="checkbox"  class="custom-checkbox" formControlName="FLEET_CONFIGURATION_EXPORT_LIST">
+                      <label>{{'configuration.role_permission.export_asset_configuration_list' | translate}}</label>
                     </div>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="updateAssetConfiguration" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="FLEET_CONFIGURATION_VIEW_LIST">
+                      <label>{{'configuration.role_permission.view_asset_configuration' | translate}} list</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="FLEET_CONFIGURATION_VIEW_DETAILS">
+                      <label>{{'configuration.role_permission.view_asset_configuration_detail' | translate}} list</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column">
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="FLEET_CONFIGURATION_UPDATE" >
                       <label>{{'configuration.role_permission.update_asset_configuration' | translate}}</label>
                     </div>
                   </div>

@@ -54,6 +54,11 @@ p-dialog {
       }
     }
   }
+  .content{
+    span{
+      margin: .8em;
+    }
+  }
   &.warning-alert {
     ::ng-deep {
       .p-dialog-header {
