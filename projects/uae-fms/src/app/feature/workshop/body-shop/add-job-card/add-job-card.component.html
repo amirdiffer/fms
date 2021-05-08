@@ -25,7 +25,7 @@
           <p class="title col-md-4 d-flex align-self-center" style="color: rgba(0, 140, 255, 1) !important; font-weight:bold;">{{ 'workshop.body_shop.job_card.select_request' | translate }}</p>
           <span class="search-container card-table-header">
             <div class="search-box">
-            <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
+            <input type="text" (change)="searchInTable($event)" placeholder="{{'search.search_in_columns' | translate}}">
             <button>
               <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
             </button>

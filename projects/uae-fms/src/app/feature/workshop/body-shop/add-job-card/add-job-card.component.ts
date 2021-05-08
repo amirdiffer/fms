@@ -223,8 +223,8 @@ export class AddJobCardComponent extends Utility implements OnInit {
             checkbox: false
           },
           date: x.createdAt
-            ? moment.utc(x.createdAt).local().format('DD-MM-YYYY')
-            : 'ex: 20-20-2020',
+            ? moment.utc(x.createdAt * 1000).local().format('DD-MM-YYYY')
+            : '',
           description: x.description,
           issue_type: x.jobType,
           reportedBy: x.reportedBy,
@@ -514,5 +514,9 @@ export class AddJobCardComponent extends Utility implements OnInit {
     this.inputForm.patchValue({
       relatedRequestIds: event
     });
+  }
+
+  searchInTable($event) {
+    console.log($event);
   }
 }

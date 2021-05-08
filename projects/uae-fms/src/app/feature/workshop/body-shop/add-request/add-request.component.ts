@@ -182,7 +182,7 @@ export class AddRequestComponent implements OnInit {
         issue: ['', Validators.required],
         reportedBy: ['', Validators.required],
         description: ['', Validators.required],
-        gpsMeterSource: ['']
+        gpsMeterSource: ['', Validators.required]
       }),
       priority: [''],
       file: ['']
