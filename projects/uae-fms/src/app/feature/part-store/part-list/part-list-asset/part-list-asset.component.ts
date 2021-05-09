@@ -1,16 +1,19 @@
-import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { TableSetting } from '@core/table';
+import { PartListFacade } from '../../+state/part-list';
 import { FilterCardSetting } from '@core/filter';
+import { ColumnType, TableSetting } from '@core/table';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs/internal/operators/map';
 
 @Component({
-  selector: 'part-detail-list',
-  templateUrl: './part-detail-list.component.html',
-  styleUrls: ['./part-detail-list.component.scss']
+  selector: 'anms-part-list-asset',
+  templateUrl: './part-list-asset.component.html',
+  styleUrls: ['./part-list-asset.component.scss']
 })
-export class PartDetailListComponent implements OnInit {
-  recordId: number;
+export class PartListAssetComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
+  partList = true;
+  recordId: number;
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
@@ -193,7 +196,7 @@ export class PartDetailListComponent implements OnInit {
     rowSettings: {
       onClick: (col, data, button?) => {
         this._router.navigate(['../overview'], {
-          relativeTo: this._route,
+          relativeTo: this.route,
           queryParams: { id: data.id, categoryId: this.recordId }
         });
       },
@@ -204,11 +207,66 @@ export class PartDetailListComponent implements OnInit {
       ]
     }
   };
-  constructor(private _router: Router, private _route: ActivatedRoute) {}
+  years = [
+    { name: 'Year', value: 'null' },
+    { name: '1999', value: '1999' },
+    { name: '2000', value: '2000' },
+    { name: '2001', value: '2001' },
+    { name: '2002', value: '2002' },
+    { name: '2003', value: '2003' },
+    { name: '2004', value: '2004' },
+    { name: '2005', value: '2005' },
+    { name: '2006', value: '2006' }
+  ];
+  models = [
+    { name: 'Model', value: 'null' },
+    { name: '1999', value: '1999' },
+    { name: '2000', value: '2000' },
+    { name: '2001', value: '2001' },
+    { name: '2002', value: '2002' },
+    { name: '2003', value: '2003' },
+    { name: '2004', value: '2004' },
+    { name: '2005', value: '2005' },
+    { name: '2006', value: '2006' }
+  ];
+  makes = [
+    { name: 'Make', value: 'null' },
+    { name: '1999', value: '1999' },
+    { name: '2000', value: '2000' },
+    { name: '2001', value: '2001' },
+    { name: '2002', value: '2002' },
+    { name: '2003', value: '2003' },
+    { name: '2004', value: '2004' },
+    { name: '2005', value: '2005' },
+    { name: '2006', value: '2006' }
+  ];
+
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router,
+    private route: ActivatedRoute,
+    private facade: PartListFacade
+  ) {}
 
   ngOnInit(): void {
-    this._route.queryParamMap.subscribe((params) => {
-      this.recordId = +params.get('id');
+    // this.facade.loadAllAsset()
+    this.facade.loadAssetStatistics();
+
+    this.facade.assetStatistics$.pipe().subscribe((res) => {
+      if (res) {
+        console.log(res);
+      }
     });
+
+    if (typeof this._activatedRoute.snapshot.params.id != 'undefined') {
+      this.partList = false;
+      this.filterCard.unshift({
+        filterTitle: 'statistic.this_month',
+        filterCount: '',
+        filterTagColor: '',
+        isCalendar: true,
+        onActive(index: number) {}
+      });
+    }
   }
 }

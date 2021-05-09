@@ -85,6 +85,8 @@ export class PartListFormComponent implements OnInit {
     private _route: ActivatedRoute
   ) {
     this.partForm = this._fb.group({
+      typeCategoryType: ['ASSET', [Validators.required]],
+      typeCategoryName: ['', [Validators.required]],
       quantity: ['', Validators.required],
       price: ['', Validators.required],
       warrantyExpiryDate: [''],

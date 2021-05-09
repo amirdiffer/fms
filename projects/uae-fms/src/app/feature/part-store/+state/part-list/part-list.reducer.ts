@@ -5,16 +5,40 @@ import {
   partListAdapter,
   PartListState
 } from './part-list.entity';
+import { AssetMasterActions } from '@feature/fleet/+state/assets/asset-master/asset-master.actions';
+import { IPartListStatistics } from '@models/statistics';
 
 const partListReducer = createReducer(
   initialState,
-  on(PartListActions.loadAll, (state) => ({
+  on(PartListActions.loadAllAsset, (state) => ({
     ...state,
     loaded: false,
     error: null,
     message: null
   })),
-  on(PartListActions.allDataLoaded, (state, { data }) =>
+
+  on(PartListActions.allAssetDataLoaded, (state, { data }) =>
+    partListAdapter.setAll(data, { ...state, loaded: true, error: null })
+  ),
+
+  on(PartListActions.loadAllSubAsset, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null
+  })),
+
+  on(PartListActions.assetStatisticsLoaded, (state, data) => ({
+    ...state,
+    assetStatistics: data.data
+  })),
+
+  on(PartListActions.subAssetStatisticsLoaded, (state, data) => ({
+    ...state,
+    subAssetStatistics: data.data
+  })),
+
+  on(PartListActions.allSubAssetDataLoaded, (state, { data }) =>
     partListAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
   on(PartListActions.error, (state, { reason }) => ({
