@@ -5,8 +5,10 @@ import {
   PARTSTORE_PARTMASTER_ITEM_FEATURE_KEY,
 } from './part-master/part-master.entity';
 import {
-  PartListState,
-  PARTSTORE_PARTLIST_FEATURE_KEY
+  AssetPartListState,
+  PARTSTORE_ASSET_PARTLIST_FEATURE_KEY,
+  PARTSTORE_SUB_ASSET_PARTLIST_FEATURE_KEY,
+  SubAssetPartListState,
 } from './part-list/part-list.entity';
 import {
   PARTSTORE_REQUEST_LIST_FEATURE_KEY,
@@ -24,7 +26,8 @@ import {
 export const PARTSTORE_FEATURE_KEY = 'part-store';
 
 export interface State {
-  readonly [PARTSTORE_PARTLIST_FEATURE_KEY]: PartListState;
+  readonly [PARTSTORE_ASSET_PARTLIST_FEATURE_KEY]: AssetPartListState;
+  readonly [PARTSTORE_SUB_ASSET_PARTLIST_FEATURE_KEY]: SubAssetPartListState;
   readonly [PARTSTORE_REQUEST_LIST_FEATURE_KEY]: RequestListState;
   readonly [PARTSTORE_MY_ORDER_LIST_FEATURE_KEY]: MyOrderListState;
   readonly [PARTSTORE_SUPPLIERS_LIST_FEATURE_KEY]: SuppliersListState;

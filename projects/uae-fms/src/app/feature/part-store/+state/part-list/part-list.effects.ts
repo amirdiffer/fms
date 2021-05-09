@@ -9,53 +9,91 @@ import { PartListActions } from './part-list.actions';
 export class PartListEffect {
   constructor(private action$: Actions, private service: PartListService) {}
 
-  loadAllAsset$ = createEffect(() =>
+  /* Get All Part of Asset an Sub Asset */
+
+  getAllPartOfAsset$ = createEffect(() =>
     this.action$.pipe(
-      ofType(PartListActions.loadAllAsset),
+      ofType(PartListActions.getPartListOfAsset),
       mergeMap((action) =>
-        this.service.loadAllAsset().pipe(
+        this.service.getPartOfAsset(action.id).pipe(
           map((data) => {
-            return PartListActions.allAssetDataLoaded({ data });
+            return PartListActions.partListOfAssetLoaded({ data: data.message });
           }),
-          catchError((error) => of(PartListActions.error({ reason: error })))
+          catchError((error) => of(PartListActions.errorAssetPart({ reason: error })))
         )
       )
     )
   );
-
-  loadAllSubAsset$ = createEffect(() =>
+  getAllPartOfSubAsset$ = createEffect(() =>
     this.action$.pipe(
-      ofType(PartListActions.loadAllSubAsset),
+      ofType(PartListActions.getPartListOfSubAsset),
       mergeMap((action) =>
-        this.service.loadAllSubAsset().pipe(
+        this.service.getPartOfSubAsset(action.id).pipe(
           map((data) => {
-            return PartListActions.allSubAssetDataLoaded({ data });
+            return PartListActions.partListOfSubAssetLoaded({ data: data.message });
           }),
-          catchError((error) => of(PartListActions.error({ reason: error })))
+          catchError((error) => of(PartListActions.errorSubAssetPart({ reason: error })))
         )
       )
     )
   );
 
-  loadAssetStatistics$ = createEffect(() =>
+
+  /* Get Specific Part of Asset an Sub Asset */
+
+  getSpecificPartOfAsset$ = createEffect(() =>
     this.action$.pipe(
-      ofType(PartListActions.loadAssetStatistics),
+      ofType(PartListActions.getSpecificPartOfAsset),
       mergeMap((action) =>
-        this.service.loadAssetStatistics().pipe(
-          map((data) => PartListActions.assetStatisticsLoaded({ data })),
-          catchError((error) => of(PartListActions.error({ reason: error })))
+        this.service.getSpecificPartOfAsset(action.id).pipe(
+          map((data) => {
+            return PartListActions.specificPartOfAssetLoaded({ data: data.message });
+          }),
+          catchError((error) => of(PartListActions.errorAssetPart({ reason: error })))
         )
       )
     )
   );
 
-  loadSubAssetStatistics$ = createEffect(() =>
+  getSpecificPartOfSubAsset$ = createEffect(() =>
     this.action$.pipe(
-      ofType(PartListActions.loadSubAssetStatistics),
+      ofType(PartListActions.getSpecificPartOfSubAsset),
       mergeMap((action) =>
-        this.service.loadSubAssetStatistics().pipe(
-          map((data) => PartListActions.subAssetStatisticsLoaded({ data })),
-          catchError((error) => of(PartListActions.error({ reason: error })))
+        this.service.getSpecificPartOfSubAsset(action.id).pipe(
+          map((data) => {
+            return PartListActions.specificPartOfSubAssetLoaded({ data: data.message });
+          }),
+          catchError((error) => of(PartListActions.errorSubAssetPart({ reason: error })))
+        )
+      )
+    )
+  );
+
+
+  /* Update Part of Asset an Sub Asset */
+  updatePartOfAsset$ = createEffect(() =>
+  this.action$.pipe(
+      ofType(PartListActions.updatePartOfAsset),
+      mergeMap((action) =>
+        this.service.updatePartOfAsset(action.data).pipe(
+          map((data) =>
+              PartListActions.partOfAssetUpdatedSuccessfully({ data: action.data })
+          ),
+          catchError((error) => of(PartListActions.errorAssetPart({ reason: error })))
+        )
+      )
+    )
+  );
+
+  updatePartOfSubAsset$ = createEffect(() =>
+  this.action$.pipe(
+      ofType(PartListActions.updatePartOfSubAsset),
+      mergeMap((action) =>
+        this.service.updatePartOfSubAsset(action.data).pipe(
+          map((data) =>
+              PartListActions.partOfSubAssetUpdatedSuccessfully({ data: action.data })
+          ),
+          catchError((error) => of(PartListActions.errorSubAssetPart({ reason: error })))
         )
       )
     )

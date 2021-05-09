@@ -192,6 +192,9 @@ export class PartMasterComponent implements OnInit , OnDestroy {
   }
 
   ngOnDestroy(){
+    this._partMasterFacade.resetCategory();
+    this._partMasterFacade.resetItem();
+    this._partMasteService.setCategoryData(null)
     this.categoryListSubscription$.unsubscribe()
   }
   

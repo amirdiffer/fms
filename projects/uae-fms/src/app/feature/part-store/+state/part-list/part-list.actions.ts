@@ -1,42 +1,88 @@
 import { createAction, props } from '@ngrx/store';
-import { PartListStateModel } from './part-list.entity';
-import { IPartListStatistics } from '@models/statistics';
 
 export class PartListActions {
-  static loadAllAsset = createAction('[PartList] load all asset data');
 
-  static allAssetDataLoaded = createAction(
-    '[PartList] all asset datas are loaded',
-    props<{ data: PartListStateModel[] }>()
+  /* --------- Asset Part -------------- */
+
+  static getPartListOfAsset = createAction(
+      '[assetPartList] load all part of asset',
+      props<{ id: number }>()
   );
 
-  static loadAllSubAsset = createAction('[PartList] load all sub asset data');
-
-  static allSubAssetDataLoaded = createAction(
-    '[PartList] all sub asset datas are loaded',
-    props<{ data: PartListStateModel[] }>()
+  static partListOfAssetLoaded = createAction(
+      '[assetPartList] all part of asset are loaded',
+      props<{ data: any[] }>()
   );
 
-  static loadAssetStatistics = createAction(
-    '[PartList] load all asset statistics'
+  static updatePartOfAsset = createAction(
+      '[assetPartList] update part of asset',
+      props<{ data: any }>()
   );
 
-  static assetStatisticsLoaded = createAction(
-    '[PartList] all asset statistics are loaded',
-    props<{ data: IPartListStatistics }>()
+  static partOfAssetUpdatedSuccessfully = createAction(
+      '[assetPartList] part of asset updated successfully',
+      props<{ data: any }>()
   );
 
-  static loadSubAssetStatistics = createAction(
-    '[PartList] load all sub asset statistics'
+  static getSpecificPartOfAsset = createAction(
+      '[assetPartList] load specific part of asset',
+      props<{ id: number }>()
   );
 
-  static subAssetStatisticsLoaded = createAction(
-    '[PartList] all sub asset statistics are loaded',
-    props<{ data: IPartListStatistics }>()
+  static specificPartOfAssetLoaded = createAction(
+      '[assetPartList] specific part of asset are loaded',
+      props<{ data: any[] }>()
   );
 
-  static error = createAction(
-    '[PartList] error occurred',
+
+  /* --------- Sub Asset Part -------------- */
+
+  static getPartListOfSubAsset = createAction(
+      '[subAssetPartList] load all part list of sub asset',
+      props<{ id: number }>()
+  );
+
+  static partListOfSubAssetLoaded = createAction(
+      '[subAssetPartList] all part of sub asset are loaded',
+      props<{ data: any[] }>()
+  );
+
+  static updatePartOfSubAsset = createAction(
+      '[subAssetPartList] update part of sub asset',
+      props<{ data: any }>()
+  );
+
+  static partOfSubAssetUpdatedSuccessfully = createAction(
+      '[subAssetPartList] part of sub asset updated successfully',
+      props<{ data: any }>()
+  );
+
+  static getSpecificPartOfSubAsset = createAction(
+      '[subAssetPartList] load specific part of sub asset',
+      props<{ id: number }>()
+  );
+
+  static specificPartOfSubAssetLoaded = createAction(
+      '[subAssetPartList] specific part of sub asset are loaded',
+      props<{ data: any[] }>()
+  );
+  
+  /* Reset Error */
+  static resetAssetPartState = createAction(
+    '[assetPartList] reset asset part state parameters'
+  );
+
+  static errorAssetPart = createAction(
+    '[assetPartList] error occurred',
+    props<{ reason: any }>()
+  );
+
+  static resetSubAssetPartState = createAction(
+    '[partList] reset sub asset part state parameters'
+  );
+
+  static errorSubAssetPart = createAction(
+    '[partList] error occurred',
     props<{ reason: any }>()
   );
 }

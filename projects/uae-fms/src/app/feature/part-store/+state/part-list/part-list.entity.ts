@@ -1,37 +1,54 @@
+import { IPartListStatistics } from '@models/statistics';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Action, createReducer } from '@ngrx/store';
-import { IAssetStatistics, IPartListStatistics } from '@models/statistics';
 
-export const PARTSTORE_PARTLIST_FEATURE_KEY = 'part-list';
+export const PARTSTORE_ASSET_PARTLIST_FEATURE_KEY = 'assetPartList';
+export const PARTSTORE_SUB_ASSET_PARTLIST_FEATURE_KEY = 'subAssetPartList';
 
-export interface PartListStateModel {
-  thumbImage: string;
-  thumbText: string;
-  Quantity: string;
-  Status: string;
-  Total: string;
-}
-
-export interface PartListState extends EntityState<PartListStateModel> {
+/* For Asset */
+export interface AssetPartListState extends EntityState<any> {
   error?: any;
-  loaded: boolean;
-  assetStatistics: IPartListStatistics;
-  subAssetStatistics: IPartListStatistics;
-  message: string;
+  loaded?: boolean;
+  message?: string;
+  statistics?: IPartListStatistics;
+  specificPart?:any;
+  updated?:boolean;
 }
+
+export const assetPartListAdapter: EntityAdapter<any> = createEntityAdapter<any>();
+
+export const initialAssetPartState: AssetPartListState = assetPartListAdapter.getInitialState({
+  loaded: null,
+  message: null,
+  error: null,
+  statistics: null,
+  specificPart:null,
+  updated:false
+} as AssetPartListState);
+
+/* For Sub Asset */
+
+export interface SubAssetPartListState extends EntityState<any> {
+  error?: any;
+  loaded?: boolean;
+  message?: string;
+  statistics?: IPartListStatistics;
+  specificPart?:any;
+  updated?:boolean;
+}
+
+export const subAssetPartListAdapter: EntityAdapter<any> = createEntityAdapter<any>();
+
+export const initialSubAssetPartState: SubAssetPartListState = subAssetPartListAdapter.getInitialState({
+  loaded: null,
+  message: null,
+  error: null,
+  statistics: null,
+  specificPart:null,
+  updated:false
+} as SubAssetPartListState);
 
 export interface PartListPartialState {
-  [PARTSTORE_PARTLIST_FEATURE_KEY]: PartListState;
+  [PARTSTORE_ASSET_PARTLIST_FEATURE_KEY]: AssetPartListState;
+  [PARTSTORE_SUB_ASSET_PARTLIST_FEATURE_KEY]:SubAssetPartListState;
 }
 
-export const partListAdapter: EntityAdapter<PartListStateModel> = createEntityAdapter<
-  PartListStateModel
->();
-
-export const initialState: PartListState = partListAdapter.getInitialState({
-  loaded: null,
-  assetStatistics: null,
-  subAssetStatistics: null,
-  message: null,
-  error: null
-} as PartListState);

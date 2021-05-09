@@ -1,40 +1,67 @@
 import { PartListActions } from './part-list.actions';
-import { PartListStateModel } from './part-list.entity';
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { PartListSelectors } from './part-list.selectors';
+import { PartListPartialState } from './part-list.entity';
 
 @Injectable()
 export class PartListFacade {
-  partList$ = this.store.pipe(select(PartListSelectors.selectAll));
 
-  assetStatistics$ = this.store.pipe(
-    select(PartListSelectors.selectAssetStatistics)
-  );
+  assetPartList$ = this.store.pipe(select(PartListSelectors.selectAllAssetPartList));
 
-  subAssetStatistics$ = this.store.pipe(
-    select(PartListSelectors.selectSubAssetStatistics)
-  );
+  subAssetPartList$ = this.store.pipe(select(PartListSelectors.selectAllSubAssetPartList));
 
-  message$ = this.store.pipe(select(PartListSelectors.message));
+  specificAssetPart$ = this.store.pipe(select(PartListSelectors.specificAssetPart));
 
-  error$ = this.store.pipe(select(PartListSelectors.error));
+  specificSubAssetPart$ = this.store.pipe(select(PartListSelectors.specificSubAssetPart));
 
-  constructor(private store: Store<PartListStateModel>) {}
+  updatedAssetPart$ = this.store.pipe(select(PartListSelectors.updatedAssetPart));
 
-  loadAllAsset() {
-    this.store.dispatch(PartListActions.loadAllAsset());
+  updatedSubAssetPart$ = this.store.pipe(select(PartListSelectors.updatedSubAssetPart));
+
+  messageAssetPart$ = this.store.pipe(select(PartListSelectors.messageAssetPart));
+
+  messageSubAssetPart$ = this.store.pipe(select(PartListSelectors.messageSubAssetPart));
+
+  errorAssetPart$ = this.store.pipe(select(PartListSelectors.errorAssetPart));
+
+  errorSubAssetPart$ = this.store.pipe(select(PartListSelectors.errorSubAssetPart));
+
+  constructor(private store: Store<PartListPartialState>) {}
+
+
+  /* Load All Part */
+  loadAllAssetPartList(id:number) {
+    this.store.dispatch(PartListActions.getPartListOfAsset({id}));
+  };
+
+  loadAllSubAssetPartList(id:number) {
+    this.store.dispatch(PartListActions.getPartListOfSubAsset({id}));
+  };
+
+  /* Load Specific Part */
+  loadSpecificPartOfAsset(id:number){
+    this.store.dispatch(PartListActions.getSpecificPartOfAsset({id}));
+  };
+
+  loadSpecificPartOfSubAsset(id:number){
+    this.store.dispatch(PartListActions.getSpecificPartOfSubAsset({id}));
+  };
+
+  updatePartOfAsset(data:any){
+    this.store.dispatch(PartListActions.updatePartOfAsset({data}))
+  };
+
+  updatePartOfSubAsset(data:any){
+    this.store.dispatch(PartListActions.updatePartOfSubAsset({data}))
+  };
+
+  resetPartAssetState() {
+    this.store.dispatch(PartListActions.resetAssetPartState());
+  };
+
+  resetPartSubAssetState() {
+    this.store.dispatch(PartListActions.resetSubAssetPartState());
   }
 
-  loadAllSubAsset() {
-    this.store.dispatch(PartListActions.loadAllSubAsset());
-  }
-
-  loadAssetStatistics() {
-    this.store.dispatch(PartListActions.loadAssetStatistics());
-  }
-
-  loadSubAssetStatistics() {
-    this.store.dispatch(PartListActions.loadSubAssetStatistics());
-  }
 }

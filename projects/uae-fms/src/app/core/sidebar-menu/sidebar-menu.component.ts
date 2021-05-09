@@ -162,16 +162,6 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           name: 'sidebar.part_store.part_list.~',
           icon: 'part-list',
           route: '/part-store/part-list',
-          items: [
-            {
-              name: 'sidebar.part_store.part_list.asset',
-              route: '/part-store/part-list/asset'
-            },
-            {
-              name: 'sidebar.part_store.part_list.sub_asset',
-              route: '/part-store/part-list/sub-asset'
-            }
-          ]
         },
         {
           name: 'sidebar.part_store.order_list',

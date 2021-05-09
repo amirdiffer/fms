@@ -2,26 +2,18 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PartOverviewComponent } from '@feature/part-store/part-overview/part-overview.component';
 import { OrderListComponent } from './order-list/order-list.component';
-import { PartListFormComponent } from './part-list/part-list-form.component';
 import { PartListComponent } from './part-list/part-list.component';
 import { OrderFormComponent } from './order-list/order/order.component';
 import { PartMasterComponent } from './part-master/part-master.component';
-import { PartDetailListComponent } from './part-list/part-detail-list/part-detail-list.component';
 import { SuppliersAddFormComponent } from './order-list/suppliers-add-form/suppliers-add-form.component';
 import { AddCategoryComponent } from './part-master/add-category/add-category.component';
 import { AddItemComponent } from './part-master/add-item/add-item.component';
 import { TableContentComponent } from './part-master/table-content/table-content.component';
-import { PartListAssetComponent } from '@feature/part-store/part-list/part-list-asset/part-list-asset.component';
-import { PartListSubAssetComponent } from '@feature/part-store/part-list/part-list-sub-asset/part-list-sub-asset.component';
+import { PartReceiveFormComponent } from './part-receive-form/part-receive-form.component';
 const routes: Routes = [
-  { path: 'part-list/asset', component: PartListAssetComponent },
-  { path: 'part-list/sub-asset', component: PartListSubAssetComponent },
-  { path: 'part-list/add', component: PartListFormComponent },
-  { path: 'part-list/edit-part', component: PartListFormComponent },
-  { path: 'part-list/category', component: PartDetailListComponent },
-  { path: 'part-list/overview', component: PartOverviewComponent },
-<<<<<<< HEAD
   { path: 'part-list', component: PartListComponent },
+  { path: 'part-list/overview/:id', component: PartOverviewComponent },
+  { path: 'part-list/update-part/:id', component: PartReceiveFormComponent },
   { path: 'part-master', component: PartMasterComponent,
     children:[
       {path:'' , component:TableContentComponent},
@@ -29,18 +21,9 @@ const routes: Routes = [
       {path:'add-item' , component:AddItemComponent},
       {path:'edit-category/:id' , component:AddCategoryComponent},
       {path:'edit-item/:id' , component:AddItemComponent},
-=======
-  { path: 'part-list', redirectTo: 'part-list/asset' },
-  {
-    path: 'part-master',
-    component: PartMasterComponent,
-    children: [
-      { path: '', component: TableContentComponent },
-      { path: 'add-category', component: AddCategoryComponent },
-      { path: 'add-item', component: AddItemComponent }
->>>>>>> 461b2ccb9e53ce5d0253ac9454926f878e64f300
     ]
   },
+
   { path: 'order-list/add-order-list', component: OrderFormComponent },
   { path: 'order-list/add-supplier', component: SuppliersAddFormComponent },
   { path: 'order-list', component: OrderListComponent },
