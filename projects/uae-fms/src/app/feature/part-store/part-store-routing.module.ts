@@ -8,20 +8,26 @@ import { OrderFormComponent } from './order-list/order/order.component';
 import { PartMasterComponent } from './part-master/part-master.component';
 import { PartDetailListComponent } from './part-list/part-detail-list/part-detail-list.component';
 import { SuppliersAddFormComponent } from './order-list/suppliers-add-form/suppliers-add-form.component';
-import { AddCategoryComponent } from './part-master/add-category/add-category.component'
+import { AddCategoryComponent } from './part-master/add-category/add-category.component';
 import { AddItemComponent } from './part-master/add-item/add-item.component';
 import { TableContentComponent } from './part-master/table-content/table-content.component';
+import { PartListAssetComponent } from '@feature/part-store/part-list/part-list-asset/part-list-asset.component';
+import { PartListSubAssetComponent } from '@feature/part-store/part-list/part-list-sub-asset/part-list-sub-asset.component';
 const routes: Routes = [
+  { path: 'part-list/asset', component: PartListAssetComponent },
+  { path: 'part-list/sub-asset', component: PartListSubAssetComponent },
   { path: 'part-list/add', component: PartListFormComponent },
   { path: 'part-list/edit-part', component: PartListFormComponent },
   { path: 'part-list/category', component: PartDetailListComponent },
   { path: 'part-list/overview', component: PartOverviewComponent },
-  { path: 'part-list', component: PartListComponent },
-  { path: 'part-master', component: PartMasterComponent,
-    children:[
-      {path:'' , component:TableContentComponent},
-      {path:'add-category' , component:AddCategoryComponent},
-      {path:'add-item' , component:AddItemComponent},
+  { path: 'part-list', redirectTo: 'part-list/asset' },
+  {
+    path: 'part-master',
+    component: PartMasterComponent,
+    children: [
+      { path: '', component: TableContentComponent },
+      { path: 'add-category', component: AddCategoryComponent },
+      { path: 'add-item', component: AddItemComponent }
     ]
   },
   { path: 'order-list/add-order-list', component: OrderFormComponent },

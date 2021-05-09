@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterCardSetting } from '@core/filter';
 import { ColumnType, TableSetting } from '@core/table';
+import { PartListFacade } from '@feature/part-store/+state/part-list';
 
 @Component({
   selector: 'anms-part-list',
@@ -38,7 +39,7 @@ export class PartListComponent implements OnInit {
   partList_Table: TableSetting = {
     columns: [
       {
-        lable: 'tables.column.item',
+        lable: 'tables.column.category',
         type: 1,
         field: 'Item',
         renderer: 'thumbTextRenderer',
@@ -75,7 +76,7 @@ export class PartListComponent implements OnInit {
         Quantity: '1234',
         Status: 'Available',
         Total: '122234 AED',
-        statusColor: '#838BCE'
+        statusColor: '#20E19D'
       },
       {
         id: 2,
@@ -84,7 +85,7 @@ export class PartListComponent implements OnInit {
         Quantity: '1234',
         Status: 'Available',
         Total: '122234 AED',
-        statusColor: '#838BCE'
+        statusColor: '#20E19D'
       },
       {
         id: 3,
@@ -93,7 +94,7 @@ export class PartListComponent implements OnInit {
         Quantity: '1234',
         Status: 'Available',
         Total: '122234 AED',
-        statusColor: '#838BCE'
+        statusColor: '#20E19D'
       },
       {
         id: 4,
@@ -102,7 +103,7 @@ export class PartListComponent implements OnInit {
         Quantity: '1234',
         Status: 'Available',
         Total: '122234 AED',
-        statusColor: '#838BCE'
+        statusColor: '#20E19D'
       },
       {
         id: 5,
@@ -111,7 +112,7 @@ export class PartListComponent implements OnInit {
         Quantity: '1234',
         Status: 'Available',
         Total: '122234 AED',
-        statusColor: '#838BCE'
+        statusColor: '#20E19D'
       },
       {
         id: 6,
@@ -120,7 +121,7 @@ export class PartListComponent implements OnInit {
         Quantity: '1234',
         Status: 'Available',
         Total: '122234 AED',
-        statusColor: '#838BCE'
+        statusColor: '#20E19D'
       },
       {
         id: 7,
@@ -129,7 +130,7 @@ export class PartListComponent implements OnInit {
         Quantity: '1234',
         Status: 'Available',
         Total: '122234 AED',
-        statusColor: '#838BCE'
+        statusColor: '#20E19D'
       }
     ],
     rowSettings: {
@@ -183,7 +184,8 @@ export class PartListComponent implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private facade: PartListFacade
   ) {}
 
   ngOnInit(): void {

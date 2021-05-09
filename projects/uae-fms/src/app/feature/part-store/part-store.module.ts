@@ -23,6 +23,8 @@ import { PartDetailListComponent } from './part-list/part-detail-list/part-detai
 import { AddCategoryComponent } from './part-master/add-category/add-category.component';
 import { AddItemComponent } from './part-master/add-item/add-item.component';
 import { TableContentComponent } from './part-master/table-content/table-content.component';
+import { PartListAssetComponent } from './part-list/part-list-asset/part-list-asset.component';
+import { PartListSubAssetComponent } from './part-list/part-list-sub-asset/part-list-sub-asset.component';
 
 @NgModule({
   imports: [
@@ -52,7 +54,9 @@ import { TableContentComponent } from './part-master/table-content/table-content
     PartDetailListComponent,
     AddCategoryComponent,
     AddItemComponent,
-    TableContentComponent
+    TableContentComponent,
+    PartListAssetComponent,
+    PartListSubAssetComponent
   ]
 })
 export class PartStoreModule {}
