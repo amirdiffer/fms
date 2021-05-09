@@ -248,6 +248,15 @@ export class AddJobCardComponent extends Utility implements OnInit {
         this.inputForm.controls['assetId'].setValue(+params['assetId']);
       }
     });
+
+    this.route.queryParams.subscribe(x => {
+      if (x.assetId) {
+        this.selectAsset({ value: x.assetId })
+      }
+      else{
+
+      }
+    })
   }
   private buildForm() {
     this.inputForm = this._fb.group({

@@ -245,6 +245,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     this.route.queryParams.subscribe((params) => {
       if (params['assetId']) {
         this.inputForm.controls['assetId'].setValue(+params['assetId']);
+        this.selectAsset({ value: params.assetId })
       }
     });
   }
