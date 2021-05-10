@@ -7,6 +7,7 @@ export interface PeriodicServiceState extends EntityState<IPeriodicService> {
   error?: any;
   loaded?: boolean;
   message?: string;
+  specificPeriodicService?:any;
   submitted?: boolean;
 }
 
@@ -23,6 +24,7 @@ export const initialState: PeriodicServiceState = periodicServiceAdapter.getInit
     error: null,
     loaded: false,
     message: null,
-    submitted: false
+    submitted: false,
+    specificPeriodicService:null
   } as PeriodicServiceState
 );

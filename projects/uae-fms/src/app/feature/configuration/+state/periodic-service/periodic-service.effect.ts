@@ -61,6 +61,20 @@ export class PeriodicServiceEffect {
     )
   );
 
+  specificPeriodicService$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PeriodicServiceActions.getPeriodicServiceById),
+      mergeMap((action) =>
+        this.service.getById(action.id).pipe(
+          map((data) => {
+            return PeriodicServiceActions.periodicServiceByIdLoaded({ data: data.message });
+          }),
+          catchError((error) => of(PeriodicServiceActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   constructor(
     private action$: Actions,
     private service: PeriodicServiceService,

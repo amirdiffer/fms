@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-12">
-      <div class="button-container">
-        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{ 'forms.cancel' | translate }}</button>
-        <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate }}</button>
-        <button class="btn-primary-medium add" *ngIf="stepper.selectedIndex != 3"  (click)="next()">{{ 'forms.next' | translate }}</button>
-        <button *ngIf="stepper.selectedIndex == 3 && !uploadReview && !singleAsset" class="btn-primary-medium add" (click)="buttonUpload()">{{ 'forms.upload' | translate }}</button>
-        <button *ngIf="uploadReview || (stepper.selectedIndex == 3 && singleAsset)" class="btn-primary-medium add" (click)="generateForm()">{{ (isEdit ? 'forms.edit' : 'forms.generate') | translate }}</button>
-      </div>
-      <div>
+    <div class="position-relative">
+        <div class="button-container">
+          <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{ 'forms.cancel' | translate }}</button>
+          <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate }}</button>
+          <button class="btn-primary-medium add" *ngIf="stepper.selectedIndex != 3"  (click)="next()">{{ 'forms.next' | translate }}</button>
+          <button *ngIf="stepper.selectedIndex == 3 && !uploadReview && !singleAsset" class="btn-primary-medium add" (click)="buttonUpload()">{{ 'forms.upload' | translate }}</button>
+          <button *ngIf="uploadReview || (stepper.selectedIndex == 3 && singleAsset)" class="btn-primary-medium add" (click)="generateForm()">{{ (isEdit ? 'forms.edit' : 'forms.generate') | translate }}</button>
+        </div>
         <div class="row form-section__row">
           <div class="col-12 px-0">
             <ng-container>
@@ -21,7 +21,7 @@
                       <div class="row form-section__row">
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="businessCategory" [placeholder]="'assets.business_category' | translate"  [options]="businessCategory" optionLabel="name" optionValue="id" formControlName="businessCategory" (onChange)='onBusinessCategoryChange($event)'></p-dropdown>
+                            <p-dropdown inputId="businessCategory" [placeholder]="'assets.business_category' | translate"  [options]="businessCategory$ | async" optionLabel="name" dataKey="id" formControlName="businessCategory" (onChange)='onBusinessCategoryChange($event.value)'></p-dropdown>
                             <label for="businessCategory">{{ 'assets.business_category' | translate }} *</label>
                           </span>
                           <anms-error
@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="ownerShip" [placeholder]="'assets.ownership' | translate" [options]="ownerShip" optionLabel="name" optionValue="id" formControlName="ownership"></p-dropdown>
+                            <p-dropdown inputId="ownerShip" [placeholder]="'assets.ownership' | translate" [options]="ownerShip$ | async" optionLabel="name" dataKey="id" formControlName="ownership"></p-dropdown>
                             <label for="ownerShip">{{ 'assets.ownership' | translate }} *</label>
                           </span>
                           <anms-error
@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="make"  [placeholder]="'assets.make' | translate " [options]="assetMake" optionLabel="name" optionValue="id"  formControlName="make" (onChange)="onChangeAssetMake($event)"></p-dropdown>
+                            <p-dropdown inputId="make"  [placeholder]="'assets.make' | translate " [options]="make$ | async" optionLabel="name" dataKey="id"  formControlName="make" (onChange)="onChangeAssetMake($event.value)"></p-dropdown>
                             <label for="make">{{ 'assets.make' | translate }} *</label>
                           </span>
                           <anms-error
@@ -68,7 +68,7 @@
                         </div>
                         <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="model" [placeholder]="'assets.model' | translate"  [options]="assetModel" optionLabel="name" optionValue="id" formControlName="model"  (onChange)="onChangeAssetModel($event)"></p-dropdown>
+                            <p-dropdown inputId="model" [placeholder]="'assets.model' | translate"  [options]="model$ | async" optionLabel="name" dataKey="id" formControlName="model"  (onChange)="onChangeAssetModel($event.value)"></p-dropdown>
                             <label for="model">{{ 'assets.model' | translate }} *</label>
                           </span>
                           <anms-error
@@ -76,9 +76,22 @@
                             error="forms.feedback.required">
                           </anms-error>
                         </div>
+                       
+
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="assetColor" optionLabel="name" optionValue="id" formControlName="color"></p-dropdown>
+                            <p-dropdown inputId="trim" [placeholder]="'assets.trim' | translate" [options]="trim$ | async" optionLabel="name" dataKey="id" formControlName="trim" (onChange)='onChangeAssetTrim($event.value)'></p-dropdown>
+                            <label>{{ 'assets.trim' | translate }} *</label>
+                          </span>
+                          <anms-error
+                            [showError]="hasError('assetDetails.trim',formGroupAssetDetail,submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
+                        </div>
+
+                        <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
+                          <span class="p-float-label">
+                            <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="color$ | async" optionLabel="name" dataKey="id" formControlName="color"></p-dropdown>
                             <label for="color">{{ 'assets.color' | translate }}</label>
                           </span>
                           <anms-error
@@ -87,25 +100,15 @@
                           </anms-error>
                         </div>
 
-                        <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
-                          <span class="p-float-label">
-                            <p-dropdown inputId="trim" [placeholder]="'assets.trim' | translate" [options]="assetTrim" optionLabel="name" optionValue="id" formControlName="trim" (onChange)='onChangeAssetTrim($event)'></p-dropdown>
-                            <label>{{ 'assets.trim' | translate }} *</label>
-                          </span>
-                          <anms-error
-                            [showError]="hasError('assetDetails.trim',formGroupAssetDetail,submitted_AssetDetail)"
-                            error="forms.feedback.required">
-                          </anms-error>
-                        </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="origin"  [placeholder]="'assets.origin' | translate " [options]="origins" optionLabel="name" optionValue="name"  formControlName="origin"></p-dropdown>
+                            <p-dropdown inputId="origin"  [placeholder]="'assets.origin' | translate " [options]="origin$ | async" optionLabel="name" dataKey="name"  formControlName="origin"></p-dropdown>
                             <label>{{ 'assets.origin' | translate }} *</label>
-                            <anms-error
-                              [showError]="hasError('assetDetails.origin', formGroupAssetDetail, submitted_AssetDetail)"
-                              error="forms.feedback.required">
-                            </anms-error>
                           </span>
+                          <anms-error
+                            [showError]="hasError('assetDetails.origin', formGroupAssetDetail, submitted_AssetDetail)"
+                            error="forms.feedback.required">
+                          </anms-error>
                         </div>
                         <div class="col-12 col-md-4 mb-2 align-selft-center ">
                           <div class="row">
@@ -133,7 +136,7 @@
                       <div class="row form-section__row">
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="department" [placeholder]="'assets.department' | translate"  [options]="department" optionLabel="name" optionValue="id" formControlName="department" dataKey="id"></p-dropdown>
+                            <p-dropdown inputId="department" [placeholder]="'assets.department' | translate"  [options]="department$ | async" optionLabel="organizationName" dataKey="id" formControlName="department" dataKey="id"></p-dropdown>
                             <label for="department">{{ 'assets.department' | translate }} *</label>
                           </span>
                           <anms-error
@@ -143,7 +146,7 @@
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="operator"  [placeholder]="'assets.operator' | translate" [options]="operator" optionLabel="name" optionValue="id" formControlName="operator"></p-dropdown>
+                            <p-dropdown inputId="operator"  [placeholder]="'assets.operator' | translate" [options]="operator$ | async" optionLabel="firstName" dataKey="id" formControlName="operator"></p-dropdown>
                             <label for="operator">{{ 'assets.operator' | translate }} *</label>
                           </span>
                           <anms-error
@@ -173,7 +176,7 @@
                             <div class="col-12 col-md-5 p-field form-section__field dropdown-select"
                                   [class.col-md-12]="policyType.value != ''" >
                               <span class="p-float-label">
-                                <p-dropdown inputId="policyType" formControlName="policyType" [placeholder]="'assets.policy_type' | translate " [options]="policyTypeDropDown" optionLabel="name" optionValue="id" (onChange)="onChangePolicyType($event)"></p-dropdown>
+                                <p-dropdown inputId="policyType" formControlName="policyType" [placeholder]="'assets.policy_type' | translate " [options]="policyType$ | async" optionLabel="name" dataKey="id" (onChange)="onChangePolicyType($event.value)"></p-dropdown>
                                 <label for="policyType">{{ 'assets.policy_type' | translate }} *</label>
                               </span>
                               <anms-error
@@ -307,7 +310,7 @@
                               <div class="row">
                                 <div class="col-12 p-field form-section__field dropdown-select" [class.col-md-8]="periodicService.value == '' ">
                                   <span class="p-float-label">
-                                    <p-dropdown inputId="periodicService" formControlName="periodicService" [placeholder]=" 'assets.periodic_service' | translate" [options]="periodicServiceItem" optionLabel="name" optionValue="id" (onChange)="onChangePeriodicService($event)"></p-dropdown>
+                                    <p-dropdown inputId="periodicService" formControlName="periodicService" [placeholder]=" 'assets.periodic_service' | translate" [options]="periodicService$ | async" optionLabel="name" dataKey="id" (onChange)="onChangePeriodicService($event.value)"></p-dropdown>
                                     <label for="periodicService">{{ 'assets.periodic_service' | translate }} *</label>
                                   </span>
                                   <anms-error
