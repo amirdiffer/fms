@@ -82,6 +82,24 @@ const subAssetTypeReducer = createReducer(
         submitted: true
     })),
 
+    /* Update Sub Asset Make */
+    on(SubAssetTypeActions.updateMake, (state, { data }) => ({
+      ...state,
+      error: null,
+      message: null,
+      submitted: false
+    })),
+    on(SubAssetTypeActions.makeUpdatedSuccessfully, (state, { data }) =>
+      subAssetTypeAdapter.updateOne(
+        { changes: data, id: data.id },
+        {
+          ...state,
+          error: null,
+          message: null,
+          submitted: true
+        }
+      )
+    ),
 
     /* Add Model */
     on(SubAssetTypeActions.addModel, (state, { data: any }) => ({
@@ -95,6 +113,24 @@ const subAssetTypeReducer = createReducer(
         submitted: true
     })),
 
+    /* Update Sub Asset Model */
+    on(SubAssetTypeActions.updateModel, (state, { data }) => ({
+      ...state,
+      error: null,
+      message: null,
+      submitted: false
+    })),
+    on(SubAssetTypeActions.modelUpdatedSuccessfully, (state, { data }) =>
+      subAssetTypeAdapter.updateOne(
+        { changes: data, id: data.id },
+        {
+          ...state,
+          error: null,
+          message: null,
+          submitted: true
+        }
+      )
+    ),
 
     /* Error */
     on(SubAssetTypeActions.error, (state, { reason }) => ({

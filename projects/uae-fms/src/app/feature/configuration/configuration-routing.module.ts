@@ -26,11 +26,35 @@ const routes: Routes = [
     component: AddMakeComponent
   },
   {
+    path: 'asset-configuration/edit-make/:id',
+    component: AddMakeComponent
+  },
+  {
+    path: 'asset-configuration/sub-asset-edit-make/:id',
+    component: AddMakeComponent
+  },
+  {
+    path: 'asset-configuration/accessory-edit-make/:id',
+    component: AddMakeComponent
+  },
+  {
     path: 'asset-configuration/add-model/:assetType/:make',
     component: AddModelComponent
   },
   {
+    path: 'asset-configuration/edit-model/:assetTypeId/:id',
+    component: AddModelComponent
+  },
+  {
+    path: 'asset-configuration/sub-asset-edit-model/:assetTypeId/:id',
+    component: AddModelComponent
+  },
+  {
     path: 'asset-configuration/add-trim/:assetType/:make/:model',
+    component: AddTrimComponent
+  },
+  {
+    path: 'asset-configuration/edit-trim/:assetTypeId/:makeId/:id',
     component: AddTrimComponent
   },
   { path: 'usage-category', component: BusinessCategoryComponent },

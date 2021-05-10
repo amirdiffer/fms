@@ -42,9 +42,18 @@ export class SubAssetTypeFacade {
         this.store.dispatch(SubAssetTypeActions.addMake({ data, subAssetTypeId }));
     }
 
+    updateMake(data: any, subAssetTypeId: number) {
+        this.store.dispatch(SubAssetTypeActions.updateMake({ data, subAssetTypeId }));
+    }
+
     addModel(data: any, subAssetTypeId: number, makeId: number) {
         this.store.dispatch(SubAssetTypeActions.addModel({ data, subAssetTypeId, makeId }));
     }
+
+    updateModel(data: any, subAssetTypeId: number, makeId: number) {
+        this.store.dispatch(SubAssetTypeActions.updateModel({ data, subAssetTypeId, makeId }));
+    }
+
     resetParams() {
         this.loadAll();
         this.store.dispatch(SubAssetTypeActions.resetParams());

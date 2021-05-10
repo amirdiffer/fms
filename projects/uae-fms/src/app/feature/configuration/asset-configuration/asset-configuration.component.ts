@@ -137,7 +137,6 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     this._subAssetTypeFacade.loadAll();
     this.assetType$ = this._assetTypefacade.assetType$.subscribe(
       (x) => {
-        console.log(x)
         this.assetType = x.map(
           y => {
             const value = {
@@ -168,7 +167,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
               isActive: y.isActive,
               numberOfAsset:+y.makes.length
             }
-            
+
             return value
           }
         )
