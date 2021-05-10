@@ -45,7 +45,7 @@ import { environment } from '../../../../environments/environment';
       }
       .progress-value {
         font-size: 0.8em;
-        margin-left: 6px;
+        margin:0 6px;
       }
     `
   ]
@@ -58,6 +58,7 @@ export class AssetsRendererComponent implements OnInit {
 
   ngOnInit() {
     if (this.data.progress) {
+      this.data.progress = false;
       this.progressBar = (+this.data.progress * 100) / 6;
     }
   }

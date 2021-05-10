@@ -23,4 +23,10 @@ export class PeriodicServiceSelectors {
     ConfigurationSelectors.periodicServiceSelector,
     (state) => state.submitted
   );
+
+  static specificPeriodicService = createSelector(
+    ConfigurationSelectors.periodicServiceSelector,
+    (state) => state.specificPeriodicService
+  );
+
 }

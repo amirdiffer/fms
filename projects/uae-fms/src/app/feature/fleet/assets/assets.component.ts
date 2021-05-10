@@ -64,7 +64,6 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map((x) => {
       return x.map((y: any) => {
-
         return {
           ...y,
           id: y.id,
@@ -74,7 +73,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
             assetSubName: y.dpd,
             ownership: 'Owned'
           },
-          type: y.assetTypeName,
+          type: y.assetConfigurationName,
           businessCategory: y.businessCategoryName,
           allocated: y.department.name,
           operator: y.operator.firstName + ' ' + y.operator.lastName,
@@ -104,7 +103,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           },
           serialNumber: y.dpd,
           brand: y.makeName + ' ' + y.modelName,
-          type: y.assetTypeName,
+          type: y.assetConfigurationName,
           make: y.makeName,
           allocated: 'Finance',
           businessCategory: y.businessCategoryName,
@@ -131,7 +130,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           },
           serialNumber: '123s125583456',
           brand: 'bmw.png',
-          type: 'Car',
+          type: y.assetConfigurationName,
           businessCategory: y.businessCategoryName,
           createDate: y.createdAt,
           registrantionDate: '00/00/00',
@@ -247,18 +246,19 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
             color: '#3F3F3F',
             onClick: (col, data, button?) => {
               this.assetMasterFacade.reset();
+              this.assetMasterFacade.getAssetByID(data.id)
               this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
             }
           },
           // {
           //   button: 'download'
           // },
-          // {
-          //   button: 'external',
-          //   onClick: (col, data) => {
-          //     this._router.navigate(['/fleet/assets/' + data.id]);
-          //   }
-          // }
+          {
+            button: 'external',
+            onClick: (col, data) => {
+              this._router.navigate(['/fleet/assets/' + data.id]);
+            }
+          }
         ]
       }
     };
@@ -323,11 +323,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   onActive(index: number): void {
     switch (index) {
       case 0:
-        console.log('here 0');
         this.table.filterByStatistics('total');
         break;
       case 1:
-        console.log('here 1');
         this.table.filterByStatistics('active');
         break;
       default:
