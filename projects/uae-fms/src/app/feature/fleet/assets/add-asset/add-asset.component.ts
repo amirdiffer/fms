@@ -341,7 +341,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this._facadePeriodicService.loadAll();
     this._facadeDepartment.loadAll();
     this._facadeOperator.loadAll();
-    
+
     /* Check if is Edit */
     const getURL= this._activatedRoute.snapshot.url
     let filteredUrl = getURL.filter(x => x.path === "edit-asset");
@@ -350,7 +350,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       this.singleAsset= true;
       this.id = +getURL[getURL.length -1].path
       this._facade.getAssetByID(this.id);
-      
+
     }
 
     /* Load Form Data */
@@ -360,7 +360,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           return x.map(category => {
             return{
               ...category
-            }; 
+            };
           })
         }
       })
@@ -401,7 +401,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
                 ...department
               }
             }
-          ) 
+          )
         }
       })
     );
@@ -415,7 +415,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
                 ...operator
               }
             }
-          ) 
+          )
         }
       })
     );
@@ -564,7 +564,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   /*ngOnInit END */
 
 
-  
+
   public calculateAssetPolicy() {
     this.calculate = true;
     let value = this.formGroupFinancial.get('assetFinancialPlan.purchaseValue')
@@ -592,7 +592,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         break;
       }
 
-      value = value - newValue / maxUsageYear;
+      value = value - newValue;
       kmBookValue = kmBookValue - newValue;
 
       if (maxUsageYear === 0) {
@@ -749,7 +749,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this._fleetConfiurationAsset.getAssetTypeByID(event.assetConfigurationId);
     this.formGroupAssetDetail.get('assetDetails').patchValue({type:event.assetConfigurationId});
   }
-  
+
   onChangeAssetMake(event) {
     this.loadModel(event.models)
   }
@@ -764,7 +764,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
   loadTrim(trim){
     this.trim$ = of(trim);
-    
+
   }
 
   onChangeAssetTrim(event) {
@@ -791,7 +791,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   onChangePeriodicService(event) {
     this._facadePeriodicService.specificPeriodicService(event.id);
   }
-  
+
   csvReader(event) {
     this.csvText = event;
   }
@@ -856,9 +856,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         ...data,
         dpds:
           formVal_Generate.quantity == 'multipleAsset'
-          ? 
+          ?
             dpdcodes
-          : 
+          :
             [
               `${formVal_AssetDetail.businessInfo.ownership.fleetITCode}${formVal_Generate.serialNumber}`
             ]
