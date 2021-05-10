@@ -32,11 +32,16 @@ import { Subscription } from 'rxjs';
 export class AddModelComponent
   extends Utility
   implements OnInit, AfterViewInit, OnDestroy {
+
+  //#region ViewChild
+  @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
+  @ViewChild('small', { static: false }) small: ElementRef;
+  //#endregion
+
+  //#region Variable
   radioButtonSelect: 'mModel';
   public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
-  @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
-  @ViewChild('small', { static: false }) small: ElementRef;
   color = '#0000005E';
   maxValue = 100;
   value = 80;
@@ -45,13 +50,9 @@ export class AddModelComponent
   submited = false;
   selectedType;
   assetTypeSubs$: Subscription;
-
   assetConfigurationTableSetting!: TableSetting;
-
   assetType: IAssetType;
-
   dialogModal = false;
-
   dialogSetting: IDialogAlert = {
     header: 'Add Make',
     hasError: false,
@@ -59,13 +60,16 @@ export class AddModelComponent
     confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };
+  isEditing = false
+  assetTypeMode = '';
+  assetTypeId;
+  makeId;
+  //#endregion
 
   get models(): FormArray {
     return this.inputForm.get('models') as FormArray;
   }
 
-  assetTypeId;
-  makeId;
   constructor(
     private _fb: FormBuilder,
     private _renderer: Renderer2,
@@ -90,46 +94,134 @@ export class AddModelComponent
     )
     this.errorAndSubmitHandler(this.facade);
     this.errorAndSubmitHandler(this._subAssetTypeFacade);
-    this.route.params.subscribe((x) => {
-      if (x && x.assetType) this.assetTypeId = x.assetType;
-      if (x && x.make) this.makeId = x.make;
-      this.assetTypeSubs$ = this.facade.assetType$.subscribe((response) => {
-        response.map((obj) => {
-          obj.makes.map((make) => {
-            if (make.id === this.dataService.selectedMakeId) {
-              this.assetType = obj;
-              if (this.assetType.type === 'ASSET') {
-                this.inputForm.patchValue({ typeCategory: 'asset' });
-              } else if (this.assetType.type === 'SUB_ASSET') {
-                this.inputForm.patchValue({ typeCategory: 'subAsset' });
-              } else if (this.assetType.type === 'ACCESSORY') {
-                this.inputForm.patchValue({ typeCategory: 'accessory' });
+
+    this.route.url.subscribe((url) => {
+      this.models.clear()
+      /* HERE WE HANDLE ASSET TYPE : SUB_ASSET */
+      if (url[1].path.includes('sub-asset-edit-model')) {
+        this.assetTypeMode = 'SUB_ASSET'
+        this.route.params.subscribe((x) => {
+          if (x && x.assetType) this.assetTypeId = x.assetType;
+          if (x && x.make) this.makeId = x.make;
+          this.assetTypeSubs$ = this._subAssetTypeFacade.subAssetType$.subscribe((response) => {
+            response.map((obj) => {
+
+              if (x?.assetTypeId) {
+                this.isEditing = true
+                this.assetTypeId = Number(x?.assetTypeId)
+                if (x?.id) {
+                  this.makeId = Number(x?.id)
+                  if (this.assetTypeId === obj.id) {
+                    for (let index = 0; index < obj.makes.length; index++) {
+                      if (obj.makes[index].id === this.makeId) {
+                        this.dataService.selectedMakeName = obj.makes[index].name
+                        for (let j = 0; j < obj.makes[index].models.length; j++) {
+                          this.addModel()
+                          this.models.controls[j].patchValue({
+                            id: obj.makes[index].models[j].id,
+                            model: obj.makes[index].models[j].name,
+                            modelDescription: obj.makes[index].models[j].description,
+                          });
+                        }
+                      }
+                    }
+                  }
+                }
+                return
               }
 
-              this.models.clear();
-              for (let index = 0; index < make.models.length; index++) {
-                this.addModel();
-                this.models.controls[index].setValue({
-                  id: make.models[index].id,
-                  model: make.models[index].model,
-                  modelDescription: make.models[index].modelDescription,
-                  trims: make.models[index].trims
-                });
-              }
-              this.addModel();
-            }
+              obj.makes.map((make) => {
+                if (make.id === this.dataService.selectedMakeId) {
+                  this.assetType = obj;
+                  if (this.assetType.type === 'ASSET') {
+                    this.inputForm.patchValue({ typeCategory: 'asset' });
+                  } else if (this.assetType.type === 'SUB_ASSET') {
+                    this.inputForm.patchValue({ typeCategory: 'subAsset' });
+                  } else if (this.assetType.type === 'ACCESSORY') {
+                    this.inputForm.patchValue({ typeCategory: 'accessory' });
+                  }
+
+                  this.models.clear();
+                  for (let index = 0; index < make.models.length; index++) {
+                    this.addModel();
+                    this.models.controls[index].setValue({
+                      id: make.models[index].id,
+                      model: make.models[index].name,
+                      modelDescription: make.models[index].description,
+                      trims: make.models[index].trims
+                    });
+                  }
+                  this.addModel();
+                }
+              });
+            });
           });
         });
-      });
-    });
+      }
+      /* HERE WE HANDLE ASSET TYPE : ASSET */
+      else {
+        this.assetTypeMode = 'ASSET'
+        this.route.params.subscribe((x) => {
+          if (x && x.assetType) this.assetTypeId = x.assetType;
+          if (x && x.make) this.makeId = x.make;
+          this.assetTypeSubs$ = this.facade.assetType$.subscribe((response) => {
+            response.map((obj) => {
 
-    if (!this.dataService.selectedMakeId) {
-      this.router
-        .navigate(['/configuration/asset-configuration'])
-        .then((_) => this.facade.resetParams());
-    }
+              if (x?.assetTypeId) {
+                this.isEditing = true
+                this.assetTypeId = Number(x?.assetTypeId)
+                if (x?.id) {
+                  this.makeId = Number(x?.id)
+                  if (this.assetTypeId === obj.id) {
+                    for (let index = 0; index < obj.makes.length; index++) {
+                      if (obj.makes[index].id === this.makeId) {
+                        this.dataService.selectedMakeName = obj.makes[index].name
+                        for (let j = 0; j < obj.makes[index].models.length; j++) {
+                          if (j > 0) {
+                            this.addModel()
+                          }
+                          this.models.controls[j].patchValue({
+                            id: obj.makes[index].models[j].id,
+                            model: obj.makes[index].models[j].name,
+                            modelDescription: obj.makes[index].models[j].description,
+                          });
+                        }
+                      }
+                    }
+                  }
+                }
+                return
+              }
 
-    
+              obj.makes.map((make) => {
+                if (make.id === this.dataService.selectedMakeId) {
+                  this.assetType = obj;
+                  if (this.assetType.type === 'ASSET') {
+                    this.inputForm.patchValue({ typeCategory: 'asset' });
+                  } else if (this.assetType.type === 'SUB_ASSET') {
+                    this.inputForm.patchValue({ typeCategory: 'subAsset' });
+                  } else if (this.assetType.type === 'ACCESSORY') {
+                    this.inputForm.patchValue({ typeCategory: 'accessory' });
+                  }
+
+                  this.models.clear();
+                  for (let index = 0; index < make.models.length; index++) {
+                    this.addModel();
+                    this.models.controls[index].setValue({
+                      id: make.models[index].id,
+                      model: make.models[index].name,
+                      modelDescription: make.models[index].description,
+                      trims: make.models[index].trims
+                    });
+                  }
+                  this.addModel();
+                }
+              });
+            });
+          });
+        });
+      }
+    })
   }
 
   createModel(isOptional?: boolean): FormGroup {
@@ -227,6 +319,35 @@ export class AddModelComponent
       return;
     }
 
+    if (this.isEditing) {
+      const payload = {
+        models: []
+      }
+      if (this.assetTypeMode === 'SUB_ASSET') {
+        for (const make of this.inputForm.value.models) {
+          payload.models.push({
+            id: make.id,
+            name: make.model,
+            description: make.modelDescription,
+            origins: [ 'Japan' ]
+            })
+        }
+        this._subAssetTypeFacade.updateModel(payload, this.assetTypeId, this.makeId)
+      } else {
+        for (const make of this.inputForm.value.models) {
+          payload.models.push(
+            {
+              id: make.id,
+              name: make.model,
+              description: make.modelDescription
+            }
+          )
+        }
+        this.facade.updateModel(payload, this.assetTypeId, this.makeId)
+      }
+      return
+    }
+
     let type: string;
 
     switch (this.inputForm.value.typeCategory) {
@@ -276,7 +397,7 @@ export class AddModelComponent
             }
           }
         }
-        
+
       })
     };
     switch (this.selectedType) {
@@ -290,12 +411,22 @@ export class AddModelComponent
         break;
     }
 
-    
+
     // this._assetConfigurationService.loadAddForm(false);
   }
   errorAndSubmitHandler(facade){
     facade.submitted$.subscribe((x) => {
       if (x) {
+        if (this.isEditing) {
+          this.dialogModal = true;
+          this.dialogSetting.header = 'Edit Model';
+          this.dialogSetting.message = 'Model Edited Successfully';
+          this.dialogSetting.isWarning = false;
+          this.dialogSetting.hasError = false;
+          this.dialogSetting.confirmButton = 'OK';
+          this.dialogSetting.cancelButton = undefined;
+          return
+        }
         this.dialogModal = true;
         this.dialogSetting.header = 'Add new type';
         this.dialogSetting.message = 'Make Added Successfully';
@@ -318,7 +449,7 @@ export class AddModelComponent
     });
   }
   ngOnDestroy(): void {
-    this.assetTypeSubs$.unsubscribe();
+    this.assetTypeSubs$?.unsubscribe();
     this._subAssetTypeFacade.resetParams();
     this.facade.resetParams();
   }

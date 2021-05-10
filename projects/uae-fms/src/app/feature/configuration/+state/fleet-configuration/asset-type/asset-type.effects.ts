@@ -51,6 +51,49 @@ export class AssetTypeEffect {
     )
   );
 
+
+  updateMakeData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetTypeActions.updateMake),
+      mergeMap((action) =>
+        this.service.updateMake(action.data, action.assetId).pipe(
+          map((data) =>
+            AssetTypeActions.makeUpdatedSuccessfully({ data: action.data })
+          ),
+          catchError((error) => of(AssetTypeActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  updateModelData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetTypeActions.updateModel),
+      mergeMap((action) =>
+        this.service.updateModel(action.data, action.assetId, action.makeId).pipe(
+          map((data) =>
+            AssetTypeActions.modelUpdatedSuccessfully({ data: action.data })
+          ),
+          catchError((error) => of(AssetTypeActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  updateTrimData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetTypeActions.updateTrim),
+      mergeMap((action) =>
+        this.service.updateTrim(action.data, action.assetId, action.makeId, action.modelId).pipe(
+          map((data) =>
+            AssetTypeActions.trimUpdatedSuccessfully({ data: action.data })
+          ),
+          catchError((error) => of(AssetTypeActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   addModelData$ = createEffect(() =>
     this.action$.pipe(
       ofType(AssetTypeActions.addModel),

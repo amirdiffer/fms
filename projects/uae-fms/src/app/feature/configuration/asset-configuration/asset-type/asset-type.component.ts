@@ -14,6 +14,7 @@ import { DataService } from '@feature/configuration/asset-configuration/data.ser
 import { map, tap } from 'rxjs/operators';
 import { SettingsFacade } from '@core/settings/settings.facade';
 import { ISubAssetType } from '@models/sub-asset';
+import { AddMakeComponent } from '@feature/configuration/asset-configuration/add-make/add-make.component';
 
 @Component({
   selector: 'configuration-asset-type',
@@ -43,6 +44,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   arrowIcon = 'assets/icons/arrow-down.svg';
   categoryType$;
   activeLang = '';
+  activeAssetType = '';
   //#endregion
 
   tree = [];
@@ -62,6 +64,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
 
     this.categoryType$ = this.dataService.watchType().pipe((type) => {
       type.subscribe((y) => {
+        this.activeAssetType = y
         this.changeType(y)
       });
       return type;
@@ -87,7 +90,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
 
   createModel(assetType, make: MakeExtension): void {
     this.dataService.selectedMakeId = make.id;
-    this.dataService.selectedMakeName = make.make;
+    this.dataService.selectedMakeName = make.name;
     this.router
       .navigate([
         `/configuration/asset-configuration/add-model/${assetType.id}/${make.id}`
@@ -97,9 +100,9 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
 
   createTrim(assetType, model: ModelExtension, make: MakeExtension): void {
     this.dataService.selectedModelId = model.id;
-    this.dataService.selectedModelName = model.model;
+    this.dataService.selectedModelName = model.name;
     this.dataService.selectedMakeId = make.id;
-    this.dataService.selectedMakeName = make.make;
+    this.dataService.selectedMakeName = make.name;
     this.router
       .navigate([
         `/configuration/asset-configuration/add-trim/${assetType.id}/${make.id}/${model.id}`
@@ -206,9 +209,9 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
           })
         )
       );
-    
+
     }
-    
+
   }
 
   ngOnDestroy(): void {}

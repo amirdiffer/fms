@@ -35,12 +35,17 @@ import { Observable } from 'rxjs';
   styleUrls: ['./add-type.component.scss']
 })
 export class AddTypeComponent extends Utility implements OnInit, AfterViewInit, OnDestroy {
+
+  //#region ViewChild
+  @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
+  @ViewChild('small', { static: false }) small: ElementRef;
+  //#endregion
+
+  //#region Variable
   radioButtonSelect: 'mModel';
   itemId;
   public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
-  @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
-  @ViewChild('small', { static: false }) small: ElementRef;
   color = '#0000005E';
   maxValue = 100;
   value = 80;
@@ -50,9 +55,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit, 
   type;
   isEdit:boolean = false;
   assetConfigurationTableSetting!: TableSetting;
-
   dialogModal = false;
-
   dialogSetting: IDialogAlert = {
     header: 'Add asset configuration',
     hasError: false,
@@ -60,8 +63,8 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit, 
     confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };
-
   assetTypes = [];
+  //#endregion
 
   constructor(
     private _fb: FormBuilder,
@@ -79,8 +82,6 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit, 
   }
 
   ngOnInit(): void {
-    // this.facade.loadAll();
-    
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
       typeName: ['', [Validators.required]],
