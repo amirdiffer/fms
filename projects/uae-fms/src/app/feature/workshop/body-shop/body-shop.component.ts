@@ -340,14 +340,14 @@ export class BodyShopComponent implements OnInit {
         type: ColumnType.lable,
         renderer: 'radialBar'
       } */
-      // {
-      //   lable: '',
-      //   field: 'floatButton',
-      //   width: 0,
-      //   type: ColumnType.lable,
-      //   thumbField: '',
-      //   renderer: 'floatButton'
-      // }
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
+      },
     ],
     data: [
       {
@@ -372,7 +372,7 @@ export class BodyShopComponent implements OnInit {
         {
           button: 'external',
           onClick: (col, data) => {
-            this.router.navigate(['/fleet/assets/' + data.id]).then();
+            this.router.navigate(['/workshop/body-shop/job-card-overview/' + data.id]).then();
           }
         }
         // {
