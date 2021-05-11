@@ -11,7 +11,7 @@ import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
 import moment from 'moment';
@@ -112,50 +112,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
         renderer: 'downloadButtonRenderer'
       }
     ],
-    data: [
-      // {
-      //   id: 1,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // },
-      // {
-      //   id: 2,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // },
-      // {
-      //   id: 3,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // }
-    ]
+    data: []
   };
   private _jobCard: any;
 
@@ -231,7 +188,12 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
         }))
       )
     );
-    this._taskMasterService.getAllTaks().subscribe((data) => {
+    this._taskMasterService.getAllTaks().pipe(map(data => {
+      if (data?.message) {
+        data.message = data.message.filter(a => a.shopType == "SERVICESHOP");
+      }
+      return data
+    })).subscribe((data) => {
       this.taskMasters = data.message.map((t) => ({
         id: t.id,
         name: t.name
@@ -471,6 +433,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   //     a.name.includes(event.query)
   //   );
   // }
+
   searchTaskMaster(event) {
     let query = event.query;
 

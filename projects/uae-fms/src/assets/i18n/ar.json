@@ -1222,7 +1222,17 @@
       "this_task_needs_part": "هذه المهمة تحتاج إلى جزء",
       "add_part": "أضف الجزء",
       "please_fill_part": "يرجى ملء الجزء",
-      "please_fill_skill": "الرجاء تعبئة المهارة"
+      "please_fill_skill": "الرجاء تعبئة المهارة",
+      "task_type": "نوع المهمة",
+      "normal": "طبيعي",
+      "installation": "التركيب",
+      "electrical_service": "الخدمة الكهربائية",
+      "replacement": "إستبدال",
+      "periodic_service_related": "الخدمة الدورية ذات الصلة",
+      "removal": "إزالة",
+      "shop_type": "نوع المحل",
+      "body_shop": "محل لبيع مواد التجميل",
+      "service_shop": "متجر الخدمة"
     },
     "service_shop": {}
   },

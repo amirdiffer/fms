@@ -1269,7 +1269,17 @@
       "this_task_needs_part": "This Task Needs Part",
       "add_part": "Add Part",
       "please_fill_part": "Please fill part",
-      "please_fill_skill": "Please fill skill"
+      "please_fill_skill": "Please fill skill",
+      "task_type": "Task Type",
+      "normal": "Normal",
+      "installation": "Installation",
+      "electrical_service": "Electrical Service",
+      "replacement": "Replacement",
+      "periodic_service_related": "Periodic Service Related",
+      "removal": "Removal",
+      "shop_type": "Shop Type",
+      "body_shop": "Body Shop",
+      "service_shop": "Service Shop"
     },
     "service_shop": {}
   },
