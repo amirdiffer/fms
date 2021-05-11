@@ -22,11 +22,15 @@ const routes: Routes = [
   { path: 'add-asset-configuration', component: AddTypeComponent },
   { path: 'edit-asset-configuration/:id', component: AddTypeComponent },
   {
+    path: 'sub-asset-edit-asset-configuration/:id',
+    component: AddTypeComponent
+  },
+  {
     path: 'asset-configuration/add-make/:assetType',
     component: AddMakeComponent
   },
   {
-    path: 'asset-configuration/edit-make/:id',
+    path: 'asset-configuration/edit-make/:assetTypeId/:id',
     component: AddMakeComponent
   },
   {
