@@ -19,7 +19,7 @@
                     <div class="form-section component_wrapper" [formGroupName]="'businessInfo'">
                       <h3 class="form-section__title">{{ 'assets.business_info' | translate }}</h3>
                       <div class="row form-section__row">
-                        <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
+                        <div class="col-12 col-md-4 p-field form-section__field options-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="businessCategory" [placeholder]="'assets.business_category' | translate"  [options]="businessCategory$ | async" optionLabel="name" dataKey="id" formControlName="businessCategory" (onChange)='onBusinessCategoryChange($event.value)'></p-dropdown>
                             <label for="businessCategory">{{ 'assets.business_category' | translate }} *</label>
@@ -29,7 +29,7 @@
                             error="forms.feedback.required">
                           </anms-error>
                         </div>
-                        <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
+                        <div class="col-12 col-md-4 p-field form-section__field options-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="ownerShip" [placeholder]="'assets.ownership' | translate" [options]="ownerShip$ | async" optionLabel="name" dataKey="id" formControlName="ownership"></p-dropdown>
                             <label for="ownerShip">{{ 'assets.ownership' | translate }} *</label>
@@ -46,7 +46,7 @@
                     <div class="form-section component_wrapper" [formGroupName]="'assetDetails'">
                       <h3 class="form-section__title">{{ 'assets.asset_details' | translate }}</h3>
                       <div class="row form-section__row">
-                        <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
+                        <div class="col-12 col-md-2 p-field form-section__field options-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="year" [placeholder]="'assets.year' | translate" [options]="years" optionLabel="name" optionValue="id"  formControlName="year"></p-dropdown>
                             <label for="year">{{ 'assets.year' | translate }} *</label>
@@ -56,7 +56,7 @@
                             error="forms.feedback.required">
                           </anms-error>
                         </div>
-                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
+                        <div class="col-12 col-md-3 p-field form-section__field options-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="make"  [placeholder]="'assets.make' | translate " [options]="make$ | async" optionLabel="name" dataKey="id"  formControlName="make" (onChange)="onChangeAssetMake($event.value)"></p-dropdown>
                             <label for="make">{{ 'assets.make' | translate }} *</label>
@@ -66,7 +66,7 @@
                             error="forms.feedback.required">
                           </anms-error>
                         </div>
-                        <div class="col-12 col-md-4 p-field form-section__field dropdown-select">
+                        <div class="col-12 col-md-4 p-field form-section__field options-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="model" [placeholder]="'assets.model' | translate"  [options]="model$ | async" optionLabel="name" dataKey="id" formControlName="model"  (onChange)="onChangeAssetModel($event.value)"></p-dropdown>
                             <label for="model">{{ 'assets.model' | translate }} *</label>
@@ -78,7 +78,7 @@
                         </div>
                        
 
-                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
+                        <div class="col-12 col-md-3 p-field form-section__field options-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="trim" [placeholder]="'assets.trim' | translate" [options]="trim$ | async" optionLabel="name" dataKey="id" formControlName="trim" (onChange)='onChangeAssetTrim($event.value)'></p-dropdown>
                             <label>{{ 'assets.trim' | translate }} *</label>
@@ -89,7 +89,7 @@
                           </anms-error>
                         </div>
 
-                        <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
+                        <div class="col-12 col-md-2 p-field form-section__field options-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="color$ | async" optionLabel="name" dataKey="id" formControlName="color"></p-dropdown>
                             <label for="color">{{ 'assets.color' | translate }}</label>
@@ -100,7 +100,7 @@
                           </anms-error>
                         </div>
 
-                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
+                        <div class="col-12 col-md-3 p-field form-section__field options-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="origin"  [placeholder]="'assets.origin' | translate " [options]="origin$ | async" optionLabel="name" dataKey="name"  formControlName="origin"></p-dropdown>
                             <label>{{ 'assets.origin' | translate }} *</label>
@@ -134,7 +134,7 @@
                     <div class="form-section component_wrapper" [formGroupName]="'purchasedFor'" >
                       <h3 class="form-section__title">{{ 'assets.purchased_for' | translate }}</h3>
                       <div class="row form-section__row">
-                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
+                        <div class="col-12 col-md-3 p-field form-section__field options-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="department" [placeholder]="'assets.department' | translate"  [options]="department$ | async" optionLabel="organizationName" dataKey="id" formControlName="department" dataKey="id"></p-dropdown>
                             <label for="department">{{ 'assets.department' | translate }} *</label>
@@ -144,7 +144,7 @@
                             error="forms.feedback.required">
                           </anms-error>
                         </div>
-                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
+                        <div class="col-12 col-md-3 p-field form-section__field options-select">
                           <span class="p-float-label">
                             <p-dropdown inputId="operator"  [placeholder]="'assets.operator' | translate" [options]="operator$ | async" optionLabel="firstName" dataKey="id" formControlName="operator"></p-dropdown>
                             <label for="operator">{{ 'assets.operator' | translate }} *</label>
@@ -173,7 +173,7 @@
                         <div class="form-section component_wrapper" [formGroupName]="'assetFinancialPlan'">
                           <h3 class="form-section__title">{{ 'assets.asset_financial_plan' | translate }}</h3>
                           <div class="row">
-                            <div class="col-12 col-md-5 p-field form-section__field dropdown-select"
+                            <div class="col-12 col-md-5 p-field form-section__field options-select"
                                   [class.col-md-12]="policyType.value != ''" >
                               <span class="p-float-label">
                                 <p-dropdown inputId="policyType" formControlName="policyType" [placeholder]="'assets.policy_type' | translate " [options]="policyType$ | async" optionLabel="name" dataKey="id" (onChange)="onChangePolicyType($event.value)"></p-dropdown>
@@ -220,7 +220,7 @@
                             </div>
                             <div *ngIf="inServiceDateReminder.value == true " class="col-12 col-md-4" [class.col-md-12]="policyType.value != ''">
                               <div class="row">
-                                <div class="col-5 p-field form-section__field dropdown-select">
+                                <div class="col-5 p-field form-section__field options-select">
                                   <span class="p-float-label ">
                                     <p-dropdown inputId="lifeCycleDateReminder" [placeholder]="'assets.week' | translate " [options]="itemTypes" optionLabel="name" optionValue="id"></p-dropdown>
                                     <label for="lifeCycleDateReminder">{{ 'assets.week' | translate }} </label>
@@ -251,7 +251,7 @@
                             </div>
                             <div *ngIf="inServiceOdometerReminder.value == true " class="col-12 col-md-4" [class.col-md-12]="policyType.value != ''">
                               <div class="row">
-                                <div class="col-5 p-field form-section__field dropdown-select">
+                                <div class="col-5 p-field form-section__field options-select">
                                   <span class="p-float-label ">
                                     <p-dropdown inputId="lifeCycleDateReminder" [placeholder]="'assets.week' | translate " [options]="itemTypes" optionLabel="name" optionValue="id"></p-dropdown>
                                     <label for="lifeCycleDateReminder">{{ 'assets.week' | translate }} </label>
@@ -308,7 +308,7 @@
                             <div class="form-section component_wrapper w-100">
                               <h3 class="form-section__title">{{ 'assets.maintenance_service' | translate }}</h3>
                               <div class="row">
-                                <div class="col-12 p-field form-section__field dropdown-select" [class.col-md-8]="periodicService.value == '' ">
+                                <div class="col-12 p-field form-section__field options-select" [class.col-md-8]="periodicService.value == '' ">
                                   <span class="p-float-label">
                                     <p-dropdown inputId="periodicService" formControlName="periodicService" [placeholder]=" 'assets.periodic_service' | translate" [options]="periodicService$ | async" optionLabel="name" dataKey="id" (onChange)="onChangePeriodicService($event.value)"></p-dropdown>
                                     <label for="periodicService">{{ 'assets.periodic_service' | translate }} *</label>
@@ -331,9 +331,9 @@
                                   <div class="row mt-2" [formGroupName]="i">
                                     <div class="col-12 col-md-6" [class.col-md-12]="periodicService.value != '' ">
                                       <div class="row">
-                                        <div class="col-12 col-md-6 p-field form-section__field dropdown-select">
+                                        <div class="col-12 col-md-6 p-field form-section__field options-select">
                                           <span class="p-float-label">
-                                            <input pInputText formControlName="item" [placeholder]="('assets.item' | translate) + '*'"  type="text">
+                                            <input pInputText formControlName="item" [placeholder]="('assets.item' | translate) + '*'"  (ngModelChange)="selectWarrantyDate()" type="text">
                                             <label>{{ 'assets.item' | translate }}</label>
                                           </span>
                                           <anms-error
@@ -341,9 +341,9 @@
                                             error="forms.feedback.required">
                                           </anms-error>
                                         </div>
-                                        <div class="col-12 col-md-3 p-field form-section__field dropdown-select">
+                                        <div class="col-12 col-md-3 p-field form-section__field options-select">
                                           <span class="p-float-label">
-                                            <p-dropdown inputId="periodicService" formControlName="periodType" [placeholder]="'assets.period_type' | translate" [options]="periodType" optionLabel="name" optionValue="id"></p-dropdown>
+                                            <p-dropdown inputId="periodicService" formControlName="periodType" (onChange)="selectWarrantyDate()" [placeholder]="'assets.period_type' | translate" [options]="periodType" optionLabel="name" optionValue="id"></p-dropdown>
                                             <label for="periodicService">{{ 'assets.period_type' | translate }}</label>
                                           </span>
                                           <anms-error
@@ -351,9 +351,9 @@
                                             error="forms.feedback.required">
                                           </anms-error>
                                         </div>
-                                        <div class="col-12 col-md-3 pl-0 p-field form-section__field dropdown-select">
+                                        <div class="col-12 col-md-3 pl-0 p-field form-section__field options-select">
                                           <span class="p-float-label">
-                                            <input pInputText numbersOnly [placeholder]="'assets.duration' | translate" formControlName="duration"  type="text">
+                                            <input pInputText numbersOnly [placeholder]="'assets.duration' | translate" (ngModelChange)="selectWarrantyDate()" formControlName="duration"  type="text">
                                             <label>{{ 'assets.duration' | translate }}</label>
                                           </span>
                                           <anms-error
@@ -368,7 +368,7 @@
                                         <div class="col" [class.col-6]="periodicService.value != ''">
                                           <div class="p-field form-section__field date-input">
                                             <span class="p-float-label">
-                                              <p-calendar inputId="basic" formControlName="startDate" [readonlyInput]="true" ></p-calendar>
+                                              <p-calendar inputId="basic" (onSelect)="selectWarrantyDate()" formControlName="startDate" [readonlyInput]="true" ></p-calendar>
                                               <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
                                               <label>{{ 'assets.warranty_start_date' | translate }}</label>
                                             </span>
@@ -404,7 +404,7 @@
                             Job Cards For Maintenance Services Automatically Will Create After This Step
                           </p>
                           <div class="table-container p-0 mt-2 review-table" *ngIf="getWarrantyStartDat(0) != ''">
-                            <app-table [setting]="warrantySettingTable"></app-table>
+                            <app-table [setting]="warrantySettingTable" [tableData]="warrantyTableData$"></app-table>
                           </div>
                         </div>
                       </div>
@@ -412,7 +412,7 @@
                     </div>
                     <div class="form-section component_wrapper">
                       <div class="row">
-                        <div class="col-12 p-field form-section__field dropdown-select">
+                        <div class="col-12 p-field form-section__field options-select">
                           <span class="p-float-label">
                             <input  formControlName="description" pInputTextarea   [placeholder]="('assets.description' | translate) + '*'"  type="text">
                             <label>{{ 'assets.description' | translate }} *</label>
