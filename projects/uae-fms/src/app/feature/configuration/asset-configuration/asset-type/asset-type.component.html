@@ -8,7 +8,7 @@
       <!-- <ng-container *ngIf="assetType.type == (categoryType$ | async) || !(categoryType$ | async)"> -->
       <ng-container>
         <div class='category-item'>
-          <svg-icon [ngStyle]="(activeLang === 'en') ? {'transform': 'rotate(0deg)'} : {'transform': 'rotate(180deg)'}"
+          <svg-icon *ngIf="(activeAssetType !== 'ACCESSORY')" [ngStyle]="(activeLang === 'en') ? {'transform': 'rotate(0deg)'} : {'transform': 'rotate(180deg)'}"
                     [src]='arrowIcon' [svgStyle]="{ 'width.em':1.2 , 'fill': '#505050'}"
                     [svgClass]='(returnItemTree(assetType.id, assetType.type, assetType).iconSvgClass === "down-arrow") ? ((activeLang === "en") ? "down-arrow" : "down-arrow-ar") : "right-arrow"'
                     (click)='onTypeClick(returnItemTree(assetType.id, assetType.type, assetType))'></svg-icon>
@@ -20,10 +20,9 @@
               class='cursor-pointer' (click)='createMake(assetType)' src='assets/icons/add.svg'
               [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}">
             </svg-icon>
-            <svg-icon *ngIf='assetType.makes?.length'
-                      [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
+            <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
                       class='cursor-pointer'
-                      [routerLink]="((activeAssetType === 'ASSET') ? ('/configuration/asset-configuration/edit-make/' + assetType.id) : ((activeAssetType === 'SUB_ASSET') ? ('/configuration/asset-configuration/sub-asset-edit-make/' + assetType.id) : ('/configuration/asset-configuration/accessory-edit-make/' + assetType.id)))"
+                      [routerLink]="'/configuration/edit-asset-configuration/' + assetType.id"
                       src='assets/icons/edit.svg'
                       [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':'100%'}">
             </svg-icon>
@@ -43,10 +42,9 @@
                 [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}"
                 class='cursor-pointer' (click)='createModel(assetType,make)' src='assets/icons/add.svg'
                 [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-              <svg-icon *ngIf='make.models?.length'
-                        [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
+              <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
                         class='cursor-pointer'
-                        [routerLink]="((activeAssetType === 'ASSET') ? ('/configuration/asset-configuration/edit-model/' + assetType.id + '/' + make.id) : ('/configuration/asset-configuration/sub-asset-edit-model/' + assetType.id + '/' + make.id))"
+                        [routerLink]="((activeAssetType === 'ASSET') ? ('/configuration/asset-configuration/edit-make/' + assetType.id + '/' + make.id) : ('/configuration/asset-configuration/sub-asset-edit-model/' + assetType.id + '/' + make.id))"
                         src='assets/icons/edit.svg'
                         [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':'100%'}">
             </svg-icon>
@@ -68,10 +66,9 @@
                   [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}"
                   class='cursor-pointer' (click)='createTrim(assetType,model, make)' src='assets/icons/add.svg'
                   [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-                <svg-icon *ngIf='model.trims?.length'
-                          [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
+                <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
                           class='cursor-pointer'
-                          [routerLink]="'/configuration/asset-configuration/edit-trim/' + assetType.id + '/' + make.id + '/' + model.id"
+                          [routerLink]="'/configuration/asset-configuration/edit-model/' + assetType.id + '/' + model.id"
                           src='assets/icons/edit.svg'
                           [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':'100%'}">
             </svg-icon>

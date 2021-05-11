@@ -139,7 +139,7 @@
     "company_setting": "Company Setting",
     "permanent": "Permanent",
     "technical_inspection_report": "Technical Inspection Report",
-    "job_card_overview":"Job Card Overview"
+    "job_card_overview": "Job Card Overview"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -1721,7 +1721,9 @@
     "model_name": "Model Name",
     "type_status": "Type Status",
     "description": "Description",
-    "category": "Category"
+    "category": "Category",
+    "edit_make_for": "Edit Make For",
+    "edit_model_for": "Edit Model For"
   },
   "chart": {
     "lifecycle": "Lifecycle",
