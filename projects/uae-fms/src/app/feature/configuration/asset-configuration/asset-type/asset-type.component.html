@@ -15,7 +15,7 @@
           <span class='ml-2 mr-2 cursor-pointer'
                 (click)='onTypeClick(assetType)'>{{assetType.name}}</span>
           <span class='action'>
-            <svg-icon
+            <svg-icon *ngIf="(activeAssetType !== 'ACCESSORY')"
               [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}"
               class='cursor-pointer' (click)='createMake(assetType)' src='assets/icons/add.svg'
               [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}">
@@ -62,7 +62,7 @@
                     [class]='getStatusColor(model.isSelected)'
                     (click)='onModelClick(model, make.id, assetType.id)'>{{model.name}}</span>
               <span class='action'>
-                <svg-icon
+                <svg-icon *ngIf="(activeAssetType !== 'SUB_ASSET')"
                   [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}"
                   class='cursor-pointer' (click)='createTrim(assetType,model, make)' src='assets/icons/add.svg'
                   [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
