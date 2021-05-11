@@ -18,7 +18,7 @@ import {
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { BusinessCategoryFacade } from '@feature/configuration/+state/business-category';
 import { map } from 'rxjs/operators';
-import { Subscription, of, Observable, Subject } from 'rxjs';
+import { Subscription, of, Observable, Subject, BehaviorSubject } from 'rxjs';
 import { OwnershipFacade } from '@feature/configuration/+state/ownership';
 import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
 import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
@@ -175,8 +175,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   operator$: Observable<any>;
   policyType$: Observable<any>;
   periodicService$: Observable<any>;
-  periodicServiceTableData$: Observable<any>;
-
+  periodicServiceTableData$:Observable<any>;
+  warrantyTableData$= new BehaviorSubject<any>(null);
 
   assetType$: Subscription;
 
@@ -267,7 +267,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         renderer: ''
       }
     ],
-    data: [{ warrantyFor: 'Engine', start: '02/02/2020', end: '02/02/2021' }]
+    data: []
   };
   formReviewSettingTable: TableSetting = {
     columns: [
@@ -1027,6 +1027,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     if (warrantyFormArray.controls.length > x.warranties.length) {
       warrantyFormArray.removeAt(warrantyFormArray.controls.length - 1)
     }
+    this.warrantyTableData();
 
     this.formGroupMaintenance.patchValue({
       periodicService: { id: x.periodicServiceId },
@@ -1035,6 +1036,39 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.calculateAssetPolicy();
   }
 
+
+  differentYears(monthOrYears:string = 'YEAR' , startDate , month:number){
+    let from = new Date(startDate);
+    let calculateMonth =  monthOrYears === 'YEAR' ? month * 12 : month
+    let endDate = new Date(from.setMonth(from.getMonth()+ calculateMonth)).toLocaleString().split(',')[0];
+    return endDate;
+  }
+
+  warrantyTableData(){
+    let data = this.warrantyItems.controls.map(
+      control =>{
+        if(control.value.startDate === ''){
+          return {
+            ...control.value,
+            warrantyFor:control.value.item,
+          }
+        }else{
+          return {
+            ...control.value,
+            warrantyFor:control.value.item,
+            start:new Date(control.value.startDate).toLocaleString().split(',')[0],
+            end:this.differentYears(control.value.periodType , control.value.startDate , control.value.duration)
+          }
+        }
+      }
+    )
+    this.warrantyTableData$.next(data)
+  }
+
+
+  selectWarrantyDate(){
+    this.warrantyTableData();
+  }
 
   ngOnDestroy(): void {
     this._facade.reset();
