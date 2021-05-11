@@ -22,9 +22,9 @@ import { Subscription, of, Observable, Subject } from 'rxjs';
 import { OwnershipFacade } from '@feature/configuration/+state/ownership';
 import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
 import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
-import {PeriodicServiceFacade,} from '@feature/configuration/+state/periodic-service';
-import {OrganizationFacade} from '@feature/fleet/+state/organization';
-import {OperatorFacade} from '@feature/fleet/+state/operator';
+import { PeriodicServiceFacade, } from '@feature/configuration/+state/periodic-service';
+import { OrganizationFacade } from '@feature/fleet/+state/organization';
+import { OperatorFacade } from '@feature/fleet/+state/operator';
 import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
 
 @Component({
@@ -166,16 +166,16 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   ownerShip$: Observable<any>;
 
   /* Asset Type Inputs */
-  make$:Observable<any>;
-  model$:Observable<any>;
-  trim$:Observable<any>;
-  color$:Observable<any>;
-  origin$:Observable<any>;
-  department$:Observable<any>;
-  operator$:Observable<any>;
+  make$: Observable<any>;
+  model$: Observable<any>;
+  trim$: Observable<any>;
+  color$: Observable<any>;
+  origin$: Observable<any>;
+  department$: Observable<any>;
+  operator$: Observable<any>;
   policyType$: Observable<any>;
   periodicService$: Observable<any>;
-  periodicServiceTableData$:Observable<any>;
+  periodicServiceTableData$: Observable<any>;
 
 
   assetType$: Subscription;
@@ -319,13 +319,13 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     injector: Injector,
     private _router: Router,
-    private _activatedRoute : ActivatedRoute,
+    private _activatedRoute: ActivatedRoute,
     private _facade: AssetMasterFacade,
     private _facadeBussinessCategory: BusinessCategoryFacade,
     private _facadeOwnership: OwnershipFacade,
-    private _fleetConfiurationAsset:AssetTypeFacade,
-    private _facadeDepartment:OrganizationFacade,
-    private _facadeOperator:OperatorFacade,
+    private _fleetConfiurationAsset: AssetTypeFacade,
+    private _facadeDepartment: OrganizationFacade,
+    private _facadeOperator: OperatorFacade,
     private _facadeAssetPolicy: AssetPolicyFacade,
     private _facadePeriodicService: PeriodicServiceFacade,
   ) {
@@ -343,22 +343,22 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this._facadeOperator.loadAll();
 
     /* Check if is Edit */
-    const getURL= this._activatedRoute.snapshot.url
+    const getURL = this._activatedRoute.snapshot.url
     let filteredUrl = getURL.filter(x => x.path === "edit-asset");
-    (filteredUrl.length > 0) ? this.isEdit=true : this.isEdit=false;
-    if(this.isEdit){
-      this.singleAsset= true;
-      this.id = +getURL[getURL.length -1].path
+    (filteredUrl.length > 0) ? this.isEdit = true : this.isEdit = false;
+    if (this.isEdit) {
+      this.singleAsset = true;
+      this.id = +getURL[getURL.length - 1].path
       this._facade.getAssetByID(this.id);
 
     }
 
     /* Load Form Data */
     this.businessCategory$ = this._facadeBussinessCategory.businessCategory$.pipe(
-      map(x =>{
-        if(x){
+      map(x => {
+        if (x) {
           return x.map(category => {
-            return{
+            return {
               ...category
             };
           })
@@ -367,8 +367,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     );
 
     this.ownerShip$ = this._facadeOwnership.ownership$.pipe(
-      map(x=>{
-        if(x){
+      map(x => {
+        if (x) {
           return x.map(ownership => {
             return {
               ...ownership
@@ -378,12 +378,12 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       })
     );
 
-    this.make$= this._fleetConfiurationAsset.specificAssetType$.pipe(
-      map(x=>{
-        if(x){
+    this.make$ = this._fleetConfiurationAsset.specificAssetType$.pipe(
+      map(x => {
+        if (x) {
           this.assetTypeLoad.next(x)
           this.assetType = x
-          return x.makes.map(makes=>{
+          return x.makes.map(makes => {
             return {
               ...makes
             }
@@ -393,10 +393,10 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     );
 
     this.department$ = this._facadeDepartment.organization$.pipe(
-      map(x=>{
-        if(x){
+      map(x => {
+        if (x) {
           return x.map(
-            department =>{
+            department => {
               return {
                 ...department
               }
@@ -407,10 +407,10 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     );
 
     this.operator$ = this._facadeOperator.operator$.pipe(
-      map(x=>{
-        if(x){
+      map(x => {
+        if (x) {
           return x.map(
-            operator =>{
+            operator => {
               return {
                 ...operator
               }
@@ -422,9 +422,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
     this.policyType$ = this._facadeAssetPolicy.assetPolicy$.pipe(
       map(x => {
-        if(x){
-          return x.map( policyType => {
-            if(policyType.type === 'ASSET'){
+        if (x) {
+          return x.map(policyType => {
+            if (policyType.type === 'ASSET') {
               return {
                 ...policyType
               }
@@ -436,10 +436,10 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     );
 
     this.periodicService$ = this._facadePeriodicService.periodicService$.pipe(
-      map(x =>{
-        if(x){
-          return x.map (periodicService => {
-            return{
+      map(x => {
+        if (x) {
+          return x.map(periodicService => {
+            return {
               ...periodicService
             }
           })
@@ -448,8 +448,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     );
 
     this.periodicServiceTableData$ = this._facadePeriodicService.specificPeriodicService$.pipe(
-      map(x=>{
-        if(x){
+      map(x => {
+        if (x) {
           return x.packages.map(pkg => {
             let taskData = '';
             for (let i = 0; i < pkg.tasks.length; i++) {
@@ -460,7 +460,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
               serviceTask: taskData.substring(0, taskData.length - 1)
             }
           }
-        );
+          );
         }
       })
     );
@@ -557,7 +557,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       }
     });
 
-    if(this.isEdit){
+    if (this.isEdit) {
       this.editFormGetValues();
     }
   }
@@ -566,10 +566,19 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
 
   public calculateAssetPolicy() {
+    let depreciationValue;
+    if (typeof this.policyTypeValue == "number" || !this.policyTypeValue.depreciationValue) {
+      this.policyType$.subscribe(x => {
+        this.onChangePolicyType(x.find(y => y.id == this.policyTypeValue));
+        depreciationValue = this.policyTypeValue.depreciationValue;
+      })
+    }
+    else {
+      depreciationValue = this.policyTypeValue.depreciationValue;
+    }
     this.calculate = true;
     let value = this.formGroupFinancial.get('assetFinancialPlan.purchaseValue')
       .value;
-    let depreciationValue = this.policyTypeValue.depreciationValue;
     let maxUsageYear = this.policyTypeValue.maxUsageYear;
     let maxUsageKPHour = this.policyTypeValue.maxUsageKPHour;
     this.reviewPlaneSettingTable2.data = [];
@@ -733,7 +742,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
   addWarrantyItem(hasValidation = true) {
     const item = this.formGroupMaintenance.get('warrantyItems') as FormArray;
-    if(item.invalid) return;
+    if (item.invalid) return;
     item.push(this.formBuilderArrayControl());
   }
 
@@ -747,14 +756,14 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
   onBusinessCategoryChange(event): void {
     this._fleetConfiurationAsset.getAssetTypeByID(event.assetConfigurationId);
-    this.formGroupAssetDetail.get('assetDetails').patchValue({type:event.assetConfigurationId});
+    this.formGroupAssetDetail.get('assetDetails').patchValue({ type: event.assetConfigurationId });
   }
 
   onChangeAssetMake(event) {
     this.loadModel(event.models)
   }
 
-  loadModel(model){
+  loadModel(model) {
     this.model$ = of(model)
   }
 
@@ -762,17 +771,17 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.loadTrim(event.trims)
   }
 
-  loadTrim(trim){
+  loadTrim(trim) {
     this.trim$ = of(trim);
 
   }
 
   onChangeAssetTrim(event) {
     this.loadColor(event.colors);
-    this.origin$ = of(event.origins.map(x => {return {name : x}}))
+    this.origin$ = of(event.origins.map(x => { return { name: x } }))
   }
 
-  loadColor(color){
+  loadColor(color) {
     this.color$ = of(color)
   }
 
@@ -816,35 +825,35 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       return;
     }
     let data = {
-        avatarId: 1,
-        businessCategoryId: formVal_AssetDetail.businessInfo.businessCategory.id,
-        ownershipId: formVal_AssetDetail.businessInfo.ownership.id,
-        year: formVal_AssetDetail.assetDetails.year,
-        assetTypeId: formVal_AssetDetail.assetDetails.type,
-        makeId: formVal_AssetDetail.assetDetails.make.id,
-        modelId: formVal_AssetDetail.assetDetails.model.id,
-        trimColorId: formVal_AssetDetail.assetDetails.color.id,
-        trimId: formVal_AssetDetail.assetDetails.trim.id,
-        origin: formVal_AssetDetail.assetDetails.origin.name,
-        meterType: formVal_AssetDetail.assetDetails.meterType,
-        vehicleDocIds: formVal_AssetDetail.uploadFile,
-        organizationId: 1,
-        departmentId: formVal_AssetDetail.purchasedFor.department.id,
-        operatorId: formVal_AssetDetail.purchasedFor.operator.id,
-        policyTypeId: formVal_Financial.assetFinancialPlan.policyType.id,
-        purchaseValue: +formVal_Financial.assetFinancialPlan.purchaseValue,
-        inServiceDate: formVal_Financial.lifeCycle.inServiceDate.toISOString(),
-        inServiceOdometer: +formVal_Financial.lifeCycle.inServiceOdometer,
-        purchaseDocId: +formVal_Financial.uploadFile[0].toString(),
-        periodicServiceId: formVal_Maintenance.periodicService.id,
-        warrantyItems: formVal_Maintenance.warrantyItems,
-        description: formVal_Maintenance.description,
+      avatarId: 1,
+      businessCategoryId: formVal_AssetDetail.businessInfo.businessCategory.id,
+      ownershipId: formVal_AssetDetail.businessInfo.ownership.id,
+      year: formVal_AssetDetail.assetDetails.year,
+      assetTypeId: formVal_AssetDetail.assetDetails.type,
+      makeId: formVal_AssetDetail.assetDetails.make.id,
+      modelId: formVal_AssetDetail.assetDetails.model.id,
+      trimColorId: formVal_AssetDetail.assetDetails.color.id,
+      trimId: formVal_AssetDetail.assetDetails.trim.id,
+      origin: formVal_AssetDetail.assetDetails.origin.name,
+      meterType: formVal_AssetDetail.assetDetails.meterType,
+      vehicleDocIds: formVal_AssetDetail.uploadFile,
+      organizationId: 1,
+      departmentId: formVal_AssetDetail.purchasedFor.department.id,
+      operatorId: formVal_AssetDetail.purchasedFor.operator.id,
+      policyTypeId: formVal_Financial.assetFinancialPlan.policyType.id,
+      purchaseValue: +formVal_Financial.assetFinancialPlan.purchaseValue,
+      inServiceDate: formVal_Financial.lifeCycle.inServiceDate.toISOString(),
+      inServiceOdometer: +formVal_Financial.lifeCycle.inServiceOdometer,
+      purchaseDocId: +formVal_Financial.uploadFile[0].toString(),
+      periodicServiceId: formVal_Maintenance.periodicService.id,
+      warrantyItems: formVal_Maintenance.warrantyItems,
+      description: formVal_Maintenance.description,
     }
     if (this.isEdit) {
       let formValue = {
         ...data,
         id: this.id,
-        dpd:this._asset.dpd
+        dpd: this._asset.dpd
       };
       formValue.warrantyItems.map((x) => {
         x.startDate = x.startDate.toISOString();
@@ -856,9 +865,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         ...data,
         dpds:
           formVal_Generate.quantity == 'multipleAsset'
-          ?
+            ?
             dpdcodes
-          :
+            :
             [
               `${formVal_AssetDetail.businessInfo.ownership.fleetITCode}${formVal_Generate.serialNumber}`
             ]
@@ -919,16 +928,16 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
 
-  editFormGetValues(){
+  editFormGetValues() {
     this._facade.specificAsset$.subscribe(
       x => {
-        if(x){
+        if (x) {
           this.assetTypeLoad.subscribe(
-            y=>{
-              if(y){
+            y => {
+              if (y) {
                 y.makes.map(
                   make => {
-                    if (make.id == x.makeId){
+                    if (make.id == x.makeId) {
                       this.onChangeAssetMake(make);
                       let models = make.models.find(model => model.id === x.modelId);
                       let trim = models.trims.find(trim => trim.id === x.trimId);
@@ -944,21 +953,21 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           this.onBusinessCategoryChange(x)
           this.formGroupAssetDetail.patchValue({
             businessInfo: {
-              businessCategory: {id:x.businessCategoryId},
-              ownership: {id:x.ownershipId},
+              businessCategory: { id: x.businessCategoryId },
+              ownership: { id: x.ownershipId },
             },
             assetDetails: {
-              year:x.year,
-              origin:  {name:x.origin},
+              year: x.year,
+              origin: { name: x.origin },
               meterType: x.meterType,
-              make: {id:x.makeId},
-              model:{id:x.modelId},
-              trim:{id: x.trimId},
-              color: {id:x.colorId},
+              make: { id: x.makeId },
+              model: { id: x.modelId },
+              trim: { id: x.trimId },
+              color: { id: x.colorId },
             },
             purchasedFor: {
-              department:{id:x.department.id} ,
-              operator: {id:x.operator.id}
+              department: { id: x.department.id },
+              operator: { id: x.operator.id }
             },
             uploadFile: x.vehicleDocIds
           });
@@ -966,7 +975,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
             quantity: ['singleAsset'],
             serialNumber: [x.dpd]
           });
-          this.onChangePeriodicService({id:x.periodicServiceId});
+          this.onChangePeriodicService({ id: x.periodicServiceId });
           this._asset = x
           this.editPatchValue(x);
         }
@@ -985,7 +994,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
     this.formGroupFinancial.patchValue({
       assetFinancialPlan: {
-        policyType: {id:x.policyTypeId},
+        policyType: { id: x.policyTypeId },
         purchaseValue: x.purchaseValue
       },
       lifeCycle: {
@@ -1010,17 +1019,17 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         docId: +x.warranties[index].docId,
         hasReminder: x.warranties[index].hasReminder
       });
-      if(index === x.warranties.length -1){
+      if (index === x.warranties.length - 1) {
         break;
       }
       this.addWarrantyItem();
     }
-    if(warrantyFormArray.controls.length > x.warranties.length){
-      warrantyFormArray.removeAt(warrantyFormArray.controls.length-1)
+    if (warrantyFormArray.controls.length > x.warranties.length) {
+      warrantyFormArray.removeAt(warrantyFormArray.controls.length - 1)
     }
 
     this.formGroupMaintenance.patchValue({
-      periodicService: {id : x.periodicServiceId},
+      periodicService: { id: x.periodicServiceId },
       description: x.description,
     });
     this.calculateAssetPolicy();
