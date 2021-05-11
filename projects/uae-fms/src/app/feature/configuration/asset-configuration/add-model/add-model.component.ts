@@ -66,6 +66,7 @@ export class AddModelComponent
   assetTypeMode = '';
   assetTypeId;
   makeId;
+  modelId;
   //#endregion
 
   get models(): FormArray {
@@ -113,25 +114,24 @@ export class AddModelComponent
                 if (x?.assetTypeId) {
                   this.isEditing = true;
                   this.assetTypeId = Number(x?.assetTypeId);
+                  this.makeId = Number(x?.makeId);
+                  this.modelId = Number(x?.id);
                   if (x?.id) {
-                    this.makeId = Number(x?.id);
                     if (this.assetTypeId === obj.id) {
                       for (let index = 0; index < obj.makes.length; index++) {
                         if (obj.makes[index].id === this.makeId) {
-                          this.dataService.selectedMakeName =
-                            obj.makes[index].name;
-                          for (
-                            let j = 0;
-                            j < obj.makes[index].models.length;
-                            j++
-                          ) {
-                            this.addModel();
-                            this.models.controls[j].patchValue({
-                              id: obj.makes[index].models[j].id,
-                              model: obj.makes[index].models[j].name,
-                              modelDescription:
+                          this.dataService.selectedMakeName = obj.makes[index].name;
+                          for (let j = 0; j < obj.makes[index].models.length; j++) {
+                            if (obj.makes[index].models[j].id === this.modelId) {
+                              this.dataService.selectedModelName = obj.makes[index].models[j].name;
+                              this.addModel();
+                              this.models.controls[0].patchValue({
+                                id: obj.makes[index].models[j].id,
+                                model: obj.makes[index].models[j].name,
+                                modelDescription:
                                 obj.makes[index].models[j].description
-                            });
+                              });
+                            }
                           }
                         }
                       }
@@ -182,26 +182,24 @@ export class AddModelComponent
                 this.isEditing = true;
                 this.assetTypeId = Number(x?.assetTypeId);
                 if (x?.id) {
-                  this.makeId = Number(x?.id);
+                  this.makeId = Number(x?.makeId);
+                  this.modelId = Number(x?.id);
                   if (this.assetTypeId === obj.id) {
                     for (let index = 0; index < obj.makes.length; index++) {
                       if (obj.makes[index].id === this.makeId) {
-                        this.dataService.selectedMakeName =
-                          obj.makes[index].name;
-                        for (
-                          let j = 0;
-                          j < obj.makes[index].models.length;
-                          j++
-                        ) {
-                          if (j > 0) {
-                            this.addModel();
-                          }
-                          this.models.controls[j].patchValue({
-                            id: obj.makes[index].models[j].id,
-                            model: obj.makes[index].models[j].name,
-                            modelDescription:
+                        this.dataService.selectedMakeName = obj.makes[index].name;
+                        for (let j = 0; j < obj.makes[index].models.length; j++) {
+                          if (obj.makes[index].models[j].id === this.modelId) {
+                            if (j > 0) {
+                              this.addModel();
+                            }
+                            this.models.controls[0].patchValue({
+                              id: obj.makes[index].models[j].id,
+                              model: obj.makes[index].models[j].name,
+                              modelDescription:
                               obj.makes[index].models[j].description
-                          });
+                            });
+                          }
                         }
                       }
                     }

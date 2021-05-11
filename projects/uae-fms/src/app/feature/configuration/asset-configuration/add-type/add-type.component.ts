@@ -219,6 +219,8 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit, 
   dialogConfirm($event): void {
     if (this.dialogType == 'cancel') {
       this.facade.resetParams();
+      this._subAssetTypeFacade.resetParams()
+      this._accessoryTypeFacade.resetParams()
       this.router.navigate(['/configuration/asset-configuration']);
       return;
     }
@@ -226,6 +228,8 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit, 
     if ($event && !this.dialogSetting.hasError) {
       this.router.navigate(['/configuration/asset-configuration']).then((_) => {
         this.facade.resetParams();
+        this._subAssetTypeFacade.resetParams()
+        this._accessoryTypeFacade.resetParams()
       });
     }
   }
