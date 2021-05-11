@@ -80,6 +80,8 @@ export class TaskMasterFormComponent
     this._facade.loadAllSkill();
     this.taskMasterForm = this._fb.group({
       taskName: ['', [Validators.required]],
+      shopType: ['', [Validators.required]],
+      taskType: ['', [Validators.required]],
       instruction: ['', [Validators.required]],
       ratePerHour: [''],
       timeEstimate: ['', [Validators.required]],
@@ -188,9 +190,10 @@ export class TaskMasterFormComponent
     }
     this.skillFiltered = filtered;
   }
+
   skillSelect(event) {
-    console.log(event);
   }
+
   getTaskMasterPayload(value: any) {
     const {
       instruction,
@@ -198,12 +201,14 @@ export class TaskMasterFormComponent
       skills,
       taskName,
       timeEstimate,
-      needPart
+      needPart,
+      shopType,
+      taskType
     } = value;
 
     const taskMaster = {
-      shopType: 'BODYSHOP',
-      taskType: 'NORMAL',
+      shopType: shopType,
+      taskType: taskType,
       name: taskName,
       instruction: instruction,
       timeEstimate: timeEstimate,
