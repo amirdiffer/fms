@@ -17,7 +17,7 @@ import {
 } from '@feature/fleet/+state/assets/asset-master';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { BusinessCategoryFacade } from '@feature/configuration/+state/business-category';
-import { debounceTime, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Subscription, of, Observable, Subject, BehaviorSubject } from 'rxjs';
 import { OwnershipFacade } from '@feature/configuration/+state/ownership';
 import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
