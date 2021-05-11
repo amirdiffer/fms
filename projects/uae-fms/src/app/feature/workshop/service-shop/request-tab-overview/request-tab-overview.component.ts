@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnType } from '@core/table';
-import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 import { ServiceShopRequestFacade } from '@feature/workshop/+state/service-shop';
 import moment from 'moment';
+import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -14,13 +15,15 @@ import { map } from 'rxjs/operators';
 export class RequestTabOverviewServiceShopComponent implements OnInit {
   assetId;
   tableData$;
-  assetDetail;
+  assetDetail = new Subject();
+  assetDetail$ = this.assetDetail.asObservable();
+
   constructor(
     private _facadeRequest: ServiceShopRequestFacade,
     private _activatedRoute: ActivatedRoute,
-    private _assetMasterFacade: AssetMasterFacade,
+    private assetMasterService: AssetMasterService,
     private router: Router
-  ) {}
+  ) { }
 
   vehicle = {
     id: 1,
@@ -184,6 +187,8 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
         this._facadeRequest.getAssetRequest(this.assetId);
       }
     });
-    this._assetMasterFacade.getAssetByID(81);
+    this.assetMasterService.getAssetByID(this.assetId).subscribe(x => {
+      this.assetDetail.next(x);
+    })
   }
 }
