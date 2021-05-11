@@ -46,11 +46,11 @@ const routes: Routes = [
     component: AddModelComponent
   },
   {
-    path: 'asset-configuration/edit-model/:assetTypeId/:id',
+    path: 'asset-configuration/edit-model/:assetTypeId/:makeId/:id',
     component: AddModelComponent
   },
   {
-    path: 'asset-configuration/sub-asset-edit-model/:assetTypeId/:id',
+    path: 'asset-configuration/sub-asset-edit-model/:assetTypeId/:makeId/:id',
     component: AddModelComponent
   },
   {

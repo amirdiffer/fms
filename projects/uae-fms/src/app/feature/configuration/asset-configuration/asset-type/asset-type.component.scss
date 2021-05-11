@@ -39,6 +39,7 @@ mat-card {
 }
 
 .category-subItem {
+  width: 90%;
   font-size: 1em;
   height: 2.8em;
   max-height: 2.8em;
@@ -56,7 +57,12 @@ mat-card {
   }
 }
 
+.category-subItem:hover {
+  background: rgb(13, 160, 110, 0.08);
+}
+
 .category-sub-subItem {
+  width: 75%;
   font-size: 1em;
   height: 2.8em;
   max-height: 2.8em;
@@ -71,6 +77,10 @@ mat-card {
       display: inline-block;
     }
   }
+}
+
+.category-sub-subItem:hover {
+  background-color: rgb(13, 160, 110, 0.08);
 }
 
 .category-item {
@@ -102,6 +112,10 @@ mat-card {
       display: inline-block;
     }
   }
+}
+
+.category-item:hover {
+  background-color: rgb(13, 160, 110, 0.08);
 }
 
 .category-addItem {

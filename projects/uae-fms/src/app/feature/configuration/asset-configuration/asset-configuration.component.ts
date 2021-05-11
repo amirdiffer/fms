@@ -15,7 +15,7 @@ import { FilterCardSetting } from '@core/filter';
 import { Make, MakeModel, MakeModelTrim } from '@models/asset-type.model';
 import { map } from 'rxjs/operators';
 import { TableComponent } from '@core/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 @Component({
   selector: 'anms-asset-configuration',
@@ -133,7 +133,8 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     public router: Router,
     // private assetConfigurationFacade: AssetConfigurationFacade,
     private _assetConfigurationService: AssetConfigurationService,
-    private _dataService: DataService
+    private _dataService: DataService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -297,7 +298,14 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
   }
 
   trims(trims: MakeModelTrim[]): void {
-    console.log('here');
+    let typeId: number
+    let makeId: number
+    let modelId: number
+    const queryParamsSubscription = this.activatedRoute.queryParams.subscribe((queryParams: Params) => {
+      typeId = queryParams.type
+      makeId = queryParams.make
+      modelId = queryParams.model
+    })
     this.assetConfigurationableSetting = {
       columns: [
         {
@@ -337,8 +345,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       rowSettings: {}
     };
     const data = [];
-    trims
-      ? trims.map((trim) => {
+    trims ? trims.map((trim) => {
           data.push({
             name: trim.name,
             color: trim.colors,
@@ -346,20 +353,23 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           });
           this.assetConfigurationableSetting.data = data;
           this.assetConfigurationableSetting.rowSettings = {
-            onClick: (col, data, button?) => {},
+            onClick: (col, dataArg, button?) => {
+            },
             floatButton: [
               {
-                onClick: (col, data) => {
+                onClick: (col, colData) => {
                   this.router.navigate([
-                    'asset-configuration/edit-trim/' + trim.id
-                  ]);
+                    '/configuration/asset-configuration/edit-trim/' + typeId + '/' + makeId + '/' + modelId
+                  ]).then(_ => {
+                    queryParamsSubscription?.unsubscribe()
+                  });
                 },
                 button: 'edit'
               }
             ]
           };
-        })
-      : null;
+        }) : null;
+    // queryParamsSubscription.unsubscribe()
   }
 
   exportTable() {
