@@ -443,6 +443,7 @@
       "category": "فئة",
       "warranty_expire": "انتهاء الضمان",
       "total_cost": "التكلفة إجمالي",
+      "total_quantity":"الكمية الإجمالية",
       "storage_location": "مكان التخزين",
       "established_market_value": "القيمة السوقية الثابتة",
       "remove": "إزالة",

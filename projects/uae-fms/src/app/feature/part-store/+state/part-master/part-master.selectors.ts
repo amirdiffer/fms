@@ -18,6 +18,16 @@ export class PartMasterSelectors {
     select('category')
   );
 
+  static categoryOfAsset = createSelector(
+    PartStoreSelectors.partMasterCategorySelector,
+    (state) => state.listCategoryOfAsset
+  );
+
+  static categoryOfSubAsset = createSelector(
+    PartStoreSelectors.partMasterCategorySelector,
+    (state) => state.listCategoryOfSubAsset
+  );
+
   static selectAllItem = createSelector(
     PartStoreSelectors.partMasterItemSelector,
     select('item')

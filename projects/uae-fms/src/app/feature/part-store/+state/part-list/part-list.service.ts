@@ -25,7 +25,13 @@ export class PartListService {
 
   /* Asset Part */
 
-  getPartOfAsset(id): Observable<ResponseBody<any>>{
+  getAccumulatedPartOfAsset(id): Observable<ResponseBody<any>>{
+    return this._http.get<ResponseBody<any[]>>(
+      environment.baseApiUrl + '/partstore/part-list/asset/category/' + id +'/accumulated' ,{params: this.getParam('asset-accumulated-part-list')}
+    )
+  };
+
+  getPartListOfAsset(id): Observable<ResponseBody<any>>{
     return this._http.get<ResponseBody<any[]>>(
       environment.baseApiUrl + 'partstore/part-list/asset/item/' + id
     )
@@ -47,7 +53,13 @@ export class PartListService {
 
   /* Sub Asset Part */
 
-  getPartOfSubAsset(id): Observable<ResponseBody<any>>{
+  getAccumulatedPartOfSubAsset(id): Observable<ResponseBody<any>>{
+    return this._http.get<ResponseBody<any[]>>(
+      environment.baseApiUrl + 'partstore/part-list/sub-asset/category/'+ id+'/accumulated' , {params: this.getParam('subasset-accumulated-part-list')}
+    )
+  };
+
+  getPartListOfSubAsset(id): Observable<ResponseBody<any>>{
     return this._http.get<ResponseBody<any[]>>(
       environment.baseApiUrl + 'partstore/part-list/sub-asset/item/' + id
     )
@@ -77,6 +89,38 @@ export class PartListService {
     }
     return this._http.post<ResponseBody<any>>(
       environment.baseApiUrl + 'partstore/supplier',
+      data
+    );
+  };
+
+  orderList(): Observable<ResponseBody<any>> {
+    let data = {
+      itemId: 10,
+      supplierId: 1,
+      price: 1000,
+      quantity: 10,
+      description: "123",
+      hasReminder: false
+  }
+    return this._http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'partstore/order-list/asset/order',
+      data
+    );
+  };
+
+  recieveAnOrder(): Observable<ResponseBody<any>> {
+    let data = {
+      warrantyExpireDate: "2024-01-11T07:18:38.111Z",
+      quantity: 7,
+      price: 11,
+      description: "123",
+      room: "R1",
+      aisle: "A1",
+      shelf: "S1",
+      box: "B1"
+    }
+    return this._http.post<ResponseBody<any>>(
+      environment.baseApiUrl + '/partstore/order-list/asset/order/5/receive',
       data
     );
   };

@@ -490,6 +490,7 @@
       "category": "Category",
       "warranty_expire": "Warranty Expire",
       "total_cost": "Total Cost",
+      "total_quantity":"Total Quantity",
       "storage_location": "Storage Location",
       "established_market_value": "Established Market Value",
       "remove": "Remove",

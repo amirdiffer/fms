@@ -15,14 +15,24 @@ export const select = (adapter) =>{
 
 export class PartListSelectors {
 
-  static selectAllAssetPartList = createSelector(
+  static selectAllAccumulatedAssetPartList = createSelector(
     PartStoreSelectors.assetPartList,
     select('ASSET')
   );
 
-  static selectAllSubAssetPartList = createSelector(
+  static selectAllAccumulatedSubAssetPartList = createSelector(
     PartStoreSelectors.subAssetPartList,
     select('SUB-ASSET')
+  );
+
+  static listPartForSpecificItemAsset = createSelector(
+    PartStoreSelectors.assetPartList,
+    (state) => state.listPartForSpecificItem
+  );
+
+  static listPartForSpecificItemSubAsset = createSelector(
+    PartStoreSelectors.subAssetPartList,
+    (state) => state.listPartForSpecificItem
   );
 
   static specificAssetPart = createSelector(

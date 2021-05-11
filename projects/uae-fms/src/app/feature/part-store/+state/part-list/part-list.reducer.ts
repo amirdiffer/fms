@@ -12,6 +12,18 @@ import {
 /* Asset Part */
 const assetPartListReducer = createReducer(
   initialAssetPartState,
+
+  on(PartListActions.getAccumulatedPartListOfAsset, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null
+  })),
+
+  on(PartListActions.accumulatedPartListOfAssetLoaded, (state, { data }) =>
+    assetPartListAdapter.setAll(data, { ...state, loaded: true, error: null })
+  ),
+
   on(PartListActions.getPartListOfAsset, (state) => ({
     ...state,
     loaded: false,
@@ -19,9 +31,12 @@ const assetPartListReducer = createReducer(
     message: null
   })),
 
-  on(PartListActions.partListOfAssetLoaded, (state, { data }) =>
-    assetPartListAdapter.setAll(data, { ...state, loaded: true, error: null })
-  ),
+  on(PartListActions.partListOfAssetLoaded, (state, { data }) => ({
+    ...state,
+    loaded: true,
+    error: null,
+    listPartForSpecificItem: data
+  })),
 
   on(PartListActions.updatePartOfAsset, (state, { data }) => ({
     ...state,
@@ -80,6 +95,17 @@ const assetPartListReducer = createReducer(
 const subAssetPartListReducer = createReducer(
   initialSubAssetPartState,
 
+  on(PartListActions.getAccumulatedPartListOfSubAsset, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null
+  })),
+
+  on(PartListActions.accumulatedPartListOfSubAssetLoaded, (state, { data }) =>
+    assetPartListAdapter.setAll(data, { ...state, loaded: true, error: null })
+  ),
+
   on(PartListActions.getPartListOfSubAsset, (state) => ({
     ...state,
     loaded: false,
@@ -87,9 +113,12 @@ const subAssetPartListReducer = createReducer(
     message: null
   })),
 
-  on(PartListActions.partListOfSubAssetLoaded, (state, { data }) =>
-    subAssetPartListAdapter.setAll(data, { ...state, loaded: true, error: null })
-  ),
+  on(PartListActions.partListOfSubAssetLoaded, (state, { data }) => ({
+    ...state,
+    loaded: true,
+    error: null,
+    listPartForSpecificItem: data
+  })),
 
   on(PartListActions.updatePartOfSubAsset, (state, { data }) => ({
     ...state,

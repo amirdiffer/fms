@@ -2,8 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterCardSetting } from '@core/filter';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
+import { AssetTypeFacade , SubAssetTypeFacade} from '@feature/configuration/+state/fleet-configuration';
 import { PartListFacade, PartListService } from '@feature/part-store/+state/part-list';
+import { PartMasterFacade } from '@feature/part-store/+state/part-master/part-master.facade'
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-part-list',
@@ -17,6 +20,20 @@ export class PartListComponent implements OnInit {
   selectedTab='assetPartTab';
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
+
+  assetType$:Observable<any>;
+  subAssetType$:Observable<any>;
+  assetPartCategory$:Observable<any>;
+  subAssetPartCategory$:Observable<any>;
+
+  assetTypeSelected;
+  subAssetTypeSelected;
+  assetCategorySelected;
+  subAssetCategorySelected;
+
+  assetCategorySelectedId:number;
+  subAssetCategorySelectedId:number;
+  
   filterCard: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
@@ -52,80 +69,58 @@ export class PartListComponent implements OnInit {
     columns: [
       {
         lable: 'tables.column.item',
-        type: 1,
-        field: 'thumbText',
-        renderer: 'thumbTextRenderer',
-        thumbField: 'thumbImage'
+        type: ColumnType.lable,
+        field: 'itemName',
+      },
+      {
+        lable: 'tables.column.make',
+        type: ColumnType.lable,
+        field: 'makeName',
       },
       {
         lable: 'tables.column.model',
-        type: 2,
-        field: 'thumbModeText',
-        renderer: '',
-        thumbField: 'thumbModeImage'
+        type: ColumnType.lable,
+        field: 'modelName',
+      },
+      { lable: 'tables.column.description', 
+        type: ColumnType.lable, 
+        field: 'description' 
+      },
+      { lable: 'tables.column.status', 
+        type: ColumnType.lable, 
+        field: 'status' 
       },
       {
-        lable: 'tables.column.quantity',
-        type: 1,
-        field: 'quantity',
-        sortable: true
-      },
-      { lable: 'tables.column.description', type: 1, field: 'description' },
-      {
-        lable: 'tables.column.warranty_expire',
-        type: 1,
-        field: 'warrantyExpire',
-        sortable: true
-      },
-      { lable: 'tables.column.status', type: 1, field: 'status' },
-      {
-        lable: 'tables.column.cost',
-        type: 1,
-        width: 120,
-        field: 'cost',
+        lable: 'tables.column.total_quantity',
+        type: ColumnType.lable,
+        field: 'totalQuantity',
         sortable: true
       },
       {
-        lable: 'tables.column.total',
-        type: 1,
-        width: 120,
-        field: 'total',
+        lable: 'tables.column.total_cost',
+        type: ColumnType.lable,
+        field: 'totalCost',
         sortable: true
       },
       {
         lable: '',
-        type: 1,
-        field: 'routeLink',
-        width: 50,
-        renderer: 'routeLinkRenderer'
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        renderer: 'floatButton'
       }
     ],
-    data: [
-      // {
-      //   id: 1,
-      //   thumbImage: 'TILE2._CB1564607297_.png',
-      //   thumbText: 'Item No 123456',
-      //   thumbModeText: 'BMW',
-      //   thumbModeImage: 'bmw.png',
-      //   quantity: '1234',
-      //   description: 'Description is here',
-      //   warrantyExpire: '02/02/2020',
-      //   cost: '123 AED',
-      //   status: 'Available',
-      //   total: '122234 AED',
-      //   statusColor: '#20E19D'
-      // }
-    ],
+    data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {
-        this._router.navigate(['../overview'], {
-          relativeTo: this.route,
-          queryParams: { id: data.id, categoryId: this.recordId }
-        });
-      },
       floatButton: [
         {
-          button: 'external'
+          button: 'external',
+          onClick: (col, data, button?) => {
+            this._router.navigate(['overview/' + data.id], {
+              relativeTo: this.route,
+              queryParams: { fleetType: data.fleetType.toLowerCase()}
+            });
+          },
         }
       ]
     }
@@ -136,17 +131,149 @@ export class PartListComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private route: ActivatedRoute,
-    private _facade: PartListFacade,
+    private _facadePartMaster: PartMasterFacade,
+    private _fleetConfigurationAsset : AssetTypeFacade,
+    private _fleetConfigurationSubAsset:SubAssetTypeFacade,
+    private _facadePartList: PartListFacade,
     private _service : PartListService
   ) {}
 
   ngOnInit(): void {
-    this.tableAssetPart = this.partListDetaisTable;
-    this.tableSubAssetPart = this.partListDetaisTable;
-    this._facade.loadAllAssetPartList(2)
-    this._facade.assetPartList$.subscribe(x=>{
+    this.tableAssetPart = Object.create(this.partListDetaisTable);
+    this.tableSubAssetPart = Object.create(this.partListDetaisTable);
+    this._fleetConfigurationAsset.loadAll()
+    this._fleetConfigurationSubAsset.loadAll()
+
+    this._facadePartList.assetAccumulatedPartList$.subscribe(x=>{
       console.log(x)
     })
+
+    /* Load Table Data */
+    this.tableAssetPartData$ = this._facadePartList.assetAccumulatedPartList$.pipe(
+      map(x=>{
+        return x.map(
+          item => {
+            const statusCheck = () =>{
+              let status:string;
+              let diff = item.totalQuantity - item.totalConsumed
+              if(diff > 0) {
+                status = 'Available'
+              }
+              if(diff == 0) {
+                status = 'Unavailable'
+              }
+              if(diff < 0) {
+                status = 'Need to Order'
+              }
+              return status
+            }
+            return {
+              ...item,
+              status:statusCheck()
+            }
+          }
+        )
+      })
+    );
+
+    this.tableSubAssetPartData$ = this._facadePartList.subAssetAccumulatedPartList$.pipe(
+      map(x=>{
+        return x.map(
+          item => {
+            const statusCheck = () =>{
+              let status:string;
+              let diff = item.totalQuantity - item.totalConsumed
+              if(diff > 0) {
+                status = 'Available'
+              }
+              if(diff == 0) {
+                status = 'Unavailable'
+              }
+              if(diff < 0) {
+                status = 'Need to Order'
+              }
+              return status
+            }
+            return {
+              ...item,
+              status:statusCheck()
+            }
+          }
+        )
+      })
+    )
+    // this._facade.loadAllAssetPartList(2)
+    // this._facadePartMaster.loadAllCategoryOfAsset(1)
+    // this._facadePartMaster.loadAllCategoryOfSubAsset(1);
+
+
+    this.assetType$ = this._fleetConfigurationAsset.assetType$.pipe(
+      map((x )=> {
+        if(x){
+          return x.map(
+            (assetType , i )=>{
+              if(i === 0 && !this.assetTypeSelected){
+                this.assetTypeChanges(assetType.id)
+                this.assetTypeSelected = assetType
+              }
+              return assetType
+            }
+          )
+        }
+      })
+    );
+
+    this.subAssetType$ = this._fleetConfigurationSubAsset.subAssetType$.pipe(
+      map((x )=> {
+        if(x){
+          return x.map(
+            (subAssetType , i )=>{
+              if(i === 0 && !this.subAssetTypeSelected){
+                this.subAssetTypeChanges(subAssetType.id)
+                this.subAssetTypeSelected = subAssetType
+              }
+              return subAssetType
+            }
+          )
+        }
+      })
+    );
+
+
+    this.assetPartCategory$ = this._facadePartMaster.partMasterAssetCategory$.pipe(
+      map(x=>{
+        console.log(x)
+        if(x){
+          return x.map(
+            (assetPart , i )=>{
+              if(i === 0 && !this.assetCategorySelected){
+                this.assetCategoryChanges(assetPart.id)
+                this.assetCategorySelected = assetPart
+              }
+              return assetPart
+            }
+          )
+        }
+      })
+    );
+    this.subAssetPartCategory$ = this._facadePartMaster.partMasterSubAssetCategory$.pipe(
+      map(x=>{
+        if(x){
+          return x.map(
+            (subAssetPart , i )=>{
+              if(i === 0 && !this.subAssetCategorySelected){
+                this.subAssetCategoryChanges(subAssetPart.id)
+                this.subAssetCategorySelected = subAssetPart
+              }
+              return subAssetPart
+            }
+          )
+        }
+      })
+    );
+    // this.assetPartCategory$ = this._facadePartMaster.
+    //   console.log(x)
+    // })
     if (typeof this._activatedRoute.snapshot.params.id != 'undefined') {
       this.partList = false;
       this.filterCard.unshift({
@@ -160,7 +287,7 @@ export class PartListComponent implements OnInit {
   }
 
   filterAction(){
-    this._service.addSupplier().subscribe(x=>{console.log(x)})
+    this._service.recieveAnOrder().subscribe(x=>{console.log(x)})
   }
 
   exportTable() {
@@ -183,5 +310,36 @@ export class PartListComponent implements OnInit {
         break;
       
     }
+  }
+
+  assetTypeChanges(event){
+    console.log(event)
+    this._facadePartMaster.loadAllCategoryOfAsset(event)
+  }
+
+  assetCategoryChanges(event){
+    console.log(event)
+    this._facadePartList.loadAllAccumulatedAssetPartList(event)
+    this._facadePartList.loadAllAssetPartList(event);
+    this.assetCategorySelectedId = event;
+  }
+
+  subAssetTypeChanges(event){
+    console.log(event)
+    this._facadePartMaster.loadAllCategoryOfSubAsset(event)
+  }
+  subAssetCategoryChanges(event){
+    console.log(event)
+    this._facadePartList.loadAllSubAssetPartList(event)
+    this._facadePartList.loadAllAccumulatedSubAssetPartList(event);
+    this.subAssetCategorySelectedId = event;
+  }
+
+  eventPagination_accumulatedPartOfAsset(){
+    this._facadePartList.loadAllAccumulatedAssetPartList(this.assetCategorySelectedId)
+  }
+
+  eventPagination_accumulatedPartOfSubAsset(){
+    this._facadePartList.loadAllAccumulatedSubAssetPartList(this.subAssetCategorySelectedId);
   }
 }

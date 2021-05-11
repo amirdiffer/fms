@@ -1,6 +1,6 @@
 <div class="part-overview">
   <div class="row">
-    <div class="col-12 col-md-4 mt-3">
+    <div class="col-12 col-md-4 mt-3 d-flex">
       <div class="part-overview__images">
         <div class="selected-image">
           <img #selectedImage src="https://via.placeholder.com/500x500?text=A" alt="Selected Image">
@@ -13,10 +13,9 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-8">
+    <div class="col-12 col-md-8 d-flex">
       <div class="component_wrapper form-section">
         <div class="button-container">
-          <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="/part-store/part-list/edit-part" [queryParams]="{id : recordId}">{{ 'forms.edit' | translate }}</button>
           <button class="btn-primary-medium add" routerLink="/part-store/order-list/add-order-list">{{ 'forms.order' | translate }}</button>
         </div>
 

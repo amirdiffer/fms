@@ -11,6 +11,8 @@ export interface PartMasterCategoryState extends EntityState<any> {
   message: string;
   submitted?: boolean;
   specificCategory?:any;
+  listCategoryOfAsset?:any;
+  listCategoryOfSubAsset?:any;
 }
 
 export const partMasterCategoryAdapter: EntityAdapter<any> = createEntityAdapter<any>();
@@ -21,6 +23,8 @@ export const initialStateCategory: PartMasterCategoryState = partMasterCategoryA
   error: null,
   submitted:false,
   specificCategory:null,
+  listCategoryOfAsset:null,
+  listCategoryOfSubAsset:null,
 } as PartMasterCategoryState);
 
 

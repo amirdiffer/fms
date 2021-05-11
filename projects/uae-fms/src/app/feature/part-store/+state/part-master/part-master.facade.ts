@@ -9,6 +9,13 @@ export class PartMasterFacade {
 
   partMasterCategory$ = this.store.pipe(select(PartMasterSelectors.selectAllCategory));
 
+
+  partMasterAssetCategory$ = this.store.pipe(select(PartMasterSelectors.categoryOfAsset));
+
+
+  partMasterSubAssetCategory$ = this.store.pipe(select(PartMasterSelectors.categoryOfSubAsset));
+
+
   partMasterItem$ = this.store.pipe(select(PartMasterSelectors.selectAllItem));
 
   specificCategory$ = this.store.pipe(select(PartMasterSelectors.specificCategory));

@@ -7,9 +7,13 @@ import { PartListPartialState } from './part-list.entity';
 @Injectable()
 export class PartListFacade {
 
-  assetPartList$ = this.store.pipe(select(PartListSelectors.selectAllAssetPartList));
+  assetAccumulatedPartList$ = this.store.pipe(select(PartListSelectors.selectAllAccumulatedAssetPartList));
 
-  subAssetPartList$ = this.store.pipe(select(PartListSelectors.selectAllSubAssetPartList));
+  subAssetAccumulatedPartList$ = this.store.pipe(select(PartListSelectors.selectAllAccumulatedSubAssetPartList));
+
+  assetPartList$ = this.store.pipe(select(PartListSelectors.listPartForSpecificItemAsset));
+
+  subAssetPartList$ = this.store.pipe(select(PartListSelectors.listPartForSpecificItemSubAsset));
 
   specificAssetPart$ = this.store.pipe(select(PartListSelectors.specificAssetPart));
 
@@ -31,6 +35,16 @@ export class PartListFacade {
 
 
   /* Load All Part */
+
+  loadAllAccumulatedAssetPartList(id:number) {
+    this.store.dispatch(PartListActions.getAccumulatedPartListOfAsset({id}));
+  };
+
+  loadAllAccumulatedSubAssetPartList(id:number) {
+    this.store.dispatch(PartListActions.getAccumulatedPartListOfSubAsset({id}));
+  };
+
+
   loadAllAssetPartList(id:number) {
     this.store.dispatch(PartListActions.getPartListOfAsset({id}));
   };

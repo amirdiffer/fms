@@ -11,6 +11,7 @@ export interface AssetPartListState extends EntityState<any> {
   message?: string;
   statistics?: IPartListStatistics;
   specificPart?:any;
+  listPartForSpecificItem?:any;
   updated?:boolean;
 }
 
@@ -22,6 +23,7 @@ export const initialAssetPartState: AssetPartListState = assetPartListAdapter.ge
   error: null,
   statistics: null,
   specificPart:null,
+  listPartForSpecificItem:null,
   updated:false
 } as AssetPartListState);
 
@@ -33,6 +35,7 @@ export interface SubAssetPartListState extends EntityState<any> {
   message?: string;
   statistics?: IPartListStatistics;
   specificPart?:any;
+  listPartForSpecificItem?:any;
   updated?:boolean;
 }
 
@@ -44,6 +47,7 @@ export const initialSubAssetPartState: SubAssetPartListState = subAssetPartListA
   error: null,
   statistics: null,
   specificPart:null,
+  listPartForSpecificItem:null,
   updated:false
 } as SubAssetPartListState);
 

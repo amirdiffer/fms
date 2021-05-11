@@ -47,6 +47,7 @@ export class PartMasterComponent implements OnInit , OnDestroy {
               private _fleetConfigurationSubAssetTypeFacade: SubAssetTypeFacade) {}
 
   ngOnInit(): void {
+    console.log(this.selectedSubCategoryType)
     this._fleetConfigurationAssetTypeFacade.loadAll();
     this._fleetConfigurationSubAssetTypeFacade.loadAll();
 
@@ -85,13 +86,16 @@ export class PartMasterComponent implements OnInit , OnDestroy {
     this._partMasterFacade.loadAllItemOfSubAsset(category.id)
     this.selectedCategory = index;
     this._partMasteService.setSelectedCategory(category.name);
-    this._partMasteService.setCategoryData(
-      {
-        fleetType:this.addCategoryData.fleetType , 
-        categoryId:category.id,
-        makes:this.selectedSubCategoryType.makes
-      }
-    )
+    if(this.selectedSubCategoryType){
+      this._partMasteService.setCategoryData(
+        {
+          fleetType:this.addCategoryData.fleetType , 
+          categoryId:category.id,
+          makes:this.selectedSubCategoryType.makes
+        }
+      )
+    }
+
   }
 
   loadCategoryList(){
@@ -194,8 +198,9 @@ export class PartMasterComponent implements OnInit , OnDestroy {
   ngOnDestroy(){
     this._partMasterFacade.resetCategory();
     this._partMasterFacade.resetItem();
+    this._fleetConfigurationAssetTypeFacade.resetParams();
     this._partMasteService.setCategoryData(null)
-    this.categoryListSubscription$.unsubscribe()
+    this.categoryListSubscription$.unsubscribe();
   }
   
 }

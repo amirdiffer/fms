@@ -4,10 +4,48 @@ import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { PartListService } from './part-list.service';
 import { PartListActions } from './part-list.actions';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class PartListEffect {
-  constructor(private action$: Actions, private service: PartListService) {}
+  constructor(private action$: Actions, private service: PartListService , private _tableFacade: TableFacade) {}
+
+  /* Get All Accumulated Part of Asset an Sub Asset */
+  getAccumulatedAllPartOfAsset$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PartListActions.getAccumulatedPartListOfAsset),
+      mergeMap((action) =>
+        this.service.getAccumulatedPartOfAsset(action.id).pipe(
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'asset-accumulated-part-list');
+            let newData = data.message.map(
+              x=>{return {...x, id: x.itemId}}
+            );
+            return PartListActions.accumulatedPartListOfAssetLoaded({ data: newData });
+          }),
+          catchError((error) => of(PartListActions.errorAssetPart({ reason: error })))
+        )
+      )
+    )
+  );
+
+  getAccumulatedAllPartOfSubAsset$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PartListActions.getAccumulatedPartListOfSubAsset),
+      mergeMap((action) =>
+        this.service.getAccumulatedPartOfSubAsset(action.id).pipe(
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'subasset-accumulated-part-list');
+            let newData = data.message.map(
+              x=>{return {...x, id: x.itemId}}
+            );
+            return PartListActions.accumulatedPartListOfSubAssetLoaded({ data: newData });
+          }),
+          catchError((error) => of(PartListActions.errorAssetPart({ reason: error })))
+        )
+      )
+    )
+  );
 
   /* Get All Part of Asset an Sub Asset */
 
@@ -15,7 +53,7 @@ export class PartListEffect {
     this.action$.pipe(
       ofType(PartListActions.getPartListOfAsset),
       mergeMap((action) =>
-        this.service.getPartOfAsset(action.id).pipe(
+        this.service.getPartListOfAsset(action.id).pipe(
           map((data) => {
             return PartListActions.partListOfAssetLoaded({ data: data.message });
           }),
@@ -28,7 +66,7 @@ export class PartListEffect {
     this.action$.pipe(
       ofType(PartListActions.getPartListOfSubAsset),
       mergeMap((action) =>
-        this.service.getPartOfSubAsset(action.id).pipe(
+        this.service.getPartListOfSubAsset(action.id).pipe(
           map((data) => {
             return PartListActions.partListOfSubAssetLoaded({ data: data.message });
           }),

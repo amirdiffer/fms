@@ -12,3 +12,19 @@
   border-radius: 0.25em;
   position: relative;
 }
+
+.p-float-label{
+  width: 20em;
+  p-dropdown{
+    height: 100%;
+    ::ng-deep{
+      .p-dropdown{
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 0 2px #00000029;
+        border: 2px solid #a2a2a2;
+        border-radius: 0.25em;
+      }
+    }
+  }
+}

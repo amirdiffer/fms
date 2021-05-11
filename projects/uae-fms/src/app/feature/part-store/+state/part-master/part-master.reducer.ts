@@ -19,11 +19,12 @@ const partMasterCategoryReducer = createReducer(
     ...state,
     loaded: false,
     error: null,
-    message: null
+    message: null,
+    listCategoryOfAsset: null
   })),
 
   on(PartMasterActions.categoryOfAssetLoaded, (state, { data }) =>
-    partMasterCategoryAdapter.setAll(data, { ...state, loaded: true, error: null })
+    partMasterCategoryAdapter.setAll(data, { ...state, loaded: true, error: null , listCategoryOfAsset: data})
   ),
 
   on(PartMasterActions.getSpecificCategoryOfAsset, (state) => ({
@@ -67,11 +68,12 @@ const partMasterCategoryReducer = createReducer(
     ...state,
     loaded: false,
     error: null,
-    message: null
+    message: null,
+    listCategoryOfSubAsset:null,
   })),
 
   on(PartMasterActions.categoryOfSubAssetLoaded, (state, { data }) =>
-    partMasterCategoryAdapter.setAll(data, { ...state, loaded: true, error: null })
+    partMasterCategoryAdapter.setAll(data, { ...state, loaded: true, error: null , listCategoryOfSubAsset: data })
   ),
 
   on(PartMasterActions.getSpecificCategoryOfSubAsset, (state) => ({
@@ -133,7 +135,9 @@ const partMasterCategoryReducer = createReducer(
     error: null,
     message: null,
     submitted: false,
-    specificCategory:null
+    specificCategory:null,
+    listCategoryOfSubAsset:null,
+    listCategoryOfAsset:null
   }))
 
 );
