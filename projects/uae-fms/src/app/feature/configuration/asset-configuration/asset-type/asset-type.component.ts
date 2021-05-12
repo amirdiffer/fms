@@ -202,6 +202,8 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
 
   changeType(type: string) {
     let assetTypeArray: AssetTypeExtension[] = []
+    this.assetTypeSubject$.next([])
+
     if (type == 'ASSET' || type == 'SUB_ASSET') {
       this.assetType$ = (type == 'ASSET' ? this.facade.assetType$ : this._subAssetTypeFacade.subAssetType$).pipe(
         map((response) => {
