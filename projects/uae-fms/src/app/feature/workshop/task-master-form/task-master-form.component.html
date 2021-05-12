@@ -10,86 +10,92 @@
     <div class="form-section mx-0 fix">
       <h3 class="form-section__title">{{ 'workshop.task_master.task_info' | translate }}</h3>
       <div class="row">
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-3">
           <div class="row">
             <div class="col-2">
               {{'workshop.task_master.shop_type'|translate}}
             </div>
-            <div class="col-2">
-              <div class="form-check">
-                <input class="form-check-input" formControlName="shopType" type="radio"
-                  id="radioButton7" value="BODYSHOP">
-                <label class="form-check-label"
-                  for="radioButton2">{{"workshop.task_master.body_shop"|translate}}</label>
-              </div>
-            </div>
-            <div class="col-2">
-              <div class="form-check">
-                <input class="form-check-input" formControlName="shopType" type="radio"
-                  id="radioButton8" value="SERVICESHOP">
-                <label class="form-check-label"
-                  for="radioButton2">{{"workshop.task_master.service_shop"|translate}}</label>
+            <div class="col-10">
+              <div class="row">
+                <div class="col-3">
+                  <div class="form-check">
+                    <input class="form-check-input" formControlName="shopType" type="radio" id="radioButton7"
+                      value="BODYSHOP">
+                    <label class="form-check-label"
+                      for="radioButton2">{{"workshop.task_master.body_shop"|translate}}</label>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="form-check">
+                    <input class="form-check-input" formControlName="shopType" type="radio" id="radioButton8"
+                      value="SERVICESHOP">
+                    <label class="form-check-label"
+                      for="radioButton2">{{"workshop.task_master.service_shop"|translate}}</label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-3">
           <div class="row">
             <div class="col-12">
               <div class="row">
                 <div class="col-2">
                   {{'workshop.task_master.task_type'|translate}}
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-2">
-                  <div class="form-check">
-                    <input class="form-check-input" formControlName="taskType" type="radio"
-                      id="radioButton1" value="NORMAL" Checked>
-                    <label class="form-check-label"
-                      for="radioButton1">{{"workshop.task_master.normal"|translate}}</label>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-check">
-                    <input class="form-check-input" formControlName="taskType" type="radio"
-                      id="radioButton2" value="INSTALLATION">
-                    <label class="form-check-label"
-                      for="radioButton2">{{"workshop.task_master.installation"|translate}}</label>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-check">
-                    <input class="form-check-input" formControlName="taskType" type="radio"
-                      id="radioButton3" value="ELECTRICAL_SERVICE">
-                    <label class="form-check-label"
-                      for="radioButton2">{{"workshop.task_master.electrical_service"|translate}}</label>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-check">
-                    <input class="form-check-input" formControlName="taskType" type="radio"
-                      id="radioButton4" value="REPLACEMENT">
-                    <label class="form-check-label"
-                      for="radioButton2">{{"workshop.task_master.replacement"|translate}}</label>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-check">
-                    <input class="form-check-input" formControlName="taskType" type="radio"
-                      id="radioButton5" value="PERIODIC_SERVICE_RELATED">
-                    <label class="form-check-label"
-                      for="radioButton2">{{"workshop.task_master.periodic_service_related"|translate}}</label>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-check">
-                    <input class="form-check-input" formControlName="taskType" type="radio"
-                      id="radioButton6" value="REMOVAL">
-                    <label class="form-check-label"
-                      for="radioButton2">{{"workshop.task_master.removal"|translate}}</label>
+                <div class="col-10">
+                  <div class="row">
+                    <div class="col-3">
+                      <div class="form-check">
+                        <input class="form-check-input" formControlName="taskType" type="radio" id="radioButton1"
+                          value="NORMAL" Checked>
+                        <label class="form-check-label"
+                          for="radioButton1">{{"workshop.task_master.normal"|translate}}</label>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-check">
+                        <input class="form-check-input" formControlName="taskType" type="radio" id="radioButton2"
+                          value="INSTALLATION">
+                        <label class="form-check-label"
+                          for="radioButton2">{{"workshop.task_master.installation"|translate}}</label>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-check">
+                        <input class="form-check-input" formControlName="taskType" type="radio" id="radioButton3"
+                          value="ELECTRICAL_SERVICE">
+                        <label class="form-check-label"
+                          for="radioButton2">{{"workshop.task_master.electrical_service"|translate}}</label>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-check">
+                        <input class="form-check-input" formControlName="taskType" type="radio" id="radioButton4"
+                          value="REPLACEMENT">
+                        <label class="form-check-label"
+                          for="radioButton2">{{"workshop.task_master.replacement"|translate}}</label>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-check">
+                        <input class="form-check-input" formControlName="taskType" type="radio" id="radioButton5"
+                          value="PERIODIC_SERVICE_RELATED">
+                        <label class="form-check-label"
+                          for="radioButton2">{{"workshop.task_master.periodic_service_related"|translate}}</label>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-check">
+                        <input class="form-check-input" formControlName="taskType" type="radio" id="radioButton6"
+                          value="REMOVAL">
+                        <label class="form-check-label"
+                          for="radioButton2">{{"workshop.task_master.removal"|translate}}</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
