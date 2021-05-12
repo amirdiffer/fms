@@ -172,7 +172,7 @@ export class AddRequestServiceShopComponent implements OnInit {
       // assetSearch: ['', [Validators.required, this.autocompleteValidation]],
       assetInfo: this._fb.group({
         asset: [''],
-        gpsMeterSource: ['']
+        gpsMeterSource: ['', Validators.required]
       }),
       assetId: [''],
       hasAccident: [false],
@@ -182,7 +182,7 @@ export class AddRequestServiceShopComponent implements OnInit {
         issue: ['', Validators.required],
         reportedBy: ['', Validators.required],
         description: ['', Validators.required],
-        gpsMeterSource: ['']
+        gpsMeterSource: ['', Validators.required]
       }),
       priority: [''],
       file: ['']
