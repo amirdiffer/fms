@@ -34,7 +34,7 @@ const routes: Routes = [
     component: AddMakeComponent
   },
   {
-    path: 'asset-configuration/sub-asset-edit-make/:id',
+    path: 'asset-configuration/sub-asset-edit-make/:assetTypeId/:id',
     component: AddMakeComponent
   },
   {

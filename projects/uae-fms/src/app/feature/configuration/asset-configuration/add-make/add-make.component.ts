@@ -110,7 +110,7 @@ export class AddMakeComponent
 
     this.route.url.subscribe((url) => {
       /* HERE WE HANDLE ASSET TYPE : SUB_ASSET */
-      if (url[1].path.includes('sub-asset-edit-make')) {
+      if (this.selectedType == 'SUB_ASSET' || url[1].path.includes('sub-asset-edit-make')) {
         this.assetTypeMode = 'SUB_ASSET';
 
         this.route.params.subscribe((x) => {
@@ -169,7 +169,7 @@ export class AddMakeComponent
           );
         });
         return;
-      } else if (url[1].path.includes('accessory-edit-make')) {
+      } else if (this.selectedType == 'ACCESSORY' || url[1].path.includes('accessory-edit-make')) {
       /* HERE WE HANDLE ASSET TYPE : ACCESSORY */
         this.assetTypeMode = 'ACCESSORY';
 
