@@ -101,7 +101,7 @@ export class AddModelComponent
     this.route.url.subscribe((url) => {
       this.models.clear();
       /* HERE WE HANDLE ASSET TYPE : SUB_ASSET */
-      if (url[1].path.includes('sub-asset-edit-model')) {
+      if (this.selectedType == 'SUB_ASSET' || url[1].path.includes('sub-asset-edit-model')) {
         this.assetTypeMode = 'SUB_ASSET';
         this.route.params.subscribe((x) => {
           if (x && x.assetType) this.assetTypeId = x.assetType;

@@ -44,7 +44,7 @@
                 [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
               <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
                         class='cursor-pointer'
-                        [routerLink]="((activeAssetType === 'ASSET') ? ('/configuration/asset-configuration/edit-make/' + assetType.id + '/' + make.id) : ('/configuration/asset-configuration/sub-asset-edit-model/' + assetType.id + '/' + make.id))"
+                        [routerLink]="((activeAssetType === 'ASSET') ? ('/configuration/asset-configuration/edit-make/' + assetType.id + '/' + make.id) : ('/configuration/asset-configuration/sub-asset-edit-make/' + assetType.id + '/' + make.id))"
                         src='assets/icons/edit.svg'
                         [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':'100%'}">
             </svg-icon>

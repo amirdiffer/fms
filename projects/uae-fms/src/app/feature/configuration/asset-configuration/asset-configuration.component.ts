@@ -298,78 +298,80 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
   }
 
   trims(trims: MakeModelTrim[]): void {
-    let typeId: number
-    let makeId: number
-    let modelId: number
-    const queryParamsSubscription = this.activatedRoute.queryParams.subscribe((queryParams: Params) => {
-      typeId = queryParams.type
-      makeId = queryParams.make
-      modelId = queryParams.model
-    })
-    this.assetConfigurationableSetting = {
-      columns: [
-        {
-          lable: 'tables.column.trim',
-          field: 'name',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
-          lable: 'tables.column.color',
-          field: 'color',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: 'trimColorRenderer'
-        },
-        {
-          lable: 'tables.column.status',
-          field: 'status',
-          width: 100,
-          type: 1,
-          thumbField: '',
-          renderer: ''
-        },
-        {
-          lable: '',
-          field: 'floatButton',
-          width: 0,
-          type: 1,
-          thumbField: '',
-          renderer: 'floatButton'
-        }
-      ],
-      data: [],
-      rowSettings: {}
-    };
-    const data = [];
-    trims ? trims.map((trim) => {
-          data.push({
-            name: trim.name,
-            color: trim.colors,
-            status: 'Available'
-          });
-          this.assetConfigurationableSetting.data = data;
-          this.assetConfigurationableSetting.rowSettings = {
-            onClick: (col, dataArg, button?) => {
-            },
-            floatButton: [
-              {
-                onClick: (col, colData) => {
-                  this.router.navigate([
-                    '/configuration/asset-configuration/edit-trim/' + typeId + '/' + makeId + '/' + modelId
-                  ]).then(_ => {
-                    queryParamsSubscription?.unsubscribe()
-                  });
-                },
-                button: 'edit'
-              }
-            ]
-          };
-        }) : null;
-    // queryParamsSubscription.unsubscribe()
+    if (this.activeTypeCategory == 'ASSET') {
+      let typeId: number
+      let makeId: number
+      let modelId: number
+      const queryParamsSubscription = this.activatedRoute.queryParams.subscribe((queryParams: Params) => {
+        typeId = queryParams.type
+        makeId = queryParams.make
+        modelId = queryParams.model
+      })
+      this.assetConfigurationableSetting = {
+        columns: [
+          {
+            lable: 'tables.column.trim',
+            field: 'name',
+            width: 100,
+            type: 1,
+            thumbField: '',
+            renderer: ''
+          },
+          {
+            lable: 'tables.column.color',
+            field: 'color',
+            width: 100,
+            type: 1,
+            thumbField: '',
+            renderer: 'trimColorRenderer'
+          },
+          {
+            lable: 'tables.column.status',
+            field: 'status',
+            width: 100,
+            type: 1,
+            thumbField: '',
+            renderer: ''
+          },
+          {
+            lable: '',
+            field: 'floatButton',
+            width: 0,
+            type: 1,
+            thumbField: '',
+            renderer: 'floatButton'
+          }
+        ],
+        data: [],
+        rowSettings: {}
+      };
+      const data = [];
+      trims ? trims.map((trim) => {
+        data.push({
+          name: trim.name,
+          color: trim.colors,
+          status: 'Available'
+        });
+        this.assetConfigurationableSetting.data = data;
+        this.assetConfigurationableSetting.rowSettings = {
+          onClick: (col, dataArg, button?) => {
+          },
+          floatButton: [
+            {
+              onClick: (col, colData) => {
+                this.router.navigate([
+                  '/configuration/asset-configuration/edit-trim/' + typeId + '/' + makeId + '/' + modelId
+                ]).then(_ => {
+                  queryParamsSubscription?.unsubscribe()
+                });
+              },
+              button: 'edit'
+            }
+          ]
+        };
+      }) : null;
+      // queryParamsSubscription.unsubscribe()
+    }
   }
 
   exportTable() {
