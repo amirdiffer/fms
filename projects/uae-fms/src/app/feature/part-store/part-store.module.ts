@@ -12,17 +12,17 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PartStoreStateModule } from './+state/part-store.state.module';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderFormComponent } from './order-list/order/order.component';
-import { PartListFormComponent } from './part-list/part-list-form.component';
 import { PartListComponent } from './part-list/part-list.component';
 import { PartMasterComponent } from './part-master/part-master.component';
 import { PartOverviewComponent } from './part-overview/part-overview.component';
 import { PartStoreRoutingModule } from './part-store-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SuppliersAddFormComponent } from './order-list/suppliers-add-form/suppliers-add-form.component';
-import { PartDetailListComponent } from './part-list/part-detail-list/part-detail-list.component';
 import { AddCategoryComponent } from './part-master/add-category/add-category.component';
 import { AddItemComponent } from './part-master/add-item/add-item.component';
 import { TableContentComponent } from './part-master/table-content/table-content.component';
+import {CarouselModule} from 'primeng/carousel';
+import { UpdateFormComponent } from './part-list/update-form/update-form.component';
 
 @NgModule({
   imports: [
@@ -38,21 +38,21 @@ import { TableContentComponent } from './part-master/table-content/table-content
     PartStoreRoutingModule,
     SharedModule,
     DashboardModule,
-    PartStoreStateModule
+    PartStoreStateModule,
+    CarouselModule
   ],
   declarations: [
     PartListComponent,
-    PartListFormComponent,
     OrderListComponent,
     PartMasterComponent,
     OrderFormComponent,
     OrderListComponent,
     PartOverviewComponent,
     SuppliersAddFormComponent,
-    PartDetailListComponent,
     AddCategoryComponent,
     AddItemComponent,
-    TableContentComponent
+    TableContentComponent,
+    UpdateFormComponent
   ]
 })
 export class PartStoreModule {}

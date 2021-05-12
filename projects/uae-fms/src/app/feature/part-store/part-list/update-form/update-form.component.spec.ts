@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PartDetailListComponent } from './part-detail-list.component';
+import { UpdateFormComponent } from './update-form.component';
 
-describe('PartDetailListComponent', () => {
-  let component: PartDetailListComponent;
-  let fixture: ComponentFixture<PartDetailListComponent>;
+describe('UpdateFormComponent', () => {
+  let component: UpdateFormComponent;
+  let fixture: ComponentFixture<UpdateFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PartDetailListComponent ]
+      declarations: [ UpdateFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PartDetailListComponent);
+    fixture = TestBed.createComponent(UpdateFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
