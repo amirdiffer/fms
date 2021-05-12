@@ -10,7 +10,7 @@
     </div>
     <div class="col-9 h-100">
       <div class="form-section">
-        <h3 class="form-section__title">{{ isEdit ? ('filter.edit_asset_type' | translate) : ('filter.add_asset_type' | translate) }}</h3>
+        <h3 class="form-section__title">{{ getAssetText() | translate }}</h3>
         <div class="row form-section__row">
           <div class="col-12 col-md-3 p-field form-section__field">
             <div class="autocomplete-select">

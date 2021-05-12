@@ -56,14 +56,14 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
 
   constructor(
     private facade: AssetTypeFacade,
-    private _subAssetTypeFacade : SubAssetTypeFacade,
-    private _accessoryTypeFacade : AccessoryTypeFacade,
+    private _subAssetTypeFacade: SubAssetTypeFacade,
+    private _accessoryTypeFacade: AccessoryTypeFacade,
     private router: Router,
     private dataService: DataService,
     private settingFacade: SettingsFacade,
     private location: Location,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
@@ -133,7 +133,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
             iAssetType.iconSvgClass = 'down-arrow';
           }
           this.openedAssetTypeArray.push(iAssetType)
-        } else  {
+        } else {
           iAssetType.isSelected = false
           iAssetType.iconSvgClass = 'right-arrow'
           this.openedAssetTypeArray.push(iAssetType)
@@ -162,7 +162,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
             this.activeCat.manufacturer = make.id;
             this.select.emit(this.activeCat);
             this.selectModel.emit(make.models);
-          } else  {
+          } else {
             iAssetTypeMake.isSelected = false
             iAssetTypeMake.iconSvgClass = 'right-arrow'
           }
@@ -172,7 +172,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   }
 
   onModelClick(model: ModelExtension, makeId: number, assetTypeId: number): void {
-    this.router.navigate([], {relativeTo: this.activatedRoute, queryParams: { model: model.id }, queryParamsHandling: 'merge'}).then()
+    this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { model: model.id }, queryParamsHandling: 'merge' }).then()
     this.openedAssetTypeArray.map((iAssetType) => {
       if (iAssetType.id === assetTypeId) {
         iAssetType.makes.map((iAssetTypeMake => {
@@ -200,10 +200,10 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     }
   }
 
-  changeType(type:string){
-    let assetTypeArray: AssetTypeExtension[]= []
-    if(type == 'ASSET' || type == 'SUB_ASSET'){
-      this.assetType$ =  (type == 'ASSET' ? this.facade.assetType$:this._subAssetTypeFacade.subAssetType$).pipe(
+  changeType(type: string) {
+    let assetTypeArray: AssetTypeExtension[] = []
+    if (type == 'ASSET' || type == 'SUB_ASSET') {
+      this.assetType$ = (type == 'ASSET' ? this.facade.assetType$ : this._subAssetTypeFacade.subAssetType$).pipe(
         map((response) => {
           assetTypeArray = []
           return response.map((obj) => {
@@ -233,7 +233,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
         })
       );
     }
-    if(type == 'ACCESSORY'){
+    if (type == 'ACCESSORY') {
       this.assetType$ = this._accessoryTypeFacade.accessoryType$.pipe(
         map((response) => {
           assetTypeArray = []
@@ -257,7 +257,13 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     this.assetType$.subscribe()
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
+
+  getAssetText() {
+    if (this.activeAssetType == "ASSET") return "configuration.asset_configuration.add_asset_type";
+    if (this.activeAssetType == "SUB_ASSET") return "configuration.asset_configuration.add_sub_asset_type";
+    if (this.activeAssetType == "ACCESSORY") return "configuration.asset_configuration.add_accessory_type";
+  }
 }
 
 export interface AssetTypeExtension extends IAssetType {

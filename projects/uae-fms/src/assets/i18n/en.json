@@ -1581,7 +1581,13 @@
       "accessory": "Accessory",
       "sub_asset": "Sub Asset",
       "asset": "Asset",
-      "type_category": "Type Category"
+      "type_category": "Type Category",
+      "add_asset_type": "Add Asset Type",
+      "add_sub_asset_type": "Add Sub Asset Type",
+      "add_accessory_type": "Add Accessory Type",
+      "edit_asset_type": "Edit Asset Type",
+      "edit_sub_asset_type": "Edit Sub Asset Type",
+      "edit_accessory_type": "Edit Accessory Type"
     },
     "business_category": {
       "business_category_info": "Usage Category Info",

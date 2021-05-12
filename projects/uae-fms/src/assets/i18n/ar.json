@@ -1534,7 +1534,13 @@
       "accessory": "الملحقات",
       "sub_asset": "أصل فرعي",
       "asset": "أصل",
-      "type_category": "اكتب الفئة"
+      "type_category": "اكتب الفئة",
+      "add_asset_type": "إضافة نوع الأصل",
+      "add_sub_asset_type": "إضافة نوع الأصول الفرعية",
+      "add_accessory_type": "أضف نوع الملحقات",
+      "edit_asset_type": "تحرير نوع الأصل",
+      "edit_sub_asset_type": "تحرير نوع الأصل الفرعي",
+      "edit_accessory_type": "تحرير نوع الملحقات"
     },
     "business_category": {
       "business_category_info": "معلومات فئة العمل",
