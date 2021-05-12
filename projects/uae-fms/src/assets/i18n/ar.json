@@ -136,7 +136,9 @@
     "company_setting": "إعداد الشركة",
     "permanent": "دائم",
     "technical_inspection_report": "تقرير الفحص الفني",
-    "job_card_overview":"نظرة عامة على البطاقة الوظيفية"
+    "job_card_overview":"نظرة عامة على البطاقة الوظيفية",
+    "edit_task_master":"تحرير المهمة الرئيسية",
+    "edit_location":"تحديد الوجهة"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -1232,7 +1234,8 @@
       "removal": "إزالة",
       "shop_type": "نوع المحل",
       "body_shop": "محل لبيع مواد التجميل",
-      "service_shop": "متجر الخدمة"
+      "service_shop": "متجر الخدمة",
+      "cleaning":"تنظيف"
     },
     "service_shop": {}
   },

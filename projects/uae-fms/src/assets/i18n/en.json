@@ -139,7 +139,9 @@
     "company_setting": "Company Setting",
     "permanent": "Permanent",
     "technical_inspection_report": "Technical Inspection Report",
-    "job_card_overview": "Job Card Overview"
+    "job_card_overview": "Job Card Overview",
+    "edit_task_master":"Edit Task Master",
+    "edit_location":"Edit Location"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -1279,7 +1281,8 @@
       "removal": "Removal",
       "shop_type": "Shop Type",
       "body_shop": "Body Shop",
-      "service_shop": "Service Shop"
+      "service_shop": "Service Shop",
+      "cleaning":"Cleaning"
     },
     "service_shop": {}
   },
