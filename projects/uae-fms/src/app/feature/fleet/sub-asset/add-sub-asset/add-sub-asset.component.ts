@@ -2,7 +2,7 @@ import { Component, OnInit, Injector } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { SubAssetTypeService, SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
-import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
+import { AssetPolicyFacade,SubAssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
 import { SubAssetService, SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { ColumnDifinition, TableSetting } from '@core/table';
@@ -145,6 +145,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     private subAssetService: SubAssetService,
     private subAssetTypeFacade: SubAssetTypeFacade,
     private assetPolicyFacade: AssetPolicyFacade,
+    private subAssetPolicyFacade: SubAssetPolicyFacade,
   ) {
     super(injector);
   }
@@ -343,10 +344,11 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
 
   initPolicyTypes() {
-    this.assetPolicyFacade.assetPolicy$.subscribe(
+    this.subAssetPolicyFacade.loadAll();
+    this.subAssetPolicyFacade.subAssetPolicy$.subscribe(
       (result) => {
         if (result) {
-          this.policyTypes = result.map((policyType) => ({
+          this.policyTypes = result.map((policyType:any) => ({
             id: policyType.id,
             name: policyType.name
           }));
