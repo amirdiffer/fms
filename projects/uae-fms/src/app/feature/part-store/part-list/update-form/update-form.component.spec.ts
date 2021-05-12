@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PartReceiveFormComponent } from './part-receive-form.component';
+import { UpdateFormComponent } from './update-form.component';
 
-describe('PartReceiveFormComponent', () => {
-  let component: PartReceiveFormComponent;
-  let fixture: ComponentFixture<PartReceiveFormComponent>;
+describe('UpdateFormComponent', () => {
+  let component: UpdateFormComponent;
+  let fixture: ComponentFixture<UpdateFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PartReceiveFormComponent ]
+      declarations: [ UpdateFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PartReceiveFormComponent);
+    fixture = TestBed.createComponent(UpdateFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

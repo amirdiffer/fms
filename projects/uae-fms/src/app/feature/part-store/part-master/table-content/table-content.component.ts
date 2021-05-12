@@ -46,21 +46,21 @@ export class TableContentComponent implements OnInit {
         thumbField: '',
         renderer: ''
       },
-      {
-        lable: 'tables.column.quantity',
-        field: 'quantity',
-        type: 1,
-        thumbField: '',
-        renderer: ''
-      },
-      {
-        lable: 'tables.column.status',
-        field: 'status',
-        type: 1,
-        thumbField: '',
-        renderer: '',
-        textColor: '#8088CC'
-      },
+      // {
+      //   lable: 'tables.column.quantity',
+      //   field: 'quantity',
+      //   type: 1,
+      //   thumbField: '',
+      //   renderer: ''
+      // },
+      // {
+      //   lable: 'tables.column.status',
+      //   field: 'status',
+      //   type: 1,
+      //   thumbField: '',
+      //   renderer: '',
+      //   textColor: '#8088CC'
+      // },
       {
         lable: '',
         field: 'floatButton',
@@ -115,13 +115,12 @@ export class TableContentComponent implements OnInit {
         result => {
           return result.map(
             item =>{
+              console.log(item)
               return {
                 id:item.id,
                 thumbText:item.name,
                 make: item.makeName,
                 model: item.modelName,
-                quantity:1,
-                status:'Available',
                 thumbImage:'assets/thumb.png'
               }
             }

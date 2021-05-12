@@ -55,6 +55,7 @@ export class PartListEffect {
       mergeMap((action) =>
         this.service.getPartListOfAsset(action.id).pipe(
           map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'part-list-item');
             return PartListActions.partListOfAssetLoaded({ data: data.message });
           }),
           catchError((error) => of(PartListActions.errorAssetPart({ reason: error })))
@@ -68,6 +69,7 @@ export class PartListEffect {
       mergeMap((action) =>
         this.service.getPartListOfSubAsset(action.id).pipe(
           map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'part-list-item');
             return PartListActions.partListOfSubAssetLoaded({ data: data.message });
           }),
           catchError((error) => of(PartListActions.errorSubAssetPart({ reason: error })))
@@ -107,6 +109,34 @@ export class PartListEffect {
     )
   );
 
+/* Get Statistics Part of Asset an Sub Asset */
+  getStatisticsPartOfAsset$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PartListActions.getStatisticPartListOfAsset),
+      mergeMap((action) =>
+        this.service.getStatisticsPartOfAsset(action.id).pipe(
+          map((data) => {
+            return PartListActions.statisticPartListOfAssetLoaded({ data: data.message });
+          }),
+          catchError((error) => of(PartListActions.errorAssetPart({ reason: error })))
+        )
+      )
+    )
+  );
+
+  getStatisticsPartOfSubAsset$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PartListActions.getSpecificPartOfSubAsset),
+      mergeMap((action) =>
+        this.service.getStatisticsPartOfSubAsset(action.id).pipe(
+          map((data) => {
+            return PartListActions.statisticPartListOfSubAssetLoaded({ data: data.message });
+          }),
+          catchError((error) => of(PartListActions.errorSubAssetPart({ reason: error })))
+        )
+      )
+    )
+  );
 
   /* Update Part of Asset an Sub Asset */
   updatePartOfAsset$ = createEffect(() =>

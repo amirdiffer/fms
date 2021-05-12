@@ -1,36 +1,15 @@
+@import '../../../../assets/scss/form-section.scss';
+
 .part-overview {
   margin-top: 16px;
   padding-bottom: 25px;
-  &__images {
-    .parallax-slider {
-      transition: opacity 0.4s ease-in;
-      -webkit-transition: opacity 0.4s ease-in;
-      -moz-transition: opacity 0.4s ease-in;
-      -ms-transition: opacity 0.4s ease-in;
-      -o-transition: opacity 0.4s ease-in;
-      opacity: 1;
-    }
-    .transitioning-src {
-      transition: opacity 0.4s ease-out;
-      -webkit-transition: opacity 0.4s ease-out;
-      -moz-transition: opacity 0.4s ease-out;
-      -ms-transition: opacity 0.4s ease-out;
-      -o-transition: opacity 0.4s ease-out;
-      opacity: 0;
-    }
-
-    .selected-image {
-      img {
-        width: 100%;
-        border-radius: 5px;
-      }
-    }
 
     ul {
       list-style: none;
       display: flex;
       margin: 15px 0 0;
       padding: 0;
+      font-family:'29LT Bukra - Bold';
 
       li {
         padding-right: 15px;
@@ -46,65 +25,58 @@
         max-width: 100%;
       }
     }
-  }
 
   &__title {
     color: #0da06e;
-    font-size: 20px;
+    font-size: 1.5em;
   }
 
   &__info {
     th {
+      font-family:'29LT Bukra - Bold';
       width: 15em;
       color: #707070;
     }
 
     td {
-      color: #005844;
+      font-family:'29LT Bukra - Bold';
+      color: #0DA06E;
     }
     td,
     th {
       padding: 10px;
-      font-size: 15px;
-    }
-  }
-
-  .component_wrapper {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    position: relative;
-    font-size: 16px;
-
-    //.btn-download {
-    //  position: absolute;
-    //  right: 16px;
-    //  top: 20px;
-    //  height: 45px;
-    //  width: 45px;
-    //  border: 2px solid #a2a2a2;
-    //  margin: 0 5px;
-    //  border-radius: 4px;
-    //  background: #ffff;
-    //  a {
-    //    background: url('../../../../assets/icons/download-solid.svg');
-    //    position: absolute;
-    //    height: 100%;
-    //    width: 100%;
-    //    background-repeat: no-repeat;
-    //    top: 5px;
-    //    left: 6px;
-    //  }
-    //}
-    .btn-download {
-      height: 40px !important;
-      width: 40px !important;
-      position: relative;
-      bottom: 1px;
+      font-size: 1em;
     }
   }
 }
-
+.component_wrapper{
+  margin: 10px 0 10px;
+}
+.card-table-header{
+  flex: 0 0 auto;
+}
+hr.line{
+  margin: 10px -30px;
+}
 .overview-container {
   padding: 10px;
+}
+p-carousel{
+  ::ng-deep{
+    li.p-carousel-indicator.p-highlight {
+      button{
+        background-color:#008755 !important;
+      }
+    }
+  }
+  .image-item{
+    height: 100%;
+    .image-item-content{
+      height: 100%;
+      & > div {
+        height: 100%;
+      }
+    }
+
+  }
 }

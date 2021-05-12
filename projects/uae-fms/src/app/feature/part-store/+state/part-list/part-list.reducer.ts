@@ -38,6 +38,20 @@ const assetPartListReducer = createReducer(
     listPartForSpecificItem: data
   })),
 
+  on(PartListActions.getStatisticPartListOfAsset, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null
+  })),
+
+  on(PartListActions.statisticPartListOfAssetLoaded, (state, { data }) => ({
+    ...state,
+    loaded: true,
+    error: null,
+    statistics: data
+  })),
+
   on(PartListActions.updatePartOfAsset, (state, { data }) => ({
     ...state,
     error: null,
@@ -118,6 +132,21 @@ const subAssetPartListReducer = createReducer(
     loaded: true,
     error: null,
     listPartForSpecificItem: data
+  })),
+  
+
+  on(PartListActions.getStatisticPartListOfSubAsset, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null
+  })),
+
+  on(PartListActions.statisticPartListOfSubAssetLoaded, (state, { data }) => ({
+    ...state,
+    loaded: true,
+    error: null,
+    statistics: data
   })),
 
   on(PartListActions.updatePartOfSubAsset, (state, { data }) => ({

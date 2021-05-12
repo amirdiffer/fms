@@ -18,13 +18,24 @@
             <ng-container [formGroupName]="i" >
                 <div class="col-10">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="p-field form-section__field">
                                 <span class="p-float-label">
                                     <input pInputText placeholder="{{'part_store.part_master.item_name' | translate}} *" type="text" formControlName="itemName">
                                     <label>{{ 'part_store.part_master.item_name' | translate}} *</label>
                                 </span>
                                 <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'itemName')"
+                                    error="forms.feedback.required">
+                                </anms-error>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-field form-section__field">
+                                <span class="p-float-label">
+                                    <input pInputText numbersOnly placeholder="{{'part_store.part_master.threshold' | translate}} *" type="text" formControlName="threshold">
+                                    <label>{{ 'part_store.part_master.threshold' | translate}} *</label>
+                                </span>
+                                <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'threshold')"
                                     error="forms.feedback.required">
                                 </anms-error>
                             </div>
@@ -114,7 +125,7 @@
                     </div>
                 </div>
                 <div class="col-12 mt-4 pb-4">
-                    <anms-uploader class="drag-and-drop-form" [isImage]="true" [iconIsHidden]="true"[multiple]="false" [preview]="true" (uploadedEvent)="uploadFile($event)"></anms-uploader>
+                    <anms-uploader class="drag-and-drop-form" [files]="documentFile" [isImage]="true" [iconIsHidden]="true"[multiple]="true" [preview]="true" (uploadedEvent)="uploadFile($event)"></anms-uploader>
                 </div>
             </ng-container>
             <hr *ngIf="!last" class="line">

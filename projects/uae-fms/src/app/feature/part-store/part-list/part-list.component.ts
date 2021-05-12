@@ -20,7 +20,6 @@ export class PartListComponent implements OnInit {
   selectedTab='assetPartTab';
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-
   assetType$:Observable<any>;
   subAssetType$:Observable<any>;
   assetPartCategory$:Observable<any>;
@@ -30,36 +29,65 @@ export class PartListComponent implements OnInit {
   subAssetTypeSelected;
   assetCategorySelected;
   subAssetCategorySelected;
-
   assetCategorySelectedId:number;
   subAssetCategorySelectedId:number;
-  
-  filterCard: FilterCardSetting[] = [
+
+
+  filterCardAsset: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
-      filterCount: '2456',
+      filterCount: '0',
       filterTagColor: '#42D0D9',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.available',
-      filterCount: '2456',
+      filterCount: '0',
       filterTagColor: '#20E19D',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.need_to_order',
-      filterCount: '2456',
+      filterCount: '0',
       filterTagColor: '#F2B06E',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.unavailable',
-      filterCount: '2456',
+      filterCount: '0',
       filterTagColor: '#AAAAAA',
       onActive(index: number) {}
     }
   ];
+
+  filterCardSubAsset: FilterCardSetting[] = [
+    {
+      filterTitle: 'statistic.total',
+      filterCount: '0',
+      filterTagColor: '#42D0D9',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'statistic.available',
+      filterCount: '0',
+      filterTagColor: '#20E19D',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'statistic.need_to_order',
+      filterCount: '0',
+      filterTagColor: '#F2B06E',
+      onActive(index: number) {}
+    },
+    {
+      filterTitle: 'statistic.unavailable',
+      filterCount: '0',
+      filterTagColor: '#AAAAAA',
+      onActive(index: number) {}
+    }
+  ];
+
+
   tableAssetPartData$:Observable<any>
   tableSubAssetPartData$:Observable<any>
 
@@ -116,8 +144,7 @@ export class PartListComponent implements OnInit {
         {
           button: 'external',
           onClick: (col, data, button?) => {
-            this._router.navigate(['overview/' + data.id], {
-              relativeTo: this.route,
+            this._router.navigate(['part-store/part-list/' + data.id], {
               queryParams: { fleetType: data.fleetType.toLowerCase()}
             });
           },
@@ -143,11 +170,48 @@ export class PartListComponent implements OnInit {
     this.tableSubAssetPart = Object.create(this.partListDetaisTable);
     this._fleetConfigurationAsset.loadAll()
     this._fleetConfigurationSubAsset.loadAll()
-
-    this._facadePartList.assetAccumulatedPartList$.subscribe(x=>{
-      console.log(x)
+    this._facadePartList.statisticsAssetPart$.subscribe(x => {
+      if(x){
+        this.filterCardAsset.map(y=>{
+          switch (y.filterTitle) {
+            case 'statistic.total':
+                y.filterCount = x.total
+              break;
+            case 'statistic.available':
+              y.filterCount = x.available
+              break;
+            case 'statistic.need_to_order':
+              y.filterCount = x.needToOrder
+              break;
+            case 'statistic.unavailable':
+              y.filterCount = x.unavailable
+              break;
+          }
+          
+        })
+      }
     })
-
+    this._facadePartList.statisticsSubAssetPart$.subscribe(x => {
+      if(x){
+        this.filterCardSubAsset.map(y=>{
+          switch (y.filterTitle) {
+            case 'statistic.total':
+                y.filterCount = x.total
+              break;
+            case 'statistic.available':
+              y.filterCount = x.available
+              break;
+            case 'statistic.need_to_order':
+              y.filterCount = x.needToOrder
+              break;
+            case 'statistic.unavailable':
+              y.filterCount = x.unavailable
+              break;
+          }
+          
+        })
+      }
+    })
     /* Load Table Data */
     this.tableAssetPartData$ = this._facadePartList.assetAccumulatedPartList$.pipe(
       map(x=>{
@@ -242,7 +306,6 @@ export class PartListComponent implements OnInit {
 
     this.assetPartCategory$ = this._facadePartMaster.partMasterAssetCategory$.pipe(
       map(x=>{
-        console.log(x)
         if(x){
           return x.map(
             (assetPart , i )=>{
@@ -271,24 +334,8 @@ export class PartListComponent implements OnInit {
         }
       })
     );
-    // this.assetPartCategory$ = this._facadePartMaster.
-    //   console.log(x)
-    // })
-    if (typeof this._activatedRoute.snapshot.params.id != 'undefined') {
-      this.partList = false;
-      this.filterCard.unshift({
-        filterTitle: 'statistic.this_month',
-        filterCount: '',
-        filterTagColor: '',
-        isCalendar: true,
-        onActive(index: number) {}
-      });
-    }
   }
 
-  filterAction(){
-    this._service.recieveAnOrder().subscribe(x=>{console.log(x)})
-  }
 
   exportTable() {
     let filter = {
@@ -313,23 +360,21 @@ export class PartListComponent implements OnInit {
   }
 
   assetTypeChanges(event){
-    console.log(event)
-    this._facadePartMaster.loadAllCategoryOfAsset(event)
+    this._facadePartMaster.loadAllCategoryOfAsset(event);
+    this._facadePartList.loadStatisticsPartOfAsset(event)
   }
 
   assetCategoryChanges(event){
-    console.log(event)
     this._facadePartList.loadAllAccumulatedAssetPartList(event)
     this._facadePartList.loadAllAssetPartList(event);
     this.assetCategorySelectedId = event;
   }
 
   subAssetTypeChanges(event){
-    console.log(event)
-    this._facadePartMaster.loadAllCategoryOfSubAsset(event)
+    this._facadePartMaster.loadAllCategoryOfSubAsset(event);
+    this._facadePartList.loadStatisticsPartOfSubAsset(event)
   }
   subAssetCategoryChanges(event){
-    console.log(event)
     this._facadePartList.loadAllSubAssetPartList(event)
     this._facadePartList.loadAllAccumulatedSubAssetPartList(event);
     this.subAssetCategorySelectedId = event;

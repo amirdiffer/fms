@@ -19,6 +19,10 @@ export class PartListFacade {
 
   specificSubAssetPart$ = this.store.pipe(select(PartListSelectors.specificSubAssetPart));
 
+  statisticsAssetPart$ = this.store.pipe(select(PartListSelectors.statisticsAssetPart));
+
+  statisticsSubAssetPart$ = this.store.pipe(select(PartListSelectors.statisticsSubAssetPart));
+
   updatedAssetPart$ = this.store.pipe(select(PartListSelectors.updatedAssetPart));
 
   updatedSubAssetPart$ = this.store.pipe(select(PartListSelectors.updatedSubAssetPart));
@@ -59,6 +63,14 @@ export class PartListFacade {
   };
 
   loadSpecificPartOfSubAsset(id:number){
+    this.store.dispatch(PartListActions.getSpecificPartOfSubAsset({id}));
+  };
+
+  loadStatisticsPartOfAsset(id:number){
+    this.store.dispatch(PartListActions.getStatisticPartListOfAsset({id}));
+  };
+
+  loadStatisticsPartOfSubAsset(id:number){
     this.store.dispatch(PartListActions.getSpecificPartOfSubAsset({id}));
   };
 

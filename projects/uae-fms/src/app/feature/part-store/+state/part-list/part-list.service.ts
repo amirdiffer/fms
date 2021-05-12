@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 import { TableFacade } from '@core/table/+state/table.facade';
 import { ResponseBody } from '@models/responseBody';
+import { IPartListStatistics } from '@models/statistics';
 
 @Injectable()
 export class PartListService {
@@ -33,13 +34,13 @@ export class PartListService {
 
   getPartListOfAsset(id): Observable<ResponseBody<any>>{
     return this._http.get<ResponseBody<any[]>>(
-      environment.baseApiUrl + 'partstore/part-list/asset/item/' + id
+      environment.baseApiUrl + 'partstore/part-list/asset/item/' + id , {params: this.getParam('part-list-item')}
     )
   };
 
   getSpecificPartOfAsset(id):Observable<ResponseBody<any>>{
     return this._http.get<ResponseBody<any>>(
-      environment.baseApiUrl + 'partstore/part-list/asset/part/' + id
+      environment.baseApiUrl + 'partstore/part-list/asset/part/' + id 
     )
   };
 
@@ -61,7 +62,7 @@ export class PartListService {
 
   getPartListOfSubAsset(id): Observable<ResponseBody<any>>{
     return this._http.get<ResponseBody<any[]>>(
-      environment.baseApiUrl + 'partstore/part-list/sub-asset/item/' + id
+      environment.baseApiUrl + 'partstore/part-list/sub-asset/item/' + id , {params: this.getParam('part-list-item')}
     )
   };
 
@@ -78,51 +79,16 @@ export class PartListService {
     );
   };
 
-
-  addSupplier(): Observable<ResponseBody<any>> {
-    let data = {
-      companyName: "Coreon",
-      address: "Dibord street",
-      agentName: "Sara Fathi",
-      agentPhoneNumber: "92387623",
-      agentEmail: "example@exampple.com"
-    }
-    return this._http.post<ResponseBody<any>>(
-      environment.baseApiUrl + 'partstore/supplier',
-      data
-    );
+  getStatisticsPartOfAsset(id):Observable<ResponseBody<IPartListStatistics>>{
+    return this._http.get<ResponseBody<IPartListStatistics>>(
+      environment.baseApiUrl + 'partstore/part-list/asset/category/'+id+'/stats'
+    )
   };
 
-  orderList(): Observable<ResponseBody<any>> {
-    let data = {
-      itemId: 10,
-      supplierId: 1,
-      price: 1000,
-      quantity: 10,
-      description: "123",
-      hasReminder: false
-  }
-    return this._http.post<ResponseBody<any>>(
-      environment.baseApiUrl + 'partstore/order-list/asset/order',
-      data
-    );
-  };
-
-  recieveAnOrder(): Observable<ResponseBody<any>> {
-    let data = {
-      warrantyExpireDate: "2024-01-11T07:18:38.111Z",
-      quantity: 7,
-      price: 11,
-      description: "123",
-      room: "R1",
-      aisle: "A1",
-      shelf: "S1",
-      box: "B1"
-    }
-    return this._http.post<ResponseBody<any>>(
-      environment.baseApiUrl + '/partstore/order-list/asset/order/5/receive',
-      data
-    );
+  getStatisticsPartOfSubAsset(id):Observable<ResponseBody<IPartListStatistics>>{
+    return this._http.get<ResponseBody<IPartListStatistics>>(
+      environment.baseApiUrl + 'partstore/part-list/sub-asset/category/'+id+'/stats'
+    )
   };
 
 }

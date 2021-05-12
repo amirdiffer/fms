@@ -334,6 +334,8 @@
       "section": "القسم",
       "location": "الموقع",
       "tf_payed": "TF دفع",
+      "room":"غرفة",
+      "price":"السعر",
       "duration": "المدة",
       "start_date": "تاريخ البداية",
       "department": "الإدارة",
@@ -946,7 +948,8 @@
       "room": "غرفة",
       "aisle": "جناح",
       "shelf": "رفوف",
-      "box": "صندوق"
+      "box": "صندوق",
+      "warranty_start_date":"تاريخ بدء الضمان"
     },
     "order_list": {
       "request_list": "قائمة الطلبات",
@@ -974,6 +977,7 @@
       "category_name": "اسم التصنيف",
       "item_name": "اسم العنصر",
       "filter_and_fuel_pump": "مرشح ، مضخة الوقود",
+      "threshold":"عتبة",
       "upload_form": {
         "title": "",
         "progressbar_title": ".pdf",
@@ -1630,6 +1634,7 @@
     "recived": "الواردة",
     "assign": "تعيين",
     "upload": "تحميل",
+    "update":"تحديث",
     "generate": "إنشاء",
     "feedback": {
       "required": "هذا الحقل مطلوب",

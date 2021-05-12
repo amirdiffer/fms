@@ -43,6 +43,7 @@ export class AddCategoryComponent extends Utility implements OnInit , OnDestroy 
               injector: Injector) { 
                 super(injector);
                 this._partMasterFacade.resetCategory();
+                this._partMasterFacade.resetItem();
                }
 
   ngOnInit(): void {
@@ -75,7 +76,7 @@ export class AddCategoryComponent extends Utility implements OnInit , OnDestroy 
 
     this.form = this._fb.group({
       categoryName:['',[Validators.required]],
-      shortCode:['']
+      shortCode:['',[Validators.required]]
     })
     this.dialogSetting = {
       header: 'Add new category',
@@ -90,6 +91,9 @@ export class AddCategoryComponent extends Utility implements OnInit , OnDestroy 
     this.dialogOption = dialogOption.cancel;
     this.dialogSetting.message = 'Are you sure?',
     this.dialogSetting.isWarning = true,
+    this.dialogSetting.hasError = false,
+    this.dialogSetting.confirmButton= 'Yes',
+    this.dialogSetting.cancelButton= 'No',
     this.dialogModal = true;
   }
   submit(){

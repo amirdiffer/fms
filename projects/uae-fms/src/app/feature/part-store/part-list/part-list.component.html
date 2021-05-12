@@ -1,5 +1,8 @@
-<div class="statistic-card">
-  <app-filter [setting]='filterCard'></app-filter>
+<div class="statistic-card" *ngIf="selectedTab == 'assetPartTab'">
+  <app-filter [setting]='filterCardAsset'></app-filter>
+</div>
+<div class="statistic-card" *ngIf="selectedTab == 'subAssetPartTab'">
+  <app-filter [setting]='filterCardSubAsset'></app-filter>
 </div>
 <div class="table-container component_wrapper">
   <div class="pt-1">
@@ -47,7 +50,7 @@
               </p-dropdown>
             </span>
           </ng-container>
-          <button class="btn-filter text-center" (click)="filterAction()">
+          <button class="btn-filter text-center">
             <img src='assets/icons/filter.png' class="filter-button">
           </button>
             <div class="search-box">

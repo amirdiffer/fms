@@ -47,7 +47,6 @@ export class PartMasterComponent implements OnInit , OnDestroy {
               private _fleetConfigurationSubAssetTypeFacade: SubAssetTypeFacade) {}
 
   ngOnInit(): void {
-    console.log(this.selectedSubCategoryType)
     this._fleetConfigurationAssetTypeFacade.loadAll();
     this._fleetConfigurationSubAssetTypeFacade.loadAll();
 

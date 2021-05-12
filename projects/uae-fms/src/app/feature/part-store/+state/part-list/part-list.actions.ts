@@ -1,3 +1,4 @@
+import { IPartListStatistics } from '@models/statistics';
 import { createAction, props } from '@ngrx/store';
 
 export class PartListActions {
@@ -22,6 +23,16 @@ export class PartListActions {
     static partListOfAssetLoaded = createAction(
         '[assetPartList] all part of asset are loaded',
         props<{ data: any[] }>()
+    );
+
+    static getStatisticPartListOfAsset = createAction(
+        '[assetPartList] load all statistics for part of asset',
+        props<{ id: number }>()
+    );
+
+    static statisticPartListOfAssetLoaded = createAction(
+        '[assetPartList] all statistics for part of asset are loaded',
+        props<{ data: IPartListStatistics; }>()
     );
 
     static updatePartOfAsset = createAction(
@@ -66,6 +77,16 @@ export class PartListActions {
     static partListOfSubAssetLoaded = createAction(
         '[subAssetPartList] all part of sub asset are loaded',
         props<{ data: any[] }>()
+    );
+
+    static getStatisticPartListOfSubAsset = createAction(
+        '[assetPartList] load all statistics for part of sub asset',
+        props<{ id: number }>()
+    );
+
+    static statisticPartListOfSubAssetLoaded = createAction(
+        '[assetPartList] all statistics for part of sub asset are loaded',
+        props<{ data: IPartListStatistics }>()
     );
 
     static updatePartOfSubAsset = createAction(

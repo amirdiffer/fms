@@ -21,7 +21,8 @@ import { SuppliersAddFormComponent } from './order-list/suppliers-add-form/suppl
 import { AddCategoryComponent } from './part-master/add-category/add-category.component';
 import { AddItemComponent } from './part-master/add-item/add-item.component';
 import { TableContentComponent } from './part-master/table-content/table-content.component';
-import { PartReceiveFormComponent } from './part-receive-form/part-receive-form.component';
+import {CarouselModule} from 'primeng/carousel';
+import { UpdateFormComponent } from './part-list/update-form/update-form.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { PartReceiveFormComponent } from './part-receive-form/part-receive-form.
     PartStoreRoutingModule,
     SharedModule,
     DashboardModule,
-    PartStoreStateModule
+    PartStoreStateModule,
+    CarouselModule
   ],
   declarations: [
     PartListComponent,
@@ -50,7 +52,7 @@ import { PartReceiveFormComponent } from './part-receive-form/part-receive-form.
     AddCategoryComponent,
     AddItemComponent,
     TableContentComponent,
-    PartReceiveFormComponent
+    UpdateFormComponent
   ]
 })
 export class PartStoreModule {}

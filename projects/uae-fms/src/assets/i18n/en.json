@@ -388,6 +388,8 @@
       "start_date": "Start Date",
       "department": "Department",
       "fine": "Fine",
+      "room":"Room",
+      "price":"Price",
       "reason": "Reason",
       "user": "User",
       "movement_type": "Movement Type",
@@ -994,6 +996,7 @@
       "room": "Room",
       "aisle": "Aisle",
       "shelf": "Shelf",
+      "warranty_start_date":"Warranty Start Date",
       "box": "Box",
       "form": {
         "new_order": "New Order",
@@ -1035,6 +1038,7 @@
       "category_name": "Category Name",
       "item_name": "Item Name",
       "filter_and_fuel_pump": "Filter, fuel pump",
+      "threshold":"Threshold",
       "upload_form": {
         "title": "",
         "progressbar_title": ".pdf",
@@ -1695,6 +1699,7 @@
     "recived": "Recived",
     "assign": "Assign",
     "upload": "Upload",
+    "update":"Update",
     "generate": "Generate",
     "feedback": {
       "required": "This is Field Required",

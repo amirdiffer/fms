@@ -45,6 +45,16 @@ export class PartListSelectors {
     (state) => state.specificPart
   );
 
+  static statisticsAssetPart = createSelector(
+    PartStoreSelectors.assetPartList,
+    (state) => state.statistics
+  );
+
+  static statisticsSubAssetPart = createSelector(
+    PartStoreSelectors.subAssetPartList,
+    (state) => state.statistics
+  );
+
   static updatedAssetPart = createSelector(
     PartStoreSelectors.assetPartList,
     (state) => state.updated

@@ -9,11 +9,12 @@ import { SuppliersAddFormComponent } from './order-list/suppliers-add-form/suppl
 import { AddCategoryComponent } from './part-master/add-category/add-category.component';
 import { AddItemComponent } from './part-master/add-item/add-item.component';
 import { TableContentComponent } from './part-master/table-content/table-content.component';
-import { PartReceiveFormComponent } from './part-receive-form/part-receive-form.component';
+import { UpdateFormComponent } from './part-list/update-form/update-form.component';
 const routes: Routes = [
   { path: 'part-list', component: PartListComponent },
-  { path: 'part-list/overview/:id', component: PartOverviewComponent },
-  { path: 'part-list/update-part/:id', component: PartReceiveFormComponent },
+  { path: 'part-list/:id', component: PartOverviewComponent , children:[
+    { path: 'update/:id', component: UpdateFormComponent },
+  ]},
   { path: 'part-master', component: PartMasterComponent,
     children:[
       {path:'' , component:TableContentComponent},

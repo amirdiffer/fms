@@ -49,7 +49,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
 
 
   getCategoryDataSubscription$:Subscription;
-
+  documentFile = [];
 
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
@@ -105,13 +105,17 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     this._partMasterFacade.specificItem$.subscribe(
       x => {
         if(x){
+          console.log(x)
           this.itemInfo.controls.map(formGroup => {formGroup.patchValue({
             itemName: x.name,
             trim:x.trimId ? {id:x.trimId}: null,
             model:x.modelId ? x.modelId : null,
+            threshold: x.needToOrderThreshold,
             color:x.trimColorId ? x.trimColorId : null,
-            uploadFile: x.documentId
+            uploadFile: {files:x.documentIds}
           })});
+          this.documentFile = x.documentIds;
+          console.log(this.documentFile)
           for (let index = 0; index < x.suppliers.length; index++) {
             this.supplier(0).controls[index].patchValue({
               supplier:x.suppliers[index].id
@@ -141,6 +145,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
       trim:['',[Validators.required]],
       model:['',[Validators.required]],
       color:[null],
+      threshold:['',[Validators.required]],
       suppliers:new FormArray([this.createSupplierFormArray()]),
       uploadFile:[null]
     });
@@ -247,6 +252,9 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     this.dialogOption = dialogOption.cancel;
     this.dialogSetting.message = 'Are you sure?',
     this.dialogSetting.isWarning = true,
+    this.dialogSetting.hasError = false,
+    this.dialogSetting.confirmButton= 'Yes',
+    this.dialogSetting.cancelButton= 'No',
     this.dialogModal = true
   }
 
@@ -264,10 +272,11 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
         name: formValue.itemInfo[0].itemName,
         trimId: formValue.itemInfo[0].trim.id,
         trimColorId: formValue.itemInfo[0].color,
-        needToOrderThreshold: 10,
+        needToOrderThreshold: +formValue.itemInfo[0].threshold,
         supplierIds:formValue.itemInfo[0].suppliers.map(supplier => { return supplier.supplier}) ,
-        documentId: formValue.itemInfo[0].uploadFile
+        documentIds: formValue.itemInfo[0].uploadFile.files
       };
+      console.log(data)
       if(this.isEdit){
         let editData = {...data, id:this.id}
         this._partMasterFacade.updateItemOfAsset(editData);
@@ -280,9 +289,9 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
         categoryId: this.categoryData.categoryId,
         name: formValue.itemInfo[0].itemName,
         modelId: formValue.itemInfo[0].model,
-        needToOrderThreshold: 10,
+        needToOrderThreshold: +formValue.itemInfo[0].threshold,
         supplierIds:formValue.itemInfo[0].suppliers.map(supplier => { return supplier.supplier}) ,
-        documentId: formValue.itemInfo[0].uploadFile
+        documentIds: formValue.itemInfo[0].uploadFile.files
       };
       if(this.isEdit){
         let editData = {...data, id:this.id}
@@ -294,7 +303,8 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
   }
 
   uploadFile(event){
-    this.itemInfo.controls.map(formGroup => {formGroup.get('uploadFile').patchValue(event[0])})
+    event
+    this.itemInfo.controls.map(formGroup => {formGroup.get('uploadFile').patchValue(event)})
   }
 
   errorHandele(facade){
@@ -312,6 +322,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     facade.errorItem$.subscribe((x) => {
       if (x?.error) {
         this.dialogModal = true;
+        this.dialogOption == dialogOption.error 
         this.dialogSetting.header = this.isEdit ? 'Edit Category' : 'Add new Category';
         this.dialogSetting.hasError = true;
         this.dialogSetting.message = 'Error occurred in progress';
