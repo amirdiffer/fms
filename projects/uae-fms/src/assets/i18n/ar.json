@@ -138,7 +138,9 @@
     "technical_inspection_report": "تقرير الفحص الفني",
     "job_card_overview":"نظرة عامة على البطاقة الوظيفية",
     "edit_task_master":"تحرير المهمة الرئيسية",
-    "edit_location":"تحديد الوجهة"
+    "edit_location":"تحديد الوجهة",
+    "edit_trim":"تحریر التریم",
+    "edit_make":"تحریر الماركة"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -1543,7 +1545,9 @@
       "add_accessory_type": "أضف نوع الملحقات",
       "edit_asset_type": "تحرير نوع الأصل",
       "edit_sub_asset_type": "تحرير نوع الأصل الفرعي",
-      "edit_accessory_type": "تحرير نوع الملحقات"
+      "edit_accessory_type": "تحرير نوع الملحقات",
+      "edit_trim_for":"تحرير التریم",
+      "add_trim_for":"تحرير التریم"
     },
     "business_category": {
       "business_category_info": "معلومات فئة العمل",
