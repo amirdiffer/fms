@@ -76,7 +76,7 @@
                             error="forms.feedback.required">
                           </anms-error>
                         </div>
-                       
+
 
                         <div class="col-12 col-md-3 p-field form-section__field options-select">
                           <span class="p-float-label">
@@ -353,7 +353,7 @@
                                         </div>
                                         <div class="col-12 col-md-3 pl-0 p-field form-section__field options-select">
                                           <span class="p-float-label">
-                                            <input pInputText numbersOnly [placeholder]="'assets.duration' | translate" (ngModelChange)="selectWarrantyDate()" formControlName="duration"  type="text">
+                                            <input pInputText numbersOnly [placeholder]="'assets.duration' | translate" (ngModelChange)="selectWarrantyDate()" formControlName="duration"  type="number">
                                             <label>{{ 'assets.duration' | translate }}</label>
                                           </span>
                                           <anms-error

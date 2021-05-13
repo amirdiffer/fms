@@ -175,8 +175,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   operator$: Observable<any>;
   policyType$: Observable<any>;
   periodicService$: Observable<any>;
-  periodicServiceTableData$:Observable<any>;
-  warrantyTableData$= new BehaviorSubject<any>(null);
+  periodicServiceTableData$: Observable<any>;
+  warrantyTableData$ = new BehaviorSubject<any>(null);
 
   assetType$: Subscription;
 
@@ -1037,27 +1037,28 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
 
-  differentYears(monthOrYears:string = 'YEAR' , startDate , month:number){
+  differentYears(monthOrYears: string = 'YEAR', startDate, month: number) {
     let from = new Date(startDate);
-    let calculateMonth =  monthOrYears === 'YEAR' ? month * 12 : month
-    let endDate = new Date(from.setMonth(from.getMonth()+ calculateMonth)).toLocaleString().split(',')[0];
-    return endDate;
+    let calculateMonth = monthOrYears === 'YEAR' ? month * 12 : month
+    let endDate = new Date(from.setMonth(from.getMonth() + calculateMonth));
+    return endDate.getDate() + "/" + endDate.getMonth() + "/" + endDate.getFullYear();
   }
 
-  warrantyTableData(){
+  warrantyTableData() {
     let data = this.warrantyItems.controls.map(
-      control =>{
-        if(control.value.startDate === ''){
+      control => {
+        if (control.value.startDate === '') {
           return {
             ...control.value,
-            warrantyFor:control.value.item,
+            warrantyFor: control.value.item,
           }
-        }else{
+        } else {
+          let endDate = new Date(control.value.startDate * 1000);
           return {
             ...control.value,
-            warrantyFor:control.value.item,
-            start:new Date(control.value.startDate).toLocaleString().split(',')[0],
-            end:this.differentYears(control.value.periodType , control.value.startDate , control.value.duration)
+            warrantyFor: control.value.item,
+            start: endDate.getDate() + "/" + endDate.getMonth() + "/" + endDate.getFullYear(),
+            end: this.differentYears(control.value.periodType, control.value.startDate * 1000, control.value.duration)
           }
         }
       }
@@ -1066,7 +1067,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
 
-  selectWarrantyDate(){
+  selectWarrantyDate() {
     this.warrantyTableData();
   }
 
