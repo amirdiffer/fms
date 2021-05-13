@@ -34,6 +34,7 @@ import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configurati
 })
 export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   //icons
+  assetId = -1;
   calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   closeIcon = 'assets/icons/times.svg';
   singleAsset: boolean = false;
@@ -321,6 +322,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _facade: AssetMasterFacade,
+    private service: AssetMasterService,
     private _facadeBussinessCategory: BusinessCategoryFacade,
     private _facadeOwnership: OwnershipFacade,
     private _fleetConfiurationAsset: AssetTypeFacade,
@@ -552,8 +554,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           : 'Asset Added Successfully';
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'Yes';
-        this.dialogSetting.cancelButton = undefined;
       }
     });
 
@@ -789,9 +789,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.calculate = false;
     this.policyTypeValue = event;
     const dataChange = {
-      depreciationValue: `%${this.policyTypeValue.depreciationValue}`,
-      maxUsageYear: `After ${this.policyTypeValue.maxUsageYear} years`,
-      maxUsageKPHour: `After ${this.policyTypeValue.maxUsageKPHour}Km/HRS`
+      depreciationValue: `%${this.policyTypeValue?.depreciationValue}`,
+      maxUsageYear: `After ${this.policyTypeValue?.maxUsageYear} years`,
+      maxUsageKPHour: `After ${this.policyTypeValue?.maxUsageKPHour}Km/HRS`
     };
     this.reviewPlaneSettingTable.data = [];
     this.reviewPlaneSettingTable.data.push(dataChange);
@@ -876,7 +876,39 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       formValue.warrantyItems.map((x) => {
         x.startDate = x.startDate.toISOString();
       });
-      this._facade.addAsset(formValue);
+      this.service.addAsset(formValue).subscribe(x => {
+        if (x && x?.message) {
+          if (x.message.length > 0) {
+            if (x.message.length == 1) {
+              this.assetId = x.message[0].id;
+              this.dialogModal = true;
+              this.dialogOption = 'success';
+              this.dialogSetting.header = this.isEdit
+                ? 'Edit Asset'
+                : 'Add new asset';
+              this.dialogSetting.message = this.isEdit
+                ? 'Changes Asset Successfully'
+                : 'Asset Added Successfully';
+              this.dialogSetting.isWarning = false;
+              this.dialogSetting.hasError = false;
+            } else {
+              this.assetId = -1;
+              this.dialogModal = true;
+              this.dialogOption = 'success';
+              this.dialogSetting.header = this.isEdit
+                ? 'Edit Asset'
+                : 'Add new asset';
+              this.dialogSetting.message = this.isEdit
+                ? 'Changes Asset Successfully'
+                : 'Asset Added Successfully';
+              this.dialogSetting.isWarning = false;
+              this.dialogSetting.hasError = false;
+            }
+          } else {
+            this._router.navigate(['/fleet/assets']);
+          }
+        }
+      })
     }
   }
 
@@ -888,7 +920,11 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   dialog(event) {
     if (event) {
       this._facade.reset();
-      this._router.navigate(['/fleet/assets']);
+      if (this.assetId > 0) {
+        this._router.navigate(['fleet/assets/' + this.assetId + '/registration']);
+      } else {
+        this._router.navigate(['/fleet/assets']);
+      }
     }
     this.dialogModal = false;
   }
