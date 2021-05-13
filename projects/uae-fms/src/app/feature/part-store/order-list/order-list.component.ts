@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TableSetting } from '@core/table';
+import { ColumnType, TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter';
 import { ButtonType } from '@core/table/table.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-order-list',
@@ -272,14 +273,22 @@ export class OrderListComponent implements OnInit {
         type: 1,
         field: 'Status'
       },
-      {
-        lable: '',
-        type: 1,
-        field: 'ButtonRecived',
-        renderer: 'button',
-        buttonType: ButtonType.receive,
-        showOnHover: true
-      }
+      // {
+      //   lable: '',
+      //   field: 'floatButton',
+      //   width: 0,
+      //   type: ColumnType.lable,
+      //   thumbField: '',
+      //   renderer: 'floatButton'
+      // },
+      // {
+      //   lable: '',
+      //   type: 1,
+      //   field: 'ButtonRecived',
+      //   renderer: 'button',
+      //   buttonType: ButtonType.receive,
+      //   showOnHover: true
+      // }
     ],
     data: [
       {
@@ -400,7 +409,7 @@ export class OrderListComponent implements OnInit {
         ButtonRecived: 'Recived'
       }
     ]
-  };
+  }
   suppliers_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.company', type: 1, field: 'Company' },

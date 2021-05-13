@@ -1,0 +1,42 @@
+<div class="statistic-card" *ngIf="activeTab == 'request_list'">
+  <app-filter [setting]='filterCard1'></app-filter>
+</div>
+<div class="statistic-card" *ngIf="activeTab == 'my_order'">
+  <app-filter [setting]='filterCard2'></app-filter>
+</div>
+<!--
+<div class='component_wrapper p-0' *ngIf="!isSuppliersAddFormHidden && activeTab === 'suppliers'">
+  <anms-suppliers-add-form (cancel)='isSuppliersAddFormHidden = true'></anms-suppliers-add-form>
+</div> -->
+
+<div class="component_wrapper p-0">
+
+  <div class="table-container">
+
+    <app-tab-view (selectedIndex)="activeTab = $event">
+      <span class="search-container card-table-header">
+        <div class="search-box">
+          <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
+          <button>
+            <img src="assets/icons/search-solid.svg" alt="">
+          </button>
+        </div>
+        <button class="btn-download" disabled>
+          <svg-icon [src]="downloadBtn"></svg-icon>
+        </button>
+                <button class="btn-primary-small" *ngIf="activeTab == 'request_list'" routerLink="/part-store/order-list/add-request-list"><i>+</i><a>{{ 'forms.request' | translate }}</a></button>
+        <button class="btn-primary-small" *ngIf="activeTab == 'my_order'"routerLink="/part-store/order-list/add-order-list"><i>+</i><a>{{ 'forms.order' | translate }}</a></button>
+        <button class="btn-primary-small" *ngIf="activeTab == 'suppliers'" routerLink="/part-store/order-list/add-supplier"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
+      </span>
+      <div title='part_store.order_list.request_list' id="request_list">
+        <app-table [setting]='requestList_Table'></app-table>
+      </div>
+      <div title='part_store.order_list.my_order' id="my_order">
+        <app-table [setting]='myOrder_Table'></app-table>
+      </div>
+      <div title='part_store.order_list.suppliers' id="suppliers">
+        <app-table [setting]='suppliers_Table'></app-table>
+      </div>
+    </app-tab-view>
+  </div>
+</div>

@@ -17,10 +17,17 @@ export class PartStoreSelectors {
     PartStoreSelectors.featureSelector,
     (state) => state['request-list']
   );
-  static myOrderListSelector = createSelector(
+
+  static myOrderAssetListSelector = createSelector(
     PartStoreSelectors.featureSelector,
-    (state) => state['my-order']
+    (state) => state['my-order-asset']
   );
+
+  static myOrderSubAssetListSelector = createSelector(
+    PartStoreSelectors.featureSelector,
+    (state) => state['my-order-sub-asset']
+  );
+
   static suppliersListSelector = createSelector(
     PartStoreSelectors.featureSelector,
     (state) => state['suppliers']

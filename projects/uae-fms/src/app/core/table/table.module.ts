@@ -43,6 +43,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { ToggleRenderer } from '@core/table/renderers/toggle';
 import { DropdownRenderer } from '@core/table/renderers/dropdown';
 import { LowOpacityColumnRendererComponent } from '@core/table/renderers/lowOpacityColumnRenderer';
+import { ReceivedButtonRendererComponent } from '@core/table/renderers/ReceivedButtonRenderer';
+import { ApproveButtonRendererComponent } from '@core/table/renderers/ApproveButtonRenderer';
 
 @NgModule({
   imports: [
@@ -90,7 +92,9 @@ import { LowOpacityColumnRendererComponent } from '@core/table/renderers/lowOpac
     ToggleRenderer,
     DropdownRenderer,
     RadialBarRendererComponent,
-    LowOpacityColumnRendererComponent
+    LowOpacityColumnRendererComponent,
+    ReceivedButtonRendererComponent,
+    ApproveButtonRendererComponent
   ],
   providers: [
     TableFacade,

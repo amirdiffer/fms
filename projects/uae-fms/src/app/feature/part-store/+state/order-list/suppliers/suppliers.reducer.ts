@@ -17,10 +17,28 @@ const suppliersReducer = createReducer(
   on(SuppliersActions.allDataLoaded, (state, { data }) =>
     suppliersAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
+
+  on(SuppliersActions.addSupplier, (state, { data }) => ({
+    ...state,
+    submitted: false
+  })),
+
+  on(SuppliersActions.supplierAddedSuccessfully, (state, { data }) => ({
+    ...state,
+    submitted: true
+  })),
+
   on(SuppliersActions.error, (state, { reason }) => ({
     ...state,
     error: reason,
     loaded: true
+  })),
+
+  on(SuppliersActions.reset, (state) => ({
+    ...state,
+    submitted: false,
+    error: false,
+    message: null
   }))
 );
 

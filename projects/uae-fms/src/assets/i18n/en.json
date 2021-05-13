@@ -179,7 +179,11 @@
         "asset": "Asset",
         "sub_asset": "Sub Asset"
       },
-      "order_list": "Order List",
+      "order_list":  {
+        "~": "Order List",
+        "asset": "Asset",
+        "sub_asset": "Sub Asset"
+      },
       "supplier": "Supplier",
       "part_master": "Part Master"
     },
@@ -300,7 +304,8 @@
     "open": "Open",
     "stoped": "Stoped",
     "delayed": "Delayed",
-    "need_to_order": "Need To Order"
+    "need_to_order": "Need To Order",
+    "order": "Order"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -1021,7 +1026,30 @@
       "name": "Name",
       "phone": "Phone",
       "email": "Email",
-      "address": "Address"
+      "address": "Address",
+      "form": {
+        "new_order": "New Order",
+        "type_category": "Type Category",
+        "asset": "Asset",
+        "sub_asset": "Sub Asset",
+        "asset_type": "Asset Type",
+        "select_item_category": "Select Item Category",
+        "item_name": "Item Name",
+        "quantity": "Quantity",
+        "supplier": "Supplier",
+        "description": "Description",
+        "set_reminder": "Set Reminder",
+        "price": "Price"
+      },
+      "request_form": {
+        "request_info": "Request Info",
+        "asset_id": "Asset Id",
+        "part_id": "Part Id",
+        "quantity": "Quantity",
+        "department": "Department",
+        "requested_by": "Requested By",
+        "description": "Description"
+      }
     },
     "part_master": {
       "asset_type": "Asset Type",
@@ -1712,7 +1740,9 @@
     "submit": "Submit",
     "upload_avatar": "Upload Avatar",
     "apply": "Apply",
-    "operator_list": "Operator List"
+    "operator_list": "Operator List",
+    "receive": "Receive",
+    "request": "Request"
   },
   "login": {
     "incorrect_password": "Incorrect Password",

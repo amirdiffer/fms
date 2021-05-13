@@ -9,13 +9,27 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 export class RequestListEffect {
   constructor(private action$: Actions, private service: RequestListService) {}
 
-  loadAll$ = createEffect(() =>
+  loadAllAssetRequest$ = createEffect(() =>
     this.action$.pipe(
-      ofType(RequestListActions.loadAll),
+      ofType(RequestListActions.loadAllAssetRequest),
       mergeMap((action) =>
-        this.service.loadAll().pipe(
+        this.service.loadAllAssetRequest().pipe(
           map((data) => {
-            return RequestListActions.allDataLoaded({ data });
+            return RequestListActions.allAssetRequestsLoaded({ data: data.message });
+          }),
+          catchError((error) => of(RequestListActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  loadAllSubAssetRequest$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(RequestListActions.loadAllSubAssetRequest),
+      mergeMap((action) =>
+        this.service.loadAllSubAssetRequest().pipe(
+          map((data) => {
+            return RequestListActions.allSubAssetRequestsLoaded({ data: data.message });
           }),
           catchError((error) => of(RequestListActions.error({ reason: error })))
         )
