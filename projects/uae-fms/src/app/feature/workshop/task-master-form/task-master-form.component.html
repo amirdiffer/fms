@@ -13,7 +13,7 @@
         <div class="col-12 mb-3">
           <div class="row">
             <div class="col-2">
-              {{'workshop.task_master.shop_type'|translate}}
+              {{'workshop.task_master.shop_type'|translate}} *
             </div>
             <div class="col-10">
               <div class="row">
@@ -35,6 +35,10 @@
                 </div>
               </div>
             </div>
+            <div class="col-12">
+              <anms-error [showError]="hasError('shopType',taskMasterForm,submitted)" error="forms.feedback.required">
+              </anms-error>
+            </div>
           </div>
         </div>
       </div>
@@ -44,7 +48,7 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-2">
-                  {{'workshop.task_master.task_type'|translate}}
+                  {{'workshop.task_master.task_type'|translate}} *
                 </div>
                 <div class="col-10">
                   <div class="row">
@@ -105,6 +109,11 @@
                       </div>
                     </div>
                   </div>
+                </div>
+                <div class="col-12">
+                  <anms-error [showError]="hasError('taskType',taskMasterForm,submitted)"
+                    error="forms.feedback.required">
+                  </anms-error>
                 </div>
               </div>
             </div>
