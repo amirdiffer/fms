@@ -13,10 +13,26 @@ export class SuppliersEffects {
     this.action$.pipe(
       ofType(SuppliersActions.loadAll),
       mergeMap((action) =>
-        this.service.loadAll().pipe(
+        this.service.loadAllSupplier().pipe(
           map((data) => {
-            return SuppliersActions.allDataLoaded({ data });
+            return SuppliersActions.allDataLoaded({ data: data.message });
           }),
+          catchError((error) => of(SuppliersActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  addSupplier$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(SuppliersActions.addSupplier),
+      mergeMap((action) =>
+        this.service.addSupplier(action.data).pipe(
+          map((data) =>
+            SuppliersActions.supplierAddedSuccessfully({
+              data: { ...action.data, ...data.message }
+            })
+          ),
           catchError((error) => of(SuppliersActions.error({ reason: error })))
         )
       )

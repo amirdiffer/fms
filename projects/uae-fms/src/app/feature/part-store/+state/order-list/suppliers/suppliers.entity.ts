@@ -1,18 +1,10 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-export interface ISuppliersListModel {
-  Company: string;
-  Name: string;
-  Email: string;
-  Phone: string;
-  Address: string;
-  Quotation: string;
-}
-
-export interface SuppliersListState extends EntityState<ISuppliersListModel> {
+export interface SuppliersListState extends EntityState<any> {
   error?: any;
-  loaded: boolean;
-  message: string;
+  loaded?: boolean;
+  message?: string;
+  submitted?: boolean;
 }
 
 export const PARTSTORE_SUPPLIERS_LIST_FEATURE_KEY = 'suppliers';
@@ -21,14 +13,15 @@ export interface ISuppliersPartialState {
   [PARTSTORE_SUPPLIERS_LIST_FEATURE_KEY]: SuppliersListState;
 }
 
-export const suppliersAdapter: EntityAdapter<ISuppliersListModel> = createEntityAdapter<
-  ISuppliersListModel
+export const suppliersAdapter: EntityAdapter<any> = createEntityAdapter<
+  any
 >();
 
 export const initialState: SuppliersListState = suppliersAdapter.getInitialState(
   {
+    error: null,
     loaded: null,
     message: null,
-    error: null
+    submitted: false
   } as SuppliersListState
 );

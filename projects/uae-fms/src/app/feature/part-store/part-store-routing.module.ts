@@ -10,6 +10,10 @@ import { AddCategoryComponent } from './part-master/add-category/add-category.co
 import { AddItemComponent } from './part-master/add-item/add-item.component';
 import { TableContentComponent } from './part-master/table-content/table-content.component';
 import { UpdateFormComponent } from './part-list/update-form/update-form.component';
+import { OrderListAssetComponent } from '@feature/part-store/order-list/order-list-asset/order-list-asset.component';
+import { OrderListSubAssetComponent } from '@feature/part-store/order-list/order-list-sub-asset/order-list-sub-asset.component';
+import { ReceiveOrderComponent } from '@feature/part-store/order-list/receive-order/receive-order.component';
+import { RequestListAddFormComponent } from '@feature/part-store/order-list/request-list-add-form/request-list-add-form.component';
 const routes: Routes = [
   { path: 'part-list', component: PartListComponent },
   { path: 'part-list/:id', component: PartOverviewComponent , children:[
@@ -26,8 +30,13 @@ const routes: Routes = [
   },
 
   { path: 'order-list/add-order-list', component: OrderFormComponent },
+  { path: 'order-list/edit-order-list/:id', component: OrderFormComponent },
   { path: 'order-list/add-supplier', component: SuppliersAddFormComponent },
-  { path: 'order-list', component: OrderListComponent },
+  { path: 'order-list', redirectTo: 'order-list/asset' },
+  { path: 'order-list/asset', component: OrderListAssetComponent },
+  { path: 'order-list/sub-asset', component: OrderListSubAssetComponent },
+  { path: 'order-list/receive-order/:id', component: ReceiveOrderComponent },
+  { path: 'order-list/add-request-list', component: RequestListAddFormComponent },
 
   {
     path: '',
