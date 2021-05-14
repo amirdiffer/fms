@@ -3,7 +3,6 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { PartMasterFacade, PartMasterService } from '@feature/part-store/+state/part-master';
-import { IColor, IMake } from '@models/asset-type.model';
 import { Utility } from '@shared/utility/utility';
 import { Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -42,7 +41,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     return this.form.get('itemInfo') as FormArray;
   }
 
-  
+
   dialogModal:boolean = false;
   dialogOption:dialogOption;
   dialogSetting: IDialogAlert;
@@ -67,7 +66,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
               private _router: Router,
               private _supplierService : SuppliersService,
               injector: Injector,) {
-                super(injector); 
+                super(injector);
                 this._partMasterFacade.resetItem();
               }
 
@@ -89,7 +88,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
             this._partMasterFacade.loadSpecificItemOfSubAsset(this.id)
           }
         }else{
-          this.isAsset = true ; 
+          this.isAsset = true ;
           this.loadTrim(x.makes)
           this.itemInfo.controls.map(formGroup => {formGroup.get('model').clearValidators()});
           if(this.isEdit){
@@ -125,11 +124,11 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
             }
             this.supplier(0).push(this.createSupplierFormArray());
           }
-          
+
         }
       }
     )
-    
+
     this.dialogSetting = {
       header: 'Add new item',
       hasError:false,
@@ -195,7 +194,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     )
   }
 
-  loadTrim(makes:IMake[]){
+  loadTrim(makes){
     let trimList = []
     makes.map(
       make => {
@@ -224,11 +223,11 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     this.loadColor(event.colors)
   }
 
-  loadColor(color:IColor[]){
+  loadColor(color){
     this.color$ = of(color)
   }
 
-  loadModel(makes:IMake[]){
+  loadModel(makes){
     makes.map(
       make => {
         this.model$ = of(make.models)
@@ -322,7 +321,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     facade.errorItem$.subscribe((x) => {
       if (x?.error) {
         this.dialogModal = true;
-        this.dialogOption == dialogOption.error 
+        this.dialogOption == dialogOption.error
         this.dialogSetting.header = this.isEdit ? 'Edit Category' : 'Add new Category';
         this.dialogSetting.hasError = true;
         this.dialogSetting.message = 'Error occurred in progress';
