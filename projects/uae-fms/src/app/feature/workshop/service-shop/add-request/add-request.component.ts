@@ -170,10 +170,10 @@ export class AddRequestServiceShopComponent implements OnInit {
   private buildForm() {
     this.inputForm = this._fb.group({
       // assetSearch: ['', [Validators.required, this.autocompleteValidation]],
-      assetInfo: this._fb.group({
-        asset: [''],
-        gpsMeterSource: ['', Validators.required]
-      }),
+      // assetInfo: this._fb.group({
+      //   asset: [''],
+      //   gpsMeterSource: ['', Validators.required]
+      // }),
       assetId: [''],
       hasAccident: [false],
       accidentType: ['MINOR'],

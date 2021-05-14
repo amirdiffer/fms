@@ -101,7 +101,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     hasError: false,
     message: 'Sample hit is here to explain Process',
     confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
+    cancelButton: 'Register Later'
   };
   errorDialogSetting: IDialogAlert = {
     header: '',
@@ -926,6 +926,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         this._router.navigate(['/fleet/assets']);
       }
     }
+    this._router.navigate(['/fleet/assets']);
     this.dialogModal = false;
   }
 
@@ -1089,12 +1090,12 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
             warrantyFor: control.value.item,
           }
         } else {
-          let endDate = new Date(control.value.startDate * 1000);
+          let endDate = new Date(control.value.startDate * (this.isEdit ? 1000 : 1));
           return {
             ...control.value,
             warrantyFor: control.value.item,
             start: endDate.getDate() + "/" + endDate.getMonth() + "/" + endDate.getFullYear(),
-            end: this.differentYears(control.value.periodType, control.value.startDate * 1000, control.value.duration)
+            end: this.differentYears(control.value.periodType, control.value.startDate * (this.isEdit ? 1000 : 1), control.value.duration)
           }
         }
       }

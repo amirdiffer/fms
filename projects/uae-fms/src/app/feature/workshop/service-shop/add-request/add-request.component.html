@@ -149,21 +149,32 @@
                         <div class="row form-group">
                             <div class="form-check col-lg-2">
                                 <input class="form-check-input" type="radio"
-                                    id="Repair" value="NORMAL"
+                                    id="ELECTRICAL_SERVICE" value="ELECTRICAL_SERVICE"
                                     formControlName="jobType">
                                 <label class="form-check-label" for="Repair">
-                                    {{'workshop.body_shop.requests.repair' |
+                                    {{'workshop.body_shop.requests.electrical-service' |
                                     translate}}
                                 </label>
                             </div>
                             <div class="form-check col-lg-3">
                                 <input class="form-check-input" type="radio"
-                                    id="Technical_Report"
-                                    value="TECHNICAL_REPORT"
+                                    id="REPLACEMENT"
+                                    value="REPLACEMENT"
                                     formControlName="jobType">
                                 <label class="form-check-label"
                                     for="Technical_Report">
-                                    {{'workshop.body_shop.requests.technical_report'
+                                    {{'workshop.body_shop.requests.replacement'
+                                    | translate}}
+                                </label>
+                            </div>
+                            <div class="form-check col-lg-3">
+                                <input class="form-check-input" type="radio"
+                                    id="PERIODIC_SERVICE_RELATED"
+                                    value="PERIODIC_SERVICE_RELATED"
+                                    formControlName="jobType">
+                                <label class="form-check-label"
+                                    for="Technical_Report">
+                                    {{'workshop.body_shop.requests.periodic-service-related'
                                     | translate}}
                                 </label>
                             </div>

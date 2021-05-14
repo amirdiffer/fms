@@ -1064,6 +1064,9 @@
         "upload_formcontent": "قم بسحب وإسقاط ملف أو انقر هنا",
         "periodic_service": "الصيانة الدورية",
         "periodic_service_validation_error": "الرجاء البحث واختيار عنصر من الخدمة الدورية",
+        "electrical-service": "الخدمة الكهربائية",
+        "replacement": "إستبدال",
+        "periodic-service-related": "الخدمة الدورية ذات الصلة",
         "upload_form": {
           "title": "إرفاق صورة",
           "progressbar_title": "*.pdf",

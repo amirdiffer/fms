@@ -140,10 +140,10 @@
     "permanent": "Permanent",
     "technical_inspection_report": "Technical Inspection Report",
     "job_card_overview": "Job Card Overview",
-    "edit_task_master":"Edit Task Master",
-    "edit_location":"Edit Location",
-    "edit_trim":"Edit Trim",
-    "edit_make":"Edit Make"
+    "edit_task_master": "Edit Task Master",
+    "edit_location": "Edit Location",
+    "edit_trim": "Edit Trim",
+    "edit_make": "Edit Make"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -1110,6 +1110,9 @@
         "upload_formcontent": "Drag and Drop a File or click here",
         "periodic_service": "Periodic Service",
         "periodic_service_validation_error": "Please search and choose an item from periodic service",
+        "electrical-service": "Electrical Service",
+        "replacement": "Replacement",
+        "periodic-service-related": "Periodic Service Related",
         "upload_form": {
           "title": "Attach Picture",
           "progressbar_title": "*.pdf",
@@ -1284,7 +1287,7 @@
       "shop_type": "Shop Type",
       "body_shop": "Body Shop",
       "service_shop": "Service Shop",
-      "cleaning":"Cleaning"
+      "cleaning": "Cleaning"
     },
     "service_shop": {}
   },
@@ -1593,8 +1596,8 @@
       "edit_asset_type": "Edit Asset Type",
       "edit_sub_asset_type": "Edit Sub Asset Type",
       "edit_accessory_type": "Edit Accessory Type",
-      "edit_trim_for":"Edit Trim For",
-      "add_trim_for":"Add Trim For"
+      "edit_trim_for": "Edit Trim For",
+      "add_trim_for": "Add Trim For"
     },
     "business_category": {
       "business_category_info": "Usage Category Info",

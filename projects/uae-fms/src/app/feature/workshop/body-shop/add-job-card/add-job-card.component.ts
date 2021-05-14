@@ -17,7 +17,8 @@ import {
   BodyShopLocationFacade,
   BodyShopRequestFacade,
   BodyShopTechnicianFacade,
-  BodyShopTechnicianService
+  BodyShopTechnicianService,
+  BodyShopRequestService
 } from '@feature/workshop/+state/body-shop';
 import { map } from 'rxjs/operators';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
@@ -202,7 +203,8 @@ export class AddJobCardComponent extends Utility implements OnInit {
     private _facadeLocation: BodyShopLocationFacade,
     private _facadeTechnician: BodyShopTechnicianFacade,
     private _jobCardService: BodyShopJobCardService,
-    private _taskMasterService: TaskMasterService
+    private _taskMasterService: TaskMasterService,
+    private service: BodyShopRequestService
   ) {
     super(injector);
   }
@@ -214,24 +216,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
     this.jobCard$ = this._facadeJobCard.bodyShop$.subscribe((x) => {
       this.allJobCards = x;
     });
-    this.relatedRequests$ = this._facadeRequest.assetRequest$.pipe(
-      map((y) =>
-        y.map((x) => ({
-          id: x.id,
-          request: {
-            label: x.request,
-            checkbox: false
-          },
-          date: x.createdAt
-            ? moment.utc(x.createdAt * 1000).local().format('DD-MM-YYYY')
-            : '',
-          description: x.description,
-          issue_type: x.jobType,
-          reportedBy: x.reportedBy,
-          attachment: x.documentIds
-        }))
-      )
-    );
+
     this._taskMasterService.getAllTaks().subscribe((data) => {
       this.taskMasters = data.message.map((t) => ({
         id: t.id,
@@ -252,8 +237,28 @@ export class AddJobCardComponent extends Utility implements OnInit {
     this.route.queryParams.subscribe(x => {
       if (x.assetId) {
         this.selectAsset({ value: x.assetId })
+        this.relatedRequests$ = this.service.getRequestById(x.assetId).pipe(
+          map((y) => {
+            let a=y.message;
+            return a.map((x) => ({
+              id: x.id,
+              request: {
+                label: x.request,
+                checkbox: false
+              },
+              date: x.createdAt
+                ? moment.utc(x.createdAt * 1000).local().format('DD-MM-YYYY')
+                : '',
+              description: x.description,
+              issue_type: x.jobType,
+              reportedBy: x.reportedBy,
+              attachment: x.documentIds
+            }))
+          }
+          )
+        );
       }
-      else{
+      else {
 
       }
     })
