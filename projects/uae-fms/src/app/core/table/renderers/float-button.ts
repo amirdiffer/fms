@@ -38,7 +38,7 @@ import { SettingsFacade } from '@core/settings/settings.facade';
         flex-direction: row;
         position: absolute;
         transform: translateY(-50%) translateX(0);
-        background-color: #ffffff;
+        background-color: #e6f7ef;
         padding: 1em;
         border-radius: 20px 0 0 20px;
         animation: 500ms ease-in-out 0s 1 fadein;
@@ -85,7 +85,7 @@ export class FloatButton implements OnInit {
   @Input() col;
   @Input() setting;
   @Input() lang;
-  @ViewChild('tooltip') tooltip:ElementRef 
+  @ViewChild('tooltip') tooltip:ElementRef
   assetPath = 'assets/icons/';
 
   constructor() {}

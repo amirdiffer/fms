@@ -4,6 +4,7 @@ import { ResponseBody } from '@models/responseBody';
 import { IAssetType } from '@models/asset-type.model';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
+import { tap } from 'rxjs/operators';
 
 
 @Injectable()
@@ -38,9 +39,39 @@ export class AssetTypeService {
         );
     }
 
+    updateMake(data, assetId): Observable<ResponseBody<any>> {
+        return this._http.post<ResponseBody<any>>(
+          environment.baseApiUrl +
+          'configuration/fleet-configuration/asset/' + assetId + '/make/update',
+          data
+        );
+    }
+
+    updateModel(data, assetId, makeId): Observable<ResponseBody<any>> {
+        return this._http.post<ResponseBody<any>>(
+          environment.baseApiUrl +
+          'configuration/fleet-configuration/asset/' + assetId + '/make/' + makeId + '/model/update',
+          data
+        );
+    }
+
+    updateTrim(data, assetId, makeId, modelId): Observable<ResponseBody<any>> {
+        return this._http.post<ResponseBody<any>>(
+          environment.baseApiUrl +
+          'configuration/fleet-configuration/asset/' + assetId + '/make/' + makeId + '/model/' + modelId +'/trim/update',
+          data
+        ).pipe(
+          tap(res => {
+            console.log(res);
+          }, error => {
+            console.log(error);
+          })
+        );
+    }
+
     addModel(data, assetId, makeId): Observable<ResponseBody<any>> {
         return this._http.post<ResponseBody<any>>(
-          environment.baseApiUrl + 
+          environment.baseApiUrl +
           'configuration/fleet-configuration/asset/' + assetId + '/make/' + makeId + '/model',
           data
         );

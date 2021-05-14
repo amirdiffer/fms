@@ -33,19 +33,25 @@ export class TaskMasterFormComponent
   skillList: any[] = [];
   skillFiltered: any[] = [];
   skills$: Subscription;
+
+  isEdit = false;
+  recordId: number;
+  dialogType: string;
+
   dialogSetting: IDialogAlert = {
     header: 'Task Master',
     hasError: false,
     hasHeader: true,
-    message: 'New Task Master added Successfully Added',
+    message: 'New Task added Successfully Added',
     confirmButton: 'OK'
   };
+
   dialogSettingCancel: IDialogAlert = {
     header: 'Task Master',
     hasError: false,
     isWarning: true,
     hasHeader: true,
-    message: 'Are you sure that you want to cancel the task master creation?',
+    message: 'Are you sure that you want to cancel the task ' + (this.isEdit ? "edit?" : "creation?"),
     confirmButton: 'Yes',
     cancelButton: 'No'
   };
@@ -59,10 +65,6 @@ export class TaskMasterFormComponent
     hasHeader: true,
     cancelButton: undefined
   };
-
-  isEdit = false;
-  recordId: number;
-  dialogType: string;
 
   get skills(): FormArray {
     return this.taskMasterForm.get('skills') as FormArray;
@@ -80,6 +82,8 @@ export class TaskMasterFormComponent
     this._facade.loadAllSkill();
     this.taskMasterForm = this._fb.group({
       taskName: ['', [Validators.required]],
+      shopType: ['', [Validators.required]],
+      taskType: ['', [Validators.required]],
       instruction: ['', [Validators.required]],
       ratePerHour: [''],
       timeEstimate: ['', [Validators.required]],
@@ -90,13 +94,16 @@ export class TaskMasterFormComponent
 
     this.route.url.subscribe((params) => {
       this.isEdit = params.filter((x) => x.path === 'edit-task-master').length > 0;
+      this.dialogSettingCancel.message = 'Are you sure that you want to cancel the task ' + (this.isEdit ? "edit?" : "creation?");
       if (this.isEdit) {
         this.recordId = +params[params.length - 1].path
         this.taskMasterService.getTaskMaster(this.recordId)
           .pipe(map((y) => y.message))
-          .subscribe((z) => {
+          .subscribe((z: any) => {
             if (z) {
               this.taskMasterForm.patchValue({
+                shopType: z.shopType,
+                taskType: z.taskType,
                 taskName: z.name,
                 instruction: z.instruction,
                 ratePerHour: z.ratePerHour,
@@ -148,11 +155,11 @@ export class TaskMasterFormComponent
         this.dialogModal = true;
         this.dialogType = 'success';
         this.dialogSetting.header = this.isEdit
-          ? 'Edit Sub Asset'
-          : 'Add new Sub Asset';
+          ? 'Edit Task'
+          : 'Add new Task';
         this.dialogSetting.message = this.isEdit
           ? 'Changes Saved Successfully'
-          : 'Sub Asset Added Successfully';
+          : 'Task Added Successfully';
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
@@ -166,8 +173,8 @@ export class TaskMasterFormComponent
       if (x?.error) {
         this.dialogModalError = true;
         this.dialogSettingError.header = this.isEdit
-          ? 'Edit Sub Asset'
-          : 'Add new Sub Asset';
+          ? 'Edit Task'
+          : 'Add new Task';
         this.dialogSettingError.hasError = true;
         this.dialogSettingError.cancelButton = undefined;
         this.dialogSettingError.confirmButton = 'Ok';
@@ -188,9 +195,10 @@ export class TaskMasterFormComponent
     }
     this.skillFiltered = filtered;
   }
+
   skillSelect(event) {
-    console.log(event);
   }
+
   getTaskMasterPayload(value: any) {
     const {
       instruction,
@@ -198,12 +206,14 @@ export class TaskMasterFormComponent
       skills,
       taskName,
       timeEstimate,
-      needPart
+      needPart,
+      shopType,
+      taskType
     } = value;
 
     const taskMaster = {
-      shopType: 'BODYSHOP',
-      taskType: 'NORMAL',
+      shopType: shopType,
+      taskType: taskType,
       name: taskName,
       instruction: instruction,
       timeEstimate: timeEstimate,

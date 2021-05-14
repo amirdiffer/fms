@@ -195,15 +195,15 @@ export class BodyShopComponent implements OnInit {
           ...y,
           asset: {
             img: 'assets/thumb.png',
-            assetName: y.assetDpd,
+            // assetName: y.assetDpd,
             assetSubName: y.assetDpd
           },
           startDate: y.startDate
             ? moment.utc(y.startDate).local().format('DD-MM-YYYY')
-            : 'ex: 20-20-2020',
+            : '',
           endDate: y.endDate
             ? moment.utc(y.endDate).local().format('DD-MM-YYYY')
-            : 'ex: 20-20-2020',
+            : '',
           location: y.location.address ? y.location.address : 'ex: Dubai',
           cost: y.cost ? `${y.cost} AED` : 'ex: 30.000 AED ',
           technician: Math.floor(Math.random() * 20) + 1,
@@ -332,21 +332,21 @@ export class BodyShopComponent implements OnInit {
         field: 'technician',
         type: ColumnType.lable
       },
-      {
+      /* {
         lable: 'tables.column.task',
         field: 'task',
         width: '18em',
         type: ColumnType.lable,
         renderer: 'radialBar'
-      }
-      // {
-      //   lable: '',
-      //   field: 'floatButton',
-      //   width: 0,
-      //   type: ColumnType.lable,
-      //   thumbField: '',
-      //   renderer: 'floatButton'
-      // }
+      } */
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
+      },
     ],
     data: [
       {
@@ -371,7 +371,7 @@ export class BodyShopComponent implements OnInit {
         {
           button: 'external',
           onClick: (col, data) => {
-            this.router.navigate(['/fleet/assets/' + data.id]).then();
+            this.router.navigate(['/workshop/body-shop/job-card-overview/' + data.id]).then();
           }
         }
         // {

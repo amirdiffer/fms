@@ -82,6 +82,23 @@ const assetTypeReducer = createReducer(
         submitted: true
     })),
 
+    /* Update Make */
+    on(AssetTypeActions.updateMake, (state, { data }) => ({
+      ...state,
+      error: null,
+      message: null,
+      submitted: false
+    })),
+    on(AssetTypeActions.makeUpdatedSuccessfully, (state, { data }) =>
+      assetTypeAdapter.updateOne(
+        { changes: data, id: data.id },
+        {
+          ...state,
+          error: null,
+          message: null,
+          submitted: true
+        })
+    ),
 
     /* Add Model */
     on(AssetTypeActions.addModel, (state, { data: any }) => ({
@@ -96,6 +113,24 @@ const assetTypeReducer = createReducer(
     })),
 
 
+    /* Update Model */
+    on(AssetTypeActions.updateModel, (state, { data }) => ({
+      ...state,
+      error: null,
+      message: null,
+      submitted: false
+    })),
+    on(AssetTypeActions.modelUpdatedSuccessfully, (state, { data }) =>
+      assetTypeAdapter.updateOne(
+        { changes: data, id: data.id },
+        {
+          ...state,
+          error: null,
+          message: null,
+          submitted: true
+        })
+    ),
+
     /* Add Trim */
     on(AssetTypeActions.addTrim, (state, { data: any }) => ({
         ...state,
@@ -109,7 +144,25 @@ const assetTypeReducer = createReducer(
     })),
 
 
-    /* Error */
+    /* Update Trim */
+    on(AssetTypeActions.updateTrim, (state, { data }) => ({
+      ...state,
+      error: null,
+      message: null,
+      submitted: false
+    })),
+    on(AssetTypeActions.trimUpdatedSuccessfully, (state, { data }) =>
+      assetTypeAdapter.updateOne(
+        { changes: data, id: data.id },
+        {
+          ...state,
+          error: null,
+          message: null,
+          submitted: true
+        })
+    ),
+
+  /* Error */
     on(AssetTypeActions.error, (state, { reason }) => ({
         ...state,
         error: reason,

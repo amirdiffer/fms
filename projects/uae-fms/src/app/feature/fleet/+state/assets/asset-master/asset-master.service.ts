@@ -34,8 +34,8 @@ export class AssetMasterService {
     );
   }
 
-  addAsset(data): Observable<ResponseBody<IAssetMaster>> {
-    return this._http.post<ResponseBody<IAssetMaster>>(
+  addAsset(data): Observable<ResponseBody<any>> {
+    return this._http.post<ResponseBody<any>>(
       environment.baseApiUrl + 'asset',
       data
     );

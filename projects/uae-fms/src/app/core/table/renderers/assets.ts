@@ -58,6 +58,7 @@ export class AssetsRendererComponent implements OnInit {
 
   ngOnInit() {
     if (this.data.progress) {
+      this.data.progress = false;
       this.progressBar = (+this.data.progress * 100) / 6;
     }
   }

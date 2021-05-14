@@ -2,13 +2,14 @@ import { Component, OnInit, Injector } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { SubAssetTypeService, SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
-import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
+import { AssetPolicyFacade,SubAssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
 import { SubAssetService, SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { ColumnDifinition, TableSetting } from '@core/table';
 import { RouterFacade } from '@core/router';
 import { Utility } from '@shared/utility/utility';
 import * as moment from 'moment';
+import { Subject } from 'rxjs';
 
 const SUB_ASSET_LABEL = 'SUB_ASSET';
 
@@ -18,7 +19,8 @@ const SUB_ASSET_LABEL = 'SUB_ASSET';
   styleUrls: ['./add-sub-asset.component.scss']
 })
 export class AddSubAssetComponent extends Utility implements OnInit {
-  #startRegionVariables
+
+  //#region Variables
   invalidAvatar = false;
   itemId = this.route.snapshot.params['id'];
   formCurrentStep = 0;
@@ -71,9 +73,17 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   recordId: number;
   isSingleAsset = true;
   avatarDocRequired: boolean = false;
-  #endRegionVariables
 
-  #startTablesRegion
+  assetPolicyLoaded: boolean = false;
+  subAssetTypeLoaded: boolean = false;
+  subAsset: boolean = false;
+  formTempValue;
+
+  formFill: Subject<string> = new Subject();
+  formFill$ = this.formFill.asObservable();
+  //#endregion
+
+  //#region  TablesRegion
   thirdStepTableColumns: ColumnDifinition[] = [
     {
       lable: 'tables.column.sub_asset_name',
@@ -107,9 +117,9 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     columns: this.thirdStepTableColumns,
     data: []
   };
-  #endTablesRegion
+  //#endregion
 
-  #startDialogRegion
+  //#region  DialogRegion
   dialogSetting: IDialogAlert = {
     header: 'Add new Sub Asset alert',
     hasError: false,
@@ -126,7 +136,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     hasHeader: true,
     cancelButton: undefined
   };
-  #endDialogRegion
+  //#endregion
 
   constructor(
     injector: Injector,
@@ -134,9 +144,8 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     private subAssetFacade: SubAssetFacade,
     private subAssetService: SubAssetService,
     private subAssetTypeFacade: SubAssetTypeFacade,
-    private subAssetTypeService: SubAssetTypeService,
     private assetPolicyFacade: AssetPolicyFacade,
-    private routerFacade: RouterFacade
+    private subAssetPolicyFacade: SubAssetPolicyFacade,
   ) {
     super(injector);
   }
@@ -144,6 +153,26 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   ngOnInit(): void {
     this.subAssetTypeFacade.loadAll();
     this.assetPolicyFacade.loadAll();
+
+    this.subAssetTypeFacade.loaded$.subscribe(x => {
+      this.formFill.next("subAssetType");
+    });
+
+    this.assetPolicyFacade.loaded$.subscribe(x => {
+      this.formFill.next("assetPolicy");
+    });
+
+    this.formFill$.subscribe(x => {
+      if (x) {
+        if (x == "subAssetType") this.subAssetTypeLoaded = true;
+        if (x == "assetPolicy") this.assetPolicyLoaded = true;
+        if (x == "subAsset") this.subAsset = true;
+        if (this.subAssetTypeLoaded && this.assetPolicyLoaded && this.subAsset) {
+          //We Need that Part of Code incase of we need diasabled inputs turn to select again
+        }
+      }
+    })
+
     this.buildForm();
     this.handleEditMode();
 
@@ -239,23 +268,27 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
         const formValue = {
           serialNumber: serialNumber,
-          subAssetType: subAssetConfigurationId,
-          make: subAssetMakeId,
-          model: subAssetModelId,
+          subAssetType: subAssetType.name,
+          make: make.name,
+          model: model.name,
           year,
           policyType,
           purchaseValue,
           description
         };
+
+        this.formTempValue = { ...formValue };
         this.subAssetForm.patchValue(formValue);
         this.subAssetForm.patchValue({
           year: +formValue.year
         });
 
         // todo : fill warranties
+        this.formFill.next("subAsset");
       }
     });
   }
+
   handleSubmissionDialog() {
     this.subAssetFacade.submitted$.subscribe((x) => {
       if (x) {
@@ -311,10 +344,11 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
 
   initPolicyTypes() {
-    this.assetPolicyFacade.assetPolicy$.subscribe(
+    this.subAssetPolicyFacade.loadAll();
+    this.subAssetPolicyFacade.subAssetPolicy$.subscribe(
       (result) => {
         if (result) {
-          this.policyTypes = result.map((policyType) => ({
+          this.policyTypes = result.map((policyType:any) => ({
             id: policyType.id,
             name: policyType.name
           }));
@@ -361,6 +395,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     }
     this.formCurrentStep += 1;
   }
+
   upload() {
     if (this.avatarDoc.length < 1 || this.avatarDoc.length < 1) {
       this.subAssetDocRequired = true;

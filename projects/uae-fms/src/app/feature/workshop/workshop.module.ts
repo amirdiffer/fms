@@ -41,6 +41,7 @@ import { AddLocationServiceShopComponent } from './service-shop/add-location/add
 import { AddRequestServiceShopComponent } from './service-shop/add-request/add-request.component';
 import { AddTechnicianServiceShopComponent } from './service-shop/add-technician/add-technician.component';
 import { TechnicalOverviewComponent } from './inspections/technical-inspection/technical-overview/technical-overview.component';
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { TechnicalOverviewComponent } from './inspections/technical-inspection/t
 
   ],
   imports: [
+    TranslateModule,
     FormsModule,
     TableModule,
     CommonModule,

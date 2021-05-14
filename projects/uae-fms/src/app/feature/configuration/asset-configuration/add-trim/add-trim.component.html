@@ -4,7 +4,7 @@
       <div class='button-container'>
         <button class='btn-primary-medium btn-scondary-green'
                 (click)='cancel()'>{{ 'forms.cancel' | translate }}</button>
-        <button class='btn-primary-medium add' (click)='submit()'>{{ 'search.add' | translate }}</button>
+        <button class='btn-primary-medium add' (click)='submit()'>{{ isEditing ? ('forms.edit' | translate) : ('forms.add' | translate) }}</button>
       </div>
       <div class='row' style="margin: 10px;">
         <div [ngStyle]="{'display': router.isActive('/configuration/add-asset-configuration/', true) ? 'block' : 'none'}" class='col-12 form-section mx-0 form-section--inline'>
@@ -46,7 +46,7 @@
         </div>
         <div class='col-9 mt-2'>
           <h3
-            class='form-section__title'>{{ ('filter.add_trim_for' | translate) + ' ' + dataService.selectedMakeName + ' ' + dataService.selectedModelName }}</h3>
+            class='form-section__title'>{{ (isEditing ? ('configuration.asset_configuration.edit_trim_for' | translate) : ('configuration.asset_configuration.add_trim_for' | translate)) + ' ' + dataService.selectedMakeName + ' ' + dataService.selectedModelName }}</h3>
           <div formArrayName='trims'>
             <div class='d-flex col-12 form-section h-100' *ngFor='let trim of trims.controls; let index = index'
                  [formGroupName]='index'>

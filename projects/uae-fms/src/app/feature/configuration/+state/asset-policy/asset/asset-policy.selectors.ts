@@ -13,6 +13,11 @@ export class AssetPolicySelectors {
     (state) => state.resultNumber
   );
 
+  static loaded = createSelector(
+    ConfigurationSelectors.assetPolicySelector,
+    (state) => state.loaded
+  );
+
   static message = createSelector(
     ConfigurationSelectors.assetPolicySelector,
     (state) => state.message
