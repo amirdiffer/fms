@@ -103,7 +103,10 @@ export class PeriodicServiceComponent implements OnInit {
   }
 
   exportTable() {
-    this.table.exportTable(this.tableSetting, 'Accessories');
+    let filter = {
+      periodicServiceName: 'periodicServiceName'
+    };
+    this.table.exportTable(this.tableSetting, 'Accessories', filter);
   }
 
   eventPagination() {

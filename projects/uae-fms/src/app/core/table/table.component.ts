@@ -160,7 +160,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   exportTable(tableSetting: TableSetting, title: string, filter?: object): void {
-    const exportColumns: CSVExportColumn[] = tableSetting.columns.map((col) => {
+    const exportColumns: CSVExportColumn[] = tableSetting.columns.filter(x => !x.isIconLable).map((col) => {
       return {
         title:
           col.lable && this.translate.instant(col.lable)

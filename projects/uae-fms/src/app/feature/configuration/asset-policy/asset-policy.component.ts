@@ -185,12 +185,25 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
   }
 
   exportTable() {
+    let filter;
     switch (this.selectedTab) {
       case 'assetPolicyAssetTab':
-        this.table.exportTable(this.assetPolicy_Table, 'Asset');
+        filter = {
+          Policy_Name: 'Policy_Name',
+          Distance: 'Distance',
+          Year: 'Year',
+          Depreciation_Value: 'Depreciation_Value'
+        }
+        this.table.exportTable(this.assetPolicy_Table, 'Asset', filter);
         break;
       case 'assetPolicySubAssetTab':
-        this.table.exportTable(this.subAssetPolicy_Table, 'Sub Asset');
+        filter = {
+          Policy_Name: 'Policy_Name',
+          Distance: 'Distance',
+          Year: 'Year',
+          Depreciation_Value: 'Depreciation_Value'
+        }
+        this.table.exportTable(this.subAssetPolicy_Table, 'Sub Asset', filter);
         break;
     }
   }

@@ -51,18 +51,19 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   //#endregion
 
 
+  date(y) {
+    let createdDate = moment.utc(y*1000).local().toDate();
+    let nowDate = new Date();
+    let newDate = nowDate.getTime() - createdDate.getTime();
+    return {
+      day: Math.floor(newDate / (1000 * 3600 * 24))
+    };
+  }
+
   //#region Table
   data$ = this.facade.subAsset$.pipe(
     map((x) => {
       return x.map((y) => {
-        function date() {
-          let createdDate = moment.utc((y.createdAt as any)*1000).local().toDate();
-          let nowDate = new Date();
-          let newDate = nowDate.getTime() - createdDate.getTime();
-          return {
-            day: Math.floor(newDate / (1000 * 3600 * 24))
-          };
-        }
         return {
           id: y.id,
           avatarId: y.avatarId,
@@ -73,7 +74,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           Serial_Number: y.serialNumber,
           Asset: y.assetTypeName,
           Date:
-            this.getDateString(date()),
+            this.getDateString(this.date(y.createdAt)),
           thumbField_Make: 'bmw.png'
         };
       });
@@ -184,7 +185,23 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   }
 
   exportTable() {
-    this.table.exportTable(this.assetTraffic_Table, 'Sub Asset');
+    let filter = {
+      Serial_Number: 'Serial_Number',
+      Date: 'Date?func:dateFunc',
+      dateFunc: (y) => {
+        return this.date(y).day > 0
+          ? this.date(y).day == 1
+            ? `${this.date(y).day} Yesterday`
+            : `${this.date(y).day} Days Ago`
+          : 'Today'
+      },
+      MakeName: 'MakeName',
+      Model: 'Model',
+      Policy: 'Policy',
+      Asset: 'Asset',
+      Warranty_Expire_Date: 'Warranty_Expire_Date',
+    }
+    this.table.exportTable(this.assetTraffic_Table, 'Sub Asset', filter);
   }
 
   eventPagination() {
