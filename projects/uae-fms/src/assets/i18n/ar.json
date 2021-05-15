@@ -1085,7 +1085,8 @@
         },
         "fleet_no": "أسطول لا",
         "view_card": "بطاقة عرض",
-        "asset_type": "نوع الأصول"
+        "asset_type": "نوع الأصول",
+        "removal": "إزالة"
       },
       "technician": {
         "portal_info": "معلومات البوابة",
