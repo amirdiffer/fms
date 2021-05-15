@@ -106,4 +106,8 @@ export class PartMasterFacade {
     this.store.dispatch(PartMasterActions.resetItem());
   }
 
+  resetItemEntities() {
+    this.store.dispatch(PartMasterActions.resetItemEntites());
+  }
+  
 }
