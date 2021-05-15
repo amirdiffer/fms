@@ -89,7 +89,6 @@ export class PendingCustomizationOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.pickData$.subscribe(x => {
-      console.log(x);
       if (x == "accessory") this.accessoryLoaded = true;
       if (x == "subAsset") this.subAssetLoaded = true;
       if (x == "asset") this.assetLoaded = true;
@@ -102,8 +101,6 @@ export class PendingCustomizationOverviewComponent implements OnInit {
           if (y.subAssetId && y.subAssetId != "") return { ...y, subAsset: y.subAssetId ? this._subAsset.filter(z => z.id == y.subAssetId)[0] : y }
           else return y;
         })
-
-        console.log(this.outp)
       }
     })
 

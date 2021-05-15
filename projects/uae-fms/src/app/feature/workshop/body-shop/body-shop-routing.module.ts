@@ -7,6 +7,7 @@ import { BodyShopComponent } from './body-shop.component';
 import { RequestTabOverviewComponent } from '../body-shop/request-tab-overview/request-tab-overview.component';
 import { AddJobCardComponent } from './add-job-card/add-job-card.component';
 import { TechnicianOverviewComponent } from './technician-overview/technician-overview.component';
+import { JobCardOverviewComponent } from "./job-card-overview/job-card-overview.component";
 const routes: Routes = [
   { path: '', component: BodyShopComponent, pathMatch: 'full' },
   { path: 'add-request', component: AddRequestComponent },
@@ -18,11 +19,12 @@ const routes: Routes = [
   { path: 'edit-location/:id', component: AddLocationComponent },
   { path: 'add-job-card', component: AddJobCardComponent },
   { path: 'edit-job-card/:id', component: AddJobCardComponent },
-  { path: 'request-overview/:id', component: RequestTabOverviewComponent }
+  { path: 'request-overview/:id', component: RequestTabOverviewComponent },
+  { path: 'job-card-overview/:id', component: JobCardOverviewComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class BodyShopRoutingModule {}
+export class BodyShopRoutingModule { }

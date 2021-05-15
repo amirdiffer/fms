@@ -42,6 +42,18 @@ export class AssetTypeFacade {
     this.store.dispatch(AssetTypeActions.addMake({ data, assetId }));
   }
 
+  updateMake(data: any, assetId: number) {
+    this.store.dispatch(AssetTypeActions.updateMake({ data, assetId }));
+  }
+
+  updateModel(data: any, assetId: number, makeId: number) {
+    this.store.dispatch(AssetTypeActions.updateModel({ data, assetId, makeId }));
+  }
+
+  updateTrim(data: any, assetId: number, makeId: number, modelId: number) {
+    this.store.dispatch(AssetTypeActions.updateTrim({ data, assetId, makeId, modelId }));
+  }
+
   addModel(data: any, assetId: number, makeId: number) {
     this.store.dispatch(AssetTypeActions.addModel({ data, assetId, makeId }));
   }

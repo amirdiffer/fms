@@ -138,7 +138,12 @@
     "edit_business_category": "Edit Usage Category",
     "company_setting": "Company Setting",
     "permanent": "Permanent",
-    "technical_inspection_report": "Technical Inspection Report"
+    "technical_inspection_report": "Technical Inspection Report",
+    "job_card_overview": "Job Card Overview",
+    "edit_task_master": "Edit Task Master",
+    "edit_location": "Edit Location",
+    "edit_trim": "Edit Trim",
+    "edit_make": "Edit Make"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -179,7 +184,11 @@
         "asset": "Asset",
         "sub_asset": "Sub Asset"
       },
-      "order_list": "Order List",
+      "order_list":  {
+        "~": "Order List",
+        "asset": "Asset",
+        "sub_asset": "Sub Asset"
+      },
       "supplier": "Supplier",
       "part_master": "Part Master"
     },
@@ -300,7 +309,8 @@
     "open": "Open",
     "stoped": "Stoped",
     "delayed": "Delayed",
-    "need_to_order": "Need To Order"
+    "need_to_order": "Need To Order",
+    "order": "Order"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -537,7 +547,11 @@
       "spare_part": "Spare Part",
       "working_hours": "Working Hours",
       "num_accessory": "Num Of Accessories",
-      "num_subasset": "Num Of Sub Assets"
+      "num_subasset": "Num Of Sub Assets",
+      "shopType": "Shop Type",
+      "ratePerHour": "Rate Per Hour",
+      "taskType": "Task Type",
+      "timeEstimate": "Time Estimate"
     },
     "button": {
       "view_report": "View Report",
@@ -671,7 +685,19 @@
       "job_card": {
         "task_specification": "Task Specification",
         "task_master_info": "Task Master Info",
-        "latest_activity": "Latest Activity"
+        "latest_activity": "Latest Activity",
+        "active_job_card_info": "Active Job Card Info",
+        "start_date": "Start Date",
+        "duration": "Duration",
+        "estimated_end_data": "Estimated End Data",
+        "total_tasks": "Total Tasks",
+        "created_by": "Created By",
+        "attachment": "Attachment",
+        "labor_cast": "Labor Cast",
+        "part_cost": "Part Cost",
+        "total_cost": "Total Cost",
+        "location_id": "Location Id",
+        "description": "Description"
       },
       "overview": {
         "vin_sn": "VIN/SN",
@@ -1021,7 +1047,30 @@
       "name": "Name",
       "phone": "Phone",
       "email": "Email",
-      "address": "Address"
+      "address": "Address",
+      "form": {
+        "new_order": "New Order",
+        "type_category": "Type Category",
+        "asset": "Asset",
+        "sub_asset": "Sub Asset",
+        "asset_type": "Asset Type",
+        "select_item_category": "Select Item Category",
+        "item_name": "Item Name",
+        "quantity": "Quantity",
+        "supplier": "Supplier",
+        "description": "Description",
+        "set_reminder": "Set Reminder",
+        "price": "Price"
+      },
+      "request_form": {
+        "request_info": "Request Info",
+        "asset_id": "Asset Id",
+        "part_id": "Part Id",
+        "quantity": "Quantity",
+        "department": "Department",
+        "requested_by": "Requested By",
+        "description": "Description"
+      }
     },
     "part_master": {
       "asset_type": "Asset Type",
@@ -1117,6 +1166,9 @@
         "upload_formcontent": "Drag and Drop a File or click here",
         "periodic_service": "Periodic Service",
         "periodic_service_validation_error": "Please search and choose an item from periodic service",
+        "electrical-service": "Electrical Service",
+        "replacement": "Replacement",
+        "periodic-service-related": "Periodic Service Related",
         "upload_form": {
           "title": "Attach Picture",
           "progressbar_title": "*.pdf",
@@ -1192,7 +1244,9 @@
         "describe_job_card": "Describe JobCard",
         "task": "Task",
         "technician": "Technician",
-        "select_request": "Select The Request Please"
+        "select_request": "Select The Request Please",
+        "active_tasks": "Active Job Card's Tasks",
+        "request_list": "Request List"
       }
     },
     "technical_inspection": {
@@ -1278,7 +1332,18 @@
       "this_task_needs_part": "This Task Needs Part",
       "add_part": "Add Part",
       "please_fill_part": "Please fill part",
-      "please_fill_skill": "Please fill skill"
+      "please_fill_skill": "Please fill skill",
+      "task_type": "Task Type",
+      "normal": "Normal",
+      "installation": "Installation",
+      "electrical_service": "Electrical Service",
+      "replacement": "Replacement",
+      "periodic_service_related": "Periodic Service Related",
+      "removal": "Removal",
+      "shop_type": "Shop Type",
+      "body_shop": "Body Shop",
+      "service_shop": "Service Shop",
+      "cleaning": "Cleaning"
     },
     "service_shop": {}
   },
@@ -1460,8 +1525,6 @@
       "received_order": "Received order",
       "view_request_detail": "View request detail",
       "view_own_request_detail": "View own request detail",
-      "update_edit_own_request": "Update/edit own request",
-      "view_own_request": "View own request",
       "reject_request": "Reject request",
       "archive_own_request": "Archive own request",
       "view_location_list": "View location list",
@@ -1607,7 +1670,15 @@
       "accessory": "Accessory",
       "sub_asset": "Sub Asset",
       "asset": "Asset",
-      "type_category": "Type Category"
+      "type_category": "Type Category",
+      "add_asset_type": "Add Asset Type",
+      "add_sub_asset_type": "Add Sub Asset Type",
+      "add_accessory_type": "Add Accessory Type",
+      "edit_asset_type": "Edit Asset Type",
+      "edit_sub_asset_type": "Edit Sub Asset Type",
+      "edit_accessory_type": "Edit Accessory Type",
+      "edit_trim_for": "Edit Trim For",
+      "add_trim_for": "Add Trim For"
     },
     "business_category": {
       "business_category_info": "Usage Category Info",
@@ -1712,7 +1783,9 @@
     "submit": "Submit",
     "upload_avatar": "Upload Avatar",
     "apply": "Apply",
-    "operator_list": "Operator List"
+    "operator_list": "Operator List",
+    "receive": "Receive",
+    "request": "Request"
   },
   "login": {
     "incorrect_password": "Incorrect Password",
@@ -1758,7 +1831,9 @@
     "model_name": "Model Name",
     "type_status": "Type Status",
     "description": "Description",
-    "category": "Category"
+    "category": "Category",
+    "edit_make_for": "Edit Make For",
+    "edit_model_for": "Edit Model For"
   },
   "chart": {
     "lifecycle": "Lifecycle",

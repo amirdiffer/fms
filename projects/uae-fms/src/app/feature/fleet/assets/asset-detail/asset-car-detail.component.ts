@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 export class AssetCarDetailComponent implements OnInit, OnChanges {
   @Input() asset: any;
   @Input() asset$: Observable<any>;
+  @Input() type;
 
   constructor(
     private changeDetector: ChangeDetectorRef
@@ -19,7 +20,6 @@ export class AssetCarDetailComponent implements OnInit, OnChanges {
       this.asset$.subscribe(x => {
         if (x && x.message) {
           this.asset = x.message;
-          console.log(this.asset)
           this.changeDetector.detectChanges();
         }
       })

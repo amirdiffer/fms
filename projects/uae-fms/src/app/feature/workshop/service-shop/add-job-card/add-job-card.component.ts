@@ -11,7 +11,7 @@ import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
 import moment from 'moment';
@@ -21,7 +21,8 @@ import {
   ServiceShopJobCardService,
   ServiceShopLocationFacade,
   ServiceShopRequestFacade,
-  ServiceShopTechnicianFacade
+  ServiceShopTechnicianFacade,
+  ServiceShopRequestService
 } from '@feature/workshop/+state/service-shop';
 
 @Component({
@@ -112,50 +113,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
         renderer: 'downloadButtonRenderer'
       }
     ],
-    data: [
-      // {
-      //   id: 1,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // },
-      // {
-      //   id: 2,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // },
-      // {
-      //   id: 3,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // }
-    ]
+    data: []
   };
   private _jobCard: any;
 
@@ -201,7 +159,8 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     private _facadeLocation: ServiceShopLocationFacade,
     private _facadeTechnician: ServiceShopTechnicianFacade,
     private _jobCardService: ServiceShopJobCardService,
-    private _taskMasterService: TaskMasterService
+    private _taskMasterService: TaskMasterService,
+    private service: ServiceShopRequestService
   ) {
     super(injector);
   }
@@ -213,25 +172,12 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     this.jobCard$ = this._facadeJobCard.serviceShop$.subscribe((x) => {
       this.allJobCards = x;
     });
-    this.relatedRequests$ = this._facadeRequest.assetRequest$.pipe(
-      map((y) =>
-        y.map((x) => ({
-          id: x.id,
-          request: {
-            label: x.request,
-            checkbox: false
-          },
-          date: x.createdAt
-            ? moment.utc(x.createdAt).local().format('DD-MM-YYYY')
-            : 'ex: 20-20-2020',
-          description: x.description,
-          issue_type: x.jobType,
-          reportedBy: x.reportedBy,
-          attachment: x.documentIds
-        }))
-      )
-    );
-    this._taskMasterService.getAllTaks().subscribe((data) => {
+    this._taskMasterService.getAllTaks().pipe(map(data => {
+      if (data?.message) {
+        data.message = data.message.filter(a => a.shopType == "SERVICESHOP");
+      }
+      return data
+    })).subscribe((data) => {
       this.taskMasters = data.message.map((t) => ({
         id: t.id,
         name: t.name
@@ -245,6 +191,28 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     this.route.queryParams.subscribe((params) => {
       if (params['assetId']) {
         this.inputForm.controls['assetId'].setValue(+params['assetId']);
+        this.selectAsset({ value: params.assetId })
+
+        this.relatedRequests$ = this.service.getRequestById(params['assetId']).pipe(
+          map((y) => {
+            let a = y.message;
+            return a.map((x) => ({
+              id: x.id,
+              request: {
+                label: x.request,
+                checkbox: false
+              },
+              date: x.createdAt
+                ? moment.utc(x.createdAt).local().format('DD-MM-YYYY')
+                : 'ex: 20-20-2020',
+              description: x.description,
+              issue_type: x.jobType,
+              reportedBy: x.reportedBy,
+              attachment: x.documentIds
+            }))
+          }
+          )
+        );
       }
     });
   }
@@ -470,6 +438,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   //     a.name.includes(event.query)
   //   );
   // }
+
   searchTaskMaster(event) {
     let query = event.query;
 

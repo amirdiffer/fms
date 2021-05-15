@@ -14,26 +14,28 @@ export interface IMyOrderListModel {
   ButtonRecived: string;
 }
 
-export interface MyOrderListState extends EntityState<IMyOrderListModel> {
+export interface MyOrderSubAssetListState extends EntityState<IMyOrderListModel> {
   error?: any;
-  loaded: boolean;
-  message: string;
+  loaded?: boolean;
+  message?: string;
+  submitted?: boolean;
 }
 
-export const PARTSTORE_MY_ORDER_LIST_FEATURE_KEY = 'my-order';
+export const PARTSTORE_MY_ORDER_SUB_ASSET_LIST_FEATURE_KEY = 'my-order-sub-asset';
 
-export interface IMyOrderListPartialState {
-  [PARTSTORE_MY_ORDER_LIST_FEATURE_KEY]: MyOrderListState;
+export interface IMyOrderSubAssetListPartialState {
+  [PARTSTORE_MY_ORDER_SUB_ASSET_LIST_FEATURE_KEY]: MyOrderSubAssetListState;
 }
 
 export const myOrderListAdapter: EntityAdapter<IMyOrderListModel> = createEntityAdapter<
   IMyOrderListModel
 >();
 
-export const initialState: MyOrderListState = myOrderListAdapter.getInitialState(
+export const initialState: MyOrderSubAssetListState = myOrderListAdapter.getInitialState(
   {
+    error: null,
     loaded: null,
     message: null,
-    error: null
-  } as MyOrderListState
+    submitted: false
+  } as MyOrderSubAssetListState
 );

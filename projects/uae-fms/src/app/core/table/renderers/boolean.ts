@@ -15,7 +15,7 @@ import { environment } from '../../../../environments/environment';
           src="assets/icons/check.svg"
         />
       </div>
-      <div class="d-flex icon-box">
+      <!-- <div class="d-flex icon-box">
         <svg-icon
           *ngIf="!data && !isOpen && hover == indexTR"
           [src]="externalLink"
@@ -30,7 +30,7 @@ import { environment } from '../../../../environments/environment';
           (click)="editClose(); selectField('close')"
           [svgStyle]="{ 'width.px': 20, fill: '#fff' }"
         ></svg-icon>
-      </div>
+      </div> -->
     </div>
   `,
   styles: [

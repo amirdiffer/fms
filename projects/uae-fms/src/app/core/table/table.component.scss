@@ -7,6 +7,15 @@
       display: block;
     }
   }
+
+  td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tableRow:hover > td {
+    background: #e6f7ef !important;
+  }
 }
 
 .thumb {

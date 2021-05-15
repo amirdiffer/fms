@@ -8,7 +8,7 @@ import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class BodyShopJobCardService {
-  constructor(private http: HttpClient, private _tableFacade: TableFacade) {}
+  constructor(private http: HttpClient, private _tableFacade: TableFacade) { }
 
   params = new HttpParams();
   getParam(name) {
@@ -23,7 +23,7 @@ export class BodyShopJobCardService {
 
   loadAll(): Observable<ResponseBody<IJobCard[]>> {
     return this.http.get<ResponseBody<IJobCard[]>>(
-      environment.baseApiUrl + 'workshop/bodyshop/jobcard', {params: this.getParam('body-shop_jobcard')}
+      environment.baseApiUrl + 'workshop/bodyshop/jobcard', { params: this.getParam('body-shop_jobcard') }
     );
   }
   post(data, assetId): Observable<ResponseBody<any>> {
@@ -36,26 +36,37 @@ export class BodyShopJobCardService {
   editJobCard(data): Observable<ResponseBody<any>> {
     return this.http.post<ResponseBody<any>>(
       environment.baseApiUrl +
-        'workshop/bodyshop/jobcard/' +
-        data.id +
-        '/update',
+      'workshop/bodyshop/jobcard/' +
+      data.id +
+      '/update',
       data
     );
   }
+
   getJobCardById(id) {
     return this.http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'workshop/bodyshop/jobcard/' + id
     );
   }
-  getAssetActiveJobCard(id:number): Observable<ResponseBody<any[]>>{
+
+  getAssetActiveJobCard(id: number): Observable<ResponseBody<any[]>> {
     return this.http.get<ResponseBody<any[]>>(
       environment.baseApiUrl + `workshop/bodyshop/jobcard/asset/${id}`
     );
   }
-  getAllAssethasJobCard(): Observable<ResponseBody<any[]>>{
+
+  getAllAssethasJobCard(): Observable<ResponseBody<any[]>> {
     return this.http.get<ResponseBody<any[]>>(
       environment.baseApiUrl + 'workshop/bodyshop/asset/request?page=0&sort=createdAt,desc&size=10000'
     );
+  }
+
+  getAllRequests(id) {
+    return this.http.get(environment.baseApiUrl + "workshop/serviceshop/jobcard/asset/" + id);
+  }
+
+  getAllActiveJobcards(id) {
+    return this.http.get(environment.baseApiUrl + "workshop/serviceshop/jobcard/asset/" + id);
   }
 }
 

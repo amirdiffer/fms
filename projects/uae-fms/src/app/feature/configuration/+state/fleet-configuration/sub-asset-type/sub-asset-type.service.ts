@@ -43,10 +43,26 @@ export class SubAssetTypeService {
         );
     }
 
+    updateMake(data, subAssetTypeId): Observable<ResponseBody<any>> {
+        return this._http.post<ResponseBody<any>>(
+          environment.baseApiUrl +
+          'configuration/fleet-configuration/sub-asset/' + subAssetTypeId + '/make/update',
+          data
+        );
+    }
+
     addModel(data, subAssetTypeId, makeId): Observable<ResponseBody<any>> {
         return this._http.post<ResponseBody<any>>(
-          environment.baseApiUrl + 
+          environment.baseApiUrl +
           'configuration/fleet-configuration/sub-asset/' + subAssetTypeId + '/make/' + makeId + '/model',
+          data
+        );
+    }
+
+    updateModel(data, subAssetTypeId, makeId): Observable<ResponseBody<any>> {
+        return this._http.post<ResponseBody<any>>(
+          environment.baseApiUrl +
+          'configuration/fleet-configuration/sub-asset/' + subAssetTypeId + '/make/' + makeId + '/model/update',
           data
         );
     }

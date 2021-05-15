@@ -22,7 +22,23 @@ const routes: Routes = [
   { path: 'add-asset-configuration', component: AddTypeComponent },
   { path: 'edit-asset-configuration/:id', component: AddTypeComponent },
   {
+    path: 'sub-asset-edit-asset-configuration/:id',
+    component: AddTypeComponent
+  },
+  {
     path: 'asset-configuration/add-make/:assetType',
+    component: AddMakeComponent
+  },
+  {
+    path: 'asset-configuration/edit-make/:assetTypeId/:id',
+    component: AddMakeComponent
+  },
+  {
+    path: 'asset-configuration/sub-asset-edit-make/:assetTypeId/:id',
+    component: AddMakeComponent
+  },
+  {
+    path: 'asset-configuration/accessory-edit-make/:id',
     component: AddMakeComponent
   },
   {
@@ -30,7 +46,19 @@ const routes: Routes = [
     component: AddModelComponent
   },
   {
+    path: 'asset-configuration/edit-model/:assetTypeId/:makeId/:id',
+    component: AddModelComponent
+  },
+  {
+    path: 'asset-configuration/sub-asset-edit-model/:assetTypeId/:makeId/:id',
+    component: AddModelComponent
+  },
+  {
     path: 'asset-configuration/add-trim/:assetType/:make/:model',
+    component: AddTrimComponent
+  },
+  {
+    path: 'asset-configuration/edit-trim/:assetTypeId/:makeId/:id',
     component: AddTrimComponent
   },
   { path: 'usage-category', component: BusinessCategoryComponent },

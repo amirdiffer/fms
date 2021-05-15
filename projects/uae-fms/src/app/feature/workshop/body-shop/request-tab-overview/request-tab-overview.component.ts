@@ -2,9 +2,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnType } from '@core/table';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
-import { BodyShopRequestFacade } from '@feature/workshop/+state/body-shop';
+import { BodyShopRequestFacade, BodyShopRequestService } from '@feature/workshop/+state/body-shop';
 import moment from 'moment';
 import { map } from 'rxjs/operators';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master'
 
 @Component({
   selector: 'app-asset-overview-request',
@@ -20,8 +21,10 @@ export class RequestTabOverviewComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _assetMasterFacade: AssetMasterFacade,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private assetService: AssetMasterService,
+    private service: BodyShopRequestService
+  ) { }
 
   vehicle = {
     id: 1,
@@ -152,8 +155,10 @@ export class RequestTabOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.assetId = this._activatedRoute.snapshot.params.id;
-    this.tableData$ = this._facadeRequest.assetRequest$.pipe(
-      map((x) => {
+    this._assetMasterFacade.loadAll();
+    this.tableData$ = this.service.getRequestById(this.assetId).pipe(
+      map((y) => {
+        let x=y.message;
         return x.map((y) => {
           let jobType;
           switch (y.jobType) {
@@ -188,5 +193,9 @@ export class RequestTabOverviewComponent implements OnInit {
     this.route.params.subscribe((x) => {
       if (x?.id) this._assetMasterFacade.getAssetByID(x.id);
     });
+
+    this.assetService.getAssetByID(this.assetId).subscribe(x => {
+      this.assetDetail = x.message;
+    })
   }
 }

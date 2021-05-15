@@ -1,4 +1,4 @@
-<form #form='ngForm' (submit)='onSubmit(form)'>
+<form [formGroup]='form' (submit)='onSubmit()'>
   <div class='button-container'>
     <button class='btn-primary-medium btn-scondary-green' routerLink=".." [queryParams]="{id:'suppliers'}">{{ 'forms.cancel' | translate }}</button>
     <!--    TODO: for now add button acts as cancel for UI concerns but later has to change-->
@@ -10,45 +10,55 @@
     </div>
     <div class='row form-section__row'>
       <div class='col-4 p-field form-section__field'>
-                      <span class='p-float-label'>
-                          <input pInputText [placeholder]="'part_store.order_list.company' | translate" name='company' type='text'>
-                          <label>{{ 'part_store.order_list.company' | translate }}</label>
-                      </span>
+        <span class='p-float-label'>
+          <input pInputText [placeholder]="'part_store.order_list.company' | translate" formControlName='company' required type='text'>
+          <label>{{ 'part_store.order_list.company' | translate }} *</label>
+        </span>
+        <anms-error [showError]="hasError('company', form, formSubmitted)"
+                    error='forms.feedback.required'></anms-error>
       </div>
       <div class='col-4 p-field form-section__field'>
-                      <span class='p-float-label'>
-                          <input pInputText [placeholder]="'part_store.order_list.name' | translate" name='name' type='text'>
-                          <label>{{ 'part_store.order_list.name' | translate }}</label>
-                      </span>
+        <span class='p-float-label'>
+          <input pInputText [placeholder]="'part_store.order_list.name' | translate" formControlName='name' required type='text'>
+          <label>{{ 'part_store.order_list.name' | translate }} *</label>
+        </span>
+        <anms-error [showError]="hasError('name', form, formSubmitted)"
+                    error='forms.feedback.required'></anms-error>
       </div>
       <div class='col-4 p-field form-section__field'>
-                      <span class='p-float-label'>
-                          <input pInputText [placeholder]="'part_store.order_list.phone' | translate" name='phone' type='text'>
-                          <label>{{ 'part_store.order_list.phone' | translate }}</label>
-                      </span>
+        <span class='p-float-label'>
+          <input pInputText [placeholder]="'part_store.order_list.phone' | translate" formControlName='phone' required type='tel'>
+          <label>{{ 'part_store.order_list.phone' | translate }} *</label>
+        </span>
+        <anms-error [showError]="hasError('phone', form, formSubmitted)"
+                    error='forms.feedback.required'></anms-error>
       </div>
     </div>
-  
+
     <div class='row form-section__row'>
       <div class='col-4 p-field form-section__field'>
-                      <span class='p-float-label'>
-                          <input pInputText [placeholder]=" 'part_store.order_list.email' | translate " name='email' type='text'>
-                          <label>{{ 'part_store.order_list.email' | translate }}</label>
-                      </span>
+        <span class='p-float-label'>
+          <input pInputText [placeholder]=" 'part_store.order_list.email' | translate " formControlName='email' required type='email'>
+          <label>{{ 'part_store.order_list.email' | translate }} *</label>
+        </span>
+        <anms-error [showError]="hasError('email', form, formSubmitted)"
+                    error='forms.feedback.required'></anms-error>
       </div>
     </div>
-  
+
     <div class='row form-section__row'>
       <div class='col-8 p-field form-section__field'>
-                      <span class='p-float-label'>
-                          <input pInputText [placeholder]=" 'part_store.order_list.address' | translate " name='address' type='text'>
-                          <label>{{ 'part_store.order_list.address' | translate }}</label>
-                      </span>
+        <span class='p-float-label'>
+          <input pInputText [placeholder]=" 'part_store.order_list.address' | translate " formControlName='address' required type='text'>
+          <label>{{ 'part_store.order_list.address' | translate }} *</label>
+        </span>
+        <anms-error [showError]="hasError('address', form, formSubmitted)"
+                    error='forms.feedback.required'></anms-error>
       </div>
     </div>
   </div>
 </form>
 
-<div class="table-container">
-  <app-table [setting]='suppliersTable'></app-table>
-</div>
+<alert-dialog [settings]='dialogSetting' [displayModal]='dialogModal'
+              (confirm)='dialogConfirm($event)'>
+</alert-dialog>
