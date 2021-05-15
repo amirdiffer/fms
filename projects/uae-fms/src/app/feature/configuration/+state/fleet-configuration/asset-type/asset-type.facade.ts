@@ -54,4 +54,8 @@ export class AssetTypeFacade {
     this.loadAll();
     this.store.dispatch(AssetTypeActions.resetParams());
   }
+
+  resetEntities() {
+    this.store.dispatch(AssetTypeActions.resetEntities());
+  }
 }

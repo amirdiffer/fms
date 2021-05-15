@@ -91,4 +91,6 @@ export class AssetTypeActions {
 
     /* Reset Params */
     static resetParams = createAction('[assetType] Reset Parameters');
+
+    static resetEntities = createAction('[assetType] Reset entities');
 }

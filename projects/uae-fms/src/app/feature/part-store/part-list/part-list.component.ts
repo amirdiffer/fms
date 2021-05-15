@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterCardSetting } from '@core/filter';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
   templateUrl: './part-list.component.html',
   styleUrls: ['./part-list.component.scss']
 })
-export class PartListComponent implements OnInit {
+export class PartListComponent implements OnInit , OnDestroy {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   partList = true;
   recordId: number;
@@ -187,8 +187,13 @@ export class PartListComponent implements OnInit {
               y.filterCount = x.unavailable
               break;
           }
-          
         })
+      }else{
+        this.filterCardAsset.map(
+          x=>{
+            x.filterCount = '0'
+          }
+        )
       }
     })
     this._facadePartList.statisticsSubAssetPart$.subscribe(x => {
@@ -210,6 +215,12 @@ export class PartListComponent implements OnInit {
           }
           
         })
+      }else{
+        this.filterCardSubAsset.map(
+          x=>{
+            x.filterCount = '0'
+          }
+        )
       }
     })
     /* Load Table Data */
@@ -311,11 +322,13 @@ export class PartListComponent implements OnInit {
             (assetPart , i )=>{
               if(i === 0 && !this.assetCategorySelected){
                 this.assetCategoryChanges(assetPart.id)
-                this.assetCategorySelected = assetPart
+                this.assetCategorySelected = assetPart;
               }
               return assetPart
             }
           )
+        }else{
+          this._facadePartList.resetPartAssetState();
         }
       })
     );
@@ -331,6 +344,8 @@ export class PartListComponent implements OnInit {
               return subAssetPart
             }
           )
+        }else{
+          this._facadePartList.resetPartSubAssetState();
         }
       })
     );
@@ -361,22 +376,20 @@ export class PartListComponent implements OnInit {
 
   assetTypeChanges(event){
     this._facadePartMaster.loadAllCategoryOfAsset(event);
-    this._facadePartList.loadStatisticsPartOfAsset(event)
   }
 
   assetCategoryChanges(event){
     this._facadePartList.loadAllAccumulatedAssetPartList(event)
-    this._facadePartList.loadAllAssetPartList(event);
+    this._facadePartList.loadStatisticsPartOfAsset(event)
     this.assetCategorySelectedId = event;
   }
 
   subAssetTypeChanges(event){
     this._facadePartMaster.loadAllCategoryOfSubAsset(event);
-    this._facadePartList.loadStatisticsPartOfSubAsset(event)
   }
   subAssetCategoryChanges(event){
-    this._facadePartList.loadAllSubAssetPartList(event)
     this._facadePartList.loadAllAccumulatedSubAssetPartList(event);
+    this._facadePartList.loadStatisticsPartOfSubAsset(event)
     this.subAssetCategorySelectedId = event;
   }
 
@@ -386,5 +399,11 @@ export class PartListComponent implements OnInit {
 
   eventPagination_accumulatedPartOfSubAsset(){
     this._facadePartList.loadAllAccumulatedSubAssetPartList(this.subAssetCategorySelectedId);
+  }
+
+  ngOnDestroy(){
+    this._facadePartList.resetPartAssetState();
+    this._facadePartList.resetPartSubAssetState();
+    this._fleetConfigurationAsset.resetEntities();
   }
 }

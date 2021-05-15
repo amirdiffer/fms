@@ -106,7 +106,6 @@ export class UploaderComponent implements OnInit {
   }
 
   setFiles(index?: number): void {
-    console.log(this.files)
     if (this.files) {
       this.uploadedEvent.emit({
         name: this.uploaderName,
