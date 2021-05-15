@@ -1,4 +1,4 @@
-import { Component, OnInit, Injector } from '@angular/core';
+import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { SubAssetTypeService, SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
@@ -9,7 +9,8 @@ import { ColumnDifinition, TableSetting } from '@core/table';
 import { RouterFacade } from '@core/router';
 import { Utility } from '@shared/utility/utility';
 import * as moment from 'moment';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { ResponseBody } from '@models/responseBody';
 
 const SUB_ASSET_LABEL = 'SUB_ASSET';
 
@@ -18,7 +19,7 @@ const SUB_ASSET_LABEL = 'SUB_ASSET';
   templateUrl: './add-sub-asset.component.html',
   styleUrls: ['./add-sub-asset.component.scss']
 })
-export class AddSubAssetComponent extends Utility implements OnInit {
+export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
 
   //#region Variables
   invalidAvatar = false;
@@ -81,6 +82,8 @@ export class AddSubAssetComponent extends Utility implements OnInit {
 
   formFill: Subject<string> = new Subject();
   formFill$ = this.formFill.asObservable();
+  getSubAssetOnEditSubscriber!: Subscription
+  getSubAssetSubscriber!: Subscription
   //#endregion
 
   //#region  TablesRegion
@@ -190,6 +193,30 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     if (this.itemId) {
       this.isEdit = true;
       this.recordId = this.itemId;
+
+      this.getSubAssetOnEditSubscriber = this.subAssetService.getSubAsset(this.itemId).subscribe((response: ResponseBody<any>) => {
+        const message = response.message
+        this.subAssetTypes = []
+        const subAssetObject = {
+          name: message.subAssetConfigurationName,
+          id: message.subAssetConfigurationId,
+          children: []
+        }
+        this.subAssetTypes.push(subAssetObject)
+        this.makes = []
+        const makeObject = {
+          name: message.subAssetMakeName,
+          id: message.subAssetMakeId,
+          children: []
+        }
+        this.makes.push(makeObject);
+        this.models = []
+        const modelObject = {
+          name: message.subAssetModelName,
+          id: message.subAssetModelId,
+        }
+        this.models.push(modelObject);
+      })
     }
 
     this.initAssetTypes();
@@ -197,7 +224,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
   }
 
   loadSubAssetFormData(recordId: number) {
-    this.subAssetService.getSubAsset(recordId).subscribe((result: any) => {
+    this.getSubAssetSubscriber = this.subAssetService.getSubAsset(recordId).subscribe((result: any) => {
       if (result && result.message) {
         const subAsset = result.message;
         for (let index = 0; index < subAsset.warranties.length - 1; index++) {
@@ -239,38 +266,14 @@ export class AddSubAssetComponent extends Utility implements OnInit {
           purchaseValue,
           year
         } = subAsset;
-        console.log(subAsset)
 
-        const selectedSubAsset: any = this.subAssetTypes.find(
-          (a) => a.id === subAssetConfigurationId
-        );
-        this.setMakes(selectedSubAsset);
-        const selectedMake: any = this.makes.find((a) => a.id === subAssetMakeId);
-        this.setModels(selectedMake);
-        const selectedModel: any = this.models.find((a) => a.id === subAssetModelId);
-
-        const subAssetType = {
-          id: subAssetConfigurationId,
-          name: subAssetConfigurationName,
-          children: selectedSubAsset ? selectedSubAsset.children : []
-        };
-        const make = {
-          id: subAssetMakeId,
-          name: subAssetMakeName,
-          children: selectedMake ? selectedMake.children : []
-        };
-        const model = {
-          id: subAssetModelId,
-          name: subAssetModelName,
-          children: selectedModel ? selectedModel.children : []
-        };
         const policyType = { id: policyTypeId, name: policyTypeName };
 
         const formValue = {
           serialNumber: serialNumber,
-          subAssetType: subAssetType.name,
-          make: make.name,
-          model: model.name,
+          subAssetType: this.subAssetTypes[0].name,
+          make: this.makes[0].name,
+          model: this.models[0].name,
           year,
           policyType,
           purchaseValue,
@@ -546,9 +549,9 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         id: this.recordId,
         avatarId,
         serialNumber: dpd,
-        subAssetConfigurationId: subAssetType.id,
-        makeId: make.id,
-        modelId: model.id,
+        subAssetConfigurationId: this.subAssetTypes[0].id,
+        makeId: this.makes[0].id,
+        modelId: this.models[0].id,
         year: +year,
         policyTypeId: policyType.id,
         purchaseValue: +purchaseValue,
@@ -633,6 +636,11 @@ export class AddSubAssetComponent extends Utility implements OnInit {
     this.dialogSetting.confirmButton = "Cancel";
     this.dialogSetting.cancelButton = "No";
     this.dialogModal = true;
+  }
+
+  ngOnDestroy() {
+    this.getSubAssetOnEditSubscriber?.unsubscribe()
+    this.getSubAssetSubscriber?.unsubscribe()
   }
 
 }
