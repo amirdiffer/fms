@@ -14,7 +14,8 @@ import { map } from 'rxjs/operators';
 })
 export class RequestTabOverviewServiceShopComponent implements OnInit {
   assetId;
-  tableData$;
+  tableData = new Subject();
+  tableData$ = this.tableData.asObservable();
   assetDetail = new Subject();
   assetDetail$ = this.assetDetail.asObservable();
 
@@ -155,9 +156,21 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
 
   ngOnInit(): void {
     this.assetId = this._activatedRoute.snapshot.params.id;
-    this.tableData$ = this.service.getRequestById(this.assetId).pipe(
+    this.loadRequests(this.assetId);
+    this._facadeRequest.assetRequest$.subscribe((x) => {
+      if (x.length < 1) {
+        this._facadeRequest.getAssetRequest(this.assetId);
+      }
+    });
+    this.assetMasterService.getAssetByID(this.assetId).subscribe(x => {
+      this.assetDetail.next(x);
+    })
+  }
+
+  loadRequests(assetId) {
+    this.service.getRequestById(assetId).pipe(
       map((x) => {
-        let a=x.message;
+        let a = x.message;
         return a.map((y) => {
           let jobType;
           switch (y.jobType) {
@@ -183,14 +196,8 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
           };
         });
       })
-    );
-    this._facadeRequest.assetRequest$.subscribe((x) => {
-      if (x.length < 1) {
-        this._facadeRequest.getAssetRequest(this.assetId);
-      }
+    ).subscribe(x => {
+      this.tableData.next(x);
     });
-    this.assetMasterService.getAssetByID(this.assetId).subscribe(x => {
-      this.assetDetail.next(x);
-    })
   }
 }

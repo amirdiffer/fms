@@ -24,7 +24,7 @@ import { map } from 'rxjs/operators';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
 import moment from 'moment';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'anms-add-job-card',
@@ -175,7 +175,11 @@ export class AddJobCardComponent extends Utility implements OnInit {
       }))
     )
   );
-  relatedRequests$;
+
+  relatedRequests = new Subject();
+  relatedRequests$ = this.relatedRequests.asObservable();
+
+  selectedAsset;
   // relatedRequests$ = this._facadeRequest.requestsById$.pipe(
   //   map((y) =>
   //     y.map((x) => ({
@@ -211,6 +215,12 @@ export class AddJobCardComponent extends Utility implements OnInit {
 
   ngOnInit(): void {
     // this.relatedRequests$ = this._facadeRequest.assetRequest$.subscribe()
+    this.selectedAsset = this.route.snapshot.queryParams?.assetId;
+    if (this.selectedAsset) {
+      this.selectAsset({ value: this.selectedAsset })
+      this.loadAssetRequests(this.selectedAsset);
+    }
+
     this._facadeRequest.resetParams();
     this._facadeJobCard.loadAll();
     this.jobCard$ = this._facadeJobCard.bodyShop$.subscribe((x) => {
@@ -233,36 +243,34 @@ export class AddJobCardComponent extends Utility implements OnInit {
         this.inputForm.controls['assetId'].setValue(+params['assetId']);
       }
     });
-
-    this.route.queryParams.subscribe(x => {
-      if (x.assetId) {
-        this.selectAsset({ value: x.assetId })
-        this.relatedRequests$ = this.service.getRequestById(x.assetId).pipe(
-          map((y) => {
-            let a=y.message;
-            return a.map((x) => ({
-              id: x.id,
-              request: {
-                label: x.request,
-                checkbox: false
-              },
-              date: x.createdAt
-                ? moment.utc(x.createdAt * 1000).local().format('DD-MM-YYYY')
-                : '',
-              description: x.description,
-              issue_type: x.jobType,
-              reportedBy: x.reportedBy,
-              attachment: x.documentIds
-            }))
-          }
-          )
-        );
-      }
-      else {
-
-      }
-    })
   }
+
+  private loadAssetRequests(assetId) {
+    this.relatedRequests.next([]);
+    this.service.requestsById(assetId).pipe(
+      map((y) => {
+        let a = y.message;
+        return a.map((x) => ({
+          id: x.id,
+          request: {
+            label: x.request,
+            checkbox: false
+          },
+          date: x.createdAt
+            ? moment.utc(x.createdAt * 1000).local().format('DD-MM-YYYY')
+            : '',
+          description: x.description,
+          issue_type: x.jobType,
+          reportedBy: x.reportedBy,
+          attachment: x.documentIds
+        }))
+      }
+      )
+    ).subscribe(x => {
+      this.relatedRequests.next(x);
+    });
+  }
+
   private buildForm() {
     this.inputForm = this._fb.group({
       assetId: ['', [Validators.required]],
@@ -381,7 +389,9 @@ export class AddJobCardComponent extends Utility implements OnInit {
       });
     } else {
       this.assetIdSelected = e.value;
-      this._facadeRequest.getAssetRequest(e.value);
+
+      this.loadAssetRequests(e.value);
+      // this._facadeRequest.getAssetRequest(e.value);
     }
   }
   get tasks(): FormArray {
