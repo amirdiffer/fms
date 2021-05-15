@@ -104,7 +104,6 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     this._partMasterFacade.specificItem$.subscribe(
       x => {
         if(x){
-          console.log(x)
           this.itemInfo.controls.map(formGroup => {formGroup.patchValue({
             itemName: x.name,
             trim:x.trimId ? {id:x.trimId}: null,
@@ -113,8 +112,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
             color:x.trimColorId ? x.trimColorId : null,
             uploadFile: {files:x.documentIds}
           })});
-          this.documentFile = x.documentIds;
-          console.log(this.documentFile)
+          x.documentIds.map(doc => this.documentFile.push(doc));
           for (let index = 0; index < x.suppliers.length; index++) {
             this.supplier(0).controls[index].patchValue({
               supplier:x.suppliers[index].id
@@ -273,9 +271,8 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
         trimColorId: formValue.itemInfo[0].color,
         needToOrderThreshold: +formValue.itemInfo[0].threshold,
         supplierIds:formValue.itemInfo[0].suppliers.map(supplier => { return supplier.supplier}) ,
-        documentIds: formValue.itemInfo[0].uploadFile.files
+        documentIds: formValue.itemInfo[0].uploadFile != null ? formValue.itemInfo[0].uploadFile.files : []
       };
-      console.log(data)
       if(this.isEdit){
         let editData = {...data, id:this.id}
         this._partMasterFacade.updateItemOfAsset(editData);

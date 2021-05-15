@@ -277,10 +277,22 @@ const partMasterItemReducer = createReducer(
   /* RESET */
   on(PartMasterActions.resetItem, (state) => ({
     ...state,
-    error: null,
+    loaded: false,
     message: null,
-    submitted: false,
-    specificItem:null
+    error: null,
+    submitted:false,
+    specificItem:null,
+  })),
+
+  on(PartMasterActions.resetItemEntites, (state) => ({
+    ...state,
+    loaded: false,
+    message: null,
+    error: null,
+    submitted:false,
+    specificItem:null,
+    entities:[],
+    ids:[]
   })),
 
   
