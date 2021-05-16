@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: 'sub-asset/:id', component: SubAssetOverviewComponent },
   { path: 'movement', redirectTo: 'movement/permanent' },
   { path: 'movement/permanent', component: MovementComponent },
-  // { path: 'movement/iserve', component: IserveComponent },
+  { path: 'movement/iserve', component: IserveComponent },
   { path: 'movement/temporary', component: TemporaryComponent },
   { path: 'movement/permanent/add-permanent-request', component: AddRequestComponent },
   {

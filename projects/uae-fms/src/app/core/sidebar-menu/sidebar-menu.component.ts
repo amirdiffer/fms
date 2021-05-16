@@ -49,7 +49,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.dashboard',
       icon: 'dashboard',
       route: '/dashboard',
-      disabled: true
+      // disabled: true
     },
     {
       name: 'sidebar.fleets.~',
@@ -93,11 +93,11 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             {
               name: 'sidebar.fleets.movement.temporary',
               route: '/fleet/movement/temporary'
-            }
-            /* {
+            },
+            {
               name: 'sidebar.fleets.movement.iserve',
               route: '/fleet/movement/iserve'
-            } */
+            }
           ]
         }
       ]
@@ -106,15 +106,15 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.fuel_management',
       icon: 'fuel',
       route: '/fuel-management',
-      disabled: true
+      // disabled: true
     },
     {
       name: 'sidebar.traffic_fine',
       icon: 'traffic',
       route: '/traffic-fine',
-      disabled: true
+      // disabled: true
     },
-    { name: 'sidebar.toll', icon: 'toll', route: '/toll', disabled: true },
+    { name: 'sidebar.toll', icon: 'toll', route: '/toll', /* disabled: true */ },
     {
       name: 'sidebar.workshop.~',
       icon: 'workshop',
@@ -256,7 +256,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.integrations',
       icon: 'integrations',
       route: '/integration',
-      disabled: true
+      // disabled: true
     }
   ];
 
