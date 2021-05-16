@@ -150,9 +150,6 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   ) { }
 
   ngOnInit(): void {
-    this.assetMasterFacade.conut$.subscribe((x) => {
-      console.log(x);
-    });
     this.assetMasterTableSetting = {
       columns: [
         {

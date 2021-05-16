@@ -46,7 +46,7 @@
         </div>
         <div class='col-9 mt-2'>
           <h3
-            class='form-section__title'>{{ (isEditing ? ('filter.edit_trim_for' | translate) : ('filter.add_trim_for' | translate)) + ' ' + dataService.selectedMakeName + ' ' + dataService.selectedModelName }}</h3>
+            class='form-section__title'>{{ (isEditing ? ('configuration.asset_configuration.edit_trim_for' | translate) : ('configuration.asset_configuration.add_trim_for' | translate)) + ' ' + dataService.selectedMakeName + ' ' + dataService.selectedModelName }}</h3>
           <div formArrayName='trims'>
             <div class='d-flex col-12 form-section h-100' *ngFor='let trim of trims.controls; let index = index'
                  [formGroupName]='index'>

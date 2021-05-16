@@ -93,15 +93,15 @@ export class OrganizationComponent implements OnInit {
             ]);
           }
         },
-        // {
-        //   button: 'external',
-        //   color: '#3F3F3F',
-        //   onClick: (col, data, button?) => {
-        //     this.router.navigate([
-        //       '/fleet/department/department-overview/' + data.id
-        //     ]);
-        //   }
-        // },
+        {
+          button: 'external',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this.router.navigate([
+              '/fleet/department/department-overview/' + data.id
+            ]);
+          }
+        },
       ]
     }
   };

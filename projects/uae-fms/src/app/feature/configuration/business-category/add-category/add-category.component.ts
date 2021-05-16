@@ -287,6 +287,45 @@ export class AddCategoryComponent extends Utility implements OnInit {
     this.dialogModal = false;
 
     if (!event || this.dialogSetting.hasError) return;
+  }
+
+  cancel(): void {
+    this.dialogMode = 'cancel';
+    this.dialogModal = true;
+    this.dialogSetting.confirmButton = 'Yes';
+    this.dialogSetting.cancelButton = 'No';
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.isWarning = true;
+    this.dialogSetting.message =
+      'Are you sure to cancel adding new usage category?';
+  }
+
+  submit() {
+    this.addCategoryForm.markAllAsTouched();
+    this.submited = true;
+    if (this.addCategoryForm.invalid) {
+      return;
+    }
+    // this.dialogMode = 'submit';
+
+    // this.dialogModal = true;
+    // this.dialogSetting.hasError = false;
+    // this.dialogSetting.header = 'Add Usage Category';
+    // this.dialogSetting.hasError = false;
+    // this.dialogSetting.message =
+    //   'Are you sure you want to add new Usage Category?';
+    // this.dialogSetting.confirmButton = 'Register Now';
+    // this.dialogSetting.cancelButton = 'Cancel';
+
+    // if (this.isEditing) {
+    //   this.dialogSetting.header = 'Edit category';
+    //   this.dialogSetting.message =
+    //     'Are you sure you want to submit this changes?';
+    //   this.dialogSetting.isWarning = true;
+    //   this.dialogSetting.confirmButton = 'Yes';
+    //   this.dialogSetting.cancelButton = 'Cancel';
+    //   return;
+    // }
 
     const itemToPost = {
       name: this.addCategoryForm.value.name,
@@ -316,45 +355,6 @@ export class AddCategoryComponent extends Utility implements OnInit {
       this.facade.editCategory(itemToPost, this.id);
     } else {
       this.facade.addCategory(itemToPost);
-    }
-  }
-
-  cancel(): void {
-    this.dialogMode = 'cancel';
-    this.dialogModal = true;
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.cancelButton = 'No';
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.message =
-      'Are you sure to cancel adding new usage category?';
-  }
-
-  submit() {
-    this.addCategoryForm.markAllAsTouched();
-    this.submited = true;
-    if (this.addCategoryForm.invalid) {
-      return;
-    }
-    this.dialogMode = 'submit';
-
-    this.dialogModal = true;
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.header = 'Add Usage Category';
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.message =
-      'Are you sure you want to add new Usage Category?';
-    this.dialogSetting.confirmButton = 'Register Now';
-    this.dialogSetting.cancelButton = 'Cancel';
-
-    if (this.isEditing) {
-      this.dialogSetting.header = 'Edit category';
-      this.dialogSetting.message =
-        'Are you sure you want to submit this changes?';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
-      return;
     }
   }
 

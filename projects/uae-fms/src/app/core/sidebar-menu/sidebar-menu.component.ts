@@ -128,10 +128,10 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.workshop.service_shop',
           icon: 'service-shop',
-          route: '/workshop/service-shop',
+          route: '/workshop/service-shop'
           // disabled: true
         },
-        /* {
+        {
           name: 'sidebar.workshop.inspection.~',
           icon: 'inspection',
           route: '/workshop/inspections',
@@ -145,7 +145,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
               route: '/workshop/inspections/auction-list'
             }
           ]
-        }, */
+        },
         {
           name: 'sidebar.workshop.task_master',
           icon: 'task-master',
@@ -157,24 +157,33 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.part_store.~',
       icon: 'part-store',
       route: '/part-store',
-      disabled:true
-      /* items: [
+      items: [
         {
-          name: 'sidebar.part_store.part_list',
+          name: 'sidebar.part_store.part_list.~',
           icon: 'part-list',
-          route: '/part-store/part-list'
+          route: '/part-store/part-list',
         },
         {
-          name: 'sidebar.part_store.order_list',
+          name: 'sidebar.part_store.order_list.~',
           icon: 'order-list',
-          route: '/part-store/order-list'
+          route: '/part-store/order-list',
+          items: [
+            {
+              name: 'sidebar.part_store.order_list.asset',
+              route: '/part-store/order-list/asset'
+            },
+            {
+              name: 'sidebar.part_store.order_list.sub_asset',
+              route: '/part-store/order-list/sub-asset'
+            },
+          ]
         },
         {
           name: 'sidebar.part_store.part_master',
           icon: 'part-master',
           route: '/part-store/part-master'
         }
-      ] */
+      ]
     },
     /*{
         name: 'sidebar.report',
@@ -195,7 +204,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             {
               name: 'sidebar.configuration.user_management.role_permission',
               icon: 'organization',
-              route: '/configuration/user-management/role-permission',
+              route: '/configuration/user-management/role-permission'
             },
             {
               name: 'sidebar.configuration.user_management.users',
@@ -270,20 +279,20 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     private resizeService: WindowResizeService,
     private routerService: RouterService,
     private route: ActivatedRoute,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.usingMenu = this.mainMenu;
-    this.route.url.subscribe(x => {
+    this.route.url.subscribe((x) => {
       let url = this.router.url;
       if (url.indexOf('?') >= 0) {
-        url = url.split('?')[0]
+        url = url.split('?')[0];
       }
       this.activeRoute = url;
       this.urlGroup = url.split('/');
       this.collapsedMenu = '/' + url.split('/')[1];
-    })
+    });
 
     this.opened$.subscribe((x) => {
       !x ? (this.activeGroup = 'root') : null;
@@ -308,8 +317,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       }
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   activeMenuCheck(route: string) {
     let r = '';
@@ -326,7 +334,11 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       r = route.split('/');
       r = r[r.length - 1];
     }
-    return this.urlGroup.indexOf(r) >= 0 && this.activeGroup != 'root' && this.collapsedSubMenu != 'root';
+    return (
+      this.urlGroup.indexOf(r) >= 0 &&
+      this.activeGroup != 'root' &&
+      this.collapsedSubMenu != 'root'
+    );
   }
 
   activeToggleSubGroup(route): boolean {
@@ -343,7 +355,8 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
   }
 
   toggleSubGroup(item: MenuItem) {
-    if (this.collapsedSubMenu == '/' + item.route.split('/')[2] ) this.collapsedSubMenu = 'root';
+    if (this.collapsedSubMenu == '/' + item.route.split('/')[2])
+      this.collapsedSubMenu = 'root';
     else this.collapsedSubMenu = '/' + item.route.split('/')[2];
   }
 }

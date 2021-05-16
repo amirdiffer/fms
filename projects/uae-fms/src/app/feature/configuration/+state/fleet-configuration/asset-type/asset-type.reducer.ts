@@ -178,6 +178,8 @@ const assetTypeReducer = createReducer(
         submitted: false
     })),
 
+    on(AssetTypeActions.resetEntities, (state) => (state = undefined)),
+
 )
 
 

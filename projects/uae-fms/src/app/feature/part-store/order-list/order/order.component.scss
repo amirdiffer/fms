@@ -1,13 +1,28 @@
-@import '../../../../../themes/green-theme';
+@import '../../../../../themes/green-theme.scss';
 @import '../../../../../assets/scss/form-section.scss';
-@import '../../../../../assets/scss/mixins/form-section.scss';
-@import '../order-list.component.scss';
+.row {
+  margin-top: 10px !important;
+  .form-section:first-child {
+    margin-top: 0 !important;
+  }
+}
 
-:host ::ng-deep {
-  .p-dropdown.p-component {
-    width: 100% !important;
+.calendar-select {
+  .p-float-label label {
+    width: auto;
   }
-  .form-section {
-    overflow: visible;
+}
+
+::ng-deep .p-calendar {
+  width: 78%;
+}
+
+@media only screen and (max-width: 768px) {
+  ::ng-deep .p-calendar {
+    width: 100%;
   }
+}
+
+.green {
+  color: $fms-green-primary-color2;
 }

@@ -136,7 +136,11 @@
     "company_setting": "إعداد الشركة",
     "permanent": "دائم",
     "technical_inspection_report": "تقرير الفحص الفني",
-    "job_card_overview":"نظرة عامة على البطاقة الوظيفية"
+    "job_card_overview":"نظرة عامة على البطاقة الوظيفية",
+    "edit_task_master":"تحرير المهمة الرئيسية",
+    "edit_location":"تحديد الوجهة",
+    "edit_trim":"تحریر التریم",
+    "edit_make":"تحریر الماركة"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -335,14 +339,19 @@
       "section": "القسم",
       "location": "الموقع",
       "tf_payed": "TF دفع",
+      "room":"غرفة",
+      "price":"السعر",
       "duration": "المدة",
       "start_date": "تاريخ البداية",
       "department": "الإدارة",
+      "capacity":"الاهلية",
       "fine": "بخير",
       "reason": "السبب",
       "user": "المستخدم",
       "movement_type": "نوع الحركة",
       "request_type": "نوع الطلب",
+      "operator_name":"اسم المشغل",
+      "number_of_request":"عدد الطلبات",
       "request": "طلب",
       "asset_type": "نوع الأصول",
       "sub_asset_type": "نوع الأصل الفرعي",
@@ -441,6 +450,7 @@
       "category": "فئة",
       "warranty_expire": "انتهاء الضمان",
       "total_cost": "التكلفة إجمالي",
+      "total_quantity":"الكمية الإجمالية",
       "storage_location": "مكان التخزين",
       "established_market_value": "القيمة السوقية الثابتة",
       "remove": "إزالة",
@@ -959,7 +969,8 @@
       "room": "غرفة",
       "aisle": "جناح",
       "shelf": "رفوف",
-      "box": "صندوق"
+      "box": "صندوق",
+      "warranty_start_date":"تاريخ بدء الضمان"
     },
     "order_list": {
       "request_list": "قائمة الطلبات",
@@ -974,6 +985,7 @@
     },
     "part_master": {
       "asset_type": "نوع الأصول",
+      "sub_asset_type": "نوع الأصل الفرعي",
       "category": "الفئة",
       "add_category": "إضافة فئة",
       "make": "الماركة",
@@ -986,6 +998,7 @@
       "category_name": "اسم التصنيف",
       "item_name": "اسم العنصر",
       "filter_and_fuel_pump": "مرشح ، مضخة الوقود",
+      "threshold":"عتبة",
       "upload_form": {
         "title": "",
         "progressbar_title": ".pdf",
@@ -993,10 +1006,12 @@
       },
       "engine": "محرك",
       "filters": "المرشحات",
-      "supplier": "المورد",
-      "search": "بحث",
-      "category_type": "معلومات الفئة",
-      "filter_setting": "إعداد المرشح"
+      "supplier":"المورد",
+      "search":"بحث",
+      "category_type":"معلومات الفئة",
+      "filter_setting":"إعداد المرشح",
+      "trim":"تريم",
+      "color":"اللون"
     },
     "integration": {
       "type": "النوع",
@@ -1060,6 +1075,9 @@
         "upload_formcontent": "قم بسحب وإسقاط ملف أو انقر هنا",
         "periodic_service": "الصيانة الدورية",
         "periodic_service_validation_error": "الرجاء البحث واختيار عنصر من الخدمة الدورية",
+        "electrical-service": "الخدمة الكهربائية",
+        "replacement": "إستبدال",
+        "periodic-service-related": "الخدمة الدورية ذات الصلة",
         "upload_form": {
           "title": "إرفاق صورة",
           "progressbar_title": "*.pdf",
@@ -1067,7 +1085,8 @@
         },
         "fleet_no": "أسطول لا",
         "view_card": "بطاقة عرض",
-        "asset_type": "نوع الأصول"
+        "asset_type": "نوع الأصول",
+        "removal": "إزالة"
       },
       "technician": {
         "portal_info": "معلومات البوابة",
@@ -1232,7 +1251,8 @@
       "removal": "إزالة",
       "shop_type": "نوع المحل",
       "body_shop": "محل لبيع مواد التجميل",
-      "service_shop": "متجر الخدمة"
+      "service_shop": "متجر الخدمة",
+      "cleaning":"تنظيف"
     },
     "service_shop": {}
   },
@@ -1254,6 +1274,32 @@
       "movement": "الحركة",
       "asset_configuration": "تكوين الأصول",
       "business_category": "نوع العمل",
+      "export_asset_configuration_list":"تصدير قائمة تكوين الأصول",
+      "view_asset_configuration_detail":"عرض تفاصيل تكوين الأصول",
+      "update_supplier":"تحديث / تحرير المورد",
+      "archive_supplier":"مورد الأرشيف",
+      "view_supplier_detail":"عرض تفاصيل المورد",
+      "add_part_master_category":"إضافة فئة رئيسية الجزء",
+      "update_part_master_category":"تحديث / تحرير فئة الجزء الرئيسي",
+      "archive_part_master_category":"أرشيف الفئة الرئيسية للجزء",
+      "view_part_master_category_detail":"عرض تفاصيل فئة الجزء الرئيسي",
+      "view_part_master_category":"عرض قائمة فئة الجزء الرئيسي",
+      "export_part_master_category":"تصدير قائمة فئة الجزء الرئيسي",
+      "add_part_master_item":"إضافة عنصر الجزء الرئيسي",
+      "update_part_master_item":"تحديث / تحرير عنصر الجزء الرئيسي",
+      "archive_part_master_item":"أرشفة عنصر رئيسي للجزء",
+      "view_part_master_item_detail":"عرض تفاصيل العنصر الرئيسي للجزء",
+      "view_part_master_item":"عرض قائمة العناصر الرئيسية للجزء",
+      "export_part_master_item":"تصدير قائمة عنصر الجزء الرئيسي",
+      "view_own_request_list":"عرض قائمة الطلبات الخاصة",
+      "approve_reject_own_request":"قبول / رفض الطلب الخاص",
+      "add_oreder":"أضف الطلب",
+      "update_order":"تحديث / تحرير الأمر",
+      "archive_order":"ترتيب الأرشيف",
+      "view_order_detail":"عرض تفاصيل الطلب",
+      "view_order_list":"عرض قائمة الطلبات",
+      "export_order_list":"قائمة أوامر التصدير",
+      "received_order":"الطلب المستلم",
       "role": "دور",
       "description": "الوصف",
       "user_existing_as_template": "المستخدم موجود كقالب",
@@ -1540,7 +1586,9 @@
       "add_accessory_type": "أضف نوع الملحقات",
       "edit_asset_type": "تحرير نوع الأصل",
       "edit_sub_asset_type": "تحرير نوع الأصل الفرعي",
-      "edit_accessory_type": "تحرير نوع الملحقات"
+      "edit_accessory_type": "تحرير نوع الملحقات",
+      "edit_trim_for":"تحرير التریم",
+      "add_trim_for":"تحرير التریم"
     },
     "business_category": {
       "business_category_info": "معلومات فئة العمل",
@@ -1632,6 +1680,7 @@
     "recived": "الواردة",
     "assign": "تعيين",
     "upload": "تحميل",
+    "update":"تحديث",
     "generate": "إنشاء",
     "feedback": {
       "required": "هذا الحقل مطلوب",

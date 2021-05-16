@@ -405,6 +405,8 @@ export interface ColumnDifinition {
   textColor?: string;
   onClick?: Function;
   hasJobCardButton?: boolean;
+  hasPadding5?: boolean;
+  hasPadding3?: boolean;
 }
 
 export enum ColumnType {
@@ -435,7 +437,8 @@ export enum ButtonType {
   orderListReject,
   approve,
   confirm,
-  receive
+  receive,
+  receiveAndEdit
 }
 
 export interface FloatButtonType {

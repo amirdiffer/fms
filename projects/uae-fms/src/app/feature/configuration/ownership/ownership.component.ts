@@ -32,7 +32,7 @@ export class OwnershipComponent implements OnInit {
         field: 'Owner_Phone_No'
       },
       {
-        lable: '<img src="../../../../assets/icons/car-solid.svg">',
+        lable: '<img src="assets/icons/car-solid.svg">',
         type: 1,
         isIconLable: true,
         field: 'car',
