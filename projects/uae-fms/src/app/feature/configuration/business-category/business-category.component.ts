@@ -79,7 +79,15 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   }
 
   exportTable() {
-    this.table.exportTable(this.businessCategory_Table, 'Business Category');
+    let filter = {
+      Category_Name: 'Category_Name',
+      Status: 'Status',
+      Description: 'Description',
+      Asset_Type: 'Asset_Type',
+      Sub_Asset: 'Sub_Asset',
+      Accessory: 'Accessory'
+    };
+    this.table.exportTable(this.businessCategory_Table, 'Business Category', filter);
   }
 
   eventPagination() {

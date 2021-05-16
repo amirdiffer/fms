@@ -583,18 +583,51 @@ export class ServiceShopComponent implements OnInit {
     }
   }
   exportTable() {
+    let filter;
     switch (this.selectedTab) {
       case 'requestTab':
-        this.table.exportTable(this.table1Setting, this.selectedTab);
+        filter = {
+          asset: 'asset.assetName|asset.assetSubName',
+          plateNumber: 'plateNumber',
+          department: 'department',
+          operatorName: 'operatorName',
+          assetTypeName: 'assetTypeName',
+          numberOfActiveRequests: 'numberOfActiveRequests'
+        };
+        this.table.exportTable(this.table1Setting, 'Service Shop - Request Tab', filter);
         break;
       case 'jobcardTab':
-        this.table.exportTable(this.table2Setting, this.selectedTab);
+        filter = {
+          asset: 'asset.assetSubName',
+          startDate: 'startDate',
+          endDate: 'endDate',
+          location: 'location',
+          cost: 'cost',
+          technician: 'technician'
+        };
+        this.table.exportTable(this.table2Setting, 'Service Shop - JobCard Tab', filter);
         break;
       case 'technicianTab':
-        this.table.exportTable(this.table3Setting, this.selectedTab);
+        filter = {
+          technician: 'technician.firstName|technician.lastName',
+          skill: 'skill',
+          status: 'status',
+          tasks: 'tasks',
+          information: 'information.email|information.phoneNumber',
+          ratePerHour: 'ratePerHour'
+        }
+        this.table.exportTable(this.table3Setting, 'Service Shop - Technician Tab', filter);
         break;
       case 'locationTab':
-        this.table.exportTable(this.table4Setting, this.selectedTab);
+        filter = {
+          locationId: 'locationId',
+          service: 'service',
+          address: 'address',
+          jobCard: 'jobCard',
+          technician: 'technician',
+          capacity: 'capacity'
+        }
+        this.table.exportTable(this.table4Setting, 'Service Shop - Location Tab', filter);
         break;
     }
   }
