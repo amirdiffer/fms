@@ -157,18 +157,14 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
   ngOnInit(): void {
     this.assetId = this._activatedRoute.snapshot.params.id;
     this.loadRequests(this.assetId);
-    this._facadeRequest.assetRequest$.subscribe((x) => {
-      if (x.length < 1) {
-        this._facadeRequest.getAssetRequest(this.assetId);
-      }
-    });
+
     this.assetMasterService.getAssetByID(this.assetId).subscribe(x => {
       this.assetDetail.next(x);
     })
   }
 
   loadRequests(assetId) {
-    this.service.getRequestById(assetId).pipe(
+    this.service.requestsById(assetId).pipe(
       map((x) => {
         let a = x.message;
         return a.map((y) => {

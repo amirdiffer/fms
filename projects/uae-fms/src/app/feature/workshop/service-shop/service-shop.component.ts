@@ -267,7 +267,7 @@ export class ServiceShopComponent implements OnInit {
           tooltip: 'Create job card',
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
-            this.router.navigate(['/workshop/body-shop/add-job-card'], {
+            this.router.navigate(['/workshop/service-shop/add-job-card'], {
               queryParams: { assetId: data.assetId }
             });
           }
@@ -277,7 +277,7 @@ export class ServiceShopComponent implements OnInit {
           onClick: (col, data) => {
             this._facadeRequest.getAssetRequest(data.assetId);
             this.router
-              .navigate(['/workshop/body-shop/request-overview/' + data.id])
+              .navigate(['/workshop/service-shop/request-overview/' + data.id])
               .then();
           }
         }
