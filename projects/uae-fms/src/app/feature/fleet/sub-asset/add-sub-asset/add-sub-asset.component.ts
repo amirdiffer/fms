@@ -205,7 +205,7 @@ export class AddSubAssetComponent extends Utility implements OnInit {
         }
         this.subAssetForm.patchValue({
           warranties: subAsset.warranties.map((x) => {
-            const date = moment.utc(x.startDate).local();
+            const date = moment.utc(this.isEdit?x.startDate*1000:x.startDate).local();
             this.warrantyDocs.push(x.docId);
             return {
               ...x,

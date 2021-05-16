@@ -54,9 +54,9 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   //#region Table
   data$ = this.facade.subAsset$.pipe(
     map((x) => {
-      return x.map((y) => {
+      return x.map((y: any) => {
         function date() {
-          let createdDate = moment.utc((y.createdAt as any)*1000).local().toDate();
+          let createdDate = moment.utc((y.createdAt as any) * 1000).local().toDate();
           let nowDate = new Date();
           let newDate = nowDate.getTime() - createdDate.getTime();
           return {
@@ -72,6 +72,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           Warranty_Expire_Date: y.warrantyExpireDate,
           Serial_Number: y.serialNumber,
           Asset: y.assetTypeName,
+          AssetCategory: y.subAssetConfigurationName,
           Date:
             this.getDateString(date()),
           thumbField_Make: 'bmw.png'
@@ -97,13 +98,13 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       },
       { lable: 'tables.column.model', type: 1, field: 'Model' },
       { lable: 'tables.column.policy', type: 1, field: 'Policy' },
-      { lable: 'tables.column.asset_type', type: 1, field: 'Asset' },
-      {
+      { lable: 'tables.column.category_name', type: 1, field: 'AssetCategory' },
+      /* {
         lable: 'tables.column.warranty_expire_date',
         type: 1,
         field: 'Warranty_Expire_Date',
         width: 200
-      },
+      }, */
       {
         lable: '',
         field: 'floatButton',
