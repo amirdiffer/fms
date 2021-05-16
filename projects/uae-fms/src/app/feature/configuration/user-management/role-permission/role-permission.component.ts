@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColumnType, TableSetting } from '@core/table';
+import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { map } from 'rxjs/operators';
 import { RolePermissionFacade } from '../../+state/role-permission';
 
@@ -10,6 +10,7 @@ import { RolePermissionFacade } from '../../+state/role-permission';
   styleUrls: ['./role-permission.component.scss']
 })
 export class RolePermissionComponent implements OnInit {
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
   downloadBtn = 'assets/icons/download-solid.svg';
   data$ = this.facade.rolePermission$.pipe(
     map(
@@ -63,5 +64,14 @@ export class RolePermissionComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadAll();
+  }
+
+  exportTable() {
+    let filter = {
+      roleName: 'roleName',
+      description: 'description',
+      numberOfUser: 'numberOfUser',
+    }
+    this.table.exportTable(this.rolePermission_Table, 'Role And Permission', filter);
   }
 }

@@ -135,6 +135,13 @@ export class OrganizationComponent implements OnInit {
   }
 
   exportTable() {
-    this.table.exportTable(this.organization_Table, 'Department');
+    let filter = {
+      Organization: 'Organization',
+      Section: 'Section',
+      Location: 'Location',
+      TF_Payed: 'TF_Payed',
+      TF_Unpaid: 'TF_Unpaid'
+    };
+    this.table.exportTable(this.organization_Table, 'Department', filter);
   }
 }

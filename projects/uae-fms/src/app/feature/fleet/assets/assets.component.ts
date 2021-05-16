@@ -336,9 +336,10 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   }
 
   exportTable() {
+    let filter;
     switch (this.selectedTab) {
       case 'assetMasterTab':
-        let filter = {
+        filter = {
           asset: 'assetTypeName|dpd|Owned',
           type: 'assetTypeName',
           businessCategory: 'businessCategoryName',
@@ -359,15 +360,30 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
         this.table.exportTable(this.assetMasterTableSetting, this.selectedTab, filter);
         break;
       case 'pendingRegistrationTab':
+        filter = {
+          asset: 'dpd',
+          serialNumber: 'dpd',
+          allocated: 'Finance',
+          make: 'makeName',
+          type: 'assetConfigurationName',
+          businessCategory: 'businessCategoryName'
+        };
         this.table.exportTable(
           this.pendingRegistrationTableSetting,
-          this.selectedTab
+          this.selectedTab, filter
         );
         break;
       case 'pendingCustomizationTab':
+        filter = {
+          asset: 'dpd',
+          businessCategory: 'businessCategoryName',
+          createDate: 'createdAt',
+          registrantionDate: '00/00/00',
+          creator: 'operator.firstName|operator.lastName'
+        };
         this.table.exportTable(
           this.pendingCustomizationTableSetting,
-          this.selectedTab
+          this.selectedTab, filter
         );
         break;
     }

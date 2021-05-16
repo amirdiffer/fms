@@ -183,6 +183,7 @@ export class PartMasterActions {
   static resetCatgeory = createAction(
     '[PartMasterCategory] reset parameters'
   );
+  
 
   static errorItem = createAction(
     '[PartMasterItem] error occurred',
@@ -192,5 +193,9 @@ export class PartMasterActions {
   static resetItem = createAction(
     '[PartMasterItem] reset parameters'
   );
+
+  static resetItemEntites = createAction(
+    '[PartMasterItem] reset items entities'
+  )
 
 }

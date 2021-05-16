@@ -102,6 +102,8 @@ export class PartMasterComponent implements OnInit , OnDestroy {
       x =>{
         if(x.length > 0){
           this.categorySelect(this.selectedCategory,x[this.selectedCategory],true);
+        }else{
+          this._partMasterFacade.resetItemEntities();
         }
       }
     );
@@ -120,8 +122,9 @@ export class PartMasterComponent implements OnInit , OnDestroy {
 
   /* Category Changes Asset Or Sub Asset */
   categoryTypeChanges(event, isLoaded:boolean=false){
+    
     this.selectedCategory = 0
-    this.addCategoryData.fleetConfigurationId = null
+    this.addCategoryData.fleetConfigurationId = null;
     if(event.id === 'ASSET'){
       this.selectedCategoryType = { name: 'Asset', id: 'ASSET' };
       this.isAsset = true;
@@ -166,7 +169,7 @@ export class PartMasterComponent implements OnInit , OnDestroy {
   };
 
   typeChanges(event){
-    this.selectedSubCategoryType = event
+    this.selectedSubCategoryType = event;
     this.selectedCategory = 0
     this.addCategoryData.fleetConfigurationId = event.id;
     this.selectedCategoryType.id === 'ASSET' 
@@ -197,7 +200,7 @@ export class PartMasterComponent implements OnInit , OnDestroy {
   ngOnDestroy(){
     this._partMasterFacade.resetCategory();
     this._partMasterFacade.resetItem();
-    this._fleetConfigurationAssetTypeFacade.resetParams();
+    this._fleetConfigurationAssetTypeFacade.resetEntities();
     this._partMasteService.setCategoryData(null)
     this.categoryListSubscription$.unsubscribe();
   }
