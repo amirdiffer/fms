@@ -178,8 +178,8 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
         let func = [];
         let columnMultiData = []
         if (typeof filter[x] == 'string') {
-           columnMultiData = (<string>filter[x]).split('|');
-           func =  (<string>filter[x]).split('?func:');
+          columnMultiData = (<string>filter[x]).split('|');
+          func = (<string>filter[x]).split('?func:');
         }
         columnMultiData.forEach(y => {
           let hasFunc = false;
@@ -359,7 +359,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   changeItemDropdownSelected(obj) {
-    let data =  Object.values(obj);
+    let data = Object.values(obj);
     this.dropdownItemSelected = data[1];
     this.selectedSubTable.emit((<number>data[0]));
   }
@@ -446,4 +446,5 @@ export interface FloatButtonType {
   color?: string;
   tooltip?: string;
   onClick?: Function;
+  condition?: Function;
 }

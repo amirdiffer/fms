@@ -19,7 +19,7 @@ import { SettingsFacade } from '@core/settings/settings.facade';
       }"
     >
       <ng-container *ngFor="let item of setting?.floatButton">
-        <span (click)="clicked(item, col, data)" (mouseenter)="item.tooltip ? tooltipEnter() : null" (mouseleave)="item.tooltip ? tooltipLeave() : null">
+        <span *ngIf="checkCondition(item)" (click)="clicked(item, col, data)" (mouseenter)="item.tooltip ? tooltipEnter() : null" (mouseleave)="item.tooltip ? tooltipLeave() : null">
           <p *ngIf="item.button == 'folder-check' && item.tooltip" class="tooltip-float-button" #tooltip>{{item.tooltip}}</p>
           <svg-icon
             [src]="getIcon(item.button)"
@@ -85,12 +85,12 @@ export class FloatButton implements OnInit {
   @Input() col;
   @Input() setting;
   @Input() lang;
-  @ViewChild('tooltip') tooltip:ElementRef
+  @ViewChild('tooltip') tooltip: ElementRef
   assetPath = 'assets/icons/';
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {  }
 
   getIcon(key: string): string {
     switch (key) {
@@ -120,10 +120,17 @@ export class FloatButton implements OnInit {
       item.onClick(col, data, item.button);
     }
   }
-  tooltipEnter(){
-    this.tooltip.nativeElement.classList.add('animation-fade')
+  tooltipEnter() {
+    this.tooltip?.nativeElement?.classList.add('animation-fade')
   }
-  tooltipLeave(){
-    this.tooltip.nativeElement.classList.remove('animation-fade')
+  tooltipLeave() {
+    this.tooltip?.nativeElement?.classList.remove('animation-fade')
+  }
+
+  checkCondition(setting) {
+    if (setting?.condition && setting?.condition instanceof Function) {
+      return setting.condition(this.data);
+    } else
+      return true;
   }
 }

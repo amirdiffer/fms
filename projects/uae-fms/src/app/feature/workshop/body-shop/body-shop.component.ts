@@ -265,6 +265,9 @@ export class BodyShopComponent implements OnInit {
           button: 'folder-check',
           color: '#0da06e',
           tooltip: 'Create job card',
+          condition: function (data) {
+            return data.hasOpenJobCard ? false : true;
+          },
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
             this.router.navigate(['/workshop/body-shop/add-job-card'], {
@@ -278,6 +281,15 @@ export class BodyShopComponent implements OnInit {
             this._facadeRequest.getAssetRequest(data.assetId);
             this.router
               .navigate(['/workshop/body-shop/request-overview/' + data.id])
+              .then();
+          }
+        },
+        {
+          button: 'edit',
+          onClick: (col, data) => {
+            this._facadeRequest.getAssetRequest(data.assetId);
+            this.router
+              .navigate(['/workshop/body-shop/edit-job-card/' + data.id])
               .then();
           }
         }

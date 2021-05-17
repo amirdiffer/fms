@@ -114,50 +114,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
         renderer: 'downloadButtonRenderer'
       }
     ],
-    data: [
-      // {
-      //   id: 1,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // },
-      // {
-      //   id: 2,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // },
-      // {
-      //   id: 3,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // }
-    ]
+    data: []
   };
   private _jobCard: any;
 

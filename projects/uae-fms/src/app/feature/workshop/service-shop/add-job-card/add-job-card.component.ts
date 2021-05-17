@@ -120,7 +120,13 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
 
   assets$ = this._jobCardService
     .getAllAssethasJobCard()
-    .pipe(map((y) => y.message.map((x) => ({ id: x.assetId, name: x.dpd }))));
+    .pipe(map((y) => {
+      console.log(y)
+      return y.message.map((x) =>
+      ({ id: x.assetId, name: x.dpd }
+      ))
+    })
+    );
   locations$ = this._facadeLocation.serviceShop$.pipe(
     map((y) => y.map((x) => ({ id: x.id, name: x.address })))
   );
@@ -169,6 +175,10 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
 
   ngOnInit(): void {
     // this.relatedRequests$ = this._facadeRequest.assetRequest$.subscribe()
+    this.assets$.subscribe(x=>{
+      console.log(x)
+
+    })
     this._facadeRequest.resetParams();
     this._facadeJobCard.loadAll();
     this.jobCard$ = this._facadeJobCard.serviceShop$.subscribe((x) => {
@@ -218,6 +228,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
           .getJobCardById(this.id)
           .pipe(map((x) => x.message))
           .subscribe((x) => {
+            this.selectAsset({ value: x.assetId })
             if (x) {
               this._jobCard = x;
               this.inputForm.patchValue({
@@ -335,7 +346,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
       this.relatedRequests.next([]);
       this.errorDialogSetting.header = 'Job Card';
       this.errorDialogSetting.message =
-      "Asset has alredy a job card, you can't add more than once!";
+        "Asset has alredy a job card, you can't add more than once!";
       this.errorDialogSetting.hasError = true;
       this.errorDialogSetting.cancelButton = undefined;
       this.errorDialogSetting.confirmButton = 'Ok';

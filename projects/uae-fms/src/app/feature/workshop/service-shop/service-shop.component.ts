@@ -16,6 +16,7 @@ import {
   ServiceShopRequestFacade,
   ServiceShopTechnicianFacade
 } from '../+state/service-shop';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 @Component({
   templateUrl: './service-shop.component.html',
   styleUrls: ['./service-shop.component.scss']
@@ -130,6 +131,20 @@ export class ServiceShopComponent implements OnInit {
     }
   ];
 
+  //#region Dialog
+  errorDialogSetting: IDialogAlert = {
+    header: '',
+    message: '',
+    confirmButton: 'Ok',
+    isWarning: false,
+    hasError: true,
+    hasHeader: true,
+    cancelButton: undefined
+  };
+  errorDialogModal = false;
+  //#endregion
+
+  //#region Data
   requestData$ = this._facadeRequest.serviceShop$.pipe(
     map((x) => {
       return x.map((y) => {
@@ -212,6 +227,9 @@ export class ServiceShopComponent implements OnInit {
       });
     })
   );
+  //#endregion
+
+  //#region Tables
   table1Setting: TableSetting = {
     columns: [
       {
@@ -265,6 +283,9 @@ export class ServiceShopComponent implements OnInit {
           button: 'folder-check',
           color: '#0da06e',
           tooltip: 'Create job card',
+          condition: function (data) {
+            return data.hasOpenJobCard ? false : true;
+          },
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
             this.router.navigate(['/workshop/service-shop/add-job-card'], {
@@ -281,7 +302,6 @@ export class ServiceShopComponent implements OnInit {
               .then();
           }
         }
-
         // {
         //   button: 'edit',
         //   color: '#3F3F3F',
@@ -499,6 +519,7 @@ export class ServiceShopComponent implements OnInit {
     ],
     data: []
   };
+  //#endregion
 
   selectedTab;
   jobCardCount$ = this._facadeJobCard.conut$.pipe(
