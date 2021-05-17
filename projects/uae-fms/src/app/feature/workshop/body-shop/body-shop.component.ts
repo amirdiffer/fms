@@ -284,7 +284,7 @@ export class BodyShopComponent implements OnInit {
               .then();
           }
         },
-        {
+        /* {
           button: 'edit',
           onClick: (col, data) => {
             this._facadeRequest.getAssetRequest(data.assetId);
@@ -292,7 +292,7 @@ export class BodyShopComponent implements OnInit {
               .navigate(['/workshop/body-shop/edit-job-card/' + data.id])
               .then();
           }
-        }
+        } */
 
         // {
         //   button: 'edit',
