@@ -49,7 +49,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.dashboard',
       icon: 'dashboard',
       route: '/dashboard',
-      // disabled: true
+      disabled: true
     },
     {
       name: 'sidebar.fleets.~',
@@ -94,10 +94,10 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
               name: 'sidebar.fleets.movement.temporary',
               route: '/fleet/movement/temporary'
             },
-            {
+            /* {
               name: 'sidebar.fleets.movement.iserve',
               route: '/fleet/movement/iserve'
-            }
+            } */
           ]
         }
       ]
@@ -106,15 +106,15 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.fuel_management',
       icon: 'fuel',
       route: '/fuel-management',
-      // disabled: true
+      disabled: true
     },
     {
       name: 'sidebar.traffic_fine',
       icon: 'traffic',
       route: '/traffic-fine',
-      // disabled: true
+      disabled: true
     },
-    { name: 'sidebar.toll', icon: 'toll', route: '/toll', /* disabled: true */ },
+    { name: 'sidebar.toll', icon: 'toll', route: '/toll', disabled: true },
     {
       name: 'sidebar.workshop.~',
       icon: 'workshop',
@@ -131,7 +131,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           route: '/workshop/service-shop'
           // disabled: true
         },
-        {
+        /* {
           name: 'sidebar.workshop.inspection.~',
           icon: 'inspection',
           route: '/workshop/inspections',
@@ -145,7 +145,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
               route: '/workshop/inspections/auction-list'
             }
           ]
-        },
+        }, */
         {
           name: 'sidebar.workshop.task_master',
           icon: 'task-master',
@@ -157,7 +157,8 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.part_store.~',
       icon: 'part-store',
       route: '/part-store',
-      items: [
+      disabled: true,
+      /* items: [
         {
           name: 'sidebar.part_store.part_list.~',
           icon: 'part-list',
@@ -183,7 +184,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           icon: 'part-master',
           route: '/part-store/part-master'
         }
-      ]
+      ] */
     },
     /*{
         name: 'sidebar.report',
@@ -256,7 +257,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.integrations',
       icon: 'integrations',
       route: '/integration',
-      // disabled: true
+      disabled: true
     }
   ];
 
@@ -280,7 +281,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     private routerService: RouterService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.usingMenu = this.mainMenu;
@@ -317,7 +318,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       }
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
 
   activeMenuCheck(route: string) {
     let r = '';
