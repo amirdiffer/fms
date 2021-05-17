@@ -15,7 +15,7 @@ export class PartStoreSelectors {
 
   static requestListSelector = createSelector(
     PartStoreSelectors.featureSelector,
-    (state) => state['request-list']
+    (state) => state['RequestList']
   );
 
   static myOrderAssetListSelector = createSelector(

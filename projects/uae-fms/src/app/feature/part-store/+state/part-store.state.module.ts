@@ -14,8 +14,8 @@ import { PartMasterService } from './part-master/part-master.service';
 import {
   RequestListFacade,
   RequestListService
-} from '@feature/part-store/+state/order-list/request-list';
-import { RequestListEffect } from '@feature/part-store/+state/order-list/request-list/request-list.effects';
+} from '@feature/part-store/+state/order-list/request';
+import { RequestListEffect } from '@feature/part-store/+state/order-list/request/request-list.effects';
 import {
   SuppliersFacade,
   SuppliersService
@@ -29,6 +29,7 @@ import {
   MyOrderSubAssetFacade,
   MyOrderSubAssetService
 } from '@feature/part-store/+state/order-list/my-order/sub-asset';
+import { WorkshopStateModule } from '@feature/workshop/+state';
 
 @NgModule({
   imports: [
@@ -39,9 +40,11 @@ import {
       RequestListEffect,
       MyOrderAssetEffects,
       MyOrderSubAssetEffects,
-      SuppliersEffects
+      SuppliersEffects,
+      
     ]),
-    ConfigurationStateModule
+    ConfigurationStateModule,
+    WorkshopStateModule,
   ],
   exports: [],
   declarations: [],

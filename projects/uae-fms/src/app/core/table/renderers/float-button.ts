@@ -112,6 +112,12 @@ export class FloatButton implements OnInit {
       case 'folder-check': {
         return this.assetPath + 'folder-check.svg';
       }
+      case 'approve': {
+        return this.assetPath + 'check-circle.svg';
+      }
+      case 'reject': {
+        return this.assetPath + 'times-circle.svg';
+      }
     }
   }
 

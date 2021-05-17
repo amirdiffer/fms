@@ -13,7 +13,7 @@ import {
 import {
   PARTSTORE_REQUEST_LIST_FEATURE_KEY,
   RequestListState
-} from '@feature/part-store/+state/order-list/request-list/request-list.entity';
+} from '@feature/part-store/+state/order-list/request/request-list.entity';
 import {
   MyOrderAssetListState,
   PARTSTORE_MY_ORDER_ASSET_LIST_FEATURE_KEY

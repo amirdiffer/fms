@@ -229,6 +229,7 @@
     "movement_type": "Movement Type",
     "request_type": "Request Type",
     "request": "Request",
+    "requested":"Requested",
     "asset_type": "Asset Type",
     "request_status": "Request Status",
     "tag_no": "Tag No",
@@ -1060,7 +1061,10 @@
         "supplier": "Supplier",
         "description": "Description",
         "set_reminder": "Set Reminder",
-        "price": "Price"
+        "price": "Price",
+        "category":"Category",
+        "item":"Item",
+        "technician":"Technician"
       },
       "request_form": {
         "request_info": "Request Info",

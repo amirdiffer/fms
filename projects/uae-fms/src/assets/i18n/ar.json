@@ -228,6 +228,7 @@
     "part": "جزء",
     "waiting": "انتظار",
     "requests": "طلبات",
+    "requested":"طلبات",
     "auction_list": "قائمة المزاد",
     "insurance_action": "إجراءات التأمين",
     "technical_inspection": "الفحص التقني",
@@ -981,7 +982,24 @@
       "name": "الاسم",
       "phone": "الهاتف",
       "email": "البريد الإلكتروني",
-      "address": "تبوك"
+      "address": "تبوك",
+      "form": {
+        "new_order": "طلب جديد",
+        "type_category": "اكتب الفئة",
+        "asset": "أصل",
+        "sub_asset": "الأصول الفرعية",
+        "asset_type": "نوع الأصول",
+        "select_item_category": "حدد فئة العنصر",
+        "item_name": "اسم العنصر",
+        "quantity": "كمية",
+        "supplier": "المورد",
+        "description": "وصف",
+        "set_reminder": "تعيين تذكير",
+        "price": "سعر",
+        "category":"فئة",
+        "item":"الصنف",
+        "technician":"الفني"
+      }
     },
     "part_master": {
       "asset_type": "نوع الأصول",

@@ -33,10 +33,11 @@ const routes: Routes = [
   { path: 'order-list/edit-order-list/:id', component: OrderFormComponent },
   { path: 'order-list/add-supplier', component: SuppliersAddFormComponent },
   { path: 'order-list', redirectTo: 'order-list/asset' },
-  { path: 'order-list/asset', component: OrderListAssetComponent },
-  { path: 'order-list/sub-asset', component: OrderListSubAssetComponent },
+  { path: 'order-list/asset', component: OrderListComponent },
+  { path: 'order-list/asset/add-request', component: RequestListAddFormComponent },
+  { path: 'order-list/sub-asset', component: OrderListComponent },
+  { path: 'order-list/sub-asset/add-request', component: RequestListAddFormComponent },
   { path: 'order-list/receive-order/:id', component: ReceiveOrderComponent },
-  { path: 'order-list/add-request-list', component: RequestListAddFormComponent },
 
   {
     path: '',

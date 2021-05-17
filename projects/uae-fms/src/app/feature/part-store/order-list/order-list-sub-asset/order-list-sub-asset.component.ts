@@ -5,7 +5,7 @@ import { ButtonType } from '@core/table/table.component';
 import { MyOrderSubAssetFacade } from '@feature/part-store/+state/order-list/my-order/sub-asset';
 import { Router } from '@angular/router';
 import { SuppliersFacade } from '@feature/part-store/+state/order-list/suppliers';
-import { RequestListFacade, RequestListService } from '@feature/part-store/+state/order-list/request-list';
+import { RequestListFacade, RequestListService } from '@feature/part-store/+state/order-list/request';
 
 @Component({
   selector: 'anms-order-list-sub-asset',
@@ -265,9 +265,7 @@ export class OrderListSubAssetComponent implements OnInit {
     rowSettings: {
       onClick: (col, data, button?) => {
         if (button === 'approve') {
-          this.requestListService.approveSubAssetRequest(data.id).subscribe();
         } else {
-          this.requestListService.rejectSubAssetRequest(data.id).subscribe();
         }
       }
     }
@@ -559,7 +557,6 @@ export class OrderListSubAssetComponent implements OnInit {
       });
     });
 
-    this.requestListFacade.loadAllSubAssetRequest();
     this.requestListFacade.requestList$.subscribe((response) => {
     });
   }

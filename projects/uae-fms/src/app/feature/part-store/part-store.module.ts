@@ -27,6 +27,7 @@ import { OrderListAssetComponent } from '@feature/part-store/order-list/order-li
 import { OrderListSubAssetComponent } from '@feature/part-store/order-list/order-list-sub-asset/order-list-sub-asset.component';
 import { ReceiveOrderComponent } from './order-list/receive-order/receive-order.component';
 import { RequestListAddFormComponent } from './order-list/request-list-add-form/request-list-add-form.component';
+import { FleetStateModule } from '@feature/fleet/+state';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { RequestListAddFormComponent } from './order-list/request-list-add-form/
     SharedModule,
     DashboardModule,
     PartStoreStateModule,
-    CarouselModule
+    CarouselModule,
+    FleetStateModule
   ],
   declarations: [
     PartListComponent,
