@@ -179,8 +179,16 @@
     },
     "part_store": {
       "~": "Part Store",
-      "part_list": "Part List",
-      "order_list": "Order List",
+      "part_list": {
+        "~": "Part List",
+        "asset": "Asset",
+        "sub_asset": "Sub Asset"
+      },
+      "order_list": {
+        "~": "Order List",
+        "asset": "Asset",
+        "sub_asset": "Sub Asset"
+      },
       "supplier": "Supplier",
       "part_master": "Part Master"
     },
@@ -300,7 +308,9 @@
     "done": "Done",
     "open": "Open",
     "stoped": "Stoped",
-    "delayed": "Delayed"
+    "delayed": "Delayed",
+    "need_to_order": "Need To Order",
+    "order": "Order"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -388,10 +398,14 @@
       "start_date": "Start Date",
       "department": "Department",
       "fine": "Fine",
+      "room": "Room",
+      "price": "Price",
       "reason": "Reason",
       "user": "User",
       "movement_type": "Movement Type",
       "request_type": "Request Type",
+      "operator_name": "Operator Name",
+      "number_of_request": "Number Of Request",
       "asset_type": "Asset Type",
       "sub_asset_type": "Sub Asset Type",
       "request_status": "Request Status",
@@ -488,6 +502,7 @@
       "category": "Category",
       "warranty_expire": "Warranty Expire",
       "total_cost": "Total Cost",
+      "total_quantity": "Total Quantity",
       "storage_location": "Storage Location",
       "established_market_value": "Established Market Value",
       "remove": "Remove",
@@ -1007,7 +1022,21 @@
       "room": "Room",
       "aisle": "Aisle",
       "shelf": "Shelf",
-      "box": "Box"
+      "warranty_start_date": "Warranty Start Date",
+      "box": "Box",
+      "form": {
+        "new_order": "New Order",
+        "type_category": "Type Category",
+        "asset": "Asset",
+        "sub_asset": "Sub Asset",
+        "asset_type": "Asset Type",
+        "select_item_category": "Select Item Category",
+        "item_name": "Item Name",
+        "quantity": "Quantity",
+        "supplier": "Supplier",
+        "description": "Description",
+        "set_reminder": "Set Reminder"
+      }
     },
     "order_list": {
       "request_list": "Request List",
@@ -1018,13 +1047,37 @@
       "name": "Name",
       "phone": "Phone",
       "email": "Email",
-      "address": "Address"
+      "address": "Address",
+      "form": {
+        "new_order": "New Order",
+        "type_category": "Type Category",
+        "asset": "Asset",
+        "sub_asset": "Sub Asset",
+        "asset_type": "Asset Type",
+        "select_item_category": "Select Item Category",
+        "item_name": "Item Name",
+        "quantity": "Quantity",
+        "supplier": "Supplier",
+        "description": "Description",
+        "set_reminder": "Set Reminder",
+        "price": "Price"
+      },
+      "request_form": {
+        "request_info": "Request Info",
+        "asset_id": "Asset Id",
+        "part_id": "Part Id",
+        "quantity": "Quantity",
+        "department": "Department",
+        "requested_by": "Requested By",
+        "description": "Description"
+      }
     },
     "part_master": {
       "asset_type": "Asset Type",
+      "sub_asset_type": "Sub Asset Type",
       "category": "Category",
       "add_category": "Add Category",
-      "make": "Manufacturer",
+      "make": "Make",
       "model": "Model",
       "folder_info": "Folder Info",
       "category_info": "Category Info",
@@ -1034,6 +1087,7 @@
       "category_name": "Category Name",
       "item_name": "Item Name",
       "filter_and_fuel_pump": "Filter, fuel pump",
+      "threshold": "Threshold",
       "upload_form": {
         "title": "",
         "progressbar_title": ".pdf",
@@ -1044,7 +1098,9 @@
       "supplier": "Supplier",
       "search": "Search",
       "category_type": "Category Type",
-      "filter_setting": "Filter setting"
+      "filter_setting": "Filter setting",
+      "trim": "Trim",
+      "color": "Color"
     },
     "integration": {
       "type": "Type",
@@ -1120,7 +1176,8 @@
         },
         "fleet_no": "Fleet No",
         "view_card": "View Card",
-        "asset_type": "Asset Type"
+        "asset_type": "Asset Type",
+        "removal": "Removal"
       },
       "technician": {
         "portal_info": "Portal Info",
@@ -1338,6 +1395,8 @@
       "view_asset_configuration": "View asset configuration",
       "add_asset_configuration": "Add asset configuration",
       "update_asset_configuration": "Update asset configuration",
+      "export_asset_configuration_list": "Export asset configuration list ",
+      "view_asset_configuration_detail": "View asset configuration detail",
       "view_usage_category": "View usage category",
       "add_usage_category": "Add usage category",
       "update_usage_category": "Update usage category",
@@ -1441,9 +1500,32 @@
       "view_supplier_list": "View supplier list",
       "export_supplier_list": "Export supplier list",
       "add_supplier": "Add supplier",
-      "update_edit_own_request": "Update/edit own request",
-      "view_own_request": "View own request",
+      "update_supplier": "Update/edit supplier",
+      "archive_supplier": "Archive supplier",
+      "view_supplier_detail": "View supplier detail",
+      "add_part_master_category": "Add part master category",
+      "update_part_master_category": "Update/edit part master category",
+      "archive_part_master_category": "Archive part master category",
+      "view_part_master_category_detail": "View part master category detail",
+      "view_part_master_category": "View part master category list",
+      "export_part_master_category": "Export part master category list",
+      "add_part_master_item": "Add part master item",
+      "update_part_master_item": "Update/edit part master item",
+      "archive_part_master_item": "Archive part master item",
+      "view_part_master_item_detail": "View part master item detail",
+      "view_part_master_item": "View part master item list",
+      "export_part_master_item": "Export part master item list",
+      "view_own_request_list": "View own request list",
+      "approve_reject_own_request": "Approve/reject own request",
+      "add_oreder": "Add order",
+      "update_order": "Update/edit order",
+      "archive_order": "Archive Order",
+      "view_order_detail": "View order detail",
+      "view_order_list": "View order list",
+      "export_order_list": "Export order list",
+      "received_order": "Received order",
       "view_request_detail": "View request detail",
+      "view_own_request_detail": "View own request detail",
       "reject_request": "Reject request",
       "archive_own_request": "Archive own request",
       "view_location_list": "View location list",
@@ -1689,6 +1771,7 @@
     "recived": "Recived",
     "assign": "Assign",
     "upload": "Upload",
+    "update": "Update",
     "generate": "Generate",
     "feedback": {
       "required": "This is Field Required",
@@ -1701,7 +1784,9 @@
     "submit": "Submit",
     "upload_avatar": "Upload Avatar",
     "apply": "Apply",
-    "operator_list": "Operator List"
+    "operator_list": "Operator List",
+    "receive": "Receive",
+    "request": "Request"
   },
   "login": {
     "incorrect_password": "Incorrect Password",

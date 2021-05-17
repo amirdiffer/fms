@@ -60,8 +60,17 @@ a{
       }
       a{
         position: absolute;
-        right: 10px;
-        cursor: cell;
+        top: 50%;
+        transform: translateY(-50%);
+        &:nth-child(1){
+          right: 10px;
+          cursor: cell;
+        }
+        &:nth-child(2){
+          right: 30px;
+          transform: translateY(-55%);
+          cursor: pointer;
+        }
       }
     }
   }
@@ -87,4 +96,8 @@ a{
   button{
     transform: translateY(-10px);
   }
+}
+
+.padding-wrapper{
+  padding-right: 0;
 }

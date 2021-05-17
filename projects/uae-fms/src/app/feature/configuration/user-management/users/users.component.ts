@@ -164,6 +164,16 @@ export class UsersComponent implements OnInit {
   }
 
   exportTable() {
-    this.table.exportTable(this.users_Table, 'Users');
+    let filter = {
+      User: 'firstName|lastName|id',
+      department: 'department.name|department.organizationName',
+      information: 'information.emails|information.phoneNumbers',
+      isActive: 'isActive?func:isActiveFunc',
+      isActiveFunc: (y) => {
+        return y ? 'Active' : 'Inactive'
+      },
+      roleName: 'roleName'
+    }
+    this.table.exportTable(this.users_Table, 'Users', filter);
   }
 }

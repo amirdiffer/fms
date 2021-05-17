@@ -6,7 +6,7 @@ import { environment } from '../../../../environments/environment';
   template: `
     <div class="d-flex">
       <div>
-        <img class="thumbField" [src]="fileServerBase + data.thumbImage" />
+        <img class="thumbField" [src]="data.thumbImage" />
       </div>
       <span class="thumbText">{{ data.thumbText }}</span>
     </div>

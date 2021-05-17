@@ -70,3 +70,12 @@ export interface ITrafficFineStatistics extends IGeneralResponse {
     unpaid: number;
   };
 }
+
+export interface IPartListStatistics extends IGeneralResponse {
+  message: {
+    total: number;
+    available: number;
+    need_to_order: number;
+    unavailable: number;
+  };
+}

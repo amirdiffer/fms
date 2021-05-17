@@ -1,12 +1,19 @@
-import { RequestListStateModel } from './request-list.entity';
 import { createAction, props } from '@ngrx/store';
 
 export class RequestListActions {
-  static loadAll = createAction('[RequestList] load all data');
 
-  static allDataLoaded = createAction(
-    '[RequestList] all datas are loaded',
-    props<{ data: RequestListStateModel[] }>()
+  static loadAllAssetRequest = createAction('[RequestList] load all asset request data');
+
+  static allAssetRequestsLoaded = createAction(
+    '[RequestList] all asset requests are loaded',
+    props<{ data: any[] }>()
+  );
+
+  static loadAllSubAssetRequest = createAction('[RequestList] load all sub asset request data');
+
+  static allSubAssetRequestsLoaded = createAction(
+    '[RequestList] all sub asset requests are loaded',
+    props<{ data: any[] }>()
   );
 
   static error = createAction(

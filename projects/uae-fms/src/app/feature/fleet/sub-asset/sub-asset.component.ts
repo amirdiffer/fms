@@ -51,12 +51,21 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   //#endregion
 
 
+  date(y) {
+    let createdDate = moment.utc(y*1000).local().toDate();
+    let nowDate = new Date();
+    let newDate = nowDate.getTime() - createdDate.getTime();
+    return {
+      day: Math.floor(newDate / (1000 * 3600 * 24))
+    };
+  }
+
   //#region Table
   data$ = this.facade.subAsset$.pipe(
     map((x) => {
-      return x.map((y) => {
+      return x.map((y: any) => {
         function date() {
-          let createdDate = moment.utc((y.createdAt as any)*1000).local().toDate();
+          let createdDate = moment.utc((y.createdAt as any) * 1000).local().toDate();
           let nowDate = new Date();
           let newDate = nowDate.getTime() - createdDate.getTime();
           return {
@@ -72,8 +81,9 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           Warranty_Expire_Date: y.warrantyExpireDate,
           Serial_Number: y.serialNumber,
           Asset: y.assetTypeName,
+          AssetCategory: y.subAssetConfigurationName,
           Date:
-            this.getDateString(date()),
+            this.getDateString(this.date(y.createdAt)),
           thumbField_Make: 'bmw.png'
         };
       });
@@ -97,13 +107,13 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       },
       { lable: 'tables.column.model', type: 1, field: 'Model' },
       { lable: 'tables.column.policy', type: 1, field: 'Policy' },
-      { lable: 'tables.column.asset_type', type: 1, field: 'Asset' },
-      {
+      { lable: 'tables.column.category_name', type: 1, field: 'AssetCategory' },
+      /* {
         lable: 'tables.column.warranty_expire_date',
         type: 1,
         field: 'Warranty_Expire_Date',
         width: 200
-      },
+      }, */
       {
         lable: '',
         field: 'floatButton',
@@ -123,13 +133,13 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           button: 'edit',
           color: '#3F3F3F'
         },
-        // {
-        //   onClick: (col, data) => {
-        //     this.router.navigate(['/fleet/sub-asset/' + data['id']]);
-        //   },
-        //   button: 'external',
-        //   color: '#3F3F3F'
-        // }
+        {
+          onClick: (col, data) => {
+            this.router.navigate(['/fleet/sub-asset/' + data['id']]);
+          },
+          button: 'external',
+          color: '#3F3F3F'
+        }
       ]
     }
   };
@@ -184,7 +194,23 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   }
 
   exportTable() {
-    this.table.exportTable(this.assetTraffic_Table, 'Sub Asset');
+    let filter = {
+      Serial_Number: 'Serial_Number',
+      Date: 'Date?func:dateFunc',
+      dateFunc: (y) => {
+        return this.date(y).day > 0
+          ? this.date(y).day == 1
+            ? `${this.date(y).day} Yesterday`
+            : `${this.date(y).day} Days Ago`
+          : 'Today'
+      },
+      MakeName: 'MakeName',
+      Model: 'Model',
+      Policy: 'Policy',
+      Asset: 'Asset',
+      Warranty_Expire_Date: 'Warranty_Expire_Date',
+    }
+    this.table.exportTable(this.assetTraffic_Table, 'Sub Asset', filter);
   }
 
   eventPagination() {

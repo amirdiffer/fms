@@ -137,6 +137,13 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   }
 
   exportTable() {
-    this.table.exportTable(this.accessory_Table, 'Accessories');
+    let filter = {
+      Item: 'Item',
+      Type: 'Type',
+      Asset_SubAsset: 'Asset_SubAsset',
+      Assigned_To: 'Assigned_To',
+      Quantity: 'Quantity'
+    }
+    this.table.exportTable(this.accessory_Table, 'Accessories', filter);
   }
 }

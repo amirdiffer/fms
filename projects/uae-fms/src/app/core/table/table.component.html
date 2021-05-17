@@ -34,7 +34,7 @@
           <div *ngIf="!col.renderer">
             <div class="d-flex">
               <span class="p-column-title">{{col.lable}}</span>
-              <span class="column-data">
+              <span class="column-data" [class.pl-5]='col.hasPadding5' [class.pl-3]='col.hasPadding3'>
                 {{ getCol(col,data) }}
                 <ng-template [ngIf]="col.type && col.type == 2 && data[col.thumbField]" [ngIfThen]="thumb"></ng-template>
                 <ng-template #thumb>
@@ -130,6 +130,13 @@
             <radialBar-renderer [percent]='data[col.field]'></radialBar-renderer>
           </div>
 
+          <div class='text-center' *ngIf="col.renderer=='receivedButton' && (i === rowIndexTable)">
+            <table-received-button-renderer [setting]="setting.rowSettings" [data]="data" [col]="col"></table-received-button-renderer>
+          </div>
+          <div class='text-center' *ngIf="(col.renderer=='approveButton' || col.renderer=='rejectButton') && (i === rowIndexTable)">
+            <table-approve-button-renderer [setting]="setting.rowSettings" [data]="data" [col]="col"></table-approve-button-renderer>
+          </div>
+
           <div *ngIf="col.renderer=='lowOpacityRenderer'">
             <table-low-opacity-renderer [data]='data[col.field]'></table-low-opacity-renderer>
           </div>
@@ -164,10 +171,10 @@
         </div>
         <div class="pagination-action">
           <span class="pagination-action__previous" (click)="paginationEvent('previous')">
-            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': 'rotate(90deg)', 'width.px':'23' , 'fill': activePage == 0 ? '#bbb': '#000' , 'height': '100%'}"></svg-icon>
+            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': 'rotate(90deg)', 'width.em':'1.4' , 'fill': activePage == 0 ? '#bbb': '#000' , 'height': '100%'}"></svg-icon>
           </span>
           <span class="pagination-action__next" (click)="paginationEvent('next')">
-            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': 'rotate(-90deg)', 'width.px':'23' , 'fill': pagesCount > activePage ? '#000': '#bbb' , 'height': '100%'}"></svg-icon>
+            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': 'rotate(-90deg)', 'width.em':'1.4' , 'fill': pagesCount > activePage ? '#000': '#bbb' , 'height': '100%'}"></svg-icon>
           </span>
         </div>
       </div>

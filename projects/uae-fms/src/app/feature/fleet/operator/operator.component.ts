@@ -4,7 +4,7 @@ import { assetsPath } from '@environments/environment';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { OperatorFacade } from '../+state/operator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { ThrowStmt } from '@angular/compiler';
 
 @Component({
@@ -141,12 +141,12 @@ export class OperatorComponent implements OnInit {
             this._router.navigate(['/fleet/operator/edit-operator/' + data.id]);
           }
         },
-        // {
-        //   button: 'external',
-        //   onClick: (col, data, button?) => {
-        //     this._router.navigate(['/fleet/operator/' + data.id]);
-        //   }
-        // },
+        {
+          button: 'external',
+          onClick: (col, data, button?) => {
+            this._router.navigate(['/fleet/operator/' + data.id]);
+          }
+        },
       ]
     }
   };
@@ -185,7 +185,14 @@ export class OperatorComponent implements OnInit {
   }
 
   exportTable() {
-    this.table.exportTable(this.operator_Table, 'Operator');
+    let filter = {
+      Operator: 'Operator',
+      Organization: 'Organization',
+      Information: 'Information',
+      Type: 'Type',
+      Status: 'Status'
+    }
+    this.table.exportTable(this.operator_Table, 'Operator', filter);
   }
 
   eventPagination() {

@@ -93,15 +93,15 @@ export class OrganizationComponent implements OnInit {
             ]);
           }
         },
-        // {
-        //   button: 'external',
-        //   color: '#3F3F3F',
-        //   onClick: (col, data, button?) => {
-        //     this.router.navigate([
-        //       '/fleet/department/department-overview/' + data.id
-        //     ]);
-        //   }
-        // },
+        {
+          button: 'external',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this.router.navigate([
+              '/fleet/department/department-overview/' + data.id
+            ]);
+          }
+        },
       ]
     }
   };
@@ -135,6 +135,13 @@ export class OrganizationComponent implements OnInit {
   }
 
   exportTable() {
-    this.table.exportTable(this.organization_Table, 'Department');
+    let filter = {
+      Organization: 'Organization',
+      Section: 'Section',
+      Location: 'Location',
+      TF_Payed: 'TF_Payed',
+      TF_Unpaid: 'TF_Unpaid'
+    };
+    this.table.exportTable(this.organization_Table, 'Department', filter);
   }
 }

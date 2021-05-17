@@ -32,7 +32,7 @@ export class OwnershipComponent implements OnInit {
         field: 'Owner_Phone_No'
       },
       {
-        lable: '<img src="../../../../assets/icons/car-solid.svg">',
+        lable: '<img src="assets/icons/car-solid.svg">',
         type: 1,
         isIconLable: true,
         field: 'car',
@@ -99,7 +99,16 @@ export class OwnershipComponent implements OnInit {
   }
 
   exportTable() {
-    this.table.exportTable(this.ownerShip_Table, 'Ownership');
+    let filter = {
+      Ownership: 'Ownership',
+      Owner: 'Owner',
+      Fleet_IT_Code: 'Fleet_IT_Code',
+      Duration: 'Duration',
+      Purpose: 'Purpose',
+      Owner_Email: 'Owner_Email',
+      Owner_Phone_No: 'Owner_Phone_No',
+    };
+    this.table.exportTable(this.ownerShip_Table, 'Ownership', filter);
   }
 
   eventPagination() {

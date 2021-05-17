@@ -34,3 +34,9 @@
   height: 32px;
   margin: 0 5px;
 }
+.p-inputgroup-addon{
+  border-radius:.3em !important;
+  &.add-button{
+    margin-right: 1em;
+  }
+}

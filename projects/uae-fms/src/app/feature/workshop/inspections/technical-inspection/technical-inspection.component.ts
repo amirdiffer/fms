@@ -194,7 +194,7 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
           onClick: (col, data, button?) => {
           }
         },
-        /* {
+        {
           button: 'external',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
@@ -203,7 +203,7 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
               this._router.navigate(['/workshop/inspections/technical-inspection-report/', 1])
             }
           }
-        }, */
+        },
         {
           button: 'cancel',
           color: '#F75A4A',

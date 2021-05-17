@@ -1,4 +1,12 @@
-/* export interface IAssetType {
+export interface Make {
+  id: number;
+  name: string;
+  models: MakeModel[];
+  description: string;
+  totalMakeCount: number;
+}
+
+export interface IAssetType {
   id: number;
   name: string;
   type?: string;
@@ -7,13 +15,14 @@
   makes?: Make[];
 }
 
-export interface Make {
+
+/* export interface Make {
   id: number;
   make: string;
   models: MakeModel[];
   makeDescription: string;
   totalMakeCount: number;
-}
+} */
 
 export interface MakeModel {
   id: number;
@@ -35,7 +44,7 @@ export interface MakeModelTrimColor {
   hexColor:string;
 }
 
- */
+
 
 export interface IAssetType {
   id: number;
@@ -46,13 +55,7 @@ export interface IAssetType {
   makes?: Make[];
 }
 
-export interface Make {
-  id: number;
-  name: string;
-  models: MakeModel[];
-  description: string;
-  totalMakeCount: number;
-}
+
 
 export interface MakeModel {
   id: number;
