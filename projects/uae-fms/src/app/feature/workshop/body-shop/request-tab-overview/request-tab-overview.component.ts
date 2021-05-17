@@ -137,7 +137,7 @@ export class RequestTabOverviewComponent implements OnInit {
       }
     ],
     data: [],
-    /* rowSettings: {
+    rowSettings: {
       floatButton: [
         {
           button: 'edit',
@@ -151,7 +151,7 @@ export class RequestTabOverviewComponent implements OnInit {
           }
         }
       ]
-    } */
+    }
   };
 
   section = 'list';
