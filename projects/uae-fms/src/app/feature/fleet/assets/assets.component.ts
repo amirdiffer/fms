@@ -7,8 +7,6 @@ import { RegistrationFacade } from '@feature/fleet/+state/assets/registration';
 import { CustomizationFacade } from '@feature/fleet/+state/assets/customization';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { yearsPerPage } from '@angular/material/datepicker';
-import { TechnicalInspectionSelectors } from '@feature/workshop/+state/technical-inspections/technical-inspections.selectors';
 import moment from 'moment';
 import { FilterCardSetting } from '@core/filter';
 
@@ -250,12 +248,12 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           // {
           //   button: 'download'
           // },
-          {
+          /* {
             button: 'external',
             onClick: (col, data) => {
               this._router.navigate(['/fleet/assets/' + data.id]);
             }
-          }
+          } */
         ]
       }
     };

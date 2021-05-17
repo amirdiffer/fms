@@ -52,7 +52,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
 
 
   date(y) {
-    let createdDate = moment.utc(y*1000).local().toDate();
+    let createdDate = moment.utc(y * 1000).local().toDate();
     let nowDate = new Date();
     let newDate = nowDate.getTime() - createdDate.getTime();
     return {
@@ -133,13 +133,13 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           button: 'edit',
           color: '#3F3F3F'
         },
-        {
+        /* {
+          button: 'external',
+          color: '#3F3F3F',
           onClick: (col, data) => {
             this.router.navigate(['/fleet/sub-asset/' + data['id']]);
-          },
-          button: 'external',
-          color: '#3F3F3F'
-        }
+          }
+        } */
       ]
     }
   };
