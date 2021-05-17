@@ -193,7 +193,9 @@ export class AddJobCardComponent extends Utility implements OnInit {
     this._facadeAsset.loadAll();
     this._facadeLocation.loadAll();
     this._facadeTechnician.loadAll();
-    this.buildForm();
+    this._facadeTechnician.bodyShop$.subscribe(_=>{
+      this.buildForm();
+    })
     //fill asset Id from queryParams
     this.route.queryParams.subscribe((params) => {
       if (params['assetId']) {
@@ -260,7 +262,10 @@ export class AddJobCardComponent extends Utility implements OnInit {
                     name: t.taskMaster.name
                   },
                   priorityOrder: t.priorityOrder,
-                  technician: t.technicianId
+                  technicianId: t.technician.id/* {
+                    id: t.technician.id,
+                    name: t.technician.firstName + " " + t.technician.lastName
+                  } */
                 }))
               });
               this.tasks.controls[0].markAsDirty();
