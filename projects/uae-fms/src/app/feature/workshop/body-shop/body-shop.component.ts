@@ -385,18 +385,18 @@ export class BodyShopComponent implements OnInit {
           onClick: (col, data) => {
             this.router.navigate(['/workshop/body-shop/job-card-overview/' + data.id]).then();
           }
+        },
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            console.log(data)
+            this._facadeJobCard.resetParams();
+            this.router.navigate([
+              '/workshop/body-shop/edit-job-card/' + data.id
+            ]);
+          }
         }
-        // {
-        //   button: 'edit',
-        //   color: '#3F3F3F',
-        //   onClick: (col, data, button?) => {
-        //     console.log(data)
-        //     this._facadeJobCard.resetParams();
-        //     this.router.navigate([
-        //       '/workshop/body-shop/edit-job-card/' + data.id
-        //     ]);
-        //   }
-        // }
       ]
     }
   };

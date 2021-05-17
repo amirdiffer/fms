@@ -233,7 +233,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
       assetId: ['', [Validators.required]],
       description: [''],
       wsLocationId: ['', [Validators.required]],
-      relatedRequestIds: [],
+      relatedRequestIds: [[1]],
       tasks: this._fb.array([this.createTask()])
     });
     this.route.url.subscribe((params) => {

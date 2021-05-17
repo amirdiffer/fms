@@ -141,6 +141,7 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
         {
           button: 'edit',
           color: '#3F3F3F',
+          condition: (data) => { return data.approveStatus == "APPROVED" ? false : true },
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
             this.router.navigate([

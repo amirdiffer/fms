@@ -131,7 +131,7 @@ export class JobCardOverviewComponent implements OnInit {
         thumbField: '',
         renderer: ''
       },
-      {
+      /* {
         lable: '',
         field: 'floatButton',
         width: 0,
@@ -139,10 +139,10 @@ export class JobCardOverviewComponent implements OnInit {
         thumbField: '',
         renderer: 'floatButton',
         hasJobCardButton: false
-      }
+      } */
     ],
     data: [],
-    rowSettings: {
+    /* rowSettings: {
       onClick: (col, data, button?) => { },
       floatButton: [
         {
@@ -164,7 +164,7 @@ export class JobCardOverviewComponent implements OnInit {
         //   }
         // }
       ]
-    }
+    } */
   };
 
   section = 'list';
