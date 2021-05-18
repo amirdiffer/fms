@@ -178,9 +178,9 @@ export class OrderListEffect {
     this.action$.pipe(
       ofType(OrderListActions.receiveSpecificOrderPartAsset),
       mergeMap((action) =>
-        this.service.receiveSpecificOrderPartOfAsset(action.id).pipe(
+        this.service.receiveSpecificOrderPartOfAsset(action.data).pipe(
           map((data) => {
-            return OrderListActions.specificOrderPartOfAssetReceivedSuccessfully({ data: data.message });
+            return OrderListActions.specificOrderPartOfAssetReceivedSuccessfully({ data: action.data });
           }),
           catchError((error) => of(OrderListActions.error({ reason: error })))
         )
@@ -192,9 +192,9 @@ export class OrderListEffect {
     this.action$.pipe(
       ofType(OrderListActions.receiveSpecificOrderPartSubAsset),
       mergeMap((action) =>
-        this.service.receiveSpecificOrderPartOfSubAsset(action.id).pipe(
+        this.service.receiveSpecificOrderPartOfSubAsset(action.data).pipe(
           map((data) => {
-            return OrderListActions.specificOrderPartOfSubAssetReceivedSuccessfully({ data: data.message });
+            return OrderListActions.specificOrderPartOfSubAssetReceivedSuccessfully({ data: action.data });
           }),
           catchError((error) => of(OrderListActions.error({ reason: error })))
         )

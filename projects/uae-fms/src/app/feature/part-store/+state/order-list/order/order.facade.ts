@@ -14,7 +14,6 @@ export class OrderListFacade {
 
   submitted$ = this.store.pipe(select(OrderListSelectors.submitted));
 
-
   message$ = this.store.pipe(select(OrderListSelectors.message));
 
   error$ = this.store.pipe(select(OrderListSelectors.error));
@@ -69,11 +68,11 @@ export class OrderListFacade {
 
 
   /* '''''Receive''''' Order of Asset and Sub Asset*/
-  receiveSpecificOrderPartofAsset(id:number){
-    this.store.dispatch(OrderListActions.receiveSpecificOrderPartAsset({id}));
+  receiveSpecificOrderPartofAsset(data){
+    this.store.dispatch(OrderListActions.receiveSpecificOrderPartAsset({data}));
   };
-  receiveSpecificOrderPartofSubAsset(id:number){
-    this.store.dispatch(OrderListActions.receiveSpecificOrderPartSubAsset({id}));
+  receiveSpecificOrderPartofSubAsset(data){
+    this.store.dispatch(OrderListActions.receiveSpecificOrderPartSubAsset({data}));
   };
 
 

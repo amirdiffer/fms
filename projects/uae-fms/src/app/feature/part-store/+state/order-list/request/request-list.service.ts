@@ -105,14 +105,16 @@ export class RequestListService {
 
   /* '''''Approve''''' Request of Asset and Sub Asset*/
   approveSpecificRequestPartOfAsset(id){
-    return this._http.get<ResponseBody<any>>(
-      environment.baseApiUrl + 'partstore/order-list/asset/request/' + id + '/approve'
+    return this._http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'partstore/order-list/asset/request/' + id + '/approve',
+      null
     );
   };
 
   approveSpecificRequestPartOfSubAsset(id){
-    return this._http.get<ResponseBody<any>>(
-      environment.baseApiUrl + 'partstore/order-list/sub-asset/request/' + id + '/approve'
+    return this._http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'partstore/order-list/sub-asset/request/' + id + '/approve',
+      null
     );
   };
 
@@ -120,14 +122,16 @@ export class RequestListService {
 
   /* '''''Reject''''' Request of Asset and Sub Asset*/
   rejectSpecificRequestPartOfAsset(id){
-    return this._http.get<ResponseBody<any>>(
-      environment.baseApiUrl + 'partstore/order-list/asset/request/' + id + '/reject'
+    return this._http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'partstore/order-list/asset/request/' + id + '/reject',
+      null
     );
   };
 
   rejectSpecificRequestPartOfSubAsset(id){
-    return this._http.get<ResponseBody<any>>(
-      environment.baseApiUrl + 'partstore/order-list/sub-asset/request/' + id + '/reject'
+    return this._http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'partstore/order-list/sub-asset/request/' + id + '/reject',
+      null
     );
   };
 

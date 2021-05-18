@@ -19,10 +19,12 @@ import { Location } from '@angular/common';
 export class ReceiveOrderComponent extends Utility implements OnInit {
   calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   id: number;
+  itemId:number;
   fleetType:string;
 
   /* Subscription */
   specificItemSubscription:Subscription;
+  specificOrderSubscription:Subscription;
   submitSubscription:Subscription;
   errorSubscription:Subscription;
 
@@ -66,17 +68,35 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
     this._facadeOrderList.reset();
     let activeRoute = this._activatedRoute.snapshot.url
     this.id = +activeRoute[activeRoute.length -1].path;
+    
+
     this.fleetType = activeRoute[1].path;
     if(this.id){
       switch (this.fleetType) {
         case 'asset':
-          this._facadePartMaster.loadSpecificItemOfAsset(this.id)
+          this._facadeOrderList.getSpecificOrderPartAsset(this.id);
           break;
         case 'sub-asset':
-          this._facadePartMaster.loadSpecificItemOfSubAsset(this.id)
+          this._facadeOrderList.getSpecificOrderPartSubAsset(this.id);
           break;
       }
     }
+
+    this.specificOrderSubscription = this._facadeOrderList.specificOrder$.subscribe(
+      x=>{
+        if(x){
+          console.log(x)
+          switch (this.fleetType) {
+            case 'asset':
+              this._facadePartMaster.loadSpecificItemOfAsset(x.itemId)
+              break;
+            case 'sub-asset':
+              this._facadePartMaster.loadSpecificItemOfSubAsset(x.itemId)
+              break;
+          }
+        }
+      }
+    );
 
     this.specificItemSubscription = this._facadePartMaster.specificItem$.subscribe(
       x=>{
@@ -106,6 +126,8 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
       box: ['', [Validators.required]]
     });
 
+
+    this.errorAndSubmitHandler();
   }
 
   cancelForm(){
@@ -134,6 +156,7 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
     if(this.form.invalid) return;
     let formData = this.form.getRawValue();
     let payload = {
+      id:this.id,
       warrantyExpireDate:formData.warrantyStartDate.toISOString(),
       quantity:+formData.quantity,
       price:+formData.price,
@@ -145,10 +168,10 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
     }
     switch (this.fleetType) {
       case 'asset':
-        this._facadeOrderList.receiveSpecificOrderPartofAsset(this.id)
+        this._facadeOrderList.receiveSpecificOrderPartofAsset(payload)
         break;
       case 'sub-asset':
-        this._facadeOrderList.receiveSpecificOrderPartofSubAsset(this.id)
+        this._facadeOrderList.receiveSpecificOrderPartofSubAsset(payload)
         break;
     }
   }
@@ -156,6 +179,7 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
   errorAndSubmitHandler() {
     this.submitSubscription = this._facadeOrderList.submitted$.subscribe((x) => {
       if (x) {
+        console.log(x)
         this.dialogOption = dialogOption.success;
         this.dialogModal = true;
         this.dialogSetting.header = 'Receive Order';
@@ -181,7 +205,8 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
     });
   }
   ngOnDestroy() {
-
+    this.specificItemSubscription?.unsubscribe();
+    this.specificOrderSubscription?.unsubscribe();
   }
 }
 export enum dialogOption{

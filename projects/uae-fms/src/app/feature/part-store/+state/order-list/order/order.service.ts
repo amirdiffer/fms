@@ -105,15 +105,17 @@ export class OrderListService {
   
 
   /* '''''Receive''''' Order of Asset and Sub Asset*/
-  receiveSpecificOrderPartOfAsset(id){
-    return this._http.get<ResponseBody<any>>(
-      environment.baseApiUrl + 'partstore/order-list/asset/order/' + id + '/receive'
+  receiveSpecificOrderPartOfAsset(data){
+    return this._http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'partstore/order-list/asset/order/' + data.id + '/receive',
+      data
     );
   };
 
-  receiveSpecificOrderPartOfSubAsset(id){
-    return this._http.get<ResponseBody<any>>(
-      environment.baseApiUrl + 'partstore/order-list/sub-asset/order/' + id + '/receive'
+  receiveSpecificOrderPartOfSubAsset(data){
+    return this._http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'partstore/order-list/sub-asset/order/' + data.id + '/receive',
+      data
     );
   };
 

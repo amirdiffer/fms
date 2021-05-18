@@ -94,7 +94,7 @@ export class FloatButton implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {  }
+  ngOnInit() {}
 
   getIcon(key: string): string {
     switch (key) {

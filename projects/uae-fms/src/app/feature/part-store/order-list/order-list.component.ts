@@ -8,6 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SuppliersFacade } from '../+state/order-list/suppliers';
 import { OrderListFacade } from '../+state/order-list/order';
+import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'anms-order-list',
@@ -16,16 +17,33 @@ import { OrderListFacade } from '../+state/order-list/order';
 })
 export class OrderListComponent implements OnInit , OnDestroy {
   downloadBtn = 'assets/icons/download-solid.svg';
-
+  chooseReuqestId:number;
   activeTab = 'request_list';
   orderListType='asset';
 
   requestStatisticsSubscription:Subscription;
   orderStatisticsSubscription:Subscription;
+  submitSubscription:Subscription;
+  errorSubscription:Subscription;
+  rejectSubscription:Subscription;
+
 
   requestTableData$:Observable<any>;
   orderTableData$:Observable<any>;
   supplierTableData$:Observable<any>;
+
+   /* Dialog */
+   dialogModal = false;
+   dialogOption:dialogOption;
+   dialogSetting: IDialogAlert = {
+     header: 'Request',
+     hasError: false,
+     isWarning: true,
+     hasHeader: true,
+     message: 'Are you sure that you want to cancel adding new request?',
+     confirmButton: 'Yes',
+     cancelButton: 'No'
+   };
 
 
   requestStatistics: FilterCardSetting[] = [
@@ -151,32 +169,35 @@ export class OrderListComponent implements OnInit , OnDestroy {
                 break;
             };
           },
+          condition:(data) =>{
+            if(data.status === "REQUESTED"){
+              return true;
+            }
+          }
         },
         {
           button: 'reject',
           color:"#F74F5A",
           onClick: (col, data, button?) => {
-            switch (this.orderListType) {
-              case 'asset':
-                this._requestListFacade.rejectSpecificRequestPartofAsset(data.id)
-                break;
-              case 'sub-asset':
-                this._requestListFacade.rejectSpecificRequestPartofSubAsset(data.id)
-                break;
-            };
+            this.chooseReuqestId = data.id
+            this.rejectRequest()
+          },
+          condition:(data) =>{
+            if(data.status === "REQUESTED"){
+              return true;
+            }
           }
         },
         {
           button: 'approve',
           onClick: (col, data, button?) => {
-            switch (this.orderListType) {
-              case 'asset':
-                this._requestListFacade.approveSpecificRequestPartofAsset(data.id)
-                break;
-              case 'sub-asset':
-                this._requestListFacade.approveSpecificRequestPartofSubAsset(data.id)
-                break;
-            };
+            this.chooseReuqestId = data.id
+            this.approveRequest()
+          },
+          condition:(data) =>{
+            if(data.isAvailableForBuy === true && data.status === "REQUESTED"){
+              return true;
+            }
           }
         }
         
@@ -245,12 +266,29 @@ export class OrderListComponent implements OnInit , OnDestroy {
                 break;
             };
           },
+          condition:(data) =>{
+            if(data.status === "JUST_REGISTERED"){
+              return true;
+            }
+          }
         },
         {
           button: 'receive',
           onClick: (col, data, button?) => {
-            this._router.navigate(['part-store/order-list/receive-order/'+data.id])
+            switch (this.orderListType) {
+              case 'asset':
+                this._router.navigate(['part-store/order-list/asset/receive-order/'+data.id])
+                break;
+              case 'sub-asset':
+                this._router.navigate(['part-store/order-list/sub-asset/receive-order/'+data.id])
+                break;
+            }
           },
+          condition:(data) =>{
+            if(data.status !== "RECEIVED"){
+              return true;
+            }
+          }
         },
       ]
     }
@@ -286,6 +324,7 @@ export class OrderListComponent implements OnInit , OnDestroy {
   }
 
   ngOnInit(): void {
+    this._requestListFacade.reset();
     let activateRoute = this._activatedRoute.snapshot.url;
     this.orderListType = activateRoute[activateRoute.length -1].path;
     switch (this.orderListType) {
@@ -314,7 +353,7 @@ export class OrderListComponent implements OnInit , OnDestroy {
             ...request,
             Item: request.itemName,
             Part_ID: request.partId,
-            Status: request.status.toLowerCase(),
+            Status: request.status,
             Quantity: request.quantity,
             Department: request.organizationName,
             Description: request.description,
@@ -411,7 +450,8 @@ export class OrderListComponent implements OnInit , OnDestroy {
           )
         }
       })
-    )
+    );
+    this.errorAndSubmitHandler();
   }
 
   eventPagination_requestList(){
@@ -437,14 +477,130 @@ export class OrderListComponent implements OnInit , OnDestroy {
     }
   }
 
+  dialogConfirm(event){
+    if(event && (this.dialogOption === dialogOption.reject)){
+      switch (this.orderListType) {
+        case 'asset':
+          this._requestListFacade.rejectSpecificRequestPartofAsset(this.chooseReuqestId);
+          break;
+        case 'sub-asset':
+          this._requestListFacade.rejectSpecificRequestPartofSubAsset(this.chooseReuqestId);
+          break;
+      };
+    }
 
+    if(event && (this.dialogOption === dialogOption.approve)){
+      switch (this.orderListType) {
+        case 'asset':
+          this._requestListFacade.approveSpecificRequestPartofAsset(this.chooseReuqestId);
+          this._requestListFacade.loadRequestPartforAsset();
+          break;
+        case 'sub-asset':
+          this._requestListFacade.approveSpecificRequestPartofSubAsset(this.chooseReuqestId);
+          this._requestListFacade.loadRequestPartforSubAsset();
+          break;
+      };
+    }
+    
+    this.dialogModal = false;
+  }
   eventPagination_supplierList(){
     this._supplierListFacade.loadAll();
   }
 
+  
+
+  errorAndSubmitHandler() {
+    this.submitSubscription = this._requestListFacade.approved$.subscribe((x) => {
+      if (x) {
+        this.dialogOption = dialogOption.success;
+        this.dialogSetting.header = 'Approve Request';
+        this.dialogSetting.message = 'Request Approved Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'OK';
+        this.dialogSetting.cancelButton = undefined;
+        this.dialogModal = true;
+        switch (this.orderListType) {
+          case 'asset':
+            this._requestListFacade.loadRequestPartforAsset();
+            break;
+          case 'sub-asset':
+            this._requestListFacade.loadRequestPartforSubAsset();
+            break;
+        };
+      }
+    });
+
+    this.rejectSubscription = this._requestListFacade.rejected$.subscribe((x) => {
+      if (x) {
+        this.dialogOption = dialogOption.success;
+        this.dialogSetting.header = 'Reject Request';
+        this.dialogSetting.message = 'Request Rejected Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'OK';
+        this.dialogSetting.cancelButton = undefined;
+        this.dialogModal = true;
+        switch (this.orderListType) {
+          case 'asset':
+            this._requestListFacade.loadRequestPartforAsset();
+            break;
+          case 'sub-asset':
+            this._requestListFacade.loadRequestPartforSubAsset();
+            break;
+        };
+      }
+    });
+
+    this.errorSubscription = this._requestListFacade.error$.subscribe((x) => {
+      if (x?.error) {
+        this.dialogOption = dialogOption.error;
+        x?.error;
+        this.dialogSetting.header = 'Request Order';
+        this.dialogSetting.hasError = true;
+        this.dialogSetting.message = 'Error occurred in progress';
+        this.dialogSetting.cancelButton = undefined;
+        this.dialogSetting.confirmButton = 'OK';
+        this.dialogModal = true;
+      }
+    });
+  }
+
+
+  rejectRequest(){
+    this.dialogOption = dialogOption.reject;
+    this.dialogSetting.header = 'Reject Request';
+    this.dialogSetting.message = 'Are you sure that you want to reject request?';
+    this.dialogSetting.isWarning = true;
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.confirmButton = 'Yes';
+    this.dialogSetting.cancelButton = 'No';
+    this.dialogModal = true;
+  }
+
+  approveRequest(){
+    this.dialogOption = dialogOption.approve;
+    this.dialogSetting.header = 'Approve Request';
+    this.dialogSetting.message = 'Are you sure that you want to approve request?';
+    this.dialogSetting.isWarning = true;
+    this.dialogSetting.hasError = false;
+    this.dialogSetting.confirmButton = 'Yes';
+    this.dialogSetting.cancelButton = 'No';
+    this.dialogModal = true;
+  }
   ngOnDestroy(){
     this.requestStatisticsSubscription.unsubscribe();
     this.orderStatisticsSubscription.unsubscribe();
   }
 
+}
+
+
+export enum dialogOption{
+  success='success',
+  error = 'error',
+  cancel = 'cancel',
+  reject='reject',
+  approve = 'approve'
 }

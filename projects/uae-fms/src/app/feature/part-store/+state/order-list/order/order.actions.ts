@@ -116,22 +116,22 @@ export class OrderListActions {
   /* '''''Receive''''' Specific order for asset and sub asset */
   static receiveSpecificOrderPartAsset = createAction(
     '[orderList] receive specific order part of asset',
-    props<{ id: number }>()
+    props<{ data: any }>()
   );
 
   static specificOrderPartOfAssetReceivedSuccessfully = createAction(
       '[orderList] specific order part of asset are received successfully',
-      props<{ data: any[] }>()
+      props<{ data: any }>()
   );
 
   static receiveSpecificOrderPartSubAsset = createAction(
     '[orderList] receive specific order part of sub asset',
-    props<{ id: number }>()
+    props<{ data: any }>()
   );
 
   static specificOrderPartOfSubAssetReceivedSuccessfully = createAction(
       '[orderList] specific order part of sub asset are received successfully',
-      props<{ data: any[] }>()
+      props<{ data: any }>()
   );
 
 

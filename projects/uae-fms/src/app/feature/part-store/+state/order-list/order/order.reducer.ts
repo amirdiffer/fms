@@ -171,7 +171,7 @@ const OrderListReducer = createReducer(
   ),
 
   /* '''''Receive''''' Specific order for asset and sub asset */
-  on(OrderListActions.receiveSpecificOrderPartAsset, (state) => ({
+  on(OrderListActions.receiveSpecificOrderPartAsset, (state, { data }) => ({
     ...state,
     loaded: false,
     error: null,
@@ -179,14 +179,19 @@ const OrderListReducer = createReducer(
     submitted:false
   })),
 
-  on(OrderListActions.specificOrderPartOfAssetReceivedSuccessfully, (state, { data }) => ({
-    ...state,
-    loaded: true,
-    error: null,
-    submitted:true
-  })),
+  on(OrderListActions.specificOrderPartOfAssetReceivedSuccessfully, (state, { data }) => 
+    orderListAdapter.updateOne(
+      { changes: data, id: data.id },
+      {
+        ...state,
+        error: null,
+        message: null,
+        submitted: true
+      }
+    )
+  ),
 
-  on(OrderListActions.receiveSpecificOrderPartSubAsset, (state) => ({
+  on(OrderListActions.receiveSpecificOrderPartSubAsset, (state , { data }) => ({
     ...state,
     loaded: false,
     error: null,
@@ -194,12 +199,17 @@ const OrderListReducer = createReducer(
     submitted:false
   })),
 
-  on(OrderListActions.specificOrderPartOfSubAssetReceivedSuccessfully, (state, { data }) => ({
-    ...state,
-    loaded: true,
-    error: null,
-    submitted:true
-  })),
+  on(OrderListActions.specificOrderPartOfSubAssetReceivedSuccessfully, (state, { data }) => 
+    orderListAdapter.updateOne(
+      { changes: data, id: data.id },
+      {
+        ...state,
+        error: null,
+        message: null,
+        submitted: true
+      }
+    )
+  ),
 
    /* ERROR */
    on(OrderListActions.error, (state, { reason }) => ({
