@@ -129,7 +129,7 @@ export class AddUserComponent
   private _user;
   users$ = this.userFacade.users$;
   roles$ = this.roleFacade.rolePermission$.pipe(
-    map((y) => y.map((x) => ({ id: x.roleId, name: x.roleName })))
+    map((y) => y.map((x) => ({ id: x.roleId, name: x.roleName })).filter(z => z.id != 1 && z.id != 2 && z.id != 3))
   );
   profileDocId = null;
 
