@@ -4,16 +4,15 @@
 <div class="row ml-0 card-wrapper">
     <div class="col-3 col-md-3 component_wrapper form-section">
         <h3 class="form-section__title">{{'part_store.part_master.category' | translate}}</h3>
-        <div class="p-field form-section__field">
+        <!-- <div class="p-field form-section__field">
             <div class="autocomplete-select">
                 <span class="p-float-label">
                   <p-autoComplete [minLength]="1" placeholder="{{'part_store.part_master.search' | translate}} ..."></p-autoComplete>
                   <i class="pi pi-search"></i>
-                  <!-- <label>Search...</label> -->
                 </span>
             </div>
-        </div>
-        <hr class="line">
+        </div> -->
+        <!-- <hr class="line"> -->
         <div class="mt-5">
             <div class="p-field form-section__field dropdown-select mt-4">
                 <span class="p-float-label">
@@ -31,7 +30,7 @@
         </div>
         <div class="p-field form-section__field dropdown-select mt-4">
             <span class="p-float-label">
-              <p-dropdown [(ngModel)]="selectedSubCategoryType" 
+              <p-dropdown [(ngModel)]="selectedSubCategoryType"
                             inputId="assetType" 
                             (onChange)="typeChanges($event.value)" 
                             placeholder="{{'part_store.part_master.asset_type' | translate}}" 

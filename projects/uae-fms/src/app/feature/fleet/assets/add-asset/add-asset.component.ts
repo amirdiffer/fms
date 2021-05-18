@@ -880,7 +880,11 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         if (x && x?.message) {
           if (x.message.length > 0) {
             if (x.message.length == 1) {
-              this.assetId = x.message[0].id;
+              if (Array.isArray(x.message) && x.message.length == 1) {
+                this.assetId = x.message[0].id;
+              } else {
+                this.assetId = x.message?.id;
+              }
               this.dialogModal = true;
               this.dialogOption = 'success';
               this.dialogSetting.header = this.isEdit
@@ -918,16 +922,18 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   dialog(event) {
+    this.dialogModal = false;
     if (event) {
       this._facade.reset();
       if (this.assetId > 0) {
-        this._router.navigate(['fleet/assets/' + this.assetId + '/registration']);
+        this._router.navigate(['/fleet/assets/' + this.assetId + '/registration']);
       } else {
         this._router.navigate(['/fleet/assets']);
       }
     }
-    this._router.navigate(['/fleet/assets']);
-    this.dialogModal = false;
+    else {
+      this._router.navigate(['/fleet/assets']);
+    }
   }
 
   cancelDialog($event) {

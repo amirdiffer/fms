@@ -397,8 +397,8 @@
       "start_date": "Start Date",
       "department": "Department",
       "fine": "Fine",
-      "room":"Room",
-      "price":"Price",
+      "room": "Room",
+      "price": "Price",
       "reason": "Reason",
       "user": "User",
       "movement_type": "Movement Type",
@@ -501,7 +501,7 @@
       "category": "Category",
       "warranty_expire": "Warranty Expire",
       "total_cost": "Total Cost",
-      "total_quantity":"Total Quantity",
+      "total_quantity": "Total Quantity",
       "storage_location": "Storage Location",
       "established_market_value": "Established Market Value",
       "remove": "Remove",
@@ -1021,7 +1021,7 @@
       "room": "Room",
       "aisle": "Aisle",
       "shelf": "Shelf",
-      "warranty_start_date":"Warranty Start Date",
+      "warranty_start_date": "Warranty Start Date",
       "box": "Box",
       "form": {
         "new_order": "New Order",
@@ -1090,7 +1090,7 @@
       "category_name": "Category Name",
       "item_name": "Item Name",
       "filter_and_fuel_pump": "Filter, fuel pump",
-      "threshold":"Threshold",
+      "threshold": "Threshold",
       "upload_form": {
         "title": "",
         "progressbar_title": ".pdf",
@@ -1098,12 +1098,12 @@
       },
       "engine": "Engine",
       "filters": "Filters",
-      "supplier":"Supplier",
-      "search":"Search",
-      "category_type":"Category Type",
-      "filter_setting":"Filter setting",
-      "trim":"Trim",
-      "color":"Color"
+      "supplier": "Supplier",
+      "search": "Search",
+      "category_type": "Category Type",
+      "filter_setting": "Filter setting",
+      "trim": "Trim",
+      "color": "Color"
     },
     "integration": {
       "type": "Type",
@@ -1179,7 +1179,8 @@
         },
         "fleet_no": "Fleet No",
         "view_card": "View Card",
-        "asset_type": "Asset Type"
+        "asset_type": "Asset Type",
+        "removal": "Removal"
       },
       "technician": {
         "portal_info": "Portal Info",
@@ -1773,7 +1774,7 @@
     "recived": "Recived",
     "assign": "Assign",
     "upload": "Upload",
-    "update":"Update",
+    "update": "Update",
     "generate": "Generate",
     "feedback": {
       "required": "This is Field Required",

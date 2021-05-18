@@ -113,17 +113,19 @@ export class TableContentComponent implements OnInit {
     this.tableData$ = this._partMasterFacade.partMasterItem$.pipe(
       map(
         result => {
-          return result.map(
-            item =>{
-              return {
-                id:item.id,
-                thumbText:item.name,
-                make: item.makeName,
-                model: item.modelName,
-                thumbImage:'assets/thumb.png'
+          if(result){
+            return result.map(
+              item =>{
+                return {
+                  id:item.id,
+                  thumbText:item.name,
+                  make: item.makeName,
+                  model: item.modelName,
+                  thumbImage:'assets/thumb.png'
+                }
               }
-            }
-          )
+            )
+          }
         }
       )
     )

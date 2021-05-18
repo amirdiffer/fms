@@ -278,7 +278,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
         trimColorId: formValue.itemInfo[0].color,
         needToOrderThreshold: +formValue.itemInfo[0].threshold,
         supplierIds:formValue.itemInfo[0].suppliers.map(supplier => { return supplier.supplier}) ,
-        documentIds: formValue.itemInfo[0].uploadFile.files
+        documentIds: formValue.itemInfo[0].uploadFile != null ? formValue.itemInfo[0].uploadFile.files : []
       };
       if(this.isEdit){
         let editData = {...data, id:this.id}

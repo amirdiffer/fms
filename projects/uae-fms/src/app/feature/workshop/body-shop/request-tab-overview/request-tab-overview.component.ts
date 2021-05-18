@@ -6,6 +6,7 @@ import { BodyShopRequestFacade, BodyShopRequestService } from '@feature/workshop
 import moment from 'moment';
 import { map } from 'rxjs/operators';
 import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master'
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-asset-overview-request',
@@ -14,7 +15,8 @@ import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master'
 })
 export class RequestTabOverviewComponent implements OnInit {
   assetId;
-  tableData$;
+  tableData = new Subject();
+  tableData$ = this.tableData.asObservable();
   assetDetail;
   constructor(
     private _facadeRequest: BodyShopRequestFacade,
@@ -135,11 +137,12 @@ export class RequestTabOverviewComponent implements OnInit {
       }
     ],
     data: [],
-    rowSettings: {
+    /* rowSettings: {
       floatButton: [
         {
           button: 'edit',
           color: '#3F3F3F',
+          condition: (data) => { return data.approveStatus == "APPROVED" ? false : true },
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
             this.router.navigate([
@@ -148,7 +151,7 @@ export class RequestTabOverviewComponent implements OnInit {
           }
         }
       ]
-    }
+    } */
   };
 
   section = 'list';
@@ -156,9 +159,18 @@ export class RequestTabOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.assetId = this._activatedRoute.snapshot.params.id;
     this._assetMasterFacade.loadAll();
-    this.tableData$ = this.service.getRequestById(this.assetId).pipe(
+    this.loadRequests(this.assetId);
+    // this._assetMasterFacade.getAssetByID(this.assetId);
+
+    this.assetService.getAssetByID(this.assetId).subscribe(x => {
+      this.assetDetail = x.message;
+    })
+  }
+
+  loadRequests(assetId) {
+    this.service.requestsById(assetId).pipe(
       map((y) => {
-        let x=y.message;
+        let x = y.message;
         return x.map((y) => {
           let jobType;
           switch (y.jobType) {
@@ -184,18 +196,8 @@ export class RequestTabOverviewComponent implements OnInit {
           };
         });
       })
-    );
-    this._facadeRequest.assetRequest$.subscribe((x) => {
-      if (x.length < 1) {
-        this._facadeRequest.getAssetRequest(this.assetId);
-      }
+    ).subscribe(x => {
+      this.tableData.next(x);
     });
-    this.route.params.subscribe((x) => {
-      if (x?.id) this._assetMasterFacade.getAssetByID(x.id);
-    });
-
-    this.assetService.getAssetByID(this.assetId).subscribe(x => {
-      this.assetDetail = x.message;
-    })
   }
 }

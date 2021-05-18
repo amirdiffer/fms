@@ -130,9 +130,42 @@ export class JobCardOverviewComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton',
+        hasJobCardButton: false
       }
     ],
-    data: []
+    data: [],
+    rowSettings: {
+      onClick: (col, data, button?) => { },
+      floatButton: [
+        {
+          button: 'edit',
+          onClick: (col, data) => {
+            this.router
+              .navigate(['/workshop/body-shop/edit-job-card/' + data.id])
+              .then();
+          }
+        }
+        // {
+        //   button: 'edit',
+        //   color: '#3F3F3F',
+        //   onClick: (col, data, button?) => {
+        //     this._facadeRequest.resetParams();
+        //     this.router.navigate([
+        //       '/workshop/body-shop/edit-request/' + data.id
+        //     ]);
+        //   }
+        // }
+      ]
+    }
+
   };
 
   section = 'list';

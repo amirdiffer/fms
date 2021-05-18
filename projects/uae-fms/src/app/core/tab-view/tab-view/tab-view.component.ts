@@ -42,7 +42,6 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.count)
   }
 
   ngAfterViewInit() {

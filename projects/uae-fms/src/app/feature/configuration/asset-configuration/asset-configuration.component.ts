@@ -375,7 +375,20 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
   }
 
   exportTable() {
-    this.table.exportTable(this.assetConfigurationableSetting, 'Asset Type');
+    let filterSetting = [];
+    this.assetConfigurationableSetting.columns.forEach((x) => {
+      if (x.renderer != 'floatButton') {
+        if (!x.isIconLable) {
+          filterSetting.push(x.field);
+        }
+      }
+    });
+    let filter = {
+      ...filterSetting
+    };
+    console.log(filter)
+
+    this.table.exportTable(this.assetConfigurationableSetting, 'Export', filter);
   }
 
   eventPagination() {
