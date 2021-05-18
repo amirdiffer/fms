@@ -11,7 +11,7 @@ import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PartStoreStateModule } from './+state/part-store.state.module';
 import { OrderListComponent } from './order-list/order-list.component';
-import { OrderFormComponent } from './order-list/order/order.component';
+import { OrderComponent } from './order-list/order/order.component';
 import { PartListComponent } from './part-list/part-list.component';
 import { PartMasterComponent } from './part-master/part-master.component';
 import { PartOverviewComponent } from './part-overview/part-overview.component';
@@ -23,8 +23,6 @@ import { AddItemComponent } from './part-master/add-item/add-item.component';
 import { TableContentComponent } from './part-master/table-content/table-content.component';
 import {CarouselModule} from 'primeng/carousel';
 import { UpdateFormComponent } from './part-list/update-form/update-form.component';
-import { OrderListAssetComponent } from '@feature/part-store/order-list/order-list-asset/order-list-asset.component';
-import { OrderListSubAssetComponent } from '@feature/part-store/order-list/order-list-sub-asset/order-list-sub-asset.component';
 import { ReceiveOrderComponent } from './order-list/receive-order/receive-order.component';
 import { RequestListAddFormComponent } from './order-list/request-list-add-form/request-list-add-form.component';
 import { FleetStateModule } from '@feature/fleet/+state';
@@ -51,7 +49,7 @@ import { FleetStateModule } from '@feature/fleet/+state';
     PartListComponent,
     OrderListComponent,
     PartMasterComponent,
-    OrderFormComponent,
+    OrderComponent,
     OrderListComponent,
     PartOverviewComponent,
     SuppliersAddFormComponent,
@@ -59,8 +57,6 @@ import { FleetStateModule } from '@feature/fleet/+state';
     AddItemComponent,
     TableContentComponent,
     UpdateFormComponent,
-    OrderListAssetComponent,
-    OrderListSubAssetComponent,
     ReceiveOrderComponent,
     RequestListAddFormComponent
   ]

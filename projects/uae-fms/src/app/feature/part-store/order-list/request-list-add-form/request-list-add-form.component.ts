@@ -1,10 +1,8 @@
-import { Component, EventEmitter, Injector, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { SuppliersFacade } from '@feature/part-store/+state/order-list/suppliers';
 import { Utility } from '@shared/utility/utility';
-import { MyOrderAssetFacade } from '@feature/part-store/+state/order-list/my-order/asset';
-import { MyOrderSubAssetFacade } from '@feature/part-store/+state/order-list/my-order/sub-asset';
+
 import { Observable, Subscription } from 'rxjs';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { ActivatedRoute } from '@angular/router';
@@ -20,8 +18,10 @@ import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
   styleUrls: ['./request-list-add-form.component.scss']
 })
 export class RequestListAddFormComponent extends Utility implements OnInit , OnDestroy{
-  @Output() cancel = new EventEmitter();
   fleetType='asset';
+  isAsset:boolean = true;
+  id:number;
+  isEdit:boolean = false
   form: FormGroup;
 
   submited = false;
@@ -52,6 +52,8 @@ export class RequestListAddFormComponent extends Utility implements OnInit , OnD
   submitSubscription: Subscription;
 
 
+  /* specific request subscription */
+  specificSubscription : Subscription;
   /* Dialog */
   dialogModal = false;
   dialogOption:dialogOption;
@@ -78,9 +80,10 @@ export class RequestListAddFormComponent extends Utility implements OnInit , OnD
   ngOnInit(): void {
     let activateUrl = this._activateRoute.snapshot.url;
     this.fleetType = activateUrl[1].path;
-    this._facadeRequestList.reset();
-    this._facadeTechnician.loadAll();
-    this.errorAndSubmitHandler();
+    this.id = +activateUrl[activateUrl.length -1].path
+    if(this.id){
+      this.isEdit = true;
+    }
 
     /* Form Builder */
     this.form = this._fb.group({
@@ -92,27 +95,39 @@ export class RequestListAddFormComponent extends Utility implements OnInit , OnD
       technician: ['', Validators.required],
     });
 
+
+    this._facadeRequestList.reset();
+    this._facadePartMaster.resetCategory();
+    this._facadePartMaster.resetItem();
+    this._facadeTechnician.loadAll();
+    this.patchValueForm();
+    this.errorAndSubmitHandler();
+
+    
+
     switch (this.fleetType) {
       case 'asset':
         this._assetFacade.loadAll();
+        this.isAsset = true;
         this.fleetSubscription = this._assetFacade.assetMaster$.subscribe(
           x=>{
             if(x){
-              this.fleetList = x
+              this.fleetList = x;
             }
           }
         );
         break;
       case 'sub-asset':
         this._subAssetFacade.loadAll();
+        this.isAsset = false;
         this.fleetSubscription = this._subAssetFacade.subAsset$.subscribe(
           x=>{
-            console.log(x)
             if(x){
               this.fleetList = x.map(
                 item => {
                   return {
-                    
+                    ...item,
+                    dpd : item.serialNumber
                   }
                 }
               )
@@ -135,7 +150,7 @@ export class RequestListAddFormComponent extends Utility implements OnInit , OnD
           this.technicianList = x
         }
       }
-    )
+    );
   }
 
 
@@ -155,13 +170,29 @@ export class RequestListAddFormComponent extends Utility implements OnInit , OnD
       technicianId: formData.technician.id
     };
 
-    switch (this.fleetType){
-      case 'asset':
-        this._facadeRequestList.addRequestPartAsset(payload)
-        break;
-      case 'sib-asset':
-        this._facadeRequestList.addRequestPartSubAsset(payload)
-        break;
+    
+    if(this.isEdit){
+      let editPayload = {
+        ...payload,
+        id:this.id
+      }
+      switch (this.fleetType){
+        case 'asset':
+          this._facadeRequestList.updateRequestOfAsset(editPayload)
+          break;
+        case 'sub-asset':
+          this._facadeRequestList.updateRequestOfSubAsset(editPayload)
+          break;
+      }
+    }else{
+      switch (this.fleetType){
+        case 'asset':
+          this._facadeRequestList.addRequestPartAsset(payload)
+          break;
+        case 'sub-asset':
+          this._facadeRequestList.addRequestPartSubAsset(payload)
+          break;
+      }
     }
   }
 
@@ -181,22 +212,22 @@ export class RequestListAddFormComponent extends Utility implements OnInit , OnD
 
   dialogConfirm(event){
     if(event && (this.dialogOption == dialogOption.cancel || this.dialogOption == dialogOption.success)){
-      this.goToList('part-store/order-list');
+      this.fleetType ==='asset'
+      ?
+      this.goToList('part-store/order-list/asset')
+      :
+      this.goToList('part-store/order-list/sub-asset')
     }
     this.dialogModal = false;
   }
 
   /* PrimeNG Autocompelete */
-
   searchFleet(event) {
     let query = event.query;
     let filtered = [];
     for (let index = 0; index < this.fleetList.length; index++) {
       let fleet = this.fleetList[index];
-      if (this.fleetType == 'asset' && fleet.dpd.indexOf(query) == 0) {
-        filtered.push(fleet);
-      }
-      if (this.fleetType == 'sub-asset' && fleet.serialNumber.indexOf(query) == 0) {
+      if (fleet.dpd.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         filtered.push(fleet);
       }
     }
@@ -235,7 +266,16 @@ export class RequestListAddFormComponent extends Utility implements OnInit , OnD
         this.category$ = this._facadePartMaster.partMasterAssetCategory$.pipe(
           map(x=>{
             if(x){
-              console.log(x)
+              return x
+            }
+          })
+        )
+        break;
+      case 'sub-asset':
+        this._facadePartMaster.loadAllCategoryOfSubAsset(event.subAssetConfigurationId);
+        this.category$ = this._facadePartMaster.partMasterSubAssetCategory$.pipe(
+          map(x=>{
+            if(x){
               return x
             }
           })
@@ -249,15 +289,18 @@ export class RequestListAddFormComponent extends Utility implements OnInit , OnD
     switch (this.fleetType) {
       case 'asset':
         this._facadePartMaster.loadAllItemOfAsset(event);
-        this.item$ = this._facadePartMaster.partMasterItem$.pipe(
-          map(x=>{
-            if(x){
-              return x
-            }
-          })
-        );
         break;
-    }
+      case 'sub-asset':
+        this._facadePartMaster.loadAllItemOfSubAsset(event);
+        break;
+      }
+      this.item$ = this._facadePartMaster.partMasterItem$.pipe(
+        map(x=>{
+          if(x){
+            return x
+          }
+        })
+      );
   }
 
   
@@ -266,9 +309,10 @@ export class RequestListAddFormComponent extends Utility implements OnInit , OnD
   errorAndSubmitHandler() {
     this.submitSubscription = this._facadeRequestList.submitted$.subscribe((x) => {
       if (x) {
+        this.dialogOption = dialogOption.success;
         this.dialogModal = true;
-        this.dialogSetting.header = 'Add new request';
-        this.dialogSetting.message = 'Request added Successfully';
+        this.dialogSetting.header = this.isEdit ? 'Edit request':'Add new request';
+        this.dialogSetting.message = this.isEdit? 'Request edited Successfully' :'Request added Successfully';
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
@@ -278,9 +322,10 @@ export class RequestListAddFormComponent extends Utility implements OnInit , OnD
 
     this.errorSubscription = this._facadeRequestList.error$.subscribe((x) => {
       if (x?.error) {
+        this.dialogOption = dialogOption.error;
         x?.error;
         this.dialogModal = true;
-        this.dialogSetting.header = 'Add new request';
+        this.dialogSetting.header = this.isEdit ? 'Edit request' :'Add new request';
         this.dialogSetting.hasError = true;
         this.dialogSetting.message = 'Error occurred in progress';
         this.dialogSetting.cancelButton = undefined;
@@ -289,12 +334,50 @@ export class RequestListAddFormComponent extends Utility implements OnInit , OnD
     });
   }
 
+  patchValueForm(){
+    if(this.isEdit){
+      switch (this.fleetType) {
+        case 'asset':
+          this._facadeRequestList.getSpecificRequestPartAsset(this.id);
+          break;
+        case 'sub-asset':
+          this._facadeRequestList.getSpecificRequestPartSubAsset(this.id);
+            break;
+      }
+      
+    }
+
+    this.specificSubscription = this._facadeRequestList.specificRequest$.subscribe(x=>{
+      if(x && this.isEdit){
+        switch (this.fleetType) {
+          case 'asset':
+            this.fleetSelect({assetConfigurationId : x.fleetConfigurationId})
+            break;
+            case 'sub-asset':
+              this.fleetSelect({subAssetConfigurationId : x.fleetConfigurationId})
+            break;
+        }
+        this.categorySelect(x.categoryId);
+        this.form.patchValue({
+          fleet:{dpd:x.fleetName , id:x.fleetConfigurationId},
+          category:x.categoryId,
+          item:{name:x.itemName , id:x.itemId},
+          quantity: x.quantity,
+          description: x.description,
+          technician: {id:x.technician.id , user:{firstName:x.technician.firstName }},
+        })
+      }
+    })
+
+  }
+
   ngOnDestroy(){
     this.fleetSubscription.unsubscribe();
     this.itemSubscription.unsubscribe();
     this.submitSubscription.unsubscribe();
     this.errorSubscription.unsubscribe();
     this.technicianSubscription.unsubscribe();
+    this.specificSubscription.unsubscribe();
   }
 }
 

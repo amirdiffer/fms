@@ -87,7 +87,6 @@ export class PartOverviewComponent implements OnInit , OnDestroy {
       let partId = +this.route.snapshot.children[this.route.snapshot.children.length -1].params.id
       this._facadePartList.loadSpecificPartOfAsset(partId);
     }
-    console.log(url)
     this.fleetType = this.route.snapshot.queryParams.fleetType;
     this.id = +url[url.length -1].path;
     if(this.fleetType){
@@ -106,7 +105,6 @@ export class PartOverviewComponent implements OnInit , OnDestroy {
               }
             }))
           }
-          console.log(x)
           this.item$ = of(x)
         }
       }

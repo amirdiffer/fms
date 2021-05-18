@@ -2,7 +2,7 @@
   <app-filter [setting]='requestStatistics'></app-filter>
 </div>
 <div class="statistic-card" *ngIf="activeTab == 'my_order'">
-  <app-filter [setting]='filterCard2'></app-filter>
+  <app-filter [setting]='orderStatistics'></app-filter>
 </div>
 
 <div class="component_wrapper p-0">
@@ -21,17 +21,17 @@
           <svg-icon [src]="downloadBtn"></svg-icon>
         </button>
         <button class="btn-primary-small" *ngIf="activeTab == 'request_list'" routerLink="add-request"><i>+</i><a>{{ 'forms.request' | translate }}</a></button>
-        <button class="btn-primary-small" *ngIf="activeTab == 'my_order'" routerLink="/part-store/order-list/add-order-list"><i>+</i><a>{{ 'forms.order' | translate }}</a></button>
+        <button class="btn-primary-small" *ngIf="activeTab == 'my_order'" routerLink="add-order"><i>+</i><a>{{ 'forms.order' | translate }}</a></button>
         <button class="btn-primary-small" *ngIf="activeTab == 'suppliers'" routerLink="/part-store/order-list/add-supplier"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
       </span>
       <div title='part_store.order_list.request_list' id="request_list">
         <app-table [setting]='requestList_Table' (onPagination)="eventPagination_requestList()" pagination="part-store-request-list" [tableData]="requestTableData$"></app-table>
       </div>
       <div title='part_store.order_list.my_order' id="my_order">
-        <app-table [setting]='myOrder_Table'></app-table>
+        <app-table [setting]='myOrder_Table' (onPagination)="eventPagination_ordertList()" pagination="part-store-order-list" [tableData]="orderTableData$"></app-table>
       </div>
       <div title='part_store.order_list.suppliers' id="suppliers">
-        <app-table [setting]='suppliers_Table'></app-table>
+        <app-table [setting]='suppliers_Table' (onPagination)="eventPagination_supplierList()" pagination="supplier-list" [tableData]="supplierTableData$"></app-table>
       </div>
     </app-tab-view>
   </div>

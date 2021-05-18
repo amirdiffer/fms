@@ -463,7 +463,18 @@ html {
       padding-left: 0 !important;
     }
   }
+  /* Carousel primeNG*/
+  .p-carousel-container{
+    .p-carousel-items-content{
+      direction: initial; 
+    }
+    button{
+      transform: rotate(180deg);
+    }
+
+  }
 }
+
 
 
 /* END RTL Arabic */

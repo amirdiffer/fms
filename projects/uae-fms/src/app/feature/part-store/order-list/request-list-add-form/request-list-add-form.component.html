@@ -1,7 +1,7 @@
 <form [formGroup]='form' (submit)='onSubmit()'>
   <div class='button-container'>
     <button class='btn-primary-medium btn-scondary-green' type="button" (click)="cancelForm()">{{ 'forms.cancel' | translate }}</button>
-    <button class='btn-primary-medium add'>{{ 'forms.add' | translate }}</button>
+    <button class='btn-primary-medium add'>{{ (isEdit?'forms.edit':'forms.add') | translate }}</button>
   </div>
   <div class="form-section">
     <div>
@@ -17,7 +17,7 @@
             (onSelect)="fleetSelect($event)">
             </p-autoComplete>
             <i class="pi pi-search"></i>
-            <label>{{ 'part_store.order_list.form.asset' | translate }} *</label>
+            <label>{{ (isAsset ? 'part_store.order_list.form.asset' : 'part_store.order_list.form.sub_asset')| translate }} *</label>
           </span>
           <anms-error [showError]="hasError('fleet',form,submited)"
             error="forms.feedback.required"></anms-error>
@@ -62,7 +62,7 @@
         <div class="autocomplete-select">
           <span class="p-float-label">
             <p-autoComplete formControlName="technician" (completeMethod)="searchtechnician($event)"
-            [suggestions]="technicianFilterd" field="user.firstName" [minLength]="1" dataKey="id"
+            [suggestions]="technicianFilterd" field="user.firstName" [minLength]="1" dataKey="user.id"
             [dropdown]="true">
             </p-autoComplete>
             <i class="pi pi-search"></i>

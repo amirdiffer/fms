@@ -179,16 +179,10 @@
     },
     "part_store": {
       "~": "Part Store",
-      "part_list": {
-        "~": "Part List",
-        "asset": "Asset",
-        "sub_asset": "Sub Asset"
-      },
-      "order_list":  {
-        "~": "Order List",
-        "asset": "Asset",
-        "sub_asset": "Sub Asset"
-      },
+      "part_list":"Part List",
+      "asset": "Asset",
+      "sub_asset": "Sub Asset",
+      "order_list":"Order List",
       "supplier": "Supplier",
       "part_master": "Part Master"
     },
@@ -311,7 +305,11 @@
     "stoped": "Stoped",
     "delayed": "Delayed",
     "need_to_order": "Need To Order",
-    "order": "Order"
+    "order": "Order",
+    "received":"Received",
+    "archived":"Archived",
+    "registered":"Registered"
+
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -1055,6 +1053,7 @@
         "asset": "Asset",
         "sub_asset": "Sub Asset",
         "asset_type": "Asset Type",
+        "sub_asset_type": "Sub Asset Type",
         "select_item_category": "Select Item Category",
         "item_name": "Item Name",
         "quantity": "Quantity",

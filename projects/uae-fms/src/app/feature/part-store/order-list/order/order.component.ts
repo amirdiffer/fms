@@ -1,458 +1,336 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MyOrderAssetFacade, MyOrderAssetService } from '@feature/part-store/+state/order-list/my-order/asset';
-import {
-  MyOrderSubAssetFacade,
-  MyOrderSubAssetService
-} from '@feature/part-store/+state/order-list/my-order/sub-asset';
-import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration';
-import { PartMasterService } from '@feature/part-store/+state/part-master';
-import { SuppliersService } from '@feature/part-store/+state/order-list/suppliers';
+import { ActivatedRoute } from '@angular/router';
+import { PartMasterFacade } from '@feature/part-store/+state/part-master';
 import { Utility } from '@shared/utility/utility';
+import { Observable, of } from 'rxjs';
+import { AssetTypeFacade, SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
+import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { SuppliersFacade } from '@feature/part-store/+state/order-list/suppliers';
+import { OrderListFacade } from '@feature/part-store/+state/order-list/order';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'order-form',
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss']
 })
-export class OrderFormComponent extends Utility implements OnInit {
+export class OrderComponent extends Utility implements OnInit {
   searchIcon = 'assets/icons/search.svg';
-
-  locations = [
-    { name: 'Room', code: 'room' },
-    { name: 'Saloon', code: 'saloon' }
-  ];
-
-  languagePrefix = 'fms.parts.';
-
-  assetType: any[] = [];
-
-  categories: any[] = [];
-
-  items: any[] = [];
-
-  suppliers: any[] = [];
-
-  recordId: number;
-
-  partForm: FormGroup;
-
-  filterSetting = [];
-  partMasterTableSetting;
+  isAsset:boolean=true;
+  isEdit:boolean=false;
+  id:number;
+  fleetType;
+  form: FormGroup;
 
   formSubmitted = false;
-  formChanged = false;
-  dialogModalAdd = false;
-  dialogModalError = false;
-  dialogModalCancel = false;
 
-  dialogSettingAdd: IDialogAlert = {
-    header: 'Part',
-    hasError: false,
-    hasHeader: true,
-    message: 'New Part Successfully Added',
-    confirmButton: 'OK'
-  };
-  dialogSettingCancel: IDialogAlert = {
-    header: 'Part',
+  itemList:any[]=[]
+  itemFilterd:any[]=[]
+
+  /* Observable */
+  fleetConfigurationType$ : Observable<any> = of([])
+  category$: Observable<any> = of([]);
+  suppliers$: Observable<any> = of([]);
+
+
+  /* Subscription */
+  itemSubscription:Subscription;
+  submitSubscription:Subscription;
+  errorSubscription:Subscription;
+  specificOrderSubscription:Subscription;
+
+
+  /* Dialog */
+  dialogModal = false;
+  dialogOption:dialogOption;
+  dialogSetting: IDialogAlert = {
+    header: 'Request',
     hasError: false,
     isWarning: true,
     hasHeader: true,
-    message: 'Are you sure that you want to cancel adding new order?',
+    message: 'Are you sure that you want to cancel adding new request?',
     confirmButton: 'Yes',
     cancelButton: 'No'
   };
 
-  dialogSettingError: IDialogAlert = {
-    header: 'Part',
-    hasError: true,
-    isWarning: false,
-    hasHeader: true,
-    message: 'Please fill in all the required fields.',
-    confirmButton: 'OK'
-  };
-
-  isEditing = false;
+ 
 
   constructor(
     private _fb: FormBuilder,
-    private _router: Router,
-    private _route: ActivatedRoute,
-    private assetFacade: MyOrderAssetFacade,
-    private subAssetFacade: MyOrderSubAssetFacade,
-    private myOrderAssetService: MyOrderAssetService,
-    private myOrderSubAssetService: MyOrderSubAssetService,
-    private assetTypeService: AssetConfigurationService,
-    private partMasterService: PartMasterService,
-    private suppliersService: SuppliersService,
+    private _fleetConfigurationAsset:AssetTypeFacade ,
+    private _fleetConfigurationSubAsset: SubAssetTypeFacade,
+    private _facadePartMaster : PartMasterFacade,
+    private _facadeSupplier : SuppliersFacade,
+    private _facadeOrderList : OrderListFacade,
+    private _activatedRoute : ActivatedRoute,
+    private _location: Location,
     private injector: Injector
   ) {
     super(injector);
-    this.partForm = this._fb.group({
-      typeCategoryType: ['ASSET'],
-      assetType: ['', Validators.required],
+    
+  }
+
+
+  ngOnInit(): void {
+    this._facadeOrderList.reset();
+    let activeRoute = this._activatedRoute.snapshot.url;
+    this.fleetType = activeRoute[1].path;
+    this.fleetType === 'asset'? this.isAsset = true:this.isAsset = false;
+    activeRoute[activeRoute.length - 2].path === 'edit-order' ? (this.isEdit =true , this.id = +activeRoute[activeRoute.length - 1].path) :this.isEdit=false;
+    this.errorAndSubmitHandler();
+
+
+    /* Form Builder */
+    this.form = this._fb.group({
+      fleetConfigurationType: ['', Validators.required],
       quantity: ['', Validators.required],
       price: ['', Validators.required],
-      description: [''],
+      description: ['', Validators.required],
       category: ['', Validators.required],
       item: ['', Validators.required],
       supplier: ['', Validators.required],
       hasReminder: false
     });
-  }
 
-  getLabelName(field) {
-    return this.languagePrefix + field;
-  }
+    /* Edit Form */
+    
 
-  ngOnInit(): void {
-    this.getAssetType();
-    this.suppliersService.loadAllSupplier().subscribe((response) => {
-      const suppliersArray = response.message;
-      this.suppliers = [];
-      suppliersArray.map((supplier) => {
-        const supplierObject = {
-          id: supplier.id,
-          name: supplier.companyName
-        };
-        this.suppliers.push(supplierObject);
-      });
-    });
-    this.errorAndSubmitHandler(this.assetFacade);
-    this.errorAndSubmitHandler(this.subAssetFacade);
-    this.partForm.valueChanges.subscribe(() => {
-      this.formChanged = true;
-    });
 
-    this.route.queryParams.subscribe((query) => {
-      if (query.type) {
-        const url = this.route.snapshot.url;
-        if (url.length === 3) {
-          const id = url[2].path
-          this.recordId = Number(id)
+    /* Load Fleet Configuration */
+    switch (this.fleetType) {
+      case 'sub-asset':
+        this._fleetConfigurationSubAsset.loadAll();
+        this.fleetConfigurationType$ = this._fleetConfigurationSubAsset.subAssetType$.pipe(
+          map(x=>{
+            if(x){
+              return x
+            }
+          })
+        );
+        break;
+    
+      case 'asset':
+        this._fleetConfigurationAsset.loadAll();
+        this.fleetConfigurationType$ = this._fleetConfigurationAsset.assetType$.pipe(
+          map(x=>{
+            if(x){
+              return x
+            }
+          })
+        );
+        break;
+    };
+
+
+    /* Load Supplier Async */
+    this._facadeSupplier.loadAll();
+    this.suppliers$ = this._facadeSupplier.suppliers$.pipe(
+      map(x=>{
+        if (x){
+          return x
         }
+      })
+    );
 
-        if (query.type === 'asset') {
-          this.isEditing = true
-          this.partForm.reset({ typeCategoryType: 'ASSET', hasReminder: false });
-          this.myOrderAssetService.getOrderById(this.recordId).subscribe((response) => {
-            console.log(response);
-            const message = response.message
-            const status = message.status
-            if (status !== 'JUST_REGISTERED') {
-              this.dialogModalError = true;
-              this.dialogSettingError.header = 'Edit Order';
-              this.dialogSettingError.hasError = true;
-              this.dialogSettingError.message = 'Received orders cannot be edited';
-              this.dialogSettingError.cancelButton = undefined;
-              this.dialogSettingError.confirmButton = 'OK';
+    this.patchValueForm();
+    
+  }
+
+
+  dialogConfirm(event){
+    if(event && (this.dialogOption == dialogOption.cancel || this.dialogOption == dialogOption.success)){
+      this._location.back();
+    }
+    this.dialogModal = false;
+  }
+
+  cancelForm(){
+    this.dialogOption = dialogOption.cancel;
+    this.dialogSetting = {
+      header: 'Order',
+      hasError: false,
+      isWarning: true,
+      message: 'Are you sure that you want to cancel?',
+      confirmButton: 'Yes',
+      cancelButton: 'No'
+    }
+    this.dialogModal = true;
+
+  }
+
+  submitForm(){
+    this.formSubmitted = true;
+    this.form.markAllAsTouched();
+    if(this.form.invalid)return;
+    this.dialogOption = dialogOption.success;
+    let formData = this.form.getRawValue();
+    let payload = {
+      itemId:formData.item.id,
+      supplierId:formData.supplier,
+      price:formData.price,
+      quantity:formData.quantity,
+      description:formData.description,
+      hasReminder:formData.supplier,
+    }
+    if(this.isEdit){
+      let editPayload = {
+        ...payload,
+        id:this.id
+      };
+      switch (this.fleetType) {
+        case 'asset':
+          this._facadeOrderList.updateOrderOfAsset(editPayload)
+          break;
+        case 'sub-asset':
+          this._facadeOrderList.updateOrderOfSubAsset(editPayload)
+          break;
+      }
+
+    }else{
+      switch (this.fleetType) {
+        case 'asset':
+          this._facadeOrderList.addOrderPartAsset(payload)
+          break;
+        case 'sub-asset':
+          this._facadeOrderList.addOrderPartSubAsset(payload)
+          break;
+      }
+    }
+  }
+
+  onChangeType(event){
+    this.form.get('item').reset();
+    this._facadePartMaster.resetCategory();
+    this._facadePartMaster.resetItem();
+    switch (this.fleetType) {
+      case 'sub-asset':
+        this._facadePartMaster.loadAllCategoryOfSubAsset(event);
+        this.category$ = this._facadePartMaster.partMasterSubAssetCategory$.pipe(
+          map(x => {
+            if(x){
+              return x
             }
-            this.assetType = [];
-            const assetTypeObject = {
-              name: message.fleetConfigurationName,
-              id: message.fleetConfigurationId
-            }
-            this.assetType.push(assetTypeObject);
-            this.partForm.controls['assetType'].setValue(
-              assetTypeObject
-            );
-            this.categories = [];
-            const categoryObject = {
-              name: message.categoryName,
-              id: message.categoryId
-            }
-            this.categories.push(categoryObject)
-            this.partForm.controls['category'].setValue(
-              categoryObject
-            );
-            this.items = [];
-            const itemObject = {
-              name: message.itemName,
-              id: message.itemId
-            }
-            this.items.push(itemObject)
-            this.partForm.controls['item'].setValue(
-              itemObject
-            );
-            this.suppliers = [];
-            const supplierObject = {
-              name: message.supplierCompanyName,
-              id: message.supplierId
-            }
-            this.suppliers.push(supplierObject)
-            this.partForm.controls['supplier'].setValue(
-              supplierObject
-            );
-            this.partForm.patchValue({
-              typeCategoryType: message.fleetType,
-              quantity: message.quantity,
-              price: message.price,
-              description: message.description,
-              hasReminder: message.hasReminder
-            })
           })
-        } else {
-          this.partForm.reset({ typeCategoryType: 'SUB_ASSET', hasReminder: false });
-          this.myOrderSubAssetService.getOrderById(this.recordId).subscribe((response) => {
-            const message = response.message
-            const status = message.status
-            if (status !== 'JUST_REGISTERED') {
-              this.dialogModalError = true;
-              this.dialogSettingError.header = 'Edit Order';
-              this.dialogSettingError.hasError = true;
-              this.dialogSettingError.message = 'Received orders cannot be edited';
-              this.dialogSettingError.cancelButton = undefined;
-              this.dialogSettingError.confirmButton = 'OK';
+        )
+        break;
+    
+      case 'asset':
+        this._facadePartMaster.loadAllCategoryOfAsset(event);
+        this.category$ = this._facadePartMaster.partMasterAssetCategory$.pipe(
+          map(x => {
+            if(x){
+              return x
             }
-            this.assetType = [];
-            const assetTypeObject = {
-              name: message.fleetConfigurationName,
-              id: message.fleetConfigurationId
-            }
-            this.assetType.push(assetTypeObject);
-            this.partForm.controls['assetType'].setValue(
-              assetTypeObject
-            );
-            this.categories = [];
-            const categoryObject = {
-              name: message.categoryName,
-              id: message.categoryId
-            }
-            this.categories.push(categoryObject)
-            this.partForm.controls['category'].setValue(
-              categoryObject
-            );
-            this.items = [];
-            const itemObject = {
-              name: message.itemName,
-              id: message.itemId
-            }
-            this.items.push(itemObject)
-            this.partForm.controls['item'].setValue(
-              itemObject
-            );
-            this.suppliers = [];
-            const supplierObject = {
-              name: message.supplierCompanyName,
-              id: message.supplierId
-            }
-            this.suppliers.push(supplierObject)
-            this.partForm.controls['supplier'].setValue(
-              supplierObject
-            );
-            this.partForm.patchValue({
-              typeCategoryType: message.fleetType,
-              quantity: message.quantity,
-              price: message.price,
-              description: message.description,
-              hasReminder: message.hasReminder
-            })
           })
+        )
+        break;
+    };
+
+  }
+
+  onChangeCategory(event){
+    this.form.get('item').reset();
+    this._facadePartMaster.resetItem();
+    switch (this.fleetType) {
+      case 'sub-asset':
+        this._facadePartMaster.loadAllItemOfSubAsset(event);
+        break;
+    
+      case 'asset':
+        this._facadePartMaster.loadAllItemOfAsset(event);
+        break;
+    };
+    this.itemSubscription = this._facadePartMaster.partMasterItem$.subscribe(
+      x =>{
+        if(x){
+          this.itemList = x;
         }
       }
-    })
+    )
   }
 
-  getAssetType(): void {
-    this.assetTypeService.loadAll().subscribe((response) => {
-      const assetTypeArray = response.message;
-      this.assetType = [];
-      assetTypeArray.map((assetType) => {
-        const assetTypeObject = {
-          id: assetType.id,
-          name: assetType.name
-        };
-        this.assetType.push(assetTypeObject);
-      });
-    });
-  }
-
-  onAssetSelect($event): void {
-    this.assetType = [];
-    this.categories = [];
-    this.items = [];
-    const target = $event.target;
-    this.partForm.value.typeCategoryType = target.checked ? 'ASSET' : 'SUB_ASSET';
-    this.getAssetType();
-    this.partForm.reset({ typeCategoryType: 'ASSET', hasReminder: false });
-  }
-
-  onSubAssetSelect($event): void {
-    this.assetType = [];
-    this.categories = [];
-    this.items = [];
-    const target = $event.target;
-    this.partForm.value.typeCategoryType = target.checked ? 'SUB_ASSET' : 'ASSET';
-    this.getAssetType();
-    this.partForm.reset({ typeCategoryType: 'SUB_ASSET', hasReminder: false });
-  }
-
-  onChangeAssetType(event): void {
-    this.categories = [];
-
-    const value = event.value ? event.value : event;
-    const foundAssetType = this.assetType.find((x) => x.id === value.id);
-
-    if (this.partForm.value.typeCategoryType !== 'ASSET') {
-      this.partMasterService.getCategoryOfSubAsset(foundAssetType.id).subscribe((response) => {
-        const categoryArray = response.message;
-        categoryArray.map((category) => {
-          const categoryObject = {
-            id: category.id,
-            name: category.name
-          };
-          this.categories.push(categoryObject);
-        });
-      });
-      return;
+  searchItem(event){
+    let query = event.query;
+    let filtered = [];
+    for (let index = 0; index < this.itemList.length; index++) {
+      let item = this.itemList[index];
+      if (item.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(item);
+      }
     }
+    this.itemFilterd = filtered;
+  }
 
-    this.partMasterService.getCategoryOfAsset(foundAssetType.id).subscribe((response) => {
-      const categoryArray = response.message;
-      categoryArray.map((category) => {
-        const categoryObject = {
-          id: category.id,
-          name: category.name
-        };
-        this.categories.push(categoryObject);
-      });
+
+
+  errorAndSubmitHandler() {
+    this.submitSubscription = this._facadeOrderList.submitted$.subscribe((x) => {
+      if (x) {
+        this.dialogOption = dialogOption.success;
+        this.dialogModal = true;
+        this.dialogSetting.header = this.isEdit ? 'Edit Order':'Add New Order';
+        this.dialogSetting.message = this.isEdit? 'Order edited Successfully' :'Order added Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'OK';
+        this.dialogSetting.cancelButton = undefined;
+      }
+    });
+
+    this.errorSubscription = this._facadeOrderList.error$.subscribe((x) => {
+      if (x?.error) {
+        this.dialogOption = dialogOption.error;
+        x?.error;
+        this.dialogModal = true;
+        this.dialogSetting.header = this.isEdit ? 'Edit Order' :'Add new Order';
+        this.dialogSetting.hasError = true;
+        this.dialogSetting.message = 'Error occurred in progress';
+        this.dialogSetting.cancelButton = undefined;
+        this.dialogSetting.confirmButton = 'OK';
+      }
     });
   }
 
-  onChangeCategory(event): void {
-    this.items = [];
-
-    const value = event.value ? event.value : event;
-    const foundItem = this.categories.find((x) => x.id === value.id);
-
-    if (this.partForm.value.typeCategoryType !== 'ASSET') {
-      this.partMasterService.getItemOfSubAsset(foundItem.id).subscribe((response) => {
-        const itemArray = response.message;
-        itemArray.map((item) => {
-          const itemObject = {
-            id: item.id,
-            name: item.name
-          };
-          this.items.push(itemObject);
-        });
-      });
-      return;
-    }
-
-    this.partMasterService.getItemOfAsset(foundItem.id).subscribe((response) => {
-      const itemArray = response.message;
-      itemArray.map((item) => {
-        const itemObject = {
-          id: item.id,
-          name: item.name
-        };
-        this.items.push(itemObject);
-      });
-    });
-  }
-
-  submit() {
-    this.formSubmitted = true;
-    if (this.partForm.invalid) {
-      this.partForm.markAllAsTouched();
-      return;
-    } else {
-      const payload = {
-        itemId: this.partForm.value?.item.id,
-        supplierId: this.partForm.value?.supplier.id,
-        price: this.partForm.value?.price,
-        quantity: this.partForm.value?.quantity,
-        description: this.partForm.value?.description,
-        hasReminder: this.partForm.value?.hasReminder
+  patchValueForm(){
+    if(this.isEdit){
+      switch (this.fleetType) {
+        case 'asset':
+          this._facadeOrderList.getSpecificOrderPartAsset(this.id)
+          break;
+      
+        case 'sub-asset':
+          this._facadeOrderList.getSpecificOrderPartSubAsset(this.id)
+          break;
       };
 
-      if (this.isEditing) {
-        const editPayload = {
-          id: this.recordId,
-          itemId: this.partForm.value?.item.id,
-          supplierId: this.partForm.value?.supplier.id,
-          price: this.partForm.value?.price,
-          quantity: this.partForm.value?.quantity,
-          description: this.partForm.value?.description,
-          hasReminder: this.partForm.value?.hasReminder
-        };
-        if (this.partForm.value.typeCategoryType === 'ASSET') {
-          this.assetFacade.updateOrder(editPayload);
-        } else {
-          this.subAssetFacade.updateOrder(editPayload);
+      this.specificOrderSubscription = this._facadeOrderList.specificOrder$.subscribe(x => {
+        if(x){
+          this.onChangeType(x.fleetConfigurationId);
+          this.onChangeCategory(x.categoryId)
+          this.form.patchValue({
+            fleetConfigurationType: x.fleetConfigurationId,
+            quantity: x.quantity,
+            price:x.price,
+            description: x.description,
+            category: 
+            x.categoryId,
+            item: {id:x.itemId , name:x.itemName},
+            supplier: x.supplierId,
+            hasReminder: x.hasReminder
+          })
         }
-        return;
-      }
-
-      if (this.partForm.value.typeCategoryType === 'ASSET') {
-        this.assetFacade.addOrder(payload);
-      } else {
-        this.subAssetFacade.addOrder(payload);
-      }
-      console.log(payload);
-    }
-
-  }
-
-  cancel() {
-    if (this.formChanged) {
-      this.dialogModalCancel = true;
-      return;
-    }
-
-    this._router.navigate(['part-store/part-list']);
-  }
-
-  dialogCancelConfirm(value) {
-    if (value === true) {
-      this._router.navigate(['part-store/part-list']);
-    }
-    this.dialogModalCancel = false;
-  }
-
-  dialogAddConfirm(value) {
-    if (value === true) {
-      this._router.navigate(['part-store/part-list']);
-    }
-    this.dialogModalAdd = false;
-  }
-
-  dialogErrorConfirm(value) {
-    this.dialogModalError = false;
-    if (this.dialogSettingError.message === 'Received orders cannot be edited') {
-      this.router.navigate(['/part-store/order-list/asset']).then()
+      })
     }
   }
+  
+}
 
-  errorAndSubmitHandler(facade) {
 
-    facade.submitted$.subscribe((x) => {
-      if (x) {
-        this.dialogModalAdd = true;
-        this.dialogSettingAdd.header = !this.isEditing ? 'Add new order' : 'Edit order';
-        this.dialogSettingAdd.message = !this.isEditing ? 'Order Added Successfully' : 'Order updated successfully';
-        this.dialogSettingAdd.isWarning = false;
-        this.dialogSettingAdd.hasError = false;
-        this.dialogSettingAdd.confirmButton = 'OK';
-        this.dialogSettingAdd.cancelButton = undefined;
-      }
-    });
-
-    facade.error$.subscribe((x) => {
-      if (x?.error) {
-        x?.error;
-        this.dialogModalError = true;
-        this.dialogSettingError.header = !this.isEditing ? 'Add new order' : 'Edit Order';
-        this.dialogSettingError.hasError = true;
-        this.dialogSettingError.message = 'Error occurred in progress';
-        this.dialogSettingError.cancelButton = undefined;
-        this.dialogSettingError.confirmButton = 'OK';
-      }
-    });
-
-    this.assetFacade.reset();
-    this.subAssetFacade.reset();
-  }
+export enum dialogOption{
+  success='success',
+  error = 'error',
+  cancel = 'cancel'
 }

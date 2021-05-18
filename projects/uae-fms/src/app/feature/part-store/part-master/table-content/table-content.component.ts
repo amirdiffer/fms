@@ -115,7 +115,6 @@ export class TableContentComponent implements OnInit {
         result => {
           return result.map(
             item =>{
-              console.log(item)
               return {
                 id:item.id,
                 thumbText:item.name,

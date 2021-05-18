@@ -22,11 +22,15 @@ import { SettingsFacade } from '@core/settings/settings.facade';
         <span (click)="clicked(item, col, data)" (mouseenter)="item.tooltip ? tooltipEnter() : null" (mouseleave)="item.tooltip ? tooltipLeave() : null">
           <p *ngIf="item.button == 'folder-check' && item.tooltip" class="tooltip-float-button" #tooltip>{{item.tooltip}}</p>
           <svg-icon
+            *ngIf="item.button !=='receive'"
             [src]="getIcon(item.button)"
             class="svg-icon"
             [applyClass]="true"
             [svgStyle]="{ 'fill': item.color || null , 'width.em':(item.button == 'folder-check'? 2 : 1.8)}"
           ></svg-icon>
+          <img *ngIf="item.button ==='receive'" 
+                [src]="getIcon(item.button)" 
+                [ngStyle]="{ 'width.em':2.1 , 'margin-top':'3px'}"/>
         </span>
       </ng-container>
     </div>
@@ -117,6 +121,9 @@ export class FloatButton implements OnInit {
       }
       case 'reject': {
         return this.assetPath + 'times-circle.svg';
+      }
+      case 'receive': {
+        return this.assetPath + 'received.png';
       }
     }
   }

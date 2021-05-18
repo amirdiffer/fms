@@ -22,14 +22,9 @@ import {
 } from '@feature/part-store/+state/order-list/suppliers';
 import { SuppliersEffects } from '@feature/part-store/+state/order-list/suppliers/suppliers.effects';
 import { ConfigurationStateModule } from '@feature/configuration/+state';
-import { MyOrderAssetEffects } from '@feature/part-store/+state/order-list/my-order/asset/my-order-asset.effects';
-import { MyOrderSubAssetEffects } from '@feature/part-store/+state/order-list/my-order/sub-asset/my-order-sub-asset.effects';
-import { MyOrderAssetFacade, MyOrderAssetService } from '@feature/part-store/+state/order-list/my-order/asset';
-import {
-  MyOrderSubAssetFacade,
-  MyOrderSubAssetService
-} from '@feature/part-store/+state/order-list/my-order/sub-asset';
 import { WorkshopStateModule } from '@feature/workshop/+state';
+import { OrderListEffect } from './order-list/order/order.effects';
+import { OrderListFacade, OrderListService } from './order-list/order/index';
 
 @NgModule({
   imports: [
@@ -38,9 +33,8 @@ import { WorkshopStateModule } from '@feature/workshop/+state';
       PartListEffect,
       PartMasterEffect,
       RequestListEffect,
-      MyOrderAssetEffects,
-      MyOrderSubAssetEffects,
       SuppliersEffects,
+      OrderListEffect
       
     ]),
     ConfigurationStateModule,
@@ -53,14 +47,12 @@ import { WorkshopStateModule } from '@feature/workshop/+state';
     PartListService,
     PartListFacade,
     PartMasterFacade,
-    MyOrderAssetService,
-    MyOrderSubAssetService,
     RequestListService,
-    MyOrderAssetFacade,
-    MyOrderSubAssetFacade,
     RequestListFacade,
     SuppliersFacade,
-    SuppliersService
+    SuppliersService,
+    OrderListService,
+    OrderListFacade
 
   ]
 })

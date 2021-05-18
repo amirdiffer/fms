@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting } from '@core/table';
 import { ButtonType, ColumnType } from '@core/table/table.component';
@@ -6,13 +6,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RequestListFacade } from '@feature/part-store/+state/order-list/request/index';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { SuppliersFacade } from '../+state/order-list/suppliers';
+import { OrderListFacade } from '../+state/order-list/order';
 
 @Component({
   selector: 'anms-order-list',
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.scss']
 })
-export class OrderListComponent implements OnInit {
+export class OrderListComponent implements OnInit , OnDestroy {
   downloadBtn = 'assets/icons/download-solid.svg';
 
   activeTab = 'request_list';
@@ -57,39 +59,32 @@ export class OrderListComponent implements OnInit {
     }
   ];
 
-  filterCard2: FilterCardSetting[] = [
-    {
-      filterTitle: 'statistic.this_month',
-      filterCount: '',
-      filterTagColor: '',
-      isCalendar: true,
-      onActive(index: number) {}
-    },
+  orderStatistics: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
       filterSupTitle: 'statistic.order',
-      filterCount: '13',
+      filterCount: '0',
       filterTagColor: '#6EBFB5',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'statistic.approved',
+      filterTitle: 'statistic.received',
       filterSupTitle: 'statistic.order',
-      filterCount: '08',
+      filterCount: '0',
       filterTagColor: '#6870B4',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'statistic.waiting',
+      filterTitle: 'statistic.registered',
       filterSupTitle: 'statistic.order',
-      filterCount: '02',
+      filterCount: '0',
       filterTagColor: '#BA7967',
       onActive(index: number) {}
     },
     {
-      filterTitle: 'statistic.rejected',
+      filterTitle: 'statistic.archived',
       filterSupTitle: 'statistic.order',
-      filterCount: '09',
+      filterCount: '0',
       filterTagColor: '#DD5648',
       onActive(index: number) {}
     }
@@ -100,45 +95,38 @@ export class OrderListComponent implements OnInit {
       { lable: 'tables.column.item', 
         type: ColumnType.lable, 
         field: 'Item', 
-        width: 150 
       },
       { lable: 'tables.column.part_id', 
         type: 1, 
         field: 'Part_ID', 
-        width: 150 
       },
       {
         lable: 'tables.column.status',
         type: ColumnType.lable,
         field: 'Status',
-        width: 100,
         renderer: ''
       },
       {
         lable: 'tables.column.quantity',
         type: ColumnType.lable,
         field: 'Quantity',
-        width: 150,
         sortable: true
       },
       {
         lable: 'tables.column.department',
         type: ColumnType.lable,
         field: 'Department',
-        width: 180
       },
       {
         lable: 'tables.column.description',
         type: ColumnType.lable,
         field: 'Description',
-        width: 180
       },
       {
         lable: 'tables.column.date',
         type: ColumnType.lable,
         field: 'Date',
         sortable: true,
-        width: 160
       },
       {
         lable: '',
@@ -151,6 +139,19 @@ export class OrderListComponent implements OnInit {
     data: [],
     rowSettings: {
       floatButton: [
+        {
+          button: 'edit',
+          onClick: (col, data, button?) => {
+            switch (this.orderListType) {
+              case 'asset':
+                this._router.navigate(['part-store/order-list/asset/edit-request/'+data.id])
+                break;
+              case 'sub-asset':
+                this._router.navigate(['part-store/order-list/sub-asset/edit-request/'+data.id])
+                break;
+            };
+          },
+        },
         {
           button: 'reject',
           color:"#F74F5A",
@@ -176,225 +177,110 @@ export class OrderListComponent implements OnInit {
                 this._requestListFacade.approveSpecificRequestPartofSubAsset(data.id)
                 break;
             };
-            
-          },
+          }
         }
+        
       ]
     }
   };
   myOrder_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.request_id', type: 1, field: 'Item', width: 150 },
-      { lable: 'tables.column.part_id', type: 1, field: 'Part_ID', width: 120 },
+      { 
+        lable: 'tables.column.item', 
+        type: ColumnType.lable, 
+        field: 'Item', 
+      },
+      { 
+        lable: 'tables.column.part_id', 
+        type: ColumnType.lable, 
+        field: 'Part_ID', 
+      },
+      { 
+        lable: 'tables.column.status', 
+        type: ColumnType.lable, 
+        field: 'Status', 
+      },
       {
         lable: 'tables.column.quantity',
-        type: 1,
+        type: ColumnType.lable,
         field: 'Quantity',
-        width: 150,
-        hasPadding5: true,
         sortable: true
       },
-      { lable: 'tables.column.date', type: 1, field: 'Date' },
-      {
-        lable: 'tables.column.description',
-        type: 1,
-        field: 'Description',
-        width: 200
+      { 
+        lable: 'tables.column.date', 
+        type: ColumnType.lable, 
+        field: 'Date' 
       },
       {
-        lable: 'tables.column.expected_receive_date',
-        type: 1,
-        width: 230,
-        hasPadding3: true,
-        field: 'Expected_Receive_date'
+        lable: 'tables.column.description',
+        type: ColumnType.lable,
+        field: 'Description',
       },
       {
         lable: 'tables.column.cost',
-        type: 1,
+        type: ColumnType.lable,
         field: 'Cost',
         sortable: true,
-        width: 120,
-        hasPadding3: true
-      },
-      {
-        lable: 'tables.column.total',
-        type: 1,
-        field: 'Total',
-        sortable: true,
-        width: 120,
-        hasPadding3: true
       },
       {
         lable: '',
-        type: 1,
-        width: 150,
-        field: 'ButtonRecived',
-        renderer: 'button',
-        buttonType: ButtonType.receiveAndEdit,
-        showOnHover: true
+        field: 'floatButton',
+        width: 50,
+        type: ColumnType.lable,
+        renderer: 'floatButton'
       }
     ],
-    data: [
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Quantity: '2',
-        Date: '02/02/2020',
-        Description: 'Description is here',
-        Expected_Receive_date: '02/02/2020',
-        Cost: '100 AED',
-        Total: '1000 AED',
-        Status: 'Approved',
-        ButtonRecived: 'Recived'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Quantity: '2',
-        Date: '02/02/2020',
-        Description: 'Description is here',
-        Expected_Receive_date: '02/02/2020',
-        Cost: '100 AED',
-        Total: '1000 AED',
-        Status: 'Approved',
-        ButtonRecived: 'Recived'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Quantity: '2',
-        Date: '02/02/2020',
-        Description: 'Description is here',
-        Expected_Receive_date: '02/02/2020',
-        Cost: '100 AED',
-        Total: '1000 AED',
-        Status: 'Approved',
-        ButtonRecived: 'Recived'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Quantity: '2',
-        Date: '02/02/2020',
-        Description: 'Description is here',
-        Expected_Receive_date: '02/02/2020',
-        Cost: '100 AED',
-        Total: '1000 AED',
-        Status: 'Approved',
-        ButtonRecived: 'Recived'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Quantity: '2',
-        Date: '02/02/2020',
-        Description: 'Description is here',
-        Expected_Receive_date: '02/02/2020',
-        Cost: '100 AED',
-        Total: '1000 AED',
-        Status: 'Approved',
-        ButtonRecived: 'Recived'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Quantity: '2',
-        Date: '02/02/2020',
-        Description: 'Description is here',
-        Expected_Receive_date: '02/02/2020',
-        Cost: '100 AED',
-        Total: '1000 AED',
-        Status: 'Approved',
-        ButtonRecived: 'Recived'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Quantity: '2',
-        Date: '02/02/2020',
-        Description: 'Description is here',
-        Expected_Receive_date: '02/02/2020',
-        Cost: '100 AED',
-        Total: '1000 AED',
-        Status: 'Approved',
-        ButtonRecived: 'Recived'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Quantity: '2',
-        Date: '02/02/2020',
-        Description: 'Description is here',
-        Expected_Receive_date: '02/02/2020',
-        Cost: '100 AED',
-        Total: '1000 AED',
-        Status: 'Approved',
-        ButtonRecived: 'Recived'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Quantity: '2',
-        Date: '02/02/2020',
-        Description: 'Description is here',
-        Expected_Receive_date: '02/02/2020',
-        Cost: '100 AED',
-        Total: '1000 AED',
-        Status: 'Approved',
-        ButtonRecived: 'Recived'
-      }
-    ],
+    data:[],
     rowSettings: {
-      onClick: (col, data, button?) => {
-        if (data === 'edit') {
-          if (col.id) {
-            this._router.navigate(['/part-store/order-list/edit-order-list/' + col.id], { queryParams: { type: 'asset' } }).then();
-          }
-        } else {
-          this._router.navigate(['/part-store/order-list/receive-order/' + col.id],
-            { queryParams: { fleetType: 'asset' } }).then();
-        }
-      }
+      floatButton: [
+        {
+          button: 'edit',
+          onClick: (col, data, button?) => {
+            switch (this.orderListType) {
+              case 'asset':
+                this._router.navigate(['part-store/order-list/asset/edit-order/'+data.id])
+                break;
+              case 'sub-asset':
+                this._router.navigate(['part-store/order-list/sub-asset/edit-order/'+data.id])
+                break;
+            };
+          },
+        },
+        {
+          button: 'receive',
+          onClick: (col, data, button?) => {
+            this._router.navigate(['part-store/order-list/receive-order/'+data.id])
+          },
+        },
+      ]
     }
   };
 
   suppliers_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.company', type: 1, field: 'Company' },
-      { lable: 'tables.column.name', type: 1, field: 'Name' },
-      { lable: 'tables.column.email', type: 1, field: 'Email' },
-      { lable: 'tables.column.phone', type: 1, field: 'Phone' },
-      { lable: 'tables.column.address', type: 1, field: 'Address' },
-      {
-        lable: 'tables.column.quotation',
-        width: 180,
-        type: 1,
-        field: 'Quotation',
-        sortable: true
-      }
+      { lable: 'tables.column.company', type: ColumnType.lable , field: 'company' },
+      { lable: 'tables.column.name', type: ColumnType.lable , field: 'name' },
+      { lable: 'tables.column.email', type: ColumnType.lable , field: 'email' },
+      { lable: 'tables.column.phone', type: ColumnType.lable , field: 'phone' },
+      { lable: 'tables.column.address', type: ColumnType.lable , field: 'address' },
+      {lable: '',field: 'floatButton',width: 0,type: ColumnType.lable ,renderer: 'floatButton'}
     ],
-    data: []
+    data: [],
+    rowSettings: {
+      floatButton: [
+        {
+          button: 'edit',
+          onClick: (col, data, button?) => {
+            this._router.navigate(['part-store/order-list/edit-supplier/'+data.id])
+          },
+        },    
+      ]
+    }
   };
 
-  constructor(private _requestListFacade: RequestListFacade, 
+  constructor(private _requestListFacade: RequestListFacade,
+              private _supplierListFacade : SuppliersFacade, 
+              private _facadeOrderList : OrderListFacade,
               private _router: Router,
               private _activatedRoute:ActivatedRoute) {
   }
@@ -406,13 +292,20 @@ export class OrderListComponent implements OnInit {
       case 'asset':
         this._requestListFacade.loadStatisticsOfRequestPartforAsset();
         this._requestListFacade.loadRequestPartforAsset();
+        this._facadeOrderList.loadOrderPartforAsset();
+        this._facadeOrderList.loadStatisticsOfOrderPartforAsset();
         break;
       case 'sub-asset':
         this._requestListFacade.loadStatisticsOfRequestPartforSubAsset();
         this._requestListFacade.loadRequestPartforSubAsset();
+        this._facadeOrderList.loadOrderPartforSubAsset();
+        this._facadeOrderList.loadStatisticsOfOrderPartforSubAsset();
         break;
     };
-    this._requestListFacade.requestList$.subscribe(x=>{console.log(x)})
+
+    this._supplierListFacade.loadAll();
+
+
     /* Load Request List */
     this.requestTableData$ = this._requestListFacade.requestList$.pipe(
       map(x => {
@@ -429,12 +322,10 @@ export class OrderListComponent implements OnInit {
             statusColor: '#838BCE',
           }
         })
-      }
-      )
-    )
+      })
+    );
     this.requestStatisticsSubscription = this._requestListFacade.statistics$.subscribe(
       x=>{
-        console.log(x)
         if(x){
           this.requestStatistics.map(y=>{
             switch (y.filterTitle) {
@@ -455,10 +346,72 @@ export class OrderListComponent implements OnInit {
         }
       }
     );
-    this._requestListFacade.requestList$.subscribe(x => { console.log(x)})
-    // this.requestTableData$ = 
 
 
+    /* Load Order Table Data */
+    this.orderTableData$ = this._facadeOrderList.orderList$.pipe(
+      map(x =>{
+        if(x){
+          return x.map( order => {
+            return {
+              ...order,
+              statusColor: '#838BCE',
+              Item:order.itemName,
+              Part_ID: order.itemId,
+              Quantity:order.quantity,
+              Date:new Date (order.createdAt).toLocaleString().split(',')[0],
+              Description:order.description,
+              Cost:order.price,
+              Status:order.status
+            }
+          })
+        }
+      })
+    );
+
+    this.orderStatisticsSubscription = this._facadeOrderList.statistics$.subscribe(
+      x=>{
+        if(x){
+          this.orderStatistics.map(y=>{
+            switch (y.filterTitle) {
+              case 'statistic.total':
+                  y.filterCount = x.total
+                break;
+              case 'statistic.received':
+                y.filterCount = x.received
+                break;
+              case 'statistic.registered':
+                y.filterCount = x.justRequest
+                break;
+              case 'statistic.archived':
+                y.filterCount = x.archived
+                break;
+            }
+          })
+        }
+      }
+    );
+    
+
+    /* Load Supplier Data */
+    this.supplierTableData$ = this._supplierListFacade.suppliers$.pipe(
+      map(x=>{
+        if(x){
+          return x.map(
+            supplier => {
+              return{
+                id:supplier.id,
+                company:supplier.companyName,
+                name:supplier.agentName,
+                email:supplier.agentEmail,
+                phone:supplier.agentPhoneNumber,
+                address:supplier.address
+              }
+            }
+          )
+        }
+      })
+    )
   }
 
   eventPagination_requestList(){
@@ -471,4 +424,27 @@ export class OrderListComponent implements OnInit {
         break;
     }
   }
+
+  
+  eventPagination_ordertList(){
+    switch (this.orderListType) {
+      case 'asset':
+        this._facadeOrderList.loadOrderPartforAsset()
+        break;
+      case 'sub-asset':
+        this._facadeOrderList.loadOrderPartforSubAsset()
+        break;
+    }
+  }
+
+
+  eventPagination_supplierList(){
+    this._supplierListFacade.loadAll();
+  }
+
+  ngOnDestroy(){
+    this.requestStatisticsSubscription.unsubscribe();
+    this.orderStatisticsSubscription.unsubscribe();
+  }
+
 }
