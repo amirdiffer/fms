@@ -13,6 +13,7 @@ import {
 } from '@feature/part-store/+state/order-list/my-order/sub-asset';
 import { environment } from '@environments/environment';
 import { PartMasterFacade } from '@feature/part-store/+state/part-master';
+import * as moment from 'moment';
 
 @Component({
   selector: 'anms-receive-order',
@@ -152,7 +153,7 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
             this.form.patchValue({
               quantity: x.quantity,
               price: x.price,
-              warrantyStartDate: new Date(x.warrantyExpireDate),
+              warrantyStartDate: moment.utc(x.startDate*1000, true).local().toDate(),
               description: x.description,
               room: x.room,
               aisle: x.aisle,

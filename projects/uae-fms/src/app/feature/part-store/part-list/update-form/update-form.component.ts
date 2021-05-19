@@ -5,6 +5,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { PartListFacade } from '@feature/part-store/+state/part-list';
 import { Utility } from '@shared/utility/utility';
 import { Subscription } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   selector: 'anms-update-form',
@@ -29,8 +30,8 @@ export class UpdateFormComponent  extends Utility implements OnInit , OnDestroy 
               private _fb: FormBuilder,
               injector: Injector,) {
                 super(injector);
-                this._facadePartList.resetPartAssetState(); 
-                this._facadePartList.resetPartSubAssetState(); 
+                this._facadePartList.resetPartAssetState();
+                this._facadePartList.resetPartSubAssetState();
                }
 
   ngOnInit(): void {
@@ -81,7 +82,7 @@ export class UpdateFormComponent  extends Utility implements OnInit , OnDestroy 
             this.form.patchValue({
               quantity:x.quantity,
               price:x.price,
-              warrantyStartDate:new Date(x.warrantyExpireDate),
+              warrantyStartDate: moment.utc(x.startDate*1000, true).local().toDate(),
               description:x.description,
               room:x.room,
               aisle:x.aisle,

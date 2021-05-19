@@ -1033,7 +1033,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.purchaseDoc = Array.isArray(x.purchaseDocId)
       ? x.purchaseDocId
       : [x.purchaseDocId];
-    const date = moment.utc(x.inServiceDate, true).local();
+    const date = moment.utc(x.inServiceDate * 1000, true).local();
 
     this.formGroupFinancial.patchValue({
       assetFinancialPlan: {
@@ -1052,7 +1052,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     /* Warranties Patch Value */
     const warrantyFormArray = this.formGroupMaintenance.get('warrantyItems') as FormArray;
     for (let index = 0; index < x.warranties.length; index++) {
-      const warrantyDate = moment.utc(x.warranties[index].startDate).local();
+      const warrantyDate = moment.utc(x.warranties[index].startDate * 1000, true).local();
       this.warrantyDocs.push(x.warranties[index].docId);
       warrantyFormArray.controls[index].patchValue({
         item: x.warranties[index].item,
