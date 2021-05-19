@@ -208,7 +208,10 @@
       "fleet_status": "Fleet Status",
       "periodic_service": "Periodic Service"
     },
-    "integrations": "Integrations"
+    "integrations": "Integrations",
+    "mytasks": "My Tasks",
+    "myrequests": "My Requests",
+    "reminder": "Reminder"
   },
   "statistic": {
     "asset_sub_asset": "Asset / Sub Asset",
@@ -342,7 +345,10 @@
     "warranty": "Warranty",
     "technician_job_card": "Technician Job Card",
     "user": "User",
-    "traffic_fine": "Traffic Fine"
+    "traffic_fine": "Traffic Fine",
+    "all-requests-list":"All Requests List",
+    "part_requests":"Part Requests",
+    "technical_inspection_requests":"Technical Inspection Requests"
   },
   "search": {
     "add": "Add",
@@ -551,7 +557,8 @@
       "shopType": "Shop Type",
       "ratePerHour": "Rate Per Hour",
       "taskType": "Task Type",
-      "timeEstimate": "Time Estimate"
+      "timeEstimate": "Time Estimate",
+      "progress":"Progress"
     },
     "button": {
       "view_report": "View Report",
