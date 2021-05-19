@@ -46,7 +46,12 @@
         <div class="col-9 p-0">
             <p-accordion *ngIf="customizationData" expandIcon="pi pi-fw pi-plus"collapseIcon="pi pi-fw pi-minus">
                 <p-accordionTab *ngIf="customizationData.accessories" header="{{ 'assets.accessories' | translate }}">
-                    <div class="row camera-row" *ngFor="let item of customizationData.accessories;let i=index">
+                  <div *ngFor="let item of customizationData.accessories;let i=index">
+                      <div class='camera-row' [hidden]='!isSecondStep || !item.accessoryId'>
+                        <span class='font-weight-bold green'>{{item.accessoryItemName}}</span>
+                        <span class='font-weight-bold green ml-2'>{{ 'assets.saved' | translate }}</span>
+                      </div>
+                      <div class="row camera-row" [hidden]='isSecondStep'>
                         <div class="title col-2">{{ item.accessoryConfigurationName | translate }}</div>
                         <div class="checkbox col-3">
                             <div class="form-group form-check px-3">
@@ -55,7 +60,7 @@
                                 <label class="label" for="checkbox2">{{ 'assets.installed' | translate }}</label>
                             </div>
                         </div>
-                        <div class="col-3" *ngIf="outp.accessories[i].checked">
+                        <div class="col-3 form-section__field" *ngIf="outp.accessories[i].checked">
                             <div class="autocomplete-select">
                               <span class="p-float-label">
                                 <p-autoComplete (completeMethod)="filterAccessory($event)"
@@ -65,10 +70,18 @@
                               </span>
                             </div>
                         </div>
+                      </div>
                     </div>
                 </p-accordionTab>
                 <p-accordionTab *ngIf="customizationData.subAssets" header="{{ 'assets.sub-assets' | translate }}">
-                  <div class="row camera-row" *ngFor="let item of customizationData.subAssets;let i=index">
+                  <div *ngFor="let item of customizationData.subAssets;let i=index">
+                    <div class='camera-row' [hidden]='!isSecondStep || !item.subAssetSerialNumber'>
+                      <span class='font-weight-bold green'>{{item.subAssetConfigurationName}}</span>
+                      <span class='font-weight-bold green ml-2'>S/N:</span>
+                      <span class='font-weight-bold green ml-2'>{{item.subAssetSerialNumber}}</span>
+                      <span class='font-weight-bold green ml-2'>{{ 'assets.saved' | translate }}</span>
+                    </div>
+                    <div class='row camera-row' [hidden]='isSecondStep'>
                       <div class="title col-2">{{ item.subAssetMakeName+" "+item.subAssetModelName | translate }}</div>
                       <div class="checkbox col-3">
                           <div class="form-group form-check px-3">
@@ -78,16 +91,16 @@
                           </div>
                       </div>
 
-                      <div class="col-3" *ngIf="outp.subAssets[i].checked">
+                      <div class="col-3 form-section__field" *ngIf="outp.subAssets[i].checked">
                         <div class="autocomplete-select">
                           <span class="p-float-label">
                             <p-autoComplete (completeMethod)="filterSubAsset($event)"
-                              [suggestions]="subAsset" field="organizationName"
-                              [(ngModel)]="outp.subAssets[i].subAsset" field="itemName" [minLength]="1"></p-autoComplete>
+                              [suggestions]="subAsset" [(ngModel)]="outp.subAssets[i].subAsset" field="serialNumber" [minLength]="1"></p-autoComplete>
                             <label>{{ 'assets.sub-asset' | translate}} *</label>
                           </span>
                         </div>
                       </div>
+                    </div>
                   </div>
               </p-accordionTab>
             </p-accordion>

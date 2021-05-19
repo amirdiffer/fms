@@ -3,12 +3,13 @@ import { Router } from "@angular/router";
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { AssetMasterService } from "../../+state/assets/asset-master";
 import { CustomizationService } from "../../+state/assets/customization";
 import { SubAssetService } from "../../+state/sub-asset";
 import { AccessoryService } from "../../+state/accessory";
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'anms-pending-customization-overview',
@@ -76,6 +77,8 @@ export class PendingCustomizationOverviewComponent implements OnInit {
   accessoryLoaded = false;
   subAssetLoaded = false;
   assetLoaded = false;
+
+  isSecondStep = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -200,6 +203,11 @@ export class PendingCustomizationOverviewComponent implements OnInit {
   }
 
   save() {
+    if (!this.isSecondStep) {
+      this.isSecondStep = true;
+      return;
+    }
+
     this.dialogModal = true;
   }
 
@@ -246,9 +254,20 @@ export class PendingCustomizationOverviewComponent implements OnInit {
         }).filter(z => z != null)
       };
 
-      this.cusService.compelete(outdata, this.assetId).subscribe(x => {
-        this.successDialogModal = true;
-      })
+      this.cusService.compelete(outdata, this.assetId)
+        .pipe(
+          tap(_ => {
+            this.successDialogModal = true;
+          }, (error: HttpErrorResponse) => {
+            if (error.status === 404) {
+              this.dialogModal = true;
+              this.dialogSetting.message = 'This Accessory or Sub asset is not usable';
+              this.dialogSetting.hasError = true;
+              this.dialogSetting.cancelButton = 'OK';
+              this.dialogSetting.confirmButton = undefined;
+            }
+          })
+        ).subscribe()
     }
   }
 
