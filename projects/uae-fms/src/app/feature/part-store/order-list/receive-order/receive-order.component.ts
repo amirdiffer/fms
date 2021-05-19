@@ -85,7 +85,6 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
     this.specificOrderSubscription = this._facadeOrderList.specificOrder$.subscribe(
       x=>{
         if(x){
-          console.log(x)
           switch (this.fleetType) {
             case 'asset':
               this._facadePartMaster.loadSpecificItemOfAsset(x.itemId)
@@ -179,7 +178,6 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
   errorAndSubmitHandler() {
     this.submitSubscription = this._facadeOrderList.submitted$.subscribe((x) => {
       if (x) {
-        console.log(x)
         this.dialogOption = dialogOption.success;
         this.dialogModal = true;
         this.dialogSetting.header = 'Receive Order';
