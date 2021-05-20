@@ -1,0 +1,20 @@
+.chart-labels{
+    .chart-label{
+        span{
+            width:.8em;
+            height: .8em;
+            border-radius: 2px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        p.label{
+            margin:5px;
+        }
+    }
+}
+
+.item__progress{
+    position: absolute;
+    left: 40%;
+    transform: translateX(-50%);
+}

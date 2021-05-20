@@ -183,7 +183,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           icon: 'part-master',
           route: '/part-store/part-master'
         }
-      ]
+      ] 
     },
     /*{
         name: 'sidebar.report',

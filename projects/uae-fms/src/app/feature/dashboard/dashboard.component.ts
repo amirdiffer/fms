@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ICardDetailRedialChart } from './asset-overview/detail-card-dashboard/detail-card-dashboard.component';
 
 @Component({
   selector: 'anms-dashboard',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  
   constructor() {}
 
   ngOnInit(): void {}

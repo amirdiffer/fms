@@ -1,0 +1,34 @@
+<div class="row wrapper">
+    <div class="category col-3">
+        <div class="dashboard-card">
+            <overview-card-dashboard></overview-card-dashboard>
+        </div>
+    </div>
+    <div class="category col-3">
+        <div class="dashboard-card">
+            <detail-card-dashboard [title]="'dashboard.business_category' | translate"
+            [subtitle]="'dashboard.number_of_asset_in_this_category' | translate"
+            [chartData]="bussinessCategoryChartData"></detail-card-dashboard>
+        </div>
+    </div>
+    <div class="category col-3">
+        <div class="dashboard-card">
+            <detail-card-dashboard [title]="'dashboard.asset_in_department' | translate"
+            [subtitle]="'dashboard.number_of_asset_in_this_category' | translate"
+            [chartData]="AssetDepartmentChartData"></detail-card-dashboard>
+        </div>
+    </div>
+    <div class="category flex-column two-column col-3">
+        <div class="dashboard-card  ">
+            <detail-mini-card-dashboard [title] = "'dashboard.accessory' | translate" 
+                [series]="['dashboard.x_fleet' | translate , 'dashboard.in_active' | translate]"
+                [routerLink]="{title:'dashboard.see_all_accessory' | translate , router:'/fleet/accessory'}"></detail-mini-card-dashboard>
+        </div>
+        <div class="dashboard-card ">
+            <detail-mini-card-dashboard 
+            [title] = "'dashboard.sub_asset' | translate" 
+            [series]="['dashboard.assig' | translate , 'dashboard.in_active' | translate]"
+            [routerLink]="{title:'dashboard.see_all_sub_asset' | translate , router:'/fleet/sub-asset'}"></detail-mini-card-dashboard>
+        </div>
+    </div>
+</div>
