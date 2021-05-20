@@ -47,7 +47,7 @@
 
       <div class="table-container">
         <div class="card-table">
-          <app-table [setting]="tableSetting"></app-table>
+          <app-table [setting]="TaskMaster_tableSetting"></app-table>
         </div>
       </div>
 
@@ -110,11 +110,12 @@
         <div class="col-md-7">
           <div class="vehicle-details contain">
             <div class="tabs-specific">
-              <span [class.active]="selectedTab=='sub_asset'" (click)="selectedTab='sub_asset'">{{ 'assets.overview.overview.sub_asset' | translate }}</span>
-              <span [class.active]="selectedTab=='accessory'" (click)="selectedTab='accessory'">{{ 'assets.overview.overview.accessory' | translate }}</span>
+              <span [class.active]="selectedTab=='sub_asset'" (click)="selectedTab='sub_asset';">{{ 'assets.overview.overview.sub_asset' | translate }}</span>
+              <span [class.active]="selectedTab=='accessory'" (click)="selectedTab='accessory';">{{ 'assets.overview.overview.accessory' | translate }}</span>
             </div>
             <div class="tabs-specific__body">
-              <app-table *ngIf="selectedTab=='sub_asset'" [setting]="tableSetting2"></app-table>
+              <app-table *ngIf="selectedTab=='sub_asset'" [setting]="SubAsset_tableSetting"></app-table>
+              <app-table *ngIf="selectedTab=='accessory'" [setting]="Accessory_tableSetting"></app-table>
             </div>
           </div>
         </div>

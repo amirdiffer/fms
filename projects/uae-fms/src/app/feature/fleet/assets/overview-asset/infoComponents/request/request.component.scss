@@ -162,3 +162,20 @@
     }
   }
 }
+
+
+.task-status {
+  .out_of_policy {
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: #f75a4a;
+      border: 3px solid white;
+      margin: 0 0.5rem;
+      box-shadow: 0 0 6px -2px;
+    }
+  }
+}

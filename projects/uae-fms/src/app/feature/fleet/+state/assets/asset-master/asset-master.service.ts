@@ -51,4 +51,17 @@ export class AssetMasterService {
       environment.baseApiUrl + 'asset/' + id
     )
   }
+
+  getAssetTasksByID(id){
+    return this._http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'asset/' + id + '/task'
+    )
+  }
+
+  getAssetMovementTemporaryByID(id){
+    return this._http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'asset/' + id + '/movement/temporary'
+    )
+  }
+
 }
