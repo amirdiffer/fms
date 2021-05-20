@@ -82,7 +82,21 @@ export class SubAssetTypeEffect {
         )
     );
 
-    addModelData$ = createEffect(() =>
+    updateMakeData$ = createEffect(() =>
+      this.action$.pipe(
+        ofType(SubAssetTypeActions.updateMake),
+        mergeMap((action) =>
+          this.service.updateMake(action.data, action.subAssetTypeId).pipe(
+            map((data) =>
+              SubAssetTypeActions.makeUpdatedSuccessfully({ data: action.data })
+            ),
+            catchError((error) => of(SubAssetTypeActions.error({ reason: error })))
+          )
+        )
+      )
+    );
+
+  addModelData$ = createEffect(() =>
         this.action$.pipe(
             ofType(SubAssetTypeActions.addModel),
             mergeMap((action) =>
@@ -97,5 +111,20 @@ export class SubAssetTypeEffect {
             )
         )
     );
-    constructor(private action$: Actions, private service: SubAssetTypeService) { }
+
+  updateModelData$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(SubAssetTypeActions.updateModel),
+      mergeMap((action) =>
+        this.service.updateModel(action.data, action.subAssetTypeId, action.makeId).pipe(
+          map((data) =>
+            SubAssetTypeActions.makeUpdatedSuccessfully({ data: action.data })
+          ),
+          catchError((error) => of(SubAssetTypeActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
+  constructor(private action$: Actions, private service: SubAssetTypeService) { }
 }

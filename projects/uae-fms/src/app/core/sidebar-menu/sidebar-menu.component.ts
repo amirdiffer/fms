@@ -49,7 +49,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.dashboard',
       icon: 'dashboard',
       route: '/dashboard',
-      disabled: false
+      disabled: true
     },
     {
       name: 'sidebar.fleets.~',
@@ -93,7 +93,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             {
               name: 'sidebar.fleets.movement.temporary',
               route: '/fleet/movement/temporary'
-            }
+            },
             /* {
               name: 'sidebar.fleets.movement.iserve',
               route: '/fleet/movement/iserve'
@@ -131,21 +131,21 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           route: '/workshop/service-shop'
           // disabled: true
         },
-               {
-                  name: 'sidebar.workshop.inspection.~',
-                  icon: 'inspection',
-                  route: '/workshop/inspections',
-                  items: [
-                    {
-                      name: 'sidebar.workshop.inspection.technical_inspection',
-                      route: '/workshop/inspections/technical-inspection'
-                    },
-                    {
-                      name: 'sidebar.workshop.inspection.auction_list',
-                      route: '/workshop/inspections/auction-list'
-                    }
-                  ]
-                },
+        /* {
+          name: 'sidebar.workshop.inspection.~',
+          icon: 'inspection',
+          route: '/workshop/inspections',
+          items: [
+            {
+              name: 'sidebar.workshop.inspection.technical_inspection',
+              route: '/workshop/inspections/technical-inspection'
+            },
+            {
+              name: 'sidebar.workshop.inspection.auction_list',
+              route: '/workshop/inspections/auction-list'
+            }
+          ]
+        }, */
         {
           name: 'sidebar.workshop.task_master',
           icon: 'task-master',
@@ -157,23 +157,34 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.part_store.~',
       icon: 'part-store',
       route: '/part-store',
-      items: [
+      disabled: true,
+      /* items: [
         {
-          name: 'sidebar.part_store.part_list',
+          name: 'sidebar.part_store.part_list.~',
           icon: 'part-list',
-          route: '/part-store/part-list'
+          route: '/part-store/part-list',
         },
         {
-          name: 'sidebar.part_store.order_list',
+          name: 'sidebar.part_store.order_list.~',
           icon: 'order-list',
-          route: '/part-store/order-list'
+          route: '/part-store/order-list',
+          items: [
+            {
+              name: 'sidebar.part_store.order_list.asset',
+              route: '/part-store/order-list/asset'
+            },
+            {
+              name: 'sidebar.part_store.order_list.sub_asset',
+              route: '/part-store/order-list/sub-asset'
+            },
+          ]
         },
         {
           name: 'sidebar.part_store.part_master',
           icon: 'part-master',
           route: '/part-store/part-master'
         }
-      ]
+      ] */
     },
     /*{
         name: 'sidebar.report',
@@ -194,7 +205,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             {
               name: 'sidebar.configuration.user_management.role_permission',
               icon: 'organization',
-              route: '/configuration/user-management/role-permission',
+              route: '/configuration/user-management/role-permission'
             },
             {
               name: 'sidebar.configuration.user_management.users',
@@ -270,7 +281,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     private routerService: RouterService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.usingMenu = this.mainMenu;
@@ -307,7 +318,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       }
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
 
   activeMenuCheck(route: string) {
     let r = '';

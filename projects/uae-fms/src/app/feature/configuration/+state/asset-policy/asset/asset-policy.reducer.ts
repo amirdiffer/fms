@@ -31,7 +31,6 @@ const assetPolicyReducer = createReducer(
   })),
   on(AssetPolicyActions.addAssetPolicy, (state) => ({
     ...state,
-    loaded: false,
     error: null,
     message: null,
     submitted: false

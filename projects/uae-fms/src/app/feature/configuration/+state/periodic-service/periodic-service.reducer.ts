@@ -34,11 +34,28 @@ const periodicServiceReducer = createReducer(
     PeriodicServiceActions.periodicServiceEditedSuccessfully,
     (state, { data }) => ({ ...state, submitted: true })
   ),
+
+  on(PeriodicServiceActions.getPeriodicServiceById, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null
+  })),
+  
+  on(PeriodicServiceActions.periodicServiceByIdLoaded, (state, { data }) => ({
+      ...state,
+      loaded: true,
+      error: null,
+      specificPeriodicService: data
+  })),
+
+
   on(PeriodicServiceActions.error, (state, { reason }) => ({
     ...state,
     error: reason,
     loaded: true
   })),
+
   on(PeriodicServiceActions.reset, (state) => ({
     ...state,
     submitted: false,

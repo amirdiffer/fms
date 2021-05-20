@@ -10,7 +10,7 @@ export interface ISubasset {
   description: string;
   warrantyItems: IWarrantyItems[];
   avatarId: number;
-  dpd: string;
+  serialNumber: string;
   date?: string;
   createdAt?:string;
   warrantyExpireDate?: string;

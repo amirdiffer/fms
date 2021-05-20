@@ -1,87 +1,30 @@
-@import '../../../../themes/green-theme.scss';
 @import '../../../../assets/scss/form-section.scss';
-$primary: map-get($anms-green-primary, 300);
 
-.form-section {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  box-shadow: none;
-  ::ng-deep {
-    .p-dropdown,
-    .p-dropdown-panel {
-      border-radius: 0 !important;
-    }
-    input.p-inputtext.p-component {
-      height: 30px !important;
-      border-radius: 0 !important;
-    }
-  }
 
-  .form-section__row {
-    padding: 16px 16px 0;
-  }
-
-  .form-section__field {
-    padding: 0px;
-    .search-btn {
-      height: 100%;
-      width: 57px;
-      position: absolute;
-      right: 0;
-      box-shadow: 0px 2px 4px #5a8dee66;
-      color: #ffffff !important;
-      border: none !important;
-      background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%)
-        0% 0% no-repeat padding-box !important;
-      z-index: 2;
-    }
-
-    input {
-      height: 40px !important;
-    }
-  }
-  .year-filter {
-    flex-grow: 0.1;
-    ::ng-deep {
-      input.p-inputtext.p-component {
-        border-top-left-radius: 2px !important;
-        border-bottom-left-radius: 2px !important;
-      }
-    }
-  }
-  
-  .make-filter,
-  .model-filter {
-    flex-grow: 0.25;
-  }
-  .search-filter {
-    flex-grow: 0.4;
-  }
-
-  .card-table-header {
-    font-weight: bold;
-    position: relative;
-    display: flex;
-    padding-left: 0px;
-
-    .search-container {
-      height: 40px;
-
-      .btn-download {
-        height: 40px !important;
-        width: 40px !important;
-        position: relative;
-        bottom: 1px;
-      }
-    }
-
-    button.btn-primary-small {
-      height: 40px;
-    }
-  }
+.filter-button{
+  height: 1.6em;
 }
-.filterMode3{
-  widows: 75%;
-  margin-left:25%;
+
+.btn-filter{
+  width: 3em;
+  border: 2px solid #a2a2a2;
+  margin: 0 5px;
+  border-radius: 0.25em;
+  position: relative;
+}
+
+.p-float-label{
+  width: 20em;
+  p-dropdown{
+    height: 100%;
+    ::ng-deep{
+      .p-dropdown{
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 0 2px #00000029;
+        border: 2px solid #a2a2a2;
+        border-radius: 0.25em;
+      }
+    }
+  }
 }

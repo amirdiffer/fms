@@ -124,30 +124,6 @@ html {
       text-align: left !important;
     }
   }
-  overview-card-dashboard{
-    .footer-card > div:nth-child(2){
-      border-right: 1px solid rgba(0, 0, 0, 0.1);
-      border-left:none !important;
-    }
-    .chart-labels p:nth-child(1)::before{
-      margin-left: 0.4em;
-      margin-right: 0 !important
-    }
-  }
-  detail-mini-card-dashboard{
-    .item__progress{
-      right:auto !important;
-      left: -2.3em;
-    }
-    .footer-card.chart-labels .chart-label p::before{
-      margin-left: 0.4em;
-      margin-right: 0 !important
-    }
-  }
-  dashboard-filter .border-1{
-    border-right: 1px solid #eaeaea;
-    border-left: none !important;
-  }
 
   /* Navbar */
   .toolbar {
@@ -172,10 +148,19 @@ html {
   }
 
   .calculate-button {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
     border-top-left-radius: 0.25em !important;
     border-bottom-left-radius: 0.25em !important;
+  }
+  input#currency{
+    border-right: 0;
+    margin-left: -7px !important;
+    border-left: 1px solid #d3d3d3 !important;
+    border-radius: 3px 0 0 3px;
+  }
+  input#purchase_value{
+    border-left: none;
   }
   .input-money-pipe {
     left: 10px;
@@ -240,6 +225,10 @@ html {
       right: auto !important;
       left: 25px;
     }
+    .add-button.p-inputgroup-addon {
+      margin-right: 0 !important;
+      margin-left: 1em;
+    }
   }
 
   /* Tables */
@@ -251,6 +240,22 @@ html {
       left: auto !important;
       right: 0;
       border-radius: 5px 0 0 5px !important;
+    }
+  }
+  app-table{
+    .paginator {
+      .pagination-action{
+        &__previous svg{
+          transform: rotate(-90deg) !important;
+        }
+        &__next svg{
+          transform: rotate(90deg) !important;
+        }
+      }
+      .show-entries select{
+        padding: 4px 4px 4px 25px !important;
+        background: url(./assets/icons/angle-right.svg) no-repeat left 0.4em top 50% !important;
+      }
     }
   }
   app-fuel-card-table {
@@ -436,7 +441,12 @@ html {
   }
   anms-part-master{
     .category-list ul li a{
-      left: 10px;
+      &:nth-child(1){
+        left: 10px;
+      }
+      &:nth-child(2){
+        left: 30px;
+      }
       right: auto !important;
     }
     .add-button {
@@ -445,7 +455,15 @@ html {
     .item-info .remove-icon {
       margin-right: 1rem;
     }
+    
+  }
+  .card-wrapper{
+    .padding-wrapper{
+      padding-right: 15px !important;
+      padding-left: 0 !important;
+    }
   }
 }
+
 
 /* END RTL Arabic */

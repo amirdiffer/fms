@@ -2,9 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnType } from '@core/table';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
-import { BodyShopRequestFacade } from '@feature/workshop/+state/body-shop';
+import { BodyShopRequestFacade, BodyShopRequestService } from '@feature/workshop/+state/body-shop';
 import moment from 'moment';
 import { map } from 'rxjs/operators';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master'
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-asset-overview-request',
@@ -13,15 +15,18 @@ import { map } from 'rxjs/operators';
 })
 export class RequestTabOverviewComponent implements OnInit {
   assetId;
-  tableData$;
+  tableData = new Subject();
+  tableData$ = this.tableData.asObservable();
   assetDetail;
   constructor(
     private _facadeRequest: BodyShopRequestFacade,
     private _activatedRoute: ActivatedRoute,
     private _assetMasterFacade: AssetMasterFacade,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private assetService: AssetMasterService,
+    private service: BodyShopRequestService
+  ) { }
 
   vehicle = {
     id: 1,
@@ -137,6 +142,7 @@ export class RequestTabOverviewComponent implements OnInit {
         {
           button: 'edit',
           color: '#3F3F3F',
+          condition: (data) => { return data.approveStatus == "APPROVED" ? false : true },
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
             this.router.navigate([
@@ -152,8 +158,19 @@ export class RequestTabOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.assetId = this._activatedRoute.snapshot.params.id;
-    this.tableData$ = this._facadeRequest.assetRequest$.pipe(
-      map((x) => {
+    this._assetMasterFacade.loadAll();
+    this.loadRequests(this.assetId);
+    // this._assetMasterFacade.getAssetByID(this.assetId);
+
+    this.assetService.getAssetByID(this.assetId).subscribe(x => {
+      this.assetDetail = x.message;
+    })
+  }
+
+  loadRequests(assetId) {
+    this.service.requestsById(assetId).pipe(
+      map((y) => {
+        let x = y.message;
         return x.map((y) => {
           let jobType;
           switch (y.jobType) {
@@ -179,14 +196,8 @@ export class RequestTabOverviewComponent implements OnInit {
           };
         });
       })
-    );
-    this._facadeRequest.assetRequest$.subscribe((x) => {
-      if (x.length < 1) {
-        this._facadeRequest.getAssetRequest(this.assetId);
-      }
-    });
-    this.route.params.subscribe((x) => {
-      if (x?.id) this._assetMasterFacade.getAssetByID(x.id);
+    ).subscribe(x => {
+      this.tableData.next(x);
     });
   }
 }

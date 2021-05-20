@@ -75,7 +75,8 @@ const assetMasterReducer = createReducer(
     ...state,
     error: null,
     message: null,
-    submitted: false
+    submitted: false,
+    asset:null
   }))
 );
 

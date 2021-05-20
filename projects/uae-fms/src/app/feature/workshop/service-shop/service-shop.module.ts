@@ -14,9 +14,10 @@ import { TableModule } from '@core/table';
 import { MapModule } from '@core/map-view';
 import { RequestTabOverviewServiceShopComponent } from './request-tab-overview/request-tab-overview.component';
 import { TechnicianOverviewServiceShopComponent } from './technician-overview/technician-overview.component';
+import { JobCardOverviewComponent } from "./job-card-overview/job-card-overview.component";
 
 @NgModule({
-  declarations: [RequestTabOverviewServiceShopComponent , TechnicianOverviewServiceShopComponent],
+  declarations: [RequestTabOverviewServiceShopComponent, TechnicianOverviewServiceShopComponent, JobCardOverviewComponent],
   imports: [
     CommonModule,
     FilterModule,
@@ -31,4 +32,4 @@ import { TechnicianOverviewServiceShopComponent } from './technician-overview/te
     FleetModule,
   ]
 })
-export class ServiceShopModule {}
+export class ServiceShopModule { }

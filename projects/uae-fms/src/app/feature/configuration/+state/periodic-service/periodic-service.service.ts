@@ -27,7 +27,7 @@ export class PeriodicServiceService {
     );
   }
 
-  getById(id: number) {
+  getById(id: number) : Observable<ResponseBody<ISpecificPeriodicService>>{
     return this.http.get<ResponseBody<ISpecificPeriodicService>>(
       environment.baseApiUrl + `configuration/periodic-service/${id}`
     );

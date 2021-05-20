@@ -17,13 +17,14 @@ import {
   BodyShopLocationFacade,
   BodyShopRequestFacade,
   BodyShopTechnicianFacade,
-  BodyShopTechnicianService
+  BodyShopTechnicianService,
+  BodyShopRequestService
 } from '@feature/workshop/+state/body-shop';
 import { map } from 'rxjs/operators';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
 import moment from 'moment';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'anms-add-job-card',
@@ -32,7 +33,7 @@ import { Subscription } from 'rxjs';
 })
 export class AddJobCardComponent extends Utility implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
-  searchIcon = 'assets/icons/search.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   isEdit: boolean = false;
   id: number;
   //#region Dialog
@@ -113,50 +114,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
         renderer: 'downloadButtonRenderer'
       }
     ],
-    data: [
-      // {
-      //   id: 1,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // },
-      // {
-      //   id: 2,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // },
-      // {
-      //   id: 3,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // }
-    ]
+    data: []
   };
   private _jobCard: any;
 
@@ -174,7 +132,11 @@ export class AddJobCardComponent extends Utility implements OnInit {
       }))
     )
   );
-  relatedRequests$;
+
+  relatedRequests = new Subject();
+  relatedRequests$ = this.relatedRequests.asObservable();
+
+  selectedAsset;
   // relatedRequests$ = this._facadeRequest.requestsById$.pipe(
   //   map((y) =>
   //     y.map((x) => ({
@@ -202,36 +164,26 @@ export class AddJobCardComponent extends Utility implements OnInit {
     private _facadeLocation: BodyShopLocationFacade,
     private _facadeTechnician: BodyShopTechnicianFacade,
     private _jobCardService: BodyShopJobCardService,
-    private _taskMasterService: TaskMasterService
+    private _taskMasterService: TaskMasterService,
+    private service: BodyShopRequestService
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
     // this.relatedRequests$ = this._facadeRequest.assetRequest$.subscribe()
+    this.selectedAsset = this.route.snapshot.queryParams?.assetId;
+    if (this.selectedAsset) {
+      this.selectAsset({ value: this.selectedAsset })
+      this.loadAssetRequests(this.selectedAsset);
+    }
+
     this._facadeRequest.resetParams();
     this._facadeJobCard.loadAll();
     this.jobCard$ = this._facadeJobCard.bodyShop$.subscribe((x) => {
       this.allJobCards = x;
     });
-    this.relatedRequests$ = this._facadeRequest.assetRequest$.pipe(
-      map((y) =>
-        y.map((x) => ({
-          id: x.id,
-          request: {
-            label: x.request,
-            checkbox: false
-          },
-          date: x.createdAt
-            ? moment.utc(x.createdAt).local().format('DD-MM-YYYY')
-            : 'ex: 20-20-2020',
-          description: x.description,
-          issue_type: x.jobType,
-          reportedBy: x.reportedBy,
-          attachment: x.documentIds
-        }))
-      )
-    );
+
     this._taskMasterService.getAllTaks().subscribe((data) => {
       this.taskMasters = data.message.map((t) => ({
         id: t.id,
@@ -241,7 +193,9 @@ export class AddJobCardComponent extends Utility implements OnInit {
     this._facadeAsset.loadAll();
     this._facadeLocation.loadAll();
     this._facadeTechnician.loadAll();
-    this.buildForm();
+    this._facadeTechnician.bodyShop$.subscribe(_=>{
+      this.buildForm();
+    })
     //fill asset Id from queryParams
     this.route.queryParams.subscribe((params) => {
       if (params['assetId']) {
@@ -249,12 +203,39 @@ export class AddJobCardComponent extends Utility implements OnInit {
       }
     });
   }
+
+  private loadAssetRequests(assetId) {
+    this.relatedRequests.next([]);
+    this.service.requestsById(assetId).pipe(
+      map((y) => {
+        let a = y.message;
+        return a.map((x) => ({
+          id: x.id,
+          request: {
+            label: x.request,
+            checkbox: false
+          },
+          date: x.createdAt
+            ? moment.utc(x.createdAt * 1000).local().format('DD-MM-YYYY')
+            : '',
+          description: x.description,
+          issue_type: x.jobType,
+          reportedBy: x.reportedBy,
+          attachment: x.documentIds
+        }))
+      }
+      )
+    ).subscribe(x => {
+      this.relatedRequests.next(x);
+    });
+  }
+
   private buildForm() {
     this.inputForm = this._fb.group({
       assetId: ['', [Validators.required]],
       description: [''],
       wsLocationId: ['', [Validators.required]],
-      relatedRequestIds: [],
+      relatedRequestIds: [[1]],
       tasks: this._fb.array([this.createTask()])
     });
     this.route.url.subscribe((params) => {
@@ -281,7 +262,10 @@ export class AddJobCardComponent extends Utility implements OnInit {
                     name: t.taskMaster.name
                   },
                   priorityOrder: t.priorityOrder,
-                  technician: t.technicianId
+                  technicianId: t.technician.id/* {
+                    id: t.technician.id,
+                    name: t.technician.firstName + " " + t.technician.lastName
+                  } */
                 }))
               });
               this.tasks.controls[0].markAsDirty();
@@ -367,7 +351,9 @@ export class AddJobCardComponent extends Utility implements OnInit {
       });
     } else {
       this.assetIdSelected = e.value;
-      this._facadeRequest.getAssetRequest(e.value);
+
+      this.loadAssetRequests(e.value);
+      // this._facadeRequest.getAssetRequest(e.value);
     }
   }
   get tasks(): FormArray {
@@ -514,5 +500,9 @@ export class AddJobCardComponent extends Utility implements OnInit {
     this.inputForm.patchValue({
       relatedRequestIds: event
     });
+  }
+
+  searchInTable($event) {
+    console.log($event);
   }
 }

@@ -78,7 +78,11 @@ export class UploaderComponent implements OnInit {
   };
   constructor(private _uploaderService: UploaderService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(!this.multiple && !this.files[0]){
+      this.files = []
+    }
+  }
 
   public dropped(files: NgxFileDropEntry[], option: string, index?: number) {
     this.filesUpdloaded = files;
@@ -106,7 +110,6 @@ export class UploaderComponent implements OnInit {
   }
 
   setFiles(index?: number): void {
-    console.log(this.files)
     if (this.files) {
       this.uploadedEvent.emit({
         name: this.uploaderName,

@@ -21,6 +21,20 @@ import { ButtonType } from '../table.component';
       >
         {{ 'buttons.receive' | translate }}
       </button>
+      <div class='row' *ngIf="col.buttonType == buttonType.receiveAndEdit">
+        <div (click)="clickButton('edit')">
+          <svg-icon [src]="'assets/icons/edit.svg'" class="svg-icon" [applyClass]="true" [svgStyle]="{ 'fill': null , 'width.em': 2}">
+          </svg-icon>
+        </div>
+        <div class='ml-5'>
+          <img class='pointer'
+               (click)='clickButton("receive")'
+               [src]="'assets/icons/received.png'"
+               alt=''
+               width='42'
+          />
+        </div>
+      </div>
       <button
         class="btn-primary-medium"
         *ngIf="col.buttonType == buttonType.confirm"

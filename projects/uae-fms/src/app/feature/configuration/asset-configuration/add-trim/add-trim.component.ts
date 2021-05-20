@@ -30,11 +30,16 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./add-trim.component.scss']
 })
 export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
+
+  //#region ViewChild
+  @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
+  @ViewChild('small', { static: false }) small: ElementRef;
+  //#endregion
+
+  //#region Variable
   radioButtonSelect: 'mModel';
   public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
-  @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
-  @ViewChild('small', { static: false }) small: ElementRef;
   color = '#0000005E';
   color1 = '#0000005E';
   maxValue = 100;
@@ -65,6 +70,8 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   assetTypeId;
   makeId;
   modelId;
+  isEditing = false
+  //#endregion
 
   constructor(
     private _fb: FormBuilder,
@@ -81,7 +88,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      typeCategory: ['asset', Validators.required],
+      typeCategory: ['asset', this.router.isActive('/configuration/add-asset-configuration/', true) ? Validators.required : []],
       trims: new FormArray([this.createTrim()])
     });
 
@@ -93,6 +100,51 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
         .pipe(
           map((response) =>
             response.map((obj) => {
+
+              if (x?.assetTypeId) {
+                this.isEditing = true
+                this.assetTypeId = Number(x?.assetTypeId)
+                if (x?.id) {
+                  this.makeId = Number(x?.makeId)
+                  this.modelId = Number(x?.id)
+                  if (this.assetTypeId === obj.id) {
+                    for (let index = 0; index < obj.makes.length; index++) {
+                      if (obj.makes[index].id === this.makeId) {
+                        this.dataService.selectedMakeName = obj.makes[index].name
+                        for (let j = 0; j < obj.makes[index].models.length; j++) {
+                          if (obj.makes[index].models[j].id === this.modelId) {
+                            this.dataService.selectedModelName = obj.makes[index].models[j].name
+                            for (let k = 0; k < obj.makes[index].models[j].trims.length; k++) {
+                              if (k > 0) {
+                                this.addTrim()
+                              }
+                              this.trims.controls[k].patchValue({
+                                id: obj.makes[index].models[j].trims[k].id,
+                                trim: obj.makes[index].models[j].trims[k].name,
+                                colors: obj.makes[index].models[j].trims[k].colors,
+                                description: obj.makes[index].models[j].trims[k].description,
+                                origins: obj.makes[index].models[j].trims[k].origins
+                              });
+                              for (let l = 0; l < obj.makes[index].models[j].trims[k].colors.length; l++) {
+                                if (l > 0) {
+                                  this.addColor(k)
+                                }
+                                this.colors(k).controls[l].patchValue({
+                                  id: obj.makes[index].models[j].trims[k].colors[l].id,
+                                  name: obj.makes[index].models[j].trims[k].colors[l].name,
+                                  hexColor: obj.makes[index].models[j].trims[k].colors[l].hexColor,
+                                })
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                return
+              }
+
               obj.makes.map((make) => {
                 make.models.map((model) => {
                   if (model.id === this.dataService.selectedModelId) {
@@ -111,10 +163,18 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
                       this.addTrim();
                       this.trims.controls[index].patchValue({
                         id: model.trims[index].id,
-                        trim: model.trims[index].trim,
+                        trim: model.trims[index].name,
                         description: 'Something about the trim.',
                         colors: model.trims[index].colors
                       });
+                      for (let j = 0; j < model.trims[index].colors.length; j++) {
+                        this.addColor(index)
+                        this.colors(index).controls[j].patchValue({
+                          id: model.trims[index].colors[j].id,
+                          name: model.trims[index].colors[j].name,
+                          hexColor: model.trims[index].colors[j].hexColor,
+                        })
+                      }
                     }
                     this.addTrim();
                   }
@@ -126,14 +186,18 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
         .subscribe();
     });
 
-    if (!this.dataService.selectedModelId) {
-      this.router.navigate(['/configuration/asset-configuration']).then((_) => {
-        this.facade.resetParams();
-      });
-    }
-
     this.facade.submitted$.subscribe((x) => {
       if (x) {
+        if (this.isEditing) {
+          this.dialogModal = true;
+          this.dialogSetting.header = 'Edit Trim';
+          this.dialogSetting.message = 'Trim Edited Successfully';
+          this.dialogSetting.isWarning = false;
+          this.dialogSetting.hasError = false;
+          this.dialogSetting.confirmButton = 'OK';
+          this.dialogSetting.cancelButton = undefined;
+          return
+        }
         this.dialogModal = true;
         this.dialogSetting.header = 'Add new trim';
         this.dialogSetting.message = 'Trim Added Successfully';
@@ -174,7 +238,8 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
       id: '',
       trim: ['', Validators.required],
       description: 'Something about the trim.',
-      colors: new FormArray([this.createColor()])
+      colors: new FormArray([this.createColor()]),
+      origins: []
     });
   }
 
@@ -283,6 +348,26 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
       return;
     }
 
+    if (this.isEditing) {
+      const payload = {
+        trims: []
+      }
+      for (const trim of this.inputForm.value.trims) {
+        payload.trims.push(
+          {
+            id: trim.id,
+            name: trim.trim,
+            description: trim.description,
+            origins: trim.origins,
+            colors: trim.colors
+          }
+        )
+      }
+
+      this.facade.updateTrim(payload, this.assetTypeId, this.makeId, this.modelId)
+      return;
+    }
+
     let type: string;
 
     switch (this.inputForm.value.typeCategory) {
@@ -341,7 +426,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
               )
           }
         }
-          
+
       })
     }
 

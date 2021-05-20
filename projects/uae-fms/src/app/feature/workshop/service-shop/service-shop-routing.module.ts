@@ -7,6 +7,7 @@ import { AddTechnicianServiceShopComponent } from './add-technician/add-technici
 import { RequestTabOverviewServiceShopComponent } from './request-tab-overview/request-tab-overview.component';
 import { ServiceShopComponent } from './service-shop.component';
 import { TechnicianOverviewServiceShopComponent } from './technician-overview/technician-overview.component';
+import { JobCardOverviewComponent } from "./job-card-overview/job-card-overview.component";
 
 // const routes: Routes = [
 //   { path: '', component: ServiceShopComponent, pathMatch: 'full' },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'add-location', component: AddLocationServiceShopComponent },
   { path: 'add-job-card', component: AddJobCardServiceShopComponent },
   { path: 'edit-job-card/:id', component: AddJobCardServiceShopComponent },
-  { path: 'request-overview/:id', component: RequestTabOverviewServiceShopComponent }
+  { path: 'request-overview/:id', component: RequestTabOverviewServiceShopComponent },
+  { path: 'job-card-overview/:id', component: JobCardOverviewComponent }
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

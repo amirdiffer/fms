@@ -18,7 +18,7 @@ import {
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { MovementOverviewFacadeTemporary } from '@feature/fleet/+state/movement/temporary/overview/movement-overview.facade';
 import { MovementRequestsFacadeTemporary } from '@feature/fleet/+state/movement/temporary/requests/movement-requests.facade';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { ButtonType, TableComponent } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movement-temporary-confirm/movement-confirm.component';
@@ -434,12 +434,31 @@ export class TemporaryComponent
   }
 
   exportTable() {
+    let filter;
     switch (this.selectedTab) {
       case 'MovementOverViewTab':
-        this.table.exportTable(this.movementOverViewTableSetting, 'Overview');
+        filter = {
+          asset: 'asset.assetName|asset.assetSubName|asset.ownership',
+          duration: 'duration',
+          startDate: 'startDate',
+          department: 'department',
+          operator: 'operator',
+          fine: 'fine',
+          reason: 'reason'
+        }
+        this.table.exportTable(this.movementOverViewTableSetting, 'Overview', filter);
         break;
       case 'requestTab':
-        this.table.exportTable(this.requestTableSetting, 'Request');
+        filter = {
+          user: 'user.userName|user.subName',
+          movementType: 'movementType',
+          requestType: 'requestType',
+          assetType: 'assetType',
+          reason: 'reason',
+          date: 'date',
+          requestStatus: 'requestStatus'
+        }
+        this.table.exportTable(this.requestTableSetting, 'Request', filter);
         break;
     }
   }
