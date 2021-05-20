@@ -1,0 +1,71 @@
+
+<div class="box p-4 h-100">
+    <div class="box__header d-flex justify-content-between">
+        <p class="box_title">
+            {{'dashboard.operator_statistics' | translate}}
+        </p>
+        <p class="box_sub_title">
+            {{'dashboard.work_overview' | translate}} 1 {{'dashboard.day_ago' | translate}}
+        </p>
+    </div>
+    <div class="d-flex justify-content-center flex-column h-100">
+        <div class="box__body row justify-content-between ml-0 mr-0">
+            <div class="col-3 d-flex pr-0 pl-0">
+                <div class="box__body__icon box__body__icon--blue">
+                    <span>
+                        <svg-icon [src]="totalIcon" [svgStyle]="{ 'width.em':1.3 ,
+                            'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+                    </span>
+                </div>
+                <div class="box__body__content">
+                    <div>
+                        <p class="font-weight-bolder">2000</p>
+                        <p class="box__body__content__title">{{'dashboard.total' | translate}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 d-flex pr-0 pl-0">
+                <div class="box__body__icon box__body__icon--purple">
+                    <span>
+                        <svg-icon [src]="totalFineIcon" [svgStyle]="{ 'width.em':1.3 ,
+                            'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+                    </span>
+                </div>
+                <div class="box__body__content">
+                    <div>
+                        <p class="font-weight-bolder">$9745</p>
+                        <p class="box__body__content__title">{{'dashboard.totla_fines' | translate}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 d-flex pr-0 pl-0">
+                <div class="box__body__icon box__body__icon--pink">
+                    <span>
+                        <svg-icon [src]="activeIcon" [svgStyle]="{ 'width.em':1.3 ,
+                            'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+                    </span>
+                </div>
+                <div class="box__body__content">
+                    <div>
+                        <p class="font-weight-bolder">230k</p>
+                        <p class="box__body__content__title">{{'dashboard.active' | translate}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 d-flex pr-0 pl-0">
+                <div class="box__body__icon box__body__icon--grey">
+                    <span>
+                        <svg-icon [src]="deactiveIcon" [svgStyle]="{ 'width.em':1.3 ,
+                            'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
+                    </span>
+                </div>
+                <div class="box__body__content">
+                    <div>
+                        <p class="font-weight-bolder">1.423k</p>
+                        <p class="box__body__content__title">{{'dashboard.deactive' | translate}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
