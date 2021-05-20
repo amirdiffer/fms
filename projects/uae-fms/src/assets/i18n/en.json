@@ -1670,6 +1670,7 @@
       "send_notification_by": "Send Notification By",
       "employee_number": "Employee Number",
       "department": "Department",
+      "section": "Section",
       "role": "Role",
       "active_employee": "Active Employee",
       "first_name": "First Name",
