@@ -468,6 +468,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     this.department_static = $event;
     if (typeof $event != 'object') return;
     this.sectionList = [];
+    this.inputForm.get('portalInfo.section').patchValue(null)
     this.departmentId = $event.id;
     this._departmentService.searchDepartment($event.id).subscribe((x) => {
       x.message.departments

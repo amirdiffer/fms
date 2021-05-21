@@ -1,0 +1,28 @@
+<div class="box p-4">
+    <div class="row">
+        <div class="col-6">
+            <p class="box_title">
+                {{title}}
+            </p>
+            <p class="box_sub_number">
+                250
+            </p>
+        </div>
+        <div class="col-6">
+            <span class="item__progress">
+                <pie-chart-mini></pie-chart-mini>
+            </span>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between footer-card chart-labels">
+        <div class="">
+            <a [routerLink]="[routerLink.router]">{{routerLink.title}}</a>
+        </div>
+        <div class="chart-label">
+            <p class="f-label">{{series[0]}}</p>
+        </div>
+        <div class="chart-label">
+            <p class="l-label">{{series[1]}}</p>
+        </div>
+    </div>
+</div>

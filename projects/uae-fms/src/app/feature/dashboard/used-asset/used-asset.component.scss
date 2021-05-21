@@ -1,0 +1,15 @@
+.value-title{
+    font-family: '29LT Bukra - Bold';
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+
+
+apx-chart{
+    ::ng-deep{
+        .apexcharts-toolbar{
+            display: none;
+        }
+    }
+}
