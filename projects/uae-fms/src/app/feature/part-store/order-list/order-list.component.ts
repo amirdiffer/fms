@@ -110,13 +110,13 @@ export class OrderListComponent implements OnInit , OnDestroy {
 
   requestList_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.item', 
-        type: ColumnType.lable, 
-        field: 'Item', 
+      { lable: 'tables.column.item',
+        type: ColumnType.lable,
+        field: 'Item',
       },
-      { lable: 'tables.column.part_id', 
-        type: 1, 
-        field: 'Part_ID', 
+      { lable: 'tables.column.part_id',
+        type: 1,
+        field: 'Part_ID',
       },
       {
         lable: 'tables.column.status',
@@ -200,26 +200,26 @@ export class OrderListComponent implements OnInit , OnDestroy {
             }
           }
         }
-        
+
       ]
     }
   };
   myOrder_Table: TableSetting = {
     columns: [
-      { 
-        lable: 'tables.column.item', 
-        type: ColumnType.lable, 
-        field: 'Item', 
+      {
+        lable: 'tables.column.item',
+        type: ColumnType.lable,
+        field: 'Item',
       },
-      { 
-        lable: 'tables.column.part_id', 
-        type: ColumnType.lable, 
-        field: 'Part_ID', 
+      {
+        lable: 'tables.column.part_id',
+        type: ColumnType.lable,
+        field: 'Part_ID',
       },
-      { 
-        lable: 'tables.column.status', 
-        type: ColumnType.lable, 
-        field: 'Status', 
+      {
+        lable: 'tables.column.status',
+        type: ColumnType.lable,
+        field: 'Status',
       },
       {
         lable: 'tables.column.quantity',
@@ -227,10 +227,10 @@ export class OrderListComponent implements OnInit , OnDestroy {
         field: 'Quantity',
         sortable: true
       },
-      { 
-        lable: 'tables.column.date', 
-        type: ColumnType.lable, 
-        field: 'Date' 
+      {
+        lable: 'tables.column.date',
+        type: ColumnType.lable,
+        field: 'Date'
       },
       {
         lable: 'tables.column.description',
@@ -311,13 +311,13 @@ export class OrderListComponent implements OnInit , OnDestroy {
           onClick: (col, data, button?) => {
             this._router.navigate(['part-store/order-list/edit-supplier/'+data.id])
           },
-        },    
+        },
       ]
     }
   };
 
   constructor(private _requestListFacade: RequestListFacade,
-              private _supplierListFacade : SuppliersFacade, 
+              private _supplierListFacade : SuppliersFacade,
               private _facadeOrderList : OrderListFacade,
               private _router: Router,
               private _activatedRoute:ActivatedRoute) {
@@ -357,7 +357,7 @@ export class OrderListComponent implements OnInit , OnDestroy {
             Quantity: request.quantity,
             Department: request.organizationName,
             Description: request.description,
-            Date: new Date (request.createdAt).toLocaleString().split(',')[0],
+            Date: new Date (request.createdAt*1000).toLocaleString().split(',')[0],
             statusColor: '#838BCE',
           }
         })
@@ -398,7 +398,7 @@ export class OrderListComponent implements OnInit , OnDestroy {
               Item:order.itemName,
               Part_ID: order.itemId,
               Quantity:order.quantity,
-              Date:new Date (order.createdAt).toLocaleString().split(',')[0],
+              Date:new Date (order.createdAt*1000).toLocaleString().split(',')[0],
               Description:order.description,
               Cost:order.price,
               Status:order.status
@@ -430,7 +430,7 @@ export class OrderListComponent implements OnInit , OnDestroy {
         }
       }
     );
-    
+
 
     /* Load Supplier Data */
     this.supplierTableData$ = this._supplierListFacade.suppliers$.pipe(
@@ -465,7 +465,7 @@ export class OrderListComponent implements OnInit , OnDestroy {
     }
   }
 
-  
+
   eventPagination_ordertList(){
     switch (this.orderListType) {
       case 'asset':
@@ -501,14 +501,14 @@ export class OrderListComponent implements OnInit , OnDestroy {
           break;
       };
     }
-    
+
     this.dialogModal = false;
   }
   eventPagination_supplierList(){
     this._supplierListFacade.loadAll();
   }
 
-  
+
 
   errorAndSubmitHandler() {
     this.submitSubscription = this._requestListFacade.approved$.subscribe((x) => {
