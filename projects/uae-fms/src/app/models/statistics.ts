@@ -35,6 +35,10 @@ export interface IOperatorStatistics extends IGeneralResponse {
   result_number: number;
 }
 
+export interface IOperatorTrafficFineStatistics extends IGeneralResponse {
+  result_number: number;
+}
+
 export interface ISubAssetStatistics extends IGeneralResponse {
   result_number: number;
   total: number;

@@ -40,6 +40,16 @@ export class FleetSelectors {
     FleetSelectors.featureSelector,
     (state) => state['operator']
   );
+
+  static operatorTrafficFineSelector = createSelector(
+    FleetSelectors.featureSelector,
+    (state) => state['operator-traffic-fine']
+  );
+
+  static operatorMovementHistorySelector = createSelector(
+    FleetSelectors.featureSelector,
+    (state) => state['operator-movement-history']
+  );
   static accessorySelector = createSelector(
     FleetSelectors.featureSelector,
     (state) => state['accessory']

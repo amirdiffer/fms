@@ -30,51 +30,22 @@
             <div class='col-md-12 d-flex mt-3 p-0'>
               <div class='col-md-3'>
                 <div>First Name</div>
-                <div class='mt-1'>Mohammad</div>
+                <div class='mt-1'>{{ operator?.firstName }}</div>
               </div>
               <div class='col-md-3'>
                 <div>Last Name</div>
-                <div class='mt-1'>Saadoun</div>
-              </div>
-              <div class='col-md-3'>
-                <div>Birthday</div>
-                <div class='mt-1'>mm/dd/yyy</div>
+                <div class='mt-1'>{{ operator?.lastName }}</div>
               </div>
               <div class='col-md-3'>
                 <div>Mobile phone</div>
                 <div class='mt-1'>
-                  <img src='assets/icons/united-kingdom.svg' width='18'/>
-                  <span class='ml-1'>+44</span>
-                  <span class='ml-2'>774355000</span>
+                  <span class='ml-1'>{{ operator?.phoneNumbers[0] }}</span>
                 </div>
               </div>
             </div>
           </div>
         </mat-card-content>
         <hr />
-        <mat-card-content class='pb-5'>
-          <div>
-            <div class='pt-3 header' [class.ml-3]='activeLang === "en"' [class.mr-3]='activeLang === "ar"'>location</div>
-            <div class='col-md-12 d-flex mt-3 p-0'>
-              <div class='col-md-4'>
-                <div>Postal / Zip Code</div>
-                <div class='mt-1'>EC2A2EX</div>
-              </div>
-              <div class='col-md-4'>
-                <div>Country</div>
-                <div class='mt-1'>United Kingdom</div>
-              </div>
-              <div class='col-md-4'>
-                <div>City</div>
-                <div class='mt-1'>London</div>
-              </div>
-            </div>
-            <div class='col-md-5 mt-4'>
-              <div>Address Line</div>
-              <div class='mt-1'>1Primrose Street,Floor3,Office#14</div>
-            </div>
-          </div>
-        </mat-card-content>
       </mat-card>
     </div>
   </div>
@@ -92,7 +63,7 @@
                 Number
               </p>
               <p [class.ml-4]='activeLang === "ar"' [class.mr-4]='activeLang === "en"'>
-                DDS328904739024832
+                {{ drivingLicenseInfo?.number }}
               </p>
             </div>
             <div class='row mt-1 justify-content-between'>
@@ -100,7 +71,7 @@
                 Country
               </p>
               <p [class.ml-4]='activeLang === "ar"' [class.mr-4]='activeLang === "en"'>
-                United Kingdom
+                {{ drivingLicenseInfo?.country }}
               </p>
             </div>
             <div class='row mt-1 justify-content-between'>
@@ -108,7 +79,7 @@
                 Licence Class
               </p>
               <p [class.ml-4]='activeLang === "ar"' [class.mr-4]='activeLang === "en"'>
-                United Kingdom
+                {{ drivingLicenseInfo?.licenseClass }}
               </p>
             </div>
             <div class='row mt-1 justify-content-between'>
@@ -116,7 +87,7 @@
                 Date Of Expiry
               </p>
               <p [class.ml-4]='activeLang === "ar"' [class.mr-4]='activeLang === "en"'>
-                08/12/2021
+                {{ (drivingLicenseInfo?.dateOfExpiry * 1000) | date }}
               </p>
             </div>
           </div>

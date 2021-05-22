@@ -1,25 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { ColumnType, TableSetting } from '@core/table';
-import { OperatorFacade } from '../../+state/operator';
-import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { OperatorFacade, OperatorService } from '../../+state/operator';
+import { map, tap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsFacade } from '@core/settings/settings.facade';
+import { Observable, Subscription } from 'rxjs';
+import { IOperator, IOperatorTrafficFine } from '@models/operator';
+import { OperatorOverviewTabComponent } from './overview-tab/overview-tab.component';
+import { OperatorTrafficFineFacade } from '../../+state/operator/traffic-fine-tab';
+import { OperatorMovementHistoryFacade } from '../../+state/operator/movement-history-tab';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'anms-over-view-operator',
   templateUrl: './over-view-operator.component.html',
   styleUrls: ['./over-view-operator.component.scss']
 })
-export class OverViewOperatorComponent implements OnInit {
+export class OverViewOperatorComponent implements OnInit, OnDestroy {
   //region Variable
+  @ViewChild(OperatorOverviewTabComponent, { static: false }) overViewTab: OperatorOverviewTabComponent
+
   downloadBtn = 'assets/icons/download-solid.svg';
   search = 'assets/icons/search-solid.svg';
   selectedTab = '0';
 
   activeLang = '';
 
+  trafficFineCount$ = this.trafficFineFacade.count$
+
+  movementHistoryCount$ = this.movementHistoryFacade.count$
+
   count$ = this.facade.conut$.pipe(map((_) => 3456));
+
+  activatedRouteSubscriber: Subscription
+  operatorSubscriber: Subscription
+  operatorDrivingLicenseSubscriber: Subscription
+  operator: IOperator
+  trafficFineTableData: Observable<any>
+  movementHistoryTableData: Observable<any>
   //#endregion
 
   //#region Table
@@ -49,7 +68,6 @@ export class OverViewOperatorComponent implements OnInit {
         lable: 'tables.column.time_date',
         type: 1,
         field: 'Time_Date',
-        renderer: 'doubleLineRenderer',
         width: 100
       },
       {
@@ -262,11 +280,24 @@ export class OverViewOperatorComponent implements OnInit {
 
   constructor(
     private facade: OperatorFacade,
+    private service: OperatorService,
     private router: Router,
-    private settingFacade: SettingsFacade
+    private activatedRoute: ActivatedRoute,
+    private settingFacade: SettingsFacade,
+    private trafficFineFacade: OperatorTrafficFineFacade,
+    private movementHistoryFacade: OperatorMovementHistoryFacade,
   ) {}
 
   ngOnInit(): void {
+
+    this.activatedRouteSubscriber = this.activatedRoute.params.subscribe((params) => {
+      const id = params['id']
+      this.getOperatorById(id);
+      this.getOperatorsDrivingLicense(id)
+      this.getOperatorsTrafficFine(id)
+      this.getOperatorsMovementHistory(id)
+    })
+
     this.settingFacade.language.subscribe((lang) => {
       this.activeLang = lang;
     });
@@ -299,5 +330,74 @@ export class OverViewOperatorComponent implements OnInit {
 
   backToOperatorTable(): void {
     this.router.navigate(['/fleet/operator']).then();
+  }
+
+  ngOnDestroy(): void {
+    this.activatedRouteSubscriber?.unsubscribe()
+    this.operatorSubscriber?.unsubscribe()
+    this.operatorDrivingLicenseSubscriber?.unsubscribe()
+  }
+
+  private getOperatorById(id: number): void {
+    this.operatorSubscriber = this.service.getOperatorById(id).pipe(
+      tap(response => {
+        this.operator = response.message
+        this.overViewTab.operator = this.operator
+      })
+    ).subscribe()
+  }
+
+  private getOperatorsDrivingLicense(id: number): void {
+    this.operatorDrivingLicenseSubscriber = this.service.getOperatorsDrivingLicence(id).pipe(
+      tap((response) => {
+        console.log(response);
+        this.overViewTab.drivingLicenseInfo = response.message
+      })
+    ).subscribe()
+  }
+
+  private getOperatorsTrafficFine(id: number): void {
+
+    this.trafficFineFacade.loadAll(id)
+    this.trafficFineTableData = this.trafficFineFacade.trafficFine$.pipe(
+      map(trafficFineArray => trafficFineArray.map((trafficFine => (
+        {
+          TC_Code: trafficFine.tcCode,
+          Type: trafficFine.userStatus,
+          Department: trafficFine.department.name,
+          Plate_No: trafficFine.plateNumber,
+          Mission_Status: trafficFine.missionStatus,
+          Time_Date: trafficFine.time,
+          userStatus: trafficFine.userStatus,
+        }
+      ))))
+    )
+  }
+
+  private getOperatorsMovementHistory(id: number): void {
+
+    this.movementHistoryFacade.loadAll(id)
+    this.movementHistoryTableData = this.movementHistoryFacade.movementHistory$.pipe(
+      map(movementHistoryArray => movementHistoryArray.map((movementHistory => {
+        const startDate = new Date(movementHistory.startDate * 1000);
+        const formattedStartDateLine1 = formatDate(startDate, 'EEEE MM-dd ', 'en-US')
+        const formattedStartDateLine2 = formatDate(startDate, 'hh:mm', 'en-US')
+        const endDate = new Date(movementHistory.startDate * 1000);
+        const formattedEndDateLine1 = formatDate(endDate, 'EEEE MM-dd', 'en-US')
+        const formattedEndDateLine2 = formatDate(endDate, 'hh:mm', 'en-US')
+        const duration = `${Math.abs(new Date(endDate).getDay() - new Date(startDate).getDay())} Days`
+        return {
+          asset: {
+            img: 'assets/thumb.png',
+            assetSubName: movementHistory.asset.dpd,
+            ownership: movementHistory.asset.ownershipType,
+          },
+          duration: duration,
+          startDate: { line1: formattedStartDateLine1, line2: formattedStartDateLine2 },
+          endDate: { line1: formattedEndDateLine1, line2: formattedEndDateLine2 },
+          department: movementHistory.department.name
+        }
+      })))
+    )
   }
 }
