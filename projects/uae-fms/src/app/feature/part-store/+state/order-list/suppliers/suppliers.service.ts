@@ -23,17 +23,35 @@ export class SuppliersService {
     return this.params;
   }
 
-  loadAll(): Observable<any[]> {
-    return this._http.get<any[]>('');
-  }
-
+  /* '''''Load''''' Supplier */
   loadAllSupplier(): Observable<ResponseBody<any[]>> {
     return this._http.get<ResponseBody<any[]>>(
-      environment.baseApiUrl + 'partstore/supplier', { params: this.getParam('supplier') }
+      environment.baseApiUrl + 'partstore/supplier', { params: this.getParam('supplier-list') }
     );
   }
 
-  addSupplier(data: any): Observable<any> {
-    return this._http.post(environment.baseApiUrl + 'partstore/supplier', data);
+
+  /* ''''''Add'''''' Supplier */
+  addSupplier(data: any): Observable<ResponseBody<any>> {
+    return this._http.post<ResponseBody<any>>(environment.baseApiUrl + 'partstore/supplier', data);
   }
+
+
+
+  /* '''''Get''''' Specific Supplier */
+  getSpecificSupplier(id):Observable<ResponseBody<any>>{
+    return this._http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'partstore/supplier/' + id
+    );
+  };
+
+
+
+  /* '''''Update''''' Supplier*/
+  updateSupplier(data): Observable<ResponseBody<any>> {
+    return this._http.post<ResponseBody<any>>(
+      environment.baseApiUrl + 'partstore/supplier/' + data.id + '/update',
+      data
+    );
+  };
 }

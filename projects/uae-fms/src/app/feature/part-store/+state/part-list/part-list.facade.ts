@@ -71,7 +71,7 @@ export class PartListFacade {
   };
 
   loadStatisticsPartOfSubAsset(id:number){
-    this.store.dispatch(PartListActions.getSpecificPartOfSubAsset({id}));
+    this.store.dispatch(PartListActions.getStatisticPartListOfSubAsset({id}));
   };
 
   updatePartOfAsset(data:any){
