@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { ActivatedRoute } from '@angular/router';
@@ -17,12 +17,13 @@ import { Location } from '@angular/common';
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss']
 })
-export class OrderComponent extends Utility implements OnInit {
+export class OrderComponent extends Utility implements OnInit , OnDestroy {
   searchIcon = 'assets/icons/search.svg';
   isAsset:boolean=true;
   isEdit:boolean=false;
   id:number;
   fleetType;
+  partId:number;
   form: FormGroup;
 
   formSubmitted = false;
@@ -77,11 +78,23 @@ export class OrderComponent extends Utility implements OnInit {
   ngOnInit(): void {
     this._facadeOrderList.reset();
     let activeRoute = this._activatedRoute.snapshot.url;
-    this.fleetType = activeRoute[1].path;
+    
+    activeRoute[activeRoute.length - 2].path === 'edit-order' ? 
+    (
+      this.isEdit =true , 
+      this.id = +this._activatedRoute.snapshot.params.id,
+      this.fleetType = this._activatedRoute.snapshot.url[this._activatedRoute.snapshot.url.length -3].path
+    ):
+    (
+      this.isEdit=false,
+      this.fleetType = this._activatedRoute.snapshot.url[this._activatedRoute.snapshot.url.length -2].path
+    )
     this.fleetType === 'asset'? this.isAsset = true:this.isAsset = false;
-    activeRoute[activeRoute.length - 2].path === 'edit-order' ? (this.isEdit =true , this.id = +activeRoute[activeRoute.length - 1].path) :this.isEdit=false;
     this.errorAndSubmitHandler();
-
+    if(!this.isEdit && this._activatedRoute.snapshot.parent.params.id){
+      this.partId = +this._activatedRoute.snapshot.parent.params.id;
+    }
+    console.log(this.fleetType)
 
     /* Form Builder */
     this.form = this._fb.group({
@@ -295,6 +308,34 @@ export class OrderComponent extends Utility implements OnInit {
   }
 
   patchValueForm(){
+    if(this.partId){
+      console.log(this.fleetType)
+      console.log(this.partId)
+      switch (this.fleetType) {
+        case 'asset':
+          this._facadePartMaster.loadSpecificItemOfAsset(+this.partId)
+          break;
+      
+        case 'sub-asset':
+          this._facadePartMaster.loadSpecificItemOfSubAsset(+this.partId)
+          break;
+      };
+      this._facadePartMaster.specificItem$.subscribe(x => {
+        if(x) {
+          console.log(x)
+          this.onChangeType(x.assetConfigurationId);
+          this.onChangeCategory(x.categoryId)
+          this.form.patchValue({
+            fleetConfigurationType: x.assetConfigurationId,
+            category: x.categoryId,
+            item: {id:x.id , name:x.name},
+          });
+          this.form.controls['fleetConfigurationType' ].disable();
+          this.form.controls['category' ].disable();
+          this.form.controls['item' ].disable();
+        }
+      })
+    }
     if(this.isEdit){
       switch (this.fleetType) {
         case 'asset':
@@ -324,6 +365,10 @@ export class OrderComponent extends Utility implements OnInit {
         }
       })
     }
+  }
+
+  ngOnDestroy(){
+    this._fleetConfigurationAsset.resetEntities();
   }
   
 }
