@@ -6,8 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./detail-mini-card-dashboard.component.scss']
 })
 export class DetailMiniCardDashboardComponent implements OnInit {
+  @Input()data = [];
   @Input()title = 'Title';
-  @Input() series = ["X Fleet" , "In Active"]
+  @Input() labels = []
   @Input() routerLink:IRouterLink;
    constructor() { }
 

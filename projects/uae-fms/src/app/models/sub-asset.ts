@@ -53,3 +53,10 @@ export interface MakeModel {
   name?: string;
   description?:string;
 }
+
+export interface ISubAssetOverview{
+  totalNumOfSubAssets: number;
+  numOfActiveSubAssets: number;
+  numOfInactiveSubAssets: number;
+  numOfXFleetSubAssets: number;
+}

@@ -14,9 +14,9 @@
     </div>
     <div class="box__body row ">
         <div class="col-9 d-flex flex-column justify-content-end">
-            <p class="mb-2 mt-3 content-text">{{cost}}</p>
+            <p class="mb-2 mt-3 content-text">{{data.fineAmount}}</p>
             <div>
-                <button>{{'dashboard.view_operator_profil' | translate}}</button>
+                <button [routerLink]="['/fleet/operator/edit-operator', data.id]">{{'dashboard.view_operator_profil' | translate}}</button>
             </div>
         </div>
         <div class="col-3 px-1">

@@ -48,8 +48,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     {
       name: 'sidebar.dashboard',
       icon: 'dashboard',
-      route: '/dashboard',
-      disabled: true
+      route: '/dashboard'
     },
     {
       name: 'sidebar.fleets.~',

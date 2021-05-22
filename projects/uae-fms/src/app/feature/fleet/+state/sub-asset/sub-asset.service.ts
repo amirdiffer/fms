@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ISubasset } from '@models/sub-asset';
+import { ISubasset, ISubAssetOverview } from '@models/sub-asset';
 import { ResponseBody } from '@models/response-body';
 import { environment } from '@environments/environment';
 import { ISubAssetStatistics } from '@models/statistics';
@@ -63,4 +63,11 @@ export class SubAssetService {
       environment.baseApiUrl + 'sub-asset?page=0&size=99999999'
     );
   }
+
+  subAssetOverview(): Observable<ResponseBody<ISubAssetOverview>> {
+    return this.http.get<ResponseBody<ISubAssetOverview>>(
+      environment.baseApiUrl + 'sub-asset/overview'
+    );
+  }
+
 }
