@@ -1,15 +1,8 @@
-<form [formGroup]='partForm'>
+<form [formGroup]='form'>
   <div class='row'>
     <div class='button-container'>
-      <button class='btn-primary-medium btn-scondary-green' (click)='cancel()'>
-        {{ 'forms.cancel' | translate }}
-      </button>
-      <button class='btn-primary-medium add' *ngIf='recordId' (click)='submit()'>
-        {{ 'forms.edit' | translate }}
-      </button>
-      <button class='btn-primary-medium add' *ngIf='!recordId' (click)='submit()'>
-        {{ 'forms.order' | translate }}
-      </button>
+      <button class='btn-primary-medium btn-scondary-green' (click)="cancelForm()">{{ 'forms.cancel' | translate }}</button>
+      <button class='btn-primary-medium add'(click)="submitForm()">{{ (isEdit ?'forms.edit' : 'forms.order') | translate }}</button>
     </div>
     <div class='col-12 col-md-12'>
       <!-- form-section -->
@@ -18,87 +11,67 @@
 
         <div class='row form-section__row'>
 
-          <div class='col-12 col-md-4'>
-            <div class='mb-2 align-items-center'>
-              <div class='row ml-1'>
-                <div class='mt-1 font-weight-light'>{{ 'part_store.order_list.form.type_category' | translate }}</div>
-                <div class='col-3'>
-                  <div class='form-check ml-4'>
-                    <input class='form-check-input' formControlName='typeCategoryType' type='radio'
-                           name='typeCategoryType' id='asset' value='ASSET' (change)="onAssetSelect($event)">
-                    <label class='form-check-label'
-                           for='asset'>{{ 'part_store.order_list.form.asset' | translate }}</label>
-                  </div>
-                </div>
-                <div class='form-check ml-5'>
-                  <input class='form-check-input' formControlName='typeCategoryType' type='radio'
-                         name='typeCategoryType' id='sub_asset' value='SUB_ASSET' (change)="onSubAssetSelect($event)">
-                  <label class='form-check-label'
-                         for='sub_asset'>{{ 'part_store.order_list.form.sub_asset' | translate }}</label>
-                </div>
-              </div>
+          <div class='col-4 p-field form-section__field options-select'>
+            <span class='p-float-label'>
+              <p-dropdown [autoDisplayFirst]='false' [options]='fleetConfigurationType$ | async'
+                          formControlName='fleetConfigurationType' optionLabel='name' optionValue="id"
+                          (onChange)='onChangeType($event.value)'></p-dropdown>
+              <label>{{ (isAsset ? 'part_store.order_list.form.asset_type' : 'part_store.order_list.form.sub_asset_type') | translate }} *</label>
+            </span>
+            <anms-error [showError]="hasError('fleetConfigurationType', form, formSubmitted)"
+                        error='forms.feedback.required'></anms-error>
+          </div>
+
+          <div class='col-4 p-field form-section__field options-select'>
+            <span class='p-float-label'>
+              <p-dropdown [autoDisplayFirst]='false' [options]='category$ | async'
+                          formControlName='category' optionLabel='name' optionValue='id'
+                          (onChange)='onChangeCategory($event.value)'></p-dropdown>
+              <label>{{ 'part_store.order_list.form.select_item_category' | translate }} *</label>
+            </span>
+            <anms-error [showError]="hasError('category', form, formSubmitted)"
+                        error='forms.feedback.required'></anms-error>
+          </div>
+
+          <div class='col-4 p-field form-section__field'>
+            <div class="autocomplete-select">
+              <span class="p-float-label">
+                <p-autoComplete formControlName="item" (completeMethod)="searchItem($event)"
+                [suggestions]="itemFilterd" field="name" [minLength]="1" dataKey="id"
+                [dropdown]="true">
+                </p-autoComplete>
+                <i class="pi pi-search"></i>
+                <label>{{ 'part_store.order_list.form.item_name' | translate }} *</label>
+              </span>
+              <anms-error [showError]="hasError('item',form,formSubmitted)"
+                error="forms.feedback.required"></anms-error>
             </div>
           </div>
-
-          <div class='col-12 col-md-2 p-field form-section__field options-select'>
+          <div class='col-4 p-field form-section__field options-select'>
             <span class='p-float-label'>
-              <p-dropdown inputId='room' required [autoDisplayFirst]='false' [options]='assetType'
-                          formControlName='assetType' optionLabel='name'
-                          (onChange)='onChangeAssetType($event)'></p-dropdown>
-              <label for='room'>{{ 'part_store.order_list.form.asset_type' | translate }} *</label>
-            </span>
-            <anms-error [showError]="hasError('assetType', partForm, formSubmitted)"
-                        error='forms.feedback.required'></anms-error>
-          </div>
-
-          <div class='col-12 col-md-3 p-field form-section__field options-select'>
-            <span class='p-float-label'>
-              <p-dropdown inputId='room' required [autoDisplayFirst]='false' [options]='categories'
-                          formControlName='category' optionLabel='name'
-                          (onChange)='onChangeCategory($event)'></p-dropdown>
-              <label for='room'>{{ 'part_store.order_list.form.select_item_category' | translate }} *</label>
-            </span>
-            <anms-error [showError]="hasError('category', partForm, formSubmitted)"
-                        error='forms.feedback.required'></anms-error>
-          </div>
-
-          <div class='col-12 col-md-3 p-field form-section__field options-select'>
-            <span class='p-float-label'>
-              <p-dropdown inputId='room' required [autoDisplayFirst]='false' [options]='items'
-                          formControlName='item' optionLabel='name'></p-dropdown>
-              <label for='room'>{{ 'part_store.order_list.form.item_name' | translate }} *</label>
-            </span>
-            <anms-error [showError]="hasError('item', partForm, formSubmitted)"
-                        error='forms.feedback.required'></anms-error>
-          </div>
-
-          <div class='col-12 col-md-4 p-field form-section__field options-select'>
-            <span class='p-float-label'>
-              <p-dropdown inputId='room' required [autoDisplayFirst]='false' [options]='suppliers'
-                          formControlName='supplier' optionLabel='name'></p-dropdown>
+              <p-dropdown [autoDisplayFirst]='false' [options]='suppliers$ | async'
+                          formControlName='supplier' optionLabel='companyName' optionValue="id"></p-dropdown>
               <label>{{ 'part_store.order_list.form.supplier' | translate }} *</label>
             </span>
-            <anms-error [showError]="hasError('supplier', partForm, formSubmitted)"
+            <anms-error [showError]="hasError('supplier', form, formSubmitted)"
                         error='forms.feedback.required'></anms-error>
           </div>
 
-          <div class='col-12 col-md-2 p-field form-section__field'>
+          <div class='col-4 p-field form-section__field'>
             <span class='p-float-label'>
-              <input pInputText placeholder="{{ 'part_store.order_list.form.price' | translate }} *"
-                     required type='text' formControlName='price'>
+              <input pInputText numbersOnly placeholder="{{ 'part_store.order_list.form.price' | translate }} *" type='text' formControlName='price'>
               <label>{{ 'part_store.order_list.form.price' | translate }} *</label>
             </span>
-            <anms-error [showError]="hasError('price', partForm, formSubmitted)"
+            <anms-error [showError]="hasError('price', form, formSubmitted)"
                         error='forms.feedback.required'></anms-error>
           </div>
-          <div class='col-12 col-md-3 p-field form-section__field calendar-select'>
+          <div class='col-4 p-field form-section__field calendar-select'>
             <span class='p-float-label'>
-              <input pInputText placeholder="{{ 'part_store.order_list.form.quantity' | translate }} *"
-                     required type='text' formControlName='quantity'>
-              <label
-                for='icon'>{{ 'part_store.order_list.form.quantity' | translate | translate }} *</label>
+              <input pInputText numbersOnly placeholder="{{ 'part_store.order_list.form.quantity' | translate }} *"
+                    type='text' formControlName='quantity'>
+              <label>{{ 'part_store.order_list.form.quantity' | translate | translate }} *</label>
             </span>
-            <anms-error [showError]="hasError('quantity', partForm, formSubmitted)"
+            <anms-error [showError]="hasError('quantity', form, formSubmitted)"
                         error='forms.feedback.required'></anms-error>
           </div>
         </div>
@@ -115,7 +88,7 @@
       <!-- end form-section -->
 
       <!-- form-section form-section--inline-->
-      <div class='form-section component_wrapper form-section--inline' [formGroup]='partForm'
+      <div class='form-section component_wrapper form-section--inline'
            style='margin: 10px 0 0 10px !important;'>
         <div class='col-12 col-md-2 form-section__field toggle-select'>
           <span class='font-weight-bold mt-2 mb-3'>{{ 'part_store.order_list.form.set_reminder' | translate }}</span>
@@ -127,12 +100,7 @@
   </div>
 </form>
 
-<alert-dialog [settings]='dialogSettingCancel' [displayModal]='dialogModalCancel'
-              (confirm)='dialogCancelConfirm($event)'>
-</alert-dialog>
-<alert-dialog [settings]='dialogSettingAdd' [displayModal]='dialogModalAdd'
-              (confirm)='dialogAddConfirm($event)'>
-</alert-dialog>
-<alert-dialog [settings]='dialogSettingError' [displayModal]='dialogModalError'
-              (confirm)='dialogErrorConfirm($event)'>
+
+<alert-dialog [settings]='dialogSetting' [displayModal]='dialogModal'
+              (confirm)='dialogConfirm($event)'>
 </alert-dialog>

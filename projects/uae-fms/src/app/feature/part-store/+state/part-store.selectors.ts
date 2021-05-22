@@ -15,22 +15,17 @@ export class PartStoreSelectors {
 
   static requestListSelector = createSelector(
     PartStoreSelectors.featureSelector,
-    (state) => state['request-list']
+    (state) => state['RequestList']
   );
 
-  static myOrderAssetListSelector = createSelector(
+  static orderListSelector = createSelector(
     PartStoreSelectors.featureSelector,
-    (state) => state['my-order-asset']
-  );
-
-  static myOrderSubAssetListSelector = createSelector(
-    PartStoreSelectors.featureSelector,
-    (state) => state['my-order-sub-asset']
+    (state) => state['orderList']
   );
 
   static suppliersListSelector = createSelector(
     PartStoreSelectors.featureSelector,
-    (state) => state['suppliers']
+    (state) => state['supplierList']
   );
   static partMasterCategorySelector = createSelector(
     PartStoreSelectors.featureSelector,
