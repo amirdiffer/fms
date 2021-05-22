@@ -29,7 +29,7 @@ export class PartOverviewComponent implements OnInit , OnDestroy {
   partListItemTableData$:Observable<any>;
   specificPartSubscription:Subscription;
   specificItemSubscription:Subscription;
-  images$:Observable<any>;
+  images$:Observable<any> = of([]);
   partListItemTable: TableSetting = {
     columns: [
       {
@@ -99,7 +99,7 @@ export class PartOverviewComponent implements OnInit , OnDestroy {
       x=>{
         if(x){
           if(x.documentIds !== null && x.documentIds.length == 0){
-            this.images$ = of([{address:'assets/camera.png'}])
+            this.images$ = of([{address:'assets/thumb.png'}])
           }else{
             this.images$ = of(x.documentIds.map(x =>{
               return {

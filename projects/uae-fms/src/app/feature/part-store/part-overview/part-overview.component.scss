@@ -88,3 +88,12 @@ order-form{
     }
   }
 }
+
+.disable-navigator{
+  ::ng-deep{
+    button ,
+    .p-carousel-indicators{
+      display: none;
+    }
+  }
+}
