@@ -65,5 +65,19 @@ export class SubAssetEffect {
     )
   );
 
+  getSubAssetByID = createEffect(() =>
+    this.action$.pipe(
+      ofType(SubAssetActions.subAssetById),
+      mergeMap((action) =>
+        this.service.getSpecificSubAsset(action.id).pipe(
+          map((data) => {
+            return SubAssetActions.subAssetByIdLoaded({ data: data.message });
+          }),
+          catchError((error) => of(SubAssetActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   constructor(private action$: Actions, private service: SubAssetService, private _tableFacade: TableFacade) {}
 }

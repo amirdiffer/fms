@@ -63,4 +63,10 @@ export class SubAssetService {
       environment.baseApiUrl + 'sub-asset?page=0&size=99999999'
     );
   }
+
+  getSpecificSubAsset(id): Observable<any> {
+    return this.http.get<Observable<any>>(
+      environment.baseApiUrl + '/sub-asset/'+id
+    );
+  }
 }

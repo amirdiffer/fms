@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-10">
           <div class="mx-3">
-            <h6 class="vehicle-title">{{ subAsset.title }}</h6>
+            <h6 class="vehicle-title">{{ (subAsset$ |async).title }}</h6>
           </div>
         </div>
         <div class="col-1">
@@ -12,54 +12,54 @@
         </div>
       </div>
       <div class="image-sub-asset">
-        <img src="assets/camera.png" alt="">
+        <img [src]="(subAsset$ |async).avatar " alt="">
       </div>
     </span>
     <hr class="seprator">
     <div class="vehicle-info">
       <span>
         <h5 class="title">{{ 'assets.overview.overview.vin_sn' | translate }}</h5>
-        <h5 class="info">{{subAsset.vin_sn}}</h5>
+        <h5 class="info">{{(subAsset$ |async).vin_sn}}</h5>
       </span>
       <span>
         <h5 class="title">{{ 'sub_asset.sub_asset_type' | translate }}</h5>
-        <h5 class="info">{{subAsset.subAssetType}}</h5>
+        <h5 class="info">{{(subAsset$ |async).subAssetType}}</h5>
       </span>
       <span>
         <h5 class="title">{{ 'sub_asset.make' | translate }}</h5>
-        <h5 class="info">{{subAsset.make}}</h5>
+        <h5 class="info">{{(subAsset$ |async).make}}</h5>
       </span>
       <span>
         <h5 class="title">{{ 'sub_asset.model' | translate }}</h5>
-        <h5 class="info">{{subAsset.model}}</h5>
+        <h5 class="info">{{(subAsset$ |async).model}}</h5>
       </span>
       <span>
         <h5 class="title">{{ 'sub_asset.year' | translate }}</h5>
-        <h5 class="info">{{subAsset.year}}</h5>
-      </span>
-      <span>
-        <h5 class="title">{{ 'sub_asset.origin' | translate }}</h5>
-        <h5 class="info">{{subAsset.origin}}</h5>
+        <h5 class="info">{{(subAsset$ |async).created}}</h5>
       </span>
       <span>
         <h5 class="title">{{ 'sub_asset.policy_type' | translate }}</h5>
-        <h5 class="info">{{subAsset.policyType}}</h5>
+        <h5 class="info">{{(subAsset$ |async).policyType}}</h5>
       </span>
       <span>
         <h5 class="title">{{ 'sub_asset.purchase_value' | translate }}</h5>
-        <h5 class="info">{{subAsset.purchaseValue}}</h5>
+        <h5 class="info">{{(subAsset$ |async).purchaseValue}}</h5>
       </span>
-      <span>
-        <h5 class="title">{{ 'sub_asset.warranty_item' | translate }}</h5>
-        <h5 class="info">{{subAsset.warrantyItems}}</h5>
-      </span>
-      <span>
-        <h5 class="title">{{ 'sub_asset.warranty_start_date' | translate }}</h5>
-        <h5 class="info">{{subAsset.warrantyStartDate}}</h5>
-      </span>
-      <span>
-        <h5 class="title">{{ 'sub_asset.warranty_duration' | translate }}</h5>
-        <h5 class="info">{{subAsset.warrantyDuration}}</h5>
+      <span *ngFor="let warranty of warranty$ | async ; let index=index" [class]="'warranty '+ (index === selectedWaranty ? 'backgorund-hover' : '')">
+        <span (click)="clickWarranty(index)" class="item-warranty">
+          <h5 class="title">{{ 'sub_asset.warranty_item' | translate }}</h5>
+          <h5 class="info">{{warranty.item}}</h5>
+        </span>
+        <ng-container *ngIf="index === selectedWaranty">
+          <span class="sub-item-warranty">
+            <h5 class="title">{{ 'sub_asset.warranty_start_date' | translate }}</h5>
+            <h5 class="info">{{warranty.startDate}}</h5>
+          </span>
+          <span class="sub-item-warranty">
+            <h5 class="title">{{ 'sub_asset.warranty_duration' | translate }}</h5>
+            <h5 class="info">{{warranty.duration}} {{warranty.durationType}}</h5>
+          </span>
+        </ng-container>
       </span>
     </div>
   

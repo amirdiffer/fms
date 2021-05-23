@@ -51,4 +51,19 @@ export class AssetMasterService {
       environment.baseApiUrl + 'asset/' + id
     )
   }
+
+
+  /* Get All Asset that we can add a workshop request for them */
+  getAllAllowedAssetForRequest(){
+    return this._http.get<ResponseBody<any[]>>(
+      environment.baseApiUrl + `asset/search/add-request?page=0&sort=id,asc&size=99999999`
+    );
+  }
+
+  /* Get All Asset that we can add a workshop jobcard for them */
+  getAllAllowedAssetForJobcard(): Observable<ResponseBody<any[]>>{
+    return this._http.get<ResponseBody<any[]>>(
+      environment.baseApiUrl + `asset/search/add-jobcard??page=0&sort=id,asc&size=99999999`
+    );
+  }
 }

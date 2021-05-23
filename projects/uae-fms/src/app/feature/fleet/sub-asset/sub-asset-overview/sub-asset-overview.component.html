@@ -1,7 +1,7 @@
 <div class="component_cus_wrapper">
     <div class="row">
         <div class="col-3 mb-4 component_sec_wrapper">
-            <anms-sub-asset-detail></anms-sub-asset-detail>
+            <anms-sub-asset-detail [data]="subAssetdata$"></anms-sub-asset-detail>
             <div class="location">
                 <h6 class="mx-3">{{ 'sub_asset.location' | translate }} </h6>
                 <div class="map">
@@ -18,15 +18,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-4">
+                <!-- <div class="col-4">
                     <div class="component_sec_wrapper table-container">
                         <anms-reminder [title]="'sub_asset.reminders' | translate" [data]="reminderData"></anms-reminder>
                     </div>
                     <div class="component_sec_wrapper table-container">
                         <anms-history [title]="'sub_asset.workshop_history' | translate" [data]="workshopHistoryData"></anms-history>
                     </div>
-                </div>
-                <div class="col-8">
+                </div> -->
+                <div class="col-12">
                     <div class="component_sec_wrapper table-container" >
                         <div class="p-3">
                             <div class="component-title pb-3">
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="component_sec_wrapper table-container pb-3" >
+                    <!-- <div class="component_sec_wrapper table-container pb-3" >
                         <div class="p-3 ">
                             <div class="component-title pb-3">
                                 {{ 'sub_asset.review_your_maintenance_plan' | translate }}
@@ -61,7 +61,7 @@
                             </div>
                             <app-table [setting]="reviewWarrantyPlan"></app-table>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
