@@ -1,12 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnType } from '@core/table';
-import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { BodyShopJobCardService, BodyShopRequestFacade, BodyShopRequestService } from '@feature/workshop/+state/body-shop';
 import moment from 'moment';
 import { map } from 'rxjs/operators';
 import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master'
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-asset-overview-request',
