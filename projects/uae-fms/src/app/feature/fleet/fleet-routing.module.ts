@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'sub-asset/edit-sub-asset/:id', component: AddSubAssetComponent },
   { path: 'department', component: OrganizationComponent },
   {
-    path: 'accessory/accessory-overview',
+    path: 'accessory/accessory-overview/:id',
     component: AccessoryOverviewComponent
   },
   { path: 'accessory/add-new-accessory', component: AddAccessoryComponent },

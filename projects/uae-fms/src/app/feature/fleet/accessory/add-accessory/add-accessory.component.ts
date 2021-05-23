@@ -94,21 +94,17 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
   setSearchValue = new Subject();
   setSearchValue$ = this.setSearchValue.asObservable();
 
-  assignedTo = [
-    { name: 'assignedTo Type 1', id: 1 },
-    { name: 'assignedTo Type 2', id: 2 },
-    { name: 'assignedTo Type 3', id: 3 }
-  ];
+  assignedTo = [];
 
-  assetsB;
-  subAssetsB;
+  // assetsB;
+  // subAssetsB;
   employee = [];
 
   formSubmitted = false;
   formChanged = false;
 
-  assets = [];
-  subAssets = [];
+  // assets = [];
+  // subAssets = [];
   isEdit = false;
   recordId: number;
   dialogType: string;
@@ -135,9 +131,9 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
         return {
           statusColor: '#00AFB9',
           Item: item.itemName,
-          Asset_SubAsset: item.assignedToEntity,
+          // Asset_SubAsset: item.assignedToEntity,
           Assigned_To: item.assignedToEmployeeId,
-          Quantity: item.quantity
+          // Quantity: item.quantity
         };
       })
     )
@@ -200,10 +196,10 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
     this.accessoryTypeFacade.loadAll();
     this.accessoryForm = this._fb.group({
       itemName: ['', Validators.required],
-      assignedToType: ['ASSET'],
-      assignedToEntity: ['', Validators.required],
+      // assignedToType: ['ASSET'],
+      // assignedToEntity: ['', Validators.required],
       accessoryTypeId: ['', Validators.required],
-      quantity: ['', Validators.required],
+      // quantity: ['', Validators.required],
       assignedToEmployeeId: ['']
     });
 
@@ -236,16 +232,16 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
               'assignedToEntity'
             ].value;
             break;
-          case 'asset':
-            selectedAsset = this.assetsB.find((a) => {
-              return a.id === this.assignedToEntity;
-            });
-            break;
-          case 'subAsset':
-            selectedAsset = this.subAssetsB.find((a) => {
-              return a.id === this.assignedToEntity;
-            });
-            break;
+          // case 'asset':
+          //   selectedAsset = this.assetsB.find((a) => {
+          //     return a.id === this.assignedToEntity;
+          //   });
+          //   break;
+          // case 'subAsset':
+          //   selectedAsset = this.subAssetsB.find((a) => {
+          //     return a.id === this.assignedToEntity;
+          //   });
+          //   break;
         }
 
         if (selectedAsset) {
@@ -276,29 +272,29 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
     this.subAssetFacade.subAsset$.pipe(map(
       x=>{console.log(x)}
     ))
-    this.subAssetFacade.subAsset$.subscribe((x) => {
-      this.subAssetsB = x.map((y) => ({
-        id: y.id,
-        name: y['makeName'] + ' ' + y['modelName']
-      }));
-      if (this.accessoryForm.value.assignedToType === 'SUB_ASSET') {
-        const subAsset = this.subAssetsB.find(
-          (a) => a.id === this.assignedToEntity
-        );
-        this.accessoryForm.controls['assignedToEntity'].setValue(subAsset);
-      }
-    });
-
-    this.assetMasterFacade.assetMaster$.subscribe((x) => {
-      this.assetsB = x.map((y) => ({
-        id: y.id,
-        name: y['makeName'] + ' ' + y['modelName']
-      }));
-      if (this.accessoryForm.value.assignedToType === 'ASSET') {
-        const asset = this.assetsB.find((a) => a.id === this.assignedToEntity);
-        this.accessoryForm.controls['assignedToEntity'].setValue(asset);
-      }
-    });
+    // this.subAssetFacade.subAsset$.subscribe((x) => {
+    //   this.subAssetsB = x.map((y) => ({
+    //     id: y.id,
+    //     name: y['makeName'] + ' ' + y['modelName']
+    //   }));
+    //   if (this.accessoryForm.value.assignedToType === 'SUB_ASSET') {
+    //     const subAsset = this.subAssetsB.find(
+    //       (a) => a.id === this.assignedToEntity
+    //     );
+    //     this.accessoryForm.controls['assignedToEntity'].setValue(subAsset);
+    //   }
+    // });
+    //
+    // this.assetMasterFacade.assetMaster$.subscribe((x) => {
+    //   this.assetsB = x.map((y) => ({
+    //     id: y.id,
+    //     name: y['makeName'] + ' ' + y['modelName']
+    //   }));
+    //   if (this.accessoryForm.value.assignedToType === 'ASSET') {
+    //     const asset = this.assetsB.find((a) => a.id === this.assignedToEntity);
+    //     this.accessoryForm.controls['assignedToEntity'].setValue(asset);
+    //   }
+    // });
   }
 
   handleSubmissionDialog() {
@@ -320,23 +316,23 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
     });
   }
 
-  filterAssets(event) {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.assets = this.assetsB.filter(
-      (x) => x.name.toLowerCase().indexOf(event.query.toLowerCase()) >= 0
-    );
-  }
+  // filterAssets(event) {
+  //   //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+  //   this.assets = this.assetsB.filter(
+  //     (x) => x.name.toLowerCase().indexOf(event.query.toLowerCase()) >= 0
+  //   );
+  // }
+  //
+  // filterSubAssets(event) {
+  //   //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+  //   this.subAssets = this.subAssetsB.filter(
+  //     (x) => x.name.toLowerCase().indexOf(event.query.toLowerCase()) >= 0
+  //   );
+  // }
 
-  filterSubAssets(event) {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.subAssets = this.subAssetsB.filter(
-      (x) => x.name.toLowerCase().indexOf(event.query.toLowerCase()) >= 0
-    );
-  }
-
-  assetChanged($event) {
-    // console.log($event);
-  }
+  // assetChanged($event) {
+  //   // console.log($event);
+  // }
 
   setAssetTypes(assetTypes) {
     if (!assetTypes) {
@@ -355,7 +351,6 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
     this.accessoryTypeFacade.accessoryType$.subscribe((result) => {
       if (result) {
         this.setAssetTypes(result);
-
         if (typeof cb === 'function') {
           cb();
         }
@@ -372,10 +367,10 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
       const d = this.accessoryForm.getRawValue();
       const _data = {
         itemName: d.itemName,
-        assignedToType: d.assignedToType,
-        assignedToEntity: d.assignedToEntity.id,
+        // assignedToType: d.assignedToType,
+        // assignedToEntity: d.assignedToEntity.id,
         accessoryConfigurationId : d.accessoryTypeId,
-        quantity: d.quantity,
+        // quantity: d.quantity,
         assignedToEmployeeId: d.assignedToEmployeeId
       };
       if (!this.isEdit) {

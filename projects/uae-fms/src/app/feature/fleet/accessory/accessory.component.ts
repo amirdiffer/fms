@@ -54,20 +54,20 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   accessory_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.item', type: 1, field: 'Item' },
-      { lable: 'tables.column.type', type: 1, field: 'Type' },
-      {
-        lable: 'tables.column.asset_sub_asset',
-        type: 1,
-        field: 'Asset_SubAsset'
-      },
+      // { lable: 'tables.column.type', type: 1, field: 'Type' },
+      // {
+      //   lable: 'tables.column.asset_sub_asset',
+      //   type: 1,
+      //   field: 'Asset_SubAsset'
+      // },
       { lable: 'tables.column.assigned_to', type: 1, field: 'Assigned_To' },
-      {
-        lable: 'tables.column.quantity',
-        type: 1,
-        field: 'Quantity',
-        width: 150,
-        sortable: true
-      },
+      // {
+      //   lable: 'tables.column.quantity',
+      //   type: 1,
+      //   field: 'Quantity',
+      //   width: 150,
+      //   sortable: true
+      // },
       {
         lable: '',
         field: 'floatButton',
@@ -86,7 +86,13 @@ export class AccessoryComponent implements OnInit, OnDestroy {
           },
           button: 'edit',
           color: '#3F3F3F'
-        }
+        },
+        {
+          button: 'external',
+          onClick: (col, data ,  button?) => {
+            this._router.navigate([`/fleet/accessory/accessory-overview/${data.id}`]);
+          }
+        },
       ]
     }
   };
