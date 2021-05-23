@@ -47,11 +47,7 @@
             <p-accordion *ngIf="customizationData" expandIcon="pi pi-fw pi-plus"collapseIcon="pi pi-fw pi-minus">
                 <p-accordionTab *ngIf="customizationData.accessories" header="{{ 'assets.accessories' | translate }}">
                   <div *ngFor="let item of customizationData.accessories;let i=index">
-                      <div class='camera-row' [hidden]='!isSecondStep || !item.accessoryId'>
-                        <span class='font-weight-bold green'>{{item.accessoryItemName}}</span>
-                        <span class='font-weight-bold green ml-2'>{{ 'assets.saved' | translate }}</span>
-                      </div>
-                      <div class="row camera-row" [hidden]='isSecondStep'>
+                      <div class="row camera-row">
                         <div class="title col-2">{{ item.accessoryConfigurationName | translate }}</div>
                         <div class="checkbox col-3">
                             <div class="form-group form-check px-3">
@@ -75,13 +71,7 @@
                 </p-accordionTab>
                 <p-accordionTab *ngIf="customizationData.subAssets" header="{{ 'assets.sub-assets' | translate }}">
                   <div *ngFor="let item of customizationData.subAssets;let i=index">
-                    <div class='camera-row' [hidden]='!isSecondStep || !item.subAssetSerialNumber'>
-                      <span class='font-weight-bold green'>{{item.subAssetConfigurationName}}</span>
-                      <span class='font-weight-bold green ml-2'>S/N:</span>
-                      <span class='font-weight-bold green ml-2'>{{item.subAssetSerialNumber}}</span>
-                      <span class='font-weight-bold green ml-2'>{{ 'assets.saved' | translate }}</span>
-                    </div>
-                    <div class='row camera-row' [hidden]='isSecondStep'>
+                    <div class='row camera-row'>
                       <div class="title col-2">{{ item.subAssetMakeName+" "+item.subAssetModelName | translate }}</div>
                       <div class="checkbox col-3">
                           <div class="form-group form-check px-3">

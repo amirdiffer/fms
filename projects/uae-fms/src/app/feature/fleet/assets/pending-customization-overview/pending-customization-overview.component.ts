@@ -78,8 +78,6 @@ export class PendingCustomizationOverviewComponent implements OnInit {
   subAssetLoaded = false;
   assetLoaded = false;
 
-  isSecondStep = false;
-
   constructor(
     private route: ActivatedRoute,
     private service: AssetMasterService,
@@ -160,7 +158,7 @@ export class PendingCustomizationOverviewComponent implements OnInit {
           if (a && a.message) {
             this.customizationData = a.message;
             this.customizationData.subAssets.forEach(e => {
-              this.outp.subAssets.push({ checked: e?.subAssetId ? true : false, subAssetId: (e?.subAssetId) ? e.accessoryId : '', assetBcSubAssetId: e.assetBcSubAssetId });
+              this.outp.subAssets.push({ checked: e?.subAssetId ? true : false, subAssetId: (e?.subAssetId) ? e.subAssetId : '', assetBcSubAssetId: e.assetBcSubAssetId });
             });
             this.customizationData.accessories.forEach(e => {
               this.outp.accessories.push({ checked: e?.accessoryId ? true : false, accessoryId: (e?.accessoryId) ? e.accessoryId : '', assetBcAccessoryId: e.assetBcAccessoryId });
@@ -203,10 +201,13 @@ export class PendingCustomizationOverviewComponent implements OnInit {
   }
 
   save() {
-    if (!this.isSecondStep) {
-      this.isSecondStep = true;
-      return;
-    }
+    this.dialogSetting = {
+      header: 'Apply Customization',
+      hasError: false,
+      message: 'Are you sure you want to apply Customization',
+      confirmButton: 'Yes',
+      cancelButton: 'Cancel'
+    };
 
     this.dialogModal = true;
   }
