@@ -3,12 +3,13 @@ import { Router } from "@angular/router";
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { AssetMasterService } from "../../+state/assets/asset-master";
 import { CustomizationService } from "../../+state/assets/customization";
 import { SubAssetService } from "../../+state/sub-asset";
 import { AccessoryService } from "../../+state/accessory";
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'anms-pending-customization-overview',
@@ -157,7 +158,7 @@ export class PendingCustomizationOverviewComponent implements OnInit {
           if (a && a.message) {
             this.customizationData = a.message;
             this.customizationData.subAssets.forEach(e => {
-              this.outp.subAssets.push({ checked: e?.subAssetId ? true : false, subAssetId: (e?.subAssetId) ? e.accessoryId : '', assetBcSubAssetId: e.assetBcSubAssetId });
+              this.outp.subAssets.push({ checked: e?.subAssetId ? true : false, subAssetId: (e?.subAssetId) ? e.subAssetId : '', assetBcSubAssetId: e.assetBcSubAssetId });
             });
             this.customizationData.accessories.forEach(e => {
               this.outp.accessories.push({ checked: e?.accessoryId ? true : false, accessoryId: (e?.accessoryId) ? e.accessoryId : '', assetBcAccessoryId: e.assetBcAccessoryId });
@@ -200,6 +201,14 @@ export class PendingCustomizationOverviewComponent implements OnInit {
   }
 
   save() {
+    this.dialogSetting = {
+      header: 'Apply Customization',
+      hasError: false,
+      message: 'Are you sure you want to apply Customization',
+      confirmButton: 'Yes',
+      cancelButton: 'Cancel'
+    };
+
     this.dialogModal = true;
   }
 
@@ -246,9 +255,20 @@ export class PendingCustomizationOverviewComponent implements OnInit {
         }).filter(z => z != null)
       };
 
-      this.cusService.compelete(outdata, this.assetId).subscribe(x => {
-        this.successDialogModal = true;
-      })
+      this.cusService.compelete(outdata, this.assetId)
+        .pipe(
+          tap(_ => {
+            this.successDialogModal = true;
+          }, (error: HttpErrorResponse) => {
+            if (error.status === 404) {
+              this.dialogModal = true;
+              this.dialogSetting.message = 'This Accessory or Sub asset is not usable';
+              this.dialogSetting.hasError = true;
+              this.dialogSetting.cancelButton = 'OK';
+              this.dialogSetting.confirmButton = undefined;
+            }
+          })
+        ).subscribe()
     }
   }
 

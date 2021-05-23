@@ -28,7 +28,7 @@ export class PartListService {
 
   getAccumulatedPartOfAsset(id): Observable<ResponseBody<any>>{
     return this._http.get<ResponseBody<any[]>>(
-      environment.baseApiUrl + '/partstore/part-list/asset/category/' + id +'/accumulated' ,{params: this.getParam('asset-accumulated-part-list')}
+      environment.baseApiUrl + 'partstore/part-list/asset/category/' + id +'/accumulated' ,{params: this.getParam('asset-accumulated-part-list')}
     )
   };
 
@@ -40,7 +40,7 @@ export class PartListService {
 
   getSpecificPartOfAsset(id):Observable<ResponseBody<any>>{
     return this._http.get<ResponseBody<any>>(
-      environment.baseApiUrl + 'partstore/part-list/asset/part/' + id 
+      environment.baseApiUrl + 'partstore/part-list/asset/part/' + id
     )
   };
 

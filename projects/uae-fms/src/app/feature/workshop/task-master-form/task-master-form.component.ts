@@ -82,8 +82,8 @@ export class TaskMasterFormComponent
     this._facade.loadAllSkill();
     this.taskMasterForm = this._fb.group({
       taskName: ['', [Validators.required]],
-      shopType: ['', [Validators.required]],
-      taskType: ['', [Validators.required]],
+      shopType: ['BODYSHOP', [Validators.required]],
+      taskType: ['NORMAL', [Validators.required]],
       instruction: ['', [Validators.required]],
       ratePerHour: [''],
       timeEstimate: ['', [Validators.required]],
@@ -91,7 +91,13 @@ export class TaskMasterFormComponent
       needPart: [false],
       part: this._fb.array([this._fb.control(null)])
     });
-
+    this.taskMasterForm.get('shopType').valueChanges.subscribe(x => {
+      if(x === 'SERVICESHOP'){
+        this.taskMasterForm.get('taskType').patchValue('ELECTRICAL_SERVICE')
+      }else{
+        this.taskMasterForm.get('taskType').patchValue('NORMAL')
+      }
+    })
     this.route.url.subscribe((params) => {
       this.isEdit = params.filter((x) => x.path === 'edit-task-master').length > 0;
       this.dialogSettingCancel.message = 'Are you sure that you want to cancel the task ' + (this.isEdit ? "edit?" : "creation?");

@@ -1,0 +1,41 @@
+
+.box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+.footer-card{
+    padding-top: 12px;
+    p , a{
+        padding:0;
+        font-size:.8em;
+        white-space: nowrap;
+    }
+    &.chart-labels{
+        .chart-label {
+            p {
+                &::before{
+                    content: '';
+                    width:.6em;
+                    height: .6em;
+                    display: inline-block;
+                    margin-right: .4em;
+                    border-radius: 50%;
+                }
+            }
+            p.f-label::before{
+                background-color: #39DA8A;
+            }
+            p.l-label::before{
+                background-color: #B1EECF;
+            }
+        }
+    }
+}
+
+.item__progress{
+    position: absolute;
+    right: 0;
+    top: -15px;
+}

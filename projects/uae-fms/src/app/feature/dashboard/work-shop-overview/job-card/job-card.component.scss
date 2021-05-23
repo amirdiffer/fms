@@ -1,0 +1,26 @@
+.total-title{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    opacity: .5;
+    p{
+        align-self: center;
+        font-size: 2.5em;
+        font-family: '29LT Bukra - Bold';
+        font-weight: bold;
+    }
+}
+
+apx-chart{
+    ::ng-deep{
+        .apexcharts-toolbar{
+            display: none;
+        }
+    }
+}
+
+.footer-card{
+    a{
+        color:#0DA06E
+    }
+}

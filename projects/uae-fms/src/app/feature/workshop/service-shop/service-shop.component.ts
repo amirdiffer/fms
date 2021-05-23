@@ -158,7 +158,8 @@ export class ServiceShopComponent implements OnInit {
           plateNumber:
             y.plateNumber != null ? y.plateNumber : 'Without Plate Number',
           department: y.department.name,
-          operatorName: y.operator.firstName + ' ' + y.operator.lastName
+          operatorName: y.operator.firstName + ' ' + y.operator.lastName,
+          assetTypeName:y.assetConfigurationName
         };
       });
     })
@@ -288,9 +289,7 @@ export class ServiceShopComponent implements OnInit {
           },
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
-            this.router.navigate(['/workshop/service-shop/add-job-card'], {
-              queryParams: { assetId: data.assetId }
-            });
+            this.router.navigate(['/workshop/service-shop/'+data.id+'/add-job-card']);
           }
         },
         {
@@ -515,9 +514,42 @@ export class ServiceShopComponent implements OnInit {
         type: ColumnType.lable,
         width: 100,
         sortable: true
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
-    data: []
+    data: [],
+    rowSettings: {
+      onClick: (col, data, button?) => {},
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this._facadeLocation.resetParams();
+            this.router.navigate([
+              '/workshop/service-shop/edit-location/' + data.id
+            ]);
+          }
+        }
+        /* {
+          button: 'external',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this._facadeRequest.resetParams();
+            this.router.navigate([
+              '/workshop/body-shop/technician/' + data.id
+            ]);
+          }
+        } */
+      ]
+    }
   };
   //#endregion
 

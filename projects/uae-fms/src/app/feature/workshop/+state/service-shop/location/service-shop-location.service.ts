@@ -44,7 +44,7 @@ export class ServiceShopLocationService {
   }
   getLocationById(id) {
     return this.http.get<ResponseBody<ILocation>>(
-      environment.baseApiUrl + 'workshop/serviceshop/location' + id
+      environment.baseApiUrl + 'workshop/serviceshop/location/' + id
     );
   }
 }

@@ -5,10 +5,12 @@ import { StoreModule } from '@ngrx/store';
 
 import { sidebarMenuReducer } from './state/sidebar-menu.reducer';
 import { SidebarMenuComponent } from './sidebar-menu.component';
+import { TechnicianSidebarMenuComponent } from "./technician-menu/technician-menu.component";
 import { SidebarMenuFacade } from './state/sidebar-menu.facade';
 import { GeneralServicesModule } from '../general-services';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { SharedModule } from '@shared/shared.module';
+import { TabViewModule } from "@core/tab-view";
 
 @NgModule({
   imports: [
@@ -17,12 +19,13 @@ import { SharedModule } from '@shared/shared.module';
     StoreModule.forFeature('sidebarMenu', sidebarMenuReducer),
     GeneralServicesModule,
     AngularSvgIconModule,
-    SharedModule
+    SharedModule,
+    TabViewModule
   ],
-  exports: [SidebarMenuComponent],
-  declarations: [SidebarMenuComponent],
+  exports: [SidebarMenuComponent,TechnicianSidebarMenuComponent],
+  declarations: [SidebarMenuComponent, TechnicianSidebarMenuComponent],
   providers: [SidebarMenuFacade]
 })
 export class SidebarMenuModule {
-  constructor() {}
+  constructor() { }
 }

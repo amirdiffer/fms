@@ -1,0 +1,20 @@
+.box {
+    .item {
+      &__icon {
+        background-color: #dbeee7;
+        width: 2.5em;
+        border-radius: .4em;
+        height: 2.5em;
+        & > span{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        &--pink {
+          background-color: #fff3e8;
+        }
+      }
+    }
+  }
+  
