@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <div class="col-12" *ngIf="activeTab == 'Overview'">
+        <div class="col-12 d-none" *ngIf="activeTab == 'Overview'">
           <div class="form-section filter-date">
             <ul>
               <li (click)="activeFilterDate = 'week'" [class.active]="activeFilterDate == 'week'">
