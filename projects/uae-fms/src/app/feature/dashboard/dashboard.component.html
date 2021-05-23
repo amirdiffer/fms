@@ -64,14 +64,14 @@
                 <dashboard-operator-statistics (finedOperator)="finedOperator=$event"></dashboard-operator-statistics>
             </div>
         </div>
-        <div class="col-3 category">
+        <div class="col-3 category" *ngIf="finedOperator">
             <div class="dashboard-card w-100">
                 <card-alert-dashboard [data]="finedOperator.lowestFinedOperator"
                     [title]="'dashboard.congratulations'"
                     [subTitle]="'dashboard.the_lowest_penalty_per_month'"></card-alert-dashboard>
             </div>
         </div>
-        <div class="col-3 category">
+        <div class="col-3 category" *ngIf="finedOperator">
             <div class="dashboard-card w-100">
                 <card-alert-dashboard [data]="finedOperator.highestFinedOperator"
                     [isAlert]="true"

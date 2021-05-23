@@ -9,13 +9,18 @@ import { IOperatorOverview } from '@models/statistics';
 })
 export class OperatorStatisticsComponent implements OnInit {
 
-  @Output('finedOperator') finedOperator: EventEmitter<{lowestFinedOperator: null;highestFinedOperator:null}> = new EventEmitter();
+  @Output('finedOperator') finedOperator: EventEmitter<any> = new EventEmitter();
   totalIcon = '/assets/icons/operator-total.svg';
   totalFineIcon = '/assets/icons/operator-total-fine.svg';
   activeIcon = '/assets/icons/operator-active.svg';
   deactiveIcon = '/assets/icons/operator-deactive.svg';
 
-  operatorOverviewData: IOperatorOverview;
+  operatorOverviewData: IOperatorOverview = {
+    numOfActiveOperators: 0,
+    numOfInactiveOperators: 0,
+    totalAmountOfFines: 0,
+    totalNumOfOperators: 0
+  };
 
   constructor(
     private _operatorOverview: OperatorService

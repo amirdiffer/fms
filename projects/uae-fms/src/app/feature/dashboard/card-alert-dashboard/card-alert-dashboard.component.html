@@ -14,8 +14,8 @@
     </div>
     <div class="box__body row ">
         <div class="col-9 d-flex flex-column justify-content-end">
-            <p class="mb-2 mt-3 content-text">{{data.fineAmount}}</p>
-            <div>
+            <p class="mb-2 mt-3 content-text" *ngIf="data">{{data.fineAmount}}</p>
+            <div *ngIf="data">
                 <button [routerLink]="['/fleet/operator/edit-operator', data.id]">{{'dashboard.view_operator_profil' | translate}}</button>
             </div>
         </div>
