@@ -13,6 +13,7 @@ export interface BodyShopRequestState extends EntityState<IRequest> {
   submitted: boolean;
   assetRequest?: IRequestListSpecificAsset[];
   resultNumber?: number;
+  specificRequest?: any;
 }
 
 export interface BodyshopRequestPartialState {
@@ -32,6 +33,7 @@ export const initialState: BodyShopRequestState = bodyShopRequestAdapter.getInit
     requests: [],
     submitted: false,
     assetRequest: [],
-    resultNumber: 0
+    resultNumber: 0,
+    specificRequest:null
   } as BodyShopRequestState
 );

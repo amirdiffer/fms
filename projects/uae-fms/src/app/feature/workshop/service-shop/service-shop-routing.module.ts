@@ -18,14 +18,19 @@ import { JobCardOverviewComponent } from "./job-card-overview/job-card-overview.
 const routes: Routes = [
   { path: '', component: ServiceShopComponent, pathMatch: 'full' },
   { path: 'add-request', component: AddRequestServiceShopComponent },
-  { path: 'edit-request/:id', component: AddRequestServiceShopComponent },
   { path: 'add-technician', component: AddTechnicianServiceShopComponent },
   {path: 'technician/:id' , component: TechnicianOverviewServiceShopComponent},
   { path: 'edit-technician/:id', component: AddTechnicianServiceShopComponent },
   { path: 'add-location', component: AddLocationServiceShopComponent },
+  { path: 'edit-location/:id', component: AddLocationServiceShopComponent },
   { path: 'add-job-card', component: AddJobCardServiceShopComponent },
+  { path: ':id/add-job-card', component: AddJobCardServiceShopComponent },
   { path: 'edit-job-card/:id', component: AddJobCardServiceShopComponent },
-  { path: 'request-overview/:id', component: RequestTabOverviewServiceShopComponent },
+  { path: 'request-overview/:id', component: RequestTabOverviewServiceShopComponent , children:[
+    { path: 'add-request', component: AddRequestServiceShopComponent },
+    { path: 'edit-request/:id', component: AddRequestServiceShopComponent },
+    { path: 'add-job-card', component: AddJobCardServiceShopComponent },
+  ]},
   { path: 'job-card-overview/:id', component: JobCardOverviewComponent }
 ];
 @NgModule({
