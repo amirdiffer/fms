@@ -14,8 +14,8 @@
               <!--                <app-speed-meter-chart></app-speed-meter-chart>-->
               <div class="chart">
                 <apx-chart id="chart"
-                           [series]="chartOptions.series"
-                           [labels]="chartOptions.labels"
+                           [series]="chartTrafficFineData.series"
+                           [labels]="chartTrafficFineData.labels"
                            [chart]="chartOptions.chart"
                            [responsive]="chartOptions.responsive"
                            [plotOptions]="chartOptions.plotOptions"
@@ -32,11 +32,11 @@
               </div>
               <div>
                 <apx-chart id="chart2"
-                           [series]="chartOptionsColumn.series"
+                           [series]="chartFuelCardData.series"
                            [chart]="chartOptionsColumn.chart"
                            [responsive]="chartOptionsColumn.responsive"
                            [plotOptions]="chartOptionsColumn.plotOptions"
-                           [xaxis]="chartOptionsColumn.xaxis"
+                           [xaxis]="{'categories': chartFuelCardData.categories}"
                            [legend]="chartOptionsColumn.legend"
                 ></apx-chart>
               </div>
@@ -145,38 +145,16 @@
             </div>
             <div class="col-12">
               <div class="row my-3">
-                <div class="my-2 mx-1">
-                  <div class="item-body rounded">
-                    <div class="item-body__title">Title is Here</div>
-                    <div class="item-body__desc my-1">00/00/0000</div>
-                    <img class="item-body__img" src="assets/thumb.png">
-                    <div class="item-body__author my-1">Reported By Mohammad</div>
+                <ng-container *ngFor="let item of damageList">
+                  <div class="my-2 mx-1">
+                    <div class="item-body rounded">
+                      <div class="item-body__title">{{ item.title }}</div>
+                      <div class="item-body__desc my-1">{{ item.date | date }}</div>
+                      <img class="item-body__img" [src]="fileServer+item.docId">
+                      <div class="item-body__author my-1">{{ 'assets.overview.requests.reported_by' | translate }} {{ item.reportedBy.firstName }}  {{ item.reportedBy.lastName }} </div>
+                    </div>
                   </div>
-                </div>
-                <div class="my-2 mx-1">
-                  <div class="item-body rounded">
-                    <div class="item-body__title">Title is Here</div>
-                    <div class="item-body__desc my-1">00/00/0000</div>
-                    <img class="item-body__img" src="assets/thumb.png">
-                    <div class="item-body__author my-1">Reported By Mohammad</div>
-                  </div>
-                </div>
-                <div class="my-2 mx-1">
-                  <div class="item-body rounded">
-                    <div class="item-body__title">Title is Here</div>
-                    <div class="item-body__desc my-1">00/00/0000</div>
-                    <img class="item-body__img" src="assets/thumb.png">
-                    <div class="item-body__author my-1">Reported By Mohammad</div>
-                  </div>
-                </div>
-                <div class="my-2 mx-1">
-                  <div class="item-body rounded">
-                    <div class="item-body__title">Title is Here</div>
-                    <div class="item-body__desc my-1">00/00/0000</div>
-                    <img class="item-body__img" src="assets/thumb.png">
-                    <div class="item-body__author my-1">Reported By Mohammad</div>
-                  </div>
-                </div>
+                </ng-container>
               </div>
             </div>
           </div>

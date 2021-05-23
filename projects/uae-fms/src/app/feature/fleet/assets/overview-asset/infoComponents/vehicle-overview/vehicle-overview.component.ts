@@ -17,6 +17,7 @@ import { ColumnType } from '@core/table';
 import { map } from 'rxjs/operators';
 import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 import { CustomizationService } from '@feature/fleet/+state/assets/customization';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-vehicle-overview',
@@ -29,6 +30,8 @@ export class VehicleOverviewComponent implements OnInit {
   chartOptions: Partial<ChartOptions>;
   chartOptionsColumn: Partial<ChartOptions>;
   selectedTab = 'sub_asset';
+  damageList = [];
+  fileServer = environment.baseApiUrl + 'document/';
 
   data = {
     totalKm: 14245,
@@ -221,14 +224,23 @@ export class VehicleOverviewComponent implements OnInit {
     data: []
   };
 
+  chartTrafficFineData = {
+    series: [],
+    labels: []
+  };
+  chartFuelCardData = {
+    series: [],
+    categories: []
+  };
+
 
   constructor(
     private assetService: AssetMasterService,
     private customizationService: CustomizationService,
   ) {
     this.chartOptions = {
-      series: [44, 55, 41],
-      labels: ["Paid", "Unpaid", "Deducted"],
+      series: [],
+      labels: [],
       chart: {
         type: 'donut',
         height: 280,
@@ -307,7 +319,7 @@ export class VehicleOverviewComponent implements OnInit {
         colors: ['transparent']
       },
       xaxis: {
-        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        categories: [],
       },
       yaxis: {
         title: {
@@ -360,6 +372,31 @@ export class VehicleOverviewComponent implements OnInit {
           Status: x['accessoryId']!=null ? 'Uninstall' : 'Install'
         }
       });
+    });
+    this.assetService.getDamageByAssetID(this.assetID).subscribe(x => {
+      this.damageList = x.message;
+    });
+    this.assetService.getTrafficFineByAssetID(this.assetID).subscribe(x => {
+      let data = x.message;
+      this.chartTrafficFineData.labels = Object.keys(data);
+      this.chartTrafficFineData.series = Object.values(data);
+    });
+    this.assetService.getFuelCardByAssetID(this.assetID).subscribe(x => {
+      let data = (<Array<object>>x.message);
+      this.chartFuelCardData.categories = data.map(d => d['month'])
+      let demanded = data.map(d => d['demanded']);
+      let consumption = data.map(d => d['consumption']);
+      this.chartFuelCardData.series = [
+        {
+          name: "Demanded",
+          data: demanded
+        },
+        {
+          name: "Consumption",
+          data: consumption
+        }
+      ];
+      console.log(this.chartFuelCardData);
     });
   }
 }

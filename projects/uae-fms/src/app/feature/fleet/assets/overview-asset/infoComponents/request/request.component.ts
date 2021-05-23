@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColumnType } from '@core/table';
 import { BodyShopJobCardService, BodyShopRequestService } from '@feature/workshop/+state/body-shop';
 import moment from 'moment';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 
 @Component({
   selector: 'app-asset-overview-request',
@@ -13,7 +14,7 @@ export class RequestComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private bodyShopJobCardService: BodyShopJobCardService,
-    private bodyShopRequestService: BodyShopRequestService
+    private assetMasterService: AssetMasterService
   ) {}
 
   @Input() assetID;
@@ -52,7 +53,7 @@ export class RequestComponent implements OnInit {
       },
       {
         lable: 'tables.column.status',
-        field: 'status',
+        field: 'Status',
         width: 100,
         type: ColumnType.lable,
         thumbField: '',
@@ -135,17 +136,17 @@ export class RequestComponent implements OnInit {
         thumbField: ''
       },
       {
-        lable: 'tables.column.duration',
-        field: 'duration',
-        width: 100,
+        lable: 'tables.column.end_date',
+        field: 'end_date',
+        width: 130,
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'tables.column.end_date',
-        field: 'end_date',
-        width: 130,
+        lable: 'tables.column.duration',
+        field: 'duration',
+        width: 100,
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
@@ -165,6 +166,14 @@ export class RequestComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
+      },
+      {
+        lable: 'tables.column.status',
+        field: 'Status',
+        width: 100,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'statusRenderer'
       },
       {
         lable: 'tables.column.technician',
@@ -201,63 +210,7 @@ export class RequestComponent implements OnInit {
         sortable: true
       }
     ],
-    data: [
-      {
-        start_date: '02-02-2020',
-        duration: '5 Hours',
-        end_date: '02-02-2020',
-        actual_end_date: '02-02-2020',
-        delay: '7 Days',
-        technician: 'Mohammad, Ahmad',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      },
-      {
-        start_date: '02-02-2020',
-        duration: '5 Hours',
-        end_date: '02-02-2020',
-        actual_end_date: '02-02-2020',
-        delay: '7 Days',
-        technician: 'Mohammad, Ahmad',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      },
-      {
-        start_date: '02-02-2020',
-        duration: '5 Hours',
-        end_date: '02-02-2020',
-        actual_end_date: '02-02-2020',
-        delay: '7 Days',
-        technician: 'Mohammad, Ahmad',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      },
-      {
-        start_date: '02-02-2020',
-        duration: '5 Hours',
-        end_date: '02-02-2020',
-        actual_end_date: '02-02-2020',
-        delay: '7 Days',
-        technician: 'Mohammad, Ahmad',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      },
-      {
-        start_date: '02-02-2020',
-        duration: '5 Hours',
-        end_date: '02-02-2020',
-        actual_end_date: '02-02-2020',
-        delay: '7 Days',
-        technician: 'Mohammad, Ahmad',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      }
-    ],
+    data: [],
     rowSettings: {
       floatButton: []
     }
@@ -345,7 +298,7 @@ export class RequestComponent implements OnInit {
       file: ['']
     });
 
-    this.bodyShopJobCardService.getAssetActiveJobCard(this.assetID).subscribe(x => {
+    this.assetMasterService.getActiveJobCardByAssetID(this.assetID).subscribe(x => {
       let data = x.message['tasks'];
       this.listActiveJobCard = data;
       this.jobCard_Table1.data = (<Array<object>>data).map(d => {
@@ -354,7 +307,7 @@ export class RequestComponent implements OnInit {
           task: d['taskMaster']['name'],
           priority: d['priorityOrder'],
           duration: d['taskMaster']['timeEstimate'],
-          status: d['status'],
+          Status: d['status'],
           start_date: d['startDate'],
           technician: d['technician']['firstName'] + ' ' + d['technician']['lastName'],
           cost: d['cost'] + ' AED',
@@ -363,21 +316,37 @@ export class RequestComponent implements OnInit {
         }
       })
     });
-
-    this.bodyShopRequestService.getRequestListByAssetId(this.assetID).subscribe(x => {
+    this.assetMasterService.getJobCardByAssetID(this.assetID).subscribe(x => {
+      let data = x.message;
+      this.jobCard_Table2.data = (<Array<object>>data).map(d => {
+        return {
+          start_date: d['startDate'],
+          end_date: d['endDate'],
+          duration: this.diffDate(d['startDate'], d['endDate']) + ' Hours',
+          actual_end_date: d['start_date'],
+          delay: d['start_date'],
+          technician: d['start_date'],
+          Status: d['status'],
+          cost: d['cost'],
+          part_cost: d['partCost'],
+          total_cost: d['start_date']
+        }
+      })
+    });
+    this.assetMasterService.getRequestsByAssetID(this.assetID).subscribe(x => {
       let data = x.message;
       this.jobCard_Table3.data = (<Array<object>>data).map(d => {
         return {
           issue: d['request'],
           date: d['createdAt'],
           description: d['description'],
-          Status: d['approvedStatus'],
+          Status: d['approveStatus'],
           issue_type: d['accidentType'],
           reported_by: d['creator']['firstName'] + ' ' + d['creator']['lastName'],
           attachment: d['documentIds']
         }
       })
-    })
+    });
 
   }
 
@@ -385,6 +354,13 @@ export class RequestComponent implements OnInit {
     this.detailsJobCard = this.listActiveJobCard.filter(x => x.id == id )[0]
     if (this.detailsJobCard['startDate'])
       this.detailsJobCard['startDate'] = moment.utc(this.detailsJobCard['startDate'] * 1000).local().format('DD-MM-YYYY')
+  }
+
+  diffDate(x,y) {
+    let endDate = moment.utc(y*1000).local().toDate();
+    let startDate = moment.utc(x*1000).local().toDate();
+    let diffDate = moment(endDate).diff(startDate, 'hours');
+    return diffDate
   }
 
 }

@@ -64,4 +64,40 @@ export class AssetMasterService {
     )
   }
 
+  getRequestsByAssetID(id){
+    return this._http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'asset/' + id + '/request'
+    )
+  }
+
+  getJobCardByAssetID(id){
+    return this._http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'asset/' + id + '/jobcard'
+    )
+  }
+
+  getActiveJobCardByAssetID(id){
+    return this._http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'asset/' + id + '/jobcard/active'
+    )
+  }
+
+  getDamageByAssetID(id) {
+    return this._http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'asset/' + id + '/damage'
+    )
+  }
+
+  getTrafficFineByAssetID(id) {
+    return this._http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'asset/' + id + '/traffic-fine'
+    )
+  }
+
+  getFuelCardByAssetID(id) {
+    return this._http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'asset/' + id + '/fuel-card'
+    )
+  }
+
 }
