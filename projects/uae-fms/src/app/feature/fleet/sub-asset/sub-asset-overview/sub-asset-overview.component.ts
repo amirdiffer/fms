@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ILifeCycle } from '@core/charts/life-cycle.chart.component';
 import { TableSetting } from '@core/table';
-import { AssetPolicyService } from '@feature/configuration/+state/asset-policy';
+import { AssetPolicyFacade, AssetPolicyService } from '@feature/configuration/+state/asset-policy';
 import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,7 +15,13 @@ import { IReminders, IRemindersType } from './reminder/reminder.component';
 })
 export class SubAssetOverviewComponent implements OnInit {
   subAssetdata$:Observable<any> = of(null);
+  policyTypeTableData$:Observable<any>;
+  calculateTableData$:Observable<any>;
   id:number;
+  purchaseValue:number;
+  startDate;
+  assetPolicy:any;
+  lifeCycleData:ILifeCycle[]
   reminderData:IReminders[] =[
     {
       title:'Text Text',
@@ -81,18 +88,7 @@ export class SubAssetOverviewComponent implements OnInit {
         renderer: ''
       }
     ],
-    data: [
-      {
-        depreciationValue:'%20',
-        maxUsageYear:'After 5 years',
-        maxUsageKPHour:'-'
-      },
-      {
-        depreciationValue:'',
-        maxUsageYear:'02/02/2020',
-        maxUsageKPHour:'-'
-      }
-    ]
+    data: []
   };
   reviewPlaneSettingTable2: TableSetting = {
     columns: [
@@ -110,44 +106,39 @@ export class SubAssetOverviewComponent implements OnInit {
         renderer: ''
       }
     ],
-    data: [
-      {
-        year:1,
-        bookValue:'43000 AED'
-      },
-      {
-        year:2,
-        bookValue:'39000 AED'
-      },
-      {
-        year:3,
-        bookValue:'36000 AED'
-      },
-      {
-        year:4,
-        bookValue:'16000 AED'
-      },
-      {
-        year:5,
-        bookValue:'0 AED'
-      }
-    ]
+    data: []
   };
   constructor(private _activatedRoute:ActivatedRoute,
               private _subAssetFacede: SubAssetFacade,
-              private _assetPolicy:AssetPolicyService) { }
+              private _assetPolicyFacade:AssetPolicyFacade) { }
 
   ngOnInit(): void {
-    this.id = this._activatedRoute.snapshot.params.id
+    this.id = this._activatedRoute.snapshot.params.id;
+    this.policyTypeTableData$ = this._assetPolicyFacade.specific$.pipe(
+      map(x => {
+        if(x){
+          this.assetPolicy = x;
+          this.calculate();
+          return [
+            {
+              depreciationValue:`%${x.depreciationValue}`,
+              maxUsageYear:`After ${x.maxUsageYear} ${x.maxUsageYear < 2 ? 'Year' : 'Years'}`,
+              maxUsageKPHour:`After ${x.maxUsageKPHour} km/h`
+            }
+          ]
+        }
+      })
+    )
     if(this.id){
       this._subAssetFacede.getSpecificSubAsset(this.id)
-      // this._subAssetFacede.specificSubAsset$.subscribe(x =>{console.log(x)})
       this.subAssetdata$ =  this._subAssetFacede.specificSubAsset$.pipe(
         map(x=>{
           if(x){
-            console.log(x)
+            this.purchaseValue = x.purchaseValue
+            this._assetPolicyFacade.specific(x.policyTypeId);
+            this.startDate = new Date(x.createdAt *1000).getUTCFullYear()
             return {
-              title:'Camera No 34567',
+              title:`Sub Asset No.${x.serialNumber}`,
               vin_sn: x.serialNumber,
               subAssetType: x.subAssetConfigurationName,
               make:x.subAssetMakeName,
@@ -170,6 +161,42 @@ export class SubAssetOverviewComponent implements OnInit {
       );
       
     }
+  };
+
+  calculate(){
+    let depreciationValue = this.assetPolicy.depreciationValue,
+        maxUsageKPHour = this.assetPolicy.maxUsageKPHour,
+        maxUsageYear = this.assetPolicy.maxUsageYear,
+        purchaseValue = this.purchaseValue,
+        tableData = [],
+        newDepreciationValue = depreciationValue / maxUsageYear
+    for (let index = 0; index < 9; index++) {
+      let value = Math.round((purchaseValue * newDepreciationValue) / 100);
+      purchaseValue = purchaseValue - value;
+      tableData.push({
+        year:index+1,
+        bookValue:`${purchaseValue} AED`
+      })
+    }
+    this.reviewPlaneSettingTable2.data = tableData
+    this.calculateTableData$ = of(tableData);
+    let LifeCycle =[];
+    let service = []
+    let year = this.startDate;
+    if(maxUsageYear > 1) {
+      for (let i = 0; i < maxUsageYear; i++) {
+        service.push({title:i})
+      } 
+    }
+    for (let index = 0; index <  4; index++) {
+      LifeCycle.push({
+        year:year,
+        mileage:'',
+        service: index < 3 ? service : []
+      });
+      year = year + maxUsageYear;
+    }
+    this.lifeCycleData = LifeCycle
   }
 
 }

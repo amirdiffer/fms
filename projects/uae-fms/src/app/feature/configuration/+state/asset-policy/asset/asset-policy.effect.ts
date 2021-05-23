@@ -61,6 +61,20 @@ export class AssetPolicyEffect {
     )
   );
 
+  getSpecificAssetPolicy = createEffect(() =>
+    this.action$.pipe(
+      ofType(AssetPolicyActions.getSpecificAssetPolicy),
+      mergeMap((action) =>
+        this.service.getAssetById(action.id).pipe(
+          map((data) => {
+            return AssetPolicyActions.specificAssetPolicyLoaded({ data: data.message });
+          }),
+          catchError((error) => of(AssetPolicyActions.error({ reason: error })))
+        )
+      )
+    )
+  );
+
   constructor(
     private action$: Actions,
     private service: AssetPolicyService,

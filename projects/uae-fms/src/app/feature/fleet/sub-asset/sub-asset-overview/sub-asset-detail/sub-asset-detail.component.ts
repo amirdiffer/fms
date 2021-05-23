@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from '@environments/environment'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'anms-sub-asset-detail',
@@ -10,6 +11,7 @@ import { environment } from '@environments/environment'
 export class SubAssetDetailComponent implements OnInit {
 
   @Input() data:Observable<any>;
+  id:number;
   warranty$:Observable<any>=of([]);
   subAsset$:Observable<any>=of({
     title:'',
@@ -23,9 +25,10 @@ export class SubAssetDetailComponent implements OnInit {
     avatar:'assets/thumb.png',
   });
   selectedWaranty = 0
-  constructor() { }
+  constructor(private _activateRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.id = this._activateRoute.snapshot.params?.id
     if(this.data){
       this.data.subscribe(x=>{
         if(x){

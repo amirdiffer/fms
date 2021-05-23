@@ -14,7 +14,7 @@
         <div class="col-9">
             <div class="component_sec_wrapper px-2 pt-3 pb-5">
                 <div class="lifecycle py-4">
-                    <app-life-cycle-chart></app-life-cycle-chart>
+                    <app-life-cycle-chart [lifeCycleData]="lifeCycleData"></app-life-cycle-chart>
                 </div>
             </div>
             <div class="row">
@@ -32,15 +32,15 @@
                             <div class="component-title pb-3">
                                 {{ 'sub_asset.review_your_policy_plan' | translate }}
                             </div>
-                            <app-table [setting]="reviewPlaneSettingTable"></app-table>
+                            <app-table [setting]="reviewPlaneSettingTable" [tableData]="policyTypeTableData$"></app-table>
                             <br><br>
-                            <app-table [setting]="reviewPlaneSettingTable2" class="mt-5"></app-table>
+                            <app-table [setting]="reviewPlaneSettingTable2" class="mt-5" [tableData]="calculateTableData$"></app-table>
                         </div>
                         <div class="row table-field pb-4">
                             <div class="col-12 col-md-8  p-field form-section__field">
                                 <span class="p-float-label d-flex">
-                                  <input pInputText [placeholder]=" 'assets.estimate_market_value' | translate"  type="text" value="21000">
-                                  <label>{{ 'assets.estimate_market_value' | translate }}</label>
+                                  <input pInputText [placeholder]=" 'assets.estimate_market_value' | translate"  type="text" [(ngModel)]="purchaseValue" disabled>
+                                  <label>{{ 'assets.purchase_value' | translate }}</label>
                                   <span class="input-money-pipe">AED</span>
                                 </span>
                             </div>
