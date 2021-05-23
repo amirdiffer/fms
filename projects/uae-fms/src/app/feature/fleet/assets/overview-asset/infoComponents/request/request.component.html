@@ -1,12 +1,12 @@
 <div class="table-container" *ngIf="section == 'list'">
   <div class="card-table">
     <div class="row px-2">
-      <div class="col-12">
+      <div class="col-12 d-none">
         <p>Description is here, Description is here, Description is here, Description is here, Description is here,
           Description is here, Description is here, Description is here, Description is here, Description is here,
         </p>
       </div>
-      <div class="col-12">
+      <div class="col-12 d-none">
         <p>
           <b>Location:</b> Location Is here, Location Is here
         </p>
@@ -53,7 +53,7 @@
 </div>
 <ng-container *ngIf="section == 'detail-box'">
   <div class="edit-box">
-    <div class="edit-box__box edit-box__box--first col-md-3">
+    <div class="edit-box__box edit-box__box--first col-md-3 d-none">
       <h3>{{ 'assets.overview.job_card.latest_activity' | translate }}</h3>
       <ul class="activities-step">
         <li>
@@ -93,7 +93,7 @@
         </li>
       </ul>
     </div>
-    <div class="edit-box__box edit-box__box--first col-md-5">
+    <div class="edit-box__box edit-box__box--first col-md-6">
       <h3>{{ 'assets.overview.job_card.task_specification' | translate }}</h3>
       <ul class="task_specification">
         <li>
@@ -137,7 +137,7 @@
         </li>
       </ul>
     </div>
-    <div class="edit-box__box edit-box__box--last col-md-4">
+    <div class="edit-box__box edit-box__box--last col-md-6">
       <h3>{{ 'assets.overview.job_card.task_master_info' | translate }}</h3>
       <ul class="task_master">
         <li>
