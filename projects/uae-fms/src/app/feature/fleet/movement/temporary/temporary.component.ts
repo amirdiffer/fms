@@ -193,7 +193,7 @@ export class TemporaryComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.request_status',
@@ -262,7 +262,7 @@ export class TemporaryComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.department',

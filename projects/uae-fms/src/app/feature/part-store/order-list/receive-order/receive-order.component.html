@@ -1,176 +1,190 @@
-<div class='row'>
-  <div class='col-3'>
-    <div class='form-section'>
-      <div class='carousel-component'>
-        <p-carousel [value]='images$ | async' [numVisible]='1' [numScroll]='1' [circular]='true'>
-          <ng-template let-image pTemplate='item'>
-            <div class='image-item'>
-              <div class='image-item-content'>
-                <div class='p-mb-3 d-flex justify-content-center'>
-                  <img src='{{image.address}}' />
+<div class="part-overview">
+  <div class="row">
+    <div class="col-3">
+      <div class="form-section p-0">
+        <div class="carousel-component">
+          <p-carousel [value]="images$ | async" [numVisible]="1" [numScroll]="1" [circular]="true" [class.disable-navigator] = "(images$ | async).length == 1 || (images$ | async).length == 0">
+            <ng-template let-image pTemplate="item">
+                <div class="image-item">
+                    <div class="image-item-content">
+                        <div class="p-mb-3 d-flex justify-content-center">
+                            <img src="{{image.address}}" />
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+        </div>
+        <div class="overview-container">
+          <hr class="line">
+          <div class='row justify-content-between mt-4'>
+            <h3 class="part-overview__title mx-4">{{(item$ | async).name}}</h3>
+          </div>
+          <table class="part-overview__info">
+            <tr>
+              <th>{{ 'tables.column.category' | translate }}</th>
+              <td>{{(item$ | async).categoryName}}</td>
+            </tr>
+            <tr>
+              <th>{{ 'tables.column.make' | translate }}</th>
+              <td>{{(item$ | async).makeName}}</td>
+            </tr>
+            <tr>
+              <th>{{ 'tables.column.model' | translate }}</th>
+              <td>{{(item$ | async).modelName}}</td>
+            </tr>
+            <tr>
+              <th>{{ 'tables.column.description' | translate }}</th>
+              <td>{{(item$ | async).description}}</td>
+            </tr>
+            <tr>
+              <th [ngStyle]="{'vertical-align':'baseline'}">{{ 'tables.column.suppliers' | translate }}</th>
+              <td>
+                <ng-container *ngFor="let supplier of (item$ | async).suppliers">
+                  <p>{{supplier.companyName}}</p>
+                  <p>{{supplier.companyName}}</p>
+                  <p>{{supplier.companyName}}</p>
+                </ng-container>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-9">
+      <form [formGroup]='form'>
+        <div class='button-container'>
+          <button class='btn-primary-medium btn-scondary-green' type='button' (click)='cancelForm()'>{{ 'forms.cancel' | translate}}</button>
+          <button class='btn-primary-medium add' type='submit' (click)='submit()'>{{ 'forms.receive' | translate}}</button>
+        </div>
+        <div class='form-section'>
+          <div class='position-relative'>
+            <div class='item-info d-flex'>
+              <h3 class='form-section__title m-0 align-self-center'>{{ 'part_store.part_list.item_info' | translate}}</h3>
+            </div>
+            <div class='row mt-4'>
+              <div class='col-3'>
+                <div class='p-field form-section__field'>
+                            <span class='p-float-label'>
+                                <input pInputText numbersOnly formControlName='quantity'
+                                      placeholder="{{'part_store.part_list.quantity' | translate}} *" type='text'>
+                                <label>{{ 'part_store.part_list.quantity' | translate}} *</label>
+                            </span>
+                  <anms-error
+                    [showError]="hasError('quantity',form,submitted)"
+                    error='forms.feedback.required'>
+                  </anms-error>
+                </div>
+              </div>
+              <div class='col-4'>
+                <div class='p-field form-section__field'>
+                            <span class='p-float-label'>
+                                <input pInputText numbersOnly formControlName='price'
+                                       placeholder="{{'part_store.part_list.price' | translate}} *" type='text'>
+                                <label>{{ 'part_store.part_list.price' | translate}} *</label>
+                            </span>
+                  <anms-error
+                    [showError]="hasError('price',form,submitted)"
+                    error='forms.feedback.required'>
+                  </anms-error>
+                </div>
+              </div>
+              <div class='col-5'>
+                <div class='p-field form-section__field date-input'>
+                            <span class='p-float-label'>
+                              <p-calendar inputId='basic' formControlName='warrantyStartDate'
+                                          [readonlyInput]='true'></p-calendar>
+                              <svg-icon class='date-icon' [src]='calenderIcon'
+                                        [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
+                              <label>{{ 'part_store.part_list.warranty_expire_date' | translate }}</label>
+                            </span>
+                  <anms-error
+                    [showError]="hasError('warrantyStartDate',form,submitted)"
+                    error='forms.feedback.required'>
+                  </anms-error>
+                </div>
+              </div>
+              <div class='col-12'>
+                <div class='p-field form-section__field'>
+                            <span class='p-float-label'>
+                                <input pInputText formControlName='description'
+                                       placeholder="{{'part_store.part_list.description' | translate}} *" type='text'>
+                                <label>{{ 'part_store.part_list.description' | translate}} *</label>
+                            </span>
+                  <anms-error
+                    [showError]="hasError('description',form,submitted)"
+                    error='forms.feedback.required'>
+                  </anms-error>
                 </div>
               </div>
             </div>
-          </ng-template>
-        </p-carousel>
-      </div>
-      <div class='overview-container'>
-        <hr class='line'>
-        <div class='row justify-content-between mt-4'>
-          <h3 class='part-overview__title ml-4'>{{(item$ | async).name}}</h3>
+          </div>
         </div>
-        <table class='part-overview__info'>
-          <tr>
-            <th>{{ 'tables.column.category' | translate }}</th>
-            <td>{{(item$ | async).categoryName}}</td>
-          </tr>
-          <tr>
-            <th>{{ 'tables.column.make' | translate }}</th>
-            <td>{{(item$ | async).makeName}}</td>
-          </tr>
-          <tr>
-            <th>{{ 'tables.column.model' | translate }}</th>
-            <td>{{(item$ | async).modelName}}</td>
-          </tr>
-          <tr>
-            <th>{{ 'tables.column.suppliers' | translate }}</th>
-            <td>{{(item$ | async).suppliers ? (item$ | async).suppliers[0].companyName : 'Company name'}}</td>
-          </tr>
-        </table>
-      </div>
+        <div class='form-section'>
+          <div class='row'>
+            <div class='col d-flex'>
+              <div class='p-field form-section__field d-flex'>
+                <h3
+                  class='form-section__title m-0 align-self-center'>{{ 'part_store.part_list.storage_location' | translate}}</h3>
+              </div>
+            </div>
+            <div class='col'>
+              <div class='p-field form-section__field'>
+                        <span class='p-float-label'>
+                            <input pInputText formControlName='room'
+                                   placeholder="{{'part_store.part_list.room' | translate}} *" type='text'>
+                            <label>{{ 'part_store.part_list.room' | translate}} *</label>
+                        </span>
+                <anms-error
+                  [showError]="hasError('room',form,submitted)"
+                  error='forms.feedback.required'>
+                </anms-error>
+              </div>
+            </div>
+            <div class='col'>
+              <div class='p-field form-section__field'>
+                        <span class='p-float-label'>
+                            <input pInputText formControlName='aisle'
+                                   placeholder="{{'part_store.part_list.aisle' | translate}} *" type='text'>
+                            <label>{{ 'part_store.part_list.aisle' | translate}} *</label>
+                        </span>
+                <anms-error
+                  [showError]="hasError('aisle',form,submitted)"
+                  error='forms.feedback.required'>
+                </anms-error>
+              </div>
+            </div>
+            <div class='col'>
+              <div class='p-field form-section__field'>
+                        <span class='p-float-label'>
+                            <input pInputText formControlName='shelf'
+                                   placeholder="{{'part_store.part_list.shelf' | translate}} *" type='text'>
+                            <label>{{ 'part_store.part_list.shelf' | translate}} *</label>
+                        </span>
+                <anms-error
+                  [showError]="hasError('shelf',form,submitted)"
+                  error='forms.feedback.required'>
+                </anms-error>
+              </div>
+            </div>
+            <div class='col'>
+              <div class='p-field form-section__field'>
+                        <span class='p-float-label'>
+                            <input pInputText formControlName='box'
+                                   placeholder="{{'part_store.part_list.box' | translate}} *" type='text'>
+                            <label>{{ 'part_store.part_list.box' | translate}} *</label>
+                        </span>
+                <anms-error
+                  [showError]="hasError('box',form,submitted)"
+                  error='forms.feedback.required'>
+                </anms-error>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
-  <form class='col-9' [formGroup]='form'>
-    <div class='button-container'>
-      <button class='btn-primary-medium btn-scondary-green' type='button' (click)='cancelForm()'>{{ 'forms.cancel' | translate}}</button>
-      <button class='btn-primary-medium add' type='submit' (click)='submit()'>{{ 'forms.receive' | translate}}</button>
-    </div>
-    <div class='form-section'>
-      <div class='position-relative'>
-        <div class='item-info d-flex'>
-          <h3 class='form-section__title m-0 align-self-center'>{{ 'part_store.part_list.item_info' | translate}}</h3>
-        </div>
-        <div class='row mt-4'>
-          <div class='col-3'>
-            <div class='p-field form-section__field'>
-                        <span class='p-float-label'>
-                            <input pInputText formControlName='quantity'
-                                   placeholder="{{'part_store.part_list.quantity' | translate}} *" type='text'>
-                            <label>{{ 'part_store.part_list.quantity' | translate}} *</label>
-                        </span>
-              <anms-error
-                [showError]="hasError('quantity',form,submitted)"
-                error='forms.feedback.required'>
-              </anms-error>
-            </div>
-          </div>
-          <div class='col-4'>
-            <div class='p-field form-section__field'>
-                        <span class='p-float-label'>
-                            <input pInputText formControlName='price'
-                                   placeholder="{{'part_store.part_list.price' | translate}} *" type='text'>
-                            <label>{{ 'part_store.part_list.price' | translate}} *</label>
-                        </span>
-              <anms-error
-                [showError]="hasError('price',form,submitted)"
-                error='forms.feedback.required'>
-              </anms-error>
-            </div>
-          </div>
-          <div class='col-5'>
-            <div class='p-field form-section__field date-input'>
-                        <span class='p-float-label'>
-                          <p-calendar inputId='basic' formControlName='warrantyStartDate'
-                                      [readonlyInput]='true'></p-calendar>
-                          <svg-icon class='date-icon' [src]='calenderIcon'
-                                    [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
-                          <label>{{ 'part_store.part_list.warranty_expire_date' | translate }}</label>
-                        </span>
-              <anms-error
-                [showError]="hasError('warrantyStartDate',form,submitted)"
-                error='forms.feedback.required'>
-              </anms-error>
-            </div>
-          </div>
-          <div class='col-12'>
-            <div class='p-field form-section__field'>
-                        <span class='p-float-label'>
-                            <input pInputText formControlName='description'
-                                   placeholder="{{'part_store.part_list.description' | translate}} *" type='text'>
-                            <label>{{ 'part_store.part_list.description' | translate}} *</label>
-                        </span>
-              <anms-error
-                [showError]="hasError('description',form,submitted)"
-                error='forms.feedback.required'>
-              </anms-error>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class='form-section'>
-      <div class='row'>
-        <div class='col d-flex'>
-          <div class='p-field form-section__field d-flex'>
-            <h3
-              class='form-section__title m-0 align-self-center'>{{ 'part_store.part_list.storage_location' | translate}}</h3>
-          </div>
-        </div>
-        <div class='col'>
-          <div class='p-field form-section__field'>
-                    <span class='p-float-label'>
-                        <input pInputText formControlName='room'
-                               placeholder="{{'part_store.part_list.room' | translate}} *" type='text'>
-                        <label>{{ 'part_store.part_list.room' | translate}} *</label>
-                    </span>
-            <anms-error
-              [showError]="hasError('room',form,submitted)"
-              error='forms.feedback.required'>
-            </anms-error>
-          </div>
-        </div>
-        <div class='col'>
-          <div class='p-field form-section__field'>
-                    <span class='p-float-label'>
-                        <input pInputText formControlName='aisle'
-                               placeholder="{{'part_store.part_list.aisle' | translate}} *" type='text'>
-                        <label>{{ 'part_store.part_list.aisle' | translate}} *</label>
-                    </span>
-            <anms-error
-              [showError]="hasError('aisle',form,submitted)"
-              error='forms.feedback.required'>
-            </anms-error>
-          </div>
-        </div>
-        <div class='col'>
-          <div class='p-field form-section__field'>
-                    <span class='p-float-label'>
-                        <input pInputText formControlName='shelf'
-                               placeholder="{{'part_store.part_list.shelf' | translate}} *" type='text'>
-                        <label>{{ 'part_store.part_list.shelf' | translate}} *</label>
-                    </span>
-            <anms-error
-              [showError]="hasError('shelf',form,submitted)"
-              error='forms.feedback.required'>
-            </anms-error>
-          </div>
-        </div>
-        <div class='col'>
-          <div class='p-field form-section__field'>
-                    <span class='p-float-label'>
-                        <input pInputText formControlName='box'
-                               placeholder="{{'part_store.part_list.box' | translate}} *" type='text'>
-                        <label>{{ 'part_store.part_list.box' | translate}} *</label>
-                    </span>
-            <anms-error
-              [showError]="hasError('box',form,submitted)"
-              error='forms.feedback.required'>
-            </anms-error>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
 </div>
 
 

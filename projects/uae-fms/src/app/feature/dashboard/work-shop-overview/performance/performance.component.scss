@@ -1,0 +1,20 @@
+
+
+apx-chart{
+    ::ng-deep{
+        .apexcharts-legend{
+            // padding: 15px 10px;
+            .apexcharts-legend-series{
+                margin: 2px 8px;
+                .apexcharts-legend-marker{
+                    margin: 0 5px;
+                    border-radius: 50%;
+                }
+                .apexcharts-legend-text{
+                    font-size: .9em;
+                }
+            }
+        }
+
+    }
+}

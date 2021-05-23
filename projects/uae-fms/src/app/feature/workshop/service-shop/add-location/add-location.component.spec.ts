@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddLocationComponent } from './add-location.component';
+import { AddLocationServiceShopComponent } from './add-location.component';
 
 describe('AddLocationComponent', () => {
-  let component: AddLocationComponent;
-  let fixture: ComponentFixture<AddLocationComponent>;
+  let component: AddLocationServiceShopComponent;
+  let fixture: ComponentFixture<AddLocationServiceShopComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddLocationComponent]
+      declarations: [AddLocationServiceShopComponent]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddLocationComponent);
+    fixture = TestBed.createComponent(AddLocationServiceShopComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

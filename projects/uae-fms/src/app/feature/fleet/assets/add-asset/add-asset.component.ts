@@ -23,7 +23,7 @@ import { OwnershipFacade } from '@feature/configuration/+state/ownership';
 import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
 import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
 import { PeriodicServiceFacade, } from '@feature/configuration/+state/periodic-service';
-import { OrganizationFacade } from '@feature/fleet/+state/organization';
+import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
 import { OperatorFacade } from '@feature/fleet/+state/operator';
 import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
 
@@ -50,6 +50,12 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   progressBarValue = 80;
   isEdit: boolean = false;
   id: number;
+  departmentList: any[];
+  departmentFiltered: any[];
+  sectionFiltered: any[];
+  sectionList: any[];
+  departmentId;
+  sectionId;
   policyTypeTableData$ = new Subject<any>();
   private _asset;
   private csvText = [];
@@ -173,6 +179,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   color$: Observable<any>;
   origin$: Observable<any>;
   department$: Observable<any>;
+  section$: Observable<any>;
   operator$: Observable<any>;
   policyType$: Observable<any>;
   periodicService$: Observable<any>;
@@ -330,6 +337,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     private _facadeOperator: OperatorFacade,
     private _facadeAssetPolicy: AssetPolicyFacade,
     private _facadePeriodicService: PeriodicServiceFacade,
+    private _departmentService: OrganizationService
   ) {
     super(injector);
   }
@@ -407,6 +415,30 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         }
       })
     );
+
+    this.section$ = this._facadeDepartment.organization$.pipe(
+      map(x => {
+        if (x) {
+          return x.filter(x => x.id == this.formGroupAssetDetail.get('purchasedFor.department.id').value).map(
+            department => {
+              console.log(department)
+              return {
+                ...department.departments
+              }
+            }
+          )
+        }
+      })
+    );
+
+    this._departmentService
+      .loadWithPagination()
+      .subscribe((x) => {
+        x.message
+          ? // ? this.department.next(x.message)
+          (this.departmentList = x.message)
+          : (this.departmentList = []);
+      });
 
     this.operator$ = this._facadeOperator.operator$.pipe(
       map(x => {
@@ -490,6 +522,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       }),
       purchasedFor: this._fb.group({
         department: ['', Validators.compose([Validators.required])],
+        section: ['', Validators.compose([Validators.required])],
         operator: ['', Validators.compose([Validators.required])]
       }),
       uploadFile: ['', Validators.compose([Validators.required])]
@@ -837,8 +870,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       origin: formVal_AssetDetail.assetDetails.origin.name,
       meterType: formVal_AssetDetail.assetDetails.meterType,
       vehicleDocIds: formVal_AssetDetail.uploadFile,
-      organizationId: 1,
-      departmentId: formVal_AssetDetail.purchasedFor.department.id,
+      organizationId: this.departmentId,
+      departmentId: this.sectionId,
       operatorId: formVal_AssetDetail.purchasedFor.operator.id,
       policyTypeId: formVal_Financial.assetFinancialPlan.policyType.id,
       purchaseValue: +formVal_Financial.assetFinancialPlan.purchaseValue,
@@ -994,6 +1027,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           )
           this.id = x.id;
           this.onBusinessCategoryChange(x)
+          this.departmentId = x.department.organizationId;
+          this.sectionId = x.department.id;
           this.formGroupAssetDetail.patchValue({
             businessInfo: {
               businessCategory: { id: x.businessCategoryId },
@@ -1009,7 +1044,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
               color: { id: x.colorId },
             },
             purchasedFor: {
-              department: { id: x.department.id },
+              department: { id: x.department.organizationId, organizationName: x.department.organizationName },
+              section: { id: x.department.id, name: x.department.name },
               operator: { id: x.operator.id }
             },
             uploadFile: x.vehicleDocIds
@@ -1018,6 +1054,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
             quantity: ['singleAsset'],
             serialNumber: [x.dpd]
           });
+          console.log(this.formGroupAssetDetail.getRawValue())
           this.onChangePeriodicService({ id: x.periodicServiceId });
           this._asset = x
           this.editPatchValue(x);
@@ -1112,6 +1149,51 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
   selectWarrantyDate() {
     this.warrantyTableData();
+  }
+
+  searchDepartment(event) {
+    let query = event.query;
+    let filtered = [];
+    for (let index = 0; index < this.departmentList.length; index++) {
+      let department = this.departmentList[index];
+      if (
+        department.organizationName
+          .toLowerCase()
+          .indexOf(query.toLowerCase()) == 0
+      ) {
+        filtered.push(department);
+      }
+    }
+    this.departmentFiltered = filtered;
+  }
+
+  searchSection(event) {
+    let query = event.query;
+    let filtered = [];
+    for (let index = 0; index < this.sectionList.length; index++) {
+      let section = this.sectionList[index];
+      if (section.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(section);
+      }
+    }
+    this.sectionFiltered = filtered;
+  }
+
+  departmentChanged($event) {
+    if (typeof $event != 'object') return;
+    this.sectionList = [];
+    this.formGroupAssetDetail.get('purchasedFor.section').patchValue(null);
+    this.departmentId = $event.id;
+    this._departmentService.searchDepartment($event.id).subscribe((x) => {
+      x.message.departments
+        ? (this.sectionList = x.message.departments)
+        : (this.sectionList = []);
+    });
+  }
+
+  sectionChanged($event) {
+    if (typeof $event != 'object') return;
+    this.sectionId = $event.id;
   }
 
   ngOnDestroy(): void {

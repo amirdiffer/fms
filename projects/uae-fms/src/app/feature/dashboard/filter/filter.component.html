@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col">
+
+    </div>
+    <div class="col-auto d-flex">
+        <div class="px-4 d-flex align-items-center mx-2 border-1">
+            <span>{{'dashboard.last_week' | translate}}</span>
+            <span class="mx-4">{{'dashboard.last_month' | translate}}</span>
+            <span>{{'dashboard.last_year' | translate}}</span>
+        </div>
+        <div class="px-4 border-2">
+            <span>
+                <svg-icon [src]="dotIcon" [svgStyle]="{ 'width.em':0.4 ,'fill': '#0000008A' , 'height': '100%' , 'transform':'rotate(90deg)' , 'opacity':'.8'}"></svg-icon>
+            </span>
+        </div>
+        <div class="mx-3 d-flex date-picker align-items-center">
+            <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.em':1.1 , 'fill': '#0DA06E' ,'height': '100%'}"></svg-icon>
+            <p class="mx-3">{{'dashboard.from' | translate}}</p>
+            <mat-form-field appearance="fill" class="example-form-field">
+                <!-- <mat-label>Enter a date range</mat-label> -->
+                <mat-date-range-input [rangePicker]="rangePicker">
+                  <input matStartDate placeholder="{{'dashboard.start_date' | translate}}">
+                  <span class="mat-date-range-input-separator">To</span>
+                  <input matEndDate placeholder="{{'dashboard.end_date' | translate}}">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="rangePicker">
+                    <!-- <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon> -->
+                    <svg-icon matDatepickerToggleIcon [src]="'assets/icons/caret-down.svg'"
+                    [svgStyle]="{ 'fill': '#000', 'width.em':'.7' , 'opacity':'.5'}">
+                    </svg-icon>
+                </mat-datepicker-toggle>
+                <mat-date-range-picker #rangePicker>
+                  <!-- <mat-date-range-picker-actions>
+                    <button mat-button matDateRangePickerCancel>Cancel</button>
+                    <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+                  </mat-date-range-picker-actions> -->
+                </mat-date-range-picker>
+            </mat-form-field>            
+        </div>
+    </div>
+    
+</div>

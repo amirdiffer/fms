@@ -63,6 +63,7 @@ import { SubAssetDetailComponent } from './sub-asset/sub-asset-overview/sub-asse
 import { ReminderModule } from './sub-asset/sub-asset-overview/reminder/reminder.module';
 import { HistoryModule } from './sub-asset/sub-asset-overview/history/history.module';
 import { OperatorOverviewTabComponent } from './operator/over-view-operator/overview-tab/overview-tab.component';
+import { BodyShopJobCardService, BodyShopRequestService } from '@feature/workshop/+state/body-shop';
 
 @NgModule({
   declarations: [
@@ -134,6 +135,7 @@ import { OperatorOverviewTabComponent } from './operator/over-view-operator/over
   ],
   exports: [
     AssetCarDetailComponent
-  ]
+  ],
+  providers: [BodyShopJobCardService, BodyShopRequestService]
 })
 export class FleetModule { }

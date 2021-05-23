@@ -4,8 +4,51 @@
     <div class="form-section mt-3">
       <h3 class="form-section__title">AssetId</h3>
       <div class="row form-section__row">
-
-        <div class="col-12 col-md-6 p-field form-section__field options-select">
+        <div class="col-6">
+          <div class="form-group p-field form-section__field">
+            <div class="input-group">
+                <div class="autocomplete-select w-100">
+                    <span class="p-float-label">
+                        <p-autoComplete
+                            [suggestions]="newAssets"
+                            formControlName="assetId"
+                            (completeMethod)="searchAsset($event)"
+                            field="name"
+                            [disabled]="isEdit"
+                            [minLength]="1"
+                            (onSelect)="selectAsset($event)"
+                            [dropdown]="true">
+                            <ng-template let-request pTemplate="item">
+                              <div class="request-item" [class.active-jobcard] = "request.hasOpenJobCard">
+                                  <svg-icon
+                                  *ngIf="!request.hasOpenJobCard"
+                                  src="assets/icons/check-circle.svg"
+                                  class="svg-icon"
+                                  [applyClass]="true"
+                                  [svgStyle]="{ 'fill': '#008755' , 'width.em' : 1}"></svg-icon>
+                                  <svg-icon
+                                  *ngIf="request.hasOpenJobCard"
+                                  src="assets/icons/times-circle.svg"
+                                  class="svg-icon"
+                                  [applyClass]="true"
+                                  [svgStyle]="{ 'fill': '#F74F5A' , 'width.em' : 1}"></svg-icon>
+                                  <span class="mx-3">{{request.dpd}}</span>
+                                  <span *ngIf="request.hasOpenJobCard" class=""> Has Active Jobcard</span>
+                              </div>
+                            </ng-template>
+                          </p-autoComplete>
+                        <i class="pi pi-search"></i>
+                        <label for="asset">{{ 'workshop.body_shop.job_card.id' | translate }}</label>
+                    </span>
+                </div>
+                <anms-error
+                  [showError]="hasError('assetId',inputForm,submited)"
+                  error="forms.feedback.required">
+                </anms-error>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-12 col-md-6 p-field form-section__field options-select">
           <span class="p-float-label">
             <p-dropdown (onChange)="selectAsset($event)" inputId="asset" [autoDisplayFirst]="false"
               [options]="assets$|async" formControlName="assetId" optionValue="id"
@@ -16,7 +59,7 @@
             [showError]="hasError('assetId',inputForm,submited)"
             error="forms.feedback.required">
           </anms-error>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="table-container">
@@ -150,6 +193,7 @@
                   </div>
                 </div>
               </div>
+              
               <div class="col-12 col-md-3 p-field form-section__field options-select">
                   <span class="p-float-label">
                     <p-dropdown inputId="priority" [autoDisplayFirst]="false"
@@ -185,7 +229,5 @@
 
 </form>
 
-<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal"
-  (confirm)="dialogConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal"
-  (confirm)="errorDialogModal=false"></alert-dialog>
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal" (confirm)="errorDialogModal=false"></alert-dialog>

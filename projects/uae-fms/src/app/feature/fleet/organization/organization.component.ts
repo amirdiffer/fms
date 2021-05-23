@@ -93,7 +93,7 @@ export class OrganizationComponent implements OnInit {
             ]);
           }
         },
-        /* {
+        {
           button: 'external',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
@@ -101,7 +101,7 @@ export class OrganizationComponent implements OnInit {
               '/fleet/department/department-overview/' + data.id
             ]);
           }
-        }, */
+        },
       ]
     }
   };
