@@ -5,7 +5,8 @@ import { ButtonType } from '@core/table/table.component';
 import { MyOrderAssetFacade } from '@feature/part-store/+state/order-list/my-order/asset';
 import { Router } from '@angular/router';
 import { SuppliersFacade } from '@feature/part-store/+state/order-list/suppliers';
-import { RequestListFacade, RequestListService } from '@feature/part-store/+state/order-list/request-list';
+// import { RequestListFacade, RequestListService } from '@feature/part-store/+state/order-list/request-list';
+import { RequestListFacade, RequestListService } from "../../+state/order-list/request-list";
 
 @Component({
   selector: 'anms-order-list-asset',
@@ -158,143 +159,7 @@ export class OrderListAssetComponent implements OnInit {
         showOnHover: true
       }
     ],
-    data: [
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Status: 'Available',
-        Cost: '100 AED',
-        Quantity: '2',
-        Department: 'Department Name',
-        Description: 'Description is here',
-        Date: '02/02/2020',
-        Total: '1000 AED',
-        ButtonReject: 'Reject',
-        ButtonApprove: 'Approve'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Status: 'Available',
-        Cost: '100 AED',
-        Quantity: '2',
-        Department: 'Department Name',
-        Description: 'Description is here',
-        Date: '02/02/2020',
-        Total: '1000 AED',
-        ButtonReject: 'Reject',
-        ButtonApprove: 'Approve'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Status: 'Available',
-        Cost: '100 AED',
-        Quantity: '2',
-        Department: 'Department Name',
-        Description: 'Description is here',
-        Date: '02/02/2020',
-        Total: '1000 AED',
-        ButtonReject: 'Reject',
-        ButtonApprove: 'Approve'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Status: 'Available',
-        Cost: '100 AED',
-        Quantity: '2',
-        Department: 'Department Name',
-        Description: 'Description is here',
-        Date: '02/02/2020',
-        Total: '1000 AED',
-        ButtonReject: 'Reject',
-        ButtonApprove: 'Approve'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Status: 'Available',
-        Cost: '100 AED',
-        Quantity: '2',
-        Department: 'Department Name',
-        Description: 'Description is here',
-        Date: '02/02/2020',
-        Total: '1000 AED',
-        ButtonReject: 'Reject',
-        ButtonApprove: 'Approve'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Status: 'Available',
-        Cost: '100 AED',
-        Quantity: '2',
-        Department: 'Department Name',
-        Description: 'Description is here',
-        Date: '02/02/2020',
-        Total: '1000 AED',
-        ButtonReject: 'Reject',
-        ButtonApprove: 'Approve'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Status: 'Available',
-        Cost: '100 AED',
-        Quantity: '2',
-        Department: 'Department Name',
-        Description: 'Description is here',
-        Date: '02/02/2020',
-        Total: '1000 AED',
-        ButtonReject: 'Reject',
-        ButtonApprove: 'Approve'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Status: 'Available',
-        Cost: '100 AED',
-        Quantity: '2',
-        Department: 'Department Name',
-        Description: 'Description is here',
-        Date: '02/02/2020',
-        Total: '1000 AED',
-        ButtonReject: 'Reject',
-        ButtonApprove: 'Approve'
-      },
-      {
-        id: 1,
-        statusColor: '#838BCE',
-        Item: 'Item No 123456',
-        Part_ID: '1234567899',
-        Status: 'Available',
-        Cost: '100 AED',
-        Quantity: '2',
-        Department: 'Department Name',
-        Description: 'Description is here',
-        Date: '02/02/2020',
-        Total: '1000 AED',
-        ButtonReject: 'Reject',
-        ButtonApprove: 'Approve'
-      }
-    ],
+    data: [],
     rowSettings: {
       onClick: (col, data, button?) => {
         if (button === 'approve') {

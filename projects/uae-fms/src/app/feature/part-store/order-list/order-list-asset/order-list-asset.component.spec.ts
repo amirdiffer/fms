@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OrderListAssetComponent } from './order-list-asset.component';
 
-describe('OrderListAssetComponent', () => {
+describe('ReceiveOrderComponent', () => {
   let component: OrderListAssetComponent;
   let fixture: ComponentFixture<OrderListAssetComponent>;
 

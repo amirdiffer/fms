@@ -9,6 +9,11 @@ export class SuppliersSelectors {
     selectAll
   );
 
+  static specificSupplier = createSelector(
+    PartStoreSelectors.suppliersListSelector,
+    (state) => state.specificSupplier
+  );
+
   static message = createSelector(
     PartStoreSelectors.suppliersListSelector,
     (state) => state.message
