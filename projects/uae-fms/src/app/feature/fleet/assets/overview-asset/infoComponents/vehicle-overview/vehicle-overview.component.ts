@@ -14,6 +14,10 @@ import {
   ChartComponent
 } from 'ng-apexcharts';
 import { ColumnType } from '@core/table';
+import { map } from 'rxjs/operators';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
+import { CustomizationService } from '@feature/fleet/+state/assets/customization';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-vehicle-overview',
@@ -21,11 +25,13 @@ import { ColumnType } from '@core/table';
   styleUrls: ['../styles.scss']
 })
 export class VehicleOverviewComponent implements OnInit {
-  @Input() vehicleId;
+  @Input() assetID;
   @ViewChild('chart') chart: ChartComponent;
   chartOptions: Partial<ChartOptions>;
   chartOptionsColumn: Partial<ChartOptions>;
   selectedTab = 'sub_asset';
+  damageList = [];
+  fileServer = environment.baseApiUrl + 'document/';
 
   data = {
     totalKm: 14245,
@@ -130,7 +136,7 @@ export class VehicleOverviewComponent implements OnInit {
     }
   };
   activeLayout = 'menu';
-  tableSetting = {
+  TaskMaster_tableSetting = {
     columns: [
       {
         lable: 'tables.column.task_list',
@@ -141,10 +147,10 @@ export class VehicleOverviewComponent implements OnInit {
       {
         lable: 'tables.column.date',
         field: 'date',
-        width: 100,
+        width: 200,
         type: ColumnType.lable,
         thumbField: '',
-        renderer: ''
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.technician',
@@ -163,46 +169,9 @@ export class VehicleOverviewComponent implements OnInit {
         renderer: 'statusRenderer'
       }
     ],
-    data: [
-      {
-        task_list: 'Charge Oil After 456 Km',
-        date: '20/20/2020',
-        technician: 'Sam Smith',
-        Status: 'Done'
-      },
-      {
-        task_list: 'Charge Oil After 456 Km',
-        date: '20/20/2020',
-        technician: 'Sam Smith',
-        Status: 'Done'
-      },
-      {
-        task_list: 'Charge Oil After 456 Km',
-        date: '20/20/2020',
-        technician: 'Sam Smith',
-        Status: 'Todo'
-      },
-      {
-        task_list: 'Charge Oil After 456 Km',
-        date: '20/20/2020',
-        technician: 'Sam Smith',
-        Status: 'Doing'
-      },
-      {
-        task_list: 'Charge Oil After 456 Km',
-        date: '20/20/2020',
-        technician: 'Sam Smith',
-        Status: 'Start'
-      },
-      {
-        task_list: 'Charge Oil After 456 Km',
-        date: '20/20/2020',
-        technician: 'Sam Smith',
-        Status: 'Start'
-      }
-    ]
+    data: []
   };
-  tableSetting2 = {
+  SubAsset_tableSetting = {
     columns: [
       {
         lable: 'tables.column.name',
@@ -226,45 +195,52 @@ export class VehicleOverviewComponent implements OnInit {
         renderer: 'statusRenderer'
       }
     ],
-    data: [
+    data: []
+  };
+  Accessory_tableSetting = {
+    columns: [
       {
-        name: 'First Camera',
-        s_n: '4894949849',
-        Status: 'Install'
+        lable: 'tables.column.name',
+        field: 'name',
+        type: ColumnType.lable,
+        thumbField: ''
       },
+      // {
+      //   lable: 'tables.column.s_n',
+      //   field: 's_n',
+      //   type: ColumnType.lable,
+      //   thumbField: '',
+      //   renderer: ''
+      // },
       {
-        name: 'Second Camera',
-        s_n: '48949498490',
-        Status: 'JobCard'
-      },
-      {
-        name: 'First Camera',
-        s_n: '4894949849',
-        Status: 'Install'
-      },
-      {
-        name: 'First Camera',
-        s_n: '4894949849',
-        Status: 'Install'
-      },
-      {
-        name: 'First Camera',
-        s_n: '4894949849',
-        Status: 'Install'
-      },
-      {
-        name: 'First Camera',
-        s_n: '4894949849',
-        Status: 'Install'
+        lable: 'tables.column.status',
+        field: 'Status',
+        width: 100,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'statusRenderer'
       }
-    ]
+    ],
+    data: []
+  };
+
+  chartTrafficFineData = {
+    series: [],
+    labels: []
+  };
+  chartFuelCardData = {
+    series: [],
+    categories: []
   };
 
 
-  constructor() {
+  constructor(
+    private assetService: AssetMasterService,
+    private customizationService: CustomizationService,
+  ) {
     this.chartOptions = {
-      series: [44, 55, 41],
-      labels: ["Paid", "Unpaid", "Deducted"],
+      series: [],
+      labels: [],
       chart: {
         type: 'donut',
         height: 280,
@@ -343,7 +319,7 @@ export class VehicleOverviewComponent implements OnInit {
         colors: ['transparent']
       },
       xaxis: {
-        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        categories: [],
       },
       yaxis: {
         title: {
@@ -367,7 +343,62 @@ export class VehicleOverviewComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.assetService.getAssetTasksByID(this.assetID).subscribe(x => {
+      let data = x.message;
+      this.TaskMaster_tableSetting.data = (<Array<object>>data).map(x => {
+        return {
+          task_list: x['name'],
+          date: x['creationDate'],
+          technician: x['technician']['firstName'] + ' ' + x['technician']['lastName'],
+          Status: x['status']
+        }
+      })
+    });
+    this.customizationService.getAssetForCustomizationByAssetId(this.assetID).subscribe(x => {
+      console.log(x);
+      let subAsset = x.message.subAssets;
+      let accessories = x.message.accessories;
+      this.SubAsset_tableSetting.data =  (<Array<object>>subAsset).map(x => {
+        return {
+          name: x['subAssetMakeName'] + ' ' + x['subAssetModelName'],
+          s_n: x['subAssetSerialNumber'],
+          Status: x['subAssetId']!=null ? 'Uninstall' : 'Install'
+        }
+      });
+      this.Accessory_tableSetting.data =  (<Array<object>>accessories).map(x => {
+        return {
+          name: x['accessoryItemName'],
+          Status: x['accessoryId']!=null ? 'Uninstall' : 'Install'
+        }
+      });
+    });
+    this.assetService.getDamageByAssetID(this.assetID).subscribe(x => {
+      this.damageList = x.message;
+    });
+    this.assetService.getTrafficFineByAssetID(this.assetID).subscribe(x => {
+      let data = x.message;
+      this.chartTrafficFineData.labels = Object.keys(data);
+      this.chartTrafficFineData.series = Object.values(data);
+    });
+    this.assetService.getFuelCardByAssetID(this.assetID).subscribe(x => {
+      let data = (<Array<object>>x.message);
+      this.chartFuelCardData.categories = data.map(d => d['month'])
+      let demanded = data.map(d => d['demanded']);
+      let consumption = data.map(d => d['consumption']);
+      this.chartFuelCardData.series = [
+        {
+          name: "Demanded",
+          data: demanded
+        },
+        {
+          name: "Consumption",
+          data: consumption
+        }
+      ];
+      console.log(this.chartFuelCardData);
+    });
+  }
 }
 
 export interface ChartOptions {
