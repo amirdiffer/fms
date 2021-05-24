@@ -38,6 +38,7 @@ import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 import { AccessoryService } from '@feature/fleet/+state/accessory';
 import { SubAssetService } from '@feature/fleet/+state/sub-asset';
 import { OperatorService } from '@feature/fleet/+state/operator';
+import { FleetStateModule } from '@feature/fleet/+state';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { OperatorService } from '@feature/fleet/+state/operator';
     SharedModule,
     MatDatepickerModule,
     MatIconModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    FleetStateModule
   ],
   providers: [
     DashboardFacade,
