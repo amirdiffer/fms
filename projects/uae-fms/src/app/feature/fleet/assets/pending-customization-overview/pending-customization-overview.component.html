@@ -49,14 +49,22 @@
                   <div *ngFor="let item of customizationData.accessories;let i=index">
                       <div class="row camera-row">
                         <div class="title col-2">{{ item.accessoryConfigurationName | translate }}</div>
-                        <div class="checkbox col-3">
+                        <div class='row ml-3 col-6 font-weight-bold green' [hidden]='!outp.accessories[i].accessoryId'>
+                          <div class="mt-2">
+                            {{ outp.accessories[i].accessory ? outp.accessories[i].accessory.itemName : ''}}
+                          </div>
+                          <div class="ml-3 mt-2">
+                            {{ 'assets.installed' | translate }}
+                          </div>
+                        </div>
+                        <div class="checkbox col-3" [hidden]='outp.accessories[i].accessoryId'>
                             <div class="form-group form-check px-3">
                                 <input id="checkbox2" type="checkbox"
                                     class="custom-checkbox" name="checkbox2" [(ngModel)]="outp.accessories[i].checked">
                                 <label class="label" for="checkbox2">{{ 'assets.installed' | translate }}</label>
                             </div>
                         </div>
-                        <div class="col-3 form-section__field" *ngIf="outp.accessories[i].checked">
+                        <div class="col-3 form-section__field" *ngIf="outp.accessories[i].checked" [hidden]='outp.accessories[i].accessoryId'>
                             <div class="autocomplete-select">
                               <span class="p-float-label">
                                 <p-autoComplete (completeMethod)="filterAccessory($event)"
@@ -73,7 +81,15 @@
                   <div *ngFor="let item of customizationData.subAssets;let i=index">
                     <div class='row camera-row'>
                       <div class="title col-2">{{ item.subAssetMakeName+" "+item.subAssetModelName | translate }}</div>
-                      <div class="checkbox col-3">
+                      <div class='row ml-3 col-6 font-weight-bold green' [hidden]='!outp.subAssets[i].subAssetId'>
+                        <div class="mt-2">
+                          {{ outp.subAssets[i].subAsset ? outp.subAssets[i].subAsset.subAssetConfigurationName : ''}}
+                        </div>
+                        <div class="ml-3 mt-2">
+                          {{ 'assets.installed' | translate }}
+                        </div>
+                      </div>
+                      <div class="checkbox col-3" [hidden]='outp.subAssets[i].subAssetId'>
                           <div class="form-group form-check px-3">
                               <input id="checkbox2" type="checkbox"
                                   class="custom-checkbox" name="checkbox2" [(ngModel)]="outp.subAssets[i].checked">
@@ -81,7 +97,7 @@
                           </div>
                       </div>
 
-                      <div class="col-3 form-section__field" *ngIf="outp.subAssets[i].checked">
+                      <div class="col-3 form-section__field" *ngIf="outp.subAssets[i].checked" [hidden]='outp.subAssets[i].subAssetId'>
                         <div class="autocomplete-select">
                           <span class="p-float-label">
                             <p-autoComplete (completeMethod)="filterSubAsset($event)"
