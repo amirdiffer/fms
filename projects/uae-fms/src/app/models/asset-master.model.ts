@@ -61,3 +61,26 @@ export interface IWarranty {
   docId: number;
   hasReminder: boolean;
 }
+
+export interface IAssetOverview {
+  numOfActiveAssets?: number;
+  numOfAssetsByBusinessCategory?: IAssetsByBusinessCategory[];
+  numOfAssetsByOrganization?: IAssetsByOrganization[];
+  numOfCustomizedAssets?: number;
+  numOfInactiveAssets?: number;
+  numOfRegisteredAssets?: number;
+  numOfXFleetAssets?: number;
+  totalNumberOfAssets?: number;
+}
+
+export interface IAssetsByBusinessCategory {
+  businessCategoryId: number;
+  businessCategoryName: string;
+  numOfAssets: number;
+}
+
+export interface IAssetsByOrganization {
+  numOfAssets: number;
+  organizationId: number;
+  organizationName: string;
+}

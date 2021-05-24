@@ -61,21 +61,21 @@
     <div class="row wrapper">
         <div class="col-6 category">
             <div class="dashboard-card w-100">
-                <dashboard-operator-statistics></dashboard-operator-statistics>
+                <dashboard-operator-statistics (finedOperator)="finedOperator=$event"></dashboard-operator-statistics>
             </div>
         </div>
-        <div class="col-3 category">
+        <div class="col-3 category" *ngIf="finedOperator">
             <div class="dashboard-card w-100">
-                <card-alert-dashboard 
-                    [title]="'dashboard.congratulations'" 
+                <card-alert-dashboard [data]="finedOperator.lowestFinedOperator"
+                    [title]="'dashboard.congratulations'"
                     [subTitle]="'dashboard.the_lowest_penalty_per_month'"></card-alert-dashboard>
             </div>
         </div>
-        <div class="col-3 category">
+        <div class="col-3 category" *ngIf="finedOperator">
             <div class="dashboard-card w-100">
-                <card-alert-dashboard 
-                    [isAlert]="true" 
-                    [title]="'dashboard.need_to_check'" 
+                <card-alert-dashboard [data]="finedOperator.highestFinedOperator"
+                    [isAlert]="true"
+                    [title]="'dashboard.need_to_check'"
                     [subTitle]="'dashboard.most_fines_per_month'"></card-alert-dashboard>
             </div>
         </div>

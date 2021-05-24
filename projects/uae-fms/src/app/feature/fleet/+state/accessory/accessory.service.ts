@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResponseBody } from '@models/responseBody';
 import { environment } from '@environments/environment';
-import { IAccessory } from '@models/accessory';
+import { IAccessory, IAccessoryOverview } from '@models/accessory';
 import { IAccessoryStatistics } from '@models/statistics';
 import { IOwnerShip, IUser } from '@models/configuration';
 import { TableFacade } from '@core/table/+state/table.facade';
@@ -72,4 +72,11 @@ export class AccessoryService {
       environment.baseApiUrl + 'accessory?page=0&size=99999999'
     );
   }
+
+  accessoryOverview(): Observable<ResponseBody<IAccessoryOverview>> {
+    return this.http.get<ResponseBody<IAccessoryOverview>>(
+      environment.baseApiUrl + 'accessory/overview'
+    );
+  }
+
 }
