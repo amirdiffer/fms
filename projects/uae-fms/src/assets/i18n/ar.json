@@ -167,6 +167,7 @@
       "~": "الورشة",
       "body_shop": "ورشة الصيانة",
       "service_shop": "متجر الخدمة",
+      "location": "الموقع",
       "inspection": {
         "~": "التفتيش",
         "technical_inspection": "الفحص الفني",

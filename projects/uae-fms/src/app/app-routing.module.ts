@@ -23,6 +23,15 @@ const routes: Routes = [
       ),
     component: MainTemplateComponent
   },
+  /* {
+    path: 'dashboard/technician',
+    canLoad: [AuthGuardService],
+    loadChildren: () =>
+      import('./feature/technician/technician.module').then(
+        (m) => m.TechnicianModule
+      ),
+    component: TechnicianOverviewComponent
+  }, */
   {
     path: 'fleet',
     canLoad: [AuthGuardService],
