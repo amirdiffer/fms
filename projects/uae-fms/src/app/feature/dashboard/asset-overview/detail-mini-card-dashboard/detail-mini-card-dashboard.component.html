@@ -14,14 +14,16 @@
             </span>
         </div>
     </div>
-    <div class="d-flex justify-content-between footer-card chart-labels">
-        <div class="">
+    <div class="d-flex justify-content-between footer-card chart-labels ">
+        <div class="label-nav">
             <a [routerLink]="[routerLink.router]">{{routerLink.title}}</a>
         </div>
-      <ng-container *ngFor="let label of labels">
-        <div class="chart-label">
-          <p class="f-label">{{ label }}</p>
-        </div>
-      </ng-container>
+      <div class="label-contaitner">
+        <ng-container *ngFor="let label of labels">
+            <div class="chart-label">
+              <p class="f-label">{{ label }}</p>
+            </div>
+          </ng-container>
+      </div>
     </div>
 </div>

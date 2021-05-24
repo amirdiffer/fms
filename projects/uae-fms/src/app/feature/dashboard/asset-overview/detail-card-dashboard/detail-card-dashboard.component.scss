@@ -5,6 +5,10 @@
     .item{
         & > p {
             flex: 0 0 50%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
         }
         & > span {
             display: flex;
@@ -12,6 +16,10 @@
             & > p{
                 flex: 0 0 50%;
                 align-self: center;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: block;
             }
         }
     }
