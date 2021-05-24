@@ -10,7 +10,7 @@
         <div class="">
             <div class="chart d-flex justify-content-center" #chart>
                 <apx-chart
-                  [series]="chartOptions.series"
+                  [series]="[chartData.numOfActiveAssets, chartData.numOfInactiveAssets, chartData.numOfXFleetAssets]"
                   [chart]="chartOptions.chart"
                   [plotOptions]="chartOptions.plotOptions"
                   [colors]="chartOptions.colors"
@@ -21,7 +21,7 @@
                 </apx-chart>
             </div>
         </div>
-    
+
         <div class="d-flex justify-content-between chart-labels">
             <p>{{'dashboard.active' | translate}}</p>
             <p>{{'dashboard.in_active' | translate}}</p>
@@ -31,12 +31,12 @@
         <div class="row position-relative footer-card">
             <div class="col-6 text-center ">
                 <p>{{'dashboard.rejested' | translate}}</p>
-                <p>13.561</p>
+                <p>{{ chartData.numOfRegisteredAssets }}</p>
             </div>
             <!-- <span class="border-vertical"></span> -->
             <div class="col-6 text-center ">
                 <p>{{'dashboard.customised' | translate}}</p>
-                <p>13.567</p>
+                <p>{{ chartData.numOfCustomizedAssets }}</p>
             </div>
         </div>
     </div>

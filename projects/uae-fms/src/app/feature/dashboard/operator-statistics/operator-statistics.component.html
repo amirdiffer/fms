@@ -19,7 +19,7 @@
                 </div>
                 <div class="box__body__content">
                     <div>
-                        <p class="font-weight-bolder">2000</p>
+                        <p class="font-weight-bolder">{{ operatorOverviewData.totalNumOfOperators }}</p>
                         <p class="box__body__content__title">{{'dashboard.total' | translate}}</p>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="box__body__content">
                     <div>
-                        <p class="font-weight-bolder">$9745</p>
+                        <p class="font-weight-bolder">${{operatorOverviewData.totalAmountOfFines}}</p>
                         <p class="box__body__content__title">{{'dashboard.totla_fines' | translate}}</p>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="box__body__content">
                     <div>
-                        <p class="font-weight-bolder">230k</p>
+                        <p class="font-weight-bolder">{{ operatorOverviewData.numOfActiveOperators }}</p>
                         <p class="box__body__content__title">{{'dashboard.active' | translate}}</p>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="box__body__content">
                     <div>
-                        <p class="font-weight-bolder">1.423k</p>
+                        <p class="font-weight-bolder">{{ operatorOverviewData.numOfInactiveOperators }}</p>
                         <p class="box__body__content__title">{{'dashboard.deactive' | translate}}</p>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IAssetStatistics } from '@models/statistics';
 import { environment } from '@environments/environment';
-import { IAssetMaster } from '@models/asset-master.model';
+import { IAssetMaster, IAssetOverview } from '@models/asset-master.model';
 import { ResponseBody } from '@models/responseBody';
 import { TableFacade } from '@core/table/+state/table.facade';
 
@@ -49,6 +49,12 @@ export class AssetMasterService {
   getAssetByID(id){
     return this._http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'asset/' + id
+    )
+  }
+
+  overviewAsset(){
+    return this._http.get<ResponseBody<IAssetOverview>>(
+      environment.baseApiUrl + 'asset/overview'
     )
   }
 
