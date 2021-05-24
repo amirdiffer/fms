@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ColumnType } from '@core/table';
+import moment from 'moment';
 
 @Component({
   selector: 'app-asset-overview-warranty',
@@ -7,6 +8,7 @@ import { ColumnType } from '@core/table';
   styleUrls: ['./warranty.component.scss']
 })
 export class WarrantyComponent implements OnInit {
+  @Input() data = [];
 
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
@@ -43,10 +45,9 @@ export class WarrantyComponent implements OnInit {
       },
       {
         lable: 'tables.column.start_date',
-        field: 'start_date',
+        field: 'startDate',
         type: ColumnType.lable,
-        thumbField: '',
-        renderer: ''
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.start_km',
@@ -54,96 +55,39 @@ export class WarrantyComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
-      },
-    ],
-    data: [
-      {
-        category: 'Door',
-        item: 'Door Handle',
-        mileage_km: '1000 KM',
-        duration: '2 Years',
-        start_date: '02/02/2020',
-        start_km: '128900 KM',
-      },
-      {
-        category: 'Door',
-        item: 'Door Handle',
-        mileage_km: '1000 KM',
-        duration: '2 Years',
-        start_date: '02/02/2020',
-        start_km: '128900 KM',
-      },
-      {
-        category: 'Door',
-        item: 'Door Handle',
-        mileage_km: '1000 KM',
-        duration: '2 Years',
-        start_date: '02/02/2020',
-        start_km: '128900 KM',
-      },
-      {
-        category: 'Door',
-        item: 'Door Handle',
-        mileage_km: '1000 KM',
-        duration: '2 Years',
-        start_date: '02/02/2020',
-        start_km: '128900 KM',
-      },
-      {
-        category: 'Door',
-        item: 'Door Handle',
-        mileage_km: '1000 KM',
-        duration: '2 Years',
-        start_date: '02/02/2020',
-        start_km: '128900 KM',
-      },
-      {
-        category: 'Door',
-        item: 'Door Handle',
-        mileage_km: '1000 KM',
-        duration: '2 Years',
-        start_date: '02/02/2020',
-        start_km: '128900 KM',
-      },
-      {
-        category: 'Door',
-        item: 'Door Handle',
-        mileage_km: '1000 KM',
-        duration: '2 Years',
-        start_date: '02/02/2020',
-        start_km: '128900 KM',
-      },
-      {
-        category: 'Door',
-        item: 'Door Handle',
-        mileage_km: '1000 KM',
-        duration: '2 Years',
-        start_date: '02/02/2020',
-        start_km: '128900 KM',
-      },
-      {
-        category: 'Door',
-        item: 'Door Handle',
-        mileage_km: '1000 KM',
-        duration: '2 Years',
-        start_date: '02/02/2020',
-        start_km: '128900 KM',
-      },
-      {
-        category: 'Door',
-        item: 'Door Handle',
-        mileage_km: '1000 KM',
-        duration: '2 Years',
-        start_date: '02/02/2020',
-        start_km: '128900 KM',
       }
     ],
+    data: [],
     rowSettings: {}
   };
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  date(y) {
+    let createdDate = moment
+      .utc(y * 1000)
+      .local()
+      .toDate();
+    let nowDate = new Date();
+    let newDate = nowDate.getTime() - createdDate.getTime();
+    return {
+      day: Math.floor(newDate / (1000 * 3600 * 24))
+    };
   }
 
+  ngOnInit(): void {
+    this.tableSetting.data = this.data.map((x) => {
+      return {
+        category: 'Test',
+        item: x['item'],
+        mileage_km: '1000 KM',
+        duration:
+          this.date(x['duration']).day >= 1
+            ? this.date(x['duration']).day + ' Days Ago'
+            : 'Today',
+        startDate: x['startDate'],
+        start_km: '128900 KM'
+      };
+    });
+  }
 }

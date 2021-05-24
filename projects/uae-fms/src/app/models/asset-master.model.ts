@@ -6,7 +6,7 @@ export interface IAssetMaster {
   dpd?: string;
   ownershipId?: number;
   assetTypeId?: number;
-  createdAt?:string;
+  createdAt?: string;
   makeId?: number;
   modelId?: number;
   businessCategoryId?: number;
@@ -60,4 +60,27 @@ export interface IWarranty {
   startDate: string;
   docId: number;
   hasReminder: boolean;
+}
+
+export interface IAssetOverview {
+  numOfActiveAssets?: number;
+  numOfAssetsByBusinessCategory?: IAssetsByBusinessCategory[];
+  numOfAssetsByOrganization?: IAssetsByOrganization[];
+  numOfCustomizedAssets?: number;
+  numOfInactiveAssets?: number;
+  numOfRegisteredAssets?: number;
+  numOfXFleetAssets?: number;
+  totalNumberOfAssets?: number;
+}
+
+export interface IAssetsByBusinessCategory {
+  businessCategoryId: number;
+  businessCategoryName: string;
+  numOfAssets: number;
+}
+
+export interface IAssetsByOrganization {
+  numOfAssets: number;
+  organizationId: number;
+  organizationName: string;
 }

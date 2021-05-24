@@ -7,48 +7,50 @@ import { Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IPartMasterItem } from '@models/part-store.model';
 import { ColumnType, TableSetting } from '@core/table';
-import { environment } from '@environments/environment'
+import { environment } from '@environments/environment';
 @Component({
   selector: 'anms-part-overview',
   templateUrl: './part-overview.component.html',
   styleUrls: ['./part-overview.component.scss']
 })
-export class PartOverviewComponent implements OnInit , OnDestroy {
+export class PartOverviewComponent implements OnInit, OnDestroy {
   id: number;
   fleetType;
+  partId: number;
+  itemId: number;
   isUpdate;
-  item$:Observable<IPartMasterItem> = of({
-    categoryName:'',
-    description:'',
-    makeName:'',
-    modelName:'',
-    name:''
-  })
-  partListItemTableData$:Observable<any>;
-  specificPartSubscription:Subscription;
-  specificItemSubscription:Subscription;
-  images$:Observable<any>;
+  item$: Observable<IPartMasterItem> = of({
+    categoryName: '',
+    description: '',
+    makeName: '',
+    modelName: '',
+    name: ''
+  });
+  partListItemTableData$: Observable<any>;
+  specificPartSubscription: Subscription;
+  specificItemSubscription: Subscription;
+  images$: Observable<any> = of([]);
   partListItemTable: TableSetting = {
     columns: [
       {
         lable: 'tables.column.room',
         type: ColumnType.lable,
-        field: 'room',
+        field: 'room'
       },
       {
         lable: 'tables.column.quantity',
         type: ColumnType.lable,
-        field: 'quantity',
+        field: 'quantity'
       },
       {
         lable: 'tables.column.price',
         type: ColumnType.lable,
-        field: 'price',
+        field: 'price'
       },
       {
         lable: 'tables.column.warranty_expire_date',
         type: ColumnType.lable,
-        field: 'warrantyExpireDate',
+        field: 'warrantyExpireDate'
       },
       {
         lable: '',
@@ -56,99 +58,107 @@ export class PartOverviewComponent implements OnInit , OnDestroy {
         width: 0,
         type: ColumnType.lable,
         renderer: 'floatButton'
-      },
-      
+      }
     ],
-    data:[],
+    data: [],
     rowSettings: {
       floatButton: [
         {
           button: 'edit',
           onClick: (col, data, button?) => {
-            this.isUpdate=true;
-            this._router.navigate(['update/' + data.id] , {relativeTo:this.route , queryParams: { fleetType: this.fleetType.toLowerCase()}} );
-          },
+            this.isUpdate = true;
+            this._router.navigate(['update/' + data.id], {
+              relativeTo: this.route,
+              queryParams: { fleetType: this.fleetType.toLowerCase() }
+            });
+          }
         }
       ]
     }
-  }
+  };
   @ViewChild('selectedImage', { static: false }) element: ElementRef;
 
-  constructor(private _router: Router, 
-              public route: ActivatedRoute,
-              private _facadePartList : PartListFacade,
-              private _facadePartMaster:PartMasterFacade
-              ) {
-  }
+  constructor(
+    private _router: Router,
+    public route: ActivatedRoute,
+    private _facadePartList: PartListFacade,
+    private _facadePartMaster: PartMasterFacade
+  ) {}
 
   ngOnInit(): void {
-    let url = this.route.snapshot.url;
-    if(this.route.snapshot.children.length>0 && !this.fleetType){
-      let partId = +this.route.snapshot.children[this.route.snapshot.children.length -1].params.id
-      this._facadePartList.loadSpecificPartOfAsset(partId);
+    const childrenRoute = this.route.snapshot.children;
+    if (
+      this.route.snapshot.children.length > 0 &&
+      !this.fleetType &&
+      childrenRoute[childrenRoute.length - 1].params.id
+    ) {
+      this.partId = +childrenRoute[childrenRoute.length - 1].params.id;
+      this._facadePartList.loadSpecificPartOfAsset(this.partId);
     }
     this.fleetType = this.route.snapshot.queryParams.fleetType;
-    this.id = +url[url.length -1].path;
-    if(this.fleetType){
+    this.id = +this.route.snapshot.params.id;
+    if (this.fleetType) {
       this.checkFleetType();
     }
 
     this.specificItemSubscription = this._facadePartMaster.specificItem$.subscribe(
-      x=>{
-        if(x){
-          if(x.documentIds !== null && x.documentIds.length == 0){
-            this.images$ = of([{address:'assets/camera.png'}])
-          }else{
-            this.images$ = of(x.documentIds.map(x =>{
-              return {
-                address:  environment.baseApiUrl + `document/${x}`
-              }
-            }))
+      (x) => {
+        if (x) {
+          if (x.documentIds !== null && x.documentIds.length == 0) {
+            this.images$ = of([{ address: 'assets/thumb.png' }]);
+          } else {
+            this.images$ = of(
+              x.documentIds.map((x) => {
+                return {
+                  address: environment.baseApiUrl + `document/${x}`
+                };
+              })
+            );
           }
-          this.item$ = of(x)
+          this.item$ = of(x);
         }
       }
-    )
+    );
   }
-  checkFleetType(){
+  checkFleetType() {
     switch (this.fleetType) {
       case 'asset':
         this._facadePartList.loadAllAssetPartList(this.id);
         this._facadePartMaster.loadSpecificItemOfAsset(this.id);
         this.partListItemTableData$ = this._facadePartList.assetPartList$.pipe(
-          map(x =>{
-            if(x){
-              return x.map(
-                 item => {
-                  return {
-                    ...item,
-                    price: item.price + ' AED',
-                    warrantyExpireDate : new Date(item.warrantyExpireDate).toLocaleString().split(',')[0]
-                  }
-                }
-              )
+          map((x) => {
+            if (x) {
+              return x.map((item) => {
+                return {
+                  ...item,
+                  price: item.price + ' AED',
+                  warrantyExpireDate: new Date(item.warrantyExpireDate)
+                    .toLocaleString()
+                    .split(',')[0]
+                };
+              });
             }
           })
-        )
+        );
         break;
       case 'sub-asset':
         this._facadePartList.loadAllSubAssetPartList(this.id);
         this._facadePartMaster.loadSpecificItemOfSubAsset(this.id);
         this.partListItemTableData$ = this._facadePartList.subAssetPartList$.pipe(
-          map(x =>{
-            if(x){
-              return x.map(
-                 item => {
-                  return {
-                    ...item,
-                    price: item.price + ' AED',
-                    warrantyExpireDate : new Date(item.warrantyExpireDate).toLocaleString().split(',')[0]
-                  }
-                }
-              )
+          map((x) => {
+            if (x) {
+              return x.map((item) => {
+                return {
+                  ...item,
+                  price: item.price + ' AED',
+                  warrantyExpireDate: new Date(item.warrantyExpireDate)
+                    .toLocaleString()
+                    .split(',')[0]
+                };
+              });
             }
           })
-        )
+        );
         break;
     }
   }
@@ -156,7 +166,7 @@ export class PartOverviewComponent implements OnInit , OnDestroy {
     this.element.nativeElement.src = event.target.src;
   }
 
-  eventPagination_partListItem(){
+  eventPagination_partListItem() {
     switch (this.fleetType) {
       case 'asset':
         this._facadePartList.loadAllAssetPartList(this.id);
@@ -166,6 +176,5 @@ export class PartOverviewComponent implements OnInit , OnDestroy {
         break;
     }
   }
-  ngOnDestroy(){
-  }
+  ngOnDestroy() {}
 }

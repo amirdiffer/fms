@@ -48,8 +48,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     {
       name: 'sidebar.dashboard',
       icon: 'dashboard',
-      route: '/dashboard',
-      disabled: true
+      route: '/dashboard'
     },
     {
       name: 'sidebar.fleets.~',
@@ -93,7 +92,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             {
               name: 'sidebar.fleets.movement.temporary',
               route: '/fleet/movement/temporary'
-            },
+            }
             /* {
               name: 'sidebar.fleets.movement.iserve',
               route: '/fleet/movement/iserve'
@@ -131,6 +130,11 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           route: '/workshop/service-shop'
           // disabled: true
         },
+        {
+          name: 'sidebar.workshop.location',
+          icon: 'location',
+          route: '/workshop/location'
+        },
         /* {
           name: 'sidebar.workshop.inspection.~',
           icon: 'inspection',
@@ -161,7 +165,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.part_store.part_list',
           icon: 'part-list',
-          route: '/part-store/part-list',
+          route: '/part-store/part-list'
         },
         {
           name: 'sidebar.part_store.order_list',
@@ -175,7 +179,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             {
               name: 'sidebar.part_store.sub_asset',
               route: '/part-store/order-list/sub-asset'
-            },
+            }
           ]
         },
         {
@@ -280,7 +284,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     private routerService: RouterService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.usingMenu = this.mainMenu;
@@ -317,7 +321,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       }
   }
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {}
 
   activeMenuCheck(route: string) {
     let r = '';

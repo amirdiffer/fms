@@ -129,7 +129,9 @@
           <div *ngIf="col.renderer=='radialBar'">
             <radialBar-renderer [percent]='data[col.field]'></radialBar-renderer>
           </div>
-
+          <div *ngIf="col.renderer=='dateRenderer'">
+            <table-date-renderer [data]='data[col.field]'></table-date-renderer>
+          </div>
           <div class='text-center' *ngIf="col.renderer=='receivedButton' && (i === rowIndexTable)">
             <table-received-button-renderer [setting]="setting.rowSettings" [data]="data" [col]="col"></table-received-button-renderer>
           </div>

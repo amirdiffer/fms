@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IOperator, IOperatorDrivingLicense } from '@models/operator';
 import { ResponseBody } from '@models/responseBody';
-import { IOperatorStatistics } from '@models/statistics';
+import { IOperatorOverview, IOperatorStatistics } from '@models/statistics';
 import { environment } from '@environments/environment';
 import { TableFacade } from '@core/table/+state/table.facade';
 
@@ -61,7 +61,17 @@ export class OperatorService {
     );
   }
 
-  getOperatorsDrivingLicence(id: number): Observable<ResponseBody<IOperatorDrivingLicense>> {
-    return this.http.get<ResponseBody<IOperatorDrivingLicense>>(environment.baseApiUrl + 'operator/' + id + '/driver-license')
+  operatorOverview(): Observable<ResponseBody<IOperatorOverview>> {
+    return this.http.get<ResponseBody<IOperatorOverview>>(
+      environment.baseApiUrl + 'operator/overview'
+    );
+  }
+
+  getOperatorsDrivingLicence(
+    id: number
+  ): Observable<ResponseBody<IOperatorDrivingLicense>> {
+    return this.http.get<ResponseBody<IOperatorDrivingLicense>>(
+      environment.baseApiUrl + 'operator/' + id + '/driver-license'
+    );
   }
 }

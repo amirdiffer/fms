@@ -4,8 +4,8 @@ import { AuthGuardService } from '@core/auth/auth-guard.service';
 import { MainTemplateComponent } from './template/main-template/main-template.component';
 import { LoginTemplateComponent } from './template/login-template/login-template.component';
 import { DesignSystemComponent } from './template/design-system/design-system.component';
-import { TechnicianOverviewComponent } from "./template/technician-dashboard-template/technician-dashboard-template";
-import { TechnicianModule } from "./feature/technician/technician.module";
+import { TechnicianOverviewComponent } from './template/technician-dashboard-template/technician-dashboard-template';
+import { TechnicianModule } from './feature/technician/technician.module';
 
 const routes: Routes = [
   {
@@ -23,6 +23,15 @@ const routes: Routes = [
       ),
     component: MainTemplateComponent
   },
+  /* {
+    path: 'dashboard/technician',
+    canLoad: [AuthGuardService],
+    loadChildren: () =>
+      import('./feature/technician/technician.module').then(
+        (m) => m.TechnicianModule
+      ),
+    component: TechnicianOverviewComponent
+  }, */
   {
     path: 'fleet',
     canLoad: [AuthGuardService],
@@ -66,7 +75,7 @@ const routes: Routes = [
       ),
     component: MainTemplateComponent
   },
-   {
+  {
     path: 'toll',
     canLoad: [AuthGuardService],
     loadChildren: () =>
@@ -120,4 +129,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

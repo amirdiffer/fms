@@ -19,21 +19,20 @@ import { Location } from '@angular/common';
 export class ReceiveOrderComponent extends Utility implements OnInit {
   calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   id: number;
-  itemId:number;
-  fleetType:string;
+  itemId: number;
+  fleetType: string;
 
   /* Subscription */
-  specificItemSubscription:Subscription;
-  specificOrderSubscription:Subscription;
-  submitSubscription:Subscription;
-  errorSubscription:Subscription;
-
+  specificItemSubscription: Subscription;
+  specificOrderSubscription: Subscription;
+  submitSubscription: Subscription;
+  errorSubscription: Subscription;
 
   form: FormGroup;
-  
+
   /* Dialog */
   dialogModal = false;
-  dialogOption:dialogOption;
+  dialogOption: dialogOption;
   dialogSetting: IDialogAlert = {
     header: 'Request',
     hasError: false,
@@ -45,33 +44,36 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
   };
 
   submitted = false;
-  
-  images$: Observable<any>;
+
+  images$: Observable<any> = of([]);
   item$: Observable<IPartMasterItem> = of({
     categoryName: '',
     description: '',
     makeName: '',
     modelName: '',
     name: '',
-    suppliers:[]
+    suppliers: []
   });
 
-  constructor(private _activatedRoute: ActivatedRoute,
-              private _location: Location,
-              private _fb: FormBuilder,
-              private _facadePartMaster: PartMasterFacade,
-              private _facadeOrderList : OrderListFacade,
-              injector: Injector) {super(injector);}
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _location: Location,
+    private _fb: FormBuilder,
+    private _facadePartMaster: PartMasterFacade,
+    private _facadeOrderList: OrderListFacade,
+    injector: Injector
+  ) {
+    super(injector);
+  }
 
   ngOnInit(): void {
     this._facadePartMaster.resetItem();
     this._facadeOrderList.reset();
-    let activeRoute = this._activatedRoute.snapshot.url
-    this.id = +activeRoute[activeRoute.length -1].path;
-    
+    let activeRoute = this._activatedRoute.snapshot.url;
+    this.id = +activeRoute[activeRoute.length - 1].path;
 
     this.fleetType = activeRoute[1].path;
-    if(this.id){
+    if (this.id) {
       switch (this.fleetType) {
         case 'asset':
           this._facadeOrderList.getSpecificOrderPartAsset(this.id);
@@ -83,15 +85,15 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
     }
 
     this.specificOrderSubscription = this._facadeOrderList.specificOrder$.subscribe(
-      x=>{
-        if(x){
-          console.log(x)
+      (x) => {
+        if (x) {
+          console.log(x);
           switch (this.fleetType) {
             case 'asset':
-              this._facadePartMaster.loadSpecificItemOfAsset(x.itemId)
+              this._facadePartMaster.loadSpecificItemOfAsset(x.itemId);
               break;
             case 'sub-asset':
-              this._facadePartMaster.loadSpecificItemOfSubAsset(x.itemId)
+              this._facadePartMaster.loadSpecificItemOfSubAsset(x.itemId);
               break;
           }
         }
@@ -99,21 +101,23 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
     );
 
     this.specificItemSubscription = this._facadePartMaster.specificItem$.subscribe(
-      x=>{
-        if(x){
-          if(x.documentIds !== null && x.documentIds.length == 0){
-            this.images$ = of([{address:'assets/camera.png'}])
-          }else{
-            this.images$ = of(x.documentIds.map(x =>{
-              return {
-                address:  environment.baseApiUrl + `document/${x}`
-              }
-            }))
+      (x) => {
+        if (x) {
+          if (x.documentIds !== null && x.documentIds.length == 0) {
+            this.images$ = of([{ address: 'assets/thumb.png' }]);
+          } else {
+            this.images$ = of(
+              x.documentIds.map((x) => {
+                return {
+                  address: environment.baseApiUrl + `document/${x}`
+                };
+              })
+            );
           }
-          this.item$ = of(x)
+          this.item$ = of(x);
         }
       }
-    )
+    );
 
     this.form = this._fb.group({
       quantity: ['', [Validators.required]],
@@ -126,11 +130,10 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
       box: ['', [Validators.required]]
     });
 
-
     this.errorAndSubmitHandler();
   }
 
-  cancelForm(){
+  cancelForm() {
     this.dialogOption = dialogOption.cancel;
     this.dialogSetting = {
       header: 'Receive Order',
@@ -139,57 +142,63 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
       message: 'Are you sure that you want to cancel?',
       confirmButton: 'Yes',
       cancelButton: 'No'
-    }
+    };
     this.dialogModal = true;
   }
 
-  dialogConfirm(event){
-    if(event && (this.dialogOption == dialogOption.cancel || this.dialogOption == dialogOption.success)){
+  dialogConfirm(event) {
+    if (
+      event &&
+      (this.dialogOption == dialogOption.cancel ||
+        this.dialogOption == dialogOption.success)
+    ) {
       this._location.back();
     }
     this.dialogModal = false;
   }
 
-  submit(){
+  submit() {
     this.submitted = true;
     this.form.markAllAsTouched();
-    if(this.form.invalid) return;
+    if (this.form.invalid) return;
     let formData = this.form.getRawValue();
     let payload = {
-      id:this.id,
-      warrantyExpireDate:formData.warrantyStartDate.toISOString(),
-      quantity:+formData.quantity,
-      price:+formData.price,
-      description:formData.description,
-      room:formData.room,
-      aisle:formData.aisle,
-      shelf:formData.shelf,
-      box:formData.box,
-    }
+      id: this.id,
+      warrantyExpireDate: formData.warrantyStartDate.toISOString(),
+      quantity: +formData.quantity,
+      price: +formData.price,
+      description: formData.description,
+      room: formData.room,
+      aisle: formData.aisle,
+      shelf: formData.shelf,
+      box: formData.box
+    };
     switch (this.fleetType) {
       case 'asset':
-        this._facadeOrderList.receiveSpecificOrderPartofAsset(payload)
+        this._facadeOrderList.receiveSpecificOrderPartofAsset(payload);
         break;
       case 'sub-asset':
-        this._facadeOrderList.receiveSpecificOrderPartofSubAsset(payload)
+        this._facadeOrderList.receiveSpecificOrderPartofSubAsset(payload);
         break;
     }
   }
 
   errorAndSubmitHandler() {
-    this.submitSubscription = this._facadeOrderList.submitted$.subscribe((x) => {
-      if (x) {
-        console.log(x)
-        this.dialogOption = dialogOption.success;
-        this.dialogModal = true;
-        this.dialogSetting.header = 'Receive Order';
-        this.dialogSetting.message = 'Receive Order Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
+    this.submitSubscription = this._facadeOrderList.submitted$.subscribe(
+      (x) => {
+        if (x) {
+          console.log(x);
+          this.dialogOption = dialogOption.success;
+          this.dialogModal = true;
+          this.dialogSetting.header = 'Receive Order';
+          this.dialogSetting.message = 'Receive Order Successfully';
+          this.dialogSetting.isWarning = false;
+          this.dialogSetting.hasError = false;
+          this.dialogSetting.confirmButton = 'OK';
+          this.dialogSetting.cancelButton = undefined;
+        }
       }
-    });
+    );
 
     this.errorSubscription = this._facadeOrderList.error$.subscribe((x) => {
       if (x?.error) {
@@ -209,9 +218,8 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
     this.specificOrderSubscription?.unsubscribe();
   }
 }
-export enum dialogOption{
-  success='success',
+export enum dialogOption {
+  success = 'success',
   error = 'error',
   cancel = 'cancel'
 }
-

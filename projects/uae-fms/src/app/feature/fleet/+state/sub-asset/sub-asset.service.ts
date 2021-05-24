@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ISubasset } from '@models/sub-asset';
+import { ISubasset, ISubAssetOverview } from '@models/sub-asset';
 import { ResponseBody } from '@models/response-body';
 import { environment } from '@environments/environment';
 import { ISubAssetStatistics } from '@models/statistics';
@@ -13,9 +13,10 @@ export class SubAssetService {
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
@@ -24,7 +25,8 @@ export class SubAssetService {
 
   loadAll(): Observable<ResponseBody<ISubasset[]>> {
     return this.http.get<ResponseBody<ISubasset[]>>(
-      environment.baseApiUrl + 'sub-asset', {params: this.getParam('sub-asset')}
+      environment.baseApiUrl + 'sub-asset',
+      { params: this.getParam('sub-asset') }
     );
   }
 
@@ -61,6 +63,12 @@ export class SubAssetService {
   loadFullList(): Observable<ResponseBody<ISubasset[]>> {
     return this.http.get<ResponseBody<ISubasset[]>>(
       environment.baseApiUrl + 'sub-asset?page=0&size=99999999'
+    );
+  }
+
+  subAssetOverview(): Observable<ResponseBody<ISubAssetOverview>> {
+    return this.http.get<ResponseBody<ISubAssetOverview>>(
+      environment.baseApiUrl + 'sub-asset/overview'
     );
   }
 }

@@ -28,7 +28,14 @@ import { AddSubAssetComponent } from './sub-asset/add-sub-asset/add-sub-asset.co
 import { AddAccessoryComponent } from './accessory/add-accessory/add-accessory.component';
 import { MovementConfirmComponent } from './movement/movement-confirm/movement-confirm.component';
 import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
-import { AssetsComponent, AddAssetComponent, OverViewAssetComponent, VehicleOverviewComponent, BusinessCategoryComponent, RequestComponent } from './assets';
+import {
+  AssetsComponent,
+  AddAssetComponent,
+  OverViewAssetComponent,
+  VehicleOverviewComponent,
+  BusinessCategoryComponent,
+  RequestComponent
+} from './assets';
 
 import { SharedModule } from '@shared/shared.module';
 import { FilterModule } from '@core/filter/filter.module';
@@ -51,7 +58,7 @@ import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movement-temporary-confirm/movement-confirm.component';
 import { AccessoryOverviewComponent } from './accessory/accessory-overview/accessory-overview.component';
 
-import { TranslateModule } from "@ngx-translate/core";
+import { TranslateModule } from '@ngx-translate/core';
 import { ReminderComponent } from '@feature/fleet/assets/overview-asset/infoComponents/reminder/reminder.component';
 import { WarrantyComponent } from './assets/overview-asset/infoComponents/warranty/warranty.component';
 import { MovementHistoryComponent } from './assets/overview-asset/infoComponents/movement-history/movement-history.component';
@@ -63,6 +70,10 @@ import { SubAssetDetailComponent } from './sub-asset/sub-asset-overview/sub-asse
 import { ReminderModule } from './sub-asset/sub-asset-overview/reminder/reminder.module';
 import { HistoryModule } from './sub-asset/sub-asset-overview/history/history.module';
 import { OperatorOverviewTabComponent } from './operator/over-view-operator/overview-tab/overview-tab.component';
+import {
+  BodyShopJobCardService,
+  BodyShopRequestService
+} from '@feature/workshop/+state/body-shop';
 
 @NgModule({
   declarations: [
@@ -132,8 +143,7 @@ import { OperatorOverviewTabComponent } from './operator/over-view-operator/over
     ReminderModule,
     HistoryModule
   ],
-  exports: [
-    AssetCarDetailComponent
-  ]
+  exports: [AssetCarDetailComponent],
+  providers: [BodyShopJobCardService, BodyShopRequestService]
 })
-export class FleetModule { }
+export class FleetModule {}

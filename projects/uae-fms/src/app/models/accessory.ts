@@ -7,3 +7,9 @@ export interface IAccessory {
   quantity: number;
   assignedToEmployeeId: number;
 }
+
+export interface IAccessoryOverview {
+  totalNumOfAccessories: number;
+  numOfInactiveAccessories: number;
+  numOfAssignedAccessories: number;
+}

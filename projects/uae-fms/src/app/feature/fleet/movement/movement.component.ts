@@ -119,7 +119,7 @@ export class MovementComponent
             },
             movementType: y['movementType'],
             requestType: y['requestType'],
-            assetType: y['assetTypeName'],
+            assetType: y['assetConfigurationName'],
             reason: y['reason'],
             date: 'Saturday 02/02 12:30',
             requestStatus: y['status'],
@@ -447,8 +447,12 @@ export class MovementComponent
           operator: 'operator',
           fine: 'fine',
           reason: 'reason'
-        }
-        this.table.exportTable(this.movementOverViewTableSetting, 'Overview', filter);
+        };
+        this.table.exportTable(
+          this.movementOverViewTableSetting,
+          'Overview',
+          filter
+        );
         break;
       case 'requestTab':
         filter = {
@@ -459,7 +463,7 @@ export class MovementComponent
           reason: 'reason',
           date: 'date',
           requestStatus: 'requestStatus'
-        }
+        };
         this.table.exportTable(this.requestTableSetting, 'Request', filter);
         break;
     }

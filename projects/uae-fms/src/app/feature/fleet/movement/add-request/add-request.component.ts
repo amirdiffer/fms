@@ -120,7 +120,7 @@ export class AddRequestComponent extends Utility implements OnInit {
         requestType: d.requestType,
         movementType: 'PERMANENT',
         oldAssetId: d.oldAssetId.id,
-        assetTypeId: d.assetType.id,
+        assetConfigurationId: d.assetType.id,
         reason: d.reason,
         quantity: d.quality,
         startDate: d.startDate,

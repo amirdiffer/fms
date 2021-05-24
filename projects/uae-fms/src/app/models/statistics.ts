@@ -83,3 +83,12 @@ export interface IPartListStatistics extends IGeneralResponse {
     unavailable: number;
   };
 }
+
+export interface IOperatorOverview {
+  totalNumOfOperators?: number;
+  totalAmountOfFines?: number;
+  numOfActiveOperators?: number;
+  numOfInactiveOperators?: number;
+  lowestFinedOperator?: object;
+  highestFinedOperator?: object;
+}
