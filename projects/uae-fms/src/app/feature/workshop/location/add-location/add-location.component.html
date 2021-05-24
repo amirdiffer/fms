@@ -1,0 +1,146 @@
+<form [formGroup]="inputForm" (ngSubmit)="addRequest()">
+  <div class="button-container">
+    <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{'forms.cancel' |
+      translate}}</button>
+    <button class="btn-primary-medium add" type="submit">{{isEdit ? ('forms.edit' | translate) : ('forms.add' |
+      translate)}}</button>
+  </div>
+
+  <div class="row">
+
+    <div class="col-12">
+      <div class="component_wrapper form-section">
+        <label class="caption">{{'workshop.body_shop.location.location_info' | translate}}</label>
+        <div class="row mt-3">
+          <div class="col-lg-6">
+            <div class="form-group p-field form-section__field">
+              <div class="input-group">
+                <div class="autocomplete-select flex-with-button">
+                  <span class="p-float-label" *ngIf="!isEdit">
+                    <p-autoComplete placeholder="{{'workshop.body_shop.location.location_id' | translate}}"
+                      [suggestions]="filteredLocation" formControlName="locationID"
+                      (completeMethod)="searchLocation($event)" field="id"
+                      [class.invalid]="!inputForm.get('locationID').valid && submited">
+                      <ng-template let-location pTemplate="item">
+                        <div class="location-item">
+                          <div>{{location.name}}</div>
+                        </div>
+                      </ng-template>
+                    </p-autoComplete>
+                    <i class="pi pi-search"></i>
+                    <label>{{'workshop.body_shop.location.location_id' | translate}}</label>
+                  </span>
+                  <span class="p-float-label" *ngIf="isEdit">
+                    <input type="text" class="form-control"
+                    placeholder="{{'workshop.body_shop.location.location_id' | translate}}" formControlName="locationID" disabled>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-4">
+                {{'workshop.task_master.task_type'|translate}} *
+              </div>
+              <div class="col-8">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-check">
+                      <input class="form-check-input" [(ngModel)]="type" type="radio" id="radioButton1"
+                        value="body-shop" [ngModelOptions]="{standalone: true}">
+                      <label class="form-check-label"
+                        for="radioButton1">{{"workshop.task_master.body_shop"|translate}}</label>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-check">
+                      <input class="form-check-input" [(ngModel)]="type" type="radio" id="radioButton2"
+                        value="service-shop" [ngModelOptions]="{standalone: true}">
+                      <label class="form-check-label"
+                        for="radioButton2">{{"workshop.task_master.service_shop"|translate}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="form-group p-field form-section__field">
+              <div class="input-group">
+                <span class="p-float-label w-100">
+                  <input type="text" class="form-control"
+                    placeholder="{{'workshop.body_shop.location.address' | translate}}" formControlName="address"
+                    [class.invalid]="inputForm.get('address').invalid && submited">
+                  <label>{{'workshop.body_shop.location.address' | translate}} *</label>
+                </span>
+              </div>
+              <anms-error [showError]="hasError('address',inputForm,submited)"
+                error="{{'workshop.body_shop.location.address_validation_error' | translate}}"></anms-error>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="component_wrapper form-section">
+        <div class="row mt-3">
+          <div class="col-lg-6" formArrayName="services">
+            <div class="form-group mb-0"
+              *ngFor="let _ of inputForm.get('services')['controls']; let index = index; let last=last;"
+              [formGroupName]="index">
+              <div class="input-group d-flex w-100  flex-wrap">
+                <div class="p-field form-section__field  flex-with-button w-100 flex-85">
+                  <span class="p-float-label">
+                    <input type="text" class="form-control border"
+                      placeholder="{{'workshop.body_shop.location.service' | translate}}" formControlName="service">
+                    <label>{{'workshop.body_shop.location.service' | translate}}</label>
+                  </span>
+                  <anms-error [showError]="formArrayHasError(submited, services, index, 'service')"
+                    error="{{'forms.feedback.required' | translate}}"></anms-error>
+                </div>
+                <span *ngIf="last" class="p-inputgroup-addon" [ngStyle]="{'cursor': 'pointer' , 'height':' 40px'}"
+                  (click)="addService()"><i class="pi pi-plus"></i></span>
+                <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeService(index)"
+                  [ngStyle]="{'cursor': 'pointer' , 'height':' 40px'}">
+                  <svg-icon src='assets/icons/add.svg'
+                    [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}">
+                  </svg-icon>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6" formArrayName="slots">
+            <div class="form-group mb-0"
+              *ngFor="let _ of inputForm.get('slots')['controls']; let index = index; let last=last;"
+              [formGroupName]="index">
+              <div class="input-group d-flex w-100  flex-wrap">
+                <div class="p-field form-section__field  flex-with-button w-100 flex-85">
+                  <span class="p-float-label">
+                    <input type="text" class="form-control border"
+                      placeholder="{{'workshop.body_shop.location.slot' | translate}}"
+                      formControlName="thirdPartyLocationId">
+                    <label>{{'workshop.body_shop.location.slot' | translate}}</label>
+                  </span>
+                  <anms-error [showError]="formArrayHasError(submited, slots, index, 'thirdPartyLocationId')"
+                    error="{{'forms.feedback.required' | translate}}"></anms-error>
+                </div>
+                <!-- <span *ngIf="last" class="p-inputgroup-addon" [ngStyle]="{'cursor': 'pointer' , 'height':' 40px'}" (click)="addSlot()"><i class="pi pi-plus"></i></span>
+                <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeSlot(index)" [ngStyle]="{'cursor': 'pointer' , 'height':' 40px'}">
+                  <svg-icon src='assets/icons/add.svg'
+                            [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+                </span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal" (confirm)="errorDialogModal=false">
+</alert-dialog>

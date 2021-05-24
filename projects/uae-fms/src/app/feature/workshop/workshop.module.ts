@@ -30,7 +30,6 @@ import { TechnicalInspectionComponent } from './inspections/technical-inspection
 import { DashboardModule } from '@feature/dashboard/dashboard.module';
 import { AddRequestComponent } from './body-shop/add-request/add-request.component';
 import { AddTechnicianComponent } from './body-shop/add-technician/add-technician.component';
-import { AddLocationComponent } from './body-shop/add-location/add-location.component';
 import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 import { WorkshopStateModule } from './+state';
 import { AddJobCardComponent } from './body-shop/add-job-card/add-job-card.component';
@@ -51,7 +50,6 @@ import { TranslateModule } from "@ngx-translate/core";
     TechnicalInspectionComponent,
     AddTechnicianComponent,
     AddRequestComponent,
-    AddLocationComponent,
     AddJobCardComponent,
     TaskMasterFormComponent,
     ServiceShopComponent,

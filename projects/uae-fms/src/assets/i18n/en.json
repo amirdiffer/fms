@@ -170,6 +170,7 @@
       "~": "Workshop",
       "body_shop": "Body Shop",
       "service_shop": "Service Shop",
+      "location": "Location",
       "inspection": {
         "~": "Inspections",
         "technical_inspection": "Technical Inspection",
