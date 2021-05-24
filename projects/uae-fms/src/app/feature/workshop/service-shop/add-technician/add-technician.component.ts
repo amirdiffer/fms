@@ -291,7 +291,7 @@ export class AddTechnicianServiceShopComponent
               }
               for (let i = 0; i < x.locations.length; i++) {
                 this.getLocation.controls[i].patchValue({
-                  name: x.locations[i].address,
+                  address: x.locations[i].address,
                   id: x.locations[i].id
                 });
                 if (i != x.locations.length - 1) {

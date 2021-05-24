@@ -16,6 +16,8 @@ import { environment } from '@environments/environment'
 export class PartOverviewComponent implements OnInit , OnDestroy {
   id: number;
   fleetType;
+  partId:number;
+  itemId:number;
   isUpdate;
   item$:Observable<IPartMasterItem> = of({
     categoryName:'',
@@ -27,7 +29,7 @@ export class PartOverviewComponent implements OnInit , OnDestroy {
   partListItemTableData$:Observable<any>;
   specificPartSubscription:Subscription;
   specificItemSubscription:Subscription;
-  images$:Observable<any>;
+  images$:Observable<any> = of([]);
   partListItemTable: TableSetting = {
     columns: [
       {
@@ -82,13 +84,13 @@ export class PartOverviewComponent implements OnInit , OnDestroy {
   }
 
   ngOnInit(): void {
-    let url = this.route.snapshot.url;
-    if(this.route.snapshot.children.length>0 && !this.fleetType){
-      let partId = +this.route.snapshot.children[this.route.snapshot.children.length -1].params.id
-      this._facadePartList.loadSpecificPartOfAsset(partId);
+    const childrenRoute = this.route.snapshot.children
+    if(this.route.snapshot.children.length > 0 && !this.fleetType && childrenRoute[childrenRoute.length -1].params.id){
+      this.partId = +childrenRoute[childrenRoute.length -1].params.id
+      this._facadePartList.loadSpecificPartOfAsset(this.partId);
     }
     this.fleetType = this.route.snapshot.queryParams.fleetType;
-    this.id = +url[url.length -1].path;
+    this.id = +this.route.snapshot.params.id;
     if(this.fleetType){
       this.checkFleetType();
     }
@@ -97,7 +99,7 @@ export class PartOverviewComponent implements OnInit , OnDestroy {
       x=>{
         if(x){
           if(x.documentIds !== null && x.documentIds.length == 0){
-            this.images$ = of([{address:'assets/camera.png'}])
+            this.images$ = of([{address:'assets/thumb.png'}])
           }else{
             this.images$ = of(x.documentIds.map(x =>{
               return {

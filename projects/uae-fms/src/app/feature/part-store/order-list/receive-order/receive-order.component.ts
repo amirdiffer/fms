@@ -46,7 +46,7 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
 
   submitted = false;
   
-  images$: Observable<any>;
+  images$: Observable<any> = of([]);
   item$: Observable<IPartMasterItem> = of({
     categoryName: '',
     description: '',
@@ -102,7 +102,7 @@ export class ReceiveOrderComponent extends Utility implements OnInit {
       x=>{
         if(x){
           if(x.documentIds !== null && x.documentIds.length == 0){
-            this.images$ = of([{address:'assets/camera.png'}])
+            this.images$ = of([{address:'assets/thumb.png'}]);
           }else{
             this.images$ = of(x.documentIds.map(x =>{
               return {

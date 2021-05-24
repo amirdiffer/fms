@@ -23,6 +23,8 @@ const bodyShopRequestReducer = createReducer(
     ...state,
     resultNumber: data
   })),
+
+
   /* Request By Id */
   on(BodyShopRequestActions.loadAllRequestsById, (state) => ({
     ...state,
@@ -35,6 +37,21 @@ const bodyShopRequestReducer = createReducer(
     loaded: true,
     error: null,
     requests: data
+  })),
+
+  /* Get Specific Request */
+  on(BodyShopRequestActions.getSpecificRequest, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null,
+    specificRequest:null
+  })),
+  on(BodyShopRequestActions.specificRequestLoaded, (state, { data }) => ({
+    ...state,
+    loaded: true,
+    error: null,
+    specificRequest: data
   })),
 
   /* Request By AssetIdd */

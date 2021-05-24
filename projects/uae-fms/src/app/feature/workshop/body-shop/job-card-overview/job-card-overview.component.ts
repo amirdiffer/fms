@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnType } from '@core/table';
 import { AssetMasterFacade, AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
-import { Subject } from 'rxjs';
+import moment from 'moment';
+import { Observable, of, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { BodyShopJobCardService } from "../../+state/body-shop/job-card/body-shop-job-card.service";
 
 @Component({
@@ -15,11 +17,8 @@ export class JobCardOverviewComponent implements OnInit {
   assetId;
   jobcardId;
   assetDetail;
-  sidebarData = new Subject();
-  sidebarData$ = this.sidebarData.asObservable();
-
-  tasksData = new Subject();
-  tableData$ = this.tasksData.asObservable();
+  sidebarData$ =  new Subject();
+  tableData$= new Subject()
 
   jobCartsData = new Subject<any[]>();
   tableData2$ = this.jobCartsData.asObservable();
@@ -176,29 +175,26 @@ export class JobCardOverviewComponent implements OnInit {
     private service: BodyShopJobCardService,
     private assetService: AssetMasterService
   ) {
-    this.tasksData.next([]);
     this.jobCartsData.next([]);
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(x => {
-      if (!x?.id) this.router.navigate(["/workshop/body-shop"]);
-      this.jobcardId = x.id;
-      this.service.getJobCardById(x.id).subscribe(m => {
-        this.sidebarData.next(m);
-
-        this.tasksData.next(m.message?.tasks?.map(a => {
-          return a.taskMaster
-        }));
-        this.assetService.getAssetByID(m.message.assetId).subscribe(z => {
-          this.assetId = z.message.id;
-
-          this.service.getAllActiveJobcards(this.assetId).subscribe((y: any) => {
-            this.jobCartsData.next(y?.message?.tasks.map(a => a.taskMaster));
-          });
-        })
-      })
-    })
+    this.assetId = +this.route.snapshot.params.id;
+    this.service.getJobCardById(this.assetId).subscribe(
+      x => {
+        if(x){
+          console.log(x)
+          this.tableData$.next(x.message.tasks.map(x => {return x.taskMaster}))
+          this.sidebarData$.next({message:{
+            ...x.message , 
+            status: x.message.status,
+            startDate:x.message.startDate !== null ? moment.utc(x.message.startDate *1000).local().format('DD-MM-YYYY'):'-',
+            endDate:x.message.endDate !== null ? moment.utc(x.message.endDate *1000).local().format('DD-MM-YYYY'):'-',
+            cost:x.message.cost !== null ? x.message.cost : '-'
+          }})
+        }
+      }
+    )
 
   }
 
