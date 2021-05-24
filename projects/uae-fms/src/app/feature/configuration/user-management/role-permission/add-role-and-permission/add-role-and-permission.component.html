@@ -80,6 +80,14 @@
                       <label>{{'configuration.role_permission.export_asset_list' | translate}}</label>
                     </div>
                     <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_EXPORT_LIST_PENDING">
+                      <label>{{'configuration.role_permission.export_asset_list_registration' | translate}}</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_EXPORT_LIST_CUSTOMIZATION">
+                      <label>{{'configuration.role_permission.export_asset_list_customization' | translate}}</label>
+                    </div>
+                    <div class="form-check">
                       <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_VIEW_LIST_MASTER_OWN">
                       <label>{{'configuration.role_permission.view_own_asset' | translate}}</label>
                     </div>
@@ -125,8 +133,8 @@
                       <label>{{'configuration.role_permission.view_own_pending_registration_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="updateEditOwnRegistrationList" >
-                      <label>{{'configuration.role_permission.update_edit_own_registration_list' | translate}}</label>
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_REGISTER_OWN" >
+                      <label>{{'configuration.role_permission.asset_register_own' | translate}}</label>
                     </div>
                   </div>
                 </div>
@@ -141,7 +149,7 @@
                       <label>{{'configuration.role_permission.view_own_pending_customization_list' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="updateEditCustomizationList" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_CUSTOMIZE_OWN" >
                       <label>{{'configuration.role_permission.update_edit_customization_list' | translate}}</label>
                     </div>
                     <div class="form-check">
@@ -157,19 +165,19 @@
                       <label>{{'configuration.role_permission.asset_movement_history' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="assetUsageCategory" >
-                      <label>{{'configuration.role_permission.asset_usage_category' | translate}}</label>
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_VIEW_SUMMARY_OWN" >
+                      <label>{{'configuration.role_permission.asset_view_own_summry' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="assetReminderList" >
-                      <label>{{'configuration.role_permission.asset_reminder_list' | translate}}</label>
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_VIEW_DETAILS_OWN" >
+                      <label>{{'configuration.role_permission.asset_view_own_details' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="addReminder" >
-                      <label>{{'configuration.role_permission.add_reminder' | translate}}</label>
+                      <input type="checkbox"  class="custom-checkbox" formControlName="ASSET_REGISTER_OTHERS" >
+                      <label>{{'configuration.role_permission.asset_register_other' | translate}}</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="viewAssetConfiguration" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="FLEET_CONFIGURATION_VIEW_LIST" >
                       <label>{{'configuration.role_permission.view_asset_configuration' | translate}}</label>
                       <div class="sub-checkbox" *ngIf="!IsOverview">
                         <p class="search-title mx-3 mb-1">{{'configuration.role_permission.select_the_items_you_want_to_access' | translate}}</p>
@@ -198,7 +206,7 @@
                       </div>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="addAssetConfiguration" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="FLEET_CONFIGURATION_ADD" >
                       <label>{{'configuration.role_permission.add_asset_configuration' | translate}}</label>
                       <div class="sub-checkbox" *ngIf="!IsOverview">
                         <p class="search-title mx-3 mb-1">{{'configuration.role_permission.select_the_items_you_want_to_access' | translate}}</p>
@@ -231,7 +239,7 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="updateAssetConfiguration" >
+                      <input type="checkbox"  class="custom-checkbox" formControlName="FLEET_CONFIGURATION_UPDATE" >
                       <label>{{'configuration.role_permission.update_asset_configuration' | translate}}</label>
                       <div class="sub-checkbox" *ngIf="!IsOverview">
                         <p class="search-title mx-3 mb-1">{{'configuration.role_permission.select_the_items_you_want_to_access' | translate}}</p>
@@ -379,10 +387,6 @@
                 <div class="col-4">
                   <div class="d-flex flex-column">
                     <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="archiveSubAsset" >
-                      <label>{{'configuration.role_permission.archive_sub_asset_list' | translate}} </label>
-                    </div>
-                    <div class="form-check">
                       <input type="checkbox"  class="custom-checkbox" formControlName="SUB_ASSET_VIEW_DETAILS_OTHERS">
                       <label>{{'configuration.role_permission.view_sub_asset_detail' | translate}}</label>
                     </div>
@@ -439,10 +443,6 @@
                     <div class="form-check">
                       <input type="checkbox"  class="custom-checkbox" formControlName="ACCESSORY_VIEW_LIST_OWN">
                       <label>{{'configuration.role_permission.view_own_accessory_list' | translate}}</label>
-                    </div>
-                    <div class="form-check">
-                      <input type="checkbox"  class="custom-checkbox" formControlName="archiveAccessory" >
-                      <label>{{'configuration.role_permission.archive_accessory' | translate}}</label>
                     </div>
                   </div>
                 </div>

@@ -5,6 +5,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration';
 import {BusinessCategoryService} from '@feature/configuration/+state/business-category'
 import { RolePermissionFacade } from '@feature/configuration/+state/role-permission';
+import { UserProfileService } from '@feature/user/state';
 import { IAssetType } from '@models/asset-type.model';
 import { IBusinessCategory } from '@models/business-category.model';
 import { Utility } from '@shared/utility/utility';
@@ -101,6 +102,7 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
   constructor(private _assetConfigurationService:AssetConfigurationService,
               private _usageCategoryService: BusinessCategoryService,
               private _roleFacade : RolePermissionFacade,
+              private _userService:UserProfileService,
               private _router :Router,
               private _fb : FormBuilder,
               private _activatedRoute:ActivatedRoute,
@@ -120,6 +122,7 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
 
   
   ngOnInit():void{
+    this._userService.loadAllPermission()
     this.formBuilders();
     this._roleFacade.submitted$.subscribe((x) => {
       if (x) {
@@ -420,6 +423,8 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
       ASSET_ARCHIVE_OTHERS:[false],
       ASSET_ARCHIVE_OWN:[false],
       ASSET_EXPORT_LIST_MASTER:[false],
+      ASSET_EXPORT_LIST_PENDING:[false],
+      ASSET_EXPORT_LIST_CUSTOMIZATION:[false],
       ASSET_VIEW_LIST_MASTER_OWN:[false],
       ASSET_VIEW_LIST_MASTER_OTHERS:[false],
       ASSET_ADD:[false],
@@ -427,19 +432,19 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
       ASSET_UPDATE_OWN:[false],
       ASSET_VIEW_LIST_PENDING_OTHERS:[false],
       ASSET_VIEW_LIST_PENDING_OWN:[false],
-      updateEditOwnRegistrationList:[{value:false ,  disabled: true}],
+      ASSET_REGISTER_OWN:[false],
       ASSET_VIEW_LIST_CUSTOMIZATION_OTHERS:[false],
       ASSET_VIEW_LIST_CUSTOMIZATION_OWN:[false],
-      updateEditCustomizationList:[{value:false ,  disabled: true}],
+      ASSET_CUSTOMIZE_OWN:[false],
       ASSET_CUSTOMIZE_OTHERS:[false],
       ASSET_VIEW_DETAILS_OTHERS:[false],
       ASSET_VIEW_MOVEMENT_HISTORY_OTHERS:[false],
-      assetUsageCategory:[{value:false ,  disabled: true}],
-      assetReminderList:[{value:false ,  disabled: true}],
-      addReminder:[{value:false ,  disabled: true}],
-      viewAssetConfiguration:[{value:false ,  disabled: true}],
-      addAssetConfiguration:[{value:false ,  disabled: true}],
-      updateAssetConfiguration:[{value:false ,  disabled: true}],
+      ASSET_VIEW_SUMMARY_OWN:[false],
+      ASSET_VIEW_DETAILS_OWN:[false],
+      ASSET_REGISTER_OTHERS:[false],
+      FLEET_CONFIGURATION_VIEW_LIST:[false],
+      FLEET_CONFIGURATION_ADD:[false],
+      FLEET_CONFIGURATION_UPDATE:[false],
       BUSINESS_CATEGORY_VIEW_LIST:[false],
       BUSINESS_CATEGORY_ADD:[false],
       BUSINESS_CATEGORY_UPDATE:[false]
@@ -450,7 +455,6 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
       SUB_ASSET_VIEW_LIST_OTHERS:[false],
       SUB_ASSET_VIEW_LIST_OWN:[false],
       SUB_ASSET_EXPORT_LIST:[false],
-      archiveSubAsset:[{value:false ,  disabled: true}],
       SUB_ASSET_VIEW_DETAILS_OTHERS:[false],
       SUB_ASSET_UPDATE_OTHERS:[false],
       SUB_ASSET_UPDATE_OWN:[false],
@@ -461,7 +465,6 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
     this.fleetAccessoryForm = this._fb.group({
       ACCESSORY_VIEW_LIST_OTHERS:[false],
       ACCESSORY_VIEW_LIST_OWN:[false],
-      archiveAccessory:[{value:false ,  disabled: true}],
       ACCESSORY_VIEW_DETAILS_OTHERS:[false],
       ACCESSORY_UPDATE_OWN:[false],
       ACCESSORY_UPDATE_OTHERS:[false],
