@@ -1,12 +1,12 @@
 <div [class]="'box p-4 h-100 d-flex flex-column justify-content-between ' + (isAlert? 'is-alert': '')">
     <div class="box-header">
         <div class="d-flex">
-            <p class="box_title">{{title | translate}}</p>
+            <p class="box_title">{{title | translate}} </p>
             <span class="mx-2" *ngIf="!isAlert">
                 <svg-icon [src]="congratulationsIcon" [svgStyle]="{ 'width.em':1.5 ,
                     'fill': 'rgba(0,0,0,64%)' , 'height': '100%'}"></svg-icon>
             </span>
-            <p class="box_title">John</p>
+            <p class="box_title">&nbsp;{{ data ? data.firstName + ' ' + data.lastName : '' }}</p>
         </div>
         <h5 class="box_sub_title mt-2">
             {{subTitle | translate}}
