@@ -16,7 +16,7 @@
         <div class="col-9 d-flex flex-column justify-content-end">
             <p class="mb-2 mt-3 content-text">{{data ? data.fineAmount : '0'}}</p>
             <div>
-                <button [routerLink]="['/fleet/operator/edit-operator',data ? data.id : '']">{{'dashboard.view_operator_profil' | translate}}</button>
+                <button [routerLink]="['/fleet/operator',data ? data.id : '']">{{'dashboard.view_operator_profil' | translate}}</button>
             </div>
         </div>
         <div class="col-3 px-1">
