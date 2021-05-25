@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="image-sub-asset">
-        <img [src]="(subAsset$ |async).avatar " alt="">
+        <img [src]="(subAsset$ |async).avatar " onerror="this.src='assets/thumb.png'">
       </div>
     </span>
     <hr class="seprator">
@@ -62,6 +62,5 @@
         </ng-container>
       </span>
     </div>
-  
+
   </div>
-  
