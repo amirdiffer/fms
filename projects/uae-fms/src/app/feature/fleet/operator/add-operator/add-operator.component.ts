@@ -27,7 +27,8 @@ import { IOrganization } from '@models/organization';
 })
 export class AddOperatorComponent extends Utility implements OnInit {
   profileDocId = null;
-
+  sectionFiltered: any[];
+  sectionList: any[];
   isEdit: boolean = false;
   id: number;
   allDepartment: IOrganization[] = [];
@@ -120,6 +121,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
   department_static;
   employeeId;
   departmentId;
+  sectionId;
   avatarId = [];
 
   departments = [];
@@ -180,11 +182,17 @@ export class AddOperatorComponent extends Utility implements OnInit {
           .subscribe((x) => {
             if (x) {
               this._operator = x;
+              this.departmentId = this._operator.department.organizationId;
+              this.sectionId = this._operator.department.id;
               this.form.controls['portalInformation'].patchValue({
                 employeeNumber: x.employeeNumber,
                 department: {
                   organizationName: x.department.organizationName,
                   id: x.department.organizationId
+                },
+                section: {
+                  name: x.department.name,
+                  id: x.department.id
                 },
                 roleId: 1,
                 activeEmployee: x.isActive
@@ -303,6 +311,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
       portalInformation: this.formBuilder.group({
         employeeNumber: ['', [Validators.required]],
         department: ['', [Validators.required]],
+        section: ['', [Validators.required]],
         roleId: ['1'],
         activeEmployee: false
       }),
@@ -365,11 +374,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
         employeeNumber: this.isEdit
           ? this._operator?.employeeNumber
           : this.employeeId,
-        organizationId: 1,
+        organizationId: this.departmentId,
         // departmentId: f.portalInformation.department.id || 1,
-        departmentId: this.isEdit
-          ? this._operator?.department.id
-          : this.departmentId,
+        departmentId: this.sectionId,
         roleIds: [1],
         isActive: f.portalInformation.activeEmployee,
         profileDocId: this.profileDocId || 1,
@@ -562,8 +569,21 @@ export class AddOperatorComponent extends Utility implements OnInit {
   departmentChanged($event) {
     this.department_static = $event;
     if (typeof $event != 'object') return;
+    this.sectionList = [];
+    this.form.get('portalInformation.section').patchValue(null);
     this.departmentId = $event.id;
+    this._departmentService.searchDepartment($event.id).subscribe((x) => {
+      x.message.departments
+        ? (this.sectionList = x.message.departments)
+        : (this.sectionList = []);
+    });
   }
+
+  sectionChanged($event) {
+    if (typeof $event != 'object') return;
+    this.sectionId = $event.id;
+  }
+
   public fileOver(event) {
     // console.log(event);
   }
@@ -631,6 +651,19 @@ export class AddOperatorComponent extends Utility implements OnInit {
     }
     this.departmentFiltered = filtered;
   }
+
+  searchSection(event) {
+    let query = event.query;
+    let filtered = [];
+    for (let index = 0; index < this.sectionList.length; index++) {
+      let section = this.sectionList[index];
+      if (section.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(section);
+      }
+    }
+    this.sectionFiltered = filtered;
+  }
+
   successDialogConfirm($event) {
     this.router.navigate(['fleet/operator']).then((_) => {
       this.operatorFacade.resetParams();

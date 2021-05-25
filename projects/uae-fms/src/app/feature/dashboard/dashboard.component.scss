@@ -4,8 +4,19 @@
     border: none;
     font-size: 1.2em !important;
   }
-
+  .p-4{
+    padding:1.5em !important
+  }
   .category {
+    display: flex;
+    padding-right: .6em;
+    padding-left: .6em;
+    &.two-column{
+      justify-content: space-between;
+      .dashboard-card{
+        flex: 0 0 47%;
+      }
+    }
     h6.card-header {
       line-height: 1.1rem;
       height: 1.1rem;
@@ -58,28 +69,30 @@
 .dashboard-container {
   padding-bottom: 50px;
 }
+.title-smaller{
+  font-size: .9em;
+  &.primary-color{
+    text-decoration: underline;
+  }
+}
+.wrapper {
 
-.flex-container {
-  display: flex !important;
-  justify-content: space-between;
-  .assets-status {
-    flex: 0 0 30%;
-  }
-  .active-assets {
-    flex: 0 0 40%;
-  }
-  .suppliers {
-    flex: 0 0 28%;
-  }
   .dashboard-card {
     border-radius: 6px;
-    height: 100%;
+    overflow: hidden;
+    width: 100%;
     max-width: 100%;
   }
-  .category {
-    flex: 0 0 49.5%;
-    justify-content: space-between;
+  .work-overview-card {
+    height: 166px;
   }
+  // .category {
+  //   flex: 0 0 25%;
+  //   justify-content: space-between;
+  // }
+}
+.overflow-visible{
+  overflow: visible !important;
 }
 
 @media screen and (max-width: 968px) {

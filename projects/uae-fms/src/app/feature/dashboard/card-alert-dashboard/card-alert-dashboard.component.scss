@@ -1,0 +1,37 @@
+.box {
+    .box__body {
+        font-family: '29LT Bukra - Bold';
+      button {
+        color: white;
+        background-color: #9d66d6;
+        border-radius: .4em;
+        padding: .8em 0;
+        border:none;
+        box-shadow: 0px 4px 4px #0000001A;
+        font-size: 1em;
+        font-weight: bold;
+        width: 100%;
+      }
+    }
+    p.content-text{
+        text-align: center;
+        color: #9d66d6;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+  }
+
+  .is-alert{
+    .box__body {
+        button{
+            background-color: #FF4C04;
+        }
+    }
+    p.content-text{
+        text-align: center;
+        color: #FF4C04;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+  }
+  

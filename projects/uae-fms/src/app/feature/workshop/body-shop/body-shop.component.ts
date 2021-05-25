@@ -133,6 +133,7 @@ export class BodyShopComponent implements OnInit {
   requestData$ = this._facadeRequest.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
+        console.log(y)
         return {
           ...y,
           asset: {
@@ -143,7 +144,8 @@ export class BodyShopComponent implements OnInit {
           plateNumber:
             y.plateNumber != null ? y.plateNumber : 'Without Plate Number',
           department: y.department.name,
-          operatorName: y.operator.firstName + ' ' + y.operator.lastName
+          operatorName: y.operator.firstName + ' ' + y.operator.lastName,
+          assetTypeName:y.assetConfigurationName
         };
       });
     })
@@ -191,6 +193,7 @@ export class BodyShopComponent implements OnInit {
   jobCardData$ = this._facadeJobCard.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
+        console.log(y)
         return {
           ...y,
           asset: {
@@ -270,9 +273,7 @@ export class BodyShopComponent implements OnInit {
           },
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
-            this.router.navigate(['/workshop/body-shop/add-job-card'], {
-              queryParams: { assetId: data.assetId }
-            });
+            this.router.navigate(['/workshop/body-shop/'+data.id+'/add-job-card']);
           }
         },
         {
@@ -593,8 +594,6 @@ export class BodyShopComponent implements OnInit {
     this._facadeJobCard.loadAll();
     this._facadeTechnician.loadAll();
     this._facadeLocation.loadAll();
-    this._facadeRequest.bodyShop$.subscribe((x) => {});
-    // this._facadeRequest.loadStatistics();
     this._facadeRequest.statistics$.subscribe((x) => {
       if (x) {
         this.filterSetting.map((filter) => {

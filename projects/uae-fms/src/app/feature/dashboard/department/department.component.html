@@ -1,0 +1,39 @@
+<div class="box p-4">
+    <div class="row">
+        <div class="col-12">
+            <p class="box_title">
+                {{'dashboard.department_request' | translate}}
+            </p>
+            <p class="box_sub_title">
+                {{'dashboard.for_movement' | translate}}
+            </p>
+        </div>
+    </div>
+    <div class="row mt-2 chart-labels">
+        <div class="col-8 py-2 d-flex justify-content-between flex-column">
+            <div class="d-flex justify-content-between chart-label" *ngFor="let data of chartData">
+                <div class="d-flex align-items-baseline">
+                    <span [ngStyle]="{'background': data.color}"></span>
+                    <p class="label">{{data.title | translate}}</p>
+                </div>
+                <p> {{data.value}}%</p>
+            </div>
+        </div>
+        <div class="col-4">
+            <span class="item__progress">
+                <div class="chart d-flex justify-content-center" #chart>
+                    <apx-chart
+                      [series]="chartOptions.series"
+                      [chart]="chartOptions.chart"
+                      [plotOptions]="chartOptions.plotOptions"
+                      [colors]="chartOptions.colors"
+                      [dataLabels]="chartOptions.dataLabels"
+                      [legend]="chartOptions.legend"
+                      [labels]="chartOptions.labels"
+                      [responsive]="chartOptions.responsive">
+                    </apx-chart>
+                </div>
+            </span>
+        </div>
+    </div>
+</div>

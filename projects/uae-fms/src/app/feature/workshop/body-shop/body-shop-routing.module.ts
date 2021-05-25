@@ -11,15 +11,19 @@ import { JobCardOverviewComponent } from "./job-card-overview/job-card-overview.
 const routes: Routes = [
   { path: '', component: BodyShopComponent, pathMatch: 'full' },
   { path: 'add-request', component: AddRequestComponent },
-  { path: 'edit-request/:id', component: AddRequestComponent },
   { path: 'add-technician', component: AddTechnicianComponent },
   { path: 'technician/:id', component: TechnicianOverviewComponent },
   { path: 'edit-technician/:id', component: AddTechnicianComponent },
   { path: 'add-location', component: AddLocationComponent },
   { path: 'edit-location/:id', component: AddLocationComponent },
   { path: 'add-job-card', component: AddJobCardComponent },
+  { path: ':id/add-job-card', component: AddJobCardComponent },
   { path: 'edit-job-card/:id', component: AddJobCardComponent },
-  { path: 'request-overview/:id', component: RequestTabOverviewComponent },
+  { path: 'request-overview/:id', component: RequestTabOverviewComponent , children:[
+    { path: 'add-request', component: AddRequestComponent },
+    { path: 'edit-request/:id', component: AddRequestComponent },
+    { path: 'add-job-card', component: AddJobCardComponent },
+  ]},
   { path: 'job-card-overview/:id', component: JobCardOverviewComponent }
 ];
 

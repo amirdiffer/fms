@@ -1,0 +1,39 @@
+mat-form-field{
+    ::ng-deep{
+        .mat-form-field-flex{
+            background-color: transparent !important;
+            padding: 0;
+        }
+        .mat-form-field-wrapper{
+          padding: 0;  
+        }
+        .mat-form-field-underline{
+            display: none;
+        }
+        .mat-form-field-infix{
+            padding-bottom: 1.1em;
+            width:150px
+        }
+        mat-datepicker-toggle{
+            ::ng-deep {
+                button{
+                    background:transparent !important;
+                    border-radius:.3em;
+                }
+                 .mat-icon-button .mat-button-wrapper>*{
+                    vertical-align: top;
+                 }
+            }
+        }
+    }
+}
+
+.border-2{
+    border-right: 1px solid;
+    border-left: 1px solid;
+    border-color: #eaeaea
+}
+.border-1{
+    border-left: 1px solid;
+    border-color: #eaeaea
+}

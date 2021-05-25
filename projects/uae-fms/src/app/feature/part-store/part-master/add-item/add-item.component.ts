@@ -81,6 +81,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
         x.isEdit ? this.isEdit = true : this.isEdit = false;
         x.id ? this.id = x.id : null;
         if(x.fleetType !== 'ASSET'){
+          console.log(x)
           this.isAsset = false;
           this.loadModel(x.makes);
           this.itemInfo.controls.map(formGroup => {formGroup.get('trim').clearValidators()});
@@ -112,7 +113,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
             color:x.trimColorId ? x.trimColorId : null,
             uploadFile: {files:x.documentIds}
           })});
-          x.documentIds.map(doc => this.documentFile.push(doc));
+          this.documentFile = x.documentIds;
           for (let index = 0; index < x.suppliers.length; index++) {
             this.supplier(0).controls[index].patchValue({
               supplier:x.suppliers[index].id
@@ -226,13 +227,19 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
   }
 
   loadModel(makes){
-    makes.map(
-      make => {
-        this.model$ = of(make.models)
-      }
-    )
+    let models = () => {
+      let model =[];
+      makes.map(
+        make => {
+          make.models.map(m => {
+            model.push(m)
+          })
+        }
+      );
+      return model
+    }
+    this.model$ = of(models())    
   }
-
   dialogConfirm(event){
     if(event && (this.dialogOption == dialogOption.cancel || this.dialogOption == dialogOption.success)){
       this._partMasterService.setCategoryData({
@@ -287,7 +294,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
         modelId: formValue.itemInfo[0].model,
         needToOrderThreshold: +formValue.itemInfo[0].threshold,
         supplierIds:formValue.itemInfo[0].suppliers.map(supplier => { return supplier.supplier}) ,
-        documentIds: formValue.itemInfo[0].uploadFile.files
+        documentIds: formValue.itemInfo[0].uploadFile != null ? formValue.itemInfo[0].uploadFile.files : []
       };
       if(this.isEdit){
         let editData = {...data, id:this.id}

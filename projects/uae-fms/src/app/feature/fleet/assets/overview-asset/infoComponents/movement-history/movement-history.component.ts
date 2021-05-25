@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ColumnType } from '@core/table';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ColumnType, TableComponent } from '@core/table';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
+import moment from 'moment';
 
 @Component({
   selector: 'app-asset-overview-movement-history',
@@ -8,8 +10,12 @@ import { ColumnType } from '@core/table';
 })
 export class MovementHistoryComponent implements OnInit {
 
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
+
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
+
+  @Input() assetID;
 
   tableSetting = {
     columns: [
@@ -24,7 +30,7 @@ export class MovementHistoryComponent implements OnInit {
         field: 'start_date',
         type: ColumnType.lable,
         thumbField: '',
-        renderer: ''
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.end_date',
@@ -32,7 +38,7 @@ export class MovementHistoryComponent implements OnInit {
         type: ColumnType.lable,
         width: 300,
         thumbField: '',
-        renderer: ''
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.department',
@@ -56,102 +62,52 @@ export class MovementHistoryComponent implements OnInit {
         renderer: ''
       },
     ],
-    data: [
-      {
-        duration: '2 Days',
-        start_date: '2020/02/02 12:30',
-        end_date: '2020/02/04 12:30',
-        department: 'Department Name',
-        Operator: {
-          line1: 'Sam Smith',
-          line2:'1234567899'
-        },
-        type: 'Temporary',
-      },
-      {
-        duration: '2 Days',
-        start_date: '2020/02/02 12:30',
-        end_date: '2020/02/04 12:30',
-        department: 'Department Name',
-        Operator: {
-          line1: 'Sam Smith',
-          line2:'1234567899'
-        },
-        type: 'Temporary',
-      },
-      {
-        duration: '2 Days',
-        start_date: '2020/02/02 12:30',
-        end_date: '2020/02/04 12:30',
-        department: 'Department Name',
-        Operator: {
-          line1: 'Sam Smith',
-          line2:'1234567899'
-        },
-        type: 'Temporary',
-      },
-      {
-        duration: '2 Days',
-        start_date: '2020/02/02 12:30',
-        end_date: '2020/02/04 12:30',
-        department: 'Department Name',
-        Operator: {
-          line1: 'Sam Smith',
-          line2:'1234567899'
-        },
-        type: 'Temporary',
-      },
-      {
-        duration: '2 Days',
-        start_date: '2020/02/02 12:30',
-        end_date: '2020/02/04 12:30',
-        department: 'Department Name',
-        Operator: {
-          line1: 'Sam Smith',
-          line2:'1234567899'
-        },
-        type: 'Temporary',
-      },
-      {
-        duration: '2 Days',
-        start_date: '2020/02/02 12:30',
-        end_date: '2020/02/04 12:30',
-        department: 'Department Name',
-        Operator: {
-          line1: 'Sam Smith',
-          line2:'1234567899'
-        },
-        type: 'Temporary',
-      },
-      {
-        duration: '2 Days',
-        start_date: '2020/02/02 12:30',
-        end_date: '2020/02/04 12:30',
-        department: 'Department Name',
-        Operator: {
-          line1: 'Sam Smith',
-          line2:'1234567899'
-        },
-        type: 'Temporary',
-      },
-      {
-        duration: '2 Days',
-        start_date: '2020/02/02 12:30',
-        end_date: '2020/02/04 12:30',
-        department: 'Department Name',
-        Operator: {
-          line1: 'Sam Smith',
-          line2:'1234567899'
-        },
-        type: 'Temporary',
-      }
-    ],
+    data: [],
     rowSettings: {}
   };
 
-  constructor() { }
+  constructor(
+    private assetMasterService: AssetMasterService
+  ) { }
+
+  date(y) {
+    let createdDate = moment.utc(y*1000).local().toDate();
+    let nowDate = new Date();
+    let newDate = nowDate.getTime() - createdDate.getTime();
+    return {
+      day: Math.floor(newDate / (1000 * 3600 * 24))
+    };
+  }
 
   ngOnInit(): void {
+    this.assetMasterService.getAssetMovementTemporaryByID(this.assetID).subscribe(x => {
+      let data = x.message;
+      this.tableSetting.data = (<Array<object>>data).map(d => {
+        return {
+          duration: this.date(d['createdAt']),
+          start_date: d['request']['endDate'],
+          end_date: d['request']['startDate'],
+          department: d['department']['name'],
+          Operator: {
+            line1: d['operator']['firstName'] + ' ' + d['operator']['lastName'],
+            line2: d['operator']['id']
+          },
+          type: 'Temporary',
+        }
+      })
+    });
+  }
+
+  exportTable(): void {
+    let filter = {
+      duration: 'duration',
+      start_date: 'start_date',
+      end_date: 'end_date',
+      department: 'department',
+      Operator: 'Operator',
+      type: 'type',
+    };
+    this.table.exportTable(this.tableSetting, 'Asset OverView  - Asset ID ' + this.assetID, filter);
   }
 
 }

@@ -27,6 +27,10 @@ export class BodyShopRequestSelectors {
     WorkshopSelectors.bodyshopRequestSelector,
     (state) => state.statistics
   );
+  static specificRequest = createSelector(
+    WorkshopSelectors.bodyshopRequestSelector,
+    (state) => state.specificRequest
+  );
 
   static message = createSelector(
     WorkshopSelectors.bodyshopRequestSelector,

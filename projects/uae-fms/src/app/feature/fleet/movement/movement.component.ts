@@ -207,7 +207,7 @@ export class MovementComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.request_status',
@@ -277,7 +277,7 @@ export class MovementComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.department',

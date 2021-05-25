@@ -210,13 +210,13 @@ export class SubAssetOverviewComponent implements OnInit {
         lable: 'tables.column.start_date',
         type: 1,
         field: 'startDate',
-        renderer: ''
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.end_date',
         type: 1,
         field: 'endDate',
-        renderer: ''
+        renderer: 'dateRenderer'
       },
     ],
     data:[

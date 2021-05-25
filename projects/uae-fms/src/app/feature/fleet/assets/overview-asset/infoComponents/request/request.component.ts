@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColumnType } from '@core/table';
+import { BodyShopJobCardService, BodyShopRequestService } from '@feature/workshop/+state/body-shop';
+import moment from 'moment';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 
 @Component({
   selector: 'app-asset-overview-request',
@@ -8,7 +11,16 @@ import { ColumnType } from '@core/table';
   styleUrls: ['./request.component.scss']
 })
 export class RequestComponent implements OnInit {
-  constructor(private _fb: FormBuilder) {}
+  constructor(
+    private _fb: FormBuilder,
+    private bodyShopJobCardService: BodyShopJobCardService,
+    private assetMasterService: AssetMasterService
+  ) {}
+
+  @Input() assetID;
+
+  listActiveJobCard = [];
+  detailsJobCard;
 
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
@@ -41,7 +53,7 @@ export class RequestComponent implements OnInit {
       },
       {
         lable: 'tables.column.status',
-        field: 'status',
+        field: 'Status',
         width: 100,
         type: ColumnType.lable,
         thumbField: '',
@@ -53,7 +65,7 @@ export class RequestComponent implements OnInit {
         width: 100,
         type: ColumnType.lable,
         thumbField: '',
-        renderer: ''
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.technician',
@@ -98,72 +110,7 @@ export class RequestComponent implements OnInit {
         renderer: 'floatButton'
       }
     ],
-    data: [
-      {
-        task: 'Charge AC',
-        priority: '1',
-        duration: '5 Hours',
-        status: 'Started',
-        start_date: '02-02-2020',
-        technician: 'Atefeh',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      },
-      {
-        task: 'Charge AC',
-        priority: '1',
-        duration: '5 Hours',
-        status: 'Started',
-        start_date: '02-02-2020',
-        technician: 'Atefeh',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      },
-      {
-        task: 'Charge AC',
-        priority: '1',
-        duration: '5 Hours',
-        status: 'Started',
-        start_date: '02-02-2020',
-        technician: 'Atefeh',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      },
-      {
-        task: 'Charge AC',
-        priority: '1',
-        duration: '5 Hours',
-        status: 'Started',
-        start_date: '02-02-2020',
-        technician: 'Atefeh',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      },
-      {
-        task: 'Charge AC',
-        priority: '1',
-        duration: '5 Hours',
-        status: 'Started',
-        start_date: '02-02-2020',
-        technician: 'Atefeh',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      },
-      {
-        lable: '',
-        field: 'floatButton',
-        width: 1,
-        type: ColumnType.lable,
-        thumbField: '',
-        renderer: 'floatButton',
-        sortable: true
-      }
-    ],
+    data: [],
     rowSettings: {
       floatButton: [
         {
@@ -171,6 +118,7 @@ export class RequestComponent implements OnInit {
           onClick: (col, data, button) => {
             if (button == 'external') {
               this.section = 'detail-box';
+              this.getDetailsActiveJobCard(data.id)
             }
             // this.router.navigate(['/fleet/assets/' + data.id]);
           }
@@ -188,17 +136,17 @@ export class RequestComponent implements OnInit {
         thumbField: ''
       },
       {
-        lable: 'tables.column.duration',
-        field: 'duration',
-        width: 100,
+        lable: 'tables.column.end_date',
+        field: 'end_date',
+        width: 130,
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
       },
       {
-        lable: 'tables.column.end_date',
-        field: 'end_date',
-        width: 130,
+        lable: 'tables.column.duration',
+        field: 'duration',
+        width: 100,
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
@@ -218,6 +166,14 @@ export class RequestComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
+      },
+      {
+        lable: 'tables.column.status',
+        field: 'Status',
+        width: 100,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'statusRenderer'
       },
       {
         lable: 'tables.column.technician',
@@ -254,63 +210,7 @@ export class RequestComponent implements OnInit {
         sortable: true
       }
     ],
-    data: [
-      {
-        start_date: '02-02-2020',
-        duration: '5 Hours',
-        end_date: '02-02-2020',
-        actual_end_date: '02-02-2020',
-        delay: '7 Days',
-        technician: 'Mohammad, Ahmad',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      },
-      {
-        start_date: '02-02-2020',
-        duration: '5 Hours',
-        end_date: '02-02-2020',
-        actual_end_date: '02-02-2020',
-        delay: '7 Days',
-        technician: 'Mohammad, Ahmad',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      },
-      {
-        start_date: '02-02-2020',
-        duration: '5 Hours',
-        end_date: '02-02-2020',
-        actual_end_date: '02-02-2020',
-        delay: '7 Days',
-        technician: 'Mohammad, Ahmad',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      },
-      {
-        start_date: '02-02-2020',
-        duration: '5 Hours',
-        end_date: '02-02-2020',
-        actual_end_date: '02-02-2020',
-        delay: '7 Days',
-        technician: 'Mohammad, Ahmad',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      },
-      {
-        start_date: '02-02-2020',
-        duration: '5 Hours',
-        end_date: '02-02-2020',
-        actual_end_date: '02-02-2020',
-        delay: '7 Days',
-        technician: 'Mohammad, Ahmad',
-        cost: '2300 AED',
-        part_cost: '2300 AED',
-        total_cost: '4700 AED'
-      }
-    ],
+    data: [],
     rowSettings: {
       floatButton: []
     }
@@ -329,7 +229,7 @@ export class RequestComponent implements OnInit {
         field: 'date',
         type: ColumnType.lable,
         thumbField: '',
-        renderer: ''
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.description',
@@ -366,26 +266,7 @@ export class RequestComponent implements OnInit {
         renderer: 'downloadButtonRenderer'
       }
     ],
-    data: [
-      {
-        issue: 'Oil Leaking',
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        Status: 'Approval',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: [1]
-      },
-      {
-        issue: 'Oil Leaking',
-        date: '02-02-2020',
-        description: 'Description is here, description is here',
-        Status: 'Rejected',
-        issue_type: 'Repair',
-        reported_by: 'Atefeh',
-        attachment: [1]
-      }
-    ],
+    data: [],
     rowSettings: {
       floatButton: []
     }
@@ -416,5 +297,70 @@ export class RequestComponent implements OnInit {
       description: ['', Validators.required],
       file: ['']
     });
+
+    this.assetMasterService.getActiveJobCardByAssetID(this.assetID).subscribe(x => {
+      let data = x.message['tasks'];
+      this.listActiveJobCard = data;
+      this.jobCard_Table1.data = (<Array<object>>data).map(d => {
+        return {
+          id: d['id'],
+          task: d['taskMaster']['name'],
+          priority: d['priorityOrder'],
+          duration: d['taskMaster']['timeEstimate'],
+          Status: d['status'],
+          start_date: d['startDate'],
+          technician: d['technician']['firstName'] + ' ' + d['technician']['lastName'],
+          cost: d['cost'] + ' AED',
+          part_cost: d['partCost'] + ' AED',
+          total_cost: '4700 AED'
+        }
+      })
+    });
+    this.assetMasterService.getJobCardByAssetID(this.assetID).subscribe(x => {
+      let data = x.message;
+      this.jobCard_Table2.data = (<Array<object>>data).map(d => {
+        return {
+          start_date: d['startDate'],
+          end_date: d['endDate'],
+          duration: this.diffDate(d['startDate'], d['endDate']) + ' Hours',
+          actual_end_date: d['start_date'],
+          delay: d['start_date'],
+          technician: d['start_date'],
+          Status: d['status'],
+          cost: d['cost'],
+          part_cost: d['partCost'],
+          total_cost: d['start_date']
+        }
+      })
+    });
+    this.assetMasterService.getRequestsByAssetID(this.assetID).subscribe(x => {
+      let data = x.message;
+      this.jobCard_Table3.data = (<Array<object>>data).map(d => {
+        return {
+          issue: d['request'],
+          date: d['createdAt'],
+          description: d['description'],
+          Status: d['approveStatus'],
+          issue_type: d['accidentType'],
+          reported_by: d['creator']['firstName'] + ' ' + d['creator']['lastName'],
+          attachment: d['documentIds']
+        }
+      })
+    });
+
   }
+
+  getDetailsActiveJobCard(id) {
+    this.detailsJobCard = this.listActiveJobCard.filter(x => x.id == id )[0]
+    if (this.detailsJobCard['startDate'])
+      this.detailsJobCard['startDate'] = moment.utc(this.detailsJobCard['startDate'] * 1000).local().format('DD-MM-YYYY')
+  }
+
+  diffDate(x,y) {
+    let endDate = moment.utc(y*1000).local().toDate();
+    let startDate = moment.utc(x*1000).local().toDate();
+    let diffDate = moment(endDate).diff(startDate, 'hours');
+    return diffDate
+  }
+
 }
