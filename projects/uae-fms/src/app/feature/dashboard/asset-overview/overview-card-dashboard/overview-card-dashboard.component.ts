@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
   ApexChart,
   ApexNonAxisChartSeries,
@@ -6,12 +6,16 @@ import {
   ApexResponsive,
   ChartComponent
 } from 'ng-apexcharts';
+import { ICardDetailRedialChart } from '@feature/dashboard/asset-overview/detail-card-dashboard/detail-card-dashboard.component';
+import { IAssetOverview } from '@models/asset-master.model';
 @Component({
   selector: 'overview-card-dashboard',
   templateUrl: './overview-card-dashboard.component.html',
   styleUrls: ['./overview-card-dashboard.component.scss']
 })
 export class OverviewCardDashboardComponent implements OnInit {
+
+  @Input() chartData: IAssetOverview;
   helpIcon = 'assets/icons/question-circle.svg';
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions;
@@ -19,7 +23,7 @@ export class OverviewCardDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.chartOptions = {
-      series: [40, 35, 25],
+      series: [],
       chart: {
         type: "donut",
         width: 350
@@ -115,6 +119,12 @@ export class OverviewCardDashboardComponent implements OnInit {
       colors:['#39DA8A','#B1EECF','#DFFFEF'],
       labels:['Active' , 'In Active' , 'X Fleet']
     };
+
+    // this.chart.updateSeries([
+    //   this.chartData.numOfActiveAssets, this.chartData.numOfInactiveAssets, this.chartData.numOfXFleetAssets
+    // ], true);
+    //
+    // this.chartData.
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
   ApexChart,
   ApexNonAxisChartSeries,
@@ -12,13 +12,13 @@ import {
   template:`
     <div class="chart" #chart>
     <apx-chart
-      [series]="chartOptions.series"
+      [series]="series"
       [chart]="chartOptions.chart"
       [plotOptions]="chartOptions.plotOptions"
       [colors]="chartOptions.colors"
       [dataLabels]="chartOptions.dataLabels"
       [legend]="chartOptions.legend"
-      [labels]="chartOptions.labels"
+      [labels]="labels"
       [responsive]="chartOptions.responsive">
     </apx-chart>
     </div>
@@ -27,7 +27,10 @@ import {
 })
 export class PieChartMiniComponent  implements OnInit {
   @ViewChild("chart") chart: ChartComponent;
-  
+
+  @Input("series") series = [];
+  @Input("labels") labels = [];
+
   public chartOptions;
 
   constructor() {
@@ -35,7 +38,7 @@ export class PieChartMiniComponent  implements OnInit {
   }
   ngOnInit(){
     this.chartOptions = {
-      series: [40, 35, 25],
+      series: [],
       chart: {
         type: "donut",
         width: 160
@@ -107,7 +110,7 @@ export class PieChartMiniComponent  implements OnInit {
         }
       ],
       colors:['#B1EECF','#39DA8A','#F2F4F4'],
-      labels:['X Fleet' , 'In Active']
+      labels:[]
     };
   }
 }

@@ -13,22 +13,32 @@
         white-space: nowrap;
     }
     &.chart-labels{
-        .chart-label {
-            p {
-                &::before{
-                    content: '';
-                    width:.6em;
-                    height: .6em;
-                    display: inline-block;
-                    margin-right: .4em;
-                    border-radius: 50%;
+        flex-wrap: wrap;
+        .label-nav{
+            flex: 1 1 40%;
+        }
+        .label-contaitner{
+            display: flex;
+            flex: 1 0 60%;
+            justify-content: space-between;
+            align-self: center;
+            .chart-label {
+                p {
+                    &::before{
+                        content: '';
+                        width:.6em;
+                        height: .6em;
+                        display: inline-block;
+                        margin-right: .4em;
+                        border-radius: 50%;
+                    }
                 }
-            }
-            p.f-label::before{
-                background-color: #39DA8A;
-            }
-            p.l-label::before{
-                background-color: #B1EECF;
+                p.f-label::before{
+                    background-color: #39DA8A;
+                }
+                p.l-label::before{
+                    background-color: #B1EECF;
+                }
             }
         }
     }

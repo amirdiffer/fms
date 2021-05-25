@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrderListAssetComponent } from './order-list-asset.component';
+import { LocationComponent } from './location.component';
 
-describe('ReceiveOrderComponent', () => {
-  let component: OrderListAssetComponent;
-  let fixture: ComponentFixture<OrderListAssetComponent>;
+describe('LocationComponent', () => {
+  let component: LocationComponent;
+  let fixture: ComponentFixture<LocationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OrderListAssetComponent ]
+      declarations: [ LocationComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrderListAssetComponent);
+    fixture = TestBed.createComponent(LocationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

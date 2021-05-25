@@ -6,13 +6,13 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
 import { filter, map } from 'rxjs/operators';
-import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { AssetMasterFacade, AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
 import moment from 'moment';
 import { Subject, Subscription } from 'rxjs';
@@ -36,6 +36,12 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   searchIcon = 'assets/icons/search-solid.svg';
   isEdit: boolean = false;
   id: number;
+  specificAsset:boolean = false;
+  specificAssetId:number;
+
+  assets: any[] = [];
+  newAssets: any[];
+  assetsSubscription:Subscription;
 
   //#region Dialog
   dialogModal = false;
@@ -69,31 +75,23 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   allJobCards = [];
 
   selectedItems = []
-
+  selectedAsset;
   priorities: any[] = [
     {
       id: 1,
-      name: 'Priority ID 1'
+      name: 'Urgent'
     },
     {
       id: 2,
-      name: 'Priority ID 2'
+      name: 'High'
     },
     {
       id: 3,
-      name: 'Priority ID 3'
+      name: 'Normal'
     },
     {
       id: 4,
-      name: 'Priority ID 4'
-    },
-    {
-      id: 5,
-      name: 'Priority ID 5'
-    },
-    {
-      id: 6,
-      name: 'JobCard ID 6'
+      name: 'Low'
     }
   ];
 
@@ -183,22 +181,21 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     private _facadeJobCard: ServiceShopJobCardFacade,
     private _facadeRequest: ServiceShopRequestFacade,
     private _facadeAsset: AssetMasterFacade,
+    private _assetMasterService : AssetMasterService,
     private _facadeLocation: ServiceShopLocationFacade,
     private _facadeTechnician: ServiceShopTechnicianFacade,
     private _jobCardService: ServiceShopJobCardService,
     private _taskMasterService: TaskMasterService,
-    private service: ServiceShopRequestService
+    private service: ServiceShopRequestService,
+    private _activatedRoute:ActivatedRoute
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
-    this.relatedRequests$.subscribe(x => {
-      console.log(x);
-    })
     this._facadeRequest.resetParams();
     this._facadeJobCard.loadAll();
-
+    this.selectedAsset = this.route.snapshot.queryParams?.assetId;
     this.jobCard$ = this._facadeJobCard.serviceShop$.subscribe((x) => {
       this.allJobCards = x;
     });
@@ -219,9 +216,36 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     this._facadeTechnician.serviceShop$.subscribe(_ => {
       this.buildForm();
     })
+
+    this.assetsSubscription = this._jobCardService.getAllAssethasJobCard()
+          .pipe(map((y) => y.message.map((x) => ({ ...x , id: x.assetId, name: x.dpd }))))
+          .subscribe((data) => (this.assets = data , console.log(data))
+    );
+    if((this._activatedRoute.snapshot.url[this._activatedRoute.snapshot.url.length -1].path === 'add-job-card') &&
+      (this._activatedRoute.snapshot.parent.params.id || this.route.snapshot.params.id) ){
+      this.specificAsset = true;
+      this.specificAssetId = +this._activatedRoute.snapshot.parent.params.id ?  +this._activatedRoute.snapshot.parent.params.id : +this.route.snapshot.params.id ;
+      this._assetMasterService.getAssetByID(this.specificAssetId).subscribe(x => {
+        if(x) {
+          this.inputForm.patchValue({
+            assetId: {
+              name: x.message.dpd,
+              id: x.message.id
+            },
+          })
+          this.inputForm.controls['assetId'].disable();
+          this.inputForm.controls['assetId'].markAsDirty();
+          this.selectAsset({id:this.specificAssetId})
+        }
+    })
+    
+  }
+
+
     //fill asset Id from queryParams
     this.route.queryParams.subscribe((params) => {
       if (params['assetId']) {
+        console.log(params['assetId'])
         this.inputForm.controls['assetId'].setValue(+params['assetId']);
         this.selectAsset({ value: params.assetId })
         this.loadRequests(params.assetId);
@@ -248,7 +272,6 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
           .getJobCardById(this.id)
           .pipe(map((x) => x.message))
           .subscribe((x) => {
-            this.selectAsset({ value: x.assetId })
             if (x) {
               this._jobCard = x;
               this.selectedItems = x.tasks.map((t) => ({
@@ -264,12 +287,28 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
               }));
 
               this.inputForm.patchValue({
-                assetId: x.assetId,
+                assetId: {id:x.assetId , name:x.assetDpd},
                 description: x.description,
                 wsLocationId: x.location.id,
-                tasks: this.selectedItems
               });
-
+              const task = <FormArray>this.inputForm.get('tasks');
+              for (let index = 0; index < x.tasks.length; index++) {
+                task.controls[index].patchValue({
+                  taskMasterId: {
+                    id: x.tasks[index].taskMaster.id,
+                    name: x.tasks[index].taskMaster.name
+                  },
+                  priorityOrder: x.tasks[index].priorityOrder,
+                  technicianId: x.tasks[index].technician.id
+                });
+                if (index === x.tasks.length - 1) {
+                  break;
+                }
+                this.addTask();
+              }
+              if (task.controls.length > x.tasks.length) {
+                task.removeAt(task.controls.length - 1)
+              }
 
               this.tasks.controls[0].markAsDirty();
 
@@ -329,6 +368,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   // }
 
   loadRequests(assetId) {
+    console.log(assetId)
     this.relatedRequests.next([]);
 
     this.service.requestsById(assetId).pipe(
@@ -368,9 +408,9 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   requests$ = this._facadeRequest.requestsById$;
 
   selectAsset(e) {
-    this._facadeJobCard.resetParams();
-    if (this.allJobCards.find((jobcard) => jobcard.assetId == e.value) && !this.isEdit) {
-      this.relatedRequests.next([]);
+    console.log(e)
+    this.relatedRequests.next([])
+    if(e.hasOpenJobCard){
       this.errorDialogSetting.header = 'Job Card';
       this.errorDialogSetting.message =
         "Asset has alredy a job card, you can't add more than once!";
@@ -381,13 +421,21 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
       this.inputForm.patchValue({
         assetId: ''
       });
+      this._facadeJobCard.resetParams();
     } else {
-      this.assetIdSelected = e.value;
-      this.loadRequests(e.value);
+      console.log(e.id)
+      this.assetIdSelected = e.id;
+      this.loadRequests(e.id);
     }
   }
   get tasks(): FormArray {
     return this.inputForm.get('tasks') as FormArray;
+  }
+
+  searchAsset(event) {
+    let copyAssets = [];
+    copyAssets = this.assets.slice();
+    this.newAssets = copyAssets.filter((a) => a.name.includes(event.query));
   }
 
   createTask(): FormGroup {
@@ -438,7 +486,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
         jobCardInfo = {
           ...jobCardInfo
         };
-        this._facadeJobCard.addJobCard(jobCardInfo, f.assetId);
+        this._facadeJobCard.addJobCard(jobCardInfo, f.assetId.assetId);
       }
     } else {
       this.router

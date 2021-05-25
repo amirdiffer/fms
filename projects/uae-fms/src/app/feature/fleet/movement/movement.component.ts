@@ -119,7 +119,7 @@ export class MovementComponent
             },
             movementType: y['movementType'],
             requestType: y['requestType'],
-            assetType: y['assetTypeName'],
+            assetType: y['assetConfigurationName'],
             reason: y['reason'],
             date: 'Saturday 02/02 12:30',
             requestStatus: y['status'],

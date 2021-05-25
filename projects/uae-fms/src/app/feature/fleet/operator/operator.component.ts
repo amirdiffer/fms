@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
-import { assetsPath } from '@environments/environment';
+import { assetsPath, environment } from '@environments/environment';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { OperatorFacade } from '../+state/operator';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,6 +17,7 @@ export class OperatorComponent implements OnInit {
   assets = assetsPath;
   downloadBtn = 'assets/icons/download-solid.svg';
   showOverView = false;
+  fileServerBaseUrl = environment.baseFileServer;
 
   //#region Filter
   filterCard: FilterCardSetting[] = [
@@ -59,8 +60,8 @@ export class OperatorComponent implements OnInit {
           },
           Information: { line1: y.emails[0], line2: y.phoneNumbers[0] },
           Type: 'Operator',
-          Status: 'Active',
-          asset: { img: 'assets/thumb1.png' },
+          Status: y.isActive ? 'Active' : 'Inactive',
+          asset: { img: y.profileDocId ? this.fileServerBaseUrl + y.profileDocId : 'assets/thumb1.png' },
           TF_PAid: 0,
           TF_Unpaid: 0
         };

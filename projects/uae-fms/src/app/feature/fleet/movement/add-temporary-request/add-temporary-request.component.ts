@@ -65,7 +65,7 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
       requestType: ['NEW'],
       assetType: [null, Validators.compose([Validators.required])],
       reason: ['', Validators.compose([Validators.required])],
-      quality: [''],
+      // quality: [''],
       oldAssetId: [''],
       startDate: ['', Validators.compose([Validators.required])],
       endDate: ['', Validators.compose([Validators.required])]
@@ -120,9 +120,9 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
         requesterId: 1,
         requestType: d.requestType,
         movementType: 'TEMPORARY',
-        assetTypeId: d.assetType.id,
+        assetConfigurationId: d.assetType.id,
         reason: d.reason,
-        quantity: d.quality,
+        quantity: 1,
         oldAssetId: d.oldAssetId.id,
         startDate: d.startDate,
         endDate: d.endDate

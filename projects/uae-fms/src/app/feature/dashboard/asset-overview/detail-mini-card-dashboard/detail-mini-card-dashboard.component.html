@@ -10,19 +10,20 @@
         </div>
         <div class="col-6">
             <span class="item__progress">
-                <pie-chart-mini></pie-chart-mini>
+                <pie-chart-mini [series]="data" [labels]="labels"></pie-chart-mini>
             </span>
         </div>
     </div>
-    <div class="d-flex justify-content-between footer-card chart-labels">
-        <div class="">
+    <div class="d-flex justify-content-between footer-card chart-labels ">
+        <div class="label-nav">
             <a [routerLink]="[routerLink.router]">{{routerLink.title}}</a>
         </div>
-        <div class="chart-label">
-            <p class="f-label">{{series[0]}}</p>
-        </div>
-        <div class="chart-label">
-            <p class="l-label">{{series[1]}}</p>
-        </div>
+      <div class="label-contaitner">
+        <ng-container *ngFor="let label of labels">
+            <div class="chart-label">
+              <p class="f-label">{{ label }}</p>
+            </div>
+          </ng-container>
+      </div>
     </div>
 </div>

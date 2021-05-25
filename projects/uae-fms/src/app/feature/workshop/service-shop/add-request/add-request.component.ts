@@ -15,11 +15,12 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { map } from 'rxjs/operators';
 import { IRequest } from '@models/body-shop';
 import { Subject } from 'rxjs';
-import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { AssetMasterFacade, AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 import {
   ServiceShopRequestFacade,
   ServiceShopRequestService
 } from '@feature/workshop/+state/service-shop';
+import { Location } from '@angular/common';
 @Component({
   selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',
@@ -65,6 +66,8 @@ export class AddRequestServiceShopComponent implements OnInit {
   public filesUpdloaded: NgxFileDropEntry[] = [];
   isEdit: boolean = false;
   id: number;
+  specificAsset:boolean = false;
+  specificAssetId:number;
   private _request: IRequest;
   getAssetsList = new Subject();
   assetId: any;
@@ -75,15 +78,35 @@ export class AddRequestServiceShopComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _serviceShopRequestFacade: ServiceShopRequestFacade,
-    private _assetMasterFacade: AssetMasterFacade
+    private _assetMasterFacade: AssetMasterFacade,
+    private _assetMasterService:AssetMasterService,
+    private _location: Location
   ) {}
 
   ngOnInit(): void {
     this._assetMasterFacade.loadAll();
-    this._assetMasterFacade.assetMaster$
-      .pipe(map((y) => y.map((x) => ({ id: x.id, name: x.dpd }))))
+    this._assetMasterService.getAllAllowedAssetForRequest()
+      .pipe(map((y) => y.message.map((x) => ({ id: x.id, name: x.dpd }))))
       .subscribe((data) => (this.assets = data));
     this.buildForm();
+    if(this._route.snapshot.url[this._route.snapshot.url.length -1].path === 'add-request' &&
+        this._route.snapshot.parent.params.id ){
+        this.specificAsset = true;
+        this.specificAssetId = +this._route.snapshot.parent.params.id;
+        this._assetMasterService.getAssetByID(this.specificAssetId).subscribe(x => {
+          if(x) {
+            this.inputForm.patchValue({
+              assetId: {
+                name: x.message.dpd,
+                id: x.message.id
+              },
+            })
+            this.inputForm.controls['assetId'].disable();
+            this.inputForm.controls['assetId'].markAsDirty()
+          }
+        })
+        
+      }
     this._route.url.subscribe((params) => {
       this.isEdit =
         params.filter((x) => x.path == 'edit-request').length > 0
@@ -111,6 +134,7 @@ export class AddRequestServiceShopComponent implements OnInit {
                 priority: x.priority,
                 accidentType: x.accidentType
               });
+              this.inputForm.controls['assetId'].disable()
               this.changePriority(x.priority);
               this.inputForm.controls['issueInfo'].patchValue({
                 issue: x.request,
@@ -174,10 +198,10 @@ export class AddRequestServiceShopComponent implements OnInit {
       //   asset: [''],
       //   gpsMeterSource: ['', Validators.required]
       // }),
-      assetId: [''],
+      assetId: ['' , Validators.required],
       hasAccident: [false],
       accidentType: ['MINOR'],
-      jobType: ['estimate'],
+      jobType: ['NORMAL'],
       issueInfo: this._fb.group({
         issue: ['', Validators.required],
         reportedBy: ['', Validators.required],
@@ -247,9 +271,8 @@ export class AddRequestServiceShopComponent implements OnInit {
         this._serviceShopRequestFacade.addRequest(requestInfo);
       }
     } else {
-      this._router.navigate(['workshop/service-shop']).then((_) => {
-        this._serviceShopRequestFacade.resetParams();
-      });
+      this._serviceShopRequestFacade.resetParams();
+      this._location.back();
     }
   }
 
