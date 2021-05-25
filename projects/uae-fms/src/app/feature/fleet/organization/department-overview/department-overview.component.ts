@@ -3,7 +3,10 @@ import { ColumnType, TableSetting } from '@core/table';
 import { SettingsFacade } from '@core/settings/settings.facade';
 import { FilterCardSetting } from '@core/filter';
 import { map } from 'rxjs/operators';
-import { OrganizationFacade } from '@feature/fleet/+state/organization';
+import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
+import { ActivatedRoute, Routes } from '@angular/router';
+import { IOrganization } from '@models/organization';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'anms-department-overview',
@@ -12,30 +15,15 @@ import { OrganizationFacade } from '@feature/fleet/+state/organization';
 })
 export class DepartmentOverviewComponent implements OnInit {
 
+  itemId = this._route.snapshot.params['id'];
+
   //#region Variable
   activeLang = '';
 
+  detailsOrg: IOrganization;
+
   selectedTab!: string;
 
-  count$ = this.facade.conut$.pipe(map((x) => 3456));
-
-  sections: Section[] = [
-    {
-      name: 'Section 1',
-      isSelected: true,
-      locations: [{ name: 'Location 1' }, { name: 'Location 2' }, { name: 'Location 3' }]
-    },
-    {
-      name: 'Section 2',
-      isSelected: false,
-      locations: [{ name: 'Location 1' }, { name: 'Location 2' }, { name: 'Location 3' }]
-    },
-    {
-      name: 'Section 3',
-      isSelected: false,
-      locations: [{ name: 'Location 1' }, { name: 'Location 2' }, { name: 'Location 3' }]
-    }
-  ];
   //#endregion
 
   //#region Filter
@@ -86,6 +74,15 @@ export class DepartmentOverviewComponent implements OnInit {
     }
   ]
   //#endregion
+
+  obsUserCount = new Subject();
+  obsTrafficFineCount = new Subject();
+  obsMovementHistoryCount = new Subject();
+  count = {
+    $UserTable: this.obsUserCount.asObservable(),
+    $TrafficFineTable: this.obsTrafficFineCount.asObservable(),
+    $MovementHistoryTable: this.obsMovementHistoryCount.asObservable(),
+  };
 
   //#region Table
   userTable: TableSetting = {
@@ -144,7 +141,8 @@ export class DepartmentOverviewComponent implements OnInit {
       {
         lable: 'tables.column.time_date',
         type: 1,
-        field: 'timeDate'
+        field: 'timeDate',
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.duration',
@@ -183,13 +181,13 @@ export class DepartmentOverviewComponent implements OnInit {
         lable: 'tables.column.start_date',
         type: 1,
         field: 'startDate',
-        renderer: 'doubleLineRenderer'
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.end_date',
         type: 1,
         field: 'endDate',
-        renderer: 'doubleLineRenderer'
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.operator',
@@ -212,57 +210,85 @@ export class DepartmentOverviewComponent implements OnInit {
   };
   //#endregion
 
-  constructor(private settingFacade: SettingsFacade, private facade: OrganizationFacade) {
+  constructor(
+    private settingFacade: SettingsFacade,
+    private facade: OrganizationFacade,
+    private _route: ActivatedRoute,
+    private organizationService: OrganizationService
+  ) {
     this.settingFacade.language.subscribe((lang) => (this.activeLang = lang));
   }
 
   ngOnInit(): void {
 
-    for (let i = 0; i < 9; i++) {
-      this.userTable.data.push({
-        user: 'Sam Smith',
-        statusColor: '#00AFB9',
-        phoneNumber: '1234567890',
-        email: 'sample@gmail.com',
-        status: 'Active',
-        role: 'Fleet Manager',
+    this.organizationService.searchDepartment(this.itemId).subscribe(x => {
+      this.detailsOrg = x.message;
+      this.detailsOrg.departments = this.detailsOrg.departments.map(y => {
+        return {
+          ...y,
+          isSelected: false
+        }
       })
-    }
-
-    for (let i = 0; i < 9; i++) {
-      this.trafficFineTable.data.push({
-        tcCode: '1234567890',
-        type: 'Description',
-        operator: 'Sam Smith 234567890',
-        plateNo: '123456778',
-        timeDate: '02/02/2020 12:00',
-        duration: '10 Days',
-        status: 'Paid',
-        userStatus: 'Sms',
-        amount: '12345 AED',
-      })
-    }
-
-    for (let i = 0; i < 9; i++) {
-      this.movementTable.data.push({
-        asset: {
-          img: 'user-image.png',
-          assetName: 'Asset Name',
-          assetSubName: 'DPD 0000001',
-          ownership: 'Owned'
-        },
-        startDate: { line1: 'Saturday 02/02', line2: '12:30' },
-        endDate: { line1: 'Saturday 02/02', line2: '12:30' },
-        operator: 'Sam Smith 1234567890',
-        fine: '3',
-        reason: 'Reason Is Here'
-      })
-    }
+      this.getTablesData(this.detailsOrg.id);
+    });
 
   }
 
   onSectionSelect(index): void {
-    this.sections[index].isSelected = !this.sections[index].isSelected;
+    this.detailsOrg.departments[index]['isSelected'] = !this.detailsOrg.departments[index]['isSelected'];
+  }
+
+  getTablesData(orgId) {
+    this.organizationService.usersOfOrganization(orgId).subscribe(x => {
+      let data = x.message;
+      this.userTable.data = data.map(d => {
+        return {
+          user: `${d.firstName} ${d.lastName}`,
+          statusColor: '#00AFB9',
+          phoneNumber: d.phoneNumbers[0],
+          email: d.emails[0],
+          status: d.isActive ? 'Active' : 'Inactive',
+          role: d['roles'][0].roleName,
+        }
+      });
+      this.obsUserCount.next(data.length);
+    });
+    this.organizationService.trafficFineOfOrganization(orgId).subscribe(x => {
+      let data = x.message;
+      this.trafficFineTable.data = data.map(d => {
+        return {
+          tcCode: d.tcCode,
+          type: d.type,
+          operator: `${d.operator.firstName} ${d.operator.lastName}  ${d.operator.id}`,
+          plateNo: d.plateNumber,
+          timeDate: d['time'],
+          duration: d.duration,
+          status: d.status,
+          userStatus: d.userStatus,
+          amount: `${d.amount} AED`,
+        }
+      });
+      this.obsTrafficFineCount.next(data.length);
+    });
+    this.organizationService.movementHistoryOfOrganization(orgId).subscribe(x => {
+      let data = x.message;
+      this.movementTable.data = data.map(d => {
+        return {
+          asset: {
+            img: d.asset.img,
+            assetName: d.asset.assetName,
+            assetSubName: d.asset.assetSubName,
+            ownership: d.asset.ownership
+          },
+          startDate: d.startDate,
+          endDate: d.endDate,
+          operator: `${d['requester']['firstName']} ${d['operator']['lastName']} ${d['operator']['id']}`,
+          fine: d.fine,
+          reason: d.reason
+        }
+      });
+      this.obsMovementHistoryCount.next(data.length);
+    });
   }
 
 }

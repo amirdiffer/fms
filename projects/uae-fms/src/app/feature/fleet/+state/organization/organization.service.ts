@@ -5,6 +5,9 @@ import { ResponseBody } from '@models/response-body';
 import { IOrganization } from '@models/organization';
 import { environment } from '@environments/environment';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { ITrafficFine } from '@models/traffic-fine';
+import { IMovementOverView } from '@feature/fleet/movement/movement.model';
+import { IUser } from '@models/configuration';
 
 @Injectable()
 export class OrganizationService {
@@ -43,6 +46,25 @@ export class OrganizationService {
       environment.baseApiUrl + 'organization/' + id
     );
   }
+
+  usersOfOrganization(id) {
+    return this._http.get<ResponseBody<IUser[]>>(
+      environment.baseApiUrl + 'organization/' + id + '/user'
+    );
+  }
+
+  trafficFineOfOrganization(id) {
+    return this._http.get<ResponseBody<ITrafficFine[]>>(
+      environment.baseApiUrl + 'organization/' + id + '/traffic-fine'
+    );
+  }
+
+  movementHistoryOfOrganization(id) {
+    return this._http.get<ResponseBody<IMovementOverView[]>>(
+      environment.baseApiUrl + 'organization/' + id + '/movement/temporary'
+    );
+  }
+
   loadWithPagination(page: number = 0, sort: string = 'createdAt,desc', size: number = 10000): Observable<ResponseBody<IOrganization[]>> {
     let params = new HttpParams();
     params = params.append('page', `${page}`)
@@ -53,4 +75,5 @@ export class OrganizationService {
       { params: params }
     );
   }
+
 }
