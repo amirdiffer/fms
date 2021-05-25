@@ -28,9 +28,6 @@ export class AccessoryOverviewComponent implements OnInit {
 
     this.accessoryService.getAccessory(this.itemId).subscribe(x => {
       this.accessoryDetails = x.message;
-      this.accessoryTypeService.getAccessoryTypeByID(this.accessoryDetails.accessoryTypeId).subscribe(x => {
-        this.accessoryDetails.accessoryTypeId = x.message.name;
-      });
       this.accessoryService.users().subscribe((employee) => {
         this.accessoryDetails.assignedToEmployeeId = employee.message.filter(d => d.id == this.accessoryDetails.assignedToEmployeeId)[0]
       });
