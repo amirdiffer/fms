@@ -1,0 +1,32 @@
+<div class="box p-4">
+    <div class="row">
+        <div class="col-12">
+            <p class="box_title">
+                {{'dashboard.workshop_overview' | translate}}
+            </p>
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-5">
+            <p class="value-title">6,24 {{'dashboard.k' | translate}}</p>
+        </div>
+        <div class="col-7">
+            <div id="chart">
+                <apx-chart
+                  [series]="chartOptions.series"
+                  [chart]="chartOptions.chart"
+                  [xaxis]="chartOptions.xaxis"
+                  [stroke]="chartOptions.stroke"
+                  [tooltip]="chartOptions.tooltip"
+                  [dataLabels]="chartOptions.dataLabels"
+                  [colors]="chartOptions.colors"
+                  [fill]="chartOptions.fill"
+                  [yaxis]="chartOptions.yaxis"
+                  [legend]="chartOptions.legend"
+                  [grid]="chartOptions.grid"
+                  [responsive]="chartOptions.responsive"
+                ></apx-chart>
+            </div>
+        </div>
+    </div>
+</div>

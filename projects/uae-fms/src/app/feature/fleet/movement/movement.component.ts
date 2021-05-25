@@ -119,7 +119,7 @@ export class MovementComponent
             },
             movementType: y['movementType'],
             requestType: y['requestType'],
-            assetType: y['assetTypeName'],
+            assetType: y['assetConfigurationName'],
             reason: y['reason'],
             date: 'Saturday 02/02 12:30',
             requestStatus: y['status'],
@@ -436,12 +436,31 @@ export class MovementComponent
   }
 
   exportTable() {
+    let filter;
     switch (this.selectedTab) {
       case 'MovementOverViewTab':
-        this.table.exportTable(this.movementOverViewTableSetting, 'Overview');
+        filter = {
+          asset: 'asset.assetName|asset.assetSubName|asset.ownership',
+          duration: 'duration',
+          startDate: 'startDate',
+          department: 'department',
+          operator: 'operator',
+          fine: 'fine',
+          reason: 'reason'
+        }
+        this.table.exportTable(this.movementOverViewTableSetting, 'Overview', filter);
         break;
       case 'requestTab':
-        this.table.exportTable(this.requestTableSetting, 'Request');
+        filter = {
+          user: 'user.userName|user.subName',
+          movementType: 'movementType',
+          requestType: 'requestType',
+          assetType: 'assetType',
+          reason: 'reason',
+          date: 'date',
+          requestStatus: 'requestStatus'
+        }
+        this.table.exportTable(this.requestTableSetting, 'Request', filter);
         break;
     }
   }

@@ -90,8 +90,8 @@ export class PendingRegistrationOverviewComponent
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      plateNumber: ['', [Validators.required]],
-      insuranceNumber: ['', [Validators.required]],
+      plateNumber: [''],
+      insuranceNumber: [''],
       salikTag: [''],
       fuelTag: [''],
       operator: [''],
@@ -134,7 +134,12 @@ export class PendingRegistrationOverviewComponent
             : 'Registration Added Successfully';
           this.dialogSetting.isWarning = false;
           this.dialogSetting.hasError = false;
-          this.dialogSetting.confirmButton = 'Yes';
+          this.dialogSetting.confirmButton = undefined;
+          this.dialogSetting.buttons = [
+            { title: "Customize Now", eventEmit: "now" },
+            { title: "Customize Later", eventEmit: "later" }
+          ];
+
           this.dialogSetting.cancelButton = undefined;
         }
       });
@@ -181,6 +186,18 @@ export class PendingRegistrationOverviewComponent
     this.errorDialogModal = false;
     this.dialogModal = false;
     if (!$event) return;
+    if ($event == "now") {
+      this.dialogModal = false;
+      this._registrationFacade.resetParams();
+      this.router.navigate(['/fleet/assets/' + this.assetId + '/customization']);
+      return;
+    }
+    if ($event == "later") {
+      this.dialogModal = false;
+      this._registrationFacade.resetParams();
+      this.router.navigate(['/fleet/assets']);
+      return;
+    }
 
     if (this.dialogType == 'submit') {
       let f = this.inputForm.value;

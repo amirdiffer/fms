@@ -20,6 +20,7 @@ import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { Subject, Subscription } from 'rxjs';
 import { Utility } from '@shared/utility/utility';
+import { AccessoryTypeFacade } from '@feature/configuration/+state/fleet-configuration';
 
 const EMPTY_SELECT_ITEM_LIST = [
   {
@@ -120,6 +121,7 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
     private _router: Router,
     private _route: ActivatedRoute,
     private _facade: AccessoryFacade,
+    private accessoryTypeFacade: AccessoryTypeFacade,
     private subAssetFacade: SubAssetFacade,
     private assetMasterFacade: AssetMasterFacade,
     private injector: Injector
@@ -195,6 +197,7 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
   }
 
   ngOnInit(): void {
+    this.accessoryTypeFacade.loadAll();
     this.accessoryForm = this._fb.group({
       itemName: ['', Validators.required],
       assignedToType: ['ASSET'],
@@ -341,7 +344,6 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
     }
 
     return (this.accessory = assetTypes
-      .filter((a) => a.type === 'ACCESSORY')
       .map((assetType) => ({
         id: assetType.id,
         name: assetType.name,
@@ -350,10 +352,9 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
   }
 
   loadAccessoryType(cb = null) {
-    this.accessoryService.getAssetTypes().subscribe((result) => {
+    this.accessoryTypeFacade.accessoryType$.subscribe((result) => {
       if (result) {
-        const assetTypes = result.message;
-        this.setAssetTypes(assetTypes);
+        this.setAssetTypes(result);
 
         if (typeof cb === 'function') {
           cb();
@@ -373,7 +374,7 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
         itemName: d.itemName,
         assignedToType: d.assignedToType,
         assignedToEntity: d.assignedToEntity.id,
-        accessoryTypeId: d.accessoryTypeId,
+        accessoryConfigurationId : d.accessoryTypeId,
         quantity: d.quantity,
         assignedToEmployeeId: d.assignedToEmployeeId
       };

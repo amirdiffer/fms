@@ -376,7 +376,7 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
         this.selectAlForm(this.partStoreSupplierForm, option)
         break;
       case 'PART_STORE_PART_MASTER':
-        // this.selectAlForm(this.partStorePartMasterForm, option)
+        this.selectAlForm(this.partStorePartMasterForm, option)
         break;
       case 'WORKSHOP_BODY_SHOP':
         this.selectAlForm(this.workshopBodyshopForm, option)
@@ -487,14 +487,14 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
   };
   fleetMovementFormBuilder(){
     this.fleetMovementForm = this._fb.group({
-      viewMovementListOverview:[{value:false ,  disabled: true}],
+      MOVEMENT_REQUEST_VIEW_DETAILS_OTHERS:[false],
       MOVEMENT_REQUEST_VIEW_LIST_OTHERS:[false],
       MOVEMENT_REQUEST_EXPORT_LIST:[false],
       approveRequest:[{value:false ,  disabled: true}],
       MOVEMENT_REQUEST_UPDATE_OTHERS:[false],
-      addRequest:[{value:false ,  disabled: true}],
-      viewOwnMovementListOverview:[{value:false ,  disabled: true}],
-      viewOwnMovementRequestList:[{value:false ,  disabled: true}],
+      MOVEMENT_REQUEST_ADD:[false],
+      MOVEMENT_REQUEST_VIEW_DETAILS_OWN:[false],
+      MOVEMENT_REQUEST_VIEW_LIST_OWN:[false],
       exportOwnMovementList:[{value:false ,  disabled: true}],
       approveOwnRequest:[{value:false ,  disabled: true}],
       MOVEMENT_REQUEST_UPDATE_OWN:[false]
@@ -534,30 +534,57 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
   };
   partStorePartListFormBuilder(){
     this.partStorePartListForm = this._fb.group({
-      viewPartList:[{value:false ,  disabled: true}],
+      PARTSTORE_PART_VIEW_LIST:[false],
       exportPartList:[{value:false ,  disabled: true}],
-      viewPartdetail:[{value:false ,  disabled: true}],
-      orderPart:[{value:false ,  disabled: true}],
-      updateEditPart:[{value:false ,  disabled: true}],
+      PARTSTORE_PART_VIEW_DETAILS:[false],
+      PARTSTORE_PART_UPDATE:[false],
     })
   };
   partStoreOrderListFormBuilder(){
     this.partStoreOrderListForm = this._fb.group({
-      viewRequestList:[{value:false ,  disabled: true}],
-      exporRequestList:[{value:false ,  disabled: true}],
-      approveRequest:[{value:false ,  disabled: true}],
-      viewMyOrderList:[{value:false ,  disabled: true}],
-      exportMyOrderList:[{value:false ,  disabled: true}],
-      addOrder:[{value:false ,  disabled: true}],
+      PARTSTORE_ORDER_LIST_REQUEST_ADD:[false],
+      PARTSTORE_ORDER_LIST_REQUEST_VIEW_LIST_OWN:[false],
+      PARTSTORE_ORDER_LIST_REQUEST_VIEW_LIST_OTHERS:[false],
+      PARTSTORE_ORDER_LIST_REQUEST_VIEW_DETAILS_OWN:[false],
+      PARTSTORE_ORDER_LIST_REQUEST_VIEW_DETAILS_OTHERS:[false],
+      PARTSTORE_ORDER_LIST_REQUEST_UPDATE_OWN:[false],
+      PARTSTORE_ORDER_LIST_REQUEST_ARCHIVE_OWN:[false],
+      PARTSTORE_ORDER_LIST_REQUEST_APPROVE_REJECT:[false],
+      PARTSTORE_ORDER_LIST_ORDER_ADD:[false],
+      PARTSTORE_ORDER_LIST_ORDER_UPDATE:[false],
+      PARTSTORE_ORDER_LIST_ORDER_ARCHIVE:[false],
+      PARTSTORE_ORDER_LIST_ORDER_VIEW_DETAILS:[false],
+      PARTSTORE_ORDER_LIST_ORDER_VIEW_LIST:[false],
+      PARTSTORE_ORDER_LIST_ORDER_EXPORT_LIST:[false],
+      PARTSTORE_ORDER_RECEIVED:[false],
     })
   };
   partStoreSupplierFormBuilder(){
     this.partStoreSupplierForm = this._fb.group({
-      viewSupplierList:[{value:false ,  disabled: true}],
-      exportSupplierList:[{value:false ,  disabled: true}],
-      addSupplier:[{value:false ,  disabled: true}],
+      PARTSTORE_SUPPLIER_VIEW_LIST:[false],
+      PARTSTORE_SUPPLIER_EXPORT_LIST:[false],
+      PARTSTORE_SUPPLIER_ADD:[false],
+      PARTSTORE_SUPPLIER_UPDATE : [false],
+      PARTSTORE_SUPPLIER_ARCHIVE : [false],
+      PARTSTORE_SUPPLIER_VIEW_DETAILS : [false],
     })
   };
+  partStorePartMasterFormBuilder(){
+    this.partStorePartMasterForm = this._fb.group({
+      PARTSTORE_PART_MASTER_CATEGORY_ADD:[false],
+      PARTSTORE_PART_MASTER_CATEGORY_UPDATE:[false],
+      PARTSTORE_PART_MASTER_CATEGORY_ARCHIVE:[false],
+      PARTSTORE_PART_MASTER_CATEGORY_VIEW_DETAILS:[false],
+      PARTSTORE_PART_MASTER_CATEGORY_VIEW_LIST:[false],
+      PARTSTORE_PART_MASTER_CATEGORY_EXPORT_LIST:[false],
+      PARTSTORE_PART_MASTER_ITEM_ADD:[false],
+      PARTSTORE_PART_MASTER_ITEM_UPDATE:[false],
+      PARTSTORE_PART_MASTER_ITEM_ARCHIVE:[false],
+      PARTSTORE_PART_MASTER_ITEM_VIEW_DETAILS:[false],
+      PARTSTORE_PART_MASTER_ITEM_VIEW_LIST:[false],
+      PARTSTORE_PART_MASTER_ITEM_EXPORT_LIST:[false],
+    })
+  }
   workshopBodyshopFormBuilder(){
     this.workshopBodyshopForm = this._fb.group({
       WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OTHERS:[false],
@@ -693,9 +720,12 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
   };
   configurationAssetConfigurationFormBuilder(){
     this.configurationAssetConfigurationForm = this._fb.group({
-      addAssetConfiguration:[{value:false ,  disabled: true}],
-      ASSET_TYPE_VIEW_LIST:[false],
-      updateAssetConfiguration:[{value:false ,  disabled: true}],
+      FLEET_CONFIGURATION_ADD:[false],
+      FLEET_CONFIGURATION_VIEW_LIST:[false],
+      FLEET_CONFIGURATION_UPDATE:[false],
+      FLEET_CONFIGURATION_VIEW_DETAILS:[false],
+      FLEET_CONFIGURATION_EXPORT_LIST:[false],
+
     })
   };
   configurationUsageCategoryFormBuilder(){
@@ -731,6 +761,7 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
     this.partStorePartListFormBuilder();
     this.partStoreOrderListFormBuilder();
     this.partStoreSupplierFormBuilder();
+    this.partStorePartMasterFormBuilder();
     this.workshopBodyshopFormBuilder();
     this.workshopServiceshopFormBuilder();
     this.workshopTechnicalInspectionFormBuilder();
@@ -758,7 +789,7 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
       this.partStorePartListForm,
       this.partStoreOrderListForm,
       this.partStoreSupplierForm,
-      // this.partStorePartMasterForm,
+      this.partStorePartMasterForm,
       this.workshopBodyshopForm,
       this.workshopServiceshopForm,
       this.workshopTechnicalInspectionForm,

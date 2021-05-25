@@ -13,6 +13,11 @@ export class AssetPolicySelectors {
     (state) => state.resultNumber
   );
 
+  static loaded = createSelector(
+    ConfigurationSelectors.assetPolicySelector,
+    (state) => state.loaded
+  );
+
   static message = createSelector(
     ConfigurationSelectors.assetPolicySelector,
     (state) => state.message
@@ -26,6 +31,11 @@ export class AssetPolicySelectors {
   static submitted = createSelector(
     ConfigurationSelectors.assetPolicySelector,
     (state) => state.submitted
+  );
+  
+  static specificAssetPolicy = createSelector(
+    ConfigurationSelectors.assetPolicySelector,
+    (state) => state.specific
   );
 
   static selectById = createSelector(

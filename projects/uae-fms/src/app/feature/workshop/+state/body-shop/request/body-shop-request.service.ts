@@ -57,17 +57,17 @@ export class BodyShopRequestService {
       data
     );
   }
-  getRequestById(id) {
+  getRequestById(id): Observable<ResponseBody<any>> {
     return this.http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'workshop/bodyshop/request/' + id
     );
   }
-  getRequestListByAssetId(
-    id
-  ): Observable<ResponseBody<IRequestListSpecificAsset[]>> {
+
+  getRequestListByAssetId(id): Observable<ResponseBody<IRequestListSpecificAsset[]>> {
     return this.http.get<ResponseBody<IRequestListSpecificAsset[]>>(
       environment.baseApiUrl + `workshop/bodyshop/asset/${id}/request`,
       { params: this.getParam('body-shop_request') }
     );
   }
+
 }

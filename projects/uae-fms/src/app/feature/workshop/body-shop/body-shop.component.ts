@@ -133,6 +133,7 @@ export class BodyShopComponent implements OnInit {
   requestData$ = this._facadeRequest.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
+        console.log(y)
         return {
           ...y,
           asset: {
@@ -143,7 +144,8 @@ export class BodyShopComponent implements OnInit {
           plateNumber:
             y.plateNumber != null ? y.plateNumber : 'Without Plate Number',
           department: y.department.name,
-          operatorName: y.operator.firstName + ' ' + y.operator.lastName
+          operatorName: y.operator.firstName + ' ' + y.operator.lastName,
+          assetTypeName:y.assetConfigurationName
         };
       });
     })
@@ -191,19 +193,20 @@ export class BodyShopComponent implements OnInit {
   jobCardData$ = this._facadeJobCard.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
+        console.log(y)
         return {
           ...y,
           asset: {
             img: 'assets/thumb.png',
-            assetName: y.assetDpd,
+            // assetName: y.assetDpd,
             assetSubName: y.assetDpd
           },
           startDate: y.startDate
             ? moment.utc(y.startDate).local().format('DD-MM-YYYY')
-            : 'ex: 20-20-2020',
+            : '',
           endDate: y.endDate
             ? moment.utc(y.endDate).local().format('DD-MM-YYYY')
-            : 'ex: 20-20-2020',
+            : '',
           location: y.location.address ? y.location.address : 'ex: Dubai',
           cost: y.cost ? `${y.cost} AED` : 'ex: 30.000 AED ',
           technician: Math.floor(Math.random() * 20) + 1,
@@ -223,29 +226,28 @@ export class BodyShopComponent implements OnInit {
         renderer: 'assetsRenderer'
       },
       {
-        lable: 'Plate Number',
+        lable: 'tables.column.plate_number',
         field: 'plateNumber',
         type: ColumnType.lable
       },
       {
-        lable: 'Department',
+        lable: 'tables.column.department',
         field: 'department',
         type: ColumnType.lable
       },
       {
-        lable: 'Operator Name',
+        lable: 'tables.column.operator_name',
         field: 'operatorName',
         type: ColumnType.lable
       },
       {
-        lable: 'َAsset Type',
+        lable: 'tables.column.asset_type',
         field: 'assetTypeName',
         type: ColumnType.lable
       },
       {
-        lable: 'َNumber Of Request',
+        lable: 'tables.column.number_of_request',
         field: 'numberOfActiveRequests',
-
         type: ColumnType.lable
       },
       {
@@ -266,11 +268,12 @@ export class BodyShopComponent implements OnInit {
           button: 'folder-check',
           color: '#0da06e',
           tooltip: 'Create job card',
+          condition: function (data) {
+            return data.hasOpenJobCard ? false : true;
+          },
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
-            this.router.navigate(['/workshop/body-shop/add-job-card'], {
-              queryParams: { assetId: data.assetId }
-            });
+            this.router.navigate(['/workshop/body-shop/'+data.id+'/add-job-card']);
           }
         },
         {
@@ -281,7 +284,16 @@ export class BodyShopComponent implements OnInit {
               .navigate(['/workshop/body-shop/request-overview/' + data.id])
               .then();
           }
-        }
+        },
+        /* {
+          button: 'edit',
+          onClick: (col, data) => {
+            this._facadeRequest.getAssetRequest(data.assetId);
+            this.router
+              .navigate(['/workshop/body-shop/edit-job-card/' + data.id])
+              .then();
+          }
+        } */
 
         // {
         //   button: 'edit',
@@ -333,21 +345,21 @@ export class BodyShopComponent implements OnInit {
         field: 'technician',
         type: ColumnType.lable
       },
-      {
+      /* {
         lable: 'tables.column.task',
         field: 'task',
         width: '18em',
         type: ColumnType.lable,
         renderer: 'radialBar'
-      }
-      // {
-      //   lable: '',
-      //   field: 'floatButton',
-      //   width: 0,
-      //   type: ColumnType.lable,
-      //   thumbField: '',
-      //   renderer: 'floatButton'
-      // }
+      } */
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
+      },
     ],
     data: [
       {
@@ -372,20 +384,20 @@ export class BodyShopComponent implements OnInit {
         {
           button: 'external',
           onClick: (col, data) => {
-            this.router.navigate(['/fleet/assets/' + data.id]).then();
+            this.router.navigate(['/workshop/body-shop/job-card-overview/' + data.id]).then();
+          }
+        },
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            console.log(data)
+            this._facadeJobCard.resetParams();
+            this.router.navigate([
+              '/workshop/body-shop/edit-job-card/' + data.id
+            ]);
           }
         }
-        // {
-        //   button: 'edit',
-        //   color: '#3F3F3F',
-        //   onClick: (col, data, button?) => {
-        //     console.log(data)
-        //     this._facadeJobCard.resetParams();
-        //     this.router.navigate([
-        //       '/workshop/body-shop/edit-job-card/' + data.id
-        //     ]);
-        //   }
-        // }
       ]
     }
   };
@@ -582,8 +594,6 @@ export class BodyShopComponent implements OnInit {
     this._facadeJobCard.loadAll();
     this._facadeTechnician.loadAll();
     this._facadeLocation.loadAll();
-    this._facadeRequest.bodyShop$.subscribe((x) => {});
-    // this._facadeRequest.loadStatistics();
     this._facadeRequest.statistics$.subscribe((x) => {
       if (x) {
         this.filterSetting.map((filter) => {
@@ -631,18 +641,51 @@ export class BodyShopComponent implements OnInit {
     }
   }
   exportTable() {
+    let filter;
     switch (this.selectedTab) {
       case 'requestTab':
-        this.table.exportTable(this.table1Setting, this.selectedTab);
+        filter = {
+          asset: 'asset.assetName|asset.assetSubName',
+          plateNumber: 'plateNumber',
+          department: 'department',
+          operatorName: 'operatorName',
+          assetTypeName: 'assetTypeName',
+          numberOfActiveRequests: 'numberOfActiveRequests'
+        };
+        this.table.exportTable(this.table1Setting, 'Service Shop - Request Tab', filter);
         break;
       case 'jobcardTab':
-        this.table.exportTable(this.table2Setting, this.selectedTab);
+        filter = {
+          asset: 'asset.assetSubName',
+          startDate: 'startDate',
+          endDate: 'endDate',
+          location: 'location',
+          cost: 'cost',
+          technician: 'technician'
+        };
+        this.table.exportTable(this.table2Setting, 'Service Shop - JobCard Tab', filter);
         break;
       case 'technicianTab':
-        this.table.exportTable(this.table3Setting, this.selectedTab);
+        filter = {
+          technician: 'technician.firstName|technician.lastName',
+          skill: 'skill',
+          status: 'status',
+          tasks: 'tasks',
+          information: 'information.email|information.phoneNumber',
+          ratePerHour: 'ratePerHour'
+        }
+        this.table.exportTable(this.table3Setting, 'Service Shop - Technician Tab', filter);
         break;
       case 'locationTab':
-        this.table.exportTable(this.table4Setting, this.selectedTab);
+        filter = {
+          locationId: 'locationId',
+          service: 'service',
+          address: 'address',
+          jobCard: 'jobCard',
+          technician: 'technician',
+          capacity: 'capacity'
+        }
+        this.table.exportTable(this.table4Setting, 'Service Shop - Location Tab', filter);
         break;
     }
   }

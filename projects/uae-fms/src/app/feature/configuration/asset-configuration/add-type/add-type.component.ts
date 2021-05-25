@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild
@@ -21,35 +22,40 @@ import {
 } from '@angular/forms';
 import { AssetConfigurationService } from '../asset-configuration.service';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { AssetTypeFacade } from '../../+state/asset-configuration';
-import { Router } from '@angular/router';
+import { AccessoryTypeFacade, AssetTypeFacade, SubAssetTypeFacade } from '../../+state/fleet-configuration/index';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Utility } from '@shared/utility/utility';
 import { TableSetting } from '@core/table';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'congifuration-add-type',
   templateUrl: './add-type.component.html',
   styleUrls: ['./add-type.component.scss']
 })
-export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
+export class AddTypeComponent extends Utility implements OnInit, AfterViewInit, OnDestroy {
+
+  //#region ViewChild
+  @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
+  @ViewChild('small', { static: false }) small: ElementRef;
+  //#endregion
+
+  //#region Variable
   radioButtonSelect: 'mModel';
   itemId;
   public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
-  @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
-  @ViewChild('small', { static: false }) small: ElementRef;
   color = '#0000005E';
   maxValue = 100;
   value = 80;
   percent = 80;
   fileName = 'CSV File only';
   submited = false;
-
+  type;
+  isEdit: boolean = false;
   assetConfigurationTableSetting!: TableSetting;
-
   dialogModal = false;
-
   dialogSetting: IDialogAlert = {
     header: 'Add asset configuration',
     hasError: false,
@@ -57,15 +63,17 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };
-
   assetTypes = [];
+  //#endregion
 
   constructor(
     private _fb: FormBuilder,
-    private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
+    private _subAssetTypeFacade: SubAssetTypeFacade,
+    private _accessoryTypeFacade: AccessoryTypeFacade,
     public router: Router,
+    private _activateRoute: ActivatedRoute,
     private _dataService: DataService,
     injector: Injector
   ) {
@@ -74,84 +82,80 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // this.facade.loadAll();
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
       typeName: ['', [Validators.required]],
       activetype: true,
       description: ['', Validators.required]
     });
-
-    this.facade.assetType$.subscribe((x) => {
-      this.assetTypes = x;
-    });
-    this._dataService.watchType().subscribe((x) => {
-      this.inputForm.patchValue({
-        typeCategory: x
-      });
-    });
-
-    this.route.params.subscribe(x => {
-      this.itemId = x['id'];
-      if (this.itemId) {
-        let filterById = this.assetTypes.filter(y => y.id == this.itemId).map(d => {
-          return {
-            typeName: d.name,
-            activetype: d.isActive,
-            description: d.typeDescription
-          }
-        });
-        console.log(filterById)
-        if (filterById.length)
-          this.inputForm.patchValue(filterById[0]);
-      }
-    })
-    this.facade.assetType$.subscribe(x => {
-      this.assetTypes = x;
-      if (this.itemId) {
-        let filterById = this.assetTypes.filter(y => y.id == this.itemId).map(d => {
-          return {
-            typeName: d.name,
-            activetype: d.isActive,
-            description: d.typeDescription
-          }
-        });
-        console.log(filterById)
-        if (filterById.length)
-          this.inputForm.patchValue(filterById[0]);
-      }
-    })
     this._dataService.watchType().subscribe(
-      (x)=>{
+      (x) => {
+        this.type = x
         this.inputForm.patchValue({
-          typeCategory:x
+          typeCategory: x
         })
       }
     )
 
-
-    this.facade.submitted$.subscribe((x) => {
-      if (x) {
-        this.dialogModal = true;
-        this.dialogSetting.header = this.itemId ? 'Edit Type' : 'Add new type';
-        this.dialogSetting.message = this.itemId ? 'Changes Saved Successfully' : 'Type Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
-      }
+    this.facade.assetType$.subscribe((x) => {
+      this.assetTypes = x;
     });
 
-    this.facade.error$.subscribe((x) => {
-      if (x?.error) {
-        this.dialogModal = true;
-        this.dialogSetting.header = this.itemId ? 'Edit Type' : 'Add new type';
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.message = 'Error occurred in progress';
-        this.dialogSetting.cancelButton = undefined;
-        this.dialogSetting.confirmButton = 'OK';
+    const url = this._activateRoute.snapshot.url
+    const hasEditPath = url.filter(x => x.path == 'edit-asset-configuration');
+    if (hasEditPath.length > 0) {
+      this.isEdit = true;
+      this.itemId = +url[url.length - 1];
+      switch (this.type) {
+        case 'ASSET':
+          this.facade.getAssetTypeByID(this.itemId)
+          this.facade.specificAssetType$.subscribe(
+            x => {
+              if (x) {
+                this.inputForm.patchValue({
+                  typeName: x.name,
+                  activetype: x.isActive,
+                  description: x.description
+                })
+              }
+            }
+          )
+          break;
+        case 'SUB_ASSET':
+          this._subAssetTypeFacade.getSubAssetTypeByID(this.itemId)
+          this._subAssetTypeFacade.specificSubAssetType$.subscribe(
+            x => {
+              if (x) {
+                this.inputForm.patchValue({
+                  typeName: x.name,
+                  activetype: x.isActive,
+                  description: x.description
+                })
+              }
+            }
+          )
+          break;
+        case 'ACCESSORY':
+          this._accessoryTypeFacade.getAccessoryTypeByID(this.itemId)
+          this._accessoryTypeFacade.specificAccessoryType$.subscribe(
+            x => {
+              if (x) {
+                this.inputForm.patchValue({
+                  typeName: x.name,
+                  activetype: x.isActive,
+                  description: x.description
+                })
+              }
+            }
+          )
+          break;
+        default:
+          break;
       }
-    });
+    }
+    this.errorAndSubmitHandle(this._accessoryTypeFacade);
+    this.errorAndSubmitHandle(this._subAssetTypeFacade);
+    this.errorAndSubmitHandle(this.facade);
   }
 
   get singleModelArray(): FormArray {
@@ -173,14 +177,14 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     list.push(this.createSingleModel());
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {});
+        fileEntry.file((file: File) => { });
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
       }
@@ -188,11 +192,11 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   public fileOver(event) {
-    // console.log(event);
+
   }
 
   public fileLeave(event) {
-    // console.log(event);
+
   }
 
   public addModel() {
@@ -213,8 +217,10 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
   }
 
   dialogConfirm($event): void {
-    if (this.dialogType == 'cancel') {
+    if ($event && this.dialogType == 'cancel') {
       this.facade.resetParams();
+      this._subAssetTypeFacade.resetParams()
+      this._accessoryTypeFacade.resetParams()
       this.router.navigate(['/configuration/asset-configuration']);
       return;
     }
@@ -222,6 +228,8 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     if ($event && !this.dialogSetting.hasError) {
       this.router.navigate(['/configuration/asset-configuration']).then((_) => {
         this.facade.resetParams();
+        this._subAssetTypeFacade.resetParams()
+        this._accessoryTypeFacade.resetParams()
       });
     }
   }
@@ -242,6 +250,30 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
     // console.log('color4 clicked');
   }
 
+  errorAndSubmitHandle(submittedFacade) {
+    submittedFacade.submitted$.subscribe((x) => {
+      if (x) {
+        this.dialogModal = true;
+        this.dialogSetting.header = this.itemId ? 'Edit Type' : 'Add new type';
+        this.dialogSetting.message = this.itemId ? 'Changes Saved Successfully' : 'Type Added Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'OK';
+        this.dialogSetting.cancelButton = undefined;
+      }
+    });
+
+    submittedFacade.error$.subscribe((x) => {
+      if (x?.error) {
+        this.dialogModal = true;
+        this.dialogSetting.header = this.itemId ? 'Edit Type' : 'Add new type';
+        this.dialogSetting.hasError = true;
+        this.dialogSetting.message = 'Error occurred in progress';
+        this.dialogSetting.cancelButton = undefined;
+        this.dialogSetting.confirmButton = 'OK';
+      }
+    });
+  }
   submit() {
     this.submited = true;
     this.dialogType = 'submit';
@@ -249,47 +281,60 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit {
       this.inputForm.markAllAsTouched();
       return;
     }
-
-    let type: string = this.inputForm.value.typeCategory;
-    // switch (this.inputForm.value.typeCategory) {
-    //   case 'asset':
-    //     type = 'ASSET';
-    //     break;
-    //   case 'subAsset':
-    //     type = 'SUB_ASSET';
-    //     break;
-    //   case 'accessory':
-    //     type = 'ACCESSORY';
-    //     break;
-    //   default:
-    //     type = 'ASSET';
-    // }
-
-    const data = [
-      ...this.assetTypes.map((x) => {
-        return {
-          id: x.id,
-          type: x.type,
-          name: x.name,
-          isActive: x.isActive,
-          typeDescription: x.typeDescription
-        };
-      }),
-      {
+    const inputFormValue = this.inputForm.getRawValue();
+    let value;
+    if (this.isEdit) {
+      value = {
         id: this.itemId,
-        type: type,
-        name: this.inputForm.value.typeName,
-        isActive: this.inputForm.value.activetype,
-        typeDescription: this.inputForm.value.description
+        name: inputFormValue.typeName,
+        isActive: inputFormValue.activetype,
+        description: inputFormValue.description
       }
-    ];
-    /*       const value ={
-        type: type,
-        name: this.inputForm.value.typeName,
-        isActive: this.inputForm.value.activetype,
-        typeDescription: this.inputForm.value.description
-      } */
+    } else {
+      value = {
+        name: inputFormValue.typeName,
+        isActive: inputFormValue.activetype,
+        description: inputFormValue.description
+      }
+    }
+    switch (this.type) {
+      case 'ASSET':
+        if (this.isEdit) {
+          this.facade.updateAssetType(value)
+        } else {
+          this.facade.addAssetType(value);
+        }
+        break;
+      case 'SUB_ASSET':
+        if (this.isEdit) {
+          this._subAssetTypeFacade.updateSubAssetType(value)
+        } else {
+          this._subAssetTypeFacade.addSubAssetType(value)
+        }
+        break;
+      case 'ACCESSORY':
+        if (this.isEdit) {
+          this._accessoryTypeFacade.updateAccessoryType(value)
+        } else {
+          this._accessoryTypeFacade.addAccessoryType(value)
+        }
+        break;
+      default:
+        break;
+    }
+  }
 
-    this.facade.addAssetType(data);
+  ngOnDestroy() {
+    this._accessoryTypeFacade.resetParams();
+    this._subAssetTypeFacade.resetParams();
+    this.facade.resetParams();
+  }
+
+
+
+  getAssetText() {
+    if (this.type == "ASSET") return "configuration.asset_configuration." + (this.isEdit ? "edit_asset_type" : "add_asset_type");
+    if (this.type == "SUB_ASSET") return "configuration.asset_configuration." + (this.isEdit ? "edit_sub_asset_type" : "add_sub_asset_type");
+    if (this.type == "ACCESSORY") return "configuration.asset_configuration." + (this.isEdit ? "edit_accessory_type" : "add_accessory_type");
   }
 }

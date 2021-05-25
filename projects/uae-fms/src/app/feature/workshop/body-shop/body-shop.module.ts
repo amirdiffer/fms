@@ -14,9 +14,10 @@ import { TechnicianOverviewComponent } from './technician-overview/technician-ov
 import { UserProfileModule } from '@feature/user/user.module';
 import { TabViewModule } from '@core/tab-view';
 import { FleetModule } from '@feature/fleet/fleet.module';
+import { JobCardOverviewComponent } from './job-card-overview/job-card-overview.component';
 
 @NgModule({
-  declarations: [RequestTabOverviewComponent, TechnicianOverviewComponent],
+  declarations: [RequestTabOverviewComponent, TechnicianOverviewComponent, JobCardOverviewComponent],
   imports: [
     CommonModule,
     FilterModule,

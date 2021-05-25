@@ -1,0 +1,61 @@
+<div class="component_cus_wrapper">
+  <div class="row">
+    <div class="col-12 col-md-4 col-lg-3 side-panel">
+      <div class="component_sec_wrapper">
+        <anms-asset-detail type="job-card" [asset$]="sidebarData$"></anms-asset-detail>
+        <div class="position-relative button-container view_card_button mt-3 ml-2 mr-2">
+          <!-- <button class="w-100 btn-primary-medium add">
+            {{'workshop.body_shop.requests.view_card' | translate}}
+          </button> -->
+        </div>
+        <hr class="seprator">
+        <div class="location">
+          <h6 class="ml-3">{{ 'assets.overview.overview.latest_location' | translate }} </h6>
+          <div class="map">
+            <app-map-view-core [miniMap]="true" [iServeVehicles]="[]"
+              [location]="{latitude:25.014743,longitude:55.070165}"></app-map-view-core>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-8 col-lg-9 main-panel">
+      <div class="row">
+        <div class="col-12">
+          <!-- <div class="filter-container">
+            <app-filter [setting]="filterSetting"></app-filter>
+          </div> -->
+          <div class="table-container">
+            <div class="card-table">
+              <span class="search-container card-table-header">
+                <div class="search-box">
+                  <input type="text" placeholder="{{'search.search_in_columns' | translate}}">
+                  <button>
+                    <img _ngcontent-ylk-c262="" [src]="searchIcon" alt="">
+                  </button>
+                </div>
+                <button class="btn-download">
+                  <svg-icon [src]="downloadBtn"></svg-icon>
+                </button><!--
+                <button class="btn-primary-small mx-1"
+                  routerLink="/workshop/body-shop/add-request"><i>+</i><a>{{'search.request' | translate}}</a></button> -->
+                <button class="btn-primary-small"
+                  routerLink="/workshop/body-shop/add-job-card"><i>+</i><a>{{'search.job_card' |
+                    translate}}</a></button>
+              </span>
+              <div class="table-container">
+                <h6>{{"workshop.body_shop.job_card.active_tasks"|translate}}</h6>
+                <app-table [setting]="jobCard_Table" [tableData]="tableData$"></app-table>
+              </div>
+              <!-- <div class="table-container">
+                <h6>{{"workshop.body_shop.job_card.request_list"|translate}}</h6>
+                <app-table [setting]="jobCard_Table" [tableData]="tableData2$"></app-table>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -10,19 +10,22 @@ import { DashboardModule } from '@feature/dashboard/dashboard.module';
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PartStoreStateModule } from './+state/part-store.state.module';
-import { AssetTypeComponent } from './asset-type/asset-type.component';
-import { CategoryComponent } from './category/category.component';
 import { OrderListComponent } from './order-list/order-list.component';
-import { OrderFormComponent } from './order-list/order/order.component';
-import { PartListFormComponent } from './part-list/part-list-form.component';
+import { OrderComponent } from './order-list/order/order.component';
 import { PartListComponent } from './part-list/part-list.component';
-import { AddPartMasterComponent } from './part-master/add-part-master/add-part-master.component';
 import { PartMasterComponent } from './part-master/part-master.component';
 import { PartOverviewComponent } from './part-overview/part-overview.component';
 import { PartStoreRoutingModule } from './part-store-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SuppliersAddFormComponent } from './order-list/suppliers-add-form/suppliers-add-form.component';
-import { PartDetailListComponent } from './part-list/part-detail-list/part-detail-list.component';
+import { AddCategoryComponent } from './part-master/add-category/add-category.component';
+import { AddItemComponent } from './part-master/add-item/add-item.component';
+import { TableContentComponent } from './part-master/table-content/table-content.component';
+import {CarouselModule} from 'primeng/carousel';
+import { UpdateFormComponent } from './part-list/update-form/update-form.component';
+import { ReceiveOrderComponent } from './order-list/receive-order/receive-order.component';
+import { RequestListAddFormComponent } from './order-list/request-list-add-form/request-list-add-form.component';
+import { FleetStateModule } from '@feature/fleet/+state';
 
 @NgModule({
   imports: [
@@ -38,21 +41,24 @@ import { PartDetailListComponent } from './part-list/part-detail-list/part-detai
     PartStoreRoutingModule,
     SharedModule,
     DashboardModule,
-    PartStoreStateModule
+    PartStoreStateModule,
+    CarouselModule,
+    FleetStateModule
   ],
   declarations: [
     PartListComponent,
-    PartListFormComponent,
-    CategoryComponent,
-    AssetTypeComponent,
     OrderListComponent,
     PartMasterComponent,
-    AddPartMasterComponent,
-    OrderFormComponent,
+    OrderComponent,
     OrderListComponent,
     PartOverviewComponent,
     SuppliersAddFormComponent,
-    PartDetailListComponent
+    AddCategoryComponent,
+    AddItemComponent,
+    TableContentComponent,
+    UpdateFormComponent,
+    ReceiveOrderComponent,
+    RequestListAddFormComponent
   ]
 })
 export class PartStoreModule {}

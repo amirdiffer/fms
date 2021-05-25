@@ -1,0 +1,136 @@
+<form class="pb-4" [formGroup]="form">
+    <div class="button-container">
+        <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{ 'forms.cancel' | translate}}</button>
+        <button class="btn-primary-medium add" type="submit" (click)="submit()">{{ (isEdit ? 'forms.edit' : 'forms.add') | translate}}</button>
+      </div>
+    <div class="form-section" formArrayName="itemInfo">
+        <div class="row position-relative" *ngFor="let _ of itemInfo.controls;let i=index; let last=last; let first=first;">
+            <div class="col-2">
+                <div class="item-info d-flex">
+                    <!-- <span *ngIf="last" class="p-inputgroup-addon mr-3 add-button" (click)="addItemInfo()"><i class="pi pi-plus"></i></span>
+                    <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeItemInfo(i)">
+                        <svg-icon src='assets/icons/add.svg'
+                                  [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+                    </span> -->
+                    <h3 *ngIf="last" class="form-section__title m-0 align-self-center">{{ 'part_store.part_master.item_info' | translate}}</h3>
+                </div>
+            </div>
+            <ng-container [formGroupName]="i" >
+                <div class="col-10">
+                    <div class="row mt-4">
+                        <div class="col-6">
+                            <div class="p-field form-section__field">
+                                <span class="p-float-label">
+                                    <input pInputText placeholder="{{'part_store.part_master.item_name' | translate}} *" type="text" formControlName="itemName">
+                                    <label>{{ 'part_store.part_master.item_name' | translate}} *</label>
+                                </span>
+                                <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'itemName')"
+                                    error="forms.feedback.required">
+                                </anms-error>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-field form-section__field">
+                                <span class="p-float-label">
+                                    <input pInputText numbersOnly placeholder="{{'part_store.part_master.threshold' | translate}} *" type="text" formControlName="threshold">
+                                    <label>{{ 'part_store.part_master.threshold' | translate}} *</label>
+                                </span>
+                                <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'threshold')"
+                                    error="forms.feedback.required">
+                                </anms-error>
+                            </div>
+                        </div>
+                        <!-- <div class="col-6">
+                            <div class="p-field form-section__field options-select">
+                                <span class="p-float-label">
+                                  <p-dropdown inputId="make" (onChange)="selectMake($event.value)" placeholder="{{'part_store.part_master.make' | translate}} *" [options]="manufacturer$ | async" optionLabel="name" class="dropdown-select" formControlName="make"></p-dropdown>
+                                  <label for="make">{{'part_store.part_master.make' | translate}} *</label>
+                                </span>
+                                <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'make')"
+                                    error="forms.feedback.required">
+                                </anms-error>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-field form-section__field options-select">
+                                <span class="p-float-label">
+                                  <p-dropdown inputId="model" (onChange)="selectModel($event.value)" placeholder="{{'part_store.part_master.model' | translate}} *" [options]="model$ | async" optionLabel="name" class="dropdown-select" formControlName="model"></p-dropdown>
+                                  <label for="model">{{'part_store.part_master.model' | translate}} *</label>
+                                </span>
+                                <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'model')"
+                                    error="forms.feedback.required">
+                                </anms-error>
+                            </div>
+                        </div> -->
+                        <ng-container *ngIf="isAsset; else subAssetType">
+                            <div class="col-4">
+                                <div class="p-field form-section__field options-select">
+                                    <span class="p-float-label">
+                                      <p-dropdown inputId="trim" (onChange)="selectTrim($event.value)" placeholder="{{'part_store.part_master.trim' | translate}} *" [options]="trim$ | async" dataKey="id" optionLabel="name" class="dropdown-select" formControlName="trim"></p-dropdown>
+                                      <label for="trim">{{'part_store.part_master.trim' | translate}} *</label>
+                                    </span>
+                                    <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'trim')"
+                                        error="forms.feedback.required">
+                                    </anms-error>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="p-field form-section__field options-select">
+                                    <span class="p-float-label">
+                                      <p-dropdown inputId="color" placeholder="{{'part_store.part_master.color' | translate}} *" [options]="color$ | async" optionLabel="name" optionValue="id" class="dropdown-select" formControlName="color"></p-dropdown>
+                                      <label for="color">{{'part_store.part_master.color' | translate}} *</label>
+                                    </span>
+                                    <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'color')"
+                                        error="forms.feedback.required">
+                                    </anms-error>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-template #subAssetType>
+                            <div class="col-6">
+                                <div class="p-field form-section__field options-select">
+                                    <span class="p-float-label">
+                                      <p-dropdown inputId="model" placeholder="{{'part_store.part_master.model' | translate}} *" [options]="model$ | async" optionLabel="name" optionValue="id" class="dropdown-select" formControlName="model"></p-dropdown>
+                                      <label for="model">{{'part_store.part_master.model' | translate}} *</label>
+                                    </span>
+                                    <anms-error [showError]="formArrayHasError(submited, itemInfo, i, 'model')"
+                                        error="forms.feedback.required">
+                                    </anms-error>
+                                </div>
+                            </div>
+                        </ng-template>
+                        
+                        <div class="col-4" formArrayName="suppliers" [class.col-6]="!isAsset">
+                            <ng-container *ngFor="let sup of supplier(i).controls;let j=index; let lastest=last;" >
+                                <div class="p-field form-section__field options-select" [formGroupName]="j">
+                                    <div class="d-flex">
+                                        <span class="p-float-label w-100">
+                                            <p-dropdown placeholder="{{'part_store.part_master.supplier' | translate}} *" [options]="supplier$ | async" optionLabel="companyName" optionValue="id" class="dropdown-select" formControlName="supplier"></p-dropdown>
+                                            <label>{{'part_store.part_master.supplier' | translate}} *</label>
+                                        </span>
+                                        <span *ngIf="lastest"class="p-inputgroup-addon addon-primary" (click)="addSupplier(i)">
+                                            <i class="pi pi-plus"></i>
+                                        </span>
+                                        <span *ngIf="!lastest" class='remove-icon p-inputgroup-addon' (click)="removeSupplier(i,j)">
+                                            <svg-icon src='assets/icons/add.svg'
+                                                      [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+                                        </span>
+                                    </div>
+                                    <anms-error [showError]="formArrayHasError((submited || supplierAdded), supplier(i), j, 'supplier')"
+                                        error="forms.feedback.required">
+                                    </anms-error>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-4 pb-4">
+                    <anms-uploader class="drag-and-drop-form" [files]="documentFile" [isImage]="true" [iconIsHidden]="true"[multiple]="true" [preview]="true" (uploadedEvent)="uploadFile($event)"></anms-uploader>
+                </div>
+            </ng-container>
+            <hr *ngIf="!last" class="line">
+        </div>
+    </div>  
+</form> 
+
+<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>

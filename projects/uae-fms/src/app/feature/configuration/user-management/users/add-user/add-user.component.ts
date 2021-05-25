@@ -11,7 +11,7 @@ import {
   NgxFileDropEntry
 } from 'ngx-file-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { debounceTime, map } from 'rxjs/operators';
+import { debounceTime, filter, map } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
 
 import { UsersFacade } from '../../../+state/users';
@@ -20,7 +20,7 @@ import { UsersService } from '../../../+state/users/users.service';
 
 import { FilterCardSetting } from '@core/filter';
 import { Utility } from '@shared/utility/utility';
-import { OrganizationFacade } from '@feature/fleet/+state/organization';
+import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 @Component({
   selector: 'anms-add-user',
@@ -32,6 +32,9 @@ export class AddUserComponent
   implements OnInit, AfterContentInit, OnDestroy {
   isEdit: boolean = false;
   id: number;
+
+  departmentId;
+  sectionId;
 
   //#region Dialog
   dialogSetting: IDialogAlert = {
@@ -65,28 +68,28 @@ export class AddUserComponent
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
 
@@ -108,6 +111,8 @@ export class AddUserComponent
 
   departments = [];
   departmentsB;
+  sectionFiltered: any[];
+  sectionList: any[];
 
   tempImage: any = '';
 
@@ -124,7 +129,7 @@ export class AddUserComponent
   private _user;
   users$ = this.userFacade.users$;
   roles$ = this.roleFacade.rolePermission$.pipe(
-    map((y) => y.map((x) => ({ id: x.roleId, name: x.roleName })))
+    map((y) => y.map((x) => ({ id: x.roleId, name: x.roleName })).filter(z => z.id != 1 && z.id != 2 && z.id != 3))
   );
   profileDocId = null;
 
@@ -134,7 +139,8 @@ export class AddUserComponent
     private userFacade: UsersFacade,
     private _orgfacade: OrganizationFacade,
     private roleFacade: RolePermissionFacade,
-    private userService: UsersService
+    private userService: UsersService,
+    private _departmentService: OrganizationService
   ) {
     super(injector);
   }
@@ -165,12 +171,18 @@ export class AddUserComponent
             if (x) {
               this.profileDocId = x.profileDocId ? x.profileDocId : null;
               this._user = x;
+              this.departmentId = this._user.department.organizationId;
+              this.sectionId = this._user.department.id;
               this.getEmployeesList.next({ query: x.employeeNumber });
 
               this.form.controls['portalInformation'].patchValue({
                 employeeNumber: x.employeeNumber,
                 department: {
                   name: `${x.department.organizationName}`,
+                  id: `${x.department.organizationId}`
+                },
+                section: {
+                  name: `${x.department.name}`,
                   id: `${x.department.id}`
                 },
                 roleId: x.roles[0].roleId,
@@ -286,6 +298,7 @@ export class AddUserComponent
       portalInformation: this.formBuilder.group({
         employeeNumber: ['', [Validators.required]],
         department: ['', [Validators.required]],
+        section: ['', [Validators.required]],
         roleId: ['', [Validators.required]],
         activeEmployee: false
       }),
@@ -345,8 +358,8 @@ export class AddUserComponent
         employeeNumber: this.isEdit
           ? this._user?.employeeNumber
           : this.employeeId,
-        organizationId: 1,
-        departmentId: f.portalInformation.department.id,
+        organizationId: this.departmentId,
+        departmentId: this.sectionId,
         roleIds: [f.portalInformation.roleId.id],
         isActive: f.portalInformation.activeEmployee,
         profileDocId: this.profileDocId,
@@ -492,6 +505,35 @@ export class AddUserComponent
     );
   }
 
+  filterSections(event) {
+    let query = event.query;
+    let filtered = [];
+    for (let index = 0; index < this.sectionList.length; index++) {
+      let section = this.sectionList[index];
+      if (section.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(section);
+      }
+    }
+    this.sectionFiltered = filtered;
+  }
+
+  departmentChanged($event) {
+    if (typeof $event != 'object') return;
+    this.sectionList = [];
+    this.form.get('portalInformation.section').patchValue(null);
+    this.departmentId = $event.id;
+    this._departmentService.searchDepartment($event.id).subscribe((x) => {
+      x.message.departments
+        ? (this.sectionList = x.message.departments)
+        : (this.sectionList = []);
+    });
+  }
+
+  sectionChanged($event) {
+    if (typeof $event != 'object') return;
+    this.sectionId = $event.id;
+  }
+
   public dropped(files: NgxFileDropEntry[]) {
     this.filesUpdloaded = files;
     for (const droppedFile of files) {
@@ -554,7 +596,7 @@ export class AddUserComponent
         if (
           typeof f.personalInformation.phoneNumbers[0] == 'object' &&
           typeof f.personalInformation.phoneNumbers[0].phoneNumber ==
-            'string' &&
+          'string' &&
           f.personalInformation.phoneNumbers[0].phoneNumber.length < 5
         )
           return [];

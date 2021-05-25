@@ -46,8 +46,8 @@ import { environment } from '../../../../environments/environment';
       }
 
       div .default-image-size {
-        width: 2.5em;
-        height: 2.5em;
+        width: 4.3em;
+        height: 4.3em;
       }
     `
   ]

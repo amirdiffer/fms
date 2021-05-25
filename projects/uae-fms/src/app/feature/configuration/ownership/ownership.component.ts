@@ -21,9 +21,10 @@ export class OwnershipComponent implements OnInit {
         lable: 'tables.column.duration',
         type: 1,
         field: 'Duration',
-        sortable: true
+        sortable: true,
+        width: 140
       },
-      { lable: 'tables.column.purpose', type: 1, field: 'Purpose' },
+      { lable: 'tables.column.purpose', type: 1, field: 'Purpose', width: 100 },
       { lable: 'tables.column.owner_email', type: 1, field: 'Owner_Email' },
       {
         lable: 'tables.column.owner_phone_no',
@@ -31,11 +32,11 @@ export class OwnershipComponent implements OnInit {
         field: 'Owner_Phone_No'
       },
       {
-        lable: '<img src="../../../../assets/icons/car-solid.svg">',
+        lable: '<img src="assets/icons/car-solid.svg">',
         type: 1,
         isIconLable: true,
         field: 'car',
-        width: 100,
+        width: 70,
         sortable: true
       },
       {
@@ -91,14 +92,23 @@ export class OwnershipComponent implements OnInit {
     private facade: OwnershipFacade,
     private tableFacade: TableFacade,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.facade.loadAll();
   }
 
   exportTable() {
-    this.table.exportTable(this.ownerShip_Table, 'Ownership');
+    let filter = {
+      Ownership: 'Ownership',
+      Owner: 'Owner',
+      Fleet_IT_Code: 'Fleet_IT_Code',
+      Duration: 'Duration',
+      Purpose: 'Purpose',
+      Owner_Email: 'Owner_Email',
+      Owner_Phone_No: 'Owner_Phone_No',
+    };
+    this.table.exportTable(this.ownerShip_Table, 'Ownership', filter);
   }
 
   eventPagination() {

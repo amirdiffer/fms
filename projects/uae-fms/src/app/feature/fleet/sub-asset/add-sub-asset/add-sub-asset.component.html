@@ -24,7 +24,8 @@
       <div class="row form-section__row">
         <div class="col-12 col-md-4 p-field form-section__field options-select">
           <span class="p-float-label">
-            <p-dropdown inputId="subAssetType" [autoDisplayFirst]="false" (onChange)="setMakes($event.value)"
+            <input numbersOnly *ngIf="isEdit" class='w-100' formControlName="subAssetType" pInputText type="text" disabled>
+            <p-dropdown *ngIf="!isEdit" inputId="subAssetType" [autoDisplayFirst]="false" (onChange)="setMakes($event.value)"
               [options]="subAssetTypes" formControlName="subAssetType" optionLabel="name"></p-dropdown>
             <label for="subAssetType">{{'sub_asset.sub_asset_type' | translate}} *
             </label>
@@ -36,7 +37,8 @@
       <div class="row form-section__row">
         <div class="col-12 col-md-2 p-field form-section__field options-select">
           <span class="p-float-label">
-            <p-dropdown inputId="make" [autoDisplayFirst]="false" (onChange)="setModels($event.value)" [options]="makes"
+            <input numbersOnly *ngIf="isEdit" class='w-100' formControlName="make" pInputText type="text" disabled>
+            <p-dropdown *ngIf="!isEdit" inputId="make" [autoDisplayFirst]="false" (onChange)="setModels($event.value)" [options]="makes"
               formControlName="make" optionLabel="name"></p-dropdown>
             <label for="make">{{'sub_asset.make' | translate}} * </label>
           </span>
@@ -45,7 +47,8 @@
         </div>
         <div class="col-12 col-md-4 p-field form-section__field options-select">
           <span class="p-float-label">
-            <p-dropdown inputId="model" [autoDisplayFirst]="false" [options]="models" formControlName="model"
+            <input numbersOnly *ngIf="isEdit" class='w-100' formControlName="model" pInputText type="text" disabled>
+            <p-dropdown *ngIf="!isEdit" inputId="model" [autoDisplayFirst]="false" [options]="models" formControlName="model"
               optionLabel="name"></p-dropdown>
             <label for="model">{{'sub_asset.model' | translate}} * </label>
           </span>
@@ -61,14 +64,14 @@
           <anms-error [showError]="hasError('year',subAssetForm,submitted)" error="forms.feedback.required">
           </anms-error>
         </div>
-        <div class="col-12 col-md-2 p-field form-section__field">
-          <span class="p-float-label">
-            <input formControlName="origin" pInputText placeholder="{{'sub_asset.origin' | translate}}*" type="text">
-            <label>{{'sub_asset.origin' | translate}}*</label>
-          </span>
-          <anms-error [showError]="hasError('origin',subAssetForm,submitted)" error="forms.feedback.required">
-          </anms-error>
-        </div>
+        <!--        <div class="col-12 col-md-2 p-field form-section__field">-->
+        <!--          <span class="p-float-label">-->
+        <!--            <input formControlName="origin" pInputText placeholder="{{'sub_asset.origin' | translate}}*" type="number">-->
+        <!--            <label>{{'sub_asset.origin' | translate}}*</label>-->
+        <!--          </span>-->
+        <!--          <anms-error [showError]="hasError('origin',subAssetForm,submitted)" error="forms.feedback.required">-->
+        <!--          </anms-error>-->
+        <!--        </div>-->
 
 
       </div>
@@ -138,9 +141,13 @@
         </div>
 
         <div class='col-12 col-md-3 p-field form-section__field'>
-          <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [title]="" [preview]="false"
+          <anms-uploader [iconIsHidden]="true" [multiple]="false" [title]="" [preview]="false"
             (uploadedEvent)="uploadWarrantyFiles($event,i)" [files]="[warrantyDocs[i]]">
           </anms-uploader>
+
+          <anms-error [showError]="hasError('doc',subAssetForm.get('warranties')['controls'][i],submitted)"
+            error="forms.feedback.required">
+          </anms-error>
         </div>
       </div>
     </div>
@@ -203,6 +210,9 @@
         </div>
         <anms-uploader [iconIsHidden]="true" [multiple]="false" [isImage]='true' [preview]="true"
           [accept]="['.png', '.jpg']" (uploadedEvent)="uploadAssetPicture($event)" [files]="avatarDoc"></anms-uploader>
+        <span *ngIf="invalidAvatar">
+          <p style="color: rgb(255, 0, 0);">{{'forms.feedback.required'|translate}}</p>
+        </span>
       </div>
     </div>
   </div>

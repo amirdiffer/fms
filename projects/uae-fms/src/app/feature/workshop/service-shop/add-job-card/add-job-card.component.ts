@@ -6,23 +6,25 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
-import { map } from 'rxjs/operators';
-import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { filter, map } from 'rxjs/operators';
+import { AssetMasterFacade, AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
 import moment from 'moment';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import {
   ServiceShopJobCardFacade,
   ServiceShopJobCardService,
   ServiceShopLocationFacade,
   ServiceShopRequestFacade,
-  ServiceShopTechnicianFacade
+  ServiceShopTechnicianFacade,
+  ServiceShopRequestService
 } from '@feature/workshop/+state/service-shop';
+import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 
 @Component({
   selector: 'anms-add-job-card',
@@ -31,9 +33,16 @@ import {
 })
 export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
-  searchIcon = 'assets/icons/search.svg';
+  searchIcon = 'assets/icons/search-solid.svg';
   isEdit: boolean = false;
   id: number;
+  specificAsset:boolean = false;
+  specificAssetId:number;
+
+  assets: any[] = [];
+  newAssets: any[];
+  assetsSubscription:Subscription;
+
   //#region Dialog
   dialogModal = false;
   taskFiltered: any[];
@@ -56,6 +65,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   dialogType = null;
   errorDialogModal = false;
   //#endregion Dialog
+
   inputForm: FormGroup;
   taskMasters: any[];
   newTaskMasters: any[];
@@ -63,32 +73,28 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   filteredJobCard;
   jobCard$: Subscription;
   allJobCards = [];
+
+  selectedItems = []
+  selectedAsset;
   priorities: any[] = [
     {
       id: 1,
-      name: 'Priority ID 1'
+      name: 'Urgent'
     },
     {
       id: 2,
-      name: 'Priority ID 2'
+      name: 'High'
     },
     {
       id: 3,
-      name: 'Priority ID 3'
+      name: 'Normal'
     },
     {
       id: 4,
-      name: 'Priority ID 4'
-    },
-    {
-      id: 5,
-      name: 'Priority ID 5'
-    },
-    {
-      id: 6,
-      name: 'JobCard ID 6'
+      name: 'Low'
     }
   ];
+
   addJobCard_Table: TableSetting = {
     columns: [
       {
@@ -112,59 +118,24 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
         renderer: 'downloadButtonRenderer'
       }
     ],
-    data: [
-      // {
-      //   id: 1,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // },
-      // {
-      //   id: 2,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // },
-      // {
-      //   id: 3,
-      //   date: '02/02/2020',
-      //   description: 'Description Is here',
-      //   issue_type: 'issue type',
-      //   reportedBy: 'faezeh',
-      //   request: {
-      //     label: 'Request',
-      //     checkbox: false
-      //   },
-      //   attachment: {
-      //     link: 'http://'
-      //   }
-      // }
-    ]
+    data: []
   };
-  private _jobCard: any;
 
+  private _jobCard: any;
   assets$ = this._jobCardService
     .getAllAssethasJobCard()
-    .pipe(map((y) => y.message.map((x) => ({ id: x.assetId, name: x.dpd }))));
+    .pipe(map((y) => {
+      console.log(y)
+      return y.message.map((x) =>
+      ({ id: x.assetId, name: x.dpd }
+      ))
+    })
+    );
+
   locations$ = this._facadeLocation.serviceShop$.pipe(
     map((y) => y.map((x) => ({ id: x.id, name: x.address })))
   );
+
   technicians$ = this._facadeTechnician.serviceShop$.pipe(
     map((y) =>
       y.map((x) => ({
@@ -173,7 +144,19 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
       }))
     )
   );
-  relatedRequests$;
+
+  relatedRequests = new Subject();
+  relatedRequests$ = this.relatedRequests.asObservable().pipe(map((x: any) => {
+    if (this.selectedItems.length > 0 && x.length > 0) {
+      return x.map(a => {
+        if (this.selectedItems.filter(d => d.taskMasterId.id == a.id)) return { ...a, checkbox: true }
+        else return { ...a, checkbox: true };
+      })
+    }
+    else {
+      return x;
+    }
+  }));
   // relatedRequests$ = this._facadeRequest.requestsById$.pipe(
   //   map((y) =>
   //     y.map((x) => ({
@@ -198,40 +181,30 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     private _facadeJobCard: ServiceShopJobCardFacade,
     private _facadeRequest: ServiceShopRequestFacade,
     private _facadeAsset: AssetMasterFacade,
+    private _assetMasterService : AssetMasterService,
     private _facadeLocation: ServiceShopLocationFacade,
     private _facadeTechnician: ServiceShopTechnicianFacade,
     private _jobCardService: ServiceShopJobCardService,
-    private _taskMasterService: TaskMasterService
+    private _taskMasterService: TaskMasterService,
+    private service: ServiceShopRequestService,
+    private _activatedRoute:ActivatedRoute
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
-    // this.relatedRequests$ = this._facadeRequest.assetRequest$.subscribe()
     this._facadeRequest.resetParams();
     this._facadeJobCard.loadAll();
+    this.selectedAsset = this.route.snapshot.queryParams?.assetId;
     this.jobCard$ = this._facadeJobCard.serviceShop$.subscribe((x) => {
       this.allJobCards = x;
     });
-    this.relatedRequests$ = this._facadeRequest.assetRequest$.pipe(
-      map((y) =>
-        y.map((x) => ({
-          id: x.id,
-          request: {
-            label: x.request,
-            checkbox: false
-          },
-          date: x.createdAt
-            ? moment.utc(x.createdAt).local().format('DD-MM-YYYY')
-            : 'ex: 20-20-2020',
-          description: x.description,
-          issue_type: x.jobType,
-          reportedBy: x.reportedBy,
-          attachment: x.documentIds
-        }))
-      )
-    );
-    this._taskMasterService.getAllTaks().subscribe((data) => {
+    this._taskMasterService.getAllTaks().pipe(map(data => {
+      if (data?.message) {
+        data.message = data.message.filter(a => a.shopType == "SERVICESHOP");
+      }
+      return data
+    })).subscribe((data) => {
       this.taskMasters = data.message.map((t) => ({
         id: t.id,
         name: t.name
@@ -240,11 +213,42 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     this._facadeAsset.loadAll();
     this._facadeLocation.loadAll();
     this._facadeTechnician.loadAll();
-    this.buildForm();
+    this._facadeTechnician.serviceShop$.subscribe(_ => {
+      this.buildForm();
+    })
+
+    this.assetsSubscription = this._jobCardService.getAllAssethasJobCard()
+          .pipe(map((y) => y.message.map((x) => ({ ...x , id: x.assetId, name: x.dpd }))))
+          .subscribe((data) => (this.assets = data , console.log(data))
+    );
+    if((this._activatedRoute.snapshot.url[this._activatedRoute.snapshot.url.length -1].path === 'add-job-card') &&
+      (this._activatedRoute.snapshot.parent.params.id || this.route.snapshot.params.id) ){
+      this.specificAsset = true;
+      this.specificAssetId = +this._activatedRoute.snapshot.parent.params.id ?  +this._activatedRoute.snapshot.parent.params.id : +this.route.snapshot.params.id ;
+      this._assetMasterService.getAssetByID(this.specificAssetId).subscribe(x => {
+        if(x) {
+          this.inputForm.patchValue({
+            assetId: {
+              name: x.message.dpd,
+              id: x.message.id
+            },
+          })
+          this.inputForm.controls['assetId'].disable();
+          this.inputForm.controls['assetId'].markAsDirty();
+          this.selectAsset({id:this.specificAssetId})
+        }
+    })
+    
+  }
+
+
     //fill asset Id from queryParams
     this.route.queryParams.subscribe((params) => {
       if (params['assetId']) {
+        console.log(params['assetId'])
         this.inputForm.controls['assetId'].setValue(+params['assetId']);
+        this.selectAsset({ value: params.assetId })
+        this.loadRequests(params.assetId);
       }
     });
   }
@@ -253,7 +257,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
       assetId: ['', [Validators.required]],
       description: [''],
       wsLocationId: ['', [Validators.required]],
-      relatedRequestIds: [],
+      relatedRequestIds: [[1]],
       tasks: this._fb.array([this.createTask()])
     });
     this.route.url.subscribe((params) => {
@@ -270,19 +274,42 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
           .subscribe((x) => {
             if (x) {
               this._jobCard = x;
+              this.selectedItems = x.tasks.map((t) => ({
+                taskMasterId: {
+                  id: t.taskMaster.id,
+                  name: t.taskMaster.name
+                },
+                priorityOrder: t.priorityOrder,
+                technicianId: t.technician.id/* {
+                  id: t.technician.id,
+                  name: t.technician.firstName + " " + t.technician.lastName
+                } */
+              }));
+
               this.inputForm.patchValue({
-                assetId: x.assetId,
+                assetId: {id:x.assetId , name:x.assetDpd},
                 description: x.description,
                 wsLocationId: x.location.id,
-                tasks: x.tasks.map((t) => ({
-                  taskMasterId: {
-                    id: t.taskMaster.id,
-                    name: t.taskMaster.name
-                  },
-                  priorityOrder: t.priorityOrder,
-                  technician: t.technicianId
-                }))
               });
+              const task = <FormArray>this.inputForm.get('tasks');
+              for (let index = 0; index < x.tasks.length; index++) {
+                task.controls[index].patchValue({
+                  taskMasterId: {
+                    id: x.tasks[index].taskMaster.id,
+                    name: x.tasks[index].taskMaster.name
+                  },
+                  priorityOrder: x.tasks[index].priorityOrder,
+                  technicianId: x.tasks[index].technician.id
+                });
+                if (index === x.tasks.length - 1) {
+                  break;
+                }
+                this.addTask();
+              }
+              if (task.controls.length > x.tasks.length) {
+                task.removeAt(task.controls.length - 1)
+              }
+
               this.tasks.controls[0].markAsDirty();
 
               // this.task.controls[0].patchValue({
@@ -339,6 +366,35 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   //   }
   //   this.filteredJobCard = filtered;
   // }
+
+  loadRequests(assetId) {
+    console.log(assetId)
+    this.relatedRequests.next([]);
+
+    this.service.requestsById(assetId).pipe(
+      map((y) => {
+        let a = y.message;
+        return a.map((x) => ({
+          id: x.id,
+          request: {
+            label: x.request,
+            checkbox: false
+          },
+          date: x.createdAt
+            ? moment.utc(x.createdAt).local().format('DD-MM-YYYY')
+            : 'ex: 20-20-2020',
+          description: x.description,
+          issue_type: x.jobType,
+          reportedBy: x.reportedBy,
+          attachment: x.documentIds
+        }))
+      }
+      )
+    ).subscribe(x => {
+      this.relatedRequests.next(x);
+    });
+  }
+
   autocompleteValidationJobCardID(input: FormControl) {
     const inputValid = input.value.id;
     if (inputValid) {
@@ -352,8 +408,9 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   requests$ = this._facadeRequest.requestsById$;
 
   selectAsset(e) {
-    this._facadeJobCard.resetParams();
-    if (this.allJobCards.find((jobcard) => jobcard.assetId == e.value)) {
+    console.log(e)
+    this.relatedRequests.next([])
+    if(e.hasOpenJobCard){
       this.errorDialogSetting.header = 'Job Card';
       this.errorDialogSetting.message =
         "Asset has alredy a job card, you can't add more than once!";
@@ -364,13 +421,21 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
       this.inputForm.patchValue({
         assetId: ''
       });
+      this._facadeJobCard.resetParams();
     } else {
-      this.assetIdSelected = e.value;
-      this._facadeRequest.getAssetRequest(e.value);
+      console.log(e.id)
+      this.assetIdSelected = e.id;
+      this.loadRequests(e.id);
     }
   }
   get tasks(): FormArray {
     return this.inputForm.get('tasks') as FormArray;
+  }
+
+  searchAsset(event) {
+    let copyAssets = [];
+    copyAssets = this.assets.slice();
+    this.newAssets = copyAssets.filter((a) => a.name.includes(event.query));
   }
 
   createTask(): FormGroup {
@@ -421,7 +486,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
         jobCardInfo = {
           ...jobCardInfo
         };
-        this._facadeJobCard.addJobCard(jobCardInfo, f.assetId);
+        this._facadeJobCard.addJobCard(jobCardInfo, f.assetId.assetId);
       }
     } else {
       this.router
@@ -470,6 +535,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   //     a.name.includes(event.query)
   //   );
   // }
+
   searchTaskMaster(event) {
     let query = event.query;
 

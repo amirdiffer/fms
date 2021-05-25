@@ -16,16 +16,18 @@ import {
   BodyShopRequestFacade,
   BodyShopRequestService
 } from '@feature/workshop/+state/body-shop';
-import { debounceTime, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { IRequest } from '@models/body-shop';
 import { Subject } from 'rxjs';
-import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { AssetMasterFacade, AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
+import { Location } from '@angular/common';
 @Component({
   selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',
   styleUrls: ['./add-request.component.scss']
 })
 export class AddRequestComponent implements OnInit {
+
   //#region Dialog
   dialogModal = false;
 
@@ -65,6 +67,8 @@ export class AddRequestComponent implements OnInit {
   public filesUpdloaded: NgxFileDropEntry[] = [];
   isEdit: boolean = false;
   id: number;
+  specificAsset:boolean = false;
+  specificAssetId:number;
   private _request: IRequest;
   getAssetsList = new Subject();
   assetId: any;
@@ -75,15 +79,36 @@ export class AddRequestComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _bodyShopRequestFacade: BodyShopRequestFacade,
-    private _assetMasterFacade: AssetMasterFacade
+    private _assetMasterFacade: AssetMasterFacade,
+    private _assetMasterService : AssetMasterService,
+    private _location:Location
   ) {}
 
   ngOnInit(): void {
+    this._assetMasterService.getAllAllowedAssetForRequest().subscribe(x => { console.log(x)})
     this._assetMasterFacade.loadAll();
-    this._assetMasterFacade.assetMaster$
-      .pipe(map((y) => y.map((x) => ({ id: x.id, name: x.dpd }))))
+    this._assetMasterService.getAllAllowedAssetForRequest()
+      .pipe(map((y) => y.message.map((x) => ({ id: x.id, name: x.dpd }))))
       .subscribe((data) => (this.assets = data));
-    this.buildForm();
+    this.buildForm();    
+    if(this._route.snapshot.url[this._route.snapshot.url.length -1].path === 'add-request' &&
+        this._route.snapshot.parent.params.id ){
+        this.specificAsset = true;
+        this.specificAssetId = +this._route.snapshot.parent.params.id;
+        this._assetMasterService.getAssetByID(this.specificAssetId).subscribe(x => {
+          if(x) {
+            this.inputForm.patchValue({
+              assetId: {
+                name: x.message.dpd,
+                id: x.message.id
+              },
+            })
+            this.inputForm.controls['assetId'].disable();
+            this.inputForm.controls['assetId'].markAsDirty()
+          }
+        })
+        
+      }
     this._route.url.subscribe((params) => {
       this.isEdit =
         params.filter((x) => x.path == 'edit-request').length > 0
@@ -97,6 +122,7 @@ export class AddRequestComponent implements OnInit {
           .pipe(map((x) => x.message))
           .subscribe((x) => {
             if (x) {
+              console.log(x)
               this._request = x;
               this.profileDocIds = Array.isArray(x.documentIds)
                 ? x.documentIds
@@ -111,6 +137,8 @@ export class AddRequestComponent implements OnInit {
                 priority: x.priority, //'HIGH',
                 accidentType: x.accidentType
               });
+              this.inputForm.controls['assetId'].disable();
+              this.inputForm.controls['assetId'].markAsDirty()
               this.changePriority(x.priority);
               this.inputForm.controls['issueInfo'].patchValue({
                 issue: x.request,
@@ -174,15 +202,15 @@ export class AddRequestComponent implements OnInit {
         asset: [''],
         gpsMeterSource: ['']
       }),
-      assetId: [''],
+      assetId: ['' , Validators.required],
       hasAccident: [false],
       accidentType: ['MINOR'],
-      jobType: ['estimate'],
+      jobType: ['NORMAL'],
       issueInfo: this._fb.group({
         issue: ['', Validators.required],
         reportedBy: ['', Validators.required],
         description: ['', Validators.required],
-        gpsMeterSource: ['']
+        gpsMeterSource: ['', Validators.required]
       }),
       priority: [''],
       file: ['']
@@ -247,9 +275,9 @@ export class AddRequestComponent implements OnInit {
         this._bodyShopRequestFacade.addRequest(requestInfo);
       }
     } else {
-      this._router.navigate(['workshop/body-shop']).then((_) => {
-        this._bodyShopRequestFacade.resetParams();
-      });
+      this._bodyShopRequestFacade.resetParams();
+      this._location.back();
+      
     }
   }
 

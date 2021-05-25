@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Injector,
@@ -23,7 +24,11 @@ import {
 import { TableSetting } from '@core/table';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetConfigurationService } from '@feature/configuration/asset-configuration/asset-configuration.service';
-import { AssetTypeFacade } from '@feature/configuration/+state/asset-configuration';
+import {
+  AccessoryTypeFacade,
+  AssetTypeFacade,
+  SubAssetTypeFacade
+} from '@feature/configuration/+state/fleet-configuration/index';
 import { Utility } from '@shared/utility/utility';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { IAssetType } from '@models/asset-type.model';
@@ -38,26 +43,27 @@ import { Subscription } from 'rxjs';
 export class AddMakeComponent
   extends Utility
   implements OnInit, AfterViewInit, OnDestroy {
+  //#region ViewChild
+  @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
+  @ViewChild('small', { static: false }) small: ElementRef;
+  //#endregion
+
+  //#region Varibale
   radioButtonSelect: 'mModel';
   public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
-  @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
-  @ViewChild('small', { static: false }) small: ElementRef;
   color = '#0000005E';
   maxValue = 100;
   value = 80;
   percent = 80;
   fileName = 'CSV File only';
   submited = false;
-
+  isEditing = false;
+  assetTypeMode = '';
   assetTypeSubs$: Subscription;
-
   assetConfigurationTableSetting!: TableSetting;
-
   assetType: IAssetType;
-
   dialogModal = false;
-
   dialogSetting: IDialogAlert = {
     header: 'Add Make',
     hasError: false,
@@ -65,21 +71,24 @@ export class AddMakeComponent
     confirmButton: 'Register Now',
     cancelButton: 'Cancel'
   };
+  assetTypeId;
+  makeId;
+  assets;
+  selectedType;
+  //#endregion
 
   get makes(): FormArray {
     return this.inputForm.get('makes') as FormArray;
   }
 
-  assetTypeId;
-  assets;
-
   constructor(
     private _fb: FormBuilder,
     private _renderer: Renderer2,
     private _assetConfigurationService: AssetConfigurationService,
+    private _subAssetTypeFacade: SubAssetTypeFacade,
+    private accessoryTypeFacade: AccessoryTypeFacade,
     private facade: AssetTypeFacade,
     public dataService: DataService,
-    private assetTypeFacade: AssetTypeFacade,
     injector: Injector,
     public route: ActivatedRoute,
     public router: Router
@@ -93,72 +102,192 @@ export class AddMakeComponent
       typeCategory: ['asset', Validators.required],
       makes: new FormArray([this.createMake()])
     });
+    this.dataService.watchType().subscribe((x) => {
+      this.selectedType = x;
+    });
+    this.errorAndSubmitHandler(this.facade);
+    this.errorAndSubmitHandler(this._subAssetTypeFacade);
 
-    this.route.params.subscribe((x) => {
-      if (x && x.assetType) this.assetTypeId = x.assetType;
-      this.assetTypeSubs$ = this.facade.assetType$.subscribe((response) => {
-        response.map((obj) => {
-          if (obj.id === this.dataService.selectedTypeId) {
-            this.assetType = obj;
+    this.route.url.subscribe((url) => {
+      /* HERE WE HANDLE ASSET TYPE : SUB_ASSET */
+      if (this.selectedType == 'SUB_ASSET' || url[1].path.includes('sub-asset-edit-make')) {
+        this.assetTypeMode = 'SUB_ASSET';
 
-            if (this.assetType.type === 'ASSET') {
-              this.inputForm.patchValue({ typeCategory: 'asset' });
-            } else if (this.assetType.type === 'SUB_ASSET') {
-              this.inputForm.patchValue({ typeCategory: 'subAsset' });
-            } else if (this.assetType.type === 'ACCESSORY') {
-              this.inputForm.patchValue({ typeCategory: 'accessory' });
-            }
-
-            this.makes.clear();
-            for (let index = 0; index < obj.makes.length; index++) {
+        this.route.params.subscribe((x) => {
+          if (x && x.assetType) this.assetTypeId = x.assetType;
+          this.assetTypeSubs$ = this._subAssetTypeFacade.subAssetType$.subscribe(
+            (response) => {
+              this.makes.clear();
               this.addMake();
-              this.makes.controls[index].patchValue({
-                id: obj.makes[index].id,
-                make: obj.makes[index].make,
-                makeDescription: obj.makes[index].makeDescription,
-                models: obj.makes[index].models,
-                // @ts-ignore
-                origins: obj.makes[index].origins
+              response.map((obj) => {
+                if (x?.id) {
+                  this.isEditing = true;
+                  this.assetTypeId = Number(x?.assetTypeId);
+                  this.makeId = Number(x?.id);
+                  if (this.assetTypeId === obj.id) {
+                    this.dataService.selectedTypeName = obj.name;
+                    for (let index = 0; index < obj.makes.length; index++) {
+                      if (obj.makes[index].id === this.makeId) {
+                        this.makes.controls[0].patchValue({
+                          id: obj.makes[index].id,
+                          make: obj.makes[index].name,
+                          makeDescription: obj.makes[index].description
+                        });
+                      }
+                    }
+                  }
+                  return;
+                }
+
+                if (obj.id === this.dataService.selectedTypeId) {
+                  this.assetType = obj;
+
+                  if (this.assetType.type === 'ASSET') {
+                    this.inputForm.patchValue({ typeCategory: 'asset' });
+                  } else if (this.assetType.type === 'SUB_ASSET') {
+                    this.inputForm.patchValue({ typeCategory: 'subAsset' });
+                  } else if (this.assetType.type === 'ACCESSORY') {
+                    this.inputForm.patchValue({ typeCategory: 'accessory' });
+                  }
+
+                  this.makes.clear();
+                  for (let index = 0; index < obj.makes.length; index++) {
+                    this.addMake();
+                    this.makes.controls[index].patchValue({
+                      id: obj.makes[index].id,
+                      make: obj.makes[index].name,
+                      makeDescription: obj.makes[index].description,
+                      models: obj.makes[index].models,
+                      // @ts-ignore
+                      origins: obj.makes[index].origins
+                    });
+                  }
+                  this.addMake();
+                }
               });
             }
-            this.addMake();
-          }
+          );
         });
-      });
+        return;
+      } else if (this.selectedType == 'ACCESSORY' || url[1].path.includes('accessory-edit-make')) {
+      /* HERE WE HANDLE ASSET TYPE : ACCESSORY */
+        this.assetTypeMode = 'ACCESSORY';
+
+        this.route.params.subscribe((x) => {
+          if (x && x.assetType) this.assetTypeId = x.assetType;
+          this.assetTypeSubs$ = this.accessoryTypeFacade.accessoryType$.subscribe(
+            (response) => {
+              this.makes.clear();
+              this.addMake();
+              response.map((obj) => {
+                if (x?.id) {
+                  this.isEditing = true;
+                  this.assetTypeId = Number(x?.id);
+                  if (this.assetTypeId === obj.id) {
+                    this.dataService.selectedTypeName = obj.name;
+                    for (let index = 0; index < obj.makes.length; index++) {
+                      if (index > 0) {
+                        this.addMake();
+                      }
+                      this.makes.controls[index].patchValue({
+                        id: obj.makes[index].id,
+                        make: obj.makes[index].name,
+                        makeDescription: obj.makes[index].description
+                      });
+                    }
+                  }
+                  return;
+                }
+
+                if (obj.id === this.dataService.selectedTypeId) {
+                  this.assetType = obj;
+
+                  if (this.assetType.type === 'ASSET') {
+                    this.inputForm.patchValue({ typeCategory: 'asset' });
+                  } else if (this.assetType.type === 'SUB_ASSET') {
+                    this.inputForm.patchValue({ typeCategory: 'subAsset' });
+                  } else if (this.assetType.type === 'ACCESSORY') {
+                    this.inputForm.patchValue({ typeCategory: 'accessory' });
+                  }
+
+                  this.makes.clear();
+                  for (let index = 0; index < obj.makes.length; index++) {
+                    this.addMake();
+                    this.makes.controls[index].patchValue({
+                      id: obj.makes[index].id,
+                      make: obj.makes[index].name,
+                      makeDescription: obj.makes[index].description,
+                      models: obj.makes[index].models,
+                      // @ts-ignore
+                      origins: obj.makes[index].origins
+                    });
+                  }
+                  this.addMake();
+                }
+              });
+            }
+          );
+        });
+        return;
+      } else {
+      /* HERE WE HANDLE ASSET TYPE : ASSET */
+        this.assetTypeMode = 'ASSET';
+        this.route.params.subscribe((x) => {
+          if (x && x.assetType) this.assetTypeId = x.assetType;
+          this.assetTypeSubs$ = this.facade.assetType$.subscribe((response) => {
+            this.makes.clear();
+            this.addMake();
+            response.map((obj) => {
+              if (x?.id) {
+                this.isEditing = true;
+                this.assetTypeId = Number(x?.assetTypeId);
+                this.makeId = Number(x?.id);
+                if (this.assetTypeId === obj.id) {
+                  this.dataService.selectedTypeName = obj.name;
+                  for (let index = 0; index < obj.makes.length; index++) {
+                    if (obj.makes[index].id === this.makeId) {
+                      this.makes.controls[0].patchValue({
+                        id: obj.makes[index].id,
+                        make: obj.makes[index].name,
+                        makeDescription: obj.makes[index].description
+                      });
+                    }
+                  }
+                }
+                return;
+              }
+
+              if (obj.id === this.dataService.selectedTypeId) {
+                this.assetType = obj;
+                if (this.assetType.type === 'ASSET') {
+                  this.inputForm.patchValue({ typeCategory: 'asset' });
+                } else if (this.assetType.type === 'SUB_ASSET') {
+                  this.inputForm.patchValue({ typeCategory: 'subAsset' });
+                } else if (this.assetType.type === 'ACCESSORY') {
+                  this.inputForm.patchValue({ typeCategory: 'accessory' });
+                }
+                this.makes.clear();
+                for (let index = 0; index < obj.makes.length; index++) {
+                  this.addMake();
+                  this.makes.controls[index].patchValue({
+                    id: obj.makes[index].id,
+                    make: obj.makes[index].name,
+                    makeDescription: obj.makes[index].description,
+                    models: obj.makes[index].models,
+                    // @ts-ignore
+                    origins: obj.makes[index].origins
+                  });
+                }
+                this.addMake();
+              }
+            });
+          });
+        });
+      }
     });
 
     this.facade.assetType$.subscribe((x) => {
       this.assets = x;
-    });
-
-    if (!this.dataService.selectedTypeId) {
-      this.router.navigate(['/configuration/asset-configuration']).then((_) => {
-        this.facade.resetParams();
-      });
-    }
-
-    this.facade.submitted$.subscribe((x) => {
-      if (x) {
-        this.dialogModal = true;
-        this.dialogSetting.header = 'Add new type';
-        this.dialogSetting.message = 'Make Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
-      }
-    });
-
-    this.facade.error$.subscribe((x) => {
-      if (x?.error) {
-        x?.error;
-        this.dialogModal = true;
-        this.dialogSetting.header = 'Add new make';
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.message = 'Error occurred in progress';
-        this.dialogSetting.cancelButton = undefined;
-        this.dialogSetting.confirmButton = 'OK';
-      }
     });
   }
 
@@ -261,10 +390,64 @@ export class AddMakeComponent
   color4Clicked(): void {
     // console.log('color4 clicked');
   }
+  errorAndSubmitHandler(facade) {
+    facade.submitted$.subscribe((x) => {
+      if (x) {
+        if (this.isEditing) {
+          this.dialogModal = true;
+          this.dialogSetting.header = 'Edit Make';
+          this.dialogSetting.message = 'Make Edited Successfully';
+          this.dialogSetting.isWarning = false;
+          this.dialogSetting.hasError = false;
+          this.dialogSetting.confirmButton = 'OK';
+          this.dialogSetting.cancelButton = undefined;
+          return;
+        }
+        this.dialogModal = true;
+        this.dialogSetting.header = 'Add new type';
+        this.dialogSetting.message = 'Make Added Successfully';
+        this.dialogSetting.isWarning = false;
+        this.dialogSetting.hasError = false;
+        this.dialogSetting.confirmButton = 'OK';
+        this.dialogSetting.cancelButton = undefined;
+      }
+    });
 
+    facade.error$.subscribe((x) => {
+      if (x?.error) {
+        x?.error;
+        this.dialogModal = true;
+        this.dialogSetting.header = 'Add new make';
+        this.dialogSetting.hasError = true;
+        this.dialogSetting.message = 'Error occurred in progress';
+        this.dialogSetting.cancelButton = undefined;
+        this.dialogSetting.confirmButton = 'OK';
+      }
+    });
+  }
   submit() {
     this.submited = true;
     if (this.inputForm.invalid) {
+      return;
+    }
+
+    if (this.isEditing) {
+      const payload = {
+        makes: []
+      };
+      for (const make of this.inputForm.value.makes) {
+        payload.makes.push({
+          id: make.id,
+          name: make.make,
+          description: make.makeDescription
+        });
+      }
+
+      if (this.assetTypeMode === 'SUB_ASSET') {
+        this._subAssetTypeFacade.updateMake(payload, this.assetTypeId);
+      } else {
+        this.facade.updateMake(payload, this.assetTypeId);
+      }
       return;
     }
 
@@ -283,28 +466,44 @@ export class AddMakeComponent
       default:
         type = 'ASSET';
     }
-
-    const data = this.inputForm.value.makes.map((x) => {
-      if (x.id)
-        return {
-          id: x.id,
-          make: x.make,
-          makeDescription: x.makeDescription,
-          origins: x.origins
-        };
-      else {
-        return {
-          make: x.make,
-          makeDescription: x.makeDescription,
-          origins: x.origins
-        };
+    const data = {
+      makes: this.inputForm.value.makes.map((x) => {
+        if (x.id)
+          return {
+            id: x.id,
+            name: x.make,
+            description: x.makeDescription
+          };
+        else {
+          return {
+            name: x.make,
+            description: x.makeDescription
+          };
+        }
+      })
+    };
+    for (let i = 0; i < data.makes.length; i++) {
+      if (i === data.makes.length - 1) {
+        const newData = data.makes[i];
+        data.makes = [];
+        data.makes.push(newData);
       }
-    });
-
-    this.facade.addMake(data, this.assetTypeId);
+    }
+    switch (this.selectedType) {
+      case 'ASSET':
+        this.facade.addMake(data, this.assetTypeId);
+        break;
+      case 'SUB_ASSET':
+        this._subAssetTypeFacade.addMake(data, this.assetTypeId);
+        break;
+      default:
+        break;
+    }
   }
 
   ngOnDestroy(): void {
     this.assetTypeSubs$.unsubscribe();
+    this._subAssetTypeFacade.resetParams();
+    this.facade.resetParams();
   }
 }

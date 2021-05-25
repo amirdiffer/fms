@@ -26,6 +26,17 @@ export class BodyShopRequestActions {
     props<{ data: any[] }>()
   );
 
+  /* Get Specific Request */
+  static getSpecificRequest = createAction(
+    '[bodyShopRequest] get specific request',
+    props<{ id: number }>()
+  );
+
+  static specificRequestLoaded = createAction(
+    '[bodyShopRequest] specific request are loaded',
+    props<{ data: any }>()
+  );
+
   /* Request By AssetId */
   static loadAllRequestByAssetId = createAction(
     '[bodyShopRequest] load all requests by assetId',

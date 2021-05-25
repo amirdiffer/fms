@@ -14,7 +14,11 @@ export class RequestListFacade {
 
   constructor(private store: Store<IRequestListPartialState>) {}
 
-  loadAll() {
-    this.store.dispatch(RequestListActions.loadAll());
+  loadAllAssetRequest() {
+    this.store.dispatch(RequestListActions.loadAllAssetRequest());
+  }
+
+  loadAllSubAssetRequest() {
+    this.store.dispatch(RequestListActions.loadAllSubAssetRequest());
   }
 }

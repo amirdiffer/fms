@@ -12,20 +12,19 @@ import { PartListEffect } from './part-list/part-list.effects';
 import { PartListService } from './part-list/part-list.service';
 import { PartMasterService } from './part-master/part-master.service';
 import {
-  MyOrderFacade,
-  MyOrderService
-} from '@feature/part-store/+state/order-list/my-order';
-import { MyOrderEffects } from '@feature/part-store/+state/order-list/my-order/my-order.effects';
-import {
   RequestListFacade,
   RequestListService
-} from '@feature/part-store/+state/order-list/request-list';
-import { RequestListEffect } from '@feature/part-store/+state/order-list/request-list/request-list.effects';
+} from '@feature/part-store/+state/order-list/request';
+import { RequestListEffect } from '@feature/part-store/+state/order-list/request/request-list.effects';
 import {
   SuppliersFacade,
   SuppliersService
 } from '@feature/part-store/+state/order-list/suppliers';
 import { SuppliersEffects } from '@feature/part-store/+state/order-list/suppliers/suppliers.effects';
+import { ConfigurationStateModule } from '@feature/configuration/+state';
+import { WorkshopStateModule } from '@feature/workshop/+state';
+import { OrderListEffect } from './order-list/order/order.effects';
+import { OrderListFacade, OrderListService } from './order-list/order/index';
 
 @NgModule({
   imports: [
@@ -34,9 +33,12 @@ import { SuppliersEffects } from '@feature/part-store/+state/order-list/supplier
       PartListEffect,
       PartMasterEffect,
       RequestListEffect,
-      MyOrderEffects,
-      SuppliersEffects
-    ])
+      SuppliersEffects,
+      OrderListEffect
+      
+    ]),
+    ConfigurationStateModule,
+    WorkshopStateModule,
   ],
   exports: [],
   declarations: [],
@@ -45,12 +47,13 @@ import { SuppliersEffects } from '@feature/part-store/+state/order-list/supplier
     PartListService,
     PartListFacade,
     PartMasterFacade,
-    MyOrderService,
     RequestListService,
-    MyOrderFacade,
     RequestListFacade,
     SuppliersFacade,
-    SuppliersService
+    SuppliersService,
+    OrderListService,
+    OrderListFacade
+
   ]
 })
 export class PartStoreStateModule {}

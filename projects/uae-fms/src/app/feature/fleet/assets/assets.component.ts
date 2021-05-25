@@ -7,8 +7,6 @@ import { RegistrationFacade } from '@feature/fleet/+state/assets/registration';
 import { CustomizationFacade } from '@feature/fleet/+state/assets/customization';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { yearsPerPage } from '@angular/material/datepicker';
-import { TechnicalInspectionSelectors } from '@feature/workshop/+state/technical-inspections/technical-inspections.selectors';
 import moment from 'moment';
 import { FilterCardSetting } from '@core/filter';
 
@@ -47,7 +45,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   );
 
   date(y) {
-    let createdDate = moment.utc(y).local().toDate();
+    let createdDate = moment.utc(y*1000).local().toDate();
     let nowDate = new Date();
     let newDate = nowDate.getTime() - createdDate.getTime();
     return {
@@ -64,7 +62,6 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   dataAssetMaster$ = this.assetMasterFacade.assetMaster$.pipe(
     map((x) => {
       return x.map((y: any) => {
-
         return {
           ...y,
           id: y.id,
@@ -74,17 +71,13 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
             assetSubName: y.dpd,
             ownership: 'Owned'
           },
-          type: y.assetTypeName,
+          type: y.assetConfigurationName,
           businessCategory: y.businessCategoryName,
           allocated: y.department.name,
           operator: y.operator.firstName + ' ' + y.operator.lastName,
           status: y.status,
           submitOn:
-            this.date(y.createdAt).day > 0
-              ? this.date(y.createdAt).day == 1
-                ? `${this.date(y.createdAt).day} Yesterday`
-                : `${this.date(y.createdAt).day} Days Ago`
-              : 'Today',
+            this.getDateString(this.date(y.createdAt)),
           // brand: 'bmw.png',
           brand: y.makeName,
           killometer: y.actualOdometer,
@@ -108,7 +101,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           },
           serialNumber: y.dpd,
           brand: y.makeName + ' ' + y.modelName,
-          type: y.assetTypeName,
+          type: y.assetConfigurationName,
           make: y.makeName,
           allocated: 'Finance',
           businessCategory: y.businessCategoryName,
@@ -135,7 +128,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           },
           serialNumber: '123s125583456',
           brand: 'bmw.png',
-          type: 'Car',
+          type: y.assetConfigurationName,
           businessCategory: y.businessCategoryName,
           createDate: y.createdAt,
           registrantionDate: '00/00/00',
@@ -152,12 +145,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
     private registrationFacade: RegistrationFacade,
     private customizationFacade: CustomizationFacade,
     private _router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.assetMasterFacade.conut$.subscribe((x) => {
-      console.log(x);
-    });
     this.assetMasterTableSetting = {
       columns: [
         {
@@ -251,6 +241,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
             color: '#3F3F3F',
             onClick: (col, data, button?) => {
               this.assetMasterFacade.reset();
+              this.assetMasterFacade.getAssetByID(data.id)
               this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
             }
           },
@@ -327,11 +318,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   onActive(index: number): void {
     switch (index) {
       case 0:
-        console.log('here 0');
         this.table.filterByStatistics('total');
         break;
       case 1:
-        console.log('here 1');
         this.table.filterByStatistics('active');
         break;
       default:
@@ -345,9 +334,10 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   }
 
   exportTable() {
+    let filter;
     switch (this.selectedTab) {
       case 'assetMasterTab':
-        let filter = {
+        filter = {
           asset: 'assetTypeName|dpd|Owned',
           type: 'assetTypeName',
           businessCategory: 'businessCategoryName',
@@ -358,8 +348,8 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           submitOnFunc: (y) => {
             return this.date(y).day > 0
               ? this.date(y).day == 1
-              ? `${this.date(y).day} Yesterday`
-              : `${this.date(y).day} Days Ago`
+                ? `${this.date(y).day} Yesterday`
+                : `${this.date(y).day} Days Ago`
               : 'Today'
           },
           brand: 'makeName',
@@ -368,15 +358,30 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
         this.table.exportTable(this.assetMasterTableSetting, this.selectedTab, filter);
         break;
       case 'pendingRegistrationTab':
+        filter = {
+          asset: 'dpd',
+          serialNumber: 'dpd',
+          allocated: 'Finance',
+          make: 'makeName',
+          type: 'assetConfigurationName',
+          businessCategory: 'businessCategoryName'
+        };
         this.table.exportTable(
           this.pendingRegistrationTableSetting,
-          this.selectedTab
+          this.selectedTab, filter
         );
         break;
       case 'pendingCustomizationTab':
+        filter = {
+          asset: 'dpd',
+          businessCategory: 'businessCategoryName',
+          createDate: 'createdAt',
+          registrantionDate: '00/00/00',
+          creator: 'operator.firstName|operator.lastName'
+        };
         this.table.exportTable(
           this.pendingCustomizationTableSetting,
-          this.selectedTab
+          this.selectedTab, filter
         );
         break;
     }
@@ -397,5 +402,19 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
     this.registrationSubscription?.unsubscribe();
     this.customizationSubscription?.unsubscribe();
     this.statisticsSubscription?.unsubscribe();
+  }
+
+  getDateString(date) {
+    if (date.day > 365) {
+      return `${Math.floor(date.day/365 )} Years Ago`;
+    } else if (date.day > 30) {
+      return `About ${Math.floor(date.day/30)} Months Ago`;
+    }
+    else
+      return date.day > 0
+        ? date.day == 1
+          ? `Yesterday`
+          : `${date.day} Days Ago`
+        : 'Today'
   }
 }

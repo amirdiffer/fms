@@ -1,33 +1,83 @@
 <div class="dashboard-container">
-    <div class="flex-container">
-        <div class="assets-status ">
-            <div class="dashboard-card">
-                <anms-assets-status></anms-assets-status>
+    <div class="row my-4 wrapper">
+        <div class="col-12 category">
+            <div class="dashboard-card overflow-visible">
+                <dashboard-filter></dashboard-filter>
             </div>
         </div>
-        <div class="active-assets">
-            <div class="dashboard-card">
-                <anms-active-assets></anms-active-assets>
-            </div>
-        </div>
-        <div class="suppliers">
-            <div class="dashboard-card">
-                <anms-suppliers></anms-suppliers>
-            </div>
-        </div>
-        
     </div>
-    <div class="flex-container margin-top-2">
-        <div class="category">
-            <div class="dashboard-card">
-                <anms-business-category></anms-business-category>
+    <div class="row my-4 wrapper">
+        <div class="category d-block col-12">
+            <h5 class="dashboard-title primary-color m-0">{{'dashboard.asset_overview' | translate}}</h5>
+        </div>
+    </div>
+    <div class="row wrapper">
+       <div class="col-12">
+            <dashboard-asset-overview></dashboard-asset-overview>
+       </div>
+    </div>
+    <div class="row wrapper my-4">
+        <div class="category d-block col-9">
+            <div class="d-flex justify-content-between w-100">
+                <h5 class="dashboard-title primary-color m-0">{{'dashboard.movement_overview' | translate}}</h5>
+                <div class="d-inline-block ">
+                    <span class="mx-2 title-smaller primary-color">{{'dashboard.booked_vehicles' | translate}}</span>
+                    <span class="mx-2 title-smaller">{{'dashboard.damage' | translate}}</span>
+                    <span class="mx-2 title-smaller">{{'dashboard.miles' | translate}}</span>
+                </div>
             </div>
         </div>
-        <div class="category">
+    </div>
+    <div class="row wrapper">
+        <div class="col-9 category">
             <div class="dashboard-card">
-                <anms-factory-category></anms-factory-category>
+                <dashboard-movement-overview></dashboard-movement-overview>
             </div>
         </div>
-        
+        <div class="category flex-column two-column col-3">
+            <div class="dashboard-card  ">
+                <dashboard-department></dashboard-department>
+            </div>
+            <div class="dashboard-card ">
+                <dashboard-used-asset></dashboard-used-asset>
+            </div>
+        </div>
+    </div>
+    <div class="row my-4 wrapper">
+        <div class="category d-block col-12">
+            <h5 class="dashboard-title primary-color m-0">{{'dashboard.workshop_overview' | translate}}</h5>
+        </div>
+    </div>
+    <div class="row wrapper">
+        <div class="col-12">
+            <dashboard-work-shop-overview></dashboard-work-shop-overview>
+        </div>
+    </div>
+    <div class="row my-4 wrapper">
+        <div class="category d-block col-12">
+            <h5 class="dashboard-title primary-color m-0">{{'dashboard.work_overview' | translate}}</h5>
+        </div>
+    </div>
+    <div class="row wrapper">
+        <div class="col-6 category">
+            <div class="dashboard-card w-100">
+                <dashboard-operator-statistics (finedOperator)="finedOperator=$event"></dashboard-operator-statistics>
+            </div>
+        </div>
+        <div class="col-3 category" *ngIf="finedOperator">
+            <div class="dashboard-card w-100">
+                <card-alert-dashboard [data]="finedOperator.lowestFinedOperator"
+                    [title]="'dashboard.congratulations'"
+                    [subTitle]="'dashboard.the_lowest_penalty_per_month'"></card-alert-dashboard>
+            </div>
+        </div>
+        <div class="col-3 category" *ngIf="finedOperator">
+            <div class="dashboard-card w-100">
+                <card-alert-dashboard [data]="finedOperator.highestFinedOperator"
+                    [isAlert]="true"
+                    [title]="'dashboard.need_to_check'"
+                    [subTitle]="'dashboard.most_fines_per_month'"></card-alert-dashboard>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnType } from '@core/table';
-import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
-import { BodyShopRequestFacade } from '@feature/workshop/+state/body-shop';
+import { BodyShopJobCardService, BodyShopRequestFacade, BodyShopRequestService } from '@feature/workshop/+state/body-shop';
 import moment from 'moment';
 import { map } from 'rxjs/operators';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master'
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-asset-overview-request',
@@ -12,40 +13,16 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./request-tab-overview.component.scss']
 })
 export class RequestTabOverviewComponent implements OnInit {
-  assetId;
-  tableData$;
-  assetDetail;
+  assetId:number;
+  tableData$:Observable<any>;
+  assetDetail$:Observable<any>;
   constructor(
     private _facadeRequest: BodyShopRequestFacade,
-    private _activatedRoute: ActivatedRoute,
-    private _assetMasterFacade: AssetMasterFacade,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
-
-  vehicle = {
-    id: 1,
-    make: 'bmw.png',
-    vehicle: 'Request No 123456',
-    thumb: 'thumb1.png',
-    type: 'bmw',
-    model: 'I3',
-    plateno: '1234',
-    iserve: '04',
-    status: '1',
-    location: 'Al Ghandi Ato Service Ras A Khor',
-    bodyType: 'Text Type',
-    color: 'Text Type',
-    trim: 'Text Type',
-    group: 'Text Type',
-    department: 'Dep Name-Area-Dubai',
-    licensePlate: '123456',
-    operator: 'User Name',
-    salik: 'Assign',
-    warranty: 'Under Warranty',
-    vin_sn: 'JTDKBRFU9J30593O7',
-    year: '2020'
-  };
+    public _activatedRoute: ActivatedRoute,
+    private router: Router,
+    private assetService: AssetMasterService,
+    private _jobCardService:BodyShopJobCardService
+  ) { }
 
   filterSetting = [
     {
@@ -132,16 +109,17 @@ export class RequestTabOverviewComponent implements OnInit {
       }
     ],
     data: [],
-    rowSettings: {
+     rowSettings: {
       floatButton: [
         {
           button: 'edit',
           color: '#3F3F3F',
+          condition: (data) => { return data.approveStatus == "APPROVED" ? false : true },
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
             this.router.navigate([
-              '/workshop/body-shop/edit-request/' + data.id
-            ]);
+              'edit-request/' + data.id
+             ],{relativeTo:this._activatedRoute});
           }
         }
       ]
@@ -151,42 +129,54 @@ export class RequestTabOverviewComponent implements OnInit {
   section = 'list';
 
   ngOnInit(): void {
-    this.assetId = this._activatedRoute.snapshot.params.id;
+    this.assetId = +this._activatedRoute.snapshot.params.id;
+    this._facadeRequest.resetParams();
+    this._facadeRequest.getAssetRequest(this.assetId);
+    this._facadeRequest.getSpecificRequest(this.assetId)
+    this._facadeRequest.spicificRequest$.subscribe(x=>{console.log(x)})
     this.tableData$ = this._facadeRequest.assetRequest$.pipe(
-      map((x) => {
-        return x.map((y) => {
-          let jobType;
-          switch (y.jobType) {
-            case 'TECHNICAL_REPORT':
-              jobType = 'Technical Report';
-              break;
-            case 'NORMAL':
-              jobType = 'Normal';
-              break;
-            case 'INSTALLATION':
-              jobType = 'Installation';
-              break;
-            default:
-              jobType = y.jobType;
-              break;
-          }
-          return {
-            ...y,
-            date: moment.utc(y.updatedAt).local().format('DD-MM-YYYY'),
-            requestType: jobType,
-            attachment: y.documentIds,
-            statusColor: '#6870B4'
-          };
-        });
+      map( x => {
+        if(x){
+          console.log(x)
+          return x.map(
+            request =>{
+              let jobType;
+              console.log(request)
+              switch (request.jobType) {
+                case 'TECHNICAL_REPORT':
+                  jobType = 'Technical Report';
+                  break;
+                case 'NORMAL':
+                  jobType = 'Normal';
+                  break;
+                case 'INSTALLATION':
+                  jobType = 'Installation';
+                  break;
+                default:
+                  jobType = request.jobType;
+                  break;
+              };
+              return {
+                ...request,
+                date: moment.utc(request.updatedAt).local().format('DD-MM-YYYY'),
+                requestType: jobType,
+                attachment: request.documentIds,
+                statusColor: '#6870B4'
+              };
+            }
+            
+          )
+        }
       })
-    );
-    this._facadeRequest.assetRequest$.subscribe((x) => {
-      if (x.length < 1) {
-        this._facadeRequest.getAssetRequest(this.assetId);
-      }
-    });
-    this.route.params.subscribe((x) => {
-      if (x?.id) this._assetMasterFacade.getAssetByID(x.id);
-    });
+    )
+    this.assetDetail$ = this.assetService.getAssetByID(this.assetId).pipe(
+      map(x => {
+        console.log(x)
+        return {message:{
+          ...x.message , 
+          status: x.message.progressStatus,
+        }}
+      })
+    )
   }
 }

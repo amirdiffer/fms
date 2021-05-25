@@ -1,0 +1,28 @@
+<div class="box p-4 d-flex flex-column justify-content-between">
+    <div class="row">
+        <div class="col-12">
+            <p class="box_title">
+                {{'dashboard.workshop_performance' | translate}}
+            </p>
+        </div>
+    </div>
+    <div class="chart-container">
+        <div id="chart">
+            <apx-chart
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [dataLabels]="chartOptions.dataLabels"
+            [stroke]="chartOptions.stroke"
+            [colors]="chartOptions.colors"
+            [title]="chartOptions.title"
+            [grid]="chartOptions.grid"
+            [tooltip]="chartOptions.tooltip"
+            [plotOptions]="chartOptions.plotOptions"
+            [yaxis]="chartOptions.yaxis"
+            [xaxis]="chartOptions.xaxis"
+            [legend]="chartOptions.legend"
+            [responsive]="chartOptions.responsive"
+          ></apx-chart>
+        </div>
+    </div>
+</div>

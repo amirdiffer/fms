@@ -1,12 +1,12 @@
 <div class="table-container" *ngIf="section == 'list'">
   <div class="card-table">
     <div class="row px-2">
-      <div class="col-12">
+      <div class="col-12 d-none">
         <p>Description is here, Description is here, Description is here, Description is here, Description is here,
           Description is here, Description is here, Description is here, Description is here, Description is here,
         </p>
       </div>
-      <div class="col-12">
+      <div class="col-12 d-none">
         <p>
           <b>Location:</b> Location Is here, Location Is here
         </p>
@@ -53,7 +53,7 @@
 </div>
 <ng-container *ngIf="section == 'detail-box'">
   <div class="edit-box">
-    <div class="edit-box__box edit-box__box--first col-md-3">
+    <div class="edit-box__box edit-box__box--first col-md-3 d-none">
       <h3>{{ 'assets.overview.job_card.latest_activity' | translate }}</h3>
       <ul class="activities-step">
         <li>
@@ -93,71 +93,68 @@
         </li>
       </ul>
     </div>
-    <div class="edit-box__box edit-box__box--first col-md-5">
+    <div class="edit-box__box edit-box__box--first col-md-6">
       <h3>{{ 'assets.overview.job_card.task_specification' | translate }}</h3>
       <ul class="task_specification">
         <li>
           <strong>{{ 'tables.column.priority' | translate }}</strong>
-          <span>2</span>
+          <span>{{ detailsJobCard['priorityOrder'] }}</span>
         </li>
         <li>
           <strong>{{ 'tables.column.status' | translate }}</strong>
           <span class="danger">
-            <svg-icon src="assets/icons/out-of-policy.svg" [svgStyle]="{ 'width.px':23 , 'fill': '#fff' , 'height': '100%'}"></svg-icon>
-            {{ 'tables.column.out_of_policy' | translate }}
+            <div class="task-status" [ngSwitch]="detailsJobCard['status']">
+              <div *ngSwitchDefault>
+                <div class="out_of_policy">
+                  {{ 'tables.column.out_of_policy' | translate }}
+                </div>
+              </div>
+            </div>
           </span>
         </li>
         <li>
           <strong>{{ 'tables.column.start_date' | translate }}</strong>
-          <span>20/202020</span>
+          <span>{{ detailsJobCard['startDate'] }}</span>
         </li>
         <li>
           <strong>{{ 'tables.column.technician' | translate }}</strong>
           <span>
             <img class="user-image" src="assets/mock-user.jpg"  />
-            Sam Smith &nbsp;&nbsp; 1234567890
+            {{ detailsJobCard['technician']['firstName'] + ' ' + detailsJobCard['technician']['lastName'] + ' ' + detailsJobCard['technician']['id'] }}
           </span>
         </li>
         <li>
           <strong>{{ 'tables.column.cost' | translate }}</strong>
-          <span>12000 AED</span>
+          <span>{{ detailsJobCard['cost'] }} AED</span>
         </li>
         <li>
           <strong>{{ 'tables.column.part_cost' | translate }}</strong>
-          <span>12000 AED</span>
+          <span>{{ detailsJobCard['partCost'] }} AED</span>
         </li>
         <li>
           <strong>{{ 'tables.column.total_cost' | translate }}</strong>
           <span>12000 AED</span>
         </li>
-        <li>
-          <strong>{{ 'tables.column.technician' | translate }}</strong>
-          <span>Text text text text text text text</span>
-        </li>
       </ul>
     </div>
-    <div class="edit-box__box edit-box__box--last col-md-4">
+    <div class="edit-box__box edit-box__box--last col-md-6">
       <h3>{{ 'assets.overview.job_card.task_master_info' | translate }}</h3>
       <ul class="task_master">
         <li>
           <strong>{{ 'tables.column.time_estimate' | translate }}</strong>
-          <span>7 hours</span>
+          <span>{{ detailsJobCard['taskMaster']['timeEstimate'] }} Hours</span>
         </li>
         <li>
           <strong>{{ 'tables.column.instruction' | translate }}</strong>
-          <span>Description is here</span>
+          <span>{{ detailsJobCard['taskMaster']['instruction'] }}</span>
         </li>
         <li>
           <strong>{{ 'tables.column.rate_per_hour' | translate }}</strong>
-          <span>65 AED</span>
+          <span>{{ detailsJobCard['taskMaster']['ratePerHour'] }} AED</span>
         </li>
         <li>
           <strong>{{ 'tables.column.skill' | translate }}</strong>
-          <span>Skill is here</span>
-        </li>
-        <li>
-          <strong>{{ 'tables.column.part' | translate }}</strong>
-          <span>Filter</span>
+          <span>{{ detailsJobCard['taskMaster']['skills'].length ? detailsJobCard['taskMaster']['skills'][0]['name'] : '' }}</span>
         </li>
       </ul>
     </div>

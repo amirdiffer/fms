@@ -129,6 +129,14 @@ export class TaskMasterComponent implements OnInit {
   }
 
   exportTable() {
-    this.table.exportTable(this.tableSetting, 'TaskMaster');
+    let filter = {
+      taskName: 'taskName',
+      timeEstimate: 'timeEstimate',
+      instruction: 'instruction',
+      rate_per_hour: 'ratePerHour',
+      skill: 'skill',
+      part: 'part'
+    }
+    this.table.exportTable(this.tableSetting, 'TaskMaster', filter);
   }
 }

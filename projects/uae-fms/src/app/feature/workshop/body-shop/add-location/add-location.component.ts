@@ -292,7 +292,7 @@ export class AddLocationComponent extends Utility implements OnInit {
       return;
     }
 
-    slots.push(this.createSlot());
+    // slots.push(this.createSlot());
   }
   removeSlot(index) {
     this.slot.removeAt(index);

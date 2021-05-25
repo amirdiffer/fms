@@ -1,0 +1,50 @@
+.icon-container{
+    height: 0;
+}
+.chart-labels{
+    p{
+        font-size:.8 !important;
+        &::before{
+            content: '';
+            width:.5em;
+            height: .5em;
+            display: inline-block;
+            margin-right: .4em;
+            border-radius: 50%;
+        }
+        &:nth-child(1)::before{
+            background-color: #39DA8A;
+        }
+        &:nth-child(2)::before{
+            background-color: #B1EECF;
+        }
+        &:nth-child(3)::before{
+            background-color: #DFFFEF;
+        }
+    }
+}
+hr.line{
+    margin: 1.2em -1.5em !important;
+}
+
+.border-vertical{
+    content: '';
+    height: 250%;
+    width: 1px;
+    background-color:rgba(0,0,0,.1);
+    display: block;
+    position: absolute;
+    margin: 1.5em 0;
+    left: 50%;
+    top: -98%;
+    
+}
+
+.footer-card > div{
+    margin: -1.2em 0;
+    padding: .8em;
+    &:nth-child(2){
+        border-left: 1px solid rgba(0,0,0,.1);
+    }
+}
+

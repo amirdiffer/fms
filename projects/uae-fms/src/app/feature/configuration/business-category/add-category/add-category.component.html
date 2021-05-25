@@ -31,7 +31,7 @@
             [showError]="hasError('assetType',addCategoryForm,submited)"
             error="forms.feedback.required">
           </anms-error>
-          <small class="red-font" 
+          <small class="red-font"
           *ngIf="addCategoryForm.get('assetType').value != ''"
           [class.d-none]="addCategoryForm.get('assetType').value.name || !submited">
           {{ 'forms.feedback.autocomplete_select' | translate }}
@@ -57,8 +57,8 @@
   </div>
   <div class="form-section mx-0">
     <h3 class="form-section__title">
-      <div class="mr-3 d-inline-block" (click)="addAssignSubAsset()">
-        <span  class='p-inputgroup-addon'>
+      <div class=" d-inline-block" (click)="addAssignSubAsset()">
+        <span  class='p-inputgroup-addon add-button'>
           <svg-icon src='assets/icons/add.svg'
                     [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
         </span>
@@ -68,51 +68,55 @@
 
     <div formArrayName="assignSubAsset">
       <div class="row form-section__row" *ngFor="let _ of assignSubAsset.controls; let index = index; let first=first; let last=last;" [formGroupName]="index">
-        <div class="col-12 col-md-6 d-flex p-field form-section__field">
-          <div class="mx-3" *ngIf="!last || !first">
+        <div class="mx-3" *ngIf="!last || !first">
             <span  class='remove-icon p-inputgroup-addon' (click)="removeassignSubAsset(index)">
               <svg-icon src='assets/icons/add.svg'
                         [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
             </span>
-          </div>
-          <div class="autocomplete-select w-100">
-          <span class="p-float-label">
-            <p-autoComplete formControlName="subAsset"
-              (completeMethod)="filterSubAssets($event)"
-              [suggestions]="subAssets" field="name"
-              [minLength]="1"></p-autoComplete>
-            <i class="pi pi-search"></i>
-            <label>{{ 'configuration.business_category.sub_asset' | translate }} *</label>
-          </span>
-            <anms-error
-              [showError]="formArrayHasError(submited, assignSubAsset, index, 'subAsset')"
-              error="forms.feedback.required">
-            </anms-error>
-            <small class="red-font"
-              *ngIf="this.assignSubAsset.controls[index].value.subAsset != ''"
-              [class.d-none]="this.assignSubAsset.controls[index].value.subAsset.name || !submited ">
-              {{ 'forms.feedback.autocomplete_select' | translate }}
-          </small>
-          </div>
         </div>
-        <div class='col-lg-3'>
-          <anms-uploader [isSmall]='true' [dropzoneLabel]="'configuration.business_category.upload_form.content'"
-                         [iconIsHidden]='true' [multiple]="false" [preview]="false"
-                         (uploadedEvent)="uploadSubAssetFile($event, index)" [files]="[subAssetDocs[index]]">
-          </anms-uploader>
+        <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="subAsset" [placeholder]="'configuration.business_category.sub_asset' | translate" [options]="subAssets" optionLabel="name" optionValue="id" formControlName="subAsset" (onChange)="onChangeSubAsset($event, index, true)"></p-dropdown>
+          <label for="subAsset">{{ 'configuration.business_category.sub_asset' | translate }} *</label>
+        </span>
+          <anms-error
+            [showError]="formArrayHasError(submited, assignSubAsset, index, 'subAssetMake')"
+            error="forms.feedback.required">
+          </anms-error>
         </div>
-        <div class="col-12 col-md-3 p-field form-section__field">
+        <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="make" [placeholder]="'configuration.business_category.make' | translate" [options]="subAssetMake[index]" optionLabel="name" optionValue="id" formControlName="subAssetMake" (onChange)="onChangeSubAssetMake($event, index, true)"></p-dropdown>
+          <label for="make">{{ 'configuration.business_category.make' | translate }} *</label>
+        </span>
+          <anms-error
+            [showError]="formArrayHasError(submited, assignSubAsset, index, 'subAssetMake')"
+            error="forms.feedback.required">
+          </anms-error>
+        </div>
+        <div class="col-12 col-md-2 p-field form-section__field dropdown-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="model" [placeholder]="'configuration.business_category.model' | translate" [options]="subAssetModel[index]" optionLabel="name" optionValue="id" formControlName="subAssetModel" (onChange)="onChangeSubAssetModel($event, index)"></p-dropdown>
+          <label for="model">{{ 'configuration.business_category.model' | translate }} *</label>
+        </span>
+          <anms-error
+            [showError]="formArrayHasError(submited, assignSubAsset, index, 'subAssetModel')"
+            error="forms.feedback.required">
+          </anms-error>
+        </div>
+        <div class="col-12 col-md-2 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="assetQuantity" pInputText
-                 placeholder="{{ 'configuration.business_category.quantity' | translate }}" type="text" numbersOnly>
+                 placeholder="{{ 'configuration.business_category.quantity' | translate }}" type="number" numbersOnly>
                    <label>{{ 'configuration.business_category.quantity' | translate }}</label>
         </span>
+        </div>
       </div>
     </div>
-  </div>
+
     <h3 class="form-section__title mt-2">
-      <div class="mr-3 d-inline-block" (click)="addAssignAccessory()">
-        <span  class='p-inputgroup-addon'>
+      <div class="d-inline-block" (click)="addAssignAccessory()">
+        <span  class='p-inputgroup-addon add-button'>
           <svg-icon src='assets/icons/add.svg'
                     [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
         </span>
@@ -122,9 +126,9 @@
 
     <div formArrayName="assignAccessory">
       <div class="row form-section__row" *ngFor="let _ of assignAccessory.controls; let index = index; let first=first; let last=last;" [formGroupName]="index">
-      <div class="col-12 col-md-6 p-field d-flex form-section__field">
+      <div class="col-12 col-md-4 p-field d-flex form-section__field">
         <div class="mx-3" *ngIf="!last || !first">
-          <span  class='remove-icon p-inputgroup-addon' (click)="removeassignAccessory(index)">
+          <span  class='remove-icon p-inputgroup-addon ' (click)="removeassignAccessory(index)">
             <svg-icon src='assets/icons/add.svg'
                       [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
           </span>
@@ -149,16 +153,10 @@
           </small>
         </div>
       </div>
-      <div class='col-lg-3'>
-        <anms-uploader [isSmall]='true' dropzoneLabel='configuration.business_category.upload_form.content'
-                       [iconIsHidden]='true' [multiple]="false" [preview]="false"
-                       (uploadedEvent)="uploadAccessoryFile(index, $event)" [files]="[accessoryDocs[index]]">
-        </anms-uploader>
-      </div>
       <div class="col-12 col-md-3 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="accessoryQuantity" pInputText
-            placeholder="{{ 'configuration.business_category.quantity' | translate }}" type="text" numbersOnly>
+            placeholder="{{ 'configuration.business_category.quantity' | translate }}" type="number" numbersOnly>
             <label>{{ 'configuration.business_category.quantity' | translate }}</label>
 
         </span>

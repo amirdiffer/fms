@@ -7,11 +7,11 @@
 <div>
   <configuration-asset-category></configuration-asset-category>
 </div>
-<div class="row mt-3">
-  <div class='col-3 pr-0'>
+<div class="row card-wrapper mt-3">
+  <div class='col-3 px-0'>
     <configuration-asset-type (selectMake)='makes($event)' (selectModel)='models($event)' (selectTrim)='trims($event)'></configuration-asset-type>
   </div>
-    <div class="col-9 h-100">
+    <div class="col-9 h-100 padding-wrapper">
       <div class="table-container component_wrapper my-0">
           <span class="card-table-header search-container">
                         <div class="search-box">
@@ -24,7 +24,7 @@
                             <svg-icon [src]="downloadBtn"></svg-icon>
                         </button>
                     </span>
-          <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="asset-configuration" [showPagination]="false" [setting]="assetConfigurationableSetting" [tableData]='assetType$'></app-table>
+          <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="asset-configuration" [showPagination]="false" [setting]="assetConfigurationableSetting" [tableData]='tableData$'></app-table>
         </div>
     </div>
 </div>

@@ -28,14 +28,7 @@ import { AddSubAssetComponent } from './sub-asset/add-sub-asset/add-sub-asset.co
 import { AddAccessoryComponent } from './accessory/add-accessory/add-accessory.component';
 import { MovementConfirmComponent } from './movement/movement-confirm/movement-confirm.component';
 import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
-import {
-  AssetsComponent,
-  AddAssetComponent,
-  OverViewAssetComponent,
-  VehicleOverviewComponent,
-  BusinessCategoryComponent,
-  RequestComponent
-} from './assets';
+import { AssetsComponent, AddAssetComponent, OverViewAssetComponent, VehicleOverviewComponent, BusinessCategoryComponent, RequestComponent } from './assets';
 
 import { SharedModule } from '@shared/shared.module';
 import { FilterModule } from '@core/filter/filter.module';
@@ -69,6 +62,8 @@ import { SubAssetOverviewComponent } from './sub-asset/sub-asset-overview/sub-as
 import { SubAssetDetailComponent } from './sub-asset/sub-asset-overview/sub-asset-detail/sub-asset-detail.component';
 import { ReminderModule } from './sub-asset/sub-asset-overview/reminder/reminder.module';
 import { HistoryModule } from './sub-asset/sub-asset-overview/history/history.module';
+import { OperatorOverviewTabComponent } from './operator/over-view-operator/overview-tab/overview-tab.component';
+import { BodyShopJobCardService, BodyShopRequestService } from '@feature/workshop/+state/body-shop';
 
 @NgModule({
   declarations: [
@@ -106,10 +101,11 @@ import { HistoryModule } from './sub-asset/sub-asset-overview/history/history.mo
     DepartmentOverviewComponent,
     OverviewTabComponent,
     SubAssetOverviewComponent,
-    SubAssetDetailComponent
+    SubAssetDetailComponent,
+    OperatorOverviewTabComponent
   ],
   imports: [
-    // TranslateModule,
+    TranslateModule,
     AngularSvgIconModule,
     FleetRoutingModule,
     TabViewModule,
@@ -137,8 +133,9 @@ import { HistoryModule } from './sub-asset/sub-asset-overview/history/history.mo
     ReminderModule,
     HistoryModule
   ],
-  exports:[
+  exports: [
     AssetCarDetailComponent
-  ]
+  ],
+  providers: [BodyShopJobCardService, BodyShopRequestService]
 })
 export class FleetModule { }

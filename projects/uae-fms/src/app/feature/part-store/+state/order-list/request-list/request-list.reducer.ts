@@ -8,13 +8,22 @@ import {
 
 const RequestListReducer = createReducer(
   initialState,
-  on(RequestListActions.loadAll, (state) => ({
+  on(RequestListActions.loadAllAssetRequest, (state) => ({
     ...state,
     loaded: false,
     error: null,
     message: null
   })),
-  on(RequestListActions.allDataLoaded, (state, { data }) =>
+  on(RequestListActions.allAssetRequestsLoaded, (state, { data }) =>
+    requestListAdapter.setAll(data, { ...state, loaded: true, error: null })
+  ),
+  on(RequestListActions.loadAllSubAssetRequest, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null
+  })),
+  on(RequestListActions.allSubAssetRequestsLoaded, (state, { data }) =>
     requestListAdapter.setAll(data, { ...state, loaded: true, error: null })
   ),
   on(RequestListActions.error, (state, { reason }) => ({

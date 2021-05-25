@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IPeriodicService } from '@models/configuration';
+import { IPeriodicService, ISpecificPeriodicService } from '@models/configuration';
 
 export class PeriodicServiceActions {
   static loadAll = createAction('[PeriodicService] load all data');
@@ -28,6 +28,17 @@ export class PeriodicServiceActions {
     '[PeriodicService] periodic service Edited successfully',
     props<{ data }>()
   );
+
+  /* Get Periodic Service  By Id */
+  static getPeriodicServiceById = createAction(
+      '[PeriodicService] load periodic service by Id',
+      props<{ id: number }>()
+    );
+  static periodicServiceByIdLoaded = createAction(
+      '[PeriodicService] specific periodic servicet loaded',
+      props<{ data: ISpecificPeriodicService }>()
+  );
+
 
   static error = createAction(
     '[PeriodicService] error occurred',
