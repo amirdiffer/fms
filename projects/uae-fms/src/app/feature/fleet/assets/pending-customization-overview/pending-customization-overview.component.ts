@@ -232,6 +232,18 @@ export class PendingCustomizationOverviewComponent implements OnInit {
     return fi;
   }
 
+  subAssetCheckboxOnChange(event, index: number): void {
+    if (!event) {
+      this.outp.subAssets[index].subAsset = null;
+    }
+  }
+
+  accessoryCheckboxOnChange(event, index: number): void {
+    if (!event) {
+      this.outp.accessories[index].accessory = null;
+    }
+  }
+
   save() {
     this.dialogSetting = {
       header: 'Apply Customization',
