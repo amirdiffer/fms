@@ -60,7 +60,8 @@
                         <div class="checkbox col-3" [hidden]='outp.accessories[i].accessoryId'>
                             <div class="form-group form-check px-3">
                                 <input id="checkbox2" type="checkbox"
-                                    class="custom-checkbox" name="checkbox2" [(ngModel)]="outp.accessories[i].checked">
+                                    class="custom-checkbox" name="checkbox2" [(ngModel)]="outp.accessories[i].checked"
+                                       (ngModelChange)='accessoryCheckboxOnChange($event, i)'>
                                 <label class="label" for="checkbox2">{{ 'assets.installed' | translate }}</label>
                             </div>
                         </div>
@@ -83,7 +84,7 @@
                       <div class="title col-2">{{ item.subAssetMakeName+" "+item.subAssetModelName | translate }}</div>
                       <div class='row ml-3 col-6 font-weight-bold green' [hidden]='!outp.subAssets[i].subAssetId'>
                         <div class="mt-2">
-                          {{ outp.subAssets[i].subAsset ? outp.subAssets[i].subAsset.subAssetConfigurationName : ''}}
+                          {{ outp.subAssets[i].subAsset ? outp.subAssets[i].subAsset.serialNumber : ''}}
                         </div>
                         <div class="ml-3 mt-2">
                           {{ 'assets.installed' | translate }}
@@ -92,7 +93,8 @@
                       <div class="checkbox col-3" [hidden]='outp.subAssets[i].subAssetId'>
                           <div class="form-group form-check px-3">
                               <input id="checkbox2" type="checkbox"
-                                  class="custom-checkbox" name="checkbox2" [(ngModel)]="outp.subAssets[i].checked">
+                                  class="custom-checkbox" name="checkbox2" [(ngModel)]="outp.subAssets[i].checked"
+                                     (ngModelChange)='subAssetCheckboxOnChange($event, i)'>
                               <label class="label" for="checkbox2">{{ 'assets.installed' | translate }}</label>
                           </div>
                       </div>
