@@ -29,15 +29,15 @@
             <div class='pt-3 header' [class.ml-3]='activeLang === "en"' [class.mr-3]='activeLang === "ar"'>Personal Detail</div>
             <div class='col-md-12 d-flex mt-3 p-0'>
               <div class='col-md-3'>
-                <div>First Name</div>
+                <div>{{ 'operator.overview.first_name' | translate }}</div>
                 <div class='mt-1'>{{ operator?.firstName }}</div>
               </div>
               <div class='col-md-3'>
-                <div>Last Name</div>
+                <div>{{ 'operator.overview.last_name' | translate }}</div>
                 <div class='mt-1'>{{ operator?.lastName }}</div>
               </div>
               <div class='col-md-3'>
-                <div>Mobile phone</div>
+                <div>{{'operator.overview.phone_number' | translate}}</div>
                 <div class='mt-1'>
                   <span class='ml-1'>{{ operator?.phoneNumbers[0] }}</span>
                 </div>
@@ -53,14 +53,14 @@
     <mat-card>
       <mat-card-content>
         <div>
-          <div class='header mt-2'>Driver License</div>
-          <div class='col-md-12 text-center mt-4 p-0'>
-            <img class='licence' src='assets/driver-license.png' alt='license' />
+          <div class='header mt-2'>{{'operator.overview.driver_license.~' | translate}}</div>
+          <div class='col-md-12 text-center mt-4 pt-5 pb-5 background-color'>
+            License here
           </div>
-          <div class='mb-4'>
+          <div class='mt-3 mb-4'>
             <div class='row mt-2 justify-content-between'>
               <p [class.mr-4]='activeLang === "ar"' [class.ml-4]='activeLang === "en"'>
-                Number
+                {{'operator.overview.driver_license.number' | translate}}
               </p>
               <p [class.ml-4]='activeLang === "ar"' [class.mr-4]='activeLang === "en"'>
                 {{ drivingLicenseInfo?.number }}
@@ -68,7 +68,7 @@
             </div>
             <div class='row mt-1 justify-content-between'>
               <p [class.mr-4]='activeLang === "ar"' [class.ml-4]='activeLang === "en"'>
-                Country
+                {{ 'operator.overview.driver_license.country' | translate }}
               </p>
               <p [class.ml-4]='activeLang === "ar"' [class.mr-4]='activeLang === "en"'>
                 {{ drivingLicenseInfo?.country }}
@@ -76,7 +76,7 @@
             </div>
             <div class='row mt-1 justify-content-between'>
               <p [class.mr-4]='activeLang === "ar"' [class.ml-4]='activeLang === "en"'>
-                Licence Class
+                {{ 'operator.overview.driver_license.license_class' | translate }}
               </p>
               <p [class.ml-4]='activeLang === "ar"' [class.mr-4]='activeLang === "en"'>
                 {{ drivingLicenseInfo?.licenseClass }}
@@ -84,7 +84,7 @@
             </div>
             <div class='row mt-1 justify-content-between'>
               <p [class.mr-4]='activeLang === "ar"' [class.ml-4]='activeLang === "en"'>
-                Date Of Expiry
+                {{ 'operator.overview.driver_license.date_of_expiry' | translate }}
               </p>
               <p [class.ml-4]='activeLang === "ar"' [class.mr-4]='activeLang === "en"'>
                 {{ (drivingLicenseInfo?.dateOfExpiry * 1000) | date }}

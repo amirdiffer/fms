@@ -917,6 +917,7 @@
     "sms": "رسالة قصيرة",
     "whatsapp": "واتساب",
     "overview": {
+      "operator": "المشغل",
       "first_name": "الاسم الاول",
       "last_name": "الكنية",
       "age": "عمر",
@@ -926,7 +927,14 @@
       "organization": "منظمة",
       "section": "الجزء",
       "authorized": "مخول",
-      "expiry_license": "رخصة انتهاء الصلاحية"
+      "expiry_license": "رخصة انتهاء الصلاحية",
+      "driver_license": {
+        "~": "رخصة قيادة",
+        "number": "عدد",
+        "country": "دولة",
+        "license_class": "فئة الترخيص",
+        "date_of_expiry": "تاريخ انتهاء الصلاحية"
+      }
     },
     "upload_form": {
       "title": "تحميل صورة الملف الشخصي",

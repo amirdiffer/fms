@@ -963,6 +963,7 @@
     "sms": "SMS",
     "whatsapp": "Whatsapp",
     "overview": {
+      "operator": "Operator",
       "first_name": "First Name",
       "last_name": "Last Name",
       "age": "Age",
@@ -972,7 +973,14 @@
       "organization": "Organization",
       "section": "Section",
       "authorized": "Authorized",
-      "expiry_license": "Expiry License"
+      "expiry_license": "Expiry License",
+      "driver_license": {
+        "~": "Driver License",
+        "number": "Number",
+        "country": "Country",
+        "license_class": "Licence Class",
+        "date_of_expiry": "Date Of Expiry"
+      }
     },
     "upload_form": {
       "title": "Upload Profile Picture",

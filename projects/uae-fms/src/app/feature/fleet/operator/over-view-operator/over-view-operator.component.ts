@@ -11,6 +11,7 @@ import { OperatorOverviewTabComponent } from './overview-tab/overview-tab.compon
 import { OperatorTrafficFineFacade } from '../../+state/operator/traffic-fine-tab';
 import { OperatorMovementHistoryFacade } from '../../+state/operator/movement-history-tab';
 import { formatDate } from '@angular/common';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'anms-over-view-operator',
@@ -39,6 +40,7 @@ export class OverViewOperatorComponent implements OnInit, OnDestroy {
   operator: IOperator
   trafficFineTableData: Observable<any>
   movementHistoryTableData: Observable<any>
+  profilePicture = ''
   //#endregion
 
   //#region Table
@@ -342,6 +344,7 @@ export class OverViewOperatorComponent implements OnInit, OnDestroy {
     this.operatorSubscriber = this.service.getOperatorById(id).pipe(
       tap(response => {
         this.operator = response.message
+        this.profilePicture = environment.baseApiUrl + `document/${this.operator.profileDocId}`;
         this.overViewTab.operator = this.operator
       })
     ).subscribe()
@@ -350,7 +353,6 @@ export class OverViewOperatorComponent implements OnInit, OnDestroy {
   private getOperatorsDrivingLicense(id: number): void {
     this.operatorDrivingLicenseSubscriber = this.service.getOperatorsDrivingLicence(id).pipe(
       tap((response) => {
-        console.log(response);
         this.overViewTab.drivingLicenseInfo = response.message
       })
     ).subscribe()

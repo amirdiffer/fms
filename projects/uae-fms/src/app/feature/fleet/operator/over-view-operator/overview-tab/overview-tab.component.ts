@@ -11,7 +11,6 @@ import { Subscription } from 'rxjs';
 export class OperatorOverviewTabComponent implements OnInit {
   activeLang = '';
 
-  // activatedRouteSubscriber
   operatorSubscriber: Subscription
   operator: IOperator
   drivingLicenseInfo: IOperatorDrivingLicense
