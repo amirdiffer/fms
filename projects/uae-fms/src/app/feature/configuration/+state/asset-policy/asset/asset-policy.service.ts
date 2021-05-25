@@ -40,8 +40,8 @@ export class AssetPolicyService {
     );
   }
 
-  getAssetById(id: number) {
-    return this.http.get(
+  getAssetById(id: number): Observable<ResponseBody<any>> {
+    return this.http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'configuration/asset-policy/' + id);
   }
 }
