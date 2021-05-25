@@ -8,11 +8,11 @@ import { Component, Input, OnInit } from '@angular/core';
 
 export class LifeCycleComponent implements OnInit {
     @Input() hasCalendar:boolean = false;
-    nowYears=2023;
-    lifeCycleData:ILifeCycle[]=[
+    nowYears=new Date().getFullYear();
+    @Input() lifeCycleData:ILifeCycle[]=[
         {
             year:2020,
-            mileage:'00km',
+            mileage:'',
             service:[
                 {title:1},
                 {title:2},
@@ -21,7 +21,7 @@ export class LifeCycleComponent implements OnInit {
         },
         {
             year:2021,
-            mileage:'50km',
+            mileage:'',
             service:[
                 {title:1},
                 {title:2},
@@ -30,7 +30,7 @@ export class LifeCycleComponent implements OnInit {
         },
         {
             year:2022,
-            mileage:'100km',
+            mileage:'',
             service:[
                 {title:1},
                 {title:2},
@@ -43,7 +43,7 @@ export class LifeCycleComponent implements OnInit {
         },
         {
             year:2023,
-            mileage:'150km',
+            mileage:'',
             service:[
                 {title:1},
                 {title:2},
@@ -56,7 +56,7 @@ export class LifeCycleComponent implements OnInit {
         },
         {
             year:2024,
-            mileage:'200km',
+            mileage:'',
             service:[
                 {title:1},
                 {title:2},
@@ -65,7 +65,7 @@ export class LifeCycleComponent implements OnInit {
         },
         {
             year:2025,
-            mileage:'250km',
+            mileage:'',
             service:[]
         }
     ]

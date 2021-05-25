@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ISubasset, ISubAssetOverview } from '@models/sub-asset';
+import { ISubasset } from '@models/sub-asset';
 import { ResponseBody } from '@models/response-body';
 import { environment } from '@environments/environment';
 import { ISubAssetStatistics } from '@models/statistics';
@@ -9,7 +9,7 @@ import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class SubAssetService {
-  constructor(private http: HttpClient, private _tableFacade: TableFacade) {}
+  constructor(private http: HttpClient, private _tableFacade: TableFacade) { }
 
   params = new HttpParams();
   getParam(name) {
@@ -66,8 +66,14 @@ export class SubAssetService {
     );
   }
 
-  subAssetOverview(): Observable<ResponseBody<ISubAssetOverview>> {
-    return this.http.get<ResponseBody<ISubAssetOverview>>(
+  getSpecificSubAsset(id): Observable<any> {
+    return this.http.get<Observable<any>>(
+      environment.baseApiUrl + '/sub-asset/' + id
+    );
+  }
+
+  subAssetOverview(): Observable<ResponseBody<any>> {
+    return this.http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'sub-asset/overview'
     );
   }

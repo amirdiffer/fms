@@ -19,6 +19,8 @@ export class AssetPolicyFacade {
 
   loaded$ = this.store.pipe(select(AssetPolicySelectors.loaded));
 
+  specific$ = this.store.pipe(select(AssetPolicySelectors.specificAssetPolicy));
+
   constructor(private store: Store<AssetPolicyPartialState>) { }
 
   loadAll() {
@@ -34,6 +36,10 @@ export class AssetPolicyFacade {
 
   getById(id: number) {
     return this.store.pipe(select(AssetPolicySelectors.selectById, { id }));
+  }
+
+  specific(id:number){
+    this.store.dispatch(AssetPolicyActions.getSpecificAssetPolicy({ id }));
   }
 
   reset() {

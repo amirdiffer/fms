@@ -37,5 +37,15 @@ export class AssetPolicyActions {
     props<{ data: IAssetPolicy }>()
   );
 
+  static getSpecificAssetPolicy = createAction(
+    '[AssetPolicy] get specific asset policy',
+    props<{ id:number }>()
+  );
+
+  static specificAssetPolicyLoaded = createAction(
+    '[AssetPolicy]  specific asset policy are loaded',
+    props<{ data:any }>()
+  );
+
   static reset = createAction('[AssetPolicy] reset parameters');
 }
