@@ -39,3 +39,42 @@ export interface IOperator {
   notifyByIssueCloseEmail: boolean;
   notifyByIssueClosePush: boolean;
 }
+
+export interface IOperatorDrivingLicense {
+  country: string;
+  dateOfExpiry: number;
+  docId: number;
+  licenseClass: string;
+  number: string;
+}
+
+export interface IOperatorTrafficFine {
+  department: IOperatorDepartment;
+  missionStatus: string;
+  plateNumber: string;
+  tcCode: number;
+  time: number;
+  type: string;
+  userStatus: string;
+}
+
+export interface IOperatorDepartment {
+  id: number;
+  name: string;
+  organizationId: number
+  organizationName: string;
+}
+
+export interface IOperatorMovementHistory {
+  asset: IOperatorMovementHistoryAsset
+  department: IOperatorDepartment;
+  startDate: number;
+  endDate: number;
+}
+
+export interface IOperatorMovementHistoryAsset {
+  id: number;
+  avatarId: number;
+  dpd: string;
+  ownershipType: string;
+}

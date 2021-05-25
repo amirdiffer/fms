@@ -61,7 +61,11 @@ export class OperatorComponent implements OnInit {
           Information: { line1: y.emails[0], line2: y.phoneNumbers[0] },
           Type: 'Operator',
           Status: y.isActive ? 'Active' : 'Inactive',
-          asset: { img: y.profileDocId ? this.fileServerBaseUrl + y.profileDocId : 'assets/thumb1.png' },
+          asset: {
+            img: y.profileDocId
+              ? this.fileServerBaseUrl + y.profileDocId
+              : 'assets/thumb1.png'
+          },
           TF_PAid: 0,
           TF_Unpaid: 0
         };
@@ -147,7 +151,7 @@ export class OperatorComponent implements OnInit {
           onClick: (col, data, button?) => {
             this._router.navigate(['/fleet/operator/' + data.id]);
           }
-        },
+        }
       ]
     }
   };
@@ -192,7 +196,7 @@ export class OperatorComponent implements OnInit {
       Information: 'Information',
       Type: 'Type',
       Status: 'Status'
-    }
+    };
     this.table.exportTable(this.operator_Table, 'Operator', filter);
   }
 

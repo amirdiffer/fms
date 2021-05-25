@@ -26,6 +26,16 @@ import {
   OperatorService,
   OperatorEffect
 } from './operator/index';
+import {
+  OperatorTrafficFineFacade,
+  OperatorTrafficFineService,
+  OperatorTrafficFineEffect
+} from './operator/traffic-fine-tab';
+import {
+  OperatorMovementHistoryFacade,
+  OperatorMovementHistoryService,
+  OperatorMovementHistoryEffect
+} from './operator/movement-history-tab';
 import { AccessoryFacade, AccessoryService } from './accessory/index';
 import { SubAssetEffect } from './sub-asset/sub-asset.effect';
 import { SubAssetFacade, SubAssetService } from './sub-asset';
@@ -59,7 +69,9 @@ import { MovementRequestsServiceTemporary } from '@feature/fleet/+state/movement
       MovementRequestsEffectTemporary,
       MovementOverviewEffect,
       MovementOverviewEffectTemporary,
-      OperatorEffect
+      OperatorEffect,
+      OperatorTrafficFineEffect,
+      OperatorMovementHistoryEffect,
     ]),
     ConfigurationStateModule
   ],
@@ -82,6 +94,10 @@ import { MovementRequestsServiceTemporary } from '@feature/fleet/+state/movement
     MovementRequestsServiceTemporary,
     OperatorFacade,
     OperatorService,
+    OperatorTrafficFineFacade,
+    OperatorTrafficFineService,
+    OperatorMovementHistoryFacade,
+    OperatorMovementHistoryService,
     AccessoryFacade,
     AccessoryService,
     OrganizationService,

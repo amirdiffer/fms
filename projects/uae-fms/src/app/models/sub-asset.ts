@@ -1,4 +1,3 @@
-
 export interface ISubasset {
   id?: number;
   assetTypeId: number;
@@ -12,7 +11,7 @@ export interface ISubasset {
   avatarId: number;
   serialNumber: string;
   date?: string;
-  createdAt?:string;
+  createdAt?: string;
   warrantyExpireDate?: string;
   assetTypeName?;
   modelName?;
@@ -21,17 +20,16 @@ export interface ISubasset {
   type?;
 }
 export interface IWarrantyItems {
-  id?:number;
+  id?: number;
   item: string;
   periodType: string;
   duration: number;
   startDate: string;
   docId: number;
-  hasReminder:boolean;
+  hasReminder: boolean;
 }
 
-
-export interface ISubAssetType{
+export interface ISubAssetType {
   id: number;
   name: string;
   type?: string;
@@ -51,10 +49,10 @@ export interface Make {
 export interface MakeModel {
   id?: number;
   name?: string;
-  description?:string;
+  description?: string;
 }
 
-export interface ISubAssetOverview{
+export interface ISubAssetOverview {
   totalNumOfSubAssets: number;
   numOfActiveSubAssets: number;
   numOfInactiveSubAssets: number;

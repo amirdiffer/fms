@@ -16,11 +16,11 @@ const routes: Routes = [
   {
     path: 'edit-location/:type/:id',
     component: AddLocationComponent
-  },
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LocationRoutingModule { }
+export class LocationRoutingModule {}

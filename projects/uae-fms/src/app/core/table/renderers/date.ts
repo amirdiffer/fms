@@ -3,13 +3,8 @@ import moment from 'moment';
 
 @Component({
   selector: 'table-date-renderer',
-  template: `
-    <div>{{ this.date }}</div>
-  `,
-  styles: [
-    `
-    `
-  ]
+  template: ` <div>{{ this.date }}</div> `,
+  styles: [``]
 })
 export class DateRenderer implements OnInit {
   @Input() data;
@@ -18,8 +13,10 @@ export class DateRenderer implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.data)
-    this.date = moment.utc(this.data * 1000).local().format('DD-MM-YYYY')
+    console.log(this.data);
+    this.date = moment
+      .utc(this.data * 1000)
+      .local()
+      .format('DD-MM-YYYY');
   }
-
 }

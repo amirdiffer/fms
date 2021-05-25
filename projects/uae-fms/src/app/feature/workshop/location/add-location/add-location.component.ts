@@ -16,7 +16,10 @@ import {
   BodyShopLocationService
 } from '@feature/workshop/+state/body-shop';
 import { map } from 'rxjs/operators';
-import { ServiceShopLocationFacade, ServiceShopLocationService } from '@feature/workshop/+state/service-shop';
+import {
+  ServiceShopLocationFacade,
+  ServiceShopLocationService
+} from '@feature/workshop/+state/service-shop';
 import { ServiceShopLocationSelectors } from '@feature/workshop/+state/service-shop/location/service-shop-location.selectors';
 
 @Component({
@@ -27,7 +30,7 @@ import { ServiceShopLocationSelectors } from '@feature/workshop/+state/service-s
 export class AddLocationComponent extends Utility implements OnInit {
   isEdit: boolean = false;
   id: number;
-  type = "body-shop";
+  type = 'body-shop';
   //#region Dialog
   dialogModal = false;
 
@@ -157,7 +160,7 @@ export class AddLocationComponent extends Utility implements OnInit {
     private bodyShopfacadeLocation: BodyShopLocationFacade,
     private serviceShopFacadeLocation: ServiceShopLocationFacade,
     private bodyShopServiceLocation: BodyShopLocationService,
-    private serviceShopServiceLocation: ServiceShopLocationService,
+    private serviceShopServiceLocation: ServiceShopLocationService
   ) {
     super(injector);
   }
@@ -179,17 +182,20 @@ export class AddLocationComponent extends Utility implements OnInit {
           ? true
           : false;
 
-
       if (this.isEdit) {
         this.type = params[1].path;
         this.id = +params[params.length - 1].path;
 
-        (this.type == "body-shop" ? this.bodyShopServiceLocation : this.serviceShopServiceLocation).getLocationById(+params[params.length - 1].path)
+        (this.type == 'body-shop'
+          ? this.bodyShopServiceLocation
+          : this.serviceShopServiceLocation
+        )
+          .getLocationById(+params[params.length - 1].path)
           .pipe(map((x) => x.message))
           .subscribe(
             (x) => {
               if (x) {
-                this.searchLocation({ query: x.locationThirdPartyId })
+                this.searchLocation({ query: x.locationThirdPartyId });
                 this.locationId = x.locationThirdPartyId;
                 this._location = x;
                 this.inputForm.patchValue({
@@ -214,7 +220,7 @@ export class AddLocationComponent extends Utility implements OnInit {
                 }
               }
             },
-            () => { },
+            () => {},
             () => {
               this.markDirty();
             }
@@ -377,10 +383,10 @@ export class AddLocationComponent extends Utility implements OnInit {
           id: this.id
         };
 
-        if (this.type == "body-shop") {
+        if (this.type == 'body-shop') {
           this.bodyShopfacadeLocation.editLocation(locationInfo);
         }
-        if (this.type == "service-shop") {
+        if (this.type == 'service-shop') {
           this.serviceShopFacadeLocation.editLocation(locationInfo);
         }
       } else {
@@ -388,20 +394,18 @@ export class AddLocationComponent extends Utility implements OnInit {
           ...locationInfo
         };
 
-        if (this.type == "body-shop") {
+        if (this.type == 'body-shop') {
           this.bodyShopfacadeLocation.addLocation(locationInfo);
         }
-        if (this.type == "service-shop") {
+        if (this.type == 'service-shop') {
           this.serviceShopFacadeLocation.addLocation(locationInfo);
         }
       }
     } else {
-      this.router
-        .navigate(['/workshop/location'])
-        .then((_) => {
-          this.bodyShopfacadeLocation.resetParams();
-          this.serviceShopFacadeLocation.resetParams();
-        });
+      this.router.navigate(['/workshop/location']).then((_) => {
+        this.bodyShopfacadeLocation.resetParams();
+        this.serviceShopFacadeLocation.resetParams();
+      });
     }
   }
   addRequest() {

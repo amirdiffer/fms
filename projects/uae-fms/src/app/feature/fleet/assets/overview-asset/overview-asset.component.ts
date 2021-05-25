@@ -17,7 +17,6 @@ import { Calendar } from 'primeng/calendar';
   styleUrls: ['./overview-asset.component.scss']
 })
 export class OverViewAssetComponent implements OnInit, OnDestroy {
-
   activeFilterDate = 'week';
 
   onDestroy = new Subject();
@@ -321,14 +320,14 @@ export class OverViewAssetComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log(this.assetDetail)
+    console.log(this.assetDetail);
     this.id = this.activeRoute.snapshot.params['id'];
     this.assetDetail$ = this._service
       .getAssetByID(this.id)
       .pipe(map((x) => x.message))
       .subscribe((x) => {
         this.assetDetail = x;
-        console.log(this.assetDetail)
+        console.log(this.assetDetail);
         this.bcID = x['businessCategoryId'];
         this.warrantyData = x['warranties'];
       });
@@ -344,5 +343,4 @@ export class OverViewAssetComponent implements OnInit, OnDestroy {
   selectedTab(event: string) {
     this.activeTab = event;
   }
-
 }

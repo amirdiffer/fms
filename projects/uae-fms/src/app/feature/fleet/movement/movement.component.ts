@@ -447,8 +447,12 @@ export class MovementComponent
           operator: 'operator',
           fine: 'fine',
           reason: 'reason'
-        }
-        this.table.exportTable(this.movementOverViewTableSetting, 'Overview', filter);
+        };
+        this.table.exportTable(
+          this.movementOverViewTableSetting,
+          'Overview',
+          filter
+        );
         break;
       case 'requestTab':
         filter = {
@@ -459,7 +463,7 @@ export class MovementComponent
           reason: 'reason',
           date: 'date',
           requestStatus: 'requestStatus'
-        }
+        };
         this.table.exportTable(this.requestTableSetting, 'Request', filter);
         break;
     }

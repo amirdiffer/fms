@@ -40,7 +40,7 @@ import { AddLocationServiceShopComponent } from './service-shop/add-location/add
 import { AddRequestServiceShopComponent } from './service-shop/add-request/add-request.component';
 import { AddTechnicianServiceShopComponent } from './service-shop/add-technician/add-technician.component';
 import { TechnicalOverviewComponent } from './inspections/technical-inspection/technical-overview/technical-overview.component';
-import { TranslateModule } from "@ngx-translate/core";
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -58,7 +58,6 @@ import { TranslateModule } from "@ngx-translate/core";
     AddRequestServiceShopComponent,
     AddTechnicianServiceShopComponent,
     TechnicalOverviewComponent
-
   ],
   imports: [
     TranslateModule,
@@ -84,7 +83,7 @@ import { TranslateModule } from "@ngx-translate/core";
     MatStepperModule,
     MatRadioModule,
     MapModule,
-    FleetModule,
+    FleetModule
   ]
 })
 export class WorkshopModule {}

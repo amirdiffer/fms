@@ -14,9 +14,10 @@ export class AccessoryService {
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
@@ -25,7 +26,8 @@ export class AccessoryService {
 
   loadAll(): Observable<ResponseBody<IAccessory[]>> {
     return this.http.get<ResponseBody<IAccessory[]>>(
-      environment.baseApiUrl + 'accessory', {params: this.getParam('accessory')}
+      environment.baseApiUrl + 'accessory',
+      { params: this.getParam('accessory') }
     );
   }
 
@@ -66,7 +68,6 @@ export class AccessoryService {
     );
   }
 
-
   loadFullList(): Observable<ResponseBody<IAccessory[]>> {
     return this.http.get<ResponseBody<IAccessory[]>>(
       environment.baseApiUrl + 'accessory?page=0&size=99999999'
@@ -78,5 +79,4 @@ export class AccessoryService {
       environment.baseApiUrl + 'accessory/overview'
     );
   }
-
 }

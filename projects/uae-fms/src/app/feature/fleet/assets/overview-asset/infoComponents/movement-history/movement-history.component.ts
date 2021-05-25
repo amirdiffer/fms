@@ -9,7 +9,6 @@ import moment from 'moment';
   styleUrls: ['./movement-history.component.scss']
 })
 export class MovementHistoryComponent implements OnInit {
-
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
   downloadBtn = 'assets/icons/download-solid.svg';
@@ -60,18 +59,19 @@ export class MovementHistoryComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
-      },
+      }
     ],
     data: [],
     rowSettings: {}
   };
 
-  constructor(
-    private assetMasterService: AssetMasterService
-  ) { }
+  constructor(private assetMasterService: AssetMasterService) {}
 
   date(y) {
-    let createdDate = moment.utc(y*1000).local().toDate();
+    let createdDate = moment
+      .utc(y * 1000)
+      .local()
+      .toDate();
     let nowDate = new Date();
     let newDate = nowDate.getTime() - createdDate.getTime();
     return {
@@ -80,22 +80,25 @@ export class MovementHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.assetMasterService.getAssetMovementTemporaryByID(this.assetID).subscribe(x => {
-      let data = x.message;
-      this.tableSetting.data = (<Array<object>>data).map(d => {
-        return {
-          duration: this.date(d['createdAt']),
-          start_date: d['request']['endDate'],
-          end_date: d['request']['startDate'],
-          department: d['department']['name'],
-          Operator: {
-            line1: d['operator']['firstName'] + ' ' + d['operator']['lastName'],
-            line2: d['operator']['id']
-          },
-          type: 'Temporary',
-        }
-      })
-    });
+    this.assetMasterService
+      .getAssetMovementTemporaryByID(this.assetID)
+      .subscribe((x) => {
+        let data = x.message;
+        this.tableSetting.data = (<Array<object>>data).map((d) => {
+          return {
+            duration: this.date(d['createdAt']),
+            start_date: d['request']['endDate'],
+            end_date: d['request']['startDate'],
+            department: d['department']['name'],
+            Operator: {
+              line1:
+                d['operator']['firstName'] + ' ' + d['operator']['lastName'],
+              line2: d['operator']['id']
+            },
+            type: 'Temporary'
+          };
+        });
+      });
   }
 
   exportTable(): void {
@@ -105,9 +108,12 @@ export class MovementHistoryComponent implements OnInit {
       end_date: 'end_date',
       department: 'department',
       Operator: 'Operator',
-      type: 'type',
+      type: 'type'
     };
-    this.table.exportTable(this.tableSetting, 'Asset OverView  - Asset ID ' + this.assetID, filter);
+    this.table.exportTable(
+      this.tableSetting,
+      'Asset OverView  - Asset ID ' + this.assetID,
+      filter
+    );
   }
-
 }

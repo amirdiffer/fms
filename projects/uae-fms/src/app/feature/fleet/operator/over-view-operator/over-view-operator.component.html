@@ -4,21 +4,21 @@
     <div class="component_wrapper form-section">
       <div class="row flex-lg-column person">
         <div class="col-lg-12 text-center">
-            <img class='operator-avatar-border' src='assets/operator.png' width='184' />
+            <img class='operator-avatar-border' [src]='profilePicture' width='184' onerror="this.src='assets/thumb.png'"/>
         </div>
         <hr>
         <div class="col-lg-12">
           <div class='text-center header'>
-            Mohammad Saadoun
+            {{ operator?.firstName + ' ' + operator?.lastName }}
           </div>
           <div class='text-center font-weight-bold mt-3'>
-            Operator
+            {{ 'operator.overview.operator' | translate }}
           </div>
           <div class='text-center mt-3'>
-            0027567356
+            {{ operator?.employeeNumber }}
           </div>
           <div class="mt-3 justify-content-center toggle-select">
-            <p-inputSwitch></p-inputSwitch>
+            <p-inputSwitch [ngModel]='operator?.isActive'></p-inputSwitch>
           </div>
         </div>
       </div>
@@ -26,10 +26,10 @@
     <div class="component_wrapper form-section pl-3 pr-3">
       <div class='mt-3'>
         <div class='row' [class.ml-2]='activeLang === "en"' [class.mr-2]='activeLang === "ar"'>
-          <img class='people-border' [class.ml-3]='activeLang === "ar"' [class.mr-3]='activeLang === "en"' src='assets/people.png' width='40' height='35' />
+          <img class='people-border' [class.ml-3]='activeLang === "ar"' [class.mr-3]='activeLang === "en"' src='assets/people.png' width='40' height='35' onerror="this.src='assets/thumb.png'"/>
           <div>
-            <div>Organization</div>
-            <div>Sample Department</div>
+            <div>{{ 'operator.overview.organization' | translate }}</div>
+            <div>{{ operator?.department.organizationName }}</div>
           </div>
         </div>
       </div>
@@ -37,8 +37,8 @@
         <div class='row' [class.ml-2]='activeLang === "en"' [class.mr-2]='activeLang === "ar"'>
           <img class='mail-border' [class.ml-3]='activeLang === "ar"' [class.mr-3]='activeLang === "en"' src='assets/mail.png' width='40' height='35' />
           <div>
-            <div>Email</div>
-            <div>Mohammad@sample.com</div>
+            <div>{{ 'operator.overview.email' | translate }}</div>
+            <div>{{ operator?.emails[0] }}</div>
           </div>
         </div>
       </div>
@@ -46,8 +46,8 @@
         <div class='row' [class.ml-2]='activeLang === "en"' [class.mr-2]='activeLang === "ar"'>
           <img class='tel-border' [class.ml-3]='activeLang === "ar"' [class.mr-3]='activeLang === "en"' src='assets/tel.png' width='40' height='35' />
           <div>
-            <div>Phone Number</div>
-            <div>+971 50 565 3793</div>
+            <div>{{ 'operator.overview.phone_number' | translate }}</div>
+            <div>{{ operator?.phoneNumbers[0] }}</div>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@
       <app-filter *ngIf="selectedTab == '1'" [setting]='trafficFinFilterCard'></app-filter>
     </div>
     <div class="component_wrapper table-container">
-      <app-tab-view returnId="index" (selectedIndex)="selectedTab=$event" [count]='[undefined, count$, count$, count$]'>
+      <app-tab-view returnId="index" (selectedIndex)="selectedTab=$event" [count]='[undefined, trafficFineCount$, movementHistoryCount$]'>
         <span class="card-table-header search-container" *ngIf="selectedTab != '0'">
           <div class="search-box">
             <input placeholder="{{'search.search_in_columns' | translate}}"
@@ -86,13 +86,10 @@
           <anms-overviewtab></anms-overviewtab>
         </div>
         <div count="3456" title="{{ 'tabs.traffic_fine' | translate }}" id='trafficFileTab'>
-          <app-table [setting]="trafficFine_Table"></app-table>
+          <app-table [setting]="trafficFine_Table" [tableData]='trafficFineTableData'></app-table>
         </div>
         <div count="3456" title="{{ 'tabs.movement_history' | translate }}" id='movementHistoryTab'>
-          <app-table [setting]='movementHistoryTable'></app-table>
-        </div>
-        <div count="3456" title="{{ 'tabs.activity' | translate }}" id='activityTab'>
-          <app-table [setting]='activityTable'></app-table>
+          <app-table [setting]='movementHistoryTable' [tableData]='movementHistoryTableData'></app-table>
         </div>
       </app-tab-view>
     </div>

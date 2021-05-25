@@ -63,11 +63,12 @@ export class BodyShopRequestService {
     );
   }
 
-  getRequestListByAssetId(id): Observable<ResponseBody<IRequestListSpecificAsset[]>> {
+  getRequestListByAssetId(
+    id
+  ): Observable<ResponseBody<IRequestListSpecificAsset[]>> {
     return this.http.get<ResponseBody<IRequestListSpecificAsset[]>>(
       environment.baseApiUrl + `workshop/bodyshop/asset/${id}/request`,
       { params: this.getParam('body-shop_request') }
     );
   }
-
 }

@@ -2,7 +2,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnType } from '@core/table';
 import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
-import { ServiceShopRequestFacade, ServiceShopRequestService } from '@feature/workshop/+state/service-shop';
+import {
+  ServiceShopRequestFacade,
+  ServiceShopRequestService
+} from '@feature/workshop/+state/service-shop';
 import moment from 'moment';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,9 +16,9 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./request-tab-overview.component.scss']
 })
 export class RequestTabOverviewServiceShopComponent implements OnInit {
-  assetId:number;
-  tableData$:Observable<any>;
-  assetDetail$:Observable<any>;
+  assetId: number;
+  tableData$: Observable<any>;
+  assetDetail$: Observable<any>;
 
   constructor(
     private _facadeRequest: ServiceShopRequestFacade,
@@ -23,8 +26,7 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
     private assetMasterService: AssetMasterService,
     private router: Router,
     private service: ServiceShopRequestService
-  ) { }
-
+  ) {}
 
   filterSetting = [
     {
@@ -116,12 +118,14 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
         {
           button: 'edit',
           color: '#3F3F3F',
-          condition: (data) => { return data.approveStatus == "APPROVED" ? false : true },
+          condition: (data) => {
+            return data.approveStatus == 'APPROVED' ? false : true;
+          },
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
-            this.router.navigate([
-              'edit-request/' + data.id
-             ],{relativeTo:this._activatedRoute});
+            this.router.navigate(['edit-request/' + data.id], {
+              relativeTo: this._activatedRoute
+            });
           }
         }
       ]
@@ -133,49 +137,49 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
   ngOnInit(): void {
     this.assetId = +this._activatedRoute.snapshot.params.id;
     this._facadeRequest.resetParams();
-    console.log(this.assetId)
+    console.log(this.assetId);
     this._facadeRequest.getAssetRequest(this.assetId);
     this.tableData$ = this._facadeRequest.assetRequest$.pipe(
-      map( x => {
-        if(x){
-          console.log(x)
-          return x.map(
-            request =>{
-              let jobType;
-              console.log(request)
-              switch (request.jobType) {
-                case 'TECHNICAL_REPORT':
-                  jobType = 'Technical Report';
-                  break;
-                case 'NORMAL':
-                  jobType = 'Normal';
-                  break;
-                case 'INSTALLATION':
-                  jobType = 'Installation';
-                  break;
-                default:
-                  jobType = request.jobType;
-                  break;
-              };
-              return {
-                ...request,
-                date: moment.utc(request.updatedAt).local().format('DD-MM-YYYY'),
-                requestType: jobType,
-                attachment: request.documentIds,
-                statusColor: '#6870B4'
-              };
+      map((x) => {
+        if (x) {
+          console.log(x);
+          return x.map((request) => {
+            let jobType;
+            console.log(request);
+            switch (request.jobType) {
+              case 'TECHNICAL_REPORT':
+                jobType = 'Technical Report';
+                break;
+              case 'NORMAL':
+                jobType = 'Normal';
+                break;
+              case 'INSTALLATION':
+                jobType = 'Installation';
+                break;
+              default:
+                jobType = request.jobType;
+                break;
             }
-            
-          )
+            return {
+              ...request,
+              date: moment.utc(request.updatedAt).local().format('DD-MM-YYYY'),
+              requestType: jobType,
+              attachment: request.documentIds,
+              statusColor: '#6870B4'
+            };
+          });
         }
       })
-    )
+    );
     this.assetDetail$ = this.assetMasterService.getAssetByID(this.assetId).pipe(
-      map(x => {
-        return {message:{
-          ...x.message , status: x.message.progressStatus
-        }}
+      map((x) => {
+        return {
+          message: {
+            ...x.message,
+            status: x.message.progressStatus
+          }
+        };
       })
-    )
+    );
   }
 }

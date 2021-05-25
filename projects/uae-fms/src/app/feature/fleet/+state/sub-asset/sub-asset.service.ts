@@ -13,9 +13,10 @@ export class SubAssetService {
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
@@ -24,7 +25,8 @@ export class SubAssetService {
 
   loadAll(): Observable<ResponseBody<ISubasset[]>> {
     return this.http.get<ResponseBody<ISubasset[]>>(
-      environment.baseApiUrl + 'sub-asset', { params: this.getParam('sub-asset') }
+      environment.baseApiUrl + 'sub-asset',
+      { params: this.getParam('sub-asset') }
     );
   }
 
@@ -75,5 +77,4 @@ export class SubAssetService {
       environment.baseApiUrl + 'sub-asset/overview'
     );
   }
-
 }

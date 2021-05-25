@@ -10,13 +10,17 @@ export class BodyShopRequestFacade {
 
   requestsById$ = this.store.pipe(select(BodyShopRequestSelectors.requests));
 
-  assetRequest$ = this.store.pipe(select(BodyShopRequestSelectors.assetRequest));
+  assetRequest$ = this.store.pipe(
+    select(BodyShopRequestSelectors.assetRequest)
+  );
 
+  spicificRequest$ = this.store.pipe(
+    select(BodyShopRequestSelectors.specificRequest)
+  );
 
-  spicificRequest$ = this.store.pipe(select(BodyShopRequestSelectors.specificRequest));
-
-
-  statistics$ = this.store.pipe(select(BodyShopRequestSelectors.selectStatistics));
+  statistics$ = this.store.pipe(
+    select(BodyShopRequestSelectors.selectStatistics)
+  );
 
   message$ = this.store.pipe(select(BodyShopRequestSelectors.message));
 
@@ -54,7 +58,6 @@ export class BodyShopRequestFacade {
   getSpecificRequest(id: number) {
     this.store.dispatch(BodyShopRequestActions.getSpecificRequest({ id }));
   }
-
 
   getAssetRequest(assetId: number) {
     this.store.dispatch(

@@ -8,8 +8,9 @@ import { IOperatorOverview } from '@models/statistics';
   styleUrls: ['./operator-statistics.component.scss']
 })
 export class OperatorStatisticsComponent implements OnInit {
-
-  @Output('finedOperator') finedOperator: EventEmitter<any> = new EventEmitter();
+  @Output('finedOperator') finedOperator: EventEmitter<
+    any
+  > = new EventEmitter();
   totalIcon = '/assets/icons/operator-total.svg';
   totalFineIcon = '/assets/icons/operator-total-fine.svg';
   activeIcon = '/assets/icons/operator-active.svg';
@@ -22,19 +23,16 @@ export class OperatorStatisticsComponent implements OnInit {
     totalNumOfOperators: 0
   };
 
-  constructor(
-    private _operatorOverview: OperatorService
-  ) {}
+  constructor(private _operatorOverview: OperatorService) {}
 
   ngOnInit(): void {
-    this._operatorOverview.operatorOverview().subscribe(x => {
+    this._operatorOverview.operatorOverview().subscribe((x) => {
       let data = x.message;
       this.operatorOverviewData = data;
       this.finedOperator.emit({
         lowestFinedOperator: data.lowestFinedOperator,
         highestFinedOperator: data.highestFinedOperator
-      })
-    })
+      });
+    });
   }
-
 }
