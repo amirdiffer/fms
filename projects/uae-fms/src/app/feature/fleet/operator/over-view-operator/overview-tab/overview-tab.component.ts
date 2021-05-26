@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsFacade } from '@core/settings/settings.facade';
+import { IOperator, IOperatorDrivingLicense } from '@models/operator';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'anms-overviewtab',
@@ -8,6 +10,10 @@ import { SettingsFacade } from '@core/settings/settings.facade';
 })
 export class OperatorOverviewTabComponent implements OnInit {
   activeLang = '';
+
+  operatorSubscriber: Subscription
+  operator: IOperator
+  drivingLicenseInfo: IOperatorDrivingLicense
 
   constructor(private settingFacade: SettingsFacade) {}
 

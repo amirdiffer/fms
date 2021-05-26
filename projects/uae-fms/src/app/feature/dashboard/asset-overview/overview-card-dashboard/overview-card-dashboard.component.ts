@@ -14,60 +14,59 @@ import { IAssetOverview } from '@models/asset-master.model';
   styleUrls: ['./overview-card-dashboard.component.scss']
 })
 export class OverviewCardDashboardComponent implements OnInit {
-
   @Input() chartData: IAssetOverview;
   helpIcon = 'assets/icons/question-circle.svg';
-  @ViewChild("chart") chart: ChartComponent;
+  @ViewChild('chart') chart: ChartComponent;
   public chartOptions;
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.chartOptions = {
       series: [],
       chart: {
-        type: "donut",
+        type: 'donut',
         width: 350
       },
-      plotOptions:{
-        pie:{
-          customScale:1,
-          offsetX:10 ,
+      plotOptions: {
+        pie: {
+          customScale: 1,
+          offsetX: 10,
           offsetY: 5,
           startAngle: -135,
           endAngle: 135,
-          donut:{
-            size:"95%",
-            labels:{
-              show:true,
+          donut: {
+            size: '95%',
+            labels: {
+              show: true,
               value: {
                 offsetY: -25,
                 show: true,
                 fontSize: '1.5em',
                 fontFamily: '29LT Bukra - Bold !important',
-                fontWeight:'bold'
+                fontWeight: 'bold'
               },
-              total:{
-                show:true,
+              total: {
+                show: true,
                 offsetY: 30,
-                label:'Total',
+                label: 'Total',
                 showAlways: true,
-                fontSize: '1.3em',
+                fontSize: '1.3em'
               },
               name: {
                 show: true,
                 offsetY: 25,
-                fontSize: '1.3em',
+                fontSize: '1.3em'
               }
             }
           }
         }
       },
-      dataLabels:{
-        enabled: false,
+      dataLabels: {
+        enabled: false
       },
-      legend:{
+      legend: {
         show: false,
-        position: 'bottom',
+        position: 'bottom'
       },
       responsive: [
         {
@@ -76,10 +75,10 @@ export class OverviewCardDashboardComponent implements OnInit {
             chart: {
               width: 300
             },
-            plotOptions:{
-              pie:{
-                donut:{
-                  size:"95%",
+            plotOptions: {
+              pie: {
+                donut: {
+                  size: '95%'
                 }
               }
             }
@@ -91,10 +90,10 @@ export class OverviewCardDashboardComponent implements OnInit {
             chart: {
               width: 260
             },
-            plotOptions:{
-              pie:{
-                donut:{
-                  size:"93%",
+            plotOptions: {
+              pie: {
+                donut: {
+                  size: '93%'
                 }
               }
             }
@@ -106,18 +105,18 @@ export class OverviewCardDashboardComponent implements OnInit {
             chart: {
               width: 220
             },
-            plotOptions:{
-              pie:{
-                donut:{
-                  size:"91%",
+            plotOptions: {
+              pie: {
+                donut: {
+                  size: '91%'
                 }
               }
             }
           }
         }
       ],
-      colors:['#39DA8A','#B1EECF','#DFFFEF'],
-      labels:['Active' , 'In Active' , 'X Fleet']
+      colors: ['#39DA8A', '#B1EECF', '#DFFFEF'],
+      labels: ['Active', 'In Active', 'X Fleet']
     };
 
     // this.chart.updateSeries([
@@ -126,5 +125,4 @@ export class OverviewCardDashboardComponent implements OnInit {
     //
     // this.chartData.
   }
-
 }

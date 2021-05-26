@@ -8,7 +8,7 @@ export interface IAccessory {
   assignedToEmployeeId: number;
 }
 
-export interface IAccessoryOverview{
+export interface IAccessoryOverview {
   totalNumOfAccessories: number;
   numOfInactiveAccessories: number;
   numOfAssignedAccessories: number;

@@ -1,5 +1,5 @@
-@import "../../../../../themes/green-theme.scss";
-@import "../../../../../assets/scss/form-section.scss";
+@import '../../../../../themes/green-theme.scss';
+@import '../../../../../assets/scss/form-section.scss';
 .component_wrapper {
   // background: white !important;
   h3 {
@@ -17,7 +17,7 @@
       color: #008755;
     }
     li::before {
-      content: "• ";
+      content: '• ';
       color: #008755; /* or whatever color you prefer */
     }
   }
@@ -77,7 +77,7 @@
   }
 }
 
-.inline-111{
+.inline-111 {
   display: inline-flex;
   justify-content: center;
   align-items: center;

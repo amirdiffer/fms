@@ -6,17 +6,15 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./detail-mini-card-dashboard.component.scss']
 })
 export class DetailMiniCardDashboardComponent implements OnInit {
-  @Input()data = [];
-  @Input()title = 'Title';
-  @Input() labels = []
-  @Input() routerLink:IRouterLink;
-   constructor() { }
+  @Input() data = [];
+  @Input() title = 'Title';
+  @Input() labels = [];
+  @Input() routerLink: IRouterLink;
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
 export interface IRouterLink {
-  title:string;
-  router:string;
+  title: string;
+  router: string;
 }

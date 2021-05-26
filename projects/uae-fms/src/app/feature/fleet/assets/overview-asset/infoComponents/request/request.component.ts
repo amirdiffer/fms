@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColumnType } from '@core/table';
-import { BodyShopJobCardService, BodyShopRequestService } from '@feature/workshop/+state/body-shop';
+import {
+  BodyShopJobCardService,
+  BodyShopRequestService
+} from '@feature/workshop/+state/body-shop';
 import moment from 'moment';
 import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 
@@ -118,7 +121,7 @@ export class RequestComponent implements OnInit {
           onClick: (col, data, button) => {
             if (button == 'external') {
               this.section = 'detail-box';
-              this.getDetailsActiveJobCard(data.id)
+              this.getDetailsActiveJobCard(data.id);
             }
             // this.router.navigate(['/fleet/assets/' + data.id]);
           }
@@ -298,27 +301,30 @@ export class RequestComponent implements OnInit {
       file: ['']
     });
 
-    this.assetMasterService.getActiveJobCardByAssetID(this.assetID).subscribe(x => {
-      let data = x.message['tasks'];
-      this.listActiveJobCard = data;
-      this.jobCard_Table1.data = (<Array<object>>data).map(d => {
-        return {
-          id: d['id'],
-          task: d['taskMaster']['name'],
-          priority: d['priorityOrder'],
-          duration: d['taskMaster']['timeEstimate'],
-          Status: d['status'],
-          start_date: d['startDate'],
-          technician: d['technician']['firstName'] + ' ' + d['technician']['lastName'],
-          cost: d['cost'] + ' AED',
-          part_cost: d['partCost'] + ' AED',
-          total_cost: '4700 AED'
-        }
-      })
-    });
-    this.assetMasterService.getJobCardByAssetID(this.assetID).subscribe(x => {
+    this.assetMasterService
+      .getActiveJobCardByAssetID(this.assetID)
+      .subscribe((x) => {
+        let data = x.message['tasks'];
+        this.listActiveJobCard = data;
+        this.jobCard_Table1.data = (<Array<object>>data).map((d) => {
+          return {
+            id: d['id'],
+            task: d['taskMaster']['name'],
+            priority: d['priorityOrder'],
+            duration: d['taskMaster']['timeEstimate'],
+            Status: d['status'],
+            start_date: d['startDate'],
+            technician:
+              d['technician']['firstName'] + ' ' + d['technician']['lastName'],
+            cost: d['cost'] + ' AED',
+            part_cost: d['partCost'] + ' AED',
+            total_cost: '4700 AED'
+          };
+        });
+      });
+    this.assetMasterService.getJobCardByAssetID(this.assetID).subscribe((x) => {
       let data = x.message;
-      this.jobCard_Table2.data = (<Array<object>>data).map(d => {
+      this.jobCard_Table2.data = (<Array<object>>data).map((d) => {
         return {
           start_date: d['startDate'],
           end_date: d['endDate'],
@@ -330,37 +336,47 @@ export class RequestComponent implements OnInit {
           cost: d['cost'],
           part_cost: d['partCost'],
           total_cost: d['start_date']
-        }
-      })
+        };
+      });
     });
-    this.assetMasterService.getRequestsByAssetID(this.assetID).subscribe(x => {
-      let data = x.message;
-      this.jobCard_Table3.data = (<Array<object>>data).map(d => {
-        return {
-          issue: d['request'],
-          date: d['createdAt'],
-          description: d['description'],
-          Status: d['approveStatus'],
-          issue_type: d['accidentType'],
-          reported_by: d['creator']['firstName'] + ' ' + d['creator']['lastName'],
-          attachment: d['documentIds']
-        }
-      })
-    });
-
+    this.assetMasterService
+      .getRequestsByAssetID(this.assetID)
+      .subscribe((x) => {
+        let data = x.message;
+        this.jobCard_Table3.data = (<Array<object>>data).map((d) => {
+          return {
+            issue: d['request'],
+            date: d['createdAt'],
+            description: d['description'],
+            Status: d['approveStatus'],
+            issue_type: d['accidentType'],
+            reported_by:
+              d['creator']['firstName'] + ' ' + d['creator']['lastName'],
+            attachment: d['documentIds']
+          };
+        });
+      });
   }
 
   getDetailsActiveJobCard(id) {
-    this.detailsJobCard = this.listActiveJobCard.filter(x => x.id == id )[0]
+    this.detailsJobCard = this.listActiveJobCard.filter((x) => x.id == id)[0];
     if (this.detailsJobCard['startDate'])
-      this.detailsJobCard['startDate'] = moment.utc(this.detailsJobCard['startDate'] * 1000).local().format('DD-MM-YYYY')
+      this.detailsJobCard['startDate'] = moment
+        .utc(this.detailsJobCard['startDate'] * 1000)
+        .local()
+        .format('DD-MM-YYYY');
   }
 
-  diffDate(x,y) {
-    let endDate = moment.utc(y*1000).local().toDate();
-    let startDate = moment.utc(x*1000).local().toDate();
+  diffDate(x, y) {
+    let endDate = moment
+      .utc(y * 1000)
+      .local()
+      .toDate();
+    let startDate = moment
+      .utc(x * 1000)
+      .local()
+      .toDate();
     let diffDate = moment(endDate).diff(startDate, 'hours');
-    return diffDate
+    return diffDate;
   }
-
 }

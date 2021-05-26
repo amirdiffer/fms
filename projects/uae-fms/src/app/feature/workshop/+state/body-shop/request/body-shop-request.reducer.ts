@@ -24,7 +24,6 @@ const bodyShopRequestReducer = createReducer(
     resultNumber: data
   })),
 
-
   /* Request By Id */
   on(BodyShopRequestActions.loadAllRequestsById, (state) => ({
     ...state,
@@ -45,7 +44,7 @@ const bodyShopRequestReducer = createReducer(
     loaded: false,
     error: null,
     message: null,
-    specificRequest:null
+    specificRequest: null
   })),
   on(BodyShopRequestActions.specificRequestLoaded, (state, { data }) => ({
     ...state,

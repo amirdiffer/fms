@@ -9,79 +9,78 @@ import {
 
 @Component({
   selector: 'pie-chart-mini',
-  template:`
+  template: `
     <div class="chart" #chart>
-    <apx-chart
-      [series]="series"
-      [chart]="chartOptions.chart"
-      [plotOptions]="chartOptions.plotOptions"
-      [colors]="chartOptions.colors"
-      [dataLabels]="chartOptions.dataLabels"
-      [legend]="chartOptions.legend"
-      [labels]="labels"
-      [responsive]="chartOptions.responsive">
-    </apx-chart>
+      <apx-chart
+        [series]="series"
+        [chart]="chartOptions.chart"
+        [plotOptions]="chartOptions.plotOptions"
+        [colors]="chartOptions.colors"
+        [dataLabels]="chartOptions.dataLabels"
+        [legend]="chartOptions.legend"
+        [labels]="labels"
+        [responsive]="chartOptions.responsive"
+      >
+      </apx-chart>
     </div>
   `,
-  styles:['']
+  styles: ['']
 })
-export class PieChartMiniComponent  implements OnInit {
-  @ViewChild("chart") chart: ChartComponent;
+export class PieChartMiniComponent implements OnInit {
+  @ViewChild('chart') chart: ChartComponent;
 
-  @Input("series") series = [];
-  @Input("labels") labels = [];
+  @Input('series') series = [];
+  @Input('labels') labels = [];
 
   public chartOptions;
 
-  constructor() {
-
-  }
-  ngOnInit(){
+  constructor() {}
+  ngOnInit() {
     this.chartOptions = {
       series: [],
       chart: {
-        type: "donut",
+        type: 'donut',
         width: 160
       },
-      plotOptions:{
-        pie:{
-          customScale:1,
-          offsetX:10 ,
+      plotOptions: {
+        pie: {
+          customScale: 1,
+          offsetX: 10,
           offsetY: 5,
-          donut:{
-            size:"60%",
-            labels:{
-              show:true,
+          donut: {
+            size: '60%',
+            labels: {
+              show: true,
               value: {
                 offsetY: -17,
                 show: true,
                 fontSize: '.8em',
                 fontFamily: '29LT Bukra - Bold !important',
-                fontWeight:'bold',
-                opacity:.9,
+                fontWeight: 'bold',
+                opacity: 0.9
               },
-              total:{
-                show:true,
+              total: {
+                show: true,
                 offsetY: 4,
-                label:'Total',
+                label: 'Total',
                 showAlways: true,
-                fontSize: '.8em',
+                fontSize: '.8em'
               },
               name: {
                 show: true,
                 offsetY: 13,
-                fontSize: '1.3em',
+                fontSize: '1.3em'
               }
             }
           }
         }
       },
-      dataLabels:{
-        enabled: false,
+      dataLabels: {
+        enabled: false
       },
-      legend:{
+      legend: {
         show: false,
-        position: 'bottom',
+        position: 'bottom'
       },
       responsive: [
         {
@@ -89,7 +88,7 @@ export class PieChartMiniComponent  implements OnInit {
           options: {
             chart: {
               width: 140
-            },
+            }
           }
         },
         {
@@ -97,7 +96,7 @@ export class PieChartMiniComponent  implements OnInit {
           options: {
             chart: {
               width: 130
-            },
+            }
           }
         },
         {
@@ -105,12 +104,12 @@ export class PieChartMiniComponent  implements OnInit {
           options: {
             chart: {
               width: 120
-            },
+            }
           }
         }
       ],
-      colors:['#B1EECF','#39DA8A','#F2F4F4'],
-      labels:[]
+      colors: ['#B1EECF', '#39DA8A', '#F2F4F4'],
+      labels: []
     };
   }
 }

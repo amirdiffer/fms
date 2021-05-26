@@ -109,7 +109,7 @@ export class MovementConfirmComponent extends Utility implements OnInit {
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
-        this.dialogErrorSetting.message=x.error.message;
+        this.dialogErrorSetting.message = x.error.message;
       }
     });
   }

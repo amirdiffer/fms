@@ -30,6 +30,14 @@ import {
   FLEET_ORGANIZATION_FEATURE_KEY,
   OrganizationState
 } from './organization/organization.entity';
+import {
+  FLEET_OPERATOR_TRAFFIC_FINE_FEATURE_KEY,
+  IOperatorTrafficFineState
+} from './operator/traffic-fine-tab/operator-traffic-fine.entity';
+import {
+  FLEET_OPERATOR_MOVEMENT_HISTORY_FEATURE_KEY,
+  IOperatorMovementHistoryState
+} from './operator/movement-history-tab/operator-movement-history.entity';
 
 export const FLEET_FEATURE_KEY = 'fleet';
 
@@ -38,6 +46,8 @@ export interface State {
   readonly [FLEET_CUSTOMIZATION_FEATURE_KEY]: ICustomizationState;
   readonly [FLEET_REGISTRATION_FEATURE_KEY]: IRegistrationState;
   readonly [FLEET_OPERATOR_FEATURE_KEY]: IOperatorState;
+  readonly [FLEET_OPERATOR_TRAFFIC_FINE_FEATURE_KEY]: IOperatorTrafficFineState;
+  readonly [FLEET_OPERATOR_MOVEMENT_HISTORY_FEATURE_KEY]: IOperatorMovementHistoryState;
   readonly [FLEET_ACCESSORY_FEATURE_KEY]: IAccessoryState;
   readonly [FLEET_SUB_ASSET_FEATURE_KEY]: SubAssetState;
   readonly [FLEET_ORGANIZATION_FEATURE_KEY]: OrganizationState;

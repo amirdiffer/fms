@@ -106,7 +106,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             {
               name: 'sidebar.fleets.movement.temporary',
               route: '/fleet/movement/temporary'
-            },
+            }
             /* {
               name: 'sidebar.fleets.movement.iserve',
               route: '/fleet/movement/iserve'
@@ -208,7 +208,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             {
               name: 'sidebar.part_store.sub_asset',
               route: '/part-store/order-list/sub-asset'
-            },
+            }
           ]
         },
         {
@@ -322,7 +322,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     private routerService: RouterService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.usingMenu = this.mainMenu;
@@ -359,7 +359,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       }
   }
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {}
 
   activeMenuCheck(route: string) {
     let r = '';

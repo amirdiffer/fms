@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnType } from '@core/table';
-import { AssetMasterFacade, AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
+import {
+  AssetMasterFacade,
+  AssetMasterService
+} from '@feature/fleet/+state/assets/asset-master';
 import moment from 'moment';
 import { Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BodyShopJobCardService } from "../../+state/body-shop/job-card/body-shop-job-card.service";
+import { BodyShopJobCardService } from '../../+state/body-shop/job-card/body-shop-job-card.service';
 
 @Component({
   selector: 'anms-job-card-overview',
@@ -13,16 +16,14 @@ import { BodyShopJobCardService } from "../../+state/body-shop/job-card/body-sho
   styleUrls: ['./job-card-overview.component.scss']
 })
 export class JobCardOverviewComponent implements OnInit {
-
   assetId;
   jobcardId;
   assetDetail;
-  sidebarData$ =  new Subject();
-  tableData$= new Subject()
+  sidebarData$ = new Subject();
+  tableData$ = new Subject();
 
   jobCartsData = new Subject<any[]>();
   tableData2$ = this.jobCartsData.asObservable();
-
 
   vehicle = {
     id: 1,
@@ -142,7 +143,7 @@ export class JobCardOverviewComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => { },
+      onClick: (col, data, button?) => {},
       floatButton: [
         {
           button: 'edit',
@@ -164,7 +165,6 @@ export class JobCardOverviewComponent implements OnInit {
         // }
       ]
     }
-
   };
 
   section = 'list';
@@ -180,22 +180,36 @@ export class JobCardOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.assetId = +this.route.snapshot.params.id;
-    this.service.getJobCardById(this.assetId).subscribe(
-      x => {
-        if(x){
-          console.log(x)
-          this.tableData$.next(x.message.tasks.map(x => {return x.taskMaster}))
-          this.sidebarData$.next({message:{
-            ...x.message , 
+    this.service.getJobCardById(this.assetId).subscribe((x) => {
+      if (x) {
+        console.log(x);
+        this.tableData$.next(
+          x.message.tasks.map((x) => {
+            return x.taskMaster;
+          })
+        );
+        this.sidebarData$.next({
+          message: {
+            ...x.message,
             status: x.message.status,
-            startDate:x.message.startDate !== null ? moment.utc(x.message.startDate *1000).local().format('DD-MM-YYYY'):'-',
-            endDate:x.message.endDate !== null ? moment.utc(x.message.endDate *1000).local().format('DD-MM-YYYY'):'-',
-            cost:x.message.cost !== null ? x.message.cost : '-'
-          }})
-        }
+            startDate:
+              x.message.startDate !== null
+                ? moment
+                    .utc(x.message.startDate * 1000)
+                    .local()
+                    .format('DD-MM-YYYY')
+                : '-',
+            endDate:
+              x.message.endDate !== null
+                ? moment
+                    .utc(x.message.endDate * 1000)
+                    .local()
+                    .format('DD-MM-YYYY')
+                : '-',
+            cost: x.message.cost !== null ? x.message.cost : '-'
+          }
+        });
       }
-    )
-
+    });
   }
-
 }

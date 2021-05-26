@@ -98,10 +98,6 @@ import { DateRenderer } from '@core/table/renderers/date';
     ApproveButtonRendererComponent,
     DateRenderer,
   ],
-  providers: [
-    TableFacade,
-    TableService,
-    TableServiceS
-  ]
+  providers: [TableFacade, TableService, TableServiceS]
 })
 export class TableModule {}

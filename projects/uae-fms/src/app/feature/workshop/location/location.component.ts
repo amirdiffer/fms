@@ -5,7 +5,10 @@ import { ColumnType, TableSetting } from '@core/table';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BodyShopLocationFacade } from '../+state/body-shop';
-import { ServiceShopLocationFacade, ServiceShopLocationService } from '../+state/service-shop';
+import {
+  ServiceShopLocationFacade,
+  ServiceShopLocationService
+} from '../+state/service-shop';
 
 @Component({
   selector: 'anms-location',
@@ -65,7 +68,7 @@ export class LocationComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => { },
+      onClick: (col, data, button?) => {},
       floatButton: [
         {
           button: 'edit',
@@ -74,7 +77,10 @@ export class LocationComponent implements OnInit {
             this.bodyshopFacadeLocation.resetParams();
             this.serviceshopFacadeLocation.resetParams();
             this.router.navigate([
-              '/workshop/location/edit-location/' + data.type.replace(" ","-").toLowerCase() + '/' + data.id
+              '/workshop/location/edit-location/' +
+                data.type.replace(' ', '-').toLowerCase() +
+                '/' +
+                data.id
             ]);
           }
         }
@@ -92,7 +98,6 @@ export class LocationComponent implements OnInit {
     }
   };
 
-
   constructor(
     private bodyshopFacadeLocation: BodyShopLocationFacade,
     private serviceshopFacadeLocation: ServiceShopLocationFacade,
@@ -105,56 +110,56 @@ export class LocationComponent implements OnInit {
     this.bodyshopFacadeLocation.loadAll();
     this.serviceshopFacadeLocation.loadAll();
 
-    this.bodyshopFacadeLocation.bodyShop$.pipe(
-      map((x) => {
-        return x.map((y) => {
-          return {
-            ...y,
-            locationId: y.locationThirdPartyId,
-            service: y.services.join(','),
-            address: y.address,
-            type: 'Body Shop',
-            jobCard: y.numOfJobCards,
-            technician: y.numOfTechnicians,
-            capacity: y.capacity
-          };
-        });
-      })
-    ).subscribe(x => {
-      this.bodyshop = x;
-      this.locationData.next([...this.bodyshop, ...this.serviceshop])
-    })
+    this.bodyshopFacadeLocation.bodyShop$
+      .pipe(
+        map((x) => {
+          return x.map((y) => {
+            return {
+              ...y,
+              locationId: y.locationThirdPartyId,
+              service: y.services.join(','),
+              address: y.address,
+              type: 'Body Shop',
+              jobCard: y.numOfJobCards,
+              technician: y.numOfTechnicians,
+              capacity: y.capacity
+            };
+          });
+        })
+      )
+      .subscribe((x) => {
+        this.bodyshop = x;
+        this.locationData.next([...this.bodyshop, ...this.serviceshop]);
+      });
 
-    this.serviceshopFacadeLocation.serviceShop$.pipe(
-      map((x) => {
-        return x.map((y) => {
-          return {
-            ...y,
-            locationId: y.locationThirdPartyId,
-            service: y.services.join(','),
-            address: y.address,
-            type: 'Service Shop',
-            jobCard: y.numOfJobCards,
-            technician: y.numOfTechnicians,
-            capacity: y.capacity
-          };
-        });
-      }
-      )).subscribe(x => {
+    this.serviceshopFacadeLocation.serviceShop$
+      .pipe(
+        map((x) => {
+          return x.map((y) => {
+            return {
+              ...y,
+              locationId: y.locationThirdPartyId,
+              service: y.services.join(','),
+              address: y.address,
+              type: 'Service Shop',
+              jobCard: y.numOfJobCards,
+              technician: y.numOfTechnicians,
+              capacity: y.capacity
+            };
+          });
+        })
+      )
+      .subscribe((x) => {
         this.serviceshop = x;
-        this.locationData.next([...this.bodyshop, ...this.serviceshop])
-      })
+        this.locationData.next([...this.bodyshop, ...this.serviceshop]);
+      });
   }
 
-  eventPagination_location() {
-
-  }
+  eventPagination_location() {}
 
   addClicked($event) {
     this.router.navigate(['workshop/location/add-location']);
   }
 
-  exportTable() {
-
-  }
+  exportTable() {}
 }

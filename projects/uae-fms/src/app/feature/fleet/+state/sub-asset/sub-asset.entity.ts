@@ -10,6 +10,7 @@ export interface SubAssetState extends EntityState<ISubasset> {
   submitted?: boolean;
   statistics: ISubAssetStatistics;
   message?: string;
+  specificSubAsset?:any;
 }
 
 export interface SubAssetPartialState {
@@ -25,5 +26,6 @@ export const initialState: SubAssetState = subAssetAdapter.getInitialState({
   loaded: null,
   statistics: null,
   message: null,
-  submitted: false
+  submitted: false,
+  specificSubAsset:null
 } as SubAssetState);

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ILifeCycle } from '@core/charts/life-cycle.chart.component';
 import { TableSetting } from '@core/table';
-import { IHistory, IHistoryType } from './history/history.component';
+import { AssetPolicyFacade, AssetPolicyService } from '@feature/configuration/+state/asset-policy';
+import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { IReminders, IRemindersType } from './reminder/reminder.component';
 
 @Component({
@@ -9,6 +14,14 @@ import { IReminders, IRemindersType } from './reminder/reminder.component';
   styleUrls: ['./sub-asset-overview.component.scss']
 })
 export class SubAssetOverviewComponent implements OnInit {
+  subAssetdata$:Observable<any> = of(null);
+  policyTypeTableData$:Observable<any>;
+  calculateTableData$:Observable<any>;
+  id:number;
+  purchaseValue:number;
+  startDate;
+  assetPolicy:any;
+  lifeCycleData:ILifeCycle[]
   reminderData:IReminders[] =[
     {
       title:'Text Text',
@@ -53,46 +66,7 @@ export class SubAssetOverviewComponent implements OnInit {
       type:IRemindersType.normal
     }
   ]
-  workshopHistoryData:IHistory[]=[
-    {
-      title:'Repairing the lenses',
-      date:'12 SEP 2018',
-      time:'02:46PM',
-      assign:'Atefe Fazaeli',
-      type:IHistoryType.doing
-    },
-    {
-      title:'Repairing the lenses',
-      date:'12 SEP 2018',
-      time:'02:46PM',
-      assign:'Atefe Fazaeli',
-      type:IHistoryType.done
-    }
-    ,
-    {
-      title:'Repairing the lenses',
-      date:'12 SEP 2018',
-      time:'02:46PM',
-      assign:'Atefe Fazaeli',
-      type:IHistoryType.done
-    }
-    ,
-    {
-      title:'Repairing the lenses',
-      date:'12 SEP 2018',
-      time:'02:46PM',
-      assign:'Atefe Fazaeli',
-      type:IHistoryType.done
-    }
-    ,
-    {
-      title:'Repairing the lenses',
-      date:'12 SEP 2018',
-      time:'02:46PM',
-      assign:'Atefe Fazaeli',
-      type:IHistoryType.done
-    }
-  ]
+
   reviewPlaneSettingTable: TableSetting = {
     columns: [
       {
@@ -114,18 +88,7 @@ export class SubAssetOverviewComponent implements OnInit {
         renderer: ''
       }
     ],
-    data: [
-      {
-        depreciationValue:'%20',
-        maxUsageYear:'After 5 years',
-        maxUsageKPHour:'-'
-      },
-      {
-        depreciationValue:'',
-        maxUsageYear:'02/02/2020',
-        maxUsageKPHour:'-'
-      }
-    ]
+    data: []
   };
   reviewPlaneSettingTable2: TableSetting = {
     columns: [
@@ -143,93 +106,97 @@ export class SubAssetOverviewComponent implements OnInit {
         renderer: ''
       }
     ],
-    data: [
-      {
-        year:1,
-        bookValue:'43000 AED'
-      },
-      {
-        year:2,
-        bookValue:'39000 AED'
-      },
-      {
-        year:3,
-        bookValue:'36000 AED'
-      },
-      {
-        year:4,
-        bookValue:'16000 AED'
-      },
-      {
-        year:5,
-        bookValue:'0 AED'
-      }
-    ]
+    data: []
   };
-
-  reviewMaintenancePlan:TableSetting = {
-    columns: [
-      {
-        lable: 'tables.column.intervals',
-        type: 1,
-        width:'10em' ,
-        field: 'intervals',
-        renderer: ''
-      },
-      {
-        lable: 'tables.column.service_tasks',
-        type: 1,
-        field: 'serviceTasks',
-        renderer: ''
-      },
-    ],
-    data:[
-      {
-        intervals:'Every 2 Month',
-        serviceTasks:'Engine/Drive Belt(s) Replacement , Transmission Filter'
-      },
-      {
-        intervals:'Every 2 Month',
-        serviceTasks:'Engine/Drive Belt(s) Replacement , Transmission Filter'
-      },
-      {
-        intervals:'Every 2 Month',
-        serviceTasks:'Engine/Drive Belt(s) Replacement , Transmission Filter'
-      }
-    ]
-  }
-  reviewWarrantyPlan:TableSetting = {
-    columns: [
-      {
-        lable: 'tables.column.warranty_for',
-        type: 1,
-        field: 'item',
-        renderer: ''
-      },
-      {
-        lable: 'tables.column.start_date',
-        type: 1,
-        field: 'startDate',
-        renderer: ''
-      },
-      {
-        lable: 'tables.column.end_date',
-        type: 1,
-        field: 'endDate',
-        renderer: ''
-      },
-    ],
-    data:[
-      {
-        item:'Engine',
-        startDate:'02/02/2020',
-        endDate:'02/02/2020',
-      }
-    ]
-  }
-  constructor() { }
+  constructor(private _activatedRoute:ActivatedRoute,
+              private _subAssetFacede: SubAssetFacade,
+              private _assetPolicyFacade:AssetPolicyFacade) { }
 
   ngOnInit(): void {
+    this.id = this._activatedRoute.snapshot.params.id;
+    this.policyTypeTableData$ = this._assetPolicyFacade.specific$.pipe(
+      map(x => {
+        if(x){
+          this.assetPolicy = x;
+          this.calculate();
+          return [
+            {
+              depreciationValue:`%${x.depreciationValue}`,
+              maxUsageYear:`After ${x.maxUsageYear} ${x.maxUsageYear < 2 ? 'Year' : 'Years'}`,
+              maxUsageKPHour:`After ${x.maxUsageKPHour} km/h`
+            }
+          ]
+        }
+      })
+    )
+    if(this.id){
+      this._subAssetFacede.getSpecificSubAsset(this.id)
+      this.subAssetdata$ =  this._subAssetFacede.specificSubAsset$.pipe(
+        map(x=>{
+          if(x){
+            this.purchaseValue = x.purchaseValue
+            this._assetPolicyFacade.specific(x.policyTypeId);
+            this.startDate = new Date(x.createdAt *1000).getUTCFullYear()
+            return {
+              title:`Sub Asset No.${x.serialNumber}`,
+              vin_sn: x.serialNumber,
+              subAssetType: x.subAssetConfigurationName,
+              make:x.subAssetMakeName,
+              model:x.subAssetModelName,
+              created:new Date(x.createdAt *1000).toLocaleString().split(',')[0],
+              policyType:x.policyTypeName,
+              purchaseValue:x.purchaseValue,
+              warrantyItems:x.warranties.map(
+                warranty => {
+                  return {
+                    ...warranty,
+                    startDate:new Date(warranty.startDate *1000).toLocaleString().split(',')[0],
+                  }
+                }
+              ),
+              avatar:x.avatarId
+            }
+          }
+        })
+      );
+      
+    }
+  };
+
+  calculate(){
+    let depreciationValue = this.assetPolicy.depreciationValue,
+        maxUsageKPHour = this.assetPolicy.maxUsageKPHour,
+        maxUsageYear = this.assetPolicy.maxUsageYear,
+        purchaseValue = this.purchaseValue,
+        tableData = [],
+        newDepreciationValue = depreciationValue / maxUsageYear
+    for (let index = 0; index < 9; index++) {
+      let value = Math.round((purchaseValue * newDepreciationValue) / 100);
+      purchaseValue = purchaseValue - value;
+      tableData.push({
+        year:index+1,
+        bookValue:`${purchaseValue} AED`
+      })
+    }
+    this.reviewPlaneSettingTable2.data = tableData
+    this.calculateTableData$ = of(tableData);
+    let LifeCycle =[];
+    let service = []
+    let year = this.startDate;
+    if(maxUsageYear > 1) {
+      for (let i = 0; i < maxUsageYear; i++) {
+        service.push({title:i})
+      } 
+    }
+    for (let index = 0; index <  4; index++) {
+      LifeCycle.push({
+        year:year,
+        mileage:'',
+        service: index < 3 ? service : []
+      });
+      year = year + maxUsageYear;
+    }
+    this.lifeCycleData = LifeCycle
   }
 
 }

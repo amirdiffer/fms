@@ -31,7 +31,7 @@ import { JobCardComponent } from './work-shop-overview/job-card/job-card.compone
 import { PerformanceComponent } from './work-shop-overview/performance/performance.component';
 import { JobTypeComponent } from './work-shop-overview/job-type/job-type.component';
 import { AssetOverviewComponent } from './asset-overview/asset-overview.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';

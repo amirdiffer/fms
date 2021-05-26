@@ -25,4 +25,9 @@ export class SubAssetSelectors {
     FleetSelectors.subAssetSelector,
     (state) => state.submitted
   );
+
+  static spedificSubAsset = createSelector(
+    FleetSelectors.subAssetSelector,
+    (state) => state.specificSubAsset
+  );
 }

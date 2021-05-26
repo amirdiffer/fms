@@ -45,7 +45,10 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   );
 
   date(y) {
-    let createdDate = moment.utc(y*1000).local().toDate();
+    let createdDate = moment
+      .utc(y * 1000)
+      .local()
+      .toDate();
     let nowDate = new Date();
     let newDate = nowDate.getTime() - createdDate.getTime();
     return {
@@ -76,8 +79,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           allocated: y.department.name,
           operator: y.operator.firstName + ' ' + y.operator.lastName,
           status: y.status,
-          submitOn:
-            this.getDateString(this.date(y.createdAt)),
+          submitOn: this.getDateString(this.date(y.createdAt)),
           // brand: 'bmw.png',
           brand: y.makeName,
           killometer: y.actualOdometer,
@@ -113,7 +115,6 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
     })
   );
 
-
   dataCustomization$ = this.customizationFacade.customization$.pipe(
     map((x) => {
       return x.map((y: any) => {
@@ -145,7 +146,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
     private registrationFacade: RegistrationFacade,
     private customizationFacade: CustomizationFacade,
     private _router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.assetMasterTableSetting = {
@@ -241,7 +242,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
             color: '#3F3F3F',
             onClick: (col, data, button?) => {
               this.assetMasterFacade.reset();
-              this.assetMasterFacade.getAssetByID(data.id)
+              this.assetMasterFacade.getAssetByID(data.id);
               this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
             },
             permission:['ASSET_UPDATE_OTHERS' , 'ASSET_UPDATE_OWN']
@@ -352,12 +353,16 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
               ? this.date(y).day == 1
                 ? `${this.date(y).day} Yesterday`
                 : `${this.date(y).day} Days Ago`
-              : 'Today'
+              : 'Today';
           },
           brand: 'makeName',
           killometer: 'actualOdometer'
         };
-        this.table.exportTable(this.assetMasterTableSetting, this.selectedTab, filter);
+        this.table.exportTable(
+          this.assetMasterTableSetting,
+          this.selectedTab,
+          filter
+        );
         break;
       case 'pendingRegistrationTab':
         filter = {
@@ -370,7 +375,8 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
         };
         this.table.exportTable(
           this.pendingRegistrationTableSetting,
-          this.selectedTab, filter
+          this.selectedTab,
+          filter
         );
         break;
       case 'pendingCustomizationTab':
@@ -383,7 +389,8 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
         };
         this.table.exportTable(
           this.pendingCustomizationTableSetting,
-          this.selectedTab, filter
+          this.selectedTab,
+          filter
         );
         break;
     }
@@ -408,15 +415,14 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
 
   getDateString(date) {
     if (date.day > 365) {
-      return `${Math.floor(date.day/365 )} Years Ago`;
+      return `${Math.floor(date.day / 365)} Years Ago`;
     } else if (date.day > 30) {
-      return `About ${Math.floor(date.day/30)} Months Ago`;
-    }
-    else
+      return `About ${Math.floor(date.day / 30)} Months Ago`;
+    } else
       return date.day > 0
         ? date.day == 1
           ? `Yesterday`
           : `${date.day} Days Ago`
-        : 'Today'
+        : 'Today';
   }
 }

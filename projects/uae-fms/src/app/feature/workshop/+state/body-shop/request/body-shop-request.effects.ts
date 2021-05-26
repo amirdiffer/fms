@@ -85,7 +85,9 @@ export class BodyShopRequestEffect {
       mergeMap((action) =>
         this.service.getRequestById(action.id).pipe(
           map((data) => {
-            return BodyShopRequestActions.specificRequestLoaded({data: data.message});
+            return BodyShopRequestActions.specificRequestLoaded({
+              data: data.message
+            });
           }),
           catchError((error) =>
             of(BodyShopRequestActions.error({ reason: error }))
@@ -94,7 +96,6 @@ export class BodyShopRequestEffect {
       )
     )
   );
-
 
   loadStatistics$ = createEffect(() =>
     this.action$.pipe(
