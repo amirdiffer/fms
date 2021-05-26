@@ -23,7 +23,7 @@ const routes: Routes = [
       ),
     component: MainTemplateComponent
   },
-  /* {
+  {
     path: 'dashboard/technician',
     canLoad: [AuthGuardService],
     loadChildren: () =>
@@ -31,7 +31,7 @@ const routes: Routes = [
         (m) => m.TechnicianModule
       ),
     component: TechnicianOverviewComponent
-  }, */
+  },
   {
     path: 'fleet',
     canLoad: [AuthGuardService],
