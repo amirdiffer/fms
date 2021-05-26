@@ -109,7 +109,7 @@ export class MovementConfirmComponent extends Utility implements OnInit {
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
-        this.dialogErrorSetting.message = x.error.message;
+        this.dialogErrorSetting.message = x.error.message!=""?x.error.message:"Error occurred during operation";
       }
     });
   }
@@ -175,9 +175,9 @@ export class MovementConfirmComponent extends Utility implements OnInit {
   }
 
   successConfirm($event) {
+    this._requestFacade.reset();
     this.displayErrorModal = false;
     this.displaySuccessModal = false;
-    this.dialogRef.close();
-    this._requestFacade.reset();
+    this.dialogRef.close(true);
   }
 }
