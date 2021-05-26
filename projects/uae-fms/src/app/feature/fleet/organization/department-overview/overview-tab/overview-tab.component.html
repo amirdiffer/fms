@@ -61,53 +61,6 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div class='component_wrapper form-section'>
-      <div class='_row col-md-12 justify-content-between'>
-        <div class='mt-2' [ngClass]="isEditingDepartmentInfo ? 'col-md-12' : 'col-md-11'">
-          <h6 class='component-wrapper-header'>{{ 'organization.department_info' | translate}}</h6>
-          <div class='row col-md-6 mt-4 justify-content-between' *ngIf='!isEditingDepartmentInfo'>
-            <div>
-              <div>{{ 'organization.department_id' | translate}}</div>
-              <div>123456789</div>
-            </div>
-            <div>
-              <div>{{ 'organization.department_name' | translate}}</div>
-              <div>Sample Department</div>
-            </div>
-          </div>
-          <div class='row mt-4 mb-3' *ngIf='isEditingDepartmentInfo'>
-            <div class='col-md-6 form-section__field autocomplete-select'>
-              <div class='p-float-label'>
-                <p-autoComplete field='organizationName' [minLength]='1'>
-                </p-autoComplete>
-                <i class='pi pi-search'></i>
-                <label>{{ 'organization.department_id' | translate}} *</label>
-              </div>
-            </div>
-            <div class='col-md-6 form-section__field'>
-              <div class='p-float-label'>
-                <input class='w-100' pInputText>
-                <label>{{ 'organization.department_name' | translate}} *</label>
-              </div>
-            </div>
-            <div class='w-100 text-right mr-3' [class.text-right]='activeLang === "en"'
-                 [class.text-left]='activeLang === "ar"'>
-              <button class='btn-primary-small btn-scondary-green' [class.mr-2]='activeLang === "en"'
-                      [class.ml-2]='activeLang === "ar"' (click)='isEditingDepartmentInfo = false'>
-                {{'forms.cancel' | translate}}
-              </button>
-              <button class='btn-primary-small' (click)='isEditingDepartmentInfo = false'>
-                {{'forms.save' | translate}}
-              </button>
-            </div>
-          </div>
-        </div>
-        <div *ngIf='!isEditingDepartmentInfo' class='col-1'>
-          <img class='float-right cursor-pointer' src='assets/icons/edit.svg' alt=''
-               (click)='onDepartmentInfoEdit()'>
-        </div>
-      </div>
-    </div>
     <div class='component_wrapper form-section pb-3'>
       <div class='col-md-12 mt-2 ml-3'>
         <h6 class='component-wrapper-header'>{{ 'organization.overview.tag' | translate }}</h6>

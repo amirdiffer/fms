@@ -19,7 +19,6 @@ export class OverviewTabComponent extends Utility implements OnInit {
 
   //region Variable
   activeLang = '';
-  isEditingDepartmentInfo = true; // TODO: set to false later
   //#endregion
 
   //#region Table
@@ -92,10 +91,6 @@ export class OverviewTabComponent extends Utility implements OnInit {
         TF_Payed: y.tfPaid
       }
     });
-  }
-
-  onDepartmentInfoEdit(): void {
-    this.isEditingDepartmentInfo = !this.isEditingDepartmentInfo;
   }
 
 }
