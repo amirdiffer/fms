@@ -68,7 +68,7 @@ export class SubAssetService {
 
   getSpecificSubAsset(id): Observable<any> {
     return this.http.get<Observable<any>>(
-      environment.baseApiUrl + '/sub-asset/' + id
+      environment.baseApiUrl + 'sub-asset/' + id
     );
   }
 
