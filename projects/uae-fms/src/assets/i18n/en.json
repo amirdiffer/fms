@@ -143,7 +143,8 @@
     "edit_task_master": "Edit Task Master",
     "edit_location": "Edit Location",
     "edit_trim": "Edit Trim",
-    "edit_make": "Edit Make"
+    "edit_make": "Edit Make",
+    "accessory_overview": "Accessory Overview"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -943,7 +944,23 @@
     "accessory_type": "Accessory Type",
     "quantity": "Quantity",
     "assigned_to": "Assigned To",
-    "assets_sub_assets": "Assets / Sub Assets"
+    "assets_sub_assets": "Assets / Sub Assets",
+    "overview": {
+      "item_name": "Item Name",
+      "asset_name": "Asset Name",
+      "accessory_type": "Accessory Type",
+      "accessory_name": "Accessory Name",
+      "accessory_item_name": "Accessory Item Name",
+      "assignment_asset_info": "Assignment Asset Info",
+      "dpd_number": "DPD-Number",
+      "quantity": "Quantity",
+      "make": "Manufacturer",
+      "model": "Model",
+      "year_of_make": "Year of Manufacturer",
+      "meter_reading": "Meter reading",
+      "dep_section": "Dep/Section",
+      "status": "Status"
+    }
   },
   "operator": {
     "portal_information": "Portal Information",
@@ -1904,21 +1921,6 @@
     "week": "Week",
     "this_month": "This Month",
     "service": "Service"
-  },
-  "sub_asset_overview": {
-    "item_name": "Item Name",
-    "asset_name": "Asset Name",
-    "accessory_type": "Accessory Type",
-    "accessory_name": "Accessory Name",
-    "accessory_item_name": "Accessory Item Name",
-    "assignment_asset_info": "Assignment Asset Info",
-    "dpd_number": "DPD-Number",
-    "quantity": "Quantity",
-    "make": "Manufacturer",
-    "model": "Model",
-    "year_of_make": "Year of Manufacturer",
-    "meter_reading": "Meter reading",
-    "dep_section": "Dep/Section"
   },
   "traffic_fine": {
     "asset_traffic_file": {}

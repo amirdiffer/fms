@@ -8,37 +8,41 @@
       <div class="row">
         <div class="col-md-3">
           <div class="component_wrapper">
-            <h4 class="sub-asset-overview__subtitle">{{ 'sub_asset_overview.accessory_item_name' | translate }}</h4>
+            <h4 class="sub-asset-overview__subtitle">{{ 'accessory.overview.accessory_item_name' | translate }}</h4>
             <table class="sub-asset-overview__info">
               <tr>
-                <th>{{ 'sub_asset_overview.accessory_type' | translate }}</th>
+                <th>{{ 'accessory.overview.accessory_type' | translate }}</th>
                 <td>{{ accessoryDetails.accessorySpecification.name }}</td>
               </tr>
             </table>
 
-            <h4 class="sub-asset-overview__subtitle">{{ 'sub_asset_overview.assignment_asset_info' | translate }}</h4>
+            <h4 class="sub-asset-overview__subtitle">{{ 'accessory.overview.assignment_asset_info' | translate }}</h4>
             <table class="sub-asset-overview__info">
               <tr>
-                <th>{{ 'sub_asset_overview.year_of_make' | translate }}</th>
+                <th>{{ 'accessory.overview.year_of_make' | translate }}</th>
                 <td>{{ accessoryDetails?.assignmentAssetInfoResponse?.yearOfMake }}</td>
               </tr>
               <tr>
-                <th>{{ 'sub_asset_overview.meter_reading' | translate }}</th>
+                <th>{{ 'accessory.overview.meter_reading' | translate }}</th>
                 <td>{{ accessoryDetails?.assignmentAssetInfoResponse?.meterReading }}</td>
+              </tr>
+              <tr>
+                <th>{{'accessory.overview.status' | translate}}</th>
+                <td>{{ accessoryDetails?.assignmentAssetInfoResponse?.progressStatus }}</td>
               </tr>
             </table>
           </div>
         </div>
         <div class="col-md-9">
           <div class="component_wrapper">
-            <h3 class="sub-asset-overview__title">{{ 'sub_asset_overview.item_name' | translate }}</h3>
+            <h3 class="sub-asset-overview__title">{{ 'accessory.overview.item_name' | translate }}</h3>
           <table class="sub-asset-overview__info bordered">
             <tr>
-              <th>{{ 'sub_asset_overview.item_name' | translate }}</th>
+              <th>{{ 'accessory.overview.item_name' | translate }}</th>
               <td>{{ accessoryDetails.itemName }}</td>
             </tr>
             <tr>
-              <th>{{ 'sub_asset_overview.accessory_type' | translate }}</th>
+              <th>{{ 'accessory.overview.accessory_type' | translate }}</th>
               <td>{{ accessoryDetails.accessorySpecification.name }}</td>
             </tr>
             <tr>
@@ -46,19 +50,19 @@
               <td>{{ accessoryDetails.assignedToEmployeeId.firstName }} {{ accessoryDetails.assignedToEmployeeId.lastName }}</td>
             </tr>
 <!--            <tr>-->
-<!--              <th>{{ 'sub_asset_overview.asset_name' | translate }}</th>-->
+<!--              <th>{{ 'accessory.overview.asset_name' | translate }}</th>-->
 <!--              <td>DPD 0001234 </td>-->
 <!--            </tr>-->
 <!--            <tr>-->
-<!--              <th>{{ 'sub_asset_overview.quantity' | translate }}</th>-->
+<!--              <th>{{ 'accessory.overview.quantity' | translate }}</th>-->
 <!--              <td>2012</td>-->
 <!--            </tr>-->
 <!--            <tr>-->
-<!--              <th>{{ 'sub_asset_overview.make' | translate }}</th>-->
+<!--              <th>{{ 'accessory.overview.make' | translate }}</th>-->
 <!--              <td>Toyota</td>-->
 <!--            </tr>-->
 <!--            <tr>-->
-<!--              <th>{{ 'sub_asset_overview.model' | translate }}</th>-->
+<!--              <th>{{ 'accessory.overview.model' | translate }}</th>-->
 <!--              <td>RAV4</td>-->
 <!--            </tr>-->
           </table>
