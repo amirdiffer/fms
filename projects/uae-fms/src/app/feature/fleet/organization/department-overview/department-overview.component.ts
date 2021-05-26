@@ -30,46 +30,52 @@ export class DepartmentOverviewComponent implements OnInit {
   userTabFilter: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.total',
-      filterCount: '2456',
+      filterCount: '0',
       filterTagColor: '#42D0D9',
       filterSupTitle: 'statistic.user',
+      field: 'total',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
-      filterCount: '2456',
+      filterCount: '0',
       filterSupTitle: 'statistic.user',
       filterTagColor: '#9967D9',
+      field: 'active',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
-      filterCount: '2456',
+      filterCount: '0',
       filterSupTitle: 'statistic.user',
       filterTagColor: '#20E19D',
+      field: 'inactive',
       onActive(index: number) {}
     }
   ]
   trafficFineFilter: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.paid',
-      filterCount: '2456',
+      filterCount: '0',
       filterTagColor: '#42D0D9',
       filterSupTitle: 'statistic.user',
+      field: 'paid',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.unpainted',
-      filterCount: '2456',
+      filterCount: '0',
       filterSupTitle: 'statistic.user',
       filterTagColor: '#9967D9',
+      field: 'unpaid',
       onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.deducte',
-      filterCount: '2456',
+      filterCount: '0',
       filterSupTitle: 'statistic.user',
       filterTagColor: '#20E19D',
+      field: 'deducted',
       onActive(index: number) {}
     }
   ]
@@ -288,6 +294,24 @@ export class DepartmentOverviewComponent implements OnInit {
         }
       });
       this.obsMovementHistoryCount.next(data.length);
+    });
+    this.organizationService.userStatsByOrganizationId(orgId).subscribe(x => {
+      let data = x.message;
+      this.userTabFilter = this.userTabFilter.map(y => {
+        return {
+          ...y,
+          filterCount: data[y.field]
+        }
+      })
+    });
+    this.organizationService.trafficFineStatsByOrganizationId(orgId).subscribe(x => {
+      let data = x.message;
+      this.trafficFineFilter = this.trafficFineFilter.map(y => {
+        return {
+          ...y,
+          filterCount: data[y.field]
+        }
+      })
     });
   }
 

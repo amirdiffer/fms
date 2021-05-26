@@ -76,4 +76,16 @@ export class OrganizationService {
     );
   }
 
+  userStatsByOrganizationId(id) {
+    return this._http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'organization/' + id + '/stats/user'
+    );
+  }
+
+  trafficFineStatsByOrganizationId(id) {
+    return this._http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'organization/' + id + '/stats/traffic-fine'
+    );
+  }
+
 }
