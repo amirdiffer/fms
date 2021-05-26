@@ -842,7 +842,8 @@
     "asset_successfully_registered": "تم تسجيل الأصل بنجاح",
     "customize_later": "التخصيص لاحقًا",
     "customize_now": "تخصيص الآن",
-    "sample_hint_is_here_to_explain_process": "نموذج تلميح هنا لشرح العملية"
+    "sample_hint_is_here_to_explain_process": "نموذج تلميح هنا لشرح العملية",
+    "thumbnail": "ظفري"
   },
   "sub_asset": {
     "sub_asset_specification": "مواصفات الأصل الفرعي",

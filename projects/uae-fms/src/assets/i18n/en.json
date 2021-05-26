@@ -888,7 +888,8 @@
     "customize_later": "Customize Later",
     "customize_now": "Customize Now",
     "asset_successfully_registered": "Asset Successfully Registered",
-    "sample_hint_is_here_to_explain_process": "Sample hint is here to explain process"
+    "sample_hint_is_here_to_explain_process": "Sample hint is here to explain process",
+    "thumbnail": "Thumbnail"
   },
   "sub_asset": {
     "sub_asset_specification": "Sub Asset Specification",
