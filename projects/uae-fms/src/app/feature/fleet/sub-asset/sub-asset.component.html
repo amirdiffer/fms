@@ -1,20 +1,22 @@
-<div class="statistic-card">
-  <app-filter [setting]='filterCard'></app-filter>
-</div>
-<div class="table-container component_wrapper">
-  <div class="search-container card-table-header">
-    <div class="search-box">
-      <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
-      <button>
-        <img src="assets/icons/search-solid.svg" alt="">
+<ng-container *hasPermission="[{parent: 'FLEET' , permission : 'SUB_ASSET', permissionType:'MENU'}]">
+  <div class="statistic-card" *hasPermission="['SUB_ASSET_VIEW_LIST_OWN' , 'SUB_ASSET_VIEW_LIST_OTHERS']">
+    <app-filter [setting]='filterCard'></app-filter>
+  </div>
+  <div class="table-container component_wrapper">
+    <div class="search-container card-table-header">
+      <div class="search-box">
+        <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
+        <button>
+          <img src="assets/icons/search-solid.svg" alt="">
+        </button>
+      </div>
+      <button class="btn-download" (click)="exportTable()">
+        <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
+      <button *hasPermission="['SUB_ASSET_ADD']" class="btn-primary-small" [routerLink]="'./add-new-sub-asset'"><i>+</i><a>{{'search.add' | translate }}</a></button>
     </div>
-    <button class="btn-download" (click)="exportTable()">
-      <svg-icon [src]="downloadBtn"></svg-icon>
-    </button>
-    <button CheckAccess='sub-asset:create'  class="btn-primary-small" [routerLink]="'./add-new-sub-asset'"><i>+</i><a>{{'search.add' | translate }}</a></button>
+    <div class="table-wreapper" *hasPermission="['SUB_ASSET_VIEW_LIST_OWN' , 'SUB_ASSET_VIEW_LIST_OTHERS']">
+      <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="sub-asset" [setting]='assetTraffic_Table' [tableData]="data$"></app-table>
+    </div>
   </div>
-  <div class="table-wreapper">
-    <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="sub-asset" [setting]='assetTraffic_Table' [tableData]="data$"></app-table>
-  </div>
-</div>
+</ng-container>

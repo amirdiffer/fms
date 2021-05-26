@@ -130,6 +130,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           onClick: (col, data) => {
             this.router.navigate(['/fleet/sub-asset/edit-sub-asset/' + data['id']]);
           },
+          permission:['SUB_ASSET_UPDATE_OWN' , 'SUB_ASSET_UPDATE_OTHERS'],
           button: 'edit',
           color: '#3F3F3F'
         },
@@ -137,6 +138,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           onClick: (col, data) => {
             this.router.navigate(['/fleet/sub-asset/' + data['id']]);
           },
+          permission:['SUB_ASSET_VIEW_DETAILS_OTHERS' , 'SUB_ASSET_VIEW_DETAILS_OWN'],
           button: 'external',
           color: '#3F3F3F'
         }

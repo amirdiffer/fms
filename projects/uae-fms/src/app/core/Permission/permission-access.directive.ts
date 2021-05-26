@@ -1,6 +1,7 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from "@angular/core";
 import { UserProfileFacade } from "@feature/user/state";
 import { Subscription } from "rxjs";
+import { MenuPermission } from "./permission.model";
 
 
 @Directive({
@@ -8,8 +9,8 @@ import { Subscription } from "rxjs";
 })
 
 
-export class HasPermissionDirective implements OnInit{
-
+export class HasPermissionDirective extends MenuPermission implements OnInit {
+    
     private _currentUser = null;
     private _permissions =[];
     @Input()
@@ -21,7 +22,7 @@ export class HasPermissionDirective implements OnInit{
                 private _templateRef:TemplateRef<any>,
                 private _viewContainerRef : ViewContainerRef,
                 private _facadeProfile: UserProfileFacade
-                ){}
+                ){super()}
 
     ngOnInit(){
         this._facadeProfile.loadData$.subscribe(
@@ -40,12 +41,15 @@ export class HasPermissionDirective implements OnInit{
           this._viewContainerRef.clear();
         }
     }
-    private checkPermission() {
+    public checkPermission() {
         let hasPermission = false;
+        if( this._permissions && this._permissions.length > 0  && this._permissions[0].permissionType && this._permissions[0].permissionType === "MENU" ){
+            this._permissions = this.checkPermissions(this._permissions[0].parent , this._permissions[0].permission)
+        }
         if (this._currentUser && this._currentUser.roles[0].permissions) {
           for (const checkPermission of this._permissions) {
             const permissionFound = this._currentUser.roles[0].permissions.find(x => x.toUpperCase() === checkPermission.toUpperCase());
-            if(permissionFound){
+            if(permissionFound || checkPermission === 'AlLOW_ALWAYS'){
                 return !hasPermission;
             }
           }
@@ -53,3 +57,5 @@ export class HasPermissionDirective implements OnInit{
         return hasPermission;
     }
 }
+
+

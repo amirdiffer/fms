@@ -447,4 +447,5 @@ export interface FloatButtonType {
   tooltip?: string;
   onClick?: Function;
   condition?: Function;
+  permission?:string[];
 }

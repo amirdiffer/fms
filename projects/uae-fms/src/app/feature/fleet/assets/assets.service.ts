@@ -148,7 +148,8 @@ export class AssetsService {
             button: 'external',
             onClick: (col, data ,  button?) => {
               this.router.navigate([`/fleet/assets/${data.id}/registration`]);
-            }
+            },
+            permission:['ASSET_REGISTER_OWN' , 'ASSET_REGISTER_OTHERS']
           },
           // {
           //   button: 'cancel',
@@ -222,7 +223,8 @@ export class AssetsService {
             color: '#3F3F3F',
             onClick: (col, data) => {
               this.router.navigate([`/fleet/assets/${data.id}/customization`]);
-            }
+            },
+            permission:['ASSET_CUSTOMIZE_OWN' , 'ASSET_CUSTOMIZE_OTHERS']
           }
         ]
       }

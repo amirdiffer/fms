@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { RowSettings } from '@core/table/table.component';
 import { SettingsFacade } from '@core/settings/settings.facade';
+import { UserProfileFacade } from '@feature/user/state';
 
 @Component({
   selector: 'float-button-renderer',
@@ -19,19 +20,21 @@ import { SettingsFacade } from '@core/settings/settings.facade';
       }"
     >
       <ng-container *ngFor="let item of setting?.floatButton">
-        <span *ngIf="checkCondition(item)" (click)="clicked(item, col, data)" (mouseenter)="item.tooltip ? tooltipEnter() : null" (mouseleave)="item.tooltip ? tooltipLeave() : null">
-          <p *ngIf="item.button == 'folder-check' && item.tooltip" class="tooltip-float-button" #tooltip>{{item.tooltip}}</p>
-          <svg-icon
-            *ngIf="item.button !=='receive'"
-            [src]="getIcon(item.button)"
-            class="svg-icon"
-            [applyClass]="true"
-            [svgStyle]="{ 'fill': item.color || null , 'width.em':(item.button == 'folder-check'? 2 : 1.8)}"
-          ></svg-icon>
-          <img *ngIf="item.button ==='receive'" 
-                [src]="getIcon(item.button)" 
-                [ngStyle]="{ 'width.em':2.1 , 'margin-top':'3px'}"/>
-        </span>
+        <ng-container *ngIf="checkPermission(item)">
+          <span *ngIf="checkCondition(item)" (click)="clicked(item, col, data)" (mouseenter)="item.tooltip ? tooltipEnter() : null" (mouseleave)="item.tooltip ? tooltipLeave() : null">
+            <p *ngIf="item.button == 'folder-check' && item.tooltip" class="tooltip-float-button" #tooltip>{{item.tooltip}}</p>
+            <svg-icon
+              *ngIf="item.button !=='receive'"
+              [src]="getIcon(item.button)"
+              class="svg-icon"
+              [applyClass]="true"
+              [svgStyle]="{ 'fill': item.color || null , 'width.em':(item.button == 'folder-check'? 2 : 1.8)}"
+            ></svg-icon>
+            <img *ngIf="item.button ==='receive'" 
+                  [src]="getIcon(item.button)" 
+                  [ngStyle]="{ 'width.em':2.1 , 'margin-top':'3px'}"/>
+          </span>
+        </ng-container>
       </ng-container>
     </div>
   `,
@@ -92,9 +95,9 @@ export class FloatButton implements OnInit {
   @ViewChild('tooltip') tooltip: ElementRef
   assetPath = 'assets/icons/';
 
-  constructor() { }
+  constructor(private _facadeProfile: UserProfileFacade) { }
 
-  ngOnInit() {  }
+  ngOnInit() {}
 
   getIcon(key: string): string {
     switch (key) {
@@ -145,5 +148,20 @@ export class FloatButton implements OnInit {
       return setting.condition(this.data);
     } else
       return true;
+  }
+  checkPermission(setting){
+    let hasPermission = false;
+    this._facadeProfile.loadData$.subscribe(x => {
+      if (x && x.roles[0].permissions && setting.permission) {
+        for (const checkPermission of setting.permission) {
+          const permissionFound = x.roles[0].permissions.find(x => x.toUpperCase() === checkPermission.toUpperCase());
+          if(permissionFound || checkPermission === 'AlLOW_ALWAYS'){
+              hasPermission = true;
+          }
+        }
+      }
+    })
+    return hasPermission;
+    
   }
 }

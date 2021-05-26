@@ -96,7 +96,7 @@ import { DateRenderer } from '@core/table/renderers/date';
     LowOpacityColumnRendererComponent,
     ReceivedButtonRendererComponent,
     ApproveButtonRendererComponent,
-    DateRenderer
+    DateRenderer,
   ],
   providers: [
     TableFacade,
