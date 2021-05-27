@@ -1,17 +1,16 @@
 import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
-import { SubAssetTypeService, SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
+import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
 import { AssetPolicyFacade,SubAssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
 import { SubAssetService, SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { ColumnDifinition, TableSetting } from '@core/table';
-import { RouterFacade } from '@core/router';
 import { Utility } from '@shared/utility/utility';
 import * as moment from 'moment';
 import { Subject, Subscription } from 'rxjs';
 import { ResponseBody } from '@models/responseBody';
-
+import { environment } from '@environments/environment';
 const SUB_ASSET_LABEL = 'SUB_ASSET';
 
 @Component({
@@ -97,7 +96,7 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
     },
     {
       lable: 'tables.column.model',
-      thumbField: 'model',
+      field: 'model',
       type: 1
     },
     {
@@ -226,6 +225,7 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   loadSubAssetFormData(recordId: number) {
     this.getSubAssetSubscriber = this.subAssetService.getSubAsset(recordId).subscribe((result: any) => {
       if (result && result.message) {
+        console.log(result.message)
         const subAsset = result.message;
         for (let index = 0; index < subAsset.warranties.length - 1; index++) {
           this.addWarranty();
@@ -271,9 +271,9 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
 
         const formValue = {
           serialNumber: serialNumber,
-          subAssetType: this.subAssetTypes[0].name,
-          make: this.makes[0].name,
-          model: this.models[0].name,
+          subAssetType: subAsset.subAssetConfigurationName,
+          make: subAsset.subAssetMakeName,
+          model: subAsset.subAssetModelName,
           year,
           policyType,
           purchaseValue,
@@ -391,11 +391,11 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   next(): void {
-    if (this.subAssetForm.invalid) {
-      this.subAssetForm.markAllAsTouched();
-      this.submitted = true;
-      return;
-    }
+    // if (this.subAssetForm.invalid) {
+    //   this.subAssetForm.markAllAsTouched();
+    //   this.submitted = true;
+    //   return;
+    // }
     this.formCurrentStep += 1;
   }
 
@@ -415,19 +415,16 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
     for (let index = 0; index < this.csvText.length; index++) {
       data.push({
         subAssetName: {
-          img: 'assets/thumb1.png',
-          assetName: this.subAssetTypes.find(
-            (type) => type.id == formVal.subAssetType.id
-          ).name,
+          img: environment.baseApiUrl + 'document/' + this.avatarDoc[0],
+          assetName: this.subAssetForm.get('subAssetType').value.name,
           assetSubName: DPD[index]
         },
-        model: this.models.find((model) => model.id == formVal.model.id).name,
-        make: this.makes.find((make) => make.id == formVal.make.id).name,
+        model: this.subAssetForm.get('model').value.name,
+        make: this.subAssetForm.get('make').value.name,
         serialNumber: this.csvText[index],
-        type: this.subAssetTypes.find(
-          (type) => type.id == formVal.subAssetType.id
-        ).name
+        type: this.subAssetForm.get('subAssetType').value.name,
       });
+      console.log(this.models)
     }
     this.thirdStepTable.data = data;
     this.formCurrentStep += 1;
@@ -633,7 +630,7 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
     this.dialogSetting.hasError = false;
     this.dialogSetting.message = "Are you sure you want to Cancel?"
     this.dialogSetting.header = (this.isEdit ? "Cancel Edit Sub Asset" : "Cancel Add Sub Asset");
-    this.dialogSetting.confirmButton = "Cancel";
+    this.dialogSetting.confirmButton = "Yes";
     this.dialogSetting.cancelButton = "No";
     this.dialogModal = true;
   }
