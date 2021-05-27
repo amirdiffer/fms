@@ -8,7 +8,7 @@
   <div class="form-section">
     <div class="row form-section__row">
 
-      <div class="col-12 col-md-3 p-field form-section__field">
+      <div class="col-12 col-md-4 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="itemName" pInputText placeholder="{{'accessory.item_name' | translate}} *"
             type="text">
@@ -17,53 +17,38 @@
         <anms-error [showError]="hasError('itemName', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
       </div>
 
-      <div class="col-12 col-md-5">
-        <div class="row align-items-center">
-          <div class="col-3">
-            {{ 'accessory.assigned_to_a' | translate }}
-          </div>
-          <div class="col-3">
-            <div class="form-check">
-              <input class="form-check-input" formControlName="assignedToType" type="radio" name="assignedToType" id="asset" value ="ASSET">
-              <label class="form-check-label" for="asset">{{ 'accessory.asset' | translate }}</label>
-            </div>
-          </div>
-          <div class="col-4">
-            <div class="form-check">
-              <input class="form-check-input" formControlName="assignedToType" type="radio" name="assignedToType" id="sub_asset" value ="SUB_ASSET">
-              <label class="form-check-label" for="sub_asset">{{ 'accessory.sub_asset' | translate }}</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="col-12 col-md-4 p-field form-section__field">
+      <!-- <div class="col-12 col-md-4 p-field form-section__field">
 
         <div class="autocomplete-select">
           <span class="p-float-label">
             <p-autoComplete formControlName="assignedToEntity" field="name" dataKey="id"
-                            (completeMethod)="accessoryForm.get('assignedToType').value == 'ASSET' ? filterAssets($event) : filterSubAssets($event)"
-                            [suggestions]="accessoryForm.get('assignedToType').value == 'ASSET' ? assets : subAssets"
-              field="name" [minLength]="1" (ngModelChange)="assetChanged($event)" required></p-autoComplete>
+                            (completeMethod)="filterAssets($event)"
+                            [suggestions]="assets"
+                            [dropdown]="true"
+              field="name" [minLength]="1" (ngModelChange)="assetChanged($event)"></p-autoComplete>
             <i class="pi pi-search"></i>
-            <label>{{ 'accessory.assets_sub_assets' | translate }} *</label>
+            <label>{{ 'accessory.asset' | translate }} *</label>
           </span>
           <anms-error [showError]="hasError('assignedToEntity', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
         </div>
-      </div>
-
+      </div> -->
       <div class="col-12 col-md-4 p-field form-section__field options-select">
         <span class="p-float-label">
-          <p-dropdown inputId="accessoryType" [autoDisplayFirst]="false" [options]="accessory"
+          <p-dropdown inputId="accessoryType" [autoDisplayFirst]="false" [options]="accessoryType$ | async"
             formControlName="accessoryTypeId" optionLabel="name" optionValue="id"></p-dropdown>
           <label for="accessoryType">{{'accessory.accessory_type' | translate}} *</label>
         </span>
 
         <anms-error [showError]="hasError('accessoryTypeId', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
       </div>
-
-      <div class="col-12 col-md-4 p-field form-section__field">
+      <div class="col-12 col-md-4 p-field form-section__field options-select">
+        <span class="p-float-label">
+          <p-dropdown inputId="assignedTo" [autoDisplayFirst]="false" [options]="employee$ | async"
+                      formControlName="assignedToEmployeeId" optionLabel="name" optionValue="id"></p-dropdown>
+          <label for="assignedTo">{{'accessory.assigned_to_a' | translate}}</label>
+        </span>
+      </div>
+      <div class="col-12 col-md-4 p-field form-section__field" *ngIf="!isEdit">
         <span class="p-float-label">
           <input formControlName="quantity" numbersOnly pInputText type="text">
           <label>{{'accessory.quantity' | translate}} *</label>
@@ -71,13 +56,7 @@
         <anms-error [showError]="hasError('quantity', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
       </div>
 
-      <div class="col-12 col-md-4 p-field form-section__field options-select">
-        <span class="p-float-label">
-          <p-dropdown inputId="assignedTo" [autoDisplayFirst]="false" [options]="employee"
-                      formControlName="assignedToEmployeeId" optionLabel="name" optionValue="id"></p-dropdown>
-          <label for="assignedTo">{{'accessory.assigned_to_a' | translate}}</label>
-        </span>
-      </div>
+      
 
     </div>
 
