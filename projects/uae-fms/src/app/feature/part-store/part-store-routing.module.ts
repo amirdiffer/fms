@@ -14,22 +14,34 @@ import { ReceiveOrderComponent } from '@feature/part-store/order-list/receive-or
 import { RequestListAddFormComponent } from '@feature/part-store/order-list/request-list-add-form/request-list-add-form.component';
 const routes: Routes = [
   { path: 'part-list', component: PartListComponent },
-  { path: 'part-list/:id', component: PartOverviewComponent , children:[
-    { path: 'update/:id', component: UpdateFormComponent },
-    { path: ':fleetType/add-order', component: OrderComponent },
-  ]},
-  { path: 'part-master', component: PartMasterComponent,
-    children:[
-      {path:'' , component:TableContentComponent},
-      {path:'add-category' , component:AddCategoryComponent},
-      {path:'add-item' , component:AddItemComponent},
-      {path:'edit-category/:id' , component:AddCategoryComponent},
-      {path:'edit-item/:id' , component:AddItemComponent},
+  {
+    path: 'part-list/:id',
+    component: PartOverviewComponent,
+    children: [
+      { path: 'update/:id', component: UpdateFormComponent },
+      { path: ':fleetType/add-order', component: OrderComponent }
+    ]
+  },
+  {
+    path: 'part-master',
+    component: PartMasterComponent,
+    children: [
+      { path: '', component: TableContentComponent },
+      { path: 'add-category', component: AddCategoryComponent },
+      { path: 'add-item', component: AddItemComponent },
+      { path: 'edit-category/:id', component: AddCategoryComponent },
+      { path: 'edit-item/:id', component: AddItemComponent }
     ]
   },
   /* Request */
-  { path: 'order-list/:fleetType/add-request', component: RequestListAddFormComponent },
-  { path: 'order-list/:fleetType/edit-request/:id', component: RequestListAddFormComponent },
+  {
+    path: 'order-list/:fleetType/add-request',
+    component: RequestListAddFormComponent
+  },
+  {
+    path: 'order-list/:fleetType/edit-request/:id',
+    component: RequestListAddFormComponent
+  },
 
   /* Order */
   { path: 'order-list/:fleetType/add-order', component: OrderComponent },
@@ -37,11 +49,20 @@ const routes: Routes = [
 
   /* supplier */
   { path: 'order-list/add-supplier', component: SuppliersAddFormComponent },
-  { path: 'order-list/edit-supplier/:id', component: SuppliersAddFormComponent },
+  {
+    path: 'order-list/edit-supplier/:id',
+    component: SuppliersAddFormComponent
+  },
 
   /* Receive */
-  { path: 'order-list/asset/receive-order/:id', component: ReceiveOrderComponent },
-  { path: 'order-list/sub-asset/receive-order/:id', component: ReceiveOrderComponent },
+  {
+    path: 'order-list/asset/receive-order/:id',
+    component: ReceiveOrderComponent
+  },
+  {
+    path: 'order-list/sub-asset/receive-order/:id',
+    component: ReceiveOrderComponent
+  },
 
   { path: 'order-list', redirectTo: 'order-list/asset' },
   { path: 'order-list/asset', component: OrderListComponent },

@@ -37,6 +37,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   assetId = -1;
   calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   closeIcon = 'assets/icons/times.svg';
+  avatarDocId;
   singleAsset: boolean = false;
   submitted_AssetDetail = false;
   submitted_Financial = false;
@@ -555,7 +556,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.formGroupGenerate = this._fb.group({
       quantity: ['multipleAsset', Validators.compose([Validators.required])],
       serialNumber: [''],
-      uploadFile: ['']
+      uploadFile: [''],
+      avatarId: ['']
     });
 
     // Request to Server - Error
@@ -885,6 +887,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     if (this.isEdit) {
       let formValue = {
         ...data,
+        avatarId: this.avatarDocId,
         id: this.id,
         dpd: this._asset.dpd
       };
@@ -896,6 +899,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
       let formValue = {
         ...data,
+        avatarId: this.avatarDocId,
         dpds:
           formVal_Generate.quantity == 'multipleAsset'
             ?
@@ -1003,6 +1007,13 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     });
   }
 
+  uploadImage($event) {
+    if (!$event || !$event.files) {
+      return;
+    }
+    const docId = $event.files[0];
+    this.avatarDocId = docId;
+  }
 
   editFormGetValues() {
     this._facade.specificAsset$.subscribe(
@@ -1056,7 +1067,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           });
           console.log(this.formGroupAssetDetail.getRawValue())
           this.onChangePeriodicService({ id: x.periodicServiceId });
-          this._asset = x
+          this._asset = x;
+          this.avatarDocId = x.avatarId;
           this.editPatchValue(x);
         }
       }
@@ -1070,7 +1082,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.purchaseDoc = Array.isArray(x.purchaseDocId)
       ? x.purchaseDocId
       : [x.purchaseDocId];
-    const date = moment.utc(x.inServiceDate * 1000, true).local();
+    const date = moment.utc(x.inServiceDate, true).local();
 
     this.formGroupFinancial.patchValue({
       assetFinancialPlan: {
@@ -1089,7 +1101,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     /* Warranties Patch Value */
     const warrantyFormArray = this.formGroupMaintenance.get('warrantyItems') as FormArray;
     for (let index = 0; index < x.warranties.length; index++) {
-      const warrantyDate = moment.utc(x.warranties[index].startDate * 1000, true).local();
+      const warrantyDate = moment.utc(x.warranties[index].startDate).local();
       this.warrantyDocs.push(x.warranties[index].docId);
       warrantyFormArray.controls[index].patchValue({
         item: x.warranties[index].item,

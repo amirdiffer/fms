@@ -51,7 +51,9 @@ export class TaskMasterFormComponent
     hasError: false,
     isWarning: true,
     hasHeader: true,
-    message: 'Are you sure that you want to cancel the task ' + (this.isEdit ? "edit?" : "creation?"),
+    message:
+      'Are you sure that you want to cancel the task ' +
+      (this.isEdit ? 'edit?' : 'creation?'),
     confirmButton: 'Yes',
     cancelButton: 'No'
   };
@@ -73,7 +75,7 @@ export class TaskMasterFormComponent
     injector: Injector,
     private _fb: FormBuilder,
     private _facade: TaskMasterFacade,
-    private taskMasterService: TaskMasterService,
+    private taskMasterService: TaskMasterService
   ) {
     super(injector);
   }
@@ -91,19 +93,23 @@ export class TaskMasterFormComponent
       needPart: [false],
       part: this._fb.array([this._fb.control(null)])
     });
-    this.taskMasterForm.get('shopType').valueChanges.subscribe(x => {
-      if(x === 'SERVICESHOP'){
-        this.taskMasterForm.get('taskType').patchValue('ELECTRICAL_SERVICE')
-      }else{
-        this.taskMasterForm.get('taskType').patchValue('NORMAL')
+    this.taskMasterForm.get('shopType').valueChanges.subscribe((x) => {
+      if (x === 'SERVICESHOP') {
+        this.taskMasterForm.get('taskType').patchValue('ELECTRICAL_SERVICE');
+      } else {
+        this.taskMasterForm.get('taskType').patchValue('NORMAL');
       }
-    })
+    });
     this.route.url.subscribe((params) => {
-      this.isEdit = params.filter((x) => x.path === 'edit-task-master').length > 0;
-      this.dialogSettingCancel.message = 'Are you sure that you want to cancel the task ' + (this.isEdit ? "edit?" : "creation?");
+      this.isEdit =
+        params.filter((x) => x.path === 'edit-task-master').length > 0;
+      this.dialogSettingCancel.message =
+        'Are you sure that you want to cancel the task ' +
+        (this.isEdit ? 'edit?' : 'creation?');
       if (this.isEdit) {
-        this.recordId = +params[params.length - 1].path
-        this.taskMasterService.getTaskMaster(this.recordId)
+        this.recordId = +params[params.length - 1].path;
+        this.taskMasterService
+          .getTaskMaster(this.recordId)
           .pipe(map((y) => y.message))
           .subscribe((z: any) => {
             if (z) {
@@ -127,7 +133,7 @@ export class TaskMasterFormComponent
                 }
               }
             }
-          })
+          });
       }
     });
     this.handleSubmissionDialog();
@@ -160,9 +166,7 @@ export class TaskMasterFormComponent
       if (x) {
         this.dialogModal = true;
         this.dialogType = 'success';
-        this.dialogSetting.header = this.isEdit
-          ? 'Edit Task'
-          : 'Add new Task';
+        this.dialogSetting.header = this.isEdit ? 'Edit Task' : 'Add new Task';
         this.dialogSetting.message = this.isEdit
           ? 'Changes Saved Successfully'
           : 'Task Added Successfully';
@@ -202,8 +206,7 @@ export class TaskMasterFormComponent
     this.skillFiltered = filtered;
   }
 
-  skillSelect(event) {
-  }
+  skillSelect(event) {}
 
   getTaskMasterPayload(value: any) {
     const {
@@ -239,27 +242,31 @@ export class TaskMasterFormComponent
   }
   dialogCancelConfirm(value) {
     if (value === true) {
-      this.router.navigate(['/workshop/task-master/']).then(_ => this._facade.reset())
+      this.router
+        .navigate(['/workshop/task-master/'])
+        .then((_) => this._facade.reset());
     }
     this.dialogModalCancel = false;
   }
   dialogConfirm(value) {
     this._facade.reset();
-    this.router.navigate(['/workshop/task-master/']).then(_ => this._facade.reset())
+    this.router
+      .navigate(['/workshop/task-master/'])
+      .then((_) => this._facade.reset());
     return;
   }
 
   createSkill(): FormGroup {
     return this._fb.group({
       skill: ['', Validators.required]
-    })
+    });
   }
 
   addSkill() {
     if (this.skills.invalid) {
       return;
     }
-    this.skills.push(this.createSkill())
+    this.skills.push(this.createSkill());
   }
   removeSkill(i) {
     this.skills.removeAt(i);

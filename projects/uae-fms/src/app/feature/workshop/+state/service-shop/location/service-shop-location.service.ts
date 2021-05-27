@@ -12,9 +12,10 @@ export class ServiceShopLocationService {
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
@@ -23,7 +24,8 @@ export class ServiceShopLocationService {
 
   loadAll(): Observable<ResponseBody<ILocation[]>> {
     return this.http.get<ResponseBody<ILocation[]>>(
-      environment.baseApiUrl + 'workshop/serviceshop/location', {params: this.getParam('service-shop_location')}
+      environment.baseApiUrl + 'workshop/serviceshop/location',
+      { params: this.getParam('service-shop_location') }
     );
   }
   post(data): Observable<ResponseBody<any>> {

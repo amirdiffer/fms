@@ -186,7 +186,7 @@ export class AssetsService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: 'dateRenderer'
+          renderer: ''
         },
         {
           lable: 'tables.column.registration_date',
@@ -194,7 +194,7 @@ export class AssetsService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: 'dateRenderer'
+          renderer: ''
         },
         {
           lable: 'tables.column.creator',

@@ -8,7 +8,6 @@ import moment from 'moment';
   styleUrls: ['./warranty.component.scss']
 })
 export class WarrantyComponent implements OnInit {
-
   @Input() data = [];
 
   downloadBtn = 'assets/icons/download-solid.svg';
@@ -56,16 +55,19 @@ export class WarrantyComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: ''
-      },
+      }
     ],
     data: [],
     rowSettings: {}
   };
 
-  constructor() { }
+  constructor() {}
 
   date(y) {
-    let createdDate = moment.utc(y*1000).local().toDate();
+    let createdDate = moment
+      .utc(y * 1000)
+      .local()
+      .toDate();
     let nowDate = new Date();
     let newDate = nowDate.getTime() - createdDate.getTime();
     return {
@@ -74,16 +76,18 @@ export class WarrantyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tableSetting.data = this.data.map(x => {
+    this.tableSetting.data = this.data.map((x) => {
       return {
         category: 'Test',
         item: x['item'],
         mileage_km: '1000 KM',
-        duration: this.date(x['duration']).day >= 1 ?  this.date(x['duration']).day + ' Days Ago' : 'Today',
+        duration:
+          this.date(x['duration']).day >= 1
+            ? this.date(x['duration']).day + ' Days Ago'
+            : 'Today',
         startDate: x['startDate'],
-        start_km: '128900 KM',
-      }
-    })
+        start_km: '128900 KM'
+      };
+    });
   }
-
 }

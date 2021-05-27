@@ -145,7 +145,6 @@ export class OrderListComponent implements OnInit , OnDestroy {
         type: ColumnType.lable,
         field: 'Date',
         sortable: true,
-        renderer: 'dateRenderer'
       },
       {
         lable: '',
@@ -231,8 +230,7 @@ export class OrderListComponent implements OnInit , OnDestroy {
       {
         lable: 'tables.column.date',
         type: ColumnType.lable,
-        field: 'Date',
-        renderer: 'dateRenderer'
+        field: 'Date'
       },
       {
         lable: 'tables.column.description',
@@ -359,7 +357,7 @@ export class OrderListComponent implements OnInit , OnDestroy {
             Quantity: request.quantity,
             Department: request.organizationName,
             Description: request.description,
-            Date: request.createdAt,
+            Date: new Date (request.createdAt*1000).toLocaleString().split(',')[0],
             statusColor: '#838BCE',
           }
         })
@@ -400,7 +398,7 @@ export class OrderListComponent implements OnInit , OnDestroy {
               Item:order.itemName,
               Part_ID: order.itemId,
               Quantity:order.quantity,
-              Date:order.createdAt,
+              Date:new Date (order.createdAt*1000).toLocaleString().split(',')[0],
               Description:order.description,
               Cost:order.price,
               Status:order.status

@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ColumnType } from '@core/table';
 import { ActivatedRoute } from '@angular/router';
-import { BusinessCategoryFacade, BusinessCategoryService } from '@feature/configuration/+state/business-category';
+import {
+  BusinessCategoryFacade,
+  BusinessCategoryService
+} from '@feature/configuration/+state/business-category';
 
 @Component({
   selector: 'app-asset-overview-business-category',
@@ -9,7 +12,6 @@ import { BusinessCategoryFacade, BusinessCategoryService } from '@feature/config
   styleUrls: ['./business-category.component.scss']
 })
 export class BusinessCategoryComponent implements OnInit {
-
   @Input() bcID;
 
   assetId = this.route.snapshot.params['id'];
@@ -62,29 +64,33 @@ export class BusinessCategoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.businessCategoryService.getOne(this.bcID).subscribe(x => {
-      let data_subAsset = (<Array<object>>x.message['bcSubAssetConfigurations']).map(d => {
+    this.businessCategoryService.getOne(this.bcID).subscribe((x) => {
+      let data_subAsset = (<Array<object>>(
+        x.message['bcSubAssetConfigurations']
+      )).map((d) => {
         return {
           item: 'Test',
           type: 'Sub Asset'
-        }
+        };
       });
-      let data_accessories = (<Array<object>>x.message['bcAccessoryConfigurations']).map(d => {
+      let data_accessories = (<Array<object>>(
+        x.message['bcAccessoryConfigurations']
+      )).map((d) => {
         return {
           item: 'Test',
           type: 'Accessory'
-        }
+        };
       });
       let data = (<Array<object>>data_subAsset).concat(data_accessories);
-      this.business_category.data = data.map(d => {
+      this.business_category.data = data.map((d) => {
         return {
           item: d['item'],
           type: d['type'],
           quantity: d['quantity'],
           description: 'Description is Here',
           attachment: [1]
-        }
-      })
+        };
+      });
     });
   }
 }

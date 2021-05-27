@@ -34,6 +34,6 @@ export const initialState: BodyShopRequestState = bodyShopRequestAdapter.getInit
     submitted: false,
     assetRequest: [],
     resultNumber: 0,
-    specificRequest:null
+    specificRequest: null
   } as BodyShopRequestState
 );

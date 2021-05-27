@@ -74,6 +74,8 @@ export class TemporaryComponent
   displaySuccessModal = false;
   displayErrorModal = false;
   assignID: number;
+  rejectId;
+  dialogType;
 
   @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
   movementOverviewCount$ = this._movementOverviewFacade.conut$.pipe(
@@ -193,7 +195,7 @@ export class TemporaryComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: 'dateRenderer'
+        renderer: ''
       },
       {
         lable: 'tables.column.request_status',
@@ -211,10 +213,15 @@ export class TemporaryComponent
         thumbField: '',
         renderer: 'button',
         buttonType: ButtonType.reject,
-        onClick: (data) => {
-          // this._movementRequestsFacade.rejecting(data);
+        onClick: null,
+        click: (data) => {
+          this.reject(data);
+          return null;
         },
-        showOnHover: true
+        showOnHover: true,
+        condition: (data) => {
+          return data.requestStatus == "REQUESTED";
+        }
       },
       {
         lable: '',
@@ -223,14 +230,16 @@ export class TemporaryComponent
         field: 'ButtonConfirm',
         renderer: 'button',
         buttonType: ButtonType.confirm,
-        showOnHover: true
+        showOnHover: true,
+        condition: (data) => {
+          return data.requestStatus == "REQUESTED";
+        }
       }
     ],
     data: [],
     rowSettings: {
       onClick: (data, button?, col?) => {
-        if (button == 'reject') this._movementRequestsFacade.rejecting(data.id);
-        else if (button == 'confirm') {
+        if (button == 'confirm') {
           this.assignID = data.id;
           this.openConfirmModal();
         }
@@ -262,7 +271,7 @@ export class TemporaryComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: 'dateRenderer'
+        renderer: ''
       },
       {
         lable: 'tables.column.department',
@@ -376,8 +385,14 @@ export class TemporaryComponent
 
     this._movementRequestsFacade.rejected$.subscribe((x) => {
       if (x) {
+        this.dialogSuccessSetting.isWarning = false;
+        this.dialogSuccessSetting.hasError = false;
+        this.dialogSuccessSetting.message = "The Request Rejected Successfully"
+        this.dialogSuccessSetting.confirmButton = "Ok";
+        this.dialogSuccessSetting.cancelButton = undefined;
+        this.dialogType = "confirm";
         this.displaySuccessModal = true;
-        this.dialogErrorSetting.hasError = false;
+        this._movementRequestsFacade.loadAll();
       }
     });
     this._movementRequestsFacade.error$.subscribe((x) => {
@@ -402,14 +417,19 @@ export class TemporaryComponent
   }
 
   openConfirmModal() {
-    this.dialog.open(MovementTemporaryConfirmComponent, {
+    let dialog = this.dialog.open(MovementTemporaryConfirmComponent, {
       height: '600px',
       width: '800px',
       data: this.assignID
     });
+
+    dialog.afterClosed().subscribe(x=>{
+      this._movementRequestsFacade.loadAll();
+      this._movementOverviewFacade.loadAll();
+    })
   }
 
-  rejectRow() {}
+  rejectRow() { }
 
   dialogConfirm(confirmed) {
     if (confirmed) {
@@ -423,6 +443,10 @@ export class TemporaryComponent
     this.displayErrorModal = false;
     this.displaySuccessModal = false;
     this._movementRequestsFacade.reset();
+
+    if (this.dialogType == "rejection") {
+      this._movementRequestsFacade.rejecting(this.rejectId);
+    }
   }
 
   eventPagination_overview() {
@@ -460,6 +484,18 @@ export class TemporaryComponent
         }
         this.table.exportTable(this.requestTableSetting, 'Request', filter);
         break;
+    }
+  }
+
+  reject(data) {
+    if (data?.id) {
+      this.rejectId = data.id;
+      this.dialogType = "rejection";
+      this.dialogSuccessSetting.isWarning = true;
+      this.dialogSuccessSetting.message = "Are you sure you want to reject this request?"
+      this.dialogSuccessSetting.confirmButton = "Yes";
+      this.dialogSuccessSetting.cancelButton = "Cancel";
+      this.displaySuccessModal = true;
     }
   }
 }

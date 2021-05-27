@@ -2,13 +2,17 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
-  ApexDataLabels, ApexFill,
+  ApexDataLabels,
+  ApexFill,
   ApexGrid,
   ApexLegend,
-  ApexMarkers, ApexNonAxisChartSeries, ApexPlotOptions,
+  ApexMarkers,
+  ApexNonAxisChartSeries,
+  ApexPlotOptions,
   ApexResponsive,
   ApexStroke,
-  ApexTitleSubtitle, ApexTooltip,
+  ApexTitleSubtitle,
+  ApexTooltip,
   ApexXAxis,
   ApexYAxis,
   ChartComponent
@@ -233,29 +237,30 @@ export class VehicleOverviewComponent implements OnInit {
     categories: []
   };
 
-
   constructor(
     private assetService: AssetMasterService,
-    private customizationService: CustomizationService,
+    private customizationService: CustomizationService
   ) {
     this.chartOptions = {
       series: [],
       labels: [],
       chart: {
         type: 'donut',
-        height: 280,
+        height: 280
       },
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: '100%'
-          },
-          legend: {
-            position: 'bottom'
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: '100%'
+            },
+            legend: {
+              position: 'bottom'
+            }
           }
         }
-      }],
+      ],
       plotOptions: {
         pie: {
           donut: {
@@ -268,9 +273,11 @@ export class VehicleOverviewComponent implements OnInit {
                 showAlways: true,
                 fontFamily: '29LT Bukra',
                 formatter: (w) => {
-                  return w.globals.seriesTotals.reduce((a, b) => {
-                    return a + b
-                  }, 0) + ' AED'
+                  return (
+                    w.globals.seriesTotals.reduce((a, b) => {
+                      return a + b;
+                    }, 0) + ' AED'
+                  );
                 }
               },
               name: {
@@ -286,13 +293,16 @@ export class VehicleOverviewComponent implements OnInit {
       }
     };
     this.chartOptionsColumn = {
-      series: [{
-        name: 'Demanded',
-        data: [44, 55, 57, 56, 61, 58]
-      }, {
-        name: 'Consumption',
-        data: [76, 85, 101, 98, 87, 105]
-      }],
+      series: [
+        {
+          name: 'Demanded',
+          data: [44, 55, 57, 56, 61, 58]
+        },
+        {
+          name: 'Consumption',
+          data: [76, 85, 101, 98, 87, 105]
+        }
+      ],
       chart: {
         type: 'bar',
         height: 280,
@@ -305,7 +315,7 @@ export class VehicleOverviewComponent implements OnInit {
           horizontal: false,
           columnWidth: '20%',
           endingShape: 'rounded'
-        },
+        }
       },
       dataLabels: {
         enabled: false
@@ -319,7 +329,7 @@ export class VehicleOverviewComponent implements OnInit {
         colors: ['transparent']
       },
       xaxis: {
-        categories: [],
+        categories: []
       },
       yaxis: {
         title: {
@@ -329,70 +339,77 @@ export class VehicleOverviewComponent implements OnInit {
       fill: {
         opacity: 1
       },
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200
-          },
-          legend: {
-            position: 'top'
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'top'
+            }
           }
         }
-      }]
-    }
+      ]
+    };
   }
 
   ngOnInit() {
-    this.assetService.getAssetTasksByID(this.assetID).subscribe(x => {
+    this.assetService.getAssetTasksByID(this.assetID).subscribe((x) => {
       let data = x.message;
-      this.TaskMaster_tableSetting.data = (<Array<object>>data).map(x => {
+      this.TaskMaster_tableSetting.data = (<Array<object>>data).map((x) => {
         return {
           task_list: x['name'],
           date: x['creationDate'],
-          technician: x['technician']['firstName'] + ' ' + x['technician']['lastName'],
+          technician:
+            x['technician']['firstName'] + ' ' + x['technician']['lastName'],
           Status: x['status']
-        }
-      })
-    });
-    this.customizationService.getAssetForCustomizationByAssetId(this.assetID).subscribe(x => {
-      console.log(x);
-      let subAsset = x.message.subAssets;
-      let accessories = x.message.accessories;
-      this.SubAsset_tableSetting.data =  (<Array<object>>subAsset).map(x => {
-        return {
-          name: x['subAssetMakeName'] + ' ' + x['subAssetModelName'],
-          s_n: x['subAssetSerialNumber'],
-          Status: x['subAssetId']!=null ? 'Uninstall' : 'Install'
-        }
-      });
-      this.Accessory_tableSetting.data =  (<Array<object>>accessories).map(x => {
-        return {
-          name: x['accessoryItemName'],
-          Status: x['accessoryId']!=null ? 'Uninstall' : 'Install'
-        }
+        };
       });
     });
-    this.assetService.getDamageByAssetID(this.assetID).subscribe(x => {
+    this.customizationService
+      .getAssetForCustomizationByAssetId(this.assetID)
+      .subscribe((x) => {
+        console.log(x);
+        let subAsset = x.message.subAssets;
+        let accessories = x.message.accessories;
+        this.SubAsset_tableSetting.data = (<Array<object>>subAsset).map((x) => {
+          return {
+            name: x['subAssetMakeName'] + ' ' + x['subAssetModelName'],
+            s_n: x['subAssetSerialNumber'],
+            Status: x['subAssetId'] != null ? 'Uninstall' : 'Install'
+          };
+        });
+        this.Accessory_tableSetting.data = (<Array<object>>accessories).map(
+          (x) => {
+            return {
+              name: x['accessoryItemName'],
+              Status: x['accessoryId'] != null ? 'Uninstall' : 'Install'
+            };
+          }
+        );
+      });
+    this.assetService.getDamageByAssetID(this.assetID).subscribe((x) => {
       this.damageList = x.message;
     });
-    this.assetService.getTrafficFineByAssetID(this.assetID).subscribe(x => {
+    this.assetService.getTrafficFineByAssetID(this.assetID).subscribe((x) => {
       let data = x.message;
       this.chartTrafficFineData.labels = Object.keys(data);
       this.chartTrafficFineData.series = Object.values(data);
     });
-    this.assetService.getFuelCardByAssetID(this.assetID).subscribe(x => {
-      let data = (<Array<object>>x.message);
-      this.chartFuelCardData.categories = data.map(d => d['month'])
-      let demanded = data.map(d => d['demanded']);
-      let consumption = data.map(d => d['consumption']);
+    this.assetService.getFuelCardByAssetID(this.assetID).subscribe((x) => {
+      let data = <Array<object>>x.message;
+      this.chartFuelCardData.categories = data.map((d) => d['month']);
+      let demanded = data.map((d) => d['demanded']);
+      let consumption = data.map((d) => d['consumption']);
       this.chartFuelCardData.series = [
         {
-          name: "Demanded",
+          name: 'Demanded',
           data: demanded
         },
         {
-          name: "Consumption",
+          name: 'Consumption',
           data: consumption
         }
       ];

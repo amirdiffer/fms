@@ -4,27 +4,27 @@
   margin-top: 16px;
   padding-bottom: 25px;
 
-    ul {
-      list-style: none;
-      display: flex;
-      margin: 15px 0 0;
-      padding: 0;
-      font-family:'29LT Bukra - Bold';
+  ul {
+    list-style: none;
+    display: flex;
+    margin: 15px 0 0;
+    padding: 0;
+    font-family: '29LT Bukra - Bold';
 
-      li {
-        padding-right: 15px;
+    li {
+      padding-right: 15px;
 
-        &:last-child {
-          padding-right: 0;
-        }
-      }
-
-      img {
-        border-radius: 2px;
-        cursor: pointer;
-        max-width: 100%;
+      &:last-child {
+        padding-right: 0;
       }
     }
+
+    img {
+      border-radius: 2px;
+      cursor: pointer;
+      max-width: 100%;
+    }
+  }
 
   &__title {
     color: #0da06e;
@@ -33,14 +33,14 @@
 
   &__info {
     th {
-      font-family:'29LT Bukra - Bold';
+      font-family: '29LT Bukra - Bold';
       width: 15em;
       color: #707070;
     }
 
     td {
-      font-family:'29LT Bukra - Bold';
-      color: #0DA06E;
+      font-family: '29LT Bukra - Bold';
+      color: #0da06e;
     }
     td,
     th {
@@ -49,50 +49,49 @@
     }
   }
 }
-.component_wrapper{
+.component_wrapper {
   margin: 10px 0 10px;
 }
-.card-table-header{
+.card-table-header {
   flex: 0 0 auto;
 }
-hr.line{
+hr.line {
   margin: 10px -30px;
 }
 .overview-container {
   padding: 10px;
 }
-p-carousel{
-  ::ng-deep{
+p-carousel {
+  ::ng-deep {
     li.p-carousel-indicator.p-highlight {
-      button{
-        background-color:#008755 !important;
+      button {
+        background-color: #008755 !important;
       }
     }
   }
-  .image-item{
+  .image-item {
     height: 100%;
-    .image-item-content{
+    .image-item-content {
       height: 100%;
       & > div {
         height: 100%;
       }
     }
-
   }
 }
 
-order-form{
-  ::ng-deep{
-    .row{
+order-form {
+  ::ng-deep {
+    .row {
       margin-top: 0 !important;
     }
   }
 }
 
-.disable-navigator{
-  ::ng-deep{
-    button ,
-    .p-carousel-indicators{
+.disable-navigator {
+  ::ng-deep {
+    button,
+    .p-carousel-indicators {
       display: none;
     }
   }

@@ -15,7 +15,10 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { map } from 'rxjs/operators';
 import { IRequest } from '@models/body-shop';
 import { Subject } from 'rxjs';
-import { AssetMasterFacade, AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
+import {
+  AssetMasterFacade,
+  AssetMasterService
+} from '@feature/fleet/+state/assets/asset-master';
 import {
   ServiceShopRequestFacade,
   ServiceShopRequestService
@@ -66,8 +69,8 @@ export class AddRequestServiceShopComponent implements OnInit {
   public filesUpdloaded: NgxFileDropEntry[] = [];
   isEdit: boolean = false;
   id: number;
-  specificAsset:boolean = false;
-  specificAssetId:number;
+  specificAsset: boolean = false;
+  specificAssetId: number;
   private _request: IRequest;
   getAssetsList = new Subject();
   assetId: any;
@@ -79,34 +82,39 @@ export class AddRequestServiceShopComponent implements OnInit {
     private _route: ActivatedRoute,
     private _serviceShopRequestFacade: ServiceShopRequestFacade,
     private _assetMasterFacade: AssetMasterFacade,
-    private _assetMasterService:AssetMasterService,
+    private _assetMasterService: AssetMasterService,
     private _location: Location
   ) {}
 
   ngOnInit(): void {
     this._assetMasterFacade.loadAll();
-    this._assetMasterService.getAllAllowedAssetForRequest()
+    this._assetMasterService
+      .getAllAllowedAssetForRequest()
       .pipe(map((y) => y.message.map((x) => ({ id: x.id, name: x.dpd }))))
       .subscribe((data) => (this.assets = data));
     this.buildForm();
-    if(this._route.snapshot.url[this._route.snapshot.url.length -1].path === 'add-request' &&
-        this._route.snapshot.parent.params.id ){
-        this.specificAsset = true;
-        this.specificAssetId = +this._route.snapshot.parent.params.id;
-        this._assetMasterService.getAssetByID(this.specificAssetId).subscribe(x => {
-          if(x) {
+    if (
+      this._route.snapshot.url[this._route.snapshot.url.length - 1].path ===
+        'add-request' &&
+      this._route.snapshot.parent.params.id
+    ) {
+      this.specificAsset = true;
+      this.specificAssetId = +this._route.snapshot.parent.params.id;
+      this._assetMasterService
+        .getAssetByID(this.specificAssetId)
+        .subscribe((x) => {
+          if (x) {
             this.inputForm.patchValue({
               assetId: {
                 name: x.message.dpd,
                 id: x.message.id
-              },
-            })
+              }
+            });
             this.inputForm.controls['assetId'].disable();
-            this.inputForm.controls['assetId'].markAsDirty()
+            this.inputForm.controls['assetId'].markAsDirty();
           }
-        })
-        
-      }
+        });
+    }
     this._route.url.subscribe((params) => {
       this.isEdit =
         params.filter((x) => x.path == 'edit-request').length > 0
@@ -134,7 +142,7 @@ export class AddRequestServiceShopComponent implements OnInit {
                 priority: x.priority,
                 accidentType: x.accidentType
               });
-              this.inputForm.controls['assetId'].disable()
+              this.inputForm.controls['assetId'].disable();
               this.changePriority(x.priority);
               this.inputForm.controls['issueInfo'].patchValue({
                 issue: x.request,
@@ -198,7 +206,7 @@ export class AddRequestServiceShopComponent implements OnInit {
       //   asset: [''],
       //   gpsMeterSource: ['', Validators.required]
       // }),
-      assetId: ['' , Validators.required],
+      assetId: ['', Validators.required],
       hasAccident: [false],
       accidentType: ['MINOR'],
       jobType: ['NORMAL'],

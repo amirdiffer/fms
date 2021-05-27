@@ -6,7 +6,7 @@ import { ButtonType } from '../table.component';
 @Component({
   selector: 'table-general-button-renderer',
   template: `
-    <div class="button-table-container">
+    <div class="button-table-container" *ngIf="CheckCondition()">
       <button
         class="btn-primary-medium"
         *ngIf="col.buttonType == buttonType.approve"
@@ -45,7 +45,7 @@ import { ButtonType } from '../table.component';
       <button
         class="btn-primary-medium reject"
         *ngIf="col.buttonType == buttonType.reject"
-        (click)="clickButton('reject')"
+        (click)="clickButton('reject',col)"
       >
         {{ 'buttons.reject' | translate }}
       </button>
@@ -56,14 +56,14 @@ import { ButtonType } from '../table.component';
         {{ 'buttons.reject' | translate }}
       </button>
     </div>
-    <span *ngIf="col.buttonType == buttonType.add" class="plus-icon">+</span>
+    <span *ngIf="col.buttonType == buttonType.add && CheckCondition()" class="plus-icon">+</span>
     <img
-      *ngIf="col.buttonType == buttonType.action"
+      *ngIf="col.buttonType == buttonType.action && CheckCondition()"
       class="action-button"
       src="assets/icons/three-dots.svg"
     />
     <button
-      *ngIf="col.buttonType == buttonType.jobCard"
+      *ngIf="col.buttonType == buttonType.jobCard && CheckCondition()"
       class="btn-primary-large job-card"
     >
       <i>+</i
@@ -140,15 +140,29 @@ export class TableGeneralButtonRendererComponent implements OnInit {
 
   constructor(
     public _router: Router
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   public get buttonType(): typeof ButtonType {
     return ButtonType;
   }
 
-  clickButton(button): void {
+  clickButton(button,col?): void {
+    console.log(col)
+    if(col && col.onClick instanceof Function){
+      col.onClick(this.button,col);
+    }
+    if(col && col.click instanceof Function){
+      col.click(this.button,col);
+    }
     this.setting.onClick(this.button, button);
+  }
+
+  CheckCondition() {
+    if (this.col?.condition && this.col.condition instanceof Function) {
+      return this.col.condition(this.button);
+    } else
+      return true;
   }
 }

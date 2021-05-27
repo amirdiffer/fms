@@ -50,6 +50,7 @@ import { FleetStateModule } from '@feature/fleet/+state';
     OrderListComponent,
     PartMasterComponent,
     OrderComponent,
+    OrderListComponent,
     PartOverviewComponent,
     SuppliersAddFormComponent,
     AddCategoryComponent,

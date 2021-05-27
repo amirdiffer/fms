@@ -7,7 +7,8 @@ import { ICardDetailRedialChart } from './asset-overview/detail-card-dashboard/d
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  
+  finedOperator: { lowestFinedOperator: null; highestFinedOperator: null };
+
   constructor() {}
 
   ngOnInit(): void {}

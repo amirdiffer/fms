@@ -19,7 +19,10 @@ import {
 import { map } from 'rxjs/operators';
 import { IRequest } from '@models/body-shop';
 import { Subject } from 'rxjs';
-import { AssetMasterFacade, AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
+import {
+  AssetMasterFacade,
+  AssetMasterService
+} from '@feature/fleet/+state/assets/asset-master';
 import { Location } from '@angular/common';
 @Component({
   selector: 'workshop-add-request',
@@ -27,7 +30,6 @@ import { Location } from '@angular/common';
   styleUrls: ['./add-request.component.scss']
 })
 export class AddRequestComponent implements OnInit {
-
   //#region Dialog
   dialogModal = false;
 
@@ -67,8 +69,8 @@ export class AddRequestComponent implements OnInit {
   public filesUpdloaded: NgxFileDropEntry[] = [];
   isEdit: boolean = false;
   id: number;
-  specificAsset:boolean = false;
-  specificAssetId:number;
+  specificAsset: boolean = false;
+  specificAssetId: number;
   private _request: IRequest;
   getAssetsList = new Subject();
   assetId: any;
@@ -80,35 +82,42 @@ export class AddRequestComponent implements OnInit {
     private _route: ActivatedRoute,
     private _bodyShopRequestFacade: BodyShopRequestFacade,
     private _assetMasterFacade: AssetMasterFacade,
-    private _assetMasterService : AssetMasterService,
-    private _location:Location
+    private _assetMasterService: AssetMasterService,
+    private _location: Location
   ) {}
 
   ngOnInit(): void {
-    this._assetMasterService.getAllAllowedAssetForRequest().subscribe(x => { console.log(x)})
+    this._assetMasterService.getAllAllowedAssetForRequest().subscribe((x) => {
+      console.log(x);
+    });
     this._assetMasterFacade.loadAll();
-    this._assetMasterService.getAllAllowedAssetForRequest()
+    this._assetMasterService
+      .getAllAllowedAssetForRequest()
       .pipe(map((y) => y.message.map((x) => ({ id: x.id, name: x.dpd }))))
       .subscribe((data) => (this.assets = data));
-    this.buildForm();    
-    if(this._route.snapshot.url[this._route.snapshot.url.length -1].path === 'add-request' &&
-        this._route.snapshot.parent.params.id ){
-        this.specificAsset = true;
-        this.specificAssetId = +this._route.snapshot.parent.params.id;
-        this._assetMasterService.getAssetByID(this.specificAssetId).subscribe(x => {
-          if(x) {
+    this.buildForm();
+    if (
+      this._route.snapshot.url[this._route.snapshot.url.length - 1].path ===
+        'add-request' &&
+      this._route.snapshot.parent.params.id
+    ) {
+      this.specificAsset = true;
+      this.specificAssetId = +this._route.snapshot.parent.params.id;
+      this._assetMasterService
+        .getAssetByID(this.specificAssetId)
+        .subscribe((x) => {
+          if (x) {
             this.inputForm.patchValue({
               assetId: {
                 name: x.message.dpd,
                 id: x.message.id
-              },
-            })
+              }
+            });
             this.inputForm.controls['assetId'].disable();
-            this.inputForm.controls['assetId'].markAsDirty()
+            this.inputForm.controls['assetId'].markAsDirty();
           }
-        })
-        
-      }
+        });
+    }
     this._route.url.subscribe((params) => {
       this.isEdit =
         params.filter((x) => x.path == 'edit-request').length > 0
@@ -122,7 +131,7 @@ export class AddRequestComponent implements OnInit {
           .pipe(map((x) => x.message))
           .subscribe((x) => {
             if (x) {
-              console.log(x)
+              console.log(x);
               this._request = x;
               this.profileDocIds = Array.isArray(x.documentIds)
                 ? x.documentIds
@@ -138,7 +147,7 @@ export class AddRequestComponent implements OnInit {
                 accidentType: x.accidentType
               });
               this.inputForm.controls['assetId'].disable();
-              this.inputForm.controls['assetId'].markAsDirty()
+              this.inputForm.controls['assetId'].markAsDirty();
               this.changePriority(x.priority);
               this.inputForm.controls['issueInfo'].patchValue({
                 issue: x.request,
@@ -202,7 +211,7 @@ export class AddRequestComponent implements OnInit {
         asset: [''],
         gpsMeterSource: ['']
       }),
-      assetId: ['' , Validators.required],
+      assetId: ['', Validators.required],
       hasAccident: [false],
       accidentType: ['MINOR'],
       jobType: ['NORMAL'],
@@ -277,7 +286,6 @@ export class AddRequestComponent implements OnInit {
     } else {
       this._bodyShopRequestFacade.resetParams();
       this._location.back();
-      
     }
   }
 
