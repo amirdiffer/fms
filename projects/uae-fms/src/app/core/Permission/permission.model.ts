@@ -24,9 +24,9 @@ export class MenuPermission {
         /* '''''Fleet''''' */
         this._fleetPermission = {
             ASSET: [
-                "ASSET_VIEW_LIST_CUSTOMIZATION_OWN",
                 "ASSET_VIEW_LIST_MASTER_OWN",
                 "ASSET_VIEW_LIST_PENDING_OWN",
+                "ASSET_VIEW_LIST_CUSTOMIZATION_OWN",
                 "ASSET_VIEW_LIST_MASTER_OTHERS",
                 "ASSET_VIEW_LIST_PENDING_OTHERS",
                 "ASSET_VIEW_LIST_CUSTOMIZATION_OTHERS",
@@ -49,12 +49,14 @@ export class MenuPermission {
             ],
             DEPARTMENT:[
                 "ORGANIZATION_VIEW_LIST",
+                "ORGANIZATION_ADD",
             ],
             MOVEMENT:[
                 "MOVEMENT_REQUEST_VIEW_LIST_OWN",
                 "MOVEMENT_REQUEST_VIEW_LIST_OTHERS",
                 "MOVEMENT_VIEW_LIST_OWN",
                 "MOVEMENT_VIEW_LIST_OTHERS",
+                "MOVEMENT_REQUEST_ADD",
             ]
         };
 
@@ -86,28 +88,34 @@ export class MenuPermission {
         /* '''''Workshop''''' */
         this._workshopPermission = {
             BODYSHOP :[
-                "WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OWN",
-                "WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS",
                 "WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OWN",
                 "WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OTHERS",
                 "WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_LIST",
                 "WORKSHOP_BODY_SHOP_TECHNICIAN_VIEW_LIST",
                 "WORKSHOP_BODY_SHOP_LOCATION_VIEW_LIST",
+                "WORKSHOP_BODY_SHOP_REQUEST_ADD",
+                "WORKSHOP_BODY_SHOP_TECHNICIAN_ADD",
+                "WORKSHOP_BODY_SHOP_LOCATION_ADD",
+                "WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE"
+
             ],
             SERVICESHOP:[
-                "WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OWN",
-                "WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS",
                 "WORKSHOP_SERVICE_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OWN",
                 "WORKSHOP_SERVICE_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OTHERS",
                 "WORKSHOP_SERVICE_SHOP_JOB_CARD_VIEW_LIST",
                 "WORKSHOP_SERVICE_SHOP_TECHNICIAN_VIEW_LIST",
                 "WORKSHOP_SERVICE_SHOP_LOCATION_VIEW_LIST",
+                "WORKSHOP_SERVICE_SHOP_REQUEST_ADD",
+                "WORKSHOP_SERVICE_SHOP_TECHNICIAN_ADD",
+                "WORKSHOP_SERVICE_SHOP_LOCATION_ADD",
+                "WORKSHOP_SERVICE_SHOP_JOB_CARD_OPEN_CLOSE",
             ],
             LOCATION:[
                 ''
             ],
             TASKMASTER:[
                 "TASK_MASTER_VIEW_LIST",
+                "TASK_MASTER_ADD",
             ]
         };
 
@@ -121,6 +129,9 @@ export class MenuPermission {
                 "PARTSTORE_ORDER_LIST_REQUEST_VIEW_LIST_OTHERS",
                 "PARTSTORE_ORDER_LIST_ORDER_VIEW_LIST",
                 "PARTSTORE_SUPPLIER_VIEW_LIST",
+                "PARTSTORE_ORDER_LIST_ORDER_ADD",
+                "PARTSTORE_ORDER_LIST_REQUEST_ADD",
+                "PARTSTORE_SUPPLIER_ADD"
             ],
             PART_MASTER:[
                 "PARTSTORE_PART_MASTER_CATEGORY_VIEW_LIST",
@@ -132,23 +143,30 @@ export class MenuPermission {
         this._configurationPermission = {
             USER_MANAGEMENT:[
                 "USER_NORMAL_VIEW_LIST",
-                "DROLE_VIEW_LIST"
+                "DROLE_VIEW_LIST",
+                "USER_NORMAL_ADD",
+                "DROLE_ADD",
             ],
             ASSET_POLICY:[
                 "ASSET_POLICY_ASSET_VIEW_LIST",
                 "ASSET_POLICY_SUB_ASSET_VIEW_LIST",
+                "ASSET_POLICY_ASSET_ADD",
+                "ASSET_POLICY_SUB_ASSET_ADD"
             ],
             FLEET_CONFIGURATION:[
                 "FLEET_CONFIGURATION_VIEW_LIST",
             ],
             USAGE_CATEGORY:[
                 "BUSINESS_CATEGORY_VIEW_LIST",
+                "BUSINESS_CATEGORY_ADD",
             ],
             OWNERSHIP:[
                 "OWNERSHIP_VIEW_LIST",
+                "OWNERSHIP_ADD"
             ],
             PERIODIC_SERVICE:[
                 "PERIODIC_SERVICE_VIEW_LIST",
+                "PERIODIC_SERVICE_ADD"
             ]
         };
 
@@ -245,19 +263,19 @@ export class MenuPermission {
 
 
             /* '''''Part Store''''' */
-            case "PART_SOTRE":
+            case "PART_STORE":
                 let permissionPartStoreLabel = {
                     PART_LIST:this._partStorePermission.PART_LIST,
                     ORDER_LIST:this._partStorePermission.ORDER_LIST,
                     PART_MASTER:this._partStorePermission.PART_MASTER,
                 };
-                if(permission === "PART_SOTRE"){
+                if(permission === "PART_STORE"){
                     let permissionPartStore = {
-                        PART_SOTRE:[]
+                        PART_STORE:[]
                     }
                     Object.values(permissionPartStoreLabel).map(x => {
                         x.map( y =>{
-                            permissionPartStore.PART_SOTRE.push(y)
+                            permissionPartStore.PART_STORE.push(y)
                         })
                     });
                     return permissionPartStore[permission];

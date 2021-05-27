@@ -187,19 +187,19 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.part_store.~',
       icon: 'part-store',
       route: '/part-store',
-      permission:{parent: 'PART_SOTRE' , permission : 'PART_SOTRE', permissionType:'MENU'},
+      permission:{parent: 'PART_STORE' , permission : 'PART_STORE', permissionType:'MENU'},
       items: [
         {
           name: 'sidebar.part_store.part_list',
           icon: 'part-list',
           route: '/part-store/part-list',
-          permission:{parent: 'PART_SOTRE' , permission : 'PART_LIST', permissionType:'MENU'},
+          permission:{parent: 'PART_STORE' , permission : 'PART_LIST', permissionType:'MENU'},
         },
         {
           name: 'sidebar.part_store.order_list',
           icon: 'order-list',
           route: '/part-store/order-list',
-          permission:{parent: 'PART_SOTRE' , permission : 'ORDER_LIST', permissionType:'MENU'},
+          permission:{parent: 'PART_STORE' , permission : 'ORDER_LIST', permissionType:'MENU'},
           items: [
             {
               name: 'sidebar.part_store.asset',
@@ -215,7 +215,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           name: 'sidebar.part_store.part_master',
           icon: 'part-master',
           route: '/part-store/part-master',
-          permission:{parent: 'PART_SOTRE' , permission : 'PART_MASTER', permissionType:'MENU'},
+          permission:{parent: 'PART_STORE' , permission : 'PART_MASTER', permissionType:'MENU'},
         }
       ]
     },

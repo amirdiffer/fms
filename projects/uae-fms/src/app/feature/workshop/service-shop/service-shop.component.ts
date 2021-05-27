@@ -292,7 +292,8 @@ export class ServiceShopComponent implements OnInit {
             this.router.navigate([
               '/workshop/service-shop/' + data.id + '/add-job-card'
             ]);
-          }
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_JOB_CARD_OPEN_CLOSE']
         },
         {
           button: 'external',
@@ -301,7 +302,8 @@ export class ServiceShopComponent implements OnInit {
             this.router
               .navigate(['/workshop/service-shop/request-overview/' + data.id])
               .then();
-          }
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OWN' , 'WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS']
         }
         // {
         //   button: 'edit',
@@ -381,7 +383,8 @@ export class ServiceShopComponent implements OnInit {
             this.router
               .navigate(['/workshop/service-shop/job-card-overview/' + data.id])
               .then();
-          }
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_JOB_CARD_VIEW_DETAILS']
         },
         {
           button: 'edit',
@@ -392,7 +395,8 @@ export class ServiceShopComponent implements OnInit {
             this.router.navigate([
               '/workshop/service-shop/edit-job-card/' + data.id
             ]);
-          }
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_JOB_CARD_UPDATE']
         }
       ]
     }
@@ -461,7 +465,8 @@ export class ServiceShopComponent implements OnInit {
             this.router.navigate([
               '/workshop/service-shop/edit-technician/' + data.id
             ]);
-          }
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_TECHNICIAN_UPDATE']
         }
         /* {
           button: 'external',
@@ -471,7 +476,8 @@ export class ServiceShopComponent implements OnInit {
             this.router.navigate([
               '/workshop/service-shop/technician/' + data.id
             ]);
-          }
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_TECHNICIAN_VIEW_DETAILS']
         } */
       ]
     }
@@ -540,7 +546,8 @@ export class ServiceShopComponent implements OnInit {
             this.router.navigate([
               '/workshop/service-shop/edit-location/' + data.id
             ]);
-          }
+          },
+          permission:['WORKSHOP_BODY_SHOP_LOCATION_UPDATE']
         }
         /* {
           button: 'external',
@@ -550,7 +557,8 @@ export class ServiceShopComponent implements OnInit {
             this.router.navigate([
               '/workshop/body-shop/technician/' + data.id
             ]);
-          }
+          },
+          permission:['WORKSHOP_BODY_SHOP_LOCATION_VIEW_DETAILS']
         } */
       ]
     }

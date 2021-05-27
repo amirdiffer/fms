@@ -1,11 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserProfileFacade } from '@feature/user/state';
 import { environment } from '../../../../environments/environment';
 import { ButtonType } from '../table.component';
 
 @Component({
   selector: 'table-general-button-renderer',
   template: `
+  <ng-container *ngIf="checkPermission(setting)">
     <div class="button-table-container">
       <button
         class="btn-primary-medium"
@@ -78,6 +80,7 @@ import { ButtonType } from '../table.component';
 <!--    >-->
 <!--      {{ 'buttons.make_decision' | translate }}-->
 <!--    </button>-->
+</ng-container>
   `,
   styles: [
     `
@@ -139,7 +142,8 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   @Input() setting;
 
   constructor(
-    public _router: Router
+    public _router: Router , 
+    private _facadeProfile: UserProfileFacade
   ) {}
 
   ngOnInit() {}
@@ -150,5 +154,21 @@ export class TableGeneralButtonRendererComponent implements OnInit {
 
   clickButton(button): void {
     this.setting.onClick(this.button, button);
+  }
+
+  checkPermission(setting){
+    let hasPermission = false;
+    this._facadeProfile.loadData$.subscribe(x => {
+      if (x && x.roles[0].permissions && setting.permission) {
+        for (const checkPermission of setting.permission) {
+          const permissionFound = x.roles[0].permissions.find(x => x.toUpperCase() === checkPermission.toUpperCase());
+          if(permissionFound || checkPermission === 'AlLOW_ALWAYS'){
+              hasPermission = true;
+          }
+        }
+      }
+    })
+    return hasPermission;
+    
   }
 }

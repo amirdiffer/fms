@@ -249,7 +249,8 @@ export class MovementComponent
           this.assignID = data.id;
           this.openConfirmModal();
         }
-      }
+      },
+      permission:['MOVEMENT_REQUEST_ASSIGN_OPERATOR_OR_REJECT']
     }
   };
 

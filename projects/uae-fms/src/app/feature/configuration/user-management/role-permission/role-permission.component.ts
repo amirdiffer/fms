@@ -44,7 +44,8 @@ export class RolePermissionComponent implements OnInit {
           onClick: (col, data, button?) => {
             this.facade.reset();
             this._router.navigate(['/configuration/user-management/role-permission/' + data.id]);
-          }
+          },
+          permission:['DROLE_VIEW_DETAILS']
         },
         {
           button: 'edit',
@@ -52,7 +53,8 @@ export class RolePermissionComponent implements OnInit {
           onClick: (col, data, button?) => {
             this.facade.reset();
             this._router.navigate(['/configuration/user-management/edit-role-permission/' + data.id]);
-          }
+          },
+          permission:['DROLE_UPDATE']
         }
       ]
     }

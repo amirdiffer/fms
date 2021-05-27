@@ -108,6 +108,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
                 '/configuration/edit-asset-configuration/' + data.id
               ]);
             },
+            permission:['FLEET_CONFIGURATION_UPDATE'],
             button: 'edit'
           }
         ]
@@ -365,6 +366,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
                   queryParamsSubscription?.unsubscribe()
                 });
               },
+              permission:['FLEET_CONFIGURATION_UPDATE'],
               button: 'edit'
             }
           ]
