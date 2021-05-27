@@ -595,7 +595,7 @@
     "work_overview": "Work Overview",
     "in_active": "In Active",
     "x_fleet": "X Fleet",
-    "rejested": "Rejested",
+    "rejested": "Registered",
     "customised": "Customised",
     "number_of_asset_in_this_category": "Number Of Asset In This Category",
     "asset_in_department": "Asset In Department",
@@ -706,7 +706,7 @@
         "manual_update": "Manual Update",
         "accident": "Accident",
         "reason": "Reason",
-        "miner": "Miner",
+        "miner": "Minor",
         "major": "Major",
         "job_type": "Job Type",
         "issue_info": "Issue Info",
@@ -888,7 +888,8 @@
     "customize_later": "Customize Later",
     "customize_now": "Customize Now",
     "asset_successfully_registered": "Asset Successfully Registered",
-    "sample_hint_is_here_to_explain_process": "Sample hint is here to explain process"
+    "sample_hint_is_here_to_explain_process": "Sample hint is here to explain process",
+    "thumbnail": "Thumbnail"
   },
   "sub_asset": {
     "sub_asset_specification": "Sub Asset Specification",
@@ -1210,7 +1211,7 @@
         "manual_update": "Manual Update",
         "accident": "Accident",
         "reason": "Reason",
-        "miner": "Miner",
+        "miner": "Minor",
         "major": "Major",
         "job_type": "Job Type",
         "issue_info": "Issue Info",

@@ -306,7 +306,8 @@ export class RequestComponent implements OnInit {
       .subscribe((x) => {
         let data = x.message['tasks'];
         this.listActiveJobCard = data;
-        this.jobCard_Table1.data = (<Array<object>>data).map((d) => {
+        console.log(x);
+        /* this.jobCard_Table1.data = (<Array<object>>data)?.map((d) => {
           return {
             id: d['id'],
             task: d['taskMaster']['name'],
@@ -320,7 +321,7 @@ export class RequestComponent implements OnInit {
             part_cost: d['partCost'] + ' AED',
             total_cost: '4700 AED'
           };
-        });
+        }); */
       });
     this.assetMasterService.getJobCardByAssetID(this.assetID).subscribe((x) => {
       let data = x.message;

@@ -111,7 +111,7 @@ export class MovementTemporaryConfirmComponent
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
-        this.dialogErrorSetting.message = x.error.message;
+        this.dialogErrorSetting.message = x.error.message!=""?x.error.message:"Error occurred during operation";
       }
     });
   }
@@ -179,7 +179,7 @@ export class MovementTemporaryConfirmComponent
   successConfirm($event) {
     this.displayErrorModal = false;
     this.displaySuccessModal = false;
-    this.dialogRef.close();
+    this.dialogRef.close(true);
     this._requestFacade.reset();
   }
 }

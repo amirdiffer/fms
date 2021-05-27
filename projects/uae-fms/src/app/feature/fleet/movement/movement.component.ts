@@ -30,6 +30,7 @@ export class MovementComponent
   extends Utility
   implements OnInit, AfterViewChecked {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
+  @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
 
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
@@ -56,10 +57,11 @@ export class MovementComponent
     }
   ];
 
-  requestFilter: boolean = false;
-  selectedTab;
-  requestFilterHide$: Observable<boolean> = of(this.requestFilter);
-  showTable = true;
+
+  //#region Dialogs
+  displaySuccessModal = false;
+  displayErrorModal = false;
+  dialogType: string;
   dialogSuccessSetting: IDialogAlert = {
     header: 'Success',
     hasError: false,
@@ -72,9 +74,16 @@ export class MovementComponent
     message: 'Some Error Occurred',
     confirmButton: 'Ok'
   };
-  displaySuccessModal = false;
-  displayErrorModal = false;
+  //#endregion
+
+  requestFilter: boolean = false;
+  selectedTab;
+  requestFilterHide$: Observable<boolean> = of(this.requestFilter);
+  showTable = true;
   assignID: number;
+  rejectId: number;
+
+  //#region Table
   movementOverviewCount$ = this._movementOverviewFacade.conut$.pipe(
     map((x) => {
       return x;
@@ -85,22 +94,9 @@ export class MovementComponent
       return x;
     })
   );
-  @ViewChild('requestTab', { static: true }) requestTab: ElementRef;
-
-  constructor(
-    private _movementService: MovementService,
-    private _fb: FormBuilder,
-    private dialog: MatDialog,
-    private _movementOverviewFacade: MovementOverviewFacade,
-    private _movementRequestsFacade: MovementRequestsFacade,
-    injector: Injector
-  ) {
-    super(injector);
-  }
 
   movementRequest$ = this._movementRequestsFacade.MovementRequests$.pipe(
     map((x) => {
-      console.log(x);
       return x.map((y) => {
         if (y)
           return {
@@ -225,10 +221,15 @@ export class MovementComponent
         thumbField: '',
         renderer: 'button',
         buttonType: ButtonType.reject,
-        onClick: (data) => {
-          // this._movementRequestsFacade.rejecting(data);
+        onClick: null,
+        click: (data, col) => {
+          this.reject(data);
+          return null;
         },
-        showOnHover: true
+        showOnHover: true,
+        condition: (data) => {
+          return data.requestStatus == "REQUESTED";
+        }
       },
       {
         lable: '',
@@ -237,15 +238,18 @@ export class MovementComponent
         field: 'ButtonConfirm',
         renderer: 'button',
         buttonType: ButtonType.confirm,
-        showOnHover: true
+        showOnHover: true,
+        condition: (data) => {
+          return data.requestStatus == "REQUESTED";
+        }
       }
     ],
     data: [],
     rowSettings: {
       onClick: (data, button?, col?) => {
         // TODO : handle confirm message
-        if (button == 'reject') this._movementRequestsFacade.rejecting(data.id);
-        else if (button == 'confirm') {
+
+        if (button == 'confirm') {
           this.assignID = data.id;
           this.openConfirmModal();
         }
@@ -315,6 +319,18 @@ export class MovementComponent
     ],
     data: []
   };
+  //#endregion
+
+  constructor(
+    private _movementService: MovementService,
+    private _fb: FormBuilder,
+    private dialog: MatDialog,
+    private _movementOverviewFacade: MovementOverviewFacade,
+    private _movementRequestsFacade: MovementRequestsFacade,
+    injector: Injector
+  ) {
+    super(injector);
+  }
 
   ngOnInit(): void {
     this._movementOverviewFacade.loadAll();
@@ -378,8 +394,14 @@ export class MovementComponent
 
     this._movementRequestsFacade.rejected$.subscribe((x) => {
       if (x) {
+        this.dialogSuccessSetting.isWarning = false;
+        this.dialogSuccessSetting.hasError = false;
+        this.dialogSuccessSetting.message = "The Request Rejected Successfully"
+        this.dialogSuccessSetting.confirmButton = "Ok";
+        this.dialogSuccessSetting.cancelButton = undefined;
+        this.dialogType = "confirm";
         this.displaySuccessModal = true;
-        this.dialogErrorSetting.hasError = false;
+        this._movementRequestsFacade.loadAll();
       }
     });
     this._movementRequestsFacade.error$.subscribe((x) => {
@@ -404,11 +426,16 @@ export class MovementComponent
   }
 
   openConfirmModal() {
-    this.dialog.open(MovementConfirmComponent, {
+    let dialog = this.dialog.open(MovementConfirmComponent, {
       height: '600px',
       width: '800px',
       data: this.assignID
     });
+
+    dialog.afterClosed().subscribe(x => {
+      this._movementOverviewFacade.loadAll();
+      this._movementRequestsFacade.loadAll();
+    })
   }
   rejectRow() {
     // console.log('reject');
@@ -419,6 +446,10 @@ export class MovementComponent
       this.displaySuccessModal = false;
       this.displayErrorModal = false;
       this._movementRequestsFacade.reset();
+
+      if (this.dialogType == "rejection") {
+        this._movementRequestsFacade.rejecting(this.rejectId);
+      }
     } else this.displaySuccessModal = false;
   }
 
@@ -467,6 +498,18 @@ export class MovementComponent
         };
         this.table.exportTable(this.requestTableSetting, 'Request', filter);
         break;
+    }
+  }
+
+  reject(data) {
+    if (data?.id) {
+      this.rejectId = data.id;
+      this.dialogType = "rejection";
+      this.dialogSuccessSetting.isWarning = true;
+      this.dialogSuccessSetting.message = "Are you sure you want to reject this request?"
+      this.dialogSuccessSetting.confirmButton = "Yes";
+      this.dialogSuccessSetting.cancelButton = "Cancel";
+      this.displaySuccessModal = true;
     }
   }
 }
