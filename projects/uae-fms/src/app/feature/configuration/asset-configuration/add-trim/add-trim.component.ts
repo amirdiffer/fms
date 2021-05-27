@@ -21,7 +21,7 @@ import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configurati
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { Utility } from '@shared/utility/utility';
 import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -70,6 +70,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   assetTypeId;
   makeId;
   modelId;
+  id;
   isEditing = false
   //#endregion
 
@@ -80,6 +81,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     private facade: AssetTypeFacade,
     public dataService: DataService,
     public router: Router,
+    private _activateRoute : ActivatedRoute,
     injector: Injector
   ) {
     super(injector);
@@ -91,100 +93,114 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
       typeCategory: ['asset', this.router.isActive('/configuration/add-asset-configuration/', true) ? Validators.required : []],
       trims: new FormArray([this.createTrim()])
     });
+    let activeRoute = this.route.snapshot.url.map(x => {return x.path});
+    this.assetTypeId = this.route.snapshot.params.assetTypeId ? +this.route.snapshot.params.assetTypeId : +this.route.snapshot.params.assetType
+    this.makeId = this.route.snapshot.params.make ? +this.route.snapshot.params.make : +this.route.snapshot.params.makeId;
+    this.modelId = this.route.snapshot.params.model ? +this.route.snapshot.params.make : +this.route.snapshot.params.modelId;
+    this.id = +this.route.snapshot.params.id;
+    console.log(this.modelId)
+    console.log(this.route.snapshot.params)
+    if(activeRoute.find(item => item == "edit-trim")){
+      this.isEditing = true;
+      this.facade.getAssetTypeByID(this.assetTypeId );
+    }
 
-    this.route.params.subscribe((x) => {
-      if (x && x.assetType) this.assetTypeId = x.assetType;
-      if (x && x.make) this.makeId = x.make;
-      if (x && x.model) this.modelId = x.model;
-      this.assetTypeSubs$ = this.facade.assetType$
-        .pipe(
-          map((response) =>
-            response.map((obj) => {
-
-              if (x?.assetTypeId) {
-                this.isEditing = true
-                this.assetTypeId = Number(x?.assetTypeId)
-                if (x?.id) {
-                  this.makeId = Number(x?.makeId)
-                  this.modelId = Number(x?.id)
-                  if (this.assetTypeId === obj.id) {
-                    for (let index = 0; index < obj.makes.length; index++) {
-                      if (obj.makes[index].id === this.makeId) {
-                        this.dataService.selectedMakeName = obj.makes[index].name
-                        for (let j = 0; j < obj.makes[index].models.length; j++) {
-                          if (obj.makes[index].models[j].id === this.modelId) {
-                            this.dataService.selectedModelName = obj.makes[index].models[j].name
-                            for (let k = 0; k < obj.makes[index].models[j].trims.length; k++) {
-                              if (k > 0) {
-                                this.addTrim()
-                              }
-                              this.trims.controls[k].patchValue({
-                                id: obj.makes[index].models[j].trims[k].id,
-                                trim: obj.makes[index].models[j].trims[k].name,
-                                colors: obj.makes[index].models[j].trims[k].colors,
-                                description: obj.makes[index].models[j].trims[k].description,
-                                origins: obj.makes[index].models[j].trims[k].origins
-                              });
-                              for (let l = 0; l < obj.makes[index].models[j].trims[k].colors.length; l++) {
-                                if (l > 0) {
-                                  this.addColor(k)
-                                }
-                                this.colors(k).controls[l].patchValue({
-                                  id: obj.makes[index].models[j].trims[k].colors[l].id,
-                                  name: obj.makes[index].models[j].trims[k].colors[l].name,
-                                  hexColor: obj.makes[index].models[j].trims[k].colors[l].hexColor,
-                                })
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-                return
-              }
-
-              obj.makes.map((make) => {
-                make.models.map((model) => {
-                  if (model.id === this.dataService.selectedModelId) {
-                    this.assetType = obj;
-
-                    if (obj.type === 'ASSET') {
-                      this.inputForm.patchValue({ typeCategory: 'asset' });
-                    } else if (this.assetType.type === 'SUB_ASSET') {
-                      this.inputForm.patchValue({ typeCategory: 'subAsset' });
-                    } else if (this.assetType.type === 'ACCESSORY') {
-                      this.inputForm.patchValue({ typeCategory: 'accessory' });
-                    }
-
-                    this.trims.clear();
-                    for (let index = 0; index < model.trims.length; index++) {
-                      this.addTrim();
-                      this.trims.controls[index].patchValue({
-                        id: model.trims[index].id,
-                        trim: model.trims[index].name,
-                        description: 'Something about the trim.',
-                        colors: model.trims[index].colors
-                      });
-                      for (let j = 0; j < model.trims[index].colors.length; j++) {
-                        this.addColor(index)
-                        this.colors(index).controls[j].patchValue({
-                          id: model.trims[index].colors[j].id,
-                          name: model.trims[index].colors[j].name,
-                          hexColor: model.trims[index].colors[j].hexColor,
-                        })
-                      }
-                    }
-                    this.addTrim();
-                  }
-                });
-              });
+    if(this.isEditing && this.assetTypeId  && this.id ){
+      this.assetTypeSubs$ = this.facade.specificAssetType$.subscribe(x => {
+        if(x) {
+          let makes = {
+            name : x.makes.find( y => y.id == this.makeId).name,
+            description : x.makes.find( y => y.id == this.makeId).description,
+            models: x.makes.find( y => y.id == this.makeId).models
+          }
+          let models = {
+            name : makes.models.find( y => y.id == this.modelId).name,
+            description : makes.models.find( y => y.id == this.modelId).description,
+            trims:makes.models.find( y => y.id == this.modelId).trims
+          }
+          let trims = {
+            name:models.trims.find( y => y.id == this.id).name,
+            colors:models.trims.find( y => y.id == this.id).colors
+          }
+          console.log(trims)
+          this.trims.controls[0].patchValue({
+            trim:trims.name
+          })
+          for (let index = 0; index < trims.colors.length; index++) {
+            this.colors(0).controls[index].patchValue({
+              id: trims.colors[index].id,
+              name: trims.colors[index].name,
+              hexColor:trims.colors[index].hexColor,
             })
-          )
-        )
-        .subscribe();
-    });
+            if(index +1 !== trims.colors.length){
+              this.addColor(0)
+            }
+          }
+        }
+      })
+    }
+    // this.route.params.subscribe((x) => {
+      // if (x && x.assetType) this.assetTypeId = x.assetType;
+      // if (x && x.make) this.makeId = x.make;
+      // if (x && x.model) this.modelId = x.model;
+      // this.assetTypeSubs$ = this.facade.assetType$
+      //   .pipe(
+      //     map((response) =>
+      //       response.map((obj) => {
+
+      //         if (x?.assetTypeId) {
+      //           this.isEditing = true
+      //           this.assetTypeId = Number(x?.assetTypeId)
+      //           if (x?.id) {
+      //             this.makeId = Number(x?.makeId)
+      //             this.modelId = Number(x?.id)
+      //             if (this.assetTypeId === obj.id) {
+                    
+      //             }
+      //           }
+      //           return
+      //         }
+
+      //         obj.makes.map((make) => {
+      //           make.models.map((model) => {
+      //             if (model.id === this.dataService.selectedModelId) {
+      //               this.assetType = obj;
+
+      //               if (obj.type === 'ASSET') {
+      //                 this.inputForm.patchValue({ typeCategory: 'asset' });
+      //               } else if (this.assetType.type === 'SUB_ASSET') {
+      //                 this.inputForm.patchValue({ typeCategory: 'subAsset' });
+      //               } else if (this.assetType.type === 'ACCESSORY') {
+      //                 this.inputForm.patchValue({ typeCategory: 'accessory' });
+      //               }
+
+      //               this.trims.clear();
+      //               for (let index = 0; index < model.trims.length; index++) {
+      //                 this.addTrim();
+      //                 this.trims.controls[index].patchValue({
+      //                   id: model.trims[index].id,
+      //                   trim: model.trims[index].name,
+      //                   description: 'Something about the trim.',
+      //                   colors: model.trims[index].colors
+      //                 });
+      //                 for (let j = 0; j < model.trims[index].colors.length; j++) {
+      //                   this.addColor(index)
+      //                   this.colors(index).controls[j].patchValue({
+      //                     id: model.trims[index].colors[j].id,
+      //                     name: model.trims[index].colors[j].name,
+      //                     hexColor: model.trims[index].colors[j].hexColor,
+      //                   })
+      //                 }
+      //               }
+      //               this.addTrim();
+      //             }
+      //           });
+      //         });
+      //       })
+      //     )
+      //   )
+      //   .subscribe();
+    // });
 
     this.facade.submitted$.subscribe((x) => {
       if (x) {
@@ -355,10 +371,10 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
       for (const trim of this.inputForm.value.trims) {
         payload.trims.push(
           {
-            id: trim.id,
+            id: this.id,
             name: trim.trim,
             description: trim.description,
-            origins: trim.origins,
+            origins: ['Germany'],
             colors: trim.colors
           }
         )
@@ -434,6 +450,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.assetTypeSubs$.unsubscribe();
+    this.assetTypeSubs$?.unsubscribe();
   }
 }

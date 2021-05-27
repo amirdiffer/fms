@@ -347,7 +347,9 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       };
       const data = [];
       trims ? trims.map((trim) => {
+
         data.push({
+          id:trim.id,
           name: trim.name,
           color: trim.colors,
           status: 'Available'
@@ -359,8 +361,9 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           floatButton: [
             {
               onClick: (col, colData) => {
+                console.log(colData)
                 this.router.navigate([
-                  '/configuration/asset-configuration/edit-trim/' + typeId + '/' + makeId + '/' + modelId
+                  '/configuration/asset-configuration/edit-trim/' + typeId + '/' + makeId + '/' + modelId + '/' + colData.id
                 ]).then(_ => {
                   queryParamsSubscription?.unsubscribe()
                 });

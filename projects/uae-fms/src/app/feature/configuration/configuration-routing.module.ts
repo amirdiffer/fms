@@ -58,7 +58,7 @@ const routes: Routes = [
     component: AddTrimComponent
   },
   {
-    path: 'asset-configuration/edit-trim/:assetTypeId/:makeId/:id',
+    path: 'asset-configuration/edit-trim/:assetTypeId/:makeId/:modelId/:id',
     component: AddTrimComponent
   },
   { path: 'usage-category', component: BusinessCategoryComponent },

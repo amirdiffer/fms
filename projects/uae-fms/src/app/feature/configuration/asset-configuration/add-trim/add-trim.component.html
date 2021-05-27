@@ -57,7 +57,7 @@
                               [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}">
                     </svg-icon>
                   </span>
-                  <span class='plus-icon mt-1' (click)='addTrim();submited = true;' *ngIf='trims.controls.length == index + 1'>
+                  <span class='plus-icon mt-1' (click)='addTrim();submited = true;' *ngIf='trims.controls.length == index + 1 && !isEditing'>
                     <svg-icon src='assets/icons/add.svg'
                               [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
                   </span>
