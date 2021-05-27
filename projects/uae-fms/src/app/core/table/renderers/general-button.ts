@@ -8,7 +8,6 @@ import { ButtonType } from '../table.component';
   selector: 'table-general-button-renderer',
   template: `
   <ng-container *ngIf="checkPermission(setting)">
-    <div class="button-table-container">
     <div class="button-table-container" *ngIf="CheckCondition()">
       <button
         class="btn-primary-medium"
@@ -178,7 +177,6 @@ export class TableGeneralButtonRendererComponent implements OnInit {
     })
     return hasPermission;
   }
-    
   CheckCondition() {
     if (this.col?.condition && this.col.condition instanceof Function) {
       return this.col.condition(this.button);
