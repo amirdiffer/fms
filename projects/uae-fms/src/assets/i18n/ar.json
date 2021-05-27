@@ -639,6 +639,7 @@
     "set_reminder": "تعيين تذكير",
     "week": "أسبوع",
     "reminder_before": "تذكير من قبل",
+    "asset_found": "تم العثور على الأصل الرجاء المراجعة",
     "overview": {
       "job_card_history": "تاريخ بطاقة العمل",
       "active_job_card_task": "مهام بطاقات العمل النشطة",
