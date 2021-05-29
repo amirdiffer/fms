@@ -143,7 +143,8 @@
     "edit_task_master": "Edit Task Master",
     "edit_location": "Edit Location",
     "edit_trim": "Edit Trim",
-    "edit_make": "Edit Make"
+    "edit_make": "Edit Make",
+    "department_overview":  "Department Overview"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -686,6 +687,7 @@
     "set_reminder": "Set Reminder",
     "week": "Week",
     "reminder_before": "Reminder Before",
+    "asset_found": "Asset Found Please Review",
     "overview": {
       "job_card_history": "Job Card History",
       "active_job_card_task": "Active Job Card's Tasks",
@@ -996,7 +998,17 @@
     "department_id": "Department Id",
     "department_name": "Department Name",
     "section_name": "Section Name",
-    "location": "Location"
+    "location": "Location",
+    "overview": {
+      "total_traffic_fine": "Total Traffic Fine",
+      "total_fine_paid": "Total Fine Paid",
+      "traffic_fine_unpaid": "Traffic Fine Unpaid",
+      "total_movement_month": "Total movement in this month",
+      "section": "Section",
+      "total_users": "Total Users",
+      "total_movement": "Total Movement",
+      "tag": "Tag"
+    }
   },
   "movement": {
     "movement": {

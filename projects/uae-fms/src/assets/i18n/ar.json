@@ -136,11 +136,12 @@
     "company_setting": "إعداد الشركة",
     "permanent": "دائم",
     "technical_inspection_report": "تقرير الفحص الفني",
-    "job_card_overview": "نظرة عامة على البطاقة الوظيفية",
-    "edit_task_master": "تحرير المهمة الرئيسية",
-    "edit_location": "تحديد الوجهة",
-    "edit_trim": "تحریر التریم",
-    "edit_make": "تحریر الماركة"
+    "job_card_overview":"نظرة عامة على البطاقة الوظيفية",
+    "edit_task_master":"تحرير المهمة الرئيسية",
+    "edit_location":"تحديد الوجهة",
+    "edit_trim":"تحریر التریم",
+    "edit_make":"تحریر الماركة",
+    "department_overview":  "نظرة عامة على القسم"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -639,6 +640,7 @@
     "set_reminder": "تعيين تذكير",
     "week": "أسبوع",
     "reminder_before": "تذكير من قبل",
+    "asset_found": "تم العثور على الأصل الرجاء المراجعة",
     "overview": {
       "job_card_history": "تاريخ بطاقة العمل",
       "active_job_card_task": "مهام بطاقات العمل النشطة",
@@ -950,7 +952,17 @@
     "department_id": "رقم الإدارة",
     "department_name": "اسم الإدارة",
     "section_name": "اسم القسم",
-    "location": "الموقع"
+    "location": "الموقع",
+    "overview": {
+      "total_traffic_fine": "إجمالي غرامة المرور",
+      "total_fine_paid": "إجمالي الغرامة المدفوعة",
+      "traffic_fine_unpaid": "غرامة المرور غير مدفوعة",
+      "total_movement_month": "إجمالي الحركة في هذا الشهر",
+      "section": "القطاع الثامن",
+      "total_users": "إجمالي المستخدمين",
+      "total_movement": "إجمالي الحركة",
+      "tag": "بطاقة شعار"
+    }
   },
   "movement": {
     "movement": {
