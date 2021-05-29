@@ -71,13 +71,19 @@ import { ButtonType } from '../table.component';
         'tables.column.job_card' | translate
       }}</a>
     </button>
-<!--    <button-->
-<!--      *ngIf="col.buttonType == buttonType.makeDecision"-->
-<!--      class="btn-primary-large make-decision"-->
-<!--      (click)="openMakeDecision()"-->
-<!--    >-->
-<!--      {{ 'buttons.make_decision' | translate }}-->
-<!--    </button>-->
+    <img
+      *ngIf='col.buttonType === buttonType.playAndPause'
+      class='play-pause-button'
+      src='{{ (this.button.action === "play") ? "assets/icons/play-button.svg" : "assets/icons/pause-button.svg" }}'
+      (click)='clickButton((this.button.action === "play") ? "play" : "pause")'
+    />
+    <!--    <button-->
+    <!--      *ngIf="col.buttonType == buttonType.makeDecision"-->
+    <!--      class="btn-primary-large make-decision"-->
+    <!--      (click)="openMakeDecision()"-->
+    <!--    >-->
+    <!--      {{ 'buttons.make_decision' | translate }}-->
+    <!--    </button>-->
   `,
   styles: [
     `
@@ -116,6 +122,10 @@ import { ButtonType } from '../table.component';
       }
       img.action-button {
         height: 1.3em;
+      }
+      img.play-pause-button {
+        height: 1.9em;
+        cursor: pointer;
       }
       button.job-card {
         padding: 1em 1em;
