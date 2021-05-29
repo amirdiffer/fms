@@ -1,0 +1,44 @@
+.sid-head {
+  display: flex;
+  justify-content: center;
+  .head-image {
+    width: 150px;
+  }
+}
+
+.sid-body {
+  padding: 35px;
+  .latestReminder {
+    justify-content: center;
+    .part {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      margin-top: 10px;
+
+      .reason{
+        font-size: 0.6rem;
+      }
+    }
+
+    .icon {
+      border-radius: 5px;
+      color: rgb(255, 110, 255);
+      background-color: #f9eeff;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      justify-content: center;
+      justify-items: center;
+      margin: -2px;
+      img {
+        width: 25px;
+        padding:3px;
+      }
+    }
+
+    .box-with-lborder {
+      border-left: 1px solid;
+    }
+  }
+}

@@ -1,0 +1,129 @@
+.menu {
+  margin-top: 4.75em;
+  padding: 10px;
+
+  .showing-menu {
+    display: block;
+  }
+
+  .active-menu {
+    color: #0da06e;
+    font-weight: 900;
+  }
+
+  .menuItem {
+    display: block;
+    position: relative;
+    list-style: none;
+    line-height: 2rem;
+    padding: 5px;
+    cursor: pointer;
+
+    .sub-menuItem {
+      max-height: 100rem;
+      width: 100%;
+      overflow: hidden;
+      transition: max-height 1s;
+    }
+
+    .menu-item-name {
+      padding: 5px;
+    }
+
+    svg {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    .hidden {
+      overflow: hidden;
+      max-height: 0rem;
+      transition: max-height 1s;
+    }
+
+    .active_submenu {
+      color: #0da06e;
+      font-weight: 900;
+      font-size: 1.2em;
+    }
+
+    .active-child {
+      color: #0da06e;
+      font-weight: 900;
+    }
+
+    .not-active {
+      color: #535353;
+    }
+  }
+
+  .has-child {
+    &::after {
+      content: url('../../../../assets/icons/arrow-down.svg');
+      position: absolute;
+      right: -2em;
+      top: 10px;
+      bottom: 0;
+      height: 20px;
+      width: 20px;
+      transition: 400ms;
+      transform: scale(0.8);
+      transition-timing-function: ease-in-out;
+    }
+    &.showing-menu {
+      &::after {
+        content: url('../../../../assets/icons/arrow-down-active.svg');
+        transform: rotate(180deg) scale(0.8);
+        color: #0da06e;
+      }
+    }
+  }
+}
+
+.menuItems {
+  display: flex;
+  flex-direction: row;
+  padding: 0 15px;
+  ul {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+.active_menu_line {
+  width: 0.3em;
+  border-radius: 3px;
+  left: 32px;
+  background: #0da06e;
+  height: auto;
+}
+
+.disabled {
+  opacity: 60%;
+}
+
+.__sidemenu__disabled {
+  color: #b1b1b1 !important;
+}
+@media only screen and (max-width: 1600px) {
+  .menu {
+    margin-top: 3.2em;
+  }
+}
+@media only screen and (max-width: 1366px) {
+  .menu {
+    svg {
+      transform: scale(0.85) !important;
+    }
+    .has-child {
+      &::after {
+        transform: scale(0.65) !important;
+      }
+    }
+    .has-child.showing-menu {
+      &::after {
+        transform: scale(0.65) rotate(180deg) !important;
+      }
+    }
+  }
+}

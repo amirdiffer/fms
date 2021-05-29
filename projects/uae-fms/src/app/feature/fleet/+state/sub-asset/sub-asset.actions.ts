@@ -41,6 +41,17 @@ export class SubAssetActions {
     '[SubAsset] sub-asset edited successfully',
     props<{ data: any }>()
   );
+  
+
+  static subAssetById = createAction(
+    '[SubAsset] load sub asset by Id',
+    props<{ id: number }>()
+  );
+  static subAssetByIdLoaded = createAction(
+    '[SubAsset] specific sub asset loaded',
+    props<{ data: any }>()
+  );
+
 
   static reset = createAction('[SubAsset] parameters are reset');
 }

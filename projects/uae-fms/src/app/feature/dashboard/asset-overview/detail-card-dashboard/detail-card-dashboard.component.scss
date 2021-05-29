@@ -1,0 +1,47 @@
+@import '../../../../../assets/scss/mixins/dashboard.scss';
+.item-flex {
+  display: flex;
+  flex-direction: column;
+  .item {
+    & > p {
+      flex: 0 0 50%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+    & > span {
+      display: flex;
+      flex: 0 0 50%;
+      & > p {
+        flex: 0 0 50%;
+        align-self: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+      }
+    }
+  }
+}
+.box_show_more {
+  font-size: 0.8em;
+  text-decoration: underline;
+  cursor: pointer;
+}
+p-dialog {
+  font-size: 0.85em;
+  ::ng-deep {
+    .p-dialog {
+      width: 50vw;
+    }
+  }
+}
+.item-flex .col-item:nth-child(even) {
+  border-left: 1px solid #eaeaea;
+  padding-left: 3em;
+}
+
+.text-end {
+  text-align: end;
+}

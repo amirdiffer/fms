@@ -14,6 +14,7 @@ export const environment = {
   i18nPrefix: '',
   versions: {
     app: packageJson.version,
+    build: packageJson.build,
     angular: packageJson.dependencies['@angular/core'],
     ngrx: packageJson.dependencies['@ngrx/store'],
     material: packageJson.dependencies['@angular/material'],

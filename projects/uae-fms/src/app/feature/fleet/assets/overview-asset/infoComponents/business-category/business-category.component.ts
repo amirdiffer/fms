@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ColumnType } from '@core/table';
 import { ActivatedRoute } from '@angular/router';
+import {
+  BusinessCategoryFacade,
+  BusinessCategoryService
+} from '@feature/configuration/+state/business-category';
 
 @Component({
   selector: 'app-asset-overview-business-category',
@@ -8,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./business-category.component.scss']
 })
 export class BusinessCategoryComponent implements OnInit {
+  @Input() bcID;
+
   assetId = this.route.snapshot.params['id'];
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
@@ -46,58 +52,45 @@ export class BusinessCategoryComponent implements OnInit {
         renderer: 'downloadButtonRenderer'
       }
     ],
-    data: [
-      {
-        item: 'Camera',
-        type: 'Asset',
-        quantity: '21',
-        description: 'Description is Here',
-        attachment: [1]
-      },
-      {
-        item: 'Camera',
-        type: 'Asset',
-        quantity: '21',
-        description: 'Description is Here',
-        attachment: [1]
-      },
-      {
-        item: 'Camera',
-        type: 'Asset',
-        quantity: '21',
-        description: 'Description is Here',
-        attachment: [1]
-      },
-      {
-        item: 'Camera',
-        type: 'Asset',
-        quantity: '21',
-        description: 'Description is Here',
-        attachment: [1]
-      },
-      {
-        item: 'Camera',
-        type: 'Asset',
-        quantity: '21',
-        description: 'Description is Here',
-        attachment: [1]
-      },
-      {
-        item: 'Camera',
-        type: 'Asset',
-        quantity: '21',
-        description: 'Description is Here',
-        attachment: [1]
-      }
-    ],
+    data: [],
     rowSettings: {
       floatButton: []
     }
   };
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private businessCategoryService: BusinessCategoryService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.businessCategoryService.getOne(this.bcID).subscribe((x) => {
+      let data_subAsset = (<Array<object>>(
+        x.message['bcSubAssetConfigurations']
+      )).map((d) => {
+        return {
+          item: 'Test',
+          type: 'Sub Asset'
+        };
+      });
+      let data_accessories = (<Array<object>>(
+        x.message['bcAccessoryConfigurations']
+      )).map((d) => {
+        return {
+          item: 'Test',
+          type: 'Accessory'
+        };
+      });
+      let data = (<Array<object>>data_subAsset).concat(data_accessories);
+      this.business_category.data = data.map((d) => {
+        return {
+          item: d['item'],
+          type: d['type'],
+          quantity: d['quantity'],
+          description: 'Description is Here',
+          attachment: [1]
+        };
+      });
+    });
+  }
 }

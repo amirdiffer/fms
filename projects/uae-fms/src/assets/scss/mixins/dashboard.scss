@@ -1,18 +1,21 @@
 @mixin dashboard(
   $headerColor: #475f7b,
   $headerBackground: #fff,
+  $primaryColor: #0da06e,
   $headerFontSize: 1.1rem,
   $buttonColor: #ffff,
   $buttonBackgroundColor: #26d07c,
   $dashboardCardBackground: #fff,
   $buttonBoxShadowColor: #5a8dee66,
-  $dashboardCardBoxShadowColor: #0000001f,
+  $dashboardCardBoxShadowColor: #bfbfbf29,
   $tableHeaderColor: #a0a0a0,
   $tableHeaderBorderColor: #c7cfd6,
   $tableHeaderBackground: #fff,
   $tableHeaderFontSize: 1em,
   $tableCellFontSize: 1em,
-  $headPadding: 1em
+  $subTitleColor: #0000008f,
+  $headPadding: 1em,
+  $fontFamilyTitle: '29LT Bukra - Bold'
 ) {
   .dashboard-container {
     h6.card-header {
@@ -34,7 +37,27 @@
     }
 
     .dashboard-card {
-      box-shadow: -8px 12px 18px $dashboardCardBoxShadowColor;
+      box-shadow: 0px 6px 6px $dashboardCardBoxShadowColor;
+    }
+    .box_title {
+      font-family: $fontFamilyTitle;
+      font-size: 1em;
+    }
+    .dashboard-title {
+      font-family: $fontFamilyTitle;
+      font-size: 1.2em;
+    }
+    .primary-color {
+      color: $primaryColor;
+    }
+    .box_sub_title {
+      font-size: 0.8em;
+    }
+    .box_sub_number {
+      font-size: 1.5em;
+      color: $subTitleColor;
+      font-weight: bold;
+      margin-top: 0.5em;
     }
   }
 

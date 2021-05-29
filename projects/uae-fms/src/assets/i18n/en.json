@@ -170,6 +170,7 @@
       "~": "Workshop",
       "body_shop": "Body Shop",
       "service_shop": "Service Shop",
+      "location": "Location",
       "inspection": {
         "~": "Inspections",
         "technical_inspection": "Technical Inspection",
@@ -179,16 +180,10 @@
     },
     "part_store": {
       "~": "Part Store",
-      "part_list": {
-        "~": "Part List",
-        "asset": "Asset",
-        "sub_asset": "Sub Asset"
-      },
-      "order_list": {
-        "~": "Order List",
-        "asset": "Asset",
-        "sub_asset": "Sub Asset"
-      },
+      "part_list": "Part List",
+      "asset": "Asset",
+      "sub_asset": "Sub Asset",
+      "order_list": "Order List",
       "supplier": "Supplier",
       "part_master": "Part Master"
     },
@@ -208,7 +203,10 @@
       "fleet_status": "Fleet Status",
       "periodic_service": "Periodic Service"
     },
-    "integrations": "Integrations"
+    "integrations": "Integrations",
+    "mytasks": "My Tasks",
+    "myrequests": "My Requests",
+    "reminder": "Reminder"
   },
   "statistic": {
     "asset_sub_asset": "Asset / Sub Asset",
@@ -229,6 +227,7 @@
     "movement_type": "Movement Type",
     "request_type": "Request Type",
     "request": "Request",
+    "requested": "Requested",
     "asset_type": "Asset Type",
     "request_status": "Request Status",
     "tag_no": "Tag No",
@@ -310,7 +309,10 @@
     "stoped": "Stoped",
     "delayed": "Delayed",
     "need_to_order": "Need To Order",
-    "order": "Order"
+    "order": "Order",
+    "received": "Received",
+    "archived": "Archived",
+    "registered": "Registered"
   },
   "tabs": {
     "asset_master": "Asset Master",
@@ -342,7 +344,10 @@
     "warranty": "Warranty",
     "technician_job_card": "Technician Job Card",
     "user": "User",
-    "traffic_fine": "Traffic Fine"
+    "traffic_fine": "Traffic Fine",
+    "all-requests-list": "All Requests List",
+    "part_requests": "Part Requests",
+    "technical_inspection_requests": "Technical Inspection Requests"
   },
   "search": {
     "add": "Add",
@@ -551,7 +556,8 @@
       "shopType": "Shop Type",
       "ratePerHour": "Rate Per Hour",
       "taskType": "Task Type",
-      "timeEstimate": "Time Estimate"
+      "timeEstimate": "Time Estimate",
+      "progress": "Progress"
     },
     "button": {
       "view_report": "View Report",
@@ -579,7 +585,57 @@
     "active": "Active",
     "defleet": "Defleet",
     "reused": "Reused",
-    "total_lost": "Total Lost"
+    "total_lost": "Total Lost",
+    "asset_overview": "Asset Overview",
+    "movement_overview": "Movement Overview",
+    "booked_vehicles": "Booked Vehicles",
+    "damage": "Damage",
+    "miles": "Miles",
+    "workshop_overview": "Workshop Overview",
+    "work_overview": "Work Overview",
+    "in_active": "In Active",
+    "x_fleet": "X Fleet",
+    "rejested": "Registered",
+    "customised": "Customised",
+    "number_of_asset_in_this_category": "Number Of Asset In This Category",
+    "asset_in_department": "Asset In Department",
+    "accessory": "Accessory",
+    "sub_asset": "Sub Asset",
+    "assigned": "Assigned",
+    "see_all_accessory": "See All Accessory",
+    "see_all_sub_asset": "See All Sub Asset",
+    "show_more": "Show More",
+    "department_request": "Department Request",
+    "for_movement": "For Movement",
+    "hr": "HR",
+    "fincaical": "Fincaical",
+    "store": "Store",
+    "used_asset": "Used Asset",
+    "k": "K",
+    "total_jobcard": "Total Jobcard",
+    "full_report": "Full Report",
+    "workshop_performance": "Workshop Performance",
+    "workshop_job_type": "Workshop Job Type",
+    "estimate": "Estimate",
+    "repair": "Repair",
+    "technical_report": "Technical Report",
+    "installation": "Installation",
+    "operator_statistics": "Operator Statistics",
+    "totla_fines": "Total Fines",
+    "deactive": "Deactive",
+    "view_operator_profil": "View Operator Profile",
+    "congratulations": "Congratulations",
+    "need_to_check": "Need To Check",
+    "the_lowest_penalty_per_month": "The Lowest Penalty Per Month",
+    "most_fines_per_month": "Most Fines Per Month",
+    "updated": "Updated",
+    "day_ago": "day ago",
+    "last_week": "Last Week",
+    "last_month": "Last Month",
+    "last_year": "Last Year",
+    "from": "From",
+    "start_date": "Start Date",
+    "end_date": "End Date"
   },
   "assets": {
     "business_info": "Business Info",
@@ -650,7 +706,7 @@
         "manual_update": "Manual Update",
         "accident": "Accident",
         "reason": "Reason",
-        "miner": "Miner",
+        "miner": "Minor",
         "major": "Major",
         "job_type": "Job Type",
         "issue_info": "Issue Info",
@@ -832,7 +888,8 @@
     "customize_later": "Customize Later",
     "customize_now": "Customize Now",
     "asset_successfully_registered": "Asset Successfully Registered",
-    "sample_hint_is_here_to_explain_process": "Sample hint is here to explain process"
+    "sample_hint_is_here_to_explain_process": "Sample hint is here to explain process",
+    "thumbnail": "Thumbnail"
   },
   "sub_asset": {
     "sub_asset_specification": "Sub Asset Specification",
@@ -907,6 +964,7 @@
     "sms": "SMS",
     "whatsapp": "Whatsapp",
     "overview": {
+      "operator": "Operator",
       "first_name": "First Name",
       "last_name": "Last Name",
       "age": "Age",
@@ -916,7 +974,14 @@
       "organization": "Organization",
       "section": "Section",
       "authorized": "Authorized",
-      "expiry_license": "Expiry License"
+      "expiry_license": "Expiry License",
+      "driver_license": {
+        "~": "Driver License",
+        "number": "Number",
+        "country": "Country",
+        "license_class": "Licence Class",
+        "date_of_expiry": "Date Of Expiry"
+      }
     },
     "upload_form": {
       "title": "Upload Profile Picture",
@@ -1064,13 +1129,17 @@
         "asset": "Asset",
         "sub_asset": "Sub Asset",
         "asset_type": "Asset Type",
+        "sub_asset_type": "Sub Asset Type",
         "select_item_category": "Select Item Category",
         "item_name": "Item Name",
         "quantity": "Quantity",
         "supplier": "Supplier",
         "description": "Description",
         "set_reminder": "Set Reminder",
-        "price": "Price"
+        "price": "Price",
+        "category": "Category",
+        "item": "Item",
+        "technician": "Technician"
       },
       "request_form": {
         "request_info": "Request Info",
@@ -1152,7 +1221,7 @@
         "manual_update": "Manual Update",
         "accident": "Accident",
         "reason": "Reason",
-        "miner": "Miner",
+        "miner": "Minor",
         "major": "Major",
         "job_type": "Job Type",
         "issue_info": "Issue Info",
@@ -1623,6 +1692,7 @@
       "send_notification_by": "Send Notification By",
       "employee_number": "Employee Number",
       "department": "Department",
+      "section": "Section",
       "role": "Role",
       "active_employee": "Active Employee",
       "first_name": "First Name",

@@ -134,15 +134,55 @@
                     <div class="form-section component_wrapper" [formGroupName]="'purchasedFor'" >
                       <h3 class="form-section__title">{{ 'assets.purchased_for' | translate }}</h3>
                       <div class="row form-section__row">
-                        <div class="col-12 col-md-3 p-field form-section__field options-select">
-                          <span class="p-float-label">
-                            <p-dropdown inputId="department" [placeholder]="'assets.department' | translate"  [options]="department$ | async" optionLabel="organizationName" dataKey="id" formControlName="department" dataKey="id"></p-dropdown>
-                            <label for="department">{{ 'assets.department' | translate }} *</label>
-                          </span>
-                          <anms-error
-                            [showError]="hasError('purchasedFor.department',formGroupAssetDetail,submitted_AssetDetail)"
-                            error="forms.feedback.required">
-                          </anms-error>
+<!--                        <div class="col-12 col-md-3 p-field form-section__field options-select">-->
+<!--                          <span class="p-float-label">-->
+<!--                            <p-dropdown inputId="department" [placeholder]="'assets.department' | translate"  [options]="department$ | async" optionLabel="organizationName" dataKey="id" formControlName="department" dataKey="id"></p-dropdown>-->
+<!--                            <label for="department">{{ 'assets.department' | translate }} *</label>-->
+<!--                          </span>-->
+<!--                          <anms-error-->
+<!--                            [showError]="hasError('purchasedFor.department',formGroupAssetDetail,submitted_AssetDetail)"-->
+<!--                            error="forms.feedback.required">-->
+<!--                          </anms-error>-->
+<!--                        </div>-->
+<!--                        <div class="col-12 col-md-3 p-field form-section__field options-select">-->
+<!--                          <span class="p-float-label">-->
+<!--                            <p-dropdown inputId="section" [placeholder]="'assets.section' | translate"  [options]="section$ | async" optionLabel="name" dataKey="id" formControlName="section" dataKey="id"></p-dropdown>-->
+<!--                            <label for="section">{{ 'assets.section' | translate }} *</label>-->
+<!--                          </span>-->
+<!--                          <anms-error-->
+<!--                            [showError]="hasError('purchasedFor.section',formGroupAssetDetail,submitted_AssetDetail)"-->
+<!--                            error="forms.feedback.required">-->
+<!--                          </anms-error>-->
+<!--                        </div>-->
+                        <div class="col-12 col-md-3 p-field form-section__field">
+                          <div class="autocomplete-select">
+                            <span class="p-float-label">
+                              <p-autoComplete formControlName="department" (completeMethod)="searchDepartment($event)"
+                                              [suggestions]="departmentFiltered" field="organizationName" [minLength]="1"
+                                              (onSelect)="departmentChanged($event)"
+                                              [dropdown]="true">
+                              </p-autoComplete>
+                              <i class="pi pi-search"></i>
+                              <label>{{ 'configuration.users.department' | translate }} *</label>
+                            </span>
+                            <anms-error [showError]="hasError('department',formGroupAssetDetail.get('purchasedFor'),submitted_AssetDetail)"
+                                        error="forms.feedback.required"></anms-error>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-3 p-field form-section__field">
+                          <div class="autocomplete-select">
+                            <span class="p-float-label">
+                              <p-autoComplete formControlName="section" (completeMethod)="searchSection($event)"
+                                              [suggestions]="sectionFiltered" field="name" [minLength]="1"
+                                              (onSelect)="sectionChanged($event)"
+                                              [dropdown]="true">
+                              </p-autoComplete>
+                              <i class="pi pi-search"></i>
+                              <label>{{ 'configuration.users.section' | translate }} *</label>
+                            </span>
+                            <anms-error [showError]="hasError('section',formGroupAssetDetail.get('purchasedFor'),submitted_AssetDetail)"
+                                        error="forms.feedback.required"></anms-error>
+                          </div>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field options-select">
                           <span class="p-float-label">
@@ -459,6 +499,16 @@
                           </div>
                         </div>
                         <anms-uploader *ngIf="this.formGroupGenerate.get('quantity').value == 'multipleAsset'" [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="maintenanceServiceDocRequired" (uploadedEvent)="maintenanceServiceFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
+                      </div>
+                      <div class="form-section">
+                        <div class="row form-section__row">
+                          <div class="col-2">
+                            <h3 class="form-section__title">{{ 'assets.thumbnail' | translate }}</h3>
+                          </div>
+                          <div class="col-12">
+                            <anms-uploader [multiple]="false" [preview]="true" [isImage]="true" [accept]="['.png', '.jpg']" (uploadedEvent)="uploadImage($event)" [files]="[avatarDocId]"></anms-uploader>
+                          </div>
+                        </div>
                       </div>
                     </form>
                     <div *ngIf="uploadReview">

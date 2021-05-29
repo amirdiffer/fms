@@ -6,6 +6,8 @@ import * as movementRequestsReducer from './movement/requests/movement-requests.
 import * as movementTemporaryOverviewReducer from './movement/temporary/overview/movement-overview.reducer';
 import * as movementTemporaryRequestsReducer from './movement/temporary/requests/movement-requests.reducer';
 import * as operatorReducer from './operator/operator.reducer';
+import * as operatorTrafficFineReducer from './operator/traffic-fine-tab/operator-traffic-fine.reducer';
+import * as operatorMovementHistoryReducer from './operator/movement-history-tab/operator-movement-history.reducer';
 import * as accessoryReducer from './accessory/accessory.reducer';
 import * as subAssetReducer from './sub-asset/sub-asset.reducer';
 import * as organizationReducer from './organization/organization.reducer';
@@ -15,6 +17,8 @@ import { FLEET_REGISTRATION_FEATURE_KEY } from '@feature/fleet/+state/assets/reg
 import { FLEET_MOVEMENT_OVERVIEW_FEATURE_KEY } from './movement/overview/movement-overview.entity';
 import { FLEET_MOVEMENT_REQUESTS_FEATURE_KEY } from './movement/requests/movement-requests.entity';
 import { FLEET_OPERATOR_FEATURE_KEY } from './operator/operator.entity';
+import { FLEET_OPERATOR_TRAFFIC_FINE_FEATURE_KEY } from './operator/traffic-fine-tab/operator-traffic-fine.entity';
+import { FLEET_OPERATOR_MOVEMENT_HISTORY_FEATURE_KEY } from './operator/movement-history-tab/operator-movement-history.entity';
 import { FLEET_ACCESSORY_FEATURE_KEY } from './accessory/accessory.entity';
 import { FLEET_SUB_ASSET_FEATURE_KEY } from './sub-asset/sub-asset.entity';
 import { FLEET_ORGANIZATION_FEATURE_KEY } from './organization/organization.entity';
@@ -32,6 +36,8 @@ export const reducers = {
   [FLEET_MOVEMENT_TEMPORARY_REQUESTS_FEATURE_KEY]:
     movementTemporaryRequestsReducer.reducer,
   [FLEET_OPERATOR_FEATURE_KEY]: operatorReducer.reducer,
+  [FLEET_OPERATOR_TRAFFIC_FINE_FEATURE_KEY]: operatorTrafficFineReducer.reducer,
+  [FLEET_OPERATOR_MOVEMENT_HISTORY_FEATURE_KEY]: operatorMovementHistoryReducer.reducer,
   [FLEET_ACCESSORY_FEATURE_KEY]: accessoryReducer.reducer,
   [FLEET_SUB_ASSET_FEATURE_KEY]: subAssetReducer.reducer,
   [FLEET_ORGANIZATION_FEATURE_KEY]: organizationReducer.reducer

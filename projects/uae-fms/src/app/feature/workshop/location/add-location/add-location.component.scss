@@ -1,0 +1,23 @@
+@import '../../../../../assets/scss/form-section.scss';
+
+.add-section {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.flex-with-button {
+  flex: 1 0 85%;
+  overflow: visible;
+}
+.overflow-visible {
+  overflow: visible;
+}
+.location-item {
+  display: flex;
+  > div {
+    margin: 0 5px;
+  }
+}
+.button-container {
+  top: -4em !important;
+}
