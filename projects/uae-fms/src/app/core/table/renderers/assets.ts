@@ -5,7 +5,7 @@ import { environment } from '../../../../environments/environment';
   selector: 'table-assets-renderer',
   template: `
     <div class="row m-0">
-      <img class="asset-image col-5 p-0 m-0" [src]="fileServerBase + data.img" />
+      <img class="asset-image col-5 p-0 m-0" [src]="fileServerBase + data.img" onerror="this.src='assets/thumb.png'"/>
       <span class="title col-7 align-self-center">
         <p class="m-0">{{ data.assetName }} {{ data.userName }}</p>
         <small> {{ data.assetSubName }} {{ data.subName }}</small>
