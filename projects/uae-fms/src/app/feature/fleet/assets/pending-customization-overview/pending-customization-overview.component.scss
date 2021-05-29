@@ -35,7 +35,7 @@
       .p-accordion-header-link {
         text-decoration: none;
         font-weight: 800;
-        background-color: white !important;
+        background-color: transparent !important;
       }
       .p-accordion-header-link:focus {
         box-shadow: none !important;
@@ -43,9 +43,8 @@
       .p-accordion-content {
         padding: 0 1rem;
       }
-
-      .title {
-        padding-top: 8px;
+      .p-accordion-content{
+        background-color: transparent !important; 
       }
 
       .checkbox {
@@ -69,8 +68,7 @@
       }
       .camera-row {
         border-bottom: 1px solid #d3d3d3;
-        padding: 10px 0;
-        padding-top: 30px;
+        align-items: center;
         height: 80px;
       }
     }

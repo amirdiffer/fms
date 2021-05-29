@@ -312,6 +312,14 @@
       background-color: $fms-black-body2-bg;
     }
   }
+
+  p-accordion{
+    .p-accordion-header-link,
+    .p-accordion-content{
+      color: #acacac !important;
+    }
+
+  }
 }
 /* Light Mode */
 .green-theme {

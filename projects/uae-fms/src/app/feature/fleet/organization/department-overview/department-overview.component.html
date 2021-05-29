@@ -1,4 +1,8 @@
-<div class='row' *hasPermission="['ORGANIZATION_VIEW_DETAILS' , 'ORGANIZATION_VIEW_USERS' , 'ORGANIZATION_VIEW_TRAFFIC_FINES' , 'ORGANIZATION_VIEW_MOVEMENT_HISTORY']">
+<div class='row' style="position: relative" *hasPermission="['ORGANIZATION_VIEW_DETAILS' , 'ORGANIZATION_VIEW_USERS' , 'ORGANIZATION_VIEW_TRAFFIC_FINES' , 'ORGANIZATION_VIEW_MOVEMENT_HISTORY']">
+  <div class="button-container">
+    <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="/fleet/department">{{ 'forms.back' | translate }}</button>
+    <button class="btn-primary-medium add" [routerLink]="['/fleet/department/edit-department/' + itemId]">{{ 'forms.edit' | translate }}</button>
+  </div>
   <div class='col-lg-3'>
     <div class='component_wrapper form-section'>
       <div class='flex-lg-column person'>
@@ -12,37 +16,36 @@
         <hr>
         <div class='col-lg-12 p-0'>
           <div class='text-center header'>
-            Sample Department
+            {{ detailsOrg?.organizationName }}
           </div>
           <div class='text-center mt-3'>
-            Department Id
+            {{ detailsOrg?.id }}
           </div>
           <div class='text-center mt-3 p-0'>
-            <button class='ml-1 mr-1 btn-primary-small col-md-2'>Tag</button>
-            <button class='ml-1 mr-1 btn-primary-small col-md-2'>Tag</button>
-            <button class='ml-1 mr-1 btn-primary-small col-md-2'>Tag</button>
-            <button class='ml-1 mr-1 btn-primary-small col-md-2'>Tag</button>
+            <ng-template *ngFor="let tag of detailsOrg?.tags">
+              <button class='ml-1 mr-1 btn-primary-small col-md-2'>{{ tag }}</button>
+            </ng-template>
           </div>
         </div>
       </div>
     </div>
     <div class='component_wrapper form-section'>
-      <div *ngFor='let section of sections; let index = index'>
+      <div *ngFor='let section of detailsOrg?.departments; let index = index'>
         <div (click)='onSectionSelect(index)' class='bg-green green mb-2 p-2 text-light cursor-pointer'>
           {{section.name}}
         </div>
-        <div *ngIf='section.isSelected' class='d-flex mt-3 mb-2'>
+        <div *ngIf='section["isSelected"]' class='d-flex mt-3 mb-2'>
           <div class='parent' [ngStyle]='(activeLang === "en")? {"margin-left": "30px"}: {"margin-right": "30px"}'>
             <div class='child'>
-              <div *ngFor='let location of section.locations; let j = index; let last = last'
+              <div *ngFor='let location of section.locationAddresses; let j = index; let last = last'
                    class='dot dot-mt dot-mb'>
               </div>
             </div>
           </div>
           <div [class.ml-3]='activeLang === "en"' [class.mr-3]='activeLang === "ar"'>
-            <div *ngFor='let location of section.locations; let k = index; let last = last'
+            <div *ngFor='let location of section.locationAddresses; let k = index; let last = last'
                  class='location-text dot-mb'>
-              {{location.name}}
+              {{location}}
             </div>
           </div>
         </div>
@@ -59,9 +62,9 @@
       </ng-container>
     </div>
     <div class='component_wrapper table-container'>
-      <app-tab-view (selectedIndex)='selectedTab=$event' [count]='[undefined, count$, count$, count$]'>
+      <app-tab-view (selectedIndex)='selectedTab=$event' [count]='[undefined, count.$UserTable, count.$TrafficFineTable, count.$MovementHistoryTable]'>
         <div title="{{ 'tabs.overview' | translate }}" id='overviewTab' *hasPermission="['ORGANIZATION_VIEW_DETAILS']">
-          <anms-overview-tab></anms-overview-tab>
+          <anms-overview-tab *ngIf="detailsOrg" [data]="detailsOrg"></anms-overview-tab>
         </div>
         <div count='3456' title="{{ 'tabs.user' | translate }}" id='userTab' *hasPermission="['ORGANIZATION_VIEW_USERS']">
           <app-table [setting]='userTable'></app-table>
