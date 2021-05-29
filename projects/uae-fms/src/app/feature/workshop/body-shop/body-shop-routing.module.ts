@@ -11,7 +11,7 @@ import { JobCardOverviewComponent } from './job-card-overview/job-card-overview.
 import { PermissionGuard } from '@core/Permission/permission.guard';
 
 const routes: Routes = [
-  { 
+  {
     path: '', component: BodyShopComponent, pathMatch: 'full',
     canActivate:[PermissionGuard],
     data:{
@@ -28,7 +28,7 @@ const routes: Routes = [
       ],
     }
   },
-  { 
+  {
     path: 'add-request', component: AddRequestComponent,
     canActivate:[PermissionGuard],
     data:{
@@ -37,7 +37,7 @@ const routes: Routes = [
       ],
     }
   },
-  { 
+  {
     path: 'add-technician', component: AddTechnicianComponent,
     canActivate:[PermissionGuard],
     data:{
@@ -46,7 +46,7 @@ const routes: Routes = [
       ],
     }
   },
-  { 
+  {
     path: 'technician/:id', component: TechnicianOverviewComponent,
     canActivate:[PermissionGuard],
     data:{
@@ -55,43 +55,43 @@ const routes: Routes = [
       ],
     }
   },
-  { 
+  {
     path: 'edit-technician/:id', component: AddTechnicianComponent,
     canActivate:[PermissionGuard],
     data:{
       permission:[
         "WORKSHOP_BODY_SHOP_TECHNICIAN_UPDATE"
       ],
-    } 
+    }
   },
   // { path: 'add-location', component: AddLocationComponent },
   // { path: 'edit-location/:id', component: AddLocationComponent },
-  { 
+  {
     path: 'add-job-card', component: AddJobCardComponent,
     canActivate:[PermissionGuard],
     data:{
       permission:[
         "WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE"
       ],
-    } 
+    }
   },
-  { 
+  {
     path: ':id/add-job-card', component: AddJobCardComponent,
     canActivate:[PermissionGuard],
     data:{
       permission:[
         "WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE"
       ],
-    } 
+    }
   },
-  { 
+  {
     path: 'edit-job-card/:id', component: AddJobCardComponent ,
     canActivate:[PermissionGuard],
     data:{
       permission:[
         "WORKSHOP_BODY_SHOP_JOB_CARD_UPDATE"
       ],
-    } 
+    }
   },
   {
     path: 'request-overview/:id',
@@ -104,7 +104,7 @@ const routes: Routes = [
       ],
     },
     children: [
-      { 
+      {
           path: 'add-request', component: AddRequestComponent,
           canActivate:[PermissionGuard],
           data:{
@@ -113,7 +113,7 @@ const routes: Routes = [
             ],
           }
       },
-      { 
+      {
           path: 'edit-request/:id', component: AddRequestComponent,
           canActivate:[PermissionGuard],
           data:{
@@ -123,7 +123,7 @@ const routes: Routes = [
             ],
           }
       },
-      { 
+      {
           path: 'add-job-card', component: AddJobCardComponent,
           canActivate:[PermissionGuard],
           data:{
@@ -134,7 +134,7 @@ const routes: Routes = [
       }
     ]
   },
-  { 
+  {
     path: 'job-card-overview/:id', component: JobCardOverviewComponent,
     canActivate:[PermissionGuard],
     data:{

@@ -2,7 +2,7 @@
   <!-- <div class="filter-container">
     <app-filter *ngIf="selectedTab === 'jobcardTab'" [setting]="jobCardTabFilterSetting"></app-filter>
   </div> -->
-  
+
   <div class="table-container component_wrapper">
     <app-tab-view (selectedIndex)="selectedTab=$event" [count]="[requestCount$ , jobCardCount$ , technicianCount$, locationCount$]">
       <span class="search-container card-table-header">
@@ -27,7 +27,7 @@
         <ng-container *hasPermission="['WORKSHOP_BODY_SHOP_LOCATION_ADD']">
           <button *ngIf = "selectedTab === 'locationTab'" class="btn-primary-small" (click)="addClicked($event)" ><i>+</i><a>{{'search.add' | translate}}</a></button>
         </ng-container>
-        
+
       </span>
       <div title="tabs.requests" id="requestTab" *hasPermission="['WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OWN' , 'WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OTHERS']">
         <app-table searchInput="searchInput" (onPagination)="eventPagination_request()" pagination="body-shop_request" [setting]="table1Setting" [tableData]="requestData$"></app-table>

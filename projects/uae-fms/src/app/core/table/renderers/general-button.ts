@@ -142,7 +142,7 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   @Input() setting;
 
   constructor(
-    public _router: Router , 
+    public _router: Router ,
     private _facadeProfile: UserProfileFacade
   ) {}
 

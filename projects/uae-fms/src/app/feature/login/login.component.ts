@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   showLoginError = false;
   submited = false;
   appVersion = environment.versions.app;
+  buildVersion = environment.versions.build;
 
   public credentialsFG: FormGroup;
   constructor(

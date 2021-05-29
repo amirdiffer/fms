@@ -17,7 +17,7 @@ import { PermissionGuard } from '@core/Permission/permission.guard';
 //   { path: 'add-location', component: ServiceShopAddLocationComponent }
 // ];
 const routes: Routes = [
-  { 
+  {
       path: '', component: ServiceShopComponent, pathMatch: 'full',
       canActivate:[PermissionGuard],
       data:{
@@ -32,27 +32,27 @@ const routes: Routes = [
           "WORKSHOP_SERVICE_SHOP_LOCATION_ADD",
           "WORKSHOP_SERVICE_SHOP_JOB_CARD_OPEN_CLOSE",
         ],
-      } 
+      }
   },
-  { 
+  {
       path: 'add-request', component: AddRequestServiceShopComponent,
       canActivate:[PermissionGuard],
       data:{
         permission:[
           "WORKSHOP_SERVICE_SHOP_REQUEST_ADD",
         ],
-      } 
+      }
   },
-  { 
+  {
       path: 'add-technician', component: AddTechnicianServiceShopComponent,
       canActivate:[PermissionGuard],
       data:{
         permission:[
           "WORKSHOP_SERVICE_SHOP_TECHNICIAN_ADD",
         ],
-      }  
+      }
   },
-  { 
+  {
       path: 'technician/:id', component: TechnicianOverviewServiceShopComponent,
       canActivate:[PermissionGuard],
       data:{
@@ -61,7 +61,7 @@ const routes: Routes = [
         ],
       }
   },
-  { 
+  {
       path: 'edit-technician/:id', component: AddTechnicianServiceShopComponent,
       canActivate:[PermissionGuard],
       data:{
@@ -72,16 +72,16 @@ const routes: Routes = [
   },
   // { path: 'add-location', component: AddLocationServiceShopComponent },
   // { path: 'edit-location/:id', component: AddLocationServiceShopComponent },
-  { 
+  {
       path: 'add-job-card', component: AddJobCardServiceShopComponent,
       canActivate:[PermissionGuard],
       data:{
         permission:[
           "WORKSHOP_SERVICE_SHOP_JOB_CARD_OPEN_CLOSE",
         ],
-      } 
+      }
   },
-  { 
+  {
       path: ':id/add-job-card', component: AddJobCardServiceShopComponent,
       canActivate:[PermissionGuard],
       data:{
@@ -90,14 +90,14 @@ const routes: Routes = [
         ],
       }
   },
-  { 
+  {
       path: 'edit-job-card/:id', component: AddJobCardServiceShopComponent,
       canActivate:[PermissionGuard],
       data:{
         permission:[
           "WORKSHOP_SERVICE_SHOP_JOB_CARD_UPDATE",
         ],
-      } 
+      }
   },
   {
     path: 'request-overview/:id',
@@ -110,7 +110,7 @@ const routes: Routes = [
       ],
     },
     children: [
-      { 
+      {
           path: 'add-request', component: AddRequestServiceShopComponent,
           canActivate:[PermissionGuard],
           data:{
@@ -119,7 +119,7 @@ const routes: Routes = [
             ],
           },
       },
-      { 
+      {
           path: 'edit-request/:id', component: AddRequestServiceShopComponent,
           canActivate:[PermissionGuard],
           data:{
@@ -129,7 +129,7 @@ const routes: Routes = [
             ],
           },
       },
-      { 
+      {
           path: 'add-job-card', component: AddJobCardServiceShopComponent,
           canActivate:[PermissionGuard],
           data:{

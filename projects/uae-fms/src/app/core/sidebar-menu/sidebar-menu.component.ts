@@ -129,10 +129,10 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       disabled: true,
       permission:{parent: 'TRRAFIC_FINE' , permission : 'TRRAFIC_FINE', permissionType:'MENU'},
     },
-    { 
-      name: 'sidebar.toll', 
-      icon: 'toll', 
-      route: '/toll', 
+    {
+      name: 'sidebar.toll',
+      icon: 'toll',
+      route: '/toll',
       disabled: true,
       permission:{parent: 'TOLL' , permission : 'TOLL', permissionType:'MENU'},
     },
@@ -159,6 +159,11 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           icon: 'location',
           route: '/workshop/location',
           permission:{parent: 'WORKSHOP' , permission : 'LOCATION', permissionType:'MENU'},
+        },
+        {
+          name: 'sidebar.workshop.location',
+          icon: 'location',
+          route: '/workshop/location'
         },
         /* {
           name: 'sidebar.workshop.inspection.~',
