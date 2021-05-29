@@ -470,7 +470,7 @@
                   <div >
                     <form *ngIf="!uploadReview" [formGroup]="formGroupGenerate">
                       <ng-template matStepLabel>{{ 'assets.generate' | translate }}</ng-template>
-                      <div class="form-section component_wrapper">
+                      <div class="form-section component_wrapper pb-1">
                         <div class="row">
                           <div class="col-2">
                             <h3 class="form-section__title">{{ 'assets.asset_quantity' | translate }}</h3>
@@ -506,14 +506,14 @@
                             <h3 class="form-section__title">{{ 'assets.thumbnail' | translate }}</h3>
                           </div>
                           <div class="col-12">
-                            <anms-uploader [multiple]="false" [preview]="true" [isImage]="true" [accept]="['.png', '.jpg']" (uploadedEvent)="uploadImage($event)" [files]="[avatarDocId]"></anms-uploader>
+                            <anms-uploader [multiple]="false" [preview]="true" [isImage]="true" [accept]="['.png', '.jpg']" [hasError]="thumbnailRequired" (uploadedEvent)="uploadImage($event)" [files]="[avatarDocId]"></anms-uploader>
                           </div>
                         </div>
                       </div>
                     </form>
                     <div *ngIf="uploadReview">
                       <div class="table-container p-0 mt-2 review-table">
-                        <h3 class="form-section__title px-4 pt-4">5 Asset Found Please Review</h3>
+                        <h3 class="form-section__title px-4 pt-4">{{ formReviewSettingTable.data.length }} {{ "assets.asset_found" | translate }}</h3>
                         <app-table [setting]="formReviewSettingTable"></app-table>
                       </div>
                     </div>

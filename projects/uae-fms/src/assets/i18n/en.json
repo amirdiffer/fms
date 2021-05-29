@@ -686,6 +686,7 @@
     "set_reminder": "Set Reminder",
     "week": "Week",
     "reminder_before": "Reminder Before",
+    "asset_found": "Asset Found Please Review",
     "overview": {
       "job_card_history": "Job Card History",
       "active_job_card_task": "Active Job Card's Tasks",
