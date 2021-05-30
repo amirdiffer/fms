@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { FakeServiceAuctionList } from '@feature/workshop/inspections/auction-list/_fake-service.service';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'table-boolean-renderer',

@@ -1,4 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnDestroy, AfterViewInit, Renderer2 } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  OnDestroy,
+  AfterViewInit,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
 import { jsPDF } from 'jspdf';
@@ -13,6 +23,7 @@ import { TableServiceS } from '@core/table/table.service';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import { CSVExport } from "@core/export";
 import { CSVExportColumn } from '@core/export/csv.component';
+import { ColumnRendererComponent } from '@core/table/column-renderer-component/column-renderer.component';
 
 @Component({
   selector: 'app-table',
@@ -43,13 +54,16 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   dropdownItemSelected = null;
   @Output() selectedSubTable: EventEmitter<number> = new EventEmitter<number>();
   allData = [];
+  currentContext;
   constructor(
     private settingFacade: SettingsFacade,
     private translate: TranslateService,
     private _tableFacade: TableFacade,
     private _tableService: TableServiceS,
     private renderer: Renderer2
-  ) { }
+  ) {
+    this.currentContext=this;
+  }
 
   getSearchBoxData() {
     this._tableService.getSearchBoxData(this.searchInput).subscribe((x) => {
