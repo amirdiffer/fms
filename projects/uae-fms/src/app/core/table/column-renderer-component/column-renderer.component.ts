@@ -11,6 +11,7 @@ export class ColumnRendererComponent implements OnInit {
   @Input() data:any;
   @Input() col:ColumnDifinition;
   @Input() context;
+  @Input() index;
 
   activeLang = 'en';
 
@@ -21,7 +22,6 @@ export class ColumnRendererComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.parentComponent);
     console.log(this.setting);
     console.log(this.data);
   }
