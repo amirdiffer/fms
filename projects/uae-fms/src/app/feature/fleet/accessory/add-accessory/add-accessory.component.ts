@@ -18,7 +18,7 @@ import { AccessoryFacade } from '@feature/fleet/+state/accessory';
 import { map } from 'rxjs/operators';
 import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
-import { Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { Utility } from '@shared/utility/utility';
 import { AccessoryTypeFacade } from '@feature/configuration/+state/fleet-configuration';
 
@@ -89,7 +89,8 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
   //#endregion
 
   public accessoryForm: FormGroup;
-
+  accessoryType$:Observable<any>;
+  employee$:Observable<any>;
   accessory = [{ name: '', id: null }];
   setSearchValue = new Subject();
   setSearchValue$ = this.setSearchValue.asObservable();
@@ -149,7 +150,9 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
     if(url.filter((x) => x.path == "edit-accessory").length > 0){
       this.isEdit = true;
       this.recordId = +url[url.length - 1].path;;
+      this.accessoryForm.get('quantity').clearValidators();
       this.loadAccessoryData(this.recordId);
+
     }else{
       this.isEdit = false;
     }
@@ -158,39 +161,16 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
   loadAccessoryData(recordId: number) {
     this.accessoryService$ =this.accessoryService.getAccessory(recordId).subscribe((result: any) => {
       if (result) {
+        console.log(result.message)
         const accessory = result.message;
-        const {
-          assignedToType,
-          itemName,
-          quantity,
-          assignedToEntity,
-          accessoryTypeId,
-          assignedToEmployeeId
-        } = accessory;
 
         this.loadAccessoryType(() => {
-          const selectedAccessoryType: any = this.accessory.find(
-            (a) => a.id === accessoryTypeId
-          );
           this.accessoryForm.patchValue({
-            accessoryTypeId: selectedAccessoryType?.id
-          });
+            itemName: accessory.itemName,
+            accessoryTypeId:accessory.accessorySpecification.id,
+            assignedToEmployeeId:accessory.assignedToEmployeeId
+          })
         });
-
-        this.setUsers(() => {
-          this.accessoryForm.controls['assignedToEmployeeId'].setValue(
-            assignedToEmployeeId
-          );
-        });
-
-        const data = {
-          itemName,
-          assignedToType,
-          quantity,
-          assignedToEntity
-        };
-
-        this.accessoryForm.patchValue(data);
         this.setSearchValue.next('data');
       }
     });
@@ -198,10 +178,26 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
 
   ngOnInit(): void {
     this.accessoryTypeFacade.loadAll();
+    this.accessoryType$ = this.accessoryTypeFacade.accessoryType$.pipe(map(x => {
+      if (x){return x}
+    }));
+    this.employee$ = this.accessoryService.users().pipe(
+      map(x => {
+         if(x){
+           return x.message.map(user => {
+             return {
+              id:user.id,
+              name: user.firstName + ' ' + user.lastName
+             }
+             
+           })
+         }
+      })
+    )
     this.accessoryForm = this._fb.group({
       itemName: ['', Validators.required],
-      assignedToType: ['ASSET'],
-      assignedToEntity: ['', Validators.required],
+      // assignedToType: ['ASSET'],
+      // assignedToEntity: ['', Validators.required],
       accessoryTypeId: ['', Validators.required],
       quantity: ['', Validators.required],
       assignedToEmployeeId: ['']
@@ -232,9 +228,9 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
         let selectedAsset;
         switch (x) {
           case 'data':
-            this.assignedToEntity = this.accessoryForm.controls[
-              'assignedToEntity'
-            ].value;
+            // this.assignedToEntity = this.accessoryForm.controls[
+            //   'assignedToEntity'
+            // ].value;
             break;
           case 'asset':
             selectedAsset = this.assetsB.find((a) => {
@@ -242,9 +238,9 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
             });
             break;
           case 'subAsset':
-            selectedAsset = this.subAssetsB.find((a) => {
-              return a.id === this.assignedToEntity;
-            });
+            // selectedAsset = this.subAssetsB.find((a) => {
+            //   return a.id === this.assignedToEntity;
+            // });
             break;
         }
 
@@ -372,8 +368,8 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
       const d = this.accessoryForm.getRawValue();
       const _data = {
         itemName: d.itemName,
-        assignedToType: d.assignedToType,
-        assignedToEntity: d.assignedToEntity.id,
+        // assignedToType: d.assignedToType,
+        // assignedToEntity: d.assignedToEntity.id,
         accessoryConfigurationId : d.accessoryTypeId,
         quantity: d.quantity,
         assignedToEmployeeId: d.assignedToEmployeeId
