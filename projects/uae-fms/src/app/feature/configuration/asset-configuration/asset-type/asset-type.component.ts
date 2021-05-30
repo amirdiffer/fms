@@ -16,6 +16,7 @@ import { SettingsFacade } from '@core/settings/settings.facade';
 import { ISubAssetType } from '@models/sub-asset';
 import { AddMakeComponent } from '@feature/configuration/asset-configuration/add-make/add-make.component';
 import { Location } from '@angular/common';
+import { relative } from 'path';
 
 @Component({
   selector: 'configuration-asset-type',
@@ -44,7 +45,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   arrowIcon = 'assets/icons/arrow-down.svg';
   categoryType$;
   activeLang = '';
-  activeAssetType = '';
+  activeAssetType;
   openedAssetTypeArray: AssetTypeExtension[] = []
   //#endregion
 
@@ -54,6 +55,9 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   assetType$: Observable<AssetTypeExtension[]>
   assetTypeSubject$: Subject<AssetTypeExtension[]> = new Subject()
 
+  selectedCategory:number = -1;
+  selectedMake:number = -1;
+  selectedModel:number = -1;
   constructor(
     private facade: AssetTypeFacade,
     private _subAssetTypeFacade: SubAssetTypeFacade,
@@ -62,19 +66,19 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private settingFacade: SettingsFacade,
     private location: Location,
-    private activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-
     this.assetTypeSubject$.subscribe((assetTypeArray) => {
       this.assetTypeArray = assetTypeArray
     })
 
     this.categoryType$ = this.dataService.watchType().pipe((type) => {
       type.subscribe((y) => {
+        console.log('Type' , y)
         this.activeAssetType = y
-        this.changeType(y)
+        this.changeType(y);
       });
       return type;
     });
@@ -92,9 +96,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   createMake(assetType: AssetTypeExtension): void {
     this.dataService.selectedTypeId = assetType.id;
     this.dataService.selectedTypeName = assetType.name;
-    this.router
-      .navigate(['/configuration/asset-configuration/add-make/' + assetType.id])
-      .then();
+    this.router.navigate([this.activeAssetType+'/add-make/' +assetType.id] , {relativeTo:this.activatedRoute})
   }
 
   createModel(assetType, make: MakeExtension): void {
@@ -120,6 +122,9 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   }
 
   onTypeClick(item: AssetTypeExtension): void {
+    console.log(item)
+    this.selectedCategory = +item.id
+    this.selectedMake = -1;
     this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { type: item.id } }).then()
     this.assetType$.forEach((assetType: AssetTypeExtension[]) => {
       this.openedAssetTypeArray = []
@@ -147,6 +152,8 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   }
 
   onMakeClick(make: MakeExtension, assetTypeId: number): void {
+    this.selectedMake = make.id
+    this.selectedModel = -1;
     this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { type: assetTypeId, make: make.id } }).then()
     this.openedAssetTypeArray.map((iAssetType) => {
       if (iAssetType.id === assetTypeId) {
@@ -172,6 +179,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   }
 
   onModelClick(model: ModelExtension, makeId: number, assetTypeId: number): void {
+    this.selectedModel = model.id;
     this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { model: model.id }, queryParamsHandling: 'merge' }).then()
     this.openedAssetTypeArray.map((iAssetType) => {
       if (iAssetType.id === assetTypeId) {
@@ -192,8 +200,8 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     })
   }
 
-  getStatusColor(status: boolean): string {
-    if (status) {
+  getStatusColor(id: number): string {
+    if (id === this.selectedModel) {
       return '#0DA06E';
     } else {
       return '#868686';
@@ -201,6 +209,9 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   }
 
   changeType(type: string) {
+    this.selectedCategory = -1
+    this.selectedMake = -1
+    this.selectedModel = -1
     let assetTypeArray: AssetTypeExtension[] = []
     this.assetTypeSubject$.next([])
 
@@ -265,6 +276,39 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     if (this.activeAssetType == "ASSET") return "configuration.asset_configuration.add_asset_type";
     if (this.activeAssetType == "SUB_ASSET") return "configuration.asset_configuration.add_sub_asset_type";
     if (this.activeAssetType == "ACCESSORY") return "configuration.asset_configuration.add_accessory_type";
+  }
+
+
+  addCategoryType(){
+    switch (this.activeAssetType) {
+      case 'ASSET':
+        this.router.navigate(['add-asset-configuration'] , {relativeTo:this.activatedRoute})
+        break;
+    
+      case 'SUB_ASSET':
+        this.router.navigate(['add-sub-asset-configuration'], {relativeTo:this.activatedRoute})
+        break;
+
+      case 'ACCESSORY':
+        this.router.navigate(['add-accessory-configuration'], {relativeTo:this.activatedRoute})
+        break;
+    }
+  }
+
+  editCategoryType(id){
+    switch (this.activeAssetType) {
+      case 'ASSET':
+        this.router.navigate(['edit-asset-configuration/'+id] , {relativeTo:this.activatedRoute})
+        break;
+    
+      case 'SUB_ASSET':
+        this.router.navigate(['edit-sub-asset-configuration/'+id], {relativeTo:this.activatedRoute})
+        break;
+
+      case 'ACCESSORY':
+        this.router.navigate(['edit-accessory-configuration/'+id], {relativeTo:this.activatedRoute})
+        break;
+    }
   }
 }
 

@@ -18,17 +18,22 @@ import { AddModelComponent } from '@feature/configuration/asset-configuration/ad
 import { AddTrimComponent } from '@feature/configuration/asset-configuration/add-trim/add-trim.component';
 
 const routes: Routes = [
-  { path: 'asset-configuration', component: AssetConfigurationComponent },
-  { path: 'add-asset-configuration', component: AddTypeComponent },
-  { path: 'edit-asset-configuration/:id', component: AddTypeComponent },
-  {
-    path: 'sub-asset-edit-asset-configuration/:id',
-    component: AddTypeComponent
+  { path: 'asset-configuration', component: AssetConfigurationComponent ,
+    children:[
+      { path: 'add-asset-configuration', component: AddTypeComponent },
+      { path: 'add-sub-asset-configuration', component: AddTypeComponent },
+      { path: 'add-accessory-configuration', component: AddTypeComponent },
+      { path: 'edit-asset-configuration/:id', component: AddTypeComponent },
+      { path: 'edit-sub-asset-configuration/:id', component: AddTypeComponent },
+      { path: 'edit-accessory-configuration/:id', component: AddTypeComponent },
+      { path: ':fleetType/add-make/:assetTypeId' , component: AddMakeComponent}
+    ]
   },
-  {
-    path: 'asset-configuration/add-make/:assetType',
-    component: AddMakeComponent
-  },
+
+  // {
+  //   path: 'asset-configuration/add-make/:assetType',
+  //   component: AddMakeComponent
+  // },
   {
     path: 'asset-configuration/edit-make/:assetTypeId/:id',
     component: AddMakeComponent

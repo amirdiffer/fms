@@ -1,13 +1,13 @@
-<mat-card class='p-2 m-0'>
+<mat-card class='p-2 m-0 overflow-hidden' [class.not-disable]="activatedRoute.snapshot.children">
   <mat-card-header>
     <mat-card-title class='mat-card-title'>{{ 'filter.category' | translate }}</mat-card-title>
   </mat-card-header>
   <span class='border'></span>
   <mat-card-content *ngIf='loaded$|async'>
-    <div *ngFor='let assetType of assetTypeArray'>
+    <div *ngFor='let assetType of assetTypeArray' [class.active-category]="assetType.id === selectedCategory">
       <!-- <ng-container *ngIf="assetType.type == (categoryType$ | async) || !(categoryType$ | async)"> -->
       <ng-container>
-        <div class='category-item'>
+        <div class='category-item' [class.active-type]="assetType.id === selectedCategory" >
           <svg-icon *ngIf="(activeAssetType !== 'ACCESSORY')" [ngStyle]="(activeLang === 'en') ? {'transform': 'rotate(0deg)'} : {'transform': 'rotate(180deg)'}"
                     [src]='arrowIcon' [svgStyle]="{ 'width.em':1.2 , 'fill': '#505050'}"
                     [svgClass]='(assetType.iconSvgClass === "down-arrow") ? ((activeLang === "en") ? "down-arrow" : "down-arrow-ar") : "right-arrow"'
@@ -22,14 +22,14 @@
             </svg-icon>
             <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
                       class='cursor-pointer'
-                      [routerLink]="'/configuration/edit-asset-configuration/' + assetType.id"
+                      (click)="editCategoryType(assetType.id)"
                       src='assets/icons/edit.svg'
                       [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':'100%'}">
             </svg-icon>
           </span>
         </div>
         <div *ngFor='let make of assetType.makes; let index = index'>
-          <div class='category-subItem' [hidden]='!assetType.isSelected'>
+          <div class='category-subItem' [hidden]='!assetType.isSelected' [class.active-type]="make.id === selectedMake">
             <svg-icon
               [ngStyle]="(activeLang === 'en') ? {'transform': 'rotate(0deg)'} : {'transform': 'rotate(180deg)'}"
               [src]='arrowIcon' [svgStyle]="{ 'width.em':1.2 , 'fill': '#505050'}"
@@ -52,13 +52,14 @@
           </div>
           <div *ngFor='let model of (assetType.makes[index]).models'>
             <div class='category-sub-subItem'
-                 [hidden]='!make.isSelected || !assetType.isSelected'>
+                 [hidden]='!make.isSelected || !assetType.isSelected'
+                 [class.active-type-model]="model.id === selectedModel">
               <span class='status' (click)='onModelClick(model, make.id, assetType.id)'
-                    [style]="{ '--back-color-var': getStatusColor(model.isSelected) }"
-                    [ngStyle]="{ color: getStatusColor(model.isSelected) }"></span>
+                    [style]="{ '--back-color-var': getStatusColor(model.id) }"
+                    [ngStyle]="{ color: getStatusColor(model.id) }"></span>
               <span class='ml-2 mr-2 cursor-pointer'
-                    [style]="'color:' + getStatusColor(model.isSelected)"
-                    [class]='getStatusColor(model.isSelected)'
+                    [style]="'color:' + getStatusColor(model.id)"
+                    [class]='getStatusColor(model.id)'
                     (click)='onModelClick(model, make.id, assetType.id)'>{{model.name}}</span>
               <span class='action'>
                 <svg-icon *ngIf="(activeAssetType !== 'SUB_ASSET')"
@@ -77,11 +78,12 @@
         </div>
       </ng-container>
     </div>
-    <div class='d-flex mt-2'>
+    <div class='d-flex mt-2'
+      *ngIf="activatedRoute.children.length == 0">
       <svg-icon class='cursor-pointer ml-2' src='assets/icons/add.svg'
                 [svgStyle]="{ 'width.px':'14' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
       <span class='font-weight-bold add-asset-type cursor-pointer ml-2'
-            routerLink='/configuration/add-asset-configuration'>{{getAssetText() | translate}}</span>
+            (click)="addCategoryType()">{{getAssetText() | translate}}</span>
     </div>
   </mat-card-content>
 

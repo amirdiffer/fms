@@ -104,9 +104,20 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
         floatButton: [
           {
             onClick: (col, data) => {
-              this.router.navigate([
-                '/configuration/edit-asset-configuration/' + data.id
-              ]);
+              console.log(data)
+              switch (this.activeTypeCategory) {
+                case 'ASSET':
+                  this.router.navigate(['edit-asset-configuration/' +data.id] , {relativeTo:this.activatedRoute})
+                  break;
+              
+                case 'SUB_ASSET':
+                  this.router.navigate(['edit-sub-asset-configuration/'+data.id], {relativeTo:this.activatedRoute})
+                  break;
+          
+                case 'ACCESSORY':
+                  this.router.navigate(['edit-accessory-configuration/'+data.id], {relativeTo:this.activatedRoute})
+                  break;
+              }
             },
             button: 'edit'
           }
@@ -134,16 +145,19 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     // private assetConfigurationFacade: AssetConfigurationFacade,
     private _assetConfigurationService: AssetConfigurationService,
     private _dataService: DataService,
-    private activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute
+    
   ) {}
 
   ngOnInit(): void {
+
     this._assetTypefacade.loadAll();
     this._accessoryTypeFacade.loadAll();
     this._subAssetTypeFacade.loadAll();
     this.assetType$ = this._assetTypefacade.assetType$.subscribe((x) => {
       this.assetType = x.map((y) => {
         const value = {
+          id:y.id,
           isSelected: false,
           iconSvgClass: 'right-arrow',
           name: y.name,
