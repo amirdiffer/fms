@@ -22,7 +22,7 @@
         <th *ngIf="foundStatusColor(setting.data)" style="width:0px;"></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-data let-i="rowIndex">
+    <ng-template *ngIf="!setting?.rowSettings?.renderer || setting?.rowSettings?.renderer==''" pTemplate="body" let-data let-i="rowIndex">
       <tr (mouseover)='rowIsHover(i)' [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')"
         [ngStyle]="{'background': isSelected(i) ? data.statusColor : null,'border-inline-start': (dropdownItemSelected == i && subTable) ? '4px solid #008755': null }">
         <span style="height:100% ; width: 5px; position: relative;display: table-cell;">
@@ -61,6 +61,9 @@
           <app-table [setting]="subTable"></app-table>
         </td>
       </tr>
+    </ng-template>
+    <ng-template  *ngIf="setting?.rowSettings?.renderer && setting?.rowSettings?.renderer!=''" pTemplate="body" let-data let-i="rowIndex">
+      <anms-row-renderer-component [data]="data" [setting]="setting" [rowSetting]="setting?.rowSettings"></anms-row-renderer-component>
     </ng-template>
   </p-table>
   <ng-template [ngIf]="pagination && showPagination">

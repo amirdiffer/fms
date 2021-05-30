@@ -55,6 +55,8 @@ export class MyTasksComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
+      renderer: "collapesRenderer",
+      rendererOptions: {},
       floatButton: [
         {
           button: 'external',

@@ -47,6 +47,8 @@ import { ReceivedButtonRendererComponent } from '@core/table/column-renderer-com
 import { ApproveButtonRendererComponent } from '@core/table/column-renderer-component/column-renderers/ApproveButtonRenderer';
 import { DateRenderer } from '@core/table/column-renderer-component/column-renderers/date';
 import { ColumnRendererComponent } from './column-renderer-component/column-renderer.component';
+import { RowRendererComponentComponent } from "./row-renderer-component/row-renderer-component.component";
+import { CollapseRowRendererComponent } from './row-renderer-component/row-renderers/collapse-row-renderer';
 
 @NgModule({
   imports: [
@@ -98,8 +100,10 @@ import { ColumnRendererComponent } from './column-renderer-component/column-rend
     ReceivedButtonRendererComponent,
     ApproveButtonRendererComponent,
     DateRenderer,
-    ColumnRendererComponent
+    ColumnRendererComponent,
+    RowRendererComponentComponent,
+    CollapseRowRendererComponent
   ],
   providers: [TableFacade, TableService, TableServiceS]
 })
-export class TableModule {}
+export class TableModule { }

@@ -432,6 +432,8 @@ export enum ColumnType {
 export interface RowSettings {
   onClick?: Function;
   floatButton?: FloatButtonType[];
+  renderer?:String;
+  rendererOptions?:RendererOptions;
 }
 
 export interface RendererOptions {
