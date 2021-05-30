@@ -391,11 +391,11 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   next(): void {
-    // if (this.subAssetForm.invalid) {
-    //   this.subAssetForm.markAllAsTouched();
-    //   this.submitted = true;
-    //   return;
-    // }
+    if (this.subAssetForm.invalid) {
+      this.subAssetForm.markAllAsTouched();
+      this.submitted = true;
+      return;
+    }
     this.formCurrentStep += 1;
   }
 
