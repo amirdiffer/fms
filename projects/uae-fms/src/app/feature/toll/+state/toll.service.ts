@@ -14,7 +14,7 @@ export class TollService {
 
   returnMockData(): IToll[] {
     let d: IToll[] = [];
-    for (let i = 0; i < 9; i++) {
+    for (let i = 1; i < 8; i++) {
       d.push(
         {
           id: i,
@@ -41,11 +41,20 @@ export class TollService {
       message: this.returnMockData()
     })
   }
-  
+
   loadStatistic(): Observable<ResponseBody<ITollStatistics>> {
-    return this.http.get<ResponseBody<ITollStatistics>>(
-      environment.baseApiUrl + 'toll/stats'
-    );
+    // return this.http.get<ResponseBody<ITollStatistics>>(
+    //   environment.baseApiUrl + 'toll/stats'
+    // );
+    return of({
+      error: false,
+      resultNumber: 1,
+      message: {
+        total: 522,
+        available: 200,
+        assigned: 22
+      }
+    })
   }
   assigningToll(data): Observable<any> {
     data;
