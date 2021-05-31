@@ -96,7 +96,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           ...y,
           id: y.id,
           asset: {
-            img: 'assets/thumb.png',
+            img: y.avatarId,
             assetName: y.assetTypeName,
             assetSubName: y.dpd,
             progress: Math.floor(Math.random() * 6) + 1
