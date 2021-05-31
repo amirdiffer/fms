@@ -46,6 +46,7 @@ import { LowOpacityColumnRendererComponent } from '@core/table/renderers/lowOpac
 import { ReceivedButtonRendererComponent } from '@core/table/renderers/ReceivedButtonRenderer';
 import { ApproveButtonRendererComponent } from '@core/table/renderers/ApproveButtonRenderer';
 import { DateRenderer } from '@core/table/renderers/date';
+import { ProgressRendererComponent } from './renderers/ProgressRenderer';
 
 @NgModule({
   imports: [
@@ -96,7 +97,8 @@ import { DateRenderer } from '@core/table/renderers/date';
     LowOpacityColumnRendererComponent,
     ReceivedButtonRendererComponent,
     ApproveButtonRendererComponent,
-    DateRenderer
+    DateRenderer,
+    ProgressRendererComponent
   ],
   providers: [TableFacade, TableService, TableServiceS]
 })

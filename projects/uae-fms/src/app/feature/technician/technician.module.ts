@@ -8,16 +8,22 @@ import { ReminderComponent } from './reminder/reminder.component';
 import { FilterModule } from "@core/filter";
 import { TableModule } from "@core/table";
 import { TabViewModule } from "@core/tab-view";
+import { AddRequestComponent } from './dashboard/add-request/add-request.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TaskOverviewComponent } from './my-tasks/task-overview/task-overview.component';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
-  declarations: [DashboardComponent, MyTasksComponent, MyRequestsComponent, ReminderComponent],
+  declarations: [DashboardComponent, MyTasksComponent, MyRequestsComponent, ReminderComponent, AddRequestComponent, TaskOverviewComponent],
   imports: [
     CommonModule,
     TechnicianRoutingModule,
     FilterModule,
     TableModule,
-    TabViewModule
+    TabViewModule,
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class TechnicianModule { }

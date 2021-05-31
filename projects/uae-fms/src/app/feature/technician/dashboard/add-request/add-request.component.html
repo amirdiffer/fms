@@ -1,0 +1,138 @@
+<form [formGroup]='form' (ngSubmit)='submit()'>
+
+  <div class='button-container'>
+    <button (click)='cancel()' class='btn-primary-medium btn-scondary-green'
+            type='button'>{{'forms.cancel' | translate}}</button>
+    <button class='btn-primary-medium add' type='submit'>{{ 'forms.add' | translate }}</button>
+  </div>
+
+  <div class='form-section'>
+    <h3 class='form-section__title'>{{ 'technician.requests.form.request_detail' | translate }}</h3>
+
+    <div class='row col-md-12'>
+      <div *ngIf='this.form.controls["requestType"].value === "technicalInspectionReport"'
+           class='col-md-3 p-field form-section__field options-select'>
+        <span class='p-float-label'>
+          <p-dropdown [autoDisplayFirst]='false' [options]='tasks' formControlName='task'
+                      optionLabel='name'></p-dropdown>
+          <label>{{ 'technician.requests.form.browse_your_task' | translate }}</label>
+        </span>
+      </div>
+
+      <div *ngIf='this.form.controls["requestType"].value !== "technicalInspectionReport"'
+           class='col-md-2'>
+        <p>Change tires</p>
+        <p>Bmx 20 222 DPD num 123</p>
+      </div>
+
+      <div *ngIf='this.form.controls["requestType"].value === "technicalInspectionReport"'
+           class='mt-2 col-md-2'>Bmx 20 222 DPD num 123 Task Title
+      </div>
+
+      <div class='row col-md-7 mt-1 ml-2'>
+        <div class='col-md-4 font-weight-bold'>
+          {{ 'technician.requests.form.select_type_of_your_request' | translate }}
+        </div>
+        <div class='col-md-4'>
+          <div class='form-check'>
+            <input formControlName='requestType' class='form-check-input' type='radio' name='requestType'
+                   id='technicalInspectionReport' value='technicalInspectionReport'>
+            <label class='form-check-label'
+                   for='technicalInspectionReport'>{{ 'technician.requests.form.technical_inspection_report' | translate }}
+            </label>
+          </div>
+        </div>
+        <div class='col-md-2'>
+          <div class='form-check'>
+            <input formControlName='requestType' class='form-check-input' type='radio' name='requestType'
+                   id='needPart' value='needPart'>
+            <label class='form-check-label' for='needPart'>
+              {{ 'technician.requests.form.need_part' | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf='this.form.controls["requestType"].value === "technicalInspectionReport"' class='form-section'>
+    <h3
+      class='form-section__title'>{{ 'technician.requests.form.technical_inspection_request_detail' | translate }}</h3>
+
+    <div class='col-12 row'>
+
+      <div class='col-9 mt-4 row'>
+
+        <div class='col-md-4 p-field form-section__field'>
+        <span class='p-float-label'>
+          <input formControlName='requestInfo' pInputText placeholder='Request info'
+                 type='text'>
+          <label>{{ 'technician.requests.form.request_info' | translate }}</label>
+        </span>
+        </div>
+
+        <div class='col-md-4 p-field form-section__field'>
+        <span class='p-float-label'>
+          <input formControlName='requestDescription' pInputText placeholder='Request Description'
+                 type='text'>
+          <label>{{ 'technician.requests.form.request_description' | translate }}</label>
+        </span>
+        </div>
+
+
+        <div class='col-md-4 p-field form-section__field options-select'>
+        <span class='p-float-label'>
+          <p-dropdown [autoDisplayFirst]='false' [options]='priorities' formControlName='priority'
+                      optionLabel='name'></p-dropdown>
+          <label>{{ 'technician.requests.form.priority' | translate }}</label>
+        </span>
+        </div>
+
+      </div>
+
+      <anms-uploader class='col-3' [iconIsHidden]='true' [multiple]='false' [preview]='true' [accept]="['.png', '.jpg']"
+                     (uploadedEvent)='imageUploadEvent($event)' [files]='fileId' [isImage]='true'></anms-uploader>
+
+    </div>
+  </div>
+
+  <div *ngIf='this.form.controls["requestType"].value !== "technicalInspectionReport"' class='form-section'>
+    <h3 class='form-section__title'>{{ 'technician.requests.form.part_request_detail' | translate }}</h3>
+
+    <div class='col-12 row'>
+
+      <div class='col-md-3 p-field form-section__field options-select'>
+        <span class='p-float-label'>
+          <p-dropdown [autoDisplayFirst]='false' [options]='categories' optionLabel='name'
+                      formControlName='category'></p-dropdown>
+          <label>{{ 'technician.requests.form.select_category' | translate }}</label>
+        </span>
+      </div>
+
+      <div class='col-md-3 p-field form-section__field options-select'>
+        <span class='p-float-label'>
+          <p-dropdown [autoDisplayFirst]='false' [options]='items' optionLabel='name'
+                      formControlName='item'></p-dropdown>
+          <label>{{ 'technician.requests.form.select_item' | translate }}</label>
+        </span>
+      </div>
+
+      <div class='col-md-3 p-field form-section__field'>
+        <span class='p-float-label'>
+          <input formControlName='quantity' pInputText placeholder='Quantity'
+                 type='number'>
+          <label>{{ 'technician.requests.form.quantity' | translate }}</label>
+        </span>
+      </div>
+
+      <div class='col-md-3 p-field form-section__field'>
+        <span class='p-float-label'>
+          <input formControlName='needPartRequestDescription' pInputText placeholder='Request Description'
+                 type='text'>
+          <label>{{ 'technician.requests.form.need_part_request_description' | translate }}</label>
+        </span>
+      </div>
+
+    </div>
+  </div>
+</form>
