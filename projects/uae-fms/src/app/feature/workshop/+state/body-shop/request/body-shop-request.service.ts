@@ -57,11 +57,12 @@ export class BodyShopRequestService {
       data
     );
   }
-  getRequestById(id) {
+  getRequestById(id): Observable<ResponseBody<any>> {
     return this.http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'workshop/bodyshop/request/' + id
     );
   }
+
   getRequestListByAssetId(
     id
   ): Observable<ResponseBody<IRequestListSpecificAsset[]>> {

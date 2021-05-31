@@ -20,7 +20,7 @@ import { UsersService } from '../../../+state/users/users.service';
 
 import { FilterCardSetting } from '@core/filter';
 import { Utility } from '@shared/utility/utility';
-import { OrganizationFacade } from '@feature/fleet/+state/organization';
+import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 @Component({
   selector: 'anms-add-user',
@@ -32,6 +32,9 @@ export class AddUserComponent
   implements OnInit, AfterContentInit, OnDestroy {
   isEdit: boolean = false;
   id: number;
+
+  departmentId;
+  sectionId;
 
   //#region Dialog
   dialogSetting: IDialogAlert = {
@@ -108,6 +111,8 @@ export class AddUserComponent
 
   departments = [];
   departmentsB;
+  sectionFiltered: any[];
+  sectionList: any[];
 
   tempImage: any = '';
 
@@ -134,7 +139,8 @@ export class AddUserComponent
     private userFacade: UsersFacade,
     private _orgfacade: OrganizationFacade,
     private roleFacade: RolePermissionFacade,
-    private userService: UsersService
+    private userService: UsersService,
+    private _departmentService: OrganizationService
   ) {
     super(injector);
   }
@@ -165,12 +171,18 @@ export class AddUserComponent
             if (x) {
               this.profileDocId = x.profileDocId ? x.profileDocId : null;
               this._user = x;
+              this.departmentId = this._user.department.organizationId;
+              this.sectionId = this._user.department.id;
               this.getEmployeesList.next({ query: x.employeeNumber });
 
               this.form.controls['portalInformation'].patchValue({
                 employeeNumber: x.employeeNumber,
                 department: {
                   name: `${x.department.organizationName}`,
+                  id: `${x.department.organizationId}`
+                },
+                section: {
+                  name: `${x.department.name}`,
                   id: `${x.department.id}`
                 },
                 roleId: x.roles[0].roleId,
@@ -286,6 +298,7 @@ export class AddUserComponent
       portalInformation: this.formBuilder.group({
         employeeNumber: ['', [Validators.required]],
         department: ['', [Validators.required]],
+        section: ['', [Validators.required]],
         roleId: ['', [Validators.required]],
         activeEmployee: false
       }),
@@ -345,8 +358,8 @@ export class AddUserComponent
         employeeNumber: this.isEdit
           ? this._user?.employeeNumber
           : this.employeeId,
-        organizationId: 1,
-        departmentId: f.portalInformation.department.id,
+        organizationId: this.departmentId,
+        departmentId: this.sectionId,
         roleIds: [f.portalInformation.roleId.id],
         isActive: f.portalInformation.activeEmployee,
         profileDocId: this.profileDocId,
@@ -490,6 +503,35 @@ export class AddUserComponent
         (x.id + '').indexOf(event.query) >= 0 ||
         x.name.indexOf(event.query) >= 0
     );
+  }
+
+  filterSections(event) {
+    let query = event.query;
+    let filtered = [];
+    for (let index = 0; index < this.sectionList.length; index++) {
+      let section = this.sectionList[index];
+      if (section.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(section);
+      }
+    }
+    this.sectionFiltered = filtered;
+  }
+
+  departmentChanged($event) {
+    if (typeof $event != 'object') return;
+    this.sectionList = [];
+    this.form.get('portalInformation.section').patchValue(null);
+    this.departmentId = $event.id;
+    this._departmentService.searchDepartment($event.id).subscribe((x) => {
+      x.message.departments
+        ? (this.sectionList = x.message.departments)
+        : (this.sectionList = []);
+    });
+  }
+
+  sectionChanged($event) {
+    if (typeof $event != 'object') return;
+    this.sectionId = $event.id;
   }
 
   public dropped(files: NgxFileDropEntry[]) {

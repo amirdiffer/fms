@@ -26,4 +26,5 @@ export class SubAssetPolicyService {
       environment.baseApiUrl + 'configuration/asset-policy/sub-asset', {params: this.getParam('asset-policy_subasset')}
     );
   }
+  
 }

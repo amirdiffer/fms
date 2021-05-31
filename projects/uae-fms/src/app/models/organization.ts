@@ -4,10 +4,13 @@ export interface IOrganization {
   organizationName: string;
   tags: string[];
   departments: Department[];
+  trafficFine: TrafficFine;
   numOfDepartments: number;
   numOfLocations: number;
   numOfUsers: number;
   numOfAssets: number;
+  numOfMovements: number;
+  numOfMovementsThisMonth: number;
   tfPaid: number;
   tfUnpaid: number;
 }
@@ -15,5 +18,17 @@ export interface IOrganization {
 export interface Department {
   id: number;
   name: string;
-  locationAddress: string[];
+  locationAddresses: string[];
+  numOfMovements: number;
+  numOfMovementsThisMonth: number;
+  numOfUsers: number;
+  numOfAssets: number;
+  tfPaid: number;
+  tfUnpaid: number;
+}
+
+export interface TrafficFine {
+  totalTrafficFines: number;
+  paidTrafficFines: number;
+  unpaidTrafficFines: number;
 }

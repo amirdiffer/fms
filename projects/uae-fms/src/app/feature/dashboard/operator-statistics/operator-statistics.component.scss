@@ -1,0 +1,37 @@
+.box {
+  .box_sub_title{
+    font-size: 1em;
+  }
+  &__body {
+    margin-top: 2em;
+    &__icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 3.5em;
+      height: 3.5em;
+      border-radius: 50%;
+      &--blue {
+        background-color: #e0f9fc;
+      }
+      &--purple {
+        background-color: #e8e0fc;
+      }
+      &--pink {
+        background-color: #fce0e0;
+      }
+      &--grey {
+        background-color: #dbeee7;
+      }
+    }
+    &__content {
+      margin: 0 .6em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &__title {
+        margin-top: 4px;
+      }
+    }
+  }
+}

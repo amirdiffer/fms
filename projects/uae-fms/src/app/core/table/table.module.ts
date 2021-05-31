@@ -45,6 +45,8 @@ import { DropdownRenderer } from '@core/table/renderers/dropdown';
 import { LowOpacityColumnRendererComponent } from '@core/table/renderers/lowOpacityColumnRenderer';
 import { ReceivedButtonRendererComponent } from '@core/table/renderers/ReceivedButtonRenderer';
 import { ApproveButtonRendererComponent } from '@core/table/renderers/ApproveButtonRenderer';
+import { DateRenderer } from '@core/table/renderers/date';
+import { ProgressRendererComponent } from './renderers/ProgressRenderer';
 
 @NgModule({
   imports: [
@@ -94,12 +96,10 @@ import { ApproveButtonRendererComponent } from '@core/table/renderers/ApproveBut
     RadialBarRendererComponent,
     LowOpacityColumnRendererComponent,
     ReceivedButtonRendererComponent,
-    ApproveButtonRendererComponent
+    ApproveButtonRendererComponent,
+    DateRenderer,
+    ProgressRendererComponent
   ],
-  providers: [
-    TableFacade,
-    TableService,
-    TableServiceS
-  ]
+  providers: [TableFacade, TableService, TableServiceS]
 })
 export class TableModule {}

@@ -6,6 +6,7 @@ import { TaskMasterFormComponent } from './task-master-form/task-master-form.com
 import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
 import { TechnicalOverviewComponent } from '@feature/workshop/inspections/technical-inspection/technical-overview/technical-overview.component';
+import { LocationModule } from './location/location.module';
 
 const routes: Routes = [
   {
@@ -43,6 +44,11 @@ const routes: Routes = [
       import('./service-shop/service-shop.module').then(
         (m) => m.ServiceShopModule
       )
+  },
+  {
+    path: 'location',
+    loadChildren: () =>
+      import('./location/location.module').then((m) => m.LocationModule)
   },
   /* {
     path: 'inspections',

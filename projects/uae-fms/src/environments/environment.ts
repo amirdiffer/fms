@@ -14,6 +14,7 @@ export const environment = {
   i18nPrefix: '',
   versions: {
     app: packageJson.version,
+    build: packageJson.build,
     angular: packageJson.dependencies['@angular/core'],
     ngrx: packageJson.dependencies['@ngrx/store'],
     material: packageJson.dependencies['@angular/material'],
@@ -25,7 +26,7 @@ export const environment = {
     cypress: packageJson.devDependencies['cypress'],
     eslint: packageJson.devDependencies['eslint']
   },
-  baseFileServer: 'https://dev.jointscope.ai:8080/fms-api/document/',
+  baseFileServer: 'http://localhost:4200/fms-api/document/',
   baseLoginApiUrl: 'http://localhost:4200/fms-api/',
   baseApiUrl: 'http://localhost:4200/fms-api/'
   // baseLoginApiUrl: 'https://uat.jointscope.ai/fms-api-revamp/v1/',

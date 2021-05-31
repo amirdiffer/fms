@@ -13,7 +13,10 @@ export class SubAssetFacade {
   message$ = this.store.pipe(select(SubAssetSelectors.message));
 
   error$ = this.store.pipe(select(SubAssetSelectors.error));
+
   submitted$ = this.store.pipe(select(SubAssetSelectors.submitted));
+
+  specificSubAsset$ = this.store.pipe(select(SubAssetSelectors.spedificSubAsset));
 
   constructor(private store: Store<SubAssetPartialState>) {}
 
@@ -31,6 +34,10 @@ export class SubAssetFacade {
 
   editSubAsset(data) {
     this.store.dispatch(SubAssetActions.editSubAsset({ data }));
+  }
+
+  getSpecificSubAsset(id) {
+    this.store.dispatch(SubAssetActions.subAssetById({ id }));
   }
 
   reset() {

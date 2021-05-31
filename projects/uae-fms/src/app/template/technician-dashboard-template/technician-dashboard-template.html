@@ -1,0 +1,21 @@
+<!-- start main template -->
+<div [class]="'theme-wrapper ' + (theme$ | async)">
+  <mat-sidenav-container>
+    <div class="wrapper">
+      <app-navbar [selectIsAuthenticated]="selectIsAuthenticated"
+        [selectSettingsStickyHeader]="selectSettingsStickyHeader"
+        [selectSettingsLanguage]="selectSettingsLanguage"
+        [selectEffectiveTheme]="selectEffectiveTheme">
+      </app-navbar>
+      <app-technician-sidebar-manu></app-technician-sidebar-manu>
+
+      <div class="content">
+        <span class='path'></span>
+        <span class="body">
+          <router-outlet #o="outlet"></router-outlet>
+        </span>
+      </div>
+    </div>
+  </mat-sidenav-container>
+</div>
+<!-- end main template -->

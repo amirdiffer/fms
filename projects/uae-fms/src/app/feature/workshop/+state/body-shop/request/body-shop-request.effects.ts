@@ -78,6 +78,25 @@ export class BodyShopRequestEffect {
       )
     )
   );
+
+  getSpecificRequest = createEffect(() =>
+    this.action$.pipe(
+      ofType(BodyShopRequestActions.getSpecificRequest),
+      mergeMap((action) =>
+        this.service.getRequestById(action.id).pipe(
+          map((data) => {
+            return BodyShopRequestActions.specificRequestLoaded({
+              data: data.message
+            });
+          }),
+          catchError((error) =>
+            of(BodyShopRequestActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
   loadStatistics$ = createEffect(() =>
     this.action$.pipe(
       ofType(BodyShopRequestActions.loadStatistics),

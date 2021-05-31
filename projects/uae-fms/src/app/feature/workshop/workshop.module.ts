@@ -30,7 +30,6 @@ import { TechnicalInspectionComponent } from './inspections/technical-inspection
 import { DashboardModule } from '@feature/dashboard/dashboard.module';
 import { AddRequestComponent } from './body-shop/add-request/add-request.component';
 import { AddTechnicianComponent } from './body-shop/add-technician/add-technician.component';
-import { AddLocationComponent } from './body-shop/add-location/add-location.component';
 import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
 import { WorkshopStateModule } from './+state';
 import { AddJobCardComponent } from './body-shop/add-job-card/add-job-card.component';
@@ -41,7 +40,7 @@ import { AddLocationServiceShopComponent } from './service-shop/add-location/add
 import { AddRequestServiceShopComponent } from './service-shop/add-request/add-request.component';
 import { AddTechnicianServiceShopComponent } from './service-shop/add-technician/add-technician.component';
 import { TechnicalOverviewComponent } from './inspections/technical-inspection/technical-overview/technical-overview.component';
-import { TranslateModule } from "@ngx-translate/core";
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -51,7 +50,6 @@ import { TranslateModule } from "@ngx-translate/core";
     TechnicalInspectionComponent,
     AddTechnicianComponent,
     AddRequestComponent,
-    AddLocationComponent,
     AddJobCardComponent,
     TaskMasterFormComponent,
     ServiceShopComponent,
@@ -60,7 +58,6 @@ import { TranslateModule } from "@ngx-translate/core";
     AddRequestServiceShopComponent,
     AddTechnicianServiceShopComponent,
     TechnicalOverviewComponent
-
   ],
   imports: [
     TranslateModule,
@@ -86,7 +83,7 @@ import { TranslateModule } from "@ngx-translate/core";
     MatStepperModule,
     MatRadioModule,
     MapModule,
-    FleetModule,
+    FleetModule
   ]
 })
 export class WorkshopModule {}
