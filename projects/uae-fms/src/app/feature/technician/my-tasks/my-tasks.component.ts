@@ -55,35 +55,35 @@ export class MyTasksComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
-      renderer: 'collapesRenderer',
-      rendererOptions: {},
       floatButton: [
         {
           button: 'external',
           onClick: (col, data) => {
-            this.router.navigate([
-              'dashboard/technician/task-overview/' + data.id
-            ]);
+            this.router.navigate(['dashboard/technician/task-overview/' + data.id]);
           }
         }
       ]
     }
-  };
+  }
 
   //#endregion
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router) {
     this.dataTask.next([]);
   }
 
   ngOnInit(): void {
-    this.dataTask$.subscribe((x) => {
+    this.dataTask$.subscribe(x => {
       console.log(x);
-    });
+    })
+
+
 
     setTimeout(() => {
       this.dataTask.next([
         {
+          id: 1,
           task: 'Do Something',
           priority: 'High',
           progress: '20%',
@@ -91,6 +91,7 @@ export class MyTasksComponent implements OnInit {
           action: ''
         },
         {
+          id: 1,
           task: 'Do Something',
           priority: 'High',
           progress: '20%',
@@ -98,6 +99,7 @@ export class MyTasksComponent implements OnInit {
           action: ''
         },
         {
+          id: 1,
           task: 'Do Something',
           priority: 'High',
           progress: '20%',
@@ -105,6 +107,7 @@ export class MyTasksComponent implements OnInit {
           action: ''
         },
         {
+          id: 1,
           task: 'Do Something',
           priority: 'High',
           progress: '20%',
@@ -112,6 +115,7 @@ export class MyTasksComponent implements OnInit {
           action: ''
         },
         {
+          id: 1,
           task: 'Do Something',
           priority: 'High',
           progress: '20%',
@@ -120,5 +124,7 @@ export class MyTasksComponent implements OnInit {
         }
       ]);
     }, 1000);
+
   }
+
 }

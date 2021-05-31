@@ -96,3 +96,7 @@
 <div *ngIf="col.renderer=='lowOpacityRenderer'">
   <table-low-opacity-renderer [data]='data[col.field]'></table-low-opacity-renderer>
 </div>
+
+<div *ngIf="col.renderer=='progressRenderer'">
+  <table-progress-renderer [data]='data[col.field]'></table-progress-renderer>
+</div>

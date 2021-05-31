@@ -428,6 +428,7 @@ export interface ColumnDifinition {
   hasJobCardButton?: boolean;
   hasPadding5?: boolean;
   hasPadding3?: boolean;
+  isHeaderHidden?: boolean
 }
 
 export enum ColumnType {

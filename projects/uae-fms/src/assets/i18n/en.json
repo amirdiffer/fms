@@ -313,7 +313,9 @@
     "order": "Order",
     "received": "Received",
     "archived": "Archived",
-    "registered": "Registered"
+    "registered": "Registered",
+    "close": "Close",
+    "delay": "Delay"
   },
   "tabs": {
     "asset_master": "Asset Master",

@@ -49,6 +49,7 @@ import { DateRenderer } from '@core/table/column-renderer-component/column-rende
 import { ColumnRendererComponent } from './column-renderer-component/column-renderer.component';
 import { RowRendererComponentComponent } from "./row-renderer-component/row-renderer-component.component";
 import { CollapseRowRendererComponent } from './row-renderer-component/row-renderers/collapse-row-renderer';
+import { ProgressRendererComponent } from './column-renderer-component/column-renderers/ProgressRenderer';
 
 @NgModule({
   imports: [
@@ -102,8 +103,9 @@ import { CollapseRowRendererComponent } from './row-renderer-component/row-rende
     DateRenderer,
     ColumnRendererComponent,
     RowRendererComponentComponent,
-    CollapseRowRendererComponent
+    CollapseRowRendererComponent,
+    ProgressRendererComponent
   ],
   providers: [TableFacade, TableService, TableServiceS]
 })
-export class TableModule { }
+export class TableModule {}
