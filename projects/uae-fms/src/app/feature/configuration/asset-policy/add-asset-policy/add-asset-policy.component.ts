@@ -260,7 +260,7 @@ export class AddAssetPolicyComponent
           : 'Asset Policy Added Successfully';
         this.dialogSettingAddOrUpdate.isWarning = false;
         this.dialogSettingAddOrUpdate.hasError = false;
-        this.dialogSettingAddOrUpdate.confirmButton = 'Yes';
+        this.dialogSettingAddOrUpdate.confirmButton = 'Ok';
         this.dialogSettingAddOrUpdate.cancelButton = undefined;
       }
     });

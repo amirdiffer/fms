@@ -77,19 +77,43 @@ export class AddJobCardComponent extends Utility implements OnInit {
   priorities: any[] = [
     {
       id: 1,
-      name: 'Urgent'
+      name: '1'
     },
     {
       id: 2,
-      name: 'High'
+      name: '2'
     },
     {
       id: 3,
-      name: 'Normal'
+      name: '3'
     },
     {
       id: 4,
-      name: 'Low'
+      name: '4'
+    },
+    {
+      id: 5,
+      name: '5'
+    },
+    {
+      id: 6,
+      name: '6'
+    },
+    {
+      id: 7,
+      name: '7'
+    },
+    {
+      id: 8,
+      name: '8'
+    },
+    {
+      id: 9,
+      name: '9'
+    },
+    {
+      id: 10,
+      name: '10'
     }
   ];
   addJobCard_Table: TableSetting = {
@@ -472,7 +496,8 @@ export class AddJobCardComponent extends Utility implements OnInit {
         jobCardInfo = {
           ...jobCardInfo
         };
-        this._facadeJobCard.addJobCard(jobCardInfo, f.assetId.assetId);
+        console.log(f)
+        this._facadeJobCard.addJobCard(jobCardInfo, this.assetIdSelected);
       }
     } else {
       this.router
