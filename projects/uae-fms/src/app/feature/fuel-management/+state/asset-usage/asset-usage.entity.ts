@@ -3,11 +3,12 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 export const FUEL_MANAGEMENT_ASSET_USAGE_FEATURE_KEY = 'assetUsage';
 
 export interface IAssetUsageStateModel {
+  id:number;
   asset: {
-    name: string;
-    dpd: string;
+    assetName: string;
+    assetSubName: string;
     ownership: string;
-    thumb: string;
+    img: string;
   };
   plateNumber: string;
   tageNo: string;

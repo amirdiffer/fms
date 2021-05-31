@@ -1,15 +1,21 @@
 export interface IFuelManagementFuelCard {
-  id?: string;
-  tagNumber: string;
-  used?: IFuelManagementFuelCardUsed[];
+  id: number;
+  tagNo: {
+    tagNo: string,
+    data: IFuelManagementFuelCardUsed[]
+  }
+  used: string;
   usageLimit: string;
-  assignedTo: string;
+  asset: string;
   cardType: string;
-  expireDate: string;
+  expire: string;
+  statusColor: string;
 }
 
 interface IFuelManagementFuelCardUsed {
-  amount: number;
-  mileage: number;
-  data: string;
+  litters: string;
+  km: string;
+  day: string;
+  date: string;
+  time: string;
 }
