@@ -114,7 +114,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       route: '/traffic-fine',
       disabled: true
     },
-    { name: 'sidebar.toll', icon: 'toll', route: '/toll', disabled: true },
+    { name: 'sidebar.toll', icon: 'toll', route: '/toll', disabled: false },
     {
       name: 'sidebar.workshop.~',
       icon: 'workshop',
