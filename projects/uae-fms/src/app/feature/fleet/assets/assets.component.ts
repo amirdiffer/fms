@@ -69,7 +69,7 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           ...y,
           id: y.id,
           asset: {
-            img: this.sampleImg,
+            img: y.avatarId,
             assetName: y.assetTypeName,
             assetSubName: y.dpd,
             ownership: 'Owned'
