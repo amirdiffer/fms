@@ -104,16 +104,14 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     {
       name: 'sidebar.fuel_management',
       icon: 'fuel',
-      route: '/fuel-management',
-      disabled: true
+      route: '/fuel-management'
     },
     {
       name: 'sidebar.traffic_fine',
       icon: 'traffic',
-      route: '/traffic-fine',
-      disabled: true
+      route: '/traffic-fine'
     },
-    { name: 'sidebar.toll', icon: 'toll', route: '/toll', disabled: true },
+    { name: 'sidebar.toll', icon: 'toll', route: '/toll' },
     {
       name: 'sidebar.workshop.~',
       icon: 'workshop',
@@ -128,7 +126,6 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           name: 'sidebar.workshop.service_shop',
           icon: 'service-shop',
           route: '/workshop/service-shop'
-          // disabled: true
         },
         {
           name: 'sidebar.workshop.location',

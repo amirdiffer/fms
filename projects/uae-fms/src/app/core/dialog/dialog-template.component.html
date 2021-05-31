@@ -1,0 +1,39 @@
+<div id='parent' class='wrapper' [dir]='isLtr ? "ltr" : "rtl"'>
+  <div id='header' [class.success-header]='(dialogSetting.status === "success")'
+       [class.warning-header]='(dialogSetting.status === "warning")'
+       [class.danger-header]='(dialogSetting.status === "danger")'>
+    <p class='pt-2 pb-2 font-weight-bold text-white' [class.ml-4]='isLtr' [class.mr-4]='!isLtr'>
+      {{dialogSetting.title | translate}}
+    </p>
+  </div>
+  <div id='body' class='overflow-hidden'>
+    <div *ngIf='!dialogSetting.hasTextInput' class='row' [class.ml-4]='isLtr' [class.mr-4]='!isLtr'>
+      <span><svg-icon
+        [src]='(dialogSetting.status === "success") ? checkCircle : (dialogSetting.status === "warning") ? warningTriangle : timesCircle'
+        [svgStyle]='{"width.em" : "2.2", "fill" : (dialogSetting.status === "success") ? "#07C880" : (dialogSetting.status === "warning") ? "#fcb614" : "#dd5648" }'></svg-icon>
+      </span>
+      <p class='mt-2' [class.ml-2]='isLtr' [class.mr-2]='!isLtr'>
+        {{dialogSetting.message | translate}}
+      </p>
+    </div>
+    <div *ngIf='dialogSetting.hasTextInput' class='ml-4 mr-4'>
+      <p class='pt-1' [class.ml-2]='isLtr' [class.mr-2]='!isLtr'>
+        {{dialogSetting.message | translate}}
+      </p>
+      <textarea class='w-100 ml-2 mr-2' pInputTextarea [(ngModel)]='textInput'></textarea>
+    </div>
+  </div>
+  <div id='footer' class='pb-2' [class.text-right]='isLtr' [class.text-left]='!isLtr' [class.mr-3]='isLtr'
+       [class.ml-3]='!isLtr'>
+
+    <button [hidden]='!dialogSetting.confirmButtonTitle' class='btn-primary-medium accept m-1'
+            [class.warning-button]='dialogSetting.status === "warning"' (click)='onClose("confirm")'
+            [class.red-alert-button]='dialogSetting.status === "danger"'>{{dialogSetting.confirmButtonTitle | translate}}
+    </button>
+
+    <button [hidden]='!dialogSetting.cancelButtonTitle' class='btn-primary-medium btn-scondary-green'
+            [class.warning-button]='dialogSetting.status === "warning"' (click)='onClose("cancel")'
+            [class.red-alert-button]='dialogSetting.status === "danger"'>{{dialogSetting.cancelButtonTitle | translate}}
+    </button>
+  </div>
+</div>

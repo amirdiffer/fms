@@ -55,76 +55,70 @@ export class MyTasksComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
-      renderer: "collapesRenderer",
+      renderer: 'collapesRenderer',
       rendererOptions: {},
       floatButton: [
         {
           button: 'external',
           onClick: (col, data) => {
-            this.router.navigate(['overview' + data.id]);
+            this.router.navigate([
+              'dashboard/technician/task-overview/' + data.id
+            ]);
           }
         }
       ]
     }
-  }
+  };
 
   //#endregion
 
-  constructor(
-    private router: Router) {
+  constructor(private router: Router) {
     this.dataTask.next([]);
   }
 
   ngOnInit(): void {
-    this.dataTask$.subscribe(x => {
+    this.dataTask$.subscribe((x) => {
       console.log(x);
-    })
-
-
+    });
 
     setTimeout(() => {
-
-      this.dataTask.next(
-        [
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-        ]
-      )
+      this.dataTask.next([
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        }
+      ]);
     }, 1000);
-
   }
-
 }

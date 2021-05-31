@@ -1,0 +1,84 @@
+.mat-dialog-container {
+  padding: 0 !important;
+}
+
+$successLight: #07c880;
+$successDark: #0da06e;
+
+$warningLight: #fac13b;
+$warningDark: #fcb614;
+
+$dangerLight: #f75a49;
+$dangerDark: #dd5648;
+
+.success-header {
+  background: transparent
+    linear-gradient(180deg, $successLight 0%, $successDark 100%) 0% 0% no-repeat
+    padding-box;
+}
+
+.warning-header {
+  background: transparent
+    linear-gradient(180deg, $warningLight 0%, $warningDark 100%) 0% 0% no-repeat
+    padding-box;
+}
+
+.danger-header {
+  background: transparent
+    linear-gradient(180deg, $dangerLight 0%, $dangerDark 100%) 0% 0% no-repeat
+    padding-box;
+}
+
+.accept.warning-button {
+  background: transparent
+    linear-gradient(180deg, $warningLight 0%, $warningDark 100%) 0% 0% no-repeat
+    padding-box;
+  border: none;
+
+  &:hover:not([disabled]) {
+    background: transparent
+      linear-gradient(0deg, $warningLight 0%, $warningDark 100%) 0 0 no-repeat
+      padding-box;
+  }
+}
+
+.btn-scondary-green.warning-button {
+  color: $warningDark;
+  border-color: $warningDark;
+  background: transparent;
+
+  &:hover {
+    background: transparentize($color: $warningDark, $amount: 0.9);
+  }
+}
+
+.accept.red-alert-button {
+  background: transparent linear-gradient(180deg, #e94e3c 0%, #dd5648 100%) 0%
+    0% no-repeat padding-box;
+
+  &:hover:not([disabled]) {
+    background: transparent linear-gradient(0deg, #e94e3c 0%, #dd5648 100%) 0 0
+      no-repeat padding-box;
+  }
+}
+
+.btn-scondary-green.red-alert-button {
+  color: #dd5648;
+  border-color: #dd5648;
+
+  &:hover {
+    background: transparentize($color: #dd5648, $amount: 0.9);
+  }
+}
+
+button.accept {
+  background: transparent linear-gradient(180deg, #07c880 0%, #0da06e 100%) 0%
+    0% no-repeat padding-box;
+  border: none;
+
+  &:hover:not([disabled]) {
+    background: transparent linear-gradient(0deg, #10a770 0%, #0da06e 100%) 0 0
+      no-repeat padding-box;
+    box-shadow: 0 2px 4px #5a8dee66;
+  }
+}

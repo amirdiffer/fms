@@ -24,110 +24,9 @@ export class FuelManagementComponent implements OnInit {
   };
   filterSetting: FilterCardSetting[];
 
-  assetUsageTableData = [
-    {
-      asset: {
-        img: 'thumb1.png',
-        assetName: 'Asset Name',
-        assetSubName: 'DPD 0000001',
-        ownership: 'Owned'
-      },
-      date: '00/00/0000 00:00',
-      plateNumber: '123456789',
-      tagNo: '123456789',
-      amount: '27 Litters',
-      mileage: '100 Km',
-      totalUsage: '654327 Litters',
-      cost: '000 AED',
-      cardType: 'RFID-ENOC',
-      statusColor: '#B892FF'
-    },
-    {
-      asset: {
-        img: 'thumb1.png',
-        assetName: 'Asset Name',
-        assetSubName: 'DPD 0000001',
-        ownership: 'Owned'
-      },
-      date: '00/00/0000 00:00',
-      plateNumber: '123456789',
-      tagNo: '123456789',
-      amount: '27 Litters',
-      mileage: '100 Km',
-      totalUsage: '654327 Litters',
-      cost: '000 AED',
-      cardType: 'RFID-ENOC',
-      statusColor: '#B892FF'
-    },
-    {
-      asset: {
-        img: 'thumb1.png',
-        assetName: 'Asset Name',
-        assetSubName: 'DPD 0000001',
-        ownership: 'Owned'
-      },
-      date: '00/00/0000 00:00',
-      plateNumber: '123456789',
-      tagNo: '123456789',
-      amount: '27 Litters',
-      mileage: '100 Km',
-      totalUsage: '654327 Litters',
-      cost: '000 AED',
-      cardType: 'RFID-ENOC',
-      statusColor: '#B892FF'
-    },
-    {
-      asset: {
-        img: 'thumb1.png',
-        assetName: 'Asset Name',
-        assetSubName: 'DPD 0000001',
-        ownership: 'Owned'
-      },
-      date: '00/00/0000 00:00',
-      plateNumber: '123456789',
-      tagNo: '123456789',
-      amount: '27 Litters',
-      mileage: '100 Km',
-      totalUsage: '654327 Litters',
-      cost: '000 AED',
-      cardType: 'RFID-ENOC',
-      statusColor: '#B892FF'
-    },
-    {
-      asset: {
-        img: 'thumb1.png',
-        assetName: 'Asset Name',
-        assetSubName: 'DPD 0000001',
-        ownership: 'Owned'
-      },
-      date: '00/00/0000 00:00',
-      plateNumber: '123456789',
-      tagNo: '123456789',
-      amount: '27 Litters',
-      mileage: '100 Km',
-      totalUsage: '654327 Litters',
-      cost: '000 AED',
-      cardType: 'RFID-ENOC',
-      statusColor: '#B892FF'
-    },
-    {
-      asset: {
-        img: 'thumb1.png',
-        assetName: 'Asset Name',
-        assetSubName: 'DPD 0000001',
-        ownership: 'Owned'
-      },
-      date: '00/00/0000 00:00',
-      plateNumber: '123456789',
-      tagNo: '123456789',
-      amount: '27 Litters',
-      mileage: '100 Km',
-      totalUsage: '654327 Litters',
-      cost: '000 AED',
-      cardType: 'RFID-ENOC',
-      statusColor: '#B892FF'
-    }
-  ];
+  assetUsageTable$ = this._facadeAssetUsage.assetUsage$;
+  fuelCardsTable$ = this._facadeFuelCard.fuelCards$;
+
   assetUsageTableSetting = {
     columns: [
       {
@@ -200,112 +99,8 @@ export class FuelManagementComponent implements OnInit {
         renderer: ''
       }
     ],
-    data: this.assetUsageTableData
+    data: []
   };
-  fuelCardTableData = [
-    {
-      tagNo: {
-        tagNo: '0550550505050',
-        data: [
-          {
-            litters: '50',
-            km: '10',
-            day: 'Saturday',
-            date: '02/02/2020',
-            time: '2:00 PM'
-          },
-          {
-            litters: '50',
-            km: '10',
-            day: 'Saturday',
-            date: '02/02/2020',
-            time: '2:00 PM'
-          },
-          {
-            litters: '50',
-            km: '10',
-            day: 'Saturday',
-            date: '02/02/2020',
-            time: '2:00 PM'
-          }
-        ]
-      },
-      used: '100 Litters',
-      usageLimit: '400 Litters',
-      asset: 'Item no 123456',
-      cardType: 'RFID-ENOC',
-      expire: '02/02/2020',
-      statusColor: '#B892FF'
-    },
-    {
-      tagNo: {
-        tagNo: '0550550505050',
-        data: [
-          {
-            litters: '50',
-            km: '10',
-            day: 'Saturday',
-            date: '02/02/2020',
-            time: '2:00 PM'
-          },
-          {
-            litters: '50',
-            km: '10',
-            day: 'Saturday',
-            date: '02/02/2020',
-            time: '2:00 PM'
-          },
-          {
-            litters: '50',
-            km: '10',
-            day: 'Saturday',
-            date: '02/02/2020',
-            time: '2:00 PM'
-          }
-        ]
-      },
-      used: '100 Litters',
-      usageLimit: '400 Litters',
-      asset: 'Item no 123456',
-      cardType: 'RFID-ENOC',
-      expire: '02/02/2020',
-      statusColor: '#B892FF'
-    },
-    {
-      tagNo: {
-        tagNo: '0550550505050',
-        data: [
-          {
-            litters: '50',
-            km: '10',
-            day: 'Saturday',
-            date: '02/02/2020',
-            time: '2:00 PM'
-          },
-          {
-            litters: '50',
-            km: '10',
-            day: 'Saturday',
-            date: '02/02/2020',
-            time: '2:00 PM'
-          },
-          {
-            litters: '50',
-            km: '10',
-            day: 'Saturday',
-            date: '02/02/2020',
-            time: '2:00 PM'
-          }
-        ]
-      },
-      used: '100 Litters',
-      usageLimit: '400 Litters',
-      asset: 'Item no 123456',
-      cardType: 'RFID-ENOC',
-      expire: '02/02/2020',
-      statusColor: '#B892FF'
-    }
-  ];
   fuelCardsTableSetting = {
     columns: [
       {
@@ -345,7 +140,7 @@ export class FuelManagementComponent implements OnInit {
         sortable: true
       }
     ],
-    data: this.fuelCardTableData
+    data: []
   };
 
   constructor(
@@ -360,19 +155,11 @@ export class FuelManagementComponent implements OnInit {
     this.statisticsFilters(this.statisticsCount);
     this.fuelCards$ = this._facadeFuelCard.fuelCards$.subscribe((data: any) => {
       if (data) {
-        this.fuelCardsTableSetting.data = data.map((item) => {
+        this.fuelCardsTableSetting.data = data?.map((item) => {
           return {
             tagNo: {
               tagNo: item.tagNumber,
-              data: item.used.map((used) => {
-                return {
-                  litters: used.amount.toString(),
-                  km: used.mileage.toString(),
-                  day: '',
-                  date: '',
-                  time: ' '
-                };
-              })
+              data: item.used
             },
             used: item.usageLimit,
             usageLimit: item.usageLimit,
@@ -410,19 +197,19 @@ export class FuelManagementComponent implements OnInit {
       {
         filterTitle: 'statistic.total',
         filterTagColor: '#B892FF',
-        filterCount: statisticsCount.total.toString(),
+        filterCount: statisticsCount?.total?.toString() || 0,
         onActive(index: number): void {}
       },
       {
         filterTitle: 'statistic.available',
         filterTagColor: '#EF7A85',
-        filterCount: statisticsCount.available.toString(),
+        filterCount: statisticsCount?.available?.toString() || 0,
         onActive(index: number): void {}
       },
       {
         filterTitle: 'statistic.assigned',
         filterTagColor: '#709775',
-        filterCount: statisticsCount.assigned.toString(),
+        filterCount: statisticsCount?.assigned?.toString() || 0,
         onActive(index: number): void {}
       }
     ];

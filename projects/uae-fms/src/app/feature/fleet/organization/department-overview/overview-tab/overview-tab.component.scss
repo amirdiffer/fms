@@ -41,8 +41,8 @@
     width: 100%;
     img {
       display: block;
-      width:  1.6em;
-      height:  1.6em;
+      width: 1.6em;
+      height: 1.6em;
       margin: 5px;
       border-radius: 5px;
     }
@@ -65,8 +65,8 @@
   margin: 5px;
 
   img {
-    width:  1.6em;
-    height:  1.6em;
+    width: 1.6em;
+    height: 1.6em;
   }
 }
 
@@ -74,13 +74,13 @@
   padding: 5px;
   background: transparent;
   color: #0da06e;
-  box-shadow: 0px 0px 2px #0000003D;
+  box-shadow: 0px 0px 2px #0000003d;
   border-radius: 8px;
   margin: 5px;
 
   img {
     width: 1.6em;
-    height:  1.6em;
+    height: 1.6em;
   }
 }
 
@@ -302,7 +302,6 @@
 ._row {
   display: flex;
   flex-direction: row;
-
 }
 
 @media (max-width: 1410px) {
@@ -341,10 +340,6 @@
 
 .cursor-pointer {
   cursor: pointer;
-}
-
-.action-button-div {
-  text-align: right;
 }
 
 .component-wrapper-header {

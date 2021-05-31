@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnType, TableSetting } from '@core/table';
 import { Subject } from 'rxjs';
+import { ButtonType } from '@core/table/table.component';
 
 @Component({
   selector: 'anms-dashboard',
@@ -9,7 +10,6 @@ import { Subject } from 'rxjs';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
   //#region Filter
   filterSetting = [
     {
@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
         lable: 'tables.column.progress',
         type: 1,
         field: 'progress',
-        renderer: ''
+        renderer: 'progressRenderer'
       },
       {
         lable: 'tables.column.status',
@@ -68,7 +68,8 @@ export class DashboardComponent implements OnInit {
         lable: 'tables.column.action',
         type: 1,
         field: 'action',
-        renderer: ''
+        renderer: 'button',
+        buttonType: ButtonType.playAndPause
       },
       {
         lable: '',
@@ -81,6 +82,7 @@ export class DashboardComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
+      onClick: (data, button?, col?) => {},
       floatButton: [
         {
           button: 'external',
@@ -90,67 +92,55 @@ export class DashboardComponent implements OnInit {
         }
       ]
     }
-  }
+  };
 
   //#endregion
 
-
-  constructor(
-    private router: Router
-  ) {
+  constructor(private router: Router) {
     this.dataDashboard.next([]);
   }
 
   ngOnInit(): void {
-    this.dataDashboard$.subscribe(x => {
-      console.log(x);
-    })
-
-
+    this.dataDashboard$.subscribe((x) => {});
 
     setTimeout(() => {
-
-      this.dataDashboard.next(
-        [
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-        ]
-      )
+      this.dataDashboard.next([
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: 10,
+          status: 'In Progress',
+          action: 'play'
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: 75,
+          status: 'In Progress',
+          action: 'pause'
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: 20,
+          status: 'In Progress',
+          action: 'play'
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: 20,
+          status: 'In Progress',
+          action: 'play'
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: 20,
+          status: 'In Progress',
+          action: 'play'
+        }
+      ]);
     }, 1000);
-
   }
-
 }

@@ -21,17 +21,23 @@ import { ButtonType } from '../../table.component';
       >
         {{ 'buttons.receive' | translate }}
       </button>
-      <div class='row' *ngIf="col.buttonType == buttonType.receiveAndEdit">
+      <div class="row" *ngIf="col.buttonType == buttonType.receiveAndEdit">
         <div (click)="clickButton('edit')">
-          <svg-icon [src]="'assets/icons/edit.svg'" class="svg-icon" [applyClass]="true" [svgStyle]="{ 'fill': null , 'width.em': 2}">
+          <svg-icon
+            [src]="'assets/icons/edit.svg'"
+            class="svg-icon"
+            [applyClass]="true"
+            [svgStyle]="{ fill: null, 'width.em': 2 }"
+          >
           </svg-icon>
         </div>
-        <div class='ml-5'>
-          <img class='pointer'
-               (click)='clickButton("receive")'
-               [src]="'assets/icons/received.png'"
-               alt=''
-               width='42'
+        <div class="ml-5">
+          <img
+            class="pointer"
+            (click)="clickButton('receive')"
+            [src]="'assets/icons/received.png'"
+            alt=""
+            width="42"
           />
         </div>
       </div>
@@ -45,7 +51,7 @@ import { ButtonType } from '../../table.component';
       <button
         class="btn-primary-medium reject"
         *ngIf="col.buttonType == buttonType.reject"
-        (click)="clickButton('reject',col)"
+        (click)="clickButton('reject', col)"
       >
         {{ 'buttons.reject' | translate }}
       </button>
@@ -56,7 +62,11 @@ import { ButtonType } from '../../table.component';
         {{ 'buttons.reject' | translate }}
       </button>
     </div>
-    <span *ngIf="col.buttonType == buttonType.add && CheckCondition()" class="plus-icon">+</span>
+    <span
+      *ngIf="col.buttonType == buttonType.add && CheckCondition()"
+      class="plus-icon"
+      >+</span
+    >
     <img
       *ngIf="col.buttonType == buttonType.action && CheckCondition()"
       class="action-button"
@@ -71,13 +81,23 @@ import { ButtonType } from '../../table.component';
         'tables.column.job_card' | translate
       }}</a>
     </button>
-<!--    <button-->
-<!--      *ngIf="col.buttonType == buttonType.makeDecision"-->
-<!--      class="btn-primary-large make-decision"-->
-<!--      (click)="openMakeDecision()"-->
-<!--    >-->
-<!--      {{ 'buttons.make_decision' | translate }}-->
-<!--    </button>-->
+    <img
+      *ngIf="col.buttonType === buttonType.playAndPause"
+      class="play-pause-button"
+      src="{{
+        this.button.action === 'play'
+          ? 'assets/icons/play-button.svg'
+          : 'assets/icons/pause-button.svg'
+      }}"
+      (click)="clickButton(this.button.action === 'play' ? 'play' : 'pause')"
+    />
+    <!--    <button-->
+    <!--      *ngIf="col.buttonType == buttonType.makeDecision"-->
+    <!--      class="btn-primary-large make-decision"-->
+    <!--      (click)="openMakeDecision()"-->
+    <!--    >-->
+    <!--      {{ 'buttons.make_decision' | translate }}-->
+    <!--    </button>-->
   `,
   styles: [
     `
@@ -117,6 +137,10 @@ import { ButtonType } from '../../table.component';
       img.action-button {
         height: 1.3em;
       }
+      img.play-pause-button {
+        height: 1.9em;
+        cursor: pointer;
+      }
       button.job-card {
         padding: 1em 1em;
         height: auto;
@@ -138,23 +162,21 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   @Input() row;
   @Input() setting;
 
-  constructor(
-    public _router: Router
-  ) { }
+  constructor(public _router: Router) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   public get buttonType(): typeof ButtonType {
     return ButtonType;
   }
 
-  clickButton(button,col?): void {
-    console.log(col)
-    if(col && col.onClick instanceof Function){
-      col.onClick(this.button,col);
+  clickButton(button, col?): void {
+    console.log(col);
+    if (col && col.onClick instanceof Function) {
+      col.onClick(this.button, col);
     }
-    if(col && col.click instanceof Function){
-      col.click(this.button,col);
+    if (col && col.click instanceof Function) {
+      col.click(this.button, col);
     }
     this.setting.onClick(this.button, button);
   }
@@ -162,7 +184,6 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   CheckCondition() {
     if (this.col?.condition && this.col.condition instanceof Function) {
       return this.col.condition(this.button);
-    } else
-      return true;
+    } else return true;
   }
 }

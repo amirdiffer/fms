@@ -21,7 +21,7 @@ import { ITablePagination } from '@core/table/+state/table.entity';
 import { ofType } from '@ngrx/effects';
 import { TableServiceS } from '@core/table/table.service';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
-import { CSVExport } from "@core/export";
+import { CSVExport } from '@core/export';
 import { CSVExportColumn } from '@core/export/csv.component';
 import { ColumnRendererComponent } from '@core/table/column-renderer-component/column-renderer.component';
 
@@ -62,7 +62,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     private _tableService: TableServiceS,
     private renderer: Renderer2
   ) {
-    this.currentContext=this;
+    this.currentContext = this;
   }
 
   getSearchBoxData() {
@@ -109,12 +109,12 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
         // }
         case 3:
           return data[col.thumbField]
-            ? `<img class='thumb' src='${'/fms-api/document/' + data[col.thumbField]
-            }'>`
+            ? `<img class='thumb' src='${
+                '/fms-api/document/' + data[col.thumbField]
+              }'>`
             : '';
       }
-    }
-    else {
+    } else {
       return data[col.field];
     }
   }
@@ -167,35 +167,41 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getText(key: string, obj) {
     let selectionArray = key.split('.');
-    selectionArray.forEach(key => {
+    selectionArray.forEach((key) => {
       obj = obj[key];
     });
     return obj;
   }
 
-  exportTable(tableSetting: TableSetting, title: string, filter?: object): void {
-    const exportColumns: CSVExportColumn[] = tableSetting.columns.filter(x => !x.isIconLable).map((col) => {
-      return {
-        title:
-          col.lable && this.translate.instant(col.lable)
-            ? this.translate.instant(col.lable)
-            : col.lable,
-        field: col.field
-      };
-    });
+  exportTable(
+    tableSetting: TableSetting,
+    title: string,
+    filter?: object
+  ): void {
+    const exportColumns: CSVExportColumn[] = tableSetting.columns
+      .filter((x) => !x.isIconLable)
+      .map((col) => {
+        return {
+          title:
+            col.lable && this.translate.instant(col.lable)
+              ? this.translate.instant(col.lable)
+              : col.lable,
+          field: col.field
+        };
+      });
 
     const exportRows: any[] = tableSetting.data.map((data) => {
       let objKey = Object.keys(filter);
       let dataKey = Object.keys(data);
-      let map = new Map;
-      objKey.forEach(x => {
+      let map = new Map();
+      objKey.forEach((x) => {
         let func = [];
-        let columnMultiData = []
+        let columnMultiData = [];
         if (typeof filter[x] == 'string') {
           columnMultiData = (<string>filter[x]).split('|');
           func = (<string>filter[x]).split('?func:');
         }
-        columnMultiData.forEach(y => {
+        columnMultiData.forEach((y) => {
           let hasFunc = false;
           let returnedFunc: string;
           if (func.length == 2) {
@@ -205,30 +211,31 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
           }
           if ((<string>y).includes('.')) {
             if (map.has(x)) {
-              map.set(x, map.get(x) + ' ' + this.getText(y, data))
+              map.set(x, map.get(x) + ' ' + this.getText(y, data));
             } else {
-              map.set(x, this.getText(y, data))
+              map.set(x, this.getText(y, data));
             }
           } else {
             if (dataKey.includes(y)) {
               if (map.has(x)) {
-                map.set(x, map.get(x) + ' ' + data[y])
+                map.set(x, map.get(x) + ' ' + data[y]);
               } else {
-                map.set(x, data[y])
+                map.set(x, data[y]);
               }
             } else {
               if (map.has(x)) {
-                map.set(x, map.get(x) + ' ' + y)
+                map.set(x, map.get(x) + ' ' + y);
               } else {
-                map.set(x, hasFunc ? returnedFunc : y)
+                map.set(x, hasFunc ? returnedFunc : y);
               }
             }
           }
         });
       });
-      let d = Array.from(map).reduce((obj, [key, value]) => (
-        Object.assign(obj, { [key]: value })
-      ), {});
+      let d = Array.from(map).reduce(
+        (obj, [key, value]) => Object.assign(obj, { [key]: value }),
+        {}
+      );
       return d;
     });
 
@@ -375,7 +382,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   changeItemDropdownSelected(obj) {
     let data = Object.values(obj);
     this.dropdownItemSelected = data[1];
-    this.selectedSubTable.emit((<number>data[0]));
+    this.selectedSubTable.emit(<number>data[0]);
   }
 
   ngOnDestroy(): void {
@@ -384,7 +391,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void { }
+  ngAfterViewInit(): void {}
 
   updatedSelectedIds(data, field) {
     if (data[field].checkbox) this.selectedIds.push(data.id);
@@ -432,8 +439,8 @@ export enum ColumnType {
 export interface RowSettings {
   onClick?: Function;
   floatButton?: FloatButtonType[];
-  renderer?:String;
-  rendererOptions?:RendererOptions;
+  renderer?: String;
+  rendererOptions?: RendererOptions;
 }
 
 export interface RendererOptions {
@@ -454,7 +461,8 @@ export enum ButtonType {
   approve,
   confirm,
   receive,
-  receiveAndEdit
+  receiveAndEdit,
+  playAndPause
 }
 
 export interface FloatButtonType {
