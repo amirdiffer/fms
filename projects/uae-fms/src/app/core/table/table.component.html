@@ -1,5 +1,5 @@
 <div class="app-table-wrapper">
-  <p-table [value]="setting.data" (mouseleave)='rowIndexTable= -1' (sortFunction)="handleSort($event, setting)"
+  <p-table [value]="tableData ? (tableData | async) : (setting.data)" (mouseleave)='rowIndexTable= -1' (sortFunction)="handleSort($event, setting)"
     [customSort]='true'>
     <ng-template pTemplate="header">
       <tr>

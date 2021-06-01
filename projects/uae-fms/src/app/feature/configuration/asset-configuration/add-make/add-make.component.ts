@@ -104,47 +104,59 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
     switch (this.fleetType) {
       case 'ASSET':
         this.facade.getAssetTypeByID(this.assetTypeId );
-        this.fleetSubscription = this.facade.specificAssetType$.subscribe(x => {
-          if(x) {
-            
-            this.selectedCategory = x.name ? x.name: '';
-            if(this.isEditing){
-              console.log(x)
-              let makes = {
-                name : x.makes.find( y => y.id == id),
-                description : x.makes.find( y => y.id == id),
-              }
-              this.makes.controls[0].patchValue({
-                id: id,
-                make: makes.name ? makes.name.name : null,
-                makeDescription: makes.description ? makes.description.description:null
+        this.facade.loaded$.subscribe(
+          load => {
+            if(load) {
+              this.fleetSubscription = this.facade.specificAssetType$.subscribe(x => {
+                if(x) {
+                  
+                  this.selectedCategory = x.name ? x.name: '';
+                  if(this.isEditing){
+                    console.log(x)
+                    let makes = {
+                      name : x.makes.find( y => y.id == id),
+                      description : x.makes.find( y => y.id == id),
+                    }
+                    this.makes.controls[0].patchValue({
+                      id: id,
+                      make: makes.name ? makes.name.name : null,
+                      makeDescription: makes.description ? makes.description.description:null
+                    });
+                  }
+                }
               });
             }
           }
-        });
+        )
         this.inputForm.patchValue({
           typeCategory:['ASSET']
         })
         break;
       case 'SUB_ASSET':
         this._subAssetTypeFacade.getSubAssetTypeByID(this.assetTypeId )
-        this._subAssetTypeFacade.specificSubAssetType$.subscribe(x => {
-          if(x) {
-            console.log(x);
-            this.selectedCategory = x.name;
-            if(this.isEditing){
-              let makes = {
-                name : x.makes.find( y => y.id == id),
-                description : x.makes.find( y => y.id == id),
-              }
-              this.makes.controls[0].patchValue({
-                id: id,
-                make: makes.name ? makes.name.name : null,
-                makeDescription: makes.description ? makes.description.description:null
+        this._subAssetTypeFacade.loaded$.subscribe(
+          load => {
+            if(load) {
+              this._subAssetTypeFacade.specificSubAssetType$.subscribe(x => {
+                if(x) {
+                  console.log(x);
+                  this.selectedCategory = x.name;
+                  if(this.isEditing){
+                    let makes = {
+                      name : x.makes.find( y => y.id == id),
+                      description : x.makes.find( y => y.id == id),
+                    }
+                    this.makes.controls[0].patchValue({
+                      id: id,
+                      make: makes.name ? makes.name.name : null,
+                      makeDescription: makes.description ? makes.description.description:null
+                    });
+                  }
+                }
               });
             }
           }
-        });
+        )
         this.inputForm.patchValue({
           typeCategory:['SUB_ASSET']
         })
@@ -211,8 +223,7 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
   dialogConfirm($event): void {
     this.dialogModal = false;
     if($event && this.successDialog){
-      this._subAssetTypeFacade.resetParams();
-      this.facade.resetParams();
+      this.fleetType == 'ASSET' ? this.facade.resetParams() : this._subAssetTypeFacade.resetParams();
     }
     if ($event && !this.dialogSetting.hasError) {
       this.router.navigate(['/configuration/asset-configuration'])
@@ -271,7 +282,6 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
         description: make.makeDescription
       });
     }
-    console.log(this.fleetType)
     if (this.isEditing) {
       if (this.fleetType === 'SUB_ASSET') {
         this._subAssetTypeFacade.updateMake(payload, this.assetTypeId);
