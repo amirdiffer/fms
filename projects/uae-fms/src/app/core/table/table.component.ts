@@ -438,7 +438,8 @@ export enum ButtonType {
   approve,
   confirm,
   receive,
-  receiveAndEdit
+  receiveAndEdit,
+  playAndPause
 }
 
 export interface FloatButtonType {

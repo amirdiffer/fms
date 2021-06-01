@@ -58,14 +58,14 @@
                           </div>
                         </div>
                         <div class="checkbox col-3" [hidden]='outp.accessories[i].accessoryId'>
-                            <div class="form-group form-check px-3">
+                            <div class=" form-check px-3">
                                 <input id="checkbox2" type="checkbox"
                                     class="custom-checkbox" name="checkbox2" [(ngModel)]="outp.accessories[i].checked"
                                        (ngModelChange)='accessoryCheckboxOnChange($event, i)'>
                                 <label class="label" for="checkbox2">{{ 'assets.installed' | translate }}</label>
                             </div>
                         </div>
-                        <div class="col-3 form-section__field" *ngIf="outp.accessories[i].checked" [hidden]='outp.accessories[i].accessoryId'>
+                        <div class="col-3 form-section__field my-0" *ngIf="outp.accessories[i].checked" [hidden]='outp.accessories[i].accessoryId'>
                             <div class="autocomplete-select">
                               <span class="p-float-label">
                                 <p-autoComplete (completeMethod)="filterAccessory($event)"
@@ -91,7 +91,7 @@
                         </div>
                       </div>
                       <div class="checkbox col-3" [hidden]='outp.subAssets[i].subAssetId'>
-                          <div class="form-group form-check px-3">
+                          <div class=" form-check px-3">
                               <input id="checkbox2" type="checkbox"
                                   class="custom-checkbox" name="checkbox2" [(ngModel)]="outp.subAssets[i].checked"
                                      (ngModelChange)='subAssetCheckboxOnChange($event, i)'>
@@ -99,7 +99,7 @@
                           </div>
                       </div>
 
-                      <div class="col-3 form-section__field" *ngIf="outp.subAssets[i].checked" [hidden]='outp.subAssets[i].subAssetId'>
+                      <div class="col-3 form-section__field my-0" *ngIf="outp.subAssets[i].checked" [hidden]='outp.subAssets[i].subAssetId'>
                         <div class="autocomplete-select">
                           <span class="p-float-label">
                             <p-autoComplete (completeMethod)="filterSubAsset($event)"

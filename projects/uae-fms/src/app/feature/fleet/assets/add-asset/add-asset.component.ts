@@ -98,6 +98,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   public vehicleDocRequired = false;
   public purchaseDocRequired = false;
   public maintenanceServiceDocRequired = false;
+  public thumbnailRequired = false;
   public warrantyDocsRequired: boolean[] = [];
 
   //#region  Dialog
@@ -635,9 +636,11 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       if (index > 9) {
         break;
       }
+      if (this.reviewPlaneSettingTable2.data.length > 0 && this.reviewPlaneSettingTable2.data[this.reviewPlaneSettingTable2.data.length - 1].bookValue <= 0) {
+        break;
+      }
 
       value = value - newValue;
-      newValue = (value * depreciationValue) / 100;
       kmBookValue = kmBookValue - newValue;
 
       if (maxUsageYear === 0) {
@@ -650,12 +653,23 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         continue;
       }
 
-      const data = {
-        year: index + 1,
-        bookValue: Math.round(value)
-      };
+      if (value > 0) {
+        const data = {
+          year: index + 1,
+          bookValue: Math.round(value)
+        };
 
-      this.reviewPlaneSettingTable2.data.push(data);
+        this.reviewPlaneSettingTable2.data.push(data);
+      }
+      else {
+        const data = {
+          year: index + 1,
+          bookValue: 0
+        };
+
+        this.reviewPlaneSettingTable2.data.push(data);
+        break;
+      }
     }
   }
 
@@ -752,14 +766,19 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     ) {
       this.maintenanceServiceDocRequired = true;
       return;
+    } else if (
+      !this.avatarDocId
+    ) {
+      this.thumbnailRequired = true;
+      return;
     } else {
       let formVal_AssetDetail = this.formGroupAssetDetail.getRawValue();
       let data = [];
       let DPD = this.dpdGenerate(formVal_AssetDetail.businessInfo.ownership);
-      for (let index = 0; index < this.csvText.length; index++) {
+      for (let index = 0; index < this.csvText.length - 1; index++) {
         data.push({
           asset: {
-            img: 'assets/thumb1.png',
+            img: this.avatarDocId,
             assetName: this.assetType.name,
             assetSubName: DPD[index],
             ownership: formVal_AssetDetail.businessInfo.ownership.name.toLowerCase()
@@ -861,7 +880,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       return;
     }
     let data = {
-      avatarId: 1,
+      avatarId: this.avatarDocId,
       businessCategoryId: formVal_AssetDetail.businessInfo.businessCategory.id,
       ownershipId: formVal_AssetDetail.businessInfo.ownership.id,
       year: formVal_AssetDetail.assetDetails.year,

@@ -14,6 +14,8 @@ import { LoginTemplateComponent } from './template/login-template/login-template
 import { DesignSystemComponent } from './template/design-system/design-system.component';
 import { TechnicianOverviewComponent } from "./template/technician-dashboard-template/technician-dashboard-template";
 import { SpinnerComponent, SpinnerService } from "@core/spinner";
+import { DialogService } from '@core/dialog/dialog-template.component';
+import { DialogModule } from '@core/dialog/dialog.module';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -23,7 +25,8 @@ import { SpinnerComponent, SpinnerService } from "@core/spinner";
     NavbarModule,
     AppRoutingModule,
     SharedModule,
-    AngularSvgIconModule.forRoot()
+    AngularSvgIconModule.forRoot(),
+    DialogModule
   ],
   declarations: [
     AppComponent,
@@ -33,7 +36,7 @@ import { SpinnerComponent, SpinnerService } from "@core/spinner";
     TechnicianOverviewComponent,
     SpinnerComponent
   ],
-  providers: [SpinnerService],
+  providers: [SpinnerService, DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -18,49 +18,59 @@ import { AddModelComponent } from '@feature/configuration/asset-configuration/ad
 import { AddTrimComponent } from '@feature/configuration/asset-configuration/add-trim/add-trim.component';
 
 const routes: Routes = [
-  { path: 'asset-configuration', component: AssetConfigurationComponent },
-  { path: 'add-asset-configuration', component: AddTypeComponent },
-  { path: 'edit-asset-configuration/:id', component: AddTypeComponent },
-  {
-    path: 'sub-asset-edit-asset-configuration/:id',
-    component: AddTypeComponent
+  { path: 'asset-configuration', component: AssetConfigurationComponent ,
+    children:[
+      { path: 'add-asset-configuration', component: AddTypeComponent }, 
+      { path: 'add-sub-asset-configuration', component: AddTypeComponent },
+      { path: 'add-accessory-configuration', component: AddTypeComponent },
+      { path: 'edit-asset-configuration/:id', component: AddTypeComponent },
+      { path: 'edit-sub-asset-configuration/:id', component: AddTypeComponent },
+      { path: 'edit-accessory-configuration/:id', component: AddTypeComponent },
+      { path: ':fleetType/add-make/:assetTypeId' , component: AddMakeComponent},
+      { path: ':fleetType/edit-make/:assetTypeId/:id' , component: AddMakeComponent},
+      { path: ':fleetType/add-model/:assetTypeId/:makeId', component: AddModelComponent},
+      { path: ':fleetType/edit-model/:assetTypeId/:makeId/:id', component: AddModelComponent},
+      { path: ':fleetType/add-trim/:assetTypeId/:makeId/:modelId', component: AddTrimComponent},
+      { path: ':fleetType/edit-trim/:assetTypeId/:makeId/:modelId/:id', component: AddTrimComponent},
+    ]
   },
-  {
-    path: 'asset-configuration/add-make/:assetType',
-    component: AddMakeComponent
-  },
-  {
-    path: 'asset-configuration/edit-make/:assetTypeId/:id',
-    component: AddMakeComponent
-  },
-  {
-    path: 'asset-configuration/sub-asset-edit-make/:assetTypeId/:id',
-    component: AddMakeComponent
-  },
-  {
-    path: 'asset-configuration/accessory-edit-make/:id',
-    component: AddMakeComponent
-  },
-  {
-    path: 'asset-configuration/add-model/:assetType/:make',
-    component: AddModelComponent
-  },
-  {
-    path: 'asset-configuration/edit-model/:assetTypeId/:makeId/:id',
-    component: AddModelComponent
-  },
-  {
-    path: 'asset-configuration/sub-asset-edit-model/:assetTypeId/:makeId/:id',
-    component: AddModelComponent
-  },
-  {
-    path: 'asset-configuration/add-trim/:assetType/:make/:model',
-    component: AddTrimComponent
-  },
-  {
-    path: 'asset-configuration/edit-trim/:assetTypeId/:makeId/:id',
-    component: AddTrimComponent
-  },
+
+  // {
+  //   path: 'asset-configuration/add-make/:assetType',
+  //   component: AddMakeComponent
+  // },
+  // {
+  //   path: 'asset-configuration/edit-make/:assetTypeId/:id',
+  //   component: AddMakeComponent
+  // },
+  // {
+  //   path: 'asset-configuration/sub-asset-edit-make/:assetTypeId/:id',
+  //   component: AddMakeComponent
+  // },
+  // {
+  //   path: 'asset-configuration/accessory-edit-make/:id',
+  //   component: AddMakeComponent
+  // },
+  // {
+  //   path: 'asset-configuration/add-model/:assetType/:make',
+  //   component: AddModelComponent
+  // },
+  // {
+  //   path: 'asset-configuration/edit-model/:assetTypeId/:makeId/:id',
+  //   component: AddModelComponent
+  // },
+  // {
+  //   path: 'asset-configuration/sub-asset-edit-model/:assetTypeId/:makeId/:id',
+  //   component: AddModelComponent
+  // },
+  // {
+  //   path: 'asset-configuration/add-trim/:assetType/:make/:model',
+  //   component: AddTrimComponent
+  // },
+  // {
+  //   path: 'asset-configuration/edit-trim/:assetTypeId/:makeId/:modelId/:id',
+  //   component: AddTrimComponent
+  // },
   { path: 'usage-category', component: BusinessCategoryComponent },
   { path: 'periodic-service', component: PeriodicServiceComponent },
   { path: 'asset-policy/add-asset-policy', component: AddAssetPolicyComponent },

@@ -1,7 +1,7 @@
 <h4 class="main-title">{{ 'movement.request.assign_request_id' | translate:{id: data} }}</h4>
 <!-- start form -->
 <form [formGroup]="confirmForm">
-    <div class="form-section no-bg no-shadow">
+    <div class="form-section no-shadow">
         <h3 class="form-section__title">{{ 'movement.request.asset_information' | translate }}</h3>
         <div class="row form-section__row">
             <!-- start asset -->
@@ -24,7 +24,7 @@
         </div>
     </div>
   <hr>
-    <div class="form-section no-bg no-shadow">
+    <div class="form-section no-shadow">
         <h3 class="form-section__title">{{ 'movement.request.user_information' | translate }}</h3>
         <div class="row form-section__row">
             <!-- start department -->
@@ -76,7 +76,7 @@
         </div>
     </div>
   <hr>
-    <div class="form-section no-bg no-shadow">
+    <div class="form-section no-shadow">
         <h3 class="form-section__title">{{ 'movement.request.movement_information' | translate }}</h3>
         <!-- start movementType -->
         <div class="row form-section__row">
@@ -189,8 +189,8 @@
             </div>
             <!-- end serialNumber -->
         </div>
-        <div class="d-flex justify-content-end button-container">
-            <button mat-dialog-close class="btn-primary-small btn-scondary-green">{{ 'movement.request.cancel' | translate }}</button>
+        <div class="d-flex justify-content-end py-3">
+            <button mat-dialog-close class="btn-primary-small btn-scondary-green mx-2">{{ 'movement.request.cancel' | translate }}</button>
             <button class="btn-primary-small add" (click)="submit()">{{ 'movement.request.save_assignment' | translate }}</button>
         </div>
     </div>

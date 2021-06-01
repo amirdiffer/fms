@@ -59,7 +59,7 @@ export class MyTasksComponent implements OnInit {
         {
           button: 'external',
           onClick: (col, data) => {
-            this.router.navigate(['overview' + data.id]);
+            this.router.navigate(['dashboard/technician/task-overview/' + data.id]);
           }
         }
       ]
