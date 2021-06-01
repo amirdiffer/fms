@@ -17,6 +17,7 @@ import { map } from 'rxjs/operators';
 import { TableComponent } from '@core/table';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
+import { AssetTypeComponent } from './asset-type/asset-type.component';
 @Component({
   selector: 'anms-asset-configuration',
   templateUrl: './asset-configuration.component.html',
@@ -25,6 +26,8 @@ import { DataService } from '@feature/configuration/asset-configuration/data.ser
 export class AssetConfigurationComponent implements OnInit, OnDestroy {
   //#region Variables
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
+  @ViewChild(AssetTypeComponent, { static: false }) AssetTypeComponent: AssetTypeComponent;
+
 
   searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn = 'assets/icons/download-solid.svg';
@@ -175,6 +178,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       (x) => {
         this.subAssetType = x.map((y) => {
           const value = {
+            id:y.id,
             isSelected: false,
             iconSvgClass: 'right-arrow',
             name: y.name,
@@ -191,6 +195,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       (x) => {
         this.accessoryType = x.map((y) => {
           const value = {
+            id:y.id,
             name: y.name,
             description: y.description,
             isActive: y.isActive
@@ -228,6 +233,14 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
   }
 
   makes(makes: Make[]): void {
+    let typeId: number
+    let makeId: number
+    let modelId: number
+    const queryParamsSubscription = this.activatedRoute.queryParams.subscribe((queryParams: Params) => {
+      typeId = queryParams.type
+      makeId = queryParams.make
+      modelId = queryParams.model
+    });
     this.assetConfigurationableSetting = {
       columns: [
         {
@@ -253,10 +266,32 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           type: 1,
           thumbField: '',
           renderer: ''
+        },
+        {
+          lable: '',
+          field: 'floatButton',
+          width: 0,
+          type: 1,
+          thumbField: '',
+          renderer: 'floatButton'
         }
       ],
       data: [],
-      rowSettings: {}
+      rowSettings: {
+        onClick: (col, dataArg, button?) => {
+          console.log(col)
+        },
+        floatButton: [
+          {
+            onClick: (col, colData) => {
+              this.router.navigate([`${this.activeTypeCategory}/edit-make/${typeId}/${colData.id}`] , {relativeTo:this.activatedRoute}).then(()=>{
+                this.AssetTypeComponent.refreshData()
+              })
+            },
+            button: 'edit'
+          }
+        ]
+      }
     };
     const data = [];
     makes.map((make) => {
@@ -270,6 +305,14 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
   }
 
   models(models: MakeModel[]): void {
+    let typeId: number
+    let makeId: number
+    let modelId: number
+    const queryParamsSubscription = this.activatedRoute.queryParams.subscribe((queryParams: Params) => {
+      typeId = queryParams.type
+      makeId = queryParams.make
+      modelId = queryParams.model
+    });
     this.assetConfigurationableSetting = {
       columns: [
         {
@@ -295,13 +338,35 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           type: 1,
           thumbField: '',
           renderer: ''
+        },
+        {
+          lable: '',
+          field: 'floatButton',
+          width: 0,
+          type: 1,
+          thumbField: '',
+          renderer: 'floatButton'
         }
       ],
       data: [],
-      rowSettings: {}
+      rowSettings: {
+        onClick: (col, dataArg, button?) => {
+          console.log(col)
+        },
+        floatButton: [
+          {
+            onClick: (col, colData) => {
+              console.log(colData)
+              this.router.navigate([`${this.activeTypeCategory}/edit-model/${typeId}/${makeId}/${colData.id}`] , {relativeTo:this.activatedRoute})
+            },
+            button: 'edit'
+          }
+        ]
+      }
     };
     const data = [];
     models.map((model) => {
+      console.log(model)
       const x = {
         ...model,
         trims: model.trims ? model.trims.length : null
@@ -320,7 +385,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
         typeId = queryParams.type
         makeId = queryParams.make
         modelId = queryParams.model
-      })
+      });
       this.assetConfigurationableSetting = {
         columns: [
           {
@@ -376,11 +441,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
             {
               onClick: (col, colData) => {
                 console.log(colData)
-                this.router.navigate([
-                  '/configuration/asset-configuration/edit-trim/' + typeId + '/' + makeId + '/' + modelId + '/' + colData.id
-                ]).then(_ => {
-                  queryParamsSubscription?.unsubscribe()
-                });
+                this.router.navigate([`asset/edit-trim/${typeId}/${makeId}/${modelId}/${colData.id}`] , {relativeTo:this.activatedRoute})
               },
               button: 'edit'
             }

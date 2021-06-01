@@ -271,6 +271,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit, 
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
+        submittedFacade.resetParams();
       }
     });
 
@@ -336,9 +337,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit, 
   }
 
   ngOnDestroy() {
-    this._accessoryTypeFacade.resetParams();
-    this._subAssetTypeFacade.resetParams();
-    this.facade.resetParams();
+    this._dataService.selectType('ASSET')
   }
 
 

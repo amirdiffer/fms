@@ -1,4 +1,5 @@
 <mat-card class='p-2 m-0 overflow-hidden' [class.not-disable]="activatedRoute.snapshot.children">
+  <div class="cover" *ngIf="activatedRoute.children.length != 0"></div>
   <mat-card-header>
     <mat-card-title class='mat-card-title'>{{ 'filter.category' | translate }}</mat-card-title>
   </mat-card-header>
@@ -22,7 +23,7 @@
             </svg-icon>
             <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
                       class='cursor-pointer'
-                      (click)="editCategoryType(assetType.id)"
+                      (click)="editCategoryType(assetType)"
                       src='assets/icons/edit.svg'
                       [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':'100%'}">
             </svg-icon>
@@ -40,11 +41,11 @@
             <span class='action' [hidden]='activeAssetType === "ACCESSORY"'>
               <svg-icon
                 [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}"
-                class='cursor-pointer' (click)='createModel(assetType,make)' src='assets/icons/add.svg'
+                class='cursor-pointer' (click)='createModel(assetType.id,make)' src='assets/icons/add.svg'
                 [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
               <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
                         class='cursor-pointer'
-                        [routerLink]="((activeAssetType === 'ASSET') ? ('/configuration/asset-configuration/edit-make/' + assetType.id + '/' + make.id) : ('/configuration/asset-configuration/sub-asset-edit-make/' + assetType.id + '/' + make.id))"
+                        (click)="editMake(make , assetType)"
                         src='assets/icons/edit.svg'
                         [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':'100%'}">
             </svg-icon>
@@ -53,7 +54,7 @@
           <div *ngFor='let model of (assetType.makes[index]).models'>
             <div class='category-sub-subItem'
                  [hidden]='!make.isSelected || !assetType.isSelected'
-                 [class.active-type-model]="model.id === selectedModel">
+                 [class.active-type]="model.id === selectedModel">
               <span class='status' (click)='onModelClick(model, make.id, assetType.id)'
                     [style]="{ '--back-color-var': getStatusColor(model.id) }"
                     [ngStyle]="{ color: getStatusColor(model.id) }"></span>
@@ -64,11 +65,11 @@
               <span class='action'>
                 <svg-icon *ngIf="(activeAssetType !== 'SUB_ASSET')"
                   [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}"
-                  class='cursor-pointer' (click)='createTrim(assetType,model, make)' src='assets/icons/add.svg'
+                  class='cursor-pointer' (click)='createTrim(assetType.id,make.id, model)' src='assets/icons/add.svg'
                   [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
                 <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
                           class='cursor-pointer'
-                          [routerLink]="((activeAssetType === 'ASSET') ? ('/configuration/asset-configuration/edit-model/' + assetType.id + '/' + make.id + '/' + model.id) : ('/configuration/asset-configuration/sub-asset-edit-model/' + assetType.id + '/' + make.id + '/' + model.id))"
+                          (click)="editModel(model, make.id , assetType.id)"
                           src='assets/icons/edit.svg'
                           [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':'100%'}">
             </svg-icon>
