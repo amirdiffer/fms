@@ -16,6 +16,8 @@ import { SettingsFacade } from '@core/settings/settings.facade';
 import { ISubAssetType } from '@models/sub-asset';
 import { AddMakeComponent } from '@feature/configuration/asset-configuration/add-make/add-make.component';
 import { Location } from '@angular/common';
+import { relative } from 'path';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'configuration-asset-type',
@@ -39,33 +41,43 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
 
   //#region Variables
   // assetType$ = new Observable();
-  loaded$ = this.facade.loaded$;
+  loaded$ = this._assetTypefacade.loaded$;
   filter = new Subject();
   arrowIcon = 'assets/icons/arrow-down.svg';
   categoryType$;
   activeLang = '';
-  activeAssetType = '';
+  activeAssetType;
   openedAssetTypeArray: AssetTypeExtension[] = []
   //#endregion
 
   tree = [];
+  refresh:boolean = false
 
   assetTypeArray: AssetTypeExtension[] = []
   assetType$: Observable<AssetTypeExtension[]>
   assetTypeSubject$: Subject<AssetTypeExtension[]> = new Subject()
 
+  selectedCategory:number = -1;
+  selectedMake:number = -1;
+  selectedModel:number = -1;
   constructor(
-    private facade: AssetTypeFacade,
+    private _assetTypefacade: AssetTypeFacade,
     private _subAssetTypeFacade: SubAssetTypeFacade,
     private _accessoryTypeFacade: AccessoryTypeFacade,
     private router: Router,
     private dataService: DataService,
     private settingFacade: SettingsFacade,
     private location: Location,
-    private activatedRoute: ActivatedRoute
-  ) { }
+    public activatedRoute: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
+    /* Load Data */
+    this._assetTypefacade.loadAll();
+    this._subAssetTypeFacade.loadAll();
+    this._subAssetTypeFacade.loadAll();
+    
+    this.refreshData()
 
     this.assetTypeSubject$.subscribe((assetTypeArray) => {
       this.assetTypeArray = assetTypeArray
@@ -73,8 +85,11 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
 
     this.categoryType$ = this.dataService.watchType().pipe((type) => {
       type.subscribe((y) => {
+        if(y !== this.activeAssetType){
+          this.refresh = false
+        }
         this.activeAssetType = y
-        this.changeType(y)
+        this.changeType(y , this.refresh);
       });
       return type;
     });
@@ -92,34 +107,28 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   createMake(assetType: AssetTypeExtension): void {
     this.dataService.selectedTypeId = assetType.id;
     this.dataService.selectedTypeName = assetType.name;
-    this.router
-      .navigate(['/configuration/asset-configuration/add-make/' + assetType.id])
-      .then();
+    this.onTypeClick(assetType);
+  
+    this.router.navigate([this.activeAssetType+'/add-make/' +assetType.id] , {relativeTo:this.activatedRoute}).then(()=>{
+      this.refreshData();
+    })
   }
 
-  createModel(assetType, make: MakeExtension): void {
-    this.dataService.selectedMakeId = make.id;
-    this.dataService.selectedMakeName = make.name;
-    this.router
-      .navigate([
-        `/configuration/asset-configuration/add-model/${assetType.id}/${make.id}`
-      ])
-      .then();
+  createModel(assetTypeId, make: MakeExtension): void {
+    this.onMakeClick({...make , isSelected:false},assetTypeId)
+    this.router.navigate([`${this.activeAssetType}/add-model/${assetTypeId}/${make.id}`] , {relativeTo:this.activatedRoute})
   }
 
-  createTrim(assetType, model: ModelExtension, make: MakeExtension): void {
-    this.dataService.selectedModelId = model.id;
-    this.dataService.selectedModelName = model.name;
-    this.dataService.selectedMakeId = make.id;
-    this.dataService.selectedMakeName = make.name;
-    this.router
-      .navigate([
-        `/configuration/asset-configuration/add-trim/${assetType.id}/${make.id}/${model.id}`
-      ])
-      .then();
+  createTrim(assetTypeId, makeId , model): void {
+    this.onModelClick(model , makeId , assetTypeId);
+    this.router.navigate([`${this.activeAssetType}/add-trim/${assetTypeId}/${makeId}/${model.id}`] , {relativeTo:this.activatedRoute})
   }
 
   onTypeClick(item: AssetTypeExtension): void {
+    console.log(item)
+    if(this.activeAssetType == 'ACCESSORY') return;
+    this.selectedCategory = +item.id
+    this.selectedMake = -1;
     this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { type: item.id } }).then()
     this.assetType$.forEach((assetType: AssetTypeExtension[]) => {
       this.openedAssetTypeArray = []
@@ -138,20 +147,23 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
           iAssetType.iconSvgClass = 'right-arrow'
           this.openedAssetTypeArray.push(iAssetType)
           this.activeCat.category = item.id;
-          this.select.emit(this.activeCat);
-          this.selectMake.emit(item.makes);
         }
-        this.assetTypeSubject$.next(this.openedAssetTypeArray)
+        this.select.emit(this.activeCat);
+        this.selectMake.emit(item.makes);
+        this.assetTypeSubject$.next(this.openedAssetTypeArray);
+        
       })
     }).then()
   }
 
   onMakeClick(make: MakeExtension, assetTypeId: number): void {
-    this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { type: assetTypeId, make: make.id } }).then()
+    this.selectedMake = make.id
+    this.selectedModel = -1;
+    this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { type: assetTypeId, make: make.id } }).then();
     this.openedAssetTypeArray.map((iAssetType) => {
-      if (iAssetType.id === assetTypeId) {
+      if (iAssetType.id == assetTypeId) {
         iAssetType.makes.map((iAssetTypeMake => {
-          if (iAssetTypeMake.id === make.id) {
+          if (iAssetTypeMake.id == make.id) {
             if (make.isSelected) {
               iAssetTypeMake.isSelected = false;
               iAssetTypeMake.iconSvgClass = 'right-arrow';
@@ -172,6 +184,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   }
 
   onModelClick(model: ModelExtension, makeId: number, assetTypeId: number): void {
+    this.selectedModel = model.id;
     this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { model: model.id }, queryParamsHandling: 'merge' }).then()
     this.openedAssetTypeArray.map((iAssetType) => {
       if (iAssetType.id === assetTypeId) {
@@ -192,26 +205,28 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     })
   }
 
-  getStatusColor(status: boolean): string {
-    if (status) {
+  getStatusColor(id: number): string {
+    if (id === this.selectedModel) {
       return '#0DA06E';
     } else {
       return '#868686';
     }
   }
 
-  changeType(type: string) {
+  changeType(type: string , refresh:boolean = false) {
+    this.selectedCategory = -1;
+    this.selectedMake = -1;
+    this.selectedModel = -1;
     let assetTypeArray: AssetTypeExtension[] = []
     this.assetTypeSubject$.next([])
-
     if (type == 'ASSET' || type == 'SUB_ASSET') {
-      this.assetType$ = (type == 'ASSET' ? this.facade.assetType$ : this._subAssetTypeFacade.subAssetType$).pipe(
+      this.assetType$ = (type == 'ASSET' ? this._assetTypefacade.assetType$ : this._subAssetTypeFacade.subAssetType$).pipe(
         map((response) => {
           assetTypeArray = []
           return response.map((obj) => {
             const assetType = {
               ...obj,
-              isSelected: false,
+              isSelected:false,
               iconSvgClass: 'right-arrow',
               makes: []
             };
@@ -223,13 +238,12 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
                 models: []
               };
               make.models.map((model) => {
-                const y: ModelExtension = { ...model, isSelected: false };
+                const y: ModelExtension = {...model , isSelected: false};
                 x.models.push(y);
               });
-              assetType.makes.push(x);
+              assetType.makes.push({...x , isSelected: false});
             });
             assetTypeArray.push(assetType)
-            this.assetTypeSubject$.next(assetTypeArray)
             return assetType as AssetTypeExtension;
           })
         })
@@ -248,15 +262,14 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
               models: []
             };
             assetTypeArray.push(assetType)
-            this.assetTypeSubject$.next(assetTypeArray)
             return assetType as AssetTypeExtension;
           })
         })
       );
 
     }
-
-    this.assetType$.subscribe()
+    
+    this.assetType$.subscribe(x=>{if(x){this.assetTypeSubject$.next(assetTypeArray)};});
   }
 
   ngOnDestroy(): void { }
@@ -266,26 +279,109 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     if (this.activeAssetType == "SUB_ASSET") return "configuration.asset_configuration.add_sub_asset_type";
     if (this.activeAssetType == "ACCESSORY") return "configuration.asset_configuration.add_accessory_type";
   }
+
+
+  addCategoryType(){
+    switch (this.activeAssetType) {
+      case 'ASSET':
+        this.router.navigate(['add-asset-configuration'] , {relativeTo:this.activatedRoute})
+        break;
+    
+      case 'SUB_ASSET':
+        this.router.navigate(['add-sub-asset-configuration'], {relativeTo:this.activatedRoute})
+        break;
+
+      case 'ACCESSORY':
+        this.router.navigate(['add-accessory-configuration'], {relativeTo:this.activatedRoute})
+        break;
+    }
+  }
+
+  editCategoryType(asset){
+    this.onTypeClick({...asset , isSelected:false})
+    switch (this.activeAssetType) {
+      case 'ASSET':
+        this.router.navigate(['edit-asset-configuration/'+asset.id] , {relativeTo:this.activatedRoute})
+        break;
+    
+      case 'SUB_ASSET':
+        this.router.navigate(['edit-sub-asset-configuration/'+asset.id], {relativeTo:this.activatedRoute})
+        break;
+
+      case 'ACCESSORY':
+        this.router.navigate(['edit-accessory-configuration/'+asset.id], {relativeTo:this.activatedRoute})
+        break;
+    }
+  }
+
+  editMake(make , assetType){
+    this.router.navigate([`${this.activeAssetType}/edit-make/${assetType.id}/${make.id}`] , {relativeTo:this.activatedRoute}).then(()=>{
+      this.onTypeClick(assetType)
+      this.onMakeClick(make, assetType.id);
+      this.refreshData();
+    })
+  }
+
+  editModel(model, makeId , assetTypeId){
+    this.router.navigate([`${this.activeAssetType}/edit-model/${assetTypeId}/${makeId}/${model.id}`] , {relativeTo:this.activatedRoute}).then(()=>{
+      this.onModelClick(model , makeId , assetTypeId);
+    })
+  }
+
+  refreshData(){
+    /* Refresh */
+    this.activatedRoute.children.map(
+      x=>{
+
+        let fleetType=x.snapshot.params.fleetType;
+        let assetTypeId = x.snapshot.params.assetTypeId;
+        let makeId = x.snapshot.params.makeId;
+        let modelId = x.snapshot.params.modelId;
+        let id = x.snapshot.params.id
+        let type;
+        let make;
+        let model;
+        this.refresh = true
+        this.dataService.selectType(fleetType);
+        this.assetTypeSubject$.subscribe(y=>{
+          if(y && y.length>0){
+            this.openedAssetTypeArray = y
+            if(assetTypeId && !type){
+              type = y.find(z => z.id == assetTypeId) ?(y.find(z => z.id == assetTypeId)):null;
+              type != null ? this.onTypeClick(type): null;
+            }
+            if(assetTypeId && (makeId || id) && !make ){
+              let makes = y.find(z => z.id == assetTypeId) ? y.find(z => z.id == assetTypeId).makes : null;
+              makes != null ? (make = makes.find(make => make.id == (makeId ? makeId : id)) , this.onMakeClick(make , assetTypeId )): null
+            }
+            if(assetTypeId && makeId && (modelId || id) && !model){
+              make ?(model = make.models.find(model => model.id == (modelId ? modelId : id )) , this.onModelClick(model , makeId , assetTypeId)): null
+            }
+          }
+        })
+      }
+    )
+  }
 }
 
 export interface AssetTypeExtension extends IAssetType {
-  isSelected: boolean;
-  iconSvgClass: string;
-  makes: MakeExtension[];
+  isSelected?: boolean;
+  iconSvgClass?: string;
+  makes?: MakeExtension[];
 }
 
 
 export interface MakeExtension extends Make {
-  isSelected: boolean;
-  iconSvgClass: string;
-  models: ModelExtension[];
+  isSelected?: boolean;
+  iconSvgClass?: string;
+  models?: ModelExtension[];
 }
 
 export interface ModelExtension extends MakeModel {
-  isSelected: boolean;
+  isSelected?: boolean;
 }
 
 export interface activeCat {
-  category: number,
-  manufacturer: number;
+  category?: number,
+  manufacturer?: number;
 }
