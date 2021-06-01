@@ -253,12 +253,12 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         }
       ]
     },
-    /* {
+     {
       name: 'sidebar.integrations',
       icon: 'integrations',
       route: '/integration',
-      disabled: true
-    } */
+      disabled: false
+    }
   ];
 
   checkMenuState: Subscription;
