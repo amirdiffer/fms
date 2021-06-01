@@ -1,9 +1,9 @@
 export interface Make {
-  id: number;
-  name: string;
-  models: MakeModel[];
-  description: string;
-  totalMakeCount: number;
+  id?: number;
+  name?: string;
+  models?: MakeModel[];
+  description?: string;
+  totalMakeCount?: number;
 }
 
 export interface IAssetType {
