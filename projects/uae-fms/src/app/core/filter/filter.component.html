@@ -1,6 +1,6 @@
-<div class="filter-wrapper-container">
+<div [class]="'filter-wrapper-container ' + (flexible ? 'flexible':'')">
   <div class="d-flex w-100 filter-wrapper" *ngIf="showStatistics" >
-    <div *ngFor="let card of cardSetting; let index = index; let last = last" class="col statistics p-0">
+    <div *ngFor="let card of cardSetting; let index = index; let last = last" [class]="col statistics p-0">
       <div class="card parent overflow-hidden shadow-sm p-0"
              [style.border-color]="card.setting.filterTagColor" (click)="onClick(index); filterCardSettingDelegate.onActive(index)"><!-- (click)="onClick(index); card.setting.onActive(index)" -->
         <div class="d-inline-flex h-100" [style.background]="card.filterBackgroundColor">
@@ -14,7 +14,7 @@
                     <div [class.filter-title__active]="card.isActive" [style.color]="card.setting.filterTagColor">{{card.setting.filterTitle|translate}}</div>
                   </div>
                 </div>
-                <div class="filter-count">
+                <div class="filter-count" [class.d-none]="flexible">
                   <div [class.filter-count__active]="card.isActive" [style.color]="card.setting.filterTagColor">{{card.setting.filterCount}}</div>
                 </div>
               </div>

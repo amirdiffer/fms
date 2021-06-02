@@ -5,30 +5,20 @@
         <anms-asset-detail [asset]="assetDetail"></anms-asset-detail>
       </div>
     </div>
-
-
     <div class="col-12 col-md-8 col-lg-9 main-panel">
-      <div class="table-container component_wrapper">
+      <div class="w-100">
+        <div class="filter-container" *ngIf="activeTab == 'Business Category'">
+          <app-filter [setting]="filterSetting_BusinessCategory" [flexible]="true"></app-filter>
+        </div>
+        <div class="filter-container" *ngIf="activeTab == 'Request'">
+          <app-filter [setting]="filterSetting_Request"></app-filter>
+        </div>
+        <div class="filter-container" *ngIf="activeTab == 'Job Card'">
+          <app-filter [setting]="filterSetting_Job_Card"></app-filter>
+        </div>
+      </div>
+      <div class="table-container component_wrapper my-0">
         <div class="row">
-          <div class="col-12">
-            <!--          <div class="component_sec_wrapper wrapper_cus" *ngIf="activeTab == 'Overview'">-->
-            <!--            <div class="lifecycle">-->
-            <!--              <app-life-cycle-chart></app-life-cycle-chart>-->
-            <!--            </div>-->
-            <!--          </div>-->
-            <div class="mb-4">
-              <div class="filter-container" *ngIf="activeTab == 'Business Category'">
-                <app-filter [setting]="filterSetting_BusinessCategory"></app-filter>
-              </div>
-              <div class="filter-container" *ngIf="activeTab == 'Request'">
-                <app-filter [setting]="filterSetting_Request"></app-filter>
-              </div>
-              <div class="filter-container" *ngIf="activeTab == 'Job Card'">
-                <app-filter [setting]="filterSetting_Job_Card"></app-filter>
-              </div>
-            </div>
-          </div>
-
           <div class="col-12 d-none" *ngIf="activeTab == 'Overview'">
             <div class="form-section filter-date">
               <ul>
