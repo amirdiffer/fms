@@ -103,6 +103,7 @@ export class MainTemplateComponent implements OnInit {
           ['breadcrumb.' + x.toLowerCase().split(' ').join('_')]: ''
         }))
       );
+      console.log(this.path)
       this.getTranslations();
     });
   }
@@ -120,6 +121,7 @@ export class MainTemplateComponent implements OnInit {
         }
         return x;
       });
+      console.log(y);
       this.breadcrumb = y.map(x => x[1]);
     });
   }
@@ -133,6 +135,24 @@ export class MainTemplateComponent implements OnInit {
 
   onLoginClick() {
     this.store.dispatch(authLogin());
+  }
+
+  getPartLink(index) {
+    let mainPath = this.path;
+    let baseUrl = '';
+    if (mainPath.length > 0) {
+      baseUrl = '/' + mainPath[1].toLowerCase().replace(' ', '-');
+    }
+    let h = mainPath.filter((x, i) => {
+      return i <= index;
+    }).map(x => {
+      return x.toLowerCase().replace(' ', '-');
+    });
+    let result = '';
+    h.forEach(x => {
+      result = result + '/' + x;
+    });
+    return h.length == 1 ? result + baseUrl : result;
   }
 
   onLogoutClick() {
