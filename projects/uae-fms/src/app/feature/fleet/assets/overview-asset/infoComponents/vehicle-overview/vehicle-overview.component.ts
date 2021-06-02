@@ -241,57 +241,6 @@ export class VehicleOverviewComponent implements OnInit {
     private assetService: AssetMasterService,
     private customizationService: CustomizationService
   ) {
-    // this.chartOptions = {
-    //   series: [],
-    //   labels: [],
-    //   chart: {
-    //     type: 'donut',
-    //     height: 280
-    //   },
-    //   responsive: [
-    //     {
-    //       breakpoint: 480,
-    //       options: {
-    //         chart: {
-    //           width: '100%'
-    //         },
-    //         legend: {
-    //           position: 'bottom'
-    //         }
-    //       }
-    //     }
-    //   ],
-    //   plotOptions: {
-    //     pie: {
-    //       donut: {
-    //         labels: {
-    //           show: false,
-    //           total: {
-    //             show: false,
-    //             label: 'Total',
-    //             color: '#373d3f',
-    //             showAlways: true,
-    //             fontFamily: '29LT Bukra',
-    //             formatter: (w) => {
-    //               return (
-    //                 w.globals.seriesTotals.reduce((a, b) => {
-    //                   return a + b;
-    //                 }, 0) + ' AED'
-    //               );
-    //             }
-    //           },
-    //           name: {
-    //             offsetY: 18,
-    //             fontSize: '8px'
-    //           },
-    //           value: {
-    //             offsetY: -15
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // };
     this.chartOptions = {
       series: [],
       chart: {
