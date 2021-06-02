@@ -103,7 +103,6 @@ export class MainTemplateComponent implements OnInit {
           ['breadcrumb.' + x.toLowerCase().split(' ').join('_')]: ''
         }))
       );
-      console.log(this.path)
       this.getTranslations();
     });
   }
@@ -121,7 +120,6 @@ export class MainTemplateComponent implements OnInit {
         }
         return x;
       });
-      console.log(y);
       this.breadcrumb = y.map(x => x[1]);
     });
   }
