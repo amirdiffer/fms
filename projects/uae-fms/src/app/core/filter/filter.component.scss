@@ -101,8 +101,13 @@
   .filter-wrapper {
     .statistics{
       transition: .3s all;
-      
       &:hover{
+        flex-grow: 1.5;
+        .filter-count {
+          display: block !important ;
+        }
+      }
+      &.active-card {
         flex-grow: 1.5;
         .filter-count {
           display: block !important ;
