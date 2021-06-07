@@ -9,7 +9,7 @@
 </div>
 <div class="row card-wrapper mt-3">
   <div class='col-3 px-0'>
-    <configuration-asset-type (selectMake)='makes($event)' (selectModel)='models($event)' (selectTrim)='trims($event)'></configuration-asset-type>
+    <configuration-asset-type (selectMake)='makesTable($event)' (selectModel)='modelTable($event)' (selectTrim)='trimTable($event)'></configuration-asset-type>
 
   </div>
     <div class="col-9 h-100 padding-wrapper">
@@ -28,7 +28,7 @@
                 <svg-icon [src]="downloadBtn"></svg-icon>
             </button>
           </span>
-          <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="asset-configuration" [showPagination]="false" [setting]="assetConfigurationableSetting" [tableData]='tableData$'></app-table>
+          <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="asset-configuration" [showPagination]="false" [setting]="assetConfigurationableSetting" [tableData]='data$'></app-table>
         </div>
     </div>
 </div>
