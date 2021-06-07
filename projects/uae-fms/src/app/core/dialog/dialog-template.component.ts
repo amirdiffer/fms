@@ -17,21 +17,18 @@ export class DialogTemplateComponent implements OnInit {
 
   isLtr = true;
 
-  dialogClosed$: Observable<DialogResult>;
-  dialogTextInput$: Observable<string>;
+  
 
   timesCircle = 'assets/icons/times-circle.svg';
   checkCircle = 'assets/icons/check-circle.svg';
   warningTriangle = 'assets/icons/exclamation-triangle.svg';
 
-  private dialogClosed = new Subject<DialogResult>();
-  private dialogTextInput = new Subject<string>();
+  
   private settingsFacadeSubscription!: Subscription;
 
-  constructor(private dialogRef: MatDialogRef<DialogTemplateComponent>, private settingsFacade: SettingsFacade) {
+  constructor(private dialogRef: MatDialogRef<DialogTemplateComponent>, private settingsFacade: SettingsFacade ,  private _dialogService:DialogService) {
 
-    this.dialogClosed$ = this.dialogClosed.asObservable();
-    this.dialogTextInput$ = this.dialogTextInput.asObservable();
+    
 
     this.settingsFacadeSubscription = settingsFacade.language.subscribe((lang) => {
       this.isLtr = lang === 'en';
@@ -43,17 +40,18 @@ export class DialogTemplateComponent implements OnInit {
 
   onClose(type: DialogResult): void {
     if (type === 'confirm') {
-      this.dialogClosed.next('confirm');
+      this._dialogService.dialogClosed.next('confirm');
     } else {
-      this.dialogClosed.next('cancel');
+      this._dialogService.dialogClosed.next('cancel');
     }
 
     if (this.dialogSetting.hasTextInput) {
-      this.dialogTextInput.next(this.textInput);
+      this._dialogService.dialogTextInput.next(this.textInput);
     }
 
     this.dialogRef.close();
   }
+  
 }
 
 export type DialogStatus = 'success' | 'warning' | 'danger';
@@ -70,6 +68,10 @@ export interface DialogSetting {
 
 @Injectable()
 export class DialogService {
+  dialogClosed = new Subject<DialogResult>();
+  dialogTextInput = new Subject<string>();
+  dialogClosed$: Observable<DialogResult> = this.dialogClosed.asObservable();;
+  dialogTextInput$: Observable<string> = this.dialogTextInput.asObservable();
 
   constructor(private dialog: MatDialog) {
   }

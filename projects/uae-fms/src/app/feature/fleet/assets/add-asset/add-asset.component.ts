@@ -974,8 +974,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   cancelForm() {
-    this.cancelDialogModal = true;
-    this.cancelDialogSetting.isWarning = true;
+    this._router.navigate(['/fleet/assets']);
   }
 
   dialog(event) {

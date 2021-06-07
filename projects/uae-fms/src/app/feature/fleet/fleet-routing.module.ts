@@ -23,6 +23,7 @@ import { AddTemporaryRequestComponent } from '@feature/fleet/movement/add-tempor
 import { AccessoryOverviewComponent } from './accessory/accessory-overview/accessory-overview.component';
 import { DepartmentOverviewComponent } from '@feature/fleet/organization/department-overview/department-overview.component';
 import { SubAssetOverviewComponent } from './sub-asset/sub-asset-overview/sub-asset-overview.component';
+import { DeactivateFormGuard } from '@core/Permission/deactivate-form.guard';
 
 const routes: Routes = [
   { path: 'sub-asset/add-new-sub-asset', component: AddSubAssetComponent },
@@ -51,7 +52,7 @@ const routes: Routes = [
   { path: 'operator/edit-operator/:id', component: AddOperatorComponent },
   { path: 'operator/:id', component: OverViewOperatorComponent },
   { path: 'assets', component: AssetsComponent },
-  { path: 'assets/add-new-asset', component: AddAssetComponent },
+  { path: 'assets/add-new-asset', component: AddAssetComponent , canDeactivate:[DeactivateFormGuard] },
   { path: 'assets/edit-asset/:id', component: AddAssetComponent },
   { path: 'assets/:id', component: OverViewAssetComponent },
   {
