@@ -666,7 +666,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     }
   }
   ngOnDestroy() {
-    this.addOpen$.unsubscribe();
+    this.addOpen$?.unsubscribe();
     this.assetConfigurationableSetting.data = [];
   }
 }
