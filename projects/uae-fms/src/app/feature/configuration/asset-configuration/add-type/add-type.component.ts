@@ -82,27 +82,38 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit, 
   }
 
   ngOnInit(): void {
+    let activeRoute = this._activateRoute.snapshot.url[0].path;
+    console.log(activeRoute)
+    switch (activeRoute) {
+      case 'add-asset-configuration':
+      case 'edit-asset-configuration':
+        this.type = 'ASSET'
+        break;
+      case 'add-sub-asset-configuration':
+      case 'edit-sub-asset-configuration':
+        this.type = 'SUB_ASSET'
+        break;
+      case 'add-accessory-configuration':
+      case 'edit-accessory-configuration':
+        this.type = 'ACCESSORY'
+        break;
+    }
     this.inputForm = this._fb.group({
       typeCategory: ['asset', Validators.required],
       typeName: ['', [Validators.required]],
       activetype: true,
       description: ['', Validators.required]
     });
-    this._dataService.watchType().subscribe(
-      (x) => {
-        this.type = x
-        this.inputForm.patchValue({
-          typeCategory: x
-        })
-      }
-    )
+    this.inputForm.patchValue({
+      typeCategory: this.type
+    })
 
     this.facade.assetType$.subscribe((x) => {
       this.assetTypes = x;
     });
 
     const url = this._activateRoute.snapshot.url
-    const hasEditPath = url.filter(x => x.path == 'edit-asset-configuration');
+    const hasEditPath = url.filter(x => x.path == 'edit-asset-configuration' || x.path == 'edit-sub-asset-configuration' || x.path =='edit-accessory-configuration');
     if (hasEditPath.length > 0) {
       this.isEdit = true;
       this.itemId = +url[url.length - 1];
@@ -260,6 +271,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit, 
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
+        submittedFacade.resetParams();
       }
     });
 
@@ -325,9 +337,7 @@ export class AddTypeComponent extends Utility implements OnInit, AfterViewInit, 
   }
 
   ngOnDestroy() {
-    this._accessoryTypeFacade.resetParams();
-    this._subAssetTypeFacade.resetParams();
-    this.facade.resetParams();
+    this._dataService.selectType('ASSET')
   }
 
 
