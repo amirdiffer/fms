@@ -3,12 +3,9 @@
     <button class="btn-primary-medium btn-scondary-green" (click)="cancel()">{{ 'forms.cancel' | translate }}</button>
     <button class="btn-primary-medium add" (click)="submit()">{{ (itemId ? 'forms.edit' : 'forms.add') | translate }}</button>
   </div>
-  <configuration-asset-category class="w-100"></configuration-asset-category>
+  <!-- <configuration-asset-category class="w-100"></configuration-asset-category> -->
   <div class='row'>
-    <div class='col-3 mt-2'>
-      <configuration-asset-type></configuration-asset-type>
-    </div>
-    <div class="col-9 padding-wrapper h-100">
+    <div class="col-12 padding-wrapper h-100">
       <div class="form-section">
         <h3 class="form-section__title">{{ getAssetText() | translate }}</h3>
         <div class="row form-section__row">

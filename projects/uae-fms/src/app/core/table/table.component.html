@@ -1,5 +1,5 @@
 <div class="app-table-wrapper">
-  <p-table [value]="setting.data" (mouseleave)='rowIndexTable= -1' (sortFunction)="handleSort($event, setting)"
+  <p-table [value]="tableData ? (tableData | async) : (setting.data)" (mouseleave)='rowIndexTable= -1' (sortFunction)="handleSort($event, setting)"
     [customSort]='true'>
     <ng-template pTemplate="header">
       <tr>
@@ -141,6 +141,10 @@
 
           <div *ngIf="col.renderer=='lowOpacityRenderer'">
             <table-low-opacity-renderer [data]='data[col.field]'></table-low-opacity-renderer>
+          </div>
+
+          <div *ngIf="col.renderer=='progressRenderer'">
+            <table-progress-renderer [data]='data[col.field]'></table-progress-renderer>
           </div>
 
         </td>

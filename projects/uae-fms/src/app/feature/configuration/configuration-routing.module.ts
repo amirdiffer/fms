@@ -19,162 +19,115 @@ import { AddTrimComponent } from '@feature/configuration/asset-configuration/add
 import { PermissionGuard } from '@core/Permission/permission.guard';
 
 const routes: Routes = [
-  { 
-      path: 'asset-configuration', component: AssetConfigurationComponent ,
-      canActivate:[PermissionGuard],
-      data:{
-        permission:[
-          "FLEET_CONFIGURATION_VIEW_LIST",
-        ],
-      }
-  },
-  { 
-      path: 'add-asset-configuration', component: AddTypeComponent,
-      canActivate:[PermissionGuard],
-      data:{
-        permission:[
-          "FLEET_CONFIGURATION_ADD",
-        ],
-      }
-  },
-  { 
-      path: 'edit-asset-configuration/:id', component: AddTypeComponent,
-      canActivate:[PermissionGuard],
-      data:{
-        permission:[
-          "FLEET_CONFIGURATION_UPDATE",
-        ],
-      }
-  },
-  {
-    path: 'sub-asset-edit-asset-configuration/:id',
-    component: AddTypeComponent,
+
+  
+
+  /* Asset Configuration And Children Route */
+  { path: 'asset-configuration', component: AssetConfigurationComponent ,
     canActivate:[PermissionGuard],
     data:{
       permission:[
-        "FLEET_CONFIGURATION_UPDATE",
+        "FLEET_CONFIGURATION_VIEW_LIST",
       ],
-    }
-  },
-  {
-    path: 'asset-configuration/add-make/:assetType',
-    component: AddMakeComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "FLEET_CONFIGURATION_ADD",
-      ],
-    }
-  },
-  {
-    path: 'asset-configuration/edit-make/:assetTypeId/:id',
-    component: AddMakeComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "FLEET_CONFIGURATION_UPDATE",
-      ],
-    }
-  },
-  {
-    path: 'asset-configuration/sub-asset-edit-make/:assetTypeId/:id',
-    component: AddMakeComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "FLEET_CONFIGURATION_UPDATE",
-      ],
-    }
-  },
-  {
-    path: 'asset-configuration/accessory-edit-make/:id',
-    component: AddMakeComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "FLEET_CONFIGURATION_UPDATE",
-      ],
-    }
-  },
-  {
-    path: 'asset-configuration/add-model/:assetType/:make',
-    component: AddModelComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "FLEET_CONFIGURATION_ADD",
-      ],
-    }
-  },
-  {
-    path: 'asset-configuration/edit-model/:assetTypeId/:makeId/:id',
-    component: AddModelComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "FLEET_CONFIGURATION_UPDATE",
-      ],
-    }
-  },
-  {
-    path: 'asset-configuration/sub-asset-edit-model/:assetTypeId/:makeId/:id',
-    component: AddModelComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "FLEET_CONFIGURATION_UPDATE",
-      ],
-    }
-  },
-  {
-    path: 'asset-configuration/add-trim/:assetType/:make/:model',
-    component: AddTrimComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "FLEET_CONFIGURATION_ADD",
-      ],
-    }
-  },
-  {
-    path: 'asset-configuration/edit-trim/:assetTypeId/:makeId/:id',
-    component: AddTrimComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "FLEET_CONFIGURATION_UPDATE",
-      ],
-    }
-  },
-  { 
-    path: 'usage-category', component: BusinessCategoryComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "BUSINESS_CATEGORY_VIEW_LIST",
-        "BUSINESS_CATEGORY_ADD",
-      ],
-    }
-  },
-  { 
-    path: 'periodic-service', component: PeriodicServiceComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "PERIODIC_SERVICE_VIEW_LIST",
-        "PERIODIC_SERVICE_ADD"
-      ],
-    }
-  },
-  { 
-    path: 'asset-policy/add-asset-policy', component: AddAssetPolicyComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "ASSET_POLICY_ASSET_ADD",
-        "ASSET_POLICY_SUB_ASSET_ADD",
-      ],
-    } 
+    },
+    children:[
+      { path: 'add-asset-configuration', component: AddTypeComponent,
+        canActivate:[PermissionGuard],
+        data:{
+          permission:[
+            "FLEET_CONFIGURATION_ADD",
+          ],
+        }
+      }, 
+      { path: 'add-sub-asset-configuration', component: AddTypeComponent ,
+        canActivate:[PermissionGuard],
+        data:{
+          permission:[
+            "FLEET_CONFIGURATION_ADD",
+          ],
+        }
+      },
+      { path: 'add-accessory-configuration', component: AddTypeComponent ,
+        canActivate:[PermissionGuard],
+        data:{
+          permission:[
+            "FLEET_CONFIGURATION_ADD",
+          ],
+        }
+      },
+      { path: 'edit-asset-configuration/:id', component: AddTypeComponent,
+        canActivate:[PermissionGuard],
+        data:{
+          permission:[
+            "FLEET_CONFIGURATION_UPDATE",
+          ],
+        }
+       },
+      { path: 'edit-sub-asset-configuration/:id', component: AddTypeComponent,
+        canActivate:[PermissionGuard],
+        data:{
+          permission:[
+            "FLEET_CONFIGURATION_UPDATE",
+          ],
+        }
+       },
+      { path: 'edit-accessory-configuration/:id', component: AddTypeComponent,
+        canActivate:[PermissionGuard],
+        data:{
+          permission:[
+            "FLEET_CONFIGURATION_UPDATE",
+          ],
+        }
+       },
+      { path: ':fleetType/add-make/:assetTypeId' , component: AddMakeComponent,
+        canActivate:[PermissionGuard],
+        data:{
+          permission:[
+            "FLEET_CONFIGURATION_ADD",
+          ],
+        }
+      },
+      { path: ':fleetType/edit-make/:assetTypeId/:id' , component: AddMakeComponent,
+        canActivate:[PermissionGuard],
+        data:{
+          permission:[
+            "FLEET_CONFIGURATION_UPDATE",
+          ],
+        }
+      },
+      { path: ':fleetType/add-model/:assetTypeId/:makeId', component: AddModelComponent,
+        canActivate:[PermissionGuard],
+        data:{
+          permission:[
+            "FLEET_CONFIGURATION_ADD",
+          ],
+        }
+      },
+      { path: ':fleetType/edit-model/:assetTypeId/:makeId/:id', component: AddModelComponent,
+        canActivate:[PermissionGuard],
+        data:{
+          permission:[
+            "FLEET_CONFIGURATION_UPDATE",
+          ],
+        }
+      },
+      { path: ':fleetType/add-trim/:assetTypeId/:makeId/:modelId', component: AddTrimComponent,
+        canActivate:[PermissionGuard],
+        data:{
+          permission:[
+            "FLEET_CONFIGURATION_ADD",
+          ],
+        }
+      },
+      { path: ':fleetType/edit-trim/:assetTypeId/:makeId/:modelId/:id', component: AddTrimComponent,
+        canActivate:[PermissionGuard],
+        data:{
+          permission:[
+            "FLEET_CONFIGURATION_UPDATE",
+          ],
+        }
+      },
+    ]
   },
   {
     path: 'asset-policy/edit-asset-policy/:id',
@@ -227,7 +180,6 @@ const routes: Routes = [
       ],
     }
   },
-  // { path: 'fleet-status', component: FleetStatusComponent },
   {
     path: 'ownership', component: OwnershipComponent,
     canActivate:[PermissionGuard],

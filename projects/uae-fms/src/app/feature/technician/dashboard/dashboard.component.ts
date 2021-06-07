@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnType, TableSetting } from '@core/table';
 import { Subject } from 'rxjs';
+import { ButtonType } from '@core/table/table.component';
 
 @Component({
   selector: 'anms-dashboard',
@@ -56,7 +57,7 @@ export class DashboardComponent implements OnInit {
         lable: 'tables.column.progress',
         type: 1,
         field: 'progress',
-        renderer: ''
+        renderer: 'progressRenderer'
       },
       {
         lable: 'tables.column.status',
@@ -68,7 +69,8 @@ export class DashboardComponent implements OnInit {
         lable: 'tables.column.action',
         type: 1,
         field: 'action',
-        renderer: ''
+        renderer: 'button',
+        buttonType: ButtonType.playAndPause,
       },
       {
         lable: '',
@@ -81,6 +83,8 @@ export class DashboardComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
+      onClick: (data, button?, col?) => {
+      },
       floatButton: [
         {
           button: 'external',
@@ -103,10 +107,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataDashboard$.subscribe(x => {
-      console.log(x);
     })
-
-
 
     setTimeout(() => {
 
@@ -115,37 +116,37 @@ export class DashboardComponent implements OnInit {
           {
             task: "Do Something",
             priority: "High",
-            progress: "20%",
+            progress: 10,
             status: "In Progress",
-            action: "",
+            action: "play",
           },
           {
             task: "Do Something",
             priority: "High",
-            progress: "20%",
+            progress: 75,
             status: "In Progress",
-            action: "",
+            action: "pause",
           },
           {
             task: "Do Something",
             priority: "High",
-            progress: "20%",
+            progress: 20,
             status: "In Progress",
-            action: "",
+            action: "play",
           },
           {
             task: "Do Something",
             priority: "High",
-            progress: "20%",
+            progress: 20,
             status: "In Progress",
-            action: "",
+            action: "play",
           },
           {
             task: "Do Something",
             priority: "High",
-            progress: "20%",
+            progress: 20,
             status: "In Progress",
-            action: "",
+            action: "play",
           },
         ]
       )

@@ -636,6 +636,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       if (index > 9) {
         break;
       }
+      if (this.reviewPlaneSettingTable2.data.length > 0 && this.reviewPlaneSettingTable2.data[this.reviewPlaneSettingTable2.data.length - 1].bookValue <= 0) {
+        break;
+      }
 
       value = value - newValue;
       kmBookValue = kmBookValue - newValue;
@@ -650,12 +653,23 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         continue;
       }
 
-      const data = {
-        year: index + 1,
-        bookValue: Math.round(value)
-      };
+      if (value > 0) {
+        const data = {
+          year: index + 1,
+          bookValue: Math.round(value)
+        };
 
-      this.reviewPlaneSettingTable2.data.push(data);
+        this.reviewPlaneSettingTable2.data.push(data);
+      }
+      else {
+        const data = {
+          year: index + 1,
+          bookValue: 0
+        };
+
+        this.reviewPlaneSettingTable2.data.push(data);
+        break;
+      }
     }
   }
 
@@ -752,7 +766,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     ) {
       this.maintenanceServiceDocRequired = true;
       return;
-    } else if(
+    } else if (
       !this.avatarDocId
     ) {
       this.thumbnailRequired = true;

@@ -2083,5 +2083,28 @@
   "traffic_fine": {
     "asset_traffic_file": {}
   },
-  "reports": {}
+  "reports": {},
+  "technician": {
+    "dashboard": {
+    },
+    "requests": {
+      "~": "Requests",
+      "form": {
+        "request_detail": "Request Detail",
+        "browse_your_task": "Browse Your Task",
+        "select_type_of_your_request": "Select type of your request",
+        "technical_inspection_report": "Technical inspection report",
+        "need_part": "Need part",
+        "technical_inspection_request_detail" : "Technical inspection request detail",
+        "request_info": "Request info",
+        "request_description": "Request description",
+        "priority": "Priority",
+        "part_request_detail": "Part request detail",
+        "select_category": "Select category",
+        "select_item": "Select item",
+        "quantity" : "Quantity",
+        "need_part_request_description": "Request description"
+      }
+    }
+  }
 }

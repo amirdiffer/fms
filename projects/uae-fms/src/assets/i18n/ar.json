@@ -1994,5 +1994,28 @@
   "traffic_fine": {
     "asset_traffic_file": {}
   },
-  "reports": {}
+  "reports": {},
+  "technician": {
+    "dashboard": {
+    },
+    "requests": {
+      "~": "طلبات",
+      "form": {
+        "request_detail": "طلب التفاصيل",
+        "browse_your_task": "تصفح مهمتك",
+        "select_type_of_your_request": "حدد نوع طلبك",
+        "technical_inspection_report": "تقرير الفحص الفني",
+        "need_part": "تحتاج جزء",
+        "technical_inspection_request_detail" : "تفاصيل طلب الفحص الفني",
+        "request_info": "اطلب معلومات",
+        "request_description": "وصف الطلب",
+        "priority": "أفضلية",
+        "part_request_detail": "تفاصيل طلب الجزء",
+        "select_category": "اختر الفئة",
+        "select_item": "حدد عنصرًا",
+        "quantity" : "كمية",
+        "need_part_request_description": "وصف الطلب"
+      }
+    }
+  }
 }

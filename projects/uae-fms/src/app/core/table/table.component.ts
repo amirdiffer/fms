@@ -43,6 +43,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   dropdownItemSelected = null;
   @Output() selectedSubTable: EventEmitter<number> = new EventEmitter<number>();
   allData = [];
+  
   constructor(
     private settingFacade: SettingsFacade,
     private translate: TranslateService,
@@ -66,6 +67,8 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.settingFacade.language.subscribe((lang) => {
       this.activeLang = lang;
     });
+
+    if(this.tableData)
 
     this.tableData?.subscribe((x) => {
       !this.initialSearchBox ? this.getSearchBoxData() : null;
@@ -438,7 +441,8 @@ export enum ButtonType {
   approve,
   confirm,
   receive,
-  receiveAndEdit
+  receiveAndEdit,
+  playAndPause
 }
 
 export interface FloatButtonType {

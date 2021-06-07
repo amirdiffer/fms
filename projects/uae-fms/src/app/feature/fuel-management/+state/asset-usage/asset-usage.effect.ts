@@ -12,7 +12,7 @@ export class AssetUsageEffect {
       ofType(AssetUsageActions.loadAssetUsage),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) => AssetUsageActions.assetUsageLoaded({ data })),
+          map((data) => AssetUsageActions.assetUsageLoaded({ data:data.message })),
           catchError((error) =>
             of(AssetUsageActions.assetUsageError({ reason: error }))
           )
