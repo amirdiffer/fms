@@ -104,56 +104,70 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
     switch (this.fleetType) {
       case 'ASSET':
         this.facade.getAssetTypeByID(this.assetTypeId );
-        this.fleetSubscription = this.facade.specificAssetType$.subscribe(x => {
-          if(x) {
-            console.log(x)
-            this.selectedCategory = x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).name : '';
-            if(this.isEditing){
-              let makes = {
-                name : x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).name : false,
-                description : x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).description : false,
-                models: x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).models:false
-              }
-              let models = {
-                name : makes.models ? makes.models.find( y => y.id == id).name : false,
-                description : makes.models ? makes.models.find( y => y.id == id).description : false,
-              }
-              this.models.controls[0].patchValue({
-                id: id,
-                model: models.name,
-                modelDescription: models.description
+        this.facade.loaded$.subscribe(
+          load => {
+            if(load){
+              this.fleetSubscription = this.facade.specificAssetType$.subscribe(x => {
+                if(x) {
+                  console.log(x)
+                  this.selectedCategory = x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).name : '';
+                  if(this.isEditing){
+                    let makes = {
+                      name : x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).name : false,
+                      description : x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).description : false,
+                      models: x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).models:false
+                    }
+                    let models = {
+                      name : makes.models ? makes.models.find( y => y.id == id).name : false,
+                      description : makes.models ? makes.models.find( y => y.id == id).description : false,
+                    }
+                    this.models.controls[0].patchValue({
+                      id: id,
+                      model: models.name,
+                      modelDescription: models.description
+                    });
+                  }
+                }
               });
             }
           }
-        });
+        )
+        
         this.inputForm.patchValue({
           typeCategory:['ASSET']
         })
         break;
       case 'SUB_ASSET':
         this._subAssetTypeFacade.getSubAssetTypeByID(this.assetTypeId )
-        this._subAssetTypeFacade.specificSubAssetType$.subscribe(x => {
-          if(x) {
-            console.log(x);
-            this.selectedCategory = x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).name : '';
-            if(this.isEditing){
-              let makes = {
-                name : x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).name : false,
-                description : x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).description : false,
-                models: x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).models:false
-              }
-              let models = {
-                name : makes.models ? makes.models.find( y => y.id == id).name : false,
-                description : makes.models ? makes.models.find( y => y.id == id).description : false,
-              }
-              this.models.controls[0].patchValue({
-                id: id,
-                model: models.name,
-                modelDescription: models.description
+        this._subAssetTypeFacade.loaded$.subscribe(
+          load => {
+            if(load) {
+              this._subAssetTypeFacade.specificSubAssetType$.subscribe(x => {
+                if(x) {
+                  console.log(x);
+                  this.selectedCategory = x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).name : '';
+                  if(this.isEditing){
+                    let makes = {
+                      name : x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).name : false,
+                      description : x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).description : false,
+                      models: x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).models:false
+                    }
+                    let models = {
+                      name : makes.models ? makes.models.find( y => y.id == id).name : false,
+                      description : makes.models ? makes.models.find( y => y.id == id).description : false,
+                    }
+                    this.models.controls[0].patchValue({
+                      id: id,
+                      model: models.name,
+                      modelDescription: models.description
+                    });
+                  }
+                }
               });
             }
           }
-        });
+        )
+        
         this.inputForm.patchValue({
           typeCategory:['SUB_ASSET']
         })
@@ -213,8 +227,8 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
   dialogConfirm($event): void {
     this.dialogModal = false;
     if($event && this.successDialog){
-      this._subAssetTypeFacade.resetParams();
-      this.facade.resetParams();
+      this.fleetType == 'ASSET' ? this.facade.resetParams() : this._subAssetTypeFacade.resetParams();
+      
     }
     if ($event && !this.dialogSetting.hasError) {
       this.router.navigate(['/configuration/asset-configuration'])

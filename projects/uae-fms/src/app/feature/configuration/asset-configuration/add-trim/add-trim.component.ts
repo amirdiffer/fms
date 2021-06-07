@@ -14,6 +14,7 @@ import { DataService } from '@feature/configuration/asset-configuration/data.ser
 import { Utility } from '@shared/utility/utility';
 import {Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-add-trim',
@@ -91,43 +92,51 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     }
     if(this.assetTypeId){
       this.facade.getAssetTypeByID(this.assetTypeId);
-      this.fleetSubscription = this.facade.specificAssetType$.subscribe(x => {
-        if(x && x.makes > 0) {
-          let makes = {
-            name : x.makes.find( y => y.id == this.makeId).name,
-            description : x.makes.find( y => y.id == this.makeId).description,
-            models: x.makes.find( y => y.id == this.makeId).models
-          };
-
-          this.selectedMake = x.makes.find( y => y.id == this.makeId).name;
-          let models = {
-            name : makes.models.find( y => y.id == this.modelId).name,
-            description : makes.models.find( y => y.id == this.modelId).description,
-            trims:makes.models.find( y => y.id == this.modelId).trims
-          };
-
-          this.selectedModel = makes.models.find( y => y.id == this.modelId).name;
-          if(this.isEditing){
-            let trims = {
-              name:models.trims.find( y => y.id == this.id).name,
-              colors:models.trims.find( y => y.id == this.id).colors
-            }
-            this.trims.controls[0].patchValue({
-              trim:trims.name
-            })
-            for (let index = 0; index < trims.colors.length; index++) {
-              this.colors(0).controls[index].patchValue({
-                id: trims.colors[index].id,
-                name: trims.colors[index].name,
-                hexColor:trims.colors[index].hexColor,
-              })
-              if(index +1 !== trims.colors.length){
-                this.addColor(0)
+      this.facade.loaded$.subscribe(
+        load => {
+          if(load){
+            this.fleetSubscription = this.facade.specificAssetType$.subscribe(x => {
+              if(x) {
+                let makes = {
+                  name : x.makes.find( y => y.id == this.makeId).name,
+                  description : x.makes.find( y => y.id == this.makeId).description,
+                  models: x.makes.find( y => y.id == this.makeId).models
+                };
+      
+                this.selectedMake = x.makes.find( y => y.id == this.makeId).name;
+                let models = {
+                  name : makes.models.find( y => y.id == this.modelId).name,
+                  description : makes.models.find( y => y.id == this.modelId).description,
+                  trims:makes.models.find( y => y.id == this.modelId).trims
+                };
+      
+                this.selectedModel = makes.models.find( y => y.id == this.modelId).name;
+                if(this.isEditing){
+                  let trims = {
+                    name:models.trims.find( y => y.id == this.id).name,
+                    colors:models.trims.find( y => y.id == this.id).colors
+                  }
+                  console.log(trims)
+                  this.trims.controls[0].patchValue({
+                    trim:trims.name
+                  })
+                  for (let index = 0; index < trims.colors.length; index++) {
+                    this.colors(0).controls[index].patchValue({
+                      id: trims.colors[index].id,
+                      name: trims.colors[index].name,
+                      hexColor:trims.colors[index].hexColor,
+                    })
+                    if(index +1 !== trims.colors.length){
+                      this.addColor(0)
+                    }
+                    console.log(index , trims.colors.length)
+                  }
+                }
               }
-            }
+            });
           }
         }
-      });
+      )
     }
 
     
