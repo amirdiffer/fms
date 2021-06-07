@@ -142,7 +142,8 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
               this.AssetTypeComponent.refreshData()
             })
           },
-          button: 'edit'
+          button: 'edit',
+          permission:['FLEET_CONFIGURATION_UPDATE'],
         }
       ]
     }
@@ -191,7 +192,8 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           onClick: (col, colData) => {
             this.router.navigate([`${this.activeTypeCategory}/edit-model/${this.typeId}/${this.makeId}/${colData.id}`] , {relativeTo:this.activatedRoute})
           },
-          button: 'edit'
+          button: 'edit',
+          permission:['FLEET_CONFIGURATION_UPDATE'],
         }
       ]
     }
@@ -240,7 +242,8 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           onClick: (col, colData) => {
             this.router.navigate([`${this.activeTypeCategory}/edit-trim/${this.typeId}/${this.makeId}/${this.modelId}/${colData.id}`] , {relativeTo:this.activatedRoute})
           },
-          button: 'edit'
+          button: 'edit',
+          permission:['FLEET_CONFIGURATION_UPDATE'],
         }
       ]
     }

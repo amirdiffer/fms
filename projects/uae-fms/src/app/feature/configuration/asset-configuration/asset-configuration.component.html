@@ -11,12 +11,9 @@
   <div class="row card-wrapper mt-3">
   <div class='col-3 px-0'>
     <configuration-asset-type (selectMake)='makesTable($event)' (selectModel)='modelTable($event)' (selectTrim)='trimTable($event)'></configuration-asset-type>
-
   </div>
     <div class="col-9 h-100 padding-wrapper">
-
       <router-outlet></router-outlet>
-      
       <div class="table-container component_wrapper my-0" [class.d-none]="activatedRoute.children.length !== 0">
           <span class="card-table-header search-container">
             <div class="search-box">
