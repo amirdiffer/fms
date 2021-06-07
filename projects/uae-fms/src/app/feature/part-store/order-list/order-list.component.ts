@@ -173,7 +173,8 @@ export class OrderListComponent implements OnInit , OnDestroy {
             if(data.status === "REQUESTED"){
               return true;
             }
-          }
+          },
+          permission:['PARTSTORE_ORDER_LIST_REQUEST_UPDATE_OWN' , 'PARTSTORE_ORDER_LIST_REQUEST_UPDATE_OTHERS']
         },
         {
           button: 'reject',
@@ -186,7 +187,8 @@ export class OrderListComponent implements OnInit , OnDestroy {
             if(data.status === "REQUESTED"){
               return true;
             }
-          }
+          },
+          permission:['PARTSTORE_ORDER_LIST_REQUEST_APPROVE_REJECT']
         },
         {
           button: 'approve',
@@ -198,7 +200,8 @@ export class OrderListComponent implements OnInit , OnDestroy {
             if(data.isAvailableForBuy === true && data.status === "REQUESTED"){
               return true;
             }
-          }
+          },
+          permission:['PARTSTORE_ORDER_LIST_REQUEST_APPROVE_REJECT']
         }
 
       ]
@@ -270,7 +273,8 @@ export class OrderListComponent implements OnInit , OnDestroy {
             if(data.status === "JUST_REGISTERED"){
               return true;
             }
-          }
+          },
+          permission:['PARTSTORE_ORDER_LIST_ORDER_UPDATE']
         },
         {
           button: 'receive',
@@ -288,7 +292,8 @@ export class OrderListComponent implements OnInit , OnDestroy {
             if(data.status !== "RECEIVED"){
               return true;
             }
-          }
+          },
+          permission:['PARTSTORE_ORDER_RECEIVED']
         },
       ]
     }
@@ -311,6 +316,7 @@ export class OrderListComponent implements OnInit , OnDestroy {
           onClick: (col, data, button?) => {
             this._router.navigate(['part-store/order-list/edit-supplier/'+data.id])
           },
+          permission:['PARTSTORE_SUPPLIER_UPDATE']
         },
       ]
     }

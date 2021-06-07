@@ -1,41 +1,52 @@
-<div class="statistic-card" *ngIf="activeTab == 'request_list'">
-  <app-filter [setting]='requestStatistics'></app-filter>
-</div>
-<div class="statistic-card" *ngIf="activeTab == 'my_order'">
-  <app-filter [setting]='orderStatistics'></app-filter>
-</div>
-
-<div class="component_wrapper p-0">
-
-  <div class="table-container">
-
-    <app-tab-view (selectedIndex)="activeTab = $event">
-      <span class="search-container card-table-header">
-        <div class="search-box">
-          <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
-          <button>
-            <img src="assets/icons/search-solid.svg" alt="">
+<ng-container *hasPermission="[{parent: 'PART_STORE' , permission : 'ORDER_LIST', permissionType:'MENU'}]">
+  <ng-container *hasPermission="['PARTSTORE_ORDER_LIST_REQUEST_VIEW_LIST_OWN' , 'PARTSTORE_ORDER_LIST_REQUEST_VIEW_LIST_OTHERS']">
+    <div class="statistic-card" *ngIf="activeTab == 'request_list'">
+      <app-filter [setting]='requestStatistics'></app-filter>
+    </div>
+  </ng-container>
+  <ng-container *hasPermission="['PARTSTORE_ORDER_LIST_ORDER_VIEW_LIST']">
+    <div class="statistic-card" *ngIf="activeTab == 'my_order'">
+      <app-filter [setting]='orderStatistics'></app-filter>
+    </div>
+  </ng-container>
+  
+  <div class="component_wrapper p-0">
+    <div class="table-container">
+      <app-tab-view (selectedIndex)="activeTab = $event">
+        <span class="search-container card-table-header">
+          <div class="search-box">
+            <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
+            <button>
+              <img src="assets/icons/search-solid.svg" alt="">
+            </button>
+          </div>
+          <button class="btn-download" disabled>
+            <svg-icon [src]="downloadBtn"></svg-icon>
           </button>
+          <ng-container *hasPermission="['PARTSTORE_ORDER_LIST_REQUEST_ADD']">
+            <button class="btn-primary-small"  *ngIf="activeTab == 'request_list'" routerLink="add-request"><i>+</i><a>{{ 'forms.request' | translate }}</a></button>
+          </ng-container>
+          <ng-container *hasPermission="['PARTSTORE_ORDER_LIST_ORDER_ADD']">
+            <button class="btn-primary-small"  *ngIf="activeTab == 'my_order'" routerLink="add-order"><i>+</i><a>{{ 'forms.order' | translate }}</a></button>           
+          </ng-container>
+          <ng-container *hasPermission="['PARTSTORE_SUPPLIER_ADD']">
+            <button class="btn-primary-small"  *ngIf="activeTab == 'suppliers'" routerLink="/part-store/order-list/add-supplier"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
+          </ng-container>
+        </span>
+        <div title='part_store.order_list.request_list' id="request_list" *hasPermission="['PARTSTORE_ORDER_LIST_REQUEST_VIEW_LIST_OWN' , 'PARTSTORE_ORDER_LIST_REQUEST_VIEW_LIST_OTHERS']">
+          <app-table [setting]='requestList_Table' (onPagination)="eventPagination_requestList()" pagination="part-store-request-list" [tableData]="requestTableData$"></app-table>
         </div>
-        <button class="btn-download" disabled>
-          <svg-icon [src]="downloadBtn"></svg-icon>
-        </button>
-        <button class="btn-primary-small" *ngIf="activeTab == 'request_list'" routerLink="add-request"><i>+</i><a>{{ 'forms.request' | translate }}</a></button>
-        <button class="btn-primary-small" *ngIf="activeTab == 'my_order'" routerLink="add-order"><i>+</i><a>{{ 'forms.order' | translate }}</a></button>
-        <button class="btn-primary-small" *ngIf="activeTab == 'suppliers'" routerLink="/part-store/order-list/add-supplier"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
-      </span>
-      <div title='part_store.order_list.request_list' id="request_list">
-        <app-table [setting]='requestList_Table' (onPagination)="eventPagination_requestList()" pagination="part-store-request-list" [tableData]="requestTableData$"></app-table>
-      </div>
-      <div title='part_store.order_list.my_order' id="my_order">
-        <app-table [setting]='myOrder_Table' (onPagination)="eventPagination_ordertList()" pagination="part-store-order-list" [tableData]="orderTableData$"></app-table>
-      </div>
-      <div title='part_store.order_list.suppliers' id="suppliers">
-        <app-table [setting]='suppliers_Table' (onPagination)="eventPagination_supplierList()" pagination="supplier-list" [tableData]="supplierTableData$"></app-table>
-      </div>
-    </app-tab-view>
+        <div title='part_store.order_list.my_order' id="my_order" *hasPermission="['PARTSTORE_ORDER_LIST_ORDER_VIEW_LIST']">
+          <app-table [setting]='myOrder_Table' (onPagination)="eventPagination_ordertList()" pagination="part-store-order-list" [tableData]="orderTableData$"></app-table>
+        </div>
+        <div title='part_store.order_list.suppliers' id="suppliers" *hasPermission="['PARTSTORE_SUPPLIER_VIEW_LIST']">
+          <app-table [setting]='suppliers_Table' (onPagination)="eventPagination_supplierList()" pagination="supplier-list" [tableData]="supplierTableData$"></app-table>
+        </div>
+      </app-tab-view>
+    </div>
   </div>
-</div>
-
-
-<alert-dialog [settings]='dialogSetting' [displayModal]='dialogModal' (confirm)='dialogConfirm($event)'></alert-dialog>
+  
+  
+  <alert-dialog [settings]='dialogSetting' [displayModal]='dialogModal' (confirm)='dialogConfirm($event)'></alert-dialog>
+  
+</ng-container>

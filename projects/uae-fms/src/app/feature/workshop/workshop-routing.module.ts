@@ -7,11 +7,19 @@ import { AuctionListComponent } from './inspections/auction-list/auction-list.co
 import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
 import { TechnicalOverviewComponent } from '@feature/workshop/inspections/technical-inspection/technical-overview/technical-overview.component';
 import { LocationModule } from './location/location.module';
+import { PermissionGuard } from '@core/Permission/permission.guard';
 
 const routes: Routes = [
   {
     path: 'task-master',
-    component: TaskMasterComponent
+    component: TaskMasterComponent,
+    canActivate:[PermissionGuard],
+    data:{
+      permission:[
+        "TASK_MASTER_ADD",
+        "TASK_MASTER_VIEW_LIST",
+      ],
+    }
   },
   {
     path: 'inspections/auction-list',
@@ -19,11 +27,23 @@ const routes: Routes = [
   },
   {
     path: 'task-master/add-task-master',
-    component: TaskMasterFormComponent
+    component: TaskMasterFormComponent,
+    canActivate:[PermissionGuard],
+    data:{
+      permission:[
+        "TASK_MASTER_ADD",
+      ],
+    }
   },
   {
     path: 'task-master/edit-task-master/:id',
-    component: TaskMasterFormComponent
+    component: TaskMasterFormComponent,
+    canActivate:[PermissionGuard],
+    data:{
+      permission:[
+        "TASK_MASTER_UPDATE",
+      ],
+    }
   },
   {
     path: 'inspections/technical-inspection',

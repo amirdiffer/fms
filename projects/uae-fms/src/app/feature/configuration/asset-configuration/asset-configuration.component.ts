@@ -92,6 +92,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
                   break;
               }
             },
+            permission:['FLEET_CONFIGURATION_UPDATE'],
             button: 'edit'
           }
         ]
@@ -141,7 +142,8 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
               this.AssetTypeComponent.refreshData()
             })
           },
-          button: 'edit'
+          button: 'edit',
+          permission:['FLEET_CONFIGURATION_UPDATE'],
         }
       ]
     }
@@ -190,7 +192,8 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           onClick: (col, colData) => {
             this.router.navigate([`${this.activeTypeCategory}/edit-model/${this.typeId}/${this.makeId}/${colData.id}`] , {relativeTo:this.activatedRoute})
           },
-          button: 'edit'
+          button: 'edit',
+          permission:['FLEET_CONFIGURATION_UPDATE'],
         }
       ]
     }
@@ -239,7 +242,8 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           onClick: (col, colData) => {
             this.router.navigate([`${this.activeTypeCategory}/edit-trim/${this.typeId}/${this.makeId}/${this.modelId}/${colData.id}`] , {relativeTo:this.activatedRoute})
           },
-          button: 'edit'
+          button: 'edit',
+          permission:['FLEET_CONFIGURATION_UPDATE'],
         }
       ]
     }
@@ -299,7 +303,171 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     /* Render First Table Setting */
     this.assetConfigurationableSetting.columns = this.typeCategoryTableSetting.columns;
     this.assetConfigurationableSetting.rowSettings = this.typeCategoryTableSetting.rowSettings;
+  }
+  openAdd() {
+    this._assetConfigurationService.loadAddForm(true);
+  }
 
+  makes(makes: Make[]): void {
+    this.assetConfigurationableSetting = {
+      columns: [
+        {
+          lable: 'tables.column.make',
+          field: 'name',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.description',
+          field: 'description',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.models',
+          field: 'models',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        }
+      ],
+      data: [],
+      rowSettings: {}
+    };
+    const data = [];
+    makes.map((make) => {
+      const x = {
+        ...make,
+        models: make.models.length
+      };
+      data.push(x);
+    });
+    this.assetConfigurationableSetting.data = data;
+  }
+
+  models(models: MakeModel[]): void {
+    this.assetConfigurationableSetting = {
+      columns: [
+        {
+          lable: 'tables.column.model',
+          field: 'name',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.description',
+          field: 'description',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        },
+        {
+          lable: 'tables.column.trims',
+          field: 'trims',
+          width: 100,
+          type: 1,
+          thumbField: '',
+          renderer: ''
+        }
+      ],
+      data: [],
+      rowSettings: {}
+    };
+    const data = [];
+    models.map((model) => {
+      const x = {
+        ...model,
+        trims: model.trims ? model.trims.length : null
+      };
+      data.push(x);
+    });
+    this.assetConfigurationableSetting.data = data;
+  }
+
+  trims(trims: MakeModelTrim[]): void {
+    if (this.activeTypeCategory == 'ASSET') {
+      let typeId: number
+      let makeId: number
+      let modelId: number
+      const queryParamsSubscription = this.activatedRoute.queryParams.subscribe((queryParams: Params) => {
+        typeId = queryParams.type
+        makeId = queryParams.make
+        modelId = queryParams.model
+      })
+      this.assetConfigurationableSetting = {
+        columns: [
+          {
+            lable: 'tables.column.trim',
+            field: 'name',
+            width: 100,
+            type: 1,
+            thumbField: '',
+            renderer: ''
+          },
+          {
+            lable: 'tables.column.color',
+            field: 'color',
+            width: 100,
+            type: 1,
+            thumbField: '',
+            renderer: 'trimColorRenderer'
+          },
+          {
+            lable: 'tables.column.status',
+            field: 'status',
+            width: 100,
+            type: 1,
+            thumbField: '',
+            renderer: ''
+          },
+          {
+            lable: '',
+            field: 'floatButton',
+            width: 0,
+            type: 1,
+            thumbField: '',
+            renderer: 'floatButton'
+          }
+        ],
+        data: [],
+        rowSettings: {}
+      };
+      const data = [];
+      trims ? trims.map((trim) => {
+        data.push({
+          name: trim.name,
+          color: trim.colors,
+          status: 'Available'
+        });
+        this.assetConfigurationableSetting.data = data;
+        this.assetConfigurationableSetting.rowSettings = {
+          onClick: (col, dataArg, button?) => {
+          },
+          floatButton: [
+            {
+              onClick: (col, colData) => {
+                this.router.navigate([
+                  '/configuration/asset-configuration/edit-trim/' + typeId + '/' + makeId + '/' + modelId
+                ]).then(_ => {
+                  queryParamsSubscription?.unsubscribe()
+                });
+              },
+              permission:['FLEET_CONFIGURATION_UPDATE'],
+              button: 'edit'
+            }
+          ]
+        };
+      }) : null;
+      // queryParamsSubscription.unsubscribe()
+    }
   }
 
   exportTable() {
@@ -498,7 +666,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     }
   }
   ngOnDestroy() {
-    this.addOpen$.unsubscribe();
+    this.addOpen$?.unsubscribe();
     this.assetConfigurationableSetting.data = [];
   }
 }

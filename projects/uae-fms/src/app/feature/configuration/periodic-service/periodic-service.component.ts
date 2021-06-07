@@ -60,7 +60,8 @@ export class PeriodicServiceComponent implements OnInit {
                   data.id
               ])
               .then();
-          }
+          },
+          permission:['PERIODIC_SERVICE_UPDATE']
         }
       ]
     }

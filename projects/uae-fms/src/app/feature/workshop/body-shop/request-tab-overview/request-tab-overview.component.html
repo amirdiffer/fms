@@ -38,8 +38,8 @@
                 <button class="btn-download">
                   <svg-icon [src]="downloadBtn"></svg-icon>
                 </button>
-                <button class="btn-primary-small mx-1" routerLink="add-request"><i>+</i><a>{{'search.request' | translate}}</a></button>
-                <button class="btn-primary-small" routerLink="add-job-card"><i>+</i><a>{{'search.job_card' | translate}}</a></button>
+                <button class="btn-primary-small mx-1" routerLink="add-request" *hasPermission="['WORKSHOP_BODY_SHOP_REQUEST_ADD']"><i>+</i><a>{{'search.request' | translate}}</a></button>
+                <button class="btn-primary-small" routerLink="add-job-card" *hasPermission="['WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE']"><i>+</i><a>{{'search.job_card' | translate}}</a></button>
               </span>
               <app-table [setting]="jobCard_Table3" [tableData]="tableData$"></app-table>
             </div>
