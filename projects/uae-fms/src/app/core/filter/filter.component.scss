@@ -39,7 +39,7 @@
     }
   }
   .statistics {
-    margin: 0 20px;
+    margin: 0 .4em;
     &:last-child {
       margin-right: 0;
       .card {
@@ -62,7 +62,7 @@
   }
 
   .left_tag {
-    width: 11px;
+    width: .4em;
   }
 
   .filter {
@@ -93,6 +93,32 @@
         width: 100%;
         opacity: 0.4;
       }
+    }
+  }
+}
+
+.flexible{
+  .filter-wrapper {
+    .statistics{
+      transition: .3s all;
+      &:hover{
+        flex-grow: 1.5;
+        .filter-count {
+          display: block !important ;
+        }
+      }
+      &.active-card {
+        flex-grow: 1.5;
+        .filter-count {
+          display: block !important ;
+        }
+      }
+    }
+    .filter-title{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
     }
   }
 }
