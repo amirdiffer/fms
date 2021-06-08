@@ -64,8 +64,6 @@ const routes: Routes = [
       ],
     }
   },
-  // { path: 'add-location', component: AddLocationComponent },
-  // { path: 'edit-location/:id', component: AddLocationComponent },
   {
     path: 'add-job-card', component: AddJobCardComponent,
     canActivate:[PermissionGuard],

@@ -10,12 +10,6 @@ import { TechnicianOverviewServiceShopComponent } from './technician-overview/te
 import { JobCardOverviewComponent } from './job-card-overview/job-card-overview.component';
 import { PermissionGuard } from '@core/Permission/permission.guard';
 
-// const routes: Routes = [
-//   { path: '', component: ServiceShopComponent, pathMatch: 'full' },
-//   { path: 'add-request', component: ServiceShopAddRequestComponent },
-//   { path: 'add-technician', component: ServiceShopAddTechnicianComponent },
-//   { path: 'add-location', component: ServiceShopAddLocationComponent }
-// ];
 const routes: Routes = [
   {
       path: '', component: ServiceShopComponent, pathMatch: 'full',
@@ -70,8 +64,7 @@ const routes: Routes = [
         ],
       }
   },
-  // { path: 'add-location', component: AddLocationServiceShopComponent },
-  // { path: 'edit-location/:id', component: AddLocationServiceShopComponent },
+
   {
       path: 'add-job-card', component: AddJobCardServiceShopComponent,
       canActivate:[PermissionGuard],
