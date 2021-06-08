@@ -1,4 +1,5 @@
 <div class="app-table-wrapper">
+  <anms-table-filter (customFilterEvent)="customFilter($event)" [show]="showCustomFilter" [entity]="setting.name" [columns]="setting.columns"></anms-table-filter>
   <p-table [value]="setting.data" (mouseleave)='rowIndexTable= -1' (sortFunction)="handleSort($event, setting)"
     [customSort]='true'>
     <ng-template pTemplate="header">
