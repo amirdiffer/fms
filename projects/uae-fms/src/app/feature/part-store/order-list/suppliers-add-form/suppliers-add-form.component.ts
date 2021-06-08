@@ -46,7 +46,7 @@ export class SuppliersAddFormComponent extends Utility implements OnInit {
   ngOnInit(): void {
     this.facade.reset();
     let activeRoute = this._activatedRoute.snapshot.url;
-    if(activeRoute[1].path === "edit-supplier"){
+    if(activeRoute[0].path === "edit-supplier"){
       this.isEdit = true;
       this.id = + activeRoute[activeRoute.length-1].path;
       this.facade.getSpecificSupplier(this.id);

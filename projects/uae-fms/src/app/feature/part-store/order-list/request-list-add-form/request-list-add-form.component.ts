@@ -372,12 +372,12 @@ export class RequestListAddFormComponent extends Utility implements OnInit , OnD
   }
 
   ngOnDestroy(){
-    this.fleetSubscription.unsubscribe();
-    this.itemSubscription.unsubscribe();
-    this.submitSubscription.unsubscribe();
-    this.errorSubscription.unsubscribe();
-    this.technicianSubscription.unsubscribe();
-    this.specificSubscription.unsubscribe();
+    this.fleetSubscription?.unsubscribe();
+    this.itemSubscription?.unsubscribe();
+    this.submitSubscription?.unsubscribe();
+    this.errorSubscription?.unsubscribe();
+    this.technicianSubscription?.unsubscribe();
+    this.specificSubscription?.unsubscribe();
   }
 }
 
