@@ -135,6 +135,25 @@ export class MainTemplateComponent implements OnInit {
     this.store.dispatch(authLogin());
   }
 
+  getPartLink(index) {
+    let mainPath = this.path;
+    console.log(mainPath)
+    let baseUrl = '';
+    if (mainPath.length > 1) {
+      baseUrl = '/' + mainPath[1].toLowerCase().replace(' ', '-');
+    }
+    let h = mainPath.filter((x, i) => {
+      return i <= index;
+    }).map(x => {
+      return x.toLowerCase().replace(' ', '-');
+    });
+    let result = '';
+    h.forEach(x => {
+      result = result + '/' + x;
+    });
+    return h.length == 1 ? result + baseUrl : result;
+  }
+
   onLogoutClick() {
     this.store.dispatch(authLogout());
   }
