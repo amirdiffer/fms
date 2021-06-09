@@ -8,6 +8,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 export class FilterComponent implements OnInit, OnChanges {
   @Input() setting: FilterCardSetting[];
   @Input() filterCardSettingDelegate!: FilterCardSetting;
+  @Input() flexible:boolean = false;
   chartIcon = 'assets/icons/chart-bar.svg';
   cardSetting: FilterCard[];
   showStatistics: boolean = true;

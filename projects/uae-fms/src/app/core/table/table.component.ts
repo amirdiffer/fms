@@ -46,6 +46,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() showCustomFilter = false;
 
   allData = [];
+  
   constructor(
     private settingFacade: SettingsFacade,
     private translate: TranslateService,
@@ -69,6 +70,8 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.settingFacade.language.subscribe((lang) => {
       this.activeLang = lang;
     });
+
+    if(this.tableData)
 
     this.tableData?.subscribe((x) => {
       !this.initialSearchBox ? this.getSearchBoxData() : null;
@@ -457,4 +460,5 @@ export interface FloatButtonType {
   tooltip?: string;
   onClick?: Function;
   condition?: Function;
+  permission?:string[];
 }

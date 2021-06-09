@@ -16,17 +16,21 @@
           <span class='ml-2 mr-2 cursor-pointer'
                 (click)='onTypeClick(assetType)'>{{assetType.name}}</span>
           <span class='action'>
-            <svg-icon *ngIf="(activeAssetType !== 'ACCESSORY')"
-              [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}"
-              class='cursor-pointer' (click)='createMake(assetType)' src='assets/icons/add.svg'
-              [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}">
-            </svg-icon>
-            <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
+            <ng-container *hasPermission="['FLEET_CONFIGURATION_ADD']">
+              <svg-icon *ngIf="(activeAssetType !== 'ACCESSORY')"
+                [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}"
+                class='cursor-pointer' (click)='createMake(assetType)' src='assets/icons/add.svg'
+                [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}">
+              </svg-icon>
+            </ng-container>
+            <ng-container *hasPermission="['FLEET_CONFIGURATION_UPDATE']">
+              <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
                       class='cursor-pointer'
                       (click)="editCategoryType(assetType)"
                       src='assets/icons/edit.svg'
                       [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':'100%'}">
             </svg-icon>
+            </ng-container>
           </span>
         </div>
         <div *ngFor='let make of assetType.makes; let index = index'>
@@ -39,16 +43,20 @@
             <span class='ml-2 mr-2 cursor-pointer'
                   (click)='onMakeClick(make, assetType.id)'>{{make.name}}</span>
             <span class='action' [hidden]='activeAssetType === "ACCESSORY"'>
-              <svg-icon
-                [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}"
-                class='cursor-pointer' (click)='createModel(assetType.id,make)' src='assets/icons/add.svg'
-                [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-              <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
+              <ng-container *hasPermission="['FLEET_CONFIGURATION_ADD']">
+                <svg-icon
+                  [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}"
+                  class='cursor-pointer' (click)='createModel(assetType.id,make)' src='assets/icons/add.svg'
+                  [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+              </ng-container>
+              <ng-container *hasPermission="['FLEET_CONFIGURATION_UPDATE']">
+                <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
                         class='cursor-pointer'
                         (click)="editMake(make , assetType)"
                         src='assets/icons/edit.svg'
                         [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':'100%'}">
-            </svg-icon>
+                </svg-icon>
+              </ng-container>
             </span>
           </div>
           <div *ngFor='let model of (assetType.makes[index]).models'>
@@ -63,29 +71,35 @@
                     [class]='getStatusColor(model.id)'
                     (click)='onModelClick(model, make.id, assetType.id)'>{{model.name}}</span>
               <span class='action'>
-                <svg-icon *ngIf="(activeAssetType !== 'SUB_ASSET')"
+                <ng-container *hasPermission="['FLEET_CONFIGURATION_ADD']">
+                  <svg-icon *ngIf="(activeAssetType !== 'SUB_ASSET')"
                   [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '15px'}  : {'position': 'absolute', 'left': '15px'}"
                   class='cursor-pointer' (click)='createTrim(assetType.id,make.id, model)' src='assets/icons/add.svg'
                   [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-                <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
+                </ng-container>
+                <ng-container *hasPermission="['FLEET_CONFIGURATION_UPDATE']">
+                  <svg-icon [ngStyle]="(activeLang === 'en')? {'position': 'absolute', 'right': '45px'}  : {'position': 'absolute', 'left': '45px'}"
                           class='cursor-pointer'
                           (click)="editModel(model, make.id , assetType.id)"
                           src='assets/icons/edit.svg'
                           [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':'100%'}">
-            </svg-icon>
+                  </svg-icon>
+                </ng-container>
               </span>
             </div>
           </div>
         </div>
       </ng-container>
     </div>
-    <div class='d-flex mt-2'
-      *ngIf="activatedRoute.children.length == 0">
-      <svg-icon class='cursor-pointer ml-2' src='assets/icons/add.svg'
-                [svgStyle]="{ 'width.px':'14' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-      <span class='font-weight-bold add-asset-type cursor-pointer ml-2'
-            (click)="addCategoryType()">{{getAssetText() | translate}}</span>
-    </div>
+    <ng-container *hasPermission="['FLEET_CONFIGURATION_ADD']">
+      <div class='d-flex mt-2'
+        *ngIf="activatedRoute.children.length == 0">
+        <svg-icon class='cursor-pointer ml-2' src='assets/icons/add.svg'
+                  [svgStyle]="{ 'width.px':'14' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+        <span class='font-weight-bold add-asset-type cursor-pointer ml-2'
+              (click)="addCategoryType()">{{getAssetText() | translate}}</span>
+      </div>
+    </ng-container>
   </mat-card-content>
 
 </mat-card>

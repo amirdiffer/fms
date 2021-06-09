@@ -126,7 +126,8 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
             this.router.navigate(['edit-request/' + data.id], {
               relativeTo: this._activatedRoute
             });
-          }
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_REQUEST_UPDATE_OWN' , 'WORKSHOP_SERVICE_SHOP_REQUEST_UPDATE_OTHERS']
         }
       ]
     }

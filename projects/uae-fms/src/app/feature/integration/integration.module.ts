@@ -24,7 +24,6 @@ import { IntegrationFacade, IntegrationService } from './+state';
     TableModule,
     CommonModule,
     IntegrationRoutingModule,
-    ReactiveFormsModule,
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,

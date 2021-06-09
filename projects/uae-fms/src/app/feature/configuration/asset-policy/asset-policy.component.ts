@@ -68,7 +68,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
               ['/configuration/asset-policy/edit-asset-policy/' + data.id]
             );
           },
-
+          permission:['ASSET_POLICY_ASSET_UPDATE'],
           button: 'edit'
         }
       ]
@@ -109,7 +109,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
               ['/configuration/asset-policy/edit-asset-policy/' + data.id]
             );
           },
-
+          permission:['ASSET_POLICY_SUB_ASSET_UPDATE'],
           button: 'edit'
         }
       ]

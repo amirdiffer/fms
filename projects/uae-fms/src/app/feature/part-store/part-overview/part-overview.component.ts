@@ -71,7 +71,8 @@ export class PartOverviewComponent implements OnInit, OnDestroy {
               relativeTo: this.route,
               queryParams: { fleetType: this.fleetType.toLowerCase() }
             });
-          }
+          },
+          permission:['PARTSTORE_PART_UPDATE']
         }
       ]
     }

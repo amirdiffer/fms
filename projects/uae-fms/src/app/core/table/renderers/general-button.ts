@@ -1,11 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserProfileFacade } from '@feature/user/state';
 import { environment } from '../../../../environments/environment';
 import { ButtonType } from '../table.component';
 
 @Component({
   selector: 'table-general-button-renderer',
   template: `
+  <ng-container *ngIf="checkPermission(setting)">
     <div class="button-table-container" *ngIf="CheckCondition()">
       <button
         class="btn-primary-medium"
@@ -62,6 +64,12 @@ import { ButtonType } from '../table.component';
       class="action-button"
       src="assets/icons/three-dots.svg"
     />
+    <img
+      *ngIf='col.buttonType === buttonType.playAndPause'
+      class='play-pause-button'
+      src='{{ (this.button.action === "play") ? "assets/icons/play-button.svg" : "assets/icons/pause-button.svg" }}'
+      (click)='clickButton((this.button.action === "play") ? "play" : "pause")'
+    />
     <button
       *ngIf="col.buttonType == buttonType.jobCard && CheckCondition()"
       class="btn-primary-large job-card"
@@ -71,12 +79,6 @@ import { ButtonType } from '../table.component';
         'tables.column.job_card' | translate
       }}</a>
     </button>
-    <img
-      *ngIf='col.buttonType === buttonType.playAndPause'
-      class='play-pause-button'
-      src='{{ (this.button.action === "play") ? "assets/icons/play-button.svg" : "assets/icons/pause-button.svg" }}'
-      (click)='clickButton((this.button.action === "play") ? "play" : "pause")'
-    />
     <!--    <button-->
     <!--      *ngIf="col.buttonType == buttonType.makeDecision"-->
     <!--      class="btn-primary-large make-decision"-->
@@ -84,6 +86,7 @@ import { ButtonType } from '../table.component';
     <!--    >-->
     <!--      {{ 'buttons.make_decision' | translate }}-->
     <!--    </button>-->
+</ng-container>
   `,
   styles: [
     `
@@ -149,8 +152,9 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   @Input() setting;
 
   constructor(
-    public _router: Router
-  ) { }
+    public _router: Router ,
+    private _facadeProfile: UserProfileFacade
+  ) {}
 
   ngOnInit() { }
 
@@ -169,6 +173,20 @@ export class TableGeneralButtonRendererComponent implements OnInit {
     this.setting.onClick(this.button, button);
   }
 
+  checkPermission(setting){
+    let hasPermission = false;
+    this._facadeProfile.loadData$.subscribe(x => {
+      if (x && x.roles[0].permissions && setting.permission) {
+        for (const checkPermission of setting.permission) {
+          const permissionFound = x.roles[0].permissions.find(x => x.toUpperCase() === checkPermission.toUpperCase());
+          if(permissionFound || checkPermission === 'AlLOW_ALWAYS'){
+              hasPermission = true;
+          }
+        }
+      }
+    })
+    return hasPermission;
+  }
   CheckCondition() {
     if (this.col?.condition && this.col.condition instanceof Function) {
       return this.col.condition(this.button);

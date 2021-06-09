@@ -1,5 +1,5 @@
 
-<div class="row">
+<div class="row" *hasPermission="['USER_OPERATOR_VIEW_DETAILS_GENERAL' , 'USER_OPERATOR_VIEW_DETAILS_TRAFFIC_FINE' , 'USER_OPERATOR_VIEW_DETAILS_MOVEMENT_HISTORY']">
   <div class="col-lg-3">
     <div class="component_wrapper form-section">
       <div class="row flex-lg-column person">
@@ -82,13 +82,13 @@
         <span *ngIf='selectedTab == "0"' class='card-table-header search-container'>
           <img src='assets/icons/printer.png' alt=''>
         </span>
-        <div title="{{ 'tabs.overview' | translate }}" id='overviewTab'>
+        <div title="{{ 'tabs.overview' | translate }}" id='overviewTab'  *hasPermission="['USER_OPERATOR_VIEW_DETAILS_GENERAL']">
           <anms-overviewtab></anms-overviewtab>
         </div>
-        <div count="3456" title="{{ 'tabs.traffic_fine' | translate }}" id='trafficFileTab'>
+        <div count="3456" title="{{ 'tabs.traffic_fine' | translate }}" id='trafficFileTab' *hasPermission="['USER_OPERATOR_VIEW_DETAILS_TRAFFIC_FINE']">
           <app-table [setting]="trafficFine_Table" [tableData]='trafficFineTableData'></app-table>
         </div>
-        <div count="3456" title="{{ 'tabs.movement_history' | translate }}" id='movementHistoryTab'>
+        <div count="3456" title="{{ 'tabs.movement_history' | translate }}" id='movementHistoryTab' *hasPermission="['USER_OPERATOR_VIEW_DETAILS_MOVEMENT_HISTORY']">
           <app-table [setting]='movementHistoryTable' [tableData]='movementHistoryTableData'></app-table>
         </div>
       </app-tab-view>
