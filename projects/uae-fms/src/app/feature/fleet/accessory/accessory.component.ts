@@ -16,7 +16,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
 
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-  accessorySubscription$:Subscription;
+  accessorySubscription$: Subscription;
   //#region Filters
   filterCard: FilterCardSetting[] = [
     {
@@ -70,8 +70,11 @@ export class AccessoryComponent implements OnInit, OnDestroy {
       floatButton: [
         {
           onClick: (col, data) => {
-            this._router.navigate(['/fleet/accessory/edit-accessory/'+ data.id]);
+            this._router.navigate([
+              '/fleet/accessory/edit-accessory/' + data.id
+            ]);
           },
+          permission: ['ACCESSORY_UPDATE_OWN', 'ACCESSORY_UPDATE_OTHERS'],
           button: 'edit',
           color: '#3F3F3F'
         }
@@ -104,21 +107,22 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._accessoryFacade.loadAll();
     this._accessoryFacade.loadStatistics();
-    this.accessorySubscription$ = this._accessoryFacade.statistics$.subscribe((data) => {
-      if (data) {
-        let statistic = data.message;
-        this.filterCard.forEach((card, index) => {
-          this.filterCard[index].filterCount =
-            statistic[this.filterCard[index].field];
-        });
+    this.accessorySubscription$ = this._accessoryFacade.statistics$.subscribe(
+      (data) => {
+        if (data) {
+          let statistic = data.message;
+          this.filterCard.forEach((card, index) => {
+            this.filterCard[index].filterCount =
+              statistic[this.filterCard[index].field];
+          });
+        }
       }
-    });
+    );
   }
 
   eventPagination() {
     this._accessoryFacade.loadAll();
   }
-
 
   ngOnDestroy() {
     this.accessorySubscription$.unsubscribe();
@@ -131,7 +135,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
       Asset_SubAsset: 'Asset_SubAsset',
       Assigned_To: 'Assigned_To',
       Quantity: 'Quantity'
-    }
+    };
     this.table.exportTable(this.accessory_Table, 'Accessories', filter);
   }
 }

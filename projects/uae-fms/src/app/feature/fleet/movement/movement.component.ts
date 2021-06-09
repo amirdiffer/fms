@@ -57,7 +57,6 @@ export class MovementComponent
     }
   ];
 
-
   //#region Dialogs
   displaySuccessModal = false;
   displayErrorModal = false;
@@ -228,7 +227,7 @@ export class MovementComponent
         },
         showOnHover: true,
         condition: (data) => {
-          return data.requestStatus == "REQUESTED";
+          return data.requestStatus == 'REQUESTED';
         }
       },
       {
@@ -240,7 +239,7 @@ export class MovementComponent
         buttonType: ButtonType.confirm,
         showOnHover: true,
         condition: (data) => {
-          return data.requestStatus == "REQUESTED";
+          return data.requestStatus == 'REQUESTED';
         }
       }
     ],
@@ -253,7 +252,8 @@ export class MovementComponent
           this.assignID = data.id;
           this.openConfirmModal();
         }
-      }
+      },
+      permission: ['MOVEMENT_REQUEST_ASSIGN_OPERATOR_OR_REJECT']
     }
   };
 
@@ -395,10 +395,10 @@ export class MovementComponent
       if (x) {
         this.dialogSuccessSetting.isWarning = false;
         this.dialogSuccessSetting.hasError = false;
-        this.dialogSuccessSetting.message = "The Request Rejected Successfully"
-        this.dialogSuccessSetting.confirmButton = "Ok";
+        this.dialogSuccessSetting.message = 'The Request Rejected Successfully';
+        this.dialogSuccessSetting.confirmButton = 'Ok';
         this.dialogSuccessSetting.cancelButton = undefined;
-        this.dialogType = "confirm";
+        this.dialogType = 'confirm';
         this.displaySuccessModal = true;
         this._movementRequestsFacade.loadAll();
       }
@@ -431,10 +431,10 @@ export class MovementComponent
       data: this.assignID
     });
 
-    dialog.afterClosed().subscribe(x => {
+    dialog.afterClosed().subscribe((x) => {
       this._movementOverviewFacade.loadAll();
       this._movementRequestsFacade.loadAll();
-    })
+    });
   }
   rejectRow() {
     // console.log('reject');
@@ -446,7 +446,7 @@ export class MovementComponent
       this.displayErrorModal = false;
       this._movementRequestsFacade.reset();
 
-      if (this.dialogType == "rejection") {
+      if (this.dialogType == 'rejection') {
         this._movementRequestsFacade.rejecting(this.rejectId);
       }
     } else this.displaySuccessModal = false;
@@ -503,11 +503,12 @@ export class MovementComponent
   reject(data) {
     if (data?.id) {
       this.rejectId = data.id;
-      this.dialogType = "rejection";
+      this.dialogType = 'rejection';
       this.dialogSuccessSetting.isWarning = true;
-      this.dialogSuccessSetting.message = "Are you sure you want to reject this request?"
-      this.dialogSuccessSetting.confirmButton = "Yes";
-      this.dialogSuccessSetting.cancelButton = "Cancel";
+      this.dialogSuccessSetting.message =
+        'Are you sure you want to reject this request?';
+      this.dialogSuccessSetting.confirmButton = 'Yes';
+      this.dialogSuccessSetting.cancelButton = 'Cancel';
       this.displaySuccessModal = true;
     }
   }

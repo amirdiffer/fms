@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Injector,
+  OnInit,
+  Output
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SuppliersFacade } from '@feature/part-store/+state/order-list/suppliers';
 import { Utility } from '@shared/utility/utility';
@@ -16,13 +22,13 @@ export class SuppliersAddFormComponent extends Utility implements OnInit {
   @Output() cancel = new EventEmitter();
   form: FormGroup;
   formSubmitted = false;
-  isEdit:boolean = false;
-  id:number;
+  isEdit: boolean = false;
+  id: number;
   /* Error and Submit Subscription */
   errorSubscription: Subscription;
   submitSubscription: Subscription;
 
-  dialogOption:dialogOption;
+  dialogOption: dialogOption;
   dialogModal = false;
   dialogSetting: IDialogAlert = {
     header: 'Supplier',
@@ -34,36 +40,41 @@ export class SuppliersAddFormComponent extends Utility implements OnInit {
     cancelButton: 'No'
   };
 
-
-  constructor(private facade: SuppliersFacade, 
-              private _fb: FormBuilder,
-              private _activatedRoute: ActivatedRoute,
-              private _location: Location,
-              private injector: Injector) {
+  constructor(
+    private facade: SuppliersFacade,
+    private _fb: FormBuilder,
+    private _activatedRoute: ActivatedRoute,
+    private _location: Location,
+    private injector: Injector
+  ) {
     super(injector);
   }
 
   ngOnInit(): void {
     this.facade.reset();
     let activeRoute = this._activatedRoute.snapshot.url;
-    if(activeRoute[1].path === "edit-supplier"){
+    if (activeRoute[0].path === 'edit-supplier') {
       this.isEdit = true;
-      this.id = + activeRoute[activeRoute.length-1].path;
+      this.id = +activeRoute[activeRoute.length - 1].path;
       this.facade.getSpecificSupplier(this.id);
       this.patchValueForm();
     }
     this.form = this._fb.group({
       company: ['', Validators.required],
       name: ['', Validators.required],
-      phone: ['', Validators.required ],
-      email: ['',Validators.compose([Validators.required , Validators.email]) ],
+      phone: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
       address: ['', Validators.required]
     });
     this.errorAndSubmitHandler();
   }
 
   dialogConfirm(event): void {
-    if(event && (this.dialogOption == dialogOption.cancel || this.dialogOption == dialogOption.success)){
+    if (
+      event &&
+      (this.dialogOption == dialogOption.cancel ||
+        this.dialogOption == dialogOption.success)
+    ) {
       this._location.back();
     }
     this.dialogModal = false;
@@ -75,33 +86,36 @@ export class SuppliersAddFormComponent extends Utility implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    this.dialogOption = dialogOption.success
+    this.dialogOption = dialogOption.success;
     const payload = {
       companyName: this.form.value.company,
       address: this.form.value.address,
       agentName: this.form.value.name,
       agentPhoneNumber: this.form.value.phone,
       agentEmail: this.form.value.email
-    }
-    if(this.isEdit){
+    };
+    if (this.isEdit) {
       let editPayload = {
         ...payload,
-        id:this.id
+        id: this.id
       };
-      this.facade.updateSupplier(editPayload)
-    }else{
-      this.facade.addSupplier(payload)
+      this.facade.updateSupplier(editPayload);
+    } else {
+      this.facade.addSupplier(payload);
     }
   }
 
   errorAndSubmitHandler() {
-
     this.submitSubscription = this.facade.submitted$.subscribe((x) => {
       if (x) {
         this.dialogOption = dialogOption.success;
         this.dialogModal = true;
-        this.dialogSetting.header = this.isEdit? 'Edit Supplier':'Add New Supplier';
-        this.dialogSetting.message = this.isEdit ? 'Supplier Edited Successfully' :'Supplier Added Successfully';
+        this.dialogSetting.header = this.isEdit
+          ? 'Edit Supplier'
+          : 'Add New Supplier';
+        this.dialogSetting.message = this.isEdit
+          ? 'Supplier Edited Successfully'
+          : 'Supplier Added Successfully';
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
@@ -109,12 +123,14 @@ export class SuppliersAddFormComponent extends Utility implements OnInit {
       }
     });
 
-    this.errorSubscription =this.facade.error$.subscribe((x) => {
+    this.errorSubscription = this.facade.error$.subscribe((x) => {
       if (x?.error) {
         this.dialogOption = dialogOption.error;
         x?.error;
         this.dialogModal = true;
-        this.dialogSetting.header =  this.isEdit? 'Edit Supplier':'Add New Supplier';
+        this.dialogSetting.header = this.isEdit
+          ? 'Edit Supplier'
+          : 'Add New Supplier';
         this.dialogSetting.hasError = true;
         this.dialogSetting.message = 'Error occurred in progress';
         this.dialogSetting.cancelButton = undefined;
@@ -123,7 +139,7 @@ export class SuppliersAddFormComponent extends Utility implements OnInit {
     });
   }
 
-  cancelForm(){
+  cancelForm() {
     this.dialogOption = dialogOption.cancel;
     this.dialogSetting = {
       header: 'Supplier',
@@ -132,28 +148,27 @@ export class SuppliersAddFormComponent extends Utility implements OnInit {
       message: 'Are you sure that you want to cancel?',
       confirmButton: 'Yes',
       cancelButton: 'No'
-    }
-    this.dialogModal = true
+    };
+    this.dialogModal = true;
   }
 
-  patchValueForm(){
-    this.facade.specificSupplier$.subscribe(x => {
-      if(x){
+  patchValueForm() {
+    this.facade.specificSupplier$.subscribe((x) => {
+      if (x) {
         this.form.patchValue({
           company: x.companyName,
           name: x.agentName,
           phone: x.agentPhoneNumber,
           email: x.agentEmail,
           address: x.address
-        })
+        });
       }
-    })
+    });
   }
 }
 
-
-export enum dialogOption{
-  success='success',
+export enum dialogOption {
+  success = 'success',
   error = 'error',
   cancel = 'cancel'
 }

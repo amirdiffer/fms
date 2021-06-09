@@ -36,7 +36,12 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   businessCategory_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.category_name', type: 1, field: 'Category_Name' },
-      { lable: 'tables.column.status', type: 1, field: 'Status', renderer: 'statusRenderer' },
+      {
+        lable: 'tables.column.status',
+        type: 1,
+        field: 'Status',
+        renderer: 'statusRenderer'
+      },
       { lable: 'tables.column.description', type: 1, field: 'Description' },
       { lable: 'tables.column.asset_type', type: 1, field: 'Asset_Type' },
       { lable: 'tables.column.num_subasset', type: 1, field: 'Sub_Asset' },
@@ -52,16 +57,18 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {
-        this.router
-          .navigate(
-            ['/configuration/usage-category/edit-usage-category/'+data.id])
-          .then();
-      },
       floatButton: [
         {
           button: 'edit',
-          color: '#3F3F3F'
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this.router
+              .navigate([
+                '/configuration/usage-category/edit-usage-category/' + data.id
+              ])
+              .then();
+          },
+          permission: ['BUSINESS_CATEGORY_UPDATE']
         }
       ]
     }
@@ -87,7 +94,11 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
       Sub_Asset: 'Sub_Asset',
       Accessory: 'Accessory'
     };
-    this.table.exportTable(this.businessCategory_Table, 'Business Category', filter);
+    this.table.exportTable(
+      this.businessCategory_Table,
+      'Business Category',
+      filter
+    );
   }
 
   eventPagination() {

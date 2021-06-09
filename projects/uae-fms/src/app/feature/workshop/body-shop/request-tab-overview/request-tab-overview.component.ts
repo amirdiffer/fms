@@ -126,7 +126,11 @@ export class RequestTabOverviewComponent implements OnInit {
             this.router.navigate(['edit-request/' + data.id], {
               relativeTo: this._activatedRoute
             });
-          }
+          },
+          permission: [
+            'WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OWN',
+            'WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OTHERS'
+          ]
         }
       ]
     }

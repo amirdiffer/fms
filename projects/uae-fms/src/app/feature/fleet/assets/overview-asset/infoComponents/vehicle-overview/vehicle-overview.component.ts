@@ -31,7 +31,7 @@ import { environment } from '@environments/environment';
 export class VehicleOverviewComponent implements OnInit {
   @Input() assetID;
   @ViewChild('chart') chart: ChartComponent;
-  chartOptions: Partial<ChartOptions>;
+  chartOptions;
   chartOptionsColumn: Partial<ChartOptions>;
   selectedTab = 'sub_asset';
   damageList = [];
@@ -243,54 +243,122 @@ export class VehicleOverviewComponent implements OnInit {
   ) {
     this.chartOptions = {
       series: [],
-      labels: [],
       chart: {
         type: 'donut',
-        height: 280
+        width: 350
       },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: '100%'
-            },
-            legend: {
-              position: 'bottom'
-            }
-          }
-        }
-      ],
       plotOptions: {
         pie: {
+          customScale: 1,
+          offsetX: 5,
+          offsetY: 5,
           donut: {
+            size: '70%',
             labels: {
-              show: false,
+              show: true,
+              value: {
+                offsetY: -22,
+                show: true,
+                fontSize: '1.2em',
+                fontFamily: '29LT Bukra - Bold !important',
+                fontWeight: 'bold',
+                opacity: 0.9
+
+                // formatter: (w) => {
+                //   return (
+                //     w.globals.seriesTotals.reduce((a, b) => {return a + b}, 0) + ' AED'
+                //   );
+                // }
+              },
               total: {
-                show: false,
+                show: true,
+                offsetY: 4,
                 label: 'Total',
-                color: '#373d3f',
                 showAlways: true,
-                fontFamily: '29LT Bukra',
-                formatter: (w) => {
+                fontSize: '.8em',
+                formatter: (value) => {
                   return (
-                    w.globals.seriesTotals.reduce((a, b) => {
+                    value.globals.seriesTotals.reduce((a, b) => {
                       return a + b;
                     }, 0) + ' AED'
                   );
                 }
               },
               name: {
-                offsetY: 18,
-                fontSize: '8px'
-              },
-              value: {
-                offsetY: -15
+                show: true,
+                offsetY: 13,
+                fontSize: '.8em'
               }
             }
           }
         }
-      }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      legend: {
+        show: true,
+        position: 'right',
+        horizontalAlign: 'left',
+        fontSize: '12px',
+        fontFamily: '29LT Bukra - Bold !important',
+        offsetY: 5
+        // markers: {
+        //   width: 12,
+        //   height: 12,
+        //   strokeColors:'#F2B06E',
+        //   strokeWidth: 5
+        // }
+      },
+      responsive: [
+        {
+          breakpoint: 1921,
+          options: {
+            chart: {
+              width: 350
+            },
+            legend: {
+              fontSize: '12px',
+              markers: {
+                width: 12,
+                height: 12
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 1601,
+          options: {
+            chart: {
+              width: 320
+            },
+            legend: {
+              fontSize: '11px',
+              markers: {
+                width: 10,
+                height: 10
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 1367,
+          options: {
+            chart: {
+              width: 280
+            },
+            legend: {
+              fontSize: '9px',
+              markers: {
+                width: 7,
+                height: 7
+              }
+            }
+          }
+        }
+      ],
+      colors: ['#F2B06E', '#0BAF72', '#959595'],
+      labels: []
     };
     this.chartOptionsColumn = {
       series: [
@@ -313,15 +381,17 @@ export class VehicleOverviewComponent implements OnInit {
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: '20%',
-          endingShape: 'rounded'
+          columnWidth: '8%',
+          endingShape: 'rounded',
+          distributed: false
         }
       },
       dataLabels: {
         enabled: false
       },
       legend: {
-        position: 'top'
+        position: 'top',
+        horizontalAlign: 'left'
       },
       stroke: {
         show: true,
@@ -341,17 +411,52 @@ export class VehicleOverviewComponent implements OnInit {
       },
       responsive: [
         {
-          breakpoint: 480,
+          breakpoint: 1921,
           options: {
             chart: {
-              width: 200
+              height: 280
             },
             legend: {
-              position: 'top'
+              fontSize: '12px',
+              markers: {
+                width: 12,
+                height: 12
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 1601,
+          options: {
+            chart: {
+              height: 260
+            },
+            legend: {
+              fontSize: '11px',
+              markers: {
+                width: 10,
+                height: 10
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 1367,
+          options: {
+            chart: {
+              height: 230
+            },
+            legend: {
+              fontSize: '9px',
+              markers: {
+                width: 7,
+                height: 7
+              }
             }
           }
         }
-      ]
+      ],
+      colors: ['#F2B06E', '#0BAF72']
     };
   }
 
@@ -397,6 +502,17 @@ export class VehicleOverviewComponent implements OnInit {
       let data = x.message;
       this.chartTrafficFineData.labels = Object.keys(data);
       this.chartTrafficFineData.series = Object.values(data);
+      if (this.chartTrafficFineData.labels.indexOf('total') >= 0) {
+        this.chartTrafficFineData.labels.splice(
+          this.chartTrafficFineData.labels.indexOf('total'),
+          1
+        );
+        this.chartTrafficFineData.series.splice(
+          this.chartTrafficFineData.labels.indexOf('total'),
+          1
+        );
+      }
+      console.log(this.chartTrafficFineData.labels.indexOf('total'));
     });
     this.assetService.getFuelCardByAssetID(this.assetID).subscribe((x) => {
       let data = <Array<object>>x.message;

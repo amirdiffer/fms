@@ -1,4 +1,4 @@
-import { TaskMasterFacade } from './../+state/task-master/task-master.facade';
+import { TaskMasterFacade } from '../../+state/task-master/task-master.facade';
 import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import { Utility } from '@shared/utility/utility';
 import {

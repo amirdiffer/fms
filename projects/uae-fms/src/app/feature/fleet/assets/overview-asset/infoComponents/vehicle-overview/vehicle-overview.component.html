@@ -12,14 +12,18 @@
                 </div>
               </div>
               <!--                <app-speed-meter-chart></app-speed-meter-chart>-->
-              <div class="chart">
-                <apx-chart id="chart"
-                           [series]="chartTrafficFineData.series"
-                           [labels]="chartTrafficFineData.labels"
-                           [chart]="chartOptions.chart"
-                           [responsive]="chartOptions.responsive"
-                           [plotOptions]="chartOptions.plotOptions"
-                ></apx-chart>
+              <div class="chart" id="chart">
+                <apx-chart
+                  [series]="chartTrafficFineData.series"
+                  [chart]="chartOptions.chart"
+                  [plotOptions]="chartOptions.plotOptions"
+                  [colors]="chartOptions.colors"
+                  [dataLabels]="chartOptions.dataLabels"
+                  [legend]="chartOptions.legend"
+                  [labels]="chartTrafficFineData.labels"
+                  [responsive]="chartOptions.responsive"
+                >
+                </apx-chart>
               </div>
             </div>
             <div class="col-md-6 workout-statics contain">
@@ -37,7 +41,9 @@
                            [responsive]="chartOptionsColumn.responsive"
                            [plotOptions]="chartOptionsColumn.plotOptions"
                            [xaxis]="{'categories': chartFuelCardData.categories}"
+                           [colors]="chartOptionsColumn.colors"
                            [legend]="chartOptionsColumn.legend"
+                           [dataLabels]="chartOptionsColumn.dataLabels"
                 ></apx-chart>
               </div>
 

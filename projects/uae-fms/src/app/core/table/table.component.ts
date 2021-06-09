@@ -6,8 +6,7 @@ import {
   Output,
   OnDestroy,
   AfterViewInit,
-  Renderer2,
-  ViewChild
+  Renderer2
 } from '@angular/core';
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
@@ -81,13 +80,14 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       this.activeLang = lang;
     });
 
-    this.tableData?.subscribe((x) => {
-      !this.initialSearchBox ? this.getSearchBoxData() : null;
-      if (x) {
-        this.allData = x;
-        this.setting.data = x;
-      }
-    });
+    if (this.tableData)
+      this.tableData?.subscribe((x) => {
+        !this.initialSearchBox ? this.getSearchBoxData() : null;
+        if (x) {
+          this.allData = x;
+          this.setting.data = x;
+        }
+      });
   }
 
   getCol(col, data) {
@@ -428,7 +428,7 @@ export interface ColumnDifinition {
   hasJobCardButton?: boolean;
   hasPadding5?: boolean;
   hasPadding3?: boolean;
-  isHeaderHidden?: boolean
+  isHeaderHidden?: boolean;
 }
 
 export enum ColumnType {
@@ -472,4 +472,5 @@ export interface FloatButtonType {
   tooltip?: string;
   onClick?: Function;
   condition?: Function;
+  permission?: string[];
 }

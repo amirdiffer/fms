@@ -244,7 +244,8 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
               this.assetMasterFacade.reset();
               this.assetMasterFacade.getAssetByID(data.id);
               this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
-            }
+            },
+            permission: ['ASSET_UPDATE_OTHERS', 'ASSET_UPDATE_OWN']
           },
           // {
           //   button: 'download'
@@ -253,7 +254,8 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
             button: 'external',
             onClick: (col, data) => {
               this._router.navigate(['/fleet/assets/' + data.id]);
-            }
+            },
+            permission: ['ASSET_VIEW_DETAILS_OWN', 'ASSET_VIEW_SUMMARY_OWN']
           }
         ]
       }
