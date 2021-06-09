@@ -79,7 +79,8 @@ export class TaskMasterComponent implements OnInit {
           button: 'edit',
           onClick: (col, data, button?) => {
             this.router.navigate(['/workshop/task-master/edit-task-master/' + data.id],).then();
-          }
+          },
+          permission:['TASK_MASTER_UPDATE']
         }
       ]
     }

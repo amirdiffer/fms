@@ -413,6 +413,16 @@
 
 }
 
+#chart apx-chart{
+  ::ng-deep{
+    .apexcharts-legend{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+  }
+}
+
 @media (max-width: 1410px) {
   ._row-custom-wrap {
     display: flex;

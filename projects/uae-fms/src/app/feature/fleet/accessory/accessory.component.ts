@@ -72,6 +72,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
           onClick: (col, data) => {
             this._router.navigate(['/fleet/accessory/edit-accessory/'+ data.id]);
           },
+          permission:['ACCESSORY_UPDATE_OWN' , 'ACCESSORY_UPDATE_OTHERS'],
           button: 'edit',
           color: '#3F3F3F'
         }

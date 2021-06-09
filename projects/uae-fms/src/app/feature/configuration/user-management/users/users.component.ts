@@ -115,7 +115,8 @@ export class UsersComponent implements OnInit {
             this.router.navigate([
               '/configuration/user-management/users/edit-user/' + data.id
             ]);
-          }
+          },
+          permission:['USER_NORMAL_UPDATE']
         }
       ]
     }

@@ -83,6 +83,8 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       this.assetTypeArray = assetTypeArray
     })
 
+
+
     this.categoryType$ = this.dataService.watchType().pipe((type) => {
       type.subscribe((y) => {
         if(y !== this.activeAssetType){
@@ -129,7 +131,6 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     if(this.activeAssetType == 'ACCESSORY') return;
     this.selectedCategory = +item.id
     this.selectedMake = -1;
-    this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { type: item.id } }).then()
     this.assetType$.forEach((assetType: AssetTypeExtension[]) => {
       this.openedAssetTypeArray = []
       assetType.forEach(iAssetType => {
@@ -149,7 +150,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
           this.activeCat.category = item.id;
         }
         this.select.emit(this.activeCat);
-        this.selectMake.emit(item.makes);
+        this.selectMake.emit({typeId : item.id , makes : item.makes});
         this.assetTypeSubject$.next(this.openedAssetTypeArray);
         
       })
@@ -159,7 +160,6 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   onMakeClick(make: MakeExtension, assetTypeId: number): void {
     this.selectedMake = make.id
     this.selectedModel = -1;
-    this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { type: assetTypeId, make: make.id } }).then();
     this.openedAssetTypeArray.map((iAssetType) => {
       if (iAssetType.id == assetTypeId) {
         iAssetType.makes.map((iAssetTypeMake => {
@@ -173,7 +173,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
             }
             this.activeCat.manufacturer = make.id;
             this.select.emit(this.activeCat);
-            this.selectModel.emit(make.models);
+            this.selectModel.emit({makeId: make.id , models:make.models});
           } else {
             iAssetTypeMake.isSelected = false
             iAssetTypeMake.iconSvgClass = 'right-arrow'
@@ -185,7 +185,6 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
 
   onModelClick(model: ModelExtension, makeId: number, assetTypeId: number): void {
     this.selectedModel = model.id;
-    this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { model: model.id }, queryParamsHandling: 'merge' }).then()
     this.openedAssetTypeArray.map((iAssetType) => {
       if (iAssetType.id === assetTypeId) {
         iAssetType.makes.map((iAssetTypeMake => {
@@ -194,7 +193,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
               if (iAssetTypeMakeModel.id === model.id) {
                 iAssetTypeMakeModel.isSelected = !iAssetTypeMakeModel.isSelected;
                 this.select.emit(this.activeCat)
-                this.selectTrim.emit(model.trims);
+                this.selectTrim.emit({modelId:model.id , trims:model.trims});
               } else {
                 iAssetTypeMakeModel.isSelected = false
               }
