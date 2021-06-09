@@ -1,0 +1,50 @@
+<ng-template [ngIf]="show">
+  <div class="form-section">
+    <div class="row form-section__row justify-content-between">
+      <div class="col-12 col-md-8">
+        <div class="d-flex">
+          <h3 class="mx-2 form-section__title">Filter Setting</h3>
+          <div class="mx-4 form-section__title">
+            <svg-icon src='assets/icons/filter.svg'
+                      [svgStyle]="{ 'width.px':'20' ,'height.px':'20', 'fill': '#9F9F9F'}"></svg-icon>
+            <p id="customizeFilterBox-show__button" class="mx-1 pointer" (click)="customizeFilterBox_show = !customizeFilterBox_show">Customize</p>
+            <div class="row customize-column" id="customizeFilterBox-show__box" [class.hidden]="!customizeFilterBox_show">
+              <ng-container *ngFor="let col of allColumns">
+                <ng-template [ngIf]="col['lable'] != ''">
+                  <div class="form-group form-check col-6">
+                    <input [id]="col.name" type="checkbox" [value]="col.name" (change)="updateColumn($event)"
+                           [checked]="checkedColumn(col.name)"
+                           class="custom-checkbox">
+                    <label [for]="col.name">{{
+                      col['lable'] | translate }}</label>
+                  </div>
+                </ng-template>
+              </ng-container>
+            </div>
+          </div>
+          <div class="mx-4 form-section__title">
+            <svg-icon src='assets/icons/down-arrow.svg'
+                      [svgStyle]="{ 'width.px':'20','height.px':'20',  'fill': '#9F9F9F'}"></svg-icon>
+            <p class="mx-1 pointer" (click)="saveFilter()">Save Filter</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="d-flex" style="direction: rtl">
+          <button class="btn-primary-small mx-1 pointer" (click)="applyFilter()">Apply</button>
+          <p class="mx-1 clear-filter pointer" (click)="clearFilter()"><u>Clear Filter All</u></p>
+        </div>
+      </div>
+    </div>
+    <div class="row form-section__row">
+      <ng-container *ngFor="let item of customizeFilter">
+        <div class="col-12 col-md-3 p-field form-section__field">
+          <span class="p-float-label">
+            <input pInputText placeholder="{{ item.lable | translate}}" [(ngModel)]="item.value" type="text">
+            <label class="pointer">{{ item.lable | translate}}</label>
+          </span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>

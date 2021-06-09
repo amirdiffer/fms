@@ -47,6 +47,7 @@ import { ReceivedButtonRendererComponent } from '@core/table/renderers/ReceivedB
 import { ApproveButtonRendererComponent } from '@core/table/renderers/ApproveButtonRenderer';
 import { DateRenderer } from '@core/table/renderers/date';
 import { ProgressRendererComponent } from './renderers/ProgressRenderer';
+import { TableFilterComponent } from './table-filter/table-filter.component';
 
 @NgModule({
   imports: [
@@ -98,7 +99,8 @@ import { ProgressRendererComponent } from './renderers/ProgressRenderer';
     ReceivedButtonRendererComponent,
     ApproveButtonRendererComponent,
     DateRenderer,
-    ProgressRendererComponent
+    ProgressRendererComponent,
+    TableFilterComponent
   ],
   providers: [TableFacade, TableService, TableServiceS]
 })

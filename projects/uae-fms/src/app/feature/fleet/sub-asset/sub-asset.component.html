@@ -4,6 +4,9 @@
   </div>
   <div class="table-container component_wrapper">
     <div class="search-container card-table-header">
+      <button class="btn-download" (click)="showCustomFilter = !showCustomFilter">
+        <img src="assets/icons/setting.svg" alt="">
+      </button>
       <div class="search-box">
         <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
         <button>
@@ -16,7 +19,7 @@
       <button *hasPermission="['SUB_ASSET_ADD']" class="btn-primary-small" routerLink="add-new-sub-asset"><i>+</i><a>{{'search.add' | translate }}</a></button>
     </div>
     <div class="table-wreapper" *hasPermission="['SUB_ASSET_VIEW_LIST_OWN' , 'SUB_ASSET_VIEW_LIST_OTHERS']">
-      <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="sub-asset" [setting]='assetTraffic_Table' [tableData]="data$"></app-table>
+      <app-table [showCustomFilter]="showCustomFilter" (customFilterEvent)="customFilterEvent($event)" searchInput="searchInput" (onPagination)="eventPagination()" pagination="sub-asset" [setting]='assetTraffic_Table' [tableData]="data$"></app-table>
     </div>
   </div>
 </ng-container>
