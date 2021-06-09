@@ -21,11 +21,11 @@ export class OwnershipFacade {
     this.store.dispatch(OwnershipActions.loadAll());
   }
 
-  addOwnership(data: IOwnerShip) {
+  addOwnership(data: Partial<IOwnerShip>) {
     this.store.dispatch(OwnershipActions.addOwnership({ data }));
   }
 
-  editOwnership(data: any) {
+  editOwnership(data: Partial<IOwnerShip>) {
     this.store.dispatch(OwnershipActions.editOwnership({ data }));
   }
 
