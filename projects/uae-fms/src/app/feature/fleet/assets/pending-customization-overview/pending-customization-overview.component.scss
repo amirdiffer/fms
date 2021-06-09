@@ -1,5 +1,5 @@
-@import "../../../../../themes/green-theme.scss";
-@import "../../../../../assets/scss/form-section.scss";
+@import '../../../../../themes/green-theme.scss';
+@import '../../../../../assets/scss/form-section.scss';
 .component_wrapper {
   // background: white !important;
   h3 {
@@ -17,7 +17,7 @@
       color: #008755;
     }
     li::before {
-      content: "• ";
+      content: '• ';
       color: #008755; /* or whatever color you prefer */
     }
   }
@@ -35,7 +35,7 @@
       .p-accordion-header-link {
         text-decoration: none;
         font-weight: 800;
-        background-color: white !important;
+        background-color: transparent !important;
       }
       .p-accordion-header-link:focus {
         box-shadow: none !important;
@@ -43,9 +43,8 @@
       .p-accordion-content {
         padding: 0 1rem;
       }
-
-      .title {
-        padding-top: 8px;
+      .p-accordion-content{
+        background-color: transparent !important; 
       }
 
       .checkbox {
@@ -69,16 +68,19 @@
       }
       .camera-row {
         border-bottom: 1px solid #d3d3d3;
-        padding: 10px 0;
-        padding-top: 30px;
+        align-items: center;
         height: 80px;
       }
     }
   }
 }
 
-.inline-111{
+.inline-111 {
   display: inline-flex;
   justify-content: center;
   align-items: center;
+}
+
+.green {
+  color: #0da06e;
 }

@@ -8,11 +8,14 @@
       <div class="row">
         <div class="col-md-3">
           <div class="component_wrapper">
+            <div class="imageAccessory">
+              <img [src]="fileServerBase + accessoryDetails?.avatarId" onerror="this.src='assets/thumb.png'">
+            </div>
             <h4 class="sub-asset-overview__subtitle">{{ 'accessory.overview.accessory_item_name' | translate }}</h4>
             <table class="sub-asset-overview__info">
               <tr>
                 <th>{{ 'accessory.overview.accessory_type' | translate }}</th>
-                <td>{{ accessoryDetails.accessorySpecification.name }}</td>
+                <td>{{ accessoryDetails?.accessorySpecification?.name }}</td>
               </tr>
             </table>
 
@@ -39,32 +42,16 @@
           <table class="sub-asset-overview__info bordered">
             <tr>
               <th>{{ 'accessory.overview.item_name' | translate }}</th>
-              <td>{{ accessoryDetails.itemName }}</td>
+              <td>{{ accessoryDetails?.itemName }}</td>
             </tr>
             <tr>
               <th>{{ 'accessory.overview.accessory_type' | translate }}</th>
-              <td>{{ accessoryDetails.accessorySpecification.name }}</td>
+              <td>{{ accessoryDetails?.accessorySpecification.name }}</td>
             </tr>
             <tr>
               <th>{{'accessory.assigned_to_a' | translate}}</th>
-              <td>{{ accessoryDetails.assignedToEmployeeId.firstName }} {{ accessoryDetails.assignedToEmployeeId.lastName }}</td>
+              <td>{{ accessoryDetails?.assignedToEmployeeId?.firstName }} {{ accessoryDetails?.assignedToEmployeeId?.lastName }}</td>
             </tr>
-<!--            <tr>-->
-<!--              <th>{{ 'accessory.overview.asset_name' | translate }}</th>-->
-<!--              <td>DPD 0001234 </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--              <th>{{ 'accessory.overview.quantity' | translate }}</th>-->
-<!--              <td>2012</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--              <th>{{ 'accessory.overview.make' | translate }}</th>-->
-<!--              <td>Toyota</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--              <th>{{ 'accessory.overview.model' | translate }}</th>-->
-<!--              <td>RAV4</td>-->
-<!--            </tr>-->
           </table>
           </div>
         </div>

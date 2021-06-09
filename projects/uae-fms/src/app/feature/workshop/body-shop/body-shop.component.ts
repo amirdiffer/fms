@@ -133,6 +133,7 @@ export class BodyShopComponent implements OnInit {
   requestData$ = this._facadeRequest.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
+        console.log(y);
         return {
           ...y,
           asset: {
@@ -143,7 +144,8 @@ export class BodyShopComponent implements OnInit {
           plateNumber:
             y.plateNumber != null ? y.plateNumber : 'Without Plate Number',
           department: y.department.name,
-          operatorName: y.operator.firstName + ' ' + y.operator.lastName
+          operatorName: y.operator.firstName + ' ' + y.operator.lastName,
+          assetTypeName: y.assetConfigurationName
         };
       });
     })
@@ -191,6 +193,7 @@ export class BodyShopComponent implements OnInit {
   jobCardData$ = this._facadeJobCard.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
+        console.log(y);
         return {
           ...y,
           asset: {
@@ -270,10 +273,11 @@ export class BodyShopComponent implements OnInit {
           },
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
-            this.router.navigate(['/workshop/body-shop/add-job-card'], {
-              queryParams: { assetId: data.assetId }
-            });
-          }
+            this.router.navigate([
+              '/workshop/body-shop/' + data.id + '/add-job-card'
+            ]);
+          },
+          permission:['WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE']
         },
         {
           button: 'external',
@@ -282,8 +286,9 @@ export class BodyShopComponent implements OnInit {
             this.router
               .navigate(['/workshop/body-shop/request-overview/' + data.id])
               .then();
-          }
-        },
+          },
+          permission:['WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OWN' , 'WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS']
+        }
         /* {
           button: 'edit',
           onClick: (col, data) => {
@@ -358,7 +363,7 @@ export class BodyShopComponent implements OnInit {
         type: ColumnType.lable,
         thumbField: '',
         renderer: 'floatButton'
-      },
+      }
     ],
     data: [
       {
@@ -383,19 +388,23 @@ export class BodyShopComponent implements OnInit {
         {
           button: 'external',
           onClick: (col, data) => {
-            this.router.navigate(['/workshop/body-shop/job-card-overview/' + data.id]).then();
-          }
+            this.router
+              .navigate(['/workshop/body-shop/job-card-overview/' + data.id])
+              .then();
+          },
+          permission:['WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_DETAILS']
         },
         {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
-            console.log(data)
+            console.log(data);
             this._facadeJobCard.resetParams();
             this.router.navigate([
               '/workshop/body-shop/edit-job-card/' + data.id
             ]);
-          }
+          },
+          permission:['WORKSHOP_BODY_SHOP_JOB_CARD_UPDATE']
         }
       ]
     }
@@ -464,7 +473,8 @@ export class BodyShopComponent implements OnInit {
             this.router.navigate([
               '/workshop/body-shop/edit-technician/' + data.id
             ]);
-          }
+          },
+          permission:['WORKSHOP_BODY_SHOP_TECHNICIAN_UPDATE']
         }
         /* {
           button: 'external',
@@ -474,7 +484,8 @@ export class BodyShopComponent implements OnInit {
             this.router.navigate([
               '/workshop/body-shop/technician/' + data.id
             ]);
-          }
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_TECHNICIAN_VIEW_DETAILS']
         } */
       ]
     }
@@ -543,7 +554,8 @@ export class BodyShopComponent implements OnInit {
             this.router.navigate([
               '/workshop/body-shop/edit-location/' + data.id
             ]);
-          }
+          },
+          permission:['WORKSHOP_BODY_SHOP_LOCATION_UPDATE']
         }
         /* {
           button: 'external',
@@ -553,7 +565,8 @@ export class BodyShopComponent implements OnInit {
             this.router.navigate([
               '/workshop/body-shop/technician/' + data.id
             ]);
-          }
+          },
+          permission:['WORKSHOP_BODY_SHOP_LOCATION_VIEW_DETAILS']
         } */
       ]
     }
@@ -593,8 +606,6 @@ export class BodyShopComponent implements OnInit {
     this._facadeJobCard.loadAll();
     this._facadeTechnician.loadAll();
     this._facadeLocation.loadAll();
-    this._facadeRequest.bodyShop$.subscribe((x) => {});
-    // this._facadeRequest.loadStatistics();
     this._facadeRequest.statistics$.subscribe((x) => {
       if (x) {
         this.filterSetting.map((filter) => {
@@ -653,7 +664,11 @@ export class BodyShopComponent implements OnInit {
           assetTypeName: 'assetTypeName',
           numberOfActiveRequests: 'numberOfActiveRequests'
         };
-        this.table.exportTable(this.table1Setting, 'Service Shop - Request Tab', filter);
+        this.table.exportTable(
+          this.table1Setting,
+          'Service Shop - Request Tab',
+          filter
+        );
         break;
       case 'jobcardTab':
         filter = {
@@ -664,7 +679,11 @@ export class BodyShopComponent implements OnInit {
           cost: 'cost',
           technician: 'technician'
         };
-        this.table.exportTable(this.table2Setting, 'Service Shop - JobCard Tab', filter);
+        this.table.exportTable(
+          this.table2Setting,
+          'Service Shop - JobCard Tab',
+          filter
+        );
         break;
       case 'technicianTab':
         filter = {
@@ -674,8 +693,12 @@ export class BodyShopComponent implements OnInit {
           tasks: 'tasks',
           information: 'information.email|information.phoneNumber',
           ratePerHour: 'ratePerHour'
-        }
-        this.table.exportTable(this.table3Setting, 'Service Shop - Technician Tab', filter);
+        };
+        this.table.exportTable(
+          this.table3Setting,
+          'Service Shop - Technician Tab',
+          filter
+        );
         break;
       case 'locationTab':
         filter = {
@@ -685,11 +708,17 @@ export class BodyShopComponent implements OnInit {
           jobCard: 'jobCard',
           technician: 'technician',
           capacity: 'capacity'
-        }
-        this.table.exportTable(this.table4Setting, 'Service Shop - Location Tab', filter);
+        };
+        this.table.exportTable(
+          this.table4Setting,
+          'Service Shop - Location Tab',
+          filter
+        );
         break;
     }
   }
+
+
   eventPagination_request() {
     this._facadeRequest.loadAll();
   }

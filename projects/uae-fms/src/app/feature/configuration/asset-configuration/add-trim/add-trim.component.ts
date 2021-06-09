@@ -4,25 +4,17 @@ import {
   Injector,
   OnDestroy,
   OnInit,
-  Renderer2,
   ViewChild
 } from '@angular/core';
-import {
-  FileSystemDirectoryEntry,
-  FileSystemFileEntry,
-  NgxFileDropEntry
-} from 'ngx-file-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TableSetting } from '@core/table';
-import { IAssetType, Make } from '@models/asset-type.model';
+import { Make } from '@models/asset-type.model';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { AssetConfigurationService } from '@feature/configuration/asset-configuration/asset-configuration.service';
 import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/index';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { Utility } from '@shared/utility/utility';
-import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import {Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-add-trim',
@@ -38,7 +30,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
 
   //#region Variable
   radioButtonSelect: 'mModel';
-  public filesUpdloaded: NgxFileDropEntry[] = [];
   inputForm: FormGroup;
   color = '#0000005E';
   color1 = '#0000005E';
@@ -47,12 +38,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   percent = 80;
   fileName = 'CSV File only';
   submited = false;
-
-  assetTypeSubs$: Subscription;
-
-  assetConfigurationTableSetting!: TableSetting;
-
-  assetType: IAssetType;
 
   dialogModal = false;
 
@@ -67,127 +52,97 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   get trims(): FormArray {
     return this.inputForm.get('trims') as FormArray;
   }
-  assetTypeId;
+  id;
   makeId;
   modelId;
-  isEditing = false
+  assetTypeId;
+  fleetType:string;
+  fleetSubscription:Subscription;
+  selectedMake:string ='';
+  selectedModel:string ='';
+  isEditing = false;
+  successDialog;
   //#endregion
 
   constructor(
     private _fb: FormBuilder,
-    private _renderer: Renderer2,
-    private _assetConfigurationService: AssetConfigurationService,
     private facade: AssetTypeFacade,
     public dataService: DataService,
     public router: Router,
     injector: Injector
   ) {
     super(injector);
-    this.assetConfigurationTableSetting = this._assetConfigurationService.assetConfigurationableSetting();
   }
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      typeCategory: ['asset', this.router.isActive('/configuration/add-asset-configuration/', true) ? Validators.required : []],
+      typeCategory: ['asset'],
       trims: new FormArray([this.createTrim()])
     });
 
-    this.route.params.subscribe((x) => {
-      if (x && x.assetType) this.assetTypeId = x.assetType;
-      if (x && x.make) this.makeId = x.make;
-      if (x && x.model) this.modelId = x.model;
-      this.assetTypeSubs$ = this.facade.assetType$
-        .pipe(
-          map((response) =>
-            response.map((obj) => {
-
-              if (x?.assetTypeId) {
-                this.isEditing = true
-                this.assetTypeId = Number(x?.assetTypeId)
-                if (x?.id) {
-                  this.makeId = Number(x?.makeId)
-                  this.modelId = Number(x?.id)
-                  if (this.assetTypeId === obj.id) {
-                    for (let index = 0; index < obj.makes.length; index++) {
-                      if (obj.makes[index].id === this.makeId) {
-                        this.dataService.selectedMakeName = obj.makes[index].name
-                        for (let j = 0; j < obj.makes[index].models.length; j++) {
-                          if (obj.makes[index].models[j].id === this.modelId) {
-                            this.dataService.selectedModelName = obj.makes[index].models[j].name
-                            for (let k = 0; k < obj.makes[index].models[j].trims.length; k++) {
-                              if (k > 0) {
-                                this.addTrim()
-                              }
-                              this.trims.controls[k].patchValue({
-                                id: obj.makes[index].models[j].trims[k].id,
-                                trim: obj.makes[index].models[j].trims[k].name,
-                                colors: obj.makes[index].models[j].trims[k].colors,
-                                description: obj.makes[index].models[j].trims[k].description,
-                                origins: obj.makes[index].models[j].trims[k].origins
-                              });
-                              for (let l = 0; l < obj.makes[index].models[j].trims[k].colors.length; l++) {
-                                if (l > 0) {
-                                  this.addColor(k)
-                                }
-                                this.colors(k).controls[l].patchValue({
-                                  id: obj.makes[index].models[j].trims[k].colors[l].id,
-                                  name: obj.makes[index].models[j].trims[k].colors[l].name,
-                                  hexColor: obj.makes[index].models[j].trims[k].colors[l].hexColor,
-                                })
-                              }
-                            }
-                          }
-                        }
-                      }
+    let activeRoute = this.route.snapshot.url.map(x => {return x.path});
+    this.id = +this.route.snapshot.params.id;
+    this.assetTypeId = this.route.snapshot.params.assetTypeId ? this.route.snapshot.params.assetTypeId : this.route.snapshot.params.assetType
+    this.makeId = this.route.snapshot.params.make ? +this.route.snapshot.params.make : +this.route.snapshot.params.makeId;
+    this.modelId = this.route.snapshot.params.model ? +this.route.snapshot.params.model : +this.route.snapshot.params.modelId;
+  
+    /* Check is Edit Form  */
+    if(activeRoute.find(item => item == "edit-trim")){
+      this.isEditing = true;
+    }
+    if(this.assetTypeId){
+      this.facade.getAssetTypeByID(this.assetTypeId);
+      this.facade.loaded$.subscribe(
+        load => {
+          if(load){
+            this.fleetSubscription = this.facade.specificAssetType$.subscribe(x => {
+              if(x) {
+                let makes = {
+                  name : x.makes.find( y => y.id == this.makeId).name,
+                  description : x.makes.find( y => y.id == this.makeId).description,
+                  models: x.makes.find( y => y.id == this.makeId).models
+                };
+      
+                this.selectedMake = x.makes.find( y => y.id == this.makeId).name;
+                let models = {
+                  name : makes.models.find( y => y.id == this.modelId).name,
+                  description : makes.models.find( y => y.id == this.modelId).description,
+                  trims:makes.models.find( y => y.id == this.modelId).trims
+                };
+      
+                this.selectedModel = makes.models.find( y => y.id == this.modelId).name;
+                if(this.isEditing){
+                  let trims = {
+                    name:models.trims.find( y => y.id == this.id).name,
+                    colors:models.trims.find( y => y.id == this.id).colors
+                  }
+                  console.log(trims)
+                  this.trims.controls[0].patchValue({
+                    trim:trims.name
+                  })
+                  for (let index = 0; index < trims.colors.length; index++) {
+                    this.colors(0).controls[index].patchValue({
+                      id: trims.colors[index].id,
+                      name: trims.colors[index].name,
+                      hexColor:trims.colors[index].hexColor,
+                    })
+                    if(index +1 !== trims.colors.length){
+                      this.addColor(0)
                     }
+                    console.log(index , trims.colors.length)
                   }
                 }
-                return
               }
+            });
+          }
+        }
+      )
+    }
 
-              obj.makes.map((make) => {
-                make.models.map((model) => {
-                  if (model.id === this.dataService.selectedModelId) {
-                    this.assetType = obj;
-
-                    if (obj.type === 'ASSET') {
-                      this.inputForm.patchValue({ typeCategory: 'asset' });
-                    } else if (this.assetType.type === 'SUB_ASSET') {
-                      this.inputForm.patchValue({ typeCategory: 'subAsset' });
-                    } else if (this.assetType.type === 'ACCESSORY') {
-                      this.inputForm.patchValue({ typeCategory: 'accessory' });
-                    }
-
-                    this.trims.clear();
-                    for (let index = 0; index < model.trims.length; index++) {
-                      this.addTrim();
-                      this.trims.controls[index].patchValue({
-                        id: model.trims[index].id,
-                        trim: model.trims[index].name,
-                        description: 'Something about the trim.',
-                        colors: model.trims[index].colors
-                      });
-                      for (let j = 0; j < model.trims[index].colors.length; j++) {
-                        this.addColor(index)
-                        this.colors(index).controls[j].patchValue({
-                          id: model.trims[index].colors[j].id,
-                          name: model.trims[index].colors[j].name,
-                          hexColor: model.trims[index].colors[j].hexColor,
-                        })
-                      }
-                    }
-                    this.addTrim();
-                  }
-                });
-              });
-            })
-          )
-        )
-        .subscribe();
-    });
-
+    
     this.facade.submitted$.subscribe((x) => {
       if (x) {
+        this.successDialog = true
         if (this.isEditing) {
           this.dialogModal = true;
           this.dialogSetting.header = 'Edit Trim';
@@ -205,7 +160,9 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
+        
       }
+
     });
 
     this.facade.error$.subscribe((x) => {
@@ -282,27 +239,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     const docControl = this.trims.at(index).get('file');
     docControl.setValue(docId);
   }
-
-  public dropped(files: NgxFileDropEntry[]) {
-    this.filesUpdloaded = files;
-    for (const droppedFile of files) {
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {});
-      } else {
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-      }
-    }
-  }
-
-  public fileOver(event) {
-    // console.log(event);
-  }
-
-  public fileLeave(event) {
-    // console.log(event);
-  }
-
   cancel() {
     this.dialogModal = true;
     this.dialogSetting.hasError = false;
@@ -315,27 +251,12 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
 
   dialogConfirm($event): void {
     this.dialogModal = false;
-    if ($event && !this.dialogSetting.hasError) {
-      this.router
-        .navigate(['/configuration/asset-configuration'])
-        .then((_) => this.facade.resetParams());
+    if($event && this.successDialog){
+      this.facade.resetParams();
     }
-  }
-
-  color1Clicked(): void {
-    // console.log('color1 clicked');
-  }
-
-  color2Clicked(): void {
-    // console.log('color2 clicked');
-  }
-
-  color3Clicked(): void {
-    // console.log('color3 clicked');
-  }
-
-  color4Clicked(): void {
-    // console.log('color4 clicked');
+    if ($event && !this.dialogSetting.hasError) {
+      this.router.navigate(['/configuration/asset-configuration'])
+    }
   }
 
   selectedColor(event, color): void {
@@ -355,10 +276,10 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
       for (const trim of this.inputForm.value.trims) {
         payload.trims.push(
           {
-            id: trim.id,
+            id: this.id,
             name: trim.trim,
             description: trim.description,
-            origins: trim.origins,
+            origins: ['Germany'],
             colors: trim.colors
           }
         )
@@ -369,20 +290,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     }
 
     let type: string;
-
-    switch (this.inputForm.value.typeCategory) {
-      case 'asset':
-        type = 'ASSET';
-        break;
-      case 'subAsset':
-        type = 'SUB_ASSET';
-        break;
-      case 'accessory':
-        type = 'ACCESSORY';
-        break;
-      default:
-        type = 'ASSET';
-    }
 
     const makes: Make[] = [];
 
@@ -434,6 +341,5 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.assetTypeSubs$.unsubscribe();
   }
 }

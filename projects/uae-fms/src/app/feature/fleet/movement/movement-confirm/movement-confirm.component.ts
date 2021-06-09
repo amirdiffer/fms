@@ -109,6 +109,7 @@ export class MovementConfirmComponent extends Utility implements OnInit {
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
+        this.dialogErrorSetting.message = x.error.message!=""?x.error.message:"Error occurred during operation";
       }
     });
   }
@@ -118,7 +119,7 @@ export class MovementConfirmComponent extends Utility implements OnInit {
     this.assetSuggests = this.assetSuggestsB.filter(
       (x) =>
         (x.id + '').indexOf(event.query) >= 0 ||
-        x.name.indexOf(event.query) >= 0
+        x.name.toLocaleLowerCase().indexOf(event.query.toLocaleLowerCase()) >= 0
     );
   }
 
@@ -127,7 +128,7 @@ export class MovementConfirmComponent extends Utility implements OnInit {
     this.operatorSuggests = this.operatorSuggestsB.filter(
       (x) =>
         (x.id + '').indexOf(event.query) >= 0 ||
-        x.name.indexOf(event.query) >= 0
+        x.name.toLocaleLowerCase().indexOf(event.query.toLocaleLowerCase()) >= 0
     );
   }
 
@@ -136,7 +137,7 @@ export class MovementConfirmComponent extends Utility implements OnInit {
     this.organizationSuggests = this.organizationSuggestsB.filter(
       (x) =>
         (x.id + '').indexOf(event.query) >= 0 ||
-        x.name.indexOf(event.query) >= 0
+        x.name.toLocaleLowerCase().indexOf(event.query.toLocaleLowerCase()) >= 0
     );
   }
 
@@ -174,9 +175,9 @@ export class MovementConfirmComponent extends Utility implements OnInit {
   }
 
   successConfirm($event) {
+    this._requestFacade.reset();
     this.displayErrorModal = false;
     this.displaySuccessModal = false;
-    this.dialogRef.close();
-    this._requestFacade.reset();
+    this.dialogRef.close(true);
   }
 }

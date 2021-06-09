@@ -1,9 +1,9 @@
 <div class="part-overview">
   <div class="row">
     <div class="col-3">
-      <div class="form-section">
+      <div class="form-section p-0">
         <div class="carousel-component">
-          <p-carousel [value]="images$ | async" [numVisible]="1" [numScroll]="1" [circular]="true">
+          <p-carousel [value]="images$ | async" [numVisible]="1" [numScroll]="1" [circular]="true" [class.disable-navigator] = "(images$ | async).length == 1 || (images$ | async).length == 0">
             <ng-template let-image pTemplate="item">
                 <div class="image-item">
                     <div class="image-item-content">
@@ -56,7 +56,7 @@
           <button class="btn-download">
             <svg-icon [src]="downloadBtn"></svg-icon>
           </button> -->
-          <button class="btn-primary-small" routerLink="/part-store/order-list/add-order-list"><i>+</i><a>{{'forms.order' | translate}}</a></button>
+          <button class="btn-primary-small" [routerLink]="fleetType+'/add-order'"><i>+</i><a>{{'forms.order' | translate}}</a></button>
         </div>
         <app-table (onPagination)="eventPagination_partListItem()" pagination="part-list-item" [setting]="partListItemTable" [tableData]="partListItemTableData$"></app-table>
       </div>

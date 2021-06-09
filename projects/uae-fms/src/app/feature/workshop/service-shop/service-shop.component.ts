@@ -30,35 +30,35 @@ export class ServiceShopComponent implements OnInit {
       filterTagColor: '',
       filterTitle: 'statistic.calendar',
       isCalendar: true,
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '15',
       filterTagColor: '#6EBFB5',
       filterTitle: 'statistic.total',
       filterSupTitle: 'statistic.insurance_claim',
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '15',
       filterTagColor: '#6870B4',
       filterTitle: 'statistic.approved',
       filterSupTitle: 'statistic.insurance_claim',
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '10',
       filterTagColor: '#BA7967',
       filterTitle: 'statistic.waiting_for_approval',
       filterSupTitle: 'statistic.insurance_claim',
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '30',
       filterTagColor: '#DD5648',
       filterTitle: 'statistic.rejected',
       filterSupTitle: 'statistic.insurance_claim',
-      onActive: () => { }
+      onActive: () => {}
     }
   ];
 
@@ -68,35 +68,35 @@ export class ServiceShopComponent implements OnInit {
       filterTagColor: '',
       filterTitle: 'statistic.this_month',
       isCalendar: true,
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterTitle: 'statistic.total',
       filterSupTitle: 'statistic.job_card',
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '8',
       filterTagColor: '#6870B4',
       filterTitle: 'statistic.approved',
       filterSupTitle: 'statistic.workshop_manager',
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#BA7967',
       filterTitle: 'statistic.waiting_for_approval',
       filterSupTitle: 'statistic.workshop_manager',
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#DD5648',
       filterTitle: 'statistic.rejected',
       filterSupTitle: 'statistic.workshop_manager',
-      onActive: () => { }
+      onActive: () => {}
     }
   ];
 
@@ -106,28 +106,28 @@ export class ServiceShopComponent implements OnInit {
       filterTagColor: '',
       filterTitle: 'statistic.this_month',
       isCalendar: true,
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterTitle: 'statistic.total',
       filterSupTitle: 'statistic.technician',
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '8',
       filterTagColor: '#6870B4',
       filterTitle: 'statistic.available',
       filterSupTitle: 'statistic.technician',
-      onActive: () => { }
+      onActive: () => {}
     },
     {
       filterCount: '13',
       filterTagColor: '#BA7967',
       filterTitle: 'statistic.unavailable',
       filterSupTitle: 'statistic.technician',
-      onActive: () => { }
+      onActive: () => {}
     }
   ];
 
@@ -158,7 +158,8 @@ export class ServiceShopComponent implements OnInit {
           plateNumber:
             y.plateNumber != null ? y.plateNumber : 'Without Plate Number',
           department: y.department.name,
-          operatorName: y.operator.firstName + ' ' + y.operator.lastName
+          operatorName: y.operator.firstName + ' ' + y.operator.lastName,
+          assetTypeName: y.assetConfigurationName
         };
       });
     })
@@ -277,7 +278,7 @@ export class ServiceShopComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => { },
+      onClick: (col, data, button?) => {},
       floatButton: [
         {
           button: 'folder-check',
@@ -288,10 +289,11 @@ export class ServiceShopComponent implements OnInit {
           },
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
-            this.router.navigate(['/workshop/service-shop/add-job-card'], {
-              queryParams: { assetId: data.assetId }
-            });
-          }
+            this.router.navigate([
+              '/workshop/service-shop/' + data.id + '/add-job-card'
+            ]);
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_JOB_CARD_OPEN_CLOSE']
         },
         {
           button: 'external',
@@ -300,7 +302,8 @@ export class ServiceShopComponent implements OnInit {
             this.router
               .navigate(['/workshop/service-shop/request-overview/' + data.id])
               .then();
-          }
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OWN' , 'WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS']
         }
         // {
         //   button: 'edit',
@@ -377,19 +380,23 @@ export class ServiceShopComponent implements OnInit {
         {
           button: 'external',
           onClick: (col, data) => {
-            this.router.navigate(['/workshop/service-shop/job-card-overview/' + data.id]).then();
-          }
+            this.router
+              .navigate(['/workshop/service-shop/job-card-overview/' + data.id])
+              .then();
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_JOB_CARD_VIEW_DETAILS']
         },
         {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
-            console.log(data)
+            console.log(data);
             this._facadeJobCard.resetParams();
             this.router.navigate([
               '/workshop/service-shop/edit-job-card/' + data.id
             ]);
-          }
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_JOB_CARD_UPDATE']
         }
       ]
     }
@@ -448,7 +455,7 @@ export class ServiceShopComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => { },
+      onClick: (col, data, button?) => {},
       floatButton: [
         {
           button: 'edit',
@@ -458,7 +465,8 @@ export class ServiceShopComponent implements OnInit {
             this.router.navigate([
               '/workshop/service-shop/edit-technician/' + data.id
             ]);
-          }
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_TECHNICIAN_UPDATE']
         }
         /* {
           button: 'external',
@@ -468,7 +476,8 @@ export class ServiceShopComponent implements OnInit {
             this.router.navigate([
               '/workshop/service-shop/technician/' + data.id
             ]);
-          }
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_TECHNICIAN_VIEW_DETAILS']
         } */
       ]
     }
@@ -515,9 +524,44 @@ export class ServiceShopComponent implements OnInit {
         type: ColumnType.lable,
         width: 100,
         sortable: true
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
-    data: []
+    data: [],
+    rowSettings: {
+      onClick: (col, data, button?) => {},
+      floatButton: [
+        {
+          button: 'edit',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this._facadeLocation.resetParams();
+            this.router.navigate([
+              '/workshop/service-shop/edit-location/' + data.id
+            ]);
+          },
+          permission:['WORKSHOP_BODY_SHOP_LOCATION_UPDATE']
+        }
+        /* {
+          button: 'external',
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this._facadeRequest.resetParams();
+            this.router.navigate([
+              '/workshop/body-shop/technician/' + data.id
+            ]);
+          },
+          permission:['WORKSHOP_BODY_SHOP_LOCATION_VIEW_DETAILS']
+        } */
+      ]
+    }
   };
   //#endregion
 
@@ -548,7 +592,7 @@ export class ServiceShopComponent implements OnInit {
     private _facadeTechnician: ServiceShopTechnicianFacade,
     private _facadeLocation: ServiceShopLocationFacade,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this._facadeRequest.loadAll();
@@ -615,7 +659,11 @@ export class ServiceShopComponent implements OnInit {
           assetTypeName: 'assetTypeName',
           numberOfActiveRequests: 'numberOfActiveRequests'
         };
-        this.table.exportTable(this.table1Setting, 'Service Shop - Request Tab', filter);
+        this.table.exportTable(
+          this.table1Setting,
+          'Service Shop - Request Tab',
+          filter
+        );
         break;
       case 'jobcardTab':
         filter = {
@@ -626,7 +674,11 @@ export class ServiceShopComponent implements OnInit {
           cost: 'cost',
           technician: 'technician'
         };
-        this.table.exportTable(this.table2Setting, 'Service Shop - JobCard Tab', filter);
+        this.table.exportTable(
+          this.table2Setting,
+          'Service Shop - JobCard Tab',
+          filter
+        );
         break;
       case 'technicianTab':
         filter = {
@@ -636,8 +688,12 @@ export class ServiceShopComponent implements OnInit {
           tasks: 'tasks',
           information: 'information.email|information.phoneNumber',
           ratePerHour: 'ratePerHour'
-        }
-        this.table.exportTable(this.table3Setting, 'Service Shop - Technician Tab', filter);
+        };
+        this.table.exportTable(
+          this.table3Setting,
+          'Service Shop - Technician Tab',
+          filter
+        );
         break;
       case 'locationTab':
         filter = {
@@ -647,8 +703,12 @@ export class ServiceShopComponent implements OnInit {
           jobCard: 'jobCard',
           technician: 'technician',
           capacity: 'capacity'
-        }
-        this.table.exportTable(this.table4Setting, 'Service Shop - Location Tab', filter);
+        };
+        this.table.exportTable(
+          this.table4Setting,
+          'Service Shop - Location Tab',
+          filter
+        );
         break;
     }
   }

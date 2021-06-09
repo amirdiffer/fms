@@ -52,16 +52,18 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data, button?) => {
-        this.router
-          .navigate(
-            ['/configuration/usage-category/edit-usage-category/'+data.id])
-          .then();
-      },
+
       floatButton: [
         {
           button: 'edit',
-          color: '#3F3F3F'
+          color: '#3F3F3F',
+          onClick: (col, data, button?) => {
+            this.router
+              .navigate(
+                ['/configuration/usage-category/edit-usage-category/'+data.id])
+              .then();
+          },
+          permission:['BUSINESS_CATEGORY_UPDATE']
         }
       ]
     }

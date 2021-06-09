@@ -247,9 +247,6 @@
         color: rgba(255, 255, 255, 0.6) !important;
       }
     }
-    button.btn-scondary-green {
-      background: #121212;
-    }
     input,
     .p-inputtext {
       color: $fms-black-body-color;
@@ -311,6 +308,22 @@
       padding: 1em 0;
       background-color: $fms-black-body2-bg;
     }
+  }
+  p-dialog{
+    .p-dialog-content , .p-dialog-footer{
+      background-color: $fms-black-body2-bg;
+      color:#acacac !important
+    }
+  }
+  mat-dialog-container{
+    background-color: $fms-black-body2-bg !important;
+  }
+  p-accordion{
+    .p-accordion-header-link,
+    .p-accordion-content{
+      color: #acacac !important;
+    }
+
   }
 }
 /* Light Mode */
@@ -430,7 +443,7 @@
   }
   .filter {
     .filter-title {
-      font-size: 0.9em;
+      font-size: 0.8em;
     }
     .filter-supTitle {
       font-size: 0.6em;
@@ -492,7 +505,7 @@
   @include buttons(0.9em, 2.8em);
 }
 .btn-scondary-green {
-  background-color: #fff;
+  background-color: transparent;
   color: $fms-green-button-bg;
   &:hover:not([disabled]) {
     background: transparentize($color: $fms-green-button-bg, $amount: 0.9);

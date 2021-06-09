@@ -111,6 +111,7 @@ export class MovementTemporaryConfirmComponent
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
+        this.dialogErrorSetting.message = x.error.message!=""?x.error.message:"Error occurred during operation";
       }
     });
   }
@@ -120,7 +121,7 @@ export class MovementTemporaryConfirmComponent
     this.assetSuggests = this.assetSuggestsB.filter(
       (x) =>
         (x.id + '').indexOf(event.query) >= 0 ||
-        x.name.indexOf(event.query) >= 0
+        x.name.toLocaleLowerCase().indexOf(event.query.toLocaleLowerCase()) >= 0
     );
   }
 
@@ -129,7 +130,7 @@ export class MovementTemporaryConfirmComponent
     this.operatorSuggests = this.operatorSuggestsB.filter(
       (x) =>
         (x.id + '').indexOf(event.query) >= 0 ||
-        x.name.indexOf(event.query) >= 0
+        x.name.toLocaleLowerCase().indexOf(event.query.toLocaleLowerCase()) >= 0
     );
   }
 
@@ -138,7 +139,7 @@ export class MovementTemporaryConfirmComponent
     this.organizationSuggests = this.organizationSuggestsB.filter(
       (x) =>
         (x.id + '').indexOf(event.query) >= 0 ||
-        x.name.indexOf(event.query) >= 0
+        x.name.toLocaleLowerCase().indexOf(event.query.toLocaleLowerCase()) >= 0
     );
   }
 
@@ -178,7 +179,7 @@ export class MovementTemporaryConfirmComponent
   successConfirm($event) {
     this.displayErrorModal = false;
     this.displaySuccessModal = false;
-    this.dialogRef.close();
+    this.dialogRef.close(true);
     this._requestFacade.reset();
   }
 }

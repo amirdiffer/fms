@@ -49,42 +49,55 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.dashboard',
       icon: 'dashboard',
       route: '/dashboard',
-      disabled: true
+      permission:{parent: 'DASHBOARD' , permission : 'DASHBOARD', permissionType:'MENU'},
     },
     {
       name: 'sidebar.fleets.~',
       icon: 'fleets',
       route: '/fleet',
+      permission:{parent: 'FLEET' , permission : 'FLEET', permissionType:'MENU'},
       items: [
         {
           name: 'sidebar.fleets.assets',
           icon: 'car-solid',
-          route: '/fleet/assets'
+          route: '/fleet/assets',
+          permissionType:'MENU',
+          permission:{parent: 'FLEET' , permission : 'ASSET' , permissionType:'MENU'}
         },
         {
           name: 'sidebar.fleets.sub_assets',
           icon: 'sub-assets',
-          route: '/fleet/sub-asset'
+          route: '/fleet/sub-asset',
+          permissionType:'MENU',
+          permission:{parent: 'FLEET' , permission : 'SUB_ASSET', permissionType:'MENU'}
         },
         {
           name: 'sidebar.fleets.accessory',
           icon: 'accessory',
-          route: '/fleet/accessory'
+          route: '/fleet/accessory',
+          permissionType:'MENU',
+          permission:{parent: 'FLEET' , permission : 'ACCESSORY', permissionType:'MENU'}
         },
         {
           name: 'sidebar.fleets.operator',
           icon: 'operator',
-          route: '/fleet/operator'
+          route: '/fleet/operator',
+          permissionType:'MENU',
+          permission:{parent: 'FLEET' , permission : 'OPERATOR', permissionType:'MENU'}
         },
         {
           name: 'sidebar.fleets.department',
           icon: 'organization',
-          route: '/fleet/department'
+          route: '/fleet/department',
+          permissionType:'MENU',
+          permission:{parent: 'FLEET' , permission : 'DEPARTMENT', permissionType:'MENU'}
         },
         {
           name: 'sidebar.fleets.movement.~',
           icon: 'movement',
           route: '/fleet/movement',
+          permissionType:'MENU',
+          permission:{parent: 'FLEET' , permission : 'MOVEMENT', permissionType:'MENU'},
           items: [
             {
               name: 'sidebar.fleets.movement.permanent',
@@ -93,7 +106,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             {
               name: 'sidebar.fleets.movement.temporary',
               route: '/fleet/movement/temporary'
-            },
+            }
             /* {
               name: 'sidebar.fleets.movement.iserve',
               route: '/fleet/movement/iserve'
@@ -106,30 +119,51 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.fuel_management',
       icon: 'fuel',
       route: '/fuel-management',
-      disabled: true
+      disabled: true ,
+      permission:{parent: 'FUEL_MANAGEMENT' , permission : 'FUEL_MANAGEMENT', permissionType:'MENU'},
     },
     {
       name: 'sidebar.traffic_fine',
       icon: 'traffic',
       route: '/traffic-fine',
-      disabled: true
+      disabled: true,
+      permission:{parent: 'TRRAFIC_FINE' , permission : 'TRRAFIC_FINE', permissionType:'MENU'},
     },
-    { name: 'sidebar.toll', icon: 'toll', route: '/toll', disabled: true },
+    {
+      name: 'sidebar.toll',
+      icon: 'toll',
+      route: '/toll',
+      disabled: true,
+      permission:{parent: 'TOLL' , permission : 'TOLL', permissionType:'MENU'},
+    },
     {
       name: 'sidebar.workshop.~',
       icon: 'workshop',
       route: '/workshop',
+      permission:{parent: 'WORKSHOP' , permission : 'WORKSHOP', permissionType:'MENU'},
       items: [
         {
           name: 'sidebar.workshop.body_shop',
           icon: 'body-shop',
-          route: '/workshop/body-shop'
+          route: '/workshop/body-shop',
+          permission:{parent: 'WORKSHOP' , permission : 'BODYSHOP', permissionType:'MENU'},
         },
         {
           name: 'sidebar.workshop.service_shop',
           icon: 'service-shop',
-          route: '/workshop/service-shop'
-          // disabled: true
+          route: '/workshop/service-shop',
+          permission:{parent: 'WORKSHOP' , permission : 'SERVICESHOP', permissionType:'MENU'},
+        },
+        {
+          name: 'sidebar.workshop.location',
+          icon: 'location',
+          route: '/workshop/location',
+          permission:{parent: 'WORKSHOP' , permission : 'LOCATION', permissionType:'MENU'},
+        },
+        {
+          name: 'sidebar.workshop.location',
+          icon: 'location',
+          route: '/workshop/location'
         },
         /* {
           name: 'sidebar.workshop.inspection.~',
@@ -149,7 +183,8 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.workshop.task_master',
           icon: 'task-master',
-          route: '/workshop/task-master'
+          route: '/workshop/task-master',
+          permission:{parent: 'WORKSHOP' , permission : 'TASKMASTER', permissionType:'MENU'},
         }
       ]
     },
@@ -157,16 +192,19 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.part_store.~',
       icon: 'part-store',
       route: '/part-store',
+      permission:{parent: 'PART_STORE' , permission : 'PART_STORE', permissionType:'MENU'},
       items: [
         {
           name: 'sidebar.part_store.part_list',
           icon: 'part-list',
           route: '/part-store/part-list',
+          permission:{parent: 'PART_STORE' , permission : 'PART_LIST', permissionType:'MENU'},
         },
         {
           name: 'sidebar.part_store.order_list',
           icon: 'order-list',
           route: '/part-store/order-list',
+          permission:{parent: 'PART_STORE' , permission : 'ORDER_LIST', permissionType:'MENU'},
           items: [
             {
               name: 'sidebar.part_store.asset',
@@ -175,13 +213,14 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             {
               name: 'sidebar.part_store.sub_asset',
               route: '/part-store/order-list/sub-asset'
-            },
+            }
           ]
         },
         {
           name: 'sidebar.part_store.part_master',
           icon: 'part-master',
-          route: '/part-store/part-master'
+          route: '/part-store/part-master',
+          permission:{parent: 'PART_STORE' , permission : 'PART_MASTER', permissionType:'MENU'},
         }
       ]
     },
@@ -195,11 +234,13 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.configuration.~',
       icon: 'configuration',
       route: '/configuration',
+      permission:{parent: 'CONFIGURATION' , permission : 'CONFIGURATION', permissionType:'MENU'},
       items: [
         {
           name: 'sidebar.configuration.user_management.~',
           icon: 'userManagement',
           route: '/configuration/user-management',
+          permission:{parent: 'CONFIGURATION' , permission : 'USER_MANAGEMENT', permissionType:'MENU'},
           items: [
             {
               name: 'sidebar.configuration.user_management.role_permission',
@@ -222,22 +263,26 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.configuration.asset_policy',
           icon: 'asset-policy',
-          route: '/configuration/asset-policy'
+          route: '/configuration/asset-policy',
+          permission:{parent: 'CONFIGURATION' , permission : 'ASSET_POLICY', permissionType:'MENU'},
         },
         {
           name: 'sidebar.configuration.asset_configuration',
           icon: 'cog',
-          route: '/configuration/asset-configuration'
+          route: '/configuration/asset-configuration',
+          permission:{parent: 'CONFIGURATION' , permission : 'FLEET_CONFIGURATION', permissionType:'MENU'},
         },
         {
           name: 'sidebar.configuration.business_category',
           icon: 'business',
-          route: '/configuration/usage-category'
+          route: '/configuration/usage-category',
+          permission:{parent: 'CONFIGURATION' , permission : 'USAGE_CATEGORY', permissionType:'MENU'},
         },
         {
           name: 'sidebar.configuration.ownership',
           icon: 'copyright-solid',
-          route: '/configuration/ownership'
+          route: '/configuration/ownership',
+          permission:{parent: 'CONFIGURATION' , permission : 'OWNERSHIP', permissionType:'MENU'},
         },
         /* {
           name: 'sidebar.configuration.fleet_status',
@@ -248,15 +293,17 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.configuration.periodic_service',
           icon: 'periodic-service',
-          route: '/configuration/periodic-service'
+          route: '/configuration/periodic-service',
+          permission:{parent: 'CONFIGURATION' , permission : 'PERIODIC_SERVICE', permissionType:'MENU'},
         }
       ]
     },
-    {
+     {
       name: 'sidebar.integrations',
       icon: 'integrations',
       route: '/integration',
-      disabled: true
+      disabled: true,
+      permission:{parent: 'INTEGRATION' , permission : 'INTEGRATION', permissionType:'MENU'},
     }
   ];
 
@@ -280,7 +327,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     private routerService: RouterService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.usingMenu = this.mainMenu;
@@ -317,7 +364,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       }
   }
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {}
 
   activeMenuCheck(route: string) {
     let r = '';

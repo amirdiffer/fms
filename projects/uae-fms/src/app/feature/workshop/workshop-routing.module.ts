@@ -1,37 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TaskMasterComponent } from './task-master/task-master.component';
-import { TaskMasterFormComponent } from './task-master-form/task-master-form.component';
-import { AuctionListComponent } from './inspections/auction-list/auction-list.component';
-import { TechnicalInspectionComponent } from './inspections/technical-inspection/technical-inspection.component';
-import { TechnicalOverviewComponent } from '@feature/workshop/inspections/technical-inspection/technical-overview/technical-overview.component';
-
 const routes: Routes = [
-  {
-    path: 'task-master',
-    component: TaskMasterComponent
-  },
-  {
-    path: 'inspections/auction-list',
-    component: AuctionListComponent
-  },
-  {
-    path: 'task-master/add-task-master',
-    component: TaskMasterFormComponent
-  },
-  {
-    path: 'task-master/edit-task-master/:id',
-    component: TaskMasterFormComponent
-  },
-  {
-    path: 'inspections/technical-inspection',
-    component: TechnicalInspectionComponent
-  },
-  {
-    path: 'inspections/technical-inspection-report/:id',
-    component: TechnicalOverviewComponent
-  },
+  
+  
   {
     path: 'body-shop',
     loadChildren: () =>
@@ -44,11 +16,26 @@ const routes: Routes = [
         (m) => m.ServiceShopModule
       )
   },
-  /* {
-    path: 'inspections',
-    redirectTo: 'inspections/technical-inspection'
-  }, */
-  { path: '', redirectTo: 'body-shop' }
+  {
+    path: 'location',
+    loadChildren: () =>
+      import('./location/location.module').then((m) => m.LocationModule)
+  },
+
+  {
+    path: 'task-master',
+    loadChildren: () =>
+      import('./task-master/task-master.module').then((m) => m.TaskMasterModule)
+  },
+
+  {
+    path:'inspections',
+    loadChildren: () =>
+      import('./inspections/inspections.module').then((m) => m.InspectionsModule)
+  }
+
+
+
 ];
 
 @NgModule({

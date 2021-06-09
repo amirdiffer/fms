@@ -56,6 +56,22 @@ const subAssetReducer = createReducer(
     ...state,
     submitted: true
   })),
+
+  /* Asset By Id */
+  on(SubAssetActions.subAssetById, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null
+  })),
+  on(SubAssetActions.subAssetByIdLoaded, (state, { data }) => ({
+    ...state,
+    loaded: true,
+    error: null,
+    specificSubAsset: data
+  })),
+
+
   on(SubAssetActions.reset, (state) => ({
     ...state,
     submitted: false,

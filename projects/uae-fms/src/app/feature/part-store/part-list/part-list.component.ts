@@ -148,6 +148,7 @@ export class PartListComponent implements OnInit , OnDestroy {
               queryParams: { fleetType: data.fleetType.toLowerCase()}
             });
           },
+          permission:['PARTSTORE_PART_VIEW_DETAILS']
         }
       ]
     }

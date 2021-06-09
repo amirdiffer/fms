@@ -55,7 +55,22 @@ const assetPolicyReducer = createReducer(
     error: null,
     submitted: false,
     message: null
-  }))
+  })),
+
+  on(AssetPolicyActions.getSpecificAssetPolicy, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+    message: null,
+    specific:null
+  })),
+
+  on(AssetPolicyActions.specificAssetPolicyLoaded, (state, { data }) => ({
+    ...state,
+    loaded: true,
+    error: null,
+    specific: data
+  })),
 );
 
 export function reducer(state: AssetPolicyState, action: Action) {

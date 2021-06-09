@@ -32,6 +32,11 @@ export class AssetPolicySelectors {
     ConfigurationSelectors.assetPolicySelector,
     (state) => state.submitted
   );
+  
+  static specificAssetPolicy = createSelector(
+    ConfigurationSelectors.assetPolicySelector,
+    (state) => state.specific
+  );
 
   static selectById = createSelector(
     AssetPolicySelectors.selectAll,

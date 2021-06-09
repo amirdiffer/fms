@@ -287,7 +287,7 @@ export class MovementService {
 
   assetTypes(): Observable<ResponseBody<IAssetType[]>> {
     return this._http.get<ResponseBody<IAssetType[]>>(
-      environment.baseApiUrl + '/configuration/asset-type'
+      environment.baseApiUrl + '/configuration/fleet-configuration/asset'
     );
   }
 

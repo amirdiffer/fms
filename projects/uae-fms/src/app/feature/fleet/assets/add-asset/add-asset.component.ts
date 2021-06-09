@@ -37,6 +37,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   assetId = -1;
   calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   closeIcon = 'assets/icons/times.svg';
+  avatarDocId;
   singleAsset: boolean = false;
   submitted_AssetDetail = false;
   submitted_Financial = false;
@@ -97,6 +98,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   public vehicleDocRequired = false;
   public purchaseDocRequired = false;
   public maintenanceServiceDocRequired = false;
+  public thumbnailRequired = false;
   public warrantyDocsRequired: boolean[] = [];
 
   //#region  Dialog
@@ -555,7 +557,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.formGroupGenerate = this._fb.group({
       quantity: ['multipleAsset', Validators.compose([Validators.required])],
       serialNumber: [''],
-      uploadFile: ['']
+      uploadFile: [''],
+      avatarId: ['']
     });
 
     // Request to Server - Error
@@ -633,6 +636,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       if (index > 9) {
         break;
       }
+      if (this.reviewPlaneSettingTable2.data.length > 0 && this.reviewPlaneSettingTable2.data[this.reviewPlaneSettingTable2.data.length - 1].bookValue <= 0) {
+        break;
+      }
 
       value = value - newValue;
       kmBookValue = kmBookValue - newValue;
@@ -647,12 +653,23 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         continue;
       }
 
-      const data = {
-        year: index + 1,
-        bookValue: Math.round(value)
-      };
+      if (value > 0) {
+        const data = {
+          year: index + 1,
+          bookValue: Math.round(value)
+        };
 
-      this.reviewPlaneSettingTable2.data.push(data);
+        this.reviewPlaneSettingTable2.data.push(data);
+      }
+      else {
+        const data = {
+          year: index + 1,
+          bookValue: 0
+        };
+
+        this.reviewPlaneSettingTable2.data.push(data);
+        break;
+      }
     }
   }
 
@@ -749,14 +766,19 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     ) {
       this.maintenanceServiceDocRequired = true;
       return;
+    } else if (
+      !this.avatarDocId
+    ) {
+      this.thumbnailRequired = true;
+      return;
     } else {
       let formVal_AssetDetail = this.formGroupAssetDetail.getRawValue();
       let data = [];
       let DPD = this.dpdGenerate(formVal_AssetDetail.businessInfo.ownership);
-      for (let index = 0; index < this.csvText.length; index++) {
+      for (let index = 0; index < this.csvText.length - 1; index++) {
         data.push({
           asset: {
-            img: 'assets/thumb1.png',
+            img: this.avatarDocId,
             assetName: this.assetType.name,
             assetSubName: DPD[index],
             ownership: formVal_AssetDetail.businessInfo.ownership.name.toLowerCase()
@@ -858,7 +880,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       return;
     }
     let data = {
-      avatarId: 1,
+      avatarId: this.avatarDocId,
       businessCategoryId: formVal_AssetDetail.businessInfo.businessCategory.id,
       ownershipId: formVal_AssetDetail.businessInfo.ownership.id,
       year: formVal_AssetDetail.assetDetails.year,
@@ -885,6 +907,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     if (this.isEdit) {
       let formValue = {
         ...data,
+        avatarId: this.avatarDocId,
         id: this.id,
         dpd: this._asset.dpd
       };
@@ -896,6 +919,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
       let formValue = {
         ...data,
+        avatarId: this.avatarDocId,
         dpds:
           formVal_Generate.quantity == 'multipleAsset'
             ?
@@ -1003,6 +1027,13 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     });
   }
 
+  uploadImage($event) {
+    if (!$event || !$event.files) {
+      return;
+    }
+    const docId = $event.files[0];
+    this.avatarDocId = docId;
+  }
 
   editFormGetValues() {
     this._facade.specificAsset$.subscribe(
@@ -1056,7 +1087,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           });
           console.log(this.formGroupAssetDetail.getRawValue())
           this.onChangePeriodicService({ id: x.periodicServiceId });
-          this._asset = x
+          this._asset = x;
+          this.avatarDocId = x.avatarId;
           this.editPatchValue(x);
         }
       }

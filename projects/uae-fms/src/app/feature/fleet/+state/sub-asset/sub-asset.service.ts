@@ -9,13 +9,14 @@ import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class SubAssetService {
-  constructor(private http: HttpClient, private _tableFacade: TableFacade) {}
+  constructor(private http: HttpClient, private _tableFacade: TableFacade) { }
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
@@ -24,7 +25,8 @@ export class SubAssetService {
 
   loadAll(): Observable<ResponseBody<ISubasset[]>> {
     return this.http.get<ResponseBody<ISubasset[]>>(
-      environment.baseApiUrl + 'sub-asset', {params: this.getParam('sub-asset')}
+      environment.baseApiUrl + 'sub-asset',
+      { params: this.getParam('sub-asset') }
     );
   }
 
@@ -61,6 +63,18 @@ export class SubAssetService {
   loadFullList(): Observable<ResponseBody<ISubasset[]>> {
     return this.http.get<ResponseBody<ISubasset[]>>(
       environment.baseApiUrl + 'sub-asset?page=0&size=99999999'
+    );
+  }
+
+  getSpecificSubAsset(id): Observable<any> {
+    return this.http.get<Observable<any>>(
+      environment.baseApiUrl + 'sub-asset/' + id
+    );
+  }
+
+  subAssetOverview(): Observable<ResponseBody<any>> {
+    return this.http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'sub-asset/overview'
     );
   }
 }

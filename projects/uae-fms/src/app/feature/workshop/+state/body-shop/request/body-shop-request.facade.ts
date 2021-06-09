@@ -7,9 +7,15 @@ import { BodyShopRequestSelectors } from './body-shop-request.selectors';
 @Injectable()
 export class BodyShopRequestFacade {
   bodyShop$ = this.store.pipe(select(BodyShopRequestSelectors.selectAll));
+
   requestsById$ = this.store.pipe(select(BodyShopRequestSelectors.requests));
+
   assetRequest$ = this.store.pipe(
     select(BodyShopRequestSelectors.assetRequest)
+  );
+
+  spicificRequest$ = this.store.pipe(
+    select(BodyShopRequestSelectors.specificRequest)
   );
 
   statistics$ = this.store.pipe(
@@ -47,6 +53,10 @@ export class BodyShopRequestFacade {
 
   getRequestsById(id: number) {
     this.store.dispatch(BodyShopRequestActions.loadAllRequestsById({ id }));
+  }
+
+  getSpecificRequest(id: number) {
+    this.store.dispatch(BodyShopRequestActions.getSpecificRequest({ id }));
   }
 
   getAssetRequest(assetId: number) {

@@ -16,7 +16,7 @@
                         <span class="p-float-label">
                             <input pInputText placeholder="{{ 'tables.column.plate_number' | translate }}"
                                 formControlName="plateNumber"
-                                type="text"
+                                type="number"
                                 [class.invalid]="inputForm.get('plateNumber').invalid && submitted">
                             <label>{{ 'tables.column.plate_number' | translate }}</label>
                         </span>
@@ -31,7 +31,7 @@
                     <div class="p-field form-section__field">
                         <span class="p-float-label">
                             <input pInputText placeholder="{{ 'assets.insurance_number' | translate }}"
-                                type="text" formControlName="insuranceNumber"
+                                type="number" formControlName="insuranceNumber"
                                 [class.invalid]="inputForm.get('insuranceNumber').invalid && submitted">
                             <label>{{ 'assets.insurance_number' | translate }}</label>
                         </span>

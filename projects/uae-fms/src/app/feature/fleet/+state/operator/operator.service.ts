@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IOperator } from '@models/operator';
+import { IOperator, IOperatorDrivingLicense } from '@models/operator';
 import { ResponseBody } from '@models/responseBody';
-import { IOperatorStatistics } from '@models/statistics';
+import { IOperatorOverview, IOperatorStatistics } from '@models/statistics';
 import { environment } from '@environments/environment';
 import { TableFacade } from '@core/table/+state/table.facade';
 
@@ -58,6 +58,20 @@ export class OperatorService {
   getOperatorById(id) {
     return this.http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'configuration/user/' + id
+    );
+  }
+
+  operatorOverview(): Observable<ResponseBody<IOperatorOverview>> {
+    return this.http.get<ResponseBody<IOperatorOverview>>(
+      environment.baseApiUrl + 'operator/overview'
+    );
+  }
+
+  getOperatorsDrivingLicence(
+    id: number
+  ): Observable<ResponseBody<IOperatorDrivingLicense>> {
+    return this.http.get<ResponseBody<IOperatorDrivingLicense>>(
+      environment.baseApiUrl + 'operator/' + id + '/driver-license'
     );
   }
 }

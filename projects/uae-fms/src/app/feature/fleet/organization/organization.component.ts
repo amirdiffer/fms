@@ -91,7 +91,8 @@ export class OrganizationComponent implements OnInit {
             this.router.navigate([
               '/fleet/department/edit-department/' + data.id
             ]);
-          }
+          },
+          permission:['ORGANIZATION_UPDATE']
         },
         {
           button: 'external',
@@ -100,7 +101,8 @@ export class OrganizationComponent implements OnInit {
             this.router.navigate([
               '/fleet/department/department-overview/' + data.id
             ]);
-          }
+          },
+          permission:['ORGANIZATION_VIEW_DETAILS' , 'ORGANIZATION_VIEW_USERS' , 'ORGANIZATION_VIEW_TRAFFIC_FINES' , 'ORGANIZATION_VIEW_MOVEMENT_HISTORY']
         },
       ]
     }

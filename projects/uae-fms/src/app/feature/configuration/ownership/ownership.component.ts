@@ -58,7 +58,8 @@ export class OwnershipComponent implements OnInit {
             this.router.navigate([
               '/configuration/ownership/edit-ownership/' + data.id
             ]);
-          }
+          },
+          permission:['OWNERSHIP_UPDATE']
         }
       ]
     }

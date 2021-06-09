@@ -35,6 +35,10 @@ export interface IOperatorStatistics extends IGeneralResponse {
   result_number: number;
 }
 
+export interface IOperatorTrafficFineStatistics extends IGeneralResponse {
+  result_number: number;
+}
+
 export interface ISubAssetStatistics extends IGeneralResponse {
   result_number: number;
   total: number;
@@ -78,4 +82,13 @@ export interface IPartListStatistics extends IGeneralResponse {
     need_to_order: number;
     unavailable: number;
   };
+}
+
+export interface IOperatorOverview {
+  totalNumOfOperators?: number;
+  totalAmountOfFines?: number;
+  numOfActiveOperators?: number;
+  numOfInactiveOperators?: number;
+  lowestFinedOperator?: object;
+  highestFinedOperator?: object;
 }

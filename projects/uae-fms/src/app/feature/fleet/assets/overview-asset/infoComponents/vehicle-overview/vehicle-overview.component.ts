@@ -2,18 +2,26 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
-  ApexDataLabels, ApexFill,
+  ApexDataLabels,
+  ApexFill,
   ApexGrid,
   ApexLegend,
-  ApexMarkers, ApexNonAxisChartSeries, ApexPlotOptions,
+  ApexMarkers,
+  ApexNonAxisChartSeries,
+  ApexPlotOptions,
   ApexResponsive,
   ApexStroke,
-  ApexTitleSubtitle, ApexTooltip,
+  ApexTitleSubtitle,
+  ApexTooltip,
   ApexXAxis,
   ApexYAxis,
   ChartComponent
 } from 'ng-apexcharts';
 import { ColumnType } from '@core/table';
+import { map } from 'rxjs/operators';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
+import { CustomizationService } from '@feature/fleet/+state/assets/customization';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-vehicle-overview',
@@ -21,11 +29,13 @@ import { ColumnType } from '@core/table';
   styleUrls: ['../styles.scss']
 })
 export class VehicleOverviewComponent implements OnInit {
-  @Input() vehicleId;
+  @Input() assetID;
   @ViewChild('chart') chart: ChartComponent;
-  chartOptions: Partial<ChartOptions>;
+  chartOptions;
   chartOptionsColumn: Partial<ChartOptions>;
   selectedTab = 'sub_asset';
+  damageList = [];
+  fileServer = environment.baseApiUrl + 'document/';
 
   data = {
     totalKm: 14245,
@@ -130,7 +140,7 @@ export class VehicleOverviewComponent implements OnInit {
     }
   };
   activeLayout = 'menu';
-  tableSetting = {
+  TaskMaster_tableSetting = {
     columns: [
       {
         lable: 'tables.column.task_list',
@@ -141,10 +151,10 @@ export class VehicleOverviewComponent implements OnInit {
       {
         lable: 'tables.column.date',
         field: 'date',
-        width: 100,
+        width: 200,
         type: ColumnType.lable,
         thumbField: '',
-        renderer: ''
+        renderer: 'dateRenderer'
       },
       {
         lable: 'tables.column.technician',
@@ -163,46 +173,9 @@ export class VehicleOverviewComponent implements OnInit {
         renderer: 'statusRenderer'
       }
     ],
-    data: [
-      {
-        task_list: 'Charge Oil After 456 Km',
-        date: '20/20/2020',
-        technician: 'Sam Smith',
-        Status: 'Done'
-      },
-      {
-        task_list: 'Charge Oil After 456 Km',
-        date: '20/20/2020',
-        technician: 'Sam Smith',
-        Status: 'Done'
-      },
-      {
-        task_list: 'Charge Oil After 456 Km',
-        date: '20/20/2020',
-        technician: 'Sam Smith',
-        Status: 'Todo'
-      },
-      {
-        task_list: 'Charge Oil After 456 Km',
-        date: '20/20/2020',
-        technician: 'Sam Smith',
-        Status: 'Doing'
-      },
-      {
-        task_list: 'Charge Oil After 456 Km',
-        date: '20/20/2020',
-        technician: 'Sam Smith',
-        Status: 'Start'
-      },
-      {
-        task_list: 'Charge Oil After 456 Km',
-        date: '20/20/2020',
-        technician: 'Sam Smith',
-        Status: 'Start'
-      }
-    ]
+    data: []
   };
-  tableSetting2 = {
+  SubAsset_tableSetting = {
     columns: [
       {
         lable: 'tables.column.name',
@@ -226,97 +199,176 @@ export class VehicleOverviewComponent implements OnInit {
         renderer: 'statusRenderer'
       }
     ],
-    data: [
+    data: []
+  };
+  Accessory_tableSetting = {
+    columns: [
       {
-        name: 'First Camera',
-        s_n: '4894949849',
-        Status: 'Install'
+        lable: 'tables.column.name',
+        field: 'name',
+        type: ColumnType.lable,
+        thumbField: ''
       },
+      // {
+      //   lable: 'tables.column.s_n',
+      //   field: 's_n',
+      //   type: ColumnType.lable,
+      //   thumbField: '',
+      //   renderer: ''
+      // },
       {
-        name: 'Second Camera',
-        s_n: '48949498490',
-        Status: 'JobCard'
-      },
-      {
-        name: 'First Camera',
-        s_n: '4894949849',
-        Status: 'Install'
-      },
-      {
-        name: 'First Camera',
-        s_n: '4894949849',
-        Status: 'Install'
-      },
-      {
-        name: 'First Camera',
-        s_n: '4894949849',
-        Status: 'Install'
-      },
-      {
-        name: 'First Camera',
-        s_n: '4894949849',
-        Status: 'Install'
+        lable: 'tables.column.status',
+        field: 'Status',
+        width: 100,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'statusRenderer'
       }
-    ]
+    ],
+    data: []
   };
 
+  chartTrafficFineData = {
+    series: [],
+    labels: []
+  };
+  chartFuelCardData = {
+    series: [],
+    categories: []
+  };
 
-  constructor() {
+  constructor(
+    private assetService: AssetMasterService,
+    private customizationService: CustomizationService
+  ) {
     this.chartOptions = {
-      series: [44, 55, 41],
-      labels: ["Paid", "Unpaid", "Deducted"],
+      series: [],
       chart: {
         type: 'donut',
-        height: 280,
+        width: 350
       },
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: '100%'
-          },
-          legend: {
-            position: 'bottom'
-          }
-        }
-      }],
       plotOptions: {
         pie: {
+          customScale: 1,
+          offsetX: 5,
+          offsetY: 5,
           donut: {
+            size: '70%',
             labels: {
-              show: false,
+              show: true,
+              value: {
+                offsetY: -22,
+                show: true,
+                fontSize: '1.2em',
+                fontFamily: '29LT Bukra - Bold !important',
+                fontWeight: 'bold',
+                opacity: 0.9,
+                
+                // formatter: (w) => {
+                //   return (
+                //     w.globals.seriesTotals.reduce((a, b) => {return a + b}, 0) + ' AED'
+                //   );
+                // }
+              },
               total: {
-                show: false,
+                show: true,
+                offsetY: 4,
                 label: 'Total',
-                color: '#373d3f',
                 showAlways: true,
-                fontFamily: '29LT Bukra',
-                formatter: (w) => {
-                  return w.globals.seriesTotals.reduce((a, b) => {
-                    return a + b
-                  }, 0) + ' AED'
-                }
+                fontSize: '.8em',
+                formatter : (value) => {
+                  return value.globals.seriesTotals.reduce((a, b) => {return a + b}, 0)  + ' AED'
+                },
               },
               name: {
-                offsetY: 18,
-                fontSize: '8px'
-              },
-              value: {
-                offsetY: -15
+                show: true,
+                offsetY: 13,
+                fontSize: '.8em',
+
               }
             }
           }
         }
-      }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      legend: {
+        show: true,
+        position: 'right',
+        horizontalAlign:'left',
+        fontSize: '12px',
+        fontFamily: '29LT Bukra - Bold !important',
+        offsetY: 5,
+        // markers: {
+        //   width: 12,
+        //   height: 12,
+        //   strokeColors:'#F2B06E',
+        //   strokeWidth: 5
+        // }
+      },
+      responsive: [
+        {
+          breakpoint: 1921,
+          options: {
+            chart: {
+              width: 350
+            },
+            legend:{
+              fontSize: '12px',
+              markers: {
+                width: 12,
+                height: 12,
+                
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 1601,
+          options: {
+            chart: {
+              width: 320
+            },
+            legend:{
+              fontSize: '11px',
+              markers: {
+                width: 10,
+                height: 10,
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 1367,
+          options: {
+            chart: {
+              width: 280
+            },
+            legend:{
+              fontSize: '9px',
+              markers: {
+                width: 7,
+                height: 7,
+              } 
+            }
+          }
+        }
+      ],
+      colors: ['#F2B06E', '#0BAF72', '#959595'],
+      labels: []
     };
     this.chartOptionsColumn = {
-      series: [{
-        name: 'Demanded',
-        data: [44, 55, 57, 56, 61, 58]
-      }, {
-        name: 'Consumption',
-        data: [76, 85, 101, 98, 87, 105]
-      }],
+      series: [
+        {
+          name: 'Demanded',
+          data: [44, 55, 57, 56, 61, 58]
+        },
+        {
+          name: 'Consumption',
+          data: [76, 85, 101, 98, 87, 105]
+        }
+      ],
       chart: {
         type: 'bar',
         height: 280,
@@ -327,15 +379,17 @@ export class VehicleOverviewComponent implements OnInit {
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: '20%',
-          endingShape: 'rounded'
-        },
+          columnWidth: '8%',
+          endingShape: 'rounded',
+          distributed:false
+        }
       },
       dataLabels: {
         enabled: false
       },
       legend: {
-        position: 'top'
+        position: 'top',
+        horizontalAlign:'left'
       },
       stroke: {
         show: true,
@@ -343,7 +397,7 @@ export class VehicleOverviewComponent implements OnInit {
         colors: ['transparent']
       },
       xaxis: {
-        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        categories: []
       },
       yaxis: {
         title: {
@@ -353,21 +407,124 @@ export class VehicleOverviewComponent implements OnInit {
       fill: {
         opacity: 1
       },
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200
-          },
-          legend: {
-            position: 'top'
+      responsive: [
+        {
+          breakpoint: 1921,
+          options: {
+            chart: {
+              height: 280
+            },
+            legend:{
+              fontSize: '12px',
+              markers: {
+                width: 12,
+                height: 12,
+                
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 1601,
+          options: {
+            chart: {
+              height: 260
+            },
+            legend:{
+              fontSize: '11px',
+              markers: {
+                width: 10,
+                height: 10,
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 1367,
+          options: {
+            chart: {
+              height: 230
+            },
+            legend:{
+              fontSize: '9px',
+              markers: {
+                width: 7,
+                height: 7,
+              } 
+            }
           }
         }
-      }]
-    }
+      ],
+      colors: ['#F2B06E', '#0BAF72'],
+    };
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.assetService.getAssetTasksByID(this.assetID).subscribe((x) => {
+      let data = x.message;
+      this.TaskMaster_tableSetting.data = (<Array<object>>data).map((x) => {
+        return {
+          task_list: x['name'],
+          date: x['creationDate'],
+          technician:
+            x['technician']['firstName'] + ' ' + x['technician']['lastName'],
+          Status: x['status']
+        };
+      });
+    });
+    this.customizationService
+      .getAssetForCustomizationByAssetId(this.assetID)
+      .subscribe((x) => {
+        console.log(x);
+        let subAsset = x.message.subAssets;
+        let accessories = x.message.accessories;
+        this.SubAsset_tableSetting.data = (<Array<object>>subAsset).map((x) => {
+          return {
+            name: x['subAssetMakeName'] + ' ' + x['subAssetModelName'],
+            s_n: x['subAssetSerialNumber'],
+            Status: x['subAssetId'] != null ? 'Uninstall' : 'Install'
+          };
+        });
+        this.Accessory_tableSetting.data = (<Array<object>>accessories).map(
+          (x) => {
+            return {
+              name: x['accessoryItemName'],
+              Status: x['accessoryId'] != null ? 'Uninstall' : 'Install'
+            };
+          }
+        );
+      });
+    this.assetService.getDamageByAssetID(this.assetID).subscribe((x) => {
+      this.damageList = x.message;
+    });
+    this.assetService.getTrafficFineByAssetID(this.assetID).subscribe((x) => {
+      let data = x.message;
+      this.chartTrafficFineData.labels = Object.keys(data);
+      this.chartTrafficFineData.series = Object.values(data);
+      if(this.chartTrafficFineData.labels.indexOf('total') >= 0) { 
+        this.chartTrafficFineData.labels.splice(this.chartTrafficFineData.labels.indexOf('total'),1)
+        this.chartTrafficFineData.series.splice(this.chartTrafficFineData.labels.indexOf('total'),1)
+      }
+      console.log(this.chartTrafficFineData.labels.indexOf('total'))
+    });
+    this.assetService.getFuelCardByAssetID(this.assetID).subscribe((x) => {
+      let data = <Array<object>>x.message;
+      this.chartFuelCardData.categories = data.map((d) => d['month']);
+      let demanded = data.map((d) => d['demanded']);
+      let consumption = data.map((d) => d['consumption']);
+      this.chartFuelCardData.series = [
+        {
+          name: 'Demanded',
+          data: demanded
+        },
+        {
+          name: 'Consumption',
+          data: consumption
+        }
+      ];
+      console.log(this.chartFuelCardData);
+    });
+  }
 }
 
 export interface ChartOptions {

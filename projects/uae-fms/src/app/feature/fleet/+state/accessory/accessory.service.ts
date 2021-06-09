@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResponseBody } from '@models/responseBody';
 import { environment } from '@environments/environment';
-import { IAccessory } from '@models/accessory';
+import { IAccessory, IAccessoryOverview } from '@models/accessory';
 import { IAccessoryStatistics } from '@models/statistics';
 import { IOwnerShip, IUser } from '@models/configuration';
 import { TableFacade } from '@core/table/+state/table.facade';
@@ -14,9 +14,10 @@ export class AccessoryService {
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
@@ -25,7 +26,8 @@ export class AccessoryService {
 
   loadAll(): Observable<ResponseBody<IAccessory[]>> {
     return this.http.get<ResponseBody<IAccessory[]>>(
-      environment.baseApiUrl + 'accessory', {params: this.getParam('accessory')}
+      environment.baseApiUrl + 'accessory',
+      { params: this.getParam('accessory') }
     );
   }
 
@@ -66,10 +68,15 @@ export class AccessoryService {
     );
   }
 
-
   loadFullList(): Observable<ResponseBody<IAccessory[]>> {
     return this.http.get<ResponseBody<IAccessory[]>>(
       environment.baseApiUrl + 'accessory?page=0&size=99999999'
+    );
+  }
+
+  accessoryOverview(): Observable<ResponseBody<IAccessoryOverview>> {
+    return this.http.get<ResponseBody<IAccessoryOverview>>(
+      environment.baseApiUrl + 'accessory/overview'
     );
   }
 }

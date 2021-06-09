@@ -93,7 +93,8 @@ export class TableContentComponent implements OnInit {
               id:data.id,
               isItemForm:true
             })
-          }
+          },
+          permission:['PARTSTORE_PART_MASTER_ITEM_UPDATE']
         }
       ]
     }

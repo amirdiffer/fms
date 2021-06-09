@@ -54,20 +54,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   accessory_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.item', type: 1, field: 'Item' },
-      // { lable: 'tables.column.type', type: 1, field: 'Type' },
-      // {
-      //   lable: 'tables.column.asset_sub_asset',
-      //   type: 1,
-      //   field: 'Asset_SubAsset'
-      // },
       { lable: 'tables.column.assigned_to', type: 1, field: 'Assigned_To' },
-      // {
-      //   lable: 'tables.column.quantity',
-      //   type: 1,
-      //   field: 'Quantity',
-      //   width: 150,
-      //   sortable: true
-      // },
       {
         lable: '',
         field: 'floatButton',
@@ -84,10 +71,12 @@ export class AccessoryComponent implements OnInit, OnDestroy {
           onClick: (col, data) => {
             this._router.navigate(['/fleet/accessory/edit-accessory/'+ data.id]);
           },
+          permission:['ACCESSORY_UPDATE_OWN' , 'ACCESSORY_UPDATE_OTHERS'],
           button: 'edit',
           color: '#3F3F3F'
         },
         {
+          permission:['ACCESSORY_VIEW_DETAILS_OWN' , 'ACCESSORY_VIEW_DETAILS_OTHERS'],
           button: 'external',
           onClick: (col, data ,  button?) => {
             this._router.navigate([`/fleet/accessory/accessory-overview/${data.id}`]);
@@ -146,7 +135,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
     let filter = {
       Item: 'Item',
       Type: 'Type',
-      Asset_SubAsset: 'Asset_SubAsset',
+      // Asset_SubAsset: 'Asset_SubAsset',
       Assigned_To: 'Assigned_To',
       Quantity: 'Quantity'
     }

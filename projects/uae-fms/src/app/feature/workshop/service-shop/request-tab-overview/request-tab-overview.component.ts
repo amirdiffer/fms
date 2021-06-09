@@ -2,9 +2,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnType } from '@core/table';
 import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
-import { ServiceShopRequestFacade, ServiceShopRequestService } from '@feature/workshop/+state/service-shop';
+import {
+  ServiceShopRequestFacade,
+  ServiceShopRequestService
+} from '@feature/workshop/+state/service-shop';
 import moment from 'moment';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -13,43 +16,17 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./request-tab-overview.component.scss']
 })
 export class RequestTabOverviewServiceShopComponent implements OnInit {
-  assetId;
-  tableData = new Subject();
-  tableData$ = this.tableData.asObservable();
-  assetDetail = new Subject();
-  assetDetail$ = this.assetDetail.asObservable();
+  assetId: number;
+  tableData$: Observable<any>;
+  assetDetail$: Observable<any>;
 
   constructor(
     private _facadeRequest: ServiceShopRequestFacade,
-    private _activatedRoute: ActivatedRoute,
+    public _activatedRoute: ActivatedRoute,
     private assetMasterService: AssetMasterService,
     private router: Router,
     private service: ServiceShopRequestService
-  ) { }
-
-  vehicle = {
-    id: 1,
-    make: 'bmw.png',
-    vehicle: 'Request No 123456',
-    thumb: 'thumb1.png',
-    type: 'bmw',
-    model: 'I3',
-    plateno: '1234',
-    iserve: '04',
-    status: '1',
-    location: 'Al Ghandi Ato Service Ras A Khor',
-    bodyType: 'Text Type',
-    color: 'Text Type',
-    trim: 'Text Type',
-    group: 'Text Type',
-    department: 'Dep Name-Area-Dubai',
-    licensePlate: '123456',
-    operator: 'User Name',
-    salik: 'Assign',
-    warranty: 'Under Warranty',
-    vin_sn: 'JTDKBRFU9J30593O7',
-    year: '2020'
-  };
+  ) {}
 
   filterSetting = [
     {
@@ -141,13 +118,16 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
         {
           button: 'edit',
           color: '#3F3F3F',
-          condition: (data) => { return data.approveStatus == "APPROVED" ? false : true },
+          condition: (data) => {
+            return data.approveStatus == 'APPROVED' ? false : true;
+          },
           onClick: (col, data, button?) => {
             this._facadeRequest.resetParams();
-            this.router.navigate([
-              '/workshop/service-shop/edit-request/' + data.id
-            ]);
-          }
+            this.router.navigate(['edit-request/' + data.id], {
+              relativeTo: this._activatedRoute
+            });
+          },
+          permission:['WORKSHOP_SERVICE_SHOP_REQUEST_UPDATE_OWN' , 'WORKSHOP_SERVICE_SHOP_REQUEST_UPDATE_OTHERS']
         }
       ]
     }
@@ -156,45 +136,51 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
   section = 'list';
 
   ngOnInit(): void {
-    this.assetId = this._activatedRoute.snapshot.params.id;
-    this.loadRequests(this.assetId);
-
-    this.assetMasterService.getAssetByID(this.assetId).subscribe(x => {
-      this.assetDetail.next(x);
-    })
-  }
-
-  loadRequests(assetId) {
-    this.service.requestsById(assetId).pipe(
+    this.assetId = +this._activatedRoute.snapshot.params.id;
+    this._facadeRequest.resetParams();
+    console.log(this.assetId);
+    this._facadeRequest.getAssetRequest(this.assetId);
+    this.tableData$ = this._facadeRequest.assetRequest$.pipe(
       map((x) => {
-        let a = x.message;
-        return a.map((y) => {
-          let jobType;
-          switch (y.jobType) {
-            case 'TECHNICAL_REPORT':
-              jobType = 'Technical Report';
-              break;
-            case 'NORMAL':
-              jobType = 'Normal';
-              break;
-            case 'INSTALLATION':
-              jobType = 'Installation';
-              break;
-            default:
-              jobType = y.jobType;
-              break;
-          }
-          return {
-            ...y,
-            date: moment.utc(y.updatedAt).local().format('DD-MM-YYYY'),
-            requestType: jobType,
-            attachment: y.documentIds,
-            statusColor: '#6870B4'
-          };
-        });
+        if (x) {
+          console.log(x);
+          return x.map((request) => {
+            let jobType;
+            console.log(request);
+            switch (request.jobType) {
+              case 'TECHNICAL_REPORT':
+                jobType = 'Technical Report';
+                break;
+              case 'NORMAL':
+                jobType = 'Normal';
+                break;
+              case 'INSTALLATION':
+                jobType = 'Installation';
+                break;
+              default:
+                jobType = request.jobType;
+                break;
+            }
+            return {
+              ...request,
+              date: moment.utc(request.updatedAt).local().format('DD-MM-YYYY'),
+              requestType: jobType,
+              attachment: request.documentIds,
+              statusColor: '#6870B4'
+            };
+          });
+        }
       })
-    ).subscribe(x => {
-      this.tableData.next(x);
-    });
+    );
+    this.assetDetail$ = this.assetMasterService.getAssetByID(this.assetId).pipe(
+      map((x) => {
+        return {
+          message: {
+            ...x.message,
+            status: x.message.progressStatus
+          }
+        };
+      })
+    );
   }
 }

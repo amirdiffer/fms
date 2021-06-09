@@ -4,6 +4,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { AccessoryService } from '@feature/fleet/+state/accessory/accessory.service';
 import { IAccessory } from '@models/accessory';
 import { AccessoryTypeFacade, AccessoryTypeService } from '@feature/configuration/+state/fleet-configuration';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'anms-accessory-overview',
@@ -13,7 +14,7 @@ import { AccessoryTypeFacade, AccessoryTypeService } from '@feature/configuratio
 export class AccessoryOverviewComponent implements OnInit {
   itemId = this._route.snapshot.params['id'];
   @ViewChild('selectedImage', { static: false }) element: ElementRef;
-
+  fileServerBase = environment.baseFileServer;
   accessoryDetails;
 
   constructor(

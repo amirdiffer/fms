@@ -5,6 +5,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration';
 import {BusinessCategoryService} from '@feature/configuration/+state/business-category'
 import { RolePermissionFacade } from '@feature/configuration/+state/role-permission';
+import { UserProfileService } from '@feature/user/state';
 import { IAssetType } from '@models/asset-type.model';
 import { IBusinessCategory } from '@models/business-category.model';
 import { Utility } from '@shared/utility/utility';
@@ -101,6 +102,7 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
   constructor(private _assetConfigurationService:AssetConfigurationService,
               private _usageCategoryService: BusinessCategoryService,
               private _roleFacade : RolePermissionFacade,
+              private _userService:UserProfileService,
               private _router :Router,
               private _fb : FormBuilder,
               private _activatedRoute:ActivatedRoute,
@@ -120,6 +122,7 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
 
   
   ngOnInit():void{
+    this._userService.loadAllPermission()
     this.formBuilders();
     this._roleFacade.submitted$.subscribe((x) => {
       if (x) {
@@ -417,131 +420,131 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
   }
   fleetAssetFormBuilder(){
     this.fleetAssetForm = this._fb.group({
-      ASSET_ARCHIVE_OTHERS:[false],
-      ASSET_ARCHIVE_OWN:[false],
-      ASSET_EXPORT_LIST_MASTER:[false],
-      ASSET_VIEW_LIST_MASTER_OWN:[false],
-      ASSET_VIEW_LIST_MASTER_OTHERS:[false],
       ASSET_ADD:[false],
-      ASSET_UPDATE_OTHERS:[false],
+      ASSET_ARCHIVE_OWN:[false],
+      ASSET_ARCHIVE_OTHERS:[false],
       ASSET_UPDATE_OWN:[false],
-      ASSET_VIEW_LIST_PENDING_OTHERS:[false],
+      ASSET_REGISTER_OWN:[false],
+      ASSET_CUSTOMIZE_OWN:[false],
+      ASSET_VIEW_DETAILS_OWN:[false],
+      ASSET_VIEW_SUMMARY_OWN:[false],
+      ASSET_VIEW_LIST_MASTER_OWN:[false],
       ASSET_VIEW_LIST_PENDING_OWN:[false],
-      updateEditOwnRegistrationList:[{value:false ,  disabled: true}],
-      ASSET_VIEW_LIST_CUSTOMIZATION_OTHERS:[false],
       ASSET_VIEW_LIST_CUSTOMIZATION_OWN:[false],
-      updateEditCustomizationList:[{value:false ,  disabled: true}],
+      ASSET_UPDATE_OTHERS:[false],
+      ASSET_REGISTER_OTHERS:[false],
       ASSET_CUSTOMIZE_OTHERS:[false],
       ASSET_VIEW_DETAILS_OTHERS:[false],
+      ASSET_VIEW_SUMMARY_OTHERS:[false],
+      ASSET_VIEW_LIST_MASTER_OTHERS:[false],
+      ASSET_VIEW_LIST_PENDING_OTHERS:[false],
+      ASSET_VIEW_LIST_CUSTOMIZATION_OTHERS:[false],
+      ASSET_VIEW_MOVEMENT_HISTORY_OWN:[false],
       ASSET_VIEW_MOVEMENT_HISTORY_OTHERS:[false],
-      assetUsageCategory:[{value:false ,  disabled: true}],
-      assetReminderList:[{value:false ,  disabled: true}],
-      addReminder:[{value:false ,  disabled: true}],
-      viewAssetConfiguration:[{value:false ,  disabled: true}],
-      addAssetConfiguration:[{value:false ,  disabled: true}],
-      updateAssetConfiguration:[{value:false ,  disabled: true}],
-      BUSINESS_CATEGORY_VIEW_LIST:[false],
-      BUSINESS_CATEGORY_ADD:[false],
-      BUSINESS_CATEGORY_UPDATE:[false]
+      ASSET_EXPORT_LIST_MASTER:[false],
+      ASSET_EXPORT_LIST_PENDING:[false],
+      ASSET_EXPORT_LIST_CUSTOMIZATION:[false],
     })
   }
   fleetSubAssetFormBuilder(){
     this.fleetSubAssetForm = this._fb.group({
-      SUB_ASSET_VIEW_LIST_OTHERS:[false],
-      SUB_ASSET_VIEW_LIST_OWN:[false],
-      SUB_ASSET_EXPORT_LIST:[false],
-      archiveSubAsset:[{value:false ,  disabled: true}],
-      SUB_ASSET_VIEW_DETAILS_OTHERS:[false],
-      SUB_ASSET_UPDATE_OTHERS:[false],
+      SUB_ASSET_ADD:[false],
       SUB_ASSET_UPDATE_OWN:[false],
-      SUB_ASSET_ADD:[false]
+      SUB_ASSET_UPDATE_OTHERS:[false],
+      SUB_ASSET_VIEW_DETAILS_OWN:[false],
+      SUB_ASSET_VIEW_DETAILS_OTHERS:[false],
+      SUB_ASSET_VIEW_LIST_OWN:[false],
+      SUB_ASSET_VIEW_LIST_OTHERS:[false],
+      SUB_ASSET_EXPORT_LIST:[false],
     })
   };
   fleetAccessoryFormBuilder(){
     this.fleetAccessoryForm = this._fb.group({
-      ACCESSORY_VIEW_LIST_OTHERS:[false],
-      ACCESSORY_VIEW_LIST_OWN:[false],
-      archiveAccessory:[{value:false ,  disabled: true}],
-      ACCESSORY_VIEW_DETAILS_OTHERS:[false],
+      ACCESSORY_ADD:[false],
       ACCESSORY_UPDATE_OWN:[false],
       ACCESSORY_UPDATE_OTHERS:[false],
+      ACCESSORY_VIEW_DETAILS_OWN:[false],
+      ACCESSORY_VIEW_DETAILS_OTHERS:[false],
+      ACCESSORY_VIEW_LIST_OWN:[false],
+      ACCESSORY_VIEW_LIST_OTHERS:[false],
       ACCESSORY_EXPORT_LIST:[false],
-      ACCESSORY_ADD:[false]
     })
   };
   fleetOperatorFormBuilder(){
     this.fleetOperatorForm = this._fb.group({
-      USER_OPERATOR_VIEW_LIST:[false],
-      USER_OPERATOR_EXPORT_LIST:[false],
-      USER_OPERATOR_UPDATE:[false],
       USER_OPERATOR_ADD:[false],
-      viewOwnList:[{value:false ,  disabled: true}],
-      viewOwnTrafficFine:[{value:false ,  disabled: true}],
-      viewOwnMovementHistory:[{value:false ,  disabled: true}],
-      viewOwnActivity:[{value:false ,  disabled: true}],
+      USER_OPERATOR_UPDATE:[false],
       USER_OPERATOR_VIEW_DETAILS_GENERAL:[false],
       USER_OPERATOR_VIEW_DETAILS_TRAFFIC_FINE:[false],
       USER_OPERATOR_VIEW_DETAILS_MOVEMENT_HISTORY:[false],
-      viewOperatorActivity:[{value:false ,  disabled: true}],
+      USER_OPERATOR_VIEW_LIST:[false],
+      USER_OPERATOR_EXPORT_LIST:[false],
+
     })
   };
   fleetMovementFormBuilder(){
     this.fleetMovementForm = this._fb.group({
-      MOVEMENT_REQUEST_VIEW_DETAILS_OTHERS:[false],
-      MOVEMENT_REQUEST_VIEW_LIST_OTHERS:[false],
-      MOVEMENT_REQUEST_EXPORT_LIST:[false],
-      approveRequest:[{value:false ,  disabled: true}],
-      MOVEMENT_REQUEST_UPDATE_OTHERS:[false],
       MOVEMENT_REQUEST_ADD:[false],
+      MOVEMENT_REQUEST_ASSIGN_OPERATOR_OR_REJECT:[false],
+      MOVEMENT_REQUEST_UPDATE_OWN:[false],
+      MOVEMENT_REQUEST_UPDATE_OTHERS:[false],
       MOVEMENT_REQUEST_VIEW_DETAILS_OWN:[false],
+      MOVEMENT_REQUEST_VIEW_DETAILS_OTHERS:[false],
       MOVEMENT_REQUEST_VIEW_LIST_OWN:[false],
-      exportOwnMovementList:[{value:false ,  disabled: true}],
-      approveOwnRequest:[{value:false ,  disabled: true}],
-      MOVEMENT_REQUEST_UPDATE_OWN:[false]
+      MOVEMENT_REQUEST_VIEW_LIST_OTHERS:[false],
+      MOVEMENT_VIEW_LIST_OWN:[false],
+      MOVEMENT_VIEW_LIST_OTHERS:[false],
+      MOVEMENT_REQUEST_EXPORT_LIST:[false],
+
     })
   };
   fleetDepartmentFormBuilder(){
     this.fleetDepartmentForm = this._fb.group({
-      ORGANIZATION_VIEW_LIST:[false],
-      ORGANIZATION_EXPORT_LIST:[false],
-      ORGANIZATION_UPDATE:[false],
       ORGANIZATION_ADD:[false],
+      ORGANIZATION_UPDATE:[false],
       ORGANIZATION_VIEW_DETAILS:[false],
       ORGANIZATION_VIEW_USERS:[false],
       ORGANIZATION_VIEW_TRAFFIC_FINES:[false],
-      ORGANIZATION_VIEW_MOVEMENT_HISTORY:[false]
+      ORGANIZATION_VIEW_MOVEMENT_HISTORY:[false],
+      ORGANIZATION_VIEW_LIST:[false],
+      ORGANIZATION_EXPORT_LIST:[false],
+
     })
   };
   fuelManagementFormBuilder(){
     this.fuelManagementForm = this._fb.group({
+      FUEL_CARD_ADD:[false],
+      FUEL_CARD_UPDATE:[false],
+      FUEL_CARD_VIEW_DETAILS:[false],
       FUEL_CARD_VIEW_LIST:[false],
       FUEL_CARD_VIEW_LIST_ASSET_USAGE:[false],
-      FUEL_CARD_UPDATE:[false],
       FUEL_CARD_EXPORT_LIST:[false],
-      FUEL_CARD_ADD:[false],
-      FUEL_CARD_VIEW_DETAILS:[false],
-      viewOwnFuelCardsList:[{value:false ,  disabled: true}],
-      viewOwnAssetUsageList:[{value:false ,  disabled: true}],
+      FUEL_CARD_EXPORT_LIST_ASSET_USAGE:[false],
+
     })
   };
   salikFormBuilder(){
     this.salikForm = this._fb.group({
-      viewListOfSalik:[{value:false ,  disabled: true}],
-      addSalik:[{value:false ,  disabled: true}],
-      uploadFile:[{value:false ,  disabled: true}],
-      assignSalik:[{value:false ,  disabled: true}],
+
     })
   };
   partStorePartListFormBuilder(){
     this.partStorePartListForm = this._fb.group({
-      PARTSTORE_PART_VIEW_LIST:[false],
-      exportPartList:[{value:false ,  disabled: true}],
-      PARTSTORE_PART_VIEW_DETAILS:[false],
       PARTSTORE_PART_UPDATE:[false],
+      PARTSTORE_PART_VIEW_DETAILS:[false],
+      PARTSTORE_PART_VIEW_LIST:[false],
+
     })
   };
   partStoreOrderListFormBuilder(){
     this.partStoreOrderListForm = this._fb.group({
+      PARTSTORE_ORDER_LIST_ORDER_ADD:[false],
+      PARTSTORE_ORDER_LIST_ORDER_UPDATE:[false],
+      PARTSTORE_ORDER_LIST_ORDER_ARCHIVE:[false],
+      PARTSTORE_ORDER_LIST_ORDER_VIEW_DETAILS:[false],
+      PARTSTORE_ORDER_LIST_ORDER_VIEW_LIST:[false],
+      PARTSTORE_ORDER_LIST_ORDER_EXPORT_LIST:[false],
+      PARTSTORE_ORDER_RECEIVED:[false],
       PARTSTORE_ORDER_LIST_REQUEST_ADD:[false],
       PARTSTORE_ORDER_LIST_REQUEST_VIEW_LIST_OWN:[false],
       PARTSTORE_ORDER_LIST_REQUEST_VIEW_LIST_OTHERS:[false],
@@ -550,13 +553,9 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
       PARTSTORE_ORDER_LIST_REQUEST_UPDATE_OWN:[false],
       PARTSTORE_ORDER_LIST_REQUEST_ARCHIVE_OWN:[false],
       PARTSTORE_ORDER_LIST_REQUEST_APPROVE_REJECT:[false],
-      PARTSTORE_ORDER_LIST_ORDER_ADD:[false],
-      PARTSTORE_ORDER_LIST_ORDER_UPDATE:[false],
-      PARTSTORE_ORDER_LIST_ORDER_ARCHIVE:[false],
-      PARTSTORE_ORDER_LIST_ORDER_VIEW_DETAILS:[false],
-      PARTSTORE_ORDER_LIST_ORDER_VIEW_LIST:[false],
-      PARTSTORE_ORDER_LIST_ORDER_EXPORT_LIST:[false],
-      PARTSTORE_ORDER_RECEIVED:[false],
+      PARTSTORE_ORDER_LIST_REQUEST_UPDATE_OTHERS:[false],
+
+
     })
   };
   partStoreSupplierFormBuilder(){
@@ -587,135 +586,116 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
   }
   workshopBodyshopFormBuilder(){
     this.workshopBodyshopForm = this._fb.group({
-      WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OTHERS:[false],
-      WORKSHOP_BODY_SHOP_REQUEST_EXPORT_LIST:[false],
       WORKSHOP_BODY_SHOP_REQUEST_ADD:[false],
       WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OWN:[false],
-      WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OWN:[false],
+      WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OTHERS:[false],
+      WORKSHOP_BODY_SHOP_REQUEST_VIEW_DETAILS_OWN:[false],
       WORKSHOP_BODY_SHOP_REQUEST_VIEW_DETAILS_OTHERS:[false],
+      WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OWN:[false],
+      WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS:[false],
+      WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OWN:[false],
+      WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OTHERS:[false],
+      WORKSHOP_BODY_SHOP_REQUEST_EXPORT_LIST:[false],
       WORKSHOP_BODY_SHOP_REQUEST_REJECT:[false],
-      archiveOwnRequest:[{value:false ,  disabled: true}],
-      WORKSHOP_BODY_SHOP_LOCATION_VIEW_LIST:[false],
-      WORKSHOP_BODY_SHOP_LOCATION_EXPORT_LIST:[false],
-      WORKSHOP_BODY_SHOP_LOCATION_ADD:[false],
-      WORKSHOP_BODY_SHOP_LOCATION_UPDATE:[false],
-      archiveLocation:[{value:false ,  disabled: true}],
+      WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE:[false],
+      WORKSHOP_BODY_SHOP_JOB_CARD_UPDATE:[false],
+      WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_DETAILS:[false],
+      WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_LIST:[false],
+      WORKSHOP_BODY_SHOP_ASSET_JOB_CARD_VIEW_LIST:[false],
+      WORKSHOP_BODY_SHOP_JOB_CARD_EXPORT_LIST:[false],
+      WORKSHOP_BODY_SHOP_TECHNICIAN_ADD:[false],
+      WORKSHOP_BODY_SHOP_TECHNICIAN_UPDATE:[false],
+      WORKSHOP_BODY_SHOP_TECHNICIAN_VIEW_DETAILS:[false],
       WORKSHOP_BODY_SHOP_TECHNICIAN_VIEW_LIST:[false],
       WORKSHOP_BODY_SHOP_TECHNICIAN_EXPORT_LIST:[false],
-      WORKSHOP_BODY_SHOP_TECHNICIAN_ADD:[false],
-      WORKSHOP_BODY_SHOP_TECHNICIAN_VIEW_DETAILS:[false],
-      viewOwnTechnicianDetailOverview:[{value:false ,  disabled: true}],
-      WORKSHOP_BODY_SHOP_TECHNICIAN_UPDATE:[false],
-      updateEditOwnTechnicianInformation:[{value:false ,  disabled: true}],
-      viewTechnicianJobCardsList:[{value:false ,  disabled: true}],
-      exportTechnicianJobCardsList:[{value:false ,  disabled: true}],
-      viewOwnTechnicianActivity:[{value:false ,  disabled: true}],
-      viewTechnicianActivity:[{value:false ,  disabled: true}],
-      archiveTechnician:[{value:false ,  disabled: true}],
-      WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_LIST:[false],
-      WORKSHOP_BODY_SHOP_JOB_CARD_EXPORT_LIST:[false],
-      addJobCard:[{value:false ,  disabled: true}],
-      WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS:[false],
-      viewAssetList:[{value:false ,  disabled: true}],
-      viewAddTask:[{value:false ,  disabled: true}],
-      viewTaskDetail:[{value:false ,  disabled: true}],
-      UpdateEditOwnJobCard:[{value:false ,  disabled: true}],
-      viewOwnJobCard:[{value:false ,  disabled: true}],
-      WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE:[false],
+      WORKSHOP_BODY_SHOP_LOCATION_ADD:[false],
+      WORKSHOP_BODY_SHOP_LOCATION_UPDATE:[false],
+      WORKSHOP_BODY_SHOP_LOCATION_VIEW_DETAILS:[false],
+      WORKSHOP_BODY_SHOP_LOCATION_VIEW_LIST:[false],
+      WORKSHOP_BODY_SHOP_LOCATION_EXPORT_LIST:[false]
     })
   };
   workshopServiceshopFormBuilder(){
     this.workshopServiceshopForm = this._fb.group({
-      WORKSHOP_SERVICE_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OTHERS:[false],
-      WORKSHOP_SERVICE_SHOP_REQUEST_EXPORT_LIST:[false],
       WORKSHOP_SERVICE_SHOP_REQUEST_ADD:[false],
       WORKSHOP_SERVICE_SHOP_REQUEST_UPDATE_OWN:[false],
-      WORKSHOP_SERVICE_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OWN:[false],
+      WORKSHOP_SERVICE_SHOP_REQUEST_UPDATE_OTHERS:[false],
+      WORKSHOP_SERVICE_SHOP_REQUEST_VIEW_DETAILS_OWN:[false],
       WORKSHOP_SERVICE_SHOP_REQUEST_VIEW_DETAILS_OTHERS:[false],
+      WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OWN:[false],
+      WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS:[false],
+      WORKSHOP_SERVICE_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OWN:[false],
+      WORKSHOP_SERVICE_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OTHERS:[false],
+      WORKSHOP_SERVICE_SHOP_REQUEST_EXPORT_LIST:[false],
       WORKSHOP_SERVICE_SHOP_REQUEST_REJECT:[false],
-      archiveOwnRequest:[{value:false ,  disabled: true}],
-      WORKSHOP_SERVICE_SHOP_LOCATION_VIEW_LIST:[false],
-      WORKSHOP_SERVICE_SHOP_LOCATION_EXPORT_LIST:[false],
-      WORKSHOP_SERVICE_SHOP_LOCATION_ADD:[false],
-      WORKSHOP_SERVICE_SHOP_LOCATION_UPDATE:[false],
-      archiveLocation:[{value:false ,  disabled: true}],
+      WORKSHOP_SERVICE_SHOP_JOB_CARD_OPEN_CLOSE:[false],
+      WORKSHOP_SERVICE_SHOP_JOB_CARD_UPDATE:[false],
+      WORKSHOP_SERVICE_SHOP_JOB_CARD_VIEW_DETAILS:[false],
+      WORKSHOP_SERVICE_SHOP_JOB_CARD_VIEW_LIST:[false],
+      WORKSHOP_SERVICE_SHOP_ASSET_JOB_CARD_VIEW_LIST:[false],
+      WORKSHOP_SERVICE_SHOP_JOB_CARD_EXPORT_LIST:[false],
+      WORKSHOP_SERVICE_SHOP_TECHNICIAN_ADD:[false],
+      WORKSHOP_SERVICE_SHOP_TECHNICIAN_UPDATE:[false],
+      WORKSHOP_SERVICE_SHOP_TECHNICIAN_VIEW_DETAILS:[false],
       WORKSHOP_SERVICE_SHOP_TECHNICIAN_VIEW_LIST:[false],
       WORKSHOP_SERVICE_SHOP_TECHNICIAN_EXPORT_LIST:[false],
-      WORKSHOP_SERVICE_SHOP_TECHNICIAN_ADD:[false],
-      WORKSHOP_SERVICE_SHOP_TECHNICIAN_VIEW_DETAILS:[false],
-      viewOwnTechnicianDetailOverview:[{value:false ,  disabled: true}],
-      updateEditTechnicianInformation:[{value:false ,  disabled: true}],
-      updateEditOwnTechnicianInformation:[{value:false ,  disabled: true}],
-      viewTechnicianJobCardsList:[{value:false ,  disabled: true}],
-      exportTechnicianJobCardsList:[{value:false ,  disabled: true}],
-      viewOwnTechnicianActivity:[{value:false ,  disabled: true}],
-      viewTechnicianActivity:[{value:false ,  disabled: true}],
-      archiveTechnician:[{value:false ,  disabled: true}],
-      WORKSHOP_SERVICE_SHOP_JOB_CARD_VIEW_LIST:[false],
-      WORKSHOP_SERVICE_SHOP_JOB_CARD_EXPORT_LIST:[false],
-      addJobCard:[{value:false ,  disabled: true}],
-      WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS:[false],
-      viewAssetList:[{value:false ,  disabled: true}],
-      viewAddTask:[{value:false ,  disabled: true}],
-      viewTaskDetail:[{value:false ,  disabled: true}],
-      UpdateEditOwnJobCard:[{value:false ,  disabled: true}],
-      viewOwnJobCard:[{value:false ,  disabled: true}],
-      WORKSHOP_SERVICE_SHOP_JOB_CARD_OPEN_CLOSE:[false],
+      WORKSHOP_SERVICE_SHOP_LOCATION_ADD:[false],
+      WORKSHOP_SERVICE_SHOP_LOCATION_UPDATE:[false],
+      WORKSHOP_SERVICE_SHOP_LOCATION_VIEW_DETAILS:[false],
+      WORKSHOP_SERVICE_SHOP_LOCATION_VIEW_LIST:[false],
+      WORKSHOP_SERVICE_SHOP_LOCATION_EXPORT_LIST:[false],
+
+      
     })
   };
 
   workshopTechnicalInspectionFormBuilder(){
     this.workshopTechnicalInspectionForm = this._fb.group({
-      viewTechnicalInspectionRequestList:[{value:false ,  disabled: true}],
-      exportTechnicalInspectionRequestList:[{value:false ,  disabled: true}],
-      addTechnicalInspection:[{value:false ,  disabled: true}],
-      approveTechnicalInspectionRequest:[{value:false ,  disabled: true}],
-      viewTechnicalInspectionRequestDetail:[{value:false ,  disabled: true}],
-      addDecision:[{value:false ,  disabled: true}],
-      viewAllDecision:[{value:false ,  disabled: true}],
-      updateEditOwnDecision:[{value:false ,  disabled: true}],
-      finalDecision:[{value:false ,  disabled: true}],
-      viewAssetType:[{value:false ,  disabled: true}],
+
     })
   };
 
   workshopAuctionListFormBuilder(){
     this.workshopAuctionListForm = this._fb.group({
-      viewAuctionList:[{value:false ,  disabled: true}],
-      viewSoldList:[{value:false ,  disabled: true}],
-      exportAuctionList:[{value:false ,  disabled: true}],
-      exportSoldList:[{value:false ,  disabled: true}],
-      viewItemDetail:[{value:false ,  disabled: true}],
-      updateItemDetail:[{value:false ,  disabled: true}],
     })
   }
   workshopTaskMasterFormBuilder(){
     this.workshopTaskMasterForm = this._fb.group({
-      TASK_MASTER_VIEW_LIST:[false],
-      TASK_MASTER_EXPORT_LIST:[false],
       TASK_MASTER_ADD:[false],
       TASK_MASTER_UPDATE:[false],
-      archiveTask:[{value:false ,  disabled: true}]
+      TASK_MASTER_VIEW_DETAILS:[false],
+      TASK_MASTER_VIEW_LIST:[false],
+      TASK_MASTER_EXPORT_LIST:[false],
     })
   };
   configurationUserManagementFormBuilder(){
     this.configurationUserManagementForm = this._fb.group({
-      DROLE_VIEW_LIST:[false],
       DROLE_ADD:[false],
       DROLE_UPDATE:[false],
-      USER_NORMAL_VIEW_LIST:[false],
+      DROLE_VIEW_DETAILS:[false],
+      DROLE_VIEW_LIST:[false],
+      DROLE_EXPORT_LIST:[false],
       USER_NORMAL_ADD:[false],
-      USER_NORMAL_UPDATE:[false]
+      USER_NORMAL_UPDATE:[false],
+      USER_NORMAL_VIEW_DETAILS:[false],
+      USER_NORMAL_VIEW_LIST:[false],
+      USER_NORMAL_EXPORT_LIST:[false],
+
     })
   };
   configurationAssetPolicyFormBuilder(){
     this.configurationAssetPolicyForm = this._fb.group({
-      ASSET_POLICY_ASSET_VIEW_LIST:[false],
-      ASSET_POLICY_SUB_ASSET_VIEW_LIST:[false],
-      ASSET_POLICY_ASSET_UPDATE:[false],
-      ASSET_POLICY_SUB_ASSET_UPDATE:[false],
       ASSET_POLICY_ASSET_ADD:[false],
+      ASSET_POLICY_ASSET_UPDATE:[false],
+      ASSET_POLICY_ASSET_VIEW_DETAILS:[false],
+      ASSET_POLICY_ASSET_VIEW_LIST:[false],
+      ASSET_POLICY_ASSET_EXPORT_LIST:[false],
       ASSET_POLICY_SUB_ASSET_ADD:[false],
+      ASSET_POLICY_SUB_ASSET_UPDATE:[false],
+      ASSET_POLICY_SUB_ASSET_VIEW_DETAILS:[false],
+      ASSET_POLICY_SUB_ASSET_VIEW_LIST:[false],
+      ASSET_POLICY_SUB_ASSET_EXPORT_LIST:[false],
+
     })
   };
   configurationAssetConfigurationFormBuilder(){
@@ -733,13 +713,17 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
       BUSINESS_CATEGORY_VIEW_LIST:[false],
       BUSINESS_CATEGORY_UPDATE:[false],
       BUSINESS_CATEGORY_ADD:[false],
+      BUSINESS_CATEGORY_VIEW_DETAILS:[false],
+      BUSINESS_CATEGORY_EXPORT_LIST:[false],
     })
   };
   configurationOwnershipFormBuilder(){
     this.configurationOwnershipForm = this._fb.group({
       OWNERSHIP_ADD:[false],
       OWNERSHIP_UPDATE:[false],
-      OWNERSHIP_VIEW_LIST:[false]
+      OWNERSHIP_VIEW_LIST:[false],
+      OWNERSHIP_VIEW_DETAILS:[false],
+      OWNERSHIP_EXPORT_LIST:[false],
     })
   };
   configurationPeriodicServiceFormBuilder(){
@@ -747,6 +731,8 @@ export class AddRoleAndPermissionComponent extends Utility  implements OnInit {
       PERIODIC_SERVICE_VIEW_LIST:[false],
       PERIODIC_SERVICE_UPDATE:[false],
       PERIODIC_SERVICE_ADD:[false],
+      PERIODIC_SERVICE_VIEW_DETAILS:[false],
+      PERIODIC_SERVICE_EXPORT_LIST:[false],
     })
   }
   formBuilders(){
