@@ -4,6 +4,7 @@ import { ColumnType, TableSetting } from '@core/table';
 import { Subject } from 'rxjs';
 import { ButtonType } from '@core/table/table.component';
 import { DashboardNetworkService } from '../+state/dashboard/dashboard-network.service';
+import { MyTasksNetworkService } from '@feature/technician/+state/my-tasks/my-tasks-network.service';
 
 @Component({
   selector: 'anms-dashboard',
@@ -11,37 +12,44 @@ import { DashboardNetworkService } from '../+state/dashboard/dashboard-network.s
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  searchIcon = 'assets/icons/search-solid.svg';
 
   //#region Filter
   filterSetting = [
     {
       filterTitle: 'statistic.not_started',
       filterCount: '0',
-      filterTagColor: '#028D5D'
+      filterTagColor: '#AAAAAA'
     },
     {
       filterTitle: 'statistic.started',
       filterCount: '0',
-      filterTagColor: '#009EFF'
+      filterTagColor: '#20E19D'
     },
     {
       filterTitle: 'statistic.close',
       filterCount: '0',
-      filterTagColor: '#FCB614'
+      filterTagColor: '#42D0D9'
     },
     {
       filterTitle: 'statistic.delay',
       filterCount: '0',
-      filterTagColor: '#F75A4A'
+      filterTagColor: '#F2B06E'
     }
   ];
   //#endregion
 
-  //#region Tables
+  // region Tables
   dataDashboard = new Subject();
   dataDashboard$ = this.dataDashboard.asObservable();
   dashboardSetting: TableSetting = {
     columns: [
+      {
+        lable: 'tables.column.asset',
+        type: 1,
+        field: 'asset',
+        renderer: ''
+      },
       {
         lable: 'tables.column.task',
         type: 1,
@@ -71,7 +79,7 @@ export class DashboardComponent implements OnInit {
         type: 1,
         field: 'action',
         renderer: 'button',
-        buttonType: ButtonType.playAndPause,
+        buttonType: ButtonType.playAndPause
       },
       {
         lable: '',
@@ -85,6 +93,25 @@ export class DashboardComponent implements OnInit {
     data: [],
     rowSettings: {
       onClick: (data, button?, col?) => {
+        if (button === 'play') {
+          if (data.status === 'PAUSED') {
+            this.myTasksNetworkService
+              .resumeTaskWithId(data.id)
+              .subscribe((_) => {
+                this.getTasks();
+              });
+          } else {
+            this.myTasksNetworkService
+              .startTaskWithId(data.id)
+              .subscribe((_) => {
+                this.getTasks();
+              });
+          }
+        } else if (button === 'pause') {
+          this.myTasksNetworkService.pauseTaskWithId(data.id).subscribe((_) => {
+            this.getTasks();
+          });
+        }
       },
       floatButton: [
         {
@@ -95,68 +122,23 @@ export class DashboardComponent implements OnInit {
         }
       ]
     }
-  }
+  };
 
-  //#endregion
+  // endregion
 
-  constructor(private router: Router, private networkService: DashboardNetworkService) {
-    this.dataDashboard.next([]);
-  }
+  constructor(
+    private router: Router,
+    private networkService: DashboardNetworkService,
+    private myTasksNetworkService: MyTasksNetworkService
+  ) {}
 
   ngOnInit(): void {
-    this.dataDashboard$.subscribe(x => {
-    })
-
     this.getStatistics();
     this.getTasks();
-
-    setTimeout(() => {
-
-      this.dataDashboard.next(
-        [
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: 10,
-            status: "In Progress",
-            action: "play",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: 75,
-            status: "In Progress",
-            action: "pause",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: 20,
-            status: "In Progress",
-            action: "play",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: 20,
-            status: "In Progress",
-            action: "play",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: 20,
-            status: "In Progress",
-            action: "play",
-          },
-        ]
-      )
-    }, 1000);
-
   }
 
   private getStatistics(): void {
-    this.networkService.getStatistics().subscribe(response => {
+    this.networkService.getStatistics().subscribe((response) => {
       this.filterSetting.map((filter) => {
         switch (filter.filterTitle) {
           case 'statistic.not_started':
@@ -175,22 +157,33 @@ export class DashboardComponent implements OnInit {
             break;
         }
       });
-    })
+    });
   }
 
   private getTasks(): void {
-    this.networkService.getTasks().subscribe(response => {
-      const tasks = response.message
+    this.networkService.getTasks().subscribe((response) => {
+      const tasks = response.message;
       const tasksArray = [];
-      tasks.map(task => {
+      tasks.map((task) => {
+        const startDate = new Date(task.startDate * 1000);
+        const full = startDate.getDate() + task.taskMaster.timeEstimate;
+        const now = new Date(task.now * 1000);
+        const progress = now.getDate();
+        const progressValue = progress / full;
         const taskObject = {
+          id: task.taskId,
+          asset: task.asset.dpd,
           task: task.taskMaster.name,
           priority: task.priorityOrder,
-          progress: 10,
+          progress: progressValue,
           status: task.status,
-        }
+          action:
+            task.status === 'STARTED' || task.status === 'RESUMED'
+              ? 'pause'
+              : 'play'
+        };
         tasksArray.push(taskObject);
-      })
+      });
 
       if (tasksArray.length) {
         this.dataDashboard.next(tasksArray);

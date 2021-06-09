@@ -8,10 +8,11 @@ import { ReminderComponent } from './reminder/reminder.component';
 import { FilterModule } from '@core/filter';
 import { TableModule } from '@core/table';
 import { TabViewModule } from '@core/tab-view';
-import { AddRequestComponent } from './dashboard/add-request/add-request.component';
+import { AddRequestComponent } from './my-tasks/add-request/add-request.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TaskOverviewComponent } from './my-tasks/task-overview/task-overview.component';
 import { SharedModule } from '@shared/shared.module';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SharedModule } from '@shared/shared.module';
     TableModule,
     TabViewModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    NgCircleProgressModule
   ]
 })
 export class TechnicianModule {}

@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MyTasksComponent } from './my-tasks/my-tasks.component';
 import { MyRequestsComponent } from './my-requests/my-requests.component';
-import { AddRequestComponent } from './dashboard/add-request/add-request.component';
+import { AddRequestComponent } from './my-tasks/add-request/add-request.component';
 import { TaskOverviewComponent } from './my-tasks/task-overview/task-overview.component';
 
 const routes: Routes = [

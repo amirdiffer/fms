@@ -8,15 +8,17 @@ import { ResponseBody } from '@models/responseBody';
   providedIn: 'root'
 })
 export class DashboardNetworkService {
-
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
   getStatistics(): Observable<ResponseBody<any>> {
-    return this.httpClient.get<ResponseBody<any>>(environment.baseApiUrl + 'technician/dashboard/task/stats');
+    return this.httpClient.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'technician/dashboard/task/stats'
+    );
   }
 
   getTasks(): Observable<ResponseBody<any>> {
-    return this.httpClient.get<ResponseBody<any>>(environment.baseApiUrl + 'technician/dashboard/task/active')
+    return this.httpClient.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'technician/dashboard/task'
+    );
   }
 }

@@ -103,6 +103,14 @@
 
       <div class='col-md-3 p-field form-section__field options-select'>
         <span class='p-float-label'>
+          <p-dropdown [autoDisplayFirst]='false' [options]='fleetTypes' optionLabel='name'
+                      formControlName='fleetType'></p-dropdown>
+          <label>{{ 'technician.requests.form.select_fleet_type' | translate }}</label>
+        </span>
+      </div>
+
+      <div class='col-md-3 p-field form-section__field options-select'>
+        <span class='p-float-label'>
           <p-dropdown [autoDisplayFirst]='false' [options]='categories' optionLabel='name'
                       formControlName='category'></p-dropdown>
           <label>{{ 'technician.requests.form.select_category' | translate }}</label>

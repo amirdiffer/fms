@@ -1,6 +1,9 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { Utility } from '@shared/utility/utility';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DialogService } from '@core/dialog/dialog-template.component';
+import { tap } from 'rxjs/operators';
+import { LocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'anms-add-request',
@@ -26,6 +29,11 @@ export class AddRequestComponent extends Utility implements OnInit {
     { name: 'Fourth', id: 4 }
   ];
 
+  fleetTypes = [
+    { name: 'Asset', id: 1 },
+    { name: 'Sub Asset', id: 2 }
+  ];
+
   categories = [
     { name: 'Category 1', id: 1 },
     { name: 'Category 2', id: 2 },
@@ -43,13 +51,17 @@ export class AddRequestComponent extends Utility implements OnInit {
   fileId: any[] = [];
   // endregion
 
-  constructor(private formBuilder: FormBuilder, private injector: Injector) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private injector: Injector,
+    private dialog: DialogService,
+    private location: LocationStrategy
+  ) {
     super(injector);
   }
 
   ngOnInit(): void {
     this.buildForm();
-    console.log(this.form.controls['requestType'].value);
   }
 
   buildForm(): void {
@@ -60,6 +72,7 @@ export class AddRequestComponent extends Utility implements OnInit {
       requestDescription: '',
       priority: '',
       category: '',
+      fleetType: '',
       item: '',
       quantity: '',
       needPartRequestDescription: '',
@@ -71,5 +84,25 @@ export class AddRequestComponent extends Utility implements OnInit {
 
   submit(): void {}
 
-  cancel(): void {}
+  cancel(): void {
+    const dialog = this.dialog.show(
+      'warning',
+      'Add Request',
+      'Are you sure to cancel add new request ?'
+    );
+    const dialogClosedSubscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+          if (result === 'confirm') {
+            this.back();
+          }
+          dialogClosedSubscription?.unsubscribe();
+        })
+      )
+      .subscribe();
+  }
+
+  back(): void {
+    this.location.back();
+  }
 }

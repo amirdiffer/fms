@@ -8,8 +8,8 @@ import { SettingsFacade } from '@core/settings/settings.facade';
 })
 export class ColumnRendererComponent implements OnInit {
   @Input() setting: TableSetting;
-  @Input() data:any;
-  @Input() col:ColumnDifinition;
+  @Input() data: any;
+  @Input() col: ColumnDifinition;
   @Input() context;
   @Input() index;
 
@@ -21,8 +21,5 @@ export class ColumnRendererComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    console.log(this.setting);
-    console.log(this.data);
-  }
+  ngOnInit(): void {}
 }

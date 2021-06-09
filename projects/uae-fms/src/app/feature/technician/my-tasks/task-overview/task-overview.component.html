@@ -4,7 +4,7 @@
       <h4 class='ml-2 font-weight-bold'>Asset Detail</h4>
       <div class='component_sec_wrapper'>
         <div class='text-center mt-3 mb-3'>
-          <img src='assets/thumb.png' alt='thumb' width='130'>
+          <img src='{{fileServer + ((assetDetail.avatarId) ? assetDetail.avatarId : 1)}}' alt='thumb' width='130'>
         </div>
         <div class='row justify-content-between pl-5 pr-5'>
           <h5>Fleet no.</h5>
@@ -12,7 +12,7 @@
         </div>
         <div class='row justify-content-between pl-5 pr-5'>
           <h5>Serial number</h5>
-          <h5>{{assetDetail.plateNumber}}</h5>
+          <h5>{{assetDetail.dpd}}</h5>
         </div>
         <div class='row justify-content-between pl-5 pr-5'>
           <h5>Plate number</h5>
@@ -57,11 +57,85 @@
     <div class='col-12 col-md-8 col-lg-9 main-panel'>
       <div class='row'>
         <div class='col-12'>
-          <h4 class='ml-2 font-weight-bold'>Task Details</h4>
+          <div class='row justify-content-between'>
+            <h4 class='ml-2 font-weight-bold'>Task Details</h4>
+            <button class='btn-primary-medium add mr-3' routerLink='/dashboard/technician/add-request'
+                    type='submit'>+ {{ 'Request' | translate }}</button>
+          </div>
+
           <div class='table-container'>
-            <div class='card-table'>
-              <div class='table-container'>
-                <app-table [setting]='taskDetailsTable'></app-table>
+
+            <div class='row p-2 ml-3 mr-3 mb-2 justify-content-between' (click)='onRowSelect()'>
+              <div>
+                <div>{{taskDetails?.taskMaster?.name}}</div>
+                <div *ngIf='taskDetails.status !== "NONE"'>
+                  <span>{{'Start Task On' | translate}}: {{(taskDetails.startDate * 1000) | date}}</span>
+                </div>
+              </div>
+              <div class='mt-auto mb-auto'>
+                <span>{{'Time estimate' | translate}}
+                  : {{taskDetails?.taskMaster?.timeEstimate}} {{'days' | translate}}</span>
+                <div class='row mt-3 ml-2'>
+                  <div class='mt-4'>{{'Remain' | translate}}: {{timeRemaining}}</div>
+                  <circle-progress
+                    [percent]='taskProgress'
+                    [radius]='30'
+                    [showInnerStroke]='false'
+                    [outerStrokeWidth]='5'
+                    [outerStrokeColor]="(taskProgress <= 50) ? '#FCB614' : (taskProgress === 100) ? '#42D0D9' : '#20E19D'"
+                    [animation]='true'
+                    [animationDuration]='300'
+                    [showSubtitle]='false'></circle-progress>
+                </div>
+              </div>
+              <div>
+                <span>{{timeRemaining}}</span>
+                <div class='mt-5'>{{taskDetails.status}}</div>
+              </div>
+              <div class='mt-auto mb-auto'>
+                <img class='play-pause-button cursor-pointer' [hidden]='taskDetails.status === "COMPLETED"'
+                     src="{{(taskDetails.status === 'PAUSED' || taskDetails.status === 'NONE') ?
+                     'assets/icons/play-button.png': 'assets/icons/pause-button.png'}}"
+                     (click)='onPlayOrPauseClick($event)' />
+                <img [hidden]='taskDetails.status === "COMPLETED"'
+                     class='complete-button p-2 cursor-pointer' src="assets/icons/tick-mark.svg" (click)='onCompleteClick($event)' />
+              </div>
+            </div>
+            <div class='pl-4 pr-4 bg-gray' [class.bg-gray]='(theme$ | async) === "green-theme"'
+                 [class.bg-dark]='(theme$ | async) === "black-theme"' [hidden]='!isRowExpanded'>
+              <div class='w-100 row justify-content-between p-4'>
+                <div>
+                </div>
+                <div>
+                  <div>
+                    Part Details:
+                  </div>
+                  <div *ngFor='let item of taskDetails?.taskMaster?.partsForAsset'>
+                    {{item}}
+                  </div>
+                  <div *ngFor='let item of taskDetails?.taskMaster?.partsForSubAsset'>
+                    {{item}}
+                  </div>
+                </div>
+              </div>
+              <div class='text-right pb-1'>
+                <span class='cursor-pointer' (click)='onAddNoteClick()'>
+                  + Add a note
+                </span>
+              </div>
+            </div>
+
+            <div class='pl-4 pr-4' [hidden]='!isRowExpanded' *ngFor='let taskHistory of taskHistoryArray'>
+              <div class='w-100 row justify-content-between p-4'>
+                <div *ngIf='taskHistory.description'>
+                  {{taskHistory.description}}
+                </div>
+                <div *ngIf='!taskHistory.description'>
+                  {{taskHistory.type}}
+                </div>
+                <div>
+                  {{(taskHistory.createdAt * 1000) | date:'full'}}
+                </div>
               </div>
             </div>
           </div>

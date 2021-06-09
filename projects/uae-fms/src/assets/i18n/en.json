@@ -350,7 +350,11 @@
     "traffic_fine": "Traffic Fine",
     "all-requests-list": "All Requests List",
     "part_requests": "Part Requests",
-    "technical_inspection_requests": "Technical Inspection Requests"
+    "technical_inspection_requests": "Technical Inspection Requests",
+    "all_tasks": "All Tasks",
+    "today_tasks": "Today Tasks",
+    "paused_tasks": "Paused Tasks",
+    "delayed_tasks": "Delayed Tasks"
   },
   "search": {
     "add": "Add",
@@ -1948,7 +1952,9 @@
   },
   "reports": {},
   "technician": {
-    "dashboard": {},
+    "dashboard": {
+      "recent_tasks": "Recent Tasks"
+    },
     "requests": {
       "~": "Requests",
       "form": {
@@ -1962,6 +1968,7 @@
         "request_description": "Request description",
         "priority": "Priority",
         "part_request_detail": "Part request detail",
+        "select_fleet_type": "Select Fleet Type",
         "select_category": "Select category",
         "select_item": "Select item",
         "quantity": "Quantity",

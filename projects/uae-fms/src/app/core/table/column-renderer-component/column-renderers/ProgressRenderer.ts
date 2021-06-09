@@ -3,28 +3,24 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'table-progress-renderer',
   template: `
-    <div class="progress">
-      <div
-        class="progress-bar"
-        [ngStyle]="{ width: data + '%' }"
-        [ngClass]="data >= 50 ? 'more-than-half' : 'less-than-half'"
-      ></div>
-    </div>
-  `,
-  styles: [
-    `
-      .less-than-half {
-        background-color: red;
-      }
-
-      .more-than-half {
-        background-color: greenyellow;
-      }
-    `
-  ]
+    <circle-progress
+      [percent]="data"
+      [radius]="30"
+      [showInnerStroke]="false"
+      [outerStrokeWidth]="5"
+      [outerStrokeColor]="
+        data <= 50 ? '#FCB614' : data === 100 ? '#42D0D9' : '#20E19D'
+      "
+      [animation]="true"
+      [animationDuration]="300"
+      [showSubtitle]="false"
+    ></circle-progress>
+  `
 })
 export class ProgressRendererComponent implements OnInit {
   @Input() data: number;
+
+  constructor() {}
 
   ngOnInit(): void {}
 }

@@ -86,8 +86,8 @@ import { ButtonType } from '../../table.component';
       class="play-pause-button"
       src="{{
         this.button.action === 'play'
-          ? 'assets/icons/play-button.svg'
-          : 'assets/icons/pause-button.svg'
+          ? 'assets/icons/play-button.png'
+          : 'assets/icons/pause-button.png'
       }}"
       (click)="clickButton(this.button.action === 'play' ? 'play' : 'pause')"
     />
@@ -138,7 +138,7 @@ import { ButtonType } from '../../table.component';
         height: 1.3em;
       }
       img.play-pause-button {
-        height: 1.9em;
+        height: 3em;
         cursor: pointer;
       }
       button.job-card {
@@ -171,7 +171,6 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   }
 
   clickButton(button, col?): void {
-    console.log(col);
     if (col && col.onClick instanceof Function) {
       col.onClick(this.button, col);
     }
