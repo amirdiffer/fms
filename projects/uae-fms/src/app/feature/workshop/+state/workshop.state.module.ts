@@ -42,14 +42,13 @@ import {
 } from '@feature/workshop/+state/auction-list';
 import { AuctionListEffect } from '@feature/workshop/+state/auction-list/auction/auction-list.effects';
 import { SoldListEffects } from '@feature/workshop/+state/auction-list/sold/sold-list.effects';
-import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { UsersService } from '@feature/configuration/+state/users';
-import { ConfigurationStateModule } from '@feature/configuration/+state';
-import { FleetStateModule } from '@feature/fleet/+state';
 import { ServiceShopRequestEffect } from './service-shop/request/service-shop-request.effects';
 import { ServiceShopTechnicianEffect } from './service-shop/technician/service-shop-technician.effect';
 import { ServiceShopJobCardEffect } from './service-shop/job-card/service-shop-job-card.effect';
 import { ServiceShopLocationEffect } from './service-shop/location/service-shop-location.effect';
+import { AssetMasterStateModule } from '@feature/fleet/+state/assets/asset-master/asset-master-state.module';
+import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 
 @NgModule({
   imports: [
@@ -68,7 +67,7 @@ import { ServiceShopLocationEffect } from './service-shop/location/service-shop-
       SoldListEffects,
       TaskMasterEffect
     ]),
-    FleetStateModule
+    AssetMasterStateModule
   ],
   exports: [],
   declarations: [],

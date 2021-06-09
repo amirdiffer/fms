@@ -8,6 +8,8 @@ import { SharedModule } from '@shared/shared.module';
 import { AccessoryComponent } from './accessory.component';
 import { AddAccessoryComponent } from './add-accessory/add-accessory.component';
 import { AccessoryOverviewComponent } from './accessory-overview/accessory-overview.component';
+import { AccessoryStateModule } from '../+state/accessory/accessory-state.module';
+import { SubAssetStateModule } from '../+state/sub-asset/sub-asset-state.module';
 
 
 
@@ -24,6 +26,8 @@ import { AccessoryOverviewComponent } from './accessory-overview/accessory-overv
     FilterModule,
     TableModule,
     SharedModule,
+    AccessoryStateModule,
+    SubAssetStateModule
     
   ]
 })

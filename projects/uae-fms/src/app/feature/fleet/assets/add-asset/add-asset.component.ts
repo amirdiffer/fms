@@ -11,10 +11,6 @@ import { ColumnType, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import {
-  AssetMasterFacade,
-  AssetMasterService
-} from '@feature/fleet/+state/assets/asset-master';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { BusinessCategoryFacade } from '@feature/configuration/+state/business-category';
 import { map } from 'rxjs/operators';
@@ -26,6 +22,7 @@ import { PeriodicServiceFacade, } from '@feature/configuration/+state/periodic-s
 import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
 import { OperatorFacade } from '@feature/fleet/+state/operator';
 import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
+import { AssetMasterFacade, AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 
 @Component({
   selector: 'anms-add-asset',

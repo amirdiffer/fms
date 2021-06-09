@@ -11,6 +11,7 @@ import { TableModule } from '@core/table';
 import { SharedModule } from '@shared/shared.module';
 import { OrderListRoutingModule } from './order-list-routing.module';
 import { CarouselModule } from 'primeng/carousel';
+import { SubAssetStateModule } from '@feature/fleet/+state/sub-asset/sub-asset-state.module';
 
 
 
@@ -29,7 +30,8 @@ import { CarouselModule } from 'primeng/carousel';
     TabViewModule,
     TableModule,
     SharedModule,
-    CarouselModule
+    CarouselModule,
+    SubAssetStateModule
   ]
 })
 export class OrderListModule { }

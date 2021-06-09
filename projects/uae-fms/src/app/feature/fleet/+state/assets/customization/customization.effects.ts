@@ -3,8 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
-import { CustomizationActions } from '@feature/fleet/+state/assets/customization/customization.actions';
-import { CustomizationService } from '@feature/fleet/+state/assets/customization/customization.service';
+import { CustomizationActions } from './customization.actions';
+import { CustomizationService } from './customization.service';
 import { TableFacade } from '@core/table/+state/table.facade';
 import { Store } from '@ngrx/store';
 

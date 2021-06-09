@@ -4,6 +4,8 @@ import { FLEET_FEATURE_KEY } from './fleet.entity';
 export class FleetSelectors {
   static featureSelector = createFeatureSelector(FLEET_FEATURE_KEY);
 
+
+  /* ''''''''''ASSET'''''''''' */
   static assetMasterSelector = createSelector(
     FleetSelectors.featureSelector,
     (state) => state['assetMaster']
@@ -19,6 +21,15 @@ export class FleetSelectors {
     (state) => state['registration']
   );
 
+
+  /* ''''''''''ACCESSORY'''''''''' */
+  static accessorySelector = createSelector(
+    FleetSelectors.featureSelector,
+    (state) => state['accessory']
+  );
+
+
+  /* ''''''''''MOVEMENT'''''''''' */
   static movementOverviewSelector = createSelector(
     FleetSelectors.featureSelector,
     (state) => state['movementOverview']
@@ -36,6 +47,15 @@ export class FleetSelectors {
     (state) => state['movementRequestsTemporary']
   );
 
+
+  /* ''''''''''SUB ASSET'''''''''' */
+  static subAssetSelector = createSelector(
+    FleetSelectors.featureSelector,
+    (state) => state['sub-asset']
+  );
+
+
+  /* ''''''''''OPERATOR'''''''''' */
   static operatorSelector = createSelector(
     FleetSelectors.featureSelector,
     (state) => state['operator']
@@ -50,14 +70,9 @@ export class FleetSelectors {
     FleetSelectors.featureSelector,
     (state) => state['operator-movement-history']
   );
-  static accessorySelector = createSelector(
-    FleetSelectors.featureSelector,
-    (state) => state['accessory']
-  );
-  static subAssetSelector = createSelector(
-    FleetSelectors.featureSelector,
-    (state) => state['sub-asset']
-  );
+  
+  
+  /* ''''''''''ORGANIZATION'''''''''' */
   static organizationSelector = createSelector(
     FleetSelectors.featureSelector,
     (state) => state['organization']

@@ -1,15 +1,17 @@
-import { createSelector } from '@ngrx/store';
-import { customizationAdapter } from './customization.entity';
-import { FleetSelectors } from '../../fleet.selectors';
+import  { createSelector } from '@ngrx/store';
+import { customizationAdapter} from './customization.entity';
 const { selectAll } = customizationAdapter.getSelectors();
+const assetCustomizationState = (state) => state['customization']
 
 export class CustomizationSelectors {
+
+  
   static selectAll = createSelector(
-    FleetSelectors.customizationSelector,
+    assetCustomizationState,
     selectAll
   );
   static count = createSelector(
-    FleetSelectors.customizationSelector,
+    assetCustomizationState,
     (state) => state.resultNumber
   );
 }

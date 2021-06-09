@@ -17,7 +17,7 @@ import {
 import {
   FLEET_MOVEMENT_OVERVIEW_FEATURE_KEY,
   MovementOverviewState
-} from './movement/overview/movement-overview.entity';
+} from './movement/permanent/overview/movement-overview.entity';
 import {
   FLEET_OPERATOR_FEATURE_KEY,
   IOperatorState
