@@ -60,3 +60,26 @@
 .title-wrapper {
   margin: 0px 17px;
 }
+.form-check{
+  display: flex;
+  input{
+    margin: 0.8em 0.8em 0.8em 0.4em;
+  }
+  label {
+    align-self: center;
+    margin-bottom: 0;
+  }
+}
+.duration-container{
+  padding-left: 0 !important;
+  .duration{
+    display: flex;
+    p-dropdown{
+      flex: 0 0 auto;
+    }
+    .p-field{
+      flex: 1 0 auto;
+    }
+  }
+}
+

@@ -1952,7 +1952,12 @@
       "periodic_service_name": "Periodic Service Name",
       "package_name": "Package Name",
       "intervals": "Intervals",
-      "km_h": "Km/h"
+      "km_h": "Km/h",
+      "reminder":"Reminder",
+      "distance":"Distance",
+      "hours":"Hours",
+      "duration":"Duration",
+      "milage":"Milage"
     },
     "company_profile": {},
     "add_asset_configuration": {
