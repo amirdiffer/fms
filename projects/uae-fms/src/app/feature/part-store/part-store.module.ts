@@ -6,8 +6,8 @@ import { PartStoreStateModule } from './+state/part-store.state.module';
 import { PartOverviewComponent } from './part-overview/part-overview.component';
 import { PartStoreRoutingModule } from './part-store-routing.module';
 import {CarouselModule} from 'primeng/carousel';
-import { FleetStateModule } from '@feature/fleet/+state';
 import { TableModule } from '@core/table';
+import { AssetMasterStateModule } from '@feature/fleet/+state/assets/asset-master/asset-master-state.module';
 
 @NgModule({
   imports: [
@@ -18,7 +18,7 @@ import { TableModule } from '@core/table';
     PartStoreStateModule,
     CarouselModule,
     TableModule,
-    FleetStateModule
+    AssetMasterStateModule
   ],
   declarations: [
     PartOverviewComponent,

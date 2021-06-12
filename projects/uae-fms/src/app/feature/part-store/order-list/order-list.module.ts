@@ -12,6 +12,7 @@ import { SharedModule } from '@shared/shared.module';
 import { OrderListRoutingModule } from './order-list-routing.module';
 import { CarouselModule } from 'primeng/carousel';
 import { BodyShopTechnicianStateModule } from '@feature/workshop/+state/body-shop/technician/body-shop-technician-state.module';
+import { SubAssetStateModule } from '@feature/fleet/+state/sub-asset/sub-asset-state.module';
 
 
 
@@ -31,7 +32,8 @@ import { BodyShopTechnicianStateModule } from '@feature/workshop/+state/body-sho
     TableModule,
     SharedModule,
     CarouselModule,
-    BodyShopTechnicianStateModule
+    BodyShopTechnicianStateModule,
+    SubAssetStateModule
   ]
 })
 export class OrderListModule { }

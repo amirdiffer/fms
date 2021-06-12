@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MovementOverviewStateModel } from './movement-overview.entity';
-import { ResponseBody } from '@models/response-body';
-import { IOwnerShip } from '@models/configuration';
 import { environment } from '@environments/environment';
 import { TableFacade } from '@core/table/+state/table.facade';
 

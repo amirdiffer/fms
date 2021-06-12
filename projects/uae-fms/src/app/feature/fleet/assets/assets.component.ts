@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { AssetsService } from './assets.service';
 import { ColumnType, TableComponent } from '@core/table';
-import { AssetMasterFacade } from '../+state/assets/asset-master';
 import { Subscription } from 'rxjs';
-import { RegistrationFacade } from '@feature/fleet/+state/assets/registration';
-import { CustomizationFacade } from '@feature/fleet/+state/assets/customization';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import moment from 'moment';
 import { FilterCardSetting } from '@core/filter';
+import { AssetMasterFacade } from '../+state/assets/asset-master';
+import { RegistrationFacade } from '../+state/assets/registration';
+import { CustomizationFacade } from '../+state/assets/customization';
 
 @Component({
   selector: 'anms-assets',

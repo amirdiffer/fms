@@ -1,33 +1,33 @@
 import { createSelector } from '@ngrx/store';
-import { FleetSelectors } from '../fleet.selectors';
 import { operatorAdapter } from './operator.entity';
 const { selectAll } = operatorAdapter.getSelectors();
+const operatorState = (state) => state['operator']
 
 export class OperatorSelectors {
-  static selectAll = createSelector(FleetSelectors.operatorSelector, selectAll);
+  static selectAll = createSelector(operatorState, selectAll);
 
   static message = createSelector(
-    FleetSelectors.operatorSelector,
+    operatorState,
     (state) => state.message
   );
 
   static error = createSelector(
-    FleetSelectors.operatorSelector,
+    operatorState,
     (state) => state.error
   );
 
   static submitted = createSelector(
-    FleetSelectors.operatorSelector,
+    operatorState,
     (state) => state.submitted
   );
 
   static selectStatistics = createSelector(
-    FleetSelectors.operatorSelector,
+    operatorState,
     (state) => state.statistics
   );
 
   static count = createSelector(
-    FleetSelectors.operatorSelector,
+    operatorState,
     (state) => state.resultNumber
   );
 

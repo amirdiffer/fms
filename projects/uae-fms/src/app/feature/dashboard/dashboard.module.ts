@@ -34,11 +34,10 @@ import { AssetOverviewComponent } from './asset-overview/asset-overview.componen
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatNativeDateModule } from '@angular/material/core';
-import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 import { AccessoryService } from '@feature/fleet/+state/accessory';
 import { SubAssetService } from '@feature/fleet/+state/sub-asset';
 import { OperatorService } from '@feature/fleet/+state/operator';
-import { FleetStateModule } from '@feature/fleet/+state';
+import { AssetMasterStateModule } from '@feature/fleet/+state/assets/asset-master/asset-master-state.module';
 
 @NgModule({
   declarations: [
@@ -76,12 +75,11 @@ import { FleetStateModule } from '@feature/fleet/+state';
     MatDatepickerModule,
     MatIconModule,
     MatNativeDateModule,
-    FleetStateModule
+    AssetMasterStateModule
   ],
   providers: [
     DashboardFacade,
     DashboardService,
-    AssetMasterService,
     AccessoryService,
     SubAssetService,
     OperatorService

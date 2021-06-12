@@ -1,35 +1,35 @@
 import { createSelector } from '@ngrx/store';
-import { FleetSelectors } from '@feature/fleet/+state/fleet.selectors';
-import { assetMasterAdapter, IAssetMasterState } from './asset-master.entity';
+import { assetMasterAdapter , IAssetMasterState } from './asset-master.entity';
 const { selectAll } = assetMasterAdapter.getSelectors();
-
+const assetMasterState = (state) => state['assetMaster']
 export class AssetMasterSelectors {
+
   static selectAll = createSelector(
-    FleetSelectors.assetMasterSelector,
+    assetMasterState,
     selectAll
   );
 
   static specificAsset = createSelector(
-    FleetSelectors.assetMasterSelector,
+    assetMasterState,
     (state) => state.asset
   );
   static selectStatistics = createSelector(
-    FleetSelectors.assetMasterSelector,
+    assetMasterState,
     (state: IAssetMasterState) => state.statistics
   );
 
   static error = createSelector(
-    FleetSelectors.assetMasterSelector,
+    assetMasterState,
     (state) => state.error
   );
 
   static count = createSelector(
-    FleetSelectors.assetMasterSelector,
+    assetMasterState,
     (state) => state.resultNumber
   );
 
   static submitted = createSelector(
-    FleetSelectors.assetMasterSelector,
+    assetMasterState,
     (state) => state.submitted
   );
 }

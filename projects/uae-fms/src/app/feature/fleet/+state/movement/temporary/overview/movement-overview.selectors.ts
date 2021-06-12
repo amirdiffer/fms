@@ -1,30 +1,30 @@
 import { createSelector } from '@ngrx/store';
-import { FleetSelectors } from '../../../fleet.selectors';
-import { movementOverviewAdapter } from '@feature/fleet/+state/movement/overview/movement-overview.entity';
+import { movementOverviewAdapter } from '@feature/fleet/+state/movement/permanent/overview/movement-overview.entity';
 const {
   selectAll,
   selectIds,
   selectEntities
 } = movementOverviewAdapter.getSelectors();
+const temporatyOverviewState = (state) => state['movementOverviewTemporary'];
 
 export class MovementOverviewSelectorsTemporary {
   static selectAll = createSelector(
-    FleetSelectors.movementOverviewSelectorTemporary,
+    temporatyOverviewState,
     selectAll
   );
 
   static count = createSelector(
-    FleetSelectors.movementOverviewSelectorTemporary,
+    temporatyOverviewState,
     (state) => state.resultNumber
   );
 
   static message = createSelector(
-    FleetSelectors.movementRequestsSelectorTemporary,
+    temporatyOverviewState,
     (state) => state.message
   );
 
   static error = createSelector(
-    FleetSelectors.movementOverviewSelectorTemporary,
+    temporatyOverviewState,
     (state) => state.error
   );
 }

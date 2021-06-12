@@ -9,6 +9,7 @@ import { DepartmentOverviewComponent } from './department-overview/department-ov
 import { OverviewTabComponent } from './department-overview/overview-tab/overview-tab.component';
 import { OrganizationRoutingModule } from './organization-routing.module';
 import { TabViewModule } from '@core/tab-view';
+import { OrganizationStateModule } from '../+state/organization/organization-state.module';
 
 
 
@@ -27,6 +28,7 @@ import { TabViewModule } from '@core/tab-view';
     TableModule,
     TabViewModule,
     SharedModule,
+    OrganizationStateModule
   ]
 })
 export class OrganizationModule { }
