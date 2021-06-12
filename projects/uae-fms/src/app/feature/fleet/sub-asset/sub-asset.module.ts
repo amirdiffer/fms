@@ -13,6 +13,9 @@ import { SubAssetRoutingModule } from './sub-asset-routing.module';
 import { TabViewModule } from '@core/tab-view';
 import { MapModule } from '@core/map-view';
 import { ChartsModule } from '@core/charts';
+import { AssetPolicyStateModule } from '@feature/configuration/+state/asset-policy/asset/asset-policy-state.module';
+import { SubAssetPolicyStateModule } from '@feature/configuration/+state/asset-policy/sub-asset/sub-asset-policy-state.module';
+import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/sub-asset-type/sub-asset-type-state.module';
 
 
 
@@ -33,7 +36,10 @@ import { ChartsModule } from '@core/charts';
     ReminderModule,
     HistoryModule,
     MapModule,
-    ChartsModule
+    ChartsModule,
+    AssetPolicyStateModule,
+    SubAssetPolicyStateModule,
+    SubAssetTypeStateModule
   ]
 })
 export class SubAssetModule { }

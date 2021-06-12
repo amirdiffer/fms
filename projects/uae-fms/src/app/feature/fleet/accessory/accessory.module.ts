@@ -8,6 +8,7 @@ import { SharedModule } from '@shared/shared.module';
 import { AccessoryComponent } from './accessory.component';
 import { AddAccessoryComponent } from './add-accessory/add-accessory.component';
 import { AccessoryOverviewComponent } from './accessory-overview/accessory-overview.component';
+import { AccessoryTypeStateModule } from '@feature/configuration/+state/fleet-configuration/accessory-type/accessory-type-state.module';
 
 
 
@@ -24,7 +25,7 @@ import { AccessoryOverviewComponent } from './accessory-overview/accessory-overv
     FilterModule,
     TableModule,
     SharedModule,
-    
+    AccessoryTypeStateModule
   ]
 })
 export class AccessoryModule { }

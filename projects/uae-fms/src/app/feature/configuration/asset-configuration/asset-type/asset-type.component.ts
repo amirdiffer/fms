@@ -6,7 +6,9 @@ import {
   EventEmitter,
   Input, ChangeDetectorRef
 } from '@angular/core';
-import { AccessoryTypeFacade, AssetTypeFacade, SubAssetTypeFacade } from '../../+state/fleet-configuration/index';
+import { AccessoryTypeFacade } from '../../+state/fleet-configuration/accessory-type';
+import { SubAssetTypeFacade } from '../../+state/fleet-configuration/sub-asset-type';
+import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
 import { Subject, Observable } from 'rxjs';
 import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -76,7 +78,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     this._assetTypefacade.loadAll();
     this._subAssetTypeFacade.loadAll();
     this._subAssetTypeFacade.loadAll();
-    
+
     this.refreshData()
 
     this.assetTypeSubject$.subscribe((assetTypeArray) => {
@@ -110,7 +112,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
     this.dataService.selectedTypeId = assetType.id;
     this.dataService.selectedTypeName = assetType.name;
     this.onTypeClick(assetType);
-  
+
     this.router.navigate([this.activeAssetType+'/add-make/' +assetType.id] , {relativeTo:this.activatedRoute}).then(()=>{
       this.refreshData();
     })
@@ -152,7 +154,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
         this.select.emit(this.activeCat);
         this.selectMake.emit({typeId : item.id , makes : item.makes});
         this.assetTypeSubject$.next(this.openedAssetTypeArray);
-        
+
       })
     }).then()
   }
@@ -267,7 +269,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       );
 
     }
-    
+
     this.assetType$.subscribe(x=>{if(x){this.assetTypeSubject$.next(assetTypeArray)};});
   }
 
@@ -285,7 +287,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       case 'ASSET':
         this.router.navigate(['add-asset-configuration'] , {relativeTo:this.activatedRoute})
         break;
-    
+
       case 'SUB_ASSET':
         this.router.navigate(['add-sub-asset-configuration'], {relativeTo:this.activatedRoute})
         break;
@@ -302,7 +304,7 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
       case 'ASSET':
         this.router.navigate(['edit-asset-configuration/'+asset.id] , {relativeTo:this.activatedRoute})
         break;
-    
+
       case 'SUB_ASSET':
         this.router.navigate(['edit-sub-asset-configuration/'+asset.id], {relativeTo:this.activatedRoute})
         break;

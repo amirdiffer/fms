@@ -3,11 +3,9 @@ import { Observable, of, Subject, Subscription, SubscriptionLike } from 'rxjs';
 import { AssetConfigurationService } from './asset-configuration.service';
 
 
-import {
-  AccessoryTypeFacade,
-  AssetTypeFacade,
-  SubAssetTypeFacade
-} from '../+state/fleet-configuration/index';
+import { AccessoryTypeFacade } from '../+state/fleet-configuration/accessory-type';
+import { AssetTypeFacade } from '../+state/fleet-configuration/asset-type';
+import { SubAssetTypeFacade } from '../+state/fleet-configuration/sub-asset-type';
 import { FilterCardSetting } from '@core/filter';
 import { Make, MakeModel, MakeModelTrim } from '@models/asset-type.model';
 import { map } from 'rxjs/operators';
@@ -82,11 +80,11 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
                 case 'ASSET':
                   this.router.navigate(['edit-asset-configuration/' +data.id] , {relativeTo:this.activatedRoute})
                   break;
-              
+
                 case 'SUB_ASSET':
                   this.router.navigate(['edit-sub-asset-configuration/'+data.id], {relativeTo:this.activatedRoute})
                   break;
-          
+
                 case 'ACCESSORY':
                   this.router.navigate(['edit-accessory-configuration/'+data.id], {relativeTo:this.activatedRoute})
                   break;
@@ -284,7 +282,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     private _assetConfigurationService: AssetConfigurationService,
     private _dataService: DataService,
     public activatedRoute: ActivatedRoute
-    
+
   ) {}
 
   ngOnInit(): void {
@@ -297,9 +295,9 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     this._dataService.watchType().subscribe((type) => {
       this.activeTypeCategory = type;
       this.typeChanger(type)
-      
+
     });
-    
+
     /* Render First Table Setting */
     this.assetConfigurationableSetting.columns = this.typeCategoryTableSetting.columns;
     this.assetConfigurationableSetting.rowSettings = this.typeCategoryTableSetting.rowSettings;
@@ -526,7 +524,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     this.assetConfigurationableSetting.rowSettings = this.trimCategoryTableSetting.rowSettings
     let data = trims.trims.map(x => {
       return {
-        ...x , name:x.name , color: x.colors, 
+        ...x , name:x.name , color: x.colors,
       }
     })
     this.data$ = of(data)
@@ -607,8 +605,8 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       ];
     }
   }
-  
-  
+
+
   typeChanger(type) {
     this.filterTable()
     switch (type) {

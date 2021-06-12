@@ -7,6 +7,8 @@ import { TabViewModule } from '@core/tab-view';
 import { TableModule } from '@core/table';
 import { SharedModule } from '@shared/shared.module';
 import { PartListRoutingModule } from './part-list-routing.module';
+import { AssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/asset-type/asset-type-state.module';
+import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/sub-asset-type/sub-asset-type-state.module';
 
 
 
@@ -22,6 +24,8 @@ import { PartListRoutingModule } from './part-list-routing.module';
     TabViewModule,
     TableModule,
     SharedModule,
+    AssetTypeStateModule,
+    SubAssetTypeStateModule
   ]
 })
 export class PartListModule { }

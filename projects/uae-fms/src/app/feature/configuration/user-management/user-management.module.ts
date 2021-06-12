@@ -14,6 +14,8 @@ import { SharedModule } from '@shared/shared.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 import {MatTabsModule} from '@angular/material/tabs';
+import { UsersStateModule } from '../+state/users/users-state.module';
+import { RolePermissionStateModule } from '../+state/role-permission/role-permission-state.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     SharedModule,
     MatProgressBarModule,
     AlertDialogModule,
-    MatTabsModule
+    MatTabsModule,
+    UsersStateModule,
+    RolePermissionStateModule
   ]
 })
 export class UserManagementModule {}

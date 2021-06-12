@@ -47,7 +47,6 @@ import { OrganizationEffects } from '../+state/organization/organization-effects
 import { AccessoryEffect } from './accessory/accessory.effect';
 import { MovementRequestsEffect } from '@feature/fleet/+state/movement/requests/movement-requests.effect';
 import { MovementOverviewEffect } from '@feature/fleet/+state/movement/overview/movement-overview.effect';
-import { ConfigurationStateModule } from '@feature/configuration/+state';
 import { MovementRequestsEffectTemporary } from '@feature/fleet/+state/movement/temporary/requests/movement-requests.effect';
 import { MovementOverviewEffectTemporary } from '@feature/fleet/+state/movement/temporary/overview/movement-overview.effect';
 import { MovementOverviewFacadeTemporary } from '@feature/fleet/+state/movement/temporary/overview/movement-overview.facade';
@@ -73,7 +72,6 @@ import { MovementRequestsServiceTemporary } from '@feature/fleet/+state/movement
       OperatorTrafficFineEffect,
       OperatorMovementHistoryEffect,
     ]),
-    ConfigurationStateModule
   ],
   exports: [],
   declarations: [],

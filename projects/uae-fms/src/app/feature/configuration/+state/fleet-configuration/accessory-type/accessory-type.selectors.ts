@@ -1,39 +1,38 @@
-import { ConfigurationSelectors } from "../../configuration.selectors";
 import { accessoryTypeAdapter } from "./accessory-type.entity";
 import { createSelector } from '@ngrx/store';
 
 
 const { selectAll } = accessoryTypeAdapter.getSelectors();
-
+const accessoryTypeSelector = (state) => state['accessoryType']
 export class AccessoryTypeSelectors {
     static selectAll = createSelector(
-        ConfigurationSelectors.accessoryTypeSelector,
+        accessoryTypeSelector,
         selectAll
     );
-    
+
     static specificAccessoryType = createSelector(
-        ConfigurationSelectors.accessoryTypeSelector,
+        accessoryTypeSelector,
         (state) => state.accessoryType
     );
 
 
     static message = createSelector(
-        ConfigurationSelectors.accessoryTypeSelector,
+        accessoryTypeSelector,
         (state) => state.message
     );
 
     static error = createSelector(
-        ConfigurationSelectors.accessoryTypeSelector,
+        accessoryTypeSelector,
         (state) => state.error
       );
-    
+
     static submitted = createSelector(
-        ConfigurationSelectors.accessoryTypeSelector,
+        accessoryTypeSelector,
         (state) => state.submitted
     );
 
     static loaded = createSelector(
-        ConfigurationSelectors.accessoryTypeSelector,
+        accessoryTypeSelector,
         (state) => state.loaded
     );
 }

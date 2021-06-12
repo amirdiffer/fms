@@ -1,31 +1,31 @@
 import { createSelector } from '@ngrx/store';
-import { ConfigurationSelectors } from '../configuration.selectors';
 import { periodicServiceAdapter } from './periodic-service.entity';
-const { selectAll } = periodicServiceAdapter.getSelectors();
 
+const { selectAll } = periodicServiceAdapter.getSelectors();
+const periodicServiceSelector = (state) => state['periodic-service'];
 export class PeriodicServiceSelectors {
   static selectAll = createSelector(
-    ConfigurationSelectors.periodicServiceSelector,
+    periodicServiceSelector,
     selectAll
   );
 
   static message = createSelector(
-    ConfigurationSelectors.periodicServiceSelector,
+    periodicServiceSelector,
     (state) => state.message
   );
 
   static error = createSelector(
-    ConfigurationSelectors.periodicServiceSelector,
+    periodicServiceSelector,
     (state) => state.error
   );
 
   static submitted = createSelector(
-    ConfigurationSelectors.periodicServiceSelector,
+    periodicServiceSelector,
     (state) => state.submitted
   );
 
   static specificPeriodicService = createSelector(
-    ConfigurationSelectors.periodicServiceSelector,
+    periodicServiceSelector,
     (state) => state.specificPeriodicService
   );
 

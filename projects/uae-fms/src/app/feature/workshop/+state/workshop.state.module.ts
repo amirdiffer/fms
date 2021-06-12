@@ -44,7 +44,6 @@ import { AuctionListEffect } from '@feature/workshop/+state/auction-list/auction
 import { SoldListEffects } from '@feature/workshop/+state/auction-list/sold/sold-list.effects';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { UsersService } from '@feature/configuration/+state/users';
-import { ConfigurationStateModule } from '@feature/configuration/+state';
 import { FleetStateModule } from '@feature/fleet/+state';
 import { ServiceShopRequestEffect } from './service-shop/request/service-shop-request.effects';
 import { ServiceShopTechnicianEffect } from './service-shop/technician/service-shop-technician.effect';

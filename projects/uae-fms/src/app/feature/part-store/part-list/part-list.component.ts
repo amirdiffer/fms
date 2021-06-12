@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterCardSetting } from '@core/filter';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
-import { AssetTypeFacade , SubAssetTypeFacade} from '@feature/configuration/+state/fleet-configuration';
+import { SubAssetTypeFacade} from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
+import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
 import { PartListFacade, PartListService } from '@feature/part-store/+state/part-list';
 import { PartMasterFacade } from '@feature/part-store/+state/part-master/part-master.facade'
 import { Observable } from 'rxjs';
@@ -110,13 +111,13 @@ export class PartListComponent implements OnInit , OnDestroy {
         type: ColumnType.lable,
         field: 'modelName',
       },
-      { lable: 'tables.column.description', 
-        type: ColumnType.lable, 
-        field: 'description' 
+      { lable: 'tables.column.description',
+        type: ColumnType.lable,
+        field: 'description'
       },
-      { lable: 'tables.column.status', 
-        type: ColumnType.lable, 
-        field: 'status' 
+      { lable: 'tables.column.status',
+        type: ColumnType.lable,
+        field: 'status'
       },
       {
         lable: 'tables.column.total_quantity',
@@ -208,7 +209,7 @@ export class PartListComponent implements OnInit , OnDestroy {
               y.filterCount = x.unavailable
               break;
           }
-          
+
         })
       }
     })
@@ -359,7 +360,7 @@ export class PartListComponent implements OnInit , OnDestroy {
       case 'subAssetPartTab':
         this.table.exportTable(this.tableSubAssetPart, this.selectedTab, filter);
         break;
-      
+
     }
   }
 

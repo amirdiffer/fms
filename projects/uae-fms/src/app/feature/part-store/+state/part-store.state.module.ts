@@ -21,7 +21,6 @@ import {
   SuppliersService
 } from '@feature/part-store/+state/order-list/suppliers';
 import { SuppliersEffects } from '@feature/part-store/+state/order-list/suppliers/suppliers.effects';
-import { ConfigurationStateModule } from '@feature/configuration/+state';
 import { WorkshopStateModule } from '@feature/workshop/+state';
 import { OrderListEffect } from './order-list/order/order.effects';
 import { OrderListFacade, OrderListService } from './order-list/order/index';
@@ -35,9 +34,8 @@ import { OrderListFacade, OrderListService } from './order-list/order/index';
       RequestListEffect,
       SuppliersEffects,
       OrderListEffect
-      
+
     ]),
-    ConfigurationStateModule,
     WorkshopStateModule,
   ],
   exports: [],

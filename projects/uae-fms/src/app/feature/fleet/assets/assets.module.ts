@@ -25,6 +25,12 @@ import { AssetCarDetailComponent } from './asset-detail/asset-car-detail.compone
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { BodyShopJobCardService, BodyShopRequestService } from '@feature/workshop/+state/body-shop';
 import { ReminderComponent } from './overview-asset/infoComponents/reminder/reminder.component';
+import { RolePermissionStateModule } from '@feature/configuration/+state/role-permission/role-permission-state.module';
+import { AssetPolicyStateModule } from '@feature/configuration/+state/asset-policy/asset/asset-policy-state.module';
+import { BusinessCategoryStateModule } from '@feature/configuration/+state/business-category/business-category-state.module';
+import { AssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/asset-type/asset-type-state.module';
+import { OwnershipStateModule } from '@feature/configuration/+state/ownership/ownership-state.module';
+import { PeriodicServiceStateModule } from '@feature/configuration/+state/periodic-service/periodic-service-state.module';
 
 
 @NgModule({
@@ -43,7 +49,7 @@ import { ReminderComponent } from './overview-asset/infoComponents/reminder/remi
     RequestComponent,
     AssetCarDetailComponent,
     ReminderComponent
-    
+
   ],
   imports: [
     CommonModule,
@@ -57,6 +63,12 @@ import { ReminderComponent } from './overview-asset/infoComponents/reminder/remi
     NgApexchartsModule,
     ChartsModule,
     AngularSvgIconModule,
+    RolePermissionStateModule,
+    AssetPolicyStateModule,
+    BusinessCategoryStateModule,
+    AssetTypeStateModule,
+    OwnershipStateModule,
+    PeriodicServiceStateModule
 
   ],
   exports: [AssetCarDetailComponent],

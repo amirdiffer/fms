@@ -9,7 +9,7 @@ import {
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Make } from '@models/asset-type.model';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/index';
+import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { Utility } from '@shared/utility/utility';
 import {Router } from '@angular/router';
@@ -85,7 +85,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     this.assetTypeId = this.route.snapshot.params.assetTypeId ? this.route.snapshot.params.assetTypeId : this.route.snapshot.params.assetType
     this.makeId = this.route.snapshot.params.make ? +this.route.snapshot.params.make : +this.route.snapshot.params.makeId;
     this.modelId = this.route.snapshot.params.model ? +this.route.snapshot.params.model : +this.route.snapshot.params.modelId;
-  
+
     /* Check is Edit Form  */
     if(activeRoute.find(item => item == "edit-trim")){
       this.isEditing = true;
@@ -102,14 +102,14 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
                   description : x.makes.find( y => y.id == this.makeId).description,
                   models: x.makes.find( y => y.id == this.makeId).models
                 };
-      
+
                 this.selectedMake = x.makes.find( y => y.id == this.makeId).name;
                 let models = {
                   name : makes.models.find( y => y.id == this.modelId).name,
                   description : makes.models.find( y => y.id == this.modelId).description,
                   trims:makes.models.find( y => y.id == this.modelId).trims
                 };
-      
+
                 this.selectedModel = makes.models.find( y => y.id == this.modelId).name;
                 if(this.isEditing){
                   let trims = {
@@ -139,7 +139,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
       )
     }
 
-    
+
     this.facade.submitted$.subscribe((x) => {
       if (x) {
         this.successDialog = true
@@ -160,7 +160,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        
+
       }
 
     });

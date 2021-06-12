@@ -20,12 +20,11 @@ import { BusinessCategoryFacade } from '@feature/configuration/+state/business-c
 import { map } from 'rxjs/operators';
 import { Subscription, of, Observable, Subject, BehaviorSubject } from 'rxjs';
 import { OwnershipFacade } from '@feature/configuration/+state/ownership';
-import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
-import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
+import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy/asset';
 import { PeriodicServiceFacade, } from '@feature/configuration/+state/periodic-service';
 import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
 import { OperatorFacade } from '@feature/fleet/+state/operator';
-import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
+import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
 
 @Component({
   selector: 'anms-add-asset',

@@ -5,6 +5,7 @@ import { TableModule } from '@core/table';
 import { OwnershipFormComponent } from './ownership-form/ownership-form.component';
 import { OwnershipComponent } from './ownership.component';
 import { OwnershipRoutingModule } from './ownership-routing.module';
+import { OwnershipStateModule } from '../+state/ownership/ownership-state.module';
 
 
 
@@ -18,6 +19,7 @@ import { OwnershipRoutingModule } from './ownership-routing.module';
     OwnershipRoutingModule,
     SharedModule,
     TableModule,
+    OwnershipStateModule
   ]
 })
 export class OwnershipModule { }

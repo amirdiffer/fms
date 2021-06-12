@@ -9,6 +9,8 @@ import { PartMasterComponent } from './part-master.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { TableContentComponent } from './table-content/table-content.component';
+import { AssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/asset-type/asset-type-state.module';
+import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/sub-asset-type/sub-asset-type-state.module';
 
 
 
@@ -26,6 +28,8 @@ import { TableContentComponent } from './table-content/table-content.component';
     TabViewModule,
     TableModule,
     SharedModule,
+    AssetTypeStateModule,
+    SubAssetTypeStateModule
   ]
 })
 export class PartMasterModule { }

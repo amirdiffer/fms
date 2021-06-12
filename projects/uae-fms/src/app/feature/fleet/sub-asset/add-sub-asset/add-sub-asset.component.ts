@@ -1,8 +1,9 @@
 import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
-import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
-import { AssetPolicyFacade,SubAssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
+import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
+import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy/asset';
+import { SubAssetPolicyFacade } from '@feature/configuration/+state/asset-policy/sub-asset';
 import { SubAssetService, SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { ColumnDifinition, TableSetting } from '@core/table';

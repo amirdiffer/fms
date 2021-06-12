@@ -18,10 +18,8 @@ import { TableSetting } from '@core/table';
 import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetConfigurationService } from '@feature/configuration/asset-configuration/asset-configuration.service';
-import {
-  AssetTypeFacade,
-  SubAssetTypeFacade
-} from '@feature/configuration/+state/fleet-configuration/index';
+import { SubAssetTypeFacade } from '../../+state/fleet-configuration/sub-asset-type';
+import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { Utility } from '@shared/utility/utility';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -59,8 +57,8 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
   isEditing = false;
   assetTypeMode = '';
   modelId;
-  
-  
+
+
   makeId;
   assetTypeId;
   fleetType:string;
@@ -132,7 +130,7 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
             }
           }
         )
-        
+
         this.inputForm.patchValue({
           typeCategory:['ASSET']
         })
@@ -167,14 +165,14 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
             }
           }
         )
-        
+
         this.inputForm.patchValue({
           typeCategory:['SUB_ASSET']
         })
         break;
     }
 
-    
+
     this.errorAndSubmitHandler(this.facade);
     this.errorAndSubmitHandler(this._subAssetTypeFacade);
   }
@@ -228,7 +226,7 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
     this.dialogModal = false;
     if($event && this.successDialog){
       this.fleetType == 'ASSET' ? this.facade.resetParams() : this._subAssetTypeFacade.resetParams();
-      
+
     }
     if ($event && !this.dialogSetting.hasError) {
       this.router.navigate(['/configuration/asset-configuration'])
@@ -254,7 +252,7 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
 
     if (this.isEditing) {
       if (this.fleetType === 'SUB_ASSET') {
-        
+
         this._subAssetTypeFacade.updateModel(payload,this.assetTypeId,this.makeId);
       } else if(this.fleetType === 'ASSET') {
         let newPayload = {
@@ -317,7 +315,7 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
       }
-      
+
     });
 
     facade.error$.subscribe((x) => {

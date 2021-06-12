@@ -17,10 +17,8 @@ import {
 import { TableSetting } from '@core/table';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetConfigurationService } from '@feature/configuration/asset-configuration/asset-configuration.service';
-import {
-  AssetTypeFacade,
-  SubAssetTypeFacade
-} from '@feature/configuration/+state/fleet-configuration/index';
+import { SubAssetTypeFacade } from '../../+state/fleet-configuration/sub-asset-type';
+import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
 import { Utility } from '@shared/utility/utility';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { IAssetType } from '@models/asset-type.model';
@@ -49,7 +47,7 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
   submited = false;
   isEditing = false;
 
-  
+
   dialogModal = false;
   dialogSetting: IDialogAlert = {
     header: 'Add Make',
@@ -109,7 +107,7 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
             if(load) {
               this.fleetSubscription = this.facade.specificAssetType$.subscribe(x => {
                 if(x) {
-                  
+
                   this.selectedCategory = x.name ? x.name: '';
                   if(this.isEditing){
                     console.log(x)
@@ -162,7 +160,7 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
         })
         break;
     }
-    
+
     this.errorAndSubmitHandler(this.facade);
     this.errorAndSubmitHandler(this._subAssetTypeFacade);
   }
@@ -251,7 +249,7 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        
+
       }
     });
 
@@ -308,6 +306,6 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    
+
   }
 }

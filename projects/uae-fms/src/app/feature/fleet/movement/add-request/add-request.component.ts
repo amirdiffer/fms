@@ -7,7 +7,6 @@ import {
 } from '@feature/fleet/+state/movement';
 import { Utility } from '@shared/utility/utility';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
-import { AssetTypeFacade } from '@feature/configuration/+state/asset-configuration';
 import { MovementService } from '@feature/fleet/movement/movement.service';
 
 @Component({
