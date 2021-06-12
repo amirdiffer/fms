@@ -10,13 +10,12 @@ import { map } from 'rxjs/operators';
 import moment from 'moment';
 import { Event, Router } from '@angular/router';
 import { TableComponent } from '@core/table/table.component';
-import {
-  ServiceShopJobCardFacade,
-  ServiceShopLocationFacade,
-  ServiceShopRequestFacade,
-  ServiceShopTechnicianFacade
-} from '../+state/service-shop';
+
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { ServiceShopLocationFacade } from '../+state/service-shop/location';
+import { ServiceShopTechnicianFacade } from '../+state/service-shop/technician';
+import { ServiceShopJobCardFacade } from '../+state/service-shop/job-card';
+import { ServiceShopRequestFacade } from '../+state/service-shop/request';
 @Component({
   templateUrl: './service-shop.component.html',
   styleUrls: ['./service-shop.component.scss']

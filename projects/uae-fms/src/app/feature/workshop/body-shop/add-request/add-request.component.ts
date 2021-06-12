@@ -12,10 +12,7 @@ import {
   NgxFileDropEntry
 } from 'ngx-file-drop';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import {
-  BodyShopRequestFacade,
-  BodyShopRequestService
-} from '@feature/workshop/+state/body-shop';
+
 import { map } from 'rxjs/operators';
 import { IRequest } from '@models/body-shop';
 import { Subject } from 'rxjs';
@@ -24,6 +21,7 @@ import {
   AssetMasterService
 } from '@feature/fleet/+state/assets/asset-master';
 import { Location } from '@angular/common';
+import { BodyShopRequestFacade, BodyShopRequestService } from '@feature/workshop/+state/body-shop/request';
 @Component({
   selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',

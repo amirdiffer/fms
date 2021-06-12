@@ -11,6 +11,7 @@ import { TableModule } from '@core/table';
 import { SharedModule } from '@shared/shared.module';
 import { OrderListRoutingModule } from './order-list-routing.module';
 import { CarouselModule } from 'primeng/carousel';
+import { BodyShopTechnicianStateModule } from '@feature/workshop/+state/body-shop/technician/body-shop-technician-state.module';
 
 
 
@@ -29,7 +30,8 @@ import { CarouselModule } from 'primeng/carousel';
     TabViewModule,
     TableModule,
     SharedModule,
-    CarouselModule
+    CarouselModule,
+    BodyShopTechnicianStateModule
   ]
 })
 export class OrderListModule { }

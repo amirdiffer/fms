@@ -23,8 +23,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { ChartsModule } from 'ng2-charts';
 import { AssetCarDetailComponent } from './asset-detail/asset-car-detail.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { BodyShopJobCardService, BodyShopRequestService } from '@feature/workshop/+state/body-shop';
 import { ReminderComponent } from './overview-asset/infoComponents/reminder/reminder.component';
+import { BodyShopRequestService } from '@feature/workshop/+state/body-shop/request';
+import { BodyShopJobCardService } from '@feature/workshop/+state/body-shop/job-card';
 
 
 @NgModule({

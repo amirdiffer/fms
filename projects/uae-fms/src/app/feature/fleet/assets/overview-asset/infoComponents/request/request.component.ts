@@ -4,7 +4,7 @@ import { ColumnType } from '@core/table';
 import {
   BodyShopJobCardService,
   BodyShopRequestService
-} from '@feature/workshop/+state/body-shop';
+} from '@feature/workshop/+state';
 import moment from 'moment';
 import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 

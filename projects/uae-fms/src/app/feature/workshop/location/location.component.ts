@@ -4,11 +4,9 @@ import { Router } from '@angular/router';
 import { ColumnType, TableSetting } from '@core/table';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BodyShopLocationFacade } from '../+state/body-shop';
-import {
-  ServiceShopLocationFacade,
-  ServiceShopLocationService
-} from '../+state/service-shop';
+import { BodyShopLocationFacade } from '../+state/body-shop/location';
+import { ServiceShopLocationFacade } from '../+state/service-shop/location';
+
 
 @Component({
   selector: 'anms-location',

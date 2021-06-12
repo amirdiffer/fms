@@ -17,12 +17,6 @@ import {
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { debounceTime, map } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
-import {
-  BodyShopLocationFacade,
-  BodyShopLocationService,
-  BodyShopTechnicianFacade,
-  BodyShopTechnicianService
-} from '@feature/workshop/+state/body-shop';
 import { UsersService } from '@feature/configuration/+state/users';
 import {
   TaskMasterFacade,
@@ -30,6 +24,8 @@ import {
 } from '@feature/workshop/+state/task-master';
 import { Department } from '@models/organization';
 import { OrganizationService } from '@feature/fleet/+state/organization';
+import { BodyShopTechnicianFacade, BodyShopTechnicianService } from '@feature/workshop/+state/body-shop/technician';
+import { BodyShopLocationFacade, BodyShopLocationService } from '@feature/workshop/+state/body-shop/location';
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',

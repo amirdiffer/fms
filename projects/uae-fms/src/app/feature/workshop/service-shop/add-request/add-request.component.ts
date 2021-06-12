@@ -19,11 +19,8 @@ import {
   AssetMasterFacade,
   AssetMasterService
 } from '@feature/fleet/+state/assets/asset-master';
-import {
-  ServiceShopRequestFacade,
-  ServiceShopRequestService
-} from '@feature/workshop/+state/service-shop';
 import { Location } from '@angular/common';
+import { ServiceShopRequestFacade, ServiceShopRequestService } from '@feature/workshop/+state/service-shop/request';
 @Component({
   selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',

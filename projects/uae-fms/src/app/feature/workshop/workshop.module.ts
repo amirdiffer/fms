@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { DashboardModule } from '@feature/dashboard/dashboard.module';
-import { WorkshopStateModule } from './+state';
 import { WorkshopRoutingModule } from './workshop-routing.module';
 
 @NgModule({
@@ -9,7 +8,6 @@ import { WorkshopRoutingModule } from './workshop-routing.module';
   ],
   imports: [
     WorkshopRoutingModule,
-    WorkshopStateModule,
     DashboardModule,
     
   ]
