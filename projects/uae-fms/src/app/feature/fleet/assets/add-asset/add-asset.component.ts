@@ -587,6 +587,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           : 'Asset Added Successfully';
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
+        this._facade.loadAll();
       }
     });
 

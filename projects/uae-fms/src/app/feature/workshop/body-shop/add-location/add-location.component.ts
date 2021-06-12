@@ -222,6 +222,7 @@ export class AddLocationComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
+        this._facadeLocation.loadAll();
       }
     });
 

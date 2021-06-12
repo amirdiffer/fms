@@ -600,10 +600,6 @@ export class BodyShopComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._facadeRequest.loadAll();
-    this._facadeJobCard.loadAll();
-    this._facadeTechnician.loadAll();
-    this._facadeLocation.loadAll();
     this._facadeRequest.statistics$.subscribe((x) => {
       if (x) {
         this.filterSetting.map((filter) => {

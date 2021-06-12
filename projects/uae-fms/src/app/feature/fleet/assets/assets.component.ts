@@ -287,9 +287,6 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
       }
     ];
 
-    this.assetMasterFacade.loadAll();
-    this.registrationFacade.loadAll();
-    this.customizationFacade.loadAll();
     this.assetMasterFacade.loadStatistics();
 
     this.statisticsSubscription = this.assetMasterFacade.statistics$.subscribe(

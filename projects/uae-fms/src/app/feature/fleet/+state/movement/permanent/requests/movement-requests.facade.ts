@@ -26,7 +26,7 @@ export class MovementRequestsFacade {
 
   conut$ = this.store.pipe(select(MovementRequestsSelectors.count));
 
-  constructor(private store: Store<MovementRequestsPartialState>) {}
+  constructor(private store: Store<MovementRequestsPartialState>) {this.loadAll()}
 
   loadAll() {
     this.store.dispatch(MovementRequestsActions.loadAll());

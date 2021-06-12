@@ -17,7 +17,7 @@ export class SuppliersFacade {
 
   specificSupplier$ = this.store.pipe(select(SuppliersSelectors.specificSupplier));
 
-  constructor(private store: Store<ISuppliersPartialState>) {}
+  constructor(private store: Store<ISuppliersPartialState>) {this.loadAll()}
 
   /* '''''Load''''' Supplier */
   loadAll() {

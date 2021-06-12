@@ -9,7 +9,7 @@ export class CustomizationFacade {
   customization$ = this.store.pipe(select(CustomizationSelectors.selectAll));
   conut$ = this.store.pipe(select(CustomizationSelectors.count));
 
-  constructor(private store: Store<ICustomizationPartialState>) {}
+  constructor(private store: Store<ICustomizationPartialState>) {this.loadAll()}
 
   loadAll() {
     this.store.dispatch(CustomizationActions.loadAll());

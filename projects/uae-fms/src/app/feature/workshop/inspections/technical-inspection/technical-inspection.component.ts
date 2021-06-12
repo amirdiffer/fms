@@ -218,9 +218,7 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
     private _router: Router
   ) {}
 
-  ngOnInit(): void {
-    this._facade.loadAll();
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy() {
   }

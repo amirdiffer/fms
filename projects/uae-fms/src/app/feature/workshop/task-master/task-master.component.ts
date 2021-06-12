@@ -121,9 +121,7 @@ export class TaskMasterComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this._facade.loadAll();
-  }
+  ngOnInit(): void {}
 
   eventPagination() {
     this._facade.loadAll();

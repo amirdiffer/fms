@@ -14,7 +14,7 @@ export class MyOrderSubAssetFacade {
 
   submitted$ = this.store.pipe(select(MyOrderSubAssetSelectors.submitted));
 
-  constructor(private store: Store<IMyOrderSubAssetListPartialState>) {}
+  constructor(private store: Store<IMyOrderSubAssetListPartialState>) {this.loadAll()}
 
   loadAll() {
     this.store.dispatch(MyOrderSubAssetActions.loadAll());

@@ -164,7 +164,6 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.facade.loadAll();
     this.facade.loadStatistics();
     this.statisticsSubscription = this.facade.statistics$.subscribe(
       (res: any) => {

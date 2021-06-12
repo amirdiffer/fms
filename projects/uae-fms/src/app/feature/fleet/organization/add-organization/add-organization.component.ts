@@ -145,6 +145,7 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Ok';
         this.dialogSetting.cancelButton = undefined;
+        this.facade.loadAll();
       }
     });
     this.facade.error$.subscribe((x) => {

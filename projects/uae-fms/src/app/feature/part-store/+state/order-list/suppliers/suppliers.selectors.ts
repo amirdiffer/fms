@@ -1,31 +1,31 @@
 import { createSelector } from '@ngrx/store';
-import { PartStoreSelectors } from '@feature/part-store/+state/part-store.selectors';
 import { suppliersAdapter } from '@feature/part-store/+state/order-list/suppliers/suppliers.entity';
 const { selectAll } = suppliersAdapter.getSelectors();
+const suppliersState = (state) => state['supplierList']
 
 export class SuppliersSelectors {
   static selectAll = createSelector(
-    PartStoreSelectors.suppliersListSelector,
+    suppliersState,
     selectAll
   );
 
   static specificSupplier = createSelector(
-    PartStoreSelectors.suppliersListSelector,
+    suppliersState,
     (state) => state.specificSupplier
   );
 
   static message = createSelector(
-    PartStoreSelectors.suppliersListSelector,
+    suppliersState,
     (state) => state.message
   );
 
   static error = createSelector(
-    PartStoreSelectors.suppliersListSelector,
+    suppliersState,
     (state) => state.error
   );
 
   static submitted = createSelector(
-    PartStoreSelectors.suppliersListSelector,
+    suppliersState,
     (state) => state.submitted
   );
 }

@@ -136,6 +136,7 @@ export class PendingRegistrationOverviewComponent
           ];
 
           this.dialogSetting.cancelButton = undefined;
+          this._registrationFacade.loadAll();
         }
       });
 

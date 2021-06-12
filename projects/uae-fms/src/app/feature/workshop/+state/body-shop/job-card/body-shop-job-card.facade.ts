@@ -16,7 +16,7 @@ export class BodyShopJobCardFacade {
 
   conut$ = this.store.pipe(select(BodyShopJobCardSelectors.count));
 
-  constructor(private store: Store<IBodyshopJobCardPartialState>) {}
+  constructor(private store: Store<IBodyshopJobCardPartialState>) {this.loadAll()}
 
   loadAll() {
     this.store.dispatch(BodyShopJobCardActions.loadAll());

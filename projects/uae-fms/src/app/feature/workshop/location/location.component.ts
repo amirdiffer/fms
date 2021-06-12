@@ -105,8 +105,6 @@ export class LocationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bodyshopFacadeLocation.loadAll();
-    this.serviceshopFacadeLocation.loadAll();
 
     this.bodyshopFacadeLocation.bodyShop$
       .pipe(

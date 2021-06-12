@@ -331,8 +331,6 @@ export class MovementComponent
   }
 
   ngOnInit(): void {
-    this._movementOverviewFacade.loadAll();
-    this._movementRequestsFacade.loadAll();
     this._movementRequestsFacade.loadRequestStatistic();
     this._movementRequestsFacade.MovementRequestStatistic.subscribe((x) => {
       if (x) {

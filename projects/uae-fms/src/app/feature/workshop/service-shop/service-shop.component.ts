@@ -594,11 +594,6 @@ export class ServiceShopComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._facadeRequest.loadAll();
-    this._facadeJobCard.loadAll();
-    this._facadeTechnician.loadAll();
-    this._facadeLocation.loadAll();
-
     // this._facadeRequest.loadStatistics();
     this._facadeRequest.statistics$.subscribe((x) => {
       if (x) {
