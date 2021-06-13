@@ -1,14 +1,9 @@
 import { Component, OnInit, Injector } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import {
-  RegistrationFacade,
-  RegistrationService
-} from '@feature/fleet/+state/assets/registration';
+import { RegistrationFacade, RegistrationService } from '@feature/fleet/+state/assets/registration';
 import { Utility } from '@shared/utility/utility';
-import { map } from 'rxjs/internal/operators/map';
-import { AssetRegistrationConfirmComponent } from '../asset-registration-confirm/asset-registration-confirm.component';
 
 @Component({
   selector: 'anms-pending-registration-overview',
@@ -141,6 +136,7 @@ export class PendingRegistrationOverviewComponent
           ];
 
           this.dialogSetting.cancelButton = undefined;
+          this._registrationFacade.loadAll();
         }
       });
 

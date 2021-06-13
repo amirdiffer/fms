@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 import { ICardDetailRedialChart } from './detail-card-dashboard/detail-card-dashboard.component';
 import { IAssetOverview } from '@models/asset-master.model';
 import { AccessoryService } from '@feature/fleet/+state/accessory';
 import { SubAssetService } from '@feature/fleet/+state/sub-asset';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 
 @Component({
   selector: 'dashboard-asset-overview',

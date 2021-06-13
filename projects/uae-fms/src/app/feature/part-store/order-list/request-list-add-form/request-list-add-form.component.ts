@@ -8,7 +8,7 @@ import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { ActivatedRoute } from '@angular/router';
 import { PartMasterFacade } from '@feature/part-store/+state/part-master';
 import { map } from 'rxjs/operators';
-import { BodyShopTechnicianFacade } from '@feature/workshop/+state/body-shop';
+import { BodyShopTechnicianFacade } from '@feature/workshop/+state';
 import { RequestListFacade } from '@feature/part-store/+state/order-list/request';
 import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { AssetSearchThroughFacade } from '@feature/fleet/+state/assets/search-through';

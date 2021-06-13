@@ -1,32 +1,32 @@
 import { createSelector } from '@ngrx/store';
-import { WorkshopSelectors } from '../workshop.selectors';
 import { taskMasterAdapter } from './task-master.entity';
 
 const { selectAll } = taskMasterAdapter.getSelectors();
+const taskMasterState = (state) => state['taskMaster']
 
 export class TaskMasterSelectors {
   static selectAll = createSelector(
-    WorkshopSelectors.taskMasterSelector,
+    taskMasterState,
     selectAll
   );
 
   static message = createSelector(
-    WorkshopSelectors.taskMasterSelector,
+    taskMasterState,
     (state) => state.message
   );
 
   static error = createSelector(
-    WorkshopSelectors.taskMasterSelector,
+    taskMasterState,
     (state) => state.error
   );
 
   static skills = createSelector(
-    WorkshopSelectors.taskMasterSelector,
+    taskMasterState,
     (state) => state.skills
   );
 
   static submitted = createSelector(
-    WorkshopSelectors.taskMasterSelector,
+    taskMasterState,
     (state) => state.submitted
   );
 }

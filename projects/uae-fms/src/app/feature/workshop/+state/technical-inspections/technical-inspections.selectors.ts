@@ -1,10 +1,10 @@
 import { createSelector } from '@ngrx/store';
-import { WorkshopSelectors } from '../workshop.selectors';
 import { technicalInspectionAdapter } from './technical-inspections.entity';
+const technicalInspectionState = (state) => state['auctionList']
 
 export class TechnicalInspectionSelectors {
   static selectAll = createSelector(
-    WorkshopSelectors.technicalInspectionSelector,
+    technicalInspectionState,
     technicalInspectionAdapter.setAll
   );
 }

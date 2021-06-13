@@ -5,6 +5,7 @@ import { FilterModule } from "@core/filter";
 import { TabViewModule } from "@core/tab-view";
 import { TableModule } from "@core/table";
 import { SharedModule } from "@shared/shared.module";
+import { TechnicalInspectionStateModule } from "../+state/technical-inspections/technical-inspection-state.module";
 import { AuctionListComponent } from "./auction-list/auction-list.component";
 import { InspectionsRoutingModule } from "./inspections-routing.module";
 import { TechnicalInspectionComponent } from "./technical-inspection/technical-inspection.component";
@@ -25,6 +26,7 @@ import { TechnicalOverviewComponent } from "./technical-inspection/technical-ove
         MatCheckboxModule,
         TabViewModule,
         FilterModule,
+        TechnicalInspectionStateModule
     ]
   })
   export class InspectionsModule {}

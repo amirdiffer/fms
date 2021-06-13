@@ -23,8 +23,15 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { ChartsModule } from 'ng2-charts';
 import { AssetCarDetailComponent } from './asset-detail/asset-car-detail.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { BodyShopJobCardService, BodyShopRequestService } from '@feature/workshop/+state/body-shop';
 import { ReminderComponent } from './overview-asset/infoComponents/reminder/reminder.component';
+import { BodyShopRequestService } from '@feature/workshop/+state/body-shop/request';
+import { BodyShopJobCardService } from '@feature/workshop/+state/body-shop/job-card';
+import { AssetMasterStateModule } from '../+state/assets/asset-master/asset-master-state.module';
+import { CustomizationStateModule } from '../+state/assets/customization/customization-state.module';
+import { RegistrationStateModule } from '../+state/assets/registration/registration-state.module';
+import { OrganizationStateModule } from '../+state/organization/organization-state.module';
+import { OperatorStateModule } from '../+state/operator/operator-state.module';
+
 
 
 @NgModule({
@@ -57,6 +64,11 @@ import { ReminderComponent } from './overview-asset/infoComponents/reminder/remi
     NgApexchartsModule,
     ChartsModule,
     AngularSvgIconModule,
+    AssetMasterStateModule,
+    CustomizationStateModule,
+    RegistrationStateModule,
+    OrganizationStateModule,
+    OperatorStateModule
 
   ],
   exports: [AssetCarDetailComponent],

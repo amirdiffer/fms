@@ -1,21 +1,21 @@
 import { createSelector } from '@ngrx/store';
 import { auctionListAdapter } from './auction-list.entity';
-import { WorkshopSelectors } from '@feature/workshop/+state/workshop.selectors';
 const { selectAll } = auctionListAdapter.getSelectors();
+const acutionListState = (state) => state['auctionList']
 
 export class AuctionListSelectors {
   static selectAll = createSelector(
-    WorkshopSelectors.auctionListSelector,
+    acutionListState,
     selectAll
   );
 
   static message = createSelector(
-    WorkshopSelectors.auctionListSelector,
+    acutionListState,
     (state) => state.message
   );
 
   static error = createSelector(
-    WorkshopSelectors.auctionListSelector,
+    acutionListState,
     (state) => state.error
   );
 }

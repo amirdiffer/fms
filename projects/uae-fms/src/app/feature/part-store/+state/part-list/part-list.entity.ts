@@ -1,6 +1,6 @@
 import { IPartListStatistics } from '@models/statistics';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-
+export const PARTSTORE_PARTLIST_FEATURE_KEY = 'partList';
 export const PARTSTORE_ASSET_PARTLIST_FEATURE_KEY = 'assetPartList';
 export const PARTSTORE_SUB_ASSET_PARTLIST_FEATURE_KEY = 'subAssetPartList';
 
@@ -51,8 +51,11 @@ export const initialSubAssetPartState: SubAssetPartListState = subAssetPartListA
   updated:false
 } as SubAssetPartListState);
 
-export interface PartListPartialState {
-  [PARTSTORE_ASSET_PARTLIST_FEATURE_KEY]: AssetPartListState;
-  [PARTSTORE_SUB_ASSET_PARTLIST_FEATURE_KEY]:SubAssetPartListState;
-}
 
+export interface State {
+  readonly [PARTSTORE_ASSET_PARTLIST_FEATURE_KEY]: AssetPartListState;
+  readonly [PARTSTORE_SUB_ASSET_PARTLIST_FEATURE_KEY]: SubAssetPartListState;
+}
+export interface PartListPartialState {
+  readonly [PARTSTORE_PARTLIST_FEATURE_KEY]: State;
+}

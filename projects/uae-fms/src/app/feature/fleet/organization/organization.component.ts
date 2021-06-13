@@ -128,9 +128,7 @@ export class OrganizationComponent implements OnInit {
 
   constructor(private facade: OrganizationFacade, private router: Router) {}
 
-  ngOnInit(): void {
-    this.facade.loadAll();
-  }
+  ngOnInit(): void {}
 
   eventPagination() {
     this.facade.loadAll();

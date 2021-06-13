@@ -6,7 +6,9 @@ import {
   partMasterCategoryAdapter,
   PartMasterCategoryState,
   partMasterItemAdapter,
-  PartMasterItemState
+  PartMasterItemState,
+  PARTSTORE_PARTMASTER_CATEGORY_FEATURE_KEY,
+  PARTSTORE_PARTMASTER_ITEM_FEATURE_KEY
 } from './part-master.entity';
 
 
@@ -305,3 +307,9 @@ export function categoryReducer(state: PartMasterCategoryState, action: Action) 
 export function itemReducer(state: PartMasterItemState, action: Action) {
   return partMasterItemReducer(state, action);
 }
+
+
+export const reducers = {
+  [PARTSTORE_PARTMASTER_CATEGORY_FEATURE_KEY]: categoryReducer,
+  [PARTSTORE_PARTMASTER_ITEM_FEATURE_KEY]: itemReducer,
+};

@@ -7,7 +7,7 @@ import { SoldListSelectors } from '@feature/workshop/+state/auction-list/sold/so
 export class SoldListFacade {
   soldList$ = this.store.pipe(select(SoldListSelectors.selectAll));
 
-  constructor(private store: Store<ISoldListPartialState>) {}
+  constructor(private store: Store<ISoldListPartialState>) {this.loadAll()}
 
   loadAll() {
     this.store.dispatch(SoldListActions.loadAll());

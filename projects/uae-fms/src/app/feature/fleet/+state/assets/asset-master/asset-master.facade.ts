@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { AssetMasterSelectors } from '@feature/fleet/+state/assets/asset-master/asset-master.selectors';
-import { AssetMasterActions } from '@feature/fleet/+state/assets/asset-master/asset-master.actions';
-import { IAssetMasterPartialState } from '@feature/fleet/+state/assets/asset-master/asset-master.entity';
+import { AssetMasterSelectors } from './asset-master.selectors';
+import { AssetMasterActions } from './asset-master.actions';
+import { IAssetMasterPartialState } from './asset-master.entity';
 import { IAssetMaster } from '@models/asset-master.model';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class AssetMasterFacade {
 
   conut$ = this.store.pipe(select(AssetMasterSelectors.count));
 
-  constructor(private store: Store<IAssetMasterPartialState>) {}
+  constructor(private store: Store<IAssetMasterPartialState>) { this.loadAll()}
 
   loadAll() {
     this.reset();

@@ -18,7 +18,7 @@ export class ServiceShopLocationFacade {
 
   conut$ = this.store.pipe(select(ServiceShopLocationSelectors.count));
 
-  constructor(private store: Store<IServiceShopLocationPartialState>) {}
+  constructor(private store: Store<IServiceShopLocationPartialState>) {this.loadAll()}
 
   loadAll() {
     this.store.dispatch(ServiceShopLocationActions.loadAll());

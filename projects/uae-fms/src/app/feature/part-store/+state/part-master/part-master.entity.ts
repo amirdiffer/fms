@@ -1,9 +1,8 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Action, createReducer } from '@ngrx/store';
 
 export const PARTSTORE_PARTMASTER_CATEGORY_FEATURE_KEY = 'PartMasterCategory';
 export const PARTSTORE_PARTMASTER_ITEM_FEATURE_KEY = 'PartMasterItem';
-
+export const PARTSTORE_PARTMASTER_FEATURE_KEY = 'partMaster';
 /* CATEGORY */
 export interface PartMasterCategoryState extends EntityState<any> {
   error?: any;
@@ -47,7 +46,12 @@ export const initialStateItem: PartMasterItemState = partMasterItemAdapter.getIn
   specificItem:null,
 } as PartMasterItemState);
 
+
+export interface State {
+  readonly [PARTSTORE_PARTMASTER_CATEGORY_FEATURE_KEY]?: PartMasterCategoryState;
+  readonly [PARTSTORE_PARTMASTER_ITEM_FEATURE_KEY]?: PartMasterItemState;
+}
+
 export interface PartMasterPartialState {
-  [PARTSTORE_PARTMASTER_CATEGORY_FEATURE_KEY]?: PartMasterCategoryState;
-  [PARTSTORE_PARTMASTER_ITEM_FEATURE_KEY]?: PartMasterItemState;
+  readonly [PARTSTORE_PARTMASTER_FEATURE_KEY]: State;
 }

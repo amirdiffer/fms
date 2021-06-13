@@ -19,16 +19,11 @@ import {
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
 import moment from 'moment';
 import { Subject, Subscription } from 'rxjs';
-import {
-  ServiceShopJobCardFacade,
-  ServiceShopJobCardService,
-  ServiceShopLocationFacade,
-  ServiceShopRequestFacade,
-  ServiceShopTechnicianFacade,
-  ServiceShopRequestService
-} from '@feature/workshop/+state/service-shop';
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { AssetSearchThroughFacade } from '@feature/fleet/+state/assets/search-through';
+import { ServiceShopJobCardFacade, ServiceShopJobCardService } from '@feature/workshop/+state/service-shop/job-card';
+import { ServiceShopRequestFacade, ServiceShopRequestService } from '@feature/workshop/+state/service-shop/request';
+import { ServiceShopLocationFacade } from '@feature/workshop/+state/service-shop/location';
+import { ServiceShopTechnicianFacade } from '@feature/workshop/+state/service-shop/technician';
 
 @Component({
   selector: 'anms-add-job-card',
@@ -390,6 +385,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
+        this._facadeJobCard.loadAll();
       }
     });
 

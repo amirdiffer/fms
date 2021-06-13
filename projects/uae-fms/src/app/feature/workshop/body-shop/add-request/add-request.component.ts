@@ -12,16 +12,14 @@ import {
   NgxFileDropEntry
 } from 'ngx-file-drop';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import {
-  BodyShopRequestFacade,
-  BodyShopRequestService
-} from '@feature/workshop/+state/body-shop';
+
 import { map } from 'rxjs/operators';
 import { IRequest } from '@models/body-shop';
 import { Subject } from 'rxjs';
 import { Location } from '@angular/common';
-import { AssetSearchThroughFacade, AssetSearchThroughService } from '@feature/fleet/+state/assets/search-through';
+import { AssetSearchThroughFacade } from '@feature/fleet/+state/assets/search-through';
 import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
+import { BodyShopRequestFacade, BodyShopRequestService } from '@feature/workshop/+state/body-shop/request';
 @Component({
   selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',
@@ -175,6 +173,7 @@ export class AddRequestComponent implements OnInit {
           this.dialogSetting.hasError = false;
           this.dialogSetting.confirmButton = 'Yes';
           this.dialogSetting.cancelButton = undefined;
+          this._bodyShopRequestFacade.loadAll();
         }
       });
 
