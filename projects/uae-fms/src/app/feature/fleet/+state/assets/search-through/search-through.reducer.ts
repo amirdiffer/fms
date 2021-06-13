@@ -41,6 +41,14 @@ const assetSearchThroughReducer = createReducer(
     on(AssetSearchThroughActions.allAvailableAssetForAddingJobCardLoaded, (state, { data }) =>
         assetSearchThroughAdapter.setAll(data, { ...state, loaded: true, error: null })
     ),
+    
+
+    /* Error */
+    on(AssetSearchThroughActions.error, (state, { reason }) => ({
+        ...state,
+        error: reason,
+        loaded: true
+    })),
 )
 
 

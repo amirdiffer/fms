@@ -34,4 +34,9 @@ export class AssetSearchThroughActions {
         props<{ data: IAssetSearchThrough[] }>()
     );
 
+
+    static error = createAction(
+        '[assetSearchThrough] error occurred',
+        props<{ reason: any }>()
+    );
 }

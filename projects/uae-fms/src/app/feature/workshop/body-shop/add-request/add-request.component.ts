@@ -19,11 +19,9 @@ import {
 import { map } from 'rxjs/operators';
 import { IRequest } from '@models/body-shop';
 import { Subject } from 'rxjs';
-import {
-  AssetMasterFacade,
-  AssetMasterService
-} from '@feature/fleet/+state/assets/asset-master';
 import { Location } from '@angular/common';
+import { AssetSearchThroughFacade, AssetSearchThroughService } from '@feature/fleet/+state/assets/search-through';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 @Component({
   selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',
@@ -81,20 +79,24 @@ export class AddRequestComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _bodyShopRequestFacade: BodyShopRequestFacade,
-    private _assetMasterFacade: AssetMasterFacade,
-    private _assetMasterService: AssetMasterService,
-    private _location: Location
+    private _assetSearchThrough: AssetSearchThroughFacade,
+    private _assetMasterService : AssetMasterService,
+    private _location: Location,
   ) {}
 
   ngOnInit(): void {
-    this._assetMasterService.getAllAllowedAssetForRequest().subscribe((x) => {
-      console.log(x);
-    });
-    this._assetMasterFacade.loadAll();
-    this._assetMasterService
-      .getAllAllowedAssetForRequest()
-      .pipe(map((y) => y.message.map((x) => ({ id: x.id, name: x.dpd }))))
-      .subscribe((data) => (this.assets = data));
+    this._assetSearchThrough.loadAvailableAssetForAddingRequest();
+    this._assetSearchThrough.searchAsset$.subscribe(
+      x => {
+        if(x){
+          this.assets =x.map( y => {
+            return {
+              id: y.id, name: y.dpd
+            }
+          })
+        }
+      }
+    )
     this.buildForm();
     if (
       this._route.snapshot.url[this._route.snapshot.url.length - 1].path ===

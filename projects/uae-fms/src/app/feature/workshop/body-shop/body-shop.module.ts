@@ -18,6 +18,7 @@ import { TabViewModule } from '@core/tab-view';
 import { JobCardOverviewComponent } from './job-card-overview/job-card-overview.component';
 import { AssetsModule } from '@feature/fleet/assets/assets.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AssetSearchThroughStateModule } from '@feature/fleet/+state/assets/search-through/search-through-state.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MapModule,
     TabViewModule,
     UserProfileModule,
-    AssetsModule,
+    AssetSearchThroughStateModule,
+    AssetsModule
   ]
 })
 export class BodyShopModule {}

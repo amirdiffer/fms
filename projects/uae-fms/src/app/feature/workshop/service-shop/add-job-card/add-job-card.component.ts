@@ -28,6 +28,7 @@ import {
   ServiceShopRequestService
 } from '@feature/workshop/+state/service-shop';
 import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
+import { AssetSearchThroughFacade } from '@feature/fleet/+state/assets/search-through';
 
 @Component({
   selector: 'anms-add-job-card',
@@ -214,7 +215,8 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     private _jobCardService: ServiceShopJobCardService,
     private _taskMasterService: TaskMasterService,
     private service: ServiceShopRequestService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _assetSearchThrough:AssetSearchThroughFacade
   ) {
     super(injector);
   }
@@ -251,12 +253,18 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
       this.buildForm();
     });
 
-    this.assetsSubscription = this._jobCardService
-      .getAllAssethasJobCard()
-      .pipe(
-        map((y) => y.message.map((x) => ({ ...x, id: x.assetId, name: x.dpd })))
-      )
-      .subscribe((data) => ((this.assets = data), console.log(data)));
+    this._assetSearchThrough.loadAvailableAssetForAddingJobCard();
+    this.assetsSubscription = this._assetSearchThrough.searchAsset$.subscribe(
+      x => {
+        if(x){
+          this.assets =x.map( y => {
+            return {
+              id: y.id, name: y.dpd
+            }
+          })
+        }
+      }
+    )
     if (
       this._activatedRoute.snapshot.url[
         this._activatedRoute.snapshot.url.length - 1

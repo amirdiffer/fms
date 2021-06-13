@@ -11,6 +11,7 @@ import { TableModule } from '@core/table';
 import { SharedModule } from '@shared/shared.module';
 import { OrderListRoutingModule } from './order-list-routing.module';
 import { CarouselModule } from 'primeng/carousel';
+import { AssetSearchThroughStateModule } from '@feature/fleet/+state/assets/search-through/search-through-state.module';
 
 
 
@@ -29,7 +30,8 @@ import { CarouselModule } from 'primeng/carousel';
     TabViewModule,
     TableModule,
     SharedModule,
-    CarouselModule
+    CarouselModule,
+    AssetSearchThroughStateModule
   ]
 })
 export class OrderListModule { }
