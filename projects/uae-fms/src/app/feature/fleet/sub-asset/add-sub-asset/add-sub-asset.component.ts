@@ -307,6 +307,7 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
+        this.subAssetFacade.loadAll();
       }
     });
   }

@@ -24,7 +24,7 @@ export class ServiceShopRequestFacade {
 
   conut$ = this.store.pipe(select(ServiceShopRequestSelectors.count));
 
-  constructor(private store: Store<ServiceshopRequestPartialState>) {}
+  constructor(private store: Store<ServiceshopRequestPartialState>) {this.loadAll()}
 
   loadAll() {
     this.store.dispatch(ServiceShopRequestActions.loadAll());

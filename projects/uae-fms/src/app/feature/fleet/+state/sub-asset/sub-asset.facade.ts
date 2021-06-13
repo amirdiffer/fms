@@ -18,7 +18,7 @@ export class SubAssetFacade {
 
   specificSubAsset$ = this.store.pipe(select(SubAssetSelectors.spedificSubAsset));
 
-  constructor(private store: Store<SubAssetPartialState>) {}
+  constructor(private store: Store<SubAssetPartialState>) {this.loadAll()}
 
   loadAll() {
     this.store.dispatch(SubAssetActions.loadAll());

@@ -1,39 +1,39 @@
 import { createSelector } from '@ngrx/store';
-import { WorkshopSelectors } from '../../workshop.selectors';
 import { bodyShopLocationAdapter } from './body-shop-location.entity';
 const {
   selectAll,
   selectIds,
   selectEntities
 } = bodyShopLocationAdapter.getSelectors();
+const bodyShopLocationState = (state) => state['bodyShopLocation']
 
 export class BodyShopLocationSelectors {
   static selectAll = createSelector(
-    WorkshopSelectors.bodyshopLocationSelector,
+    bodyShopLocationState,
     selectAll
   );
   static count = createSelector(
-    WorkshopSelectors.bodyshopLocationSelector,
+    bodyShopLocationState,
     (state) => state.resultNumber
   );
 
   static message = createSelector(
-    WorkshopSelectors.bodyshopLocationSelector,
+    bodyShopLocationState,
     (state) => state.message
   );
 
   static error = createSelector(
-    WorkshopSelectors.bodyshopLocationSelector,
+    bodyShopLocationState,
     (state) => state.error
   );
 
   static submitted = createSelector(
-    WorkshopSelectors.bodyshopLocationSelector,
+    bodyShopLocationState,
     (state) => state.submitted
   );
 
   static selectStatistics = createSelector(
-    WorkshopSelectors.bodyshopLocationSelector,
+    bodyShopLocationState,
     (state) => state.statistics
   );
 

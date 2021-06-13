@@ -15,7 +15,7 @@ export class AuctionListFacade {
 
   error$ = this.store.pipe(select(AuctionListSelectors.error));
 
-  constructor(private store: Store<IAuctionListPartialState>) {}
+  constructor(private store: Store<IAuctionListPartialState>) {this.loadAll()}
 
   loadAll() {
     this.store.dispatch(AuctionListActions.loadAll());

@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ColumnType } from '@core/table';
 import { ActivatedRoute } from '@angular/router';
 import {
-  BusinessCategoryFacade,
   BusinessCategoryService
 } from '@feature/configuration/+state/business-category';
 

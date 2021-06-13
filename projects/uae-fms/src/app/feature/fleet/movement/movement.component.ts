@@ -11,10 +11,8 @@ import { Observable, of } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MovementConfirmComponent } from './movement-confirm/movement-confirm.component';
-import {
-  MovementOverviewFacade,
-  MovementRequestsFacade
-} from '../+state/movement';
+import {MovementOverviewFacade} from '../+state/movement/permanent/overview';
+import {MovementRequestsFacade} from '../+state/movement/permanent/requests';
 import { map } from 'rxjs/operators';
 import { ButtonType, TableComponent } from '@core/table/table.component';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
@@ -333,8 +331,6 @@ export class MovementComponent
   }
 
   ngOnInit(): void {
-    this._movementOverviewFacade.loadAll();
-    this._movementRequestsFacade.loadAll();
     this._movementRequestsFacade.loadRequestStatistic();
     this._movementRequestsFacade.MovementRequestStatistic.subscribe((x) => {
       if (x) {

@@ -11,16 +11,10 @@ import { TableSetting } from '@core/table';
 import { ButtonType, ColumnType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import {
-  BodyShopLocationFacade,
-  BodyShopLocationService
-} from '@feature/workshop/+state/body-shop';
+
 import { map } from 'rxjs/operators';
-import {
-  ServiceShopLocationFacade,
-  ServiceShopLocationService
-} from '@feature/workshop/+state/service-shop';
-import { ServiceShopLocationSelectors } from '@feature/workshop/+state/service-shop/location/service-shop-location.selectors';
+import { BodyShopLocationFacade, BodyShopLocationService } from '@feature/workshop/+state/body-shop/location';
+import { ServiceShopLocationFacade, ServiceShopLocationService } from '@feature/workshop/+state/service-shop/location';
 
 @Component({
   selector: 'anms-add-location',
@@ -243,6 +237,7 @@ export class AddLocationComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
+        this.bodyShopfacadeLocation.loadAll();
       }
     });
 
@@ -274,6 +269,7 @@ export class AddLocationComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
+        this.serviceShopFacadeLocation.loadAll();
       }
     });
 

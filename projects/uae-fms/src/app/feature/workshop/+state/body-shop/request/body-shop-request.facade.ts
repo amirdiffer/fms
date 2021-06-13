@@ -30,7 +30,7 @@ export class BodyShopRequestFacade {
 
   conut$ = this.store.pipe(select(BodyShopRequestSelectors.count));
 
-  constructor(private store: Store<BodyshopRequestPartialState>) {}
+  constructor(private store: Store<BodyshopRequestPartialState>) {this.loadAll()}
 
   loadAll() {
     this.store.dispatch(BodyShopRequestActions.loadAll());

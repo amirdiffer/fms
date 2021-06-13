@@ -103,7 +103,6 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this._accessoryFacade.loadAll();
     this._accessoryFacade.loadStatistics();
     this.accessorySubscription$ = this._accessoryFacade.statistics$.subscribe((data) => {
       if (data) {

@@ -8,7 +8,7 @@ import { TechnicalInspectionSelectors } from './technical-inspections.selectors'
 export class TechnicalInspectionFacade {
   bodyShop$ = this.store.pipe(select(TechnicalInspectionSelectors.selectAll));
 
-  constructor(private store: Store<ITechnicalInspectionPartialState>) {}
+  constructor(private store: Store<ITechnicalInspectionPartialState>) {this.loadAll()}
 
   loadAll() {
     this.store.dispatch(TechnicalInspectionActions.loadAll());

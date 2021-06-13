@@ -13,6 +13,7 @@ import { SubAssetRoutingModule } from './sub-asset-routing.module';
 import { TabViewModule } from '@core/tab-view';
 import { MapModule } from '@core/map-view';
 import { ChartsModule } from '@core/charts';
+import { SubAssetStateModule } from '../+state/sub-asset/sub-asset-state.module';
 
 
 
@@ -33,7 +34,8 @@ import { ChartsModule } from '@core/charts';
     ReminderModule,
     HistoryModule,
     MapModule,
-    ChartsModule
+    ChartsModule,
+    SubAssetStateModule
   ]
 })
 export class SubAssetModule { }

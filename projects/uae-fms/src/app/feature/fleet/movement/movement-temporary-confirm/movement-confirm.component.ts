@@ -1,7 +1,5 @@
 import { Component, OnInit, Inject, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
-import { MovementRequestsFacade } from '@feature/fleet/+state/movement';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -12,6 +10,8 @@ import { Utility } from '@shared/utility/utility';
 import { OperatorFacade } from '@feature/fleet/+state/operator';
 import { OrganizationFacade } from '@feature/fleet/+state/organization';
 import { MovementService } from '@feature/fleet/movement/movement.service';
+import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
+import { MovementRequestsFacadeTemporary } from '@feature/fleet/+state/movement/temporary/requests';
 
 @Component({
   selector: 'anms-movement-temporary-confirm',
@@ -50,7 +50,7 @@ export class MovementTemporaryConfirmComponent
     private _assetFacade: AssetMasterFacade,
     private _operatorFacade: OperatorFacade,
     private _orgFacade: OrganizationFacade,
-    private _requestFacade: MovementRequestsFacade,
+    private _requestFacade: MovementRequestsFacadeTemporary,
     private _movementService: MovementService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<MovementTemporaryConfirmComponent>,

@@ -12,10 +12,8 @@ import { ColumnType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { map } from 'rxjs/operators';
-import {
-  ServiceShopLocationFacade,
-  ServiceShopLocationService
-} from '@feature/workshop/+state/service-shop';
+import { ServiceShopLocationFacade, ServiceShopLocationService } from '@feature/workshop/+state/service-shop/location';
+
 
 @Component({
   selector: 'anms-add-location',
@@ -225,6 +223,7 @@ export class AddLocationServiceShopComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
+        this._facadeLocation.loadAll();
       }
     });
 

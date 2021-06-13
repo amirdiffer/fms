@@ -5,6 +5,8 @@ import {
   AssetPartListState,
   initialAssetPartState,
   initialSubAssetPartState,
+  PARTSTORE_ASSET_PARTLIST_FEATURE_KEY,
+  PARTSTORE_SUB_ASSET_PARTLIST_FEATURE_KEY,
   subAssetPartListAdapter,
   SubAssetPartListState,
 } from './part-list.entity';
@@ -209,4 +211,11 @@ export function assetPartListreducer(state: AssetPartListState, action: Action) 
 
 export function subAssetPartListreducer(state: SubAssetPartListState, action: Action) {
   return subAssetPartListReducer(state, action);
+};
+
+
+
+export const reducers = {
+  [PARTSTORE_ASSET_PARTLIST_FEATURE_KEY]: assetPartListreducer,
+  [PARTSTORE_SUB_ASSET_PARTLIST_FEATURE_KEY]: subAssetPartListreducer,
 };

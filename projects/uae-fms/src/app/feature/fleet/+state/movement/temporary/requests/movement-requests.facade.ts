@@ -34,7 +34,7 @@ export class MovementRequestsFacadeTemporary {
 
   conut$ = this.store.pipe(select(MovementRequestsSelectorsTemporary.count));
 
-  constructor(private store: Store<MovementRequestsPartialState>) {}
+  constructor(private store: Store<MovementRequestsPartialState>) {this.loadAll()}
 
   loadAll() {
     this.store.dispatch(MovementRequestsActionsTemporary.loadAll());

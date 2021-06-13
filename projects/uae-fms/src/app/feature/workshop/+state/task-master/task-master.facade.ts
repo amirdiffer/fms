@@ -16,7 +16,7 @@ export class TaskMasterFacade {
 
   skills$ = this.store.pipe(select(TaskMasterSelectors.skills));
 
-  constructor(private store: Store<ITaskMasterPartialState>) {}
+  constructor(private store: Store<ITaskMasterPartialState>) {this.loadAll()}
 
   loadAll() {
     this.store.dispatch(TaskMasterActions.loadAll());
