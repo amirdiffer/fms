@@ -57,7 +57,14 @@ export class MenuPermission {
 
     /* '''''Traffic Fine''''' */
     this._trafficFinesPermisssion = {
-      TRRAFIC_FINE: ['ANY_PERMISSION']
+      TRRAFIC_FINE: [
+        "USER_OPERATOR_VIEW_DETAILS_TRAFFIC_FINE",
+        "OPERATOR_TRAFFIC_FINE_VIEW_LIST_OWN",
+        "OVERVIEW_ASSET_TRAFFIC_FINE_VIEW",
+        "OVERVIEW_OPERATOR_TRAFFIC_FINE_VIEW",
+        "ORGANIZATION_VIEW_TRAFFIC_FINES",
+        "OVERVIEW_ORGANIZATION_TRAFFIC_FINE_VIEW"
+      ]
     };
 
     /* '''''Toll''''' */
