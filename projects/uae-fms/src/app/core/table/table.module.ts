@@ -48,6 +48,9 @@ import { ApproveButtonRendererComponent } from '@core/table/column-renderer-comp
 import { DateRenderer } from '@core/table/column-renderer-component/column-renderers/date';
 import { ProgressRendererComponent } from './column-renderer-component/column-renderers/ProgressRenderer';
 import { TableFilterComponent } from './table-filter/table-filter.component';
+import { ColumnRendererComponent } from "./column-renderer-component/column-renderer.component";
+import { CollapseRowRendererComponent, RowRendererComponentComponent } from "./row-renderer-component";
+import { NgCircleProgressModule } from "ng-circle-progress";
 
 @NgModule({
   imports: [
@@ -61,7 +64,8 @@ import { TableFilterComponent } from './table-filter/table-filter.component';
     EffectsModule.forFeature([TableEffect]),
     TooltipModule,
     NgApexchartsModule,
-    AngularSvgIconModule
+    AngularSvgIconModule,
+    NgCircleProgressModule
   ],
   exports: [TableComponent],
   declarations: [
@@ -100,8 +104,11 @@ import { TableFilterComponent } from './table-filter/table-filter.component';
     ApproveButtonRendererComponent,
     DateRenderer,
     ProgressRendererComponent,
-    TableFilterComponent
+    TableFilterComponent,
+    ColumnRendererComponent,
+    CollapseRowRendererComponent,
+    RowRendererComponentComponent
   ],
   providers: [TableFacade, TableService, TableServiceS]
 })
-export class TableModule {}
+export class TableModule { }

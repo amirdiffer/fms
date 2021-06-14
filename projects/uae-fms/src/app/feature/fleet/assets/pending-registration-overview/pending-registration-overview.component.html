@@ -5,87 +5,342 @@
         <button class="btn-primary-medium add" (click)="addRegistration()"
             type="submit">{{'forms.save' | translate}}</button>
     </div>
-    <div class="col-3 pl-0">
+    <div class="col-3 pl-0 left-menu">
         <anms-asset-detail [asset]="assetSummary"></anms-asset-detail>
+        <hr class="seprator">
+        <div class="d-flex justify-content-center pb-2" >
+            <button class="btn-primary-small" [disabled]="inputForm.invalid" (click)="loadVehicleInformation()">{{loadVehicleInfo? ('buttons.reload' | translate) : ('buttons.load' | translate)}} {{'assets.registration.vehicle_info' | translate}}</button>
+        </div>
+        <ng-container *ngIf="loadVehicleInfo">
+            <div class="vehicle-info">
+                <span>
+                  <h5 class="title">Vehicle Id</h5>
+                  <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleId}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Vehicle Source Type</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleSourceType}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Vehicle Source Type Ar</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleSourceTypeAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Vehicle Source Type En</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleSourceTypeEn}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Vehicle Source Date</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleSourceDate}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Vehicle Country Id </h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleCountryId}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Vehicle Country Ar </h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleCountryAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Vehicle Country En </h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleCountryEn}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Vehicle Descripiton Id</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleDescripitonId}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Vehicle Description</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleDescription}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Vehicle Description Ar</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleDescriptionAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Model Year</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.modelYear}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Odometer Reading</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.odometerReading}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">No Of Doors</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.noOfDoors}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">No Of Seat</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.noOfSeats}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Engine No</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.engineNo}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Model Name Ar</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.modelNameAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Model Name En</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.modelNameEn}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Chassis No</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.chassisNo}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Reg Expiry Date</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.regExpiryDate}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Registeration Date</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.registerationDate}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Make Id</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.makeId}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Manufacture Type En</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.manufactureTypeEn}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Manufacture Type Ar</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.manufactureTypeAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Insurance Type Id</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.insuranceTypeId}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Insurance Type En</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.insuranceTypeEn}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Insurance Type Ar</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.insuranceTypeAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Insurrance Company Id</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.insurranceCompanyId}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Insurrance Company En</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.insurranceCompanyEn}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Insurrance Company Ar</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.insurranceCompanyAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Insurrance Expiry Date</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.insurranceExpiryDate}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Insurrance Ref No</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.insurranceRefNo}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Is Electronic Insurance Exist</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.isElectronicInsuranceExist}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Color Id List</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.colorList.colorIdList}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Color Desc Ar</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.colorList.colorDescAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Color Desc En</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.colorList.colorDescEn}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Vehicle Class Code</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleClass.vehicleClassCode}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Vehicle Class Description Ar</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleClass.vehicleClassDescriptionAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">vehicle Class Description En</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.vehicleClass.vehicleClassDescriptionEn}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Plate Id</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.plateId}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Plate Number</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.plateNumber}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Plate Source</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.plateSource}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Plate Info En</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.plateInfoEn}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Plate Info Ar</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.plateInfoAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Category Code</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.category.categoryCode}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Category Description En</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.category.categoryDescriptionEn}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Category Description Ar</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.category.categoryDescriptionAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">cfi Code</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.code.cfiCode}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Plate Code Id</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.code.plateCodeId}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Plate Code Description En</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.code.plateCodeDescriptionEn}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Plate Code Description Ar</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.code.plateCodeDescriptionAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Plate Emirate Id</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.source.plateEmirateId}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Plate Source En</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.source.plateSourceEn}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Plate Source Ar</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.plate.source.plateSourceAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Insurance Company Id</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.electronicInsurance.insuranceCompanyId}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Insurance Id</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.electronicInsurance.insuranceId}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Transaction Id</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.relatedTranscation.transactionId}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Employee Name Ar</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.relatedTranscation.employeeNameAr}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Employee Name En</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.relatedTranscation.employeeNameEn}}</h5>
+                </span>
+                <span>
+                    <h5 class="title">Transaction Date</h5>
+                    <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.relatedTranscation.transactionDate}}</h5>
+                </span>
+
+            </div>
+        </ng-container>
+
     </div>
-    <div class="col-9">
+    <div class="col-9 px-5">
         <form [formGroup]="inputForm">
             <div class="row mt-4">
-                <div class="col-10">
-                    <div class="p-field form-section__field">
-                        <span class="p-float-label">
-                            <input pInputText placeholder="{{ 'tables.column.plate_number' | translate }}"
-                                formControlName="plateNumber"
-                                type="number"
-                                [class.invalid]="inputForm.get('plateNumber').invalid && submitted">
-                            <label>{{ 'tables.column.plate_number' | translate }}</label>
-                        </span>
-                        <anms-error
-                            [showError]="hasError('plateNumber',inputForm,submitted)"
-                            error="forms.feedback.required"></anms-error>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-10">
-                    <div class="p-field form-section__field">
-                        <span class="p-float-label">
-                            <input pInputText placeholder="{{ 'assets.insurance_number' | translate }}"
-                                type="number" formControlName="insuranceNumber"
-                                [class.invalid]="inputForm.get('insuranceNumber').invalid && submitted">
-                            <label>{{ 'assets.insurance_number' | translate }}</label>
-                        </span>
-                        <anms-error
-                            [showError]="hasError('insuranceNumber',inputForm,submitted)"
-                            error="forms.feedback.required"></anms-error>
-                    </div>
-                </div>
-            </div>
-              <!-- <div class="row">
-                  <div class="col-10">
-                      <div class="form-group p-field form-section__field">
-                          <div class="input-group">
-                              <div class="autocomplete-select w-100">
-                                  <span class="p-float-label">
-                                      <p-autoComplete
-                                          formControlName="salikTag"
-                                          [suggestions]="filteredSalikTag"
-                                          (completeMethod)="searchSalikTag($event)"
-                                          field="name"
-                                          [class.invalid]="!inputForm.get('salikTag').valid && submitted"></p-autoComplete>
-                                      <i class="pi pi-search"></i>
-                                      <label>{{ 'assets.salik_tag' | translate }}</label>
-                                  </span>
-                                  <anms-error
-                                      [showError]="hasError('salikTag',inputForm,submitted)"
-                                      error="forms.feedback.required"></anms-error>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div> -->
-            <!-- <div class="row">
-                <div class="col-10">
-                    <div class="form-group p-field form-section__field">
-                        <div class="input-group">
-                            <div class="autocomplete-select w-100">
-                                <span class="p-float-label">
-                                    <p-autoComplete formControlName="fuelTag"
-                                        [suggestions]="filteredFuelTag"
-                                        (completeMethod)="searchFuelTag($event)"
-                                        field="name"
-                                        [class.invalid]="!inputForm.get('fuelTag').valid && submitted"></p-autoComplete>
-                                    <i class="pi pi-search"></i>
-                                    <label>{{ 'assets.fuel_tag' | translate }}</label>
-                                </span>
-                                <anms-error
-                                    [showError]="hasError('fuelTag',inputForm,submitted)"
-                                    error="forms.feedback.required"></anms-error>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" formControlName="registerType" type="radio"  value="plate_number">
+                                <label class="form-check-label">{{'assets.registration.register_by_plate_number' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" formControlName="registerType" type="radio"  value ="chassis" >
+                                <label class="form-check-label">{{'assets.registration.register_by_chassis_number' | translate}}</label>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> -->
+                <ng-container *ngIf="inputForm.get('registerType').value === 'plate_number'">
+                    <div class="col-10 mt-5">
+                        <div class=" p-field form-section__field options-select">
+                            <span class="p-float-label">
+                                <p-dropdown (onChange)="plateCategoryChange($event)" 
+                                            formControlName="plateCategory" [options]="plateCategory" 
+                                            optionLabel="name"  class="dropdown-select"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label>{{'assets.registration.plate_category' | translate}}</label>
+                            </span>
+                            <anms-error
+                                [showError]="hasError('plateCategory',inputForm,submitted)"
+                                error="forms.feedback.required"></anms-error>
+                        </div>
+                        <div class=" p-field form-section__field options-select mt-4">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="plateCode$ | async" 
+                                            optionLabel="name" formControlName="plateCode" 
+                                            optionValue="value" class="dropdown-select"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label>{{'assets.registration.plate_code' | translate}}</label>
+                            </span>
+                            <anms-error
+                                [showError]="hasError('plateCode',inputForm,submitted)"
+                                error="forms.feedback.required"></anms-error>
+                        </div>
+                        <div class="p-field form-section__field mt-4">
+                            <span class="p-float-label">
+                                <input pInputText placeholder="{{ 'tables.column.plate_number' | translate }}"
+                                    formControlName="plateNumber"
+                                    type="text"
+                                    numbersOnly
+                                    [class.invalid]="inputForm.get('plateNumber').invalid && submitted">
+                                <label>{{'assets.registration.plate_number' | translate}}</label>
+                            </span>
+                            <anms-error
+                                [showError]="hasError('plateNumber',inputForm,submitted)"
+                                error="forms.feedback.required"></anms-error>
+                        </div>
+                        <div class="p-field form-section__field dropdown-select mt-4">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="plateSource" optionLabel="name" optionValue="value"  formControlName="plateSource" class="dropdown-select"></p-dropdown>
+                                <label>{{'assets.registration.plate_source' | translate}}</label>
+                            </span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="inputForm.get('registerType').value === 'chassis'">
+                    <div class="col-10 mt-5">
+                        <div class="p-field form-section__field">
+                            <span class="p-float-label">
+                                <input pInputText placeholder="{{ 'tables.column.plate_number' | translate }}"
+                                    formControlName="chassisNumber"
+                                    type="number"
+                                    [class.invalid]="inputForm.get('chassisNumber').invalid && submitted">
+                                <label>{{'assets.registration.chassis_number' | translate}}</label>
+                            </span>
+                            <anms-error
+                                [showError]="hasError('chassisNumber',inputForm,submitted)"
+                                error="forms.feedback.required"></anms-error>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
             <ng-template #afterSave>
                 <div class="row">
                     <div class="col-6">

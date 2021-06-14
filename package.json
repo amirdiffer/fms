@@ -24,7 +24,7 @@
     "contributors:generate": "all-contributors generate && node .all-contributors-html.js",
     "contributors:check": "all-contributors check",
     "compodoc": "compodoc -p ./tsconfig.json",
-    "changelog":"node changelog.js"
+    "changelog": "node changelog.js"
   },
   "husky": {
     "hooks": {
