@@ -12,7 +12,7 @@ export class SubAssetSearchThroughEffects {
         private service: SubAssetSearchThroughService,
     ) {}
 
-    loadAvailableAccessory$ = createEffect(() =>
+    loadAvailableSubAsset$ = createEffect(() =>
         this.action$.pipe(ofType(SubAssetSearchThroughActions.loadAvailableSubAssetWithModelId),
         mergeMap((action) =>
             this.service.loadAvailableSubAssetWithModelId(action.id).pipe(
