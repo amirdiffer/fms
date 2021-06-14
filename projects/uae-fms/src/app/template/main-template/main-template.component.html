@@ -12,7 +12,7 @@
       <div class="content">
         <span class="path">
           <span *ngFor="let i=index;let part of breadcrumb">
-            <span class="title">
+            <span class="title" [routerLink]="[getPartLink(i)]">
               <ng-template #item>
                 <span *ngIf="splitPart(part)[0] == 'item';else partt">{{ 'breadcrumb.item' | translate }} {{splitPart(part)[1]}}</span>
                 <ng-template #partt>{{part}}</ng-template>

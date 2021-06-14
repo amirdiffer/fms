@@ -16,7 +16,9 @@ export class BodyShopLocationFacade {
 
   conut$ = this.store.pipe(select(BodyShopLocationSelectors.count));
 
-  constructor(private store: Store<IBodyShopLocationPartialState>) {}
+  constructor(private store: Store<IBodyShopLocationPartialState>) {
+    this.loadAll();
+  }
 
   loadAll() {
     this.store.dispatch(BodyShopLocationActions.loadAll());

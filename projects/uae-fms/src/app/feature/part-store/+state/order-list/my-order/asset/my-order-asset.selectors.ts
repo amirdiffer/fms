@@ -1,26 +1,17 @@
 import { createSelector } from '@ngrx/store';
-import { PartStoreSelectors } from '@feature/part-store/+state/part-store.selectors';
-import { myOrderListAdapter } from '@feature/part-store/+state/order-list/my-order/asset/my-order-asset.entity';
+import { myOrderListAdapter } from './my-order-asset.entity';
 const { selectAll } = myOrderListAdapter.getSelectors();
+const myOrderAssetState = (state) => state['my-order-asset'];
 
 export class MyOrderAssetSelectors {
-  static selectAll = createSelector(
-    PartStoreSelectors.myOrderAssetListSelector,
-    selectAll
-  );
+  static selectAll = createSelector(myOrderAssetState, selectAll);
 
-  static message = createSelector(
-    PartStoreSelectors.myOrderAssetListSelector,
-    (state) => state.message
-  );
+  static message = createSelector(myOrderAssetState, (state) => state.message);
 
-  static error = createSelector(
-    PartStoreSelectors.myOrderAssetListSelector,
-    (state) => state.error
-  );
+  static error = createSelector(myOrderAssetState, (state) => state.error);
 
   static submitted = createSelector(
-    PartStoreSelectors.myOrderAssetListSelector,
+    myOrderAssetState,
     (state) => state.submitted
   );
 }

@@ -1,88 +1,100 @@
-import { createSelector } from '@ngrx/store';
-import { PartStoreSelectors } from '../part-store.selectors';
-import { assetPartListAdapter, subAssetPartListAdapter } from './part-list.entity';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import {
+  assetPartListAdapter,
+  PARTSTORE_PARTLIST_FEATURE_KEY,
+  subAssetPartListAdapter
+} from './part-list.entity';
 
-
-export const select = (adapter) =>{
-  if(adapter = 'ASSET'){
+export const select = (adapter) => {
+  if ((adapter = 'ASSET')) {
     const { selectAll } = assetPartListAdapter.getSelectors();
     return selectAll;
-  }else if((adapter = 'SUB-ASSET')){
+  } else if ((adapter = 'SUB-ASSET')) {
     const { selectAll } = subAssetPartListAdapter.getSelectors();
     return selectAll;
   }
 };
 
 export class PartListSelectors {
+  static featureSelector = createFeatureSelector(
+    PARTSTORE_PARTLIST_FEATURE_KEY
+  );
 
+  static assetPartList = createSelector(
+    PartListSelectors.featureSelector,
+    (state) => state['assetPartList']
+  );
+  static subAssetPartList = createSelector(
+    PartListSelectors.featureSelector,
+    (state) => state['subAssetPartList']
+  );
   static selectAllAccumulatedAssetPartList = createSelector(
-    PartStoreSelectors.assetPartList,
+    PartListSelectors.assetPartList,
     select('ASSET')
   );
 
   static selectAllAccumulatedSubAssetPartList = createSelector(
-    PartStoreSelectors.subAssetPartList,
+    PartListSelectors.subAssetPartList,
     select('SUB-ASSET')
   );
 
   static listPartForSpecificItemAsset = createSelector(
-    PartStoreSelectors.assetPartList,
+    PartListSelectors.assetPartList,
     (state) => state.listPartForSpecificItem
   );
 
   static listPartForSpecificItemSubAsset = createSelector(
-    PartStoreSelectors.subAssetPartList,
+    PartListSelectors.subAssetPartList,
     (state) => state.listPartForSpecificItem
   );
 
   static specificAssetPart = createSelector(
-    PartStoreSelectors.assetPartList,
+    PartListSelectors.assetPartList,
     (state) => state.specificPart
   );
 
   static specificSubAssetPart = createSelector(
-    PartStoreSelectors.subAssetPartList,
+    PartListSelectors.subAssetPartList,
     (state) => state.specificPart
   );
 
   static statisticsAssetPart = createSelector(
-    PartStoreSelectors.assetPartList,
+    PartListSelectors.assetPartList,
     (state) => state.statistics
   );
 
   static statisticsSubAssetPart = createSelector(
-    PartStoreSelectors.subAssetPartList,
+    PartListSelectors.subAssetPartList,
     (state) => state.statistics
   );
 
   static updatedAssetPart = createSelector(
-    PartStoreSelectors.assetPartList,
+    PartListSelectors.assetPartList,
     (state) => state.updated
   );
 
   static updatedSubAssetPart = createSelector(
-    PartStoreSelectors.subAssetPartList,
+    PartListSelectors.subAssetPartList,
     (state) => state.updated
   );
 
   static messageAssetPart = createSelector(
-    PartStoreSelectors.assetPartList,
+    PartListSelectors.assetPartList,
     (state) => state.message
   );
 
   static messageSubAssetPart = createSelector(
-    PartStoreSelectors.subAssetPartList,
+    PartListSelectors.subAssetPartList,
     (state) => state.message
   );
 
   static errorAssetPart = createSelector(
-    PartStoreSelectors.assetPartList,
+    PartListSelectors.assetPartList,
     (state) => state.error
   );
 
   static errorSubAssetPart = createSelector(
-    PartStoreSelectors.subAssetPartList,
+    PartListSelectors.subAssetPartList,
     (state) => state.error
   );
-
 }

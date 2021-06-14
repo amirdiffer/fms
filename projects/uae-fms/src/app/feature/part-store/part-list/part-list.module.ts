@@ -7,6 +7,8 @@ import { TabViewModule } from '@core/tab-view';
 import { TableModule } from '@core/table';
 import { SharedModule } from '@shared/shared.module';
 import { PartListRoutingModule } from './part-list-routing.module';
+import { PartListStateModule } from '../+state/part-list/part-list-state.module';
+import { PartMasterStateModule } from '../+state/part-master/part-master-state.module';
 
 @NgModule({
   declarations: [PartListComponent, UpdateFormComponent],
@@ -16,7 +18,9 @@ import { PartListRoutingModule } from './part-list-routing.module';
     FilterModule,
     TabViewModule,
     TableModule,
-    SharedModule
+    SharedModule,
+    PartListStateModule,
+    PartMasterStateModule
   ]
 })
 export class PartListModule {}

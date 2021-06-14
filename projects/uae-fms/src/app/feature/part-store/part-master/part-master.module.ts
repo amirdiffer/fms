@@ -9,6 +9,8 @@ import { PartMasterComponent } from './part-master.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { TableContentComponent } from './table-content/table-content.component';
+import { PartMasterStateModule } from '../+state/part-master/part-master-state.module';
+import { SupplierStateModule } from '../+state/order-list/suppliers/suppliers-state.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { TableContentComponent } from './table-content/table-content.component';
     FilterModule,
     TabViewModule,
     TableModule,
-    SharedModule
+    SharedModule,
+    PartMasterStateModule,
+    SupplierStateModule
   ]
 })
 export class PartMasterModule {}

@@ -18,6 +18,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   statisticsSubscription!: Subscription;
   downloadBtn = 'assets/icons/download-solid.svg';
+  showCustomFilter = false;
   //#endregion
 
   //#region filter
@@ -93,6 +94,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
     })
   );
   assetTraffic_Table: TableSetting = {
+    name: 'sub-asset',
     columns: [
       {
         lable: 'tables.column.serial_number',
@@ -160,6 +162,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       ]
     }
   };
+  assetTraffic_TableColumns = this.assetTraffic_Table.columns;
   //#endregion
 
   constructor(
@@ -169,7 +172,6 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.facade.loadAll();
     this.facade.loadStatistics();
     this.statisticsSubscription = this.facade.statistics$.subscribe(
       (res: any) => {
@@ -245,5 +247,19 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           ? `Yesterday`
           : `${date.day} Days Ago`
         : 'Today';
+  }
+
+  customFilterEvent(data: object[]) {
+    if (data.length) {
+      this.assetTraffic_Table.columns = this.assetTraffic_TableColumns.filter(
+        (x) => {
+          if (data.filter((y) => x.field == y['name']).length) return x;
+        }
+      );
+    } else {
+      return this.assetTraffic_Table.columns;
+    }
+    this.facade.loadAll();
+    console.log(data);
   }
 }

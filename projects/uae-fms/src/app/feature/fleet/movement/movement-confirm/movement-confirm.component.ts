@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
-import { MovementRequestsFacade } from '@feature/fleet/+state/movement';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -12,6 +11,7 @@ import { Utility } from '@shared/utility/utility';
 import { OperatorFacade } from '@feature/fleet/+state/operator';
 import { OrganizationFacade } from '@feature/fleet/+state/organization';
 import { MovementService } from '@feature/fleet/movement/movement.service';
+import { MovementRequestsFacade } from '@feature/fleet/+state/movement/permanent/requests';
 
 @Component({
   selector: 'anms-movement-confirm',
@@ -109,7 +109,10 @@ export class MovementConfirmComponent extends Utility implements OnInit {
       if (x?.error) {
         this.displayErrorModal = true;
         this.dialogErrorSetting.hasError = true;
-        this.dialogErrorSetting.message = x.error.message!=""?x.error.message:"Error occurred during operation";
+        this.dialogErrorSetting.message =
+          x.error.message != ''
+            ? x.error.message
+            : 'Error occurred during operation';
       }
     });
   }

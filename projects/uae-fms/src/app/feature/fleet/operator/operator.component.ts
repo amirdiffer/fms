@@ -168,7 +168,6 @@ export class OperatorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._operatorFacade.loadAll();
     this._operatorFacade.loadStatistics();
 
     this._operatorFacade.statistics$.subscribe((response) => {

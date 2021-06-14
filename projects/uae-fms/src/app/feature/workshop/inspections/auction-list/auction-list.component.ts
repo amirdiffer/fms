@@ -203,7 +203,6 @@ export class AuctionListComponent implements OnInit, OnDestroy {
     this.editOpen$ = this._fake_serviceservice.getEdit().subscribe((open) => {
       this.editOpen = open;
     });
-    this._facade.loadAll();
     this._facade.message$.subscribe((x) => {
       this.settingTable1.data = x;
     });

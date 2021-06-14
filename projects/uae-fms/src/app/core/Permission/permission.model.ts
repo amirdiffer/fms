@@ -175,7 +175,6 @@ export class MenuPermission {
         let permissionFuelLabel = {
           FUEL_MANAGEMENT: this._fuelManagementPermission.FUEL_MANAGEMENT
         };
-        console.log(permissionFuelLabel[permission]);
         return permissionFuelLabel[permission];
 
       /* '''''Traffic Fines''''' */

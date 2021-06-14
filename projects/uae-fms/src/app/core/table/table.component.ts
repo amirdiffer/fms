@@ -52,6 +52,11 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() subTable: TableSetting;
   dropdownItemSelected = null;
   @Output() selectedSubTable: EventEmitter<number> = new EventEmitter<number>();
+  @Output() customFilterEvent: EventEmitter<object[]> = new EventEmitter<
+    object[]
+  >();
+  @Input() showCustomFilter = false;
+
   allData = [];
   currentContext;
   constructor(
@@ -401,12 +406,17 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.onSelectItems.emit(this.selectedIds);
   }
+
+  customFilter(e) {
+    this.customFilterEvent.emit(e);
+  }
 }
 
 export interface TableSetting {
   columns: ColumnDifinition[];
   data?: any[];
   rowSettings?: RowSettings;
+  name?: string;
 }
 
 export interface ColumnDifinition {

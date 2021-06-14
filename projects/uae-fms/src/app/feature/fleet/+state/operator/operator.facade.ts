@@ -17,7 +17,9 @@ export class OperatorFacade {
 
   submitted$ = this.store.pipe(select(OperatorSelectors.submitted));
 
-  constructor(private store: Store<IOperatorPartialState>) {}
+  constructor(private store: Store<IOperatorPartialState>) {
+    this.loadAll();
+  }
 
   loadAll() {
     this.store.dispatch(OperatorActions.loadAll());

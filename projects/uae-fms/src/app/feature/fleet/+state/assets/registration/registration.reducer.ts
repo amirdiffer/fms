@@ -3,8 +3,8 @@ import {
   initialState,
   IRegistrationState,
   registrationAdapter
-} from '@feature/fleet/+state/assets/registration/registration.entity';
-import { RegistrationActions } from '@feature/fleet/+state/assets/registration/registration.actions';
+} from './registration.entity';
+import { RegistrationActions } from './registration.actions';
 
 const registrationReducer = createReducer(
   initialState,

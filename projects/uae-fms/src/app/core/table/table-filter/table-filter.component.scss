@@ -1,0 +1,30 @@
+@import '../../../../themes/green-theme.scss';
+@import '../../../../assets/scss/form-section.scss';
+
+.clear-filter {
+  color: #9f9f9f !important;
+  cursor: pointer;
+}
+.form-section__title {
+  display: flex;
+}
+
+.customize-column {
+  position: absolute;
+  width: 500px;
+  z-index: 1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: white;
+  transform: translateY(34px);
+  transition-duration: 2s;
+}
+
+.hidden {
+  display: none;
+}
+
+.pointer {
+  cursor: pointer;
+}

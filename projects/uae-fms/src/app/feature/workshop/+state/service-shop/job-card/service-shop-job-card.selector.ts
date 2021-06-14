@@ -1,30 +1,27 @@
 import { createSelector } from '@ngrx/store';
-import { WorkshopSelectors } from '../../workshop.selectors';
 import { serviceshopJobCardAdapter } from './service-shop-job-card.entity';
 const { selectAll } = serviceshopJobCardAdapter.getSelectors();
+const serviceShopJobCardState = (state) => state['serviceShopJobCard'];
 
 export class ServiceShopJobCardSelectors {
-  static selectAll = createSelector(
-    WorkshopSelectors.serviceshopJobCardSelector,
-    selectAll
-  );
+  static selectAll = createSelector(serviceShopJobCardState, selectAll);
 
   static count = createSelector(
-    WorkshopSelectors.serviceshopJobCardSelector,
+    serviceShopJobCardState,
     (state) => state.resultNumber
   );
 
   static message = createSelector(
-    WorkshopSelectors.serviceshopJobCardSelector,
+    serviceShopJobCardState,
     (state) => state.message
   );
   static submitted = createSelector(
-    WorkshopSelectors.serviceshopJobCardSelector,
+    serviceShopJobCardState,
     (state) => state.submitted
   );
 
   static error = createSelector(
-    WorkshopSelectors.serviceshopJobCardSelector,
+    serviceShopJobCardState,
     (state) => state.error
   );
   static selectById = createSelector(

@@ -19,7 +19,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'accessory-overview',
+    path: 'accessory-overview/:id',
     component: AccessoryOverviewComponent,
     canActivate: [PermissionGuard],
     data: {

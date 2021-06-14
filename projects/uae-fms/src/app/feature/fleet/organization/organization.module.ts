@@ -9,6 +9,7 @@ import { DepartmentOverviewComponent } from './department-overview/department-ov
 import { OverviewTabComponent } from './department-overview/overview-tab/overview-tab.component';
 import { OrganizationRoutingModule } from './organization-routing.module';
 import { TabViewModule } from '@core/tab-view';
+import { OrganizationStateModule } from '../+state/organization/organization-state.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { TabViewModule } from '@core/tab-view';
     FilterModule,
     TableModule,
     TabViewModule,
-    SharedModule
+    SharedModule,
+    OrganizationStateModule
   ]
 })
 export class OrganizationModule {}

@@ -1,46 +1,30 @@
 import { requestListAdapter } from './request-list.entity';
 import { createSelector } from '@ngrx/store';
-import { PartStoreSelectors } from '@feature/part-store/+state/part-store.selectors';
 const { selectAll } = requestListAdapter.getSelectors();
-
+const requestListState = (state) => state['RequestList'];
 export class RequestListSelectors {
-  static selectAll = createSelector(
-    PartStoreSelectors.requestListSelector,
-    selectAll
-  );
+  static selectAll = createSelector(requestListState, selectAll);
 
   static specificRequest = createSelector(
-    PartStoreSelectors.requestListSelector,
+    requestListState,
     (state) => state.specificRequest
   );
 
   static statistics = createSelector(
-    PartStoreSelectors.requestListSelector,
+    requestListState,
     (state) => state.statistics
   );
 
   static submitted = createSelector(
-    PartStoreSelectors.requestListSelector,
+    requestListState,
     (state) => state.submitted
   );
 
-  static approved = createSelector(
-    PartStoreSelectors.requestListSelector,
-    (state) => state.approved
-  );
+  static approved = createSelector(requestListState, (state) => state.approved);
 
-  static rejected = createSelector(
-    PartStoreSelectors.requestListSelector,
-    (state) => state.rejected
-  );
+  static rejected = createSelector(requestListState, (state) => state.rejected);
 
-  static message = createSelector(
-    PartStoreSelectors.requestListSelector,
-    (state) => state.message
-  );
+  static message = createSelector(requestListState, (state) => state.message);
 
-  static error = createSelector(
-    PartStoreSelectors.requestListSelector,
-    (state) => state.error
-  );
+  static error = createSelector(requestListState, (state) => state.error);
 }
