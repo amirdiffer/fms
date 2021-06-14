@@ -96,6 +96,10 @@ export class OwnershipFormComponent extends Utility implements OnInit {
   submitted = false;
   //#endregion
 
+  get ownershipType(): OwnershipType {
+    return this.ownerShipForm.controls['type'].value;
+  }
+
   constructor(
     injector: Injector,
     private _fb: FormBuilder,
@@ -111,12 +115,9 @@ export class OwnershipFormComponent extends Utility implements OnInit {
 
     this.ownerShipForm = this._fb.group({
       type: ['EXTERNAL'],
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: [''],
       purpose: [''],
       fleetITCode: ['', [Validators.required]],
-      duration: ['', [Validators.required]]
+      duration: []
     });
 
     this.facade.submitted$.subscribe((x) => {
@@ -160,10 +161,16 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     if (this.ownerShipForm.invalid) {
       return;
     } else {
+      const payload = {
+        duration: (this.ownershipType === 'EXTERNAL' || this.ownershipType === 'OWNED') ? '1' : this.ownerShipForm.value.duration,
+        fleetITCode: this.ownerShipForm.value.fleetITCode,
+        purpose: this.ownerShipForm.value.purpose,
+        type: this.ownerShipForm.value.type
+      }
       if (this.isEdit) {
-        this.facade.editOwnership({ ...this.ownerShipForm.value, id: this.id });
+        this.facade.editOwnership({ ...payload, id: this.id });
       } else {
-        this.facade.addOwnership(this.ownerShipForm.value);
+        this.facade.addOwnership(payload);
       }
     }
   }
@@ -194,3 +201,5 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     this.resetParams();
   }
 }
+
+export type OwnershipType = 'EXTERNAL' | 'OWNED' | 'RENT' | 'DEMO';
