@@ -512,7 +512,12 @@
       "shopType": "نوع متجر",
       "ratePerHour": "سعر لكل ساعة",
       "taskType": "نوع المهمة",
-      "timeEstimate": "تقدير الوقت"
+      "timeEstimate": "تقدير الوقت",
+      "traffic_file_number": "رقم الملف المروري",
+      "number_of_tickets": "عدد التذاكر",
+      "total_fine": "إجمالي الغرامة",
+      "plate_code": "رمز اللوحة",
+      "plate_source": "مصدر اللوحة"
     },
     "button": {
       "view_report": "عرض التقرير",

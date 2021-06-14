@@ -162,7 +162,6 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.traffic_fine',
       icon: 'traffic',
       route: '/traffic-fine',
-      disabled: true,
       permission: {
         parent: 'TRRAFIC_FINE',
         permission: 'TRRAFIC_FINE',
