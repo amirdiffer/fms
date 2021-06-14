@@ -380,7 +380,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         if (x) {
           return x.map(ownership => {
             return {
-              ...ownership
+              ...ownership,
+              name: ownership.fleetITCode
             }
           })
         }

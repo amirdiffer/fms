@@ -1,5 +1,7 @@
 <div class="app-table-wrapper">
-  <anms-table-filter (customFilterEvent)="customFilter($event)" [show]="showCustomFilter" [entity]="setting.name" [columns]="setting.columns"></anms-table-filter>
+  <div *ngIf="showCustomFilter">
+    <anms-table-filter (customFilterEvent)="customFilter($event)" [show]="showCustomFilter" [entity]="setting.name" [columns]="setting.columns"></anms-table-filter>
+  </div>
   <p-table [value]="tableData ? (tableData | async) : (setting.data)" (mouseleave)='rowIndexTable= -1' (sortFunction)="handleSort($event, setting)"
     [customSort]='true'>
     <ng-template pTemplate="header">
