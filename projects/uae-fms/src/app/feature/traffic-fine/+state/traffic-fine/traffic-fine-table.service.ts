@@ -1,55 +1,37 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { ITrafficFine } from '@models/traffic-fine';
 import { environment } from '@environments/environment';
 import { ResponseBody } from '@models/response-body';
 import { ITrafficFineStatistics } from '@models/statistics';
+import { TableFacade } from '@core/table/+state/table.facade';
 import { IGetVehicleInfoByChassisNumber, IGetVehicleInfoByPlateNumber } from './traffic-fine-table.entity';
 import { ITrafficFineVehicleInfo } from '@models/pending-registration.model';
 
 @Injectable()
 export class TrafficFineTableService {
-  constructor(private http: HttpClient) {}
 
-  data: ITrafficFine[] = this.returnMockData();
+  params = new HttpParams();
 
-  returnMockData(): ITrafficFine[] {
-    let d: ITrafficFine[] = [];
-    for (let i = 1; i < 8; i++) {
-      d.push({
-        amount: i,
-        date:
-          'test data test data test data test data test data test data test data ',
-        department: {
-          id: i,
-          name: 'test data',
-          organizationId: i,
-          organizationName: 'test data'
-        },
-        duration: i,
-        id: i,
-        missionStatus: '',
-        operator: { firstName: 'test data', id: i, lastName: 'test data' },
-        plateNumber: 'test data',
-        status: 'test data',
-        tcCode: i,
-        type: 'test data',
-        userStatus: 'test data'
-      });
-    }
-    return d;
+  constructor(private http: HttpClient, private tableFacade: TableFacade) {}
+
+  getParam(name) {
+    this.tableFacade.getPaginationByName(name).subscribe((x) => {
+      if (x != null) {
+        this.params = this.params
+          .set('page', x.page.toString())
+          .set('size', x.ipp.toString());
+      }
+    });
+    return this.params;
   }
 
   loadAll(): Observable<ResponseBody<ITrafficFine[]>> {
-    // return this.http.get<ResponseBody<ITrafficFine[]>>(
-    //   environment.baseApiUrl + 'traffic-fine'
-    // );
-    return of({
-      error: false,
-      resultNumber: this.returnMockData().length,
-      message: this.returnMockData()
-    });
+    return this.http.get<ResponseBody<ITrafficFine[]>>(
+      environment.baseApiUrl + 'traffic-fine/traffic-number',
+      { params: this.getParam('traffic-fine') }
+    );
   }
 
   loadStatistics(): Observable<ITrafficFineStatistics> {
