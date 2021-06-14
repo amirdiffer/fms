@@ -9,7 +9,7 @@ import { SubAssetSearchThroughSelectors } from "./search-through.selectors";
 export class SubAssetSearchThroughFacade {
     constructor(private store: Store<ISubAssetSearchThroughState>) {}
 
-    searchAccessory$ = this.store.pipe(select(SubAssetSearchThroughSelectors.selectAll));
+    searchSubAsset$ = this.store.pipe(select(SubAssetSearchThroughSelectors.selectAll));
 
     error$ = this.store.pipe(select(SubAssetSearchThroughSelectors.error));
 
