@@ -14,6 +14,7 @@ import { SharedModule } from '@shared/shared.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 import {MatTabsModule} from '@angular/material/tabs';
+import { OrganizationStateModule } from '@feature/fleet/+state/organization/organization-state.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     SharedModule,
     MatProgressBarModule,
     AlertDialogModule,
-    MatTabsModule
+    MatTabsModule,
+    OrganizationStateModule
   ]
 })
 export class UserManagementModule {}
