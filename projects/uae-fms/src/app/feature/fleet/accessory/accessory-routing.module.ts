@@ -7,8 +7,8 @@ import { AddAccessoryComponent } from "./add-accessory/add-accessory.component";
 
 
 const routes: Routes = [
-    { 
-        path: '', 
+    {
+        path: '',
         component: AccessoryComponent,
         canActivate:[PermissionGuard],
         data:{
@@ -17,10 +17,10 @@ const routes: Routes = [
             "ACCESSORY_VIEW_LIST_OTHERS",
             "ACCESSORY_ADD",
           ],
-        } 
+        }
     },
     {
-        path: 'accessory-overview',
+        path: 'accessory-overview/:id',
         component: AccessoryOverviewComponent,
         canActivate:[PermissionGuard],
         data:{
@@ -28,20 +28,20 @@ const routes: Routes = [
             "ACCESSORY_VIEW_DETAILS_OWN",
             "ACCESSORY_VIEW_DETAILS_OTHERS",
           ],
-        } 
+        }
     },
-    { 
-        path: 'add-new-accessory', 
+    {
+        path: 'add-new-accessory',
         component: AddAccessoryComponent,
         canActivate:[PermissionGuard],
         data:{
           permission:[
             "ACCESSORY_ADD",
           ],
-        } 
+        }
     },
-    { 
-        path: 'edit-accessory/:id', 
+    {
+        path: 'edit-accessory/:id',
         component: AddAccessoryComponent,
         canActivate:[PermissionGuard],
         data:{
@@ -49,7 +49,7 @@ const routes: Routes = [
             "ACCESSORY_UPDATE_OWN",
             "ACCESSORY_UPDATE_OTHERS",
           ],
-        } 
+        }
     },
 ]
 @NgModule({

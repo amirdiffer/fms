@@ -36,6 +36,7 @@ const EMPTY_SELECT_ITEM_LIST = [
 })
 export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy{
   //#region Dialogs
+  avatarId = null;
   dialogModal = false;
   dialogModalError = false;
   dialogModalCancel = false;
@@ -92,24 +93,14 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
   accessoryType$:Observable<any>;
   employee$:Observable<any>;
   accessory = [{ name: '', id: null }];
-  setSearchValue = new Subject();
-  setSearchValue$ = this.setSearchValue.asObservable();
 
-  assignedTo = [
-    { name: 'assignedTo Type 1', id: 1 },
-    { name: 'assignedTo Type 2', id: 2 },
-    { name: 'assignedTo Type 3', id: 3 }
-  ];
+  assignedTo = [];
 
-  assetsB;
-  subAssetsB;
   employee = [];
 
   formSubmitted = false;
   formChanged = false;
 
-  assets = [];
-  subAssets = [];
   isEdit = false;
   recordId: number;
   dialogType: string;
@@ -136,7 +127,6 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
         return {
           statusColor: '#00AFB9',
           Item: item.itemName,
-          Asset_SubAsset: item.assignedToEntity,
           Assigned_To: item.assignedToEmployeeId,
           Quantity: item.quantity
         };
@@ -149,7 +139,7 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
     console.log(this._route.snapshot.url)
     if(url.filter((x) => x.path == "edit-accessory").length > 0){
       this.isEdit = true;
-      this.recordId = +url[url.length - 1].path;;
+      this.recordId = +url[url.length - 1].path;
       this.accessoryForm.get('quantity').clearValidators();
       this.loadAccessoryData(this.recordId);
 
@@ -169,9 +159,9 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
             itemName: accessory.itemName,
             accessoryTypeId:accessory.accessorySpecification.id,
             assignedToEmployeeId:accessory.assignedToEmployeeId
-          })
+          });
+          this.avatarId = accessory.avatarId;
         });
-        this.setSearchValue.next('data');
       }
     });
   }
@@ -189,24 +179,21 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
               id:user.id,
               name: user.firstName + ' ' + user.lastName
              }
-             
+
            })
          }
       })
     )
     this.accessoryForm = this._fb.group({
       itemName: ['', Validators.required],
-      // assignedToType: ['ASSET'],
-      // assignedToEntity: ['', Validators.required],
       accessoryTypeId: ['', Validators.required],
-      quantity: ['', Validators.required],
+      quantity: [''],
       assignedToEmployeeId: ['']
     });
 
     this.loadAccessoryType();
     this.subAssetFacade.loadAll();
     this.assetMasterFacade.loadAll();
-    this.setAssets();
     this.setUsers();
     this.handleEditMode();
     this.handleSubmissionDialog();
@@ -223,34 +210,6 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
       }
     });
 
-    this.setSearchValue$.subscribe((x) => {
-      if (x) {
-        let selectedAsset;
-        switch (x) {
-          case 'data':
-            // this.assignedToEntity = this.accessoryForm.controls[
-            //   'assignedToEntity'
-            // ].value;
-            break;
-          case 'asset':
-            selectedAsset = this.assetsB.find((a) => {
-              return a.id === this.assignedToEntity;
-            });
-            break;
-          case 'subAsset':
-            // selectedAsset = this.subAssetsB.find((a) => {
-            //   return a.id === this.assignedToEntity;
-            // });
-            break;
-        }
-
-        if (selectedAsset) {
-          this.accessoryForm.controls['assignedToEntity'].setValue(
-            selectedAsset
-          );
-        }
-      }
-    });
   }
 
   private setUsers(cb = null) {
@@ -264,35 +223,6 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
 
       if (typeof cb === 'function') {
         cb();
-      }
-    });
-  }
-
-  private setAssets() {
-    this.subAssetFacade.subAsset$.pipe(map(
-      x=>{console.log(x)}
-    ))
-    this.subAssetFacade.subAsset$.subscribe((x) => {
-      this.subAssetsB = x.map((y) => ({
-        id: y.id,
-        name: y['makeName'] + ' ' + y['modelName']
-      }));
-      if (this.accessoryForm.value.assignedToType === 'SUB_ASSET') {
-        const subAsset = this.subAssetsB.find(
-          (a) => a.id === this.assignedToEntity
-        );
-        this.accessoryForm.controls['assignedToEntity'].setValue(subAsset);
-      }
-    });
-
-    this.assetMasterFacade.assetMaster$.subscribe((x) => {
-      this.assetsB = x.map((y) => ({
-        id: y.id,
-        name: y['makeName'] + ' ' + y['modelName']
-      }));
-      if (this.accessoryForm.value.assignedToType === 'ASSET') {
-        const asset = this.assetsB.find((a) => a.id === this.assignedToEntity);
-        this.accessoryForm.controls['assignedToEntity'].setValue(asset);
       }
     });
   }
@@ -317,24 +247,6 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
     });
   }
 
-  filterAssets(event) {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.assets = this.assetsB.filter(
-      (x) => x.name.toLowerCase().indexOf(event.query.toLowerCase()) >= 0
-    );
-  }
-
-  filterSubAssets(event) {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    this.subAssets = this.subAssetsB.filter(
-      (x) => x.name.toLowerCase().indexOf(event.query.toLowerCase()) >= 0
-    );
-  }
-
-  assetChanged($event) {
-    // console.log($event);
-  }
-
   setAssetTypes(assetTypes) {
     if (!assetTypes) {
       return [];
@@ -352,7 +264,6 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
     this.accessoryTypeFacade.accessoryType$.subscribe((result) => {
       if (result) {
         this.setAssetTypes(result);
-
         if (typeof cb === 'function') {
           cb();
         }
@@ -368,9 +279,8 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
     } else {
       const d = this.accessoryForm.getRawValue();
       const _data = {
+        avatarId: this.avatarId,
         itemName: d.itemName,
-        // assignedToType: d.assignedToType,
-        // assignedToEntity: d.assignedToEntity.id,
         accessoryConfigurationId : d.accessoryTypeId,
         quantity: d.quantity,
         assignedToEmployeeId: d.assignedToEmployeeId
@@ -412,4 +322,12 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
   }
   ngOnDestroy(){
   }
+
+  uploadAccessoryPicture($event) {
+    const docId = $event.files[0];
+    if ($event.files.length > 0) {
+      this.avatarId = docId;
+    }
+  }
+
 }

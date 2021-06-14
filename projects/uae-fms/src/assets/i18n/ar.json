@@ -141,6 +141,7 @@
     "edit_location":"تحديد الوجهة",
     "edit_trim":"تحریر التریم",
     "edit_make":"تحریر الماركة",
+    "accessory_overview": "نظرة عامة على الملحقات",
     "department_overview":  "نظرة عامة على القسم"
   },
   "sidebar": {
@@ -900,7 +901,23 @@
     "accessory_type": "نوع الملحق",
     "quantity": "الكمية",
     "assigned_to": "مخصص إلى",
-    "assets_sub_assets": "الأصول / الأصول الفرعية"
+    "assets_sub_assets": "الأصول / الأصول الفرعية",
+    "overview": {
+      "item_name": "اسم الصنف",
+      "asset_name": "اسم الأصل",
+      "accessory_type": "نوع الملحق",
+      "accessory_name": "اسم الملحق",
+      "accessory_item_name": "اسم العنصر الملحق",
+      "assignment_asset_info": "معلومات أصل الواجب",
+      "dpd_number": "DPD رقم",
+      "quantity": "العدد",
+      "make": "الماركة",
+      "model": "الموديل",
+      "year_of_make": "سنة الصنع",
+      "meter_reading": "قراءة العداد",
+      "dep_section": "Dep/القسم",
+      "status": "الحالة"
+    }
   },
   "operator": {
     "portal_information": "معلومات البوابة",
