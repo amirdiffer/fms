@@ -137,7 +137,6 @@ export class MainTemplateComponent implements OnInit {
 
   getPartLink(index) {
     let mainPath = this.path;
-    console.log(mainPath)
     let baseUrl = '';
     if (mainPath.length > 1) {
       baseUrl = '/' + mainPath[1].toLowerCase().replace(' ', '-');
