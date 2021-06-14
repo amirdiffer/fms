@@ -3,7 +3,10 @@ import { ViewChild } from '@angular/core';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { AccessoryService } from '@feature/fleet/+state/accessory/accessory.service';
 import { IAccessory } from '@models/accessory';
-import { AccessoryTypeFacade, AccessoryTypeService } from '@feature/configuration/+state/fleet-configuration';
+import {
+  AccessoryTypeFacade,
+  AccessoryTypeService
+} from '@feature/configuration/+state/fleet-configuration';
 import { environment } from '@environments/environment';
 
 @Component({
@@ -21,19 +24,18 @@ export class AccessoryOverviewComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private accessoryService: AccessoryService,
-    private accessoryTypeService: AccessoryTypeService,
-  ) {
-  }
+    private accessoryTypeService: AccessoryTypeService
+  ) {}
 
   ngOnInit(): void {
-
-    this.accessoryService.getAccessory(this.itemId).subscribe(x => {
+    this.accessoryService.getAccessory(this.itemId).subscribe((x) => {
       this.accessoryDetails = x.message;
       this.accessoryService.users().subscribe((employee) => {
-        this.accessoryDetails.assignedToEmployeeId = employee.message.filter(d => d.id == this.accessoryDetails.assignedToEmployeeId)[0]
+        this.accessoryDetails.assignedToEmployeeId = employee.message.filter(
+          (d) => d.id == this.accessoryDetails.assignedToEmployeeId
+        )[0];
       });
-      console.log(this.accessoryDetails)
+      console.log(this.accessoryDetails);
     });
   }
-
 }

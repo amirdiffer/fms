@@ -1,10 +1,5 @@
 import { AccessoryService } from './../../+state/accessory/accessory.service';
-import {
-  Component,
-  OnInit,
-  Injector,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -34,7 +29,9 @@ const EMPTY_SELECT_ITEM_LIST = [
   templateUrl: './add-accessory.component.html',
   styleUrls: ['./add-accessory.component.scss']
 })
-export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy{
+export class AddAccessoryComponent
+  extends Utility
+  implements OnInit, OnDestroy {
   //#region Dialogs
   avatarId = null;
   dialogModal = false;
@@ -90,8 +87,8 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
   //#endregion
 
   public accessoryForm: FormGroup;
-  accessoryType$:Observable<any>;
-  employee$:Observable<any>;
+  accessoryType$: Observable<any>;
+  employee$: Observable<any>;
   accessory = [{ name: '', id: null }];
 
   assignedTo = [];
@@ -106,7 +103,7 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
   dialogType: string;
   accessoryAssetTypes: any;
   assignedToEntity;
-  accessoryService$:Subscription;
+  accessoryService$: Subscription;
   constructor(
     private _fb: FormBuilder,
     private accessoryService: AccessoryService,
@@ -135,55 +132,59 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
   );
 
   handleEditMode() {
-    const url = this._route.snapshot.url
-    console.log(this._route.snapshot.url)
-    if(url.filter((x) => x.path == "edit-accessory").length > 0){
+    const url = this._route.snapshot.url;
+    console.log(this._route.snapshot.url);
+    if (url.filter((x) => x.path == 'edit-accessory').length > 0) {
       this.isEdit = true;
       this.recordId = +url[url.length - 1].path;
       this.accessoryForm.get('quantity').clearValidators();
       this.loadAccessoryData(this.recordId);
-
-    }else{
+    } else {
       this.isEdit = false;
     }
   }
 
   loadAccessoryData(recordId: number) {
-    this.accessoryService$ =this.accessoryService.getAccessory(recordId).subscribe((result: any) => {
-      if (result) {
-        console.log(result.message)
-        const accessory = result.message;
+    this.accessoryService$ = this.accessoryService
+      .getAccessory(recordId)
+      .subscribe((result: any) => {
+        if (result) {
+          console.log(result.message);
+          const accessory = result.message;
 
-        this.loadAccessoryType(() => {
-          this.accessoryForm.patchValue({
-            itemName: accessory.itemName,
-            accessoryTypeId:accessory.accessorySpecification.id,
-            assignedToEmployeeId:accessory.assignedToEmployeeId
+          this.loadAccessoryType(() => {
+            this.accessoryForm.patchValue({
+              itemName: accessory.itemName,
+              accessoryTypeId: accessory.accessorySpecification.id,
+              assignedToEmployeeId: accessory.assignedToEmployeeId
+            });
+            this.avatarId = accessory.avatarId;
           });
-          this.avatarId = accessory.avatarId;
-        });
-      }
-    });
+        }
+      });
   }
 
   ngOnInit(): void {
     this.accessoryTypeFacade.loadAll();
-    this.accessoryType$ = this.accessoryTypeFacade.accessoryType$.pipe(map(x => {
-      if (x){return x}
-    }));
-    this.employee$ = this.accessoryService.users().pipe(
-      map(x => {
-         if(x){
-           return x.message.map(user => {
-             return {
-              id:user.id,
-              name: user.firstName + ' ' + user.lastName
-             }
-
-           })
-         }
+    this.accessoryType$ = this.accessoryTypeFacade.accessoryType$.pipe(
+      map((x) => {
+        if (x) {
+          return x;
+        }
       })
-    )
+    );
+    this.employee$ = this.accessoryService.users().pipe(
+      map((x) => {
+        if (x) {
+          return x.message.map((user) => {
+            return {
+              id: user.id,
+              name: user.firstName + ' ' + user.lastName
+            };
+          });
+        }
+      })
+    );
     this.accessoryForm = this._fb.group({
       itemName: ['', Validators.required],
       accessoryTypeId: ['', Validators.required],
@@ -202,14 +203,12 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
       this.formChanged = true;
     });
 
-
     this._facade.error$.subscribe((x) => {
       if (x?.error) {
         this.dialogModalError = true;
         this.dialogSettingError.hasError = true;
       }
     });
-
   }
 
   private setUsers(cb = null) {
@@ -252,12 +251,11 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
       return [];
     }
 
-    return (this.accessory = assetTypes
-      .map((assetType) => ({
-        id: assetType.id,
-        name: assetType.name,
-        children: assetType.makes ? assetType.makes : EMPTY_SELECT_ITEM_LIST
-      })));
+    return (this.accessory = assetTypes.map((assetType) => ({
+      id: assetType.id,
+      name: assetType.name,
+      children: assetType.makes ? assetType.makes : EMPTY_SELECT_ITEM_LIST
+    })));
   }
 
   loadAccessoryType(cb = null) {
@@ -281,7 +279,7 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
       const _data = {
         avatarId: this.avatarId,
         itemName: d.itemName,
-        accessoryConfigurationId : d.accessoryTypeId,
+        accessoryConfigurationId: d.accessoryTypeId,
         quantity: d.quantity,
         assignedToEmployeeId: d.assignedToEmployeeId
       };
@@ -320,8 +318,7 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
   dialogErrorConfirm(value) {
     this.dialogModalError = false;
   }
-  ngOnDestroy(){
-  }
+  ngOnDestroy() {}
 
   uploadAccessoryPicture($event) {
     const docId = $event.files[0];
@@ -329,5 +326,4 @@ export class AddAccessoryComponent extends Utility implements OnInit , OnDestroy
       this.avatarId = docId;
     }
   }
-
 }

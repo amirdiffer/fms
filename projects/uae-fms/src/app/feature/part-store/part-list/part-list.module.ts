@@ -10,13 +10,8 @@ import { PartListRoutingModule } from './part-list-routing.module';
 import { PartListStateModule } from '../+state/part-list/part-list-state.module';
 import { PartMasterStateModule } from '../+state/part-master/part-master-state.module';
 
-
-
 @NgModule({
-  declarations: [
-    PartListComponent,
-    UpdateFormComponent,
-  ],
+  declarations: [PartListComponent, UpdateFormComponent],
   imports: [
     CommonModule,
     PartListRoutingModule,
@@ -25,8 +20,7 @@ import { PartMasterStateModule } from '../+state/part-master/part-master-state.m
     TableModule,
     SharedModule,
     PartListStateModule,
-    PartMasterStateModule,
-    
+    PartMasterStateModule
   ]
 })
-export class PartListModule { }
+export class PartListModule {}

@@ -1,12 +1,9 @@
 import { requestListAdapter } from './request-list.entity';
 import { createSelector } from '@ngrx/store';
 const { selectAll } = requestListAdapter.getSelectors();
-const requestListState = (state) => state['RequestList']
+const requestListState = (state) => state['RequestList'];
 export class RequestListSelectors {
-  static selectAll = createSelector(
-    requestListState,
-    selectAll
-  );
+  static selectAll = createSelector(requestListState, selectAll);
 
   static specificRequest = createSelector(
     requestListState,
@@ -23,23 +20,11 @@ export class RequestListSelectors {
     (state) => state.submitted
   );
 
-  static approved = createSelector(
-    requestListState,
-    (state) => state.approved
-  );
+  static approved = createSelector(requestListState, (state) => state.approved);
 
-  static rejected = createSelector(
-    requestListState,
-    (state) => state.rejected
-  );
+  static rejected = createSelector(requestListState, (state) => state.rejected);
 
-  static message = createSelector(
-    requestListState,
-    (state) => state.message
-  );
+  static message = createSelector(requestListState, (state) => state.message);
 
-  static error = createSelector(
-    requestListState,
-    (state) => state.error
-  );
+  static error = createSelector(requestListState, (state) => state.error);
 }

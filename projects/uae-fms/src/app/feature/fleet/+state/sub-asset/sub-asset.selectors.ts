@@ -10,20 +10,11 @@ export class SubAssetSelectors {
     (state: SubAssetState) => state.statistics
   );
 
-  static message = createSelector(
-    subAssetState,
-    (state) => state.message
-  );
+  static message = createSelector(subAssetState, (state) => state.message);
 
-  static error = createSelector(
-    subAssetState,
-    (state) => state.error
-  );
+  static error = createSelector(subAssetState, (state) => state.error);
 
-  static submitted = createSelector(
-    subAssetState,
-    (state) => state.submitted
-  );
+  static submitted = createSelector(subAssetState, (state) => state.submitted);
 
   static spedificSubAsset = createSelector(
     subAssetState,

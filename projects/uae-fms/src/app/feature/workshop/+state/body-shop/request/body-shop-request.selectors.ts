@@ -1,13 +1,10 @@
 import { createSelector } from '@ngrx/store';
 import { bodyShopRequestAdapter } from './body-shop-request.entity';
 const { selectAll } = bodyShopRequestAdapter.getSelectors();
-const bodyShopRequestState = (state) => state['bodyShopRequest']
+const bodyShopRequestState = (state) => state['bodyShopRequest'];
 
 export class BodyShopRequestSelectors {
-  static selectAll = createSelector(
-    bodyShopRequestState,
-    selectAll
-  );
+  static selectAll = createSelector(bodyShopRequestState, selectAll);
 
   static count = createSelector(
     bodyShopRequestState,
@@ -37,10 +34,7 @@ export class BodyShopRequestSelectors {
     (state) => state.message
   );
 
-  static error = createSelector(
-    bodyShopRequestState,
-    (state) => state.error
-  );
+  static error = createSelector(bodyShopRequestState, (state) => state.error);
   static submitted = createSelector(
     bodyShopRequestState,
     (state) => state.submitted

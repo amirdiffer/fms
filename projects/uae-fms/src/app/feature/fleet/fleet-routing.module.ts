@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-
   /* '''''Asset Routing''''' */
   {
     path: 'assets',
@@ -35,7 +34,9 @@ const routes: Routes = [
   {
     path: 'department',
     loadChildren: () =>
-      import('./organization/organization.module').then((m) => m.OrganizationModule)
+      import('./organization/organization.module').then(
+        (m) => m.OrganizationModule
+      )
   },
 
   /* '''''Movement Routing''''' */
@@ -43,8 +44,7 @@ const routes: Routes = [
     path: 'movement',
     loadChildren: () =>
       import('./movement/movement.module').then((m) => m.MovementModule)
-  },
-
+  }
 ];
 
 @NgModule({

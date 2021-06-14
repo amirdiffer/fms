@@ -1,13 +1,10 @@
 import { createSelector } from '@ngrx/store';
 import { bodyShopTechnicianAdapter } from './body-shop-technician.entity';
 const { selectAll } = bodyShopTechnicianAdapter.getSelectors();
-const bodyShopTechnicianState = (state) => state['bodyShopTechnician']
+const bodyShopTechnicianState = (state) => state['bodyShopTechnician'];
 
 export class BodyShopTechnicianSelectors {
-  static selectAll = createSelector(
-    bodyShopTechnicianState,
-    selectAll
-  );
+  static selectAll = createSelector(bodyShopTechnicianState, selectAll);
   static count = createSelector(
     bodyShopTechnicianState,
     (state) => state.resultNumber

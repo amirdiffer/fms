@@ -162,11 +162,14 @@ export class OwnershipFormComponent extends Utility implements OnInit {
       return;
     } else {
       const payload = {
-        duration: (this.ownershipType === 'EXTERNAL' || this.ownershipType === 'OWNED') ? '1' : this.ownerShipForm.value.duration,
+        duration:
+          this.ownershipType === 'EXTERNAL' || this.ownershipType === 'OWNED'
+            ? '1'
+            : this.ownerShipForm.value.duration,
         fleetITCode: this.ownerShipForm.value.fleetITCode,
         purpose: this.ownerShipForm.value.purpose,
         type: this.ownerShipForm.value.type
-      }
+      };
       if (this.isEdit) {
         this.facade.editOwnership({ ...payload, id: this.id });
       } else {

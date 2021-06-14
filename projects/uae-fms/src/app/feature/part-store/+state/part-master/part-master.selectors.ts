@@ -1,17 +1,23 @@
-import { partMasterCategoryAdapter, partMasterItemAdapter, PARTSTORE_PARTMASTER_FEATURE_KEY } from './part-master.entity';
+import {
+  partMasterCategoryAdapter,
+  partMasterItemAdapter,
+  PARTSTORE_PARTMASTER_FEATURE_KEY
+} from './part-master.entity';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-export const select = (adapter) =>{
-  if(adapter = 'category'){
+export const select = (adapter) => {
+  if ((adapter = 'category')) {
     const { selectAll } = partMasterCategoryAdapter.getSelectors();
     return selectAll;
-  }else{
+  } else {
     const { selectAll } = partMasterItemAdapter.getSelectors();
     return selectAll;
   }
 };
 export class PartMasterSelectors {
-  static featureSelector = createFeatureSelector(PARTSTORE_PARTMASTER_FEATURE_KEY);
+  static featureSelector = createFeatureSelector(
+    PARTSTORE_PARTMASTER_FEATURE_KEY
+  );
 
   static partMasterCategorySelector = createSelector(
     PartMasterSelectors.featureSelector,
@@ -52,7 +58,7 @@ export class PartMasterSelectors {
     PartMasterSelectors.partMasterItemSelector,
     (state) => state.specificItem
   );
-  
+
   static submittedCategory = createSelector(
     PartMasterSelectors.partMasterCategorySelector,
     (state) => state.submitted

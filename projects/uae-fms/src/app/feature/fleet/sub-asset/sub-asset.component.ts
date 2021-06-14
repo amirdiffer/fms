@@ -14,7 +14,6 @@ import moment from 'moment';
   styleUrls: ['./sub-asset.component.scss']
 })
 export class SubAssetComponent implements OnInit, OnDestroy {
-
   //#region  Variables
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   statisticsSubscription!: Subscription;
@@ -28,32 +27,34 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       filterTitle: 'statistic.total',
       filterCount: '',
       filterTagColor: '#C543FF',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '',
       filterTagColor: '#4462A2',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '',
       filterTagColor: '#40D3C2',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.x_sub_asset',
       filterCount: '',
       filterTagColor: '#F75A4A',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
   //#endregion
 
-
   date(y) {
-    let createdDate = moment.utc(y * 1000).local().toDate();
+    let createdDate = moment
+      .utc(y * 1000)
+      .local()
+      .toDate();
     let nowDate = new Date();
     let newDate = nowDate.getTime() - createdDate.getTime();
     return {
@@ -66,7 +67,10 @@ export class SubAssetComponent implements OnInit, OnDestroy {
     map((x) => {
       return x.map((y: any) => {
         function date() {
-          let createdDate = moment.utc((y.createdAt as any) * 1000).local().toDate();
+          let createdDate = moment
+            .utc((y.createdAt as any) * 1000)
+            .local()
+            .toDate();
           let nowDate = new Date();
           let newDate = nowDate.getTime() - createdDate.getTime();
           return {
@@ -83,8 +87,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           Serial_Number: y.serialNumber,
           Asset: y.assetTypeName,
           AssetCategory: y.subAssetConfigurationName,
-          Date:
-            this.getDateString(this.date(y.createdAt)),
+          Date: this.getDateString(this.date(y.createdAt)),
           thumbField_Make: 'bmw.png'
         };
       });
@@ -130,9 +133,11 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       floatButton: [
         {
           onClick: (col, data) => {
-            this.router.navigate(['/fleet/sub-asset/edit-sub-asset/' + data['id']]);
+            this.router.navigate([
+              '/fleet/sub-asset/edit-sub-asset/' + data['id']
+            ]);
           },
-          permission:['SUB_ASSET_UPDATE_OWN' , 'SUB_ASSET_UPDATE_OTHERS'],
+          permission: ['SUB_ASSET_UPDATE_OWN', 'SUB_ASSET_UPDATE_OTHERS'],
           button: 'edit',
           color: '#3F3F3F'
         },
@@ -140,7 +145,10 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           onClick: (col, data) => {
             this.router.navigate(['/fleet/sub-asset/' + data['id']]);
           },
-          permission:['SUB_ASSET_VIEW_DETAILS_OTHERS' , 'SUB_ASSET_VIEW_DETAILS_OWN'],
+          permission: [
+            'SUB_ASSET_VIEW_DETAILS_OTHERS',
+            'SUB_ASSET_VIEW_DETAILS_OWN'
+          ],
           button: 'external',
           color: '#3F3F3F'
         }
@@ -161,7 +169,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
     private facade: SubAssetFacade,
     private router: Router,
     private _tableFacade: TableFacade
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadStatistics();
@@ -174,25 +182,25 @@ export class SubAssetComponent implements OnInit, OnDestroy {
               filterTitle: 'statistic.total',
               filterCount: `${m.total}`,
               filterTagColor: '#C543FF',
-              onActive(index: number) { }
+              onActive(index: number) {}
             },
             {
               filterTitle: 'statistic.active',
               filterCount: `${m.active}`,
               filterTagColor: '#4462A2',
-              onActive(index: number) { }
+              onActive(index: number) {}
             },
             {
               filterTitle: 'statistic.inactive',
               filterCount: `${m.inactive}`,
               filterTagColor: '#40D3C2',
-              onActive(index: number) { }
+              onActive(index: number) {}
             },
             {
               filterTitle: 'statistic.x_sub_asset',
               filterCount: `${m.xsubAsset}`,
               filterTagColor: '#F75A4A',
-              onActive(index: number) { }
+              onActive(index: number) {}
             }
           ];
         }
@@ -213,14 +221,14 @@ export class SubAssetComponent implements OnInit, OnDestroy {
           ? this.date(y).day == 1
             ? `${this.date(y).day} Yesterday`
             : `${this.date(y).day} Days Ago`
-          : 'Today'
+          : 'Today';
       },
       MakeName: 'MakeName',
       Model: 'Model',
       Policy: 'Policy',
       Asset: 'Asset',
-      Warranty_Expire_Date: 'Warranty_Expire_Date',
-    }
+      Warranty_Expire_Date: 'Warranty_Expire_Date'
+    };
     this.table.exportTable(this.assetTraffic_Table, 'Sub Asset', filter);
   }
 
@@ -228,32 +236,30 @@ export class SubAssetComponent implements OnInit, OnDestroy {
     this.facade.loadAll();
   }
 
-
   getDateString(date) {
     if (date.day > 365) {
       return `${Math.floor(date.day / 365)} Years Ago`;
     } else if (date.day > 30) {
       return `About ${Math.floor(date.day / 30)} Months Ago`;
-    }
-    else
+    } else
       return date.day > 0
         ? date.day == 1
           ? `Yesterday`
           : `${date.day} Days Ago`
-        : 'Today'
+        : 'Today';
   }
 
   customFilterEvent(data: object[]) {
     if (data.length) {
-      this.assetTraffic_Table.columns = this.assetTraffic_TableColumns.filter(x => {
-        if (data.filter(y => x.field == y['name']).length)
-          return x
-      });
+      this.assetTraffic_Table.columns = this.assetTraffic_TableColumns.filter(
+        (x) => {
+          if (data.filter((y) => x.field == y['name']).length) return x;
+        }
+      );
     } else {
       return this.assetTraffic_Table.columns;
     }
     this.facade.loadAll();
-    console.log(data)
+    console.log(data);
   }
-
 }

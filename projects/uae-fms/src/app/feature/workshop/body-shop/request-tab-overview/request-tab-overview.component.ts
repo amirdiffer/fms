@@ -124,7 +124,10 @@ export class RequestTabOverviewComponent implements OnInit {
               relativeTo: this._activatedRoute
             });
           },
-          permission:['WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OWN' , 'WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OTHERS']
+          permission: [
+            'WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OWN',
+            'WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OTHERS'
+          ]
         }
       ]
     }

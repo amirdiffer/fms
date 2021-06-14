@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-
   /* '''''Order List Routing''''' */
   {
     path: 'order-list',
@@ -22,7 +21,7 @@ const routes: Routes = [
     path: 'part-master',
     loadChildren: () =>
       import('./part-master/part-master.module').then((m) => m.PartMasterModule)
-  },
+  }
 ];
 
 @NgModule({

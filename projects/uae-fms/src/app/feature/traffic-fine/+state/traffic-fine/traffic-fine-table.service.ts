@@ -10,28 +10,31 @@ import { ITrafficFineStatistics } from '@models/statistics';
 export class TrafficFineTableService {
   constructor(private http: HttpClient) {}
 
-
   data: ITrafficFine[] = this.returnMockData();
 
   returnMockData(): ITrafficFine[] {
     let d: ITrafficFine[] = [];
     for (let i = 1; i < 8; i++) {
-      d.push(
-        {
-          amount: i,
-          date: 'test data test data test data test data test data test data test data ',
-          department: { id: i, name: 'test data', organizationId: i, organizationName: 'test data' },
-          duration: i,
+      d.push({
+        amount: i,
+        date:
+          'test data test data test data test data test data test data test data ',
+        department: {
           id: i,
-          missionStatus: '',
-          operator: { firstName: 'test data', id: i, lastName: 'test data' },
-          plateNumber: 'test data',
-          status: 'test data',
-          tcCode: i,
-          type: 'test data',
-          userStatus: 'test data',
+          name: 'test data',
+          organizationId: i,
+          organizationName: 'test data'
         },
-      )
+        duration: i,
+        id: i,
+        missionStatus: '',
+        operator: { firstName: 'test data', id: i, lastName: 'test data' },
+        plateNumber: 'test data',
+        status: 'test data',
+        tcCode: i,
+        type: 'test data',
+        userStatus: 'test data'
+      });
     }
     return d;
   }
@@ -44,7 +47,7 @@ export class TrafficFineTableService {
       error: false,
       resultNumber: this.returnMockData().length,
       message: this.returnMockData()
-    })
+    });
   }
 
   loadStatistics(): Observable<ITrafficFineStatistics> {
@@ -60,7 +63,6 @@ export class TrafficFineTableService {
         total: 15,
         unpaid: 5
       }
-    })
-
+    });
   }
 }

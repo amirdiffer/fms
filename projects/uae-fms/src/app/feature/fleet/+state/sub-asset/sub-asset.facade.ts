@@ -16,9 +16,13 @@ export class SubAssetFacade {
 
   submitted$ = this.store.pipe(select(SubAssetSelectors.submitted));
 
-  specificSubAsset$ = this.store.pipe(select(SubAssetSelectors.spedificSubAsset));
+  specificSubAsset$ = this.store.pipe(
+    select(SubAssetSelectors.spedificSubAsset)
+  );
 
-  constructor(private store: Store<SubAssetPartialState>) {this.loadAll()}
+  constructor(private store: Store<SubAssetPartialState>) {
+    this.loadAll();
+  }
 
   loadAll() {
     this.store.dispatch(SubAssetActions.loadAll());

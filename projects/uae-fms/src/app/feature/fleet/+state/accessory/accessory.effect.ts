@@ -85,5 +85,9 @@ export class AccessoryEffect {
     )
   );
 
-  constructor(private action$: Actions, private service: AccessoryService, private _tableFacade: TableFacade) {}
+  constructor(
+    private action$: Actions,
+    private service: AccessoryService,
+    private _tableFacade: TableFacade
+  ) {}
 }

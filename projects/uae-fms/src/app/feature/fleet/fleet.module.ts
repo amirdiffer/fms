@@ -7,7 +7,6 @@ import { FleetRoutingModule } from './fleet-routing.module';
 import { DashboardModule } from '../dashboard/dashboard.module';
 import { ConfigurationStateModule } from '@feature/configuration/+state';
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -18,7 +17,6 @@ import { ConfigurationStateModule } from '@feature/configuration/+state';
     CardModule,
     NgApexchartsModule,
     ConfigurationStateModule
-    
-  ],
+  ]
 })
 export class FleetModule {}

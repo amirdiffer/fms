@@ -32,8 +32,6 @@ import { RegistrationStateModule } from '../+state/assets/registration/registrat
 import { OrganizationStateModule } from '../+state/organization/organization-state.module';
 import { OperatorStateModule } from '../+state/operator/operator-state.module';
 
-
-
 @NgModule({
   declarations: [
     AssetsComponent,
@@ -50,7 +48,6 @@ import { OperatorStateModule } from '../+state/operator/operator-state.module';
     RequestComponent,
     AssetCarDetailComponent,
     ReminderComponent
-    
   ],
   imports: [
     CommonModule,
@@ -69,10 +66,8 @@ import { OperatorStateModule } from '../+state/operator/operator-state.module';
     RegistrationStateModule,
     OrganizationStateModule,
     OperatorStateModule
-
   ],
   exports: [AssetCarDetailComponent],
   providers: [BodyShopJobCardService, BodyShopRequestService]
-
 })
-export class AssetsModule { }
+export class AssetsModule {}

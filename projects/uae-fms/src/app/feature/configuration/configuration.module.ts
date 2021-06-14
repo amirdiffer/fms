@@ -5,7 +5,6 @@ import { ConfigurationStateModule } from './+state';
 import { DashboardModule } from '@feature/dashboard/dashboard.module';
 import { AssetMasterStateModule } from '@feature/fleet/+state/assets/asset-master/asset-master-state.module';
 
-
 @NgModule({
   declarations: [],
   imports: [

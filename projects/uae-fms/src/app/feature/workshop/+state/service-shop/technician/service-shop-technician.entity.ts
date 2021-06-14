@@ -1,7 +1,8 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { ITechnician } from '@models/body-shop';
 
-export const WORKSHOP_SERVICESHOP_TECHNICIAN_FEATURE_KEY ='serviceShopTechnician';
+export const WORKSHOP_SERVICESHOP_TECHNICIAN_FEATURE_KEY =
+  'serviceShopTechnician';
 
 export interface IServiceShopTechnicianState extends EntityState<ITechnician> {
   error?: any;

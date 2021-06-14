@@ -8,10 +8,8 @@ import { AddFleetStatusComponent } from './add-fleet-status/add-fleet-status.com
 import { FleetStatusRoutingModule } from './fleet-status-routing.module';
 import { TabViewModule } from '@core/tab-view';
 
-
-
 @NgModule({
-  declarations: [FleetStatusComponent , AddFleetStatusComponent],
+  declarations: [FleetStatusComponent, AddFleetStatusComponent],
   imports: [
     CommonModule,
     FleetStatusRoutingModule,
@@ -21,4 +19,4 @@ import { TabViewModule } from '@core/tab-view';
     TabViewModule
   ]
 })
-export class FleetStatusModule { }
+export class FleetStatusModule {}

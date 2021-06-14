@@ -88,14 +88,14 @@ export class MainTemplateComponent implements OnInit {
       let pathByQueryParam = '';
       if (x?.queryParams) {
         let arrPath2 = Object.values(x?.queryParams);
-        arrPath2.forEach(p => {
+        arrPath2.forEach((p) => {
           if (!isNaN(parseInt(p)))
             pathByQueryParam = pathByQueryParam + '/' + p;
-        })
+        });
       }
-      x?.queryParams ?
-      this.getPath(x?.url.split('?').shift() + pathByQueryParam) :
-      this.getPath(x?.url);
+      x?.queryParams
+        ? this.getPath(x?.url.split('?').shift() + pathByQueryParam)
+        : this.getPath(x?.url);
       this.translations = {};
       this.translations = Object.assign.apply(
         null,
@@ -111,21 +111,21 @@ export class MainTemplateComponent implements OnInit {
     const translationLabels = Object.keys(this.translations);
     this.translationService.get(translationLabels).subscribe((translation) => {
       this.translations = translation;
-      let y = Object.entries(this.translations).map(x => {
+      let y = Object.entries(this.translations).map((x) => {
         if (x[0] == x[1]) {
           x[1] = (<string>x[1]).split('.')[1];
-          if (!this.existUnderline((<string>x[1]))) {
+          if (!this.existUnderline(<string>x[1])) {
             x[1] = 'item_' + x[1];
           }
         }
         return x;
       });
-      this.breadcrumb = y.map(x => x[1]);
+      this.breadcrumb = y.map((x) => x[1]);
     });
   }
 
   existUnderline(part: string): boolean {
-    return part.includes('_')
+    return part.includes('_');
   }
   splitPart(part: string) {
     return part.split('_');
@@ -141,13 +141,15 @@ export class MainTemplateComponent implements OnInit {
     if (mainPath.length > 1) {
       baseUrl = '/' + mainPath[1].toLowerCase().replace(' ', '-');
     }
-    let h = mainPath.filter((x, i) => {
-      return i <= index;
-    }).map(x => {
-      return x.toLowerCase().replace(' ', '-');
-    });
+    let h = mainPath
+      .filter((x, i) => {
+        return i <= index;
+      })
+      .map((x) => {
+        return x.toLowerCase().replace(' ', '-');
+      });
     let result = '';
-    h.forEach(x => {
+    h.forEach((x) => {
       result = result + '/' + x;
     });
     return h.length == 1 ? result + baseUrl : result;

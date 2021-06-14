@@ -9,7 +9,7 @@
         <th style="height:100% ; width: 1px" class="p-0 m-0"></th>
         <th *ngFor="let col of setting.columns" [style]="col.width &&
           isNumber(col.width) ? 'width:'+col.width+'px' :'width:'+col.width" [pSortableColumn]='col.field'
-          [pSortableColumnDisabled]='!col.sortable'>
+          [pSortableColumnDisabled]='!col.sortable' [hidden]='col.isHeaderHidden'>
           <div class="d-flex">
             <ng-template [ngIf]="col.sortable">
               <img [class.sort]='col.isAsc === false' class="icon-dorp" src="assets/icons/sort-down-solid.svg" alt="">
@@ -25,7 +25,7 @@
         <th *ngIf="foundStatusColor(setting.data)" style="width:0px;"></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-data let-i="rowIndex">
+    <ng-template *ngIf="!setting?.rowSettings?.renderer || setting?.rowSettings?.renderer==''" pTemplate="body" let-data let-i="rowIndex">
       <tr (mouseover)='rowIsHover(i)' [class]="'tableRow'+(setting.rowSettings?.onClick?' clickable':'')"
         [ngStyle]="{'background': isSelected(i) ? data.statusColor : null,'border-inline-start': (dropdownItemSelected == i && subTable) ? '4px solid #008755': null }">
         <span style="height:100% ; width: 5px; position: relative;display: table-cell;">
@@ -52,104 +52,9 @@
               </span>
             </div>
           </div>
-          <div *ngIf="col.renderer=='userRenderer'">
-            <table-user-renderer [user]="data"></table-user-renderer>
+          <div *ngIf='col.renderer && col.renderer !== ""'>
+            <anms-column-renderer [col]='col' [setting]='setting' [data]='data' [context]='currentContext' [index]="i"></anms-column-renderer>
           </div>
-          <div *ngIf="col.renderer=='vehicleRenderer'">
-            <table-vehicle-renderer [vehicle]="data[col.field]"></table-vehicle-renderer>
-          </div>
-          <div *ngIf="col.renderer=='assetRenderer'">
-            <table-asset-renderer [asset]="data"></table-asset-renderer>
-          </div>
-          <div *ngIf="col.renderer=='doubleLineRenderer'">
-            <table-double-line-renderer [user]="data" [column]="col"></table-double-line-renderer>
-          </div>
-          <div *ngIf="showButton(col,i)">
-            <table-general-button-renderer [setting]="setting.rowSettings" [row]="data[i]" [button]="data" [col]="col">
-            </table-general-button-renderer>
-          </div>
-          <div *ngIf="col.renderer == 'subtextRenderer'">
-            <table-subText-renderer [data]="data[col.field]"></table-subText-renderer>
-          </div>
-          <div *ngIf="col.renderer == 'informationRenderer'">
-            <table-information-renderer [data]="data[col.field]"></table-information-renderer>
-          </div>
-          <div *ngIf="col.renderer == 'statusRenderer'">
-            <table-status-renderer [status]="data"></table-status-renderer>
-          </div>
-          <div *ngIf="col.renderer == 'thumbTextRenderer'">
-            <table-thumb-text-renderer [data]="data"></table-thumb-text-renderer>
-          </div>
-          <div *ngIf="col.renderer == 'booleanRenderer'">
-            <table-boolean-renderer [setting]="setting.rowSettings" (selectTR)="selectTR($event)" [allData]="data"
-              [data]="data[col.field]" [indexTR]="i" [hover]="rowIndexTable"></table-boolean-renderer>
-          </div>
-          <div *ngIf="col.renderer == 'externalLinkRenderer'">
-            <table-external-link-renderer [link]="data[col.field]"></table-external-link-renderer>
-          </div>
-          <div *ngIf="col.renderer == 'routeLinkRenderer' && i == rowIndexTable">
-            <table-route-link-renderer [link]="data['id']"></table-route-link-renderer>
-          </div>
-          <div *ngIf="col.renderer=='assetsRenderer'">
-            <table-assets-renderer [data]="data[col.field]"></table-assets-renderer>
-          </div>
-          <div *ngIf="col.renderer=='fuelCardRenderer'">
-            <fuel-card-renderer [data]="data[col.field]"></fuel-card-renderer>
-          </div>
-          <div *ngIf="col.renderer=='companyRenderer'">
-            <table-company-renderer [company]="data"></table-company-renderer>
-          </div>
-          <div *ngIf="col.renderer=='assignNow'">
-            <table-assign-now-renderer [data]="data"></table-assign-now-renderer>
-          </div>
-          <div *ngIf="col.renderer == 'priorityRenderer'">
-            <table-priority-renderer [data]="data[col.field]"></table-priority-renderer>
-          </div>
-          <div *ngIf="col.renderer=='floatButton' && i == rowIndexTable">
-            <float-button-renderer [lang]="activeLang" [col]="col" [setting]="setting.rowSettings" [data]="data">
-            </float-button-renderer>
-          </div>
-          <div *ngIf="col.renderer=='colorize'">
-            <table-colorize-renderer [lang]="activeLang" [data]="data[col.field]" [options]="col.rendererOptions">
-            </table-colorize-renderer>
-          </div>
-          <div *ngIf="col.renderer=='trimColorRenderer'">
-            <table-trim-color-renderer [colors]="data[col.field]"></table-trim-color-renderer>
-          </div>
-          <div *ngIf="col.renderer=='checkboxRenderer'">
-            <table-checkbox-renderer (onChange)="updatedSelectedIds($event,col.field)" [data]='data' [field]="col.field"></table-checkbox-renderer>
-            <!-- <table-checkbox-renderer (onChange)="updatedSelectedIds($event)" [data]='data[col.field]'></table-checkbox-renderer> -->
-          </div>
-          <div *ngIf="col.renderer=='toggleRenderer'">
-            <table-toggle-renderer [data]='data' [setting]="setting.rowSettings" [field]="col.field"></table-toggle-renderer>
-          </div>
-          <div *ngIf="col.renderer=='downloadButtonRenderer'">
-            <table-download-button-renderer [link]='data[col.field]'></table-download-button-renderer>
-          </div>
-          <div *ngIf="col.renderer=='dropdownRenderer'">
-            <table-dropdown-renderer [rowIndexTable]="dropdownItemSelected" [data]="data" [index]="i" (selected)="changeItemDropdownSelected($event)"></table-dropdown-renderer>
-          </div>
-          <div *ngIf="col.renderer=='radialBar'">
-            <radialBar-renderer [percent]='data[col.field]'></radialBar-renderer>
-          </div>
-          <div *ngIf="col.renderer=='dateRenderer'">
-            <table-date-renderer [data]='data[col.field]'></table-date-renderer>
-          </div>
-          <div class='text-center' *ngIf="col.renderer=='receivedButton' && (i === rowIndexTable)">
-            <table-received-button-renderer [setting]="setting.rowSettings" [data]="data" [col]="col"></table-received-button-renderer>
-          </div>
-          <div class='text-center' *ngIf="(col.renderer=='approveButton' || col.renderer=='rejectButton') && (i === rowIndexTable)">
-            <table-approve-button-renderer [setting]="setting.rowSettings" [data]="data" [col]="col"></table-approve-button-renderer>
-          </div>
-
-          <div *ngIf="col.renderer=='lowOpacityRenderer'">
-            <table-low-opacity-renderer [data]='data[col.field]'></table-low-opacity-renderer>
-          </div>
-
-          <div *ngIf="col.renderer=='progressRenderer'">
-            <table-progress-renderer [data]='data[col.field]'></table-progress-renderer>
-          </div>
-
         </td>
         <div [class]="'statusColor'+ (hasRendere(setting.columns)?'with-renderer-table':' simple-table')"
           *ngIf="data.statusColor" [style]="'background:'+data.statusColor+';'"></div>
@@ -157,6 +62,13 @@
       <tr [ngStyle]="{'border-inline-start': '4px solid #008755'}" *ngIf="dropdownItemSelected == i && subTable">
         <td class="p-0" [colSpan]="setting.columns.length + 1">
           <app-table [setting]="subTable"></app-table>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template  *ngIf="setting?.rowSettings?.renderer && setting?.rowSettings?.renderer!=''" pTemplate="body" let-data let-i="rowIndex">
+      <tr>
+        <td class='p-0 row-hover'>
+          <anms-row-renderer-component [data]="data" [setting]="setting" [rowSetting]="setting?.rowSettings"></anms-row-renderer-component>
         </td>
       </tr>
     </ng-template>

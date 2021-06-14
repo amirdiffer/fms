@@ -17,8 +17,6 @@ import { PermanentRequestStateModule } from '../+state/movement/permanent/reques
 import { TemporaryOverviewStateModule } from '../+state/movement/temporary/overview/temporary-overview-state.module';
 import { TemporaryRequestStateModule } from '../+state/movement/temporary/requests/permanent-request-state.module';
 
-
-
 @NgModule({
   declarations: [
     MovementComponent,
@@ -42,4 +40,4 @@ import { TemporaryRequestStateModule } from '../+state/movement/temporary/reques
     TemporaryRequestStateModule
   ]
 })
-export class MovementModule { }
+export class MovementModule {}

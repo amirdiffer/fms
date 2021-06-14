@@ -13,8 +13,14 @@ import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
 import { map } from 'rxjs/operators';
-import { BodyShopLocationFacade, BodyShopLocationService } from '@feature/workshop/+state/body-shop/location';
-import { ServiceShopLocationFacade, ServiceShopLocationService } from '@feature/workshop/+state/service-shop/location';
+import {
+  BodyShopLocationFacade,
+  BodyShopLocationService
+} from '@feature/workshop/+state/body-shop/location';
+import {
+  ServiceShopLocationFacade,
+  ServiceShopLocationService
+} from '@feature/workshop/+state/service-shop/location';
 
 @Component({
   selector: 'anms-add-location',

@@ -2,7 +2,10 @@ import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { RegistrationFacade, RegistrationService } from '@feature/fleet/+state/assets/registration';
+import {
+  RegistrationFacade,
+  RegistrationService
+} from '@feature/fleet/+state/assets/registration';
 import { Utility } from '@shared/utility/utility';
 
 @Component({
@@ -131,8 +134,8 @@ export class PendingRegistrationOverviewComponent
           this.dialogSetting.hasError = false;
           this.dialogSetting.confirmButton = undefined;
           this.dialogSetting.buttons = [
-            { title: "Customize Now", eventEmit: "now" },
-            { title: "Customize Later", eventEmit: "later" }
+            { title: 'Customize Now', eventEmit: 'now' },
+            { title: 'Customize Later', eventEmit: 'later' }
           ];
 
           this.dialogSetting.cancelButton = undefined;
@@ -182,13 +185,15 @@ export class PendingRegistrationOverviewComponent
     this.errorDialogModal = false;
     this.dialogModal = false;
     if (!$event) return;
-    if ($event == "now") {
+    if ($event == 'now') {
       this.dialogModal = false;
       this._registrationFacade.resetParams();
-      this.router.navigate(['/fleet/assets/' + this.assetId + '/customization']);
+      this.router.navigate([
+        '/fleet/assets/' + this.assetId + '/customization'
+      ]);
       return;
     }
-    if ($event == "later") {
+    if ($event == 'later') {
       this.dialogModal = false;
       this._registrationFacade.resetParams();
       this.router.navigate(['/fleet/assets']);

@@ -18,7 +18,9 @@ export class MovementOverviewFacadeTemporary {
 
   conut$ = this.store.pipe(select(MovementOverviewSelectorsTemporary.count));
 
-  constructor(private store: Store<MovementOverviewPartialState>) {this.loadAll()}
+  constructor(private store: Store<MovementOverviewPartialState>) {
+    this.loadAll();
+  }
 
   loadAll() {
     this.store.dispatch(MovementOverviewActionsTemporary.loadAll());

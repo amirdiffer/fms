@@ -20,8 +20,14 @@ import {
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
 import moment from 'moment';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { BodyShopJobCardFacade, BodyShopJobCardService } from '@feature/workshop/+state/body-shop/job-card';
-import { BodyShopRequestFacade, BodyShopRequestService } from '@feature/workshop/+state/body-shop/request';
+import {
+  BodyShopJobCardFacade,
+  BodyShopJobCardService
+} from '@feature/workshop/+state/body-shop/job-card';
+import {
+  BodyShopRequestFacade,
+  BodyShopRequestService
+} from '@feature/workshop/+state/body-shop/request';
 import { BodyShopLocationFacade } from '@feature/workshop/+state/body-shop/location';
 import { BodyShopTechnicianFacade } from '@feature/workshop/+state/body-shop/technician';
 
@@ -493,7 +499,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
         jobCardInfo = {
           ...jobCardInfo
         };
-        console.log(f)
+        console.log(f);
         this._facadeJobCard.addJobCard(jobCardInfo, this.assetIdSelected);
       }
     } else {
