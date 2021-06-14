@@ -5,6 +5,8 @@ import { ITrafficFine } from '@models/traffic-fine';
 import { environment } from '@environments/environment';
 import { ResponseBody } from '@models/response-body';
 import { ITrafficFineStatistics } from '@models/statistics';
+import { IGetVehicleInfoByChassisNumber, IGetVehicleInfoByPlateNumber } from './traffic-fine-table.entity';
+import { ITrafficFineVehicleInfo } from '@models/pending-registration.model';
 
 @Injectable()
 export class TrafficFineTableService {
@@ -62,5 +64,19 @@ export class TrafficFineTableService {
       }
     })
 
+  }
+
+
+  getVehicleInformationByPlateNumber(data:IGetVehicleInfoByPlateNumber): Observable<ResponseBody<ITrafficFineVehicleInfo>>{
+    return this.http.get<ResponseBody<ITrafficFineVehicleInfo>>(
+      environment.baseApiUrl + `traffic-fine/vehicle-info/plate/${data.plateCategory}/${data.plateCode}/${data.plateNumber}/${data.plateSource}`
+    );
+  }
+
+
+  getVehicleInformationByChassisNumber(data:IGetVehicleInfoByChassisNumber): Observable<ResponseBody<ITrafficFineVehicleInfo>>{
+    return this.http.get<ResponseBody<ITrafficFineVehicleInfo>>(
+      environment.baseApiUrl + `traffic-fine/vehicle-info/chassis/${data.chassisNumber}`
+    );
   }
 }

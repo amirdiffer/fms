@@ -24,6 +24,7 @@ export interface IRegistrationState extends EntityState<IPendingRegistration> {
   submitted: boolean;
   resultNumber?: number;
   assetForRegistration: any;
+  
 }
 
 export const FLEET_REGISTRATION_FEATURE_KEY = 'registration';
@@ -43,6 +44,23 @@ export const initialState: IRegistrationState = registrationAdapter.getInitialSt
     error: null,
     submitted: false,
     resultNumber: 0,
-    assetForRegistration: null
+    assetForRegistration: null,
   } as IRegistrationState
 );
+
+export interface IRegisterAssetByPlateNumber{
+  id?:number;
+  plateCategory?:string;
+  plateCode?:string;
+  plateNumber?:string;
+  plateSource?:string;
+  fuelTag?:string;
+  tollTag?:string;
+}
+
+export interface IRegisterAssetByChassisNumber{
+  id?:number;
+  chassisNumber?:string;
+  fuelTag?:string;
+  tollTag?:string;
+}

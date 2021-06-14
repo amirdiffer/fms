@@ -71,4 +71,39 @@ export class RegistrationEffects {
       )
     )
   );
+
+
+  /* Register an Asset by plate number */
+  registerByPlateNumber$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(RegistrationActions.registerAssetByPlateNumber),
+      mergeMap((action) =>
+        this.service.registerByPlateNumber(action.data).pipe(
+          map((data) =>
+            RegistrationActions.assetByPlateNumberRegistered({ data: action.data })
+          ),
+          catchError((error) =>
+            of(RegistrationActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  /* Register an Asset by chassis number */
+  registerByChassisNumber$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(RegistrationActions.registerAssetByChassisNumber),
+      mergeMap((action) =>
+        this.service.registerByChasisNumber(action.data).pipe(
+          map((data) =>
+            RegistrationActions.assetByChassisNumberRegistered({ data: action.data })
+          ),
+          catchError((error) =>
+            of(RegistrationActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
 }

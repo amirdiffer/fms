@@ -31,6 +31,7 @@ import { CustomizationStateModule } from '../+state/assets/customization/customi
 import { RegistrationStateModule } from '../+state/assets/registration/registration-state.module';
 import { OrganizationStateModule } from '../+state/organization/organization-state.module';
 import { OperatorStateModule } from '../+state/operator/operator-state.module';
+import { TrafficFinesStateModule } from '@feature/traffic-fine/+state';
 
 
 
@@ -68,7 +69,8 @@ import { OperatorStateModule } from '../+state/operator/operator-state.module';
     CustomizationStateModule,
     RegistrationStateModule,
     OrganizationStateModule,
-    OperatorStateModule
+    OperatorStateModule,
+    TrafficFinesStateModule
 
   ],
   exports: [AssetCarDetailComponent],

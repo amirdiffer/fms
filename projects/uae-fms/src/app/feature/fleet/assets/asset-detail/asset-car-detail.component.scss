@@ -24,7 +24,7 @@
     font-weight: bold;
   }
   .vehicle-info {
-    padding: 20px;
+    padding: 1em;
 
     & > span {
       display: flex;
@@ -34,13 +34,13 @@
       .title {
         font-size: 0.7em;
         font-weight: bold;
-        width: 40%;
+        width: 50%;
       }
       .info {
         font-size: 0.7em;
         font-weight: bold;
         margin: 0px 5px;
-        width: 60%;
+        width: 50%;
         color: #0da06e;
       }
     }

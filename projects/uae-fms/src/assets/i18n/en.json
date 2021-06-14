@@ -665,6 +665,16 @@
       "progressbar_title": "CSV File Only",
       "content": "Drag and Drop file or click here"
     },
+    "registration":{
+      "vehicle_info":"Vehicle Info",
+      "register_by_plate_number":"Register By Plate Number",
+      "register_by_chassis_number":"Register By Chassis Number",
+      "plate_category":"Plate Category",
+      "plate_code":"Plate Code",
+      "plate_number":"Plate Number",
+      "plate_source":"Plate Source",
+      "chassis_number":"Chassis Number"
+    },
     "asset_financial_plan": "Asset Financial Plan",
     "policy_type": "Policy Type",
     "purchase_value": "Purchase Value",
@@ -2033,7 +2043,9 @@
     "receive": "Receive",
     "make_decision": "Manufacturer Decision",
     "recived": "Recived",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "reload":"Reload",
+    "load":"Load"
   },
   "filter": {
     "asset_category": "Asset Category",
