@@ -1989,6 +1989,7 @@
       "periodic_service_name": "Periodic Service Name",
       "package_name": "Package Name",
       "intervals": "Intervals",
+      "repetition":"Repetition",
       "km_h": "Km/h",
       "reminder": "Reminder",
       "distance": "Distance",

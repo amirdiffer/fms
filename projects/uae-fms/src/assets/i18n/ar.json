@@ -1914,6 +1914,7 @@
       "periodic_service_name": "اسم الخدمة الدورية",
       "package_name": "اسم الباقة",
       "intervals": "فترات",
+      "repetition": "فترات",
       "km_h": "Km/h",
       "reminder": "تذكير",
       "distance": "المسافة",
