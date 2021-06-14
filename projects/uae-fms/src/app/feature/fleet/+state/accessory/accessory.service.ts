@@ -56,8 +56,8 @@ export class AccessoryService {
     );
   }
 
-  getAccessory(id: number): Observable<IAccessoryStatistics> {
-    return this.http.get<IAccessoryStatistics>(
+  getAccessory(id: number): Observable<ResponseBody<IAccessory>> {
+    return this.http.get<ResponseBody<IAccessory>>(
       environment.baseApiUrl + `accessory/${id}`
     );
   }

@@ -216,7 +216,7 @@ export class TemporaryComponent
         },
         showOnHover: true,
         condition: (data) => {
-          return data.requestStatus == "REQUESTED";
+          return data.requestStatus == 'REQUESTED';
         }
       },
       {
@@ -228,7 +228,7 @@ export class TemporaryComponent
         buttonType: ButtonType.confirm,
         showOnHover: true,
         condition: (data) => {
-          return data.requestStatus == "REQUESTED";
+          return data.requestStatus == 'REQUESTED';
         }
       }
     ],
@@ -240,7 +240,7 @@ export class TemporaryComponent
           this.openConfirmModal();
         }
       },
-      permission:['MOVEMENT_REQUEST_ASSIGN_OPERATOR_OR_REJECT']
+      permission: ['MOVEMENT_REQUEST_ASSIGN_OPERATOR_OR_REJECT']
     }
   };
 
@@ -382,10 +382,10 @@ export class TemporaryComponent
       if (x) {
         this.dialogSuccessSetting.isWarning = false;
         this.dialogSuccessSetting.hasError = false;
-        this.dialogSuccessSetting.message = "The Request Rejected Successfully"
-        this.dialogSuccessSetting.confirmButton = "Ok";
+        this.dialogSuccessSetting.message = 'The Request Rejected Successfully';
+        this.dialogSuccessSetting.confirmButton = 'Ok';
         this.dialogSuccessSetting.cancelButton = undefined;
-        this.dialogType = "confirm";
+        this.dialogType = 'confirm';
         this.displaySuccessModal = true;
         this._movementRequestsFacade.loadAll();
       }
@@ -418,13 +418,13 @@ export class TemporaryComponent
       data: this.assignID
     });
 
-    dialog.afterClosed().subscribe(x=>{
+    dialog.afterClosed().subscribe((x) => {
       this._movementRequestsFacade.loadAll();
       this._movementOverviewFacade.loadAll();
-    })
+    });
   }
 
-  rejectRow() { }
+  rejectRow() {}
 
   dialogConfirm(confirmed) {
     if (confirmed) {
@@ -439,7 +439,7 @@ export class TemporaryComponent
     this.displaySuccessModal = false;
     this._movementRequestsFacade.reset();
 
-    if (this.dialogType == "rejection") {
+    if (this.dialogType == 'rejection') {
       this._movementRequestsFacade.rejecting(this.rejectId);
     }
   }
@@ -464,8 +464,12 @@ export class TemporaryComponent
           operator: 'operator',
           fine: 'fine',
           reason: 'reason'
-        }
-        this.table.exportTable(this.movementOverViewTableSetting, 'Overview', filter);
+        };
+        this.table.exportTable(
+          this.movementOverViewTableSetting,
+          'Overview',
+          filter
+        );
         break;
       case 'requestTab':
         filter = {
@@ -476,7 +480,7 @@ export class TemporaryComponent
           reason: 'reason',
           date: 'date',
           requestStatus: 'requestStatus'
-        }
+        };
         this.table.exportTable(this.requestTableSetting, 'Request', filter);
         break;
     }
@@ -485,11 +489,12 @@ export class TemporaryComponent
   reject(data) {
     if (data?.id) {
       this.rejectId = data.id;
-      this.dialogType = "rejection";
+      this.dialogType = 'rejection';
       this.dialogSuccessSetting.isWarning = true;
-      this.dialogSuccessSetting.message = "Are you sure you want to reject this request?"
-      this.dialogSuccessSetting.confirmButton = "Yes";
-      this.dialogSuccessSetting.cancelButton = "Cancel";
+      this.dialogSuccessSetting.message =
+        'Are you sure you want to reject this request?';
+      this.dialogSuccessSetting.confirmButton = 'Yes';
+      this.dialogSuccessSetting.cancelButton = 'Cancel';
       this.displaySuccessModal = true;
     }
   }

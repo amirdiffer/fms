@@ -21,7 +21,10 @@ import {
   AssetMasterService
 } from '@feature/fleet/+state/assets/asset-master';
 import { Location } from '@angular/common';
-import { BodyShopRequestFacade, BodyShopRequestService } from '@feature/workshop/+state/body-shop/request';
+import {
+  BodyShopRequestFacade,
+  BodyShopRequestService
+} from '@feature/workshop/+state/body-shop/request';
 @Component({
   selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',

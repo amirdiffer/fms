@@ -6,18 +6,8 @@ import { OwnershipFormComponent } from './ownership-form/ownership-form.componen
 import { OwnershipComponent } from './ownership.component';
 import { OwnershipRoutingModule } from './ownership-routing.module';
 
-
-
 @NgModule({
-  declarations: [
-    OwnershipComponent,
-    OwnershipFormComponent,
-  ],
-  imports: [
-    CommonModule,
-    OwnershipRoutingModule,
-    SharedModule,
-    TableModule,
-  ]
+  declarations: [OwnershipComponent, OwnershipFormComponent],
+  imports: [CommonModule, OwnershipRoutingModule, SharedModule, TableModule]
 })
-export class OwnershipModule { }
+export class OwnershipModule {}

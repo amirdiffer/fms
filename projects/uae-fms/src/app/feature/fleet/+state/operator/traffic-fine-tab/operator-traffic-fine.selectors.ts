@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { trafficFineAdapter } from './operator-traffic-fine.entity';
 const { selectAll } = trafficFineAdapter.getSelectors();
-const operatorTrafficFineState = (state) => state['operator-traffic-fine']
+const operatorTrafficFineState = (state) => state['operator-traffic-fine'];
 export class OperatorTrafficFineSelectors {
   static selectAll = createSelector(operatorTrafficFineState, selectAll);
 

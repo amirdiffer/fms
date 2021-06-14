@@ -275,7 +275,7 @@ export class BodyShopComponent implements OnInit {
               '/workshop/body-shop/' + data.id + '/add-job-card'
             ]);
           },
-          permission:['WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE']
+          permission: ['WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE']
         },
         {
           button: 'external',
@@ -285,7 +285,10 @@ export class BodyShopComponent implements OnInit {
               .navigate(['/workshop/body-shop/request-overview/' + data.id])
               .then();
           },
-          permission:['WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OWN' , 'WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS']
+          permission: [
+            'WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OWN',
+            'WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS'
+          ]
         }
         /* {
           button: 'edit',
@@ -390,7 +393,7 @@ export class BodyShopComponent implements OnInit {
               .navigate(['/workshop/body-shop/job-card-overview/' + data.id])
               .then();
           },
-          permission:['WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_DETAILS']
+          permission: ['WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_DETAILS']
         },
         {
           button: 'edit',
@@ -402,7 +405,7 @@ export class BodyShopComponent implements OnInit {
               '/workshop/body-shop/edit-job-card/' + data.id
             ]);
           },
-          permission:['WORKSHOP_BODY_SHOP_JOB_CARD_UPDATE']
+          permission: ['WORKSHOP_BODY_SHOP_JOB_CARD_UPDATE']
         }
       ]
     }
@@ -472,7 +475,7 @@ export class BodyShopComponent implements OnInit {
               '/workshop/body-shop/edit-technician/' + data.id
             ]);
           },
-          permission:['WORKSHOP_BODY_SHOP_TECHNICIAN_UPDATE']
+          permission: ['WORKSHOP_BODY_SHOP_TECHNICIAN_UPDATE']
         }
         /* {
           button: 'external',
@@ -553,7 +556,7 @@ export class BodyShopComponent implements OnInit {
               '/workshop/body-shop/edit-location/' + data.id
             ]);
           },
-          permission:['WORKSHOP_BODY_SHOP_LOCATION_UPDATE']
+          permission: ['WORKSHOP_BODY_SHOP_LOCATION_UPDATE']
         }
         /* {
           button: 'external',
@@ -711,7 +714,6 @@ export class BodyShopComponent implements OnInit {
         break;
     }
   }
-
 
   eventPagination_request() {
     this._facadeRequest.loadAll();

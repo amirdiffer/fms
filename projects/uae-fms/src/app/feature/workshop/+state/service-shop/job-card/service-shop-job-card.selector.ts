@@ -1,13 +1,10 @@
 import { createSelector } from '@ngrx/store';
 import { serviceshopJobCardAdapter } from './service-shop-job-card.entity';
 const { selectAll } = serviceshopJobCardAdapter.getSelectors();
-const serviceShopJobCardState = (state) => state['serviceShopJobCard']
+const serviceShopJobCardState = (state) => state['serviceShopJobCard'];
 
 export class ServiceShopJobCardSelectors {
-  static selectAll = createSelector(
-    serviceShopJobCardState,
-    selectAll
-  );
+  static selectAll = createSelector(serviceShopJobCardState, selectAll);
 
   static count = createSelector(
     serviceShopJobCardState,

@@ -206,8 +206,8 @@ export class PendingRegistrationOverviewComponent
           this.dialogSetting.hasError = false;
           this.dialogSetting.confirmButton = undefined;
           this.dialogSetting.buttons = [
-            { title: "Customize Now", eventEmit: "now" },
-            { title: "Customize Later", eventEmit: "later" }
+            { title: 'Customize Now', eventEmit: 'now' },
+            { title: 'Customize Later', eventEmit: 'later' }
           ];
 
           this.dialogSetting.cancelButton = undefined;
@@ -270,13 +270,15 @@ export class PendingRegistrationOverviewComponent
     this.errorDialogModal = false;
     this.dialogModal = false;
     if (!$event) return;
-    if ($event == "now") {
+    if ($event == 'now') {
       this.dialogModal = false;
       this._registrationFacade.resetParams();
-      this.router.navigate(['/fleet/assets/' + this.assetId + '/customization']);
+      this.router.navigate([
+        '/fleet/assets/' + this.assetId + '/customization'
+      ]);
       return;
     }
-    if ($event == "later") {
+    if ($event == 'later') {
       this.dialogModal = false;
       this._registrationFacade.resetParams();
       this.router.navigate(['/fleet/assets']);

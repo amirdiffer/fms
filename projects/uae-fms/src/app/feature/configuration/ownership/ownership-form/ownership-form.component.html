@@ -19,28 +19,28 @@
           <div class="col-12 col-md-10">
               <div class="d-flex">
                   <div class="form-check">
-                      <input class="form-check-input" type="radio"
+            <input id='external' class="form-check-input" type="radio"
                           name="type" formControlName="type"  value="EXTERNAL">
-                      <label class="form-check-label">{{
+            <label for='external' class="form-check-label">{{
                           'configuration.ownership.external' |
                           translate }}</label>
                   </div>
                   <div class="form-check">
-                      <input class="form-check-input" type="radio"
+            <input id='owned' class="form-check-input" type="radio"
                           name="type" formControlName ="type"  value="OWNED">
-                      <label class="form-check-label">{{ 'configuration.ownership.owned' |
+            <label for='owned' class="form-check-label">{{ 'configuration.ownership.owned' |
                           translate }}</label>
                   </div>
                   <div class="form-check">
-                      <input class="form-check-input" type="radio"
+            <input id='rent' class="form-check-input" type="radio"
                           name="type" formControlName = "type"   value="RENT">
-                      <label class="form-check-label">{{ 'configuration.ownership.rent' | translate
+            <label for='rent' class="form-check-label">{{ 'configuration.ownership.rent' | translate
                       }}</label>
                   </div>
                   <div class="form-check">
-                      <input class="form-check-input" type="radio"
+            <input id='demo' class="form-check-input" type="radio"
                           name="type" formControlName ="type" value="DEMO">
-                      <label class="form-check-label">{{ 'configuration.ownership.demo' | translate
+            <label for='demo' class="form-check-label">{{ 'configuration.ownership.demo' | translate
                       }}</label>
                   </div>
               </div>
@@ -48,58 +48,6 @@
       </div>
   </div>
   <!-- end form-section form-section--inline-->
-
-
-  <!-- form-section -->
-  <div class="form-section">
-      <h3 class="form-section__title">{{ 'configuration.ownership.owner_info'
-          | translate }}</h3>
-
-      <div class="row form-section__row">
-          <div class="col-12 col-md-4 p-field form-section__field">
-              <span class="p-float-label">
-                  <input pInputText formControlName="name" placeholder="{{
-                      'configuration.ownership.owner' | translate }}"
-                      type="text">
-                  <label>{{ 'configuration.ownership.owner' | translate }} *</label>
-              </span>
-              <anms-error
-                  [showError]="hasError('name',ownerShipForm,submitted)"
-                  error="forms.feedback.required">
-              </anms-error>
-          </div>
-          <div class="col-12 col-md-4 p-field form-section__field">
-              <span class="p-float-label">
-                  <input pInputText email formControlName="email"
-                      placeholder="{{
-                      'configuration.ownership.owner_email_address' |
-                      translate }}"
-                      type="text">
-                  <label>{{ 'configuration.ownership.owner_email_address' |
-                      translate }} *</label>
-              </span>
-              <anms-error
-                  [showError]="hasError('email',ownerShipForm,submitted)"
-                  error="forms.feedback.required"></anms-error>
-              <anms-error
-                  [showError]="hasError('email',ownerShipForm,submitted,'email')"
-                  error="forms.feedback.invalid-email"></anms-error>
-          </div>
-          <div class="col-12 col-md-4 p-field form-section__field">
-              <span class="p-float-label">
-                  <input pInputText formControlName="phoneNumber"
-                      placeholder="{{
-                      'configuration.ownership.owner_phone_number' | translate
-                      }}"
-                      type="text" numbersOnly>
-                  <label>{{ 'configuration.ownership.owner_phone_number' |
-                      translate }}</label>
-              </span>
-          </div>
-      </div>
-  </div>
-  <!-- end form-section -->
-
 
   <!-- form-section form-section--inline-->
   <div class="form-section form-section--inline">
@@ -134,12 +82,12 @@
                           error="forms.feedback.required">
                       </anms-error>
                   </div>
-                  <div class="col-12 col-md-4 p-field form-section__field">
+          <div class="col-12 col-md-4 p-field form-section__field" [hidden]='ownershipType === "EXTERNAL" || ownershipType === "OWNED"'>
                       <span class="p-float-label">
                           <input pInputText placeholder="{{
                               'configuration.ownership.duration' | translate
                               }} *" formControlName="duration"
-                              type="number">
+                                 type="number" [required]='ownershipType === "RENT" || ownershipType === "DEMO"'>
                       </span>
                     <anms-error [showError]="hasError('duration', ownerShipForm, submitted)" error="forms.feedback.required"></anms-error>
                   </div>

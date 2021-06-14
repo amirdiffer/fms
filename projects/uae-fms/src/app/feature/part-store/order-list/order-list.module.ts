@@ -20,8 +20,6 @@ import { RequestListStateModule } from '../+state/order-list/request/request-lis
 import { SupplierStateModule } from '../+state/order-list/suppliers/suppliers-state.module';
 import { PartMasterStateModule } from '../+state/part-master/part-master-state.module';
 
-
-
 @NgModule({
   declarations: [
     OrderComponent,
@@ -48,4 +46,4 @@ import { PartMasterStateModule } from '../+state/part-master/part-master-state.m
     PartMasterStateModule
   ]
 })
-export class OrderListModule { }
+export class OrderListModule {}

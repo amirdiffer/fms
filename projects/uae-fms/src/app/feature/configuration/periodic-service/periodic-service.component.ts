@@ -61,7 +61,7 @@ export class PeriodicServiceComponent implements OnInit {
               ])
               .then();
           },
-          permission:['PERIODIC_SERVICE_UPDATE']
+          permission: ['PERIODIC_SERVICE_UPDATE']
         }
       ]
     }

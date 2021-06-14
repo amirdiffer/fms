@@ -30,4 +30,4 @@ import { ColorPickerModule } from 'ngx-color-picker';
     ColorPickerModule
   ]
 })
-export class AssetConfigurationModule { }
+export class AssetConfigurationModule {}

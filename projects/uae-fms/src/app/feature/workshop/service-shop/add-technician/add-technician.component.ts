@@ -18,8 +18,14 @@ import {
   TaskMasterService
 } from '@feature/workshop/+state/task-master';
 import { OrganizationService } from '@feature/fleet/+state/organization';
-import { ServiceShopTechnicianFacade, ServiceShopTechnicianService } from '@feature/workshop/+state/service-shop/technician';
-import { ServiceShopLocationFacade, ServiceShopLocationService } from '@feature/workshop/+state/service-shop/location';
+import {
+  ServiceShopTechnicianFacade,
+  ServiceShopTechnicianService
+} from '@feature/workshop/+state/service-shop/technician';
+import {
+  ServiceShopLocationFacade,
+  ServiceShopLocationService
+} from '@feature/workshop/+state/service-shop/location';
 
 @Component({
   selector: 'anms-add-technician',

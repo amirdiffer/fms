@@ -6,18 +6,13 @@ import { SharedModule } from '@shared/shared.module';
 import { TableModule } from '@core/table';
 import { PeriodicServiceRoutingModule } from './periodic-service-routing.module';
 
-
-
 @NgModule({
-  declarations: [
-    AddPeriodicServiceComponent,
-    PeriodicServiceComponent,
-  ],
+  declarations: [AddPeriodicServiceComponent, PeriodicServiceComponent],
   imports: [
     CommonModule,
     PeriodicServiceRoutingModule,
     SharedModule,
-    TableModule,
+    TableModule
   ]
 })
-export class PeriodicServiceModule { }
+export class PeriodicServiceModule {}

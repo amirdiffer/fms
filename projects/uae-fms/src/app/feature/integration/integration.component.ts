@@ -52,7 +52,7 @@ export class IntegrationComponent implements OnInit, OnDestroy {
           email: item.email,
           phoneNumber: item.phoneNumber,
           supportOperator:
-            item.supportOperator.firstName  + ' ' + item.supportOperator.lastName
+            item.supportOperator.firstName + ' ' + item.supportOperator.lastName
         };
       });
     });

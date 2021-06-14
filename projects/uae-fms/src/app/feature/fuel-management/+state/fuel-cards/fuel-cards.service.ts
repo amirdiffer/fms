@@ -8,7 +8,7 @@ import { IFuelManagementStatistics } from '@models/statistics';
 
 @Injectable()
 export class FuelCardsService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   loadAll(): Observable<ResponseBody<IFuelManagementFuelCard[]>> {
     /* return this.http.get<ResponseBody<IFuelManagementFuelCard[]>>(
@@ -227,7 +227,7 @@ export class FuelCardsService {
           cardType: 'test data',
           expire: 'test data',
           statusColor: '#B892FF'
-        },
+        }
       ]
     });
   }

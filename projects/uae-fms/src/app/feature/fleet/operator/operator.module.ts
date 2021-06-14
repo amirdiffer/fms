@@ -14,8 +14,6 @@ import { OrganizationStateModule } from '../+state/organization/organization-sta
 import { OperatorMovementStateModule } from '../+state/operator/movement-history-tab/operator-movement-state.module';
 import { OperatorTrafficFineStateModule } from '../+state/operator/traffic-fine-tab/operator-traffic-fine-state.module';
 
-
-
 @NgModule({
   declarations: [
     OperatorOverviewTabComponent,
@@ -36,4 +34,4 @@ import { OperatorTrafficFineStateModule } from '../+state/operator/traffic-fine-
     OrganizationStateModule
   ]
 })
-export class OperatorModule { }
+export class OperatorModule {}

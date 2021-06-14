@@ -33,8 +33,6 @@ import { OrganizationStateModule } from '../+state/organization/organization-sta
 import { OperatorStateModule } from '../+state/operator/operator-state.module';
 import { TrafficFinesStateModule } from '@feature/traffic-fine/+state';
 
-
-
 @NgModule({
   declarations: [
     AssetsComponent,
@@ -51,7 +49,6 @@ import { TrafficFinesStateModule } from '@feature/traffic-fine/+state';
     RequestComponent,
     AssetCarDetailComponent,
     ReminderComponent
-    
   ],
   imports: [
     CommonModule,
@@ -71,10 +68,8 @@ import { TrafficFinesStateModule } from '@feature/traffic-fine/+state';
     OrganizationStateModule,
     OperatorStateModule,
     TrafficFinesStateModule
-
   ],
   exports: [AssetCarDetailComponent],
   providers: [BodyShopJobCardService, BodyShopRequestService]
-
 })
-export class AssetsModule { }
+export class AssetsModule {}

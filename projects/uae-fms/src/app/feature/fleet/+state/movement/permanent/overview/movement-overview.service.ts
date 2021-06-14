@@ -11,9 +11,10 @@ export class MovementOverviewService {
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
@@ -22,8 +23,8 @@ export class MovementOverviewService {
 
   loadAll(): Observable<MovementOverviewStateModel[]> {
     return this.http.get<MovementOverviewStateModel[]>(
-      environment.baseApiUrl + 'movement/permanent/overview', {params: this.getParam('movement_overview')}
+      environment.baseApiUrl + 'movement/permanent/overview',
+      { params: this.getParam('movement_overview') }
     );
   }
-
 }

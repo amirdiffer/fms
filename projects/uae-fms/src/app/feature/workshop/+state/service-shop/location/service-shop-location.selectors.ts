@@ -6,13 +6,10 @@ const {
   selectIds,
   selectEntities
 } = serviceShopLocationAdapter.getSelectors();
-const serviceShopLocationState = (state) => state['serviceShopLocation']
+const serviceShopLocationState = (state) => state['serviceShopLocation'];
 
 export class ServiceShopLocationSelectors {
-  static selectAll = createSelector(
-    serviceShopLocationState,
-    selectAll
-  );
+  static selectAll = createSelector(serviceShopLocationState, selectAll);
   static count = createSelector(
     serviceShopLocationState,
     (state) => state.resultNumber

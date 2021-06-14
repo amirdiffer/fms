@@ -7,48 +7,59 @@ import { AddPeriodicServiceComponent } from './periodic-service/add-periodic-ser
 import { PermissionGuard } from '@core/Permission/permission.guard';
 
 const routes: Routes = [
-
   {
-    path:'asset-configuration',
+    path: 'asset-configuration',
     loadChildren: () =>
-      import('./asset-configuration/asset-configuration.module').then((m) => m.AssetConfigurationModule)
+      import('./asset-configuration/asset-configuration.module').then(
+        (m) => m.AssetConfigurationModule
+      )
   },
 
   {
     path: 'user-management',
     loadChildren: () =>
-      import('./user-management/user-management.module').then((m) => m.UserManagementModule)
+      import('./user-management/user-management.module').then(
+        (m) => m.UserManagementModule
+      )
   },
 
   {
     path: 'asset-policy',
     loadChildren: () =>
-      import('./asset-policy/asset-policy.module').then((m) => m.AssetPolicyModule)
+      import('./asset-policy/asset-policy.module').then(
+        (m) => m.AssetPolicyModule
+      )
   },
 
   {
     path: 'usage-category',
     loadChildren: () =>
-      import('./business-category/business-category.module').then((m) => m.BusinessCategoryModule)
+      import('./business-category/business-category.module').then(
+        (m) => m.BusinessCategoryModule
+      )
   },
 
   {
-    path : 'fleet-status',
+    path: 'fleet-status',
     loadChildren: () =>
-      import('./fleet-status/fleet-status.module').then((m) => m.FleetStatusModule)
+      import('./fleet-status/fleet-status.module').then(
+        (m) => m.FleetStatusModule
+      )
   },
 
   {
-    path : 'ownership',
+    path: 'ownership',
     loadChildren: () =>
       import('./ownership/ownership.module').then((m) => m.OwnershipModule)
   },
 
   {
-    path : 'periodic-service',
+    path: 'periodic-service',
     loadChildren: () =>
-      import('./periodic-service/periodic-service.module').then((m) => m.PeriodicServiceModule)
-  },
+      import('./periodic-service/periodic-service.module').then(
+        (m) => m.PeriodicServiceModule
+      )
+  }
 ];
 
 @NgModule({

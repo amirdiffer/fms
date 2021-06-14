@@ -11,13 +11,11 @@ import { AccessoryOverviewComponent } from './accessory-overview/accessory-overv
 import { AccessoryStateModule } from '../+state/accessory/accessory-state.module';
 import { SubAssetStateModule } from '../+state/sub-asset/sub-asset-state.module';
 
-
-
 @NgModule({
   declarations: [
     AccessoryComponent,
     AddAccessoryComponent,
-    AccessoryOverviewComponent,
+    AccessoryOverviewComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +26,6 @@ import { SubAssetStateModule } from '../+state/sub-asset/sub-asset-state.module'
     SharedModule,
     AccessoryStateModule,
     SubAssetStateModule
-    
   ]
 })
-export class AccessoryModule { }
+export class AccessoryModule {}

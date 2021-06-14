@@ -12,133 +12,126 @@ import { PermissionGuard } from '@core/Permission/permission.guard';
 
 const routes: Routes = [
   {
-    path: '', component: BodyShopComponent, pathMatch: 'full',
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OWN",
-        "WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OTHERS",
-        "WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_LIST",
-        "WORKSHOP_BODY_SHOP_TECHNICIAN_VIEW_LIST",
-        "WORKSHOP_BODY_SHOP_LOCATION_VIEW_LIST",
-        "WORKSHOP_BODY_SHOP_REQUEST_ADD",
-        "WORKSHOP_BODY_SHOP_TECHNICIAN_ADD",
-        "WORKSHOP_BODY_SHOP_LOCATION_ADD",
-        "WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE"
-      ],
+    path: '',
+    component: BodyShopComponent,
+    pathMatch: 'full',
+    canActivate: [PermissionGuard],
+    data: {
+      permission: [
+        'WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OWN',
+        'WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OTHERS',
+        'WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_LIST',
+        'WORKSHOP_BODY_SHOP_TECHNICIAN_VIEW_LIST',
+        'WORKSHOP_BODY_SHOP_LOCATION_VIEW_LIST',
+        'WORKSHOP_BODY_SHOP_REQUEST_ADD',
+        'WORKSHOP_BODY_SHOP_TECHNICIAN_ADD',
+        'WORKSHOP_BODY_SHOP_LOCATION_ADD',
+        'WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE'
+      ]
     }
   },
   {
-    path: 'add-request', component: AddRequestComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "WORKSHOP_BODY_SHOP_REQUEST_ADD"
-      ],
+    path: 'add-request',
+    component: AddRequestComponent,
+    canActivate: [PermissionGuard],
+    data: {
+      permission: ['WORKSHOP_BODY_SHOP_REQUEST_ADD']
     }
   },
   {
-    path: 'add-technician', component: AddTechnicianComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "WORKSHOP_BODY_SHOP_TECHNICIAN_ADD"
-      ],
+    path: 'add-technician',
+    component: AddTechnicianComponent,
+    canActivate: [PermissionGuard],
+    data: {
+      permission: ['WORKSHOP_BODY_SHOP_TECHNICIAN_ADD']
     }
   },
   {
-    path: 'technician/:id', component: TechnicianOverviewComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "WORKSHOP_BODY_SHOP_TECHNICIAN_VIEW_DETAILS"
-      ],
+    path: 'technician/:id',
+    component: TechnicianOverviewComponent,
+    canActivate: [PermissionGuard],
+    data: {
+      permission: ['WORKSHOP_BODY_SHOP_TECHNICIAN_VIEW_DETAILS']
     }
   },
   {
-    path: 'edit-technician/:id', component: AddTechnicianComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "WORKSHOP_BODY_SHOP_TECHNICIAN_UPDATE"
-      ],
+    path: 'edit-technician/:id',
+    component: AddTechnicianComponent,
+    canActivate: [PermissionGuard],
+    data: {
+      permission: ['WORKSHOP_BODY_SHOP_TECHNICIAN_UPDATE']
     }
   },
   {
-    path: 'add-job-card', component: AddJobCardComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE"
-      ],
+    path: 'add-job-card',
+    component: AddJobCardComponent,
+    canActivate: [PermissionGuard],
+    data: {
+      permission: ['WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE']
     }
   },
   {
-    path: ':id/add-job-card', component: AddJobCardComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE"
-      ],
+    path: ':id/add-job-card',
+    component: AddJobCardComponent,
+    canActivate: [PermissionGuard],
+    data: {
+      permission: ['WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE']
     }
   },
   {
-    path: 'edit-job-card/:id', component: AddJobCardComponent ,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "WORKSHOP_BODY_SHOP_JOB_CARD_UPDATE"
-      ],
+    path: 'edit-job-card/:id',
+    component: AddJobCardComponent,
+    canActivate: [PermissionGuard],
+    data: {
+      permission: ['WORKSHOP_BODY_SHOP_JOB_CARD_UPDATE']
     }
   },
   {
     path: 'request-overview/:id',
     component: RequestTabOverviewComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "WORKSHOP_BODY_SHOP_REQUEST_VIEW_DETAILS_OWN",
-        "WORKSHOP_BODY_SHOP_REQUEST_VIEW_DETAILS_OTHERS",
-      ],
+    canActivate: [PermissionGuard],
+    data: {
+      permission: [
+        'WORKSHOP_BODY_SHOP_REQUEST_VIEW_DETAILS_OWN',
+        'WORKSHOP_BODY_SHOP_REQUEST_VIEW_DETAILS_OTHERS'
+      ]
     },
     children: [
       {
-          path: 'add-request', component: AddRequestComponent,
-          canActivate:[PermissionGuard],
-          data:{
-            permission:[
-              "WORKSHOP_BODY_SHOP_REQUEST_ADD"
-            ],
-          }
+        path: 'add-request',
+        component: AddRequestComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          permission: ['WORKSHOP_BODY_SHOP_REQUEST_ADD']
+        }
       },
       {
-          path: 'edit-request/:id', component: AddRequestComponent,
-          canActivate:[PermissionGuard],
-          data:{
-            permission:[
-              "WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OWN",
-              "WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OTHERS",
-            ],
-          }
+        path: 'edit-request/:id',
+        component: AddRequestComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          permission: [
+            'WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OWN',
+            'WORKSHOP_BODY_SHOP_REQUEST_UPDATE_OTHERS'
+          ]
+        }
       },
       {
-          path: 'add-job-card', component: AddJobCardComponent,
-          canActivate:[PermissionGuard],
-          data:{
-            permission:[
-              "WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE",
-            ],
-          }
+        path: 'add-job-card',
+        component: AddJobCardComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          permission: ['WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE']
+        }
       }
     ]
   },
   {
-    path: 'job-card-overview/:id', component: JobCardOverviewComponent,
-    canActivate:[PermissionGuard],
-    data:{
-      permission:[
-        "WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_DETAILS",
-      ],
+    path: 'job-card-overview/:id',
+    component: JobCardOverviewComponent,
+    canActivate: [PermissionGuard],
+    data: {
+      permission: ['WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_DETAILS']
     }
   }
 ];

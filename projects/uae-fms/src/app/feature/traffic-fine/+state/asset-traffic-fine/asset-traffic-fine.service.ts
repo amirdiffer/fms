@@ -14,21 +14,19 @@ export class AssetTrafficFineService {
   returnMockData(): IAssetTrafficFine[] {
     let d: IAssetTrafficFine[] = [];
     for (let i = 1; i < 8; i++) {
-      d.push(
-        {
-          amount: i,
-          asset: { dpd: 'test data', id: i },
-          businessCategoryId: i,
-          dpd: 'test data',
-          id: 0,
-          operator: { firstName: 'test data', id: i, lastName: 'test data' },
-          ownershipId: i,
-          plateNumber: 'test data',
-          status: 'test data',
-          totalFines: i,
-          type: 'test data'
-        },
-      )
+      d.push({
+        amount: i,
+        asset: { dpd: 'test data', id: i },
+        businessCategoryId: i,
+        dpd: 'test data',
+        id: 0,
+        operator: { firstName: 'test data', id: i, lastName: 'test data' },
+        ownershipId: i,
+        plateNumber: 'test data',
+        status: 'test data',
+        totalFines: i,
+        type: 'test data'
+      });
     }
     return d;
   }
@@ -41,6 +39,6 @@ export class AssetTrafficFineService {
       error: false,
       resultNumber: this.returnMockData().length,
       message: this.returnMockData()
-    })
+    });
   }
 }

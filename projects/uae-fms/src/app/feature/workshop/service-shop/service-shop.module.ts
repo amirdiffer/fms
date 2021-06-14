@@ -15,14 +15,14 @@ import { TableModule } from '@core/table';
 import { MapModule } from '@core/map-view';
 import { RequestTabOverviewServiceShopComponent } from './request-tab-overview/request-tab-overview.component';
 import { TechnicianOverviewServiceShopComponent } from './technician-overview/technician-overview.component';
-import { JobCardOverviewComponent } from "./job-card-overview/job-card-overview.component";
+import { JobCardOverviewComponent } from './job-card-overview/job-card-overview.component';
 import { AssetsModule } from '@feature/fleet/assets/assets.module';
 import { ServiceShopJobCardStateModule } from '../+state/service-shop/job-card/service-shop-job-card-state.module';
 import { ServiceShopLocationStateModule } from '../+state/service-shop/location/service-shop-location-state.module';
 import { ServiceShopRequestStateModule } from '../+state/service-shop/request/service-shop-request-state.module';
 import { ServiceShopTechnicianStateModule } from '../+state/service-shop/technician/service-shop-technician-state.module';
-import { ConfigurationStateModule } from "../../configuration/+state/configuration.state.module";
-import { TaskMasterStateModule } from "../../workshop/+state/task-master/task-master-state.module";
+import { ConfigurationStateModule } from '../../configuration/+state/configuration.state.module';
+import { TaskMasterStateModule } from '../../workshop/+state/task-master/task-master-state.module';
 
 @NgModule({
   declarations: [
@@ -54,4 +54,4 @@ import { TaskMasterStateModule } from "../../workshop/+state/task-master/task-ma
     TaskMasterStateModule
   ]
 })
-export class ServiceShopModule { }
+export class ServiceShopModule {}

@@ -15,14 +15,12 @@ import { MapModule } from '@core/map-view';
 import { ChartsModule } from '@core/charts';
 import { SubAssetStateModule } from '../+state/sub-asset/sub-asset-state.module';
 
-
-
 @NgModule({
   declarations: [
     SubAssetComponent,
     AddSubAssetComponent,
     SubAssetOverviewComponent,
-    SubAssetDetailComponent,
+    SubAssetDetailComponent
   ],
   imports: [
     CommonModule,
@@ -38,4 +36,4 @@ import { SubAssetStateModule } from '../+state/sub-asset/sub-asset-state.module'
     SubAssetStateModule
   ]
 })
-export class SubAssetModule { }
+export class SubAssetModule {}

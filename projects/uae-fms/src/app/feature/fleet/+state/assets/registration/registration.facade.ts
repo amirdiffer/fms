@@ -15,7 +15,9 @@ export class RegistrationFacade {
 
   assetForRegistration$ = this.store.pipe( select(RegistrationSelectors.assetForRegistration));
 
-  constructor(private store: Store<IRegistrationPartialState>) {this.loadAll()}
+  constructor(private store: Store<IRegistrationPartialState>) {
+    this.loadAll();
+  }
 
   loadAll() {
     this.store.dispatch(RegistrationActions.loadAll());

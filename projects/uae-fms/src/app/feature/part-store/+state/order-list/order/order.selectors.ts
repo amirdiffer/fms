@@ -1,13 +1,10 @@
 import { createSelector } from '@ngrx/store';
 import { orderListAdapter } from './order.entity';
 const { selectAll } = orderListAdapter.getSelectors();
-const orderListState = (state) => state['orderList']
+const orderListState = (state) => state['orderList'];
 
 export class OrderListSelectors {
-  static selectAll = createSelector(
-    orderListState,
-    selectAll
-  );
+  static selectAll = createSelector(orderListState, selectAll);
 
   static specificOrder = createSelector(
     orderListState,
@@ -19,18 +16,9 @@ export class OrderListSelectors {
     (state) => state.statistics
   );
 
-  static submitted = createSelector(
-    orderListState,
-    (state) => state.submitted
-  );
+  static submitted = createSelector(orderListState, (state) => state.submitted);
 
-  static message = createSelector(
-    orderListState,
-    (state) => state.message
-  );
+  static message = createSelector(orderListState, (state) => state.message);
 
-  static error = createSelector(
-    orderListState,
-    (state) => state.error
-  );
+  static error = createSelector(orderListState, (state) => state.error);
 }

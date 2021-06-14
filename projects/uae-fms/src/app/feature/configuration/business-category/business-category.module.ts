@@ -7,17 +7,14 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 import { FilterModule } from '@core/filter';
 import { BusinessCategoryRoutingModule } from './business-category-routing.module';
 
-
-
 @NgModule({
-  declarations: [BusinessCategoryComponent , AddCategoryComponent],
+  declarations: [BusinessCategoryComponent, AddCategoryComponent],
   imports: [
     CommonModule,
     BusinessCategoryRoutingModule,
     SharedModule,
     TableModule,
     FilterModule
-
   ]
 })
-export class BusinessCategoryModule { }
+export class BusinessCategoryModule {}

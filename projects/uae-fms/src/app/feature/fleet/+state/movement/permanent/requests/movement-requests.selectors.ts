@@ -4,12 +4,9 @@ import {
   MovementRequestsState
 } from './movement-requests.entity';
 const { selectAll } = movementRequestsAdapter.getSelectors();
-const permanentRequestState = (state) => state['movementRequests']
+const permanentRequestState = (state) => state['movementRequests'];
 export class MovementRequestsSelectors {
-  static selectAll = createSelector(
-    permanentRequestState,
-    selectAll
-  );
+  static selectAll = createSelector(permanentRequestState, selectAll);
   static count = createSelector(
     permanentRequestState,
     (state) => state.resultNumber
@@ -25,10 +22,7 @@ export class MovementRequestsSelectors {
     (state) => state.message
   );
 
-  static error = createSelector(
-    permanentRequestState,
-    (state) => state.error
-  );
+  static error = createSelector(permanentRequestState, (state) => state.error);
 
   static submitted = createSelector(
     permanentRequestState,

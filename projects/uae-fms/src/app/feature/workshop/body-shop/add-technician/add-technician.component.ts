@@ -24,8 +24,14 @@ import {
 } from '@feature/workshop/+state/task-master';
 import { Department } from '@models/organization';
 import { OrganizationService } from '@feature/fleet/+state/organization';
-import { BodyShopTechnicianFacade, BodyShopTechnicianService } from '@feature/workshop/+state/body-shop/technician';
-import { BodyShopLocationFacade, BodyShopLocationService } from '@feature/workshop/+state/body-shop/location';
+import {
+  BodyShopTechnicianFacade,
+  BodyShopTechnicianService
+} from '@feature/workshop/+state/body-shop/technician';
+import {
+  BodyShopLocationFacade,
+  BodyShopLocationService
+} from '@feature/workshop/+state/body-shop/location';
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
@@ -465,7 +471,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     this.department_static = $event;
     if (typeof $event != 'object') return;
     this.sectionList = [];
-    this.inputForm.get('portalInfo.section').patchValue(null)
+    this.inputForm.get('portalInfo.section').patchValue(null);
     this.departmentId = $event.id;
     this._departmentService.searchDepartment($event.id).subscribe((x) => {
       x.message.departments

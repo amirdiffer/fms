@@ -8,7 +8,7 @@ import {
   PARTSTORE_ASSET_PARTLIST_FEATURE_KEY,
   PARTSTORE_SUB_ASSET_PARTLIST_FEATURE_KEY,
   subAssetPartListAdapter,
-  SubAssetPartListState,
+  SubAssetPartListState
 } from './part-list.entity';
 
 /* Asset Part */
@@ -62,7 +62,7 @@ const assetPartListReducer = createReducer(
   })),
 
   on(PartListActions.partOfAssetUpdatedSuccessfully, (state, { data }) =>
-      assetPartListAdapter.updateOne(
+    assetPartListAdapter.updateOne(
       { changes: data, id: data.id },
       {
         ...state,
@@ -100,12 +100,10 @@ const assetPartListReducer = createReducer(
     message: null,
     error: null,
     statistics: null,
-    specificPart:null,
-    updated:false
-  })),
- 
+    specificPart: null,
+    updated: false
+  }))
 );
-
 
 /* Sub Asset Part */
 const subAssetPartListReducer = createReducer(
@@ -135,7 +133,6 @@ const subAssetPartListReducer = createReducer(
     error: null,
     listPartForSpecificItem: data
   })),
-  
 
   on(PartListActions.getStatisticPartListOfSubAsset, (state) => ({
     ...state,
@@ -159,7 +156,7 @@ const subAssetPartListReducer = createReducer(
   })),
 
   on(PartListActions.partOfSubAssetUpdatedSuccessfully, (state, { data }) =>
-      subAssetPartListAdapter.updateOne(
+    subAssetPartListAdapter.updateOne(
       { changes: data, id: data.id },
       {
         ...state,
@@ -184,7 +181,6 @@ const subAssetPartListReducer = createReducer(
     specificPart: data
   })),
 
-
   /* ERROR */
   on(PartListActions.errorSubAssetPart, (state, { reason }) => ({
     ...state,
@@ -198,24 +194,26 @@ const subAssetPartListReducer = createReducer(
     message: null,
     error: null,
     statistics: null,
-    specificPart:null,
-    updated:false
-  })),
-  
+    specificPart: null,
+    updated: false
+  }))
 );
 
-
-export function assetPartListreducer(state: AssetPartListState, action: Action) {
+export function assetPartListreducer(
+  state: AssetPartListState,
+  action: Action
+) {
   return assetPartListReducer(state, action);
-};
+}
 
-export function subAssetPartListreducer(state: SubAssetPartListState, action: Action) {
+export function subAssetPartListreducer(
+  state: SubAssetPartListState,
+  action: Action
+) {
   return subAssetPartListReducer(state, action);
-};
-
-
+}
 
 export const reducers = {
   [PARTSTORE_ASSET_PARTLIST_FEATURE_KEY]: assetPartListreducer,
-  [PARTSTORE_SUB_ASSET_PARTLIST_FEATURE_KEY]: subAssetPartListreducer,
+  [PARTSTORE_SUB_ASSET_PARTLIST_FEATURE_KEY]: subAssetPartListreducer
 };

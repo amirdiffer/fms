@@ -12,14 +12,12 @@ import { TableContentComponent } from './table-content/table-content.component';
 import { PartMasterStateModule } from '../+state/part-master/part-master-state.module';
 import { SupplierStateModule } from '../+state/order-list/suppliers/suppliers-state.module';
 
-
-
 @NgModule({
   declarations: [
     PartMasterComponent,
     AddCategoryComponent,
     AddItemComponent,
-    TableContentComponent,
+    TableContentComponent
   ],
   imports: [
     CommonModule,
@@ -32,4 +30,4 @@ import { SupplierStateModule } from '../+state/order-list/suppliers/suppliers-st
     SupplierStateModule
   ]
 })
-export class PartMasterModule { }
+export class PartMasterModule {}

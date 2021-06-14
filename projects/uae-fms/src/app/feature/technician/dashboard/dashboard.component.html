@@ -6,6 +6,16 @@
   <div class="col-9">
     <div class="table-container component_wrapper">
       <div class="pt-1">
+        <span class="search-container card-table-header justify-content-between">
+          <span class='font-weight-bold mt-2 green'>{{'technician.dashboard.recent_tasks' | translate}}</span>
+          <div class="search-box">
+            <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
+            <button>
+              <img [src]="searchIcon" alt="">
+            </button>
+          </div>
+        </span>
+
         <app-table [setting]="dashboardSetting" [tableData]="dataDashboard$"></app-table>
       </div>
     </div>

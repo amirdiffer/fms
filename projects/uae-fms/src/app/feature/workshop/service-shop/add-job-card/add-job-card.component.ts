@@ -21,8 +21,14 @@ import moment from 'moment';
 import { Subject, Subscription } from 'rxjs';
 
 import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
-import { ServiceShopJobCardFacade, ServiceShopJobCardService } from '@feature/workshop/+state/service-shop/job-card';
-import { ServiceShopRequestFacade, ServiceShopRequestService } from '@feature/workshop/+state/service-shop/request';
+import {
+  ServiceShopJobCardFacade,
+  ServiceShopJobCardService
+} from '@feature/workshop/+state/service-shop/job-card';
+import {
+  ServiceShopRequestFacade,
+  ServiceShopRequestService
+} from '@feature/workshop/+state/service-shop/request';
 import { ServiceShopLocationFacade } from '@feature/workshop/+state/service-shop/location';
 import { ServiceShopTechnicianFacade } from '@feature/workshop/+state/service-shop/technician';
 

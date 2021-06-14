@@ -12,7 +12,10 @@ import { ButtonType, ColumnType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { map } from 'rxjs/operators';
-import { BodyShopLocationFacade, BodyShopLocationService } from '@feature/workshop/+state/body-shop/location';
+import {
+  BodyShopLocationFacade,
+  BodyShopLocationService
+} from '@feature/workshop/+state/body-shop/location';
 
 @Component({
   selector: 'anms-add-location',
