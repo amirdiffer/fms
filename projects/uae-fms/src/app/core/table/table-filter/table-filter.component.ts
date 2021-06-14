@@ -11,7 +11,7 @@ export class TableFilterComponent implements OnInit {
   @Input() entity: string;
   @Input() show = false;
   @Input() columns: ColumnDifinition[] = [];
-  @Output() customFilterEvent  = new EventEmitter<object[]>();
+  @Output() customFilterEvent = new EventEmitter<object[]>();
 
   allColumns = [];
 
@@ -34,7 +34,7 @@ export class TableFilterComponent implements OnInit {
     // if ((<Array<object>>this.getSavedDataFilter()).length)
     //   return data.concat((<Array<object>>this.getSavedDataFilter()).filter(x => x['name'] == this.entity)[0]['value']);
     // else
-      return data;
+    return data;
   }
 
   ngOnInit(): void {
@@ -134,7 +134,7 @@ export class TableFilterComponent implements OnInit {
     if (this.getSavedDataFilter().length > 0 && this.entity) {
       let allFiltersComponent = this.getSavedDataFilter();
       let data = (<Array<object>>allFiltersComponent).filter(x => x['name'] != this.entity);
-      localStorage.setItem(this.keyLocalStorage,  JSON.stringify(data));
+      localStorage.setItem(this.keyLocalStorage, JSON.stringify(data));
     }
     this.items.forEach(x => x.value = '');
     this.showColumns = this.allColumns.map(x => x.name);
@@ -150,11 +150,11 @@ export class TableFilterComponent implements OnInit {
 
   hiddenFilterBox() {
     window.addEventListener('click', (e) => {
-      if (!document.getElementById('customizeFilterBox-show__button').contains((<HTMLElement>e.target)) &&
-        !document.getElementById('customizeFilterBox-show__box').contains((<HTMLElement>e.target))){
+      let cus = document.getElementById('customizeFilterBox-show__button');
+      if (!cus && !cus.contains((<HTMLElement>e.target)) &&
+        !document.getElementById('customizeFilterBox-show__box').contains((<HTMLElement>e.target))) {
         this.customizeFilterBox_show = false;
       }
     });
   }
-
 }
