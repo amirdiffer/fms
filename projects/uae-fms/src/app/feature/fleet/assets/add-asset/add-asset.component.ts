@@ -30,6 +30,7 @@ import {
   AssetMasterService
 } from '@feature/fleet/+state/assets/asset-master';
 import { ThrowStmt } from '@angular/compiler';
+import { RegistrationFacade } from '@feature/fleet/+state/assets/registration';
 
 @Component({
   selector: 'anms-add-asset',
@@ -345,6 +346,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _facade: AssetMasterFacade,
+    private _assetRegistrationFacade:RegistrationFacade,
     private service: AssetMasterService,
     private _facadeBussinessCategory: BusinessCategoryFacade,
     private _facadeOwnership: OwnershipFacade,
@@ -641,6 +643,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
         this._facade.loadAll();
+        this._assetRegistrationFacade.loadAll();
       }
     });
   }
@@ -1031,6 +1034,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   dialog(event) {
+    this._assetRegistrationFacade.resetParams();
+    this._assetRegistrationFacade.loadAll();
+    this._facade.loadAll();
     this.dialogModal = false;
     if (event) {
       this._facade.reset();
