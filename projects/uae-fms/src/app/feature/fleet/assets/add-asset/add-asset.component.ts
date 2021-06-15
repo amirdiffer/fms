@@ -60,7 +60,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   sectionList: any[];
   departmentId;
   sectionId;
-  policyTypeTableData$ = new Subject<any>();
+  policyTypeTableData$ = new BehaviorSubject<any>([]);
   private _asset;
   private csvText = [];
   /* Forms */
@@ -852,9 +852,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       depreciationValue: `%${this.policyTypeValue?.depreciationValue}`,
       maxUsageYear: `After ${this.policyTypeValue?.maxUsageYear} years`,
       maxUsageKPHour: `After ${this.policyTypeValue?.maxUsageKPHour}Km/HRS`
-    };
-    this.reviewPlaneSettingTable.data = [];
-    this.reviewPlaneSettingTable.data.push(dataChange);
+    }
+    // this.reviewPlaneSettingTable.data = [];
+    // this.reviewPlaneSettingTable.data.push(dataChange);
     this.policyTypeTableData$.next([dataChange]);
   }
   onChangePeriodicService(event) {
