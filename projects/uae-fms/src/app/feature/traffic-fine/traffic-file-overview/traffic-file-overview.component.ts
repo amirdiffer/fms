@@ -10,12 +10,15 @@ import { SettingsFacade } from '@core/settings/settings.facade';
 })
 export class TrafficFileOverviewComponent implements OnInit {
 
+  isLtr = true;
+
   trafficFines: any[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private networkService: TrafficFineTableService,
               private settingsFacade: SettingsFacade) {
     settingsFacade.language.subscribe((lang) => {
+      this.isLtr = lang === 'en'
     })
   }
 

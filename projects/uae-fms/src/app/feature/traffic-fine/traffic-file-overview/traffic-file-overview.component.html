@@ -1,75 +1,44 @@
-<div class='row col-12 m-auto' dir='ltr'>
+<div class='row col-12 m-auto' [dir]='isLtr ? "ltr" : "rtl"'>
   <mat-card class='col-md-12 p-4' *ngFor='let fine of trafficFines'>
     <div class='row justify-content-between'>
       <div>
-        Booklet ID : {{fine?.bookletId}}
+        <div><span class='key'>Booklet ID</span> : {{fine?.bookletId}}</div>
+        <div><span class='key'>Creation Date</span> : {{fine?.creationDate}}</div>
+    <div><span class='key'>Has UnPayable Regulation</span> : {{fine?.hasUnpayableRegulation}}</div>
+    <div><span class='key'>Location Code</span> : {{fine?.locationCode}}</div>
+    <div><span class='key'>Location Description</span> : {{fine?.locationDescription}}</div>
+    <div><span class='key'>Penalty Fine</span> : {{fine?.penaltyFine}}</div>
+    <div><span class='key'>Plate Category CFI Code</span> : {{fine?.plateCategoryCFICode}}</div>
+    <div><span class='key'>Plate Category Description (Ar)</span> : {{fine?.plateCategoryDescAr}}</div>
+    <div><span class='key'>Plate Code</span> : {{fine?.plateCode}}</div>
+    <div><span class='key'>Road Speed</span> : {{fine?.roadSpeed}}</div>
+    <div><span class='key'>Ticket Category</span> : {{fine?.ticketCategory}}</div>
+    <div><span class='key'>Ticket Description Code</span> : {{fine?.ticketDescCode0}}</div>
+    <div><span class='key'>Ticket Fine</span> : {{fine?.ticketFine}}</div>
+    <div><span class='key'>Ticket No</span> : {{fine?.ticketNo}}</div>
+    <div><span class='key'>Ticket Status Description (Ar)</span> : {{fine?.ticketStatusDescA}}</div>
+    <div><span class='key'>Ticket Status Description (En)</span> : {{fine?.ticketStatusDescE}}</div>
+    <div><span class='key'>Ticket Type</span> : {{fine?.ticketType}}</div>
+    <div><span class='key'>Total Ticket Fine</span> : {{fine?.totalTicketFine}}</div>
       </div>
       <div>
-        Has Radar Picture : {{fine?.hasRadarPicture}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div>
-        Creation Date : {{fine?.creationDate}}
-      </div>
-      <div>
-        Is Payable : {{fine?.isPayable}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div>
-        Has UnPayable Regulation : {{fine?.hasUnpayableRegulation}}
-      </div>
-      <div>
-        Is Radar : {{fine?.isRadar}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div>
-        Location Code : {{fine?.locationCode}}
-      </div>
-      <div class='mr-2'>
-        Location Description A : {{fine?.locationDescriptionA}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div class='mr-2'>
-        Location Description : {{fine?.locationDescription}}
-      </div>
-      <div class='mr-2'>
-        Plate CFI Code : {{fine?.plateCFICode}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div>
-        Penalty Fine : {{fine?.penaltyFine}}
-      </div>
-      <div class='mr-2'>
-        plateCategory : {{fine?.plateCategory}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div>
-        Plate Category CFI Code : {{fine?.plateCategoryCFICode}}
-      </div>
-      <div class='mr-2'>
-        Plate Category Description (En) : {{fine?.plateCategoryDescEn}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div class='mr-2'>
-        Plate Category Description (Ar) : {{fine?.plateCategoryDescAr}}
-      </div>
-      <div class='mr-2'>
-        Plate From : {{fine?.plateFrom}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div>
-        Plate Code : {{fine?.plateCode}}
-      </div>
-      <div class='mr-2'>
-        Plate No : {{fine?.plateNo}}
+        <div><span class='key'>Has Radar Picture</span> : {{fine?.hasRadarPicture}}</div>
+        <div><span class='key'>Is Payable</span> : {{fine?.isPayable}}</div>
+        <div><span class='key'>Is Radar</span> : {{fine?.isRadar}}</div>
+        <div><span class='key'>Location Description A</span> : {{fine?.locationDescriptionA}}</div>
+        <div><span class='key'>Plate CFI Code</span> : {{fine?.plateCFICode}}</div>
+        <div><span class='key'>Plate Category</span> : {{fine?.plateCategory}}</div>
+        <div><span class='key'>Plate Category Description (En)</span> : {{fine?.plateCategoryDescEn}}</div>
+        <div><span class='key'>Plate From</span> : {{fine?.plateFrom}}</div>
+        <div><span class='key'>Ticket Date</span> : {{fine?.ticketDate}}</div>
+        <div><span class='key'>Ticket Fine</span> : {{fine?.ticketFine}}</div>
+        <div><span class='key'>Ticket ID</span> : {{fine?.ticketId}}</div>
+        <div><span class='key'>Ticket Status</span> : {{fine?.ticketStatus}}</div>
+        <div><span class='key'>Ticket Status Date</span> : {{fine?.ticketStatusDate}}</div>
+        <div><span class='key'>Ticket Time</span> : {{fine?.ticketTime}}</div>
+        <div><span class='key'>Ticket Violation Description (Ar)</span> : {{fine?.ticketViolationDesA}}</div>
+        <div><span class='key'>Ticket Violation Description (En)</span> : {{fine?.ticketViolationDesE}}</div>
+        <div><span class='key'>Vehicle Speed</span> : {{fine?.vehicleSpeed}}</div>
       </div>
     </div>
     <div>
@@ -77,87 +46,15 @@
       <div *ngFor='let regulation of fine.regulations'>
         <div class='row justify-content-between'>
           <div>
-            Code : {{regulation?.code}}
+            <span class='key'>Code</span> : {{regulation?.code}}
           </div>
           <div class='mr-2'>
-            Description (Ar) : {{fine?.descriptionAr}}
+            <span class='key'>Description (Ar)</span> : {{fine?.descriptionAr}}
           </div>
           <div class='mr-2'>
-            Description (En) : {{fine?.descriptionEn}}
+            <span class='key'>Description (En)</span> : {{fine?.descriptionEn}}
           </div>
         </div>
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div>
-        Road Speed : {{fine?.roadSpeed}}
-      </div>
-      <div class='mr-2'>
-        Ticket Date : {{fine?.ticketDate}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div class='mr-2'>
-        Ticket Category : {{fine?.ticketCategory}}
-      </div>
-      <div class='mr-2'>
-        Ticket Fine : {{fine?.ticketFine}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div>
-        Ticket Description Code : {{fine?.ticketDescCode0}}
-      </div>
-      <div class='mr-2'>
-        Ticket ID : {{fine?.ticketId}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div class='mr-2'>
-        Ticket Fine : {{fine?.ticketFine}}
-      </div>
-      <div class='mr-2'>
-        Ticket Status : {{fine?.ticketStatus}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div>
-        Ticket No : {{fine?.ticketNo}}
-      </div>
-      <div class='mr-2'>
-        Ticket Status Date : {{fine?.ticketStatusDate}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div>
-        Ticket Status Description A : {{fine?.ticketStatusDescA}}
-      </div>
-      <div class='mr-2'>
-        Ticket Time : {{fine?.ticketTime}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div class='mr-2'>
-        Ticket Status Description E : {{fine?.ticketStatusDescE}}
-      </div>
-      <div class='mr-2'>
-        Ticket Violation Description A : {{fine?.ticketViolationDesA}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div>
-        Ticket Type : {{fine?.ticketType}}
-      </div>
-      <div class='mr-2'>
-        Ticket Violation Description E : {{fine?.ticketViolationDesE}}
-      </div>
-    </div>
-    <div class='row justify-content-between'>
-      <div>
-        Total Ticket Fine : {{fine?.totalTicketFine}}
-      </div>
-      <div class='mr-2'>
-        Vehicle Speed : {{fine?.vehicleSpeed}}
       </div>
     </div>
   </mat-card>
