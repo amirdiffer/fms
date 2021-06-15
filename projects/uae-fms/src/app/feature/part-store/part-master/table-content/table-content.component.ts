@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnType } from '@core/table';
-import { PartMasterFacade, PartMasterService } from '@feature/part-store/+state/part-master';
+import {
+  PartMasterFacade,
+  PartMasterService
+} from '@feature/part-store/+state/part-master';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IPartMaster } from '../part-master.model';
@@ -12,8 +15,8 @@ import { IPartMaster } from '../part-master.model';
   styleUrls: ['./table-content.component.scss']
 })
 export class TableContentComponent implements OnInit {
-  tableData$:Observable<any>;
-  title$:Observable<any>;
+  tableData$: Observable<any>;
+  title$: Observable<any>;
   currentCategory;
   itemTypes = [
     { name: 'Item type 1', id: 1 },
@@ -80,56 +83,56 @@ export class TableContentComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data) => {
-      },
+      onClick: (col, data) => {},
       floatButton: [
         {
           button: 'edit',
-          onClick: (col, data ,  button?) => {
-            this._router.navigate([`/part-store/part-master/edit-item/${data.id}`]);
+          onClick: (col, data, button?) => {
+            this._router.navigate([
+              `/part-store/part-master/edit-item/${data.id}`
+            ]);
             this._partMasterService.setCategoryData({
               ...this.currentCategory,
-              isEdit:true,
-              id:data.id,
-              isItemForm:true
-            })
-          }
+              isEdit: true,
+              id: data.id,
+              isItemForm: true
+            });
+          },
+          permission: ['PARTSTORE_PART_MASTER_ITEM_UPDATE']
         }
       ]
     }
   };
   constructor(
-              private _partMasterFacade : PartMasterFacade,
-              private _partMasterService : PartMasterService,
-              private _router : Router) { }
+    private _partMasterFacade: PartMasterFacade,
+    private _partMasterService: PartMasterService,
+    private _router: Router
+  ) {}
   ngOnInit(): void {
-    this._partMasterService.getCategoryData().subscribe(
-      x=>{
-        if(x){
-          this.currentCategory = x;
-        }
+    this._partMasterService.getCategoryData().subscribe((x) => {
+      if (x) {
+        this.currentCategory = x;
       }
-    )
+    });
     this.tableData$ = this._partMasterFacade.partMasterItem$.pipe(
-      map(
-        result => {
-          if(result){
-            return result.map(
-              item =>{
-                return {
-                  id:item.id,
-                  thumbText:item.name,
-                  make: item.makeName,
-                  model: item.modelName,
-                  thumbImage:'assets/thumb.png'
-                }
-              }
-            )
-          }
+      map((result) => {
+        if (result) {
+          return result.map((item) => {
+            return {
+              id: item.id,
+              thumbText: item.name,
+              make: item.makeName,
+              model: item.modelName,
+              thumbImage: 'assets/thumb.png'
+            };
+          });
         }
-      )
-    )
-    this.title$ = this._partMasterService.getSelectedCategory().pipe(map(name=>{return name}))
+      })
+    );
+    this.title$ = this._partMasterService.getSelectedCategory().pipe(
+      map((name) => {
+        return name;
+      })
+    );
   }
-
 }

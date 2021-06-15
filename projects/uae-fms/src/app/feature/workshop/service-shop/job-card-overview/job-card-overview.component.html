@@ -40,6 +40,7 @@
                 <button class="btn-primary-small mx-1"
                   routerLink="/workshop/body-shop/add-request"><i>+</i><a>{{'search.request' | translate}}</a></button> -->
                 <button class="btn-primary-small"
+                  *hasPermission="['WORKSHOP_SERVICE_SHOP_JOB_CARD_OPEN_CLOSE']"
                   routerLink="/workshop/service-shop/add-job-card"><i>+</i><a>{{'search.job_card' |
                     translate}}</a></button>
               </span>

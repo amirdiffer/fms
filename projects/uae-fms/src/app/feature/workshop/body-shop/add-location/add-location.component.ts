@@ -11,11 +11,11 @@ import { TableSetting } from '@core/table';
 import { ButtonType, ColumnType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { map } from 'rxjs/operators';
 import {
   BodyShopLocationFacade,
   BodyShopLocationService
-} from '@feature/workshop/+state/body-shop';
-import { map } from 'rxjs/operators';
+} from '@feature/workshop/+state/body-shop/location';
 
 @Component({
   selector: 'anms-add-location',
@@ -225,6 +225,7 @@ export class AddLocationComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
+        this._facadeLocation.loadAll();
       }
     });
 

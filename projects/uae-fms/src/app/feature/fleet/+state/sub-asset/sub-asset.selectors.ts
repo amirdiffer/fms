@@ -1,33 +1,23 @@
 import { createSelector } from '@ngrx/store';
-import { FleetSelectors } from '../fleet.selectors';
 import { subAssetAdapter, SubAssetState } from './sub-asset.entity';
 const { selectAll } = subAssetAdapter.getSelectors();
-
+const subAssetState = (state) => state['sub-asset'];
 export class SubAssetSelectors {
-  static selectAll = createSelector(FleetSelectors.subAssetSelector, selectAll);
+  static selectAll = createSelector(subAssetState, selectAll);
 
   static selectStatistics = createSelector(
-    FleetSelectors.subAssetSelector,
+    subAssetState,
     (state: SubAssetState) => state.statistics
   );
 
-  static message = createSelector(
-    FleetSelectors.subAssetSelector,
-    (state) => state.message
-  );
+  static message = createSelector(subAssetState, (state) => state.message);
 
-  static error = createSelector(
-    FleetSelectors.subAssetSelector,
-    (state) => state.error
-  );
+  static error = createSelector(subAssetState, (state) => state.error);
 
-  static submitted = createSelector(
-    FleetSelectors.subAssetSelector,
-    (state) => state.submitted
-  );
+  static submitted = createSelector(subAssetState, (state) => state.submitted);
 
   static spedificSubAsset = createSelector(
-    FleetSelectors.subAssetSelector,
+    subAssetState,
     (state) => state.specificSubAsset
   );
 }

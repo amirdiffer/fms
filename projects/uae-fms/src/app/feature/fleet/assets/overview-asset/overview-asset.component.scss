@@ -1,3 +1,12 @@
+app-filter {
+  ::ng-deep {
+    .filter-wrapper-container {
+      .filter-wrapper {
+        margin-bottom: 1rem !important;
+      }
+    }
+  }
+}
 .side-panel {
   .location {
     .map {
@@ -12,7 +21,7 @@
   margin-bottom: 15px;
 }
 
-.lifecycle{
+.lifecycle {
   padding: 20px;
   padding-top: 5px;
 }

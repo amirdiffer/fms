@@ -6,15 +6,16 @@ import {
   partMasterCategoryAdapter,
   PartMasterCategoryState,
   partMasterItemAdapter,
-  PartMasterItemState
+  PartMasterItemState,
+  PARTSTORE_PARTMASTER_CATEGORY_FEATURE_KEY,
+  PARTSTORE_PARTMASTER_ITEM_FEATURE_KEY
 } from './part-master.entity';
-
 
 /*  CATEGORY  */
 const partMasterCategoryReducer = createReducer(
   initialStateCategory,
 
-   /* --------- Asset Category Part -------------- */
+  /* --------- Asset Category Part -------------- */
   on(PartMasterActions.getCategoryOfAsset, (state) => ({
     ...state,
     loaded: false,
@@ -24,7 +25,12 @@ const partMasterCategoryReducer = createReducer(
   })),
 
   on(PartMasterActions.categoryOfAssetLoaded, (state, { data }) =>
-    partMasterCategoryAdapter.setAll(data, { ...state, loaded: true, error: null , listCategoryOfAsset: data})
+    partMasterCategoryAdapter.setAll(data, {
+      ...state,
+      loaded: true,
+      error: null,
+      listCategoryOfAsset: data
+    })
   ),
 
   on(PartMasterActions.getSpecificCategoryOfAsset, (state) => ({
@@ -59,9 +65,6 @@ const partMasterCategoryReducer = createReducer(
       }
     )
   ),
-  
-
-
 
   /* --------- Sub Asset Category Part -------------- */
   on(PartMasterActions.getCategoryOfSubAsset, (state) => ({
@@ -69,11 +72,16 @@ const partMasterCategoryReducer = createReducer(
     loaded: false,
     error: null,
     message: null,
-    listCategoryOfSubAsset:null,
+    listCategoryOfSubAsset: null
   })),
 
   on(PartMasterActions.categoryOfSubAssetLoaded, (state, { data }) =>
-    partMasterCategoryAdapter.setAll(data, { ...state, loaded: true, error: null , listCategoryOfSubAsset: data })
+    partMasterCategoryAdapter.setAll(data, {
+      ...state,
+      loaded: true,
+      error: null,
+      listCategoryOfSubAsset: data
+    })
   ),
 
   on(PartMasterActions.getSpecificCategoryOfSubAsset, (state) => ({
@@ -97,19 +105,19 @@ const partMasterCategoryReducer = createReducer(
     submitted: false
   })),
 
-  on(PartMasterActions.categoryOfSubAssetUpdatedSuccessfully, (state, { data }) =>
-    partMasterCategoryAdapter.updateOne(
-      { changes: data, id: data.id },
-      {
-        ...state,
-        error: null,
-        message: null,
-        submitted: true
-      }
-    )
+  on(
+    PartMasterActions.categoryOfSubAssetUpdatedSuccessfully,
+    (state, { data }) =>
+      partMasterCategoryAdapter.updateOne(
+        { changes: data, id: data.id },
+        {
+          ...state,
+          error: null,
+          message: null,
+          submitted: true
+        }
+      )
   ),
-
-
 
   /* ADD CATEGORY OF ASSET AND SUB ASSTE */
   on(PartMasterActions.addCategory, (state, { data }) => ({
@@ -121,7 +129,6 @@ const partMasterCategoryReducer = createReducer(
     ...state,
     submitted: true
   })),
-
 
   on(PartMasterActions.errorCategory, (state, { reason }) => ({
     ...state,
@@ -135,19 +142,15 @@ const partMasterCategoryReducer = createReducer(
     error: null,
     message: null,
     submitted: false,
-    specificCategory:null,
-    listCategoryOfSubAsset:null,
-    listCategoryOfAsset:null
+    specificCategory: null,
+    listCategoryOfSubAsset: null,
+    listCategoryOfAsset: null
   }))
-
 );
 
-
-
-  /*  ITEM  */
+/*  ITEM  */
 const partMasterItemReducer = createReducer(
   initialStateItem,
-
 
   /* --------- Asset Part Item -------------- */
 
@@ -205,11 +208,6 @@ const partMasterItemReducer = createReducer(
     )
   ),
 
-
-
-
-
-
   /* --------- Sub Asset Part Item-------------- */
 
   on(PartMasterActions.getItemOfSubAsset, (state) => ({
@@ -266,7 +264,6 @@ const partMasterItemReducer = createReducer(
     )
   ),
 
-
   /* ERROR */
   on(PartMasterActions.errorItem, (state, { reason }) => ({
     ...state,
@@ -280,8 +277,8 @@ const partMasterItemReducer = createReducer(
     loaded: false,
     message: null,
     error: null,
-    submitted:false,
-    specificItem:null,
+    submitted: false,
+    specificItem: null
   })),
 
   on(PartMasterActions.resetItemEntites, (state) => ({
@@ -289,19 +286,23 @@ const partMasterItemReducer = createReducer(
     loaded: false,
     message: null,
     error: null,
-    submitted:false,
-    specificItem:null,
-    entities:[],
-    ids:[]
-  })),
-
-  
-
-
-)
-export function categoryReducer(state: PartMasterCategoryState, action: Action) {
+    submitted: false,
+    specificItem: null,
+    entities: [],
+    ids: []
+  }))
+);
+export function categoryReducer(
+  state: PartMasterCategoryState,
+  action: Action
+) {
   return partMasterCategoryReducer(state, action);
 }
 export function itemReducer(state: PartMasterItemState, action: Action) {
   return partMasterItemReducer(state, action);
 }
+
+export const reducers = {
+  [PARTSTORE_PARTMASTER_CATEGORY_FEATURE_KEY]: categoryReducer,
+  [PARTSTORE_PARTMASTER_ITEM_FEATURE_KEY]: itemReducer
+};

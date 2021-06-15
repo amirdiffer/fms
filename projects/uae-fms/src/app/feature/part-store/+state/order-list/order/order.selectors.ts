@@ -1,36 +1,24 @@
 import { createSelector } from '@ngrx/store';
-import { PartStoreSelectors } from '@feature/part-store/+state/part-store.selectors';
 import { orderListAdapter } from './order.entity';
 const { selectAll } = orderListAdapter.getSelectors();
+const orderListState = (state) => state['orderList'];
 
 export class OrderListSelectors {
-  static selectAll = createSelector(
-    PartStoreSelectors.orderListSelector,
-    selectAll
-  );
+  static selectAll = createSelector(orderListState, selectAll);
 
   static specificOrder = createSelector(
-    PartStoreSelectors.orderListSelector,
+    orderListState,
     (state) => state.specificOrder
   );
 
   static statistics = createSelector(
-    PartStoreSelectors.orderListSelector,
+    orderListState,
     (state) => state.statistics
   );
 
-  static submitted = createSelector(
-    PartStoreSelectors.orderListSelector,
-    (state) => state.submitted
-  );
+  static submitted = createSelector(orderListState, (state) => state.submitted);
 
-  static message = createSelector(
-    PartStoreSelectors.orderListSelector,
-    (state) => state.message
-  );
+  static message = createSelector(orderListState, (state) => state.message);
 
-  static error = createSelector(
-    PartStoreSelectors.orderListSelector,
-    (state) => state.error
-  );
+  static error = createSelector(orderListState, (state) => state.error);
 }

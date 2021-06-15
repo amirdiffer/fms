@@ -15,18 +15,16 @@ export class TollService {
   returnMockData(): IToll[] {
     let d: IToll[] = [];
     for (let i = 1; i < 8; i++) {
-      d.push(
-        {
-          id: i,
-          purchaseDate: "test data",
-          relatedAsset: {
-            dpd: "test data",
-            id: i
-          },
-          status: "test data",
-          tollTag: "test data"
+      d.push({
+        id: i,
+        purchaseDate: 'test data',
+        relatedAsset: {
+          dpd: 'test data',
+          id: i
         },
-      )
+        status: 'test data',
+        tollTag: 'test data'
+      });
     }
     return d;
   }
@@ -39,7 +37,7 @@ export class TollService {
       error: false,
       resultNumber: this.returnMockData().length,
       message: this.returnMockData()
-    })
+    });
   }
 
   loadStatistic(): Observable<ResponseBody<ITollStatistics>> {
@@ -54,7 +52,7 @@ export class TollService {
         available: 200,
         assigned: 22
       }
-    })
+    });
   }
   assigningToll(data): Observable<any> {
     data;

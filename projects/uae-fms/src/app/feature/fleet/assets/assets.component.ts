@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { AssetsService } from './assets.service';
 import { ColumnType, TableComponent } from '@core/table';
-import { AssetMasterFacade } from '../+state/assets/asset-master';
 import { Subscription } from 'rxjs';
-import { RegistrationFacade } from '@feature/fleet/+state/assets/registration';
-import { CustomizationFacade } from '@feature/fleet/+state/assets/customization';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import moment from 'moment';
 import { FilterCardSetting } from '@core/filter';
+import { AssetMasterFacade } from '../+state/assets/asset-master';
+import { RegistrationFacade } from '../+state/assets/registration';
+import { CustomizationFacade } from '../+state/assets/customization';
 
 @Component({
   selector: 'anms-assets',
@@ -244,7 +244,8 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
               this.assetMasterFacade.reset();
               this.assetMasterFacade.getAssetByID(data.id);
               this._router.navigate(['/fleet/assets/edit-asset/' + data.id]);
-            }
+            },
+            permission: ['ASSET_UPDATE_OTHERS', 'ASSET_UPDATE_OWN']
           },
           // {
           //   button: 'download'
@@ -253,7 +254,8 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
             button: 'external',
             onClick: (col, data) => {
               this._router.navigate(['/fleet/assets/' + data.id]);
-            }
+            },
+            permission: ['ASSET_VIEW_DETAILS_OWN', 'ASSET_VIEW_SUMMARY_OWN']
           }
         ]
       }
@@ -285,9 +287,6 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
       }
     ];
 
-    this.assetMasterFacade.loadAll();
-    this.registrationFacade.loadAll();
-    this.customizationFacade.loadAll();
     this.assetMasterFacade.loadStatistics();
 
     this.statisticsSubscription = this.assetMasterFacade.statistics$.subscribe(

@@ -3,8 +3,8 @@ import {
   initialState,
   IRegistrationState,
   registrationAdapter
-} from '@feature/fleet/+state/assets/registration/registration.entity';
-import { RegistrationActions } from '@feature/fleet/+state/assets/registration/registration.actions';
+} from './registration.entity';
+import { RegistrationActions } from './registration.actions';
 
 const registrationReducer = createReducer(
   initialState,
@@ -80,7 +80,38 @@ const registrationReducer = createReducer(
       error: null,
       assetForRegistration: data
     })
-  )
+  ),
+
+
+
+  /* Register an Asset by plate number */
+  on(RegistrationActions.registerAssetByPlateNumber, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(RegistrationActions.assetByPlateNumberRegistered, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: true
+  })),
+
+
+  /* Register an Asset by chassis number */
+  on(RegistrationActions.registerAssetByChassisNumber, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: false
+  })),
+  on(RegistrationActions.assetByChassisNumberRegistered, (state, { data }) => ({
+    ...state,
+    error: null,
+    message: null,
+    submitted: true
+  })),
 );
 
 export function reducer(state: IRegistrationState, action: Action) {

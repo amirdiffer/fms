@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
-import { AssetMasterActions } from '@feature/fleet/+state/assets/asset-master/asset-master.actions';
-import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master/asset-master.service';
+import { AssetMasterActions } from './asset-master.actions';
+import { AssetMasterService } from './asset-master.service';
 import { TableFacade } from '@core/table/+state/table.facade';
 import { Store } from '@ngrx/store';
 

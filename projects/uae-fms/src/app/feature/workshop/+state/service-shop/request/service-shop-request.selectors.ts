@@ -1,44 +1,35 @@
 import { createSelector } from '@ngrx/store';
-import { WorkshopSelectors } from '../../workshop.selectors';
 import { serviceShopRequestAdapter } from './service-shop-request.entity';
 const { selectAll } = serviceShopRequestAdapter.getSelectors();
+const serviceShopRequest = (state) => state['serviceShopRequest'];
 
 export class ServiceShopRequestSelectors {
-  static selectAll = createSelector(
-    WorkshopSelectors.serviceshopRequestSelector,
-    selectAll
-  );
+  static selectAll = createSelector(serviceShopRequest, selectAll);
 
   static count = createSelector(
-    WorkshopSelectors.serviceshopRequestSelector,
+    serviceShopRequest,
     (state) => state.resultNumber
   );
 
   static requests = createSelector(
-    WorkshopSelectors.serviceshopRequestSelector,
+    serviceShopRequest,
     (state) => state.requests
   );
 
   static assetRequest = createSelector(
-    WorkshopSelectors.serviceshopRequestSelector,
+    serviceShopRequest,
     (state) => state.assetRequest
   );
   static selectStatistics = createSelector(
-    WorkshopSelectors.serviceshopRequestSelector,
+    serviceShopRequest,
     (state) => state.statistics
   );
 
-  static message = createSelector(
-    WorkshopSelectors.serviceshopRequestSelector,
-    (state) => state.message
-  );
+  static message = createSelector(serviceShopRequest, (state) => state.message);
 
-  static error = createSelector(
-    WorkshopSelectors.serviceshopRequestSelector,
-    (state) => state.error
-  );
+  static error = createSelector(serviceShopRequest, (state) => state.error);
   static submitted = createSelector(
-    WorkshopSelectors.serviceshopRequestSelector,
+    serviceShopRequest,
     (state) => state.submitted
   );
 

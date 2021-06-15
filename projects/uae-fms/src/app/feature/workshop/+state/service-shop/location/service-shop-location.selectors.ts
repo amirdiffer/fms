@@ -1,5 +1,4 @@
 import { createSelector } from '@ngrx/store';
-import { WorkshopSelectors } from '../../workshop.selectors';
 import { serviceShopLocationAdapter } from './service-shop-location.entity';
 
 const {
@@ -7,34 +6,32 @@ const {
   selectIds,
   selectEntities
 } = serviceShopLocationAdapter.getSelectors();
+const serviceShopLocationState = (state) => state['serviceShopLocation'];
 
 export class ServiceShopLocationSelectors {
-  static selectAll = createSelector(
-    WorkshopSelectors.serviceshopLocationSelector,
-    selectAll
-  );
+  static selectAll = createSelector(serviceShopLocationState, selectAll);
   static count = createSelector(
-    WorkshopSelectors.serviceshopLocationSelector,
+    serviceShopLocationState,
     (state) => state.resultNumber
   );
 
   static message = createSelector(
-    WorkshopSelectors.serviceshopLocationSelector,
+    serviceShopLocationState,
     (state) => state.message
   );
 
   static error = createSelector(
-    WorkshopSelectors.serviceshopLocationSelector,
+    serviceShopLocationState,
     (state) => state.error
   );
 
   static submitted = createSelector(
-    WorkshopSelectors.serviceshopLocationSelector,
+    serviceShopLocationState,
     (state) => state.submitted
   );
 
   static selectStatistics = createSelector(
-    WorkshopSelectors.serviceshopLocationSelector,
+    serviceShopLocationState,
     (state) => state.statistics
   );
 

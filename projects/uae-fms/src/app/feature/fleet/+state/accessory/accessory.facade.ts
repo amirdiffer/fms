@@ -3,12 +3,11 @@ import { select, Store } from '@ngrx/store';
 import { AccessorySelectors } from './accessory.selectors';
 import { IAccessoryPartialState } from './accessory.entity';
 import { AccessoryActions } from './accessory.actions';
-import { IOwnerShip } from '@models/configuration';
-import { OwnershipSelectors } from '@feature/configuration/+state/ownership/ownership.selectors';
 
 @Injectable()
 export class AccessoryFacade {
   accessory$ = this.store.pipe(select(AccessorySelectors.selectAll));
+
   statistics$ = this.store.pipe(select(AccessorySelectors.selectStatistics));
 
   message$ = this.store.pipe(select(AccessorySelectors.message));
@@ -17,7 +16,9 @@ export class AccessoryFacade {
 
   submitted$ = this.store.pipe(select(AccessorySelectors.submitted));
 
-  constructor(private store: Store<IAccessoryPartialState>) {}
+  constructor(private store: Store<IAccessoryPartialState>) {
+    this.loadAll();
+  }
 
   loadAll() {
     this.store.dispatch(AccessoryActions.loadAll());

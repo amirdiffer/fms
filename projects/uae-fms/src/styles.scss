@@ -207,13 +207,13 @@
         background: $fms-black-body2-bg !important;
       }
     }
-    anms-add-role-and-permission{
-      .vertical-tabs > .mat-tab-group{
+    anms-add-role-and-permission {
+      .vertical-tabs > .mat-tab-group {
         & > .mat-tab-header,
-        & > .mat-tab-body-wrapper{
-          background:$fms-black-body2-bg !important;
+        & > .mat-tab-body-wrapper {
+          background: $fms-black-body2-bg !important;
         }
-        .tabs-content-header{
+        .tabs-content-header {
           background: #333;
         }
       }
@@ -309,21 +309,21 @@
       background-color: $fms-black-body2-bg;
     }
   }
-  p-dialog{
-    .p-dialog-content , .p-dialog-footer{
+  p-dialog {
+    .p-dialog-content,
+    .p-dialog-footer {
       background-color: $fms-black-body2-bg;
-      color:#acacac !important
-    }
-  }
-  mat-dialog-container{
-    background-color: $fms-black-body2-bg !important;
-  }
-  p-accordion{
-    .p-accordion-header-link,
-    .p-accordion-content{
       color: #acacac !important;
     }
-
+  }
+  mat-dialog-container {
+    background-color: $fms-black-body2-bg !important;
+  }
+  p-accordion {
+    .p-accordion-header-link,
+    .p-accordion-content {
+      color: #acacac !important;
+    }
   }
 }
 /* Light Mode */
@@ -365,11 +365,11 @@
       color: #00000061;
     }
   }
-  anms-add-role-and-permission{
-    .vertical-tabs > .mat-tab-group{
+  anms-add-role-and-permission {
+    .vertical-tabs > .mat-tab-group {
       & > .mat-tab-header,
-      & > .mat-tab-body-wrapper{
-        background:#fff;
+      & > .mat-tab-body-wrapper {
+        background: #fff;
       }
     }
   }
@@ -443,7 +443,7 @@
   }
   .filter {
     .filter-title {
-      font-size: 0.9em;
+      font-size: 0.8em;
     }
     .filter-supTitle {
       font-size: 0.6em;
@@ -975,13 +975,12 @@ mat-progress-bar {
 }
 
 /*Tabs Angular Material*/
-mat-tab-group{
-  font-family: "29LT Bukra" !important;
+mat-tab-group {
+  font-family: '29LT Bukra' !important;
   font-size: 1em;
-  .mat-tab-label{
-    font-family: "29LT Bukra" !important;
+  .mat-tab-label {
+    font-family: '29LT Bukra' !important;
     font-size: 1em;
-
   }
 }
 

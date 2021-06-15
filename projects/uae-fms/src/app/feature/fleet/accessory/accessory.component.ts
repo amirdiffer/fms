@@ -16,7 +16,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
 
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-  accessorySubscription$:Subscription;
+  accessorySubscription$: Subscription;
   //#region Filters
   filterCard: FilterCardSetting[] = [
     {
@@ -54,7 +54,6 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   accessory_Table: TableSetting = {
     columns: [
       { lable: 'tables.column.item', type: 1, field: 'Item' },
-      { lable: 'tables.column.type', type: 1, field: 'Type' },
       { lable: 'tables.column.assigned_to', type: 1, field: 'Assigned_To' },
       {
         lable: '',
@@ -70,10 +69,25 @@ export class AccessoryComponent implements OnInit, OnDestroy {
       floatButton: [
         {
           onClick: (col, data) => {
-            this._router.navigate(['/fleet/accessory/edit-accessory/'+ data.id]);
+            this._router.navigate([
+              '/fleet/accessory/edit-accessory/' + data.id
+            ]);
           },
+          permission: ['ACCESSORY_UPDATE_OWN', 'ACCESSORY_UPDATE_OTHERS'],
           button: 'edit',
           color: '#3F3F3F'
+        },
+        {
+          permission: [
+            'ACCESSORY_VIEW_DETAILS_OWN',
+            'ACCESSORY_VIEW_DETAILS_OTHERS'
+          ],
+          button: 'external',
+          onClick: (col, data, button?) => {
+            this._router.navigate([
+              `/fleet/accessory/accessory-overview/${data.id}`
+            ]);
+          }
         }
       ]
     }
@@ -102,23 +116,23 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this._accessoryFacade.loadAll();
     this._accessoryFacade.loadStatistics();
-    this.accessorySubscription$ = this._accessoryFacade.statistics$.subscribe((data) => {
-      if (data) {
-        let statistic = data.message;
-        this.filterCard.forEach((card, index) => {
-          this.filterCard[index].filterCount =
-            statistic[this.filterCard[index].field];
-        });
+    this.accessorySubscription$ = this._accessoryFacade.statistics$.subscribe(
+      (data) => {
+        if (data) {
+          let statistic = data.message;
+          this.filterCard.forEach((card, index) => {
+            this.filterCard[index].filterCount =
+              statistic[this.filterCard[index].field];
+          });
+        }
       }
-    });
+    );
   }
 
   eventPagination() {
     this._accessoryFacade.loadAll();
   }
-
 
   ngOnDestroy() {
     this.accessorySubscription$.unsubscribe();
@@ -128,10 +142,10 @@ export class AccessoryComponent implements OnInit, OnDestroy {
     let filter = {
       Item: 'Item',
       Type: 'Type',
-      Asset_SubAsset: 'Asset_SubAsset',
+      // Asset_SubAsset: 'Asset_SubAsset',
       Assigned_To: 'Assigned_To',
       Quantity: 'Quantity'
-    }
+    };
     this.table.exportTable(this.accessory_Table, 'Accessories', filter);
   }
 }

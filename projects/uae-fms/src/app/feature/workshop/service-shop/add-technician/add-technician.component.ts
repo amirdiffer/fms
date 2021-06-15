@@ -17,14 +17,16 @@ import {
   TaskMasterFacade,
   TaskMasterService
 } from '@feature/workshop/+state/task-master';
-import { Department } from '@models/organization';
 import { OrganizationService } from '@feature/fleet/+state/organization';
 import {
-  ServiceShopLocationFacade,
-  ServiceShopLocationService,
   ServiceShopTechnicianFacade,
   ServiceShopTechnicianService
-} from '@feature/workshop/+state/service-shop';
+} from '@feature/workshop/+state/service-shop/technician';
+import {
+  ServiceShopLocationFacade,
+  ServiceShopLocationService
+} from '@feature/workshop/+state/service-shop/location';
+
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
@@ -355,6 +357,7 @@ export class AddTechnicianServiceShopComponent
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
+        this._technicianFacade.loadAll();
       }
     });
 

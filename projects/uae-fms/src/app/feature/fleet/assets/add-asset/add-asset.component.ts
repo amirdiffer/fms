@@ -11,10 +11,6 @@ import { ColumnType, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import {
-  AssetMasterFacade,
-  AssetMasterService
-} from '@feature/fleet/+state/assets/asset-master';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { BusinessCategoryFacade } from '@feature/configuration/+state/business-category';
 import { map } from 'rxjs/operators';
@@ -22,10 +18,18 @@ import { Subscription, of, Observable, Subject, BehaviorSubject } from 'rxjs';
 import { OwnershipFacade } from '@feature/configuration/+state/ownership';
 import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
 import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
-import { PeriodicServiceFacade, } from '@feature/configuration/+state/periodic-service';
-import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
+import { PeriodicServiceFacade } from '@feature/configuration/+state/periodic-service';
+import {
+  OrganizationFacade,
+  OrganizationService
+} from '@feature/fleet/+state/organization';
 import { OperatorFacade } from '@feature/fleet/+state/operator';
 import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
+import {
+  AssetMasterFacade,
+  AssetMasterService
+} from '@feature/fleet/+state/assets/asset-master';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'anms-add-asset',
@@ -57,7 +61,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   sectionList: any[];
   departmentId;
   sectionId;
-  policyTypeTableData$ = new Subject<any>();
+  policyTypeTableData$ = new BehaviorSubject<any>([]);
   private _asset;
   private csvText = [];
   /* Forms */
@@ -65,6 +69,16 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   formGroupFinancial: FormGroup;
   formGroupMaintenance: FormGroup;
   formGroupGenerate: FormGroup;
+
+  bussinessCategoryLoaded = false;
+  ownershipLoaded = false;
+  assetPolicyLoaded = false;
+  periodicServiceLoaded = false;
+  departmentLoaded = false;
+  operatorLoaded = false;
+  trigger = false;
+  startGetting: Subject<any> = new Subject();
+
   get policyType() {
     return this.formGroupFinancial.get('assetFinancialPlan.policyType');
   }
@@ -345,7 +359,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     /* Load Data */
     this._facadeBussinessCategory.loadAll();
     this._facadeOwnership.loadAll();
@@ -354,156 +367,194 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this._facadeDepartment.loadAll();
     this._facadeOperator.loadAll();
 
+    this.startGetting.subscribe(x => {
+      if (x == "bussinessCategoryLoaded") this.bussinessCategoryLoaded = true;
+      if (x == "ownershipLoaded") this.ownershipLoaded = true;
+      if (x == "assetPolicyLoaded") this.assetPolicyLoaded = true;
+      if (x == "periodicServiceLoaded") this.periodicServiceLoaded = true;
+      if (x == "departmentLoaded") this.departmentLoaded = true;
+      if (x == "operatorLoaded") this.operatorLoaded = true;
+
+      if (this.bussinessCategoryLoaded &&
+        this.ownershipLoaded &&
+        this.assetPolicyLoaded &&
+        this.periodicServiceLoaded &&
+        this.departmentLoaded &&
+        this.operatorLoaded) {
+        if (this.isEdit && !this.trigger) {
+          this.trigger = true;
+          this.editFormGetValues();
+        }
+      }
+    });
+
+    this._facadeBussinessCategory.loaded$.subscribe(x => {
+      if (x) this.startGetting.next("bussinessCategoryLoaded");
+    });
+    this._facadeOwnership.loaded$.subscribe(x => {
+      if (x) this.startGetting.next("ownershipLoaded");
+    });
+    this._facadeAssetPolicy.loaded$.subscribe(x => {
+      if (x) this.startGetting.next("assetPolicyLoaded");
+    });
+    this._facadePeriodicService.loaded$.subscribe(x => {
+      if (x) this.startGetting.next("periodicServiceLoaded");
+    });
+    this._facadeDepartment.loaded$.subscribe(x => {
+      if (x) this.startGetting.next("departmentLoaded");
+    });
+    this._facadeOperator.loaded$.subscribe(x => {
+      if (x) this.startGetting.next("operatorLoaded");
+    });
+
+
+
     /* Check if is Edit */
-    const getURL = this._activatedRoute.snapshot.url
-    let filteredUrl = getURL.filter(x => x.path === "edit-asset");
-    (filteredUrl.length > 0) ? this.isEdit = true : this.isEdit = false;
+    const getURL = this._activatedRoute.snapshot.url;
+    let filteredUrl = getURL.filter((x) => x.path === 'edit-asset');
+    filteredUrl.length > 0 ? (this.isEdit = true) : (this.isEdit = false);
     if (this.isEdit) {
       this.singleAsset = true;
-      this.id = +getURL[getURL.length - 1].path
+      this.id = +getURL[getURL.length - 1].path;
       this._facade.getAssetByID(this.id);
-
     }
 
     /* Load Form Data */
     this.businessCategory$ = this._facadeBussinessCategory.businessCategory$.pipe(
-      map(x => {
+      map((x) => {
         if (x) {
-          return x.map(category => {
+          return x.map((category) => {
             return {
               ...category
             };
-          })
+          });
         }
       })
     );
 
     this.ownerShip$ = this._facadeOwnership.ownership$.pipe(
-      map(x => {
+      map((x) => {
         if (x) {
-          return x.map(ownership => {
+          return x.map((ownership) => {
             return {
-              ...ownership
-            }
-          })
+              ...ownership,
+              name: ownership.fleetITCode
+            };
+          });
         }
       })
     );
 
     this.make$ = this._fleetConfiurationAsset.specificAssetType$.pipe(
-      map(x => {
+      map((x) => {
         if (x) {
-          this.assetTypeLoad.next(x)
-          this.assetType = x
-          return x.makes.map(makes => {
+          this.assetTypeLoad.next(x);
+          this.assetType = x;
+          return x.makes.map((makes) => {
             return {
               ...makes
-            }
-          })
+            };
+          });
         }
       })
     );
 
     this.department$ = this._facadeDepartment.organization$.pipe(
-      map(x => {
+      map((x) => {
         if (x) {
-          return x.map(
-            department => {
-              return {
-                ...department
-              }
-            }
-          )
+          // this.startGetting.next("departmentLoaded")
+          return x.map((department) => {
+            return {
+              ...department
+            };
+          });
         }
       })
     );
 
     this.section$ = this._facadeDepartment.organization$.pipe(
-      map(x => {
+      map((x) => {
         if (x) {
-          return x.filter(x => x.id == this.formGroupAssetDetail.get('purchasedFor.department.id').value).map(
-            department => {
-              console.log(department)
+          return x
+            .filter(
+              (x) =>
+                x.id ==
+                this.formGroupAssetDetail.get('purchasedFor.department.id')
+                  .value
+            )
+            .map((department) => {
+              console.log(department);
               return {
                 ...department.departments
-              }
-            }
-          )
+              };
+            });
         }
       })
     );
 
-    this._departmentService
-      .loadWithPagination()
-      .subscribe((x) => {
-        x.message
-          ? // ? this.department.next(x.message)
-          (this.departmentList = x.message)
-          : (this.departmentList = []);
-      });
+    this._departmentService.loadWithPagination().subscribe((x) => {
+      x.message
+        ? // ? this.department.next(x.message)
+        (this.departmentList = x.message)
+        : (this.departmentList = []);
+    });
 
     this.operator$ = this._facadeOperator.operator$.pipe(
-      map(x => {
+      map((x) => {
         if (x) {
-          return x.map(
-            operator => {
-              return {
-                ...operator
-              }
-            }
-          )
+          return x.map((operator) => {
+            return {
+              ...operator
+            };
+          });
         }
       })
     );
 
     this.policyType$ = this._facadeAssetPolicy.assetPolicy$.pipe(
-      map(x => {
+      map((x) => {
         if (x) {
-          return x.map(policyType => {
+          return x.map((policyType) => {
             if (policyType.type === 'ASSET') {
               return {
                 ...policyType
-              }
+              };
             }
-          }
-          )
+          });
         }
       })
     );
 
     this.periodicService$ = this._facadePeriodicService.periodicService$.pipe(
-      map(x => {
+      map((x) => {
         if (x) {
-          return x.map(periodicService => {
+          return x.map((periodicService) => {
             return {
               ...periodicService
-            }
-          })
+            };
+          });
         }
       })
     );
 
     this.periodicServiceTableData$ = this._facadePeriodicService.specificPeriodicService$.pipe(
-      map(x => {
+      map((x) => {
         if (x) {
-          return x.packages.map(pkg => {
+          return x.packages.map((pkg) => {
             let taskData = '';
             for (let i = 0; i < pkg.tasks.length; i++) {
               taskData += `${pkg.tasks[i].taskMasterName} ,`;
             }
             return {
-              intervals: `Every ${pkg.intervalValue} ${pkg.intervalType}`,
+              intervals: `Every ${pkg.frequency} ${pkg.durationTypeForReminder}`,
               serviceTask: taskData.substring(0, taskData.length - 1)
-            }
-          }
-          );
+            };
+          });
         }
       })
     );
 
     this._asset = [];
-
-
 
     /* ---------- Form Builders ------- */
     /* STEP 1 */
@@ -576,7 +627,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       }
     });
 
-
     // Request to Server -  Submit
     this._facade.submitted$.subscribe((x) => {
       if (x) {
@@ -590,26 +640,23 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           : 'Asset Added Successfully';
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
+        this._facade.loadAll();
       }
     });
-
-    if (this.isEdit) {
-      this.editFormGetValues();
-    }
   }
   /*ngOnInit END */
 
-
-
   public calculateAssetPolicy() {
     let depreciationValue;
-    if (typeof this.policyTypeValue == "number" || !this.policyTypeValue.depreciationValue) {
-      this.policyType$.subscribe(x => {
-        this.onChangePolicyType(x.find(y => y.id == this.policyTypeValue));
+    if (
+      typeof this.policyTypeValue == 'number' ||
+      !this.policyTypeValue.depreciationValue
+    ) {
+      this.policyType$.subscribe((x) => {
+        this.onChangePolicyType(x.find((y) => y.id == this.policyTypeValue));
         depreciationValue = this.policyTypeValue.depreciationValue;
-      })
-    }
-    else {
+      });
+    } else {
       depreciationValue = this.policyTypeValue.depreciationValue;
     }
     this.calculate = true;
@@ -636,7 +683,12 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       if (index > 9) {
         break;
       }
-      if (this.reviewPlaneSettingTable2.data.length > 0 && this.reviewPlaneSettingTable2.data[this.reviewPlaneSettingTable2.data.length - 1].bookValue <= 0) {
+      if (
+        this.reviewPlaneSettingTable2.data.length > 0 &&
+        this.reviewPlaneSettingTable2.data[
+          this.reviewPlaneSettingTable2.data.length - 1
+        ].bookValue <= 0
+      ) {
         break;
       }
 
@@ -660,8 +712,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         };
 
         this.reviewPlaneSettingTable2.data.push(data);
-      }
-      else {
+      } else {
         const data = {
           year: index + 1,
           bookValue: 0
@@ -688,8 +739,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     return file.name;
   }
 
-  selectedPlicyType(value) {
-  }
+  selectedPlicyType(value) { }
 
   next() {
     let activeStep = this.stepper.selectedIndex;
@@ -766,9 +816,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     ) {
       this.maintenanceServiceDocRequired = true;
       return;
-    } else if (
-      !this.avatarDocId
-    ) {
+    } else if (!this.avatarDocId) {
       this.thumbnailRequired = true;
       return;
     } else {
@@ -785,9 +833,11 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           },
           s_n: this.csvText[index],
           model: formVal_AssetDetail.assetDetails.model.name,
-          department: formVal_AssetDetail.purchasedFor.department.organizationName,
+          department:
+            formVal_AssetDetail.purchasedFor.department.organizationName,
           type: this.assetType.name,
-          businessCategory: formVal_AssetDetail.businessInfo.businessCategory.name
+          businessCategory:
+            formVal_AssetDetail.businessInfo.businessCategory.name
         });
       }
       this.formReviewSettingTable.data = data;
@@ -811,33 +861,38 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
 
   onBusinessCategoryChange(event): void {
     this._fleetConfiurationAsset.getAssetTypeByID(event.assetConfigurationId);
-    this.formGroupAssetDetail.get('assetDetails').patchValue({ type: event.assetConfigurationId });
+    this.formGroupAssetDetail
+      .get('assetDetails')
+      .patchValue({ type: event.assetConfigurationId });
   }
 
   onChangeAssetMake(event) {
-    this.loadModel(event.models)
+    this.loadModel(event.models);
   }
 
   loadModel(model) {
-    this.model$ = of(model)
+    this.model$ = of(model);
   }
 
   onChangeAssetModel(event) {
-    this.loadTrim(event.trims)
+    this.loadTrim(event.trims);
   }
 
   loadTrim(trim) {
     this.trim$ = of(trim);
-
   }
 
   onChangeAssetTrim(event) {
     this.loadColor(event.colors);
-    this.origin$ = of(event.origins.map(x => { return { name: x } }))
+    this.origin$ = of(
+      event.origins.map((x) => {
+        return { name: x };
+      })
+    );
   }
 
   loadColor(color) {
-    this.color$ = of(color)
+    this.color$ = of(color);
   }
 
   onChangePolicyType(event) {
@@ -847,9 +902,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       depreciationValue: `%${this.policyTypeValue?.depreciationValue}`,
       maxUsageYear: `After ${this.policyTypeValue?.maxUsageYear} years`,
       maxUsageKPHour: `After ${this.policyTypeValue?.maxUsageKPHour}Km/HRS`
-    };
-    this.reviewPlaneSettingTable.data = [];
-    this.reviewPlaneSettingTable.data.push(dataChange);
+    }
+    // this.reviewPlaneSettingTable.data = [];
+    // this.reviewPlaneSettingTable.data.push(dataChange);
     this.policyTypeTableData$.next([dataChange]);
   }
   onChangePeriodicService(event) {
@@ -902,8 +957,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       purchaseDocId: +formVal_Financial.uploadFile[0].toString(),
       periodicServiceId: formVal_Maintenance.periodicService.id,
       warrantyItems: formVal_Maintenance.warrantyItems,
-      description: formVal_Maintenance.description,
-    }
+      description: formVal_Maintenance.description
+    };
     if (this.isEdit) {
       let formValue = {
         ...data,
@@ -916,16 +971,13 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       });
       this._facade.editAsset(formValue);
     } else {
-
       let formValue = {
         ...data,
         avatarId: this.avatarDocId,
         dpds:
           formVal_Generate.quantity == 'multipleAsset'
-            ?
-            dpdcodes
-            :
-            [
+            ? dpdcodes
+            : [
               `${formVal_AssetDetail.businessInfo.ownership.fleetITCode}${formVal_Generate.serialNumber}`
             ]
       };
@@ -933,7 +985,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       formValue.warrantyItems.map((x) => {
         x.startDate = x.startDate.toISOString();
       });
-      this.service.addAsset(formValue).subscribe(x => {
+      this.service.addAsset(formValue).subscribe((x) => {
         if (x && x?.message) {
           if (x.message.length > 0) {
             if (x.message.length == 1) {
@@ -969,7 +1021,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
             this._router.navigate(['/fleet/assets']);
           }
         }
-      })
+      });
     }
   }
 
@@ -983,12 +1035,13 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     if (event) {
       this._facade.reset();
       if (this.assetId > 0) {
-        this._router.navigate(['/fleet/assets/' + this.assetId + '/registration']);
+        this._router.navigate([
+          '/fleet/assets/' + this.assetId + '/registration'
+        ]);
       } else {
         this._router.navigate(['/fleet/assets']);
       }
-    }
-    else {
+    } else {
       this._router.navigate(['/fleet/assets']);
     }
   }
@@ -1036,63 +1089,61 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   editFormGetValues() {
-    this._facade.specificAsset$.subscribe(
-      x => {
-        if (x) {
-          this.assetTypeLoad.subscribe(
-            y => {
-              if (y) {
-                y.makes.map(
-                  make => {
-                    if (make.id == x.makeId) {
-                      this.onChangeAssetMake(make);
-                      let models = make.models.find(model => model.id === x.modelId);
-                      let trim = models.trims.find(trim => trim.id === x.trimId);
-                      this.onChangeAssetModel(models)
-                      this.onChangeAssetTrim(trim)
-                    }
-                  }
-                )
+    this._facade.specificAsset$.subscribe((x) => {
+      if (x) {
+        this.assetTypeLoad.subscribe((y) => {
+          if (y) {
+            y.makes.map((make) => {
+              if (make.id == x.makeId) {
+                this.onChangeAssetMake(make);
+                let models = make.models.find(
+                  (model) => model.id === x.modelId
+                );
+                let trim = models.trims.find((trim) => trim.id === x.trimId);
+                this.onChangeAssetModel(models);
+                this.onChangeAssetTrim(trim);
               }
-            }
-          )
-          this.id = x.id;
-          this.onBusinessCategoryChange(x)
-          this.departmentId = x.department.organizationId;
-          this.sectionId = x.department.id;
-          this.formGroupAssetDetail.patchValue({
-            businessInfo: {
-              businessCategory: { id: x.businessCategoryId },
-              ownership: { id: x.ownershipId },
+            });
+          }
+        });
+        this.id = x.id;
+        this.onBusinessCategoryChange(x);
+        this.departmentId = x.department.organizationId;
+        this.sectionId = x.department.id;
+        this.formGroupAssetDetail.patchValue({
+          businessInfo: {
+            businessCategory: { id: x.businessCategoryId },
+            ownership: { id: x.ownershipId }
+          },
+          assetDetails: {
+            year: x.year,
+            origin: { name: x.origin },
+            meterType: x.meterType,
+            make: { id: x.makeId },
+            model: { id: x.modelId },
+            trim: { id: x.trimId },
+            color: { id: x.colorId }
+          },
+          purchasedFor: {
+            department: {
+              id: x.department.organizationId,
+              organizationName: x.department.organizationName
             },
-            assetDetails: {
-              year: x.year,
-              origin: { name: x.origin },
-              meterType: x.meterType,
-              make: { id: x.makeId },
-              model: { id: x.modelId },
-              trim: { id: x.trimId },
-              color: { id: x.colorId },
-            },
-            purchasedFor: {
-              department: { id: x.department.organizationId, organizationName: x.department.organizationName },
-              section: { id: x.department.id, name: x.department.name },
-              operator: { id: x.operator.id }
-            },
-            uploadFile: x.vehicleDocIds
-          });
-          this.formGroupGenerate.patchValue({
-            quantity: ['singleAsset'],
-            serialNumber: [x.dpd]
-          });
-          console.log(this.formGroupAssetDetail.getRawValue())
-          this.onChangePeriodicService({ id: x.periodicServiceId });
-          this._asset = x;
-          this.avatarDocId = x.avatarId;
-          this.editPatchValue(x);
-        }
+            section: { id: x.department.id, name: x.department.name },
+            operator: { id: x.operator.id }
+          },
+          uploadFile: x.vehicleDocIds
+        });
+        this.formGroupGenerate.patchValue({
+          quantity: ['singleAsset'],
+          serialNumber: [x.dpd]
+        });
+        this.onChangePeriodicService({ id: x.periodicServiceId });
+        this._asset = x;
+        this.avatarDocId = x.avatarId;
+        this.editPatchValue(x);
       }
-    )
+    });
   }
 
   public editPatchValue(x) {
@@ -1119,7 +1170,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.onChangePolicyType(x.policyTypeId);
 
     /* Warranties Patch Value */
-    const warrantyFormArray = this.formGroupMaintenance.get('warrantyItems') as FormArray;
+    const warrantyFormArray = this.formGroupMaintenance.get(
+      'warrantyItems'
+    ) as FormArray;
     for (let index = 0; index < x.warranties.length; index++) {
       const warrantyDate = moment.utc(x.warranties[index].startDate).local();
       this.warrantyDocs.push(x.warranties[index].docId);
@@ -1137,47 +1190,56 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       this.addWarrantyItem();
     }
     if (warrantyFormArray.controls.length > x.warranties.length) {
-      warrantyFormArray.removeAt(warrantyFormArray.controls.length - 1)
+      warrantyFormArray.removeAt(warrantyFormArray.controls.length - 1);
     }
     this.warrantyTableData();
 
     this.formGroupMaintenance.patchValue({
       periodicService: { id: x.periodicServiceId },
-      description: x.description,
+      description: x.description
     });
     this.calculateAssetPolicy();
   }
 
-
   differentYears(monthOrYears: string = 'YEAR', startDate, month: number) {
     let from = new Date(startDate);
-    let calculateMonth = monthOrYears === 'YEAR' ? month * 12 : month
+    let calculateMonth = monthOrYears === 'YEAR' ? month * 12 : month;
     let endDate = new Date(from.setMonth(from.getMonth() + calculateMonth));
-    return endDate.getDate() + "/" + endDate.getMonth() + "/" + endDate.getFullYear();
+    return (
+      endDate.getDate() + '/' + endDate.getMonth() + '/' + endDate.getFullYear()
+    );
   }
 
   warrantyTableData() {
-    let data = this.warrantyItems.controls.map(
-      control => {
-        if (control.value.startDate === '') {
-          return {
-            ...control.value,
-            warrantyFor: control.value.item,
-          }
-        } else {
-          let endDate = new Date(control.value.startDate * (this.isEdit ? 1000 : 1));
-          return {
-            ...control.value,
-            warrantyFor: control.value.item,
-            start: endDate.getDate() + "/" + endDate.getMonth() + "/" + endDate.getFullYear(),
-            end: this.differentYears(control.value.periodType, control.value.startDate * (this.isEdit ? 1000 : 1), control.value.duration)
-          }
-        }
+    let data = this.warrantyItems.controls.map((control) => {
+      if (control.value.startDate === '') {
+        return {
+          ...control.value,
+          warrantyFor: control.value.item
+        };
+      } else {
+        let endDate = new Date(
+          control.value.startDate * (this.isEdit ? 1000 : 1)
+        );
+        return {
+          ...control.value,
+          warrantyFor: control.value.item,
+          start:
+            endDate.getDate() +
+            '/' +
+            endDate.getMonth() +
+            '/' +
+            endDate.getFullYear(),
+          end: this.differentYears(
+            control.value.periodType,
+            control.value.startDate * (this.isEdit ? 1000 : 1),
+            control.value.duration
+          )
+        };
       }
-    )
-    this.warrantyTableData$.next(data)
+    });
+    this.warrantyTableData$.next(data);
   }
-
 
   selectWarrantyDate() {
     this.warrantyTableData();

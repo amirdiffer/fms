@@ -1,17 +1,19 @@
-<div class="table-container component_wrapper">
-  <div class="search-container card-table-header">
-    <div class="search-box">
-      <input id="searchInput" type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
-      <button>
-        <img src="assets/icons/search-solid.svg" alt="">
+<ng-container *hasPermission="[{parent: 'FLEET' , permission : 'DEPARTMENT', permissionType:'MENU'}]">
+  <div class="table-container component_wrapper">
+    <div class="search-container card-table-header">
+      <div class="search-box">
+        <input id="searchInput" type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
+        <button>
+          <img src="assets/icons/search-solid.svg" alt="">
+        </button>
+      </div>
+      <button class="btn-download" (click)="exportTable()">
+        <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
+      <button  class="btn-primary-small" [routerLink]="'./add-department'" *hasPermission="['ORGANIZATION_ADD']"><i>+</i><a>{{'forms.add' | translate}}</a></button>
     </div>
-    <button class="btn-download" (click)="exportTable()">
-      <svg-icon [src]="downloadBtn"></svg-icon>
-    </button>
-    <button  class="btn-primary-small" [routerLink]="'./add-department'"><i>+</i><a>{{'forms.add' | translate}}</a></button>
+    <div class="table-wreapper" *hasPermission="['ORGANIZATION_VIEW_LIST']">
+      <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="organization" [setting]='organization_Table' [tableData]="data$"></app-table>
+    </div>
   </div>
-  <div class="table-wreapper">
-    <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="organization" [setting]='organization_Table' [tableData]="data$"></app-table>
-  </div>
-</div>
+</ng-container>

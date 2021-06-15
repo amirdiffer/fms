@@ -23,4 +23,9 @@ export class BusinessCategorySelectors {
     ConfigurationSelectors.businessCategorySelector,
     (state) => state.submitted
   );
+
+  static loaded = createSelector(
+    ConfigurationSelectors.businessCategorySelector,
+    (state) => state.loaded
+  );
 }

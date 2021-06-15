@@ -58,7 +58,8 @@ export class OwnershipComponent implements OnInit {
             this.router.navigate([
               '/configuration/ownership/edit-ownership/' + data.id
             ]);
-          }
+          },
+          permission: ['OWNERSHIP_UPDATE']
         }
       ]
     }
@@ -92,7 +93,7 @@ export class OwnershipComponent implements OnInit {
     private facade: OwnershipFacade,
     private tableFacade: TableFacade,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -106,7 +107,7 @@ export class OwnershipComponent implements OnInit {
       Duration: 'Duration',
       Purpose: 'Purpose',
       Owner_Email: 'Owner_Email',
-      Owner_Phone_No: 'Owner_Phone_No',
+      Owner_Phone_No: 'Owner_Phone_No'
     };
     this.table.exportTable(this.ownerShip_Table, 'Ownership', filter);
   }

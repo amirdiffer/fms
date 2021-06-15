@@ -1,4 +1,4 @@
-<div class='row' style="position: relative">
+<div class='row' style="position: relative" *hasPermission="['ORGANIZATION_VIEW_DETAILS' , 'ORGANIZATION_VIEW_USERS' , 'ORGANIZATION_VIEW_TRAFFIC_FINES' , 'ORGANIZATION_VIEW_MOVEMENT_HISTORY']">
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="/fleet/department">{{ 'forms.back' | translate }}</button>
     <button class="btn-primary-medium add" [routerLink]="['/fleet/department/edit-department/' + itemId]">{{ 'forms.edit' | translate }}</button>
@@ -54,21 +54,25 @@
   </div>
   <div class='col-lg-9'>
     <div class='statistic-card'>
-      <app-filter *ngIf='selectedTab === "userTab"' [setting]='userTabFilter'></app-filter>
-      <app-filter *ngIf='selectedTab === "trafficFineTab"' [setting]='trafficFineFilter'></app-filter>
+      <ng-container *hasPermission="['ORGANIZATION_VIEW_USERS']">
+        <app-filter *ngIf='selectedTab === "userTab"' [setting]='userTabFilter' ></app-filter>
+      </ng-container>
+      <ng-container *hasPermission="['ORGANIZATION_VIEW_TRAFFIC_FINES']">
+        <app-filter *ngIf='selectedTab === "trafficFineTab"' [setting]='trafficFineFilter' ></app-filter>
+      </ng-container>
     </div>
     <div class='component_wrapper table-container'>
       <app-tab-view (selectedIndex)='selectedTab=$event' [count]='[undefined, count.$UserTable, count.$TrafficFineTable, count.$MovementHistoryTable]'>
-        <div title="{{ 'tabs.overview' | translate }}" id='overviewTab'>
+        <div title="{{ 'tabs.overview' | translate }}" id='overviewTab' *hasPermission="['ORGANIZATION_VIEW_DETAILS']">
           <anms-overview-tab *ngIf="detailsOrg" [data]="detailsOrg"></anms-overview-tab>
         </div>
-        <div count='3456' title="{{ 'tabs.user' | translate }}" id='userTab'>
+        <div count='3456' title="{{ 'tabs.user' | translate }}" id='userTab' *hasPermission="['ORGANIZATION_VIEW_USERS']">
           <app-table [setting]='userTable'></app-table>
         </div>
-        <div count='3456' title="{{ 'tabs.traffic_fine' | translate }}" id='trafficFineTab'>
+        <div count='3456' title="{{ 'tabs.traffic_fine' | translate }}" id='trafficFineTab' *hasPermission="['ORGANIZATION_VIEW_TRAFFIC_FINES']">
           <app-table [setting]='trafficFineTable'></app-table>
         </div>
-        <div count='3456' title="{{ 'tabs.movement_history' | translate }}" id='movementHistoryTab'>
+        <div count='3456' title="{{ 'tabs.movement_history' | translate }}" id='movementHistoryTab' *hasPermission="['ORGANIZATION_VIEW_MOVEMENT_HISTORY']">
           <app-table [setting]='movementTable'></app-table>
         </div>
       </app-tab-view>

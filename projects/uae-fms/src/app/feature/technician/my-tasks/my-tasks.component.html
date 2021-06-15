@@ -1,9 +1,39 @@
-<div class="row mt-4">
-  <div class="col-12">
-    <div class="table-container component_wrapper">
-      <div class="pt-1">
-        <app-table [setting]="taskSetting" [tableData]="dataTask$"></app-table>
-      </div>
+<div class='row mt-4'>
+  <div class='col-12'>
+    <div class='table-container component_wrapper'>
+      <app-tab-view (selectedIndex)='selectedTab=$event'>
+        <span class='search-container card-table-header'>
+          <button class='btn-filter text-center'>
+            <img [src]='filterButton' alt='' class='filter-button'>
+          </button>
+          <div class='search-box'>
+            <input id='searchInput' type='text' placeholder="{{'search.search_in_columns' | translate}}">
+            <button>
+              <img [src]='searchIcon' alt=''>
+            </button>
+          </div>
+        </span>
+        <div title='tabs.all_tasks' id='allTaskListTab'>
+          <app-table searchInput='searchInput' pagination='asset_asset-master' [setting]='allTasksTableSetting'
+                     [tableData]='dataAllTasks$'></app-table>
+        </div>
+
+        <div title='tabs.today_tasks' id='todayTasksTab'>
+          <app-table searchInput='searchInput' pagination='asset_registration' [setting]='todayTasksTableSetting'
+                     [tableData]='dataTodayTasks$'></app-table>
+        </div>
+
+        <div title='tabs.paused_tasks' id='pausedTasksTab'>
+          <app-table searchInput='searchInput' pagination='asset_customization' [setting]='pausedTasksTableSetting'
+                     [tableData]='dataPausedTasks$'></app-table>
+        </div>
+
+        <div title='tabs.delayed_tasks' id='delayedTasksTab'>
+          <app-table searchInput='searchInput' pagination='asset_customization' [setting]='delayedTasksTableSetting'
+                     [tableData]='dataDelayedTasks$'></app-table>
+        </div>
+
+      </app-tab-view>
     </div>
   </div>
 </div>

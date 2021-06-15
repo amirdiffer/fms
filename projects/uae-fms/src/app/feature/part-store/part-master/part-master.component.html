@@ -1,66 +1,74 @@
-<!-- <div class="filter-container" *ngIf="router.url ==='/part-store/part-master'">
+<ng-container *hasPermission="[{parent: 'PART_STORE' , permission : 'PART_MASTER', permissionType:'MENU'}]">
+    <!-- <div class="filter-container" *ngIf="router.url ==='/part-store/part-master'">
     <app-filter [setting]="filterSetting"></app-filter>
-</div> -->
-<div class="row ml-0 card-wrapper">
-    <div class="col-3 col-md-3 component_wrapper form-section">
-        <h3 class="form-section__title">{{'part_store.part_master.category' | translate}}</h3>
-        <!-- <div class="p-field form-section__field">
-            <div class="autocomplete-select">
-                <span class="p-float-label">
-                  <p-autoComplete [minLength]="1" placeholder="{{'part_store.part_master.search' | translate}} ..."></p-autoComplete>
-                  <i class="pi pi-search"></i>
-                </span>
+    </div> -->
+    <div class="row ml-0 card-wrapper">
+        <div class="col-3 col-md-3 component_wrapper form-section">
+            <h3 class="form-section__title">{{'part_store.part_master.category' | translate}}</h3>
+            <!-- <div class="p-field form-section__field">
+                <div class="autocomplete-select">
+                    <span class="p-float-label">
+                    <p-autoComplete [minLength]="1" placeholder="{{'part_store.part_master.search' | translate}} ..."></p-autoComplete>
+                    <i class="pi pi-search"></i>
+                    </span>
+                </div>
+            </div> -->
+            <!-- <hr class="line"> -->
+            <div class="mt-5">
+                <div class="p-field form-section__field dropdown-select mt-4">
+                    <span class="p-float-label">
+                    <p-dropdown [(ngModel)]="selectedCategoryType" 
+                                    (onChange)="categoryTypeChanges($event.value)" 
+                                    inputId="typeCategory" 
+                                    placeholder="{{'part_store.part_master.category_type' | translate}}" 
+                                    [options]="itemTypes" 
+                                    optionLabel="name" 
+                                    class="dropdown-select"
+                                    [disabled]="router.url !=='/part-store/part-master'"></p-dropdown>
+                    <label for="typeCategory">{{'part_store.part_master.category_type' | translate}}</label>
+                    </span>
+                </div>
             </div>
-        </div> -->
-        <!-- <hr class="line"> -->
-        <div class="mt-5">
             <div class="p-field form-section__field dropdown-select mt-4">
                 <span class="p-float-label">
-                  <p-dropdown [(ngModel)]="selectedCategoryType" 
-                                (onChange)="categoryTypeChanges($event.value)" 
-                                inputId="typeCategory" 
-                                placeholder="{{'part_store.part_master.category_type' | translate}}" 
-                                [options]="itemTypes" 
+                <p-dropdown [(ngModel)]="selectedSubCategoryType"
+                                inputId="assetType" 
+                                (onChange)="typeChanges($event.value)" 
+                                placeholder="{{'part_store.part_master.asset_type' | translate}}" 
+                                [options]="subCatrgotyType$ | async" 
                                 optionLabel="name" 
                                 class="dropdown-select"
                                 [disabled]="router.url !=='/part-store/part-master'"></p-dropdown>
-                  <label for="typeCategory">{{'part_store.part_master.category_type' | translate}}</label>
+                <label for="assetType">{{isAsset ? ('part_store.part_master.asset_type' | translate ): ('part_store.part_master.sub_asset_type' | translate)}}</label>
                 </span>
             </div>
+            <div class="category-list" *ngIf="!(categoryForm  | async)">
+                <ul>
+                    <li [class.active-category]="index == selectedCategory"  
+                        [ngStyle]="{'opacity': (index != selectedCategory && router.url ==itemFormPath ? '.6' :'1')}" *ngFor="let category of categoryList$ | async;let index=index;" 
+                        (click)="categorySelect(index, category)"
+                        (mouseover)="hover(index)"
+                        (mouseleave)="leaveMouse()">
+                        {{category.name}}
+                        <ng-container *hasPermission="['PARTSTORE_PART_MASTER_ITEM_ADD']">
+                            <a *ngIf="(index == selectedCategory && router.url !==itemFormPath) && !(itemForm |async)" (click)="addItemForm(category)"><svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.em':'1' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon></a>
+                        </ng-container>
+                        <ng-container *hasPermission="['PARTSTORE_PART_MASTER_CATEGORY_UPDATE']">
+                            <a *ngIf="(index == selectedCategory && router.url !==itemFormPath && hoverIndex == index) && !(itemForm |async)" (click)="editCategoryForm(category)"><svg-icon src='assets/icons/edit.svg' [svgStyle]="{ 'width.em':'1.2' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon></a>
+                        </ng-container>
+                    </li>
+                </ul>
+                <ng-container *hasPermission="['PARTSTORE_PART_MASTER_CATEGORY_ADD']">
+                    <a *ngIf="(router.url !==itemFormPath) && !(itemForm |async)" class="d-flex add-category" (click)="addCategoryForm()">
+                        <svg-icon class='cursor-pointer mx-2' src='assets/icons/add.svg' [svgStyle]="{ 'width.em':'1.2' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                        <span>{{'part_store.part_master.add_category' | translate}}</span>
+                    </a>
+                </ng-container>
+                
+            </div>
         </div>
-        <div class="p-field form-section__field dropdown-select mt-4">
-            <span class="p-float-label">
-              <p-dropdown [(ngModel)]="selectedSubCategoryType"
-                            inputId="assetType" 
-                            (onChange)="typeChanges($event.value)" 
-                            placeholder="{{'part_store.part_master.asset_type' | translate}}" 
-                            [options]="subCatrgotyType$ | async" 
-                            optionLabel="name" 
-                            class="dropdown-select"
-                            [disabled]="router.url !=='/part-store/part-master'"></p-dropdown>
-              <label for="assetType">{{isAsset ? ('part_store.part_master.asset_type' | translate ): ('part_store.part_master.sub_asset_type' | translate)}}</label>
-            </span>
-        </div>
-        <div class="category-list" *ngIf="!(categoryForm  | async)">
-            <ul>
-                <li [class.active-category]="index == selectedCategory"  
-                    [ngStyle]="{'opacity': (index != selectedCategory && router.url ==itemFormPath ? '.6' :'1')}" *ngFor="let category of categoryList$ | async;let index=index;" 
-                    (click)="categorySelect(index, category)"
-                    (mouseover)="hover(index)"
-                    (mouseleave)="leaveMouse()">
-                    {{category.name}}
-                    <a *ngIf="(index == selectedCategory && router.url !==itemFormPath) && !(itemForm |async)" (click)="addItemForm(category)"><svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.em':'1' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon></a>
-                    <a *ngIf="(index == selectedCategory && router.url !==itemFormPath && hoverIndex == index) && !(itemForm |async)" (click)="editCategoryForm(category)"><svg-icon src='assets/icons/edit.svg' [svgStyle]="{ 'width.em':'1.2' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon></a>
-                </li>
-            </ul>
-            <a *ngIf="(router.url !==itemFormPath) && !(itemForm |async)" class="d-flex add-category" (click)="addCategoryForm()">
-                <svg-icon class='cursor-pointer ml-2' src='assets/icons/add.svg' [svgStyle]="{ 'width.em':'1.2' , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
-                <span>{{'part_store.part_master.add_category' | translate}}</span>
-            </a>
-            
+        <div class="col-9 col-md-9 padding-wrapper" >
+            <router-outlet></router-outlet>
         </div>
     </div>
-    <div class="col-9 col-md-9 padding-wrapper" >
-        <router-outlet></router-outlet>
-    </div>
-</div>
+</ng-container>
