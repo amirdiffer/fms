@@ -65,6 +65,16 @@ const trafficFineTableReducer = createReducer(
     loaded: true,
     vehicleInfo:data
   })),
+
+  /* RESET */
+  on(TrafficFineTableActions.reset, (state) => ({
+    ...state,
+    error: null,
+    loaded: null,
+    statistics: null,
+    message: null,
+    vehicleInfo:null,
+  })),
 );
 
 export function reducer(state: TrafficFineTableState, action: Action) {

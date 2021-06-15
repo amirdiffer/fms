@@ -39,4 +39,9 @@ export class TrafficFineTableFacade {
   getVehicleInformationByChassisNumber(data:IGetVehicleInfoByChassisNumber){
     this.store.dispatch(TrafficFineTableActions.getVehicleInformationByChassisNumber({data}));
   }
+
+  /* '''''Reset''''' */
+  reset(){
+    this.store.dispatch(TrafficFineTableActions.reset());
+  }
 }
