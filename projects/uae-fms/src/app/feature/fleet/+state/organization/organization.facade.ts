@@ -9,6 +9,7 @@ export class OrganizationFacade {
   submitted$ = this.store.pipe(select(OrganizationSelectors.submitted));
   conut$ = this.store.pipe(select(OrganizationSelectors.count));
   error$ = this.store.pipe(select(OrganizationSelectors.error));
+  loaded$ = this.store.pipe(select(OrganizationSelectors.loaded));
   constructor(private store: Store<OrganizationPartialState>) {
     this.loadAll();
   }

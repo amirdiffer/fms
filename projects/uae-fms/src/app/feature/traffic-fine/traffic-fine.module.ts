@@ -10,9 +10,11 @@ import { TrafficFineComponent } from '@feature/traffic-fine/traffic-fine.compone
 import { TrafficFineRoutingModule } from './traffic-fine-routing.module';
 import { TrafficFinesStateModule } from '../traffic-fine/+state';
 import { SharedModule } from '@shared/shared.module';
+import { TrafficFileOverviewComponent } from './traffic-file-overview/traffic-file-overview.component';
+import { AssetOverviewComponent } from './asset-overview/asset-overview.component';
 
 @NgModule({
-  declarations: [TrafficFineComponent],
+  declarations: [TrafficFineComponent, TrafficFileOverviewComponent, AssetOverviewComponent],
   imports: [
     TableModule,
     FilterModule,

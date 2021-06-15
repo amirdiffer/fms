@@ -48,4 +48,9 @@ export class TrafficFineTableActions {
     '[TrafficFineTable] vehicle information by chassis number loaded successfully ',
     props<{ data: ITrafficFineVehicleInfo }>()
   );
+
+
+  static reset = createAction(
+    '[TrafficFineTable] reset parameters'
+  );
 }

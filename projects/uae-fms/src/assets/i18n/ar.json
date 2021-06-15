@@ -142,7 +142,9 @@
     "edit_trim": "تحریر التریم",
     "edit_make": "تحریر الماركة",
     "accessory_overview": "نظرة عامة على الملحقات",
-    "department_overview": "نظرة عامة على القسم"
+    "department_overview": "نظرة عامة على القسم",
+    "traffic_fine_overview":"نظرة المخالفات المرورية",
+    "asset_overview":"نظرة الأصول"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -512,7 +514,12 @@
       "shopType": "نوع متجر",
       "ratePerHour": "سعر لكل ساعة",
       "taskType": "نوع المهمة",
-      "timeEstimate": "تقدير الوقت"
+      "timeEstimate": "تقدير الوقت",
+      "traffic_file_number": "رقم الملف المروري",
+      "number_of_tickets": "عدد التذاكر",
+      "total_fine": "إجمالي الغرامة",
+      "plate_code": "رمز اللوحة",
+      "plate_source": "مصدر اللوحة"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -1909,6 +1916,7 @@
       "periodic_service_name": "اسم الخدمة الدورية",
       "package_name": "اسم الباقة",
       "intervals": "فترات",
+      "repetition": "فترات",
       "km_h": "Km/h",
       "reminder": "تذكير",
       "distance": "المسافة",

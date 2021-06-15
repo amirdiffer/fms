@@ -7,9 +7,154 @@
     </div>
     <div class="col-3 pl-0 left-menu">
         <anms-asset-detail [asset]="assetSummary"></anms-asset-detail>
-        <hr class="seprator">
-        <div class="d-flex justify-content-center pb-2" >
-            <button class="btn-primary-small" [disabled]="inputForm.invalid" (click)="loadVehicleInformation()">{{loadVehicleInfo? ('buttons.reload' | translate) : ('buttons.load' | translate)}} {{'assets.registration.vehicle_info' | translate}}</button>
+    </div>
+    <div class="col-6 px-5">
+        <form [formGroup]="inputForm">
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" formControlName="registerType" type="radio"  value="plate_number">
+                                <label class="form-check-label">{{'assets.registration.register_by_plate_number' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" formControlName="registerType" type="radio"  value ="chassis" >
+                                <label class="form-check-label">{{'assets.registration.register_by_chassis_number' | translate}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngIf="inputForm.get('registerType').value === 'plate_number'">
+                    <div class="col-12 mt-5">
+                        <div class=" p-field form-section__field options-select">
+                            <span class="p-float-label">
+                                <p-dropdown (onChange)="plateCategoryChange($event)" 
+                                            formControlName="plateCategory" [options]="plateCategory" 
+                                            optionLabel="name"  class="dropdown-select"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label>{{'assets.registration.plate_category' | translate}}</label>
+                            </span>
+                            <anms-error
+                                [showError]="hasError('plateCategory',inputForm,submitted)"
+                                error="forms.feedback.required"></anms-error>
+                        </div>
+                        <div class=" p-field form-section__field options-select mt-4">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="plateCode$ | async" 
+                                            optionLabel="name" formControlName="plateCode" 
+                                            optionValue="value" class="dropdown-select"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label>{{'assets.registration.plate_code' | translate}}</label>
+                            </span>
+                            <anms-error
+                                [showError]="hasError('plateCode',inputForm,submitted)"
+                                error="forms.feedback.required"></anms-error>
+                        </div>
+                        <div class="p-field form-section__field mt-4">
+                            <span class="p-float-label">
+                                <input pInputText placeholder="{{ 'tables.column.plate_number' | translate }}"
+                                    formControlName="plateNumber"
+                                    type="text"
+                                    numbersOnly
+                                    [class.invalid]="inputForm.get('plateNumber').invalid && submitted">
+                                <label>{{'assets.registration.plate_number' | translate}}</label>
+                            </span>
+                            <anms-error
+                                [showError]="hasError('plateNumber',inputForm,submitted)"
+                                error="forms.feedback.required"></anms-error>
+                        </div>
+                        <div class="p-field form-section__field dropdown-select mt-4">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="plateSource" optionLabel="name" optionValue="value"  formControlName="plateSource" class="dropdown-select"></p-dropdown>
+                                <label>{{'assets.registration.plate_source' | translate}}</label>
+                            </span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="inputForm.get('registerType').value === 'chassis'">
+                    <div class="col-12 mt-5">
+                        <div class="p-field form-section__field">
+                            <span class="p-float-label">
+                                <input pInputText placeholder="{{ 'tables.column.plate_number' | translate }}"
+                                    formControlName="chassisNumber"
+                                    type="number"
+                                    [class.invalid]="inputForm.get('chassisNumber').invalid && submitted">
+                                <label>{{'assets.registration.chassis_number' | translate}}</label>
+                            </span>
+                            <anms-error
+                                [showError]="hasError('chassisNumber',inputForm,submitted)"
+                                error="forms.feedback.required"></anms-error>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <ng-template #afterSave>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="p-field form-section__field">
+                            <span class="p-float-label">
+                                <input pInputText placeholder="{{ 'assets.operator' | translate }}"
+                                    type="text">
+                                <label>{{ 'assets.operator' | translate }}</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="p-field form-section__field">
+                            <span class="p-float-label">
+                                <input pInputText placeholder="{{ 'assets.department' | translate }}"
+                                    type="text">
+                                <label>{{ 'assets.department' | translate }}</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="p-field form-section__field">
+                            <span class="p-float-label">
+                                <input pInputText placeholder="{{ 'operator.employee_number' | translate }}"
+                                    type="text">
+                                <label>{{ 'operator.employee_number' | translate }}</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2 title">
+                        {{ 'tables.column.current_meter' | translate }}
+                    </div>
+                    <div class="col-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio"
+                                name="radioButton" id="radioButton2"
+                                value="estimate">
+                            <label  class="form-check-label" for="radioButton2">{{ 'assets.current_live' | translate }}</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio"
+                                name="radioButton" id="radioButton2"
+                                value="estimate">
+                            <label class="form-check-label" for="radioButton2">{{ 'assets.gps' | translate }}<br><small>(CR136546)</small></label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-field form-section__field">
+                            <span class="p-float-label">
+                                <input pInputText placeholder="{{ 'assets.current_live_reading' | translate }}"
+                                    type="text">
+                                <label>{{ 'assets.current_live_reading' | translate }}</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </form>
+    </div>
+    <div class="col-3 right-menu">
+        <div class="d-flex justify-content-center py-2" >
+            <button class="btn-primary-small" [disabled]="inputForm.invalid" (click)="loadVehicleInformation()">{{'buttons.load' | translate}} {{'assets.registration.vehicle_info' | translate}}</button>
         </div>
         <ng-container *ngIf="loadVehicleInfo">
             <div class="vehicle-info">
@@ -253,154 +398,9 @@
                     <h5 class="title">Transaction Date</h5>
                     <h5 class="info">{{(vehicleInfo$ | async).vehicleReturn.vehicleInfo.relatedTranscation.transactionDate}}</h5>
                 </span>
-
             </div>
         </ng-container>
-
-    </div>
-    <div class="col-9 px-5">
-        <form [formGroup]="inputForm">
-            <div class="row mt-4">
-                <div class="col-8">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-check">
-                                <input class="form-check-input" formControlName="registerType" type="radio"  value="plate_number">
-                                <label class="form-check-label">{{'assets.registration.register_by_plate_number' | translate}}</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-check">
-                                <input class="form-check-input" formControlName="registerType" type="radio"  value ="chassis" >
-                                <label class="form-check-label">{{'assets.registration.register_by_chassis_number' | translate}}</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <ng-container *ngIf="inputForm.get('registerType').value === 'plate_number'">
-                    <div class="col-10 mt-5">
-                        <div class=" p-field form-section__field options-select">
-                            <span class="p-float-label">
-                                <p-dropdown (onChange)="plateCategoryChange($event)" 
-                                            formControlName="plateCategory" [options]="plateCategory" 
-                                            optionLabel="name"  class="dropdown-select"
-                                            [autoDisplayFirst]="false"></p-dropdown>
-                                <label>{{'assets.registration.plate_category' | translate}}</label>
-                            </span>
-                            <anms-error
-                                [showError]="hasError('plateCategory',inputForm,submitted)"
-                                error="forms.feedback.required"></anms-error>
-                        </div>
-                        <div class=" p-field form-section__field options-select mt-4">
-                            <span class="p-float-label">
-                                <p-dropdown [options]="plateCode$ | async" 
-                                            optionLabel="name" formControlName="plateCode" 
-                                            optionValue="value" class="dropdown-select"
-                                            [autoDisplayFirst]="false"></p-dropdown>
-                                <label>{{'assets.registration.plate_code' | translate}}</label>
-                            </span>
-                            <anms-error
-                                [showError]="hasError('plateCode',inputForm,submitted)"
-                                error="forms.feedback.required"></anms-error>
-                        </div>
-                        <div class="p-field form-section__field mt-4">
-                            <span class="p-float-label">
-                                <input pInputText placeholder="{{ 'tables.column.plate_number' | translate }}"
-                                    formControlName="plateNumber"
-                                    type="text"
-                                    numbersOnly
-                                    [class.invalid]="inputForm.get('plateNumber').invalid && submitted">
-                                <label>{{'assets.registration.plate_number' | translate}}</label>
-                            </span>
-                            <anms-error
-                                [showError]="hasError('plateNumber',inputForm,submitted)"
-                                error="forms.feedback.required"></anms-error>
-                        </div>
-                        <div class="p-field form-section__field dropdown-select mt-4">
-                            <span class="p-float-label">
-                                <p-dropdown [options]="plateSource" optionLabel="name" optionValue="value"  formControlName="plateSource" class="dropdown-select"></p-dropdown>
-                                <label>{{'assets.registration.plate_source' | translate}}</label>
-                            </span>
-                        </div>
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="inputForm.get('registerType').value === 'chassis'">
-                    <div class="col-10 mt-5">
-                        <div class="p-field form-section__field">
-                            <span class="p-float-label">
-                                <input pInputText placeholder="{{ 'tables.column.plate_number' | translate }}"
-                                    formControlName="chassisNumber"
-                                    type="number"
-                                    [class.invalid]="inputForm.get('chassisNumber').invalid && submitted">
-                                <label>{{'assets.registration.chassis_number' | translate}}</label>
-                            </span>
-                            <anms-error
-                                [showError]="hasError('chassisNumber',inputForm,submitted)"
-                                error="forms.feedback.required"></anms-error>
-                        </div>
-                    </div>
-                </ng-container>
-            </div>
-            <ng-template #afterSave>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="p-field form-section__field">
-                            <span class="p-float-label">
-                                <input pInputText placeholder="{{ 'assets.operator' | translate }}"
-                                    type="text">
-                                <label>{{ 'assets.operator' | translate }}</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="p-field form-section__field">
-                            <span class="p-float-label">
-                                <input pInputText placeholder="{{ 'assets.department' | translate }}"
-                                    type="text">
-                                <label>{{ 'assets.department' | translate }}</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="p-field form-section__field">
-                            <span class="p-float-label">
-                                <input pInputText placeholder="{{ 'operator.employee_number' | translate }}"
-                                    type="text">
-                                <label>{{ 'operator.employee_number' | translate }}</label>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-2 title">
-                        {{ 'tables.column.current_meter' | translate }}
-                    </div>
-                    <div class="col-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio"
-                                name="radioButton" id="radioButton2"
-                                value="estimate">
-                            <label  class="form-check-label" for="radioButton2">{{ 'assets.current_live' | translate }}</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio"
-                                name="radioButton" id="radioButton2"
-                                value="estimate">
-                            <label class="form-check-label" for="radioButton2">{{ 'assets.gps' | translate }}<br><small>(CR136546)</small></label>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="p-field form-section__field">
-                            <span class="p-float-label">
-                                <input pInputText placeholder="{{ 'assets.current_live_reading' | translate }}"
-                                    type="text">
-                                <label>{{ 'assets.current_live_reading' | translate }}</label>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </ng-template>
-        </form>
+        
     </div>
 </div>
 

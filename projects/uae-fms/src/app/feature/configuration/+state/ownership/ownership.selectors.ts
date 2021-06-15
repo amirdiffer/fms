@@ -23,4 +23,9 @@ export class OwnershipSelectors {
     ConfigurationSelectors.ownershipSelector,
     (state) => state.submitted
   )
+
+  static loaded = createSelector(
+    ConfigurationSelectors.ownershipSelector,
+    (state) => state.loaded
+  )
 }

@@ -144,7 +144,9 @@
     "edit_location": "Edit Location",
     "edit_trim": "Edit Trim",
     "edit_make": "Edit Make",
-    "department_overview": "Department Overview"
+    "department_overview": "Department Overview",
+    "traffic_fine_overview":"Traffic Fine Overview",
+    "asset_overview":"Asset Overview"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -564,7 +566,12 @@
       "ratePerHour": "Rate Per Hour",
       "taskType": "Task Type",
       "timeEstimate": "Time Estimate",
-      "progress": "Progress"
+      "progress": "Progress",
+      "traffic_file_number": "Traffic file number",
+      "number_of_tickets": "Number of tickets",
+      "total_fine": "Total fine",
+      "plate_code": "Plate Code",
+      "plate_source": "Plate Source"
     },
     "button": {
       "view_report": "View Report",
@@ -1984,6 +1991,7 @@
       "periodic_service_name": "Periodic Service Name",
       "package_name": "Package Name",
       "intervals": "Intervals",
+      "repetition":"Repetition",
       "km_h": "Km/h",
       "reminder": "Reminder",
       "distance": "Distance",

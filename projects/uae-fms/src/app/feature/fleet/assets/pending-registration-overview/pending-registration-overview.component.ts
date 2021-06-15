@@ -134,6 +134,7 @@ export class PendingRegistrationOverviewComponent
     private _trafficFineFacade : TrafficFineTableFacade
   ) {
     super(injector);
+    this._trafficFineFacade.reset();
   }
 
   ngOnInit(): void {
