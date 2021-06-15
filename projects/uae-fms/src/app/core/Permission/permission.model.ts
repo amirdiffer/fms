@@ -1,18 +1,19 @@
 export class MenuPermission {
-  private _dashboardPermission: any;
-  private _fleetPermission: any;
-  private _fuelManagementPermission: any;
-  private _trafficFinesPermisssion: any;
-  private _tollPermission: any;
-  private _workshopPermission: any;
-  private _partStorePermission: any;
-  private _configurationPermission: any;
-  private _integrationPermission: any;
+  public _dashboardPermission: any;
+  public _fleetPermission: any;
+  public _fuelManagementPermission: any;
+  public _trafficFinesPermisssion: any;
+  public _tollPermission: any;
+  public _workshopPermission: any;
+  public _partStorePermission: any;
+  public _configurationPermission: any;
+  public _integrationPermission: any;
 
   constructor() {
     /* '''''Dashboard''''' */
     this._dashboardPermission = {
-      DASHBOARD: ['AlLOW_ALWAYS']
+      DASHBOARD: ['AlLOW_ALWAYS'],
+      DASHBOARD_TECHNICIAN : ['DONT_ALLOW']
     };
 
     /* '''''Fleet''''' */
@@ -145,11 +146,13 @@ export class MenuPermission {
   }
 
   public checkPermissions(parent: string, permission: string): string[] {
+    console.log(this._dashboardPermission)
     switch (parent) {
       /* '''''Dashboard''''' */
       case 'DASHBOARD':
         let permissionDashboardLabel = {
-          DASHBOARD: this._dashboardPermission.DASHBOARD
+          DASHBOARD: this._dashboardPermission.DASHBOARD,
+          DASHBOARD_TECHNICIAN:this._dashboardPermission.DASHBOARD_TECHNICIAN
         };
         return permissionDashboardLabel[permission];
 

@@ -61,7 +61,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       route: '/dashboard/technician',
       permission: {
         parent: 'DASHBOARD',
-        permission: 'TECHNICIAN_DASHBOARD',
+        permission: 'DASHBOARD_TECHNICIAN',
         permissionType: 'MENU'
       },
       items: [
@@ -71,7 +71,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           icon: 'home',
           permission: {
             parent: 'DASHBOARD',
-            permission: 'AlLOW_ALWAYS',
+            permission: 'DASHBOARD_TECHNICIAN',
             permissionType: 'MENU'
           }
         },
@@ -81,7 +81,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           icon: 'tasks',
           permission: {
             parent: 'DASHBOARD',
-            permission: 'AlLOW_ALWAYS',
+            permission: 'DASHBOARD_TECHNICIAN',
             permissionType: 'MENU'
           }
         },
@@ -91,11 +91,11 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
           icon: 'list',
           permission: {
             parent: 'DASHBOARD',
-            permission: 'AlLOW_ALWAYS',
+            permission: 'DASHBOARD_TECHNICIAN',
             permissionType: 'MENU'
           },
         },
-
+  
       ]
     },
     {
@@ -260,7 +260,11 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             permissionType: 'MENU'
           }
         },
-        
+        {
+          name: 'sidebar.workshop.location',
+          icon: 'location',
+          route: '/workshop/location'
+        },
         /* {
           name: 'sidebar.workshop.inspection.~',
           icon: 'inspection',
@@ -311,7 +315,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.part_store.order_list',
           icon: 'order-list',
-          route: '/part-store/order-list',
+          route: '/part-store/order-list/',
           permission: {
             parent: 'PART_STORE',
             permission: 'ORDER_LIST',
