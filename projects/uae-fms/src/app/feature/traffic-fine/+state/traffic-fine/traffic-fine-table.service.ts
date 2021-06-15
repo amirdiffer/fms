@@ -63,4 +63,10 @@ export class TrafficFineTableService {
       environment.baseApiUrl + `traffic-fine/vehicle-info/chassis/${data.chassisNumber}`
     );
   }
+
+  getFinesOfSpecificFileNumber(id: number): Observable<ResponseBody<any>> {
+    return this.http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'traffic-fine/traffic-number/' + id
+    )
+  }
 }
