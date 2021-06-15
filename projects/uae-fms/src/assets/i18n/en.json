@@ -144,7 +144,9 @@
     "edit_location": "Edit Location",
     "edit_trim": "Edit Trim",
     "edit_make": "Edit Make",
-    "department_overview": "Department Overview"
+    "department_overview": "Department Overview",
+    "traffic_fine_overview":"Traffic Fine Overview",
+    "asset_overview":"Asset Overview"
   },
   "sidebar": {
     "dashboard": "Dashboard",

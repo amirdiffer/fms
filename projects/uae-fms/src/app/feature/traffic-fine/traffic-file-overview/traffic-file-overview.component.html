@@ -1,5 +1,8 @@
 <div class='row col-12 m-auto' [dir]='isLtr ? "ltr" : "rtl"'>
   <mat-card class='col-md-12 p-4' *ngFor='let fine of trafficFines'>
+    <div class="button-container">
+      <button class="btn-primary-medium btn-scondary-green" type="button" [routerLink]="'/traffic-fine'">{{ 'forms.back' | translate }}</button>
+    </div>
     <div class='row justify-content-between'>
       <div>
         <div><span class='key'>Booklet ID</span> : {{fine?.bookletId}}</div>
