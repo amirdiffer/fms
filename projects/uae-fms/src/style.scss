@@ -472,6 +472,19 @@ html {
       transform: rotate(180deg);
     }
   }
+
+  /* Asset Registration */
+  anms-pending-registration-overview{
+    .left-menu{
+      border-left: 1px solid #e0e0e0;
+      border-right:none  !important
+    }
+    
+    .right-menu{
+      border-right: 1px solid #e0e0e0;
+      border-left:none  !important
+    }
+  }
 }
 
 /* END RTL Arabic */
