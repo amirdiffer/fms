@@ -30,4 +30,10 @@ export class AssetTrafficFineService {
       { params: this.getParam('asset-fine') }
     );
   }
+
+  getFinesOfSpecificAsset(id: number): Observable<ResponseBody<any>> {
+    return this.http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'traffic-fine/asset/' + id
+    )
+  }
 }

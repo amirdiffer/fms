@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TableSetting } from '@core/table';
+import { ColumnType, TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { assetsPath } from '@environments/environment';
 import { TrafficFineTableFacade } from '../traffic-fine/+state/traffic-fine';
 import { AssetTrafficFineFacade } from './+state/asset-traffic-fine';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-traffic-fine',
@@ -55,8 +56,27 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
       { lable: 'tables.column.traffic_file_number', type: 1, field: 'trafficFileNumber' },
       { lable: 'tables.column.number_of_tickets', type: 1, field: 'numOfTickets' },
       { lable: 'tables.column.total_fine', type: 1, field: 'totalFine' },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
+      }
     ],
-    data: []
+    data: [],
+    rowSettings: {
+      floatButton: [
+        {
+          button: 'external',
+          onClick: (arg1, arg2, arg3) => {
+            this.router.navigate(['traffic-fine/traffic-fine-overview/' + arg2.trafficFileNumber]).then()
+          },
+          permission: ['ASSET_VIEW_DETAILS_OWN', 'ASSET_VIEW_SUMMARY_OWN']
+        }
+      ]
+    }
   };
   assetTraffic_Table: TableSetting = {
     columns: [
@@ -101,9 +121,28 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
         field: 'Total_Fines',
         sortable: true,
         hasPadding5: true
+      },
+      {
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
-    data: []
+    data: [],
+    rowSettings: {
+      floatButton: [
+        {
+          button: 'external',
+          onClick: (arg1, arg2, arg3) => {
+            this.router.navigate(['traffic-fine/asset-overview/' + arg2.id]).then()
+          },
+          permission: ['ASSET_VIEW_DETAILS_OWN', 'ASSET_VIEW_SUMMARY_OWN']
+        }
+      ]
+    }
   };
 
   trafficFine$ = this._trafficFineFacade.trafficFine$.pipe(
@@ -115,10 +154,8 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
     })))
   );
   assetTraffic$ = this._assetTrafficFineFacade.trafficFine$.pipe(
-    map(response => response.map((assetTrafficFine: any) => {
-      console.log(assetTrafficFine.department.name);
-      return {
-        id: assetTrafficFine.id,
+    map(response => response.map((assetTrafficFine: any) => ({
+        id: assetTrafficFine.asset.id,
         asset: {
           img: 'thumb1.png',
           assetName: assetTrafficFine.asset.dpd,
@@ -133,14 +170,13 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
           line2: assetTrafficFine.operator.id
         },
         Total_Fines: assetTrafficFine.totalFine,
-      }
-    }    ))
-  );
+      }))));
   //#endregion
 
   constructor(
     private _trafficFineFacade: TrafficFineTableFacade,
-    private _assetTrafficFineFacade: AssetTrafficFineFacade
+    private _assetTrafficFineFacade: AssetTrafficFineFacade,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
