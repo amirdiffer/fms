@@ -29,6 +29,7 @@ import {
   AssetMasterFacade,
   AssetMasterService
 } from '@feature/fleet/+state/assets/asset-master';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'anms-add-asset',
@@ -68,6 +69,16 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   formGroupFinancial: FormGroup;
   formGroupMaintenance: FormGroup;
   formGroupGenerate: FormGroup;
+
+  bussinessCategoryLoaded = false;
+  ownershipLoaded = false;
+  assetPolicyLoaded = false;
+  periodicServiceLoaded = false;
+  departmentLoaded = false;
+  operatorLoaded = false;
+  trigger = false;
+  startGetting: Subject<any> = new Subject();
+
   get policyType() {
     return this.formGroupFinancial.get('assetFinancialPlan.policyType');
   }
@@ -356,6 +367,48 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this._facadeDepartment.loadAll();
     this._facadeOperator.loadAll();
 
+    this.startGetting.subscribe(x => {
+      if (x == "bussinessCategoryLoaded") this.bussinessCategoryLoaded = true;
+      if (x == "ownershipLoaded") this.ownershipLoaded = true;
+      if (x == "assetPolicyLoaded") this.assetPolicyLoaded = true;
+      if (x == "periodicServiceLoaded") this.periodicServiceLoaded = true;
+      if (x == "departmentLoaded") this.departmentLoaded = true;
+      if (x == "operatorLoaded") this.operatorLoaded = true;
+
+      if (this.bussinessCategoryLoaded &&
+        this.ownershipLoaded &&
+        this.assetPolicyLoaded &&
+        this.periodicServiceLoaded &&
+        this.departmentLoaded &&
+        this.operatorLoaded) {
+        if (this.isEdit && !this.trigger) {
+          this.trigger = true;
+          this.editFormGetValues();
+        }
+      }
+    });
+
+    this._facadeBussinessCategory.loaded$.subscribe(x => {
+      if (x) this.startGetting.next("bussinessCategoryLoaded");
+    });
+    this._facadeOwnership.loaded$.subscribe(x => {
+      if (x) this.startGetting.next("ownershipLoaded");
+    });
+    this._facadeAssetPolicy.loaded$.subscribe(x => {
+      if (x) this.startGetting.next("assetPolicyLoaded");
+    });
+    this._facadePeriodicService.loaded$.subscribe(x => {
+      if (x) this.startGetting.next("periodicServiceLoaded");
+    });
+    this._facadeDepartment.loaded$.subscribe(x => {
+      if (x) this.startGetting.next("departmentLoaded");
+    });
+    this._facadeOperator.loaded$.subscribe(x => {
+      if (x) this.startGetting.next("operatorLoaded");
+    });
+
+
+
     /* Check if is Edit */
     const getURL = this._activatedRoute.snapshot.url;
     let filteredUrl = getURL.filter((x) => x.path === 'edit-asset');
@@ -409,6 +462,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.department$ = this._facadeDepartment.organization$.pipe(
       map((x) => {
         if (x) {
+          // this.startGetting.next("departmentLoaded")
           return x.map((department) => {
             return {
               ...department
@@ -441,7 +495,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this._departmentService.loadWithPagination().subscribe((x) => {
       x.message
         ? // ? this.department.next(x.message)
-          (this.departmentList = x.message)
+        (this.departmentList = x.message)
         : (this.departmentList = []);
     });
 
@@ -492,7 +546,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
               taskData += `${pkg.tasks[i].taskMasterName} ,`;
             }
             return {
-              intervals: `Every ${pkg.intervalValue} ${pkg.intervalType}`,
+              intervals: `Every ${pkg.frequency} ${pkg.durationTypeForReminder}`,
               serviceTask: taskData.substring(0, taskData.length - 1)
             };
           });
@@ -589,10 +643,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         this._facade.loadAll();
       }
     });
-
-    if (this.isEdit) {
-      this.editFormGetValues();
-    }
   }
   /*ngOnInit END */
 
@@ -689,7 +739,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     return file.name;
   }
 
-  selectedPlicyType(value) {}
+  selectedPlicyType(value) { }
 
   next() {
     let activeStep = this.stepper.selectedIndex;
@@ -928,8 +978,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           formVal_Generate.quantity == 'multipleAsset'
             ? dpdcodes
             : [
-                `${formVal_AssetDetail.businessInfo.ownership.fleetITCode}${formVal_Generate.serialNumber}`
-              ]
+              `${formVal_AssetDetail.businessInfo.ownership.fleetITCode}${formVal_Generate.serialNumber}`
+            ]
       };
 
       formValue.warrantyItems.map((x) => {
@@ -1088,7 +1138,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           quantity: ['singleAsset'],
           serialNumber: [x.dpd]
         });
-        console.log(this.formGroupAssetDetail.getRawValue());
         this.onChangePeriodicService({ id: x.periodicServiceId });
         this._asset = x;
         this.avatarDocId = x.avatarId;

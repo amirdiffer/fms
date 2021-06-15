@@ -12,5 +12,9 @@ export class OrganizationSelectors {
     organizationState,
     (state) => state.submitted
   );
+  static loaded = createSelector(
+    organizationState,
+    (state) => state.loaded
+  );
   static error = createSelector(organizationState, (state) => state.error);
 }

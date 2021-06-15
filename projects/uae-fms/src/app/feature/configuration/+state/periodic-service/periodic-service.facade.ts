@@ -18,6 +18,8 @@ export class PeriodicServiceFacade {
 
   error$ = this.store.pipe(select(PeriodicServiceSelectors.error));
 
+  loaded$ = this.store.pipe(select(PeriodicServiceSelectors.loaded));
+
   constructor(private store: Store<PeriodicServicePartialState>) {}
 
   loadAll() {
