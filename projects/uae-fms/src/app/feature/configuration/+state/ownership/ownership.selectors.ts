@@ -22,10 +22,10 @@ export class OwnershipSelectors {
   static submitted = createSelector(
     ConfigurationSelectors.ownershipSelector,
     (state) => state.submitted
-  )
+  );
 
   static loaded = createSelector(
     ConfigurationSelectors.ownershipSelector,
     (state) => state.loaded
-  )
+  );
 }

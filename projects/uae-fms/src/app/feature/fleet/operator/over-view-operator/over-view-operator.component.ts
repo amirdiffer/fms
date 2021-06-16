@@ -38,6 +38,7 @@ export class OverViewOperatorComponent implements OnInit, OnDestroy {
   operatorSubscriber: Subscription
   operatorDrivingLicenseSubscriber: Subscription
   operator: IOperator
+  operator$: Observable<IOperator>
   trafficFineTableData: Observable<any>
   movementHistoryTableData: Observable<any>
   profilePicture = ''
@@ -295,7 +296,6 @@ export class OverViewOperatorComponent implements OnInit, OnDestroy {
     this.activatedRouteSubscriber = this.activatedRoute.params.subscribe((params) => {
       const id = params['id']
       this.getOperatorById(id);
-      this.getOperatorsDrivingLicense(id)
       this.getOperatorsTrafficFine(id)
       this.getOperatorsMovementHistory(id)
     })
@@ -341,22 +341,22 @@ export class OverViewOperatorComponent implements OnInit, OnDestroy {
   }
 
   private getOperatorById(id: number): void {
-    this.operatorSubscriber = this.service.getOperatorById(id).pipe(
-      tap(response => {
-        this.operator = response.message
-        this.profilePicture = environment.baseApiUrl + `document/${this.operator.profileDocId}`;
-        this.overViewTab.operator = this.operator
+    // this.operatorSubscriber = this.service.getOperatorById(id).pipe(
+    //   tap(response => {
+    //     this.operator = response.message
+    //     this.profilePicture = environment.baseApiUrl + `document/${this.operator.profileDocId}`;
+    //     this.overViewTab.operator = this.operator
+    //   })
+    // ).subscribe()
+
+    this.operator$ = this.service.getOperatorById(id).pipe(
+      map(response => {
+        return response.message
       })
-    ).subscribe()
+    )
   }
 
-  private getOperatorsDrivingLicense(id: number): void {
-    this.operatorDrivingLicenseSubscriber = this.service.getOperatorsDrivingLicence(id).pipe(
-      tap((response) => {
-        this.overViewTab.drivingLicenseInfo = response.message
-      })
-    ).subscribe()
-  }
+ 
 
   private getOperatorsTrafficFine(id: number): void {
 

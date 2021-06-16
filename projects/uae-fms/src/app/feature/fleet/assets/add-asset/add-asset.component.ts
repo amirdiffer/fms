@@ -30,6 +30,7 @@ import {
   AssetMasterService
 } from '@feature/fleet/+state/assets/asset-master';
 import { ThrowStmt } from '@angular/compiler';
+import { RegistrationFacade } from '@feature/fleet/+state/assets/registration';
 
 @Component({
   selector: 'anms-add-asset',
@@ -345,6 +346,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _facade: AssetMasterFacade,
+    private _assetRegistrationFacade: RegistrationFacade,
     private service: AssetMasterService,
     private _facadeBussinessCategory: BusinessCategoryFacade,
     private _facadeOwnership: OwnershipFacade,
@@ -367,20 +369,22 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this._facadeDepartment.loadAll();
     this._facadeOperator.loadAll();
 
-    this.startGetting.subscribe(x => {
-      if (x == "bussinessCategoryLoaded") this.bussinessCategoryLoaded = true;
-      if (x == "ownershipLoaded") this.ownershipLoaded = true;
-      if (x == "assetPolicyLoaded") this.assetPolicyLoaded = true;
-      if (x == "periodicServiceLoaded") this.periodicServiceLoaded = true;
-      if (x == "departmentLoaded") this.departmentLoaded = true;
-      if (x == "operatorLoaded") this.operatorLoaded = true;
+    this.startGetting.subscribe((x) => {
+      if (x == 'bussinessCategoryLoaded') this.bussinessCategoryLoaded = true;
+      if (x == 'ownershipLoaded') this.ownershipLoaded = true;
+      if (x == 'assetPolicyLoaded') this.assetPolicyLoaded = true;
+      if (x == 'periodicServiceLoaded') this.periodicServiceLoaded = true;
+      if (x == 'departmentLoaded') this.departmentLoaded = true;
+      if (x == 'operatorLoaded') this.operatorLoaded = true;
 
-      if (this.bussinessCategoryLoaded &&
+      if (
+        this.bussinessCategoryLoaded &&
         this.ownershipLoaded &&
         this.assetPolicyLoaded &&
         this.periodicServiceLoaded &&
         this.departmentLoaded &&
-        this.operatorLoaded) {
+        this.operatorLoaded
+      ) {
         if (this.isEdit && !this.trigger) {
           this.trigger = true;
           this.editFormGetValues();
@@ -388,26 +392,24 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       }
     });
 
-    this._facadeBussinessCategory.loaded$.subscribe(x => {
-      if (x) this.startGetting.next("bussinessCategoryLoaded");
+    this._facadeBussinessCategory.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('bussinessCategoryLoaded');
     });
-    this._facadeOwnership.loaded$.subscribe(x => {
-      if (x) this.startGetting.next("ownershipLoaded");
+    this._facadeOwnership.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('ownershipLoaded');
     });
-    this._facadeAssetPolicy.loaded$.subscribe(x => {
-      if (x) this.startGetting.next("assetPolicyLoaded");
+    this._facadeAssetPolicy.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('assetPolicyLoaded');
     });
-    this._facadePeriodicService.loaded$.subscribe(x => {
-      if (x) this.startGetting.next("periodicServiceLoaded");
+    this._facadePeriodicService.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('periodicServiceLoaded');
     });
-    this._facadeDepartment.loaded$.subscribe(x => {
-      if (x) this.startGetting.next("departmentLoaded");
+    this._facadeDepartment.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('departmentLoaded');
     });
-    this._facadeOperator.loaded$.subscribe(x => {
-      if (x) this.startGetting.next("operatorLoaded");
+    this._facadeOperator.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('operatorLoaded');
     });
-
-
 
     /* Check if is Edit */
     const getURL = this._activatedRoute.snapshot.url;
@@ -641,6 +643,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
         this._facade.loadAll();
+        this._assetRegistrationFacade.loadAll();
       }
     });
   }
@@ -902,7 +905,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       depreciationValue: `%${this.policyTypeValue?.depreciationValue}`,
       maxUsageYear: `After ${this.policyTypeValue?.maxUsageYear} years`,
       maxUsageKPHour: `After ${this.policyTypeValue?.maxUsageKPHour}Km/HRS`
-    }
+    };
     // this.reviewPlaneSettingTable.data = [];
     // this.reviewPlaneSettingTable.data.push(dataChange);
     this.policyTypeTableData$.next([dataChange]);
@@ -1031,6 +1034,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   dialog(event) {
+    this._assetRegistrationFacade.resetParams();
+    this._assetRegistrationFacade.loadAll();
+    this._facade.loadAll();
     this.dialogModal = false;
     if (event) {
       this._facade.reset();

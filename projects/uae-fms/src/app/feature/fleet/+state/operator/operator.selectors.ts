@@ -14,6 +14,8 @@ export class OperatorSelectors {
   
   static loaded = createSelector(operatorState, (state) => state.loaded);
 
+  static loaded = createSelector(operatorState, (state) => state.loaded);
+
   static selectStatistics = createSelector(
     operatorState,
     (state) => state.statistics

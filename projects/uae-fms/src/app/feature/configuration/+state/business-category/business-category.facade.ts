@@ -18,7 +18,7 @@ export class BusinessCategoryFacade {
 
   loaded$ = this.store.pipe(select(BusinessCategorySelectors.loaded));
 
-  constructor(private store: Store<BusinessCategoryPartialState>) { }
+  constructor(private store: Store<BusinessCategoryPartialState>) {}
 
   loadAll() {
     this.store.dispatch(BusinessCategoryActions.loadAll());
