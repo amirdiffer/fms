@@ -149,6 +149,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   ) {}
 
   ngOnInit(): void {
+    this.registrationFacade.loadAll();
+    this.assetMasterFacade.loadAll();
+    this.customizationFacade.loadAll();
     this.assetMasterTableSetting = {
       columns: [
         {

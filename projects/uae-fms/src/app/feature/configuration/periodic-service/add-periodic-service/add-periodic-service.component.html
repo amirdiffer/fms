@@ -208,16 +208,18 @@
               </div>
               <anms-error [showError]="formArrayHasError(submitted, getPackageTasks(i), j)" error="forms.feedback.required"></anms-error>
 
-            </div>
-            <span *ngIf="last" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer','height': '40px'}"
-                (click)="addTask('',i,j)">
+              </div>
+              <span *ngIf="last" class="p-inputgroup-addon addon-primary"
+                [ngStyle]="{'cursor': 'pointer','height': '40px'}" (click)="addTask('',i,j)">
                 <i class="pi pi-plus"></i>
               </span>
-            <span *ngIf="!last" class='remove-icon p-inputgroup-addon'(click)="removeTask(i,j)" [ngStyle]="{'cursor': 'pointer','height': '40px'}">
-              <svg-icon src='assets/icons/add.svg'
-                        [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
-            </span>
-          </div>
+              <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeTask(i,j)"
+                [ngStyle]="{'cursor': 'pointer','height': '40px'}">
+                <svg-icon src='assets/icons/add.svg'
+                  [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}">
+                </svg-icon>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -240,5 +242,6 @@
 
 <alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)">
 </alert-dialog>
-<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="successDialogConfirm($event)"></alert-dialog>
+<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal"
+  (confirm)="successDialogConfirm($event)"></alert-dialog>
 <alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal"></alert-dialog>
