@@ -12,11 +12,15 @@ export class PeriodicServiceFacade {
 
   submitted$ = this.store.pipe(select(PeriodicServiceSelectors.submitted));
 
-  specificPeriodicService$ = this.store.pipe(select(PeriodicServiceSelectors.specificPeriodicService));
+  specificPeriodicService$ = this.store.pipe(
+    select(PeriodicServiceSelectors.specificPeriodicService)
+  );
 
   message$ = this.store.pipe(select(PeriodicServiceSelectors.message));
 
   error$ = this.store.pipe(select(PeriodicServiceSelectors.error));
+
+  loaded$ = this.store.pipe(select(PeriodicServiceSelectors.loaded));
 
   constructor(private store: Store<PeriodicServicePartialState>) {}
 

@@ -14,7 +14,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col">
-                            <div class="form-check">
+                            <div class="form-check">    
                                 <input class="form-check-input" formControlName="registerType" type="radio"  value="plate_number">
                                 <label class="form-check-label">{{'assets.registration.register_by_plate_number' | translate}}</label>
                             </div>
@@ -78,9 +78,9 @@
                     <div class="col-12 mt-5">
                         <div class="p-field form-section__field">
                             <span class="p-float-label">
-                                <input pInputText placeholder="{{ 'tables.column.plate_number' | translate }}"
+                                <input pInputText placeholder="{{ 'assets.registration.chassis_number' | translate }}"
                                     formControlName="chassisNumber"
-                                    type="number"
+                                    type="text"
                                     [class.invalid]="inputForm.get('chassisNumber').invalid && submitted">
                                 <label>{{'assets.registration.chassis_number' | translate}}</label>
                             </span>

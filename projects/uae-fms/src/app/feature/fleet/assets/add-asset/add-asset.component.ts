@@ -29,6 +29,8 @@ import {
   AssetMasterFacade,
   AssetMasterService
 } from '@feature/fleet/+state/assets/asset-master';
+import { ThrowStmt } from '@angular/compiler';
+import { RegistrationFacade } from '@feature/fleet/+state/assets/registration';
 
 @Component({
   selector: 'anms-add-asset',
@@ -60,7 +62,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   sectionList: any[];
   departmentId;
   sectionId;
-  policyTypeTableData$ = new Subject<any>();
+  policyTypeTableData$ = new BehaviorSubject<any>([]);
   private _asset;
   private csvText = [];
   /* Forms */
@@ -68,6 +70,16 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   formGroupFinancial: FormGroup;
   formGroupMaintenance: FormGroup;
   formGroupGenerate: FormGroup;
+
+  bussinessCategoryLoaded = false;
+  ownershipLoaded = false;
+  assetPolicyLoaded = false;
+  periodicServiceLoaded = false;
+  departmentLoaded = false;
+  operatorLoaded = false;
+  trigger = false;
+  startGetting: Subject<any> = new Subject();
+
   get policyType() {
     return this.formGroupFinancial.get('assetFinancialPlan.policyType');
   }
@@ -334,6 +346,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _facade: AssetMasterFacade,
+    private _assetRegistrationFacade: RegistrationFacade,
     private service: AssetMasterService,
     private _facadeBussinessCategory: BusinessCategoryFacade,
     private _facadeOwnership: OwnershipFacade,
@@ -355,6 +368,48 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this._facadePeriodicService.loadAll();
     this._facadeDepartment.loadAll();
     this._facadeOperator.loadAll();
+
+    this.startGetting.subscribe((x) => {
+      if (x == 'bussinessCategoryLoaded') this.bussinessCategoryLoaded = true;
+      if (x == 'ownershipLoaded') this.ownershipLoaded = true;
+      if (x == 'assetPolicyLoaded') this.assetPolicyLoaded = true;
+      if (x == 'periodicServiceLoaded') this.periodicServiceLoaded = true;
+      if (x == 'departmentLoaded') this.departmentLoaded = true;
+      if (x == 'operatorLoaded') this.operatorLoaded = true;
+
+      if (
+        this.bussinessCategoryLoaded &&
+        this.ownershipLoaded &&
+        this.assetPolicyLoaded &&
+        this.periodicServiceLoaded &&
+        this.departmentLoaded &&
+        this.operatorLoaded
+      ) {
+        if (this.isEdit && !this.trigger) {
+          this.trigger = true;
+          this.editFormGetValues();
+        }
+      }
+    });
+
+    this._facadeBussinessCategory.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('bussinessCategoryLoaded');
+    });
+    this._facadeOwnership.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('ownershipLoaded');
+    });
+    this._facadeAssetPolicy.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('assetPolicyLoaded');
+    });
+    this._facadePeriodicService.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('periodicServiceLoaded');
+    });
+    this._facadeDepartment.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('departmentLoaded');
+    });
+    this._facadeOperator.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('operatorLoaded');
+    });
 
     /* Check if is Edit */
     const getURL = this._activatedRoute.snapshot.url;
@@ -409,6 +464,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this.department$ = this._facadeDepartment.organization$.pipe(
       map((x) => {
         if (x) {
+          // this.startGetting.next("departmentLoaded")
           return x.map((department) => {
             return {
               ...department
@@ -492,7 +548,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
               taskData += `${pkg.tasks[i].taskMasterName} ,`;
             }
             return {
-              intervals: `Every ${pkg.intervalValue} ${pkg.intervalType}`,
+              intervals: `Every ${pkg.frequency} ${pkg.durationTypeForReminder}`,
               serviceTask: taskData.substring(0, taskData.length - 1)
             };
           });
@@ -587,12 +643,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.isWarning = false;
         this.dialogSetting.hasError = false;
         this._facade.loadAll();
+        this._assetRegistrationFacade.loadAll();
       }
     });
-
-    if (this.isEdit) {
-      this.editFormGetValues();
-    }
   }
   /*ngOnInit END */
 
@@ -853,8 +906,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       maxUsageYear: `After ${this.policyTypeValue?.maxUsageYear} years`,
       maxUsageKPHour: `After ${this.policyTypeValue?.maxUsageKPHour}Km/HRS`
     };
-    this.reviewPlaneSettingTable.data = [];
-    this.reviewPlaneSettingTable.data.push(dataChange);
+    // this.reviewPlaneSettingTable.data = [];
+    // this.reviewPlaneSettingTable.data.push(dataChange);
     this.policyTypeTableData$.next([dataChange]);
   }
   onChangePeriodicService(event) {
@@ -981,6 +1034,9 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   dialog(event) {
+    this._assetRegistrationFacade.resetParams();
+    this._assetRegistrationFacade.loadAll();
+    this._facade.loadAll();
     this.dialogModal = false;
     if (event) {
       this._facade.reset();
@@ -1088,7 +1144,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           quantity: ['singleAsset'],
           serialNumber: [x.dpd]
         });
-        console.log(this.formGroupAssetDetail.getRawValue());
         this.onChangePeriodicService({ id: x.periodicServiceId });
         this._asset = x;
         this.avatarDocId = x.avatarId;

@@ -144,7 +144,9 @@
     "edit_location": "Edit Location",
     "edit_trim": "Edit Trim",
     "edit_make": "Edit Make",
-    "department_overview": "Department Overview"
+    "department_overview": "Department Overview",
+    "traffic_fine_overview": "Traffic Fine Overview",
+    "asset_overview": "Asset Overview"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -676,15 +678,15 @@
       "progressbar_title": "CSV File Only",
       "content": "Drag and Drop file or click here"
     },
-    "registration":{
-      "vehicle_info":"Vehicle Info",
-      "register_by_plate_number":"Register By Plate Number",
-      "register_by_chassis_number":"Register By Chassis Number",
-      "plate_category":"Plate Category",
-      "plate_code":"Plate Code",
-      "plate_number":"Plate Number",
-      "plate_source":"Plate Source",
-      "chassis_number":"Chassis Number"
+    "registration": {
+      "vehicle_info": "Vehicle Info",
+      "register_by_plate_number": "Register By Plate Number",
+      "register_by_chassis_number": "Register By Chassis Number",
+      "plate_category": "Plate Category",
+      "plate_code": "Plate Code",
+      "plate_number": "Plate Number",
+      "plate_source": "Plate Source",
+      "chassis_number": "Chassis Number"
     },
     "asset_financial_plan": "Asset Financial Plan",
     "policy_type": "Policy Type",
@@ -1989,7 +1991,7 @@
       "periodic_service_name": "Periodic Service Name",
       "package_name": "Package Name",
       "intervals": "Intervals",
-      "repetition":"Repetition",
+      "repetition": "Repetition",
       "km_h": "Km/h",
       "reminder": "Reminder",
       "distance": "Distance",
@@ -2072,8 +2074,8 @@
     "make_decision": "Manufacturer Decision",
     "recived": "Recived",
     "confirm": "Confirm",
-    "reload":"Reload",
-    "load":"Load"
+    "reload": "Reload",
+    "load": "Load"
   },
   "filter": {
     "asset_category": "Asset Category",

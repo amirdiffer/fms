@@ -151,7 +151,6 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.fuel_management',
       icon: 'fuel',
       route: '/fuel-management',
-      disabled: true,
       permission: {
         parent: 'FUEL_MANAGEMENT',
         permission: 'FUEL_MANAGEMENT',
@@ -172,8 +171,11 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       name: 'sidebar.toll',
       icon: 'toll',
       route: '/toll',
-      disabled: true,
-      permission: { parent: 'TOLL', permission: 'TOLL', permissionType: 'MENU' }
+      permission: {
+        parent: 'TRRAFIC_FINE',
+        permission: 'TRRAFIC_FINE',
+        permissionType: 'MENU'
+      }
     },
     {
       name: 'sidebar.workshop.~',

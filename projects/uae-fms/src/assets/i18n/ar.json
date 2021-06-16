@@ -142,7 +142,9 @@
     "edit_trim": "تحریر التریم",
     "edit_make": "تحریر الماركة",
     "accessory_overview": "نظرة عامة على الملحقات",
-    "department_overview": "نظرة عامة على القسم"
+    "department_overview": "نظرة عامة على القسم",
+    "traffic_fine_overview": "نظرة المخالفات المرورية",
+    "asset_overview": "نظرة الأصول"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -624,15 +626,15 @@
       "progressbar_title": "ملف CSV فقط",
       "content": "سحب وإفلات الملف أو انقر هنا"
     },
-    "registration":{
-      "vehicle_info":"معلومات السيارة",
-      "register_by_plate_number":"التسجيل برقم اللوحة",
-      "register_by_chassis_number":"التسجيل برقم الشاسيه",
-      "plate_category":"فئة اللوحة",
-      "plate_code":"رمز اللوحة",
-      "plate_number":"رقم لوحة",
-      "plate_source":"مصدر اللوحة",
-      "chassis_number":"رقم الهيكل"
+    "registration": {
+      "vehicle_info": "معلومات السيارة",
+      "register_by_plate_number": "التسجيل برقم اللوحة",
+      "register_by_chassis_number": "التسجيل برقم الشاسيه",
+      "plate_category": "فئة اللوحة",
+      "plate_code": "رمز اللوحة",
+      "plate_number": "رقم لوحة",
+      "plate_source": "مصدر اللوحة",
+      "chassis_number": "رقم الهيكل"
     },
     "asset_financial_plan": "الخطة المالية للأصول",
     "policy_type": "نوع السياسة",
@@ -1995,8 +1997,8 @@
     "make_decision": "إتخذ قرار",
     "recived": "الواردة",
     "confirm": "يتأكد",
-    "reload":"إعادة تحميل",
-    "load":"حمل"
+    "reload": "إعادة تحميل",
+    "load": "حمل"
   },
   "filter": {
     "asset_category": "فئة الأصول",
