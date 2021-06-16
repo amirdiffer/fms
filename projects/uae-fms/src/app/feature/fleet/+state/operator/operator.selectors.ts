@@ -11,7 +11,7 @@ export class OperatorSelectors {
   static error = createSelector(operatorState, (state) => state.error);
 
   static submitted = createSelector(operatorState, (state) => state.submitted);
-  
+
   static loaded = createSelector(operatorState, (state) => state.loaded);
 
   static selectStatistics = createSelector(

@@ -16,7 +16,7 @@ export class OwnershipFacade {
   submitted$ = this.store.pipe(select(OwnershipSelectors.submitted));
 
   loaded$ = this.store.pipe(select(OwnershipSelectors.loaded));
-  
+
   constructor(private store: Store<OwnershipPartialState>) {}
 
   loadAll() {

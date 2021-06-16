@@ -33,5 +33,4 @@ export class PeriodicServiceSelectors {
     ConfigurationSelectors.periodicServiceSelector,
     (state) => state.loaded
   );
-
 }
