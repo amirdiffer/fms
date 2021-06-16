@@ -6,28 +6,28 @@ import { environment } from '@environments/environment';
   template: `
   <div *ngIf="!column.rendererOptions || !column.rendererOptions.type">
     <div *ngIf="!column.rendererOptions" class="d-flex flex-column">
-      <span class="line-1">{{ user[column.field].line1 }}</span>
-      <span class="line-2">{{ user[column.field].line2 }}</span>
+      <span class="line-1" pTooltip='{{user[column.field].line1}}' tooltipPosition='bottom'>{{ user[column.field].line1 }}</span>
+      <span class="line-2" pTooltip='{{user[column.field].line2}}' tooltipPosition='bottom'>{{ user[column.field].line2 }}</span>
     </div>
       <div *ngIf="column.rendererOptions" class="d-flex flex-column">
-        <span class="line-1">{{ user[column.field][column.rendererOptions.line1] }}</span>
-        <span class="line-2">{{ user[column.field][column.rendererOptions.line2] }}</span>
+        <span class="line-1" pTooltip='{{user[column.field][column.rendererOptions.line1] }}' tooltipPosition='bottom'>{{ user[column.field][column.rendererOptions.line1] }}</span>
+        <span class="line-2" pTooltip='{{user[column.field][column.rendererOptions.line2] }}' tooltipPosition='bottom'>{{ user[column.field][column.rendererOptions.line2] }}</span>
       </div>
   </div>
   <div *ngIf="column.rendererOptions && column.rendererOptions.type && column.rendererOptions.type=='array'">
     <div *ngIf="!column.rendererOptions" class="d-flex flex-column">
-      <span class="line-1">{{ getLastElement(user[column.field].line1) }}</span>
-      <span class="line-2">{{ getLastElement(user[column.field].line2) }}</span>
+      <span class="line-1" pTooltip='{{getLastElement(user[column.field].line1)}}' tooltipPosition='bottom' >{{ getLastElement(user[column.field].line1) }}</span>
+      <span class="line-2" pTooltip='{{getLastElement(user[column.field].line2)}}' tooltipPosition='bottom' >{{ getLastElement(user[column.field].line2) }}</span>
     </div>
       <div *ngIf="column.rendererOptions" class="d-flex flex-column">
-        <span class="line-1">{{ getLastElement(user[column.field][column.rendererOptions.line1]) }}</span>
-        <span class="line-2">{{ getLastElement(user[column.field][column.rendererOptions.line2]) }}</span>
+        <span class="line-1" pTooltip='{{getLastElement(user[column.field][column.rendererOptions.line1]) }}' tooltipPosition='bottom'>{{ getLastElement(user[column.field][column.rendererOptions.line1]) }}</span>
+        <span class="line-2" pTooltip='{{ getLastElement(user[column.field][column.rendererOptions.line2]) }}' tooltipPosition='bottom'>{{ getLastElement(user[column.field][column.rendererOptions.line2]) }}</span>
       </div>
   </div>
   <div *ngIf="column.rendererOptions && column.rendererOptions.type && column.rendererOptions.type=='list'">
     <div class="d-flex">
-      <span class="line-1">{{ getLastElement(user[column.field][column.rendererOptions.line1]) }}</span>
-      <span class="line-2" style="opacity:.8">{{ getLastElement(user[column.field][column.rendererOptions.line2]) }}</span>
+      <span class="line-1" pTooltip='{{getLastElement(user[column.field][column.rendererOptions.line1])}}' tooltipPosition='bottom'>{{ getLastElement(user[column.field][column.rendererOptions.line1]) }}</span>
+      <span class="line-2" style="opacity:.8" pTooltip='{{getLastElement(user[column.field][column.rendererOptions.line2])}}' tooltipPosition='bottom'>{{ getLastElement(user[column.field][column.rendererOptions.line2]) }}</span>
     </div>
   </div>
 

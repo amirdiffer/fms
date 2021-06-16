@@ -4,8 +4,8 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'table-colorize-renderer',
   template: `
     <div>
-      <div *ngIf="!options.condition(data)" class="">{{ data }}</div>
-      <div *ngIf="options.condition(data)" [style]="'color:'+options.color+'; font-weight:800;'">{{ data }}</div>
+      <div *ngIf="!options.condition(data)" class="" pTooltip='{{data}}' tooltipPosition='bottom'>{{ data }}</div>
+      <div *ngIf="options.condition(data)" [style]="'color:'+options.color+'; font-weight:800;'" pTooltip='{{data}}' tooltipPosition='bottom'>{{ data }}</div>
     </div>
   `,
   styles: []

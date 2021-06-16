@@ -62,6 +62,7 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
             //   : null
             count: this.count ? this.count[i] : null
           });
+          this.elements[i].attributes.removeNamedItem('title')
         }
       }
 

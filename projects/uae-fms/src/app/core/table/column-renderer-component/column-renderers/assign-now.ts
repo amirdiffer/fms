@@ -5,8 +5,8 @@ import { TollFacade } from '@feature/toll/+state';
   selector: 'table-assign-now-renderer',
   template: `
     <div *ngIf="status == 'Assigned'; else assignNow">
-      <div class="">{{ this.objectData[1] }}</div>
-      <small> {{ this.objectData[0] }} </small>
+      <div class="" pTooltip='{{this.objectData[1] }}' tooltipPosition='bottom'>{{ this.objectData[1] }}</div>
+      <small pTooltip='{{this.objectData[0] }}' tooltipPosition='bottom'> {{ this.objectData[0] }} </small>
     </div>
     <ng-template #assignNow>
       <div class="assign-now">

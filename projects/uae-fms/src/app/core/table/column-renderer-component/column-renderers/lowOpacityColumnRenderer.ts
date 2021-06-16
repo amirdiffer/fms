@@ -4,8 +4,8 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'table-low-opacity-renderer',
   template: `
     <div>
-      <span class="mr-3">{{ data.column }}</span>
-      <span class="subtitle">{{ data.subtitle }}</span>
+      <span class="mr-3" pTooltip='{{data.column}}' tooltipPosition='bottom'>{{ data.column }}</span>
+      <span class="subtitle" pTooltip='{{data.subtitle}}' tooltipPosition='bottom'>{{ data.subtitle }}</span>
     </div>
   `,
   styles: [

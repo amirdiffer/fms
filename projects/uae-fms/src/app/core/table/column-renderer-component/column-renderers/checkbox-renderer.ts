@@ -13,7 +13,7 @@ import { environment } from '@environments/environment';
         [(ngModel)]="data[field].checkbox"
         (change)="onChange.emit(this.data)"
       />
-      <label>{{ data[field].label }}</label>
+      <label pTooltip='{{data[field].label }}' tooltipPosition='bottom'>{{ data[field].label }}</label>
     </div>
   `,
   styleUrls: ['./checkbox-renderer.scss']
