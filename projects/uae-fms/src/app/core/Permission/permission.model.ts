@@ -146,7 +146,6 @@ export class MenuPermission {
   }
 
   public checkPermissions(parent: string, permission: string): string[] {
-    console.log(this._dashboardPermission)
     switch (parent) {
       /* '''''Dashboard''''' */
       case 'DASHBOARD':

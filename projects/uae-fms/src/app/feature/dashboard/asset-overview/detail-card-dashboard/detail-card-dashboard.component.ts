@@ -15,7 +15,6 @@ export class DetailCardDashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.chartData.length)
   }
 }
 

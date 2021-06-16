@@ -16,8 +16,11 @@ import { TechnicianOverviewComponent } from './template/technician-dashboard-tem
 import { SpinnerComponent, SpinnerService } from '@core/spinner';
 import { DialogService } from '@core/dialog/dialog-template.component';
 import { DialogModule } from '@core/dialog/dialog.module';
+import { CoreStateModule } from "@core/core.state.module";
+
 @NgModule({
   imports: [
+    CoreStateModule,
     BrowserAnimationsModule,
     BrowserModule,
     MatSidenavModule,
@@ -26,7 +29,7 @@ import { DialogModule } from '@core/dialog/dialog.module';
     AppRoutingModule,
     SharedModule,
     AngularSvgIconModule.forRoot(),
-    DialogModule
+    DialogModule,
   ],
   declarations: [
     AppComponent,
@@ -39,4 +42,4 @@ import { DialogModule } from '@core/dialog/dialog.module';
   providers: [SpinnerService, DialogService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

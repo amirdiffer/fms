@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
     });
     this.profileFacade.loadData$.subscribe((x) => {
       if (x) {
-        console.log(x);
+        // console.log(x);
       }
     });
   }
@@ -155,7 +155,7 @@ export class LoginComponent implements OnInit {
           );
           this.profileFacade.loadData$.subscribe(x=>{
             if(x){
-              console.log(x)
+              // console.log(x)
               if(x.roles[0].roleId === 2){
                 this.router.navigate(['/dashboard/technician']);
               }else{

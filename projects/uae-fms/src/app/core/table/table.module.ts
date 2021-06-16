@@ -65,7 +65,7 @@ import { NgCircleProgressModule } from "ng-circle-progress";
     TooltipModule,
     NgApexchartsModule,
     AngularSvgIconModule,
-    NgCircleProgressModule
+    NgCircleProgressModule,
   ],
   exports: [TableComponent],
   declarations: [

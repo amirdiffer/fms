@@ -71,7 +71,6 @@ export class HasPermissionDirective extends MenuPermission implements OnInit {
         }
         this._permissions = permissionModel.checkPermissions(parentMenu,permissionMenu);
       }
-      console.log(this._currentUser)
     }
     if (this._currentUser !==null && this._currentUser.roles[0].permissions && this._permissions && this._permissions.length > 0 ) {
       for (const checkPermission of this._permissions) {
