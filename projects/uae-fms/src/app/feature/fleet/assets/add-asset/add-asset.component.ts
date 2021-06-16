@@ -497,7 +497,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this._departmentService.loadWithPagination().subscribe((x) => {
       x.message
         ? // ? this.department.next(x.message)
-          (this.departmentList = x.message)
+        (this.departmentList = x.message)
         : (this.departmentList = []);
     });
 
@@ -742,7 +742,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     return file.name;
   }
 
-  selectedPlicyType(value) {}
+  selectedPlicyType(value) { }
 
   next() {
     let activeStep = this.stepper.selectedIndex;
@@ -981,8 +981,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           formVal_Generate.quantity == 'multipleAsset'
             ? dpdcodes
             : [
-                `${formVal_AssetDetail.businessInfo.ownership.fleetITCode}${formVal_Generate.serialNumber}`
-              ]
+              `${formVal_AssetDetail.businessInfo.ownership.fleetITCode}${formVal_Generate.serialNumber}`
+            ]
       };
 
       formValue.warrantyItems.map((x) => {
