@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RowSettings, TableSetting } from '../table.component';
+import { ColumnDifinition, RowSettings, TableSetting } from '../table.component';
 
 @Component({
   selector: 'anms-row-renderer-component',
@@ -9,6 +9,8 @@ export class RowRendererComponentComponent implements OnInit {
   @Input() setting:TableSetting;
   @Input() rowSetting:RowSettings;
   @Input() data:any;
+  @Input() rowIndex: number;
+  @Input() column: ColumnDifinition | undefined;
 
   constructor() { }
 

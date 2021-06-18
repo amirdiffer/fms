@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
 import { ActivatedRoute, Routes } from '@angular/router';
 import { IOrganization } from '@models/organization';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 
 @Component({
   selector: 'anms-department-overview',
@@ -246,7 +246,7 @@ export class DepartmentOverviewComponent implements OnInit {
 
   getTablesData(orgId) {
     this.organizationService.usersOfOrganization(orgId).subscribe(x => {
-      let data = x.message;
+      const data = x.message;
       this.userTable.data = data.map(d => {
         return {
           user: `${d.firstName} ${d.lastName}`,
@@ -260,7 +260,7 @@ export class DepartmentOverviewComponent implements OnInit {
       this.obsUserCount.next(data.length);
     });
     this.organizationService.trafficFineOfOrganization(orgId).subscribe(x => {
-      let data = x.message;
+      const data = x.message;
       this.trafficFineTable.data = data.map(d => {
         return {
           tcCode: d.tcCode,
@@ -277,7 +277,7 @@ export class DepartmentOverviewComponent implements OnInit {
       this.obsTrafficFineCount.next(data.length);
     });
     this.organizationService.movementHistoryOfOrganization(orgId).subscribe(x => {
-      let data = x.message;
+      const data = x.message;
       this.movementTable.data = data.map(d => {
         return {
           asset: {
@@ -296,7 +296,7 @@ export class DepartmentOverviewComponent implements OnInit {
       this.obsMovementHistoryCount.next(data.length);
     });
     this.organizationService.userStatsByOrganizationId(orgId).subscribe(x => {
-      let data = x.message;
+      const data = x.message;
       this.userTabFilter = this.userTabFilter.map(y => {
         return {
           ...y,
@@ -305,7 +305,7 @@ export class DepartmentOverviewComponent implements OnInit {
       })
     });
     this.organizationService.trafficFineStatsByOrganizationId(orgId).subscribe(x => {
-      let data = x.message;
+      const data = x.message;
       this.trafficFineFilter = this.trafficFineFilter.map(y => {
         return {
           ...y,
