@@ -8,6 +8,7 @@ import { OverlayPanel } from 'primeng/overlaypanel';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserProfileFacade } from '@feature/user/state';
+import { ThemeService } from 'ng2-charts';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -38,10 +39,10 @@ export class NavbarComponent implements OnInit {
     private profileFacade: UserProfileFacade,
     @Inject(DOCUMENT) private document: Document,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.profileFacade.loadAll();
+    if (!this.profileFacade.loadCalled) this.profileFacade.loadAll();
     this.isAuthenticated$ = this.store.pipe(select(this.selectIsAuthenticated));
     this.stickyHeader$ = this.store.pipe(
       select(this.selectSettingsStickyHeader)
