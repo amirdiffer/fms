@@ -51,6 +51,8 @@ import { TableFilterComponent } from './table-filter/table-filter.component';
 import { ColumnRendererComponent } from "./column-renderer-component/column-renderer.component";
 import { CollapseRowRendererComponent, RowRendererComponentComponent } from "./row-renderer-component";
 import { NgCircleProgressModule } from "ng-circle-progress";
+import { PlusMinusRenderer } from './column-renderer-component/column-renderers/plus-minus-renderer';
+import { FoldableRowRenderer } from './row-renderer-component/row-renderers/foldable-row-renderer.component';
 
 @NgModule({
   imports: [
@@ -107,7 +109,9 @@ import { NgCircleProgressModule } from "ng-circle-progress";
     TableFilterComponent,
     ColumnRendererComponent,
     CollapseRowRendererComponent,
-    RowRendererComponentComponent
+    RowRendererComponentComponent,
+    PlusMinusRenderer,
+    FoldableRowRenderer
   ],
   providers: [TableFacade, TableService, TableServiceS]
 })

@@ -1,3 +1,8 @@
+<div>
+  <anms-foldable-row-renderer [column]='column' [data]='setting?.rows[rowIndex]?.foldableRowOption.foldableData'
+                              [setting]='setting'
+                              [rowIndex]='rowIndex'></anms-foldable-row-renderer>
+</div>
 
 <div *ngIf="rowSetting.renderer=='collapesRenderer'">
   <table-collapse-row-renderer [data]="data" [setting]="rowSetting">
