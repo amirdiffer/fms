@@ -11,7 +11,7 @@ import {
   AfterViewInit
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-tab-view',
   templateUrl: './tab-view.component.html',
@@ -39,7 +39,7 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
     private _router: Router,
     private _activateRoute: ActivatedRoute,
     private _renderer: Renderer2,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
   }
@@ -72,10 +72,10 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
           ? (this.selectedParams = id['id'])
           : (this.selectedParams = this.tabs[0].id);
 
-          this.selectByUrlParams();
-          this.selectedIndex.emit(
-            this.returnId == 'title' ? this.selectedParams : this.selectedTab
-          );
+        this.selectByUrlParams();
+        this.selectedIndex.emit(
+          this.returnId == 'title' ? this.selectedParams : this.selectedTab
+        );
       });
     }, 0);
 
@@ -108,16 +108,16 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
         this.tabs[i].id ? this.tabs[i].id : ''
       );
       this.tabsHeader.nativeElement.children[i].getAttribute('for') ==
-      this.selectedParams
+        this.selectedParams
         ? (this._renderer.addClass(
-            this.tabsHeader.nativeElement.children[i],
-            'active-tab'
-          ),
+          this.tabsHeader.nativeElement.children[i],
+          'active-tab'
+        ),
           (this.selectedTab = i))
         : this._renderer.removeClass(
-            this.tabsHeader.nativeElement.children[i],
-            'active-tab'
-          );
+          this.tabsHeader.nativeElement.children[i],
+          'active-tab'
+        );
     }
   }
   selectTab(index: number, title: string, e: Event) {
@@ -142,6 +142,7 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    this.routeObsvr$.unsubscribe();
+    if (this.routeObsvr$)
+      this.routeObsvr$.unsubscribe();
   }
 }
