@@ -84,7 +84,7 @@ export class DialogService {
     title: string,
     message: string,
     confirmButtonTitle: string = 'Confirm',
-    cancelButtonTitle: string = 'Cancel',
+    cancelButtonTitle?:string,
     hasTextInput: boolean = false
   ): DialogTemplateComponent {
     const dialog = this.dialog.open(DialogTemplateComponent, {

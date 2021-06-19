@@ -2,20 +2,19 @@ import { AccessoryService } from './../../+state/accessory/accessory.service';
 import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AccessoryFacade } from '@feature/fleet/+state/accessory';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Utility } from '@shared/utility/utility';
 import { AccessoryTypeFacade } from '@feature/configuration/+state/fleet-configuration';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 const EMPTY_SELECT_ITEM_LIST = [
   {
@@ -34,35 +33,7 @@ export class AddAccessoryComponent
   implements OnInit, OnDestroy {
   //#region Dialogs
   avatarId = null;
-  dialogModal = false;
-  dialogModalError = false;
-  dialogModalCancel = false;
-  dialogSetting: IDialogAlert = {
-    header: 'Accessory',
-    hasError: false,
-    hasHeader: true,
-    message: 'New Accessory Successfully Added',
-    confirmButton: 'OK'
-  };
-  dialogSettingCancel: IDialogAlert = {
-    header: 'Accessory',
-    hasError: false,
-    isWarning: true,
-    hasHeader: true,
-    message: 'Are you sure that you want to cancel the Accessory creation?',
-    confirmButton: 'Yes',
-    cancelButton: 'No'
-  };
 
-  dialogSettingError: IDialogAlert = {
-    header: 'Accessory',
-    hasError: true,
-    isWarning: false,
-    hasHeader: true,
-    message: 'Error occurred in progress',
-    confirmButton: 'OK'
-  };
-  //#endregion
 
   //#region Table
   accessory_Table: TableSetting = {
@@ -107,15 +78,16 @@ export class AddAccessoryComponent
   constructor(
     private _fb: FormBuilder,
     private accessoryService: AccessoryService,
-    private _router: Router,
     private _route: ActivatedRoute,
     private _facade: AccessoryFacade,
     private accessoryTypeFacade: AccessoryTypeFacade,
     private subAssetFacade: SubAssetFacade,
     private assetMasterFacade: AssetMasterFacade,
-    private injector: Injector
+    private injector: Injector,
+    private _dialogService : DialogService
   ) {
     super(injector);
+    this._facade.reset();
   }
 
   accessory$ = this._facade.accessory$.pipe(
@@ -205,8 +177,17 @@ export class AddAccessoryComponent
 
     this._facade.error$.subscribe((x) => {
       if (x?.error) {
-        this.dialogModalError = true;
-        this.dialogSettingError.hasError = true;
+        const dialog = this._dialogService.show('danger' , 
+          (this.isEdit ? 'Edit Accessory': 'Add new Accessory' ), 
+          'We Have Some Error','Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
   }
@@ -229,18 +210,18 @@ export class AddAccessoryComponent
   handleSubmissionDialog() {
     this._facade.submitted$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogType = 'success';
-        this.dialogSetting.header = this.isEdit
-          ? 'Edit Accessory'
-          : 'Add new Accessory';
-        this.dialogSetting.message = this.isEdit
-          ? 'Changes Saved Successfully'
-          : 'Accessory Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
+        const dialog = this._dialogService.show('success' , 
+          (this.isEdit ? 'Edit Accessory': 'Add new Accessory' ), 
+          (this.isEdit ? 'Changes Saved Successfully' : 'Accessory Added Successfully'),'Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['/fleet/accessory']);
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
         this._facade.loadAll();
       }
     });
@@ -286,37 +267,34 @@ export class AddAccessoryComponent
       if (!this.isEdit) {
         this._facade.addAccessory(_data);
       } else {
-        this._facade.editAccessory(_data, this.recordId);
+        const dialog = this._dialogService.show('warning' , 'Edit accessory' , 'Are you sure you want to edit accessory?' , 'Yes','Cancel')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+            this._facade.editAccessory(_data, this.recordId);
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe();
+        
       }
     }
   }
 
   cancel() {
     if (this.formChanged) {
-      this.dialogModalCancel = true;
-      return;
+      const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Ok','Cancel')
+      const dialogClose$:Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+        if (result === 'confirm') {
+          this.router.navigate(['/fleet/accessory']);
+        }
+        dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
     }
-
-    this._router.navigate(['fleet/accessory']);
-  }
-
-  dialogCancelConfirm(value) {
-    if (value === true) {
-      this._router.navigate(['fleet/accessory']);
-    }
-    this.dialogModalCancel = false;
-  }
-
-  dialogConfirm(value) {
-    if (value === true) {
-      this._facade.reset();
-      this._router.navigate(['/fleet/accessory']);
-    }
-    this.dialogModal = false;
-  }
-
-  dialogErrorConfirm(value) {
-    this.dialogModalError = false;
   }
   ngOnDestroy() {}
 
