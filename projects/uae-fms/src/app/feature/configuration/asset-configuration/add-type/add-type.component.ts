@@ -21,7 +21,6 @@ import {
   Validators
 } from '@angular/forms';
 import { AssetConfigurationService } from '../asset-configuration.service';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import {
   AccessoryTypeFacade,
   AssetTypeFacade,
@@ -32,6 +31,7 @@ import { Utility } from '@shared/utility/utility';
 import { TableSetting } from '@core/table';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { Observable } from 'rxjs';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'congifuration-add-type',
@@ -60,14 +60,6 @@ export class AddTypeComponent
   type;
   isEdit: boolean = false;
   assetConfigurationTableSetting!: TableSetting;
-  dialogModal = false;
-  dialogSetting: IDialogAlert = {
-    header: 'Add asset configuration',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
   assetTypes = [];
   successDialog;
   //#endregion
@@ -81,7 +73,8 @@ export class AddTypeComponent
     public router: Router,
     private _activateRoute: ActivatedRoute,
     private _dataService: DataService,
-    injector: Injector
+    injector: Injector,
+    private dialogService: DialogService
   ) {
     super(injector);
     this.assetConfigurationTableSetting = this._assetConfigurationService.assetConfigurationableSetting();
@@ -232,31 +225,15 @@ export class AddTypeComponent
 
   dialogType = '';
   public cancel() {
-    this.dialogModal = true;
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.message = this.itemId
-      ? 'Are you sure to cancel changes type?'
-      : 'Are you sure to cancel adding new type?';
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.cancelButton = 'No';
-    this.dialogType = 'cancel';
+    const dialog = this.dialogService.show('warning', 'Add asset configuration',
+      this.itemId ? 'Are you sure to cancel changes type ?' : 'Are you sure to cancel adding new type ?',
+      'Yes', 'No');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this.router.navigate(['/configuration/asset-configuration']).then();
+      }
+    });
     // this._assetConfigurationService.loadAddForm(false);
-  }
-
-  dialogConfirm($event): void {
-    this.dialogModal = false;
-
-    if ($event && this.successDialog) {
-      this.type == 'ASSET'
-        ? this.facade.resetParams()
-        : this.type == 'SUB_ASSET'
-        ? this._subAssetTypeFacade.resetParams()
-        : this._accessoryTypeFacade.resetParams();
-    }
-    if ($event && !this.dialogSetting.hasError) {
-      this.router.navigate(['/configuration/asset-configuration']);
-    }
   }
 
   color1Clicked(): void {
@@ -278,27 +255,34 @@ export class AddTypeComponent
   errorAndSubmitHandle(submittedFacade) {
     submittedFacade.submitted$.subscribe((x) => {
       if (x) {
-        this.successDialog = true;
-        this.dialogModal = true;
-        this.dialogSetting.header = this.itemId ? 'Edit Type' : 'Add new type';
-        this.dialogSetting.message = this.itemId
-          ? 'Changes Saved Successfully'
-          : 'Type Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
+        const dialog = this.dialogService.show('success', this.itemId ? 'Edit Type' : 'Add new type',
+          this.itemId ? 'Changes Saved Successfully' : 'Type Added Successfully',
+          'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+            if (this.type === 'ASSET') {
+              this.facade.resetParams();
+            } else if (this.type === 'SUB_ASSET') {
+              this._subAssetTypeFacade.resetParams();
+            } else {
+              this._accessoryTypeFacade.resetParams();
+            }
+            this.router.navigate(['/configuration/asset-configuration']).then();
+          }
+        });
       }
     });
 
     submittedFacade.error$.subscribe((x) => {
       if (x?.error) {
-        this.dialogModal = true;
-        this.dialogSetting.header = this.itemId ? 'Edit Type' : 'Add new type';
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.message = 'Error occurred in progress';
-        this.dialogSetting.cancelButton = undefined;
-        this.dialogSetting.confirmButton = 'OK';
+        const dialog = this.dialogService.show('danger', this.itemId ? 'Edit Type' : 'Add new type',
+          'Error occurred in progress',
+          'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+          } else {
+          }
+        });
       }
     });
   }
