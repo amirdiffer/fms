@@ -954,7 +954,16 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       formValue.warrantyItems.map((x) => {
         x.startDate = x.startDate.toISOString();
       });
-      this._facade.editAsset(formValue);
+      const dialog = this._dialogService.show('warning' , 'Edit Asset' , 'Are you sure you want to edit Asset?' , 'Yes','Cancel')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+            this._facade.editAsset(formValue);
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe();
     } else {
       let formValue = {
         ...data,

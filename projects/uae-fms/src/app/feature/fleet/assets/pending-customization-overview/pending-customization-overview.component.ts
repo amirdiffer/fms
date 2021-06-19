@@ -272,7 +272,7 @@ export class PendingCustomizationOverviewComponent implements OnInit {
                   .pipe(
                     tap((result) => {
                       if (result === 'confirm') {
-                        this.router.navigate(['fleet/assets']);
+                        this.router.navigate(['fleet/assets'] , { queryParams: {id: 'pendingCustomizationTab'}});
                       }
                       dialogClose$?.unsubscribe();
                     })

@@ -180,9 +180,9 @@ export class PendingRegistrationOverviewComponent
                   '/fleet/assets/' + this.assetId + '/customization'
                 ]);
               }
-              if(this.isEdit) {this.router.navigate(['/fleet/assets'])}
+              if(this.isEdit) {this.router.navigate(['/fleet/assets'] , { queryParams: {id: 'pendingRegistrationTab'}})}
             }else{
-              this.router.navigate(['/fleet/assets']);
+              this.router.navigate(['/fleet/assets'] ,  { queryParams: {id: 'pendingRegistrationTab'}});
             }
             dialogClose$?.unsubscribe();
           })
@@ -199,7 +199,6 @@ export class PendingRegistrationOverviewComponent
         .pipe(
           tap((result) => {
             if (result !== 'confirm') {
-              this.router.navigate(['/fleet/assets']);
             }
             dialogClose$?.unsubscribe();
           })
@@ -349,7 +348,7 @@ export class PendingRegistrationOverviewComponent
     .pipe(
       tap((result) => {
         if (result === 'confirm') {
-          this.router.navigate(['/fleet/assets']);
+          this.router.navigate(['/fleet/assets'] , { queryParams: {id: 'pendingRegistrationTab'}});
         }
         dialogClose$?.unsubscribe();
       })
