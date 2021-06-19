@@ -1,4 +1,9 @@
-import { Component, Injectable, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Injectable,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SettingsFacade } from '@core/settings/settings.facade';
 import { Observable, Subject, Subscription } from 'rxjs';
@@ -10,48 +15,52 @@ import { Observable, Subject, Subscription } from 'rxjs';
   encapsulation: ViewEncapsulation.None
 })
 export class DialogTemplateComponent implements OnInit {
-
   textInput = '';
 
   dialogSetting!: DialogSetting;
 
   isLtr = true;
 
-  
+  dialogClosed$: Observable<DialogResult>;
+  dialogTextInput$: Observable<string>;
 
   timesCircle = 'assets/icons/times-circle.svg';
   checkCircle = 'assets/icons/check-circle.svg';
   warningTriangle = 'assets/icons/exclamation-triangle.svg';
 
-  
+  private dialogClosed = new Subject<DialogResult>();
+  private dialogTextInput = new Subject<string>();
   private settingsFacadeSubscription!: Subscription;
 
-  constructor(private dialogRef: MatDialogRef<DialogTemplateComponent>, private settingsFacade: SettingsFacade ,  private _dialogService:DialogService) {
+  constructor(
+    private dialogRef: MatDialogRef<DialogTemplateComponent>,
+    private settingsFacade: SettingsFacade
+  ) {
+    this.dialogClosed$ = this.dialogClosed.asObservable();
+    this.dialogTextInput$ = this.dialogTextInput.asObservable();
 
-    
-
-    this.settingsFacadeSubscription = settingsFacade.language.subscribe((lang) => {
-      this.isLtr = lang === 'en';
-    });
+    this.settingsFacadeSubscription = settingsFacade.language.subscribe(
+      (lang) => {
+        this.isLtr = lang === 'en';
+      }
+    );
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onClose(type: DialogResult): void {
     if (type === 'confirm') {
-      this._dialogService.dialogClosed.next('confirm');
+      this.dialogClosed.next('confirm');
     } else {
-      this._dialogService.dialogClosed.next('cancel');
+      this.dialogClosed.next('cancel');
     }
 
     if (this.dialogSetting.hasTextInput) {
-      this._dialogService.dialogTextInput.next(this.textInput);
+      this.dialogTextInput.next(this.textInput);
     }
 
     this.dialogRef.close();
   }
-  
 }
 
 export type DialogStatus = 'success' | 'warning' | 'danger';
@@ -68,22 +77,31 @@ export interface DialogSetting {
 
 @Injectable()
 export class DialogService {
-  dialogClosed = new Subject<DialogResult>();
-  dialogTextInput = new Subject<string>();
-  dialogClosed$: Observable<DialogResult> = this.dialogClosed.asObservable();;
-  dialogTextInput$: Observable<string> = this.dialogTextInput.asObservable();
+  constructor(private dialog: MatDialog) {}
 
-  constructor(private dialog: MatDialog) {
-  }
+  show(
+    status: DialogStatus,
+    title: string,
+    message: string,
+    confirmButtonTitle: string = 'Confirm',
+    cancelButtonTitle: string = 'Cancel',
+    hasTextInput: boolean = false
+  ): DialogTemplateComponent {
 
-  show(status: DialogStatus, title: string, message: string, confirmButtonTitle: string = 'Confirm',
-       cancelButtonTitle: string = 'Cancel', hasTextInput: boolean = false): DialogTemplateComponent {
+    this.dialog.closeAll();
+
     const dialog = this.dialog.open(DialogTemplateComponent, {
-      width: '50%', disableClose: true
+      width: '50%',
+      disableClose: true
     });
 
     dialog.componentInstance.dialogSetting = {
-      status, title, message, hasTextInput, confirmButtonTitle, cancelButtonTitle
+      status,
+      title,
+      message,
+      hasTextInput,
+      confirmButtonTitle,
+      cancelButtonTitle
     };
 
     return dialog.componentInstance;
