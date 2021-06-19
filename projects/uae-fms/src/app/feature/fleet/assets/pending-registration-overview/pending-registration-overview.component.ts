@@ -2,12 +2,13 @@ import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { DialogService } from '@core/dialog/dialog-template.component';
 import { RegistrationFacade, RegistrationService } from '@feature/fleet/+state/assets/registration';
 import { TrafficFineTableFacade } from '@feature/traffic-fine/+state/traffic-fine';
 import { ITrafficFineVehicleInfo, ITrafficFineVehicleInfoVehicleInfo, ITrafficFineVehicleInfoVehicleReturn } from '@models/pending-registration.model';
 import { Utility } from '@shared/utility/utility';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, Subscription } from 'rxjs';
+import { map, take, takeLast, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-pending-registration-overview',
@@ -35,42 +36,8 @@ export class PendingRegistrationOverviewComponent
   filteredFuelTag: any[];
   inputForm: FormGroup;
   submitted = false;
-  // displayModal = false;
-  // dialogSetting: IDialogAlert = {
-  //   header: 'Asset Successfully Registered',
-  //   hasError: false,
-  //   message: 'Sample hint is here to explain process',
-  //   confirmButton: 'Customize Now',
-  //   buttons: [
-  //     {
-  //       title: 'Customize Later',
-  //       eventEmit: 'customizeLater'
-  //     }
-  //   ],
-  //   cancelButton: 'Cancel'
-  // };
-  //#region Dialog
-  dialogModal = false;
+
   taskFiltered: any[];
-  dialogSetting: IDialogAlert = {
-    header: 'Add Registration',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
-  errorDialogSetting: IDialogAlert = {
-    header: '',
-    message: 'Error occurred in progress',
-    confirmButton: 'Ok',
-    isWarning: false,
-    hasError: true,
-    hasHeader: true,
-    cancelButton: undefined
-  };
-  dialogType = null;
-  //#endregion Dialog
-  errorDialogModal = false;
   isEdit: boolean = false;
   id: any;
   _registration: any;
@@ -126,14 +93,15 @@ export class PendingRegistrationOverviewComponent
 
   loadVehicleInfo:boolean = false;
   vehicleInfo$:Observable<ITrafficFineVehicleInfo>;
-
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
     private _registrationFacade: RegistrationFacade,
-    private _trafficFineFacade : TrafficFineTableFacade
+    private _trafficFineFacade : TrafficFineTableFacade,
+    private _dialogService : DialogService
   ) {
     super(injector);
+    this._registrationFacade.resetParams();
     this._trafficFineFacade.reset();
   }
 
@@ -193,56 +161,66 @@ export class PendingRegistrationOverviewComponent
       this._registrationFacade.assetForRegistration$.subscribe((x) => {
         this.assetSummary = x;
       });
-      this._registrationFacade.submitted$.subscribe((x) => {
-        if (x) {
-          this.dialogModal = true;
-          this.dialogType = 'success';
-          this.dialogSetting.header = this.isEdit
-            ? 'Edit registration'
-            : 'Add new registration';
-          this.dialogSetting.message = this.isEdit
-            ? 'Changes Saved Successfully'
-            : 'Registration Added Successfully';
-          this.dialogSetting.isWarning = false;
-          this.dialogSetting.hasError = false;
-          this.dialogSetting.confirmButton = undefined;
-          this.dialogSetting.buttons = [
-            { title: 'Customize Now', eventEmit: 'now' },
-            { title: 'Customize Later', eventEmit: 'later' }
-          ];
-
-          this.dialogSetting.cancelButton = undefined;
-          this._registrationFacade.loadAll();
-        }
-      });
-
-      this._registrationFacade.error$.subscribe((x) => {
-        if (x?.error) {
-          this.errorDialogModal = true;
-          this.errorDialogSetting.header = this.isEdit
-            ? 'Edit registration'
-            : 'Add new registration';
-          this.errorDialogSetting.hasError = true;
-          this.errorDialogSetting.cancelButton = undefined;
-          this.errorDialogSetting.confirmButton = 'Ok';
-        } else {
-          this.errorDialogModal = false;
-        }
-      });
-
-      this._trafficFineFacade.error$.subscribe(x => {
-        if (x?.error) {
-          this.errorDialogModal = true;
-          this.errorDialogSetting.header = "Load Vehicle info"
-          this.dialogSetting.message ="No vehicle with this specification was found"
-          this.errorDialogSetting.hasError = true;
-          this.errorDialogSetting.cancelButton = undefined;
-          this.errorDialogSetting.confirmButton = 'Ok';
-        } else {
-          this.errorDialogModal = false;
-        }
-      })
     });
+
+    this._registrationFacade.submitted$.subscribe((x) => {
+      if (x) {
+        const dialog = this._dialogService.show('success' ,
+        (this.isEdit? 'Edit registration': 'Add new registration') , 
+        (this.isEdit ? 'Changes Saved Successfully': 'Registration Added Successfully') , 
+        (this.isEdit ? 'Ok': 'Customize Now'),
+        (this.isEdit ? undefined : 'Customize Later') 
+        )
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+            if (result === 'confirm') {
+              if (this.assetId > 0 && !this.isEdit) {
+                this.router.navigate([
+                  '/fleet/assets/' + this.assetId + '/customization'
+                ]);
+              }
+              if(this.isEdit) {this.router.navigate(['/fleet/assets'])}
+            }else{
+              this.router.navigate(['/fleet/assets']);
+            }
+            dialogClose$?.unsubscribe();
+          })
+        ).subscribe();
+        this._registrationFacade.resetParams();
+        this._registrationFacade.loadAll();
+      }
+    })
+
+    this._registrationFacade.error$.subscribe((x) => {
+      if (x?.error) {
+        const dialog = this._dialogService.show('danger' , (this.isEdit? 'Edit registration': 'Add new registration') , 'We have an error. Do you want continue ?', 'Yes' , 'Cancel')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+            if (result !== 'confirm') {
+              this.router.navigate(['/fleet/assets']);
+            }
+            dialogClose$?.unsubscribe();
+          })
+          ).subscribe();
+          this._registrationFacade.resetParams();
+      }
+    });
+
+    this._trafficFineFacade.error$.subscribe(x => {
+      if (x?.error) {
+        const dialog = this._dialogService.show('danger' , 'Load Vehicle info' , 'No vehicle with this specification was found', 'Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+            if (result === 'confirm') {
+            }
+            dialogClose$?.unsubscribe();
+          })
+        ).subscribe();
+      }
+    })
   }
   searchSalikTag(event) {
     let filtered: any[] = [];
@@ -267,60 +245,37 @@ export class PendingRegistrationOverviewComponent
     this.filteredFuelTag = filtered;
   }
 
-  dialogConfirm($event): void {
-    this.errorDialogModal = false;
-    this.dialogModal = false;
-    if (!$event) return;
-    if ($event == 'now') {
-      this.dialogModal = false;
-      this._registrationFacade.resetParams();
-      this.router.navigate([
-        '/fleet/assets/' + this.assetId + '/customization'
-      ]);
-      return;
-    }
-    if ($event == 'later') {
-      this.dialogModal = false;
-      this._registrationFacade.resetParams();
-      this.router.navigate(['/fleet/assets']);
-      return;
-    }
+  // dialogConfirm($event): void {
+  //   this.errorDialogModal = false;
+  //   this.dialogModal = false;
+  //   if (!$event) return;
+  //   if ($event == 'now') {
+  //     this.dialogModal = false;
+  //     this._registrationFacade.resetParams();
+  //     this.router.navigate([
+  //       '/fleet/assets/' + this.assetId + '/customization'
+  //     ]);
+  //     return;
+  //   }
+  //   if ($event == 'later') {
+  //     this.dialogModal = false;
+  //     this._registrationFacade.resetParams();
+  //     this.router.navigate(['/fleet/assets']);
+  //     return;
+  //   }
 
-    if (this.dialogType == 'submit') {
-      let formValue = this.inputForm.getRawValue();
-      let registerByPlateNumberValue = {
-        id:this.assetId,
-        plateCategory:formValue.plateCategory.value,
-        plateCode:formValue.plateCode,
-        plateNumber:formValue.plateNumber,
-        plateSource:formValue.plateSource,
-        fuelTag:formValue.fuelTag,
-        tollTag:formValue.salikTag
-      }
-      let registerByChassisNumberValue = {
-        id:this.assetId,
-        chassisNumber:formValue.chassisNumber,
-        fuelTag:formValue.fuelTag,
-        tollTag:formValue.salikTag
-      }
-      if(this.inputForm.get('registerType').value === 'plate_number'){
-        console.log(registerByPlateNumberValue)
-        this._registrationFacade.registerByPlateNumber(registerByPlateNumberValue)
-      }else if (this.inputForm.get('registerType').value === 'chassis'){
-        console.log(registerByChassisNumberValue)
-        this._registrationFacade.registerByChasisNumber(registerByChassisNumberValue)
-      }
-
-    } else {
-      this.router
-        .navigate(['/fleet/assets'], {
-          queryParams: { id: 'pendingRegistrationTab' }
-        })
-        .then((_) => {
-          this._registrationFacade.resetParams();
-        });
-    }
-  }
+  //   if (this.dialogType == 'submit') {
+     
+  //   } else {
+  //     this.router
+  //       .navigate(['/fleet/assets'], {
+  //         queryParams: { id: 'pendingRegistrationTab' }
+  //       })
+  //       .then((_) => {
+  //         this._registrationFacade.resetParams();
+  //       });
+  //   }
+  // }
 
   plateCategoryChange(event){
     switch (event.value.label) {
@@ -357,26 +312,31 @@ export class PendingRegistrationOverviewComponent
       this.inputForm.markAllAsTouched();
       return;
     }
-    
-    this.dialogType = 'submit';
-    this.dialogModal = true;
-    if (this.isEdit) {
-      this.dialogSetting.header = 'Edit registration';
-      this.dialogSetting.message =
-        'Are you sure you want to submit this changes?';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
-      return;
-    } else {
-      this.dialogSetting.header = 'Add new registration';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.hasError = false;
-      this.dialogSetting.message =
-        'Are you sure you want to add new registration?';
-      this.dialogSetting.confirmButton = 'OK';
-      this.dialogSetting.cancelButton = 'Cancel';
+    let formValue = this.inputForm.getRawValue();
+    let registerByPlateNumberValue = {
+      id:this.assetId,
+      plateCategory:formValue.plateCategory.value,
+      plateCode:formValue.plateCode,
+      plateNumber:formValue.plateNumber,
+      plateSource:formValue.plateSource,
+      fuelTag:formValue.fuelTag,
+      tollTag:formValue.salikTag
     }
+    let registerByChassisNumberValue = {
+      id:this.assetId,
+      chassisNumber:formValue.chassisNumber,
+      fuelTag:formValue.fuelTag,
+      tollTag:formValue.salikTag
+    }
+    if(this.inputForm.get('registerType').value === 'plate_number'){
+      console.log(registerByPlateNumberValue)
+      this._registrationFacade.registerByPlateNumber(registerByPlateNumberValue)
+    }else if (this.inputForm.get('registerType').value === 'chassis'){
+      console.log(registerByChassisNumberValue)
+      this._registrationFacade.registerByChasisNumber(registerByChassisNumberValue)
+    }
+
+
   }
 
   public get language(): string {
@@ -384,25 +344,18 @@ export class PendingRegistrationOverviewComponent
   }
 
   cancelForm() {
-    this.dialogModal = true;
-    this.dialogType = 'cancel';
-    if (this.isEdit) {
-      this.dialogSetting.header = 'Edit registration';
-      this.dialogSetting.hasError = false;
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.message =
-        'Are you sure that you want to cancel editing registration?';
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
-    }
-
-    this.dialogSetting.header = 'Add new registration';
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.message =
-      'Are you sure that you want to cancel adding new registration?';
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.cancelButton = 'Cancel';
+    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Ok','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+        if (result === 'confirm') {
+          this.router.navigate(['/fleet/assets']);
+        }
+        dialogClose$?.unsubscribe();
+      })
+    )
+    .subscribe();
+  
   }
 }
 

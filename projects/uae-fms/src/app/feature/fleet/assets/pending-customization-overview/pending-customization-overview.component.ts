@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { AssetMasterService } from '../../+state/assets/asset-master';
 import { CustomizationService } from '../../+state/assets/customization';
 import { SubAssetService } from '../../+state/sub-asset';
 import { AccessoryService } from '../../+state/accessory';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-pending-customization-overview',
@@ -35,24 +35,6 @@ export class PendingCustomizationOverviewComponent implements OnInit {
   customizationData$: Observable<any>;
   customizationData;
   customizationForm: FormGroup;
-
-  dialogModal = false;
-  dialogSetting: IDialogAlert = {
-    header: 'Apply Customization',
-    hasError: false,
-    message: 'Are you sure you want to apply Customization',
-    confirmButton: 'Yes',
-    cancelButton: 'Cancel'
-  };
-
-  successDialogModal = false;
-  successDialogSetting: IDialogAlert = {
-    header: 'Customization Applied',
-    hasError: false,
-    message: 'Customization Applied Successfully',
-    cancelButton: 'Ok'
-  };
-
   outp = {
     subAssets: [],
     accessories: []
@@ -88,7 +70,8 @@ export class PendingCustomizationOverviewComponent implements OnInit {
     private cusService: CustomizationService,
     private subAssetService: SubAssetService,
     private accessoryService: AccessoryService,
-    private router: Router
+    private router: Router,
+    private _dialogService : DialogService
   ) {}
 
   ngOnInit(): void {
@@ -245,15 +228,80 @@ export class PendingCustomizationOverviewComponent implements OnInit {
   }
 
   save() {
-    this.dialogSetting = {
-      header: 'Apply Customization',
-      hasError: false,
-      message: 'Are you sure you want to apply Customization',
-      confirmButton: 'Yes',
-      cancelButton: 'Cancel'
-    };
-
-    this.dialogModal = true;
+    const dialog = this._dialogService.show('success' ,
+                  'Apply Customization' , 
+                  'Are you sure you want to apply Customization?' , 
+                  'Yes',
+                  'No'
+                  );
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+        if (result === 'confirm') {
+          let outdata = {
+            accessories: this.outp.accessories
+              .map((x) => {
+                return {
+                  assetBcAccessoryId: x.assetBcAccessoryId,
+                  accessoryId: x.accessory?.id || null
+                };
+              })
+              .filter((z) => z != null),
+              subAssets: this.outp.subAssets
+              .map((x) => {
+                return {
+                  assetBcSubAssetId: x.assetBcSubAssetId,
+                  subAssetId: x.subAsset?.id || null
+                };
+              })
+              .filter((z) => z != null)
+          };
+    
+          this.cusService
+            .compelete(outdata, this.assetId)
+            .pipe(
+              tap(
+                (_) => {
+                  const dialog = this._dialogService.show('success' ,
+                  'Apply Customization' , 
+                  'Customization Applied Successfully' , 
+                  'Ok',
+                  undefined
+                  );
+                  const dialogClose$:Subscription = dialog.dialogClosed$
+                  .pipe(
+                    tap((result) => {
+                      if (result === 'confirm') {
+                        this.router.navigate(['fleet/assets']);
+                      }
+                      dialogClose$?.unsubscribe();
+                    })
+                  ).subscribe();
+                },
+                (error: HttpErrorResponse) => {
+                  if (error.status === 404) {
+                    const dialog = this._dialogService.show('danger' ,
+                    'Apply Customization' , 
+                    'This Accessory or Sub asset is not usable' , 
+                    'Ok',
+                    undefined
+                    );
+                    const dialogClose$:Subscription = dialog.dialogClosed$
+                    .pipe(
+                      tap((result) => {
+                        dialogClose$?.unsubscribe();
+                      })
+                    ).subscribe();
+                  }
+                }
+              )
+            )
+            .subscribe();
+        }else{
+        }
+        dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
   }
 
   filterAccessory($event) {
@@ -295,55 +343,4 @@ export class PendingCustomizationOverviewComponent implements OnInit {
     }
   }
 
-  dialogConfirm($event) {
-    this.dialogModal = false;
-    if ($event) {
-      let outdata = {
-        accessories: this.outp.accessories
-          .map((x) => {
-            // if (!x.accessory?.id || x.accessory?.id == null || x.accessory?.id == "") return;
-            return {
-              assetBcAccessoryId: x.assetBcAccessoryId,
-              accessoryId: x.accessory?.id || null
-            };
-          })
-          .filter((z) => z != null),
-        subAssets: this.outp.subAssets
-          .map((x) => {
-            // if (!x.subAsset?.id || x.subAsset?.id == null || x.subAsset?.id == "") return;
-            return {
-              assetBcSubAssetId: x.assetBcSubAssetId,
-              subAssetId: x.subAsset?.id || null
-            };
-          })
-          .filter((z) => z != null)
-      };
-
-      this.cusService
-        .compelete(outdata, this.assetId)
-        .pipe(
-          tap(
-            (_) => {
-              this.successDialogModal = true;
-            },
-            (error: HttpErrorResponse) => {
-              if (error.status === 404) {
-                this.dialogModal = true;
-                this.dialogSetting.message =
-                  'This Accessory or Sub asset is not usable';
-                this.dialogSetting.hasError = true;
-                this.dialogSetting.cancelButton = 'OK';
-                this.dialogSetting.confirmButton = undefined;
-              }
-            }
-          )
-        )
-        .subscribe();
-    }
-  }
-
-  successDialogConfirm() {
-    this.successDialogModal = false;
-    this.router.navigate(['fleet/assets']);
-  }
 }
