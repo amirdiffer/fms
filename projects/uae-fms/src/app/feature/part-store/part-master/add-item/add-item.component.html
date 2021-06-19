@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                         </ng-template>
-                        
+
                         <div class="col-4" formArrayName="suppliers" [class.col-6]="!isAsset">
                             <ng-container *ngFor="let sup of supplier(i).controls;let j=index; let lastest=last;" >
                                 <div class="p-field form-section__field options-select" [formGroupName]="j">
@@ -130,7 +130,5 @@
             </ng-container>
             <hr *ngIf="!last" class="line">
         </div>
-    </div>  
-</form> 
-
-<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+    </div>
+</form>
