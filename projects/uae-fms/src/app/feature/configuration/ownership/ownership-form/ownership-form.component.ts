@@ -6,6 +6,7 @@ import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { map } from 'rxjs/operators';
 import { OwnershipFacade, OwnershipService } from '../../+state/ownership';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-ownership-form',
@@ -65,32 +66,6 @@ export class OwnershipFormComponent extends Utility implements OnInit {
   );
   //#endregion
 
-  //#region Dialogs
-  dialogCancelSetting: IDialogAlert = {
-    header: 'Cancel',
-    hasError: false,
-    isWarning: true,
-    message: 'Are you sure you want to cancel?',
-    confirmButton: 'Cancel',
-    cancelButton: 'No'
-  };
-  dialogSuccessSetting: IDialogAlert = {
-    header: 'Success',
-    hasError: false,
-    message: 'New ownership Successfully Added',
-    confirmButton: 'Ok'
-  };
-  dialogErrorSetting: IDialogAlert = {
-    header: 'Error',
-    hasError: true,
-    message: 'Some Error Occurred',
-    confirmButton: 'Ok'
-  };
-  displayCancelModal = false;
-  displaySuccessModal = false;
-  displayErrorModal = false;
-  //#endregion
-
   //#region  Variables
   ownerShipForm: FormGroup;
   submitted = false;
@@ -105,7 +80,8 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     private _fb: FormBuilder,
     private facade: OwnershipFacade,
     private service: OwnershipService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private dialogService: DialogService
   ) {
     super(injector);
   }
@@ -122,18 +98,27 @@ export class OwnershipFormComponent extends Utility implements OnInit {
 
     this.facade.submitted$.subscribe((x) => {
       if (x) {
-        this.displaySuccessModal = true;
-        this.dialogSuccessSetting.message = this.isEdit
-          ? 'Ownership Edited Successfully'
-          : 'New ownership Successfully Added';
-        this.dialogErrorSetting.hasError = false;
+        const dialog = this.dialogService.show('success', 'Success',
+          this.isEdit ? 'Ownership Edited Successfully' : 'New ownership Successfully Added',
+          'Ok', '')
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+            this.resetParams();
+            this._goToList();
+          }
+        });
       }
     });
 
     this.facade.error$.subscribe((x) => {
       if (x?.error) {
-        this.displayErrorModal = true;
-        this.dialogErrorSetting.hasError = true;
+        const dialog = this.dialogService.show('danger', 'Error', 'Some Error Occurred',
+          'Ok', '')
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+          } else {
+          }
+        });
       }
     });
 
@@ -178,30 +163,21 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     }
   }
   showCancelAlert() {
-    this.displayCancelModal = true;
+    const dialog = this.dialogService.show('warning', 'Cancel',
+      'Are you sure you want to cancel ?', 'Yes', 'No');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this._goToList();
+      }
+    });
   }
 
   resetParams(): void {
     this.facade.resetParams();
   }
 
-  dialogConfirm(confirmed) {
-    this.displayCancelModal = false;
-    this.displayErrorModal = false;
-    if (confirmed) {
-      this.displaySuccessModal = false;
-      this._goToList();
-    } else this.displaySuccessModal = false;
-  }
-
   _goToList() {
     this.router.navigate(['configuration/ownership']);
-  }
-
-  successConfirmed() {
-    this.displaySuccessModal = false;
-    this._goToList();
-    this.resetParams();
   }
 }
 
