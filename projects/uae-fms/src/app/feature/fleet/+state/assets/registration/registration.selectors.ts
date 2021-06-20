@@ -1,36 +1,30 @@
 import { createSelector } from '@ngrx/store';
-import { FleetSelectors } from '../../fleet.selectors';
 import { registrationAdapter } from './registration.entity';
 const { selectAll } = registrationAdapter.getSelectors();
+const assetRegistrationState = (state) => state['registration'];
 
 export class RegistrationSelectors {
-  static selectAll = createSelector(
-    FleetSelectors.registrationSelector,
-    selectAll
-  );
+  static selectAll = createSelector(assetRegistrationState, selectAll);
   static submitted = createSelector(
-    FleetSelectors.registrationSelector,
+    assetRegistrationState,
     (state) => state.submitted
   );
   static count = createSelector(
-    FleetSelectors.registrationSelector,
+    assetRegistrationState,
     (state) => state.resultNumber
   );
 
   static assetForRegistration = createSelector(
-    FleetSelectors.registrationSelector,
+    assetRegistrationState,
     (state) => state.assetForRegistration
   );
 
   static message = createSelector(
-    FleetSelectors.registrationSelector,
+    assetRegistrationState,
     (state) => state.message
   );
 
-  static error = createSelector(
-    FleetSelectors.registrationSelector,
-    (state) => state.error
-  );
+  static error = createSelector(assetRegistrationState, (state) => state.error);
 
   static selectById = createSelector(
     RegistrationSelectors.selectAll,

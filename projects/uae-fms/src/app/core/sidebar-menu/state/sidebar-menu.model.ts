@@ -1,4 +1,4 @@
-import { AppState } from '../../core.module';
+import { AppState } from '@core/core.state';
 
 export interface SidebarMenuModel {
   opened: boolean;

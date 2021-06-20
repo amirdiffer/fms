@@ -9,14 +9,14 @@ import { AccessoryComponent } from './accessory.component';
 import { AddAccessoryComponent } from './add-accessory/add-accessory.component';
 import { AccessoryOverviewComponent } from './accessory-overview/accessory-overview.component';
 import { AccessoryTypeStateModule } from '@feature/configuration/+state/fleet-configuration/accessory-type/accessory-type-state.module';
-
-
+import { AccessoryStateModule } from '../+state/accessory/accessory-state.module';
+import { SubAssetStateModule } from '../+state/sub-asset/sub-asset-state.module';
 
 @NgModule({
   declarations: [
     AccessoryComponent,
     AddAccessoryComponent,
-    AccessoryOverviewComponent,
+    AccessoryOverviewComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +25,9 @@ import { AccessoryTypeStateModule } from '@feature/configuration/+state/fleet-co
     FilterModule,
     TableModule,
     SharedModule,
-    AccessoryTypeStateModule
+    AccessoryTypeStateModule,
+    AccessoryStateModule,
+    SubAssetStateModule
   ]
 })
-export class AccessoryModule { }
+export class AccessoryModule {}

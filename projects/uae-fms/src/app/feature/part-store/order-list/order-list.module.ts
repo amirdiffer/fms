@@ -13,8 +13,14 @@ import { OrderListRoutingModule } from './order-list-routing.module';
 import { CarouselModule } from 'primeng/carousel';
 import { AssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/asset-type/asset-type-state.module';
 import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/sub-asset-type/sub-asset-type-state.module';
-
-
+import { BodyShopTechnicianStateModule } from '@feature/workshop/+state/body-shop/technician/body-shop-technician-state.module';
+import { SubAssetStateModule } from '@feature/fleet/+state/sub-asset/sub-asset-state.module';
+import { OrderListStateModule } from '../+state/order-list/order/order-state.module';
+import { MyOrderAssetStateModule } from '../+state/order-list/my-order/asset/my-order-asset-state.module';
+import { MyOrderSubAssetStateModule } from '../+state/order-list/my-order/sub-asset/my-order-sub-asset-state.module';
+import { RequestListStateModule } from '../+state/order-list/request/request-list-state.module';
+import { SupplierStateModule } from '../+state/order-list/suppliers/suppliers-state.module';
+import { PartMasterStateModule } from '../+state/part-master/part-master-state.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +39,16 @@ import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-con
     SharedModule,
     CarouselModule,
     AssetTypeStateModule,
-    SubAssetTypeStateModule
+    SubAssetTypeStateModule,
+    CarouselModule,
+    BodyShopTechnicianStateModule,
+    SubAssetStateModule,
+    MyOrderAssetStateModule,
+    MyOrderSubAssetStateModule,
+    OrderListStateModule,
+    RequestListStateModule,
+    SupplierStateModule,
+    PartMasterStateModule
   ]
 })
-export class OrderListModule { }
+export class OrderListModule {}

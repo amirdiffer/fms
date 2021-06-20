@@ -10,10 +10,8 @@ import { TabViewModule } from '@core/tab-view';
 import { FleetStatusAssetStateModule } from '@feature/configuration/+state/fleet-status/asset/fleet-status-asset-state.module';
 import { FleetStatusSubAssetStateModule } from '@feature/configuration/+state/fleet-status/sub-asset/fleet-status-sub-asset-state.module';
 
-
-
 @NgModule({
-  declarations: [FleetStatusComponent , AddFleetStatusComponent],
+  declarations: [FleetStatusComponent, AddFleetStatusComponent],
   imports: [
     CommonModule,
     FleetStatusRoutingModule,
@@ -25,4 +23,4 @@ import { FleetStatusSubAssetStateModule } from '@feature/configuration/+state/fl
     FleetStatusSubAssetStateModule
   ]
 })
-export class FleetStatusModule { }
+export class FleetStatusModule {}

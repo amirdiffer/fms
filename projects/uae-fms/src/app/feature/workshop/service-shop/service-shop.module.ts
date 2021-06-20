@@ -6,8 +6,6 @@ import { AddLocationServiceShopComponent } from './add-location/add-location.com
 import { AddRequestServiceShopComponent } from './add-request/add-request.component';
 import { AddTechnicianServiceShopComponent } from './add-technician/add-technician.component';
 import { ServiceShopRoutingModule } from './service-shop-routing.module';
-import { AngularSvgIconModule } from 'angular-svg-icon';
-
 import { DashboardModule } from '../../dashboard/dashboard.module';
 import { FilterModule } from '@core/filter';
 import { UserProfileModule } from '@feature/user/user.module';
@@ -17,14 +15,19 @@ import { TableModule } from '@core/table';
 import { MapModule } from '@core/map-view';
 import { RequestTabOverviewServiceShopComponent } from './request-tab-overview/request-tab-overview.component';
 import { TechnicianOverviewServiceShopComponent } from './technician-overview/technician-overview.component';
-import { JobCardOverviewComponent } from "./job-card-overview/job-card-overview.component";
+import { JobCardOverviewComponent } from './job-card-overview/job-card-overview.component';
 import { AssetsModule } from '@feature/fleet/assets/assets.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ServiceShopJobCardStateModule } from '../+state/service-shop/job-card/service-shop-job-card-state.module';
+import { ServiceShopLocationStateModule } from '../+state/service-shop/location/service-shop-location-state.module';
+import { ServiceShopRequestStateModule } from '../+state/service-shop/request/service-shop-request-state.module';
+import { ServiceShopTechnicianStateModule } from '../+state/service-shop/technician/service-shop-technician-state.module';
+import { ConfigurationStateModule } from '../../configuration/+state/configuration.state.module';
+import { TaskMasterStateModule } from '../../workshop/+state/task-master/task-master-state.module';
 
 @NgModule({
   declarations: [
-    RequestTabOverviewServiceShopComponent, 
-    TechnicianOverviewServiceShopComponent, 
+    RequestTabOverviewServiceShopComponent,
+    TechnicianOverviewServiceShopComponent,
     JobCardOverviewComponent,
     ServiceShopComponent,
     AddJobCardServiceShopComponent,
@@ -43,6 +46,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     TabViewModule,
     UserProfileModule,
     AssetsModule,
+    ServiceShopJobCardStateModule,
+    ServiceShopLocationStateModule,
+    ServiceShopRequestStateModule,
+    ServiceShopTechnicianStateModule,
+    ConfigurationStateModule,
+    TaskMasterStateModule
   ]
 })
-export class ServiceShopModule { }
+export class ServiceShopModule {}

@@ -191,8 +191,7 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
         {
           button: 'edit',
           color: '#3F3F3F',
-          onClick: (col, data, button?) => {
-          }
+          onClick: (col, data, button?) => {}
         },
         {
           button: 'external',
@@ -200,15 +199,17 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
           onClick: (col, data, button?) => {
             // todo check condition data.id
             if (true) {
-              this._router.navigate(['/workshop/inspections/technical-inspection-report/', 1])
+              this._router.navigate([
+                '/workshop/inspections/technical-inspection-report/',
+                1
+              ]);
             }
           }
         },
         {
           button: 'cancel',
           color: '#F75A4A',
-          onClick: (col, data, button?) => {
-          }
+          onClick: (col, data, button?) => {}
         }
       ]
     }
@@ -218,10 +219,7 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
     private _router: Router
   ) {}
 
-  ngOnInit(): void {
-    this._facade.loadAll();
-  }
+  ngOnInit(): void {}
 
-  ngOnDestroy() {
-  }
+  ngOnDestroy() {}
 }

@@ -152,7 +152,7 @@ export class JobCardOverviewComponent implements OnInit {
               .navigate(['/workshop/body-shop/edit-job-card/' + data.id])
               .then();
           },
-          permission:['WORKSHOP_BODY_SHOP_JOB_CARD_UPDATE']
+          permission: ['WORKSHOP_BODY_SHOP_JOB_CARD_UPDATE']
         }
         // {
         //   button: 'edit',

@@ -13,9 +13,10 @@ import { AddUserComponent } from './users/add-user/add-user.component';
 import { SharedModule } from '@shared/shared.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { UsersStateModule } from '../+state/users/users-state.module';
 import { RolePermissionStateModule } from '../+state/role-permission/role-permission-state.module';
+import { OrganizationStateModule } from '@feature/fleet/+state/organization/organization-state.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { RolePermissionStateModule } from '../+state/role-permission/role-permis
     RolePermissionComponent,
     CompanySettingComponent,
     AddRoleAndPermissionComponent,
-    AddUserComponent,
+    AddUserComponent
   ],
   imports: [
     TableModule,
@@ -35,7 +36,9 @@ import { RolePermissionStateModule } from '../+state/role-permission/role-permis
     AlertDialogModule,
     MatTabsModule,
     UsersStateModule,
-    RolePermissionStateModule
+    RolePermissionStateModule,
+    MatTabsModule,
+    OrganizationStateModule
   ]
 })
 export class UserManagementModule {}

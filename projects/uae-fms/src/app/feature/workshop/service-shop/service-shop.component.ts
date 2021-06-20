@@ -10,13 +10,12 @@ import { map } from 'rxjs/operators';
 import moment from 'moment';
 import { Event, Router } from '@angular/router';
 import { TableComponent } from '@core/table/table.component';
-import {
-  ServiceShopJobCardFacade,
-  ServiceShopLocationFacade,
-  ServiceShopRequestFacade,
-  ServiceShopTechnicianFacade
-} from '../+state/service-shop';
+
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { ServiceShopLocationFacade } from '../+state/service-shop/location';
+import { ServiceShopTechnicianFacade } from '../+state/service-shop/technician';
+import { ServiceShopJobCardFacade } from '../+state/service-shop/job-card';
+import { ServiceShopRequestFacade } from '../+state/service-shop/request';
 @Component({
   templateUrl: './service-shop.component.html',
   styleUrls: ['./service-shop.component.scss']
@@ -293,7 +292,7 @@ export class ServiceShopComponent implements OnInit {
               '/workshop/service-shop/' + data.id + '/add-job-card'
             ]);
           },
-          permission:['WORKSHOP_SERVICE_SHOP_JOB_CARD_OPEN_CLOSE']
+          permission: ['WORKSHOP_SERVICE_SHOP_JOB_CARD_OPEN_CLOSE']
         },
         {
           button: 'external',
@@ -303,7 +302,10 @@ export class ServiceShopComponent implements OnInit {
               .navigate(['/workshop/service-shop/request-overview/' + data.id])
               .then();
           },
-          permission:['WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OWN' , 'WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS']
+          permission: [
+            'WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OWN',
+            'WORKSHOP_SERVICE_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS'
+          ]
         }
         // {
         //   button: 'edit',
@@ -384,7 +386,7 @@ export class ServiceShopComponent implements OnInit {
               .navigate(['/workshop/service-shop/job-card-overview/' + data.id])
               .then();
           },
-          permission:['WORKSHOP_SERVICE_SHOP_JOB_CARD_VIEW_DETAILS']
+          permission: ['WORKSHOP_SERVICE_SHOP_JOB_CARD_VIEW_DETAILS']
         },
         {
           button: 'edit',
@@ -396,7 +398,7 @@ export class ServiceShopComponent implements OnInit {
               '/workshop/service-shop/edit-job-card/' + data.id
             ]);
           },
-          permission:['WORKSHOP_SERVICE_SHOP_JOB_CARD_UPDATE']
+          permission: ['WORKSHOP_SERVICE_SHOP_JOB_CARD_UPDATE']
         }
       ]
     }
@@ -466,7 +468,7 @@ export class ServiceShopComponent implements OnInit {
               '/workshop/service-shop/edit-technician/' + data.id
             ]);
           },
-          permission:['WORKSHOP_SERVICE_SHOP_TECHNICIAN_UPDATE']
+          permission: ['WORKSHOP_SERVICE_SHOP_TECHNICIAN_UPDATE']
         }
         /* {
           button: 'external',
@@ -547,7 +549,7 @@ export class ServiceShopComponent implements OnInit {
               '/workshop/service-shop/edit-location/' + data.id
             ]);
           },
-          permission:['WORKSHOP_BODY_SHOP_LOCATION_UPDATE']
+          permission: ['WORKSHOP_BODY_SHOP_LOCATION_UPDATE']
         }
         /* {
           button: 'external',
@@ -595,11 +597,6 @@ export class ServiceShopComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._facadeRequest.loadAll();
-    this._facadeJobCard.loadAll();
-    this._facadeTechnician.loadAll();
-    this._facadeLocation.loadAll();
-
     // this._facadeRequest.loadStatistics();
     this._facadeRequest.statistics$.subscribe((x) => {
       if (x) {

@@ -1,46 +1,38 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { environment } from '@environments/environment';
 import { IAssetTrafficFine, ITrafficFine } from '@models/traffic-fine';
 import { ResponseBody } from '@models/response-body';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class AssetTrafficFineService {
-  constructor(private http: HttpClient) {}
+  params = new HttpParams();
 
-  data: IAssetTrafficFine[] = this.returnMockData();
+  constructor(private http: HttpClient, private tableFacade: TableFacade) {}
 
-  returnMockData(): IAssetTrafficFine[] {
-    let d: IAssetTrafficFine[] = [];
-    for (let i = 1; i < 8; i++) {
-      d.push(
-        {
-          amount: i,
-          asset: { dpd: 'test data', id: i },
-          businessCategoryId: i,
-          dpd: 'test data',
-          id: 0,
-          operator: { firstName: 'test data', id: i, lastName: 'test data' },
-          ownershipId: i,
-          plateNumber: 'test data',
-          status: 'test data',
-          totalFines: i,
-          type: 'test data'
-        },
-      )
-    }
-    return d;
+  getParam(name) {
+    this.tableFacade.getPaginationByName(name).subscribe((x) => {
+      if (x != null) {
+        this.params = this.params
+          .set('page', x.page.toString())
+          .set('size', x.ipp.toString());
+      }
+    });
+    return this.params;
   }
 
   loadAll(): Observable<ResponseBody<IAssetTrafficFine[]>> {
-    // return this.http.get<ResponseBody<IAssetTrafficFine[]>>(
-    //   environment.baseApiUrl + 'traffic-fine/asset'
-    // );
-    return of({
-      error: false,
-      resultNumber: this.returnMockData().length,
-      message: this.returnMockData()
-    })
+    return this.http.get<ResponseBody<IAssetTrafficFine[]>>(
+      environment.baseApiUrl + 'traffic-fine/asset',
+      { params: this.getParam('asset-fine') }
+    );
+  }
+
+  getFinesOfSpecificAsset(id: number): Observable<ResponseBody<any>> {
+    return this.http.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'traffic-fine/asset/' + id
+    );
   }
 }

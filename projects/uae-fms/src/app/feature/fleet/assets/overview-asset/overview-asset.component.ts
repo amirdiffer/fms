@@ -1,15 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  AssetMasterFacade,
-  AssetMasterService
-} from '@feature/fleet/+state/assets/asset-master';
-
-import { Observable, Subject, Subscription } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
-
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
+import { Subject, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { Calendar } from 'primeng/calendar';
 
 @Component({
   selector: 'app-vehicle-detail',

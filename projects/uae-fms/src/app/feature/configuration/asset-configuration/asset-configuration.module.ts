@@ -36,4 +36,4 @@ import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-con
     SubAssetTypeStateModule
   ]
 })
-export class AssetConfigurationModule { }
+export class AssetConfigurationModule {}

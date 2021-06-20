@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { RegistrationSelectors } from '@feature/fleet/+state/assets/registration/registration.selectors';
-import { IRegistrationPartialState } from '@feature/fleet/+state/assets/registration/registration.entity';
-import { RegistrationActions } from '@feature/fleet/+state/assets/registration/registration.actions';
+import { RegistrationSelectors } from './registration.selectors';
+import {
+  IRegisterAssetByChassisNumber,
+  IRegisterAssetByPlateNumber,
+  IRegistrationPartialState
+} from './registration.entity';
+import { RegistrationActions } from './registration.actions';
 @Injectable()
 export class RegistrationFacade {
   registration$ = this.store.pipe(select(RegistrationSelectors.selectAll));
+
   error$ = this.store.pipe(select(RegistrationSelectors.error));
 
   submitted$ = this.store.pipe(select(RegistrationSelectors.submitted));
 
   conut$ = this.store.pipe(select(RegistrationSelectors.count));
+
   assetForRegistration$ = this.store.pipe(
     select(RegistrationSelectors.assetForRegistration)
   );
 
-  constructor(private store: Store<IRegistrationPartialState>) {}
+  constructor(private store: Store<IRegistrationPartialState>) {
+    this.loadAll();
+  }
 
   loadAll() {
     this.store.dispatch(RegistrationActions.loadAll());
@@ -34,5 +42,17 @@ export class RegistrationFacade {
   }
   resetParams() {
     this.store.dispatch(RegistrationActions.resetParams());
+  }
+
+  registerByPlateNumber(data: IRegisterAssetByPlateNumber) {
+    this.store.dispatch(
+      RegistrationActions.registerAssetByPlateNumber({ data })
+    );
+  }
+
+  registerByChasisNumber(data: IRegisterAssetByChassisNumber) {
+    this.store.dispatch(
+      RegistrationActions.registerAssetByChassisNumber({ data })
+    );
   }
 }

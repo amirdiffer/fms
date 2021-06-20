@@ -39,7 +39,7 @@
     }
   }
   .statistics {
-    margin: 0 .4em;
+    margin: 0 0.4em;
     &:last-child {
       margin-right: 0;
       .card {
@@ -62,7 +62,7 @@
   }
 
   .left_tag {
-    width: .4em;
+    width: 0.4em;
   }
 
   .filter {
@@ -97,11 +97,11 @@
   }
 }
 
-.flexible{
+.flexible {
   .filter-wrapper {
-    .statistics{
-      transition: .3s all;
-      &:hover{
+    .statistics {
+      transition: 0.3s all;
+      &:hover {
         flex-grow: 1.5;
         .filter-count {
           display: block !important ;
@@ -114,7 +114,7 @@
         }
       }
     }
-    .filter-title{
+    .filter-title {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

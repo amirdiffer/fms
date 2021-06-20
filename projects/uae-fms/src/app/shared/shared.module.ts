@@ -86,7 +86,12 @@ import { HasPermissionDirective } from '@core/Permission/permission-access.direc
     AlertDialogModule,
     UploaderModule
   ],
-  declarations: [RtlSupportDirective, CheckAccessDirective, HasPermissionDirective, OnlyDigitsDirective],
+  declarations: [
+    RtlSupportDirective,
+    CheckAccessDirective,
+    HasPermissionDirective,
+    OnlyDigitsDirective
+  ],
   exports: [
     CommonModule,
     FormsModule,

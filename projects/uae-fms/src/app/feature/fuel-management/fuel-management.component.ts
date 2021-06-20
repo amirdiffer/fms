@@ -147,7 +147,7 @@ export class FuelManagementComponent implements OnInit {
     private _facadeFuelCard: FuelCardsFacade,
     private _facadeAssetUsage: AssetUsageFacade,
     private _router: Router
-  ) { }
+  ) {}
 
   selectedTab;
   ngOnInit(): void {
@@ -197,20 +197,20 @@ export class FuelManagementComponent implements OnInit {
       {
         filterTitle: 'statistic.total',
         filterTagColor: '#B892FF',
-        filterCount: statisticsCount?.total?.toString()||0,
-        onActive(index: number): void { }
+        filterCount: statisticsCount?.total?.toString() || 0,
+        onActive(index: number): void {}
       },
       {
         filterTitle: 'statistic.available',
         filterTagColor: '#EF7A85',
-        filterCount: statisticsCount?.available?.toString()||0,
-        onActive(index: number): void { }
+        filterCount: statisticsCount?.available?.toString() || 0,
+        onActive(index: number): void {}
       },
       {
         filterTitle: 'statistic.assigned',
         filterTagColor: '#709775',
-        filterCount: statisticsCount?.assigned?.toString()||0,
-        onActive(index: number): void { }
+        filterCount: statisticsCount?.assigned?.toString() || 0,
+        onActive(index: number): void {}
       }
     ];
   }

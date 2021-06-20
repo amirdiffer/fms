@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  
-  
   {
     path: 'body-shop',
     loadChildren: () =>
@@ -29,13 +27,12 @@ const routes: Routes = [
   },
 
   {
-    path:'inspections',
+    path: 'inspections',
     loadChildren: () =>
-      import('./inspections/inspections.module').then((m) => m.InspectionsModule)
+      import('./inspections/inspections.module').then(
+        (m) => m.InspectionsModule
+      )
   }
-
-
-
 ];
 
 @NgModule({

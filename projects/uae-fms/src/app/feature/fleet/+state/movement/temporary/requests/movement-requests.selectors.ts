@@ -1,48 +1,42 @@
 import { createSelector } from '@ngrx/store';
-import { FleetSelectors } from '../../../fleet.selectors';
 import {
   MovementRequestsState,
   movementRequestsTemporaryAdapter
 } from './movement-requests.entity';
 const { selectAll } = movementRequestsTemporaryAdapter.getSelectors();
+const temporaryRequestState = (state) => state['movementRequestsTemporary'];
 
 export class MovementRequestsSelectorsTemporary {
-  static selectAll = createSelector(
-    FleetSelectors.movementRequestsSelectorTemporary,
-    selectAll
-  );
+  static selectAll = createSelector(temporaryRequestState, selectAll);
   static count = createSelector(
-    FleetSelectors.movementRequestsSelectorTemporary,
+    temporaryRequestState,
     (state) => state.resultNumber
   );
 
   static requestStatistic = createSelector(
-    FleetSelectors.movementRequestsSelectorTemporary,
+    temporaryRequestState,
     (state: MovementRequestsState) => state.statistic
   );
 
   static message = createSelector(
-    FleetSelectors.movementRequestsSelectorTemporary,
+    temporaryRequestState,
     (state) => state.message
   );
 
-  static error = createSelector(
-    FleetSelectors.movementRequestsSelectorTemporary,
-    (state) => state.error
-  );
+  static error = createSelector(temporaryRequestState, (state) => state.error);
 
   static submitted = createSelector(
-    FleetSelectors.movementRequestsSelectorTemporary,
+    temporaryRequestState,
     (state) => state.submitted
   );
 
   static rejected = createSelector(
-    FleetSelectors.movementRequestsSelectorTemporary,
+    temporaryRequestState,
     (state) => state.rejected
   );
 
   static assigned = createSelector(
-    FleetSelectors.movementRequestsSelectorTemporary,
+    temporaryRequestState,
     (state) => state.assigned
   );
 }

@@ -174,6 +174,7 @@ export class TaskMasterFormComponent
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
+        this._facade.loadAll();
       }
     });
   }

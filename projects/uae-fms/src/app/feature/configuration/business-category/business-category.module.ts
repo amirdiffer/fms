@@ -11,10 +11,8 @@ import { AccessoryTypeStateModule } from '../+state/fleet-configuration/accessor
 import { AssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/asset-type/asset-type-state.module';
 import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/sub-asset-type/sub-asset-type-state.module';
 
-
-
 @NgModule({
-  declarations: [BusinessCategoryComponent , AddCategoryComponent],
+  declarations: [BusinessCategoryComponent, AddCategoryComponent],
   imports: [
     CommonModule,
     BusinessCategoryRoutingModule,
@@ -25,7 +23,6 @@ import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-con
     AccessoryTypeStateModule,
     AssetTypeStateModule,
     SubAssetTypeStateModule
-
   ]
 })
-export class BusinessCategoryModule { }
+export class BusinessCategoryModule {}

@@ -12,14 +12,16 @@ import { RolePermissionFacade } from '../../+state/role-permission';
 export class RolePermissionComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   data$ = this.facade.rolePermission$.pipe(
-    map(
-      x => {
-        return x.map(y =>{
-          return {...y , description:'No description' , numberOfUser:'No Number of User'}
-        })
-      }
-    )
-  )
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
+          description: 'No description',
+          numberOfUser: 'No Number of User'
+        };
+      });
+    })
+  );
 
   rolePermission_Table: TableSetting = {
     columns: [
@@ -43,25 +45,28 @@ export class RolePermissionComponent implements OnInit {
           button: 'external',
           onClick: (col, data, button?) => {
             this.facade.reset();
-            this._router.navigate(['/configuration/user-management/role-permission/' + data.id]);
+            this._router.navigate([
+              '/configuration/user-management/role-permission/' + data.id
+            ]);
           },
-          permission:['DROLE_VIEW_DETAILS']
+          permission: ['DROLE_VIEW_DETAILS']
         },
         {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
             this.facade.reset();
-            this._router.navigate(['/configuration/user-management/edit-role-permission/' + data.id]);
+            this._router.navigate([
+              '/configuration/user-management/edit-role-permission/' + data.id
+            ]);
           },
-          permission:['DROLE_UPDATE']
+          permission: ['DROLE_UPDATE']
         }
       ]
     }
   };
 
-  constructor(private facade: RolePermissionFacade ,
-              private _router:Router) {}
+  constructor(private facade: RolePermissionFacade, private _router: Router) {}
 
   ngOnInit(): void {
     this.facade.loadAll();

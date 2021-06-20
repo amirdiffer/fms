@@ -20,7 +20,9 @@ export class ServiceShopTechnicianFacade {
 
   conut$ = this.store.pipe(select(ServiceShopTechnicianSelectors.count));
 
-  constructor(private store: Store<IServiceShopTechnicianPartialState>) {}
+  constructor(private store: Store<IServiceShopTechnicianPartialState>) {
+    this.loadAll();
+  }
 
   loadAll() {
     this.store.dispatch(ServiceShopTechnicianActions.loadAll());

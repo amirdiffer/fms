@@ -1,9 +1,9 @@
 export interface IFuelManagementFuelCard {
   id: number;
   tagNo: {
-    tagNo: string,
-    data: IFuelManagementFuelCardUsed[]
-  }
+    tagNo: string;
+    data: IFuelManagementFuelCardUsed[];
+  };
   used: string;
   usageLimit: string;
   asset: string;

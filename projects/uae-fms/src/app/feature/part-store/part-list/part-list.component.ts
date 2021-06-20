@@ -2,10 +2,13 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterCardSetting } from '@core/filter';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
-import { SubAssetTypeFacade} from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
+import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
 import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
-import { PartListFacade, PartListService } from '@feature/part-store/+state/part-list';
-import { PartMasterFacade } from '@feature/part-store/+state/part-master/part-master.facade'
+import {
+  PartListFacade,
+  PartListService
+} from '@feature/part-store/+state/part-list';
+import { PartMasterFacade } from '@feature/part-store/+state/part-master/part-master.facade';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,25 +17,24 @@ import { map } from 'rxjs/operators';
   templateUrl: './part-list.component.html',
   styleUrls: ['./part-list.component.scss']
 })
-export class PartListComponent implements OnInit , OnDestroy {
+export class PartListComponent implements OnInit, OnDestroy {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   partList = true;
   recordId: number;
-  selectedTab='assetPartTab';
+  selectedTab = 'assetPartTab';
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
-  assetType$:Observable<any>;
-  subAssetType$:Observable<any>;
-  assetPartCategory$:Observable<any>;
-  subAssetPartCategory$:Observable<any>;
+  assetType$: Observable<any>;
+  subAssetType$: Observable<any>;
+  assetPartCategory$: Observable<any>;
+  subAssetPartCategory$: Observable<any>;
 
   assetTypeSelected;
   subAssetTypeSelected;
   assetCategorySelected;
   subAssetCategorySelected;
-  assetCategorySelectedId:number;
-  subAssetCategorySelectedId:number;
-
+  assetCategorySelectedId: number;
+  subAssetCategorySelectedId: number;
 
   filterCardAsset: FilterCardSetting[] = [
     {
@@ -88,34 +90,35 @@ export class PartListComponent implements OnInit , OnDestroy {
     }
   ];
 
+  tableAssetPartData$: Observable<any>;
+  tableSubAssetPartData$: Observable<any>;
 
-  tableAssetPartData$:Observable<any>
-  tableSubAssetPartData$:Observable<any>
-
-  tableAssetPart:TableSetting;
-  tableSubAssetPart:TableSetting;
+  tableAssetPart: TableSetting;
+  tableSubAssetPart: TableSetting;
   partListDetaisTable: TableSetting = {
     columns: [
       {
         lable: 'tables.column.item',
         type: ColumnType.lable,
-        field: 'itemName',
+        field: 'itemName'
       },
       {
         lable: 'tables.column.make',
         type: ColumnType.lable,
-        field: 'makeName',
+        field: 'makeName'
       },
       {
         lable: 'tables.column.model',
         type: ColumnType.lable,
-        field: 'modelName',
+        field: 'modelName'
       },
-      { lable: 'tables.column.description',
+      {
+        lable: 'tables.column.description',
         type: ColumnType.lable,
         field: 'description'
       },
-      { lable: 'tables.column.status',
+      {
+        lable: 'tables.column.status',
         type: ColumnType.lable,
         field: 'status'
       },
@@ -146,201 +149,184 @@ export class PartListComponent implements OnInit , OnDestroy {
           button: 'external',
           onClick: (col, data, button?) => {
             this._router.navigate(['part-store/part-list/' + data.id], {
-              queryParams: { fleetType: data.fleetType.toLowerCase()}
+              queryParams: { fleetType: data.fleetType.toLowerCase() }
             });
           },
-          permission:['PARTSTORE_PART_VIEW_DETAILS']
+          permission: ['PARTSTORE_PART_VIEW_DETAILS']
         }
       ]
     }
   };
-
 
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private route: ActivatedRoute,
     private _facadePartMaster: PartMasterFacade,
-    private _fleetConfigurationAsset : AssetTypeFacade,
-    private _fleetConfigurationSubAsset:SubAssetTypeFacade,
+    private _fleetConfigurationAsset: AssetTypeFacade,
+    private _fleetConfigurationSubAsset: SubAssetTypeFacade,
     private _facadePartList: PartListFacade,
-    private _service : PartListService
+    private _service: PartListService
   ) {}
 
   ngOnInit(): void {
     this.tableAssetPart = Object.create(this.partListDetaisTable);
     this.tableSubAssetPart = Object.create(this.partListDetaisTable);
-    this._fleetConfigurationAsset.loadAll()
-    this._fleetConfigurationSubAsset.loadAll()
-    this._facadePartList.statisticsAssetPart$.subscribe(x => {
-      if(x){
-        this.filterCardAsset.map(y=>{
+    this._fleetConfigurationAsset.loadAll();
+    this._fleetConfigurationSubAsset.loadAll();
+    this._facadePartList.statisticsAssetPart$.subscribe((x) => {
+      if (x) {
+        this.filterCardAsset.map((y) => {
           switch (y.filterTitle) {
             case 'statistic.total':
-                y.filterCount = x.total
+              y.filterCount = x.total;
               break;
             case 'statistic.available':
-              y.filterCount = x.available
+              y.filterCount = x.available;
               break;
             case 'statistic.need_to_order':
-              y.filterCount = x.needToOrder
+              y.filterCount = x.needToOrder;
               break;
             case 'statistic.unavailable':
-              y.filterCount = x.unavailable
+              y.filterCount = x.unavailable;
               break;
           }
-        })
+        });
       }
-    })
-    this._facadePartList.statisticsSubAssetPart$.subscribe(x => {
-      if(x){
-        this.filterCardSubAsset.map(y=>{
+    });
+    this._facadePartList.statisticsSubAssetPart$.subscribe((x) => {
+      if (x) {
+        this.filterCardSubAsset.map((y) => {
           switch (y.filterTitle) {
             case 'statistic.total':
-                y.filterCount = x.total
+              y.filterCount = x.total;
               break;
             case 'statistic.available':
-              y.filterCount = x.available
+              y.filterCount = x.available;
               break;
             case 'statistic.need_to_order':
-              y.filterCount = x.needToOrder
+              y.filterCount = x.needToOrder;
               break;
             case 'statistic.unavailable':
-              y.filterCount = x.unavailable
+              y.filterCount = x.unavailable;
               break;
           }
-
-        })
+        });
       }
-    })
+    });
     /* Load Table Data */
     this.tableAssetPartData$ = this._facadePartList.assetAccumulatedPartList$.pipe(
-      map(x=>{
-        return x.map(
-          item => {
-            const statusCheck = () =>{
-              let status:string;
-              let diff = item.totalQuantity - item.totalConsumed
-              if(diff > 0) {
-                status = 'Available'
-              }
-              if(diff == 0) {
-                status = 'Unavailable'
-              }
-              if(diff < 0) {
-                status = 'Need to Order'
-              }
-              return status
+      map((x) => {
+        return x.map((item) => {
+          const statusCheck = () => {
+            let status: string;
+            let diff = item.totalQuantity - item.totalConsumed;
+            if (diff > 0) {
+              status = 'Available';
             }
-            return {
-              ...item,
-              status:statusCheck()
+            if (diff == 0) {
+              status = 'Unavailable';
             }
-          }
-        )
+            if (diff < 0) {
+              status = 'Need to Order';
+            }
+            return status;
+          };
+          return {
+            ...item,
+            status: statusCheck()
+          };
+        });
       })
     );
 
     this.tableSubAssetPartData$ = this._facadePartList.subAssetAccumulatedPartList$.pipe(
-      map(x=>{
-        return x.map(
-          item => {
-            const statusCheck = () =>{
-              let status:string;
-              let diff = item.totalQuantity - item.totalConsumed
-              if(diff > 0) {
-                status = 'Available'
-              }
-              if(diff == 0) {
-                status = 'Unavailable'
-              }
-              if(diff < 0) {
-                status = 'Need to Order'
-              }
-              return status
+      map((x) => {
+        return x.map((item) => {
+          const statusCheck = () => {
+            let status: string;
+            let diff = item.totalQuantity - item.totalConsumed;
+            if (diff > 0) {
+              status = 'Available';
             }
-            return {
-              ...item,
-              status:statusCheck()
+            if (diff == 0) {
+              status = 'Unavailable';
             }
-          }
-        )
+            if (diff < 0) {
+              status = 'Need to Order';
+            }
+            return status;
+          };
+          return {
+            ...item,
+            status: statusCheck()
+          };
+        });
       })
-    )
+    );
     // this._facade.loadAllAssetPartList(2)
     // this._facadePartMaster.loadAllCategoryOfAsset(1)
     // this._facadePartMaster.loadAllCategoryOfSubAsset(1);
 
-
     this.assetType$ = this._fleetConfigurationAsset.assetType$.pipe(
-      map((x )=> {
-        if(x){
-          return x.map(
-            (assetType , i )=>{
-              if(i === 0 && !this.assetTypeSelected){
-                this.assetTypeChanges(assetType.id)
-                this.assetTypeSelected = assetType
-              }
-              return assetType
+      map((x) => {
+        if (x) {
+          return x.map((assetType, i) => {
+            if (i === 0 && !this.assetTypeSelected) {
+              this.assetTypeChanges(assetType.id);
+              this.assetTypeSelected = assetType;
             }
-          )
+            return assetType;
+          });
         }
       })
     );
 
     this.subAssetType$ = this._fleetConfigurationSubAsset.subAssetType$.pipe(
-      map((x )=> {
-        if(x){
-          return x.map(
-            (subAssetType , i )=>{
-              if(i === 0 && !this.subAssetTypeSelected){
-                this.subAssetTypeChanges(subAssetType.id)
-                this.subAssetTypeSelected = subAssetType
-              }
-              return subAssetType
+      map((x) => {
+        if (x) {
+          return x.map((subAssetType, i) => {
+            if (i === 0 && !this.subAssetTypeSelected) {
+              this.subAssetTypeChanges(subAssetType.id);
+              this.subAssetTypeSelected = subAssetType;
             }
-          )
+            return subAssetType;
+          });
         }
       })
     );
 
-
     this.assetPartCategory$ = this._facadePartMaster.partMasterAssetCategory$.pipe(
-      map(x=>{
-        if(x){
-          return x.map(
-            (assetPart , i )=>{
-              if(i === 0){
-                this.assetCategoryChanges(assetPart.id)
-                this.assetCategorySelected = assetPart;
-              }
-              return assetPart
+      map((x) => {
+        if (x) {
+          return x.map((assetPart, i) => {
+            if (i === 0) {
+              this.assetCategoryChanges(assetPart.id);
+              this.assetCategorySelected = assetPart;
             }
-          )
-        }else{
+            return assetPart;
+          });
+        } else {
           this._facadePartList.resetPartAssetState();
         }
       })
     );
     this.subAssetPartCategory$ = this._facadePartMaster.partMasterSubAssetCategory$.pipe(
-      map(x=>{
-        if(x){
-          return x.map(
-            (subAssetPart , i )=>{
-              if(i === 0){
-                this.subAssetCategoryChanges(subAssetPart.id)
-                this.subAssetCategorySelected = subAssetPart
-              }
-              return subAssetPart
+      map((x) => {
+        if (x) {
+          return x.map((subAssetPart, i) => {
+            if (i === 0) {
+              this.subAssetCategoryChanges(subAssetPart.id);
+              this.subAssetCategorySelected = subAssetPart;
             }
-          )
-        }else{
+            return subAssetPart;
+          });
+        } else {
           this._facadePartList.resetPartSubAssetState();
         }
       })
     );
   }
-
 
   exportTable() {
     let filter = {
@@ -351,47 +337,54 @@ export class PartListComponent implements OnInit , OnDestroy {
       warrantyExpire: '',
       status: '',
       cost: '',
-      total: '',
+      total: ''
     };
     switch (this.selectedTab) {
       case 'assetPartTab':
         this.table.exportTable(this.tableAssetPart, this.selectedTab, filter);
         break;
       case 'subAssetPartTab':
-        this.table.exportTable(this.tableSubAssetPart, this.selectedTab, filter);
+        this.table.exportTable(
+          this.tableSubAssetPart,
+          this.selectedTab,
+          filter
+        );
         break;
-
     }
   }
 
-  assetTypeChanges(event){
+  assetTypeChanges(event) {
     this._facadePartMaster.loadAllCategoryOfAsset(event);
   }
 
-  assetCategoryChanges(event){
-    this._facadePartList.loadAllAccumulatedAssetPartList(event)
-    this._facadePartList.loadStatisticsPartOfAsset(event)
+  assetCategoryChanges(event) {
+    this._facadePartList.loadAllAccumulatedAssetPartList(event);
+    this._facadePartList.loadStatisticsPartOfAsset(event);
     this.assetCategorySelectedId = event;
   }
 
-  subAssetTypeChanges(event){
+  subAssetTypeChanges(event) {
     this._facadePartMaster.loadAllCategoryOfSubAsset(event);
   }
-  subAssetCategoryChanges(event){
+  subAssetCategoryChanges(event) {
     this._facadePartList.loadAllAccumulatedSubAssetPartList(event);
-    this._facadePartList.loadStatisticsPartOfSubAsset(event)
+    this._facadePartList.loadStatisticsPartOfSubAsset(event);
     this.subAssetCategorySelectedId = event;
   }
 
-  eventPagination_accumulatedPartOfAsset(){
-    this._facadePartList.loadAllAccumulatedAssetPartList(this.assetCategorySelectedId)
+  eventPagination_accumulatedPartOfAsset() {
+    this._facadePartList.loadAllAccumulatedAssetPartList(
+      this.assetCategorySelectedId
+    );
   }
 
-  eventPagination_accumulatedPartOfSubAsset(){
-    this._facadePartList.loadAllAccumulatedSubAssetPartList(this.subAssetCategorySelectedId);
+  eventPagination_accumulatedPartOfSubAsset() {
+    this._facadePartList.loadAllAccumulatedSubAssetPartList(
+      this.subAssetCategorySelectedId
+    );
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this._fleetConfigurationAsset.resetEntities();
   }
 }

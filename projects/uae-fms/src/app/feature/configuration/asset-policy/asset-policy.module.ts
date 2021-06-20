@@ -9,10 +9,8 @@ import { AddAssetPolicyComponent } from './add-asset-policy/add-asset-policy.com
 import { AssetPolicyStateModule } from '../+state/asset-policy/asset/asset-policy-state.module';
 import { SubAssetPolicyStateModule } from '../+state/asset-policy/sub-asset/sub-asset-policy-state.module';
 
-
-
 @NgModule({
-  declarations: [AssetPolicyComponent , AddAssetPolicyComponent],
+  declarations: [AssetPolicyComponent, AddAssetPolicyComponent],
   imports: [
     CommonModule,
     AssetPolicyRoutingModule,
@@ -20,8 +18,7 @@ import { SubAssetPolicyStateModule } from '../+state/asset-policy/sub-asset/sub-
     TableModule,
     TabViewModule,
     AssetPolicyStateModule,
-    SubAssetPolicyStateModule,
-
+    SubAssetPolicyStateModule
   ]
 })
-export class AssetPolicyModule { }
+export class AssetPolicyModule {}

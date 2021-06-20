@@ -3,8 +3,8 @@ import {
   customizationAdapter,
   ICustomizationState,
   initialState
-} from '@feature/fleet/+state/assets/customization/customization.entity';
-import { CustomizationActions } from '@feature/fleet/+state/assets/customization/customization.actions';
+} from './customization.entity';
+import { CustomizationActions } from './customization.actions';
 
 const customizationReducer = createReducer(
   initialState,

@@ -12,12 +12,15 @@ import { AppComponent } from './app.component';
 import { MainTemplateComponent } from './template/main-template/main-template.component';
 import { LoginTemplateComponent } from './template/login-template/login-template.component';
 import { DesignSystemComponent } from './template/design-system/design-system.component';
-import { TechnicianOverviewComponent } from "./template/technician-dashboard-template/technician-dashboard-template";
-import { SpinnerComponent, SpinnerService } from "@core/spinner";
+import { TechnicianOverviewComponent } from './template/technician-dashboard-template/technician-dashboard-template';
+import { SpinnerComponent, SpinnerService } from '@core/spinner';
 import { DialogService } from '@core/dialog/dialog-template.component';
 import { DialogModule } from '@core/dialog/dialog.module';
+import { CoreStateModule } from '@core/core.state.module';
+
 @NgModule({
   imports: [
+    CoreStateModule,
     BrowserAnimationsModule,
     BrowserModule,
     MatSidenavModule,
@@ -39,4 +42,4 @@ import { DialogModule } from '@core/dialog/dialog.module';
   providers: [SpinnerService, DialogService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

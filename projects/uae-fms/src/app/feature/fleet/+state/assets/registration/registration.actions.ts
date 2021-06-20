@@ -1,5 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 import { IPendingRegistration } from '@models/pending-registration.model';
+import {
+  IRegisterAssetByChassisNumber,
+  IRegisterAssetByPlateNumber
+} from './registration.entity';
 
 export class RegistrationActions {
   static loadAll = createAction('[Registration] load all data');
@@ -36,6 +40,29 @@ export class RegistrationActions {
     '[Registration]  asset for registration by assetId is loaded',
     props<{ data: any }>()
   );
+
+  /* Register an Asset by plate number */
+  static registerAssetByPlateNumber = createAction(
+    '[Registration] register an asset by plate number',
+    props<{ data: IRegisterAssetByPlateNumber }>()
+  );
+
+  static assetByPlateNumberRegistered = createAction(
+    '[Registration] asset by plate number registered successfully ',
+    props<{ data: any }>()
+  );
+
+  /* Register an Asset by chassis number */
+  static registerAssetByChassisNumber = createAction(
+    '[Registration] register an asset by chassis number',
+    props<{ data: IRegisterAssetByChassisNumber }>()
+  );
+
+  static assetByChassisNumberRegistered = createAction(
+    '[Registration] asset by chassis number registered successfully ',
+    props<{ data: any }>()
+  );
+
   static error = createAction(
     '[Registration] error occurred',
     props<{ reason: any }>()

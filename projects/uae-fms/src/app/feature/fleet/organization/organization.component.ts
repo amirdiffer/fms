@@ -92,7 +92,7 @@ export class OrganizationComponent implements OnInit {
               '/fleet/department/edit-department/' + data.id
             ]);
           },
-          permission:['ORGANIZATION_UPDATE']
+          permission: ['ORGANIZATION_UPDATE']
         },
         {
           button: 'external',
@@ -102,8 +102,13 @@ export class OrganizationComponent implements OnInit {
               '/fleet/department/department-overview/' + data.id
             ]);
           },
-          permission:['ORGANIZATION_VIEW_DETAILS' , 'ORGANIZATION_VIEW_USERS' , 'ORGANIZATION_VIEW_TRAFFIC_FINES' , 'ORGANIZATION_VIEW_MOVEMENT_HISTORY']
-        },
+          permission: [
+            'ORGANIZATION_VIEW_DETAILS',
+            'ORGANIZATION_VIEW_USERS',
+            'ORGANIZATION_VIEW_TRAFFIC_FINES',
+            'ORGANIZATION_VIEW_MOVEMENT_HISTORY'
+          ]
+        }
       ]
     }
   };
@@ -128,9 +133,7 @@ export class OrganizationComponent implements OnInit {
 
   constructor(private facade: OrganizationFacade, private router: Router) {}
 
-  ngOnInit(): void {
-    this.facade.loadAll();
-  }
+  ngOnInit(): void {}
 
   eventPagination() {
     this.facade.loadAll();

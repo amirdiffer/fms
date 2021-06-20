@@ -259,6 +259,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
         this.successDialogSetting.hasError = false;
         this.successDialogSetting.confirmButton = 'Ok';
         this.successDialogSetting.cancelButton = undefined;
+        this.operatorFacade.loadAll();
       }
     });
 

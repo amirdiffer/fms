@@ -6,16 +6,14 @@ import {
 } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting, ColumnType } from '@core/table';
-import {
-  BodyShopJobCardFacade,
-  BodyShopLocationFacade,
-  BodyShopRequestFacade,
-  BodyShopTechnicianFacade
-} from '../+state/body-shop';
 import { Event, Router } from '@angular/router';
 import { ButtonType, TableComponent } from '@core/table/table.component';
 import { map } from 'rxjs/operators';
 import moment from 'moment';
+import { BodyShopRequestFacade } from '../+state/body-shop/request';
+import { BodyShopJobCardFacade } from '../+state/body-shop/job-card';
+import { BodyShopTechnicianFacade } from '../+state/body-shop/technician';
+import { BodyShopLocationFacade } from '../+state/body-shop/location';
 @Component({
   templateUrl: './body-shop.component.html',
   styleUrls: ['./body-shop.component.scss']
@@ -277,7 +275,7 @@ export class BodyShopComponent implements OnInit {
               '/workshop/body-shop/' + data.id + '/add-job-card'
             ]);
           },
-          permission:['WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE']
+          permission: ['WORKSHOP_BODY_SHOP_JOB_CARD_OPEN_CLOSE']
         },
         {
           button: 'external',
@@ -287,7 +285,10 @@ export class BodyShopComponent implements OnInit {
               .navigate(['/workshop/body-shop/request-overview/' + data.id])
               .then();
           },
-          permission:['WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OWN' , 'WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS']
+          permission: [
+            'WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OWN',
+            'WORKSHOP_BODY_SHOP_ASSET_REQUEST_VIEW_LIST_OTHERS'
+          ]
         }
         /* {
           button: 'edit',
@@ -392,7 +393,7 @@ export class BodyShopComponent implements OnInit {
               .navigate(['/workshop/body-shop/job-card-overview/' + data.id])
               .then();
           },
-          permission:['WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_DETAILS']
+          permission: ['WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_DETAILS']
         },
         {
           button: 'edit',
@@ -404,7 +405,7 @@ export class BodyShopComponent implements OnInit {
               '/workshop/body-shop/edit-job-card/' + data.id
             ]);
           },
-          permission:['WORKSHOP_BODY_SHOP_JOB_CARD_UPDATE']
+          permission: ['WORKSHOP_BODY_SHOP_JOB_CARD_UPDATE']
         }
       ]
     }
@@ -474,7 +475,7 @@ export class BodyShopComponent implements OnInit {
               '/workshop/body-shop/edit-technician/' + data.id
             ]);
           },
-          permission:['WORKSHOP_BODY_SHOP_TECHNICIAN_UPDATE']
+          permission: ['WORKSHOP_BODY_SHOP_TECHNICIAN_UPDATE']
         }
         /* {
           button: 'external',
@@ -555,7 +556,7 @@ export class BodyShopComponent implements OnInit {
               '/workshop/body-shop/edit-location/' + data.id
             ]);
           },
-          permission:['WORKSHOP_BODY_SHOP_LOCATION_UPDATE']
+          permission: ['WORKSHOP_BODY_SHOP_LOCATION_UPDATE']
         }
         /* {
           button: 'external',
@@ -602,10 +603,6 @@ export class BodyShopComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._facadeRequest.loadAll();
-    this._facadeJobCard.loadAll();
-    this._facadeTechnician.loadAll();
-    this._facadeLocation.loadAll();
     this._facadeRequest.statistics$.subscribe((x) => {
       if (x) {
         this.filterSetting.map((filter) => {
@@ -717,7 +714,6 @@ export class BodyShopComponent implements OnInit {
         break;
     }
   }
-
 
   eventPagination_request() {
     this._facadeRequest.loadAll();

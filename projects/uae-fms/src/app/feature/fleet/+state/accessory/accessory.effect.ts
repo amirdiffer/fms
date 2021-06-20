@@ -4,7 +4,6 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AccessoryActions } from './accessory.actions';
 import { AccessoryService } from './accessory.service';
-import { SubAssetService } from '@feature/fleet/+state/sub-asset';
 import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
@@ -86,5 +85,9 @@ export class AccessoryEffect {
     )
   );
 
-  constructor(private action$: Actions, private service: AccessoryService, private _tableFacade: TableFacade) {}
+  constructor(
+    private action$: Actions,
+    private service: AccessoryService,
+    private _tableFacade: TableFacade
+  ) {}
 }

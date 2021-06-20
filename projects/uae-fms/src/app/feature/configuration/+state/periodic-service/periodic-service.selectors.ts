@@ -4,10 +4,7 @@ import { periodicServiceAdapter } from './periodic-service.entity';
 const { selectAll } = periodicServiceAdapter.getSelectors();
 const periodicServiceSelector = (state) => state['periodic-service'];
 export class PeriodicServiceSelectors {
-  static selectAll = createSelector(
-    periodicServiceSelector,
-    selectAll
-  );
+  static selectAll = createSelector(periodicServiceSelector, selectAll);
 
   static message = createSelector(
     periodicServiceSelector,
@@ -29,4 +26,8 @@ export class PeriodicServiceSelectors {
     (state) => state.specificPeriodicService
   );
 
+  static loaded = createSelector(
+    ConfigurationSelectors.periodicServiceSelector,
+    (state) => state.loaded
+  );
 }

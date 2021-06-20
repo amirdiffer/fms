@@ -9,14 +9,11 @@ import { SharedModule } from '@shared/shared.module';
 import { PartListRoutingModule } from './part-list-routing.module';
 import { AssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/asset-type/asset-type-state.module';
 import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/sub-asset-type/sub-asset-type-state.module';
-
-
+import { PartListStateModule } from '../+state/part-list/part-list-state.module';
+import { PartMasterStateModule } from '../+state/part-master/part-master-state.module';
 
 @NgModule({
-  declarations: [
-    PartListComponent,
-    UpdateFormComponent,
-  ],
+  declarations: [PartListComponent, UpdateFormComponent],
   imports: [
     CommonModule,
     PartListRoutingModule,
@@ -25,7 +22,9 @@ import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-con
     TableModule,
     SharedModule,
     AssetTypeStateModule,
-    SubAssetTypeStateModule
+    SubAssetTypeStateModule,
+    PartListStateModule,
+    PartMasterStateModule
   ]
 })
-export class PartListModule { }
+export class PartListModule {}

@@ -16,7 +16,9 @@ export class UserProfileService {
       environment.baseApiUrl + 'profile'
     );
   }
-  loadAllPermission () {
-    this.http.get(environment.baseApiUrl + 'configuration/role/permission' ).subscribe(x => console.log(x))
+  loadAllPermission() {
+    this.http
+      .get(environment.baseApiUrl + 'configuration/role/permission')
+      .subscribe((x) => console.log(x));
   }
 }

@@ -10,6 +10,8 @@ import { ErrorModule } from '@shared/error/error.module';
 import { LocationRoutingModule } from './location-routing.module';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { SharedModule } from '@shared/shared.module';
+import { ServiceShopLocationStateModule } from '../+state/service-shop/location/service-shop-location-state.module';
+import { BodyShopLocationStateModule } from '../+state/body-shop/location/body-shop-location-state.module';
 
 @NgModule({
   declarations: [LocationComponent, AddLocationComponent],
@@ -22,7 +24,9 @@ import { SharedModule } from '@shared/shared.module';
     ErrorModule,
     LocationRoutingModule,
     AutoCompleteModule,
-    SharedModule
+    SharedModule,
+    ServiceShopLocationStateModule,
+    BodyShopLocationStateModule
   ]
 })
 export class LocationModule {}

@@ -4,10 +4,7 @@ import { businessCategoryAdapter } from './business-category.entity';
 const { selectAll } = businessCategoryAdapter.getSelectors();
 const businessCategorySelector = (state) => state['businessCategory'];
 export class BusinessCategorySelectors {
-  static selectAll = createSelector(
-    businessCategorySelector,
-    selectAll
-  );
+  static selectAll = createSelector(businessCategorySelector, selectAll);
 
   static message = createSelector(
     businessCategorySelector,
@@ -22,5 +19,10 @@ export class BusinessCategorySelectors {
   static submitted = createSelector(
     businessCategorySelector,
     (state) => state.submitted
+  );
+
+  static loaded = createSelector(
+    ConfigurationSelectors.businessCategorySelector,
+    (state) => state.loaded
   );
 }

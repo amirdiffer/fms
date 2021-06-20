@@ -7,13 +7,8 @@ import { OwnershipComponent } from './ownership.component';
 import { OwnershipRoutingModule } from './ownership-routing.module';
 import { OwnershipStateModule } from '../+state/ownership/ownership-state.module';
 
-
-
 @NgModule({
-  declarations: [
-    OwnershipComponent,
-    OwnershipFormComponent,
-  ],
+  declarations: [OwnershipComponent, OwnershipFormComponent],
   imports: [
     CommonModule,
     OwnershipRoutingModule,
@@ -22,4 +17,4 @@ import { OwnershipStateModule } from '../+state/ownership/ownership-state.module
     OwnershipStateModule
   ]
 })
-export class OwnershipModule { }
+export class OwnershipModule {}

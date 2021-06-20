@@ -58,12 +58,11 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
   assetTypeMode = '';
   modelId;
 
-
   makeId;
   assetTypeId;
-  fleetType:string;
-  fleetSubscription:Subscription;
-  selectedCategory:string ='';
+  fleetType: string;
+  fleetSubscription: Subscription;
+  selectedCategory: string = '';
   //#endregion
   successDialog;
   get models(): FormArray {
@@ -87,38 +86,58 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
       models: new FormArray([this.createModel()])
     });
 
-    let activeRoute = this.route.snapshot.url.map(x => {return x.path});
+    let activeRoute = this.route.snapshot.url.map((x) => {
+      return x.path;
+    });
     let id = +this.route.snapshot.params.id;
-    this.assetTypeId = this.route.snapshot.params.assetTypeId ? this.route.snapshot.params.assetTypeId : this.route.snapshot.params.assetType
+    this.assetTypeId = this.route.snapshot.params.assetTypeId
+      ? this.route.snapshot.params.assetTypeId
+      : this.route.snapshot.params.assetType;
     this.fleetType = this.route.snapshot.params.fleetType;
-    this.makeId = this.route.snapshot.params.make ? +this.route.snapshot.params.make : +this.route.snapshot.params.makeId;
+    this.makeId = this.route.snapshot.params.make
+      ? +this.route.snapshot.params.make
+      : +this.route.snapshot.params.makeId;
 
     /* Check is Edit Form  */
-    if(activeRoute.find(item => item == "edit-model")){
+    if (activeRoute.find((item) => item == 'edit-model')) {
       this.isEditing = true;
     }
 
     /* Check fleet Type from ActivatedRoute */
     switch (this.fleetType) {
       case 'ASSET':
-        this.facade.getAssetTypeByID(this.assetTypeId );
-        this.facade.loaded$.subscribe(
-          load => {
-            if(load){
-              this.fleetSubscription = this.facade.specificAssetType$.subscribe(x => {
-                if(x) {
-                  console.log(x)
-                  this.selectedCategory = x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).name : '';
-                  if(this.isEditing){
+        this.facade.getAssetTypeByID(this.assetTypeId);
+        this.facade.loaded$.subscribe((load) => {
+          if (load) {
+            this.fleetSubscription = this.facade.specificAssetType$.subscribe(
+              (x) => {
+                if (x) {
+                  console.log(x);
+                  this.selectedCategory = x.makes.find(
+                    (y) => y.id == this.makeId
+                  )
+                    ? x.makes.find((y) => y.id == this.makeId).name
+                    : '';
+                  if (this.isEditing) {
                     let makes = {
-                      name : x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).name : false,
-                      description : x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).description : false,
-                      models: x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).models:false
-                    }
+                      name: x.makes.find((y) => y.id == this.makeId)
+                        ? x.makes.find((y) => y.id == this.makeId).name
+                        : false,
+                      description: x.makes.find((y) => y.id == this.makeId)
+                        ? x.makes.find((y) => y.id == this.makeId).description
+                        : false,
+                      models: x.makes.find((y) => y.id == this.makeId)
+                        ? x.makes.find((y) => y.id == this.makeId).models
+                        : false
+                    };
                     let models = {
-                      name : makes.models ? makes.models.find( y => y.id == id).name : false,
-                      description : makes.models ? makes.models.find( y => y.id == id).description : false,
-                    }
+                      name: makes.models
+                        ? makes.models.find((y) => y.id == id).name
+                        : false,
+                      description: makes.models
+                        ? makes.models.find((y) => y.id == id).description
+                        : false
+                    };
                     this.models.controls[0].patchValue({
                       id: id,
                       model: models.name,
@@ -126,52 +145,61 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
                     });
                   }
                 }
-              });
-            }
+              }
+            );
           }
-        )
+        });
 
         this.inputForm.patchValue({
-          typeCategory:['ASSET']
-        })
+          typeCategory: ['ASSET']
+        });
         break;
       case 'SUB_ASSET':
-        this._subAssetTypeFacade.getSubAssetTypeByID(this.assetTypeId )
-        this._subAssetTypeFacade.loaded$.subscribe(
-          load => {
-            if(load) {
-              this._subAssetTypeFacade.specificSubAssetType$.subscribe(x => {
-                if(x) {
-                  console.log(x);
-                  this.selectedCategory = x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).name : '';
-                  if(this.isEditing){
-                    let makes = {
-                      name : x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).name : false,
-                      description : x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).description : false,
-                      models: x.makes.find( y => y.id == this.makeId) ? x.makes.find( y => y.id == this.makeId).models:false
-                    }
-                    let models = {
-                      name : makes.models ? makes.models.find( y => y.id == id).name : false,
-                      description : makes.models ? makes.models.find( y => y.id == id).description : false,
-                    }
-                    this.models.controls[0].patchValue({
-                      id: id,
-                      model: models.name,
-                      modelDescription: models.description
-                    });
-                  }
+        this._subAssetTypeFacade.getSubAssetTypeByID(this.assetTypeId);
+        this._subAssetTypeFacade.loaded$.subscribe((load) => {
+          if (load) {
+            this._subAssetTypeFacade.specificSubAssetType$.subscribe((x) => {
+              if (x) {
+                console.log(x);
+                this.selectedCategory = x.makes.find((y) => y.id == this.makeId)
+                  ? x.makes.find((y) => y.id == this.makeId).name
+                  : '';
+                if (this.isEditing) {
+                  let makes = {
+                    name: x.makes.find((y) => y.id == this.makeId)
+                      ? x.makes.find((y) => y.id == this.makeId).name
+                      : false,
+                    description: x.makes.find((y) => y.id == this.makeId)
+                      ? x.makes.find((y) => y.id == this.makeId).description
+                      : false,
+                    models: x.makes.find((y) => y.id == this.makeId)
+                      ? x.makes.find((y) => y.id == this.makeId).models
+                      : false
+                  };
+                  let models = {
+                    name: makes.models
+                      ? makes.models.find((y) => y.id == id).name
+                      : false,
+                    description: makes.models
+                      ? makes.models.find((y) => y.id == id).description
+                      : false
+                  };
+                  this.models.controls[0].patchValue({
+                    id: id,
+                    model: models.name,
+                    modelDescription: models.description
+                  });
                 }
-              });
-            }
+              }
+            });
           }
-        )
+        });
 
         this.inputForm.patchValue({
-          typeCategory:['SUB_ASSET']
-        })
+          typeCategory: ['SUB_ASSET']
+        });
         break;
     }
-
 
     this.errorAndSubmitHandler(this.facade);
     this.errorAndSubmitHandler(this._subAssetTypeFacade);
@@ -212,7 +240,6 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
     this.models.removeAt(index);
   }
 
-
   public cancel() {
     this.dialogModal = true;
     this.dialogSetting.hasError = false;
@@ -224,12 +251,13 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
 
   dialogConfirm($event): void {
     this.dialogModal = false;
-    if($event && this.successDialog){
-      this.fleetType == 'ASSET' ? this.facade.resetParams() : this._subAssetTypeFacade.resetParams();
-
+    if ($event && this.successDialog) {
+      this.fleetType == 'ASSET'
+        ? this.facade.resetParams()
+        : this._subAssetTypeFacade.resetParams();
     }
     if ($event && !this.dialogSetting.hasError) {
-      this.router.navigate(['/configuration/asset-configuration'])
+      this.router.navigate(['/configuration/asset-configuration']);
     }
   }
 
@@ -252,43 +280,50 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
 
     if (this.isEditing) {
       if (this.fleetType === 'SUB_ASSET') {
-
-        this._subAssetTypeFacade.updateModel(payload,this.assetTypeId,this.makeId);
-      } else if(this.fleetType === 'ASSET') {
+        this._subAssetTypeFacade.updateModel(
+          payload,
+          this.assetTypeId,
+          this.makeId
+        );
+      } else if (this.fleetType === 'ASSET') {
         let newPayload = {
-          models:payload.models.map(x => {
+          models: payload.models.map((x) => {
             return {
-              id:x.id,
+              id: x.id,
               name: x.name,
-              description: x.description,
-            }
+              description: x.description
+            };
           })
-        }
+        };
         this.facade.updateModel(newPayload, this.assetTypeId, this.makeId);
       }
       return;
-    }else{
+    } else {
       let newPayload = {
-        models:payload.models.map(x => {
+        models: payload.models.map((x) => {
           return {
             name: x.name,
-            description: x.description,
-          }
+            description: x.description
+          };
         })
-      }
+      };
       let newPayloadSubAsset = {
-        models:payload.models.map(x => {
+        models: payload.models.map((x) => {
           return {
             name: x.name,
             description: x.description,
             origins: x.origins
-          }
+          };
         })
-      }
+      };
       if (this.fleetType === 'ASSET') {
         this.facade.addModel(newPayload, this.assetTypeId, this.makeId);
-      } else if(this.fleetType === 'SUB_ASSET') {
-        this._subAssetTypeFacade.addModel(newPayloadSubAsset, this.assetTypeId, this.makeId);
+      } else if (this.fleetType === 'SUB_ASSET') {
+        this._subAssetTypeFacade.addModel(
+          newPayloadSubAsset,
+          this.assetTypeId,
+          this.makeId
+        );
       }
       return;
     }
@@ -296,7 +331,7 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
   errorAndSubmitHandler(facade) {
     facade.submitted$.subscribe((x) => {
       if (x) {
-        this.successDialog = true
+        this.successDialog = true;
         if (this.isEditing) {
           this.dialogModal = true;
           this.dialogSetting.header = 'Edit Model';
@@ -315,7 +350,6 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
       }
-
     });
 
     facade.error$.subscribe((x) => {
@@ -329,6 +363,5 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
       }
     });
   }
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 }

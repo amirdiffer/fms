@@ -11,15 +11,7 @@ import { ColumnType, TableSetting } from '@core/table';
 import { ButtonType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import {
-  BodyShopJobCardFacade,
-  BodyShopJobCardService,
-  BodyShopLocationFacade,
-  BodyShopRequestFacade,
-  BodyShopTechnicianFacade,
-  BodyShopTechnicianService,
-  BodyShopRequestService
-} from '@feature/workshop/+state/body-shop';
+
 import { map } from 'rxjs/operators';
 import {
   AssetMasterFacade,
@@ -28,6 +20,16 @@ import {
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
 import moment from 'moment';
 import { Observable, Subject, Subscription } from 'rxjs';
+import {
+  BodyShopJobCardFacade,
+  BodyShopJobCardService
+} from '@feature/workshop/+state/body-shop/job-card';
+import {
+  BodyShopRequestFacade,
+  BodyShopRequestService
+} from '@feature/workshop/+state/body-shop/request';
+import { BodyShopLocationFacade } from '@feature/workshop/+state/body-shop/location';
+import { BodyShopTechnicianFacade } from '@feature/workshop/+state/body-shop/technician';
 
 @Component({
   selector: 'anms-add-job-card',
@@ -381,6 +383,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
+        this._facadeJobCard.loadAll();
       }
     });
 
@@ -496,7 +499,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
         jobCardInfo = {
           ...jobCardInfo
         };
-        console.log(f)
+        console.log(f);
         this._facadeJobCard.addJobCard(jobCardInfo, this.assetIdSelected);
       }
     } else {

@@ -1,13 +1,11 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import {
-  MovementOverviewFacade,
-  MovementRequestsFacade
-} from '@feature/fleet/+state/movement';
 import { Utility } from '@shared/utility/utility';
-import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { MovementService } from '@feature/fleet/movement/movement.service';
+import { MovementRequestsFacade } from '@feature/fleet/+state/movement/permanent/requests';
+import { MovementOverviewFacade } from '@feature/fleet/+state/movement/permanent/overview';
+import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 
 @Component({
   selector: 'anms-add-request',

@@ -1,28 +1,24 @@
 import { createSelector } from '@ngrx/store';
-import { FleetSelectors } from '../../fleet.selectors';
 import { movementHistoryAdapter } from './operator-movement-history.entity';
 const { selectAll } = movementHistoryAdapter.getSelectors();
-
+const operatorMovementState = (state) => state['operator-movement-history'];
 export class OperatorMovementHistorySelectors {
-  static selectAll = createSelector(FleetSelectors.operatorMovementHistorySelector, selectAll);
+  static selectAll = createSelector(operatorMovementState, selectAll);
 
   static message = createSelector(
-    FleetSelectors.operatorMovementHistorySelector,
+    operatorMovementState,
     (state) => state.message
   );
 
-  static error = createSelector(
-    FleetSelectors.operatorMovementHistorySelector,
-    (state) => state.error
-  );
+  static error = createSelector(operatorMovementState, (state) => state.error);
 
   static submitted = createSelector(
-    FleetSelectors.operatorMovementHistorySelector,
+    operatorMovementState,
     (state) => state.submitted
   );
 
   static count = createSelector(
-    FleetSelectors.operatorMovementHistorySelector,
+    operatorMovementState,
     (state) => state.resultNumber
   );
 }

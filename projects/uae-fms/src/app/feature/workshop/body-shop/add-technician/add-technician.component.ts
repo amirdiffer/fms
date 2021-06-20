@@ -17,12 +17,6 @@ import {
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { debounceTime, map } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
-import {
-  BodyShopLocationFacade,
-  BodyShopLocationService,
-  BodyShopTechnicianFacade,
-  BodyShopTechnicianService
-} from '@feature/workshop/+state/body-shop';
 import { UsersService } from '@feature/configuration/+state/users';
 import {
   TaskMasterFacade,
@@ -30,6 +24,14 @@ import {
 } from '@feature/workshop/+state/task-master';
 import { Department } from '@models/organization';
 import { OrganizationService } from '@feature/fleet/+state/organization';
+import {
+  BodyShopTechnicianFacade,
+  BodyShopTechnicianService
+} from '@feature/workshop/+state/body-shop/technician';
+import {
+  BodyShopLocationFacade,
+  BodyShopLocationService
+} from '@feature/workshop/+state/body-shop/location';
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
@@ -284,6 +286,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'Yes';
         this.dialogSetting.cancelButton = undefined;
+        this._technicianFacade.loadAll();
       }
     });
 
@@ -468,7 +471,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     this.department_static = $event;
     if (typeof $event != 'object') return;
     this.sectionList = [];
-    this.inputForm.get('portalInfo.section').patchValue(null)
+    this.inputForm.get('portalInfo.section').patchValue(null);
     this.departmentId = $event.id;
     this._departmentService.searchDepartment($event.id).subscribe((x) => {
       x.message.departments

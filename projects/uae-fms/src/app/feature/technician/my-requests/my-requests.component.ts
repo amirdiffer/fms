@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnType, TableSetting } from '@core/table';
 import { Subject } from 'rxjs';
+import { AllRequestsNetworkService } from '@feature/technician/+state/my-requests/all-requests/all-requests-network.service';
+import { PartRequestsNetworkService } from '@feature/technician/+state/my-requests/part-requests/part-requests-network.service';
+import { TechnicalInspectionRequestsNetworkService } from '@feature/technician/+state/my-requests/technical-inspection-requests/technical-inspection-requests-network.service';
 
 @Component({
   selector: 'anms-my-requests',
@@ -10,7 +13,6 @@ import { Subject } from 'rxjs';
 })
 export class MyRequestsComponent implements OnInit {
   selectedTab;
-
 
   //#region Filter
   filterSetting = [
@@ -92,7 +94,7 @@ export class MyRequestsComponent implements OnInit {
         }
       ]
     }
-  }
+  };
   partRequests = new Subject();
   partRequests$ = this.partRequests.asObservable();
   partRequestsSetting: TableSetting = {
@@ -147,7 +149,7 @@ export class MyRequestsComponent implements OnInit {
         }
       ]
     }
-  }
+  };
   technicalInspection = new Subject();
   technicalInspection$ = this.technicalInspection.asObservable();
   technicalInspectionSetting: TableSetting = {
@@ -202,136 +204,201 @@ export class MyRequestsComponent implements OnInit {
         }
       ]
     }
-  }
+  };
 
   //#endregion
 
-
-
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private allRequestsNetworkService: AllRequestsNetworkService,
+    private partRequestsNetworkService: PartRequestsNetworkService,
+    private technicalInspectionRequestsNetworkService: TechnicalInspectionRequestsNetworkService
+  ) {}
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.allRequests.next(
-        [
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-        ]
-      )
-      this.partRequests.next(
-        [
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-        ]
-      )
-      this.technicalInspection.next(
-        [
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-        ]
-      )
+      this.allRequests.next([
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        }
+      ]);
+      this.partRequests.next([
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        }
+      ]);
+      this.technicalInspection.next([
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        }
+      ]);
     }, 1000);
+
+    this.getAllRequests();
+    this.getPartRequests();
+    this.getTechnicalInspectionRequests();
   }
 
+  private getAllRequests(): void {
+    this.allRequestsNetworkService.getAllRequests().subscribe((response) => {
+      const allRequests = response.message;
+
+      const allRequestsArray = [];
+      allRequests.map((request) => {
+        const requestObject = {
+          task: request.taskMaster.name,
+          priority: request.priorityOrder,
+          progress: 10,
+          status: request.status
+        };
+        allRequestsArray.push(requestObject);
+      });
+
+      if (allRequestsArray.length) {
+        this.allRequests.next(allRequestsArray);
+      }
+    });
+  }
+
+  private getPartRequests(): void {
+    this.partRequestsNetworkService.getPartRequests().subscribe((response) => {
+      const partRequests = response.message;
+
+      const partRequestsArray = [];
+      partRequests.map((request) => {
+        const partRequestObject = {
+          task: request.taskMaster.name,
+          priority: request.priorityOrder,
+          progress: 10,
+          status: request.status
+        };
+        partRequestsArray.push(partRequestObject);
+      });
+
+      if (partRequestsArray.length) {
+        this.partRequests.next(partRequestsArray);
+      }
+    });
+  }
+
+  private getTechnicalInspectionRequests(): void {
+    this.technicalInspectionRequestsNetworkService
+      .getTechincalInspectionRequests()
+      .subscribe((response) => {
+        const technicalInspectionRequests = response.message;
+
+        const technicalInspectionRequestsArray = [];
+        technicalInspectionRequests.map((request) => {
+          const technicalInspectionRequestObject = {
+            task: request.taskMaster.name,
+            priority: request.priorityOrder,
+            progress: 10,
+            status: request.status
+          };
+          technicalInspectionRequestsArray.push(
+            technicalInspectionRequestObject
+          );
+        });
+
+        if (technicalInspectionRequestsArray.length) {
+          this.technicalInspection.next(technicalInspectionRequestsArray);
+        }
+      });
+  }
 }

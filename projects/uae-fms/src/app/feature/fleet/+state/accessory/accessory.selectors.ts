@@ -1,32 +1,19 @@
 import { createSelector } from '@ngrx/store';
-import { FleetSelectors } from '../fleet.selectors';
 import { accessoryAdapter } from './accessory.entity';
 const { selectAll } = accessoryAdapter.getSelectors();
-
+const accessoryState = (state) => state['accessory'];
 export class AccessorySelectors {
-  static selectAll = createSelector(
-    FleetSelectors.accessorySelector,
-    selectAll
-  );
+  static selectAll = createSelector(accessoryState, selectAll);
   static selectStatistics = createSelector(
-    FleetSelectors.accessorySelector,
+    accessoryState,
     (state) => state.statistics
   );
 
-  static message = createSelector(
-    FleetSelectors.accessorySelector,
-    (state) => state.message
-  );
+  static message = createSelector(accessoryState, (state) => state.message);
 
-  static error = createSelector(
-    FleetSelectors.accessorySelector,
-    (state) => state.error
-  );
+  static error = createSelector(accessoryState, (state) => state.error);
 
-  static submitted = createSelector(
-    FleetSelectors.accessorySelector,
-    (state) => {
-      return state.submitted;
-    }
-  );
+  static submitted = createSelector(accessoryState, (state) => {
+    return state.submitted;
+  });
 }

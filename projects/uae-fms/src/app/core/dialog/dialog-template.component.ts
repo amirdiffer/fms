@@ -1,4 +1,9 @@
-import { Component, Injectable, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Injectable,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SettingsFacade } from '@core/settings/settings.facade';
 import { Observable, Subject, Subscription } from 'rxjs';
@@ -10,7 +15,6 @@ import { Observable, Subject, Subscription } from 'rxjs';
   encapsulation: ViewEncapsulation.None
 })
 export class DialogTemplateComponent implements OnInit {
-
   textInput = '';
 
   dialogSetting!: DialogSetting;
@@ -28,18 +32,21 @@ export class DialogTemplateComponent implements OnInit {
   private dialogTextInput = new Subject<string>();
   private settingsFacadeSubscription!: Subscription;
 
-  constructor(private dialogRef: MatDialogRef<DialogTemplateComponent>, private settingsFacade: SettingsFacade) {
-
+  constructor(
+    private dialogRef: MatDialogRef<DialogTemplateComponent>,
+    private settingsFacade: SettingsFacade
+  ) {
     this.dialogClosed$ = this.dialogClosed.asObservable();
     this.dialogTextInput$ = this.dialogTextInput.asObservable();
 
-    this.settingsFacadeSubscription = settingsFacade.language.subscribe((lang) => {
-      this.isLtr = lang === 'en';
-    });
+    this.settingsFacadeSubscription = settingsFacade.language.subscribe(
+      (lang) => {
+        this.isLtr = lang === 'en';
+      }
+    );
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onClose(type: DialogResult): void {
     if (type === 'confirm') {
@@ -70,18 +77,28 @@ export interface DialogSetting {
 
 @Injectable()
 export class DialogService {
+  constructor(private dialog: MatDialog) {}
 
-  constructor(private dialog: MatDialog) {
-  }
-
-  show(status: DialogStatus, title: string, message: string, confirmButtonTitle: string = 'Confirm',
-       cancelButtonTitle: string = 'Cancel', hasTextInput: boolean = false): DialogTemplateComponent {
+  show(
+    status: DialogStatus,
+    title: string,
+    message: string,
+    confirmButtonTitle: string = 'Confirm',
+    cancelButtonTitle: string = 'Cancel',
+    hasTextInput: boolean = false
+  ): DialogTemplateComponent {
     const dialog = this.dialog.open(DialogTemplateComponent, {
-      width: '50%', disableClose: true
+      width: '50%',
+      disableClose: true
     });
 
     dialog.componentInstance.dialogSetting = {
-      status, title, message, hasTextInput, confirmButtonTitle, cancelButtonTitle
+      status,
+      title,
+      message,
+      hasTextInput,
+      confirmButtonTitle,
+      cancelButtonTitle
     };
 
     return dialog.componentInstance;

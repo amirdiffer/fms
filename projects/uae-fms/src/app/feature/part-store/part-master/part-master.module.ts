@@ -11,15 +11,15 @@ import { AddItemComponent } from './add-item/add-item.component';
 import { TableContentComponent } from './table-content/table-content.component';
 import { AssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/asset-type/asset-type-state.module';
 import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/sub-asset-type/sub-asset-type-state.module';
-
-
+import { PartMasterStateModule } from '../+state/part-master/part-master-state.module';
+import { SupplierStateModule } from '../+state/order-list/suppliers/suppliers-state.module';
 
 @NgModule({
   declarations: [
     PartMasterComponent,
     AddCategoryComponent,
     AddItemComponent,
-    TableContentComponent,
+    TableContentComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +29,9 @@ import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-con
     TableModule,
     SharedModule,
     AssetTypeStateModule,
-    SubAssetTypeStateModule
+    SubAssetTypeStateModule,
+    PartMasterStateModule,
+    SupplierStateModule
   ]
 })
-export class PartMasterModule { }
+export class PartMasterModule {}
