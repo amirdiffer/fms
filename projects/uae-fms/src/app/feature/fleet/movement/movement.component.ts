@@ -7,17 +7,16 @@ import {
   Injector
 } from '@angular/core';
 import { MovementService } from './movement.service';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MovementConfirmComponent } from './movement-confirm/movement-confirm.component';
 import { MovementOverviewFacade } from '../+state/movement/permanent/overview';
 import { MovementRequestsFacade } from '../+state/movement/permanent/requests';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ButtonType, TableComponent } from '@core/table/table.component';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
-import { FilterCardSetting } from '@core/filter';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-movement',
@@ -54,24 +53,7 @@ export class MovementComponent
       filterTagColor: '#EF7A85'
     }
   ];
-
-  //#region Dialogs
-  displaySuccessModal = false;
-  displayErrorModal = false;
-  dialogType: string;
-  dialogSuccessSetting: IDialogAlert = {
-    header: 'Success',
-    hasError: false,
-    message: 'Rejected Successfully',
-    confirmButton: 'Ok'
-  };
-  dialogErrorSetting: IDialogAlert = {
-    header: 'Error',
-    hasError: true,
-    message: 'Some Error Occurred',
-    confirmButton: 'Ok'
-  };
-  //#endregion
+ 
 
   requestFilter: boolean = false;
   selectedTab;
@@ -324,6 +306,7 @@ export class MovementComponent
     private dialog: MatDialog,
     private _movementOverviewFacade: MovementOverviewFacade,
     private _movementRequestsFacade: MovementRequestsFacade,
+    private _dialogService : DialogService,
     injector: Injector
   ) {
     super(injector);
@@ -389,22 +372,33 @@ export class MovementComponent
 
     this._movementRequestsFacade.rejected$.subscribe((x) => {
       if (x) {
-        this.dialogSuccessSetting.isWarning = false;
-        this.dialogSuccessSetting.hasError = false;
-        this.dialogSuccessSetting.message = 'The Request Rejected Successfully';
-        this.dialogSuccessSetting.confirmButton = 'Ok';
-        this.dialogSuccessSetting.cancelButton = undefined;
-        this.dialogType = 'confirm';
-        this.displaySuccessModal = true;
-        this._movementRequestsFacade.loadAll();
+        const dialog = this._dialogService.show('success' , 
+          'Reject Request', 
+          'The Request Rejected Successfully','Ok')
+          const dialogClose$:Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+            if (result === 'confirm') {
+              this._movementRequestsFacade.loadAll(); 
+            }
+            dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
       }
     });
     this._movementRequestsFacade.error$.subscribe((x) => {
       if (x?.error) {
-        this.displayErrorModal = true;
-        this.dialogErrorSetting.hasError = true;
-      } else {
-        this.displayErrorModal = false;
+        const dialog = this._dialogService.show('danger' , 
+          'Request', 
+          'We Have Some Error','Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
   }
@@ -436,23 +430,7 @@ export class MovementComponent
     // console.log('reject');
   }
 
-  successConfirm(confirmed) {
-    if (confirmed) {
-      this.displaySuccessModal = false;
-      this.displayErrorModal = false;
-      this._movementRequestsFacade.reset();
 
-      if (this.dialogType == 'rejection') {
-        this._movementRequestsFacade.rejecting(this.rejectId);
-      }
-    } else this.displaySuccessModal = false;
-  }
-
-  dialogConfirm($event) {
-    this.displayErrorModal = false;
-    this.displaySuccessModal = false;
-    this._movementRequestsFacade.reset();
-  }
 
   eventPagination_overview() {
     this._movementOverviewFacade.loadAll();
@@ -499,13 +477,16 @@ export class MovementComponent
   reject(data) {
     if (data?.id) {
       this.rejectId = data.id;
-      this.dialogType = 'rejection';
-      this.dialogSuccessSetting.isWarning = true;
-      this.dialogSuccessSetting.message =
-        'Are you sure you want to reject this request?';
-      this.dialogSuccessSetting.confirmButton = 'Yes';
-      this.dialogSuccessSetting.cancelButton = 'Cancel';
-      this.displaySuccessModal = true;
+      const dialog = this._dialogService.show('warning' , 'Reject request' , 'Are you sure you want to reject this request?' , 'Yes','Cancel')
+      const dialogClose$:Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+        if (result === 'confirm') {
+          this._movementRequestsFacade.rejecting(this.rejectId);
+        }
+        dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
     }
   }
 }

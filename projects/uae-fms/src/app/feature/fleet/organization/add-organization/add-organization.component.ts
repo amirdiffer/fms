@@ -2,14 +2,14 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import {
   OrganizationFacade,
   OrganizationService
 } from '@feature/fleet/+state/organization';
-import { debounceTime, map } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { debounceTime, map, tap } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-add-organization',
@@ -19,16 +19,6 @@ import { ActivatedRoute } from '@angular/router';
 export class AddOrganizationComponent extends Utility implements OnInit {
   isEdit = false;
   id;
-
-  dialogModal = false;
-  dialogType = null;
-  dialogSetting: IDialogAlert = {
-    header: 'Add New Organization',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
 
   organization_Table: TableSetting = {
     columns: [
@@ -107,9 +97,11 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     private _fb: FormBuilder,
     private facade: OrganizationFacade,
     private organizationService: OrganizationService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private _dialogService : DialogService
   ) {
     super(injector);
+    this.facade.reset();
   }
 
   sectionLocation(index: number): FormArray {
@@ -137,27 +129,37 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     });
     this.facade.submitted$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogType = 'success';
-        this.dialogSetting.header = 'Add new Organization';
-        this.dialogSetting.message = 'Organization Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'Ok';
-        this.dialogSetting.cancelButton = undefined;
-        this.facade.loadAll();
+        const dialog = this._dialogService.show('success' , 
+          (this.isEdit ? 'Edit Department': 'Add New Department' ), 
+          (this.isEdit ? 'Changes Saved Successfully' : 'Department Added Successfully'),'Ok')
+          const dialogClose$:Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+            if (result === 'confirm') {
+              this.router.navigate(['/fleet/department']).then(()=>{
+                this.facade.loadAll();
+              });
+            }
+            dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
+
       }
     });
     this.facade.error$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogType = 'error';
-        this.dialogSetting.header = 'Error';
-        this.dialogSetting.message = 'Error occurred in operation';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.confirmButton = 'Ok';
-        this.dialogSetting.cancelButton = undefined;
+        const dialog = this._dialogService.show('danger' , 
+          (this.isEdit ? 'Edit Department': 'Add New Department' ), 
+          'We Have Some Error','Ok')
+          const dialogClose$:Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+            if (result === 'confirm') {
+            }
+            dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
+
       }
     });
 
@@ -246,50 +248,18 @@ export class AddOrganizationComponent extends Utility implements OnInit {
   }
   organizationIDChanged($event) {}
 
-  dialogConfirm(event) {
-    this.dialogModal = false;
-    if (!event) {
-      return;
-    }
-    if (this.dialogType == 'submit') {
-      const value = {
-        organizationNumber: this.organizationNumber,
-        organizationName: this.organizationForm.value.departmentName,
-        tags: this.organizationForm.value.tags.map((x) => {
-          return x.tag;
-        }),
-        departments: this.organizationForm.value.section.map((x) => {
-          return {
-            name: x.sectionName,
-            locationAddresses: x.locations.map((y) => {
-              return y.location[0];
-            })
-          };
-        })
-      };
-
-      if (this.isEdit) {
-        this.facade.editOrganization({ ...value, id: this.id });
-      } else {
-        this.facade.addOrganization(value);
-      }
-    }
-    if (this.dialogType == 'success') {
-      this._goToList();
-    }
-    if (this.dialogType == null) {
-      this._goToList();
-    }
-  }
-
   cancel(): void {
-    this.dialogModal = true;
-    this.dialogSetting.message =
-      'Are you sure that you want to cancel the Department creation?';
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.cancelButton = 'No';
-    this.dialogSetting.confirmButton = 'Yes';
+    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+      if (result === 'confirm') {
+        this._goToList();
+      }
+      dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
+
   }
 
   submit() {
@@ -297,15 +267,39 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     if (this.organizationForm.invalid) {
       return;
     } else {
-      this.dialogModal = true;
-      this.dialogType = 'submit';
-      this.dialogSetting.header = 'Add new organization';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.hasError = false;
-      this.dialogSetting.message =
-        'Are you sure you want to add new Organization?';
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
+      const dialog = this._dialogService.show('warning' , 
+    (this.isEdit ? 'Edit Department' : 'Add New Department') ,
+       (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new department?') , 'Yes','Cancel')
+      const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+            const value = {
+              organizationNumber: this.organizationNumber,
+              organizationName: this.organizationForm.value.departmentName,
+              tags: this.organizationForm.value.tags.map((x) => {
+                return x.tag;
+              }),
+              departments: this.organizationForm.value.section.map((x) => {
+                return {
+                  name: x.sectionName,
+                  locationAddresses: x.locations.map((y) => {
+                    return y.location[0];
+                  })
+                };
+              })
+            };
+      
+            if (this.isEdit) {
+              this.facade.editOrganization({ ...value, id: this.id });
+            } else {
+              this.facade.addOrganization(value);
+            }
+          }
+          dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
+
     }
   }
 
