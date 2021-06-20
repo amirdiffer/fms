@@ -3,13 +3,12 @@ import { Component, Input, OnInit, Renderer2 } from '@angular/core';
 @Component({
   selector: 'table-priority-renderer',
   template: `
-    <div class="flag-container">
-      <svg-icon
-        [src]="flagIcon"
-        [svgStyle]="{ 'width.px': 24, fill: color, height: '100%' }"
-      >
-      </svg-icon>
-    </div>
+  <div class="flag-container" pTooltip='{{data}}' tooltipPosition='bottom'>
+  <svg-icon
+    [src]="flagIcon"
+    [svgStyle]="{ 'width.px':24 , 'fill': color , 'height': '100%'}">
+  </svg-icon>
+  </div>
   `,
   styles: [``]
 })

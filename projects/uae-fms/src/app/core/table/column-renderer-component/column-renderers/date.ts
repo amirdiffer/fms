@@ -3,7 +3,7 @@ import moment from 'moment';
 
 @Component({
   selector: 'table-date-renderer',
-  template: ` <div>{{ this.date }}</div> `,
+  template: ` <div pTooltip='{{this.date}}' tooltipPosition='bottom'>{{ this.date }}</div> `,
   styles: [``]
 })
 export class DateRenderer implements OnInit {

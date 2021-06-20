@@ -9,11 +9,12 @@ import { environment } from '@environments/environment';
         <img class="asset-image" [src]="fileServerBase + asset.assetPicture" />
       </div>
       <div class="d-flex flex-column">
-        <span class="asset-name">{{ asset.assetName }}</span>
-        <span class="asset-info">{{ asset.assetInfo }}</span>
+        <span class="asset-name" pTooltip='{{asset.assetName }}' tooltipPosition='bottom'>{{ asset.assetName }}</span>
+        <span class="asset-info" pTooltip='{{asset.assetInfo }}' tooltipPosition='bottom'>{{ asset.assetInfo }}</span>
         <span
           [ngStyle]="{ 'background-color': getStatusColor(asset.assetStatus) }"
           class="asset-badge"
+          pTooltip='{{asset.assetStatus }}' tooltipPosition='bottom'
           >{{ asset.assetStatus }}</span
         >
       </div>
