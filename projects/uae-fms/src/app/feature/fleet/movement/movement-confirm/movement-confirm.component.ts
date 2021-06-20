@@ -6,12 +6,14 @@ import {
   MatDialog,
   MatDialogRef
 } from '@angular/material/dialog';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
 import { OperatorFacade } from '@feature/fleet/+state/operator';
 import { OrganizationFacade } from '@feature/fleet/+state/organization';
 import { MovementService } from '@feature/fleet/movement/movement.service';
 import { MovementRequestsFacade } from '@feature/fleet/+state/movement/permanent/requests';
+import { DialogService } from '@core/dialog/dialog-template.component';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-movement-confirm',
@@ -27,21 +29,6 @@ export class MovementConfirmComponent extends Utility implements OnInit {
   organizationSuggests = [];
   organizationSuggestsB;
   submitted = false;
-  dialogSuccessSetting: IDialogAlert = {
-    header: 'Success',
-    hasError: false,
-    message: 'Assigned Successfully',
-    confirmButton: 'Ok'
-  };
-  dialogErrorSetting: IDialogAlert = {
-    header: 'Error',
-    hasError: true,
-    message: 'Some Error Occurred',
-    confirmButton: 'Ok'
-  };
-  displayCancelModal = false;
-  displaySuccessModal = false;
-  displayErrorModal = false;
 
   constructor(
     private _fb: FormBuilder,
@@ -52,10 +39,12 @@ export class MovementConfirmComponent extends Utility implements OnInit {
     private _movementService: MovementService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<MovementConfirmComponent>,
+    private _dialogService : DialogService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     injector: Injector
   ) {
     super(injector);
+    this._requestFacade.reset()
   }
 
   ngOnInit(): void {
@@ -100,19 +89,36 @@ export class MovementConfirmComponent extends Utility implements OnInit {
 
     this._requestFacade.assigned$.subscribe((x) => {
       if (x) {
-        this.displaySuccessModal = true;
-        this.dialogErrorSetting.hasError = false;
+        const dialog = this._dialogService.show('success' , 
+        'Assign Request', 
+        'Request Assigned Successfully','Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['/fleet/movement/permanent'] , {queryParams:{id:'requestTab'}}).then(()=>{
+              this._requestFacade.loadAll()
+            });
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
 
     this._requestFacade.error$.subscribe((x) => {
       if (x?.error) {
-        this.displayErrorModal = true;
-        this.dialogErrorSetting.hasError = true;
-        this.dialogErrorSetting.message =
-          x.error.message != ''
-            ? x.error.message
-            : 'Error occurred during operation';
+        const dialog = this._dialogService.show('danger' , 
+        'Add Request', 
+        'We Have Some Error','Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
   }
@@ -154,33 +160,30 @@ export class MovementConfirmComponent extends Utility implements OnInit {
     if (this.confirmForm.invalid) {
       return;
     }
-    let d = this.confirmForm.getRawValue();
-    let _data = {
-      assetId: d.asset.id,
-      operatorId: d.operator.id,
-      organizationId: d.department.id,
-      departmentId: d.department.id,
-      comment: d.comment,
-      gpsMeterSource: d.gps,
-      shouldSendNotification: d.sendNotification,
-      hasFuelCard: d.fuelCart,
-      fuelCardSerialNumber: d.serialNumber
-    };
-    this._requestFacade.assigning(this.data, _data);
-  }
-
-  dialogConfirm(confirmed) {
-    if (confirmed) {
-      this.displaySuccessModal = false;
-      this.displayErrorModal = false;
-      this._requestFacade.reset();
-    } else this.displaySuccessModal = false;
-  }
-
-  successConfirm($event) {
-    this._requestFacade.reset();
-    this.displayErrorModal = false;
-    this.displaySuccessModal = false;
-    this.dialogRef.close(true);
+    const dialog = this._dialogService.show('warning' , 
+    'Assign Request',
+    'Are you sure you want to assign new request?' , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+      if (result === 'confirm') {
+        let d = this.confirmForm.getRawValue();
+        let _data = {
+          assetId: d.asset.id,
+          operatorId: d.operator.id,
+          organizationId: d.department.id,
+          departmentId: d.department.id,
+          comment: d.comment,
+          gpsMeterSource: d.gps,
+          shouldSendNotification: d.sendNotification,
+          hasFuelCard: d.fuelCart,
+          fuelCardSerialNumber: d.serialNumber
+        };
+        this._requestFacade.assigning(this.data, _data);
+      }
+      dialogClose$?.unsubscribe();
+    })
+  ).subscribe();
+    
   }
 }
