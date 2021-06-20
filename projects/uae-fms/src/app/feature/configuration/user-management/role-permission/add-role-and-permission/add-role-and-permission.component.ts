@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { DialogService } from '@core/dialog/dialog-template.component';
 import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration';
 import { BusinessCategoryService } from '@feature/configuration/+state/business-category';
 import { RolePermissionFacade } from '@feature/configuration/+state/role-permission';
@@ -16,7 +16,8 @@ import { UserProfileService } from '@feature/user/state';
 import { IAssetType } from '@models/asset-type.model';
 import { IBusinessCategory } from '@models/business-category.model';
 import { Utility } from '@shared/utility/utility';
-import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-add-role-and-permission',
@@ -82,27 +83,7 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
   FLEET_UPDATE_ASSET_USAGE_CATEGORY = [];
   WORKSHOP_TECHNICAL_INSPECTION_VIEW_ASSET_TYPE = [];
 
-  /* Alert Dialog */
-  dialogModal = false;
-  errorDialogModal = false;
-  dialogOption = null;
-  dialogSetting: IDialogAlert = {
-    header: 'Add New Role',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Add',
-    cancelButton: 'Cancel'
-  };
 
-  errorDialogSetting: IDialogAlert = {
-    header: '',
-    message: 'Error occurred in progress',
-    confirmButton: 'Ok',
-    isWarning: false,
-    hasError: true,
-    hasHeader: true,
-    cancelButton: undefined
-  };
   constructor(
     private _assetConfigurationService: AssetConfigurationService,
     private _usageCategoryService: BusinessCategoryService,
@@ -111,9 +92,11 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
     private _router: Router,
     private _fb: FormBuilder,
     private _activatedRoute: ActivatedRoute,
+    private _dialogService : DialogService,
     injector: Injector
   ) {
     super(injector);
+    this._roleFacade.reset()
   }
 
   roleData$ = this._roleFacade.rolePermission$.pipe(
@@ -129,29 +112,35 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
     this.formBuilders();
     this._roleFacade.submitted$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogOption = 'success';
-        this.dialogSetting.header = this.isEdit ? 'Edit Role' : 'Add new Role';
-        this.dialogSetting.message = this.isEdit
-          ? 'Changes Saved Successfully'
-          : 'Role Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
+        const dialog = this._dialogService.show('success' , 
+        (this.isEdit ? 'Edit Role': 'Add New Role' ), 
+        (this.isEdit ? 'Changes Saved Successfully' : 'Role Added Successfully'),'Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['configuration/user-management/role-permission']).then(()=>{
+              this._roleFacade.loadAll()
+            });
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
     this._roleFacade.error$.subscribe((x) => {
-      if (x?.error) {
-        this.errorDialogModal = true;
-        this.errorDialogSetting.header = this.isEdit
-          ? 'Edit Sub Asset'
-          : 'Add new Sub Asset';
-        this.errorDialogSetting.hasError = true;
-        this.errorDialogSetting.cancelButton = undefined;
-        this.errorDialogSetting.confirmButton = 'Ok';
-      } else {
-        this.errorDialogModal = false;
+      if(x?.error){
+        const dialog = this._dialogService.show('danger' , 
+            (this.isEdit ? 'Edit Role': 'Add New Role' ), 
+            'We Have Some Error','Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
     const url = this._activatedRoute.snapshot.url.filter(
@@ -277,71 +266,58 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
         break;
     }
   }
-  dialog(event) {
-    if (this.dialogOption == 'cancel' && event) {
-      this._router.navigate(['configuration/user-management/role-permission']);
-    }
-    if (this.dialogOption == 'submit' && event) {
-      const formData = {
-        name: this.roleInfoFrom.get('roleName').value,
-        permissions: this.getTrueValue()
-      };
-      if (this.isEdit) {
-        this._roleFacade.updateRole({
-          id: this.roleId,
-          name: formData.name,
-          permissions: formData.permissions
-        });
-      } else {
-        this._roleFacade.addNewRoll(formData);
-      }
-    }
-    if (this.dialogOption == 'success' && event) {
-      this._roleFacade.reset();
-      this._router.navigate(['configuration/user-management/role-permission']);
-    }
-    this.dialogModal = false;
-  }
   cancelForm() {
-    this.dialogOption = 'cancel';
-    this.dialogSetting = {
-      header: 'Add New Role',
-      hasError: false,
-      isWarning: true,
-      message: 'Do you want to cancel ? if you accept your data will be lost',
-      confirmButton: 'Yes',
-      cancelButton: 'No'
-    };
-    this.dialogModal = true;
+    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+      if (result === 'confirm') {
+        this.router.navigate(['/configuration/user-management/role-permission']);
+      }
+      dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
   }
   submitForm() {
     this.submitted = true;
     this.roleInfoFrom.markAllAsTouched();
     if (this.roleInfoFrom.invalid) return;
     if (this.getTrueValue().length == 0) {
-      this.dialogOption = 'error';
-      this.dialogSetting = {
-        header: 'Add New Role',
-        hasError: true,
-        isWarning: true,
-        message: 'Please choose at least one permission for this role',
-        confirmButton: 'Ok',
-        cancelButton: null
-      };
-      this.dialogModal = true;
+      const dialog = this._dialogService.show('danger' , 'Add New Role' , 'Please choose at least one permission for this role' , 'Ok')
+      const dialogClose$:Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+        if (result === 'confirm') {
+        }
+        dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
     } else {
-      this.dialogOption = 'submit';
-      this.dialogSetting = {
-        header: 'Add New Role',
-        hasError: false,
-        isWarning: true,
-        message: this.isEdit
-          ? 'Are you sure you want to edit role ?'
-          : 'Are you sure you want to add new role ?',
-        confirmButton: 'Yes',
-        cancelButton: 'No'
-      };
-      this.dialogModal = true;
+      const dialog = this._dialogService.show('warning' , 
+      (this.isEdit ? 'Edit Role': 'Add New Role' ), 
+      (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new role?') , 'Yes','Cancel')
+      const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {    
+          if (result === 'confirm') {
+            const formData = {
+              name: this.roleInfoFrom.get('roleName').value,
+              permissions: this.getTrueValue()
+            };
+            if (this.isEdit) {
+              this._roleFacade.updateRole({
+                id: this.roleId,
+                name: formData.name,
+                permissions: formData.permissions
+              });
+            } else {
+              this._roleFacade.addNewRoll(formData);
+            }
+
+          }
+          dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
     }
   }
 
@@ -524,6 +500,12 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
       FUEL_CARD_EXPORT_LIST_ASSET_USAGE: [false]
     });
   }
+
+  trafficFinesFormBuilder(){
+    this.trafficFinesForm = this._fb.group({});
+
+  }
+
   salikFormBuilder() {
     this.salikForm = this._fb.group({});
   }
@@ -731,6 +713,7 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
     this.fleetMovementFormBuilder();
     this.fleetDepartmentFormBuilder();
     this.fuelManagementFormBuilder();
+    this.trafficFinesFormBuilder();
     this.salikFormBuilder();
     this.partStorePartListFormBuilder();
     this.partStoreOrderListFormBuilder();
@@ -758,16 +741,16 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
       this.fleetMovementForm,
       this.fleetDepartmentForm,
       this.fuelManagementForm,
-      this.trafficFinesForm,
-      this.salikForm,
+      // this.trafficFinesForm,
+      // this.salikForm,
       this.partStorePartListForm,
       this.partStoreOrderListForm,
       this.partStoreSupplierForm,
       this.partStorePartMasterForm,
       this.workshopBodyshopForm,
       this.workshopServiceshopForm,
-      this.workshopTechnicalInspectionForm,
-      this.workshopAuctionListForm,
+      // this.workshopTechnicalInspectionForm,
+      // this.workshopAuctionListForm,
       this.workshopTaskMasterForm,
       this.configurationUserManagementForm,
       this.configurationAssetPolicyForm,

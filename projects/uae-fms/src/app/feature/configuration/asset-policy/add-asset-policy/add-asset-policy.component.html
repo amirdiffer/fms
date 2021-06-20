@@ -106,11 +106,3 @@
     <app-table [setting]="assetPolicy_Table" [tableData]="assetPolicy$"></app-table>
   </div>
 </div>
-
-
-<alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel"
-  (confirm)="dialogCancelConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogModalError=false">
-</alert-dialog>
-<alert-dialog [settings]="dialogSettingAddOrUpdate" [displayModal]="dialogModalAddOrUpdate"
-  (confirm)="dialogAddOrUpdateConfirm($event)"></alert-dialog>
