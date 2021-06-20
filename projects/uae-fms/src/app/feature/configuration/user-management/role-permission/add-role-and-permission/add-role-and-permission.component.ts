@@ -129,9 +129,10 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
       }
     });
     this._roleFacade.error$.subscribe((x) => {
-      const dialog = this._dialogService.show('danger' , 
-          (this.isEdit ? 'Edit Role': 'Add New Role' ), 
-          'We Have Some Error','Ok')
+      if(x?.error){
+        const dialog = this._dialogService.show('danger' , 
+            (this.isEdit ? 'Edit Role': 'Add New Role' ), 
+            'We Have Some Error','Ok')
         const dialogClose$:Subscription = dialog.dialogClosed$
         .pipe(
           tap((result) => {
@@ -140,6 +141,7 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
           dialogClose$?.unsubscribe();
           })
         ).subscribe()
+      }
     });
     const url = this._activatedRoute.snapshot.url.filter(
       (x) => x.path == 'edit-role-permission'
@@ -498,6 +500,12 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
       FUEL_CARD_EXPORT_LIST_ASSET_USAGE: [false]
     });
   }
+
+  trafficFinesFormBuilder(){
+    this.trafficFinesForm = this._fb.group({});
+
+  }
+
   salikFormBuilder() {
     this.salikForm = this._fb.group({});
   }
@@ -705,6 +713,7 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
     this.fleetMovementFormBuilder();
     this.fleetDepartmentFormBuilder();
     this.fuelManagementFormBuilder();
+    this.trafficFinesFormBuilder();
     this.salikFormBuilder();
     this.partStorePartListFormBuilder();
     this.partStoreOrderListFormBuilder();
@@ -732,16 +741,16 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
       this.fleetMovementForm,
       this.fleetDepartmentForm,
       this.fuelManagementForm,
-      this.trafficFinesForm,
-      this.salikForm,
+      // this.trafficFinesForm,
+      // this.salikForm,
       this.partStorePartListForm,
       this.partStoreOrderListForm,
       this.partStoreSupplierForm,
       this.partStorePartMasterForm,
       this.workshopBodyshopForm,
       this.workshopServiceshopForm,
-      this.workshopTechnicalInspectionForm,
-      this.workshopAuctionListForm,
+      // this.workshopTechnicalInspectionForm,
+      // this.workshopAuctionListForm,
       this.workshopTaskMasterForm,
       this.configurationUserManagementForm,
       this.configurationAssetPolicyForm,
