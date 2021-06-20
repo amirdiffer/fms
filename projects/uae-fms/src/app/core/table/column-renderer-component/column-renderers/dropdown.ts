@@ -3,9 +3,26 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'table-dropdown-renderer',
   template: `
-    <div class='d-flex align-items-center justify-content-end'>
-      <div class='curved_right_tag text-center' [ngStyle]="{'background-color': rowIndexTable == index ? '#1f8302' : null}" (click)="changeTRSelected()">
-        <svg-icon src="assets/icons/up.svg" [svgStyle]="{ 'width.px':'16' , 'fill': '#fff' , 'height': '16', 'stroke-width': '40px','stroke': 'white', 'transform': rowIndexTable == index ? 'rotate(0deg)' : 'rotate(180deg)'}"></svg-icon>
+    <div class="d-flex align-items-center justify-content-end">
+      <div
+        class="curved_right_tag text-center"
+        [ngStyle]="{
+          'background-color': rowIndexTable == index ? '#1f8302' : null
+        }"
+        (click)="changeTRSelected()"
+      >
+        <svg-icon
+          src="assets/icons/up.svg"
+          [svgStyle]="{
+            'width.px': '16',
+            fill: '#fff',
+            height: '16',
+            'stroke-width': '40px',
+            stroke: 'white',
+            transform:
+              rowIndexTable == index ? 'rotate(0deg)' : 'rotate(180deg)'
+          }"
+        ></svg-icon>
       </div>
     </div>
   `,
@@ -24,7 +41,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   ]
 })
 export class DropdownRenderer implements OnInit {
-
   @Input() data;
   @Input() index;
   @Input() rowIndexTable;
@@ -35,7 +51,6 @@ export class DropdownRenderer implements OnInit {
   ngOnInit() {}
 
   changeTRSelected() {
-    this.selected.emit({id: this.data['id'], index: this.index})
+    this.selected.emit({ id: this.data['id'], index: this.index });
   }
-
 }

@@ -7,6 +7,7 @@ export interface IntegrationState extends EntityState<IIntegration> {
   error?: any;
   loaded?: boolean;
   message?: string;
+  submitted?: boolean;
 }
 
 export interface IntegrationPartialState {
@@ -21,6 +22,7 @@ export const initialState: IntegrationState = integrationAdapter.getInitialState
   {
     error: null,
     loaded: null,
-    message: null
+    message: null,
+    submitted: false
   } as IntegrationState
 );

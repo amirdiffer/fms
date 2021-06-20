@@ -9,7 +9,7 @@ import {
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Make } from '@models/asset-type.model';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/index';
+import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { Utility } from '@shared/utility/utility';
 import { Router } from '@angular/router';

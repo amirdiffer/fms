@@ -1,14 +1,9 @@
 import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
-import {
-  AssetPolicyFacade,
-  SubAssetPolicyFacade
-} from '@feature/configuration/+state/asset-policy';
-import {
-  SubAssetService,
-  SubAssetFacade
-} from '@feature/fleet/+state/sub-asset';
+import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
+import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy/asset';
+import { SubAssetPolicyFacade } from '@feature/configuration/+state/asset-policy/sub-asset';
+import { SubAssetService, SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { ColumnDifinition, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import * as moment from 'moment';
@@ -130,7 +125,7 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
     private subAssetTypeFacade: SubAssetTypeFacade,
     private assetPolicyFacade: AssetPolicyFacade,
     private subAssetPolicyFacade: SubAssetPolicyFacade,
-    private _dialogService : DialogService
+    private _dialogService: DialogService
   ) {
     super(injector);
     this.subAssetFacade.reset();
@@ -289,18 +284,18 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   handleSubmissionDialog() {
     this.subAssetFacade.submitted$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success' , 
-          (this.isEdit ? 'Edit Sub Asset': 'Add new Sub Asset' ), 
-          (this.isEdit ? 'Changes Saved Successfully' : 'Sub Asset Added Successfully'),'Ok')
-        const dialogClose$:Subscription = dialog.dialogClosed$
-        .pipe(
-          tap((result) => {
-          if (result === 'confirm') {
-            this.router.navigate(['/fleet/sub-asset']);
-          }
-          dialogClose$?.unsubscribe();
-          })
-        ).subscribe()
+        const dialog = this._dialogService.show('success',
+          (this.isEdit ? 'Edit Sub Asset' : 'Add new Sub Asset'),
+          (this.isEdit ? 'Changes Saved Successfully' : 'Sub Asset Added Successfully'), 'Ok')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+                this.router.navigate(['/fleet/sub-asset']);
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
         this.subAssetFacade.loadAll();
       }
     });
@@ -309,17 +304,17 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   handleErrorDialog() {
     this.subAssetFacade.error$.subscribe((x) => {
       if (x?.error) {
-        const dialog = this._dialogService.show('danger' , 
-          (this.isEdit ? 'Edit Sub Asset': 'Add new Sub Asset' ), 
-          'We Have Some Error','Ok')
-        const dialogClose$:Subscription = dialog.dialogClosed$
-        .pipe(
-          tap((result) => {
-          if (result === 'confirm') {
-          }
-          dialogClose$?.unsubscribe();
-          })
-        ).subscribe()
+        const dialog = this._dialogService.show('danger',
+          (this.isEdit ? 'Edit Sub Asset' : 'Add new Sub Asset'),
+          'We Have Some Error', 'Ok')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
       }
     });
   }
@@ -354,7 +349,7 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
           }));
         }
       },
-      (error) => {}
+      (error) => { }
     );
   }
 
@@ -370,7 +365,7 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
           }
         }
       },
-      (error) => {}
+      (error) => { }
     );
   }
 
@@ -505,17 +500,17 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
         this.subAssetFacade.addSubAsset(data);
       } else {
         data['id'] = this.recordId;
-        const dialog = this._dialogService.show('warning' , 'Edit sub asset' , 'Are you sure you want to edit sub asset?' , 'Yes','Cancel')
-        const dialogClose$:Subscription = dialog.dialogClosed$
-        .pipe(
-          tap((result) => {
-          if (result === 'confirm') {
-            this.subAssetFacade.editSubAsset(data);
-          }
-          dialogClose$?.unsubscribe();
-          })
-        ).subscribe();
-        
+        const dialog = this._dialogService.show('warning', 'Edit sub asset', 'Are you sure you want to edit sub asset?', 'Yes', 'Cancel')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+                this.subAssetFacade.editSubAsset(data);
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe();
+
       }
     }
   }
@@ -615,16 +610,16 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   cancel() {
-    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Ok','Cancel')
-    const dialogClose$:Subscription = dialog.dialogClosed$
-    .pipe(
-      tap((result) => {
-      if (result === 'confirm') {
-        this.router.navigate(['/fleet/sub-asset']);
-      }
-      dialogClose$?.unsubscribe();
-      })
-    ).subscribe();
+    const dialog = this._dialogService.show('warning', 'Are you sure you want to leave?', 'You have unsaved changes! If you leave, your changes will be lost.', 'Ok', 'Cancel')
+    const dialogClose$: Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['/fleet/sub-asset']);
+          }
+          dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
   }
 
   ngOnDestroy() {

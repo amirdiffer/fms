@@ -37,7 +37,7 @@
           <div *ngIf="!col.renderer">
             <div class="d-flex">
               <span class="p-column-title">{{col.lable}}</span>
-              <span class="column-data" [class.pl-5]='col.hasPadding5' [class.pl-3]='col.hasPadding3'>
+              <span class="column-data" [class.pl-5]='col.hasPadding5' [class.pl-3]='col.hasPadding3' pTooltip='{{getCol(col,data)}}' tooltipPosition='bottom'>
                 {{ getCol(col,data) }}
                 <ng-template [ngIf]="col.type && col.type == 2 && data[col.thumbField]" [ngIfThen]="thumb"></ng-template>
                 <ng-template #thumb>

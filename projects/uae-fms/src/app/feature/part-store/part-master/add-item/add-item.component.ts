@@ -14,6 +14,7 @@ import { SuppliersService } from '../../+state/order-list/suppliers/suppliers.se
   styleUrls: ['./add-item.component.scss']
 })
 export class AddItemComponent extends Utility implements OnInit, OnDestroy {
+  calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   itemTypes = [
     { name: 'Item type 1', id: 1 },
     { name: 'Item type 2', id: 2 },
@@ -22,6 +23,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     { name: 'Item type 5', id: 5 },
     { name: 'Item type 6', id: 6 }
   ];
+  years:number[] = this.getYears(1960)
   form: FormGroup;
   isEdit:boolean=false;
   id:number;
@@ -105,11 +107,15 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     this._partMasterFacade.specificItem$.subscribe(
       x => {
         if(x){
+          console.log(x)
           this.itemInfo.controls.map(formGroup => {formGroup.patchValue({
             itemName: x.name,
             trim:x.trimId ? {id:x.trimId}: null,
             model:x.modelId ? x.modelId : null,
             threshold: x.needToOrderThreshold,
+            description:x.description,
+            partNumber:x.partNumber,
+            year:{name:x.year},
             color:x.trimColorId ? x.trimColorId : null,
             uploadFile: {files:x.documentIds}
           })});
@@ -143,9 +149,12 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
       trim:['',[Validators.required]],
       model:['',[Validators.required]],
       color:[null],
+      description:['',[Validators.required]],
+      partNumber:['',[Validators.required]],
+      year:['',[Validators.required]],
       threshold:['',[Validators.required]],
       suppliers:new FormArray([this.createSupplierFormArray()]),
-      uploadFile:[null]
+      uploadFile:[null],
     });
   }
 
@@ -276,6 +285,9 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
         name: formValue.itemInfo[0].itemName,
         trimId: formValue.itemInfo[0].trim.id,
         trimColorId: formValue.itemInfo[0].color,
+        description:formValue.itemInfo[0].description,
+        partNumber:formValue.itemInfo[0].partNumber,
+        year:+formValue.itemInfo[0].year.name,
         needToOrderThreshold: +formValue.itemInfo[0].threshold,
         supplierIds:formValue.itemInfo[0].suppliers.map(supplier => { return supplier.supplier}) ,
         documentIds: formValue.itemInfo[0].uploadFile != null ? formValue.itemInfo[0].uploadFile.files : []
@@ -292,6 +304,9 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
         categoryId: this.categoryData.categoryId,
         name: formValue.itemInfo[0].itemName,
         modelId: formValue.itemInfo[0].model,
+        description:formValue.itemInfo[0].description,
+        partNumber:formValue.itemInfo[0].partNumber,
+        year:+formValue.itemInfo[0].year.name,
         needToOrderThreshold: +formValue.itemInfo[0].threshold,
         supplierIds:formValue.itemInfo[0].suppliers.map(supplier => { return supplier.supplier}) ,
         documentIds: formValue.itemInfo[0].uploadFile != null ? formValue.itemInfo[0].uploadFile.files : []
@@ -308,6 +323,16 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
   uploadFile(event){
     event
     this.itemInfo.controls.map(formGroup => {formGroup.get('uploadFile').patchValue(event)})
+  }
+
+  getYears(fromYears:number) : number [] {
+    let currentYear = new Date().getFullYear();
+    let allYears = new Array;
+    for (let i = 0; i < currentYear - fromYears + 1 ; i++) {
+      let year = currentYear - i
+      allYears.push({name : year})
+    }
+    return allYears
   }
 
   errorHandele(facade){

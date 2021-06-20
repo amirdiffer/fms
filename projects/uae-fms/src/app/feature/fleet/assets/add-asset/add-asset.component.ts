@@ -16,15 +16,15 @@ import { BusinessCategoryFacade } from '@feature/configuration/+state/business-c
 import { map } from 'rxjs/operators';
 import { Subscription, of, Observable, Subject, BehaviorSubject } from 'rxjs';
 import { OwnershipFacade } from '@feature/configuration/+state/ownership';
-import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
-import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
+import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy/asset';
 import { PeriodicServiceFacade } from '@feature/configuration/+state/periodic-service';
 import {
   OrganizationFacade,
   OrganizationService
 } from '@feature/fleet/+state/organization';
+import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
 import { OperatorFacade } from '@feature/fleet/+state/operator';
-import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
+import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
 import {
   AssetMasterFacade,
   AssetMasterService
@@ -497,7 +497,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this._departmentService.loadWithPagination().subscribe((x) => {
       x.message
         ? // ? this.department.next(x.message)
-        (this.departmentList = x.message)
+          (this.departmentList = x.message)
         : (this.departmentList = []);
     });
 
@@ -742,7 +742,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     return file.name;
   }
 
-  selectedPlicyType(value) { }
+  selectedPlicyType(value) {}
 
   next() {
     let activeStep = this.stepper.selectedIndex;
@@ -981,8 +981,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           formVal_Generate.quantity == 'multipleAsset'
             ? dpdcodes
             : [
-              `${formVal_AssetDetail.businessInfo.ownership.fleetITCode}${formVal_Generate.serialNumber}`
-            ]
+                `${formVal_AssetDetail.businessInfo.ownership.fleetITCode}${formVal_Generate.serialNumber}`
+              ]
       };
 
       formValue.warrantyItems.map((x) => {

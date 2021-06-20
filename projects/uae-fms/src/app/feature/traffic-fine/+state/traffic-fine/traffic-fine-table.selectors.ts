@@ -29,9 +29,8 @@ export class TrafficFineTableSelectors {
     (state) => state.loaded
   );
 
-  static vehicleInfo=createSelector(
+  static vehicleInfo = createSelector(
     TrafficFinesSelectors.trafficFineTableSelector,
     (state) => state.vehicleInfo
-  )
-
+  );
 }

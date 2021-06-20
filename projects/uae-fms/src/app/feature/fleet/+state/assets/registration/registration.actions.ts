@@ -1,6 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 import { IPendingRegistration } from '@models/pending-registration.model';
-import { IRegisterAssetByChassisNumber, IRegisterAssetByPlateNumber } from './registration.entity';
+import {
+  IRegisterAssetByChassisNumber,
+  IRegisterAssetByPlateNumber
+} from './registration.entity';
 
 export class RegistrationActions {
   static loadAll = createAction('[Registration] load all data');
@@ -59,8 +62,6 @@ export class RegistrationActions {
     '[Registration] asset by chassis number registered successfully ',
     props<{ data: any }>()
   );
-
-
 
   static error = createAction(
     '[Registration] error occurred',

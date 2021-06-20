@@ -6,7 +6,7 @@ import { IAccessory } from '@models/accessory';
 import {
   AccessoryTypeFacade,
   AccessoryTypeService
-} from '@feature/configuration/+state/fleet-configuration';
+} from '@feature/configuration/+state/fleet-configuration/accessory-type';
 import { environment } from '@environments/environment';
 
 @Component({

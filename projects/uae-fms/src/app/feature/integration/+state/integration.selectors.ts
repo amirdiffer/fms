@@ -22,4 +22,6 @@ export class IntegrationSelectors {
     IntegrationSelectors.integrationSelector,
     (state) => state.error
   );
+
+  static submitted = createSelector(IntegrationSelectors.integrationSelector, (state) => state.submitted );
 }

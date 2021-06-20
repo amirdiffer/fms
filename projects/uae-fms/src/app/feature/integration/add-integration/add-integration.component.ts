@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IntegrationFacade } from '../+state/index';
 import { IntegrationService } from '../integration.service';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'add-integration',
@@ -22,7 +23,8 @@ export class AddIntegrationComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _integrationservice: IntegrationService,
-    private _facade: IntegrationFacade
+    private _facade: IntegrationFacade,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -31,10 +33,28 @@ export class AddIntegrationComponent implements OnInit {
       companyName: [''],
       grp: ['']
     });
+
+    this._facade.submitted$.subscribe(response => {
+      if (response) {
+        const dialog = this.dialogService.show('success', 'Add Integration',
+          'Integration added successfully.', 'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+            this._integrationservice.loadInegrationForm(false);
+          }
+        })
+      }
+    })
   }
 
   cancel() {
-    this._integrationservice.loadInegrationForm(false);
+    const dialog = this.dialogService.show('warning', 'Add Integration',
+      'Are you sure that you want to cancel adding new integration ?', 'Yes', 'No');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this._integrationservice.loadInegrationForm(false);
+      }
+    });
   }
   save() {
     this._facade.addIntegration(this.inputForm.value);

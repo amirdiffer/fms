@@ -20,7 +20,8 @@ import { environment } from '@environments/environment';
 })
 export class OverViewOperatorComponent implements OnInit, OnDestroy {
   //region Variable
-  @ViewChild(OperatorOverviewTabComponent, { static: false }) overViewTab: OperatorOverviewTabComponent
+  @ViewChild(OperatorOverviewTabComponent, { static: false })
+  overViewTab: OperatorOverviewTabComponent;
 
   downloadBtn = 'assets/icons/download-solid.svg';
   search = 'assets/icons/search-solid.svg';
@@ -28,20 +29,20 @@ export class OverViewOperatorComponent implements OnInit, OnDestroy {
 
   activeLang = '';
 
-  trafficFineCount$ = this.trafficFineFacade.count$
+  trafficFineCount$ = this.trafficFineFacade.count$;
 
-  movementHistoryCount$ = this.movementHistoryFacade.count$
+  movementHistoryCount$ = this.movementHistoryFacade.count$;
 
   count$ = this.facade.conut$.pipe(map((_) => 3456));
 
-  activatedRouteSubscriber: Subscription
-  operatorSubscriber: Subscription
-  operatorDrivingLicenseSubscriber: Subscription
-  operator: IOperator
-  operator$: Observable<IOperator>
-  trafficFineTableData: Observable<any>
-  movementHistoryTableData: Observable<any>
-  profilePicture = ''
+  activatedRouteSubscriber: Subscription;
+  operatorSubscriber: Subscription;
+  operatorDrivingLicenseSubscriber: Subscription;
+  operator: IOperator;
+  operator$: Observable<IOperator>;
+  trafficFineTableData: Observable<any>;
+  movementHistoryTableData: Observable<any>;
+  profilePicture = '';
   //#endregion
 
   //#region Table
@@ -288,17 +289,18 @@ export class OverViewOperatorComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private settingFacade: SettingsFacade,
     private trafficFineFacade: OperatorTrafficFineFacade,
-    private movementHistoryFacade: OperatorMovementHistoryFacade,
+    private movementHistoryFacade: OperatorMovementHistoryFacade
   ) {}
 
   ngOnInit(): void {
-
-    this.activatedRouteSubscriber = this.activatedRoute.params.subscribe((params) => {
-      const id = params['id']
-      this.getOperatorById(id);
-      this.getOperatorsTrafficFine(id)
-      this.getOperatorsMovementHistory(id)
-    })
+    this.activatedRouteSubscriber = this.activatedRoute.params.subscribe(
+      (params) => {
+        const id = params['id'];
+        this.getOperatorById(id);
+        this.getOperatorsTrafficFine(id);
+        this.getOperatorsMovementHistory(id);
+      }
+    );
 
     this.settingFacade.language.subscribe((lang) => {
       this.activeLang = lang;
@@ -335,9 +337,9 @@ export class OverViewOperatorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.activatedRouteSubscriber?.unsubscribe()
-    this.operatorSubscriber?.unsubscribe()
-    this.operatorDrivingLicenseSubscriber?.unsubscribe()
+    this.activatedRouteSubscriber?.unsubscribe();
+    this.operatorSubscriber?.unsubscribe();
+    this.operatorDrivingLicenseSubscriber?.unsubscribe();
   }
 
   private getOperatorById(id: number): void {
@@ -350,56 +352,74 @@ export class OverViewOperatorComponent implements OnInit, OnDestroy {
     // ).subscribe()
 
     this.operator$ = this.service.getOperatorById(id).pipe(
-      map(response => {
-        return response.message
+      map((response) => {
+        return response.message;
       })
-    )
+    );
   }
 
- 
-
   private getOperatorsTrafficFine(id: number): void {
-
-    this.trafficFineFacade.loadAll(id)
+    this.trafficFineFacade.loadAll(id);
     this.trafficFineTableData = this.trafficFineFacade.trafficFine$.pipe(
-      map(trafficFineArray => trafficFineArray.map((trafficFine => (
-        {
+      map((trafficFineArray) =>
+        trafficFineArray.map((trafficFine) => ({
           TC_Code: trafficFine.tcCode,
           Type: trafficFine.userStatus,
           Department: trafficFine.department.name,
           Plate_No: trafficFine.plateNumber,
           Mission_Status: trafficFine.missionStatus,
           Time_Date: trafficFine.time,
-          userStatus: trafficFine.userStatus,
-        }
-      ))))
-    )
+          userStatus: trafficFine.userStatus
+        }))
+      )
+    );
   }
 
   private getOperatorsMovementHistory(id: number): void {
-
-    this.movementHistoryFacade.loadAll(id)
+    this.movementHistoryFacade.loadAll(id);
     this.movementHistoryTableData = this.movementHistoryFacade.movementHistory$.pipe(
-      map(movementHistoryArray => movementHistoryArray.map((movementHistory => {
-        const startDate = new Date(movementHistory.startDate * 1000);
-        const formattedStartDateLine1 = formatDate(startDate, 'EEEE MM-dd ', 'en-US')
-        const formattedStartDateLine2 = formatDate(startDate, 'hh:mm', 'en-US')
-        const endDate = new Date(movementHistory.startDate * 1000);
-        const formattedEndDateLine1 = formatDate(endDate, 'EEEE MM-dd', 'en-US')
-        const formattedEndDateLine2 = formatDate(endDate, 'hh:mm', 'en-US')
-        const duration = `${Math.abs(new Date(endDate).getDay() - new Date(startDate).getDay())} Days`
-        return {
-          asset: {
-            img: 'assets/thumb.png',
-            assetSubName: movementHistory.asset.dpd,
-            ownership: movementHistory.asset.ownershipType,
-          },
-          duration: duration,
-          startDate: { line1: formattedStartDateLine1, line2: formattedStartDateLine2 },
-          endDate: { line1: formattedEndDateLine1, line2: formattedEndDateLine2 },
-          department: movementHistory.department.name
-        }
-      })))
-    )
+      map((movementHistoryArray) =>
+        movementHistoryArray.map((movementHistory) => {
+          const startDate = new Date(movementHistory.startDate * 1000);
+          const formattedStartDateLine1 = formatDate(
+            startDate,
+            'EEEE MM-dd ',
+            'en-US'
+          );
+          const formattedStartDateLine2 = formatDate(
+            startDate,
+            'hh:mm',
+            'en-US'
+          );
+          const endDate = new Date(movementHistory.startDate * 1000);
+          const formattedEndDateLine1 = formatDate(
+            endDate,
+            'EEEE MM-dd',
+            'en-US'
+          );
+          const formattedEndDateLine2 = formatDate(endDate, 'hh:mm', 'en-US');
+          const duration = `${Math.abs(
+            new Date(endDate).getDay() - new Date(startDate).getDay()
+          )} Days`;
+          return {
+            asset: {
+              img: 'assets/thumb.png',
+              assetSubName: movementHistory.asset.dpd,
+              ownership: movementHistory.asset.ownershipType
+            },
+            duration: duration,
+            startDate: {
+              line1: formattedStartDateLine1,
+              line2: formattedStartDateLine2
+            },
+            endDate: {
+              line1: formattedEndDateLine1,
+              line2: formattedEndDateLine2
+            },
+            department: movementHistory.department.name
+          };
+        })
+      )
+    );
   }
 }

@@ -13,7 +13,7 @@ export class MenuPermission {
     /* '''''Dashboard''''' */
     this._dashboardPermission = {
       DASHBOARD: ['AlLOW_ALWAYS'],
-      DASHBOARD_TECHNICIAN : ['DONT_ALLOW']
+      DASHBOARD_TECHNICIAN: ['DONT_ALLOW']
     };
 
     /* '''''Fleet''''' */
@@ -59,12 +59,12 @@ export class MenuPermission {
     /* '''''Traffic Fine''''' */
     this._trafficFinesPermisssion = {
       TRRAFIC_FINE: [
-        "USER_OPERATOR_VIEW_DETAILS_TRAFFIC_FINE",
-        "OPERATOR_TRAFFIC_FINE_VIEW_LIST_OWN",
-        "OVERVIEW_ASSET_TRAFFIC_FINE_VIEW",
-        "OVERVIEW_OPERATOR_TRAFFIC_FINE_VIEW",
-        "ORGANIZATION_VIEW_TRAFFIC_FINES",
-        "OVERVIEW_ORGANIZATION_TRAFFIC_FINE_VIEW"
+        'USER_OPERATOR_VIEW_DETAILS_TRAFFIC_FINE',
+        'OPERATOR_TRAFFIC_FINE_VIEW_LIST_OWN',
+        'OVERVIEW_ASSET_TRAFFIC_FINE_VIEW',
+        'OVERVIEW_OPERATOR_TRAFFIC_FINE_VIEW',
+        'ORGANIZATION_VIEW_TRAFFIC_FINES',
+        'OVERVIEW_ORGANIZATION_TRAFFIC_FINE_VIEW'
       ]
     };
 
@@ -151,7 +151,7 @@ export class MenuPermission {
       case 'DASHBOARD':
         let permissionDashboardLabel = {
           DASHBOARD: this._dashboardPermission.DASHBOARD,
-          DASHBOARD_TECHNICIAN:this._dashboardPermission.DASHBOARD_TECHNICIAN
+          DASHBOARD_TECHNICIAN: this._dashboardPermission.DASHBOARD_TECHNICIAN
         };
         return permissionDashboardLabel[permission];
 

@@ -143,8 +143,8 @@
     "edit_make": "تحریر الماركة",
     "accessory_overview": "نظرة عامة على الملحقات",
     "department_overview": "نظرة عامة على القسم",
-    "traffic_fine_overview":"نظرة المخالفات المرورية",
-    "asset_overview":"نظرة الأصول"
+    "traffic_fine_overview": "نظرة المخالفات المرورية",
+    "asset_overview": "نظرة الأصول"
   },
   "sidebar": {
     "dashboard": "لوحة البيانات",
@@ -1126,6 +1126,9 @@
       "add_category": "إضافة فئة",
       "make": "الماركة",
       "model": "الموديل",
+      "description":"الوصف",
+      "part_number":"رقم القطعة",
+      "year":"السنة",
       "folder_info": "معلومات المجلد",
       "category_info": "معلومات الفئة",
       "item_info": "معلومات العنصر",

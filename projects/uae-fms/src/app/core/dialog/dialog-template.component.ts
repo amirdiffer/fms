@@ -87,6 +87,9 @@ export class DialogService {
     cancelButtonTitle?:string,
     hasTextInput: boolean = false
   ): DialogTemplateComponent {
+
+    this.dialog.closeAll();
+
     const dialog = this.dialog.open(DialogTemplateComponent, {
       width: '50%',
       disableClose: true

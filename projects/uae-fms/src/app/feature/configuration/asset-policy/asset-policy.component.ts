@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableComponent, TableSetting } from '@core/table';
-import {
-  AssetPolicyFacade,
-  SubAssetPolicyFacade
-} from '../+state/asset-policy';
+import { AssetPolicyFacade } from '../+state/asset-policy/asset';
+import { SubAssetPolicyFacade } from '../+state/asset-policy/sub-asset';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
