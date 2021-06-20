@@ -78,14 +78,15 @@ export class TaskMasterComponent implements OnInit {
         {
           button: 'edit',
           onClick: (col, data, button?) => {
-            this.router.navigate(['/workshop/task-master/edit-task-master/' + data.id],).then();
+            this.router
+              .navigate(['/workshop/task-master/edit-task-master/' + data.id])
+              .then();
           },
-          permission:['TASK_MASTER_UPDATE']
+          permission: ['TASK_MASTER_UPDATE']
         }
       ]
     }
   };
-
 
   /*
   doesNeedParty: false
@@ -116,10 +117,7 @@ export class TaskMasterComponent implements OnInit {
     })
   );
 
-  constructor(
-    private _facade: TaskMasterFacade,
-    private router: Router
-  ) {}
+  constructor(private _facade: TaskMasterFacade, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -135,7 +133,7 @@ export class TaskMasterComponent implements OnInit {
       rate_per_hour: 'ratePerHour',
       skill: 'skill',
       part: 'part'
-    }
+    };
     this.table.exportTable(this.tableSetting, 'TaskMaster', filter);
   }
 }

@@ -16,8 +16,8 @@ import { PermanentOverviewStateModule } from '../+state/movement/permanent/overv
 import { PermanentRequestStateModule } from '../+state/movement/permanent/requests/permanent-request-state.module';
 import { TemporaryOverviewStateModule } from '../+state/movement/temporary/overview/temporary-overview-state.module';
 import { TemporaryRequestStateModule } from '../+state/movement/temporary/requests/permanent-request-state.module';
-
-
+import { OperatorStateModule } from '../+state/operator/operator-state.module';
+import { OrganizationStateModule } from '../+state/organization/organization-state.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,9 @@ import { TemporaryRequestStateModule } from '../+state/movement/temporary/reques
     PermanentOverviewStateModule,
     PermanentRequestStateModule,
     TemporaryOverviewStateModule,
-    TemporaryRequestStateModule
+    TemporaryRequestStateModule,
+    OperatorStateModule,
+    OrganizationStateModule
   ]
 })
-export class MovementModule { }
+export class MovementModule {}

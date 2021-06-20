@@ -3,10 +3,7 @@ import { organizationAdapter } from './organization.entity';
 const { selectAll } = organizationAdapter.getSelectors();
 const organizationState = (state) => state['organization'];
 export class OrganizationSelectors {
-  static selectAll = createSelector(
-    organizationState,
-    selectAll
-  );
+  static selectAll = createSelector(organizationState, selectAll);
   static count = createSelector(
     organizationState,
     (state) => state.resultNumber
@@ -15,8 +12,6 @@ export class OrganizationSelectors {
     organizationState,
     (state) => state.submitted
   );
-  static error = createSelector(
-    organizationState,
-    (state) => state.error
-  );
+  static loaded = createSelector(organizationState, (state) => state.loaded);
+  static error = createSelector(organizationState, (state) => state.error);
 }

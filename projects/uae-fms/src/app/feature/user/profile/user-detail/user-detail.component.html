@@ -10,13 +10,13 @@
         <span class="add-button"><a>+</a></span>
     </div>
     <div class="user-info">
-        <h3 class="fullname-title">Mohammad Saddon</h3>
-        <h6 class="user-subtitle">Tecnhical</h6>
-        <p class="user-number">0027567565</p>
+        <h3 class="fullname-title">{{(data$ | async)?.firstName}} {{(data$ | async)?.lastName}}</h3>
+        <h6 class="user-subtitle">{{position ?  (position | translate) : 'Position' }}</h6>
+        <p class="user-number">{{(data$ | async)?.employeeNumber}}</p>
     </div>
     <ng-container *ngIf="hasActivate">
         <div class="toggle-select justify-content-center">
-            <p-inputSwitch></p-inputSwitch>
+            <p-inputSwitch [(ngModel)]="activeChecked"></p-inputSwitch>
         </div>
     </ng-container>
     
@@ -27,8 +27,8 @@
             <svg-icon [src]="organizationIcon" [svgStyle]="{ 'width.em':1.2 , 'fill': '#0da06e' , 'height': '100%'}"></svg-icon>
         </div>
         <div class="user-option-title">
-            <p class="p-0 m-0">{{'profile.organization' | translate}}</p>
-            <small class="p-0 m-0">Sample Department</small>
+            <p class="p-0 m-0">{{(data$ | async)?.department.organizationName}}</p>
+            <small class="p-0 m-0">{{(data$ | async)?.department.name}}</small>
         </div>
     </div>
     <div class="user-option">
@@ -37,7 +37,7 @@
         </div>
         <div class="user-option-title">
             <p class="p-0 m-0">{{'profile.email' | translate}}</p>
-            <small class="p-0 m-0">Mohammad@example.com</small>
+            <small class="p-0 m-0">{{(data$ | async)?.emails[0]}}</small>
         </div>
     </div>
     <div class="user-option">
@@ -46,7 +46,7 @@
         </div>
         <div class="user-option-title">
             <p  class="p-0 m-0">{{'profile.phone_number' | translate}}</p>
-            <small class="p-0 m-0">+971505653793</small>
+            <small class="p-0 m-0">{{(data$ | async)?.phoneNumbers[0]}}</small>
         </div>
     </div>
 </div>

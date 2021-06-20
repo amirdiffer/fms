@@ -1,20 +1,19 @@
 import { createSelector } from '@ngrx/store';
-import { ConfigurationSelectors } from '../configuration.selectors';
 import { assetConfigurationAdapter } from './asset-configuration.entity';
-
+const assetConfigurationSelector = (state) => state['assetConfiguration'];
 export class AssetConfigurationSelectors {
   static selectAll = createSelector(
-    ConfigurationSelectors.assetConfigurationSelector,
+    assetConfigurationSelector,
     assetConfigurationAdapter.setAll
   );
 
   static message = createSelector(
-    ConfigurationSelectors.assetConfigurationSelector,
+    assetConfigurationSelector,
     (state) => state.message
   );
 
   static error = createSelector(
-    ConfigurationSelectors.assetConfigurationSelector,
+    assetConfigurationSelector,
     (state) => state.error
   );
 }

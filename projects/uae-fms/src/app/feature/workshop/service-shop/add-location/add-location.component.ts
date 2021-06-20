@@ -12,8 +12,10 @@ import { ColumnType } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { map } from 'rxjs/operators';
-import { ServiceShopLocationFacade, ServiceShopLocationService } from '@feature/workshop/+state/service-shop/location';
-
+import {
+  ServiceShopLocationFacade,
+  ServiceShopLocationService
+} from '@feature/workshop/+state/service-shop/location';
 
 @Component({
   selector: 'anms-add-location',

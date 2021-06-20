@@ -1,71 +1,14 @@
 
 <div class="row" *hasPermission="['USER_OPERATOR_VIEW_DETAILS_GENERAL' , 'USER_OPERATOR_VIEW_DETAILS_TRAFFIC_FINE' , 'USER_OPERATOR_VIEW_DETAILS_MOVEMENT_HISTORY']">
-  <div class="col-lg-3">
-    <div class="component_wrapper form-section">
-      <div class="row flex-lg-column person">
-        <div class="col-lg-12 text-center">
-            <img class='operator-avatar-border' [src]='profilePicture' width='184' onerror="this.src='assets/thumb.png'"/>
-        </div>
-        <hr>
-        <div class="col-lg-12">
-          <div class='text-center header'>
-            {{ operator?.firstName + ' ' + operator?.lastName }}
-          </div>
-          <div class='text-center font-weight-bold mt-3'>
-            {{ 'operator.overview.operator' | translate }}
-          </div>
-          <div class='text-center mt-3'>
-            {{ operator?.employeeNumber }}
-          </div>
-          <div class="mt-3 justify-content-center toggle-select">
-            <p-inputSwitch [ngModel]='operator?.isActive'></p-inputSwitch>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="component_wrapper form-section pl-3 pr-3">
-      <div class='mt-3'>
-        <div class='row' [class.ml-2]='activeLang === "en"' [class.mr-2]='activeLang === "ar"'>
-          <img class='people-border' [class.ml-3]='activeLang === "ar"' [class.mr-3]='activeLang === "en"' src='assets/people.png' width='40' height='35' onerror="this.src='assets/thumb.png'"/>
-          <div>
-            <div>{{ 'operator.overview.organization' | translate }}</div>
-            <div>{{ operator?.department.organizationName }}</div>
-          </div>
-        </div>
-      </div>
-      <div class='mt-3'>
-        <div class='row' [class.ml-2]='activeLang === "en"' [class.mr-2]='activeLang === "ar"'>
-          <img class='mail-border' [class.ml-3]='activeLang === "ar"' [class.mr-3]='activeLang === "en"' src='assets/mail.png' width='40' height='35' />
-          <div>
-            <div>{{ 'operator.overview.email' | translate }}</div>
-            <div>{{ operator?.emails[0] }}</div>
-          </div>
-        </div>
-      </div>
-      <div class='mt-3'>
-        <div class='row' [class.ml-2]='activeLang === "en"' [class.mr-2]='activeLang === "ar"'>
-          <img class='tel-border' [class.ml-3]='activeLang === "ar"' [class.mr-3]='activeLang === "en"' src='assets/tel.png' width='40' height='35' />
-          <div>
-            <div>{{ 'operator.overview.phone_number' | translate }}</div>
-            <div>{{ operator?.phoneNumbers[0] }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div *ngIf='selectedTab == "1"' class='text-center mt-4'>
-      <button class='btn-primary-large p-3 pb-5' (click)='backToOperatorTable()'>
-        <span>
-          <img src='assets/icons/back-arrow.png' alt='' width='34'/>
-        </span>
-        <span class='ml-2'>{{ 'forms.operator_list' | translate }}</span>
-      </button>
-    </div>
+
+  <div class="col-3">
+    <user-detail-side [hasActivate]="true" [data$]="operator$" [position]="'operator.overview.operator'"></user-detail-side>
   </div>
   <div class="col-lg-9">
     <div class="statistic-card">
       <app-filter *ngIf="selectedTab == '1'" [setting]='trafficFinFilterCard'></app-filter>
     </div>
-    <div class="component_wrapper table-container">
+    <div class="component_wrapper table-container box-shadow-none">
       <app-tab-view returnId="index" (selectedIndex)="selectedTab=$event" [count]='[undefined, trafficFineCount$, movementHistoryCount$]'>
         <span class="card-table-header search-container" *ngIf="selectedTab != '0'">
           <div class="search-box">

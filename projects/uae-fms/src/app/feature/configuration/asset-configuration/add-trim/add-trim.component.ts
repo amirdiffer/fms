@@ -9,10 +9,10 @@ import {
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Make } from '@models/asset-type.model';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/index';
+import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { Utility } from '@shared/utility/utility';
-import {Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -22,7 +22,6 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./add-trim.component.scss']
 })
 export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
-
   //#region ViewChild
   @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
   @ViewChild('small', { static: false }) small: ElementRef;
@@ -56,10 +55,10 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   makeId;
   modelId;
   assetTypeId;
-  fleetType:string;
-  fleetSubscription:Subscription;
-  selectedMake:string ='';
-  selectedModel:string ='';
+  fleetType: string;
+  fleetSubscription: Subscription;
+  selectedMake: string = '';
+  selectedModel: string = '';
   isEditing = false;
   successDialog;
   //#endregion
@@ -80,69 +79,82 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
       trims: new FormArray([this.createTrim()])
     });
 
-    let activeRoute = this.route.snapshot.url.map(x => {return x.path});
+    let activeRoute = this.route.snapshot.url.map((x) => {
+      return x.path;
+    });
     this.id = +this.route.snapshot.params.id;
-    this.assetTypeId = this.route.snapshot.params.assetTypeId ? this.route.snapshot.params.assetTypeId : this.route.snapshot.params.assetType
-    this.makeId = this.route.snapshot.params.make ? +this.route.snapshot.params.make : +this.route.snapshot.params.makeId;
-    this.modelId = this.route.snapshot.params.model ? +this.route.snapshot.params.model : +this.route.snapshot.params.modelId;
-  
+    this.assetTypeId = this.route.snapshot.params.assetTypeId
+      ? this.route.snapshot.params.assetTypeId
+      : this.route.snapshot.params.assetType;
+    this.makeId = this.route.snapshot.params.make
+      ? +this.route.snapshot.params.make
+      : +this.route.snapshot.params.makeId;
+    this.modelId = this.route.snapshot.params.model
+      ? +this.route.snapshot.params.model
+      : +this.route.snapshot.params.modelId;
+
     /* Check is Edit Form  */
-    if(activeRoute.find(item => item == "edit-trim")){
+    if (activeRoute.find((item) => item == 'edit-trim')) {
       this.isEditing = true;
     }
-    if(this.assetTypeId){
+    if (this.assetTypeId) {
       this.facade.getAssetTypeByID(this.assetTypeId);
-      this.facade.loaded$.subscribe(
-        load => {
-          if(load){
-            this.fleetSubscription = this.facade.specificAssetType$.subscribe(x => {
-              if(x) {
+      this.facade.loaded$.subscribe((load) => {
+        if (load) {
+          this.fleetSubscription = this.facade.specificAssetType$.subscribe(
+            (x) => {
+              if (x) {
                 let makes = {
-                  name : x.makes.find( y => y.id == this.makeId).name,
-                  description : x.makes.find( y => y.id == this.makeId).description,
-                  models: x.makes.find( y => y.id == this.makeId).models
+                  name: x.makes.find((y) => y.id == this.makeId).name,
+                  description: x.makes.find((y) => y.id == this.makeId)
+                    .description,
+                  models: x.makes.find((y) => y.id == this.makeId).models
                 };
-      
-                this.selectedMake = x.makes.find( y => y.id == this.makeId).name;
+
+                this.selectedMake = x.makes.find(
+                  (y) => y.id == this.makeId
+                ).name;
                 let models = {
-                  name : makes.models.find( y => y.id == this.modelId).name,
-                  description : makes.models.find( y => y.id == this.modelId).description,
-                  trims:makes.models.find( y => y.id == this.modelId).trims
+                  name: makes.models.find((y) => y.id == this.modelId).name,
+                  description: makes.models.find((y) => y.id == this.modelId)
+                    .description,
+                  trims: makes.models.find((y) => y.id == this.modelId).trims
                 };
-      
-                this.selectedModel = makes.models.find( y => y.id == this.modelId).name;
-                if(this.isEditing){
+
+                this.selectedModel = makes.models.find(
+                  (y) => y.id == this.modelId
+                ).name;
+                if (this.isEditing) {
                   let trims = {
-                    name:models.trims.find( y => y.id == this.id).name,
-                    colors:models.trims.find( y => y.id == this.id).colors
-                  }
-                  console.log(trims)
+                    name: models.trims.find((y) => y.id == this.id).name,
+                    colors: models.trims.find((y) => y.id == this.id).colors
+                  };
+                  console.log(trims);
                   this.trims.controls[0].patchValue({
-                    trim:trims.name
-                  })
+                    trim: trims.name
+                  });
                   for (let index = 0; index < trims.colors.length; index++) {
                     this.colors(0).controls[index].patchValue({
                       id: trims.colors[index].id,
                       name: trims.colors[index].name,
-                      hexColor:trims.colors[index].hexColor,
-                    })
-                    if(index +1 !== trims.colors.length){
-                      this.addColor(0)
+                      hexColor: trims.colors[index].hexColor
+                    });
+                    if (index + 1 !== trims.colors.length) {
+                      this.addColor(0);
                     }
-                    console.log(index , trims.colors.length)
+                    console.log(index, trims.colors.length);
                   }
                 }
               }
-            });
-          }
+            }
+          );
         }
-      )
+      });
     }
 
-    
     this.facade.submitted$.subscribe((x) => {
       if (x) {
-        this.successDialog = true
+        this.successDialog = true;
         if (this.isEditing) {
           this.dialogModal = true;
           this.dialogSetting.header = 'Edit Trim';
@@ -151,7 +163,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
           this.dialogSetting.hasError = false;
           this.dialogSetting.confirmButton = 'OK';
           this.dialogSetting.cancelButton = undefined;
-          return
+          return;
         }
         this.dialogModal = true;
         this.dialogSetting.header = 'Add new trim';
@@ -160,9 +172,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        
       }
-
     });
 
     this.facade.error$.subscribe((x) => {
@@ -251,11 +261,11 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
 
   dialogConfirm($event): void {
     this.dialogModal = false;
-    if($event && this.successDialog){
+    if ($event && this.successDialog) {
       this.facade.resetParams();
     }
     if ($event && !this.dialogSetting.hasError) {
-      this.router.navigate(['/configuration/asset-configuration'])
+      this.router.navigate(['/configuration/asset-configuration']);
     }
   }
 
@@ -272,20 +282,23 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     if (this.isEditing) {
       const payload = {
         trims: []
-      }
+      };
       for (const trim of this.inputForm.value.trims) {
-        payload.trims.push(
-          {
-            id: this.id,
-            name: trim.trim,
-            description: trim.description,
-            origins: ['Germany'],
-            colors: trim.colors
-          }
-        )
+        payload.trims.push({
+          id: this.id,
+          name: trim.trim,
+          description: trim.description,
+          origins: ['Germany'],
+          colors: trim.colors
+        });
       }
 
-      this.facade.updateTrim(payload, this.assetTypeId, this.makeId, this.modelId)
+      this.facade.updateTrim(
+        payload,
+        this.assetTypeId,
+        this.makeId,
+        this.modelId
+      );
       return;
     }
 
@@ -294,52 +307,42 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     const makes: Make[] = [];
 
     const data = {
-      trims:this.inputForm.value.trims.map((x) => {
+      trims: this.inputForm.value.trims.map((x) => {
         if (x.id) {
           return {
             id: x.id,
-            name:x.trim,
+            name: x.trim,
             description: x.description,
-            meterType: "KILOMETER",
+            meterType: 'KILOMETER',
             meterValue: 10,
-            origins: [
-              "Germany"
-            ],
-            colors: x.colors.map(
-               y => {
-                return {
-                  name : y.name,
-                  hexColor: y.hexColor
-                }
-              }
-            )
-          }
+            origins: ['Germany'],
+            colors: x.colors.map((y) => {
+              return {
+                name: y.name,
+                hexColor: y.hexColor
+              };
+            })
+          };
         } else {
           return {
-              name:x.trim,
-              description: x.description,
-              meterType: "KILOMETER",
-              meterValue: 10,
-              origins: [
-                "Germany"
-              ],
-              colors: x.colors.map(
-                 y => {
-                  return {
-                    name : y.name,
-                    hexColor: y.hexColor
-                  }
-                }
-              )
-          }
+            name: x.trim,
+            description: x.description,
+            meterType: 'KILOMETER',
+            meterValue: 10,
+            origins: ['Germany'],
+            colors: x.colors.map((y) => {
+              return {
+                name: y.name,
+                hexColor: y.hexColor
+              };
+            })
+          };
         }
-
       })
-    }
+    };
 
     this.facade.addTrim(data, this.assetTypeId, this.makeId, this.modelId);
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 }

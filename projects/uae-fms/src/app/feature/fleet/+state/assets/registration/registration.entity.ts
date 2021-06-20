@@ -46,3 +46,20 @@ export const initialState: IRegistrationState = registrationAdapter.getInitialSt
     assetForRegistration: null
   } as IRegistrationState
 );
+
+export interface IRegisterAssetByPlateNumber {
+  id?: number;
+  plateCategory?: string;
+  plateCode?: string;
+  plateNumber?: string;
+  plateSource?: string;
+  fuelTag?: string;
+  tollTag?: string;
+}
+
+export interface IRegisterAssetByChassisNumber {
+  id?: number;
+  chassisNumber?: string;
+  fuelTag?: string;
+  tollTag?: string;
+}

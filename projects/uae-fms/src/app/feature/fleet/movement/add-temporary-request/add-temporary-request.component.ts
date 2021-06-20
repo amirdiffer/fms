@@ -73,7 +73,6 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
         this.dialogErrorSetting.hasError = false;
         this.facade.loadAll();
         this.overViewFacade.loadAll();
-        
       }
     });
 

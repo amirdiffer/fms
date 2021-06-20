@@ -25,8 +25,8 @@ import { TaskMasterStateModule } from "../+state/task-master/task-master-state.m
 
 @NgModule({
   declarations: [
-    RequestTabOverviewComponent, 
-    TechnicianOverviewComponent, 
+    RequestTabOverviewComponent,
+    TechnicianOverviewComponent,
     JobCardOverviewComponent,
     BodyShopComponent,
     AddRequestComponent,

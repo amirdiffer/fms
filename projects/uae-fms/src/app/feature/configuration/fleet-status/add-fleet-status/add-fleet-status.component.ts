@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
-import { FleetStatusAssetFacade } from '../../+state/fleet-status/asset/fleet-status-asset.facade';
+import { FleetStatusAssetFacade } from '../../+state/fleet-status/asset';
 
 @Component({
   selector: 'anms-add-fleet-status',

@@ -262,8 +262,8 @@ export class VehicleOverviewComponent implements OnInit {
                 fontSize: '1.2em',
                 fontFamily: '29LT Bukra - Bold !important',
                 fontWeight: 'bold',
-                opacity: 0.9,
-                
+                opacity: 0.9
+
                 // formatter: (w) => {
                 //   return (
                 //     w.globals.seriesTotals.reduce((a, b) => {return a + b}, 0) + ' AED'
@@ -276,15 +276,18 @@ export class VehicleOverviewComponent implements OnInit {
                 label: 'Total',
                 showAlways: true,
                 fontSize: '.8em',
-                formatter : (value) => {
-                  return value.globals.seriesTotals.reduce((a, b) => {return a + b}, 0)  + ' AED'
-                },
+                formatter: (value) => {
+                  return (
+                    value.globals.seriesTotals.reduce((a, b) => {
+                      return a + b;
+                    }, 0) + ' AED'
+                  );
+                }
               },
               name: {
                 show: true,
                 offsetY: 13,
-                fontSize: '.8em',
-
+                fontSize: '.8em'
               }
             }
           }
@@ -296,10 +299,10 @@ export class VehicleOverviewComponent implements OnInit {
       legend: {
         show: true,
         position: 'right',
-        horizontalAlign:'left',
+        horizontalAlign: 'left',
         fontSize: '12px',
         fontFamily: '29LT Bukra - Bold !important',
-        offsetY: 5,
+        offsetY: 5
         // markers: {
         //   width: 12,
         //   height: 12,
@@ -314,12 +317,11 @@ export class VehicleOverviewComponent implements OnInit {
             chart: {
               width: 350
             },
-            legend:{
+            legend: {
               fontSize: '12px',
               markers: {
                 width: 12,
-                height: 12,
-                
+                height: 12
               }
             }
           }
@@ -330,11 +332,11 @@ export class VehicleOverviewComponent implements OnInit {
             chart: {
               width: 320
             },
-            legend:{
+            legend: {
               fontSize: '11px',
               markers: {
                 width: 10,
-                height: 10,
+                height: 10
               }
             }
           }
@@ -345,12 +347,12 @@ export class VehicleOverviewComponent implements OnInit {
             chart: {
               width: 280
             },
-            legend:{
+            legend: {
               fontSize: '9px',
               markers: {
                 width: 7,
-                height: 7,
-              } 
+                height: 7
+              }
             }
           }
         }
@@ -381,7 +383,7 @@ export class VehicleOverviewComponent implements OnInit {
           horizontal: false,
           columnWidth: '8%',
           endingShape: 'rounded',
-          distributed:false
+          distributed: false
         }
       },
       dataLabels: {
@@ -389,7 +391,7 @@ export class VehicleOverviewComponent implements OnInit {
       },
       legend: {
         position: 'top',
-        horizontalAlign:'left'
+        horizontalAlign: 'left'
       },
       stroke: {
         show: true,
@@ -414,12 +416,11 @@ export class VehicleOverviewComponent implements OnInit {
             chart: {
               height: 280
             },
-            legend:{
+            legend: {
               fontSize: '12px',
               markers: {
                 width: 12,
-                height: 12,
-                
+                height: 12
               }
             }
           }
@@ -430,11 +431,11 @@ export class VehicleOverviewComponent implements OnInit {
             chart: {
               height: 260
             },
-            legend:{
+            legend: {
               fontSize: '11px',
               markers: {
                 width: 10,
-                height: 10,
+                height: 10
               }
             }
           }
@@ -445,17 +446,17 @@ export class VehicleOverviewComponent implements OnInit {
             chart: {
               height: 230
             },
-            legend:{
+            legend: {
               fontSize: '9px',
               markers: {
                 width: 7,
-                height: 7,
-              } 
+                height: 7
+              }
             }
           }
         }
       ],
-      colors: ['#F2B06E', '#0BAF72'],
+      colors: ['#F2B06E', '#0BAF72']
     };
   }
 
@@ -501,11 +502,17 @@ export class VehicleOverviewComponent implements OnInit {
       let data = x.message;
       this.chartTrafficFineData.labels = Object.keys(data);
       this.chartTrafficFineData.series = Object.values(data);
-      if(this.chartTrafficFineData.labels.indexOf('total') >= 0) { 
-        this.chartTrafficFineData.labels.splice(this.chartTrafficFineData.labels.indexOf('total'),1)
-        this.chartTrafficFineData.series.splice(this.chartTrafficFineData.labels.indexOf('total'),1)
+      if (this.chartTrafficFineData.labels.indexOf('total') >= 0) {
+        this.chartTrafficFineData.labels.splice(
+          this.chartTrafficFineData.labels.indexOf('total'),
+          1
+        );
+        this.chartTrafficFineData.series.splice(
+          this.chartTrafficFineData.labels.indexOf('total'),
+          1
+        );
       }
-      console.log(this.chartTrafficFineData.labels.indexOf('total'))
+      console.log(this.chartTrafficFineData.labels.indexOf('total'));
     });
     this.assetService.getFuelCardByAssetID(this.assetID).subscribe((x) => {
       let data = <Array<object>>x.message;

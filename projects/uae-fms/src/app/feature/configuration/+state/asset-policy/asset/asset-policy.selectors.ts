@@ -1,40 +1,40 @@
 import { createSelector } from '@ngrx/store';
-import { ConfigurationSelectors } from '../../configuration.selectors';
 import { assetPolicyAdapter } from './asset-policy.entity';
-const { selectAll } = assetPolicyAdapter.getSelectors();
 
+const { selectAll } = assetPolicyAdapter.getSelectors();
+const assetPolicySelector = (state) => state['assetPolicy'];
 export class AssetPolicySelectors {
   static selectAll = createSelector(
-    ConfigurationSelectors.assetPolicySelector,
+    assetPolicySelector,
     selectAll
   );
   static count = createSelector(
-    ConfigurationSelectors.assetPolicySelector,
+    assetPolicySelector,
     (state) => state.resultNumber
   );
 
   static loaded = createSelector(
-    ConfigurationSelectors.assetPolicySelector,
+    assetPolicySelector,
     (state) => state.loaded
   );
 
   static message = createSelector(
-    ConfigurationSelectors.assetPolicySelector,
+    assetPolicySelector,
     (state) => state.message
   );
 
   static error = createSelector(
-    ConfigurationSelectors.assetPolicySelector,
+    assetPolicySelector,
     (state) => state.error
   );
 
   static submitted = createSelector(
-    ConfigurationSelectors.assetPolicySelector,
+    assetPolicySelector,
     (state) => state.submitted
   );
-  
+
   static specificAssetPolicy = createSelector(
-    ConfigurationSelectors.assetPolicySelector,
+    assetPolicySelector,
     (state) => state.specific
   );
 

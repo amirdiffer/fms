@@ -1,6 +1,6 @@
-<div class='overview d-flex'>
+<div class='overview technician-background d-flex'>
   <div class='col-md-8 status-bar mt-3 p-0'>
-    <div class='_row'>
+    <div class='_row justify-content-between'>
       <span class='status-box color-button'>
         <span class='text d-flex flex-column justify-content-center'>
           <section class='amount'>15000AED</section>
@@ -48,8 +48,9 @@
         <hr />
       </mat-card>
     </div>
+    
   </div>
-  <div class='col-md-4 mt-3 pr-0'>
+  <div class='col-md-4 mt-3'>
     <mat-card>
       <mat-card-content>
         <div>
@@ -63,7 +64,7 @@
                 {{'operator.overview.driver_license.number' | translate}}
               </p>
               <p [class.ml-4]='activeLang === "ar"' [class.mr-4]='activeLang === "en"'>
-                {{ drivingLicenseInfo?.number }}
+                {{ (drivingLicense$ | async)?.number }}
               </p>
             </div>
             <div class='row mt-1 justify-content-between'>
@@ -71,7 +72,7 @@
                 {{ 'operator.overview.driver_license.country' | translate }}
               </p>
               <p [class.ml-4]='activeLang === "ar"' [class.mr-4]='activeLang === "en"'>
-                {{ drivingLicenseInfo?.country }}
+                {{ (drivingLicense$ | async)?.country }}
               </p>
             </div>
             <div class='row mt-1 justify-content-between'>
@@ -79,7 +80,7 @@
                 {{ 'operator.overview.driver_license.license_class' | translate }}
               </p>
               <p [class.ml-4]='activeLang === "ar"' [class.mr-4]='activeLang === "en"'>
-                {{ drivingLicenseInfo?.licenseClass }}
+                {{ (drivingLicense$ | async)?.licenseClass }}
               </p>
             </div>
             <div class='row mt-1 justify-content-between'>
@@ -87,7 +88,7 @@
                 {{ 'operator.overview.driver_license.date_of_expiry' | translate }}
               </p>
               <p [class.ml-4]='activeLang === "ar"' [class.mr-4]='activeLang === "en"'>
-                {{ (drivingLicenseInfo?.dateOfExpiry * 1000) | date }}
+                {{ ((drivingLicense$ | async)?.dateOfExpiry * 1000) | date }}
               </p>
             </div>
           </div>

@@ -7,8 +7,7 @@ import {
   Validators
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ColumnType, TableSetting } from '@core/table';
-import { ButtonType } from '@core/table/table.component';
+import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
@@ -497,7 +496,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
         jobCardInfo = {
           ...jobCardInfo
         };
-        console.log(f)
+        console.log(f);
         this._facadeJobCard.addJobCard(jobCardInfo, this.assetIdSelected);
       }
     } else {

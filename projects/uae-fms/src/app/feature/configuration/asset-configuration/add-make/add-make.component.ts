@@ -17,10 +17,8 @@ import {
 import { TableSetting } from '@core/table';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetConfigurationService } from '@feature/configuration/asset-configuration/asset-configuration.service';
-import {
-  AssetTypeFacade,
-  SubAssetTypeFacade
-} from '@feature/configuration/+state/fleet-configuration/index';
+import { SubAssetTypeFacade } from '../../+state/fleet-configuration/sub-asset-type';
+import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
 import { Utility } from '@shared/utility/utility';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { IAssetType } from '@models/asset-type.model';
@@ -49,7 +47,6 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
   submited = false;
   isEditing = false;
 
-  
   dialogModal = false;
   dialogSetting: IDialogAlert = {
     header: 'Add Make',
@@ -61,9 +58,9 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
 
   successDialog;
   assetTypeId;
-  fleetType:string;
-  fleetSubscription:Subscription;
-  selectedCategory:string ='';
+  fleetType: string;
+  fleetSubscription: Subscription;
+  selectedCategory: string = '';
   //#endregion
 
   get makes(): FormArray {
@@ -77,7 +74,7 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
     public dataService: DataService,
     public route: ActivatedRoute,
     public router: Router,
-    injector: Injector,
+    injector: Injector
   ) {
     super(injector);
   }
@@ -88,81 +85,84 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
       makes: new FormArray([this.createMake()])
     });
 
-
-    let activeRoute = this.route.snapshot.url.map(x => {return x.path});
+    let activeRoute = this.route.snapshot.url.map((x) => {
+      return x.path;
+    });
     let id = +this.route.snapshot.params.id;
-    this.assetTypeId = this.route.snapshot.params.assetTypeId ? this.route.snapshot.params.assetTypeId : this.route.snapshot.params.assetType
+    this.assetTypeId = this.route.snapshot.params.assetTypeId
+      ? this.route.snapshot.params.assetTypeId
+      : this.route.snapshot.params.assetType;
     this.fleetType = this.route.snapshot.params.fleetType;
-    this.dataService.selectType(this.fleetType)
-
+    this.dataService.selectType(this.fleetType);
 
     /* Check is Edit Form  */
-    if(activeRoute.find(item => item == "edit-make")){
+    if (activeRoute.find((item) => item == 'edit-make')) {
       this.isEditing = true;
     }
     /* Check fleet Type from ActivatedRoute */
     switch (this.fleetType) {
       case 'ASSET':
-        this.facade.getAssetTypeByID(this.assetTypeId );
-        this.facade.loaded$.subscribe(
-          load => {
-            if(load) {
-              this.fleetSubscription = this.facade.specificAssetType$.subscribe(x => {
-                if(x) {
-                  
-                  this.selectedCategory = x.name ? x.name: '';
-                  if(this.isEditing){
-                    console.log(x)
+        this.facade.getAssetTypeByID(this.assetTypeId);
+        this.facade.loaded$.subscribe((load) => {
+          if (load) {
+            this.fleetSubscription = this.facade.specificAssetType$.subscribe(
+              (x) => {
+                if (x) {
+                  this.selectedCategory = x.name ? x.name : '';
+                  if (this.isEditing) {
+                    console.log(x);
                     let makes = {
-                      name : x.makes.find( y => y.id == id),
-                      description : x.makes.find( y => y.id == id),
-                    }
+                      name: x.makes.find((y) => y.id == id),
+                      description: x.makes.find((y) => y.id == id)
+                    };
                     this.makes.controls[0].patchValue({
                       id: id,
                       make: makes.name ? makes.name.name : null,
-                      makeDescription: makes.description ? makes.description.description:null
+                      makeDescription: makes.description
+                        ? makes.description.description
+                        : null
                     });
                   }
                 }
-              });
-            }
+              }
+            );
           }
-        )
+        });
         this.inputForm.patchValue({
-          typeCategory:['ASSET']
-        })
+          typeCategory: ['ASSET']
+        });
         break;
       case 'SUB_ASSET':
-        this._subAssetTypeFacade.getSubAssetTypeByID(this.assetTypeId )
-        this._subAssetTypeFacade.loaded$.subscribe(
-          load => {
-            if(load) {
-              this._subAssetTypeFacade.specificSubAssetType$.subscribe(x => {
-                if(x) {
-                  console.log(x);
-                  this.selectedCategory = x.name;
-                  if(this.isEditing){
-                    let makes = {
-                      name : x.makes.find( y => y.id == id),
-                      description : x.makes.find( y => y.id == id),
-                    }
-                    this.makes.controls[0].patchValue({
-                      id: id,
-                      make: makes.name ? makes.name.name : null,
-                      makeDescription: makes.description ? makes.description.description:null
-                    });
-                  }
+        this._subAssetTypeFacade.getSubAssetTypeByID(this.assetTypeId);
+        this._subAssetTypeFacade.loaded$.subscribe((load) => {
+          if (load) {
+            this._subAssetTypeFacade.specificSubAssetType$.subscribe((x) => {
+              if (x) {
+                console.log(x);
+                this.selectedCategory = x.name;
+                if (this.isEditing) {
+                  let makes = {
+                    name: x.makes.find((y) => y.id == id),
+                    description: x.makes.find((y) => y.id == id)
+                  };
+                  this.makes.controls[0].patchValue({
+                    id: id,
+                    make: makes.name ? makes.name.name : null,
+                    makeDescription: makes.description
+                      ? makes.description.description
+                      : null
+                  });
                 }
-              });
-            }
+              }
+            });
           }
-        )
+        });
         this.inputForm.patchValue({
-          typeCategory:['SUB_ASSET']
-        })
+          typeCategory: ['SUB_ASSET']
+        });
         break;
     }
-    
+
     this.errorAndSubmitHandler(this.facade);
     this.errorAndSubmitHandler(this._subAssetTypeFacade);
   }
@@ -204,7 +204,6 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
     this.makes.removeAt(index);
   }
 
-
   public addModel() {
     const model = new FormControl('');
     (<FormArray>this.inputForm.get('models')).push(model);
@@ -222,18 +221,20 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
 
   dialogConfirm($event): void {
     this.dialogModal = false;
-    if($event && this.successDialog){
-      this.fleetType == 'ASSET' ? this.facade.resetParams() : this._subAssetTypeFacade.resetParams();
+    if ($event && this.successDialog) {
+      this.fleetType == 'ASSET'
+        ? this.facade.resetParams()
+        : this._subAssetTypeFacade.resetParams();
     }
     if ($event && !this.dialogSetting.hasError) {
-      this.router.navigate(['/configuration/asset-configuration'])
+      this.router.navigate(['/configuration/asset-configuration']);
     }
   }
 
   errorAndSubmitHandler(facade) {
     facade.submitted$.subscribe((x) => {
       if (x) {
-        this.successDialog= true;
+        this.successDialog = true;
         if (this.isEditing) {
           this.dialogModal = true;
           this.dialogSetting.header = 'Edit Make';
@@ -251,7 +252,6 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
         this.dialogSetting.hasError = false;
         this.dialogSetting.confirmButton = 'OK';
         this.dialogSetting.cancelButton = undefined;
-        
       }
     });
 
@@ -285,29 +285,27 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
     if (this.isEditing) {
       if (this.fleetType === 'SUB_ASSET') {
         this._subAssetTypeFacade.updateMake(payload, this.assetTypeId);
-      } else if(this.fleetType === 'ASSET') {
+      } else if (this.fleetType === 'ASSET') {
         this.facade.updateMake(payload, this.assetTypeId);
       }
       return;
-    }else{
+    } else {
       let newPayload = {
-        makes:payload.makes.map(x => {
+        makes: payload.makes.map((x) => {
           return {
             name: x.name,
             description: x.description
-          }
+          };
         })
-      }
+      };
       if (this.fleetType === 'ASSET') {
-        this.facade.addMake(newPayload, this.assetTypeId);;
-      } else if(this.fleetType === 'SUB_ASSET') {
+        this.facade.addMake(newPayload, this.assetTypeId);
+      } else if (this.fleetType === 'SUB_ASSET') {
         this._subAssetTypeFacade.addMake(newPayload, this.assetTypeId);
       }
       return;
     }
   }
 
-  ngOnDestroy(): void {
-    
-  }
+  ngOnDestroy(): void {}
 }

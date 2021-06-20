@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IMovementRequest } from '@models/movement'
+import { IMovementRequest } from '@models/movement';
 import { ResponseBody } from '@models/responseBody';
 import { IMovementStatistics } from '@models/statistics';
 import { environment } from '@environments/environment';
@@ -13,9 +13,10 @@ export class MovementRequestsService {
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
@@ -24,7 +25,8 @@ export class MovementRequestsService {
 
   loadAll(): Observable<ResponseBody<IMovementRequest[]>> {
     return this.http.get<ResponseBody<IMovementRequest[]>>(
-      environment.baseApiUrl + 'movement/permanent/request', {params: this.getParam('movement_request')}
+      environment.baseApiUrl + 'movement/permanent/request',
+      { params: this.getParam('movement_request') }
     );
   }
 
@@ -59,5 +61,4 @@ export class MovementRequestsService {
       data
     );
   }
-
 }

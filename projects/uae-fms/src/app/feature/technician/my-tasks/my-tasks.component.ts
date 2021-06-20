@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnType, TableSetting } from '@core/table';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import {
+  MyTasksNetworkService,
+  TaskType
+} from '@feature/technician/+state/my-tasks/my-tasks-network.service';
+import { tap } from 'rxjs/operators';
+import { ButtonType } from '@core/table/table.component';
 
 @Component({
   selector: 'anms-my-tasks',
@@ -9,10 +15,25 @@ import { Subject } from 'rxjs';
   styleUrls: ['./my-tasks.component.scss']
 })
 export class MyTasksComponent implements OnInit {
-  //#region Tables
-  dataTask = new Subject();
-  dataTask$ = this.dataTask.asObservable();
-  taskSetting: TableSetting = {
+  getMyTasksSubscription: Subscription | undefined;
+  getTodayTasksSubscription: Subscription | undefined;
+  getPausedTasksSubscription: Subscription | undefined;
+  getDelayedTasksSubscription: Subscription | undefined;
+
+  // region Tables
+  dataAllTasks = new Subject();
+  dataAllTasks$ = this.dataAllTasks.asObservable();
+
+  dataTodayTasks = new Subject();
+  dataTodayTasks$ = this.dataTodayTasks.asObservable();
+
+  dataDelayedTasks = new Subject();
+  dataDelayedTasks$ = this.dataDelayedTasks.asObservable();
+
+  dataPausedTasks = new Subject();
+  dataPausedTasks$ = this.dataPausedTasks.asObservable();
+
+  allTasksTableSetting: TableSetting = {
     columns: [
       {
         lable: 'tables.column.task',
@@ -27,10 +48,16 @@ export class MyTasksComponent implements OnInit {
         renderer: ''
       },
       {
+        lable: 'tables.column.time_estimate',
+        type: 1,
+        field: 'estimate',
+        renderer: ''
+      },
+      {
         lable: 'tables.column.progress',
         type: 1,
         field: 'progress',
-        renderer: ''
+        renderer: 'progressRenderer'
       },
       {
         lable: 'tables.column.status',
@@ -42,7 +69,8 @@ export class MyTasksComponent implements OnInit {
         lable: 'tables.column.action',
         type: 1,
         field: 'action',
-        renderer: ''
+        renderer: 'button',
+        buttonType: ButtonType.playAndPause
       },
       {
         lable: '',
@@ -55,74 +83,196 @@ export class MyTasksComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
+      onClick: (arg, arg2, arg3) => {
+        if (arg2 === 'play') {
+          if (arg.status === 'PAUSED') {
+            this.myTasksNetworkService
+              .resumeTaskWithId(arg.id)
+              .subscribe((_) => {
+                this.getAllTasks();
+              });
+          } else {
+            this.myTasksNetworkService
+              .startTaskWithId(arg.id)
+              .subscribe((_) => {
+                this.getAllTasks();
+              });
+          }
+        } else if (arg2 === 'pause') {
+          this.myTasksNetworkService.pauseTaskWithId(arg.id).subscribe((_) => {
+            this.getAllTasks();
+          });
+        }
+      },
       floatButton: [
         {
           button: 'external',
           onClick: (col, data) => {
-            this.router.navigate(['dashboard/technician/task-overview/' + data.id]);
+            this.router
+              .navigate([`dashboard/technician/task-overview/${data.id}`])
+              .then();
           }
         }
       ]
     }
-  }
+  };
 
-  //#endregion
+  todayTasksTableSetting: TableSetting = { ...this.allTasksTableSetting };
+
+  delayedTasksTableSetting: TableSetting = { ...this.allTasksTableSetting };
+
+  pausedTasksTableSetting: TableSetting = { ...this.allTasksTableSetting };
+  // endregion
+
+  selectedTab = 'allTaskListTab';
+  searchIcon = 'assets/icons/search-solid.svg';
+  filterButton = 'assets/icons/filter.png';
 
   constructor(
-    private router: Router) {
-    this.dataTask.next([]);
-  }
+    private router: Router,
+    private myTasksNetworkService: MyTasksNetworkService
+  ) {}
 
   ngOnInit(): void {
-    this.dataTask$.subscribe(x => {
-      console.log(x);
-    })
-
-
-
-    setTimeout(() => {
-
-      this.dataTask.next(
-        [
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-        ]
-      )
-    }, 1000);
-
+    this.getAllTasks();
   }
 
+  private getAllTasks(): void {
+    this.getMyTasksSubscription = this.myTasksNetworkService
+      .getMyTasks()
+      .pipe(
+        tap((response) => {
+          const tasksArray = [];
+          const tasks = response.message;
+
+          tasks.map((task) => {
+            const startDate = new Date(task.startDate * 1000);
+            const full = startDate.getDate() + task.taskMaster.timeEstimate;
+            const now = new Date(task.now * 1000);
+            const progress = now.getDate();
+            const progressValue = progress / full;
+            const taskObject = {
+              id: task.taskId,
+              task: task.taskMaster.name,
+              priority: task.priorityOrder,
+              estimate: `${task.taskMaster.timeEstimate} Days`,
+              progress: progressValue,
+              status: task.status,
+              action:
+                task.status === 'STARTED' || task.status === 'RESUMED'
+                  ? 'pause'
+                  : 'play'
+            };
+            tasksArray.push(taskObject);
+          });
+
+          this.dataAllTasks.next(tasksArray);
+
+          this.getMyTasksSubscription?.unsubscribe();
+        })
+      )
+      .subscribe();
+
+    this.getTodayTasksSubscription = this.myTasksNetworkService
+      .getMyTasks('active')
+      .pipe(
+        tap((response) => {
+          const tasksArray = [];
+          const tasks = response.message;
+          tasks.map((task) => {
+            const startDate = new Date(task.startDate * 1000);
+            const full = startDate.getDate() + task.taskMaster.timeEstimate;
+            const now = new Date(task.now * 1000);
+            const progress = now.getDate();
+            const progressValue = progress / full;
+            const taskObject = {
+              id: task.taskId,
+              task: task.taskMaster.name,
+              priority: task.priorityOrder,
+              estimate: `${task.taskMaster.timeEstimate} Days`,
+              progress: progressValue,
+              status: task.status,
+              action:
+                task.status === 'STARTED' || task.status === 'RESUMED'
+                  ? 'pause'
+                  : 'play'
+            };
+            tasksArray.push(taskObject);
+          });
+
+          this.dataTodayTasks.next(tasksArray);
+
+          this.getTodayTasksSubscription?.unsubscribe();
+        })
+      )
+      .subscribe();
+
+    this.getPausedTasksSubscription = this.myTasksNetworkService
+      .getMyTasks('paused')
+      .pipe(
+        tap((response) => {
+          const tasksArray = [];
+          const tasks = response.message;
+          tasks.map((task) => {
+            const startDate = new Date(task.startDate * 1000);
+            const full = startDate.getDate() + task.taskMaster.timeEstimate;
+            const now = new Date(task.now * 1000);
+            const progress = now.getDate();
+            const progressValue = progress / full;
+            const taskObject = {
+              id: task.taskId,
+              task: task.taskMaster.name,
+              priority: task.priorityOrder,
+              estimate: `${task.taskMaster.timeEstimate} Days`,
+              progress: progressValue,
+              status: task.status,
+              action:
+                task.status === 'STARTED' || task.status === 'RESUMED'
+                  ? 'pause'
+                  : 'play'
+            };
+            tasksArray.push(taskObject);
+          });
+
+          this.dataPausedTasks.next(tasksArray);
+
+          this.getPausedTasksSubscription?.unsubscribe();
+        })
+      )
+      .subscribe();
+
+    this.getDelayedTasksSubscription = this.myTasksNetworkService
+      .getMyTasks('delayed')
+      .pipe(
+        tap((response) => {
+          const tasksArray = [];
+          const tasks = response.message;
+          tasks.map((task) => {
+            const startDate = new Date(task.startDate * 1000);
+            const full = startDate.getDate() + task.taskMaster.timeEstimate;
+            const now = new Date(task.now * 1000);
+            const progress = now.getDate();
+            const progressValue = progress / full;
+            const taskObject = {
+              id: task.taskId,
+              task: task.taskMaster.name,
+              priority: task.priorityOrder,
+              estimate: `${task.taskMaster.timeEstimate} Days`,
+              progress: progressValue,
+              status: task.status,
+              action:
+                task.status === 'STARTED' || task.status === 'RESUMED'
+                  ? 'pause'
+                  : 'play'
+            };
+            tasksArray.push(taskObject);
+          });
+
+          this.dataDelayedTasks.next(tasksArray);
+
+          this.getDelayedTasksSubscription?.unsubscribe();
+        })
+      )
+      .subscribe();
+  }
 }

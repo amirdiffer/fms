@@ -1,4 +1,4 @@
-@import "~themes/green-theme";
+@import '~themes/green-theme';
 .toolbar {
   display: flex;
   flex-direction: row-reverse;
@@ -40,8 +40,8 @@
     width: 100%;
     img {
       display: block;
-      width:  1.6em;
-      height:  1.6em;
+      width: 1.6em;
+      height: 1.6em;
       margin: 5px;
       border-radius: 5px;
     }
@@ -64,8 +64,8 @@
   margin: 5px;
 
   img {
-    width:  1.6em;
-    height:  1.6em;
+    width: 1.6em;
+    height: 1.6em;
   }
 }
 
@@ -73,13 +73,13 @@
   padding: 5px;
   background: transparent;
   color: #0da06e;
-  box-shadow: 0px 0px 2px #0000003D;
+  box-shadow: 0px 0px 2px #0000003d;
   border-radius: 8px;
   margin: 5px;
 
   img {
     width: 1.6em;
-    height:  1.6em;
+    height: 1.6em;
   }
 }
 
@@ -301,7 +301,6 @@
 ._row {
   display: flex;
   flex-direction: row;
-
 }
 
 @media (max-width: 1410px) {
@@ -340,12 +339,12 @@
   height: 15px;
   border: solid white;
   border-radius: 50%;
-  background-color: #0DA06E;
+  background-color: #0da06e;
 }
 
 .parent {
   position: relative;
-  background: #0DA06E;
+  background: #0da06e;
   width: 3px;
   height: auto;
 }
@@ -360,15 +359,15 @@
 }
 
 .dot-mt {
-  margin-top: 0.44em + 1.3em;
+  margin-top: 20px;
 }
 
 .dot-mb {
-  margin-bottom: 0.80em;
+  margin-bottom: 15px;
 }
 
 .location-text {
-  margin-top: 1.3em;
+  margin-top: 15px;
 }
 
 .cursor-pointer {

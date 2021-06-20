@@ -5,13 +5,10 @@ const {
   selectIds,
   selectEntities
 } = bodyShopLocationAdapter.getSelectors();
-const bodyShopLocationState = (state) => state['bodyShopLocation']
+const bodyShopLocationState = (state) => state['bodyShopLocation'];
 
 export class BodyShopLocationSelectors {
-  static selectAll = createSelector(
-    bodyShopLocationState,
-    selectAll
-  );
+  static selectAll = createSelector(bodyShopLocationState, selectAll);
   static count = createSelector(
     bodyShopLocationState,
     (state) => state.resultNumber
@@ -22,10 +19,7 @@ export class BodyShopLocationSelectors {
     (state) => state.message
   );
 
-  static error = createSelector(
-    bodyShopLocationState,
-    (state) => state.error
-  );
+  static error = createSelector(bodyShopLocationState, (state) => state.error);
 
   static submitted = createSelector(
     bodyShopLocationState,

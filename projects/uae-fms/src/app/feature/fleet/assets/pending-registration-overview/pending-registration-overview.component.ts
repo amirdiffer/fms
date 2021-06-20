@@ -1,9 +1,20 @@
 import { Component, OnInit, Injector } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { RegistrationFacade, RegistrationService } from '@feature/fleet/+state/assets/registration';
+import {
+  RegistrationFacade,
+  RegistrationService
+} from '@feature/fleet/+state/assets/registration';
+import { TrafficFineTableFacade } from '@feature/traffic-fine/+state/traffic-fine';
+import {
+  ITrafficFineVehicleInfo,
+  ITrafficFineVehicleInfoVehicleInfo,
+  ITrafficFineVehicleInfoVehicleReturn
+} from '@models/pending-registration.model';
 import { Utility } from '@shared/utility/utility';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-pending-registration-overview',
@@ -73,50 +84,129 @@ export class PendingRegistrationOverviewComponent
   assetId: number;
   assetSummary: any;
 
+  /* Input Value */
+  plateCategory: any[] = [
+    { name: 'Duabi Police', value: 19, label: 'dubaiPolice' },
+    { name: 'Private', value: 2, label: 'private' }
+  ];
+
+  plateCodePrivate: any[] = [
+    { name: 'A', value: 2 },
+    { name: 'AA', value: '' },
+    { name: 'B', value: 3 },
+    { name: 'C', value: 4 },
+    { name: 'D', value: 5 },
+    { name: 'E', value: 6 },
+    { name: 'F', value: 7 },
+    { name: 'G', value: 68 },
+    { name: 'H', value: 70 },
+    { name: 'I', value: 71 },
+    { name: 'J', value: 78 },
+    { name: 'K', value: 80 },
+    { name: 'L', value: 74 },
+    { name: 'M', value: 69 },
+    { name: 'N', value: 95 },
+    { name: 'O', value: 88 },
+    { name: 'P', value: 96 },
+    { name: 'Q', value: 93 },
+    { name: 'R', value: 79 },
+    { name: 'S', value: 87 },
+    { name: 'T', value: 97 },
+    { name: 'U', value: 98 },
+    { name: 'V', value: 86 },
+    { name: 'W', value: 99 },
+    { name: 'White', value: 34 },
+    { name: 'X', value: 100 },
+    { name: 'Y', value: 102 },
+    { name: 'Z', value: 101 }
+  ];
+
+  plateCodeDubaiPolice: any[] = [{ name: 'Duabi Police', value: 150 }];
+
+  plateCode$: Observable<any> = of(this.plateCodeDubaiPolice);
+
+  plateSource: any[] = [{ name: 'Duabi Police', value: 'DXB' }];
+
+  loadVehicleInfo: boolean = false;
+  vehicleInfo$: Observable<ITrafficFineVehicleInfo>;
+
   constructor(
-    private dialog: MatDialog,
     private _fb: FormBuilder,
     injector: Injector,
     private _registrationFacade: RegistrationFacade,
-    private _registrationService: RegistrationService
+    private _trafficFineFacade: TrafficFineTableFacade
   ) {
     super(injector);
+    this._trafficFineFacade.reset();
   }
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      plateNumber: [''],
-      insuranceNumber: [''],
+      registerType: ['plate_number'],
+      plateCategory: [
+        { name: 'Duabi Police', value: 19, label: 'dubaiPolice' },
+        [Validators.required]
+      ],
+      plateCode: [150, [Validators.required]],
+      plateNumber: ['', [Validators.required]],
+      plateSource: ['DXB'],
+      chassisNumber: [''],
       salikTag: [''],
-      fuelTag: [''],
-      operator: [''],
-      department: [''],
-      employeeNumber: [''],
-      currentLiveReading: ['']
+      fuelTag: ['']
     });
+    this.inputForm.get('registerType').valueChanges.subscribe((x) => {
+      if (x) {
+        switch (x) {
+          case 'plate_number':
+            console.log(x);
+            this.inputForm.get('chassisNumber').clearValidators();
+            this.inputForm
+              .get('plateCategory')
+              .setValidators([Validators.required]);
+            this.inputForm
+              .get('plateCode')
+              .setValidators([Validators.required]);
+            this.inputForm
+              .get('plateNumber')
+              .setValidators([Validators.required]);
+            break;
+          case 'chassis':
+            this.inputForm
+              .get('chassisNumber')
+              .setValidators([Validators.required]);
+            this.inputForm.get('plateCategory').clearValidators();
+            this.inputForm.get('plateCode').clearValidators();
+            this.inputForm.get('plateNumber').clearValidators();
+            break;
+        }
+        this.inputForm.get('chassisNumber').updateValueAndValidity();
+        this.inputForm.get('plateCategory').updateValueAndValidity();
+        this.inputForm.get('plateCode').updateValueAndValidity();
+        this.inputForm.get('plateNumber').updateValueAndValidity();
+      }
+    });
+
+    this.vehicleInfo$ = this._trafficFineFacade.vehicleInfo$.pipe(
+      map((x) => {
+        if (x) {
+          return x;
+        }
+      })
+    );
+    this._trafficFineFacade.loaded$.subscribe((x) => {
+      if (x) {
+        this.loadVehicleInfo = true;
+      } else {
+        this.loadVehicleInfo = false;
+      }
+    });
+
     this.route.params.subscribe((params) => {
       this.assetId = +params['id'];
       this._registrationFacade.getAssetForRegistration(this.assetId);
       this._registrationFacade.assetForRegistration$.subscribe((x) => {
         this.assetSummary = x;
       });
-      // if (this.isEdit) {
-      //   this.id = +params[params.length - 1].path;
-      //   this._registrationService
-      //     .getRegistrationById(params[params.length - 1].path)
-      //     .pipe(map((x) => x.message))
-      //     .subscribe((x) => {
-      //       if (x) {
-      //         this._registration = x;
-      //         this.inputForm.patchValue({
-      //           plateNumber: x.plateNumber,
-      //           insuranceNumber: x.insuranceNumber
-      //         });
-      //       }
-      //     });
-      // }
-      // else {
-      // }
       this._registrationFacade.submitted$.subscribe((x) => {
         if (x) {
           this.dialogModal = true;
@@ -131,8 +221,8 @@ export class PendingRegistrationOverviewComponent
           this.dialogSetting.hasError = false;
           this.dialogSetting.confirmButton = undefined;
           this.dialogSetting.buttons = [
-            { title: "Customize Now", eventEmit: "now" },
-            { title: "Customize Later", eventEmit: "later" }
+            { title: 'Customize Now', eventEmit: 'now' },
+            { title: 'Customize Later', eventEmit: 'later' }
           ];
 
           this.dialogSetting.cancelButton = undefined;
@@ -146,6 +236,20 @@ export class PendingRegistrationOverviewComponent
           this.errorDialogSetting.header = this.isEdit
             ? 'Edit registration'
             : 'Add new registration';
+          this.errorDialogSetting.hasError = true;
+          this.errorDialogSetting.cancelButton = undefined;
+          this.errorDialogSetting.confirmButton = 'Ok';
+        } else {
+          this.errorDialogModal = false;
+        }
+      });
+
+      this._trafficFineFacade.error$.subscribe((x) => {
+        if (x?.error) {
+          this.errorDialogModal = true;
+          this.errorDialogSetting.header = 'Load Vehicle info';
+          this.dialogSetting.message =
+            'No vehicle with this specification was found';
           this.errorDialogSetting.hasError = true;
           this.errorDialogSetting.cancelButton = undefined;
           this.errorDialogSetting.confirmButton = 'Ok';
@@ -182,13 +286,15 @@ export class PendingRegistrationOverviewComponent
     this.errorDialogModal = false;
     this.dialogModal = false;
     if (!$event) return;
-    if ($event == "now") {
+    if ($event == 'now') {
       this.dialogModal = false;
       this._registrationFacade.resetParams();
-      this.router.navigate(['/fleet/assets/' + this.assetId + '/customization']);
+      this.router.navigate([
+        '/fleet/assets/' + this.assetId + '/customization'
+      ]);
       return;
     }
-    if ($event == "later") {
+    if ($event == 'later') {
       this.dialogModal = false;
       this._registrationFacade.resetParams();
       this.router.navigate(['/fleet/assets']);
@@ -196,27 +302,32 @@ export class PendingRegistrationOverviewComponent
     }
 
     if (this.dialogType == 'submit') {
-      let f = this.inputForm.value;
-
-      let registrationInfo: any = {
-        plateNumber: f.plateNumber,
-        insuranceNumber: f.insuranceNumber,
-        fuelTag: '2l1k34jl' //f.fuelTag,
+      let formValue = this.inputForm.getRawValue();
+      let registerByPlateNumberValue = {
+        id: this.assetId,
+        plateCategory: formValue.plateCategory.value,
+        plateCode: formValue.plateCode,
+        plateNumber: formValue.plateNumber,
+        plateSource: formValue.plateSource,
+        fuelTag: formValue.fuelTag,
+        tollTag: formValue.salikTag
       };
-
-      if (this.isEdit) {
-        // registrationInfo = {
-        //   ...registrationInfo,
-        //   id: this.id
-        // };
-        // this._registrationFacade.editRegistration(registrationInfo);
-      } else {
-        registrationInfo = {
-          ...registrationInfo,
-          id: this.assetId
-        };
-
-        this._registrationFacade.register(registrationInfo);
+      let registerByChassisNumberValue = {
+        id: this.assetId,
+        chassisNumber: formValue.chassisNumber,
+        fuelTag: formValue.fuelTag,
+        tollTag: formValue.salikTag
+      };
+      if (this.inputForm.get('registerType').value === 'plate_number') {
+        console.log(registerByPlateNumberValue);
+        this._registrationFacade.registerByPlateNumber(
+          registerByPlateNumberValue
+        );
+      } else if (this.inputForm.get('registerType').value === 'chassis') {
+        console.log(registerByChassisNumberValue);
+        this._registrationFacade.registerByChasisNumber(
+          registerByChassisNumberValue
+        );
       }
     } else {
       this.router
@@ -229,6 +340,35 @@ export class PendingRegistrationOverviewComponent
     }
   }
 
+  plateCategoryChange(event) {
+    switch (event.value.label) {
+      case 'private':
+        this.plateCode$ = of(this.plateCodePrivate);
+        break;
+      case 'dubaiPolice':
+        this.plateCode$ = of(this.plateCodeDubaiPolice);
+        break;
+    }
+    this.inputForm.get('plateCode').reset();
+  }
+
+  loadVehicleInformation() {
+    let formValue = this.inputForm.getRawValue();
+    this.loadVehicleInfo = false;
+    if (this.inputForm.get('registerType').value === 'plate_number') {
+      this._trafficFineFacade.getVehicleInformationByPlateNumber({
+        plateSource: formValue.plateSource,
+        plateNumber: formValue.plateNumber,
+        plateCode: formValue.plateCode,
+        plateCategory: formValue.plateCategory.value
+      });
+    } else if (this.inputForm.get('registerType').value === 'chassis') {
+      this._trafficFineFacade.getVehicleInformationByChassisNumber({
+        chassisNumber: formValue.chassisNumber
+      });
+    }
+  }
+
   addRegistration() {
     this.submitted = true;
     if (this.inputForm.invalid) {
@@ -236,8 +376,8 @@ export class PendingRegistrationOverviewComponent
       return;
     }
 
-    this.dialogModal = true;
     this.dialogType = 'submit';
+    this.dialogModal = true;
     if (this.isEdit) {
       this.dialogSetting.header = 'Edit registration';
       this.dialogSetting.message =

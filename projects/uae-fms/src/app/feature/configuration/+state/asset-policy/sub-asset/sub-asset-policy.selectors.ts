@@ -1,24 +1,24 @@
 import { createSelector } from '@ngrx/store';
-import { ConfigurationSelectors } from '../../configuration.selectors';
 import { subAssetPolicyAdapter } from './sub-asset-policy.entity';
-const { selectAll } = subAssetPolicyAdapter.getSelectors();
 
+const { selectAll } = subAssetPolicyAdapter.getSelectors();
+const subAssetPolicySelector = (state) => state['subAssetPolicy']
 export class SubAssetPolicySelectors {
   static selectAll = createSelector(
-    ConfigurationSelectors.subAssetPolicySelector,
+    subAssetPolicySelector,
     selectAll
   );
   static count = createSelector(
-    ConfigurationSelectors.subAssetPolicySelector,
+    subAssetPolicySelector,
     (state) => state.resultNumber
   );
   static message = createSelector(
-    ConfigurationSelectors.subAssetPolicySelector,
+    subAssetPolicySelector,
     (state) => state.message
   );
 
   static error = createSelector(
-    ConfigurationSelectors.subAssetPolicySelector,
+    subAssetPolicySelector,
     (state) => state.error
   );
   static selectById = createSelector(

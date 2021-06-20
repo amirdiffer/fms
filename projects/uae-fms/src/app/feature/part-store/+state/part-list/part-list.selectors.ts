@@ -1,19 +1,24 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { assetPartListAdapter, PARTSTORE_PARTLIST_FEATURE_KEY, subAssetPartListAdapter } from './part-list.entity';
+import {
+  assetPartListAdapter,
+  PARTSTORE_PARTLIST_FEATURE_KEY,
+  subAssetPartListAdapter
+} from './part-list.entity';
 
-
-export const select = (adapter) =>{
-  if(adapter = 'ASSET'){
+export const select = (adapter) => {
+  if ((adapter = 'ASSET')) {
     const { selectAll } = assetPartListAdapter.getSelectors();
     return selectAll;
-  }else if((adapter = 'SUB-ASSET')){
+  } else if ((adapter = 'SUB-ASSET')) {
     const { selectAll } = subAssetPartListAdapter.getSelectors();
     return selectAll;
   }
 };
 
 export class PartListSelectors {
-  static featureSelector = createFeatureSelector(PARTSTORE_PARTLIST_FEATURE_KEY);
+  static featureSelector = createFeatureSelector(
+    PARTSTORE_PARTLIST_FEATURE_KEY
+  );
 
   static assetPartList = createSelector(
     PartListSelectors.featureSelector,
@@ -92,5 +97,4 @@ export class PartListSelectors {
     PartListSelectors.subAssetPartList,
     (state) => state.error
   );
-
 }

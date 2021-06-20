@@ -6,11 +6,6 @@ import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [DialogTemplateComponent],
-  imports: [
-    CommonModule,
-    AngularSvgIconModule.forRoot(),
-    SharedModule
-  ]
+  imports: [CommonModule, AngularSvgIconModule.forRoot(), SharedModule]
 })
-export class DialogModule {
-}
+export class DialogModule {}

@@ -19,7 +19,9 @@ export class AssetMasterFacade {
 
   conut$ = this.store.pipe(select(AssetMasterSelectors.count));
 
-  constructor(private store: Store<IAssetMasterPartialState>) { this.loadAll()}
+  constructor(private store: Store<IAssetMasterPartialState>) {
+    this.loadAll();
+  }
 
   loadAll() {
     this.reset();

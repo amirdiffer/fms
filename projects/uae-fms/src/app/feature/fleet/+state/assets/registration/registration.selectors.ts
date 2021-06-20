@@ -1,14 +1,10 @@
 import { createSelector } from '@ngrx/store';
 import { registrationAdapter } from './registration.entity';
 const { selectAll } = registrationAdapter.getSelectors();
-const assetRegistrationState = (state) => state['registration']
+const assetRegistrationState = (state) => state['registration'];
 
 export class RegistrationSelectors {
-
-  static selectAll = createSelector(
-    assetRegistrationState,
-    selectAll
-  );
+  static selectAll = createSelector(assetRegistrationState, selectAll);
   static submitted = createSelector(
     assetRegistrationState,
     (state) => state.submitted
@@ -28,10 +24,7 @@ export class RegistrationSelectors {
     (state) => state.message
   );
 
-  static error = createSelector(
-    assetRegistrationState,
-    (state) => state.error
-  );
+  static error = createSelector(assetRegistrationState, (state) => state.error);
 
   static selectById = createSelector(
     RegistrationSelectors.selectAll,

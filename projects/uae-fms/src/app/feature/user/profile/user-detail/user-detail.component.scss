@@ -1,122 +1,127 @@
-
-.edit-button{
-    width: 2.3em;
-    height: 2.3em;
-    border: 2px solid #0da06e;
-    border-radius: 0.3em;
-    text-align: center;
-    right: .5em;
-    top: .4em;
-    position: absolute
+.edit-button {
+  width: 2.3em;
+  height: 2.3em;
+  border: 2px solid #0da06e;
+  border-radius: 0.3em;
+  text-align: center;
+  right: 0.5em;
+  top: 0.4em;
+  position: absolute;
 }
-.profile-image-container{
+.profile-image-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  .profile-image-body {
+    height: 10em;
+    width: 10em;
+    border-radius: 50%;
+    --d: 4deg;
+    --n: 30;
+    --c: orange;
+    --b: 2px;
+    opacity: 0.8;
+    display: inline-block;
+    border-radius: 50%;
+    background: repeating-conic-gradient(
+      var(--c) 0 calc(360deg / var(--n) - var(--d)),
+      transparent 0 calc(360deg / var(--n))
+    );
+    -webkit-mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - var(--b)),
+      #fff calc(100% - var(--b) + 1px)
+    );
+    mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - var(--b)),
+      #fff calc(100% - var(--b) + 1px)
+    );
+  }
+  .profile-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 9.5em;
+    width: 9.5em;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  span.add-button {
+    height: 2.5em;
+    width: 2.5em;
+    background: rgb(0, 243, 130);
+    color: white;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    transform: translateX(3em);
+    cursor: pointer;
+    a {
+      position: absolute;
+      justify-content: center;
+      transform: translate(0.4em, 0);
+      font-size: 1.7em;
+    }
+  }
+}
+.user-info {
+  margin-top: 15px;
+  text-align: center;
+  h3 {
+    font-size: 1.3em;
+    color: #0da06e;
+  }
+  h6 {
+    font-weight: bold;
+  }
+  p {
+    opacity: 0.8;
+    font-size: 1em;
+  }
+}
+.option-container {
+  display: flex;
+  flex-direction: column;
+  .user-option {
     position: relative;
     display: flex;
-    justify-content: center;
-    .profile-image-body{
-        height: 10em;
-        width: 10em;
-        border-radius: 50%;
-        --d:4deg;
-        --n:30;   
-        --c:orange; 
-        --b:2px;
-        opacity: .8;  
-        display:inline-block;
-        border-radius:50%;
-        background: 
-            repeating-conic-gradient(
-                var(--c)    0 calc(360deg/var(--n) - var(--d)), 
-                transparent 0 calc(360deg/var(--n)));
-        -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - var(--b)),#fff calc(100% - var(--b) + 1px));
-                mask:radial-gradient(farthest-side,transparent calc(100% - var(--b)),#fff calc(100% - var(--b) + 1px));
-
-    }
-    .profile-image{
+    margin: 1.3em;
+    .icon-body {
+      display: block;
+      height: 2.5em;
+      width: 2.5em;
+      border: 1px solid;
+      border-radius: 50%;
+      position: relative;
+      svg-icon {
         position: absolute;
-        top: 50%;
-        left: 50%;
         transform: translate(-50%, -50%);
-        height: 9.5em;
-        width: 9.5em;
-        img{
-            height: 100%;
-            width: 100%;
-        }
+        left: 50%;
+        top: 50%;
+      }
     }
-    span.add-button{
-        height: 2.5em;
-        width: 2.5em;
-        background: rgb(0, 243, 130);
-        color: white;
-        border-radius: 50%;
-        position: absolute;
-        bottom: 0;
-        transform: translateX(3em);
-        cursor: pointer;
-        a{
-            position: absolute;
-            justify-content: center;
-            transform: translate(.4em, 0);
-            font-size: 1.7em;
-        }
+    .user-option-title {
+      margin: 0 1em;
     }
+  }
+  .user-option:nth-child(1) {
+    .icon-body {
+      border-color: #0da06e;
+    }
+  }
+  .user-option:nth-child(2) {
+    .icon-body {
+      border-color: orange;
+    }
+  }
+  .user-option:nth-child(3) {
+    .icon-body {
+      border-color: red;
+      transform: rotateZ(90deg);
+    }
+  }
 }
-.user-info{
-    margin-top: 15px;
-    text-align: center;
-    h3{
-        font-size:1.6em;
-        color:#0da06e;
-    }
-    h6{
-        font-weight: bold;
-    }
-    p{
-        opacity: .8;
-        font-size: 1em;
-    }
-}
-.option-container{
-    display: flex;
-    flex-direction: column;
-    .user-option{
-        position: relative;
-        display: flex;
-        margin: 1.3em;
-        .icon-body{
-            display: block;
-            height: 2.5em;
-            width: 2.5em;
-            border: 1px solid;
-            border-radius: 50%;
-            position: relative;
-            svg-icon{
-                position: absolute;
-                transform: translate(-50%, -50%);
-                left: 50%;
-                top: 50%;
-            }
-        }
-        .user-option-title{
-            margin: 0 1em;
-        }
-    }
-    .user-option:nth-child(1){
-        .icon-body{
-            border-color: #0da06e;
-        }
-    }
-    .user-option:nth-child(2){
-        .icon-body{
-            border-color: orange;
-        }
-    }
-    .user-option:nth-child(3){
-        .icon-body{
-            border-color: red;
-            transform: rotateZ(90deg);
-        }
-    }
-}
-

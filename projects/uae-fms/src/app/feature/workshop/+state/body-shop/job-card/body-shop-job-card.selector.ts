@@ -1,13 +1,10 @@
 import { createSelector } from '@ngrx/store';
 import { bodyShopJobCardAdapter } from './body-shop-job-card.entity';
 const { selectAll } = bodyShopJobCardAdapter.getSelectors();
-const bodyShopJobCardState = (state) => state['bodyShopJobCard']
+const bodyShopJobCardState = (state) => state['bodyShopJobCard'];
 
 export class BodyShopJobCardSelectors {
-  static selectAll = createSelector(
-    bodyShopJobCardState,
-    selectAll
-  );
+  static selectAll = createSelector(bodyShopJobCardState, selectAll);
 
   static count = createSelector(
     bodyShopJobCardState,
@@ -23,10 +20,7 @@ export class BodyShopJobCardSelectors {
     (state) => state.submitted
   );
 
-  static error = createSelector(
-    bodyShopJobCardState,
-    (state) => state.error
-  );
+  static error = createSelector(bodyShopJobCardState, (state) => state.error);
   static selectById = createSelector(
     BodyShopJobCardSelectors.selectAll,
     (state, props: { id: number }) => {

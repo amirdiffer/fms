@@ -16,7 +16,9 @@ export class MovementOverviewFacade {
 
   conut$ = this.store.pipe(select(MovementOverviewSelectors.count));
 
-  constructor(private store: Store<MovementOverviewPartialState>) {this.loadAll()}
+  constructor(private store: Store<MovementOverviewPartialState>) {
+    this.loadAll();
+  }
 
   loadAll() {
     this.store.dispatch(MovementOverviewActions.loadAll());

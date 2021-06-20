@@ -7,18 +7,20 @@ import { FleetStatusComponent } from './fleet-status.component';
 import { AddFleetStatusComponent } from './add-fleet-status/add-fleet-status.component';
 import { FleetStatusRoutingModule } from './fleet-status-routing.module';
 import { TabViewModule } from '@core/tab-view';
-
-
+import { FleetStatusAssetStateModule } from '@feature/configuration/+state/fleet-status/asset/fleet-status-asset-state.module';
+import { FleetStatusSubAssetStateModule } from '@feature/configuration/+state/fleet-status/sub-asset/fleet-status-sub-asset-state.module';
 
 @NgModule({
-  declarations: [FleetStatusComponent , AddFleetStatusComponent],
+  declarations: [FleetStatusComponent, AddFleetStatusComponent],
   imports: [
     CommonModule,
     FleetStatusRoutingModule,
     SharedModule,
     TableModule,
     FilterModule,
-    TabViewModule
+    TabViewModule,
+    FleetStatusAssetStateModule,
+    FleetStatusSubAssetStateModule
   ]
 })
-export class FleetStatusModule { }
+export class FleetStatusModule {}

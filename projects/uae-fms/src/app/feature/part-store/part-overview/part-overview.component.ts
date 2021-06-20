@@ -72,7 +72,7 @@ export class PartOverviewComponent implements OnInit, OnDestroy {
               queryParams: { fleetType: this.fleetType.toLowerCase() }
             });
           },
-          permission:['PARTSTORE_PART_UPDATE']
+          permission: ['PARTSTORE_PART_UPDATE']
         }
       ]
     }

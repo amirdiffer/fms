@@ -15,17 +15,18 @@ export class OwnershipFacade {
 
   submitted$ = this.store.pipe(select(OwnershipSelectors.submitted));
 
+  loaded$ = this.store.pipe(select(OwnershipSelectors.loaded));
   constructor(private store: Store<OwnershipPartialState>) {}
 
   loadAll() {
     this.store.dispatch(OwnershipActions.loadAll());
   }
 
-  addOwnership(data: IOwnerShip) {
+  addOwnership(data: Partial<IOwnerShip>) {
     this.store.dispatch(OwnershipActions.addOwnership({ data }));
   }
 
-  editOwnership(data: any) {
+  editOwnership(data: Partial<IOwnerShip>) {
     this.store.dispatch(OwnershipActions.editOwnership({ data }));
   }
 

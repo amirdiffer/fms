@@ -11,15 +11,12 @@ import { OrganizationRoutingModule } from './organization-routing.module';
 import { TabViewModule } from '@core/tab-view';
 import { OrganizationStateModule } from '../+state/organization/organization-state.module';
 
-
-
 @NgModule({
   declarations: [
     OrganizationComponent,
     AddOrganizationComponent,
     DepartmentOverviewComponent,
-    OverviewTabComponent,
-
+    OverviewTabComponent
   ],
   imports: [
     CommonModule,
@@ -31,4 +28,4 @@ import { OrganizationStateModule } from '../+state/organization/organization-sta
     OrganizationStateModule
   ]
 })
-export class OrganizationModule { }
+export class OrganizationModule {}

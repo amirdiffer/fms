@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {AssetMasterService} from '@feature/fleet/+state/assets/asset-master';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
 import { Subject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';

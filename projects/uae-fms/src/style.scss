@@ -82,7 +82,7 @@ html {
 }
 
 /* RTL Arabic */
-[dir="rtl"] {
+[dir='rtl'] {
   body {
     direction: rtl;
     text-align: right;
@@ -153,13 +153,13 @@ html {
     border-top-left-radius: 0.25em !important;
     border-bottom-left-radius: 0.25em !important;
   }
-  input#currency{
+  input#currency {
     border-right: 0;
     margin-left: -7px !important;
     border-left: 1px solid #d3d3d3 !important;
     border-radius: 3px 0 0 3px;
   }
-  input#purchase_value{
+  input#purchase_value {
     border-left: none;
   }
   .input-money-pipe {
@@ -184,11 +184,11 @@ html {
         }
       }
     }
-    .form-check input[type="radio"] ~ label {
+    .form-check input[type='radio'] ~ label {
       margin-right: 2em;
       margin-left: 0;
     }
-    .form-check input[type="checkbox"] ~ label {
+    .form-check input[type='checkbox'] ~ label {
       margin-right: 1em;
       margin-left: 0;
     }
@@ -242,19 +242,20 @@ html {
       border-radius: 5px 0 0 5px !important;
     }
   }
-  app-table{
+  app-table {
     .paginator {
-      .pagination-action{
-        &__previous svg{
+      .pagination-action {
+        &__previous svg {
           transform: rotate(-90deg) !important;
         }
-        &__next svg{
+        &__next svg {
           transform: rotate(90deg) !important;
         }
       }
-      .show-entries select{
+      .show-entries select {
         padding: 4px 4px 4px 25px !important;
-        background: url(./assets/icons/angle-right.svg) no-repeat left 0.4em top 50% !important;
+        background: url(./assets/icons/angle-right.svg) no-repeat left 0.4em top
+          50% !important;
       }
     }
   }
@@ -439,12 +440,12 @@ html {
       }
     }
   }
-  anms-part-master{
-    .category-list ul li a{
-      &:nth-child(1){
+  anms-part-master {
+    .category-list ul li a {
+      &:nth-child(1) {
         left: 20px;
       }
-      &:nth-child(2){
+      &:nth-child(2) {
         left: 40px;
       }
       right: auto !important;
@@ -455,25 +456,35 @@ html {
     .item-info .remove-icon {
       margin-right: 1rem;
     }
-    
   }
-  .card-wrapper{
-    .padding-wrapper{
+  .card-wrapper {
+    .padding-wrapper {
       padding-right: 15px !important;
       padding-left: 0 !important;
     }
   }
   /* Carousel primeNG*/
-  .p-carousel-container{
-    .p-carousel-items-content{
-      direction: initial; 
+  .p-carousel-container {
+    .p-carousel-items-content {
+      direction: initial;
     }
-    button{
+    button {
       transform: rotate(180deg);
     }
+  }
 
+  /* Asset Registration */
+  anms-pending-registration-overview {
+    .left-menu {
+      border-left: 1px solid #e0e0e0;
+      border-right: none !important;
+    }
+
+    .right-menu {
+      border-right: 1px solid #e0e0e0;
+      border-left: none !important;
+    }
   }
 }
-
 
 /* END RTL Arabic */

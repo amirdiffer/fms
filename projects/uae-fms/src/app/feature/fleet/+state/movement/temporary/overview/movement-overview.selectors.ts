@@ -8,10 +8,7 @@ const {
 const temporatyOverviewState = (state) => state['movementOverviewTemporary'];
 
 export class MovementOverviewSelectorsTemporary {
-  static selectAll = createSelector(
-    temporatyOverviewState,
-    selectAll
-  );
+  static selectAll = createSelector(temporatyOverviewState, selectAll);
 
   static count = createSelector(
     temporatyOverviewState,
@@ -23,8 +20,5 @@ export class MovementOverviewSelectorsTemporary {
     (state) => state.message
   );
 
-  static error = createSelector(
-    temporatyOverviewState,
-    (state) => state.error
-  );
+  static error = createSelector(temporatyOverviewState, (state) => state.error);
 }

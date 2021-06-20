@@ -17,56 +17,55 @@
   align-self: center;
 }
 
-
-hr.line{
+hr.line {
   position: absolute;
   display: block;
   width: 100%;
   left: 0;
   margin-top: auto;
 }
-a{
+a {
   text-decoration: none;
 }
 
-.category-list{
+.category-list {
   font-size: 1.1em;
   margin: 35px -20px;
-  ul{
-    padding:0;
-    li{
+  ul {
+    padding: 0;
+    li {
       list-style: none;
-      margin: .5em 0;
-      padding: .5em 0;
+      margin: 0.5em 0;
+      padding: 0.5em 0;
       position: relative;
       cursor: pointer;
-      &::before{
+      &::before {
         content: '';
-        width: .6em;
-        height: .6em;
+        width: 0.6em;
+        height: 0.6em;
         display: inline-block;
-        background:#868686;
+        background: #868686;
         border-radius: 50%;
         margin: 0 20px;
       }
-      &.active-category{
-        color:#0DA06E;
+      &.active-category {
+        color: #0da06e;
         font-weight: bold;
-        background:#0DA06E14;
-        
-        &::before{
-          background:#0aa874;
+        background: #0da06e14;
+
+        &::before {
+          background: #0aa874;
         }
       }
-      a{
+      a {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        &:nth-child(1){
+        &:nth-child(1) {
           right: 20px;
           cursor: cell;
         }
-        &:nth-child(2){
+        &:nth-child(2) {
           right: 40px;
           transform: translateY(-55%);
           cursor: pointer;
@@ -74,30 +73,30 @@ a{
       }
     }
   }
-  .add-category{
+  .add-category {
     cursor: pointer;
     margin: 1.2em 10px;
-    color:#0DA06E;
+    color: #0da06e;
     font-weight: bold;
     font-family: '29LT Bukra - Bold';
-    span{
-      margin: 0 .9em;
+    span {
+      margin: 0 0.9em;
     }
   }
 }
-.table-container .form-section__title{
-  padding:20px 20px 0 20px;
+.table-container .form-section__title {
+  padding: 20px 20px 0 20px;
 }
 
-.filter-section{
-  .form-section__title{
-    color:#0DA06E;
+.filter-section {
+  .form-section__title {
+    color: #0da06e;
   }
-  button{
+  button {
     transform: translateY(-10px);
   }
 }
 
-.padding-wrapper{
+.padding-wrapper {
   padding-right: 0;
 }

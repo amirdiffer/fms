@@ -39,8 +39,8 @@
     width: 100%;
     img {
       display: block;
-      width:  1.6em;
-      height:  1.6em;
+      width: 1.6em;
+      height: 1.6em;
       margin: 5px;
       border-radius: 5px;
     }
@@ -63,20 +63,20 @@
   margin: 5px;
 
   img {
-    width:  1.6em;
-    height:  1.6em;
+    width: 1.6em;
+    height: 1.6em;
   }
 }
 
 .color-button-invert {
   padding: 5px;
   background: transparent;
-  box-shadow: 0px 0px 2px #0000003D;
+  box-shadow: 0px 0px 2px #0000003d;
   border-radius: 8px;
   margin: 5px;
   img {
     width: 1.6em;
-    height:  1.6em;
+    height: 1.6em;
   }
 }
 
@@ -162,7 +162,6 @@
 
   .damage-history {
     .title {
-
     }
     .sort {
       span {
@@ -176,7 +175,7 @@
       }
     }
     .item-body {
-      box-shadow:  0px 0px 10px #00000026;
+      box-shadow: 0px 0px 10px #00000026;
       padding: 1em;
       &__title {
         font-weight: 600;
@@ -391,7 +390,6 @@
         }
       }
     }
-
   }
 }
 
@@ -410,12 +408,11 @@
 ._row {
   display: flex;
   flex-direction: row;
-
 }
 
-#chart apx-chart{
-  ::ng-deep{
-    .apexcharts-legend{
+#chart apx-chart {
+  ::ng-deep {
+    .apexcharts-legend {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;

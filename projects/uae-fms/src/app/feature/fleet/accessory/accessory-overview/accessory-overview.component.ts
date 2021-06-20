@@ -2,6 +2,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ViewChild } from '@angular/core';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { AccessoryService } from '@feature/fleet/+state/accessory/accessory.service';
+import { IAccessory } from '@models/accessory';
+import {
+  AccessoryTypeFacade,
+  AccessoryTypeService
+} from '@feature/configuration/+state/fleet-configuration/accessory-type';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'anms-accessory-overview',
@@ -9,20 +15,27 @@ import { AccessoryService } from '@feature/fleet/+state/accessory/accessory.serv
   styleUrls: ['./accessory-overview.component.scss']
 })
 export class AccessoryOverviewComponent implements OnInit {
-  recordId: number;
+  itemId = this._route.snapshot.params['id'];
   @ViewChild('selectedImage', { static: false }) element: ElementRef;
+  fileServerBase = environment.baseFileServer;
+  accessoryDetails;
 
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private accessoryService: AccessoryService
-  ) {
-    this._route.queryParamMap.subscribe((params) => {
-      this.recordId = +params.get('id');
-      this.loadAccessoryData(this.recordId);
+    private accessoryService: AccessoryService,
+    private accessoryTypeService: AccessoryTypeService
+  ) {}
+
+  ngOnInit(): void {
+    this.accessoryService.getAccessory(this.itemId).subscribe((x) => {
+      this.accessoryDetails = x.message;
+      this.accessoryService.users().subscribe((employee) => {
+        this.accessoryDetails.assignedToEmployeeId = employee.message.filter(
+          (d) => d.id == this.accessoryDetails.assignedToEmployeeId
+        )[0];
+      });
+      console.log(this.accessoryDetails);
     });
   }
-  loadAccessoryData(recordId: number) {}
-
-  ngOnInit(): void {}
 }

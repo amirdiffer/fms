@@ -116,7 +116,7 @@ export class UsersComponent implements OnInit {
               '/configuration/user-management/users/edit-user/' + data.id
             ]);
           },
-          permission:['USER_NORMAL_UPDATE']
+          permission: ['USER_NORMAL_UPDATE']
         }
       ]
     }
@@ -171,10 +171,10 @@ export class UsersComponent implements OnInit {
       information: 'information.emails|information.phoneNumbers',
       isActive: 'isActive?func:isActiveFunc',
       isActiveFunc: (y) => {
-        return y ? 'Active' : 'Inactive'
+        return y ? 'Active' : 'Inactive';
       },
       roleName: 'roleName'
-    }
+    };
     this.table.exportTable(this.users_Table, 'Users', filter);
   }
 }

@@ -2,7 +2,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnType } from '@core/table';
 import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
-import { ServiceShopRequestFacade, ServiceShopRequestService } from '@feature/workshop/+state/service-shop/request';
+import {
+  ServiceShopRequestFacade,
+  ServiceShopRequestService
+} from '@feature/workshop/+state/service-shop/request';
 
 import moment from 'moment';
 import { Observable, Subject } from 'rxjs';
@@ -125,7 +128,10 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
               relativeTo: this._activatedRoute
             });
           },
-          permission:['WORKSHOP_SERVICE_SHOP_REQUEST_UPDATE_OWN' , 'WORKSHOP_SERVICE_SHOP_REQUEST_UPDATE_OTHERS']
+          permission: [
+            'WORKSHOP_SERVICE_SHOP_REQUEST_UPDATE_OWN',
+            'WORKSHOP_SERVICE_SHOP_REQUEST_UPDATE_OTHERS'
+          ]
         }
       ]
     }

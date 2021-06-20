@@ -6,23 +6,17 @@ const {
   selectEntities
 } = movementOverviewAdapter.getSelectors();
 
-const permanentOverviewState = (state) => state['movementOverview']
+const permanentOverviewState = (state) => state['movementOverview'];
 
 export class MovementOverviewSelectors {
-  static selectAll = createSelector(
-    permanentOverviewState,
-    selectAll
-  );
+  static selectAll = createSelector(permanentOverviewState, selectAll);
 
   static message = createSelector(
     permanentOverviewState,
     (state) => state.message
   );
 
-  static error = createSelector(
-    permanentOverviewState,
-    (state) => state.error
-  );
+  static error = createSelector(permanentOverviewState, (state) => state.error);
   static count = createSelector(
     permanentOverviewState,
     (state) => state.resultNumber

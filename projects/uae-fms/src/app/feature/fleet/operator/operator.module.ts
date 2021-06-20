@@ -13,8 +13,7 @@ import { OperatorStateModule } from '../+state/operator/operator-state.module';
 import { OrganizationStateModule } from '../+state/organization/organization-state.module';
 import { OperatorMovementStateModule } from '../+state/operator/movement-history-tab/operator-movement-state.module';
 import { OperatorTrafficFineStateModule } from '../+state/operator/traffic-fine-tab/operator-traffic-fine-state.module';
-
-
+import { UserProfileModule } from '@feature/user/user.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +32,8 @@ import { OperatorTrafficFineStateModule } from '../+state/operator/traffic-fine-
     OperatorStateModule,
     OperatorMovementStateModule,
     OperatorTrafficFineStateModule,
-    OrganizationStateModule
+    OrganizationStateModule,
+    UserProfileModule
   ]
 })
-export class OperatorModule { }
+export class OperatorModule {}

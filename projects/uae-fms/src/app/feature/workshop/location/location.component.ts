@@ -7,7 +7,6 @@ import { map } from 'rxjs/operators';
 import { BodyShopLocationFacade } from '../+state/body-shop/location';
 import { ServiceShopLocationFacade } from '../+state/service-shop/location';
 
-
 @Component({
   selector: 'anms-location',
   templateUrl: './location.component.html',
@@ -105,7 +104,6 @@ export class LocationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.bodyshopFacadeLocation.bodyShop$
       .pipe(
         map((x) => {

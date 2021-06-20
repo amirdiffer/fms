@@ -145,14 +145,18 @@ export class OperatorComponent implements OnInit {
           onClick: (col, data, button?) => {
             this._router.navigate(['/fleet/operator/edit-operator/' + data.id]);
           },
-          permission:['USER_OPERATOR_UPDATE']
+          permission: ['USER_OPERATOR_UPDATE']
         },
         {
           button: 'external',
           onClick: (col, data, button?) => {
             this._router.navigate(['/fleet/operator/' + data.id]);
           },
-          permission:['USER_OPERATOR_VIEW_DETAILS_GENERAL' , 'USER_OPERATOR_VIEW_DETAILS_TRAFFIC_FINE' , 'USER_OPERATOR_VIEW_DETAILS_MOVEMENT_HISTORY']
+          permission: [
+            'USER_OPERATOR_VIEW_DETAILS_GENERAL',
+            'USER_OPERATOR_VIEW_DETAILS_TRAFFIC_FINE',
+            'USER_OPERATOR_VIEW_DETAILS_MOVEMENT_HISTORY'
+          ]
         }
       ]
     }
