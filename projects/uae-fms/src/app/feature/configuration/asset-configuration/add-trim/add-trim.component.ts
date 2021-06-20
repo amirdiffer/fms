@@ -15,6 +15,7 @@ import { Utility } from '@shared/utility/utility';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-add-trim',
@@ -38,16 +39,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   fileName = 'CSV File only';
   submited = false;
 
-  dialogModal = false;
-
-  dialogSetting: IDialogAlert = {
-    header: 'Add Trim',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
-
   get trims(): FormArray {
     return this.inputForm.get('trims') as FormArray;
   }
@@ -68,7 +59,8 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     private facade: AssetTypeFacade,
     public dataService: DataService,
     public router: Router,
-    injector: Injector
+    injector: Injector,
+    private dialogService: DialogService
   ) {
     super(injector);
   }
@@ -156,33 +148,36 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
       if (x) {
         this.successDialog = true;
         if (this.isEditing) {
-          this.dialogModal = true;
-          this.dialogSetting.header = 'Edit Trim';
-          this.dialogSetting.message = 'Trim Edited Successfully';
-          this.dialogSetting.isWarning = false;
-          this.dialogSetting.hasError = false;
-          this.dialogSetting.confirmButton = 'OK';
-          this.dialogSetting.cancelButton = undefined;
+          const editDialog = this.dialogService.show('success', 'Edit Trim',
+            'Trim Edited Successfully', 'OK', '');
+          editDialog.dialogClosed$.subscribe(result => {
+            if (result === 'confirm') {
+              this.facade.resetParams();
+              this.router.navigate(['/configuration/asset-configuration']).then();
+            }
+          });
           return;
         }
-        this.dialogModal = true;
-        this.dialogSetting.header = 'Add new trim';
-        this.dialogSetting.message = 'Trim Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
+        const addDialog = this.dialogService.show('success', 'Add new trim',
+          'Trim Added Successfully', 'OK', '');
+        addDialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+            this.facade.resetParams();
+            this.router.navigate(['/configuration/asset-configuration']).then();
+          }
+        });
       }
     });
 
     this.facade.error$.subscribe((x) => {
       if (x?.error) {
-        this.dialogModal = true;
-        this.dialogSetting.header = 'Add new trim';
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.message = 'Error occurred in progress';
-        this.dialogSetting.cancelButton = undefined;
-        this.dialogSetting.confirmButton = 'OK';
+        const dialog = this.dialogService.show('danger', 'Add new trim',
+          'Error occurred in progress', 'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+          } else {
+          }
+        });
       }
     });
   }
@@ -250,23 +245,14 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     docControl.setValue(docId);
   }
   cancel() {
-    this.dialogModal = true;
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.message = 'Are you sure to cancel adding new type?';
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.cancelButton = 'No';
+    const dialog = this.dialogService.show('warning', 'Add new trim',
+      'Are you sure to cancel adding new type ?', 'Yes', 'No');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this.router.navigate(['/configuration/asset-configuration']).then();
+      }
+    });
     // this._assetConfigurationService.loadAddForm(false);
-  }
-
-  dialogConfirm($event): void {
-    this.dialogModal = false;
-    if ($event && this.successDialog) {
-      this.facade.resetParams();
-    }
-    if ($event && !this.dialogSetting.hasError) {
-      this.router.navigate(['/configuration/asset-configuration']);
-    }
   }
 
   selectedColor(event, color): void {
