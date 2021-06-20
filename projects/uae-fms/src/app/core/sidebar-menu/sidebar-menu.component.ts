@@ -56,6 +56,48 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       }
     },
     {
+      name: 'sidebar.dashboard',
+      icon: 'dashboard',
+      route: '/dashboard/technician',
+      permission: {
+        parent: 'DASHBOARD',
+        permission: 'DASHBOARD_TECHNICIAN',
+        permissionType: 'MENU'
+      },
+      items: [
+        {
+          name: 'home',
+          route: '/dashboard/technician',
+          icon: 'home',
+          permission: {
+            parent: 'DASHBOARD',
+            permission: 'DASHBOARD_TECHNICIAN',
+            permissionType: 'MENU'
+          }
+        },
+        {
+          name: 'sidebar.mytasks',
+          route: '/dashboard/technician/my-tasks',
+          icon: 'tasks',
+          permission: {
+            parent: 'DASHBOARD',
+            permission: 'DASHBOARD_TECHNICIAN',
+            permissionType: 'MENU'
+          }
+        },
+        {
+          name: 'sidebar.myrequests',
+          route: '/dashboard/technician/my-requests',
+          icon: 'list',
+          permission: {
+            parent: 'DASHBOARD',
+            permission: 'DASHBOARD_TECHNICIAN',
+            permissionType: 'MENU'
+          }
+        }
+      ]
+    },
+    {
       name: 'sidebar.fleets.~',
       icon: 'fleets',
       route: '/fleet',
@@ -272,7 +314,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         {
           name: 'sidebar.part_store.order_list',
           icon: 'order-list',
-          route: '/part-store/order-list',
+          route: '/part-store/order-list/',
           permission: {
             parent: 'PART_STORE',
             permission: 'ORDER_LIST',

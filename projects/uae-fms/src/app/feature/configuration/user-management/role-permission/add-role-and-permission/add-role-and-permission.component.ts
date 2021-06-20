@@ -369,7 +369,7 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
         this.selectAlForm(this.fuelManagementForm, option);
         break;
       case 'TRAFFIC_FINES':
-        this.selectAlForm(this.trafficFinesForm, option)
+        this.selectAlForm(this.trafficFinesForm, option);
         break;
       case 'SALIK':
         this.selectAlForm(this.salikForm, option);

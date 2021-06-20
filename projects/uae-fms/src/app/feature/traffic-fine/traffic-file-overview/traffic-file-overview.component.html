@@ -1,28 +1,29 @@
 <div class='row col-12 m-auto' [dir]='isLtr ? "ltr" : "rtl"'>
   <mat-card class='col-md-12 p-4' *ngFor='let fine of trafficFines'>
     <div class="button-container">
-      <button class="btn-primary-medium btn-scondary-green" type="button" [routerLink]="'/traffic-fine'">{{ 'forms.back' | translate }}</button>
+      <button class="btn-primary-medium btn-scondary-green" type="button" [routerLink]="'/traffic-fine'">{{ 'forms.back'
+        | translate }}</button>
     </div>
     <div class='row justify-content-between'>
       <div>
         <div><span class='key'>Booklet ID</span> : {{fine?.bookletId}}</div>
         <div><span class='key'>Creation Date</span> : {{fine?.creationDate}}</div>
-    <div><span class='key'>Has UnPayable Regulation</span> : {{fine?.hasUnpayableRegulation}}</div>
-    <div><span class='key'>Location Code</span> : {{fine?.locationCode}}</div>
-    <div><span class='key'>Location Description</span> : {{fine?.locationDescription}}</div>
-    <div><span class='key'>Penalty Fine</span> : {{fine?.penaltyFine}}</div>
-    <div><span class='key'>Plate Category CFI Code</span> : {{fine?.plateCategoryCFICode}}</div>
-    <div><span class='key'>Plate Category Description (Ar)</span> : {{fine?.plateCategoryDescAr}}</div>
-    <div><span class='key'>Plate Code</span> : {{fine?.plateCode}}</div>
-    <div><span class='key'>Road Speed</span> : {{fine?.roadSpeed}}</div>
-    <div><span class='key'>Ticket Category</span> : {{fine?.ticketCategory}}</div>
-    <div><span class='key'>Ticket Description Code</span> : {{fine?.ticketDescCode0}}</div>
-    <div><span class='key'>Ticket Fine</span> : {{fine?.ticketFine}}</div>
-    <div><span class='key'>Ticket No</span> : {{fine?.ticketNo}}</div>
-    <div><span class='key'>Ticket Status Description (Ar)</span> : {{fine?.ticketStatusDescA}}</div>
-    <div><span class='key'>Ticket Status Description (En)</span> : {{fine?.ticketStatusDescE}}</div>
-    <div><span class='key'>Ticket Type</span> : {{fine?.ticketType}}</div>
-    <div><span class='key'>Total Ticket Fine</span> : {{fine?.totalTicketFine}}</div>
+        <div><span class='key'>Has UnPayable Regulation</span> : {{fine?.hasUnpayableRegulation}}</div>
+        <div><span class='key'>Location Code</span> : {{fine?.locationCode}}</div>
+        <div><span class='key'>Location Description</span> : {{fine?.locationDescription}}</div>
+        <div><span class='key'>Penalty Fine</span> : {{fine?.penaltyFine}}</div>
+        <div><span class='key'>Plate Category CFI Code</span> : {{fine?.plateCategoryCFICode}}</div>
+        <div><span class='key'>Plate Category Description (Ar)</span> : {{fine?.plateCategoryDescAr}}</div>
+        <div><span class='key'>Plate Code</span> : {{fine?.plateCode}}</div>
+        <div><span class='key'>Road Speed</span> : {{fine?.roadSpeed}}</div>
+        <div><span class='key'>Ticket Category</span> : {{fine?.ticketCategory}}</div>
+        <div><span class='key'>Ticket Description Code</span> : {{fine?.ticketDescCode0}}</div>
+        <div><span class='key'>Ticket Fine</span> : {{fine?.ticketFine}}</div>
+        <div><span class='key'>Ticket No</span> : {{fine?.ticketNo}}</div>
+        <div><span class='key'>Ticket Status Description (Ar)</span> : {{fine?.ticketStatusDescA}}</div>
+        <div><span class='key'>Ticket Status Description (En)</span> : {{fine?.ticketStatusDescE}}</div>
+        <div><span class='key'>Ticket Type</span> : {{fine?.ticketType}}</div>
+        <div><span class='key'>Total Ticket Fine</span> : {{fine?.totalTicketFine}}</div>
       </div>
       <div>
         <div><span class='key'>Has Radar Picture</span> : {{fine?.hasRadarPicture}}</div>

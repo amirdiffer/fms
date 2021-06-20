@@ -7,8 +7,7 @@ import {
   Validators
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ColumnType, TableSetting } from '@core/table';
-import { ButtonType } from '@core/table/table.component';
+import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
@@ -20,14 +19,9 @@ import {
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
 import moment from 'moment';
 import { Observable, Subject, Subscription } from 'rxjs';
-import {
-  BodyShopJobCardFacade,
-  BodyShopJobCardService
-} from '@feature/workshop/+state/body-shop/job-card';
-import {
-  BodyShopRequestFacade,
-  BodyShopRequestService
-} from '@feature/workshop/+state/body-shop/request';
+import { AssetSearchThroughFacade } from '@feature/fleet/+state/assets/search-through';
+import { BodyShopJobCardFacade, BodyShopJobCardService } from '@feature/workshop/+state/body-shop/job-card';
+import { BodyShopRequestFacade, BodyShopRequestService } from '@feature/workshop/+state/body-shop/request';
 import { BodyShopLocationFacade } from '@feature/workshop/+state/body-shop/location';
 import { BodyShopTechnicianFacade } from '@feature/workshop/+state/body-shop/technician';
 
@@ -195,7 +189,9 @@ export class AddJobCardComponent extends Utility implements OnInit {
     private _jobCardService: BodyShopJobCardService,
     private _taskMasterService: TaskMasterService,
     private service: BodyShopRequestService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _assetSearchThrough: AssetSearchThroughFacade,
+
   ) {
     super(injector);
   }
@@ -207,18 +203,19 @@ export class AddJobCardComponent extends Utility implements OnInit {
       this.selectAsset({ value: this.selectedAsset });
       this.loadAssetRequests(this.selectedAsset);
     }
+    this._assetSearchThrough.loadAvailableAssetForAddingJobCard();
+    this.assetsSubscription =this._assetSearchThrough.searchAsset$.subscribe(
+      x => {
+        if(x){
+          this.assets =x.map( y => {
+            return {
+              id: y.id, name: y.dpd
+            }
+          })
+        }
+      }
+    )
 
-    this.assetsSubscription = this._jobCardService
-      .getAllAssethasJobCard()
-      .pipe(
-        map((y) => y.message.map((x) => ({ ...x, id: x.assetId, name: x.dpd })))
-      )
-      .subscribe((data) => ((this.assets = data), console.log(data)));
-
-    // this._assetMasterService.getAllAllowedAssetForJobcard()
-    //   .pipe(map((y) => y.message.map((x) => ({ id: x.id, name: x.dpd }))))
-    //   .subscribe((data) => (this.assets = data)
-    // );
 
     this._facadeRequest.resetParams();
     this._facadeJobCard.loadAll();

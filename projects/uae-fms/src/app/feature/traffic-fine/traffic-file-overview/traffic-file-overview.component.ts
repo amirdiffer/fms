@@ -9,17 +9,18 @@ import { SettingsFacade } from '@core/settings/settings.facade';
   styleUrls: ['./traffic-file-overview.component.scss']
 })
 export class TrafficFileOverviewComponent implements OnInit {
-
   isLtr = true;
 
   trafficFines: any[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private networkService: TrafficFineTableService,
-              private settingsFacade: SettingsFacade) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private networkService: TrafficFineTableService,
+    private settingsFacade: SettingsFacade
+  ) {
     settingsFacade.language.subscribe((lang) => {
-      this.isLtr = lang === 'en'
-    })
+      this.isLtr = lang === 'en';
+    });
   }
 
   ngOnInit(): void {
@@ -29,10 +30,10 @@ export class TrafficFileOverviewComponent implements OnInit {
   }
 
   private getFinesForId(id: number): void {
-    this.networkService.getFinesOfSpecificFileNumber(id)
+    this.networkService
+      .getFinesOfSpecificFileNumber(id)
       .subscribe((response) => {
         this.trafficFines = response.message;
       });
   }
-
 }

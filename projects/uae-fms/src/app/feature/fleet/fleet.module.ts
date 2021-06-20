@@ -5,7 +5,6 @@ import { CardModule } from 'primeng/card';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { FleetRoutingModule } from './fleet-routing.module';
 import { DashboardModule } from '../dashboard/dashboard.module';
-import { ConfigurationStateModule } from '@feature/configuration/+state';
 
 @NgModule({
   declarations: [],
@@ -16,7 +15,6 @@ import { ConfigurationStateModule } from '@feature/configuration/+state';
     GMapModule,
     CardModule,
     NgApexchartsModule,
-    ConfigurationStateModule
   ]
 })
 export class FleetModule {}

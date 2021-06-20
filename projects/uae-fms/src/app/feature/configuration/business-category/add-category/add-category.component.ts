@@ -8,7 +8,9 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
 import { TableSetting } from '@core/table';
 import { map } from 'rxjs/operators';
-import { AssetTypeFacade, AccessoryTypeFacade, SubAssetTypeFacade } from '../../+state/fleet-configuration';
+import { AccessoryTypeFacade } from '../../+state/fleet-configuration/accessory-type';
+import { SubAssetTypeFacade } from '../../+state/fleet-configuration/sub-asset-type';
+import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
 
 @Component({
   selector: 'anms-add-category',

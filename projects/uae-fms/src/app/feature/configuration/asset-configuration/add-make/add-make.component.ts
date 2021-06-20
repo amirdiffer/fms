@@ -17,10 +17,8 @@ import {
 import { TableSetting } from '@core/table';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetConfigurationService } from '@feature/configuration/asset-configuration/asset-configuration.service';
-import {
-  AssetTypeFacade,
-  SubAssetTypeFacade
-} from '@feature/configuration/+state/fleet-configuration/index';
+import { SubAssetTypeFacade } from '../../+state/fleet-configuration/sub-asset-type';
+import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
 import { Utility } from '@shared/utility/utility';
 import { DataService } from '@feature/configuration/asset-configuration/data.service';
 import { IAssetType } from '@models/asset-type.model';

@@ -37,14 +37,15 @@ export class TrafficFineTableEffect {
     )
   );
 
-
   getVehicleInfoByPlateNumber$ = createEffect(() =>
     this.action$.pipe(
       ofType(TrafficFineTableActions.getVehicleInformationByPlateNumber),
       mergeMap((action) =>
         this.service.getVehicleInformationByPlateNumber(action.data).pipe(
           map((data) =>
-            TrafficFineTableActions.vehicleInformationByPlateNumberLoadedSuccessfully({ data: data.message })
+            TrafficFineTableActions.vehicleInformationByPlateNumberLoadedSuccessfully(
+              { data: data.message }
+            )
           ),
           catchError((error) =>
             of(TrafficFineTableActions.error({ reason: error }))
@@ -60,7 +61,9 @@ export class TrafficFineTableEffect {
       mergeMap((action) =>
         this.service.getVehicleInformationByChassisNumber(action.data).pipe(
           map((data) =>
-            TrafficFineTableActions.vehicleInformationByChassisNumberLoadedSuccessfully({ data: data.message })
+            TrafficFineTableActions.vehicleInformationByChassisNumberLoadedSuccessfully(
+              { data: data.message }
+            )
           ),
           catchError((error) =>
             of(TrafficFineTableActions.error({ reason: error }))

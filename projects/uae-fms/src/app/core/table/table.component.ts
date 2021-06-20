@@ -414,6 +414,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
 
 export interface TableSetting {
   columns: ColumnDifinition[];
+  rows?: RowDefinition[];
   data?: any[];
   rowSettings?: RowSettings;
   name?: string;
@@ -439,6 +440,11 @@ export interface ColumnDifinition {
   hasPadding5?: boolean;
   hasPadding3?: boolean;
   isHeaderHidden?: boolean;
+  hasExpandedInfo?: boolean;
+}
+
+export interface RowDefinition {
+  foldableRowOption: FoldableRowOptions | undefined;
 }
 
 export enum ColumnType {
@@ -452,6 +458,11 @@ export interface RowSettings {
   floatButton?: FloatButtonType[];
   renderer?: String;
   rendererOptions?: RendererOptions;
+}
+
+export interface FoldableRowOptions {
+  isFolded?: boolean;
+  foldableData?: any[];
 }
 
 export interface RendererOptions {
