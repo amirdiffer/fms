@@ -15,6 +15,7 @@ import { PeriodicServiceFacade } from '../../+state/periodic-service';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-add-periodic-service',
@@ -73,31 +74,6 @@ export class AddPeriodicServiceComponent
   };
   //#endregion
 
-  //#region Dialog
-  dialogCancelSetting: IDialogAlert = {
-    header: 'Cancel',
-    hasError: false,
-    isWarning: true,
-    message: 'Are you sure you want to cancel?',
-    confirmButton: 'Yes',
-    cancelButton: 'No'
-  };
-  dialogSuccessSetting: IDialogAlert = {
-    header: 'Success',
-    hasError: false,
-    message: 'New Periodic Service Successfully Added'
-  };
-  dialogErrorSetting: IDialogAlert = {
-    header: 'Error',
-    hasError: true,
-    message: 'Please fill all required fields',
-    confirmButton: 'OK'
-  };
-  displayCancelModal = false;
-  displaySuccessModal = false;
-  displayErrorModal = false;
-  //#endregion
-
   //#region Variables
   id: number;
   isEdit: boolean = false;
@@ -132,7 +108,8 @@ export class AddPeriodicServiceComponent
     private periodicServiceFacade: PeriodicServiceFacade,
     private periodicService: PeriodicServiceService,
     private _routerFacade: RouterFacade,
-    private _taskMasterService: TaskMasterService
+    private _taskMasterService: TaskMasterService,
+    private dialogService: DialogService
   ) {
     super(injector);
   }
@@ -183,26 +160,28 @@ export class AddPeriodicServiceComponent
 
     this.periodicServiceFacade.submitted$.subscribe((x) => {
       if (x) {
-        this.displaySuccessModal = true;
-        this.dialogSuccessSetting.header = this.isEdit
-          ? 'Edit Periodic Service'
-          : 'Add new Periodic Service';
-        this.dialogSuccessSetting.message = this.isEdit
-          ? 'Changes Saved Successfully'
-          : 'Periodic Service Added Successfully';
-        this.dialogSuccessSetting.isWarning = false;
-        this.dialogSuccessSetting.hasError = false;
-        this.dialogSuccessSetting.confirmButton = 'Yes';
-        this.dialogSuccessSetting.cancelButton = undefined;
+        const dialog = this.dialogService.show('success',
+          this.isEdit ? 'Edit Periodic Service' : 'Add new Periodic Service',
+          this.isEdit ? 'Changes Saved Successfully' : 'Periodic Service Added Successfully',
+          'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+            this.periodicServiceFacade.reset();
+            this._goToList();
+          }
+        })
       }
     });
 
     this.periodicServiceFacade.error$.subscribe((x) => {
       if (x) {
-        this.displayErrorModal = true;
-
-        this.dialogErrorSetting.message = 'an error occurred during operation';
-        this.dialogErrorSetting.hasError = true;
+        const dialog = this.dialogService.show('danger', 'Error',
+          'an error occurred during operation', 'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+          } else {
+          }
+        })
       }
     });
   }
@@ -454,19 +433,13 @@ export class AddPeriodicServiceComponent
   }
 
   showCancelAlert() {
-    this.displayCancelModal = true;
-  }
-
-  dialogConfirm(confirmed) {
-    if (confirmed) {
-      this.displayCancelModal = false;
-      this._goToList();
-    } else this.displayCancelModal = false;
-  }
-
-  successDialogConfirm($event) {
-    this._goToList();
-    this.periodicServiceFacade.reset();
+    const dialog = this.dialogService.show('warning', 'Cancel',
+      'Are you sure you want to cancel?', 'Yes', 'No');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this._goToList();
+      }
+    })
   }
   ngOnDestroy() {
     this.tasks$.unsubscribe();
