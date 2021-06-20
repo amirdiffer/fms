@@ -1,7 +1,7 @@
 @import '../../../../../themes/green-theme.scss';
 @import '../../../../../assets/scss/form-section.scss';
-:host ::ng-deep{
-  .left-menu{
+:host ::ng-deep {
+  .left-menu {
     border-right: 1px solid #e0e0e0;
   }
 }
@@ -27,7 +27,7 @@
   & > span {
     display: flex;
     flex-direction: row;
-    padding: .5em 0;
+    padding: 0.5em 0;
 
     .title {
       font-size: 0.7em;
@@ -44,11 +44,10 @@
   }
 }
 
-.left-menu{
+.left-menu {
   border-right: 1px solid #e0e0e0;
 }
 
-.right-menu{
+.right-menu {
   border-left: 1px solid #e0e0e0;
 }
-

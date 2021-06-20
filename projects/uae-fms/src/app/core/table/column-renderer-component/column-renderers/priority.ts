@@ -10,34 +10,31 @@ import { Component, Input, OnInit, Renderer2 } from '@angular/core';
   </svg-icon>
   </div>
   `,
-  styles: [
-    `
-    `
-  ]
+  styles: [``]
 })
 export class PriorityRendererComponent implements OnInit {
-    @Input() data;
-    flagIcon="assets/icons/flag-solid.svg"
-    color="#FCB614"
-    constructor(private _renderer: Renderer2) {}
+  @Input() data;
+  flagIcon = 'assets/icons/flag-solid.svg';
+  color = '#FCB614';
+  constructor(private _renderer: Renderer2) {}
 
-    ngOnInit() {
-        switch (this.data) {
-            case 'ugrent':
-                this.color = "#F75A4A"
-                break;
-            case 'hight':
-                this.color = "#FCB614"
-                break;
-            case 'normal':
-                this.color = "#00CBB2"
-                break;
-            case 'low':
-                this.color = "#707070"
-                break;
-            default:
-                this.color = "#FCB614"
-                break;
-        }
+  ngOnInit() {
+    switch (this.data) {
+      case 'ugrent':
+        this.color = '#F75A4A';
+        break;
+      case 'hight':
+        this.color = '#FCB614';
+        break;
+      case 'normal':
+        this.color = '#00CBB2';
+        break;
+      case 'low':
+        this.color = '#707070';
+        break;
+      default:
+        this.color = '#FCB614';
+        break;
     }
+  }
 }

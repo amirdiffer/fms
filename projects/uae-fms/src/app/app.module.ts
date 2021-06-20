@@ -16,8 +16,11 @@ import { TechnicianOverviewComponent } from './template/technician-dashboard-tem
 import { SpinnerComponent, SpinnerService } from '@core/spinner';
 import { DialogService } from '@core/dialog/dialog-template.component';
 import { DialogModule } from '@core/dialog/dialog.module';
+import { CoreStateModule } from '@core/core.state.module';
+
 @NgModule({
   imports: [
+    CoreStateModule,
     BrowserAnimationsModule,
     BrowserModule,
     MatSidenavModule,

@@ -32,39 +32,49 @@ const trafficFineTableReducer = createReducer(
     loaded: true
   })),
 
-
   /* Get Vehicle Information by plate number */
-  on(TrafficFineTableActions.getVehicleInformationByPlateNumber, (state, { data }) => ({
-    ...state,
-    error: null,
-    message: null,
-    loaded: false,
-    vehicleInfo:null
-  })),
-  on(TrafficFineTableActions.vehicleInformationByPlateNumberLoadedSuccessfully, (state, { data }) => ({
-    ...state,
-    error: null,
-    message: null,
-    loaded: true,
-    vehicleInfo:data
-  })),
+  on(
+    TrafficFineTableActions.getVehicleInformationByPlateNumber,
+    (state, { data }) => ({
+      ...state,
+      error: null,
+      message: null,
+      loaded: false,
+      vehicleInfo: null
+    })
+  ),
+  on(
+    TrafficFineTableActions.vehicleInformationByPlateNumberLoadedSuccessfully,
+    (state, { data }) => ({
+      ...state,
+      error: null,
+      message: null,
+      loaded: true,
+      vehicleInfo: data
+    })
+  ),
 
-
-   /* Get Vehicle Information by chassis number */
-  on(TrafficFineTableActions.getVehicleInformationByChassisNumber, (state, { data }) => ({
-    ...state,
-    error: null,
-    message: null,
-    loaded: false,
-    vehicleInfo:null
-  })),
-  on(TrafficFineTableActions.vehicleInformationByChassisNumberLoadedSuccessfully, (state, { data }) => ({
-    ...state,
-    error: null,
-    message: null,
-    loaded: true,
-    vehicleInfo:data
-  })),
+  /* Get Vehicle Information by chassis number */
+  on(
+    TrafficFineTableActions.getVehicleInformationByChassisNumber,
+    (state, { data }) => ({
+      ...state,
+      error: null,
+      message: null,
+      loaded: false,
+      vehicleInfo: null
+    })
+  ),
+  on(
+    TrafficFineTableActions.vehicleInformationByChassisNumberLoadedSuccessfully,
+    (state, { data }) => ({
+      ...state,
+      error: null,
+      message: null,
+      loaded: true,
+      vehicleInfo: data
+    })
+  ),
 
   /* RESET */
   on(TrafficFineTableActions.reset, (state) => ({
@@ -73,8 +83,8 @@ const trafficFineTableReducer = createReducer(
     loaded: null,
     statistics: null,
     message: null,
-    vehicleInfo:null,
-  })),
+    vehicleInfo: null
+  }))
 );
 
 export function reducer(state: TrafficFineTableState, action: Action) {

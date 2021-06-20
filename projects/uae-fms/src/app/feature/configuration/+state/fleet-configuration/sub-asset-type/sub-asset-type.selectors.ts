@@ -1,37 +1,36 @@
 import { createSelector } from "@ngrx/store";
-import { ConfigurationSelectors } from "../../configuration.selectors";
 import { subAssetTypeAdapter } from "./sub-asset-type.entity";
 
 const { selectAll } = subAssetTypeAdapter.getSelectors();
-
+const subAssetTypeSelector = (state) => state['subAssetType']
 export class SubAssetTypeSelectors {
       static selectAll = createSelector(
-        ConfigurationSelectors.subAssetTypeSelector,
+        subAssetTypeSelector,
         selectAll
       );
 
       static specificSubAssetType = createSelector(
-        ConfigurationSelectors.subAssetTypeSelector,
+        subAssetTypeSelector,
         (state) => state.subAssetType
       );
 
       static message = createSelector(
-        ConfigurationSelectors.subAssetTypeSelector,
+        subAssetTypeSelector,
         (state) => state.message
       );
-    
+
       static error = createSelector(
-        ConfigurationSelectors.subAssetTypeSelector,
+        subAssetTypeSelector,
         (state) => state.error
       );
-    
+
       static submitted = createSelector(
-        ConfigurationSelectors.subAssetTypeSelector,
+        subAssetTypeSelector,
         (state) => state.submitted
       );
-    
+
       static loaded = createSelector(
-        ConfigurationSelectors.subAssetTypeSelector,
+        subAssetTypeSelector,
         (state) => state.loaded
       );
 }

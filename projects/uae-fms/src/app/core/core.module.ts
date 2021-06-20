@@ -23,22 +23,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-
-import {
-  StoreRouterConnectingModule,
-  RouterStateSerializer
-} from '@ngrx/router-store';
-
 import { environment } from '../../environments/environment';
 import { HttpInterceptor } from './http-interceptors/http.interceptor';
 import { LoaderInterceptor } from './http-interceptors/loaderInterceptor';
-
-import {
-  AppState,
-  reducers,
-  metaReducers,
-  selectRouterState
-} from './core.state';
 import { selectIsAuthenticated, selectAuth } from './auth/auth.selectors';
 import { authLogin, authLogout } from './auth/auth.actions';
 import { AuthGuardService } from './auth/auth-guard.service';
@@ -51,7 +38,6 @@ import {
 import { AppErrorHandler } from './error-handler/app-error-handler.service';
 import { LocalStorageService } from './local-storage/local-storage.service';
 import { NotificationService } from './notifications/notification.service';
-import { CustomSerializer } from './router/custom-serializer';
 
 import { TitleService } from './title/title.service';
 import { AnimationsService } from './animations/animations.service';
@@ -61,9 +47,6 @@ import {
   selectEffectiveTheme,
   selectSettingsStickyHeader
 } from './settings/settings.selectors';
-import { SettingsEffects } from './settings/settings.effects';
-
-import { RouterFacade } from './router';
 
 export {
   TitleService,
@@ -71,13 +54,11 @@ export {
   authLogin,
   authLogout,
   routeAnimations,
-  AppState,
   LocalStorageService,
   selectIsAuthenticated,
   ROUTE_ANIMATIONS_ELEMENTS,
   AnimationsService,
   AuthGuardService,
-  selectRouterState,
   NotificationService,
   selectEffectiveTheme,
   selectSettingsLanguage,
@@ -110,12 +91,6 @@ export function httpLoaderFactory(http: HttpClient) {
     MatTooltipModule,
     MatSnackBarModule,
     MatButtonModule,
-
-    // ngrx
-    StoreModule.forRoot(reducers, { metaReducers }),
-    StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([AuthEffects, SettingsEffects]),
-
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({
@@ -137,9 +112,7 @@ export function httpLoaderFactory(http: HttpClient) {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-    { provide: ErrorHandler, useClass: AppErrorHandler },
-    { provide: RouterStateSerializer, useClass: CustomSerializer },
-    RouterFacade
+    { provide: ErrorHandler, useClass: AppErrorHandler }
   ],
   exports: [
     // angular

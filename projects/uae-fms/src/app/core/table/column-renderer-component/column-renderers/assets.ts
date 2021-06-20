@@ -5,7 +5,11 @@ import { environment } from '@environments/environment';
   selector: 'table-assets-renderer',
   template: `
     <div class="row m-0">
-      <img class="asset-image col-5 p-0 m-0" [src]="fileServerBase + data.img" onerror="this.src='assets/thumb.png'"/>
+      <img
+        class="asset-image col-5 p-0 m-0"
+        [src]="fileServerBase + data.img"
+        onerror="this.src='assets/thumb.png'"
+      />
       <span class="title col-7 align-self-center">
         <p class="m-0" pTooltip='{{data.assetName }}' tooltipPosition='bottom' >{{ data.assetName }} {{ data.userName }}</p>
         <small pTooltip='{{data.assetSubName }}' tooltipPosition='bottom'> {{ data.assetSubName }} {{ data.subName }}</small>
@@ -45,7 +49,7 @@ import { environment } from '@environments/environment';
       }
       .progress-value {
         font-size: 0.8em;
-        margin:0 6px;
+        margin: 0 6px;
       }
     `
   ]

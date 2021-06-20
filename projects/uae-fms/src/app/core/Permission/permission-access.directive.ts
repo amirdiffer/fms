@@ -54,12 +54,33 @@ export class HasPermissionDirective extends MenuPermission implements OnInit {
       this._permissions[0].permissionType &&
       this._permissions[0].permissionType === 'MENU'
     ) {
-      this._permissions = this.checkPermissions(
-        this._permissions[0].parent,
-        this._permissions[0].permission
-      );
+      let parentMenu = this._permissions[0].parent;
+      let permissionMenu = this._permissions[0].permission;
+      let permissionModel = new MenuPermission();
+      if (this._currentUser !== null) {
+        if (this._currentUser.roles[0].roleId === 2) {
+          permissionModel._dashboardPermission = {
+            DASHBOARD: ['DONT_ALLOW'],
+            DASHBOARD_TECHNICIAN: ['AlLOW_ALWAYS']
+          };
+        } else {
+          permissionModel._dashboardPermission = {
+            DASHBOARD: ['AlLOW_ALWAYS'],
+            DASHBOARD_TECHNICIAN: ['DONT_ALLOW']
+          };
+        }
+        this._permissions = permissionModel.checkPermissions(
+          parentMenu,
+          permissionMenu
+        );
+      }
     }
-    if (this._currentUser && this._currentUser.roles[0].permissions) {
+    if (
+      this._currentUser !== null &&
+      this._currentUser.roles[0].permissions &&
+      this._permissions &&
+      this._permissions.length > 0
+    ) {
       for (const checkPermission of this._permissions) {
         const permissionFound = this._currentUser.roles[0].permissions.find(
           (x) => x.toUpperCase() === checkPermission.toUpperCase()

@@ -22,11 +22,9 @@ import {
 } from '@angular/forms';
 import { AssetConfigurationService } from '../asset-configuration.service';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import {
-  AccessoryTypeFacade,
-  AssetTypeFacade,
-  SubAssetTypeFacade
-} from '../../+state/fleet-configuration/index';
+import { AccessoryTypeFacade } from '../../+state/fleet-configuration/accessory-type';
+import { SubAssetTypeFacade } from '../../+state/fleet-configuration/sub-asset-type';
+import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Utility } from '@shared/utility/utility';
 import { TableSetting } from '@core/table';

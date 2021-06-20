@@ -42,6 +42,7 @@ export class PermissionGuard implements CanActivate {
         );
         if (permissionFound || checkPermission === 'AlLOW_ALWAYS') {
           canActivate = of(true);
+          break;
         } else {
           canActivate = of(false);
         }

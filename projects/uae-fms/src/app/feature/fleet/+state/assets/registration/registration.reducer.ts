@@ -82,8 +82,6 @@ const registrationReducer = createReducer(
     })
   ),
 
-
-
   /* Register an Asset by plate number */
   on(RegistrationActions.registerAssetByPlateNumber, (state, { data }) => ({
     ...state,
@@ -98,7 +96,6 @@ const registrationReducer = createReducer(
     submitted: true
   })),
 
-
   /* Register an Asset by chassis number */
   on(RegistrationActions.registerAssetByChassisNumber, (state, { data }) => ({
     ...state,
@@ -111,7 +108,7 @@ const registrationReducer = createReducer(
     error: null,
     message: null,
     submitted: true
-  })),
+  }))
 );
 
 export function reducer(state: IRegistrationState, action: Action) {

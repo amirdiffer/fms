@@ -5,11 +5,9 @@ import {
   FileSystemFileEntry,
   NgxFileDropEntry
 } from 'ngx-file-drop';
-import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
-import {
-  AssetPolicyFacade,
-  SubAssetPolicyFacade
-} from '@feature/configuration/+state/asset-policy';
+import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
+import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy/asset';
+import { SubAssetPolicyFacade } from '@feature/configuration/+state/asset-policy/sub-asset';
 import {
   SubAssetService,
   SubAssetFacade

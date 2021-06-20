@@ -14,7 +14,6 @@ import { TechnicalInspectionRequestsNetworkService } from '@feature/technician/+
 export class MyRequestsComponent implements OnInit {
   selectedTab;
 
-
   //#region Filter
   filterSetting = [
     {
@@ -95,7 +94,7 @@ export class MyRequestsComponent implements OnInit {
         }
       ]
     }
-  }
+  };
   partRequests = new Subject();
   partRequests$ = this.partRequests.asObservable();
   partRequestsSetting: TableSetting = {
@@ -150,7 +149,7 @@ export class MyRequestsComponent implements OnInit {
         }
       ]
     }
-  }
+  };
   technicalInspection = new Subject();
   technicalInspection$ = this.technicalInspection.asObservable();
   technicalInspectionSetting: TableSetting = {
@@ -205,137 +204,130 @@ export class MyRequestsComponent implements OnInit {
         }
       ]
     }
-  }
+  };
 
   //#endregion
 
-
-
   constructor(
-    private router: Router, private allRequestsNetworkService: AllRequestsNetworkService,
+    private router: Router,
+    private allRequestsNetworkService: AllRequestsNetworkService,
     private partRequestsNetworkService: PartRequestsNetworkService,
-    private technicalInspectionRequestsNetworkService: TechnicalInspectionRequestsNetworkService,
-  ) { }
+    private technicalInspectionRequestsNetworkService: TechnicalInspectionRequestsNetworkService
+  ) {}
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.allRequests.next(
-        [
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-        ]
-      )
-      this.partRequests.next(
-        [
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-        ]
-      )
-      this.technicalInspection.next(
-        [
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-          {
-            task: "Do Something",
-            priority: "High",
-            progress: "20%",
-            status: "In Progress",
-            action: "",
-          },
-        ]
-      )
+      this.allRequests.next([
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        }
+      ]);
+      this.partRequests.next([
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        }
+      ]);
+      this.technicalInspection.next([
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        },
+        {
+          task: 'Do Something',
+          priority: 'High',
+          progress: '20%',
+          status: 'In Progress',
+          action: ''
+        }
+      ]);
     }, 1000);
 
     this.getAllRequests();
@@ -344,65 +336,69 @@ export class MyRequestsComponent implements OnInit {
   }
 
   private getAllRequests(): void {
-    this.allRequestsNetworkService.getAllRequests().subscribe(response => {
+    this.allRequestsNetworkService.getAllRequests().subscribe((response) => {
       const allRequests = response.message;
 
       const allRequestsArray = [];
-      allRequests.map(request => {
+      allRequests.map((request) => {
         const requestObject = {
           task: request.taskMaster.name,
           priority: request.priorityOrder,
           progress: 10,
-          status: request.status,
-        }
+          status: request.status
+        };
         allRequestsArray.push(requestObject);
-      })
+      });
 
       if (allRequestsArray.length) {
         this.allRequests.next(allRequestsArray);
       }
-    })
+    });
   }
 
   private getPartRequests(): void {
-    this.partRequestsNetworkService.getPartRequests().subscribe(response => {
+    this.partRequestsNetworkService.getPartRequests().subscribe((response) => {
       const partRequests = response.message;
 
       const partRequestsArray = [];
-      partRequests.map(request => {
+      partRequests.map((request) => {
         const partRequestObject = {
           task: request.taskMaster.name,
           priority: request.priorityOrder,
           progress: 10,
-          status: request.status,
-        }
+          status: request.status
+        };
         partRequestsArray.push(partRequestObject);
-      })
+      });
 
       if (partRequestsArray.length) {
         this.partRequests.next(partRequestsArray);
       }
-    })
+    });
   }
 
   private getTechnicalInspectionRequests(): void {
-    this.technicalInspectionRequestsNetworkService.getTechincalInspectionRequests().subscribe(response => {
-      const technicalInspectionRequests = response.message;
+    this.technicalInspectionRequestsNetworkService
+      .getTechincalInspectionRequests()
+      .subscribe((response) => {
+        const technicalInspectionRequests = response.message;
 
-      const technicalInspectionRequestsArray = [];
-      technicalInspectionRequests.map(request => {
-        const technicalInspectionRequestObject = {
-          task: request.taskMaster.name,
-          priority: request.priorityOrder,
-          progress: 10,
-          status: request.status,
+        const technicalInspectionRequestsArray = [];
+        technicalInspectionRequests.map((request) => {
+          const technicalInspectionRequestObject = {
+            task: request.taskMaster.name,
+            priority: request.priorityOrder,
+            progress: 10,
+            status: request.status
+          };
+          technicalInspectionRequestsArray.push(
+            technicalInspectionRequestObject
+          );
+        });
+
+        if (technicalInspectionRequestsArray.length) {
+          this.technicalInspection.next(technicalInspectionRequestsArray);
         }
-        technicalInspectionRequestsArray.push(technicalInspectionRequestObject);
-      })
-
-      if (technicalInspectionRequestsArray.length) {
-        this.technicalInspection.next(technicalInspectionRequestsArray);
-      }
-    })
+      });
   }
 }

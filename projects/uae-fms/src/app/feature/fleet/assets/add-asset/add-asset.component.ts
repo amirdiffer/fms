@@ -16,15 +16,15 @@ import { BusinessCategoryFacade } from '@feature/configuration/+state/business-c
 import { map } from 'rxjs/operators';
 import { Subscription, of, Observable, Subject, BehaviorSubject } from 'rxjs';
 import { OwnershipFacade } from '@feature/configuration/+state/ownership';
-import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
-import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
+import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy/asset';
 import { PeriodicServiceFacade } from '@feature/configuration/+state/periodic-service';
 import {
   OrganizationFacade,
   OrganizationService
 } from '@feature/fleet/+state/organization';
+import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
 import { OperatorFacade } from '@feature/fleet/+state/operator';
-import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
+import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
 import {
   AssetMasterFacade,
   AssetMasterService
@@ -346,7 +346,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _facade: AssetMasterFacade,
-    private _assetRegistrationFacade:RegistrationFacade,
+    private _assetRegistrationFacade: RegistrationFacade,
     private service: AssetMasterService,
     private _facadeBussinessCategory: BusinessCategoryFacade,
     private _facadeOwnership: OwnershipFacade,
@@ -369,20 +369,22 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this._facadeDepartment.loadAll();
     this._facadeOperator.loadAll();
 
-    this.startGetting.subscribe(x => {
-      if (x == "bussinessCategoryLoaded") this.bussinessCategoryLoaded = true;
-      if (x == "ownershipLoaded") this.ownershipLoaded = true;
-      if (x == "assetPolicyLoaded") this.assetPolicyLoaded = true;
-      if (x == "periodicServiceLoaded") this.periodicServiceLoaded = true;
-      if (x == "departmentLoaded") this.departmentLoaded = true;
-      if (x == "operatorLoaded") this.operatorLoaded = true;
+    this.startGetting.subscribe((x) => {
+      if (x == 'bussinessCategoryLoaded') this.bussinessCategoryLoaded = true;
+      if (x == 'ownershipLoaded') this.ownershipLoaded = true;
+      if (x == 'assetPolicyLoaded') this.assetPolicyLoaded = true;
+      if (x == 'periodicServiceLoaded') this.periodicServiceLoaded = true;
+      if (x == 'departmentLoaded') this.departmentLoaded = true;
+      if (x == 'operatorLoaded') this.operatorLoaded = true;
 
-      if (this.bussinessCategoryLoaded &&
+      if (
+        this.bussinessCategoryLoaded &&
         this.ownershipLoaded &&
         this.assetPolicyLoaded &&
         this.periodicServiceLoaded &&
         this.departmentLoaded &&
-        this.operatorLoaded) {
+        this.operatorLoaded
+      ) {
         if (this.isEdit && !this.trigger) {
           this.trigger = true;
           this.editFormGetValues();
@@ -390,26 +392,24 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       }
     });
 
-    this._facadeBussinessCategory.loaded$.subscribe(x => {
-      if (x) this.startGetting.next("bussinessCategoryLoaded");
+    this._facadeBussinessCategory.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('bussinessCategoryLoaded');
     });
-    this._facadeOwnership.loaded$.subscribe(x => {
-      if (x) this.startGetting.next("ownershipLoaded");
+    this._facadeOwnership.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('ownershipLoaded');
     });
-    this._facadeAssetPolicy.loaded$.subscribe(x => {
-      if (x) this.startGetting.next("assetPolicyLoaded");
+    this._facadeAssetPolicy.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('assetPolicyLoaded');
     });
-    this._facadePeriodicService.loaded$.subscribe(x => {
-      if (x) this.startGetting.next("periodicServiceLoaded");
+    this._facadePeriodicService.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('periodicServiceLoaded');
     });
-    this._facadeDepartment.loaded$.subscribe(x => {
-      if (x) this.startGetting.next("departmentLoaded");
+    this._facadeDepartment.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('departmentLoaded');
     });
-    this._facadeOperator.loaded$.subscribe(x => {
-      if (x) this.startGetting.next("operatorLoaded");
+    this._facadeOperator.loaded$.subscribe((x) => {
+      if (x) this.startGetting.next('operatorLoaded');
     });
-
-
 
     /* Check if is Edit */
     const getURL = this._activatedRoute.snapshot.url;
@@ -497,7 +497,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this._departmentService.loadWithPagination().subscribe((x) => {
       x.message
         ? // ? this.department.next(x.message)
-        (this.departmentList = x.message)
+          (this.departmentList = x.message)
         : (this.departmentList = []);
     });
 
@@ -742,7 +742,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     return file.name;
   }
 
-  selectedPlicyType(value) { }
+  selectedPlicyType(value) {}
 
   next() {
     let activeStep = this.stepper.selectedIndex;
@@ -905,7 +905,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       depreciationValue: `%${this.policyTypeValue?.depreciationValue}`,
       maxUsageYear: `After ${this.policyTypeValue?.maxUsageYear} years`,
       maxUsageKPHour: `After ${this.policyTypeValue?.maxUsageKPHour}Km/HRS`
-    }
+    };
     // this.reviewPlaneSettingTable.data = [];
     // this.reviewPlaneSettingTable.data.push(dataChange);
     this.policyTypeTableData$.next([dataChange]);
@@ -981,8 +981,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           formVal_Generate.quantity == 'multipleAsset'
             ? dpdcodes
             : [
-              `${formVal_AssetDetail.businessInfo.ownership.fleetITCode}${formVal_Generate.serialNumber}`
-            ]
+                `${formVal_AssetDetail.businessInfo.ownership.fleetITCode}${formVal_Generate.serialNumber}`
+              ]
       };
 
       formValue.warrantyItems.map((x) => {

@@ -14,8 +14,7 @@ export class ColorizeRendererComponent implements OnInit {
   @Input() data;
   @Input() options;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-   }
+  ngOnInit() {}
 }

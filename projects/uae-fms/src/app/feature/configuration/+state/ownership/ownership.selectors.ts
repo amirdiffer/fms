@@ -1,31 +1,23 @@
 import { createSelector } from '@ngrx/store';
-import { ConfigurationSelectors } from '../configuration.selectors';
 import { ownershipAdapter } from './ownership.entity';
+
 const { selectAll } = ownershipAdapter.getSelectors();
+const ownershipSelector = (state) => state['ownership'];
 
 export class OwnershipSelectors {
-  static selectAll = createSelector(
-    ConfigurationSelectors.ownershipSelector,
-    selectAll
-  );
+  static selectAll = createSelector(ownershipSelector, selectAll);
 
-  static message = createSelector(
-    ConfigurationSelectors.ownershipSelector,
-    (state) => state.message
-  );
+  static message = createSelector(ownershipSelector, (state) => state.message);
 
-  static error = createSelector(
-    ConfigurationSelectors.ownershipSelector,
-    (state) => state.error
-  );
+  static error = createSelector(ownershipSelector, (state) => state.error);
 
   static submitted = createSelector(
-    ConfigurationSelectors.ownershipSelector,
+    ownershipSelector,
     (state) => state.submitted
-  )
+  );
 
   static loaded = createSelector(
-    ConfigurationSelectors.ownershipSelector,
+    ownershipSelector,
     (state) => state.loaded
-  )
+  );
 }
