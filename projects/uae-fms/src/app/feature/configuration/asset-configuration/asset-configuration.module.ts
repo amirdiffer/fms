@@ -12,8 +12,8 @@ import { AssetConfigurationRoutingModule } from './asset-configuration-routing.m
 import { TableModule } from '@core/table';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { AssetTypeStateModule } from '../+state/fleet-configuration/asset-type/asset-type-state.module';
-import { AccessoryTypeStateModule } from '../+state/fleet-configuration/accessory-type/accessory-type-state.module';
 import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/sub-asset-type/sub-asset-type-state.module';
+import { AccessoryTypeStateModule } from '../+state/fleet-configuration/accessory-type/accessory-type-state.module';
 
 @NgModule({
   declarations: [

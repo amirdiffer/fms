@@ -5,13 +5,8 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import {
-  FileSystemDirectoryEntry,
-  FileSystemFileEntry,
-  NgxFileDropEntry
-} from 'ngx-file-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { debounceTime, filter, map } from 'rxjs/operators';
+import { debounceTime, filter, map, tap } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
 
 import { UsersFacade } from '../../../+state/users';
@@ -21,7 +16,7 @@ import { UsersService } from '../../../+state/users/users.service';
 import { FilterCardSetting } from '@core/filter';
 import { Utility } from '@shared/utility/utility';
 import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { DialogService } from '@core/dialog/dialog-template.component';
 @Component({
   selector: 'anms-add-user',
   templateUrl: './add-user.component.html',
@@ -36,29 +31,6 @@ export class AddUserComponent
   departmentId;
   sectionId;
 
-  //#region Dialog
-  dialogSetting: IDialogAlert = {
-    header: 'Add new user alert',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
-
-  errorDialogSetting: IDialogAlert = {
-    header: '',
-    message: 'Error occurred in progress',
-    confirmButton: 'Ok',
-    isWarning: false,
-    hasError: true,
-    hasHeader: true,
-    cancelButton: undefined
-  };
-
-  dialogModal = false;
-  dialogType = null;
-  errorDialogModal = false;
-  //#endregion
 
   //#region Filter
 
@@ -97,7 +69,6 @@ export class AddUserComponent
 
   progressBarValue = 50;
   bufferValue = 70;
-  public filesUpdloaded: NgxFileDropEntry[] = [];
   formChangesSubscription!: Subscription;
   departmentSubscription: Subscription;
   form: FormGroup;
@@ -140,9 +111,11 @@ export class AddUserComponent
     private _orgfacade: OrganizationFacade,
     private roleFacade: RolePermissionFacade,
     private userService: UsersService,
-    private _departmentService: OrganizationService
+    private _departmentService: OrganizationService,
+    private _dialogService : DialogService
   ) {
     super(injector);
+    this.userFacade.resetParams();
   }
 
   ngOnInit(): void {
@@ -247,34 +220,36 @@ export class AddUserComponent
 
     this.userFacade.submitted$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogType = 'success';
-        this.dialogSetting.header = this.isEdit ? 'Edit user' : 'Add new user';
-        this.dialogSetting.message = this.isEdit
-          ? 'Changes Saved Successfully'
-          : 'User Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'Yes';
-        this.dialogSetting.cancelButton = undefined;
+        const dialog = this._dialogService.show('success' , 
+        (this.isEdit ? 'Edit User': 'Add New User' ), 
+        (this.isEdit ? 'Changes Saved Successfully' : 'User Added Successfully'),'Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['configuration/user-management/users']).then(()=>{
+              this.userFacade.loadAll()
+            });
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
 
     this.userFacade.error$.subscribe((x) => {
       if (x) {
-        if (x?.error?.error && x.error.message)
-          this.errorDialogSetting.message = x.error.message;
-        else this.errorDialogSetting.message = 'Error occurred in progress';
-
-        this.errorDialogModal = true;
-        this.errorDialogSetting.header = this.isEdit
-          ? 'Edit user'
-          : 'Add new user';
-        this.errorDialogSetting.hasError = true;
-        this.errorDialogSetting.cancelButton = undefined;
-        this.errorDialogSetting.confirmButton = 'Ok';
-      } else {
-        this.errorDialogModal = false;
+        const dialog = this._dialogService.show('danger' , 
+          (this.isEdit ? 'Edit User': 'Add New User' ), 
+          'We Have Some Error','Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
 
@@ -346,129 +321,17 @@ export class AddUserComponent
     this.phoneNumbers.push(this.createPhoneField());
   }
 
-  dialogConfirm($event): void {
-    this.errorDialogModal = false;
-    this.dialogModal = false;
-    if (!$event) return;
-
-    if (this.dialogType == 'submit') {
-      let f = this.form.value;
-      console.log(f.portalInformation.roleId.id);
-      let userInfo: any = {
-        employeeNumber: this.isEdit
-          ? this._user?.employeeNumber
-          : this.employeeId,
-        organizationId: this.departmentId,
-        departmentId: this.sectionId,
-        roleIds: [f.portalInformation.roleId.id],
-        isActive: f.portalInformation.activeEmployee,
-        profileDocId: this.profileDocId,
-        firstName: f.personalInformation.firstName,
-        lastName: f.personalInformation.lastName,
-        emails: f.personalInformation.emails.map((x) => {
-          if (x.email) {
-            if (typeof x.email == 'string') return x.email;
-            else return x.email[0];
-          } else if (typeof x == 'object') return x[0];
-        }),
-        phoneNumbers: Array.isArray(this.getPhone(f))
-          ? (<Array<string>>this.getPhone(f)).filter((x) => x != '')
-          : this.getPhone(f),
-        notifyByCall: f.personalInformation.callCheckbox,
-        notifyBySMS: f.personalInformation.smsCheckbox,
-        notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
-        notifyByEmail: f.personalInformation.emailCheckbox
-      };
-
-      if (this.isEdit) {
-        userInfo = {
-          ...userInfo,
-          id: this.id,
-          notifyByPush: this._user.notifyByPush || false,
-          vehicleComments: this._user.vehicleComments || false,
-          serviceEntryComment: this._user.serviceEntryComment || false,
-          fuelEntryComments: this._user.fuelEntryComments || false,
-          vehicleStatusChanges: this._user.vehicleStatusChanges || false,
-          voidedFuelEntries: this._user.voidedFuelEntries || false,
-          dueSoonInspections: this._user.dueSoonInspections || false,
-          overdueInspections: this._user.overdueInspections || false,
-          newFaults: this._user.newFaults || false,
-          newRecalls: this._user.newRecalls || false,
-          notifyByNewIssueEmail: this._user.notifyByNewIssueEmail || false,
-          notifyByNewIssuePush: this._user.notifyByNewIssuePush || false,
-          notifyByIssueAssignedEmail:
-            this._user.notifyByIssueAssignedEmail || false,
-          notifyByIssueAssignedPush:
-            this._user.notifyByIssueAssignedPush || false,
-          notifyByCommentOnIssueEmail:
-            this._user.notifyByCommentOnIssueEmail || false,
-          notifyByCommentOnIssuePush:
-            this._user.notifyByCommentOnIssuePush || false,
-          notifyByIssueResolvedEmail:
-            this._user.notifyByIssueResolvedEmail || false,
-          notifyByIssueResolvedPush:
-            this._user.notifyByIssueResolvedPush || false,
-          notifyByIssueCloseEmail: this._user.notifyByIssueCloseEmail || false,
-          notifyByIssueClosePush: this._user.notifyByIssueClosePush || false
-        };
-
-        this.userFacade.editUser(userInfo);
-      } else {
-        userInfo = {
-          ...userInfo,
-          notifyByPush: false,
-          vehicleComments: false,
-          serviceEntryComment: false,
-          fuelEntryComments: false,
-          vehicleStatusChanges: false,
-          voidedFuelEntries: false,
-          dueSoonInspections: false,
-          overdueInspections: false,
-          newFaults: false,
-          newRecalls: false,
-          notifyByNewIssueEmail: false,
-          notifyByNewIssuePush: false,
-          notifyByIssueAssignedEmail: false,
-          notifyByIssueAssignedPush: false,
-          notifyByCommentOnIssueEmail: false,
-          notifyByCommentOnIssuePush: false,
-          notifyByIssueResolvedEmail: false,
-          notifyByIssueResolvedPush: false,
-          notifyByIssueCloseEmail: false,
-          notifyByIssueClosePush: false
-        };
-        this.userFacade.addUser(userInfo);
-      }
-    } else {
-      this.router
-        .navigate(['/configuration/user-management/users'])
-        .then((_) => {
-          this.userFacade.resetParams();
-        });
-    }
-  }
-
   cancel(): void {
-    this.dialogModal = true;
-    this.dialogType = 'cancel';
-    if (this.isEdit) {
-      this.dialogSetting.header = 'Edit user';
-      this.dialogSetting.hasError = false;
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.message =
-        'Are you sure that you want to cancel editing user?';
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
-      return;
-    }
-
-    this.dialogSetting.header = 'Add new user';
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.message =
-      'Are you sure that you want to cancel adding new user?';
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.cancelButton = 'Cancel';
+    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+      if (result === 'confirm') {
+        this.router.navigate(['/configuration/user-management/users']);
+      }
+      dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
   }
 
   submit(): void {
@@ -476,25 +339,106 @@ export class AddUserComponent
     if (this.form.invalid) {
       return;
     }
+    const dialog = this._dialogService.show('warning' , 
+    (this.isEdit ? 'Edit User': 'Add New User' ), 
+    (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new user?') , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {    
+        if (result === 'confirm') {
+          let f = this.form.value;
+          console.log(f.portalInformation.roleId.id);
+          let userInfo: any = {
+            employeeNumber: this.isEdit
+              ? this._user?.employeeNumber
+              : this.employeeId,
+            organizationId: this.departmentId,
+            departmentId: this.sectionId,
+            roleIds: [f.portalInformation.roleId.id],
+            isActive: f.portalInformation.activeEmployee,
+            profileDocId: this.profileDocId,
+            firstName: f.personalInformation.firstName,
+            lastName: f.personalInformation.lastName,
+            emails: f.personalInformation.emails.map((x) => {
+              if (x.email) {
+                if (typeof x.email == 'string') return x.email;
+                else return x.email[0];
+              } else if (typeof x == 'object') return x[0];
+            }),
+            phoneNumbers: Array.isArray(this.getPhone(f))
+              ? (<Array<string>>this.getPhone(f)).filter((x) => x != '')
+              : this.getPhone(f),
+            notifyByCall: f.personalInformation.callCheckbox,
+            notifyBySMS: f.personalInformation.smsCheckbox,
+            notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
+            notifyByEmail: f.personalInformation.emailCheckbox
+          };
+    
+          if (this.isEdit) {
+            userInfo = {
+              ...userInfo,
+              id: this.id,
+              notifyByPush: this._user.notifyByPush || false,
+              vehicleComments: this._user.vehicleComments || false,
+              serviceEntryComment: this._user.serviceEntryComment || false,
+              fuelEntryComments: this._user.fuelEntryComments || false,
+              vehicleStatusChanges: this._user.vehicleStatusChanges || false,
+              voidedFuelEntries: this._user.voidedFuelEntries || false,
+              dueSoonInspections: this._user.dueSoonInspections || false,
+              overdueInspections: this._user.overdueInspections || false,
+              newFaults: this._user.newFaults || false,
+              newRecalls: this._user.newRecalls || false,
+              notifyByNewIssueEmail: this._user.notifyByNewIssueEmail || false,
+              notifyByNewIssuePush: this._user.notifyByNewIssuePush || false,
+              notifyByIssueAssignedEmail:
+                this._user.notifyByIssueAssignedEmail || false,
+              notifyByIssueAssignedPush:
+                this._user.notifyByIssueAssignedPush || false,
+              notifyByCommentOnIssueEmail:
+                this._user.notifyByCommentOnIssueEmail || false,
+              notifyByCommentOnIssuePush:
+                this._user.notifyByCommentOnIssuePush || false,
+              notifyByIssueResolvedEmail:
+                this._user.notifyByIssueResolvedEmail || false,
+              notifyByIssueResolvedPush:
+                this._user.notifyByIssueResolvedPush || false,
+              notifyByIssueCloseEmail: this._user.notifyByIssueCloseEmail || false,
+              notifyByIssueClosePush: this._user.notifyByIssueClosePush || false
+            };
+    
+            this.userFacade.editUser(userInfo);
+          } else {
+            userInfo = {
+              ...userInfo,
+              notifyByPush: false,
+              vehicleComments: false,
+              serviceEntryComment: false,
+              fuelEntryComments: false,
+              vehicleStatusChanges: false,
+              voidedFuelEntries: false,
+              dueSoonInspections: false,
+              overdueInspections: false,
+              newFaults: false,
+              newRecalls: false,
+              notifyByNewIssueEmail: false,
+              notifyByNewIssuePush: false,
+              notifyByIssueAssignedEmail: false,
+              notifyByIssueAssignedPush: false,
+              notifyByCommentOnIssueEmail: false,
+              notifyByCommentOnIssuePush: false,
+              notifyByIssueResolvedEmail: false,
+              notifyByIssueResolvedPush: false,
+              notifyByIssueCloseEmail: false,
+              notifyByIssueClosePush: false
+            };
+            this.userFacade.addUser(userInfo);
+          }
+        }
+        dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
 
-    this.dialogModal = true;
-    this.dialogType = 'submit';
-    if (this.isEdit) {
-      this.dialogSetting.header = 'Edit user';
-      this.dialogSetting.message =
-        'Are you sure you want to submit this changes?';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
-      return;
-    } else {
-      this.dialogSetting.header = 'Add new user';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.hasError = false;
-      this.dialogSetting.message = 'Are you sure you want to add new user?';
-      this.dialogSetting.confirmButton = 'OK';
-      this.dialogSetting.cancelButton = 'Cancel';
-    }
+
   }
 
   filterDepartments(event) {
@@ -534,29 +478,6 @@ export class AddUserComponent
     this.sectionId = $event.id;
   }
 
-  public dropped(files: NgxFileDropEntry[]) {
-    this.filesUpdloaded = files;
-    for (const droppedFile of files) {
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        const reader = new FileReader();
-        fileEntry.file((file: File) => {
-          reader.readAsDataURL(file);
-          reader.onload = () => {
-            this.tempImage = reader.result;
-            this.form.controls['fileUpload'].patchValue({
-              fileName: file.name,
-              fileSize: file.size,
-              file: reader.result
-            });
-          };
-        });
-      } else {
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-      }
-    }
-  }
-
   employeeNumberChanged($event) {
     this.employee_static = $event;
     if (typeof $event != 'object') return;
@@ -574,13 +495,6 @@ export class AddUserComponent
     });
   }
 
-  public fileOver(event) {
-    // console.log(event);
-  }
-
-  public fileLeave(event) {
-    // console.log(event);
-  }
 
   ngOnDestroy(): void {
     this.formChangesSubscription?.unsubscribe();
