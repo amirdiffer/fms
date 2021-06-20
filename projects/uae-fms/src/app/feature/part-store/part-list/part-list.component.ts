@@ -2,10 +2,8 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterCardSetting } from '@core/filter';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
-import {
-  AssetTypeFacade,
-  SubAssetTypeFacade
-} from '@feature/configuration/+state/fleet-configuration';
+import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
+import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
 import {
   PartListFacade,
   PartListService

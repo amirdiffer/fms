@@ -37,7 +37,7 @@
           <div *ngIf="!col.renderer">
             <div class="d-flex">
               <span class="p-column-title">{{col.lable}}</span>
-              <span class="column-data" [class.pl-5]='col.hasPadding5' [class.pl-3]='col.hasPadding3'>
+              <span class="column-data" [class.pl-5]='col.hasPadding5' [class.pl-3]='col.hasPadding3' pTooltip='{{getCol(col,data)}}' tooltipPosition='bottom'>
                 {{ getCol(col,data) }}
                 <ng-template [ngIf]="col.type && col.type == 2 && data[col.thumbField]" [ngIfThen]="thumb"></ng-template>
                 <ng-template #thumb>
@@ -54,6 +54,10 @@
           </div>
           <div *ngIf='col.renderer && col.renderer !== ""'>
             <anms-column-renderer [col]='col' [setting]='setting' [data]='data' [context]='currentContext' [index]="i"></anms-column-renderer>
+          </div>
+          <div *ngIf='setting.rows && setting?.rows[i]?.foldableRowOption'>
+            <anms-row-renderer-component [column]='col' [rowIndex]='i' [data]="data" [setting]="setting"
+                                         [rowSetting]="setting?.rowSettings"></anms-row-renderer-component>
           </div>
         </td>
         <div [class]="'statusColor'+ (hasRendere(setting.columns)?'with-renderer-table':' simple-table')"

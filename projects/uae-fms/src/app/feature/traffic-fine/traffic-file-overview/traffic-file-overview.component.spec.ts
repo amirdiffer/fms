@@ -8,9 +8,8 @@ describe('TrafficFileOverviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TrafficFileOverviewComponent ]
-    })
-    .compileComponents();
+      declarations: [TrafficFileOverviewComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

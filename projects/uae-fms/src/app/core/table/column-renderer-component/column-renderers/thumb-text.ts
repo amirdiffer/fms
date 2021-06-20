@@ -8,7 +8,7 @@ import { environment } from '@environments/environment';
       <div>
         <img class="thumbField" [src]="data.thumbImage" />
       </div>
-      <span class="thumbText">{{ data.thumbText }}</span>
+      <span class="thumbText" pTooltip='{{data.thumbText}}' tooltipPosition='bottom'>{{ data.thumbText }}</span>
     </div>
   `,
   styles: [

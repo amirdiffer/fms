@@ -3,9 +3,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { DialogService } from '@core/dialog/dialog-template.component';
-import { RegistrationFacade, RegistrationService } from '@feature/fleet/+state/assets/registration';
+import {
+  RegistrationFacade,
+  RegistrationService
+} from '@feature/fleet/+state/assets/registration';
 import { TrafficFineTableFacade } from '@feature/traffic-fine/+state/traffic-fine';
-import { ITrafficFineVehicleInfo, ITrafficFineVehicleInfoVehicleInfo, ITrafficFineVehicleInfoVehicleReturn } from '@models/pending-registration.model';
+import {
+  ITrafficFineVehicleInfo,
+  ITrafficFineVehicleInfoVehicleInfo,
+  ITrafficFineVehicleInfoVehicleReturn
+} from '@models/pending-registration.model';
 import { Utility } from '@shared/utility/utility';
 import { Observable, of, Subscription } from 'rxjs';
 import { map, take, takeLast, takeUntil, tap } from 'rxjs/operators';
@@ -45,54 +52,51 @@ export class PendingRegistrationOverviewComponent
   assetSummary: any;
 
   /* Input Value */
-  plateCategory : any[] =  [
-    {name:"Duabi Police" , value : 19 , label:"dubaiPolice"},
-    {name:"Private" , value : 2 , label:"private"},
+  plateCategory: any[] = [
+    { name: 'Duabi Police', value: 19, label: 'dubaiPolice' },
+    { name: 'Private', value: 2, label: 'private' }
   ];
 
   plateCodePrivate: any[] = [
-    {name:"A" , value : 2},
-    {name:"AA" , value : ''},
-    {name:"B" , value : 3},
-    {name:"C" , value : 4},
-    {name:"D" , value : 5},
-    {name:"E" , value : 6},
-    {name:"F" , value : 7},
-    {name:"G" , value : 68},
-    {name:"H" , value : 70},
-    {name:"I" , value : 71},
-    {name:"J" , value : 78},
-    {name:"K" , value : 80},
-    {name:"L" , value : 74},
-    {name:"M" , value : 69},
-    {name:"N" , value : 95},
-    {name:"O" , value : 88},
-    {name:"P" , value : 96},
-    {name:"Q" , value : 93},
-    {name:"R" , value : 79},
-    {name:"S" , value : 87},
-    {name:"T" , value : 97},
-    {name:"U" , value : 98},
-    {name:"V" , value : 86},
-    {name:"W" , value : 99},
-    {name:"White" , value : 34},
-    {name:"X" , value : 100},
-    {name:"Y" , value : 102},
-    {name:"Z" , value : 101},
+    { name: 'A', value: 2 },
+    { name: 'AA', value: '' },
+    { name: 'B', value: 3 },
+    { name: 'C', value: 4 },
+    { name: 'D', value: 5 },
+    { name: 'E', value: 6 },
+    { name: 'F', value: 7 },
+    { name: 'G', value: 68 },
+    { name: 'H', value: 70 },
+    { name: 'I', value: 71 },
+    { name: 'J', value: 78 },
+    { name: 'K', value: 80 },
+    { name: 'L', value: 74 },
+    { name: 'M', value: 69 },
+    { name: 'N', value: 95 },
+    { name: 'O', value: 88 },
+    { name: 'P', value: 96 },
+    { name: 'Q', value: 93 },
+    { name: 'R', value: 79 },
+    { name: 'S', value: 87 },
+    { name: 'T', value: 97 },
+    { name: 'U', value: 98 },
+    { name: 'V', value: 86 },
+    { name: 'W', value: 99 },
+    { name: 'White', value: 34 },
+    { name: 'X', value: 100 },
+    { name: 'Y', value: 102 },
+    { name: 'Z', value: 101 }
   ];
 
-  plateCodeDubaiPolice : any [] = [
-    {name:"Duabi Police" , value : 150}
-  ];
+  plateCodeDubaiPolice: any[] = [{ name: 'Duabi Police', value: 150 }];
 
-  plateCode$ : Observable<any> = of(this.plateCodeDubaiPolice);
+  plateCode$: Observable<any> = of(this.plateCodeDubaiPolice);
 
-  plateSource :any[]=[
-    {name:"Duabi Police" , value : "DXB"},
-  ];
+  plateSource: any[] = [{ name: 'Duabi Police', value: 'DXB' }];
 
-  loadVehicleInfo:boolean = false;
-  vehicleInfo$:Observable<ITrafficFineVehicleInfo>;
+  loadVehicleInfo: boolean = false;
+  vehicleInfo$: Observable<ITrafficFineVehicleInfo>;
+
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
@@ -107,27 +111,38 @@ export class PendingRegistrationOverviewComponent
 
   ngOnInit(): void {
     this.inputForm = this._fb.group({
-      registerType:['plate_number'],
-      plateCategory:[{name:"Duabi Police" , value : 19 , label:"dubaiPolice"}, [Validators.required]],
-      plateCode:[150 , [Validators.required]],
+      registerType: ['plate_number'],
+      plateCategory: [
+        { name: 'Duabi Police', value: 19, label: 'dubaiPolice' },
+        [Validators.required]
+      ],
+      plateCode: [150, [Validators.required]],
       plateNumber: ['', [Validators.required]],
-      plateSource:['DXB'],
-      chassisNumber:[''],
+      plateSource: ['DXB'],
+      chassisNumber: [''],
       salikTag: [''],
-      fuelTag: [''],
+      fuelTag: ['']
     });
-    this.inputForm.get('registerType').valueChanges.subscribe(x => {
-      if(x){
+    this.inputForm.get('registerType').valueChanges.subscribe((x) => {
+      if (x) {
         switch (x) {
           case 'plate_number':
-            console.log(x)
+            console.log(x);
             this.inputForm.get('chassisNumber').clearValidators();
-            this.inputForm.get('plateCategory').setValidators([Validators.required]);
-            this.inputForm.get('plateCode').setValidators([Validators.required]);
-            this.inputForm.get('plateNumber').setValidators([Validators.required]);
+            this.inputForm
+              .get('plateCategory')
+              .setValidators([Validators.required]);
+            this.inputForm
+              .get('plateCode')
+              .setValidators([Validators.required]);
+            this.inputForm
+              .get('plateNumber')
+              .setValidators([Validators.required]);
             break;
           case 'chassis':
-            this.inputForm.get('chassisNumber').setValidators([Validators.required]);
+            this.inputForm
+              .get('chassisNumber')
+              .setValidators([Validators.required]);
             this.inputForm.get('plateCategory').clearValidators();
             this.inputForm.get('plateCode').clearValidators();
             this.inputForm.get('plateNumber').clearValidators();
@@ -138,22 +153,22 @@ export class PendingRegistrationOverviewComponent
         this.inputForm.get('plateCode').updateValueAndValidity();
         this.inputForm.get('plateNumber').updateValueAndValidity();
       }
-    })
+    });
 
     this.vehicleInfo$ = this._trafficFineFacade.vehicleInfo$.pipe(
-      map(x => {
-        if(x){
-          return x
+      map((x) => {
+        if (x) {
+          return x;
         }
       })
-    )
-    this._trafficFineFacade.loaded$.subscribe(x => {
-      if(x){
+    );
+    this._trafficFineFacade.loaded$.subscribe((x) => {
+      if (x) {
         this.loadVehicleInfo = true;
-      }else{
+      } else {
         this.loadVehicleInfo = false;
       }
-    })
+    });
 
     this.route.params.subscribe((params) => {
       this.assetId = +params['id'];
@@ -276,32 +291,32 @@ export class PendingRegistrationOverviewComponent
   //   }
   // }
 
-  plateCategoryChange(event){
+  plateCategoryChange(event) {
     switch (event.value.label) {
       case 'private':
-        this.plateCode$ = of(this.plateCodePrivate)
+        this.plateCode$ = of(this.plateCodePrivate);
         break;
       case 'dubaiPolice':
-        this.plateCode$ = of(this.plateCodeDubaiPolice)
+        this.plateCode$ = of(this.plateCodeDubaiPolice);
         break;
     }
-    this.inputForm.get('plateCode').reset()
+    this.inputForm.get('plateCode').reset();
   }
 
-  loadVehicleInformation(){
+  loadVehicleInformation() {
     let formValue = this.inputForm.getRawValue();
     this.loadVehicleInfo = false;
-    if(this.inputForm.get('registerType').value ==="plate_number"){
+    if (this.inputForm.get('registerType').value === 'plate_number') {
       this._trafficFineFacade.getVehicleInformationByPlateNumber({
-        plateSource:formValue.plateSource,
-        plateNumber:formValue.plateNumber,
-        plateCode:formValue.plateCode,
-        plateCategory:formValue.plateCategory.value,
-      })
-    }else if(this.inputForm.get('registerType').value ==="chassis"){
+        plateSource: formValue.plateSource,
+        plateNumber: formValue.plateNumber,
+        plateCode: formValue.plateCode,
+        plateCategory: formValue.plateCategory.value
+      });
+    } else if (this.inputForm.get('registerType').value === 'chassis') {
       this._trafficFineFacade.getVehicleInformationByChassisNumber({
-        chassisNumber:formValue.chassisNumber
-      })
+        chassisNumber: formValue.chassisNumber
+      });
     }
   }
 
@@ -357,4 +372,3 @@ export class PendingRegistrationOverviewComponent
   
   }
 }
-

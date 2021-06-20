@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ILifeCycle } from '@core/charts/life-cycle.chart.component';
 import { TableSetting } from '@core/table';
-import { AssetPolicyFacade, AssetPolicyService } from '@feature/configuration/+state/asset-policy';
+import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy/asset';
 import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -159,7 +159,7 @@ export class SubAssetOverviewComponent implements OnInit {
           }
         })
       );
-      
+
     }
   };
 
@@ -186,7 +186,7 @@ export class SubAssetOverviewComponent implements OnInit {
     if(maxUsageYear > 1) {
       for (let i = 0; i < maxUsageYear; i++) {
         service.push({title:i})
-      } 
+      }
     }
     for (let index = 0; index <  4; index++) {
       LifeCycle.push({

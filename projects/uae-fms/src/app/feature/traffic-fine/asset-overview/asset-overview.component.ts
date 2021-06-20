@@ -9,7 +9,6 @@ import { SettingsFacade } from '@core/settings/settings.facade';
   styleUrls: ['./asset-overview.component.scss']
 })
 export class AssetOverviewComponent implements OnInit {
-
   isLtr = true;
 
   assetFines: any[] = [];
@@ -17,7 +16,8 @@ export class AssetOverviewComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private networkService: AssetTrafficFineService,
-    private settingsFacade: SettingsFacade) {
+    private settingsFacade: SettingsFacade
+  ) {
     settingsFacade.language.subscribe((lang) => {
       this.isLtr = lang === 'en';
     });

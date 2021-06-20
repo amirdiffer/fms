@@ -8,9 +8,8 @@ describe('RowRendererComponentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RowRendererComponentComponent ]
-    })
-    .compileComponents();
+      declarations: [RowRendererComponentComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

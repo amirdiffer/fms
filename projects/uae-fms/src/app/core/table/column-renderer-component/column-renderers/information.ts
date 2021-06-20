@@ -5,8 +5,8 @@ import { environment } from '@environments/environment';
   selector: 'table-information-renderer',
   template: `
     <div class="d-flex flex-column">
-      <span class="line-1">{{ data.email }}</span>
-      <span class="line-2">{{ data.phoneNumber }}</span>
+      <span class="line-1"  pTooltip='{{data.email }}' tooltipPosition='bottom'>{{ data.email }}</span>
+      <span class="line-2"  pTooltip='{{data.phoneNumber}}' tooltipPosition='bottom'>{{ data.phoneNumber }}</span>
     </div>
   `,
   styles: [

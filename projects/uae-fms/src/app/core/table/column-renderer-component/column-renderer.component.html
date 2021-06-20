@@ -100,3 +100,7 @@
 <div *ngIf="col.renderer=='progressRenderer'">
   <table-progress-renderer [data]='data[col.field]'></table-progress-renderer>
 </div>
+
+<div *ngIf="col.renderer=='plusMinusRenderer'">
+  <anms-table-plus-minus-renderer [rowIndex]='index' [setting]='setting.rowSettings'></anms-table-plus-minus-renderer>
+</div>

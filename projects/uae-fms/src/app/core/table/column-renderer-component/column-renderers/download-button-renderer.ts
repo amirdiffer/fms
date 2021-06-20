@@ -6,14 +6,18 @@ import { environment } from '@environments/environment';
   template: `
     <div class="d-flex align-items-center" *ngFor="let l of link">
       <img src="assets/icons/download-solid.svg" />
-      <a class="mt-2 ml-2" target="_blank" [href]="fileServerBase + l">Download</a>
+      <a class="mt-2 ml-2" target="_blank" [href]="fileServerBase + l"
+        >Download</a
+      >
     </div>
   `,
-  styles: [`
-    img{
-      width:1.3em;
-    }
-  `]
+  styles: [
+    `
+      img {
+        width: 1.3em;
+      }
+    `
+  ]
 })
 export class DownloadButtonRendererComponent implements OnInit {
   @Input() link = '';
@@ -21,7 +25,5 @@ export class DownloadButtonRendererComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 }

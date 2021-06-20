@@ -8,7 +8,6 @@ import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class AssetTrafficFineService {
-
   params = new HttpParams();
 
   constructor(private http: HttpClient, private tableFacade: TableFacade) {}
@@ -34,6 +33,6 @@ export class AssetTrafficFineService {
   getFinesOfSpecificAsset(id: number): Observable<ResponseBody<any>> {
     return this.http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'traffic-fine/asset/' + id
-    )
+    );
   }
 }

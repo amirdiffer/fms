@@ -5,10 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { PartMasterFacade } from '@feature/part-store/+state/part-master';
 import { Utility } from '@shared/utility/utility';
 import { Observable, of } from 'rxjs';
-import {
-  AssetTypeFacade,
-  SubAssetTypeFacade
-} from '@feature/configuration/+state/fleet-configuration';
+import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
+import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { SuppliersFacade } from '@feature/part-store/+state/order-list/suppliers';

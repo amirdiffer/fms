@@ -6,20 +6,19 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./detail-card-dashboard.component.scss']
 })
 export class DetailCardDashboardComponent implements OnInit {
-  @Input() title:string;
-  @Input() subtitle:string;
-  @Input() chartData:ICardDetailRedialChart[];
+  @Input() title: string;
+  @Input() subtitle: string;
+  @Input() chartData: ICardDetailRedialChart[];
   dotIcon = 'assets/icons/ellipsis-v.svg';
   arrowUp = 'assets/icons/arrow-down.svg';
-  showMoreInit:number = 3;
-  constructor() { }
+  showMoreInit: number = 3;
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }
 
-export interface ICardDetailRedialChart{
-  title:string;
-  percent:number;
-  color?:string;
+export interface ICardDetailRedialChart {
+  title: string;
+  percent: number;
+  color?: string;
 }
