@@ -11,7 +11,6 @@ import { IOrganization } from '@models/organization';
   styleUrls: ['./overview-tab.component.scss']
 })
 export class OverviewTabComponent extends Utility implements OnInit {
-
   @Input() data: IOrganization;
   overviewData: IOrganization;
 
@@ -82,30 +81,33 @@ export class OverviewTabComponent extends Utility implements OnInit {
   };
   // endregion
 
-  constructor(private facade: OrganizationFacade, private settingFacade: SettingsFacade, private injector: Injector) {
+  constructor(
+    private facade: OrganizationFacade,
+    private settingFacade: SettingsFacade,
+    private injector: Injector
+  ) {
     super(injector);
   }
 
   ngOnInit(): void {
     this.settingFacade.language.subscribe((lang) => (this.activeLang = lang));
     this.overviewData = this.data;
-    this.data.departments.map((department) => (this.organizationTable.rows
-      .push({
+    this.data.departments.map((department) =>
+      this.organizationTable.rows.push({
         foldableRowOption: {
           isFolded: true,
-          foldableData: department.locationAddresses,
+          foldableData: department.locationAddresses
         }
-      })))
-    this.organizationTable.data = this.data.departments.map(y => ({
-        ...y,
-        Section: y.name,
-        Location: y.locationAddresses.length,
-        car: y.numOfAssets,
-        user: y.numOfUsers,
-        TF_Unpaid: y.tfUnpaid,
-        TF_Payed: y.tfPaid
-      }
-    ));
+      })
+    );
+    this.organizationTable.data = this.data.departments.map((y) => ({
+      ...y,
+      Section: y.name,
+      Location: y.locationAddresses.length,
+      car: y.numOfAssets,
+      user: y.numOfUsers,
+      TF_Unpaid: y.tfUnpaid,
+      TF_Payed: y.tfPaid
+    }));
   }
-
 }

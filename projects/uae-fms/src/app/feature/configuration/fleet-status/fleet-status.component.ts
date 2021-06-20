@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FleetStatusAssetFacade,
-  FleetStatusSubAssetFacade
-} from '../+state/fleet-status';
+import { FleetStatusAssetFacade } from '../+state/fleet-status/asset';
+import { FleetStatusSubAssetFacade } from '../+state/fleet-status/sub-asset';
 import { ColumnType, TableSetting } from '@core/table';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';

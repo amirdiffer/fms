@@ -6,8 +6,11 @@ import { AssetOverviewComponent } from './asset-overview/asset-overview.componen
 
 const routes: Routes = [
   { path: '', component: TrafficFineComponent },
-  { path: 'traffic-fine-overview/:id', component: TrafficFileOverviewComponent },
-  { path: 'asset-overview/:id', component: AssetOverviewComponent },
+  {
+    path: 'traffic-fine-overview/:id',
+    component: TrafficFileOverviewComponent
+  },
+  { path: 'asset-overview/:id', component: AssetOverviewComponent }
 ];
 
 @NgModule({

@@ -20,7 +20,6 @@ import { BodyShopJobCardStateModule } from '../+state/body-shop/job-card/body-sh
 import { BodyShopLocationStateModule } from '../+state/body-shop/location/body-shop-location-state.module';
 import { BodyShopRequestStateModule } from '../+state/body-shop/request/body-shop-request-state.module';
 import { BodyShopTechnicianStateModule } from '../+state/body-shop/technician/body-shop-technician-state.module';
-import { ConfigurationStateModule } from '../../configuration/+state/configuration.state.module';
 import { TaskMasterStateModule } from '../../workshop/+state/task-master/task-master-state.module';
 
 @NgModule({
@@ -48,8 +47,7 @@ import { TaskMasterStateModule } from '../../workshop/+state/task-master/task-ma
     BodyShopLocationStateModule,
     BodyShopRequestStateModule,
     BodyShopTechnicianStateModule,
-    ConfigurationStateModule,
-    TaskMasterStateModule
+    TaskMasterStateModule,
   ]
 })
 export class BodyShopModule {}

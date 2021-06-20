@@ -14,7 +14,11 @@ import { TrafficFileOverviewComponent } from './traffic-file-overview/traffic-fi
 import { AssetOverviewComponent } from './asset-overview/asset-overview.component';
 
 @NgModule({
-  declarations: [TrafficFineComponent, TrafficFileOverviewComponent, AssetOverviewComponent],
+  declarations: [
+    TrafficFineComponent,
+    TrafficFileOverviewComponent,
+    AssetOverviewComponent
+  ],
   imports: [
     TableModule,
     FilterModule,

@@ -9,23 +9,22 @@ import { environment } from '@environments/environment';
 })
 export class UserDetailComponent implements OnInit {
   @Input() hasActivate: boolean = false;
-  @Input () data$:Observable<IOperator>
-  @Input() position:string;
+  @Input() data$: Observable<IOperator>;
+  @Input() position: string;
   userImage = 'assets/user-profile.svg';
   organizationIcon = 'assets/icons/organization.svg';
   emailIcon = 'assets/icons/envelope.svg';
   phoneIcon = 'assets/icons/phone.svg';
   editIcon = 'assets/icons/pen.svg';
-  activeChecked:boolean = false
+  activeChecked: boolean = false;
   constructor() {}
 
   ngOnInit(): void {
-    this.data$?.subscribe( x => {
-      if(x){
-        console.log(x)
+    this.data$?.subscribe((x) => {
+      if (x) {
+        console.log(x);
         this.activeChecked = x.isActive;
-
       }
-    })
+    });
   }
 }

@@ -1,31 +1,31 @@
 import { createSelector } from '@ngrx/store';
 import { assetTypeAdapter } from './asset-type.entity';
-import { ConfigurationSelectors } from '../../configuration.selectors';
-const { selectAll } = assetTypeAdapter.getSelectors();
 
+const { selectAll } = assetTypeAdapter.getSelectors();
+const assetTypeSelector = (state) => state['assetType'];
 export class AssetTypeSelectors {
   static selectAll = createSelector(
-    ConfigurationSelectors.assetTypeSelector,
+    assetTypeSelector,
     selectAll
   );
 
   static message = createSelector(
-    ConfigurationSelectors.assetTypeSelector,
+    assetTypeSelector,
     (state) => state.message
   );
 
   static error = createSelector(
-    ConfigurationSelectors.assetTypeSelector,
+    assetTypeSelector,
     (state) => state.error
   );
 
   static submitted = createSelector(
-    ConfigurationSelectors.assetTypeSelector,
+    assetTypeSelector,
     (state) => state.submitted
   );
 
   static loaded = createSelector(
-    ConfigurationSelectors.assetTypeSelector,
+    assetTypeSelector,
     (state) => state.loaded
   );
 }

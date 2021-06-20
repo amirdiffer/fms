@@ -2,11 +2,9 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Observable, of, Subject, Subscription, SubscriptionLike } from 'rxjs';
 import { AssetConfigurationService } from './asset-configuration.service';
 
-import {
-  AccessoryTypeFacade,
-  AssetTypeFacade,
-  SubAssetTypeFacade
-} from '../+state/fleet-configuration/index';
+import { AccessoryTypeFacade } from '../+state/fleet-configuration/accessory-type';
+import { AssetTypeFacade } from '../+state/fleet-configuration/asset-type';
+import { SubAssetTypeFacade } from '../+state/fleet-configuration/sub-asset-type';
 import { FilterCardSetting } from '@core/filter';
 import { Make, MakeModel, MakeModelTrim } from '@models/asset-type.model';
 import { map } from 'rxjs/operators';

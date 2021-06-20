@@ -15,7 +15,7 @@ import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { AssetMasterFacade } from '@feature/fleet/+state/assets/asset-master';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { Utility } from '@shared/utility/utility';
-import { AccessoryTypeFacade } from '@feature/configuration/+state/fleet-configuration';
+import { AccessoryTypeFacade } from '@feature/configuration/+state/fleet-configuration/accessory-type';
 
 const EMPTY_SELECT_ITEM_LIST = [
   {

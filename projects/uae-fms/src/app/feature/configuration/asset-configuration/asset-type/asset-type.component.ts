@@ -7,11 +7,9 @@ import {
   Input,
   ChangeDetectorRef
 } from '@angular/core';
-import {
-  AccessoryTypeFacade,
-  AssetTypeFacade,
-  SubAssetTypeFacade
-} from '../../+state/fleet-configuration/index';
+import { AccessoryTypeFacade } from '../../+state/fleet-configuration/accessory-type';
+import { SubAssetTypeFacade } from '../../+state/fleet-configuration/sub-asset-type';
+import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
 import { Subject, Observable } from 'rxjs';
 import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
 import { ActivatedRoute, Router } from '@angular/router';
