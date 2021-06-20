@@ -3,7 +3,10 @@ import { ColumnType, TableSetting } from '@core/table';
 import { SettingsFacade } from '@core/settings/settings.facade';
 import { FilterCardSetting } from '@core/filter';
 import { map } from 'rxjs/operators';
-import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
+import {
+  OrganizationFacade,
+  OrganizationService
+} from '@feature/fleet/+state/organization';
 import { ActivatedRoute, Routes } from '@angular/router';
 import { IOrganization } from '@models/organization';
 import { of, Subject } from 'rxjs';
@@ -14,7 +17,6 @@ import { of, Subject } from 'rxjs';
   styleUrls: ['./department-overview.component.scss']
 })
 export class DepartmentOverviewComponent implements OnInit {
-
   itemId = this._route.snapshot.params['id'];
 
   //#region Variable
@@ -52,7 +54,7 @@ export class DepartmentOverviewComponent implements OnInit {
       field: 'inactive',
       onActive(index: number) {}
     }
-  ]
+  ];
   trafficFineFilter: FilterCardSetting[] = [
     {
       filterTitle: 'statistic.paid',
@@ -78,7 +80,7 @@ export class DepartmentOverviewComponent implements OnInit {
       field: 'deducted',
       onActive(index: number) {}
     }
-  ]
+  ];
   //#endregion
 
   obsUserCount = new Subject();
@@ -87,7 +89,7 @@ export class DepartmentOverviewComponent implements OnInit {
   count = {
     $UserTable: this.obsUserCount.asObservable(),
     $TrafficFineTable: this.obsTrafficFineCount.asObservable(),
-    $MovementHistoryTable: this.obsMovementHistoryCount.asObservable(),
+    $MovementHistoryTable: this.obsMovementHistoryCount.asObservable()
   };
 
   //#region Table
@@ -117,9 +119,9 @@ export class DepartmentOverviewComponent implements OnInit {
         lable: 'tables.column.role',
         type: 1,
         field: 'role'
-      },
+      }
     ],
-    data: [],
+    data: []
   };
 
   trafficFineTable: TableSetting = {
@@ -169,9 +171,9 @@ export class DepartmentOverviewComponent implements OnInit {
         lable: 'tables.column.amount',
         type: 1,
         field: 'amount'
-      },
+      }
     ],
-    data: [],
+    data: []
   };
 
   movementTable: TableSetting = {
@@ -212,7 +214,7 @@ export class DepartmentOverviewComponent implements OnInit {
         field: 'reason'
       }
     ],
-    data: [],
+    data: []
   };
   //#endregion
 
@@ -226,42 +228,41 @@ export class DepartmentOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.organizationService.searchDepartment(this.itemId).subscribe(x => {
+    this.organizationService.searchDepartment(this.itemId).subscribe((x) => {
       this.detailsOrg = x.message;
-      this.detailsOrg.departments = this.detailsOrg.departments.map(y => {
+      this.detailsOrg.departments = this.detailsOrg.departments.map((y) => {
         return {
           ...y,
           isSelected: false
-        }
-      })
+        };
+      });
       this.getTablesData(this.detailsOrg.id);
     });
-
   }
 
   onSectionSelect(index): void {
-    this.detailsOrg.departments[index]['isSelected'] = !this.detailsOrg.departments[index]['isSelected'];
+    this.detailsOrg.departments[index]['isSelected'] = !this.detailsOrg
+      .departments[index]['isSelected'];
   }
 
   getTablesData(orgId) {
-    this.organizationService.usersOfOrganization(orgId).subscribe(x => {
+    this.organizationService.usersOfOrganization(orgId).subscribe((x) => {
       const data = x.message;
-      this.userTable.data = data.map(d => {
+      this.userTable.data = data.map((d) => {
         return {
           user: `${d.firstName} ${d.lastName}`,
           statusColor: '#00AFB9',
           phoneNumber: d.phoneNumbers[0],
           email: d.emails[0],
           status: d.isActive ? 'Active' : 'Inactive',
-          role: d['roles'][0].roleName,
-        }
+          role: d['roles'][0].roleName
+        };
       });
       this.obsUserCount.next(data.length);
     });
-    this.organizationService.trafficFineOfOrganization(orgId).subscribe(x => {
+    this.organizationService.trafficFineOfOrganization(orgId).subscribe((x) => {
       const data = x.message;
-      this.trafficFineTable.data = data.map(d => {
+      this.trafficFineTable.data = data.map((d) => {
         return {
           tcCode: d.tcCode,
           type: d.type,
@@ -271,50 +272,53 @@ export class DepartmentOverviewComponent implements OnInit {
           duration: d.duration,
           status: d.status,
           userStatus: d.userStatus,
-          amount: `${d.amount} AED`,
-        }
+          amount: `${d.amount} AED`
+        };
       });
       this.obsTrafficFineCount.next(data.length);
     });
-    this.organizationService.movementHistoryOfOrganization(orgId).subscribe(x => {
-      const data = x.message;
-      this.movementTable.data = data.map(d => {
-        return {
-          asset: {
-            img: d.asset.img,
-            assetName: d.asset.assetName,
-            assetSubName: d.asset.assetSubName,
-            ownership: d.asset.ownership
-          },
-          startDate: d.startDate,
-          endDate: d.endDate,
-          operator: `${d['requester']['firstName']} ${d['operator']['lastName']} ${d['operator']['id']}`,
-          fine: d.fine,
-          reason: d.reason
-        }
+    this.organizationService
+      .movementHistoryOfOrganization(orgId)
+      .subscribe((x) => {
+        const data = x.message;
+        this.movementTable.data = data.map((d) => {
+          return {
+            asset: {
+              img: d.asset.img,
+              assetName: d.asset.assetName,
+              assetSubName: d.asset.assetSubName,
+              ownership: d.asset.ownership
+            },
+            startDate: d.startDate,
+            endDate: d.endDate,
+            operator: `${d['requester']['firstName']} ${d['operator']['lastName']} ${d['operator']['id']}`,
+            fine: d.fine,
+            reason: d.reason
+          };
+        });
+        this.obsMovementHistoryCount.next(data.length);
       });
-      this.obsMovementHistoryCount.next(data.length);
-    });
-    this.organizationService.userStatsByOrganizationId(orgId).subscribe(x => {
+    this.organizationService.userStatsByOrganizationId(orgId).subscribe((x) => {
       const data = x.message;
-      this.userTabFilter = this.userTabFilter.map(y => {
+      this.userTabFilter = this.userTabFilter.map((y) => {
         return {
           ...y,
           filterCount: data[y.field]
-        }
-      })
+        };
+      });
     });
-    this.organizationService.trafficFineStatsByOrganizationId(orgId).subscribe(x => {
-      const data = x.message;
-      this.trafficFineFilter = this.trafficFineFilter.map(y => {
-        return {
-          ...y,
-          filterCount: data[y.field]
-        }
-      })
-    });
+    this.organizationService
+      .trafficFineStatsByOrganizationId(orgId)
+      .subscribe((x) => {
+        const data = x.message;
+        this.trafficFineFilter = this.trafficFineFilter.map((y) => {
+          return {
+            ...y,
+            filterCount: data[y.field]
+          };
+        });
+      });
   }
-
 }
 
 interface Section {
@@ -324,5 +328,5 @@ interface Section {
 }
 
 interface Location {
-  name: string
+  name: string;
 }

@@ -14,6 +14,8 @@ import { SharedModule } from '@shared/shared.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
 import { MatTabsModule } from '@angular/material/tabs';
+import { UsersStateModule } from '../+state/users/users-state.module';
+import { RolePermissionStateModule } from '../+state/role-permission/role-permission-state.module';
 import { OrganizationStateModule } from '@feature/fleet/+state/organization/organization-state.module';
 
 @NgModule({
@@ -32,6 +34,9 @@ import { OrganizationStateModule } from '@feature/fleet/+state/organization/orga
     SharedModule,
     MatProgressBarModule,
     AlertDialogModule,
+    MatTabsModule,
+    UsersStateModule,
+    RolePermissionStateModule,
     MatTabsModule,
     OrganizationStateModule
   ]

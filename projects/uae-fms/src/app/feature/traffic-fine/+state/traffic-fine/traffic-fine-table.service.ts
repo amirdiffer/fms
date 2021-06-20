@@ -6,12 +6,14 @@ import { environment } from '@environments/environment';
 import { ResponseBody } from '@models/response-body';
 import { ITrafficFineStatistics } from '@models/statistics';
 import { TableFacade } from '@core/table/+state/table.facade';
-import { IGetVehicleInfoByChassisNumber, IGetVehicleInfoByPlateNumber } from './traffic-fine-table.entity';
+import {
+  IGetVehicleInfoByChassisNumber,
+  IGetVehicleInfoByPlateNumber
+} from './traffic-fine-table.entity';
 import { ITrafficFineVehicleInfo } from '@models/pending-registration.model';
 
 @Injectable()
 export class TrafficFineTableService {
-
   params = new HttpParams();
 
   constructor(private http: HttpClient, private tableFacade: TableFacade) {}
@@ -50,23 +52,27 @@ export class TrafficFineTableService {
     });
   }
 
-
-  getVehicleInformationByPlateNumber(data:IGetVehicleInfoByPlateNumber): Observable<ResponseBody<ITrafficFineVehicleInfo>>{
+  getVehicleInformationByPlateNumber(
+    data: IGetVehicleInfoByPlateNumber
+  ): Observable<ResponseBody<ITrafficFineVehicleInfo>> {
     return this.http.get<ResponseBody<ITrafficFineVehicleInfo>>(
-      environment.baseApiUrl + `traffic-fine/vehicle-info/plate/${data.plateCategory}/${data.plateCode}/${data.plateNumber}/${data.plateSource}`
+      environment.baseApiUrl +
+        `traffic-fine/vehicle-info/plate/${data.plateCategory}/${data.plateCode}/${data.plateNumber}/${data.plateSource}`
     );
   }
 
-
-  getVehicleInformationByChassisNumber(data:IGetVehicleInfoByChassisNumber): Observable<ResponseBody<ITrafficFineVehicleInfo>>{
+  getVehicleInformationByChassisNumber(
+    data: IGetVehicleInfoByChassisNumber
+  ): Observable<ResponseBody<ITrafficFineVehicleInfo>> {
     return this.http.get<ResponseBody<ITrafficFineVehicleInfo>>(
-      environment.baseApiUrl + `traffic-fine/vehicle-info/chassis/${data.chassisNumber}`
+      environment.baseApiUrl +
+        `traffic-fine/vehicle-info/chassis/${data.chassisNumber}`
     );
   }
 
   getFinesOfSpecificFileNumber(id: number): Observable<ResponseBody<any>> {
     return this.http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'traffic-fine/traffic-number/' + id
-    )
+    );
   }
 }

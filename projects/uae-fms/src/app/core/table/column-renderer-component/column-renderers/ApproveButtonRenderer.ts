@@ -6,7 +6,9 @@ import { RowSettings } from '@core/table/table.component';
   selector: 'table-approve-button-renderer',
   template: `
     <img
-      (click)="clickButton((col?.renderer === 'approveButton') ? 'approve': 'reject')"
+      (click)="
+        clickButton(col?.renderer === 'approveButton' ? 'approve' : 'reject')
+      "
       [src]="
         col.renderer === 'approveButton'
           ? 'assets/icons/approve.png'
@@ -26,6 +28,6 @@ export class ApproveButtonRendererComponent implements OnInit {
   ngOnInit(): void {}
 
   clickButton(button): void {
-    this.setting.onClick(this.col,this.data, button);
+    this.setting.onClick(this.col, this.data, button);
   }
 }

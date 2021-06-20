@@ -155,22 +155,21 @@ export class LoginComponent implements OnInit {
             'jwt',
             'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTczOTk2MzIwNCwiaWF0IjoxNjEzODE5MjA0LCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfQVBQUk9WQUwifSx7ImF1dGhvcml0eSI6IkZMRUVUX0NSRUFURSJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfRURJVCJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfUEVSTUlTU0lPTiJ9LHsiYXV0aG9yaXR5IjoiRkxFRVRfVklFVyJ9XX0.PTaSo-b82v4LEHf4JLLpVF6giJKQvYslzvId40N6Fjc3yROe8xi3ROTtxz7BwZXkbqDvGn_uzJQK2CdRupdB5w'
           );
-          this.profileSubscribtion = this.profileFacade.loadData$.subscribe(x => {
-            if (x) {
-              if (x.roles[0].roleId === 2) {
-                this.router.navigate(['/dashboard/technician']).then(x => {
-                  if (x)
-                    this.profileSubscribtion.unsubscribe();
-                })
-              } else {
-                this.router.navigate(['/dashboard']).then(x => {
-                  if (x)
-                    this.profileSubscribtion.unsubscribe();
-                })
+          this.profileSubscribtion = this.profileFacade.loadData$.subscribe(
+            (x) => {
+              if (x) {
+                if (x.roles[0].roleId === 2) {
+                  this.router.navigate(['/dashboard/technician']).then((x) => {
+                    if (x) this.profileSubscribtion.unsubscribe();
+                  });
+                } else {
+                  this.router.navigate(['/dashboard']).then((x) => {
+                    if (x) this.profileSubscribtion.unsubscribe();
+                  });
+                }
               }
             }
-          })
-
+          );
         },
         (error) => {
           this.showLoginError = true;

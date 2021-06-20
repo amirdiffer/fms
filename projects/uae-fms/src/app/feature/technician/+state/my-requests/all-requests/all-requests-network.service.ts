@@ -8,10 +8,11 @@ import { environment } from '@environments/environment';
   providedIn: 'root'
 })
 export class AllRequestsNetworkService {
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getAllRequests(): Observable<ResponseBody<any>> {
-    return this.httpClient.get<ResponseBody<any>>(environment.baseApiUrl + 'technician/dashboard/request');
+    return this.httpClient.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'technician/dashboard/request'
+    );
   }
 }

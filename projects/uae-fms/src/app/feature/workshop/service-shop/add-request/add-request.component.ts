@@ -14,10 +14,8 @@ import {
   AssetMasterService
 } from '@feature/fleet/+state/assets/asset-master';
 import { Location } from '@angular/common';
-import {
-  ServiceShopRequestFacade,
-  ServiceShopRequestService
-} from '@feature/workshop/+state/service-shop/request';
+import { AssetSearchThroughFacade } from '@feature/fleet/+state/assets/search-through';
+import { ServiceShopRequestFacade, ServiceShopRequestService } from '@feature/workshop/+state/service-shop/request';
 import { DialogService } from '@core/dialog/dialog-template.component';
 @Component({
   selector: 'workshop-add-request',
@@ -51,18 +49,25 @@ export class AddRequestServiceShopComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _serviceShopRequestFacade: ServiceShopRequestFacade,
-    private _assetMasterFacade: AssetMasterFacade,
     private _assetMasterService: AssetMasterService,
+    private _assetSearchThrough: AssetSearchThroughFacade,
     private _location: Location,
     private _dialogService : DialogService
-  ) {this._serviceShopRequestFacade.resetParams()}
+  ) {}
 
   ngOnInit(): void {
-    this._assetMasterFacade.loadAll();
-    this._assetMasterService
-      .getAllAllowedAssetForRequest()
-      .pipe(map((y) => y.message.map((x) => ({ id: x.id, name: x.dpd }))))
-      .subscribe((data) => (this.assets = data));
+    this._assetSearchThrough.loadAvailableAssetForAddingRequest();
+    this._assetSearchThrough.searchAsset$.subscribe(
+      x => {
+        if(x){
+          this.assets =x.map( y => {
+            return {
+              id: y.id, name: y.dpd
+            }
+          })
+        }
+      }
+    )
     this.buildForm();
     if (
       this._route.snapshot.url[this._route.snapshot.url.length - 1].path ===

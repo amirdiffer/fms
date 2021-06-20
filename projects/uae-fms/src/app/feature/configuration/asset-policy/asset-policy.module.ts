@@ -6,6 +6,8 @@ import { TabViewModule } from '@core/tab-view';
 import { AssetPolicyRoutingModule } from './asset-policy-routing.module';
 import { AssetPolicyComponent } from './asset-policy.component';
 import { AddAssetPolicyComponent } from './add-asset-policy/add-asset-policy.component';
+import { AssetPolicyStateModule } from '../+state/asset-policy/asset/asset-policy-state.module';
+import { SubAssetPolicyStateModule } from '../+state/asset-policy/sub-asset/sub-asset-policy-state.module';
 
 @NgModule({
   declarations: [AssetPolicyComponent, AddAssetPolicyComponent],
@@ -14,7 +16,9 @@ import { AddAssetPolicyComponent } from './add-asset-policy/add-asset-policy.com
     AssetPolicyRoutingModule,
     SharedModule,
     TableModule,
-    TabViewModule
+    TabViewModule,
+    AssetPolicyStateModule,
+    SubAssetPolicyStateModule
   ]
 })
 export class AssetPolicyModule {}

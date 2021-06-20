@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import { BodyShopTechnicianFacade } from '@feature/workshop/+state';
 import { RequestListFacade } from '@feature/part-store/+state/order-list/request';
 import { SubAssetFacade } from '@feature/fleet/+state/sub-asset';
+import { AssetSearchThroughFacade } from '@feature/fleet/+state/assets/search-through';
 
 @Component({
   selector: 'anms-request-list-add-form',
@@ -66,18 +67,15 @@ export class RequestListAddFormComponent
     cancelButton: 'No'
   };
 
-  constructor(
-    private _assetFacade: AssetMasterFacade,
-    private _subAssetFacade: SubAssetFacade,
-    private _facadePartMaster: PartMasterFacade,
-    private _facadeTechnician: BodyShopTechnicianFacade,
-    private _facadeRequestList: RequestListFacade,
-    private _fb: FormBuilder,
-    private _activateRoute: ActivatedRoute,
-    private injector: Injector
-  ) {
-    super(injector);
-  }
+
+  constructor(private _assetSearchThrough: AssetSearchThroughFacade,
+              private _subAssetFacade:SubAssetFacade,
+              private _facadePartMaster: PartMasterFacade,
+              private _facadeTechnician:BodyShopTechnicianFacade,
+              private _facadeRequestList : RequestListFacade,
+              private _fb: FormBuilder, 
+              private _activateRoute: ActivatedRoute,
+              private injector: Injector) {super(injector);}
 
   ngOnInit(): void {
     let activateUrl = this._activateRoute.snapshot.url;
@@ -106,11 +104,11 @@ export class RequestListAddFormComponent
 
     switch (this.fleetType) {
       case 'asset':
-        this._assetFacade.loadAll();
+        this._assetSearchThrough.loadAvailableAsset();
         this.isAsset = true;
-        this.fleetSubscription = this._assetFacade.assetMaster$.subscribe(
-          (x) => {
-            if (x) {
+        this.fleetSubscription = this._assetSearchThrough.searchAsset$.subscribe(
+          x=>{
+            if(x){
               this.fleetList = x;
             }
           }

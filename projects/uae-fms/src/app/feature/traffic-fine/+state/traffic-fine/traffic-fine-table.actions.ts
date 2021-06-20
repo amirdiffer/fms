@@ -1,7 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { ITrafficFine } from '@models/traffic-fine';
 import { ITrafficFineStatistics } from '@models/statistics';
-import { IGetVehicleInfoByChassisNumber, IGetVehicleInfoByPlateNumber } from './traffic-fine-table.entity';
+import {
+  IGetVehicleInfoByChassisNumber,
+  IGetVehicleInfoByPlateNumber
+} from './traffic-fine-table.entity';
 import { ITrafficFineVehicleInfo } from '@models/pending-registration.model';
 
 export class TrafficFineTableActions {
@@ -26,8 +29,7 @@ export class TrafficFineTableActions {
     props<{ reason: any }>()
   );
 
-
-   /* Get Vehicle Information by plate number */
+  /* Get Vehicle Information by plate number */
   static getVehicleInformationByPlateNumber = createAction(
     '[TrafficFineTable] get information vehicle by plate number',
     props<{ data: IGetVehicleInfoByPlateNumber }>()
@@ -49,8 +51,5 @@ export class TrafficFineTableActions {
     props<{ data: ITrafficFineVehicleInfo }>()
   );
 
-
-  static reset = createAction(
-    '[TrafficFineTable] reset parameters'
-  );
+  static reset = createAction('[TrafficFineTable] reset parameters');
 }

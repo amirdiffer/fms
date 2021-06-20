@@ -93,9 +93,8 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
             parent: 'DASHBOARD',
             permission: 'DASHBOARD_TECHNICIAN',
             permissionType: 'MENU'
-          },
-        },
-  
+          }
+        }
       ]
     },
     {

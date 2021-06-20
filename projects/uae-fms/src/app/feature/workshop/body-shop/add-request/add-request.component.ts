@@ -10,15 +10,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
 import { IRequest } from '@models/body-shop';
 import { Subject, Subscription } from 'rxjs';
-import {
-  AssetMasterFacade,
-  AssetMasterService
-} from '@feature/fleet/+state/assets/asset-master';
 import { Location } from '@angular/common';
-import {
-  BodyShopRequestFacade,
-  BodyShopRequestService
-} from '@feature/workshop/+state/body-shop/request';
+import { AssetSearchThroughFacade } from '@feature/fleet/+state/assets/search-through';
+import { AssetMasterService } from '@feature/fleet/+state/assets/asset-master';
+import { BodyShopRequestFacade, BodyShopRequestService } from '@feature/workshop/+state/body-shop/request';
 import { DialogService } from '@core/dialog/dialog-template.component';
 @Component({
   selector: 'workshop-add-request',
@@ -52,21 +47,25 @@ export class AddRequestComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _bodyShopRequestFacade: BodyShopRequestFacade,
-    private _assetMasterFacade: AssetMasterFacade,
-    private _assetMasterService: AssetMasterService,
+    private _assetSearchThrough: AssetSearchThroughFacade,
+    private _assetMasterService : AssetMasterService,
     private _location: Location,
     private _dialogService : DialogService
-  ) {this._bodyShopRequestFacade.resetParams()}
+  ) {}
 
   ngOnInit(): void {
-    this._assetMasterService.getAllAllowedAssetForRequest().subscribe((x) => {
-      console.log(x);
-    });
-    this._assetMasterFacade.loadAll();
-    this._assetMasterService
-      .getAllAllowedAssetForRequest()
-      .pipe(map((y) => y.message.map((x) => ({ id: x.id, name: x.dpd }))))
-      .subscribe((data) => (this.assets = data));
+    this._assetSearchThrough.loadAvailableAssetForAddingRequest();
+    this._assetSearchThrough.searchAsset$.subscribe(
+      x => {
+        if(x){
+          this.assets =x.map( y => {
+            return {
+              id: y.id, name: y.dpd
+            }
+          })
+        }
+      }
+    )
     this.buildForm();
     if (
       this._route.snapshot.url[this._route.snapshot.url.length - 1].path ===

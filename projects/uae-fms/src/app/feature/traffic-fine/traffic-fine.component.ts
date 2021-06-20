@@ -53,8 +53,16 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
   //#region Table
   trafficFine_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.traffic_file_number', type: 1, field: 'trafficFileNumber' },
-      { lable: 'tables.column.number_of_tickets', type: 1, field: 'numOfTickets' },
+      {
+        lable: 'tables.column.traffic_file_number',
+        type: 1,
+        field: 'trafficFileNumber'
+      },
+      {
+        lable: 'tables.column.number_of_tickets',
+        type: 1,
+        field: 'numOfTickets'
+      },
       { lable: 'tables.column.total_fine', type: 1, field: 'totalFine' },
       {
         lable: '',
@@ -71,7 +79,11 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
         {
           button: 'external',
           onClick: (arg1, arg2, arg3) => {
-            this.router.navigate(['traffic-fine/traffic-fine-overview/' + arg2.trafficFileNumber]).then()
+            this.router
+              .navigate([
+                'traffic-fine/traffic-fine-overview/' + arg2.trafficFileNumber
+              ])
+              .then();
           },
           permission: ['ASSET_VIEW_DETAILS_OWN', 'ASSET_VIEW_SUMMARY_OWN']
         }
@@ -91,22 +103,22 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
       {
         lable: 'tables.column.plate_number',
         type: 1,
-        field: 'Plate_Number',
+        field: 'Plate_Number'
       },
       {
         lable: 'tables.column.plate_code',
         type: 1,
-        field: 'Plate_Code',
+        field: 'Plate_Code'
       },
       {
         lable: 'tables.column.plate_source',
         type: 1,
-        field: 'Plate_Source',
+        field: 'Plate_Source'
       },
       {
         lable: 'tables.column.department',
         type: 1,
-        field: 'Department',
+        field: 'Department'
       },
       {
         lable: 'tables.column.operator',
@@ -137,7 +149,9 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
         {
           button: 'external',
           onClick: (arg1, arg2, arg3) => {
-            this.router.navigate(['traffic-fine/asset-overview/' + arg2.id]).then()
+            this.router
+              .navigate(['traffic-fine/asset-overview/' + arg2.id])
+              .then();
           },
           permission: ['ASSET_VIEW_DETAILS_OWN', 'ASSET_VIEW_SUMMARY_OWN']
         }
@@ -146,15 +160,18 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
   };
 
   trafficFine$ = this._trafficFineFacade.trafficFine$.pipe(
-    map(response => response.map((trafficFine: any) => ({
-      id: trafficFine.id,
-      trafficFileNumber: trafficFine.trafficFileNumber,
-      numOfTickets: trafficFine.numOfTickets,
-      totalFine: trafficFine.totalFine,
-    })))
+    map((response) =>
+      response.map((trafficFine: any) => ({
+        id: trafficFine.id,
+        trafficFileNumber: trafficFine.trafficFileNumber,
+        numOfTickets: trafficFine.numOfTickets,
+        totalFine: trafficFine.totalFine
+      }))
+    )
   );
   assetTraffic$ = this._assetTrafficFineFacade.trafficFine$.pipe(
-    map(response => response.map((assetTrafficFine: any) => ({
+    map((response) =>
+      response.map((assetTrafficFine: any) => ({
         id: assetTrafficFine.asset.id,
         asset: {
           img: 'thumb1.png',
@@ -169,8 +186,10 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
           line1: `${assetTrafficFine.operator.firstName} ${assetTrafficFine.operator.lastName}`,
           line2: assetTrafficFine.operator.id
         },
-        Total_Fines: assetTrafficFine.totalFine,
-      }))));
+        Total_Fines: assetTrafficFine.totalFine
+      }))
+    )
+  );
   //#endregion
 
   constructor(
