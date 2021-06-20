@@ -7,13 +7,12 @@ import {
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { ColumnType, TableSetting } from '@core/table';
+import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { BusinessCategoryFacade } from '@feature/configuration/+state/business-category';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Subscription, of, Observable, Subject, BehaviorSubject } from 'rxjs';
 import { OwnershipFacade } from '@feature/configuration/+state/ownership';
 import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy/asset';
@@ -22,15 +21,14 @@ import {
   OrganizationFacade,
   OrganizationService
 } from '@feature/fleet/+state/organization';
-import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
 import { OperatorFacade } from '@feature/fleet/+state/operator';
 import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
 import {
   AssetMasterFacade,
   AssetMasterService
 } from '@feature/fleet/+state/assets/asset-master';
-import { ThrowStmt } from '@angular/compiler';
 import { RegistrationFacade } from '@feature/fleet/+state/assets/registration';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-add-asset',
@@ -115,38 +113,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   public maintenanceServiceDocRequired = false;
   public thumbnailRequired = false;
   public warrantyDocsRequired: boolean[] = [];
-
-  //#region  Dialog
-  dialogModal = false;
-  dialogOption = null;
-  dialogSetting: IDialogAlert = {
-    header: 'Asset Successfully Generated',
-    hasError: false,
-    message: 'Sample hit is here to explain Process',
-    confirmButton: 'Register Now',
-    cancelButton: 'Register Later'
-  };
-  errorDialogSetting: IDialogAlert = {
-    header: '',
-    message: 'Error occurred in progress',
-    confirmButton: 'Ok',
-    isWarning: false,
-    hasError: true,
-    hasHeader: true,
-    cancelButton: undefined
-  };
-  cancelDialogSetting: IDialogAlert = {
-    header: 'Cancel',
-    message: 'do you want to cancel ? if you accept your data will be lost',
-    confirmButton: 'Yes',
-    isWarning: true,
-    hasError: false,
-    hasHeader: true,
-    cancelButton: 'No'
-  };
-  cancelDialogModal = false;
-  errorDialogModal = false;
-  //#endregion
 
   @ViewChild('stepper') stepper: MatStepper;
 
@@ -355,12 +321,15 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     private _facadeOperator: OperatorFacade,
     private _facadeAssetPolicy: AssetPolicyFacade,
     private _facadePeriodicService: PeriodicServiceFacade,
-    private _departmentService: OrganizationService
+    private _departmentService: OrganizationService,
+    private _dialogService : DialogService
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
+
+
     /* Load Data */
     this._facadeBussinessCategory.loadAll();
     this._facadeOwnership.loadAll();
@@ -617,31 +586,44 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     // Request to Server - Error
     this._facade.error$.subscribe((x) => {
       if (x?.error) {
-        this.errorDialogModal = true;
-        this.errorDialogSetting.header = this.isEdit
-          ? 'Edit Asset'
-          : 'Add new asset';
-        this.errorDialogSetting.hasError = true;
-        this.errorDialogSetting.cancelButton = undefined;
-        this.errorDialogSetting.confirmButton = 'Ok';
-      } else {
-        this.errorDialogModal = false;
+        const dialog = this._dialogService.show('danger' , (this.isEdit? 'Edit Asset': 'Add new asset') , 'We have an error.', 'Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+            if (result === 'confirm') {
+              this._router.navigate(['/fleet/assets']);
+            }
+            dialogClose$?.unsubscribe();
+          })
+        ).subscribe();
       }
     });
 
     // Request to Server -  Submit
     this._facade.submitted$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogOption = 'success';
-        this.dialogSetting.header = this.isEdit
-          ? 'Edit Asset'
-          : 'Add new asset';
-        this.dialogSetting.message = this.isEdit
-          ? 'Changes Asset Successfully'
-          : 'Asset Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
+        const dialog = this._dialogService.show('success' ,
+                  (this.isEdit? 'Edit Asset': 'Add new asset') , 
+                  (this.isEdit ? 'Changes Asset Successfully.': 'Asset Added Successfully.') , 
+                  (this.isEdit ? 'Ok': 'Register Now'),
+                  (this.isEdit ? undefined : 'Register Later') 
+                  )
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+            if (result === 'confirm') {
+              if (this.assetId > 0 && !this.isEdit) {
+                this._router.navigate([
+                  '/fleet/assets/' + this.assetId + '/registration'
+                ]);
+              }
+              if(this.isEdit) {this._router.navigate(['/fleet/assets'])}
+            }else{
+              this._router.navigate(['/fleet/assets']);
+            }
+            dialogClose$?.unsubscribe();
+          })
+        ).subscribe();
         this._facade.loadAll();
         this._assetRegistrationFacade.loadAll();
       }
@@ -972,7 +954,16 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       formValue.warrantyItems.map((x) => {
         x.startDate = x.startDate.toISOString();
       });
-      this._facade.editAsset(formValue);
+      const dialog = this._dialogService.show('warning' , 'Edit Asset' , 'Are you sure you want to edit Asset?' , 'Yes','Cancel')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+            this._facade.editAsset(formValue);
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe();
     } else {
       let formValue = {
         ...data,
@@ -997,68 +988,54 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
               } else {
                 this.assetId = x.message?.id;
               }
-              this.dialogModal = true;
-              this.dialogOption = 'success';
-              this.dialogSetting.header = this.isEdit
-                ? 'Edit Asset'
-                : 'Add new asset';
-              this.dialogSetting.message = this.isEdit
-                ? 'Changes Asset Successfully'
-                : 'Asset Added Successfully';
-              this.dialogSetting.isWarning = false;
-              this.dialogSetting.hasError = false;
             } else {
               this.assetId = -1;
-              this.dialogModal = true;
-              this.dialogOption = 'success';
-              this.dialogSetting.header = this.isEdit
-                ? 'Edit Asset'
-                : 'Add new asset';
-              this.dialogSetting.message = this.isEdit
-                ? 'Changes Asset Successfully'
-                : 'Asset Added Successfully';
-              this.dialogSetting.isWarning = false;
-              this.dialogSetting.hasError = false;
             }
-          } else {
-            this._router.navigate(['/fleet/assets']);
-          }
+          const dialog = this._dialogService.show('success' ,
+                  (this.isEdit? 'Edit Asset': 'Add new asset') , 
+                  (this.isEdit ? 'Changes Asset Successfully.': 'Asset Added Successfully.') , 
+                  (this.isEdit || formVal_Generate.quantity === 'multipleAsset' ? 'Ok': 'Register Now'),
+                  (this.isEdit || formVal_Generate.quantity === 'multipleAsset' ? undefined : 'Register Later') 
+                  )
+          const dialogClose$:Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+                if (this.assetId > 0 && (!this.isEdit || formVal_Generate.quantity === 'multipleAsset')) {
+                  this._router.navigate([
+                    '/fleet/assets/' + this.assetId + '/registration'
+                  ]);
+                }
+                if(this.isEdit) {this._router.navigate(['/fleet/assets'])}
+              }else{
+                this._router.navigate(['/fleet/assets']);
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe();
+          this._facade.loadAll();
+          this._assetRegistrationFacade.loadAll();
+          } 
         }
       });
     }
   }
 
   cancelForm() {
-    this.cancelDialogModal = true;
-    this.cancelDialogSetting.isWarning = true;
+    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Ok','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+        if (result === 'confirm') {
+          this._router.navigate(['/fleet/assets']);
+        }
+        dialogClose$?.unsubscribe();
+      })
+    )
+    .subscribe();
+    
   }
 
-  dialog(event) {
-    this._assetRegistrationFacade.resetParams();
-    this._assetRegistrationFacade.loadAll();
-    this._facade.loadAll();
-    this.dialogModal = false;
-    if (event) {
-      this._facade.reset();
-      if (this.assetId > 0) {
-        this._router.navigate([
-          '/fleet/assets/' + this.assetId + '/registration'
-        ]);
-      } else {
-        this._router.navigate(['/fleet/assets']);
-      }
-    } else {
-      this._router.navigate(['/fleet/assets']);
-    }
-  }
-
-  cancelDialog($event) {
-    if ($event) {
-      this._facade.reset();
-      this._router.navigate(['/fleet/assets']);
-    }
-    this.dialogModal = false;
-  }
 
   /* Upload Files */
   uploadVehicleFiles(e) {

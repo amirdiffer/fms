@@ -141,6 +141,6 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    if (this.routeObsvr$) this.routeObsvr$.unsubscribe();
+    this.routeObsvr$?.unsubscribe();
   }
 }
