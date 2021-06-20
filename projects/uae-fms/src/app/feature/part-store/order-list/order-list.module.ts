@@ -11,6 +11,7 @@ import { TableModule } from '@core/table';
 import { SharedModule } from '@shared/shared.module';
 import { OrderListRoutingModule } from './order-list-routing.module';
 import { CarouselModule } from 'primeng/carousel';
+import { AssetSearchThroughStateModule } from '@feature/fleet/+state/assets/search-through/search-through-state.module';
 import { AssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/asset-type/asset-type-state.module';
 import { SubAssetTypeStateModule } from '@feature/configuration/+state/fleet-configuration/sub-asset-type/sub-asset-type-state.module';
 import { BodyShopTechnicianStateModule } from '@feature/workshop/+state/body-shop/technician/body-shop-technician-state.module';
@@ -38,6 +39,7 @@ import { PartMasterStateModule } from '../+state/part-master/part-master-state.m
     TableModule,
     SharedModule,
     CarouselModule,
+    AssetSearchThroughStateModule,
     AssetTypeStateModule,
     SubAssetTypeStateModule,
     CarouselModule,

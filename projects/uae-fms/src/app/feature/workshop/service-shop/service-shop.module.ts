@@ -17,6 +17,7 @@ import { RequestTabOverviewServiceShopComponent } from './request-tab-overview/r
 import { TechnicianOverviewServiceShopComponent } from './technician-overview/technician-overview.component';
 import { JobCardOverviewComponent } from './job-card-overview/job-card-overview.component';
 import { AssetsModule } from '@feature/fleet/assets/assets.module';
+import { AssetSearchThroughStateModule } from '@feature/fleet/+state/assets/search-through/search-through-state.module';
 import { ServiceShopJobCardStateModule } from '../+state/service-shop/job-card/service-shop-job-card-state.module';
 import { ServiceShopLocationStateModule } from '../+state/service-shop/location/service-shop-location-state.module';
 import { ServiceShopRequestStateModule } from '../+state/service-shop/request/service-shop-request-state.module';
@@ -45,6 +46,7 @@ import { TaskMasterStateModule } from '../../workshop/+state/task-master/task-ma
     TabViewModule,
     UserProfileModule,
     AssetsModule,
+    AssetSearchThroughStateModule,
     ServiceShopJobCardStateModule,
     ServiceShopLocationStateModule,
     ServiceShopRequestStateModule,

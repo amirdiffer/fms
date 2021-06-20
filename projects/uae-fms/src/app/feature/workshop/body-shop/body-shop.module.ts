@@ -16,11 +16,12 @@ import { UserProfileModule } from '@feature/user/user.module';
 import { TabViewModule } from '@core/tab-view';
 import { JobCardOverviewComponent } from './job-card-overview/job-card-overview.component';
 import { AssetsModule } from '@feature/fleet/assets/assets.module';
+import { AssetSearchThroughStateModule } from '@feature/fleet/+state/assets/search-through/search-through-state.module';
 import { BodyShopJobCardStateModule } from '../+state/body-shop/job-card/body-shop-job-card-state.module';
 import { BodyShopLocationStateModule } from '../+state/body-shop/location/body-shop-location-state.module';
 import { BodyShopRequestStateModule } from '../+state/body-shop/request/body-shop-request-state.module';
 import { BodyShopTechnicianStateModule } from '../+state/body-shop/technician/body-shop-technician-state.module';
-import { TaskMasterStateModule } from '../../workshop/+state/task-master/task-master-state.module';
+import { TaskMasterStateModule } from "../+state/task-master/task-master-state.module";
 
 @NgModule({
   declarations: [
@@ -42,12 +43,13 @@ import { TaskMasterStateModule } from '../../workshop/+state/task-master/task-ma
     MapModule,
     TabViewModule,
     UserProfileModule,
+    AssetSearchThroughStateModule,
     AssetsModule,
     BodyShopJobCardStateModule,
     BodyShopLocationStateModule,
     BodyShopRequestStateModule,
     BodyShopTechnicianStateModule,
-    TaskMasterStateModule,
+    TaskMasterStateModule
   ]
 })
 export class BodyShopModule {}
