@@ -145,8 +145,8 @@
     "edit_trim": "Edit Trim",
     "edit_make": "Edit Make",
     "department_overview": "Department Overview",
-    "traffic_fine_overview":"Traffic Fine Overview",
-    "asset_overview":"Asset Overview"
+    "traffic_fine_overview": "Traffic Fine Overview",
+    "asset_overview": "Asset Overview"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -1199,6 +1199,9 @@
       "add_category": "Add Category",
       "make": "Make",
       "model": "Model",
+      "description":"Description",
+      "part_number":"Part Number",
+      "year":"Year",
       "folder_info": "Folder Info",
       "category_info": "Category Info",
       "item_info": "Item Info",

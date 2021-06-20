@@ -7,8 +7,9 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Utility } from '@shared/utility/utility';
 import { TableSetting } from '@core/table';
 import { map } from 'rxjs/operators';
-import { AssetTypeFacade, AccessoryTypeFacade, SubAssetTypeFacade } from '../../+state/fleet-configuration';
-import { DialogService } from '@core/dialog/dialog-template.component';
+import { AccessoryTypeFacade } from '../../+state/fleet-configuration/accessory-type';
+import { SubAssetTypeFacade } from '../../+state/fleet-configuration/sub-asset-type';
+import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
 
 @Component({
   selector: 'anms-add-category',

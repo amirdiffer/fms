@@ -8,10 +8,11 @@ import { environment } from '@environments/environment';
   providedIn: 'root'
 })
 export class PartRequestsNetworkService {
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getPartRequests(): Observable<ResponseBody<any>> {
-    return this.httpClient.get<ResponseBody<any>>(environment.baseApiUrl + 'technician/dashboard/request/part')
+    return this.httpClient.get<ResponseBody<any>>(
+      environment.baseApiUrl + 'technician/dashboard/request/part'
+    );
   }
 }

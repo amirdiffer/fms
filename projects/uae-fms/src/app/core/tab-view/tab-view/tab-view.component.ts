@@ -22,7 +22,7 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input('returnId') returnId: string = 'title';
   @Input() index?: boolean = true;
   @Input() container?: boolean = false;
-  @Input() count = null
+  @Input() count = null;
   @Output('selectedIndex') selectedIndex: EventEmitter<
     string
   > = new EventEmitter<string>();
@@ -38,11 +38,10 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private _router: Router,
     private _activateRoute: ActivatedRoute,
-    private _renderer: Renderer2,
-  ) { }
+    private _renderer: Renderer2
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -62,6 +61,7 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
             //   : null
             count: this.count ? this.count[i] : null
           });
+          this.elements[i].attributes.removeNamedItem('title')
         }
       }
 
@@ -78,7 +78,6 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
         );
       });
     }, 0);
-
   }
   selectedTabChanged() {
     for (let i = 0; i < this.elements.length; i++) {
@@ -108,16 +107,16 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
         this.tabs[i].id ? this.tabs[i].id : ''
       );
       this.tabsHeader.nativeElement.children[i].getAttribute('for') ==
-        this.selectedParams
+      this.selectedParams
         ? (this._renderer.addClass(
-          this.tabsHeader.nativeElement.children[i],
-          'active-tab'
-        ),
+            this.tabsHeader.nativeElement.children[i],
+            'active-tab'
+          ),
           (this.selectedTab = i))
         : this._renderer.removeClass(
-          this.tabsHeader.nativeElement.children[i],
-          'active-tab'
-        );
+            this.tabsHeader.nativeElement.children[i],
+            'active-tab'
+          );
     }
   }
   selectTab(index: number, title: string, e: Event) {
@@ -142,7 +141,6 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    if (this.routeObsvr$)
-      this.routeObsvr$.unsubscribe();
+    if (this.routeObsvr$) this.routeObsvr$.unsubscribe();
   }
 }

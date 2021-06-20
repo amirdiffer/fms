@@ -19,13 +19,13 @@ import { Component, Input, OnInit } from '@angular/core';
             width="18"
           />
         </button>
-        <span>{{ this.data.tagNo }}</span>
+        <span pTooltip='{{this.data.tagNo}}' tooltipPosition='bottom'>{{ this.data.tagNo }}</span>
       </div>
       <div *ngIf="OpenedItem" class="detail-box-container">
         <div *ngFor="let item of data.data" class="d-flex detail-box">
-          <p class="d-inline-block">{{ item.litters }} Litters</p>
-          <p class="d-inline-block mx-1">{{ item.km }} KM</p>
-          <p class="d-inline-block">
+          <p class="d-inline-block" pTooltip='{{item.litters}}' tooltipPosition='bottom'>{{ item.litters }} Litters</p>
+          <p class="d-inline-block mx-1" pTooltip='{{item.km}}' tooltipPosition='bottom'>{{ item.km }} KM</p>
+          <p class="d-inline-block" pTooltip='{{item.day}} {{ item.date }} {{ item.time }} ' tooltipPosition='bottom'>
             {{ item.day }} {{ item.date }} {{ item.time }}
           </p>
         </div>

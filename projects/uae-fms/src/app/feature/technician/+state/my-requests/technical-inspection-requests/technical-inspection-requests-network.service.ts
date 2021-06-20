@@ -8,10 +8,12 @@ import { environment } from '@environments/environment';
   providedIn: 'root'
 })
 export class TechnicalInspectionRequestsNetworkService {
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getTechincalInspectionRequests(): Observable<ResponseBody<any>> {
-    return this.httpClient.get<ResponseBody<any>>(environment.baseApiUrl + 'technician/dashboard/request/technical-inspection')
+    return this.httpClient.get<ResponseBody<any>>(
+      environment.baseApiUrl +
+        'technician/dashboard/request/technical-inspection'
+    );
   }
 }

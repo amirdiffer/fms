@@ -5,8 +5,8 @@ import { environment } from '@environments/environment';
   selector: 'table-subText-renderer',
   template: `
     <div>
-      <div class="">{{ dataName }}</div>
-      <small> {{ subData }} </small>
+      <div class="" pTooltip='{{dataName}}' tooltipPosition='bottom'>{{ dataName }}</div>
+      <small pTooltip='{{subData}}' tooltipPosition='bottom'> {{ subData }} </small>
     </div>
   `,
   styles: []

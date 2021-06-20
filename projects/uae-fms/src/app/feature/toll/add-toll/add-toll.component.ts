@@ -13,6 +13,7 @@ import {
   FileSystemFileEntry,
   NgxFileDropEntry
 } from 'ngx-file-drop';
+import { DialogService } from '@core/dialog/dialog-template.component';
 @Component({
   selector: 'anms-add-toll',
   templateUrl: './add-toll.component.html',
@@ -29,34 +30,8 @@ export class AddTollComponent extends Utility implements OnInit {
   public filesUpdloaded: NgxFileDropEntry[] = [];
   allFileUpload = new Array();
   submited = false;
-  dialogModalError = false;
-  dialogModalCancel = false;
-  dialogModalAdd = false;
-  dialogSettingError: IDialogAlert = {
-    header: 'Add Toll',
-    hasError: true,
-    hasHeader: true,
-    message: 'file format incorrect (CSV only)',
-    confirmButton: 'OK'
-  };
-  dialogSettingCancel: IDialogAlert = {
-    header: 'Add Toll',
-    hasError: false,
-    hasHeader: true,
-    isWarning: true,
-    message: 'Are you sure that you want to cancel the toll creation?',
-    confirmButton: 'Yes',
-    cancelButton: 'No'
-  };
 
-  dialogSettingAdd: IDialogAlert = {
-    header: 'Add Toll',
-    hasError: false,
-    hasHeader: true,
-    message: 'New Toll Successfully Added',
-    confirmButton: 'OK'
-  };
-  constructor(private _fb: FormBuilder, injector: Injector) {
+  constructor(private _fb: FormBuilder, injector: Injector, private dialogService: DialogService) {
     super(injector);
   }
 
@@ -85,7 +60,14 @@ export class AddTollComponent extends Utility implements OnInit {
         });
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        this.dialogModalError = true;
+
+        const dialog = this.dialogService.show('danger',  'Add Toll',
+          'file format incorrect (CSV only)', 'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+
+          }
+        })
       }
     }
   }
@@ -112,21 +94,6 @@ export class AddTollComponent extends Utility implements OnInit {
     return isFileAllowed;
   }
 
-  dialogErrorConfirm(value) {
-    this.dialogModalError = false;
-  }
-  dialogCancelConfirm(value) {
-    if (value === true) {
-      this.goToList();
-    }
-    this.dialogModalCancel = false;
-  }
-  dialogAddConfirm(value) {
-    if (value === true) {
-      this.goToList();
-    }
-    this.dialogModalAdd = false;
-  }
   submit() {
     this.submited = true;
     if (this.allFileUpload.length < 1) {
@@ -138,7 +105,13 @@ export class AddTollComponent extends Utility implements OnInit {
   cancel() {
     if (!this.openReview) {
       if (this.allFileUpload.length > 0) {
-        this.dialogModalCancel = true;
+        const dialog = this.dialogService.show('warning', 'Add Toll',
+          'Are you sure that you want to cancel the toll creation?', 'Yes', 'No');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+            this.goToList();
+          }
+        });
       } else {
         this.goToList();
       }
@@ -147,7 +120,13 @@ export class AddTollComponent extends Utility implements OnInit {
     }
   }
   save() {
-    this.dialogModalAdd = true;
+    const dialog = this.dialogService.show('success', 'Add Toll',
+      'New Toll Successfully Added', 'OK', '');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this.goToList();
+      }
+    });
   }
   deleteFile(index) {
     this.allFileUpload.splice(index, 1);

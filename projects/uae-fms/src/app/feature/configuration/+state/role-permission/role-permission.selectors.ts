@@ -1,36 +1,36 @@
 import { createSelector } from '@ngrx/store';
 import { rolePermissionAdapter } from './role-permission.entity';
-import { ConfigurationSelectors } from './../configuration.selectors';
-const { selectAll } = rolePermissionAdapter.getSelectors();
 
+const { selectAll } = rolePermissionAdapter.getSelectors();
+const rolePermissionSelector = (state) => state['role-permission'];
 export class RolePermissionSelectors {
   static selectAll = createSelector(
-    ConfigurationSelectors.rolePermissionSelector,
+    rolePermissionSelector,
     selectAll
   );
 
   static message = createSelector(
-    ConfigurationSelectors.rolePermissionSelector,
+    rolePermissionSelector,
     (state) => state.message
   );
 
   static error = createSelector(
-    ConfigurationSelectors.rolePermissionSelector,
+    rolePermissionSelector,
     (state) => state.error
   );
 
   static loaded = createSelector(
-    ConfigurationSelectors.rolePermissionSelector,
+    rolePermissionSelector,
     (state) => state.loaded
   );
 
   static submitted = createSelector(
-    ConfigurationSelectors.rolePermissionSelector,
+    rolePermissionSelector,
     (state) => state.submitted
   );
 
   static specificRole= createSelector(
-    ConfigurationSelectors.rolePermissionSelector,
+    rolePermissionSelector,
     (state) => state.role
   );
 }

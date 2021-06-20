@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
     private profileFacade: UserProfileFacade,
     @Inject(DOCUMENT) private document: Document,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     if (!this.profileFacade.loadCalled) this.profileFacade.loadAll();

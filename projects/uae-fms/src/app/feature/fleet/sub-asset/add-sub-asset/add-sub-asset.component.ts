@@ -1,26 +1,17 @@
 import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  FileSystemDirectoryEntry,
-  FileSystemFileEntry,
-  NgxFileDropEntry
-} from 'ngx-file-drop';
-import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
-import {
-  AssetPolicyFacade,
-  SubAssetPolicyFacade
-} from '@feature/configuration/+state/asset-policy';
-import {
-  SubAssetService,
-  SubAssetFacade
-} from '@feature/fleet/+state/sub-asset';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
+import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy/asset';
+import { SubAssetPolicyFacade } from '@feature/configuration/+state/asset-policy/sub-asset';
+import { SubAssetService, SubAssetFacade } from '@feature/fleet/+state/sub-asset';
 import { ColumnDifinition, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import * as moment from 'moment';
 import { Subject, Subscription } from 'rxjs';
 import { ResponseBody } from '@models/responseBody';
 import { environment } from '@environments/environment';
+import { DialogService } from '@core/dialog/dialog-template.component';
+import { tap } from 'rxjs/operators';
 const SUB_ASSET_LABEL = 'SUB_ASSET';
 
 @Component({
@@ -74,10 +65,6 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
     { name: '2020', id: 2020 },
     { name: '2021', id: 2021 }
   ];
-  filesUploaded: NgxFileDropEntry[] = [];
-  dialogModal = false;
-  dialogType = null;
-  errorDialogModal = false;
   isEdit: any;
   recordId: number;
   isSingleAsset = true;
@@ -130,25 +117,6 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   };
   //#endregion
 
-  //#region  DialogRegion
-  dialogSetting: IDialogAlert = {
-    header: 'Add new Sub Asset alert',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
-  errorDialogSetting: IDialogAlert = {
-    header: '',
-    message: 'Error occurred in progress',
-    confirmButton: 'Ok',
-    isWarning: false,
-    hasError: true,
-    hasHeader: true,
-    cancelButton: undefined
-  };
-  //#endregion
-
   constructor(
     injector: Injector,
     private _fb: FormBuilder,
@@ -156,9 +124,11 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
     private subAssetService: SubAssetService,
     private subAssetTypeFacade: SubAssetTypeFacade,
     private assetPolicyFacade: AssetPolicyFacade,
-    private subAssetPolicyFacade: SubAssetPolicyFacade
+    private subAssetPolicyFacade: SubAssetPolicyFacade,
+    private _dialogService: DialogService
   ) {
     super(injector);
+    this.subAssetFacade.reset();
   }
 
   ngOnInit(): void {
@@ -314,18 +284,18 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   handleSubmissionDialog() {
     this.subAssetFacade.submitted$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogType = 'success';
-        this.dialogSetting.header = this.isEdit
-          ? 'Edit Sub Asset'
-          : 'Add new Sub Asset';
-        this.dialogSetting.message = this.isEdit
-          ? 'Changes Saved Successfully'
-          : 'Sub Asset Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
+        const dialog = this._dialogService.show('success',
+          (this.isEdit ? 'Edit Sub Asset' : 'Add new Sub Asset'),
+          (this.isEdit ? 'Changes Saved Successfully' : 'Sub Asset Added Successfully'), 'Ok')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+                this.router.navigate(['/fleet/sub-asset']);
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
         this.subAssetFacade.loadAll();
       }
     });
@@ -334,15 +304,17 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   handleErrorDialog() {
     this.subAssetFacade.error$.subscribe((x) => {
       if (x?.error) {
-        this.errorDialogModal = true;
-        this.errorDialogSetting.header = this.isEdit
-          ? 'Edit Sub Asset'
-          : 'Add new Sub Asset';
-        this.errorDialogSetting.hasError = true;
-        this.errorDialogSetting.cancelButton = undefined;
-        this.errorDialogSetting.confirmButton = 'Ok';
-      } else {
-        this.errorDialogModal = false;
+        const dialog = this._dialogService.show('danger',
+          (this.isEdit ? 'Edit Sub Asset' : 'Add new Sub Asset'),
+          'We Have Some Error', 'Ok')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
       }
     });
   }
@@ -377,7 +349,7 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
           }));
         }
       },
-      (error) => {}
+      (error) => { }
     );
   }
 
@@ -393,18 +365,10 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
           }
         }
       },
-      (error) => {}
+      (error) => { }
     );
   }
 
-  dialogConfirm($event) {
-    this.dialogModal = false;
-    if ($event) {
-      this.subAssetFacade.reset();
-      this._goToList();
-    }
-    return;
-  }
 
   _goToList() {
     this.router.navigate(['/fleet/sub-asset/']);
@@ -536,7 +500,17 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
         this.subAssetFacade.addSubAsset(data);
       } else {
         data['id'] = this.recordId;
-        this.subAssetFacade.editSubAsset(data);
+        const dialog = this._dialogService.show('warning', 'Edit sub asset', 'Are you sure you want to edit sub asset?', 'Yes', 'Cancel')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+                this.subAssetFacade.editSubAsset(data);
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe();
+
       }
     }
   }
@@ -617,17 +591,7 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
       };
     }
   }
-  public dropped(files: NgxFileDropEntry[]) {
-    this.filesUploaded = files;
-    for (const droppedFile of files) {
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {});
-      } else {
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-      }
-    }
-  }
+
 
   uploadAssetPicture($event) {
     const docId = $event.files[0];
@@ -646,15 +610,16 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   cancel() {
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.message = 'Are you sure you want to Cancel?';
-    this.dialogSetting.header = this.isEdit
-      ? 'Cancel Edit Sub Asset'
-      : 'Cancel Add Sub Asset';
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.cancelButton = 'No';
-    this.dialogModal = true;
+    const dialog = this._dialogService.show('warning', 'Are you sure you want to leave?', 'You have unsaved changes! If you leave, your changes will be lost.', 'Ok', 'Cancel')
+    const dialogClose$: Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['/fleet/sub-asset']);
+          }
+          dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
   }
 
   ngOnDestroy() {

@@ -14,28 +14,29 @@ import { map } from 'rxjs/operators';
 export class OperatorOverviewTabComponent implements OnInit {
   activeLang = '';
 
-  operatorSubscriber: Subscription
-  operator: IOperator
-  drivingLicenseInfo: IOperatorDrivingLicense
-  drivingLicense$ : Observable<any>;
-  constructor(private settingFacade: SettingsFacade, 
-              private _service: OperatorService,
-              private _activatedRoute:ActivatedRoute
-              ) {}
+  operatorSubscriber: Subscription;
+  operator: IOperator;
+  drivingLicenseInfo: IOperatorDrivingLicense;
+  drivingLicense$: Observable<any>;
+  constructor(
+    private settingFacade: SettingsFacade,
+    private _service: OperatorService,
+    private _activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.settingFacade.language.subscribe((lang) => {
       this.activeLang = lang;
     });
-    let id = this._activatedRoute.snapshot.params.id
+    let id = this._activatedRoute.snapshot.params.id;
     id ? this.getOperatorsDrivingLicense(id) : null;
   }
 
   private getOperatorsDrivingLicense(id: number): void {
     this.drivingLicense$ = this._service.getOperatorsDrivingLicence(id).pipe(
-      map(response => {
-        return response.message
+      map((response) => {
+        return response.message;
       })
-    )
+    );
   }
 }

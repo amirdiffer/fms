@@ -13,6 +13,9 @@ export class IntegrationFacade {
 
   error$ = this.store.pipe(select(IntegrationSelectors.error));
 
+  submitted$ = this.store.pipe(select(IntegrationSelectors.submitted));
+
+
   constructor(private store: Store<IntegrationPartialState>) {}
 
   loadAll() {

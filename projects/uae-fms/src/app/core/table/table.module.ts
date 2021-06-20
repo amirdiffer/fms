@@ -48,9 +48,12 @@ import { ApproveButtonRendererComponent } from '@core/table/column-renderer-comp
 import { DateRenderer } from '@core/table/column-renderer-component/column-renderers/date';
 import { ProgressRendererComponent } from './column-renderer-component/column-renderers/ProgressRenderer';
 import { TableFilterComponent } from './table-filter/table-filter.component';
-import { ColumnRendererComponent } from "./column-renderer-component/column-renderer.component";
-import { CollapseRowRendererComponent, RowRendererComponentComponent } from "./row-renderer-component";
-import { NgCircleProgressModule } from "ng-circle-progress";
+import { ColumnRendererComponent } from './column-renderer-component/column-renderer.component';
+import {
+  CollapseRowRendererComponent,
+  RowRendererComponentComponent
+} from './row-renderer-component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 import { PlusMinusRenderer } from './column-renderer-component/column-renderers/plus-minus-renderer';
 import { FoldableRowRenderer } from './row-renderer-component/row-renderers/foldable-row-renderer.component';
 
@@ -67,7 +70,7 @@ import { FoldableRowRenderer } from './row-renderer-component/row-renderers/fold
     TooltipModule,
     NgApexchartsModule,
     AngularSvgIconModule,
-    NgCircleProgressModule,
+    NgCircleProgressModule
   ],
   exports: [TableComponent],
   declarations: [
@@ -115,4 +118,4 @@ import { FoldableRowRenderer } from './row-renderer-component/row-renderers/fold
   ],
   providers: [TableFacade, TableService, TableServiceS]
 })
-export class TableModule { }
+export class TableModule {}

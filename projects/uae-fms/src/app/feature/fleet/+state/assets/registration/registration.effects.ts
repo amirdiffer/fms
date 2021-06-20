@@ -72,7 +72,6 @@ export class RegistrationEffects {
     )
   );
 
-
   /* Register an Asset by plate number */
   registerByPlateNumber$ = createEffect(() =>
     this.action$.pipe(
@@ -80,7 +79,9 @@ export class RegistrationEffects {
       mergeMap((action) =>
         this.service.registerByPlateNumber(action.data).pipe(
           map((data) =>
-            RegistrationActions.assetByPlateNumberRegistered({ data: action.data })
+            RegistrationActions.assetByPlateNumberRegistered({
+              data: action.data
+            })
           ),
           catchError((error) =>
             of(RegistrationActions.error({ reason: error }))
@@ -97,7 +98,9 @@ export class RegistrationEffects {
       mergeMap((action) =>
         this.service.registerByChasisNumber(action.data).pipe(
           map((data) =>
-            RegistrationActions.assetByChassisNumberRegistered({ data: action.data })
+            RegistrationActions.assetByChassisNumberRegistered({
+              data: action.data
+            })
           ),
           catchError((error) =>
             of(RegistrationActions.error({ reason: error }))
