@@ -7,17 +7,17 @@ import {
   Injector
 } from '@angular/core';
 import { MovementService } from '../movement.service';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { MovementConfirmComponent } from '../movement-confirm/movement-confirm.component';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { MovementOverviewFacadeTemporary } from '@feature/fleet/+state/movement/temporary/overview/movement-overview.facade';
 import { MovementRequestsFacadeTemporary } from '@feature/fleet/+state/movement/temporary/requests/movement-requests.facade';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ButtonType, TableComponent } from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movement-temporary-confirm/movement-confirm.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from '@core/dialog/dialog-template.component';
 @Component({
   selector: 'anms-temporary',
   templateUrl: './temporary.component.html',
@@ -55,20 +55,6 @@ export class TemporaryComponent
   selectedTab;
   requestFilterHide$: Observable<boolean> = of(this.requestFilter);
   showTable = true;
-  dialogSuccessSetting: IDialogAlert = {
-    header: 'Success',
-    hasError: false,
-    message: 'Rejected Successfully',
-    confirmButton: 'Ok'
-  };
-  dialogErrorSetting: IDialogAlert = {
-    header: 'Error',
-    hasError: true,
-    message: 'Some Error Occurred',
-    confirmButton: 'Ok'
-  };
-  displaySuccessModal = false;
-  displayErrorModal = false;
   assignID: number;
   rejectId;
   dialogType;
@@ -314,9 +300,11 @@ export class TemporaryComponent
     private dialog: MatDialog,
     private _movementOverviewFacade: MovementOverviewFacadeTemporary,
     private _movementRequestsFacade: MovementRequestsFacadeTemporary,
+    private _dialogService : DialogService,
     injector: Injector
   ) {
     super(injector);
+    this._movementRequestsFacade.reset();
   }
 
   ngOnInit(): void {
@@ -380,22 +368,33 @@ export class TemporaryComponent
 
     this._movementRequestsFacade.rejected$.subscribe((x) => {
       if (x) {
-        this.dialogSuccessSetting.isWarning = false;
-        this.dialogSuccessSetting.hasError = false;
-        this.dialogSuccessSetting.message = 'The Request Rejected Successfully';
-        this.dialogSuccessSetting.confirmButton = 'Ok';
-        this.dialogSuccessSetting.cancelButton = undefined;
-        this.dialogType = 'confirm';
-        this.displaySuccessModal = true;
-        this._movementRequestsFacade.loadAll();
+        const dialog = this._dialogService.show('success' , 
+          'Reject Request', 
+          'The Request Rejected Successfully','Ok')
+          const dialogClose$:Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+            if (result === 'confirm') {
+              this._movementRequestsFacade.loadAll(); 
+            }
+            dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
       }
     });
     this._movementRequestsFacade.error$.subscribe((x) => {
       if (x?.error) {
-        this.displayErrorModal = true;
-        this.dialogErrorSetting.hasError = true;
-      } else {
-        this.displayErrorModal = false;
+        const dialog = this._dialogService.show('danger' , 
+          'Request', 
+          'We Have Some Error','Ok')
+          const dialogClose$:Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+            if (result === 'confirm') {
+            }
+            dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
       }
     });
   }
@@ -425,24 +424,6 @@ export class TemporaryComponent
   }
 
   rejectRow() {}
-
-  dialogConfirm(confirmed) {
-    if (confirmed) {
-      this.displaySuccessModal = false;
-      this.displayErrorModal = false;
-      this._movementRequestsFacade.reset();
-    } else this.displaySuccessModal = false;
-  }
-
-  successConfirm($event) {
-    this.displayErrorModal = false;
-    this.displaySuccessModal = false;
-    this._movementRequestsFacade.reset();
-
-    if (this.dialogType == 'rejection') {
-      this._movementRequestsFacade.rejecting(this.rejectId);
-    }
-  }
 
   eventPagination_overview() {
     this._movementOverviewFacade.loadAll();
@@ -489,13 +470,16 @@ export class TemporaryComponent
   reject(data) {
     if (data?.id) {
       this.rejectId = data.id;
-      this.dialogType = 'rejection';
-      this.dialogSuccessSetting.isWarning = true;
-      this.dialogSuccessSetting.message =
-        'Are you sure you want to reject this request?';
-      this.dialogSuccessSetting.confirmButton = 'Yes';
-      this.dialogSuccessSetting.cancelButton = 'Cancel';
-      this.displaySuccessModal = true;
+      const dialog = this._dialogService.show('warning' , 'Reject request' , 'Are you sure you want to reject this request?' , 'Yes','Cancel')
+      const dialogClose$:Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+        if (result === 'confirm') {
+          this._movementRequestsFacade.rejecting(this.rejectId);
+        }
+        dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
     }
   }
 }

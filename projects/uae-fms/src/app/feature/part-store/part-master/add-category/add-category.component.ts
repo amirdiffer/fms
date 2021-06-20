@@ -5,6 +5,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { PartMasterFacade, PartMasterService } from '@feature/part-store/+state/part-master';
 import { Utility } from '@shared/utility/utility';
 import { Subscription } from 'rxjs';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-add-category',
@@ -21,10 +22,6 @@ export class AddCategoryComponent extends Utility implements OnInit , OnDestroy 
 
   partMasterFacadeSubscription$:Subscription;
   getCategoryDataSubscription$:Subscription;
-  /* Dialog */
-  dialogOption:dialogOption;
-  dialogSetting: IDialogAlert;
-  dialogModal:boolean = false;
 
   /* Browser Back */
   @HostListener('window:popstate', ['$event'])
@@ -40,7 +37,8 @@ export class AddCategoryComponent extends Utility implements OnInit , OnDestroy 
               private _partMasterFacade: PartMasterFacade,
               private _router : Router,
               private _activatedRoute:ActivatedRoute,
-              injector: Injector) { 
+              injector: Injector,
+              private dialogService: DialogService) {
                 super(injector);
                 this._partMasterFacade.resetCategory();
                 this._partMasterFacade.resetItem();
@@ -70,7 +68,7 @@ export class AddCategoryComponent extends Utility implements OnInit , OnDestroy 
           :
           this._partMasterFacade.loadSpecificCategoryOfSubAsset(this.id)
         }
-        this.addCategoryData=x    
+        this.addCategoryData=x
       }
     });
 
@@ -78,23 +76,20 @@ export class AddCategoryComponent extends Utility implements OnInit , OnDestroy 
       categoryName:['',[Validators.required]],
       shortCode:['',[Validators.required]]
     })
-    this.dialogSetting = {
-      header: 'Add new category',
-      hasError:false,
-      isWarning:false,
-      message: 'Message is Here',
-      confirmButton: 'Yes',
-      cancelButton: 'No'
-    };
   }
   cancelForm(){
-    this.dialogOption = dialogOption.cancel;
-    this.dialogSetting.message = 'Are you sure?',
-    this.dialogSetting.isWarning = true,
-    this.dialogSetting.hasError = false,
-    this.dialogSetting.confirmButton= 'Yes',
-    this.dialogSetting.cancelButton= 'No',
-    this.dialogModal = true;
+    const dialog = this.dialogService.show('warning', 'Update part',
+      'Are you sure', 'Yes', 'No');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this._partMasterService.setCategoryData({
+          ...this.addCategoryData,
+          isEdit:false,
+          isForm:false,
+        });
+        this.goToList('part-store/part-master');
+      }
+    });
   }
   submit(){
     this.form.markAllAsTouched();
@@ -102,7 +97,6 @@ export class AddCategoryComponent extends Utility implements OnInit , OnDestroy 
     if(this.form.invalid){
       return;
     }
-    this.dialogOption = dialogOption.success;
     const getFormRawVal = this.form.getRawValue();
 
     if(this.isEdit){
@@ -118,7 +112,7 @@ export class AddCategoryComponent extends Utility implements OnInit , OnDestroy 
       this._partMasterFacade.updateCategoryOfAsset(data)
       :
       this._partMasterFacade.updateCategoryOfSubAsset(data)
-      
+
     }else{
       const data = {
         fleetType:this.addCategoryData.fleetType,
@@ -129,39 +123,35 @@ export class AddCategoryComponent extends Utility implements OnInit , OnDestroy 
       this._partMasterFacade.addCategory(data);
     }
   }
-  dialogConfirm(event){
-    if(event && (this.dialogOption == dialogOption.cancel || this.dialogOption == dialogOption.success)){
-      this._partMasterService.setCategoryData({
-        ...this.addCategoryData,
-        isEdit:false,
-        isForm:false,
-      })
-      this.goToList('part-store/part-master');
-    }
-    this.dialogModal = false;
 
-  }
   errorHandele(submittedFacade){
-    
+
     submittedFacade.submittedCategory$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogSetting.header = this.isEdit ? 'Edit Category' : 'Add New Category';
-        this.dialogSetting.message = this.isEdit ? 'Changes Saved Successfully' : 'Category Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
+        const dialog = this.dialogService.show('success', this.isEdit ? 'Edit Category' : 'Add New Category',
+          this.isEdit ? 'Changes Saved Successfully' : 'Category Added Successfully',
+          'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+            this._partMasterService.setCategoryData({
+              ...this.addCategoryData,
+              isEdit:false,
+              isForm:false,
+            });
+            this.goToList('part-store/part-master');
+          }
+        });
       }
     });
     submittedFacade.errorCategory$.subscribe((x) => {
       if (x?.error) {
-        this.dialogModal = true;
-        this.dialogSetting.header = this.isEdit ? 'Edit Category' : 'Add new Category';
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.message = 'Error occurred in progress';
-        this.dialogSetting.cancelButton = undefined;
-        this.dialogSetting.confirmButton = 'OK';
+        const dialog = this.dialogService.show('danger', this.isEdit ? 'Edit Category' : 'Add new Category',
+          'Error occurred in progress', 'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+          } else {
+          }
+        });
       }
     });
   }
@@ -172,10 +162,3 @@ export class AddCategoryComponent extends Utility implements OnInit , OnDestroy 
   }
 
 }
-
-
-export enum dialogOption{
-  success='success',
-  error = 'error',
-  cancel = 'cancel'
-} 

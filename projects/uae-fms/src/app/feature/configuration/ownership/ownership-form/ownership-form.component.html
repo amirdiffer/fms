@@ -5,9 +5,6 @@
       <button class="btn-primary-medium add" (click)="submit()">{{ (isEdit?'forms.edit':'forms.add')
           | translate }}</button>
   </div>
-  <alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)"></alert-dialog>
-  <alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="successConfirmed()"></alert-dialog>
-  <alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="displayErrorModal=false"></alert-dialog>
   <!-- form-section form-section--inline-->
   <div class="form-section mt-3">
       <div class="row">

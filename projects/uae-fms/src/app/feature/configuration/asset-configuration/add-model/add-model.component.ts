@@ -16,7 +16,6 @@ import {
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { IAssetType, Make, MakeModel } from '@models/asset-type.model';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetConfigurationService } from '@feature/configuration/asset-configuration/asset-configuration.service';
 import { SubAssetTypeFacade } from '../../+state/fleet-configuration/sub-asset-type';
 import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
@@ -24,6 +23,7 @@ import { DataService } from '@feature/configuration/asset-configuration/data.ser
 import { Utility } from '@shared/utility/utility';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-add-model',
@@ -46,14 +46,6 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
   percent = 80;
   fileName = 'CSV File only';
   submited = false;
-  dialogModal = false;
-  dialogSetting: IDialogAlert = {
-    header: 'Add Make',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
   isEditing = false;
   assetTypeMode = '';
   modelId;
@@ -75,7 +67,8 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
     private _subAssetTypeFacade: SubAssetTypeFacade,
     public dataService: DataService,
     public router: Router,
-    injector: Injector
+    injector: Injector,
+    private dialogService: DialogService
   ) {
     super(injector);
   }
@@ -241,24 +234,13 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
   }
 
   public cancel() {
-    this.dialogModal = true;
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.message = 'Are you sure to cancel adding new type?';
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.cancelButton = 'No';
-  }
-
-  dialogConfirm($event): void {
-    this.dialogModal = false;
-    if ($event && this.successDialog) {
-      this.fleetType == 'ASSET'
-        ? this.facade.resetParams()
-        : this._subAssetTypeFacade.resetParams();
-    }
-    if ($event && !this.dialogSetting.hasError) {
-      this.router.navigate(['/configuration/asset-configuration']);
-    }
+    const dialog = this.dialogService.show('warning', 'Add Model',
+      'Are you sure to cancel adding new type ?', 'Yes', 'No');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this.router.navigate(['/configuration/asset-configuration']).then();
+      }
+    });
   }
 
   submit() {
@@ -333,33 +315,44 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
       if (x) {
         this.successDialog = true;
         if (this.isEditing) {
-          this.dialogModal = true;
-          this.dialogSetting.header = 'Edit Model';
-          this.dialogSetting.message = 'Model Edited Successfully';
-          this.dialogSetting.isWarning = false;
-          this.dialogSetting.hasError = false;
-          this.dialogSetting.confirmButton = 'OK';
-          this.dialogSetting.cancelButton = undefined;
+          const editDialog = this.dialogService.show('success', 'Edit Model',
+            'Model Edited Successfully', 'OK', '');
+          editDialog.dialogClosed$.subscribe(result => {
+            if (result === 'confirm') {
+              if (this.fleetType === 'ASSET') {
+                this.facade.resetParams();
+              } else {
+                this._subAssetTypeFacade.resetParams();
+              }
+              this.router.navigate(['/configuration/asset-configuration']).then();
+            }
+          });
           return;
         }
-        this.dialogModal = true;
-        this.dialogSetting.header = 'Add new type';
-        this.dialogSetting.message = 'Make Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
+        const addDialog = this.dialogService.show('success', 'Add new model',
+          'Model Added Successfully', 'OK', '');
+        addDialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+            if (this.fleetType === 'ASSET') {
+              this.facade.resetParams();
+            } else {
+              this._subAssetTypeFacade.resetParams();
+            }
+            this.router.navigate(['/configuration/asset-configuration']).then();
+          }
+        });
       }
     });
 
     facade.error$.subscribe((x) => {
       if (x?.error) {
-        this.dialogModal = true;
-        this.dialogSetting.header = 'Add new make';
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.message = 'Error occurred in progress';
-        this.dialogSetting.cancelButton = undefined;
-        this.dialogSetting.confirmButton = 'OK';
+        const dialog = this.dialogService.show('danger', 'Add new model',
+          'Error occurred in progress', 'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+          } else {
+          }
+        });
       }
     });
   }

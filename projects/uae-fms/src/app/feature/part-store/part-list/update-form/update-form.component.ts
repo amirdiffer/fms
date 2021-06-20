@@ -5,6 +5,7 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { PartListFacade } from '@feature/part-store/+state/part-list';
 import { Utility } from '@shared/utility/utility';
 import { Subscription } from 'rxjs';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-update-form',
@@ -18,33 +19,19 @@ export class UpdateFormComponent  extends Utility implements OnInit , OnDestroy 
   partSubscription:Subscription;
   form:FormGroup;
 
-  dialogModal:boolean = false;
-  dialogOption:dialogOption;
-  dialogSetting: IDialogAlert;
-
   submitted:boolean = false;
   constructor(private _activatedRoute: ActivatedRoute,
               private _router:Router,
               private _facadePartList: PartListFacade,
               private _fb: FormBuilder,
-              injector: Injector,) {
+              injector: Injector,
+              private dialogService: DialogService) {
                 super(injector);
-                this._facadePartList.resetPartAssetState(); 
-                this._facadePartList.resetPartSubAssetState(); 
+                this._facadePartList.resetPartAssetState();
+                this._facadePartList.resetPartSubAssetState();
                }
 
   ngOnInit(): void {
-
-    this.dialogSetting = {
-      header: 'Update a part',
-      hasError:false,
-      isWarning:false,
-      message: 'Message is Here',
-      confirmButton: 'Yes',
-      cancelButton: 'No'
-    };
-
-
     let getURL = this._activatedRoute.snapshot.url;
     this.id = +getURL[getURL.length -1].path;
     this.fleetType = this._activatedRoute.snapshot.queryParams.fleetType;
@@ -100,26 +87,19 @@ export class UpdateFormComponent  extends Utility implements OnInit , OnDestroy 
   }
 
   cancelForm(){
-    this.dialogOption = dialogOption.cancel;
-    this.dialogSetting.message = 'Are you sure?',
-    this.dialogSetting.isWarning = true,
-    this.dialogSetting.hasError = false,
-    this.dialogSetting.confirmButton= 'Yes',
-    this.dialogSetting.cancelButton= 'No',
-    this.dialogModal = true
-  }
-
-  dialogConfirm(event){
-    if(event && (this.dialogOption == dialogOption.cancel || this.dialogOption == dialogOption.success)){
-      this._router.navigate(['../../'] , {relativeTo:this.route , queryParams: { fleetType: this.fleetType.toLowerCase()}})
-    }
-    this.dialogModal = false;
+    const dialog = this.dialogService.show('warning', 'Update a part',
+      'Are you sure?', 'Yes', 'No');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this._router.navigate(['../../'] ,
+          {relativeTo:this.route , queryParams: { fleetType: this.fleetType.toLowerCase()}}).then();
+      }
+    });
   }
 
   submit(){
     this.submitted=true;
     this.form.markAllAsTouched();
-    this.dialogOption = dialogOption.success;
     if(this.form.invalid)return;
     const rawData = this.form.getRawValue();
     const data = {
@@ -145,23 +125,25 @@ export class UpdateFormComponent  extends Utility implements OnInit , OnDestroy 
   errorHandele(){
     (this.fleetType === 'asset' ? this._facadePartList.updatedAssetPart$ :  this._facadePartList.updatedSubAssetPart$).subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogSetting.header = 'Update Part';
-        this.dialogSetting.message = 'Part Updated Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
+        const dialog = this.dialogService.show('success', 'Update part',
+          'Part Updated Successfully', 'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+            this._router.navigate(['../../'] ,
+              {relativeTo:this.route , queryParams: { fleetType: this.fleetType.toLowerCase()}}).then();
+          }
+        });
       }
     });
     (this.fleetType === 'asset' ? this._facadePartList.errorAssetPart$ :  this._facadePartList.errorAssetPart$).subscribe((x) => {
       if (x?.error) {
-        this.dialogModal = true;
-        this.dialogSetting.header = 'Update Part';
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.message = 'Error occurred in progress';
-        this.dialogSetting.cancelButton = undefined;
-        this.dialogSetting.confirmButton = 'OK';
+        const dialog = this.dialogService.show('danger', 'Update part',
+          'Error occurred in progress', 'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+          } else {
+          }
+        });
       }
     });
 
@@ -171,11 +153,4 @@ export class UpdateFormComponent  extends Utility implements OnInit , OnDestroy 
     this.partSubscription.unsubscribe();
   }
 
-}
-
-
-export enum dialogOption{
-  success='success',
-  error = 'error',
-  cancel = 'cancel'
 }

@@ -7,6 +7,7 @@ import { Utility } from '@shared/utility/utility';
 import { Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SuppliersService } from '../../+state/order-list/suppliers/suppliers.service';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-add-item',
@@ -43,12 +44,6 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     return this.form.get('itemInfo') as FormArray;
   }
 
-
-  dialogModal:boolean = false;
-  dialogOption:dialogOption;
-  dialogSetting: IDialogAlert;
-
-
   getCategoryDataSubscription$:Subscription;
   documentFile = [];
 
@@ -67,7 +62,8 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
               private _partMasterFacade:PartMasterFacade,
               private _router: Router,
               private _supplierService : SuppliersService,
-              injector: Injector,) {
+              injector: Injector,
+              private dialogService: DialogService) {
                 super(injector);
                 this._partMasterFacade.resetItem();
               }
@@ -133,15 +129,6 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
         }
       }
     )
-
-    this.dialogSetting = {
-      header: 'Add new item',
-      hasError:false,
-      isWarning:false,
-      message: 'Message is Here',
-      confirmButton: 'Yes',
-      cancelButton: 'No'
-    };
   }
   createItemInfoFormArray(){
     return this._fb.group({
@@ -247,28 +234,22 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
       );
       return model
     }
-    this.model$ = of(models())    
-  }
-  dialogConfirm(event){
-    if(event && (this.dialogOption == dialogOption.cancel || this.dialogOption == dialogOption.success)){
-      this._partMasterService.setCategoryData({
-        ...this.categoryData,
-        isEdit:false,
-        isItemForm:false,
-      });
-      this.goToList('part-store/part-master');
-    }
-    this.dialogModal = false;
+    this.model$ = of(models())
   }
 
   cancelForm(){
-    this.dialogOption = dialogOption.cancel;
-    this.dialogSetting.message = 'Are you sure?',
-    this.dialogSetting.isWarning = true,
-    this.dialogSetting.hasError = false,
-    this.dialogSetting.confirmButton= 'Yes',
-    this.dialogSetting.cancelButton= 'No',
-    this.dialogModal = true
+    const dialog = this.dialogService.show('warning', 'Add new item',
+      'Are you sure?', 'Yes', 'No');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this._partMasterService.setCategoryData({
+          ...this.categoryData,
+          isEdit:false,
+          isItemForm:false,
+        });
+        this.goToList('part-store/part-master');
+      }
+    });
   }
 
   submit(){
@@ -277,7 +258,6 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     if(this.form.invalid){
       return;
     }
-    this.dialogOption = dialogOption.success
     const formValue = this.form.getRawValue();
     if(this.categoryData.fleetType === 'ASSET'){
       let data = {
@@ -338,24 +318,30 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
   errorHandele(facade){
     facade.submittedItem$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogSetting.header = this.isEdit ? 'Edit Category' : 'Add New Category';
-        this.dialogSetting.message = this.isEdit ? 'Changes Saved Successfully' : 'Category Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
+        const dialog = this.dialogService.show('success', this.isEdit ? 'Edit Category' : 'Add New Category',
+          this.isEdit ? 'Changes Saved Successfully' : 'Category Added Successfully',
+          'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+            this._partMasterService.setCategoryData({
+              ...this.categoryData,
+              isEdit:false,
+              isItemForm:false,
+            });
+            this.goToList('part-store/part-master');
+          }
+        });
       }
     });
     facade.errorItem$.subscribe((x) => {
       if (x?.error) {
-        this.dialogModal = true;
-        this.dialogOption == dialogOption.error
-        this.dialogSetting.header = this.isEdit ? 'Edit Category' : 'Add new Category';
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.message = 'Error occurred in progress';
-        this.dialogSetting.cancelButton = undefined;
-        this.dialogSetting.confirmButton = 'OK';
+        const dialog = this.dialogService.show('danger', this.isEdit ? 'Edit Category' : 'Add New Category',
+          'Error occurred in progress', 'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+          } else {
+          }
+        });
       }
     });
   }
@@ -364,11 +350,3 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     this.getCategoryDataSubscription$.unsubscribe();
   }
 }
-
-
-export enum dialogOption{
-  success='success',
-  error = 'error',
-  cancel = 'cancel'
-}
-
