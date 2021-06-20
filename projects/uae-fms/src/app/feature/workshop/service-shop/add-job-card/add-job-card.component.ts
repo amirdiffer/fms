@@ -9,9 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-
-import { filter, map } from 'rxjs/operators';
+import {  map, tap } from 'rxjs/operators';
 import {
   AssetMasterFacade,
   AssetMasterService
@@ -20,7 +18,6 @@ import { TaskMasterService } from '@feature/workshop/+state/task-master';
 import moment from 'moment';
 import { Subject, Subscription } from 'rxjs';
 
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import {
   ServiceShopJobCardFacade,
   ServiceShopJobCardService
@@ -31,6 +28,7 @@ import {
 } from '@feature/workshop/+state/service-shop/request';
 import { ServiceShopLocationFacade } from '@feature/workshop/+state/service-shop/location';
 import { ServiceShopTechnicianFacade } from '@feature/workshop/+state/service-shop/technician';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-add-job-card',
@@ -52,25 +50,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   //#region Dialog
   dialogModal = false;
   taskFiltered: any[];
-  dialogSetting: IDialogAlert = {
-    header: 'Add JobCard',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
-  errorDialogSetting: IDialogAlert = {
-    header: '',
-    message: 'Error occurred in progress',
-    confirmButton: 'Ok',
-    isWarning: false,
-    hasError: true,
-    hasHeader: true,
-    cancelButton: undefined
-  };
-  dialogType = null;
-  errorDialogModal = false;
-  //#endregion Dialog
+
 
   inputForm: FormGroup;
   taskMasters: any[];
@@ -217,9 +197,12 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     private _jobCardService: ServiceShopJobCardService,
     private _taskMasterService: TaskMasterService,
     private service: ServiceShopRequestService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _dialogService : DialogService
+
   ) {
     super(injector);
+    this._facadeJobCard.resetParams()
   }
 
   ngOnInit(): void {
@@ -373,33 +356,37 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
 
     this._facadeJobCard.submitted$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogType = 'success';
-        this.dialogSetting.header = this.isEdit
-          ? 'Edit jobCard'
-          : 'Add new jobCard';
-        this.dialogSetting.message = this.isEdit
-          ? 'Changes Saved Successfully'
-          : 'JobCard Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'Yes';
-        this.dialogSetting.cancelButton = undefined;
+        const dialog = this._dialogService.show('success' , 
+        (this.isEdit ? 'Edit jobCard': 'Add new jobCard' ), 
+        (this.isEdit ? 'Changes Saved Successfully' : 'jobCard Added Successfully'),'Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['/workshop/service-shop'] , { queryParams: { id: 'jobcardTab' }}).then(()=>{
+              this._facadeJobCard.loadAll();
+            });
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
         this._facadeJobCard.loadAll();
       }
     });
 
     this._facadeJobCard.error$.subscribe((x) => {
       if (x?.error) {
-        this.errorDialogModal = true;
-        this.errorDialogSetting.header = this.isEdit
-          ? 'Edit jobCard'
-          : 'Add new jobCard';
-        this.errorDialogSetting.hasError = true;
-        this.errorDialogSetting.cancelButton = undefined;
-        this.errorDialogSetting.confirmButton = 'Ok';
-      } else {
-        this.errorDialogModal = false;
+        const dialog = this._dialogService.show('danger' , 
+        (this.isEdit ? 'Edit jobCard': 'Add new jobCard' ), 
+        'We Have Some Error','Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
   }
@@ -462,13 +449,18 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     console.log(e);
     this.relatedRequests.next([]);
     if (e.hasOpenJobCard) {
-      this.errorDialogSetting.header = 'Job Card';
-      this.errorDialogSetting.message =
-        "Asset has alredy a job card, you can't add more than once!";
-      this.errorDialogSetting.hasError = true;
-      this.errorDialogSetting.cancelButton = undefined;
-      this.errorDialogSetting.confirmButton = 'Ok';
-      this.errorDialogModal = true;
+      const dialog = this._dialogService.show('danger' , 
+            'Asset has alredy a job card' , 
+            "You can't add more than once! Please select another asset." , 
+            'Ok')
+      const dialogClose$:Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+        if (result === 'confirm') {
+        }
+        dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
       this.inputForm.patchValue({
         assetId: ''
       });
@@ -507,13 +499,20 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     task.push(this.createTask());
   }
 
-  dialogConfirm($event): void {
-    this.errorDialogModal = false;
-    this.dialogModal = false;
-    if (!$event) return;
-
-    if (this.dialogType == 'submit') {
-      let f = this.inputForm.value;
+  addRequest() {
+    this.submited = true;
+    if (this.inputForm.invalid) {
+      this.inputForm.markAllAsTouched();
+      return;
+    }
+    const dialog = this._dialogService.show('warning' , 
+              (this.isEdit ? 'Edit jobCard' : 'Add new jobCard') ,
+              (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new jobCard?') , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+      if (result === 'confirm') {
+        let f = this.inputForm.value;
 
       let jobCardInfo: any = {
         description: f.description,
@@ -539,41 +538,10 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
         };
         this._facadeJobCard.addJobCard(jobCardInfo, f.assetId.assetId);
       }
-    } else {
-      this.router
-        .navigate(['/workshop/service-shop'], {
-          queryParams: { id: 'jobcardTab' }
-        })
-        .then((_) => {
-          this._facadeJobCard.resetParams();
-        });
-    }
-  }
-  addRequest() {
-    this.submited = true;
-    if (this.inputForm.invalid) {
-      this.inputForm.markAllAsTouched();
-      return;
-    }
-
-    this.dialogModal = true;
-    this.dialogType = 'submit';
-    if (this.isEdit) {
-      this.dialogSetting.header = 'Edit jobCard';
-      this.dialogSetting.message =
-        'Are you sure you want to submit this changes?';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
-      return;
-    } else {
-      this.dialogSetting.header = 'Add new jobCard';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.hasError = false;
-      this.dialogSetting.message = 'Are you sure you want to add new jobCard?';
-      this.dialogSetting.confirmButton = 'OK';
-      this.dialogSetting.cancelButton = 'Cancel';
-    }
+      }
+      dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
   }
   removeTask(index) {
     this.tasks.removeAt(index);
@@ -601,25 +569,16 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   }
 
   cancelForm() {
-    this.dialogModal = true;
-    this.dialogType = 'cancel';
-    if (this.isEdit) {
-      this.dialogSetting.header = 'Edit jobCard';
-      this.dialogSetting.hasError = false;
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.message =
-        'Are you sure that you want to cancel editing jobCard?';
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
-    }
-
-    this.dialogSetting.header = 'Add new jobCard';
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.message =
-      'Are you sure that you want to cancel adding new jobCard?';
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.cancelButton = 'Cancel';
+    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+      if (result === 'confirm') {
+        this.router.navigate(['/workshop/service-shop'] , { queryParams: { id: 'jobcardTab' }});
+      }
+      dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
   }
 
   get task(): FormArray {

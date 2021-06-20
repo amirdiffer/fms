@@ -6,16 +6,10 @@ import {
   Validators
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  FileSystemDirectoryEntry,
-  FileSystemFileEntry,
-  NgxFileDropEntry
-} from 'ngx-file-drop';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { IRequest } from '@models/body-shop';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import {
   AssetMasterFacade,
   AssetMasterService
@@ -25,36 +19,13 @@ import {
   BodyShopRequestFacade,
   BodyShopRequestService
 } from '@feature/workshop/+state/body-shop/request';
+import { DialogService } from '@core/dialog/dialog-template.component';
 @Component({
   selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',
   styleUrls: ['./add-request.component.scss']
 })
 export class AddRequestComponent implements OnInit {
-  //#region Dialog
-  dialogModal = false;
-
-  dialogSetting: IDialogAlert = {
-    header: 'Add Request',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
-
-  errorDialogSetting: IDialogAlert = {
-    header: '',
-    message: 'Error occurred in progress',
-    confirmButton: 'Ok',
-    isWarning: false,
-    hasError: true,
-    hasHeader: true,
-    cancelButton: undefined
-  };
-
-  dialogType = null;
-  errorDialogModal = false;
-  //#endregion Dialog
 
   activePriority: string = 'high';
   progressBarValue = 50;
@@ -67,7 +38,6 @@ export class AddRequestComponent implements OnInit {
   assets: any[] = [];
   newAssets: any[];
   inputForm: FormGroup;
-  public filesUpdloaded: NgxFileDropEntry[] = [];
   isEdit: boolean = false;
   id: number;
   specificAsset: boolean = false;
@@ -84,8 +54,9 @@ export class AddRequestComponent implements OnInit {
     private _bodyShopRequestFacade: BodyShopRequestFacade,
     private _assetMasterFacade: AssetMasterFacade,
     private _assetMasterService: AssetMasterService,
-    private _location: Location
-  ) {}
+    private _location: Location,
+    private _dialogService : DialogService
+  ) {this._bodyShopRequestFacade.resetParams()}
 
   ngOnInit(): void {
     this._assetMasterService.getAllAllowedAssetForRequest().subscribe((x) => {
@@ -162,33 +133,36 @@ export class AddRequestComponent implements OnInit {
       }
       this._bodyShopRequestFacade.submitted$.subscribe((x) => {
         if (x) {
-          this.dialogModal = true;
-          this.dialogType = 'success';
-          this.dialogSetting.header = this.isEdit
-            ? 'Edit request'
-            : 'Add new request';
-          this.dialogSetting.message = this.isEdit
-            ? 'Changes Saved Successfully'
-            : 'Request Added Successfully';
-          this.dialogSetting.isWarning = false;
-          this.dialogSetting.hasError = false;
-          this.dialogSetting.confirmButton = 'Yes';
-          this.dialogSetting.cancelButton = undefined;
-          this._bodyShopRequestFacade.loadAll();
+          const dialog = this._dialogService.show('success' , 
+          (this.isEdit ? 'Edit request': 'Add new request' ), 
+          (this.isEdit ? 'Changes Saved Successfully' : 'request Added Successfully'),'Ok')
+          const dialogClose$:Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+            if (result === 'confirm') {
+              this._router.navigate(['/workshop/body-shop'] , { queryParams: { id: 'requestTab' }}).then(()=>{
+                this._bodyShopRequestFacade.loadAll();
+              });
+            }
+            dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
         }
       });
 
       this._bodyShopRequestFacade.error$.subscribe((x) => {
         if (x?.error) {
-          this.errorDialogModal = true;
-          this.errorDialogSetting.header = this.isEdit
-            ? 'Edit request'
-            : 'Add new request';
-          this.errorDialogSetting.hasError = true;
-          this.errorDialogSetting.cancelButton = undefined;
-          this.errorDialogSetting.confirmButton = 'Ok';
-        } else {
-          this.errorDialogModal = false;
+          const dialog = this._dialogService.show('danger' , 
+          (this.isEdit ? 'Edit request': 'Add new request' ), 
+          'We Have Some Error','Ok')
+          const dialogClose$:Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+            if (result === 'confirm') {
+            }
+            dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
         }
       });
 
@@ -252,111 +226,68 @@ export class AddRequestComponent implements OnInit {
     }
   }
 
-  dialogConfirm($event): void {
-    this.errorDialogModal = false;
-    this.dialogModal = false;
-    if (!$event) return;
-
-    if (this.dialogType == 'submit') {
-      let d = this.inputForm.getRawValue();
-      let requestInfo: any = {
-        assetId: d.assetId.id,
-        gpsMeterSource: d.issueInfo.gpsMeterSource,
-        hasAccident: d.hasAccident,
-        accidentType: d.accidentType,
-        jobType: d.jobType,
-        reportedBy: d.issueInfo.reportedBy,
-        request: d.issueInfo.issue,
-        description: d.issueInfo.description,
-        priority: d.priority,
-        documentIds: this.profileDocIds
-      };
-
-      if (this.isEdit) {
-        requestInfo = {
-          ...requestInfo,
-          id: this.id
-        };
-
-        this._bodyShopRequestFacade.editRequest(requestInfo);
-      } else {
-        requestInfo = {
-          ...requestInfo
-        };
-        this._bodyShopRequestFacade.addRequest(requestInfo);
-      }
-    } else {
-      this._bodyShopRequestFacade.resetParams();
-      this._location.back();
-    }
-  }
 
   addRequest() {
     this.submited = true;
     if (this.inputForm.invalid) {
       return;
     }
-    this.dialogModal = true;
-    this.dialogType = 'submit';
-    if (this.isEdit) {
-      this.dialogSetting.header = 'Edit request';
-      this.dialogSetting.message =
-        'Are you sure you want to submit this changes?';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
-      return;
-    } else {
-      this.dialogSetting.header = 'Add new request';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.hasError = false;
-      this.dialogSetting.message = 'Are you sure you want to add new request?';
-      this.dialogSetting.confirmButton = 'OK';
-      this.dialogSetting.cancelButton = 'Cancel';
-    }
+    const dialog = this._dialogService.show('warning' , 
+    (this.isEdit ? 'Edit request' : 'Add new request') ,
+    (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new request?') , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+          
+        if (result === 'confirm') {
+          let d = this.inputForm.getRawValue();
+          let requestInfo: any = {
+            assetId: d.assetId.id,
+            gpsMeterSource: d.issueInfo.gpsMeterSource,
+            hasAccident: d.hasAccident,
+            accidentType: d.accidentType,
+            jobType: d.jobType,
+            reportedBy: d.issueInfo.reportedBy,
+            request: d.issueInfo.issue,
+            description: d.issueInfo.description,
+            priority: d.priority,
+            documentIds: this.profileDocIds
+          };
+          if (this.isEdit) {
+            requestInfo = {
+              ...requestInfo,
+              id: this.id
+            };
+    
+            this._bodyShopRequestFacade.editRequest(requestInfo);
+          } else {
+            requestInfo = {
+              ...requestInfo
+            };
+            this._bodyShopRequestFacade.addRequest(requestInfo);
+          }
+
+        }
+        dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
   }
 
   cancelForm() {
-    this.dialogModal = true;
-    this.dialogType = 'cancel';
-    if (this.isEdit) {
-      this.dialogSetting.header = 'Edit request';
-      this.dialogSetting.hasError = false;
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.message =
-        'Are you sure that you want to cancel editing request?';
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
-      return;
-    }
-
-    this.dialogSetting.header = 'Add new request';
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.message =
-      'Are you sure that you want to cancel adding new request?';
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.cancelButton = 'Cancel';
+    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+      if (result === 'confirm') {
+        this._router.navigate(['/workshop/body-shop'] , { queryParams: { id: 'requestTab' }});
+      }
+      dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
   }
   changePriority(statusPriority): void {
     this.activePriority = statusPriority;
   }
-
-  public dropped(files: NgxFileDropEntry[]) {
-    this.filesUpdloaded = files;
-    for (const droppedFile of files) {
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {});
-      } else {
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-      }
-    }
-  }
-
-  public fileOver(event) {}
-
-  public fileLeave(event) {}
 
   uploadImage($event) {
     this.profileDocIds = [];

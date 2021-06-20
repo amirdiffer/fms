@@ -8,10 +8,10 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { TaskMasterService } from '@feature/workshop/+state/task-master';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-task-master-form',
@@ -27,46 +27,11 @@ export class TaskMasterFormComponent
   submitted = false;
   addSkillValidation = false;
   addPartValidation = false;
-  dialogModal = false;
-  dialogModalCancel = false;
-  dialogModalError = false;
   skillList: any[] = [];
   skillFiltered: any[] = [];
   skills$: Subscription;
-
   isEdit = false;
   recordId: number;
-  dialogType: string;
-
-  dialogSetting: IDialogAlert = {
-    header: 'Task Master',
-    hasError: false,
-    hasHeader: true,
-    message: 'New Task added Successfully Added',
-    confirmButton: 'OK'
-  };
-
-  dialogSettingCancel: IDialogAlert = {
-    header: 'Task Master',
-    hasError: false,
-    isWarning: true,
-    hasHeader: true,
-    message:
-      'Are you sure that you want to cancel the task ' +
-      (this.isEdit ? 'edit?' : 'creation?'),
-    confirmButton: 'Yes',
-    cancelButton: 'No'
-  };
-
-  dialogSettingError: IDialogAlert = {
-    header: 'Task Master',
-    message: 'Error occurred in progress',
-    confirmButton: 'Ok',
-    isWarning: false,
-    hasError: true,
-    hasHeader: true,
-    cancelButton: undefined
-  };
 
   get skills(): FormArray {
     return this.taskMasterForm.get('skills') as FormArray;
@@ -75,9 +40,11 @@ export class TaskMasterFormComponent
     injector: Injector,
     private _fb: FormBuilder,
     private _facade: TaskMasterFacade,
-    private taskMasterService: TaskMasterService
+    private taskMasterService: TaskMasterService,
+    private _dialogService : DialogService
   ) {
     super(injector);
+    this._facade.reset();
   }
 
   ngOnInit(): void {
@@ -103,9 +70,6 @@ export class TaskMasterFormComponent
     this.route.url.subscribe((params) => {
       this.isEdit =
         params.filter((x) => x.path === 'edit-task-master').length > 0;
-      this.dialogSettingCancel.message =
-        'Are you sure that you want to cancel the task ' +
-        (this.isEdit ? 'edit?' : 'creation?');
       if (this.isEdit) {
         this.recordId = +params[params.length - 1].path;
         this.taskMasterService
@@ -156,7 +120,17 @@ export class TaskMasterFormComponent
         this._facade.addTaskMaster(data);
       } else {
         data['id'] = this.recordId;
-        this._facade.editTaskMaster(data);
+        const dialog = this._dialogService.show('warning' , 'Edit task' , 'Are you sure you want to edit task?' , 'Yes','Cancel')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+            this._facade.editTaskMaster(data);
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe();
+        
       }
     }
   }
@@ -164,17 +138,20 @@ export class TaskMasterFormComponent
   handleSubmissionDialog() {
     this._facade.submitted$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogType = 'success';
-        this.dialogSetting.header = this.isEdit ? 'Edit Task' : 'Add new Task';
-        this.dialogSetting.message = this.isEdit
-          ? 'Changes Saved Successfully'
-          : 'Task Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
-        this._facade.loadAll();
+        const dialog = this._dialogService.show('success' , 
+        (this.isEdit ? 'Edit Task ': 'Add New Task' ), 
+        (this.isEdit ? 'Changes Saved Successfully' : 'Task Added Successfully'),'Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['/workshop/task-master']).then(()=>{
+              this._facade.loadAll();
+            });
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
   }
@@ -182,15 +159,17 @@ export class TaskMasterFormComponent
   handleErrorDialog() {
     this._facade.error$.subscribe((x) => {
       if (x?.error) {
-        this.dialogModalError = true;
-        this.dialogSettingError.header = this.isEdit
-          ? 'Edit Task'
-          : 'Add new Task';
-        this.dialogSettingError.hasError = true;
-        this.dialogSettingError.cancelButton = undefined;
-        this.dialogSettingError.confirmButton = 'Ok';
-      } else {
-        this.dialogModalError = false;
+        const dialog = this._dialogService.show('danger' , 
+        (this.isEdit ? 'Edit Task': 'Add New Task' ), 
+        'We Have Some Error','Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
   }
@@ -239,22 +218,16 @@ export class TaskMasterFormComponent
     return taskMaster;
   }
   cancel() {
-    this.dialogModalCancel = true;
-  }
-  dialogCancelConfirm(value) {
-    if (value === true) {
-      this.router
-        .navigate(['/workshop/task-master/'])
-        .then((_) => this._facade.reset());
-    }
-    this.dialogModalCancel = false;
-  }
-  dialogConfirm(value) {
-    this._facade.reset();
-    this.router
-      .navigate(['/workshop/task-master/'])
-      .then((_) => this._facade.reset());
-    return;
+    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+      if (result === 'confirm') {
+        this.router.navigate(['/workshop/task-master']);
+      }
+      dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
   }
 
   createSkill(): FormGroup {

@@ -9,20 +9,13 @@ import {
 import { Router } from '@angular/router';
 import { ColumnType, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
-import {
-  FileSystemDirectoryEntry,
-  FileSystemFileEntry,
-  NgxFileDropEntry
-} from 'ngx-file-drop';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
-import { debounceTime, map } from 'rxjs/operators';
+import { debounceTime, map, tap } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
 import { UsersService } from '@feature/configuration/+state/users';
 import {
   TaskMasterFacade,
   TaskMasterService
 } from '@feature/workshop/+state/task-master';
-import { Department } from '@models/organization';
 import { OrganizationService } from '@feature/fleet/+state/organization';
 import {
   BodyShopTechnicianFacade,
@@ -32,6 +25,7 @@ import {
   BodyShopLocationFacade,
   BodyShopLocationService
 } from '@feature/workshop/+state/body-shop/location';
+import { DialogService } from '@core/dialog/dialog-template.component';
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
@@ -39,34 +33,12 @@ import {
 })
 export class AddTechnicianComponent extends Utility implements OnInit {
   isEdit: boolean = false;
-  //#region Dialog
-  dialogSetting: IDialogAlert = {
-    header: 'Add Technician',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
-  errorDialogSetting: IDialogAlert = {
-    header: '',
-    message: 'Error occurred in progress',
-    confirmButton: 'Ok',
-    isWarning: false,
-    hasError: true,
-    hasHeader: true,
-    cancelButton: undefined
-  };
-  dialogModal = false;
-  dialogType = null;
-  errorDialogModal = false;
-  //#endregion Dialog
   inputForm: FormGroup;
   filteredEmployeNumb;
   filteredLocation;
   submited = false;
   progressBarValue = 50;
   bufferValue = 70;
-  public filesUpdloaded: NgxFileDropEntry[] = [];
   employees = new Subject();
   employees$ = this.employees.asObservable();
   getEmployeesList = new Subject();
@@ -217,9 +189,11 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     private _locationService: BodyShopLocationService,
     private _taskMasterService: TaskMasterService,
     private _departmentService: OrganizationService,
-    private _facadeTaskMaster: TaskMasterFacade
+    private _facadeTaskMaster: TaskMasterFacade,
+    private _dialogService : DialogService
   ) {
     super(injector);
+    this._technicianFacade.resetParams();
   }
 
   ngOnInit(): void {
@@ -276,31 +250,36 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       });
     this._technicianFacade.submitted$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogType = 'success';
-        this.dialogSetting.header = this.isEdit ? 'Edit user' : 'Add new user';
-        this.dialogSetting.message = this.isEdit
-          ? 'Changes Saved Successfully'
-          : 'User Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'Yes';
-        this.dialogSetting.cancelButton = undefined;
-        this._technicianFacade.loadAll();
+        const dialog = this._dialogService.show('success' , 
+        (this.isEdit ? 'Edit technician': 'Add new technician' ), 
+        (this.isEdit ? 'Changes Saved Successfully' : 'technician Added Successfully'),'Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['/workshop/body-shop'] , { queryParams: { id: 'technicianTab' }}).then(()=>{
+              this._technicianFacade.loadAll();
+            });
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
 
     this._technicianFacade.error$.subscribe((x) => {
       if (x?.error) {
-        this.errorDialogModal = true;
-        this.errorDialogSetting.header = this.isEdit
-          ? 'Edit user'
-          : 'Add new user';
-        this.errorDialogSetting.hasError = true;
-        this.errorDialogSetting.cancelButton = undefined;
-        this.errorDialogSetting.confirmButton = 'Ok';
-      } else {
-        this.errorDialogModal = false;
+        const dialog = this._dialogService.show('danger' , 
+          (this.isEdit ? 'Edit technician': 'Add new technician' ), 
+          'We Have Some Error','Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
     this.getEmployeesList.pipe(debounceTime(600)).subscribe((x) => {
@@ -573,62 +552,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
   removePhoneNumber(index) {
     this.phoneNumbers.removeAt(index);
   }
-  dialogConfirm($event): void {
-    this.errorDialogModal = false;
-    this.dialogModal = false;
-    if (!$event) return;
 
-    if (this.dialogType == 'submit') {
-      let f = this.inputForm.value;
-      let technicianInfo: any = {
-        employeeNumber: this.isEdit
-          ? this._technician?.employeeNumber
-          : this.employeeId,
-        organizationId: +f.portalInfo.department.id,
-        departmentId: +f.portalInfo.section.id,
-        payPerHour: f.portalInfo.payPerHours,
-        isActive: f.portalInfo.active,
-        profileDocId: this.profileDocId || 1,
-        skillIds: f.professional.skills.map((s) => s.id),
-        locationIds: f.professional.location.map((l) => l.id),
-        firstName: f.personalInfo.firstName,
-        lastName: f.personalInfo.lastName,
-        emails: f.personalInfo.email.map((x) => {
-          if (x) {
-            if (typeof x == 'string') return x;
-            else return x[0];
-          } else if (typeof x == 'object') return x[0];
-        }),
-        phoneNumbers: this.getPhone(f),
-        notifyByCall: f.personalInfo.notification.call,
-        notifyBySMS: f.personalInfo.notification.sms,
-        notifyByWhatsapp: f.personalInfo.notification.whatsapp,
-        notifyByEmail: f.personalInfo.notification.email
-      };
-
-      if (this.isEdit) {
-        technicianInfo = {
-          ...technicianInfo,
-          id: this.id
-        };
-
-        this._technicianFacade.editTechnician(technicianInfo);
-      } else {
-        technicianInfo = {
-          ...technicianInfo
-        };
-        this._technicianFacade.addTechnician(technicianInfo);
-      }
-    } else {
-      this.router
-        .navigate(['workshop/body-shop'], {
-          queryParams: { id: 'technicianTab' }
-        })
-        .then((_) => {
-          this._technicianFacade.resetParams();
-        });
-    }
-  }
 
   getPhone(f) {
     if (f.personalInfo.phoneNumber && f.personalInfo.phoneNumber.length > 0) {
@@ -696,49 +620,72 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       this.inputForm.markAllAsTouched();
       return;
     }
+    const dialog = this._dialogService.show('warning' , 
+    (this.isEdit ? 'Edit technician' : 'Add new technician') ,
+    (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new technician?') , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+          
+        if (result === 'confirm') {
+          let f = this.inputForm.value;
+          let technicianInfo: any = {
+            employeeNumber: this.isEdit
+              ? this._technician?.employeeNumber
+              : this.employeeId,
+            organizationId: +f.portalInfo.department.id,
+            departmentId: +f.portalInfo.section.id,
+            payPerHour: f.portalInfo.payPerHours,
+            isActive: f.portalInfo.active,
+            profileDocId: this.profileDocId || 1,
+            skillIds: f.professional.skills.map((s) => s.id),
+            locationIds: f.professional.location.map((l) => l.id),
+            firstName: f.personalInfo.firstName,
+            lastName: f.personalInfo.lastName,
+            emails: f.personalInfo.email.map((x) => {
+              if (x) {
+                if (typeof x == 'string') return x;
+                else return x[0];
+              } else if (typeof x == 'object') return x[0];
+            }),
+            phoneNumbers: this.getPhone(f),
+            notifyByCall: f.personalInfo.notification.call,
+            notifyBySMS: f.personalInfo.notification.sms,
+            notifyByWhatsapp: f.personalInfo.notification.whatsapp,
+            notifyByEmail: f.personalInfo.notification.email
+          };
 
-    this.dialogModal = true;
-    this.dialogType = 'submit';
-    if (this.isEdit) {
-      this.dialogSetting.header = 'Edit technician';
-      this.dialogSetting.message =
-        'Are you sure you want to submit this changes?';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
-      return;
-    } else {
-      this.dialogSetting.header = 'Add new technician';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.hasError = false;
-      this.dialogSetting.message =
-        'Are you sure you want to add new technician?';
-      this.dialogSetting.confirmButton = 'OK';
-      this.dialogSetting.cancelButton = 'Cancel';
-    }
+          if (this.isEdit) {
+            technicianInfo = {
+              ...technicianInfo,
+              id: this.id
+            };
+
+            this._technicianFacade.editTechnician(technicianInfo);
+          } else {
+            technicianInfo = {
+              ...technicianInfo
+            };
+            this._technicianFacade.addTechnician(technicianInfo);
+          }
+
+        }
+        dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
   }
 
   cancelForm() {
-    this.dialogModal = true;
-    this.dialogType = 'cancel';
-    if (this.isEdit) {
-      this.dialogSetting.header = 'Edit technician';
-      this.dialogSetting.hasError = false;
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.message =
-        'Are you sure that you want to cancel editing technician?';
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
-      return;
-    }
-
-    this.dialogSetting.header = 'Add new technician';
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.message =
-      'Are you sure that you want to cancel adding new technician?';
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.cancelButton = 'Cancel';
+    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+      if (result === 'confirm') {
+        this.router.navigate(['/workshop/body-shop'] , { queryParams: { id: 'technicianTab' }});
+      }
+      dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
   }
 
   uploadImage($event) {
