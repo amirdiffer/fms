@@ -23,12 +23,6 @@ import {
   OrganizationService
 } from '@feature/fleet/+state/organization';
 import { AssetConfigurationService } from '@feature/configuration/+state/asset-configuration/asset-configuration.service';
-import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
-import { PeriodicServiceFacade } from '@feature/configuration/+state/periodic-service';
-import {
-  OrganizationFacade,
-  OrganizationService
-} from '@feature/fleet/+state/organization';
 import { OperatorFacade } from '@feature/fleet/+state/operator';
 import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
 import {

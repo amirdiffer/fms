@@ -17,7 +17,7 @@ export class OwnershipSelectors {
   );
 
   static loaded = createSelector(
-    ConfigurationSelectors.ownershipSelector,
+    ownershipSelector,
     (state) => state.loaded
   );
 }

@@ -22,7 +22,7 @@ export class BusinessCategorySelectors {
   );
 
   static loaded = createSelector(
-    ConfigurationSelectors.businessCategorySelector,
+    businessCategorySelector,
     (state) => state.loaded
   );
 }

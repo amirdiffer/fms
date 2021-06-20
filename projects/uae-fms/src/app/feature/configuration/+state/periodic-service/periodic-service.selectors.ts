@@ -27,7 +27,7 @@ export class PeriodicServiceSelectors {
   );
 
   static loaded = createSelector(
-    ConfigurationSelectors.periodicServiceSelector,
+    periodicServiceSelector,
     (state) => state.loaded
   );
 }

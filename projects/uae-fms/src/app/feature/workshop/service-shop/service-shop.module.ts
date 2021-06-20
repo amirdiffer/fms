@@ -21,7 +21,6 @@ import { ServiceShopJobCardStateModule } from '../+state/service-shop/job-card/s
 import { ServiceShopLocationStateModule } from '../+state/service-shop/location/service-shop-location-state.module';
 import { ServiceShopRequestStateModule } from '../+state/service-shop/request/service-shop-request-state.module';
 import { ServiceShopTechnicianStateModule } from '../+state/service-shop/technician/service-shop-technician-state.module';
-import { ConfigurationStateModule } from '../../configuration/+state/configuration.state.module';
 import { TaskMasterStateModule } from '../../workshop/+state/task-master/task-master-state.module';
 
 @NgModule({
@@ -50,8 +49,7 @@ import { TaskMasterStateModule } from '../../workshop/+state/task-master/task-ma
     ServiceShopLocationStateModule,
     ServiceShopRequestStateModule,
     ServiceShopTechnicianStateModule,
-    ConfigurationStateModule,
-    TaskMasterStateModule
+    TaskMasterStateModule,
   ]
 })
 export class ServiceShopModule {}
