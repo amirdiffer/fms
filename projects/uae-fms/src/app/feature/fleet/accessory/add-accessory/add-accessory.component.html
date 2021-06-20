@@ -59,10 +59,3 @@
 <div *ngIf="false" class="table-container component_wrapper">
   <app-table [setting]='accessory_Table' [tableData]="accessory$"></app-table>
 </div>
-
-<alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel"
-  (confirm)="dialogCancelConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)">
-</alert-dialog>
-<alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogErrorConfirm($event)">
-</alert-dialog>
