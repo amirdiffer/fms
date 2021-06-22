@@ -56,6 +56,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     object[]
   >();
   @Input() showCustomFilter = false;
+  @Input() filtersColumns = [];
 
   allData = [];
   currentContext;
@@ -441,6 +442,8 @@ export interface ColumnDifinition {
   hasPadding3?: boolean;
   isHeaderHidden?: boolean;
   hasExpandedInfo?: boolean;
+  filterType?: FilterType;
+  filterApiKey?: string;
 }
 
 export interface RowDefinition {
@@ -485,6 +488,17 @@ export enum ButtonType {
   receive,
   receiveAndEdit,
   playAndPause
+}
+
+
+export enum FilterType {
+  list = 'list',
+  checkbox_list = 'checkbox_list',
+  date = 'date',
+  range_date = 'range_date',
+  number = 'number',
+  string = 'string',
+  boolean = 'boolean'
 }
 
 export interface FloatButtonType {

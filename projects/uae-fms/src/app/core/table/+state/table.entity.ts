@@ -9,11 +9,17 @@ export interface ITablePagination {
   ipp?:number;
 }
 
+export interface ITableFilters {
+  name?: string;
+  value?: object[];
+}
+
 export interface ITableState extends EntityState<any> {
     error?: any;
     loaded?: boolean;
     message?: string;
-    pagination?: ITablePagination[]
+    pagination?: ITablePagination[],
+    filters?: ITableFilters[],
 }
 export interface ITablePartialState {
   [TABLE_FEATURE_KEY]: ITableState;
@@ -25,5 +31,6 @@ export const initialState: ITableState = tableAdapter.getInitialState({
   error: null,
   loaded: null,
   message: null,
-  pagination: []
+  pagination: [],
+  filters: [],
 } as ITableState);

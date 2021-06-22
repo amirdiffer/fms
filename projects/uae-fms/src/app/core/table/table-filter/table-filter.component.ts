@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ColumnDifinition } from '@core/table';
+import { FilterType } from '@core/table/table.component';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Component({
   selector: 'anms-table-filter',
@@ -14,29 +16,39 @@ export class TableFilterComponent implements OnInit {
 
   allColumns = [];
 
+  filterType = FilterType;
+
   keyLocalStorage = 'custom_filter';
 
   items = [];
   customizeFilter = [];
   customizeFilterBox_show = false;
 
-  constructor() {}
+  itemsBoolean = [
+    { name: 'Yes', id: true },
+    { name: 'No', id: false },
+  ]
+
+  constructor(
+    private tableFacade: TableFacade
+  ) {}
 
   getAllColumns(): object[] {
     let data = this.columns.map((y) => {
+      this.apiCall(y?.filterApiKey, y?.filterType);
       return {
         lable: y.lable,
         name: y.field,
+        filterType: y?.filterType,
+        filterApiKey: y?.filterApiKey,
         value: ''
       };
     });
-    // if ((<Array<object>>this.getSavedDataFilter()).length)
-    //   return data.concat((<Array<object>>this.getSavedDataFilter()).filter(x => x['name'] == this.entity)[0]['value']);
-    // else
     return data;
   }
 
   ngOnInit(): void {
+    this.tableFacade.initialFilters(this.entity);
     this.allColumns = this.getAllColumns();
     this.hiddenFilterBox();
     if (this.getSavedDataFilter().length > 0 && this.entity) {
@@ -87,6 +99,8 @@ export class TableFilterComponent implements OnInit {
         return {
           lable: x.lable,
           name: x.name,
+          filterType: x?.filterType,
+          filterApiKey: x?.filterApiKey,
           value: ''
         };
       })
@@ -96,6 +110,7 @@ export class TableFilterComponent implements OnInit {
   }
 
   applyFilter() {
+    this.tableFacade.setFilters(this.entity, this.customizeFilter);
     this.customFilterEvent.emit(this.customizeFilter);
   }
 
@@ -176,4 +191,43 @@ export class TableFilterComponent implements OnInit {
       }
     });
   }
+
+  searchInputList: object = {};
+  searchInputFiltered: object = {};
+  searchInput(event, inputName: string) {
+    let query = event.query;
+    let filtered = [];
+    if (this.searchInputList[inputName].length) {
+      for (let index = 0; index < this.searchInputList[inputName].length; index++) {
+        let items = this.searchInputList[inputName][index];
+        if (
+          items.organizationName
+            .toLowerCase()
+            .indexOf(query.toLowerCase()) == 0
+        ) {
+          filtered.push(items);
+        }
+      }
+    }
+    this.searchInputFiltered[inputName] = filtered;
+  }
+  searchInputChanged(event, inputName: string) {
+  }
+
+
+  apiCall(key, type): void {
+    if(type == this.filterType.list || type == this.filterType.checkbox_list) {
+      this.searchInputList[key] = [];
+      this.searchInputFiltered[key] = [];
+    }
+    switch (key) {
+      case 'make':
+      case 'MakeName':{
+        break;
+      }
+      default: {}
+    }
+  }
+
 }
+

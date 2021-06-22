@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { SubAssetFacade } from '../+state/sub-asset';
@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { TableFacade } from '@core/table/+state/table.facade';
 import moment from 'moment';
+import { FilterType } from '@core/table/table.component';
 
 @Component({
   selector: 'anms-sub-asset',
@@ -104,13 +105,26 @@ export class SubAssetComponent implements OnInit, OnDestroy {
         // override: 'thumb.png',
         width: '18em'
       },
-      { lable: 'tables.column.date', type: 1, field: 'Date' },
+      {
+        lable: 'tables.column.date',
+        type: 1,
+        field: 'Date',
+        filterType: FilterType.range_date,
+      },
       {
         lable: 'tables.column.make',
         type: 1,
-        field: 'MakeName'
+        field: 'MakeName',
+        filterApiKey: 'MakeName',
+        filterType: FilterType.list,
       },
-      { lable: 'tables.column.model', type: 1, field: 'Model' },
+      {
+        lable: 'tables.column.model',
+        type: 1,
+        field: 'Model' ,
+        filterType: FilterType.list,
+        filterApiKey: 'Model'
+      },
       { lable: 'tables.column.policy', type: 1, field: 'Policy' },
       { lable: 'tables.column.category_name', type: 1, field: 'AssetCategory' },
       /* {
@@ -163,13 +177,16 @@ export class SubAssetComponent implements OnInit, OnDestroy {
     }
   };
   assetTraffic_TableColumns = this.assetTraffic_Table.columns;
+  filtersColumns = [];
   //#endregion
 
   constructor(
     private facade: SubAssetFacade,
     private router: Router,
     private _tableFacade: TableFacade
-  ) {}
+  ) {
+    this.setFiltersColumns();
+  }
 
   ngOnInit(): void {
     this.facade.loadStatistics();
@@ -250,16 +267,23 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   }
 
   customFilterEvent(data: object[]) {
-    if (data.length) {
-      this.assetTraffic_Table.columns = this.assetTraffic_TableColumns.filter(
-        (x) => {
-          if (data.filter((y) => x.field == y['name']).length) return x;
-        }
-      );
-    } else {
-      return this.assetTraffic_Table.columns;
-    }
     this.facade.loadAll();
     console.log(data);
   }
+
+  setFiltersColumns() {
+    let filtersColumns = Object.values({...this.assetTraffic_TableColumns});
+    filtersColumns
+      .splice(2, 0,
+        {
+          lable: 'tables.column.sub_asset_type',
+          type: 1,
+          field: 'sub-asset-type',
+          filterApiKey: 'sub-asset-type',
+          filterType: FilterType.list,
+        }
+      );
+    this.filtersColumns = filtersColumns;
+  }
+
 }
