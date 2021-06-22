@@ -1,4 +1,4 @@
-<ng-container *hasPermission="[{parent: 'FLEET' , permission : 'SUB_ASSET', permissionType:'MENU'}]">
+
   <div class="statistic-card" *hasPermission="['SUB_ASSET_VIEW_LIST_OWN' , 'SUB_ASSET_VIEW_LIST_OTHERS']">
     <app-filter [setting]='filterCard'></app-filter>
   </div>
@@ -22,4 +22,3 @@
       <app-table [showCustomFilter]="showCustomFilter" (customFilterEvent)="customFilterEvent($event)" searchInput="searchInput" (onPagination)="eventPagination()" pagination="sub-asset" [setting]='assetTraffic_Table' [tableData]="data$"></app-table>
     </div>
   </div>
-</ng-container>

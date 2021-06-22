@@ -1,4 +1,4 @@
-<ng-container *hasPermission="[{parent: 'PART_STORE' , permission : 'ORDER_LIST', permissionType:'MENU'}]">
+
   <ng-container *hasPermission="['PARTSTORE_ORDER_LIST_REQUEST_VIEW_LIST_OWN' , 'PARTSTORE_ORDER_LIST_REQUEST_VIEW_LIST_OTHERS']">
     <div class="statistic-card" *ngIf="activeTab == 'request_list'">
       <app-filter [setting]='requestStatistics'></app-filter>
@@ -49,4 +49,3 @@
   
   <alert-dialog [settings]='dialogSetting' [displayModal]='dialogModal' (confirm)='dialogConfirm($event)'></alert-dialog>
   
-</ng-container>

@@ -2,9 +2,8 @@
   <div class='menu menu-wrapper' [class.closed-menu-wrapper]="!(opened$|async)">
     <ul class="container">
 
-      <ng-container *ngFor="let item of usingMenu">
+      <ng-container *ngFor="let item of (loadMenu.sidebarItem$ | async)">
         <li class="menuItem margin-transition"
-        *hasPermission = "item.permission ? [item.permission] : ['']"
           [class]="(item?.items?'has-child ':'') + (activeMenuCheck(item?.route)?'active-menu':'')+(item?.disabled?' __sidemenu__disabled':'')+(collapsedMenu==item.route?' showing-menu':'')"
           (click)="toggleGroup(item)">
           <svg-icon [src]="assets + 'icons/' + item.icon + '.svg'"
@@ -19,7 +18,6 @@
                   class="menuItem margin-transition {{(activeToggleSubGroup(subItem.route)?'active_submenu ':'not-active ')+(subItem?.items?'has-child ':'')+(subItem?.disabled?' __sidemenu__disabled':'')+(activeSubMenuCheck(subItem.route)?' showing-menu':'')}}"
                   [routerLink]="subItem.route"
                   (click)="$event.stopPropagation();toggleSubGroup(subItem)"
-                  *hasPermission = "subItem.permission ? [subItem.permission] :['']"
                 >
                   <svg-icon [src]="assets + 'icons/' + subItem.icon + '.svg'"
                     [svgStyle]="{ 'fill': activeSubMenuCheck(subItem.route)?'#0DA06E': ((subItem?.disabled)?'#b1b1b1':'#707070'), 'width.em':'1.5'}">
