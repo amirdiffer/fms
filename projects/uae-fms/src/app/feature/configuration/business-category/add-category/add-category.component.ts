@@ -215,7 +215,7 @@ export class AddCategoryComponent extends Utility implements OnInit {
   createAssignAccessory(): FormGroup {
     return this._fb.group({
       accessory: ['', [Validators.required , this.autocompleteValidation]],
-      accessoryQuantity: ['']
+      accessoryQuantity: ['' , [Validators.required]]
     });
   }
 
