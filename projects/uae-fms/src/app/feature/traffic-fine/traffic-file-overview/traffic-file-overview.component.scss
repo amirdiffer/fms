@@ -1,13 +1,74 @@
+@import '../../../../assets/scss/form-section.scss';
 * {
-  font-weight: bold;
-  padding: 4px;
   font-size: 1em;
 }
-
-.key {
-  color: #0da06e;
+.card-table-header{
+  position: absolute;
+  right: 25px;
+  left: 25px;
+  top: -3.8em;
+  padding-left:0 !important ;
+  .btn-filter {
+    width: 3em;
+    border: 2px solid #a2a2a2;
+    margin: 0 5px;
+    border-radius: 0.25em;
+    position: relative;
+    .filter-button{
+      height: 1.6em;
+    }
+  }
 }
 
 .button-container {
   top: -4.2em;
+}
+
+.item-text{
+  color: #0da06e;
+  font-weight: bold;
+}
+.right-column{
+  min-width: 28%;
+}
+.form-section{
+  border-radius: .5em;
+}
+.table-container{
+  line-height: 1.6;
+  margin: 0 .8em;
+  margin-top: 10px !important;
+  border-radius: .5em;
+  overflow: hidden;
+  *{
+    padding: 4px;
+  }
+  .badge{
+    flex: 0  0 .5em;
+    height: 105%;
+    display: block;
+    margin: -15px 0;
+  }
+  .items{
+    .item{
+      margin:0 .8em;
+    }
+  }
+  .header{
+    border-bottom: 1px solid #eaeaea;
+    padding: 1em 0;
+  }
+  .location{
+    border-bottom: 1px solid #eaeaea;
+    padding: 1em 0;
+  }
+  .ticket{
+    padding: 1em 0;
+    img{
+      width: 100%;
+    }
+    .justify-content-between{
+      padding: 1.2em 0;
+    }
+  }
 }

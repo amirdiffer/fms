@@ -323,6 +323,8 @@
     "column": {
       "suppliers": "الموردين",
       "name": "الاسم",
+      "english":"الإنجليزية",
+      "arabic":"عربى",
       "total_sub_asset": "إجمالي الأصول الفرعية",
       "total_accessory": "إجمالي الملحق",
       "total": "الإجمالي",
@@ -2037,7 +2039,24 @@
     "service": "الخدمة"
   },
   "traffic_fine": {
-    "asset_traffic_file": {}
+    "asset_traffic_file": {},
+    "overview":{
+      "booklet_id":"معرف الكتيب",
+      "creation_date":"تاريخ الإنشاء",
+      "location_code":"كود الموقع",
+      "location_description":"وصف الموقع",
+      "location_description_arabic":"وصف الموقع عربي",
+      "vehicle_speed":"سرعة السيارة",
+      "road_speed":"سرعة الطريق",
+      "ticket_id":"معرف التذكرة",
+      "ticket_no":"تذكرة رقم",
+      "ticket_fine":"غرامة التذكرة",
+      "ticket_date":"تاريخ التذكرة",
+      "ticket_type":"نوع التذكرة",
+      "ticket_status":"حالة التذكرة",
+      "ticket_time":"وقت التذكرة",
+      "ticket_status_date":"تاريخ حالة التذكرة"
+    }
   },
   "reports": {},
   "technician": {

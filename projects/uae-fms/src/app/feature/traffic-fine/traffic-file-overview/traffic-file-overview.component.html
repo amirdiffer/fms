@@ -1,65 +1,137 @@
-<div class='row col-12 m-auto' [dir]='isLtr ? "ltr" : "rtl"'>
-  <mat-card class='col-md-12 p-4' *ngFor='let fine of trafficFines'>
-    <div class="button-container">
-      <button class="btn-primary-medium btn-scondary-green" type="button" [routerLink]="'/traffic-fine'">{{ 'forms.back'
-        | translate }}</button>
-    </div>
-    <div class='row justify-content-between'>
-      <div>
-        <div><span class='key'>Booklet ID</span> : {{fine?.bookletId}}</div>
-        <div><span class='key'>Creation Date</span> : {{fine?.creationDate}}</div>
-        <div><span class='key'>Has UnPayable Regulation</span> : {{fine?.hasUnpayableRegulation}}</div>
-        <div><span class='key'>Location Code</span> : {{fine?.locationCode}}</div>
-        <div><span class='key'>Location Description</span> : {{fine?.locationDescription}}</div>
-        <div><span class='key'>Penalty Fine</span> : {{fine?.penaltyFine}}</div>
-        <div><span class='key'>Plate Category CFI Code</span> : {{fine?.plateCategoryCFICode}}</div>
-        <div><span class='key'>Plate Category Description (Ar)</span> : {{fine?.plateCategoryDescAr}}</div>
-        <div><span class='key'>Plate Code</span> : {{fine?.plateCode}}</div>
-        <div><span class='key'>Road Speed</span> : {{fine?.roadSpeed}}</div>
-        <div><span class='key'>Ticket Category</span> : {{fine?.ticketCategory}}</div>
-        <div><span class='key'>Ticket Description Code</span> : {{fine?.ticketDescCode0}}</div>
-        <div><span class='key'>Ticket Fine</span> : {{fine?.ticketFine}}</div>
-        <div><span class='key'>Ticket No</span> : {{fine?.ticketNo}}</div>
-        <div><span class='key'>Ticket Status Description (Ar)</span> : {{fine?.ticketStatusDescA}}</div>
-        <div><span class='key'>Ticket Status Description (En)</span> : {{fine?.ticketStatusDescE}}</div>
-        <div><span class='key'>Ticket Type</span> : {{fine?.ticketType}}</div>
-        <div><span class='key'>Total Ticket Fine</span> : {{fine?.totalTicketFine}}</div>
-      </div>
-      <div>
-        <div><span class='key'>Has Radar Picture</span> : {{fine?.hasRadarPicture}}</div>
-        <div><span class='key'>Is Payable</span> : {{fine?.isPayable}}</div>
-        <div><span class='key'>Is Radar</span> : {{fine?.isRadar}}</div>
-        <div><span class='key'>Location Description A</span> : {{fine?.locationDescriptionA}}</div>
-        <div><span class='key'>Plate CFI Code</span> : {{fine?.plateCFICode}}</div>
-        <div><span class='key'>Plate Category</span> : {{fine?.plateCategory}}</div>
-        <div><span class='key'>Plate Category Description (En)</span> : {{fine?.plateCategoryDescEn}}</div>
-        <div><span class='key'>Plate From</span> : {{fine?.plateFrom}}</div>
-        <div><span class='key'>Ticket Date</span> : {{fine?.ticketDate}}</div>
-        <div><span class='key'>Ticket Fine</span> : {{fine?.ticketFine}}</div>
-        <div><span class='key'>Ticket ID</span> : {{fine?.ticketId}}</div>
-        <div><span class='key'>Ticket Status</span> : {{fine?.ticketStatus}}</div>
-        <div><span class='key'>Ticket Status Date</span> : {{fine?.ticketStatusDate}}</div>
-        <div><span class='key'>Ticket Time</span> : {{fine?.ticketTime}}</div>
-        <div><span class='key'>Ticket Violation Description (Ar)</span> : {{fine?.ticketViolationDesA}}</div>
-        <div><span class='key'>Ticket Violation Description (En)</span> : {{fine?.ticketViolationDesE}}</div>
-        <div><span class='key'>Vehicle Speed</span> : {{fine?.vehicleSpeed}}</div>
-      </div>
-    </div>
-    <div>
-      <div class='font-weight-bolder'>Regulations</div>
-      <div *ngFor='let regulation of fine.regulations'>
-        <div class='row justify-content-between'>
-          <div>
-            <span class='key'>Code</span> : {{regulation?.code}}
-          </div>
-          <div class='mr-2'>
-            <span class='key'>Description (Ar)</span> : {{fine?.descriptionAr}}
-          </div>
-          <div class='mr-2'>
-            <span class='key'>Description (En)</span> : {{fine?.descriptionEn}}
+<div class="row">
+  <div class="col-12 traffic-fine-overview d-flex flex-column">
+    <span class="card-table-header">
+      <button class="btn-filter text-center">
+        <img src='assets/icons/filter.png' class="filter-button">
+      </button>
+        <div class="search-box">
+            <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
+            <button>
+                <img [src]="searchIcon" alt="">
+            </button>
+        </div>
+        <button class="btn-download" disabled>
+            <svg-icon [src]="downloadBtn"></svg-icon>
+        </button>
+    </span>
+    <ng-container *ngFor="let item of trafficFines; let index = index;">
+      <div class="items table-container d-flex">
+        <div class="badge" [ngStyle]="{'background': '#008755'}"></div>
+        <div class="d-flex flex-column ">
+          <div class="item">
+            <div class="header d-flex justify-content-between">
+              <div>
+              <span>
+                <svg-icon class="date-icon" src='assets/icons/clipboard-list-check.svg'
+                [svgStyle]="{ 'width.em':'2.1' , 'fill': '#00000061'}">
+                </svg-icon>
+              </span>
+              <span class="item-title">{{'traffic_fine.overview.booklet_id' | translate}} : </span>
+              <span class="item-text">{{item?.bookletId}}</span>
+              </div>
+              <div class="right-column">
+              <span>
+                <svg-icon class="date-icon" src='assets/icons/calendar-alt.svg'
+                [svgStyle]="{ 'width.em':'2.1' , 'fill': '#00000061'}">
+                </svg-icon>
+              </span>
+              <span class="item-title">{{'traffic_fine.overview.creation_date' | translate}} : </span>
+              <span class="item-text">{{item?.creationDate}}</span>
+              </div>
+            </div>
+            <div class="body">
+              <div class="location d-flex justify-content-between">
+                <div>
+                  <div class="py-2">
+                    <span class="item-title">{{'traffic_fine.overview.location_code' | translate}} : </span>
+                    <span class="item-text">{{item?.locationCode}}</span>
+                  </div>
+                  <div class="py-2">
+                    <span class="item-title">{{'traffic_fine.overview.location_description' | translate}} : </span>
+                    <span class="item-text">{{item?.locationDescription}}</span>
+                  </div>
+                  <div class="py-2">
+                    <span class="item-title">{{'traffic_fine.overview.location_description_arabic' | translate}} : </span>
+                    <span class="item-text">{{item?.locationDescriptionA}}</span>
+                  </div>
+                </div>
+                <div class="right-column">
+                  <div class="py-2">
+                    <span>
+                      <svg-icon class="date-icon" src='assets/icons/tachometer-alt-fast.svg'
+                      [svgStyle]="{ 'width.em':'2.1' , 'fill': '#00000061'}">
+                      </svg-icon>
+                    </span>
+                    <span class="item-title">{{'traffic_fine.overview.vehicle_speed' | translate}} : </span>
+                    <span class="item-text">{{item?.vehicleSpeed}}</span>
+                  </div>
+                  <div class="py-2">
+                    <span>
+                      <svg-icon class="date-icon" src='assets/icons/tachometer-alt-fast.svg'
+                      [svgStyle]="{ 'width.em':'2.1' , 'fill': '#00000061'}">
+                      </svg-icon>
+                    </span>
+                    <span class="item-title">{{'traffic_fine.overview.road_speed' | translate}} : </span>
+                    <span class="item-text">{{item?.roadSpeed}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ticket">
+                <div class="row">
+                  <div class="col-2">
+                    <img src="assets/thumb.png" alt="">
+                  </div>
+                  <div class="col-2 d-flex flex-column justify-content-between">
+                    <div class="">
+                      <div class="item-title">{{'traffic_fine.overview.ticket_id' | translate}}</div>
+                      <div class="item-text">{{item?.creationDate}}</div>
+                    </div>
+                    <div class="">
+                      <div class="item-title">{{'traffic_fine.overview.ticket_type' | translate}}</div>
+                      <div class="item-text">{{item?.ticketType}}</div>
+                    </div>
+                  </div>
+                  <div class="col-2 d-flex flex-column justify-content-between">
+                    <div class="">
+                      <div class="item-title">{{'traffic_fine.overview.ticket_no' | translate}}</div>
+                      <div class="item-text">{{item?.ticketNo}}</div>
+                    </div>
+                    <div class="">
+                      <div class="item-title">{{'traffic_fine.overview.ticket_status' | translate}}</div>
+                      <div class="item-text">{{item?.ticketStatus}}</div>
+                    </div>
+                  </div>
+                  <div class="col-2 d-flex flex-column justify-content-between">
+                    <div class="">
+                      <div class="item-title">{{'traffic_fine.overview.ticket_fine' | translate}}</div>
+                      <div class="item-text">{{item?.ticketFine}}</div>
+                    </div>
+                    <div class="">
+                      <div class="item-title">{{'traffic_fine.overview.ticket_status_date' | translate}}</div>
+                      <div class="item-text">{{item?.ticketStatusDate}}</div>
+                    </div>
+                  </div>
+                  <div class="col-2 d-flex flex-column justify-content-between">
+                    <div class="">
+                      <div class="item-title">{{'traffic_fine.overview.ticket_date' | translate}}</div>
+                      <div class="item-text">{{item?.ticketDate}}</div>
+                    </div>
+                  </div>
+                  <div class="col-2 d-flex flex-column justify-content-between">
+                    <div class="">
+                      <div class="item-title">{{'traffic_fine.overview.ticket_time' | translate}}</div>
+                      <div class="item-text">{{item?.ticketTime}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="table">
+                <app-table [setting]='trafficOverviewTable' [tableData]='getTableData(index)'></app-table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </mat-card>
+    </ng-container>
+  </div>
 </div>
