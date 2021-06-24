@@ -79,7 +79,8 @@ export class LocationComponent implements OnInit {
                 '/' +
                 data.id
             ]);
-          }
+          },
+          permission: ['WORKSHOP_BODY_SHOP_LOCATION_UPDATE' , 'WORKSHOP_SERVICE_SHOP_LOCATION_UPDATE']
         }
         /* {
           button: 'external',

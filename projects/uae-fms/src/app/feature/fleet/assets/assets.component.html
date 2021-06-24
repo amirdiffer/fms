@@ -1,4 +1,4 @@
-<ng-container  *hasPermission="[{parent: 'FLEET' , permission : 'ASSET', permissionType:'MENU'}]">
+
     <ng-container  *hasPermission="['ASSET_VIEW_LIST_MASTER_OWN' , 'ASSET_VIEW_LIST_MASTER_OTHERS']"> 
         <div  class="filter-container" *ngIf="selectedTab == 'assetMasterTab'" >
             <app-filter [setting] = "filterSetting" [filterCardSettingDelegate]='this'></app-filter>
@@ -35,4 +35,4 @@
                 </app-tab-view>
         </div>
     </div>
-</ng-container>
+
