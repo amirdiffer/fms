@@ -375,6 +375,8 @@
     "column": {
       "suppliers": "Suppliers",
       "name": "Name",
+      "english":"English",
+      "arabic":"Arabic",
       "total_sub_asset": "Total Sub Asset",
       "total_accessory": "Total Accessory",
       "total": "Total",
@@ -2116,7 +2118,24 @@
     "service": "Service"
   },
   "traffic_fine": {
-    "asset_traffic_file": {}
+    "asset_traffic_file": {},
+    "overview":{
+      "booklet_id":"Booklet ID",
+      "creation_date":"Creation Date",
+      "location_code":"Location Code",
+      "location_description":"Location Description",
+      "location_description_arabic":"Location Description A",
+      "vehicle_speed":"Vehicle Speed",
+      "road_speed":"Road Speed",
+      "ticket_id":"Ticket ID",
+      "ticket_no":"Ticket No",
+      "ticket_fine":"Ticket Fine",
+      "ticket_date":"Ticket Date",
+      "ticket_type":"Ticket Type",
+      "ticket_status":"Ticket status",
+      "ticket_time":"Ticket Time",
+      "ticket_status_date":"Ticket Status Date"
+    }
   },
   "reports": {},
   "technician": {
