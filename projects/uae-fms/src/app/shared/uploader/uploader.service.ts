@@ -23,7 +23,15 @@ export class UploaderService {
   }
 
   getDoc(id) {
-    return this._http.get(environment.baseApiUrl + `document/${id}`);
+    let promise = new Promise((resolve , reject) => {
+      this._http.get(environment.baseApiUrl + `document/${id}` , {observe: 'response'}).toPromise().then(
+        result => {
+          console.log(result.headers.get('content-type'));
+          resolve(result);
+        }
+      )
+    })
+    return promise
   }
 
   getCSVfile(id) {

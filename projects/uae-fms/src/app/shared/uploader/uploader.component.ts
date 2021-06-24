@@ -20,6 +20,7 @@ import {
 } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { resolve } from 'path';
 
 @Component({
   selector: 'anms-uploader',
@@ -176,6 +177,11 @@ export class UploaderComponent implements OnInit {
             this.progressBarValue = 0;
             this.setFiles(indexUploadBox);
           }
+          console.log(event.body.message.id)
+          // this.getFile(event.body.message.id).subscribe(x=>{
+          //   console.log(x.headers.get('content-type'))
+          // })
+          console.log(event.headers.getAll('content-type'))
         }
       },
       (error) => {
@@ -183,7 +189,8 @@ export class UploaderComponent implements OnInit {
         this.progressBarValue = 0;
         this.filesUploadError++;
       }
-    );
+      );
+      this.getFile(1)
   }
 
   filterFilesOfNull(): Array<any> {
