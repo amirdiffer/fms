@@ -53,8 +53,17 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   //#region Table
   accessory_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.item', type: 1, field: 'Item' },
-      { lable: 'tables.column.assigned_to', type: 1, field: 'Assigned_To' },
+      { 
+        lable: 'tables.column.item',
+        type: 2,
+        field: 'Item',
+        thumbField:'avatarId'
+     },
+      { 
+        lable: 'tables.column.assigned_to',
+        type: 1,
+        field: 'Assigned_To'
+     },
       {
         lable: '',
         field: 'floatButton',
@@ -96,8 +105,10 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   accessory$ = this._accessoryFacade.accessory$.pipe(
     map((x) =>
       x.map((item) => {
+        console.log(item)
         return {
           id: item.id,
+          avatarId: item.avatarId,
           statusColor: '#00AFB9',
           Item: item.itemName,
           Type: item.assignedToType === 'ASSET' ? 'Asset' : 'Sub Asset',

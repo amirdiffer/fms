@@ -33,7 +33,7 @@ export class AddAccessoryComponent
   implements OnInit, OnDestroy {
   //#region Dialogs
   avatarId = null;
-
+  avatarRequired:boolean = false;
 
   //#region Table
   accessory_Table: TableSetting = {
@@ -252,8 +252,11 @@ export class AddAccessoryComponent
 
   submit() {
     this.formSubmitted = true;
-    if (this.accessoryForm.invalid) {
+    if (this.accessoryForm.invalid || !this.avatarId) {
       this.accessoryForm.markAllAsTouched();
+      if(!this.avatarId){
+        this.avatarRequired = true;
+      }
       return;
     } else {
       const d = this.accessoryForm.getRawValue();
@@ -283,18 +286,16 @@ export class AddAccessoryComponent
   }
 
   cancel() {
-    if (this.formChanged) {
-      const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Ok','Cancel')
-      const dialogClose$:Subscription = dialog.dialogClosed$
-      .pipe(
-        tap((result) => {
-        if (result === 'confirm') {
-          this.router.navigate(['/fleet/accessory']);
-        }
-        dialogClose$?.unsubscribe();
-        })
-      ).subscribe();
-    }
+    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Ok','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+      if (result === 'confirm') {
+        this.router.navigate(['/fleet/accessory']);
+      }
+      dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
   }
   ngOnDestroy() {}
 
