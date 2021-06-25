@@ -43,9 +43,8 @@
             <div class="col-12 col-md-3 p-field form-section__field">
               <div class="autocomplete-select">
                 <span class="p-float-label">
-                  <p-autoComplete [(ngModel)]="item.value" (completeMethod)="searchInput($event,  item.name)"
+                  <p-autoComplete [ngModel]="1" (completeMethod)="searchInput($event,  item.name)" (onSelect)="searchInputChanged($event, item.name)"
                                   [suggestions]="searchInputFiltered[item.name]" field="name" [minLength]="1"
-                                  (onSelect)="searchInputChanged($event, item.name)"
                                   [dropdown]="true">
                   </p-autoComplete>
                   <i class="pi pi-search"></i>
@@ -105,7 +104,6 @@
             </div>
           </ng-template>
           <ng-template ngSwitchDefault>
-            {{item | json}}
             <div class="col-12 col-md-3 p-field form-section__field">
               <span class="p-float-label">
                 <input pInputText placeholder="{{ item.lable | translate}}" [(ngModel)]="item.value" type="text">

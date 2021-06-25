@@ -2,6 +2,9 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ColumnDifinition } from '@core/table';
 import { FilterType } from '@core/table/table.component';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
+import { map } from 'rxjs/operators';
+import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
 
 @Component({
   selector: 'anms-table-filter',
@@ -29,7 +32,9 @@ export class TableFilterComponent implements OnInit {
     { name: 'No', id: false },
   ]
 
+
   constructor(
+    private _subAssetTypeFacade: SubAssetTypeFacade,
     private tableFacade: TableFacade
   ) {}
 
@@ -110,7 +115,8 @@ export class TableFilterComponent implements OnInit {
   }
 
   applyFilter() {
-    this.tableFacade.setFilters(this.entity, this.customizeFilter);
+    console.log(JSON.parse(JSON.stringify(this.customizeFilter)))
+    this.tableFacade.setFilters(this.entity, JSON.parse(JSON.stringify(this.customizeFilter)));
     this.customFilterEvent.emit(this.customizeFilter);
   }
 
@@ -201,17 +207,43 @@ export class TableFilterComponent implements OnInit {
       for (let index = 0; index < this.searchInputList[inputName].length; index++) {
         let items = this.searchInputList[inputName][index];
         if (
-          items.organizationName
+          items.name
             .toLowerCase()
             .indexOf(query.toLowerCase()) == 0
         ) {
           filtered.push(items);
         }
       }
+      this.searchInputFiltered[inputName] = filtered;
     }
-    this.searchInputFiltered[inputName] = filtered;
   }
   searchInputChanged(event, inputName: string) {
+    console.log(event)
+    switch (inputName) {
+      case 'sub-asset-type': {
+        if (this.entity == 'sub-asset') {
+          this.searchInputList['MakeName'] = event.makes;
+          this.customizeFilter = this.customizeFilter.map((x) => {
+            console.log(x);
+            if (x.name == 'sub-asset-type') {
+              return {
+                ...x,
+                value: event?.id,
+              }
+            }
+            return x;
+          });
+        }
+        break;
+      }
+      case 'MakeName': {
+        if (this.entity == 'sub-asset') {
+          this.searchInputList['Model'] = event.models;
+        }
+        break;
+      }
+      default: {}
+    }
   }
 
 
@@ -221,8 +253,20 @@ export class TableFilterComponent implements OnInit {
       this.searchInputFiltered[key] = [];
     }
     switch (key) {
-      case 'make':
-      case 'MakeName':{
+      case 'sub-asset-type': {
+        if (this.entity == 'sub-asset') {
+          this._subAssetTypeFacade.subAssetType$.subscribe((x) => {
+            this.searchInputList['sub-asset-type'] = x;
+            this.searchInputFiltered['sub-asset-type'] = x;
+          });
+        }
+        break;
+      }
+      case 'Policy':{
+        this._subAssetTypeFacade.subAssetType$.subscribe((x) => {
+          this.searchInputList[key] = x;
+          this.searchInputFiltered[key] = x;
+        });
         break;
       }
       default: {}

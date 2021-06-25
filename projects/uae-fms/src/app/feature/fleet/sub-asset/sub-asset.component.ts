@@ -125,7 +125,13 @@ export class SubAssetComponent implements OnInit, OnDestroy {
         filterType: FilterType.list,
         filterApiKey: 'Model'
       },
-      { lable: 'tables.column.policy', type: 1, field: 'Policy' },
+      {
+        lable: 'tables.column.policy',
+        type: 1,
+        field: 'Policy' ,
+        filterType: FilterType.list,
+        filterApiKey: 'Policy'
+      },
       { lable: 'tables.column.category_name', type: 1, field: 'AssetCategory' },
       /* {
         lable: 'tables.column.warranty_expire_date',

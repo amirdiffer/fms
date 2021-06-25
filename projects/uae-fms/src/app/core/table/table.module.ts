@@ -56,6 +56,7 @@ import {
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { PlusMinusRenderer } from './column-renderer-component/column-renderers/plus-minus-renderer';
 import { FoldableRowRenderer } from './row-renderer-component/row-renderers/foldable-row-renderer.component';
+import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
 
 @NgModule({
   imports: [
@@ -116,6 +117,6 @@ import { FoldableRowRenderer } from './row-renderer-component/row-renderers/fold
     PlusMinusRenderer,
     FoldableRowRenderer
   ],
-  providers: [TableFacade, TableService, TableServiceS]
+  providers: [TableFacade, TableService, TableServiceS, AssetTypeFacade]
 })
 export class TableModule {}

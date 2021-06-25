@@ -79,7 +79,7 @@ const TableReducer = createReducer(
     let copyData = Object.assign({}, st[i]);
     copyData.value = value;
     st[i] = copyData;
-    return ({...state})
+    return ({...state, filters: st})
   }),
 );
 
