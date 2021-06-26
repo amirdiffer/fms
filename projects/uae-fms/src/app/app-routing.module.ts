@@ -30,7 +30,7 @@ const routes: Routes = [
       import('./feature/technician/technician.module').then(
         (m) => m.TechnicianModule
       ),
-    component: TechnicianOverviewComponent
+    component: MainTemplateComponent
   },
   {
     path: 'fleet',

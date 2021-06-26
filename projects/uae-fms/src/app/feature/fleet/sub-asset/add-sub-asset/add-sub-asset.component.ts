@@ -1,16 +1,17 @@
 import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
-import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
-import { AssetPolicyFacade,SubAssetPolicyFacade } from '@feature/configuration/+state/asset-policy';
+import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
+import { AssetPolicyFacade } from '@feature/configuration/+state/asset-policy/asset';
+import { SubAssetPolicyFacade } from '@feature/configuration/+state/asset-policy/sub-asset';
 import { SubAssetService, SubAssetFacade } from '@feature/fleet/+state/sub-asset';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { ColumnDifinition, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import * as moment from 'moment';
 import { Subject, Subscription } from 'rxjs';
 import { ResponseBody } from '@models/responseBody';
 import { environment } from '@environments/environment';
+import { DialogService } from '@core/dialog/dialog-template.component';
+import { tap } from 'rxjs/operators';
 const SUB_ASSET_LABEL = 'SUB_ASSET';
 
 @Component({
@@ -19,7 +20,6 @@ const SUB_ASSET_LABEL = 'SUB_ASSET';
   styleUrls: ['./add-sub-asset.component.scss']
 })
 export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
-
   //#region Variables
   invalidAvatar = false;
   itemId = this.route.snapshot.params['id'];
@@ -65,10 +65,6 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
     { name: '2020', id: 2020 },
     { name: '2021', id: 2021 }
   ];
-  filesUploaded: NgxFileDropEntry[] = [];
-  dialogModal = false;
-  dialogType = null;
-  errorDialogModal = false;
   isEdit: any;
   recordId: number;
   isSingleAsset = true;
@@ -81,8 +77,8 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
 
   formFill: Subject<string> = new Subject();
   formFill$ = this.formFill.asObservable();
-  getSubAssetOnEditSubscriber!: Subscription
-  getSubAssetSubscriber!: Subscription
+  getSubAssetOnEditSubscriber!: Subscription;
+  getSubAssetSubscriber!: Subscription;
   //#endregion
 
   //#region  TablesRegion
@@ -121,25 +117,6 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   };
   //#endregion
 
-  //#region  DialogRegion
-  dialogSetting: IDialogAlert = {
-    header: 'Add new Sub Asset alert',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
-  errorDialogSetting: IDialogAlert = {
-    header: '',
-    message: 'Error occurred in progress',
-    confirmButton: 'Ok',
-    isWarning: false,
-    hasError: true,
-    hasHeader: true,
-    cancelButton: undefined
-  };
-  //#endregion
-
   constructor(
     injector: Injector,
     private _fb: FormBuilder,
@@ -148,32 +125,38 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
     private subAssetTypeFacade: SubAssetTypeFacade,
     private assetPolicyFacade: AssetPolicyFacade,
     private subAssetPolicyFacade: SubAssetPolicyFacade,
+    private _dialogService: DialogService
   ) {
     super(injector);
+    this.subAssetFacade.reset();
   }
 
   ngOnInit(): void {
     this.subAssetTypeFacade.loadAll();
     this.assetPolicyFacade.loadAll();
 
-    this.subAssetTypeFacade.loaded$.subscribe(x => {
-      this.formFill.next("subAssetType");
+    this.subAssetTypeFacade.loaded$.subscribe((x) => {
+      this.formFill.next('subAssetType');
     });
 
-    this.assetPolicyFacade.loaded$.subscribe(x => {
-      this.formFill.next("assetPolicy");
+    this.assetPolicyFacade.loaded$.subscribe((x) => {
+      this.formFill.next('assetPolicy');
     });
 
-    this.formFill$.subscribe(x => {
+    this.formFill$.subscribe((x) => {
       if (x) {
-        if (x == "subAssetType") this.subAssetTypeLoaded = true;
-        if (x == "assetPolicy") this.assetPolicyLoaded = true;
-        if (x == "subAsset") this.subAsset = true;
-        if (this.subAssetTypeLoaded && this.assetPolicyLoaded && this.subAsset) {
+        if (x == 'subAssetType') this.subAssetTypeLoaded = true;
+        if (x == 'assetPolicy') this.assetPolicyLoaded = true;
+        if (x == 'subAsset') this.subAsset = true;
+        if (
+          this.subAssetTypeLoaded &&
+          this.assetPolicyLoaded &&
+          this.subAsset
+        ) {
           //We Need that Part of Code incase of we need diasabled inputs turn to select again
         }
       }
-    })
+    });
 
     this.buildForm();
     this.handleEditMode();
@@ -193,29 +176,31 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
       this.isEdit = true;
       this.recordId = this.itemId;
 
-      this.getSubAssetOnEditSubscriber = this.subAssetService.getSubAsset(this.itemId).subscribe((response: ResponseBody<any>) => {
-        const message = response.message
-        this.subAssetTypes = []
-        const subAssetObject = {
-          name: message.subAssetConfigurationName,
-          id: message.subAssetConfigurationId,
-          children: []
-        }
-        this.subAssetTypes.push(subAssetObject)
-        this.makes = []
-        const makeObject = {
-          name: message.subAssetMakeName,
-          id: message.subAssetMakeId,
-          children: []
-        }
-        this.makes.push(makeObject);
-        this.models = []
-        const modelObject = {
-          name: message.subAssetModelName,
-          id: message.subAssetModelId,
-        }
-        this.models.push(modelObject);
-      })
+      this.getSubAssetOnEditSubscriber = this.subAssetService
+        .getSubAsset(this.itemId)
+        .subscribe((response: ResponseBody<any>) => {
+          const message = response.message;
+          this.subAssetTypes = [];
+          const subAssetObject = {
+            name: message.subAssetConfigurationName,
+            id: message.subAssetConfigurationId,
+            children: []
+          };
+          this.subAssetTypes.push(subAssetObject);
+          this.makes = [];
+          const makeObject = {
+            name: message.subAssetMakeName,
+            id: message.subAssetMakeId,
+            children: []
+          };
+          this.makes.push(makeObject);
+          this.models = [];
+          const modelObject = {
+            name: message.subAssetModelName,
+            id: message.subAssetModelId
+          };
+          this.models.push(modelObject);
+        });
     }
 
     this.initAssetTypes();
@@ -223,90 +208,95 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   loadSubAssetFormData(recordId: number) {
-    this.getSubAssetSubscriber = this.subAssetService.getSubAsset(recordId).subscribe((result: any) => {
-      if (result && result.message) {
-        console.log(result.message)
-        const subAsset = result.message;
-        for (let index = 0; index < subAsset.warranties.length - 1; index++) {
-          this.addWarranty();
+    this.getSubAssetSubscriber = this.subAssetService
+      .getSubAsset(recordId)
+      .subscribe((result: any) => {
+        if (result && result.message) {
+          console.log(result.message);
+          const subAsset = result.message;
+          for (let index = 0; index < subAsset.warranties.length - 1; index++) {
+            this.addWarranty();
+          }
+          this.subAssetForm.patchValue({
+            warranties: subAsset.warranties.map((x) => {
+              const date = moment
+                .utc(this.isEdit ? x.startDate * 1000 : x.startDate)
+                .local();
+              this.warrantyDocs.push(x.docId);
+              return {
+                ...x,
+                periodType: x.durationType,
+                duration: x.duration,
+                startDate: date.toDate(),
+                item: x.item,
+                doc: +x.docId
+              };
+            })
+          });
+          this.subAssetForm.patchValue({
+            avatarId: subAsset.avatarId
+          });
+          this.avatarDoc = Array.isArray(subAsset.avatarId)
+            ? subAsset.avatarId
+            : [subAsset.avatarId];
+          const {
+            subAssetConfigurationId,
+            subAssetConfigurationName,
+            avatarId,
+            date,
+            description,
+            serialNumber,
+            subAssetMakeId,
+            subAssetMakeName,
+            subAssetModelId,
+            subAssetModelName,
+            policyTypeId,
+            policyTypeName,
+            purchaseValue,
+            year
+          } = subAsset;
+
+          const policyType = { id: policyTypeId, name: policyTypeName };
+
+          const formValue = {
+            serialNumber: serialNumber,
+            subAssetType: subAsset.subAssetConfigurationName,
+            make: subAsset.subAssetMakeName,
+            model: subAsset.subAssetModelName,
+            year,
+            policyType,
+            purchaseValue,
+            description
+          };
+
+          this.formTempValue = { ...formValue };
+          this.subAssetForm.patchValue(formValue);
+          this.subAssetForm.patchValue({
+            year: +formValue.year
+          });
+
+          // todo : fill warranties
+          this.formFill.next('subAsset');
         }
-        this.subAssetForm.patchValue({
-          warranties: subAsset.warranties.map((x) => {
-            const date = moment.utc(this.isEdit?x.startDate*1000:x.startDate).local();
-            this.warrantyDocs.push(x.docId);
-            return {
-              ...x,
-              periodType: x.durationType,
-              duration: x.duration,
-              startDate: date.toDate(),
-              item: x.item,
-              doc: +x.docId
-            };
-          })
-        });
-        this.subAssetForm.patchValue({
-          avatarId: subAsset.avatarId
-        });
-        this.avatarDoc = Array.isArray(subAsset.avatarId)
-          ? subAsset.avatarId
-          : [subAsset.avatarId];
-        const {
-          subAssetConfigurationId,
-          subAssetConfigurationName,
-          avatarId,
-          date,
-          description,
-          serialNumber,
-          subAssetMakeId,
-          subAssetMakeName,
-          subAssetModelId,
-          subAssetModelName,
-          policyTypeId,
-          policyTypeName,
-          purchaseValue,
-          year
-        } = subAsset;
-
-        const policyType = { id: policyTypeId, name: policyTypeName };
-
-        const formValue = {
-          serialNumber: serialNumber,
-          subAssetType: subAsset.subAssetConfigurationName,
-          make: subAsset.subAssetMakeName,
-          model: subAsset.subAssetModelName,
-          year,
-          policyType,
-          purchaseValue,
-          description
-        };
-
-        this.formTempValue = { ...formValue };
-        this.subAssetForm.patchValue(formValue);
-        this.subAssetForm.patchValue({
-          year: +formValue.year
-        });
-
-        // todo : fill warranties
-        this.formFill.next("subAsset");
-      }
-    });
+      });
   }
 
   handleSubmissionDialog() {
     this.subAssetFacade.submitted$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogType = 'success';
-        this.dialogSetting.header = this.isEdit
-          ? 'Edit Sub Asset'
-          : 'Add new Sub Asset';
-        this.dialogSetting.message = this.isEdit
-          ? 'Changes Saved Successfully'
-          : 'Sub Asset Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
+        const dialog = this._dialogService.show('success',
+          (this.isEdit ? 'Edit Sub Asset' : 'Add new Sub Asset'),
+          (this.isEdit ? 'Changes Saved Successfully' : 'Sub Asset Added Successfully'), 'Ok')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+                this.router.navigate(['/fleet/sub-asset']);
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
+        this.subAssetFacade.loadAll();
       }
     });
   }
@@ -314,15 +304,17 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   handleErrorDialog() {
     this.subAssetFacade.error$.subscribe((x) => {
       if (x?.error) {
-        this.errorDialogModal = true;
-        this.errorDialogSetting.header = this.isEdit
-          ? 'Edit Sub Asset'
-          : 'Add new Sub Asset';
-        this.errorDialogSetting.hasError = true;
-        this.errorDialogSetting.cancelButton = undefined;
-        this.errorDialogSetting.confirmButton = 'Ok';
-      } else {
-        this.errorDialogModal = false;
+        const dialog = this._dialogService.show('danger',
+          (this.isEdit ? 'Edit Sub Asset' : 'Add new Sub Asset'),
+          'We Have Some Error', 'Ok')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
       }
     });
   }
@@ -351,7 +343,7 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
     this.subAssetPolicyFacade.subAssetPolicy$.subscribe(
       (result) => {
         if (result) {
-          this.policyTypes = result.map((policyType:any) => ({
+          this.policyTypes = result.map((policyType: any) => ({
             id: policyType.id,
             name: policyType.name
           }));
@@ -377,14 +369,6 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
     );
   }
 
-  dialogConfirm($event) {
-    this.dialogModal = false;
-    if ($event) {
-      this.subAssetFacade.reset();
-      this._goToList();
-    }
-    return;
-  }
 
   _goToList() {
     this.router.navigate(['/fleet/sub-asset/']);
@@ -422,9 +406,9 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
         model: this.subAssetForm.get('model').value.name,
         make: this.subAssetForm.get('make').value.name,
         serialNumber: this.csvText[index],
-        type: this.subAssetForm.get('subAssetType').value.name,
+        type: this.subAssetForm.get('subAssetType').value.name
       });
-      console.log(this.models)
+      console.log(this.models);
     }
     this.thirdStepTable.data = data;
     this.formCurrentStep += 1;
@@ -501,7 +485,7 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
     const models = make.children;
     return (this.models = models.map((model) => ({
       id: model.id,
-      name: model.name,
+      name: model.name
     })));
   }
 
@@ -516,7 +500,17 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
         this.subAssetFacade.addSubAsset(data);
       } else {
         data['id'] = this.recordId;
-        this.subAssetFacade.editSubAsset(data);
+        const dialog = this._dialogService.show('warning', 'Edit sub asset', 'Are you sure you want to edit sub asset?', 'Yes', 'Cancel')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+                this.subAssetFacade.editSubAsset(data);
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe();
+
       }
     }
   }
@@ -597,17 +591,7 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
       };
     }
   }
-  public dropped(files: NgxFileDropEntry[]) {
-    this.filesUploaded = files;
-    for (const droppedFile of files) {
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => { });
-      } else {
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-      }
-    }
-  }
+
 
   uploadAssetPicture($event) {
     const docId = $event.files[0];
@@ -626,18 +610,20 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
   }
 
   cancel() {
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.message = "Are you sure you want to Cancel?"
-    this.dialogSetting.header = (this.isEdit ? "Cancel Edit Sub Asset" : "Cancel Add Sub Asset");
-    this.dialogSetting.confirmButton = "Yes";
-    this.dialogSetting.cancelButton = "No";
-    this.dialogModal = true;
+    const dialog = this._dialogService.show('warning', 'Are you sure you want to leave?', 'You have unsaved changes! If you leave, your changes will be lost.', 'Ok', 'Cancel')
+    const dialogClose$: Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['/fleet/sub-asset']);
+          }
+          dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
   }
 
   ngOnDestroy() {
-    this.getSubAssetOnEditSubscriber?.unsubscribe()
-    this.getSubAssetSubscriber?.unsubscribe()
+    this.getSubAssetOnEditSubscriber?.unsubscribe();
+    this.getSubAssetSubscriber?.unsubscribe();
   }
-
 }

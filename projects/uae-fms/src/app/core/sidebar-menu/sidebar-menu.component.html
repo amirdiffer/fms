@@ -2,7 +2,7 @@
   <div class='menu menu-wrapper' [class.closed-menu-wrapper]="!(opened$|async)">
     <ul class="container">
 
-      <ng-container *ngFor="let item of usingMenu">
+      <ng-container *ngFor="let item of (loadMenu.sidebarItem$ | async)">
         <li class="menuItem margin-transition"
           [class]="(item?.items?'has-child ':'') + (activeMenuCheck(item?.route)?'active-menu':'')+(item?.disabled?' __sidemenu__disabled':'')+(collapsedMenu==item.route?' showing-menu':'')"
           (click)="toggleGroup(item)">

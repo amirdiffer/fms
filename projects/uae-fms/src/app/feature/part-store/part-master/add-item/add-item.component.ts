@@ -7,6 +7,7 @@ import { Utility } from '@shared/utility/utility';
 import { Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SuppliersService } from '../../+state/order-list/suppliers/suppliers.service';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-add-item',
@@ -14,6 +15,7 @@ import { SuppliersService } from '../../+state/order-list/suppliers/suppliers.se
   styleUrls: ['./add-item.component.scss']
 })
 export class AddItemComponent extends Utility implements OnInit, OnDestroy {
+  calenderIcon = 'assets/icons/calendar-alt-regular.svg';
   itemTypes = [
     { name: 'Item type 1', id: 1 },
     { name: 'Item type 2', id: 2 },
@@ -22,6 +24,7 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     { name: 'Item type 5', id: 5 },
     { name: 'Item type 6', id: 6 }
   ];
+  years:number[] = this.getYears(1960)
   form: FormGroup;
   isEdit:boolean=false;
   id:number;
@@ -41,12 +44,6 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     return this.form.get('itemInfo') as FormArray;
   }
 
-
-  dialogModal:boolean = false;
-  dialogOption:dialogOption;
-  dialogSetting: IDialogAlert;
-
-
   getCategoryDataSubscription$:Subscription;
   documentFile = [];
 
@@ -65,7 +62,8 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
               private _partMasterFacade:PartMasterFacade,
               private _router: Router,
               private _supplierService : SuppliersService,
-              injector: Injector,) {
+              injector: Injector,
+              private dialogService: DialogService) {
                 super(injector);
                 this._partMasterFacade.resetItem();
               }
@@ -105,11 +103,15 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     this._partMasterFacade.specificItem$.subscribe(
       x => {
         if(x){
+          console.log(x)
           this.itemInfo.controls.map(formGroup => {formGroup.patchValue({
             itemName: x.name,
             trim:x.trimId ? {id:x.trimId}: null,
             model:x.modelId ? x.modelId : null,
             threshold: x.needToOrderThreshold,
+            description:x.description,
+            partNumber:x.partNumber,
+            year:{name:x.year},
             color:x.trimColorId ? x.trimColorId : null,
             uploadFile: {files:x.documentIds}
           })});
@@ -127,15 +129,6 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
         }
       }
     )
-
-    this.dialogSetting = {
-      header: 'Add new item',
-      hasError:false,
-      isWarning:false,
-      message: 'Message is Here',
-      confirmButton: 'Yes',
-      cancelButton: 'No'
-    };
   }
   createItemInfoFormArray(){
     return this._fb.group({
@@ -143,9 +136,12 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
       trim:['',[Validators.required]],
       model:['',[Validators.required]],
       color:[null],
+      description:['',[Validators.required]],
+      partNumber:['',[Validators.required]],
+      year:['',[Validators.required]],
       threshold:['',[Validators.required]],
       suppliers:new FormArray([this.createSupplierFormArray()]),
-      uploadFile:[null]
+      uploadFile:[null],
     });
   }
 
@@ -238,28 +234,22 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
       );
       return model
     }
-    this.model$ = of(models())    
-  }
-  dialogConfirm(event){
-    if(event && (this.dialogOption == dialogOption.cancel || this.dialogOption == dialogOption.success)){
-      this._partMasterService.setCategoryData({
-        ...this.categoryData,
-        isEdit:false,
-        isItemForm:false,
-      });
-      this.goToList('part-store/part-master');
-    }
-    this.dialogModal = false;
+    this.model$ = of(models())
   }
 
   cancelForm(){
-    this.dialogOption = dialogOption.cancel;
-    this.dialogSetting.message = 'Are you sure?',
-    this.dialogSetting.isWarning = true,
-    this.dialogSetting.hasError = false,
-    this.dialogSetting.confirmButton= 'Yes',
-    this.dialogSetting.cancelButton= 'No',
-    this.dialogModal = true
+    const dialog = this.dialogService.show('warning', 'Add new item',
+      'Are you sure?', 'Yes', 'No');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this._partMasterService.setCategoryData({
+          ...this.categoryData,
+          isEdit:false,
+          isItemForm:false,
+        });
+        this.goToList('part-store/part-master');
+      }
+    });
   }
 
   submit(){
@@ -268,7 +258,6 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     if(this.form.invalid){
       return;
     }
-    this.dialogOption = dialogOption.success
     const formValue = this.form.getRawValue();
     if(this.categoryData.fleetType === 'ASSET'){
       let data = {
@@ -276,6 +265,9 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
         name: formValue.itemInfo[0].itemName,
         trimId: formValue.itemInfo[0].trim.id,
         trimColorId: formValue.itemInfo[0].color,
+        description:formValue.itemInfo[0].description,
+        partNumber:formValue.itemInfo[0].partNumber,
+        year:+formValue.itemInfo[0].year.name,
         needToOrderThreshold: +formValue.itemInfo[0].threshold,
         supplierIds:formValue.itemInfo[0].suppliers.map(supplier => { return supplier.supplier}) ,
         documentIds: formValue.itemInfo[0].uploadFile != null ? formValue.itemInfo[0].uploadFile.files : []
@@ -292,6 +284,9 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
         categoryId: this.categoryData.categoryId,
         name: formValue.itemInfo[0].itemName,
         modelId: formValue.itemInfo[0].model,
+        description:formValue.itemInfo[0].description,
+        partNumber:formValue.itemInfo[0].partNumber,
+        year:+formValue.itemInfo[0].year.name,
         needToOrderThreshold: +formValue.itemInfo[0].threshold,
         supplierIds:formValue.itemInfo[0].suppliers.map(supplier => { return supplier.supplier}) ,
         documentIds: formValue.itemInfo[0].uploadFile != null ? formValue.itemInfo[0].uploadFile.files : []
@@ -310,27 +305,43 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     this.itemInfo.controls.map(formGroup => {formGroup.get('uploadFile').patchValue(event)})
   }
 
+  getYears(fromYears:number) : number [] {
+    let currentYear = new Date().getFullYear();
+    let allYears = new Array;
+    for (let i = 0; i < currentYear - fromYears + 1 ; i++) {
+      let year = currentYear - i
+      allYears.push({name : year})
+    }
+    return allYears
+  }
+
   errorHandele(facade){
     facade.submittedItem$.subscribe((x) => {
       if (x) {
-        this.dialogModal = true;
-        this.dialogSetting.header = this.isEdit ? 'Edit Category' : 'Add New Category';
-        this.dialogSetting.message = this.isEdit ? 'Changes Saved Successfully' : 'Category Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'OK';
-        this.dialogSetting.cancelButton = undefined;
+        const dialog = this.dialogService.show('success', this.isEdit ? 'Edit Category' : 'Add New Category',
+          this.isEdit ? 'Changes Saved Successfully' : 'Category Added Successfully',
+          'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+            this._partMasterService.setCategoryData({
+              ...this.categoryData,
+              isEdit:false,
+              isItemForm:false,
+            });
+            this.goToList('part-store/part-master');
+          }
+        });
       }
     });
     facade.errorItem$.subscribe((x) => {
       if (x?.error) {
-        this.dialogModal = true;
-        this.dialogOption == dialogOption.error
-        this.dialogSetting.header = this.isEdit ? 'Edit Category' : 'Add new Category';
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.message = 'Error occurred in progress';
-        this.dialogSetting.cancelButton = undefined;
-        this.dialogSetting.confirmButton = 'OK';
+        const dialog = this.dialogService.show('danger', this.isEdit ? 'Edit Category' : 'Add New Category',
+          'Error occurred in progress', 'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+          } else {
+          }
+        });
       }
     });
   }
@@ -339,11 +350,3 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     this.getCategoryDataSubscription$.unsubscribe();
   }
 }
-
-
-export enum dialogOption{
-  success='success',
-  error = 'error',
-  cancel = 'cancel'
-}
-

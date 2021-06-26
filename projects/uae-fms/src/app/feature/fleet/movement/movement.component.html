@@ -1,8 +1,10 @@
 <!-- start table -->
 <div>
-    <div class="filter-container" *ngIf="selectedTab =='requestTab'">
-        <app-filter [setting]="filterSetting"></app-filter>
-    </div>
+    <ng-container *hasPermission="['MOVEMENT_REQUEST_VIEW_LIST_OWN' , 'MOVEMENT_REQUEST_VIEW_LIST_OTHERS']">
+        <div class="filter-container" *ngIf="selectedTab =='requestTab'">
+            <app-filter [setting]="filterSetting"></app-filter>
+        </div>
+    </ng-container>
     <div class="table-container component_wrapper">
         <div class="pt-1">
             <div>
@@ -17,12 +19,14 @@
                         <button class="btn-download" (click)="exportTable()">
                             <svg-icon [src]="downloadBtn"></svg-icon>
                         </button>
-                        <button *ngIf="selectedTab !='requestTab'" class="btn-primary-small" routerLink="add-permanent-request"><a>{{ 'search.request' | translate }}</a></button>
+                        <ng-container *hasPermission="['MOVEMENT_REQUEST_ADD']">
+                            <button *ngIf="selectedTab !='requestTab'" class="btn-primary-small" routerLink="add-permanent-request"><a>{{ 'search.request' | translate }}</a></button>
+                        </ng-container>
                     </span>
-                    <div title="tabs.movement_over_view" id="MovementOverViewTab">
+                    <div title="tabs.movement_over_view" id="MovementOverViewTab" *hasPermission="['MOVEMENT_VIEW_LIST_OWN' , 'MOVEMENT_VIEW_LIST_OTHERS']">
                         <app-table searchInput="searchInput" (onPagination)="eventPagination_overview()" pagination="movement_overview" [setting]="movementOverViewTableSetting" [tableData]="movementOverview$"></app-table>
                     </div>
-                    <div title="tabs.request" #requestTab id="requestTab" >
+                    <div title="tabs.request" #requestTab id="requestTab" *hasPermission="['MOVEMENT_REQUEST_VIEW_LIST_OWN' , 'MOVEMENT_REQUEST_VIEW_LIST_OTHERS']">
                         <app-table searchInput="searchInput" (onPagination)="eventPagination_request()" pagination="movement_request" [setting]="requestTableSetting" [tableData]="movementRequest$"
                         ></app-table>
                     </div>
@@ -32,5 +36,4 @@
     </div>
 </div>
 <!-- end table -->
-<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal"  (confirm)="successConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal" (confirm)="dialogConfirm($event)"></alert-dialog>
+

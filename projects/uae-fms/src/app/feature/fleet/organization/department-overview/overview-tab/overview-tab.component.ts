@@ -1,10 +1,8 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { ColumnType, TableSetting } from '@core/table';
-import { map } from 'rxjs/operators';
 import { OrganizationFacade } from '@feature/fleet/+state/organization';
 import { Utility } from '@shared/utility/utility';
 import { SettingsFacade } from '@core/settings/settings.facade';
-import { FilterCardSetting } from '@core/filter';
 import { IOrganization } from '@models/organization';
 
 @Component({
@@ -13,26 +11,28 @@ import { IOrganization } from '@models/organization';
   styleUrls: ['./overview-tab.component.scss']
 })
 export class OverviewTabComponent extends Utility implements OnInit {
-
-  @Input('data') data: IOrganization;
+  @Input() data: IOrganization;
   overviewData: IOrganization;
 
-  //region Variable
+  // region Variable
   activeLang = '';
-  //#endregion
+  // endregion
 
-  //#region Table
+  // region Table
   organizationTable: TableSetting = {
     columns: [
       {
         lable: 'tables.column.section',
+        width: 210,
         type: 1,
         field: 'Section'
       },
       {
         lable: 'tables.column.location',
+        width: 200,
         type: 1,
-        field: 'Location'
+        field: 'Location',
+        hasExpandedInfo: true
       },
       {
         lable: 'tables.column.tf_payed',
@@ -62,35 +62,52 @@ export class OverviewTabComponent extends Utility implements OnInit {
       },
       {
         lable: '',
-        field: 'floatButton',
-        width: 0,
-        type: ColumnType.lable,
-        thumbField: '',
-        renderer: 'floatButton'
+        width: 60,
+        field: 'plusAndMinus',
+        renderer: 'plusMinusRenderer'
       }
     ],
-    data: []
+    rows: [],
+    data: [],
+    rowSettings: {
+      onClick: (arg1, arg2) => {
+        if (arg1 === true) {
+          this.organizationTable.rows[arg2].foldableRowOption.isFolded = false;
+        } else if (arg1 === false) {
+          this.organizationTable.rows[arg2].foldableRowOption.isFolded = true;
+        }
+      }
+    }
   };
-  //#endregion
+  // endregion
 
-  constructor(private facade: OrganizationFacade, private settingFacade: SettingsFacade, private injector: Injector) {
+  constructor(
+    private facade: OrganizationFacade,
+    private settingFacade: SettingsFacade,
+    private injector: Injector
+  ) {
     super(injector);
   }
 
   ngOnInit(): void {
     this.settingFacade.language.subscribe((lang) => (this.activeLang = lang));
     this.overviewData = this.data;
-    this.organizationTable.data = this.data.departments.map(y => {
-      return {
-        ...y,
-        Section: y.name,
-        Location: y.locationAddresses.length,
-        car: y.numOfAssets,
-        user: y.numOfUsers,
-        TF_Unpaid: y.tfUnpaid,
-        TF_Payed: y.tfPaid
-      }
-    });
+    this.data.departments.map((department) =>
+      this.organizationTable.rows.push({
+        foldableRowOption: {
+          isFolded: true,
+          foldableData: department.locationAddresses
+        }
+      })
+    );
+    this.organizationTable.data = this.data.departments.map((y) => ({
+      ...y,
+      Section: y.name,
+      Location: y.locationAddresses.length,
+      car: y.numOfAssets,
+      user: y.numOfUsers,
+      TF_Unpaid: y.tfUnpaid,
+      TF_Payed: y.tfPaid
+    }));
   }
-
 }

@@ -17,21 +17,6 @@
         <anms-error [showError]="hasError('itemName', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
       </div>
 
-      <!-- <div class="col-12 col-md-4 p-field form-section__field">
-
-        <div class="autocomplete-select">
-          <span class="p-float-label">
-            <p-autoComplete formControlName="assignedToEntity" field="name" dataKey="id"
-                            (completeMethod)="filterAssets($event)"
-                            [suggestions]="assets"
-                            [dropdown]="true"
-              field="name" [minLength]="1" (ngModelChange)="assetChanged($event)"></p-autoComplete>
-            <i class="pi pi-search"></i>
-            <label>{{ 'accessory.asset' | translate }} *</label>
-          </span>
-          <anms-error [showError]="hasError('assignedToEntity', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
-        </div>
-      </div> -->
       <div class="col-12 col-md-4 p-field form-section__field options-select">
         <span class="p-float-label">
           <p-dropdown inputId="accessoryType" [autoDisplayFirst]="false" [options]="accessoryType$ | async"
@@ -41,6 +26,7 @@
 
         <anms-error [showError]="hasError('accessoryTypeId', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
       </div>
+
       <div class="col-12 col-md-4 p-field form-section__field options-select">
         <span class="p-float-label">
           <p-dropdown inputId="assignedTo" [autoDisplayFirst]="false" [options]="employee$ | async"
@@ -56,7 +42,16 @@
         <anms-error [showError]="hasError('quantity', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
       </div>
 
-      
+      <div class="col-12 pb-3">
+        <anms-uploader [iconIsHidden]="true"
+                       [multiple]="false"
+                       [preview]="true" [accept]="['.png', '.jpg']"
+                       (uploadedEvent)="uploadAccessoryPicture($event)"
+                       [isImage]="true"
+                       [files]="[avatarId]"
+                       [hasError]="avatarRequired"
+        ></anms-uploader>
+      </div>
 
     </div>
 
@@ -65,10 +60,3 @@
 <div *ngIf="false" class="table-container component_wrapper">
   <app-table [setting]='accessory_Table' [tableData]="accessory$"></app-table>
 </div>
-
-<alert-dialog [settings]="dialogSettingCancel" [displayModal]="dialogModalCancel"
-  (confirm)="dialogCancelConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)">
-</alert-dialog>
-<alert-dialog [settings]="dialogSettingError" [displayModal]="dialogModalError" (confirm)="dialogErrorConfirm($event)">
-</alert-dialog>

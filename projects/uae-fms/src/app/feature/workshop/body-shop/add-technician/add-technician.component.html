@@ -16,7 +16,7 @@
                 <div class="autocomplete-select w-100">
                   <span class="p-float-label">
                     <p-autoComplete formControlName="employeeNumber" (completeMethod)="getEmployee($event)"
-                                    [suggestions]="employees$|async" field="organizationId" [minLength]="1"
+                                    [suggestions]="employees$|async" field="employeeId" [minLength]="1"
                                     (ngModelChange)="employeeNumberChanged($event)" required [disabled]="isEdit"
                                     [class.invalid]="!inputForm.get('portalInfo.employeeNumber').valid
                       && submited"></p-autoComplete>
@@ -391,7 +391,3 @@
     </div>
   </div>
 </div>
-<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal"
-  (confirm)="dialogConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal"
-  (confirm)="errorDialogModal=false"></alert-dialog>

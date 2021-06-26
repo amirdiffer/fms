@@ -10,9 +10,17 @@ import { TrafficFineComponent } from '@feature/traffic-fine/traffic-fine.compone
 import { TrafficFineRoutingModule } from './traffic-fine-routing.module';
 import { TrafficFinesStateModule } from '../traffic-fine/+state';
 import { SharedModule } from '@shared/shared.module';
+import { TrafficFileOverviewComponent } from './traffic-file-overview/traffic-file-overview.component';
+import { AssetOverviewComponent } from './asset-overview/asset-overview.component';
+import { AssetMasterStateModule } from '@feature/fleet/+state/assets/asset-master/asset-master-state.module';
+import { AssetsModule } from '@feature/fleet/assets/assets.module';
 
 @NgModule({
-  declarations: [TrafficFineComponent],
+  declarations: [
+    TrafficFineComponent,
+    TrafficFileOverviewComponent,
+    AssetOverviewComponent
+  ],
   imports: [
     TableModule,
     FilterModule,
@@ -21,7 +29,9 @@ import { SharedModule } from '@shared/shared.module';
     TabViewModule,
     AngularSvgIconModule,
     TrafficFineRoutingModule,
-    TrafficFinesStateModule
+    TrafficFinesStateModule,
+    AssetMasterStateModule,
+    AssetsModule
   ]
 })
 export class TrafficFineModule {}

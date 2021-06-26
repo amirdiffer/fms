@@ -1,23 +1,17 @@
 import { createSelector } from '@ngrx/store';
-import { FleetSelectors } from '@feature/fleet/+state/fleet.selectors';
 import { organizationAdapter } from './organization.entity';
 const { selectAll } = organizationAdapter.getSelectors();
-
+const organizationState = (state) => state['organization'];
 export class OrganizationSelectors {
-  static selectAll = createSelector(
-    FleetSelectors.organizationSelector,
-    selectAll
-  );
+  static selectAll = createSelector(organizationState, selectAll);
   static count = createSelector(
-    FleetSelectors.organizationSelector,
+    organizationState,
     (state) => state.resultNumber
   );
   static submitted = createSelector(
-    FleetSelectors.organizationSelector,
+    organizationState,
     (state) => state.submitted
   );
-  static error = createSelector(
-    FleetSelectors.organizationSelector,
-    (state) => state.error
-  );
+  static loaded = createSelector(organizationState, (state) => state.loaded);
+  static error = createSelector(organizationState, (state) => state.error);
 }

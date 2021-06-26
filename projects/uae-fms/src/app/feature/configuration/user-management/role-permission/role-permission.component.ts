@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColumnType, TableComponent, TableSetting } from '@core/table';
+import { ColumnType, TableSetting } from '@core/table';
 import { map } from 'rxjs/operators';
 import { RolePermissionFacade } from '../../+state/role-permission';
 
@@ -10,17 +10,18 @@ import { RolePermissionFacade } from '../../+state/role-permission';
   styleUrls: ['./role-permission.component.scss']
 })
 export class RolePermissionComponent implements OnInit {
-  @ViewChild(TableComponent, { static: false }) table: TableComponent;
   downloadBtn = 'assets/icons/download-solid.svg';
   data$ = this.facade.rolePermission$.pipe(
-    map(
-      x => {
-        return x.map(y =>{
-          return {...y , description:'No description' , numberOfUser:'No Number of User'}
-        })
-      }
-    )
-  )
+    map((x) => {
+      return x.map((y) => {
+        return {
+          ...y,
+          description: 'No description',
+          numberOfUser: 'No Number of User'
+        };
+      });
+    })
+  );
 
   rolePermission_Table: TableSetting = {
     columns: [
@@ -44,34 +45,37 @@ export class RolePermissionComponent implements OnInit {
           button: 'external',
           onClick: (col, data, button?) => {
             this.facade.reset();
-            this._router.navigate(['/configuration/user-management/role-permission/' + data.id]);
-          }
+            this._router.navigate([
+              '/configuration/user-management/role-permission/' + data.id
+            ]);
+          },
+          permission: ['DROLE_VIEW_DETAILS']
         },
         {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
             this.facade.reset();
-            this._router.navigate(['/configuration/user-management/edit-role-permission/' + data.id]);
-          }
+            this._router.navigate([
+              '/configuration/user-management/edit-role-permission/' + data.id
+            ]);
+          },
+          condition:(data)=>{
+            if(+data.roleId <= 3){
+              return false
+            }else{
+              return true
+            }
+          },
+          permission: ['DROLE_UPDATE']
         }
       ]
     }
   };
 
-  constructor(private facade: RolePermissionFacade ,
-              private _router:Router) {}
+  constructor(private facade: RolePermissionFacade, private _router: Router) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
-  }
-
-  exportTable() {
-    let filter = {
-      roleName: 'roleName',
-      description: 'description',
-      numberOfUser: 'numberOfUser',
-    }
-    this.table.exportTable(this.rolePermission_Table, 'Role And Permission', filter);
   }
 }

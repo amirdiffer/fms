@@ -5,6 +5,10 @@ import { environment } from '@environments/environment';
 import { ResponseBody } from '@models/responseBody';
 import { IPendingRegistration } from '@models/pending-registration.model';
 import { TableFacade } from '@core/table/+state/table.facade';
+import {
+  IRegisterAssetByChassisNumber,
+  IRegisterAssetByPlateNumber
+} from './registration.entity';
 
 @Injectable()
 export class RegistrationService {
@@ -48,6 +52,28 @@ export class RegistrationService {
   getAssetForRegistrationByAssetId(id) {
     return this._http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'asset/' + id + '/summary/registration'
+    );
+  }
+
+  /* Register an Asset by plate number */
+  registerByPlateNumber(
+    data: IRegisterAssetByPlateNumber
+  ): Observable<ResponseBody<any>> {
+    return this._http.post<ResponseBody<any>>(
+      environment.baseApiUrl +
+        `asset/${data.id}/register/plate/${data.plateCategory}/${data.plateCode}/${data.plateNumber}/${data.plateSource}`,
+      { fuelTag: data.fuelTag, tollTag: data.tollTag }
+    );
+  }
+
+  /* Register an Asset by chassis number */
+  registerByChasisNumber(
+    data: IRegisterAssetByChassisNumber
+  ): Observable<ResponseBody<any>> {
+    return this._http.post<ResponseBody<any>>(
+      environment.baseApiUrl +
+        `asset/${data.id}/register/chassis/${data.chassisNumber}`,
+      { fuelTag: data.fuelTag, tollTag: data.tollTag }
     );
   }
 }

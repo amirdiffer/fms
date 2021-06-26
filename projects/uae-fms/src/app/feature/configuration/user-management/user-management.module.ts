@@ -13,7 +13,12 @@ import { AddUserComponent } from './users/add-user/add-user.component';
 import { SharedModule } from '@shared/shared.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AlertDialogModule } from '@core/alert-dialog/alert-dialog.module';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
+import { OrganizationStateModule } from '@feature/fleet/+state/organization/organization-state.module';
+import { UsersStateModule } from '../+state/users/users-state.module';
+import { RolePermissionStateModule } from '../+state/role-permission/role-permission-state.module';
+import { AssetConfigurationStateModule } from '../+state/asset-configuration/asset-configuration-state.module';
+import { BusinessCategoryStateModule } from '../+state/business-category/business-category-state.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     RolePermissionComponent,
     CompanySettingComponent,
     AddRoleAndPermissionComponent,
-    AddUserComponent,
+    AddUserComponent
   ],
   imports: [
     TableModule,
@@ -31,7 +36,13 @@ import {MatTabsModule} from '@angular/material/tabs';
     SharedModule,
     MatProgressBarModule,
     AlertDialogModule,
-    MatTabsModule
+    MatTabsModule,
+    UsersStateModule,
+    RolePermissionStateModule,
+    MatTabsModule,
+    OrganizationStateModule,
+    AssetConfigurationStateModule,
+    BusinessCategoryStateModule
   ]
 })
 export class UserManagementModule {}

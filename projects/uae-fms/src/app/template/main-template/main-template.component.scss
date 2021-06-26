@@ -46,7 +46,9 @@ mat-sidenav-container {
             text-decoration: underline;
           }
         }
-
+        & > span {
+          cursor: pointer;
+        }
         & > span:last-child {
           color: #008755;
         }

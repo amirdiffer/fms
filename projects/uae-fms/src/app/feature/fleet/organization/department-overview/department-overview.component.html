@@ -1,15 +1,7 @@
-<div class='row' style="position: relative">
-  <div class="button-container">
-    <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="/fleet/department">{{ 'forms.back' | translate }}</button>
-    <button class="btn-primary-medium add" [routerLink]="['/fleet/department/edit-department/' + itemId]">{{ 'forms.edit' | translate }}</button>
-  </div>
+<div class='row' style="position: relative" *hasPermission="['ORGANIZATION_VIEW_DETAILS' , 'ORGANIZATION_VIEW_USERS' , 'ORGANIZATION_VIEW_TRAFFIC_FINES' , 'ORGANIZATION_VIEW_MOVEMENT_HISTORY']">
   <div class='col-lg-3'>
     <div class='component_wrapper form-section'>
       <div class='flex-lg-column person'>
-        <div class='toolbar'>
-          <img class='toolbar-edit' [class.mr-3]='activeLang === "en"' [class.ml-3]='activeLang === "ar"'
-               src='assets/icons/edit.svg' alt=''>
-        </div>
         <div class='col-lg-12 text-center'>
           <img class='operator-avatar-border' src='assets/icons/airbnb.png' width='89' />
         </div>
@@ -37,14 +29,12 @@
         <div *ngIf='section["isSelected"]' class='d-flex mt-3 mb-2'>
           <div class='parent' [ngStyle]='(activeLang === "en")? {"margin-left": "30px"}: {"margin-right": "30px"}'>
             <div class='child'>
-              <div *ngFor='let location of section.locationAddresses; let j = index; let last = last'
-                   class='dot dot-mt dot-mb'>
+              <div *ngFor='let location of section.locationAddresses' class='dot dot-mt dot-mb'>
               </div>
             </div>
           </div>
           <div [class.ml-3]='activeLang === "en"' [class.mr-3]='activeLang === "ar"'>
-            <div *ngFor='let location of section.locationAddresses; let k = index; let last = last'
-                 class='location-text dot-mb'>
+            <div *ngFor='let location of section.locationAddresses' class='location-text dot-mb'>
               {{location}}
             </div>
           </div>
@@ -54,21 +44,25 @@
   </div>
   <div class='col-lg-9'>
     <div class='statistic-card'>
-      <app-filter *ngIf='selectedTab === "userTab"' [setting]='userTabFilter'></app-filter>
-      <app-filter *ngIf='selectedTab === "trafficFineTab"' [setting]='trafficFineFilter'></app-filter>
+      <ng-container *hasPermission="['ORGANIZATION_VIEW_USERS']">
+        <app-filter *ngIf='selectedTab === "userTab"' [setting]='userTabFilter' ></app-filter>
+      </ng-container>
+      <ng-container *hasPermission="['ORGANIZATION_VIEW_TRAFFIC_FINES']">
+        <app-filter *ngIf='selectedTab === "trafficFineTab"' [setting]='trafficFineFilter' ></app-filter>
+      </ng-container>
     </div>
     <div class='component_wrapper table-container'>
       <app-tab-view (selectedIndex)='selectedTab=$event' [count]='[undefined, count.$UserTable, count.$TrafficFineTable, count.$MovementHistoryTable]'>
-        <div title="{{ 'tabs.overview' | translate }}" id='overviewTab'>
+        <div title="{{ 'tabs.overview' | translate }}" id='overviewTab' *hasPermission="['ORGANIZATION_VIEW_DETAILS']">
           <anms-overview-tab *ngIf="detailsOrg" [data]="detailsOrg"></anms-overview-tab>
         </div>
-        <div count='3456' title="{{ 'tabs.user' | translate }}" id='userTab'>
+        <div title="{{ 'tabs.user' | translate }}" id='userTab' *hasPermission="['ORGANIZATION_VIEW_USERS']">
           <app-table [setting]='userTable'></app-table>
         </div>
-        <div count='3456' title="{{ 'tabs.traffic_fine' | translate }}" id='trafficFineTab'>
+        <div title="{{ 'tabs.traffic_fine' | translate }}" id='trafficFineTab' *hasPermission="['ORGANIZATION_VIEW_TRAFFIC_FINES']">
           <app-table [setting]='trafficFineTable'></app-table>
         </div>
-        <div count='3456' title="{{ 'tabs.movement_history' | translate }}" id='movementHistoryTab'>
+        <div title="{{ 'tabs.movement_history' | translate }}" id='movementHistoryTab' *hasPermission="['ORGANIZATION_VIEW_MOVEMENT_HISTORY']">
           <app-table [setting]='movementTable'></app-table>
         </div>
       </app-tab-view>

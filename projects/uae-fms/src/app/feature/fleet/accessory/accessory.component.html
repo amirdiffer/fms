@@ -1,4 +1,5 @@
-<div class="statistic-card">
+
+<div class="statistic-card" *hasPermission="['ACCESSORY_VIEW_LIST_OWN' , 'ACCESSORY_VIEW_LIST_OTHERS']">
   <app-filter [setting]='filterCard'></app-filter>
 </div>
 <div class="table-container component_wrapper">
@@ -9,10 +10,10 @@
           <img [src]="searchIcon" alt="">
         </button>
       </div>
-      <button class="btn-download" (click)="exportTable()">
+      <button  class="btn-download" (click)="exportTable()">
         <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
-      <button class="btn-primary-small" routerLink="add-new-accessory"><i>+</i><a>{{'search.add' | translate}}</a></button>
+      <button  *hasPermission="['ACCESSORY_VIEW_LIST_OWN' , 'ACCESSORY_VIEW_LIST_OTHERS']" class="btn-primary-small" routerLink="add-new-accessory"><i>+</i><a>{{'search.add' | translate}}</a></button>
   </div>
-  <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="accessory" [setting]='accessory_Table' [tableData]="accessory$"></app-table>
+  <app-table *hasPermission="['ACCESSORY_ADD']" searchInput="searchInput" (onPagination)="eventPagination()" pagination="accessory" [setting]='accessory_Table' [tableData]="accessory$"></app-table>
 </div>

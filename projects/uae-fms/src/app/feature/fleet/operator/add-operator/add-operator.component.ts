@@ -1,72 +1,26 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { FilterCardSetting } from '@core/filter';
 import {
   OperatorFacade,
   OperatorService
 } from '@feature/fleet/+state/operator';
 import {
-  OrganizationFacade,
   OrganizationService
 } from '@feature/fleet/+state/organization';
 import { IOperator } from '@models/operator';
 import { Utility } from '@shared/utility/utility';
-import {
-  FileSystemDirectoryEntry,
-  FileSystemFileEntry,
-  NgxFileDropEntry
-} from 'ngx-file-drop';
+
 import { Subject, Subscription } from 'rxjs';
-import { debounceTime, map } from 'rxjs/operators';
+import { debounceTime, map, tap } from 'rxjs/operators';
 import { IOrganization } from '@models/organization';
+import { DialogService } from '@core/dialog/dialog-template.component';
 @Component({
   selector: 'anms-add-operator',
   templateUrl: './add-operator.component.html',
   styleUrls: ['./add-operator.component.scss']
 })
 export class AddOperatorComponent extends Utility implements OnInit {
-  profileDocId = null;
-  sectionFiltered: any[];
-  sectionList: any[];
-  isEdit: boolean = false;
-  id: number;
-  allDepartment: IOrganization[] = [];
-  //#region Dialog
-  dialogSetting: IDialogAlert = {
-    header: 'Add new operator alert',
-    hasError: false,
-    message: 'Message is Here',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
-
-  errorDialogSetting: IDialogAlert = {
-    header: '',
-    message: 'Error occurred in progress',
-    confirmButton: 'Ok',
-    isWarning: false,
-    hasError: true,
-    hasHeader: true,
-    cancelButton: undefined
-  };
-
-  successDialogSetting: IDialogAlert = {
-    header: 'Operator',
-    message: 'The operation was successful',
-    confirmButton: 'Ok',
-    isWarning: false,
-    hasError: false,
-    hasHeader: true,
-    cancelButton: undefined
-  };
-
-  successDialogModal = false;
-
-  dialogModal = false;
-  dialogType = null;
-  errorDialogModal = false;
-  //#endregion
 
   //#region Filter
 
@@ -76,36 +30,43 @@ export class AddOperatorComponent extends Utility implements OnInit {
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
 
   //#endregion
 
+  //#region Variables
+  profileDocId = null;
+  sectionFiltered: any[];
+  sectionList: any[];
+  isEdit: boolean = false;
+  id: number;
+  allDepartment: IOrganization[] = [];
+
   progressBarValue = 50;
   bufferValue = 70;
-  public filesUpdloaded: NgxFileDropEntry[] = [];
   formChangesSubscription!: Subscription;
   form: FormGroup;
   submited = false;
@@ -147,15 +108,18 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
   private _operator: IOperator;
   operators$ = this.operatorFacade.operator$;
+  //#endregion
 
   constructor(
     injector: Injector,
     private formBuilder: FormBuilder,
     private operatorFacade: OperatorFacade,
     private operatorService: OperatorService,
-    private _departmentService: OrganizationService
+    private _departmentService: OrganizationService,
+    private _dialogService: DialogService
   ) {
     super(injector);
+    this.operatorFacade.resetParams();
   }
 
   ngOnInit(): void {
@@ -165,7 +129,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
       .subscribe((x) => {
         x.message
           ? // ? this.department.next(x.message)
-            (this.departmentList = x.message)
+          (this.departmentList = x.message)
           : (this.departmentList = []);
       });
     this.route.url.subscribe((params) => {
@@ -247,44 +211,42 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
     this.operatorFacade.submitted$.subscribe((x) => {
       if (x) {
-        this.successDialogModal = true;
-
-        this.successDialogSetting.header = this.isEdit
-          ? 'Edit operator'
-          : 'Add new operator';
-        this.successDialogSetting.message = this.isEdit
-          ? 'Changes Saved Successfully'
-          : 'Operator Added Successfully';
-        this.successDialogSetting.isWarning = false;
-        this.successDialogSetting.hasError = false;
-        this.successDialogSetting.confirmButton = 'Ok';
-        this.successDialogSetting.cancelButton = undefined;
+        const dialog = this._dialogService.show('success',
+          (this.isEdit ? 'Edit Operator' : 'Add new Operator'),
+          (this.isEdit ? 'Changes Saved Successfully' : 'Operator Added Successfully'), 'Ok')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+                this.router.navigate(['/fleet/operator']);
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
+        this.operatorFacade.loadAll();
       }
     });
 
     this.operatorFacade.error$.subscribe((x) => {
       if (x) {
-        if (x?.error?.error && x.error.message)
-          this.errorDialogSetting.message = x.error.message;
-        else this.errorDialogSetting.message = 'Error occurred in progress';
-
-        this.errorDialogModal = true;
-        this.errorDialogSetting.header = this.isEdit
-          ? 'Edit operator'
-          : 'Add new operator';
-        this.errorDialogSetting.hasError = true;
-        this.errorDialogSetting.cancelButton = undefined;
-        this.errorDialogSetting.confirmButton = 'Ok';
-      } else {
-        this.errorDialogModal = false;
+        const dialog = this._dialogService.show('danger',
+          (this.isEdit ? 'Edit Operator' : 'Add new Operator'),
+          'We Have Some Error', 'Ok')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
       }
     });
 
     this.getEmployeesList.pipe(debounceTime(600)).subscribe((x) => {
       this.operatorService.searchEmployee(x['query']).subscribe((y) => {
         if (y) {
-          console.log(y);
-          this.employees.next([y.message]);
+          this.employees.next([{ ...y.message, employeeId: x['query'] }]);
         } else {
           this.employees.next(null);
         }
@@ -364,126 +326,20 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.phoneNumbers.removeAt(index);
   }
   dialogConfirm($event): void {
-    this.errorDialogModal = false;
-    this.dialogModal = false;
-    if (!$event) return;
 
-    if (this.dialogType == 'submit') {
-      let f = this.form.value;
-      let operatorInfo: any = {
-        employeeNumber: this.isEdit
-          ? this._operator?.employeeNumber
-          : this.employeeId,
-        organizationId: this.departmentId,
-        // departmentId: f.portalInformation.department.id || 1,
-        departmentId: this.sectionId,
-        roleIds: [1],
-        isActive: f.portalInformation.activeEmployee,
-        profileDocId: this.profileDocId || 1,
-        firstName: f.personalInformation.firstName,
-        lastName: f.personalInformation.lastName,
-        emails: f.personalInformation.emails.map((x) => {
-          if (x.email) {
-            if (typeof x.email == 'string') return x.email;
-            else return x.email[0];
-          } else if (typeof x == 'object') return x[0];
-        }),
-        phoneNumbers: this.getPhone(f),
-        notifyByCall: f.personalInformation.callCheckbox,
-        notifyBySMS: f.personalInformation.smsCheckbox,
-        notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
-        notifyByEmail: f.personalInformation.emailCheckbox
-      };
-
-      if (this.isEdit) {
-        operatorInfo = {
-          ...operatorInfo,
-          id: this.id,
-          notifyByPush: this._operator.notifyByPush || false,
-          vehicleComments: this._operator.vehicleComments || false,
-          serviceEntryComment: this._operator.serviceEntryComment || false,
-          fuelEntryComments: this._operator.fuelEntryComments || false,
-          vehicleStatusChanges: this._operator.vehicleStatusChanges || false,
-          voidedFuelEntries: this._operator.voidedFuelEntries || false,
-          dueSoonInspections: this._operator.dueSoonInspections || false,
-          overdueInspections: this._operator.overdueInspections || false,
-          newFaults: this._operator.newFaults || false,
-          newRecalls: this._operator.newRecalls || false,
-          notifyByNewIssueEmail: this._operator.notifyByNewIssueEmail || false,
-          notifyByNewIssuePush: this._operator.notifyByNewIssuePush || false,
-          notifyByIssueAssignedEmail:
-            this._operator.notifyByIssueAssignedEmail || false,
-          notifyByIssueAssignedPush:
-            this._operator.notifyByIssueAssignedPush || false,
-          notifyByCommentOnIssueEmail:
-            this._operator.notifyByCommentOnIssueEmail || false,
-          notifyByCommentOnIssuePush:
-            this._operator.notifyByCommentOnIssuePush || false,
-          notifyByIssueResolvedEmail:
-            this._operator.notifyByIssueResolvedEmail || false,
-          notifyByIssueResolvedPush:
-            this._operator.notifyByIssueResolvedPush || false,
-          notifyByIssueCloseEmail:
-            this._operator.notifyByIssueCloseEmail || false,
-          notifyByIssueClosePush: this._operator.notifyByIssueClosePush || false
-        };
-
-        operatorInfo;
-        this.operatorFacade.editOperator(operatorInfo);
-      } else {
-        operatorInfo = {
-          ...operatorInfo,
-          notifyByPush: false,
-          vehicleComments: false,
-          serviceEntryComment: false,
-          fuelEntryComments: false,
-          vehicleStatusChanges: false,
-          voidedFuelEntries: false,
-          dueSoonInspections: false,
-          overdueInspections: false,
-          newFaults: false,
-          newRecalls: false,
-          notifyByNewIssueEmail: false,
-          notifyByNewIssuePush: false,
-          notifyByIssueAssignedEmail: false,
-          notifyByIssueAssignedPush: false,
-          notifyByCommentOnIssueEmail: false,
-          notifyByCommentOnIssuePush: false,
-          notifyByIssueResolvedEmail: false,
-          notifyByIssueResolvedPush: false,
-          notifyByIssueCloseEmail: false,
-          notifyByIssueClosePush: false
-        };
-        this.operatorFacade.addOperator(operatorInfo);
-      }
-    } else {
-      this.router.navigate(['/fleet/operator']).then((_) => {
-        this.operatorFacade.resetParams();
-      });
-    }
   }
 
   cancel(): void {
-    this.dialogModal = true;
-    this.dialogType = 'cancel';
-    if (this.isEdit) {
-      this.dialogSetting.header = 'Edit operator';
-      this.dialogSetting.hasError = false;
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.message =
-        'Are you sure that you want to cancel editing operator?';
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
-      return;
-    }
-
-    this.dialogSetting.header = 'Add new operator';
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.message =
-      'Are you sure that you want to cancel adding new operator?';
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.cancelButton = 'Cancel';
+    const dialog = this._dialogService.show('warning', 'Are you sure you want to leave?', 'You have unsaved changes! If you leave, your changes will be lost.', 'Ok', 'Cancel')
+    const dialogClose$: Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['/fleet/operator']);
+          }
+          dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
   }
 
   submit(): void {
@@ -492,24 +348,102 @@ export class AddOperatorComponent extends Utility implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
+    let f = this.form.value;
+    let operatorInfo: any = {
+      employeeNumber: this.isEdit
+        ? this._operator?.employeeNumber
+        : this.employeeId,
+      organizationId: this.departmentId,
+      // departmentId: f.portalInformation.department.id || 1,
+      departmentId: this.sectionId,
+      roleIds: [1],
+      isActive: f.portalInformation.activeEmployee,
+      profileDocId: this.profileDocId || 1,
+      firstName: f.personalInformation.firstName,
+      lastName: f.personalInformation.lastName,
+      emails: f.personalInformation.emails.map((x) => {
+        if (x.email) {
+          if (typeof x.email == 'string') return x.email;
+          else return x.email[0];
+        } else if (typeof x == 'object') return x[0];
+      }),
+      phoneNumbers: this.getPhone(f),
+      notifyByCall: f.personalInformation.callCheckbox,
+      notifyBySMS: f.personalInformation.smsCheckbox,
+      notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
+      notifyByEmail: f.personalInformation.emailCheckbox
+    };
 
-    this.dialogModal = true;
-    this.dialogType = 'submit';
     if (this.isEdit) {
-      this.dialogSetting.header = 'Edit operator';
-      this.dialogSetting.message =
-        'Are you sure you want to submit this changes?';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.confirmButton = 'Yes';
-      this.dialogSetting.cancelButton = 'Cancel';
-      return;
+      operatorInfo = {
+        ...operatorInfo,
+        id: this.id,
+        notifyByPush: this._operator.notifyByPush || false,
+        vehicleComments: this._operator.vehicleComments || false,
+        serviceEntryComment: this._operator.serviceEntryComment || false,
+        fuelEntryComments: this._operator.fuelEntryComments || false,
+        vehicleStatusChanges: this._operator.vehicleStatusChanges || false,
+        voidedFuelEntries: this._operator.voidedFuelEntries || false,
+        dueSoonInspections: this._operator.dueSoonInspections || false,
+        overdueInspections: this._operator.overdueInspections || false,
+        newFaults: this._operator.newFaults || false,
+        newRecalls: this._operator.newRecalls || false,
+        notifyByNewIssueEmail: this._operator.notifyByNewIssueEmail || false,
+        notifyByNewIssuePush: this._operator.notifyByNewIssuePush || false,
+        notifyByIssueAssignedEmail:
+          this._operator.notifyByIssueAssignedEmail || false,
+        notifyByIssueAssignedPush:
+          this._operator.notifyByIssueAssignedPush || false,
+        notifyByCommentOnIssueEmail:
+          this._operator.notifyByCommentOnIssueEmail || false,
+        notifyByCommentOnIssuePush:
+          this._operator.notifyByCommentOnIssuePush || false,
+        notifyByIssueResolvedEmail:
+          this._operator.notifyByIssueResolvedEmail || false,
+        notifyByIssueResolvedPush:
+          this._operator.notifyByIssueResolvedPush || false,
+        notifyByIssueCloseEmail:
+          this._operator.notifyByIssueCloseEmail || false,
+        notifyByIssueClosePush: this._operator.notifyByIssueClosePush || false
+      };
+
+      operatorInfo;
+      const dialog = this._dialogService.show('warning', 'Edit Operator', 'Are you sure you want to edit operator?', 'Yes', 'Cancel')
+      const dialogClose$: Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+            if (result === 'confirm') {
+              this.operatorFacade.editOperator(operatorInfo);
+            }
+            dialogClose$?.unsubscribe();
+          })
+        ).subscribe();
+
     } else {
-      this.dialogSetting.header = 'Add new operator';
-      this.dialogSetting.isWarning = true;
-      this.dialogSetting.hasError = false;
-      this.dialogSetting.message = 'Are you sure you want to add new operator?';
-      this.dialogSetting.confirmButton = 'OK';
-      this.dialogSetting.cancelButton = 'Cancel';
+      operatorInfo = {
+        ...operatorInfo,
+        notifyByPush: false,
+        vehicleComments: false,
+        serviceEntryComment: false,
+        fuelEntryComments: false,
+        vehicleStatusChanges: false,
+        voidedFuelEntries: false,
+        dueSoonInspections: false,
+        overdueInspections: false,
+        newFaults: false,
+        newRecalls: false,
+        notifyByNewIssueEmail: false,
+        notifyByNewIssuePush: false,
+        notifyByIssueAssignedEmail: false,
+        notifyByIssueAssignedPush: false,
+        notifyByCommentOnIssueEmail: false,
+        notifyByCommentOnIssuePush: false,
+        notifyByIssueResolvedEmail: false,
+        notifyByIssueResolvedPush: false,
+        notifyByIssueCloseEmail: false,
+        notifyByIssueClosePush: false
+      };
+      this.operatorFacade.addOperator(operatorInfo);
     }
   }
 
@@ -525,28 +459,6 @@ export class AddOperatorComponent extends Utility implements OnInit {
     ];
   }
 
-  public dropped(files: NgxFileDropEntry[]) {
-    this.filesUpdloaded = files;
-    for (const droppedFile of files) {
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        const reader = new FileReader();
-        fileEntry.file((file: File) => {
-          reader.readAsDataURL(file);
-          reader.onload = () => {
-            this.tempImage = reader.result;
-            this.form.controls['fileUpload'].patchValue({
-              fileName: file.name,
-              fileSize: file.size,
-              file: reader.result
-            });
-          };
-        });
-      } else {
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-      }
-    }
-  }
 
   employeeNumberChanged($event) {
     this.employee_static = $event;
@@ -605,7 +517,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
         if (
           typeof f.personalInformation.phoneNumbers[0] == 'object' &&
           typeof f.personalInformation.phoneNumbers[0].phoneNumber ==
-            'string' &&
+          'string' &&
           f.personalInformation.phoneNumbers[0].phoneNumber.length < 5
         )
           return [];

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { RegistrationActions } from '@feature/fleet/+state/assets/registration/registration.actions';
-import { RegistrationService } from '@feature/fleet/+state/assets/registration/registration.service';
+import { RegistrationActions } from './registration.actions';
+import { RegistrationService } from './registration.service';
 import { TableFacade } from '@core/table/+state/table.facade';
 import { Store } from '@ngrx/store';
 
@@ -64,6 +64,44 @@ export class RegistrationEffects {
               data: data.message
             });
           }),
+          catchError((error) =>
+            of(RegistrationActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  /* Register an Asset by plate number */
+  registerByPlateNumber$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(RegistrationActions.registerAssetByPlateNumber),
+      mergeMap((action) =>
+        this.service.registerByPlateNumber(action.data).pipe(
+          map((data) =>
+            RegistrationActions.assetByPlateNumberRegistered({
+              data: action.data
+            })
+          ),
+          catchError((error) =>
+            of(RegistrationActions.error({ reason: error }))
+          )
+        )
+      )
+    )
+  );
+
+  /* Register an Asset by chassis number */
+  registerByChassisNumber$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(RegistrationActions.registerAssetByChassisNumber),
+      mergeMap((action) =>
+        this.service.registerByChasisNumber(action.data).pipe(
+          map((data) =>
+            RegistrationActions.assetByChassisNumberRegistered({
+              data: action.data
+            })
+          ),
           catchError((error) =>
             of(RegistrationActions.error({ reason: error }))
           )

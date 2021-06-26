@@ -9,6 +9,7 @@ export interface TrafficFineTableState extends EntityState<ITrafficFine> {
   loaded?: boolean;
   statistics: ITrafficFineStatistics;
   message?: string;
+  vehicleInfo?: any;
 }
 
 export interface TrafficFineTablePartialState {
@@ -24,6 +25,17 @@ export const initialState: TrafficFineTableState = trafficFineTableAdapter.getIn
     error: null,
     loaded: null,
     statistics: null,
-    message: null
+    message: null,
+    vehicleInfo: null
   } as TrafficFineTableState
 );
+
+export interface IGetVehicleInfoByPlateNumber {
+  plateCategory?: string;
+  plateCode?: string;
+  plateNumber?: string;
+  plateSource?: string;
+}
+export interface IGetVehicleInfoByChassisNumber {
+  chassisNumber?: string;
+}

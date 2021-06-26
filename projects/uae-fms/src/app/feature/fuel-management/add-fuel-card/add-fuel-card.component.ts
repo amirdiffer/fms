@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { ActivatedRoute } from '@angular/router';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-add-fuel-card',
@@ -13,29 +14,12 @@ import { ActivatedRoute } from '@angular/router';
 export class AddFuelCardComponent extends Utility implements OnInit {
   inputForm: FormGroup;
   submited = false;
-  dialogModalAdd = false;
-  dialogModalCancel = false;
   currentTab: string;
-  dialogSettingAdd: IDialogAlert = {
-    header: 'Add Fuel Card',
-    hasError: false,
-    hasHeader: true,
-    message: 'New Fuel Card Successfully Added',
-    confirmButton: 'OK'
-  };
-  dialogSettingCancel: IDialogAlert = {
-    header: 'Add Fuel Card',
-    hasError: false,
-    isWarning: true,
-    hasHeader: true,
-    message: 'Are you sure that you want to cancel the fuel card creation?',
-    confirmButton: 'Yes',
-    cancelButton: 'No'
-  };
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private dialogService: DialogService
   ) {
     super(injector);
     this.activatedRoute.queryParams.subscribe((params) => {
@@ -157,22 +141,24 @@ export class AddFuelCardComponent extends Utility implements OnInit {
     if (this.inputForm.invalid) {
       return;
     } else {
-      this.dialogModalAdd = true;
+    const dialog = this.dialogService.show('success', 'Add Fuel Card',
+      'New Fuel Card Successfully Added', 'OK', '');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this.goToList();
+      }
+    })
     }
   }
   cancel() {
-    this.dialogModalCancel = true;
-  }
-  dialogCancelConfirm(value) {
-    if (value === true) {
-      this.goToList();
-    }
-    this.dialogModalCancel = false;
-  }
-  dialogAddConfirm(value) {
-    if (value === true) {
-      this.goToList();
-    }
-    this.dialogModalAdd = false;
+    const dialog = this.dialogService.show('warning', 'Add Fuel Card',
+      'Are you sure that you want to cancel the fuel card creation?', 'Yes', 'No');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this.goToList();
+      } else {
+        return false;
+      }
+    })
   }
 }

@@ -8,16 +8,14 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { DialogService } from '@core/dialog/dialog-template.component';
 import { RouterFacade } from '@core/router';
 import { TableSetting } from '@core/table';
-import {
-  AssetPolicyFacade,
-  SubAssetPolicyFacade,
-  AssetPolicyService
-} from '@feature/configuration/+state/asset-policy';
+import { AssetPolicyFacade, AssetPolicyService } from '@feature/configuration/+state/asset-policy/asset';
+import { SubAssetPolicyFacade } from '@feature/configuration/+state/asset-policy/sub-asset';
 import { Utility } from '@shared/utility/utility';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'anms-add-asset-policy',
@@ -34,38 +32,6 @@ export class AddAssetPolicyComponent
   submitted = false;
   isEdit = false;
   id: number;
-  //#endregion
-
-  //#region Dialog
-  dialogModalAddOrUpdate = false;
-  dialogModalCancel = false;
-  dialogModalError = false;
-
-  dialogSettingAddOrUpdate: IDialogAlert = {
-    header: 'Asset Policy',
-    hasError: true,
-    hasHeader: true,
-    message: 'New Asset Policy Successfully Added',
-    confirmButton: 'OK'
-  };
-
-  dialogSettingError: IDialogAlert = {
-    header: 'Asset Policy',
-    hasError: true,
-    hasHeader: true,
-    message: 'An Error Occured',
-    confirmButton: 'OK'
-  };
-
-  dialogSettingCancel: IDialogAlert = {
-    header: 'Asset Policy',
-    hasError: false,
-    isWarning: true,
-    hasHeader: true,
-    message: 'Are you sure that you want to cancel the asset policy creation?',
-    confirmButton: 'Yes',
-    cancelButton: 'No'
-  };
   //#endregion
 
   //#region Tables
@@ -135,9 +101,11 @@ export class AddAssetPolicyComponent
     private assetPolicyFacade: AssetPolicyFacade,
     private _subAssetPolicyFacade: SubAssetPolicyFacade,
     private _activatedRoute: ActivatedRoute,
-    private service: AssetPolicyService
+    private service: AssetPolicyService,
+    private _dialogService : DialogService
   ) {
     super(injector);
+    this.assetPolicyFacade.reset()
   }
 
   loadAssetPolicyForm(assetPolicy) {
@@ -251,26 +219,43 @@ export class AddAssetPolicyComponent
 
     this.assetPolicyFacade.submitted$.subscribe((x) => {
       if (x) {
-        this.dialogModalAddOrUpdate = true;
-        this.dialogSettingAddOrUpdate.header = this.isEdit
-          ? 'Edit Asset Policy'
-          : 'Add new Asset Policy';
-        this.dialogSettingAddOrUpdate.message = this.isEdit
-          ? 'Changes Saved Successfully'
-          : 'Asset Policy Added Successfully';
-        this.dialogSettingAddOrUpdate.isWarning = false;
-        this.dialogSettingAddOrUpdate.hasError = false;
-        this.dialogSettingAddOrUpdate.confirmButton = 'Ok';
-        this.dialogSettingAddOrUpdate.cancelButton = undefined;
+        const dialog = this._dialogService.show('success' , 
+        (this.isEdit ? 'Edit Asset Policy': 'Add New Asset Policy' ), 
+        (this.isEdit ? 'Changes Saved Successfully' : 'Asset Policy Added Successfully'),'Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+            this._router.navigate(['/configuration/asset-policy'] , { queryParams: { 
+              id:
+              this.assetPolicyForm.get('policyType').value == 'ASSET'
+                ? 'assetPolicyAssetTab'
+                : 'assetPolicySubAssetTab'
+             }}).then(()=>{
+              this.assetPolicyFacade.loadAll();
+              this._subAssetPolicyFacade.loadAll();
+            });
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
+
       }
     });
 
     this.assetPolicyFacade.error$.subscribe((x) => {
       if (x) {
-        this.dialogModalError = true;
-        this.dialogSettingError.hasError = true;
-      } else {
-        this.dialogModalError = false;
+        const dialog = this._dialogService.show('danger' , 
+          (this.isEdit ? 'Edit Asset Policy': 'Add New Asset Policy' ), 
+          'We Have Some Error','Ok')
+        const dialogClose$:Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+          if (result === 'confirm') {
+          }
+          dialogClose$?.unsubscribe();
+          })
+        ).subscribe()
       }
     });
   }
@@ -280,66 +265,58 @@ export class AddAssetPolicyComponent
     this.assetPolicyForm.markAllAsTouched();
     if (this.assetPolicyForm.invalid) return;
 
-    const data = this.getAssetPolicyRequestPayload(this.assetPolicyForm.value);
-    const _data = {
-      type: data.type,
-      name: data.name,
-      maxUsageKmPHour: data.maxUsageKPHour ? data.maxUsageKPHour : 0,
-      maxUsageYear: data.maxUsageYear ? data.maxUsageYear : 0,
-      depreciationValue: data.depreciationValue,
-      setReminderBefore: data.reminder
-    };
+    const dialog = this._dialogService.show('warning' , 
+    (this.isEdit ? 'Edit Asset Policy': 'Add New Asset Policy' ), 
+    (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new asset policy?') , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {    
+        if (result === 'confirm') {
+          const data = this.getAssetPolicyRequestPayload(this.assetPolicyForm.value);
+          const _data = {
+            type: data.type,
+            name: data.name,
+            maxUsageKmPHour: data.maxUsageKPHour ? data.maxUsageKPHour : 0,
+            maxUsageYear: data.maxUsageYear ? data.maxUsageYear : 0,
+            depreciationValue: data.depreciationValue,
+            setReminderBefore: data.reminder
+          };
+      
+          if (!this.isEdit) {
+            this.assetPolicyFacade.addAssetPolicy(_data);
+          } else {
+            const data = {
+              id: this.id,
+              ..._data
+            };
+      
+            this.assetPolicyFacade.updateAssetPolicy(data);
+          }
 
-    if (!this.isEdit) {
-      this.assetPolicyFacade.addAssetPolicy(_data);
-    } else {
-      const data = {
-        id: this.id,
-        ..._data
-      };
-
-      this.assetPolicyFacade.updateAssetPolicy(data);
-    }
-
-    // this.goToList();
+        }
+        dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
   }
   cancel() {
-    this.dialogModalCancel = true;
+    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Yes','Cancel')
+    const dialogClose$:Subscription = dialog.dialogClosed$
+    .pipe(
+      tap((result) => {
+      if (result === 'confirm') {
+        this._router.navigate(['/configuration/asset-policy'] , { queryParams: { 
+          id:
+          this.assetPolicyForm.get('policyType').value == 'ASSET'
+            ? 'assetPolicyAssetTab'
+            : 'assetPolicySubAssetTab'
+         }});
+      }
+      dialogClose$?.unsubscribe();
+      })
+    ).subscribe();
+
   }
-  dialogCancelConfirm(value) {
-    if (value === true) {
-      this._router
-        .navigate(['configuration/asset-policy'], {
-          queryParams: {
-            id:
-              this.assetPolicyForm.get('policyType').value == 'ASSET'
-                ? 'assetPolicyAssetTab'
-                : 'assetPolicySubAssetTab'
-          }
-        })
-        .then((_) => {
-          this.assetPolicyFacade.reset();
-        });
-    }
-    this.dialogModalCancel = false;
-  }
-  dialogAddOrUpdateConfirm(value) {
-    if (value === true) {
-      this._router
-        .navigate(['configuration/asset-policy'], {
-          queryParams: {
-            id:
-              this.assetPolicyForm.get('policyType').value == 'ASSET'
-                ? 'assetPolicyAssetTab'
-                : 'assetPolicySubAssetTab'
-          }
-        })
-        .then((_) => {
-          this.assetPolicyFacade.reset();
-        });
-    }
-    this.dialogModalAddOrUpdate = false;
-  }
+
   ngOnDestroy(): void {
   }
 }

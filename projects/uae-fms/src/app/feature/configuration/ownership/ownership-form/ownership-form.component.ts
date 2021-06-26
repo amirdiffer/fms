@@ -6,6 +6,7 @@ import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { map } from 'rxjs/operators';
 import { OwnershipFacade, OwnershipService } from '../../+state/ownership';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-ownership-form',
@@ -65,43 +66,22 @@ export class OwnershipFormComponent extends Utility implements OnInit {
   );
   //#endregion
 
-  //#region Dialogs
-  dialogCancelSetting: IDialogAlert = {
-    header: 'Cancel',
-    hasError: false,
-    isWarning: true,
-    message: 'Are you sure you want to cancel?',
-    confirmButton: 'Cancel',
-    cancelButton: 'No'
-  };
-  dialogSuccessSetting: IDialogAlert = {
-    header: 'Success',
-    hasError: false,
-    message: 'New ownership Successfully Added',
-    confirmButton: 'Ok'
-  };
-  dialogErrorSetting: IDialogAlert = {
-    header: 'Error',
-    hasError: true,
-    message: 'Some Error Occurred',
-    confirmButton: 'Ok'
-  };
-  displayCancelModal = false;
-  displaySuccessModal = false;
-  displayErrorModal = false;
-  //#endregion
-
   //#region  Variables
   ownerShipForm: FormGroup;
   submitted = false;
   //#endregion
+
+  get ownershipType(): OwnershipType {
+    return this.ownerShipForm.controls['type'].value;
+  }
 
   constructor(
     injector: Injector,
     private _fb: FormBuilder,
     private facade: OwnershipFacade,
     private service: OwnershipService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private dialogService: DialogService
   ) {
     super(injector);
   }
@@ -111,28 +91,34 @@ export class OwnershipFormComponent extends Utility implements OnInit {
 
     this.ownerShipForm = this._fb.group({
       type: ['EXTERNAL'],
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: [''],
       purpose: [''],
       fleetITCode: ['', [Validators.required]],
-      duration: ['', [Validators.required]]
+      duration: []
     });
 
     this.facade.submitted$.subscribe((x) => {
       if (x) {
-        this.displaySuccessModal = true;
-        this.dialogSuccessSetting.message = this.isEdit
-          ? 'Ownership Edited Successfully'
-          : 'New ownership Successfully Added';
-        this.dialogErrorSetting.hasError = false;
+        const dialog = this.dialogService.show('success', 'Success',
+          this.isEdit ? 'Ownership Edited Successfully' : 'New ownership Successfully Added',
+          'Ok', '')
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+            this.resetParams();
+            this._goToList();
+          }
+        });
       }
     });
 
     this.facade.error$.subscribe((x) => {
       if (x?.error) {
-        this.displayErrorModal = true;
-        this.dialogErrorSetting.hasError = true;
+        const dialog = this.dialogService.show('danger', 'Error', 'Some Error Occurred',
+          'Ok', '')
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+          } else {
+          }
+        });
       }
     });
 
@@ -160,37 +146,39 @@ export class OwnershipFormComponent extends Utility implements OnInit {
     if (this.ownerShipForm.invalid) {
       return;
     } else {
+      const payload = {
+        duration:
+          this.ownershipType === 'EXTERNAL' || this.ownershipType === 'OWNED'
+            ? '1'
+            : this.ownerShipForm.value.duration,
+        fleetITCode: this.ownerShipForm.value.fleetITCode,
+        purpose: this.ownerShipForm.value.purpose,
+        type: this.ownerShipForm.value.type
+      };
       if (this.isEdit) {
-        this.facade.editOwnership({ ...this.ownerShipForm.value, id: this.id });
+        this.facade.editOwnership({ ...payload, id: this.id });
       } else {
-        this.facade.addOwnership(this.ownerShipForm.value);
+        this.facade.addOwnership(payload);
       }
     }
   }
   showCancelAlert() {
-    this.displayCancelModal = true;
+    const dialog = this.dialogService.show('warning', 'Cancel',
+      'Are you sure you want to cancel ?', 'Yes', 'No');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this._goToList();
+      }
+    });
   }
 
   resetParams(): void {
     this.facade.resetParams();
   }
 
-  dialogConfirm(confirmed) {
-    this.displayCancelModal = false;
-    this.displayErrorModal = false;
-    if (confirmed) {
-      this.displaySuccessModal = false;
-      this._goToList();
-    } else this.displaySuccessModal = false;
-  }
-
   _goToList() {
     this.router.navigate(['configuration/ownership']);
   }
-
-  successConfirmed() {
-    this.displaySuccessModal = false;
-    this._goToList();
-    this.resetParams();
-  }
 }
+
+export type OwnershipType = 'EXTERNAL' | 'OWNED' | 'RENT' | 'DEMO';

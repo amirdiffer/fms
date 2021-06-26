@@ -9,14 +9,13 @@
   <div class="form-section form-section--inline mt-3">
     <div class="row">
       <div class="col-12 col-md-3">
-        <h3 class="form-section__title">{{
-          'configuration.periodic_service.periodic_service_info' | translate }}</h3>
+        <h3 class="form-section__title">{{'configuration.periodic_service.periodic_service_info' | translate }}</h3>
       </div>
       <div class="col-12 col-md-6 p-field form-section__field">
         <span class="p-float-label">
           <input formControlName="name" pInputText placeholder="{{
             'configuration.periodic_service.periodic_service_name' | translate
-            }} *" required type="text">
+            }} *" type="text">
           <label>{{ 'configuration.periodic_service.periodic_service_name' |
             translate }} *</label>
         </span>
@@ -26,79 +25,211 @@
     </div>
   </div>
 
-  <div class="form-section form-section--inline mt-3">
-    <div formArrayName="packages">
-      <div class="row" [formGroupName]="i" *ngFor="let item of
-        periodicServiceForm.get('packages')['controls'];let i= index">
+  <div class="form-section form-section--inline mt-3"
+    *ngFor="let item of periodicServiceForm.get('packages')['controls'];let i= index ; let last=last; let first=first;">
+    <div formArrayName="packages" class="mt-2">
+      <div class="row" [formGroupName]="i">
+
         <div class="col-md-2 d-flex">
-          <span class='plus-icon' (click)="addPackage()">
-            <svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height':
-              '100%'}"></svg-icon>
-          </span>
+          <div class="mx-3" *ngIf="first">
+            <span class='p-inputgroup-addon' (click)="addPackage(i)">
+              <svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.px':18 , 'fill': '#009c62' , 'height': '100%'}">
+              </svg-icon>
+            </span>
+          </div>
+          <div class="mx-3" *ngIf="!first">
+            <span class='remove-icon p-inputgroup-addon' (click)="removePackage(i)">
+              <svg-icon src='assets/icons/add.svg'
+                [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}">
+              </svg-icon>
+            </span>
+          </div>
           <div class="title-wrapper">
             <h3 class="form-section__title">{{
               'configuration.periodic_service.package' | translate }}</h3>
           </div>
         </div>
-        <div class="col-12 col-md-5 p-field form-section__field">
+        <div class="col-12 col-md-5 p-field form-section__field px-0">
           <span class="p-float-label">
             <input formControlName="packageName" pInputText placeholder="{{ 'configuration.periodic_service.package_name' |
-              translate }} *" required type="text">
-            <label>{{ 'configuration.periodic_service.package_name' | translate
-              }} *</label>
+              translate }} *" type="text">
+            <label>{{ 'configuration.periodic_service.package_name' | translate}} *</label>
           </span>
-          <div *ngIf="((packages.controls[i].get('packageName').dirty &&
+          <anms-error [showError]="hasError('packageName',package.at(i),submitted)" error="forms.feedback.required">
+          </anms-error>
+          <!-- <div *ngIf="((packages.controls[i].get('packageName').dirty &&
             packages.controls[i].get('packageName').invalid) ||
             (packages.controls[i].get('packageName').invalid && submitted)) &&
             packages.controls[i].get('packageName').errors?.required" class="p-error">
             {{ 'forms.feedback.required' | translate }}
-          </div>
+          </div> -->
         </div>
-        <div class="col-12 col-md-5 p-field form-section__field
-          dropdown-select-input">
-          <p-dropdown inputId="unit" formControlName="intervalType" [options]="units" optionLabel="name"></p-dropdown>
+        <div class="col-12 col-md-5 p-field form-section__field dropdown-select-input">
           <div class="form-section__field w-100">
             <span class="p-float-label">
-              <input formControlName="intervals" pInputText placeholder="{{ 'configuration.periodic_service.intervals' |
-                translate }}" type="number">
-              <label>{{ 'configuration.periodic_service.intervals' | translate
-                }}</label>
+              <input formControlName="intervals" pInputText
+                placeholder="{{ 'configuration.periodic_service.repetition' |translate }}" type="number">
+              <label>{{ 'configuration.periodic_service.repetition' | translate}}</label>
             </span>
+            <anms-error [showError]="hasError('intervals',package.at(i),submitted)" error="forms.feedback.required">
+            </anms-error>
+          </div>
+        </div>
+        <div class="col-12 p-field form-section__field">
+          <div class="row">
+            <div class="col-2"></div>
+            <div class="col-10">
+              <div class="row">
+                <div class="col-4 px-0">
+                  <div class="form-group form-check">
+                    <input id="checkbox1" type="checkbox" class="custom-checkbox" formControlName="distanceButton"
+                      (change)="getCheckboxValue(i , $event.target.checked ,'distanceButton' , 'milage' , 'milageForReminder')">
+                    <label for="checkbox1">{{ 'configuration.periodic_service.distance' | translate}}</label>
+                  </div>
+                  <div class="p-field form-section__field" *ngIf="getType(i , 'distanceButton')">
+                    <span class="p-float-label">
+                      <input formControlName="milage" pInputText
+                        placeholder="{{ 'configuration.periodic_service.milage' | translate}}" type="text" numbersOnly>
+                      <label>{{ 'configuration.periodic_service.milage' | translate}} *</label>
+                    </span>
+                    <anms-error [showError]="hasError('milage',package.at(i),submitted)"
+                      error="forms.feedback.required">
+                    </anms-error>
+                  </div>
+                </div>
+                <div class="col-4 ">
+                  <div class="form-group form-check">
+                    <input id="checkbox2" type="checkbox" class="custom-checkbox" formControlName="hoursButton"
+                      (change)="getCheckboxValue(i , $event.target.checked , 'hoursButton' , 'hours' , 'hoursForReminder')">
+                    <label for="checkbox2">{{ 'configuration.periodic_service.hours' | translate}}</label>
+                  </div>
+                  <div class="p-field form-section__field" *ngIf="getType(i , 'hoursButton')">
+                    <span class="p-float-label">
+                      <input formControlName="hours" pInputText
+                        placeholder="{{ 'configuration.periodic_service.hours' | translate}}" type="text" numbersOnly>
+                      <label>{{ 'configuration.periodic_service.hours' | translate}} *</label>
+                    </span>
+                    <anms-error [showError]="hasError('hours',package.at(i),submitted)" error="forms.feedback.required">
+                    </anms-error>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="duration-container">
+                    <div class="form-group form-check">
+                      <input id="checkbox3" type="checkbox" class="custom-checkbox" formControlName="durationButton"
+                        (change)="getCheckboxValue(i ,$event.target.checked , 'durationButton' , 'duration' , 'durationForReminder')">
+                      <label for="checkbox3">{{ 'configuration.periodic_service.duration' | translate}}</label>
+                    </div>
+                    <div class="duration" *ngIf="getType(i , 'durationButton')">
+                      <p-dropdown class="d-inline-block" inputId="unit" formControlName="durationType" [options]="units"
+                        optionLabel="name" optionValue="id"></p-dropdown>
+                      <div class="p-field form-section__field d-inline-block">
+                        <span class="p-float-label">
+                          <input formControlName="duration" pInputText
+                            placeholder="{{ 'configuration.periodic_service.duration' | translate}}" type="text"
+                            numbersOnly>
+                          <label>{{ 'configuration.periodic_service.duration' | translate}} *</label>
+                        </span>
+                        <anms-error [showError]="hasError('duration',package.at(i),submitted)"
+                          error="forms.feedback.required">
+                        </anms-error>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2"></div>
+            <div class="col-10">
+              <div class="row">
+                <div class="col-3 px-0 my-3">
+                  <div class="toggle-select justify-content-start">
+                    <p-inputSwitch formControlName="hasReminder" (onChange)="changeReminder(i,$event)"></p-inputSwitch>
+                    <label>{{ 'configuration.periodic_service.reminder' | translate}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="getType(i , 'hasReminder')">
+                <div class="col-4 px-0">
+                  <div class="p-field form-section__field" *ngIf="getType(i , 'distanceButton')">
+                    <span class="p-float-label">
+                      <input formControlName="milageForReminder" pInputText
+                        placeholder="{{ 'configuration.periodic_service.milage' | translate}}" type="text" numbersOnly>
+                      <label>{{ 'configuration.periodic_service.milage' | translate}} *</label>
+                    </span>
+                    <anms-error [showError]="hasError('milageForReminder',package.at(i),submitted)"
+                      error="forms.feedback.required">
+                    </anms-error>
+                  </div>
+                </div>
+                <div class="col-4 ">
+                  <div class="p-field form-section__field" *ngIf="getType(i , 'hoursButton')">
+                    <span class="p-float-label">
+                      <input formControlName="hoursForReminder" pInputText
+                        placeholder="{{ 'configuration.periodic_service.hours' | translate}}" type="text" numbersOnly>
+                      <label>{{ 'configuration.periodic_service.hours' | translate}} *</label>
+                    </span>
+                    <anms-error [showError]="hasError('hoursForReminder',package.at(i),submitted)"
+                      error="forms.feedback.required">
+                    </anms-error>
+                  </div>
+                </div>
+                <div class="col-4" *ngIf="getType(i , 'durationButton')">
+                  <div class="duration duration-container">
+                    <p-dropdown class="d-inline-block" inputId="unit" formControlName="durationTypeForReminder"
+                      [options]="units" optionLabel="name" optionValue="id"></p-dropdown>
+                    <div class="p-field form-section__field d-inline-block">
+                      <span class="p-float-label">
+                        <input formControlName="durationForReminder" pInputText
+                          placeholder="{{ 'configuration.periodic_service.duration' | translate}}" type="text"
+                          numbersOnly>
+                        <label>{{ 'configuration.periodic_service.duration' | translate}} *</label>
+                      </span>
+                      <anms-error [showError]="hasError('durationForReminder',package.at(i),submitted)"
+                        error="forms.feedback.required">
+                      </anms-error>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-12 col-md-2">
-          <h3 class="form-section__title text-center">{{
-            'configuration.periodic_service.task' | translate }}</h3>
+          <h3 class="form-section__title text-center">{{'configuration.periodic_service.task' | translate }}</h3>
         </div>
-        <div class="col-12 col-md-5 p-field form-section__field" formArrayName="tasks">
+        <div class="col-12 col-md-5 p-field form-section__field px-0" formArrayName="tasks">
           <div class="mt-2">
-          <div class="mb-3 p-field form-section__field d-flex " *ngFor="let item of getPackageTasks(i).controls ;let j=index; let last=last;">
-            <div class="input-group flex-with-button">
-              <div class="autocomplete-select w-100">
-                <span class="p-float-label">
-<!--                  {{ item.value.id }}-->
-                  <p-autoComplete [formControl]="item" (completeMethod)="filterTasks($event)"
-                                  [suggestions]="taskList" field="name" [minLength]="1"
-                                  [dropdown]="true"></p-autoComplete>
-                                  <i class="pi pi-search"></i>
-                                  <label>{{ 'configuration.periodic_service.task' | translate }} *</label>
-                </span>
-              </div>
-              <anms-error [showError]="formArrayHasError(submitted, getPackageTasks(i), j)" error="forms.feedback.required"></anms-error>
+            <div class="mb-3 p-field form-section__field d-flex "
+              *ngFor="let item of getPackageTasks(i).controls ;let j=index; let last=last;">
+              <div class="input-group flex-with-button">
+                <div class="autocomplete-select w-100">
+                  <span class="p-float-label">
+                    <p-autoComplete [formControl]="item" (completeMethod)="filterTasks($event)" [suggestions]="taskList"
+                      field="name" [minLength]="1" [dropdown]="true"></p-autoComplete>
+                    <i class="pi pi-search"></i>
+                    <label>{{ 'configuration.periodic_service.task' | translate }} *</label>
+                  </span>
+                </div>
+                <anms-error [showError]="formArrayHasError(submitted, getPackageTasks(i), j)"
+                  error="forms.feedback.required"></anms-error>
 
-            </div>
-            <span *ngIf="last" class="p-inputgroup-addon addon-primary" [ngStyle]="{'cursor': 'pointer','height': '40px'}"
-                (click)="addTask('',i,j)">
+              </div>
+              <span *ngIf="last" class="p-inputgroup-addon addon-primary"
+                [ngStyle]="{'cursor': 'pointer','height': '40px'}" (click)="addTask('',i,j)">
                 <i class="pi pi-plus"></i>
               </span>
-            <span *ngIf="!last" class='remove-icon p-inputgroup-addon'(click)="removeTask(i,j)" [ngStyle]="{'cursor': 'pointer','height': '40px'}">
-              <svg-icon src='assets/icons/add.svg'
-                        [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
-            </span>
-          </div>
+              <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeTask(i,j)"
+                [ngStyle]="{'cursor': 'pointer','height': '40px'}">
+                <svg-icon src='assets/icons/add.svg'
+                  [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}">
+                </svg-icon>
+              </span>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -115,9 +246,3 @@
     </div>
   </div>
 </div>
-
-
-<alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)">
-</alert-dialog>
-<alert-dialog [settings]="dialogSuccessSetting" [displayModal]="displaySuccessModal" (confirm)="successDialogConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="dialogErrorSetting" [displayModal]="displayErrorModal"></alert-dialog>

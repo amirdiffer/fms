@@ -23,4 +23,14 @@ export class TrafficFineTableSelectors {
     TrafficFinesSelectors.trafficFineTableSelector,
     (state) => state.error
   );
+
+  static loaded = createSelector(
+    TrafficFinesSelectors.trafficFineTableSelector,
+    (state) => state.loaded
+  );
+
+  static vehicleInfo = createSelector(
+    TrafficFinesSelectors.trafficFineTableSelector,
+    (state) => state.vehicleInfo
+  );
 }

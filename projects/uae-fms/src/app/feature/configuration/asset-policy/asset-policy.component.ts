@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableComponent, TableSetting } from '@core/table';
-import {
-  AssetPolicyFacade,
-  SubAssetPolicyFacade
-} from '../+state/asset-policy';
+import { AssetPolicyFacade } from '../+state/asset-policy/asset';
+import { SubAssetPolicyFacade } from '../+state/asset-policy/sub-asset';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,15 +12,14 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./asset-policy.component.scss']
 })
 export class AssetPolicyComponent implements OnInit, OnDestroy {
-
-  #startRegionVariables
+  #startRegionVariables;
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   selectedTab: any;
   getAssetPolicySubscription!: Subscription;
   downloadBtn = 'assets/icons/download-solid.svg';
-  #endRegionVariables
+  #endRegionVariables;
 
-  #startRegionTables
+  #startRegionTables;
   assetPolicy_Table: TableSetting = {
     columns: [
       {
@@ -63,12 +60,12 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       floatButton: [
         {
           onClick: (col, data) => {
-            console.log(data.id)
-            this._router.navigate(
-              ['/configuration/asset-policy/edit-asset-policy/' + data.id]
-            );
+            console.log(data.id);
+            this._router.navigate([
+              '/configuration/asset-policy/edit-asset-policy/' + data.id
+            ]);
           },
-
+          permission: ['ASSET_POLICY_ASSET_UPDATE'],
           button: 'edit'
         }
       ]
@@ -105,11 +102,11 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       floatButton: [
         {
           onClick: (col, data) => {
-            this._router.navigate(
-              ['/configuration/asset-policy/edit-asset-policy/' + data.id]
-            );
+            this._router.navigate([
+              '/configuration/asset-policy/edit-asset-policy/' + data.id
+            ]);
           },
-
+          permission: ['ASSET_POLICY_SUB_ASSET_UPDATE'],
           button: 'edit'
         }
       ]
@@ -151,7 +148,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       return x;
     })
   );
-  #endRegionTables
+  #endRegionTables;
 
   constructor(
     private _router: Router,
@@ -193,7 +190,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
           Distance: 'Distance',
           Year: 'Year',
           Depreciation_Value: 'Depreciation_Value'
-        }
+        };
         this.table.exportTable(this.assetPolicy_Table, 'Asset', filter);
         break;
       case 'assetPolicySubAssetTab':
@@ -202,7 +199,7 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
           Distance: 'Distance',
           Year: 'Year',
           Depreciation_Value: 'Depreciation_Value'
-        }
+        };
         this.table.exportTable(this.subAssetPolicy_Table, 'Sub Asset', filter);
         break;
     }

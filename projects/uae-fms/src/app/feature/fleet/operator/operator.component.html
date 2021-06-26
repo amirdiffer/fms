@@ -1,23 +1,25 @@
-<div class="statistic-card">
-  <app-filter [setting]='filterCard'></app-filter>
-</div>
-<div class="component_wrapper table-container " *ngIf="!showOverView">
-  <div class="card-table-header">
-    <div class="search-box">
-      <input id="searchInput" placeholder="{{'search.search_in_columns' | translate}}" type="text">
-      <button>
-        <img src="assets/icons/search-solid.svg" alt="">
+
+  <div class="statistic-card" *hasPermission="['USER_OPERATOR_VIEW_LIST']">
+    <app-filter [setting]='filterCard'></app-filter>
+  </div>
+  <div class="component_wrapper table-container " *ngIf="!showOverView">
+    <div class="card-table-header">
+      <div class="search-box">
+        <input id="searchInput" placeholder="{{'search.search_in_columns' | translate}}" type="text">
+        <button>
+          <img src="assets/icons/search-solid.svg" alt="">
+        </button>
+      </div>
+      <button class="btn-download" (click)="exportTable()">
+        <svg-icon [src]="downloadBtn"></svg-icon>
       </button>
+      <button  *hasPermission="['USER_OPERATOR_ADD']" class="btn-primary-small" routerLink='add-operator'><i>+</i><a>{{'search.add' | translate}}</a></button>
     </div>
-    <button class="btn-download" (click)="exportTable()">
-      <svg-icon [src]="downloadBtn"></svg-icon>
-    </button>
-    <button class="btn-primary-small" routerLink='add-operator'><i>+</i><a>{{'search.add' | translate}}</a></button>
+    <div *hasPermission="['USER_OPERATOR_VIEW_LIST']">
+      <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="operator" [setting]='operator_Table' [tableData]="data$"></app-table>
+    </div>
   </div>
-  <div class="">
-    <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="operator" [setting]='operator_Table' [tableData]="data$"></app-table>
-  </div>
-</div>
+
 <!-- <ng-container *ngIf="showOverView">
   <anms-over-view-operator></anms-over-view-operator>
 </ng-container> -->

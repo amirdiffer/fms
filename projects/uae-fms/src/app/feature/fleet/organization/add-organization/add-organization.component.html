@@ -48,6 +48,10 @@
                 (click)="addTagField(tagItem.value.tag)">
                 <i class="pi pi-plus"></i>
               </span>
+              <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeTagField(index)">
+                <svg-icon src='assets/icons/add.svg'
+                          [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+              </span>
             </span>
           </div>
         </span>
@@ -55,12 +59,22 @@
     </div>
   </div>
   <div class="form-section">
-    <h3 class="form-section__title"><span class='plus-icon'>
-        <svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.px': 18 , 'fill': '#0DA06E' , 'height':
-        '100%'}" (click)='addSection()'></svg-icon>
-      </span><span class='font-weight-bold ml-2'>{{ 'organization.section_department' | translate}}</span></h3>
     <div formArrayName='section'>
-      <div class="row form-section__row" *ngFor='let _ of section.controls; let index = index;' [formGroupName]='index'>
+      <div class="row form-section__row pb-3" *ngFor='let _ of section.controls; let index = index; let lastSection = last;' [formGroupName]='index'>
+        <h3 *ngIf="lastSection" class="form-section__title col-12 d-flex">
+          <span class='p-inputgroup-addon section-button'>
+            <svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.px': 18 , 'fill': '#0DA06E' , 'height':
+            '100%'}" (click)='addSection()'></svg-icon>
+          </span>
+          <span class='font-weight-bold mx-2 align-self-center'>{{ 'organization.section_department' | translate}}</span>
+        </h3>
+        <h3 *ngIf="!lastSection" class="form-section__title col-12 d-flex">
+          <span  class='remove-icon p-inputgroup-addon section-button' (click)='removeSection(index)'>
+            <svg-icon src='assets/icons/add.svg'
+                      [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+          </span>
+          <span class='font-weight-bold mx-2 align-self-center'>{{ 'organization.remove_section_department' | translate}}</span>
+        </h3>
         <div class="col-12 col-md-4 p-field form-section__field">
           <span class="p-float-label">
             <input formControlName="sectionName" pInputText placeholder="{{ 'organization.section_name' | translate}}"
@@ -83,6 +97,10 @@
                 <span *ngIf="last" class="p-inputgroup-addon addon-primary" (click)='addSectionLocation(index)'>
                   <i class="pi pi-plus"></i>
                 </span>
+                <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeLocationField(index , j)">
+                  <svg-icon src='assets/icons/add.svg'
+                            [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}"></svg-icon>
+                </span>
               </div>
             </span>
             <anms-error [showError]="formArrayHasError(submited, sectionLocation(index), j, 'location')"
@@ -101,4 +119,3 @@
     </div>
   </div>
 </div>
-<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>

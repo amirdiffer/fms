@@ -4,11 +4,13 @@ import {
   BusinessCategoryService
 } from '../../+state/business-category';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
 import { TableSetting } from '@core/table';
 import { map } from 'rxjs/operators';
-import { AssetTypeFacade, AccessoryTypeFacade, SubAssetTypeFacade } from '../../+state/fleet-configuration';
+import { AccessoryTypeFacade } from '../../+state/fleet-configuration/accessory-type';
+import { SubAssetTypeFacade } from '../../+state/fleet-configuration/sub-asset-type';
+import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
+import { DialogService } from '@core/dialog/dialog-template.component';
 
 @Component({
   selector: 'anms-add-category',
@@ -16,17 +18,6 @@ import { AssetTypeFacade, AccessoryTypeFacade, SubAssetTypeFacade } from '../../
   styleUrls: ['./add-category.component.scss']
 })
 export class AddCategoryComponent extends Utility implements OnInit {
-  //#region  Dialog
-  dialogModal = false;
-  dialogMode = null;
-  dialogSetting: IDialogAlert = {
-    header: 'Add Usage Category',
-    hasError: false,
-    message: 'Are you sure you want to add new Business Category?',
-    confirmButton: 'Register Now',
-    cancelButton: 'Cancel'
-  };
-  //#endregion
 
   //#region Table
   addCategory_Table: TableSetting = {
@@ -95,6 +86,7 @@ export class AddCategoryComponent extends Utility implements OnInit {
     private assetTypeFacade: AssetTypeFacade,
     private subAssetTypeFacade: SubAssetTypeFacade,
     private accessoryTypeFacade: AccessoryTypeFacade,
+    private dialogService: DialogService
   ) {
     super(injector);
   }
@@ -135,33 +127,27 @@ export class AddCategoryComponent extends Utility implements OnInit {
 
     this.facade.submitted$.subscribe((x) => {
       if (x) {
-        this.dialogMode = 'cancel';
-        this.dialogModal = true;
-        this.dialogSetting.header = this.isEditing
-          ? 'Edit category'
-          : 'Add new category';
-        this.dialogSetting.message = this.isEditing
-          ? 'Changes Saved Successfully'
-          : 'Category Added Successfully';
-        this.dialogSetting.isWarning = false;
-        this.dialogSetting.hasError = false;
-        this.dialogSetting.confirmButton = 'Yes';
-        this.dialogSetting.cancelButton = undefined;
+        const dialog = this.dialogService.show('success', this.isEditing ? 'Edit category' : 'Add new category'
+          , this.isEditing ? 'Changes Saved Successfully' : 'Category Added Successfully',
+          'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+            this.facade.reset();
+            this.router.navigate(['/configuration/usage-category']).then();
+          }
+        })
       }
     });
 
     this.facade.error$.subscribe((x) => {
       if (x?.error) {
-        this.dialogModal = true;
-        this.dialogSetting.header = this.isEditing
-          ? 'Edit category'
-          : 'Add new category';
-        this.dialogSetting.message = 'Error occurred in progress';
-        this.dialogSetting.hasError = true;
-        this.dialogSetting.cancelButton = undefined;
-        this.dialogSetting.confirmButton = 'OK';
-      } else {
-        this.dialogModal = false;
+        const dialog = this.dialogService.show('danger', this.isEditing ? 'Edit category' : 'Add new category'
+          , 'Error occurred in progress', 'OK', '');
+        dialog.dialogClosed$.subscribe(result => {
+          if (result === 'confirm') {
+          } else {
+          }
+        })
       }
     });
   }
@@ -229,7 +215,7 @@ export class AddCategoryComponent extends Utility implements OnInit {
   createAssignAccessory(): FormGroup {
     return this._fb.group({
       accessory: ['', [Validators.required , this.autocompleteValidation]],
-      accessoryQuantity: ['']
+      accessoryQuantity: ['' , [Validators.required]]
     });
   }
 
@@ -277,27 +263,15 @@ export class AddCategoryComponent extends Utility implements OnInit {
   onChangeSubAssetModel(event, i) {
   }
 
-  dialogConfirm(event): void {
-    if (this.dialogMode == 'cancel') {
-      this.router.navigate(['/configuration/usage-category']).then();
-      this.facade.reset();
-      return;
-    }
-
-    this.dialogModal = false;
-
-    if (!event || this.dialogSetting.hasError) return;
-  }
-
   cancel(): void {
-    this.dialogMode = 'cancel';
-    this.dialogModal = true;
-    this.dialogSetting.confirmButton = 'Yes';
-    this.dialogSetting.cancelButton = 'No';
-    this.dialogSetting.hasError = false;
-    this.dialogSetting.isWarning = true;
-    this.dialogSetting.message =
-      'Are you sure to cancel adding new usage category?';
+    const dialog = this.dialogService.show('warning', this.isEditing ? 'Edit category' : 'Add new category'
+      , this.isEditing ? 'Are you sure to cancel adding new usage category ?' : 'Are you sure to cancel editing the usage category ?',
+      'Yes', 'No');
+    dialog.dialogClosed$.subscribe(result => {
+      if (result === 'confirm') {
+        this.router.navigate(['/configuration/usage-category']).then();
+      }
+    })
   }
 
   submit() {

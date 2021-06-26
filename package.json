@@ -1,7 +1,7 @@
 {
   "name": "uae-fms",
-  "version": "0.2.0",
-  "build":"1",
+  "version": "0.2.3",
+  "build": "4",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -23,7 +23,8 @@
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate && node .all-contributors-html.js",
     "contributors:check": "all-contributors check",
-    "compodoc": "compodoc -p ./tsconfig.json"
+    "compodoc": "compodoc -p ./tsconfig.json",
+    "changelog": "node changelog.js"
   },
   "husky": {
     "hooks": {
@@ -76,6 +77,7 @@
     "jspdf-autotable": "^3.5.14",
     "leaflet": "^1.7.1",
     "ng-apexcharts": "^1.5.6",
+    "ng-circle-progress": "^1.6.0",
     "ng2-charts": "^2.4.2",
     "ngx-color": "^6.2.0",
     "ngx-color-picker": "^11.0.0",
@@ -111,6 +113,7 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-import": "^2.22.1",
     "express": "^4.16.4",
+    "generate-changelog": "^1.8.0",
     "husky": "^4.3.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~6.0.0",

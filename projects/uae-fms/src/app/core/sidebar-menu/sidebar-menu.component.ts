@@ -9,7 +9,7 @@ import {
   Store
 } from '@ngrx/store';
 
-import { interval, Subscription } from 'rxjs';
+import { interval, Observable, Subscription } from 'rxjs';
 import { delayWhen } from 'rxjs/operators';
 
 import { AppState } from '../core.state';
@@ -21,6 +21,7 @@ import {
   RouterService
 } from '../general-services';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ISidebar, SidebarMenuPermission } from '@core/Permission/sidebar-menu-permission.service';
 
 @Component({
   selector: 'app-sidebar-manu',
@@ -44,222 +45,6 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
   public activeGroup: string = '';
 
   usingMenu = [];
-  mainMenu = [
-    {
-      name: 'sidebar.dashboard',
-      icon: 'dashboard',
-      route: '/dashboard'
-    },
-    {
-      name: 'sidebar.fleets.~',
-      icon: 'fleets',
-      route: '/fleet',
-      items: [
-        {
-          name: 'sidebar.fleets.assets',
-          icon: 'car-solid',
-          route: '/fleet/assets'
-        },
-        {
-          name: 'sidebar.fleets.sub_assets',
-          icon: 'sub-assets',
-          route: '/fleet/sub-asset'
-        },
-        {
-          name: 'sidebar.fleets.accessory',
-          icon: 'accessory',
-          route: '/fleet/accessory'
-        },
-        {
-          name: 'sidebar.fleets.operator',
-          icon: 'operator',
-          route: '/fleet/operator'
-        },
-        {
-          name: 'sidebar.fleets.department',
-          icon: 'organization',
-          route: '/fleet/department'
-        },
-        {
-          name: 'sidebar.fleets.movement.~',
-          icon: 'movement',
-          route: '/fleet/movement',
-          items: [
-            {
-              name: 'sidebar.fleets.movement.permanent',
-              route: '/fleet/movement/permanent'
-            },
-            {
-              name: 'sidebar.fleets.movement.temporary',
-              route: '/fleet/movement/temporary'
-            }
-            /* {
-              name: 'sidebar.fleets.movement.iserve',
-              route: '/fleet/movement/iserve'
-            } */
-          ]
-        }
-      ]
-    },
-    {
-      name: 'sidebar.fuel_management',
-      icon: 'fuel',
-      route: '/fuel-management'
-    },
-    {
-      name: 'sidebar.traffic_fine',
-      icon: 'traffic',
-      route: '/traffic-fine'
-    },
-    { name: 'sidebar.toll', icon: 'toll', route: '/toll'},
-    {
-      name: 'sidebar.workshop.~',
-      icon: 'workshop',
-      route: '/workshop',
-      items: [
-        {
-          name: 'sidebar.workshop.body_shop',
-          icon: 'body-shop',
-          route: '/workshop/body-shop'
-        },
-        {
-          name: 'sidebar.workshop.service_shop',
-          icon: 'service-shop',
-          route: '/workshop/service-shop'
-        },
-        {
-          name: 'sidebar.workshop.location',
-          icon: 'location',
-          route: '/workshop/location'
-        },
-        /* {
-          name: 'sidebar.workshop.inspection.~',
-          icon: 'inspection',
-          route: '/workshop/inspections',
-          items: [
-            {
-              name: 'sidebar.workshop.inspection.technical_inspection',
-              route: '/workshop/inspections/technical-inspection'
-            },
-            {
-              name: 'sidebar.workshop.inspection.auction_list',
-              route: '/workshop/inspections/auction-list'
-            }
-          ]
-        }, */
-        {
-          name: 'sidebar.workshop.task_master',
-          icon: 'task-master',
-          route: '/workshop/task-master'
-        }
-      ]
-    },
-    {
-      name: 'sidebar.part_store.~',
-      icon: 'part-store',
-      route: '/part-store',
-      items: [
-        {
-          name: 'sidebar.part_store.part_list',
-          icon: 'part-list',
-          route: '/part-store/part-list'
-        },
-        {
-          name: 'sidebar.part_store.order_list',
-          icon: 'order-list',
-          route: '/part-store/order-list',
-          items: [
-            {
-              name: 'sidebar.part_store.asset',
-              route: '/part-store/order-list/asset'
-            },
-            {
-              name: 'sidebar.part_store.sub_asset',
-              route: '/part-store/order-list/sub-asset'
-            }
-          ]
-        },
-        {
-          name: 'sidebar.part_store.part_master',
-          icon: 'part-master',
-          route: '/part-store/part-master'
-        }
-      ]
-    },
-    /*{
-        name: 'sidebar.report',
-        icon: 'report',
-        route: '/report',
-        disabled: true
-      }, */
-    {
-      name: 'sidebar.configuration.~',
-      icon: 'configuration',
-      route: '/configuration',
-      items: [
-        {
-          name: 'sidebar.configuration.user_management.~',
-          icon: 'userManagement',
-          route: '/configuration/user-management',
-          items: [
-            {
-              name: 'sidebar.configuration.user_management.role_permission',
-              icon: 'organization',
-              route: '/configuration/user-management/role-permission'
-            },
-            {
-              name: 'sidebar.configuration.user_management.users',
-              icon: 'organization',
-              route: '/configuration/user-management/users'
-            }
-            /* {
-              name: 'sidebar.configuration.user_management.company_profile',
-              icon: 'organization',
-              route: '/configuration/user-management/company-setting',
-              disabled: true
-            } */
-          ]
-        },
-        {
-          name: 'sidebar.configuration.asset_policy',
-          icon: 'asset-policy',
-          route: '/configuration/asset-policy'
-        },
-        {
-          name: 'sidebar.configuration.asset_configuration',
-          icon: 'cog',
-          route: '/configuration/asset-configuration'
-        },
-        {
-          name: 'sidebar.configuration.business_category',
-          icon: 'business',
-          route: '/configuration/usage-category'
-        },
-        {
-          name: 'sidebar.configuration.ownership',
-          icon: 'copyright-solid',
-          route: '/configuration/ownership'
-        },
-        /* {
-          name: 'sidebar.configuration.fleet_status',
-          icon: 'flag-solid',
-          route: '/configuration/fleet-status',
-          disabled: true
-        }, */
-        {
-          name: 'sidebar.configuration.periodic_service',
-          icon: 'periodic-service',
-          route: '/configuration/periodic-service'
-        }
-      ]
-    },
-    /* {
-      name: 'sidebar.integrations',
-      icon: 'integrations',
-      route: '/integration',
-      disabled: true
-    } */
-  ];
 
   checkMenuState: Subscription;
   opened$ = this.facade.opened$;
@@ -273,18 +58,19 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
   assets = assetsPath;
 
   innerWidth: number = this.resizeService.getCurrent().innerWidth;
-
+  usingMenu$ : Observable<ISidebar[]>;
   constructor(
     private store: Store,
     private facade: SidebarMenuFacade,
     private resizeService: WindowResizeService,
     private routerService: RouterService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public loadMenu:SidebarMenuPermission , /* Menu Data is Here  */
   ) {}
 
   ngOnInit() {
-    this.usingMenu = this.mainMenu;
+    this.loadMenu.getUserPermission() 
     this.route.url.subscribe((x) => {
       let url = this.router.url;
       if (url.indexOf('?') >= 0) {

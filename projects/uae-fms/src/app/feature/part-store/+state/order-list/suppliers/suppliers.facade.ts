@@ -15,35 +15,34 @@ export class SuppliersFacade {
 
   submitted$ = this.store.pipe(select(SuppliersSelectors.submitted));
 
-  specificSupplier$ = this.store.pipe(select(SuppliersSelectors.specificSupplier));
+  specificSupplier$ = this.store.pipe(
+    select(SuppliersSelectors.specificSupplier)
+  );
 
-  constructor(private store: Store<ISuppliersPartialState>) {}
+  constructor(private store: Store<ISuppliersPartialState>) {
+    this.loadAll();
+  }
 
   /* '''''Load''''' Supplier */
   loadAll() {
     this.store.dispatch(SuppliersActions.loadAll());
   }
 
-
   /* ''''''Add'''''' Supplier */
   addSupplier(data: any) {
     this.store.dispatch(SuppliersActions.addSupplier({ data }));
   }
 
-
   /* '''''Get''''' Specific Supplier */
-  getSpecificSupplier(id:number){
-    this.store.dispatch(SuppliersActions.getSpecificSupplier({id}));
-  };
-
+  getSpecificSupplier(id: number) {
+    this.store.dispatch(SuppliersActions.getSpecificSupplier({ id }));
+  }
 
   /* '''''Update''''' Supplier*/
-  updateSupplier(data:any){
-    this.store.dispatch(SuppliersActions.updateSupplier({data}))
-  };
+  updateSupplier(data: any) {
+    this.store.dispatch(SuppliersActions.updateSupplier({ data }));
+  }
 
-
-  
   reset() {
     this.store.dispatch(SuppliersActions.reset());
   }

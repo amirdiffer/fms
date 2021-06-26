@@ -16,7 +16,7 @@
         <div class="autocomplete-select">
           <span class="p-float-label" *ngIf="!isEdit">
             <p-autoComplete formControlName="employeeNumber" (completeMethod)="getEmployee($event)"
-              [suggestions]="employees$|async" field="nameEn" [minLength]="1" (onSelect)="employeeNumberChanged($event)"
+              [suggestions]="employees$|async" field="employeeId" [minLength]="1" (onSelect)="employeeNumberChanged($event)"
               required [disabled]="isEdit"></p-autoComplete>
             <i class="pi pi-search"></i>
             <label>{{ 'configuration.users.employee_number' | translate }} *</label>
@@ -217,7 +217,3 @@
     </div>
   </div>
 </form>
-
-<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="successDialogSetting" [displayModal]="successDialogModal" (confirm)="successDialogConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal" (confirm)="errorDialogModal=false"></alert-dialog>

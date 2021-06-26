@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnDestroy, AfterViewInit, Renderer2 } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  OnDestroy,
+  AfterViewInit,
+  Renderer2
+} from '@angular/core';
 import { environment } from '@environments/environment';
 import { SortEvent } from 'primeng/api';
 import { jsPDF } from 'jspdf';
@@ -11,8 +20,9 @@ import { ITablePagination } from '@core/table/+state/table.entity';
 import { ofType } from '@ngrx/effects';
 import { TableServiceS } from '@core/table/table.service';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
-import { CSVExport } from "@core/export";
+import { CSVExport } from '@core/export';
 import { CSVExportColumn } from '@core/export/csv.component';
+import { ColumnRendererComponent } from '@core/table/column-renderer-component/column-renderer.component';
 
 @Component({
   selector: 'app-table',
@@ -42,14 +52,22 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() subTable: TableSetting;
   dropdownItemSelected = null;
   @Output() selectedSubTable: EventEmitter<number> = new EventEmitter<number>();
+  @Output() customFilterEvent: EventEmitter<object[]> = new EventEmitter<
+    object[]
+  >();
+  @Input() showCustomFilter = false;
+
   allData = [];
+  currentContext;
   constructor(
     private settingFacade: SettingsFacade,
     private translate: TranslateService,
     private _tableFacade: TableFacade,
     private _tableService: TableServiceS,
     private renderer: Renderer2
-  ) { }
+  ) {
+    this.currentContext = this;
+  }
 
   getSearchBoxData() {
     this._tableService.getSearchBoxData(this.searchInput).subscribe((x) => {
@@ -67,13 +85,14 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       this.activeLang = lang;
     });
 
-    this.tableData?.subscribe((x) => {
-      !this.initialSearchBox ? this.getSearchBoxData() : null;
-      if (x) {
-        this.allData = x;
-        this.setting.data = x;
-      }
-    });
+    if (this.tableData)
+      this.tableData?.subscribe((x) => {
+        !this.initialSearchBox ? this.getSearchBoxData() : null;
+        if (x) {
+          this.allData = x;
+          this.setting.data = x;
+        }
+      });
   }
 
   getCol(col, data) {
@@ -95,12 +114,12 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
         // }
         case 3:
           return data[col.thumbField]
-            ? `<img class='thumb' src='${'/fms-api/document/' + data[col.thumbField]
-            }'>`
+            ? `<img class='thumb' src='${
+                '/fms-api/document/' + data[col.thumbField]
+              }'>`
             : '';
       }
-    }
-    else {
+    } else {
       return data[col.field];
     }
   }
@@ -153,35 +172,41 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getText(key: string, obj) {
     let selectionArray = key.split('.');
-    selectionArray.forEach(key => {
+    selectionArray.forEach((key) => {
       obj = obj[key];
     });
     return obj;
   }
 
-  exportTable(tableSetting: TableSetting, title: string, filter?: object): void {
-    const exportColumns: CSVExportColumn[] = tableSetting.columns.filter(x => !x.isIconLable).map((col) => {
-      return {
-        title:
-          col.lable && this.translate.instant(col.lable)
-            ? this.translate.instant(col.lable)
-            : col.lable,
-        field: col.field
-      };
-    });
+  exportTable(
+    tableSetting: TableSetting,
+    title: string,
+    filter?: object
+  ): void {
+    const exportColumns: CSVExportColumn[] = tableSetting.columns
+      .filter((x) => !x.isIconLable)
+      .map((col) => {
+        return {
+          title:
+            col.lable && this.translate.instant(col.lable)
+              ? this.translate.instant(col.lable)
+              : col.lable,
+          field: col.field
+        };
+      });
 
     const exportRows: any[] = tableSetting.data.map((data) => {
       let objKey = Object.keys(filter);
       let dataKey = Object.keys(data);
-      let map = new Map;
-      objKey.forEach(x => {
+      let map = new Map();
+      objKey.forEach((x) => {
         let func = [];
-        let columnMultiData = []
+        let columnMultiData = [];
         if (typeof filter[x] == 'string') {
           columnMultiData = (<string>filter[x]).split('|');
           func = (<string>filter[x]).split('?func:');
         }
-        columnMultiData.forEach(y => {
+        columnMultiData.forEach((y) => {
           let hasFunc = false;
           let returnedFunc: string;
           if (func.length == 2) {
@@ -191,30 +216,31 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
           }
           if ((<string>y).includes('.')) {
             if (map.has(x)) {
-              map.set(x, map.get(x) + ' ' + this.getText(y, data))
+              map.set(x, map.get(x) + ' ' + this.getText(y, data));
             } else {
-              map.set(x, this.getText(y, data))
+              map.set(x, this.getText(y, data));
             }
           } else {
             if (dataKey.includes(y)) {
               if (map.has(x)) {
-                map.set(x, map.get(x) + ' ' + data[y])
+                map.set(x, map.get(x) + ' ' + data[y]);
               } else {
-                map.set(x, data[y])
+                map.set(x, data[y]);
               }
             } else {
               if (map.has(x)) {
-                map.set(x, map.get(x) + ' ' + y)
+                map.set(x, map.get(x) + ' ' + y);
               } else {
-                map.set(x, hasFunc ? returnedFunc : y)
+                map.set(x, hasFunc ? returnedFunc : y);
               }
             }
           }
         });
       });
-      let d = Array.from(map).reduce((obj, [key, value]) => (
-        Object.assign(obj, { [key]: value })
-      ), {});
+      let d = Array.from(map).reduce(
+        (obj, [key, value]) => Object.assign(obj, { [key]: value }),
+        {}
+      );
       return d;
     });
 
@@ -361,7 +387,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   changeItemDropdownSelected(obj) {
     let data = Object.values(obj);
     this.dropdownItemSelected = data[1];
-    this.selectedSubTable.emit((<number>data[0]));
+    this.selectedSubTable.emit(<number>data[0]);
   }
 
   ngOnDestroy(): void {
@@ -370,7 +396,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void { }
+  ngAfterViewInit(): void {}
 
   updatedSelectedIds(data, field) {
     if (data[field].checkbox) this.selectedIds.push(data.id);
@@ -380,12 +406,18 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.onSelectItems.emit(this.selectedIds);
   }
+
+  customFilter(e) {
+    this.customFilterEvent.emit(e);
+  }
 }
 
 export interface TableSetting {
   columns: ColumnDifinition[];
+  rows?: RowDefinition[];
   data?: any[];
   rowSettings?: RowSettings;
+  name?: string;
 }
 
 export interface ColumnDifinition {
@@ -407,6 +439,12 @@ export interface ColumnDifinition {
   hasJobCardButton?: boolean;
   hasPadding5?: boolean;
   hasPadding3?: boolean;
+  isHeaderHidden?: boolean;
+  hasExpandedInfo?: boolean;
+}
+
+export interface RowDefinition {
+  foldableRowOption: FoldableRowOptions | undefined;
 }
 
 export enum ColumnType {
@@ -418,6 +456,13 @@ export enum ColumnType {
 export interface RowSettings {
   onClick?: Function;
   floatButton?: FloatButtonType[];
+  renderer?: String;
+  rendererOptions?: RendererOptions;
+}
+
+export interface FoldableRowOptions {
+  isFolded?: boolean;
+  foldableData?: any[];
 }
 
 export interface RendererOptions {
@@ -448,4 +493,5 @@ export interface FloatButtonType {
   tooltip?: string;
   onClick?: Function;
   condition?: Function;
+  permission?: string[];
 }

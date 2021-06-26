@@ -1,10 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TableSetting } from '@core/table';
+import { ColumnType, TableSetting } from '@core/table';
 import { FilterCardSetting } from '@core/filter/filter.component';
 import { assetsPath } from '@environments/environment';
 import { TrafficFineTableFacade } from '../traffic-fine/+state/traffic-fine';
 import { AssetTrafficFineFacade } from './+state/asset-traffic-fine';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { controllers } from 'chart.js';
 
 @Component({
   selector: 'anms-traffic-fine',
@@ -51,68 +54,43 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
   //#region Table
   trafficFine_Table: TableSetting = {
     columns: [
-      { lable: 'tables.column.tc_code', type: 1, field: 'TC_Code', width: 100 },
-      { lable: 'tables.column.type', type: 1, field: 'Type', width: 100 },
       {
-        lable: 'tables.column.department',
+        lable: 'tables.column.traffic_file_number',
         type: 1,
-        field: 'Department',
-        width: 100
+        field: 'trafficFileNumber'
       },
       {
-        lable: 'tables.column.operator',
+        lable: 'tables.column.number_of_tickets',
         type: 1,
-        field: 'Operator',
-        renderer: 'doubleLineRenderer',
-        width: 100
+        field: 'numOfTickets'
       },
+      { lable: 'tables.column.total_fine', type: 1, field: 'totalFine' },
       {
-        lable: 'tables.column.plate_no',
-        type: 1,
-        field: 'Plate_No',
-        width: 100
-      },
-      {
-        lable: 'tables.column.employe_id',
-        type: 1,
-        field: 'employeID',
-        width: 100
-      },
-      {
-        lable: 'tables.column.business_category',
-        type: 1,
-        field: 'businessCategory',
-        width: 100
-      },
-      {
-        lable: 'tables.column.time_date',
-        type: 1,
-        field: 'Time_Date',
-        renderer: 'doubleLineRenderer',
-        width: 100
-      },
-      {
-        lable: 'tables.column.duration',
-        type: 1,
-        field: 'Duration',
-        width: 100
-      },
-      { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
-      {
-        lable: 'tables.column.user_status',
-        type: 1,
-        field: 'User',
-        width: 100
-      },
-      {
-        lable: 'tables.column.amount',
-        type: 1,
-        field: 'Amount',
-        width: 100,
-        sortable: true
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
-    data: []
+    data: [],
+    rowSettings: {
+      floatButton: [
+        {
+          button: 'external',
+          onClick: (arg1, arg2, arg3) => {
+            console.log(arg2)
+            this.router
+              .navigate([
+                'traffic-fine/traffic-fine-overview/' + arg2.trafficFileNumber
+              ])
+              .then();
+          },
+          permission: ['ASSET_VIEW_DETAILS_OWN', 'ASSET_VIEW_SUMMARY_OWN']
+        }
+      ]
+    }
   };
   assetTraffic_Table: TableSetting = {
     columns: [
@@ -127,107 +105,110 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
       {
         lable: 'tables.column.plate_number',
         type: 1,
-        field: 'Plate_Number',
-        width: 100
+        field: 'Plate_Number'
       },
-      { lable: 'Type', type: 1, field: 'Type', width: 100 },
+      {
+        lable: 'tables.column.plate_code',
+        type: 1,
+        field: 'Plate_Code'
+      },
+      {
+        lable: 'tables.column.plate_source',
+        type: 1,
+        field: 'Plate_Source'
+      },
+      {
+        lable: 'tables.column.department',
+        type: 1,
+        field: 'Department'
+      },
       {
         lable: 'tables.column.operator',
         type: 1,
         field: 'Operator',
         renderer: 'doubleLineRenderer',
-        width: 100
-      },
-      { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
-      {
-        lable: 'tables.column.business_category',
-        type: 1,
-        field: 'Business_Category',
-        width: 100
+        width: 180
       },
       {
         lable: 'tables.column.total_fines',
         type: 1,
         field: 'Total_Fines',
-        width: 100,
-        sortable: true
+        sortable: true,
+        hasPadding5: true
       },
       {
-        lable: 'tables.column.amount',
-        type: 1,
-        field: 'Amount',
-        width: 100,
-        sortable: true
+        lable: '',
+        field: 'floatButton',
+        width: 0,
+        type: ColumnType.lable,
+        thumbField: '',
+        renderer: 'floatButton'
       }
     ],
-    data: []
+    data: [],
+    rowSettings: {
+      floatButton: [
+        {
+          button: 'external',
+          onClick: (arg1, arg2, arg3) => {
+            console.log(arg2)
+            this.router
+              .navigate(['traffic-fine/asset-overview/' + arg2.id])
+              .then();
+          },
+          permission: ['ASSET_VIEW_DETAILS_OWN', 'ASSET_VIEW_SUMMARY_OWN']
+        }
+      ]
+    }
   };
-
-  trafficFine$ = this._trafficFineFacade.trafficFine$;
-  assetTraffic$ = this._assetTrafficFineFacade.trafficFine$;
+  
+  trafficFine$ = this._trafficFineFacade.trafficFine$.pipe(
+    map((response) =>
+      response.map((trafficFine: any) => ({
+        ...trafficFine,
+        id: trafficFine.id,
+        trafficFileNumber: trafficFine.trafficFileNumber,
+        numOfTickets: trafficFine.numOfTickets,
+        totalFine: trafficFine.totalFine
+      }))
+    )
+  );
+  assetTraffic$ = this._assetTrafficFineFacade.trafficFine$.pipe(
+    map((response) =>
+      response.map((assetTrafficFine: any) => ({
+        ...assetTrafficFine,
+        id: assetTrafficFine.asset.id,
+        asset: {
+          img: 'thumb1.png',
+          assetName: assetTrafficFine.asset.dpd,
+          ownership: assetTrafficFine.asset.ownershipType
+        },
+        Plate_Number: assetTrafficFine.plateNumber,
+        Plate_Code: assetTrafficFine.plateCode,
+        Plate_Source: assetTrafficFine.plateSource,
+        Department: assetTrafficFine.department.name,
+        Operator: {
+          line1: `${assetTrafficFine.operator.firstName} ${assetTrafficFine.operator.lastName}`,
+          line2: assetTrafficFine.operator.id
+        },
+        Total_Fines: assetTrafficFine.totalFine
+      }))
+    )
+  );
   //#endregion
 
   constructor(
     private _trafficFineFacade: TrafficFineTableFacade,
-    private _assetTrafficFineFacade: AssetTrafficFineFacade
+    private _assetTrafficFineFacade: AssetTrafficFineFacade,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this._trafficFineFacade.loadAll();
-    this._trafficFineFacade.trafficFine$.subscribe((x) => {
-      this.trafficFine_Table.data = [];
-      x.map((responseObject) => {
-        const trafficFineTableData = {
-          statusColor: '#6D59D9',
-          TC_Code: responseObject.tcCode,
-          Type: responseObject.type,
-          Department: responseObject.department.name,
-          Operator: {
-            line1: `${responseObject.operator.firstName} ${responseObject.operator.lastName}`,
-            line2: responseObject.operator.id
-          },
-          Plate_No: responseObject.plateNumber,
-          Mission_Status: responseObject.missionStatus,
-          Time_Date: {
-            line1: responseObject.date.substr(0, 10),
-            line2: responseObject.date.substr(11, 5)
-          },
-          Duration: responseObject.duration,
-          Status: responseObject.status,
-          User: responseObject.userStatus,
-          Amount: responseObject.amount
-        };
-        this.trafficFine_Table.data.push(trafficFineTableData);
-      });
-    });
     this._assetTrafficFineFacade.loadAll();
-    this._assetTrafficFineFacade.trafficFine$.subscribe((x) => {
-      this.assetTraffic_Table.data = [];
-      x.map((responseObject) => {
-        const assetTrafficTableData = {
-          asset: {
-            img: 'thumb1.png',
-            assetName: responseObject.asset.id,
-            assetSubName: responseObject.asset.dpd,
-            ownership: responseObject.ownershipId
-          },
-          thumbField: 'thumb1.png',
-          Plate_Number: responseObject.plateNumber,
-          Type: responseObject.type,
-          Operator: {
-            line1: `${responseObject.operator.firstName} ${responseObject.operator.lastName}`,
-            line2: responseObject.operator.id
-          },
-          Status: responseObject.status,
-          Business_Category: responseObject.businessCategoryId,
-          Total_Fines: `${responseObject.totalFines} AED`,
-          Amount: `${responseObject.amount} AED`
-        };
-        this.assetTraffic_Table.data.push(assetTrafficTableData);
-      });
-    });
-
     this._trafficFineFacade.loadStatistics();
+    this._trafficFineFacade.trafficFine$.subscribe(x => { console.log(x)})
+    this._assetTrafficFineFacade.trafficFine$.subscribe(x => { console.log(x)})
     this.getStatisticsSubscription = this._trafficFineFacade.statistics$.subscribe(
       (response) => {
         if (response) {

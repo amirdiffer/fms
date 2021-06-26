@@ -1,75 +1,91 @@
-import { partMasterCategoryAdapter, partMasterItemAdapter } from './part-master.entity';
-import { createSelector } from '@ngrx/store';
-import { PartStoreSelectors } from '../part-store.selectors';
+import {
+  partMasterCategoryAdapter,
+  partMasterItemAdapter,
+  PARTSTORE_PARTMASTER_FEATURE_KEY
+} from './part-master.entity';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-export const select = (adapter) =>{
-  if(adapter = 'category'){
+export const select = (adapter) => {
+  if ((adapter = 'category')) {
     const { selectAll } = partMasterCategoryAdapter.getSelectors();
     return selectAll;
-  }else{
+  } else {
     const { selectAll } = partMasterItemAdapter.getSelectors();
     return selectAll;
   }
 };
 export class PartMasterSelectors {
+  static featureSelector = createFeatureSelector(
+    PARTSTORE_PARTMASTER_FEATURE_KEY
+  );
+
+  static partMasterCategorySelector = createSelector(
+    PartMasterSelectors.featureSelector,
+    (state) => state['PartMasterCategory']
+  );
+
+  static partMasterItemSelector = createSelector(
+    PartMasterSelectors.featureSelector,
+    (state) => state['PartMasterItem']
+  );
 
   static selectAllCategory = createSelector(
-    PartStoreSelectors.partMasterCategorySelector,
+    PartMasterSelectors.partMasterCategorySelector,
     select('category')
   );
 
   static categoryOfAsset = createSelector(
-    PartStoreSelectors.partMasterCategorySelector,
+    PartMasterSelectors.partMasterCategorySelector,
     (state) => state.listCategoryOfAsset
   );
 
   static categoryOfSubAsset = createSelector(
-    PartStoreSelectors.partMasterCategorySelector,
+    PartMasterSelectors.partMasterCategorySelector,
     (state) => state.listCategoryOfSubAsset
   );
 
   static selectAllItem = createSelector(
-    PartStoreSelectors.partMasterItemSelector,
+    PartMasterSelectors.partMasterItemSelector,
     select('item')
   );
 
   static specificCategory = createSelector(
-    PartStoreSelectors.partMasterCategorySelector,
+    PartMasterSelectors.partMasterCategorySelector,
     (state) => state.specificCategory
   );
 
   static specificItem = createSelector(
-    PartStoreSelectors.partMasterItemSelector,
+    PartMasterSelectors.partMasterItemSelector,
     (state) => state.specificItem
   );
-  
+
   static submittedCategory = createSelector(
-    PartStoreSelectors.partMasterCategorySelector,
+    PartMasterSelectors.partMasterCategorySelector,
     (state) => state.submitted
   );
 
   static submittedItem = createSelector(
-    PartStoreSelectors.partMasterItemSelector,
+    PartMasterSelectors.partMasterItemSelector,
     (state) => state.submitted
   );
 
   static messageCategory = createSelector(
-    PartStoreSelectors.partMasterCategorySelector,
+    PartMasterSelectors.partMasterCategorySelector,
     (state) => state.message
   );
 
   static errorCatgeory = createSelector(
-    PartStoreSelectors.partMasterCategorySelector,
+    PartMasterSelectors.partMasterCategorySelector,
     (state) => state.error
   );
 
   static messageItem = createSelector(
-    PartStoreSelectors.partMasterItemSelector,
+    PartMasterSelectors.partMasterItemSelector,
     (state) => state.message
   );
 
   static errorItem = createSelector(
-    PartStoreSelectors.partMasterItemSelector,
+    PartMasterSelectors.partMasterItemSelector,
     (state) => state.error
   );
 }

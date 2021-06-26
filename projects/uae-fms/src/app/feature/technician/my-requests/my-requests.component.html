@@ -1,18 +1,18 @@
 <div class="table-container component_wrapper">
   <div class="pt-1">
     <app-tab-view (selectedIndex)="selectedTab=$event">
-      <div title="tabs.all-requests-list" id="assetMasterTab">
+      <div title="tabs.all-requests-list" id="allRequestsTab">
         <app-table searchInput="searchInput" pagination="asset_asset-master" [setting]="allRequestsSetting"
           [tableData]="allRequests$">
         </app-table>
       </div>
-      <div title="tabs.part_requests" id="pendingRegistrationTab">
+      <div title="tabs.part_requests" id="partRequestsTab">
         <app-table searchInput="searchInput" pagination="asset_registration" [setting]="partRequestsSetting"
           [tableData]="partRequests$">
         </app-table>
       </div>
 
-      <div title="tabs.technical_inspection_requests" id="pendingCustomizationTab">
+      <div title="tabs.technical_inspection_requests" id="technicalInspectionRequestsTab">
         <app-table searchInput="searchInput" pagination="asset_customization"
           [setting]="technicalInspectionSetting" [tableData]="technicalInspection$"></app-table>
       </div>

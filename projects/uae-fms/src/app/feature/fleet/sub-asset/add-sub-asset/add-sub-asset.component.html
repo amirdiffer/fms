@@ -225,9 +225,3 @@
   <app-table *ngIf='formCurrentStep === 2' [setting]='thirdStepTable'></app-table>
 
 </form>
-
-
-
-<alert-dialog [settings]="dialogSetting" [displayModal]="dialogModal" (confirm)="dialogConfirm($event)"></alert-dialog>
-<alert-dialog [settings]="errorDialogSetting" [displayModal]="errorDialogModal" (confirm)="errorDialogModal=false">
-</alert-dialog>

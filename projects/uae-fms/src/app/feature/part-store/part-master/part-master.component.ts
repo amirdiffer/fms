@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AssetTypeFacade, SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration';
+import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
+import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PartMasterFacade, PartMasterService } from '../+state/part-master';
@@ -88,7 +89,7 @@ export class PartMasterComponent implements OnInit , OnDestroy {
     if(this.selectedSubCategoryType){
       this._partMasteService.setCategoryData(
         {
-          fleetType:this.addCategoryData.fleetType , 
+          fleetType:this.addCategoryData.fleetType ,
           categoryId:category.id,
           makes:this.selectedSubCategoryType.makes
         }
@@ -111,7 +112,7 @@ export class PartMasterComponent implements OnInit , OnDestroy {
   addItemForm(category){
     this._partMasteService.setCategoryData(
       {
-        fleetType:this.addCategoryData.fleetType , 
+        fleetType:this.addCategoryData.fleetType ,
         categoryId:category.id,
         makes:this.selectedSubCategoryType.makes
       }
@@ -122,7 +123,7 @@ export class PartMasterComponent implements OnInit , OnDestroy {
 
   /* Category Changes Asset Or Sub Asset */
   categoryTypeChanges(event, isLoaded:boolean=false){
-    
+
     this.selectedCategory = 0
     this.addCategoryData.fleetConfigurationId = null;
     if(event.id === 'ASSET'){
@@ -172,7 +173,7 @@ export class PartMasterComponent implements OnInit , OnDestroy {
     this.selectedSubCategoryType = event;
     this.selectedCategory = 0
     this.addCategoryData.fleetConfigurationId = event.id;
-    this.selectedCategoryType.id === 'ASSET' 
+    this.selectedCategoryType.id === 'ASSET'
       ?
       this._partMasterFacade.loadAllCategoryOfAsset(event.id)
       :
@@ -204,5 +205,5 @@ export class PartMasterComponent implements OnInit , OnDestroy {
     this._partMasteService.setCategoryData(null)
     this.categoryListSubscription$.unsubscribe();
   }
-  
+
 }
