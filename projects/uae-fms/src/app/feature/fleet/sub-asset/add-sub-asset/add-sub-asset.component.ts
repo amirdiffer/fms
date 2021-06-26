@@ -65,6 +65,7 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
     { name: '2020', id: 2020 },
     { name: '2021', id: 2021 }
   ];
+  yearRange =`2000:${new Date().getFullYear()}`
   isEdit: any;
   recordId: number;
   isSingleAsset = true;

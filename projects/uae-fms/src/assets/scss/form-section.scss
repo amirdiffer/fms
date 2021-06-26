@@ -191,6 +191,17 @@
     border: 1px solid #f75a4a !important;
     cursor: pointer;
   }
+
+  /* p-calendar*/
+  p-calendar{
+    ::ng-deep{
+      .p-datepicker .p-datepicker-header .p-datepicker-title select{
+        padding: .5em;
+        font-family: "29LT Bukra" !important;
+        font-size: 1em !important;
+      }
+    }
+  }
 }
 
 /* AutoComplete */
@@ -317,6 +328,7 @@ p-calendar.invalid {
     color: #dd5648 !important;
   }
 }
+
 /* Drop Down list */
 .options-select {
   ::ng-deep {
