@@ -6,6 +6,7 @@ import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configurati
 import { map } from 'rxjs/operators';
 import { SubAssetTypeService } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
 import { SubAssetService } from '@feature/fleet/+state/sub-asset';
+import { TableFilterService } from '@core/table/table-filter/table-filter.service';
 
 @Component({
   selector: 'anms-table-filter',
@@ -36,7 +37,8 @@ export class TableFilterComponent implements OnInit {
   constructor(
     private _subAssetTypeService: SubAssetTypeService,
     private _subAssetService: SubAssetService,
-    private tableFacade: TableFacade
+    private tableFacade: TableFacade,
+    private _tblFilterService: TableFilterService
   ) {}
 
   getAllColumns(): object[] {
@@ -58,6 +60,7 @@ export class TableFilterComponent implements OnInit {
     this.allColumns = this.getAllColumns();
     this.hiddenFilterBox();
     if (this.getSavedDataFilter().length > 0 && this.entity) {
+      console.log(this.getSavedDataFilter());
       let columns = this.getSavedDataFilter();
       columns = (<Array<object>>columns).filter(
         (x) => x['name'] == this.entity
@@ -65,9 +68,10 @@ export class TableFilterComponent implements OnInit {
       this.items = (<Array<object>>columns)
         .map((x) => {
           return {
+            ...x,
             lable: x['lable'],
             name: x['name'],
-            value: ''
+            value: x['value']
           };
         })
         .filter((x) => x['lable'] != '');
@@ -75,6 +79,7 @@ export class TableFilterComponent implements OnInit {
       this.items = this.columns
         .map((x) => {
           return {
+            ...x,
             lable: x.lable,
             name: x.field,
             value: ''
@@ -82,6 +87,7 @@ export class TableFilterComponent implements OnInit {
         })
         .filter((x) => x.lable != '');
     }
+    this.allColumns = this.items;
     this.showColumns = this.items.map((x) => x.name);
     this.updateColumn();
     this.applyFilter();
@@ -100,6 +106,7 @@ export class TableFilterComponent implements OnInit {
         this.showColumns.push(column);
       }
     }
+
     this.customizeFilter = this.allColumns
       .map((x) => {
         return {
@@ -107,7 +114,10 @@ export class TableFilterComponent implements OnInit {
           name: x.name,
           filterType: x?.filterType,
           filterApiKey: x?.filterApiKey,
-          value: ''
+          value:
+            x?.filterType == FilterType.range_date
+              ? this._tblFilterService.convertDate(x?.value)
+              : x?.value
         };
       })
       .filter((x) => {

@@ -33,4 +33,11 @@ export class TableFilterService {
         return key + ':' + value;
     }
   }
+
+  convertDate(date) {
+    let start = moment.utc(date[0]).toDate();
+    let end = date[1];
+    if (end) end = moment.utc(date[1]).toDate();
+    return end ? [start, end] : [start, null];
+  }
 }
