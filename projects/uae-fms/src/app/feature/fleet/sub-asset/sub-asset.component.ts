@@ -101,6 +101,7 @@ export class SubAssetComponent implements OnInit, OnDestroy {
         lable: 'tables.column.serial_number',
         type: 2,
         field: 'Serial_Number',
+        filterApiKey: 'serialNumber',
         thumbField: 'avatarId',
         // override: 'thumb.png',
         width: '18em'
@@ -109,28 +110,29 @@ export class SubAssetComponent implements OnInit, OnDestroy {
         lable: 'tables.column.date',
         type: 1,
         field: 'Date',
-        filterType: FilterType.range_date,
+        filterApiKey: 'createdAt',
+        filterType: FilterType.range_date
       },
       {
         lable: 'tables.column.make',
         type: 1,
         field: 'MakeName',
         filterApiKey: 'MakeName',
-        filterType: FilterType.list,
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.model',
         type: 1,
-        field: 'Model' ,
+        field: 'Model',
         filterType: FilterType.list,
-        filterApiKey: 'Model'
+        filterApiKey: 'model'
       },
       {
         lable: 'tables.column.policy',
         type: 1,
-        field: 'Policy' ,
+        field: 'Policy',
         filterType: FilterType.list,
-        filterApiKey: 'Policy'
+        filterApiKey: 'policyType'
       },
       { lable: 'tables.column.category_name', type: 1, field: 'AssetCategory' },
       /* {
@@ -278,18 +280,14 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   }
 
   setFiltersColumns() {
-    let filtersColumns = Object.values({...this.assetTraffic_TableColumns});
-    filtersColumns
-      .splice(2, 0,
-        {
-          lable: 'tables.column.sub_asset_type',
-          type: 1,
-          field: 'sub-asset-type',
-          filterApiKey: 'sub-asset-type',
-          filterType: FilterType.list,
-        }
-      );
+    let filtersColumns = Object.values({ ...this.assetTraffic_TableColumns });
+    filtersColumns.splice(2, 0, {
+      lable: 'tables.column.sub_asset_type',
+      type: 1,
+      field: 'sub-asset-type',
+      filterApiKey: 'sub-asset-type',
+      filterType: FilterType.list
+    });
     this.filtersColumns = filtersColumns;
   }
-
 }

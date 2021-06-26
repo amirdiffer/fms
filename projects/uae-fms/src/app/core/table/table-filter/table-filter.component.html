@@ -43,8 +43,8 @@
             <div class="col-12 col-md-3 p-field form-section__field">
               <div class="autocomplete-select">
                 <span class="p-float-label">
-                  <p-autoComplete [ngModel]="1" (completeMethod)="searchInput($event,  item.name)" (onSelect)="searchInputChanged($event, item.name)"
-                                  [suggestions]="searchInputFiltered[item.name]" field="name" [minLength]="1"
+                  <p-autoComplete  [(ngModel)]="item.value" (completeMethod)="searchInput($event,  item.filterApiKey)" (onSelect)="searchInputChanged($event, item.filterApiKey)"
+                                  [suggestions]="searchInputFiltered[item.filterApiKey]" field="name" [minLength]="1"
                                   [dropdown]="true">
                   </p-autoComplete>
                   <i class="pi pi-search"></i>

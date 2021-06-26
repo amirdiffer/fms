@@ -4,7 +4,8 @@ import { FilterType } from '@core/table/table.component';
 import { TableFacade } from '@core/table/+state/table.facade';
 import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
 import { map } from 'rxjs/operators';
-import { SubAssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
+import { SubAssetTypeService } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
+import { SubAssetService } from '@feature/fleet/+state/sub-asset';
 
 @Component({
   selector: 'anms-table-filter',
@@ -29,12 +30,12 @@ export class TableFilterComponent implements OnInit {
 
   itemsBoolean = [
     { name: 'Yes', id: true },
-    { name: 'No', id: false },
-  ]
-
+    { name: 'No', id: false }
+  ];
 
   constructor(
-    private _subAssetTypeFacade: SubAssetTypeFacade,
+    private _subAssetTypeService: SubAssetTypeService,
+    private _subAssetService: SubAssetService,
     private tableFacade: TableFacade
   ) {}
 
@@ -115,8 +116,11 @@ export class TableFilterComponent implements OnInit {
   }
 
   applyFilter() {
-    console.log(JSON.parse(JSON.stringify(this.customizeFilter)))
-    this.tableFacade.setFilters(this.entity, JSON.parse(JSON.stringify(this.customizeFilter)));
+    console.log(JSON.parse(JSON.stringify(this.customizeFilter)));
+    this.tableFacade.setFilters(
+      this.entity,
+      JSON.parse(JSON.stringify(this.customizeFilter))
+    );
     this.customFilterEvent.emit(this.customizeFilter);
   }
 
@@ -204,13 +208,13 @@ export class TableFilterComponent implements OnInit {
     let query = event.query;
     let filtered = [];
     if (this.searchInputList[inputName].length) {
-      for (let index = 0; index < this.searchInputList[inputName].length; index++) {
+      for (
+        let index = 0;
+        index < this.searchInputList[inputName].length;
+        index++
+      ) {
         let items = this.searchInputList[inputName][index];
-        if (
-          items.name
-            .toLowerCase()
-            .indexOf(query.toLowerCase()) == 0
-        ) {
+        if (items.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
           filtered.push(items);
         }
       }
@@ -218,18 +222,17 @@ export class TableFilterComponent implements OnInit {
     }
   }
   searchInputChanged(event, inputName: string) {
-    console.log(event)
     switch (inputName) {
       case 'sub-asset-type': {
         if (this.entity == 'sub-asset') {
           this.searchInputList['MakeName'] = event.makes;
           this.customizeFilter = this.customizeFilter.map((x) => {
-            console.log(x);
+            console.log(event);
             if (x.name == 'sub-asset-type') {
               return {
                 ...x,
-                value: event?.id,
-              }
+                value: event
+              };
             }
             return x;
           });
@@ -238,40 +241,39 @@ export class TableFilterComponent implements OnInit {
       }
       case 'MakeName': {
         if (this.entity == 'sub-asset') {
-          this.searchInputList['Model'] = event.models;
+          this.searchInputList['model'] = event.models;
         }
         break;
       }
-      default: {}
+      default: {
+      }
     }
   }
 
-
   apiCall(key, type): void {
-    if(type == this.filterType.list || type == this.filterType.checkbox_list) {
+    if (type == this.filterType.list || type == this.filterType.checkbox_list) {
       this.searchInputList[key] = [];
       this.searchInputFiltered[key] = [];
     }
     switch (key) {
       case 'sub-asset-type': {
         if (this.entity == 'sub-asset') {
-          this._subAssetTypeFacade.subAssetType$.subscribe((x) => {
-            this.searchInputList['sub-asset-type'] = x;
-            this.searchInputFiltered['sub-asset-type'] = x;
+          this._subAssetTypeService.loadAll().subscribe((x) => {
+            this.searchInputList['sub-asset-type'] = x.message;
+            this.searchInputFiltered['sub-asset-type'] = x.message;
           });
         }
         break;
       }
-      case 'Policy':{
-        this._subAssetTypeFacade.subAssetType$.subscribe((x) => {
-          this.searchInputList[key] = x;
-          this.searchInputFiltered[key] = x;
+      case 'policyType': {
+        this._subAssetService.getPolicyTypes().subscribe((x) => {
+          this.searchInputList[key] = x.message;
+          this.searchInputFiltered[key] = x.message;
         });
         break;
       }
-      default: {}
+      default: {
+      }
     }
   }
-
 }
-
