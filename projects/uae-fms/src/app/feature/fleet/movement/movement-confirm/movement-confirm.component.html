@@ -102,7 +102,12 @@
             <!-- start startDate -->
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <p-calendar inputId="basic" formControlName="startDate"></p-calendar>
+                    <p-calendar inputId="basic" 
+                                formControlName="startDate"
+                                [readonlyInput]="true"
+                                [yearNavigator]="true"
+                                [yearRange]="yearRange"
+                                [monthNavigator]="true"></p-calendar>
                     <label>{{ 'movement.request.start_date' | translate }} * </label>
                 </span>
             </div>
@@ -111,7 +116,8 @@
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
                     <p-calendar formControlName="startTime" [timeOnly]="true"
-                        inputId="timeonly"></p-calendar>
+                                inputId="timeonly"
+                                [readonlyInput]="true"></p-calendar>
                     <label> {{ 'movement.request.time' | translate }} * </label>
                 </span>
             </div>
@@ -134,7 +140,12 @@
             <!-- start endDate -->
             <div class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <p-calendar inputId="basic" formControlName="endDate"></p-calendar>
+                    <p-calendar inputId="basic" 
+                                formControlName="endDate"
+                                [readonlyInput]="true"
+                                [yearNavigator]="true"
+                                [yearRange]="yearRange"
+                                [monthNavigator]="true"></p-calendar>
                     <label>{{ 'movement.request.end_date' | translate }} * </label>
                 </span>
             </div>
@@ -143,7 +154,8 @@
             <div class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
                     <p-calendar formControlName="endTime" [timeOnly]="true"
-                        inputId="timeonly"></p-calendar>
+                                inputId="timeonly"
+                                [readonlyInput]="true"></p-calendar>
                     <label> {{ 'movement.request.time' | translate }} * </label>
                 </span>
             </div>

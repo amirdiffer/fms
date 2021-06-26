@@ -92,8 +92,12 @@
               <div class='col-5'>
                 <div class='p-field form-section__field date-input'>
                             <span class='p-float-label'>
-                              <p-calendar inputId='basic' formControlName='warrantyStartDate'
-                                          [readonlyInput]='true'></p-calendar>
+                              <p-calendar inputId='basic' 
+                              formControlName='warrantyStartDate'
+                                          [readonlyInput]='true'
+                                          [yearNavigator]="true"
+                                          [yearRange]="yearRange"
+                                          [monthNavigator]="true"></p-calendar>
                               <svg-icon class='date-icon' [src]='calenderIcon'
                                         [svgStyle]="{ 'width.px':20 , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
                               <label>{{ 'part_store.part_list.warranty_expire_date' | translate }}</label>
