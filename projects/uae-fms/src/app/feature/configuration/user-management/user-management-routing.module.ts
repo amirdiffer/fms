@@ -6,6 +6,7 @@ import { CompanySettingComponent } from './company-setting/company-setting.compo
 import { AddRoleAndPermissionComponent } from './role-permission/add-role-and-permission/add-role-and-permission.component';
 import { AddUserComponent } from './users/add-user/add-user.component';
 import { PermissionGuard } from '@core/Permission/permission.guard';
+import { DeactivateFormGuard } from '@core/Permission/deactivate-form.guard';
 
 const routes: Routes = [
   {
@@ -42,7 +43,8 @@ const routes: Routes = [
     canActivate: [PermissionGuard],
     data: {
       permission: ['DROLE_ADD']
-    }
+    },
+    canDeactivate:[DeactivateFormGuard]
   },
   {
     path: 'edit-role-permission/:id',
@@ -50,7 +52,8 @@ const routes: Routes = [
     canActivate: [PermissionGuard],
     data: {
       permission: ['DROLE_UPDATE']
-    }
+    },
+    canDeactivate:[DeactivateFormGuard]
   },
   {
     path: 'users/add-new-user',
