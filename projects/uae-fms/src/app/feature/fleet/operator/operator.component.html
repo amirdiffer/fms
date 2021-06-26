@@ -1,4 +1,4 @@
-<ng-container *hasPermission="[{parent: 'FLEET' , permission : 'OPERATOR', permissionType:'MENU'}]">
+
   <div class="statistic-card" *hasPermission="['USER_OPERATOR_VIEW_LIST']">
     <app-filter [setting]='filterCard'></app-filter>
   </div>
@@ -19,7 +19,7 @@
       <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="operator" [setting]='operator_Table' [tableData]="data$"></app-table>
     </div>
   </div>
-</ng-container>
+
 <!-- <ng-container *ngIf="showOverView">
   <anms-over-view-operator></anms-over-view-operator>
 </ng-container> -->

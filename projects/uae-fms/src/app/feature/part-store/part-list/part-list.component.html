@@ -1,4 +1,4 @@
-<ng-container *hasPermission="[{parent: 'PART_STORE' , permission : 'PART_LIST', permissionType:'MENU'}]">
+
   <ng-container *hasPermission="['PARTSTORE_PART_VIEW_LIST']">
     <div class="statistic-card" *ngIf="selectedTab == 'assetPartTab'">
       <app-filter [setting]='filterCardAsset'></app-filter>
@@ -75,5 +75,5 @@
       </app-tab-view>
     </div>
   </div>
-</ng-container>
+
 

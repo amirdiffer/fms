@@ -1,5 +1,6 @@
 export interface IAccessory {
   id: number;
+  avatarId:number;
   itemName: string;
   assignedToType: string;
   assignedToEntity: number;

@@ -285,7 +285,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     this.getEmployeesList.pipe(debounceTime(600)).subscribe((x) => {
       this.userService.searchEmployee(x['query']).subscribe((y) => {
         if (y) {
-          this.employees.next([y.message]);
+          this.employees.next([{ ...y.message, employeeId: x['query'] }]);
         } else {
           this.employees.next(null);
         }

@@ -168,15 +168,15 @@ export class SubAssetOverviewComponent implements OnInit {
         maxUsageKPHour = this.assetPolicy.maxUsageKPHour,
         maxUsageYear = this.assetPolicy.maxUsageYear,
         purchaseValue = this.purchaseValue,
-        tableData = [],
-        newDepreciationValue = depreciationValue / maxUsageYear
-    for (let index = 0; index < 9; index++) {
-      let value = Math.round((purchaseValue * newDepreciationValue) / 100);
+        tableData = [];
+    for (let index = 0; index < maxUsageYear; index++) {
+      let value = Math.round((purchaseValue * depreciationValue) / 100);
       purchaseValue = purchaseValue - value;
       tableData.push({
         year:index+1,
-        bookValue:`${purchaseValue} AED`
+        bookValue:`${(((purchaseValue * depreciationValue) / 100) < 1) ? '0' :purchaseValue} AED`
       })
+      if(((purchaseValue * depreciationValue) / 100) < 1) break;
     }
     this.reviewPlaneSettingTable2.data = tableData
     this.calculateTableData$ = of(tableData);

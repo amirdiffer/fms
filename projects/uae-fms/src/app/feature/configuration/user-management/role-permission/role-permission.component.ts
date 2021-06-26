@@ -60,6 +60,13 @@ export class RolePermissionComponent implements OnInit {
               '/configuration/user-management/edit-role-permission/' + data.id
             ]);
           },
+          condition:(data)=>{
+            if(+data.roleId <= 3){
+              return false
+            }else{
+              return true
+            }
+          },
           permission: ['DROLE_UPDATE']
         }
       ]

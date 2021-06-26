@@ -112,7 +112,7 @@ export class AddUserComponent
     private roleFacade: RolePermissionFacade,
     private userService: UsersService,
     private _departmentService: OrganizationService,
-    private _dialogService : DialogService
+    private _dialogService: DialogService
   ) {
     super(injector);
     this.userFacade.resetParams();
@@ -220,43 +220,43 @@ export class AddUserComponent
 
     this.userFacade.submitted$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success' , 
-        (this.isEdit ? 'Edit User': 'Add New User' ), 
-        (this.isEdit ? 'Changes Saved Successfully' : 'User Added Successfully'),'Ok')
-        const dialogClose$:Subscription = dialog.dialogClosed$
-        .pipe(
-          tap((result) => {
-          if (result === 'confirm') {
-            this.router.navigate(['configuration/user-management/users']).then(()=>{
-              this.userFacade.loadAll()
-            });
-          }
-          dialogClose$?.unsubscribe();
-          })
-        ).subscribe()
+        const dialog = this._dialogService.show('success',
+          (this.isEdit ? 'Edit User' : 'Add New User'),
+          (this.isEdit ? 'Changes Saved Successfully' : 'User Added Successfully'), 'Ok')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+                this.router.navigate(['configuration/user-management/users']).then(() => {
+                  this.userFacade.loadAll()
+                });
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
       }
     });
 
     this.userFacade.error$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('danger' , 
-          (this.isEdit ? 'Edit User': 'Add New User' ), 
-          'We Have Some Error','Ok')
-        const dialogClose$:Subscription = dialog.dialogClosed$
-        .pipe(
-          tap((result) => {
-          if (result === 'confirm') {
-          }
-          dialogClose$?.unsubscribe();
-          })
-        ).subscribe()
+        const dialog = this._dialogService.show('danger',
+          (this.isEdit ? 'Edit User' : 'Add New User'),
+          'We Have Some Error', 'Ok')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
       }
     });
 
     this.getEmployeesList.pipe(debounceTime(600)).subscribe((x) => {
       this.userService.searchEmployee(x['query']).subscribe((y) => {
         if (y) {
-          this.employees.next([y.message]);
+          this.employees.next([{ ...y.message, employeeId: x['query'] }]);
         } else {
           this.employees.next(null);
         }
@@ -322,16 +322,16 @@ export class AddUserComponent
   }
 
   cancel(): void {
-    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Yes','Cancel')
-    const dialogClose$:Subscription = dialog.dialogClosed$
-    .pipe(
-      tap((result) => {
-      if (result === 'confirm') {
-        this.router.navigate(['/configuration/user-management/users']);
-      }
-      dialogClose$?.unsubscribe();
-      })
-    ).subscribe();
+    const dialog = this._dialogService.show('warning', 'Are you sure you want to leave?', 'You have unsaved changes! If you leave, your changes will be lost.', 'Yes', 'Cancel')
+    const dialogClose$: Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['/configuration/user-management/users']);
+          }
+          dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
   }
 
   submit(): void {
@@ -339,104 +339,104 @@ export class AddUserComponent
     if (this.form.invalid) {
       return;
     }
-    const dialog = this._dialogService.show('warning' , 
-    (this.isEdit ? 'Edit User': 'Add New User' ), 
-    (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new user?') , 'Yes','Cancel')
-    const dialogClose$:Subscription = dialog.dialogClosed$
+    const dialog = this._dialogService.show('warning',
+      (this.isEdit ? 'Edit User' : 'Add New User'),
+      (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new user?'), 'Yes', 'Cancel')
+    const dialogClose$: Subscription = dialog.dialogClosed$
       .pipe(
-        tap((result) => {    
-        if (result === 'confirm') {
-          let f = this.form.value;
-          console.log(f.portalInformation.roleId.id);
-          let userInfo: any = {
-            employeeNumber: this.isEdit
-              ? this._user?.employeeNumber
-              : this.employeeId,
-            organizationId: this.departmentId,
-            departmentId: this.sectionId,
-            roleIds: [f.portalInformation.roleId.id],
-            isActive: f.portalInformation.activeEmployee,
-            profileDocId: this.profileDocId,
-            firstName: f.personalInformation.firstName,
-            lastName: f.personalInformation.lastName,
-            emails: f.personalInformation.emails.map((x) => {
-              if (x.email) {
-                if (typeof x.email == 'string') return x.email;
-                else return x.email[0];
-              } else if (typeof x == 'object') return x[0];
-            }),
-            phoneNumbers: Array.isArray(this.getPhone(f))
-              ? (<Array<string>>this.getPhone(f)).filter((x) => x != '')
-              : this.getPhone(f),
-            notifyByCall: f.personalInformation.callCheckbox,
-            notifyBySMS: f.personalInformation.smsCheckbox,
-            notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
-            notifyByEmail: f.personalInformation.emailCheckbox
-          };
-    
-          if (this.isEdit) {
-            userInfo = {
-              ...userInfo,
-              id: this.id,
-              notifyByPush: this._user.notifyByPush || false,
-              vehicleComments: this._user.vehicleComments || false,
-              serviceEntryComment: this._user.serviceEntryComment || false,
-              fuelEntryComments: this._user.fuelEntryComments || false,
-              vehicleStatusChanges: this._user.vehicleStatusChanges || false,
-              voidedFuelEntries: this._user.voidedFuelEntries || false,
-              dueSoonInspections: this._user.dueSoonInspections || false,
-              overdueInspections: this._user.overdueInspections || false,
-              newFaults: this._user.newFaults || false,
-              newRecalls: this._user.newRecalls || false,
-              notifyByNewIssueEmail: this._user.notifyByNewIssueEmail || false,
-              notifyByNewIssuePush: this._user.notifyByNewIssuePush || false,
-              notifyByIssueAssignedEmail:
-                this._user.notifyByIssueAssignedEmail || false,
-              notifyByIssueAssignedPush:
-                this._user.notifyByIssueAssignedPush || false,
-              notifyByCommentOnIssueEmail:
-                this._user.notifyByCommentOnIssueEmail || false,
-              notifyByCommentOnIssuePush:
-                this._user.notifyByCommentOnIssuePush || false,
-              notifyByIssueResolvedEmail:
-                this._user.notifyByIssueResolvedEmail || false,
-              notifyByIssueResolvedPush:
-                this._user.notifyByIssueResolvedPush || false,
-              notifyByIssueCloseEmail: this._user.notifyByIssueCloseEmail || false,
-              notifyByIssueClosePush: this._user.notifyByIssueClosePush || false
+        tap((result) => {
+          if (result === 'confirm') {
+            let f = this.form.value;
+            console.log(f.portalInformation.roleId.id);
+            let userInfo: any = {
+              employeeNumber: this.isEdit
+                ? this._user?.employeeNumber
+                : this.employeeId,
+              organizationId: this.departmentId,
+              departmentId: this.sectionId,
+              roleIds: [f.portalInformation.roleId.id],
+              isActive: f.portalInformation.activeEmployee,
+              profileDocId: this.profileDocId,
+              firstName: f.personalInformation.firstName,
+              lastName: f.personalInformation.lastName,
+              emails: f.personalInformation.emails.map((x) => {
+                if (x.email) {
+                  if (typeof x.email == 'string') return x.email;
+                  else return x.email[0];
+                } else if (typeof x == 'object') return x[0];
+              }),
+              phoneNumbers: Array.isArray(this.getPhone(f))
+                ? (<Array<string>>this.getPhone(f)).filter((x) => x != '')
+                : this.getPhone(f),
+              notifyByCall: f.personalInformation.callCheckbox,
+              notifyBySMS: f.personalInformation.smsCheckbox,
+              notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
+              notifyByEmail: f.personalInformation.emailCheckbox
             };
-    
-            this.userFacade.editUser(userInfo);
-          } else {
-            userInfo = {
-              ...userInfo,
-              notifyByPush: false,
-              vehicleComments: false,
-              serviceEntryComment: false,
-              fuelEntryComments: false,
-              vehicleStatusChanges: false,
-              voidedFuelEntries: false,
-              dueSoonInspections: false,
-              overdueInspections: false,
-              newFaults: false,
-              newRecalls: false,
-              notifyByNewIssueEmail: false,
-              notifyByNewIssuePush: false,
-              notifyByIssueAssignedEmail: false,
-              notifyByIssueAssignedPush: false,
-              notifyByCommentOnIssueEmail: false,
-              notifyByCommentOnIssuePush: false,
-              notifyByIssueResolvedEmail: false,
-              notifyByIssueResolvedPush: false,
-              notifyByIssueCloseEmail: false,
-              notifyByIssueClosePush: false
-            };
-            this.userFacade.addUser(userInfo);
+
+            if (this.isEdit) {
+              userInfo = {
+                ...userInfo,
+                id: this.id,
+                notifyByPush: this._user.notifyByPush || false,
+                vehicleComments: this._user.vehicleComments || false,
+                serviceEntryComment: this._user.serviceEntryComment || false,
+                fuelEntryComments: this._user.fuelEntryComments || false,
+                vehicleStatusChanges: this._user.vehicleStatusChanges || false,
+                voidedFuelEntries: this._user.voidedFuelEntries || false,
+                dueSoonInspections: this._user.dueSoonInspections || false,
+                overdueInspections: this._user.overdueInspections || false,
+                newFaults: this._user.newFaults || false,
+                newRecalls: this._user.newRecalls || false,
+                notifyByNewIssueEmail: this._user.notifyByNewIssueEmail || false,
+                notifyByNewIssuePush: this._user.notifyByNewIssuePush || false,
+                notifyByIssueAssignedEmail:
+                  this._user.notifyByIssueAssignedEmail || false,
+                notifyByIssueAssignedPush:
+                  this._user.notifyByIssueAssignedPush || false,
+                notifyByCommentOnIssueEmail:
+                  this._user.notifyByCommentOnIssueEmail || false,
+                notifyByCommentOnIssuePush:
+                  this._user.notifyByCommentOnIssuePush || false,
+                notifyByIssueResolvedEmail:
+                  this._user.notifyByIssueResolvedEmail || false,
+                notifyByIssueResolvedPush:
+                  this._user.notifyByIssueResolvedPush || false,
+                notifyByIssueCloseEmail: this._user.notifyByIssueCloseEmail || false,
+                notifyByIssueClosePush: this._user.notifyByIssueClosePush || false
+              };
+
+              this.userFacade.editUser(userInfo);
+            } else {
+              userInfo = {
+                ...userInfo,
+                notifyByPush: false,
+                vehicleComments: false,
+                serviceEntryComment: false,
+                fuelEntryComments: false,
+                vehicleStatusChanges: false,
+                voidedFuelEntries: false,
+                dueSoonInspections: false,
+                overdueInspections: false,
+                newFaults: false,
+                newRecalls: false,
+                notifyByNewIssueEmail: false,
+                notifyByNewIssuePush: false,
+                notifyByIssueAssignedEmail: false,
+                notifyByIssueAssignedPush: false,
+                notifyByCommentOnIssueEmail: false,
+                notifyByCommentOnIssuePush: false,
+                notifyByIssueResolvedEmail: false,
+                notifyByIssueResolvedPush: false,
+                notifyByIssueCloseEmail: false,
+                notifyByIssueClosePush: false
+              };
+              this.userFacade.addUser(userInfo);
+            }
           }
-        }
-        dialogClose$?.unsubscribe();
-      })
-    ).subscribe();
+          dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
 
 
   }

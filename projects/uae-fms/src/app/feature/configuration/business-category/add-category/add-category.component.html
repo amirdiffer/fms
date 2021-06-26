@@ -160,6 +160,10 @@
             <label>{{ 'configuration.business_category.quantity' | translate }}</label>
 
         </span>
+        <anms-error
+            [showError]="formArrayHasError(submited, assignAccessory, index, 'accessoryQuantity')"
+            error="forms.feedback.required">
+          </anms-error>
       </div>
     </div>
     </div>

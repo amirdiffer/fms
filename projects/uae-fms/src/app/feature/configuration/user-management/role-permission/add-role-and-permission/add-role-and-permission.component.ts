@@ -149,17 +149,16 @@ export class AddRoleAndPermissionComponent extends Utility implements OnInit {
     const urlOverview = this._activatedRoute.snapshot.url.filter(
       (x) => x.path == 'role-permission'
     );
-    const chackHasId = +this._activatedRoute.snapshot.url[
-      this._activatedRoute.snapshot.url.length - 1
-    ].path;
+    const chackHasId = this._activatedRoute.snapshot.params.id
     if (urlOverview.length > 0 && !isNaN(chackHasId)) {
       this.IsOverview = true;
     }
     if (url.length > 0 || this.IsOverview) {
       this.isEdit = true;
-      this.roleId = +this._activatedRoute.snapshot.url[
-        this._activatedRoute.snapshot.url.length - 1
-      ].path;
+      this.roleId = +this._activatedRoute.snapshot.params.id;
+      if(this.roleId <= 3){
+        this._router.navigate(['configuration/user-management/role-permission'])
+      }
       this._roleFacade.getRoleByRoleID(this.roleId);
       this._roleFacade.specificRole$.subscribe((role) => {
         if (role) {

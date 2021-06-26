@@ -1,5 +1,5 @@
 <!-- start table -->
-<div *hasPermission="[{parent: 'FLEET' , permission : 'MOVEMENT', permissionType:'MENU'}]">
+<div>
   <ng-container *ngIf="selectedTab =='requestTab'">
     <div class="filter-container" *hasPermission="['MOVEMENT_REQUEST_VIEW_LIST_OWN' , 'MOVEMENT_REQUEST_VIEW_LIST_OTHERS']">
       <app-filter [setting]="filterSetting"></app-filter>
