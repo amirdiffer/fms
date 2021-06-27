@@ -105,7 +105,6 @@ export class AddAccessoryComponent
 
   handleEditMode() {
     const url = this._route.snapshot.url;
-    console.log(this._route.snapshot.url);
     if (url.filter((x) => x.path == 'edit-accessory').length > 0) {
       this.isEdit = true;
       this.recordId = +url[url.length - 1].path;
@@ -121,7 +120,6 @@ export class AddAccessoryComponent
       .getAccessory(recordId)
       .subscribe((result: any) => {
         if (result) {
-          console.log(result.message);
           const accessory = result.message;
 
           this.loadAccessoryType(() => {
@@ -177,8 +175,8 @@ export class AddAccessoryComponent
 
     this._facade.error$.subscribe((x) => {
       if (x?.error) {
-        const dialog = this._dialogService.show('danger' , 
-          (this.isEdit ? 'Edit Accessory': 'Add new Accessory' ), 
+        const dialog = this._dialogService.show('danger' ,
+          (this.isEdit ? 'Edit Accessory': 'Add new Accessory' ),
           'We Have Some Error','Ok')
         const dialogClose$:Subscription = dialog.dialogClosed$
         .pipe(
@@ -210,8 +208,8 @@ export class AddAccessoryComponent
   handleSubmissionDialog() {
     this._facade.submitted$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success' , 
-          (this.isEdit ? 'Edit Accessory': 'Add new Accessory' ), 
+        const dialog = this._dialogService.show('success' ,
+          (this.isEdit ? 'Edit Accessory': 'Add new Accessory' ),
           (this.isEdit ? 'Changes Saved Successfully' : 'Accessory Added Successfully'),'Ok')
         const dialogClose$:Subscription = dialog.dialogClosed$
         .pipe(
@@ -280,7 +278,7 @@ export class AddAccessoryComponent
           dialogClose$?.unsubscribe();
           })
         ).subscribe();
-        
+
       }
     }
   }

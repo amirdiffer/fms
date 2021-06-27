@@ -212,7 +212,6 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
       .getSubAsset(recordId)
       .subscribe((result: any) => {
         if (result && result.message) {
-          console.log(result.message);
           const subAsset = result.message;
           for (let index = 0; index < subAsset.warranties.length - 1; index++) {
             this.addWarranty();
@@ -408,7 +407,6 @@ export class AddSubAssetComponent extends Utility implements OnInit, OnDestroy {
         serialNumber: this.csvText[index],
         type: this.subAssetForm.get('subAssetType').value.name
       });
-      console.log(this.models);
     }
     this.thirdStepTable.data = data;
     this.formCurrentStep += 1;

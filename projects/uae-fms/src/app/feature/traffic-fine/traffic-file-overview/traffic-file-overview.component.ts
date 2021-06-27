@@ -59,7 +59,6 @@ export class TrafficFileOverviewComponent implements OnInit {
     this.networkService
       .getFinesOfSpecificFileNumber(id)
       .subscribe((response) => {
-        console.log(response)
         this.trafficFines = response.message;
       });
   }

@@ -41,7 +41,7 @@ export class AssetOverviewComponent implements OnInit {
     ],
     data:[]
   }
-  
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private networkService: AssetTrafficFineService,
@@ -60,7 +60,7 @@ export class AssetOverviewComponent implements OnInit {
         return {message:{...x}}
       })
     )
-    this._assetMasterFacade.specificAsset$.subscribe(x=>{console.log(x)})
+    this._assetMasterFacade.specificAsset$.subscribe()
     this.activatedRoute.params.subscribe((params) => {
       this.getAssetFinesForId(params.id);
       this._assetMasterFacade.getAssetByID(params.id)
@@ -69,7 +69,6 @@ export class AssetOverviewComponent implements OnInit {
 
   private getAssetFinesForId(id: number): void {
     this.networkService.getFinesOfSpecificAsset(id).subscribe((response) => {
-      console.log(response)
       this.assetFines = response.message;
     });
   }

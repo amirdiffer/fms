@@ -89,7 +89,6 @@ export class OrderComponent extends Utility implements OnInit, OnDestroy {
     if (!this.isEdit && this._activatedRoute.snapshot.parent.params.id) {
       this.partId = +this._activatedRoute.snapshot.parent.params.id;
     }
-    console.log(this.fleetType);
 
     /* Form Builder */
     this.form = this._fb.group({
@@ -306,8 +305,6 @@ export class OrderComponent extends Utility implements OnInit, OnDestroy {
 
   patchValueForm() {
     if (this.partId) {
-      console.log(this.fleetType);
-      console.log(this.partId);
       switch (this.fleetType) {
         case 'asset':
           this._facadePartMaster.loadSpecificItemOfAsset(+this.partId);
@@ -319,7 +316,6 @@ export class OrderComponent extends Utility implements OnInit, OnDestroy {
       }
       this._facadePartMaster.specificItem$.subscribe((x) => {
         if (x) {
-          console.log(x);
           this.onChangeType(x.assetConfigurationId);
           this.onChangeCategory(x.categoryId);
           this.form.patchValue({

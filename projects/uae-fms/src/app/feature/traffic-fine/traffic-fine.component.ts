@@ -80,7 +80,6 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
         {
           button: 'external',
           onClick: (arg1, arg2, arg3) => {
-            console.log(arg2)
             this.router
               .navigate([
                 'traffic-fine/traffic-fine-overview/' + arg2.trafficFileNumber
@@ -151,7 +150,6 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
         {
           button: 'external',
           onClick: (arg1, arg2, arg3) => {
-            console.log(arg2)
             this.router
               .navigate(['traffic-fine/asset-overview/' + arg2.id])
               .then();
@@ -161,7 +159,7 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
       ]
     }
   };
-  
+
   trafficFine$ = this._trafficFineFacade.trafficFine$.pipe(
     map((response) =>
       response.map((trafficFine: any) => ({
@@ -207,8 +205,8 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
     this._trafficFineFacade.loadAll();
     this._assetTrafficFineFacade.loadAll();
     this._trafficFineFacade.loadStatistics();
-    this._trafficFineFacade.trafficFine$.subscribe(x => { console.log(x)})
-    this._assetTrafficFineFacade.trafficFine$.subscribe(x => { console.log(x)})
+    this._trafficFineFacade.trafficFine$.subscribe()
+    this._assetTrafficFineFacade.trafficFine$.subscribe()
     this.getStatisticsSubscription = this._trafficFineFacade.statistics$.subscribe(
       (response) => {
         if (response) {

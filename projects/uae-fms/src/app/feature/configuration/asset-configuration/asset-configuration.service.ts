@@ -54,7 +54,6 @@ export class AssetConfigurationService {
       data: [],
       rowSettings: {
         onClick: (col, data) => {
-          console.log(col, data);
         }
       }
     };

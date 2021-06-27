@@ -454,7 +454,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
                   .value
             )
             .map((department) => {
-              console.log(department);
               return {
                 ...department.departments
               };
@@ -603,10 +602,10 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     this._facade.submitted$.subscribe((x) => {
       if (x) {
         const dialog = this._dialogService.show('success' ,
-                  (this.isEdit? 'Edit Asset': 'Add new asset') , 
-                  (this.isEdit ? 'Changes Asset Successfully.': 'Asset Added Successfully.') , 
+                  (this.isEdit? 'Edit Asset': 'Add new asset') ,
+                  (this.isEdit ? 'Changes Asset Successfully.': 'Asset Added Successfully.') ,
                   (this.isEdit ? 'Ok': 'Register Now'),
-                  (this.isEdit ? undefined : 'Register Later') 
+                  (this.isEdit ? undefined : 'Register Later')
                   )
         const dialogClose$:Subscription = dialog.dialogClosed$
         .pipe(
@@ -992,10 +991,10 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
               this.assetId = -1;
             }
           const dialog = this._dialogService.show('success' ,
-                  (this.isEdit? 'Edit Asset': 'Add new asset') , 
-                  (this.isEdit ? 'Changes Asset Successfully.': 'Asset Added Successfully.') , 
+                  (this.isEdit? 'Edit Asset': 'Add new asset') ,
+                  (this.isEdit ? 'Changes Asset Successfully.': 'Asset Added Successfully.') ,
                   (this.isEdit || formVal_Generate.quantity === 'multipleAsset' ? 'Ok': 'Register Now'),
-                  (this.isEdit || formVal_Generate.quantity === 'multipleAsset' ? undefined : 'Register Later') 
+                  (this.isEdit || formVal_Generate.quantity === 'multipleAsset' ? undefined : 'Register Later')
                   )
           const dialogClose$:Subscription = dialog.dialogClosed$
           .pipe(
@@ -1015,7 +1014,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           ).subscribe();
           this._facade.loadAll();
           this._assetRegistrationFacade.loadAll();
-          } 
+          }
         }
       });
     }
@@ -1033,7 +1032,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       })
     )
     .subscribe();
-    
+
   }
 
 

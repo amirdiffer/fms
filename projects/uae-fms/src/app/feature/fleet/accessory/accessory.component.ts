@@ -53,13 +53,13 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   //#region Table
   accessory_Table: TableSetting = {
     columns: [
-      { 
+      {
         lable: 'tables.column.item',
         type: 2,
         field: 'Item',
         thumbField:'avatarId'
      },
-      { 
+      {
         lable: 'tables.column.assigned_to',
         type: 1,
         field: 'Assigned_To'
@@ -104,9 +104,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
 
   accessory$ = this._accessoryFacade.accessory$.pipe(
     map((x) =>
-      x.map((item) => {
-        console.log(item)
-        return {
+      x.map((item) => ({
           id: item.id,
           avatarId: item.avatarId,
           statusColor: '#00AFB9',
@@ -115,9 +113,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
           Asset_SubAsset: item.assignedToEntity,
           Assigned_To: item.assignedToEmployeeId,
           Quantity: item.quantity
-        };
-      })
-    )
+        })))
   );
   //#endregion
 

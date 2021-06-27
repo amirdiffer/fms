@@ -165,7 +165,6 @@ export class ServiceShopComponent implements OnInit {
   );
   locationData$ = this._facadeLocation.serviceShop$.pipe(
     map((x) => {
-      console.log(x);
       return x.map((y) => {
         return {
           ...y,
@@ -376,7 +375,6 @@ export class ServiceShopComponent implements OnInit {
     data: [],
     rowSettings: {
       onClick: (col, data) => {
-        // console.log(col, data);
       },
       floatButton: [
         {
@@ -392,7 +390,6 @@ export class ServiceShopComponent implements OnInit {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
-            console.log(data);
             this._facadeJobCard.resetParams();
             this.router.navigate([
               '/workshop/service-shop/edit-job-card/' + data.id

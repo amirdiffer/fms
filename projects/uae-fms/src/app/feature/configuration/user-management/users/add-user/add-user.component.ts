@@ -347,7 +347,6 @@ export class AddUserComponent
         tap((result) => {
           if (result === 'confirm') {
             let f = this.form.value;
-            console.log(f.portalInformation.roleId.id);
             let userInfo: any = {
               employeeNumber: this.isEdit
                 ? this._user?.employeeNumber
