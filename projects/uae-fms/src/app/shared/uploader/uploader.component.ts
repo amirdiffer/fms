@@ -126,7 +126,7 @@ export class UploaderComponent implements OnInit , OnChanges{
       this.uploadedEvent.emit({
         name: this.uploaderName,
         files: this.files.map(x => {
-          return [x.id ? x.id : x]
+          return x.id ? x.id : x
         }),
         index: index
       });
@@ -226,15 +226,36 @@ export class UploaderComponent implements OnInit , OnChanges{
   }
 
   findContentType(contentType:string){
-    switch (false) {
-      case contentType.includes('excel'):
-        return 'assets/icons/file-excel.svg'
-      case contentType.includes('pdf'):
-        return 'assets/icons/file-pdf.svg'
-      case contentType.includes('csv'):
-        return 'assets/icons/file-csv.svg'
-      default: 
-        return 'assets/icons/file-alt.svg'
+    if(contentType && contentType !== null){
+      console.log(contentType)
+      switch (true) {
+        case contentType.includes('excel'):
+          return 'assets/icons/file-excel.svg'
+        case contentType.includes('sheet'):
+          return 'assets/icons/file-excel.svg'
+        case contentType.includes('pdf'):
+          return 'assets/icons/file-pdf.svg'
+        case contentType.includes('csv'):
+          return 'assets/icons/file-csv.svg'
+        default: 
+          return 'assets/icons/file-alt.svg'
+      }
+    }
+  }
+  findContentTypeColor(contentType:string){
+    if(contentType && contentType !== null){
+      switch (true) {
+        case contentType.includes('excel'):
+          return '#1d6f42'
+        case contentType.includes('sheet'):
+          return '#1d6f42'
+        case contentType.includes('pdf'):
+          return '#F40F02'
+        case contentType.includes('csv'):
+          return '#1d6f42'
+        default: 
+          return '#808080'
+      }
     }
   }
 }
