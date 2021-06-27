@@ -227,7 +227,6 @@ export class UploaderComponent implements OnInit , OnChanges{
 
   findContentType(contentType:string){
     if(contentType && contentType !== null){
-      console.log(contentType)
       switch (true) {
         case contentType.includes('excel'):
           return 'assets/icons/file-excel.svg'
