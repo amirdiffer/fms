@@ -64,7 +64,7 @@
               </a>
             </div>
             <a *ngIf="preview && !isImage" [href]="fileServer + (file.id ? file.id : file)">
-              <svg-icon class="" [src]="file.type ? findContentType((file.type | async)) : ''" 
+              <svg-icon class="" [src]="file.type ? findContentType((file.type | async) , file.id) : ''" 
                         [svgStyle]="{ 'width.em':'4' , 'fill': findContentTypeColor((file.type | async)) , 'opacity': '.8' ,'height': '100%'}">
               </svg-icon>
             </a>

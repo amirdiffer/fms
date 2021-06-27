@@ -199,7 +199,7 @@
       </div>
     </div>
     <div *ngIf="!isSingleAsset" class="second-step-upload-box">
-      <anms-uploader [files]="csvDoc" [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'"
+      <anms-uploader [files]="csvDoc" [readCSVFile]="true" [multiple]="false" [preview]="true" [accept]="'.csv'"
         [hasError]="subAssetDocRequired" (uploadedEvent)="uploadDocFiles($event)" (csvTextEvent)="csvReader($event)">
       </anms-uploader>
     </div>

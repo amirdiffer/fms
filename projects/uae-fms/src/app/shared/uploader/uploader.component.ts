@@ -225,7 +225,7 @@ export class UploaderComponent implements OnInit , OnChanges{
     }))
   }
 
-  findContentType(contentType:string){
+  findContentType(contentType:string, id:number){
     if(contentType && contentType !== null){
       switch (true) {
         case contentType.includes('excel'):
