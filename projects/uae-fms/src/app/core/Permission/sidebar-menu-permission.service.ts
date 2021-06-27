@@ -147,13 +147,31 @@ export class SidebarMenuPermission extends MenuPermission{
       }
     },
     {
-      name: 'sidebar.traffic_fine',
+      name: 'sidebar.traffic_fine.~',
       icon: 'traffic',
       route: '/traffic-fine',
       permission: {
         parent: 'TRRAFIC_FINE',
         permission: 'TRRAFIC_FINE',
-      }
+      },
+      items: [
+        {
+          name: 'sidebar.traffic_fine.overview',
+          route: '/traffic-fine/overview',
+          permission: {
+            parent: 'TRRAFIC_FINE',
+            permission: 'TRRAFIC_FINE',
+          }
+        },
+        {
+          name: 'sidebar.traffic_fine.traffic_file_number',
+          route: '/traffic-fine/traffic-file-number',
+          permission: {
+            parent: 'TRRAFIC_FINE',
+            permission: 'TRRAFIC_FINE',
+          }
+        },
+      ]
     },
     {
       name: 'sidebar.toll',
@@ -438,7 +456,7 @@ export class SidebarMenuPermission extends MenuPermission{
             items :menu.items ? checkItem(menu.items) : null ,
           });
         }
-        
+
       })
       this.sidebarItem$ = of(sidebarModel)
   }
@@ -447,7 +465,7 @@ export class SidebarMenuPermission extends MenuPermission{
     let hasPermission = false;
     if (
       this._currentUser !== null &&
-      this._currentUser.roles[0].permissions && 
+      this._currentUser.roles[0].permissions &&
       permission.length > 0
     ){
       for (const checkPermission of permission) {

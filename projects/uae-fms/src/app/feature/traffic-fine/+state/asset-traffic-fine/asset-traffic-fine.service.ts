@@ -30,9 +30,9 @@ export class AssetTrafficFineService {
     );
   }
 
-  getFinesOfSpecificAsset(id: number): Observable<ResponseBody<any>> {
+  getFinesOfSpecificAsset(id: number, page= 0, size = 5): Observable<ResponseBody<any>> {
     return this.http.get<ResponseBody<any>>(
-      environment.baseApiUrl + 'traffic-fine/asset/' + id
+      environment.baseApiUrl + 'traffic-fine/asset/' + id + '?page=' + page + '&sort=createdAt,desc&size=' + size
     );
   }
 }
