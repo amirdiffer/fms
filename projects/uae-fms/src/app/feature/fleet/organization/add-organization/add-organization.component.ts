@@ -169,7 +169,7 @@ export class AddOrganizationComponent extends Utility implements OnInit {
       this.organizationService.searchDepartment(z.id).subscribe((x: any) => {
         const res = x.message;
         this.id = res.id;
-
+        console.log(res)
         let f = this.organizationForm.get('tags') as FormArray;
         f.controls = [this.createTagField()];
         res.tags.forEach((a, i) => {
@@ -226,6 +226,9 @@ export class AddOrganizationComponent extends Utility implements OnInit {
       this.tags.push(this.createTagField());
     }
   }
+  removeTagField(index){
+    this.tags.removeAt(index)
+  }
 
   addSection(): void {
     if (this.section.invalid) {
@@ -233,12 +236,18 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     }
     this.section.push(this.createSection());
   }
+  removeSection(index){
+    this.section.removeAt(index);
+  }
 
   addSectionLocation(index: number): void {
     if (this.sectionLocation(index).invalid) {
       return;
     }
     this.sectionLocation(index).push(this.createSectionLocation());
+  }
+  removeLocationField(index , j){
+    this.sectionLocation(index).removeAt(j)
   }
 
   organizationNumber;
@@ -274,13 +283,14 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         .pipe(
           tap((result) => {
           if (result === 'confirm') {
-            const value = {
+            let formValue = this.organizationForm.getRawValue()
+            let value = {
               organizationNumber: this.organizationNumber,
-              organizationName: this.organizationForm.value.departmentName,
-              tags: this.organizationForm.value.tags.map((x) => {
+              organizationName: formValue.departmentName,
+              tags: formValue.tags.map((x) => {
                 return x.tag;
               }),
-              departments: this.organizationForm.value.section.map((x) => {
+              departments: formValue.section.map((x) => {
                 return {
                   name: x.sectionName,
                   locationAddresses: x.locations.map((y) => {
@@ -289,7 +299,11 @@ export class AddOrganizationComponent extends Utility implements OnInit {
                 };
               })
             };
-      
+            console.log(formValue)
+            console.log(value)
+            if(value.tags[value.tags.length -1] == ''){
+              value.tags.splice(value.tags.length -1, 1)
+            };
             if (this.isEdit) {
               this.facade.editOrganization({ ...value, id: this.id });
             } else {

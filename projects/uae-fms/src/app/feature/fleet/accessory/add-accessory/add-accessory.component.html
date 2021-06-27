@@ -42,13 +42,14 @@
         <anms-error [showError]="hasError('quantity', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
       </div>
 
-      <div class="col-12">
+      <div class="col-12 pb-3">
         <anms-uploader [iconIsHidden]="true"
                        [multiple]="false"
                        [preview]="true" [accept]="['.png', '.jpg']"
                        (uploadedEvent)="uploadAccessoryPicture($event)"
                        [isImage]="true"
                        [files]="[avatarId]"
+                       [hasError]="avatarRequired"
         ></anms-uploader>
       </div>
 

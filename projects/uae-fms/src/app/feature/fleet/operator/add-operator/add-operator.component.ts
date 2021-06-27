@@ -21,12 +21,6 @@ import { DialogService } from '@core/dialog/dialog-template.component';
   styleUrls: ['./add-operator.component.scss']
 })
 export class AddOperatorComponent extends Utility implements OnInit {
-  profileDocId = null;
-  sectionFiltered: any[];
-  sectionList: any[];
-  isEdit: boolean = false;
-  id: number;
-  allDepartment: IOrganization[] = [];
 
   //#region Filter
 
@@ -36,32 +30,40 @@ export class AddOperatorComponent extends Utility implements OnInit {
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) {}
+      onActive(index: number) { }
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) {}
+      onActive(index: number) { }
     }
   ];
 
   //#endregion
+
+  //#region Variables
+  profileDocId = null;
+  sectionFiltered: any[];
+  sectionList: any[];
+  isEdit: boolean = false;
+  id: number;
+  allDepartment: IOrganization[] = [];
 
   progressBarValue = 50;
   bufferValue = 70;
@@ -106,6 +108,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
   private _operator: IOperator;
   operators$ = this.operatorFacade.operator$;
+  //#endregion
 
   constructor(
     injector: Injector,
@@ -113,7 +116,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
     private operatorFacade: OperatorFacade,
     private operatorService: OperatorService,
     private _departmentService: OrganizationService,
-    private _dialogService : DialogService
+    private _dialogService: DialogService
   ) {
     super(injector);
     this.operatorFacade.resetParams();
@@ -126,7 +129,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
       .subscribe((x) => {
         x.message
           ? // ? this.department.next(x.message)
-            (this.departmentList = x.message)
+          (this.departmentList = x.message)
           : (this.departmentList = []);
       });
     this.route.url.subscribe((params) => {
@@ -208,43 +211,42 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
     this.operatorFacade.submitted$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success' , 
-          (this.isEdit ? 'Edit Operator': 'Add new Operator' ), 
-          (this.isEdit ? 'Changes Saved Successfully' : 'Operator Added Successfully'),'Ok')
-        const dialogClose$:Subscription = dialog.dialogClosed$
-        .pipe(
-          tap((result) => {
-          if (result === 'confirm') {
-            this.router.navigate(['/fleet/operator']);
-          }
-          dialogClose$?.unsubscribe();
-          })
-        ).subscribe()
+        const dialog = this._dialogService.show('success',
+          (this.isEdit ? 'Edit Operator' : 'Add new Operator'),
+          (this.isEdit ? 'Changes Saved Successfully' : 'Operator Added Successfully'), 'Ok')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+                this.router.navigate(['/fleet/operator']);
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
         this.operatorFacade.loadAll();
       }
     });
 
     this.operatorFacade.error$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('danger' , 
-          (this.isEdit ? 'Edit Operator': 'Add new Operator' ), 
-          'We Have Some Error','Ok')
-        const dialogClose$:Subscription = dialog.dialogClosed$
-        .pipe(
-          tap((result) => {
-          if (result === 'confirm') {
-          }
-          dialogClose$?.unsubscribe();
-          })
-        ).subscribe()
+        const dialog = this._dialogService.show('danger',
+          (this.isEdit ? 'Edit Operator' : 'Add new Operator'),
+          'We Have Some Error', 'Ok')
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+              }
+              dialogClose$?.unsubscribe();
+            })
+          ).subscribe()
       }
     });
 
     this.getEmployeesList.pipe(debounceTime(600)).subscribe((x) => {
       this.operatorService.searchEmployee(x['query']).subscribe((y) => {
         if (y) {
-          console.log(y);
-          this.employees.next([y.message]);
+          this.employees.next([{ ...y.message, employeeId: x['query'] }]);
         } else {
           this.employees.next(null);
         }
@@ -324,20 +326,20 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.phoneNumbers.removeAt(index);
   }
   dialogConfirm($event): void {
-      
+
   }
 
   cancel(): void {
-    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Ok','Cancel')
-    const dialogClose$:Subscription = dialog.dialogClosed$
-    .pipe(
-      tap((result) => {
-      if (result === 'confirm') {
-        this.router.navigate(['/fleet/operator']);
-      }
-      dialogClose$?.unsubscribe();
-      })
-    ).subscribe();
+    const dialog = this._dialogService.show('warning', 'Are you sure you want to leave?', 'You have unsaved changes! If you leave, your changes will be lost.', 'Ok', 'Cancel')
+    const dialogClose$: Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['/fleet/operator']);
+          }
+          dialogClose$?.unsubscribe();
+        })
+      ).subscribe();
   }
 
   submit(): void {
@@ -347,102 +349,102 @@ export class AddOperatorComponent extends Utility implements OnInit {
       return;
     }
     let f = this.form.value;
-      let operatorInfo: any = {
-        employeeNumber: this.isEdit
-          ? this._operator?.employeeNumber
-          : this.employeeId,
-        organizationId: this.departmentId,
-        // departmentId: f.portalInformation.department.id || 1,
-        departmentId: this.sectionId,
-        roleIds: [1],
-        isActive: f.portalInformation.activeEmployee,
-        profileDocId: this.profileDocId || 1,
-        firstName: f.personalInformation.firstName,
-        lastName: f.personalInformation.lastName,
-        emails: f.personalInformation.emails.map((x) => {
-          if (x.email) {
-            if (typeof x.email == 'string') return x.email;
-            else return x.email[0];
-          } else if (typeof x == 'object') return x[0];
-        }),
-        phoneNumbers: this.getPhone(f),
-        notifyByCall: f.personalInformation.callCheckbox,
-        notifyBySMS: f.personalInformation.smsCheckbox,
-        notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
-        notifyByEmail: f.personalInformation.emailCheckbox
+    let operatorInfo: any = {
+      employeeNumber: this.isEdit
+        ? this._operator?.employeeNumber
+        : this.employeeId,
+      organizationId: this.departmentId,
+      // departmentId: f.portalInformation.department.id || 1,
+      departmentId: this.sectionId,
+      roleIds: [1],
+      isActive: f.portalInformation.activeEmployee,
+      profileDocId: this.profileDocId || 1,
+      firstName: f.personalInformation.firstName,
+      lastName: f.personalInformation.lastName,
+      emails: f.personalInformation.emails.map((x) => {
+        if (x.email) {
+          if (typeof x.email == 'string') return x.email;
+          else return x.email[0];
+        } else if (typeof x == 'object') return x[0];
+      }),
+      phoneNumbers: this.getPhone(f),
+      notifyByCall: f.personalInformation.callCheckbox,
+      notifyBySMS: f.personalInformation.smsCheckbox,
+      notifyByWhatsApp: f.personalInformation.whatsappCheckbox,
+      notifyByEmail: f.personalInformation.emailCheckbox
+    };
+
+    if (this.isEdit) {
+      operatorInfo = {
+        ...operatorInfo,
+        id: this.id,
+        notifyByPush: this._operator.notifyByPush || false,
+        vehicleComments: this._operator.vehicleComments || false,
+        serviceEntryComment: this._operator.serviceEntryComment || false,
+        fuelEntryComments: this._operator.fuelEntryComments || false,
+        vehicleStatusChanges: this._operator.vehicleStatusChanges || false,
+        voidedFuelEntries: this._operator.voidedFuelEntries || false,
+        dueSoonInspections: this._operator.dueSoonInspections || false,
+        overdueInspections: this._operator.overdueInspections || false,
+        newFaults: this._operator.newFaults || false,
+        newRecalls: this._operator.newRecalls || false,
+        notifyByNewIssueEmail: this._operator.notifyByNewIssueEmail || false,
+        notifyByNewIssuePush: this._operator.notifyByNewIssuePush || false,
+        notifyByIssueAssignedEmail:
+          this._operator.notifyByIssueAssignedEmail || false,
+        notifyByIssueAssignedPush:
+          this._operator.notifyByIssueAssignedPush || false,
+        notifyByCommentOnIssueEmail:
+          this._operator.notifyByCommentOnIssueEmail || false,
+        notifyByCommentOnIssuePush:
+          this._operator.notifyByCommentOnIssuePush || false,
+        notifyByIssueResolvedEmail:
+          this._operator.notifyByIssueResolvedEmail || false,
+        notifyByIssueResolvedPush:
+          this._operator.notifyByIssueResolvedPush || false,
+        notifyByIssueCloseEmail:
+          this._operator.notifyByIssueCloseEmail || false,
+        notifyByIssueClosePush: this._operator.notifyByIssueClosePush || false
       };
 
-      if (this.isEdit) {
-        operatorInfo = {
-          ...operatorInfo,
-          id: this.id,
-          notifyByPush: this._operator.notifyByPush || false,
-          vehicleComments: this._operator.vehicleComments || false,
-          serviceEntryComment: this._operator.serviceEntryComment || false,
-          fuelEntryComments: this._operator.fuelEntryComments || false,
-          vehicleStatusChanges: this._operator.vehicleStatusChanges || false,
-          voidedFuelEntries: this._operator.voidedFuelEntries || false,
-          dueSoonInspections: this._operator.dueSoonInspections || false,
-          overdueInspections: this._operator.overdueInspections || false,
-          newFaults: this._operator.newFaults || false,
-          newRecalls: this._operator.newRecalls || false,
-          notifyByNewIssueEmail: this._operator.notifyByNewIssueEmail || false,
-          notifyByNewIssuePush: this._operator.notifyByNewIssuePush || false,
-          notifyByIssueAssignedEmail:
-            this._operator.notifyByIssueAssignedEmail || false,
-          notifyByIssueAssignedPush:
-            this._operator.notifyByIssueAssignedPush || false,
-          notifyByCommentOnIssueEmail:
-            this._operator.notifyByCommentOnIssueEmail || false,
-          notifyByCommentOnIssuePush:
-            this._operator.notifyByCommentOnIssuePush || false,
-          notifyByIssueResolvedEmail:
-            this._operator.notifyByIssueResolvedEmail || false,
-          notifyByIssueResolvedPush:
-            this._operator.notifyByIssueResolvedPush || false,
-          notifyByIssueCloseEmail:
-            this._operator.notifyByIssueCloseEmail || false,
-          notifyByIssueClosePush: this._operator.notifyByIssueClosePush || false
-        };
-
-        operatorInfo;
-        const dialog = this._dialogService.show('warning' , 'Edit Operator' , 'Are you sure you want to edit operator?' , 'Yes','Cancel')
-        const dialogClose$:Subscription = dialog.dialogClosed$
+      operatorInfo;
+      const dialog = this._dialogService.show('warning', 'Edit Operator', 'Are you sure you want to edit operator?', 'Yes', 'Cancel')
+      const dialogClose$: Subscription = dialog.dialogClosed$
         .pipe(
           tap((result) => {
-          if (result === 'confirm') {
-            this.operatorFacade.editOperator(operatorInfo);
-          }
-          dialogClose$?.unsubscribe();
+            if (result === 'confirm') {
+              this.operatorFacade.editOperator(operatorInfo);
+            }
+            dialogClose$?.unsubscribe();
           })
         ).subscribe();
-        
-      } else {
-        operatorInfo = {
-          ...operatorInfo,
-          notifyByPush: false,
-          vehicleComments: false,
-          serviceEntryComment: false,
-          fuelEntryComments: false,
-          vehicleStatusChanges: false,
-          voidedFuelEntries: false,
-          dueSoonInspections: false,
-          overdueInspections: false,
-          newFaults: false,
-          newRecalls: false,
-          notifyByNewIssueEmail: false,
-          notifyByNewIssuePush: false,
-          notifyByIssueAssignedEmail: false,
-          notifyByIssueAssignedPush: false,
-          notifyByCommentOnIssueEmail: false,
-          notifyByCommentOnIssuePush: false,
-          notifyByIssueResolvedEmail: false,
-          notifyByIssueResolvedPush: false,
-          notifyByIssueCloseEmail: false,
-          notifyByIssueClosePush: false
-        };
-        this.operatorFacade.addOperator(operatorInfo);
-      }
+
+    } else {
+      operatorInfo = {
+        ...operatorInfo,
+        notifyByPush: false,
+        vehicleComments: false,
+        serviceEntryComment: false,
+        fuelEntryComments: false,
+        vehicleStatusChanges: false,
+        voidedFuelEntries: false,
+        dueSoonInspections: false,
+        overdueInspections: false,
+        newFaults: false,
+        newRecalls: false,
+        notifyByNewIssueEmail: false,
+        notifyByNewIssuePush: false,
+        notifyByIssueAssignedEmail: false,
+        notifyByIssueAssignedPush: false,
+        notifyByCommentOnIssueEmail: false,
+        notifyByCommentOnIssuePush: false,
+        notifyByIssueResolvedEmail: false,
+        notifyByIssueResolvedPush: false,
+        notifyByIssueCloseEmail: false,
+        notifyByIssueClosePush: false
+      };
+      this.operatorFacade.addOperator(operatorInfo);
+    }
   }
 
   filterDepartments(event) {
@@ -515,7 +517,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
         if (
           typeof f.personalInformation.phoneNumbers[0] == 'object' &&
           typeof f.personalInformation.phoneNumbers[0].phoneNumber ==
-            'string' &&
+          'string' &&
           f.personalInformation.phoneNumbers[0].phoneNumber.length < 5
         )
           return [];
