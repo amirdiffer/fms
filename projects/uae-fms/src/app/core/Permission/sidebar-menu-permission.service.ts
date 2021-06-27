@@ -327,7 +327,7 @@ export class SidebarMenuPermission extends MenuPermission{
         },
         {
           name: 'sidebar.configuration.asset_configuration',
-          icon: 'cog',
+          icon: 'configuration',
           route: '/configuration/asset-configuration',
           permission: {
             parent: 'CONFIGURATION',
@@ -438,7 +438,7 @@ export class SidebarMenuPermission extends MenuPermission{
             items :menu.items ? checkItem(menu.items) : null ,
           });
         }
-        
+
       })
       this.sidebarItem$ = of(sidebarModel)
   }
@@ -447,7 +447,7 @@ export class SidebarMenuPermission extends MenuPermission{
     let hasPermission = false;
     if (
       this._currentUser !== null &&
-      this._currentUser.roles[0].permissions && 
+      this._currentUser.roles[0].permissions &&
       permission.length > 0
     ){
       for (const checkPermission of permission) {
