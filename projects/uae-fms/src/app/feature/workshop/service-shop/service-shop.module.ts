@@ -23,6 +23,7 @@ import { ServiceShopLocationStateModule } from '../+state/service-shop/location/
 import { ServiceShopRequestStateModule } from '../+state/service-shop/request/service-shop-request-state.module';
 import { ServiceShopTechnicianStateModule } from '../+state/service-shop/technician/service-shop-technician-state.module';
 import { TaskMasterStateModule } from '../../workshop/+state/task-master/task-master-state.module';
+import { UsersStateModule } from '@feature/configuration/+state/users/users-state.module';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { TaskMasterStateModule } from '../../workshop/+state/task-master/task-ma
     ServiceShopRequestStateModule,
     ServiceShopTechnicianStateModule,
     TaskMasterStateModule,
+    UsersStateModule
   ]
 })
 export class ServiceShopModule {}

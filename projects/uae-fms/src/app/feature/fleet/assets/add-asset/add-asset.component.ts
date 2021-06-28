@@ -63,6 +63,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   policyTypeTableData$ = new BehaviorSubject<any>([]);
   private _asset;
   private csvText = [];
+  yearRange =`2000:${new Date().getFullYear()}`
   /* Forms */
   formGroupAssetDetail: FormGroup;
   formGroupFinancial: FormGroup;
