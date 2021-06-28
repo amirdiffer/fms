@@ -35,7 +35,6 @@ export class AccessoryOverviewComponent implements OnInit {
           (d) => d.id == this.accessoryDetails.assignedToEmployeeId
         )[0];
       });
-      console.log(this.accessoryDetails);
     });
   }
 }

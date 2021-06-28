@@ -121,7 +121,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
                     name: models.trims.find((y) => y.id == this.id).name,
                     colors: models.trims.find((y) => y.id == this.id).colors
                   };
-                  console.log(trims);
                   this.trims.controls[0].patchValue({
                     trim: trims.name
                   });
@@ -134,7 +133,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
                     if (index + 1 !== trims.colors.length) {
                       this.addColor(0);
                     }
-                    console.log(index, trims.colors.length);
                   }
                 }
               }

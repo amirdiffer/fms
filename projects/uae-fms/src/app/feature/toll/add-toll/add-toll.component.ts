@@ -72,11 +72,9 @@ export class AddTollComponent extends Utility implements OnInit {
     }
   }
   public fileOver(event) {
-    // console.log(event);
   }
 
   public fileLeave(event) {
-    // console.log(event);
   }
 
   dropAndDragValidation(file: string) {

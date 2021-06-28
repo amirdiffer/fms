@@ -140,16 +140,12 @@ export class RequestTabOverviewComponent implements OnInit {
     this._facadeRequest.resetParams();
     this._facadeRequest.getAssetRequest(this.assetId);
     this._facadeRequest.getSpecificRequest(this.assetId);
-    this._facadeRequest.spicificRequest$.subscribe((x) => {
-      console.log(x);
-    });
+    this._facadeRequest.spicificRequest$.subscribe();
     this.tableData$ = this._facadeRequest.assetRequest$.pipe(
       map((x) => {
         if (x) {
-          console.log(x);
           return x.map((request) => {
             let jobType;
-            console.log(request);
             switch (request.jobType) {
               case 'TECHNICAL_REPORT':
                 jobType = 'Technical Report';
@@ -177,7 +173,6 @@ export class RequestTabOverviewComponent implements OnInit {
     );
     this.assetDetail$ = this.assetService.getAssetByID(this.assetId).pipe(
       map((x) => {
-        console.log(x);
         return {
           message: {
             ...x.message,

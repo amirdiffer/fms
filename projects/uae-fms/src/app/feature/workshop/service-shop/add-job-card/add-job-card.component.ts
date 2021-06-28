@@ -129,7 +129,6 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   private _jobCard: any;
   assets$ = this._jobCardService.getAllAssethasJobCard().pipe(
     map((y) => {
-      console.log(y);
       return y.message.map((x) => ({ id: x.assetId, name: x.dpd }));
     })
   );
@@ -274,7 +273,6 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
     //fill asset Id from queryParams
     this.route.queryParams.subscribe((params) => {
       if (params['assetId']) {
-        console.log(params['assetId']);
         this.inputForm.controls['assetId'].setValue(+params['assetId']);
         this.selectAsset({ value: params.assetId });
         this.loadRequests(params.assetId);
@@ -356,8 +354,8 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
 
     this._facadeJobCard.submitted$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success' , 
-        (this.isEdit ? 'Edit jobCard': 'Add new jobCard' ), 
+        const dialog = this._dialogService.show('success' ,
+        (this.isEdit ? 'Edit jobCard': 'Add new jobCard' ),
         (this.isEdit ? 'Changes Saved Successfully' : 'jobCard Added Successfully'),'Ok')
         const dialogClose$:Subscription = dialog.dialogClosed$
         .pipe(
@@ -376,8 +374,8 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
 
     this._facadeJobCard.error$.subscribe((x) => {
       if (x?.error) {
-        const dialog = this._dialogService.show('danger' , 
-        (this.isEdit ? 'Edit jobCard': 'Add new jobCard' ), 
+        const dialog = this._dialogService.show('danger' ,
+        (this.isEdit ? 'Edit jobCard': 'Add new jobCard' ),
         'We Have Some Error','Ok')
         const dialogClose$:Subscription = dialog.dialogClosed$
         .pipe(
@@ -404,7 +402,6 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   // }
 
   loadRequests(assetId) {
-    console.log(assetId);
     this.relatedRequests.next([]);
 
     this.service
@@ -446,12 +443,11 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
   requests$ = this._facadeRequest.requestsById$;
 
   selectAsset(e) {
-    console.log(e);
     this.relatedRequests.next([]);
     if (e.hasOpenJobCard) {
-      const dialog = this._dialogService.show('danger' , 
-            'Asset has alredy a job card' , 
-            "You can't add more than once! Please select another asset." , 
+      const dialog = this._dialogService.show('danger' ,
+            'Asset has alredy a job card' ,
+            "You can't add more than once! Please select another asset." ,
             'Ok')
       const dialogClose$:Subscription = dialog.dialogClosed$
       .pipe(
@@ -466,7 +462,6 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
       });
       this._facadeJobCard.resetParams();
     } else {
-      console.log(e.id);
       this.assetIdSelected = e.id;
       this.loadRequests(e.id);
     }
@@ -505,7 +500,7 @@ export class AddJobCardServiceShopComponent extends Utility implements OnInit {
       this.inputForm.markAllAsTouched();
       return;
     }
-    const dialog = this._dialogService.show('warning' , 
+    const dialog = this._dialogService.show('warning' ,
               (this.isEdit ? 'Edit jobCard' : 'Add new jobCard') ,
               (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new jobCard?') , 'Yes','Cancel')
     const dialogClose$:Subscription = dialog.dialogClosed$

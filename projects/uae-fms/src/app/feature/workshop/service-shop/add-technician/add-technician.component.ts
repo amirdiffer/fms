@@ -204,11 +204,9 @@ export class AddTechnicianServiceShopComponent
     this._facadeTaskMaster.loadAllSkill();
     this._locationFacade.loadAll();
     this.skills$ = this._facadeTaskMaster.skills$.subscribe((x) => {
-      console.log(x);
       this.skillList = x;
     });
     this.location$ = this._locationFacade.serviceShop$.subscribe((x) => {
-      console.log(x);
       this.locationList = x;
     });
     this._locationFacade.loadAll();
@@ -218,7 +216,6 @@ export class AddTechnicianServiceShopComponent
     });
     this._locationService.loadAll().subscribe((x) => {
       let data = x.message;
-      console.log(x);
       this.locationsB = data.map((y) => ({ id: y.id, name: y.address }));
     });
     this.buildForm();
@@ -239,7 +236,6 @@ export class AddTechnicianServiceShopComponent
               this.avatarId = Array.isArray(x.user.profileDocId)
                 ? x.user.profileDocId
                 : [x.user.profileDocId];
-              console.log(x);
               this.inputForm.controls['portalInfo'].patchValue({
                 employeeNumber: {
                   organizationId: x.user.employeeNumber
@@ -329,8 +325,8 @@ export class AddTechnicianServiceShopComponent
       });
     this._technicianFacade.submitted$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success' , 
-        (this.isEdit ? 'Edit technician': 'Add new technician' ), 
+        const dialog = this._dialogService.show('success' ,
+        (this.isEdit ? 'Edit technician': 'Add new technician' ),
         (this.isEdit ? 'Changes Saved Successfully' : 'technician Added Successfully'),'Ok')
         const dialogClose$:Subscription = dialog.dialogClosed$
         .pipe(
@@ -348,8 +344,8 @@ export class AddTechnicianServiceShopComponent
 
     this._technicianFacade.error$.subscribe((x) => {
       if (x?.error) {
-        const dialog = this._dialogService.show('danger' , 
-          (this.isEdit ? 'Edit technician': 'Add new technician' ), 
+        const dialog = this._dialogService.show('danger' ,
+          (this.isEdit ? 'Edit technician': 'Add new technician' ),
           'We Have Some Error','Ok')
         const dialogClose$:Subscription = dialog.dialogClosed$
         .pipe(
@@ -624,13 +620,13 @@ export class AddTechnicianServiceShopComponent
       this.inputForm.markAllAsTouched();
       return;
     }
-    const dialog = this._dialogService.show('warning' , 
+    const dialog = this._dialogService.show('warning' ,
     (this.isEdit ? 'Edit technician' : 'Add new technician') ,
     (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new technician?') , 'Yes','Cancel')
     const dialogClose$:Subscription = dialog.dialogClosed$
       .pipe(
         tap((result) => {
-          
+
         if (result === 'confirm') {
           let f = this.inputForm.value;
           let technicianInfo: any = {
@@ -658,13 +654,13 @@ export class AddTechnicianServiceShopComponent
             notifyByWhatsapp: f.personalInfo.notification.whatsapp,
             notifyByEmail: f.personalInfo.notification.email
           };
-    
+
           if (this.isEdit) {
             technicianInfo = {
               ...technicianInfo,
               id: this.id
             };
-    
+
             this._technicianFacade.editTechnician(technicianInfo);
           } else {
             technicianInfo = {

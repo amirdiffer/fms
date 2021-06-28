@@ -81,7 +81,6 @@ export class AddTypeComponent
 
   ngOnInit(): void {
     let activeRoute = this._activateRoute.snapshot.url[0].path;
-    console.log(activeRoute);
     switch (activeRoute) {
       case 'add-asset-configuration':
       case 'edit-asset-configuration':
@@ -236,19 +235,15 @@ export class AddTypeComponent
   }
 
   color1Clicked(): void {
-    // console.log('color1 clicked');
   }
 
   color2Clicked(): void {
-    // console.log('color2 clicked');
   }
 
   color3Clicked(): void {
-    // console.log('color3 clicked');
   }
 
   color4Clicked(): void {
-    // console.log('color4 clicked');
   }
 
   errorAndSubmitHandle(submittedFacade) {

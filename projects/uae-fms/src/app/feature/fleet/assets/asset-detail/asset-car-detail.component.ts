@@ -19,7 +19,6 @@ export class AssetCarDetailComponent implements OnInit, OnChanges {
     if (this.asset$) {
       this.asset$.subscribe(x => {
         if (x && x.message) {
-          console.log(x)
           this.asset = x.message;
           this.changeDetector.detectChanges();
         }

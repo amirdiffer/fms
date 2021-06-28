@@ -309,7 +309,6 @@ export class AddCategoryComponent extends Utility implements OnInit {
       subAssetConfigurations: [],
       accessoryConfigurations: []
     };
-    console.log(this.addCategoryForm.value)
     for (const subAsset of this.addCategoryForm.value.assignSubAsset) {
       itemToPost['subAssetConfigurations'].push({
         subAssetModelId: subAsset.subAssetModel,
@@ -347,7 +346,6 @@ export class AddCategoryComponent extends Utility implements OnInit {
   }
 
   autocompleteValidation(input: FormControl) {
-    console.log(input.value)
     const inputValid = input.value.name;
     if (inputValid) {
       return null;

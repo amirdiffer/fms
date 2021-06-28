@@ -22,7 +22,6 @@ export class UserDetailComponent implements OnInit {
   ngOnInit(): void {
     this.data$?.subscribe((x) => {
       if (x) {
-        console.log(x);
         this.activeChecked = x.isActive;
       }
     });

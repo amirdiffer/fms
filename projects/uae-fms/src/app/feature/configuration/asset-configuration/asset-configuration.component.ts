@@ -74,7 +74,6 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       floatButton: [
         {
           onClick: (col, data) => {
-            console.log(data);
             switch (this.activeTypeCategory) {
               case 'ASSET':
                 this.router.navigate(['edit-asset-configuration/' + data.id], {
@@ -508,7 +507,6 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
     let filter = {
       ...filterSetting
     };
-    console.log(filter);
 
     this.table.exportTable(
       this.assetConfigurationableSetting,
@@ -666,7 +664,6 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
         this.data$ = this._subAssetTypeFacade.subAssetType$.pipe(
           map((x) => {
             return x.map((y) => {
-              console.log(y);
               let numberOfAsset = y.makes.length;
               return {
                 ...y,
@@ -686,7 +683,6 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
         this.data$ = this._accessoryTypeFacade.accessoryType$.pipe(
           map((x) => {
             return x.map((y) => {
-              console.log(y);
               return {
                 ...y,
                 id: y.id,

@@ -476,7 +476,6 @@ export class VehicleOverviewComponent implements OnInit {
     this.customizationService
       .getAssetForCustomizationByAssetId(this.assetID)
       .subscribe((x) => {
-        console.log(x);
         let subAsset = x.message.subAssets;
         let accessories = x.message.accessories;
         this.SubAsset_tableSetting.data = (<Array<object>>subAsset).map((x) => {
@@ -512,7 +511,6 @@ export class VehicleOverviewComponent implements OnInit {
           1
         );
       }
-      console.log(this.chartTrafficFineData.labels.indexOf('total'));
     });
     this.assetService.getFuelCardByAssetID(this.assetID).subscribe((x) => {
       let data = <Array<object>>x.message;
@@ -529,7 +527,6 @@ export class VehicleOverviewComponent implements OnInit {
           data: consumption
         }
       ];
-      console.log(this.chartFuelCardData);
     });
   }
 }

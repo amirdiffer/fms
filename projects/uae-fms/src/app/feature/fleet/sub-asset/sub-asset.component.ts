@@ -260,6 +260,5 @@ export class SubAssetComponent implements OnInit, OnDestroy {
       return this.assetTraffic_Table.columns;
     }
     this.facade.loadAll();
-    console.log(data);
   }
 }

@@ -403,7 +403,6 @@ export class SidebarMenuPermission extends MenuPermission{
   public getUserPermission(){
     this._facadeProfile.loadData$.subscribe((user) => {
       if (user) {
-        console.log(this._currentUser)
         this._currentUser = user;
         this.loadMenu();
       }

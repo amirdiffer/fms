@@ -127,7 +127,6 @@ export class PendingRegistrationOverviewComponent
       if (x) {
         switch (x) {
           case 'plate_number':
-            console.log(x);
             this.inputForm.get('chassisNumber').clearValidators();
             this.inputForm
               .get('plateCategory')
@@ -181,10 +180,10 @@ export class PendingRegistrationOverviewComponent
     this._registrationFacade.submitted$.subscribe((x) => {
       if (x) {
         const dialog = this._dialogService.show('success' ,
-        (this.isEdit? 'Edit registration': 'Add new registration') , 
-        (this.isEdit ? 'Changes Saved Successfully': 'Registration Added Successfully') , 
+        (this.isEdit? 'Edit registration': 'Add new registration') ,
+        (this.isEdit ? 'Changes Saved Successfully': 'Registration Added Successfully') ,
         (this.isEdit ? 'Ok': 'Customize Now'),
-        (this.isEdit ? undefined : 'Customize Later') 
+        (this.isEdit ? undefined : 'Customize Later')
         )
         const dialogClose$:Subscription = dialog.dialogClosed$
         .pipe(
@@ -279,7 +278,7 @@ export class PendingRegistrationOverviewComponent
   //   }
 
   //   if (this.dialogType == 'submit') {
-     
+
   //   } else {
   //     this.router
   //       .navigate(['/fleet/assets'], {
@@ -343,10 +342,8 @@ export class PendingRegistrationOverviewComponent
       tollTag:formValue.salikTag
     }
     if(this.inputForm.get('registerType').value === 'plate_number'){
-      console.log(registerByPlateNumberValue)
       this._registrationFacade.registerByPlateNumber(registerByPlateNumberValue)
     }else if (this.inputForm.get('registerType').value === 'chassis'){
-      console.log(registerByChassisNumberValue)
       this._registrationFacade.registerByChasisNumber(registerByChassisNumberValue)
     }
 
@@ -369,6 +366,6 @@ export class PendingRegistrationOverviewComponent
       })
     )
     .subscribe();
-  
+
   }
 }

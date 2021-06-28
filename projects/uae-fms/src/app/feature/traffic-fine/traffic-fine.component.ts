@@ -159,7 +159,7 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
       ]
     }
   };
-  
+
   trafficFine$ = this._trafficFineFacade.trafficFine$.pipe(
     map((response) =>
       response.map((trafficFine: any) => ({

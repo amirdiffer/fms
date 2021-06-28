@@ -165,7 +165,6 @@ export class MaintenanceServiceComponent implements OnInit {
   }
 
   filterSubTableData(id: number) {
-    console.log(id);
   }
 
 }
