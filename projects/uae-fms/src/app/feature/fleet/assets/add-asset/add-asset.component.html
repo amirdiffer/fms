@@ -2,7 +2,7 @@
   <div class="col-12">
     <div class="position-relative">
         <div class="button-container">
-          <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancelForm()">{{ 'forms.cancel' | translate }}</button>
+          <button class="btn-primary-medium btn-scondary-green" type="button" [routerLink]="['/fleet/assets']" routerLinkActive="router-link-active" >{{ 'forms.cancel' | translate }}</button>
           <button *ngIf="stepper.selectedIndex > 0" class="btn-primary-medium btn-scondary-green" type="button" (click)="previous()">{{ 'forms.back' | translate }}</button>
           <button class="btn-primary-medium add" *ngIf="stepper.selectedIndex != 3"  (click)="next()">{{ 'forms.next' | translate }}</button>
           <button *ngIf="stepper.selectedIndex == 3 && !uploadReview && !singleAsset" class="btn-primary-medium add" (click)="buttonUpload()">{{ 'forms.upload' | translate }}</button>
