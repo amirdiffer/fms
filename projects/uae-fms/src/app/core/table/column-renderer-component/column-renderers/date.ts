@@ -13,7 +13,6 @@ export class DateRenderer implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.data);
     this.date = moment
       .utc(this.data * 1000)
       .local()

@@ -206,7 +206,6 @@ export class AddPeriodicServiceComponent
   }
 
   loadPeriodicServiceForm(periodicService: any) {
-    console.log(periodicService);
     this.packages = this.periodicServiceForm.get('packages') as FormArray;
     this.packages.removeAt(0);
 
@@ -223,7 +222,6 @@ export class AddPeriodicServiceComponent
     this.periodicServiceForm.patchValue({
       name: periodicService.name,
       packages: periodicService.packages.map((x) => {
-        console.log(x);
         return {
           id: x.id,
           intervals: x.frequency,
@@ -343,7 +341,6 @@ export class AddPeriodicServiceComponent
     if (event.checked) {
       values.map((x, i) => {
         if (x && i == 0) {
-          console.log(x, i);
           this.package.controls[index]
             .get('milageForReminder')
             .setValidators(Validators.required);
@@ -371,7 +368,6 @@ export class AddPeriodicServiceComponent
             .clearValidators();
         }
       });
-      console.log(values);
     } else {
       this.package.controls[index].get('milageForReminder').clearValidators();
       this.package.controls[index].get('hoursForReminder').clearValidators();
@@ -400,7 +396,6 @@ export class AddPeriodicServiceComponent
       return;
     }
     const data = this.getPeriodicServicePayload(this.periodicServiceForm.value);
-    console.log(this.periodicServiceFacade.addPeriodicService(data));
     if (!this.isEdit) {
       this.periodicServiceFacade.addPeriodicService(data);
     } else {

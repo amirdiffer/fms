@@ -105,7 +105,6 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
             this.fleetSubscription = this.facade.specificAssetType$.subscribe(
               (x) => {
                 if (x) {
-                  console.log(x);
                   this.selectedCategory = x.makes.find(
                     (y) => y.id == this.makeId
                   )
@@ -153,7 +152,6 @@ export class AddModelComponent extends Utility implements OnInit, OnDestroy {
           if (load) {
             this._subAssetTypeFacade.specificSubAssetType$.subscribe((x) => {
               if (x) {
-                console.log(x);
                 this.selectedCategory = x.makes.find((y) => y.id == this.makeId)
                   ? x.makes.find((y) => y.id == this.makeId).name
                   : '';

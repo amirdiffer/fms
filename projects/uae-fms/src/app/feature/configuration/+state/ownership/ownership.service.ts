@@ -41,7 +41,6 @@ export class OwnershipService {
   }
 
   editOwnership(data): Observable<ResponseBody<IOwnerShip>> {
-    console.log(data)
     return this.http.post<ResponseBody<IOwnerShip>>(
       environment.baseApiUrl + 'configuration/ownership/' + data.id + '/update',
       data

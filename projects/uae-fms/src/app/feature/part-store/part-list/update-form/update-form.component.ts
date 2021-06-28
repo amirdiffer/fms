@@ -18,7 +18,7 @@ export class UpdateFormComponent  extends Utility implements OnInit , OnDestroy 
   fleetType;
   partSubscription:Subscription;
   form:FormGroup;
-
+  yearRange =`2000:${new Date().getFullYear()}`;
   submitted:boolean = false;
   constructor(private _activatedRoute: ActivatedRoute,
               private _router:Router,
@@ -63,7 +63,6 @@ export class UpdateFormComponent  extends Utility implements OnInit , OnDestroy 
     switch (this.fleetType) {
       case 'asset':
         this.partSubscription = this._facadePartList.specificAssetPart$.subscribe(x =>{
-          console.log(x)
           if(x){
             this.form.patchValue({
               quantity:x.quantity,
@@ -79,9 +78,7 @@ export class UpdateFormComponent  extends Utility implements OnInit , OnDestroy 
         });
         break;
       case 'sub-asset':
-        this.partSubscription = this._facadePartList.specificSubAssetPart$.subscribe(x =>{
-          console.log(x)
-        });
+        this.partSubscription = this._facadePartList.specificSubAssetPart$.subscribe();
         break;
     }
   }

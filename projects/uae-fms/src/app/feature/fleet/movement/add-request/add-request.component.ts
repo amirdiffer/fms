@@ -24,6 +24,8 @@ export class AddRequestComponent extends Utility implements OnInit {
   get oldAssetId() {
     return this.requestForm.get('oldAssetId') as FormControl;
   }
+  yearRange =`2000:${new Date().getFullYear()}`
+
   constructor(
     private _fb: FormBuilder,
     private facade: MovementRequestsFacade,

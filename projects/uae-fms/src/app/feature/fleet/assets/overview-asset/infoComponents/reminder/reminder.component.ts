@@ -70,8 +70,6 @@ export class ReminderComponent implements OnInit {
     rowSettings: {
       onClick: (col, data, button?, val?) => {
         if (button == 'toggle') {
-          console.log(data)
-          console.log(val)
         }
       },
       floatButton: []

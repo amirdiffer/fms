@@ -231,6 +231,5 @@ export class AssetsService {
     };
   };
   private onClick() {
-    // console.log('hi');
   }
 }

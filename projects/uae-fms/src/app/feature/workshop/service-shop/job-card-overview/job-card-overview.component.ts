@@ -182,7 +182,6 @@ export class JobCardOverviewComponent implements OnInit {
     this.assetId = +this.route.snapshot.params.id;
     this.service.getJobCardById(this.assetId).subscribe((x) => {
       if (x) {
-        console.log(x);
         this.tableData$.next(
           x.message.tasks.map((x) => {
             return x.taskMaster;

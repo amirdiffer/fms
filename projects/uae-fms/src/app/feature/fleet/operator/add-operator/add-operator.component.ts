@@ -267,7 +267,6 @@ export class AddOperatorComponent extends Utility implements OnInit {
     // this.getDepartmentList.pipe(debounceTime(600)).subscribe((x) => {
     //   this._departmentService.searchDepartment(x['query']).subscribe((y) => {
     //     if (y) {
-    //       console.log(y)
     //       this.department.next([y.message]);
     //     } else {
     //       this.department.next(null);
@@ -509,11 +508,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
   }
 
   public fileOver(event) {
-    // console.log(event);
   }
 
   public fileLeave(event) {
-    // console.log(event);
   }
 
   ngOnDestroy(): void {

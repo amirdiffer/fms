@@ -92,7 +92,12 @@
           <div class="col">
             <div class="p-field form-section__field date-input">
               <span class="p-float-label">
-                <p-calendar inputId="basic" formControlName="startDate" [readonlyInput]="true" ></p-calendar>
+                <p-calendar inputId="basic" formControlName="startDate" 
+                            [readonlyInput]="true"
+                            [yearNavigator]="true"
+                            [yearRange]="yearRange"
+                            [monthNavigator]="true"
+                            [panelStyleClass]="'panelStyle'"></p-calendar>
                 <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':'20' , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
                 <label>{{ 'movement.request.start_date' | translate }}</label>
               </span>
@@ -109,7 +114,12 @@
           <div class="col">
             <div class="p-field form-section__field date-input">
               <span class="p-float-label">
-                <p-calendar inputId="basic" formControlName="endDate" [readonlyInput]="true" ></p-calendar>
+                <p-calendar inputId="basic" formControlName="endDate" 
+                            [readonlyInput]="true"
+                            [yearNavigator]="true"
+                            [yearRange]="yearRange"
+                            [monthNavigator]="true"
+                            [panelStyleClass]="'panelStyle'"></p-calendar>
                 <svg-icon class="date-icon" [src]="calenderIcon" [svgStyle]="{ 'width.px':'20' , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
                 <label>{{ 'movement.request.end_date' | translate }}</label>
               </span>

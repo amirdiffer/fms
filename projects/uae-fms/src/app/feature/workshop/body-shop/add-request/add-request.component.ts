@@ -110,7 +110,6 @@ export class AddRequestComponent extends Utility implements OnInit {
           .pipe(map((x) => x.message))
           .subscribe((x) => {
             if (x) {
-              console.log(x);
               this._request = x;
               this.profileDocIds = Array.isArray(x.documentIds)
                 ? x.documentIds
@@ -140,8 +139,8 @@ export class AddRequestComponent extends Utility implements OnInit {
       }
       this._bodyShopRequestFacade.submitted$.subscribe((x) => {
         if (x) {
-          const dialog = this._dialogService.show('success' , 
-          (this.isEdit ? 'Edit request': 'Add new request' ), 
+          const dialog = this._dialogService.show('success' ,
+          (this.isEdit ? 'Edit request': 'Add new request' ),
           (this.isEdit ? 'Changes Saved Successfully' : 'request Added Successfully'),'Ok')
           const dialogClose$:Subscription = dialog.dialogClosed$
           .pipe(
@@ -159,8 +158,8 @@ export class AddRequestComponent extends Utility implements OnInit {
 
       this._bodyShopRequestFacade.error$.subscribe((x) => {
         if (x?.error) {
-          const dialog = this._dialogService.show('danger' , 
-          (this.isEdit ? 'Edit request': 'Add new request' ), 
+          const dialog = this._dialogService.show('danger' ,
+          (this.isEdit ? 'Edit request': 'Add new request' ),
           'We Have Some Error','Ok')
           const dialogClose$:Subscription = dialog.dialogClosed$
           .pipe(
@@ -239,13 +238,13 @@ export class AddRequestComponent extends Utility implements OnInit {
     if (this.inputForm.invalid) {
       return;
     }
-    const dialog = this._dialogService.show('warning' , 
+    const dialog = this._dialogService.show('warning' ,
     (this.isEdit ? 'Edit request' : 'Add new request') ,
     (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new request?') , 'Yes','Cancel')
     const dialogClose$:Subscription = dialog.dialogClosed$
       .pipe(
         tap((result) => {
-          
+
         if (result === 'confirm') {
           let d = this.inputForm.getRawValue();
           let requestInfo: any = {
@@ -265,7 +264,7 @@ export class AddRequestComponent extends Utility implements OnInit {
               ...requestInfo,
               id: this.id
             };
-    
+
             this._bodyShopRequestFacade.editRequest(requestInfo);
           } else {
             requestInfo = {

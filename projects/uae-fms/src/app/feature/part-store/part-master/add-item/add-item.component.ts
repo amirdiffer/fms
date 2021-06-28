@@ -79,7 +79,6 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
         x.isEdit ? this.isEdit = true : this.isEdit = false;
         x.id ? this.id = x.id : null;
         if(x.fleetType !== 'ASSET'){
-          console.log(x)
           this.isAsset = false;
           this.loadModel(x.makes);
           this.itemInfo.controls.map(formGroup => {formGroup.get('trim').clearValidators()});
@@ -103,7 +102,6 @@ export class AddItemComponent extends Utility implements OnInit, OnDestroy {
     this._partMasterFacade.specificItem$.subscribe(
       x => {
         if(x){
-          console.log(x)
           this.itemInfo.controls.map(formGroup => {formGroup.patchValue({
             itemName: x.name,
             trim:x.trimId ? {id:x.trimId}: null,

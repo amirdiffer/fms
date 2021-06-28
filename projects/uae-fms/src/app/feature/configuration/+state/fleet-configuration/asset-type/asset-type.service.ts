@@ -4,7 +4,6 @@ import { ResponseBody } from '@models/responseBody';
 import { IAssetType } from '@models/asset-type.model';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
-import { tap } from 'rxjs/operators';
 
 
 @Injectable()
@@ -60,12 +59,6 @@ export class AssetTypeService {
           environment.baseApiUrl +
           'configuration/fleet-configuration/asset/' + assetId + '/make/' + makeId + '/model/' + modelId +'/trim/update',
           data
-        ).pipe(
-          tap(res => {
-            console.log(res);
-          }, error => {
-            console.log(error);
-          })
         );
     }
 

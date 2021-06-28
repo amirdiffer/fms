@@ -31,7 +31,6 @@ export class SubAssetDetailComponent implements OnInit {
     if (this.data) {
       this.data.subscribe(x => {
         if (x) {
-          console.log(x);
           this.warranty$ = of(x.warrantyItems);
           this.subAsset$ = of({
             ...x,

@@ -131,7 +131,6 @@ export class BodyShopComponent implements OnInit {
   requestData$ = this._facadeRequest.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
-        console.log(y);
         return {
           ...y,
           asset: {
@@ -150,7 +149,6 @@ export class BodyShopComponent implements OnInit {
   );
   locationData$ = this._facadeLocation.bodyShop$.pipe(
     map((x) => {
-      console.log(x);
       return x.map((y) => {
         return {
           ...y,
@@ -191,7 +189,6 @@ export class BodyShopComponent implements OnInit {
   jobCardData$ = this._facadeJobCard.bodyShop$.pipe(
     map((x) => {
       return x.map((y) => {
-        console.log(y);
         return {
           ...y,
           asset: {
@@ -383,7 +380,6 @@ export class BodyShopComponent implements OnInit {
     ],
     rowSettings: {
       onClick: (col, data) => {
-        // console.log(col, data);
       },
       floatButton: [
         {
@@ -399,7 +395,6 @@ export class BodyShopComponent implements OnInit {
           button: 'edit',
           color: '#3F3F3F',
           onClick: (col, data, button?) => {
-            console.log(data);
             this._facadeJobCard.resetParams();
             this.router.navigate([
               '/workshop/body-shop/edit-job-card/' + data.id
