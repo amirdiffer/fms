@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ColumnType } from '@core/table';
 import { IAssets, IPending } from './assets.model';
-import { FloatButtonType } from '@core/table/table.component';
+import { FilterType, FloatButtonType } from '@core/table/table.component';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -82,6 +82,7 @@ export class AssetsService {
   };
   public pedingRegistrationTableSetting = () => {
     return {
+      name: 'pendingRegistration',
       columns: [
         {
           lable: 'tables.column.asset',
@@ -97,7 +98,9 @@ export class AssetsService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'serialNumber',
+          filterType: FilterType.string
         },
         {
           lable: 'tables.column.allocated',
@@ -105,7 +108,9 @@ export class AssetsService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'allocated',
+          filterType: FilterType.string
         },
         {
           lable: 'tables.column.make',
@@ -113,7 +118,9 @@ export class AssetsService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'make',
+          filterType: FilterType.list
         },
         {
           lable: 'tables.column.type',
@@ -121,7 +128,9 @@ export class AssetsService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'type',
+          filterType: FilterType.list
         },
         {
           lable: 'tables.column.business_category',
@@ -129,7 +138,9 @@ export class AssetsService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'businessCategory',
+          filterType: FilterType.list
         },
         {
           lable: '',
@@ -164,6 +175,7 @@ export class AssetsService {
   };
   public pedingCustomizationTableSetting = () => {
     return {
+      name: 'pendingCustomization',
       columns: [
         {
           lable: 'tables.column.asset',
@@ -179,7 +191,9 @@ export class AssetsService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'businessCategory',
+          filterType: FilterType.list
         },
         {
           lable: 'tables.column.create_date',
@@ -187,7 +201,9 @@ export class AssetsService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'createdAt',
+          filterType: FilterType.range_date
         },
         {
           lable: 'tables.column.registration_date',
@@ -195,7 +211,9 @@ export class AssetsService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'registrationDate',
+          filterType: FilterType.range_date
         },
         {
           lable: 'tables.column.creator',
@@ -203,7 +221,9 @@ export class AssetsService {
           width: 100,
           type: 1,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'operator',
+          filterType: FilterType.list
         },
         {
           lable: '',

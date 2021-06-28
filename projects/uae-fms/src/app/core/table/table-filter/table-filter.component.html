@@ -53,6 +53,20 @@
               </div>
             </div>
           </ng-template>
+          <ng-template [ngSwitchCase]="filterType.status">
+            <div class="col-12 col-md-3 p-field form-section__field">
+              <div class="autocomplete-select">
+                <span class="p-float-label">
+                  <p-autoComplete  [(ngModel)]="item.value" (completeMethod)="searchInput($event,  item.filterApiKey)" (onSelect)="searchInputChanged($event, item.filterApiKey)"
+                                   [suggestions]="searchInputFiltered[item.filterApiKey]" field="name" [minLength]="1"
+                                   [dropdown]="true">
+                  </p-autoComplete>
+                  <i class="pi pi-search"></i>
+                  <label>{{ item.lable | translate}}</label>
+                </span>
+              </div>
+            </div>
+          </ng-template>
           <ng-template [ngSwitchCase]="filterType.checkbox_list">
           </ng-template>
           <ng-template [ngSwitchCase]="filterType.string">

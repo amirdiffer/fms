@@ -9,6 +9,7 @@ import { FilterCardSetting } from '@core/filter';
 import { AssetMasterFacade } from '../+state/assets/asset-master';
 import { RegistrationFacade } from '../+state/assets/registration';
 import { CustomizationFacade } from '../+state/assets/customization';
+import { FilterType } from '@core/table/table.component';
 
 @Component({
   selector: 'anms-assets',
@@ -29,9 +30,15 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
   filterSetting;
 
   selectedTab = 'assetMasterTab';
+  showCustomFilter = false;
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   sampleImg = 'assets/thumb.png';
+  filtersColumns = {
+    assetMasterTab: [],
+    pendingRegistrationTab: [],
+    pendingCustomizationTab: []
+  };
   //#region  table
   assetMasterCount$ = this.assetMasterFacade.conut$.pipe(
     map((x) => {
@@ -152,7 +159,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
     this.registrationFacade.loadAll();
     this.assetMasterFacade.loadAll();
     this.customizationFacade.loadAll();
+
     this.assetMasterTableSetting = {
+      name: 'assetMaster',
       columns: [
         {
           lable: 'tables.column.asset',
@@ -168,7 +177,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           width: 100,
           type: ColumnType.lable,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'type',
+          filterType: FilterType.list
         },
         {
           lable: 'tables.column.business_category',
@@ -176,7 +187,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           width: 130,
           type: ColumnType.lable,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'businessCategory',
+          filterType: FilterType.list
         },
         {
           lable: 'tables.column.department',
@@ -184,7 +197,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           width: '10em',
           type: ColumnType.lable,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'department',
+          filterType: FilterType.list
         },
         {
           lable: 'tables.column.operator',
@@ -192,7 +207,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           width: 100,
           type: ColumnType.lable,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'operator',
+          filterType: FilterType.list
         },
         {
           lable: 'tables.column.status',
@@ -200,7 +217,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           width: 100,
           type: ColumnType.lable,
           thumbField: '',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'status',
+          filterType: FilterType.boolean
         },
         {
           lable: 'tables.column.submitted_on',
@@ -217,7 +236,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           width: 100,
           type: 1,
           thumbField: 'brand',
-          renderer: ''
+          renderer: '',
+          filterApiKey: 'make',
+          filterType: FilterType.list
         },
         {
           lable: 'tables.column.current_meter',
@@ -226,7 +247,9 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           type: ColumnType.lable,
           thumbField: '',
           renderer: '',
-          sortable: true
+          sortable: true,
+          filterApiKey: 'current_meter',
+          filterType: FilterType.string
         },
         {
           lable: '',
@@ -266,6 +289,10 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
 
     this.pendingRegistrationTableSetting = this._assetsService.pedingRegistrationTableSetting();
     this.pendingCustomizationTableSetting = this._assetsService.pedingCustomizationTableSetting();
+
+    this.setFiltersColumns_assetMaster();
+    this.setFiltersColumns_registration();
+    this.setFiltersColumns_customization();
 
     this.filterSetting = [
       {
@@ -424,5 +451,78 @@ export class AssetsComponent implements OnInit, OnDestroy, FilterCardSetting {
           ? `Yesterday`
           : `${date.day} Days Ago`
         : 'Today';
+  }
+
+  customFilterEvent(data: object[], tab) {
+    switch (tab) {
+      case 'assetMasterTab': {
+        this.assetMasterFacade.loadAll();
+        break;
+      }
+      case 'pendingRegistrationTab': {
+        this.registrationFacade.loadAll();
+        break;
+      }
+      case 'pendingCustomizationTab': {
+        this.customizationFacade.loadAll();
+        break;
+      }
+    }
+  }
+
+  setFiltersColumns_assetMaster() {
+    let removeField = ['asset', 'status', 'submitOn', 'killometer'];
+    let filtersColumns = Object.values({
+      ...this.assetMasterTableSetting.columns
+    });
+    filtersColumns.splice(7, 1);
+    filtersColumns.splice(2, 0, {
+      lable: 'tables.column.make',
+      field: 'brand',
+      filterApiKey: 'make',
+      filterType: FilterType.list
+    });
+    filtersColumns.splice(4, 0, {
+      lable: 'tables.column.organization',
+      field: 'organization',
+      filterApiKey: 'organization',
+      filterType: FilterType.list
+    });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.assetMasterTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  setFiltersColumns_registration() {
+    let removeField = ['asset', 'serialNumber', 'allocated'];
+    let filtersColumns = Object.values({
+      ...this.pendingRegistrationTableSetting.columns
+    });
+    filtersColumns.splice(3, 1);
+    filtersColumns.splice(4, 0, {
+      lable: 'tables.column.make',
+      field: 'brand',
+      filterApiKey: 'make',
+      filterType: FilterType.list
+    });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.pendingRegistrationTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  setFiltersColumns_customization() {
+    let removeField = ['asset', 'registrantionDate'];
+    let filtersColumns = Object.values({
+      ...this.pendingCustomizationTableSetting.columns
+    });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.pendingCustomizationTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
   }
 }

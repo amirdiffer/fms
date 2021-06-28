@@ -6,6 +6,9 @@
   <div class="table-wreapper">
     <app-tab-view (selectedIndex)="activeTab = $event">
       <span class="search-container card-table-header">
+<!--        <button class="btn-download" (click)="showCustomFilter = !showCustomFilter">-->
+<!--          <svg-icon [src]="'assets/icons/setting.svg'"></svg-icon>-->
+<!--        </button>-->
         <div class="search-box">
             <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
             <button>
@@ -17,9 +20,11 @@
         </button>
       </span>
       <div title="tabs.traffic_file" id="trafficFineTab">
+        <!-- [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns['trafficFineTab']" (customFilterEvent)="customFilterEvent($event, 'trafficFineTab')" -->
         <app-table [setting]='trafficFine_Table' [tableData]='trafficFine$'></app-table>
       </div>
       <div title="tabs.asset_traffic_fine" id="assetTrafficFineTab">
+        <!-- [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns['assetTrafficFineTab']" (customFilterEvent)="customFilterEvent($event, 'assetTrafficFineTab')" -->
         <app-table [setting]='assetTraffic_Table' [tableData]='assetTraffic$'></app-table>
       </div>
     </app-tab-view>

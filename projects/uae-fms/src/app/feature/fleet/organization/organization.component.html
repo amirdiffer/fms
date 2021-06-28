@@ -1,6 +1,9 @@
 
   <div class="table-container component_wrapper">
     <div class="search-container card-table-header">
+      <button class="btn-download" (click)="showCustomFilter = !showCustomFilter">
+        <svg-icon [src]="'assets/icons/setting.svg'"></svg-icon>
+      </button>
       <div class="search-box">
         <input id="searchInput" type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
         <button>
@@ -13,6 +16,6 @@
       <button  class="btn-primary-small" [routerLink]="'./add-department'" *hasPermission="['ORGANIZATION_ADD']"><i>+</i><a>{{'forms.add' | translate}}</a></button>
     </div>
     <div class="table-wreapper" *hasPermission="['ORGANIZATION_VIEW_LIST']">
-      <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="organization" [setting]='organization_Table' [tableData]="data$"></app-table>
+      <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns" (customFilterEvent)="customFilterEvent($event)" searchInput="searchInput" (onPagination)="eventPagination()" pagination="organization" [setting]='organization_Table' [tableData]="data$"></app-table>
     </div>
   </div>
