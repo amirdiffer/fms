@@ -410,15 +410,31 @@ export class TableFilterComponent implements OnInit {
       }
       case 'userName':
       case 'requester': {
-        this._usersService.loadAll().subscribe((x) => {
-          let data = x.message.map((y) => {
-            return {
-              ...y,
-              name: y.userName
-            };
+        if (
+          this.entity == 'movement_temporary_request' ||
+          this.entity == 'movement_permanent_request'
+        ) {
+          this._usersService.loadAll().subscribe((x) => {
+            let data = x.message.map((y) => {
+              return {
+                ...y,
+                name: y.userName
+              };
+            });
+            this.fillSearchInput(key, data);
           });
-          this.fillSearchInput(key, data);
-        });
+        } else if (this.entity == 'users') {
+          this._usersService.loadAll().subscribe((x) => {
+            let data = x.message.map((y) => {
+              return {
+                ...y,
+                name: y.userName,
+                id: y.userName
+              };
+            });
+            this.fillSearchInput(key, data);
+          });
+        }
         break;
       }
       default: {
