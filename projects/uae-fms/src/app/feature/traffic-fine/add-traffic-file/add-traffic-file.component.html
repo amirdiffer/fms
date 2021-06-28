@@ -1,0 +1,29 @@
+<form [formGroup]='inputForm' (ngSubmit)='submit()'>
+  <div class='button-container'>
+    <button class='btn-primary-medium btn-scondary-green' type='button'
+            (click)='cancel()'>{{'forms.cancel' | translate}}</button>
+    <button class='btn-primary-medium add'
+            type='submit'>{{isEditing ? ('forms.edit' | translate) : ('forms.add' | translate)}}</button>
+  </div>
+  <div class='row form-section__row'>
+
+    <div class='row col-12 component_wrapper form-section'>
+      <div class='col-lg-8'>
+        <div class='col-12 p-field form-section__field mt-2'>
+            <span class='p-float-label'>
+              <input formControlName='trafficFileNumber' pInputText
+                     placeholder="{{'traffic_fine.traffic_file_number.traffic_file_form.traffic_file_number' | translate}}"
+                     type='text'>
+              <label>{{'traffic_fine.traffic_file_number.traffic_file_form.traffic_file_number' | translate}}</label>
+            </span>
+        </div>
+      </div>
+
+      <div class='col-md-3 form-section__field toggle-select mt-2'>
+        <span>{{ 'traffic_fine.traffic_file_number.traffic_file_form.status' | translate }}</span>
+        <p-inputSwitch class='minus-margin' formControlName='status'></p-inputSwitch>
+      </div>
+
+    </div>
+  </div>
+</form>

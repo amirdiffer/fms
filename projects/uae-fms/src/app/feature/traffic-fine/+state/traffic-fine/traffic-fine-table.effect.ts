@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { TrafficFineTableActions } from './traffic-fine-table.actions';
 import { TrafficFineTableService } from './traffic-fine-table.service';
+import { TableFacade } from '@core/table/+state/table.facade';
 
 @Injectable()
 export class TrafficFineTableEffect {
@@ -12,9 +13,11 @@ export class TrafficFineTableEffect {
       ofType(TrafficFineTableActions.loadAll),
       mergeMap((action) =>
         this.service.loadAll().pipe(
-          map((data) =>
-            TrafficFineTableActions.allDataLoaded({ data: data.message })
-          ),
+          map((data) => {
+            this._tableFacade.initialPaginator(data.resultNumber, 'traffic_file_number');
+            this._tableFacade.initialPaginator(data.resultNumber, 'traffic_file');
+            return TrafficFineTableActions.allDataLoaded({ data: data.message })
+          }),
           catchError((error) =>
             of(TrafficFineTableActions.error({ reason: error }))
           )
@@ -43,9 +46,7 @@ export class TrafficFineTableEffect {
       mergeMap((action) =>
         this.service.getVehicleInformationByPlateNumber(action.data).pipe(
           map((data) =>
-            TrafficFineTableActions.vehicleInformationByPlateNumberLoadedSuccessfully(
-              { data: data.message }
-            )
+            TrafficFineTableActions.vehicleInformationByPlateNumberLoadedSuccessfully({ data: data.message })
           ),
           catchError((error) =>
             of(TrafficFineTableActions.error({ reason: error }))
@@ -61,9 +62,7 @@ export class TrafficFineTableEffect {
       mergeMap((action) =>
         this.service.getVehicleInformationByChassisNumber(action.data).pipe(
           map((data) =>
-            TrafficFineTableActions.vehicleInformationByChassisNumberLoadedSuccessfully(
-              { data: data.message }
-            )
+            TrafficFineTableActions.vehicleInformationByChassisNumberLoadedSuccessfully({ data: data.message })
           ),
           catchError((error) =>
             of(TrafficFineTableActions.error({ reason: error }))
@@ -75,6 +74,7 @@ export class TrafficFineTableEffect {
 
   constructor(
     private action$: Actions,
-    private service: TrafficFineTableService
+    private service: TrafficFineTableService,
+    private _tableFacade: TableFacade
   ) {}
 }
