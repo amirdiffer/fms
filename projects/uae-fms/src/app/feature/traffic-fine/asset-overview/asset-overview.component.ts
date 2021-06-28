@@ -69,7 +69,6 @@ export class AssetOverviewComponent implements OnInit {
         return {message:{...x}}
       })
     )
-    this._assetMasterFacade.specificAsset$.subscribe(x=>{console.log(x)})
     this.activatedRoute.params.subscribe((params) => {
       this.fileNumber = params.id;
       this.getAssetFinesForId(params.id);
@@ -141,7 +140,6 @@ export class AssetOverviewComponent implements OnInit {
 
   private getAssetFinesForId(id: number): void {
     this.networkService.getFinesOfSpecificAsset(id).subscribe((response) => {
-      console.log(response)
       this.assetFines = response.message;
       this.activePage = 0;
       this.count = response.resultNumber;
