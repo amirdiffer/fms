@@ -22,7 +22,7 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
   assetTypes = [];
   oldAssetSuggests = [];
   oldAssetSuggestsB;
-
+  yearRange =`2000:${new Date().getFullYear()}`
   constructor(
     private _fb: FormBuilder,
     private facade: MovementRequestsFacadeTemporary,

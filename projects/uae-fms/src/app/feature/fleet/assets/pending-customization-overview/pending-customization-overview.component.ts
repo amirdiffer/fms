@@ -118,21 +118,6 @@ export class PendingCustomizationOverviewComponent implements OnInit {
           type: 1,
           thumbField: '',
           renderer: ''
-        },
-        {
-          lable: 'tables.column.quantity',
-          field: 'quantity',
-          type: 2,
-          thumbField: '',
-          renderer: '',
-          sortable: true
-        },
-        {
-          lable: 'tables.column.attachment',
-          field: 'attachment',
-          type: 1,
-          thumbField: '',
-          renderer: ''
         }
       ],
       data: []
@@ -156,6 +141,7 @@ export class PendingCustomizationOverviewComponent implements OnInit {
           .getAssetByID(x.id + '/customization')
           .pipe(
             map((a) => {
+              console.log(a)
               if (a && a.message) {
                 this.customizationData = a.message;
                 this.customizationData.subAssets.forEach((e) => {

@@ -147,13 +147,31 @@ export class SidebarMenuPermission extends MenuPermission{
       }
     },
     {
-      name: 'sidebar.traffic_fine',
+      name: 'sidebar.traffic_fine.~',
       icon: 'traffic',
       route: '/traffic-fine',
       permission: {
         parent: 'TRRAFIC_FINE',
         permission: 'TRRAFIC_FINE',
-      }
+      },
+      items: [
+        {
+          name: 'sidebar.traffic_fine.overview',
+          route: '/traffic-fine/overview',
+          permission: {
+            parent: 'TRRAFIC_FINE',
+            permission: 'TRRAFIC_FINE',
+          }
+        },
+        {
+          name: 'sidebar.traffic_fine.traffic_file_number',
+          route: '/traffic-fine/traffic-file-number',
+          permission: {
+            parent: 'TRRAFIC_FINE',
+            permission: 'TRRAFIC_FINE',
+          }
+        },
+      ]
     },
     {
       name: 'sidebar.toll',
@@ -327,7 +345,7 @@ export class SidebarMenuPermission extends MenuPermission{
         },
         {
           name: 'sidebar.configuration.asset_configuration',
-          icon: 'cog',
+          icon: 'configuration',
           route: '/configuration/asset-configuration',
           permission: {
             parent: 'CONFIGURATION',

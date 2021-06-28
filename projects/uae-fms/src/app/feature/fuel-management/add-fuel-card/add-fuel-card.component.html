@@ -36,7 +36,14 @@
             </div>
             <div class="col-12 col-md-3 p-field form-section__field date-input">
               <span class="p-float-label">
-                  <p-calendar inputId="basic" formControlName="expireDate" [class.invalid]="!inputForm.get('expireDate').valid && submited"></p-calendar>
+                  <p-calendar inputId="basic" 
+                              formControlName="expireDate" 
+                              [class.invalid]="!inputForm.get('expireDate').valid && submited"
+                              [yearNavigator]="true"
+                              [yearRange]="yearRange"
+                              [monthNavigator]="true"
+                              [panelStyleClass]="'panelStyle'"
+                              ></p-calendar>
                 <svg-icon class="date-icon"
                           src='assets/icons/calendar-alt-regular.svg'
                           [svgStyle]="{ 'width.px':'20' , 'fill': 'rgb(161 161 161)' ,

@@ -14,12 +14,18 @@ import { TrafficFileOverviewComponent } from './traffic-file-overview/traffic-fi
 import { AssetOverviewComponent } from './asset-overview/asset-overview.component';
 import { AssetMasterStateModule } from '@feature/fleet/+state/assets/asset-master/asset-master-state.module';
 import { AssetsModule } from '@feature/fleet/assets/assets.module';
+import { TrafficFileNumberComponent } from './traffic-file-number/traffic-file-number.component';
+import { AddTrafficFileComponent } from './add-traffic-file/add-traffic-file.component';
+import { AssetCarDetailComponent } from '@feature/traffic-fine/asset-detail/asset-car-detail.component';
 
 @NgModule({
   declarations: [
     TrafficFineComponent,
     TrafficFileOverviewComponent,
-    AssetOverviewComponent
+    AssetOverviewComponent,
+    TrafficFileNumberComponent,
+    AddTrafficFileComponent,
+    AssetCarDetailComponent
   ],
   imports: [
     TableModule,

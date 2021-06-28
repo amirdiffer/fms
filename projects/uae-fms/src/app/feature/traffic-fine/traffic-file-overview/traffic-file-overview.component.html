@@ -1,19 +1,8 @@
-<div class="row">
+<div class="row mb-4">
   <div class="col-12 traffic-fine-overview d-flex flex-column">
-    <span class="card-table-header">
-      <button class="btn-filter text-center">
-        <img src='assets/icons/filter.png' class="filter-button">
-      </button>
-        <div class="search-box">
-            <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
-            <button>
-                <img [src]="searchIcon" alt="">
-            </button>
-        </div>
-        <button class="btn-download" disabled>
-            <svg-icon [src]="downloadBtn"></svg-icon>
-        </button>
-    </span>
+    <div class='button-container mr-4' [class.mr-4]='isLtr' [class.ml-4]='!isLtr'>
+      <button class='btn-primary-medium btn-scondary-green' type='button' (click)='goBack()'>{{'forms.back' | translate}}</button>
+    </div>
     <ng-container *ngFor="let item of trafficFines; let index = index;">
       <div class="items table-container d-flex">
         <div class="badge" [ngStyle]="{'background': '#008755'}"></div>
@@ -22,21 +11,17 @@
             <div class="header d-flex justify-content-between">
               <div>
                 <span>
-                  <svg-icon class="date-icon" src='assets/icons/booking.svg' 
-                    [svgStyle]="{ 'width.em':'2.2' , 'height.em':'2.2'  , 'fill': '#00000061'}">
-                  </svg-icon>
+                  <img src='assets/icons/booklet.png' alt='' width='35'/>
                 </span>
                 <span class="item-title">{{'traffic_fine.overview.booklet_id' | translate}} : </span>
                 <span class="item-text">{{item?.bookletId}}</span>
               </div>
               <div class="right-column">
                 <span>
-                  <svg-icon class="date-icon" src='assets/icons/calendar.svg'
-                  [svgStyle]="{ 'width.em':'2' , 'height.em':'2' , 'fill': '#00000061'}">
-                  </svg-icon>
+                  <img src='assets/icons/calendar.png' alt='' width='35'/>
                 </span>
                 <span class="item-title">{{'traffic_fine.overview.creation_date' | translate}} : </span>
-                <span class="item-text">{{item?.creationDate}}</span>
+                <span class="item-text">{{ handleDate(item?.creationDate) }}</span>
               </div>
             </div>
             <div class="body">
@@ -58,18 +43,14 @@
                 <div class="right-column">
                   <div class="py-2">
                     <span>
-                      <svg-icon class="date-icon" src='assets/icons/spped.svg'
-                      [svgStyle]="{ 'width.em':'2.2' , 'height.em':'2.2'  , 'fill': '#00000061'}">
-                      </svg-icon>
+                      <img src='assets/icons/speedometer.png' alt='' width='35'/>
                     </span>
                     <span class="item-title">{{'traffic_fine.overview.vehicle_speed' | translate}} : </span>
                     <span class="item-text">{{item?.vehicleSpeed}}</span>
                   </div>
                   <div class="py-2">
                     <span>
-                      <svg-icon class="date-icon" src='assets/icons/spped.svg'
-                      [svgStyle]="{ 'width.em':'2.2' , 'height.em':'2.2'  , 'fill': '#00000061'}">
-                      </svg-icon>
+                      <img src='assets/icons/speedometer.png' alt='' width='35'/>
                     </span>
                     <span class="item-title">{{'traffic_fine.overview.road_speed' | translate}} : </span>
                     <span class="item-text">{{item?.roadSpeed}}</span>
@@ -80,14 +61,13 @@
                 <div class="row m-0">
                   <div class="col-2">
                     <div class="ticket-image">
-                      <img src="assets/icons/no-camera.svg" alt="">
                       <p>No Radar Picture</p>
                     </div>
                   </div>
                   <div class="col-2 d-flex flex-column justify-content-between">
                     <div class="">
                       <div class="item-title">{{'traffic_fine.overview.ticket_id' | translate}}</div>
-                      <div class="item-text">{{item?.creationDate}}</div>
+                      <div class="item-text">{{ item?.ticketId }}</div>
                     </div>
                     <div class="">
                       <div class="item-title">{{'traffic_fine.overview.ticket_type' | translate}}</div>
@@ -101,7 +81,7 @@
                     </div>
                     <div class="">
                       <div class="item-title">{{'traffic_fine.overview.ticket_status' | translate}}</div>
-                      <div class="item-text">{{item?.ticketStatus}}</div>
+                      <div class="item-text">{{ formatDate(item?.ticketStatus) }}</div>
                     </div>
                   </div>
                   <div class="col-2 d-flex flex-column justify-content-between">
@@ -111,13 +91,13 @@
                     </div>
                     <div class="">
                       <div class="item-title">{{'traffic_fine.overview.ticket_status_date' | translate}}</div>
-                      <div class="item-text">{{item?.ticketStatusDate}}</div>
+                      <div class="item-text">{{ handleDate(item?.ticketStatusDate) }}</div>
                     </div>
                   </div>
                   <div class="col-2 d-flex flex-column justify-content-between">
                     <div class="">
                       <div class="item-title">{{'traffic_fine.overview.ticket_date' | translate}}</div>
-                      <div class="item-text">{{item?.ticketDate}}</div>
+                      <div class="item-text">{{ formatDate(item?.ticketDate) }}</div>
                     </div>
                   </div>
                   <div class="col-2 d-flex flex-column justify-content-between">
@@ -136,5 +116,34 @@
         </div>
       </div>
     </ng-container>
+  </div>
+</div>
+
+<div class='paginator' [hidden]='!trafficFines.length'>
+  <div class="paginator">
+    <div class="show-entries">
+      <span>{{ 'tables.pagination.show' | translate }}</span>
+      <select [(ngModel)]="ipp" (change)="paginationEvent('rowCount')">
+        <option [ngValue]="5">5</option>
+        <option [ngValue]="10">10</option>
+        <option [ngValue]="25">25</option>
+        <option [ngValue]="50">50</option>
+        <option [ngValue]="100">100</option>
+      </select>
+      <span>{{ 'tables.pagination.entries' | translate }}</span>
+    </div>
+    <div class="pagination">
+      <div class="pagination-caption">
+        <p>{{ trackingShowRow() }} {{ 'tables.pagination.of' | translate }} {{count}}</p>
+      </div>
+      <div class="pagination-action">
+          <span class="pagination-action__previous" (click)="paginationEvent('previous')">
+            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': isLtr ? 'rotate(90deg)' : 'rotate(270deg)', 'width.em':'1.4' , 'fill': activePage == 0 ? '#bbb': '#000' , 'height': '100%'}"></svg-icon>
+          </span>
+        <span class="pagination-action__next" (click)="paginationEvent('next')">
+            <svg-icon [src]="arrowIcon" [svgStyle]="{ 'transform': isLtr ? 'rotate(-90deg)' : 'rotate(-270deg)', 'width.em':'1.4' , 'fill': pagesCount > activePage ? '#000': '#bbb' , 'height': '100%'}"></svg-icon>
+          </span>
+      </div>
+    </div>
   </div>
 </div>

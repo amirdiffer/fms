@@ -205,8 +205,6 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
     this._trafficFineFacade.loadAll();
     this._assetTrafficFineFacade.loadAll();
     this._trafficFineFacade.loadStatistics();
-    this._trafficFineFacade.trafficFine$.subscribe()
-    this._assetTrafficFineFacade.trafficFine$.subscribe()
     this.getStatisticsSubscription = this._trafficFineFacade.statistics$.subscribe(
       (response) => {
         if (response) {
