@@ -1,5 +1,5 @@
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { Utility } from '@shared/utility/utility';
 
@@ -67,7 +67,16 @@ export class RequestListAddFormComponent
     cancelButton: 'No'
   };
 
-
+/* Autocomplete formControl */
+  get fleet() {
+    return this.form.get('fleet') as FormControl;
+  }
+  get item() {
+    return this.form.get('item') as FormControl;
+  }
+  get technician() {
+    return this.form.get('technician') as FormControl;
+  }
   constructor(private _assetSearchThrough: AssetSearchThroughFacade,
               private _subAssetFacade:SubAssetFacade,
               private _facadePartMaster: PartMasterFacade,
@@ -87,12 +96,12 @@ export class RequestListAddFormComponent
 
     /* Form Builder */
     this.form = this._fb.group({
-      fleet: ['', Validators.required],
+      fleet: ['', Validators.compose([Validators.required , this.autocompleteAssetValidation])],
       category: ['', Validators.required],
-      item: ['', Validators.required],
+      item: ['',  Validators.compose([Validators.required , this.autocompleteNameValidation])],
       quantity: ['', Validators.required],
       description: ['', Validators.required],
-      technician: ['', Validators.required]
+      technician: ['',  Validators.compose([Validators.required , this.autocompleteFirstNameValidation])]
     });
 
     this._facadeRequestList.reset();
@@ -382,6 +391,45 @@ export class RequestListAddFormComponent
         }
       }
     );
+  }
+  /* Custom validation */
+  autocompleteAssetValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.dpd;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteNameValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.name;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteFirstNameValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.firstName;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteErrorMessage(formControl:FormControl){
+    if(formControl.invalid && formControl.errors && formControl.errors !== null){
+      if(formControl.errors.required){
+        return;
+      }
+      return formControl.errors.needsExclamation
+    }
   }
 
   ngOnDestroy() {

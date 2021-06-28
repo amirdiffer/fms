@@ -214,8 +214,9 @@
                   </span>
                 </div>
                 <anms-error [showError]="formArrayHasError(submitted, getPackageTasks(i), j)"
-                  error="forms.feedback.required"></anms-error>
-
+                            error="forms.feedback.required"></anms-error>
+                <anms-error [showError]="autocompleteErrorMessage(getPackageTasks(i) , j) && submitted"
+                            error="forms.feedback.autocomplete_select"></anms-error>
               </div>
               <span *ngIf="last" class="p-inputgroup-addon addon-primary"
                 [ngStyle]="{'cursor': 'pointer','height': '40px'}" (click)="addTask('',i,j)">

@@ -167,6 +167,8 @@
                             </span>
                             <anms-error [showError]="hasError('department',formGroupAssetDetail.get('purchasedFor'),submitted_AssetDetail)"
                                         error="forms.feedback.required"></anms-error>
+                            <anms-error [showError]="autocompleteErrorMessage(department) && submitted_AssetDetail"
+                                        error="forms.feedback.autocomplete_select"></anms-error>
                           </div>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field">
@@ -182,6 +184,8 @@
                             </span>
                             <anms-error [showError]="hasError('section',formGroupAssetDetail.get('purchasedFor'),submitted_AssetDetail)"
                                         error="forms.feedback.required"></anms-error>
+                            <anms-error [showError]="autocompleteErrorMessage(section) && submitted_AssetDetail"
+                                        error="forms.feedback.autocomplete_select"></anms-error>
                           </div>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field options-select">

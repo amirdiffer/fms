@@ -251,7 +251,7 @@ export class AddPeriodicServiceComponent
   }
 
   createTaskForm(taskName = '', id = null): FormControl {
-    return this._fb.control(id, [Validators.required]);
+    return this._fb.control(id, Validators.compose([Validators.required , this.autocompleteValidation]));
   }
 
   createPackageForm(packageName = '', intervals = '', tasks?): FormGroup {
@@ -440,6 +440,25 @@ export class AddPeriodicServiceComponent
         this._goToList();
       }
     })
+  }
+
+  autocompleteValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.name;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteErrorMessage(fromArray:FormArray , index){
+    if(fromArray.at(index).invalid && fromArray.at(index).errors && fromArray.at(index).errors !== null){
+      if(fromArray.at(index).errors.required){
+        return;
+      }
+      return fromArray.at(index).errors.needsExclamation
+    }
   }
   ngOnDestroy() {
     this.tasks$.unsubscribe();

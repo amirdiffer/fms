@@ -52,7 +52,7 @@ export class AddTechnicianServiceShopComponent
   departmentFiltered: any[];
   departmentSerive$: Subscription;
   sectionFiltered: any[];
-  sectionList: any[];
+  sectionList: any[] = [];
   depatmentSectionSevice$: Subscription;
   department_static;
   departmentId;
@@ -180,6 +180,17 @@ export class AddTechnicianServiceShopComponent
 
   get getLocation(): FormArray {
     return this.inputForm.get('professional').get('location') as FormArray;
+  }
+
+  /* Autocomplete formControl */
+  get employeeNumber() {
+    return this.inputForm.get('portalInfo.employeeNumber') as FormControl;
+  }
+  get department() {
+    return this.inputForm.get('portalInfo.department') as FormControl;
+  }
+  get section() {
+    return this.inputForm.get('portalInfo.section') as FormControl;
   }
 
   constructor(
@@ -377,15 +388,15 @@ export class AddTechnicianServiceShopComponent
       // organizationId: [null, [Validators.required]],
       // departmentId: [null, [Validators.required]],
       portalInfo: this._fb.group({
-        employeeNumber: ['', [Validators.required]],
+        employeeNumber: ['', Validators.compose([Validators.required , this.autocompleteEmployeeNumberValidation])],
         payPerHours: ['', [Validators.required]],
-        department: ['', [Validators.required]],
-        section: ['', [Validators.required]],
+        department: ['', Validators.compose([Validators.required , this.autocompleteDepartmentValidation])],
+        section: ['', Validators.compose([Validators.required , this.autocompleteNameValidation])],
         active: [false]
       }),
       professional: this._fb.group({
-        skills: this._fb.array([this._fb.control('', [Validators.required])]),
-        location: this._fb.array([this._fb.control('', [Validators.required])])
+        skills: this._fb.array([this._fb.control('', Validators.compose([Validators.required , this.autocompleteNameValidation]))]),
+        location: this._fb.array([this._fb.control('',  Validators.compose([Validators.required , this.autocompleteAddressValidation]))])
       }),
       file: [''],
       personalInfo: this._fb.group({
@@ -524,7 +535,7 @@ export class AddTechnicianServiceShopComponent
     if (this.inputForm.get('professional.skills').invalid) {
       return;
     }
-    const skill = new FormControl(null, [Validators.required]);
+    const skill = new FormControl(null, Validators.compose([Validators.required , this.autocompleteNameValidation]));
     (<FormArray>this.inputForm.get('professional.skills')).push(skill);
   }
   removeSkill(i) {
@@ -534,7 +545,7 @@ export class AddTechnicianServiceShopComponent
     if (this.inputForm.get('professional.location').invalid) {
       return;
     }
-    const location = new FormControl(null, [Validators.required]);
+    const location = new FormControl(null,  Validators.compose([Validators.required , this.autocompleteAddressValidation]));
     (<FormArray>this.inputForm.get('professional.location')).push(location);
   }
   removeLocation(i) {
@@ -698,5 +709,56 @@ export class AddTechnicianServiceShopComponent
     }
     const docId = $event.files[0];
     this.profileDocId = docId;
+  }
+
+  /* Custom validation */
+  autocompleteEmployeeNumberValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.employeeId;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteDepartmentValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.organizationName;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteNameValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.name;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteAddressValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.address;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+
+  autocompleteErrorMessage(formControl:FormControl){
+    if(formControl.invalid && formControl.errors && formControl.errors !== null){
+      if(formControl.errors.required){
+        return;
+      }
+      return formControl.errors.needsExclamation
+    }
   }
 }

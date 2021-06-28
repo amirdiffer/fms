@@ -156,7 +156,9 @@ export class AddJobCardComponent extends Utility implements OnInit {
   //     }))
   //   )
   // );
-
+  get assetIdFormControl() {
+    return this.inputForm.get('assetId') as FormControl;
+  }
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
@@ -297,7 +299,7 @@ export class AddJobCardComponent extends Utility implements OnInit {
 
   private buildForm() {
     this.inputForm = this._fb.group({
-      assetId: ['', [Validators.required]],
+      assetId: ['',  Validators.compose([Validators.required , this.autocompleteAssetIDValidation])],
       description: [''],
       wsLocationId: ['', [Validators.required]],
       relatedRequestIds: [[1]],
@@ -394,12 +396,24 @@ export class AddJobCardComponent extends Utility implements OnInit {
     this.newAssets = copyAssets.filter((a) => a.name.includes(event.query));
   }
 
-  autocompleteValidationJobCardID(input: FormControl) {
-    const inputValid = input.value.id;
-    if (inputValid) {
-      return null;
-    } else {
-      return { needsExclamation: true };
+  /* Custom validation */
+  autocompleteAssetIDValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.name;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+
+  autocompleteErrorMessage(formControl:FormControl){
+    if(formControl.invalid && formControl.errors && formControl.errors !== null){
+      if(formControl.errors.required){
+        return;
+      }
+      return formControl.errors.needsExclamation
     }
   }
 

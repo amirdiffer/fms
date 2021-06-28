@@ -80,6 +80,8 @@
             <i class="pi pi-search"></i>
             <label>{{ 'movement.movement.old_asset' | translate }} *</label>
           </span>
+          <anms-error [showError]="autocompleteErrorMessage(oldAssetId) && submitted"
+                      error="forms.feedback.autocomplete_select"></anms-error>
         </div>
       </div>
       <!-- end oldAssetType -->
