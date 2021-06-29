@@ -406,14 +406,22 @@ export class PartListComponent implements OnInit, OnDestroy {
   }
 
   setFiltersColumns_assetTab() {
-    let removeField = ['totalQuantity', 'totalCost', 'modelName'];
+    let removeField = [
+      'totalQuantity',
+      'totalCost',
+      'modelName',
+      'makeName',
+      'description',
+      'isActive',
+      'status'
+    ];
     let filtersColumns = Object.values({ ...this.tableAssetPart.columns });
-    filtersColumns.splice(1, 0, {
-      lable: 'tables.column.type',
-      field: 'asset-type',
-      filterApiKey: 'type',
-      filterType: FilterType.list
-    });
+    // filtersColumns.splice(1, 0, {
+    //   lable: 'tables.column.type',
+    //   field: 'asset-type',
+    //   filterApiKey: 'type',
+    //   filterType: FilterType.list
+    // });
     let addition = [];
     filtersColumns = filtersColumns.concat(addition);
     this.filtersColumns.assetPartTab = filtersColumns.filter(
@@ -422,14 +430,22 @@ export class PartListComponent implements OnInit, OnDestroy {
   }
 
   setFiltersColumns_subAssetTab() {
-    let removeField = ['totalQuantity', 'totalCost', 'modelName'];
+    let removeField = [
+      'totalQuantity',
+      'totalCost',
+      'modelName',
+      'makeName',
+      'description',
+      'isActive',
+      'status'
+    ];
     let filtersColumns = Object.values({ ...this.tableSubAssetPart.columns });
-    filtersColumns.splice(1, 0, {
-      lable: 'tables.column.type',
-      field: 'sub-asset-type',
-      filterApiKey: 'sub-asset-type',
-      filterType: FilterType.list
-    });
+    // filtersColumns.splice(1, 0, {
+    //   lable: 'tables.column.type',
+    //   field: 'sub-asset-type',
+    //   filterApiKey: 'sub-asset-type',
+    //   filterType: FilterType.list
+    // });
     let addition = [];
     filtersColumns = filtersColumns.concat(addition);
     this.filtersColumns.subAssetPartTab = filtersColumns.filter(

@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="row form-section__row">
-      <ng-container *ngFor="let item of customizeFilter">
+      <ng-container *ngFor="let item of customizeFilter;let i = index">
         <ng-template [ngIf]="true" [ngSwitch]="item?.filterType">
           <ng-template [ngSwitchCase]="filterType.list">
             <div class="col-12 col-md-3 p-field form-section__field">
@@ -60,6 +60,11 @@
                   <p-autoComplete  [(ngModel)]="item.value" (completeMethod)="searchInput($event,  item.filterApiKey)" (onSelect)="searchInputChanged($event, item.filterApiKey)"
                                    [suggestions]="searchInputFiltered[item.filterApiKey]" field="name" [minLength]="1"
                                    [dropdown]="true">
+                        <ng-template let-item pTemplate="item">
+                          <div class="country-item">
+                            <div>{{'status.' + item.name | translate}}</div>
+                          </div>
+                        </ng-template>
                   </p-autoComplete>
                   <i class="pi pi-search"></i>
                   <label>{{ item.lable | translate}}</label>
@@ -79,10 +84,16 @@
           </ng-template>
           <ng-template [ngSwitchCase]="filterType.number">
             <div class="col-12 col-md-3 p-field form-section__field">
-              <span class="p-float-label">
-                <input pInputText placeholder="{{ item.lable | translate}}" [(ngModel)]="item.value" type="number">
-                <label class="pointer">{{ item.lable | translate}}</label>
-              </span>
+              <div class='p-inputgroup'>
+                  <span class="p-inputgroup-addon">
+                    <p-dropdown (onChange)="changeComparison($event, i)" class='w-50' inputId="unit" [autoDisplayFirst]="false" [options]="comparison"
+                                id="comparison" optionLabel="name" optionValue="id"></p-dropdown>
+                  </span>
+                <span class="p-float-label">
+                <input pInputText placeholder="{{ item.lable | translate}}" [(ngModel)]="item.value.val" type="number">
+                  <label class="pointer">{{ item.lable | translate}}</label>
+                </span>
+              </div>
             </div>
           </ng-template>
           <ng-template [ngSwitchCase]="filterType.boolean">

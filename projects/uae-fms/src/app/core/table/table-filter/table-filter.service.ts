@@ -32,6 +32,9 @@ export class TableFilterService {
         }
         return key + ':' + start;
       }
+      case this.filterType.number: {
+        return key + value['comparison'] + getVal(value.val);
+      }
       default:
         return key + ':' + getVal(value);
     }

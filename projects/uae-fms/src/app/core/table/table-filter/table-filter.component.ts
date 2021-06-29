@@ -48,6 +48,13 @@ export class TableFilterComponent implements OnInit {
     { name: 'No', id: false }
   ];
 
+  comparison = [
+    { name: '<', id: '<' },
+    { name: '<=', id: '<=' },
+    { name: '>=', id: '>=' },
+    { name: '>', id: '>' }
+  ];
+
   constructor(
     private _subAssetTypeService: SubAssetTypeService,
     private _assetService: AssetSearchThroughService,
@@ -67,6 +74,15 @@ export class TableFilterComponent implements OnInit {
   getAllColumns(): object[] {
     let data = this.columns.map((y) => {
       this.apiCall(y?.filterApiKey, y?.filterType);
+      if (y?.filterType == this.filterType.number) {
+        return {
+          lable: y.lable,
+          name: y.field,
+          filterType: y?.filterType,
+          filterApiKey: y?.filterApiKey,
+          value: { val: '', comparison: '' }
+        };
+      }
       return {
         lable: y.lable,
         name: y.field,
@@ -82,7 +98,11 @@ export class TableFilterComponent implements OnInit {
     this.tableFacade.initialFilters(this.entity);
     this.allColumns = this.getAllColumns();
     this.hiddenFilterBox();
-    if (this.getSavedDataFilter().length > 0 && this.entity) {
+    if (
+      this.getSavedDataFilter().length > 0 &&
+      this.entity &&
+      this.entity == this.getSavedDataFilter()[0]['name']
+    ) {
       let columns = this.getSavedDataFilter();
       columns = (<Array<object>>columns).filter(
         (x) => x['name'] == this.entity
@@ -104,7 +124,10 @@ export class TableFilterComponent implements OnInit {
             ...x,
             lable: x.lable,
             name: x.field,
-            value: ''
+            value:
+              x?.filterType == this.filterType.number
+                ? { val: '', comparison: '' }
+                : ''
           };
         })
         .filter((x) => x.lable != '');
@@ -134,6 +157,9 @@ export class TableFilterComponent implements OnInit {
         let setValue = () => {
           if (x?.filterType == FilterType.range_date) {
             return this._tblFilterService.convertDate(x?.value);
+          }
+          if (x?.filterType == FilterType.number) {
+            return { value: x?.value?.val, comparison: '' };
           }
           return x?.value;
         };
@@ -449,6 +475,7 @@ export class TableFilterComponent implements OnInit {
         if (key == 'movementType')
           return [
             { id: 'PERMANENT', name: 'PERMANENT' },
+            { id: 'I_SERV', name: 'I_SERV' },
             { id: 'TEMPORARY', name: 'TEMPORARY' }
           ];
         else if (key == 'requestType')
@@ -463,12 +490,13 @@ export class TableFilterComponent implements OnInit {
       case 'workshop_location': {
         if (key == 'shopType')
           return [
-            { id: 'body-shop', name: 'Body Shop' },
-            { id: 'service-shop', name: 'Service Shop' }
+            { id: 'body-shop', name: 'body-shop' },
+            { id: 'service-shop', name: 'service-shop' }
           ];
         break;
       }
       case 'users':
+      case 'operator':
       case 'businessCategory': {
         if (key == 'isActive')
           return [
@@ -495,13 +523,19 @@ export class TableFilterComponent implements OnInit {
       case 'ownership': {
         if (key == 'type')
           return [
-            { id: 'EXTERNAL', name: 'External' },
-            { id: 'RENT', name: 'Rent' },
-            { id: 'DEMO', name: 'Demo' },
-            { id: 'OWNED', name: 'Owned' }
+            { id: 'EXTERNAL', name: 'EXTERNAL' },
+            { id: 'RENT', name: 'RENT' },
+            { id: 'DEMO', name: 'DEMO' },
+            { id: 'OWNED', name: 'OWNED' }
           ];
       }
     }
     return [];
+  }
+
+  changeComparison(e, index) {
+    let val = e['value'];
+    this.customizeFilter[index]['value']['comparison'] = val;
+    console.log(this.customizeFilter);
   }
 }

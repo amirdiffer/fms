@@ -115,7 +115,7 @@ export class OperatorComponent implements OnInit {
         type: 1,
         field: 'Status',
         width: 100,
-        filterType: FilterType.boolean,
+        filterType: FilterType.status,
         filterApiKey: 'isActive'
       },
       /* {
