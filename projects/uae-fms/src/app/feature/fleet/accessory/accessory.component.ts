@@ -34,13 +34,6 @@ export class AccessoryComponent implements OnInit, OnDestroy {
       onActive(index: number) {}
     },
     {
-      filterTitle: 'statistic.assigned',
-      filterCount: '',
-      filterTagColor: '#EF959D',
-      field: 'assigned',
-      onActive(index: number) {}
-    },
-    {
       filterTitle: 'statistic.x_accessory',
       filterCount: '',
       filterTagColor: '#DD5648',
@@ -58,12 +51,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
         type: 2,
         field: 'Item',
         thumbField:'avatarId'
-     },
-      {
-        lable: 'tables.column.assigned_to',
-        type: 1,
-        field: 'Assigned_To'
-     },
+      },
       {
         lable: '',
         field: 'floatButton',
