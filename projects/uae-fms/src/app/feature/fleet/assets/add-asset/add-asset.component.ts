@@ -5,7 +5,7 @@ import {
   Injector,
   OnDestroy
 } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
@@ -102,6 +102,10 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   }
   get warrantyItems() {
     return this.formGroupMaintenance.get('warrantyItems') as FormArray;
+  }
+  
+  get color(){
+    return this.formGroupAssetDetail.get('assetDetails.color') as FormControl;
   }
 
   // Upload Files

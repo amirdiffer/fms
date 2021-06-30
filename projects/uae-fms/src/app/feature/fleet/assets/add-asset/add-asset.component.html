@@ -91,7 +91,18 @@
 
                         <div class="col-12 col-md-2 p-field form-section__field options-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="color$ | async" optionLabel="name" dataKey="id" formControlName="color"></p-dropdown>
+                            <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="color$ | async" optionLabel="name" dataKey="id" formControlName="color">
+                              <ng-template pTemplate="selectedItem">
+                                <div class="color-item color-item-value" >
+                                  <span class="color-dropdown-option" [ngStyle]="{'background': color.value.hexColor}"></span>
+                                </div>
+                              </ng-template>
+                              <ng-template let-item pTemplate="item">
+                                <div class="color-item">
+                                  <span class="color-dropdown-option" [ngStyle]="{'background': item.hexColor}"></span>
+                                </div>
+                              </ng-template>
+                            </p-dropdown>
                             <label for="color">{{ 'assets.color' | translate }}</label>
                           </span>
                           <anms-error

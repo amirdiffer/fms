@@ -206,7 +206,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   createColor(): FormGroup {
     return this._fb.group({
       name: 'FFFFFF',
-      hexColor: 'FFFFFF'
+      hexColor: '#FFFFFF'
     });
   }
 
