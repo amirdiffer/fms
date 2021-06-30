@@ -5,12 +5,17 @@ import { environment } from '@environments/environment';
 import { TableFacade } from '@core/table/+state/table.facade';
 import { ResponseBody } from '@models/responseBody';
 import { IPartListStatistics } from '@models/statistics';
+import { TableFilterService } from '@core/table/table-filter/table-filter.service';
 
 @Injectable()
 export class PartListService {
   params = new HttpParams();
 
-  constructor(private _http: HttpClient, private _tableFacade: TableFacade) {}
+  constructor(
+    private _http: HttpClient,
+    private _tableFacade: TableFacade,
+    private _tblFilterService: TableFilterService
+  ) {}
 
   getParam(name) {
     this._tableFacade.getPaginationByName(name).subscribe((x) => {
@@ -22,73 +27,119 @@ export class PartListService {
       }
     });
     return this.params;
-  };
+  }
+
+  getFilter() {
+    let removeFilterKey = [];
+    this._tableFacade.getFiltersByName('partList').subscribe((x) => {
+      let filter = '';
+      if (x != null) {
+        let value: object[] = x.value ? Object.values(x.value) : [];
+        value.forEach((y) => {
+          if (y['value'] && y['value'] != '') {
+            let filterApiKey = y['filterApiKey']
+              ? y['filterApiKey']
+              : y['name'];
+            if (!removeFilterKey.includes(filterApiKey)) {
+              let b = this._tblFilterService.convertData(y);
+              filter = filter + b + ';';
+            }
+          }
+        });
+      }
+      this.params = this.params.set('filter', filter);
+    });
+  }
 
   /* Asset Part */
 
-  getAccumulatedPartOfAsset(id): Observable<ResponseBody<any>>{
+  getAccumulatedPartOfAsset(id): Observable<ResponseBody<any>> {
+    this.getFilter();
     return this._http.get<ResponseBody<any[]>>(
-      environment.baseApiUrl + 'partstore/part-list/asset/category/' + id +'/accumulated' ,{params: this.getParam('asset-accumulated-part-list')}
-    )
-  };
+      environment.baseApiUrl +
+        'partstore/part-list/asset/category/' +
+        id +
+        '/accumulated',
+      { params: this.getParam('asset-accumulated-part-list') }
+    );
+  }
 
-  getPartListOfAsset(id): Observable<ResponseBody<any>>{
+  getPartListOfAsset(id): Observable<ResponseBody<any>> {
     return this._http.get<ResponseBody<any[]>>(
-      environment.baseApiUrl + 'partstore/part-list/asset/item/' + id , {params: this.getParam('part-list-item')}
-    )
-  };
+      environment.baseApiUrl + 'partstore/part-list/asset/item/' + id,
+      { params: this.getParam('part-list-item') }
+    );
+  }
 
-  getSpecificPartOfAsset(id):Observable<ResponseBody<any>>{
+  getSpecificPartOfAsset(id): Observable<ResponseBody<any>> {
     return this._http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'partstore/part-list/asset/part/' + id
-    )
-  };
+    );
+  }
 
   updatePartOfAsset(data): Observable<ResponseBody<any>> {
     return this._http.post<ResponseBody<any>>(
-      environment.baseApiUrl + 'partstore/part-list/asset/part/' + data.id + '/update',
+      environment.baseApiUrl +
+        'partstore/part-list/asset/part/' +
+        data.id +
+        '/update',
       data
     );
-  };
-
+  }
 
   /* Sub Asset Part */
 
-  getAccumulatedPartOfSubAsset(id): Observable<ResponseBody<any>>{
+  getAccumulatedPartOfSubAsset(id): Observable<ResponseBody<any>> {
+    this.getFilter();
     return this._http.get<ResponseBody<any[]>>(
-      environment.baseApiUrl + 'partstore/part-list/sub-asset/category/'+ id+'/accumulated' , {params: this.getParam('subasset-accumulated-part-list')}
-    )
-  };
+      environment.baseApiUrl +
+        'partstore/part-list/sub-asset/category/' +
+        id +
+        '/accumulated',
+      { params: this.getParam('subasset-accumulated-part-list') }
+    );
+  }
 
-  getPartListOfSubAsset(id): Observable<ResponseBody<any>>{
+  getPartListOfSubAsset(id): Observable<ResponseBody<any>> {
     return this._http.get<ResponseBody<any[]>>(
-      environment.baseApiUrl + 'partstore/part-list/sub-asset/item/' + id , {params: this.getParam('part-list-item')}
-    )
-  };
+      environment.baseApiUrl + 'partstore/part-list/sub-asset/item/' + id,
+      { params: this.getParam('part-list-item') }
+    );
+  }
 
-  getSpecificPartOfSubAsset(id):Observable<ResponseBody<any>>{
+  getSpecificPartOfSubAsset(id): Observable<ResponseBody<any>> {
     return this._http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'partstore/part-list/sub-asset/part/' + id
-    )
-  };
+    );
+  }
 
   updatePartOfSubAsset(data): Observable<ResponseBody<any>> {
     return this._http.post<ResponseBody<any>>(
-      environment.baseApiUrl + 'partstore/part-list/sub-asset/part/' + data.id + '/update',
+      environment.baseApiUrl +
+        'partstore/part-list/sub-asset/part/' +
+        data.id +
+        '/update',
       data
     );
-  };
+  }
 
-  getStatisticsPartOfAsset(id):Observable<ResponseBody<IPartListStatistics>>{
+  getStatisticsPartOfAsset(id): Observable<ResponseBody<IPartListStatistics>> {
     return this._http.get<ResponseBody<IPartListStatistics>>(
-      environment.baseApiUrl + 'partstore/part-list/asset/category/'+id+'/stats'
-    )
-  };
+      environment.baseApiUrl +
+        'partstore/part-list/asset/category/' +
+        id +
+        '/stats'
+    );
+  }
 
-  getStatisticsPartOfSubAsset(id):Observable<ResponseBody<IPartListStatistics>>{
+  getStatisticsPartOfSubAsset(
+    id
+  ): Observable<ResponseBody<IPartListStatistics>> {
     return this._http.get<ResponseBody<IPartListStatistics>>(
-      environment.baseApiUrl + 'partstore/part-list/sub-asset/category/'+id+'/stats'
-    )
-  };
-
+      environment.baseApiUrl +
+        'partstore/part-list/sub-asset/category/' +
+        id +
+        '/stats'
+    );
+  }
 }

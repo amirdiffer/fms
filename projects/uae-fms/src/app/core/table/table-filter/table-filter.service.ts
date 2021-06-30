@@ -7,16 +7,22 @@ import * as moment from 'moment';
 })
 export class TableFilterService {
   filterType = FilterType;
-
+  itemValue_isArray = [];
   constructor() {}
 
   convertData(data) {
     let type = data['filterType'];
     let key = data['filterApiKey'] ? data['filterApiKey'] : data['name'];
     let value = data['value'];
+    let getVal = (val) => {
+      if (this.itemValue_isArray.includes(key))
+        return (<Array<any>>val).toString();
+      else return val;
+    };
     switch (type) {
+      case this.filterType.status:
       case this.filterType.list: {
-        return key + ':' + value.id;
+        return key + ':' + getVal(value.id);
       }
       case this.filterType.range_date: {
         let start = moment.utc(value[0]).valueOf();
@@ -26,18 +32,21 @@ export class TableFilterService {
         }
         return key + ':' + start;
       }
-      case this.filterType.checkbox_list: {
-        break;
+      case this.filterType.number: {
+        return key + value['comparison'] + getVal(value.val);
       }
       default:
-        return key + ':' + value;
+        return key + ':' + getVal(value);
     }
   }
 
   convertDate(date) {
-    let start = moment.utc(date[0]).toDate();
-    let end = date[1];
-    if (end) end = moment.utc(date[1]).toDate();
-    return end ? [start, end] : [start, null];
+    if (date != '') {
+      let start = moment.utc(date[0]).toDate();
+      let end = date[1];
+      if (end) end = moment.utc(date[1]).toDate();
+      return end ? [start, end] : [start, null];
+    }
+    return null;
   }
 }

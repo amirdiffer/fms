@@ -1,5 +1,5 @@
 
-    <ng-container  *hasPermission="['ASSET_VIEW_LIST_MASTER_OWN' , 'ASSET_VIEW_LIST_MASTER_OTHERS']"> 
+    <ng-container  *hasPermission="['ASSET_VIEW_LIST_MASTER_OWN' , 'ASSET_VIEW_LIST_MASTER_OTHERS']">
         <div  class="filter-container" *ngIf="selectedTab == 'assetMasterTab'" >
             <app-filter [setting] = "filterSetting" [filterCardSettingDelegate]='this'></app-filter>
         </div>
@@ -8,6 +8,9 @@
         <div class="pt-1">
                 <app-tab-view  (selectedIndex)="selectedTab=$event" [count]="[assetMasterCount$ , registrationCount$, customizationCount$]">
                     <span class="search-container card-table-header">
+                      <button class="btn-download" (click)="showCustomFilter = !showCustomFilter">
+                        <svg-icon [src]="'assets/icons/setting.svg'"></svg-icon>
+                      </button>
                         <div class="search-box">
                             <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
                             <button>
@@ -22,16 +25,16 @@
                         </ng-container>
                     </span>
                     <div title="tabs.asset_master" id="assetMasterTab" *hasPermission="['ASSET_VIEW_LIST_MASTER_OWN' , 'ASSET_VIEW_LIST_MASTER_OTHERS']">
-                        <app-table searchInput="searchInput" (onPagination)="eventPagination_assetmaster()" pagination="asset_asset-master" [setting]="assetMasterTableSetting" [tableData]="dataAssetMaster$"></app-table>
+                        <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns['assetMasterTab']" (customFilterEvent)="customFilterEvent($event, 'assetMasterTab')"  searchInput="searchInput" (onPagination)="eventPagination_assetmaster()" pagination="asset_asset-master" [setting]="assetMasterTableSetting" [tableData]="dataAssetMaster$"></app-table>
                     </div>
                     <div title="tabs.pending_registration" id="pendingRegistrationTab" *hasPermission="['ASSET_VIEW_LIST_PENDING_OWN' , 'ASSET_VIEW_LIST_PENDING_OTHERS']">
-                        <app-table searchInput="searchInput" (onPagination)="eventPagination_registration()" pagination="asset_registration" [setting]="pendingRegistrationTableSetting" [tableData]="dataRegistration$"></app-table>
+                        <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns['pendingRegistrationTab']" (customFilterEvent)="customFilterEvent($event, 'pendingRegistrationTab')"  searchInput="searchInput" (onPagination)="eventPagination_registration()" pagination="asset_registration" [setting]="pendingRegistrationTableSetting" [tableData]="dataRegistration$"></app-table>
                     </div>
-    
+
                     <div title="tabs.pending_customization" id="pendingCustomizationTab" *hasPermission="['ASSET_VIEW_LIST_CUSTOMIZATION_OWN' , 'ASSET_VIEW_LIST_CUSTOMIZATION_OTHERS']">
-                        <app-table searchInput="searchInput" (onPagination)="eventPagination_customization()" pagination="asset_customization" [setting]="pendingCustomizationTableSetting" [tableData]="dataCustomization$"></app-table>
+                        <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns['pendingCustomizationTab']" (customFilterEvent)="customFilterEvent($event, 'pendingCustomizationTab')"  searchInput="searchInput" (onPagination)="eventPagination_customization()" pagination="asset_customization" [setting]="pendingCustomizationTableSetting" [tableData]="dataCustomization$"></app-table>
                     </div>
-    
+
                 </app-tab-view>
         </div>
     </div>

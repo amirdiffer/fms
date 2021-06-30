@@ -1,5 +1,8 @@
 <div class="table-container component_wrapper">
   <span class="search-container card-table-header">
+    <button class="btn-download" (click)="showCustomFilter = !showCustomFilter">
+      <svg-icon [src]="'assets/icons/setting.svg'"></svg-icon>
+    </button>
     <div class="search-box">
       <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
       <button>
@@ -13,7 +16,7 @@
   </span>
 
   <ng-container *hasPermission="['WORKSHOP_BODY_SHOP_LOCATION_VIEW_LIST' , 'WORKSHOP_SERVICE_SHOP_LOCATION_VIEW_LIST']">
-    <app-table searchInput="searchInput" (onPagination)="eventPagination_location()" pagination="body-shop_location"
+    <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns" (customFilterEvent)="customFilterEvent($event)" searchInput="searchInput" (onPagination)="eventPagination_location()" pagination="body-shop_location"
     [setting]="tableSetting" [tableData]="locationData$"></app-table>
   </ng-container>
 

@@ -56,7 +56,22 @@ import {
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { PlusMinusRenderer } from './column-renderer-component/column-renderers/plus-minus-renderer';
 import { FoldableRowRenderer } from './row-renderer-component/row-renderers/foldable-row-renderer.component';
-import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configuration/asset-type';
+import {
+  AssetTypeFacade,
+  AssetTypeService
+} from '@feature/configuration/+state/fleet-configuration/asset-type';
+import { SubAssetTypeService } from '@feature/configuration/+state/fleet-configuration/sub-asset-type';
+import { OperatorService } from '@feature/fleet/+state/operator';
+import { OrganizationService } from '@feature/fleet/+state/organization';
+import { BusinessCategoryService } from '@feature/configuration/+state/business-category';
+import { RolePermissionService } from '@feature/configuration/+state/role-permission';
+import { SubAssetService } from '@feature/fleet/+state/sub-asset';
+import { AssetSearchThroughService } from '@feature/fleet/+state/assets/search-through';
+import { UsersService } from '@feature/configuration/+state/users';
+import {
+  BodyShopLocationService,
+  ServiceShopLocationService
+} from '@feature/workshop/+state';
 
 @NgModule({
   imports: [
@@ -117,6 +132,21 @@ import { AssetTypeFacade } from '@feature/configuration/+state/fleet-configurati
     PlusMinusRenderer,
     FoldableRowRenderer
   ],
-  providers: [TableFacade, TableService, TableServiceS, AssetTypeFacade]
+  providers: [
+    TableFacade,
+    TableService,
+    TableServiceS,
+    SubAssetTypeService,
+    AssetTypeService,
+    OrganizationService,
+    OperatorService,
+    BusinessCategoryService,
+    RolePermissionService,
+    SubAssetService,
+    AssetSearchThroughService,
+    UsersService,
+    BodyShopLocationService,
+    ServiceShopLocationService
+  ]
 })
 export class TableModule {}

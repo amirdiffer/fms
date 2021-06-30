@@ -17,15 +17,22 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
   selectedTab: any;
   getAssetPolicySubscription!: Subscription;
   downloadBtn = 'assets/icons/download-solid.svg';
+  showCustomFilter = false;
+  filtersColumns = {
+    assetPolicyAssetTab: [],
+    assetPolicySubAssetTab: []
+  };
   #endRegionVariables;
 
   #startRegionTables;
   assetPolicy_Table: TableSetting = {
+    name: 'assetPolicy_asset',
     columns: [
       {
         lable: 'tables.column.policy_name',
         type: 1,
-        field: 'Policy_Name'
+        field: 'Policy_Name',
+        filterApiKey: 'name'
       },
       {
         lable: 'tables.column.distance',
@@ -43,7 +50,8 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
         lable: 'tables.column.depreciation_value',
         type: 1,
         field: 'Depreciation_Value',
-        sortable: true
+        sortable: true,
+        filterApiKey: 'depreciationValue'
       },
       {
         lable: '',
@@ -72,8 +80,14 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
     }
   };
   subAssetPolicy_Table: TableSetting = {
+    name: 'assetPolicy_subAsset',
     columns: [
-      { lable: 'tables.column.policy_name', type: 1, field: 'Policy_Name' },
+      {
+        lable: 'tables.column.policy_name',
+        type: 1,
+        field: 'Policy_Name',
+        filterApiKey: 'name'
+      },
       {
         lable: 'tables.column.distance',
         type: 1,
@@ -85,7 +99,8 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
         lable: 'tables.column.depreciation_value',
         type: 1,
         field: 'Depreciation_Value',
-        sortable: true
+        sortable: true,
+        filterApiKey: 'depreciationValue'
       },
       {
         lable: '',
@@ -157,6 +172,8 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.setFiltersColumns_assetPolicyAssetTab();
+    this.setFiltersColumns_assetPolicySubAssetTab();
     this.assetPolicyFacade.loadAll();
     this.subAssetPolicyFacade.loadAll();
   }
@@ -211,5 +228,40 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
 
   eventPagination_subasset() {
     this.subAssetPolicyFacade.loadAll();
+  }
+
+  setFiltersColumns_assetPolicyAssetTab() {
+    let removeField = ['Distance', 'Year'];
+    let filtersColumns = Object.values({ ...this.assetPolicy_Table.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.assetPolicyAssetTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  setFiltersColumns_assetPolicySubAssetTab() {
+    let removeField = ['Distance', 'Year'];
+    let filtersColumns = Object.values({
+      ...this.subAssetPolicy_Table.columns
+    });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.assetPolicySubAssetTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[], tab) {
+    switch (tab) {
+      case 'assetPolicyAssetTab': {
+        this.assetPolicyFacade.loadAll();
+        break;
+      }
+      case 'assetPolicySubAssetTab': {
+        this.subAssetPolicyFacade.loadAll();
+        break;
+      }
+    }
   }
 }

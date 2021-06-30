@@ -1,5 +1,8 @@
 <div class="table-container component_wrapper">
   <div class="search-container card-table-header">
+    <button class="btn-download" (click)="showCustomFilter = !showCustomFilter">
+      <svg-icon [src]="'assets/icons/setting.svg'"></svg-icon>
+    </button>
     <div class="search-box">
       <input id="searchInput" type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
       <button>
@@ -11,5 +14,5 @@
     </button>
     <button class="btn-primary-small" *hasPermission="['BUSINESS_CATEGORY_ADD']" [routerLink]="'./add-usage-category'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
   </div>
-  <app-table searchInput="searchInput"  *hasPermission="['BUSINESS_CATEGORY_VIEW_LIST']"  (onPagination)="eventPagination()" pagination="business-category" [setting]='businessCategory_Table' [tableData]="businessCategory$"></app-table>
+  <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns" (customFilterEvent)="customFilterEvent($event)" searchInput="searchInput"  *hasPermission="['BUSINESS_CATEGORY_VIEW_LIST']"  (onPagination)="eventPagination()" pagination="business-category" [setting]='businessCategory_Table' [tableData]="businessCategory$"></app-table>
 </div>

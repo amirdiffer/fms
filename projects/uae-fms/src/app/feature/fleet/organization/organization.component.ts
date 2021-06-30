@@ -4,6 +4,7 @@ import { TableSetting } from '@core/table';
 import {
   ButtonType,
   ColumnType,
+  FilterType,
   TableComponent
 } from '@core/table/table.component';
 import { map } from 'rxjs/operators';
@@ -18,14 +19,18 @@ export class OrganizationComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
   downloadBtn = 'assets/icons/download-solid.svg';
+  showCustomFilter = false;
+  filtersColumns = [];
 
   //#region Table
   organization_Table: TableSetting = {
+    name: 'organization',
     columns: [
       {
         lable: 'tables.column.organization',
         type: 1,
-        field: 'Organization'
+        field: 'Organization',
+        filterApiKey: 'name'
       },
       {
         lable: 'tables.column.section',
@@ -133,7 +138,9 @@ export class OrganizationComponent implements OnInit {
 
   constructor(private facade: OrganizationFacade, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.setFiltersColumns();
+  }
 
   eventPagination() {
     this.facade.loadAll();
@@ -148,5 +155,26 @@ export class OrganizationComponent implements OnInit {
       TF_Unpaid: 'TF_Unpaid'
     };
     this.table.exportTable(this.organization_Table, 'Department', filter);
+  }
+
+  setFiltersColumns() {
+    let removeField = [
+      'Section',
+      'Location',
+      'TF_Payed',
+      'TF_Unpaid',
+      'user',
+      'car'
+    ];
+    let filtersColumns = Object.values({ ...this.organization_Table.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[]) {
+    this.facade.loadAll();
   }
 }

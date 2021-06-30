@@ -5,25 +5,57 @@ import { ITechnician } from '@models/body-shop';
 import { ResponseBody } from '@models/response-body';
 import { environment } from '@environments/environment';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { TableFilterService } from '@core/table/table-filter/table-filter.service';
 
 @Injectable()
 export class ServiceShopTechnicianService {
-  constructor(private http: HttpClient, private _tableFacade: TableFacade) {}
+  constructor(
+    private http: HttpClient,
+    private _tableFacade: TableFacade,
+    private _tblFilterService: TableFilterService
+  ) {}
 
   params = new HttpParams();
   getParam(name) {
-    this._tableFacade.getPaginationByName(name).subscribe(x => {
+    this._tableFacade.getPaginationByName(name).subscribe((x) => {
       if (x != null) {
-        this.params = this.params.set('page', x.page.toString())
+        this.params = this.params
+          .set('page', x.page.toString())
           .set('size', x.ipp.toString());
       }
     });
     return this.params;
   }
 
+  getFilter() {
+    let removeFilterKey = [];
+    this._tableFacade
+      .getFiltersByName('serviceShop_technician')
+      .subscribe((x) => {
+        let filter = '';
+        if (x != null) {
+          let value: object[] = x.value ? Object.values(x.value) : [];
+          value.forEach((y) => {
+            if (y['value'] && y['value'] != '') {
+              let filterApiKey = y['filterApiKey']
+                ? y['filterApiKey']
+                : y['name'];
+              if (!removeFilterKey.includes(filterApiKey)) {
+                let b = this._tblFilterService.convertData(y);
+                filter = filter + b + ';';
+              }
+            }
+          });
+        }
+        this.params = this.params.set('filter', filter);
+      });
+  }
+
   loadAll(): Observable<ResponseBody<ITechnician[]>> {
+    this.getFilter();
     return this.http.get<ResponseBody<ITechnician[]>>(
-      environment.baseApiUrl + 'workshop/serviceshop/technician', {params: this.getParam('body-shop_technician')}
+      environment.baseApiUrl + 'workshop/serviceshop/technician',
+      { params: this.getParam('body-shop_technician') }
     );
   }
   post(data): Observable<ResponseBody<any>> {

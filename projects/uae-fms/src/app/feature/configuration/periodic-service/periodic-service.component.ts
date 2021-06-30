@@ -13,6 +13,8 @@ import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 export class PeriodicServiceComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   downloadBtn = 'assets/icons/download-solid.svg';
+  filtersColumns = [];
+  showCustomFilter = false;
 
   //#region Table
   tableColumns: ColumnDifinition[] = [
@@ -22,7 +24,8 @@ export class PeriodicServiceComponent implements OnInit {
       width: 300,
       type: ColumnType.lable,
       thumbField: '',
-      renderer: ''
+      renderer: '',
+      filterApiKey: 'name'
     },
     {
       lable: '<img src="assets/icons/car-solid.svg" class="icon24px">',
@@ -43,6 +46,7 @@ export class PeriodicServiceComponent implements OnInit {
   ];
 
   tableSetting = {
+    name: 'periodicService',
     columns: this.tableColumns,
     data: [],
     rowSettings: {
@@ -96,6 +100,7 @@ export class PeriodicServiceComponent implements OnInit {
   constructor(private facade: PeriodicServiceFacade, private router: Router) {}
 
   ngOnInit(): void {
+    this.setFiltersColumns();
     this.facade.loadAll();
   }
 
@@ -111,6 +116,20 @@ export class PeriodicServiceComponent implements OnInit {
   }
 
   eventPagination() {
+    this.facade.loadAll();
+  }
+
+  setFiltersColumns() {
+    let removeField = ['numOfUsage'];
+    let filtersColumns = Object.values({ ...this.tableSetting.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[]) {
     this.facade.loadAll();
   }
 }

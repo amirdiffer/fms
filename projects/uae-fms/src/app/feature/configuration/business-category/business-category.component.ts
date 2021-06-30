@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { BusinessCategoryFacade } from '../+state/business-category';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FilterType } from '@core/table/table.component';
 
 @Component({
   selector: 'anms-business-category',
@@ -14,6 +15,8 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   //#region Variables
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   getBusinessCategorySubscription!: Subscription;
+  filtersColumns = [];
+  showCustomFilter = false;
 
   downloadBtn = 'assets/icons/download-solid.svg';
   businessCategory$ = this.facade.businessCategory$.pipe(
@@ -34,18 +37,46 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   );
 
   businessCategory_Table: TableSetting = {
+    name: 'businessCategory',
     columns: [
-      { lable: 'tables.column.category_name', type: 1, field: 'Category_Name' },
+      {
+        lable: 'tables.column.category_name',
+        type: 1,
+        field: 'Category_Name',
+        filterApiKey: 'name'
+      },
       {
         lable: 'tables.column.status',
         type: 1,
         field: 'Status',
-        renderer: 'statusRenderer'
+        renderer: 'statusRenderer',
+        filterApiKey: 'status',
+        filterType: FilterType.status
       },
-      { lable: 'tables.column.description', type: 1, field: 'Description' },
-      { lable: 'tables.column.asset_type', type: 1, field: 'Asset_Type' },
-      { lable: 'tables.column.num_subasset', type: 1, field: 'Sub_Asset' },
-      { lable: 'tables.column.num_accessory', type: 1, field: 'Accessory' },
+      {
+        lable: 'tables.column.description',
+        type: 1,
+        field: 'Description',
+        filterApiKey: 'description'
+      },
+      {
+        lable: 'tables.column.asset_type',
+        type: 1,
+        field: 'Asset_Type',
+        filterApiKey: 'assetConfiguration'
+      },
+      {
+        lable: 'tables.column.num_subasset',
+        type: 1,
+        field: 'Sub_Asset',
+        filterApiKey: 'subAssetConfigurations'
+      },
+      {
+        lable: 'tables.column.num_accessory',
+        type: 1,
+        field: 'Accessory',
+        filterApiKey: 'accessoryConfigurations'
+      },
       {
         lable: '',
         field: 'floatButton',
@@ -78,6 +109,7 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   constructor(private facade: BusinessCategoryFacade, private router: Router) {}
 
   ngOnInit(): void {
+    this.setFiltersColumns();
     this.facade.loadAll();
   }
 
@@ -102,6 +134,22 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   }
 
   eventPagination() {
+    this.facade.loadAll();
+  }
+
+  setFiltersColumns() {
+    let removeField = [];
+    let filtersColumns = Object.values({
+      ...this.businessCategory_Table.columns
+    });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[]) {
     this.facade.loadAll();
   }
 }

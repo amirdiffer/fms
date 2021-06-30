@@ -6,10 +6,15 @@ import { ResponseBody } from '@models/responseBody';
 import { IOperatorOverview, IOperatorStatistics } from '@models/statistics';
 import { environment } from '@environments/environment';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { TableFilterService } from '@core/table/table-filter/table-filter.service';
 
 @Injectable()
 export class OperatorService {
-  constructor(private http: HttpClient, private _tableFacade: TableFacade) {}
+  constructor(
+    private http: HttpClient,
+    private _tableFacade: TableFacade,
+    private _tblFilterService: TableFilterService
+  ) {}
 
   params = new HttpParams();
   getParam(name) {
@@ -23,7 +28,30 @@ export class OperatorService {
     return this.params;
   }
 
+  getFilter() {
+    let removeFilterKey = [];
+    this._tableFacade.getFiltersByName('operator').subscribe((x) => {
+      let filter = '';
+      if (x != null) {
+        let value: object[] = x.value ? Object.values(x.value) : [];
+        value.forEach((y) => {
+          if (y['value'] && y['value'] != '') {
+            let filterApiKey = y['filterApiKey']
+              ? y['filterApiKey']
+              : y['name'];
+            if (!removeFilterKey.includes(filterApiKey)) {
+              let b = this._tblFilterService.convertData(y);
+              filter = filter + b + ';';
+            }
+          }
+        });
+      }
+      this.params = this.params.set('filter', filter);
+    });
+  }
+
   loadAll(): Observable<ResponseBody<IOperator[]>> {
+    this.getFilter();
     return this.http.get<ResponseBody<IOperator[]>>(
       environment.baseApiUrl + 'operator',
       { params: this.getParam('operator') }

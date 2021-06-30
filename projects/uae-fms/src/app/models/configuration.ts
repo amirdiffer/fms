@@ -5,6 +5,7 @@ export interface IUser {
   employeeNumber: number;
   firstName: string;
   lastName: string;
+  userName: string;
   profileDocId: number;
   organizationId: number;
   department: IDepartment;
@@ -12,14 +13,14 @@ export interface IUser {
   phoneNumbers: string[];
   isActive: boolean;
   roleId: number;
-  role: { roleId: number; roleName: string; }
+  role: { roleId: number; roleName: string };
   roleName: string;
   notifyByEmail: boolean;
   notifyByPush: boolean;
   notifyByCall: boolean;
   notifyBySMS: boolean;
   notifyByWhatsApp: boolean;
-  vehicleComments
+  vehicleComments;
   serviceEntryComment: boolean;
   fuelEntryComments: boolean;
   vehicleStatusChanges: boolean;
@@ -44,7 +45,7 @@ export interface IRole {
   id?: number;
   roleId?: number;
   roleName?: string;
-  permissions?:string[];
+  permissions?: string[];
 }
 
 export interface IOwnerShip {
@@ -62,7 +63,7 @@ export interface IOwnerShip {
 export interface IPeriodicService {
   id: number;
   name: string;
-  numOfUsage?:number;
+  numOfUsage?: number;
 }
 
 export interface IDepartment {
@@ -72,21 +73,21 @@ export interface IDepartment {
   organizationName: string;
 }
 
-export interface ISpecificPeriodicService{
+export interface ISpecificPeriodicService {
   id: number;
   name: string;
-  packages:IPeridoicServicePackages[]
+  packages: IPeridoicServicePackages[];
 }
 
-export interface IPeridoicServicePackages{
-  id?:number,
-  name:string;
-  intervalType:string;
-  intervalValue:number;
-  tasks:IPeridoicServiceTask[]
+export interface IPeridoicServicePackages {
+  id?: number;
+  name: string;
+  intervalType: string;
+  intervalValue: number;
+  tasks: IPeridoicServiceTask[];
 }
 export interface IPeridoicServiceTask {
-  id?:number;
-  taskMasterId?:number;
-  taskMasterName:string;
+  id?: number;
+  taskMasterId?: number;
+  taskMasterName: string;
 }

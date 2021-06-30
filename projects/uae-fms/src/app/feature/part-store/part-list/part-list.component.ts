@@ -11,6 +11,7 @@ import {
 import { PartMasterFacade } from '@feature/part-store/+state/part-master/part-master.facade';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FilterType } from '@core/table/table.component';
 
 @Component({
   selector: 'anms-part-list',
@@ -28,6 +29,11 @@ export class PartListComponent implements OnInit, OnDestroy {
   subAssetType$: Observable<any>;
   assetPartCategory$: Observable<any>;
   subAssetPartCategory$: Observable<any>;
+  showCustomFilter = false;
+  filtersColumns = {
+    assetPartTab: [],
+    subAssetPartTab: []
+  };
 
   assetTypeSelected;
   subAssetTypeSelected;
@@ -96,16 +102,21 @@ export class PartListComponent implements OnInit, OnDestroy {
   tableAssetPart: TableSetting;
   tableSubAssetPart: TableSetting;
   partListDetaisTable: TableSetting = {
+    name: 'partList',
     columns: [
       {
         lable: 'tables.column.item',
         type: ColumnType.lable,
-        field: 'itemName'
+        field: 'itemName',
+        filterApiKey: 'name',
+        filterType: FilterType.string
       },
       {
         lable: 'tables.column.make',
         type: ColumnType.lable,
-        field: 'makeName'
+        field: 'makeName',
+        filterApiKey: 'make',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.model',
@@ -115,12 +126,15 @@ export class PartListComponent implements OnInit, OnDestroy {
       {
         lable: 'tables.column.description',
         type: ColumnType.lable,
-        field: 'description'
+        field: 'description',
+        filterApiKey: 'description'
       },
       {
         lable: 'tables.column.status',
         type: ColumnType.lable,
-        field: 'status'
+        field: 'status',
+        filterApiKey: 'isActive',
+        filterType: FilterType.status
       },
       {
         lable: 'tables.column.total_quantity',
@@ -326,6 +340,9 @@ export class PartListComponent implements OnInit, OnDestroy {
         }
       })
     );
+
+    this.setFiltersColumns_assetTab();
+    this.setFiltersColumns_subAssetTab();
   }
 
   exportTable() {
@@ -386,5 +403,66 @@ export class PartListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this._fleetConfigurationAsset.resetEntities();
+  }
+
+  setFiltersColumns_assetTab() {
+    let removeField = [
+      'totalQuantity',
+      'totalCost',
+      'modelName',
+      'makeName',
+      'description',
+      'isActive',
+      'status'
+    ];
+    let filtersColumns = Object.values({ ...this.tableAssetPart.columns });
+    // filtersColumns.splice(1, 0, {
+    //   lable: 'tables.column.type',
+    //   field: 'asset-type',
+    //   filterApiKey: 'type',
+    //   filterType: FilterType.list
+    // });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.assetPartTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  setFiltersColumns_subAssetTab() {
+    let removeField = [
+      'totalQuantity',
+      'totalCost',
+      'modelName',
+      'makeName',
+      'description',
+      'isActive',
+      'status'
+    ];
+    let filtersColumns = Object.values({ ...this.tableSubAssetPart.columns });
+    // filtersColumns.splice(1, 0, {
+    //   lable: 'tables.column.type',
+    //   field: 'sub-asset-type',
+    //   filterApiKey: 'sub-asset-type',
+    //   filterType: FilterType.list
+    // });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.subAssetPartTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[], tab) {
+    switch (tab) {
+      case 'assetPartTab': {
+        this._fleetConfigurationAsset.loadAll();
+        break;
+      }
+      case 'subAssetPartTab': {
+        this._fleetConfigurationSubAsset.loadAll();
+        break;
+      }
+    }
   }
 }

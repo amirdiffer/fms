@@ -1,5 +1,8 @@
   <div class="component_wrapper table-container ">
     <div class="card-table-header">
+      <button class="btn-download" (click)="showCustomFilter = !showCustomFilter">
+        <svg-icon [src]="'assets/icons/setting.svg'"></svg-icon>
+      </button>
       <div class="search-box">
         <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
         <button>
@@ -12,6 +15,6 @@
       <button  *hasPermission="['DROLE_ADD']" class="btn-primary-small" routerLink='/configuration/user-management/add-role-permission'><i>+</i><a>{{ 'search.add' | translate }}</a></button>
     </div>
     <div class="table-wreapper" *hasPermission="['DROLE_VIEW_LIST']">
-      <app-table [setting]='rolePermission_Table' [tableData]="data$"></app-table>
+      <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns" (customFilterEvent)="customFilterEvent($event)" searchInput="searchInput" (onPagination)="eventPagination()" pagination="rolePermission" [setting]='rolePermission_Table' [tableData]="data$"></app-table>
     </div>
   </div>

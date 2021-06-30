@@ -21,6 +21,11 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
   activeTab = 'Traffic Fine';
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
+  showCustomFilter = false;
+  filtersColumns = {
+    trafficFineTab: [],
+    assetTrafficFineTab: []
+  };
 
   //#region Filter
   filterCard: FilterCardSetting[] = [
@@ -53,6 +58,7 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
 
   //#region Table
   trafficFine_Table: TableSetting = {
+    name: 'trafficFine',
     columns: [
       {
         lable: 'tables.column.traffic_file_number',
@@ -80,7 +86,7 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
         {
           button: 'external',
           onClick: (arg1, arg2, arg3) => {
-            console.log(arg2)
+            console.log(arg2);
             this.router
               .navigate([
                 'traffic-fine/traffic-fine-overview/' + arg2.trafficFileNumber
@@ -93,6 +99,7 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
     }
   };
   assetTraffic_Table: TableSetting = {
+    name: 'trafficFine_asset',
     columns: [
       {
         lable: 'tables.column.asset',
@@ -151,7 +158,7 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
         {
           button: 'external',
           onClick: (arg1, arg2, arg3) => {
-            console.log(arg2)
+            console.log(arg2);
             this.router
               .navigate(['traffic-fine/asset-overview/' + arg2.id])
               .then();
@@ -161,7 +168,7 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
       ]
     }
   };
-  
+
   trafficFine$ = this._trafficFineFacade.trafficFine$.pipe(
     map((response) =>
       response.map((trafficFine: any) => ({
@@ -204,11 +211,17 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.setFiltersColumns_trafficFineTab();
+    this.setFiltersColumns_assetTrafficFineTab();
     this._trafficFineFacade.loadAll();
     this._assetTrafficFineFacade.loadAll();
     this._trafficFineFacade.loadStatistics();
-    this._trafficFineFacade.trafficFine$.subscribe(x => { console.log(x)})
-    this._assetTrafficFineFacade.trafficFine$.subscribe(x => { console.log(x)})
+    this._trafficFineFacade.trafficFine$.subscribe((x) => {
+      console.log(x);
+    });
+    this._assetTrafficFineFacade.trafficFine$.subscribe((x) => {
+      console.log(x);
+    });
     this.getStatisticsSubscription = this._trafficFineFacade.statistics$.subscribe(
       (response) => {
         if (response) {
@@ -238,5 +251,38 @@ export class TrafficFineComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.getStatisticsSubscription?.unsubscribe();
+  }
+
+  setFiltersColumns_trafficFineTab() {
+    let removeField = [];
+    let filtersColumns = Object.values({ ...this.trafficFine_Table.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.trafficFineTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  setFiltersColumns_assetTrafficFineTab() {
+    let removeField = [];
+    let filtersColumns = Object.values({ ...this.assetTraffic_Table.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.assetTrafficFineTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[], tab) {
+    switch (tab) {
+      case 'trafficFineTab': {
+        this._trafficFineFacade.loadAll();
+        break;
+      }
+      case 'assetTrafficFineTab': {
+        this._assetTrafficFineFacade.loadAll();
+        break;
+      }
+    }
   }
 }
