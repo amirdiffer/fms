@@ -18,7 +18,9 @@ export class SpinnerComponent implements OnInit, OnDestroy {
     /** controlling enabling and disabling the spinner observed in loaderService using BehaviorSubject object */
     this.spinnerSubscription = this.spinnerService.status.subscribe(
       (val: boolean) => {
-        this.showSpinner = val;
+        setTimeout(() => {
+          this.showSpinner = val;
+        }, 10);
       }
     );
   }
